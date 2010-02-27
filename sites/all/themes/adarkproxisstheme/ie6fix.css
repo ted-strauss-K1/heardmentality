@@ -1,0 +1,97 @@
+/* $Id: ie6fix.css,v 1.1 2009/07/22 18:24:01 proxiss Exp $ */
+
+/**
+* @file
+* Fix some style for buggy ie6 browser.
+*
+* IE6: die die die!
+*/
+
+/* ***********************
+    plain tag selectors */
+    
+li.collapsed {
+  list-style-image: url(parts/menu-collapsed.gif);
+}
+
+html.js fieldset.collapsed legend a {
+	background: transparent url(parts/menu-collapsed.gif) no-repeat scroll 5px 75%;
+}
+
+li.expanded {
+  list-style-image: url(parts/menu-expanded.gif);
+}
+
+html.js fieldset.collapsible legend a {
+  background: transparent url(parts/menu-collapsed.gif) no-repeat scroll 5px 75%;
+}
+
+.poll .bar .foreground {
+	background: transparent url(parts/poll-filled.gif) repeat-x;
+}
+
+.poll .bar {
+  background: transparent url(parts/poll-empty.gif) repeat-x;
+}
+
+#mainmenu div.primary-links h2 {
+  background: transparent url(parts/lm-li.gif) repeat-y;
+}
+
+#mainmenu div.d-content div.primary-links {
+	background: #1e1402 url(parts/lm-top.gif) no-repeat;
+}
+
+#mainmenu div.d-content div.primary-links .content {
+	background: transparent url(parts/lm-li.gif) repeat-y;
+}
+#mainmenu ul.primary-links li.active-trail {
+	background: #2f1f17 url(parts/lm-liactive.gif) no-repeat scroll 0 50%;
+}
+#help {
+	background: #101010 url(parts/bseps.jpg) repeat-x scroll 0 100%;
+}
+#copyright {
+	background: #101010 url(parts/bseps.jpg) repeat-x scroll 0 20px;
+}
+#copyright .copydisclaimer {
+	background: #101010 url(parts/copy.gif) no-repeat;
+}
+#header .sizeframe {
+	background: transparent url(parts/topback.jpg) no-repeat scroll 0 50%;
+}
+#middle {
+  background: #101010 url(parts/bseps.jpg) repeat-x scroll 0 0;
+}
+#primcontent {
+	background: transparent url(parts/cntback.gif) repeat-x scroll 0 0;
+}
+ul.primtabs li {
+  background: transparent url(parts/tm-left.gif) no-repeat scroll 0 0;
+}
+ul.primtabs li.active {
+  background: transparent url(parts/tm-leftactive.gif) no-repeat scroll 0 0;
+}
+ul.primtabs li span {
+	background: transparent url(parts/tm-right.gif) no-repeat scroll 100% 0;
+}
+ul.primtabs li.active span {
+	background: transparent url(parts/tm-rightactive.gif) no-repeat scroll 100% 0;
+}
+#rightbar div.d-content .block {
+	background: transparent url(parts/cntback.gif) repeat-x;
+}
+ul.links li.first {
+   background: transparent url(parts/lightbull.gif) no-repeat scroll 0 50%;
+}
+div.page-links a.page-previous {
+	background: transparent url(parts/goleft.gif) no-repeat scroll 0 0;
+}
+
+div.page-links a.page-next {
+  background: transparent url(parts/goright.gif) no-repeat scroll 100% 0;
+}
+
+div.page-links a.page-up {
+  background: transparent url(parts/goup.gif) no-repeat scroll 50% 0;
+}
