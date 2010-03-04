@@ -1,4 +1,4 @@
-
+<?php global $gSitePath;?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>">
@@ -7,9 +7,8 @@
 
 <title><?php print $head_title ?></title>
 <meta name="description" content="A web applications user interface library built on the Mootools javascript framework" />
-<?php global $gSitePath;?>
-<link rel="stylesheet" href="<?php $gSitePath;?>sites/all/themes/heardmentality/css/content.css" type="text/css" />
-<link rel="stylesheet" href="<?php $gSitePath;?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/content.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 	<?php print $head ?>
 <?php print $styles ?>
 <?php print $scripts ?>
@@ -17,8 +16,8 @@
 	<script type="text/javascript" src="scripts/excanvas-compressed.js"></script>		
 <![endif]-->
 	
-<script type="text/javascript" src="<?php $gSitePath;?>sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
-<script type="text/javascript" src="<?php $gSitePath;?>sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
+<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
+<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
 
 <!--
 	mocha.js.php is for development. It is not recommended for production.
@@ -30,20 +29,19 @@
 <script type="text/javascript" src="scripts/mocha.js"></script>
 
 -->
-<script type="text/javascript" src="<?php $gSitePath;?>sites/all/themes/heardmentality/scripts/source/Utilities/mocha.js.php"></script>
+<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/source/Utilities/mocha.js.php"></script>
 
-<script type="text/javascript" src="<?php $gSitePath;?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script>
+<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script>
 
 </head>
 <body>
-<?php global $gSitePath;
-?>
+
 <div id="desktop">
 
 <div id="desktopHeader">
 <div id="desktopTitlebarWrapper">
 	<div id="desktopTitlebar">
-		<h1 class="applicationTitle"><a href="<?php $gSitePath;?>">Mocha UI</a></h1>
+		<h1 class="applicationTitle">Mocha UI</h1>
 		<h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2>
 		<div id="topNav">
 			<ul class="menu-right">
@@ -67,9 +65,9 @@
 </div>
 
 <div class="toolbox divider2">
-	<img src="<?php $gSitePath;?>sites/all/themes/heardmentality/images/icons/cog.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
-	<img src="<?php $gSitePath;?>sites/all/themes/heardmentality/images/icons/windows.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
-	<img src="<?php $gSitePath;?>sites/all/themes/heardmentality/images/icons/sheet.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
+	<img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/icons/cog.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
+	<img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/icons/windows.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
+	<img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/icons/sheet.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
 </div>	
 	
 </div><!-- desktopNavbar end -->
@@ -102,7 +100,6 @@
 window.addEvent('domready', function(){
 	MochaUI.Desktop = new MochaUI.Desktop();
 	MochaUI.Dock = new MochaUI.Dock();
-
  <?php if ($left): ?>
 	new MochaUI.Column({
 		id: 'sideColumn1',
