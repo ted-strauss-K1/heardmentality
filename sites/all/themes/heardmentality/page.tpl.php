@@ -41,12 +41,12 @@
 <div id="desktopHeader">
 <div id="desktopTitlebarWrapper">
 	<div id="desktopTitlebar">
-		<h1 class="applicationTitle">Mocha UI</h1>
+		<h1 class="applicationTitle"><a href="<?php echo $gSitePath?>">Mocha UI</a></h1>
 		<h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2>
 		<div id="topNav">
 			<ul class="menu-right">
-				<li>Welcome <a href="#" onclick="MochaUI.notification('Do Something');return false;">Demo User</a>.</li>
-				<li><a href="#" onclick="MochaUI.notification('Do Something');return false;">Sign Out</a></li>
+				<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Demo User</a>.</li>
+				<li><a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Sign Out</a></li>
 			</ul>
 		</div>
 	</div>
@@ -91,7 +91,15 @@
 
 </div><!-- desktop end -->
 <div style="height: 718px; visibility: visible; opacity: 0.6;" id="modalOverlay"></div><div style="height: 718px; visibility: visible; opacity: 0.01; display: none;" id="windowUnderlay"></div>
-<div id="divCont" style="display:none;"><?php print str_replace("\n","",$content); ?></div>
+<div id="divCont" style="display:none;">
+ <?php if ($mission): print '<div id="mission">'. $mission .'</div>'; endif; ?>
+<?php if ($tabs): print '<div id="tabs-wrapper" class="clear-block">'; endif; ?>
+<?php //if ($title): print '<h2'. ($tabs ? ' class="with-tabs"' : '') .'>'. $title .'</h2>'; endif; ?>
+<?php if ($tabs): print '<ul class="tabs primary">'. $tabs .'</ul></div>'; endif; ?>
+<?php if ($tabs2): print '<ul class="tabs secondary">'. $tabs2 .'</ul>'; endif; ?>
+<?php if ($show_messages && $messages): print $messages; endif; ?>
+<?php print str_replace("\n","",$content); ?>
+</div>
 </body>
 </html>
 
