@@ -140,7 +140,7 @@ window.addEvent('domready', function(){
 	// Add panels to main column	
 	new MochaUI.Panel({
 		id: 'mainPanel',
-		title: '<?php print $head_title ?>',
+		title: '<?php print $title ?>',
 		loadMethod: 'html',
 		content: vCont,
 		column: 'mainColumn',
