@@ -7,9 +7,9 @@
 
 <title><?php print $head_title ?></title>
 <meta name="description" content="A web applications user interface library built on the Mootools javascript framework" />
-
-<link rel="stylesheet" href="/heardmentality/sites/all/themes/heardmentality/css/content.css" type="text/css" />
-<link rel="stylesheet" href="/heardmentality/sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+<?php global $gSitePath;?>
+<link rel="stylesheet" href="<?php $gSitePath;?>sites/all/themes/heardmentality/css/content.css" type="text/css" />
+<link rel="stylesheet" href="<?php $gSitePath;?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 	<?php print $head ?>
 <?php print $styles ?>
 <?php print $scripts ?>
@@ -17,8 +17,8 @@
 	<script type="text/javascript" src="scripts/excanvas-compressed.js"></script>		
 <![endif]-->
 	
-<script type="text/javascript" src="/heardmentality/sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
-<script type="text/javascript" src="/heardmentality/sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
+<script type="text/javascript" src="<?php $gSitePath;?>sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
+<script type="text/javascript" src="<?php $gSitePath;?>sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
 
 <!--
 	mocha.js.php is for development. It is not recommended for production.
@@ -30,19 +30,20 @@
 <script type="text/javascript" src="scripts/mocha.js"></script>
 
 -->
-<script type="text/javascript" src="/heardmentality/sites/all/themes/heardmentality/scripts/source/Utilities/mocha.js.php"></script>
+<script type="text/javascript" src="<?php $gSitePath;?>sites/all/themes/heardmentality/scripts/source/Utilities/mocha.js.php"></script>
 
-<script type="text/javascript" src="/heardmentality/sites/all/themes/heardmentality/scripts/mocha-init.js"></script>
+<script type="text/javascript" src="<?php $gSitePath;?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script>
 
 </head>
 <body>
-
+<?php global $gSitePath;
+?>
 <div id="desktop">
 
 <div id="desktopHeader">
 <div id="desktopTitlebarWrapper">
 	<div id="desktopTitlebar">
-		<h1 class="applicationTitle">Mocha UI</h1>
+		<h1 class="applicationTitle"><a href="<?php $gSitePath;?>">Mocha UI</a></h1>
 		<h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2>
 		<div id="topNav">
 			<ul class="menu-right">
@@ -66,9 +67,9 @@
 </div>
 
 <div class="toolbox divider2">
-	<img src="images/icons/cog.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
-	<img src="images/icons/windows.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
-	<img src="images/icons/sheet.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
+	<img src="<?php $gSitePath;?>sites/all/themes/heardmentality/images/icons/cog.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
+	<img src="<?php $gSitePath;?>sites/all/themes/heardmentality/images/icons/windows.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
+	<img src="<?php $gSitePath;?>sites/all/themes/heardmentality/images/icons/sheet.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
 </div>	
 	
 </div><!-- desktopNavbar end -->
@@ -81,8 +82,8 @@
 		<div id="dockSort"><div id="dockClear" class="clear"></div></div>
 	</div>
 </div>
-
 <div id="pageWrapper"></div>
+
 
 <div id="desktopFooterWrapper">
 	<div id="desktopFooter">
@@ -91,20 +92,63 @@
 </div>
 
 </div><!-- desktop end -->
-<div style="display:none;" id="txtHidCont" ><?php ob_start(); echo urlencode(htmlentities($content));
-$vContent = ob_get_contents();
-ob_end_clean();
-session_start();
-$_SESSION['seePage']=$vContent;
-?></div>
-
+<div style="height: 718px; visibility: visible; opacity: 0.6;" id="modalOverlay"></div><div style="height: 718px; visibility: visible; opacity: 0.01; display: none;" id="windowUnderlay"></div>
+<div id="divCont" style="display:none;"><?php print str_replace("\n","",$content); ?></div>
 </body>
 </html>
+
+
 <script type="text/javascript">
-/*setTimeout(function(){
-document.getElementById('mainPanel').innerHTML=document.getElementById('txtHidCont').innerHTML
-}, 3000);*/
-</script>
+window.addEvent('domready', function(){
+	MochaUI.Desktop = new MochaUI.Desktop();
+	MochaUI.Dock = new MochaUI.Dock();
 
+ <?php if ($left): ?>
+	new MochaUI.Column({
+		id: 'sideColumn1',
+		placement: 'left',
+		width: 200,
+		resizeLimit: [100, 300]
+	});
+	
+	<?php endif;?>
+	new MochaUI.Column({
+		id: 'mainColumn',
+		placement: 'main',	
+		width: null,
+		resizeLimit: [100, 300]
+	});
+<?php if ($right): ?>
+	new MochaUI.Column({
+		id: 'sideColumn2',
+		placement: 'right',	
+		width: 220,		
+		resizeLimit: [195, 300]
+	});
+<?php endif; ?>
 
+	// Add panels to first side column
+	
+	<?php print $left;?>
+	
+	vCont=document.getElementById('divCont').innerHTML;
+	// Add panels to main column	
+	new MochaUI.Panel({
+		id: 'mainPanel',
+		title: '<?php print $head_title ?>',
+		loadMethod: 'html',
+		content: vCont,
+		column: 'mainColumn',
+		panelBackground: '#fff'
+	});
+	<?php print $right;?>
+	// Add panels to second side column
 
+	MochaUI.Modal = new MochaUI.Modal();
+	
+	MochaUI.Desktop.desktop.setStyles({
+		'background': '#fff',
+		'visibility': 'visible'
+	});
+});
+	</script>

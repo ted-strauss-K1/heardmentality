@@ -609,17 +609,31 @@ initializeWindows = function(){
 
 // Initialize MochaUI when the DOM is ready
 window.addEvent('domready', function(){
-	MochaUI.Desktop = new MochaUI.Desktop();
+	/*MochaUI.Desktop = new MochaUI.Desktop();
 	MochaUI.Dock = new MochaUI.Dock();
 
-	/* Create Columns
+	 Create Columns
 	 
 	If you are not using panels then these columns are not required.
 	If you do use panels, the main column is required. The side columns are optional.
 	Create your columns from left to right. Then create your panels from top to bottom,
 	left to right. New Panels are inserted at the bottom of their column.
 
-	*/	 
+	*/	
+	/*new MochaUI.Column({
+		id: 'mainColumn',
+		placement: 'main',	
+		width: null,
+		resizeLimit: [100, 300]
+	});
+	new MochaUI.Panel({
+		id: 'mainPanel',
+		title: 'Lorem Ipsum',
+		loadMethod: 'xhr',
+		content: 'http://58.68.27.116:400/heardmentality/content.php',
+		column: 'mainColumn',
+		panelBackground: '#fff'
+	});
 	new MochaUI.Column({
 		id: 'sideColumn1',
 		placement: 'left',
@@ -729,9 +743,16 @@ window.addEvent('domready', function(){
 		'visibility': 'visible'
 	});
 	//initializeWindows();
+	MochaUI.Modal = new MochaUI.Modal();
+	MochaUI.Desktop.desktop.setStyles({
+		'background': '#fff',
+		'visibility': 'visible'
+	});*/
 });
 
 // This runs when a person leaves your page.
 window.addEvent('unload', function(){
 	if (MochaUI) MochaUI.garbageCleanUp();
 });
+
+
