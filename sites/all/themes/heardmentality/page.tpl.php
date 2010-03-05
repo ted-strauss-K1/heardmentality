@@ -7,10 +7,11 @@
 
 <title><?php print $head_title ?></title>
 <meta name="description" content="A web applications user interface library built on the Mootools javascript framework" />
-<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/content.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+
 	<?php print $head ?>
 <?php print $styles ?>
+<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/content.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 <?php print $scripts ?>
 <!--[if IE]>
 	<script type="text/javascript" src="scripts/excanvas-compressed.js"></script>		
@@ -53,7 +54,7 @@
 </div>
 	
 <div id="desktopNavbar">
-	<?php if (count($links)) : ?>
+	<?php if (count($primary_links)) : ?>
 	<ul>
     <?php foreach ($primary_links as $link): ?>
       <li><a href="<?php print($gSitePath.$link['href']);?>"><?php print($link['title']);?></a></li>

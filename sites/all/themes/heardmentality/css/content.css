@@ -122,3 +122,11 @@ hr {
 	height: 1px;
 	border: 0px;
 }
+.tabs li .active, .tabs li .active:hover  {
+  color: #ccc;
+ background: #fff;
+}
+a:active { color: #606; }
+#primary a { color: #eee; background: #7EA4D6; }
+#primary a:hover { color: #036; background: #F8BD3D}
+#primary a.active, #primary a.active:hover { color: #036; background: #F8BD3D}

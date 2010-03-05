@@ -149,10 +149,14 @@ div.toolbox.divider2 { /* Have to specify div here for IE6's sake */
 	margin: 0;
 	list-style: none;
 	font-size: 12px;
+	list-style-type:none;
 }
 
 #desktopNavbar li {
 	float: left;
+	list-style-type:none;
+	list-style-type: none;
+  	list-style-image: none;
 }
 
 #desktopNavbar a {
@@ -163,6 +167,7 @@ div.toolbox.divider2 { /* Have to specify div here for IE6's sake */
 	padding: 6px 10px 6px 10px;	
 	color: #b2b2b2;
 	font-weight: normal;
+	list-style-type:none;
 }
 
 #desktopNavbar ul li a:hover {
