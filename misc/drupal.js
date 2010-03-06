@@ -269,13 +269,14 @@ Drupal.ahahError = function(xmlhttp, uri) {
 // Global Killswitch on the <html> element
 if (Drupal.jsEnabled) {
   // Global Killswitch on the <html> element
-  $(document.documentElement).addClass('js');
+ /* $(document.documentElement).addClass('js');
   // 'js enabled' cookie
   document.cookie = 'has_js=1; path=/';
   // Attach all behaviors.
   $(document).ready(function() {
     Drupal.attachBehaviors(this);
-  });
+  });*/
+   Drupal.attachBehaviors(this);
 }
 
 /**
