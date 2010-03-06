@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 <?php print $scripts ?>
 <!--[if IE]>
-	<script type="text/javascript" src="scripts/excanvas-compressed.js"></script>		
+	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/excanvas-compressed.js"></script>		
 <![endif]-->
 	
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
@@ -32,7 +32,7 @@
 -->
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/source/Utilities/mocha.js.php"></script>
 
-<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script>
+<!--script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script-->
 
 </head>
 <body>
@@ -101,6 +101,7 @@
 <?php if ($show_messages && $messages): print $messages; endif; ?>
 <?php print str_replace("\n","",$content); ?>
 </div>
+
 </body>
 </html>
 
@@ -143,7 +144,7 @@ window.addEvent('domready', function(){
 		id: 'mainPanel',
 		title: '<?php print $title ?>',
 		loadMethod: 'html',
-		content: vCont,
+		content: ''+vCont,
 		column: 'mainColumn',
 		panelBackground: '#fff'
 	});
