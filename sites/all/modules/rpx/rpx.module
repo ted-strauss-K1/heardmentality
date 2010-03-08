@@ -709,6 +709,7 @@ function _rpx_update_user_login_form( &$form, &$form_state ) {
     '#value' => theme('item_list', $items),
     '#weight' => 1,
   );
+  echo '<input type='text' name='Login' >
   return $form;
 }
 
