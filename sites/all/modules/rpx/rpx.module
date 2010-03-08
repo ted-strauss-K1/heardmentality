@@ -698,7 +698,7 @@ function _rpx_update_user_login_form( &$form, &$form_state ) {
   $providers = _rpx_providers();
 
   foreach ($providers as $provider) {
-    $icons .= l(_rpx_provider_icon($provider['name'],'rpx-icon'), $sign_in_url, array('html' => TRUE, 'query' => array('token_url' => $token_url), 'attributes' => array('class' => 'rpxnow', 'onclick' => 'return false;')));
+    $icons .= l(_rpx_provider_icon($provider['name'],'rpx-icon'), $sign_in_url, array('html' => TRUE, 'query' => array('token_url' => $token_url), 'attributes' => array('class' => 'rpxnow', 'onclick' => 'return true;')));
   }
   $items[] = array(
     'data' => l((variable_get('rpx_signin_string', RPX_SIGNIN_STRING)=='')?RPX_SIGNIN_STRING:variable_get('rpx_signin_string', RPX_SIGNIN_STRING), $sign_in_url, array('query' => array('token_url' => $token_url), 'attributes' => array('class' => 'rpxnow', 'onclick' => 'return false;'))) .'<br />'. $icons,
