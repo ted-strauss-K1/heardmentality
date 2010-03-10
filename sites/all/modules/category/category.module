@@ -17,21 +17,21 @@ function category_menu() {
     'page callback' => 'treemenu_list',
     'access arguments' => array('treemenu list'),
     'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'treemenu.pages.inc',
+    'file' => 'category.pages.inc',
   );
 $items['category/add'] = array(
     'title' => 'Admin Management >> Add Tree Menu',
     'page callback' => 'treemenu_add',
     'access arguments' => array('treemenu add'),
     'type' => MENU_CALLBACK,
-    'file' => 'treemenu.pages.inc',
+    'file' => 'category.pages.inc',
   );
 $items['category/edit'] = array(
     'title' => 'Admin Management >> Edit Tree Menu',
     'page callback' => 'treemenu_edit',
     'access arguments' => array('treemenu edit'),
     'type' => MENU_CALLBACK,
-    'file' => 'treemenu.pages.inc',
+    'file' => 'category.pages.inc',
   );
 $items['category/delete'] = array(
     'title' => 'Admin Management >> Delete Tree Menu',
@@ -39,7 +39,7 @@ $items['category/delete'] = array(
 	'page arguments' => array('menu_delete_confirm', 3),
     'access arguments' => array('treemenu delete'),
     'type' => MENU_CALLBACK,
-    'file' => 'treemenu.pages.inc',
+    'file' => 'category.pages.inc',
   );
 
 
