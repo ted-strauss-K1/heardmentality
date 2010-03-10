@@ -35,7 +35,7 @@
 <!--script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script-->
    <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/slider.js"></script>
 </head>
-<body onload="autoScroll('newsslider','newssection',3,true)">
+<body>
 
 <div id="desktop">
 
@@ -158,4 +158,6 @@ window.addEvent('domready', function(){
 		'visibility': 'visible'
 	});
 });
+
+autoScroll('newsslider','newssection',3,true);
 	</script>
