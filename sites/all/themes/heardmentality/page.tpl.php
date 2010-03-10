@@ -86,7 +86,7 @@
 
 <div id="desktopFooterWrapper">
 	<div id="desktopFooter">
-		&copy; 2010. Heardmentality.org   &nbsp;&nbsp;<a href="<?php echo $gSitePath?>node/7">Contact Us</a> - <a href="<?php echo $gSitePath?>node/8">Privacy Policy </a> - <a href="<?php echo $gSitePath?>node/9"> User Agreement </a>
+		copyright &copy; 2010. Heardmentality.org   <span style="margin-left:500px;"><a href="<?php echo $gSitePath?>node/7">Contact Us</a> - <a href="<?php echo $gSitePath?>node/8">Privacy Policy </a> - <a href="<?php echo $gSitePath?>node/9"> User Agreement </a></span>
 	</div>
 </div>
 
