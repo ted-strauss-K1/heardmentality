@@ -1,0 +1,50 @@
+<?php
+/**
+ * Implementation of hook_perm().
+ */
+function category_perm() {
+  return array('treemenu list','treemenu add');
+}
+
+
+/**
+ * Implementation of hook_menu().
+ */
+ 
+function category_menu() {	
+  $items['treemenu'] = array(
+    'title' => 'Admin Management >> Tree Menu',
+    'page callback' => 'treemenu_list',
+    'access arguments' => array('treemenu list'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'treemenu.pages.inc',
+  );
+$items['treemenu/add'] = array(
+    'title' => 'Admin Management >> Add Tree Menu',
+    'page callback' => 'treemenu_add',
+    'access arguments' => array('treemenu add'),
+    'type' => MENU_CALLBACK,
+    'file' => 'treemenu.pages.inc',
+  );
+$items['treemenu/edit'] = array(
+    'title' => 'Admin Management >> Edit Tree Menu',
+    'page callback' => 'treemenu_edit',
+    'access arguments' => array('treemenu edit'),
+    'type' => MENU_CALLBACK,
+    'file' => 'treemenu.pages.inc',
+  );
+$items['treemenu/delete'] = array(
+    'title' => 'Admin Management >> Delete Tree Menu',
+    'page callback' => 'drupal_get_form',
+	'page arguments' => array('menu_delete_confirm', 3),
+    'access arguments' => array('treemenu delete'),
+    'type' => MENU_CALLBACK,
+    'file' => 'treemenu.pages.inc',
+  );
+
+
+
+  return $items;
+}
+
+
