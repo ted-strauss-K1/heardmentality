@@ -90,6 +90,7 @@ function cancelScroll(id) {
 // initiate auto scrolling //
 function autoScroll(id,prefix,timer,restart) {
   var div = document.getElementById(id);
+   alert(id);
   div.autoscroll = (!div.autoscroll && !restart) ? false : true;
   if(div.autoscroll) {
     var sections = div.getElementsByTagName('div');
