@@ -141,7 +141,6 @@ function rpx_registration_submit( $form, &$form_state ) {
   
   if ($account->status) {
     // log 'em in, yo.
-	
     user_external_login( $account );
   }
   else {
