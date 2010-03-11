@@ -67,7 +67,7 @@ global $user;
       
       <?php if($link['title'] == 'Categories'):?>
       	<?php
-			echo sub_menu(0,0);			
+			echo sub_menu_cat(0,0);			
 		?>
       <?php endif;?>
       
