@@ -203,10 +203,10 @@ function sub_menu_cat($id='',$level='')
 			 
 				 for($i=0;$i<count($client_array);$i++){
 			
-				 $strReturn .= '<li><a href="javascript:void(0);">'.$client_array[$i].'</a>';
+				 /*$strReturn .= '<li><a href="javascript:void(0);">'.$client_array[$i].'</a>';
 				 $strReturn.=sub_menu($client_key[$i],$level+1);
 				 
-				$strReturn.='</li>';
+				$strReturn.='</li>';*/
 			}
 		
 		
