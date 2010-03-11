@@ -189,7 +189,7 @@ function sub_menu_cat($id='',$level='')
 			
 			$client_array=array();
 			$client_key=array();
-			$cnt=array();
+		
 			while($list=db_fetch_object($client_select))
 			{
 		
@@ -204,6 +204,7 @@ function sub_menu_cat($id='',$level='')
 				 for($i=0;$i<count($client_array);$i++){
 				 
 				  $check_sub =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$client_key[$i]."'");
+				  	$cnt=array();
 				  while($sublevel=db_fetch_object($check_sub)){
 				  $cnt[]=$sublevel->cat_id;
 				  }
