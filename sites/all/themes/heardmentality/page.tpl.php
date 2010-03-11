@@ -12,14 +12,14 @@
 <?php print $styles ?>
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/content.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
-<?php print $scripts ?>
+
 <!--[if IE]>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/excanvas-compressed.js"></script>		
 <![endif]-->
 	
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
-
+<?php print $scripts ?>
 <!--
 	mocha.js.php is for development. It is not recommended for production.
 	For production it is recommended that you used a compressed version of either
@@ -33,8 +33,9 @@
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/source/Utilities/mocha.js.php"></script>
 
 <!--script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script-->
+
 </head>
-<body >
+<body>
 
 <div id="desktop">
 
@@ -85,9 +86,10 @@
 
 <div id="desktopFooterWrapper">
 	<div id="desktopFooter">
-		copyright &copy; 2010  Heardmentality.org   <span style="margin-left:900px;"><a href="<?php echo $gSitePath?>node/7">Contact Us</a> - <a href="<?php echo $gSitePath?>node/8">Privacy Policy </a> - <a href="<?php echo $gSitePath?>node/9"> User Agreement </a></span>
+		&copy; 2007-2008 <a target="_blank" href="http://greghoustondesign.com/">Greg Houston</a> - MIT License
 	</div>
 </div>
+
 
 </div><!-- desktop end -->
 <div style="height: 718px; visibility: visible; opacity: 0.6;" id="modalOverlay"></div><div style="height: 718px; visibility: visible; opacity: 0.01; display: none;" id="windowUnderlay"></div>
@@ -157,6 +159,4 @@ window.addEvent('domready', function(){
 		'visibility': 'visible'
 	});
 });
-
-
 	</script>
