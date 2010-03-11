@@ -65,7 +65,11 @@ global $user;
     <?php foreach ($primary_links as $link): ?>
       <li><a href="<?php print($gSitePath.$link['href']);?>"><?php print($link['title']);?></a>
       
-     
+      <?php if($link['title'] == 'Categories'):?>
+      	<?php
+			echo sub_menu(0,0);			
+		?>
+      <?php endif;?>
       
       </li>
     <?php endforeach; ?>
