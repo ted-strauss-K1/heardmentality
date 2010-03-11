@@ -38,7 +38,7 @@
 </head>
 <body>
 <?php
-
+ini_set('display_errors',1);
 global $user;
 //print_r ($user);
 //echo $user->uid;
