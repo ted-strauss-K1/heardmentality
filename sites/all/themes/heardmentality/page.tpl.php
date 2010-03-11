@@ -211,12 +211,12 @@ function sub_menu_cat($id='',$level='')
 				
 					if(count($cnt)>0){
 					$class="arrow-right";
-					$class_li='class="divider"';
+					$class_li='';
 					}else{
 					$class="";
 					$class_li='';
 					}
-				$strReturn .= '<li '.$class_li.'><a class="returnFalse '.$class.'"  href="javascript:void(0);">'.$client_array[$i].'</a>';
+				$strReturn .= '<li class="divider"><a class="returnFalse '.$class.'"  href="javascript:void(0);">'.$client_array[$i].'</a>';
 				 $strReturn.=sub_menu_cat($client_key[$i],$level+1);
 				 
 				$strReturn.='</li>';
