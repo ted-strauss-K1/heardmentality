@@ -178,7 +178,7 @@ initSlidingContent('scrollingContainer',3);
 	</script>
     
     <?php
-function sub_menu($id='',$level='')
+function sub_menu_cat($id='',$level='')
 {
 	if($level<3){
 			 $client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$id."'");
