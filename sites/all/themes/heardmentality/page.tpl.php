@@ -63,7 +63,36 @@ global $user;
 	<?php if (count($primary_links)) : ?>
 	<ul>
     <?php foreach ($primary_links as $link): ?>
-      <li><a href="<?php print($gSitePath.$link['href']);?>"><?php print($link['title']);?></a></li>
+      <li><a href="<?php print($gSitePath.$link['href']);?>"><?php print($link['title']);?></a>
+      
+      <ul>
+				<li><a id="ajaxpageLinkCheck" href="pages/lipsum.html">Ajax/XHR Demo</a></li>
+				<li><a id="jsonLink" href="data/json-windows-data.js">Json Demo</a></li>
+				<li><a id="youtubeLinkCheck" href="pages/youtube.html">Iframe: YouTube</a></li>
+				<li><a id="slideshareLinkCheck" href="pages/slideshare.html">Iframe: Slideshare</a></li>
+				<li><a id="accordiantestLinkCheck" href="pages/accordian-demo.html">Accordian</a></li>
+				<li><a id="clockLinkCheck" href="plugins/coolclock/">Widget: Clock</a></li>
+				<li><a id="parametricsLinkCheck" href="plugins/parametrics/">Window Parametrics</a></li>
+				<li class="divider"><a class="returnFalse arrow-right" href="">Tests</a>
+					<ul>
+						<li><a id="windoweventsLinkCheck" href="pages/events.html">Window Events</a></li>
+						<li><a id="containertestLinkCheck" href="pages/lipsum.html">Container Test</a></li>
+						<li><a id="iframetestLinkCheck" href="pages/iframetest.html">Iframe Test</a></li>
+						<li><a id="noCanvasLinkCheck" href="pages/lipsum.html">No Canvas Body</a></li>
+					</ul>
+				</li>
+				<li class="divider"><a class="returnFalse arrow-right" href="">Starters</a>
+					<ul>
+						<li><a target="_blank" href="demo-virtual-desktop.html">Virtual Desktop</a></li>
+						<li><a target="_blank" href="demo-fixed-width.html">Fixed Width</a></li>
+						<li><a target="_blank" href="demo-no-toolbars.html">No Toolbars</a></li>
+						<li><a target="_blank" href="demo-no-desktop.html">No Desktop</a></li>
+						<li><a target="_blank" href="demo-modal-only.html">Modal Only</a></li>
+					</ul>
+				</li>
+			</ul>
+      
+      </li>
     <?php endforeach; ?>
 	</ul>	
     <?php endif;?>
@@ -172,3 +201,42 @@ initSlidingContent('scrollingContainer',3);
 	});
 });
 	</script>
+    
+    <?php
+function sub_menu($id='',$level='')
+{
+	if($level<3){
+			 $client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$id."'");
+			
+			$client_array=array();
+			$client_key=array();
+		
+			while($list=db_fetch_object($client_select))
+			{
+		
+		   $client_array[] = $list->cat_name;
+			$client_key[]=$list->cat_id;
+		
+			}
+								
+			if(count($client_array)>0){
+				 $strReturn.='<ul >';
+			 
+				 for($i=0;$i<count($client_array);$i++){
+			
+				 $strReturn .= '<li>'.$client_array[$i].'';
+				 $strReturn.=sub_menu($client_key[$i],$level+1);
+				 
+				$strReturn.='</li>';
+			}
+		
+		
+			
+		 $strReturn.='</ul>';
+		 
+		 }
+	}
+	return $strReturn;
+
+}
+?>
