@@ -92,7 +92,7 @@ global $user;
 
 <div id="desktopFooterWrapper">
 	<div id="desktopFooter">
-		&copy; 2007-2008 <a target="_blank" href="http://greghoustondesign.com/">Greg Houston</a> - MIT License
+		copyright &copy; 2010  Heardmentality.org   <span style="margin-left:900px;"><a href="<?php echo $gSitePath?>node/7">Contact Us</a> - <a href="<?php echo $gSitePath?>node/8">Privacy Policy </a> - <a href="<?php echo $gSitePath?>node/9"> User Agreement </a></span>
 	</div>
 </div>
 
