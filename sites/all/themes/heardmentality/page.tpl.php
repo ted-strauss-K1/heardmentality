@@ -31,6 +31,7 @@
 
 -->
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/source/Utilities/mocha.js.php"></script>
+    <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/slider_script.js"></script>
 
 <!--script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script-->
 
@@ -151,7 +152,7 @@ window.addEvent('domready', function(){
 	});
 	<?php print $right;?>
 	// Add panels to second side column
-
+initSlidingContent('scrollingContainer',3);
 	MochaUI.Modal = new MochaUI.Modal();
 	
 	MochaUI.Desktop.desktop.setStyles({
