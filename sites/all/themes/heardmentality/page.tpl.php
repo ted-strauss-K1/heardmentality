@@ -150,6 +150,7 @@ window.addEvent('domready', function(){
 	});
 	<?php print $right;?>
 	// Add panels to second side column
+initSlidingContent('scrollingContainer',3);
 	MochaUI.Modal = new MochaUI.Modal();
 	
 	MochaUI.Desktop.desktop.setStyles({
