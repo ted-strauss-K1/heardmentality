@@ -580,78 +580,7 @@ function _rpx_update_user_profile_form( &$form, &$form_state ) {
         '#size' => 20,
         '#maxlength' => 40,
     );
-    $form['gender'] = array (
-        '#type' => 'textfield',
-        '#title' => t('Gender'),
-        '#default_value' =>  (isset($userData['gender'])) ? $userData['gender'] : '',
-        '#description' => "The gender of this person. Canonical values are 'male', and 'female', but may be any value.",
-        '#size' => 20,
-        '#maxlength' => 40,
-    );
-    $form['birthday'] = array (
-        '#type' => 'textfield',
-        '#title' => t('Birthday'),
-        '#default_value' => (isset($userData['birthday'])) ? $userData['birthday'] : '',
-        '#description' => "Date of birth in YYYY-MM-DD format. Year field may be 0000 if unavailable.",
-        '#size' => 10,
-    );
-    $form['phoneNumber'] = array (
-        '#type' => 'textfield',
-        '#title' => t('Phone Number'),
-        '#default_value' => (isset($userData['phoneNumber'])) ? $userData['phoneNumber'] : '',
-        '#description' => "A phone number at which the person may be reached.",
-        '#size' => 20,
-    );
-    $form['photo'] = array (
-        '#type' => 'textfield',
-        '#title' => t('Photo'),
-        '#default_value' => (isset($userData['photo'])) ? $userData['photo'] : '',
-        '#description' => "URL to a photo (GIF/JPG/PNG) of the person.",
-        '#size' => 100,
-    );
-    $form['address'] = array(
-        '#type' => 'fieldset',
-        '#title' => t('Address'),
-        '#collapsible' => TRUE,
-        '#collapsed' => FALSE,
-    );
-    $form['address']['streetAddress'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Street Address'),
-        '#required' => FALSE,
-        '#default_value' => (isset($userData['address']['streetAddress'])) ? $userData['address']['streetAddress'] : '',
-        '#size' => 20,
-        '#maxlength' => 50,
-    );
-    $form['address']['locality'] = array(
-        '#type' => 'textfield',
-        '#title' => t('City'),
-        '#required' => FALSE,
-        '#default_value' => (isset($userData['address']['locality'])) ? $userData['address']['locality'] : '',
-        '#size' => 20,
-        '#maxlength' => 40,
-    );
-    $form['address']['region'] = array(
-        '#type' => 'textfield',
-        '#title' => t('State'),
-        '#required' => FALSE,
-        '#default_value' => (isset($userData['address']['region'])) ? $userData['address']['region'] : '',
-        '#size' => 15,
-    );
-    $form['address']['postalCode'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Zipcode'),
-        '#required' => FALSE,
-        '#default_value' =>  (isset($userData['address']['postalCode'])) ? $userData['address']['postalCode'] : '',
-        '#size' => 12,
-    );
-    $form['address']['country'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Country'),
-        '#required' => FALSE,
-        '#default_value' => (isset($userData['address']['country'])) ? $userData['address']['country'] : '',
-        '#size' => 30,
-    );
+  
     
     if (!empty($_POST) && form_get_errors()) {
         drupal_set_message(t('The settings have not been saved because of the errors.'), 'error');
