@@ -143,12 +143,27 @@ a:active { color: #606; }
 
 
 
+/* 
+	END OF DEMO CSS
+	*************************************/
+	
+	/* CSS for my first scrolling box */
+	#scrollingContainer{
+		width:170px;	/* 170 pixels in width */
+		height:250px;	/* Height of box */
+		
+		border:1px solid #000;	/* Black border around box */
+		background-color: #E2EBED;	/* Light blue background color */
 
-.slider {position:relative; overflow:hidden; border:2px solid #9ac1c9; height:225px; background:#eef5f6; margin-bottom:20px}
-.slidercontent {position:absolute}
-.slidercontent .upper {border-bottom:1px solid #9ac1c9}
-.section {padding:10px}
-.newsslider {position:relative; overflow:hidden; border:2px solid #9ac1c9; height:200px; width:190px; background:#eef5f6; margin-bottom:20px}
-.newsslidercontent {position:absolute}
-.newsslidercontent .upper {border-bottom:1px solid #9ac1c9}
-.newssection {padding:10px; height:200px}
+		padding:2px;	/* A little bit of space between border of box and text inside */
+		float:left;	/* I want the text to wrap around the box */
+		margin-right:10px;	/* Right margin of 10 pixels */
+		font-size:0.9em;	/* Smaller font size than the rest of the page */
+		
+		overflow:hidden;	/* Hide overflow content */
+	}
+	
+	#scrollingContent2{
+		font-size:0.9em;
+	}	
+
