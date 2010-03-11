@@ -208,10 +208,13 @@ function sub_menu_cat($id='',$level='')
 				  while($sublevel=db_fetch_object($check_sub)){
 				  $cnt[]=$sublevel->cat_name;
 				  }
-				print_r($cnt);
+				
 					if(count($cnt)>0){
 					$class="arrow-right";
 					$class_li='class="divider"';
+					}else{
+					$class="";
+					$class_li='';
 					}
 				$strReturn .= '<li '.$class_li.'><a class="returnFalse '.$class.'"  href="javascript:void(0);">'.$client_array[$i].'</a>';
 				 $strReturn.=sub_menu_cat($client_key[$i],$level+1);
