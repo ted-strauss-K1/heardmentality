@@ -669,15 +669,7 @@ function rpx_update_user_profile_form_submit($form_values) {
     $userDataRpxProfile['profile']['name']['familyName'] = $form_values['#post']['familyName'];
     $userDataRpxProfile['profile']['displayName'] = $form_values['#post']['displayName'];
     $userDataRpxProfile['profile']['preferredUsername'] = $form_values['#post']['preferredUsername'];
-    $userDataRpxProfile['profile']['gender'] = $form_values['#post']['gender'];
-    $userDataRpxProfile['profile']['birthday'] = $form_values['#post']['birthday'];
-    $userDataRpxProfile['profile']['phoneNumber'] = $form_values['#post']['phoneNumber'];
-    $userDataRpxProfile['profile']['photo'] = $form_values['#post']['photo'];
-    $userDataRpxProfile['profile']['address']['streetAddress'] = $form_values['#post']['streetAddress'];
-    $userDataRpxProfile['profile']['address']['locality'] = $form_values['locality'];
-    $userDataRpxProfile['profile']['address']['region'] = $form_values['#post']['region'];
-    $userDataRpxProfile['profile']['address']['postalCode'] = $form_values['#post']['postalCode'];
-    $userDataRpxProfile['profile']['address']['country'] = $form_values['#post']['country'];
+  
 
     $rpx_data = array( 'rpx_data' => $userDataRpxProfile );
     return user_save( $GLOBALS['user'], $rpx_data );
