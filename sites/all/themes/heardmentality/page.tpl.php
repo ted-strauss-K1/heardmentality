@@ -207,9 +207,9 @@ function sub_menu_cat($id='',$level='')
 				  while($sublevel=db_fetch_object($check_sub)){
 				  $cnt[]=$sublevel->cat_id;
 				  }
-				  echo count($cnt);
+				
 					if(count($cnt)>0){
-					$class="arrow-right";
+					$class="arrow-right".count($cnt);
 					$class_li='class="divider"';
 					}
 				$strReturn .= '<li '.$class_li.'><a class="returnFalse '.$class.'"  href="javascript:void(0);">'.$client_array[$i].'</a>';
