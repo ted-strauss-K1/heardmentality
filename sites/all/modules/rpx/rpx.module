@@ -141,13 +141,13 @@ function rpx_registration_submit( $form, &$form_state ) {
   
   if ($account->status) {
     // log 'em in, yo.
-    user_external_login( $account );
+   // user_external_login( $account );
   }
   else {
     _user_mail_notify('register_pending_approval', $account);
     drupal_set_message(t('You\'re account must be approved by an administrator before you are able to login to the site.'));
   }
-  drupal_goto();
+ // drupal_goto();
 }
 
 function rpx_end_point() {
@@ -168,8 +168,8 @@ function rpx_end_point() {
     // check for a UID; this indicates whether a person is registered.
     if ( $account->uid ) {
       // ok, log them in, go to where we need to go.
-      //user_external_login($account);
-      drupal_goto(user/1);
+      user_external_login($account);
+      drupal_goto();
     } else {
       // fresh meat, go get registered.
       if (! _rpx_blind_registration() ) {
