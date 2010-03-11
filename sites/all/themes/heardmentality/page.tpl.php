@@ -210,7 +210,7 @@ function sub_menu_cat($id='',$level='')
 				  }
 				
 					if(count($cnt)>0){
-					$class="arrow-right".count($cnt);
+					$class="arrow-right";
 					$class_li='class="divider"';
 					}
 				$strReturn .= '<li '.$class_li.'><a class="returnFalse '.$class.'"  href="javascript:void(0);">'.$client_array[$i].'</a>';
