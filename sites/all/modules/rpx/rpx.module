@@ -168,8 +168,8 @@ function rpx_end_point() {
     // check for a UID; this indicates whether a person is registered.
     if ( $account->uid ) {
       // ok, log them in, go to where we need to go.
-      user_external_login($account);
-    drupal_goto(user/1);
+      //user_external_login($account);
+      drupal_goto(user/1);
     } else {
       // fresh meat, go get registered.
       if (! _rpx_blind_registration() ) {
