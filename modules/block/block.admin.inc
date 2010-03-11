@@ -364,7 +364,7 @@ function template_preprocess_block_admin_display_form(&$variables) {
 
   foreach ($block_regions as $key => $value) {
     // Highlight regions on page to provide visual reference.
-    drupal_set_content($key, '<div class="block-region">'. $value .'</div>');
+    //drupal_set_content($key, '<div class="block-region">'. $value .'</div>');
     // Initialize an empty array for the region.
     $variables['block_listing'][$key] = array();
   }
