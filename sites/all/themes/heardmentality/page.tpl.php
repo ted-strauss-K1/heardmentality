@@ -189,7 +189,7 @@ function sub_menu_cat($id='',$level='')
 			
 			$client_array=array();
 			$client_key=array();
-		
+			$cnt=array();
 			while($list=db_fetch_object($client_select))
 			{
 		
@@ -202,8 +202,16 @@ function sub_menu_cat($id='',$level='')
 				 $strReturn.='<ul >';
 			 
 				 for($i=0;$i<count($client_array);$i++){
-			
-				$strReturn .= '<li><a class="returnFalse arrow-right"  href="javascript:void(0);">'.$client_array[$i].'</a>';
+				 
+				  $check_sub =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$client_key[$i]."'");
+				  while($sublevel=db_fetch_object($check_sub)){
+				  $cnt[]=$sublevel->cat_id;
+				  }
+					if(count($cnt)>0){
+					$class="arrow-right";
+					$class_li='class="divider"';
+					}
+				$strReturn .= '<li '.$class_li.'><a class="returnFalse '.$class.'"  href="javascript:void(0);">'.$client_array[$i].'</a>';
 				 $strReturn.=sub_menu_cat($client_key[$i],$level+1);
 				 
 				$strReturn.='</li>';
