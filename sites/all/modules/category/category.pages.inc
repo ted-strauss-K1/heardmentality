@@ -28,33 +28,14 @@
 	
 			}
 			
-			$strReturn.="<script type=\"text/javascript\">
-	window.addEvent('domready', function(){
-		if ($('modalDemoLink')){
-			$('modalDemoLink').addEvent('click', function(e){
-				new Event(e).stop();
-				new MochaUI.Window({
-					id: 'modalDemo',
-					title: 'A Modal Window',
-					content: 'Your modal window content',
-					type: 'modal',
-					width: 300,
-					height: 150
-				});
-			});
-		}
-		MochaUI.Modal = new MochaUI.Modal();
-	});
-
-	</script>	
-";
+			$strReturn.="";
 			
 			
 			
 		 $strReturn.='<div id="catlist"><b>Category Tree View</b>';
 		  if (user_access("administer nodes")) {
     // Do something.
-		 $strReturn.='&nbsp;[<a href="javascript:void(0);" id="modalDemoLink" onClick="loadAddCategory(\''.$base_root.request_uri().'add/0\')";>Add New</a>]';
+		 $strReturn.='&nbsp;[<a href="javascript:void(0);" onClick="loadAddCategory(\''.$base_root.request_uri().'add/0\')";>Add New</a>]';
 		 }
 		 $strReturn.='</div>';
 		 
