@@ -49,12 +49,21 @@ global $user;
 <div id="desktopTitlebarWrapper">
 	<div id="desktopTitlebar">
 		<h1 class="applicationTitle"><a href="<?php echo $gSitePath?>">Mocha UI</a></h1>
-		<h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2>
+		<!--h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2-->
 		<div id="topNav">
+        	<?php 
+			global $user;    
+			if($user->uid == '' || $user->uid == '0'):
+			  echo drupal_get_form('user_login_block');
+			 else:
+			?>
 			<ul class="menu-right">
-				<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Demo User</a>.</li>
-				<li><a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Sign Out</a></li>
+				<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;"><?php echo $user->name;?></a>.</li>
+				<li><a href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>logout'">Sign Out</a></li>
 			</ul>
+            <?php
+            endif;
+			?>
 		</div>
 	</div>
 </div>
@@ -88,13 +97,13 @@ global $user;
 </div><!-- desktopNavbar end -->
 </div><!-- desktopHeader end -->
 
-<div id="dockWrapper">
+<!--div id="dockWrapper">
 	<div id="dock">
 		<div id="dockPlacement"></div>
 		<div id="dockAutoHide"></div>
 		<div id="dockSort"><div id="dockClear" class="clear"></div></div>
 	</div>
-</div>
+</div-->
 <div id="pageWrapper"></div>
 
 

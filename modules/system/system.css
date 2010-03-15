@@ -69,7 +69,7 @@ div.error {
 div.error, tr.error {
   background: #fcc;
   color: #200;
-  padding: 2px;
+  padding: 0px;
 }
 .warning {
   color: #e09010;
@@ -115,8 +115,9 @@ ol.task-list li.active {
   font-weight: bold;
 }
 .form-item {
-  margin-top: 1em;
+  /*margin-top: 1em;*/
   margin-bottom: 1em;
+  float:left;
 }
 tr.odd .form-item, tr.even .form-item {
   margin-top: 0;
@@ -130,13 +131,13 @@ tr.merge-up, tr.merge-up td, tr.merge-up th {
   border-top-width: 0 !important;
 }
 .form-item input.error, .form-item textarea.error, .form-item select.error {
-  border: 2px solid red;
+  border: 1px solid red;
 }
 .form-item .description {
   font-size: 0.85em;
 }
 .form-item label {
-  display: block;
+ /* display: block;*/
   font-weight: bold;
 }
 .form-item label.option {
@@ -402,8 +403,8 @@ div.teaser-button-wrapper {
   margin: 0;
 }
 .teaser-checkbox div.form-item {
-  float: right; /* LTR */
-  margin: 0 5% 0 0; /* LTR */
+  /* float: right; /* LTR */
+  /*margin: 0 5% 0 0; /* LTR */
   padding: 0;
 }
 textarea.teaser {
