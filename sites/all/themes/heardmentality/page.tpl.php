@@ -213,7 +213,7 @@ window.addEvent('domready', function(){
 <?php if($user->uid==0)
 	{ ?>
 	
-initSlidingContent('scrollingContainer',3);
+//initSlidingContent('scrollingContainer',3);
 <?php 
  }
 ?>
