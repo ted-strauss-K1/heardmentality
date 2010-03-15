@@ -191,6 +191,7 @@ initSlidingContent('scrollingContainer',3);
 			title: 'Sub Categories List '+title,
 			loadMethod: 'xhr',
 			contentURL: url,
+			type: 'modal',
 			width: 415,
 			height: 355,
 			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
