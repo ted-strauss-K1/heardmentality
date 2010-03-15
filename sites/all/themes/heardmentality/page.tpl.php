@@ -31,9 +31,10 @@
 
 -->
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/source/Utilities/mocha.js.php"></script>
+<!--<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-events.js"></script>-->
     <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/slider_script.js"></script>
 
-<!--script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script-->
+<!--<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script>-->
 
 </head>
 <body>
@@ -64,7 +65,7 @@ global $user;
 			?>
 			<ul class="menu-right">
 				<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;"><?php echo $user->name;?></a>.</li>
-				<li><a href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>logout'">Sign Out</a></li>
+				<li><a  href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>logout'">Sign Out</a></li>
 			</ul>
             <?php
             endif;
@@ -183,13 +184,35 @@ initSlidingContent('scrollingContainer',3);
 		'background': '#fff',
 		'visibility': 'visible'
 	});
+	
+	MochaUI.slideshareWindow = function(url){
+			new MochaUI.Window({
+			id: 'slideshare',
+			title: 'Slideshare in Iframe',
+			loadMethod: 'iframe',
+			contentURL: url,
+			width: 415,
+			height: 355,
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF'
+		});
+	}
+	
+	
 });
+
+
+function loadSubCat(url)
+{
+	MochaUI.slideshareWindow(url);
+}
+
 	</script>
     
     <?php
 function sub_menu_cat($id='',$level='')
 {
-	if($level<3){
+	if($level<1){
 			 $client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$id."'");
 			
 			$client_array=array();
@@ -216,12 +239,14 @@ function sub_menu_cat($id='',$level='')
 				
 					if(count($cnt)>0){
 					$class="arrow-right";
+					$link='onclick="loadSubCat(\''.drupal_get_path('module','category').'/list/'.$client_key[$i].'\')"';
 					$class_li='';
 					}else{
+						$link='href='.drupal_get_path('module','category').'/';
 					$class="";
 					$class_li='';
 					}
-				$strReturn .= '<li class="divider"><a class="returnFalse '.$class.'"  href="javascript:void(0);">'.$client_array[$i].'</a>';
+				$strReturn .= '<li class="divider"><a  id="mootoolsLink" class="returnFalse '.$class.'"  '.$link.'>'.$client_array[$i].'</a>';
 				 $strReturn.=sub_menu_cat($client_key[$i],$level+1);
 				 
 				$strReturn.='</li>';

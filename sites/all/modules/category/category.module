@@ -42,6 +42,13 @@ $items['category/delete'] = array(
     'file' => 'category.pages.inc',
   );
 
+$items['category/list'] = array(
+    'title' => 'List Category',
+    'page callback' => 'category_list',
+	'access arguments' => array('Category List'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'category.pages.inc',
+  );
 
 
   return $items;
