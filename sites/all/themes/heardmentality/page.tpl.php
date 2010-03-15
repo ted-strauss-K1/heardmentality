@@ -185,10 +185,10 @@ initSlidingContent('scrollingContainer',3);
 		'visibility': 'visible'
 	});
 	
-	MochaUI.slideshareWindow = function(url){
+	MochaUI.slideshareWindow = function(url,title){
 			new MochaUI.Window({
 			id: 'ajaxpage',
-			title: 'Sub Categories List',
+			title: 'Sub Categories List '+title,
 			loadMethod: 'xhr',
 			contentURL: url,
 			width: 415,
@@ -202,10 +202,10 @@ initSlidingContent('scrollingContainer',3);
 });
 
 
-function loadSubCat(url)
+function loadSubCat(url,title)
 {
 MochaUI.closeAll();
-MochaUI.slideshareWindow(url);
+MochaUI.slideshareWindow(url,title);
 
 	
 }
@@ -245,7 +245,7 @@ function sub_menu_cat($id='',$level='')
 				
 					if(count($cnt)>0){
 					$class="arrow-right";
-					$link='onclick="loadSubCat(\''.$gSitePath.'category/list/'.$client_key[$i].'\')"';
+					$link='onclick="loadSubCat(\''.$gSitePath.'category/list/'.$client_key[$i].'\',\''.$client_array[$i].'\')"';
 					$class_li='';
 					}else{
 						$link='href='.$gSitePath.'category/';
