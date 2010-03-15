@@ -54,7 +54,11 @@ global $user;
         	<?php 
 			global $user;    
 			if($user->uid == '' || $user->uid == '0'):
-			  echo drupal_get_form('user_login_block');
+			  ?>
+                <ul class="menu-right">
+                    <li><a href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>/user/login'">Sign In</a></li>
+                </ul>			  
+			  <?
 			 else:
 			?>
 			<ul class="menu-right">
