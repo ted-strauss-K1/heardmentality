@@ -84,15 +84,6 @@ global $user;
     <?php endforeach; ?>
 	</ul>	
     <?php endif;?>
-<div class="toolbox divider2">
-	<div id="spinnerWrapper"><div id="spinner"></div></div>		
-</div>
-
-<!--div class="toolbox divider2">
-	<!--img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/icons/cog.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
-	<img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/icons/windows.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
-	<img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/icons/sheet.gif" onclick="MochaUI.notification('Do Something');" width="16" height="16" alt="" />
-</div-->	
 	
 </div><!-- desktopNavbar end -->
 </div><!-- desktopHeader end -->
