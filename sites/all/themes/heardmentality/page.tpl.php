@@ -56,6 +56,7 @@ global $user;
 			if($user->uid == '' || $user->uid == '0'):
 			  ?>
                 <ul class="menu-right">
+                	<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Guest</a>.</li>
                     <li><a href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>/user/login'">Sign In</a></li>
                 </ul>			  
 			  <?
