@@ -204,6 +204,7 @@ initSlidingContent('scrollingContainer',3);
 
 function loadSubCat(url)
 {
+mochaUI.closeAll();
 	MochaUI.slideshareWindow(url);
 }
 
