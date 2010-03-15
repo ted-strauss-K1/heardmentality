@@ -239,7 +239,7 @@ function sub_menu_cat($id='',$level='')
 				
 					if(count($cnt)>0){
 					$class="arrow-right";
-					$link='onclick="loadSubCat(\''.$gSitePath.'/category/list/'.$client_key[$i].'\')"';
+					$link='onclick="loadSubCat(\' '.$gSitePath.'/category/list/'.$client_key[$i].'\')"';
 					$class_li='';
 					}else{
 						$link='href='.$gSitePath.'category/';
