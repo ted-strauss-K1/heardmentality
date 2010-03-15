@@ -212,6 +212,7 @@ function loadSubCat(url)
     <?php
 function sub_menu_cat($id='',$level='')
 {
+	global $gSitePath;
 	if($level<1){
 			 $client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$id."'");
 			
@@ -227,6 +228,8 @@ function sub_menu_cat($id='',$level='')
 			}
 								
 			if(count($client_array)>0){
+		
+			
 				 $strReturn.='<ul >';
 			 
 				 for($i=0;$i<count($client_array);$i++){
