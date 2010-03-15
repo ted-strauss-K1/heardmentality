@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function category_perm() {
-  return array('Category list','Category add');
+  return array('Category list','Category add','Category view');
 }
 
 
@@ -45,7 +45,7 @@ $items['category/delete'] = array(
 $items['category/list'] = array(
     'title' => 'List Category',
     'page callback' => 'category_list',
-	'access arguments' => array('Category List'),
+	'access arguments' => array('Category view'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'category.pages.inc',
   );
