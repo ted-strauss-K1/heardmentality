@@ -34,6 +34,45 @@
 <!--<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-events.js"></script>-->
     <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/slider_script.js"></script>
 
+<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/Lighter.js"></script>
+	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/Fuel.css.js"></script>
+	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/Fuel.html.js"></script>
+	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/Fuel.js.js"></script>
+	<script type="text/javascript">
+		window.addEvent('domready', function(){
+			$$('code').light({
+				altLines: 'hover',
+				path: '<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/',
+				mode: 'ol',
+				fuel: 'js',
+				indent: 4
+			});
+		});
+	</script>
+	
+	
+	<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/multibox.css" type="text/css" media="screen" />
+<!--[if IE 6]>
+	<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/multibox-ie6.css" type="text/css" media="screen" />
+	<![endif]-->
+	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/overlay.js"></script>
+	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/Assets.js"></script>
+	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/multibox.js"></script>
+	<script type="text/javascript">
+	
+		window.addEvent('domready', function(){
+			var box = new multiBox('mb', {
+				overlay: new overlay()
+			});
+
+			var advanced = new multiBox('advanced', {
+				overlay: new overlay(),
+				descClassName: 'advancedDesc'
+			});
+		});
+	
+	</script>
+
 <!--<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script>-->
 
 </head>
@@ -78,7 +117,7 @@ global $user;
 	<?php if (count($primary_links)) : ?>
 	<ul>
     <?php foreach ($primary_links as $link): ?>
-      <li><a href="<?php print($gSitePath.$link['href']);?>"><?php print($link['title']);?></a>
+      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'):?> rel="width:650,height:450" class="advanced" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a>
       
       <?php if($link['title'] == 'Categories'):?>
       	<?php
