@@ -187,7 +187,7 @@ initSlidingContent('scrollingContainer',3);
 	
 	MochaUI.slideshareWindow = function(url){
 			new MochaUI.Window({
-			id: 'slideshare',
+			id: 'ajaxpage',
 			title: 'Sub Categories List',
 			loadMethod: 'xhr',
 			contentURL: url,
