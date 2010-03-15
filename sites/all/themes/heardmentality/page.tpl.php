@@ -188,8 +188,8 @@ initSlidingContent('scrollingContainer',3);
 	MochaUI.slideshareWindow = function(url){
 			new MochaUI.Window({
 			id: 'slideshare',
-			title: 'Slideshare in Iframe',
-			loadMethod: 'iframe',
+			title: 'Sub Categories List',
+			loadMethod: 'xhr',
 			contentURL: url,
 			width: 415,
 			height: 355,
