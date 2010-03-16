@@ -330,6 +330,7 @@ function menu_delete_confirm(&$form_state, $category) {
 	
 		function sub_menu($id='',$level='')
 		{
+			$strReturn=null;
 		if($level<2){
 					 $client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$id."'");
 					
