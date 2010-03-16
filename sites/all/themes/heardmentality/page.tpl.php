@@ -256,6 +256,7 @@ MochaUI.slideshareWindow(url,title);
 function sub_menu_cat($id='',$level='')
 {
 	global $gSitePath;
+	$strReturn = null;
 	if($level<1){
 			 $client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$id."'");
 			
