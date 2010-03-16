@@ -1,0 +1,40 @@
+<?php
+/**
+ * Implementation of hook_perm().
+ */
+function question_perm() {
+  return array('Question add','Question save','Question ajax');
+}
+
+
+/**
+ * Implementation of hook_menu().
+ */
+ 
+function question_menu() {	
+$items['question/add'] = array(
+    'title' => ' Add Question',
+    'page callback' => 'question_add',
+    'access arguments' => array('Question add'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
+$items['question/save'] = array(
+    'title' => ' Save Question',
+    'page callback' => 'question_save',
+    'access arguments' => array('Question save'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
+  $items['question/ajax'] = array(
+    'title' => ' Ajax Function',
+    'page callback' => 'question_ajax',
+	 'access arguments' => array('Question ajax'),
+     'type' => MENU_CALLBACK,
+    'file' => 'question.pages.inc',
+  );
+
+  return $items;
+}
+
+
