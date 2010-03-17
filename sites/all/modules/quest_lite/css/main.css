@@ -6,6 +6,7 @@
 
 /* Style for Usual tabs */
 .hidden{display:none;}
+.hiddens{display:none;}
 .usual {
   background:#181818;
   color:#111;
@@ -52,9 +53,6 @@
 #tabs3 { background:#FF9; }
 
 /* Style for various uses of tabs */
-
-}
-
-
+.con{text-align:left; color:#fff; font-style:italic; width:90%; margin: 10px auto; }
 
 

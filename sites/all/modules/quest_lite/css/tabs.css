@@ -9,7 +9,7 @@
 	a:hover { color: #00CCFF; }
 	a:active { font-weight:bold; }
 	
-	#container { height: 20em; overflow: hidden; }
+	#container { overflow: auto; }
 	
 	
 	#header ul {
@@ -63,3 +63,5 @@
 		color: #fc0;
 	}
 .hidden{display:none;}
+
+p a{ text-decoration:none;}
