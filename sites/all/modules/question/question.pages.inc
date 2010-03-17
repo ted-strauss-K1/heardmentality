@@ -6,7 +6,7 @@
 	function my_question(){
 	
 	global $gSitePath,$user, $gDocPath,$base_root;
-	 $strReturn='';
+	
 	/*$client_select =db_query("SELECT *  FROM {question} where uid='".$user->uid."'");
 	$client_array=array();
 		$client_key=array();
@@ -54,8 +54,6 @@
 	
 	
 			global $gSitePath,$user, $gDocPath,$base_root;
-			
-			$output='';
 				drupal_add_js('misc/firebug-lite-compressed.js');
 				
 			drupal_add_js('misc/jquery.js');
@@ -309,7 +307,6 @@ global $user;
 //print_r($_REQUEST);
 	extract($_REQUEST);
 	$output='';
-	$g_global='';
 	
 	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($q_edate)) {
 	  $edate=$q_edate;
@@ -327,7 +324,7 @@ global $user;
 		 
 		 if($result)
 		 drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
-		 drupal_goto("question");
+		 
 		  }
 		   else {
 		   
