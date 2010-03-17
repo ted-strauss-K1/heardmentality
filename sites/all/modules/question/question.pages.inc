@@ -65,6 +65,9 @@
 			$output.='
 	
 				<script type="text/javascript" >
+				
+				  jQuery.noConflict();
+
 							jQuery(function() {
 									jQuery("#q_edate").datepicker({
 										changeMonth: true,
@@ -79,6 +82,9 @@
 							function add_ans_field(){
 							 
 							}
+							
+							  jQuery.noConflict();
+
 							 jQuery(document).ready(function(){
 							 
 							jQuery(\'#q_cat\').bind("change", function(){
@@ -402,7 +408,8 @@ function edit_question(){
 			$output.='
 		
 		<script type="text/javascript" >
-		
+							  jQuery.noConflict();
+
 							jQuery(function() {
 									jQuery("#q_edate").datepicker({
 										changeMonth: true,
@@ -417,6 +424,8 @@ function edit_question(){
 						function add_ans_field(){
 						 
 						}
+						  jQuery.noConflict();
+
 						 jQuery(document).ready(function(){
 						 
 						jQuery(\'#q_cat\').bind("change", function(){
