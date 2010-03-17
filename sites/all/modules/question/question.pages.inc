@@ -25,7 +25,7 @@
 		
 		
 			
-	 $strReturn.='<div class="node">'; 
+	 $strReturn.='<div class="clear-block">'; 
 	 $strReturn.='<table width="98%" border="1" cellspacing="5" cellpadding="5">';
 		for($i=0;$i<count($list);$i++){
 	
