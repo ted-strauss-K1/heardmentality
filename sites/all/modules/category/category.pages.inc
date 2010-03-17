@@ -31,7 +31,7 @@
 		 $strReturn.='<div id="catlist"><b>Category Tree View</b>';
 		  if (user_access("administer nodes")) {
     // Do something.
-		 $strReturn.='&nbsp;[<a href="javascript:void(0);" onClick="loadAddCategory(\''.$base_root.request_uri().'add/0\')";>Add New</a>]';
+		 $strReturn.='&nbsp;[<a href="add/0" >Add New</a>]';
 		 }
 		 $strReturn.='</div>';
 		 
