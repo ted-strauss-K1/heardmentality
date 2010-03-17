@@ -54,6 +54,8 @@
 	
 	
 			global $gSitePath,$user, $gDocPath,$base_root;
+			
+			$output='';
 				drupal_add_js('misc/firebug-lite-compressed.js');
 				
 			drupal_add_js('misc/jquery.js');
