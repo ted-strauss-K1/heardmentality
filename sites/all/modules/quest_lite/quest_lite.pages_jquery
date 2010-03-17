@@ -1,0 +1,103 @@
+
+<?php
+
+function qlite_view()
+{
+global $gSitePath,$user;
+	
+
+
+	
+	drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/jtab.js');	
+	drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/jtabs.css');	
+		
+ $qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSql="select * from {question} where status='1' and qid=$qid ";
+		$rlist=db_query($vSql);
+		$oListquest=db_fetch_object($rlist);
+	$output.='<style>
+
+/* tab pane styling */
+div.panes div {
+	display:none;		
+	padding:15px 10px;
+	border:1px solid #999;
+	border-top:0;
+	height:100px;
+	font-size:14px;
+	background-color:#fff;
+}
+
+</style>
+
+
+
+<!-- the tabs -->
+<ul class="tabs">
+	<li><a href="#">Tab 1</a></li>
+	<li><a href="#">Tab 2</a></li>
+	<li><a href="#">Tab 3</a></li>
+
+</ul>
+
+<!-- tab "panes" -->
+<div class="panes">
+	<div>First tab content. Tab contents are called "panes"</div>
+	<div>Second tab content</div>
+	<div>Third tab content</div>
+</div>
+
+
+<!-- This JavaScript snippet activates those tabs -->
+
+<script>
+
+// perform JavaScript after the document is scriptable.
+jQuery(function() {
+	// setup ul.tabs to work as tabs for each div directly under div.panes
+	jQuery("ul.tabs").tabs("div.panes > div");
+});
+</script>
+
+';
+    return $output;
+}
+
+
+function qlite_save()
+{
+
+	global $gSitePath,$user;
+$mid=$_REQUEST['mid'];
+	$voutput='';
+		$vquest="select * from {possible_answer} where paid='".$_REQUEST['answer']."'  ";
+		$rquest=db_query($vquest);
+		$olistquest=db_fetch_object($rquest);
+		  if (!empty($_REQUEST['answer'])) {
+		
+		 $list_length = db_query("select * from {user_answers} where qid='".$olistquest->qid."' and uid='".$user->uid."' ");
+		 $numr=mysql_num_rows($list_length);
+		 echo $numr;
+		 if($numr==0)
+		 {
+		$vInsQuery="insert into user_answers(qid, ans_id,uid,answered_date) values ('".$olistquest->qid."', '".$_REQUEST['answer']."','".$user->uid."','".date('Y-m-d h:i:s')."')";
+		db_query($vInsQuery);
+		
+		 drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
+	    drupal_goto("qlite/view/$mid");
+		}
+		else
+		{
+		drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
+				drupal_goto("qlite/view/$mid");
+		
+		}
+	    }
+		else {
+		   
+				drupal_set_message($message = 'You Have Not Choosed Your answer!', $type = 'error');
+				drupal_goto("qlite/view/$mid");
+		  }
+	   return $voutput;
+
+}

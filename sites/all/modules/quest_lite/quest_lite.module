@@ -1,0 +1,25 @@
+<?php
+function quest_lite_perm() {
+
+  return array('Question Lite','Question Save');
+
+} // function newmodule_perm
+function quest_lite_menu() {	
+ 
+  $quest['qlite/view'] = array(
+    'title' => 'Question Lite',
+    'page callback' => 'qlite_view',
+    'access arguments' => array('Question Lite'),
+    'file' => 'quest_lite.pages.inc',
+  );
+ 
+ 
+ $quest['qlite/save'] = array(
+    'title' => 'Question Lite',
+    'page callback' => 'qlite_save',
+    'access arguments' => array('Question Save'),
+    'file' => 'quest_lite.pages.inc',
+  );
+  return $quest;
+}
+
