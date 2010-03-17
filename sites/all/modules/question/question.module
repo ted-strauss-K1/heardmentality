@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function question_perm() {
-  return array('Question user','Question add','Question save','Question ajax');
+  return array('Question user','Question add','Question save','Question ajax','Question edit');
 }
 
 
@@ -41,7 +41,13 @@ $items['question/save'] = array(
      'type' => MENU_CALLBACK,
     'file' => 'question.pages.inc',
   );
-
+ $items['question/edit'] = array(
+    'title' => 'Edit Question',
+    'page callback' => 'edit_question',
+	 'access arguments' => array('Question edit'),
+     'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
   return $items;
 }
 
