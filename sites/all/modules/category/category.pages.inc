@@ -330,7 +330,7 @@ function menu_delete_confirm(&$form_state, $category) {
 	
 		function sub_menu($id='',$level='')
 		{
-			$strReturn=null;
+		$strReturn=null;
 		if($level<2){
 					 $client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$id."'");
 					
@@ -374,60 +374,5 @@ function menu_delete_confirm(&$form_state, $category) {
 	
 		}
 	
-// mysql query execution	
-	function ExecuteQuery($Query, $Qrytype)
-	{
-		if(!empty($Query) && !empty($Qrytype))
-		{
-			switch(strtolower($Qrytype))
-			{
-				case "select":
-					$Result = db_query($Query) ;
-					if($Result)
-					{	
-						$ResultSet = array();
-						while($ResultSet1 = mysql_fetch_array($Result))
-							$ResultSet[] = $ResultSet1;
-						return $ResultSet;
-					}
-					else return false;
-					break;
-				case "update":
-					$Result = db_query($Query);
-					if($Result)
-					{
-						$AffectedNums = mysql_affected_rows();
-						return $AffectedNums;
-					}
-					else return false;
-					break;
-				case "norows":
-					$Result = db_query($Query) ;
-					if($Result)
-					{
-						$Totalrows = mysql_num_rows($Result);
-						return $Totalrows;
-					}
-					else return false;
-					break;	
-					
-				case "insert":
-					$Result = db_query($Query) ;
-					if($Result)
-					{
-						$LastInsertedRow = mysql_insert_id();
-						return $LastInsertedRow;
-					}
-					else return false;
-					break;
-				case "delete":
-					$Result = db_query($Query) ;
-					if($Result)
-						return true;
-					else
-						return false;
-			}
-		}
-		
-	}
+
 	
