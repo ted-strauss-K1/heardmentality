@@ -712,10 +712,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 
 function question_delete_confirm(&$form_state, $question) {
 	
-	$form['_menu'] = array(
-		'#type' => 'value',
-		'#value' => $menu,
-	);
+
 	$form['qid'] = array(
 		'#type' => 'hidden',
 		'#value' => $question,
