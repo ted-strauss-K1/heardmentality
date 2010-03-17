@@ -196,7 +196,7 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>Context</td>
+    <td valign="top">Context</td>
     <td colspan="4">
       <textarea name="q_context" id="q_context" cols="150" rows="2" style="border:1px solid #BBBBBB;
 
@@ -205,7 +205,7 @@ width:775px; scroll;"></textarea>  </td>
   
   <tr>
     <td>&nbsp;</td>
-    <td>Answer<span title="This field is required." class="form-required">*</span></td>
+    <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
     <td width="17%"><table width="100%" border="0"> <tr>
           <td>
             <input name="q_ans1" type="text" id="q_ans1" size="40" />
@@ -223,6 +223,7 @@ width:775px; scroll;"></textarea>  </td>
         
     $output.='</table><div id="add_more"></div></td>
     <td colspan="3"><table width="100%" border="0">
+	<tr><td colspan="3" height="40"  valign="middle" >Categories</td></tr>
       <tr>
         <td><select name="q_cat[]" id="q_cat" multiple="multiple"  size="5"><option value="">Select Category</option>'; 
 		$client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
