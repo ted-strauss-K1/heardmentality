@@ -43,8 +43,8 @@
 	   if (user_access("administer nodes")) {
     // Do something.
   
-	  $strReturn.='&nbsp;<a href="add/'.$client_key[$i].'">Add</a>&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="edit/'.$client_key[$i].'">Edit </a>';
-	  	$strReturn.='&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="delete/'.$client_key[$i].'">Delete </a>';
+	  $strReturn.='&nbsp;<a href="'.$gSitePath.'category/add/'.$client_key[$i].'">Add</a>&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="'.$gSitePath.'category/edit/'.$client_key[$i].'">Edit </a>';
+	  	$strReturn.='&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="'.$gSitePath.'category/delete/'.$client_key[$i].'">Delete </a>';
 		}
 	  $strReturn.=sub_menu($client_key[$i],0);
 		 $strReturn .= '</li>';
