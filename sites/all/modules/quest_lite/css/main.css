@@ -38,11 +38,11 @@
   }
 .usual div {
   padding:10px 10px 8px 10px;
-  *padding-top:3px;
-  *margin-top:-15px;
+
+
   clear:left;
   background:snow;
-  /*font:10pt Georgia;*/
+  /*font:10pt Georgia;  margin-top:-15px;*/
 }
 .usual div a { color:#000; font-weight:bold; }
 
