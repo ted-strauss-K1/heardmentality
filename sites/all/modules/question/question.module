@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function question_perm() {
-  return array('Question user','Question add','Question save','Question ajax','Question edit');
+  return array('Question user','Question add','Question save','Question ajax','Question edit','Question delete');
 }
 
 
@@ -46,6 +46,14 @@ $items['question/save'] = array(
     'page callback' => 'edit_question',
 	 'access arguments' => array('Question edit'),
      'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
+  $items['question/delete'] = array(
+    'title' => 'Delete Category',
+    'page callback' => 'drupal_get_form',
+	'page arguments' => array('question_delete_confirm', 3),
+    'access arguments' => array('Question delete'),
+    'type' => MENU_CALLBACK,
     'file' => 'question.pages.inc',
   );
   return $items;

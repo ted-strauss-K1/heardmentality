@@ -384,9 +384,6 @@ global $user;
 
 function edit_question(){
 
-
-
-	
 	
 			global $gSitePath,$user, $gDocPath,$base_root;
 			$output='';
@@ -710,3 +707,44 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 			exit;
 		
 		}
+		
+				
+//delete confirm
+
+function question_delete_confirm(&$form_state, $question) {
+	
+	$form['_menu'] = array(
+		'#type' => 'value',
+		'#value' => $menu,
+	);
+	$form['qid'] = array(
+		'#type' => 'hidden',
+		'#value' => $question,
+	);
+ 
+	return confirm_form($form,
+    	t('Are you sure you want to delete this question?'),
+    	isset($_GET['destination']) ? $_GET['destination'] : "question/",
+    	t('This action cannot be undone.'),
+    	t('Delete'),
+    	t('Cancel'));
+}		
+		
+		// delete category		
+	function question_delete_confirm_submit($form, &$form_state) {
+	
+		global $gSitePath,$user, $gDocPath,$base_root;
+	$form_values = $form_state['values'];
+ 
+	if ($form_state['values']['confirm']) {
+		$qid = $form_state['values']['qid'];
+ 
+	db_query("delete from {question} where qid='".$qid."' AND uid='".$user->uid."'");
+ 	db_query("delete from {possible_answer} where qid='".$qid."'");
+		drupal_set_message(t('Question has been deleted successfully.'));
+  	}
+ 
+	drupal_goto("question/");
+}	
+		
+		
