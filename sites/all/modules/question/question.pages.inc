@@ -732,7 +732,8 @@ function question_delete_confirm(&$form_state, $question) {
 		
 		// delete category		
 	function question_delete_confirm_submit($form, &$form_state) {
-	
+	$args = func_get_args();
+	print_r($args);
 		global $gSitePath,$user, $gDocPath,$base_root;
 	$form_values = $form_state['values'];
  
