@@ -25,7 +25,7 @@
 		
 		
 			
-	  
+	 $strReturn.='<div class="node">'; 
 	 $strReturn.='<table width="98%" border="1" cellspacing="5" cellpadding="5">';
 		for($i=0;$i<count($list);$i++){
 	
@@ -39,7 +39,7 @@
 			  
 		}
 
-		  $strReturn.='</table>';
+		  $strReturn.='</table></div>';
 		if(count($list)<1){
 	drupal_set_message($message = 'No Questions Found!', $type = 'error');
 		}
