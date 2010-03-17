@@ -101,9 +101,12 @@ $rlist=mysql_query($vSql);
                                </div>
                                <div id="contentthree" class="hidden">
                                        <ul id="navigation">
-									    <li id="seven"><a href="javascript:void(0);">In the News</a></li>
-                               <li id="eight"><a  href="javascript:void(0);">Multimedia </a></li>
-                               <li id="nine"><a href="javascript:void(0);">Facts</a></li>
+									    <li id="seven"><a style="font:10px Verdana;
+  color:#FFF;" href="javascript:void(0);">In the News</a></li>
+                               <li id="eight"><a style="font:10px Verdana;
+  color:#FFF;" href="javascript:void(0);">Multimedia </a></li>
+                               <li id="nine"><a style="font:10px Verdana;
+  color:#FFF;"  href="javascript:void(0);">Facts</a></li>
                               
 					</ul>
 					<div >
@@ -113,12 +116,12 @@ $rlist=mysql_query($vSql);
 while($oListUser=mysql_fetch_object($rlist))
 					{
  $output.=' <tr>
-    <td width="63%">'.$i++.' '.$oListUser->title.'</td>
+    <td width="100%"><p class="con">'.$i++.' <strong>'.$oListUser->title.'</strong> </p></td>
     <td width="37%">&nbsp;</td>
   </tr>
   <tr>
-    <td><p class="con">'.substr($oListUser->body,0,70).'</p></td>
-    <td>&nbsp;</td>
+    <td width="100%"><p class="con">'.substr($oListUser->body,0,70).'</p></td>
+    <td width="100%">&nbsp;</td>
   </tr>
   <tr>
     <td></td>
@@ -128,12 +131,12 @@ while($oListUser=mysql_fetch_object($rlist))
   $output.='</table>
 							</div>
 							<div id="contenteight" class="hiddens">
-							<p> sdfsfs </p> 
+							<p> Multimedia Content comes here </p> 
 							</div>
 							
 							
 								<div id="contentnine" class="hiddens">
-							<p> ertertert </p> 
+							<p> Facts comes here  </p> 
 							</div>   
 					</div>		   
                                </div>
