@@ -733,12 +733,12 @@ function question_delete_confirm(&$form_state, $question) {
 		// delete category		
 	function question_delete_confirm_submit($form, &$form_state) {
 
-	print_r($form);print_r($form_state);
+	
 		global $gSitePath,$user, $gDocPath,$base_root;
 	$form_values = $form_state['values'];
  
 	if ($form_state['values']['confirm']) {
-		echo $qid = $form_state['values']['qid'];
+		echo $qid = $form_state['values']['nid'];
  
 	$result=db_query("delete from {question} where qid='".$qid."' AND uid='".$user->uid."'");
  	db_query("delete from {possible_answer} where qid='".$qid."'");
