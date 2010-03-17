@@ -53,11 +53,25 @@ global $gSitePath,$user;
 	
 		
 		}
-	$output.='<tr>
+	$output.='
+  <tr>
+    <td align="right">ACTIONS </td>
+    <td>
+      <select name="txt_act" id="select">
+	  <option value=""> Select</option >
+      <option value="1"> Withdraw answer</option >
+       <option value="2"> Invite</option >
+      <option value="3"> Flag</option >
+       <option value="4">Suggest New Answer</option> 
+      <option value="5">Create Mashup:</option> 
+      </select>
+    </td>
+  </tr>
+  <tr>
 			  <td align="right">&nbsp;</td>
-			  <td><label>
+			  <td>
 			    <input type="submit" name="save" id="save" value="Save" />
-			  </label></td></tr>
+			 </td></tr>
  </table>
 </form>';
 		
