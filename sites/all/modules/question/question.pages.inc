@@ -234,14 +234,16 @@ width:775px; scroll;"></textarea>  </td>
 					
       $output.='</select></td>
         <td><div id="chg_scat"><select name="q_scat[]" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
-		$client_select1 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+		//$client_select1 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+		$client_select1='';
     while($list=db_fetch_object($client_select1))
 					{
 		$output.= '<option value="'.$list->cat_id.'">'.$list->cat_name.'</option>';
 		
 		}	 $output.='</select></div></td>
         <td><div id="chg_sscat"><select name="q_sscat[]" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
-     $client_select2 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+     //$client_select2 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+	 $client_select2='';
     while($list=db_fetch_object($client_select2))
 					{
 		$output.= '<option value="'.$list->cat_id.'">'.$list->cat_name.'</option>';
