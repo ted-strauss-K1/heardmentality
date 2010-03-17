@@ -742,9 +742,9 @@ function question_delete_confirm(&$form_state, $question) {
 	$result=db_query("delete from {question} where qid='".$qid."' AND uid='".$user->uid."'");
  	db_query("delete from {possible_answer} where qid='".$qid."'");
 		if($result)
-		drupal_set_message(t('Question has been deleted successfully.',$type='success'));
+		drupal_set_message(t('Question has been deleted successfully.'),$type='success');
 		else
-		drupal_set_message(t('sorry error Occurs, Try Again! .',$type='error'));
+		drupal_set_message(t('sorry error Occurs, Try Again! .'),$type='error');
   	}
  
 	drupal_goto("question/");
