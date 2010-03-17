@@ -209,7 +209,29 @@ $mid=$_REQUEST['mid'];
 		  }
 		  
 		  }
+		  if($_REQUEST['txt_act']==3)
+		 {
+		  $list_length = db_query("select * from {question_flags} where nodeid='".$mid."' and uid='".$user->uid."' and  type='question' ");
+		 $numr=mysql_num_rows($list_length);
+		 echo $numr;
+		 if($numr==0)
+		 {
+		 $flagquery="insert into question_flags(nodeid,uid,flag_date,type) values ('".$mid."','".$user->uid."','".date('Y-m-d')."','question')";
+		 	db_query($flagquery);
+		 drupal_set_message($message = 'You Have Flagged successfully !', $type = 'success');
+		 drupal_goto("qlite/view/$mid");
+		 }
+		  else
+		  {
+		  	
+	
+		
+		 drupal_set_message(t('You Have Already Flagged !'), $type = 'error');
+	    drupal_goto("qlite/view/$mid");
 		  
+		  }
+		  
+		  }
 		
 	   return $voutput;
 
