@@ -206,7 +206,7 @@ width:775px; scroll;"></textarea>  </td>
   <tr>
     <td>&nbsp;</td>
     <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
-    <td width="17%"><table width="100%" border="0"> <tr>
+    <td width="17%" valign="top"><table width="100%" border="0"> <tr>
           <td>
             <input name="q_ans1" type="text" id="q_ans1" size="40" />
           </td>
