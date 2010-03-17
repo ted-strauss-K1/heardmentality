@@ -17,6 +17,10 @@ global $gSitePath,$user;
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
 		
+		$vuser="select * from {users} where  uid=$oListquest->uid ";
+		$username=db_query($vuser);
+		$ufet=db_fetch_object($username);
+		
 			$output='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save" >
   <table width="100%" border="0" align="center"><input type="hidden" name="mid" value="'.$qid.'">
   <tr>
@@ -25,7 +29,7 @@ global $gSitePath,$user;
 	</tr>
 	<tr>
 		<td align="right" valign="top"><strong>Context:</strong></td>
-		<td valign="top">'.$oListquest->context.'</td>
+		<td valign="top"> '.$oListquest->context.'</td>
 	</tr>
 
 	<tr>
@@ -103,9 +107,14 @@ global $gSitePath,$user;
 			<p>In conclusion, content blocks are fun</p>
 		</div>
 	 <div class="content">
+	
 			<a name="c5" id="c5"></a>
-			<h3>Info</h3>
-			<p>In conclusion, content blocks are fun</p>
+			<h2>Info</h2>
+			<p>Question Author: '.$ufet->name.' </p>
+			<p>Date Created:'.$oListquest->date_added.' </p>
+			<p>Number of Votes: 0</p>
+			<p>Number of Forum Posts: 0 </p>
+			<p>Number of Resources: 0</p>
 		</div>
 		
 		<div class="content">
