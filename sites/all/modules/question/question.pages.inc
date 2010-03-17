@@ -33,7 +33,7 @@
 			 $strReturn.=$list[$i]['question'];
 			 $strReturn.='</td><td>'.$list[$i]['date_added'].'</td><td>';
 			 
-			  $strReturn.='<a href="'.$gSitePath.'qlite/view/'.$list[$i]['qid'].'">View</a>&nbsp;<b>/</b>&nbsp;<a href="'.$gSitePath.'question/edit/'.$list[$i]['qid'].'">Edit</a> ';
+			  $strReturn.='<a href="'.$gSitePath.'qlite/view/'.$list[$i]['qid'].'">View</a>&nbsp;<b>/</b>&nbsp;<a href="'.$gSitePath.'question/edit/'.$list[$i]['qid'].'">Edit</a>&nbsp;<b>/</b>&nbsp;<a href="'.$gSitePath.'question/delete/'.$list[$i]['qid'].'">Delete</a> ';
 			 
 			  $strReturn.='</td></tr>';
 			  
@@ -55,7 +55,7 @@
 	
 			global $gSitePath,$user, $gDocPath,$base_root;
 			$output='';
-				//drupal_add_js('misc/firebug-lite-compressed.js');
+		
 				
 			drupal_add_js('misc/jquery.js');
 			drupal_add_js('misc/ui.core.min.js');
@@ -63,130 +63,126 @@
 			drupal_add_js('misc/ui.datepicker.min.js');
 			drupal_add_css('misc/themes/base/ui.all.css');
 			$output.='
-			
-			// <script type="text/javascript">
-//  firebug.env.height = 100;
-//  </script>
-
+	
 				<script type="text/javascript" >
-jQuery(function() {
-		jQuery("#q_edate").datepicker({
-			changeMonth: true,
-			changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\' 
-		});
-
-		
-	});
-
-
-
-function add_ans_field(){
- 
-}
- jQuery(document).ready(function(){
- 
-jQuery(\'#q_cat\').bind("change", function(){
-
-      var foo = [];
-
-      jQuery(\'#q_cat :selected\').each(function(i, selected){
-   		
-          foo[i] = jQuery(selected).val();
- 
-      });
- var str1 = foo.toString();
- var divid="chg_scat";
- jQuery(\'#cat1\').val(str1);
-get_subcat(str1,divid,1);
- });
- 
- jQuery(\'#q_scat\').bind("change", function(){
-
-      var foo = [];
-
-      jQuery(\'#q_cat :selected\').each(function(i, selected){
-   		
-          foo[i] = jQuery(selected).val();
- 
-      });
- var str2 = foo.toString();
- var divid="chg_sscat";
-get_subcat(str2,divid,2);
- });
- 
- 
-			  jQuery(\'#Add\').bind("click", function(){
-			  
-			  var ans_cnt=jQuery(\'#ans_cnt\').val();
-		ans_cnt=++ans_cnt;
-		jQuery(\'#ans_cnt\').val(ans_cnt);
-		jQuery(\'#add_more\').slideUp();
-		jQuery(\'#add_more\').append(\'  <p>&nbsp;</p>\');
-		jQuery(\'#add_more\').append(\'  <div><input name="q_ans\'+ans_cnt+\'" type="text" id="q_ans\'+ans_cnt+\'" size="40" /></div>\');
-		
-		//jQuery(\'#add_more\').css("border", "1px solid red");
-		jQuery(\'#add_more\').css("padding-top", "2px");
-		jQuery(\'#add_more\').css("padding-bottom", "2px");
-		jQuery(\'#add_more\').slideDown();
-			  });
-		
-		  });
-
-function get_subcat(ids,divid,level){
-
- 		if(ids.length>0){
-				jQuery.ajax({
-		   type: "POST",
-		   url: "'.$gSitePath.'question/ajax",
-		   data: "action="+level+"&ids="+ids,
-		   success: function(msg){
-				  jQuery(\'#\'+divid+\'\').html(msg);
-			 
-		   }
-		 });
-
-}else{
- jQuery(\'#\'+divid+\'\').html(\'No Subcategory\');
-}
-}
-
-function get_sscat(level){
-
-
- 
- 
-if(level==1){
-
-	 var foo = [];
-
-      jQuery(\'#q_scat :selected\').each(function(i, selected){
-   		
-          foo[i] = jQuery(selected).val();
- 
-      });
- var str2 = foo.toString();
-
-
-
-jQuery(\'#cat2\').val(str2);
- var divid="chg_sscat";
-get_subcat(str2,divid,2);
-}else{
-
-		
-	 var foo = [];
-
-      jQuery(\'#q_sscat :selected\').each(function(i, selected){
-   		
-          foo[i] = jQuery(selected).val();
- 
-      });
- var str2 = foo.toString();
-
-jQuery(\'#cat3\').val(str2);
-}
-}
-</script>
+							jQuery(function() {
+									jQuery("#q_edate").datepicker({
+										changeMonth: true,
+										changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\' 
+									});
+							
+									
+								});
+							
+							
+							
+							function add_ans_field(){
+							 
+							}
+							 jQuery(document).ready(function(){
+							 
+							jQuery(\'#q_cat\').bind("change", function(){
+							
+								  var foo = [];
+							
+								  jQuery(\'#q_cat :selected\').each(function(i, selected){
+									
+									  foo[i] = jQuery(selected).val();
+							 
+								  });
+							 var str1 = foo.toString();
+							 var divid="chg_scat";
+							 jQuery(\'#cat1\').val(str1);
+							get_subcat(str1,divid,1);
+							 });
+							 
+							 jQuery(\'#q_scat\').bind("change", function(){
+							
+								  var foo = [];
+							
+								  jQuery(\'#q_cat :selected\').each(function(i, selected){
+									
+									  foo[i] = jQuery(selected).val();
+							 
+								  });
+							 var str2 = foo.toString();
+							 var divid="chg_sscat";
+							get_subcat(str2,divid,2);
+							 });
+							 
+							 
+										  jQuery(\'#Add\').bind("click", function(){
+										  
+										  var ans_cnt=jQuery(\'#ans_cnt\').val();
+									ans_cnt=++ans_cnt;
+									jQuery(\'#ans_cnt\').val(ans_cnt);
+									jQuery(\'#add_more\').slideUp();
+									jQuery(\'#add_more\').append(\'  <p>&nbsp;</p>\');
+									jQuery(\'#add_more\').append(\'  <div><input name="q_ans\'+ans_cnt+\'" type="text" id="q_ans\'+ans_cnt+\'" size="40" /></div>\');
+									
+									//jQuery(\'#add_more\').css("border", "1px solid red");
+									jQuery(\'#add_more\').css("padding-top", "2px");
+									jQuery(\'#add_more\').css("padding-bottom", "2px");
+									jQuery(\'#add_more\').slideDown();
+										  });
+									
+									  });
+							
+							function get_subcat(ids,divid,level){
+							
+									if(ids.length>0){
+											jQuery.ajax({
+									   type: "POST",
+									   url: "'.$gSitePath.'question/ajax",
+									   data: "action="+level+"&ids="+ids,
+									   success: function(msg){
+											  jQuery(\'#\'+divid+\'\').html(msg);
+										 
+									   }
+									 });
+							
+							}else{
+							 jQuery(\'#\'+divid+\'\').html(\'No Subcategory\');
+							}
+							}
+							
+							function get_sscat(level){
+							
+							
+							 
+							 
+							if(level==1){
+							
+								 var foo = [];
+							
+								  jQuery(\'#q_scat :selected\').each(function(i, selected){
+									
+									  foo[i] = jQuery(selected).val();
+							 
+								  });
+							 var str2 = foo.toString();
+							
+							
+							
+							jQuery(\'#cat2\').val(str2);
+							 var divid="chg_sscat";
+							get_subcat(str2,divid,2);
+							}else{
+							
+									
+								 var foo = [];
+							
+								  jQuery(\'#q_sscat :selected\').each(function(i, selected){
+									
+									  foo[i] = jQuery(selected).val();
+							 
+								  });
+							 var str2 = foo.toString();
+							
+							jQuery(\'#cat3\').val(str2);
+							}
+							}
+			</script>
 			
 			';
 			
