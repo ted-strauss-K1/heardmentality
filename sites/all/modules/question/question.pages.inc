@@ -258,9 +258,9 @@ width:775px; scroll;"></textarea>  </td>
     <td>&nbsp;</td>
     <td>
        <input type="button" name="Add" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> </td>
-    <td width="13%"><input type="text" name="q_country" id="q_country" value="country" size="30" /></td>
-    <td width="13%"><input type="text" name="q_state" id="q_state" value="state"  size="30"/></td>
-    <td width="43%"><input type="text" name="q_city" id="q_city" value="city"  size="30"/></td>
+    <td width="13%"><input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" /></td>
+    <td width="13%"><input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/></td>
+    <td width="43%"><input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
