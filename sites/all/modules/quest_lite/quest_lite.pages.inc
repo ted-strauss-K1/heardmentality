@@ -93,14 +93,49 @@ $rlist=mysql_query($vSql);
 					</ul>
                <div id="container">
                                <div id="contentone" class="hidden">
-                                      This is a demo for the donationware Sliding Tabs script by Jenna Fox. You can click the links at the top or use the arrows to move to different panes. If you dig the effect, go check out <a href="/journal/scripts/sliding-tabs/">the docs</a>, and if you use it, make sure to <a href="/#support">donate something</a>! Oh and if you need any help getting the script set up, feel free to drop me a <a href="/#contact">message</a>.
+                                      This is a demo for the donationware Sliding Tabs script by Jenna Fox. You can click the links at the top or use the arrows to move to different panes. If you dig the effect, go check out the docs, and if you use it, make sure to donate something! Oh and if you need any help getting the script set up, feel free to drop me a message.
                                </div>
 
                                <div id="contenttwo" class="hidden">
-                                       This is the second. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Check out <a href="/journal/scripts/sliding-tabs/">the docs</a>.
+                                       This is the second. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Check out the docs
                                </div>
                                <div id="contentthree" class="hidden">
-                                       And the third. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Check out <a href="/journal/scripts/sliding-tabs/">the docs</a>.
+                                       <ul id="navigation">
+									    <li id="seven"><a href="javascript:void(0);">In the News</a></li>
+                               <li id="eight"><a  href="javascript:void(0);">Multimedia </a></li>
+                               <li id="nine"><a href="javascript:void(0);">Facts</a></li>
+                              
+					</ul>
+					<div >
+                               <div id="contentseven" class="hiddens">';
+							   $output.='<table width="100%" border="0">';
+			$i=1;
+while($oListUser=mysql_fetch_object($rlist))
+					{
+ $output.=' <tr>
+    <td width="63%">'.$i++.' '.$oListUser->title.'</td>
+    <td width="37%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><p class="con">'.substr($oListUser->body,0,70).'</p></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>&nbsp;</td>
+  </tr>';
+  }
+  $output.='</table>
+							</div>
+							<div id="contenteight" class="hiddens">
+							<p> sdfsfs </p> 
+							</div>
+							
+							
+								<div id="contentnine" class="hiddens">
+							<p> ertertert </p> 
+							</div>   
+					</div>		   
                                </div>
 							   
 							    <div id="contentfour" class="hidden">
@@ -115,9 +150,22 @@ $rlist=mysql_query($vSql);
 			Number of Resources: 0</p>
 		
                                </div>
- <div id="contentsix" class="hidden">
-                                 <p> Gurus Content comes here </p> 
-                               </div>
+							<div id="contentsix" class="hidden">
+							<p> Gurus Content comes here </p> 
+							</div>
+							
+							
+							<div id="contentseven" class="hidden">';
+							
+							
+		  
+		
+		$output.='
+								
+							
+							
+							
+							
                             </div>   
 </div>
       
