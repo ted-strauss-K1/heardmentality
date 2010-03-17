@@ -5,6 +5,7 @@
 
 
 /* Style for Usual tabs */
+.hidden{display:none;}
 .usual {
   background:#181818;
   color:#111;
@@ -40,7 +41,7 @@
   *margin-top:-15px;
   clear:left;
   background:snow;
-  font:10pt Georgia;
+  /*font:10pt Georgia;*/
 }
 .usual div a { color:#000; font-weight:bold; }
 
