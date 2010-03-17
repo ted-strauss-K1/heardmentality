@@ -6,7 +6,7 @@
 	function my_question(){
 	
 	global $gSitePath,$user, $gDocPath,$base_root;
-	
+	$strReturn='';
 	/*$client_select =db_query("SELECT *  FROM {question} where uid='".$user->uid."'");
 	$client_array=array();
 		$client_key=array();
@@ -54,7 +54,8 @@
 	
 	
 			global $gSitePath,$user, $gDocPath,$base_root;
-				drupal_add_js('misc/firebug-lite-compressed.js');
+			$output='';
+				//drupal_add_js('misc/firebug-lite-compressed.js');
 				
 			drupal_add_js('misc/jquery.js');
 			drupal_add_js('misc/ui.core.min.js');
@@ -63,9 +64,9 @@
 			drupal_add_css('misc/themes/base/ui.all.css');
 			$output.='
 			
-			 <script type="text/javascript">
-  firebug.env.height = 100;
-  </script>
+			// <script type="text/javascript">
+//  firebug.env.height = 100;
+//  </script>
 
 				<script type="text/javascript" >
 jQuery(function() {
@@ -307,7 +308,7 @@ global $user;
 //print_r($_REQUEST);
 	extract($_REQUEST);
 	$output='';
-	
+	$g_global='';
 	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($q_edate)) {
 	  $edate=$q_edate;
 		 $result =   db_query("INSERT INTO {question} (uid,question,context,cid,scid,sscid,global,country,state,city,enddate) VALUES (%d,'%s','%s','%s','%s','%s','%s','%s','%s', '%s','%s')", $user->uid,$q_quest,$q_context,$cat1,$cat2,$cat3,$q_global,$q_country,$q_state,$q_city,$edate);
@@ -324,7 +325,7 @@ global $user;
 		 
 		 if($result)
 		 drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
-		 
+		 drupal_goto("question");
 		  }
 		   else {
 		   
@@ -388,7 +389,7 @@ function edit_question(){
 	
 	
 			global $gSitePath,$user, $gDocPath,$base_root;
-			
+			$output='';
 				
 			drupal_add_js('misc/jquery.js');
 			drupal_add_js('misc/ui.core.min.js');
