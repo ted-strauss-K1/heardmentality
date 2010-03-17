@@ -3,7 +3,7 @@
 
 function qlite_view()
 {
-global $gSitePath,$user;
+	global $gSitePath,$user, $gDocPath,$base_root;
 	
 
 
@@ -21,7 +21,7 @@ global $gSitePath,$user;
 		$username=db_query($vuser);
 		$ufet=db_fetch_object($username);
 		
-			$output='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save" >
+			$output.='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save" >
   <table width="100%" border="0" align="center"><input type="hidden" name="mid" value="'.$qid.'">
   <tr>
 		<td width="16%" align="right" valign="top"><strong>Question:</strong></td>
@@ -47,7 +47,7 @@ global $gSitePath,$user;
 			$output.= '
 			<tr>
 			  <td align="right">&nbsp;</td>
-			  <td><input name="answer" type="radio" value="'.$vlistquest->answer.'" />
+			  <td><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
 '.$vlistquest->answer.'</td>
   </tr>';
 	
@@ -57,8 +57,8 @@ global $gSitePath,$user;
   <tr>
     <td align="right">ACTIONS </td>
     <td>
-      <select name="txt_act" id="select">
-	  <option value=""> Select</option >
+      <select name="txt_act" id="txt_act">
+	  <option value="0"> Select</option >
       <option value="1"> Withdraw answer</option >
        <option value="2"> Invite</option >
       <option value="3"> Flag</option >
@@ -73,7 +73,7 @@ global $gSitePath,$user;
 			    <input type="submit" name="save" id="save" value="Save" />
 			 </td></tr>
  </table>
-</form>';
+';
 		
 			
 	$output.='
@@ -144,7 +144,7 @@ global $gSitePath,$user;
 		</div>
 	</div> 
 	  
-	  </div>
+	  </div></form>
 	  
 
 ';
@@ -155,37 +155,62 @@ global $gSitePath,$user;
 function qlite_save()
 {
 
-	global $gSitePath,$user;
+		global $gSitePath,$user, $gDocPath,$base_root;
 $mid=$_REQUEST['mid'];
+
 	$voutput='';
 		$vquest="select * from {possible_answer} where paid='".$_REQUEST['answer']."'  ";
 		$rquest=db_query($vquest);
 		$olistquest=db_fetch_object($rquest);
-		  if (!empty($_REQUEST['answer'])) {
-		
-		 $list_length = db_query("select * from {user_answers} where qid='".$olistquest->qid."' and uid='".$user->uid."' ");
-		 $numr=mysql_num_rows($list_length);
-		 echo $numr;
-		 if($numr==0)
+		 
+		 if(($_REQUEST['answer']!=''))
 		 {
-		$vInsQuery="insert into user_answers(qid, ans_id,uid,answered_date) values ('".$olistquest->qid."', '".$_REQUEST['answer']."','".$user->uid."','".date('Y-m-d h:i:s')."')";
+		$list_length = db_query("select * from {user_answers} where qid='".$mid."' and uid='".$user->uid."' ");
+		$numr=mysql_num_rows($list_length);
+		echo $numr;
+		if($numr==0)
+		{
+		$vInsQuery="insert into user_answers(qid, ans_id,uid,answered_date) values ('".$mid."', '".$_REQUEST['answer']."','".$user->uid."','".date('Y-m-d h:i:s')."')";
 		db_query($vInsQuery);
 		
-		 drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
-	    drupal_goto("qlite/view/$mid");
+		drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
+		drupal_goto("qlite/view/$mid");
 		}
 		else
 		{
 		drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
-				drupal_goto("qlite/view/$mid");
+		drupal_goto("qlite/view/$mid");
 		
 		}
-	    }
-		else {
-		   
-				drupal_set_message($message = 'You Have Not Choosed Your answer!', $type = 'error');
-				drupal_goto("qlite/view/$mid");
+		
+		}
+		
+		
+		 
+		 if($_REQUEST['txt_act']==1)
+		 {
+		  $list_length = db_query("select * from {user_answers} where qid='".$mid."' and uid='".$user->uid."' ");
+		 $numr=mysql_num_rows($list_length);
+		 echo $numr;
+		 if($numr==0)
+		 {
+		 
+		 drupal_set_message($message = 'You Have Not Posted Answer !', $type = 'error');
+		 drupal_goto("qlite/view/$mid");
+		 }
+		  else
+		  {
+		  $delQuery="delete from  user_answers where qid='".$mid."' and uid='".$user->uid."' ";
+		db_query($delQuery);
+		
+		 drupal_set_message(t('Your Answer has beed  Removed successfully!'), $type = 'success');
+	    drupal_goto("qlite/view/$mid");
+		  
 		  }
+		  
+		  }
+		  
+		
 	   return $voutput;
 
 }
