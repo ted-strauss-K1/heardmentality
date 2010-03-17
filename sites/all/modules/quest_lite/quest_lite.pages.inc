@@ -3,15 +3,12 @@
 
 function qlite_view()
 {
-	global $gSitePath,$user, $gDocPath,$base_root;
+	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	
 
-
-		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
-		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
-			drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');	
-	drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/jtabsn.js');	
-	drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/jtabsn2.js');	
+drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
+drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
+			drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
  $qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
@@ -20,6 +17,12 @@ function qlite_view()
 		$vuser="select * from {users} where  uid=$oListquest->uid ";
 		$username=db_query($vuser);
 		$ufet=db_fetch_object($username);
+		$vSql="SELECT *
+FROM node_revisions as a JOIN node as b
+ON a.nid = b.nid and 
+b.type='news_page' ";
+$rlist=mysql_query($vSql);
+
 		
 			$output.='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save" >
   <table width="100%" border="0" align="center"><input type="hidden" name="mid" value="'.$qid.'">
@@ -77,80 +80,53 @@ function qlite_view()
 		
 			
 	$output.='
-     
-      
-
-          
-	   <div id="usual2" class="usual">
+     <div id="usual2" class="usual">
 	  
 	  <ul id="navigation">
 
-		<li><a href="#c1">Reporting</a></li>
-		<li><a href="#c2">Forum</a></li>
-		<li><a href="#c3">Resources</a></li>
-		<li><a href="#c4">Gurus</a></li>
-		<li><a href="#c5">Info</a></li>
-		<li><a href="#c6">Politician</a></li>
-		<li><a href="#c7">Raw Data</a></li>
-	</ul>
-	
-	<div id="container">
-	
-		<div class="content">
-			<a name="c1" id="c1"></a>
+		 <li id="one"><a href="javascript:void(0);">Reporting</a></li>
+                               <li id="two"><a href="javascript:void(0);">Forum</a></li>
+                               <li id="three"><a href="javascript:void(0);">Resources</a></li>
+                               <li id="four"><a href="javascript:void(0);">Gurus</a></li>
+                               <li id="five"><a href="javascript:void(0);">Info</a></li>
+							    <li id="six"><a href="javascript:void(0);">Politician</a></li>
+					</ul>
+               <div id="container">
+                               <div id="contentone" class="hidden">
+                                      This is a demo for the donationware Sliding Tabs script by Jenna Fox. You can click the links at the top or use the arrows to move to different panes. If you dig the effect, go check out <a href="/journal/scripts/sliding-tabs/">the docs</a>, and if you use it, make sure to <a href="/#support">donate something</a>! Oh and if you need any help getting the script set up, feel free to drop me a <a href="/#contact">message</a>.
+                               </div>
 
-			<h1>Reporting</h1>
-			<p>Here is some content, I hope that you like it!</p>
-		</div>
+                               <div id="contenttwo" class="hidden">
+                                       This is the second. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Check out <a href="/journal/scripts/sliding-tabs/">the docs</a>.
+                               </div>
+                               <div id="contentthree" class="hidden">
+                                       And the third. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Check out <a href="/journal/scripts/sliding-tabs/">the docs</a>.
+                               </div>
+							   
+							    <div id="contentfour" class="hidden">
+                                  Gurus Content comes here  
+                               </div>
+							   
+							    <div id="contentfive" class="hidden">
+                                         <p>Question Author: '.$ufet->name.' <br>
+			Date Created: '.format_date($oListquest->date_added, 'custom', 'D j M Y'). ' <br>
+			Number of Votes: 0<br>
+			Number of Forum Posts: 0 <br>
+			Number of Resources: 0</p>
 		
-		<div class="content">
-			<a name="c2" id="c2"></a>
-			<h2>Forum</h2>
-			<p>Now that you have read content block 1, you can learn more in this block</p>
-
-		</div>
-		
-		<div class="content">
-			<a name="c3" id="c3"></a>
-			<h3>Resources </h3>
-			<p>In conclusion, content blocks are fun</p>
-		</div>
-		<div class="content">
-			<a name="c4" id="c4"></a>
-			<h3>Gurus</h3>
-			<p>In conclusion, content blocks are fun</p>
-		</div>
-	 <div class="content">
-	
-			<a name="c5" id="c5"></a>
-			<h2>Info</h2>
-			<p>Question Author: '.$ufet->name.' </p>
-			<p>Date Created:'.$oListquest->date_added.' </p>
-			<p>Number of Votes: 0</p>
-			<p>Number of Forum Posts: 0 </p>
-			<p>Number of Resources: 0</p>
-		</div>
-		
-		<div class="content">
-			<a name="c6" id="c6"></a>
-			<h3>Politiciain</h3>
-			<p>In conclusion, content blocks are fun</p>
-		</div>
-		
-		<div class="content">
-			<a name="c7" id="c7"></a>
-			<h3>Raw Data</h3>
-			<p>In conclusion, content blocks are fun</p>
-		</div>
-	</div> 
-	  
-	  </div></form>
+                               </div>
+ <div id="contentsix" class="hidden">
+                                 <p> Gurus Content comes here </p> 
+                               </div>
+                            </div>   
+</div>
+      
+	  </form>
 	  
 
 ';
     return $output;
 }
-
 
 function qlite_save()
 {
