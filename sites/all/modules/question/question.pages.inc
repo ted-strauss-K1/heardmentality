@@ -711,7 +711,11 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 //delete confirm
 
 function question_delete_confirm(&$form_state, $question) {
-	
+  $nid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$form['nid'] = array(
+		'#type' => 'hidden',
+		'#value' => $nid,
+	);
 
 	$form['qid'] = array(
 		'#type' => 'hidden',
@@ -733,11 +737,14 @@ function question_delete_confirm(&$form_state, $question) {
 	$form_values = $form_state['values'];
  
 	if ($form_state['values']['confirm']) {
-		$qid = $form_state['values']['qid'];
+		echo $qid = $form_state['values']['qid'];
  
-	db_query("delete from {question} where qid='".$qid."' AND uid='".$user->uid."'");
+	$result=db_query("delete from {question} where qid='".$qid."' AND uid='".$user->uid."'");
  	db_query("delete from {possible_answer} where qid='".$qid."'");
-		drupal_set_message(t('Question has been deleted successfully.'));
+		if($result)
+		drupal_set_message(t('Question has been deleted successfully.',$type='success'));
+		else
+		drupal_set_message(t('sorry error Occurs, Try Again! .',$type='error'));
   	}
  
 	drupal_goto("question/");
