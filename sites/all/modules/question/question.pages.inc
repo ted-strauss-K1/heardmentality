@@ -1,7 +1,53 @@
 <?php
 
+	//my question
 	
 	
+	function my_question(){
+	
+	global $gSitePath,$user, $gDocPath,$base_root;
+	
+	/*$client_select =db_query("SELECT *  FROM {question} where uid='".$user->uid."'");
+	$client_array=array();
+		$client_key=array();
+		
+			while($list=db_fetch_object($client_select))
+			{
+	
+					$client_array[] = $list->cat_name;
+					$client_key[]=$list->cat_id;
+	
+			}	
+			*/
+			
+			$query="SELECT *  FROM {question} where uid='".$user->uid."'";
+		$list=ExecuteQuery($query,"select");
+		
+		
+			
+	  
+	 $strReturn.='<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+		for($i=0;$i<count($list);$i++){
+	
+			 $strReturn.='<tr><td>';
+			 $strReturn.=$list[$i]['question'];
+			 $strReturn.='</td><td>'.$list[$i]['date_added'].'</td><td>';
+			 
+			  $strReturn.='<a href="'.$gSitePath.'qlite/view/'.$list[$i]['qid'].'">View</a>';
+			 
+			  $strReturn.='</td></tr>';
+			  
+		}
+
+		  $strReturn.='</table>';
+		if(count($list)<1){
+	drupal_set_message($message = 'No Questions Found!', $type = 'error');
+		}
+		
+		return $strReturn;
+	
+	
+	}
 // question add
 
 	function question_add(){
@@ -48,9 +94,24 @@ jQuery(\'#q_cat\').bind("change", function(){
  
       });
  var str1 = foo.toString();
-get_subcat(str1);
+ var divid="chg_scat";
+ jQuery(\'#cat1\').val(str1);
+get_subcat(str1,divid,1);
  });
  
+ jQuery(\'#q_scat\').bind("change", function(){
+
+      var foo = [];
+
+      jQuery(\'#q_cat :selected\').each(function(i, selected){
+   		
+          foo[i] = jQuery(selected).val();
+ 
+      });
+ var str2 = foo.toString();
+ var divid="chg_sscat";
+get_subcat(str2,divid,2);
+ });
  
  
       jQuery(\'#Add\').bind("click", function(){
@@ -70,22 +131,59 @@ jQuery(\'#add_more\').slideDown();
 
   });
 
-function get_subcat(ids){
+function get_subcat(ids,divid,level){
 
- 		alert(ids);
-		jQuery.ajax({
-   type: "POST",
-   url: "'.$gSitePath.'question/ajax",
-   data: "action=scat&ids="+ids,
-   success: function(msg){
-   	      jQuery(\'#chg_scat\').html(msg);
-	 
-   }
- });
+ 		if(ids.length>0){
+				jQuery.ajax({
+		   type: "POST",
+		   url: "'.$gSitePath.'question/ajax",
+		   data: "action="+level+"&ids="+ids,
+		   success: function(msg){
+				  jQuery(\'#\'+divid+\'\').html(msg);
+			 
+		   }
+		 });
+
+}else{
+ jQuery(\'#\'+divid+\'\').html(\'No Subcategory\');
+}
+}
+
+function get_sscat(level){
+
+
+ 
+ 
+if(level==1){
+
+	 var foo = [];
+
+      jQuery(\'#q_scat :selected\').each(function(i, selected){
+   		
+          foo[i] = jQuery(selected).val();
+ 
+      });
+ var str2 = foo.toString();
+
+
+
+jQuery(\'#cat2\').val(str2);
+ var divid="chg_sscat";
+get_subcat(str2,divid,2);
+}else{
 
 		
+	 var foo = [];
 
+      jQuery(\'#q_sscat :selected\').each(function(i, selected){
+   		
+          foo[i] = jQuery(selected).val();
+ 
+      });
+ var str2 = foo.toString();
 
+jQuery(\'#cat3\').val(str2);
+}
 }
 </script>
 			
@@ -145,13 +243,13 @@ width:775px; scroll;"></textarea>  </td>
 		$output.= '<option value="'.$list->cat_id.'">'.$list->cat_name.'</option>';
 		
 		}	 $output.='</select></div></td>
-        <td><select name="q_sscat[]" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
+        <td><div id="chg_sscat"><select name="q_sscat[]" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
      $client_select2 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     while($list=db_fetch_object($client_select2))
 					{
 		$output.= '<option value="'.$list->cat_id.'">'.$list->cat_name.'</option>';
 		
-		}	 $output.='</select></td>
+		}	 $output.='</select></div></td>
       </tr>
     </table></td>
   </tr>
@@ -159,7 +257,7 @@ width:775px; scroll;"></textarea>  </td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>
-       <input type="button" name="Add" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2">  </td>
+       <input type="button" name="Add" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> </td>
     <td width="13%"><input type="text" name="q_country" id="q_country" value="country" size="30" /></td>
     <td width="13%"><input type="text" name="q_state" id="q_state" value="state"  size="30"/></td>
     <td width="43%"><input type="text" name="q_city" id="q_city" value="city"  size="30"/></td>
@@ -206,13 +304,13 @@ function question_save()
 global $user;
 
 	$q_quest='';
-	//print_r($_REQUEST);
+//print_r($_REQUEST);
 	extract($_REQUEST);
 	$output='';
 	
 	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($q_edate)) {
-	 echo $edate=$q_edate;
-		 $result =   db_query("INSERT INTO {question} (uid,question,context,cid,scid,sscid,global,country,state,city,enddate) VALUES (%d,'%s','%s','%s','%s','%s','%s','%s','%s', '%s','%s')", $user->uid,$q_quest,$q_context,$q_cid,$q_scid,$q_sscid,$q_global,$q_country,$q_state,$q_city,$time,$edate);
+	// echo $edate=$q_edate." 00:00:00";
+		 $result =   db_query("INSERT INTO {question} (uid,question,context,cid,scid,sscid,global,country,state,city,enddate) VALUES (%d,'%s','%s','%s','%s','%s','%s','%s','%s', '%s','%s')", $user->uid,$q_quest,$q_context,$cat1,$cat2,$cat3,$q_global,$q_country,$q_state,$q_city,$time,$edate);
 		
 		 $ins_id=db_last_insert_id('question','qid');
 		 for($i=1;$i<=$ans_cnt;$i++)
@@ -239,9 +337,10 @@ global $user;
 
 
 		function question_ajax(){
-		print_r($_REQUEST);
+		//print_r($_REQUEST);
+			$ret='';
 		extract($_REQUEST);
-			$client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('$ids')");
+			$client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ($ids)");
 		
 		$client_array=array();
 		$client_key=array();
@@ -253,15 +352,25 @@ global $user;
 					$client_key[]=$list->cat_id;
 	
 			}
+			if(!empty($client_array)){
 			
-			$ret='<select size="5" multiple="multiple" id="q_scat" name="q_scat[]"> ';
+			if($action==1)
+			$qscat="q_scat";
+			if($action==2)
+			$qscat="q_sscat";
+			
+			$ret='<select size="5" multiple="multiple" onchange="get_sscat('.$action.');" id="'.$qscat.'" name="q_scat[]"> ';
 		for($i=0;$i<count($client_array);$i++){
 		
 		$ret.='<option value="'.$client_key[$i].'">'.$client_array[$i].'</option>';
 	
 	}
 	$ret.="</select>";
-		return $ret;
+	
+	}else{
+	$ret.='No Subcategory';
+	}
+		echo $ret;
 			exit;
 		
 		}
