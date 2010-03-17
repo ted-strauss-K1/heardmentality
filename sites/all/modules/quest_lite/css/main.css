@@ -53,6 +53,12 @@
 #tabs3 { background:#FF9; }
 
 /* Style for various uses of tabs */
-.con{text-align:left; color:#fff; font-style:italic; width:90%; margin: 10px auto; }
+.con{text-align:left; color:#000; font:10px Verdana;width:90%; margin: 10px auto; }
 
 
+.linktab{text-decoration:none!important;
+  margin:1px;
+  margin-left:0;
+  font:10px Verdana;
+  color:#FFF;
+ }
