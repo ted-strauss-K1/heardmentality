@@ -25,7 +25,7 @@ $rlist=mysql_query($vSql);
 
 		
 			$output.='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save" >
-  <table width="100%" border="0" align="center"><input type="hidden" name="mid" value="".$qid."">
+  <table width="100%" border="0" align="center"><input type="hidden" name="mid" value="'.$qid.'">
   <tr>
 		<td width="16%" align="right" valign="top"><strong>Question:</strong></td>
 		<td valign="top">'.$oListquest->question.'</td>
