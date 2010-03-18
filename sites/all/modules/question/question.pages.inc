@@ -57,138 +57,73 @@
 			$output='';
 		
 				
-			drupal_add_js('misc/jquery.js');
-			drupal_add_js('misc/ui.core.min.js');
+			//drupal_add_js('misc/jquery.js');
+			//drupal_add_js('misc/ui.core.min.js');
 			
-			drupal_add_js('misc/ui.datepicker.min.js');
-			drupal_add_css('misc/themes/base/ui.all.css');
+			//drupal_add_js('misc/ui.datepicker.min.js');
+			//drupal_add_css('misc/themes/base/ui.all.css');
 			$output.='
 	
-				<script type="text/javascript" >
+				<script type="text/javascript">
+						function add_ans(){
+					
+						 var ans_cnt=$(\'ans_cnt\').value;
+   							ans_cnts=++ans_cnt;	
+							if(ans_cnt<11){
+							$(\'ans_cnt\').set(\'value\',ans_cnts);
+						//	$(\'add_more\').set(\'html\',\'  <p>&nbsp;</p>\');
+							 var firstElem  = new Element("input", {name: "q_ans\'+ans_cnt+\'"}); 
+									//$(\'add_more\').adopt(firstElem);
+									// var slot = new Element(\'input\');
+   										// slot.inject($(\'add_more\'));
+											
+						
+					$(\'add_more\').innerHTML += \'  <p>&nbsp;</p> <div><input name="q_ans\'+ans_cnts+\'" type="text" id="q_ans\'+ans_cnts+\'" size="40" /></div>\';
+						$(\'add_more\').getLast().highlight(\'#FF0000\', \'#6DB6DB\');
+											}else{
+											$(\'add_more\').innerHTML += \'  <p>&nbsp;</p> <div>Only Upto 10 Answers are allowed!</div>\';
+						$(\'add_more\').getLast().highlight(\'#FF0000\', \'#6DB6DB\');
+											}
+
+							}
+						
 				
-				  jQuery.noConflict();
-
-							jQuery(function() {
-									jQuery("#q_edate").datepicker({
-										changeMonth: true,
-										changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\' 
-									});
-							
-									
-								});
-							
-							
-							
-							function add_ans_field(){
-							 
-							}
-							
-							  jQuery.noConflict();
-
-							 jQuery(document).ready(function(){
-							 
-							jQuery(\'#q_cat\').bind("change", function(){
-							
-								  var foo = [];
-							
-								  jQuery(\'#q_cat :selected\').each(function(i, selected){
-									
-									  foo[i] = jQuery(selected).val();
-							 
-								  });
-							 var str1 = foo.toString();
-							 var divid="chg_scat";
-							 jQuery(\'#cat1\').val(str1);
-							get_subcat(str1,divid,1);
-							 });
-							 
-							 jQuery(\'#q_scat\').bind("change", function(){
-							
-								  var foo = [];
-							
-								  jQuery(\'#q_cat :selected\').each(function(i, selected){
-									
-									  foo[i] = jQuery(selected).val();
-							 
-								  });
-							 var str2 = foo.toString();
-							 var divid="chg_sscat";
-							get_subcat(str2,divid,2);
-							 });
-							 
-							 
-										  jQuery(\'#Add\').bind("click", function(){
-										  
-										  var ans_cnt=jQuery(\'#ans_cnt\').val();
-									ans_cnt=++ans_cnt;
-									jQuery(\'#ans_cnt\').val(ans_cnt);
-									jQuery(\'#add_more\').slideUp();
-									jQuery(\'#add_more\').append(\'  <p>&nbsp;</p>\');
-									jQuery(\'#add_more\').append(\'  <div><input name="q_ans\'+ans_cnt+\'" type="text" id="q_ans\'+ans_cnt+\'" size="40" /></div>\');
-									
-									//jQuery(\'#add_more\').css("border", "1px solid red");
-									jQuery(\'#add_more\').css("padding-top", "2px");
-									jQuery(\'#add_more\').css("padding-bottom", "2px");
-									jQuery(\'#add_more\').slideDown();
-										  });
-									
-									  });
-							
-							function get_subcat(ids,divid,level){
-							
+			function get_subcat(sid,divid,level){
+			
+										var foo = [];
+										$(sid).getSelected().each(function(number,i){
+										if(number.value!=\'\'){
+										  foo[i] =number.value;
+												}
+											});
+										var foo = foo.filter(function(item, index){
+    return item > 0;
+});
+			  						 var ids = foo.toString();
+			   
+			  
 									if(ids.length>0){
-											jQuery.ajax({
-									   type: "POST",
-									   url: "'.$gSitePath.'question/ajax",
-									   data: "action="+level+"&ids="+ids,
-									   success: function(msg){
-											  jQuery(\'#\'+divid+\'\').html(msg);
-										 
-									   }
-									 });
+									
+									
+									var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':level,\'ids\':ids},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(divid).set(\'html\', response);
+											}
+									}).send();
 							
 							}else{
-							 jQuery(\'#\'+divid+\'\').html(\'No Subcategory\');
+							 $(divid).set(\'html\',\'No Subcategory\');
 							}
-							}
-							
-							function get_sscat(level){
-							
-							
-							 
-							 
-							if(level==1){
-							
-								 var foo = [];
-							
-								  jQuery(\'#q_scat :selected\').each(function(i, selected){
-									
-									  foo[i] = jQuery(selected).val();
-							 
-								  });
-							 var str2 = foo.toString();
+							}	
+						
 							
 							
-							
-							jQuery(\'#cat2\').val(str2);
-							 var divid="chg_sscat";
-							get_subcat(str2,divid,2);
-							}else{
-							
-									
-								 var foo = [];
-							
-								  jQuery(\'#q_sscat :selected\').each(function(i, selected){
-									
-									  foo[i] = jQuery(selected).val();
-							 
-								  });
-							 var str2 = foo.toString();
-							
-							jQuery(\'#cat3\').val(str2);
-							}
-							}
-			</script>
+						</script>
 			
 			';
 			
@@ -231,7 +166,7 @@ width:775px; scroll;"></textarea>  </td>
     <td colspan="3"><table width="100%" border="0">
 	<tr><td colspan="3" height="40"  valign="middle" >Categories</td></tr>
       <tr>
-        <td><select name="q_cat[]" id="q_cat" multiple="multiple"  size="5"><option value="">Select Category</option>'; 
+        <td><select name="q_cat[]" id="q_cat" multiple="multiple" onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" size="5"><option value="">Select Category</option>'; 
 		$client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
       while($list=db_fetch_object($client_select))
 					{
@@ -263,7 +198,7 @@ width:775px; scroll;"></textarea>  </td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>
-       <input type="button" name="Add" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> </td>
+       <input type="button" name="Add" onclick="add_ans();" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> </td>
     <td width="13%"><input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" /></td>
     <td width="13%"><input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/></td>
     <td width="43%"><input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/></td>
@@ -406,127 +341,67 @@ function edit_question(){
 			
 			
 			$output.='
-		
-		<script type="text/javascript" >
-							  jQuery.noConflict();
+		<script type="text/javascript">
+						function add_ans(){
+					
+						 var ans_cnt=$(\'ans_cnt\').value;
+   							ans_cnts=++ans_cnt;	
+							if(ans_cnt<11){
+							$(\'ans_cnt\').set(\'value\',ans_cnts);
+						//	$(\'add_more\').set(\'html\',\'  <p>&nbsp;</p>\');
+							 var firstElem  = new Element("input", {name: "q_ans\'+ans_cnt+\'"}); 
+									//$(\'add_more\').adopt(firstElem);
+									// var slot = new Element(\'input\');
+   										// slot.inject($(\'add_more\'));
+											
+						
+					$(\'add_more\').innerHTML += \'  <p>&nbsp;</p> <div><input name="q_ans\'+ans_cnts+\'" type="text" id="q_ans\'+ans_cnts+\'" size="40" /></div>\';
+						$(\'add_more\').getLast().highlight(\'#FF0000\', \'#6DB6DB\');
+											}else{
+											$(\'add_more\').innerHTML += \'  <p>&nbsp;</p> <div>Only Upto 10 Answers are allowed!</div>\';
+						$(\'add_more\').getLast().highlight(\'#FF0000\', \'#6DB6DB\');
+											}
 
-							jQuery(function() {
-									jQuery("#q_edate").datepicker({
-										changeMonth: true,
-										changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\' 
-									});
-							
+							}
+						
+				
+			function get_subcat(sid,divid,level){
+			
+										var foo = [];
+										$(sid).getSelected().each(function(number,i){
+										if(number.value!=\'\'){
+										  foo[i] =number.value;
+												}
+											});
+										var foo = foo.filter(function(item, index){
+    return item > 0;
+});
+			  						 var ids = foo.toString();
+			   
+			  
+									if(ids.length>0){
 									
-								});
+									
+									var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':level,\'ids\':ids},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(divid).set(\'html\', response);
+											}
+									}).send();
 							
-
-
-						function add_ans_field(){
-						 
-						}
-						  jQuery.noConflict();
-
-						 jQuery(document).ready(function(){
-						 
-						jQuery(\'#q_cat\').bind("change", function(){
+							}else{
+							 $(divid).set(\'html\',\'No Subcategory\');
+							}
+							}	
 						
-							  var foo = [];
-						
-							  jQuery(\'#q_cat :selected\').each(function(i, selected){
-								
-								  foo[i] = jQuery(selected).val();
-						 
-							  });
-						 var str1 = foo.toString();
-						 var divid="chg_scat";
-						 jQuery(\'#cat1\').val(str1);
-						get_subcat(str1,divid,1);
-						 });
- 
-						 jQuery(\'#q_scat\').bind("change", function(){
-						
-							  var foo = [];
-						
-							  jQuery(\'#q_cat :selected\').each(function(i, selected){
-								
-								  foo[i] = jQuery(selected).val();
-						 
-							  });
-						 var str2 = foo.toString();
-						 var divid="chg_sscat";
-						get_subcat(str2,divid,2);
-						 });
-						 
- 
-						  jQuery(\'#Add\').bind("click", function(){
-						  
-						  var ans_cnt=jQuery(\'#ans_cnt\').val();
-					ans_cnt=++ans_cnt;
-					jQuery(\'#ans_cnt\').val(ans_cnt);
-					jQuery(\'#add_more\').slideUp();
-					jQuery(\'#add_more\').append(\'  <p>&nbsp;</p>\');
-					jQuery(\'#add_more\').append(\'  <div><input name="q_ans\'+ans_cnt+\'" type="text" id="q_ans\'+ans_cnt+\'" size="40" /></div>\');
-					
-					//jQuery(\'#add_more\').css("border", "1px solid red");
-					jQuery(\'#add_more\').css("padding-top", "2px");
-					jQuery(\'#add_more\').css("padding-bottom", "2px");
-					jQuery(\'#add_more\').slideDown();
-						  });
-					
-					  });
-
-					function get_subcat(ids,divid,level){
-					
-							if(ids.length>0){
-									jQuery.ajax({
-							   type: "POST",
-							   url: "'.$gSitePath.'question/ajax",
-							   data: "action="+level+"&ids="+ids,
-							   success: function(msg){
-									  jQuery(\'#\'+divid+\'\').html(msg);
-								 
-							   }
-							 });
-					
-					}else{
-					 jQuery(\'#\'+divid+\'\').html(\'No Subcategory\');
-					}
-					}
-
-						function get_sscat(level){
-						
-						if(level==1){
-						
-							 var foo = [];
-						
-							  jQuery(\'#q_scat :selected\').each(function(i, selected){
-								
-								  foo[i] = jQuery(selected).val();
-						 
-							  });
-						 var str2 = foo.toString();
-						
-						
-						
-						jQuery(\'#cat2\').val(str2);
-						 var divid="chg_sscat";
-						get_subcat(str2,divid,2);
-						}else{
-						
-								
-							 var foo = [];
-						
-							  jQuery(\'#q_sscat :selected\').each(function(i, selected){
-								
-								  foo[i] = jQuery(selected).val();
-						 
-							  });
-						 var str2 = foo.toString();
-						
-						jQuery(\'#cat3\').val(str2);
-						}
-						}
-		</script>
+							
+							
+						</script>
+		
 			
 			';
 			
@@ -580,7 +455,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     <td colspan="3"><table width="100%" border="0">
 
       <tr>
-        <td><select name="q_cat[]" id="q_cat" multiple="multiple"  size="5"><option value="">Select Category</option>'; 
+        <td><select name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>'; 
 		$client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
 		 $ecat1=explode(",",$quest->cid);
 		
@@ -633,7 +508,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>
-       <input type="button" name="Add" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'"><input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">&nbsp;<input type="hidden" id="cat2" name="cat2" value="'.$quest->scid.'">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="'.$quest->sscid.'"> </td>
+       <input type="button" name="Add" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'"><input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">&nbsp;<input type="hidden" id="cat2" name="cat2" value="'.$quest->scid.'">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="'.$quest->sscid.'"> </td>
  <td width="13%"><input type="text" name="q_country" id="q_country" value="'.$quest->country.'" size="30" /></td>
     <td width="13%"><input type="text" name="q_state" id="q_state" value="'.$quest->state.'"  size="30"/></td>
     <td width="43%"><input type="text" name="q_city" id="q_city" value="'.$quest->city.'"  size="30"/></td>
@@ -698,9 +573,9 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 			if($action==1)
 			$qscat="q_scat";
 			if($action==2)
-			$qscat="q_sscat";
+			$qscat="q_sscat";														//	get_subcat(\'q_cat\',\'chg_scat\',1);
 			
-			$ret='<select size="5" multiple="multiple" onchange="get_sscat('.$action.');" id="'.$qscat.'" name="q_scat[]"> ';
+			$ret='<select size="5" multiple="multiple" onchange="get_subcat('.$qscat.',\'chg_sscat\','.++$action.');" id="'.$qscat.'" name="q_scat[]"> ';
 		for($i=0;$i<count($client_array);$i++){
 		
 		$ret.='<option value="'.$client_key[$i].'">'.$client_array[$i].'</option>';
