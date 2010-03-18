@@ -249,7 +249,7 @@ global $user;
 	extract($_REQUEST);
 	$output='';
 	$g_global='';
-	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($q_edate)) {
+	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($q_edate)&&!empty($cat1)) {
 	  $edate=$q_edate;
 		 $result =   db_query("INSERT INTO {question} (uid,question,context,cid,scid,sscid,global,country,state,city,enddate) VALUES (%d,'%s','%s','%s','%s','%s','%s','%s','%s', '%s','%s')", $user->uid,$q_quest,$q_context,$cat1,$cat2,$cat3,$q_global,$q_country,$q_state,$q_city,$edate);
 		
@@ -268,8 +268,21 @@ global $user;
 		 drupal_goto("question");
 		  }
 		   else {
-		   
-				drupal_set_message($message = 'Sorry, Some Of The required fields are Empty!', $type = 'error');
+		   		
+				drupal_set_message($message = 'Sorry, Following required fields are Empty!', $type = 'error');
+				
+				if(empty($q_quest))
+				drupal_set_message($message = 'Question should not be Empty!', $type = 'error');
+				
+				if(empty($q_ans1)||empty($q_ans2))
+				drupal_set_message($message = 'Minimum 2 answers should be needed!', $type = 'error');
+				
+				if(empty($cat1))
+				drupal_set_message($message = 'Main Category should not be Empty!', $type = 'error');
+				
+				if(empty($q_edate))
+				drupal_set_message($message = 'Expiry Date should not be Empty!', $type = 'error');
+				
 				drupal_goto("question/add");
 		  }
 	
@@ -313,7 +326,19 @@ global $user;
 		  }
 		   else {
 		   
-				drupal_set_message($message = 'Sorry, Some Of The required fields are Empty!', $type = 'error');
+				drupal_set_message($message = 'Sorry, Following required fields are Empty!', $type = 'error');
+				
+				if(empty($q_quest))
+				drupal_set_message($message = 'Question should not be Empty!', $type = 'error');
+				
+				if(empty($q_ans1)||empty($q_ans2))
+				drupal_set_message($message = 'Minimum 2 answers should be needed!', $type = 'error');
+				
+				if(empty($cat1))
+				drupal_set_message($message = 'Main Category should not be Empty!', $type = 'error');
+				
+				if(empty($q_edate))
+				drupal_set_message($message = 'Expiry Date should not be Empty!', $type = 'error');
 				
 		  }
 	
