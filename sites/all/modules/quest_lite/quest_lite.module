@@ -10,6 +10,7 @@ function quest_lite_menu() {
     'title' => 'Question Lite',
     'page callback' => 'qlite_view',
     'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'quest_lite.pages.inc',
   );
  
@@ -18,6 +19,7 @@ function quest_lite_menu() {
     'title' => 'Question Lite',
     'page callback' => 'qlite_save',
     'access arguments' => array('Question Save'),
+	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'quest_lite.pages.inc',
   );
   return $quest;
