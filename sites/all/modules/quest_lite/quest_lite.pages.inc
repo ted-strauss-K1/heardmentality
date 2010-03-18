@@ -24,19 +24,19 @@ b.type='news_page' and b.status='1'  ";
 $rlist=mysql_query($vSql);
 
 		
-			$output.='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save" >
-  <table width="100%" border="0" align="center"><input type="hidden" name="mid" value="'.$qid.'">
-  <tr>
-		<td width="16%" align="right" valign="top"><strong>Question:</strong></td>
-		<td valign="top">'.$oListquest->question.'</td>
+			$output.='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  >
+ <div> <table width="100%" border="0" align="center" ><input type="hidden" name="mid" value="'.$qid.'">
+  <tr  width="100%">
+		<td width="30%" align="right" valign="top"><strong>Question :</strong></td>
+		<td > &nbsp;'.$oListquest->question.'</td>
 	</tr>
 	<tr>
-		<td align="right" valign="top"><strong>Context:</strong></td>
-		<td valign="top"> '.$oListquest->context.'</td>
+		<td align="right" valign="top"><strong>Context :</strong></td>
+		<td > &nbsp; '.$oListquest->context.'</td>
 	</tr>
 
 	<tr>
-		<td align="right"><strong>Answer:</strong></td>
+		<td align="right"><strong>Answer :</strong></td>
 		
 		<td>		</td>
 	</tr>';
@@ -56,9 +56,17 @@ $rlist=mysql_query($vSql);
 	
 		
 		}
+		
+		$output.='
+  <tr>
+    <td align="right">&nbsp; </td>
+    <td>
+      
+    </td>
+  </tr>';
 	$output.='
   <tr>
-    <td align="right">ACTIONS </td>
+    <td align="right" valign="top"><strong>Action :&nbsp;</strong></td>
     <td>
       <select name="txt_act" id="txt_act">
 	  <option value="0"> Select</option >
@@ -75,7 +83,7 @@ $rlist=mysql_query($vSql);
 			  <td>
 			    <input type="submit" name="save" id="save" value="Save" />
 			 </td></tr>
- </table>
+ </table></div>
 ';
 		
 			
