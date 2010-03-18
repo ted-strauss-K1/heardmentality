@@ -20,7 +20,7 @@ drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
 		$vSql="SELECT *
 FROM node_revisions as a JOIN node as b
 ON a.nid = b.nid and 
-b.type='news_page' ";
+b.type='news_page' and b.status='1'  ";
 $rlist=mysql_query($vSql);
 
 		
@@ -120,7 +120,7 @@ while($oListUser=mysql_fetch_object($rlist))
     <td width="37%">&nbsp;</td>
   </tr>
   <tr>
-    <td width="100%"><p class="con">'.substr($oListUser->body,0,70).'</p></td>
+    <td width="100%"><div id="newsd"><p class="con">'.$oListUser->body.'</p></div></td>
     <td width="100%">&nbsp;</td>
   </tr>
   <tr>
