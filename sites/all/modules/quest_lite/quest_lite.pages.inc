@@ -25,7 +25,7 @@ $rlist=mysql_query($vSql);
 
 		
 			$output.='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save" >
-  <table width="100%" border="0" align="center"><input type="hidden" name="mid" value="'.$qid.'">
+  <table width="100%" border="0" align="center"><input type="hidden" name="mid" value="".$qid."">
   <tr>
 		<td width="16%" align="right" valign="top"><strong>Question:</strong></td>
 		<td valign="top">'.$oListquest->question.'</td>
@@ -47,7 +47,7 @@ $rlist=mysql_query($vSql);
 		$vlist=db_query($vans);
 		while($vlistquest=db_fetch_object($vlist))
 		{
-			$output.= '
+			$output.='
 			<tr>
 			  <td align="right">&nbsp;</td>
 			  <td><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
@@ -93,12 +93,12 @@ $rlist=mysql_query($vSql);
 					</ul>
                <div id="container">
                                <div id="contentone" class="hidden">
-                                      This is a demo for the donationware Sliding Tabs script by Jenna Fox. You can click the links at the top or use the arrows to move to different panes. If you dig the effect, go check out the docs, and if you use it, make sure to donate something! Oh and if you need any help getting the script set up, feel free to drop me a message.
+                                     <p class="con"> This is a demo for the donationware Sliding Tabs script by Jenna Fox. You can click the links at the top or use the arrows to move to different panes. If you dig the effect, go check out the docs, and if you use it, make sure to donate something! Oh and if you need any help getting the script set up, feel free to drop me a message.</p>
                                </div>
 
                                <div id="contenttwo" class="hidden">
-                                       This is the second. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Check out the docs
-                               </div>
+                                     <p class="con">  This is the second. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Check out the docs
+                              </p> </div>
                                <div id="contentthree" class="hidden">
                                        <ul id="navigation">
 									    <li id="seven"><a style="font:10px Verdana;
@@ -115,8 +115,8 @@ $rlist=mysql_query($vSql);
 			$i=1;
 while($oListUser=mysql_fetch_object($rlist))
 					{
- $output.=' <tr>
-    <td width="100%"><p class="con">'.$i++.' <strong>'.$oListUser->title.'</strong> </p></td>
+ $output.='<tr>
+    <td width="100%"><p class="con">'.$i++.'<strong>'.$oListUser->title.'</strong> </p></td>
     <td width="37%">&nbsp;</td>
   </tr>
   <tr>
@@ -131,39 +131,42 @@ while($oListUser=mysql_fetch_object($rlist))
   $output.='</table>
 							</div>
 							<div id="contenteight" class="hiddens">
-							<p> Multimedia Content comes here </p> 
+							<p class="con"> Multimedia Content comes here </p> 
 							</div>
 							
 							
 								<div id="contentnine" class="hiddens">
-							<p> Facts comes here  </p> 
+							<p class="con"> Facts comes here  </p> 
 							</div>   
 					</div>		   
                                </div>
 							   
 							    <div id="contentfour" class="hidden">
-                                  Gurus Content comes here  
+                                <p class="con">  Gurus Content comes here  
                                </div>
-							   
+							  
+	
+
+
 							    <div id="contentfive" class="hidden">
-                                         <p>Question Author: '.$ufet->name.' <br>
-			Date Created: '.format_date($oListquest->date_added, 'custom', 'D j M Y'). ' <br>
-			Number of Votes: 0<br>
-			Number of Forum Posts: 0 <br>
-			Number of Resources: 0</p>
+                                         <h1> Question Information </h1><p class="con"> <b>Question Author: </b> '.$ufet->name.' <br>
+			<b>Date Created:</b> '.format_date($oListquest->date_added, "custom", "D j M Y"). ' <br>
+			<b>Number of Votes:</b> 0<br>
+			<b>Number of Forum Posts:</b> 0 <br>
+			<b>Number of Resources:</b> 0</p>
 		
                                </div>
 							<div id="contentsix" class="hidden">
-							<p> Gurus Content comes here </p> 
+							<p class="con"> Gurus Content comes here </p> 
 							</div>
 							
 							
-							<div id="contentseven" class="hidden">';
+							<div id="contentseven" class="hidden">";
 							
 							
 		  
 		
-		$output.='
+		$output.="
 								
 							
 							
