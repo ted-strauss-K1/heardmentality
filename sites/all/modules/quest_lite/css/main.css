@@ -53,7 +53,7 @@
 #tabs3 { background:#FF9; }
 
 /* Style for various uses of tabs */
-.con{text-align:left; color:#000; font:10px Verdana;width:90%; margin: 10px auto; }
+.con{text-align:left; color:#000; font:10px Verdana;  background:none; }
 
 
 .linktab{text-decoration:none!important;
@@ -62,3 +62,8 @@
   font:10px Verdana;
   color:#FFF;
  }
+#newsd{background:#fff; color:#000000;}
+
+#newsd a { background:#fff; color:#000000; }
+
+#newsd a:hover { background:#fff; }
