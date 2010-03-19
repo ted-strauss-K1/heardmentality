@@ -1058,3 +1058,10 @@ div.mochaToolbarWrapper.bottom {
 	overflow: hidden;
 	visibility: hidden;
 }
+.messages status
+{
+color:#529214;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-weight:bold;
+
+}
