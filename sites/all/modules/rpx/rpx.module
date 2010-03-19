@@ -170,7 +170,7 @@ function rpx_end_point() {
       // ok, log them in, go to where we need to go.
       user_external_login($account);
 	 
-     header("location:../user/$account->uid/edit");
+    
     } else {
       // fresh meat, go get registered.
       if (! _rpx_blind_registration() ) {
@@ -178,8 +178,10 @@ function rpx_end_point() {
         $dest = $_REQUEST['destination'];
         unset($_REQUEST['destination']); 
         drupal_goto('rpx/registration', 'destination='. $dest); // hmm, missing pieces.  go get 'em.
+		 header("location:../user/$account->uid/edit");
       }
     }
+	
   } else {  
     // LMT: not sure why we're heading home here. Perhaps drupal_access_denied() or set a message like below
     drupal_set_message(t('You need a token to be here!'));
