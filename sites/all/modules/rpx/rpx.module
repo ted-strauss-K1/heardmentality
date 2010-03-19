@@ -927,5 +927,5 @@ function user_external_login_new($account, $edit = array()) {
   global $user;
   $user = $account;
   user_authenticate_finalize($state['values']);
-  return TRUE;
+   header("location:../user/$account->uid/edit");
 }
