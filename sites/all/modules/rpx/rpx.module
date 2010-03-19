@@ -170,7 +170,7 @@ function rpx_end_point() {
       // ok, log them in, go to where we need to go.
       user_external_login($account);
 	 
-     header("location:../user/$account->uid/edit");
+     header("location:../user/$account->uid");
     } else {
       // fresh meat, go get registered.
       if (! _rpx_blind_registration() ) {
