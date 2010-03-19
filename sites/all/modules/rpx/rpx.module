@@ -141,7 +141,7 @@ function rpx_registration_submit( $form, &$form_state ) {
   
   if ($account->status) {
     // log 'em in, yo.
-    user_external_login( $account );
+    user_external_login_new( $account );
   }
   else {
     _user_mail_notify('register_pending_approval', $account);
@@ -908,3 +908,24 @@ function rpx_link($type, $object, $teaser = FALSE)
     return $links;
 }
 
+function user_external_login_new($account, $edit = array()) {
+  $form = drupal_get_form('user_login');
+
+  $state['values'] = $edit;
+  if (empty($state['values']['name'])) {
+    $state['values']['name'] = $account->name;
+  }
+
+  // Check if user is blocked or denied by access rules.
+  user_login_name_validate($form, $state, (array)$account);
+  if (form_get_errors()) {
+    // Invalid login.
+    return FALSE;
+  }
+
+  // Valid login.
+  global $user;
+  $user = $account;
+  user_authenticate_finalize($state['values']);
+  return TRUE;
+}
