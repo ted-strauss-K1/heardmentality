@@ -73,14 +73,21 @@ body {
 }
 
 #topNav {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	/*font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 10px;
 	position: absolute;
 	right: 0;
 	top: 0;
 	color: #b2b2b2;
 	text-align: right;
-	padding: 13px 10px 0 0;
+	padding: 13px 10px 0 0;*/
+	
+	
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	
+    padding-left:900px;
+	color: #b2b2b2;
 }
 
 #topNav a {
