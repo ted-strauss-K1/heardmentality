@@ -142,7 +142,8 @@ function rpx_registration_submit( $form, &$form_state ) {
   if ($account->status) {
     // log 'em in, yo.
     user_external_login( $account );
-	 header("location:../user/$account->uid/edit");
+	echo "kkkk";
+	exit();
   }
   else {
     _user_mail_notify('register_pending_approval', $account);
