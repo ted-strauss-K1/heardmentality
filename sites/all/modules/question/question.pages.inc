@@ -155,7 +155,7 @@
     <td width="0%" height="94">&nbsp;</td>
     <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
     <td colspan="4">
-        <input type="text" name="q_quest"  value="'.$_SESSION['q_quest'].'" id="q_quest"  size="150"/>    </td>
+        <input type="text" name="q_quest"  value="'.$_REQUEST['q_quest'].'" id="q_quest"  size="150"/>    </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
