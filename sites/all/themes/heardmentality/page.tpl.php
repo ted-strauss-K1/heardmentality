@@ -12,6 +12,7 @@
 <?php print $styles ?>
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/content.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/user_bar.css" type="text/css" />
 
 <!--[if IE]>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/excanvas-compressed.js"></script>		
