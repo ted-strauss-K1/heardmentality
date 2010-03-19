@@ -142,12 +142,14 @@ function rpx_registration_submit( $form, &$form_state ) {
   if ($account->status) {
     // log 'em in, yo.
     user_external_login( $account );
+	
   }
   else {
     _user_mail_notify('register_pending_approval', $account);
     drupal_set_message(t('You\'re account must be approved by an administrator before you are able to login to the site.'));
   }
-  drupal_goto();
+  echo "jjjj";
+  exit();
 }
 
 function rpx_end_point() {
@@ -178,7 +180,7 @@ function rpx_end_point() {
         $dest = $_REQUEST['destination'];
         unset($_REQUEST['destination']); 
         drupal_goto('rpx/registration', 'destination='. $dest); // hmm, missing pieces.  go get 'em.
-		 header("location:../user/$account->uid/edit");
+		
       }
     }
 	
