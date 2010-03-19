@@ -926,6 +926,6 @@ function user_external_login_new($account, $edit = array()) {
   // Valid login.
   global $user;
   $user = $account;
-  user_authenticate_finalize($state['values']);
-   header("location:../user/$account->uid/edit");
+  user_authenticate_finalize($edit);
+  return TRUE;
 }
