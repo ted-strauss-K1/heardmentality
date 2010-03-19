@@ -93,7 +93,8 @@ global $user;
 		<h1 class="applicationTitle"><a href="<?php echo $gSitePath?>">Mocha UI</a></h1>
 		<!--h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2-->
 		<div id="topNav">
-        	<?php 
+         <ul class="menu-right">
+        	<!--<?php 
 			global $user;    
 			if($user->uid == '' || $user->uid == '0'):
 			  ?>
@@ -110,7 +111,10 @@ global $user;
 			</ul>
             <?php
             endif;
-			?>
+			?>-->
+            
+               <?php print garland_user_bar() ?>
+               </ul>
 		</div>
 	</div>
 </div>

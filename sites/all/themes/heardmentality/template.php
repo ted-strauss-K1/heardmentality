@@ -97,3 +97,26 @@ function phptemplate_get_ie_styles() {
 
   return $iecss;
 }
+
+
+function garland_user_bar() {
+  global $user;                                                               
+  $output = '';
+
+  if (!$user->uid) {                                                          
+    $output .= drupal_get_form('user_login_block');   
+	 $output .= '&nbsp;'.l(t('Sign In'), 'user/login', array('attributes' => array('title' => t('Sign In'))));                       
+  }                                                                           
+  else {                                                                      
+    $output .= t('<p class="user-info">welcome !user.</p>', array('!user' => theme('username', $user)));
+ 
+    $output .= theme('item_list', array(
+      l(t('Your account'), 'user/'.$user->uid, array('title' => t('Edit your account'))),
+      l(t('Sign out'), 'logout')));
+  }
+   
+  $output = '<div id="user-bar">'.$output.'</div>';
+     
+  return $output;
+}
+
