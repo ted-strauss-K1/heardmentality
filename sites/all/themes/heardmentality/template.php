@@ -97,15 +97,44 @@ function phptemplate_get_ie_styles() {
 
   return $iecss;
 }
+function user_login_block_new() {
+  $form = array(
+    '#action' => url($_GET['q'], array('query' => drupal_get_destination())),
+    '#id' => 'user-login-form',
+    '#validate' => user_login_default_validators(),
+    '#submit' => array('user_login_submit'),
+  );
+  $form['name'] = array('#type' => 'textfield',
+    '#title' => t('Username'),
+    '#maxlength' => USERNAME_MAX_LENGTH,
+    '#size' => 15,
+    '#required' => TRUE,
+  );
+  $form['pass'] = array('#type' => 'password',
+    '#title' => t('Password'),
+    '#maxlength' => 60,
+    '#size' => 15,
+    '#required' => TRUE,
+  );
+  $form['submit'] = array('#type' => 'submit',
+    '#value' => t('Log in'),
+  );
+  $items = array();
+ 
+    $items[] = l(t('Sign In'), 'user/login', array('attributes' => array('title' => t('Sign In'))));
 
+ // $items[] = l(t('Request new password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
+  $form['links'] = array('#value' => theme('item_list', $items));
+  return $form;
+}
 
 function garland_user_bar() {
   global $user;                                                               
   $output = '';
 
   if (!$user->uid) {                                                          
-    $output .= drupal_get_form('user_login_block');   
-	 $output .= '&nbsp;'.l(t('Sign In'), 'user/login', array('attributes' => array('title' => t('Sign In'))));                       
+    $output .= drupal_get_form('user_login_block_new');   
+	// $output .= '&nbsp;'.l(t('Sign In'), 'user/login', array('attributes' => array('title' => t('Sign In'))));                       
   }                                                                           
   else {                                                                      
     $output .= t('<p class="user-info">welcome !user.</p>', array('!user' => theme('username', $user)));
@@ -120,3 +149,9 @@ function garland_user_bar() {
   return $output;
 }
 
+
+
+
+
+
+?>
