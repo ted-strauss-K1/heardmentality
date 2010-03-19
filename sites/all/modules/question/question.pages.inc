@@ -56,15 +56,29 @@
 			global $gSitePath,$user, $gDocPath,$base_root;
 			$output='';
 		
-				
-			//drupal_add_js('misc/jquery.js');
-			//drupal_add_js('misc/ui.core.min.js');
+				//drupal_add_js(drupal_get_path('module', 'question').'/scripts/calendar.js');		
+			drupal_add_js('misc/jquery.js');
+			drupal_add_js('misc/ui.core.min.js');
 			
-			//drupal_add_js('misc/ui.datepicker.min.js');
-			//drupal_add_css('misc/themes/base/ui.all.css');
+			drupal_add_js('misc/ui.datepicker.min.js');
+			drupal_add_css('misc/themes/base/ui.all.css');
+			
+		drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');	
+			
 			$output.='
 	
 				<script type="text/javascript">
+				
+				jQuery(function() {
+		jQuery("#q_edate").datepicker({
+			changeMonth: true,
+			changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\' 
+		});
+
+		
+	});
+				
+				 
 						function add_ans(){
 					
 						 var ans_cnt=$(\'ans_cnt\').value;
@@ -129,19 +143,19 @@
 							}
 							}	
 						
-							
+						
 							
 						</script>
 			
 			';
 			
-		$output.= '
-				<form id="question" name="question" method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
+		$output.= '<div id="err" class="clear"></div>
+				<form id="question" name="question" onsubmit="return validate_question();" method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
   <tr>
     <td width="0%" height="94">&nbsp;</td>
     <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
     <td colspan="4">
-        <input type="text" name="q_quest" id="q_quest"  size="150"/>    </td>
+        <input type="text" name="q_quest"  value="'.$_SESSION['q_quest'].'" id="q_quest"  size="150"/>    </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -149,7 +163,7 @@
     <td colspan="4">
       <textarea name="q_context" id="q_context" cols="150" rows="2" style="border:1px solid #BBBBBB;
 
-width:775px; scroll;"></textarea>  </td>
+width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
   </tr>
   
   <tr>
@@ -157,13 +171,13 @@ width:775px; scroll;"></textarea>  </td>
     <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
     <td width="17%" valign="top"><table width="100%" border="0"> <tr>
           <td>
-            <input name="q_ans1" type="text" id="q_ans1" size="40" />
+            <input name="q_ans1" type="text" id="q_ans1" value="'.$_REQUEST['q_ans1'].'" size="40" />
           </td>
         </tr>
         <tr><td>&nbsp;</td></tr>
         <tr>
           <td>
-            <input name="q_ans2" type="text" id="q_ans2" size="40" />
+            <input name="q_ans2" type="text" id="q_ans2"  value="'.$_REQUEST['q_ans1'].'" size="40" />
           </td>
         </tr>
         
@@ -223,7 +237,7 @@ width:775px; scroll;"></textarea>  </td>
   <tr>
     <td>&nbsp;</td>
     <td nowrap="nowrap">End Date<span title="This field is required." class="form-required">*</span></td>
-    <td><input type="text" name="q_edate" autocomplete="off" id="q_edate" /></td>
+    <td><input type="text" name="q_edate" value="'.$_REQUEST['q_edate'].'" autocomplete="off"   id="q_edate" /> <small>Eg: yyyy-mm-dd</small></td>
     <td><input name="invite_count" type="hidden" id="invite_count" value="1" /></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
@@ -375,6 +389,16 @@ function edit_question(){
 			
 			$output.='
 		<script type="text/javascript">
+		
+		
+		jQuery(function() {
+		jQuery("#q_edate").datepicker({
+			changeMonth: true,
+			changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\' 
+		});
+
+		
+	});
 						function add_ans(){
 					
 						 var ans_cnt=$(\'ans_cnt\').value;
@@ -566,7 +590,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
   <tr>
     <td>&nbsp;</td>
     <td nowrap="nowrap">End Date<span title="This field is required." class="form-required">*</span></td>
-    <td><input type="text" name="q_edate" autocomplete="off" id="q_edate" value="'.$quest->enddate.'" /></td>
+    <td><input type="text" name="q_edate" autocomplete="off" id="q_edate" value="'.$quest->enddate.'"  /> <small>Eg: yyyy-mm-dd</small></td>
     <td><input name="invite_count" type="hidden" id="invite_count" value="1" /></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
