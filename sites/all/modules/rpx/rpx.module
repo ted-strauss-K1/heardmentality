@@ -177,7 +177,8 @@ function rpx_end_point() {
       // fresh meat, go get registered.
       if (! _rpx_blind_registration() ) {
 	  
-        $dest = $_REQUEST['destination'];
+       // $dest = $_REQUEST['destination'];
+	   $dest="../user/".$account->uid."/edit";
         unset($_REQUEST['destination']); 
         drupal_goto('rpx/registration', 'destination='. $dest); // hmm, missing pieces.  go get 'em.
       }
