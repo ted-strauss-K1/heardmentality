@@ -257,7 +257,20 @@ MochaUI.slideshareWindow(url,title);
 
 	
 }
+function loadresource(url,title)
+{
+MochaUI.closeAll();
+MochaUI.resourceWindow(url,title);
 
+	
+}
+function loadflagquestion(url,title)
+{
+MochaUI.closeAll();
+MochaUI.flagquestionWindow(url,title);
+
+	
+}
 
 
 	</script>
