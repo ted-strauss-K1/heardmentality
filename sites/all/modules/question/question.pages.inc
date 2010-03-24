@@ -52,6 +52,12 @@
 	function question_add(){
 	
 	//print_r($_SESSION['post']);
+	$q_quest='';
+	$optionlist='';
+	 $q_context='';
+	 $q_ans1='';
+	 $q_ans2='';
+	 
 	extract($_SESSION['post']);
 	
 			global $gSitePath,$user, $gDocPath,$base_root;
@@ -320,7 +326,7 @@ global $user;
 	extract($_REQUEST);
 	$output='';
 	$g_global='';
-	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($cat1)&&!empty($edate)) {
+	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($cat1))) {
 	  $edate=$q_edate;
 		 $result =   db_query("INSERT INTO {question} (uid,question,context,cid,scid,sscid,global,country,state,city,enddate) VALUES (%d,'%s','%s','%s','%s','%s','%s','%s','%s', '%s','%s')", $user->uid,$q_quest,$q_context,$cat1,$cat2,$cat3,$q_global,$q_country,$q_state,$q_city,$edate);
 		
