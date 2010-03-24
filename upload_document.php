@@ -11,7 +11,7 @@ if($_FILES)
 {
 	 $vTempPath=$_FILES["fileupload"]['tmp_name'];
 	$vDate=date("d-m-y",time());
-	$vDir="document/".$vDate."/";
+	$vDir="mediadoc/".$vDate."/";
 	if(!is_dir($vDir))
 	{
 	
