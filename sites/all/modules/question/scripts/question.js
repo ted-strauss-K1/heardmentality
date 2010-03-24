@@ -99,7 +99,17 @@ function add_ans(){
     }
 		    else {
 		    
-		        $('add_more').innerHTML += '  <p>&nbsp;</p> <div>Only Upto 10 Answers are allowed!</div>';
+		        var el=$('err');
+		el.setStyle('background-color', '#eeeeee');
+        el.setStyle('height', '20px');
+		el.setStyle('padding','10px');
+        el.setStyle('color', 'red');
+        el.setStyle('border', '3px solid #dd97a1');
+        el.setStyle('list-style', 'none');
+        
+        el.setStyle('display', 'block');
+		el.set('html',' Upto 10 Answers only allowed!');
+		el.highlight('#FF0000', '#6DB6DB');
 		        $('Add').disabled = 1;
 		        $('add_more').getLast().highlight('#FF0000', '#6DB6DB');
 		    }
