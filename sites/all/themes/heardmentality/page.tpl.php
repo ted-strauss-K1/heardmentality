@@ -289,7 +289,7 @@ function loadresource(url,title)
 {
 MochaUI.closeAll();
 MochaUI.resourceWindow(url,title);
-alert(url);
+
 	
 }
 function loadflagquestion(url,title)
