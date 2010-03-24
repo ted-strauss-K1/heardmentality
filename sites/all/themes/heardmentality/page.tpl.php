@@ -59,7 +59,7 @@
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/overlay.js"></script>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/Assets.js"></script>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/multibox.js"></script>
-     <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/quest_lite/scripts/subtabs.js"></script>
+   <!--  <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/quest_lite/scripts/subtabs.js"></script>-->
 
 	<script type="text/javascript">
 	
@@ -245,8 +245,36 @@ window.addEvent('domready', function(){
 			contentBgColor: '#FFF'
 		});
 	}
+	MochaUI.resourceWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' Resource >> '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 405,
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF'
+		});
+	}
 	
-		subtab()
+	
+	MochaUI.flagquestionWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' Flag '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 500,
+		
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF'
+		});
+	}
+		//subtab()
 });
 
 
