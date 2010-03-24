@@ -369,103 +369,119 @@ return true;
 		<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
-	     $resources.='<form id="myForm"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
+	     $resources.='<form id="myForm" name="myform"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
 		<div id="form_box">
 			
 		<table width="100%" border="0" >
   <tr>
-    <td width="14%" >Resource Type</td>
-    <td width="85%"><select name="rtype" id="rtype" onchange="showhide(this.value);">
-        <option value="0">Select </option>
-        <option value="1">News </option>
-        <option value="2">Multimedia </option>
-        <option value="3">Facts </option>
-      </select>
+    <td >Resource Type</td>
+    <td>
+      <select name="rtype" id="rtype" onchange="showhide(this.value);">
+       <option value="0">Select </option>
+      <option value="1">News </option>
+       <option value="2">Multimedia </option>
+      <option value="3">Facts </option>
+      </select>    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+	<div id="div1" style="display:none;">
+								  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+								 
+									  <tr>
+    <td>News Link  </td>
+    <td><input type="text" name="nlink" id="nlink"></td>
+  </tr>
+   <tr>
+    <td>News Title</td>
+    <td><input type="text" name="ntitle" id="ntitle"></td>
+  </tr>
+   <tr>
+    <td>Content</td>
+    <td><textarea name="ncontent" id="ncontent" cols="35"  rows="8"></textarea></td>
+  </tr>
+    <tr>
+    <td>News Image</td>
+    <td>
+<input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe>
+</td>
+  </tr>  
+   <tr>
+    <td></td>
+    <td>  </td>
+  </tr>
+</table>
+</div></td>
+  </tr>
+   <tr>
+    <td></td>
+    <td>
+ <div  id="div2" style="display:none;">
+   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>Mutlimedia Type</td>
+    <td><select name="mtype" id="mtype"  onchange="showhidemulti(this.value);" >
+     <option value="0">Select </option>
+      <option value="1">Web Video </option>
+       <option value="2">Podcast,PDF, DOC, PPT. </option>
+    </select></td>
+  </tr>
+   <tr>
+    <td><div  id="media" style="display:none;"> <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td> Embed Url</td>
+    <td>
+      <textarea name="membed" id="membed" cols="35" rows="5"></textarea>    </td>
+  </tr>
+</table> </div>
+</td>
+ </tr>
+   <tr>
+    <td>
+ <div  id="media_div" style="display:none;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td> Document </td>
+    <td><input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe>
+  </td>
+  </tr>
+  <tr>
+    <td>  </td>
+    <td>
+   </td>
+  </tr>
+  </table>
+ </div>
+ </td>
+ </tr>
+   </table>
+  </div>
+  <tr>
+    <td></td>
+    <td>
+	<div  id="div3" style="display:none;">
+   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>Link</td>
+    <td><input type="text" name="flink" id="flink"></td>
+  </tr> </table>
+  </div>
+  <tr>
+    <td></td>
+    <td>
+    &nbsp;
     </td>
   </tr>
   <tr>
-    <td colspan="2" ><div id="div1" >
-        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td width="14%">News Link </td>
-            <td width="85%"><input type="text" name="nlink" id="nlink"></td>
-          </tr>
-          <tr>
-            <td>News Title</td>
-            <td><input type="text" name="ntitle" id="ntitle"></td>
-          </tr>
-          <tr>
-            <td>Content</td>
-            <td><textarea name="ncontent" id="ncontent" cols="35"  rows="8"></textarea></td>
-          </tr>
-          <tr>
-            <td>News Image</td>
-            <td><input type="hidden" name="path" id="path"/>
-              <iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe></td>
-          </tr>
-          <tr>
-            <td colspan="2"><div  id="div2" >
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td width="14%">Mutlimedia Type</td>
-                    <td width="86%"><select name="mtype" id="mtype"  onchange="showhidemulti(this.value);" >
-                        <option value="0">Select </option>
-                        <option value="1">Web Video </option>
-                        <option value="2">Podcast,PDF, DOC, PPT. </option>
-                      </select></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2"><div  id="media" >
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                            <td width="14%"> Embed Url</td>
-                            <td width="86%"><textarea name="membed" id="membed" cols="35" rows="5"></textarea>
-                            </td>
-                          </tr>
-                        </table>
-                      </div></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2"><div  id="media_div" >
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                            <td width="14%"> Document </td>
-                            <td width="86%"><input type="hidden" name="docpath" id="docpath"/>
-                             <iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe></td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                        </table>
-                      </div></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2"><div  id="div3" >
-                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                          <tr>
-                            <td width="14%" height="37">Link</td>
-                            <td width="86%"><input type="text" name="flink" id="flink"></td>
-                          </tr>
-                          <tr>
-                            <td height="35"></td>
-                            <td><input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);" /></td>
-                          </tr>
-                        </table>
-                      </div></td>
-                  </tr>
-                </table>
-              </div></td>
-          </tr>
-        </table>
-      </div></td>
+    <td></td>
+    <td>
+     <input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);" />
+    </td>
   </tr>
 </table>
 </div>
-	</form>
-';
-			echo $resources;
-	
+	</form>';			
+echo $resources;
 		}
 
 
@@ -476,7 +492,7 @@ function save_resources(){
 		
 		
 	
-		 $resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document) values ('".$_REQUEST['rtype']."','".$_REQUEST['nlink']."','".$_REQUEST['ntitle']."','".$_REQUEST['ncontent']."','".$_REQUEST['mtype']."','".$_REQUEST['membed']."','".$_REQUEST['flink']."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."')";
+		 $resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."')";
 		db_query($resourceadd);
 		echo '<div class="messages success"> Resources Added Suceesfully </div>';
 	
