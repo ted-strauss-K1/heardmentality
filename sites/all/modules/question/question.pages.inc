@@ -51,6 +51,8 @@
 // question add
 	function question_add(){
 	
+	//print_r($_SESSION['post']);
+	extract($_SESSION['post']);
 	
 			global $gSitePath,$user, $gDocPath,$base_root;
 			$output='';
@@ -105,27 +107,7 @@ setDefaultCountry();
 	});*/
 				
 				 
-						function add_ans(){
 					
-						 var ans_cnt=$(\'ans_cnt\').value;
-   							ans_cnts=++ans_cnt;	
-							if(ans_cnt<11){
-							$(\'ans_cnt\').set(\'value\',ans_cnts);
-						//	$(\'add_more\').set(\'html\',\'  <p>&nbsp;</p>\');
-							 var firstElem  = new Element("input", {name: "q_ans\'+ans_cnt+\'"}); 
-									//$(\'add_more\').adopt(firstElem);
-									// var slot = new Element(\'input\');
-   										// slot.inject($(\'add_more\'));
-											var tem=$(\'add_more\').innerHTML ;
-						
-					$(\'add_more\').innerHTML = tem+\'  <p>&nbsp;</p> <div><input name="q_ans\'+ans_cnts+\'" type="text" id="q_ans\'+ans_cnts+\'" size="40" /></div>\';
-						$(\'add_more\').getLast().highlight(\'#FF0000\', \'#6DB6DB\');
-											}else{
-											$(\'add_more\').innerHTML += \'  <p>&nbsp;</p> <div>Only Upto 10 Answers are allowed!</div>\';
-						$(\'add_more\').getLast().highlight(\'#FF0000\', \'#6DB6DB\');
-											}
-
-							}
 						
 				
 			function get_subcat(sid,divid,level){
@@ -203,7 +185,7 @@ setDefaultCountry();
 			';
 			
 		//geoname api
-		$optionlist='';
+		
 		$result = geonames_query('countryinfo');
 foreach ($result->results as $country) {
   $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
@@ -217,7 +199,7 @@ foreach ($result->results as $country) {
     <td width="0%" height="94">&nbsp;</td>
     <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
     <td colspan="4">
-        <input type="text" name="q_quest"  value="'.$_REQUEST['q_quest'].'" id="q_quest"  size="150"/>    </td>
+        <input type="text" name="q_quest"  value="'.$q_quest.'" id="q_quest"  size="150"/>    </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -225,7 +207,7 @@ foreach ($result->results as $country) {
     <td colspan="4">
       <textarea name="q_context" id="q_context" cols="150" rows="2" style="border:1px solid #BBBBBB;
 
-width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
+width:775px; scroll;">'.$q_context.'</textarea>  </td>
   </tr>
   
   <tr>
@@ -233,20 +215,20 @@ width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
     <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
     <td width="17%" valign="top"><table width="100%" border="0"> <tr>
           <td>
-            <input name="q_ans1" type="text" id="q_ans1" value="'.$_REQUEST['q_ans1'].'" size="40" />
+            <input name="q_ans1" type="text" id="q_ans1" value="'.$q_ans1.'" size="40" />
           </td>
         </tr>
         <tr><td>&nbsp;</td></tr>
         <tr>
           <td>
-            <input name="q_ans2" type="text" id="q_ans2"  value="'.$_REQUEST['q_ans1'].'" size="40" />
+            <input name="q_ans2" type="text" id="q_ans2"  value="'.$q_ans2.'" size="40" />
           </td>
         </tr>
         
         ';
     
         
-    $output.='</table><div id="add_more"></div></td>
+    $output.='</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);" onclick="del_ans();">[Remove]</a></div><small></td>
     <td colspan="3"><table width="65%" border="0">
 	<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
@@ -309,7 +291,7 @@ width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
     <td>&nbsp;</td>
   </tr>--><tr><td colspan="6">';
   
-	//$output.=theme('tagging_widget','');
+	$output.=theme('tagging_widget','');
 	
   
  $output.=' </td></tr><tr>
@@ -341,7 +323,7 @@ global $user;
 	extract($_REQUEST);
 	$output='';
 	$g_global='';
-	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($cat1)) {
+	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($cat1)&&!empty($edate)) {
 	  $edate=$q_edate;
 		 $result =   db_query("INSERT INTO {question} (uid,question,context,cid,scid,sscid,global,country,state,city,enddate) VALUES (%d,'%s','%s','%s','%s','%s','%s','%s','%s', '%s','%s')", $user->uid,$q_quest,$q_context,$cat1,$cat2,$cat3,$q_global,$q_country,$q_state,$q_city,$edate);
 		
@@ -357,10 +339,12 @@ global $user;
 		 
 		 if($result)
 		 drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
+		 unset($_SESSION['post']);
+		 $_SESSION['post']='';
 		 drupal_goto("question");
 		  }
 		   else {
-		   		
+		   		$_SESSION['post']=$_POST;
 				drupal_set_message($message = 'Sorry, Following required fields are Empty!', $type = 'error');
 				
 				if(empty($q_quest))
@@ -416,6 +400,7 @@ global $user;
 		  }
 		   else {
 		   
+		   		$_SESSION['post']=$_POST;
 				drupal_set_message($message = 'Sorry, Following required fields are Empty!', $type = 'error');
 				
 				if(empty($q_quest))
