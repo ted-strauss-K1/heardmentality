@@ -49,7 +49,7 @@ function quest_lite_menu() {
     'file' => 'quest_lite.pages.inc',
   );
    $quest['qlite/tab'] = array(
-    'title' => 'TAB',
+    'title' => 'tab',
     'page callback' => 'tab_list',
     'access arguments' => array('Question Lite'),
 	   'type' => MENU_SUGGESTED_ITEM,
