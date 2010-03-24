@@ -215,6 +215,7 @@ window.addEvent('domready', function(){
 		column: 'mainColumn',
 		panelBackground: '#fff'
 	});
+	<?php print $footer;?>
 	<?php print $right;?>
 	// Add panels to second side column
 <?php if($user->uid==0)
