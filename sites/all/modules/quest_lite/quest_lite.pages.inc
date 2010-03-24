@@ -143,7 +143,7 @@ $mid=$_REQUEST['mid'];
 		 {
 		$list_length = db_query("select * from {user_answers} where qid='".$mid."' and uid='".$user->uid."' ");
 		$numr=mysql_num_rows($list_length);
-		echo $numr;
+		
 		if($numr==0)
 		{
 		$vInsQuery="insert into user_answers(qid, ans_id,uid,answered_date) values ('".$mid."', '".$_REQUEST['answer']."','".$user->uid."','".date('Y-m-d h:i:s')."')";
@@ -165,49 +165,17 @@ $mid=$_REQUEST['mid'];
 		 
 		 if($_REQUEST['txt_act']==1)
 		 {
-		  $list_length = db_query("select * from {user_answers} where qid='".$mid."' and uid='".$user->uid."' ");
-		 $numr=mysql_num_rows($list_length);
-		 echo $numr;
-		 if($numr==0)
-		 {
 		 
-		 drupal_set_message($message = 'You Have Not Posted Answer !', $type = 'error');
-		 drupal_goto("qlite/view/$mid");
-		 }
-		  else
-		  {
 		  $delQuery="delete from  user_answers where qid='".$mid."' and uid='".$user->uid."' ";
 		db_query($delQuery);
 		
 		 drupal_set_message(t('Your Answer has beed  Removed successfully!'), $type = 'success');
 	    drupal_goto("qlite/view/$mid");
 		  
-		  }
-		  
-		  }
-		/*  if($_REQUEST['txt_act']==3)
-		 {
-		  $list_length = db_query("select * from {question_flags} where nodeid='".$mid."' and uid='".$user->uid."' and  type='question' ");
-		 $numr=mysql_num_rows($list_length);
-		 echo $numr;
-		 if($numr==0)
-		 {
-		 $flagquery="insert into question_flags(nodeid,uid,flag_date,type) values ('".$mid."','".$user->uid."','".date('Y-m-d')."','question')";
-		 	db_query($flagquery);
-		 drupal_set_message($message = 'You Have Flagged successfully !', $type = 'success');
-		 drupal_goto("qlite/view/$mid");
-		 }
-		  else
-		  {
-		  	
-	
 		
-		 drupal_set_message(t('You Have Already Flagged !'), $type = 'error');
-	    drupal_goto("qlite/view/$mid");
 		  
 		  }
-		  
-		  }*/
+		drupal_goto("qlite/view/$mid");
 		
 	   return $voutput;
 
@@ -349,7 +317,7 @@ if(selvalm==2)
 
 
 
-<input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="100" height="20" scrolling="no"></iframe>
+<input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe>
 
 
 
@@ -394,8 +362,7 @@ if(selvalm==2)
  <div  id="media_div" style="display:none;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td> Document </td>
-    <td><input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="130" height="20" scrolling="no"></iframe>
-
+    <td><input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe>
   </td>
   </tr>
   
@@ -445,7 +412,7 @@ if(selvalm==2)
 
 
 function save_resources(){
-		//print_r($_REQUEST);
+		
 		global $gSitePath,$user, $gDocPath,$base_root;
 		
 		
@@ -453,7 +420,7 @@ function save_resources(){
 	
 		 $resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document) values ('".$_REQUEST['rtype']."','".$_REQUEST['nlink']."','".$_REQUEST['ntitle']."','".$_REQUEST['ncontent']."','".$_REQUEST['mtype']."','".$_REQUEST['membed']."','".$_REQUEST['flink']."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."')";
 		db_query($resourceadd);
-		echo "Resources Added Suceesfully ";
+		echo '<div class="messages success"> Resources Added Suceesfully </div>';
 	
 		}
 		
@@ -491,7 +458,7 @@ window.addEvent(\'domready\', function() {
 	$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
-	echo $qid;
+	
 	 $falgq.='	<div id="log">
 		
 		<div id="log_res"><!-- spanner --></div>
@@ -671,28 +638,32 @@ $output='<script type="text/javascript">
 	echo $output;
 	}
 		
-	function flag_save()
+	
+	
+	function flag_report()
 	{
-	  $list_length = db_query("select * from {question_flags} where nodeid='".$mid."' and uid='".$user->uid."' and  type='question' ");
+	global $gSitePath,$user, $gDocPath,$base_root;
+
+
+	$list_length = db_query("select * from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' ");
 		 $numr=mysql_num_rows($list_length);
-		 echo $numr;
+		
 		 if($numr==0)
 		 {
 		 $flagquery="insert into question_flags(nodeid,uid,flag_date,type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question')";
 		 	db_query($flagquery);
-		 drupal_set_message($message = 'You Have Flagged successfully !', $type = 'success');
-		 drupal_goto("qlite/view/$mid");
+		echo '<div class="messages success">You Have Flagged successfully ! </div>';
+		
 		 }
 		  else
 		  {
 		  	
 	
 		
-		 drupal_set_message(t('You Have Already Flagged !'), $type = 'error');
-	    drupal_goto("qlite/view/$mid");
+		echo '<div class="messages success">You Have Already Flagged !</div>';
+	  
 		  
 		  }
-	
 	
 	}	
 		
