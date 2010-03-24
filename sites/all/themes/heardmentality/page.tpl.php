@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/content.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/user_bar.css" type="text/css" />
+
 <!--[if IE]>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/excanvas-compressed.js"></script>		
 <![endif]-->
@@ -58,8 +59,8 @@
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/overlay.js"></script>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/Assets.js"></script>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/multibox.js"></script>
-    <!-- <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/quest_lite/scripts/subtabs.js"></script>-->
-  
+   <!--  <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/quest_lite/scripts/subtabs.js"></script>-->
+
 	<script type="text/javascript">
 	
 		window.addEvent('domready', function(){
@@ -92,17 +93,30 @@ global $user;
 	<div id="desktopTitlebar">
 		<h1 class="applicationTitle"><a href="<?php echo $gSitePath?>">Mocha UI</a></h1>
 		<!--h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2-->
-		
-        	<div id="topNav">
+		<div id="topNav">
+         <ul class="menu-right">
+        	<!--<?php 
+			global $user;    
+			if($user->uid == '' || $user->uid == '0'):
+			  ?>
                 <ul class="menu-right">
-                	<!--<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Guest</a>.</li>
-                    <li><a href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>/user/login'">Sign In</a></li>-->
-                    
-                 <?php print garland_user_bar() ?>
-                  <?php //print $footer;?>
+                	<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Guest</a>.</li>
+                    <li><a href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>/user/login'">Sign In</a></li>
                 </ul>			  
-			</div>
-	
+			  <?
+			 else:
+			?>
+			<ul class="menu-right">
+				<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;"><?php echo $user->name;?></a>.</li>
+				<li><a  href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>logout'">Sign Out</a></li>
+			</ul>
+            <?php
+            endif;
+			?>-->
+            
+               <?php print garland_user_bar() ?>
+               </ul>
+		</div>
 	</div>
 </div>
 	
@@ -163,8 +177,6 @@ global $user;
 window.addEvent('domready', function(){
 	MochaUI.Desktop = new MochaUI.Desktop();
 	MochaUI.Dock = new MochaUI.Dock();
-	
-	
  <?php if ($left): ?>
 	new MochaUI.Column({
 		id: 'sideColumn1',
@@ -205,8 +217,6 @@ window.addEvent('domready', function(){
 	});
 	<?php print $footer;?>
 	<?php print $right;?>
-	
-	
 	// Add panels to second side column
 <?php if($user->uid==0)
 	{ ?>
@@ -235,9 +245,6 @@ window.addEvent('domready', function(){
 			contentBgColor: '#FFF'
 		});
 	}
-	
-	
-	
 	MochaUI.resourceWindow = function(url,title){
 			new MochaUI.Window({
 			id: 'ajaxpage',
@@ -278,7 +285,6 @@ MochaUI.slideshareWindow(url,title);
 
 	
 }
-
 function loadresource(url,title)
 {
 MochaUI.closeAll();
@@ -293,6 +299,7 @@ MochaUI.flagquestionWindow(url,title);
 
 	
 }
+
 
 	</script>
     
