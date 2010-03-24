@@ -213,7 +213,7 @@ width:775px; scroll;">'.$q_context.'</textarea>  </td>
   <tr>
     <td>&nbsp;</td>
     <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
-    <td width="17%" valign="top"><table width="100%" border="0"> <tr>
+    <td width="26%" valign="top"><table width="100%" border="0"> <tr>
           <td>
             <input name="q_ans1" type="text" id="q_ans1" value="'.$q_ans1.'" size="40" />
           </td>
@@ -228,8 +228,11 @@ width:775px; scroll;">'.$q_context.'</textarea>  </td>
         ';
     
         
-    $output.='</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);" onclick="del_ans();">[Remove]</a></div><small></td>
-    <td colspan="3"><table width="65%" border="0">
+    $output.='</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);" onclick="del_ans();">[Remove]</a></div><small><br/>
+	
+	<input type="button" name="Add" onclick="add_ans();" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> 
+	</td>
+    <td colspan="3" align="left" valign="top"><table width="65%" border="0">
 	<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
         <td width="25%" align="left"><select name="q_cat[]" id="q_cat" multiple="multiple" onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" size="5"><option value="">Select Category</option>'; 
@@ -258,21 +261,15 @@ width:775px; scroll;">'.$q_context.'</textarea>  </td>
 		
 		}	 $output.='</select></div></td>
       </tr>
-    </table></td>
-  </tr>
-  <tr><td colspan="3">&nbsp;<td colspan="5"><strong>Location</strong></td></tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>
-       <input type="button" name="Add" onclick="add_ans();" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> </td>
-	   
-    <td width="13%"><!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
+	  	<tr><td colspan="3" height="40"  valign="middle" ><b>Location</b></td></tr>
+	  <tr><td width="13%"><!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
 	
     <td width="13%"><!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
 	
-    <td width="43%"><!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td>
+    <td width="43%"><!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td>  </tr>
+    </table></td>
   </tr>
+  
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
