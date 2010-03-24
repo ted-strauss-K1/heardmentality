@@ -49,7 +49,6 @@
 	
 	}
 // question add
-
 	function question_add(){
 	
 	
@@ -57,26 +56,53 @@
 			$output='';
 		
 				//drupal_add_js(drupal_get_path('module', 'question').'/scripts/calendar.js');		
-			drupal_add_js('misc/jquery.js');
-			drupal_add_js('misc/ui.core.min.js');
+			//drupal_add_js('misc/jquery.js');
+			//drupal_add_js('misc/ui.core.min.js');
 			
-			drupal_add_js('misc/ui.datepicker.min.js');
-			drupal_add_css('misc/themes/base/ui.all.css');
 			
+			//drupal_add_js('misc/ui.datepicker.min.js');
+			//drupal_add_css('misc/themes/base/ui.all.css');
+			
+			//drupal_static_reset('drupal_add_js');
+			//drupal_add_js('','external');
+			 drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
+        type="text/javascript"></script>');
+		
+		
 		drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');	
 			
 			$output.='
 	
 				<script type="text/javascript">
 				
-				jQuery(function() {
+				window.setTimeout("setDefaultCountry()", 1000);
+				function setDefaultCountry() {
+  var countrySelect = document.getElementById("q_country");
+
+  for (i=0;i< countrySelect.length;i++) {
+    // the javascript geonamesData.js contains the countrycode
+    // of the userIp in the variable \'geonamesUserIpCountryCode\'
+    if (countrySelect[i].value == geonamesUserIpCountryCode) {
+      // set the country selectionfield
+	      countrySelect.selectedIndex = i;
+		get_state(geonamesUserIpCountryCode);
+    }
+  }
+}
+
+
+window.addEvent(\'domready\', function(){
+setDefaultCountry();
+});
+	
+			/*	jQuery(function() {
 		jQuery("#q_edate").datepicker({
 			changeMonth: true,
 			changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\' 
 		});
 
 		
-	});
+	});*/
 				
 				 
 						function add_ans(){
@@ -90,9 +116,9 @@
 									//$(\'add_more\').adopt(firstElem);
 									// var slot = new Element(\'input\');
    										// slot.inject($(\'add_more\'));
-											
+											var tem=$(\'add_more\').innerHTML ;
 						
-					$(\'add_more\').innerHTML += \'  <p>&nbsp;</p> <div><input name="q_ans\'+ans_cnts+\'" type="text" id="q_ans\'+ans_cnts+\'" size="40" /></div>\';
+					$(\'add_more\').innerHTML = tem+\'  <p>&nbsp;</p> <div><input name="q_ans\'+ans_cnts+\'" type="text" id="q_ans\'+ans_cnts+\'" size="40" /></div>\';
 						$(\'add_more\').getLast().highlight(\'#FF0000\', \'#6DB6DB\');
 											}else{
 											$(\'add_more\').innerHTML += \'  <p>&nbsp;</p> <div>Only Upto 10 Answers are allowed!</div>\';
@@ -143,11 +169,47 @@
 							}
 							}	
 						
+						function get_state(code){
 						
+						var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':1,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_state\').set(\'html\', response);
+											}
+									}).send();
+						
+						
+						}
+							function get_city(code){
 							
+							var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':2,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_city\').set(\'html\', response);
+											}
+									}).send();
+							
+							}
 						</script>
 			
 			';
+			
+		//geoname api
+		
+		$result = geonames_query('countryinfo');
+foreach ($result->results as $country) {
+  $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
+}
+
+
 			
 		$output.= '<div id="err" class="clear"></div>
 				<form id="question" name="question" onsubmit="return validate_question();" method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
@@ -185,10 +247,10 @@ width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
     
         
     $output.='</table><div id="add_more"></div></td>
-    <td colspan="3"><table width="100%" border="0">
-	<tr><td colspan="3" height="40"  valign="middle" >Categories</td></tr>
+    <td colspan="3"><table width="65%" border="0">
+	<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
-        <td><select name="q_cat[]" id="q_cat" multiple="multiple" onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" size="5"><option value="">Select Category</option>'; 
+        <td width="25%" align="left"><select name="q_cat[]" id="q_cat" multiple="multiple" onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" size="5"><option value="">Select Category</option>'; 
 		$client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
       while($list=db_fetch_object($client_select))
 					{
@@ -197,7 +259,7 @@ width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
 		}			
 					
       $output.='</select></td>
-        <td><div id="chg_scat"><select name="q_scat[]" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+        <td width="25%" align="left"><div id="chg_scat"><select name="q_scat[]" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
 		//$client_select1 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
 		$client_select1='';
     while($list=db_fetch_object($client_select1))
@@ -205,7 +267,7 @@ width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
 		$output.= '<option value="'.$list->cat_id.'">'.$list->cat_name.'</option>';
 		
 		}	 $output.='</select></div></td>
-        <td><div id="chg_sscat"><select name="q_sscat[]" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
+        <td  width="25%" align="left"><div id="chg_sscat"><select name="q_sscat[]" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
      //$client_select2 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
 	 $client_select2='';
     while($list=db_fetch_object($client_select2))
@@ -216,14 +278,18 @@ width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
       </tr>
     </table></td>
   </tr>
+  <tr><td colspan="3">&nbsp;<td colspan="5"><strong>Location</strong></td></tr>
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>
        <input type="button" name="Add" onclick="add_ans();" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> </td>
-    <td width="13%"><input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" /></td>
-    <td width="13%"><input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/></td>
-    <td width="43%"><input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/></td>
+	   
+    <td width="13%"><!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
+	
+    <td width="13%"><!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
+	
+    <td width="43%"><!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -234,15 +300,19 @@ width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
     <td>&nbsp;</td>
   </tr>
   
-  <tr>
+  <!--<tr>
     <td>&nbsp;</td>
     <td nowrap="nowrap">End Date<span title="This field is required." class="form-required">*</span></td>
     <td><input type="text" name="q_edate" value="'.$_REQUEST['q_edate'].'" autocomplete="off"   id="q_edate" /> <small>Eg: yyyy-mm-dd</small></td>
     <td><input name="invite_count" type="hidden" id="invite_count" value="1" /></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
-  </tr>
-  <tr>
+  </tr>--><tr><td colspan="6">';
+  
+	$output.=theme('tagging_widget','');
+	
+  
+ $output.=' </td></tr><tr>
     <td height="42">&nbsp;</td>
     <td>&nbsp;</td>
     <td><input type="submit" name="save" id="save" value="Save" /></td>
@@ -271,7 +341,7 @@ global $user;
 	extract($_REQUEST);
 	$output='';
 	$g_global='';
-	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($q_edate)&&!empty($cat1)) {
+	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($cat1)) {
 	  $edate=$q_edate;
 		 $result =   db_query("INSERT INTO {question} (uid,question,context,cid,scid,sscid,global,country,state,city,enddate) VALUES (%d,'%s','%s','%s','%s','%s','%s','%s','%s', '%s','%s')", $user->uid,$q_quest,$q_context,$cat1,$cat2,$cat3,$q_global,$q_country,$q_state,$q_city,$edate);
 		
@@ -302,9 +372,7 @@ global $user;
 				if(empty($cat1))
 				drupal_set_message($message = 'Main Category should not be Empty!', $type = 'error');
 				
-				if(empty($q_edate))
-				drupal_set_message($message = 'Expiry Date should not be Empty!', $type = 'error');
-				
+								
 				drupal_goto("question/add");
 		  }
 	
@@ -321,7 +389,7 @@ global $user;
 	extract($array);
 	$output='';
 	
-	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($q_edate)&&!empty($cat1)) {
+	  if (!empty($q_quest)&&!empty($q_ans1)&&!empty($q_ans2)&&!empty($cat1)) {
 	  $edate=$q_edate;
 		 $result =   db_query("update {question} set question='$q_quest',context='$q_context',cid='$cat1',scid='$cat2',sscid='$cat3',	 global='$q_global',country='$q_country',state='$q_state',city='$q_city',enddate='$edate' where qid='".$nid."' AND uid='".$user->uid."'");
 		
@@ -359,8 +427,7 @@ global $user;
 				if(empty($cat1))
 				drupal_set_message($message = 'Main Category should not be Empty!', $type = 'error');
 				
-				if(empty($q_edate))
-				drupal_set_message($message = 'Expiry Date should not be Empty!', $type = 'error');
+				
 				
 		  }
 	
@@ -375,30 +442,32 @@ function edit_question(){
 			global $gSitePath,$user, $gDocPath,$base_root;
 			$output='';
 				
-			drupal_add_js('misc/jquery.js');
-			drupal_add_js('misc/ui.core.min.js');
 			
-			drupal_add_js('misc/ui.datepicker.min.js');
-			drupal_add_css('misc/themes/base/ui.all.css');
+			 drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
+        type="text/javascript"></script>');
+			
 			
 			if(isset($_POST['update'])){
 			
 			question_edit_save($_POST);
 			}
 			
+			$result = geonames_query('countryinfo');
+foreach ($result->results as $country) {
+  $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
+}
+
+			
+			  $nid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+		
+		
+		  $result = db_query("SELECT * FROM {question} where qid='".$nid."' AND uid='".$user->uid."'");
+			 $quest=db_fetch_object($result);
 			
 			$output.='
 		<script type="text/javascript">
 		
-		
-		jQuery(function() {
-		jQuery("#q_edate").datepicker({
-			changeMonth: true,
-			changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\' 
-		});
-
-		
-	});
+	
 						function add_ans(){
 					
 						 var ans_cnt=$(\'ans_cnt\').value;
@@ -463,19 +532,107 @@ function edit_question(){
 							}
 							}	
 						
+						
+									function setDefaultCountry() {
+  var countrySelect = document.getElementById("q_country");
+
+  for (i=0;i< countrySelect.length;i++) {
+			// the javascript geonamesData.js contains the countrycode
+			// of the userIp in the variable \'geonamesUserIpCountryCode\'
+			if (countrySelect[i].value == \''.$quest->country.'\') {
+			  // set the country selectionfield
+				  countrySelect.selectedIndex = i;
+				 
+				get_state(\''.$quest->country.'\');
+				
+			}else if(countrySelect[i].value == geonamesUserIpCountryCode) {
+			 countrySelect.selectedIndex = i;
+			 get_state(geonamesUserIpCountryCode);
+			}
+	}
+
+}
+		function setState(){
+		
+							var stid=\''.$quest->state.'\';
+					if(stid!=""){
+								 var stateSelect = document.getElementById("q_state");
+								
+							  for (i=0;i< stateSelect.length;i++) {
+								// the javascript geonamesData.js contains the countrycode
+								// of the userIp in the variable \'geonamesUserIpCountryCode\'
+								if (stateSelect[i].value == \''.$quest->state.'\') {
+								  // set the country selectionfield
+									  stateSelect.selectedIndex = i;
+									 
+									get_city(stid);
+								}
+								
+					}
+				  }
+		}
+		
+		function setCity(){
+		
+							var cid=\''.$quest->city.'\';
+					if(cid!=""){
+								 var citySelect = document.getElementById("q_city");
 							
+							  for (i=0;i< citySelect.length;i++) {
+								// the javascript geonamesData.js contains the countrycode
+								// of the userIp in the variable \'geonamesUserIpCountryCode\'
+								if (citySelect[i].value == cid) {
+								  // set the country selectionfield
+									  citySelect.selectedIndex = i;
+									 
+								}
+								
+					}
+				  }
+		}
+		
+		
+window.setTimeout("setDefaultCountry()", 1000);
+window.setTimeout("setState()", 2000);
+window.setTimeout("setCity()", 3000);
+window.addEvent(\'domready\', function(){
+setDefaultCountry();
+});
+							function get_state(code){
+						
+						var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':1,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_state\').set(\'html\', response);
+											}
+									}).send();
+						
+						
+						}
+							function get_city(code){
+							
+							var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':2,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_city\').set(\'html\', response);
+											}
+									}).send();
+							
+							}
 							
 						</script>
 		
 			
 			';
-			
-			
-			  $nid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-		
-		
-		  $result = db_query("SELECT * FROM {question} where qid='".$nid."' AND uid='".$user->uid."'");
-			 $quest=db_fetch_object($result);
+				
 			
 		$output.= '
 				<form id="question" name="question" method="post"  ><table width="100%" border="0" align="center" style="border:0px;">
@@ -497,7 +654,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     <tr>
     <td>&nbsp;</td>
     <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
-    <td width="17%"><table width="100%" border="0">';
+    <td width="26%" valign="top"><table width="100%" border="0">';
 	
 	
         $query = "SELECT * FROM {possible_answer} where qid='".$nid."' ";
@@ -516,11 +673,15 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     }
 			 
 			 
-    $output.='</table><div id="add_more"></div></td>
-    <td colspan="3"><table width="100%" border="0">
-
+    $output.='</table><div id="add_more"></div><br/>
+	
+	<input type="button" name="Add" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'"><input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">&nbsp;<input type="hidden" id="cat2" name="cat2" value="'.$quest->scid.'">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="'.$quest->sscid.'"> 
+	
+	</td>
+    <td colspan="3" valign="top" align="left"><table width="65%" border="0">
+		<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
-        <td><select name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>'; 
+        <td width="25%" align="left"><select name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>'; 
 		$client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
 		 $ecat1=explode(",",$quest->cid);
 		
@@ -536,7 +697,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 		}			
 					
       $output.='</select></td>
-        <td><div id="chg_scat"><select name="q_scat[]" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+        <td width="25%" align="left"><div id="chg_scat"><select name="q_scat[]" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
 		$client_select1 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cid."')");
 		 $ecat2=explode(",",$quest->scid);
     while($list=db_fetch_object($client_select1))
@@ -551,7 +712,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 		$output.= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
 		
 		}	 $output.='</select></div></td>
-        <td><div id="chg_sscat"><select name="q_sscat[]" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
+        <td width="25%" align="left"><div id="chg_sscat"><select name="q_sscat[]" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
      $client_select2 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scid."')");
 	  $ecat3=explode(",",$quest->sscid);
     while($list=db_fetch_object($client_select2))
@@ -567,34 +728,31 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 		
 		}	 $output.='</select></div></td>
       </tr>
+	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
+	  <tr> <td width="13%">&nbsp;<!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
+	
+    <td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
+	
+    <td width="43%">&nbsp;<!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td></tr>
+	
     </table></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
-    <td>
-       <input type="button" name="Add" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'"><input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">&nbsp;<input type="hidden" id="cat2" name="cat2" value="'.$quest->scid.'">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="'.$quest->sscid.'"> </td>
- <td width="13%"><input type="text" name="q_country" id="q_country" value="'.$quest->country.'" size="30" /></td>
-    <td width="13%"><input type="text" name="q_state" id="q_state" value="'.$quest->state.'"  size="30"/></td>
-    <td width="43%"><input type="text" name="q_city" id="q_city" value="'.$quest->city.'"  size="30"/></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+ <td width="13%" align="left" colspan="4">
+       </td>
+ 
   </tr>
   
-  <tr>
+  <!--<tr>
     <td>&nbsp;</td>
     <td nowrap="nowrap">End Date<span title="This field is required." class="form-required">*</span></td>
     <td><input type="text" name="q_edate" autocomplete="off" id="q_edate" value="'.$quest->enddate.'"  /> <small>Eg: yyyy-mm-dd</small></td>
     <td><input name="invite_count" type="hidden" id="invite_count" value="1" /></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
-  </tr>
+  </tr>-->
   <tr>
     <td height="42">&nbsp;</td>
     <td>&nbsp;</td>
@@ -621,39 +779,79 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 		//print_r($_REQUEST);
 			$ret='';
 		extract($_REQUEST);
-			$client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ($ids)");
-		
-		$client_array=array();
-		$client_key=array();
-		
-			while($list=db_fetch_object($client_select))
-			{
-	
-					$client_array[] = $list->cat_name;
-					$client_key[]=$list->cat_id;
-	
+		if(isset($_REQUEST['ids'])){
+					$client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ($ids)");
+				
+				$client_array=array();
+				$client_key=array();
+				
+					while($list=db_fetch_object($client_select))
+					{
+			
+							$client_array[] = $list->cat_name;
+							$client_key[]=$list->cat_id;
+			
+					}
+					if(!empty($client_array)){
+					
+					if($action==1)
+					$qscat="q_scat";
+					if($action==2)
+					$qscat="q_sscat";														//	get_subcat(\'q_cat\',\'chg_scat\',1);
+					
+					$ret='<select size="5" multiple="multiple" onchange="get_subcat('.$qscat.',\'chg_sscat\','.++$action.');" id="'.$qscat.'" name="q_scat[]"> ';
+				for($i=0;$i<count($client_array);$i++){
+				
+				$ret.='<option value="'.$client_key[$i].'">'.$client_array[$i].'</option>';
+			
 			}
-			if(!empty($client_array)){
+			$ret.="</select>";
 			
-			if($action==1)
-			$qscat="q_scat";
-			if($action==2)
-			$qscat="q_sscat";														//	get_subcat(\'q_cat\',\'chg_scat\',1);
-			
-			$ret='<select size="5" multiple="multiple" onchange="get_subcat('.$qscat.',\'chg_sscat\','.++$action.');" id="'.$qscat.'" name="q_scat[]"> ';
-		for($i=0;$i<count($client_array);$i++){
-		
-		$ret.='<option value="'.$client_key[$i].'">'.$client_array[$i].'</option>';
-	
-	}
-	$ret.="</select>";
-	
-	}else{
-	$ret.='No Subcategory';
-	}
-		echo $ret;
-			exit;
-		
+			}else{
+			$ret.='No Subcategory';
+			}
+				echo $ret;
+					exit;
+		}elseif(isset($_REQUEST['code'])){
+				
+						switch($action){
+						
+						case 1:	//get state
+								$query = array('country' => $code);
+							$result = geonames_query('countryinfo',$query);
+				
+						$query = array('geonameid' => $result->results[0][geonameid]);
+							$result = geonames_query('children',$query);
+							//print_r($result);
+							$ret='<select style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> ';
+						foreach ($result->results as $state) {
+						
+						  $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
+						}
+						$ret.="</select>";
+						echo $ret;
+						break;						
+						exit;
+					case 2:  //get city
+					
+					$query = array('geonameid' => $code);
+							$result = geonames_query('children',$query);
+							//print_r($result);
+							$ret='<select style="width: 125px;"  id="q_city" name="q_city"> ';
+						foreach ($result->results as $state) {
+						
+						  $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
+						}
+						$ret.="<option value='-1'>Others</option>";
+						$ret.="</select>";
+						echo $ret;
+						break;				
+					
+					
+					
+						
+						}
+		}
 		}
 		
 				
