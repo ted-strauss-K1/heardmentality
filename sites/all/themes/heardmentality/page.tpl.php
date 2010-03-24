@@ -35,7 +35,7 @@
 <!--<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-events.js"></script>-->
     <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/slider_script.js"></script>
 
-<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/Lighter.js"></script>
+<!--<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/Lighter.js"></script>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/Fuel.css.js"></script>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/Fuel.html.js"></script>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/lighter/Fuel.js.js"></script>
@@ -49,7 +49,7 @@
 				indent: 4
 			});
 		});
-	</script>
+	</script>-->
 	
 	
 	<link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/multibox.css" type="text/css" media="screen" />
