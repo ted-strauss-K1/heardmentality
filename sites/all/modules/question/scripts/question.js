@@ -3,12 +3,11 @@
 
 
 		function validate_question(){
-						alert('hi');
-						
+												
 						var quest=$('q_quest').value;
 						var ans1=$('q_ans1').value;
 						var ans2=$('q_ans2').value;
-						var edate=$('q_edate').value;
+						
 						var cat1=$('cat1').value;
 						var err='';
 						
@@ -21,9 +20,7 @@
 						if(ans2.trim().length<1)
 						err+='<li>Please Provide Answer 2!</li>';
 						
-						if(edate.trim().length<1)
-						err+='<li>Please Provide Expiry Date!</li>';
-						
+												
 						if(cat1.trim().length<1)
 						err+='<li>Please Provide Main Cateogry of the Question!</li>';
 						
