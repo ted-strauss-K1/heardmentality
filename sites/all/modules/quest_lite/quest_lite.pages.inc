@@ -223,11 +223,223 @@ $mid=$_REQUEST['mid'];
 	drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/demo.css');
 	
 $qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+ $resources='<script type="text/javascript">
+window.addEvent(\'domready\', function() {
+
+	if (!window.demo_path) window.demo_path = \'\';
+	var demo_path = window.demo_path;
+	
+	$(\'myForm\').addEvent(\'submit\', function(e) {
+		
+		e.stop();
+		
+		var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
+		
+		this.set(\'send\', {onComplete: function(response) { 
+			log.removeClass(\'ajax-loading\');
+			log.set(\'html\', response);
+		}});
+		
+		this.send();
+	});
+});
+
+function showhide(selectValue){
+  
+  	
+    if(selectValue==1)
+	{
+		document.getElementById("div1").style.display=\'block\'
+		document.getElementById("div2").style.display=\'none\'
+		document.getElementById("div3").style.display=\'none\'
+	}
+	if(selectValue==2)
+	{
+	document.getElementById("div2").style.display=\'block\'
+	document.getElementById("div1").style.display=\'none\'
+	document.getElementById("div3").style.display=\'none\'
+	}   
+	if(selectValue==3)
+	{
+	document.getElementById("div3").style.display=\'block\'
+	document.getElementById("div1").style.display=\'none\'
+	document.getElementById("div2").style.display=\'none\'
+	}		
+      
+}
+function showhidemulti(selvalm)
+{
+//alert(selvalm);
+if(selvalm==1)
+	{
+		document.getElementById("media").style.display=\'block\'
+		document.getElementById("media_div").style.display=\'none\'
+	
+	}
+if(selvalm==2)
+	{
+	document.getElementById("media_div").style.display=\'block\'
+	document.getElementById("media").style.display=\'none\'
+	
+	}   
+
+}
 
 
+</script>
+';
+
+
+
+
+	 $resources.='	<div id="log">
+		
+		<div id="log_res"><!-- spanner --></div>
+	</div>
+	<span class="clr"><!-- spanner --></span>';
+	     $resources.='<form id="myForm"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
+		<div id="form_box">
+			
+		<table width="100%" border="0" >
+		
 
 	
-			echo "kkkkk";
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+  <tr>
+    <td >Resource Type</td>
+    <td>
+      <select name="rtype" id="rtype" onchange="showhide(this.value);">
+       <option value="0">Select </option>
+      <option value="1">News </option>
+       <option value="2">Multimedia </option>
+      <option value="3">Facts </option>
+      </select>    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+	<div id="div1" style="display:none;">
+								  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+								 
+									  <tr>
+    <td>News Link  </td>
+    <td><input type="text" name="nlink" id="nlink"></td>
+  </tr>
+   <tr>
+    <td>News Title</td>
+    <td><input type="text" name="ntitle" id="ntitle"></td>
+  </tr>
+   <tr>
+    <td>Content</td>
+    <td><textarea name="ncontent" id="ncontent" cols="35"  rows="8"></textarea></td>
+  </tr>
+    <tr>
+    <td>News Image</td>
+    <td>
+
+
+
+
+<input type="hidden" name="path" id="path"/><iframe src="http://localhost/heard/uploader.php" width="100" height="20" scrolling="no"></iframe>
+
+
+
+</td>
+  </tr>
+  
+   <tr>
+    <td></td>
+    <td>  </td>
+  </tr>
+
+								  </table>
+								</div></td>
+  </tr>
+   <tr>
+    <td></td>
+    <td>
+ <div  id="div2" style="display:none;">
+   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>Mutlimedia Type</td>
+    <td><select name="mtype" id="mtype"  onchange="showhidemulti(this.value);" >
+     <option value="0">Select </option>
+      <option value="1">Web Video </option>
+       <option value="2">Podcast,PDF, DOC, PPT. </option>
+    
+    </select></td>
+  </tr>
+   <tr>
+    <td><div  id="media" style="display:none;"> <table width="100%" border="0" cellspacing="0" cellpadding="0">
+ 
+  <tr>
+    <td> Embed Url</td>
+    <td>
+      <textarea name="membed" id="membed" cols="35" rows="5"></textarea>    </td>
+  </tr>
+</table> </div>
+</td>
+ </tr>
+   <tr>
+    <td>
+ <div  id="media_div" style="display:none;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td> Document </td>
+    <td><input type="hidden" name="docpath" id="docpath"/><iframe src="http://localhost/heard/upload_document.php" width="130" height="20" scrolling="no"></iframe>
+
+  </td>
+  </tr>
+  
+  <tr>
+    <td>  </td>
+    <td>
+   </td>
+  </tr>
+  </table>
+ </div>
+ </td>
+ </tr>
+ 
+ 
+ 
+   </table>
+  </div>
+  <tr>
+    <td></td>
+    <td>
+	<div  id="div3" style="display:none;">
+   <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td>Link</td>
+    <td><input type="text" name="flink" id="flink"></td>
+  </tr> </table>
+  </div>
+  <tr>
+    <td></td>
+    <td>
+    &nbsp;
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+     <input type="submit" name="button" id="submitter"  value="Add Resource" onsubmit="return valid();" />
+    </td>
+  </tr>
+</table>
+</div>
+	</form>
+';
+			echo $resources;
 	
 		}
 
