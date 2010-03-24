@@ -227,81 +227,16 @@ $mid=$_REQUEST['mid'];
 	
 	
 $qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
- $resources='<script type="text/javascript">
-window.addEvent(\'domready\', function() {
-
-	if (!window.demo_path) window.demo_path = \'\';
-	var demo_path = window.demo_path;
-	
-	$(\'myForm\').addEvent(\'submit\', function(e) {
-		
-		e.stop();
-		
-		var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
-		
-		this.set(\'send\', {onComplete: function(response) { 
-			log.removeClass(\'ajax-loading\');
-			log.set(\'html\', response);
-		}});
-		
-		this.send();
-	});
-});
-
-function showhide(selectValue){
-  
-  	
-    if(selectValue==1)
-	{
-		document.getElementById("div1").style.display=\'block\'
-		document.getElementById("div2").style.display=\'none\'
-		document.getElementById("div3").style.display=\'none\'
-	}
-	if(selectValue==2)
-	{
-	document.getElementById("div2").style.display=\'block\'
-	document.getElementById("div1").style.display=\'none\'
-	document.getElementById("div3").style.display=\'none\'
-	}   
-	if(selectValue==3)
-	{
-	document.getElementById("div3").style.display=\'block\'
-	document.getElementById("div1").style.display=\'none\'
-	document.getElementById("div2").style.display=\'none\'
-	}		
-      
-}
-function showhidemulti(selvalm)
-{
-//alert(selvalm);
-if(selvalm==1)
-	{
-		document.getElementById("media").style.display=\'block\'
-		document.getElementById("media_div").style.display=\'none\'
-	
-	}
-if(selvalm==2)
-	{
-	document.getElementById("media_div").style.display=\'block\'
-	document.getElementById("media").style.display=\'none\'
-	
-	}   
-
-}
-
-
-</script>
-';
 
 
 
-
-	 $resources.='	<div id="log">
+	 $resources='<div id="log">
 		
 		<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
-	     $resources.='<form id="myForm"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
+	     $resources.='<form id="myForm"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data">
+		 <input type="hidden" name="qaid" value="'.$qid.'">
 		<div id="form_box">
 			
 		<table width="100%" border="0" >
