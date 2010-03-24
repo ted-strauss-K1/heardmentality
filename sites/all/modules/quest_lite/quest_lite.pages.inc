@@ -609,7 +609,7 @@ ON a.nid = b.nid and
 b.type='news_page' and b.status='1'  ";
 $rlistnews=mysql_query($vSql);
 
-	$output.=' <p> <a onclick="loadSubCat(\'http://localhost/heard/category/list/1\',\'Politics\')" class="returnFalse arrow-right" id="mootoolsLink"/> test</a></p>';
+	$output.=' <p> <input type="button" name="resource" value="Add Resources" onclick="loadresource(\'http://localhost/heard/qlite/resource/'.$qid.'\',\'Add\')" class="returnFalse arrow-right" id="mootoolsLink"/></p>';
 	
 
 	break;
