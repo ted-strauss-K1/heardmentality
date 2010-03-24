@@ -28,7 +28,7 @@ function validate_question(){
     if (err.trim().length > 1) {
         var el = $('err');
         el.setStyle('background-color', '#eeeeee');
-        el.setStyle('height', '100px');
+        el.setStyle('height', 'auto');
         el.setStyle('color', 'red');
         el.setStyle('border', '3px solid #dd97a1');
         el.setStyle('list-style', 'none');
@@ -93,6 +93,8 @@ function add_ans(){
         //wrapper.wraps(ele);
         
         $('add_more').getLast().highlight('#F1F1F1', '#6DB6DB');
+		
+		$('err').empty();
         
     }
 		    else {
@@ -103,10 +105,22 @@ function add_ans(){
 		    }
 	}else{
 		
-		// $('add_more').innerHTML += '  <div>Answer should not be empty!</div>';
-		alert('Answer should not be empty!');
-	 $('Add').disabled = 1;
+		
+		var el=$('err');
+		el.setStyle('background-color', '#eeeeee');
+        el.setStyle('height', '20px');
+		el.setStyle('padding','10px');
+        el.setStyle('color', 'red');
+        el.setStyle('border', '3px solid #dd97a1');
+        el.setStyle('list-style', 'none');
+        
+        el.setStyle('display', 'block');
+		el.set('html','  Answer should not be empty!');
+		el.highlight('#FF0000', '#6DB6DB');
+		
+	
 	 if(ans_cnt>=3){
+	 	 $('Add').disabled = 1;
 	 $('add_more').getLast().highlight('#FF0000', '#6DB6DB');
 	 }
 	}
