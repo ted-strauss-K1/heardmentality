@@ -321,7 +321,11 @@ echo $falgq;
 		
 	function tab_list()
 	{
-	global $gSitePath;
+		global $gSitePath,$user, $gDocPath,$base_root;
+	
+	
+$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+
 	echo '<div class="toolbarTabs">
 	<ul id="panelTabs" class="tab-menu">
 		<li id="panelTabs1Link" class="selected"><a>Reporting</a></li>
@@ -387,6 +391,10 @@ $("panelTabs4Link").addEvent("click", function(e){
 		
 	function panel_content()
 	{
+	global $gSitePath,$user, $gDocPath,$base_root;
+
+$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+
 	$type=$_REQUEST['type'];
 	switch($type)
 	{
