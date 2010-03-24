@@ -608,33 +608,9 @@ FROM node_revisions as a JOIN node as b
 ON a.nid = b.nid and 
 b.type='news_page' and b.status='1'  ";
 $rlistnews=mysql_query($vSql);
-$output='<script type="text/javascript">
-		
-		window.addEvent("domready", function() {
-			
-			
-			Element.implement({
-			
-				fancyShow: function() {
-					this.fade("in");
-				},
-			
-				fancyHide: function() {
-					this.fade("out");
-				}
-			});
-			
-		});
-	</script>';
+
 	$output.=' <p> <input type="button" name="resource" value="Add Resources" onclick="loadresource(\'http://localhost/heard/qlite/resource/'.$qid.'\',\'Add \')" class="returnFalse arrow-right" id="mootoolsLink"></p>';
-	$output.='<table width="100%" border="0">
-  <tr>
-    <td width="7%"><a href="javascript:$(\'blove2\').fancyShow();"> In the News| </a> </td>
-    <td width="7%">  <a href="javascript:$(\'blove2\').fancyHide();"> Mutlimedia |</td>
-    <td width="86%">  Facts </td>
-  </tr>
-  <div id="blove2">dddddddddddddddddddddddddddddddddddddddd </div>
-</table>';
+	
 
 	break;
 	case "Gurus":
