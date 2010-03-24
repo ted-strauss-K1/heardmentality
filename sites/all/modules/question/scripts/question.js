@@ -99,19 +99,11 @@ function add_ans(){
     }
 		    else {
 		    
-		        var el=$('err');
-		el.setStyle('background-color', '#eeeeee');
-        el.setStyle('height', '20px');
-		el.setStyle('padding','10px');
-        el.setStyle('color', 'red');
-        el.setStyle('border', '3px solid #dd97a1');
-        el.setStyle('list-style', 'none');
-        
-        el.setStyle('display', 'block');
-		el.set('html',' Upto 10 Answers only allowed!');
-		el.highlight('#FF0000', '#6DB6DB');
+		     var el=$('add_more').getLast('p');
+  		 el.set('html',' Upto 10 Answers only allowed!');
+		
 		        $('Add').disabled = 1;
-		        $('add_more').getLast().highlight('#FF0000', '#6DB6DB');
+		       el.highlight('#FF0000', '#6DB6DB');
 		    }
 	}else{
 		
@@ -139,7 +131,7 @@ function add_ans(){
 }
 
 function del_ans(){
-
+		
 	var ans_cnt = $('ans_cnt').value;
 	if (ans_cnt > 2) {
 	
@@ -147,9 +139,16 @@ function del_ans(){
 		
 			$('del_ans').fade('out');
 		}
+		if(ans_cnt==10){
+			
+			 var el=$('add_more').getLast('p').empty();
+			  $('Add').disabled = 0;
+		}
+		
 		$('q_ans' + ans_cnt).fade('out');
 		
 		$('q_ans' + ans_cnt).destroy();
+		 $('add_more').getLast('p').destroy();
 		$('ans_cnt').set('value', ans_cnt - 1);
 		
 	}
