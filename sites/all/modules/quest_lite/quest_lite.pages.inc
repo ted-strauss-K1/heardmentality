@@ -349,7 +349,7 @@ if(selvalm==2)
 
 
 
-<input type="hidden" name="path" id="path"/><iframe src="http://localhost/heard/uploader.php" width="100" height="20" scrolling="no"></iframe>
+<input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="100" height="20" scrolling="no"></iframe>
 
 
 
@@ -394,7 +394,7 @@ if(selvalm==2)
  <div  id="media_div" style="display:none;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td> Document </td>
-    <td><input type="hidden" name="docpath" id="docpath"/><iframe src="http://localhost/heard/upload_document.php" width="130" height="20" scrolling="no"></iframe>
+    <td><input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="130" height="20" scrolling="no"></iframe>
 
   </td>
   </tr>
