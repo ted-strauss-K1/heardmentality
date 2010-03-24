@@ -8,6 +8,7 @@ function qlite_view()
 drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
 drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
 			drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
+ 
 
  $qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSql="select * from {question} where status='1' and qid=$qid ";
@@ -21,7 +22,7 @@ drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
 $list_lengthan = db_query("select * from {user_answers} where qid='".$qid."' and uid='".$user->uid."' ");
 		 $numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
-			$output.='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  >
+			$output='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  >
  <div> <table width="100%" border="0" align="center" ><input type="hidden" name="mid" value="'.$qid.'">
   <tr  width="100%">
 		<td width="30%" align="left" valign="top">'.$oListquest->question.'</td>
@@ -74,14 +75,38 @@ $output.='
       
     </td>
   </tr>';
-  
-		$submitbutt='<input type="submit" name="save" id="save" value="Submit" />'; 
+  $output.='<script type="text/javascript">
+function formsubmittype(mtype,ids){
+
+if(mtype==1)
+{
+ document.forms["answer"].submit();
+ 
+ }
+if(mtype==3)
+{
+ loadflagquestion(\''.$gSitePath.'qlite/flag/\'+ids,\'Add \');
+ 
+ }
+  	
+  }
+</script>
+';
+	if($numran!=0)
+	{ 
 	
+	$optio='<option value="1"> Withdraw answer</option>'; 
+	}
+  if($numran==0)
+	{ 
+	
+		$submitbutt='<input type="submit" name="save" id="save" value="Vote" />'; 
+	}
 	$output.='
   <tr>
-    <td align="left" valign="top"> <select name="txt_act" id="txt_act" onchange="loadflagquestion(\'http://localhost/heard/qlite/flag/'.$qid.'\',\'Add \')" class="returnFalse arrow-right" id="mootoolsLink">
+    <td align="left" valign="top"> <select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 	  <option value=""> Select</option >
-      <option value="1"> Withdraw answer</option >
+    '.$optio.'
        <option value="2"> Invite</option >
       <option value="3"> Flag</option >
        <option value="4">Suggest New Answer</option> 
@@ -144,7 +169,6 @@ $mid=$_REQUEST['mid'];
 		 $numr=mysql_num_rows($list_length);
 		 echo $numr;
 		 if($numr==0)
-
 		 {
 		 
 		 drupal_set_message($message = 'You Have Not Posted Answer !', $type = 'error');
@@ -265,59 +289,12 @@ if(selvalm==2)
 
 }
 
-function loadTempPath(pmPath)
-{
-	window.parent.document.getElementById("path").value=pmPath;
-}
+
 </script>
 ';
-$resources.='<style type="text/css">
-body{
-margin-left:0px;
-margin-top:0px;
-}
-input.hide
-	{
-		position:absolute;
-		left:-135px;
-		-moz-opacity:0 ;
-		filter:alpha(opacity: 0);
-		opacity: 0;
-		z-index: 2;/**/
-		top:0px;
-		border:thin solid #0000CC;
-	}
-
-input.red
-	{
-		background-image:url(http://localhost/heard/sites/all/modules/quest_lite/images/logo.gif);
-		z-index:1;
-		left:0px;
-		top:0px;
-	}
-</style>';
 
 
-if($_FILES)
-{
-	$vTempPath=$_FILES["fileupload"]['tmp_name'];
-	$vDate=date("d-m-y",time());
-	$vDir="http://localhost/heard/sites/all/modules/quest_lite/uploads/".$vDate."/";
-	if(!is_dir($vDir))
-	{
-		mkdir($vDir,0777);
-	}
-	$vFile=$vDir.rand().$_FILES["fileupload"]['name'];
-	copy($vTempPath,$vFile);
-	?>
 
-echo '
-<script type="text/javascript">
-			loadTempPath(\'<? echo base64_encode($vFile);?>\')
-		</script>
-';
-<?php
-}
 
 	 $resources.='	<div id="log">
 		
@@ -463,6 +440,7 @@ echo '
     </td>
   </tr>
 </table>
+</div>
 	</form>
 
 ';
@@ -489,13 +467,44 @@ function save_resources(){
 		
 	function flag_question()
 	{
+	global $gSitePath,$user, $gDocPath,$base_root;
+	 $falgq='<script type="text/javascript">
+window.addEvent(\'domready\', function() {
+
+	if (!window.demo_path) window.demo_path = \'\';
+	var demo_path = window.demo_path;
 	
+	$(\'flagform\').addEvent(\'submit\', function(e) {
+		
+		e.stop();
+		
+		var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
+		
+		this.set(\'send\', {onComplete: function(response) { 
+			log.removeClass(\'ajax-loading\');
+			log.set(\'html\', response);
+		}});
+		
+		this.send();
+	});
+});
+
+
+
+</script>
+';
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
 	echo $qid;
-	$falgq='<table width="100%" border="1">
+	 $falgq.='	<div id="log">
+		
+		<div id="log_res"><!-- spanner --></div>
+	</div>
+	<span class="clr"><!-- spanner --></span>';
+	$falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
+		<div id="form_box"><table width="100%" border="1">
   <tr>
     <td height="53" colspan="2">'.$oListquest->question.'</td>
   </tr>
@@ -518,10 +527,10 @@ other content inappropirate for young Viewers</td>
   <tr>
     <td height="72">&nbsp;</td>
     <td><label>
-      <input type="submit" name="button" id="button" value="Report Problem" />
+     <input type="submit" name="button" id="submitter"  value="Report Problem"/>
     </label></td>
   </tr>
-</table>';
+</table></form>';
 
 echo $falgq;
 	
@@ -608,10 +617,26 @@ FROM node_revisions as a JOIN node as b
 ON a.nid = b.nid and 
 b.type='news_page' and b.status='1'  ";
 $rlistnews=mysql_query($vSql);
-
-	$output.='<input type="button" name="resource" value="Add Resources" onclick="loadresource(\'http://localhost/heard/qlite/resource/'.$qid.'\',\'Add\')" class="returnFalse arrow-right" id="sampleid"/>';
+$output='<script type="text/javascript">
+		
+		window.addEvent("domready", function() {
+			
+			
+			Element.implement({
+			
+				fancyShow: function() {
+					this.fade("in");
+				},
+			
+				fancyHide: function() {
+					this.fade("out");
+				}
+			});
+			
+		});
+	</script>';
+	$output.=' <p> <input type="button" name="resource" value="Add Resources" onclick="loadresource(\''.$gSitePath.'qlite/resource/'.$qid.'\',\'Add \')" class="returnFalse arrow-right" id="mootoolsLink"></p>';
 	
-
 	break;
 	case "Gurus":
 	$output='sample content Gurus';
@@ -627,6 +652,7 @@ $rlistnews=mysql_query($vSql);
 	case "Politician":
 	$output='sample content Politician';
 	break;
+
 	case "news":
 	$output='sample content news';
 	break;
@@ -643,7 +669,30 @@ $rlistnews=mysql_query($vSql);
 	echo $output;
 	}
 		
+	function flag_save()
+	{
+	  $list_length = db_query("select * from {question_flags} where nodeid='".$mid."' and uid='".$user->uid."' and  type='question' ");
+		 $numr=mysql_num_rows($list_length);
+		 echo $numr;
+		 if($numr==0)
+		 {
+		 $flagquery="insert into question_flags(nodeid,uid,flag_date,type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question')";
+		 	db_query($flagquery);
+		 drupal_set_message($message = 'You Have Flagged successfully !', $type = 'success');
+		 drupal_goto("qlite/view/$mid");
+		 }
+		  else
+		  {
+		  	
+	
 		
+		 drupal_set_message(t('You Have Already Flagged !'), $type = 'error');
+	    drupal_goto("qlite/view/$mid");
+		  
+		  }
+	
+	
+	}	
 		
 
 ?>
