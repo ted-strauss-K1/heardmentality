@@ -203,7 +203,7 @@ setDefaultCountry();
 			';
 			
 		//geoname api
-		
+		$optionlist='';
 		$result = geonames_query('countryinfo');
 foreach ($result->results as $country) {
   $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
