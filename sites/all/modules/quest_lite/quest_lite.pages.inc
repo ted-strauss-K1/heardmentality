@@ -143,7 +143,7 @@ $mid=$_REQUEST['mid'];
 		 {
 		$list_length = db_query("select * from {user_answers} where qid='".$mid."' and uid='".$user->uid."' ");
 		$numr=mysql_num_rows($list_length);
-		echo $numr;
+	
 		if($numr==0)
 		{
 		$vInsQuery="insert into user_answers(qid, ans_id,uid,answered_date) values ('".$mid."', '".$_REQUEST['answer']."','".$user->uid."','".date('Y-m-d h:i:s')."')";
@@ -160,6 +160,7 @@ $mid=$_REQUEST['mid'];
 		}
 		
 		}
+
 		
 		
 		 
@@ -524,15 +525,24 @@ window.addEvent(\'domready\', function() {
 	});
 });
 
-
-
+function formreport(flagfrm)
+{
+if((flagfrm.abuse_type[0].checked==false)&&
+(flagfrm.abuse_type[1].checked==false)&&
+(flagfrm.abuse_type[2].checked==false)&&
+(flagfrm.abuse_type[3].checked==false))
+{
+alert(" Select Report Type ");
+return false;
+}
+return true;
+}
 </script>
 ';
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
-	
 	 $falgq.='	<div id="log">
 		
 		<div id="log_res"><!-- spanner --></div>
@@ -562,7 +572,7 @@ other content inappropirate for young Viewers</td>
   <tr>
     <td height="72">&nbsp;</td>
     <td><label>
-     <input type="submit" name="button" id="submitter"  value="Report Problem"/>
+     <input type="submit" name="button" id="submitter"  value="Report Problem" onclick="return formreport(this.form);"/>
     </label></td>
   </tr>
 </table></form>';
@@ -721,7 +731,7 @@ $output='<script type="text/javascript">
 
 	$list_length = db_query("select * from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' ");
 		 $numr=mysql_num_rows($list_length);
-		 echo $numr;
+		
 		 if($numr==0)
 		 {
 		 $flagquery="insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question','".$_REQUEST['abuse_type']."')";
