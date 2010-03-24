@@ -448,32 +448,11 @@ foreach ($result->results as $country) {
 		
 		  $result = db_query("SELECT * FROM {question} where qid='".$nid."' AND uid='".$user->uid."'");
 			 $quest=db_fetch_object($result);
-			
+			drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');	
 			$output.='
 		<script type="text/javascript">
 		
 	
-						function add_ans(){
-					
-						 var ans_cnt=$(\'ans_cnt\').value;
-   							ans_cnts=++ans_cnt;	
-							if(ans_cnt<11){
-							$(\'ans_cnt\').set(\'value\',ans_cnts);
-						//	$(\'add_more\').set(\'html\',\'  <p>&nbsp;</p>\');
-							 var firstElem  = new Element("input", {name: "q_ans\'+ans_cnt+\'"}); 
-									//$(\'add_more\').adopt(firstElem);
-									// var slot = new Element(\'input\');
-   										// slot.inject($(\'add_more\'));
-											
-						
-					$(\'add_more\').innerHTML += \'  <p>&nbsp;</p> <div><input name="q_ans\'+ans_cnts+\'" type="text" id="q_ans\'+ans_cnts+\'" size="40" /></div>\';
-						$(\'add_more\').getLast().highlight(\'#FF0000\', \'#6DB6DB\');
-											}else{
-											$(\'add_more\').innerHTML += \'  <p>&nbsp;</p> <div>Only Upto 10 Answers are allowed!</div>\';
-						$(\'add_more\').getLast().highlight(\'#FF0000\', \'#6DB6DB\');
-											}
-
-							}
 						
 				
 			function get_subcat(sid,divid,level){
@@ -619,8 +598,8 @@ setDefaultCountry();
 			';
 				
 			
-		$output.= '
-				<form id="question" name="question" method="post"  ><table width="100%" border="0" align="center" style="border:0px;">
+		$output.= '<div id="err" class="clear"></div>
+				<form id="question" name="question" method="post"   onsubmit="return validate_question();" ><table width="100%" border="0" align="center" style="border:0px;">
   <tr>
     <td width="0%" height="94">&nbsp;</td>
     <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
@@ -658,7 +637,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     }
 			 
 			 
-    $output.='</table><div id="add_more"></div><br/>
+    $output.='</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);" onclick="del_ans();">[Remove]</a></div><small><br/>
 	
 	<input type="button" name="Add" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'"><input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">&nbsp;<input type="hidden" id="cat2" name="cat2" value="'.$quest->scid.'">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="'.$quest->sscid.'"> 
 	
