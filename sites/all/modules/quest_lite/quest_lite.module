@@ -1,7 +1,7 @@
 <?php
 function quest_lite_perm() {
 
-  return array('Question Lite','Question Save');
+  return array('Question Lite','Question Save', 'Add Resource' , 'Save Resource','Flag Question');
 
 } // function newmodule_perm
 function quest_lite_menu() {	
@@ -22,6 +22,50 @@ function quest_lite_menu() {
 	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'quest_lite.pages.inc',
   );
+  
+  
+  $quest['qlite/resource'] = array(
+    'title' => 'Resources',
+    'page callback' => 'add_resources',
+    'access arguments' => array('Add Resource'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  
+  
+   $quest['qlite/ajaxadd'] = array(
+    'title' => 'Resources',
+    'page callback' => 'save_resources',
+    'access arguments' => array('Save Resource'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  
+   $quest['qlite/flag'] = array(
+    'title' => 'Flag Question',
+    'page callback' => 'flag_question',
+    'access arguments' => array('Flag Question'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+   $quest['qlite/tab'] = array(
+    'title' => 'TAB',
+    'page callback' => 'tab_list',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  
+   $quest['qlite/panel'] = array(
+    'title' => 'panel',
+    'page callback' => 'panel_content',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
   return $quest;
+  
+ 
+  
 }
 
