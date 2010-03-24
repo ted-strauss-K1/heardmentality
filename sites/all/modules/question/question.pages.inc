@@ -288,7 +288,7 @@ width:775px; scroll;">'.$q_context.'</textarea>  </td>
   <!--<tr>
     <td>&nbsp;</td>
     <td nowrap="nowrap">End Date<span title="This field is required." class="form-required">*</span></td>
-    <td><input type="text" name="q_edate" value="'.$_REQUEST['q_edate'].'" autocomplete="off"   id="q_edate" /> <small>Eg: yyyy-mm-dd</small></td>
+    <td><input type="text" name="q_edate" value="" autocomplete="off"   id="q_edate" /> <small>Eg: yyyy-mm-dd</small></td>
     <td><input name="invite_count" type="hidden" id="invite_count" value="1" /></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
