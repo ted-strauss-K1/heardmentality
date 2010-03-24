@@ -532,14 +532,14 @@ window.addEvent(\'domready\', function() {
 	$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
-	echo $qid;
+	
 	 $falgq.='	<div id="log">
 		
 		<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
 	$falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
-		<div id="form_box"><table width="100%" border="1">
+		<div id="form_box"><table width="100%" border="0">
   <tr>
     <td height="53" colspan="2">'.$oListquest->question.'</td>
   </tr>
