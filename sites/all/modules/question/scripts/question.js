@@ -106,7 +106,9 @@ function add_ans(){
 		// $('add_more').innerHTML += '  <div>Answer should not be empty!</div>';
 		alert('Answer should not be empty!');
 	 $('Add').disabled = 1;
+	 if(ans_cnt>=3){
 	 $('add_more').getLast().highlight('#FF0000', '#6DB6DB');
+	 }
 	}
    
     
