@@ -252,7 +252,111 @@ if(selvalm==2)
 	}   
 
 }
+function validform(frm)
+{
+if(frm.rtype.value==1)
+{
+if(frm.nlink.value=="")
+{
+alert("Please enter News Link");
+frm.nlink.focus();
+return false;
+}
+var theurl=frm.nlink.value;
+	var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
+	if(theurl!="")
+	{
+	 if (!tomatch.test(theurl))
+     {
+       
+		alert("Please enter valid News Link ,Example:http://www.example.com");		
+		frm.nlink.focus();			
+	
+         return false;
+     }
+  }
+if(frm.ntitle.value=="")
+{
+alert("Please enter News Title");
+frm.ntitle.focus();
+frm.ntitle.select();
+return false;
+}
+if(frm.ncontent.value=="")
+{
+alert("Please enter News Content");
+frm.ncontent.focus();
 
+return false;
+}
+if(frm.path.value=="")
+{
+alert("Please Upload Image");
+return false;
+}
+}
+if(frm.rtype.value==2)
+{
+
+	if(frm.mtype.value=="0")
+	{
+	alert("select Media Type ");
+	frm.mtype.focus();
+	return false;
+	}
+	if(frm.mtype.value=="1")
+	{
+	
+	if(frm.membed.value=="")
+	{
+	alert("Please enter Embed  Code");
+	frm.membed.focus();
+	
+	return false;
+	}
+	
+	}
+	
+	if(frm.mtype.value=="2")
+	{
+	
+	if(frm.docpath.value=="")
+	{
+	alert("Please Upload Files ");
+	return false;
+	}
+	
+	}
+
+}
+if(frm.rtype.value==3)
+{
+if(frm.flink.value=="")
+{
+alert("Please enter Fact Link");
+frm.flink.focus();
+return false;
+}
+var theurl=frm.flink.value;
+	var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
+	if(theurl!="")
+	{
+	 if (!tomatch.test(theurl))
+     {
+       
+		alert("Please enter valid Fact Link ,Example:http://www.example.com");		
+		frm.flink.focus();			
+	
+         return false;
+     }
+  }
+  
+  
+  }
+
+return true;
+
+}
 
 </script>
 ';
@@ -345,7 +449,7 @@ if(selvalm==2)
                           </tr>
                           <tr>
                             <td height="35"></td>
-                            <td><input type="submit" name="button" id="submitter"  value="Add Resource" onsubmit="return valid();" /></td>
+                            <td><input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);" /></td>
                           </tr>
                         </table>
                       </div></td>
