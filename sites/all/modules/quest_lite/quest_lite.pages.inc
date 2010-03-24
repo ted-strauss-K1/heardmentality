@@ -143,7 +143,7 @@ $mid=$_REQUEST['mid'];
 		 {
 		$list_length = db_query("select * from {user_answers} where qid='".$mid."' and uid='".$user->uid."' ");
 		$numr=mysql_num_rows($list_length);
-		
+		echo $numr;
 		if($numr==0)
 		{
 		$vInsQuery="insert into user_answers(qid, ans_id,uid,answered_date) values ('".$mid."', '".$_REQUEST['answer']."','".$user->uid."','".date('Y-m-d h:i:s')."')";
@@ -458,7 +458,7 @@ window.addEvent(\'domready\', function() {
 	$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
-	
+	echo $qid;
 	 $falgq.='	<div id="log">
 		
 		<div id="log_res"><!-- spanner --></div>
@@ -474,15 +474,15 @@ window.addEvent(\'domready\', function() {
   </tr>
   <tr>
     <td width="44%" height="39"><label>
-      <input type="radio" name="radio" id="radio" value="radio" />
+      <input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
     Pornography or obscenity</label></td>
-    <td width="56%"><input type="radio" name="radio" id="radio2" value="radio" />
+    <td width="56%"><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
       radically or ethnically hateful content</td>
   </tr>
   <tr>
-    <td height="44"><input type="radio" name="radio" id="radio3" value="radio" />
+    <td height="44"><input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
 Graphic Violence</td>
-    <td><input type="radio" name="radio" id="radio4" value="radio" />
+    <td><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
 other content inappropirate for young Viewers</td>
   </tr>
   <tr>
@@ -647,10 +647,10 @@ $output='<script type="text/javascript">
 
 	$list_length = db_query("select * from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' ");
 		 $numr=mysql_num_rows($list_length);
-		
+		 echo $numr;
 		 if($numr==0)
 		 {
-		 $flagquery="insert into question_flags(nodeid,uid,flag_date,type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question')";
+		 $flagquery="insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question','".$_REQUEST['abuse_type']."')";
 		 	db_query($flagquery);
 		echo '<div class="messages success">You Have Flagged successfully ! </div>';
 		
