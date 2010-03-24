@@ -46,7 +46,7 @@ input.hide
 
 input.red
 	{
-		background-image:url(buttons/b-upload-menu.jpg);
+		background-image:url(buttons/Upload.jpg);
 		z-index:1;
 		left:0px;
 		top:0px;
@@ -83,7 +83,7 @@ function buttonPush ()
 </script>
 <form action="" name="frmUploader" id="frmUploader" method="post" enctype="multipart/form-data" onSubmit="return false;">
 <input type="file" class="hide" type="file" name="fileupload" style="cursor:pointer;" />
-<input type="submit" class="red" id="pseudobutton" value="Upload Document" onClick="return false;" style="cursor:pointer;">
+<input type="image" class="red" id="pseudobutton" src="buttons/Upload.jpg" onClick="return false;" style="cursor:pointer;">
  
 </form>
 <script type="text/javascript">
