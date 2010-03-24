@@ -309,7 +309,7 @@ width:775px; scroll;">'.$_REQUEST['q_context'].'</textarea>  </td>
     <td>&nbsp;</td>
   </tr>--><tr><td colspan="6">';
   
-	$output.=theme('tagging_widget','');
+	//$output.=theme('tagging_widget','');
 	
   
  $output.=' </td></tr><tr>
