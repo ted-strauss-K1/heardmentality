@@ -359,7 +359,7 @@ $qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$("panelTabs3Link").addEvent("click", function(e){
 		MochaUI.updateContent({
 			"element":  $("help-panel"),
-			"url":       "'.$gSitePath.'qlite/panel?type=Resources"
+			"url":       "'.$gSitePath.'qlite/panel?type=Resources&qid='.$qid.'"
 		});
 	});
 $("panelTabs4Link").addEvent("click", function(e){
