@@ -334,7 +334,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
 function question_save()
 {
 
-global $user;
+global $gSitePath,$user, $gDocPath,$base_root;
 
 	$q_quest='';
 //print_r($_REQUEST);
@@ -360,7 +360,7 @@ global $user;
 		 unset($_SESSION['post']);
 		 $_SESSION['post']='';
 		// drupal_goto("question");
-			echo  '<script>window.parent.location.href="http://localhost/heardmentalitylocal/question/";</script>';
+			echo  '<script>window.parent.location.href="'.$gSitePath.'question/";</script>';
 		  }
 		   else {
 		   		drupal_get_messages($type='error',$clear='TRUE');
