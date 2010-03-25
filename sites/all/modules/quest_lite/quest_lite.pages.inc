@@ -1,17 +1,17 @@
 <?php
 
-function qlite_view()
-{
-	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-	
-
-drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
-drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
-			drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
- 
-
- $qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$vSql="select * from {question} where status='1' and qid=$qid ";
+		function qlite_view()
+		{
+		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+		
+		
+		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
+		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
+		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
+		
+		
+		$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+		$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
 		
@@ -19,27 +19,27 @@ drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
 		$username=db_query($vuser);
 		$ufet=db_fetch_object($username);
 		
-$list_lengthan = db_query("select * from {user_answers} where qid='".$qid."' and uid='".$user->uid."' ");
-		 $numran=mysql_num_rows($list_lengthan);
+		$list_lengthan = db_query("select * from {user_answers} where qid='".$qid."' and uid='".$user->uid."' ");
+		$numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
-			$output='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  >
- <div> <table width="100%" border="0" align="center" ><input type="hidden" name="mid" value="'.$qid.'">
-  <tr  width="100%">
+		$output='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  >
+		<div> <table width="100%" border="0" align="center" ><input type="hidden" name="mid" value="'.$qid.'">
+		<tr  width="100%">
 		<td width="30%" align="left" valign="top">'.$oListquest->question.'</td>
 		<td > &nbsp;</td>
-	</tr>
-	<tr>
+		</tr>
+		<tr>
 		<td align="left" valign="top">&nbsp; '.$oListquest->context.'</td>
 		<td > </td>
-	</tr>
-
-	<tr>
+		</tr>
+		
+		<tr>
 		<td align="right"></td>
 		
 		<td>		</td>
-	</tr>';
+		</tr>';
 		
-			$vans="select * from {possible_answer} where  qid=$qid ";
+		$vans="select * from {possible_answer} where  qid=$qid ";
 		
 		
 		$vlist=db_query($vans);
@@ -47,103 +47,103 @@ $list_lengthan = db_query("select * from {user_answers} where qid='".$qid."' and
 		{
 		if($numran==0)
 		{
-			$output.='
-			<tr>
-			  <td align="left"><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
-'.$vlistquest->answer.'</td>
-			  <td></td>
-  </tr>';
-	}
-	else
-	{
-	if($answer_id->qid==$vlistquest->qid) { $chk= "checked";}
-$output.='
-			<tr>
-			  <td align="left"><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
-'.$vlistquest->answer.'</td>
-			  <td></td>
-  </tr>';
-	
-	}
+		$output.='
+		<tr>
+		<td align="left"><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'</td>
+		<td></td>
+		</tr>';
+		}
+		else
+		{
+		if($answer_id->qid==$vlistquest->qid) { $chk= "checked";}
+		$output.='
+		<tr>
+		<td align="left"><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'</td>
+		<td></td>
+		</tr>';
+		
+		}
 		
 		}
 		
 		$output.='
-  <tr>
-    <td align="right">&nbsp; </td>
-    <td>
-      
-    </td>
-  </tr>';
-  $output.='<script type="text/javascript">
-function formsubmittype(mtype,ids){
-
-if(mtype==1)
-{
- document.forms["answer"].submit();
- 
- }
-if(mtype==3)
-{
- loadflagquestion(\''.$gSitePath.'qlite/flag/\'+ids,\'Add \');
- 
- }
-  	
-  }
-</script>
-';
-	if($numran!=0)
-	{ 
-	
-	$optio='<option value="1"> Withdraw answer</option>'; 
-	}
-  if($numran==0)
-	{ 
-	
-		$submitbutt='<input type="submit" name="save" id="save" value="Vote" />'; 
-	}
-	$output.='
-  <tr>
-    <td align="left" valign="top"> <select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
-	  <option value=""> Select</option >
-    '.$optio.'
-       <option value="2"> Invite</option >
-      <option value="3"> Flag</option >
-       <option value="4">Suggest New Answer</option> 
-      <option value="5">Create Mashup:</option> 
-      </select></td>
-    <td>
-     
-    </td>
-  </tr>
-  <tr>
-			  <td align="left"> '.$submitbutt.'</td>
-			  <td>
-			  
-			 </td></tr>
- </table></div>
-</form>';
+		<tr>
+		<td align="right">&nbsp; </td>
+		<td>
 		
+		</td>
+		</tr>';
+		$output.='<script type="text/javascript">
+		function formsubmittype(mtype,ids){
+		
+		if(mtype==1)
+		{
+		document.forms["answer"].submit();
+		
+		}
+		if(mtype==3)
+		{
+		loadflagquestion(\''.$gSitePath.'qlite/flag/\'+ids,\'Add \');
+		
+		}
+		
+		}
+		</script>
+		';
+		if($numran!=0)
+		{ 
+		
+		$optio='<option value="1"> Withdraw answer</option>'; 
+		}
+		if($numran==0)
+		{ 
+		
+		$submitbutt='<input type="submit" name="save" id="save" value="Vote" />'; 
+		}
+		$output.='
+		<tr>
+		<td align="left" valign="top"> <select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
+		<option value=""> Select</option >
+		'.$optio.'
+		<option value="2"> Invite</option >
+		<option value="3"> Flag</option >
+		<option value="4">Suggest New Answer</option> 
+		<option value="5">Create Mashup:</option> 
+		</select></td>
+		<td>
+		
+		</td>
+		</tr>
+		<tr>
+		<td align="left"> '.$submitbutt.'</td>
+		<td>
+		
+		</td></tr>
+		</table></div>
+		</form>';
+		
+		
+		return $output;
+		}
 
-    return $output;
-}
-
-function qlite_save()
-{
-
+		function qlite_save()
+		{
+		
 		global $gSitePath,$user, $gDocPath,$base_root;
-$mid=$_REQUEST['mid'];
-
-	$voutput='';
+		$mid=$_REQUEST['mid'];
+		
+		$voutput='';
 		$vquest="select * from {possible_answer} where paid='".$_REQUEST['answer']."'  ";
 		$rquest=db_query($vquest);
 		$olistquest=db_fetch_object($rquest);
 		
-		 if(($_REQUEST['answer']!=''))
-		 {
+		if(($_REQUEST['answer']!=''))
+		{
 		$list_length = db_query("select * from {user_answers} where qid='".$mid."' and uid='".$user->uid."' ");
 		$numr=mysql_num_rows($list_length);
-	
+		
 		if($numr==0)
 		{
 		$vInsQuery="insert into user_answers(qid, ans_id,uid,answered_date) values ('".$mid."', '".$_REQUEST['answer']."','".$user->uid."','".date('Y-m-d h:i:s')."')";
@@ -160,67 +160,62 @@ $mid=$_REQUEST['mid'];
 		}
 		
 		}
-
 		
 		
 		 
-		 if($_REQUEST['txt_act']==1)
-		 {
-		 
-		  $delQuery="delete from  user_answers where qid='".$mid."' and uid='".$user->uid."' ";
+		if($_REQUEST['txt_act']==1)
+		{
+		
+		$delQuery="delete from  user_answers where qid='".$mid."' and uid='".$user->uid."' ";
 		db_query($delQuery);
 		
-		 drupal_set_message(t('Your Answer has beed  Removed successfully!'), $type = 'success');
-	    drupal_goto("qlite/view/$mid");
-		  
-		
-		  
-		  }
+		drupal_set_message(t('Your Answer has beed  Removed successfully!'), $type = 'success');
 		drupal_goto("qlite/view/$mid");
 		
-	   return $voutput;
-
-}
-
-
-
-
+		
+		
+		}
+		drupal_goto("qlite/view/$mid");
+		
+		return $voutput;
+		
+		}
 
 	function add_resources()
-		{
-			global $gSitePath,$user, $gDocPath,$base_root;
+	{
+	global $gSitePath,$user, $gDocPath,$base_root;
 	drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/demo.css');
 	
-$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
- $resources='<script type="text/javascript">
-window.addEvent(\'domready\', function() {
-
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$resources='<script type="text/javascript">
+	window.addEvent(\'domready\', function() {
+	
 	if (!window.demo_path) window.demo_path = \'\';
 	var demo_path = window.demo_path;
 	
 	$(\'myForm\').addEvent(\'submit\', function(e) {
-		
-		e.stop();
-		
-		var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
-		
-		this.set(\'send\', {onComplete: function(response) { 
-			log.removeClass(\'ajax-loading\');
-			log.set(\'html\', response);
-		}});
-		
-		this.send();
+	
+	e.stop();
+	
+	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
+	
+	this.set(\'send\', {onComplete: function(response) { 
+	log.removeClass(\'ajax-loading\');
+	log.set(\'html\', response);
+	}});
+	
+	this.send();
 	});
-});
-
-function showhide(selectValue){
-  
-  	
-    if(selectValue==1)
+	});
+	
+	function showhide(selectValue){
+	
+	
+	if(selectValue==1)
 	{
-		document.getElementById("div1").style.display=\'block\'
-		document.getElementById("div2").style.display=\'none\'
-		document.getElementById("div3").style.display=\'none\'
+	document.getElementById("div1").style.display=\'block\'
+	document.getElementById("div2").style.display=\'none\'
+	document.getElementById("div3").style.display=\'none\'
 	}
 	if(selectValue==2)
 	{
@@ -234,71 +229,75 @@ function showhide(selectValue){
 	document.getElementById("div1").style.display=\'none\'
 	document.getElementById("div2").style.display=\'none\'
 	}		
-      
-}
-function showhidemulti(selvalm)
-{
-//alert(selvalm);
-if(selvalm==1)
-	{
-		document.getElementById("media").style.display=\'block\'
-		document.getElementById("media_div").style.display=\'none\'
 	
 	}
-if(selvalm==2)
+	function showhidemulti(selvalm)
+	{
+	//alert(selvalm);
+	if(selvalm==1)
+	{
+	document.getElementById("media").style.display=\'block\'
+	document.getElementById("media_div").style.display=\'none\'
+	
+	}
+	if(selvalm==2)
 	{
 	document.getElementById("media_div").style.display=\'block\'
 	document.getElementById("media").style.display=\'none\'
 	
 	}   
-
-}
-function validform(frm)
-{
-if(frm.rtype.value==1)
-{
-if(frm.nlink.value=="")
-{
-alert("Please enter News Link");
-frm.nlink.focus();
-return false;
-}
-var theurl=frm.nlink.value;
+	
+	}
+	function validform(frm)
+	{
+	if(frm.rtype.value=="0")
+	{
+	alert("select  Type ");
+	frm.mtype.focus();
+	return false;
+	}
+	if(frm.rtype.value==1)
+	{
+	if(frm.nlink.value=="")
+	{
+	alert("Please enter News Link");
+	frm.nlink.focus();
+	return false;
+	}
+	var theurl=frm.nlink.value;
 	var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
 	if(theurl!="")
 	{
-	 if (!tomatch.test(theurl))
-     {
-       
-		alert("Please enter valid News Link ,Example:http://www.example.com");		
-		frm.nlink.focus();			
+	if (!tomatch.test(theurl))
+	{
 	
-         return false;
-     }
-  }
-if(frm.ntitle.value=="")
-{
-alert("Please enter News Title");
-frm.ntitle.focus();
-frm.ntitle.select();
-return false;
-}
-if(frm.ncontent.value=="")
-{
-alert("Please enter News Content");
-frm.ncontent.focus();
-
-return false;
-}
-if(frm.path.value=="")
-{
-alert("Please Upload Image");
-return false;
-}
-}
-if(frm.rtype.value==2)
-{
-
+	alert("Please enter valid News Link ,Example:http://www.example.com");		
+	frm.nlink.focus();			
+	
+	return false;
+	}
+	}
+	if(frm.ntitle.value=="")
+	{
+	alert("Please enter News Title");
+	frm.ntitle.focus();
+	return false;
+	}
+	if(frm.ncontent.value=="")
+	{
+	alert("Please enter News Content");
+	frm.ncontent.focus();
+	return false;
+	}
+	if(frm.path.value=="")
+	{
+	alert("Please Upload Image");
+	return false;
+	}
+	}
+	if(frm.rtype.value==2)
+	{
+	
 	if(frm.mtype.value=="0")
 	{
 	alert("select Media Type ");
@@ -312,7 +311,6 @@ if(frm.rtype.value==2)
 	{
 	alert("Please enter Embed  Code");
 	frm.membed.focus();
-	
 	return false;
 	}
 	
@@ -328,335 +326,323 @@ if(frm.rtype.value==2)
 	}
 	
 	}
-
-}
-if(frm.rtype.value==3)
-{
-if(frm.flink.value=="")
-{
-alert("Please enter Fact Link");
-frm.flink.focus();
-return false;
-}
-var theurl=frm.flink.value;
+	
+	}
+	if(frm.rtype.value==3)
+	{
+	if(frm.flink.value=="")
+	{
+	alert("Please enter Fact Link");
+	frm.flink.focus();
+	return false;
+	}
+	var theurl=frm.flink.value;
 	var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
 	if(theurl!="")
 	{
-	 if (!tomatch.test(theurl))
-     {
-       
-		alert("Please enter valid Fact Link ,Example:http://www.example.com");		
-		frm.flink.focus();			
+	if (!tomatch.test(theurl))
+	{
 	
-         return false;
-     }
-  }
-  
-  
-  }
+	alert("Please enter valid Fact Link ,Example:http://www.example.com");		
+	frm.flink.focus();			
+	
+	return false;
+	}
+	}
+	
+	
+	}
+	
+	return true;
+	
+	}
+	
+	</script>
+	';
 
-return true;
-
-}
-
-</script>
-';
-
-
-
-
-	 $resources.='	<div id="log">
-		
-		<div id="log_res"><!-- spanner --></div>
+	$resources.='	<div id="log">
+	
+	<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
-	     $resources.='<form id="myForm" name="myform"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
-		<div id="form_box">
-			
-		<table width="100%" border="0" >
-  <tr>
-    <td >Resource Type</td>
-    <td>
-      <select name="rtype" id="rtype" onchange="showhide(this.value);">
-       <option value="0">Select </option>
-      <option value="1">News </option>
-       <option value="2">Multimedia </option>
-      <option value="3">Facts </option>
-      </select>    </td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>
+	$resources.='<form id="myForm" name="myform"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
+	<div id="form_box">
+	
+	<table width="100%" border="0" >
+	<tr>
+	<td >Resource Type</td>
+	<td>
+	<select name="rtype" id="rtype" onchange="showhide(this.value);">
+	<option value="0">Select </option>
+	<option value="1">News </option>
+	<option value="2">Multimedia </option>
+	<option value="3">Facts </option>
+	</select>    </td>
+	</tr>
+	<tr>
+	<td></td>
+	<td>
 	<div id="div1" style="display:none;">
-								  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-								 
-									  <tr>
-    <td>News Link  </td>
-    <td><input type="text" name="nlink" id="nlink"></td>
-  </tr>
-   <tr>
-    <td>News Title</td>
-    <td><input type="text" name="ntitle" id="ntitle"></td>
-  </tr>
-   <tr>
-    <td>Content</td>
-    <td><textarea name="ncontent" id="ncontent" cols="35"  rows="8"></textarea></td>
-  </tr>
-    <tr>
-    <td>News Image</td>
-    <td>
-<input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe>
-</td>
-  </tr>  
-   <tr>
-    <td></td>
-    <td>  </td>
-  </tr>
-</table>
-</div></td>
-  </tr>
-   <tr>
-    <td></td>
-    <td>
- <div  id="div2" style="display:none;">
-   <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td>Mutlimedia Type</td>
-    <td><select name="mtype" id="mtype"  onchange="showhidemulti(this.value);" >
-     <option value="0">Select </option>
-      <option value="1">Web Video </option>
-       <option value="2">Podcast,PDF, DOC, PPT. </option>
-    </select></td>
-  </tr>
-   <tr>
-    <td><div  id="media" style="display:none;"> <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td> Embed Url</td>
-    <td>
-      <textarea name="membed" id="membed" cols="35" rows="5"></textarea>    </td>
-  </tr>
-</table> </div>
-</td>
- </tr>
-   <tr>
-    <td>
- <div  id="media_div" style="display:none;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td> Document </td>
-    <td><input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe>
-  </td>
-  </tr>
-  <tr>
-    <td>  </td>
-    <td>
-   </td>
-  </tr>
-  </table>
- </div>
- </td>
- </tr>
-   </table>
-  </div>
-  <tr>
-    <td></td>
-    <td>
+						  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+						 
+							  <tr>
+	<td>News Link  </td>
+	<td><input type="text" name="nlink" id="nlink"></td>
+	</tr>
+	<tr>
+	<td>News Title</td>
+	<td><input type="text" name="ntitle" id="ntitle"></td>
+	</tr>
+	<tr>
+	<td>Content</td>
+	<td><textarea name="ncontent" id="ncontent" cols="35"  rows="8"></textarea></td>
+	</tr>
+	<tr>
+	<td>News Image</td>
+	<td>
+	<input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe>
+	</td>
+	</tr>  
+	<tr>
+	<td></td>
+	<td>  </td>
+	</tr>
+	</table>
+	</div></td>
+	</tr>
+	<tr>
+	<td></td>
+	<td>
+	<div  id="div2" style="display:none;">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td>Mutlimedia Type</td>
+	<td><select name="mtype" id="mtype"  onchange="showhidemulti(this.value);" >
+	<option value="0">Select </option>
+	<option value="1">Web Video </option>
+	<option value="2">Podcast,PDF, DOC, PPT. </option>
+	</select></td>
+	</tr>
+	<tr>
+	<td><div  id="media" style="display:none;"> <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td> Embed Url</td>
+	<td>
+	<textarea name="membed" id="membed" cols="35" rows="5"></textarea>    </td>
+	</tr>
+	</table> </div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+	<div  id="media_div" style="display:none;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td> Document </td>
+	<td><input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe>
+	</td>
+	</tr>
+	<tr>
+	<td>  </td>
+	<td>
+	</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+	</tr>
+	</table>
+	</div>
+	<tr>
+	<td></td>
+	<td>
 	<div  id="div3" style="display:none;">
-   <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td>Link</td>
-    <td><input type="text" name="flink" id="flink"></td>
-  </tr> </table>
-  </div>
-  <tr>
-    <td></td>
-    <td>
-    &nbsp;
-    </td>
-  </tr>
-  <tr>
-    <td></td>
-    <td>
-     <input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);" />
-    </td>
-  </tr>
-</table>
-</div>
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+	<td>Link</td>
+	<td><input type="text" name="flink" id="flink"></td>
+	</tr> </table>
+	</div>
+	<tr>
+	<td></td>
+	<td>
+	&nbsp;
+	</td>
+	</tr>
+	<tr>
+	<td></td>
+	<td>
+	<input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);" />
+	</td>
+	</tr>
+	</table>
+	</div>
 	</form>';			
-echo $resources;
-		}
-
-
-function save_resources(){
-		
-		global $gSitePath,$user, $gDocPath,$base_root;
-		
-		
-		
+	echo $resources;
+	}
+	function save_resources(){
 	
-		 $resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."')";
-		db_query($resourceadd);
-		echo '<div class="messages success"> Resources Added Suceesfully </div>';
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."')";
+	db_query($resourceadd);
+	echo '<div class="messages success"> Resources Added Suceesfully </div>';
 	
-		}
-		
-		
-		
+	}
 	function flag_question()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
-	 $falgq='<script type="text/javascript">
-window.addEvent(\'domready\', function() {
-
+	$falgq='<script type="text/javascript">
+	window.addEvent(\'domready\', function() {
+	
 	if (!window.demo_path) window.demo_path = \'\';
 	var demo_path = window.demo_path;
 	
 	$(\'flagform\').addEvent(\'submit\', function(e) {
-		
-		e.stop();
-		
-		var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
-		
-		this.set(\'send\', {onComplete: function(response) { 
-			log.removeClass(\'ajax-loading\');
-			log.set(\'html\', response);
-		}});
-		
-		this.send();
+	
+	e.stop();
+	
+	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
+	
+	this.set(\'send\', {onComplete: function(response) { 
+	log.removeClass(\'ajax-loading\');
+	log.set(\'html\', response);
+	}});
+	
+	this.send();
 	});
-});
-
-function formreport(flagfrm)
-{
-if((flagfrm.abuse_type[0].checked==false)&&
-(flagfrm.abuse_type[1].checked==false)&&
-(flagfrm.abuse_type[2].checked==false)&&
-(flagfrm.abuse_type[3].checked==false))
-{
-alert(" Select Report Type ");
-return false;
-}
-return true;
-}
-</script>
-';
+	});
+	
+	function formreport(flagfrm)
+	{
+	if((flagfrm.abuse_type[0].checked==false)&&
+	(flagfrm.abuse_type[1].checked==false)&&
+	(flagfrm.abuse_type[2].checked==false)&&
+	(flagfrm.abuse_type[3].checked==false))
+	{
+	alert(" Select Report Type ");
+	return false;
+	}
+	return true;
+	}
+	</script>
+	';
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSql="select * from {question} where status='1' and qid=$qid ";
-		$rlist=db_query($vSql);
-		$oListquest=db_fetch_object($rlist);
-	 $falgq.='	<div id="log">
-		
-		<div id="log_res"><!-- spanner --></div>
+	$rlist=db_query($vSql);
+	$oListquest=db_fetch_object($rlist);
+	$falgq.='	<div id="log">
+	
+	<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
 	$falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
-		<div id="form_box"><table width="100%" border="0">
-  <tr>
-    <td height="53" colspan="2">'.$oListquest->question.'</td>
-  </tr>
-  <tr>
-    <td height="39" colspan="2">'.$oListquest->context.'</td>
-  </tr>
-  <tr>
-    <td width="44%" height="39"><label>
-      <input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
-    Pornography or obscenity</label></td>
-    <td width="56%"><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
-      radically or ethnically hateful content</td>
-  </tr>
-  <tr>
-    <td height="44"><input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
-Graphic Violence</td>
-    <td><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
-other content inappropirate for young Viewers</td>
-  </tr>
-  <tr>
-    <td height="72">&nbsp;</td>
-    <td><label>
-     <input type="submit" name="button" id="submitter"  value="Report Problem" onclick="return formreport(this.form);"/>
-    </label></td>
-  </tr>
-</table></form>';
-
-echo $falgq;
+	<div id="form_box"><table width="100%" border="0">
+	<tr>
+	<td height="53" colspan="2">'.$oListquest->question.'</td>
+	</tr>
+	<tr>
+	<td height="39" colspan="2">'.$oListquest->context.'</td>
+	</tr>
+	<tr>
+	<td width="44%" height="39"><label>
+	<input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
+	Pornography or obscenity</label></td>
+	<td width="56%"><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
+	radically or ethnically hateful content</td>
+	</tr>
+	<tr>
+	<td height="44"><input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
+	Graphic Violence</td>
+	<td><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
+	other content inappropirate for young Viewers</td>
+	</tr>
+	<tr>
+	<td height="72">&nbsp;</td>
+	<td><label>
+	<input type="submit" name="button" id="submitter"  value="Report Problem" onclick="return formreport(this.form);"/>
+	</label></td>
+	</tr>
+	</table></form>';
+	
+	echo $falgq;
 	
 	}	
-		
+	
 		
 	function tab_list()
 	{
-		global $gSitePath,$user, $gDocPath,$base_root;
+	global $gSitePath,$user, $gDocPath,$base_root;
 	
 	
-$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	
 	echo '<div class="toolbarTabs">
 	<ul id="panelTabs" class="tab-menu">
-		<li id="panelTabs1Link" class="selected"><a>Reporting</a></li>
-		<li id="panelTabs2Link"><a>Forum</a></li>
-		<li id="panelTabs3Link" ><a>Resources</a></li>
-		<li id="panelTabs4Link"><a>Gurus</a></li>
-		<li id="panelTabs5Link"><a>Info</a></li>
-		<li id="panelTabs6Link"><a>Politician</a></li>
+	<li id="panelTabs1Link" class="selected"><a>Reporting</a></li>
+	<li id="panelTabs2Link"><a>Forum</a></li>
+	<li id="panelTabs3Link" ><a>Resources</a></li>
+	<li id="panelTabs4Link"><a>Gurus</a></li>
+	<li id="panelTabs5Link"><a>Info</a></li>
+	<li id="panelTabs6Link"><a>Politician</a></li>
 	</ul>
 	<div class="clear"></div>
-</div>
+	</div>
 
-<script type="text/javascript">
-
+	<script type="text/javascript">
+	
 	MochaUI.initializeTabs("panelTabs");
-
+	
 	$("panelTabs1Link").addEvent("click", function(e){
-		MochaUI.updateContent({
-			"element":  $("help-panel"),
-			"url":       "'.$gSitePath.'qlite/panel"
-		});
+	MochaUI.updateContent({
+	"element":  $("help-panel"),
+	"url":       "'.$gSitePath.'qlite/panel"
 	});
-
+	});
+	
 	$("panelTabs2Link").addEvent("click", function(e){
-		MochaUI.updateContent({
-			"element":  $("help-panel"),
-			"url":       "'.$gSitePath.'qlite/panel?type=Forum"
-		});
+	MochaUI.updateContent({
+	"element":  $("help-panel"),
+	"url":       "'.$gSitePath.'qlite/panel?type=Forum"
+	});
 	});
 	
 	$("panelTabs3Link").addEvent("click", function(e){
-		MochaUI.updateContent({
-			"element":  $("help-panel"),
-			"url":       "'.$gSitePath.'qlite/panel/'.$qid.'?type=Resources"
-		});
+	MochaUI.updateContent({
+	"element":  $("help-panel"),
+	"url":       "'.$gSitePath.'qlite/panel/'.$qid.'?type=Resources"
 	});
-$("panelTabs4Link").addEvent("click", function(e){
-		MochaUI.updateContent({
-			"element":  $("help-panel"),
-			"url":       "'.$gSitePath.'qlite/panel?type=Gurus"
-		});
+	});
+	$("panelTabs4Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("help-panel"),
+	"url":       "'.$gSitePath.'qlite/panel?type=Gurus"
+	});
 	});
 	
 	$("panelTabs5Link").addEvent("click", function(e){
-		MochaUI.updateContent({
-			"element":  $("help-panel"),
-			"url":       "'.$gSitePath.'qlite/panel?type=Info"
-		});
+	MochaUI.updateContent({
+	"element":  $("help-panel"),
+	"url":       "'.$gSitePath.'qlite/panel?type=Info"
+	});
 	});
 	
 	$("panelTabs6Link").addEvent("click", function(e){
-		MochaUI.updateContent({
-			"element":  $("help-panel"),
-			"url":       "'.$gSitePath.'qlite/panel?type=Politician"
-		});
+	MochaUI.updateContent({
+	"element":  $("help-panel"),
+	"url":       "'.$gSitePath.'qlite/panel?type=Politician"
+	});
 	});
 	
-
-</script>';
+	
+	</script>';
 	
 	}	
-		
+	
 		
 	function panel_content()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
-
-$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 
 	$type=$_REQUEST['type'];
 	switch($type)
@@ -666,27 +652,28 @@ $qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	break;
 	case "Resources":
 	$vSql="SELECT *
-FROM node_revisions as a JOIN node as b
-ON a.nid = b.nid and 
-b.type='news_page' and b.status='1'  ";
-$rlistnews=mysql_query($vSql);
-$output='<script type="text/javascript">
-		
-		window.addEvent("domready", function() {
-			
-			
-			Element.implement({
-			
-				fancyShow: function() {
-					this.fade("in");
-				},
-			
-				fancyHide: function() {
-					this.fade("out");
-				}
-			});
-			
-		});
+	FROM node_revisions as a JOIN node as b
+	ON a.nid = b.nid and 
+	b.type='news_page' and b.status='1'  ";
+	$rlistnews=mysql_query($vSql);
+	$output='<script type="text/javascript">
+	
+	window.addEvent("domready", function() {
+	
+	
+	Element.implement({
+	
+	fancyShow: function() {
+	this.fade("in");
+	},
+
+	
+	fancyHide: function() {
+	this.fade("out");
+	}
+	});
+	
+	});
 	</script>';
 	$output.=' <p> <input type="button" name="resource" value="Add Resources" onclick="loadresource(\''.$gSitePath.'qlite/resource/'.$qid.'\',\'Add \')" class="returnFalse arrow-right" id="mootoolsLink"></p>';
 	
@@ -741,7 +728,7 @@ $output='<script type="text/javascript">
 		 }
 		  else
 		  {
-		  	
+			
 	
 		
 		echo '<div class="messages success">You Have Already Flagged !</div>';
