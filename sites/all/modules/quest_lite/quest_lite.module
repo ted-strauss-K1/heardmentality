@@ -65,12 +65,21 @@ function quest_lite_menu() {
   );
   
    $quest['qlite/flagreport'] = array(
-    'title' => 'panel',
+    'title' => 'Flag Report',
     'page callback' => 'flag_report',
     'access arguments' => array('Question Lite'),
 	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'quest_lite.pages.inc',
   );
+  
+  $quest['qlite/suggest'] = array(
+    'title' => 'Suggest Answer',
+    'page callback' => 'suggest_answer',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  
   return $quest;
   
  
