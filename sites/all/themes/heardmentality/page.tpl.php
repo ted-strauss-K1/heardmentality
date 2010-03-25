@@ -136,6 +136,7 @@ global $user;
     <?php endforeach; ?>
 	</ul>	
     <?php endif;?>
+    
 	
 </div><!-- desktopNavbar end -->
 </div><!-- desktopHeader end -->
