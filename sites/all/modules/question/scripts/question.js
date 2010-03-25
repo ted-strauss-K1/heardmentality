@@ -131,7 +131,7 @@ function add_ans(){
 }
 
 function del_ans(){
-		
+		 $('Add').disabled = 0;
 	var ans_cnt = $('ans_cnt').value;
 	if (ans_cnt > 2) {
 	
@@ -143,7 +143,8 @@ function del_ans(){
 			
 			 var el=$('add_more').getLast('p').empty();
 			  $('Add').disabled = 0;
-		}
+		}	
+		
 		
 		$('q_ans' + ans_cnt).fade('out');
 		
