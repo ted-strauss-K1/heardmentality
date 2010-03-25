@@ -51,17 +51,22 @@
 // question add
 	function question_add(){
 	
+	//get error msgs
+	$error=drupal_get_messages();
+	if(is_array($error)){
+	 $list_err=implode("<br/>",$error['error']);
+	}
+	
+	
 	//print_r($_SESSION['post']);
 	$q_quest='';
 	$optionlist='';
 	 $q_context='';
 	 $q_ans1='';
 	 $q_ans2='';
-	 
 	 if(is_array($_SESSION['post'])&&isset($_SESSION['post'])){
 	extract($_SESSION['post']);
 	 }
-	
 			global $gSitePath,$user, $gDocPath,$base_root;
 			$output='';
 		
@@ -82,7 +87,13 @@
 		drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');	
 			
 			$output.='
-	
+			<script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
+<script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
+			
+			<script src="http://ws.geonames.org/export/geonamesData.js"
+        type="text/javascript"></script>
+	<script src="'.$gSitePath.'sites/all/modules/question/scripts/question.js"
+        type="text/javascript"></script>
 				<script type="text/javascript">
 				
 				window.setTimeout("setDefaultCountry()", 1000);
@@ -201,23 +212,25 @@ foreach ($result->results as $country) {
 
 
 			
-		$output.= '<div id="err" class="clear"></div>
-				<form id="question" name="question" onsubmit="return validate_question();" method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
+		$output.= '<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+		<div id="err" style="border: 3px solid rgb(221, 151, 161); display: block; background-color: rgb(238, 238, 238); height: auto; color: red; list-style-type: none; list-style-image: none; list-style-position: outside;" class="clear" ">'.$list_err.'</div>
+				<form id="question" name="question" onsubmit="return validate_question();"  method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
   <tr>
-    <td width="0%" height="94">&nbsp;</td>
+    <td width="0%" height="44">&nbsp;</td>
     <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
     <td colspan="4">
-        <input type="text" name="q_quest"  value="'.$q_quest.'" id="q_quest"  size="150"/>    </td>
+        <input type="text" name="q_quest"  value="'.$q_quest.'" id="q_quest"  size="100"/>    </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td valign="top">Context</td>
     <td colspan="4">
-      <textarea name="q_context" id="q_context" cols="150" rows="2" style="border:1px solid #BBBBBB;
+      <textarea name="q_context" id="q_context" cols="100" rows="2" style="border:1px solid #BBBBBB;
 
-width:775px; scroll;">'.$q_context.'</textarea>  </td>
+width:580px; scroll;">'.$q_context.'</textarea>  </td>
   </tr>
-  
+  <tr>    <td colspan="4">&nbsp;</td></tr>
   <tr>
     <td>&nbsp;</td>
     <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
@@ -312,7 +325,7 @@ width:775px; scroll;">'.$q_context.'</textarea>  </td>
 
 ';
 
-    return $output;
+    echo $output;
 
 
 	
@@ -343,12 +356,14 @@ global $user;
 		 }
 		 
 		 if($result)
-		 drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
+		$output= drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
 		 unset($_SESSION['post']);
 		 $_SESSION['post']='';
-		 drupal_goto("question");
+		// drupal_goto("question");
+			echo  '<script>window.parent.location.href="http://localhost/heardmentalitylocal/question/";</script>';
 		  }
 		   else {
+		   		drupal_get_messages($type='error',$clear='TRUE');
 		   		$_SESSION['post']=$_POST;
 				drupal_set_message($message = 'Sorry, Following required fields are Empty!', $type = 'error');
 				
@@ -361,11 +376,12 @@ global $user;
 				if(empty($cat1))
 				drupal_set_message($message = 'Main Category should not be Empty!', $type = 'error');
 				
-								
+					
 				drupal_goto("question/add");
+				
 		  }
-	
-	return $output;
+
+	echo  implode("<br/>", $output['error']);
 }
 
 
