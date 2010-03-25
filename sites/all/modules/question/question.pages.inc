@@ -58,7 +58,9 @@
 	 $q_ans1='';
 	 $q_ans2='';
 	 
+	 if(is_array($_SESSION['post'])){
 	extract($_SESSION['post']);
+	 }
 	
 			global $gSitePath,$user, $gDocPath,$base_root;
 			$output='';
