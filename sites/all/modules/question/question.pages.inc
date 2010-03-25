@@ -58,7 +58,7 @@
 	 $q_ans1='';
 	 $q_ans2='';
 	 
-	 if(is_array($_SESSION['post'])){
+	 if(is_array($_SESSION['post'])&&isset($_SESSION['post'])){
 	extract($_SESSION['post']);
 	 }
 	
