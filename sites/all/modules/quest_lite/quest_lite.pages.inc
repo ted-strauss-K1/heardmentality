@@ -22,60 +22,34 @@
 		$list_lengthan = db_query("select * from {user_answers} where qid='".$qid."' and uid='".$user->uid."' ");
 		$numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
-		$output='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  >
-		<div> <table width="100%" border="0" align="center" ><input type="hidden" name="mid" value="'.$qid.'">
-		<tr  width="100%">
-		<td width="30%" align="left" valign="top">'.$oListquest->question.'</td>
-		<td > &nbsp;</td>
-		</tr>
-		<tr>
-		<td align="left" valign="top">&nbsp; '.$oListquest->context.'</td>
-		<td > </td>
-		</tr>
-		
-		<tr>
-		<td align="right"></td>
-		
-		<td>		</td>
-		</tr>';
-		
-		$vans="select * from {possible_answer} where  qid=$qid ";
+		     drupal_set_title($oListquest->question);
+      $output='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
+    <div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
+    <p>'.$oListquest->context.'</p>';
+ $vans="select * from {possible_answer} where  qid=$qid ";
 		
 		
 		$vlist=db_query($vans);
+  
 		while($vlistquest=db_fetch_object($vlist))
 		{
 		if($numran==0)
 		{
 		$output.='
-		<tr>
-		<td align="left"><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.'</td>
-		<td></td>
-		</tr>';
+		 <p><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'</p>';
 		}
 		else
 		{
 		if($answer_id->qid==$vlistquest->qid) { $chk= "checked";}
-		$output.='
-		<tr>
-		<td align="left"><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.'</td>
-		<td></td>
-		</tr>';
+		$output.=' <p><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'</p>';
 		
 		}
 		
 		}
 		
-		$output.='
-		<tr>
-		<td align="right">&nbsp; </td>
-		<td>
-		
-		</td>
-		</tr>';
-		$output.='<script type="text/javascript">
+    	$output.='<script type="text/javascript">
 		function formsubmittype(mtype,ids){
 		
 		if(mtype==1)
@@ -85,10 +59,14 @@
 		}
 		if(mtype==3)
 		{
-		loadflagquestion(\''.$gSitePath.'qlite/flag/\'+ids,\'Add \');
+		loadflagquestion(\''.$gSitePath.'qlite/flag/\'+ids,\'Report \');
 		
 		}
+		if(mtype==4)
+		{
+		loadsuggest(\''.$gSitePath.'qlite/suggest/\'+ids,\'Answers \');
 		
+		}
 		}
 		</script>
 		';
@@ -100,28 +78,19 @@
 		if($numran==0)
 		{ 
 		
-		$submitbutt='<input type="submit" name="save" id="save" value="Vote" />'; 
+		$submitbutt=' <p><input type="submit" name="save" id="save" value="Vote" /></p>'; 
 		}
 		$output.='
-		<tr>
-		<td align="left" valign="top"> <select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
+		  <p><select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 		<option value=""> Select</option >
 		'.$optio.'
 		<option value="2"> Invite</option >
 		<option value="3"> Flag</option >
 		<option value="4">Suggest New Answer</option> 
 		<option value="5">Create Mashup:</option> 
-		</select></td>
-		<td>
+		</select></p>
+		'.$submitbutt.' 
 		
-		</td>
-		</tr>
-		<tr>
-		<td align="left"> '.$submitbutt.'</td>
-		<td>
-		
-		</td></tr>
-		</table></div>
 		</form>';
 		
 		
@@ -169,7 +138,7 @@
 		$delQuery="delete from  user_answers where qid='".$mid."' and uid='".$user->uid."' ";
 		db_query($delQuery);
 		
-		drupal_set_message(t('Your Answer has beed  Removed successfully!'), $type = 'success');
+		drupal_set_message(t('Your Answer has been  Removed successfully!'), $type = 'success');
 		drupal_goto("qlite/view/$mid");
 		
 		
@@ -184,10 +153,16 @@
 	function add_resources()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
-	drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/demo.css');
 	
+	drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/demo.css');
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$resources='<script type="text/javascript">
+	$resources='<style type="text/css">
+.mid_panel{ float:left; width:681px; overflow:hidden; border-right:1px solid #666; padding:6px 15px 27px 0; min-height:588px; height:auto!important; height:588px; }
+.textfieldm {font:bold 14px Arial, Helvetica, sans-serif;; color:#5e5e5e;width:255px;   margin:0 0 10px 17px;border: 1px solid #000; display:inline; height:20px;  }
+.textfield02 {font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#5e5e5e; margin:10px 10px 0 0;border: 1px solid #000; width:550px; height:100px;}
+.mar_top10{ margin-top:10px;}
+</style>';
+	$resources.='<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
 	
 	if (!window.demo_path) window.demo_path = \'\';
@@ -365,117 +340,42 @@
 	<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
-	$resources.='<form id="myForm" name="myform"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
-	<div id="form_box">
+	$resources.='<form id="myForm" name="myform"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"/>
 	
-	<table width="100%" border="0" >
-	<tr>
-	<td >Resource Type</td>
-	<td>
-	<select name="rtype" id="rtype" onchange="showhide(this.value);">
+	<p> Type <select name="rtype" id="rtype" onchange="showhide(this.value);">
 	<option value="0">Select </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
 	<option value="3">Facts </option>
-	</select>    </td>
-	</tr>
-	<tr>
-	<td></td>
-	<td>
+	</select>  
+	</p>
 	<div id="div1" style="display:none;">
-						  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-						 
-							  <tr>
-	<td>News Link  </td>
-	<td><input type="text" name="nlink" id="nlink"></td>
-	</tr>
-	<tr>
-	<td>News Title</td>
-	<td><input type="text" name="ntitle" id="ntitle"></td>
-	</tr>
-	<tr>
-	<td>Content</td>
-	<td><textarea name="ncontent" id="ncontent" cols="35"  rows="8"></textarea></td>
-	</tr>
-	<tr>
-	<td>News Image</td>
-	<td>
-	<input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe>
-	</td>
-	</tr>  
-	<tr>
-	<td></td>
-	<td>  </td>
-	</tr>
-	</table>
-	</div></td>
-	</tr>
-	<tr>
-	<td></td>
-	<td>
+	<p> Link <input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
+	
+	<p> Title <input type="text" class="textfieldm" name="ntitle" id="ntitle"/></p>
+	<p> Content <textarea name="ncontent" class="textfield02" id="ncontent" ></textarea> </p>
+	<p>Image  <input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe></p>
+	</div>
+	
 	<div  id="div2" style="display:none;">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-	<tr>
-	<td>Mutlimedia Type</td>
-	<td><select name="mtype" id="mtype"  onchange="showhidemulti(this.value);" >
+	<p> Type <select name="mtype" id="mtype"  onchange="showhidemulti(this.value);" >
 	<option value="0">Select </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
-	</select></td>
-	</tr>
-	<tr>
-	<td><div  id="media" style="display:none;"> <table width="100%" border="0" cellspacing="0" cellpadding="0">
-	<tr>
-	<td> Embed Url</td>
-	<td>
-	<textarea name="membed" id="membed" cols="35" rows="5"></textarea>    </td>
-	</tr>
-	</table> </div>
-	</td>
-	</tr>
-	<tr>
-	<td>
-	<div  id="media_div" style="display:none;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-	<tr>
-	<td> Document </td>
-	<td><input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe>
-	</td>
-	</tr>
-	<tr>
-	<td>  </td>
-	<td>
-	</td>
-	</tr>
-	</table>
+	</select> </p>
+	<div  id="media" style="display:none;"> 
+	<p> Embed Url <textarea name="membed" id="membed"  class="textfield02" ></textarea> </p> 
 	</div>
-	</td>
-	</tr>
-	</table>
+	<div  id="media_div" style="display:none;">
+	<p> File <input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe></p> 
 	</div>
-	<tr>
-	<td></td>
-	<td>
+	
+	</div>
+	
 	<div  id="div3" style="display:none;">
-	<table width="100%" border="0" cellspacing="0" cellpadding="0">
-	<tr>
-	<td>Link</td>
-	<td><input type="text" name="flink" id="flink"></td>
-	</tr> </table>
+	<p> Link <input type="text" name="flink" id="flink" class="textfieldm"/> </p>
 	</div>
-	<tr>
-	<td></td>
-	<td>
-	&nbsp;
-	</td>
-	</tr>
-	<tr>
-	<td></td>
-	<td>
 	<input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);" />
-	</td>
-	</tr>
-	</table>
-	</div>
 	</form>';			
 	echo $resources;
 	}
@@ -641,7 +541,9 @@
 	function panel_content()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
-	
+	drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/mootools.js');
+	drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/history.js');
+	drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/pageLoader.js');
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 
 	$type=$_REQUEST['type'];
@@ -651,32 +553,29 @@
 	$output='sample content Forum';
 	break;
 	case "Resources":
-	$vSql="SELECT *
-	FROM node_revisions as a JOIN node as b
-	ON a.nid = b.nid and 
-	b.type='news_page' and b.status='1'  ";
+	$vSql="SELECT *	FROM resource	where rtype='1'  ";
 	$rlistnews=mysql_query($vSql);
-	$output='<script type="text/javascript">
-	
-	window.addEvent("domready", function() {
-	
-	
-	Element.implement({
-	
-	fancyShow: function() {
-	this.fade("in");
-	},
 
 	
-	fancyHide: function() {
-	this.fade("out");
+	$output=' <div class="proj_menu">
+						<ul>
+							<li><a>In the News |</a></li>
+							  <li ><a>Multimedia |</a></li>
+							<li ><a >Facts |</a> </li>
+							<li ><a onclick="loadresource(\''.$gSitePath.'qlite/resource/'.$qid.'\',\'Add\')" class="returnFalse arrow-right" id="addresource">Add Resource </a></li>
+						</ul>
+					</div>';
+		
+					while($usernews=mysql_fetch_object($rlistnews))
+					{
+	$output.='<div class="cmt_list">
+	 <a class="cmt_pic"> <img src="'.$gSitePath.''.$usernews->nimage.'" width="60" height="80"/></a>
+    <div class="lft_view"> <h4 class="cmt_name"><a href="'.$usernews->nlink.'" target="new"> '.$usernews->nlink.' </a> </h4>
+    <p>'.$usernews->ntitle.' </p>  
+	 <p>'.$usernews->ncontent.' </p>  
+    <p class="cmt_date"> '.format_date($usernews->posted_date, "custom", "D j M Y"). '</p> </div>
+    </div>';
 	}
-	});
-	
-	});
-	</script>';
-	$output.=' <p> <input type="button" name="resource" value="Add Resources" onclick="loadresource(\''.$gSitePath.'qlite/resource/'.$qid.'\',\'Add \')" class="returnFalse arrow-right" id="mootoolsLink"></p>';
-	
 	break;
 	case "Gurus":
 	$output='sample content Gurus';
@@ -728,7 +627,7 @@
 		 }
 		  else
 		  {
-			
+		  	
 	
 		
 		echo '<div class="messages success">You Have Already Flagged !</div>';
@@ -737,6 +636,83 @@
 		  }
 	
 	}	
-		
+	
+	function suggest_answer()
+	{
+	
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$ansoutput='<style>
+	.cmt_list{ border:0px solid red; overflow:hidden; margin-bottom:10px;}
+	.cmt_list a.cmt_pic{ display:block; float:left; width:100px; height:100px; text-align:center;}
+	.cmt_list a.cmt_pic img{ margin:0 auto; padding-top:0px; vertical-align:middle; display:block;width:50px;}
+	h4.cmt_name{ margin-top:10px; font:bold 12px Arial, Helvetica, sans-serif; color:#000;}
+	h4.cmt_name a{ font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;}
+	p.cmt_date{ font:normal 12px Arial, Helvetica, sans-serif; color:#696E6B;}
+	span.draft{ display:block; width:160px; background:#BD0000;font:bold 12px Arial, Helvetica, sans-serif; color:#fff; padding:2px 0 2px 2px;}
+	.lft_view{ float:left; text-align:justify; width:550px;}
+	.txt_area textarea{width:498px; height:66px; border:3px solid #000; margin:32px 0 0 72px; padding:10px;}
+	
+	.comment_but{ margin:0 auto; text-align:center; padding:15px 0;}
+	</style>';
+	
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$resources='<script type="text/javascript">
+	window.addEvent(\'domready\', function() {
+	
+	if (!window.demo_path) window.demo_path = \'\';
+	var demo_path = window.demo_path;
+	
+	$(\'answerform\').addEvent(\'submit\', function(e) {
+	
+	e.stop();
+	
+	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
+	
+	this.set(\'send\', {onComplete: function(response) { 
+	log.removeClass(\'ajax-loading\');
+	log.set(\'html\', response);
+	}});
+	
+	this.send();
+	});
+	});
 
+	function validanswer(frmansw)
+	{
+	
+	if(frm.ncontent.value=="")
+	{
+	alert("Please enter News Content");
+	frm.ncontent.focus();
+	return false;
+	}
+
+	
+	return true;
+	
+	}
+	
+	</script>
+	';
+	$ansoutput.='<form id="answerform"  method="post"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"><div class="cmt_list">
+    <div class="lft_view"> <h4 class="cmt_name"><a href="">Demo </a>Says:</h4>
+    <p>ssssssssssssss</p>  
+    <p class="cmt_date">   2010/09/09</p> </div>
+    </div>
+	
+	<div class="txt_area">    <p style="color:#FF0000" align="center"><b><?=$msg;?></b><span style="color:#FF0000"  id="sad"></span> </p>
+	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer" ><br />
+	
+    <div class="comment_but"><input type="submit" name="comment" value="Submit" /></div>
+    </div></div>
+    </div></form>';
+	echo $ansoutput;
+	}	
+    function suggest_answer_save()
+	{
+	
+	echo 'jjjjjj';
+	
+	}
+	
 ?>
