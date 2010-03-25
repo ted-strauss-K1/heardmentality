@@ -124,7 +124,7 @@ global $user;
 	<?php if (count($primary_links)) : ?>
 	<ul>
     <?php foreach ($primary_links as $link): ?>
-      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')):?> rel="width:650,height:450" class="advanced" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a>
+      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')):?> rel="width:850,height:570" class="advanced" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a>
       
       <?php if($link['title'] == 'Categories'):?>
       	<?php
