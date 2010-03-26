@@ -342,7 +342,7 @@
 	<span class="clr"><!-- spanner --></span>';
 	$resources.='<form id="myForm" name="myform"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"/>
 	
-	<p> Type <select name="rtype" id="rtype" onchange="showhide(this.value);">
+	<p> Type <select name="rtype" class="textfieldm" id="rtype" onchange="showhide(this.value);">
 	<option value="0">Select </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
@@ -358,7 +358,7 @@
 	</div>
 	
 	<div  id="div2" style="display:none;">
-	<p> Type <select name="mtype" id="mtype"  onchange="showhidemulti(this.value);" >
+	<p> Type <select name="mtype" class="textfieldm" id="mtype"  onchange="showhidemulti(this.value);" >
 	<option value="0">Select </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
@@ -438,6 +438,7 @@
 	<div id="form_box"><table width="100%" border="0">
 	<tr>
 	<td height="53" colspan="2">'.$oListquest->question.'</td>
+
 	</tr>
 	<tr>
 	<td height="39" colspan="2">'.$oListquest->context.'</td>
