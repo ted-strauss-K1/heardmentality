@@ -694,6 +694,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
 	$rlistnews=mysql_query($vSql);
+	$numnews=mysql_num_rows($rlistnews);
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	while($usernews=mysql_fetch_object($rlistnews))
 	{
@@ -704,6 +705,13 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	<p>'.$usernews->ncontent.' </p>  
 	<p class="cmt_date"> '.format_date($usernews->posted_date, "custom", "D j M Y"). '</p> </div>
 	</div>';
+	}
+	
+	if($numnews==0)
+	{
+	
+	$newsresult.=No Media Under This Question. ';
+	
 	}
 	echo $newsresult;
 	
@@ -727,6 +735,12 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	<p class="cmt_date"> '.format_date($usermedia->posted_date, "custom", "D j M Y"). '</p> </div>
 	</div>';
 	}
+	if($nummedia==0)
+	{
+	
+	$mediaresult.=No Media Under This Question. ';
+	
+	}
 	echo $mediaresult;
 	
 	}
@@ -738,6 +752,7 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSqlfact="SELECT *	FROM resource where rtype='3' and qid='$qid' ";
 	$rlistfacts=mysql_query($vSqlfact);
+	$numfacts=mysql_num_rows($rlistfacts);
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	while($userfacts=mysql_fetch_object($rlistfacts))
 	{
@@ -745,6 +760,12 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;";href="'.$userfacts->facts.'" target="new"> '.$userfacts->facts.' </a> </h4>
 	<p class="cmt_date"> '.format_date($userfacts->posted_date, "custom", "D j M Y"). '</p> </div>
 	</div>';
+	}
+	if($numfacts==0)
+	{
+	
+	$newsresult.=No Facts Under This Question. ';
+	
 	}
 	echo $newsresult;
 	
