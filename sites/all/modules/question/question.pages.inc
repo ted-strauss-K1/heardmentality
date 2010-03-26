@@ -76,7 +76,7 @@
 			
 			
 			//drupal_add_js('misc/ui.datepicker.min.js');
-			//drupal_add_css('misc/themes/base/ui.all.css');
+			drupal_add_css(drupal_get_path('module', 'question').'tagging/tagging.css');
 			
 			//drupal_static_reset('drupal_add_js');
 			//drupal_add_js('','external');
@@ -698,7 +698,8 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 		
 		}	 $output.='</select></div></td>
         <td width="25%" align="left"><div id="chg_sscat"><select name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
-     $client_select2 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scid."')");
+    if($quest->scid!=''){
+	 $client_select2 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scid."')");
 	  $ecat3=explode(",",$quest->sscid);
     while($list=db_fetch_object($client_select2))
 					{
@@ -711,7 +712,9 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 					
 		$output.= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
 		
-		}	 $output.='</select></div></td>
+		}	
+	}
+		 $output.='</select></div></td>
       </tr>
 	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
 	  <tr> <td width="13%">&nbsp;<!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
@@ -870,7 +873,7 @@ function question_delete_confirm(&$form_state, $question) {
 	$form_values = $form_state['values'];
  
 	if ($form_state['values']['confirm']) {
-		echo $qid = $form_state['values']['nid'];
+		 $qid = $form_state['values']['nid'];
  
 	$result=db_query("delete from {question} where qid='".$qid."' AND uid='".$user->uid."'");
  	db_query("delete from {possible_answer} where qid='".$qid."'");
