@@ -79,7 +79,36 @@ function quest_lite_menu() {
 	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'quest_lite.pages.inc',
   );
+   $quest['qlite/answersubmit'] = array(
+    'title' => 'Suggest Answer',
+    'page callback' => 'suggest_answer_save',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
   
+   $quest['qlite/innews'] = array(
+    'title' => 'News',
+    'page callback' => 'question_news',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+    $quest['qlite/media'] = array(
+    'title' => 'Media',
+    'page callback' => 'question_media',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  
+    $quest['qlite/facts'] = array(
+    'title' => 'Facts',
+    'page callback' => 'question_facts',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
   return $quest;
   
  
