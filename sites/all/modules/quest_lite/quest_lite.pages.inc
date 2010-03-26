@@ -710,7 +710,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	if($numnews==0)
 	{
 	
-	$newsresult.=No Media Under This Question. ';
+	$newsresult.='No News  Under This Question.';
 	
 	}
 	echo $newsresult;
@@ -738,7 +738,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	if($nummedia==0)
 	{
 	
-	$mediaresult.=No Media Under This Question. ';
+	$mediaresult.='No Media Under This Question.';
 	
 	}
 	echo $mediaresult;
@@ -764,7 +764,7 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	if($numfacts==0)
 	{
 	
-	$newsresult.=No Facts Under This Question. ';
+	$newsresult.='No Facts Under This Question.';
 	
 	}
 	echo $newsresult;
