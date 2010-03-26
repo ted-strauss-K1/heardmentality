@@ -109,6 +109,34 @@ function quest_lite_menu() {
 	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'quest_lite.pages.inc',
   );
+  
+  
+   $quest['qlite/percent'] = array(
+    'title' => 'Suggest Answer',
+    'page callback' => 'qlite_percent',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  $quest['qlite/graph'] = array(
+    'title' => 'Suggest Answer',
+    'page callback' => 'qlite_graph',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  $quest['qlite/map'] = array(
+    'title' => 'Suggest Answer',
+    'page callback' => 'qlite_map',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  
+  
+  
+  
+  
   return $quest;
   
  

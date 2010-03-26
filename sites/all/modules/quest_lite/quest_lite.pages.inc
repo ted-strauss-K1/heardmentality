@@ -564,9 +564,16 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	case "facts":
 	$output='sample content facts';
 	break;
-	default:
-	$output='sample content first';
-	break;
+	 default:
+            $output = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/subtab.css" type="text/css" />
+			<ul id="tabmenu" >
+				<li ><a href="javascript:loadReport(1,\''.$gSitePath.'\','.$qid.');" class="" id="tab1">Percentage</a></li>
+				<li ><a href="javascript:loadReport(2,\''.$gSitePath.'\','.$qid.');" class="" id="tab2">Overtime</a></li>
+				<li ><a href="javascript:loadReport(3,\''.$gSitePath.'\','.$qid.');" class="" id="tab3">By Area</a></li>
+			</ul>
+			<div id="contents"><iframe id="frmGoogle" src="" border="0" height="450" frameborder="0" width="100%"></iframe></div>
+			<script type="text/javascript">loadReport(1,\''.$gSitePath.'\','.$qid.')</script>';
+            break;
 	}
 	echo $output;
 	}
@@ -772,6 +779,164 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	}
 	
 	
+
+function qlite_percent()
+{
+		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+			$output='';
+			  $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+			  
+			$vans="select * from {possible_answer} where  qid=$qid ";
+			$vlist=ExecuteQuery($vans,"select");
+			$cnt_ans=count($vlist);
+			 $script=" 
+			<script src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/jsapi.js' type='text/javascript' ></script>
+			
+			 <script type='text/javascript'> google.load(\"visualization\", \"1\", {packages:[\"barchart\"]});
+			google.setOnLoadCallback(drawChart);
+			function drawChart() {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Answers');
+			data.addColumn('number', 'Percent(%)');
+			data.addRows(".$cnt_ans.");";
+			for($ab=0;$ab<$cnt_ans;$ab++){
+			$per=answer_details($vlist[$ab]['paid'],'percent');
+			$inc=$ab+1;
+			$script.=" data.setValue(".$ab.", 0, 'Answer".$inc."');
+			data.setValue(".$ab.", 1, ".$per.");";
+			}
+			
+		echo	$script.="	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			chart.draw(data, {width: 400, height: 240,max:100, is3D: true, title: 'Answer Percentage'});
+			}
+			</script>";
+			
+//drupal_add_js($script,'inline');
+	echo $output.='
+<div id="contentr1" class="clear">
+    percentage 
+    <div id="chart_div" style="width: 700px; height: 240px;">
+    </div>
+</div>';
+
+}
+function qlite_graph()
+{
 	
+		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+		 $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+		 
+		 
+		 $vans="select * from {possible_answer} where  qid=$qid ";
+		$vlist=ExecuteQuery($vans,"select");
+		$cnt_ans=count($vlist);
+		 
+$script.=" 
+<script src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/jsapi.js' type='text/javascript' ></script>
+			
+			 <script type='text/javascript'>
+google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
+      google.setOnLoadCallback(drawAnnot);
+      function drawAnnot() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');";
+
+	 $ins_tot_ans='';
+	 $ins_tot_val='';
+         for($ab=0;$ab<$cnt_ans;$ab++){
+		 	 $inc=$ab+1;
+		 $ins_tot_ans.=" data.addColumn('number', 'Answer". $inc."');";
+	  
+		} 
+        
+		for($mn=5;$mn>0;$mn--){
+	
+		 $year=date("Y");
+		 $month=date("m")-1;
+		 $dat=date("d")-$mn;
+		 
+	 $ins_tot_val.=" [new Date(".$year.", ".$month." ,".$dat."),";
+	 
+	 $inc_this='';
+	 
+	  for($ab=0;$ab<$cnt_ans;$ab++){
+	 $inc_this.= rand(100,1000).",";
+	 	} 
+	 $ins_tot_val.=rtrim($inc_this,',');
+	 $ins_tot_val.="],";
+		
+		}
+		
+		
+		 $script.=$ins_tot_ans;
+		  $script.="   data.addRows([".rtrim($ins_tot_val, ',')."]); ";
+
+
+   echo  $script.="   var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('annot_div'));
+        chart.draw(data, {displayAnnotations: false});
+      }
+	  </script>
+";
+
+
+echo '<div  >By Time Line <div id="annot_div" style="width: 700px; height: 240px;"></div></div>';
+
+}
+function qlite_map()
+{
+
+	
+		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+		 $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+		 
+		 
+		 $vans="select * from {possible_answer} where  qid=$qid ";
+		$vlist=ExecuteQuery($vans,"select");
+		$cnt_ans=count($vlist);
+		 
+ echo $script.=" 
+<script src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/jsapi.js' type='text/javascript' ></script>
+			
+			 <script type='text/javascript'>
+
+    google.load(\"visualization\", \"1\", {packages:[\"map\"]});
+      google.setOnLoadCallback(drawMap);
+      function drawMap() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Lat');
+        data.addColumn('number', 'Lon');
+        data.addColumn('string', 'Name');
+        data.addRows(4);
+        data.setCell(0, 0, 37.4232);
+        data.setCell(0, 1, -122.0853);
+        data.setCell(0, 2, 'Work');
+        data.setCell(1, 0, 37.4289);
+        data.setCell(1, 1, -122.1697);
+        data.setCell(1, 2, 'University');
+        data.setCell(2, 0, 37.6153);
+        data.setCell(2, 1, -122.3900);
+        data.setCell(2, 2, 'Airport');
+        data.setCell(3, 0, 77.2);
+        data.setCell(3, 1, 28.6);
+        data.setCell(3, 2, 'Shopping');
+
+        var map = new google.visualization.Map(document.getElementById('map_div'));
+        map.draw(data, {showTip: true,mapType:'normal',zoomLevel:'0'});
+}
+	  </script>
+";
+
+
+echo '<div  class="">by area <div id="map_div" style="width: 100%; height: 400px"></div>';
+}
+
+	function answer_details($aid='',$action=''){
+	switch($action)
+	{
+	case 'percent':
+	return rand(10, 100);
+	break;
+	}
+}	
 	
 ?>
