@@ -23,7 +23,7 @@
 		$numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
 		     drupal_set_title($oListquest->question);
-      $output='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
+      $voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
     <div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
     <p>'.$oListquest->context.'</p>';
  $vans="select * from {possible_answer} where  qid=$qid ";
@@ -35,21 +35,21 @@
 		{
 		if($numran==0)
 		{
-		$output.='
+		$voutput.='
 		 <p><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
 		'.$vlistquest->answer.'</p>';
 		}
 		else
 		{
 		if($answer_id->qid==$vlistquest->qid) { $chk= "checked";}
-		$output.=' <p><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
+		$voutput.=' <p><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
 		'.$vlistquest->answer.'</p>';
 		
 		}
 		
 		}
 		
-    	$output.='<script type="text/javascript">
+    	$voutput.='<script type="text/javascript">
 		function formsubmittype(mtype,ids){
 		
 		if(mtype==1)
@@ -80,7 +80,7 @@
 		
 		$submitbutt=' <p><input type="submit" name="save" id="save" value="Vote" /></p>'; 
 		}
-		$output.='
+		$voutput.='
 		  <p><select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 		<option value=""> Select</option >
 		'.$optio.'
@@ -91,10 +91,10 @@
 		</select></p>
 		'.$submitbutt.' 
 		
-		</form>';
+		</div></div></form>';
 		
 		
-		return $output;
+		return $voutput;
 		}
 
 		function qlite_save()
@@ -154,14 +154,9 @@
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
 	
-	drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/demo.css');
+	
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$resources='<style type="text/css">
-.mid_panel{ float:left; width:681px; overflow:hidden; border-right:1px solid #666; padding:6px 15px 27px 0; min-height:588px; height:auto!important; height:588px; }
-.textfieldm {font:bold 14px Arial, Helvetica, sans-serif;; color:#5e5e5e;width:255px;   margin:0 0 10px 17px;border: 1px solid #000; display:inline; height:20px;  }
-.textfield02 {font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#5e5e5e; margin:10px 10px 0 0;border: 1px solid #000; width:550px; height:100px;}
-.mar_top10{ margin-top:10px;}
-</style>';
+	$resources='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	$resources.='<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
 	
@@ -335,7 +330,7 @@
 	</script>
 	';
 
-	$resources.='	<div id="log">
+	$resources.='<div id="log">
 	
 	<div id="log_res"><!-- spanner --></div>
 	</div>
@@ -384,7 +379,7 @@
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."')";
 	db_query($resourceadd);
-	echo '<div class="messages success"> Resources Added Suceesfully </div>';
+	echo '<div class="messages success"> Resources Added Successfull </div>';
 	
 	}
 	function flag_question()
@@ -429,40 +424,20 @@
 	$vSql="select * from {question} where status='1' and qid=$qid ";
 	$rlist=db_query($vSql);
 	$oListquest=db_fetch_object($rlist);
-	$falgq.='	<div id="log">
+	$falgq.='<div id="log">
 	
 	<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
-	$falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'">
-	<div id="form_box"><table width="100%" border="0">
-	<tr>
-	<td height="53" colspan="2">'.$oListquest->question.'</td>
-
-	</tr>
-	<tr>
-	<td height="39" colspan="2">'.$oListquest->context.'</td>
-	</tr>
-	<tr>
-	<td width="44%" height="39"><label>
+$falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"/>
+	<div class="cmt_list"><div class="lft_view">  <p>'.$oListquest->question.' </p>
+ <p class="cmt_date">  '.$oListquest->context.' </p></div></div>
+<div class="txt_area">
 	<input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
-	Pornography or obscenity</label></td>
-	<td width="56%"><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
-	radically or ethnically hateful content</td>
-	</tr>
-	<tr>
-	<td height="44"><input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
-	Graphic Violence</td>
-	<td><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
-	other content inappropirate for young Viewers</td>
-	</tr>
-	<tr>
-	<td height="72">&nbsp;</td>
-	<td><label>
-	<input type="submit" name="button" id="submitter"  value="Report Problem" onclick="return formreport(this.form);"/>
-	</label></td>
-	</tr>
-	</table></form>';
+	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
+	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
+	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
+	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem" onclick="return formreport(this.form);"/></div></form>';
 	
 	echo $falgq;
 	
@@ -542,50 +517,37 @@
 	function panel_content()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
-	drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/mootools.js');
-	drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/history.js');
-	drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/pageLoader.js');
+	
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 
 	$type=$_REQUEST['type'];
+	
 	switch($type)
 	{
 	case "Forum":
 	$output='sample content Forum';
 	break;
 	case "Resources":
-	$vSql="SELECT *	FROM resource	where rtype='1'  ";
-	$rlistnews=mysql_query($vSql);
-
 	
-	$output=' <div class="proj_menu">
-						<ul>
-							<li><a>In the News |</a></li>
-							  <li ><a>Multimedia |</a></li>
-							<li ><a >Facts |</a> </li>
-							<li ><a onclick="loadresource(\''.$gSitePath.'qlite/resource/'.$qid.'\',\'Add\')" class="returnFalse arrow-right" id="addresource">Add Resource </a></li>
-						</ul>
-					</div>';
-		
-					while($usernews=mysql_fetch_object($rlistnews))
-					{
-	$output.='<div class="cmt_list">
-	 <a class="cmt_pic"> <img src="'.$gSitePath.''.$usernews->nimage.'" width="60" height="80"/></a>
-    <div class="lft_view"> <h4 class="cmt_name"><a href="'.$usernews->nlink.'" target="new"> '.$usernews->nlink.' </a> </h4>
-    <p>'.$usernews->ntitle.' </p>  
-	 <p>'.$usernews->ncontent.' </p>  
-    <p class="cmt_date"> '.format_date($usernews->posted_date, "custom", "D j M Y"). '</p> </div>
-    </div>';
-	}
+	$output='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/subtab.css" type="text/css" />
+                       <ul id="tabmenu" >
+                                       <li><a class="" href="javascript:tabactive(1,\''.$gSitePath.'\',\''.$qid.'\')" id="tab1">In the News</a></li>
+                                       <li><a class="" href="javascript:tabactive(2,\''.$gSitePath.'\',\''.$qid.'\')" id="tab2">Multimedia</a></li>
+                                       <li><a class="" href="javascript:tabactive(3,\''.$gSitePath.'\',\''.$qid.'\')" id="tab3">Facts</a></li>
+                                       <li><a class="" href="javascript:loadresource(\''.$gSitePath.'qlite/resource/'.$qid.'\',\'Add\')" id="tab4">Add Resource</a></li>
+                               </ul>
+                               <div id="contents"></div>
+                               <script type="text/javascript">tabactive(1,\''.$gSitePath.'\',\''.$qid.'\')</script>';
+				
 	break;
 	case "Gurus":
 	$output='sample content Gurus';
 	break;
 	case "Info":
-	$output=' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> '.$ufet->name.' <br>
-			<b>Date Created:</b> '.format_date($oListquest->date_added, "custom", "D j M Y"). ' <br>
-			<b>Number of Votes:</b> 0<br>
-			<b>Number of Forum Posts:</b> 0 <br>
+	$output=' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> '.$ufet->name.' <br/>
+			<b>Date Created:</b> '.format_date($oListquest->date_added, "custom", "D j M Y"). ' <br/>
+			<b>Number of Votes:</b> 0<br/>
+			<b>Number of Forum Posts:</b> 0 <br/>
 			<b>Number of Resources:</b> 0</p>
 		';
 	break;
@@ -628,12 +590,7 @@
 		 }
 		  else
 		  {
-		  	
-	
-		
-		echo '<div class="messages success">You Have Already Flagged !</div>';
-	  
-		  
+		echo '<div class="messages error">You Have Already Flagged !</div>';
 		  }
 	
 	}	
@@ -642,22 +599,10 @@
 	{
 	
 	global $gSitePath,$user, $gDocPath,$base_root;
-	$ansoutput='<style>
-	.cmt_list{ border:0px solid red; overflow:hidden; margin-bottom:10px;}
-	.cmt_list a.cmt_pic{ display:block; float:left; width:100px; height:100px; text-align:center;}
-	.cmt_list a.cmt_pic img{ margin:0 auto; padding-top:0px; vertical-align:middle; display:block;width:50px;}
-	h4.cmt_name{ margin-top:10px; font:bold 12px Arial, Helvetica, sans-serif; color:#000;}
-	h4.cmt_name a{ font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;}
-	p.cmt_date{ font:normal 12px Arial, Helvetica, sans-serif; color:#696E6B;}
-	span.draft{ display:block; width:160px; background:#BD0000;font:bold 12px Arial, Helvetica, sans-serif; color:#fff; padding:2px 0 2px 2px;}
-	.lft_view{ float:left; text-align:justify; width:550px;}
-	.txt_area textarea{width:498px; height:66px; border:3px solid #000; margin:32px 0 0 72px; padding:10px;}
-	
-	.comment_but{ margin:0 auto; text-align:center; padding:15px 0;}
-	</style>';
-	
+
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$resources='<script type="text/javascript">
+		$ansoutput='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	$ansoutput.='<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
 	
 	if (!window.demo_path) window.demo_path = \'\';
@@ -687,7 +632,7 @@
 	frm.ncontent.focus();
 	return false;
 	}
-
+    
 	
 	return true;
 	
@@ -695,25 +640,117 @@
 	
 	</script>
 	';
-	$ansoutput.='<form id="answerform"  method="post"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"><div class="cmt_list">
-    <div class="lft_view"> <h4 class="cmt_name"><a href="">Demo </a>Says:</h4>
-    <p>ssssssssssssss</p>  
-    <p class="cmt_date">   2010/09/09</p> </div>
-    </div>
+	$answers="SELECT *	FROM suggest_answer where qid='$qid'  ";
+	$anslist=mysql_query($answers);
+	$ansoutput.='<div id="log">
+	<div id="log_res"><!-- spanner --></div>
+	</div>
+	<span class="clr"><!-- spanner --></span>
+	<form id="answerform"  method="post" action="'.$gSitePath.'qlite/answervote"  enctype="multipart/form-data">
+	Select Answer <select name="suggest" class="textfieldm" id="suggest">';
+	while($answerfet=mysql_fetch_object($anslist))
+	{
+	$ansoutput.='<div class="cmt_list"> <div class="lft_view"> 
+	<p><option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>    </div>';
+	$ansoutput.='</div> ';	
+	}
+	$ansoutput.='</select> <input type="submit" name="button" id="submitter"  value="Vote "/></form> ';	
+	$list_length = db_query("select * from {suggest_answer} where qid='$qid' and uid='".$user->uid."'  ");
+		 $numr=mysql_num_rows($list_length);
+		
+	if($numr==0)
+	{
+	$ansoutput.='<form id="answerform"  method="post" action="'.$gSitePath.'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"/>
 	
-	<div class="txt_area">    <p style="color:#FF0000" align="center"><b><?=$msg;?></b><span style="color:#FF0000"  id="sad"></span> </p>
-	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer" ><br />
+	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
+	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
+	</div></form>';
+	}
 	
-    <div class="comment_but"><input type="submit" name="comment" value="Submit" /></div>
-    </div></div>
-    </div></form>';
 	echo $ansoutput;
 	}	
     function suggest_answer_save()
 	{
-	
-	echo 'jjjjjj';
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$list_length = db_query("select * from {suggest_answer} where qid='".$_REQUEST['qaid']."' and uid='".$user->uid."'  ");
+		 $numr=mysql_num_rows($list_length);
+		
+		 if($numr==0)
+		 {
+	 $answerquery="insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
+		 	db_query($answerquery);
+		echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
+		}
+		/*else
+		{
+		echo '<div class="messages error">Already ! </div>';
+		
+		}*/
 	
 	}
+	function question_news()
+	{
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
+	$rlistnews=mysql_query($vSql);
+	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	while($usernews=mysql_fetch_object($rlistnews))
+	{
+	$newsresult.='<div class="cmt_list">
+	<a class="cmt_pic"> <img src="'.$gSitePath.''.$usernews->nimage.'" width="60" height="80"/></a>
+	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$usernews->nlink.'" target="new"> '.$usernews->nlink.' </a> </h4>
+	<p>'.$usernews->ntitle.' </p>  
+	<p>'.$usernews->ncontent.' </p>  
+	<p class="cmt_date"> '.format_date($usernews->posted_date, "custom", "D j M Y"). '</p> </div>
+	</div>';
+	}
+	echo $newsresult;
+	
+	
+	}
+	
+	function question_media()
+	{
+	
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSqlmedia="SELECT *	FROM resource where rtype='2' and qid='$qid' ";
+	$rlistmedia=mysql_query($vSqlmedia);
+	$nummedia=mysql_num_rows($vSqlmedia);
+	$mediaresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	while($usermedia=mysql_fetch_object($rlistmedia))
+	{
+	$mediaresult.='<div class="cmt_list">
+	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
+	<p>'.$usermedia->membed.' </p>  
+	<p class="cmt_date"> '.format_date($usermedia->posted_date, "custom", "D j M Y"). '</p> </div>
+	</div>';
+	}
+	echo $mediaresult;
+	
+	}
+	
+	function question_facts()
+	{
+	
+global $gSitePath,$user, $gDocPath,$base_root;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSqlfact="SELECT *	FROM resource where rtype='3' and qid='$qid' ";
+	$rlistfacts=mysql_query($vSqlfact);
+	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	while($userfacts=mysql_fetch_object($rlistfacts))
+	{
+	$newsresult.='<div class="cmt_list">
+	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;";href="'.$userfacts->facts.'" target="new"> '.$userfacts->facts.' </a> </h4>
+	<p class="cmt_date"> '.format_date($userfacts->posted_date, "custom", "D j M Y"). '</p> </div>
+	</div>';
+	}
+	echo $newsresult;
+	
+	}
+	
+	
+	
 	
 ?>
