@@ -657,9 +657,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	Select Answer <select name="suggest" class="textfieldm" id="suggest">';
 	while($answerfet=mysql_fetch_object($anslist))
 	{
-	$ansoutput.='<div class="cmt_list"> <div class="lft_view"> 
-	<p><option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>    </div>';
-	$ansoutput.='</div> ';	
+	$ansoutput.='<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
 	}
 	$ansoutput.='</select> <input type="submit" name="button" id="submitter"  value="Vote "/></form> ';	
 	$list_length = db_query("select * from {suggest_answer} where qid='$qid' and uid='".$user->uid."'  ");
