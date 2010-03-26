@@ -470,14 +470,14 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$("panelTabs1Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("help-panel"),
-	"url":       "'.$gSitePath.'qlite/panel"
+	"url":       "'.$gSitePath.'qlite/panel/'.$qid.'"
 	});
 	});
 	
 	$("panelTabs2Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("help-panel"),
-	"url":       "'.$gSitePath.'qlite/panel?type=Forum"
+	"url":       "'.$gSitePath.'qlite/panel/'.$qid.'?type=Forum"
 	});
 	});
 	
@@ -490,21 +490,21 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$("panelTabs4Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("help-panel"),
-	"url":       "'.$gSitePath.'qlite/panel?type=Gurus"
+	"url":       "'.$gSitePath.'qlite/panel/'.$qid.'?type=Gurus"
 	});
 	});
 	
 	$("panelTabs5Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("help-panel"),
-	"url":       "'.$gSitePath.'qlite/panel?type=Info"
+	"url":       "'.$gSitePath.'qlite/panel/'.$qid.'?type=Info"
 	});
 	});
 	
 	$("panelTabs6Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("help-panel"),
-	"url":       "'.$gSitePath.'qlite/panel?type=Politician"
+	"url":       "'.$gSitePath.'qlite/panel/'.$qid.'?type=Politician"
 	});
 	});
 	
