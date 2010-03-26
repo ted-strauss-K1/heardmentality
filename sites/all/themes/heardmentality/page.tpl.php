@@ -59,7 +59,7 @@
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/overlay.js"></script>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/Assets.js"></script>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/js/multibox.js"></script>
-   <!--  <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/quest_lite/scripts/subtabs.js"></script>-->
+<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/quest_lite/scripts/subtab.js"></script>
 
 	<script type="text/javascript">
 	
