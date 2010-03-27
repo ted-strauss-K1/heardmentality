@@ -1,9 +1,8 @@
 <?php
-
-		function qlite_view()
+	function qlite_view()
 		{
 		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-		
+		//SELECT answer, vote * 2.75/100 AS PercentOfTotal FROM suggested_answer order by PercentOfTotal desc limit 0,3
 		
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
@@ -11,6 +10,19 @@
 		
 		
 		$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+		$query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid"; 
+		$query_list=db_query($query);
+		$fetvot=db_fetch_object($query_list);
+		//echo $fetvot->possiblevote;
+		
+		$query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid"; 
+		$query_sugestlist=db_query($query_sugest);
+		$fetvotsugest=db_fetch_object($query_sugestlist);
+		//echo $fetvotsugest->suggestv;
+		$totalvotes=$fetvot->possiblevote+$fetvotsugest->suggestv;
+		//echo $totalvotes;
+		//echo "<br/>";
+		//echo $percent=2.5/100*$totalvotes;
 		$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
@@ -19,14 +31,14 @@
 		$username=db_query($vuser);
 		$ufet=db_fetch_object($username);
 		
-		$list_lengthan = db_query("select * from {user_answers} where qid='".$qid."' and uid='".$user->uid."' ");
+		$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."' ");
 		$numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
-		     drupal_set_title($oListquest->question);
-      $voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
-    <div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
-    <p>'.$oListquest->context.'</p>';
- $vans="select * from {possible_answer} where  qid=$qid ";
+		drupal_set_title($oListquest->question);
+		$voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
+		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
+		<p>'.$oListquest->context.'</p>';
+		$vans="select * from {possible_answer} where  qid=$qid ";
 		
 		
 		$vlist=db_query($vans);
@@ -35,19 +47,45 @@
 		{
 		if($numran==0)
 		{
+		$answprc=$vlistquest->vote/100*$totalvotes;
 		$voutput.='
 		 <p><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.'</p>';
+		'.$vlistquest->answer.' '.$answprc.'</p>';
 		}
 		else
 		{
+		$answprc=$vlistquest->vote/100*$totalvotes;
 		if($answer_id->qid==$vlistquest->qid) { $chk= "checked";}
 		$voutput.=' <p><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.'</p>';
+		'.$vlistquest->answer.' </p>';
 		
 		}
 		
 		}
+		/*$vsans="select * from {suggest_answer} where  qid=$qid ";
+		
+		
+		$vslist=db_query($vsans);
+  
+		while($vlsistquest=db_fetch_object($vslist))
+		{
+		
+		
+		$answprcs=$vlsistquest->vote/100*$totalvotes;
+		$voutput.='
+		 <p><input name="sug_answer" type="radio" value="'.$vlsistquest->said.'" />
+		'.$vlsistquest->answer.' '.$answprcs.'</p>';
+		
+		
+		}
+		
+		*/
+		
+		
+		
+		
+		
+		
 		
     	$voutput.='<script type="text/javascript">
 		function formsubmittype(mtype,ids){
@@ -110,15 +148,38 @@
 		
 		if(($_REQUEST['answer']!=''))
 		{
-		$list_length = db_query("select * from {user_answers} where qid='".$mid."' and uid='".$user->uid."' ");
+		$list_length = db_query("select * from {possible_answer_vote} where qid='".$mid."' and uid='".$user->uid."' ");
 		$numr=mysql_num_rows($list_length);
 		
 		if($numr==0)
 		{
-		$vInsQuery="insert into user_answers(qid, ans_id,uid,answered_date) values ('".$mid."', '".$_REQUEST['answer']."','".$user->uid."','".date('Y-m-d h:i:s')."')";
+		$numvotep = db_query("select * from {possible_answer_vote} where panswer_id='".$_REQUEST['answer']."'   ");
+		$calvotep=mysql_num_rows($numvotep);
+		if($calvotep==0)
+		{
+		$votepointp='1';
+		}
+		else
+		{
+		$votepointp=$olistquest->vote+1;
+		}
+		$vInsQuery="insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
 		db_query($vInsQuery);
 		
 		drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
+		
+		$queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid"; 
+		$query_listd=db_query($queryd);
+		$fetvotd=db_fetch_object($query_listd);
+				
+		$query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid"; 
+		$query_sugestlistd=db_query($query_sugests);
+		$fetvotsugestbg=db_fetch_object($query_sugestlistd);
+		$totalvotesm=$fetvotd->possiblevote+$fetvotsugestbg->suggestv;
+	//	echo $totalvotesm;
+		$calc=$totalvotesm*$votepointp/100;
+	/*	$updatevoteposs="update  possible_answer set vote='$votepointp' and ppercent='$calc' where paid='".$_REQUEST['answer']."'";
+			db_query($updatevoteposs);*/
 		drupal_goto("qlite/view/$mid");
 		}
 		else
@@ -135,7 +196,7 @@
 		if($_REQUEST['txt_act']==1)
 		{
 		
-		$delQuery="delete from  user_answers where qid='".$mid."' and uid='".$user->uid."' ";
+		$delQuery="delete from  possible_answer_vote where qid='".$mid."' and uid='".$user->uid."' ";
 		db_query($delQuery);
 		
 		drupal_set_message(t('Your Answer has been  Removed successfully!'), $type = 'success');
@@ -175,6 +236,7 @@
 	}});
 	
 	this.send();
+	
 	});
 	});
 	
@@ -222,7 +284,7 @@
 	{
 	if(frm.rtype.value=="0")
 	{
-	alert("select  Type ");
+	alert("Select  Type ");
 	frm.mtype.focus();
 	return false;
 	}
@@ -270,7 +332,7 @@
 	
 	if(frm.mtype.value=="0")
 	{
-	alert("select Media Type ");
+	alert("Select Media Type ");
 	frm.mtype.focus();
 	return false;
 	}
@@ -344,7 +406,7 @@
 	<option value="3">Facts </option>
 	</select>  
 	</p>
-	<div id="div1" >
+	<div id="div1">
 	<p> Link <input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
 	
 	<p> Title <input type="text" class="textfieldm" name="ntitle" id="ntitle"/></p>
@@ -352,22 +414,22 @@
 	<p>Image  <input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe></p>
 	</div>
 	
-	<div  id="div2" >
+	<div  id="div2">
 	<p> Type <select name="mtype" class="textfieldm" id="mtype"  onchange="showhidemulti(this.value);" >
 	<option value="0">Select </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
-	</select> </p>
-	<div  id="media" > 
+	</select> </p>	</div>
+	<div id="media"> 
 	<p> Embed Url <textarea name="membed" id="membed"  class="textfield02" ></textarea> </p> 
 	</div>
-	<div  id="media_div" >
+	<div id="media_div">
 	<p> File <input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe></p> 
 	</div>
 	
-	</div>
+
 	
-	<div  id="div3" >
+	<div  id="div3">
 	<p> Link <input type="text" name="flink" id="flink" class="textfieldm"/> </p>
 	</div>
 	<input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);" />
@@ -509,6 +571,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	});
 	
 	
+
 	</script>';
 	
 	}	
@@ -571,7 +634,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 				<li ><a href="javascript:loadReport(2,\''.$gSitePath.'\','.$qid.');" class="" id="tab2">Overtime</a></li>
 				<li ><a href="javascript:loadReport(3,\''.$gSitePath.'\','.$qid.');" class="" id="tab3">By Area</a></li>
 			</ul>
-			<div id="contents"><iframe id="frmGoogle" src="" border="0" height="450" frameborder="0" width="100%"></iframe></div>
+			<div id="contents"><iframe id="frmGoogle" src="" border="0" height="450" frameborder="0" width="850"></iframe></div>
 			<script type="text/javascript">loadReport(1,\''.$gSitePath.'\','.$qid.')</script>';
             break;
 	}
@@ -949,7 +1012,8 @@ echo '<div  class="">by area <div id="map_div" style="width: 100%; height: 400px
 	break;
 	}
 }	
-	function answer_vote()
+
+function answer_vote()
 {
 
 	global $gSitePath,$user, $gDocPath,$base_root;
@@ -995,4 +1059,5 @@ echo '<div  class="">by area <div id="map_div" style="width: 100%; height: 400px
     }
 
 }
+	
 ?>
