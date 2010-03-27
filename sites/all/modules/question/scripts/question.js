@@ -154,7 +154,145 @@ function del_ans(){
 		
 	}
 }
-/*	function add_ans(){
+
+window.addEvent('domready', function() {
+	
+	bind_event();
+	
+});
+
+function bind_event(){
+	
+	var elements = $$('div.tagging-suggest-tag');
+	var el = $('tagging-widget-container').getElements('a');
+/*
+	
+	//alert(elements);
+	elements.addEvent('click', tag_add.bindWithEvent(this,elements)); 
+	//elements.addLiveEvent('click', 'a', function(e){ alert('This is a live event'); });
+	
+*/
+for(var i = 0 ; i < el.length ; i = i + 1)
+{
+ 
+  
+	el[i].set('href','#');
+}
+
+ elements.each(function(element,index){
+ 	
+element.addEvent('click', tag_add.bindWithEvent(this,element)); 
+ });
+	
+	var addbut=$$('a.tagging-button-container');
+	
+	addbut.addEvent('click',tag_add_input.bindWithEvent(this));
+}
+
+function tag_add_input(val){
+	
+	var context=$('tagging-widget-input-1').get('value');
+	
+	if(context.length>0){
+		var etarget=$('tagdiv');
+	//set the tag
+	 var ele = new Element('div',{ id : 'tagset','onclick':'tag_delq(this);return false;'
+	 	 
+	 }).inject(etarget);
+			ele.addClass('tagging-tag');
+			ele.addClass('inp');
+			ele.set('text',context);
+	}
+}
+
+function tag_add(val,el){
+	
+	
+	var context=el.get('text');
+	el.destroy();
+	var elements =$$('div.tagging-curtags-wrapper');
+	var etarget=$('tagdiv');
+	
+	//set the tag
+	 var ele = new Element('div',{ id : 'tagset','onclick':'tag_delq(this);return false;'
+	 	 
+	 }).inject(etarget);
+			ele.addClass('tagging-tag');
+			ele.set('text',context);
+	
+			
+	}
+function tag_delq(val){
+	
+	var result = val.hasClass('inp');
+
+	if (!result) {
+	
+		var context = val.get('text');
+		val.destroy();
+		
+		var etarget = $('sug_div');
+		
+		//set the tag
+		var ele = new Element('div', {
+			id: 'stag'
+		
+		}).inject(etarget);
+		
+		ele.addClass('tagging-suggest-tag');
+		ele.set('text', context);
+		bind_event();
+		
+	}else {
+		
+		val.destroy();
+	}	
+				
+				
+}
+
+
+/*	
+function tag_del(val,el){
+	
+	
+	var context=el.get('text');
+	el.destroy();
+	
+	var etarget=$('sug_div');
+	
+	//set the tag
+	 var ele = new Element('div',{ id : 'stag'
+	 	 
+	 }).inject(etarget);
+	 
+			ele.addClass('tagging-suggest-tag');
+			ele.set('text',context);
+	
+	bind_event();	
+}
+
+
+
+
+
+ Element.implement({
+    addLiveEvent: function(event, selector, fn){
+        this.addEvent(event, function(e){
+            var t = $(e.target);
+
+            if (!t.match(selector)) return false;
+                fn.apply(t, [e]);
+        }.bindWithEvent(this, selector, fn));
+    }
+});
+
+
+
+$$('div').addLiveEvent('click', 'a', function(e){ alert('This is a live event'); });
+
+
+ function add_ans(){
  
  var ans_cnt=$('ans_cnt').value;
  ans_cnts=++ans_cnt;
