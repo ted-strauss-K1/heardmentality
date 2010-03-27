@@ -134,6 +134,14 @@ function quest_lite_menu() {
   );
   
   
+    
+   $quest['qlite/answervote'] = array(
+    'title' => 'Suggest Answer',
+    'page callback' => 'answer_vote',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
   
   
   
