@@ -256,7 +256,18 @@ window.addEvent('domready', function(){
 			width: 650,
 			height: 405,
 			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
-			contentBgColor: '#FFF'
+				contentBgColor: '#FFF',
+		onContentLoaded: function(){
+                               if ( !MochaUI.resourceScript == true ){
+                                       new Request({
+                                               url: '<?php echo $gSitePath; ?>sites/all/modules/quest_lite/scripts/add_resource.js',
+                                               method: 'get',
+                                               onSuccess: function() {
+                                                       MochaUI.resourceScript = false;
+                                               }.bind(this)
+                                       }).send();
+                               }
+                       }
 		});
 	}
 	
