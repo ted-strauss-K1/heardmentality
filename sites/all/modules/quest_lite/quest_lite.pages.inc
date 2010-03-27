@@ -344,7 +344,7 @@
 	<option value="3">Facts </option>
 	</select>  
 	</p>
-	<div id="div1" style="display:none;">
+	<div id="div1" >
 	<p> Link <input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
 	
 	<p> Title <input type="text" class="textfieldm" name="ntitle" id="ntitle"/></p>
@@ -352,22 +352,22 @@
 	<p>Image  <input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe></p>
 	</div>
 	
-	<div  id="div2" style="display:none;">
+	<div  id="div2" >
 	<p> Type <select name="mtype" class="textfieldm" id="mtype"  onchange="showhidemulti(this.value);" >
 	<option value="0">Select </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
 	</select> </p>
-	<div  id="media" style="display:none;"> 
+	<div  id="media" > 
 	<p> Embed Url <textarea name="membed" id="membed"  class="textfield02" ></textarea> </p> 
 	</div>
-	<div  id="media_div" style="display:none;">
+	<div  id="media_div" >
 	<p> File <input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe></p> 
 	</div>
 	
 	</div>
 	
-	<div  id="div3" style="display:none;">
+	<div  id="div3" >
 	<p> Link <input type="text" name="flink" id="flink" class="textfieldm"/> </p>
 	</div>
 	<input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);" />
@@ -609,6 +609,55 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 		$ansoutput='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+
+	$answers="SELECT *	FROM suggest_answer where qid='$qid'  ";
+	$anslist=mysql_query($answers);
+	$list_length = db_query("select * from {suggest_answer} where qid='$qid' and uid='".$user->uid."'  ");
+    $numr=mysql_num_rows($list_length);
+	$ansoutput.='<div id="log">
+	<div id="log_res"><!-- spanner --></div>
+	</div>
+	<span class="clr"><!-- spanner --></span>';
+	
+	$ansoutput.='<div id="log_res_ans"><!-- spanner --></div>
+	<span class="clr"><!-- spanner --></span>';
+	
+	$ansoutput.='<script type="text/javascript">
+	window.addEvent(\'domready\', function() {
+	
+	if (!window.demo_path) window.demo_path = \'\';
+	var demo_path = window.demo_path;
+	
+	$(\'voteform\').addEvent(\'submit\', function(e) {
+	
+	e.stop();
+	
+	var log = $(\'log_res_ans\').empty().addClass(\'ajax-loadings\');
+	
+	this.set(\'send\', {onComplete: function(response) { 
+	log.removeClass(\'ajax-loadings\');
+	log.set(\'html\', response);
+	}});
+	
+	this.send();
+	});
+	});
+	
+	
+	</script>
+	<form id="voteform"  method="post" action="'.$gSitePath.'qlite/answervote"  enctype="multipart/form-data">
+	<input type="hidden" name="qaid" value="'.$qid.'"/>
+	Select Answer <select name="suggest" class="textfieldm" id="suggest">';
+	while($answerfet=mysql_fetch_object($anslist))
+	{
+	$ansoutput.='<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
+
+	}
+	$ansoutput.='</select> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/></form> ';	
+	
+		
+	if($numr==0)
+	{
 	$ansoutput.='<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
 	
@@ -629,43 +678,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	this.send();
 	});
 	});
-
-	function validanswer(frmansw)
-	{
-	
-	if(frm.ncontent.value=="")
-	{
-	alert("Please enter News Content");
-	frm.ncontent.focus();
-	return false;
-	}
-    
-	
-	return true;
-	
-	}
-	
-	</script>
-	';
-	$answers="SELECT *	FROM suggest_answer where qid='$qid'  ";
-	$anslist=mysql_query($answers);
-	$ansoutput.='<div id="log">
-	<div id="log_res"><!-- spanner --></div>
-	</div>
-	<span class="clr"><!-- spanner --></span>
-	<form id="answerform"  method="post" action="'.$gSitePath.'qlite/answervote"  enctype="multipart/form-data">
-	Select Answer <select name="suggest" class="textfieldm" id="suggest">';
-	while($answerfet=mysql_fetch_object($anslist))
-	{
-	$ansoutput.='<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
-	}
-	$ansoutput.='</select> <input type="submit" name="button" id="submitter"  value="Vote "/></form> ';	
-	$list_length = db_query("select * from {suggest_answer} where qid='$qid' and uid='".$user->uid."'  ");
-		 $numr=mysql_num_rows($list_length);
-		
-	if($numr==0)
-	{
-	$ansoutput.='<form id="answerform"  method="post" action="'.$gSitePath.'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"/>
+	</script>	<form id="answerform"  method="post" action="'.$gSitePath.'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"/>
 	
 	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
 	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
@@ -936,5 +949,50 @@ echo '<div  class="">by area <div id="map_div" style="width: 100%; height: 400px
 	break;
 	}
 }	
-	
+	function answer_vote()
+{
+
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$list_length = db_query("select * from {suggest_answer_vote} where answer_id='".$_REQUEST['suggest']."' and uid='".$user->uid."'  ");
+	$numr=mysql_num_rows($list_length);
+	$fetvote=mysql_fetch_object($list_length);
+	$list_own_answer = db_query("select * from {suggest_answer} where said='".$_REQUEST['suggest']."'   ");
+	$userownid=mysql_fetch_object($list_own_answer);
+	if($userownid->uid!=$user->uid)
+	{
+		if($numr==0)
+		{
+		$numvote = db_query("select * from {suggest_answer_vote} where answer_id='".$_REQUEST['suggest']."'   ");
+		$calvote=mysql_num_rows($numvote);
+		if($calvote==0)
+		{
+		$votepoint='1';
+		}
+		else
+		{
+		$votepoint=$userownid->vote+1;
+		}
+			$answerquery="insert into suggest_answer_vote(qid,uid,answer_id,vote_date) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['suggest']."','".date('Y-m-d')."')";
+			db_query($answerquery);
+			
+			
+			$updatevotesug="update  suggest_answer set vote='$votepoint' where said='".$_REQUEST['suggest']."'";
+			db_query($updatevotesug);
+			echo '<div class="messages success">Thanks For Voting ! </div>';
+		}
+		else
+		{
+			echo '<div class="messages error"> You Have Already Voted This Answer ! </div>';
+		
+		}
+		
+	}
+	else
+	{
+		
+		echo '<div class="messages error"> You Cannot  Vote For Your  Answer ! </div>';
+		
+    }
+
+}
 ?>
