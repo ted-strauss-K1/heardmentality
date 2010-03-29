@@ -341,7 +341,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
 }
 
 
-function get_tagging() {
+function get_tagging($tag='') {
 
     
     $content = '';
@@ -538,9 +538,7 @@ function edit_question() {
     $output .= '
 		<script type="text/javascript">
 		
-	
-						
-				
+					
 			function get_subcat(sid,divid,level){
 			
 										var foo = [];
@@ -683,8 +681,10 @@ setDefaultCountry();
 			
 			';
 
-    
-    $output .= '<div id="err" class="clear"></div>
+    $output .= '<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
+$output.='<div id="err" class="clear"></div>
 				<form id="question" name="question" method="post"   onsubmit="return validate_question();" ><table width="100%" border="0" align="center" style="border:0px;">
   <tr>
     <td width="0%" height="94">&nbsp;</td>
@@ -804,6 +804,13 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
   </tr>-->
+  <tr><td colspan="6">';
+    
+    $output .= '<tr><td colspan="6">'.get_tagging($quest->tag).'</td></tr>';
+
+    
+    $output .= ' </td></tr>
+  
   <tr>
     <td height="42">&nbsp;</td>
     <td>&nbsp;</td>
