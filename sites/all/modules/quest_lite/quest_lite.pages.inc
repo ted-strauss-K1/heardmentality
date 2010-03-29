@@ -11,7 +11,7 @@
 		
 		
 		$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-		echo $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid"; 
+		$query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid"; 
 		$query_list=db_query($query);
 		$fetvot=db_fetch_object($query_list);
 		//echo $fetvot->possiblevote;
