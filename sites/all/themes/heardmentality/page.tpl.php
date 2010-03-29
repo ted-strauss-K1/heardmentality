@@ -311,7 +311,13 @@ MochaUI.flagquestionWindow(url,title);
 
 	
 }
+function loadsuggest(url,title)
+{
+MochaUI.closeAll();
+MochaUI.suggestanswerWindow(url,title);
 
+	
+}
 
 	</script>
     
