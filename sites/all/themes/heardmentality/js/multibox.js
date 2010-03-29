@@ -72,7 +72,7 @@ var multiBox = new Class({
 			'name': 'mulitBoxIframe',
 			'src': 'javascript:void(0);',
 			'frameborder': 0,
-			'scrolling': 'no'
+			'scrolling': 'yes'
 		}).setStyles({
 			'position': 'absolute',
 			'top': -20,
@@ -499,7 +499,7 @@ var multiBox = new Class({
 				height: this.contentObj.height,
 				src: this.contentObj.url,
 				frameborder: 0,
-				scrolling: 'auto'
+				scrolling: 'yes'
 			}).injectInside(this.contentContainer);
 			
 		}else if(this.type == 'htmlelement'){
