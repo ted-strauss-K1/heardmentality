@@ -184,7 +184,7 @@
 		$totalvotesm=$fetvotd->possiblevote+$fetvotsugestbg->suggestv;
 		 $totalvotesm;
 		$calc=$totalvotesm*$votepointp/100;
-		 $updatevoteposs="update  possible_answer set vote='$votepointp' and ppercent='$calc' where paid='".$_REQUEST['answer']."'";
+		echo  $updatevoteposs="update  possible_answer set vote='$votepointp' and ppercent='$calc' where paid='".$_REQUEST['answer']."'";
 			db_query($updatevoteposs);
 		drupal_goto("qlite/view/$mid");
 		}
