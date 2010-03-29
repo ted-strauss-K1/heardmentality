@@ -11,12 +11,12 @@
 		
 		
 		$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-		$query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid"; 
+		echo $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid"; 
 		$query_list=db_query($query);
 		$fetvot=db_fetch_object($query_list);
 		//echo $fetvot->possiblevote;
 		
-		$query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid"; 
+		echo $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid"; 
 		$query_sugestlist=db_query($query_sugest);
 		$fetvotsugest=db_fetch_object($query_sugestlist);
 		
