@@ -93,6 +93,7 @@ function question_add() {
 	
 	
 	
+	
 				<script type="text/javascript">
 				
 				window.setTimeout("setDefaultCountry()", 1000);
@@ -219,10 +220,11 @@ setDefaultCountry();
     }
 
     
-    $output .= '<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+    $output .= '<link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
+	<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
-$output.='
+$output.='<style>td,select{font-size:12px;}</style>
 		<div id="err" style="border: 3px solid rgb(221, 151, 161); display: block; background-color: rgb(238, 238, 238); height: auto; color: red;">'.$list_err.'</div>
 	
 			<br/>
@@ -231,43 +233,43 @@ $output.='
     <td width="0%" height="44">&nbsp;</td>
     <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
     <td colspan="4">
-        <input type="text" name="q_quest"  value="'.$q_quest.'" id="q_quest"  size="100"/>    </td>
+        <input type="text" name="q_quest" tabindex="1" value="'.$q_quest.'" id="q_quest"  size="100"/>    </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td valign="top">Context</td>
     <td colspan="4">
-      <textarea name="q_context" id="q_context" cols="100" rows="2" style="border:1px solid #BBBBBB;
+      <textarea name="q_context" id="q_context" tabindex="2" cols="100" rows="2" style="border:1px solid #BBBBBB;
 
 width:580px; scroll;">'.$q_context.'</textarea>  </td>
   </tr>
   <tr>    <td colspan="4">&nbsp;</td></tr>
   <tr>
     <td>&nbsp;</td>
-    <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
+    <td valign="top">Answer<span title="This field is required." class="form-required">*</span><br/><small>[min 2]</small></td>
     <td width="26%" valign="top"><table width="100%" border="0"> <tr>
           <td>
-            <input name="q_ans1" type="text" id="q_ans1" value="'.$q_ans1.'" size="40" />
+            <input tabindex="3" name="q_ans1" type="text" id="q_ans1" value="'.$q_ans1.'" size="40" />
           </td>
         </tr>
         <tr><td>&nbsp;</td></tr>
         <tr>
           <td>
-            <input name="q_ans2" type="text" id="q_ans2"  value="'.$q_ans2.'" size="40" />
+            <input name="q_ans2" tabindex="4" type="text" id="q_ans2"  value="'.$q_ans2.'" size="40" />
           </td>
         </tr>
         
         ';
 
     
-    $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);" onclick="del_ans();">[Remove]</a></div><small><br/>
+    $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);" tabindex="88" onclick="del_ans();">[Remove]</a></div><small><br/>
 	
-	<input type="button" name="Add" onclick="add_ans();" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> 
+	<input type="button" tabindex="13" name="Add" onclick="add_ans();" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> 
 	</td>
     <td colspan="3" align="left" valign="top"><table width="65%" border="0">
-	<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
+	<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b><small>[Main Category<span title="This field is required." class="form-required">*</span>]</small></td></tr>
       <tr>
-        <td width="25%" align="left"><select name="q_cat[]" id="q_cat" multiple="multiple" onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" size="5"><option value="">Select Category</option>';
+        <td width="25%" align="left"><select tabindex="14"  name="q_cat[]" id="q_cat" multiple="multiple" onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" size="5"><option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     while ($list = db_fetch_object($client_select)) {
         $output .= '<option value="'.$list->cat_id.'">'.$list->cat_name.'</option>';
@@ -275,7 +277,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     }
     
     $output .= '</select></td>
-        <td width="25%" align="left"><div id="chg_scat"><select name="q_scat[]" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+        <td width="25%" align="left"><div id="chg_scat"><select tabindex="15"  name="q_scat[]" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
     //$client_select1 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $client_select1 = '';
     while ($list = db_fetch_object($client_select1)) {
@@ -283,7 +285,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     
     }
     $output .= '</select></div></td>
-        <td  width="25%" align="left"><div id="chg_sscat"><select name="q_sscat[]" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
+        <td  width="25%" align="left"><div id="chg_sscat"><select tabindex="16"  name="q_sscat[]" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
     //$client_select2 =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $client_select2 = '';
     while ($list = db_fetch_object($client_select2)) {
@@ -293,7 +295,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     $output .= '</select></div></td>
       </tr>
 	  	<tr><td colspan="3" height="40"  valign="middle" ><b>Location</b></td></tr>
-	  <tr><td width="13%"><!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
+	  <tr><td width="13%"><!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="16"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
 	
     <td width="13%"><!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
 	
@@ -325,7 +327,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     $output .= ' </td></tr><tr>
     <td height="42">&nbsp;</td>
     <td>&nbsp;</td>
-    <td><input type="submit" name="save" id="save" value="Save" /></td>
+    <td><input type="submit" name="save" tabindex="21" id="save" value="Save" /></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td align="right"></td>
@@ -371,7 +373,7 @@ function get_tagging($tag='') {
 			
                 <span class="field-prefix">
                     <div class="taggin-widget-input-wrapper">
-                        <input maxlength="1024" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"></span></a>
+                        <input maxlength="20" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"></span></a>
 						
 						<input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"></span>
 						
@@ -379,7 +381,7 @@ function get_tagging($tag='') {
                     </div>
                 </span>
                 <div class="description">
-                    Type and press enter to add the tag
+                   Add New Tag
                 </div>
             </div>
             <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value="http://localhost/heardmentalitylocal/taxonomy/autocomplete/1" disabled="disabled" type="hidden">
@@ -493,6 +495,12 @@ function question_edit_save($array) {
             }
         }
         
+		if(db_query("select * from {qtag} where qid='".$nid."'")){
+			
+			db_query("update {qtag} set tag='".$q_tag."' where qid='".$nid."'");
+			
+		}
+		
         if ($result)
             drupal_set_message(t('Thank you, Question updated successfully!'), $type = 'success');
         drupal_goto("question/");
@@ -526,7 +534,7 @@ function edit_question() {
     
     drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
         type="text/javascript"></script>');
-
+		
     
     if (isset($_POST['update'])) {
         
@@ -690,7 +698,7 @@ setDefaultCountry();
 		
 			
 			';
-
+	
     $output .= '<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
@@ -700,13 +708,13 @@ $output.='<div id="err" class="clear"></div>
     <td width="0%" height="94">&nbsp;</td>
     <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
     <td colspan="4">
-        <input type="text" name="q_quest" id="q_quest" value="'.$quest->question.'"  size="150"/>    </td>
+        <input type="text" name="q_quest"  tabindex="1" id="q_quest" value="'.$quest->question.'"  size="150"/>    </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
     <td valign="top">Context</td>
     <td colspan="4">
-      <textarea name="q_context" id="q_context" cols="150" rows="2" style="border:1px solid #BBBBBB;
+      <textarea   tabindex="2" name="q_context" id="q_context" cols="150" rows="2" style="border:1px solid #BBBBBB;
 
 width:775px; scroll;">'.$quest->context.'</textarea>  </td>
   </tr>
@@ -720,11 +728,12 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     $query = "SELECT * FROM {possible_answer} where qid='".$nid."' ";
     $ans = ExecuteQuery($query, "select");
     $i = 1;
+	$tab=3;
     foreach ($ans as $array) {
         
         $output .= ' <tr>
           <td>
-            <input name="q_ans'.$i.'" type="text" id="q_ans'.$i.'" size="40" value="'.$array['answer'].'" />&nbsp;<input type="hidden" name="aid'.$i.'" value="'.$array['paid'].'">
+            <input  tabindex="'.$tab++.'" name="q_ans'.$i.'" type="text" id="q_ans'.$i.'" size="40" value="'.$array['answer'].'" />&nbsp;<input type="hidden" name="aid'.$i.'" value="'.$array['paid'].'">
           </td>
         </tr>
         <tr><td>&nbsp;</td></tr>
@@ -733,15 +742,15 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     }
 
     
-    $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);" onclick="del_ans();">[Remove]</a></div><small><br/>
+    $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div><small><br/>
 	
-	<input type="button" name="Add" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'"><input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">&nbsp;<input type="hidden" id="cat2" name="cat2" value="'.$quest->scid.'">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="'.$quest->sscid.'"> 
+	<input type="button" name="Add"  tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'"><input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">&nbsp;<input type="hidden" id="cat2" name="cat2" value="'.$quest->scid.'">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="'.$quest->sscid.'"> 
 	
 	</td>
     <td colspan="3" valign="top" align="left"><table width="65%" border="0">
 		<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
-        <td width="25%" align="left"><select name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
+        <td width="25%" align="left"><select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
     
@@ -756,7 +765,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     }
     
     $output .= '</select></td>
-        <td width="25%" align="left"><div id="chg_scat"><select name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+        <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
     $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cid."')");
     $ecat2 = explode(",", $quest->scid);
     while ($list = db_fetch_object($client_select1)) {
@@ -771,7 +780,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     
     }
     $output .= '</select></div></td>
-        <td width="25%" align="left"><div id="chg_sscat"><select name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
+        <td width="25%" align="left"><div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
     if ($quest->scid != '') {
         $client_select2 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scid."')");
         $ecat3 = explode(",", $quest->sscid);
@@ -790,7 +799,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     $output .= '</select></div></td>
       </tr>
 	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
-	  <tr> <td width="13%">&nbsp;<!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
+	  <tr> <td width="13%">&nbsp;<!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
 	
     <td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
 	
@@ -824,7 +833,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
   <tr>
     <td height="42">&nbsp;</td>
     <td>&nbsp;</td>
-    <td><input type="submit" name="update" id="save" value="Update" /></td>
+    <td><input type="submit" name="update" tabindex="21" id="save" value="Update" /></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td align="right"></td>
@@ -858,12 +867,15 @@ function question_ajax() {
         }
         if (! empty($client_array)) {
             
-            if ($action == 1)
+            if ($action == 1){
                 $qscat = "q_scat";
-            if ($action == 2)
-                $qscat = "q_sscat"; //	get_subcat(\'q_cat\',\'chg_scat\',1);
-            
-            $ret = '<select size="5" multiple="multiple" onchange="get_subcat('.$qscat.',\'chg_sscat\','.++$action.');" id="'.$qscat.'" name="q_scat[]"> ';
+				$tab=15;
+			}
+            if ($action == 2){
+                $qscat = "q_sscat";
+				$tab=16; //	get_subcat(\'q_cat\',\'chg_scat\',1);
+            }
+            $ret = '<select tabindex="'.$tab.'"  size="5" multiple="multiple" onchange="get_subcat('.$qscat.',\'chg_sscat\','.++$action.');" id="'.$qscat.'" name="q_scat[]"> ';
             for ($i = 0; $i < count($client_array); $i++) {
                 
                 $ret .= '<option value="'.$client_key[$i].'">'.$client_array[$i].'</option>';
@@ -887,7 +899,7 @@ function question_ajax() {
                 $query = array('geonameid'=>$result->results[0][geonameid]);
                 $result = geonames_query('children', $query);
                 //print_r($result);
-                $ret = '<select style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> ';
+                $ret = '<select tabindex="18"  style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> ';
                 foreach ($result->results as $state) {
                     
                     $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
@@ -901,7 +913,7 @@ function question_ajax() {
                 $query = array('geonameid'=>$code);
                 $result = geonames_query('children', $query);
                 //print_r($result);
-                $ret = '<select style="width: 125px;"  id="q_city" name="q_city"> ';
+                $ret = '<select  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city"> ';
                 foreach ($result->results as $state) {
                     
                     $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
