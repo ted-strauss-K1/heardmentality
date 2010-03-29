@@ -50,7 +50,7 @@
 		$answprc=$vlistquest->vote/100*$totalvotes;
 		$voutput.='
 		 <p><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.' '.$answprc.'</p>';
+		'.$vlistquest->answer.' </p>';
 		}
 		else
 		{
