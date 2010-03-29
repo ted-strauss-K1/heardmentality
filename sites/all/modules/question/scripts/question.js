@@ -203,6 +203,8 @@ function tag_add_input(val){
 			ele.addClass('inp');
 			ele.set('text',context);
 	}
+	
+	insert_tag();
 }
 
 function tag_add(val,el){
@@ -220,8 +222,26 @@ function tag_add(val,el){
 			ele.addClass('tagging-tag');
 			ele.set('text',context);
 	
-			
+	insert_tag();		
 	}
+	
+	function insert_tag(){
+		
+		var myArray=new Array();
+		var elements =$$('div.tagging-tag');
+		
+		elements.each(function(element,index){
+ 		
+		myArray.extend([element.get('text').trim()]);
+	
+ });
+		
+		
+var rtag=myArray.join(',');
+rtag.clean();
+$('q_tag').set('value',rtag);
+	}
+	
 function tag_delq(val){
 	
 	var result = val.hasClass('inp');
@@ -248,7 +268,7 @@ function tag_delq(val){
 		val.destroy();
 	}	
 				
-				
+	insert_tag();			
 }
 
 
