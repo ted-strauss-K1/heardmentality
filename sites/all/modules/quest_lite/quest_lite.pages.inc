@@ -74,7 +74,7 @@
 		$answprcs=$vlsistquest->vote/100*$totalvotes;
 		$voutput.='
 		 <p><input name="sug_answer" type="radio" value="'.$vlsistquest->said.'" />
-		'.$vlsistquest->answer.' '.$answprcs.'</p>';
+		'.$vlsistquest->answer.'</p>';
 		
 		
 		}
