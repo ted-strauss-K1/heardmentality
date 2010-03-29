@@ -358,9 +358,14 @@ function get_tagging() {
                 </label>
             </div>
             <div class="form-item" id="tagging-widget-input-1-wrapper">
+			
                 <span class="field-prefix">
                     <div class="taggin-widget-input-wrapper">
-                        <input maxlength="1024" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"></span></a><input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"></span>
+                        <input maxlength="1024" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"></span></a>
+						
+						<input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"></span>
+						
+						<input name="q_tag" type="hidden" id="q_tag" value=""  >
                     </div>
                 </span>
                 <div class="description">
@@ -400,7 +405,7 @@ function question_save() {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $q_quest = '';
-    //print_r($_REQUEST);
+ // print_r($_REQUEST);
     extract($_REQUEST);
     $output = '';
     $g_global = '';
@@ -416,6 +421,11 @@ function question_save() {
             }
         }
         
+		if($q_tag!=''){
+			
+			$result=db_query("INSERT INTO {qtag} (qid,tag) VALUES (%d,'%s')", $ins_id, $q_tag);
+		}
+		
         if ($result)
             $output = drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
         unset($_SESSION['post']);
