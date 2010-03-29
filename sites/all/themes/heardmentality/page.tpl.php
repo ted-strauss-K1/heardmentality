@@ -286,6 +286,21 @@ window.addEvent('domready', function(){
 			contentBgColor: '#FFF'
 		});
 	}
+	
+	MochaUI.suggestanswerWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' Suggest  '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 500,
+		
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF'
+		});
+	}
 		//subtab()
 });
 
