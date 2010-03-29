@@ -93,7 +93,7 @@ function add_ans(){
         //wrapper.wraps(ele);
         
         $('add_more').getLast().highlight('#F1F1F1', '#6DB6DB');
-		
+		$('add_more').getLast().focus();
 		$('err').empty();
         
     }
@@ -162,7 +162,7 @@ window.addEvent('domready', function() {
 });
 
 function bind_event(){
-	
+
 	var elements = $$('div.tagging-suggest-tag');
 	var el = $('tagging-widget-container').getElements('a');
 /*
@@ -180,7 +180,7 @@ for(var i = 0 ; i < el.length ; i = i + 1)
 }
 
  elements.each(function(element,index){
- 	
+ 		
 element.addEvent('click', tag_add.bindWithEvent(this,element)); 
  });
 	
@@ -203,7 +203,7 @@ function tag_add_input(val){
 			ele.addClass('inp');
 			ele.set('text',context);
 	}
-	
+	$('tagging-widget-input-1').set('value','');
 	insert_tag();
 }
 
