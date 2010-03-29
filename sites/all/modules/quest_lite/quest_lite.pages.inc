@@ -1,5 +1,6 @@
 <?php
-	function qlite_view()
+
+		function qlite_view()
 		{
 		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 		//SELECT answer, vote * 2.75/100 AS PercentOfTotal FROM suggested_answer order by PercentOfTotal desc limit 0,3
@@ -18,11 +19,13 @@
 		$query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid"; 
 		$query_sugestlist=db_query($query_sugest);
 		$fetvotsugest=db_fetch_object($query_sugestlist);
-		//echo $fetvotsugest->suggestv;
+		
 		$totalvotes=$fetvot->possiblevote+$fetvotsugest->suggestv;
-		//echo $totalvotes;
-		//echo "<br/>";
-		//echo $percent=2.5/100*$totalvotes;
+	
+	
+		  $percent=2.5/100*$totalvotes;
+		//echo $percent;
+		 echo $percent*100;
 		$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
@@ -31,14 +34,14 @@
 		$username=db_query($vuser);
 		$ufet=db_fetch_object($username);
 		
-		$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."' ");
+		$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
 		$numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
 		drupal_set_title($oListquest->question);
 		$voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<p>'.$oListquest->context.'</p>';
-		$vans="select * from {possible_answer} where  qid=$qid ";
+		$vans="select * from {possible_answer} where  qid=$qid order by paid asc";
 		
 		
 		$vlist=db_query($vans);
@@ -48,38 +51,41 @@
 		if($numran==0)
 		{
 		$answprc=$vlistquest->vote/100*$totalvotes;
+			$valu= $answprc*100;
 		$voutput.='
 		 <p><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.' </p>';
+		'.$vlistquest->answer.'  '.$valu.' </p>';
 		}
 		else
 		{
 		$answprc=$vlistquest->vote/100*$totalvotes;
+		$valu= $answprc*100;
 		if($answer_id->qid==$vlistquest->qid) { $chk= "checked";}
 		$voutput.=' <p><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.' </p>';
+		'.$vlistquest->answer.'  '.$valu.'   </p>';
 		
 		}
 		
 		}
-		/*$vsans="select * from {suggest_answer} where  qid=$qid ";
+		$vsans="select * from {suggest_answer} where  qid=$qid ";
 		
 		
 		$vslist=db_query($vsans);
-  
+      
 		while($vlsistquest=db_fetch_object($vslist))
 		{
 		
 		
 		$answprcs=$vlsistquest->vote/100*$totalvotes;
+		$valuss= $answprcs*100;
 		$voutput.='
 		 <p><input name="sug_answer" type="radio" value="'.$vlsistquest->said.'" />
-		'.$vlsistquest->answer.'</p>';
+		'.$vlsistquest->answer.' '.$valuss.'    </p>';
 		
 		
 		}
 		
-		*/
+		
 		
 		
 		
@@ -161,7 +167,7 @@
 		}
 		else
 		{
-		$votepointp=$olistquest->vote+1;
+		echo $votepointp=$olistquest->vote+1;
 		}
 		$vInsQuery="insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
 		db_query($vInsQuery);
@@ -176,10 +182,10 @@
 		$query_sugestlistd=db_query($query_sugests);
 		$fetvotsugestbg=db_fetch_object($query_sugestlistd);
 		$totalvotesm=$fetvotd->possiblevote+$fetvotsugestbg->suggestv;
-	//	echo $totalvotesm;
+		 $totalvotesm;
 		$calc=$totalvotesm*$votepointp/100;
-	/*	$updatevoteposs="update  possible_answer set vote='$votepointp' and ppercent='$calc' where paid='".$_REQUEST['answer']."'";
-			db_query($updatevoteposs);*/
+		 $updatevoteposs="update  possible_answer set vote='$votepointp' and ppercent='$calc' where paid='".$_REQUEST['answer']."'";
+			db_query($updatevoteposs);
 		drupal_goto("qlite/view/$mid");
 		}
 		else
@@ -432,7 +438,7 @@
 	<div  id="div3">
 	<p> Link <input type="text" name="flink" id="flink" class="textfieldm"/> </p>
 	</div>
-	<input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);" />
+	<input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);"   />
 	</form>';			
 	echo $resources;
 	}
@@ -571,7 +577,6 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	});
 	
 	
-
 	</script>';
 	
 	}	
@@ -634,7 +639,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 				<li ><a href="javascript:loadReport(2,\''.$gSitePath.'\','.$qid.');" class="" id="tab2">Overtime</a></li>
 				<li ><a href="javascript:loadReport(3,\''.$gSitePath.'\','.$qid.');" class="" id="tab3">By Area</a></li>
 			</ul>
-			<div id="contents"><iframe id="frmGoogle" src="" border="0" height="450" frameborder="0" width="850"></iframe></div>
+			<div id="contents"><iframe id="frmGoogle" src="" border="0" height="450" frameborder="0" width="100%"></iframe></div>
 			<script type="text/javascript">loadReport(1,\''.$gSitePath.'\','.$qid.')</script>';
             break;
 	}
@@ -946,7 +951,7 @@ google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
 		  $script.="   data.addRows([".rtrim($ins_tot_val, ',')."]); ";
 
 
-   echo  $script.="   var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('annot_div'));
+   echo  $script.=" var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('annot_div'));
         chart.draw(data, {displayAnnotations: false});
       }
 	  </script>
