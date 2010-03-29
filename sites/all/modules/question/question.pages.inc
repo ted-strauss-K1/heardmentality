@@ -345,8 +345,17 @@ function get_tagging($tag='') {
 
     
     $content = '';
-
-    
+	$tagged='';
+    if($tag!=''){
+    	
+		$exp=explode(",",$tag);
+		
+		foreach($exp as $list){
+			
+			$tagged.='<div id="tagset" class="tagging-tag" onclick="tag_delq(this);return false;">'.$list.'</div>';
+		}
+		
+    }
     $content .= '<div id="tagging-widget-container">
         <fieldset>
             <legend>
@@ -356,6 +365,7 @@ function get_tagging($tag='') {
                 <label>
                     Assigned Tags:
                 </label>
+				'.$tagged.'
             </div>
             <div class="form-item" id="tagging-widget-input-1-wrapper">
 			
@@ -365,7 +375,7 @@ function get_tagging($tag='') {
 						
 						<input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"></span>
 						
-						<input name="q_tag" type="hidden" id="q_tag" value=""  >
+						<input name="q_tag" type="hidden" id="q_tag" value="'.$tag.'"  >
                     </div>
                 </span>
                 <div class="description">
@@ -532,7 +542,7 @@ function edit_question() {
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
     
-    $result = db_query("SELECT * FROM {question} where qid='".$nid."' AND uid='".$user->uid."'");
+    $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' AND q.uid='".$user->uid."'");
     $quest = db_fetch_object($result);
     drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
     $output .= '
