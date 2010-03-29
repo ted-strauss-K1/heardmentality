@@ -16,7 +16,7 @@
 		$fetvot=db_fetch_object($query_list);
 		//echo $fetvot->possiblevote;
 		
-		echo $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid"; 
+	     $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid"; 
 		$query_sugestlist=db_query($query_sugest);
 		$fetvotsugest=db_fetch_object($query_sugestlist);
 		
