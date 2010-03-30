@@ -932,9 +932,9 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$vSqlmedia="SELECT *	FROM resource where rtype='2' and qid='$qid' ";
+	$vSqlmedia="SELECT *FROM resource where rtype='2' and qid='$qid' ";
 	$rlistmedia=db_query($vSqlmedia);
-	$nummedia=mysql_num_rows($vSqlmedia);
+	$nummedia=mysql_num_rows($rlistmedia);
 	$mediaresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	while($usermedia=mysql_fetch_object($rlistmedia))
 	{
