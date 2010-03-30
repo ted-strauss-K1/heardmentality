@@ -772,11 +772,15 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$query_sugestlistd=db_query($query_sugests);
 	$fetvotsugestbg=db_fetch_object($query_sugestlistd);
 	$totalvotesm=$fetvotd->possiblevote+$fetvotsugestbg->suggestv;
-		$vSql="select * from {question} where status='1' and qid=$qid ";
-		$rlist=db_query($vSql);
-		$oListquest=db_fetch_object($rlist);
+	$vSql="select * from {question} where status='1' and qid=$qid ";
+	$rlist=db_query($vSql);
+	$oListquest=db_fetch_object($rlist);
 		//echo "select * from {resource} where qid=$qid ";
 	$numresource=mysql_num_rows(db_query("select * from {resource} where qid=$qid "));
+	
+	$query_user= "SELECT * FROM users where uid='$oListquest->uid' "; 
+	$query_userinfo=db_query($query_user);
+	$fetuserlist=db_fetch_object($query_userinfo);
 	switch($type)
 	{
 	case "Forum":
@@ -799,7 +803,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$output='sample content Gurus';
 	break;
 	case "Info":
-	$output=' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> '.$ufet->name.' <br/>
+	$output=' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> '.$fetuserlist->name.' <br/>
 			<b>Date Created:</b> '.date("D j M Y",strtotime($oListquest->date_added)). ' <br/>
 			<b>Number of Votes:</b> '.$totalvotesm.'<br/>
 			<b>Number of Forum Posts:</b> 0 <br/>
