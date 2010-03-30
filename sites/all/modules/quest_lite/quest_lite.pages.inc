@@ -912,7 +912,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$usernews->nlink.'" target="new"> '.$usernews->nlink.' </a> </h4>
 	<p>'.$usernews->ntitle.' </p>  
 	<p>'.$usernews->ncontent.' </p>  
-	<p class="cmt_date"> '.format_date($usernews->posted_date, "custom", "D j M Y"). '</p> </div>
+	<p class="cmt_date"> '.date("D j M Y",strtotime($usernews->posted_date)). '</p> </div>
 	</div>';
 	}
 	
@@ -941,7 +941,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$mediaresult.='<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
 	<p>'.$usermedia->membed.' </p>  
-	<p class="cmt_date"> '.format_date($usermedia->posted_date, "custom", "D j M Y"). '</p> </div>
+	<p class="cmt_date"> '.date("D j M Y",strtotime($usermedia->posted_date)). '</p> </div>
 	</div>';
 	}
 	if($nummedia==0)
@@ -967,7 +967,7 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	{
 	$newsresult.='<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;";href="'.$userfacts->facts.'" target="new"> '.$userfacts->facts.' </a> </h4>
-	<p class="cmt_date"> '.format_date($userfacts->posted_date, "custom", "D j M Y"). '</p> </div>
+	<p class="cmt_date"> '.date("D j M Y",strtotime($userfacts->posted_date)). '</p> '.$usernews->posted_date.'</div>
 	</div>';
 	}
 	if($numfacts==0)
