@@ -775,7 +775,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 		$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
-		echo "select * from {resource} where qid=$qid ";
+		//echo "select * from {resource} where qid=$qid ";
 	$numresource=mysql_num_rows(db_query("select * from {resource} where qid=$qid "));
 	switch($type)
 	{
