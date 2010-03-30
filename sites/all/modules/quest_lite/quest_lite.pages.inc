@@ -43,8 +43,17 @@
 		$qlink='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">'.substr($oListquest->question,0,160).' </a>';
 		drupal_set_title(substr($oListquest->question,0,160));
 		}
-			
-			 $shortdesc = substr($oListquest->context, 0,250).'<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">...</a>'; 
+		
+		$stln=strlen($oListquest->context);
+		if($stln>250)
+		{
+		$lkid='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">'.....' </a>';
+		
+		}
+		
+		
+		
+			 $shortdesc = substr($oListquest->context, 0,250).''.$lkid.'; 
 		$voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<div>'.$shortdesc.'';
