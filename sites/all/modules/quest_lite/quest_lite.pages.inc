@@ -1,6 +1,4 @@
-<?php
-
-		function qlite_view()
+function qlite_view()
 		{
 		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
@@ -40,10 +38,12 @@
 		//echo $stringfunct;
 		if($stringfunct>160)
 		{
-		$qlink='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">'.substr($oListquest->question,0,160).' </a>';
-		drupal_set_title(substr($oListquest->question,0,160));
+				
+		
+		$qlink=substr($oListquest->question,0,160).'<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">...</a>';
+            
 		}
-			
+			   drupal_set_title(substr($oListquest->question,0,160));
 			 $shortdesc = substr($oListquest->context, 0,250).'<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">...</a>'; 
 		$voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
@@ -293,6 +293,7 @@ for ($x=0;$x< sizeof($array1);$x++)
 		
 		}
 		}
+
 		</script>
 		';
 		if($numran!=0)
@@ -393,7 +394,6 @@ for ($x=0;$x< sizeof($array1);$x++)
 		return $voutput;
 		
 		}
-
 	function add_resources()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
