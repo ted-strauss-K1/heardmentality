@@ -655,18 +655,7 @@ for ($x=0;$x< sizeof($array1);$x++)
 	});
 	});
 	
-	function formreport(flagfrm)
-	{
-	if((flagfrm.abuse_type[0].checked==false)&&
-	(flagfrm.abuse_type[1].checked==false)&&
-	(flagfrm.abuse_type[2].checked==false)&&
-	(flagfrm.abuse_type[3].checked==false))
-	{
-	alert(" Select Report Type ");
-	return false;
-	}
-	return true;
-	}
+	
 	</script>
 	';
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
@@ -686,11 +675,12 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
 	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
 	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
-	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem" onclick="return formreport(this.form);"/></div></form>';
+	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form>';
 	
 	echo $falgq;
 	
 	}	
+	
 	
 		
 	function tab_list()
@@ -852,19 +842,25 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 
 	$list_length = db_query("select * from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' ");
 		 $numr=mysql_num_rows($list_length);
-		
-		 if($numr==0)
-		 {
+		if($_REQUEST['abuse_type']!='')
+		{
+		  if($numr==0)
+		  {
 		 $flagquery="insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question','".$_REQUEST['abuse_type']."')";
 		 	db_query($flagquery);
 		echo '<div class="messages success">You Have Flagged successfully ! </div>';
 		
-		 }
+		  }
 		  else
 		  {
 		echo '<div class="messages error">You Have Already Flagged !</div>';
 		  }
-	
+	    }
+		else
+		{
+		
+			echo '<div class="messages error">Select Report Type !</div>';
+		}
 	}	
 	
 	function suggest_answer()
@@ -957,18 +953,20 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$list_length = db_query("select * from {suggest_answer} where qid='".$_REQUEST['qaid']."' and uid='".$user->uid."'  ");
 		 $numr=mysql_num_rows($list_length);
-		
+		if($_REQUEST['txt_answer']!='')
+		{
 		 if($numr==0)
 		 {
 	 $answerquery="insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
 		 	db_query($answerquery);
 		echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
 		}
-		/*else
+		}
+		else
 		{
-		echo '<div class="messages error">Already ! </div>';
+		echo '<div class="messages error">Please Enter Suggest Answer </div>';
 		
-		}*/
+		}
 	
 	}
 	function question_news()
@@ -1237,6 +1235,8 @@ function answer_vote()
 	$fetvote=mysql_fetch_object($list_length);
 	$list_own_answer = db_query("select * from {suggest_answer} where said='".$_REQUEST['suggest']."'   ");
 	$userownid=mysql_fetch_object($list_own_answer);
+	if($_REQUEST['suggest']!='')
+	{
 	if($userownid->uid!=$user->uid)
 	{
 		if($numr==0)
@@ -1272,7 +1272,31 @@ function answer_vote()
 		echo '<div class="messages error"> You Cannot Vote Your Answer! </div>';
 		
     }
+	}
+	else
+	{
+	echo '<div class="messages error"> Select Suggest Answer! </div>';
+	
+	}
 
 }
-	
+
+function qusetion_info()
+{
+	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSql="select * from {question} where status='1' and qid=$qid ";
+	$rlist=db_query($vSql);
+	$oListquest=db_fetch_object($rlist);
+    $infooutput='<strong>'.$oListquest->question.'</strong>'; 
+	 $infooutput.='<p>'.$oListquest->context.'</p>'; 
+
+
+     echo $infooutput;
+
+
+
+
+}
+
 ?>
