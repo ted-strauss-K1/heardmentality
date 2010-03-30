@@ -403,9 +403,10 @@ for ($x=0;$x< sizeof($array1);$x++)
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
 	
-	
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$resources='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	$resources='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />
+	
+	';
 	$resources.='<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
 	
@@ -414,14 +415,81 @@ for ($x=0;$x< sizeof($array1);$x++)
 	
 	$(\'myForm\').addEvent(\'submit\', function(e) {
 	
-	e.stop();
 	
+	e.stop();
+	 var cat1 = $(\'rtype\').value;
+		var nlink = $(\'nlink\').value;
+		var ntitle = $(\'ntitle\').value;
+		var ncontent = $(\'ncontent\').value;
+		var path = $(\'path\').value;
+		var mtype = $(\'mtype\').value;
+		var membed = $(\'membed\').value;
+		var docpath = $(\'docpath\').value;
+		var flink = $(\'flink\').value;
+		var err = \'\';
+		
+		 if (cat1==0) 
+        err += \'<li>Please Select Type !</li>\';
+		 if (cat1==1) 
+		 {
+		 if (nlink.trim().length < 1) 
+        err += \'<li>Please Enter  Link !</li>\';
+		
+		 if (ntitle.trim().length < 1) 
+        err += \'<li>Please Enter  Title !</li>\';
+		 
+		  if (ncontent.trim().length < 1) 
+        err += \'<li>Please Enter  Content !</li>\';
+		
+		 if (path.trim().length < 1) 
+        err += \'<li>Please Select Image !</li>\';
+		 
+		 }
+		if (cat1==2) 
+		 {
+		  if (mtype==0) 
+        err += \'<li>Please Select Media Type !</li>\';
+		
+		if (mtype==1)
+		{
+		 if (membed.trim().length < 1) 
+        err += \'<li>Please Enter Embed Code !</li>\';
+		}
+		else
+		{
+		 if (docpath.trim().length < 1) 
+        err += \'<li>Please Select Document !</li>\';
+		}
+		}
+		 if (cat1==3) 
+		 {
+		  if (flink.trim().length < 1) 
+        err += \'<li>Please Enter  Fact Link !</li>\';
+		 
+		 }
+		 if (err.trim().length > 1) {
+        var el = $(\'err\');
+        el.setStyle(\'background-color\', \'#eeeeee\');
+        el.setStyle(\'height\', \'auto\');
+        el.setStyle(\'color\', \'red\');
+        el.setStyle(\'border\', \'3px solid #dd97a1\');
+        el.setStyle(\'list-style\', \'none\');
+        
+        el.setStyle(\'display\', \'block\');
+        el.set(\'html\', err);
+        el.highlight("#EBCC22");
+          return false;   
+    }		
 	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
 	
 	this.set(\'send\', {onComplete: function(response) { 
 	log.removeClass(\'ajax-loading\');
 	log.set(\'html\', response);
+	if(response!=\'\')
+	{
+	
 	MochaUI.closeAll();
+	}
 	}});
 	
 	this.send();
@@ -429,154 +497,7 @@ for ($x=0;$x< sizeof($array1);$x++)
 	});
 	});
 	
-	function showhide(selectValue){
 	
-	
-	if(selectValue==1)
-	{
-	document.getElementById("div1").style.display=\'block\'
-	document.getElementById("div2").style.display=\'none\'
-	document.getElementById("div3").style.display=\'none\'
-	}
-	if(selectValue==2)
-	{
-	document.getElementById("div2").style.display=\'block\'
-	document.getElementById("div1").style.display=\'none\'
-	document.getElementById("div3").style.display=\'none\'
-	}   
-	if(selectValue==3)
-	{
-	document.getElementById("div3").style.display=\'block\'
-	document.getElementById("div1").style.display=\'none\'
-	document.getElementById("div2").style.display=\'none\'
-	}		
-	
-	}
-	function showhidemulti(selvalm)
-	{
-	//alert(selvalm);
-	if(selvalm==1)
-	{
-	document.getElementById("media").style.display=\'block\'
-	document.getElementById("media_div").style.display=\'none\'
-	
-	}
-	if(selvalm==2)
-	{
-	document.getElementById("media_div").style.display=\'block\'
-	document.getElementById("media").style.display=\'none\'
-	
-	}   
-	
-	}
-	function validform(frm)
-	{
-	if(frm.rtype.value=="0")
-	{
-	alert("Select  Type ");
-	frm.mtype.focus();
-	return false;
-	}
-	if(frm.rtype.value==1)
-	{
-	if(frm.nlink.value=="")
-	{
-	alert("Please enter News Link");
-	frm.nlink.focus();
-	return false;
-	}
-	var theurl=frm.nlink.value;
-	var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
-	if(theurl!="")
-	{
-	if (!tomatch.test(theurl))
-	{
-	
-	alert("Please enter valid News Link ,Example:http://www.example.com");		
-	frm.nlink.focus();			
-	
-	return false;
-	}
-	}
-	if(frm.ntitle.value=="")
-	{
-	alert("Please enter News Title");
-	frm.ntitle.focus();
-	return false;
-	}
-	if(frm.ncontent.value=="")
-	{
-	alert("Please enter News Content");
-	frm.ncontent.focus();
-	return false;
-	}
-	if(frm.path.value=="")
-	{
-	alert("Please Upload Image");
-	return false;
-	}
-	}
-	if(frm.rtype.value==2)
-	{
-	
-	if(frm.mtype.value=="0")
-	{
-	alert("Select Media Type ");
-	frm.mtype.focus();
-	return false;
-	}
-	if(frm.mtype.value=="1")
-	{
-	
-	if(frm.membed.value=="")
-	{
-	alert("Please enter Embed  Code");
-	frm.membed.focus();
-	return false;
-	}
-	
-	}
-	
-	if(frm.mtype.value=="2")
-	{
-	
-	if(frm.docpath.value=="")
-	{
-	alert("Please Upload Files ");
-	return false;
-	}
-	
-	}
-	
-	}
-	if(frm.rtype.value==3)
-	{
-	if(frm.flink.value=="")
-	{
-	alert("Please enter Fact Link");
-	frm.flink.focus();
-	return false;
-	}
-	var theurl=frm.flink.value;
-	var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
-	if(theurl!="")
-	{
-	if (!tomatch.test(theurl))
-	{
-	
-	alert("Please enter valid Fact Link ,Example:http://www.example.com");		
-	frm.flink.focus();			
-	
-	return false;
-	}
-	}
-	
-	
-	}
-	
-	return true;
-	
-	}
 	
 	</script>
 	';
@@ -584,11 +505,11 @@ for ($x=0;$x< sizeof($array1);$x++)
 	$resources.='<div id="log">
 	
 	<div id="log_res"><!-- spanner --></div>
-	</div>
+	</div><div id="err">'.$list_err.'</div>
 	<span class="clr"><!-- spanner --></span>';
-	$resources.='<form id="myForm" name="myform"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"/>
+	$resources.='<form id="myForm" name="myForm"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data" ><input type="hidden" name="qaid" value="'.$qid.'"/>
 	
-	<p> Type <select name="rtype" class="textfieldm" id="rtype" onchange="showhide(this.value);">
+	<p> Type <select name="rtype" class="textfieldm" id="rtype" >
 	<option value="0">Select </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
@@ -604,7 +525,7 @@ for ($x=0;$x< sizeof($array1);$x++)
 	</div>
 	
 	<div  id="div2">
-	<p> Type <select name="mtype" class="textfieldm" id="mtype"  onchange="showhidemulti(this.value);" >
+	<p> Type <select name="mtype" class="textfieldm" id="mtype"   >
 	<option value="0">Select </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
@@ -621,18 +542,20 @@ for ($x=0;$x< sizeof($array1);$x++)
 	<div  id="div3">
 	<p> Link <input type="text" name="flink" id="flink" class="textfieldm"/> </p>
 	</div>
-	<input type="submit" name="button" id="submitter"  value="Add Resource" onclick="return validform(this.form);"   />
+	<input type="submit" name="button" id="submitter"  value="Add Resource"  />
 	</form>';			
 	echo $resources;
 	}
 	function save_resources(){
 	
 	global $gSitePath,$user, $gDocPath,$base_root;
+	if($_REQUEST['rtype']!=0)
+	{
 	$resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."')";
 	db_query($resourceadd);
 	echo '<div class="messages success"> Resources Added Successfull </div>';
 	
-	
+	}
 
 	
 	}
