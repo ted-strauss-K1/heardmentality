@@ -166,4 +166,7 @@ a:active { color: #606; }
 	}	
 
 
+/*changes*/
+.cmt_list{ border:0px solid red; overflow:hidden; margin-bottom:10px; position:relative;}
+.rht_select{ position:absolute; right:0px; top:0px;}
 
