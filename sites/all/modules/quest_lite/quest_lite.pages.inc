@@ -1126,7 +1126,7 @@ google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
 	  
 		} 
         
-		for($mn=5;$mn>0;$mn--){
+			for($mn=5;$mn>=0;$mn--){
 	
 		 $year=date("Y");
 		 $month=date("m")-1;
