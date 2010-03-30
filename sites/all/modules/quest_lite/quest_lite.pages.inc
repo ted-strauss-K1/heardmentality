@@ -44,10 +44,15 @@
 		drupal_set_title(substr($oListquest->question,0,160));
 		}
 			
-			 $shortdesc = substr($oListquest->context, 0,250).'<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">...</a>'; 
+			$len=strlen($oListquest->context); 
+		if($len > 250)
+		{
+		$linkj='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">...</a>';
+		}
+			 $shortdesc = substr($oListquest->context, 0,250); 
 		$voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
-		<div>'.$shortdesc.'';
+		<div>'.$shortdesc.''.$linkj.'';
 		$vans="select * from {possible_answer} where  qid=$qid order by vote desc";
 		
 		
