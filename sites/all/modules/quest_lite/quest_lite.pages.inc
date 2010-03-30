@@ -123,7 +123,7 @@
 		}
 		
 		
-		$mysql_sug_rows=mysql_num_rows(mysql_query("select distinct(answer_id) from suggest_ans_tmp  "));
+		$mysql_sug_rows=mysql_num_rows(db_query("select distinct(answer_id) from suggest_ans_tmp  "));
 		
 		
 		//echo $mysql_sug_rows;
@@ -764,7 +764,19 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 
 	$type=$_REQUEST['type'];
-	
+	$queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid"; 
+	$query_listd=db_query($queryd);
+	$fetvotd=db_fetch_object($query_listd);
+			
+	$query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid"; 
+	$query_sugestlistd=db_query($query_sugests);
+	$fetvotsugestbg=db_fetch_object($query_sugestlistd);
+	$totalvotesm=$fetvotd->possiblevote+$fetvotsugestbg->suggestv;
+		$vSql="select * from {question} where status='1' and qid=$qid ";
+		$rlist=db_query($vSql);
+		$oListquest=db_fetch_object($rlist);
+		echo "select * from {resource} where qid=$qid ";
+	$numresource=mysql_num_rows(db_query("select * from {resource} where qid=$qid "));
 	switch($type)
 	{
 	case "Forum":
@@ -788,10 +800,10 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	break;
 	case "Info":
 	$output=' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> '.$ufet->name.' <br/>
-			<b>Date Created:</b> '.format_date($oListquest->date_added, "custom", "D j M Y"). ' <br/>
-			<b>Number of Votes:</b> 0<br/>
+			<b>Date Created:</b> '.date("D j M Y",strtotime($oListquest->date_added)). ' <br/>
+			<b>Number of Votes:</b> '.$totalvotesm.'<br/>
 			<b>Number of Forum Posts:</b> 0 <br/>
-			<b>Number of Resources:</b> 0</p>
+			<b>Number of Resources:</b> '.$numresource.'</p>
 		';
 	break;
 	case "Politician":
@@ -854,7 +866,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 		$ansoutput='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 
 	$answers="SELECT *	FROM suggest_answer where qid='$qid'  ";
-	$anslist=mysql_query($answers);
+	$anslist=db_query($answers);
 	$list_length = db_query("select * from {suggest_answer} where qid='$qid' and uid='".$user->uid."'  ");
     $numr=mysql_num_rows($list_length);
 	$ansoutput.='<div id="log">
@@ -954,7 +966,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
-	$rlistnews=mysql_query($vSql);
+	$rlistnews=db_query($vSql);
 	$numnews=mysql_num_rows($rlistnews);
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	while($usernews=mysql_fetch_object($rlistnews))
@@ -985,7 +997,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSqlmedia="SELECT *	FROM resource where rtype='2' and qid='$qid' ";
-	$rlistmedia=mysql_query($vSqlmedia);
+	$rlistmedia=db_query($vSqlmedia);
 	$nummedia=mysql_num_rows($vSqlmedia);
 	$mediaresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	while($usermedia=mysql_fetch_object($rlistmedia))
@@ -1012,7 +1024,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$vSqlfact="SELECT *	FROM resource where rtype='3' and qid='$qid' ";
-	$rlistfacts=mysql_query($vSqlfact);
+	$rlistfacts=db_query($vSqlfact);
 	$numfacts=mysql_num_rows($rlistfacts);
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	while($userfacts=mysql_fetch_object($rlistfacts))
