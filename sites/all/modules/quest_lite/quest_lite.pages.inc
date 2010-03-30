@@ -3,8 +3,6 @@
 		function qlite_view()
 		{
 		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-		//SELECT answer, vote * 2.75/100 AS PercentOfTotal FROM suggested_answer order by PercentOfTotal desc limit 0,3
-		
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
@@ -26,7 +24,7 @@
 		  $percent=2.5/100*$totalvotes;
 		//echo $percent;
 		 $tot= $percent*100;
-		// echo "<br/>";
+	
 		$vSql="select * from {question} where status='1' and qid=$qid ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
@@ -38,10 +36,18 @@
 		$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
 		$numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
-		drupal_set_title($oListquest->question);
+		$stringfunct=strlen($oListquest->question);
+		//echo $stringfunct;
+		if($stringfunct>160)
+		{
+		$qlink='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">'.substr($oListquest->question,0,160).' </a>';
+		drupal_set_title(substr($oListquest->question,0,160));
+		}
+			
+			 $shortdesc = substr($oListquest->context, 0,250).'<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">...</a>'; 
 		$voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
-		<p>'.$oListquest->context.'</p>';
+		<div>'.$shortdesc.'';
 		$vans="select * from {possible_answer} where  qid=$qid order by vote desc";
 		
 		
@@ -299,20 +305,16 @@ for ($x=0;$x< sizeof($array1);$x++)
 		
 		$submitbutt=' <p><input type="submit" name="save" id="save" value="Vote" /></p>'; 
 		}
-		$voutput.='
-		  <p><select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
+		$voutput.='<div class="rht_select"><select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 		<option value=""> Select</option >
 		'.$optio.'
 		<option value="2"> Invite</option >
 		<option value="3"> Flag</option >
 		<option value="4">Suggest New Answer</option> 
 		<option value="5">Create Mashup:</option> 
-		</select></p>
+		</select></div></div>		
 		'.$submitbutt.' 
-		
 		</div></div></form>';
-		
-		
 		return $voutput;
 		}
 
@@ -414,6 +416,7 @@ for ($x=0;$x< sizeof($array1);$x++)
 	this.set(\'send\', {onComplete: function(response) { 
 	log.removeClass(\'ajax-loading\');
 	log.set(\'html\', response);
+	MochaUI.closeAll();
 	}});
 	
 	this.send();
@@ -623,6 +626,9 @@ for ($x=0;$x< sizeof($array1);$x++)
 	$resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."')";
 	db_query($resourceadd);
 	echo '<div class="messages success"> Resources Added Successfull </div>';
+	
+	
+
 	
 	}
 	function flag_question()
