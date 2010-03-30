@@ -1049,14 +1049,13 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	}
 	
 	
-
 function qlite_percent()
 {
 		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 			$output='';
 			  $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 			  
-			$vans="select * from {possible_answer} where  qid=$qid ";
+			$vans="select * from {possible_answer} where  qid='$qid'";
 			$vlist=ExecuteQuery($vans,"select");
 			$cnt_ans=count($vlist);
 			 $script=" 
@@ -1067,17 +1066,17 @@ function qlite_percent()
 			function drawChart() {
 			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'Answers');
-			data.addColumn('number', 'Percent(%)');
+			data.addColumn('number', 'Rate Count');
 			data.addRows(".$cnt_ans.");";
 			for($ab=0;$ab<$cnt_ans;$ab++){
-			$per=answer_details($vlist[$ab]['paid'],'percent');
+			$per=answer_details($qid,$vlist[$ab]['paid'],'percent');
 			$inc=$ab+1;
 			$script.=" data.setValue(".$ab.", 0, 'Answer".$inc."');
 			data.setValue(".$ab.", 1, ".$per.");";
 			}
 			
 		echo	$script.="	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-			chart.draw(data, {width: 400, height: 240,max:100, is3D: true, title: 'Answer Percentage'});
+			chart.draw(data, {width: 400, height: 240, is3D: false, title: ''});
 			}
 			</script>";
 			
@@ -1090,6 +1089,8 @@ function qlite_percent()
 </div>';
 
 }
+
+
 function qlite_graph()
 {
 	
@@ -1124,13 +1125,13 @@ google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
 		 $year=date("Y");
 		 $month=date("m")-1;
 		 $dat=date("d")-$mn;
-		 
+		  $date=date('Y-m-d', mktime(0, 0, 0, $month+1, $dat, $year));
 	 $ins_tot_val.=" [new Date(".$year.", ".$month." ,".$dat."),";
 	 
 	 $inc_this='';
 	 
 	  for($ab=0;$ab<$cnt_ans;$ab++){
-	 $inc_this.= rand(100,1000).",";
+	 $inc_this.= answer_details($qid,$vlist[$ab]['paid'],'timeline',$date).",";
 	 	} 
 	 $ins_tot_val.=rtrim($inc_this,',');
 	 $ins_tot_val.="],";
@@ -1149,9 +1150,11 @@ google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
 ";
 
 
-echo '<div  >By Time Line <div id="annot_div" style="width: 700px; height: 240px;"></div></div>';
+echo '<div  ><div id="annot_div" style="width: 700px; height: 240px;"></div></div>';
 
 }
+
+
 function qlite_map()
 {
 
@@ -1200,12 +1203,22 @@ function qlite_map()
 echo '<div  class="">by area <div id="map_div" style="width: 100%; height: 400px"></div>';
 }
 
-	function answer_details($aid='',$action=''){
+	function answer_details($qid='',$aid='',$action='',$date=''){
 	switch($action)
 	{
 	case 'percent':
-	return rand(10, 100);
+	 $query="select * from possible_answer_vote where qid='".$qid."' and panswer_id='".$aid."' ";
+	$answer = ExecuteQuery($query,"norows");	
+	
+	return $answer;
 	break;
+	case 'timeline':
+		 $query="select * from possible_answer_vote where qid='".$qid."' and panswer_id='".$aid."'AND vote_pdate='".$date."' ";
+	$answer = ExecuteQuery($query,"norows");	
+
+	return $answer?$answer:0;
+	break;	
+				
 	}
 }	
 
