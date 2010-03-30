@@ -53,7 +53,7 @@
 		
 		
 		
-			 $shortdesc = substr($oListquest->context, 0,250).$lkid; 
+			 $shortdesc = substr($oListquest->context, 0,250); 
 		$voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<div>'.$shortdesc.'';
