@@ -41,9 +41,9 @@
 		if($stringfunct>160)
 		{
 		$qlink='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">'.substr($oListquest->question,0,160).' </a>';
-		drupal_set_title(substr($oListquest->question,0,160));
+		
 		}
-			
+		drupal_set_title(substr($oListquest->question,0,160));	
 			$len=strlen($oListquest->context); 
 		if($len > 250)
 		{
