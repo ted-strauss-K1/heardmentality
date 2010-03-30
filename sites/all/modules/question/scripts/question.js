@@ -48,7 +48,9 @@ function add_ans(){
 
     var ans_cnt = $('ans_cnt').value;
 	
+	var tab=$('q_ans'+ans_cnt).get('tabindex');
 	
+	tab=tab+1;
 	
 	//validate prev ans is empty
 	if($('q_ans'+ans_cnt).value.length>1){
@@ -59,7 +61,7 @@ function add_ans(){
 		
 		$('del_ans').fade('in');
 	}
-		 
+		
     if (ans_cnt < 11) {
         $('ans_cnt').set('value', ans_cnts);
         //	$('add_more').set('html','  <p>&nbsp;</p>');
@@ -79,6 +81,7 @@ function add_ans(){
         var ele = new Element('input', {
             id: 'q_ans' + ans_cnts,
             name: 'q_ans' + ans_cnts,
+			tabindex:tab,
             // styles: {    'font-weight': 700,    color: 'green'  }
             size: '40',    events: { 
      'keyup': function(){
