@@ -142,18 +142,23 @@ setDefaultCountry();
 });
 			  						 var ids = foo.toString();
 			   					
-			  						if(level==1)
+			  						if(level==1){
 									$(\'cat1\').set(\'value\',ids);
+									$(\'chg_sscat\').fade(\'out\');
+										}
 									
-									if(level==2)
+									if(level==2){
+									
 									$(\'cat2\').set(\'value\',ids);
-									
+									$(\'chg_sscat\').fade(\'in\');
+										}
 									if(level==3)
 									$(\'cat3\').set(\'value\',ids);
 									
 									if(ids.length>0){
 									
 									if(level<3){
+									
 									var url = "'.$gSitePath.'question/ajax";
 									var req = new Request({    
 											method: \'get\'
@@ -228,6 +233,7 @@ $output.='<style>td,select{font-size:12px;}</style>
 		<div id="err" style="border: 3px solid rgb(221, 151, 161); display: block; background-color: rgb(238, 238, 238); height: auto; color: red;">'.$list_err.'</div>
 	
 			<br/>
+			<div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
 <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
   <tr>
     <td width="0%" height="44">&nbsp;</td>
@@ -570,11 +576,16 @@ function edit_question() {
 });
 			  						 var ids = foo.toString();
 			   					
-			  						if(level==1)
+			  							if(level==1){
 									$(\'cat1\').set(\'value\',ids);
+									$(\'chg_sscat\').fade(\'out\');
+										}
 									
-									if(level==2)
+									if(level==2){
+									
 									$(\'cat2\').set(\'value\',ids);
+									$(\'chg_sscat\').fade(\'in\');
+										}
 									
 									if(level==3)
 									$(\'cat3\').set(\'value\',ids);
@@ -703,6 +714,7 @@ setDefaultCountry();
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
 $output.='<div id="err" class="clear"></div>
+<div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
 				<form id="question" name="question" method="post"   onsubmit="return validate_question();" ><table width="100%" border="0" align="center" style="border:0px;">
   <tr>
     <td width="0%" height="94">&nbsp;</td>
