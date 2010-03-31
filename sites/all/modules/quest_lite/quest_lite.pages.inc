@@ -37,22 +37,34 @@
 		$numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
 		$stringfunct=strlen($oListquest->question);
+		$voutput='<script type="text/javascript">
+		function veni(ids)
+		{	
+	
+		loaddetails(\''.$gSitePath.'qlite/Details/\'+ids,\'Question Information\');
+		}
+		
+		</script>';  
 		//echo $stringfunct;
 		if($stringfunct>160)
 		{
-		$qlink='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">'.substr($oListquest->question,0,160).' </a>';
+				
 		
+		$qlink=substr($oListquest->question,0,160).'<a onclick="veni('.$qid.');">...</a>';
+            
 		}
-		drupal_set_title(substr($oListquest->question,0,160));	
-			$len=strlen($oListquest->context); 
+			   drupal_set_title($qlink);
+			   
+		$len=strlen($oListquest->context); 
 		if($len > 250)
 		{
-		$linkj='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information \');">...</a>';
+		$linkj='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information\');">...</a>';
 		}
-			 $shortdesc = substr($oListquest->context, 0,250); 
-		$voutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
+			 $shortdesc = substr($oListquest->context, 0,250);
+		
+		$voutput.='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
-		<div>'.$shortdesc.''.$linkj.'';
+		<div>'.$shortdesc.' '.$linkj.'';
 		$vans="select * from {possible_answer} where  qid=$qid order by vote desc";
 		
 		
@@ -398,6 +410,7 @@ for ($x=0;$x< sizeof($array1);$x++)
 		return $voutput;
 		
 		}
+
 
 	function add_resources()
 	{
