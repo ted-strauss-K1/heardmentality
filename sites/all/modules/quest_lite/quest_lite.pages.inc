@@ -1098,70 +1098,118 @@ google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
 echo '<div  ><div id="annot_div" style="width: 700px; height: 240px;"></div></div>';
 
 }
-
 function qlite_map() {
     
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
+	$inc_script='';
+	$resulte='';
+	$script='';
+	$desc='';
+    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	
+	$marker=array('blue','green','red');
     
     $vans = "select * from {possible_answer} where  qid=$qid ";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
-    $query = array('postalcode'=>'600028');
-    $result = geonames_query('postalcodesearch', $query, $options);
-    $mlat = "[";
-    $mlong = "[";
-    foreach ($result->results as $list) {
-        $array[] = $list;
-        $mlat .= "'$list[lat]',";
-        $mlong .= "'$list[lng]',";
+    
+    for ($i = 0; $i < $cnt_ans; $i++) {
+        
+       $pans = db_query("select * from {possible_answer_vote} as pav left join {users} as u on u.uid=pav.uid where pav.panswer_id='".$vlist[$i]['paid']."' ");
+      //$pans = db_query("select * from {users}  LIMIT 0,3");
+	 	$ans_cnt=$i+1;
+	 	$getresult=array();
+	       while($fieldsset = db_fetch_object($pans)){
+	       
+    $getresult[]=$fieldsset;
+		
+       }
+        $pcnt_ans = count($getresult);
+      
+	  $inc_script.='
+	  var blueIcon = new GIcon(G_DEFAULT_ICON);
+	  blueIcon.image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png";
+
+// Set up our GMarkerOptions object
+markerOptions = { icon:blueIcon };';
+	  
+	  $desc.='<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png" border="0" alt=""/> &nbsp;Answer '.$ans_cnt.'<br/>';
+	  
+	   $mlat='';
+	    $mlong='';
+	  
+        $mlat = "[";
+        $mlong = "[";
+       
+      
+			 
+   
+ foreach ($getresult as $for_zip_user) {
+ 	
+            $code=rand(600001,600028);
+			$cntcode='IN';
+          $list= qlite_get_zip($code,$cntcode);
+		  
+          
+            
+          $mlat .= "'".$list->results[0][lat]."',";
+            $mlong .= "'".$list->results[0][lng]."',";
+		 //   $mlat .= "'".rand('30.232','72.03')."',";
+       //  $mlong .= "'".rand('56.232','103.03')."',";
+            //print_r($array);
+
+        }
+
+			$mlat = rtrim($mlat, ',');
+            $mlong = rtrim($mlong, ',');
+            $mlat .= "]";
+            $mlong .= "]";
+          
+    	$inc_script.="if(".$pcnt_ans.">0){
+					var lat=".$mlat.";
+				var lng=".$mlong.";
+		        for (var i = 0; i <".$pcnt_ans."; i++) {
+		        	
+		            var latlng = new GLatLng(lat[i],lng[i]);
+		           map.addOverlay(new GMarker(latlng, markerOptions));
+		          }
+}";
     }
+
     
-    //print_r($array);
-    
-    $mlat = rtrim($mlat, ',');
-    $mlong = rtrim($mlong, ',');
-    $mlat .= "]";
-    $mlong .= "]";
-    $rep = count($array);
     echo $script .= " 
-					
 				<script src='http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAk7qgEva0Ioa4Suru5Tb5eBQFLOarkQUzCA92TG3xPimqxCbarBQTnRVvbdF68v6R547r-Sy34P_yWA' type='text/javascript'></script>
-				
-								 <script type='text/javascript'>
-							
-							
-							 function initialize() {
+				<script type='text/javascript' >
+				 function initialize() {
     	var map = new google.maps.Map2(document.getElementById('map_div'));
 		 map.setCenter(new GLatLng(34, 0), 1);
  geocoder = new GClientGeocoder();
 		//map.setCenter(new GLatLng(37.4419, -122.1419), 13);
 		  map.addControl(new GLargeMapControl());
     map.addControl(new GMapTypeControl());
-	var blueIcon = new GIcon(G_DEFAULT_ICON);
-	 blueIcon.image = 'http://gmaps-samples.googlecode.com/svn/trunk/markers/blue/blank.png';
-				markerOptions = { icon:blueIcon };
-			if(".$rep.">0){
-					var lat=".$mlat.";
-				var long=".$mlong.";
-		        for (var i = 0; i <".$rep."; i++) {
-		        	
-		            var latlng = new GLatLng(lat[i],long[i]);
-		            map.addOverlay(new GMarker(latlng,markerOptions));
-		          }
-		}
-      }
-
-
-						  </script>
+	
+	
+		".$inc_script."
+				
+}
+				
+				</script>
 					";
 
     
-    echo '  <body onload="initialize()" onunload="GUnload()"><div  class="">by area <div id="map_div" style="width: 700px; height: 300px"></div>';
+    echo '  <body onload="initialize()" onunload="GUnload()"><div style="width:100%;"><div  class="">by area <div id="map_div" style="width: 700px; height: 300px"></div><div style="position: absolute; right: 0pt; top: 0pt;" id="desc">'.$desc.'</div></div>';
 }
 
 
+
+function qlite_get_zip($code='',$ccode=''){
+				
+			  $query = array('postalcode'=>$code,'maxrows'=>1);
+                $result = geonames_query('postalcodesearch', $query);
+              
+			  return $result;
+}
 
 
 
