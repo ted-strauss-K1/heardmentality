@@ -411,8 +411,7 @@ for ($x=0;$x< sizeof($array1);$x++)
 		
 		}
 
-
-	function add_resources()
+function add_resources()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
 	
@@ -440,13 +439,15 @@ for ($x=0;$x< sizeof($array1);$x++)
 		var docpath = $(\'docpath\').value;
 		var flink = $(\'flink\').value;
 		var err = \'\';
-		
+	    var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
 		 if (cat1==0) 
         err += \'<li>Please Select Type !</li>\';
 		 if (cat1==1) 
 		 {
 		 if (nlink.trim().length < 1) 
         err += \'<li>Please Enter  Link !</li>\';
+		if (!tomatch.test(nlink))
+		 err += \'<li>Please enter valid News Link ,Example:http://www.example.com </li>\';		
 		
 		 if (ntitle.trim().length < 1) 
         err += \'<li>Please Enter  Title !</li>\';
@@ -465,8 +466,10 @@ for ($x=0;$x< sizeof($array1);$x++)
 		
 		if (mtype==1)
 		{
-		 if (membed.trim().length < 1) 
-        err += \'<li>Please Enter Embed Code !</li>\';
+		  if (membed.trim().length < 1) 
+        err += \'<li>Please Enter  YouTube Link !</li>\';
+		if (!tomatch.test(membed))
+		 err += \'<li>Please enter valid YouTube  Link ,http://www.youtube.com/watch?v=VIDEOID </li>\';		
 		}
 		else
 		{
@@ -544,7 +547,7 @@ for ($x=0;$x< sizeof($array1);$x++)
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
 	</select> </p>	</div>
 	<div id="media"> 
-	<p> Embed Url <textarea name="membed" id="membed"  class="textfield02" ></textarea> </p> 
+	<p>YouTube Link <input type="text"  name="membed" id="membed"  class="textfieldm" > </p> 
 	</div>
 	<div id="media_div">
 	<p> File <input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe></p> 
@@ -559,12 +562,36 @@ for ($x=0;$x< sizeof($array1);$x++)
 	</form>';			
 	echo $resources;
 	}
+	
+	
+	
 	function save_resources(){
 	
 	global $gSitePath,$user, $gDocPath,$base_root;
 	if($_REQUEST['rtype']!=0)
 	{
-	$resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."')";
+	$ytURL=$_REQUEST['membed'];
+	$ytvIDlen = 11; // This is the length of YouTube's video IDs
+	
+	$idStarts = strpos($ytURL, "?v=");
+	
+	
+	
+	if($idStarts === FALSE)
+	
+	$idStarts = strpos($ytURL, "&v=");
+	
+	if($idStarts === FALSE)
+	
+	die("YouTube video ID not found. Please double-check your URL.");
+	
+	$idStarts +=3;
+	
+	$ytvID = substr($ytURL, $idStarts, $ytvIDlen);
+	
+	  $ytvID;
+	
+	$resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document,video_id) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."','".$ytvID."')";
 	db_query($resourceadd);
 	echo '<div class="messages success"> Resources Added Successfull </div>';
 	
@@ -572,6 +599,8 @@ for ($x=0;$x< sizeof($array1);$x++)
 
 	
 	}
+	
+
 	function flag_question()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
@@ -945,7 +974,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$vSqlmedia="SELECT *FROM resource where rtype='2' and qid='$qid' ";
+	$vSqlmedia="SELECT *	FROM resource where rtype='2' and qid='$qid' ";
 	$rlistmedia=db_query($vSqlmedia);
 	$nummedia=mysql_num_rows($rlistmedia);
 	$mediaresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
@@ -953,7 +982,16 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	{
 	$mediaresult.='<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
-	<p>'.$usermedia->membed.' </p>  
+	<p><img src="http://img.youtube.com/vi/'.$usermedia->video_id.'/default.jpg" ></p>
+	<br/>  
+	<p>  <object width="425" height="350">
+       <param name="movie" value="http://www.youtube.com/v/'.$usermedia->video_id.'">
+       </param>
+       <embed src="http://www.youtube.com/v/'.$usermedia->video_id.'" type="application/x-shockwave-flash" width="425" height="350">
+       </embed>
+</object>
+
+ </p>
 	<p class="cmt_date"> '.date("D j M Y",strtotime($usermedia->posted_date)). '</p> </div>
 	</div>';
 	}
