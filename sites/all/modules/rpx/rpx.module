@@ -734,7 +734,7 @@ function _rpx_providers($entire_list=false) {
 
   // LMT: seems this provider list should match that saved in the admin settings and not repeated here. Also needs to respect admin selections
   $providers['openid'] = array('name' => 'openid', 'title' => 'OpenID', 'domain' => '');
-  $providers['aol'] = array('name' => 'aol', 'title' => 'AOL/AIM', 'domain' => 'aol.com');
+  $providers['aol'] = array('name' => 'aol', 'title' => 'AOL/AIM', 'domain' => 'openid.aol.com');
   $providers['google'] = array('name' => 'google', 'title' => 'Google', 'domain' => 'google.com');
   $providers['yahoo'] = array('name' => 'yahoo', 'title' => 'Yahoo!', 'domain' => 'yahoo.com');
   $providers['facebook'] = array('name' => 'facebook', 'title' => 'Facebook', 'domain' => 'facebook.com');
