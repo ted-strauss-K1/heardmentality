@@ -142,8 +142,6 @@ function rpx_registration_submit( $form, &$form_state ) {
   if ($account->status) {
     // log 'em in, yo.
     user_external_login( $account );
-
-
   }
   else {
     _user_mail_notify('register_pending_approval', $account);
@@ -171,12 +169,10 @@ function rpx_end_point() {
     if ( $account->uid ) {
       // ok, log them in, go to where we need to go.
       user_external_login($account);
-	 
-     header("location:../user/$account->uid/edit");
+      drupal_goto();
     } else {
       // fresh meat, go get registered.
       if (! _rpx_blind_registration() ) {
-	  
         $dest = $_REQUEST['destination'];
         unset($_REQUEST['destination']); 
         drupal_goto('rpx/registration', 'destination='. $dest); // hmm, missing pieces.  go get 'em.
@@ -543,19 +539,8 @@ function rpx_form_alter(&$form, &$form_state, $form_id) {
 function _rpx_update_user_profile_form( &$form, &$form_state ) {
     $userData = user_load_self(array());
     $userData = $userData[1]->rpx_data['profile'];
-	
-	
-	
-	
-	$form['address']['postalCode'] = array(
-        '#type' => 'textfield',
-        '#title' => t('Zipcode'),
-        '#required' => FALSE,
-        '#default_value' =>  (isset($userData['address']['postalCode'])) ? $userData['address']['postalCode'] : '',
-        '#size' => 12,
-    );
 
-/*    $form['name'] = array(
+    $form['name'] = array(
         '#type' => 'fieldset',
         '#title' => t('Name'),
         '#collapsible' => TRUE,
@@ -667,7 +652,7 @@ function _rpx_update_user_profile_form( &$form, &$form_state ) {
         '#default_value' => (isset($userData['address']['country'])) ? $userData['address']['country'] : '',
         '#size' => 30,
     );
-    */
+    
     if (!empty($_POST) && form_get_errors()) {
         drupal_set_message(t('The settings have not been saved because of the errors.'), 'error');
     }
@@ -680,7 +665,7 @@ function _rpx_update_user_profile_form( &$form, &$form_state ) {
 function rpx_update_user_profile_form_submit($form_values) {
     $userDataAll = user_load_self(array());
     $userDataRpxProfile = $userDataAll[1]->rpx_data;
-   /* $userDataRpxProfile['profile']['name']['givenName'] = $form_values['#post']['givenName'];
+    $userDataRpxProfile['profile']['name']['givenName'] = $form_values['#post']['givenName'];
     $userDataRpxProfile['profile']['name']['familyName'] = $form_values['#post']['familyName'];
     $userDataRpxProfile['profile']['displayName'] = $form_values['#post']['displayName'];
     $userDataRpxProfile['profile']['preferredUsername'] = $form_values['#post']['preferredUsername'];
@@ -692,7 +677,7 @@ function rpx_update_user_profile_form_submit($form_values) {
     $userDataRpxProfile['profile']['address']['locality'] = $form_values['locality'];
     $userDataRpxProfile['profile']['address']['region'] = $form_values['#post']['region'];
     $userDataRpxProfile['profile']['address']['postalCode'] = $form_values['#post']['postalCode'];
-    $userDataRpxProfile['profile']['address']['country'] = $form_values['#post']['country'];*/
+    $userDataRpxProfile['profile']['address']['country'] = $form_values['#post']['country'];
 
     $rpx_data = array( 'rpx_data' => $userDataRpxProfile );
     return user_save( $GLOBALS['user'], $rpx_data );
@@ -713,10 +698,10 @@ function _rpx_update_user_login_form( &$form, &$form_state ) {
   $providers = _rpx_providers();
 
   foreach ($providers as $provider) {
-    $icons .= l(_rpx_provider_icon($provider['name'],'rpx-icon'), $sign_in_url, array('html' => TRUE, 'query' => array('token_url' => $token_url), 'attributes' => array('class' => 'rpxnow', 'onclick' => 'return true;')));
+    $icons .= l(_rpx_provider_icon($provider['name'],'rpx-icon'), $sign_in_url, array('html' => TRUE, 'query' => array('token_url' => $token_url), 'attributes' => array('class' => 'rpxnow', 'onclick' => 'return false;')));
   }
   $items[] = array(
-    'data' => l((variable_get('rpx_signin_string', RPX_SIGNIN_STRING)=='')?RPX_SIGNIN_STRING:variable_get('rpx_signin_string', RPX_SIGNIN_STRING), $sign_in_url, array('query' => array('token_url' => $token_url), 'attributes' => array('class' => 'rpxnow', 'onclick' => 'return true;'))) .'<br />'. $icons,
+    'data' => l((variable_get('rpx_signin_string', RPX_SIGNIN_STRING)=='')?RPX_SIGNIN_STRING:variable_get('rpx_signin_string', RPX_SIGNIN_STRING), $sign_in_url, array('query' => array('token_url' => $token_url), 'attributes' => array('class' => 'rpxnow', 'onclick' => 'return false;'))) .'<br />'. $icons,
     'class' => 'rpx-link',
   );
   
@@ -724,7 +709,6 @@ function _rpx_update_user_login_form( &$form, &$form_state ) {
     '#value' => theme('item_list', $items),
     '#weight' => 1,
   );
- 
   return $form;
 }
 
@@ -810,7 +794,7 @@ function _rpx_signin_block() {
   $providers = _rpx_providers();
 
   foreach ($providers as $provider) {
-    $line[] = _rpx_provider_icon($provider['name'], 'rpx-icon') .' '. l($provider['title'], $sign_in_url, array('query' => array('token_url' => $token_url), 'attributes' => array('class' => 'rpxnow', 'onclick' => 'return true;')), 'rpx-icon');
+    $line[] = _rpx_provider_icon($provider['name'], 'rpx-icon') .' '. l($provider['title'], $sign_in_url, array('query' => array('token_url' => $token_url), 'attributes' => array('class' => 'rpxnow', 'onclick' => 'return false;')), 'rpx-icon');
   }
   $output .= theme('item_list', $line);
   return $output;
