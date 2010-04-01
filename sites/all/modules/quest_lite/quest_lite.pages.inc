@@ -51,9 +51,13 @@
 				
 		
 		$qlink=substr($oListquest->question,0,160).'<a onclick="veni('.$qid.');">...</a>';
-            
+            drupal_set_title($qlink); 
 		}
-			   drupal_set_title($qlink);
+		else
+		{	   
+	 
+	       drupal_set_title($oListquest->question); 
+	     }
 			   
 		$len=strlen($oListquest->context); 
 		if($len > 250)
