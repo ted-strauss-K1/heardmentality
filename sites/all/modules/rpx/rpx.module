@@ -142,7 +142,8 @@ function rpx_registration_submit( $form, &$form_state ) {
   if ($account->status) {
     // log 'em in, yo.
     user_external_login( $account );
-	
+
+
   }
   else {
     _user_mail_notify('register_pending_approval', $account);
@@ -171,13 +172,12 @@ function rpx_end_point() {
       // ok, log them in, go to where we need to go.
       user_external_login($account);
 	 
-     header("location:../user/$account->uid");
+     header("location:../user/$account->uid/edit");
     } else {
       // fresh meat, go get registered.
       if (! _rpx_blind_registration() ) {
 	  
-       // $dest = $_REQUEST['destination'];
-	   $dest="../user/".$account->uid."/edit";
+        $dest = $_REQUEST['destination'];
         unset($_REQUEST['destination']); 
         drupal_goto('rpx/registration', 'destination='. $dest); // hmm, missing pieces.  go get 'em.
       }
