@@ -31,7 +31,7 @@ function my_question() {
         $strReturn .= $list[$i]['question'];
         $strReturn .= '</td><td>'.$list[$i]['date_added'].'</td><td>';
         
-        $strReturn .= '<a href="'.$gSitePath.'qlite/view/'.$list[$i]['qid'].'">View</a>&nbsp;<b>/</b>&nbsp;<a href="'.$gSitePath.'question/edit/'.$list[$i]['qid'].'">Edit</a>&nbsp;<b>/</b>&nbsp;<a href="'.$gSitePath.'question/delete/'.$list[$i]['qid'].'">Delete</a> ';
+        $strReturn .= '<a href="'.$gSitePath.$list[$i]['url'].'">View</a>&nbsp;<!--<b>/</b>&nbsp;<a href="'.$gSitePath.'question/edit/'.$list[$i]['qid'].'">Edit</a>&nbsp;--><b>/</b>&nbsp;<a href="'.$gSitePath.'question/delete/'.$list[$i]['qid'].'">Delete</a> ';
         
         $strReturn .= '</td></tr>';
     
@@ -429,9 +429,19 @@ function question_save() {
     $g_global = '';
     if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($cat1)) {
         $edate = $q_edate;
-        $result = db_query("INSERT INTO {question} (uid,question,context,cid,scid,sscid,global,country,state,city,enddate) VALUES (%d,'%s','%s','%s','%s','%s','%s','%s','%s', '%s','%s')", $user->uid, $q_quest, $q_context, $cat1, $cat2, $cat3, $q_global, $q_country, $q_state, $q_city, $edate);
-        
+					
+		 $dst= clean_url(myTruncate($q_quest,100,' '));
+		
+        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',url='$dst' ");
+       
+		
         $ins_id = db_last_insert_id('question', 'qid');
+		
+		//for url alias
+		$url='qlite/view/'.$ins_id;
+		
+		$urlins=db_query("insert INTO {url_alias} set src='".$url."',dst='".$dst."'");
+		
         for ($i = 1; $i <= $ans_cnt; $i++) {
             $name = "q_ans".$i;
             if (! empty($$name)) {
@@ -472,7 +482,34 @@ function question_save() {
     echo implode("<br/>", $output['error']);
 }
 
+function myTruncate($string, $limit, $break=" ", $pad="") {
+ 
+				  // return with no change if string is shorter than $limit 
+				   if(strlen($string) <= $limit) return $string; 
+				   $string = substr($string, 0, $limit); 
+				   if(false !== ($breakpoint = strrpos($string, $break))) { 
+				   $string = substr($string, 0, $breakpoint);
+					}
+					$string=str_replace("\"", "", $string);
+					 return $string . $pad;
+	  }
+	  
+	 setlocale(LC_ALL, 'en_US.UTF8');
+function clean_url($str, $replace=array(), $delimiter='-') {
+	if( !empty($replace) ) {
+		$str = str_replace((array)$replace, ' ', $str);
+	}
 
+	$clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+	$clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+	$clean = strtolower(trim($clean, '-'));
+	$clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+
+	return $clean;
+} 
+	  
+	  
+  
 function question_edit_save($array) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
