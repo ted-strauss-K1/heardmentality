@@ -593,40 +593,7 @@ function add_resources()
 	}
 		
 	
-	function save_resources(){
 	
-	global $gSitePath,$user, $gDocPath,$base_root;
-	if($_REQUEST['rtype']!=0)
-	{
-	$ytURL=$_REQUEST['membed'];
-	$ytvIDlen = 11; // This is the length of YouTube's video IDs
-	
-	$idStarts = strpos($ytURL, "?v=");
-	
-	
-	
-	if($idStarts === FALSE)
-	
-	$idStarts = strpos($ytURL, "&v=");
-	
-	if($idStarts === FALSE)
-	
-	die("YouTube video ID not found. Please double-check your URL.");
-	
-	$idStarts +=3;
-	
-	$ytvID = substr($ytURL, $idStarts, $ytvIDlen);
-	
-	  $ytvID;
-	
-	$resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document,video_id) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."','".$ytvID."')";
-	db_query($resourceadd);
-	echo '<div class="messages success"> Resources Added Successfull </div>';
-	
-	}
-
-	
-	}
 	
 
 	function flag_question()
