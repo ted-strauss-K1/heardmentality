@@ -116,3 +116,21 @@ $items['question/save'] = array(
 		}
 		
 	}
+//function to update profileabadge by post
+ function updateProfileBadge(){
+   global $user;
+   $query = "SELECT post_count FROM {profile_badges} where uid='".$user->uid."'";
+   $list = ExecuteQuery($query, "select");
+   $post_count = $list[0]['post_count'];
+   $badge_type_id =1;
+	  if( $post_count > 40){
+		   $badge_type_id =3;
+	  }elseif( $post_count > 14){
+  		   $badge_type_id = 2;
+	  }elseif( $post_count < 14){
+  		   $badge_type_id	=1;
+	  }
+      $result = db_query("update {profile_badges} set badge_type_id ='$badge_type_id'  where uid='".$user->uid."'");
+
+
+	}
