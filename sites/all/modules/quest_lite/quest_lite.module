@@ -143,7 +143,28 @@ function quest_lite_menu() {
     'file' => 'quest_lite.pages.inc',
   );
   
+    $quest['qlite/Details'] = array(
+    'title' => 'Question Information',
+    'page callback' => 'qusetion_info',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+   $quest['admin/qlite/percentage'] = array(
+    'title' => 'Percentage',
+    'page callback' => 'percent_info',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
   
+  $quest['admin/qlite/percentsave'] = array(
+    'title' => 'Percentage',
+    'page callback' => 'percent_save',
+    'access arguments' => array('Question Lite'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
   
   return $quest;
   
