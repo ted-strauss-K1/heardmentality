@@ -540,7 +540,12 @@ function _rpx_update_user_profile_form( &$form, &$form_state ) {
     $userData = user_load_self(array());
     $userData = $userData[1]->rpx_data['profile'];
 	
-	
+$form['name'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Name'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+    );
 	 $form['address']['postalCode'] = array(
         '#type' => 'textfield',
         '#title' => t('Zipcode'),
@@ -549,13 +554,8 @@ function _rpx_update_user_profile_form( &$form, &$form_state ) {
         '#size' => 12,
     );
 
-  /*  $form['name'] = array(
-        '#type' => 'fieldset',
-        '#title' => t('Name'),
-        '#collapsible' => TRUE,
-        '#collapsed' => FALSE,
-    );
-    $form['name']['givenName'] = array(
+
+  	  /*    $form['name']['givenName'] = array(
         '#type' => 'textfield',
         '#title' => t('First name'),
         '#required' => FALSE,
