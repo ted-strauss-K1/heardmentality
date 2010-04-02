@@ -1,0 +1,39 @@
+<?php
+
+function qlite_perm() {
+
+  return array('QLite','Report','Report Content');
+
+} // function newmodule_perm
+function qlite_menu() {	
+ 
+  $item['qmini'] = array(
+    'title' => 'Question Lite',
+    'page callback' => 'qlitemini',
+    'access arguments' => array('QLite'),
+	   'type' => MENU_CALLBACK,
+    'file' => 'qlite.pages.inc',
+  );
+ 
+  $item['qmini/report'] = array(
+    'title' => 'Question Lite',
+    'page callback' => 'qlite_report',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Report'),
+    'file' => 'qlite.pages.inc',
+  );
+  $item['qmini/repcontent'] = array(
+    'title' => 'Question Lite',
+    'page callback' => 'report_content',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Report Content'),
+    'file' => 'qlite.pages.inc',
+  );
+ 
+ 
+  return $item;
+  
+ 
+  
+}
+
