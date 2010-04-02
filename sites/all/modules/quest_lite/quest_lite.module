@@ -1,7 +1,7 @@
 <?php
 function quest_lite_perm() {
 
-  return array('Question Lite','Question Save', 'Add Resource' , 'Save Resource','Flag Question');
+  return array('Question Lite','Question Save', 'Add Resource' , 'Save Resource','Flag Question','Question Report Percent','Question Report Time','Question Report Map');
 
 } // function newmodule_perm
 function quest_lite_menu() {	
@@ -114,21 +114,21 @@ function quest_lite_menu() {
    $quest['qlite/percent'] = array(
     'title' => 'Suggest Answer',
     'page callback' => 'qlite_percent',
-    'access arguments' => array('Question Lite'),
+    'access arguments' => array('Question Report Percent'),
 	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'quest_lite.pages.inc',
   );
   $quest['qlite/graph'] = array(
     'title' => 'Suggest Answer',
     'page callback' => 'qlite_graph',
-    'access arguments' => array('Question Lite'),
+    'access arguments' => array('Question Report Time'),
 	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'quest_lite.pages.inc',
   );
   $quest['qlite/map'] = array(
     'title' => 'Suggest Answer',
     'page callback' => 'qlite_map',
-    'access arguments' => array('Question Lite'),
+    'access arguments' => array('Question Report Map'),
 	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'quest_lite.pages.inc',
   );
@@ -143,28 +143,8 @@ function quest_lite_menu() {
     'file' => 'quest_lite.pages.inc',
   );
   
- $quest['qlite/Details'] = array(
-    'title' => 'Question Information',
-    'page callback' => 'qusetion_info',
-    'access arguments' => array('Question Lite'),
-	   'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'quest_lite.pages.inc',
-  );
-   $quest['admin/qlite/percentage'] = array(
-    'title' => 'Percentage',
-    'page callback' => 'percent_info',
-    'access arguments' => array('Question Lite'),
-	   'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'quest_lite.pages.inc',
-  );
   
-  $quest['admin/qlite/percentsave'] = array(
-    'title' => 'Percentage',
-    'page callback' => 'percent_save',
-    'access arguments' => array('Question Lite'),
-	   'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'quest_lite.pages.inc',
-  );  
+  
   return $quest;
   
  
