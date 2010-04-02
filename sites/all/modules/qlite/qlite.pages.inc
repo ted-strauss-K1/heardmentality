@@ -256,17 +256,21 @@ function qlitemini() {
 function get_qid(){
 	
 	 global $gSitePath,$user,$gDocPath,$base_root;
+	 $qid='';
 	 if($user->uid>0){
 	
 	   $query = "SELECT qid from {question} where uid='".$user->uid."' order by qid DESC limit 0,1 ";
-	   
-	 }else{
-	 	
-		   $query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
-		
+	    $quest = db_query($query);
+	  $qid = db_result($quest); 
+	 
 	 }
-    $quest = db_query($query);
+	 
+	 if($qid==''){
+		   $query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
+		  $quest = db_query($query);
 	 $qid = db_result($quest);
+	 }
+   
 	 
 	 return $qid;
 	
