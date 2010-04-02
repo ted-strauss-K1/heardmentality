@@ -435,9 +435,6 @@ function add_resources()
 	e.stop();
 	 var cat1 = $(\'rtype\').value;
 		var nlink = $(\'nlink\').value;
-		var ntitle = $(\'ntitle\').value;
-		var ncontent = $(\'ncontent\').value;
-		var path = $(\'path\').value;
 		var mtype = $(\'mtype\').value;
 		var membed = $(\'membed\').value;
 		var docpath = $(\'docpath\').value;
@@ -452,16 +449,7 @@ function add_resources()
         err += \'<li>Please Enter  Link !</li>\';
 		if (!tomatch.test(nlink))
 		 err += \'<li>Please enter valid News Link ,Example:http://www.example.com </li>\';		
-		
-		 if (ntitle.trim().length < 1) 
-        err += \'<li>Please Enter  Title !</li>\';
-		 
-		  if (ncontent.trim().length < 1) 
-        err += \'<li>Please Enter  Content !</li>\';
-		
-		 if (path.trim().length < 1) 
-        err += \'<li>Please Select Image !</li>\';
-		 
+	
 		 }
 		if (cat1==2) 
 		 {
@@ -538,10 +526,7 @@ function add_resources()
 	</p>
 	<div id="div1">
 	<p> Link <input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
-	
-	<p> Title <input type="text" class="textfieldm" name="ntitle" id="ntitle"/></p>
-	<p> Content <textarea name="ncontent" class="textfield02" id="ncontent" ></textarea> </p>
-	<p>Image  <input type="hidden" name="path" id="path"/><iframe src="'.$gSitePath.'uploader.php" width="62" height="26"  scrolling="no"></iframe></p>
+
 	</div>
 	
 	<div  id="div2">
@@ -568,6 +553,45 @@ function add_resources()
 	}
 	
 	
+	
+	function save_resources(){
+	
+	global $gSitePath,$user, $gDocPath,$base_root;
+	if($_REQUEST['rtype']!=0)
+	{
+	if($_REQUEST['membed']!='')
+	{
+	$ytURL=$_REQUEST['membed'];
+	$ytvIDlen = 11; // This is the length of YouTube's video IDs
+	
+	$idStarts = strpos($ytURL, "?v=");
+	
+	
+	
+	if($idStarts === FALSE)
+	
+	$idStarts = strpos($ytURL, "&v=");
+	
+	if($idStarts === FALSE)
+	
+	die("YouTube video ID not found. Please double-check your URL.");
+	
+	$idStarts +=3;
+	
+	$ytvID = substr($ytURL, $idStarts, $ytvIDlen);
+	
+	  $ytvID;
+	  }
+	
+	 $resourceadd="insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document,video_id) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."','".$ytvID."')";
+	db_query($resourceadd);
+	echo '<div class="messages success"> Resources Added Successfull </div>';
+	
+	}
+
+	
+	}
+		
 	
 	function save_resources(){
 	
@@ -947,19 +971,46 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	require('RSSParser.class.php');
+	$xml =& new RSSParser;
 	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
 	$rlistnews=db_query($vSql);
 	$numnews=mysql_num_rows($rlistnews);
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-	while($usernews=mysql_fetch_object($rlistnews))
-	{
-	$newsresult.='<div class="cmt_list">
-	<a class="cmt_pic"> <img src="'.$gSitePath.''.$usernews->nimage.'" width="60" height="80"/></a>
-	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$usernews->nlink.'" target="new"> '.$usernews->nlink.' </a> </h4>
-	<p>'.$usernews->ntitle.' </p>  
-	<p>'.$usernews->ncontent.' </p>  
-	<p class="cmt_date"> '.date("D j M Y",strtotime($usernews->posted_date)). '</p> </div>
+		while($usernews=mysql_fetch_object($rlistnews))
+		{
+		$output = $xml->parse('http://feeds.searchenginewatch.com/sew');
+		
+		
+		
+		
+		
+		foreach($output as $valuesresult)
+		{
+		
+		//print_r( $valuesresult);
+		
+		
+		
+		}
+		
+		foreach($valuesresult as $opkt)
+		{
+		
+	
+		 
+		 
+		 $newsresult.='<div class="cmt_list">
+	
+	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$opkt["LINK"].'" target="new"> '.$opkt["TITLE"].' </a> </h4>
+		<p>'.$opkt['DESCRIPTION'].' </p>  
+	<p class="cmt_date"> '.date("D j M Y",strtotime($opkt['PUBDATE'])). '</p> </div>
 	</div>';
+		 
+		 
+		 
+		 
+		}
 	}
 	
 	if($numnews==0)
@@ -972,6 +1023,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	
 	
 	}
+	
 	
 	function question_media()
 	{
