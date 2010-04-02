@@ -21,7 +21,11 @@
 		$totalvotes=$fetvot->possiblevote+$fetvotsugest->suggestv;
 	
 	
-		  $percent=2.5/100*$totalvotes;
+		$vSqlsv="select * from {vote_percent} where id='1' ";
+		$rlistbv=db_query($vSqlsv);
+		$oListquestbv=db_fetch_object($rlistbv);
+	         
+		  $percent=$oListquestbv->percent/100*$totalvotes;
 		//echo $percent;
 		 $tot= $percent*100;
 	
@@ -29,16 +33,14 @@
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
 		
-		$vuser="select * from {users} where  uid=$oListquest->uid ";
-		$username=db_query($vuser);
-		$ufet=db_fetch_object($username);
+		
 		
 		$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
 		$numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
 		$stringfunct=strlen($oListquest->question);
 		$voutput='<script type="text/javascript">
-		function veni(ids)
+		function showdetails(ids)
 		{	
 	
 		loaddetails(\''.$gSitePath.'qlite/Details/\'+ids,\'Question Information\');
@@ -50,14 +52,16 @@
 		{
 				
 		
-		$qlink=substr($oListquest->question,0,160).'<a onclick="veni('.$qid.');">...</a>';
-            drupal_set_title($qlink); 
+		$qlink=substr($oListquest->question,0,160).'<a onclick="showdetails('.$qid.');">...</a>';
+		 drupal_set_title($qlink);
+            
 		}
 		else
-		{	   
-	 
-	       drupal_set_title($oListquest->question); 
-	     }
+		{
+		 drupal_set_title($oListquest->question);
+		
+		}
+			  
 			   
 		$len=strlen($oListquest->context); 
 		if($len > 250)
@@ -81,8 +85,8 @@
 		$answprc=$vlistquest->vote/100*$totalvotes;
 			$valu= $answprc*100;
 		$voutput.='
-		 <p><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.'   </p>';
+		 <br/><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'  ';
 		}
 		else
 		{
@@ -93,8 +97,8 @@
 		
 		$chk= "checked";
 		}
-		$voutput.=' <p><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.'   </p>';
+		$voutput.=' <br/><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'   ';
 		
 		}
 		 $chk='';
@@ -237,62 +241,153 @@ for ($x=0;$x< sizeof($array1);$x++)
 		 $rechg_new->vote;
 	   
 	   
-	    $update_ids="update possible_answer set  answer='$rechg_new->answer', vote='$rechg_new->vote'  where paid='$array2[$x]' ";
-	 $updateqry=db_query($update_ids);
+		$update_ids="update possible_answer set  answer='$rechg_new->answer', vote='$rechg_new->vote'  where paid='$array2[$x]' ";
+		$updateqry=db_query($update_ids);
 	   
-	   $update_sug="update suggest_answer set  answer='$rechg->answer', vote='$rechg->vote' where said='$array1[$x]' ";
-	   
-	   $updateqrys=db_query($update_sug);
-	   
-	   
+		$update_sug="update suggest_answer set  answer='$rechg->answer', vote='$rechg->vote',uid='$oListquest->uid' where said='$array1[$x]' ";
+		$updateqrys=db_query($update_sug);
+		
 	   
 	   
+	   /////////////Mail For question Author///////////
 	   
 	   
-	   
-	   
-	   
+		$vuser="select * from {users} where  uid=$oListquest->uid ";
+		$username=db_query($vuser);
+		$ufet=db_fetch_object($username);
+		$ufet->mail;
+		$subject_proj='Heard Menatlity-Answer Has Been Replaced For Your Question';
+		$content_pro='<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+		<title>Heard Menatlity.com</title>
+		</head>
+		<style>
+		.link2 {
+		font-family: verdana;
+		font-size: 10px;
+		font-weight: bold;
+		text-transform: none;
+		color: #818181;
+		text-decoration: none;
+		}
+		</style>
+		<body link="#990000" vlink="#990000" alink="#990000" leftmargin="5" topmargin="5" marginwidth="0" marginheight="0">
+		<table width="465" height="332" border="0" cellpadding="8" cellspacing="2" bgcolor="#C20C3D">
+		<tr> 
+		<td width="439" bgcolor="#FFFFFF"><img src="'.$gSitePath.'sites/all/themes/heardmentality/images/logo.gif" height="75" width="150"></td>
+		</tr>
+		<tr> 
+		<td bgcolor="#FFFFFF" class="text"><p><font  size="2" face="Arial, Helvetica, sans-serif">Hi <font color="#7B7B7B"><strong>'. $ufet->name . '</strong>,</font> </font></p>
+		<p><font  size="2" face="Arial, Helvetica, sans-serif">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours .</strong></font></p>
+		<p><font  size="2" face="Arial, Helvetica, sans-serif">Please login to see Suggest Answer. </font></p>
+		
+		<p><font  size="2" face="Arial, Helvetica, sans-serif">Thanks,<font color="#B1546A"><br/> 
+		Heard Menatality Team.</font></font><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><br/>
+		</font></p>
+		</td>
+		</tr>
+		</table>
+		</body>
+		</html>';
+		 $contentm_pros= $content_pro;
+		$messpro_list= stripslashes($contentm_pros) ;
+		$eol="\n";
+		$mime_boundary=md5(time());
+		$headers .= "From: Heard Menatality  <admin@heardmenatlity.com>".$eol;
+		$headers .= "Reply-To: Heard Menatality   <support@heardmenatlity.com>".$eol;
+		$headers .= "Return-Path: Heard Menatality   <support@heardmenatlity.com>".$eol;
+		$headers .= "X-Mailer: PHP v".phpversion().$eol; 
+		$headers .= 'MIME-Version: 1.0'.$eol;
+		$headers .= "Content-Type: text/html; charset=iso-8859-1".$eol;
+		if (preg_match('/gmail/',$email))
+		$headers = str_replace("\r\n","\n",$headers);
+		mail($ufet->mail,$subject_proj,$messpro_list,$headers);
 	   
 	  
 	   
 	
 	   
-	    $delossld="delete  from possible_answer_changeids where ans_id='".$array2[$x]."'";
-	   
-	   $delssqry=db_query($delossld);
-	   
-	   
-	 
-	    $deloldwds="delete  from suggest_ans_changeids where ans_id='".$array1[$x]."'";
-	   
-	   $delqrysss=db_query($deloldwds);
-	   
+		$delossld="delete  from possible_answer_changeids where ans_id='".$array2[$x]."'";
+		$delssqry=db_query($delossld);
+		$deloldwds="delete  from suggest_ans_changeids where ans_id='".$array1[$x]."'";
+		$delqrysss=db_query($deloldwds);
 	
 }
 
- $seltmp=db_query("select * from suggest_ans_tmp");
-	 
-	 while($tmp_rec=db_fetch_object($seltmp))
-	 {
-	 
-	  $insert_dumm="insert into possible_answer_vote (qid,uid,panswer_id,vote_pdate) values ('".$tmp_rec->qid."','".$tmp_rec->uid."','".$tmp_rec->answer_id."','".$tmp_rec->vote_date."')";
-	 $dumy_rec=mysql_query($insert_dumm);
+	$seltmp=db_query("select * from suggest_ans_tmp");
+	
+	while($tmp_rec=db_fetch_object($seltmp))
+	{
+	
+	$insert_dumm="insert into possible_answer_vote (qid,uid,panswer_id,vote_pdate) values ('".$tmp_rec->qid."','".$tmp_rec->uid."','".$tmp_rec->answer_id."','".$tmp_rec->vote_date."')";
+	$dumy_rec=mysql_query($insert_dumm);
+	
+	
+	$vusers="select * from {users} where  uid=$tmp_rec->uid ";
+		$usernames=db_query($vusers);
+		$ufets=db_fetch_object($usernames);
+		$ufets->mail;
+		$subject_proj='Heard Menatlity-Answer Has Been Replaced ';
+		$content_pro='<html xmlns="http://www.w3.org/1999/xhtml">
+		<head>
+		<title>Heard Menatlity.com</title>
+		</head>
+		<style>
+		.link2 {
+		font-family: verdana;
+		font-size: 10px;
+		font-weight: bold;
+		text-transform: none;
+		color: #818181;
+		text-decoration: none;
+		}
+		</style>
+		<body link="#990000" vlink="#990000" alink="#990000" leftmargin="5" topmargin="5" marginwidth="0" marginheight="0">
+		<table width="465" height="332" border="0" cellpadding="8" cellspacing="2" bgcolor="#C20C3D">
+		<tr> 
+		<td width="439" bgcolor="#FFFFFF"><img src="'.$gSitePath.'sites/all/themes/heardmentality/images/logo.gif" height="75" width="150"></td>
+		</tr>
+		<tr> 
+		<td bgcolor="#FFFFFF" class="text"><p><font  size="2" face="Arial, Helvetica, sans-serif">Hi <font color="#7B7B7B"><strong>'. $ufets->name . '</strong>,</font> </font></p>
+		<p><font  size="2" face="Arial, Helvetica, sans-serif">Suggest answer Has been  Replaced  for the question  For the voted people<font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours .</strong></font></p>
+				<p><font  size="2" face="Arial, Helvetica, sans-serif">Thanks,<font color="#B1546A"><br/> 
+		Heard Menatality Team.</font></font><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><br/>
+		</font></p>
+		</td>
+		</tr>
+		</table>
+		</body>
+		</html>';
+		 $contentm_pro= $content_pro;
+		$messpro_list= stripslashes($contentm_pro) ;
+		$eol="\n";
+		$mime_boundary=md5(time());
+		$headers .= "From: Heard Menatality  <admin@heardmenatlity.com>".$eol;
+		$headers .= "Reply-To: Heard Menatality   <support@heardmenatlity.com>".$eol;
+		$headers .= "Return-Path: Heard Menatality   <support@heardmenatlity.com>".$eol;
+		$headers .= "X-Mailer: PHP v".phpversion().$eol; 
+		$headers .= 'MIME-Version: 1.0'.$eol;
+		$headers .= "Content-Type: text/html; charset=iso-8859-1".$eol;
+		if (preg_match('/gmail/',$email))
+		$headers = str_replace("\r\n","\n",$headers);
+		mail($ufets->mail,$subject_proj,$messpro_list,$headers);
+	
 	
 	$deltmp=db_query("delete  from suggest_ans_tmp");
-	 
-	 }
-
- $seltmps=db_query("select * from possible_answer_tmp");
-	 
-	 while($tmp_recs=db_fetch_object($seltmps))
-	 {
-	 
-	  $insert_dumms="insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('".$tmp_recs->qid."','".$tmp_recs->uid."','".$tmp_recs->panswer_id ."','".$tmp_recs->vote_pdate."')";
-	 $dumy_recs=mysql_query($insert_dumms);
+	
+	}
+	
+	$seltmps=db_query("select * from possible_answer_tmp");
+	
+	while($tmp_recs=db_fetch_object($seltmps))
+	{
+	
+	$insert_dumms="insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('".$tmp_recs->qid."','".$tmp_recs->uid."','".$tmp_recs->panswer_id ."','".$tmp_recs->vote_pdate."')";
+	$dumy_recs=mysql_query($insert_dumms);
 	
 	$deltmps=db_query("delete  from possible_answer_tmp");
-	 
-	 }
+	
+	}
 
 		
     	$voutput.='<script type="text/javascript">
@@ -415,7 +510,7 @@ for ($x=0;$x< sizeof($array1);$x++)
 		
 		}
 
-function add_resources()
+	function add_resources()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
 	
@@ -591,11 +686,14 @@ function add_resources()
 
 	
 	}
-		
-	
-	
 	
 
+	
+	
+	
+	
+	
+	
 	function flag_question()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
@@ -645,7 +743,6 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	echo $falgq;
 	
 	}	
-	
 	
 		
 	function tab_list()
@@ -991,7 +1088,6 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	
 	}
 	
-	
 	function question_media()
 	{
 	
@@ -1055,13 +1151,14 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	}
 	
 	
+	
 function qlite_percent()
 {
 		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 			$output='';
 			  $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 			  
-			$vans="select * from {possible_answer} where  qid='$qid'";
+			$vans="select * from {possible_answer} where  qid=$qid ";
 			$vlist=ExecuteQuery($vans,"select");
 			$cnt_ans=count($vlist);
 			 $script=" 
@@ -1072,17 +1169,17 @@ function qlite_percent()
 			function drawChart() {
 			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'Answers');
-			data.addColumn('number', 'Rate Count');
+			data.addColumn('number', 'Percent(%)');
 			data.addRows(".$cnt_ans.");";
 			for($ab=0;$ab<$cnt_ans;$ab++){
-			$per=answer_details($qid,$vlist[$ab]['paid'],'percent');
+			$per=answer_details($vlist[$ab]['paid'],'percent');
 			$inc=$ab+1;
 			$script.=" data.setValue(".$ab.", 0, 'Answer".$inc."');
 			data.setValue(".$ab.", 1, ".$per.");";
 			}
 			
 		echo	$script.="	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-			chart.draw(data, {width: 400, height: 240, is3D: false, title: ''});
+			chart.draw(data, {width: 400, height: 240,max:100, is3D: true, title: 'Answer Percentage'});
 			}
 			</script>";
 			
@@ -1348,6 +1445,7 @@ function answer_vote()
 
 }
 
+
 function qusetion_info()
 {
 	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
@@ -1365,5 +1463,36 @@ function qusetion_info()
 
 
 }
+function percent_info()
+{
+
+global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+
+	$vSqls="select * from {vote_percent} where id='1' ";
+	$rlistb=db_query($vSqls);
+	$oListquestb=db_fetch_object($rlistb);
+   
+	$infooutput='<form id="answer" name="answer" method="post" action="'.$gSitePath.'admin/qlite/percentsave"  > <div class="cmt_list">
+		<div class="lft_view">
+		<p><input type="text" name="percentage" value="'.$oListquestb->percent.'"/>%</p>
+		<p><input type="submit" name="submitpercent" value="Save"/></p>	</div></div>	';
+
+     return $infooutput;
+
+
+
+}
+
+function percent_save()
+{
+
+global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+
+$updateper="update  vote_percent set percent='".$_REQUEST['percentage']."' where id='1'";
+db_query($updateper);
+
+drupal_goto("admin/qlite/percentage");
+}	
+
 
 ?>
