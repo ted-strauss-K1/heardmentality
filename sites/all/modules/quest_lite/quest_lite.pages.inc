@@ -864,8 +864,9 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	  foreach($profileBadges as $profile){
 
 	$output1.='<ul>
-	   <li>NAME: '.$profile['name'].'</li>
+	   <li>Name: '.$profile['name'].'</li>
 	   <li>Medal: '.$profile['badgename'].'</li>
+   	   <li>Post Count: '.$profile['post_count'].'</li>
 	   <li></li>
 		</ul>';
 	  }

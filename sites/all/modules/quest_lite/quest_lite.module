@@ -197,7 +197,7 @@ function quest_lite_menu() {
    }
    $separated = implode(",", $Ids);
    $separated='( '. $separated.')';
-   $query = "SELECT bt.name as badgename, pb.uid, pb.badge_type_id 	,u.name
+   $query = "SELECT bt.name as badgename, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
 			from profile_badges pb
 			INNER JOIN users u on pb.uid=u.uid
 			LEFT JOIN badge_types bt on  bt.id = pb.badge_type_id
