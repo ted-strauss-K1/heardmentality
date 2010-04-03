@@ -861,15 +861,18 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	//	$output='sample content Gurus';
 	 $profileBadges = getAnsweredUsers($qid);
 	  $output1='';
+	if(count($profileBadges) >0){
 	  foreach($profileBadges as $profile){
-
-	$output1.='<ul>
-	   <li>Name: '.$profile['name'].'</li>
-	   <li>Medal: '.$profile['badgename'].'</li>
-   	   <li>Post Count: '.$profile['post_count'].'</li>
-	   <li></li>
-		</ul>';
-	  }
+			$output1.='<ul>
+			   <li>Name: '.$profile['name'].'</li>
+			   <li>Medal: '.$profile['badgename'].'</li>
+			   <li>Post Count: '.$profile['post_count'].'</li>
+			   <li></li>
+				</ul>';
+		 }}
+		 else{
+	     $output1= "No Users available";		 
+		 }
      $output =$output1;
 	break;
 	case "Info":

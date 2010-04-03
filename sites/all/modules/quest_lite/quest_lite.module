@@ -173,9 +173,6 @@ function quest_lite_menu() {
 }
 
  function getAnsweredUsers( $question_id = NULL){
-   global $user;
-   $user->uid=1;
-   $question_id = 24;
    /*$query = "SELECT pav.*,  u.*,sav.*
 			 from suggest_answer_vote sav
 			 INNER JOIN possible_answer_vote pav on sav.qid=pav.qid
@@ -190,6 +187,10 @@ function quest_lite_menu() {
 			 order by  pav.uid";
 
    $userids = ExecuteQuery($query, "select");
+   if(count($userids)<= 0){
+    return $userids;
+   }
+   else{
    $Ids= array();
    foreach($userids as $userid){
 	 $Ids[]= $userid ['uid'];
@@ -203,6 +204,7 @@ function quest_lite_menu() {
 			LEFT JOIN badge_types bt on  bt.id = pb.badge_type_id
 			WHERE 1=1 AND u.uid  IN".$separated;
    $profileBadges = ExecuteQuery($query, "select");
+   }
    return $profileBadges;
 
 
