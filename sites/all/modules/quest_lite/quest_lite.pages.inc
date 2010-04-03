@@ -858,7 +858,18 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 				
 	break;
 	case "Gurus":
-	$output='sample content Gurus';
+	//	$output='sample content Gurus';
+	 $profileBadges = getAnsweredUsers($qid);
+	  $output1='';
+	  foreach($profileBadges as $profile){
+
+	$output1.='<ul>
+	   <li>NAME: '.$profile['name'].'</li>
+	   <li>Medal: '.$profile['badgename'].'</li>
+	   <li></li>
+		</ul>';
+	  }
+     $output =$output1;
 	break;
 	case "Info":
 	$output=' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> '.$fetuserlist->name.' <br/>

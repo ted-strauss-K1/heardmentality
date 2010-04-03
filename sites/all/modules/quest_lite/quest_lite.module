@@ -172,3 +172,38 @@ function quest_lite_menu() {
   
 }
 
+ function getAnsweredUsers( $question_id = NULL){
+   global $user;
+   $user->uid=1;
+   $question_id = 24;
+   /*$query = "SELECT pav.*,  u.*,sav.*
+			 from suggest_answer_vote sav
+			 INNER JOIN possible_answer_vote pav on sav.qid=pav.qid
+			 LEFT JOIN users u on  u.uid = sav.uid 
+			 where 1=1 AND pav.qid = '".$question_id."' AND  sav.qid = '".$question_id."'
+			 order by  u.uid";*/
+
+   $query = "SELECT pav.uid, sav.uid
+			 from suggest_answer_vote sav
+			 INNER JOIN possible_answer_vote pav on sav.qid=pav.qid
+			 where 1=1 AND pav.qid = '".$question_id."' AND  sav.qid = '".$question_id."'
+			 order by  pav.uid";
+
+   $userids = ExecuteQuery($query, "select");
+   $Ids= array();
+   foreach($userids as $userid){
+	 $Ids[]= $userid ['uid'];
+
+   }
+   $separated = implode(",", $Ids);
+   $separated='( '. $separated.')';
+   $query = "SELECT bt.name as badgename, pb.uid, pb.badge_type_id 	,u.name
+			from profile_badges pb
+			INNER JOIN users u on pb.uid=u.uid
+			LEFT JOIN badge_types bt on  bt.id = pb.badge_type_id
+			WHERE 1=1 AND u.uid  IN".$separated;
+   $profileBadges = ExecuteQuery($query, "select");
+   return $profileBadges;
+
+
+	}
