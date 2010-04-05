@@ -48,23 +48,23 @@
 		
 		</script>';  
 		//echo $stringfunct;
-		if($stringfunct>160)
-		{
+	/*	if($stringfunct>160)
+		{*/
 				
 		
 		$qlink=substr($oListquest->question,0,160).'<a onclick="showdetails('.$qid.');">...</a>';
-		 drupal_set_title($qlink);
-            
+		/* drupal_set_title($qlink);
 		}
 		else
 		{
-		 drupal_set_title($oListquest->question);
-		
-		}
-			  
-			   
+		 
+		}*/
+     
+	 
+	 $qlink=substr($oListquest->question,0,160).'<a onclick="showdetails('.$qid.');">...</a>';
+		 drupal_set_title($qlink);
 		$len=strlen($oListquest->context); 
-		if($len > 250)
+		if($oListquest->context!="")
 		{
 		$linkj='<a onclick="loaddetails(\''.$gSitePath.'qlite/Details/'.$qid.'\',\'Question Information\');">...</a>';
 		}
@@ -74,8 +74,7 @@
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<div>'.$shortdesc.' '.$linkj.'';
 		$vans="select * from {possible_answer} where  qid=$qid order by vote desc";
-		
-		
+	
 		$vlist=db_query($vans);
          $chk='';
 		while($vlistquest=db_fetch_object($vlist))
@@ -104,154 +103,109 @@
 		 $chk='';
 		}
 		$vsans="select * from {suggest_answer} where  qid=$qid ";
-		
-		
 		$vslist=db_query($vsans);
       
 		while($vlsistquest=db_fetch_object($vslist))
 		{
-		
-		
 		$answprcs=$vlsistquest->vote/100*$totalvotes;
 	
 		 $valuss= $answprcs*100;
 		if($valuss >$tot)
 		{
-		
 		 $insert_change="insert into suggest_ans_changeids (qid,ans_id)Values('".$qid."','".$vlsistquest->said."') ";
 		$listchnge=db_query($insert_change);
-		
-		
-		
-		
-		
-		
+
 		 $select_allv="select * from suggest_answer_vote where answer_id=$vlsistquest->said  ";
 		$listam=db_query($select_allv);
       
 		while($listamqry=db_fetch_object($listam))
 		{
-		
-	
-		
+
 		 $insert_white="insert into suggest_ans_tmp (qid,uid,answer_id,vote,vote_date)Values('".$qid."','".$listamqry->uid."','".$vlsistquest->said."','".$vlsistquest->vote."','".$listamqry->vote_date."') ";
 		$qrylist=db_query($insert_white);
-		
-		
-		
-		
+
 		}
 		//echo $valuss;
 		//echo $vlsistquest->said;
 		
 		}
-		
-		
 
-	
-		
-		
 		}
-		
-		
 		$mysql_sug_rows=mysql_num_rows(db_query("select distinct(answer_id) from suggest_ans_tmp  "));
 		
 		
 		//echo $mysql_sug_rows;
 		$vpans="select * from {possible_answer} where  qid='".$qid."' order by vote desc limit 0,$mysql_sug_rows ";
 		
-		
 		$vplist=db_query($vpans);
 		
 		while($vplistquest=db_fetch_object($vplist))
 		{
-		
 		 $insert_list_ids="insert into possible_answer_changeids (qid,ans_id)Values('".$qid."','".$vplistquest->paid."') ";
 		$qrylist_change=db_query($insert_list_ids);
-		
-		
-		
+
 		 $select_allvp="select * from possible_answer_vote where panswer_id=$vplistquest->paid  ";
 		$listamp=db_query($select_allvp);
       
 		while($listamqryamp=db_fetch_object($listamp))
 		{
-		
 	
-		
 		$insert_whited="insert into possible_answer_tmp (qid,uid,panswer_id,vote,vote_pdate)Values('".$qid."','".$listamqryamp->uid."','".$vplistquest->paid."','".$vplistquest->vote."','".$listamqryamp->vote_pdate."') ";
 		$qrylist=db_query($insert_whited);
-		
-		
-		
-		
-		}
-		
-		
-		
-		
-		
-		
+
 		}
 
+		}
+	
+		$qry1 = db_query("select * from suggest_ans_changeids where qid ='$qid'");
+		
+		while ($row1 = db_fetch_object($qry1))
+		{
+		$array1[] = $row1->ans_id;
+		}
+		
+		$qry2 = db_query("select * from possible_answer_changeids where qid ='$qid' ");
+		while ($row2 = db_fetch_object($qry2))
+		{
+		$array2[] = $row2->ans_id;
+		}
+		
+		for ($x=0;$x< sizeof($array1);$x++)
+		{
+		$array[] = $array1[$x]." - ".$array2[$x];
+		
+		$array1[$x]." - ".$array2[$x];
+		
+		$update_idss=db_query("update possible_answer_tmp set  panswer_id='$array1[$x]'  where panswer_id='$array2[$x]' ");
 		
 		
+		$updateval=db_query("update suggest_ans_tmp set  answer_id='$array2[$x]' where answer_id='$array1[$x]'");
 		
-	
-$qry1 = mysql_query("select * from suggest_ans_changeids where qid ='$qid'");
-
-while ($row1 = mysql_fetch_array($qry1))
-{
-       $array1[] = $row1['ans_id'];
-}
-
-$qry2 = mysql_query("select * from possible_answer_changeids where qid ='$qid' ");
-while ($row2 = mysql_fetch_array($qry2))
-{
-       $array2[] = $row2['ans_id'];
-}
-
-for ($x=0;$x< sizeof($array1);$x++)
-{
-       $array[] = $array1[$x]." - ".$array2[$x];
-	   
-	  $array1[$x]." - ".$array2[$x];
-	
-	 
-	 
-	   $update_idss=db_query("update possible_answer_tmp set  panswer_id='$array1[$x]'  where panswer_id='$array2[$x]' ");
-	 
-	 
-	  $updateval=db_query("update suggest_ans_tmp set  answer_id='$array2[$x]' where answer_id='$array1[$x]'");
-	 
-	 $deletsug=db_query("delete from suggest_answer_vote where answer_id='$array1[$x]'");
-	 
-	  $deletpos=db_query("delete from possible_answer_vote where panswer_id='$array2[$x]'");
-	 
-	
-	 
-	   $rechange_list=db_query("select * from {possible_answer} where  paid='".$array2[$x]."'  ");
-	
+		$deletsug=db_query("delete from suggest_answer_vote where answer_id='$array1[$x]'");
+		
+		$deletpos=db_query("delete from possible_answer_vote where panswer_id='$array2[$x]'");
+		
+		$rechange_list=db_query("select * from {possible_answer} where  paid='".$array2[$x]."'  ");
+		
 		$rechg=db_fetch_object($rechange_list);
-		 $rechg->vote;
-	   
-	    $rechange_list_new=db_query("select * from {suggest_answer} where  said='".$array1[$x]."'  ");
-	
+		$rechg->vote;
+		
+		$rechange_list_new=db_query("select * from {suggest_answer} where  said='".$array1[$x]."'  ");
+		
 		$rechg_new=db_fetch_object($rechange_list_new);
-		 $rechg_new->vote;
-	   
-	   
+		$rechg_new->vote;
+		
+		
 		$update_ids="update possible_answer set  answer='$rechg_new->answer', vote='$rechg_new->vote'  where paid='$array2[$x]' ";
 		$updateqry=db_query($update_ids);
-	   
+		
 		$update_sug="update suggest_answer set  answer='$rechg->answer', vote='$rechg->vote',uid='$oListquest->uid' where said='$array1[$x]' ";
 		$updateqrys=db_query($update_sug);
 		
-	   
-	   
-	   /////////////Mail For question Author///////////
-	   
-	   
+		
+		/////////////Mail For question Author///////////
+		
+		
 		$vuser="select * from {users} where  uid=$oListquest->uid ";
 		$username=db_query($vuser);
 		$ufet=db_fetch_object($username);
@@ -289,11 +243,11 @@ for ($x=0;$x< sizeof($array1);$x++)
 		</table>
 		</body>
 		</html>';
-		 $contentm_pros= $content_pro;
+		$contentm_pros= $content_pro;
 		$messpro_list= stripslashes($contentm_pros) ;
 		$eol="\n";
 		$mime_boundary=md5(time());
-		$headers .= "From: Heard Menatality  <admin@heardmenatlity.com>".$eol;
+		$headers .= "From: Heard Menatality  <support@heardmenatlity.com>".$eol;
 		$headers .= "Reply-To: Heard Menatality   <support@heardmenatlity.com>".$eol;
 		$headers .= "Return-Path: Heard Menatality   <support@heardmenatlity.com>".$eol;
 		$headers .= "X-Mailer: PHP v".phpversion().$eol; 
@@ -302,28 +256,25 @@ for ($x=0;$x< sizeof($array1);$x++)
 		if (preg_match('/gmail/',$email))
 		$headers = str_replace("\r\n","\n",$headers);
 		mail($ufet->mail,$subject_proj,$messpro_list,$headers);
-	   
-	  
-	   
-	
-	   
+		
+		
 		$delossld="delete  from possible_answer_changeids where ans_id='".$array2[$x]."'";
 		$delssqry=db_query($delossld);
 		$deloldwds="delete  from suggest_ans_changeids where ans_id='".$array1[$x]."'";
 		$delqrysss=db_query($deloldwds);
-	
-}
+		
+		}
 
-	$seltmp=db_query("select * from suggest_ans_tmp");
-	
-	while($tmp_rec=db_fetch_object($seltmp))
-	{
-	
-	$insert_dumm="insert into possible_answer_vote (qid,uid,panswer_id,vote_pdate) values ('".$tmp_rec->qid."','".$tmp_rec->uid."','".$tmp_rec->answer_id."','".$tmp_rec->vote_date."')";
-	$dumy_rec=mysql_query($insert_dumm);
-	
-	
-	$vusers="select * from {users} where  uid=$tmp_rec->uid ";
+		$seltmp=db_query("select * from suggest_ans_tmp");
+		
+		while($tmp_rec=db_fetch_object($seltmp))
+		{
+		
+		$insert_dumm="insert into possible_answer_vote (qid,uid,panswer_id,vote_pdate) values ('".$tmp_rec->qid."','".$tmp_rec->uid."','".$tmp_rec->answer_id."','".$tmp_rec->vote_date."')";
+		$dumy_rec=db_query($insert_dumm);
+		
+		///////////////////////mail notification for who voted answers ///////////////////////////////
+		$vusers="select * from {users} where  uid=$tmp_rec->uid ";
 		$usernames=db_query($vusers);
 		$ufets=db_fetch_object($usernames);
 		$ufets->mail;
@@ -349,8 +300,8 @@ for ($x=0;$x< sizeof($array1);$x++)
 		</tr>
 		<tr> 
 		<td bgcolor="#FFFFFF" class="text"><p><font  size="2" face="Arial, Helvetica, sans-serif">Hi <font color="#7B7B7B"><strong>'. $ufets->name . '</strong>,</font> </font></p>
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Suggest answer Has been  Replaced  for the question  For the voted people<font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours .</strong></font></p>
-				<p><font  size="2" face="Arial, Helvetica, sans-serif">Thanks,<font color="#B1546A"><br/> 
+		<p><font  size="2" face="Arial, Helvetica, sans-serif">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours .</strong></font></p>
+		<p><font  size="2" face="Arial, Helvetica, sans-serif">Thanks,<font color="#B1546A"><br/> 
 		Heard Menatality Team.</font></font><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><br/>
 		</font></p>
 		</td>
@@ -358,11 +309,11 @@ for ($x=0;$x< sizeof($array1);$x++)
 		</table>
 		</body>
 		</html>';
-		 $contentm_pro= $content_pro;
+		$contentm_pro= $content_pro;
 		$messpro_list= stripslashes($contentm_pro) ;
 		$eol="\n";
 		$mime_boundary=md5(time());
-		$headers .= "From: Heard Menatality  <admin@heardmenatlity.com>".$eol;
+		$headers .= "From: Heard Menatality  <support@heardmenatlity.com>".$eol;
 		$headers .= "Reply-To: Heard Menatality   <support@heardmenatlity.com>".$eol;
 		$headers .= "Return-Path: Heard Menatality   <support@heardmenatlity.com>".$eol;
 		$headers .= "X-Mailer: PHP v".phpversion().$eol; 
@@ -371,23 +322,23 @@ for ($x=0;$x< sizeof($array1);$x++)
 		if (preg_match('/gmail/',$email))
 		$headers = str_replace("\r\n","\n",$headers);
 		mail($ufets->mail,$subject_proj,$messpro_list,$headers);
-	
-	
-	$deltmp=db_query("delete  from suggest_ans_tmp");
-	
-	}
-	
-	$seltmps=db_query("select * from possible_answer_tmp");
-	
-	while($tmp_recs=db_fetch_object($seltmps))
-	{
-	
-	$insert_dumms="insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('".$tmp_recs->qid."','".$tmp_recs->uid."','".$tmp_recs->panswer_id ."','".$tmp_recs->vote_pdate."')";
-	$dumy_recs=mysql_query($insert_dumms);
-	
-	$deltmps=db_query("delete  from possible_answer_tmp");
-	
-	}
+		
+		
+		$deltmp=db_query("delete  from suggest_ans_tmp");
+		
+		}
+		
+		$seltmps=db_query("select * from possible_answer_tmp");
+		
+		while($tmp_recs=db_fetch_object($seltmps))
+		{
+		
+		$insert_dumms="insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('".$tmp_recs->qid."','".$tmp_recs->uid."','".$tmp_recs->panswer_id ."','".$tmp_recs->vote_pdate."')";
+		$dumy_recs=db_query($insert_dumms);
+		
+		$deltmps=db_query("delete  from possible_answer_tmp");
+		
+		}
 
 		
     	$voutput.='<script type="text/javascript">
@@ -744,6 +695,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	
 	}	
 	
+	
 		
 	function tab_list()
 	{
@@ -986,7 +938,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	<form id="voteform"  method="post" action="'.$gSitePath.'qlite/answervote"  enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="'.$qid.'"/>
 	Select Answer <select name="suggest" class="textfieldm" id="suggest">';
-	while($answerfet=mysql_fetch_object($anslist))
+	while($answerfet=db_fetch_object($anslist))
 	{
 	$ansoutput.='<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
 
@@ -1056,9 +1008,9 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$rlistnews=db_query($vSql);
 	$numnews=mysql_num_rows($rlistnews);
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-		while($usernews=mysql_fetch_object($rlistnews))
+		while($usernews=db_fetch_object($rlistnews))
 		{
-		$output = $xml->parse('http://feeds.searchenginewatch.com/sew');
+		$output = $xml->parse($usernews->nlink);
 		
 		
 		
@@ -1112,7 +1064,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$rlistmedia=db_query($vSqlmedia);
 	$nummedia=mysql_num_rows($rlistmedia);
 	$mediaresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-	while($usermedia=mysql_fetch_object($rlistmedia))
+	while($usermedia=db_fetch_object($rlistmedia))
 	{
 	$mediaresult.='<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
@@ -1148,7 +1100,7 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	$rlistfacts=db_query($vSqlfact);
 	$numfacts=mysql_num_rows($rlistfacts);
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-	while($userfacts=mysql_fetch_object($rlistfacts))
+	while($userfacts=db_fetch_object($rlistfacts))
 	{
 	$newsresult.='<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;";href="'.$userfacts->facts.'" target="new"> '.$userfacts->facts.' </a> </h4>
@@ -1164,6 +1116,7 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	echo $newsresult;
 	
 	}
+	
 	
 	
 	
@@ -1411,9 +1364,9 @@ function answer_vote()
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$list_length = db_query("select * from {suggest_answer_vote} where answer_id='".$_REQUEST['suggest']."' and uid='".$user->uid."'  ");
 	$numr=mysql_num_rows($list_length);
-	$fetvote=mysql_fetch_object($list_length);
+	$fetvote=db_fetch_object($list_length);
 	$list_own_answer = db_query("select * from {suggest_answer} where said='".$_REQUEST['suggest']."'   ");
-	$userownid=mysql_fetch_object($list_own_answer);
+	$userownid=db_fetch_object($list_own_answer);
 	if($_REQUEST['suggest']!='')
 	{
 	if($userownid->uid!=$user->uid)
