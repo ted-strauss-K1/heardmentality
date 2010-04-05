@@ -12,6 +12,8 @@ window.addEvent('domready',function()
                var vDiv1 = new Fx.Slide('div1').hide()
                var vDiv2 = new Fx.Slide('div2').hide()
                var vDiv3 = new Fx.Slide('div3').hide()
+			     var medDiv1 = new Fx.Slide('media').hide()
+               var medDiv2 = new Fx.Slide('media_div').hide()
                var selIndex = selObj.selectedIndex;
                var value = selObj.options[selIndex].value
                e = new Event(e);
