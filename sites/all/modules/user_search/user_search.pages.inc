@@ -146,13 +146,19 @@ function user_following()
 	}
 	$following='<div class="following">';
 	 $sel_pro="select * from follower  where uid='".$user->uid."'  and follower_status='1' ";
-	$rs_follower=db_query($sel_pro);
-	while($follower_result=db_fetch_object($rs_follower))
+	$rs_following=db_query($sel_pro);
+	$num_follw=mysql_num_rows($rs_following);
+	while($following_result=db_fetch_object($rs_following))
 	{
-	 $sel_userm="select * from users  where uid='".$follower_result->follower_id."' ";
+	 $sel_userm="select * from users  where uid='".$following_result->follower_id."' ";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
-	$following.='<h4>'.$user_namelist->name.' <a style="text-decoration:none;" href="following/'.$follower_result->id.'?act=del"><span>Unfollow </span></a> </h4>';
+	$following.='<h4>'.$user_namelist->name.' <a style="text-decoration:none;" href="following/'.$following_result->id.'?act=del"><span>Unfollow </span></a> </h4>';
+	}
+	if($num_follw==0)
+	{
+	
+	$following.=' No Records';
 	}
 	return $following;
 	
