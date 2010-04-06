@@ -832,20 +832,19 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 		$pat = $gSitePath.drupal_get_path('module', 'profile');
 	  foreach($profileBadges as $profile){
 				if( $profile['badge_type_id'] == 1){
-						$li="2";
+						$li="Brown";
 						$li_img_source = $pat."/images/brown.jpg";
 			    }elseif($profile['badge_type_id']== 2){
-					$li="14";
+					$li="Silver";
 				    $li_img_source = $pat."/images/silver.jpg";
 				}elseif($profile['badge_type_id'] == 3){
-					$li="40";
+					$li="Gold";
 				    $li_img_source = $pat."/images/gold.jpg";
 			   }
-				$output1.='<div class="img"><img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$profile['image'].'" align="absmiddle" alt="Profile Image" >
-				'.$profile['name'].'
-				<p align="center">'.$profile['post_count'].'<br/>
-			    <span><img src="'.$li_img_source .'" >'.$badge_type_id.'
-			    </span>
+				$output1.='<div class="img"><p><img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$profile['image'].'" align="absmiddle" alt="Profile Image" >
+				'.$profile['name'].'   
+			    <span><img title="'.$li .'"   src="'.$li_img_source .'" >'.$badge_type_id.'
+			    </span>'.$profile['post_count'].'
 			     </p>
 				</div>';
 /*			$output1.='<ul>
