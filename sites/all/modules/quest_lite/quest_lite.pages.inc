@@ -36,7 +36,7 @@
 		
 
 		
-		 $numran= db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."' "));
+		echo  $numran= db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."' "));
 		 
 		 
 		$answer_id=db_fetch_object($list_lengthan);
