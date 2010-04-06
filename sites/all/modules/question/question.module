@@ -119,21 +119,31 @@ $items['question/save'] = array(
 //function to update profileabadge by post
  function updateProfileBadge($uid = null){
    global $user;
-   $query = "SELECT post_count FROM {profile_badges} where uid='".$uid."'";
-   $list = ExecuteQuery($query, "select");
-   $post_count = $list[0]['post_count'];
+   $uid =1;
+   $ques_query = "SELECT count(*) FROM {question} where uid='".$uid."'";
+   $list1 = ExecuteQuery($ques_query, "select");
+   $current_post_count = $list1[0][0];
    $arr = array();
    $badge_type_id =1;
-	  if( $post_count > 40){
+	  if( $current_post_count > 40){
 		   $badge_type_id =3;
-	  }elseif( $post_count > 14){
+	  }elseif( $current_post_count > 14){
   		   $badge_type_id = 2;
-	  }elseif( $post_count < 14){
+	  }elseif( $current_post_count < 14){
   		   $badge_type_id	=1;
 	  }
-      $result = db_query("update {profile_badges} set badge_type_id ='$badge_type_id'  where uid='".$uid."'");
+      $query = "SELECT count(id) FROM {profile_badges} where uid='".$uid."'";
+	  $list = ExecuteQuery($query, "select");
+	  $profileAvailable = $list[0][0];
+	  if($profileAvailable == 0){
+	    $result = db_query("INSERT INTO {profile_badges} (uid,badge_type_id,post_count) values('$uid','$badge_type_id','$current_post_count') " );
+
+	  }else{
+	  $result = db_query("update {profile_badges} set badge_type_id ='$badge_type_id', post_count ='$current_post_count'  where uid='".$uid."'");
+	  }
       $arr['badge_type_id'] =$badge_type_id;
-      $arr['post_count'] =$post_count;
+      $arr['post_count'] = $current_post_count;
+
 	  return    ( $arr);
 
 
