@@ -1305,7 +1305,7 @@ markerOptions = { icon:blueIcon };';
        
       
 			 
-   
+    if(is_array($getresult)){
  foreach ($getresult as $for_zip_user) {
  	
             $code=rand(600001,600028);
@@ -1320,7 +1320,7 @@ markerOptions = { icon:blueIcon };';
        //  $mlong .= "'".rand('56.232','103.03')."',";
             //print_r($array);
 
-        }
+        }}
 
 			$mlat = rtrim($mlat, ',');
             $mlong = rtrim($mlong, ',');
