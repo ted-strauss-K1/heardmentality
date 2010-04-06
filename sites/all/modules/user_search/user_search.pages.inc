@@ -104,7 +104,7 @@ function user_follower()
 			e.stop();
 			var parent = el.getParent(\'div\');
 			var request = new Request({
-				url: \'http://192.9.200.10/heardmentality/savefollowing\',
+				url: \'savefollowing\',
 				link: \'chain\',
 				method: \'get\',
 				data: {
