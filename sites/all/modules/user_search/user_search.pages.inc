@@ -66,10 +66,9 @@ text-decoration:none;
 	if($_REQUEST['act']=='flag')
 	{
 	$mem_id = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-
-	 $sel_row="select * from follower where  follower_id='".$mem_id."'  and  uid ='".$user->uid."' ";
-	$qry_sel=db_query($sel_row);
-	 $res_num=mysql_num_rows($qry_sel);
+	 
+	 
+	 $res_num= db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$mem_id."'  and  uid ='".$user->uid."'"));
 	if($res_num==0)
 	{
 	 $ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$user->uid."','".$mem_id."','1','".date('Y-m-d')."') ";
@@ -97,6 +96,43 @@ function user_follower()
 	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	$follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	
+	
+	$following='<script type="text/javascript">
+	window.addEvent(\'domready\',function() {
+	$$(\'a.delete\').each(function(el) {
+		el.addEvent(\'click\',function(e) {
+			e.stop();
+			var parent = el.getParent(\'div\');
+			var request = new Request({
+				url: \'http://localhost/heard/savefollowing\',
+				link: \'chain\',
+				method: \'get\',
+				data: {
+					\'delete\': parent.get(\'id\').replace(\'record-\',\'\'),
+					ajax: 1
+				},
+				onRequest: function() {
+					new Fx.Tween(parent,{
+						duration:300
+					}).start(\'background-color\', \'#fb6c6c\');
+				},
+				onSuccess: function() {
+					new Fx.Slide(parent,{
+						duration:300,
+						onComplete: function() {
+							parent.dispose();
+						}
+					}).slideOut();
+				}
+			}).send();
+		});
+	});
+});
+	
+	</script>
+	';
+	
+	
 	if($_REQUEST['act']=="del")
 	{
 	$del_blog="update  follower  set follower_status='".$_REQUEST['block']."' where  id='".$follid."' ";
@@ -104,63 +140,111 @@ function user_follower()
 	drupal_set_message(t('Updated Successfully '), $type = 'success');
 	drupal_goto("follower/");
 	}
-	$follower='<div class="following">';
+	$follower.='<div id="log">
+	
+	<div id="log_res"><!-- spanner --></div>
+	</div>
+	<span class="clr"><!-- spanner --></span><div class="following">';
 	$sel_pro="select * from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0' ";
 	$rs_follower=db_query($sel_pro);
-	$num_foll=mysql_num_rows($rs_follower);
+	$countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1' or follower_status='0'"));
 	while($follower_result=db_fetch_object($rs_follower))
 	{
 	if($follower_result->follower_status==0){
-	$blocklink='<a style="text-decoration:none;" href="follower/'.$follower_result->id.'?act=del&block=1"><span>UnBlock </span></a>';
+	//$blocklink='<a style="text-decoration:none;" href="follower/'.$follower_result->id.'?act=del&block=1"><span>UnBlock </span></a>';
+	$blocklink='<input type="submit" name="button" id="submitter"  value="UnBlock"/>';
 	} 
 	else 
 	{
-	$blocklink='<a style="text-decoration:none;" href="follower/'.$follower_result->id.'?act=del&block=0"><span>Block </span></a>';
+	//$blocklink='<a style="text-decoration:none;" href="follower/'.$follower_result->id.'?act=del&block=0"><span>Block </span></a>';
+	
+	$blocklink.= '<div class="record" id="record-'.$following_result->id.'">
+				
+				<strong>'.$user_namelist->name.'</strong> <a href="?delete='.$following_result->id.'" class="delete">Block</a>
+			</div>';
 	} 
 	$sel_userm="select * from users  where uid='".$follower_result->uid."' ";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
-	$follower.='<h4>'.$user_namelist->name.'</a> '.$blocklink.' </h4>';
+	$follower.='<h4>'.$user_namelist->name.'</a></h4>';
 	}
-	if($num_foll==0)
+	if($countrowsm==0)
 	{
 	
 	$follower.=' No Records';
 	}
 	
 				   
-				   return $follower;
+	echo $follower;
 
 }
 function user_following()
 {
 	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-	$follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	if($_REQUEST['act']=='del')
-	{
 	
-	echo $del_blog="delete from follower where  id='".$follid."' ";
-	$rs_blog_del=db_query($del_blog);
-	drupal_set_message(t('Successfully Removed From Following '), $type = 'success');
-	drupal_goto("following/");
-	}
-	$following='<div class="following">';
+	$following='<script type="text/javascript">
+	window.addEvent(\'domready\',function() {
+	$$(\'a.delete\').each(function(el) {
+		el.addEvent(\'click\',function(e) {
+			e.stop();
+			var parent = el.getParent(\'div\');
+			var request = new Request({
+				url: \'http://localhost/heard/savefollowing\',
+				link: \'chain\',
+				method: \'get\',
+				data: {
+					\'delete\': parent.get(\'id\').replace(\'record-\',\'\'),
+					ajax: 1
+				},
+				onRequest: function() {
+					new Fx.Tween(parent,{
+						duration:300
+					}).start(\'background-color\', \'#fb6c6c\');
+				},
+				onSuccess: function() {
+					new Fx.Slide(parent,{
+						duration:300,
+						onComplete: function() {
+							parent.dispose();
+						}
+					}).slideOut();
+				}
+			}).send();
+		});
+	});
+});
+	
+	</script>
+	';
+	
+	$following.='<div id="log">
+	
+	<div id="log_res"><!-- spanner --></div>
+	</div>
+	<span class="clr"><!-- spanner --></span><div class="following">';
 	 $sel_pro="select * from follower  where uid='".$user->uid."'  and follower_status='1' ";
 	$rs_following=db_query($sel_pro);
-	$num_follw=mysql_num_rows($rs_following);
+	$countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1'"));
+	//echo $countrows;
 	while($following_result=db_fetch_object($rs_following))
 	{
 	 $sel_userm="select * from users  where uid='".$following_result->follower_id."' ";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
-	$following.='<h4>'.$user_namelist->name.' <a style="text-decoration:none;" href="following/'.$following_result->id.'?act=del"><span>Unfollow </span></a> </h4>';
+	
+	
+	$following.= '<div class="record" id="record-'.$following_result->id.'">
+				
+				<strong>'.$user_namelist->name.'</strong> <a href="?delete='.$following_result->id.'" class="delete">Unfollow</a>
+			</div>';
+	
 	}
-	if($num_follw==0)
+	if($countrows==0)
 	{
 	
-	$follower.=' No Records';
+	$following.=' No Records';
 	}
-	return $following;
+	echo $following;
 	
 
 }
@@ -305,9 +389,9 @@ function suggest_follow()
 	{
 	$mem_id = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 
-	 $sel_row="select * from follower where  follower_id='".$mem_id."'  and  uid ='".$user->uid."' ";
-	$qry_sel=db_query($sel_row);
-	 $res_num=mysql_num_rows($qry_sel);
+	 
+	  $res_num= db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$mem_id."'  and  uid ='".$user->uid."'"));
+	 
 	if($res_num==0)
 	{
 	 $ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$user->uid."','".$mem_id."','1','".date('Y-m-d')."') ";
@@ -333,4 +417,32 @@ drupal_goto("suggest/follow");
 
 }
 
+
+function save_follow()
+{
+
+$follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	
+	
+
+		
+		
+		if(isset($_GET['delete']))
+{
+	echo $query = 'DELETE FROM follower WHERE id = '.(int)$_GET['delete'];
+	$result = db_query($query);
+}
+
+}
+
+
+function save_follower()
+{
+$follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+$del_blog="update  follower  set follower_status='".$_REQUEST['block']."' where  id='".$follid."' ";
+	$rs_blog_del=db_query($del_blog);
+	echo 'Updated Successfully ';
+
+
+}
 ?>
