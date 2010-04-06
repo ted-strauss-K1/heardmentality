@@ -1153,16 +1153,16 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	
 	
 	
-function qlite_percent()
-{
-		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-			$output='';
-			  $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-			  
-			$vans="select * from {possible_answer} where  qid=$qid ";
-			$vlist=ExecuteQuery($vans,"select");
-			$cnt_ans=count($vlist);
-			 $script=" 
+
+function qlite_percent() {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    $output = '';
+    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    
+    $vans = "select * from {possible_answer} where  qid='$qid'";
+    $vlist = ExecuteQuery($vans, "select");
+    $cnt_ans = count($vlist);
+    $script = " 
 			<script src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/jsapi.js' type='text/javascript' ></script>
 			
 			 <script type='text/javascript'> google.load(\"visualization\", \"1\", {packages:[\"barchart\"]});
@@ -1170,22 +1170,24 @@ function qlite_percent()
 			function drawChart() {
 			var data = new google.visualization.DataTable();
 			data.addColumn('string', 'Answers');
-			data.addColumn('number', 'Percent(%)');
+				
+			data.addColumn('number', 'Rate Count');
 			data.addRows(".$cnt_ans.");";
-			for($ab=0;$ab<$cnt_ans;$ab++){
-			$per=answer_details($vlist[$ab]['paid'],'percent');
-				$per=(empty($per))?0:$per;
-			$inc=$ab+1;
-			$script.=" data.setValue(".$ab.", 0, '".$vlist[$ab]['answer']."');
+    for ($ab = 0; $ab < $cnt_ans; $ab++) {
+        $per = answer_details($qid, $vlist[$ab]['paid'], 'percent');
+		$per=(empty($per))?0:$per;
+        $inc = $ab + 1;
+        $script .= " data.setValue(".$ab.", 0, '".$vlist[$ab]['answer']."');
 			data.setValue(".$ab.", 1, ".$per.");";
-			}
-			
-		 echo $script .= "	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+    }
+    
+    echo $script .= "	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 			chart.draw(data, {width: 400, height: 240, is3D: false, title: '',titleY:'Possible Answers',titleX:''});
 			}
 			</script>";
-//drupal_add_js($script,'inline');
-	echo $output.='
+    
+    //drupal_add_js($script,'inline');
+    echo $output .= '
 <div id="contentr1" class="clear">
      
     <div id="chart_div" style="width: 700px; height: 240px;">
@@ -1193,7 +1195,6 @@ function qlite_percent()
 </div>';
 
 }
-
 
 function qlite_graph() {
     
