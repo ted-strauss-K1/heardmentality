@@ -321,6 +321,49 @@ window.addEvent('domready', function(){
 			contentBgColor: '#FFF'
 		});
 	}
+	
+	MochaUI.followerWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 500,
+		
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF'
+		});
+	}
+	
+	
+	MochaUI.loadfollowing = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 500,
+		
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF'
+		});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		//subtab()
 });
 
@@ -360,6 +403,22 @@ MochaUI.suggestanswerWindow(url,title);
 
 	
 }
+function loadfollower(url,title)
+{
+MochaUI.closeAll();
+MochaUI.followerWindow(url,title);
+
+	
+}
+function loadfollowing(url,title)
+{
+MochaUI.closeAll();
+MochaUI.followingWindow(url,title);
+
+	
+}
+
+
 
 	</script>
     
