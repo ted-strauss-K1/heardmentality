@@ -158,8 +158,13 @@ global $user;
 
 <div id="desktopFooterWrapper">
 	<div id="desktopFooter">
-		Copyright &copy; 2010  Heardmentality.org   <span style="margin-left:900px;"><a href="<?php echo $gSitePath?>node/7">Contact Us</a> - <a href="<?php echo $gSitePath?>node/8">Privacy Policy </a> - <a href="<?php echo $gSitePath?>node/9"> User Agreement </a></span>
+		Copyright &copy; <a href="http://creativecommons.org/licenses/by-sa/2.5/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/cc.jpg" width="18" height="17" /></a> 2010  Heardmentality.org    <span style="margin-left:600px;"> <a href="<?php echo $gSitePath?>node/7">Contact Us</a> - <a href="<?php echo $gSitePath?>node/8">Privacy Policy </a> - <a href="<?php echo $gSitePath?>node/9"> User Agreement </a>
+        
+        <a href="http://www.opensource.org/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/OpenSourceLogo.jpg" width="18" height="17" /> </a>&nbsp;<a href="http://drupal.org/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Drupal.jpg" width="14" height="16" /></a>&nbsp;<a href="http://www.govtrack.us/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Govtrack.jpg" width="16" height="16" /> </a>&nbsp;<a href="http://code.google.com/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Google.jpg" width="16" height="16" /></a> &nbsp;<a href="http://amberjack.org/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Amber.jpg" width="14" height="14" /></a>&nbsp;<a href="http://openid.net/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/OpenID.jpg" width="15" height="15" /></a>&nbsp;<a href="https://community.rallydev.com/slm/login.op"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/RallyDev.jpg" width="16" height="16" /></a>&nbsp;<a href="http://www.geonames.org/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Geonames.jpg" width="18" height="18" /></a> </span>
+       
+        
 	</div>
+    
 </div>
 
 
