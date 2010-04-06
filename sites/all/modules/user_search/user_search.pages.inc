@@ -158,10 +158,7 @@ function user_follower()
 	{
 	//$blocklink='<a style="text-decoration:none;" href="follower/'.$follower_result->id.'?act=del&block=0"><span>Block </span></a>';
 	
-	$blocklink.= '<div class="record" id="record-'.$following_result->id.'">
-				
-				<strong>'.$user_namelist->name.'</strong> <a href="?delete='.$following_result->id.'" class="delete">Block</a>
-			</div>';
+	
 	} 
 	$sel_userm="select * from users  where uid='".$follower_result->uid."' ";
 	$rs_userm=db_query($sel_userm);
