@@ -36,8 +36,6 @@
 		
 		
 		$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
-		//$numran=mysql_num_rows($list_lengthan);
-		
 		 $numran= db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'"));
 		$answer_id=db_fetch_object($list_lengthan);
 		$stringfunct=strlen($oListquest->question);
