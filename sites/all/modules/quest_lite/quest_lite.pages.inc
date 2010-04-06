@@ -1174,6 +1174,7 @@ function qlite_percent()
 			data.addRows(".$cnt_ans.");";
 			for($ab=0;$ab<$cnt_ans;$ab++){
 			$per=answer_details($vlist[$ab]['paid'],'percent');
+				$per=(empty($per))?0:$per;
 			$inc=$ab+1;
 			$script.=" data.setValue(".$ab.", 0, 'Answer".$inc."');
 			data.setValue(".$ab.", 1, ".$per.");";
@@ -1187,7 +1188,7 @@ function qlite_percent()
 //drupal_add_js($script,'inline');
 	echo $output.='
 <div id="contentr1" class="clear">
-    percentage 
+     
     <div id="chart_div" style="width: 700px; height: 240px;">
     </div>
 </div>';
