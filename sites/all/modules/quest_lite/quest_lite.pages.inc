@@ -815,18 +815,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	 $profileBadges = getAnsweredUsers($qid);
 
 
-	$post_count = isset($arr['post_count'])?$arr['post_count']:'';
-		if( $arr['badge_type_id'] == 1){
-					$li="2";
-					$li_img_source = $pat."/images/brown.jpg";
-	    }elseif($arr['badge_type_id']== 2){
-					$li="14";
-				    $li_img_source = $pat."/images/silver.jpg";
-		}elseif($arr['badge_type_id'] == 3){
-			$li="40";
-			$li_img_source = $pat."/images/gold.jpg";
-	   }
-
+	
 	  $output1='';
 	if(count($profileBadges) >0){
 		$pat = $gSitePath.drupal_get_path('module', 'profile');
