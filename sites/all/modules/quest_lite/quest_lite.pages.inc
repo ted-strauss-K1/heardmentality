@@ -1221,7 +1221,7 @@ google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
     $ins_tot_val = '';
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
         $inc = $ab + 1;
-        $ins_tot_ans .= " data.addColumn('number', '".$vlist[$ab]['answer']."');";
+          $ins_tot_ans .= " data.addColumn('number', '".$vlist[$ab]['answer']."');";
     
     }
     
