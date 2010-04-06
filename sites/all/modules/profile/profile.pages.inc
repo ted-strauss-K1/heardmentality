@@ -161,13 +161,18 @@ function profile_edit() {
         } else {
             $result = db_query("INSERT INTO {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter' ");
         }
-        
+        if($result){
         drupal_set_message($message = 'Profile Updated Successfully!', $type = 'success');
-    
+		}
 	if(!empty($pass1)){
     	
 	if($pass1==$pass2){
 		
+  $result = db_query("UPDATE {users} set pass='".md5($pass1)."' where uid='$user->uid' ");		
+		  drupal_set_message($message = 'Password Updated Successfully!', $type = 'success');
+	}else{
+		
+		 drupal_set_message($message = 'Password should be same to chnage!', $type = 'error');
 	}
 	}	
 	
@@ -183,8 +188,21 @@ function profile_edit() {
     drupal_add_css(drupal_get_path('module', 'profile').'/theme/classic/formcheck.css');
     $result = geonames_query('countryinfo');
     foreach ($result->results as $countries) {
-        $optionlist .= sprintf('<option value="%s">%s</option>', $countries['countrycode'], $countries['countryname']);
+    	$select='';
+    	if($country== $countries['countrycode'])
+		{
+			$select="SELECTED='SELECTED'";
+		}
+		
+        $optionlist .= sprintf('<option %s value="%s">%s</option>',$select, $countries['countrycode'], $countries['countryname']);
     }
+	
+	if($gender==1){
+		$check1="checked='checked'";
+	}elseif($gender==2){
+			$check2="checked='checked'";
+		
+	}
     
     $strReturn = '	
 		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
@@ -221,6 +239,7 @@ function profile_edit() {
 					<div class="description">Spaces are allowed; punctuation is not allowed except for periods, hyphens, and underscores.</div>
                 </div>
 				<div class="form-item" id="edit-image-wrapper"> <label for="edit-image">Image : </label> <input type="file" name="image" id="image" /> <img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'" align="absmiddle" alt="Profile Image" >
+				<input type="hidden" name="oldimg" value="'.$image.'"/>
 					<div class="description">accept only jpeg,jpg,gif format max. 1 mb size</div>
                 </div>
 		
@@ -230,8 +249,8 @@ function profile_edit() {
         		</div>
 				<div class="form-item"> <label>Gender : </label> 
                 	<div class="form-radios">
-                    	<div class="form-item" id="edit-gender"> <label class="option" for="edit-gender-0"><input id="edit-gender-0" name="gender" value="1" class="form-radio" type="radio"> Male</label></div>
-						<div class="form-item" id="edit-gender-1-wrapper"><label class="option" for="edit-gender-1"><input id="edit-gender-1" name="gender" value="2" class="form-radio" type="radio"> Female</label> </div>
+                    	<div class="form-item" id="edit-gender"> <label class="option" for="edit-gender-0"><input id="edit-gender-0" name="gender" value="1" class="form-radio" '.$check1.' type="radio"> Male</label></div>
+						<div class="form-item" id="edit-gender-1-wrapper"><label class="option" for="edit-gender-1"><input id="edit-gender-1" name="gender" value="2" class="form-radio" '.$check2.' type="radio"> Female</label> </div>
                    </div>
 				</div> 
 			        		<div class="form-item" id="edit-country-wrapper"> <label for="edit-country">Country : </label><select name="country" style="width: 125px;" tabindex="16" id="edit-country">'.$optionlist.'</select> <div class="description"></div></div>	
@@ -262,18 +281,15 @@ function profile_edit() {
 	if(chk==1){
 	
 $(\'edit-gender-0\').set(\'checked\',true);
-document.forms[0].gender[0].checked = true;
+document.profile.gender[0].checked = true;
 
 	}
 
 else if(chk==2){
  $(\'edit-gender-1\').set(\'checked\',true);
- document.forms[0].gender[1].checked = true;
+ document.profile.gender[1].checked = true;
  	}
-var cnt=\''.$country.'\';
-$(\'edit-country\').set(\'value\',\'IN\');
-});
-		
+
 		</script>
 		
 		
