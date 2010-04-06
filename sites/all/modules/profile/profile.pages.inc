@@ -270,7 +270,7 @@ function profile_edit() {
 	
          
         </fieldset>	
-	<div class="clear" ><input type="submit" name="update" value="Update"></div>
+	<div class="clear" style="height:100px;" ><input type="submit" name="update" value="Update"></div>
         
 		</form>
 		
