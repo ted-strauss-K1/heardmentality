@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function user_search_perm() {
-  return array('Search User');
+  return array('Search User','Following','Follower','Suggested Users');
 }
 
 
@@ -24,7 +24,7 @@ $search_result['search'] = array(
 $search_result['follower'] = array(
     'title' => 'Follower',
     'page callback' => 'user_follower',
-    'access arguments' => array('Search User'),
+    'access arguments' => array('Follower'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'user_search.pages.inc',
   );
@@ -32,7 +32,7 @@ $search_result['follower'] = array(
 $search_result['following'] = array(
     'title' => ' Following',
     'page callback' => 'user_following',
-    'access arguments' => array('Search User'),
+    'access arguments' => array('Following'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'user_search.pages.inc',
   );
@@ -40,7 +40,7 @@ $search_result['following'] = array(
   $search_result['suggest/follow'] = array(
     'title' => ' Suggested Users',
     'page callback' => 'suggest_follow',
-    'access arguments' => array('Search User'),
+    'access arguments' => array('Suggested Users'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'user_search.pages.inc',
   );
