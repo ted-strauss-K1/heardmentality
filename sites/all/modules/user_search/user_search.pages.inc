@@ -107,6 +107,7 @@ function user_follower()
 	$follower='<div class="following">';
 	$sel_pro="select * from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0' ";
 	$rs_follower=db_query($sel_pro);
+	$num_foll=mysql_num_rows($rs_follower);
 	while($follower_result=db_fetch_object($rs_follower))
 	{
 	if($follower_result->follower_status==0){
@@ -120,6 +121,11 @@ function user_follower()
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
 	$follower.='<h4>'.$user_namelist->name.'</a> '.$blocklink.' </h4>';
+	}
+	if($num_foll==0)
+	{
+	
+	$follower.=' No Records';
 	}
 	
 				   
