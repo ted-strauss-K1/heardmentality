@@ -115,12 +115,14 @@ function profile_view() {
 			</div>
 			
 			<div class="rht">
-				right
+		
 				<div class="follow">
+						<p><b>Following</b></p>
 					'.followinglist().'
 					
 				</div>
 				<div class="follower">
+				<p><b>Followers</b></p>
 					'.followerlist().'
 					
 				</div>
