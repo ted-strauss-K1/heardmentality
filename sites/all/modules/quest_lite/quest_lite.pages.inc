@@ -1295,7 +1295,7 @@ function qlite_map() {
 // Set up our GMarkerOptions object
 markerOptions = { icon:blueIcon };';
 	  
-	  $desc.='<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png" border="0" alt=""/> &nbsp;Answer '.$ans_cnt.'<br/>';
+	  $desc.='<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png" border="0" alt=""/> &nbsp; '.$vlist[$ab]['answer'].'<br/>';
 	  
 	   $mlat='';
 	    $mlong='';
