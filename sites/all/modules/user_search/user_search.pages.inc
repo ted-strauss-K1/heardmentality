@@ -140,11 +140,7 @@ function user_follower()
 	drupal_set_message(t('Updated Successfully '), $type = 'success');
 	drupal_goto("follower/");
 	}
-	$follower.='<div id="log">
-	
-	<div id="log_res"><!-- spanner --></div>
-	</div>
-	<span class="clr"><!-- spanner --></span><div class="following">';
+	$follower.='<div class="following">';
 	$sel_pro="select * from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0' ";
 	$rs_follower=db_query($sel_pro);
 	$countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1' or follower_status='0'"));
