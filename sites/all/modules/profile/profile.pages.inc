@@ -203,6 +203,7 @@ function profile_edit() {
 
     $get_cn = db_query("select * from {user_profile} where uid='$user->uid'");
     $result = db_fetch_array($get_cn);
+	if(is_array($result))
     extract($result);
     
     drupal_add_js(drupal_get_path('module', 'profile').'/js/en.js');
