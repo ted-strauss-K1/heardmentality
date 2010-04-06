@@ -153,7 +153,7 @@ function profile_edit() {
 	$twitter='';
 	$check1='';
 	$check2='';
-    if ($_REQUEST['update'] == 'Update') {
+    if (isset($_REQUEST['update'])) {
         extract($_REQUEST);
         if ($rname == '') {
             drupal_set_message($message = 'Real Name should not be empty!', $type = 'error');
