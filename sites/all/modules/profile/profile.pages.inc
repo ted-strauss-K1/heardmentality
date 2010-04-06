@@ -339,6 +339,7 @@ function followinglist()
 	$following='<h4>'.$user_namelist->name.'  </h4>';
 	
 	}
+	$following.='<a onclick="loadfollowing(\''.$gSitePath.'following\',\'Following\');">More</a>';
 return $following;
 
 }
@@ -367,7 +368,7 @@ function followerlist()
 	$user_namelistf=db_fetch_object($rs_usermf);
 	$followeru='<h4>'.$user_namelistf->name.' </h4>';
 	}
-	
+	$followeru.='<a onclick="loadfollower(\''.$gSitePath.'follower\',\'Follower\');">More</a>';
 				   
 				   return $followeru;
 
