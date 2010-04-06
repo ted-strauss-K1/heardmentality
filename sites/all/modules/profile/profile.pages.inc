@@ -9,6 +9,8 @@ function profile_view() {
 	$country='';
 	$slant='';
 	$ethnic='';
+	$facebook='';
+	$twitter='';
 	
 	
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
@@ -26,20 +28,26 @@ function profile_view() {
   $inc_ans='<ul>';
     while($setans = db_fetch_object($get_ans)){
     	
-	$inc_ans.="<li><a href='".$gSitePath.$setans->url."'>$setans->question?</a></li>";
+	$inc_list.="<li><a href='".$gSitePath.$setans->url."'>$setans->question?</a></li>";
 		
     }
-   $ins_ans.="</ul>";
+
+     $ins_ans.=$inc_list."</ul>";
+	
+	$ins_ans=(empty($inc_list))?'No Result':$ins_ans;
+	
 	
 	//question sposted
 	$get_ans= db_query("select q.* from {question} as q where q.uid='".$uid."' ORDER BY q.qid DESC  LIMIT 0,5");
-  $inc_qns='<ul>';
+  $ins_qns='<ul>';
     while($setans = db_fetch_object($get_ans)){
     	
-	$inc_qns.="<li><a href='".$gSitePath.$setans->url."'>$setans->question?</a></li>";
+	$qns_list.="<li><a href='".$gSitePath.$setans->url."'>$setans->question?</a></li>";
 		
     }
-   $ins_qns.="</ul>";
+   $inc_qns.=$qns_list."</ul>";
+   
+	$inc_qns=(empty($qns_list))?'No Result':$inc_qns;
 	
 	$arr = updateProfileBadge($uid);
 	$pat = $gSitePath.drupal_get_path('module', 'profile');
@@ -130,7 +138,14 @@ function profile_view() {
 function profile_edit() {
     global $gSitePath,$user,$gDocPath,$base_root;
     //print_r($_REQUEST);
-    
+    $uid=$user->uid;
+	$image='noimage.jpg';
+	$zip='';
+	$country='';
+	$slant='';
+	$ethnic='';
+	$facebook='';
+	$twitter='';
     if ($_REQUEST['update'] == 'Update') {
         extract($_REQUEST);
         if ($rname == '') {
