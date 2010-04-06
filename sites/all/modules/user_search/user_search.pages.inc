@@ -104,7 +104,7 @@ function user_follower()
 			e.stop();
 			var parent = el.getParent(\'div\');
 			var request = new Request({
-				url: \'savefollowing\',
+				url: \'http://localhost/heard/savefollowing\',
 				link: \'chain\',
 				method: \'get\',
 				data: {
@@ -182,7 +182,7 @@ function user_following()
 			e.stop();
 			var parent = el.getParent(\'div\');
 			var request = new Request({
-				url: \'http://localhost/heard/savefollowing\',
+				url: \'http://192.9.200.10/heardmentality/savefollowing\',
 				link: \'chain\',
 				method: \'get\',
 				data: {
@@ -214,19 +214,12 @@ function user_following()
 	 $sel_pro="select * from follower  where uid='".$user->uid."'  and follower_status='1' ";
 	$rs_following=db_query($sel_pro);
 	$countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1'"));
-	//echo $countrows;
-	while($following_result=db_fetch_object($rs_following))
+		while($following_result=db_fetch_object($rs_following))
 	{
 	 $sel_userm="select * from users  where uid='".$following_result->follower_id."' ";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
-	
-	
-	$following.= '<div class="record" id="record-'.$following_result->id.'">
-				
-				<strong>'.$user_namelist->name.'</strong> <a href="?delete='.$following_result->id.'" class="delete">Unfollow</a>
-			</div>';
-	
+	$following.= '<div class="record" id="record-'.$following_result->id.'"><strong>'.$user_namelist->name.'</strong> <a href="?delete='.$following_result->id.'" class="delete">Unfollow</a</div>';
 	}
 	if($countrows==0)
 	{
