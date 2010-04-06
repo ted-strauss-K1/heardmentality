@@ -146,16 +146,16 @@ function profile_edit() {
         
         drupal_set_message($message = 'Profile Updated Successfully!', $type = 'success');
     
-    }
-    if(!empty($pass1)){
+	if(!empty($pass1)){
     	
 	if($pass1==$pass2){
 		
 	}
 	}	
-		
-		
+	
+	
     }
+
     $get_cn = db_query("select * from {user_profile} where uid='$user->uid'");
     $result = db_fetch_array($get_cn);
     extract($result);
