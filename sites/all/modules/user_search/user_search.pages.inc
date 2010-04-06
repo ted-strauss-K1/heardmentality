@@ -43,6 +43,10 @@ text-decoration:none;
 	$user_qry=db_query($user_list);
 	while($user_result=db_fetch_object($user_qry))
 	{
+	if($user->uid!='')
+	{
+	$flink='<a class="linkfol" href="search/'.$user_result->uid.'?act=flag">Follow </a>';
+	}
 	$fetresult.='<li>
 	<h3><a href="'.$gSitePath.'user/'.$user_result->uid.'">'.$user_result->name.'</a>      </h3>
 	<h4>'.$user_result->mail.'</h4>		 	
@@ -51,7 +55,7 @@ text-decoration:none;
 	tips, with homespun humor, daily musings about life &amp; love, and
 	anything else. </p> 
 	
-	</li><a class="linkfol" href="search/'.$user_result->uid.'?act=flag">Follow </a>';
+	</li> '.$flink.'';
 	}
 	
 	$fetresult.='</ul>
@@ -275,13 +279,7 @@ function suggest_follow()
 	</li><a class="linkfol" href="follow/'.$user_resultrym->uid.'?act=flag">Follow </a>';
 	
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	
 	$suggest_follow.='</ul>
 	</div>
