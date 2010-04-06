@@ -1,6 +1,6 @@
 <?php
 
-		function qlite_view()
+	function qlite_view()
 		{
 		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
@@ -34,11 +34,9 @@
 		$oListquest=db_fetch_object($rlist);
 		
 		
-
 		
-		echo  $numran= db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."' "));
-		 
-		 
+		$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
+		$numran=mysql_num_rows($list_lengthan);
 		$answer_id=db_fetch_object($list_lengthan);
 		$stringfunct=strlen($oListquest->question);
 		$voutput='<script type="text/javascript">
@@ -235,6 +233,7 @@
 		<tr> 
 		<td bgcolor="#FFFFFF" class="text"><p><font  size="2" face="Arial, Helvetica, sans-serif">Hi <font color="#7B7B7B"><strong>'. $ufet->name . '</strong>,</font> </font></p>
 		<p><font  size="2" face="Arial, Helvetica, sans-serif">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours .</strong></font></p>
+
 		<p><font  size="2" face="Arial, Helvetica, sans-serif">Please login to see Suggest Answer. </font></p>
 		
 		<p><font  size="2" face="Arial, Helvetica, sans-serif">Thanks,<font color="#B1546A"><br/> 
