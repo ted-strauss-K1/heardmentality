@@ -1,0 +1,15 @@
+<?php
+// $Id: search.install,v 1.14.2.1 2009/01/06 15:46:37 goba Exp $
+
+/**
+ * Implementation of hook_install().
+ */
+function profile_install() {
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function profile_uninstall() {
+}
+

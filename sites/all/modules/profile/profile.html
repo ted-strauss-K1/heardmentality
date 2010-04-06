@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>Untitled Document</title>
+	</head>
+	<body>
+		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
+		<fieldset><legend>Account information</legend>
+		<div class="form-item" id="edit-name-wrapper"> 
+		<label for="edit-name">Username: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="60" name="name" id="edit-name" size="60" value="admin" class="form-text required" type="text"> 
+		<div class="description">Spaces are allowed; punctuation is not allowed except for periods, hyphens, and underscores.</div></div>
+		<div class="form-item" id="edit-mail-wrapper"> <label for="edit-mail">E-mail address: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="64" name="mail" id="edit-mail" size="60" value="karthikeyan.t@openwavecomp.in" class="form-text required" type="text"> <div class="description">A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail.</div></div>
+		<div class="form-item" id="edit-pass-wrapper"> <div class="form-item" id="edit-pass-pass1-wrapper"> <label for="edit-pass-pass1">
+		Password: </label> <input name="pass[pass1]" id="edit-pass-pass1" maxlength="128" size="25" class="form-text password-field" type="password"></div>
+		<div class="form-item" id="edit-pass-pass2-wrapper"> <label for="edit-pass-pass2">Confirm password: </label> <input name="pass[pass2]" id="edit-pass-pass2" maxlength="128" size="25" class="form-text password-confirm" type="password"></div> <div class="description">To change the current user password, enter the new password in both fields.</div></div>
+		<div class="form-item"> <label>Status: </label> <div class="form-radios"><div class="form-item" id="edit-status-0-wrapper"> <label class="option" for="edit-status-0"><input id="edit-status-0" name="status" value="0" class="form-radio" type="radio"> Blocked</label></div>
+		<div class="form-item" id="edit-status-1-wrapper"> <label class="option" for="edit-status-1"><input id="edit-status-1" name="status" value="1" checked="checked" class="form-radio" type="radio"> Active</label></div></div>
+		</div> </fieldset>
+        	<p>&nbsp;</p>
+		<fieldset>
+		<legend> Profile Bio </legend>
+		<div class="form-item" id="edit-name-wrapper"> 
+		<label for="edit-name">Real Name: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="60" name="name" id="edit-name" size="40" value="admin" class="form-text required" type="text"> 
+		<div class="description">Spaces are allowed; punctuation is not allowed except for periods, hyphens, and underscores.</div></div>
+		<div class="form-item" id="edit-image-wrapper"> <label for="edit-image">Image : </label> <input type="file" name="image" id="image" /> 
+		<div class="description">accept only jpeg,jpg,gif format max. 1 mb size</div></div>
+		
+		<div class="form-item" id="edit-bio-wrapper"> <label for="edit-bio">Bio : </label> <textarea name="bio" id="edit-bio" class="form-text" rows="7" cols="70"></textarea>
+		</div> <div class="description">Describe about yourself to others.</div></div>
+		<div class="form-item"> <label>Gender : </label> <div class="form-radios"><div class="form-item" id="edit-gender"> <label class="option" for="edit-gender-0"><input id="edit-gender-0" name="gender" value="0" class="form-radio" type="radio"> Male</label></div>
+        
+		<div class="form-item" id="edit-gender-1-wrapper"><label class="option" for="edit-gender-1"><input id="edit-gender-1" name="gender" value="0" class="form-radio" type="radio"> Female</label> </div></div>
+		</div> 
+        	<div class="form-item" id="edit-religion-wrapper"> <label for="edit-religion">Religion : </label> <input name="religion" id="edit-religion" maxlength="128" size="25" class="form-text" type="text"></div> <div class="description"></div>
+        	</div>
+        <div class="form-item" id="edit-ethnic-wrapper"> <label for="edit-ethnic">Ethnicity : </label> <input name="ethnic" id="edit-ethnic" maxlength="128" size="25" class="form-text" type="text"></div> <div class="description"></div>
+        </div>
+          <div class="form-item" id="edit-slant-wrapper"> <label for="edit-slant">Slant : </label> <input name="slant" id="edit-slant" maxlength="128" size="25" class="form-text" type="text"></div> <div class="description"></div>
+          </div>
+         
+        </fieldset>
+		<p>&nbsp;</p>
+		<fieldset>
+		<legend>Links </legend>
+		<div class="form-item" id="edit-name-wrapper"> 
+		<label for="edit-facebook">Facebook: </label> <input maxlength="60" name="facebook" id="edit-facebook" size="60" value="" class="form-text required" type="text"> 
+		<div class="description">&nbsp;</div></div>
+		<div class="form-item" id="edit-twitter-wrapper"> <label for="edit-twitter">Twitter :</label> <input maxlength="64" name="twitter" id="edit-twitter" size="60" value="" class="form-text required" type="text"> <div class="description"></div>
+		</div>
+	
+         
+        </fieldset>
+        <div class="clear" ><input type="submit" name="update" value="Update"></div>
+		</form>
+	</body>
+</html>
