@@ -34,9 +34,11 @@
 		$oListquest=db_fetch_object($rlist);
 		
 		
+
 		
-		$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
-		$numran=mysql_num_rows($list_lengthan);
+		 $numran= db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."' "));
+		 
+		 
 		$answer_id=db_fetch_object($list_lengthan);
 		$stringfunct=strlen($oListquest->question);
 		$voutput='<script type="text/javascript">
@@ -398,13 +400,14 @@
 		
 		if(($_REQUEST['answer']!=''))
 		{
-		$list_length = db_query("select * from {possible_answer_vote} where qid='".$mid."' and uid='".$user->uid."' ");
-		$numr=mysql_num_rows($list_length);
+	
+		 $numr= db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$mid."' and uid='".$user->uid."'"));
+		
 		
 		if($numr==0)
 		{
-		$numvotep = db_query("select * from {possible_answer_vote} where panswer_id='".$_REQUEST['answer']."'   ");
-		$calvotep=mysql_num_rows($numvotep);
+		
+		 $calvotep= db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where panswer_id='".$_REQUEST['answer']."' "));
 		if($calvotep==0)
 		{
 		$votepointp='1';
@@ -785,9 +788,8 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$vSql="select * from {question} where status='1' and qid=$qid ";
 	$rlist=db_query($vSql);
 	$oListquest=db_fetch_object($rlist);
-		//echo "select * from {resource} where qid=$qid ";
-	$numresource=mysql_num_rows(db_query("select * from {resource} where qid=$qid "));
 	
+	$numresource= db_result(db_query("SELECT COUNT(*) from {resource} where qid=$qid"));
 	$query_user= "SELECT * FROM users where uid='$oListquest->uid' "; 
 	$query_userinfo=db_query($query_user);
 	$fetuserlist=db_fetch_object($query_userinfo);
@@ -869,8 +871,8 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	global $gSitePath,$user, $gDocPath,$base_root;
 
 
-	$list_length = db_query("select * from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' ");
-		 $numr=mysql_num_rows($list_length);
+			 
+		  $numr= db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' "));
 		if($_REQUEST['abuse_type']!='')
 		{
 		  if($numr==0)
@@ -902,8 +904,9 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 
 	$answers="SELECT *	FROM suggest_answer where qid='$qid'  ";
 	$anslist=db_query($answers);
-	$list_length = db_query("select * from {suggest_answer} where qid='$qid' and uid='".$user->uid."'  ");
-    $numr=mysql_num_rows($list_length);
+	
+	
+	 $numr= db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='$qid' and uid='".$user->uid."'"));
 	$ansoutput.='<div id="log">
 	<div id="log_res"><!-- spanner --></div>
 	</div>
@@ -980,14 +983,14 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
     function suggest_answer_save()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
-	$list_length = db_query("select * from {suggest_answer} where qid='".$_REQUEST['qaid']."' and uid='".$user->uid."'  ");
-		 $numr=mysql_num_rows($list_length);
+		 
+		$numr= db_result(db_query("SELECT COUNT(*) from {suggest_answer} where qid='".$_REQUEST['qaid']."' and uid='".$user->uid."'"));
 		if($_REQUEST['txt_answer']!='')
 		{
-		 if($numr==0)
-		 {
-	 $answerquery="insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
-		 	db_query($answerquery);
+		if($numr==0)
+		{
+		$answerquery="insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
+		db_query($answerquery);
 		echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
 		}
 		}
@@ -1004,9 +1007,9 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	require('RSSParser.class.php');
 	$xml =& new RSSParser;
-	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
-	$rlistnews=db_query($vSql);
-	$numnews=mysql_num_rows($rlistnews);
+
+	
+	 $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 		while($usernews=db_fetch_object($rlistnews))
 		{
@@ -1060,9 +1063,8 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$vSqlmedia="SELECT *	FROM resource where rtype='2' and qid='$qid' ";
-	$rlistmedia=db_query($vSqlmedia);
-	$nummedia=mysql_num_rows($rlistmedia);
+	
+	 $nummedia= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
 	$mediaresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	while($usermedia=db_fetch_object($rlistmedia))
 	{
@@ -1096,9 +1098,8 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	
 global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$vSqlfact="SELECT *	FROM resource where rtype='3' and qid='$qid' ";
-	$rlistfacts=db_query($vSqlfact);
-	$numfacts=mysql_num_rows($rlistfacts);
+	
+	 $numfacts= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	while($userfacts=db_fetch_object($rlistfacts))
 	{
@@ -1363,8 +1364,11 @@ function answer_vote()
 
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$list_length = db_query("select * from {suggest_answer_vote} where answer_id='".$_REQUEST['suggest']."' and uid='".$user->uid."'  ");
-	$numr=mysql_num_rows($list_length);
+	
 	$fetvote=db_fetch_object($list_length);
+	
+	 $numr= db_result(db_query("SELECT COUNT(*) from {suggest_answer_vote} where answer_id='".$_REQUEST['suggest']."' and uid='".$user->uid."' "));
+	
 	$list_own_answer = db_query("select * from {suggest_answer} where said='".$_REQUEST['suggest']."'   ");
 	$userownid=db_fetch_object($list_own_answer);
 	if($_REQUEST['suggest']!='')
@@ -1373,8 +1377,9 @@ function answer_vote()
 	{
 		if($numr==0)
 		{
-		$numvote = db_query("select * from {suggest_answer_vote} where answer_id='".$_REQUEST['suggest']."'   ");
-		$calvote=mysql_num_rows($numvote);
+		
+		 $calvote= db_result(db_query("SELECT COUNT(*) from {suggest_answer_vote} where answer_id='".$_REQUEST['suggest']."' "));
+		
 		if($calvote==0)
 		{
 		$votepoint='1';
