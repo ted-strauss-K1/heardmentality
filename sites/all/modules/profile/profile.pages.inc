@@ -139,13 +139,20 @@ function profile_edit() {
     global $gSitePath,$user,$gDocPath,$base_root;
     //print_r($_REQUEST);
     $uid=$user->uid;
+	$bio='';
+	$real_name='';
+	$gender='';
+	$optionlist='';
 	$image='noimage.jpg';
 	$zip='';
 	$country='';
 	$slant='';
+	$religion='';
 	$ethnic='';
 	$facebook='';
 	$twitter='';
+	$check1='';
+	$check2='';
     if ($_REQUEST['update'] == 'Update') {
         extract($_REQUEST);
         if ($rname == '') {
