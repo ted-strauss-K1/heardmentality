@@ -1176,15 +1176,14 @@ function qlite_percent()
 			$per=answer_details($vlist[$ab]['paid'],'percent');
 				$per=(empty($per))?0:$per;
 			$inc=$ab+1;
-			$script.=" data.setValue(".$ab.", 0, 'Answer".$inc."');
+			$script.=" data.setValue(".$ab.", 0, '".$vlist[$ab]['answer']."');
 			data.setValue(".$ab.", 1, ".$per.");";
 			}
 			
-		echo	$script.="	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-			chart.draw(data, {width: 400, height: 240,max:100, is3D: true, title: 'Answer Percentage'});
+		 echo $script .= "	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			chart.draw(data, {width: 400, height: 240, is3D: false, title: '',titleY:'Possible Answers',titleX:''});
 			}
 			</script>";
-			
 //drupal_add_js($script,'inline');
 	echo $output.='
 <div id="contentr1" class="clear">
@@ -1221,7 +1220,7 @@ google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
     $ins_tot_val = '';
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
         $inc = $ab + 1;
-        $ins_tot_ans .= " data.addColumn('number', 'Answer".$inc."');";
+        $ins_tot_ans .= " data.addColumn('number', '".$vlist[$ab]['answer']."');";
     
     }
     
