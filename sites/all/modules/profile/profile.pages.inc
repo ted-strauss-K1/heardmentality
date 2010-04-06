@@ -19,16 +19,22 @@ function profile_view() {
 	$twitter='';
 	$inc_list='';
 	$ins_ans='';
+	$inc_qns='';
 	$qns_list='';
 	$qns_list='';
 	
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
+	
+	if(is_array($result))
     extract($result);
+	
     drupal_add_css(drupal_get_path('module', 'profile').'/styles/profile.css');
     
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
+	
+	if(is_array($result))
     extract($result);
     
 	
@@ -44,7 +50,7 @@ function profile_view() {
      $ins_ans.=$inc_list."</ul>";
 	
 	$ins_ans=(empty($inc_list))?'No Result':$ins_ans;
-	
+	//answers ends
 	
 	//question sposted
 	$get_ans= db_query("select q.* from {question} as q where q.uid='".$uid."' ORDER BY q.qid DESC  LIMIT 0,5");
@@ -57,7 +63,9 @@ function profile_view() {
    $inc_qns.=$qns_list."</ul>";
    
 	$inc_qns=(empty($qns_list))?'No Result':$inc_qns;
+	//question ends
 	
+	//profile badge
 	$arr = updateProfileBadge($uid);
 	$pat = $gSitePath.drupal_get_path('module', 'profile');
 	$post_count = isset($arr['post_count'])?$arr['post_count']:'';
@@ -125,7 +133,7 @@ function profile_view() {
 				
 				<div  class="lft">
 				<p><b>Answers</b></p>
-				'.$inc_ans.'
+				'.$ins_ans.'
 				</div>
 				<div class="rht">
 				<p><b>Questions Posted</b></p>
