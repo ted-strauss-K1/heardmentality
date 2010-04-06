@@ -338,7 +338,7 @@ window.addEvent('domready', function(){
 	}
 	
 	
-	MochaUI.loadfollowing = function(url,title){
+	MochaUI.followingWindow = function(url,title){
 			new MochaUI.Window({
 			id: 'ajaxpage',
 			title: ' '+title,
