@@ -151,7 +151,7 @@ function profile_edit() {
     	
 	if($pass1==$pass2){
 		
-		
+	}
 	}	
 		
 		
