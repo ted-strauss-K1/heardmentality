@@ -173,18 +173,16 @@ function quest_lite_menu() {
 }
 
  function getAnsweredUsers( $question_id = NULL){
-   /*$query = "SELECT pav.*,  u.*,sav.*
+/*   $query = "SELECT pav.uid, sav.uid
 			 from suggest_answer_vote sav
 			 INNER JOIN possible_answer_vote pav on sav.qid=pav.qid
-			 LEFT JOIN users u on  u.uid = sav.uid 
-			 where 1=1 AND pav.qid = '".$question_id."' AND  sav.qid = '".$question_id."'
-			 order by  u.uid";*/
-
-   $query = "SELECT pav.uid, sav.uid
-			 from suggest_answer_vote sav
-			 INNER JOIN possible_answer_vote pav on sav.qid=pav.qid
-			 where 1=1 AND pav.qid = '".$question_id."' AND  sav.qid = '".$question_id."'
-			 order by  pav.uid";
+			 where 1=1 AND pav.qid = '".$question_id."' OR  sav.qid = '".$question_id."'
+			 order by  pav.uid";*/
+  $query = "SELECT  sav.uid from suggest_answer_vote sav
+			where 1=1 AND sav.qid ='".$question_id."' UNION
+			SELECT pav.uid
+			from possible_answer_vote pav
+			where 1=1 AND pav.qid ='".$question_id."'";
 
    $userids = ExecuteQuery($query, "select");
    if(count($userids)<= 0){
