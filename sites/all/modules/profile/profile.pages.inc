@@ -321,3 +321,68 @@ function event_photo() {
     return $return;
 }
 
+
+////following users/////////////////////////
+
+
+function followinglist()
+{
+
+ global $gSitePath,$user,$gDocPath,$base_root;
+ $sel_list="select * from follower  where uid='".$user->uid."'  and follower_status='1' limit 0,5";
+	$rs_foll_list=db_query($sel_list);
+	while($following_list=db_fetch_object($rs_foll_list))
+	{
+	 $sel_userm="select * from users  where uid='".$following_list->follower_id."' ";
+	$rs_userm=db_query($sel_userm);
+	$user_namelist=db_fetch_object($rs_userm);
+	$following='<h4>'.$user_namelist->name.'  </h4>';
+	
+	}
+return $following;
+
+}
+
+
+
+
+//////////follower //////////////////////////
+
+
+function followerlist()
+{
+
+	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+	
+	
+
+	
+	$sel_listf="select * from follower  where follower_id='".$user->uid."'  and follower_status='1'  ";
+	$rs_followerf=db_query($sel_listf);
+	while($follower_resultfuser=db_fetch_object($rs_followerf))
+	{
+	
+	$sel_usermf="select * from users  where uid='".$follower_resultfuser->uid."' ";
+	$rs_usermf=db_query($sel_usermf);
+	$user_namelistf=db_fetch_object($rs_usermf);
+	$followeru='<h4>'.$user_namelistf->name.' </h4>';
+	}
+	
+				   
+				   return $followeru;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
