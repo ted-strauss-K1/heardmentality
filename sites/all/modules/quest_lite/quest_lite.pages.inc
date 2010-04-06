@@ -1196,18 +1196,18 @@ function qlite_percent()
 }
 
 
-function qlite_graph()
-{
-	
-		global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-		 $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-		 
-		 
-		 $vans="select * from {possible_answer} where  qid=$qid ";
-		$vlist=ExecuteQuery($vans,"select");
-		$cnt_ans=count($vlist);
-		 
-$script.=" 
+function qlite_graph() {
+    
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+	$script='';
+    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+    
+    $vans = "select * from {possible_answer} where  qid=$qid ";
+    $vlist = ExecuteQuery($vans, "select");
+    $cnt_ans = count($vlist);
+    
+    $script .= " 
 <script src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/jsapi.js' type='text/javascript' ></script>
 			
 			 <script type='text/javascript'>
@@ -1216,48 +1216,50 @@ google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
       function drawAnnot() {
         var data = new google.visualization.DataTable();
         data.addColumn('date', 'Date');";
-
-	 $ins_tot_ans='';
-	 $ins_tot_val='';
-         for($ab=0;$ab<$cnt_ans;$ab++){
-		 	 $inc=$ab+1;
-		 $ins_tot_ans.=" data.addColumn('number', 'Answer". $inc."');";
-	  
-		} 
+    
+    $ins_tot_ans = '';
+    $ins_tot_val = '';
+    for ($ab = 0; $ab < $cnt_ans; $ab++) {
+        $inc = $ab + 1;
+        $ins_tot_ans .= " data.addColumn('number', 'Answer".$inc."');";
+    
+    }
+    
+    for ($mn = 5; $mn >= 0; $mn--) {
         
-			for($mn=5;$mn>=0;$mn--){
-	
-		 $year=date("Y");
-		 $month=date("m")-1;
-		 $dat=date("d")-$mn;
-		  $date=date('Y-m-d', mktime(0, 0, 0, $month+1, $dat, $year));
-	 $ins_tot_val.=" [new Date(".$year.", ".$month." ,".$dat."),";
-	 
-	 $inc_this='';
-	 
-	  for($ab=0;$ab<$cnt_ans;$ab++){
-	 $inc_this.= answer_details($qid,$vlist[$ab]['paid'],'timeline',$date).",";
-	 	} 
-	 $ins_tot_val.=rtrim($inc_this,',');
-	 $ins_tot_val.="],";
-		
-		}
-		
-		
-		 $script.=$ins_tot_ans;
-		  $script.="   data.addRows([".rtrim($ins_tot_val, ',')."]); ";
+        $year = date("Y");
+        $month = date("m") - 1;
+        $dat = date("d") - $mn;
+        $date = date('Y-m-d', mktime(0, 0, 0, $month + 1, $dat, $year));
+        $ins_tot_val .= " [new Date(".$year.", ".$month." ,".$dat."),";
+        
+        $inc_this = '';
+        
+        for ($ab = 0; $ab < $cnt_ans; $ab++) {
+            $inc_this .= answer_details($qid, $vlist[$ab]['paid'], 'timeline', $date).",";
+        }
+        $ins_tot_val .= rtrim($inc_this, ',');
+        $ins_tot_val .= "],";
+    
+    }
 
+    
+    $script .= $ins_tot_ans;
+    $script .= "   data.addRows([".rtrim($ins_tot_val, ',')."]); ";
 
-   echo  $script.=" var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('annot_div'));
+    
+    echo $script .= " var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('annot_div'));
         chart.draw(data, {displayAnnotations: false});
       }
 	  </script>
 ";
 
-
-echo '<div  ><div id="annot_div" style="width: 700px; height: 240px;"></div></div>';
+    
+    echo '<div  ><div id="annot_div" style="width: 700px; height: 240px;"></div></div>';
 
 }
+
+
 function qlite_map() {
     
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
