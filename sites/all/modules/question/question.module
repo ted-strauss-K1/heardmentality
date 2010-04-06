@@ -119,7 +119,6 @@ $items['question/save'] = array(
 //function to update profileabadge by post
  function updateProfileBadge($uid = null){
    global $user;
-   $uid =1;
    $ques_query = "SELECT count(*) FROM {question} where uid='".$uid."'";
    $list1 = ExecuteQuery($ques_query, "select");
    $current_post_count = $list1[0][0];
