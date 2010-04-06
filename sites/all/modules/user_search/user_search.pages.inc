@@ -158,7 +158,7 @@ function user_following()
 	if($num_follw==0)
 	{
 	
-	$following.=' No Records';
+	$follower.=' No Records';
 	}
 	return $following;
 	
