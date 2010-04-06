@@ -44,6 +44,25 @@ $search_result['following'] = array(
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'user_search.pages.inc',
   );
+  
+  
+  $search_result['savefollowing'] = array(
+    'title' => ' Following',
+    'page callback' => 'save_follow',
+    'access arguments' => array('Following'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'user_search.pages.inc',
+  );
+  
+  
+   $search_result['savefollower'] = array(
+    'title' => ' Following',
+    'page callback' => 'save_follower',
+    'access arguments' => array('Following'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'user_search.pages.inc',
+  );
+  
   return $search_result;
 }
 
