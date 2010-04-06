@@ -210,11 +210,7 @@ function user_following()
 	</script>
 	';
 	
-	$following.='<div id="log">
-	
-	<div id="log_res"><!-- spanner --></div>
-	</div>
-	<span class="clr"><!-- spanner --></span><div class="following">';
+	$following.='<div class="following">';
 	 $sel_pro="select * from follower  where uid='".$user->uid."'  and follower_status='1' ";
 	$rs_following=db_query($sel_pro);
 	$countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1'"));
