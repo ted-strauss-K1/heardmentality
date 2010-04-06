@@ -813,20 +813,53 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 	case "Gurus":
 	//	$output='sample content Gurus';
 	 $profileBadges = getAnsweredUsers($qid);
+
+
+	$post_count = isset($arr['post_count'])?$arr['post_count']:'';
+		if( $arr['badge_type_id'] == 1){
+					$li="2";
+					$li_img_source = $pat."/images/brown.jpg";
+	    }elseif($arr['badge_type_id']== 2){
+					$li="14";
+				    $li_img_source = $pat."/images/silver.jpg";
+		}elseif($arr['badge_type_id'] == 3){
+			$li="40";
+			$li_img_source = $pat."/images/gold.jpg";
+	   }
+
 	  $output1='';
 	if(count($profileBadges) >0){
+		$pat = $gSitePath.drupal_get_path('module', 'profile');
 	  foreach($profileBadges as $profile){
-			$output1.='<ul>
+				if( $profile['badge_type_id'] == 1){
+						$li="2";
+						$li_img_source = $pat."/images/brown.jpg";
+			    }elseif($profile['badge_type_id']== 2){
+					$li="14";
+				    $li_img_source = $pat."/images/silver.jpg";
+				}elseif($profile['badge_type_id'] == 3){
+					$li="40";
+				    $li_img_source = $pat."/images/gold.jpg";
+			   }
+				$output1.='<div class="img"><img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$profile['image'].'" align="absmiddle" alt="Profile Image" >
+				'.$profile['name'].'
+				<p align="center">'.$profile['post_count'].'<br/>
+			    <span><img src="'.$li_img_source .'" >'.$badge_type_id.'
+			    </span>
+			     </p>
+				</div>';
+/*			$output1.='<ul>
 			   <li>Name: '.$profile['name'].'</li>
 			   <li>Medal: '.$profile['badgename'].'</li>
 			   <li>Post Count: '.$profile['post_count'].'</li>
 			   <li></li>
-				</ul>';
+				</ul>';*/
 		 }}
 		 else{
 	     $output1= "No Users available";		 
 		 }
      $output =$output1;
+
 	break;
 	case "Info":
 	$output=' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> '.$fetuserlist->name.' <br/>

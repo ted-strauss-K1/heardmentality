@@ -196,10 +196,15 @@ function quest_lite_menu() {
    }
    $separated = implode(",", $Ids);
    $separated='( '. $separated.')';
-   $query = "SELECT bt.name as badgename, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
+/*   $query = "SELECT bt.name as badgename, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
 			from profile_badges pb
 			INNER JOIN users u on pb.uid=u.uid
 			LEFT JOIN badge_types bt on  bt.id = pb.badge_type_id
+			WHERE 1=1 AND u.uid  IN".$separated;*/
+   $query = "SELECT up.image, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
+			from profile_badges pb
+			INNER JOIN users u on pb.uid=u.uid
+			LEFT JOIN user_profile up on  up.uid = u.uid
 			WHERE 1=1 AND u.uid  IN".$separated;
    $profileBadges = ExecuteQuery($query, "select");
    }
