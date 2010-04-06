@@ -5,9 +5,15 @@ function profile_view() {
 	
 	$uid=$user->uid;
 	$image='noimage.jpg';
+	$bio='';
+	$real_name='';
+	$gender='';
+	$optionlist='';
+	$image='noimage.jpg';
 	$zip='';
 	$country='';
 	$slant='';
+	$religion='';
 	$ethnic='';
 	$facebook='';
 	$twitter='';
@@ -100,11 +106,11 @@ function profile_view() {
 			<div class="rht">
 				right
 				<div class="follow">
-					follow
+					'.followinglist().'
 					
 				</div>
 				<div class="follower">
-					follower
+					'.followerlist().'
 					
 				</div>
 				
@@ -168,7 +174,11 @@ function profile_edit() {
             $insimage = $return['image'];
             $flag = $return['flag'];
             $suc = $return['suc'];
-
+			
+			if(!$flag){
+				
+			 drupal_set_message($message = $suc, $type = 'error');	
+			}
         
         }
         
