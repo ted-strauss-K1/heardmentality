@@ -182,7 +182,7 @@ function user_following()
 			e.stop();
 			var parent = el.getParent(\'div\');
 			var request = new Request({
-				url: \'http://192.9.200.10/heardmentality/savefollowing\',
+				url: \''.$gSitePath.'savefollowing\',
 				link: \'chain\',
 				method: \'get\',
 				data: {
