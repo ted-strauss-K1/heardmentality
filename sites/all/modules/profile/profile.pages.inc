@@ -120,18 +120,33 @@ function profile_view() {
 				
 			</div>
 			
-			<div class="rht">
+		<div class="rht">
 		
 				<div class="follow">
-						<p><b>Following</b></p>
-					'.followinglist().'
+						<p><b>Following</b></p>';
 					
-				</div>
+				$newlist=followinglist();
+				
+				for($i=0; $i<count($newlist); $i++)
+				{
+				$strReturn.=''.$newlist[$i].'';
+				
+				}
+					
+				$strReturn.='</div>
 				<div class="follower">
-				<p><b>Followers</b></p>
-					'.followerlist().'
+				<p><b>Followers</b></p>';
+				
 					
-				</div>
+					$newlist2=followerlist();
+				
+				for($k=0; $k<count($newlist2); $k++)
+				{
+				$strReturn.=''.$newlist2[$k].'';
+				
+				}
+					
+				$strReturn.='</div>
 				
 				
 				
@@ -417,15 +432,22 @@ function followinglist()
  global $gSitePath,$user,$gDocPath,$base_root;
  $sel_list="select * from follower  where uid='".$user->uid."'  and follower_status='1' limit 0,5";
 	$rs_foll_list=db_query($sel_list);
+	$numfolls= db_result(db_query("SELECT COUNT(*)  from follower  where uid='".$user->uid."'  and follower_status='1'  "));
+	$following=array();
 	while($following_list=db_fetch_object($rs_foll_list))
 	{
 	 $sel_userm="select * from users  where uid='".$following_list->follower_id."' ";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
-	$following='<h4>'.$user_namelist->name.'  </h4>';
+	$following[]='<a>'.$user_namelist->name.'<br>  </a>';
 	
 	}
-	$following.='<a onclick="loadfollowing(\''.$gSitePath.'following\',\'Following\');">More</a>';
+	if($numfolls>2)
+	{
+	$following[].='<a style="color:#F37321;
+text-decoration:none;" onclick="loadfollowing(\''.$gSitePath.'following\',\'Following\');">More</a>';
+	
+	}
 return $following;
 
 }
@@ -444,22 +466,26 @@ function followerlist()
 	
 
 	
-	$sel_listf="select * from follower  where follower_id='".$user->uid."'  and follower_status='1'  ";
+	 $sel_listf="select * from follower  where follower_id='".$user->uid."'  and follower_status='1'  limit 0,5  ";
 	$rs_followerf=db_query($sel_listf);
+	 $numfoll= db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='".$user->uid."'  and follower_status='1'   "));
+	 $followeru=array();
 	while($follower_resultfuser=db_fetch_object($rs_followerf))
 	{
 	
-	$sel_usermf="select * from users  where uid='".$follower_resultfuser->uid."' ";
+	 $sel_usermf="select * from users  where uid='".$follower_resultfuser->uid."' ";
 	$rs_usermf=db_query($sel_usermf);
 	$user_namelistf=db_fetch_object($rs_usermf);
-	$followeru='<h4>'.$user_namelistf->name.' </h4>';
+	$followeru[]='<a>'.$user_namelistf->name.' </a><br>';
 	}
-	$followeru.='<a onclick="loadfollower(\''.$gSitePath.'follower\',\'Follower\');">More</a>';
-				   
+	if($numfoll>0)
+	{
+	$followeru[].='<a style="color:#F37321;
+text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower\',\'Follower\');">More</a>';
+	}			   
 				   return $followeru;
 
 }
-
 
 
 
