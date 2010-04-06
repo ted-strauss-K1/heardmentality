@@ -17,7 +17,10 @@ function profile_view() {
 	$ethnic='';
 	$facebook='';
 	$twitter='';
-	
+	$inc_list='';
+	$ins_ans='';
+	$qns_list='';
+	$qns_list='';
 	
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
@@ -31,7 +34,7 @@ function profile_view() {
 	
 	//answers posted
 	$get_ans= db_query("select q.* from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where a.uid='".$uid."'");
-  $inc_ans='<ul>';
+  $ins_ans='<ul>';
     while($setans = db_fetch_object($get_ans)){
     	
 	$inc_list.="<li><a href='".$gSitePath.$setans->url."'>$setans->question?</a></li>";
