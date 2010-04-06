@@ -104,7 +104,7 @@ function user_follower()
 			e.stop();
 			var parent = el.getParent(\'div\');
 			var request = new Request({
-				url: \'http://localhost/heard/savefollowing\',
+				url: \''.$gSitePath.'savefollowing\',
 				link: \'chain\',
 				method: \'get\',
 				data: {
