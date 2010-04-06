@@ -91,10 +91,10 @@ function profile_view() {
 			
 			<div class="clear">
 			<div class="img"><img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'" align="absmiddle" alt="Profile Image" >
-			'.$post_count.'
+			
 			<p>
 			<span><img src="'.$li_img_source .'" >'.$badge_type_id.'
-			</span>
+			</span>'.$post_count.'
 			</p>
 			</div>
 			<div class="info">
