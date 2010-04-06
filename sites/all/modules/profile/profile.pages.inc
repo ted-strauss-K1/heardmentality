@@ -41,13 +41,31 @@ function profile_view() {
     }
    $ins_qns.="</ul>";
 	
-	
+	$arr = updateProfileBadge($uid);
+	$pat = $gSitePath.drupal_get_path('module', 'profile');
+	$post_count = isset($arr['post_count'])?$arr['post_count']:'';
+		if( $arr['badge_type_id'] == 1){
+					$li="2";
+					$li_img_source = $pat."/images/brown.jpg";
+	    }elseif($arr['badge_type_id']== 2){
+					$li="14";
+				    $li_img_source = $pat."/images/silver.jpg";
+		}elseif($arr['badge_type_id'] == 3){
+			$li="40";
+			$li_img_source = $pat."/images/gold.jpg";
+	   }
     $strReturn = '<div class="main">
 			
 			<div class="lft">
 			
 			<div class="clear">
-			<div class="img"><img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'" align="absmiddle" alt="Profile Image" ></div>
+			<div class="img"><img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'" align="absmiddle" alt="Profile Image" >
+			'.$post_count.'
+			<p>
+			<span><img src="'.$li_img_source .'" >'.$badge_type_id.'
+			</span>
+			</p>
+			</div>
 			<div class="info">
 					'.$user->name.'<br/>
 					'.$real_name.'<br/>
