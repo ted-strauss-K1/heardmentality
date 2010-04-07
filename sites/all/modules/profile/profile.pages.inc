@@ -601,7 +601,7 @@ function privacy_settings()
 		$query = "select * from {privacy_settings} where uid='$user->uid'";
 	   $fetch  = ExecuteQuery($query, "select");
 
-	   	   print_r($fetch);
+	   	  
 		$get=extract($fetch);
 			extract($get);
 			print_r($get);
