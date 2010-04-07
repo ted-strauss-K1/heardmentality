@@ -507,7 +507,7 @@ function followerlist()
 	
 	 $sel_listf="select * from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0' limit 0,5  ";
 	$rs_followerf=db_query($sel_listf);
-	 $numfoll= db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='".$user->uid."'  and follower_status='1'   "));
+	 $numfoll= db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0'  "));
 	 $followeru=array();
 	while($follower_resultfuser=db_fetch_object($rs_followerf))
 	{
