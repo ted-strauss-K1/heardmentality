@@ -136,7 +136,7 @@ function user_follower()
 	$follower.='<div class="following">';
 	$sel_pro="select * from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0' ";
 	$rs_follower=db_query($sel_pro);
-	$countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1' or follower_status='0'"));
+	echo $countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1' or follower_status='0'"));
 	while($follower_result=db_fetch_object($rs_follower))
 	{
 	
