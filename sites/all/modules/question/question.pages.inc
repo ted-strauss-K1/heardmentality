@@ -329,7 +329,36 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     
     $output .= '<tr><td colspan="6">'.get_tagging().'</td></tr>';
 
-    
+
+ $get_cn = db_query("select * from {user_profile} where uid='$user->uid'");
+    $result = db_fetch_array($get_cn);
+    extract($result);
+	
+	if($question_privacy=='4'){
+
+    $output.= '<tr><td colspan="6"> <fieldset>
+		<legend><b><i>Share With</i></b> </legend>
+		
+		<div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset"  class="qrset" value="1">&nbsp;Everyone
+            <div class="description"></div>
+        </div>
+        <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset" value="2">&nbsp;Only Followers & Followees 
+            <div class="description"></div>
+        </div>
+         <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset"  value="3">&nbsp;Not at all
+            <div class="description"></div>
+        </div>
+       
+        </fieldset>		</td></tr>';
+	
+	}
+	
     $output .= ' </td></tr><tr>
     <td height="42">&nbsp;</td>
     <td>&nbsp;</td>
@@ -347,7 +376,6 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
 
 
 }
-
 
 function get_tagging($tag='') {
 
@@ -432,7 +460,7 @@ function question_save() {
 					
 		 $dst= clean_url(myTruncate($q_quest,100,' '));
 		
-        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',url='$dst' ");
+        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',url='$dst',share='$qrset'  ");
        
 		
         $ins_id = db_last_insert_id('question', 'qid');
