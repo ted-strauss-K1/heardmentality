@@ -714,6 +714,8 @@ elt.each(function(el){ el.set(\'value\',chk); });}
 var chk=\''.$fetch[0]['questions'].'\';
 var elt=$$(\'.answers\');
 elt.each(function(el){ el.set(\'value\',chk); });}
+
+}
 			</script>
 		';
 
