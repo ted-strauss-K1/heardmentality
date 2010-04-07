@@ -100,24 +100,23 @@ function user_follower()
 	$follower='<script type="text/javascript">
 	window.addEvent(\'domready\',function() {
 	$$(\'a.actdisplay\').each(function(el) {
+	
 		el.addEvent(\'click\',function(e) {
+		var cat1 = $(\'blk\').value;
+		alert(cat1);
 			e.stop();
 			var parent = el.getParent(\'div\');
 			var request = new Request({
+			
 				url: \''.$gSitePath.'savefollower\',
 				link: \'chain\',
 				method: \'get\',
 				data: {
 					\'actdisplay\': parent.get(\'id\').replace(\'welcum-\',\'\'),
-					\'block\': parent.get(\'id\'),
+					\'block\': cat1,
 					ajax: 1
 				},
-				onRequest: function() {
-					new Fx.Tween(parent,{
-						duration:300
-					})
-				},
-				
+								
 			}).send();
 		});
 	});
@@ -145,13 +144,13 @@ function user_follower()
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
 	if($follower_result->follower_status==0){
-	//$blocklink='<a style="text-decoration:none;" href="follower/'.$follower_result->id.'?act=del&block=1"><span>UnBlock </span></a>';
-	$blocklink='<div class="welcum" id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a href="?actdisplay='.$follower_result->id.'&block=1" class="actdisplay">UnBlock</a</div>';
+	$blocklink='<input type="hidden" value="1" name="blk" id="blk"/>';
+	$blocklink.='<div class="welcum" id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a href="?actdisplay='.$follower_result->id.'&block=1" class="actdisplay">UnBlock</a</div>';
 	} 
 	else 
 	{
-	//$blocklink='<a style="text-decoration:none;" href="follower/'.$follower_result->id.'?act=del&block=0"><span>Block </span></a>';
-	$blocklink='<div class="welcum" id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a href="?actdisplay='.$follower_result->id.'&block=0" class="actdisplay">Block</a</div>';
+	$blocklink='<input type="hidden" value="0" name="blk" id="blk"/>';
+	$blocklink.='<div class="welcum" id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a href="?actdisplay='.$follower_result->id.'&block=0" class="actdisplay">Block</a</div>';
 	
 	} 
 	
@@ -226,7 +225,8 @@ function user_following()
 	echo $following;
 	
 
-}function suggest_follow()
+}
+function suggest_follow()
 {
 	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	$sel_flow="select * from follower  where uid='".$user->uid."'  and follower_status='1' ";
@@ -400,15 +400,10 @@ function save_follow()
 {
 
 $follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	
-	
-
-		
-		
-		if(isset($_GET['delete']))
+if(isset($_GET['delete']))
 {
-	echo $query = 'DELETE FROM follower WHERE id = '.(int)$_GET['delete'];
-	$result = db_query($query);
+echo $query = 'DELETE FROM follower WHERE id = '.(int)$_GET['delete'];
+$result = db_query($query);
 }
 
 }
@@ -417,10 +412,12 @@ $follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 function save_follower()
 {
 $follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-$del_blog="update  follower  set follower_status='".$_REQUEST['block']."' where  id='".$follid."' ";
+if(isset($_GET['actdisplay']))
+{
+$del_blog="update  follower  set follower_status='".$_REQUEST['block']."' where  id='".$_REQUEST['actdisplay']."' ";
 	$rs_blog_del=db_query($del_blog);
 	echo 'Updated Successfully ';
-
+}
 
 }
 ?>
