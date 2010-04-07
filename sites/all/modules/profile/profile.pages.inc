@@ -600,6 +600,7 @@ function privacy_settings()
     }
 	
 	   $get = db_fetch_array($chk);
+	   print_r($get);
 		extract($get);
  //privacy settings form
 $usertypes = userTypes();
