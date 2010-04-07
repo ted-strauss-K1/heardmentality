@@ -74,6 +74,8 @@ function checkPrivacySettings( $uid = null){
     $userFields[$i]['following'] = $options['following'];
     $userFields[$i]['followers'] = $options['followers'];
     $userFields[$i]['medal'] = $options['medal'];
+	$userFields[$i]['answers'] = $options['answers'];
+	$userFields[$i]['questions'] = $options['questions'];
 	$i++;
 	}
   if( isset($userFields[0]) && count($userFields[0]) > 0) {

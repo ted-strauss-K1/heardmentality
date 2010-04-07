@@ -123,6 +123,21 @@ function profile_view() {
 			</p>';
 		}
 
+	if( ($userSettings['answers'] == 1) || ($userSettings['answers'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)){
+		  $answer1 =  	'<div  class="lft">
+				<p><b>Answers</b></p>
+				'.$ins_ans.'
+				</div>';
+	}
+	if( ($userSettings['answers'] == 1) || ($userSettings['answers'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)){
+		  $question1 =  	'<div class="rht">
+				<p><b>Questions Posted</b></p>
+				'.$inc_qns.'
+				</div>';
+	}
+
+				
+
     $strReturn = '<div class="main">
 			
 			<div class="lft">
@@ -188,16 +203,7 @@ function profile_view() {
 				
 			</div>
 			
-			<div class="clear">
-				
-				<div  class="lft">
-				<p><b>Answers</b></p>
-				'.$ins_ans.'
-				</div>
-				<div class="rht">
-				<p><b>Questions Posted</b></p>
-				'.$inc_qns.'
-				</div>
+			<div class="clear">'. $answer1.	$question1.'
 			</div>
 			
 			
