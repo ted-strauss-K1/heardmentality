@@ -371,7 +371,7 @@ function user_edit_submit($form, &$form_state) {
 function user_page() {
   global $user;
   if ($user->uid) {
-    menu_set_active_item('user/'. $user->uid);
+    menu_set_active_item('user/sssss');
     return menu_execute_active_handler();
   }
   else {
