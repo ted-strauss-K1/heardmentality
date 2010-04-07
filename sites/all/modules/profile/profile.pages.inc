@@ -442,12 +442,16 @@ function followinglist()
 	$following[]='<a>'.$user_namelist->name.'<br>  </a>';
 	
 	}
-	if($numfolls>2)
+	if($numfolls>0)
 	{
 	$following[].='<a style="color:#F37321;
 text-decoration:none;" onclick="loadfollowing(\''.$gSitePath.'following\',\'Following\');">More</a>';
 	
 	}
+	if($numfolls==0)
+	{
+	$following[].='No Records';
+	}	
 return $following;
 
 }
@@ -482,12 +486,16 @@ function followerlist()
 	{
 	$followeru[].='<a style="color:#F37321;
 text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower\',\'Follower\');">More</a>';
-	}			   
+	}	
+	if($numfoll==0)
+	{
+	$followeru[].='No Records';
+	}	
+	
+			   
 				   return $followeru;
 
 }
-
-
 
 
 
