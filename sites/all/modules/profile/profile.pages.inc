@@ -649,69 +649,69 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 
 function markit(){
 	
-var chk='.$fetch[0]['email'].';
+var chk=\''.$fetch[0]['email'].'\';
 var elt=$$(\'.email\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 	
-	var chk='.$fetch[0]['image'].';
+	var chk=\''.$fetch[0]['image'].'\';
 var elt=$$(\'.image\');
 elt.each(function(el){ el.set(\'value\',chk); });}		
 
-var chk='.$fetch[0]['bio'].';
+var chk=\''.$fetch[0]['bio'].'\';
 var elt=$$(\'.bio\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['gender'].';
+var chk=\''.$fetch[0]['gender'].'\';
 var elt=$$(\'.gender\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['zip'].';
+var chk=\''.$fetch[0]['zip'].'\';
 var elt=$$(\'.zip\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['country'].';
+var chk=\''.$fetch[0]['country'].'\';
 var elt=$$(\'.country\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
 
-var chk='.$fetch[0]['religion'].';
+var chk=\''.$fetch[0]['religion'].'\';
 var elt=$$(\'.religion\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['ethnic'].';
+var chk=\''.$fetch[0]['ethnic'].'\';
 var elt=$$(\'.ethnic\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['slant'].';
+var chk=\''.$fetch[0]['slant'].'\';
 var elt=$$(\'.slant\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['facebook'].';
+var chk=\''.$fetch[0]['facebook'].'\';
 var elt=$$(\'.facebook\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
 
-var chk='.$fetch[0]['twitter'].';
+var chk=\''.$fetch[0]['twitter'].'\';
 var elt=$$(\'.twitter\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['followers'].';
+var chk=\''.$fetch[0]['followers'].'\';
 var elt=$$(\'.followers\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['following'].';
+var chk=\''.$fetch[0]['following'].'\';
 var elt=$$(\'.following\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['medal'].';
+var chk=\''.$fetch[0]['medal'].'\';
 var elt=$$(\'.medal\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['answers'].';
+var chk=\''.$fetch[0]['answers'].'\';
 var elt=$$(\'.answers\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 
-var chk='.$fetch[0]['questions'].';
+var chk=\''.$fetch[0]['questions'].'\';
 var elt=$$(\'.answers\');
 elt.each(function(el){ el.set(\'value\',chk); });}
 			</script>
