@@ -601,10 +601,11 @@ function privacy_settings()
     }
 		$query = "select * from {privacy_settings} where uid='$user->uid'";
 	   $fetch  = ExecuteQuery($query, "select");
-
-	   	  
+	   if(is_array($fetch)){
 		$get=extract($fetch);
-		
+		}else{
+		$get=NULL;
+		}
 			
  //privacy settings form
 $usertypes = userTypes();
