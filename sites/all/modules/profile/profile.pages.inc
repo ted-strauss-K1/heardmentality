@@ -625,40 +625,95 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 			<p>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="email" name="email">'.$option1.$option2.$option3.'</select></p>
 			<p>Real Name <select name="real_name">'.$option1.$option2.$option3.'</select></p>
 			<p>Image &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="image"  name="image">'.$option1.$option2.$option3.'</select></p>
-			<p>Bio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="bio">'.$option1.$option2.$option3.'</select></p>
+			<p>Bio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="bio" name="bio">'.$option1.$option2.$option3.'</select></p>
 			<p>Gender &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select class="gender" name="gender">'.$option1.$option2.$option3.'</select></p>
 			<p>Zip &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="zip" name="zip">'.$option1.$option2.$option3.'</select></p>
 			<p>Country &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="country" name="country">'.$option1.$option2.$option3.'</select></p>
-			<p>Religion &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="religion">'.$option1.$option2.$option3.'</select></p>
-			<p>Ethnic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="ethnic">'.$option1.$option2.$option3.'</select></p>
-			<p>Slant &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="slant">'.$option1.$option2.$option3.'</select></p>
-			<p>Facebook &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="facebook">'.$option1.$option2.$option3.'</select></p>
-			<p>Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="twitter">'.$option1.$option2.$option3.'</select></p>
-			<p>Followers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="followers">'.$option1.$option2.$option3.'</select></p>
-			<p>Following &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="following">'.$option1.$option2.$option3.'</select></p>
-			<p>Medal &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="medal">'.$option1.$option2.$option3.'</select></p>
-			<p>Posted Answers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="answers">'.$option1.$option2.$option3.'</select></p>
-			<p>Posted Questions&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="questions">'.$option1.$option2.$option3.'</select></p>
+			<p>Religion &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="religion" name="religion">'.$option1.$option2.$option3.'</select></p>
+			<p>Ethnic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="ethnic"  name="ethnic">'.$option1.$option2.$option3.'</select></p>
+			<p>Slant &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="slant" name="slant">'.$option1.$option2.$option3.'</select></p>
+			<p>Facebook &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="facebook" name="facebook">'.$option1.$option2.$option3.'</select></p>
+			<p>Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="twitter"   name="twitter">'.$option1.$option2.$option3.'</select></p>
+			<p>Followers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="followers" name="followers">'.$option1.$option2.$option3.'</select></p>
+			<p>Following &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="following" name="following">'.$option1.$option2.$option3.'</select></p>
+			<p>Medal &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="medal" name="medal">'.$option1.$option2.$option3.'</select></p>
+			<p>Posted Answers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="answers" name="answers">'.$option1.$option2.$option3.'</select></p>
+			<p>Posted Questions&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="questions"  name="questions">'.$option1.$option2.$option3.'</select></p>
 			</fieldset>
 			<div class="clear" style="height:100px;" ><input type="submit" name="update" value="Update"></div>
 			</form>
 			
 			<script>
 			
-			setTimeout(markit,2000);
+			setTimeout(markit,1000);
 
 function markit(){
 	
-	var chk='.$fetch[0]['email'].';
-	
+var chk='.$fetch[0]['email'].';
 var elt=$$(\'.email\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+	
+	var chk='.$fetch[0]['image'].';
+var elt=$$(\'.image\');
+elt.each(function(el){ el.set(\'value\',chk); });}		
 
-elt.each(function(el){alert(el.value);
-el.set(\'value\',chk);
+var chk='.$fetch[0]['bio'].';
+var elt=$$(\'.bio\');
+elt.each(function(el){ el.set(\'value\',chk); });}
 
-});
-}
-			
+var chk='.$fetch[0]['gender'].';
+var elt=$$(\'.gender\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['zip'].';
+var elt=$$(\'.zip\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['country'].';
+var elt=$$(\'.country\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+
+var chk='.$fetch[0]['religion'].';
+var elt=$$(\'.religion\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['ethnic'].';
+var elt=$$(\'.ethnic\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['slant'].';
+var elt=$$(\'.slant\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['facebook'].';
+var elt=$$(\'.facebook\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+
+var chk='.$fetch[0]['twitter'].';
+var elt=$$(\'.twitter\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['followers'].';
+var elt=$$(\'.followers\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['following'].';
+var elt=$$(\'.following\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['medal'].';
+var elt=$$(\'.medal\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['answers'].';
+var elt=$$(\'.answers\');
+elt.each(function(el){ el.set(\'value\',chk); });}
+
+var chk='.$fetch[0]['questions'].';
+var elt=$$(\'.answers\');
+elt.each(function(el){ el.set(\'value\',chk); });}
 			</script>
 		';
 
