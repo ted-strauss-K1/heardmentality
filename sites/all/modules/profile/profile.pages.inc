@@ -43,6 +43,7 @@ function profile_view() {
 	$medal = NULL;
 	if(is_array($result))
     extract($result);
+
 	 $gender_name = isset($gender) && ($gender == 1)? 'Male': 'Female';
      //Checking settings and displaying the field
  	if( ($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3  && $user->uid !=0 ) || $user->uid == $uid  ){
@@ -130,7 +131,7 @@ function profile_view() {
 			<div class="img">'.$PROFILE_IMAGE.$medal.'
 			</div>
 			<div class="info">
-					'.$user->name.'<br/>
+					'.$getuser['name'].'<br/>
 					'.$real_name1.'<br/>
 					'.$gender_name1.'<br/>	
 					'.$religion1.'<br/>
