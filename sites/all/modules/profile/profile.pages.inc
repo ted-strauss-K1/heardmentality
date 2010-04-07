@@ -602,8 +602,8 @@ function privacy_settings()
 	   $fetch  = ExecuteQuery($query, "select");
 
 	   	   print_r($fetch);
-		extract($get);
-		echo $email;
+		extract($fetch);
+		
  //privacy settings form
 $usertypes = userTypes();
 $option1 = '<option value=1>'.$usertypes[0].'</option>';
