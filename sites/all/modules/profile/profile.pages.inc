@@ -598,6 +598,9 @@ function privacy_settings()
         drupal_set_message($message = 'Privacy Settings Updated Successfully!', $type = 'success');
 		}
     }
+	
+	   $get = db_fetch_array($chk);
+		extract($get);
  //privacy settings form
 $usertypes = userTypes();
 $option1 = '<option value=1>'.$usertypes[0].'</option>';
@@ -609,13 +612,13 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend>Privacy Settings</legend>
-			<p>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="email">'.$option1.$option2.$option3.'</select></p>
+			<p>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="email" name="email">'.$option1.$option2.$option3.'</select></p>
 			<p>Real Name <select name="real_name">'.$option1.$option2.$option3.'</select></p>
-			<p>Image &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="image">'.$option1.$option2.$option3.'</select></p>
+			<p>Image &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="image"  name="image">'.$option1.$option2.$option3.'</select></p>
 			<p>Bio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="bio">'.$option1.$option2.$option3.'</select></p>
-			<p>Gender &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="gender">'.$option1.$option2.$option3.'</select></p>
-			<p>Zip &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="zip">'.$option1.$option2.$option3.'</select></p>
-			<p>Country &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="country">'.$option1.$option2.$option3.'</select></p>
+			<p>Gender &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select class="gender" name="gender">'.$option1.$option2.$option3.'</select></p>
+			<p>Zip &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="zip" name="zip">'.$option1.$option2.$option3.'</select></p>
+			<p>Country &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="country" name="country">'.$option1.$option2.$option3.'</select></p>
 			<p>Religion &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="religion">'.$option1.$option2.$option3.'</select></p>
 			<p>Ethnic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="ethnic">'.$option1.$option2.$option3.'</select></p>
 			<p>Slant &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="slant">'.$option1.$option2.$option3.'</select></p>
@@ -629,6 +632,24 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 			</fieldset>
 			<div class="clear" style="height:100px;" ><input type="submit" name="update" value="Update"></div>
 			</form>
+			
+			<script>
+			
+			setTimeout(markit,2000);
+
+function markit(){
+	
+	var chk='.$email.';
+	
+var elt=$$(\'.email\');
+
+elt.each(function(el){
+el.set(\'value\',chk);
+
+});
+}
+			
+			</script>
 		';
 
     
