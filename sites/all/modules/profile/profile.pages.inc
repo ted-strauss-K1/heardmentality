@@ -624,7 +624,7 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 		<fieldset>
         	<legend>Privacy Settings</legend>
 			<p>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="email" name="email">'.$option1.$option2.$option3.'</select></p>
-			<p>Real Name <select name="real_name">'.$option1.$option2.$option3.'</select></p>
+			<p>Real Name <select class="real_name" name="real_name">'.$option1.$option2.$option3.'</select></p>
 			<p>Image &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="image"  name="image">'.$option1.$option2.$option3.'</select></p>
 			<p>Bio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="bio" name="bio">'.$option1.$option2.$option3.'</select></p>
 			<p>Gender &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select class="gender" name="gender">'.$option1.$option2.$option3.'</select></p>
@@ -653,6 +653,11 @@ function markit(){
 var chk=\''.$fetch[0]['email'].'\';
 var elt=$$(\'.email\');
 elt.each(function(el){ el.set(\'value\',chk); });
+
+var chk=\''.$fetch[0]['real_name'].'\';
+var elt=$$(\'.real_name\');
+elt.each(function(el){ el.set(\'value\',chk); });
+
 	
 	var chk=\''.$fetch[0]['image'].'\';
 var elt=$$(\'.image\');
@@ -713,7 +718,7 @@ var elt=$$(\'.answers\');
 elt.each(function(el){ el.set(\'value\',chk); });
 
 var chk=\''.$fetch[0]['questions'].'\';
-var elt=$$(\'.answers\');
+var elt=$$(\'.questions\');
 elt.each(function(el){ el.set(\'value\',chk); });
 
 }
