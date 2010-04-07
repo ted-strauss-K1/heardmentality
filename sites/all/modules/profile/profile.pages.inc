@@ -504,3 +504,67 @@ text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower\',\'Follow
 
 
 
+function privacy_settings()
+{
+  global $gSitePath,$user,$gDocPath,$base_root;
+  $uid=$user->uid;
+  //updating privacy settings
+  if (isset($_REQUEST['update'])) {
+        extract($_REQUEST);
+        $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
+        $chk1 = db_result($chk);
+		if ($chk1) {
+            $result = db_query("UPDATE {privacy_settings} set real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email'  where uid=$user->uid ");
+			
+        } else {
+            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email' ");
+        }
+        if($result){
+        drupal_set_message($message = 'Privacy Settings Updated Successfully!', $type = 'success');
+		}
+    }
+ //privacy settings form
+$usertypes = userTypes();
+$option1 = '<option value=1>'.$usertypes[0].'</option>';
+$option2 = '<option value=2>'.$usertypes[1].'</option>';
+$option3 = '<option value=3>'.$usertypes[2].'</option>';
+  $strReturn = '
+  <link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
+	<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
+		<fieldset>
+        	<legend>Privacy Settings</legend>
+			<p>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="email">'.$option1.$option2.$option3.'</select></p>
+			<p>Real Name <select name="real_name">'.$option1.$option2.$option3.'</select></p>
+			<p>Image &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="image">'.$option1.$option2.$option3.'</select></p>
+			<p>Bio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="bio">'.$option1.$option2.$option3.'</select></p>
+			<p>Gender &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select name="gender">'.$option1.$option2.$option3.'</select></p>
+			<p>Zip &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="zip">'.$option1.$option2.$option3.'</select></p>
+			<p>Country &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="country">'.$option1.$option2.$option3.'</select></p>
+			<p>Religion &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="religion">'.$option1.$option2.$option3.'</select></p>
+			<p>Ethnic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="ethnic">'.$option1.$option2.$option3.'</select></p>
+			<p>Slant &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="slant">'.$option1.$option2.$option3.'</select></p>
+			<p>Facebook &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="facebook">'.$option1.$option2.$option3.'</select></p>
+			<p>Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="twitter">'.$option1.$option2.$option3.'</select></p>
+			</fieldset>
+			<div class="clear" style="height:100px;" ><input type="submit" name="update" value="Update"></div>
+			</form>
+		';
+
+    
+    echo $strReturn;
+ 
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function profile_perm() {
-  return array('Profile Edit','Profile View');
+  return array('Profile Edit','Profile View','Profile Privacy');
 }
 
 
@@ -27,9 +27,27 @@ $items['profile/edit'] = array(
     'file' => 'profile.pages.inc',
   );
 
+$items['profile/privacy_settings'] = array(
+    'title' => ' Privacy Profile',
+    'page callback' => 'privacy_settings',
+    'access arguments' => array('Profile Privacy'),
+    'type' => MENU_CALLBACK,
+    'file' => 'profile.pages.inc',
+  );
 
 
   return $items;
 }
 
-
+ function userTypes(){
+    $ques_query = "SELECT * FROM {user_types}";
+    $list = ExecuteQuery($ques_query, "select");
+	$usertypes= array();
+	$i=0;
+	foreach($list as $options){
+	$usertypes[$i] = $options['id'];
+    $usertypes[$i] = $options['name'];
+	$i++;
+	}
+	return $usertypes;
+ }
