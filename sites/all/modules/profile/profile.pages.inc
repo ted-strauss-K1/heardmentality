@@ -603,7 +603,7 @@ function privacy_settings()
 
 	   	   print_r($fetch);
 		extract($fetch);
-		print $fetch;
+		print_r($fetch);
  //privacy settings form
 $usertypes = userTypes();
 $option1 = '<option value=1>'.$usertypes[0].'</option>';
