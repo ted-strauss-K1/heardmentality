@@ -51,3 +51,33 @@ $items['profile/privacy_settings'] = array(
 	}
 	return $usertypes;
  }
+
+function checkPrivacySettings( $uid = null){
+ $ques_query = "SELECT * FROM {privacy_settings} where uid='".$uid."'";
+ $list = ExecuteQuery($ques_query, "select");
+ $userFields= array();	
+  $i=0;
+	foreach($list as $options){
+	$userFields[$i]['id'] = $options['id'];
+    $userFields[$i]['email'] = $options['email'];
+    $userFields[$i]['real_name'] = $options['real_name'];
+    $userFields[$i]['image'] = $options['image'];
+    $userFields[$i]['bio'] = $options['bio'];
+    $userFields[$i]['gender'] = $options['gender'];
+    $userFields[$i]['zip'] = $options['zip'];
+    $userFields[$i]['country'] = $options['country'];
+    $userFields[$i]['religion'] = $options['religion'];
+    $userFields[$i]['ethnic'] = $options['ethnic'];
+    $userFields[$i]['slant'] = $options['slant'];
+    $userFields[$i]['facebook'] = $options['facebook'];
+    $userFields[$i]['twitter'] = $options['twitter'];
+    $userFields[$i]['following'] = $options['following'];
+    $userFields[$i]['followers'] = $options['followers'];
+    $userFields[$i]['medal'] = $options['medal'];
+	$i++;
+	}
+  if(count($userFields[0]) > 0){
+	  return $userFields[0];
+  }
+  
+}

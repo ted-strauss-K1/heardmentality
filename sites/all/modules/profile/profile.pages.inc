@@ -34,16 +34,45 @@ function profile_view() {
 	
 	if(is_array($result))
     extract($result);
-	
+	$userSettings = checkPrivacySettings($uid);
     drupal_add_css(drupal_get_path('module', 'profile').'/styles/profile.css');
-    
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
-	
+	$real_name1 = NULL ; $PROFILE_IMAGE= NULL;    $bio1 =  NULL; $zip1= null;
+	$country1 = NULL; $religion1 = NULL; $img_path1 =NULL; $gender_name1 = NULL; $facebook1 = NULL; $twitter1 =NULL;
+	$medal = NULL;
 	if(is_array($result))
     extract($result);
-    
-	
+	 $gender_name = isset($gender) && ($gender == 1)? 'Male': 'Female';
+     //Checking settings and displaying the field
+ 	if( ($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3  && $user->uid !=0 ) ){
+      $real_name1 = $real_name;
+	}
+	if( ($userSettings['bio'] == 1) || ($userSettings['bio'] == 3  && $user->uid !=0 ) ){
+       $bio1 = $bio;
+	}
+	if( ($userSettings['country'] == 1) || ($userSettings['country'] == 3  && $user->uid !=0 ) ){
+       $country1 = $country;
+	}
+	if( ($userSettings['religion'] == 1) || ($userSettings['religion'] == 3  && $user->uid !=0 ) ){
+       $religion1 = $religion;
+	}
+	if( ($userSettings['image'] == 1) || ($userSettings['image'] == 3  && $user->uid !=0 ) ){
+	 $img_path1=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image;
+	 $PROFILE_IMAGE= '<img src="'.$img_path1.'" align="absmiddle" alt="Profile image" >';
+	}
+	if( ($userSettings['zip'] == 1) || ($userSettings['zip'] == 3  && $user->uid !=0 ) ){
+       $zip1 = $zip;
+	}
+   if( ($userSettings['gender'] == 1) || ($userSettings['gender'] == 3  && $user->uid !=0 ) ){
+       $gender_name1  = $gender_name ;
+	}
+	if( ($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3  && $user->uid !=0 ) ){
+       $facebook1  =		'<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/facebook.png" align="absmiddle" alt="Facebook" >&nbsp; @'.$facebook;
+	}
+	if( ($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3  && $user->uid !=0 ) ){
+       $twitter1  =   '<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/twitter.png" align="absmiddle" alt="Twitter" >&nbsp; @'.$twitter;
+	}
 	//answers posted
 	$get_ans= db_query("select q.* from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where a.uid='".$uid."'");
   $ins_ans='<ul>';
@@ -85,35 +114,39 @@ function profile_view() {
 			$li="Gold";
 			$li_img_source = $pat."/images/gold.jpg";
 	   }
+
+	if( ($userSettings['medal'] == 1) || ($userSettings['medal'] == 3  && $user->uid !=0 ) ){
+		  $medal = 	'<p>
+			<span><img title="'.$li .'"  src="'.$li_img_source .'" >
+			</span>'.$post_count.'
+			</p>';
+		}
+
     $strReturn = '<div class="main">
 			
 			<div class="lft">
 			
 			<div class="clear">
-			<div class="img"><img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'" align="absmiddle" alt="Profile Image" >
-			
-			<p>
-			<span><img title="'.$li .'"  src="'.$li_img_source .'" >'.$badge_type_id.'
-			</span>'.$post_count.'
-			</p>
+			<div class="img">'.$PROFILE_IMAGE.$medal.'
 			</div>
 			<div class="info">
 					'.$user->name.'<br/>
-					'.$real_name.'<br/>
-					'.$country.'<br/>
-					'.$zip.'<br/>	
+					'.$real_name1.'<br/>
+					'.$gender_name1.'<br/>	
+					'.$religion1.'<br/>
+					'.$country1.'<br/>
+					'.$zip1.'<br/>	
 			</div>
 			</div>	
-			<div class="clear">&nbsp; </div>
+			<div class="clear">&nbsp; </div>	<div class="clear">&nbsp; </div>
 <hr align="center" size="1"  style="width:96%"  noshade="noshade" />
 				<div class="lft">
 					
-					'.$bio.'
+					'.$bio1.'
 				</div>
 				<div class="rht">
-					
-					<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/facebook.png" align="absmiddle" alt="Facebook" >&nbsp; @'.$facebook.'<br/>
-										<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/twitter.png" align="absmiddle" alt="Twitter" >&nbsp; @'.$twitter.'
+					'.$facebook1.'<br/>
+					'.$twitter1.'
 				</div>
 				
 				
@@ -122,9 +155,11 @@ function profile_view() {
 			
 		<div class="rht">
 		
-				<div class="follow">
-						<p><b>Following</b></p>';
+				<div class="follow">';
+						
 					
+		if( ($userSettings['following'] == 1) || ($userSettings['following'] == 3  && $user->uid !=0 ) ){
+		 $strReturn.='<p><b>Following</b></p>';
 				$newlist=followinglist();
 				
 				for($i=0; $i<count($newlist); $i++)
@@ -132,20 +167,20 @@ function profile_view() {
 				$strReturn.=''.$newlist[$i].'';
 				
 				}
-					
+		}	
 				$strReturn.='</div>
 				<div class="follower">
-				<p><b>Followers</b></p>';
+				';
 				
-					
-					$newlist2=followerlist();
-				
+		if( ($userSettings['followers'] == 1) || ($userSettings['followers'] == 3  && $user->uid !=0 ) ){		
+			 $strReturn.='<p><b>Followers</b></p>';
+				$newlist2=followerlist();
 				for($k=0; $k<count($newlist2); $k++)
 				{
 				$strReturn.=''.$newlist2[$k].'';
 				
 				}
-					
+		}	
 				$strReturn.='</div>
 				
 				
@@ -514,10 +549,12 @@ function privacy_settings()
         $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
         $chk1 = db_result($chk);
 		if ($chk1) {
-            $result = db_query("UPDATE {privacy_settings} set real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email'  where uid=$user->uid ");
+            $result = db_query("UPDATE {privacy_settings} set real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
+			followers='$followers',following='$following',medal='$medal' where uid=$user->uid ");
 			
         } else {
-            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email' ");
+            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
+			followers='$followers',following='$following',medal='$medal'");
         }
         if($result){
         drupal_set_message($message = 'Privacy Settings Updated Successfully!', $type = 'success');
@@ -546,6 +583,9 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 			<p>Slant &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="slant">'.$option1.$option2.$option3.'</select></p>
 			<p>Facebook &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="facebook">'.$option1.$option2.$option3.'</select></p>
 			<p>Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="twitter">'.$option1.$option2.$option3.'</select></p>
+			<p>Followers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="followers">'.$option1.$option2.$option3.'</select></p>
+			<p>Following &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="following">'.$option1.$option2.$option3.'</select></p>
+			<p>Medal &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="medal">'.$option1.$option2.$option3.'</select></p>
 			</fieldset>
 			<div class="clear" style="height:100px;" ><input type="submit" name="update" value="Update"></div>
 			</form>
