@@ -599,10 +599,11 @@ function privacy_settings()
 		}
     }
 		$query = "select * from {privacy_settings} where uid='$user->uid'";
-	   $get  = ExecuteQuery($query, "select");
+	   $fetch  = ExecuteQuery($query, "select");
 
-	   	   print_r($get);
+	   	   print_r($fetch);
 		extract($get);
+		echo $email;
  //privacy settings form
 $usertypes = userTypes();
 $option1 = '<option value=1>'.$usertypes[0].'</option>';
