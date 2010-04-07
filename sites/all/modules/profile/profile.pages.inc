@@ -48,29 +48,29 @@ function profile_view() {
  	if( ($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3  && $user->uid !=0 ) || $user->uid == $uid  ){
       $real_name1 = $real_name;
 	}
-	if( ($userSettings['bio'] == 1) || ($userSettings['bio'] == 3  && $user->uid !=0 ) ){
+	if( ($userSettings['bio'] == 1) || ($userSettings['bio'] == 3  && $user->uid !=0 )  || ($user->uid == $uid) ){
        $bio1 = $bio;
 	}
-	if( ($userSettings['country'] == 1) || ($userSettings['country'] == 3  && $user->uid !=0 ) ){
+	if( ($userSettings['country'] == 1) || ($userSettings['country'] == 3  && $user->uid !=0 ) || ($user->uid == $uid)  ){
        $country1 = $country;
 	}
-	if( ($userSettings['religion'] == 1) || ($userSettings['religion'] == 3  && $user->uid !=0 ) ){
+	if( ($userSettings['religion'] == 1) || ($userSettings['religion'] == 3  && $user->uid !=0 ) || ($user->uid == $uid)  ){
        $religion1 = $religion;
 	}
-	if( ($userSettings['image'] == 1) || ($userSettings['image'] == 3  && $user->uid !=0 ) ){
+	if( ($userSettings['image'] == 1) || ($userSettings['image'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) ){
 	 $img_path1=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image;
 	 $PROFILE_IMAGE= '<img src="'.$img_path1.'" align="absmiddle" alt="Profile image" >';
 	}
-	if( ($userSettings['zip'] == 1) || ($userSettings['zip'] == 3  && $user->uid !=0 ) ){
+	if( ($userSettings['zip'] == 1) || ($userSettings['zip'] == 3  && $user->uid !=0 )|| ($user->uid == $uid)  ){
        $zip1 = $zip;
 	}
-   if( ($userSettings['gender'] == 1) || ($userSettings['gender'] == 3  && $user->uid !=0 ) ){
+   if( ($userSettings['gender'] == 1) || ($userSettings['gender'] == 3  && $user->uid !=0 )|| ($user->uid == $uid)  ){
        $gender_name1  = $gender_name ;
 	}
-	if( ($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3  && $user->uid !=0 ) ){
+	if( ($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) ){
        $facebook1  =		'<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/facebook.png" align="absmiddle" alt="Facebook" >&nbsp; @'.$facebook;
 	}
-	if( ($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3  && $user->uid !=0 ) ){
+	if( ($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) ){
        $twitter1  =   '<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/twitter.png" align="absmiddle" alt="Twitter" >&nbsp; @'.$twitter;
 	}
 	//answers posted
@@ -115,7 +115,7 @@ function profile_view() {
 			$li_img_source = $pat."/images/gold.jpg";
 	   }
 
-	if( ($userSettings['medal'] == 1) || ($userSettings['medal'] == 3  && $user->uid !=0 ) ){
+	if( ($userSettings['medal'] == 1) || ($userSettings['medal'] == 3  && $user->uid !=0 ) || ($user->uid == $uid)  ){
 		  $medal = 	'<p>
 			<span><img title="'.$li .'"  src="'.$li_img_source .'" >
 			</span>'.$post_count.'
@@ -158,7 +158,7 @@ function profile_view() {
 				<div class="follow">';
 						
 					
-		if( ($userSettings['following'] == 1) || ($userSettings['following'] == 3  && $user->uid !=0 ) ){
+		if( ($userSettings['following'] == 1) || ($userSettings['following'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) ){
 		 $strReturn.='<p><b>Following</b></p>';
 				$newlist=followinglist();
 				
@@ -172,7 +172,7 @@ function profile_view() {
 				<div class="follower">
 				';
 				
-		if( ($userSettings['followers'] == 1) || ($userSettings['followers'] == 3  && $user->uid !=0 ) ){		
+		if( ($userSettings['followers'] == 1) || ($userSettings['followers'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) ){		
 			 $strReturn.='<p><b>Followers</b></p>';
 				$newlist2=followerlist();
 				for($k=0; $k<count($newlist2); $k++)
