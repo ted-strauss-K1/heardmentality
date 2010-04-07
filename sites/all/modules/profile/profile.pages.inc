@@ -45,7 +45,7 @@ function profile_view() {
     extract($result);
 	 $gender_name = isset($gender) && ($gender == 1)? 'Male': 'Female';
      //Checking settings and displaying the field
- 	if( ($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3  && $user->uid !=0 ) ){
+ 	if( ($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3  && $user->uid !=0 ) || $user->uid == $uid  ){
       $real_name1 = $real_name;
 	}
 	if( ($userSettings['bio'] == 1) || ($userSettings['bio'] == 3  && $user->uid !=0 ) ){
