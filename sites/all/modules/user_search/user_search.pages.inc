@@ -99,14 +99,14 @@ function user_follower()
 	
 	$follower='<script type="text/javascript">
 		function changeblk(fid,divid,blk){
-			var abc="welcum-"+divid;
+			var abc="welcum-"+fid;
 			alert(abc);
 			
 									var url = "'.$gSitePath.'savefollower";
 									var req = new Request({    
 											method: \'get\'
 											,url: url
-											,data: { \'action\':fid,\'ids\':abc,\'blk\':blk},
+											,data: { \'action\':fid,\'ids\':abc,\'blk\':blk,\'usid\':divid},
 											onRequest: function() { },
 											onComplete: function(response) {
 													 $(abc).set(\'html\', response);
@@ -131,7 +131,7 @@ function user_follower()
 	$follower.='<div class="following">';
 	$sel_pro="select * from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0' ";
 	$rs_follower=db_query($sel_pro);
-	$countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0'"));
+	$countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1' or follower_status='0'"));
 	while($follower_result=db_fetch_object($rs_follower))
 	{
 	
@@ -140,12 +140,12 @@ function user_follower()
 	$user_namelist=db_fetch_object($rs_userm);
 	if($follower_result->follower_status==0){
 	$blocklink='<input type="hidden" value="1" name="blk" id="blk"/>';
-	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a onclick="changeblk('.$follower_result->id.','.$follower_result->id.',1)" >UnBlock</a</div>';
+	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',1)" >UnBlock</a</div>';
 	} 
 	else 
 	{
 	$blocklink='<input type="hidden" value="0" name="blk" id="blk"/>';
-	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a onclick="changeblk('.$follower_result->id.','.$follower_result->id.',0)" >Block</a</div>';
+	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',0)" >Block</a</div>';
 	
 	} 
 	
@@ -412,18 +412,21 @@ if(isset($_GET['action']))
 $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  id='".$_GET['action']."' ";
 	$rs_blog_del=db_query($del_blog);
 	
-	 $sel_der='select * from follower  where id='.(int)$_GET['action'] ;
-	$rs_desrems=db_query($sel_der);
-	$result_dest=db_fetch_object($rs_desrems);
-	 $sel_userms="select * from users  where uid=$result_dest->uid ";
+	 
+	 $sel_userms="select * from users  where uid='".$_GET['usid']."' ";
 	$rs_userms=db_query($sel_userms);
 	$resulrnames=db_fetch_object($rs_userms);
 	if($_REQUEST['blk']==0)
+	{
+	$blkid='1';
 	$valss='UnBlock';
+	}
 	else
+	{
 	$valss='Block';
-
-	echo '<div id="'.$_REQUEST['ids'].'" ><strong>'.$resulrnames->name.'</strong> <a class="actdisplay" href="?actdisplay='.$_REQUEST['action'].'&amp;block='.$_REQUEST['blk'].'">'.$valss.'</a></div>';
+    $blkid='0';
+	}
+	echo '<div id="'.$_REQUEST['ids'].'" ><strong>'.$resulrnames->name.'</strong> <a onclick="changeblk('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" >'.$valss.'</a></div>';
 	
 }
 
