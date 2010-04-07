@@ -551,11 +551,11 @@ function privacy_settings()
         $chk1 = db_result($chk);
 		if ($chk1) {
             $result = db_query("UPDATE {privacy_settings} set real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
-			followers='$followers',following='$following',medal='$medal' where uid=$user->uid ");
+			followers='$followers',following='$following',medal='$medal',questions='$questions',answers='$answers'  where uid=$user->uid ");
 			
         } else {
             $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
-			followers='$followers',following='$following',medal='$medal'");
+			followers='$followers',following='$following',questions='$questions',answers='$answers' ,medal='$medal'");
         }
         if($result){
         drupal_set_message($message = 'Privacy Settings Updated Successfully!', $type = 'success');
@@ -587,6 +587,8 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 			<p>Followers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="followers">'.$option1.$option2.$option3.'</select></p>
 			<p>Following &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="following">'.$option1.$option2.$option3.'</select></p>
 			<p>Medal &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="medal">'.$option1.$option2.$option3.'</select></p>
+			<p>Posted Answers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="answers">'.$option1.$option2.$option3.'</select></p>
+			<p>Posted Questions&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select name="questions">'.$option1.$option2.$option3.'</select></p>
 			</fieldset>
 			<div class="clear" style="height:100px;" ><input type="submit" name="update" value="Update"></div>
 			</form>
