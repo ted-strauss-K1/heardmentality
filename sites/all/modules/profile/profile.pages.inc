@@ -131,7 +131,7 @@ function profile_view() {
 			<div class="img">'.$PROFILE_IMAGE.$medal.'
 			</div>
 			<div class="info">
-					'.$getuser['name'].'<br/>
+					'.$getuser->name.'<br/>
 					'.$real_name1.'<br/>
 					'.$gender_name1.'<br/>	
 					'.$religion1.'<br/>
