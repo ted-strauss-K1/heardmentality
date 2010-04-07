@@ -29,12 +29,14 @@
 		//echo $percent;
 		 $tot= $percent*100;
 	
-		$vSql="select * from {question} where status='1' and qid=$qid ";
+		$vSql="select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where q.status='1' and q.qid='$qid'  ";
 		$rlist=db_query($vSql);
 		$oListquest=db_fetch_object($rlist);
 		
+		//question privacy check
+		privacy_chk($oListquest->uid,$oListquest->question_privacy,$oListquest->share);
 		
-		
+				
 		$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
 		 $numran= db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'"));
 		$answer_id=db_fetch_object($list_lengthan);
@@ -385,6 +387,95 @@
 		</div></div></form>';
 		return $voutput;
 		}
+
+		function privacy_chk($owner='',$qp='',$share=''){
+			
+			global $gSitePath,$user, $gDocPath,$base_root;
+			if($owner==$user->uid){
+				
+				return true;
+			}
+			
+			switch($qp){
+				case 1:
+					
+					if(empty($user)){
+		drupal_set_message($message = 'Sorry Please login to post your answers!', $type = 'error');
+		drupal_goto("qmini");
+					}else{
+						
+						
+					}
+						
+					break;
+						
+				case 2:
+					//check followers 
+		 $query="(select count(*) as yea from {follower} where follower_id='$user->uid' and uid='$owner') union(select count(*) as yea from {follower} where uid='$user->uid' and follower_id='$owner')  ";
+		  $cnt = ExecuteQuery($query, "select");
+	
+	if($cnt[0][yea]||$cnt[1][yea]){
+	
+		}else{
+			drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
+		drupal_goto("qmini");
+		
+		}
+		//check followee
+		
+		
+		
+					break;
+				case 4:
+					prompt_privacy($owner,$share);
+				
+					break;
+				case 3:
+				default:
+					break;				
+				
+				
+				
+				
+			}
+			
+			
+		}
+
+	function prompt_privacy($owner='',$share=''){
+		
+		global $gSitePath,$user, $gDocPath,$base_root;
+		
+		switch($share){
+			
+			case 2:
+				 $query="(select count(*) as yea from {follower} where follower_id='$user->uid' and uid='$owner') union(select count(*) as yea from {follower} where uid='$user->uid' and follower_id='$owner')  ";
+		  $cnt = ExecuteQuery($query, "select");
+	
+	if($cnt[0][yea]||$cnt[1][yea]){
+	
+		}else{
+			drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
+		drupal_goto("qmini");
+		
+		}
+				break;
+			case 3:
+				drupal_set_message($message = 'Sorry, Question is blocked for public by owner!', $type = 'error');
+		drupal_goto("qmini");
+				break;	
+			case 1:
+			default:
+				break;	
+			
+		}
+		
+		
+		
+		
+	}
+
+
 
 		function qlite_save()
 		{
