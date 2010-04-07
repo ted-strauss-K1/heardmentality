@@ -643,7 +643,7 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 
 function markit(){
 	
-	var chk='.$get['email'].';
+	var chk='.$fetch[0]['email'].';
 	
 var elt=$$(\'.email\');
 
