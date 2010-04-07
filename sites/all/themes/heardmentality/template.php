@@ -140,7 +140,7 @@ function garland_user_bar() {
     $output .= t('<p class="user-info">welcome !user.</p>', array('!user' => theme('username', $user)));
  
     $output .= theme('item_list', array(
-      l(t('Your account'), 'user/'.$user->uid, array('title' => t('Edit your account'))),
+      l(t('My Account'), 'user/'.$user->uid, array('title' => t('Edit your account'))),
       l(t('Sign out'), 'logout')));
   }
    
