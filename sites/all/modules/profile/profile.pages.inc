@@ -647,7 +647,7 @@ function markit(){
 	
 var elt=$$(\'.email\');
 
-elt.each(function(el){
+elt.each(function(el){alert(el.value);
 el.set(\'value\',chk);
 
 });
