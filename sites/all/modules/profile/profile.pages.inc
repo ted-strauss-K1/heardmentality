@@ -219,8 +219,9 @@ function profile_view() {
 // Edit Profile
 function profile_edit() {
     global $gSitePath,$user,$gDocPath,$base_root;
+	
     //print_r($_REQUEST);
-    $uid=$user->uid;
+	 $uid=$user->uid;
 	$bio='';
 	$real_name='';
 	$gender='';
@@ -235,10 +236,13 @@ function profile_edit() {
 	$twitter='';
 	$check1='';
 	$check2='';
-    if (isset($_REQUEST['update'])) {
+    $question_privacy='4';
+	
+    if ($_REQUEST['update'] == 'Update') {
         extract($_REQUEST);
         if ($rname == '') {
             drupal_set_message($message = 'Real Name should not be empty!', $type = 'error');
+			drupal_goto('profile/edit');
         }
 
         
@@ -250,11 +254,7 @@ function profile_edit() {
             $insimage = $return['image'];
             $flag = $return['flag'];
             $suc = $return['suc'];
-			
-			if(!$flag){
-				
-			 drupal_set_message($message = $suc, $type = 'error');	
-			}
+
         
         }
         
@@ -264,13 +264,16 @@ function profile_edit() {
         
         if ($chk1) {
             
-            $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter' where uid='$user->uid' ");
+            $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset' where uid='$user->uid' ");
         
         } else {
-            $result = db_query("INSERT INTO {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter' ");
+            $result = db_query("INSERT INTO {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset'");
         }
         if($result){
+        	$sucflag='';
+        	$sucflag=1;
         drupal_set_message($message = 'Profile Updated Successfully!', $type = 'success');
+		
 		}
 	if(!empty($pass1)){
     	
@@ -278,18 +281,21 @@ function profile_edit() {
 		
   $result = db_query("UPDATE {users} set pass='".md5($pass1)."' where uid='$user->uid' ");		
 		  drupal_set_message($message = 'Password Updated Successfully!', $type = 'success');
+		
 	}else{
 		
 		 drupal_set_message($message = 'Password should be same to chnage!', $type = 'error');
 	}
-	}	
+	}	else{
+		if($sucflag){
+		drupal_goto('profile/');}
+	}
 	
 	
     }
 
     $get_cn = db_query("select * from {user_profile} where uid='$user->uid'");
     $result = db_fetch_array($get_cn);
-	if(is_array($result))
     extract($result);
     
     drupal_add_js(drupal_get_path('module', 'profile').'/js/en.js');
@@ -316,7 +322,7 @@ function profile_edit() {
     $strReturn = '	
 		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
 		<fieldset>
-        	<legend>Account information</legend>
+        	<legend><b><i>Account information</i></b></legend>
 				<div class="form-item" id="edit-name-wrapper"> 
 					<label for="edit-name">Username: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="60" name="name" id="edit-name" disabled="disabled" size="60" value="'.$user->name.'" class="form-text required" type="text">
                      
@@ -342,7 +348,7 @@ function profile_edit() {
      </fieldset>
    
 		<fieldset>
-			<legend> Profile Bio </legend>
+			<legend> <b><i>Profile Bio</i></b> </legend>
 				<div class="form-item" id="edit-name-wrapper"> 
 					<label for="edit-rname">Real Name: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="60" name="rname" id="edit-rname" size="40"  value="'.$real_name.'"  class="form-text required"  type="text"> 
 					<div class="description">Spaces are allowed; punctuation is not allowed except for periods, hyphens, and underscores.</div>
@@ -370,35 +376,60 @@ function profile_edit() {
          
         </fieldset>
 	  <fieldset>
-		<legend>Links </legend>
+		<legend><b><i>Links</i></b> </legend>
 		<div class="form-item" id="edit-name-wrapper"> 
-			<label for="edit-facebook">Facebook: </label> <input maxlength="60" name="facebook" id="edit-facebook"  value="'.$facebook.'"  size="60" value="" class="form-text required" type="text"> 
+			<label for="edit-facebook">Facebook: </label> <input maxlength="60" name="facebook" id="edit-facebook"  value="'.$facebook.'"  size="60"  class="form-text required" type="text"> 
 			<div class="description"></div>
         </div>
-		<div class="form-item" id="edit-twitter-wrapper"> <label for="edit-twitter">Twitter :</label> <input maxlength="64" value="'.$twitter.'"  name="twitter" id="edit-twitter" size="60" value="" class="form-text required" type="text"> <div class="description"></div></div>
+		<div class="form-item" id="edit-twitter-wrapper"> <label for="edit-twitter">Twitter :</label> <input maxlength="64" value="'.$twitter.'"  name="twitter" id="edit-twitter" size="60" class="form-text required" type="text"> <div class="description"></div></div>
 	
          
         </fieldset>	
-	<div class="clear" style="height:100px;" ><input type="submit" name="update" value="Update"></div>
+		 <fieldset>
+		<legend><b><i>Question & Resource Privacy Settings</i></b> </legend>
+		<div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset"  class="qrset" value="1">&nbsp;Always Post Non-Anonymous
+            <div class="description"></div>
+        </div>
+        <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset" value="2">&nbsp;Only allow Followers & Followees to see
+            <div class="description"></div>
+        </div>
+         <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset"  value="3">&nbsp;Only Post Anonymous
+            <div class="description"></div>
+        </div>
+        <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset"  value="4">&nbsp;Prompt on all (if prompt all, pop up to ask if he wants to share with
+everyone or just followers or not at all while adding a question)
+            <div class="description"></div>
+        </div>
+        </fieldset>		
+	<div class="clear"  style="height:100px;"><input type="submit" name="update" value="Update"></div>
         
 		</form>
 		
 		<script>
 		
-		window.addEvent(\'domready\', function() {
-			var chk="'.$gender.'";
-	if(chk==1){
+		
+setTimeout(markit,2000);
+
+function markit(){
 	
-$(\'edit-gender-0\').set(\'checked\',true);
-document.profile.gender[0].checked = true;
+	var chk='.$question_privacy.';
+	
+var elt=$$(\'.qrset\');
 
-	}
+elt.each(function(el){var alt=el.get(\'value\'); if(chk==alt){
 
-else if(chk==2){
- $(\'edit-gender-1\').set(\'checked\',true);
- document.profile.gender[1].checked = true;
- 	}
-
+el.set(\'checked\',true);
+}
+});
+}
 		</script>
 		
 		
