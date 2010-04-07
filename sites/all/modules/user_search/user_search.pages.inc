@@ -100,18 +100,22 @@ function user_follower()
 	$follower='<script type="text/javascript">
 		function changeblk(fid,divid,blk){
 			var abc="welcum-"+fid;
-		var url = "'.$gSitePath.'savefollower";
-		var req = new Request({    
-		method: \'get\'
-		,url: url
-		,data: { \'action\':fid,\'ids\':abc,\'blk\':blk,\'usid\':divid},
-		onRequest: function() { },
-		onComplete: function(response) {
-			 $(abc).set(\'html\', response);
-		}
-		}).send();
+			alert(abc);
+			
+									var url = "'.$gSitePath.'savefollower";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':fid,\'ids\':abc,\'blk\':blk,\'usid\':divid},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(abc).set(\'html\', response);
+											}
+									}).send();
+						
+							
                            
-		}	
+							}	
 	
 	</script>
 	';
@@ -379,8 +383,13 @@ function suggest_follow()
 drupal_goto("suggest/follow");
 	}
 
+$numt= count($result_array_quest);
+$numi= count($result_array);
+if(($numt==0)&&($numi==0))
+{
+$suggest_follow.='No suggested Users';
 
-
+}
 	return $suggest_follow;
 	
 
