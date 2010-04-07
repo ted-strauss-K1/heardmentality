@@ -100,22 +100,18 @@ function user_follower()
 	$follower='<script type="text/javascript">
 		function changeblk(fid,divid,blk){
 			var abc="welcum-"+fid;
-			alert(abc);
-			
-									var url = "'.$gSitePath.'savefollower";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':fid,\'ids\':abc,\'blk\':blk,\'usid\':divid},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(abc).set(\'html\', response);
-											}
-									}).send();
-						
-							
+		var url = "'.$gSitePath.'savefollower";
+		var req = new Request({    
+		method: \'get\'
+		,url: url
+		,data: { \'action\':fid,\'ids\':abc,\'blk\':blk,\'usid\':divid},
+		onRequest: function() { },
+		onComplete: function(response) {
+			 $(abc).set(\'html\', response);
+		}
+		}).send();
                            
-							}	
+		}	
 	
 	</script>
 	';
