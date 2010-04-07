@@ -599,7 +599,7 @@ function privacy_settings()
 		}
     }
 	
-	   $get = db_fetch_array($chk);
+	   $get = db_fetch_array($chk1);
 	   print_r($get);
 		extract($get);
  //privacy settings form
