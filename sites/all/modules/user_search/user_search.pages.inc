@@ -97,33 +97,27 @@ function user_follower()
 	$follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	
 	
-	$following='<script type="text/javascript">
+	$follower='<script type="text/javascript">
 	window.addEvent(\'domready\',function() {
-	$$(\'a.delete\').each(function(el) {
+	$$(\'a.actdisplay\').each(function(el) {
 		el.addEvent(\'click\',function(e) {
 			e.stop();
 			var parent = el.getParent(\'div\');
 			var request = new Request({
-				url: \''.$gSitePath.'savefollowing\',
+				url: \''.$gSitePath.'savefollower\',
 				link: \'chain\',
 				method: \'get\',
 				data: {
-					\'delete\': parent.get(\'id\').replace(\'record-\',\'\'),
+					\'actdisplay\': parent.get(\'id\').replace(\'welcum-\',\'\'),
+					\'block\': parent.get(\'id\'),
 					ajax: 1
 				},
 				onRequest: function() {
 					new Fx.Tween(parent,{
 						duration:300
-					}).start(\'background-color\', \'#fb6c6c\');
+					})
 				},
-				onSuccess: function() {
-					new Fx.Slide(parent,{
-						duration:300,
-						onComplete: function() {
-							parent.dispose();
-						}
-					}).slideOut();
-				}
+				
 			}).send();
 		});
 	});
@@ -146,20 +140,23 @@ function user_follower()
 	$countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1' or follower_status='0'"));
 	while($follower_result=db_fetch_object($rs_follower))
 	{
+	
+	$sel_userm="select * from users  where uid='".$follower_result->uid."' ";
+	$rs_userm=db_query($sel_userm);
+	$user_namelist=db_fetch_object($rs_userm);
 	if($follower_result->follower_status==0){
 	//$blocklink='<a style="text-decoration:none;" href="follower/'.$follower_result->id.'?act=del&block=1"><span>UnBlock </span></a>';
-	$blocklink='<input type="submit" name="button" id="submitter"  value="UnBlock"/>';
+	$blocklink='<div class="welcum" id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a href="?actdisplay='.$follower_result->id.'&block=1" class="actdisplay">UnBlock</a</div>';
 	} 
 	else 
 	{
 	//$blocklink='<a style="text-decoration:none;" href="follower/'.$follower_result->id.'?act=del&block=0"><span>Block </span></a>';
-	
+	$blocklink='<div class="welcum" id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a href="?actdisplay='.$follower_result->id.'&block=0" class="actdisplay">Block</a</div>';
 	
 	} 
-	$sel_userm="select * from users  where uid='".$follower_result->uid."' ";
-	$rs_userm=db_query($sel_userm);
-	$user_namelist=db_fetch_object($rs_userm);
-	$follower.='<h4>'.$user_namelist->name.'</a></h4>';
+	
+	//$follower.='<h4>'.$user_namelist->name.'</a>'.$blocklink.'</h4>';
+	$follower.=''.$blocklink.'';
 	}
 	if($countrowsm==0)
 	{
@@ -229,8 +226,7 @@ function user_following()
 	echo $following;
 	
 
-}
-function suggest_follow()
+}function suggest_follow()
 {
 	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	$sel_flow="select * from follower  where uid='".$user->uid."'  and follower_status='1' ";
