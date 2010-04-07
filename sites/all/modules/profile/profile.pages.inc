@@ -596,6 +596,7 @@ function privacy_settings()
         }
         if($result){
         drupal_set_message($message = 'Privacy Settings Updated Successfully!', $type = 'success');
+		  echo '<script>window.parent.location.href="'.$gSitePath.'profile/";</script>';
 		}
     }
 		$query = "select * from {privacy_settings} where uid='$user->uid'";
@@ -603,7 +604,7 @@ function privacy_settings()
 
 	   	  
 		$get=extract($fetch);
-			print_r($fetch);
+		
 			
  //privacy settings form
 $usertypes = userTypes();
