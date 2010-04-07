@@ -442,7 +442,7 @@ function followinglist()
 	$following[]='<a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$user_namelist->name.'<br>  </a>';
 	
 	}
-	if($numfolls>2)
+	if($numfolls>0)
 	{
 	$following[].='<a style="color:#F37321;
 text-decoration:none;" onclick="loadfollowing(\''.$gSitePath.'following\',\'Following\');">More</a>';
@@ -482,7 +482,7 @@ function followerlist()
 	$user_namelistf=db_fetch_object($rs_usermf);
 	$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
 	}
-	if($numfoll>2)
+	if($numfoll>0)
 	{
 	$followeru[].='<a style="color:#F37321;
 text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower\',\'Follower\');">More</a>';
