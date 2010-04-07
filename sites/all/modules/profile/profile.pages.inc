@@ -598,9 +598,10 @@ function privacy_settings()
         drupal_set_message($message = 'Privacy Settings Updated Successfully!', $type = 'success');
 		}
     }
-	
-	   $get = db_fetch_object($chk);
-	   print_r($get);
+		$query = "select * from {privacy_settings} where uid='$user->uid'";
+	   $get  = ExecuteQuery($query, "select");
+
+	   	   print_r($get);
 		extract($get);
  //privacy settings form
 $usertypes = userTypes();
