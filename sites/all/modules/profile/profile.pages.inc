@@ -603,8 +603,8 @@ function privacy_settings()
 
 	   	  
 		$get=extract($fetch);
-			extract($get);
-			print_r($get);
+			
+			
  //privacy settings form
 $usertypes = userTypes();
 $option1 = '<option value=1>'.$usertypes[0].'</option>';
@@ -643,7 +643,7 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 
 function markit(){
 	
-	var chk='.$email.';
+	var chk='.$get['email'].';
 	
 var elt=$$(\'.email\');
 
