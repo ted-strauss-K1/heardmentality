@@ -610,9 +610,15 @@ $usertypes = userTypes();
 $option1 = '<option value=1>'.$usertypes[0].'</option>';
 $option2 = '<option value=2>'.$usertypes[1].'</option>';
 $option3 = '<option value=3>'.$usertypes[2].'</option>';
+
+
+
   $strReturn = '
+  <script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
   <link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
 	<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+	
 		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend>Privacy Settings</legend>
