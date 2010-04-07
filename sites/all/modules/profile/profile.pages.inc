@@ -603,7 +603,7 @@ function privacy_settings()
 
 	   	  
 		$get=extract($fetch);
-			
+			print_r($get);
 			
  //privacy settings form
 $usertypes = userTypes();
