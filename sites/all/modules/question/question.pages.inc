@@ -48,7 +48,7 @@ function my_question() {
 }
 // question add
 function question_add() {
-    
+    global $gSitePath,$user,$gDocPath,$base_root;
     //get error msgs
     $error = drupal_get_messages();
     if (is_array($error)) {
@@ -95,7 +95,7 @@ function question_add() {
 	
 	
 				<script type="text/javascript">
-				
+				var spath=\''.$gSitePath.'\';
 				window.setTimeout("setDefaultCountry()", 1000);
 				function setDefaultCountry() {
   var countrySelect = document.getElementById("q_country");
@@ -146,7 +146,7 @@ setDefaultCountry();
 									$(\'cat1\').set(\'value\',ids);
 									$(\'chg_sscat\').fade(\'out\');
 										}
-									
+								
 									if(level==2){
 									
 									$(\'cat2\').set(\'value\',ids);
@@ -169,6 +169,7 @@ setDefaultCountry();
 													 $(divid).set(\'html\', response);
 											}
 									}).send();
+										get_tag_cat(ids,level);
 							}
 							}else{
 							 $(divid).set(\'html\',\'No Subcategory\');
@@ -229,7 +230,7 @@ setDefaultCountry();
 	<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
-$output.='<style>td,select{font-size:12px;}</style>
+    $output .= '<style>td,select{font-size:12px;}</style>
 		<div id="err" style="border: 3px solid rgb(221, 151, 161); display: block; background-color: rgb(238, 238, 238); height: auto; color: red;">'.$list_err.'</div>
 	
 			<br/>
@@ -329,14 +330,14 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     
     $output .= '<tr><td colspan="6">'.get_tagging().'</td></tr>';
 
-
- $get_cn = db_query("select * from {user_profile} where uid='$user->uid'");
+    
+    $get_cn = db_query("select * from {user_profile} where uid='$user->uid'");
     $result = db_fetch_array($get_cn);
     extract($result);
-	
-	if($question_privacy=='4'){
-
-    $output.= '<tr><td colspan="6"> <fieldset>
+    
+    if ($question_privacy == '4') {
+        
+        $output .= '<tr><td colspan="6"> <fieldset>
 		<legend><b><i>Share With</i></b> </legend>
 		
 		<div class="form-item" id="edit-name-wrapper">
@@ -356,9 +357,9 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
         </div>
        
         </fieldset>		</td></tr>';
-	
-	}
-	
+    
+    }
+    
     $output .= ' </td></tr><tr>
     <td height="42">&nbsp;</td>
     <td>&nbsp;</td>
@@ -377,20 +378,20 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
 
 }
 
-function get_tagging($tag='') {
+function get_tagging($tag = '') {
 
     
     $content = '';
-	$tagged='';
-    if($tag!=''){
-    	
-		$exp=explode(",",$tag);
-		
-		foreach($exp as $list){
-			
-			$tagged.='<div id="tagset" class="tagging-tag" onclick="tag_delq(this);return false;">'.$list.'</div>';
-		}
-		
+    $tagged = '';
+    if ($tag != '') {
+        
+        $exp = explode(",", $tag);
+        
+        foreach ($exp as $list) {
+            
+            $tagged .= '<div id="tagset" class="tagging-tag" onclick="tag_delq(this);return false;">'.$list.'</div>';
+        }
+    
     }
     $content .= '<div id="tagging-widget-container">
         <fieldset>
@@ -419,10 +420,9 @@ function get_tagging($tag='') {
                 </div>
             </div>
             <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value="http://localhost/heardmentalitylocal/taxonomy/autocomplete/1" disabled="disabled" type="hidden">
-            <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
-                <label>
-                    Suggestions:
-                </label>
+          
+		    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
+               <label>Suggestions:</label>
                 <a href="/heardmentalitylocal/" class="taga" title="Add tag">
                     <div id="tagging-1" class="tagging-suggest-tag processed">
                         Drupal
@@ -451,25 +451,25 @@ function question_save() {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $q_quest = '';
- // print_r($_REQUEST);
+    // print_r($_REQUEST);
     extract($_REQUEST);
     $output = '';
     $g_global = '';
     if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($cat1)) {
         $edate = $q_edate;
-					
-		 $dst= clean_url(myTruncate($q_quest,100,' '));
-		
+        
+        $dst = clean_url(myTruncate($q_quest, 100, ' '));
+        
         $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',url='$dst',share='$qrset'  ");
-       
-		
+
+        
         $ins_id = db_last_insert_id('question', 'qid');
-		
-		//for url alias
-		$url='qlite/view/'.$ins_id;
-		
-		$urlins=db_query("insert INTO {url_alias} set src='".$url."',dst='".$dst."'");
-		
+        
+        //for url alias
+        $url = 'qlite/view/'.$ins_id;
+        
+        $urlins = db_query("insert INTO {url_alias} set src='".$url."',dst='".$dst."'");
+        
         for ($i = 1; $i <= $ans_cnt; $i++) {
             $name = "q_ans".$i;
             if (! empty($$name)) {
@@ -477,11 +477,11 @@ function question_save() {
             }
         }
         
-		if($q_tag!=''){
-			
-			$result=db_query("INSERT INTO {qtag} (qid,tag) VALUES (%d,'%s')", $ins_id, $q_tag);
-		}
-		
+        if ($q_tag != '') {
+            
+            $result = db_query("INSERT INTO {qtag} (qid,tag) VALUES (%d,'%s')", $ins_id, $q_tag);
+        }
+        
         if ($result)
             $output = drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
         unset($_SESSION['post']);
@@ -510,34 +510,34 @@ function question_save() {
     echo implode("<br/>", $output['error']);
 }
 
-function myTruncate($string, $limit, $break=" ", $pad="") {
- 
-				  // return with no change if string is shorter than $limit 
-				   if(strlen($string) <= $limit) return $string; 
-				   $string = substr($string, 0, $limit); 
-				   if(false !== ($breakpoint = strrpos($string, $break))) { 
-				   $string = substr($string, 0, $breakpoint);
-					}
-					$string=str_replace("\"", "", $string);
-					 return $string . $pad;
-	  }
-	  
-	 setlocale(LC_ALL, 'en_US.UTF8');
-function clean_url($str, $replace=array(), $delimiter='-') {
-	if( !empty($replace) ) {
-		$str = str_replace((array)$replace, ' ', $str);
-	}
+function myTruncate($string, $limit, $break = " ", $pad = "") {
+    
+    // return with no change if string is shorter than $limit
+    if (strlen($string) <= $limit)
+        return $string;
+    $string = substr($string, 0, $limit);
+    if (false !== ($breakpoint = strrpos($string, $break))) {
+        $string = substr($string, 0, $breakpoint);
+    }
+    $string = str_replace("\"", "", $string);
+    return $string.$pad;
+}
 
-	$clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
-	$clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
-	$clean = strtolower(trim($clean, '-'));
-	$clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+setlocale(LC_ALL, 'en_US.UTF8');
+function clean_url($str, $replace = array(), $delimiter = '-') {
+    if (! empty($replace)) {
+        $str = str_replace((array) $replace, ' ', $str);
+    }
+    
+    $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+    $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+    $clean = strtolower(trim($clean, '-'));
+    $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+    
+    return $clean;
+}
 
-	return $clean;
-} 
-	  
-	  
-  
+
 function question_edit_save($array) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -566,12 +566,12 @@ function question_edit_save($array) {
             }
         }
         
-		if(db_query("select * from {qtag} where qid='".$nid."'")){
-			
-			db_query("update {qtag} set tag='".$q_tag."' where qid='".$nid."'");
-			
-		}
-		
+        if (db_query("select * from {qtag} where qid='".$nid."'")) {
+            
+            db_query("update {qtag} set tag='".$q_tag."' where qid='".$nid."'");
+        
+        }
+        
         if ($result)
             drupal_set_message(t('Thank you, Question updated successfully!'), $type = 'success');
         drupal_goto("question/");
@@ -605,7 +605,7 @@ function edit_question() {
     
     drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
         type="text/javascript"></script>');
-		
+
     
     if (isset($_POST['update'])) {
         
@@ -774,11 +774,11 @@ setDefaultCountry();
 		
 			
 			';
-	
+    
     $output .= '<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
-$output.='<div id="err" class="clear"></div>
+    $output .= '<div id="err" class="clear"></div>
 <div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
 				<form id="question" name="question" method="post"   onsubmit="return validate_question();" ><table width="100%" border="0" align="center" style="border:0px;">
   <tr>
@@ -805,7 +805,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     $query = "SELECT * FROM {possible_answer} where qid='".$nid."' ";
     $ans = ExecuteQuery($query, "select");
     $i = 1;
-	$tab=3;
+    $tab = 3;
     foreach ($ans as $array) {
         
         $output .= ' <tr>
@@ -944,13 +944,13 @@ function question_ajax() {
         }
         if (! empty($client_array)) {
             
-            if ($action == 1){
+            if ($action == 1) {
                 $qscat = "q_scat";
-				$tab=15;
-			}
-            if ($action == 2){
+                $tab = 15;
+            }
+            if ($action == 2) {
                 $qscat = "q_sscat";
-				$tab=16; //	get_subcat(\'q_cat\',\'chg_scat\',1);
+                $tab = 16; //	get_subcat(\'q_cat\',\'chg_scat\',1);
             }
             $ret = '<select tabindex="'.$tab.'"  size="5" multiple="multiple" onchange="get_subcat('.$qscat.',\'chg_sscat\','.++$action.');" id="'.$qscat.'" name="q_scat[]"> ';
             for ($i = 0; $i < count($client_array); $i++) {
@@ -1002,6 +1002,120 @@ function question_ajax() {
 
         
         }
+
+    
+    } elseif (isset($_REQUEST['tag'])) {
+        
+        extract($_REQUEST);
+        
+        $tarr = explode(' ', $tag);
+        $qns = explode(' ', $qns);
+        $tarr = array_merge($tarr, $qns);
+        $tarr = array_filter($tarr);
+        $tarr = array_unique($tarr);
+        
+        $taglist = array();
+        
+        foreach ($tarr as $list) {
+            
+            $query = " SELECT * FROM {qtag} WHERE `tag` LIKE CONVERT( _utf8 '%$list%'USING latin1 )COLLATE latin1_swedish_ci LIMIT 0 , 15 ";
+            $result = ExecuteQuery($query, "select");
+            foreach ($result as $single) {
+                array_push($taglist, $single['tag']);
+            }
+        }
+     //for category taglist         
+        if (! empty($cat1)) {
+            
+            $exp = explode(',', $cat1);
+			
+            $qids = array();
+            foreach ($exp as $scat) {
+                
+                $query = " SELECT * FROM {question}";
+                $result = ExecuteQuery($query, "select");
+                
+                foreach ($result as $man) {
+                	
+                    $getcat = explode(',', $man['cid']);
+                
+				  if (in_array($scat, $getcat)) {
+                        
+                        array_push($qids, $man['qid']);
+                    
+                    }
+                }
+				
+				/*
+if(!empty($cat2)){
+					 $exp1 = explode(',', $cat2);
+			
+                      foreach ($exp1 as $ocat) {
+                
+                $query = " SELECT * FROM {question}";
+                $result = ExecuteQuery($query, "select");
+                
+                foreach ($result as $man) {
+                	
+                    $getcat1 = explode(',', $man['scid']);
+                
+				  if (in_array($ocat, $getcat1)) {
+                        
+                        array_push($qids, $man['qid']);
+                    
+                    }
+                }
+					
+				}
+*/
+				
+				
+				
+				
+				
+                $qids=array_unique($qids);
+              $qids= implode(',', $qids);
+			  
+			  $query = " SELECT * FROM {qtag} WHERE `qid` IN ($qids) ";
+            $result = ExecuteQuery($query, "select");
+            foreach ($result as $single) {
+                array_push($taglist, $single['tag']);
+            }
+            
+            }
+
+        
+        }
+		
+		
+		
+		 $taglist = array_filter($taglist);
+        
+        $taglist = array_unique($taglist);
+        $taglist = implode(',', $taglist);
+        $taglist = explode(',', $taglist);
+        $taglist = array_filter($taglist);
+        $taglist = array_unique($taglist);
+		
+		 $tag = ' <label>
+            	                    Suggestions:
+            	                </label>';
+        if (! empty($taglist)) {
+            foreach ($taglist as $ins) {
+                $tag .= '	<a class="taga" title="Add tag" href="#">
+            	                    <div id="tagging-1" class="tagging-suggest-tag processed">
+            	                        '.$ins.'</div></a>';
+
+            
+            }
+        } else {
+            
+            $tag .= '<b>No Suggestions</b>';
+        }
+        
+        echo $tag;
+        exit;
+    
     }
 }
 
