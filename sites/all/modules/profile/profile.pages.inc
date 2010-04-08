@@ -35,6 +35,7 @@ function profile_view() {
 	if(is_array($result))
     extract($result);
 	$userSettings = checkPrivacySettings($uid);
+	$is_follow_follower = checkFollowStatus($user->uid, $uid);
     drupal_add_css(drupal_get_path('module', 'profile').'/styles/profile.css');
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
@@ -46,32 +47,42 @@ function profile_view() {
 
 	 $gender_name = isset($gender) && ($gender == 1)? 'Male': 'Female';
      //Checking settings and displaying the field
- 	if( ($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) ){
+ 	if( ($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)
+	   || ($userSettings['real_name'] == 2  && $is_follow_follower == TRUE  ) ){
       $real_name1 = $real_name;
 	}
-	if( ($userSettings['bio'] == 1) || ($userSettings['bio'] == 3  && $user->uid !=0 )  || ($user->uid == $uid) || ($user->uid == 1) ){
+	if( ($userSettings['bio'] == 1) || ($userSettings['bio'] == 3  && $user->uid !=0 )  || ($user->uid == $uid) || ($user->uid == 1) 
+	   || ($userSettings['bio'] == 2  && $is_follow_follower == TRUE  ) 	){
        $bio1 = $bio;
 	}
-	if( ($userSettings['country'] == 1) || ($userSettings['country'] == 3  && $user->uid !=0 ) || ($user->uid == $uid)  || ($user->uid == 1)){
+	if( ($userSettings['country'] == 1) || ($userSettings['country'] == 3  && $user->uid !=0 ) || ($user->uid == $uid)  || ($user->uid == 1) 
+	   || ($userSettings['country'] == 2  && $is_follow_follower == TRUE  ) ) {
        $country1 = $country;
 	}
-	if( ($userSettings['religion'] == 1) || ($userSettings['religion'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) ){
+	if( ($userSettings['religion'] == 1) || ($userSettings['religion'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) 
+	   || ($userSettings['religion'] == 2  && $is_follow_follower == TRUE  ) ) {
        $religion1 = $religion;
 	}
-	if( ($userSettings['image'] == 1) || ($userSettings['image'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)){
+	if( ($userSettings['image'] == 1) || ($userSettings['image'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) 
+	   || ($userSettings['image'] == 2  && $is_follow_follower == TRUE  ) ){
 	 $img_path1=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image;
 	 $PROFILE_IMAGE= '<img src="'.$img_path1.'" align="absmiddle" alt="Profile image" >';
 	}
-	if( ($userSettings['zip'] == 1) || ($userSettings['zip'] == 3  && $user->uid !=0 )|| ($user->uid == $uid) || ($user->uid == 1) ){
+	if( ($userSettings['zip'] == 1) || ($userSettings['zip'] == 3  && $user->uid !=0 )|| ($user->uid == $uid) || ($user->uid == 1) 
+	|| ($userSettings['zip'] == 2  && $is_follow_follower == TRUE  )	
+	){
        $zip1 = $zip;
 	}
-   if( ($userSettings['gender'] == 1) || ($userSettings['gender'] == 3  && $user->uid !=0 )|| ($user->uid == $uid) || ($user->uid == 1) ){
+   if( ($userSettings['gender'] == 1) || ($userSettings['gender'] == 3  && $user->uid !=0 )|| ($user->uid == $uid) || ($user->uid == 1) 
+	|| ($userSettings['gender'] == 2  && $is_follow_follower == TRUE  )   ){
        $gender_name1  = $gender_name ;
 	}
-	if( ($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)){
+	if( ($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)
+	|| ($userSettings['twitter'] == 2  && $is_follow_follower == TRUE  )	){
        $facebook1  =		'<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/facebook.png" align="absmiddle" alt="Facebook" >&nbsp; @'.$facebook;
 	}
-	if( ($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)){
+	if( ($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)
+	|| ($userSettings['facebook'] == 2  && $is_follow_follower == TRUE  )	){
        $twitter1  =   '<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/twitter.png" align="absmiddle" alt="Twitter" >&nbsp; @'.$twitter;
 	}
 	//answers posted
@@ -116,20 +127,23 @@ function profile_view() {
 			$li_img_source = $pat."/images/gold.jpg";
 	   }
 
-	if( ($userSettings['medal'] == 1) || ($userSettings['medal'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) ){
+	if( ($userSettings['medal'] == 1) || ($userSettings['medal'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) 
+		|| ($userSettings['medal'] == 2  && $is_follow_follower == TRUE  )	) {
 		  $medal = 	'<p>
 			<span><img title="'.$li .'"  src="'.$li_img_source .'" >
 			</span>'.$post_count.'
 			</p>';
 		}
 
-	if( ($userSettings['answers'] == 1) || ($userSettings['answers'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)){
+	if( ($userSettings['answers'] == 1) || ($userSettings['answers'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)
+		|| ($userSettings['answers'] == 2  && $is_follow_follower == TRUE  )	){
 		  $answer1 =  	'<div  class="lft">
 				<p><b>Answers</b></p>
 				'.$ins_ans.'
 				</div>';
 	}
-	if( ($userSettings['answers'] == 1) || ($userSettings['answers'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)){
+	if( ($userSettings['questions '] == 1) || ($userSettings['questions '] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) 
+			|| ($userSettings['questions '] == 2  && $is_follow_follower == TRUE  )) {
 		  $question1 =  	'<div class="rht">
 				<p><b>Questions Posted</b></p>
 				'.$inc_qns.'
@@ -174,7 +188,8 @@ function profile_view() {
 				<div class="follow">';
 						
 					
-		if( ($userSettings['following'] == 1) || ($userSettings['following'] == 3  && $user->uid !=0 ) || ($user->uid == $uid)|| ($user->uid == 1) ){
+		if( ($userSettings['following'] == 1) || ($userSettings['following'] == 3  && $user->uid !=0 ) || ($user->uid == $uid)|| ($user->uid == 1) 
+				|| ($userSettings['following'] == 2  && $is_follow_follower == TRUE  ) ) {
 		 $strReturn.='<p><b>Following</b></p>';
 				$newlist=followinglist();
 				
@@ -188,7 +203,9 @@ function profile_view() {
 				<div class="follower">
 				';
 				
-		if( ($userSettings['followers'] == 1) || ($userSettings['followers'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)){		
+		if( ($userSettings['followers'] == 1) || ($userSettings['followers'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) 
+				|| ($userSettings['followers'] == 2  && $is_follow_follower == TRUE  )){
+			
 			 $strReturn.='<p><b>Followers</b></p>';
 				$newlist2=followerlist();
 				for($k=0; $k<count($newlist2); $k++)

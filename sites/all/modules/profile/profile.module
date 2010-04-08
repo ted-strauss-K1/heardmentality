@@ -83,3 +83,22 @@ function checkPrivacySettings( $uid = null){
   }
   
 }
+
+ function checkFollowStatus( $login_user_id = null, $profile_user_id = null){
+
+    $ques_query = "SELECT *  from {follower}  where uid='".$login_user_id."'  AND follower_status='1' AND  follower_id='".$profile_user_id."' UNION
+	SELECT *  from {follower}  where uid='".$profile_user_id."'  AND follower_status='1' AND  follower_id='".$login_user_id."'
+	";
+    $list = ExecuteQuery($ques_query, "select");
+	$isfollow = FALSE;
+    if(isset($list) && count($list)> 0){
+	    $isfollow = TRUE;
+		return $isfollow;
+ 	}
+
+	return $isfollow;
+	echo "<pre>";
+	print_r( $list);
+echo "</pre>";
+//	return $usertypes;
+ }
