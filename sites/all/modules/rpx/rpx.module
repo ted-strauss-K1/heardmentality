@@ -138,7 +138,7 @@ function rpx_registration_validate( $form, &$form_state ) {
 function rpx_registration_submit( $form, &$form_state ) {
   $account = user_save('', $form_state['values']);
   $account = _rpx_populate_user_record( $account, $_SESSION['rpx'] );
-   _user_mail_notify('register_no_approval_required', $account);
+
   if ($account->status) {
     // log 'em in, yo.
     user_external_login( $account );
@@ -168,6 +168,8 @@ function rpx_end_point() {
 
     // check for a UID; this indicates whether a person is registered.
     if ( $account->uid ) {
+	
+	   _user_mail_notify('register_no_approval_required', $account);
       // ok, log them in, go to where we need to go.
       user_external_login($account);
       drupal_goto();
