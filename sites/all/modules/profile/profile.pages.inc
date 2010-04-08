@@ -41,7 +41,7 @@ function profile_view() {
     $result = db_fetch_array($get_cn);
 	$real_name1 = NULL ; $PROFILE_IMAGE= NULL;    $bio1 =  NULL; $zip1= null;
 	$country1 = NULL; $religion1 = NULL; $img_path1 =NULL; $gender_name1 = NULL; $facebook1 = NULL; $twitter1 =NULL;
-	$medal = NULL;
+	$medal = NULL;$questions   = NULL;$ansers = NULL;
 	if(is_array($result))
     extract($result);
 
@@ -142,8 +142,8 @@ function profile_view() {
 				'.$ins_ans.'
 				</div>';
 	}
-	if( ($userSettings['questions '] == 1) || ($userSettings['questions '] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) 
-			|| ($userSettings['questions '] == 2  && $is_follow_follower == TRUE  )) {
+	if( ($userSettings['questions'] == 1) || ($userSettings['questions'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1) 
+			|| ($userSettings['questions'] == 2  && $is_follow_follower == TRUE  )) {
 		  $question1 =  	'<div class="rht">
 				<p><b>Questions Posted</b></p>
 				'.$inc_qns.'
