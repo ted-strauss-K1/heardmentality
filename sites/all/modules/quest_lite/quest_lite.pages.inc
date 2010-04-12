@@ -1123,7 +1123,7 @@ function suggest_answer()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
 	
-	require('RSSParser.class.php');
+	require('http://192.9.200.10/heardmentality/sites/all/modules/quest_lite/RSSParser.class.php');
 $xml =& new RSSParser;
 
    
