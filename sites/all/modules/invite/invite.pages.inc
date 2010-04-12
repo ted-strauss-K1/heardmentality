@@ -4,7 +4,7 @@ function invite_friends()
 {
   global $gSitePath,$user,$gDocPath,$base_root;
   $uid=$user->uid;
-
+print_r($_REQUEST);
 include("gmail.api.include.php");
   if (isset($_REQUEST['invite'])) {
       $GMAIL_USERNAME =$_REQUEST['gmail_username'];
