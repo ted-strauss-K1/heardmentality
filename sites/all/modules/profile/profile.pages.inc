@@ -44,7 +44,8 @@ function profile_view() {
     $result = db_fetch_array($get_cn);
 	$real_name1 = NULL ; $PROFILE_IMAGE= NULL;    $bio1 =  NULL; $zip1= null;
 	$country1 = NULL; $religion1 = NULL; $img_path1 =NULL; $gender_name1 = NULL; $facebook1 = NULL; $twitter1 =NULL;
-	$medal = NULL;$questions   = NULL;$ansers = NULL;$updownvote_display = NULL;
+	$medal = NULL;$questions   = NULL;$ansers = NULL;$updownvote_display = NULL;$dob1 = NULL;
+	$answer1= NULL;	$question1= NULL;
 	if(is_array($result))
     extract($result);
 
@@ -76,6 +77,13 @@ function profile_view() {
 	){
        $zip1 = $zip;
 	}
+if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0 )|| ($user->uid == $uid) || ($user->uid == 1) 
+	|| ($userSettings['dob'] == 2  && $is_follow_follower == TRUE  )	
+	){
+       $dob1 = $dob;
+	}
+
+
    if( ($userSettings['gender'] == 1) || ($userSettings['gender'] == 3  && $user->uid !=0 )|| ($user->uid == $uid) || ($user->uid == 1) 
 	|| ($userSettings['gender'] == 2  && $is_follow_follower == TRUE  )   ){
        $gender_name1  = $gender_name ;
@@ -153,7 +161,7 @@ function profile_view() {
 				</div>';
 	}
 
-	if((isset($userPoints) &&   $userPoints > 999)|| ($user->uid == $uid) || ($user->uid == 1) )  			
+	if((isset($userPoints) &&   $userPoints > 999)|| ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['vote_graph'] == 1) || ($userSettings['vote_graph'] == 3  && $user->uid !=0 ))  			
 	{
 	  $updownvote_display ='<p><b>Votes</b></p>
 				<table>
@@ -189,7 +197,7 @@ function profile_view() {
 			<div class="info">
 					'.$getuser->name.'<br/>
 					'.$real_name1.'<br/>
-					'.$dob.'<br/>	
+					'.$dob1.'<br/>	
 					'.$gender_name1.'<br/>	
 					'.$religion1.'<br/>
 					'.$country1.'<br/>
