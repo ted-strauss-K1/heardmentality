@@ -34,6 +34,7 @@ echo 'here i am ';
   $html = curl_exec($ch);
 	if( curl_exec($ch)){
 	echo 'test is a project';
+	exit;
 	}
 	$matches = array();
 	$actionarr = array();
