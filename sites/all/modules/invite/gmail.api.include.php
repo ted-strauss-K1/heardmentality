@@ -61,7 +61,7 @@ echo 'here am i';
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $params ."Email=$login&Passwd=$password&PersistentCookie=");
 
 	$html = curl_exec($ch);
-
+	 print_r( $html );
   #test if login was successful:
   if (!isset($cookiearr['GX']) && (!isset($cookiearr['LSID']) || $cookiearr['LSID'] == "EXPIRED"))
 	{
