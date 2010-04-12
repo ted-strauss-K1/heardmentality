@@ -1123,42 +1123,59 @@ function suggest_answer()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
 	
-	require('http://192.9.200.10/heardmentality/sites/all/modules/quest_lite/RSSParser.class.php');
-$xml =& new RSSParser;
-
-   
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	
-	$output = $xml->parse('http://smstextgenius.com/xml.rss');
-   echo "<pre>";
- 
+	echo $vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
+	$rlistnews=db_query($vSql);
+	require('http://192.9.200.10/heardmentality/sites/all/modules/quest_lite/RSSParser.class.php');
+	$xml =& new RSSParser;
 
-foreach($output as $valuesresult)
-{
-
-//print_r( $valuesresult);
-
-
-
-}
-
-foreach($valuesresult as $opkt)
-{
-
-//print_r($opkt);
-echo $opkt['TITLE'];
-echo "<br>";
-
-echo $opkt['LINK'];
-echo "<br>";
-
-echo $opkt['DESCRIPTION'];
-echo "<br>";
-
-echo $opkt['PUBDATE'];
-echo "<br>";
-
-
-}
+	
+	  $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
+	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+		while($usernews=db_fetch_object($rlistnews))
+		{
+		
+		$outputs = $xml->parse($usernews->nlink);
+		
+		
+		
+		
+		
+		foreach($outputs as $valuesresult)
+		{
+		
+		//print_r( $valuesresult);
+		
+		
+		
+		}
+		
+		foreach($valuesresult as $opkt)
+		{
+		
+	
+		 
+		 
+		 $newsresult.='<div class="cmt_list">
+	
+	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$opkt["LINK"].'" target="new"> '.$opkt["TITLE"].' </a> </h4>
+		<p>'.$opkt['DESCRIPTION'].' </p>  
+	<p class="cmt_date"> '.date("D j M Y",strtotime($opkt['PUBDATE'])). '</p></div>
+	</div>';
+		 
+		 
+		 
+		 
+		}
+	}
+	
+	if($numnews==0)
+	{
+	
+	$newsresult.='No News  Under This Question.';
+	
+	}
 	echo $newsresult;
 	
 	
