@@ -482,7 +482,7 @@
 		
 		global $gSitePath,$user, $gDocPath,$base_root;
 		$mid=$_REQUEST['mid'];
-		
+		$userPoints =  checkUserPoints($user->uid);
 		$voutput='';
 		$vquest="select * from {possible_answer} where paid='".$_REQUEST['answer']."'  ";
 		$rquest=db_query($vquest);
@@ -506,9 +506,9 @@
 		{
 		$votepointp=$olistquest->vote+1;
 		}
+		if($userPoints > 14){
 		$vInsQuery="insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
 		db_query($vInsQuery);
-		
 		drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
 		
 		$queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid"; 
@@ -519,11 +519,16 @@
 		$query_sugestlistd=db_query($query_sugests);
 		$fetvotsugestbg=db_fetch_object($query_sugestlistd);
 		$totalvotesm=$fetvotd->possiblevote+$fetvotsugestbg->suggestv;
-		 $totalvotesm;
+		$totalvotesm;
 		$calc=$totalvotesm*$votepointp/100;
 		 $updatevoteposs="update  possible_answer set vote='$votepointp' where paid='".$_REQUEST['answer']."'";
 			db_query($updatevoteposs);
 		drupal_goto("qlite/view/$mid");
+		}else{
+			drupal_set_message($message = 'Sorry You Not Have Sufficent User Points To Vote This Question!', $type = 'error');
+		drupal_goto("qlite/view/$mid");
+		}
+
 		}
 		else
 		{
