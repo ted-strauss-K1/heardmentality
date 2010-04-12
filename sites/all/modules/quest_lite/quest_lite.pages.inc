@@ -402,6 +402,47 @@
 		}
 
 
+
+
+	function qns_like(){
+		global $gSitePath,$user, $gDocPath,$base_root;
+		extract($_REQUEST);
+		
+		 $query="select count(*) as res from {question_like} where qid='$qns' AND uid='$user->uid' ";
+		$get  = ExecuteQuery($query, "select");	
+		if($get[0]['res']>0){
+			
+		switch($type){
+			
+			case 1:
+				$query="update {question_like} set like_yes='-1' where qid='$qns' AND uid='$user->uid'";
+				$ok  = ExecuteQuery($query, "update");
+				
+				break;	
+			case -1:
+				$query="update {question_like} set like_yes='1' where qid='$qns' AND uid='$user->uid'";
+				$ok  = ExecuteQuery($query, "update");
+				break;
+			
+		}
+		
+		}else{
+		
+	 $query="insert into {question_like} set qid='$qns',uid='$user->uid',like_yes='$type' ";
+	$set  = ExecuteQuery($query, "insert");
+	$array['suc']='1';
+	$array['msg']='Thank you, Votes counted';
+	}
+	
+	$query="select sum(like_yes) as res from {question_like} where qid='$qns' group by qid ";
+	$set  = ExecuteQuery($query, "select");	
+	
+	echo $set[0]['res'];
+	
+	}
+
+
+
 		function privacy_chk($owner='',$qp='',$share=''){
 			
 			global $gSitePath,$user, $gDocPath,$base_root;
