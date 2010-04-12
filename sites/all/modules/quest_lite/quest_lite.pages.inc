@@ -1122,12 +1122,13 @@ function suggest_answer()
 	function question_news()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
-	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	require('RSSParser.class.php');
-	$xml =new RSSParser;
-
 	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
 	$rlistnews=db_query($vSql);
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	require('RSSParser.class.php');
+	$xml =& new RSSParser;
+
+	
 	  $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 		while($usernews=db_fetch_object($rlistnews))
@@ -1222,21 +1223,21 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	$vSqlfact="SELECT *	FROM resource where rtype='3' and qid='$qid' ";
 	$rlistfacts=db_query($vSqlfact);
 	 $numfacts= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
-	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	$factsesult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 	while($userfacts=db_fetch_object($rlistfacts))
 	{
-	$newsresult.='<div class="cmt_list">
+	$factsesult.='<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;";href="'.$userfacts->facts.'" target="new"> '.$userfacts->facts.' </a> </h4>
-	<p class="cmt_date"> '.date("D j M Y",strtotime($userfacts->posted_date)). '</p> '.$usernews->posted_date.'</div>
+	<p class="cmt_date"> '.date("D j M Y",strtotime($userfacts->posted_date)). '</p> '.$userfacts->posted_date.'</div>
 	</div>';
 	}
 	if($numfacts==0)
 	{
 	
-	$newsresult.='No Facts Under This Question.';
+	$factsesult.='No Facts Under This Question.';
 	
 	}
-	echo $newsresult;
+	echo $factsesult;
 	
 	}
 
