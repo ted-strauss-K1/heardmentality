@@ -138,21 +138,15 @@ function rpx_registration_validate( $form, &$form_state ) {
 function rpx_registration_submit( $form, &$form_state ) {
   $account = user_save('', $form_state['values']);
   $account = _rpx_populate_user_record( $account, $_SESSION['rpx'] );
-
-  if ($account->status) {
   
-     _user_mail_notify('register_no_approval_required', $account);
+  if ($account->status) {
     // log 'em in, yo.
     user_external_login( $account );
   }
   else {
-    _user_mail_notify('register_no_approval_required', $account);
     _user_mail_notify('register_pending_approval', $account);
-	 
     drupal_set_message(t('You\'re account must be approved by an administrator before you are able to login to the site.'));
   }
-  
-    _user_mail_notify('register_no_approval_required', $account);
   drupal_goto();
 }
 
@@ -173,6 +167,7 @@ function rpx_end_point() {
 
     // check for a UID; this indicates whether a person is registered.
     if ( $account->uid ) {
+	 _user_mail_notify('register_no_approval_required', $account);
       // ok, log them in, go to where we need to go.
       user_external_login($account);
       drupal_goto();
