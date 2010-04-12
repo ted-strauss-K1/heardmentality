@@ -18,7 +18,7 @@ echo 'here i am ';
 	if ((isset($login) && trim($login)=="") || (isset($password) && trim($password)==""))
 	{
 	  #return error code if they weren't
-		echo 2;
+		return 2;
 	}
 	
 	#initialize the curl session
@@ -34,7 +34,6 @@ echo 'here i am ';
   $html = curl_exec($ch);
 	if( curl_exec($ch)){
 	echo 'test is a project';
-	//exit;
 	}
 	$matches = array();
 	$actionarr = array();
@@ -68,7 +67,7 @@ echo 'here i am ';
   #test if login was successful:
   if (!isset($cookiearr['GX']) && (!isset($cookiearr['LSID']) || $cookiearr['LSID'] == "EXPIRED"))
 	{
-		echo 1;
+		return 1;
 	}
 
   #this is the new csv url:
