@@ -1138,7 +1138,7 @@ function suggest_answer()
 	//echo $usernews->nlink;
 	
 	
-	foreach($output as $valuesresult)
+	foreach($xml as $valuesresult)
 	{
 	
 	}
