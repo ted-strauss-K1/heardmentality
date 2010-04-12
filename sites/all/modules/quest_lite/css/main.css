@@ -67,3 +67,10 @@
 #newsd a { background:#fff; color:#000000; }
 
 #newsd a:hover { background:#fff; }
+
+#vote img{
+	
+	 cursor:pointer;
+	 width:20px;
+	 height:20px;
+}
