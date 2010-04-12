@@ -1122,7 +1122,7 @@ function suggest_answer()
 	function question_news()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
-	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
+	echo $vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
 	$rlistnews=db_query($vSql);
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	require('RSSParser.class.php');
@@ -1134,13 +1134,13 @@ function suggest_answer()
 		while($usernews=db_fetch_object($rlistnews))
 		{
 		
-		$output = $xml->parse($usernews->nlink);
+		$outputs = $xml->parse($usernews->nlink);
 		
 		
 		
 		
 		
-		foreach($output as $valuesresult)
+		foreach($outputs as $valuesresult)
 		{
 		
 		//print_r( $valuesresult);
