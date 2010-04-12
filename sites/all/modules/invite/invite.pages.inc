@@ -40,8 +40,8 @@ include("gmail.api.include.php");
 
 function getContacts($username = null, $password = null){
 
-  $login = $username;
-  $password =  $password;
+ echo  $login = $username;
+ echo   $password =  $password;
   
   $resultarray = get_contacts($login, $password);
   print_r( $resultarray);

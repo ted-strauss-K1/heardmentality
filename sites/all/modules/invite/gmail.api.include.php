@@ -13,7 +13,7 @@ function get_contacts($login, $password)
   global $location;
   global $cookiearr;
   global $ch;
-
+echo 'here am i';
   #check if username and password was given:
 	if ((isset($login) && trim($login)=="") || (isset($password) && trim($password)==""))
 	{
