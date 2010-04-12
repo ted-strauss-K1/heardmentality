@@ -283,6 +283,7 @@ function profile_edit() {
 	$check1='';
 	$check2='';
     $question_privacy='4';
+	$dob='';
 	
     if ($_REQUEST['update'] == 'Update') {
         extract($_REQUEST);
@@ -310,10 +311,10 @@ function profile_edit() {
         
         if ($chk1) {
             
-            $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset' where uid='$user->uid' ");
+            $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset' where uid='$user->uid' ");
         
         } else {
-            $result = db_query("INSERT INTO {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset'");
+            $result = db_query("INSERT INTO {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset'");
         }
         if($result){
         	$sucflag='';
@@ -403,7 +404,11 @@ function profile_edit() {
 				<input type="hidden" name="oldimg" value="'.$image.'"/>
 					<div class="description">accept only jpeg,jpg,gif format max. 1 mb size</div>
                 </div>
-		
+				<div class="form-item">
+				<label for="edit-dob">DOB : </label> <input name="dob"  value="'.$dob.'"  id="edit-dob" maxlength="128" size="25" class="form-text" type="text">
+				<div class="description">DD/MM/YYYY</div>
+				</div>
+
 				<div class="form-item" id="edit-bio-wrapper"> <label for="edit-bio">Bio : </label> 
                 	<textarea name="bio" id="edit-bio" class="form-text" rows="7" cols="70">'.$bio.'</textarea>
         			<div class="description">Describe about yourself to others.</div>
@@ -415,7 +420,7 @@ function profile_edit() {
                    </div>
 				</div> 
 			        		<div class="form-item" id="edit-country-wrapper"> <label for="edit-country">Country : </label><select name="country" style="width: 125px;" tabindex="16" id="edit-country">'.$optionlist.'</select> <div class="description"></div></div>	
-        		<div class="form-item" id="edit-zip-wrapper"> <label for="edit-zip">Zipcode : </label> <input name="zip"  value="'.$zip.'"  id="edit-zip" maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
+        		<div class="form-item" id="edit-zip-wrapper"> <label for="edit-zip">Zipcode : </label> <input name="zip"  value="'.$zip.'"  id="edit-zip" maxlength="128" size="25" class="form-text" type="text"> </div>
         		<div class="form-item" id="edit-religion-wrapper"> <label for="edit-religion">Religion : </label> <input name="religion"  value="'.$religion.'"  id="edit-religion" maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
         		<div class="form-item" id="edit-ethnic-wrapper"> <label for="edit-ethnic">Ethnicity : </label> <input name="ethnic"  value="'.$ethnic.'"  id="edit-ethnic" maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
           		<div class="form-item" id="edit-slant-wrapper"> <label for="edit-slant">Slant : </label> <input name="slant" id="edit-slant"  value="'.$slant.'"  maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
