@@ -1131,11 +1131,34 @@ function suggest_answer()
 
 
 	
-	  $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
+	$numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-		while($usernews=db_fetch_object($rlistnews))
-		{
-		 echo $usernews->nlink;
+	while($usernews=db_fetch_object($rlistnews))
+	{
+	echo $usernews->nlink;
+	
+	
+	foreach($output as $valuesresult)
+	{
+	
+	}
+	
+	foreach($valuesresult as $opkt)
+	{
+	
+	echo $opkt['TITLE'];
+	
+	
+	echo $opkt['LINK'];
+	
+	
+	echo $opkt['DESCRIPTION'];
+	
+	
+	echo $opkt['PUBDATE'];
+		
+	}
+		
 	}
 	
 	if($numnews==0)
