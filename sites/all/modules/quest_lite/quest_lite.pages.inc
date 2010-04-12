@@ -1127,9 +1127,8 @@ function suggest_answer()
 	
 	echo $vSql="SELECT *FROM resource where rtype='1' and qid='$qid' ";
 	$rlistnews=db_query($vSql);
-	require('http://192.9.200.10/heardmentality/sites/all/modules/quest_lite/RSSParser.class.php');
-	$xml =& new RSSParser;
-
+	
+	
 	
 	  $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
