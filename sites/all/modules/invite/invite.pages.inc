@@ -47,7 +47,7 @@ function getContacts($username = null, $password = null){
   	foreach($resultarray as $res){
 		$emailArray['email'] = $res;
 	}
-  return $emailArray;
+  echo  $emailArray;
 	
 } 
 
