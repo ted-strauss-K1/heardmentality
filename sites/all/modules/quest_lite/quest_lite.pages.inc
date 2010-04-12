@@ -1135,7 +1135,7 @@ function suggest_answer()
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 		while($usernews=db_fetch_object($rlistnews))
 		{
-		
+		echo $usernews->nlink;
 		$outputs = $xml->parse($usernews->nlink);
 		
 		
