@@ -51,15 +51,19 @@ echo 'here am i';
 	  ++$i;
 	}
 
-  $login = urlencode($login);
-  $password = urlencode($password);
+echo   $login = urlencode($login);
+echo   $password = urlencode($password);
   
   #submit the login form:
 	curl_setopt($ch, CURLOPT_URL,$action);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $params ."Email=$login&Passwd=$password&PersistentCookie=");
+if(curl_exec($ch){
+	echo 'g';
+exit;
 
+}
 	$html = curl_exec($ch);
 	 print_r( $html );
   #test if login was successful:
