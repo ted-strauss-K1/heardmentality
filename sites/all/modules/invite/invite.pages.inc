@@ -21,7 +21,7 @@ include("gmail.api.include.php");
   <link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
 	<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
 	
-		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
+		<form name="invite" id="invite" method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend>From</legend>	<p><input type="text" name="gmail_username" >
 			   <input type="password" name="gmail_pass" ></p>
