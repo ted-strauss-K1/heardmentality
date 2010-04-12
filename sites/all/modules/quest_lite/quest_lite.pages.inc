@@ -78,11 +78,12 @@ function qlite_view() {
     
     $query = "select sum(like_yes) as res from {question_like} where qid='$qid' group by qid ";
     $set = ExecuteQuery($query, "select");
-
+    
+    $set_cnt = ( empty($set[0]['res']) ? '0' : $set[0]['res']);
     
     $voutput .= '<div id="vote" class="vote">
 		<img onclick="qns_like(1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/up.jpg" id="vote-up" alt="Up" title="This Question is good"/>
-		<span  class="vote-cnt"><h2  id="vote-cnt">&nbsp;'.$set[0]['res'].'</h2></span>
+		<span  class="vote-cnt"><h2  id="vote-cnt">&nbsp;'.$set_cnt.'</h2></span>
 		<img onclick="qns_like(-1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/down.jpg" id="vote-down" alt="Down" title="This Question is not useful"/><br/>
 		</div>';
     $vans = "select * from {possible_answer} where  qid=$qid order by vote desc";
@@ -389,27 +390,27 @@ function qns_like() {
     $userPoints = checkUserPoints($user->uid);
     $query = "select count(*) as res from {question_like} where qid='$qns' AND uid='$user->uid' ";
     $get = ExecuteQuery($query, "select");
-			  // Vote down needs minum 100 points
-	if((isset($type) && $type == 1 ) && (isset($userPoints) && $userPoints < 99 ) ){
-	    $array['msg'] = 'Sorry You Not Have Sufficent User Points To Down This Question!';
-		exit;
-	}
-	if((isset($type) && $type == -1 ) && (isset($userPoints) && $userPoints < 15 ) ){
-	   $array['msg'] = 'Sorry You Not Have Sufficent User Points To Up This Question!';
-	   exit;
-	}
+    // Vote down needs minum 100 points
+    if ((isset($type) && $type == 1) && (isset($userPoints) && $userPoints < 99)) {
+        $array['msg'] = 'Sorry You Not Have Sufficent User Points To Down This Question!';
+        exit;
+    }
+    if ((isset($type) && $type == -1) && (isset($userPoints) && $userPoints < 15)) {
+        $array['msg'] = 'Sorry You Not Have Sufficent User Points To Up This Question!';
+        exit;
+    }
     if ($get[0]['res'] > 0) {
         
         switch ($type) {
             
             case 1:
-		        $query = "update {question_like} set like_yes='-1' where qid='$qns' AND uid='$user->uid'";
-	            $ok = ExecuteQuery($query, "update");
+                $query = "update {question_like} set like_yes='-1' where qid='$qns' AND uid='$user->uid'";
+                $ok = ExecuteQuery($query, "update");
                 break;
             case - 1:
                 $query = "update {question_like} set like_yes='1' where qid='$qns' AND uid='$user->uid'";
                 $ok = ExecuteQuery($query, "update");
-               break;
+                break;
         
         }
     
@@ -516,7 +517,7 @@ function qlite_save() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $mid = $_REQUEST['mid'];
-
+    
     $voutput = '';
     $vquest = "select * from {possible_answer} where paid='".$_REQUEST['answer']."'  ";
     $rquest = db_query($vquest);
@@ -535,25 +536,25 @@ function qlite_save() {
             } else {
                 $votepointp = $olistquest->vote + 1;
             }
-        
-                $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
-                db_query($vInsQuery);
-                drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
-                
-                $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
-                $query_listd = db_query($queryd);
-                $fetvotd = db_fetch_object($query_listd);
-                
-                $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid";
-                $query_sugestlistd = db_query($query_sugests);
-                $fetvotsugestbg = db_fetch_object($query_sugestlistd);
-                $totalvotesm = $fetvotd->possiblevote + $fetvotsugestbg->suggestv;
-                $totalvotesm;
-                $calc = $totalvotesm * $votepointp / 100;
-                $updatevoteposs = "update  possible_answer set vote='$votepointp' where paid='".$_REQUEST['answer']."'";
-                db_query($updatevoteposs);
-                drupal_goto("qlite/view/$mid");
-        
+            
+            $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
+            db_query($vInsQuery);
+            drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
+            
+            $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
+            $query_listd = db_query($queryd);
+            $fetvotd = db_fetch_object($query_listd);
+            
+            $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid";
+            $query_sugestlistd = db_query($query_sugests);
+            $fetvotsugestbg = db_fetch_object($query_sugestlistd);
+            $totalvotesm = $fetvotd->possiblevote + $fetvotsugestbg->suggestv;
+            $totalvotesm;
+            $calc = $totalvotesm * $votepointp / 100;
+            $updatevoteposs = "update  possible_answer set vote='$votepointp' where paid='".$_REQUEST['answer']."'";
+            db_query($updatevoteposs);
+            drupal_goto("qlite/view/$mid");
+
         
         } else {
             drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
@@ -987,24 +988,24 @@ function panel_content() {
 
 function flag_report() {
     global $gSitePath,$user,$gDocPath,$base_root;
-
+    
     $userPoints = checkUserPoints($user->uid);
-	if(isset($userPoints) && $userPoints > 14){
-    $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' "));
-    if ($_REQUEST['abuse_type'] != '') {
-        if ($numr == 0) {
-            $flagquery = "insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question','".$_REQUEST['abuse_type']."')";
-            db_query($flagquery);
-            echo '<div class="messages success">You Have Flagged successfully ! </div>';
-        
+    if (isset($userPoints) && $userPoints > 14) {
+        $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' "));
+        if ($_REQUEST['abuse_type'] != '') {
+            if ($numr == 0) {
+                $flagquery = "insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question','".$_REQUEST['abuse_type']."')";
+                db_query($flagquery);
+                echo '<div class="messages success">You Have Flagged successfully ! </div>';
+            
+            } else {
+                echo '<div class="messages error">You Have Already Flagged !</div>';
+            }
         } else {
-            echo '<div class="messages error">You Have Already Flagged !</div>';
+            
+            echo '<div class="messages error">Select Report Type !</div>';
         }
     } else {
-        
-        echo '<div class="messages error">Select Report Type !</div>';
-    }
-	}else {
         
         echo '<div class="messages error">Sorry You Not Have Sufficent User Points To Flag This!</div>';
     }
