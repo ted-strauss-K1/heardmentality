@@ -13,7 +13,7 @@ function get_contacts($login, $password)
   global $location;
   global $cookiearr;
   global $ch;
-
+echo 'here i am ';
   #check if username and password was given:
 	if ((isset($login) && trim($login)=="") || (isset($password) && trim($password)==""))
 	{
@@ -32,7 +32,9 @@ function get_contacts($login, $password)
 	
 	#get the html from gmail.com
   $html = curl_exec($ch);
-	
+	if( curl_exec($ch)){
+	echo 'test is a project';
+	}
 	$matches = array();
 	$actionarr = array();
 	
