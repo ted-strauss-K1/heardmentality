@@ -90,7 +90,9 @@ echo 'here am i';
 		}
 	}
 	  
-
+print_r($names);
+print_r($emails);
+ 
 	return array($names, $emails);
 }
 
