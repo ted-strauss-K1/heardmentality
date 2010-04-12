@@ -1124,11 +1124,12 @@ function suggest_answer()
 	global $gSitePath,$user, $gDocPath,$base_root;
 	
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	
+	require('RSSParser.class.php');
+	$xml =& new RSSParser;
 	echo $vSql="SELECT *FROM resource where rtype='1' and qid='$qid' ";
 	$rlistnews=db_query($vSql);
-	
-	
+
+
 	
 	  $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
 	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
