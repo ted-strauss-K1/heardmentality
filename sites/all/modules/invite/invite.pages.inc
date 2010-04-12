@@ -9,8 +9,7 @@ include("gmail.api.include.php");
   if (isset($_REQUEST['invite'])) {
       $GMAIL_USERNAME =$_REQUEST['gmail_username'];
 	  $GMAIL_PASSWORD =$_REQUEST['gmail_pass'];
-		print_r(getContacts($GMAIL_USERNAME,$GMAIL_PASSWORD));
-	$emails = getContacts($GMAIL_USERNAME,$GMAIL_PASSWORD);
+	   $emails = getContacts("$GMAIL_USERNAME","$GMAIL_PASSWORD");
 
     }
 
