@@ -1124,7 +1124,7 @@ function suggest_answer()
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	require('RSSParser.class.php');
-	$xml =& new RSSParser;
+	$xml =new RSSParser;
 
 	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
 	$rlistnews=db_query($vSql);
