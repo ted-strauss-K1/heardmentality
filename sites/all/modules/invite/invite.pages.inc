@@ -4,14 +4,13 @@ function invite_friends()
 {
   global $gSitePath,$user,$gDocPath,$base_root;
   $uid=$user->uid;
-print_r($_REQUEST);
+
 include("gmail.api.include.php");
   if (isset($_REQUEST['invite'])) {
       $GMAIL_USERNAME =$_REQUEST['gmail_username'];
 	  $GMAIL_PASSWORD =$_REQUEST['gmail_pass'];
-		
+		print_r(getContacts($GMAIL_USERNAME,$GMAIL_PASSWORD));
 	$emails = getContacts($GMAIL_USERNAME,$GMAIL_PASSWORD);
-	print_r(	$emails );
 
     }
 
@@ -22,7 +21,7 @@ include("gmail.api.include.php");
   <link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
 	<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
 	
-		<form name="invite" id="invite" method="post" enctype="multipart/form-data">
+		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend>From</legend>	<p><input type="text" name="gmail_username" >
 			   <input type="password" name="gmail_pass" ></p>
@@ -40,12 +39,11 @@ include("gmail.api.include.php");
 
 function getContacts($username = null, $password = null){
 
- echo  $login = $username;
- echo   $password =  $password;
+  $login = $username;
+  $password =  $password;
   
   $resultarray = get_contacts($login, $password);
   print_r( $resultarray);
-  //exit;
   	foreach($resultarray as $res){
 		$emailArray['email'] = $res;
 	}

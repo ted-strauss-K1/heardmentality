@@ -13,7 +13,7 @@ function get_contacts($login, $password)
   global $location;
   global $cookiearr;
   global $ch;
-echo 'here am i';
+
   #check if username and password was given:
 	if ((isset($login) && trim($login)=="") || (isset($password) && trim($password)==""))
 	{
@@ -51,21 +51,17 @@ echo 'here am i';
 	  ++$i;
 	}
 
-echo   $login = urlencode($login);
-echo   $password = urlencode($password);
+  $login = urlencode($login);
+  $password = urlencode($password);
   
   #submit the login form:
 	curl_setopt($ch, CURLOPT_URL,$action);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
 	curl_setopt($ch, CURLOPT_POST, 1);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $params ."Email=$login&Passwd=$password&PersistentCookie=");
-if(curl_exec($ch){
-	echo 'g';
-//exit;
 
-}
 	$html = curl_exec($ch);
-	 print_r( $html );
+
   #test if login was successful:
   if (!isset($cookiearr['GX']) && (!isset($cookiearr['LSID']) || $cookiearr['LSID'] == "EXPIRED"))
 	{
@@ -80,8 +76,6 @@ if(curl_exec($ch){
   $html = curl_exec($ch);
   $html = iconv ($csv_source_encoding,'utf-8',$html);
 
-	 print_r( $html );
-	 echo 'here';
   $csvrows = explode("\n", $html);
   array_shift($csvrows);
   
@@ -96,9 +90,7 @@ if(curl_exec($ch){
 		}
 	}
 	  
-print_r($names);
-print_r($emails);
- 
+
 	return array($names, $emails);
 }
 
