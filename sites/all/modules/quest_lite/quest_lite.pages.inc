@@ -988,7 +988,8 @@ function panel_content() {
 function flag_report() {
     global $gSitePath,$user,$gDocPath,$base_root;
 
-    
+    $userPoints = checkUserPoints($user->uid);
+	if(isset($userPoints) && $userPoints > 14){
     $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' "));
     if ($_REQUEST['abuse_type'] != '') {
         if ($numr == 0) {
@@ -1003,6 +1004,11 @@ function flag_report() {
         
         echo '<div class="messages error">Select Report Type !</div>';
     }
+	}else {
+        
+        echo '<div class="messages error">Sorry You Not Have Sufficent User Points To Flag This!</div>';
+    }
+
 }
 
 function suggest_answer() {
