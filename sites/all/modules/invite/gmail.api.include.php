@@ -61,7 +61,7 @@ echo   $password = urlencode($password);
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $params ."Email=$login&Passwd=$password&PersistentCookie=");
 if(curl_exec($ch){
 	echo 'g';
-exit;
+//exit;
 
 }
 	$html = curl_exec($ch);
