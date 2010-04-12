@@ -24,7 +24,7 @@ include("gmail.api.include.php");
 		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend>From</legend>	<p><input type="text" name="gmail_username" >
-			   <input type="text" name="gmail_pass" ></p>
+			   <input type="password" name="gmail_pass" ></p>
 			<p> To: (use commas to separate emails)<textarea id="recipient_list" rows="3" cols="80" name="recipient_list"></textarea></p>
 			<p>Message: (optional)	<textarea id="message" rows="3" cols="80"></textarea></p>
 			<p>Please use "Contact Name" &lt;XXX@YYY.com&gt; format. Multiple email separated with comma.</p>
@@ -43,7 +43,7 @@ function getContacts($username = null, $password = null){
   $password =  $password;
   
   $resultarray = get_contacts($login, $password);
-  
+  print_r( $resultarray);
   	foreach($resultarray as $res){
 		$emailArray['email'] = $res;
 	}
