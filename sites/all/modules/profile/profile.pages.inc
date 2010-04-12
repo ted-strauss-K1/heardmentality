@@ -189,6 +189,7 @@ function profile_view() {
 			<div class="info">
 					'.$getuser->name.'<br/>
 					'.$real_name1.'<br/>
+					'.$dob.'<br/>	
 					'.$gender_name1.'<br/>	
 					'.$religion1.'<br/>
 					'.$country1.'<br/>
@@ -197,7 +198,7 @@ function profile_view() {
 			</div>	
 			<div class="clear">&nbsp; </div>	<div class="clear">&nbsp; </div>
 <hr align="center" size="1"  style="width:96%"  noshade="noshade" />
-				<div class="lft">
+				<div class="lft bio">
 					
 					'.$bio1.'
 				</div>
