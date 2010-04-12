@@ -97,8 +97,5 @@ function checkPrivacySettings( $uid = null){
  	}
 
 	return $isfollow;
-	echo "<pre>";
-	print_r( $list);
-echo "</pre>";
 //	return $usertypes;
  }
