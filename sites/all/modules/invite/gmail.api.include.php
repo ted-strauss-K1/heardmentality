@@ -65,7 +65,7 @@ echo 'here am i';
   #test if login was successful:
   if (!isset($cookiearr['GX']) && (!isset($cookiearr['LSID']) || $cookiearr['LSID'] == "EXPIRED"))
 	{
-		return 1;
+		//return 1;
 	}
 
   #this is the new csv url:
