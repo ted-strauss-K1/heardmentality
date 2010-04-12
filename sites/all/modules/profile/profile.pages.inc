@@ -9,7 +9,6 @@ function profile_view() {
 	if($uid==''){
 	 $uid=$user->uid;
 	}
-	
 	$image='noimage.jpg';
 	$bio='';
 	$real_name='';
@@ -28,10 +27,14 @@ function profile_view() {
 	$inc_qns='';
 	$qns_list='';
 	$qns_list='';
-	
+	$upcount = null;$downcount =null;
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
-	
+
+	$vot_counts= checkUpAndDownVotes( $uid);
+    $userPoints = checkUserPoints($user->uid);
+	$upcount = $vot_counts['upcount'];
+	$downcount = $vot_counts['downcount'];
 	if(is_array($result))
     extract($result);
 	$userSettings = checkPrivacySettings($uid);
@@ -41,7 +44,7 @@ function profile_view() {
     $result = db_fetch_array($get_cn);
 	$real_name1 = NULL ; $PROFILE_IMAGE= NULL;    $bio1 =  NULL; $zip1= null;
 	$country1 = NULL; $religion1 = NULL; $img_path1 =NULL; $gender_name1 = NULL; $facebook1 = NULL; $twitter1 =NULL;
-	$medal = NULL;$questions   = NULL;$ansers = NULL;
+	$medal = NULL;$questions   = NULL;$ansers = NULL;$updownvote_display = NULL;
 	if(is_array($result))
     extract($result);
 
@@ -150,7 +153,31 @@ function profile_view() {
 				</div>';
 	}
 
-				
+	if((isset($userPoints) &&   $userPoints > 999)|| ($user->uid == $uid) || ($user->uid == 1) )  			
+	{
+	  $updownvote_display ='<p><b>Votes</b></p>
+				<table>
+					<tbody>
+					<tr>
+					<td style="width: 80px;">
+					<div class="vote">
+					<img width="40" height="25" alt="up" style="cursor: default;" src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/vote-arrow-up-on.png"   http://sstatic.net/so/img/vote-arrow-up-on.png"/>
+					<span class="vote-count-post" title="total number of up votes this user has given">'.$downcount.'</span>
+					<img width="40" height="25" alt="down" style="cursor: default;" src="http://sstatic.net/so/img/vote-arrow-down.png"/>
+					</div>
+					</td>
+					<td style="width: 80px;">
+					<div class="vote">
+					<img width="40" height="25" alt="up" style="cursor: default;" src="http://sstatic.net/so/img/vote-arrow-up.png"/>
+					<span class="vote-count-post" title="total number of down votes this user has given">'.$upcount.'</span>
+					<img width="40" height="25" alt="down" style="cursor: default;" src="http://sstatic.net/so/img/vote-arrow-down-on.png"/>
+					</div>
+					</td>
+					</tr>
+					</tbody>
+					</table>';
+	}
+
 
     $strReturn = '<div class="main">
 			
@@ -221,10 +248,12 @@ function profile_view() {
 			</div>
 			
 			<div class="clear">'. $answer1.	$question1.'
-			</div>
+			</div>'. $updownvote_display.'
 			
 			
-		</div>';
+		</div>
+	
+	';
 
     
     return $strReturn;
