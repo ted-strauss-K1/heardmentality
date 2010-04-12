@@ -109,5 +109,15 @@ function checkPrivacySettings( $uid = null){
  
  }
 
+// To check user votes to display in profile
+ function checkUpAndDownVotes( $uid = null ){
+   $ques_query = "(SELECT count(*) as upcount,(SELECT count(*) FROM {question_like} where  uid='".$uid."' AND like_yes= '-1') as downcount FROM {question_like} where  uid='".$uid."' AND like_yes= '1' )";
+	$list = ExecuteQuery($ques_query, "select");
+	  if( isset($list[0]) ) {
+	  return $list[0];
+	}
+	return 0;
+ 
+ }
 
  ?>
