@@ -6,7 +6,7 @@
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
 		drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
-		
+		drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
 		
 		$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 		$query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid"; 
@@ -42,6 +42,8 @@
 		$answer_id=db_fetch_object($list_lengthan);
 		$stringfunct=strlen($oListquest->question);
 		$voutput='<script type="text/javascript">
+		var qid="'.$qid.'";
+		var spath="'.$gSitePath.'";
 		function showdetails(ids)
 		{	
 	
@@ -75,6 +77,17 @@
 		$voutput.='<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<div>'.$shortdesc.' '.$linkj.'';
+		//likes
+		
+		 $query="select sum(like_yes) as res from {question_like} where qid='$qid' group by qid ";
+	$set  = ExecuteQuery($query, "select");	
+	
+	
+		$voutput.='<div id="vote" class="vote">
+		<img onclick="qns_like(1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/up.jpg" id="vote-up" alt="Up" title="This Question is good"/>
+		<span  class="vote-cnt"><h2  id="vote-cnt">&nbsp;'.$set[0]['res'].'</h2></span>
+		<img onclick="qns_like(-1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/down.jpg" id="vote-down" alt="Down" title="This Question is not useful"/><br/>
+		</div>';
 		$vans="select * from {possible_answer} where  qid=$qid order by vote desc";
 	
 		$vlist=db_query($vans);
@@ -387,6 +400,7 @@
 		</div></div></form>';
 		return $voutput;
 		}
+
 
 		function privacy_chk($owner='',$qp='',$share=''){
 			
