@@ -1091,6 +1091,39 @@ function suggest_answer() {
 	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
 	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
 	</div></form>';
+<<<<<<< .mine
+	}
+	
+	echo $ansoutput;
+	}	
+    function suggest_answer_save()
+	{
+	global $gSitePath,$user, $gDocPath,$base_root;
+		 
+		$numr= db_result(db_query("SELECT COUNT(*) from {suggest_answer} where qid='".$_REQUEST['qaid']."' and uid='".$user->uid."'"));
+		if($_REQUEST['txt_answer']!='')
+		{
+		if($numr==0)
+		{
+		$answerquery="insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
+		db_query($answerquery);
+		echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
+		}
+		}
+		else
+		{
+		echo '<div class="messages error">Please Enter Suggest Answer </div>';
+		
+		}
+	
+	}
+function question_news()
+	{
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	require('RSSParser.class.php');
+	$xml =& new RSSParser;
+=======
     }
     
     echo $ansoutput;
@@ -1109,7 +1142,40 @@ function suggest_answer_save() {
         echo '<div class="messages error">Please Enter Suggest Answer </div>';
     
     }
+>>>>>>> .r613
 
+<<<<<<< .mine
+	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
+	$rlistnews=db_query($vSql);
+	  $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
+	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+		while($usernews=db_fetch_object($rlistnews))
+		{
+		
+		$output = $xml->parse($usernews->nlink);
+		
+		
+		
+		
+		
+		foreach($output as $valuesresult)
+		{
+		
+		//print_r( $valuesresult);
+		
+		
+		
+		}
+		
+		foreach($valuesresult as $opkt)
+		{
+		
+	
+		 
+		 
+		 $newsresult.='<div class="cmt_list">
+	
+=======
 }
 function question_news() {
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -1136,10 +1202,47 @@ function question_news() {
             
             $newsresult .= '<div class="cmt_list">
 	
+>>>>>>> .r613
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$opkt["LINK"].'" target="new"> '.$opkt["TITLE"].' </a> </h4>
 		<p>'.$opkt['DESCRIPTION'].' </p>  
+<<<<<<< .mine
+	<p class="cmt_date"> '.date("D j M Y",strtotime($opkt['PUBDATE'])). '</p></div>
+=======
 	<p class="cmt_date"> '.date("D j M Y", strtotime($opkt['PUBDATE'])).'</p> </div>
+>>>>>>> .r613
 	</div>';
+<<<<<<< .mine
+		 
+		 
+		 
+		 
+		}
+	}
+	
+	if($numnews==0)
+	{
+	
+	$newsresult.='No News  Under This Question.';
+	
+	}
+	echo $newsresult;
+	
+	
+	}
+	
+	function question_media()
+	{
+	
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSqlmedia="SELECT *	FROM resource where rtype='2' and qid='$qid' ";
+	$rlistmedia=db_query($vSqlmedia);
+	 $nummedia= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
+	$mediaresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	while($usermedia=db_fetch_object($rlistmedia))
+	{
+	$mediaresult.='<div class="cmt_list">
+=======
 
         
         }
@@ -1164,6 +1267,7 @@ function question_media() {
     $mediaresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
     while ($usermedia = db_fetch_object($rlistmedia)) {
         $mediaresult .= '<div class="cmt_list">
+>>>>>>> .r613
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
 	<p><img src="http://img.youtube.com/vi/'.$usermedia->video_id.'/default.jpg" ></p>
 	<br/>  
@@ -1177,6 +1281,31 @@ function question_media() {
  </p>
 	<p class="cmt_date"> '.date("D j M Y", strtotime($usermedia->posted_date)).'</p> </div>
 	</div>';
+<<<<<<< .mine
+	}
+	if($nummedia==0)
+	{
+	
+	$mediaresult.='No Media Under This Question.';
+	
+	}
+	echo $mediaresult;
+	
+	}
+	
+	function question_facts()
+	{
+	
+global $gSitePath,$user, $gDocPath,$base_root;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSqlfact="SELECT *	FROM resource where rtype='3' and qid='$qid' ";
+	$rlistfacts=db_query($vSqlfact);
+	 $numfacts= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
+	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	while($userfacts=db_fetch_object($rlistfacts))
+	{
+	$newsresult.='<div class="cmt_list">
+=======
     }
     if ($nummedia == 0) {
         
@@ -1196,6 +1325,7 @@ function question_facts() {
     $newsresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
     while ($userfacts = db_fetch_object($rlistfacts)) {
         $newsresult .= '<div class="cmt_list">
+>>>>>>> .r613
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;";href="'.$userfacts->facts.'" target="new"> '.$userfacts->facts.' </a> </h4>
 	<p class="cmt_date"> '.date("D j M Y", strtotime($userfacts->posted_date)).'</p> '.$usernews->posted_date.'</div>
 	</div>';
@@ -1206,6 +1336,7 @@ function question_facts() {
     
     }
     echo $newsresult;
+	
 
 }
 
