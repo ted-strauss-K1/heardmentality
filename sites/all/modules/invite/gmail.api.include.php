@@ -76,6 +76,8 @@ echo 'here am i';
   $html = curl_exec($ch);
   $html = iconv ($csv_source_encoding,'utf-8',$html);
 
+	 print_r( $html );
+	 echo 'here';
   $csvrows = explode("\n", $html);
   array_shift($csvrows);
   
