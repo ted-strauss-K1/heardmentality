@@ -83,7 +83,7 @@ function checkPrivacySettings( $uid = null){
   }
   
 }
-
+// to check only follower or followee will see the profile
  function checkFollowStatus( $login_user_id = null, $profile_user_id = null){
 
     $ques_query = "SELECT *  from {follower}  where uid='".$login_user_id."'  AND follower_status='1' AND  follower_id='".$profile_user_id."' UNION
@@ -95,7 +95,19 @@ function checkPrivacySettings( $uid = null){
 	    $isfollow = TRUE;
 		return $isfollow;
  	}
-
 	return $isfollow;
-//	return $usertypes;
  }
+
+// To check user points for user privacy settings
+ function checkUserPoints( $uid = null ){
+    $ques_query = "SELECT points FROM {user_profile} where  uid='".$uid."'";
+    $list = ExecuteQuery($ques_query, "select");
+	  if( isset($list[0]['points']) ) {
+	  return $list[0]['points'];
+	}
+	return 0;
+ 
+ }
+
+
+ ?>
