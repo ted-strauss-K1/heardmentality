@@ -1,0 +1,55 @@
+<?php
+/**
+ * Implementation of hook_perm().
+ */
+function gurupoints_perm() {
+  return array('Add Points');
+}
+
+
+/**
+ * Implementation of hook_menu().
+ */
+ 
+function gurupoints_menu() {	
+
+$search_result['admin/addpoints'] = array(
+    'title' => ' Add Points',
+    'page callback' => 'add_points',
+    'access arguments' => array('Add Points'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'gurupoints.pages.inc',
+  );
+
+$search_result['admin/point/save'] = array(
+    'title' => ' Add Points',
+    'page callback' => 'save_points',
+    'access arguments' => array('Add Points'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'gurupoints.pages.inc',
+  );
+  return $search_result;
+}
+
+function increasepoints($ptype,$qid)
+{
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+	 $query_pt= "SELECT * FROM tbl_points where id='$ptype' "; 
+	$query_ptinfo=db_query($query_pt);
+	$fetuserpts=db_fetch_object($query_ptinfo);
+	
+	$queryuser= "SELECT * FROM user_profile where uid=$user->uid "; 
+	$query_result=db_query($queryuser);
+	$userresult=db_fetch_object($query_result);
+	//echo "SELECT COUNT(*) from {tbl_user_points} where point_id=$ptype and qid=$qid and uid=$user->uid";
+	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where point_id=$ptype and qid=$qid and uid=$user->uid"));
+	if($numpt==0)
+	{
+	$insert_pts="insert into tbl_user_points (uid,qid,point_id,points) values($user->uid,$qid,$ptype,$fetuserpts->points)";
+	$qus=db_query($insert_pts);
+	$totpts=$userresult->points+$fetuserpts->points;
+	$uppts="update user_profile set points=$totpts where uid=$user->uid";
+	$quspts=db_query($uppts);
+	}
+
+}
