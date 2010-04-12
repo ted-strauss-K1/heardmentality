@@ -386,22 +386,30 @@ function qlite_view() {
 function qns_like() {
     global $gSitePath,$user,$gDocPath,$base_root;
     extract($_REQUEST);
-    
+    $userPoints = checkUserPoints($user->uid);
     $query = "select count(*) as res from {question_like} where qid='$qns' AND uid='$user->uid' ";
     $get = ExecuteQuery($query, "select");
+			  // Vote down needs minum 100 points
+	if((isset($type) && $type == 1 ) && (isset($userPoints) && $userPoints < 99 ) ){
+	    $array['msg'] = 'Sorry You Not Have Sufficent User Points To Down This Question!';
+		exit;
+	}
+	if((isset($type) && $type == -1 ) && (isset($userPoints) && $userPoints < 15 ) ){
+	   $array['msg'] = 'Sorry You Not Have Sufficent User Points To Up This Question!';
+	   exit;
+	}
     if ($get[0]['res'] > 0) {
         
         switch ($type) {
             
             case 1:
-                $query = "update {question_like} set like_yes='-1' where qid='$qns' AND uid='$user->uid'";
-                $ok = ExecuteQuery($query, "update");
-                
+		        $query = "update {question_like} set like_yes='-1' where qid='$qns' AND uid='$user->uid'";
+	            $ok = ExecuteQuery($query, "update");
                 break;
             case - 1:
                 $query = "update {question_like} set like_yes='1' where qid='$qns' AND uid='$user->uid'";
                 $ok = ExecuteQuery($query, "update");
-                break;
+               break;
         
         }
     
@@ -508,7 +516,7 @@ function qlite_save() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $mid = $_REQUEST['mid'];
-    $userPoints = checkUserPoints($user->uid);
+
     $voutput = '';
     $vquest = "select * from {possible_answer} where paid='".$_REQUEST['answer']."'  ";
     $rquest = db_query($vquest);
@@ -527,7 +535,7 @@ function qlite_save() {
             } else {
                 $votepointp = $olistquest->vote + 1;
             }
-            if ($userPoints > 14) {
+        
                 $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
                 db_query($vInsQuery);
                 drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
@@ -545,10 +553,7 @@ function qlite_save() {
                 $updatevoteposs = "update  possible_answer set vote='$votepointp' where paid='".$_REQUEST['answer']."'";
                 db_query($updatevoteposs);
                 drupal_goto("qlite/view/$mid");
-            } else {
-                drupal_set_message($message = 'Sorry You Not Have Sufficent User Points To Vote This Question!', $type = 'error');
-                drupal_goto("qlite/view/$mid");
-            }
+        
         
         } else {
             drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
