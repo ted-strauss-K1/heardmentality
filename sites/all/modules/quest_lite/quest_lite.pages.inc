@@ -1012,27 +1012,28 @@ function flag_report() {
 
 }
 
-function suggest_answer() {
-    
-    global $gSitePath,$user,$gDocPath,$base_root;
-    
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $ansoutput = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-    
-    $answers = "SELECT *	FROM suggest_answer where qid='$qid'  ";
-    $anslist = db_query($answers);
+function suggest_answer()
+	{
+	
+	global $gSitePath,$user, $gDocPath,$base_root;
 
-    
-    $numr = db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='$qid' and uid='".$user->uid."'"));
-    $ansoutput .= '<div id="log">
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+		$ansoutput='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+
+	$answers="SELECT *	FROM suggest_answer where qid='$qid'  ";
+	$anslist=db_query($answers);
+	
+	
+	 $numr= db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='$qid' and uid='".$user->uid."'"));
+	$ansoutput.='<div id="log">
 	<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
-    
-    $ansoutput .= '<div id="log_res_ans"><!-- spanner --></div>
+	
+	$ansoutput.='<div id="log_res_ans"><!-- spanner --></div>
 	<span class="clr"><!-- spanner --></span>';
-    
-    $ansoutput .= '<script type="text/javascript">
+	
+	$ansoutput.='<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
 	
 	if (!window.demo_path) window.demo_path = \'\';
@@ -1058,15 +1059,17 @@ function suggest_answer() {
 	<form id="voteform"  method="post" action="'.$gSitePath.'qlite/answervote"  enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="'.$qid.'"/>
 	Select Answer <select name="suggest" class="textfieldm" id="suggest">';
-    while ($answerfet = db_fetch_object($anslist)) {
-        $ansoutput .= '<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
-    
-    }
-    $ansoutput .= '</select> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/></form> ';
+	while($answerfet=db_fetch_object($anslist))
+	{
+	$ansoutput.='<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
 
-    
-    if ($numr == 0) {
-        $ansoutput .= '<script type="text/javascript">
+	}
+	$ansoutput.='</select> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/></form> ';	
+	
+		
+	if($numr==0)
+	{
+	$ansoutput.='<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
 	
 	if (!window.demo_path) window.demo_path = \'\';
@@ -1091,7 +1094,6 @@ function suggest_answer() {
 	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
 	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
 	</div></form>';
-<<<<<<< .mine
 	}
 	
 	echo $ansoutput;
@@ -1117,34 +1119,13 @@ function suggest_answer() {
 		}
 	
 	}
-function question_news()
+	function question_news()
 	{
 	global $gSitePath,$user, $gDocPath,$base_root;
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	require('RSSParser.class.php');
 	$xml =& new RSSParser;
-=======
-    }
-    
-    echo $ansoutput;
-}
-function suggest_answer_save() {
-    global $gSitePath,$user,$gDocPath,$base_root;
-    
-    $numr = db_result(db_query("SELECT COUNT(*) from {suggest_answer} where qid='".$_REQUEST['qaid']."' and uid='".$user->uid."'"));
-    if ($_REQUEST['txt_answer'] != '') {
-        if ($numr == 0) {
-            $answerquery = "insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
-            db_query($answerquery);
-            echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
-        }
-    } else {
-        echo '<div class="messages error">Please Enter Suggest Answer </div>';
-    
-    }
->>>>>>> .r613
 
-<<<<<<< .mine
 	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
 	$rlistnews=db_query($vSql);
 	  $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
@@ -1175,43 +1156,10 @@ function suggest_answer_save() {
 		 
 		 $newsresult.='<div class="cmt_list">
 	
-=======
-}
-function question_news() {
-    global $gSitePath,$user,$gDocPath,$base_root;
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    require ('RSSParser.class.php');
-    $xml = & new RSSParser;
-
-    
-    $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
-    $newsresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-    while ($usernews = db_fetch_object($rlistnews)) {
-        $output = $xml->parse($usernews->nlink);
-
-        
-        foreach ($output as $valuesresult) {
-            
-            //print_r( $valuesresult);
-
-        
-        }
-        
-        foreach ($valuesresult as $opkt) {
-
-            
-            $newsresult .= '<div class="cmt_list">
-	
->>>>>>> .r613
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$opkt["LINK"].'" target="new"> '.$opkt["TITLE"].' </a> </h4>
 		<p>'.$opkt['DESCRIPTION'].' </p>  
-<<<<<<< .mine
 	<p class="cmt_date"> '.date("D j M Y",strtotime($opkt['PUBDATE'])). '</p></div>
-=======
-	<p class="cmt_date"> '.date("D j M Y", strtotime($opkt['PUBDATE'])).'</p> </div>
->>>>>>> .r613
 	</div>';
-<<<<<<< .mine
 		 
 		 
 		 
@@ -1242,32 +1190,6 @@ function question_news() {
 	while($usermedia=db_fetch_object($rlistmedia))
 	{
 	$mediaresult.='<div class="cmt_list">
-=======
-
-        
-        }
-    }
-    
-    if ($numnews == 0) {
-        
-        $newsresult .= 'No News  Under This Question.';
-    
-    }
-    echo $newsresult;
-
-
-}
-
-function question_media() {
-    
-    global $gSitePath,$user,$gDocPath,$base_root;
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    
-    $nummedia = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
-    $mediaresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-    while ($usermedia = db_fetch_object($rlistmedia)) {
-        $mediaresult .= '<div class="cmt_list">
->>>>>>> .r613
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
 	<p><img src="http://img.youtube.com/vi/'.$usermedia->video_id.'/default.jpg" ></p>
 	<br/>  
@@ -1279,9 +1201,8 @@ function question_media() {
 </object>
 
  </p>
-	<p class="cmt_date"> '.date("D j M Y", strtotime($usermedia->posted_date)).'</p> </div>
+	<p class="cmt_date"> '.date("D j M Y",strtotime($usermedia->posted_date)). '</p> </div>
 	</div>';
-<<<<<<< .mine
 	}
 	if($nummedia==0)
 	{
@@ -1305,41 +1226,19 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	while($userfacts=db_fetch_object($rlistfacts))
 	{
 	$newsresult.='<div class="cmt_list">
-=======
-    }
-    if ($nummedia == 0) {
-        
-        $mediaresult .= 'No Media Under This Question.';
-    
-    }
-    echo $mediaresult;
-
-}
-
-function question_facts() {
-    
-    global $gSitePath,$user,$gDocPath,$base_root;
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    
-    $numfacts = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
-    $newsresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-    while ($userfacts = db_fetch_object($rlistfacts)) {
-        $newsresult .= '<div class="cmt_list">
->>>>>>> .r613
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;";href="'.$userfacts->facts.'" target="new"> '.$userfacts->facts.' </a> </h4>
-	<p class="cmt_date"> '.date("D j M Y", strtotime($userfacts->posted_date)).'</p> '.$usernews->posted_date.'</div>
+	<p class="cmt_date"> '.date("D j M Y",strtotime($userfacts->posted_date)). '</p> '.$usernews->posted_date.'</div>
 	</div>';
-    }
-    if ($numfacts == 0) {
-        
-        $newsresult .= 'No Facts Under This Question.';
-    
-    }
-    echo $newsresult;
+	}
+	if($numfacts==0)
+	{
 	
-
-}
-
+	$newsresult.='No Facts Under This Question.';
+	
+	}
+	echo $newsresult;
+	
+	}
 
 function qlite_percent() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
