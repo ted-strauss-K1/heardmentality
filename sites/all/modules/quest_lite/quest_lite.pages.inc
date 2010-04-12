@@ -1146,16 +1146,16 @@ function suggest_answer()
 	foreach($valuesresult as $opkt)
 	{
 	
-	echo $opkt['TITLE'];
+	$newsresult.= $opkt['TITLE'];
 	
 	
-	echo $opkt['LINK'];
+	$newsresult.= $opkt['LINK'];
 	
 	
-	echo $opkt['DESCRIPTION'];
+	$newsresult.=$opkt['DESCRIPTION'];
 	
 	
-	echo $opkt['PUBDATE'];
+	$newsresult.= $opkt['PUBDATE'];
 		
 	}
 		
