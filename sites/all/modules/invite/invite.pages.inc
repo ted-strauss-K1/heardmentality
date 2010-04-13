@@ -4,15 +4,32 @@ function invite_friends()
 {
   global $gSitePath,$user,$gDocPath,$base_root;
   $uid=$user->uid;
-
+  $emails = NULL ;
+  $title = NULL ;
 include("gmail.api.include.php");
-  if (isset($_REQUEST['invite'])) {
-      $GMAIL_USERNAME =$_REQUEST['gmail_username'];
-	  $GMAIL_PASSWORD =$_REQUEST['gmail_pass'];
-	   $emails = getContacts("$GMAIL_USERNAME","$GMAIL_PASSWORD");
-
+  if (isset($_REQUEST['go'])) {
+	    if (isset($_REQUEST['domain']) && $_REQUEST['domain']=='gmail.com' ) {
+			  $GMAIL_USERNAME =$_REQUEST['gmail_username'];
+			  $GMAIL_PASSWORD =$_REQUEST['gmail_pass'];
+			  $emails = getContacts("$GMAIL_USERNAME","$GMAIL_PASSWORD");
+              $title = 'The following contacts are imported from your gmail account';
+		}
     }
 
+  if (isset($_REQUEST['invite'])) {
+		$senderlist = $_REQUEST['recipient_list'];
+	    $mail_cont = explode(',',  $senderlist);
+        $guest_mail = array();
+		$params = array( 'myVar' => 'data you would like in your message and/or subject');
+        foreach($mail_cont as $mail) {
+		// $guest_mail[] = trim($mail);
+		   $EmailTo = trim($mail);
+		   drupal_mail('invite', 'invitation', $EmailTo, language_default(), $params);
+           }
+	 }
+	$mail_options='<option value="gmail.com">gmail</option>
+		<option value="hotmail.com"> hotmail</option>
+		<option value="yahoo.com">yahoo</option>';
 
  $strReturn = '
   <script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
@@ -22,11 +39,15 @@ include("gmail.api.include.php");
 	
 		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
 		<fieldset>
-        	<legend>From</legend>	<p><input type="text" name="gmail_username" >
-			   <input type="password" name="gmail_pass" ></p>
-			<p> To: (use commas to separate emails)<textarea id="recipient_list" rows="3" cols="80" name="recipient_list"></textarea></p>
-			<p>Message: (optional)	<textarea id="message" rows="3" cols="80"></textarea></p>
-			<p>Please use "Contact Name" &lt;XXX@YYY.com&gt; format. Multiple email separated with comma.</p>
+        	<legend>Invite Friends</legend>	
+			<p>	<label for="edit-name">Username: <span class="form-required" title="This field is required.">*</span></label>
+			<input type="text" name="gmail_username" >&nbsp;&nbsp;&nbsp;<select name="domain">'.$mail_options.'</select>
+			<br/></p>
+			 <p> <label for="edit-name">Password: <span class="form-required" title="This field is required.">*</span></label> <input type="password" name="gmail_pass" ></p>
+			 <input type="submit" name="go" value="go"></br></br>
+			 <h2>'.$title.'</h2>
+			<p> To: (use commas to separate emails)<textarea id="recipient_list" rows="3" cols="80" name="recipient_list">'.$emails.'</textarea></p>
+			<p>Message: (optional)	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="message" rows="3" cols="80"></textarea></p>
 			</fieldset>
 			<div class="clear" style="height:100px;" ><input type="submit" name="invite" value="Invite">
 			<input type="submit" name="cancel" value="Cancel"></div>
@@ -42,13 +63,24 @@ function getContacts($username = null, $password = null){
   $password =  $password;
   
   $resultarray = get_contacts($login, $password);
-  print_r( $resultarray);
- // exit;
-  	foreach($resultarray as $res){
-		$emailArray['email'] = $res;
-	}
-  echo  $emailArray;
-	
-} 
+  if(isset($resultarray[1]) && count($resultarray[1])> 0) {
+		foreach($resultarray[1] as $email){
+		   $allemail.= $email.',';
+		
+		}
+	  return $allemail;
+  } 
+	return null;
+}
+
+function invite_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'invitation':
+      // note: data can be passed to this function in the $params array
+      $message['subject'] = t('EMAIL SUBJECT');
+      $message['body'] = t('MESSAGE BODY');
+      break;   
+  }
+}
 
 
