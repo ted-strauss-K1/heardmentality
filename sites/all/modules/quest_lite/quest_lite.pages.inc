@@ -1058,13 +1058,17 @@ function suggest_answer()
 	</script>
 	<form id="voteform"  method="post" action="'.$gSitePath.'qlite/answervote"  enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="'.$qid.'"/>
-	Select Answer <select name="suggest" class="textfieldm" id="suggest">';
+	<h3>The Following Answers have been suggested by other users for this question:</h3>
+	 <br/>
+	Select Answer <br/>
+	<p>';// <select name="suggest" class="textfieldm" id="suggest">
 	while($answerfet=db_fetch_object($anslist))
 	{
-	$ansoutput.='<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
+	$ansoutput.='<label><input type="radio" name="suggest" value="'.$answerfet->said.'" />'.$answerfet->answer.'</label><br/>';
+	//<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
 
 	}
-	$ansoutput.='</select> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/></form> ';	
+	$ansoutput.='</p> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/></form> ';	
 	
 		
 	if($numr==0)
