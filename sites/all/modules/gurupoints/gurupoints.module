@@ -50,7 +50,7 @@ function increasepoints($ptype,$qid,$vptid)
 	else
 	{
 	echo $vptid;
-	$query_ptm= "SELECT * FROM tbl_vote_gurupoints where id='$vptid' "; 
+	echo $query_ptm= "SELECT * FROM tbl_vote_gurupoints where id='$vptid' "; 
 	
 	}
 	if($numpt==0)
