@@ -122,7 +122,7 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
   );
   $items = array();
  
-    $items[] = '<a onclick="loadlogin(\''.$gSitePath.'rpx/registration\',\'Question Information\');">Sign In </a>';
+    $items[] = '<a onclick="loadlogin(\''.$gSitePath.'rpx/registration\',\'Sign In\');">Sign In </a>';
 
  // $items[] = l(t('Request new password'), 'user/password', array('attributes' => array('title' => t('Request new password via e-mail.'))));
   $form['links'] = array('#value' => theme('item_list', $items));
