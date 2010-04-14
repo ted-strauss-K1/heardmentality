@@ -1034,8 +1034,7 @@ function suggest_answer()
 
 	$answers="SELECT *	FROM suggest_answer where qid='$qid'  ";
 	$anslist=db_query($answers);
-	
-	
+	$count_row = db_result(db_query($answers));
 	 $numr= db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='$qid' and uid='".$user->uid."'"));
 	$ansoutput.='<div id="log">
 	<div id="log_res"><!-- spanner --></div>
@@ -1069,8 +1068,10 @@ function suggest_answer()
 	
 	</script>
 	<form id="voteform"  method="post" action="'.$gSitePath.'qlite/answervote"  enctype="multipart/form-data">
-	<input type="hidden" name="qaid" value="'.$qid.'"/>
-	<h3>The Following Answers have been suggested by other users for this question:</h3>
+	<input type="hidden" name="qaid" value="'.$qid.'"/>';
+	if(isset($count_row) && $count_row >0 )
+		{
+$ansoutput.=	'<h3>The Following Answers have been suggested by other users for this question:</h3>
 	 <br/>
 	Select Answer <br/>
 	<p>';// <select name="suggest" class="textfieldm" id="suggest">
@@ -1080,7 +1081,9 @@ function suggest_answer()
 	//<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
 
 	}
-	$ansoutput.='</p> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/></form> ';	
+	$ansoutput.='</p> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/>';
+	}
+	'</form> ';	
 	
 		
 	if($numr==0)
