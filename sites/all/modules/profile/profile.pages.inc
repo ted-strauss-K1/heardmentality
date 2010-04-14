@@ -88,12 +88,12 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 	|| ($userSettings['gender'] == 2  && $is_follow_follower == TRUE  )   ){
        $gender_name1  = $gender_name ;
 	}
-	if( ($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)
-	|| ($userSettings['twitter'] == 2  && $is_follow_follower == TRUE  )	){
-       $facebook1  =		'<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/facebook.png" align="absmiddle" alt="Facebook" >&nbsp; @'.$facebook;
-	}
 	if( ($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)
 	|| ($userSettings['facebook'] == 2  && $is_follow_follower == TRUE  )	){
+       $facebook1  =		'<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/facebook.png" align="absmiddle" alt="Facebook" >&nbsp; @'.$facebook;
+	}
+	if( ($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)
+	|| ($userSettings['twitter'] == 2  && $is_follow_follower == TRUE  )	){
        $twitter1  =   '<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/twitter.png" align="absmiddle" alt="Twitter" >&nbsp; @'.$twitter;
 	}
 	//answers posted
@@ -211,8 +211,8 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 					'.$bio1.'
 				</div>
 				<div class="rht">
-					'.$facebook1.'<br/>
-					'.$twitter1.'
+					<a href="'.$facebook.'" target="blank">'.$facebook1.'</a><br/>
+					<a href="'.$twitter.'" target="blank">'.$twitter1.'</a>
 				</div>
 				
 				
