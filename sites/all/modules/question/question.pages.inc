@@ -464,7 +464,7 @@ function question_save() {
 
         
         $ins_id = db_last_insert_id('question', 'qid');
-        
+         increasepoints('1',$ins_id,'0');
         //for url alias
         $url = 'qlite/view/'.$ins_id;
         
