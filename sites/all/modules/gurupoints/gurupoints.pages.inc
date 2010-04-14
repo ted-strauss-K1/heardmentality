@@ -192,31 +192,62 @@ function save_points()
 
 	 $point_list = ExecuteQuery($user_pt, "select");
    
-   $outputppt='<form name="lname" method="post" ><table width="100%" border="0" cellspacing="0" cellpadding="0">
+   $outputppt='<form name="lname" method="post" ><table width="100%" border="1" cellspacing="0" cellpadding="0">
    
    
   <tr>
     <td>User</td>
     <td>Post Qusetion Points</td>
+	<td>Answering a question</td>
+	<td>Have a post liked</td>
+	<td>Flagging a question</td>
+	<td>Subscribing a friend</td>
+	<td>Number of followers</td>
+	<td>Created question Vote Values</td>
     <td>Total Points</td>
   </tr>';
   for($p=0;$p<count($point_list);$p++)
 	{
 	
-	$querysn = "SELECT * FROM tbl_points limit 0, 6 "; 
-	 $vlistsn = ExecuteQuery($querysn, "select");
-	for($m=0;$m<count($vlistsn);$m++)
-	{
-	  $qpt="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_type=".$vlistsn[$m][id]." group by uid";
-	 }
-	if($point_list[$p]['point']=='')
+	
+	
+	   $qptstd="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='1' group by uid";
+	   $qrylist = ExecuteQuery($qptstd, "select");
+	 
+	
+	     $qptstd2="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='2' group by uid";
+	   $qrylist2 = ExecuteQuery($qptstd2, "select");
+	 
+	
+	
+	 $qptstd3="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='3' group by uid";
+	   $qrylist3 = ExecuteQuery($qptstd3, "select");
+	   
+	   
+	   $qptstd4="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='4' group by uid";
+	   $qrylist4 = ExecuteQuery($qptstd4, "select");
+	  
+	$qptstd5="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='5' group by uid";
+	   $qrylist5 = ExecuteQuery($qptstd5, "select");
+	   
+	   $qptstd6="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='6' group by uid";
+	   $qrylist6 = ExecuteQuery($qptstd6, "select");
+	   if($point_list[$p]['point']=='')
 	$pt='0';
 	else
 	$pt=$point_list[$p]['point'];
+	   $vtpt=$pt-($qrylist[0]['qpt']+$qrylist2[0]['qpt']+$qrylist3[0]['qpt']+$qrylist4[0]['qpt']+$qrylist5[0]['qpt']+$qrylist6[0]['qpt']);
+	
   $outputppt.=' <tr>
-    <td>'.$point_list[$p]['name'].'</td>
-    <td>&nbsp;</td>
-    <td>'.$pt.'</td>
+	<td>'.$point_list[$p]['name'].'</td>
+	<td>'.$qrylist[0]['qpt'].'</td>
+	<td>'.$qrylist2[0]['qpt'].'</td>
+	<td>'.$qrylist3[0]['qpt'].'</td>
+	<td>'.$qrylist4[0]['qpt'].'</td>
+	<td>'.$qrylist5[0]['qpt'].'</td>
+	<td>'.$qrylist6[0]['qpt'].'</td>
+	<td>'.$vtpt.'</td>
+	<td>'.$pt.'</td>
   </tr>';
   
   }
