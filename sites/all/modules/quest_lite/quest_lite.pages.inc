@@ -380,16 +380,24 @@ function qlite_view() {
         
         $submitbutt = ' <p><input type="submit" name="save" id="save" value="Vote" /></p>';
     }
-    $voutput .= '<div class="rht_select"><select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
+
+//	$voutput .='<a href="'.$gSitePath.'invite/invite_friends">Share This Question </a>';
+
+    $voutput .= '<div class="rht_select">
+	<a href="'.$gSitePath.'invite/invite_friends?qid='.$qid.'">Share This Question </a>
+	<select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 		<option value=""> Select</option >
 		'.$optio.'
 		<option value="2"> Invite</option >
 		<option value="3"> Flag</option >
 		<option value="4">Suggest New Answer</option> 
 		<option value="5">Create Mashup:</option> 
-		</select></div></div>		
+		</select></div>
+		</div>		
 		'.$submitbutt.' 
-		</div></div></form>';
+		</div></div></form>
+		
+		';
     return $voutput;
 }
 
