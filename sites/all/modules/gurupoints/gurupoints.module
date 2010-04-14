@@ -39,7 +39,7 @@ function increasepoints($ptype,$qid,$vptid)
 	$queryuser= "SELECT * FROM user_profile where uid=$user->uid "; 
 	$query_result=db_query($queryuser);
 	$userresult=db_fetch_object($query_result);
-	echo $vptid;
+	
 	if($vptid=='0')
 	{
 	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where point_id=$ptype and qid=$qid and uid=$user->uid"));
@@ -49,7 +49,7 @@ function increasepoints($ptype,$qid,$vptid)
 	}
 	else
 	{
-	echo "veni";
+	echo $vptid;
 	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where vote_point_id=$vptid and qid=$qid and uid=$user->uid"));
 	echo  $query_pt= "SELECT * FROM tbl_vote_gurupoints where id=$vptid "; 
 	$query_ptinfo=db_query($query_pt);
