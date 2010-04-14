@@ -16,7 +16,7 @@ function qlite_view() {
     $query_sugestlist = db_query($query_sugest);
     $fetvotsugest = db_fetch_object($query_sugestlist);
     
-    $totalvotes = $fetvot->possiblevote + $fetvotsugest->suggestv;
+    echo $totalvotes = $fetvot->possiblevote + $fetvotsugest->suggestv;
 
     
     $vSqlsv = "select * from {vote_percent} where id='1' ";
