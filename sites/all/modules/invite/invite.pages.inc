@@ -6,7 +6,20 @@ function invite_friends()
   $uid=$user->uid;
   $emails = NULL ;
   $title = NULL ;
-include("gmail.api.include.php");
+  $question_url = NULL;
+   $invite_for_question = NULL;
+  include("gmail.api.include.php");
+   if(isset($_REQUEST['qid'])){
+	   $question_id =	$_REQUEST['qid'];
+	   $find_url = db_query("select url from {question} where qid='$question_id'");
+       $question_url = db_fetch_array($find_url);
+		if(isset( $question_url)){
+		$question_url = $question_url['url'];
+		}
+       $question_url= $gSitePath.$question_url;
+ }
+
+
   if (isset($_REQUEST['go'])) {
 	    if (isset($_REQUEST['domain']) && $_REQUEST['domain']=='gmail.com' ) {
 			  $GMAIL_USERNAME =$_REQUEST['gmail_username'];
@@ -27,10 +40,16 @@ include("gmail.api.include.php");
 		   drupal_mail('invite', 'invitation', $EmailTo, language_default(), $params);
            }
 	 }
+
+
+	if(isset($question_url) && $question_url != NULL){
+     $invite_for_question = '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="question_list" rows="3" cols="80" name="question_list" disabled="disabled">'.$question_url.'</textarea></p>';
+  
+	 }
 	$mail_options='<option value="gmail.com">gmail</option>
 		<option value="hotmail.com"> hotmail</option>
 		<option value="yahoo.com">yahoo</option>';
-
+		
  $strReturn = '
   <script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
@@ -46,7 +65,10 @@ include("gmail.api.include.php");
 			 <p> <label for="edit-name">Password: <span class="form-required" title="This field is required.">*</span></label> <input type="password" name="gmail_pass" ></p>
 			 <input type="submit" name="go" value="go"></br></br>
 			 <h2>'.$title.'</h2>
-			<p> To: (use commas to separate emails)<textarea id="recipient_list" rows="3" cols="80" name="recipient_list">'.$emails.'</textarea></p>
+			<p>
+			To: (use commas to separate emails)<textarea id="recipient_list" rows="3" cols="80" name="recipient_list">'.$emails.'</textarea></p>
+			'.
+			$invite_for_question.'
 			<p>Message: (optional)	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="message" rows="3" cols="80"></textarea></p>
 			</fieldset>
 			<div class="clear" style="height:100px;" ><input type="submit" name="invite" value="Invite">
