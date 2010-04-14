@@ -33,7 +33,7 @@ $search_result['admin/point/save'] = array(
 
 function increasepoints($ptype,$qid,$vptid)
 {
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path,$vptid;
 	
 	
 	$queryuser= "SELECT * FROM user_profile where uid=$user->uid "; 
