@@ -31,9 +31,14 @@ function invite_friends()
 
   if (isset($_REQUEST['invite'])) {
 		$senderlist = $_REQUEST['recipient_list'];
+		$message = isset($_REQUEST['message'])?$_REQUEST['message']:'';
+		$question_list = isset($_REQUEST['question_list'])?$_REQUEST['question_list']:'';
 	    $mail_cont = explode(',',  $senderlist);
         $guest_mail = array();
 		$params = array( 'myVar' => 'data you would like in your message and/or subject');
+		$params['message'].=$message;
+		$params['question'].=$question_list;
+	
         foreach($mail_cont as $mail) {
 		// $guest_mail[] = trim($mail);
 		   $EmailTo = trim($mail);
@@ -43,7 +48,7 @@ function invite_friends()
 
 
 	if(isset($question_url) && $question_url != NULL){
-     $invite_for_question = '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="question_list" rows="3" cols="80" name="question_list" disabled="disabled">'.$question_url.'</textarea></p>';
+     $invite_for_question = '<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="question_list" rows="3" cols="80" name="question_list" disabled="disabled">'.$question_url.'</textarea><input type="hidden"  name="question_list" value="'.$question_url.'"></p>';
   
 	 }
 	$mail_options='<option value="gmail.com">gmail</option>
@@ -69,7 +74,7 @@ function invite_friends()
 			To: (use commas to separate emails)<textarea id="recipient_list" rows="3" cols="80" name="recipient_list">'.$emails.'</textarea></p>
 			'.
 			$invite_for_question.'
-			<p>Message: (optional)	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="message" rows="3" cols="80"></textarea></p>
+			<p>Message: (optional)	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea id="message" name="message" rows="3" cols="80"></textarea></p>
 			</fieldset>
 			<div class="clear" style="height:100px;" ><input type="submit" name="invite" value="Invite">
 			<input type="submit" name="cancel" value="Cancel"></div>
@@ -96,11 +101,15 @@ function getContacts($username = null, $password = null){
 }
 
 function invite_mail($key, &$message, $params) {
+
+//  $variables = user_mail_tokens($params, $language);
+  $variables = $params['message'].$params['question'];
   switch ($key) {
     case 'invitation':
       // note: data can be passed to this function in the $params array
       $message['subject'] = t('EMAIL SUBJECT');
-      $message['body'] = t('MESSAGE BODY');
+	//  $message['body'][] = t('MESSAGE BODY');
+	  $message['body'][] = t("", $variables, $language->language);
       break;   
   }
 }
