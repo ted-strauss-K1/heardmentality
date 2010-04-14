@@ -3,15 +3,7 @@
 function add_points()
 {
 global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-	$query = "SELECT * FROM tbl_points  "; 
-	 $vlist = ExecuteQuery($query, "select");
-     $cnt_ans = count($vlist);
-    $array_get=array();
-	for($k=0;$k<6;$k++)
-	{
-	array_push($array_get, $vlist[$k]['points']);
-	}
-//print_r($array_get);
+	
 
 	$addoutput='<SCRIPT language=Javascript>
    
@@ -35,15 +27,23 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
     <td width="54%">
       Points
    </td>
-  </tr>
-  <tr>
-    <td width="46%" height="37">Creating a question</td>
+  </tr>';
+  $query = "SELECT * FROM tbl_points limit 0, 6 "; 
+	 $vlist = ExecuteQuery($query, "select");
+  for($k=0;$k<6;$k++)
+	{
+ $addoutput.=' <tr>
+    <td width="46%" height="37">'.$vlist[$k]['point_type'].'</td>
     <td width="54%">
-      <input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points1" id="qusetion_points1" size="7" value='.$array_get[0].' />
+      <input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points'.$vlist[$k][id].'" id="qusetion_points'.$vlist[$k][id].'" size="7" value='.$vlist[$k]['points'].' />
    </td>
-  </tr>
+  </tr>';
   
-  <tr>
+  
+  
+  }
+  
+ /* <tr>
     <td height="35">Answering a question</td>
     <td><input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points2" id="qusetion_points2" size="7" value='.$array_get[1].'  /></td>
   </tr>
@@ -62,7 +62,7 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
   <tr>
     <td height="34">Followers Points</td>
     <td><input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points6" id="qusetion_points6" size="7" value='.$array_get[5].' /></td>
-  </tr>';
+  </tr>';*/
    $querys= "SELECT * FROM tbl_vote_gurupoints  "; 
 	 $vlistm = ExecuteQuery($querys, "select");
 	 for($k=0;$k<count($vlistm);$k++)
@@ -182,6 +182,55 @@ function save_points()
 		
 		
 		}
+
+
+
+   function user_points()
+   {
+  
+	$user_pt = "SELECT a.uid, a.name, a.mail, SUM(b.points) AS point FROM users as a LEFT OUTER JOIN tbl_user_points as b ON a.uid = b.uid GROUP BY uid  "; 
+
+	 $point_list = ExecuteQuery($user_pt, "select");
+   
+   $outputppt='<form name="lname" method="post" ><table width="100%" border="0" cellspacing="0" cellpadding="0">
+   
+   
+  <tr>
+    <td>User</td>
+    <td>Post Qusetion Points</td>
+    <td>Total Points</td>
+  </tr>';
+  for($p=0;$p<count($point_list);$p++)
+	{
+	
+	$querysn = "SELECT * FROM tbl_points limit 0, 6 "; 
+	 $vlistsn = ExecuteQuery($querysn, "select");
+	for($m=0;$m<count($vlistsn);$m++)
+	{
+	  $qpt="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_type=".$vlistsn[$m][id]." group by uid";
+	 }
+	if($point_list[$p]['point']=='')
+	$pt='0';
+	else
+	$pt=$point_list[$p]['point'];
+  $outputppt.=' <tr>
+    <td>'.$point_list[$p]['name'].'</td>
+    <td>&nbsp;</td>
+    <td>'.$pt.'</td>
+  </tr>';
+  
+  }
+$outputppt.='</table></form>';
+   
+   return $outputppt;
+   
+   
+   
+   }
+
+
+
+
 
 
 ?>
