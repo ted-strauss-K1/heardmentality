@@ -59,7 +59,8 @@ function increasepoints($ptype,$qid,$idm)
 	else
 	{
 	echo $idm;
-	echo $query_ptm ="select * from tbl_vote_gurupoints where id='".$idm."'"; 
+	echo $numpt;
+	//echo $query_ptm ="select * from tbl_vote_gurupoints where id='".$idm."'"; 
 	
 	
 	
