@@ -40,7 +40,7 @@ function increasepoints($ptype,$qid,$vptid)
 	$query_result=db_query($queryuser);
 	$userresult=db_fetch_object($query_result);
 	echo $vptid;
-	if($vptid==0)
+	if($vptid=='0')
 	{
 	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where point_id=$ptype and qid=$qid and uid=$user->uid"));
 	 $query_pt= "SELECT * FROM tbl_points where id='$ptype' "; 
