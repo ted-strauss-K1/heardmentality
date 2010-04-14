@@ -31,7 +31,7 @@ $search_result['admin/point/save'] = array(
   return $search_result;
 }
 
-function increasepoints($ptype,$qid)
+function increasepoints($ptype,$qid,$vptid)
 {
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 	 $query_pt= "SELECT * FROM tbl_points where id='$ptype' "; 
@@ -42,10 +42,13 @@ function increasepoints($ptype,$qid)
 	$query_result=db_query($queryuser);
 	$userresult=db_fetch_object($query_result);
 	//echo "SELECT COUNT(*) from {tbl_user_points} where point_id=$ptype and qid=$qid and uid=$user->uid";
+	if($vptid==0)
 	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where point_id=$ptype and qid=$qid and uid=$user->uid"));
+	else
+	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where vote_point_id=$vptid and qid=$qid and uid=$user->uid"));
 	if($numpt==0)
 	{
-	$insert_pts="insert into tbl_user_points (uid,qid,point_id,points) values($user->uid,$qid,$ptype,$fetuserpts->points)";
+	$insert_pts="insert into tbl_user_points (uid,qid,point_id,points,vote_point_id) values($user->uid,$qid,$ptype,$fetuserpts->points,$vptid)";
 	$qus=db_query($insert_pts);
 	$totpts=$userresult->points+$fetuserpts->points;
 	$uppts="update user_profile set points=$totpts where uid=$user->uid";
