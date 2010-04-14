@@ -381,6 +381,17 @@ function qlite_view() {
         $submitbutt = ' <p><input type="submit" name="save" id="save" value="Vote" /></p>';
     }
 
+//tags
+    $instags = '';
+    $query = 'select tag from {qtag} where qid="'.$qid.'"  ';
+    $gettag = ExecuteQuery($query, "select");
+    foreach ($gettag as $intag) {
+        $etag = '';
+        $etag = explode(',', $intag['tag']);
+        foreach ($etag as $dtag) {
+            $instags .= "<b>".$dtag."</b>&nbsp;";
+        }
+    }
 //	$voutput .='<a href="'.$gSitePath.'invite/invite_friends">Share This Question </a>';
 
     $voutput .= '<div class="rht_select">
@@ -395,7 +406,10 @@ function qlite_view() {
 		</select></div>
 		</div>		
 		'.$submitbutt.' 
-		</div></div></form>
+		</div></div>
+		<div><b>Tags [<a href="#" onclick="loadsuggest(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
+		</div></form>
+		</form>
 		
 		';
     return $voutput;
@@ -1587,5 +1601,145 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         drupal_goto("admin/qlite/percentage");
     }
     
+ function retag() {
+        
+        global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+        
+        $display .= '
 
+				<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	
+			<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/Observer.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/Autocompleter.js"></script>
+			<script  src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/tagging.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
+	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/Autocompleter.css" type="text/css" media="screen" />
+				<script type="text/javascript">
+	/* <![CDATA[ */
+	window.addEvent("domready", function() {
+		
+		new Autocompleter.Ajax.Json("tagging-widget-input-1", "ajax/?action=tag", {
+			
+			"postVar": "q"
+		});
+	});
+	/* ]]> */
+	</script>';
+	$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	$query = " SELECT tag FROM {qtag} WHERE qid='".$qid."' ";
+                $result = ExecuteQuery($query, "select");
+        echo	$display.=edit_tagging($result[0]['tag']);
+      
+    }
+    
+	function edit_tagging($tag = '') {
+
+    
+    $content = '';
+    $tagged = '';
+    if ($tag != '') {
+        
+        $exp = explode(",", $tag);
+        
+        foreach ($exp as $list) {
+            
+            $tagged .= '<div id="tagset" class="tagging-tag" onclick="tag_delq(this);return false;">'.$list.'</div>';
+        }
+    
+    }
+    $content .= '<div id="tagging-widget-container">
+        <fieldset>
+            <legend>
+                Test Tag
+            </legend>
+            <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
+                <label>
+                    Assigned Tags:
+                </label>
+				'.$tagged.'
+            </div>
+            <div class="form-item" id="tagging-widget-input-1-wrapper">
+			
+                <span class="field-prefix">
+                    <div class="taggin-widget-input-wrapper">
+                        <input maxlength="20" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"/></span></a>
+						
+						<input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"/></span>
+						
+						<input name="q_tag" type="hidden" id="q_tag" value="'.$tag.'"  >
+                    </div>
+                </span>
+                <div class="description">
+                   Add New Tag
+                </div>
+            </div>
+            <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden">
+          
+		    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
+               <label>Suggestions:</label>
+                <a href="#" class="taga" title="Add tag">
+                    <div id="tagging-1" class="tagging-suggest-tag processed">
+                        Drupal
+                    </div>
+                </a>
+                <a href="#" class="taga"  title="Add tag">
+                    <div id="tagging-1" class="tagging-suggest-tag processed">
+                        Drupal Wiki
+                    </div>
+                </a>
+                <a href="#" class="taga"  title="Add tag">
+                    <div id="tagging-1" class="tagging-suggest-tag processed">
+                        Impressive.media GbR
+                    </div>
+                </a>
+            </div>
+        </fieldset></div>';
+
+    
+    return $content;
+}
+
+
+	
+    function qfull_ajax() {
+        $action = $_REQUEST['action'];
+        
+        switch ($action) {
+            case 'tag':
+                $q = strtolower($_REQUEST["q"]);
+                if (!$q)
+                    return;
+                $taglist = array();
+                $items = array();
+                $query = " SELECT * FROM {qtag} WHERE `tag` LIKE CONVERT( _utf8 '%$q%'USING latin1 )COLLATE latin1_swedish_ci LIMIT 0 , 15 ";
+                $result = ExecuteQuery($query, "select");
+                
+                foreach ($result as $single) {
+                    array_push($taglist, $single['tag']);
+                }
+                $taglist = array_filter($taglist);
+                
+                $taglist = array_unique($taglist);
+                $taglist = implode(',', $taglist);
+                $taglist = explode(',', $taglist);
+                $taglist = array_filter($taglist);
+                $items = array_unique($taglist);
+               // print_r($items);
+                $json = array();
+                
+                foreach ($items as $key=>$value) {
+                    if (strpos(strtolower($value), $q) !== false) {
+                        $json[] = '"'.$value.'"';
+                    }
+                }
+                
+                echo '['.implode(',', $json).']';
+                break;
+            default:
+                break;
+        }
+    
+    }
+    
 ?>
+
