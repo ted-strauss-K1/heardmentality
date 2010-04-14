@@ -59,6 +59,7 @@ function increasepoints($ptype,$qid,$idm)
 	else
 	{
 	echo $idm;
+	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where vote_point_id=$idm and qid=$qid and uid=$user->uid"));
 	echo $numpt;
 	//echo $query_ptm ="select * from tbl_vote_gurupoints where id='".$idm."'"; 
 	
