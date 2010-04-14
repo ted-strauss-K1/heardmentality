@@ -98,6 +98,7 @@ function phptemplate_get_ie_styles() {
   return $iecss;
 }
 function user_login_block_new() {
+global $gSitePath,$user, $gDocPath,$base_root,$base_path;
   $form = array(
     '#action' => url($_GET['q'], array('query' => drupal_get_destination())),
     '#id' => 'user-login-form',
