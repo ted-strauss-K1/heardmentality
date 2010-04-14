@@ -19,7 +19,7 @@ function qlite_view() {
     echo $totalvotes = $fetvot->possiblevote + $fetvotsugest->suggestv;
 
 
-    $vqry="select * from tbl_vote_gurupoints where vstart=$totalvotes and vend<$totalvotes";
+    $vqry="select * from tbl_vote_gurupoints where vstart=$totalvotes and vend>$totalvotes";
     $voteqrylist = db_query($vqry);
     $fetqrylist = db_fetch_object($voteqrylist);
 	
