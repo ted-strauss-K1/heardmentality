@@ -376,7 +376,8 @@ function profile_edit() {
 	}
     
     $strReturn = '	
-		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
+		<script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript"></script>
+		<form name="profile" id="profile"  onsubmit="return validate_profile();"  method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend><b><i>Account information</i></b></legend>
 				<div class="form-item" id="edit-name-wrapper"> 
