@@ -50,15 +50,12 @@ function increasepoints($ptype,$qid,$vptid)
 	else
 	{
 	echo $vptid;
-	 $point=$vptid;
-	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where vote_point_id=$vptid and qid=$qid and uid=$user->uid"));
-	echo  $query_pt= "SELECT * FROM tbl_vote_gurupoints where id=$point "; 
-	$query_ptinfo=db_query($query_pt);
-	$fetuserpts=db_fetch_object($query_ptinfo);
+	
+	
 	}
 	if($numpt==0)
 	{
-	echo $insert_pts="insert into tbl_user_points (uid,qid,point_id,points,vote_point_id) values($user->uid,$qid,$ptype,$fetuserpts->points,$vptid)";
+	 $insert_pts="insert into tbl_user_points (uid,qid,point_id,points,vote_point_id) values($user->uid,$qid,$ptype,$fetuserpts->points,$vptid)";
 	$qus=db_query($insert_pts);
 	$totpts=$userresult->points+$fetuserpts->points;
 	$uppts="update user_profile set points=$totpts where uid=$user->uid";
