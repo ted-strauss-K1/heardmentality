@@ -1,7 +1,7 @@
 <?php
 function quest_lite_perm() {
 
-  return array('Question Lite','Question Save', 'Add Resource' , 'Save Resource','Flag Question','Question Report Percent','Question Report Time','Question Report Map','Question Like');
+  return array('Question Lite','Question Save', 'Add Resource' , 'Save Resource','Flag Question','Question Report Percent','Question Report Time','Question Report Map','Question Like','Question Add Tag','Question Ajax');
 
 } // function newmodule_perm
 function quest_lite_menu() {	
@@ -173,9 +173,26 @@ function quest_lite_menu() {
     'file' => 'quest_lite.pages.inc',
   );
   
-  return $quest;
+
   
- 
+  $quest['qlite/addtag'] = array(
+    'title' => 'Add/Edit Tag ',
+    'page callback' => 'retag',
+    'access arguments' => array('Question Add Tag'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  
+  
+  $quest['qlite/ajax'] = array(
+    'title' => 'Add/Edit Tag ',
+    'page callback' => 'qfull_ajax',
+    'access arguments' => array('Question Ajax'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'quest_lite.pages.inc',
+  );
+  
+  return $quest;
   
 }
 
