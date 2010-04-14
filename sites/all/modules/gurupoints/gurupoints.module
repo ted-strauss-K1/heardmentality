@@ -31,9 +31,9 @@ $search_result['admin/point/save'] = array(
   return $search_result;
 }
 
-function increasepoints($ptype,$qid,$vptid)
+function increasepoints($ptype,$qid,$idm)
 {
- global $gSitePath,$user,$gDocPath,$base_root,$base_path,$vptid;
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 	
 	
 	$queryuser= "SELECT * FROM user_profile where uid=$user->uid "; 
@@ -49,8 +49,8 @@ function increasepoints($ptype,$qid,$vptid)
 	}
 	else
 	{
-	echo $vptid;
-	echo $query_ptm= "select * from tbl_vote_gurupoints where id=$vptid"; 
+	echo $idm;
+	echo $query_ptm= "select * from tbl_vote_gurupoints where id=$idm"; 
 	
 	}
 	if($numpt==0)
