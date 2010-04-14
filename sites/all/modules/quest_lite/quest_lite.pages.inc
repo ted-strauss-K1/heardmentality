@@ -18,6 +18,8 @@ function qlite_view() {
     
     echo $totalvotes = $fetvot->possiblevote + $fetvotsugest->suggestv;
 
+
+    echo $vqry="select * from tbl_vote_gurupoints where vstart=$totalvotes and vend<$totalvotes";
     
     $vSqlsv = "select * from {vote_percent} where id='1' ";
     $rlistbv = db_query($vSqlsv);
