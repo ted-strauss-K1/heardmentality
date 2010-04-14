@@ -540,7 +540,8 @@ function qlite_save() {
             $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
             db_query($vInsQuery);
             drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
-            
+             increasepoints('2',$mid,'0');
+
             $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
             $query_listd = db_query($queryd);
             $fetvotd = db_fetch_object($query_listd);
@@ -996,6 +997,7 @@ function flag_report() {
             if ($numr == 0) {
                 $flagquery = "insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question','".$_REQUEST['abuse_type']."')";
                 db_query($flagquery);
+				 increasepoints('4',$_REQUEST['qaid'],'0');
                 echo '<div class="messages success">You Have Flagged successfully ! </div>';
             
             } else {
