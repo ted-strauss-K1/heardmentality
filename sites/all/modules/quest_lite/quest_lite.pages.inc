@@ -23,9 +23,9 @@ function qlite_view() {
     $voteqrylist = db_query($vqry);
     $fetqrylist = db_fetch_object($voteqrylist);
 	
-	echo $fetqrylist->id;
+	$fetqrylist->id;
 	
-	
+	 increasepoints('0',$qid,$fetqrylist->id);
 	
 	
 	
