@@ -368,6 +368,30 @@ window.addEvent('domready', function(){
 	
 	
 	
+	MochaUI.retagWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' Question >> '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 405,
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+				contentBgColor: '#FFF',
+		onContentLoaded: function(){
+                               if ( !MochaUI.resourceScript == true ){
+                                       new Request({
+                                               url: '<?php echo $gSitePath.drupal_get_path('module','quest_lite'); ?>/scripts/tagging.js',
+                                               method: 'get',
+                                               onSuccess: function() {
+                                                       MochaUI.resourceScript = false;
+                                               }.bind(this)
+                                       }).send();
+                               }
+                       }
+		});
+	}
 	
 	
 	
@@ -411,6 +435,13 @@ function loadsuggest(url,title)
 {
 MochaUI.closeAll();
 MochaUI.suggestanswerWindow(url,title);
+
+	
+}
+function loadtag(url,title)
+{
+MochaUI.closeAll();
+MochaUI.retagWindow(url,title);
 
 	
 }
