@@ -51,7 +51,8 @@ function question_add() {
     global $gSitePath,$user,$gDocPath,$base_root;
     //get error msgs
     $error = drupal_get_messages();
-    if (is_array($error)) {
+	
+    if (!empty($error)) {
         $list_err = implode("<br/>", $error['error']);
     }
 
@@ -379,14 +380,18 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
 }
 
 function get_tagging($tag = '') {
-
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     
     $content = '';
     $tagged = '';
+	
+	 $randomtag=popular_tag();
     if ($tag != '') {
         
         $exp = explode(",", $tag);
-        
+		
+     
+		
         foreach ($exp as $list) {
             
             $tagged .= '<div id="tagset" class="tagging-tag" onclick="tag_delq(this);return false;">'.$list.'</div>';
@@ -396,7 +401,7 @@ function get_tagging($tag = '') {
     $content .= '<div id="tagging-widget-container">
         <fieldset>
             <legend>
-                Test Tag
+            <b><i>    Tag Question for Searching </i></b>
             </legend>
             <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
                 <label>
@@ -423,21 +428,7 @@ function get_tagging($tag = '') {
           
 		    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
                <label>Suggestions:</label>
-                <a href="/heardmentalitylocal/" class="taga" title="Add tag">
-                    <div id="tagging-1" class="tagging-suggest-tag processed">
-                        Drupal
-                    </div>
-                </a>
-                <a href="/heardmentalitylocal/" class="taga"  title="Add tag">
-                    <div id="tagging-1" class="tagging-suggest-tag processed">
-                        Drupal Wiki
-                    </div>
-                </a>
-                <a href="/heardmentalitylocal/" class="taga"  title="Add tag">
-                    <div id="tagging-1" class="tagging-suggest-tag processed">
-                        Impressive.media GbR
-                    </div>
-                </a>
+               '.$randomtag.'
             </div>
         </fieldset></div>';
 
@@ -481,23 +472,8 @@ function question_save() {
             
 				$q_tag=explode(',',$q_tag);
 				
-				foreach($q_tag as $settag){
-					
-		  $query = " SELECT count(*) as cnt,tid FROM {tagging} WHERE `tag` LIKE CONVERT( _utf8 '%$settag%'USING latin1 )COLLATE latin1_swedish_ci LIMIT 0 , 1 ";
-          $result_tag = ExecuteQuery($query, "select");
-           if($result[0]['cnt']>0){
-           	  $result = db_query("INSERT INTO {qtag} (qid,tag) VALUES (%d,'%s')", $ins_id, $result_tag[0]['tid']);
-           }else{    	
-		   
-		    $setnew = db_query("INSERT INTO {tagging} set uid='$user->uid',tag='$settag'  ");
-
-        
-        $tins = db_last_insert_id('tagging', 'qid');
-            $result = db_query("INSERT INTO {qtag} (qid,tag) VALUES (%d,'%s')", $ins_id,$tins);
-			} 
-			
-			
-				}
+				//its in quset_lite.module
+				process_tags($q_tag,$ins_id,0);
 			
 			
         }
@@ -543,19 +519,6 @@ function myTruncate($string, $limit, $break = " ", $pad = "") {
     return $string.$pad;
 }
 
-setlocale(LC_ALL, 'en_US.UTF8');
-function clean_url($str, $replace = array(), $delimiter = '-') {
-    if (! empty($replace)) {
-        $str = str_replace((array) $replace, ' ', $str);
-    }
-    
-    $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
-    $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
-    $clean = strtolower(trim($clean, '-'));
-    $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
-    
-    return $clean;
-}
 
 
 function question_edit_save($array) {
@@ -1038,7 +1001,7 @@ function question_ajax() {
         
         foreach ($tarr as $list) {
             
-            $query = " SELECT * FROM {qtag} WHERE `tag` LIKE CONVERT( _utf8 '%$list%'USING latin1 )COLLATE latin1_swedish_ci LIMIT 0 , 15 ";
+            $query = " SELECT * FROM {tagging} WHERE `tag` LIKE  '%$list%' LIMIT 0 , 15 ";
             $result = ExecuteQuery($query, "select");
             foreach ($result as $single) {
                 array_push($taglist, $single['tag']);
@@ -1052,7 +1015,7 @@ function question_ajax() {
             $qids = array();
             foreach ($exp as $scat) {
                 
-                $query = " SELECT * FROM {question}";
+                $query = " SELECT * FROM {question}  ";
                 $result = ExecuteQuery($query, "select");
                 
                 foreach ($result as $man) {
@@ -1096,7 +1059,7 @@ if(!empty($cat2)){
                 $qids=array_unique($qids);
               $qids= implode(',', $qids);
 			  
-			  $query = " SELECT * FROM {qtag} WHERE `qid` IN ($qids) ";
+			  $query = " SELECT * FROM {tagging} WHERE `qid` IN ($qids) ";
             $result = ExecuteQuery($query, "select");
             foreach ($result as $single) {
                 array_push($taglist, $single['tag']);
