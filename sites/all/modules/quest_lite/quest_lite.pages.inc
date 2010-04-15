@@ -407,7 +407,7 @@ function qlite_view() {
 		</div>		
 		'.$submitbutt.' 
 		</div></div>
-		<div><b>Tags [<a href="#" onclick="loadsuggest(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
+		<div><b>Tags [<a href="#" onclick="loadtag(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
 		</div></form>
 		</form>
 		
@@ -1608,25 +1608,14 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         $display .= '
 
 				<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	
-			<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/Observer.js"></script>
-	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/Autocompleter.js"></script>
-			<script  src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/tagging.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
-	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/Autocompleter.css" type="text/css" media="screen" />
-				<script type="text/javascript">
-	/* <![CDATA[ */
-	window.addEvent("domready", function() {
+				<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
+				<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/Autocompleter.css" type="text/css" media="screen" />
+			<script>
+			var mpath=\''.$gSitePath.'\';
 		
-		new Autocompleter.Ajax.Json("tagging-widget-input-1", "ajax/?action=tag", {
-			
-			"postVar": "q"
-		});
-	});
-	/* ]]> */
-	</script>';
+			</script>';
 	$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-	$query = " SELECT tag FROM {qtag} WHERE qid='".$qid."' ";
+	$query = " SELECT t.tag FROM {qtag} as qt left join {tagging} as t on t.tid=qt.tag_id WHERE qt.qid='".$qid."' ";
                 $result = ExecuteQuery($query, "select");
         echo	$display.=edit_tagging($result[0]['tag']);
       
@@ -1647,53 +1636,57 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         }
     
     }
-    $content .= '<div id="tagging-widget-container">
-        <fieldset>
-            <legend>
-                Test Tag
-            </legend>
-            <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
-                <label>
-                    Assigned Tags:
-                </label>
-				'.$tagged.'
-            </div>
-            <div class="form-item" id="tagging-widget-input-1-wrapper">
-			
-                <span class="field-prefix">
-                    <div class="taggin-widget-input-wrapper">
-                        <input maxlength="20" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"/></span></a>
-						
-						<input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"/></span>
-						
-						<input name="q_tag" type="hidden" id="q_tag" value="'.$tag.'"  >
-                    </div>
-                </span>
-                <div class="description">
-                   Add New Tag
+    $content .= '  <div id="tagging-widget-container">
+            <fieldset>
+                <legend>
+                    Re Tag
+                </legend>
+                <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
+                    <label>
+                        Assigned Tags:
+                    </label>
+                    '.$tagged.'
                 </div>
-            </div>
-            <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden">
-          
-		    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
-               <label>Suggestions:</label>
-                <a href="#" class="taga" title="Add tag">
-                    <div id="tagging-1" class="tagging-suggest-tag processed">
-                        Drupal
+                <div class="form-item" id="tagging-widget-input-1-wrapper">
+                    <span class="field-prefix">
+                        <div class="taggin-widget-input-wrapper">
+                            <input maxlength="20" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" onkeyup="suggest(this.value);" onblur="fill(this.value);" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"/></span></a>
+                            <div class="suggestionsBox" id="suggestions" style="visibility:hidden;">
+                                <img src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />
+                                <div class="suggestionList" id= "suggestionsList">
+                                </div>
+                            </div>
+                            <input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"/></span><input name="q_tag" type="hidden" id="q_tag" value="'.$tag.'">
+                        </div></span>
+                    <div class="description">
+                        Add New Tag
                     </div>
-                </a>
-                <a href="#" class="taga"  title="Add tag">
-                    <div id="tagging-1" class="tagging-suggest-tag processed">
-                        Drupal Wiki
+                    </span>
+                    <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden">
+                    <br/>
+                    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
+                        <label>
+                            Suggestions:
+                        </label>
+                        <a href="#" class="taga" title="Add tag">
+                            <div id="tagging-1" class="tagging-suggest-tag processed">
+                                Drupal
+                            </div>
+                        </a>
+                        <a href="#" class="taga" title="Add tag">
+                            <div id="tagging-1" class="tagging-suggest-tag processed">
+                                Drupal Wiki
+                            </div>
+                        </a>
+                        <a href="#" class="taga" title="Add tag">
+                            <div id="tagging-1" class="tagging-suggest-tag processed">
+                                Impressive.media GbR
+                            </div>
+                        </a>
                     </div>
-                </a>
-                <a href="#" class="taga"  title="Add tag">
-                    <div id="tagging-1" class="tagging-suggest-tag processed">
-                        Impressive.media GbR
-                    </div>
-                </a>
-            </div>
-        </fieldset></div>';
+                </div>
+            </fieldset>
+        </div>';
 
     
     return $content;
@@ -1706,17 +1699,18 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         
         switch ($action) {
             case 'tag':
-                $q = strtolower($_REQUEST["q"]);
+                $q = strtolower($_REQUEST["queryString"]);
                 if (!$q)
                     return;
                 $taglist = array();
                 $items = array();
-                $query = " SELECT * FROM {qtag} WHERE `tag` LIKE CONVERT( _utf8 '%$q%'USING latin1 )COLLATE latin1_swedish_ci LIMIT 0 , 15 ";
+                $query = " SELECT * FROM {tagging} WHERE `tag` LIKE CONVERT( _utf8 '%$q%'USING latin1 )COLLATE latin1_swedish_ci LIMIT 0 , 15 ";
                 $result = ExecuteQuery($query, "select");
                 
                 foreach ($result as $single) {
                     array_push($taglist, $single['tag']);
                 }
+				
                 $taglist = array_filter($taglist);
                 
                 $taglist = array_unique($taglist);
@@ -1724,16 +1718,23 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                 $taglist = explode(',', $taglist);
                 $taglist = array_filter($taglist);
                 $items = array_unique($taglist);
-               // print_r($items);
-                $json = array();
-                
-                foreach ($items as $key=>$value) {
-                    if (strpos(strtolower($value), $q) !== false) {
-                        $json[] = '"'.$value.'"';
-                    }
+		
+               //print_r($items);
+                $list = "<ul>";
+                if(!empty($items)){
+                   //print_r($items);	
+                foreach ($items as $value) {
+               //     if (strpos(strtolower($value), $q) !== false) {
+                     $list .= '<li onclick=fill("'.$value.'")>'.$value.'</li>';
+                  //  }
                 }
-                
-                echo '['.implode(',', $json).']';
+				
+				}else{
+					
+					 $list .= '<li>No Result</li>';
+				}
+              echo  $list.="</ul>";
+              
                 break;
             default:
                 break;
