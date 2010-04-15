@@ -85,10 +85,10 @@ function question_add() {
     
     $output .= '
 	
-	<script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	
 	<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>
-	<script src="'.$gSitePath.'sites/all/modules/question/scripts/question.js" type="text/javascript"></script>
+	<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/question.js" type="text/javascript"></script>
 
 	
 	
@@ -479,7 +479,27 @@ function question_save() {
         
         if ($q_tag != '') {
             
-            $result = db_query("INSERT INTO {qtag} (qid,tag) VALUES (%d,'%s')", $ins_id, $q_tag);
+				$q_tag=explode(',',$q_tag);
+				
+				foreach($q_tag as $settag){
+					
+		  $query = " SELECT count(*) as cnt,tid FROM {tagging} WHERE `tag` LIKE CONVERT( _utf8 '%$settag%'USING latin1 )COLLATE latin1_swedish_ci LIMIT 0 , 1 ";
+          $result_tag = ExecuteQuery($query, "select");
+           if($result[0]['cnt']>0){
+           	  $result = db_query("INSERT INTO {qtag} (qid,tag) VALUES (%d,'%s')", $ins_id, $result_tag[0]['tid']);
+           }else{    	
+		   
+		    $setnew = db_query("INSERT INTO {tagging} set uid='$user->uid',tag='$settag'  ");
+
+        
+        $tins = db_last_insert_id('tagging', 'qid');
+            $result = db_query("INSERT INTO {qtag} (qid,tag) VALUES (%d,'%s')", $ins_id,$tins);
+			} 
+			
+			
+				}
+			
+			
         }
         
         if ($result)
