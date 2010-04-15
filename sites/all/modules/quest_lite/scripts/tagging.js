@@ -1,7 +1,43 @@
-/**
- * @author admin
- */
+function suggest(inputString){
+	
+	var string=inputString;
+	if (inputString.length == 0) {
+		$('suggestions').fade('out');
+	}
+	else {
+	
+	$('tagging-widget-input-1').addClass('load');
+		var urr=mpath+'qlite/ajax?action=tag';
+		var req = new Request({    
+			method: 'post',
+			url: urr,
+			data: {
+				queryString: inputString
+			},
+			onComplete: function(response){
+			$('suggestionsList').set('html', response);
+			$('suggestions').fade('in');
 
+			$('tagging-widget-input-1').removeClass('load');
+		}
+		}).send();
+
+		
+	}
+}
+    function fill(thisValue) {
+		
+		
+			
+			  $('tagging-widget-input-1').set('value',thisValue);
+        setTimeout("$('suggestions').fade('out')", 600);
+		
+      
+    }
+
+	
+	
+	
 
 window.addEvent('domready', function() {
 	
@@ -120,3 +156,5 @@ function tag_delq(val){
 				
 	insert_tag();			
 }
+
+
