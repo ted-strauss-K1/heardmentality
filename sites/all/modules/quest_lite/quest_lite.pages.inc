@@ -651,10 +651,9 @@ function add_resources() {
         err += \'<li>Please Select Type !</li>\';
 		 if (cat1==1) 
 		 {
-		 if (nlink.trim().length < 1) 
-        err += \'<li>Please Enter  Link !</li>\';
+		
 		if (!tomatch.test(nlink))
-		 err += \'<li>Please enter valid News Link ,Example:http://www.example.com </li>\';		
+		 err += \'<li>Please Enter Link </li>\';		
 	
 		 }
 		if (cat1==2) 
@@ -664,10 +663,9 @@ function add_resources() {
 		
 		if (mtype==1)
 		{
-		  if (membed.trim().length < 1) 
-        err += \'<li>Please Enter  YouTube Link !</li>\';
+		 
 		if (!tomatch.test(membed))
-		 err += \'<li>Please enter valid YouTube  Link ,http://www.youtube.com/watch?v=VIDEOID </li>\';		
+		 err += \'<li>Please Enter YouTube Link </li>\';		
 		}
 		else
 		{
