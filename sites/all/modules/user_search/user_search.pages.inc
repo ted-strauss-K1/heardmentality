@@ -100,7 +100,7 @@ function user_follower()
 	$follower='<script type="text/javascript">
 		function changeblk(fid,divid,blk){
 			var abc="welcum-"+fid;
-			alert(abc);
+			
 			
 									var url = "'.$gSitePath.'savefollower";
 									var req = new Request({    
@@ -129,9 +129,9 @@ function user_follower()
 	drupal_goto("follower/");
 	}
 	$follower.='<div class="following">';
-	$sel_pro="select * from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0' ";
+	$sel_pro="select * from follower  where follower_id='".$follid."'  ";
 	$rs_follower=db_query($sel_pro);
-	$countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1' or follower_status='0'"));
+	$countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where follower_id='".$follid."' "));
 	while($follower_result=db_fetch_object($rs_follower))
 	{
 	
@@ -165,7 +165,7 @@ function user_follower()
 function user_following()
 {
 	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-	
+	$follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	$following='<script type="text/javascript">
 	window.addEvent(\'domready\',function() {
 	$$(\'a.delete\').each(function(el) {
@@ -202,9 +202,9 @@ function user_following()
 	';
 	
 	$following.='<div class="following">';
-	 $sel_pro="select * from follower  where uid='".$user->uid."'  and follower_status='1' ";
+	 $sel_pro="select * from follower  where uid='".$follid."'  and follower_status='1' ";
 	$rs_following=db_query($sel_pro);
-	$countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid."'  and follower_status='1'"));
+	$countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$follid."'  and follower_status='1'"));
 		while($following_result=db_fetch_object($rs_following))
 	{
 	 $sel_userm="select * from users  where uid='".$following_result->follower_id."' ";
@@ -402,7 +402,7 @@ function save_follow()
 $follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 if(isset($_GET['delete']))
 {
-echo $query = 'DELETE FROM follower WHERE id = '.(int)$_GET['delete'];
+ $query = 'DELETE FROM follower WHERE id = '.(int)$_GET['delete'];
 $result = db_query($query);
 }
 
