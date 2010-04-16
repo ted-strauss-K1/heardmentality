@@ -72,7 +72,7 @@ function add_ans(){
         // var slot = new Element('input');
         // slot.inject($('add_more'));
         //var tem=$('add_more').innerHTML ;
-        new Element('p').inject($('add_more'));
+      
         
    
     //  wrapper.appendText('[Remove]');
@@ -87,16 +87,16 @@ function add_ans(){
      'keyup': function(){
           $('Add').disabled = 0;
     }
-
+	
     
     }
         }).inject($('add_more'));
         
-         
+           new Element('p').inject($('add_more'));
         //wrapper.wraps(ele);
         
-        $('add_more').getLast().highlight('#F1F1F1', '#6DB6DB');
-		$('add_more').getLast().focus();
+        $('add_more').getLast('input').highlight('#F1F1F1', '#6DB6DB');
+		$('add_more').getLast('input').focus();
 		$('err').empty();
         
     }
