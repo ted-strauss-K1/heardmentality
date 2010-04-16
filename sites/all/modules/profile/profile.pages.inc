@@ -226,7 +226,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 					
 		if( ($userSettings['following'] == 1) || ($userSettings['following'] == 3  && $user->uid !=0 ) || ($user->uid == $uid)|| ($user->uid == 1) 
 				|| ($userSettings['following'] == 2  && $is_follow_follower == TRUE  ) ) {
-		 $strReturn.='<p><b>Following</b></p>';
+		 $strReturn.='<p><b>Following</b></p><div id="showid"> </div>';
 				$newlist=followinglist();
 				
 				for($i=0; $i<count($newlist); $i++)
@@ -564,6 +564,26 @@ function followinglist()
 {
 
  global $gSitePath,$user,$gDocPath,$base_root;
+ 
+ 	print'<script type="text/javascript">
+		function deletefollowing(fid){
+		var abc="show-"+fid;
+									var url = "'.$gSitePath.'profile/deletefollow";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':fid,\'ids\':abc},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(abc).set(\'html\', response);
+											}
+									}).send();
+						
+							
+                           
+							}	
+	
+	</script>';
  $sel_list="select * from follower  where uid='".$user->uid."'  and follower_status='1' limit 0,5";
 	$rs_foll_list=db_query($sel_list);
 	$numfolls= db_result(db_query("SELECT COUNT(*)  from follower  where uid='".$user->uid."'  and follower_status='1'  "));
@@ -573,7 +593,7 @@ function followinglist()
 	 $sel_userm="select * from users  where uid='".$following_list->follower_id."' ";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
-	$following[]='<a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$user_namelist->name.'<br>  </a>';
+	$following[]='<div  id="show-'.$following_list->id.'"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$user_namelist->name.'  </a><a onclick="deletefollowing('.$following_list->id.')" style="color:#F37321;" >Unfollow</a></div>' ;
 	
 	}
 	if($numfolls>5)
@@ -590,7 +610,17 @@ return $following;
 
 }
 
+function save_follow_profile()
+{
 
+if(isset($_GET['action']))
+{
+ $query = 'DELETE FROM follower WHERE id = '.(int)$_GET['action'];
+$result = db_query($query);
+echo '<div id="'.$_REQUEST['ids'].'" ></div>';
+}
+
+}
 
 
 //////////follower //////////////////////////
@@ -601,6 +631,28 @@ function followerlist()
 
 	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	
+	print'<script type="text/javascript">
+		function blockandunblock(fid,divid,blk){
+			var abcm="list-"+fid;
+			
+			
+									var url = "'.$gSitePath.'profile/savefollowerlink";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':fid,\'ids\':abcm,\'blk\':blk,\'usid\':divid},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(abcm).set(\'html\', response);
+											}
+									}).send();
+						
+							
+                           
+							}	
+	
+	</script>
+	';
 	
 
 	
@@ -611,10 +663,22 @@ function followerlist()
 	while($follower_resultfuser=db_fetch_object($rs_followerf))
 	{
 	
-	 $sel_usermf="select * from users  where uid='".$follower_resultfuser->uid."' ";
-	$rs_usermf=db_query($sel_usermf);
-	$user_namelistf=db_fetch_object($rs_usermf);
-	$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
+	 echo  $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
+	$rs_umlog=db_query($sel_ulist);
+	$user_chkavali=db_fetch_object($rs_umlog);
+	echo  $user_chkavali->name;
+	/*if($follower_resultfuser->follower_status==0)
+	{
+		$followeru[]='<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a> <a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',1)" >UnBlock</a</div>';
+	} 
+	else 
+	{
+		$followeru[]='<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a> <a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',0)" >Block</a</div>';
+	
+	} */
+	
+	
+	//$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
 	}
 	if($numfoll>5)
 	{
@@ -634,7 +698,33 @@ text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower\',\'Follow
 
 
 
+function save_follower_profile()
+{
 
+if(isset($_GET['action']))
+{
+$del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  id='".$_GET['action']."' ";
+	$rs_blog_del=db_query($del_blog);
+	
+	 
+	 $sel_userms="select * from users  where uid='".$_GET['usid']."' ";
+	$rs_userms=db_query($sel_userms);
+	$resulrnames=db_fetch_object($rs_userms);
+	if($_REQUEST['blk']==0)
+	{
+	$blkid='1';
+	$valss='UnBlock';
+	}
+	else
+	{
+	$valss='Block';
+    $blkid='0';
+	}
+	echo '<div id="'.$_REQUEST['ids'].'" ><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
+	
+}
+
+}
 
 
 
@@ -791,8 +881,6 @@ elt.each(function(el){ el.set(\'value\',chk); });
     echo $strReturn;
  
  }
-
-
 
 
 
