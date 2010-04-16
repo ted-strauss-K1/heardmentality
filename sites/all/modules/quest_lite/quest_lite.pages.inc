@@ -717,7 +717,7 @@ function add_resources() {
     $resources .= '<div id="log">
 	
 	<div id="log_res"><!-- spanner --></div>
-	</div><div id="err">'.$list_err.'</div>
+	</div><div id="err">'.$list_err.'</div><br/>
 	<span class="clr"><!-- spanner --></span>';
     $resources .= '<form id="myForm" name="myForm"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data" ><input type="hidden" name="qaid" value="'.$qid.'"/>
 	
@@ -1273,7 +1273,7 @@ global $gSitePath,$user, $gDocPath,$base_root;
 	while($userfacts=db_fetch_object($rlistfacts))
 	{
 	$factsesult.='<div class="cmt_list">
-	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;";href="'.$userfacts->facts.'" target="new"> '.$userfacts->facts.' </a> </h4>
+	<div class="lft_view"> <h4 class="cmt_name"><a href="'.$userfacts->facts.'" target="_blank" style="color:#02a33c;text-decoration:none;"> '.$userfacts->facts.' </a> </h4>
 	<p class="cmt_date"> '.date("D j M Y",strtotime($userfacts->posted_date)). '</p> '.$userfacts->posted_date.'</div>
 	</div>';
 	}
