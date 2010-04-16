@@ -140,7 +140,7 @@ function report_content() {
     }
 	
 	
-	$output.='108 cooments';
+	$output.='108 comments';
 	
     echo $output;
 }
