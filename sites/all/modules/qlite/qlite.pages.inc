@@ -138,6 +138,10 @@ function report_content() {
             $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/percent/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
             break;
     }
+	
+	
+	$output.='108 cooments';
+	
     echo $output;
 }
 
