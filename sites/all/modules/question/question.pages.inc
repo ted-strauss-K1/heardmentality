@@ -63,7 +63,7 @@ function question_add() {
     $q_context = '';
     $q_ans1 = '';
     $q_ans2 = '';
-    if (!empty($_SESSION['post']) && isset($_SESSION['post'])) {
+    if (isset($_SESSION['post'])&&!empty($_SESSION['post'])) {
         extract($_SESSION['post']);
     }
     global $gSitePath,$user,$gDocPath,$base_root;
