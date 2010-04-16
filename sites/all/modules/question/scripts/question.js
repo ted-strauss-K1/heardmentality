@@ -113,8 +113,8 @@ function add_ans(){
 		
 		var el=$('err');
 		el.setStyle('background-color', '#eeeeee');
-        el.setStyle('height', '20px');
-		el.setStyle('padding','10px');
+        //el.setStyle('height', '20px');
+		//el.setStyle('padding','10px');
         el.setStyle('color', 'red');
         el.setStyle('border', '3px solid #dd97a1');
         el.setStyle('list-style', 'none');
