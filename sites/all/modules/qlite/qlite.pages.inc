@@ -14,7 +14,7 @@ function qlitemini() {
     $vSql = "select * from {question} where status='1' and qid=$qid ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
-   
+  
     $list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
     $numran = mysql_num_rows($list_lengthan);
     $answer_id = db_fetch_object($list_lengthan);
@@ -122,7 +122,7 @@ function report_content() {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $qid=get_qid();
-	 
+	  $numres= db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$qid'"));
     $type=$_REQUEST[t];
    
     switch ($type) {
@@ -135,12 +135,12 @@ function report_content() {
             break;
 		 case "per":	
         default:
-            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/percent/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe>108 comments</div>';
+            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/percent/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
             break;
     }
 	
 	
-	
+	$output.='<div>108 comments &nbsp;&nbsp;&nbsp;'.$numres.' Resources </div>';
 	
     echo $output;
 }
