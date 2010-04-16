@@ -22,12 +22,13 @@ function qlite_view() {
     $vqry="select * from tbl_vote_gurupoints where vstart=$totalvotes and vend>$totalvotes";
     $voteqrylist = db_query($vqry);
     $fetqrylist = db_fetch_object($voteqrylist);
-	
+	if($fetqrylist->id!='')
+	{
 	$fetqrylist->id;
 	
 	 increasepoints('0',$qid,$fetqrylist->id);
 	
-	
+	}
 	
     $vSqlsv = "select * from {vote_percent} where id='1' ";
     $rlistbv = db_query($vSqlsv);
