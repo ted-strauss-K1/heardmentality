@@ -722,7 +722,7 @@ function add_resources() {
 	<span class="clr"><!-- spanner --></span>';
     $resources .= '<form id="myForm" name="myForm"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data" ><input type="hidden" name="qaid" value="'.$qid.'"/>
 	
-	<p> Type <select name="rtype" class="textfieldm" id="rtype" >
+	<br/><p> Type <select name="rtype" class="textfieldm" id="rtype" >
 	<option value="0">Select </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
@@ -735,7 +735,7 @@ function add_resources() {
 	</div>
 	
 	<div  id="div2">
-	<p> Type <select name="mtype" class="textfieldm" id="mtype"   >
+	<br/><p> Type <select name="mtype" class="textfieldm" id="mtype"   >
 	<option value="0">Select </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
