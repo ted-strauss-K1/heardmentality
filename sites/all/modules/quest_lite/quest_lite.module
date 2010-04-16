@@ -302,7 +302,7 @@ function quest_lite_menu() {
                 $result = ExecuteQuery($query, "select");
 			 foreach ($result as $rtag) {
 	 	
-	 $randomtag.='<a href="#" class="taga" title="Add tag">
+	 $randomtag.='<a href="javascript:void(0)" class="taga" title="Add tag">
                             <div id="tagging-1" class="tagging-suggest-tag processed">
                                '.$rtag['tag'].'
                             </div>
