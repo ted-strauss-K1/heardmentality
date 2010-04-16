@@ -1175,7 +1175,7 @@ $ansoutput.=	'<h3>The Following Answers have been suggested by other users for t
 	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	require('RSSParser.class.php');
 	$xml =& new RSSParser;
-	echo $vSql="SELECT *FROM resource where rtype='1' and qid='$qid' ";
+	 $vSql="SELECT *FROM resource where rtype='1' and qid='$qid' ";
 	$rlistnews=db_query($vSql);
 
 
