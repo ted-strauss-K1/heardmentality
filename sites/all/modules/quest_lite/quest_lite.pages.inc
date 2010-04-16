@@ -1733,14 +1733,17 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         
         switch ($action) {
             case 'tag':
-                $q =$_REQUEST["queryString"];
+                $q =clean_url($_REQUEST["queryString"]);
+				
                 if (!$q)
                     return;
                 $taglist = array();
                 $items = array();
-                $query = " SELECT * FROM {tagging} WHERE `tag` LIKE '%$q%' LIMIT 0 , 15 ";
+                $query = "SELECT * FROM tagging WHERE tag LIKE ('$q%') LIMIT 0 , 15 ";
                 $result = ExecuteQuery($query, "select");
-                
+                 $vResult=db_query($query);
+				//$oBj= db_fetch_object(db_query($query));
+				//print_r($oBj);
                 foreach ($result as $single) {
                     array_push($taglist, $single['tag']);
                 }
