@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function profile_perm() {
-  return array('Profile Edit','Profile View','Profile Privacy');
+  return array('Profile Edit','Profile View','Profile Privacy','User Sign In');
 }
 
 
@@ -35,7 +35,21 @@ $items['profile/privacy_settings'] = array(
     'file' => 'profile.pages.inc',
   );
 
-
+$items['profile/deletefollow'] = array(
+    'title' => ' Profile',
+    'page callback' => 'save_follow_profile',
+    'access arguments' => array('Profile View'),
+    'type' => MENU_CALLBACK,
+    'file' => 'profile.pages.inc',
+  );
+  
+  $items['profile/savefollowerlink'] = array(
+    'title' => ' Profile',
+    'page callback' => 'save_follower_profile',
+    'access arguments' => array('Profile View'),
+    'type' => MENU_CALLBACK,
+    'file' => 'profile.pages.inc',
+  );
   return $items;
 }
 
