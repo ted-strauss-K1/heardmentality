@@ -560,7 +560,7 @@ function event_photo() {
 ////following users/////////////////////////
 
 
-function followinglist($uid)
+function followinglist($uids)
 {
 
  global $gSitePath,$user,$gDocPath,$base_root;
@@ -584,16 +584,24 @@ function followinglist($uid)
 							}	
 	
 	</script>';
- $sel_list="select * from follower  where uid='".$uid."'  and follower_status='1' limit 0,5";
+ $sel_list="select * from follower  where uid='".$uids."'  and follower_status='1' limit 0,5";
 	$rs_foll_list=db_query($sel_list);
-	$numfolls= db_result(db_query("SELECT COUNT(*)  from follower  where uid='".$uid."'  and follower_status='1'  "));
+	$numfolls= db_result(db_query("SELECT COUNT(*)  from follower  where uid='".$uids."'  and follower_status='1'  "));
 	$following=array();
+	 
 	while($following_list=db_fetch_object($rs_foll_list))
 	{
+	
+	if($uids==$user->uid)
+	  {
+	  $flinks='<a onclick="deletefollowing('.$following_list->id.')" style="color:#F37321;" >Unfollow</a>';
+	
+	  
+	  }
 	 $sel_userm="select * from users  where uid='".$following_list->follower_id."' ";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
-	$following[]='<div  id="show-'.$following_list->id.'"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$user_namelist->name.'  </a><a onclick="deletefollowing('.$following_list->id.')" style="color:#F37321;" >Unfollow</a></div>' ;
+	$following[]='<div  id="show-'.$following_list->id.'"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$user_namelist->name.'  </a>'.$flinks.'</div>' ;
 	
 	}
 	if($numfolls>5)
@@ -667,19 +675,26 @@ function followerlist($umid)
 	$rs_umlog=db_query($sel_ulist);
 	$user_namelistf=db_fetch_object($rs_umlog);
 	  $user_namelistf->name;
+	  if($umid==$user->uid)
+	  {
+	  $flink1='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',1)" >UnBlock</a>';
+	  $flink2='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',0)" >Block</a>';
+	  
+	  }
 	if($follower_resultfuser->follower_status==0)
 	{
-		$followeru[]='<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a> <a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',1)" >UnBlock</a</div>';
+		$followeru[]='<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a> '.$flink1.'</div>';
 	} 
 	else 
 	{
-		$followeru[]='<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a> <a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',0)" >Block</a</div>';
+		$followeru[]='<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a> '.$flink1.'</div>';
 	
 	} 
 	
 	
 	//$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
 	}
+	
 	if($numfoll>5)
 	{
 	$followeru[].='<a style="color:#F37321;
