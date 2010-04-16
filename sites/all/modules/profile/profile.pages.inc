@@ -663,10 +663,10 @@ function followerlist()
 	while($follower_resultfuser=db_fetch_object($rs_followerf))
 	{
 	
-	 echo  $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
+	   $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
 	$rs_umlog=db_query($sel_ulist);
 	$user_namelistf=db_fetch_object($rs_umlog);
-	echo  $user_namelistf->name;
+	  $user_namelistf->name;
 	if($follower_resultfuser->follower_status==0)
 	{
 		$followeru[]='<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a> <a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',1)" >UnBlock</a</div>';
