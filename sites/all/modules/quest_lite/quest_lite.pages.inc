@@ -172,7 +172,7 @@ function qlite_view() {
     }
     
     $qry1 = db_query("select * from suggest_ans_changeids where qid ='$qid'");
-    
+    $array1=array();
     while ($row1 = db_fetch_object($qry1)) {
         $array1[] = $row1->ans_id;
     }
@@ -372,6 +372,8 @@ function qlite_view() {
 		}
 		</script>
 		';
+		
+		$optio='';
     if ($numran != 0) {
         
         $optio = '<option value="1"> Withdraw answer</option>';
