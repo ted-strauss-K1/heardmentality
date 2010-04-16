@@ -680,7 +680,7 @@ function followerlist()
 	
 	//$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
 	}
-	if($numfoll>5)
+	if($numfoll>0)
 	{
 	$followeru[].='<a style="color:#F37321;
 text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower\',\'Follower\');">More</a>';
