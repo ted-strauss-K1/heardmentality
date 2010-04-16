@@ -51,7 +51,7 @@ function question_add() {
     global $gSitePath,$user,$gDocPath,$base_root;
     //get error msgs
     $error = drupal_get_messages();
-	
+	$list_err='';
     if (!empty($error)) {
         $list_err = implode("<br/>", $error['error']);
     }
@@ -63,7 +63,7 @@ function question_add() {
     $q_context = '';
     $q_ans1 = '';
     $q_ans2 = '';
-    if (is_array($_SESSION['post']) && isset($_SESSION['post'])) {
+    if (!empty($_SESSION['post']) && isset($_SESSION['post'])) {
         extract($_SESSION['post']);
     }
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -381,7 +381,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
 
 function get_tagging($tag = '') {
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    
+    $randomtag='';
     $content = '';
     $tagged = '';
 	
