@@ -220,8 +220,8 @@ setDefaultCountry();
 			';
     
     //geoname api
-    
-    $result = geonames_query('countryinfo');
+    $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
+    $result = geonames_query('countryinfo',NULL,$options);
     foreach ($result->results as $country) {
         $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
     }
@@ -264,6 +264,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
         <tr>
           <td>
             <input name="q_ans2" tabindex="4" type="text" id="q_ans2"  value="'.$q_ans2.'" size="40" />
+			<p></p>
           </td>
         </tr>
         
