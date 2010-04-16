@@ -139,13 +139,23 @@ function user_follower()
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
 	if($follower_result->follower_status==0){
+	  if($follid==$user->uid)
+	  {
+	  $linkr='<a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',1)" >UnBlock</a>';
+	  }
 	$blocklink='<input type="hidden" value="1" name="blk" id="blk"/>';
-	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',1)" >UnBlock</a</div>';
+	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> '.$linkr.'</div>';
+	
 	} 
 	else 
 	{
+	 if($follid==$user->uid)
+	  {
+	  $blocklink='<a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',0)" >Block</a>';
+	  }
 	$blocklink='<input type="hidden" value="0" name="blk" id="blk"/>';
-	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> <a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',0)" >Block</a</div>';
+	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong>'.$blocklink.'</div>';
+	
 	
 	} 
 	
@@ -210,7 +220,12 @@ function user_following()
 	 $sel_userm="select * from users  where uid='".$following_result->follower_id."' ";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
-	$following.= '<div class="record" id="record-'.$following_result->id.'"><strong>'.$user_namelist->name.'</strong> <a href="?delete='.$following_result->id.'" class="delete">Unfollow</a</div>';
+	 if($follid==$user->uid)
+	  {
+	  $linkj='<a href="?delete='.$following_result->id.'" class="delete">Unfollow</a>';
+	  
+	  }
+	$following.= '<div class="record" id="record-'.$following_result->id.'"><strong>'.$user_namelist->name.'</strong> '.$linkj.' </div>';
 	}
 	if($countrows==0)
 	{
