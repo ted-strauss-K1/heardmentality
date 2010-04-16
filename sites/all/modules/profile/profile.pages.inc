@@ -430,7 +430,7 @@ function profile_edit() {
                    </div>
 				</div> 
 			        		<div class="form-item" id="edit-country-wrapper"> <label for="edit-country">Country : </label><select name="country" style="width: 125px;" tabindex="16" id="edit-country">'.$optionlist.'</select> <div class="description"></div></div>	
-        		<div class="form-item" id="edit-zip-wrapper"> <label for="edit-zip">Zipcode : </label> <input name="zip"  value="'.$zip.'"  id="edit-zip" maxlength="128" size="25" class="form-text" type="text"> </div>
+        		<div class="form-item" id="edit-zip-wrapper"> <label for="edit-zip">Zip/Postal code : </label> <input name="zip"  value="'.$zip.'"  id="edit-zip" maxlength="128" size="25" class="form-text" type="text"> </div>
         		<div class="form-item" id="edit-religion-wrapper"> <label for="edit-religion">Religion : </label> <input name="religion"  value="'.$religion.'"  id="edit-religion" maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
         		<div class="form-item" id="edit-ethnic-wrapper"> <label for="edit-ethnic">Ethnicity : </label> <input name="ethnic"  value="'.$ethnic.'"  id="edit-ethnic" maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
           		<div class="form-item" id="edit-slant-wrapper"> <label for="edit-slant">Slant : </label> <input name="slant" id="edit-slant"  value="'.$slant.'"  maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
