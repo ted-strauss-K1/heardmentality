@@ -140,7 +140,7 @@ function report_content() {
     }
 	
 	
-	$output.='<div>108 comments</div>';
+	
 	
     echo $output;
 }
