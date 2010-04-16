@@ -227,7 +227,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 		if( ($userSettings['following'] == 1) || ($userSettings['following'] == 3  && $user->uid !=0 ) || ($user->uid == $uid)|| ($user->uid == 1) 
 				|| ($userSettings['following'] == 2  && $is_follow_follower == TRUE  ) ) {
 		 $strReturn.='<p><b>Following</b></p><div id="showid"> </div>';
-				$newlist=followinglist();
+				$newlist=followinglist($uid);
 				
 				for($i=0; $i<count($newlist); $i++)
 				{
@@ -243,7 +243,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 				|| ($userSettings['followers'] == 2  && $is_follow_follower == TRUE  )){
 			
 			 $strReturn.='<p><b>Followers</b></p>';
-				$newlist2=followerlist();
+				$newlist2=followerlist($uid);
 				for($k=0; $k<count($newlist2); $k++)
 				{
 				$strReturn.=''.$newlist2[$k].'';
@@ -560,7 +560,7 @@ function event_photo() {
 ////following users/////////////////////////
 
 
-function followinglist()
+function followinglist($uid)
 {
 
  global $gSitePath,$user,$gDocPath,$base_root;
@@ -584,9 +584,9 @@ function followinglist()
 							}	
 	
 	</script>';
- $sel_list="select * from follower  where uid='".$user->uid."'  and follower_status='1' limit 0,5";
+ $sel_list="select * from follower  where uid='".$uid."'  and follower_status='1' limit 0,5";
 	$rs_foll_list=db_query($sel_list);
-	$numfolls= db_result(db_query("SELECT COUNT(*)  from follower  where uid='".$user->uid."'  and follower_status='1'  "));
+	$numfolls= db_result(db_query("SELECT COUNT(*)  from follower  where uid='".$uid."'  and follower_status='1'  "));
 	$following=array();
 	while($following_list=db_fetch_object($rs_foll_list))
 	{
@@ -599,7 +599,7 @@ function followinglist()
 	if($numfolls>5)
 	{
 	$following[].='<a style="color:#F37321;
-text-decoration:none;" onclick="loadfollowing(\''.$gSitePath.'following\',\'Following\');">More</a>';
+text-decoration:none;" onclick="loadfollowing(\''.$gSitePath.'following/'.$uid.'\',\'Following\');">More</a>';
 	
 	}
 	if($numfolls==0)
@@ -626,7 +626,7 @@ echo '<div id="'.$_REQUEST['ids'].'" ></div>';
 //////////follower //////////////////////////
 
 
-function followerlist()
+function followerlist($umid)
 {
 
 	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
@@ -656,9 +656,9 @@ function followerlist()
 	
 
 	
-	 $sel_listf="select * from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0' limit 0,5  ";
+	  $sel_listf="select * from follower  where follower_id='".$umid."'   limit 0,5  ";
 	$rs_followerf=db_query($sel_listf);
-	 $numfoll= db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='".$user->uid."'  and follower_status='1' or follower_status='0'  "));
+	 $numfoll= db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='".$umid."'   "));
 	 $followeru=array();
 	while($follower_resultfuser=db_fetch_object($rs_followerf))
 	{
@@ -680,10 +680,10 @@ function followerlist()
 	
 	//$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
 	}
-	if($numfoll>0)
+	if($numfoll>5)
 	{
 	$followeru[].='<a style="color:#F37321;
-text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower\',\'Follower\');">More</a>';
+text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower/'.$umid.'\',\'Follower\');">More</a>';
 	}	
 	if($numfoll==0)
 	{
