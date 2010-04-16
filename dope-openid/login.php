@@ -254,9 +254,13 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			//echo "<p>Your OpenID Identity (".$_GET['openid_identity'].") wasn't found in our records.</p>";
 			//echo "<p>Good news though: We just need your email and a friendly name and you'll have full access to all the site's features.</p>";
 			//echo "<p>DEBUG: The following information came back from your OpenID provider:</p>";
+			if($userinfo['email']!='')
+			{
+			
+			echo $insert="insert into users (name,mail,language,openid)values(" . $userinfo['nickname'] . "," . $userinfo['email'] . "," . $userinfo['language'] . "," . $_SESSION['openid_url'] . ") ";
+			}
 			echo "<ul>";
-			echo "\t<li><b>sssss</b>: " . $_SESSION['loggedin'] . "</li>";
-			echo "\t<li><b>sssss</b>: " . $_SESSION['user_id'] . "</li>";
+			
 			echo "\t<li><b>link</b>: " . $_SESSION['openid_url'] . "</li>";
 			echo "\t<li><b>Nickname</b>: " . $userinfo['nickname'] . "</li>";
 			echo "\t<li><b>Language</b>: " . $userinfo['language'] . "</li>";
