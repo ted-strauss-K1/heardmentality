@@ -607,7 +607,7 @@ function followinglist($uids)
 	if($numfolls>5)
 	{
 	$following[].='<a style="color:#F37321;
-text-decoration:none;" onclick="loadfollowing(\''.$gSitePath.'following/'.$uid.'\',\'Following\');">More</a>';
+text-decoration:none;" onclick="loadfollowing(\''.$gSitePath.'following/'.$uids.'\',\'Following\');">More</a>';
 	
 	}
 	if($numfolls==0)
