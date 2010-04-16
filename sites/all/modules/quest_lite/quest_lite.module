@@ -308,6 +308,7 @@ function quest_lite_menu() {
                             </div>
                         </a>';
 	 }
+	 
 	return $randomtag;
 }
 	
