@@ -169,7 +169,7 @@ $showop='
 	</form>
 	
 
-<script type="text/javascript" id="__openidselector" src="'.$gSitePath.'sites/all/modules/openids/script.js" charset="utf-8"></script>
+<script type="text/javascript" id="__openidselector" src="http://192.9.200.10/heardmentality/sites/all/modules/openids/script.js" charset="utf-8"></script>
 
 
 </body>
@@ -185,7 +185,7 @@ return $showop;
 function openid_index()
 {
  global $gSitePath,$user,$gDocPath,$base_root;
-header('X-XRDS-Location:".$gSitePath."sites/all/modules/openids/yadis.xrdf');
+header('X-XRDS-Location:http://192.9.200.10/heardmentality/sites/all/modules/openids/yadis.xrdf');
 
 
 session_start();
