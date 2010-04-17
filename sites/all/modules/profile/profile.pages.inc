@@ -228,7 +228,6 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 				|| ($userSettings['following'] == 2  && $is_follow_follower == TRUE  ) ) {
 		 $strReturn.='<p><b>Following</b></p><div id="showid"> </div>';
 				$newlist=followinglist($uid);
-				
 				for($i=0; $i<count($newlist); $i++)
 				{
 				$strReturn.=''.$newlist[$i].'';
@@ -598,10 +597,19 @@ function followinglist($uids)
 	
 	  
 	  }
-	 $sel_userm="select * from users  where uid='".$following_list->follower_id."' ";
-	$rs_userm=db_query($sel_userm);
+//	 $sel_userm="select * from users  where uid='".$following_list->follower_id."' ";
+	  $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$following_list->follower_id."'";
+		$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
-	$following[]='<div  id="show-'.$following_list->id.'"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$user_namelist->name.'  </a>'.$flinks.'</div>' ;
+	 if(isset($user_namelist->image) && !empty($user_namelist->image)){
+	  $imgsrc = $user_namelist->image;
+	 }else{
+	  $imgsrc = 'noimage.jpg';
+	 } 
+	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
+	 $PROFILE_IMAGE= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
+
+	$following[]='<div  id="show-'.$following_list->id.'"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$PROFILE_IMAGE.$user_namelist->name.'  </a>'.$flinks.'</div>' ;
 	
 	}
 	if($numfolls>5)
@@ -666,14 +674,25 @@ function followerlist($umid)
 	
 	  $sel_listf="select * from follower  where follower_id='".$umid."'   limit 0,5  ";
 	$rs_followerf=db_query($sel_listf);
+	
 	 $numfoll= db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='".$umid."'   "));
+	
 	 $followeru=array();
 	while($follower_resultfuser=db_fetch_object($rs_followerf))
 	{
 	
-	   $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
+	  // $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
+	   $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$follower_resultfuser->uid."'";
 	$rs_umlog=db_query($sel_ulist);
 	$user_namelistf=db_fetch_object($rs_umlog);
+	if(isset($user_namelistf->image) && !empty($user_namelistf->image)){
+	  $imgsrc = $user_namelist->image;
+	 }else{
+	  $imgsrc = 'noimage.jpg';
+	 } 
+	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
+	 $PROFILE_IMAGE= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
+
 	  $user_namelistf->name;
 	  if($umid==$user->uid)
 	  {
@@ -683,11 +702,11 @@ function followerlist($umid)
 	  }
 	if($follower_resultfuser->follower_status==0)
 	{
-		$followeru[]='<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a> '.$flink1.'</div>';
+		$followeru[]='<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'. $PROFILE_IMAGE.$user_namelistf->name.' </a> '.$flink1.'</div>';
 	} 
 	else 
 	{
-		$followeru[]='<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a> '.$flink1.'</div>';
+		$followeru[]='<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'. $PROFILE_IMAGE.$user_namelistf->name.' </a> '.$flink1.'</div>';
 	
 	} 
 	
