@@ -17,18 +17,18 @@
  * Need both fetcher types so we can use the right one based on the
  * presence or absence of CURL.
  */
-require_once "Services/Yadis/PlainHTTPFetcher.php";
-require_once "Services/Yadis/ParanoidHTTPFetcher.php";
+require_once "sites/all/modules/openids/Services/Yadis/PlainHTTPFetcher.php";
+require_once "sites/all/modules/openids/Services/Yadis/ParanoidHTTPFetcher.php";
 
 /**
  * Need this for parsing HTML (looking for META tags).
  */
-require_once "Services/Yadis/ParseHTML.php";
+require_once "sites/all/modules/openids/Services/Yadis/ParseHTML.php";
 
 /**
  * Need this to parse the XRDS document during Yadis discovery.
  */
-require_once "Services/Yadis/XRDS.php";
+require_once "sites/all/modules/openids/Services/Yadis/XRDS.php";
 
 /**
  * This is the core of the PHP Yadis library.  This is the only class

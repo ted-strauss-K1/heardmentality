@@ -16,7 +16,7 @@
 /**
  * Require the XPath implementation.
  */
-require_once 'Services/Yadis/XML.php';
+require_once 'sites/all/modules/openids/Services/Yadis/XML.php';
 
 /**
  * This match mode means a given service must match ALL filters passed

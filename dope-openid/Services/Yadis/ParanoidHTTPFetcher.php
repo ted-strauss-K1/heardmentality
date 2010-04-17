@@ -16,7 +16,7 @@
 /**
  * Interface import
  */
-require_once "Services/Yadis/HTTPFetcher.php";
+require_once "sites/all/modules/openids/Services/Yadis/HTTPFetcher.php";
 
 /**
  * Define this based on whether the CURL extension is available.
