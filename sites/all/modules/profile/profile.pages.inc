@@ -790,23 +790,92 @@ $option3 = '<option value=3>'.$usertypes[2].'</option>';
 		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend>Privacy Settings</legend>
-			<p>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="email" name="email">'.$option1.$option2.$option3.'</select></p>
-			<p>Real Name <select class="real_name" name="real_name">'.$option1.$option2.$option3.'</select></p>
-			<p>Image &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="image"  name="image">'.$option1.$option2.$option3.'</select></p>
-			<p>Bio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="bio" name="bio">'.$option1.$option2.$option3.'</select></p>
-			<p>Gender &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <select class="gender" name="gender">'.$option1.$option2.$option3.'</select></p>
-			<p>Zip &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="zip" name="zip">'.$option1.$option2.$option3.'</select></p>
-			<p>Country &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="country" name="country">'.$option1.$option2.$option3.'</select></p>
-			<p>Religion &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="religion" name="religion">'.$option1.$option2.$option3.'</select></p>
-			<p>Ethnic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="ethnic"  name="ethnic">'.$option1.$option2.$option3.'</select></p>
-			<p>Slant &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="slant" name="slant">'.$option1.$option2.$option3.'</select></p>
-			<p>Facebook &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="facebook" name="facebook">'.$option1.$option2.$option3.'</select></p>
-			<p>Twitter &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="twitter"   name="twitter">'.$option1.$option2.$option3.'</select></p>
-			<p>Followers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="followers" name="followers">'.$option1.$option2.$option3.'</select></p>
-			<p>Following &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="following" name="following">'.$option1.$option2.$option3.'</select></p>
-			<p>Medal &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="medal" name="medal">'.$option1.$option2.$option3.'</select></p>
-			<p>Posted Answers &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="answers" name="answers">'.$option1.$option2.$option3.'</select></p>
-			<p>Posted Questions&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select  class="questions"  name="questions">'.$option1.$option2.$option3.'</select></p>
+			<table>
+		       <tr><td>Email  </td>
+   			        <td></td>
+   			        <td><select class="email" name="email">'.$option1.$option2.$option3.'</select>  </td>
+			   </tr>
+			   <tr><td></td><td></td><td></td></tr>
+		       <tr><td>Real Name  </td>
+   			       <td></td>
+   			       <td><select class="real_name" name="real_name">'.$option1.$option2.$option3.'</select> </td>
+				</tr>
+			   <tr><td></td><td></td><td></td></tr>
+		       <tr><td>Image</td>
+   			       <td>	</td>
+   			       <td>	<select class="image"  name="image">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+		      <tr><td></td><td></td><td></td></tr>
+			   <tr><td>Bio</td>
+   			       <td>	</td>
+   			       <td>	<select class="bio"  name="bio">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+			   <tr><td></td><td></td><td></td></tr>	
+			    <tr><td>Gender</td>
+   			       <td>	</td>
+   			       <td>	<select class="gender"  name="gender">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+		      <tr><td></td><td></td><td></td></tr>
+			     <tr><td>Zip</td>
+   			       <td>	</td>
+   			       <td>	<select class="zip"  name="zip">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+		      <tr><td></td><td></td><td></td></tr>
+			     <tr><td>Country</td>
+   			       <td>	</td>
+   			       <td>	<select class="country"  name="country">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+		      <tr><td></td><td></td><td></td></tr>
+			    <tr><td>Religion</td>
+   			       <td>	</td>
+   			       <td>	<select class="religion"  name="religion">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+			   <tr><td></td><td></td><td></td></tr>
+			   <tr><td>Ethnic</td>
+   			       <td>	</td>
+   			       <td>	<select class="ethnic"  name="ethnic">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+		      <tr><td></td><td></td><td></td></tr>
+			   <tr><td>Slant</td>
+   			       <td>	</td>
+   			       <td>	<select class="slant"  name="slant">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+		      <tr><td></td><td></td><td></td></tr>
+              <tr><td>Facebook</td>
+   			       <td>	</td>
+   			       <td>	<select class="facebook"  name="facebook">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+		      <tr><td></td><td></td><td></td></tr>
+			   <tr><td>Twitter</td>
+   			       <td>	</td>
+   			       <td>	<select class="twitter"  name="twitter">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+	           <tr><td></td><td></td><td></td></tr>
+			   <tr><td>Followers</td>
+   			       <td>	</td>
+   			       <td>	<select class="followers"  name="followers">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+		      <tr><td></td><td></td><td></td></tr>
+			  <tr><td>Following</td>
+   			       <td>	</td>
+   			       <td>	<select class="following"  name="following">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+			  <tr><td></td><td></td><td></td></tr>
+		     <tr><td>Medal</td>
+   			       <td>	</td>
+   			       <td>	<select class="medal"  name="medal">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+		      <tr><td></td><td></td><td></td></tr>
+			  <tr><td>Posted Answers </td>
+   			       <td>	</td>
+   			       <td>	<select class="answers"  name="answers">'.$option1.$option2.$option3.'</select> </td>
+		      </tr>
+		     <tr><td></td><td></td><td></td></tr>
+			  <tr><td>Posted Questions</td>
+   			       <td>	</td>
+   			       <td>	<select class="questions"  name="questions">'.$option1.$option2.$option3.'</select> </td>
+		       </tr>
+			</table>
 			</fieldset>
 			<div class="clear" style="height:100px;" ><input type="submit" name="update" value="Update"></div>
 			</form>
