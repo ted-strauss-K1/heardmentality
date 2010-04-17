@@ -2,6 +2,8 @@
 function openid_login()
 {
  global $gSitePath,$user,$gDocPath,$base_root;
+session_start();
+
 require 'functions.php';
 
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
@@ -185,6 +187,9 @@ function openid_index()
  global $gSitePath,$user,$gDocPath,$base_root;
 header('X-XRDS-Location:'.$gSitePath.'sites/all/modules/openids/yadis.xrdf');
 
+
+session_start();
+
 if (isset($_GET['openid_mode'])) {
 
     if(!isset($_SESSION['loggedin'],$_SESSION['username']) || $_SESSION['username'] == ''){
@@ -194,6 +199,9 @@ if (isset($_GET['openid_mode'])) {
 }
 
 
+print_r($_SESSION);
+
+echo $_SESSION['openid_url'];
 
 $message  = "Welcome, ";
 $message .= ($_SESSION['loggedin'])?$_SESSION['username']:"guest";
