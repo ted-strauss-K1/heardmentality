@@ -6,7 +6,7 @@ session_start();
 require 'functions.php';
 
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-	header("Location:http://192.9.200.10/heardmentality/member/index");
+	header("Location:http://localhost/heardmentality/member/index");
 	exit;
 }
 
@@ -41,10 +41,10 @@ if(isset($_POST['process'])){
 		
 		$openid = new Dope_OpenID($openid_url);
 		
-		$openid->setReturnURL("http://192.9.200.10/heardmentality/member/login?action=verify");
+		$openid->setReturnURL("http://localhost/heardmentality/member/login?action=verify");
 	
 		
-		$openid->SetTrustRoot('http://192.9.200.10/heardmentality/member/login');
+		$openid->SetTrustRoot('http://localhost/heardmentality/member/login');
 	
 
 		$openid->setOptionalInfo(array('dob','nickname','country','language','email'));
@@ -105,7 +105,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 					$userinfo = $openid->filterUserInfo($_GET);
 			
 			
-				header("Location:http://192.9.200.10/heardmentality/member/index");
+				header("Location:http://localhost/heardmentality/member/index");
 				exit;
 			}
 			
@@ -120,8 +120,9 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			{
 			
 			echo $insert="insert into users (name,mail,language,openid)values('".$userinfo['nickname']."','".$userinfo['email']."','".$userinfo['language']."','".$_SESSION['openid_url']."') ";
+			$inforesult=db_query($insert);
 			}
-			echo "<ul>";
+			/*echo "<ul>";
 			
 			echo "\t<li><b>link</b>: " . $_SESSION['openid_url'] . "</li>";
 			echo "\t<li><b>Nickname</b>: " . $userinfo['nickname'] . "</li>";
@@ -130,7 +131,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			echo "\t<li><b>Country</b>: " . $userinfo['country'] . "</li>";
 			echo "</ul>";
 			
-			exit;
+			exit;*/
 		}
 	}
 	else if ($openid->isError() === TRUE){
@@ -153,7 +154,7 @@ $showop='
 
 	<p style="color:#f00;">'.$error.'</p>
 	
-	<form name="openid_form" id="openid_form" action="http://192.9.200.10/heardmentality/member/login" method="post" autocomplete="off">
+	<form name="openid_form" id="openid_form" action="http://localhost/heardmentality/member/login" method="post" autocomplete="off">
 		
 		
 		<label>
@@ -167,7 +168,7 @@ $showop='
 	</form>
 	
 
-<script type="text/javascript" id="__openidselector" src="http://192.9.200.10/heardmentality/sites/all/modules/openids/script.js" charset="utf-8"></script>
+<script type="text/javascript" id="__openidselector" src="http://localhost/heardmentality/sites/all/modules/openids/script.js" charset="utf-8"></script>
 
 
 </body>
@@ -183,7 +184,7 @@ return $showop;
 function openid_index()
 {
 
-header('X-XRDS-Location:http://192.9.200.10/heardmentality/sites/all/modules/openids/yadis.xrdf');
+header('X-XRDS-Location:http://localhost/heardmentality/sites/all/modules/openids/yadis.xrdf');
 
 
 session_start();
