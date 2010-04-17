@@ -5,7 +5,7 @@ function qlite_view() {
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
     drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
-
+    
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
     $query_list = db_query($query);
@@ -16,20 +16,18 @@ function qlite_view() {
     $query_sugestlist = db_query($query_sugest);
     $fetvotsugest = db_fetch_object($query_sugestlist);
     
-     $totalvotes = $fetvot->possiblevote + $fetvotsugest->suggestv;
+    $totalvotes = $fetvot->possiblevote + $fetvotsugest->suggestv;
 
-
-    $vqry="select * from tbl_vote_gurupoints where vstart=$totalvotes and vend>$totalvotes";
+    
+    $vqry = "select * from tbl_vote_gurupoints where vstart=$totalvotes and vend>$totalvotes";
     $voteqrylist = db_query($vqry);
     $fetqrylist = db_fetch_object($voteqrylist);
-	if($fetqrylist->id!='')
-	{
-	$fetqrylist->id;
-	
-	 increasepoints('0',$qid,$fetqrylist->id);
-	
-	}
-	
+    
+    $fetqrylist->id;
+    
+    increasepoints('0', $qid, $fetqrylist->id);
+
+    
     $vSqlsv = "select * from {vote_percent} where id='1' ";
     $rlistbv = db_query($vSqlsv);
     $oListquestbv = db_fetch_object($rlistbv);
@@ -173,7 +171,7 @@ function qlite_view() {
     }
     
     $qry1 = db_query("select * from suggest_ans_changeids where qid ='$qid'");
-    $array1=array();
+    
     while ($row1 = db_fetch_object($qry1)) {
         $array1[] = $row1->ans_id;
     }
@@ -373,8 +371,6 @@ function qlite_view() {
 		}
 		</script>
 		';
-		
-		$optio='';
     if ($numran != 0) {
         
         $optio = '<option value="1"> Withdraw answer</option>';
@@ -384,46 +380,35 @@ function qlite_view() {
         $submitbutt = ' <p><input type="submit" name="save" id="save" value="Vote" /></p>';
     }
 
-//tags
+    
+    //tags
     $instags = '';
-    $query = " SELECT t.tag FROM {qtag} as qt left join {tagging} as t on t.tid=qt.tag_id WHERE qt.qid='".$qid."' ";
-     $gettag = ExecuteQuery($query, "select");
-	 $gettag=array_filter($gettag);
-	// print_r($gettag);
-	 if(!empty($gettag)){
+    $query = 'select tag from {qtag} where qid="'.$qid.'"  ';
+    $gettag = ExecuteQuery($query, "select");
     foreach ($gettag as $intag) {
         $etag = '';
-        
-            $instags .= "<b>".$intag['tag']."</b>&nbsp;";
- 		}
-    }else{
-    	 $instags .= "&nbsp;<b> - -</b>&nbsp;";
-		
+        $etag = explode(',', $intag['tag']);
+        foreach ($etag as $dtag) {
+            $instags .= "<b>".$dtag."</b>&nbsp;";
+        }
     }
-//	$voutput .='<a href="'.$gSitePath.'invite/invite_friends">Share This Question </a>';
 
-    $voutput .= '<div class="rht_select">
-	<a href="'.$gSitePath.'invite/invite_friends?qid='.$qid.'">Share This Question </a>
-	<select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
+	 $voutput .= '<div class="rht_select">
+	 <a href="'.$gSitePath.'invite/invite_friends?qid='.$qid.'"> Share This Question </a>
+	 <select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 		<option value=""> Select</option >
 		'.$optio.'
 		<option value="2"> Invite</option >
 		<option value="3"> Flag</option >
 		<option value="4">Suggest New Answer</option> 
 		<option value="5">Create Mashup:</option> 
-		</select></div>
-		</div>		
+		</select></div></div>		
 		'.$submitbutt.' 
-		</div></div>
-		
-		<div>
-	
-		<b>Tags [<a href="#" onclick="loadtag(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
 		</div>
-			</form>
-		
-		';
+		<div><b>Tags [<a href="#" onclick="loadsuggest(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
+		</div></form>';
     return $voutput;
+	
 }
 
 
@@ -583,8 +568,8 @@ function qlite_save() {
             $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
             db_query($vInsQuery);
             drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
-             increasepoints('2',$mid,'0');
-
+            increasepoints('2', $mid, '0');
+            
             $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
             $query_listd = db_query($queryd);
             $fetvotd = db_fetch_object($query_listd);
@@ -654,9 +639,10 @@ function add_resources() {
         err += \'<li>Please Select Type !</li>\';
 		 if (cat1==1) 
 		 {
-		
+		 if (nlink.trim().length < 1) 
+        err += \'<li>Please Enter  Link !</li>\';
 		if (!tomatch.test(nlink))
-		 err += \'<li>Please Enter Link </li>\';		
+		 err += \'<li>Please enter valid News Link ,Example:http://www.example.com </li>\';		
 	
 		 }
 		if (cat1==2) 
@@ -666,9 +652,10 @@ function add_resources() {
 		
 		if (mtype==1)
 		{
-		 
+		  if (membed.trim().length < 1) 
+        err += \'<li>Please Enter  YouTube Link !</li>\';
 		if (!tomatch.test(membed))
-		 err += \'<li>Please Enter YouTube Link </li>\';		
+		 err += \'<li>Please enter valid YouTube  Link ,http://www.youtube.com/watch?v=VIDEOID </li>\';		
 		}
 		else
 		{
@@ -720,11 +707,11 @@ function add_resources() {
     $resources .= '<div id="log">
 	
 	<div id="log_res"><!-- spanner --></div>
-	</div><div id="err">'.$list_err.'</div><br/>
+	</div><div id="err">'.$list_err.'</div>
 	<span class="clr"><!-- spanner --></span>';
     $resources .= '<form id="myForm" name="myForm"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data" ><input type="hidden" name="qaid" value="'.$qid.'"/>
 	
-	<br/><p> Type	</p><p> <select name="rtype" class="textfieldm" id="rtype" >
+	<p> Type <select name="rtype" class="textfieldm" id="rtype" >
 	<option value="0">Select </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
@@ -737,13 +724,13 @@ function add_resources() {
 	</div>
 	
 	<div  id="div2">
-	<br/><p> Type </p><p><select name="mtype" class="textfieldm" id="mtype"   >
+	<p> Type <select name="mtype" class="textfieldm" id="mtype"   >
 	<option value="0">Select </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
 	</select> </p>	</div>
 	<div id="media"> 
-	<p>YouTube Link </p><p><input type="text"  name="membed" id="membed"  class="textfieldm" > </p> 
+	<p>YouTube Link <input type="text"  name="membed" id="membed"  class="textfieldm" > </p> 
 	</div>
 	<div id="media_div">
 	<p> File <input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe></p> 
@@ -1038,7 +1025,7 @@ function flag_report() {
             if ($numr == 0) {
                 $flagquery = "insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question','".$_REQUEST['abuse_type']."')";
                 db_query($flagquery);
-				 increasepoints('4',$_REQUEST['qaid'],'0');
+                increasepoints('4', $_REQUEST['qaid'], '0');
                 echo '<div class="messages success">You Have Flagged successfully ! </div>';
             
             } else {
@@ -1055,27 +1042,26 @@ function flag_report() {
 
 }
 
-function suggest_answer()
-	{
-	
-	global $gSitePath,$user, $gDocPath,$base_root;
-
-	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-		$ansoutput='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-
-	$answers="SELECT *	FROM suggest_answer where qid='$qid'  ";
-	$anslist=db_query($answers);
-	$count_row = db_result(db_query($answers));
-	 $numr= db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='$qid' and uid='".$user->uid."'"));
-	$ansoutput.='<div id="log">
+function suggest_answer() {
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
+    
+    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $ansoutput = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+    
+    $answers = "SELECT *	FROM suggest_answer where qid='$qid'  ";
+    $anslist = db_query($answers);
+    $count_row = db_result(db_query($answers));
+    $numr = db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='$qid' and uid='".$user->uid."'"));
+    $ansoutput .= '<div id="log">
 	<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
-	
-	$ansoutput.='<div id="log_res_ans"><!-- spanner --></div>
+    
+    $ansoutput .= '<div id="log_res_ans"><!-- spanner --></div>
 	<span class="clr"><!-- spanner --></span>';
-	
-	$ansoutput.='<script type="text/javascript">
+    
+    $ansoutput .= '<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
 	
 	if (!window.demo_path) window.demo_path = \'\';
@@ -1100,26 +1086,23 @@ function suggest_answer()
 	</script>
 	<form id="voteform"  method="post" action="'.$gSitePath.'qlite/answervote"  enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="'.$qid.'"/>';
-	if(isset($count_row) && $count_row >0 )
-		{
-$ansoutput.=	'<h3>The Following Answers have been suggested by other users for this question:</h3>
+    if (isset($count_row) && $count_row > 0) {
+        $ansoutput .= '<h3>The Following Answers have been suggested by other users for this question:</h3>
 	 <br/>
 	Select Answer <br/>
 	<p>';// <select name="suggest" class="textfieldm" id="suggest">
-	while($answerfet=db_fetch_object($anslist))
-	{
-	$ansoutput.='<label><input type="radio" name="suggest" value="'.$answerfet->said.'" />'.$answerfet->answer.'</label><br/>';
-	//<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
+        while ($answerfet = db_fetch_object($anslist)) {
+            $ansoutput .= '<label><input type="radio" name="suggest" value="'.$answerfet->said.'" />'.$answerfet->answer.'</label><br/>';
+            //<option  value="'.$answerfet->said.'">'.$answerfet->answer.' </option>';
+        
+        }
+        $ansoutput .= '</p> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/>';
+    }
+    '</form> ';
 
-	}
-	$ansoutput.='</p> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/>';
-	}
-	'</form> ';	
-	
-		
-	if($numr==0)
-	{
-	$ansoutput.='<script type="text/javascript">
+    
+    if ($numr == 0) {
+        $ansoutput .= '<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
 	
 	if (!window.demo_path) window.demo_path = \'\';
@@ -1144,102 +1127,83 @@ $ansoutput.=	'<h3>The Following Answers have been suggested by other users for t
 	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
 	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
 	</div></form>';
-	}
-	
-	echo $ansoutput;
-	}	
-    function suggest_answer_save()
-	{
-	global $gSitePath,$user, $gDocPath,$base_root;
-		 
-		$numr= db_result(db_query("SELECT COUNT(*) from {suggest_answer} where qid='".$_REQUEST['qaid']."' and uid='".$user->uid."'"));
-		if($_REQUEST['txt_answer']!='')
-		{
-		if($numr==0)
-		{
-		$answerquery="insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
-		db_query($answerquery);
-		echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
-		}
-		}
-		else
-		{
-		echo '<div class="messages error">Please Enter Suggest Answer </div>';
-		
-		}
-	
-	}
-	function question_news()
-	{
-	global $gSitePath,$user, $gDocPath,$base_root;
-	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	require('RSSParser.class.php');
-	$xml =& new RSSParser;
+    }
+    
+    echo $ansoutput;
+}
+function suggest_answer_save() {
+    global $gSitePath,$user,$gDocPath,$base_root;
+    
+    $numr = db_result(db_query("SELECT COUNT(*) from {suggest_answer} where qid='".$_REQUEST['qaid']."' and uid='".$user->uid."'"));
+    if ($_REQUEST['txt_answer'] != '') {
+        if ($numr == 0) {
+            $answerquery = "insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
+            db_query($answerquery);
+            echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
+        }
+    } else {
+        echo '<div class="messages error">Please Enter Suggest Answer </div>';
+    
+    }
 
-	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
-	$rlistnews=db_query($vSql);
-	  $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
-	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-		while($usernews=db_fetch_object($rlistnews))
-		{
-		
-		$output = $xml->parse($usernews->nlink);
-		
-		
-		
-		
-		
-		foreach($output as $valuesresult)
-		{
-		
-		//print_r( $valuesresult);
-		
-		
-		
-		}
-		
-		foreach($valuesresult as $opkt)
-		{
-		
-	
-		 
-		 
-		 $newsresult.='<div class="cmt_list">
-	
-	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$opkt["LINK"].'" target="new"> '.$opkt["TITLE"].' </a> </h4>
-		<p>'.$opkt['DESCRIPTION'].' </p>  
-	<p class="cmt_date"> '.date("D j M Y",strtotime($opkt['PUBDATE'])). '</p></div>
-	</div>';
-		 
-		 
-		 
-		 
-		}
-	}
-	
-	if($numnews==0)
-	{
-	
-	$newsresult.='No News  Under This Question.';
-	
-	}
-	echo $newsresult;
-	
-	
-	}
-	
-	function question_media()
-	{
-	
-	global $gSitePath,$user, $gDocPath,$base_root;
-	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$vSqlmedia="SELECT *	FROM resource where rtype='2' and qid='$qid' ";
-	$rlistmedia=db_query($vSqlmedia);
-	 $nummedia= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
-	$mediaresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-	while($usermedia=db_fetch_object($rlistmedia))
-	{
-	$mediaresult.='<div class="cmt_list">
+}
+function question_news() {
+    global $gSitePath,$user,$gDocPath,$base_root;
+    
+    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    require ('RSSParser.class.php');
+    $xml = & new RSSParser;
+    echo $vSql = "SELECT *FROM resource where rtype='1' and qid='$qid' ";
+    $rlistnews = db_query($vSql);
+
+    
+    $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
+    $newsresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+    while ($usernews = db_fetch_object($rlistnews)) {
+        //echo $usernews->nlink;
+        
+        $output = $xml->parse($usernews->nlink);
+        foreach ($output as $valuesresult) {
+        
+        }
+        
+        foreach ($valuesresult as $opkt) {
+            
+            $newsresult .= $opkt['TITLE'];
+
+            
+            $newsresult .= $opkt['LINK'];
+
+            
+            $newsresult .= $opkt['DESCRIPTION'];
+
+            
+            $newsresult .= $opkt['PUBDATE'];
+        
+        }
+    
+    }
+    
+    if ($numnews == 0) {
+        
+        $newsresult .= 'No News  Under This Question.';
+    
+    }
+    echo $newsresult;
+
+
+}
+
+function question_media() {
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $vSqlmedia = "SELECT *	FROM resource where rtype='2' and qid='$qid' ";
+    $rlistmedia = db_query($vSqlmedia);
+    $nummedia = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
+    $mediaresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+    while ($usermedia = db_fetch_object($rlistmedia)) {
+        $mediaresult .= '<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
 	<p><img src="http://img.youtube.com/vi/'.$usermedia->video_id.'/default.jpg" ></p>
 	<br/>  
@@ -1251,44 +1215,40 @@ $ansoutput.=	'<h3>The Following Answers have been suggested by other users for t
 </object>
 
  </p>
-	<p class="cmt_date"> '.date("D j M Y",strtotime($usermedia->posted_date)). '</p> </div>
+	<p class="cmt_date"> '.date("D j M Y", strtotime($usermedia->posted_date)).'</p> </div>
 	</div>';
-	}
-	if($nummedia==0)
-	{
-	
-	$mediaresult.='No Media Under This Question.';
-	
-	}
-	echo $mediaresult;
-	
-	}
-	
-	function question_facts()
-	{
-	
-global $gSitePath,$user, $gDocPath,$base_root;
-	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	$vSqlfact="SELECT *	FROM resource where rtype='3' and qid='$qid' ";
-	$rlistfacts=db_query($vSqlfact);
-	 $numfacts= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
-	$factsesult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-	while($userfacts=db_fetch_object($rlistfacts))
-	{
-	$factsesult.='<div class="cmt_list">
-	<div class="lft_view"> <h4 class="cmt_name"><a href="'.$userfacts->facts.'" target="_blank" style="color:#02a33c;text-decoration:none;"> '.$userfacts->facts.' </a> </h4>
-	<p class="cmt_date"> '.date("D j M Y",strtotime($userfacts->posted_date)). '</p> '.$userfacts->posted_date.'</div>
+    }
+    if ($nummedia == 0) {
+        
+        $mediaresult .= 'No Media Under This Question.';
+    
+    }
+    echo $mediaresult;
+
+}
+
+function question_facts() {
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $vSqlfact = "SELECT *	FROM resource where rtype='3' and qid='$qid' ";
+    $rlistfacts = db_query($vSqlfact);
+    $numfacts = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
+    $factsesult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+    while ($userfacts = db_fetch_object($rlistfacts)) {
+        $factsesult .= '<div class="cmt_list">
+	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;";href="'.$userfacts->facts.'" target="new"> '.$userfacts->facts.' </a> </h4>
+	<p class="cmt_date"> '.date("D j M Y", strtotime($userfacts->posted_date)).'</p> '.$userfacts->posted_date.'</div>
 	</div>';
-	}
-	if($numfacts==0)
-	{
-	
-	$factsesult.='No Facts Under This Question.';
-	
-	}
-	echo $factsesult;
-	
-	}
+    }
+    if ($numfacts == 0) {
+        
+        $factsesult .= 'No Facts Under This Question.';
+    
+    }
+    echo $factsesult;
+
+}
 
 function qlite_percent() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
@@ -1616,114 +1576,99 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         drupal_goto("admin/qlite/percentage");
     }
     
- function retag() {
-        // print_r($_REQUEST);
-        global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-		$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-		
+    function retag() {
         
-		if(isset($_REQUEST['tagsubmit'])){
-			
-			
-			//reset tags
-			db_query("DELETE FROM {qtag} where  qid='$qid'");
-			
-		extract($_REQUEST);
-		
-				$qtag=explode(',',$q_tag);	
-				
-			//its in quset_lite.module
-				process_tags($qtag,$qid,1);
-			
-			echo "<b>Thank you Tags are updated</b> ";
-			
-			exit;
-		}
-		 
+        global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+        
         $display .= '
 
 				<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
-				<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
-				<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/Autocompleter.css" type="text/css" media="screen" />
-			<script>
-			var mpath=\''.$gSitePath.'\';
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	
+			<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/Observer.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/Autocompleter.js"></script>
+			<script  src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/tagging.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
+	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/Autocompleter.css" type="text/css" media="screen" />
+				<script type="text/javascript">
+	/* <![CDATA[ */
+	window.addEvent("domready", function() {
 		
-			</script>';
-	
-	$query = " SELECT t.tag FROM {qtag} as qt left join {tagging} as t on t.tid=qt.tag_id WHERE qt.qid='".$qid."' ";
+		new Autocompleter.Ajax.Json("tagging-widget-input-1", "ajax/?action=tag", {
+			
+			"postVar": "q"
+		});
+	});
+	/* ]]> */
+	</script>';
+	$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	$query = " SELECT tag FROM {qtag} WHERE qid='".$qid."' ";
                 $result = ExecuteQuery($query, "select");
-        echo	$display.=edit_tagging($result);
+        echo	$display.=edit_tagging($result[0]['tag']);
       
     }
     
-	
-
-
 	function edit_tagging($tag = '') {
-  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-   
+
+    
     $content = '';
     $tagged = '';
-    if (!empty($tag)) {
+    if ($tag != '') {
         
-           
-        foreach ($tag as $list) {
-            if(!empty($list)){
-            $tagged .= '<div id="tagset" class="tagging-tag" onclick="tag_delq(this);return false;">'.$list['tag'].'</div>';
-       } }
+        $exp = explode(",", $tag);
+        
+        foreach ($exp as $list) {
+            
+            $tagged .= '<div id="tagset" class="tagging-tag" onclick="tag_delq(this);return false;">'.$list.'</div>';
+        }
     
     }
-	
-	$randomtag=popular_tag();
-	
-	
-	
-	
-	$tag=implode(',',$tag);
-    $content .= ' 	<div id="log_res"><!-- spanner --></div>
-	</div><div id="err"></div>
-	<span class="clr"><!-- spanner --></span> <div id="tagging-widget-container">
-	<form id="retagform" action="'.url($_GET['q'], array('absolute' => true)).'" class="" method="post" >
-            <fieldset>
-                <legend>
-                    Re Tag
-                </legend>
-				
-                <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
-                    <label>
-                        Assigned Tags:
-                    </label>
-                    '.$tagged.'
-                </div>
-                <div class="form-item" id="tagging-widget-input-1-wrapper">
-                    <span class="field-prefix">
-                        <div class="taggin-widget-input-wrapper">
-                            <input maxlength="20" autocomplete="off" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" onkeyup="suggest(this.value);" onblur="fill(this.value);" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"/></span></a>
-                            <div class="suggestionsBox" id="suggestions" style="visibility:hidden;">
-                                <img src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />
-                                <div class="suggestionList" id= "suggestionsList">
-                                </div>
-                            </div>
-                            <input  name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"/></span><input name="q_tag" type="hidden" id="q_tag" value="'.$tag.'">
-                        </div></span>
-                    <div class="description">
-                        Add New Tag
+    $content .= '<div id="tagging-widget-container">
+        <fieldset>
+            <legend>
+                Test Tag
+            </legend>
+            <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
+                <label>
+                    Assigned Tags:
+                </label>
+				'.$tagged.'
+            </div>
+            <div class="form-item" id="tagging-widget-input-1-wrapper">
+			
+                <span class="field-prefix">
+                    <div class="taggin-widget-input-wrapper">
+                        <input maxlength="20" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"/></span></a>
+						
+						<input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"/></span>
+						
+						<input name="q_tag" type="hidden" id="q_tag" value="'.$tag.'"  >
                     </div>
-                    </span>
-                    <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden">
-                    <br/>
-                    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
-                        <label>
-                            Suggestions:
-                        </label>
-                        '.$randomtag.'
-                       
-                    </div>
-					<div ><input type="submit" name="tagsubmit" value="Retag" >&nbsp; </div>
+                </span>
+                <div class="description">
+                   Add New Tag
                 </div>
-            </fieldset>
-			</form>
-        </div>';
+            </div>
+            <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden">
+          
+		    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
+               <label>Suggestions:</label>
+                <a href="#" class="taga" title="Add tag">
+                    <div id="tagging-1" class="tagging-suggest-tag processed">
+                        Drupal
+                    </div>
+                </a>
+                <a href="#" class="taga"  title="Add tag">
+                    <div id="tagging-1" class="tagging-suggest-tag processed">
+                        Drupal Wiki
+                    </div>
+                </a>
+                <a href="#" class="taga"  title="Add tag">
+                    <div id="tagging-1" class="tagging-suggest-tag processed">
+                        Impressive.media GbR
+                    </div>
+                </a>
+            </div>
+        </fieldset></div>';
 
     
     return $content;
@@ -1736,21 +1681,17 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         
         switch ($action) {
             case 'tag':
-                $q =clean_url($_REQUEST["queryString"]);
-				
+                $q = strtolower($_REQUEST["q"]);
                 if (!$q)
                     return;
                 $taglist = array();
                 $items = array();
-                $query = "SELECT * FROM tagging WHERE tag LIKE ('$q%') LIMIT 0 , 15 ";
+                $query = " SELECT * FROM {qtag} WHERE `tag` LIKE CONVERT( _utf8 '%$q%'USING latin1 )COLLATE latin1_swedish_ci LIMIT 0 , 15 ";
                 $result = ExecuteQuery($query, "select");
-                 $vResult=db_query($query);
-				//$oBj= db_fetch_object(db_query($query));
-				//print_r($oBj);
+                
                 foreach ($result as $single) {
                     array_push($taglist, $single['tag']);
                 }
-				
                 $taglist = array_filter($taglist);
                 
                 $taglist = array_unique($taglist);
@@ -1758,23 +1699,16 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                 $taglist = explode(',', $taglist);
                 $taglist = array_filter($taglist);
                 $items = array_unique($taglist);
-		
-               //print_r($items);
-                $list = "<ul>";
-                if(!empty($items)){
-                   //print_r($items);	
-                foreach ($items as $value) {
-               //     if (strpos(strtolower($value), $q) !== false) {
-                     $list .= '<li onclick=fill("'.$value.'")>'.$value.'</li>';
-                  //  }
+               // print_r($items);
+                $json = array();
+                
+                foreach ($items as $key=>$value) {
+                    if (strpos(strtolower($value), $q) !== false) {
+                        $json[] = '"'.$value.'"';
+                    }
                 }
-				
-				}else{
-					
-					 $list .= '<li>No Result</li>';
-				}
-              echo  $list.="</ul>";
-              
+                
+                echo '['.implode(',', $json).']';
                 break;
             default:
                 break;
@@ -1783,4 +1717,3 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     }
     
 ?>
-
