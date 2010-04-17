@@ -4,7 +4,7 @@
 /**
  * Implementation of hook_install().
  */
-function quest_lite_install() {
+function openids_install() {
 
   
 
@@ -13,6 +13,6 @@ function quest_lite_install() {
 /**
  * Implementation of hook_uninstall().
  */
-function quest_lite_uninstall() {
+function openids_uninstall() {
 }
 
