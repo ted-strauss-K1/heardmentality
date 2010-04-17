@@ -1,5 +1,5 @@
 <?php
-set_time_limit(0);
+
 function invite_friends() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $uid = $user->uid;
@@ -7,6 +7,7 @@ function invite_friends() {
     $title = NULL;
     $question_url = NULL;
     $invite_for_question = NULL;
+	$body=NULL;
     /* // include("gmail.api.include.php");
      include('openinviter.php');
      $inviter=new OpenInviter();
@@ -84,6 +85,7 @@ function invite_friends() {
      }*/
     
     if (isset($_REQUEST['invite'])) {
+    	set_time_limit(0);
         //	print_r($_REQUEST);
         $senderlist = $_REQUEST['recipient_list'];
         $message = isset($_REQUEST['message']) ? $_REQUEST['message'] : '';
@@ -99,12 +101,15 @@ function invite_friends() {
         
         foreach ($mail_cont as $mail) {
             
-            echo $to = email_format(trim($mail));
+             $to = email_format(trim($mail));
             $mail_success = drupal_mail('invite', $to, $subject, $body, $from);
             if (! empty($to)) {
                 // $mail_success=drupal_mail('invite', 'invitation', $EmailTo, language_default(), $params);
                 if (!$mail_success) {
                     drupal_set_message(t('There has been an error.\\nTo: '.$to.'\/nSubject: '.$subject.'\rBody: '.$body.'\nFrom: '.$from.'\nHeaders: '.$headers));
+                }else{
+                	
+				 drupal_set_message(t('Mail Sent Successfully!'),'success');	
                 }
             }
         }
