@@ -185,7 +185,7 @@ return $showop;
 function openid_index()
 {
  global $gSitePath,$user,$gDocPath,$base_root;
-header('X-XRDS-Location:'.$gSitePath.'sites/all/modules/openids/yadis.xrdf');
+header('X-XRDS-Location:".$gSitePath."sites/all/modules/openids/yadis.xrdf');
 
 
 session_start();
