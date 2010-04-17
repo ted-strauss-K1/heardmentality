@@ -7,7 +7,7 @@ session_start();
 require 'functions.php';
 
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-	header("Location:'.$gSitePath.'member/index");
+	header("Location:".$gSitePath."member/index");
 	exit;
 }
 
@@ -42,7 +42,7 @@ if(isset($_POST['process'])){
 		
 		$openid = new Dope_OpenID($openid_url);
 		
-		$openid->setReturnURL("'.$gSitePath.'member/login?action=verify");
+		$openid->setReturnURL("".$gSitePath."member/login?action=verify");
 	
 		
 		$openid->SetTrustRoot(''.$gSitePath.'member/login');
@@ -155,7 +155,7 @@ $showop='
 
 	<p style="color:#f00;">'.$error.'</p>
 	
-	<form name="openid_form" id="openid_form" action="http://localhost/heardmentality/member/login" method="post" autocomplete="off">
+	<form name="openid_form" id="openid_form" action="".$gSitePath."member/login" method="post" autocomplete="off">
 		
 		
 		<label>
@@ -169,7 +169,7 @@ $showop='
 	</form>
 	
 
-<script type="text/javascript" id="__openidselector" src="'.$gSitePathsites.'/all/modules/openids/script.js" charset="utf-8"></script>
+<script type="text/javascript" id="__openidselector" src="'.$gSitePath.'sites/all/modules/openids/script.js" charset="utf-8"></script>
 
 
 </body>
@@ -185,7 +185,7 @@ return $showop;
 function openid_index()
 {
  global $gSitePath,$user,$gDocPath,$base_root;
-header('X-XRDS-Location:http://localhost/heardmentality/sites/all/modules/openids/yadis.xrdf');
+header('X-XRDS-Location:'.$gSitePath.'sites/all/modules/openids/yadis.xrdf');
 
 
 session_start();
