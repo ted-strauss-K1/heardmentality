@@ -45,7 +45,7 @@ if(isset($_POST['process'])){
 		$openid->setReturnURL("".$gSitePath."member/login?action=verify");
 	
 		
-		$openid->SetTrustRoot(''.$gSitePath.'member/login');
+		$openid->SetTrustRoot('".$gSitePath."member/login');
 	
 
 		$openid->setOptionalInfo(array('dob','nickname','country','language','email'));
