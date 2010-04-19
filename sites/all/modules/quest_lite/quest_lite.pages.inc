@@ -1627,7 +1627,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     }
 
     
-  function edit_tagging($tag = '') {
+ function edit_tagging($tag = '') {
         global $gSitePath,$user,$gDocPath,$base_root,$base_path;
         
         $content = '';
@@ -1650,11 +1650,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         $content .= '
 	<div id="tagging-widget-container">
 	<form id="retagform" action="'.url($_GET['q'], array('absolute'=>true)).'" class="" method="post" >
-            <fieldset>
-                <legend>
-                    Re Tag
-                </legend>
-				
+          
                 <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
                     <label>
                         Assigned Tags:
@@ -1693,14 +1689,13 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     </div>
 					<div ><input type="submit" name="tagsubmit" value="Retag" /> </div>
                 </div>
-            </fieldset>
+          
 			</form>
         </div>';
 
         
         return $content;
     }
-    
     function qfull_ajax() {
         $action = $_REQUEST['action'];
         
