@@ -1697,7 +1697,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                 <div class="form-item" id="tagging-widget-input-1-wrapper">
                     <div class="field-prefix">
                         <div class="taggin-widget-input-wrapper">
-                            <input maxlength="20" autocomplete="off" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" onkeyup="suggest(this.value);" onblur="fill(this.value);" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"/>
+                     
 							<div class="field-suffix">
                             <div class="suggestionsBox" id="suggestions" style="visibility:hidden;">
                                 <img src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />
