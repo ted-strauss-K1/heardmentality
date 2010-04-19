@@ -1685,9 +1685,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 
         
         $tag = implode(',', $tag);
-        $content .= '<div id="tagging-widget-container">
-	<form  method="post" >
-                <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
+        $content .= '<div id="tagging-widget-container"><div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
                   
                         Assigned Tags:
                   
@@ -1715,18 +1713,10 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     </div>
                     </div>
                     <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden"/>
-                    <br/>
                     <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
-                        <label>
-                            Suggestions:
-                        </label>
                         '.$randomtag.'
-                       
                     </div>
-					<div ><input type="submit" name="tagsubmit" value="Retag" /> </div>
-               
-           
-			</form>
+					<div><input type="submit" name="tagsubmit" value="Retag" /> </div>
         </div>';
 
         
