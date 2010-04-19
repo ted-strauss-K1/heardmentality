@@ -1698,11 +1698,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     </label>
                     '.$tagged.'
                 </div>
-                <div class="form-item" id="tagging-widget-input-1-wrapper">
-                    <div class="field-prefix">
-                        
-                           </div> 
-						   </div>
+                
                             <input  name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"/>
 							<input name="q_tag" type="hidden" id="q_tag" value="'.$tag.'"/>
                      </div>
