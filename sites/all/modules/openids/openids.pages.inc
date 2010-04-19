@@ -178,7 +178,7 @@ $showop='<link type="text/css" rel="stylesheet" href="http://localhost/heardment
 		
 		<input type="hidden" name="process" value="1" />
 		
-		<button type="submit">Sign In With OpenID</button>
+		<!--<button type="submit">Sign In With OpenID</button>-->
 		
         
         
