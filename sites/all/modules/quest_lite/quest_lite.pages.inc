@@ -403,7 +403,8 @@ function qlite_view() {
 //	$voutput .='<a href="'.$gSitePath.'invite/invite_friends">Share This Question </a>';
 
     $voutput .= '<div class="rht_select">
-	<a href="'.$gSitePath.'invite/invite_friends?qid='.$qid.'">Share This Question </a>
+	<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>
+	
 	<select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 		<option value=""> Select</option >
 		'.$optio.'
