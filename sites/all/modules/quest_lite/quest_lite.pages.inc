@@ -1703,14 +1703,12 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 								</div>
                            </div> 
 						   </div>
-                            <input  name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"/>
-							<input name="q_tag" type="hidden" id="q_tag" value="'.$tag.'"/>
+                           
+							
                      </div>
-                    <div class="description">
-                        Add New Tag
+                   
                     </div>
-                    </div>
-                    <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden"/>
+                    
 					
         </div>';
 
