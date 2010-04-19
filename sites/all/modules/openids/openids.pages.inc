@@ -168,7 +168,7 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
 		</label><input type="hidden" name="process" value="1" />
 		
 		 <fieldset>
-            <legend>Sign-in or Create New Account</legend>
+          
             <input type="hidden" name="action" value="verify" />
 
             <div id="openid_choice">
@@ -187,7 +187,7 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
                 </p>
             </noscript>
         </fieldset>
-		<embed height="55" width="120" align="middle" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" swliveconnect="true" flashvars="ContainerAndSWF=componentDiv|Gigya.Socialize.Login_en&amp;SWFModuleID=componentDiv|Gigya.Socialize.Login_en&amp;now=1271686009477" salign="" allowscriptaccess="always" allowfullscreen="false" menu="true" devicefont="false" scale="showall" loop="true" play="true" quality="high" src="http://cdn.gigya.com/Wildfire/swf/Gigya.Socialize.Login_en.swf" name="componentDiv_Gigya.Socialize.Login_en" wmode="transparent" id="componentDiv_Gigya.Socialize.Login_en"/>
+		
 	</form>';
 
 
