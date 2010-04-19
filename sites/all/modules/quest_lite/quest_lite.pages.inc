@@ -1158,62 +1158,82 @@ function suggest_answer_save() {
     }
 
 }
-function question_news() {
-    global $gSitePath,$user,$gDocPath,$base_root;
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    require ('RSSParser.class.php');
-    $xml = & new RSSParser;
-    
-    $vSql = "SELECT *	FROM resource where rtype='1' and qid='$qid' ";
-    $rlistnews = db_query($vSql);
-    $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
-    $newsresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-    while ($usernews = db_fetch_object($rlistnews)) {
-        
-        $output = $xml->parse($usernews->nlink);
+	function question_news()
+	{
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	require('RSSParser.class.php');
+	$xml =& new RSSParser;
 
-        
-        foreach ($output as $valuesresult) {
-            
-            //print_r( $valuesresult);
+	$vSql="SELECT *	FROM resource where rtype='1' and qid='$qid' ";
+	$rlistnews=db_query($vSql);
+	  $numnews= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
+	$newsresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+		while($usernews=db_fetch_object($rlistnews))
+		{
 
-        
-        }
-        
-        foreach ($valuesresult as $opkt) {
-
-            
-            $newsresult .= '<div class="cmt_list">
+		$output = $xml->parse($usernews->nlink);
+		
+		
+		
+		
+		
+		foreach($output as $valuesresult)
+		{
+		
+		//print_r( $valuesresult);
+		
+		
+		
+		}
+		
+		foreach($valuesresult as $opkt)
+		{
+		
+	
+		 
+		 
+		 $newsresult.='<div class="cmt_list">
 	
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$opkt["LINK"].'" target="new"> '.$opkt["TITLE"].' </a> </h4>
 		<p>'.$opkt['DESCRIPTION'].' </p>  
-	<p class="cmt_date"> '.date("D j M Y", strtotime($opkt['PUBDATE'])).'</p></div>
+	<p class="cmt_date"> '.date("D j M Y",strtotime($opkt['PUBDATE'])). '</p></div>
+	<div class="rght_view" onclick="resource_like('.$usernews->rid.','.$user->uid.',1);" >
+	<p id ="resource-fact">'
+	.$like_count.'</p>Like	
+	</div>
 	</div>';
-
-        
-        }
-    }
-    
-    if ($numnews == 0) {
-        
-        $newsresult .= 'No News  Under This Question.';
-    
-    }
-    echo $newsresult;
-
-
-}
-
-function question_media() {
-    
-    global $gSitePath,$user,$gDocPath,$base_root;
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $vSqlmedia = "SELECT *	FROM resource where rtype='2' and qid='$qid' ";
-    $rlistmedia = db_query($vSqlmedia);
-    $nummedia = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
-    $mediaresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-    while ($usermedia = db_fetch_object($rlistmedia)) {
-        $mediaresult .= '<div class="cmt_list">
+		 
+		 
+		 
+		 
+		}
+	}
+	
+	if($numnews==0)
+	{
+	
+	$newsresult.='No News  Under This Question.';
+	
+	}
+	echo $newsresult;
+	
+	
+	}
+	
+	function question_media()
+	{
+	
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSqlmedia="SELECT *	FROM resource where rtype='2' and qid='$qid' ";
+	$rlistmedia=db_query($vSqlmedia);
+	 $nummedia= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
+	$mediaresult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	while($usermedia=db_fetch_object($rlistmedia))
+	{
+	$like_count = resource_Like_checkCount($usermedia->rid,2);
+	$mediaresult.='<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
 	<p><img src="http://img.youtube.com/vi/'.$usermedia->video_id.'/default.jpg" ></p>
 	<br/>  
@@ -1225,41 +1245,59 @@ function question_media() {
 </object>
 
  </p>
-	<p class="cmt_date"> '.date("D j M Y", strtotime($usermedia->posted_date)).'</p> </div>
+	<p class="cmt_date"> '.date("D j M Y",strtotime($usermedia->posted_date)). '</p> </div>
+	<div class="rght_view" onclick="resource_like('.$usermedia->rid.','.$user->uid.',2);" >
+	<p id ="resource-fact">'
+	.$like_count.'</p>Like	
+	</div>
 	</div>';
-    }
-    if ($nummedia == 0) {
-        
-        $mediaresult .= 'No Media Under This Question.';
-    
-    }
-    echo $mediaresult;
-
-}
-
-function question_facts() {
-    
-    global $gSitePath,$user,$gDocPath,$base_root;
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $vSqlfact = "SELECT *	FROM resource where rtype='3' and qid='$qid' ";
-    $rlistfacts = db_query($vSqlfact);
-    $numfacts = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
-    $factsesult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-    while ($userfacts = db_fetch_object($rlistfacts)) {
-        $factsesult .= '<div class="cmt_list">
+	}
+	if($nummedia==0)
+	{
+	
+	$mediaresult.='No Media Under This Question.';
+	
+	}
+	echo $mediaresult;
+	
+	}
+	
+	function question_facts()
+	{
+	
+	global $gSitePath,$user, $gDocPath,$base_root;
+	$qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSqlfact="SELECT *	FROM resource where rtype='3' and qid='$qid' ";
+	$rlistfacts=db_query($vSqlfact);
+	 $numfacts= db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
+	$factsesult='<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+	while($userfacts=db_fetch_object($rlistfacts))
+	{
+	$like_count = resource_Like_checkCount($userfacts->rid,3);
+	$factsesult.='<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a href="'.$userfacts->facts.'" target="_blank" style="color:#02a33c;text-decoration:none;"> '.$userfacts->facts.' </a> </h4>
-	<p class="cmt_date"> '.date("D j M Y", strtotime($userfacts->posted_date)).'</p> '.$userfacts->posted_date.'</div>
-	</div>';
-    }
-    if ($numfacts == 0) {
-        
-        $factsesult .= 'No Facts Under This Question.';
-    
-    }
-    echo $factsesult;
+	<p class="cmt_date"> '.date("D j M Y",strtotime($userfacts->posted_date)). '</p> '.$userfacts->posted_date.'</div>
+	<div class="rght_view" onclick="resource_like('.$userfacts->rid.','.$user->uid.',3);" >
+	<p id ="resource-fact">'
+	.$like_count.'</p>Like	
+	</div></div>';
+	}
+	if($numfacts==0)
+	{
+	
+	$factsesult.='No Facts Under This Question.';
+	
+	}
+	echo $factsesult;
+	
+	}
+function resource_Like_checkCount($rid = null, $rtype = null){
+      $query = "SELECT count(rid) FROM resource_like WHERE rid=$rid AND rtype=$rtype";
+      $result = ExecuteQuery($query, "select");
+	   $like_count =isset($result[0][0])?$result[0][0]:0;
+		return  $like_count;
 
 }
-
 function qlite_percent() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     $output = '';
@@ -1702,27 +1740,26 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         return $content;
     }
 
-    
-    function qfull_ajax() {
-        $action = $_REQUEST['action'];
-        
+      function qfull_ajax() {
+	$action = $_REQUEST['action'];
+ 
         switch ($action) {
             case 'tag':
-                $q = clean_url($_REQUEST["queryString"]);
-                
+                $q =clean_url($_REQUEST["queryString"]);
+				
                 if (!$q)
                     return;
                 $taglist = array();
                 $items = array();
                 $query = "SELECT * FROM tagging WHERE tag LIKE ('$q%') LIMIT 0 , 15 ";
                 $result = ExecuteQuery($query, "select");
-                $vResult = db_query($query);
-                //$oBj= db_fetch_object(db_query($query));
-                //print_r($oBj);
+                 $vResult=db_query($query);
+				//$oBj= db_fetch_object(db_query($query));
+				//print_r($oBj);
                 foreach ($result as $single) {
                     array_push($taglist, $single['tag']);
                 }
-                
+				
                 $taglist = array_filter($taglist);
                 
                 $taglist = array_unique($taglist);
@@ -1730,24 +1767,49 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                 $taglist = explode(',', $taglist);
                 $taglist = array_filter($taglist);
                 $items = array_unique($taglist);
-                
-                //print_r($items);
+		
+               //print_r($items);
                 $list = "<ul>";
-                if (! empty($items)) {
-                    //print_r($items);
-                    foreach ($items as $value) {
-                        //     if (strpos(strtolower($value), $q) !== false) {
-                        $list .= '<li onclick=fill("'.$value.'")>'.$value.'</li>';
-                        //  }
-                    }
-                
-                } else {
-                    
-                    $list .= '<li>No Result</li>';
+                if(!empty($items)){
+                   //print_r($items);	
+                foreach ($items as $value) {
+               //     if (strpos(strtolower($value), $q) !== false) {
+                     $list .= '<li onclick=fill("'.$value.'")>'.$value.'</li>';
+                  //  }
                 }
-                echo $list .= "</ul>";
-                
+				
+				}else{
+					
+					 $list .= '<li>No Result</li>';
+				}
+              echo  $list.="</ul>";
+              
                 break;
+           case 'resource':
+			
+			      $uid =clean_url($_REQUEST["uid"]);
+   			      $rid =clean_url($_REQUEST["rid"]);
+				  $rtype =clean_url($_REQUEST["rtype"]);
+			     $query = "SELECT count(rid) FROM resource_like WHERE rid=$rid AND uid=$uid AND rtype=$rtype";
+                 $result = ExecuteQuery($query, "select");
+				if(isset($result[0]) && $result[0][0] == 1){
+					 $query1 = "SELECT count(rid) FROM resource_like WHERE rid=$rid ";
+		             $result1 = ExecuteQuery($query1, "select");
+					  $list .= $result1[0][0].'&nbsp;&nbsp;';
+				     $list .= '<span class="err-message">Already Liked</span>';
+
+				}else{
+					 $query = "INSERT INTO {resource_like} set rid='$rid',uid='$uid',rtype='$rtype',like_yes='1' ";
+			         $result = ExecuteQuery($query, "insert");
+	 			     $query1 = "SELECT count(rid) FROM resource_like WHERE rid=$rid ";
+		             $result1 = ExecuteQuery($query1, "select");
+					 $list .= '&nbsp;'.$result1[0][0].'&nbsp;&nbsp;';
+					 $list .= '<span class="succ-message">Thanks For Liked</span>';
+					 
+				}	 
+		
+				 echo $list;
+		         break;
             default:
                 break;
         }
