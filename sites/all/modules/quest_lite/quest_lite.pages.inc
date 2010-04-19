@@ -1685,10 +1685,19 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 
         
         $tag = implode(',', $tag);
-        $content .= '<div id="tagging-widget-container"><div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
-                  
+        $content .= '<div id="log_res"><!-- spanner --></div>
+	<div id="err"></div>
+	<span class="clr"><!-- spanner --></span> <div id="tagging-widget-container">
+	<form id="retagform" action="'.url($_GET['q'], array('absolute'=>true)).'" class="" method="post" >
+            <fieldset>
+                <legend>
+                    Re Tag
+                </legend>
+				
+                <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
+                    <label>
                         Assigned Tags:
-                  
+                    </label>
                     '.$tagged.'
                 </div>
                 <div class="form-item" id="tagging-widget-input-1-wrapper">
@@ -1696,8 +1705,6 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                         <div class="taggin-widget-input-wrapper">
                             <input maxlength="20" autocomplete="off" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" onkeyup="suggest(this.value);" onblur="fill(this.value);" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"/>
 							<div class="field-suffix">
-							<a class="tagging-button-container" href="#" title="Add">
-							<span class="tagging-button tagging-button-1"/>hi</span></a>
                             <div class="suggestionsBox" id="suggestions" style="visibility:hidden;">
                                 <img src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />
                                 <div class="suggestionList" id= "suggestionsList">
@@ -1715,9 +1722,16 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden"/>
                     <br/>
                     <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
+                        <label>
+                            Suggestions:
+                        </label>
                         '.$randomtag.'
+                       
                     </div>
-					
+					<div ><input type="submit" name="tagsubmit" value="Retag" /> </div>
+               
+            </fieldset>
+			</form>
         </div>';
 
         
