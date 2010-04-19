@@ -37,3 +37,23 @@ function qns_like(type,qid){
     }).send();
     
 }
+
+function resource_like(rid,uid,rtype){
+
+		var urr=spath+'qlite/ajax?action=resource';
+		var req = new Request({    
+			method: 'post',
+			url: urr,
+			data: {
+			rid: rid,
+			uid: uid,
+           rtype:rtype
+			},
+			onComplete: function(response){
+		        $('resource-fact').set('html', response);
+				 $('resource-message').set('html', response);
+	
+		}
+		}).send();;
+    
+}
