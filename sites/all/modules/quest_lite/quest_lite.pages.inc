@@ -1727,7 +1727,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                         '.$randomtag.'
                        
                     </div>
-					<div ><input type="submit" name="tagsubmit" value="Retag" /> </div>
+					<div><input type="submit" name="tagsubmit" value="Retag" /> </div>
                
             </fieldset>
 			</form>
