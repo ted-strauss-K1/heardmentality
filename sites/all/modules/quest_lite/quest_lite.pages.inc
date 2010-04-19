@@ -1689,15 +1689,9 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 	<div id="err"></div>
 	<span class="clr"><!-- spanner --></span> <div id="tagging-widget-container">
 	<form id="retagform" action="'.url($_GET['q'], array('absolute'=>true)).'" class="" method="post" >
-            <fieldset>
-                <legend>
                     Re Tag
-                </legend>
-				
                 <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
-                    <label>
-                        Assigned Tags:
-                    </label>
+                                           Assigned Tags:
                     '.$tagged.'
                 </div>
                 <div class="form-item" id="tagging-widget-input-1-wrapper">
@@ -1722,15 +1716,13 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden"/>
                     <br/>
                     <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
-                        <label>
                             Suggestions:
-                        </label>
-                        '.$randomtag.'
+                             '.$randomtag.'
                        
                     </div>
-					
+					<div ><input type="submit" name="tagsubmit" value="Retag" /> </div>
                
-            </fieldset>
+          
 			</form>
         </div>';
 
