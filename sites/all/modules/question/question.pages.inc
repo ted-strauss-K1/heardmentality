@@ -365,7 +365,8 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     $output .= ' </td></tr><tr>
     <td height="42">&nbsp;</td>
     <td>&nbsp;</td>
-    <td><input type="submit" name="save" tabindex="21" id="save" value="Save" /></td>
+	    <td>&nbsp;</td>    <td>&nbsp;</td>    
+    <td><input type="submit" name="save" tabindex="21" id="save" value="Save" class="question-save"/></td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td align="right"></td>
