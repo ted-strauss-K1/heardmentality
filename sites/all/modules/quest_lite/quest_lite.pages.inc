@@ -1710,7 +1710,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                         Add New Tag
                     </div>
                     </div>
-                    <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden"/>
+                    
 					
         </div>';
 
