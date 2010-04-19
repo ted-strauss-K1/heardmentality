@@ -1,5 +1,4 @@
 <?php
-
 function invite_friends() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $uid = $user->uid;
@@ -7,7 +6,7 @@ function invite_friends() {
     $title = NULL;
     $question_url = NULL;
     $invite_for_question = NULL;
-	$body=NULL;
+    $body = NULL;
     /* // include("gmail.api.include.php");
      include('openinviter.php');
      $inviter=new OpenInviter();
@@ -72,6 +71,18 @@ function invite_friends() {
             $question_url = $question_url['url'];
         }
         $question_url = $gSitePath.$question_url;
+    } else if (isset($_REQUEST['uid'])) {
+        $uid = $_REQUEST['uid'];
+        $find_url = db_query("select name from {users} where uid='$uid'");
+        $udata = db_fetch_array($find_url);
+        if (! empty($udata)) {
+            $uname = $udata['name'];
+        }
+        $question_url = $gSitePath.'profile/'.$uname;
+    
+    } else {
+        echo "Sorry Nothing to Share";
+        exit;
     }
 
     
@@ -85,31 +96,42 @@ function invite_friends() {
      }*/
     
     if (isset($_REQUEST['invite'])) {
-    	set_time_limit(0);
+        set_time_limit(0);
         //	print_r($_REQUEST);
         $senderlist = $_REQUEST['recipient_list'];
         $message = isset($_REQUEST['message']) ? $_REQUEST['message'] : '';
         $question_list = isset($_REQUEST['question_list']) ? $_REQUEST['question_list'] : '';
         $mail_cont = explode(',', $senderlist);
         $guest_mail = array();
-        $subject = "Heardmentality Question Invite";
-        $body .= $message;
-        $body .= "Check this question url <br/>";
-        $body .= $question_url;
+        //mail
+        $body .= $message."<br/>";
+        if (isset($_REQUEST['qid'])) {
+            $subject = "Heardmentality Question Invite";
+            
+            $body .= "Check this question url <br/>";
+
+        
+        } else if (isset($_REQUEST['uid'])) {
+            $subject = "Heardmentality Profile Invite";
+            
+            $body .= "Check this profile url <br/>";
+        }
+        
+         $body .= $question_url;
         $from = $user->mail;
         $headers = array();
         
         foreach ($mail_cont as $mail) {
             
-             $to = email_format(trim($mail));
+            $to = email_format(trim($mail));
             $mail_success = drupal_mail('invite', $to, $subject, $body, $from);
             if (! empty($to)) {
                 // $mail_success=drupal_mail('invite', 'invitation', $EmailTo, language_default(), $params);
                 if (!$mail_success) {
                     drupal_set_message(t('There has been an error.\\nTo: '.$to.'\/nSubject: '.$subject.'\rBody: '.$body.'\nFrom: '.$from.'\nHeaders: '.$headers));
-                }else{
-                	
-				 drupal_set_message(t('Mail Sent Successfully!'),'success');	
+                } else {
+                    
+                    drupal_set_message(t('Mail Sent Successfully!'), 'success');
                 }
             }
         }
@@ -126,13 +148,6 @@ function invite_friends() {
 		          <option value="yahoo">Yahoo</option>';
     
     $strReturn = '
- <script type="text/javascript" src="http://www.plaxo.com/css/m/js/util.js"></script>
-<script type="text/javascript" src="http://www.plaxo.com/css/m/js/basic.js"></script>
-<script type="text/javascript" src="http://www.plaxo.com/css/m/js/abc_launcher.js"></script>
-  <script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
-  <link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
-	<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
 		
 		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
 		<fieldset>
@@ -145,7 +160,7 @@ function invite_friends() {
                 </td>
                 <td width="40%">
                 </td>
-				<td width="40%"></td>
+				<td width="40%"  rowspan="5"> <!--<img src="'.$gSitePath.drupal_get_path('module', 'invite').'/images/invite_mail.jpg" border="0" />--></td>
             </tr>
             <tr>
                 <td align="left">
@@ -186,7 +201,7 @@ function invite_friends() {
             </tr>
 			<tr>
 			<td>
-			Question URL :
+			Refer URL :
 			</td>
 			<td align="left">
 			  '.$question_url.'
@@ -200,7 +215,7 @@ function invite_friends() {
 	
 			<div class="clear" style="height:100px;" ><input type="submit" name="invite" value="Invite">
 			
-			<input type="submit" name="cancel" value="Cancel"></div>
+			<input type="submit" name="cancel" onclick="MochaUI.closeAll();" value="Cancel"></div>
 			</form>		';
     echo $strReturn;
 
