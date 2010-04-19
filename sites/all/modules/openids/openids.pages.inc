@@ -151,39 +151,23 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
 	$error = "OpenID authorization canceled by user.";
 }
 
-$showop='<link type="text/css" rel="stylesheet" href="http://localhost/heardmentality/sites/all/modules/openids/css/openid.css" />
-    <script type="text/javascript" src="http://localhost/heardmentality/sites/all/modules/openids/js/openid.js"></script>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	<meta http-equiv="Content-Style-Type" content="text/css" />
-     <script type="text/javascript">
+	
+	$showop='<link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/openid.css" />
+	<script type="text/javascript" src="'.$gSitePath.'sites/all/modules/openids/js/openid.js"></script>
+	<script type="text/javascript">
         window.addEvent(\'domready\', function(){
             new OpenIdSelector(\'openid_identifier\');
         });
     </script>
-
-	<p style="color:#f00;">'.$error.'</p>
-	
-		<form name="openid_form" id="openid_form" action="login.php" method="post" autocomplete="off">
-		
-		<!-- Your OpenID input should be named "openid_identifier" to follow best practices
-	     and in order to work with the ID Selector JavaScript, should you choose to use it. -->
+	<form name="openid_form" id="openid_form" action="'.$gSitePath.'member/login" method="post" autocomplete="off"><div id="openid_choice">
          
-           <div id="openid_choice">
-            
                 <div id="openid_btns"></div>
             </div>
 		<label>
 			OpenID URL: <input type="text" name="openid_identifier" id="openid_identifier" maxlength="320" />
-		</label>
+		</label><input type="hidden" name="process" value="1" />
 		
-		<input type="hidden" name="process" value="1" />
-		
-		<!--<button type="submit">Sign In With OpenID</button>-->
-		
-        
-        
-        
-         <fieldset>
+		 <fieldset>
             <legend>Sign-in or Create New Account</legend>
             <input type="hidden" name="action" value="verify" />
 
@@ -203,14 +187,10 @@ $showop='<link type="text/css" rel="stylesheet" href="http://localhost/heardment
                 </p>
             </noscript>
         </fieldset>
-		
-	</form>
-	
+		<embed height="55" width="120" align="middle" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" swliveconnect="true" flashvars="ContainerAndSWF=componentDiv|Gigya.Socialize.Login_en&amp;SWFModuleID=componentDiv|Gigya.Socialize.Login_en&amp;now=1271686009477" salign="" allowscriptaccess="always" allowfullscreen="false" menu="true" devicefont="false" scale="showall" loop="true" play="true" quality="high" src="http://cdn.gigya.com/Wildfire/swf/Gigya.Socialize.Login_en.swf" name="componentDiv_Gigya.Socialize.Login_en" wmode="transparent" id="componentDiv_Gigya.Socialize.Login_en"/>
+	</form>';
 
 
-
-</body>
-</html>';
 
 	
 
