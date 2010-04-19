@@ -1627,7 +1627,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     }
 
     
-    function edit_tagging($tag = '') {
+  function edit_tagging($tag = '') {
         global $gSitePath,$user,$gDocPath,$base_root,$base_path;
         
         $content = '';
@@ -1647,9 +1647,8 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 
         
         $tag = implode(',', $tag);
-        $content .= ' 	<div id="log_res"><!-- spanner --></div>
-	<div id="err"></div>
-	<span class="clr"><!-- spanner --></span> <div id="tagging-widget-container">
+        $content .= '
+	<div id="tagging-widget-container">
 	<form id="retagform" action="'.url($_GET['q'], array('absolute'=>true)).'" class="" method="post" >
             <fieldset>
                 <legend>
@@ -1684,7 +1683,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     </div>
                     </div>
                     <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden"/>
-                    <br/>
+                   
                     <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
                         <label>
                             Suggestions:
@@ -1701,7 +1700,6 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         
         return $content;
     }
-
     
     function qfull_ajax() {
         $action = $_REQUEST['action'];
