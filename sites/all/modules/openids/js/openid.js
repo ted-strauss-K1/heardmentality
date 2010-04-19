@@ -95,6 +95,7 @@ var OpenIdProviders = new Class({
  * @class OpenIdSelector
  */
 var OpenIdSelector = new Class({
+							   
 
         cookie_expires: 6*30, // 6 months.
     cookie_name: 'openid_provider',
@@ -157,7 +158,9 @@ var OpenIdSelector = new Class({
                 'background': '#fff url(' + this.img_path + box_id + image_ext + ') no-repeat center center'
             },
             'events': {
-                'click': openid.signin.pass(box_id, openid)
+                'click': openid.signin.pass(box_id, openid),
+				
+			   
             }
         });
     },
