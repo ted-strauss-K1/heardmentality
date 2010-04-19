@@ -1720,14 +1720,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     </div>
                     <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden"/>
                    
-                    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
-                        <label>
-                            Suggestions:
-                        </label>
-                        '.$randomtag.'
-                       
-                    </div>
-					<div ><input type="submit" name="tagsubmit" value="Retag" /> </div>
+                   
                
             </fieldset>
 			</form>
