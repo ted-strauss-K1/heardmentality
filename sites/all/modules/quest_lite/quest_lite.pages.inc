@@ -1629,7 +1629,6 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     
 function edit_tagging($tag = '') {
         global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-        
         $content = '';
         $tagged = '';
         if (! empty($tag)) {
@@ -1642,10 +1641,7 @@ function edit_tagging($tag = '') {
             }
         
         }
-        
         $randomtag = popular_tag();
-
-        
         $tag = implode(',', $tag);
         $content .= '<div id="tagging-widget-container">
 	<form id="retagform" action="'.url($_GET['q'], array('absolute'=>true)).'" class="" method="post" >
