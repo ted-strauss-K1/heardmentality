@@ -195,7 +195,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 			<div class="img">'.$PROFILE_IMAGE.$medal.'
 			</div>
 			<div class="info">
-					'.$getuser->name.'<br/>
+					'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]<br/>
 					'.$real_name1.'<br/>
 					'.$dob1.'<br/>	
 					'.$gender_name1.'<br/>	
