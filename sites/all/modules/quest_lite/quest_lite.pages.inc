@@ -1667,10 +1667,9 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     
     function edit_tagging($tag = '') {
         global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-        
         $content = '';
         $tagged = '';
-        if (! empty($tag)) {
+        if (!empty($tag)) {
 
             
             foreach ($tag as $list) {
