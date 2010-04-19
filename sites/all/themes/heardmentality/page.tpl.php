@@ -266,7 +266,7 @@ window.addEvent('domready', function(){
 			new MochaUI.Window({
 			id: 'ajaxpage',
 			title: ' Resource >> '+title,
-			loadMethod: 'xhr',
+			loadMethod: 'iframe',
 			contentURL: url,
 			type: 'modal',
 			width: 650,
@@ -394,7 +394,31 @@ window.addEvent('domready', function(){
 	}
 	
 	
-	
+	MochaUI.inviteWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' Invite >> '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 405,
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+				contentBgColor: '#FFF',
+		onContentLoaded: function(){
+                               if ( !MochaUI.resourceScript == true ){
+                                       new Request({
+                                               url: '<?php echo $gSitePath.drupal_get_path('module','invite'); ?>/scripts/invite.js',
+                                               method: 'get',
+                                               onSuccess: function() {
+										
+                                                       MochaUI.resourceScript = false;
+                                               }.bind(this)
+                                       }).send();
+                               }
+                       }
+		});
+	}
 	
 	
 	
@@ -410,6 +434,13 @@ MochaUI.slideshareWindow(url,title);
 
 	
 }
+
+function load_invite(url,title){
+	
+	MochaUI.closeAll();
+MochaUI.inviteWindow(url,title);
+}
+
 function loaddetails(url,title)
 {
 MochaUI.closeAll();
