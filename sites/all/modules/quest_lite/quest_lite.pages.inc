@@ -1706,8 +1706,8 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 							<a class="tagging-button-container" href="#" title="Add">
 							<span class="tagging-button tagging-button-1"/>hi</span></a>
                             <div class="suggestionsBox" id="suggestions" style="visibility:hidden;">
-                                <img src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/arrow.png" style="position: relative; top: -12px; left: 30px;" alt="upArrow" />
-                               
+                                <div class="suggestionList" id= "suggestionsList">
+                                </div>
 								</div>
                            </div> 
 						   </div>
