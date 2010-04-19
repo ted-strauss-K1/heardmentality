@@ -167,7 +167,7 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
 			OpenID URL: <input type="text" name="openid_identifier" id="openid_identifier" maxlength="320" />
 		</label><input type="hidden" name="process" value="1" />
 		
-		 <fieldset>
+		
           
             <input type="hidden" name="action" value="verify" />
 
@@ -186,7 +186,7 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
                     and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.
                 </p>
             </noscript>
-        </fieldset>
+      
 		
 	</form>';
 
