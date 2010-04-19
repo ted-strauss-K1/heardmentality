@@ -1685,13 +1685,9 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 
         
         $tag = implode(',', $tag);
-        $content .= '<div id="tagging-widget-container">
-	<form id="retagform"  method="post" >
-            <fieldset>
-                <legend>
-                    Re Tag
-                </legend>
-				
+        $content .= '	<div id="tagging-widget-container">
+	<form id="retagform" action="'.url($_GET['q'], array('absolute'=>true)).'" class="" method="post" >
+          
                 <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
                     <label>
                         Assigned Tags:
