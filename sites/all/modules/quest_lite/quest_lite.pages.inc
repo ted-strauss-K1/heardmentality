@@ -1627,7 +1627,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     }
 
     
- function edit_tagging($tag = '') {
+function edit_tagging($tag = '') {
         global $gSitePath,$user,$gDocPath,$base_root,$base_path;
         
         $content = '';
@@ -1647,14 +1647,9 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 
         
         $tag = implode(',', $tag);
-        $content .= '
-	<div id="tagging-widget-container">
+        $content .= '<div id="tagging-widget-container">
 	<form id="retagform" action="'.url($_GET['q'], array('absolute'=>true)).'" class="" method="post" >
-          
                 <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
-                    <label>
-                        Assigned Tags:
-                    </label>
                     '.$tagged.'
                 </div>
                 <div class="form-item" id="tagging-widget-input-1-wrapper">
@@ -1681,9 +1676,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value=" disabled="disabled" type="hidden"/>
                    
                     <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
-                        <label>
-                            Suggestions:
-                        </label>
+                     
                         '.$randomtag.'
                        
                     </div>
