@@ -235,7 +235,11 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			// OpenID Provider so you can populate the necessary fields on
 			// your registration page. Redirect the user there.
 			$userinfo = $openid->filterUserInfo($_GET);
+			if($userinfo['email']!='')
+			{
 			
+			echo $insert="insert into users (name,mail,language,openid)values(" . $userinfo['nickname'] . "," . $userinfo['email'] . "," . $userinfo['language'] . "," . $_SESSION['openid_url'] . ") ";
+			}
 			echo "<p>Your OpenID Identity (".$_GET['openid_identity'].") wasn't found in our records.</p>";
 			echo "\t<li><b>nickname yahoo</b>: " .  $_REQUEST['openid_ax_value_nickname'] . "</li>";
 		
