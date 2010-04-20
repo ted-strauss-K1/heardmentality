@@ -134,7 +134,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 	/*
 	* Include the Dope OpenID class file
 	*/
-	require_once 'class.dopeopenid.php';
+	//require_once 'class.dopeopenid.php';
 	
 	// Get the user's OpenID Identity as returned to us from the OpenID Provider
 	$openid_url = $_GET['openid_identity'];
