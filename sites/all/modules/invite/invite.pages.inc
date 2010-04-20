@@ -69,6 +69,7 @@ function invite_friends() {
         $question_url = db_fetch_array($find_url);
         if (isset($question_url)) {
             $question_url = $question_url['url'];
+				$input='<input type="hidden" name="qid" value="'.$uid.'" />';
         }
         $question_url = $gSitePath.$question_url;
     } else if (isset($_REQUEST['uid'])) {
@@ -79,7 +80,7 @@ function invite_friends() {
             $uname = $udata['name'];
         }
         $question_url = $gSitePath.'profile/'.$uname;
-    
+    		$input='<input type="hidden" name="uid" value="'.$uid.'" />';
     } else {
         echo "Sorry Nothing to Share";
         exit;
@@ -97,6 +98,8 @@ function invite_friends() {
     
     if (isset($_REQUEST['invite'])) {
         set_time_limit(0);
+		$flag=0;
+		$msg='Sorry invitation sending failed!';
         //	print_r($_REQUEST);
         $senderlist = $_REQUEST['recipient_list'];
         $message = isset($_REQUEST['message']) ? $_REQUEST['message'] : '';
@@ -128,13 +131,19 @@ function invite_friends() {
             if (! empty($to)) {
                 // $mail_success=drupal_mail('invite', 'invitation', $EmailTo, language_default(), $params);
                 if (!$mail_success) {
-                    drupal_set_message(t('There has been an error.\\nTo: '.$to.'\/nSubject: '.$subject.'\rBody: '.$body.'\nFrom: '.$from.'\nHeaders: '.$headers));
+                $flag=0;
+				$msg='Invitation not sent server error!';
+				    drupal_set_message(t('There has been an error.\\nTo: '.$to.'\/nSubject: '.$subject.'\rBody: '.$body.'\nFrom: '.$from.'\nHeaders: '.$headers));
                 } else {
-                    
+                    $flag=1;
+					$msg='Invitation sent successfully!';
                     drupal_set_message(t('Mail Sent Successfully!'), 'success');
+					
                 }
             }
         }
+		echo $flag;
+		exit;
     }
 
     
@@ -148,8 +157,10 @@ function invite_friends() {
 		          <option value="yahoo">Yahoo</option>';
     
     $strReturn = '
-		
-		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
+		<div id="log_res"><!-- spanner --></div>
+	<div id="err"></div>
+	<span class="clr"><!-- spanner --></span>
+		<form name="inviteform" id="inviteform" action="'.url($_GET['q'], array('absolute'=>true)).'" method="post" enctype="multipart/form-data">
 		<fieldset>
 		 <legend>
                         Invite Friends
@@ -213,7 +224,7 @@ function invite_friends() {
         </table>
 			</fieldset>
 	
-			<div class="clear" style="height:100px;" ><input type="submit" name="invite" value="Invite">
+			<div class="clear" style="height:100px;" >'.$input.'<input type="submit" name="invite" value="Invite">
 			
 			<input type="submit" name="cancel" onclick="MochaUI.closeAll();" value="Cancel"></div>
 			</form>		';
