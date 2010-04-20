@@ -266,7 +266,7 @@ window.addEvent('domready', function(){
 			new MochaUI.Window({
 			id: 'ajaxpage',
 			title: ' Resource >> '+title,
-			loadMethod: 'iframe',
+			loadMethod: 'xhr',
 			contentURL: url,
 			type: 'modal',
 			width: 650,
