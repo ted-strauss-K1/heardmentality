@@ -149,9 +149,9 @@ if(isset($_POST['process'])){
 			// If we find the endpoint, you might want to store it for later use.
 			$_SESSION['openid_endpoint_url'] = $endpoint_url;
 			// Redirect the user to their OpenID Provider
-			$openid->redirect();
+			//$openid->redirect();
 			// Call exit so the script stops executing while we wait to redirect.
-			exit;
+			//exit;
 		}
 		else{
 			/*
