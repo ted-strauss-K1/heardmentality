@@ -38,7 +38,7 @@ require 'functions.php';
 * If yes, user is already logged in. Redirect them somewhere else.
 */
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-	header("Location:http://192.9.200.10/heardmentality/ids/index.php");
+	//header("Location:http://192.9.200.10/heardmentality/ids/index.php");
 	exit;
 }
 
@@ -237,7 +237,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 				
 				
 				// Redirect the user to another page, i.e. index.php
-				header("Location:http://192.9.200.10/heardmentality/ids/index.php");
+			//	header("Location:http://192.9.200.10/heardmentality/ids/index.php");
 				exit;
 			}
 			
