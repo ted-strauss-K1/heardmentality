@@ -64,7 +64,7 @@ if(isset($_POST['process'])){
 
 
 if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] != "cancel"){
-	require_once 'class.dopeopenid.php';
+	//require_once 'class.dopeopenid.php';
 	$openid_url = $_GET['openid_identity'];
 	$openid = new Dope_OpenID($openid_url);
 	
