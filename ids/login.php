@@ -11,7 +11,7 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
 }
 if(isset($_POST['process'])){
 
-	//require 'class.dopeopenid.php';
+	require 'class.dopeopenid.php';
 	
 	$openid_url = trim($_POST['openid_identifier']);
 	
@@ -19,7 +19,7 @@ if(isset($_POST['process'])){
 	* If running PHP 5, use the built-in URL validator.
 	* Else use something like the following regex to validate input.
 	*/
-	if(function_exists('filter_input')) {
+	/*if(function_exists('filter_input')) {
 		if( ! filter_input(INPUT_POST, "openid_identifier", FILTER_VALIDATE_URL)) {
 			$error = "Error: OpenID Identifier is not in proper format.";
 		}
@@ -30,7 +30,7 @@ if(isset($_POST['process'])){
 		if( ! eregi("^((https?)://)?(((www\.)?[^ ]+\.[com|org|net|edu|gov|us]))([^ ]+)?$",$openid_url)) {
 			$error = "Error: OpenID Identifier is not in proper format.";
 		}
-	}
+	}*/
 	
 	// Proceed if we made it through without setting $error
 	if ( ! isset($error)) {
