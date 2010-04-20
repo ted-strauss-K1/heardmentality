@@ -70,7 +70,8 @@
 
 		
 			var box = new multiBox('advanced1', {
-				overlay: new overlay()
+				overlay: new overlay(),
+				descClassName: 'advancedDesc'
 			});
 			
 			var advanced = new multiBox('advanced2', {
@@ -79,7 +80,8 @@
 			});
 			
 			var box = new multiBox('advanced3', {
-				overlay: new overlay()
+				overlay: new overlay(),
+				descClassName: 'advancedDesc'
 			});
 		});
 	
