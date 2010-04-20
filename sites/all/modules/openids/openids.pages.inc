@@ -6,7 +6,7 @@ function openid_login()
 
 
 	
-	$showop='<iframe src="'.$gSitePath.'dope-openid/login.php" width="700" height="600"  scrolling="no"></iframe>';
+	$showop='<iframe src="'.$gSitePath.'ids/login.php" width="700" height="600"  scrolling="no"></iframe>';
 
 
 
