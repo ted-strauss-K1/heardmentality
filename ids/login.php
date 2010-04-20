@@ -11,7 +11,7 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
 }
 if(isset($_POST['process'])){
 
-	require 'class.dopeopenid.php';
+	//require 'class.dopeopenid.php';
 	
 //	$openid_url = trim($_POST['openid_identifier']);
 	
