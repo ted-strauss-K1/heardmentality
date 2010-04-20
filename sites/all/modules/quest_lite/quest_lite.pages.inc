@@ -4,7 +4,7 @@ function qlite_view() {
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
-    drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
+   // drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
     
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
@@ -90,12 +90,14 @@ function qlite_view() {
     $set = ExecuteQuery($query, "select");
     
     $set_cnt = ( empty($set[0]['res']) ? '0' : $set[0]['res']);
-    
+   /*
+ 
     $voutput .= '<div id="vote" class="vote">
 		<img onclick="qns_like(1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/up.jpg" id="vote-up" alt="Up" title="This Question is good"/>
 		<span  class="vote-cnt"><h2  id="vote-cnt">&nbsp;'.$set_cnt.'</h2></span>
 		<img onclick="qns_like(-1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/down.jpg" id="vote-down" alt="Down" title="This Question is not useful"/><br/>
 		</div>';
+*/
     $vans = "select * from {possible_answer} where  qid=$qid order by vote desc";
     
     $vlist = db_query($vans);
@@ -1504,7 +1506,7 @@ markerOptions = { icon:blueIcon };';
 					";
 
     
-    echo '  <body onload="initialize()" onunload="GUnload()"><div style="width:100%;"><div  class="">by area <div id="map_div" style="width: 700px; height: 300px"></div><div style="position: absolute; right: 0pt; top: 0pt;" id="desc">'.$desc.'</div></div>';
+    echo '  <body onload="initialize()" onunload="GUnload()"><div style="width:100%;"><div  class=""><div id="map_div" style="width: 700px; height: 300px"></div><div style="position: absolute; right: 0pt; top: 0pt;" id="desc">'.$desc.'</div></div>';
 }
 
 
