@@ -13,7 +13,7 @@ if(isset($_POST['process'])){
 
 	require 'class.dopeopenid.php';
 	
-	$openid_url = trim($_POST['openid_identifier']);
+//	$openid_url = trim($_POST['openid_identifier']);
 	
 	/*
 	* If running PHP 5, use the built-in URL validator.
