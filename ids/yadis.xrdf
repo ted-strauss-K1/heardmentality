@@ -29,7 +29,7 @@
     <XRD>
         <Service priority="0">
             <Type>http://specs.openid.net/auth/2.0/return_to</Type>
-            <URI>http://59.144.131.196/heardmentality/ids/login.php?action=verify</URI>
+            <URI>http://192.9.200.10/heardmentality/ids/login.php?action=verify</URI>
         </Service>
     </XRD>
 </xrds:XRDS>
