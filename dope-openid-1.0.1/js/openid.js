@@ -100,7 +100,7 @@ var OpenIdSelector = new Class({
     cookie_name: 'openid_provider',
     cookie_path: '/',
 
-    img_path: 'http://localhost/heardmentality/sites/all/modules/login/images/',
+    img_path: 'http://192.9.200.10/heardmentality/dope-openid-1.0.1/js/images/',
 
     input_id: null,
     provider_url: null,
