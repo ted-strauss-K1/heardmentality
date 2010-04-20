@@ -281,6 +281,7 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
 	<title>Dope OpenID Demo: Log In</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta http-equiv="Content-Style-Type" content="text/css" />
+      <link type="text/css" rel="stylesheet" href="css/openid.css" />
      <script type="text/javascript" src="js/core.js"></script>
     <script type="text/javascript" src="js/more.js"></script>
     <script type="text/javascript" src="js/openid.js"></script>
