@@ -1327,7 +1327,7 @@ function qlite_percent() {
     }
     
     echo $script .= "	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-			chart.draw(data, {width: 400, height: 240, is3D: false, title: '',titleY:'Possible Answers',titleX:''});
+			chart.draw(data, {width: 400, height: 240, is3D: false, title: '',titleY:'',titleX:''});
 			}
 			</script>";
     
