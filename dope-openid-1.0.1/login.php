@@ -92,7 +92,7 @@ if(isset($_POST['process'])){
 		* It could be a separate verify.php script, or just pass a parameter to tell a
 		* single processing script what to do (like I've done with this file you're reading).
 		*/
-		$openid->setReturnURL("http://192.9.200.10/heardmentality/dope-openid/login.php?action=verify");
+		$openid->setReturnURL("http://192.9.200.10/heardmentality/dope-openid-1.0.1/login.php?action=verify");
 	
 		/*
 		* YOU MUST EDIT THIS LINE
