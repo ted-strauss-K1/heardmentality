@@ -29,7 +29,7 @@
 * Make sure this line points to the location of your XRDF file. It must be located
 * in the directory you specify as the "trust root". See login.php (line 104).
 */
-header('X-XRDS-Location:http://192.9.200.10/heardmentality/ids/yadis.xrdf');
+header('X-XRDS-Location:http://59.144.131.196/heardmentality/ids/yadis.xrdf');
 
 /*
 * Example uses default PHP sessions.
