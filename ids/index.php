@@ -42,7 +42,7 @@ if (isset($_GET['openid_mode'])) {
 	// whatever session management method your script uses instead. 
 	// If the user is not logged in, redirect to login script.
     if(!isset($_SESSION['loggedin'],$_SESSION['username']) || $_SESSION['username'] == ''){
-        header("Location: login.php");
+        header("Location:http://192.9.200.10/heardmentality/ids/login.php");
         exit;
     }    
 }
