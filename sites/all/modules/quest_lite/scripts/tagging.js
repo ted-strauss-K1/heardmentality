@@ -49,6 +49,7 @@ function suggest(inputString){
 			//log.removeClass('ajax-loading');
 			
 			log.set('html', response);
+			window.parent.location.reload();
 		}});
 		//Send the form.
 		this.send();
