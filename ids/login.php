@@ -38,7 +38,7 @@ require 'functions.php';
 * If yes, user is already logged in. Redirect them somewhere else.
 */
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-	//header("Location:http://192.9.200.10/heardmentality/ids/index.php");
+	header("Location:http://192.9.200.10/heardmentality/ids/index.php");
 	exit;
 }
 
@@ -62,7 +62,7 @@ if(isset($_POST['process'])){
 	* If running PHP 5, use the built-in URL validator.
 	* Else use something like the following regex to validate input.
 	*/
-	if(function_exists('filter_input')) {
+	/*if(function_exists('filter_input')) {
 		if( ! filter_input(INPUT_POST, "openid_identifier", FILTER_VALIDATE_URL)) {
 			$error = "Error: OpenID Identifier is not in proper format.";
 		}
@@ -73,7 +73,7 @@ if(isset($_POST['process'])){
 		if( ! eregi("^((https?)://)?(((www\.)?[^ ]+\.[com|org|net|edu|gov|us]))([^ ]+)?$",$openid_url)) {
 			$error = "Error: OpenID Identifier is not in proper format.";
 		}
-	}
+	}*/
 	
 	// Proceed if we made it through without setting $error
 	if ( ! isset($error)) {
@@ -151,7 +151,7 @@ if(isset($_POST['process'])){
 			// Redirect the user to their OpenID Provider
 			$openid->redirect();
 			// Call exit so the script stops executing while we wait to redirect.
-			//exit;
+			exit;
 		}
 		else{
 			/*
@@ -237,8 +237,8 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 				
 				
 				// Redirect the user to another page, i.e. index.php
-			//	header("Location:http://192.9.200.10/heardmentality/ids/index.php");
-				//exit;
+				header("Location:http://192.9.200.10/heardmentality/ids/index.php");
+				exit;
 			}
 			
 		}
@@ -250,7 +250,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			// your registration page. Redirect the user there.
 			$userinfo = $openid->filterUserInfo($_GET);
 			
-			//print_r($_SESSION);
+			print_r($_SESSION);
 			//echo "<p>Your OpenID Identity (".$_GET['openid_identity'].") wasn't found in our records.</p>";
 			//echo "<p>Good news though: We just need your email and a friendly name and you'll have full access to all the site's features.</p>";
 			//echo "<p>DEBUG: The following information came back from your OpenID provider:</p>";
