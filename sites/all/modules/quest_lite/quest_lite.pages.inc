@@ -431,13 +431,14 @@ function qns_like() {
     global $gSitePath,$user,$gDocPath,$base_root;
     extract($_REQUEST);
     $userPoints = checkUserPoints($user->uid);
+	
     $query = "select count(*) as res from {question_like} where qid='$qns' AND uid='$user->uid' ";
     $get = ExecuteQuery($query, "select");
     // Vote down needs minum 100 points
-    if ((isset($type) && $type == 1) && (isset($userPoints) && $userPoints < 99)) {
+    if ((isset($type) && $type =='1') && (isset($userPoints) && $userPoints < 99)) {
         $array['msg'] = 'Sorry You Not Have Sufficent User Points To Up This Question!';
     
-    } else if ((isset($type) && $type == -1) && (isset($userPoints) && $userPoints < 15)) {
+    } else if ((isset($type) && $type =='-1') && (isset($userPoints) && $userPoints < 15)) {
         $array['msg'] = 'Sorry You Not Have Sufficent User Points To Down This Question!';
     
     } else if ($get[0]['res'] > 0) {
