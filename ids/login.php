@@ -98,8 +98,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 				
 				
 				
-				header("Location:http://192.9.200.10/heardmentality/ids/index.php");
-				exit;
+				
 			}
 			
 		}
