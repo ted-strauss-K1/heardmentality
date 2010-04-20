@@ -157,7 +157,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 		* see if the user already exists in your database. Specifically, you
 		* need your own function to check for a user_id where openid_url = $openid_url
 		*/
-		$user_id = your_get_user_function($openid_url);
+		//$user_id = your_get_user_function($openid_url);
 		
 		
 		/*
@@ -168,22 +168,22 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 		if ($user_id > 0) {
 			// Assumes your login function returns user details
 			// as a string delimited with the pipe ("|") character.
-			$str_user = your_openid_login_function($openid_url);
+			//$str_user = your_openid_login_function($openid_url);
 			
 			if($str_user) {
 				// Assumes you want to split the pipe-delimited string
-				list($user_id,$username,$nickname,$email,$dob,$country) = split("[|]",$str_user);
+				//list($user_id,$username,$nickname,$email,$dob,$country) = split("[|]",$str_user);
 				
 				// Assuming you want to store the user details in the session
-				$_SESSION['loggedin'] = TRUE;
-				$_SESSION['user_id']  = $user_id;
-				$_SESSION['username'] = $username;
+				//$_SESSION['loggedin'] = TRUE;
+				//$_SESSION['user_id']  = $user_id;
+				//$_SESSION['username'] = $username;
 				
 			
 			
 				
 				
-					$userinfo = $openid->filterUserInfo($_GET);
+				//	$userinfo = $openid->filterUserInfo($_GET);
 			
 			//echo "<p>Your OpenID Identity (".$_GET['openid_identity'].") wasn't found in our records.</p>";
 			//echo "<p>Good news though: We just need your email and a friendly name and you'll have full access to all the site's features.</p>";
@@ -205,7 +205,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			// to log in to your site. Store useful information from their
 			// OpenID Provider so you can populate the necessary fields on
 			// your registration page. Redirect the user there.
-			$userinfo = $openid->filterUserInfo($_GET);
+			//$userinfo = $openid->filterUserInfo($_GET);
 			
 			//print_r($_SESSION);
 			//echo "<p>Your OpenID Identity (".$_GET['openid_identity'].") wasn't found in our records.</p>";
