@@ -37,12 +37,12 @@ if(isset($_POST['process'])){
 		/*
 		* Store the user's submitted OpenID Identity for later use.
 		*/
-		$_SESSION['openid_url'] = $openid_url;
+	//	$_SESSION['openid_url'] = $openid_url;
 
 		/*
 		* Create a new Dope_OpenID object
 		*/
-		$openid = new Dope_OpenID($openid_url);
+	//	$openid = new Dope_OpenID($openid_url);
 		/*
 		* YOU MUST EDIT THIS LINE.
 		* The user's OpenID provider will return them to the URL that you provide here.
