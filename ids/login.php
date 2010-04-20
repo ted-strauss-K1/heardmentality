@@ -211,7 +211,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			//echo "<p>Your OpenID Identity (".$_GET['openid_identity'].") wasn't found in our records.</p>";
 			//echo "<p>Good news though: We just need your email and a friendly name and you'll have full access to all the site's features.</p>";
 			//echo "<p>DEBUG: The following information came back from your OpenID provider:</p>";
-			if($userinfo['email']!='')
+			/*if($userinfo['email']!='')
 			{
 			
 			echo $insert="insert into users (name,mail,language,openid)values(" . $userinfo['nickname'] . "," . $userinfo['email'] . "," . $userinfo['language'] . "," . $_SESSION['openid_url'] . ") ";
@@ -231,29 +231,29 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			echo "\t<li><b>Country</b>: " . $userinfo['country'] . "</li>";
 			echo "</ul>";
 			
-			exit;
+			exit;*/
 		}
 	}
 	else if ($openid->isError() === TRUE){
 		/*
 		* Else if you're here, there was some sort of error during processing.
 		*/		
-		$the_error = $openid->getError();
-		$error = "Error Code: {$the_error['code']}<br />";
-		$error .= "Error Description: {$the_error['description']}<br />";
+		//$the_error = $openid->getError();
+		//$error = "Error Code: {$the_error['code']}<br />";
+		//$error .= "Error Description: {$the_error['description']}<br />";
 	}
 	else{
 		/*
 		* Else validation with the server failed for some reason.
 		*/
-		$error = "Error: Could not validate the OpenID at {$_SESSION['openid_url']}";
+		//$error = "Error: Could not validate the OpenID at {$_SESSION['openid_url']}";
 	}	
 }
 /*
 * The user canceled the process at some point. Nothing to do here except let them know.
 */
 else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
-	$error = "OpenID authorization canceled by user.";
+	//$error = "OpenID authorization canceled by user.";
 }
 
 /*
