@@ -38,8 +38,8 @@ require 'functions.php';
 * If yes, user is already logged in. Redirect them somewhere else.
 */
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-	header("Location:http://192.9.200.10/heardmentality/ids/index.php");
-	exit;
+	//header("Location:http://192.9.200.10/heardmentality/ids/index.php");
+	//exit;
 }
 
 
