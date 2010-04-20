@@ -97,7 +97,7 @@ function question_add() {
 	
 				<script type="text/javascript">
 				var spath=\''.$gSitePath.'\';
-				window.setTimeout("setDefaultCountry()", 1000);
+			
 				function setDefaultCountry() {
   var countrySelect = document.getElementById("q_country");
 
@@ -114,9 +114,9 @@ function question_add() {
 
 
 window.addEvent(\'domready\', function(){
-setDefaultCountry();
+//setDefaultCountry();
 });
-	
+	//	window.setTimeout("setDefaultCountry()", 1000);
 			/*	jQuery(function() {
 		jQuery("#q_edate").datepicker({
 			changeMonth: true,
@@ -222,6 +222,7 @@ setDefaultCountry();
     //geoname api
     $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
     $result = geonames_query('countryinfo',NULL,$options);
+	$optionlist.=' <option value="0" >--Country--</option>';
     foreach ($result->results as $country) {
         $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
     }
@@ -257,13 +258,13 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     <td valign="top">Answer<span title="This field is required." class="form-required">*</span><br/><small>[min 2]</small></td>
     <td width="26%" valign="top"><table width="100%" border="0"> <tr>
           <td>
-            <input tabindex="3" name="q_ans1" type="text" id="q_ans1" value="'.$q_ans1.'" size="40" />
+            <input tabindex="3" name="q_ans1" type="text" id="q_ans1"  value="'.$q_ans1.'" size="40" />
           </td>
         </tr>
         <tr><td>&nbsp;</td></tr>
         <tr>
           <td>
-            <input name="q_ans2" tabindex="4" type="text" id="q_ans2"  value="'.$q_ans2.'" size="40" />
+            <input name="q_ans2" tabindex="4" type="text" id="q_ans2"  onkeyup="  $(\'Add\').disabled =0;" value="'.$q_ans2.'" size="40" />
 			<p></p>
           </td>
         </tr>
@@ -273,7 +274,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     
     $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);" tabindex="88" onclick="del_ans();">[Remove]</a></div><small><br/>
 	
-	<input type="button" tabindex="13" name="Add" onclick="add_ans();" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> 
+	<input type="button" tabindex="13" name="Add" disabled="disabled" onclick="add_ans();" id="Add" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="2"><input type="hidden" id="cat1" name="cat1" value="">&nbsp;<input type="hidden" id="cat2" name="cat2" value="">&nbsp; <input type="hidden"  id="cat3" name="cat3" value=""> 
 	</td>
     <td colspan="3" align="left" valign="top"><table width="65%" border="0">
 	<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b><small>[Main Category<span title="This field is required." class="form-required">*</span>]</small></td></tr>
@@ -306,9 +307,9 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
 	  	<tr><td colspan="3" height="40"  valign="middle" ><b>Location</b></td></tr>
 	  <tr><td width="13%"><!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="16"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
 	
-    <td width="13%"><!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
+    <td width="13%"><!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"><select id="q_state" name="q_state" onchange="get_city(this.value);" style="width: 125px;" tabindex="18"><option value="0" >--State--</option></select></div></td>
 	
-    <td width="43%"><!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td>  </tr>
+    <td width="43%"><!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"><select name="q_city" id="q_city" style="width: 125px;" tabindex="19"> <option value="0" >--Cities--</option></select></div></td>  </tr>
     </table></td>
   </tr>
   
@@ -938,7 +939,8 @@ function question_ajax() {
                 $tab = 16; //	get_subcat(\'q_cat\',\'chg_scat\',1);
             }
             $ret = '<select tabindex="'.$tab.'"  size="5" multiple="multiple" onchange="get_subcat('.$qscat.',\'chg_sscat\','.++$action.');" id="'.$qscat.'" name="q_scat[]"> ';
-            for ($i = 0; $i < count($client_array); $i++) {
+           
+		    for ($i = 0; $i < count($client_array); $i++) {
                 
                 $ret .= '<option value="'.$client_key[$i].'">'.$client_array[$i].'</option>';
             
