@@ -301,12 +301,13 @@ function quest_lite_menu() {
 		 $query = " SELECT tag from {tagging}  ORDER BY rand() limit 0,10";
                 $result = ExecuteQuery($query, "select");
 			 foreach ($result as $rtag) {
-	 	
+	 	if(!empty($rtag['tag'])){
 	 $randomtag.='<a href="javascript:void(0)" class="taga" title="Add tag">
                             <div id="tagging-1" class="tagging-suggest-tag processed">
                                '.$rtag['tag'].'
                             </div>
                         </a>';
+                        }
 	 }
 	 
 	return $randomtag;
