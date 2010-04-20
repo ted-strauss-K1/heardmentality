@@ -147,7 +147,7 @@ if(isset($_POST['process'])){
 		$endpoint_url = $openid->getOpenIDEndpoint();
 		if($endpoint_url){
 			// If we find the endpoint, you might want to store it for later use.
-			$_SESSION['openid_endpoint_url'] = $endpoint_url;
+			//$_SESSION['openid_endpoint_url'] = $endpoint_url;
 			// Redirect the user to their OpenID Provider
 			//$openid->redirect();
 			// Call exit so the script stops executing while we wait to redirect.
@@ -237,8 +237,8 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 				
 				
 				// Redirect the user to another page, i.e. index.php
-				header("Location:http://192.9.200.10/heardmentality/ids/index.php");
-				exit;
+				//header("Location:http://192.9.200.10/heardmentality/ids/index.php");
+				//exit;
 			}
 			
 		}
@@ -250,7 +250,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			// your registration page. Redirect the user there.
 			$userinfo = $openid->filterUserInfo($_GET);
 			
-			print_r($_SESSION);
+			//print_r($_SESSION);
 			//echo "<p>Your OpenID Identity (".$_GET['openid_identity'].") wasn't found in our records.</p>";
 			//echo "<p>Good news though: We just need your email and a friendly name and you'll have full access to all the site's features.</p>";
 			//echo "<p>DEBUG: The following information came back from your OpenID provider:</p>";
