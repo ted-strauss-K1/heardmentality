@@ -137,18 +137,18 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 	//require_once 'class.dopeopenid.php';
 	
 	// Get the user's OpenID Identity as returned to us from the OpenID Provider
-	$openid_url = $_GET['openid_identity'];
+	//$openid_url = $_GET['openid_identity'];
 	
 	/*
 	* Create a new Dope_OpenID object.
 	*/
-	$openid = new Dope_OpenID($openid_url);
+	//$openid = new Dope_OpenID($openid_url);
 	
 	/*
 	* All the data we received from the OpenID Provider must now be sent back
 	* to validate it and verify that nothing has been tampered with in the process.
 	*/
-	$validate_result = $openid->validateWithServer();
+	//$validate_result = $openid->validateWithServer();
 	
 	
 	if ($validate_result === TRUE) {
