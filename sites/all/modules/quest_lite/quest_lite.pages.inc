@@ -1309,9 +1309,9 @@ function qlite_percent() {
     $vans = "select * from {possible_answer} where  qid='$qid'";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
-    $script = " 
-			<script src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/jsapi.js' type='text/javascript' ></script>
-			
+    $script = " 			
+			<script type='text/javascript' src='http://www.google.com/jsapi'></script>
+
 			 <script type='text/javascript'> google.load(\"visualization\", \"1\", {packages:[\"barchart\"]});
 			google.setOnLoadCallback(drawChart);
 			function drawChart() {
