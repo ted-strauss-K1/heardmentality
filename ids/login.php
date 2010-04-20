@@ -92,7 +92,7 @@ if(isset($_POST['process'])){
 		* It could be a separate verify.php script, or just pass a parameter to tell a
 		* single processing script what to do (like I've done with this file you're reading).
 		*/
-		$openid->setReturnURL("http://localhost/heardmentality/ids/login.php?action=verify");
+		$openid->setReturnURL("http://59.144.131.196/heardmentality/ids/login.php?action=verify");
 	
 		/*
 		* YOU MUST EDIT THIS LINE
@@ -100,7 +100,7 @@ if(isset($_POST['process'])){
 		* to trust when signing in with their OpenID Provider. It could be your base
 		* URL or a subdirectory thereof. Up to you.
 		*/
-		$openid->SetTrustRoot('http://localhost/heardmentality/ids/');
+		$openid->SetTrustRoot('http://59.144.131.196/heardmentality/ids/');
 	
 		/*
 		* EDIT THIS LINE (OPTIONAL)
