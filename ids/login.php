@@ -108,27 +108,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			$userinfo = $openid->filterUserInfo($_GET);
 			
 			
-			if($userinfo['email']!='')
-			{
-			
-			echo $insert="insert into users (name,mail,language,openid)values(" . $userinfo['nickname'] . "," . $userinfo['email'] . "," . $userinfo['language'] . "," . $_SESSION['openid_url'] . ") ";
-			}
-			echo "<ul>";
-			echo "\t<li><b>nickname yahoo</b>: " .  $_REQUEST['openid_ax_value_nickname'] . "</li>";
-				echo "\t<li><b>link</b>: " . print_r($_REQUEST) . "</li>";
-			
-				echo "\t<li><b>yahoo email</b>: " .  $_REQUEST['openid_ax_value_email'] . "</li>";
-				echo "\t<li><b>yahoo language -country</b>: " .  $_REQUEST['openid_ax_value_language'] . "</li>";
-				
-			
-			echo "\t<li><b>link</b>: " . $_SESSION['openid_url'] . "</li>";
-			echo "\t<li><b>Nickname</b>: " . $userinfo['openid_ax_value_nickname'] . "</li>";
-			echo "\t<li><b>Language</b>: " . $userinfo['language'] . "</li>";
-			echo "\t<li><b>Email</b>: " . $userinfo['email'] . "</li>";
-			echo "\t<li><b>Country</b>: " . $userinfo['country'] . "</li>";
-			echo "</ul>";
-			
-			//exit;
+		
 		}
 	}
 	else if ($openid->isError() === TRUE){
