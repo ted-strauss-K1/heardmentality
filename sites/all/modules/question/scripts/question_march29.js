@@ -47,10 +47,8 @@ function validate_question(){
 function add_ans(){
 
     var ans_cnt = $('ans_cnt').value;
-	  $('Add').disabled = 1;
-	var tab=$('q_ans'+ans_cnt).get('tabindex');
 	
-	tab=tab+1;
+	
 	
 	//validate prev ans is empty
 	if($('q_ans'+ans_cnt).value.length>1){
@@ -61,7 +59,7 @@ function add_ans(){
 		
 		$('del_ans').fade('in');
 	}
-		
+		 
     if (ans_cnt < 11) {
         $('ans_cnt').set('value', ans_cnts);
         //	$('add_more').set('html','  <p>&nbsp;</p>');
@@ -72,7 +70,7 @@ function add_ans(){
         // var slot = new Element('input');
         // slot.inject($('add_more'));
         //var tem=$('add_more').innerHTML ;
-      
+        new Element('p').inject($('add_more'));
         
    
     //  wrapper.appendText('[Remove]');
@@ -81,22 +79,21 @@ function add_ans(){
         var ele = new Element('input', {
             id: 'q_ans' + ans_cnts,
             name: 'q_ans' + ans_cnts,
-			tabindex:tab,
             // styles: {    'font-weight': 700,    color: 'green'  }
             size: '40',    events: { 
      'keyup': function(){
           $('Add').disabled = 0;
     }
-	
+
     
     }
         }).inject($('add_more'));
         
-           new Element('p').inject($('add_more'));
+         
         //wrapper.wraps(ele);
         
-        $('add_more').getLast('input').highlight('#F1F1F1', '#6DB6DB');
-		$('add_more').getLast('input').focus();
+        $('add_more').getLast().highlight('#F1F1F1', '#6DB6DB');
+		$('add_more').getLast().focus();
 		$('err').empty();
         
     }
@@ -113,8 +110,8 @@ function add_ans(){
 		
 		var el=$('err');
 		el.setStyle('background-color', '#eeeeee');
-        //el.setStyle('height', '20px');
-		//el.setStyle('padding','10px');
+        el.setStyle('height', '20px');
+		el.setStyle('padding','10px');
         el.setStyle('color', 'red');
         el.setStyle('border', '3px solid #dd97a1');
         el.setStyle('list-style', 'none');
@@ -126,7 +123,7 @@ function add_ans(){
 	
 	 if(ans_cnt>=3){
 	 	 $('Add').disabled = 1;
-	  $('add_more').getLast('input').highlight('#F1F1F1', '#6DB6DB');
+	 $('add_more').getLast().highlight('#FF0000', '#6DB6DB');
 	 }
 	}
    
@@ -158,52 +155,14 @@ function del_ans(){
 	}
 }
 
-
-window.addEvent('domready', function() {
-	
-	 var selObj = $('q_context');
-  selObj.addEvent('change',function()
-  {
- get_tag_cat('','');
-  }); 	
-	 
-	
-});
-
-function get_tag_cat(ids,level){
-	var text = $('q_context').get('value');
-	var qns=$('q_quest').get('value');
-	var ids=$('cat1').get('value');
-	var scat=$('cat2').get('value');
-	var sscat=$('cat3').get('value');
-	var url = spath+'question/ajax';
-									var req = new Request({    
-											method: 'get'
-											,url: url
-											,data: { 'action':level,'cat1':ids,'cat2':scat,'cat3':sscat,'tag':text,'qns':qns},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $('sug_div').set('html', response);
-											}
-									}).send();
-	setTimeout(bind_event,5000);
-	
-}
-
-
-
-
-
 window.addEvent('domready', function() {
 	
 	bind_event();
 	
-	
-	
-	
 });
 
 function bind_event(){
+
 	var elements = $$('div.tagging-suggest-tag');
 	var el = $('tagging-widget-container').getElements('a');
 /*
@@ -312,4 +271,99 @@ function tag_delq(val){
 	insert_tag();			
 }
 
+
+/*	
+function tag_del(val,el){
+	
+	
+	var context=el.get('text');
+	el.destroy();
+	
+	var etarget=$('sug_div');
+	
+	//set the tag
+	 var ele = new Element('div',{ id : 'stag'
+	 	 
+	 }).inject(etarget);
+	 
+			ele.addClass('tagging-suggest-tag');
+			ele.set('text',context);
+	
+	bind_event();	
+}
+
+
+
+
+
+ Element.implement({
+    addLiveEvent: function(event, selector, fn){
+        this.addEvent(event, function(e){
+            var t = $(e.target);
+
+            if (!t.match(selector)) return false;
+                fn.apply(t, [e]);
+        }.bindWithEvent(this, selector, fn));
+    }
+});
+
+
+
+$$('div').addLiveEvent('click', 'a', function(e){ alert('This is a live event'); });
+
+
+ function add_ans(){
+ 
+ var ans_cnt=$('ans_cnt').value;
+ ans_cnts=++ans_cnt;
+ if(ans_cnt<11){
+ $('ans_cnt').set('value',ans_cnts);
+ //	$('add_more').set('html','  <p>&nbsp;</p>');
+ var firstElem  = new Element("input", {name: "q_ans'+ans_cnt+'"});
+ //$('add_more').adopt(firstElem);
+ // var slot = new Element('input');
+ // slot.inject($('add_more'));
+ 
+ 
+ $('add_more').innerHTML += '  <p>&nbsp;</p> <div><input name="q_ans'+ans_cnts+'" type="text" id="q_ans'+ans_cnts+'" size="40" /></div>';
+ $('add_more').getLast().highlight('#FF0000', '#6DB6DB');
+ }else{
+ $('add_more').innerHTML += '  <p>&nbsp;</p> <div>Only Upto 10 Answers are allowed!</div>';
+ $('add_more').getLast().highlight('#FF0000', '#6DB6DB');
+ }
+ }
+ 
+ 
+ function get_subcat(sid,divid,level){
+ 
+ var foo = [];
+ $(sid).getSelected().each(function(number,i){
+ if(number.value!=''){
+ foo[i] =number.value;
+ }
+ });
+ var foo = foo.filter(function(item, index){
+ return item > 0;
+ });
+ var ids = foo.toString();
+ 
+ 
+ if(ids.length>0){
+ 
+ 
+ var url = "'.$gSitePath.'question/ajax";
+ var req = new Request({
+ method: 'get'
+ ,url: url
+ ,data: { 'action':level,'ids':ids},
+ onRequest: function() { },
+ onComplete: function(response) {
+ $(divid).set('html', response);
+ }
+ }).send();
+ 
+ }else{
+ $(divid).set('html','No Subcategory');
+ }
+ }	*/
 
