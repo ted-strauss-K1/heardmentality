@@ -237,8 +237,11 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			$userinfo = $openid->filterUserInfo($_GET);
 			
 			echo "<p>Your OpenID Identity (".$_GET['openid_identity'].") wasn't found in our records.</p>";
-			echo "<p>Good news though: We just need your email and a friendly name and you'll have full access to all the site's features.</p>";
-			echo "<p>DEBUG: The following information came back from your OpenID provider:</p>";
+			echo "\t<li><b>nickname yahoo</b>: " .  $_REQUEST['openid_ax_value_nickname'] . "</li>";
+				echo "\t<li><b>link</b>: " . print_r($_REQUEST) . "</li>";
+			
+				echo "\t<li><b>yahoo email</b>: " .  $_REQUEST['openid_ax_value_email'] . "</li>";
+				echo "\t<li><b>yahoo language -country</b>: " .  $_REQUEST['openid_ax_value_language'] . "</li>";
 			echo "<ul>";
 			echo "\t<li><b>Nickname</b>: " . $userinfo['nickname'] . "</li>";
 			echo "\t<li><b>Language</b>: " . $userinfo['language'] . "</li>";
