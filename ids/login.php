@@ -49,7 +49,7 @@ if(isset($_POST['process'])){
 		* It could be a separate verify.php script, or just pass a parameter to tell a
 		* single processing script what to do (like I've done with this file you're reading).
 		*/
-		$openid->setReturnURL("http://192.9.200.10/heardmentality/ids/login.php?action=verify");
+		//$openid->setReturnURL("http://192.9.200.10/heardmentality/ids/login.php?action=verify");
 	
 		/*
 		* YOU MUST EDIT THIS LINE
@@ -57,7 +57,7 @@ if(isset($_POST['process'])){
 		* to trust when signing in with their OpenID Provider. It could be your base
 		* URL or a subdirectory thereof. Up to you.
 		*/
-		$openid->SetTrustRoot('http://192.9.200.10/heardmentality/ids/');
+		//$openid->SetTrustRoot('http://192.9.200.10/heardmentality/ids/');
 	
 		/*
 		* EDIT THIS LINE (OPTIONAL)
@@ -69,7 +69,7 @@ if(isset($_POST['process'])){
 		* defined attributes may not be available. To see where these two types of
 		*  attributes intersect, see the following: http://www.axschema.org/types/
 		*/
-		$openid->setOptionalInfo(array('dob','nickname','country','language','email'));
+		//$openid->setOptionalInfo(array('dob','nickname','country','language','email'));
 		
 		/*
 		* EDIT THIS LINE (OPTIONAL)
@@ -101,7 +101,7 @@ if(isset($_POST['process'])){
 		/*
 		* Attempt to discover the user's OpenID provider endpoint
 		*/
-		$endpoint_url = $openid->getOpenIDEndpoint();
+		//$endpoint_url = $openid->getOpenIDEndpoint();
 		if($endpoint_url){
 			// If we find the endpoint, you might want to store it for later use.
 			//$_SESSION['openid_endpoint_url'] = $endpoint_url;
