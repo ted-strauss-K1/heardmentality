@@ -25,6 +25,10 @@
 	/*overflow: hidden;*/
 }
 
+ iframe {
+	
+	overflow:scroll;
+}
 .MultiBoxLoading {
 	background: url(../images/loader.gif) no-repeat center;
 }
