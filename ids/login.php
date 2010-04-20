@@ -325,7 +325,7 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
 
 	<p style="color:#f00;"><?php echo $error; ?></p>
 	
-	<form name="openid_form" id="openid_form" action="http://192.9.200.10/heardmentality/login.php" method="post" autocomplete="off">
+	<form name="openid_form" id="openid_form" action="http://192.9.200.10/heardmentality/ids/login.php" method="post" autocomplete="off">
 		
 		<!-- Your OpenID input should be named "openid_identifier" to follow best practices
 	     and in order to work with the ID Selector JavaScript, should you choose to use it. -->
