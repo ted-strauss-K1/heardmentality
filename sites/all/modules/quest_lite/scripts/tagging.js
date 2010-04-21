@@ -1,6 +1,7 @@
 function suggest(inputString){
 	
-	var string=inputString;
+	var inputString=$('tagging-widget-input-1').get('value');
+
 	if (inputString.length == 0) {
 		$('suggestions').fade('out');
 	}
@@ -61,6 +62,9 @@ window.addEvent('domready', function() {
 	
 	bind_event();
 	bind_event_added();
+	//bind event for input filed tag
+	var intag=$('tagging-widget-input-1');
+	intag.addEvent('keyup',suggest.bindWithEvent(this));
 	
 		var addbut=$$('a.tagging-button-container');
 
