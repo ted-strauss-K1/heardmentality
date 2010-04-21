@@ -1528,7 +1528,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
             return $answer;
             break;
         case 'timeline':
-            $query = "select count(*) as cnt from possible_answer_vote where qid='".$qid."' and panswer_id='".$aid."'AND vote_pdate='".$date."' ";
+            $query = "select count(*) as cnt from possible_answer_vote where qid='".$qid."' and panswer_id='".$aid."'AND vote_pdate<='".$date."' ";
             $answer = ExecuteQuery($query, "select");
             
             return $answer ? $answer[0]['cnt']:0;
