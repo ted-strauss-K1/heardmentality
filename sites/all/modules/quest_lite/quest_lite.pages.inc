@@ -1528,11 +1528,11 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
             return $answer;
             break;
         case 'timeline':
-            $query = "select * from possible_answer_vote where qid='".$qid."' and panswer_id='".$aid."'AND vote_pdate='".$date."' ";
-            $answer = ExecuteQuery($query, "norows");
+            $query = "select count(*) as cnt from possible_answer_vote where qid='".$qid."' and panswer_id='".$aid."'AND vote_pdate='".$date."' ";
+            $answer = ExecuteQuery($query, "select");
             
-            return $answer ? $answer:
-                0;
+            return $answer ? $answer[0]['cnt']:0;
+			
                 break;
         
         }
@@ -1645,7 +1645,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
             
             //its in quset_lite.module
             process_tags($qtag, $qid, 1);
-            
+             drupal_set_message($message = 'Thank you Tags are updated', $type = 'success');
             echo "<b>Thank you Tags are updated</b> ";
             
             exit;
