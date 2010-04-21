@@ -198,7 +198,7 @@ window.addEvent('domready', function() {
 	
 	bind_event();
 	
-	
+	bind_event_added();
 	
 	
 });
@@ -230,6 +230,18 @@ element.addEvent('click', tag_add.bindWithEvent(this,element));
 	addbut.addEvent('click',tag_add_input.bindWithEvent(this));
 }
 
+
+function bind_event_added(){
+	var elements = $('tagdiv').getElements('div');
+	
+ elements.each(function(element,index){
+ 		
+element.addEvent('click', tag_delq.bindWithEvent(this,element)); 
+ });
+	
+
+}
+
 function tag_add_input(val){
 	
 	var context=$('tagging-widget-input-1').get('value');
@@ -245,25 +257,30 @@ function tag_add_input(val){
 			ele.set('text',context);
 	}
 	$('tagging-widget-input-1').set('value','');
+		bind_event_added();
 	insert_tag();
 }
 
 function tag_add(val,el){
 	
 	
-	var context=el.get('text');
+	var context=el.get('text').trim();
 	el.destroy();
 	var elements =$$('div.tagging-curtags-wrapper');
 	var etarget=$('tagdiv');
-	
-	//set the tag
-	 var ele = new Element('div',{ id : 'tagset','onclick':'tag_delq(this);return false;'
-	 	 
-	 }).inject(etarget);
+		if (context != '') {
+			//set the tag
+			var ele = new Element('div', {
+				id: 'tagset',
+				'onclick': 'tag_delq(this);return false;'
+			
+			}).inject(etarget);
 			ele.addClass('tagging-tag');
-			ele.set('text',context);
-	
-	insert_tag();		
+			ele.set('text', context);
+			bind_event_added();
+			insert_tag();
+		}
+			
 	}
 	
 	function insert_tag(){
@@ -283,15 +300,16 @@ rtag.clean();
 $('q_tag').set('value',rtag);
 	}
 	
-function tag_delq(val){
+function tag_delq(val,el){
 	
-	var result = val.hasClass('inp');
+	var result = el.hasClass('inp');
 
 	if (!result) {
 	
-		var context = val.get('text');
-		val.destroy();
+		var context =el.get('text');
 		
+		el.destroy();
+		if(context!=''){
 		var etarget = $('sug_div');
 		
 		//set the tag
@@ -303,6 +321,8 @@ function tag_delq(val){
 		ele.addClass('tagging-suggest-tag');
 		ele.set('text', context);
 		bind_event();
+		return false;
+		}
 		
 	}else {
 		
