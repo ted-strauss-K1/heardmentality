@@ -72,9 +72,9 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
    $addoutput.='<tr>
       <td height="43">Created question Vote Range Points '.$vid.'  </td>
     
-	 <td><input type="text" name="from'.$vlistm[$k][id].'" id="from'.$vid.'" size="3" value='.$vlistm[$k][vstart].' onkeypress="return isNumberKey(event)" /> -
-        <input type="text" name="to'.$vlistm[$k][id].'" id="to'.$vid.'" size="3" value='.$vlistm[$k][vend].' onkeypress="return isNumberKey(event)" />
-        <input type="text" name="votepts'.$vlistm[$k][id].'" id="votepts'.$vid.'" size="5" value='.$vlistm[$k][points].' onkeypress="return isNumberKey(event)" /> 
+	 <td><input type="text" name="from'.$vid.'" id="from'.$vid.'" size="3" value='.$vlistm[$k][vstart].' onkeypress="return isNumberKey(event)" /> -
+        <input type="text" name="to'.$vid.'" id="to'.$vid.'" size="3" value='.$vlistm[$k][vend].' onkeypress="return isNumberKey(event)" />
+        <input type="text" name="votepts'.$vid.'" id="votepts'.$vid.'" size="5" value='.$vlistm[$k][points].' onkeypress="return isNumberKey(event)" /> 
 		
 		
 		
