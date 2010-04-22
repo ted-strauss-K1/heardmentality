@@ -140,7 +140,7 @@ function save_points()
 		}
 		$quetb= "SELECT * FROM tbl_vote_gurupoints  "; 
 		 $gpoint= ExecuteQuery($quetb, "select");
-		 echo count($gpoint);
+		// echo count($gpoint);
 		for($i=1;$i<=count($gpoint);$i++)
 		{
 		$fromt="from".$i;
