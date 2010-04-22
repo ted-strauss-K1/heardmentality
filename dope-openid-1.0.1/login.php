@@ -1,5 +1,5 @@
 <?php
-
+$path='http://192.9.200.10/heardmentality/';
 
   $con = mysql_connect("localhost","root","");
   mysql_select_db("heards10", $con);
@@ -99,8 +99,8 @@ if(isset($_POST['process'])){
 		* It could be a separate verify.php script, or just pass a parameter to tell a
 		* single processing script what to do (like I've done with this file you're reading).
 		*/
-		//$openid->setReturnURL("http://192.9.200.10/heardmentality/dope-openid-1.0.1/login.php?action=verify");
-	$openid->setReturnURL("http://localhost/heardmentality/dope-openid-1.0.1/login.php?action=verify");
+	$openid->setReturnURL("".$path."dope-openid-1.0.1/login.php?action=verify");
+	//$openid->setReturnURL("http://localhost/heardmentality/dope-openid-1.0.1/login.php?action=verify");
 		/*
 		* YOU MUST EDIT THIS LINE
 		* Set the trust root. This is the URL or set of URLs the user will be asked
@@ -108,7 +108,7 @@ if(isset($_POST['process'])){
 		* URL or a subdirectory thereof. Up to you.
 		*/
 		//$openid->SetTrustRoot('http://192.9.200.10/heardmentality/');
-		$openid->SetTrustRoot('http://localhost/heardmentality/');
+		$openid->SetTrustRoot(''.$path.'');
 	
 		/*
 		* EDIT THIS LINE (OPTIONAL)
@@ -295,7 +295,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			echo "\t<li><b>Language</b>: " . $userinfo['language'] . "</li>";
 			echo "\t<li><b>Email</b>: " . $userinfo['email'] . "</li>";
 			echo "</ul>";*/
-			$formret= '<form action="http://localhost/heardmentality/user" method="post" id="user-login">
+			$formret= '<form action="'.$path.'user" method="post" id="user-login">
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value="'.$uname.'" class="form-text required"/>
 			<input type="password" name="pass" id="edit-pass" value="'.$uname.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_build_id" id="form-0bb73f903dafa2bf7464d10802fda45b" value="form-0bb73f903dafa2bf7464d10802fda45b"/>

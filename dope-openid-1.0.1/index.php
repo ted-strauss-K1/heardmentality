@@ -1,5 +1,5 @@
 <?php
-
+$path='http://192.9.200.10/heardmentality/';
 /**
 *	This file is part of Dope OpenID.
 *   Author: Steve Love (http://www.stevelove.org)
@@ -30,9 +30,9 @@
 * Make sure this line points to the location of your XRDF file. It must be located
 * in the directory you specify as the "trust root". See login.php (line 104).
 */
-//header('X-XRDS-Location:http://192.9.200.10/heardmentality/dope-openid-1.0.1/yadis.xrdf');
+header('X-XRDS-Location:'.$path.'dope-openid-1.0.1/yadis.xrdf');
 
-header('X-XRDS-Location:http://localhost/heardmentality/dope-openid-1.0.1/yadis.xrdf');
+//header('X-XRDS-Location:http://localhost/heardmentality/dope-openid-1.0.1/yadis.xrdf');
 
 /*
 * Example uses default PHP sessions.
