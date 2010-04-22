@@ -73,7 +73,7 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	 $ptend=$vlistm[$k]['vend'];
 	 $ptpoints=$vlistm[$k]['points'];
    $addoutput.='<tr>
-      <td height="43">Created question Vote Range Points '.$vid.'  </td>
+      <td height="43">Created question Vote Range Points   </td>
     
 	 <td><input type="text" name="from'.$vid.'" id="from'.$vid.'" size="3" value='.$ptstart.' onkeypress="return isNumberKey(event)" /> -
         <input type="text" name="to'.$vid.'" id="to'.$vid.'" size="3" value='.$ptend.' onkeypress="return isNumberKey(event)" />
@@ -143,14 +143,15 @@ function save_points()
 		// echo count($gpoint);
 		for($i=1;$i<=count($gpoint);$i++)
 		{
-		$fromt="from".$i;
+		$gid= $gpoint[$i]['id'];
+		$fromt="from".$gid;
 		$fromp=$_REQUEST[$fromt];
-		$tot="to".$i;
+		$tot="to".$gid;
 		$topin=$_REQUEST[$tot];
-		$vtpts="votepts".$i;
+		$vtpts="votepts".$gid;
 		$vtptsy=$_REQUEST[$vtpts];
 		
-		 $updateguru="update  tbl_vote_gurupoints set vstart=$fromp ,vend=$topin, points='$vtptsy' where id=$i ";
+		  $updateguru="update  tbl_vote_gurupoints set vstart=$fromp ,vend=$topin, points='$vtptsy' where id='".$gid."' ";
 		db_query($updateguru);
 		
 		
