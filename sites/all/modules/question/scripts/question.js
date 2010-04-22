@@ -186,7 +186,7 @@ function get_tag_cat(ids,level){
 													 $('sug_div').set('html', response);
 											}
 									}).send();
-	setTimeout(bind_event,5000);
+	setTimeout(bind_event,2000);
 	
 }
 
