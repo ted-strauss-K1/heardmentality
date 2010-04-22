@@ -210,28 +210,28 @@ function save_points()
   for($p=0;$p<count($point_list);$p++)
 	{
 	
+	$puid=$point_list[$p]['uid'];
 	
-	
-	   $qptstd="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='1' group by uid";
+	   $qptstd="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='1' group by uid";
 	   $qrylist = ExecuteQuery($qptstd, "select");
 	 
 	
-	     $qptstd2="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='2' group by uid";
+	     $qptstd2="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='2' group by uid";
 	   $qrylist2 = ExecuteQuery($qptstd2, "select");
 	 
 	
 	
-	 $qptstd3="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='3' group by uid";
+	 $qptstd3="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='3' group by uid";
 	   $qrylist3 = ExecuteQuery($qptstd3, "select");
 	   
 	   
-	   $qptstd4="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='4' group by uid";
+	   $qptstd4="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='4' group by uid";
 	   $qrylist4 = ExecuteQuery($qptstd4, "select");
 	  
-	$qptstd5="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='5' group by uid";
+	$qptstd5="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='5' group by uid";
 	   $qrylist5 = ExecuteQuery($qptstd5, "select");
 	   
-	   $qptstd6="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$point_list[$p][uid]." and point_id='6' group by uid";
+	   $qptstd6="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='6' group by uid";
 	   $qrylist6 = ExecuteQuery($qptstd6, "select");
 	   if($point_list[$p]['point']=='')
 	$pt='0';
