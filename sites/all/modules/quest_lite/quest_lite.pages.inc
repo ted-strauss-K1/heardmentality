@@ -1159,7 +1159,7 @@ function suggest_answer() {
         }
         $ansoutput .= '</p> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/>';
     }
-    '</form> ';
+    $ansoutput .=  '</form> ';
 
     
     if ($numr == 0) {
@@ -1566,7 +1566,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         }
     }
     
-    function answer_vote() {
+      function answer_vote() {
         
         global $gSitePath,$user,$gDocPath,$base_root;
         $list_length = db_query("select * from {suggest_answer_vote} where answer_id='".$_REQUEST['suggest']."' and uid='".$user->uid."'  ");
@@ -1611,6 +1611,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         }
     
     }
+
 
     
     function qusetion_info() {
