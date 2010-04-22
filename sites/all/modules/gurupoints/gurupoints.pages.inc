@@ -219,25 +219,27 @@ function save_points()
 	     $qptstd2="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='2' group by uid";
 	   $qrylist2 = ExecuteQuery($qptstd2, "select");
 	 
-	
+	$pt1=$qrylist2[0]['qpt'];
 	
 	 $qptstd3="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='3' group by uid";
 	   $qrylist3 = ExecuteQuery($qptstd3, "select");
-	   
+	   $pt2=$qrylist3[0]['qpt'];
 	   
 	   $qptstd4="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='4' group by uid";
 	   $qrylist4 = ExecuteQuery($qptstd4, "select");
-	  
+	  $pt3=$qrylist4[0]['qpt'];
 	$qptstd5="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='5' group by uid";
 	   $qrylist5 = ExecuteQuery($qptstd5, "select");
-	   
+	   $pt4=$qrylist5[0]['qpt'];
 	   $qptstd6="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='6' group by uid";
 	   $qrylist6 = ExecuteQuery($qptstd6, "select");
+	    $pt5=$qrylist6[0]['qpt'];
 	   if($point_list[$p]['point']=='')
 	$pt='0';
 	else
 	$pt=$point_list[$p]['point'];
-	   $vtpt=$pt-($qrylist[0]['qpt']+$qrylist2[0]['qpt']+$qrylist3[0]['qpt']+$qrylist4[0]['qpt']+$qrylist5[0]['qpt']+$qrylist6[0]['qpt']);
+	$spt=$qrylist[0]['qpt'];
+	   $vtpt=$pt-($spt+$pt1+$pt2+$pt3+$pt4+$pt5);
 	
   $outputppt.=' <tr>
 	<td>'.$point_list[$p]['name'].'</td>
