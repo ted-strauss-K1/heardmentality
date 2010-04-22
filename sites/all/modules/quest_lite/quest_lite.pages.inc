@@ -81,7 +81,7 @@ function qlite_view() {
     }
     $shortdesc = substr($oListquest->context, 0, 250);
     
-    $voutput .= '<form id="answer" name="answer" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
+    $voutput .= '<form id="answer_frm" name="answer_frm" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<div>'.$shortdesc.' '.$linkj.'';
     //likes
@@ -358,8 +358,9 @@ function qlite_view() {
 		
 		if(mtype==1)
 		{
-		document.forms["answer"].submit();
 		
+		
+		document.getElementById(\'answer_frm\').submit();
 		}
 		if(mtype==3)
 		{
