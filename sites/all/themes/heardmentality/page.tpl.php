@@ -484,9 +484,30 @@ window.addEvent('domready', function(){
 	
 	
 	
+MochaUI.addnewWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: 'Forum '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 415,
+			height: 355,
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF'
+		});
+	}
 	
 		//subtab()
 });
+
+function newwave(url,title)
+{
+MochaUI.closeAll();
+MochaUI.addnewWindow(url,title);
+
+	
+}
 
 
 function loadSubCat(url,title)
