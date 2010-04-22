@@ -281,7 +281,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			$select_user_count=mysql_num_rows(mysql_query("select * from users where mail='".$userinfo['email']."' and openid='".$_GET['openid_identity']."' "));
 			if($select_user_count==0)
 			{
-			$insert="insert into users (name,pass,mail,language,openid,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','1') ";
+			$insert="insert into users (name,pass,mail,language,openid,created,access,login,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','".time()."','".time()."','".time()."','1') ";
 			$insersult=mysql_query($insert);
 			}
 			}
