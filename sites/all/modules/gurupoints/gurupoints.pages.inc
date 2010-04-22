@@ -69,9 +69,9 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	 for($k=0;$k<count($vlistm);$k++)
 	 { 
 	 $vid=$vlistm[$k]['id'];
-	 $ptstart=$vlistm[$k][vstart];
-	 $ptend=$vlistm[$k][vend];
-	 $ptpoints=$vlistm[$k][points];
+	 $ptstart=$vlistm[$k]['vstart'];
+	 $ptend=$vlistm[$k]['vend'];
+	 $ptpoints=$vlistm[$k]['points'];
    $addoutput.='<tr>
       <td height="43">Created question Vote Range Points '.$vid.'  </td>
     
