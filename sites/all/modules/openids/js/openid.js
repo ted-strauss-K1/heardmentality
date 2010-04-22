@@ -44,16 +44,7 @@ var OpenIdProviders = new Class({
                 label: 'Enter your Livejournal username.',
                 url: 'http://{username}.livejournal.com/'
             },
-            flickr: {
-                name: 'Flickr',        
-                label: 'Enter your Flickr username.',
-                url: 'http://flickr.com/{username}/'
-            },
-            technorati: {
-                name: 'Technorati',
-                label: 'Enter your Technorati username.',
-                url: 'http://technorati.com/people/technorati/{username}/'
-            },
+         
             wordpress: {
                 name: 'Wordpress',
                 label: 'Enter your Wordpress.com username.',
@@ -69,16 +60,8 @@ var OpenIdProviders = new Class({
                 label: 'Your Verisign username',
                 url: 'http://{username}.pip.verisignlabs.com/'
             },
-            vidoop: {
-                name: 'Vidoop',
-                label: 'Your Vidoop username',
-                url: 'http://{username}.myvidoop.com/'
-            },
-            verisign: {
-                name: 'Verisign',
-                label: 'Your Verisign username',
-                url: 'http://{username}.pip.verisignlabs.com/'
-            },
+         
+         
             claimid: {
                 name: 'ClaimID',
                 label: 'Your ClaimID username',

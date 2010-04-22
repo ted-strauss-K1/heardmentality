@@ -17,11 +17,32 @@ function openids_menu() {
  
 $log['member/index'] = array(
     'title' => 'Login',
-    'page callback' => 'openid_index',
+    'page callback' => 'openid_login2',
     'access arguments' => array('Login'),
 	   'type' => MENU_SUGGESTED_ITEM,
     'file' => 'openids.pages.inc',
   );
+  
+  $log['openids/save'] = array(
+    'title' => 'Login',
+    'page callback' => 'openid_login_save',
+    'access arguments' => array('Login'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'openids.pages.inc',
+  );
+  
+  
+  
+   $log['openids/new'] = array(
+    'title' => 'Login',
+    'page callback' => 'openid_login3',
+    'access arguments' => array('Login'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'openids.pages.inc',
+  );
+  
+  
+  
   
   return $log;
   
