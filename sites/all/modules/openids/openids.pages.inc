@@ -91,58 +91,10 @@ $showops= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<meta http-equiv="Content-Style-Type" content="text/css" />
     <link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
        <link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/openid.css" />
-	    <script type="text/javascript" src="'.$gSitePath.'sites/all/modules/openids/js/core.js"></script>
-	    <script type="text/javascript" src="'.$gSitePath.'sites/all/modules/openids/js/more.js"></script>
+	   
    
   
-	<style type="text/css">
-#openid_form {
-	width: 470px;	
-}
-	#openid_form legend {
-		font-weight: bold;
-	}
-#openid_choice {
 	
-}
-#openid_input_area {
-	clear: both;
-	padding: 10px;
-}
-#openid_btns, #openid_btns br {
-	clear: both;
-}
-	#openid_highlight {
-		padding: 3px;
-		background-color: #FFFCC9;
-		float: left;
-	}
-	.openid_large_btn {
-		width: 100px;
-		height: 60px;
-		border: 1px solid #DDD;
-		margin: 3px;
-		float: left;
-	}
-	.openid_small_btn {
-		width: 24px;
-		height: 24px;
-		border: 1px solid #DDD;
-		margin: 3px;
-		float: left;
-	}	
-	a.openid_large_btn:focus {
-		outline: none;
-	}
-	a.openid_large_btn:focus
-	{
-	-moz-outline-style: none;
-	}
-	.openid_selected {
-		border: 4px solid #DDD;
-	}	
-
-</style>
     <script type="text/javascript">
 	
 	
@@ -228,7 +180,7 @@ var OpenIdSelector = new Class({
     cookie_name: \'openid_provider\',
     cookie_path: \'/\',
 
-    img_path: \'http://localhost/heardmentality/sites/all/modules/openids/images/\',
+    img_path: \''.$gSitePath.'sites/all/modules/openids/images/\',
 
     input_id: null,
     provider_url: null,
