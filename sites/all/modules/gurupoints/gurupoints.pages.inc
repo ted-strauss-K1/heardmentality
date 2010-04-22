@@ -68,13 +68,13 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	 $vlistm = ExecuteQuery($querys, "select");
 	 for($k=0;$k<count($vlistm);$k++)
 	 { 
-	 
+	 $vid=$vlistm[$k][id];
    $addoutput.='<tr>
       <td height="43">Created question Vote Range Points '.$vlistm[$k][id].'  </td>
     
-	 <td><input type="text" name="from'.$vlistm[$k][id].'" id="from'.$vlistm[$k][id].'" size="3" value='.$vlistm[$k][vstart].' onkeypress="return isNumberKey(event)" /> -
-        <input type="text" name="to'.$vlistm[$k][id].'" id="to'.$vlistm[$k][id].'" size="3" value='.$vlistm[$k][vend].' onkeypress="return isNumberKey(event)" />
-        <input type="text" name="votepts'.$vlistm[$k][id].'" id="votepts'.$vlistm[$k][id].'" size="5" value='.$vlistm[$k][points].' onkeypress="return isNumberKey(event)" /> 
+	 <td><input type="text" name="from'.$vlistm[$k][id].'" id="from'.$vid.'" size="3" value='.$vlistm[$k][vstart].' onkeypress="return isNumberKey(event)" /> -
+        <input type="text" name="to'.$vlistm[$k][id].'" id="to'.$vid.'" size="3" value='.$vlistm[$k][vend].' onkeypress="return isNumberKey(event)" />
+        <input type="text" name="votepts'.$vlistm[$k][id].'" id="votepts'.$vid.'" size="5" value='.$vlistm[$k][points].' onkeypress="return isNumberKey(event)" /> 
 		
 		
 		
