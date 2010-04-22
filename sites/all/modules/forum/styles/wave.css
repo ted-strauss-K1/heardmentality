@@ -1,0 +1,218 @@
+body,h1,h2,h3,p,quote,small,form,input,ul,li,ol,label{
+	/* A simple page reset */
+	margin:0px;
+	padding:0px;
+}
+
+body{
+	color:white;
+	font-size:13px;
+	background: url(img/page_bg.jpg) repeat-x #666666;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+h1{
+	/* The title of the page */
+	color:white;
+	font-family:"MyRiad Pro",Arial,Helvetica,sans-serif;
+	font-size:38px;
+	font-weight:normal;
+}
+
+h2{
+	/* The subtitle */
+	font-family:"MyRiad Pro","Arial Narrow",Arial,Helvetica,sans-serif;
+	font-size:16px;
+	font-weight:normal;
+	letter-spacing:1px;
+	padding-left:2px;
+	text-transform:uppercase;
+	white-space:nowrap;
+	margin:10px 0 25px;
+}
+
+#orig{
+	/* The link that float to the right of the title */
+	float:right;
+	font-family:"MyRiad Pro",Arial;
+	font-size:10px;
+	letter-spacing:1px;
+	text-transform:uppercase;
+	padding-top:10px;
+}
+
+.clear{
+	/* Clearfix, needed by IE6 */
+	clear:both;
+}
+
+#main{
+	/* The main container */
+	width:600px;
+	margin:30px auto;
+}
+
+#wave{
+	/* CSS rounded corners */
+	-moz-border-radius:6px;
+	-khtml-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius:6px;
+	
+	background:white;
+	width:100%;
+	overflow:hidden;
+}
+
+#topBar{
+	background:url(img/bg.jpg) repeat-x;
+	font-size:12px;
+	color:white;
+	
+	height:20px;
+	overflow:hidden;
+	padding:5px 0 0 10px;
+
+	border-bottom:1px solid #e4f1ff;
+	-moz-border-radius:6px 6px 0 0;
+	/* A Firefox fix, for once */
+}
+
+#bottomBar{
+	height:40px;
+	background-color:#c9e2fc;
+	-moz-border-radius:0 0 6px 6px;
+	border-top:1px solid #CCCCCC;
+}
+
+#subBar{
+	background-color:#c9e2fc;
+	padding-left:10px;
+}
+
+#subBar img{
+	/* The avatars at the top of the page */
+	margin:8px 8px 8px 0;
+	border:1px solid #cccccc;
+}
+
+.waveButton,.waveButtonMain{
+	/* The submit buttons */
+	background:url(img/button_bg.jpg) repeat-x 50% 50%;
+	border:1px solid #DDDDDD;
+	padding:4px;
+	
+	cursor:pointer;
+}
+
+.waveButtonMain{
+	display:block;
+	margin:10px 20px;
+}
+
+.textArea{
+	padding:4px;
+	font-family:Arial,Helvetica,Sans-serif;
+	font-size:12px;
+	color:#666666;
+	border:1px solid #66aff9;
+	margin-bottom:10px;
+}
+
+.replyLink{
+	float:right;
+}
+
+#commentArea{
+	padding:10px;
+	color:#444444;
+}
+
+.commentText{
+	margin-left:40px;
+}
+
+.waveComment .waveComment{
+	padding-left:30px;
+}
+
+.waveComment .waveComment .replyLink{
+	display:none;
+}
+
+.waveTime{
+	color:#999999;
+	float:right;
+	font-size:10px;
+}
+
+#slider{
+	width:400px;
+	font-size:10px;
+	float:right;
+	margin-right:10px;
+}
+
+#sliderContainer{
+	background:url(img/dark_bg.jpg) repeat-x #f5f5f5 50% 50%;
+	padding:9px 10px;
+	border:1px solid #bbbbbb;
+	border-left:0;
+	border-right:0;
+	
+	height:10px;
+	padding:9px 10px;
+}
+
+div.ui-widget-content{
+	/* Styling the slider */
+	background:#FFFFFF;
+	border:1px solid #CCCCCC;
+}
+
+.comment{
+	margin:5px 10px;
+	padding:8px 10px;	
+	border:2px solid #cccccc;
+
+	-moz-border-radius:6px;
+	-khtml-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius:6px;
+	
+	overflow:hidden;
+}
+
+span.name{
+	font-weight:bold;
+	color:#999999;
+}
+
+.commentAvatar{
+	width:30px;
+	height:30px;
+	float:left;
+	margin-right:10px;
+}
+
+a, a:visited {
+	color:#00BBFF;
+	text-decoration:none;
+	outline:none;
+}
+
+.waveComment a,
+.waveComment a:visited{
+	color:#0390c3;
+	text-transform:uppercase;
+	font-size:10px;	
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+.tutorial-info{
+	text-align:center;
+	padding:10px;
+}
