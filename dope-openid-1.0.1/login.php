@@ -1,4 +1,11 @@
 <?php
+
+
+  $con = mysql_connect("localhost","root","");
+  mysql_select_db("heards10", $con);
+   //echo llllllllllllll;
+  
+            
 /**
 *	This file is part of Dope OpenID.
 *   Author: Steve Love (http://www.stevelove.org)
@@ -38,8 +45,8 @@ require 'functions.php';
 * If yes, user is already logged in. Redirect them somewhere else.
 */
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-	header("Location:index.php");
-	exit;
+	//header("Location:index.php");
+	//exit;
 }
 
 
@@ -92,15 +99,16 @@ if(isset($_POST['process'])){
 		* It could be a separate verify.php script, or just pass a parameter to tell a
 		* single processing script what to do (like I've done with this file you're reading).
 		*/
-		$openid->setReturnURL("http://192.9.200.10/heardmentality/dope-openid-1.0.1/login.php?action=verify");
-	
+		//$openid->setReturnURL("http://192.9.200.10/heardmentality/dope-openid-1.0.1/login.php?action=verify");
+	$openid->setReturnURL("http://localhost/heardmentality/dope-openid-1.0.1/login.php?action=verify");
 		/*
 		* YOU MUST EDIT THIS LINE
 		* Set the trust root. This is the URL or set of URLs the user will be asked
 		* to trust when signing in with their OpenID Provider. It could be your base
 		* URL or a subdirectory thereof. Up to you.
 		*/
-		$openid->SetTrustRoot('http://192.9.200.10/heardmentality/');
+		//$openid->SetTrustRoot('http://192.9.200.10/heardmentality/');
+		$openid->SetTrustRoot('http://localhost/heardmentality/');
 	
 		/*
 		* EDIT THIS LINE (OPTIONAL)
@@ -151,7 +159,7 @@ if(isset($_POST['process'])){
 			// Redirect the user to their OpenID Provider
 			$openid->redirect();
 			// Call exit so the script stops executing while we wait to redirect.
-			exit;
+			//exit;
 		}
 		else{
 			/*
@@ -177,10 +185,12 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 	/*
 	* Include the Dope OpenID class file
 	*/
+	
+	
 	require_once 'class.dopeopenid.php';
 	
 	// Get the user's OpenID Identity as returned to us from the OpenID Provider
-	$openid_url = $_GET['openid_identity'];
+	 $openid_url = $_GET['openid_identity'];
 	
 	/*
 	* Create a new Dope_OpenID object.
@@ -192,7 +202,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 	* to validate it and verify that nothing has been tampered with in the process.
 	*/
 	$validate_result = $openid->validateWithServer();
-	
+
 	
 	if ($validate_result === TRUE) {
 		/*
@@ -223,35 +233,90 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 				$_SESSION['username'] = $username;
 				
 				// Redirect the user to another page, i.e. index.php
-				header("Location:index.php");
-				exit;
+				//header("Location:index.php");
+				//exit;
 			}
 			
 		}
 		else {
+		
+		echo $_GET['openid_identity'];
 			// Else the user doesn't have an existing OpenID record in your database.
 			// In this case, you need the user to register an account in order
 			// to log in to your site. Store useful information from their
 			// OpenID Provider so you can populate the necessary fields on
 			// your registration page. Redirect the user there.
 			$userinfo = $openid->filterUserInfo($_GET);
-			if($userinfo['email']!='')
+			if(($userinfo['email']!='')||($_REQUEST['openid_ax_value_email']!=''))
+			{
+			if($_REQUEST['openid_ax_value_email']!='')
+			$temail=$_REQUEST['openid_ax_value_email'];
+			else
+			$temail=$userinfo['email'];
+			if($_REQUEST['openid_ax_value_language']!='')
+			$lang=$_REQUEST['openid_ax_value_language'];
+			else
+			$lang=$userinfo['language'];
+			if($userinfo['nickname']=='')
+			{
+			if($_REQUEST['openid_ax_value_email']!='')
+			$mailg=$_REQUEST['openid_ax_value_email'];
+			else
+			$mailg=$userinfo['email'];
+			$uinfo=explode("@",$mailg);
+			$uname=$uinfo[0];
+			
+			}
+			elseif($_REQUEST['openid_ax_value_nickname']!='')
 			{
 			
-			echo $insert="insert into users (name,mail,language,openid)values(" . $userinfo['nickname'] . "," . $userinfo['email'] . "," . $userinfo['language'] . "," . $_SESSION['openid_url'] . ") ";
+			$uname=$_REQUEST['openid_ax_value_nickname'];
+			
 			}
-			echo "<p>Your OpenID Identity (".$_GET['openid_identity'].") wasn't found in our records.</p>";
+			else
+			{
+			$uname=$userinfo['nickname'];
+			}
+			
+			$select_user_count=mysql_num_rows(mysql_query("select * from users where mail='".$userinfo['email']."' and openid='".$_GET['openid_identity']."' "));
+			if($select_user_count==0)
+			{
+			$insert="insert into users (name,pass,mail,language,openid,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','1') ";
+			$insersult=mysql_query($insert);
+			}
+			}
+				/*echo " (".$_GET['openid_identity'].")</p>";
 			echo "\t<li><b>nickname yahoo</b>: " .  $_REQUEST['openid_ax_value_nickname'] . "</li>";
-		
-				echo "\t<li><b>yahoo email</b>: " .  $_REQUEST['openid_ax_value_email'] . "</li>";
-				echo "\t<li><b>yahoo language -country</b>: " .  $_REQUEST['openid_ax_value_language'] . "</li>";
+			
+			echo "\t<li><b>yahoo email</b>: " .  $_REQUEST['openid_ax_value_email'] . "</li>";
+			echo "\t<li><b>yahoo language -country</b>: " .  $_REQUEST['openid_ax_value_language'] . "</li>";
 			echo "<ul>";
 			echo "\t<li><b>Nickname</b>: " . $userinfo['nickname'] . "</li>";
 			echo "\t<li><b>Language</b>: " . $userinfo['language'] . "</li>";
 			echo "\t<li><b>Email</b>: " . $userinfo['email'] . "</li>";
-			echo "</ul>";
+			echo "</ul>";*/
+			$formret= '<form action="http://localhost/heardmentality/user" method="post" id="user-login">
+			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value="'.$uname.'" class="form-text required"/>
+			<input type="password" name="pass" id="edit-pass" value="'.$uname.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
+			<input type="hidden" name="form_build_id" id="form-0bb73f903dafa2bf7464d10802fda45b" value="form-0bb73f903dafa2bf7464d10802fda45b"/>
+			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
 			
-			exit;
+			</form>
+			<script language="JavaScript" type="text/javascript">
+			
+			document.getElementById(\'user-login\').submit();
+			
+			
+			</script>
+			';
+			
+			?>
+            
+		
+        
+            <?php
+			
+			echo $formret;
 		}
 	}
 	else if ($openid->isError() === TRUE){
@@ -280,6 +345,7 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
 * Begin HTML display of login form and any errors that might have occurred.
 */
 ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -287,6 +353,7 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
 	<title>Dope OpenID Demo: Log In</title>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
 	<meta http-equiv="Content-Style-Type" content="text/css" />
+   
       <link type="text/css" rel="stylesheet" href="css/openid.css" />
      <script type="text/javascript" src="js/core.js"></script>
     <script type="text/javascript" src="js/more.js"></script>
@@ -297,17 +364,18 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
         window.addEvent('domready', function(){
             new OpenIdSelector('openid_identifier');
         });
+		
+		
     </script>
 </head>
 
-<body>
+<body  >
 
-	<p style="color:#f00;"><?php echo $error; ?></p>
+	
 	
 	<form name="openid_form" id="openid_form" action="login.php" method="post" autocomplete="off">
 		
-		<!-- Your OpenID input should be named "openid_identifier" to follow best practices
-	     and in order to work with the ID Selector JavaScript, should you choose to use it. -->
+	
          
            <div id="openid_choice">
             
@@ -319,9 +387,9 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
 		
 		<input type="hidden" name="process" value="1" />
 		
-<!--		<button type="submit">Sign In With OpenID</button>
--->		
-        
+		<!--<button type="submit">Sign In With OpenID</button>-->
+	
+       
         
         
         
@@ -340,16 +408,16 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
                 <div id="openid_btns"></div>
             </div>
             <div id="openid_input_area">
-                <input id="openid_identifier" name="openid_identifier" type="text" value="http://" />
-                <input id="openid_submit" type="submit" value="Sign-In"/>
+                <!--<input id="openid_identifier" name="openid_identifier" type="text" value="http://" />
+                <input id="openid_submit" type="submit" value="Sign-In"/>-->
             </div>
-            <noscript>
+          <!--  <noscript>
                 <p>
                     OpenID is service that allows you to log-on to many different websites using a single indentity.
                     Find out <a href="http://openid.net/what/">more about OpenID</a> 
                     and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.
                 </p>
-            </noscript>
+            </noscript>-->
        
         
         
