@@ -18,7 +18,7 @@ function qlitemini() {
     $list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
     $numran = mysql_num_rows($list_lengthan);
     $answer_id = db_fetch_object($list_lengthan);
-    drupal_set_title($oListquest->question);
+    drupal_set_title($oListquest->question.'  <a href="'.$gSitePath.$oListquest->url.'">View More</a>');
     $voutput = '
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<p>'.$oListquest->context.'</p>';
