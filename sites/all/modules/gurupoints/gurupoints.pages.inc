@@ -69,12 +69,15 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	 for($k=0;$k<count($vlistm);$k++)
 	 { 
 	 $vid=$vlistm[$k]['id'];
+	 $ptstart=$vlistm[$k][vstart];
+	 $ptend=$vlistm[$k][vend];
+	 $ptpoints=$vlistm[$k][points];
    $addoutput.='<tr>
       <td height="43">Created question Vote Range Points '.$vid.'  </td>
     
-	 <td><input type="text" name="from'.$vid.'" id="from'.$vid.'" size="3" value='.$vlistm[$k][vstart].' onkeypress="return isNumberKey(event)" /> -
-        <input type="text" name="to'.$vid.'" id="to'.$vid.'" size="3" value='.$vlistm[$k][vend].' onkeypress="return isNumberKey(event)" />
-        <input type="text" name="votepts'.$vid.'" id="votepts'.$vid.'" size="5" value='.$vlistm[$k][points].' onkeypress="return isNumberKey(event)" /> 
+	 <td><input type="text" name="from'.$vid.'" id="from'.$vid.'" size="3" value='.$ptstart.' onkeypress="return isNumberKey(event)" /> -
+        <input type="text" name="to'.$vid.'" id="to'.$vid.'" size="3" value='.$ptend.' onkeypress="return isNumberKey(event)" />
+        <input type="text" name="votepts'.$vid.'" id="votepts'.$vid.'" size="5" value='.$ptpoints.' onkeypress="return isNumberKey(event)" /> 
 		
 		
 		
