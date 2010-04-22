@@ -35,7 +35,7 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
  $addoutput.=' <tr>
     <td width="46%" height="37">'.$vlist[$k]['point_type'].'</td>
     <td width="54%">
-      <input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points'.$vlist[$k]['id'].'" id="qusetion_points'.$vlist[$k]['id'].'" size="7" value='.$vlist[$k]['points'].' />
+      <input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points'.$vlist[$k][sss].'" id="qusetion_points'.$vlist[$k][sss].'" size="7" value='.$vlist[$k]['points'].' />
    </td>
   </tr>';
   
