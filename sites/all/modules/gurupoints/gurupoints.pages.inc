@@ -219,8 +219,8 @@ function save_points()
 	     $qptstd2="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='2' group by uid";
 	  // $qrylist2 = ExecuteQuery($qptstd2, "select");
 	  $voteqrylist2 = db_query($qptstd2);
-    $fetqrylist2 = db_fetch_object($voteqrylist2);
-	$pt1=$fetqrylist2->qpt;
+    $fetqrylist2 = db_fetch_array($voteqrylist2);
+	$pt1=$fetqrylist2['qpt'];
 	
 	 $qptstd3="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='3' group by uid";
 	  // $qrylist3 = ExecuteQuery($qptstd3, "select");
