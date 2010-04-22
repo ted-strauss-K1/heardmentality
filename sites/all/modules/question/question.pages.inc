@@ -456,9 +456,13 @@ function question_save() {
         $dst = clean_url(myTruncate($q_quest, 100, ' '));
         
         $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',url='$dst',share='$qrset'  ");
-
+			
+			 $ins_id = db_last_insert_id('question', 'qid');
+			//forum
+			
+		 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$ins_id',type='1',uid='$user->uid',title='Discuss about this question',private='0' ");	
         
-        $ins_id = db_last_insert_id('question', 'qid');
+       
          increasepoints('1',$ins_id,'0');
         //for url alias
         $url = 'qlite/view/'.$ins_id;
@@ -1090,9 +1094,9 @@ if(!empty($cat2)){
             	                </label>';
         if (! empty($taglist)) {
             foreach ($taglist as $ins) {
-                $tag .= '	<a class="taga" title="Add tag" href="#">
+                $tag .= '	
             	                    <div id="tagging-1" class="tagging-suggest-tag processed">
-            	                        '.$ins.'</div></a>';
+            	                        '.$ins.'</div>';
 
             
             }
