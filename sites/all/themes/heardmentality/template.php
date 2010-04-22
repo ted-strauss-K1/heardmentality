@@ -134,7 +134,7 @@ function garland_user_bar() {
 
   if (!$user->uid) {                                                          
     $output .= drupal_get_form('user_login_block_new');   
-	// $output .= '&nbsp;'.l(t('Sign In'), 'user/login', array('attributes' => array('title' => t('Sign In'))));                       
+	 $output .= '&nbsp;'.l(t('Sign In'), 'user/login', array('attributes' => array('title' => t('Sign In'))));                       
   }                                                                           
   else {                                                                      
     $output .= t('<p class="user-info">welcome !user.</p>', array('!user' => theme('username', $user)));

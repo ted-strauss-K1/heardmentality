@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/content.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/ui.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $gSitePath?>sites/all/themes/heardmentality/css/user_bar.css" type="text/css" />
-
 <!--[if IE]>
 	<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/excanvas-compressed.js"></script>		
 <![endif]-->
@@ -83,6 +82,22 @@
 				overlay: new overlay(),
 				descClassName: 'advancedDesc'
 			});
+			
+			var box = new multiBox('advanced4', {
+				overlay: new overlay()
+			});
+			
+			var box = new multiBox('advanced5', {
+				overlay: new overlay()
+			});
+			
+			var box = new multiBox('advanced6', {
+				overlay: new overlay()
+			});
+			var box = new multiBox('advanced7', {
+				overlay: new overlay()
+			});
+			
 		});
 	
 	</script>
@@ -92,9 +107,11 @@
 </head>
 <body>
 <?php
-
+//echo md5('admin');
+//echo "<br>";
+//echo '21232f297a57a5a743894a0e4a801fc3';
 global $user;
-//print_r ($user);
+
 //echo $user->uid;
 ?>
 <div id="desktop">
@@ -106,26 +123,38 @@ global $user;
 		<!--h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2-->
 		<div id="topNav">
          <ul class="menu-right">
-        	<!--<?php 
+        	<?php 
 			global $user;    
-			if($user->uid == '' || $user->uid == '0'):
+			if($user->uid == ''|| $user->uid == '0'):
+
 			  ?>
                 <ul class="menu-right">
                 	<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Guest</a>.</li>
-                    <li><a href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>/user/login'">Sign In</a></li>
+                   <!-- <li><a href="<?php echo $gSitePath?>member/login"  rel="width:850,height:570" class="advanced7">Sign In</a></li>-->
+                    
+                      <li><a onclick="loadlogin('<?php echo $gSitePath?>member/index','Login');">Sign In</a></li>
+                      
+                      <!-- <li><a href="<?php echo $gSitePath?>openids/new">Sign In</a></li>-->
                 </ul>			  
-			  <?
+			  <?php
 			 else:
+			
 			?>
 			<ul class="menu-right">
-				<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;"><?php echo $user->name;?></a>.</li>
+				<li>Welcome <a href="<?php echo $gSitePath?>profile" ><?php echo $user->name;?></a>.</li>
 				<li><a  href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>logout'">Sign Out</a></li>
 			</ul>
             <?php
             endif;
-			?>-->
+			?>
             
-               <?php print garland_user_bar() ?>
+            
+            
+            <!--  <ul class="menu-right">
+                
+                    <li><a href="<?php echo $gSitePath?>member/login"  rel="width:850,height:570" class="advanced7">Sign In</a></li>
+                </ul>	-->
+               <?php //print garland_user_bar() ?>
                </ul>
 		</div>
 	</div>
@@ -164,8 +193,14 @@ global $user;
 
 <div id="desktopFooterWrapper">
 	<div id="desktopFooter">
-		Copyright <a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.5/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/cc.jpg" width="18" height="17" /></a> 2010  Heardmentality.org    <span style="margin-left:699px;"> <a href="<?php echo $gSitePath?>node/7">Contact Us</a> - <a href="<?php echo $gSitePath?>node/8">Privacy Policy </a> - <a href="<?php echo $gSitePath?>node/9"> User Agreement </a>
-        
+		Copyright <a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.5/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/cc.jpg" width="18" height="17" /></a> 2010  Heardmentality.org    <!--<span style="margin-left:699px;"> <a title="Conatct Us" class="advanced4" rel="width:850,height:570" href="<?php echo $gSitePath?>node/7">Conatct Us</a> - <a title="Conatct Us" class="advanced5" rel="width:850,height:570" href="<?php echo $gSitePath?>node/8">Privacy Policy </a> - <a href="<?php echo $gSitePath?>node/9"> User Agreement </a>--><span style="margin-left:699px;">
+         <?php   $mbl=4;$min=0; foreach ($secondary_links as $linksm): $min++;?>
+         <a href="<?php print($gSitePath.$linksm['href']);?>" <?php if($linksm['title'] == 'Contact Us'||($linksm['title'] == 'Privacy & Policy')||($linksm['title'] == 'User Agreement')):?> rel="width:850,height:570" class="advanced<?php echo $mbl++; ?>" title="<?php print($linksm['title']);?>"<?php endif;?>><?php print($linksm['title']);?></a><?php if((count($secondary_links))>=$min){ echo " - ";}$min++;?> 
+          <?php endforeach; ?>
+          
+     
+          
+          
         <a href="http://www.opensource.org/" target="_blank"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/OpenSourceLogo.jpg" width="18" height="17" /> </a>&nbsp;<a href="http://drupal.org/" target="_blank"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Drupal.jpg" width="14" height="16" /></a>&nbsp;<a href="http://www.govtrack.us/" target="_blank"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Govtrack.jpg" width="16" height="16" /> </a>&nbsp;<a href="http://code.google.com/" target="_blank"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Google.jpg" width="16" height="16" /></a> &nbsp;<a href="http://amberjack.org/" target="_blank"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Amber.jpg" width="14" height="14" /></a>&nbsp;<a href="http://openid.net/"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/OpenID.jpg" width="15" height="15" /></a>&nbsp;<a href="https://community.rallydev.com/slm/login.op" target="_blank"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/RallyDev.jpg" width="16" height="16" /></a>&nbsp;<a href="http://www.geonames.org/" target="_blank"><img src="<?php echo $gSitePath?>sites/all/themes/heardmentality/images/Geonames.jpg" width="18" height="18" /></a> </span>
        
         
@@ -369,6 +404,31 @@ window.addEvent('domready', function(){
 	
 	
 	
+	MochaUI.loginWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 500,
+		
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+				contentBgColor: '#FFF',
+		onContentLoaded: function(){
+                               if ( !MochaUI.resourceScript == true ){
+                                       new Request({
+                                               url: '<?php echo $gSitePath; ?>sites/all/modules/openids/js/login.js',
+                                               method: 'get',
+                                               onSuccess: function() {
+                                                       MochaUI.resourceScript = false;
+                                               }.bind(this)
+                                       }).send();
+                               }
+                       }
+		});
+	}
 	
 	MochaUI.retagWindow = function(url,title){
 			new MochaUI.Window({
@@ -493,7 +553,14 @@ MochaUI.followingWindow(url,title);
 	
 }
 
+function loadlogin(url,title)
+{
 
+MochaUI.closeAll();
+MochaUI.loginWindow(url,title);
+
+	
+}
 
 	</script>
     
