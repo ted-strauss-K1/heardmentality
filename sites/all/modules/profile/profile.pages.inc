@@ -343,6 +343,7 @@ function profile_edit() {
 	}
 	}	else{
 		if($sucflag){
+			echo "<script>window.location.href='$gSitePath/profile/';</script>";
 		drupal_goto('profile/');}
 	}
 	
