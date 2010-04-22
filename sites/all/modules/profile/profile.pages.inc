@@ -191,7 +191,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 			
 			<div class="lft">
 			
-			<div class="clear">
+			<div class="">
 			<div class="img">'.$PROFILE_IMAGE.$medal.'
 			</div>
 			<div class="info">
@@ -907,75 +907,91 @@ function markit(){
 	
 var chk=\''.$fetch[0]['email'].'\';
 var elt=$$(\'.email\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['real_name'].'\';
 var elt=$$(\'.real_name\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 	
 	var chk=\''.$fetch[0]['image'].'\';
 var elt=$$(\'.image\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['bio'].'\';
 var elt=$$(\'.bio\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['gender'].'\';
 var elt=$$(\'.gender\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['zip'].'\';
 var elt=$$(\'.zip\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['country'].'\';
 var elt=$$(\'.country\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 
 var chk=\''.$fetch[0]['religion'].'\';
 var elt=$$(\'.religion\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['ethnic'].'\';
 var elt=$$(\'.ethnic\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['slant'].'\';
 var elt=$$(\'.slant\');
 elt.each(function(el){ el.set(\'value\',chk); });
 
 var chk=\''.$fetch[0]['facebook'].'\';
 var elt=$$(\'.facebook\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 
 var chk=\''.$fetch[0]['twitter'].'\';
 var elt=$$(\'.twitter\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['followers'].'\';
 var elt=$$(\'.followers\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['following'].'\';
 var elt=$$(\'.following\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['medal'].'\';
 var elt=$$(\'.medal\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['answers'].'\';
 var elt=$$(\'.answers\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 var chk=\''.$fetch[0]['questions'].'\';
 var elt=$$(\'.questions\');
+if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
-
+}
 }
 			</script>
 		';
