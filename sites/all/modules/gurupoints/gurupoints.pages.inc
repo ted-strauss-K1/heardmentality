@@ -226,31 +226,31 @@ function save_points()
 	  // $qrylist3 = ExecuteQuery($qptstd3, "select");
 	   
 	    $voteqrylist3 = db_query($qptstd3);
-    $fetqrylist3 = db_fetch_object($voteqrylist3);
-	$pt2=$fetqrylist3->qpt;
+    $fetqrylist3 = db_fetch_array($voteqrylist3);
+	$pt2=$fetqrylist3['qpt'];
 	  
 	   
 	   $qptstd4="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='4' group by uid";
 	  // $qrylist4 = ExecuteQuery($qptstd4, "select");
 	  //$pt3=$qrylist4[0]['qpt'];
 	    $voteqrylist4 = db_query($qptstd4);
-    $fetqrylist4 = db_fetch_object($voteqrylist4);
-	$pt3=$fetqrylist4->qpt;
+    $fetqrylist4 = db_fetch_array($voteqrylist4);
+	$pt3=$fetqrylist4['qpt'];
 	  
 	$qptstd5="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='5' group by uid";
 	   //$qrylist5 = ExecuteQuery($qptstd5, "select");
 	   //$pt4=$qrylist5[0]['qpt'];
 	    $voteqrylist5 = db_query($qptstd5);
-    $fetqrylist5 = db_fetch_object($voteqrylist5);
-	$pt4=$fetqrylist5->qpt;
+    $fetqrylist5 = db_fetch_array($voteqrylist5);
+	$pt4=$fetqrylist5['qpt'];
 	   
 	   $qptstd6="select SUM(points) AS qpt   FROM tbl_user_points where  uid=".$puid." and point_id='6' group by uid";
 	  // $qrylist6 = ExecuteQuery($qptstd6, "select");
 	   // $pt5=$qrylist6[0]['qpt'];
 		
 		$voteqrylist6 = db_query($qptstd6);
-		$fetqrylist6 = db_fetch_object($voteqrylist6);
-		$pt5=$fetqrylist6->qpt;
+		$fetqrylist6 = db_fetch_array($voteqrylist6);
+		$pt5=$fetqrylist6['qpt'];
 	   if($point_list[$p]['point']=='')
 	$pt='0';
 	else
