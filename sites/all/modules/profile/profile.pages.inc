@@ -3,7 +3,7 @@
 function profile_view() {
     global $gSitePath,$user,$gDocPath,$base_root;
 	  $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-	  
+	   $result_profile_edit = db_query("UPDATE {users} set profile_edit='1' where uid='$user->uid' ");
 	  $getuser=user_load(array('name' => $profile_name));
 	 $uid=$getuser->uid;
 	if($uid==''){
