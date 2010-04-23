@@ -245,7 +245,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 		}
 		else {
 		
-		echo $_GET['openid_identity'];
+		//echo $_GET['openid_identity'];
 			// Else the user doesn't have an existing OpenID record in your database.
 			// In this case, you need the user to register an account in order
 			// to log in to your site. Store useful information from their
@@ -351,7 +351,7 @@ else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
 */
 ?>
 
-$sample='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
