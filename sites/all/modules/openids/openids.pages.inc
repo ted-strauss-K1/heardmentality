@@ -147,11 +147,7 @@ var OpenIdProviders = new Class({
                 label: \'Your Blogger account\',
                 url: \'http://{username}.blogspot.com/\'
             },
-            verisign: {
-                name: \'Verisign\',
-                label: \'Your Verisign username\',
-                url: \'http://{username}.pip.verisignlabs.com/\'
-            },
+          
             vidoop: {
                 name: \'Vidoop\',
                 label: \'Your Vidoop username\',
