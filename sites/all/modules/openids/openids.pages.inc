@@ -207,7 +207,7 @@ var OpenIdSelector = new Class({
         if (this.providers.small) {
             openid_btns.grab(new Element(\'br\'));
             for (id in this.providers.small) {
-                box = this.getBoxHTML(this.providers.small[id], \'small\', \'.ico\');
+                box = this.getBoxHTML(this.providers.small[id], \'small\', \'.jpeg\');
                 box.inject(openid_btns);
             }
         }
