@@ -97,7 +97,7 @@ function user_pass_reset(&$form_state, $uid, $timestamp, $hashed_pass, $action =
       // Deny one-time login to blocked accounts.
       if (drupal_is_denied('user', $account->name) || drupal_is_denied('mail', $account->mail)) {
         drupal_set_message(t('You have tried to use a one-time login for an account which has been blocked.'), 'error');
-        //drupal_goto();
+        drupal_goto();
       }
 
       // No time out for first time login.
