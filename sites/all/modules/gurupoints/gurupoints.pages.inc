@@ -3,7 +3,12 @@
 function add_points()
 {
 global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-	
+	if($_REQUEST['del']!='')
+	{
+	$delpt="delete from tbl_vote_gurupoints where id='".$_REQUEST['del']."' ";
+	$delcum=db_query($delpt);
+	drupal_goto("admin/addpoints");
+	}
 
 	$addoutput='<SCRIPT language=Javascript>
    
@@ -36,7 +41,7 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
  $addoutput.=' <tr>
     <td width="46%" height="37">'.$vlist[$k]['point_type'].'</td>
     <td width="54%">
-      <input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points'.$pid.'" id="qusetion_points'.$pid.'" size="7" value='.$vlist[$k]['points'].' />
+      <input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points'.$pid.'" id="qusetion_points'.$pid.'" size="7" maxlength="5" value='.$vlist[$k]['points'].' />
    </td>
   </tr>';
   
@@ -46,7 +51,7 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
   
  /* <tr>
     <td height="35">Answering a question</td>
-    <td><input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points2" id="qusetion_points2" size="7" value='.$array_get[1].'  /></td>
+    <td><input type="text" onkeypress="return isNumberKey(event)" name="qusetion_points2" id="qusetion_points2" size="7"  value='.$array_get[1].'  /></td>
   </tr>
   <tr>
     <td height="33">Have a post liked</td>
@@ -66,6 +71,7 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
   </tr>';*/
    $querys= "SELECT * FROM tbl_vote_gurupoints  "; 
 	 $vlistm = ExecuteQuery($querys, "select");
+	 $m=1;
 	 for($k=0;$k<count($vlistm);$k++)
 	 { 
 	 $vid=$vlistm[$k]['id'];
@@ -73,13 +79,13 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	 $ptend=$vlistm[$k]['vend'];
 	 $ptpoints=$vlistm[$k]['points'];
    $addoutput.='<tr>
-      <td height="43">Created question Vote Range Points   </td>
+      <td height="43">Created question Vote Range Points '.$m.'  </td>
     
-	 <td><input type="text" name="from'.$vid.'" id="from'.$vid.'" size="3" value='.$ptstart.' onkeypress="return isNumberKey(event)" /> -
-        <input type="text" name="to'.$vid.'" id="to'.$vid.'" size="3" value='.$ptend.' onkeypress="return isNumberKey(event)" />
-        <input type="text" name="votepts'.$vid.'" id="votepts'.$vid.'" size="5" value='.$ptpoints.' onkeypress="return isNumberKey(event)" /> 
+	 <td><input type="text" name="from'.$vid.'" id="from'.$vid.'" size="3" value='.$ptstart.' maxlength="5"  onkeypress="return isNumberKey(event)" /> -
+        <input type="text" name="to'.$vid.'" id="to'.$vid.'" size="3" value='.$ptend.' maxlength="5"  onkeypress="return isNumberKey(event)" />
+        <input type="text" name="votepts'.$vid.'" id="votepts'.$vid.'" size="5" value='.$ptpoints.' maxlength="5"  onkeypress="return isNumberKey(event)" /> 
 		
-		
+		<a href="'.$gSitePath.'admin/addpoints?del='.$vid.'"> Delete </a>
 		
 		
 		
@@ -89,13 +95,14 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 		</td>
 		
     </tr>';
+	$m++;
 	}
 	$addoutput.='<tr>
       <td height="43"><a class="cursor_txt"   onClick="showhidem(\'showid\');"> Add Vote Points </a> </td>
     
-	 <td> <div  id="showid" style="display:none;"><input type="text" name="fromr" id="fromr" size="3"  onkeypress="return isNumberKey(event)" /> -
-        <input type="text" name="tor" id="tor" size="3" onkeypress="return isNumberKey(event)" />
-        <input type="text" name="voteptsr" id="voteptsr" size="5" onkeypress="return isNumberKey(event)" /> 
+	 <td> <div  id="showid" style="display:none;"><input type="text" name="fromr" id="fromr" size="3" maxlength="5"  onkeypress="return isNumberKey(event)" /> -
+        <input type="text" name="tor" id="tor" size="3" maxlength="5"  onkeypress="return isNumberKey(event)" />
+        <input type="text" name="voteptsr" id="voteptsr" maxlength="5"  size="5" onkeypress="return isNumberKey(event)" /> 
 		
 		<input type="submit" name="Add" Value="Add"  /> 
 		
@@ -141,7 +148,7 @@ function save_points()
 		$quetb= "SELECT * FROM tbl_vote_gurupoints  "; 
 		 $gpoint= ExecuteQuery($quetb, "select");
 		// echo count($gpoint);
-		for($i=1;$i<=count($gpoint);$i++)
+		for($i=0;$i<=count($gpoint);$i++)
 		{
 		$gid= $gpoint[$i]['id'];
 		$fromt="from".$gid;
