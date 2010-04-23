@@ -3,6 +3,11 @@ $path='http://192.9.200.10/heardmentality/';
 
   $con = mysql_connect("localhost","root","oPenWave#1220");
   mysql_select_db("heardmentality", $con);
+  if($_GET['openid_mode']=='cancel')
+  {
+  
+  header("location:".$path."");
+  }
    //echo llllllllllllll;
   
             
@@ -181,7 +186,7 @@ if(isset($_POST['process'])){
 * Note: This is the script that should execute at your return URL, 
 * in case you choose to put it in a separate file.
 */
-if(isset($_GET['action']) && $_GET['action']=="verify"){
+if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] != "cancel"){
 	/*
 	* Include the Dope OpenID class file
 	*/
