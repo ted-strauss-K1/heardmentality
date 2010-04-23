@@ -301,7 +301,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			echo "\t<li><b>Language</b>: " . $userinfo['language'] . "</li>";
 			echo "\t<li><b>Email</b>: " . $userinfo['email'] . "</li>";
 			echo "</ul>";*/
-			$formret= '<form action="'.$path.'user/login?'. $redirect.' method="post" id="user-login">
+			$formret= '<form action="'.$path.'user?'. $redirect.' method="post" id="user-login">
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value="'.$uname.'" class="form-text required"/>
 			<input type="password" name="pass" id="edit-pass" value="'.$uname.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_build_id" id="form-0bb73f903dafa2bf7464d10802fda45b" value="form-0bb73f903dafa2bf7464d10802fda45b"/>
