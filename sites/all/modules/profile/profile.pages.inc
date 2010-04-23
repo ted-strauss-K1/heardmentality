@@ -90,11 +90,11 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 	}
 	if( ($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)
 	|| ($userSettings['facebook'] == 2  && $is_follow_follower == TRUE  )	){
-       $facebook1  =		'<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/facebook.png" align="absmiddle" alt="Facebook" >&nbsp; @'.$facebook;
+       $facebook1  =		'<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/facebook.png" align="absmiddle" alt="Facebook" >&nbsp; '.$facebook;
 	}
 	if( ($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3  && $user->uid !=0 ) || ($user->uid == $uid) || ($user->uid == 1)
 	|| ($userSettings['twitter'] == 2  && $is_follow_follower == TRUE  )	){
-       $twitter1  =   '<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/twitter.png" align="absmiddle" alt="Twitter" >&nbsp; @'.$twitter;
+       $twitter1  =   '<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/twitter.png" align="absmiddle" alt="Twitter" >&nbsp;'.$twitter;
 	}
 	//answers posted
 	$get_ans= db_query("select q.* from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where a.uid='".$uid."'");
