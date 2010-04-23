@@ -1401,7 +1401,17 @@ function user_authenticate_finalize(&$edit) {
 function user_login_submit($form, &$form_state) {
   global $user;
   if ($user->uid) {
+  
+   $numedit = db_result(db_query("SELECT COUNT(*) from {users} where uid='".$user->uid."' and profile_edit='1'"));
+   if($numedit==0)
+   {
     $form_state['redirect'] = 'profile/edit';
+   }
+   else
+   {
+    $form_state['redirect'] = 'profile';
+   
+   }
     return;
   }
 }
