@@ -120,7 +120,7 @@ if(isset($_POST['process'])){
 		* defined attributes may not be available. To see where these two types of
 		*  attributes intersect, see the following: http://www.axschema.org/types/
 		*/
-		$openid->setOptionalInfo(array('dob','nickname','country','language','email'));
+		$openid->setOptionalInfo(array('dob','nickname','country','language','email','timezone'));
 		
 		/*
 		* EDIT THIS LINE (OPTIONAL)
@@ -225,7 +225,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			
 			if($str_user) {
 				// Assumes you want to split the pipe-delimited string
-				list($user_id,$username,$nickname,$email,$dob,$country) = split("[|]",$str_user);
+				list($user_id,$username,$nickname,$email,$dob,$country,$timezone) = split("[|]",$str_user);
 				
 				// Assuming you want to store the user details in the session
 				$_SESSION['loggedin'] = TRUE;
