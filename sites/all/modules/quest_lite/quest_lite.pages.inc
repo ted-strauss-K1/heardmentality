@@ -683,7 +683,9 @@ function add_resources() {
 		 {
 		  if (flink.trim().length < 1) 
         err += \'<li>Please Enter  Fact Link !</li>\';
-		 
+		 if (!tomatch.test(flink))
+		 err += \'<li>Please Enter Link </li>\';		
+	
 		 }
 		 if (err.trim().length > 1) {
         var el = $(\'err\');
