@@ -304,7 +304,6 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			$formret= '<form action="'.$path.'user/login?http://192.9.200.10/heardmentality/profile" method="post" id="user-login">
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value="'.$uname.'" class="form-text required"/>
 			<input type="password" name="pass" id="edit-pass" value="'.$uname.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
-			<input type="hidden" name="form_build_id" id="form-0bb73f903dafa2bf7464d10802fda45b" value="form-0bb73f903dafa2bf7464d10802fda45b"/>
 			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
 			
 			</form>
