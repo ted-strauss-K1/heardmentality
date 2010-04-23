@@ -157,11 +157,7 @@ var OpenIdProviders = new Class({
                 label: \'Your Vidoop username\',
                 url: \'http://{username}.myvidoop.com/\'
             },
-            verisign: {
-                name: \'Verisign\',
-                label: \'Your Verisign username\',
-                url: \'http://{username}.pip.verisignlabs.com/\'
-            },
+           
             claimid: {
                 name: \'ClaimID\',
                 label: \'Your ClaimID username\',
