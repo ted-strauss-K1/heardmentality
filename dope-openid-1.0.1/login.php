@@ -286,11 +286,11 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			$select_user_count=mysql_num_rows(mysql_query("select * from users where mail='".$userinfo['email']."' and openid='".$_GET['openid_identity']."' "));
 			if($select_user_count==0)
 			{
-		/*	$insert="insert into users (name,pass,mail,language,openid,created,access,login,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','".time()."','".time()."','".time()."','1') ";
-			$insersult=mysql_query($insert);*/
+			$insert="insert into users (name,pass,mail,language,openid,created,access,login,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','".time()."','".time()."','".time()."','1') ";
+			$insersult=mysql_query($insert);
 			}
 			}
-				echo " (".$_GET['openid_identity'].")</p>";
+				/*echo " (".$_GET['openid_identity'].")</p>";
 			echo "\t<li><b>nickname yahoo</b>: " .  $_REQUEST['openid_ax_value_nickname'] . "</li>";
 			
 			echo "\t<li><b>yahoo email</b>: " .  $_REQUEST['openid_ax_value_email'] . "</li>";
@@ -299,9 +299,8 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			echo "\t<li><b>Nickname</b>: " . $userinfo['nickname'] . "</li>";
 			echo "\t<li><b>Language</b>: " . $userinfo['language'] . "</li>";
 			echo "\t<li><b>Email</b>: " . $userinfo['email'] . "</li>";
-			echo "\t<li><b>Email</b>: " . $userinfo['timezone'] . "</li>";
-			echo "</ul>";
-			/*$formret= '<form action="'.$path.'user" method="post" id="user-login">
+			echo "</ul>";*/
+			$formret= '<form action="'.$path.'user" method="post" id="user-login">
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value="'.$uname.'" class="form-text required"/>
 			<input type="password" name="pass" id="edit-pass" value="'.$uname.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_build_id" id="form-0bb73f903dafa2bf7464d10802fda45b" value="form-0bb73f903dafa2bf7464d10802fda45b"/>
@@ -313,7 +312,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			document.getElementById(\'user-login\').submit();
 			
 			
-			</script>*/
+			</script>
 			';
 			
 			?>
