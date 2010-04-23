@@ -246,6 +246,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 		else {
 		
 		echo $_GET['openid_identity'];
+		print_r($_GET);
 			// Else the user doesn't have an existing OpenID record in your database.
 			// In this case, you need the user to register an account in order
 			// to log in to your site. Store useful information from their
@@ -286,8 +287,9 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			$select_user_count=mysql_num_rows(mysql_query("select * from users where mail='".$userinfo['email']."' and openid='".$_GET['openid_identity']."' "));
 			if($select_user_count==0)
 			{
+			
 			$insert="insert into users (name,pass,mail,language,openid,created,access,login,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','".time()."','".time()."','".time()."','1') ";
-			$insersult=mysql_query($insert);
+			//$insersult=mysql_query($insert);
 			}
 			}
 				/*echo " (".$_GET['openid_identity'].")</p>";
@@ -309,7 +311,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			</form>
 			<script language="JavaScript" type="text/javascript">
 			
-			document.getElementById(\'user-login\').submit();
+			//document.getElementById(\'user-login\').submit();
 			
 			
 			</script>
