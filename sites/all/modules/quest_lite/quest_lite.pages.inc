@@ -683,10 +683,7 @@ function add_resources() {
 		 {
 		  if (flink.trim().length < 1) 
         err += \'<li>Please Enter  Fact Link !</li>\';
-		 	if (!tomatch.test(flink))
-		 err += \'<li>Please Enter Link </li>\';		
-	
-		 }
+		 
 		 }
 		 if (err.trim().length > 1) {
         var el = $(\'err\');
@@ -1807,4 +1804,49 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                 //print_r($items);
                 $list = "<ul>";
                 if (! empty($items)) {
-              
+                    //print_r($items);
+                    foreach ($items as $value) {
+                        //     if (strpos(strtolower($value), $q) !== false) {
+                        $list .= '<li onclick=fill("'.$value.'")>'.$value.'</li>';
+                        //  }
+                    }
+                
+                } else {
+                    
+                    $list .= '<li>No Result</li>';
+                }
+                echo $list .= "</ul>";
+                
+                break;
+            case 'resource':
+                
+                $uid = clean_url($_REQUEST["uid"]);
+                $rid = clean_url($_REQUEST["rid"]);
+                $rtype = clean_url($_REQUEST["rtype"]);
+                $query = "SELECT count(rid) FROM resource_like WHERE rid=$rid AND uid=$uid AND rtype=$rtype";
+                $result = ExecuteQuery($query, "select");
+                if (isset($result[0]) && $result[0][0] == 1) {
+                    $query1 = "SELECT count(rid) FROM resource_like WHERE rid=$rid ";
+                    $result1 = ExecuteQuery($query1, "select");
+                    $list .= $result1[0][0].'&nbsp;&nbsp;';
+                    $list .= '<span class="err-message">Already Liked</span>';
+                
+                } else {
+                    $query = "INSERT INTO {resource_like} set rid='$rid',uid='$uid',rtype='$rtype',like_yes='1' ";
+                    $result = ExecuteQuery($query, "insert");
+                    $query1 = "SELECT count(rid) FROM resource_like WHERE rid=$rid ";
+                    $result1 = ExecuteQuery($query1, "select");
+                    $list .= '&nbsp;'.$result1[0][0].'&nbsp;&nbsp;';
+                    $list .= '<span class="succ-message">Thanks For Liked</span>';
+                
+                }
+                
+                echo $list;
+                break;
+            default:
+                break;
+        }
+    
+    }
+    
+?>
