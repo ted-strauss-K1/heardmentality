@@ -244,7 +244,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			
 		}
 		else {
-		
+		print_r($_GET);
 		//echo $_GET['openid_identity'];
 			// Else the user doesn't have an existing OpenID record in your database.
 			// In this case, you need the user to register an account in order
@@ -286,8 +286,8 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			$select_user_count=mysql_num_rows(mysql_query("select * from users where mail='".$userinfo['email']."' and openid='".$_GET['openid_identity']."' "));
 			if($select_user_count==0)
 			{
-			$insert="insert into users (name,pass,mail,language,openid,created,access,login,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','".time()."','".time()."','".time()."','1') ";
-			$insersult=mysql_query($insert);
+		/*	$insert="insert into users (name,pass,mail,language,openid,created,access,login,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','".time()."','".time()."','".time()."','1') ";
+			$insersult=mysql_query($insert);*/
 			}
 			}
 			
@@ -301,7 +301,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			echo "\t<li><b>Language</b>: " . $userinfo['language'] . "</li>";
 			echo "\t<li><b>Email</b>: " . $userinfo['email'] . "</li>";
 			echo "</ul>";*/
-			$formret= '<form action="'.$path.'user/login?http://192.9.200.10/heardmentality/profile" method="post" id="user-login">
+			/*$formret= '<form action="'.$path.'user/login?http://192.9.200.10/heardmentality/profile" method="post" id="user-login">
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value="'.$uname.'" class="form-text required"/>
 			<input type="password" name="pass" id="edit-pass" value="'.$uname.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
@@ -313,7 +313,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			
 			
 			</script>
-			';
+			';*/
 			
 			?>
             
