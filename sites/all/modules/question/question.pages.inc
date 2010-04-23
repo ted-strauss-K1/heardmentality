@@ -177,7 +177,7 @@ window.addEvent(\'domready\', function(){
 							}
 							}	
 						
-						function get_state(code){
+							function get_state(code){
 						
 						var url = "'.$gSitePath.'question/ajax";
 									var req = new Request({    
@@ -189,11 +189,11 @@ window.addEvent(\'domready\', function(){
 													 $(\'chg_state\').set(\'html\', response);
 											}
 									}).send();
-						
-						
+							 $(\'chg_city\').set(\'html\', \'\');
+						 $(\'chg_city\').fade(\'out\');
 						}
 							function get_city(code){
-							
+							 $(\'chg_city\').fade(\'in\');
 							var url = "'.$gSitePath.'question/ajax";
 									var req = new Request({    
 											method: \'get\'
@@ -744,10 +744,10 @@ setDefaultCountry();
 											}
 									}).send();
 						
-						
+						 $(\'chg_city\').fade(\'out\');
 						}
 							function get_city(code){
-							
+							 $(\'chg_city\').fade(\'in\');
 							var url = "'.$gSitePath.'question/ajax";
 									var req = new Request({    
 											method: \'get\'
@@ -968,7 +968,7 @@ function question_ajax() {
                 $query = array('geonameid'=>$result->results[0][geonameid]);
                 $result = geonames_query('children', $query);
                 //print_r($result);
-                $ret = '<select tabindex="18"  style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> ';
+                $ret = '<select tabindex="18"  style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
                 foreach ($result->results as $state) {
                     
                     $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
@@ -982,7 +982,7 @@ function question_ajax() {
                 $query = array('geonameid'=>$code);
                 $result = geonames_query('children', $query);
                 //print_r($result);
-                $ret = '<select  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city"> ';
+                $ret = '<select  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city"> <option value="">--Cities--</option> ';
                 foreach ($result->results as $state) {
                     
                     $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
