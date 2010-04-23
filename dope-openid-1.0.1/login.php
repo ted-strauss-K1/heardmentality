@@ -181,7 +181,7 @@ if(isset($_POST['process'])){
 * Note: This is the script that should execute at your return URL, 
 * in case you choose to put it in a separate file.
 */
-if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] != "cancel"){
+if(isset($_GET['action']) && $_GET['action']=="verify"){
 	/*
 	* Include the Dope OpenID class file
 	*/
