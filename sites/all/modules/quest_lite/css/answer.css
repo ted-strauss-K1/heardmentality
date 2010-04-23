@@ -27,3 +27,7 @@
 .proj_menu li.activest a{ color:#fff; text-decoration:none;}
 .proj_menu li a{ font:normal 14px Arial, Helvetica, sans-serif; color:#098ED1; text-decoration:none;}
 
+.float_lft{ float:left; width:150px;}
+.clr{ clear:both;}
+*{ margin:0px; padding:0px;}
+.float_lft_file{ width:175px; float:left;}

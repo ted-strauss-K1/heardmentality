@@ -728,35 +728,37 @@ function add_resources() {
 	<span class="clr"><!-- spanner --></span>';
     $resources .= '<form id="myForm" name="myForm"  method="post" action="'.$gSitePath.'qlite/ajaxadd" enctype="multipart/form-data" ><input type="hidden" name="qaid" value="'.$qid.'"/>
 	
-	<br/><p> Type	</p><p> <select name="rtype" class="textfieldm" id="rtype" >
+	<br/><p class="float_lft"> Type	</p><p class="float_lft"> <select name="rtype" class="textfieldm" id="rtype" >
 	<option value="0">Select </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
 	<option value="3">Facts </option>
 	</select>  
 	</p>
+    <br class="clr"/>
 	<div id="div1">
-	<p> Link <input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
-
+	<p class="float_lft"> Link </p>
+    <p class="float_lft"><input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
+	<br class="clr"/>
 	</div>
 	
 	<div  id="div2">
-	<br/><p> Type </p><p><select name="mtype" class="textfieldm" id="mtype"   >
+	<br/><p class="float_lft"> Type </p><p class="float_lft"><select name="mtype" class="textfieldm" id="mtype"   >
 	<option value="0">Select </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
-	</select> </p>	</div>
+	</select> </p>	<br class="clr"/></div>
 	<div id="media"> 
-	<p>YouTube Link </p><p><input type="text"  name="membed" id="membed"  class="textfieldm" > </p> 
+	<p class="float_lft">YouTube Link </p><p class="float_lft"><input type="text"  name="membed" id="membed"  class="textfieldm" > </p> <br class="clr"/>
 	</div>
 	<div id="media_div">
-	<p> File <input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="62" height="26"  scrolling="no"></iframe></p> 
+	<p class="float_lft_file"> File </p><p class="float_lft"> <input type="hidden" name="docpath" id="docpath"/><iframe src="'.$gSitePath.'upload_document.php" width="100%" height="40"  frameborder="0" scrolling="no"></iframe></p><br class="clr"/> 
 	</div>
 	
 
 	
 	<div  id="div3">
-	<p> Link <input type="text" name="flink" id="flink" class="textfieldm"/> </p>
+	<p class="float_lft"> Link </p><p class="float_lft"><input type="text" name="flink" id="flink" class="textfieldm"/> </p><br class="clr"/>
 	</div>
 	<input type="submit" name="button" id="submitter"  value="Add Resource"  />
 	</form>';
