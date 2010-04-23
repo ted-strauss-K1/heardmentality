@@ -1401,7 +1401,7 @@ function user_authenticate_finalize(&$edit) {
 function user_login_submit($form, &$form_state) {
   global $user;
   if ($user->uid) {
-    $form_state['redirect'] = 'user/'. $user->uid;
+    $form_state['redirect'] = 'profile';
     return;
   }
 }
