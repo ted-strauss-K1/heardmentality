@@ -1,13 +1,3 @@
-/**
- * Simple OpenID Plugin
- *
- * @see         http://code.google.com/p/openid-selector/
- * @licence New BSD License <http://www.opensource.org/licenses/bsd-license.php>
- */
-
-/**
- * @class OpenIdProviders
- */
 var OpenIdProviders = new Class({
 
         all: {},
@@ -44,16 +34,7 @@ var OpenIdProviders = new Class({
                 label: 'Enter your Livejournal username.',
                 url: 'http://{username}.livejournal.com/'
             },
-          /*  flickr: {
-                name: 'Flickr',        
-                label: 'Enter your Flickr username.',
-                url: 'http://flickr.com/{username}/'
-            },
-            technorati: {
-                name: 'Technorati',
-                label: 'Enter your Technorati username.',
-                url: 'http://technorati.com/people/technorati/{username}/'
-            },*/
+         
             wordpress: {
                 name: 'Wordpress',
                 label: 'Enter your Wordpress.com username.',
@@ -64,21 +45,13 @@ var OpenIdProviders = new Class({
                 label: 'Your Blogger account',
                 url: 'http://{username}.blogspot.com/'
             },
-           /* verisign: {
-                name: 'Verisign',
-                label: 'Your Verisign username',
-                url: 'http://{username}.pip.verisignlabs.com/'
-            },*/
+          
             vidoop: {
                 name: 'Vidoop',
                 label: 'Your Vidoop username',
                 url: 'http://{username}.myvidoop.com/'
             },
-            verisign: {
-                name: 'Verisign',
-                label: 'Your Verisign username',
-                url: 'http://{username}.pip.verisignlabs.com/'
-            },
+           
             claimid: {
                 name: 'ClaimID',
                 label: 'Your ClaimID username',
@@ -91,27 +64,21 @@ var OpenIdProviders = new Class({
         }
 });
 
-/**
- * @class OpenIdSelector
- */
 var OpenIdSelector = new Class({
+							   
 
         cookie_expires: 6*30, // 6 months.
     cookie_name: 'openid_provider',
     cookie_path: '/',
 
-    img_path: 'http://192.9.200.10/heardmentality/dope-openid-1.0.1/images/',
+    img_path: 'http://localhost/heardmentality/sites/all/modules/openids/images/',
 
     input_id: null,
     provider_url: null,
 
     providers: null,
 
-    /**
-     * Class constructor
-     *
-     * @return {Void}
-     */
+   
     initialize: function(input_id) {
 
         var openid_btns = $('openid_btns');
@@ -121,8 +88,7 @@ var OpenIdSelector = new Class({
 
         $('openid_choice').setStyle('display', 'block');
         $('openid_input_area').empty();
-
-        // add box for each provider
+      
         for (id in this.providers.large) {
                 box = this.getBoxHTML(this.providers.large[id], 'large', '.gif');
                 box.inject(openid_btns);
@@ -131,7 +97,7 @@ var OpenIdSelector = new Class({
         if (this.providers.small) {
             openid_btns.grab(new Element('br'));
             for (id in this.providers.small) {
-                box = this.getBoxHTML(this.providers.small[id], 'small', '.ico');
+                box = this.getBoxHTML(this.providers.small[id], 'small', '.jpg');
                 box.inject(openid_btns);
             }
         }
@@ -142,10 +108,7 @@ var OpenIdSelector = new Class({
         if (box_id !== null) this.signin(box_id, true);
     },
 
-    /**
-     * @return {Element}
-     */
-    getBoxHTML: function(provider, box_size, image_ext){
+       getBoxHTML: function(provider, box_size, image_ext){
         var box_id = provider.name.toLowerCase();
         var openid = this;
         return  new Element('a', {
@@ -158,15 +121,11 @@ var OpenIdSelector = new Class({
             },
             'events': {
                 'click': openid.signin.pass(box_id, openid)
+				
+			   
             }
         });
     },
-   
-    /**
-     * Provider image click
-     *
-     * @return {Void}
-     */
     signin: function(box_id, onload){
 
         var provider = this.providers.all[box_id];
@@ -179,8 +138,7 @@ var OpenIdSelector = new Class({
             path: this.cookie_path
         });
        
-        // prompt user for input?
-        if (provider.label) {
+               if (provider.label) {
             this.useInputBox(provider);
             this.provider_url = provider.url;
         }
@@ -190,13 +148,7 @@ var OpenIdSelector = new Class({
             if (!onload) $('openid_form').submit();
         }
     },
-   
-    /**
-     * Sign-in button click
-     *
-     * @return {Boolean}
-     */
-    submit: function(){
+       submit: function(){
         var url = this.provider_url;
         if (url) {
             url = url.substitute({ 'username': $('openid_username').get('value') });
@@ -205,10 +157,6 @@ var OpenIdSelector = new Class({
         return true;
     },
 
-
-    /**
-     * @return {Void}
-     */
     setOpenIdUrl: function(url){
 
         var hidden = $(this.input_id);
@@ -225,22 +173,15 @@ var OpenIdSelector = new Class({
                 }));
         }
     },
-
-    /**
-     * @return {Void}
-     */
-    highlight: function(box_id){
-        // remove previous highlight.
+        highlight: function(box_id){
+        
         var highlight = $('openid_highlight');
         if (highlight)
             $('openid_highlight').getFirst('a').replaces(highlight);
-        // add new highlight.
+      
         new Element('div', { 'id': 'openid_highlight' }).wraps($$('.' + box_id)[0]);
     },
 
-    /**
-     * @return {Void}
-     */
     useInputBox: function(provider){
 
         var input_area = $('openid_input_area');
@@ -268,4 +209,3 @@ var OpenIdSelector = new Class({
         $(id).focus();
     }
 });
-

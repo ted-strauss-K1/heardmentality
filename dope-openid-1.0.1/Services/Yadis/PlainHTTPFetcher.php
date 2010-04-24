@@ -17,7 +17,7 @@
 /**
  * Interface import; need to inherit from the base HTTP fetcher class.
  */
-require_once "Services/Yadis/HTTPFetcher.php";
+require_once "openlogin/Services/Yadis/HTTPFetcher.php";
 
 /**
  * This class implements a plain, hand-built socket-based fetcher

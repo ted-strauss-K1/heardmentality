@@ -109,7 +109,7 @@ var openid = {
         	
 	        for (id in providers_small) {
 	        
-	           	openid_btns.append(this.getBoxHTML(providers_small[id], 'small', '.ico'));
+	           	openid_btns.append(this.getBoxHTML(providers_small[id], 'small', '.jpg'));
 	        }
         }
         
