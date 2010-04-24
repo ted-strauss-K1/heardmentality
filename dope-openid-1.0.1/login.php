@@ -288,7 +288,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			if($select_user_count==0)
 			{
 			$insert="insert into users (name,pass,mail,language,openid,created,access,login,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','".time()."','".time()."','".time()."','1') ";
-			$insersult=db_query($insert);
+			$insersult=mysql_query($insert);
 			}
 			}
 			
