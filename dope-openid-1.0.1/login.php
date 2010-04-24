@@ -1,4 +1,5 @@
 <?php
+include("connect.php");
 $path='http://192.9.200.10/heardmentality/';
 
   $con = mysql_connect("localhost","root","oPenWave#1220");
@@ -287,7 +288,7 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			if($select_user_count==0)
 			{
 			$insert="insert into users (name,pass,mail,language,openid,created,access,login,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','".time()."','".time()."','".time()."','1') ";
-			$insersult=mysql_query($insert);
+			$insersult=db_query($insert);
 			}
 			}
 			
