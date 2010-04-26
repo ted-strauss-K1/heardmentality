@@ -204,7 +204,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 					'.$zip1.'<br/>	
 			</div>
 			</div>	
-			<div class="clear">&nbsp; </div>	<div class="clear">&nbsp; </div>
+			<!--<div class="clear">&nbsp; </div>-->	<div class="clear">&nbsp; </div>
 <hr align="center" size="1"  style="width:96%"  noshade="noshade" />
 				<div class="lft bio">
 					
@@ -255,7 +255,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 				
 			</div>
 			
-			<div class="clear">'. $answer1.	$question1.'
+			<div class="">'. $answer1.	$question1.'
 			</div>'. $updownvote_display.'
 			
 			
