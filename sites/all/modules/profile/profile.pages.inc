@@ -357,7 +357,9 @@ function profile_edit() {
     drupal_add_js(drupal_get_path('module', 'profile').'/js/en.js');
     drupal_add_js(drupal_get_path('module', 'profile').'/js/formcheck.js');
     drupal_add_css(drupal_get_path('module', 'profile').'/theme/classic/formcheck.css');
-    $result = geonames_query('countryinfo');
+    //geoname
+     $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
+    $result = geonames_query('countryinfo',NULL,$options);
     foreach ($result->results as $countries) {
     	$select='';
     	if($country== $countries['countrycode'])
