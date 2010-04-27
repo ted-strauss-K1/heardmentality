@@ -1,8 +1,11 @@
 <?php
-include("connect.php");
+/*include("../connect.php");*/
 $path='http://192.9.200.10/heardmentality/';
 
-  $con = mysql_connect("localhost","root","oPenWave#1220");
+ /* $con = mysql_connect("localhost","root","oPenWave#1220");
+  mysql_select_db("heardmentality", $con);*/
+  
+  $con = mysql_connect("localhost","root","");
   mysql_select_db("heardmentality", $con);
   if($_GET['openid_mode']=='cancel')
   {
