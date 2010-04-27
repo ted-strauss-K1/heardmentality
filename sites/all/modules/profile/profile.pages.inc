@@ -389,14 +389,14 @@ function profile_edit() {
             	<label for="edit-mail">E-mail address: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="64" name="mail" id="edit-mail" size="60"  disabled="disabled"  value="'.$user->mail.'"  class="form-text required" type="text"> 
                 <div class="description">A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail.</div>
            </div>
-		<div class="form-item" id="edit-pass-wrapper"> 
+		<!-- <div class="form-item" id="edit-pass-wrapper">
         	<div class="form-item" id="edit-pass-pass1-wrapper"> 
             	<label for="edit-pass-pass1">Password: </label> <input name="pass1" id="edit-pass-pass1" maxlength="128" size="25" class="form-text password-field validate[\'required\']" type="password">
             </div>
 			<div class="form-item" id="edit-pass-pass2-wrapper"> <label for="edit-pass-pass2">Confirm password: </label> <input name="pass2" id="edit-pass-pass2" maxlength="128" size="25" class="form-text password-confirm validate[\'required\',\'confirm[password]\']" type="password"></div> 
             <div class="description">To change the current user password, enter the new password in both fields.</div>
        </div>
-	<!--   <div class="form-item"> <label>Status: </label> 
+	  <div class="form-item"> <label>Status: </label>
              <div class="form-radios">
                  <div class="form-item" id="edit-status-0-wrapper"> <label class="option" for="edit-status-0"><input id="edit-status-0" name="status" value="0"  class="form-radio validate[\'required\']" type="radio"> Blocked</label></div>
 		         <div class="form-item" id="edit-status-1-wrapper"> <label class="option" for="edit-status-1"><input id="edit-status-1" name="status" value="1"  class="form-radio" type="radio"> Active</label></div>
