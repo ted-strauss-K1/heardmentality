@@ -1446,7 +1446,7 @@ function qlite_map() {
     $desc = '';
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
-    $marker = array('blue', 'green', 'red');
+    $marker = array('blue', 'green', 'red','black','brown',' purple','yellow','gray','orange','white');
     
     $vans = "select * from {possible_answer} where  qid=$qid ";
     $vlist = ExecuteQuery($vans, "select");
@@ -1466,14 +1466,22 @@ function qlite_map() {
         $pcnt_ans = count($getresult);
         
         $inc_script .= '
-	  var blueIcon = new GIcon(G_DEFAULT_ICON);
-	  blueIcon.image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png";
-
+	 // var blueIcon = new GIcon(G_DEFAULT_ICON);
+	 // blueIcon.image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png";
+	  var iconRed = new GIcon(); 
+  iconRed.image = "http://labs.google.com/ridefinder/images/mm_20_'.$marker[$i].'.png";
+    iconRed.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
+    iconRed.iconSize = new GSize(12, 20);
+    iconRed.shadowSize = new GSize(22, 20);
+    iconRed.iconAnchor = new GPoint(6, 20);
+    iconRed.infoWindowAnchor = new GPoint(5, 1);
+  
 // Set up our GMarkerOptions object
-markerOptions = { icon:blueIcon };';
+markerOptions = { icon:iconRed };';
         
-        $desc .= '<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png" border="0" alt=""/> &nbsp; '.$vlist[$i]['answer'].'<br/>';
-        
+       // $desc .= '<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png" border="0" alt=""/> &nbsp; '.$vlist[$i]['answer'].'<br/>';
+        $desc .= '<img src="http://labs.google.com/ridefinder/images/mm_20_'.$marker[$i].'.png" border="0" alt=""/> &nbsp; '.$vlist[$i]['answer'].'<br/>';
+	
         $mlat = '';
         $mlong = '';
         
