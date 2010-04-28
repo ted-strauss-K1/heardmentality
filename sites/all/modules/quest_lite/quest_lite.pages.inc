@@ -1340,7 +1340,7 @@ function qlite_percent() {
     $cnt_ans = count($vlist);
     $script = " 			
 			<script type='text/javascript' src='http://www.google.com/jsapi'></script>
-
+		<link rel='stylesheet' href='".$gSitePath.drupal_get_path('theme','heardmentality')."/css/content.css' type='text/css' />
 			 <script type='text/javascript'> google.load(\"visualization\", \"1\", {packages:[\"barchart\"]});
 			google.setOnLoadCallback(drawChart);
 			function drawChart() {
@@ -1385,7 +1385,7 @@ function qlite_graph() {
     
     $script .= " 
 <script src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/jsapi.js' type='text/javascript' ></script>
-			
+				<link rel='stylesheet' href='".$gSitePath.drupal_get_path('theme','heardmentality')."/css/content.css' type='text/css' />	
 			 <script type='text/javascript'>
 google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
       google.setOnLoadCallback(drawAnnot);
@@ -1490,6 +1490,7 @@ markerOptions = { icon:iconRed };';
 
         
         if (is_array($getresult)) {
+        	$zcnt=0;
             foreach ($getresult as $for_zip_user) {
                 $uzip = '';
                 $uzip = $for_zip_user->zip;
@@ -1498,28 +1499,29 @@ markerOptions = { icon:iconRed };';
 			   if(!empty($uzip)){
 			   	$list=array();
                 $list = qlite_get_zip($uzip, $cntcode);
-				
-				if(!empty($list->results[0][lat])&&!empty($list->results[0][long])){
+			
+			if($list->results[0][countrycode]!=''){
+					$zcnt++;
 				 $mlat .= "'".$list->results[0][lat]."',";	
                              
                 $mlong .= "'".$list->results[0][lng]."',";
-			 }
+			
                 //   $mlat .= "'".rand('30.232','72.03')."',";
                 //  $mlong .= "'".rand('56.232','103.03')."',";
                 //print_r($array);
             }
             }
         }
-        
+		}
         $mlat = rtrim($mlat, ',');
         $mlong = rtrim($mlong, ',');
         $mlat .= "]";
         $mlong .= "]";
         if (strlen($uzip) > 3) {
-            $inc_script .= "if(".$pcnt_ans.">0){
+            $inc_script .= "if(".$zcnt.">0){
 					var lat=".$mlat.";
 				var lng=".$mlong.";
-		        for (var i = 0; i <".$pcnt_ans."; i++) {
+		        for (var i = 0; i <".$zcnt."; i++) {
 		        	
 		            var latlng = new GLatLng(lat[i],lng[i]);
 		           map.addOverlay(new GMarker(latlng, markerOptions));
@@ -1530,6 +1532,7 @@ markerOptions = { icon:iconRed };';
 
     
     echo $script .= " 
+		<link rel='stylesheet' href='".$gSitePath.drupal_get_path('theme','heardmentality')."/css/content.css' type='text/css' />
 				<script src='http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAk7qgEva0Ioa4Suru5Tb5eBQFLOarkQUzCA92TG3xPimqxCbarBQTnRVvbdF68v6R547r-Sy34P_yWA' type='text/javascript'></script>
 				<script type='text/javascript' >
 				 function initialize() {
