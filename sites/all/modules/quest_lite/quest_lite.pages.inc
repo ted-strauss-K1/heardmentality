@@ -1092,7 +1092,7 @@ function flag_report() {
                 db_query($flagquery);
                 increasepoints('4', $_REQUEST['qaid'], '0');
                 echo '<div class="messages success">You Have Flagged successfully ! </div>';
-            
+
             } else {
                 echo '<div class="messages error">You Have Already Flagged !</div>';
             }
@@ -1486,7 +1486,8 @@ markerOptions = { icon:blueIcon };';
                 $uzip = '';
                 $uzip = $for_zip_user->zip;
                 // $code = rand(600001, 600028);
-                $cntcode = 'IN';
+               $cntcode = '';
+			   if(!empty($uzip)){
                 $list = qlite_get_zip($uzip, $cntcode);
 
                 
@@ -1495,7 +1496,7 @@ markerOptions = { icon:blueIcon };';
                 //   $mlat .= "'".rand('30.232','72.03')."',";
                 //  $mlong .= "'".rand('56.232','103.03')."',";
                 //print_r($array);
-            
+            }
             }
         }
         
