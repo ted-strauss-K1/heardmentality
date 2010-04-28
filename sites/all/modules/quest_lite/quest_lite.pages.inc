@@ -1496,11 +1496,14 @@ markerOptions = { icon:iconRed };';
                 // $code = rand(600001, 600028);
                $cntcode = '';
 			   if(!empty($uzip)){
+			   	$list=array();
                 $list = qlite_get_zip($uzip, $cntcode);
-
-                
-                $mlat .= "'".$list->results[0][lat]."',";
+				
+				if(!empty($list->results[0][lat])&&!empty($list->results[0][long])){
+				 $mlat .= "'".$list->results[0][lat]."',";	
+                             
                 $mlong .= "'".$list->results[0][lng]."',";
+			 }
                 //   $mlat .= "'".rand('30.232','72.03')."',";
                 //  $mlong .= "'".rand('56.232','103.03')."',";
                 //print_r($array);
