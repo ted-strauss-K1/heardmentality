@@ -154,7 +154,7 @@ var login_params=
 {
 	useHTML: 'true'
 	,showTermsLink: 'false'
-	,height: 92
+	,height: 50
 	,width: 150
 	,containerID: 'componentDiv'
 	,useFacebookConnect: 'true'
