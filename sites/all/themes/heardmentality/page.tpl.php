@@ -111,7 +111,7 @@
 //echo "<br>";
 //echo '21232f297a57a5a743894a0e4a801fc3';
 global $user;
-
+//echo strtotime('1270549824');
 //echo $user->uid;
 ?>
 <div id="desktop">
@@ -129,12 +129,38 @@ global $user;
 
 			  ?>
                 <ul class="menu-right">
-                	<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Guest</a>.</li>
-                   <!-- <li><a href="<?php echo $gSitePath?>member/login"  rel="width:850,height:570" class="advanced7">Sign In</a></li>-->
+                	<!--<li>Welcome <a href="javascript:void(0)" onclick="MochaUI.notification('Do Something');return false;">Guest</a>.</li>
+                    <li><a href="<?php echo $gSitePath?>member/login"  rel="width:850,height:570" class="advanced7">Sign In</a></li>-->
                     
-                      <li><a onclick="loadlogin('<?php echo $gSitePath?>member/index','Login');">Sign In</a></li>
+                      <!-- <li><a onclick="loadlogin('<?php echo $gSitePath?>member/index','Login');">Sign In</a></li>
+                      <?php //include("".$gSitePath."dope-openid-1.0.1/login.php");?>
+                      <li><a href="<?php echo $gSitePath?>openids/new">Sign In</a></li>-->
                       
-                      <!-- <li><a href="<?php echo $gSitePath?>openids/new">Sign In</a></li>-->
+                      <script type="text/javascript" src="http://cdns.gigya.com/js/socialize.js?apiKey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j"></script>
+<script type="text/javascript">
+var conf=
+{
+	APIKey: '2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j'
+}
+</script>
+<body>
+<script type="text/javascript">
+var login_params=
+{
+	useHTML: 'true'
+	,showTermsLink: 'false'
+	,height: 52
+	,width: 150
+	,containerID: 'componentDiv'
+	,useFacebookConnect: 'true'
+	, redirectURL:'<?php echo $gSitePath?>member/index'  
+}
+</script>
+<div id="componentDiv"></div>
+<script type="text/javascript">
+   gigya.services.socialize.showLoginUI(conf,login_params);
+</script>
+
                 </ul>			  
 			  <?php
 			 else:
