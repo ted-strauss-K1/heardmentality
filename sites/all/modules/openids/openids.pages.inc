@@ -4,6 +4,8 @@ function openid_login()
  global $gSitePath,$user,$gDocPath,$base_root;
 
 
+$shwrpx=$_REQUEST['msg'];
+
 
 /*echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -67,10 +69,10 @@ function openid_login()
 </html>';*/
 
 
-echo $showop='<iframe src="'.$gSitePath.'dope-openid-1.0.1/login.php" width="800" height="900"  scrolling="no"></iframe>';
+//echo $showop='<iframe src="'.$gSitePath.'dope-openid-1.0.1/login.php" width="800" height="900"  scrolling="no"></iframe>';
 
 
-
+return $shwrpx;
 
 
 }
@@ -81,10 +83,10 @@ echo $showop='<iframe src="'.$gSitePath.'dope-openid-1.0.1/login.php" width="800
 function openid_login2()
 {
  global $gSitePath,$user,$gDocPath,$base_root;
-
-
-
-$showops= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ $showops=print_r($_GET);
+$showops.=print_r($_POST);
+//$showops='kkkkkkkkkkk';
+/*$showops= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<title>Dope OpenID Demo: Log In</title>
 	<meta http-equiv="content-type" content="text/html;charset=ANSI" />
@@ -333,7 +335,9 @@ var OpenIdSelector = new Class({
 <body>
 
 	<!--<form name="openid_form" id="openid_form" action="'.$gSitePath.'openids/save" method="get" autocomplete="off">-->
-		<form name="openid_form" id="openid_form" action="'.$gSitePath.'dope-openid-1.0.1/login.php" method="post" autocomplete="off">
+<!--		<form name="openid_form" id="openid_form" action="'.$gSitePath.'dope-openid-1.0.1/login.php" method="post" autocomplete="off">-->
+		
+		<form name="openid_form" id="openid_form" action="'.$gSitePath.'login.php" method="post" autocomplete="off">
 		<label>
 			OpenID URL: <input type="text" name="openid_identifier" id="openid_identifier" maxlength="320" />
 		</label>
@@ -362,15 +366,15 @@ var OpenIdSelector = new Class({
 	
 
 </body>
-</html>';
-echo $showops;
+</html>';*/
+//echo $showops;
 
 
 
 
 
 
-
+return $showops;
 
 
 
