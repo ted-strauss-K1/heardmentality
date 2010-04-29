@@ -136,30 +136,35 @@ global $user;
                       <?php //include("".$gSitePath."dope-openid-1.0.1/login.php");?>
                       <li><a href="<?php echo $gSitePath?>openids/new">Sign In</a></li>-->
                       
-                      <script type="text/javascript" src="http://cdns.gigya.com/js/socialize.js?apiKey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j"></script>
+                   <!-- socialize.js script should only be included once -->
+<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8"></script>
 <script type="text/javascript">
 var conf=
 {
-	APIKey: '2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j'
+	APIKey: '2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8'
+	,enabledProviders: 'facebook,twitter,myspace,yahoo,google,linkedin,liveid,aol'
 }
 </script>
-<body>
+
+
 <script type="text/javascript">
 var login_params=
 {
 	useHTML: 'true'
 	,showTermsLink: 'false'
-	,height: 52
+	,height: 92
 	,width: 150
 	,containerID: 'componentDiv'
 	,useFacebookConnect: 'true'
-	, redirectURL:'<?php echo $gSitePath?>member/index'  
 }
 </script>
 <div id="componentDiv"></div>
 <script type="text/javascript">
    gigya.services.socialize.showLoginUI(conf,login_params);
 </script>
+
+
+
 
                 </ul>			  
 			  <?php
