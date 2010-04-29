@@ -4,7 +4,8 @@ function qlite_view() {
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
-    // drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
+	  drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/wave.css');
+ drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/wave.js');
     
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
@@ -945,6 +946,17 @@ function panel_content() {
     $fetuserlist = db_fetch_object($query_userinfo);
     switch ($type) {
         case "Forum":
+			
+				
+					if(isset($_POST['wtitle'])){
+						
+						  $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+						  extract($_POST);
+							 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$qid',type='1',uid='$user->uid',title='$wtitle',private='$wprivate' ");	
+							echo list_wave($qid);						
+						exit;
+					}
+						
             $output = forum_wave($qid);
             break;
         case "Resources":
@@ -1037,18 +1049,48 @@ function forum_wave($qid = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $wave = '';
-    $wave .= '<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
-    $query = "select *,DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') as date_added from {forum_wave} where qid_rid='$qid' ";
-    $cnt = ExecuteQuery($query, "select");
+    $wave .= '
+	
+	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
+ 
     //print_r($cnt);
     $wave .= '<div class="">
 		<div class="qwavebut">
-		<input type="button" onclick="newwave(\''.$gSitePath.'question/forum/'.$qid.'?action=new\',\'New Wave\')" value="New Wave" class="waveButtonMain"/>
+	<!--	<input type="button" onclick="newwave(\''.$gSitePath.'question/forum/'.$qid.'?action=new\',\'New Wave\')" value="New Wave" class="waveButtonMain"/> -->
+	<input type="button" id="newwavebut" value="New Wave" onclick="toggle();" class="waveButtonMain"/>
 		</div>
 		<div id="qwave" class="">
 		
 		';
-    foreach ($cnt as $forum) {
+ $wave.=list_wave($qid);
+    $wave .= '</div>
+	<div class="comment" id="newwavediv" style="visibility:hidden;">
+	<div align="right"><a href="javascript:void(0);" onclick="$(\'newwavediv\').fade(\'out\');">Close</a></div>
+	<form  id="newwaveform" class="newwave" action="'.url($_GET['q'], array('absolute'=>true)).'?type=Forum" method="post" accept-charset="utf-8">
+	<div ><b>Post New Wave</b></div>
+	<p><textarea row="7" class="textArea" cols="55" name="wtitle" id="wtitle" ></textarea></p>	
+	<div ><b>Private Reply :</b> [Only followers can do reply]</div>
+	<p><select name="wprivate" id="wprivate">
+	<option value="0"> Disabled</option>
+	<option value="1"> Enabled  </option>
+	</select></p>					
+	<p><input type="button" class="waveButtonMain" onclick="wave_form();" value="Post" /></p>
+</form>
+	</div>
+	<div>';
+    
+    return $wave;
+
+
+}
+
+function list_wave($qid=''){
+	
+	$wave='';	
+	   $query = "select *,DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') as date_added from {forum_wave} where qid_rid='$qid' ";
+    $cnt = ExecuteQuery($query, "select");
+	
+	   foreach ($cnt as $forum) {
         
         $wave .= '
 	<div class="comment">
@@ -1062,7 +1104,7 @@ function forum_wave($qid = '') {
 			10 post
 		</div>
 		<div class="div4">
-			'.$forum['title'].'
+			<a href="javascript:void(0);" onclick="loadwave('.$qid.','.$forum['fid'].')"> '.myTruncate($forum['title'],'25','','..').'</a>
 		</div>
 		<div class="div5">
 			'.$forum['date_added'].'
@@ -1072,14 +1114,18 @@ function forum_wave($qid = '') {
 	
 	
 	';
-    
+   
     }
-    $wave .= '</div><div>';
-    
-    return $wave;
-
-
+		
+ return $wave;		
+		
+	
+	
 }
+
+
+
+
 function flag_report() {
     global $gSitePath,$user,$gDocPath,$base_root;
     

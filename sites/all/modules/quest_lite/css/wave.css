@@ -1,6 +1,5 @@
 
-
-h1{
+.qwave h1{
 	/* The title of the page */
 	color:white;
 	font-family:"MyRiad Pro",Arial,Helvetica,sans-serif;
@@ -8,7 +7,7 @@ h1{
 	font-weight:normal;
 }
 
-h2{
+.qwave h2{
 	/* The subtitle */
 	font-family:"MyRiad Pro","Arial Narrow",Arial,Helvetica,sans-serif;
 	font-size:16px;
@@ -98,6 +97,26 @@ h2{
 	display:block;
 	margin:10px 20px;
 }
+#wtitle{
+	padding:4px !important;
+	height:60px !important;
+	font-family:Arial,Helvetica,Sans-serif;
+	font-size:12px !important;
+	color:#666666;
+	border:1px solid #66aff9 !important;
+	margin-bottom:10px;
+	width:250px !important;
+}
+#wtitlerror{
+	padding:4px !important;
+	height:60px !important;
+	font-family:Arial,Helvetica,Sans-serif;
+	font-size:12px !important;
+	color:#EF2C2C;
+	border:1px solid #EF2C2C !important;
+	margin-bottom:10px;
+	width:250px !important;
+}
 
 .textArea{
 	padding:4px;
@@ -172,31 +191,21 @@ div.ui-widget-content{
 	overflow:hidden;
 }
 
-.comment .div1{
-	float:left;
-	width:10%; text-align:center;
-	overflow:hidden;
+.newwave input,label,div,textarea,p{
+	
+	color:#666666; 
 }
-.comment .div2{
-	float:left;
-	width:10%; text-align:center;
-	overflow:hidden;
+
+.newwave select{
+	color:#666666; 
+	 font-size:x-small; 
 }
-.comment .div3{
-	float:left;
-	width:10%; text-align:center;
-	overflow:hidden;
+
+.newwave textarea{
+	width:250px;
 }
-.comment .div4{
-	float:left;
-	width:50%; text-align:center;
-	overflow:hidden;
-}
-.comment .div5{
-	float:right;
-	width:20%; text-align:center;
-	overflow:hidden;
-}
+
+
 span.name{
 	font-weight:bold;
 	color:#999999;
@@ -210,7 +219,6 @@ span.name{
 }
 
 
-
 .waveComment a,
 .waveComment a:visited{
 	color:#0390c3;
@@ -218,8 +226,50 @@ span.name{
 	font-size:10px;	
 }
 
-
 .tutorial-info{
 	text-align:center;
 	padding:10px;
 }
+
+.div1{
+	
+	float:left;
+	width:10%;
+	overflow:hidden;
+		
+}
+
+.div2{
+	
+	float:left;
+	width:10%;
+	overflow:hidden;
+		
+}
+.div3{
+	
+	float:left;
+	width:10%;
+	overflow:hidden;
+		
+}
+
+.div4{
+	
+	float:left;
+	width:50%;
+	overflow:hidden;
+		
+}
+.div5{
+	
+	float:right;
+	width:20%;
+	overflow:hidden;
+		
+}
+
+#wrapper { position: relative; }
+#firstDiv { position: absolute; height: 100px; top: 110px; }
+#secondDiv { position: absolute; height: 100px; top: 0; }
+
