@@ -106,7 +106,9 @@
 
 </head>
 <body>
+
 <?php
+
 //echo md5('admin');
 //echo "<br>";
 //echo '21232f297a57a5a743894a0e4a801fc3';
@@ -515,27 +517,34 @@ window.addEvent('domready', function(){
 	
 	
 	
-MochaUI.addnewWindow = function(url,title){
+MochaUI.loadwaveWindow = function(qid,wid){
 			new MochaUI.Window({
 			id: 'ajaxpage',
-			title: 'Forum '+title,
+			title: 'Forum Wavelets',
 			loadMethod: 'xhr',
-			contentURL: url,
+			contentURL: 'question/forum/?qid='+qid+'&wid='+wid,
 			type: 'modal',
-			width: 415,
-			height: 355,
+			width: 450,
+			height:500,
 			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
-			contentBgColor: '#FFF'
+			contentBgColor: '#FFF',
+			onClose:function(){
+			
+				
+
+			}
 		});
 	}
 	
 		//subtab()
 });
 
-function newwave(url,title)
+
+
+function loadwave(qid,wid)
 {
 MochaUI.closeAll();
-MochaUI.addnewWindow(url,title);
+MochaUI.loadwaveWindow(qid,wid);
 
 	
 }
