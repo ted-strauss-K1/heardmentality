@@ -144,7 +144,7 @@ global $user;
 var conf=
 {
 	APIKey: '2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8'
-	,enabledProviders: 'facebook,twitter,myspace,yahoo,google,linkedin,liveid,aol'
+	
 }
 </script>
 
