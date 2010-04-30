@@ -85,8 +85,8 @@ function openid_login2()
  global $gSitePath,$user,$gDocPath,$base_root;
  $showops=print_r($_GET);
 $showops.=print_r($_POST);
-//$showops='kkkkkkkkkkk';
-/*$showops= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+$showops= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<title>Dope OpenID Demo: Log In</title>
 	<meta http-equiv="content-type" content="text/html;charset=ANSI" />
@@ -366,15 +366,15 @@ var OpenIdSelector = new Class({
 	
 
 </body>
-</html>';*/
-//echo $showops;
+</html>';
+echo $showops;
 
 
 
 
 
 
-return $showops;
+//return $showops;
 
 
 
@@ -382,195 +382,61 @@ return $showops;
 }
 function openid_login_save()
 {
-//echo $_REQUEST['action'];
-session_start();
+global $gSitePath,$user,$gDocPath,$base_root;
+$formret=print_r($_GET);
 
-require 'functions.php';
-ini_set('display_errors',1);
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-
-
-	
-header('X-XRDS-Location:http://localhost/heardmentality/dope-openid-1.0.1/yadis.xrdf');
-
-if (isset($_GET['openid_mode'])) {
-	
-    if(!isset($_SESSION['loggedin'],$_SESSION['username']) || $_SESSION['username'] == ''){
-        header("Location:http://localhost/heardmentality/openids/save");
-      
-    }    
+if($_GET['gender']=='m')
+$gender='1';
+else
+$gender='2';
+$pass=$_GET['UID'];
+$dob=$_GET['birthDay']."/".$_GET['birthMonth']."/".$_GET['birthYear'];
+if($_GET['provider']=='facebook')
+{
+$prolink=$_GET['profileURL'];
+$prolink2='';
 }
+elseif($_GET['provider']=='twitter')
+{
+$prolink='';
+$prolink2=$_GET['profileURL'];
+
 }
+else
+{
 
+$prolink='';
+$prolink2='';
+}
+//echo "SELECT COUNT(*) from users where name='".$_GET['UID']."' and provider='".$_GET['provider']."'";
 
+$uname=substr($_GET['provider'].$_GET['UID'],0,25);
+$select_user_count = db_result(db_query("SELECT COUNT(*) from users where name='".$uname."' and provider='".$_GET['provider']."'"));
 
-
-if(isset($_POST['process'])){
-	
-	require 'class.dopeopenid.php';
-	
-	
-	$openid_url = trim($_POST['openid_identifier']);
-	
-	
-	if(function_exists('filter_input')) {
-		if( ! filter_input(INPUT_POST, "openid_identifier", FILTER_VALIDATE_URL)) {
-			$formret = "Error: OpenID Identifier is not in proper format.";
-		}
-	}
-	else 
+if($select_user_count==0)
+{
+	echo $insert="insert into users (name,pass,mail,provider,created,access,login,status)values('".$uname."','".md5($pass)."','".$_GET['email']."','".$_GET['provider']."','".time()."','".time()."','".time()."','1') ";
+	$insersult=db_query($insert);
+	echo $lid=mysql_insert_id();
+	if($_GET['email']=='')
 	{
-		
-		if( ! eregi("^((https?)://)?(((www\.)?[^ ]+\.[com|org|net|edu|gov|us]))([^ ]+)?$",$openid_url)) {
-			$formret = "Error: OpenID Identifier is not in proper format.";
-		}
+	$lnk=$lid.'@heardmentality.com';
+	echo $updates="update users set mail='$lnk' where uid=$lid";
+	$up=db_query($updates);
 	}
+	$insert_profile="insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$_GET['firstName']."' ,'".$_GET['lastName']."' ,'".$gender."','".$_GET['zip']."','".$_GET['country']."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
 	
-	// Proceed if we made it through without setting $error
-	if ( ! isset($error)) {
+	$insersult=db_query($insert_profile);
 	
-		$_SESSION['openid_url'] = $openid_url;
-
-		$openid = new Dope_OpenID($openid_url);
-		
-		//$openid->setReturnURL("http://192.9.200.10/heardmentality/dope-openid-1.0.1/login.php?action=verify");
-	$openid->setReturnURL("http://localhost/heardmentality/openids/save?action=verify");
-		
-		//$openid->SetTrustRoot('http://192.9.200.10/heardmentality/');
-		$openid->SetTrustRoot('http://localhost/heardmentality/openids/save');
+	}
+	//echo $pass;
+	//echo md5($pass);
 	
-		
-		$openid->setOptionalInfo(array('dob','nickname','country','language','email'));
-		
-		
-		
-		
-		$endpoint_url = $openid->getOpenIDEndpoint();
-		if($endpoint_url){
-			
-			$_SESSION['openid_endpoint_url'] = $endpoint_url;
-		
-			$openid->redirect();
-			
-			
-		}
-		else{
-			
-			
-			$the_error = $openid->getError();
-			$error = "Error Code: {$the_error['code']}<br />";
-			$error .= "Error Description: {$the_error['description']}<br />";
-		}
-	}	
-}
-
-
-
-if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] != "cancel"){
-	
-	
-	require_once 'class.dopeopenid.php';
-	
-	
-	$openid_url = $_GET['openid_identity'];
-	
-	
-	$openid = new Dope_OpenID($openid_url);
-	
-	
-	$validate_result = $openid->validateWithServer();
-	
-	
-	if ($validate_result === TRUE) {
-	
-		$user_id = your_get_user_function($openid_url);
-		
-		
-		
-		if ($user_id > 0) {
-			
-			$str_user = your_openid_login_function($openid_url);
-			
-			if($str_user) {
-			
-				list($user_id,$username,$nickname,$email,$dob,$country) = split("[|]",$str_user);
-				
-				
-				$_SESSION['loggedin'] = TRUE;
-				$_SESSION['user_id']  = $user_id;
-				$_SESSION['username'] = $username;
-				
-				
-				if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']){
-				
-				header('X-XRDS-Location:http://localhost/heardmentality/dope-openid-1.0.1/yadis.xrdf');
-				
-				if (isset($_GET['openid_mode'])) {
-				
-				if(!isset($_SESSION['loggedin'],$_SESSION['username']) || $_SESSION['username'] == ''){
-				header("Location:http://localhost/heardmentality/openids/save");
-				
-				}    
-				}
-				}
-			}
-			
-		}
-		else {
-		
-			$userinfo = $openid->filterUserInfo($_GET);
-			if(($userinfo['email']!='')||($_REQUEST['openid_ax_value_email']!=''))
-			{
-			if($_REQUEST['openid_ax_value_email']!='')
-			$temail=$_REQUEST['openid_ax_value_email'];
-			else
-			$temail=$userinfo['email'];
-			if($_REQUEST['openid_ax_value_language']!='')
-			$lang=$_REQUEST['openid_ax_value_language'];
-			else
-			$lang=$userinfo['language'];
-			if($userinfo['nickname']=='')
-			{
-			if($_REQUEST['openid_ax_value_email']!='')
-			$mailg=$_REQUEST['openid_ax_value_email'];
-			else
-			$mailg=$userinfo['email'];
-			$uinfo=explode("@",$mailg);
-			$uname=$uinfo[0];
-			
-			}
-			elseif($_REQUEST['openid_ax_value_nickname']!='')
-			{
-			
-			$uname=$_REQUEST['openid_ax_value_nickname'];
-			
-			}
-			else
-			{
-			$uname=$userinfo['nickname'];
-			}
-			
-			$select_user_count=mysql_num_rows(mysql_query("select * from users where mail='".$userinfo['email']."' and openid='".$_GET['openid_identity']."' "));
-			if($select_user_count==0)
-			{
-			$insert="insert into users (name,pass,mail,language,openid,status)values('".$uname."','".md5($uname)."','".$temail."','".$lang."','".$_GET['openid_identity']."','1') ";
-			$insersult=mysql_query($insert);
-			}
-			
-				echo " (".$_GET['openid_identity'].")</p>";
-			echo "\t<li><b>nickname yahoo</b>: " .  $_REQUEST['openid_ax_value_nickname'] . "</li>";
-			
-			echo "\t<li><b>yahoo email</b>: " .  $_REQUEST['openid_ax_value_email'] . "</li>";
-			echo "\t<li><b>yahoo language -country</b>: " .  $_REQUEST['openid_ax_value_language'] . "</li>";
-			echo "<ul>";
-			echo "\t<li><b>Nickname</b>: " . $userinfo['nickname'] . "</li>";
-			echo "\t<li><b>Language</b>: " . $userinfo['language'] . "</li>";
-			echo "\t<li><b>Email</b>: " . $userinfo['email'] . "</li>";
-			echo "</ul>";
-			$formret= '<form action="http://localhost/heardmentality/user" method="post" id="user-login">
-			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value="'.$uname.'" class="form-text required"/>
-			<input type="password" name="pass" id="edit-pass" value="'.$uname.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
-			<input type="hidden" name="form_build_id" id="form-0bb73f903dafa2bf7464d10802fda45b" value="form-0bb73f903dafa2bf7464d10802fda45b"/>
+	echo $uname;
+	echo $pass;
+	$formret.='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
+			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$uname.' class="form-text required"/>
+			<input type="password" name="pass" id="edit-pass" value='.$pass.'  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
 			
 			</form>
@@ -581,33 +447,14 @@ if(isset($_GET['action']) && $_GET['action']=="verify" && $_GET['openid_mode'] !
 			
 			</script>
 			';
-			}
-			
-            
-		
-        
-          
-			
-			
-		}
-	}
-	else if ($openid->isError() === TRUE){
-		
-		$the_error = $openid->getError();
-		$formret = "Error Code: {$the_error['code']}<br />";
-		$formret .= "Error Description: {$the_error['description']}<br />";
-	}
-	else{
-		
-		$formret = "Error: Could not validate the OpenID at {$_SESSION['openid_url']}";
-	}	
-}
-else if (isset($_GET['openid_mode']) && $_GET['openid_mode'] == "cancel") {
-	$formret = "OpenID authorization canceled by user.";
-}
-
-
-echo $formret;
+	
+	
+	
+	
+	
+	
+	
+return $formret;
 
 
 }
