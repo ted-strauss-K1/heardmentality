@@ -24,3 +24,13 @@ function forum_menu() {
 }
 
 
+
+function converttimestamp($indate){
+
+	list($year, $month, $day) = explode('-', $indate);
+
+	$timestamp = mktime(0, 0, 0, $month, $day, $year);
+
+	return $timestamp;
+
+}

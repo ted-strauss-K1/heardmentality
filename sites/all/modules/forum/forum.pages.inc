@@ -13,28 +13,49 @@
 		
 					
 						
-						 $query = "SELECT *  FROM {forum_wave} where qid_rid='$qid' AND fid='$wid' ";
+						 $query = "SELECT *,u.uid as uid  FROM {forum_wave} as f left join {user_profile} as u on u.uid=f.uid   where f.qid_rid='$qid' AND f.fid='$wid'";
    						 $list = ExecuteQuery($query, "select");	
 							
-							
+						 $output.='<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
+        
+		$output.='<div class="waveComment ">';	
 							 foreach ($list as $forum) {
-       $output.='<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
-        $output .= '
+							 	
+
+
+
+
+
+							 	$timestamp = converttimestamp($forum['date_added']);
+
+								$date= format_interval(time() - $timestamp);
+      							$account = user_load($forum['uid']);
+						
+							
+		$output .= '
+		
 	<div class="comment">
-		<div class="div1">
-			
-		</div>	
-		<div class="div2">
-			likes
-		</div>
-		<div class="div3">
-			10 post
-		</div>
+	<div class="waveTime">'.$date.'</div>
+	<div class="commentAvatar">
+				<img width="30" height="30" alt="" src="'.$gSitePath.drupal_get_path('module','profile').'/snap/'.$forum['image'].'"/>
+				</div>
+				<div class="commentText">
+				<span class="name">'.$account->name.':</span>  '.$forum['title'].'
+				</div>
+				<div class="replyLink">
+				<a onclick="addComment(this,1);return false;" href="">add a reply »</a>
+				</div>
+				<div class="clear"/>
 		<div class="div4">
-			<a href="javascript:void(0);" onclick="loadwave('.$qid.','.$forum['fid'].')"> '.myTruncate($forum['title'],'25','','..').'</a>
+	
 		</div>
 		<div class="div5">
-			'.$forum['date_added'].'
+			';
+			
+			
+
+			
+		$output.='	
 		</div>
 		
 		</div>	
@@ -44,7 +65,7 @@
    
     }
 		
-							
+		$output.='</div>';					
 							
 					
 				
