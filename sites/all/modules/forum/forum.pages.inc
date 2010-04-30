@@ -21,14 +21,7 @@
 		$output.='<div class="waveComment ">';	
 							 foreach ($list as $forum) {
 							 	
-
-
-
-
-
-							 	$timestamp = converttimestamp($forum['date_added']);
-
-								$date= format_interval(time() - $timestamp);
+								$date= cdatetime($forum['date_added']);
       							$account = user_load($forum['uid']);
 						
 							
@@ -65,7 +58,10 @@
    
     }
 		
-		$output.='</div>';					
+		$output.='</div><div "wavefooter">
+
+	<input type="button" class="waveButtonMain"  value="Add Comment" id="newwaveletbut"/>
+		</div>';					
 							
 					
 				
