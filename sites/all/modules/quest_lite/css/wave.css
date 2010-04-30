@@ -269,7 +269,5 @@ span.name{
 		
 }
 
-#wrapper { position: relative; }
-#firstDiv { position: absolute; height: 100px; top: 110px; }
-#secondDiv { position: absolute; height: 100px; top: 0; }
+
 

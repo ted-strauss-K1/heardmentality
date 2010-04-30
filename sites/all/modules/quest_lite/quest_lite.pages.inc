@@ -947,13 +947,17 @@ function panel_content() {
     switch ($type) {
         case "Forum":
 			
-				
-					if(isset($_POST['wtitle'])){
+			
+					if(isset($_POST['wtitle'])&&!empty($user->uid)){
 						
 						  $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 						  extract($_POST);
 							 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$qid',type='1',uid='$user->uid',title='$wtitle',private='$wprivate' ");	
 							echo list_wave($qid);						
+						exit;
+					}elseif(isset($_POST['wtitle'])){
+						echo '<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
+						echo list_wave($qid);	
 						exit;
 					}
 						
@@ -1063,8 +1067,12 @@ function forum_wave($qid = '') {
 		
 		';
  $wave.=list_wave($qid);
+ 
+ 
     $wave .= '</div>
-	<div class="comment" id="newwavediv" style="visibility:hidden;">
+	<div class="comment" id="newwavediv" style="visibility:hidden;">';
+	if(!empty($user->uid)){
+	$wave.='
 	<div align="right"><a href="javascript:void(0);" onclick="$(\'newwavediv\').fade(\'out\');">Close</a></div>
 	<form  id="newwaveform" class="newwave" action="'.url($_GET['q'], array('absolute'=>true)).'?type=Forum" method="post" accept-charset="utf-8">
 	<div ><b>Post New Wave</b></div>
@@ -1075,10 +1083,14 @@ function forum_wave($qid = '') {
 	<option value="1"> Enabled  </option>
 	</select></p>					
 	<p><input type="button" class="waveButtonMain" onclick="wave_form();" value="Post" /></p>
-</form>
-	</div>
+</form>';
+	}
+else{
+		$wave.='<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
+}
+	$wave.='</div>
 	<div>';
-    
+  
     return $wave;
 
 
@@ -1089,7 +1101,7 @@ function list_wave($qid=''){
 	$wave='';	
 	   $query = "select *,DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') as date_added from {forum_wave} where qid_rid='$qid' ";
     $cnt = ExecuteQuery($query, "select");
-	
+	if(!empty($cnt)){
 	   foreach ($cnt as $forum) {
         
         $wave .= '
@@ -1116,7 +1128,18 @@ function list_wave($qid=''){
 	';
    
     }
-		
+		}else{
+			
+			 $wave .= '
+	<div class="comment">
+		<div class="div4">
+	<b>No Waves Posted Yet!!</b>
+		</div>	
+	
+	
+	';
+			
+		}
  return $wave;		
 		
 	

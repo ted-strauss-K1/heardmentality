@@ -42,6 +42,7 @@ window.addEvent('domready', function() {
 						onComplete: function(response) { 
 			//log.removeClass('ajax-loading');
 				$('qwave').fade('out');
+				$('qwave').empty();
 			$('qwave').set('html', response);
 				$('qwave').fade('in');
 				wt.set('value','');
