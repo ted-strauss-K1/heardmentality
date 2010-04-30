@@ -139,7 +139,7 @@ global $user;
                       <li><a href="<?php echo $gSitePath?>openids/new">Sign In</a></li>-->
                       
                    <!-- socialize.js script should only be included once -->
-<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8"></script>
+<!--<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8"></script>
 <script type="text/javascript">
 var conf=
 {
@@ -165,7 +165,34 @@ var login_params=
 <script type="text/javascript">
    gigya.services.socialize.showLoginUI(conf,login_params);
 </script>
+-->
 
+
+<!-- socialize.js script should only be included once -->
+<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j"></script>
+<script type="text/javascript">
+var conf=
+{
+	APIKey: '2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j'
+}
+</script>
+
+<script type="text/javascript">
+var login_params=
+{
+	useHTML: 'true'
+	,showTermsLink: 'false'
+	,height: 50
+	,width: 150
+	,containerID: 'componentDiv'
+	,useFacebookConnect: 'true'
+	, redirectURL:'<?php echo $gSitePath?>openids/save' 
+}
+</script>
+<div id="componentDiv"></div>
+<script type="text/javascript">
+   gigya.services.socialize.showLoginUI(conf,login_params);
+</script>
 
 
 
@@ -175,7 +202,7 @@ var login_params=
 			
 			?>
 			<ul class="menu-right">
-				<li>Welcome <a href="<?php echo $gSitePath?>profile" ><?php echo $user->name;?></a>.</li>
+				<li>Welcome <a href="<?php echo $gSitePath?>profile" ><?php $unaprint= explode("@",$user->mail); echo $unaprint[0];?></a>.</li>
 				<li><a  href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>logout'">Sign Out</a></li>
 			</ul>
             <?php
