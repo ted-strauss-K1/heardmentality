@@ -1,5 +1,8 @@
 <?php
 function qlite_view() {
+//echo $_SERVER['QUERY_STRING'];
+$lji=explode("=",$_SERVER['QUERY_STRING']);
+//echo $lji[0];
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
@@ -405,8 +408,84 @@ function qlite_view() {
     }
     //	$voutput .='<a href="'.$gSitePath.'invite/invite_friends">Share This Question </a>';
     
-    $voutput .= '<div class="rht_select">
-	<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>
+	
+	
+	$voutput.='<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
+	<script>
+        var conf = 
+        {
+            APIKey: \'2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8\'
+        };
+        
+        function onLoad()
+        {
+            gigya.services.socialize.getUserInfo(conf,{callback:renderUI});	    
+            
+           
+            gigya.services.socialize.addEventHandlers(conf, { onConnect:renderUI, onDisconnect:renderUI}   ); 
+            
+        }
+    </script>
+    
+       <script type="text/javascript">
+
+        
+        function showShareUI() {
+
+		   
+		    var act = new gigya.services.socialize.UserAction();
+
+		    act.setUserMessage("Your comment here...");
+
+		   
+		    act.setTitle("'.$oListquest->question.'");
+		    act.setDescription("'.$oListquest->context.'");
+
+           
+		    act.setLinkBack("'.$gSitePath.''.$lji[1].'");
+
+		  
+		    act.addActionLink("'.$oListquest->question.'", 
+		        "'.$gSitePath.''.$lji[1].'");
+
+		   
+	       
+
+			
+			var params = 
+			{
+			    userAction: act,  	                                  
+			    onError: onError,  
+			    onSendDone: onSendDone, 
+                		    showEmailButton:false,
+                		    showMoreButton:false
+			};
+
+			
+			gigya.services.socialize.showShareUI(conf, params);
+
+		}
+		
+		
+		function onError(event) {
+		    alert(\'An error has occured\' + \': \' + event.status + \'; \' + event.statusMessage);
+		}
+
+		
+		function onSendDone(event)
+		{
+		    document.getElementById(\'status\').style.color = "green";
+		    document.getElementById(\'status\').innerHTML = 
+                            \'The newsfeed has been posted to: \' 
+		            + event.providers;
+		}    
+	</script>';
+	$voutput.='<div class="rht_select">
+	<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
+    $voutput .= '
+	
+    <input type="button" onclick="showShareUI();" value="Share"/>
+    <div id="status"></div>
 	
 	<select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 		<option value=""> Select</option >
