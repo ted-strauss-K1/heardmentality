@@ -10,9 +10,9 @@ $('newwaveletbut').addEvent('click', addComment.bindWithEvent(this,element));
 });
 
 
-function addComment(){
+function addComment(wid){
 	
 	
-	
+	alert(wid);
 	
 }
