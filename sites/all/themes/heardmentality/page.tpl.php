@@ -139,7 +139,7 @@ global $user;
                       <li><a href="<?php echo $gSitePath?>openids/new">Sign In</a></li>-->
                       
                    <!-- socialize.js script should only be included once -->
-<!--<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8"></script>
+<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8"></script>
 <script type="text/javascript">
 var conf=
 {
@@ -158,18 +158,18 @@ var login_params=
 	,width: 150
 	,containerID: 'componentDiv'
 	,useFacebookConnect: 'true'
-	, redirectURL:'<?php echo $gSitePath?>member/index'  
+	, redirectURL:'<?php echo $gSitePath?>member/save'  
 }
 </script>
 <div id="componentDiv"></div>
 <script type="text/javascript">
    gigya.services.socialize.showLoginUI(conf,login_params);
 </script>
--->
+
 
 
 <!-- socialize.js script should only be included once -->
-<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j"></script>
+<!--<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j"></script>
 <script type="text/javascript">
 var conf=
 {
@@ -192,7 +192,7 @@ var login_params=
 <div id="componentDiv"></div>
 <script type="text/javascript">
    gigya.services.socialize.showLoginUI(conf,login_params);
-</script>
+</script>-->
 
 
 
