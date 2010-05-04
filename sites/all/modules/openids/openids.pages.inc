@@ -410,11 +410,7 @@ $prolink2='';
 }
 //echo "SELECT COUNT(*) from users where name='".$_GET['UID']."' and provider='".$_GET['provider']."'";
 
-
- echo $_SESSION['friend_id'];
-
-
-/*$uname=substr($_GET['provider'].$_GET['UID'],0,25);
+$uname=substr($_GET['provider'].$_GET['UID'],0,25);
 $select_user_count = db_result(db_query("SELECT COUNT(*) from users where name='".$uname."' and provider='".$_GET['provider']."'"));
 
 if($select_user_count==0)
@@ -422,8 +418,13 @@ if($select_user_count==0)
 	 $insert="insert into users (name,pass,mail,provider,created,access,login,status)values('".$uname."','".md5($pass)."','".$_GET['email']."','".$_GET['provider']."','".time()."','".time()."','".time()."','1') ";
 	$insersult=db_query($insert);
 	 $lid=mysql_insert_id();
-	$select_user_count = db_result(db_query("SELECT COUNT(*) from invite_friend where friend_email='".$_GET['email']."'"));
-
+	 if($_SESSION['friend_id']!='')
+	 {
+	 $insert_follwer="";
+	$select_user_count = db_query("update  invite_friend set status='1' where inv_id='".$_SESSION['friend_id']."'");
+    
+	
+	}
 	if($_GET['email']=='')
 	{
 	$lnk=$lid.'@heardmentality.com';
@@ -452,7 +453,7 @@ if($select_user_count==0)
 			
 			
 			</script>
-			';*/
+			';
 	
 	
 	
