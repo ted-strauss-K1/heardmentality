@@ -138,10 +138,12 @@ function invite_friends() {
 				$lastid=mysql_insert_id();
 				//$body .= '?lid='.$lastid.' ';
 				
-				
+			$find_urls = db_query("select url from {question} where qid='$qid'");
+			$question_urls = db_fetch_array($find_urls);
+			
 				$subject = "Heardmentality Question Invite";
 				
-				$body = " $message Check this question url $question_urlink <br/>";
+				$body = " $message Check this question url $question_urls['url'] <br/>";
 				
 				
 				$mail_success = htmlmail( $to, $subject, $body, $from,'');
