@@ -127,21 +127,23 @@ function invite_friends() {
         
         foreach ($mail_cont as $mail) {
             
-          
+          	$to = email_format(trim($mail));
 			
 			if($to!='')
 			{
 			 	$vInsQuery = "insert into invite_friend(uid,friend_email) values ( '".$user->uid."','".$to."')";
 				db_query($vInsQuery);
 				$lastid=mysql_insert_id();
+				
+				$mail_success = htmlmail( $to, $subject, $body, $from,'');
 			  }
 			  
 			
-			$to = email_format(trim($mail));
+		
 			
 			
 			
-			$mail_success = htmlmail( $to, $subject, $body, $from,'');
+			
 			
 			//$mail_success = drupal_mail('invite', $to, $subject, $body, $from);
             if (! empty($to)) {
