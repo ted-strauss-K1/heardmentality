@@ -107,11 +107,15 @@ function invite_friends() {
         $mail_cont = explode(',', $senderlist);
         $guest_mail = array();
         //mail
-       // $body .= $message."<br/>";
+        $body .= $message."<br/>";
         if (isset($_REQUEST['qid'])) {
+		
+		 $find_url = db_query("select url from {question} where qid='".$_REQUEST['qid']."'");
+        $question_url = db_fetch_array($find_url);
+		 $question_urlffd = $question_url['url'];
             $subject = "Heardmentality Question Invite";
             
-            $body .= "Check this question url $question_urlink";
+            $body .= "Check this question url $question_urlffd";
 
         
         } else if (isset($_REQUEST['uid'])) {
@@ -120,7 +124,7 @@ function invite_friends() {
             $body .= "Check this profile url <br/>";
         }
         
-      //  $body .= $question_urlink;
+        $body .= $question_urlink;
 			$from = $user->mail;
 			//$headers = array();
 			
