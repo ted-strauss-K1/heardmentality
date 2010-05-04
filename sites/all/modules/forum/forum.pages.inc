@@ -3,7 +3,7 @@
 function forum_list($qid = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
-    
+   
     extract($_REQUEST);
     //drupal_add_css(drupal_get_path('module', 'quest').'/styles/screen.css');
 
@@ -42,7 +42,7 @@ function forum_list($qid = '') {
        
     }
     $output.=get_wavelets($wid,0);
-    $output .= '	</div><div id="wavefooter">
+    $output .= '	</div><div class="wavefooter">
 
 	<input type="button" class="waveButtonMain"  value="Add Comment" id="newwaveletbut"/>
 		</div>';
@@ -52,9 +52,7 @@ function forum_list($qid = '') {
 	if(!empty($user->uid)){
 	       $output.='
 		<div class="comment">			
-		<div class="commentAvatar">	
-		<img width="30" height="30" src="img/demo.png"/>	
-		</div>	
+		
 		<div class="commentText">			
 		<textarea name="waveletcmt" id="waveletcmt" cols="70" rows="2"  class="textArea"></textarea>
 		<input type="hidden" name="waveid" id="waveid" value=""/>
@@ -64,7 +62,7 @@ function forum_list($qid = '') {
 		</div>	';  
         }else{
         	
-			$output.='<div id="waveletcmt"  style="border:2px solid #CCCCCC;" align="center"><b>Sorry Only Logged in user can post wavelets!</b><input type="hidden" name="waveid" id="waveid" value=""/>
+			$output.='<div id="waveletcmt"  align="center"><b>Sorry Only Logged in user can post wave</b><input type="hidden" name="waveid" id="waveid" value=""/>
 		<input type="hidden" name="wletid" id="wletid" value=""/></div>';
         }
 	$output.='</div></div>';
