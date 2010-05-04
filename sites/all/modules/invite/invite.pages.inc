@@ -138,12 +138,12 @@ function invite_friends() {
 				$lastid=mysql_insert_id();
 				//$body .= '?lid='.$lastid.' ';
 				
-			$find_urls = db_query("select url from {question} where qid='".$_REQUEST['qid']."'");
-			$question_urls = db_fetch_object($find_urls);
+			$find_urls = db_query("select url from {question} where qid='$qid'");
+			$question_urls = db_fetch_array($find_urls);
 			
 				$subject = "Heardmentality Question Invite";
 				
-				$body = " $message Check this question url $question_urls->url <br/>";
+				$body = " $message Check this question url $question_urls?lid='.$lastid.' <br/>";
 				
 				
 				$mail_success = htmlmail( $to, $subject, $body, $from,'');
@@ -187,12 +187,7 @@ function invite_friends() {
 		          <option value="hotmail"> Hotmail</option>
 				  <option value="linkedin">LinkedIn</option>
 		          <option value="yahoo">Yahoo</option>';
-    $find_urls = db_query("select url from {question} where qid='".$_REQUEST['qid']."'");
-			$question_urls = db_fetch_object($find_urls);
-			
-			echo  $question_urls->url;
-			
-			
+    
     $strReturn = '
 		<div id="log_res"><!-- spanner --></div>
 	<div id="err"></div>
