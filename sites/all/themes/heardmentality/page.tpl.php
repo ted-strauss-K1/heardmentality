@@ -569,6 +569,7 @@ MochaUI.loadwaveWindow = function(qid,wid){
 			height:500,
 			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
 			contentBgColor: '#FFF',
+
 			onClose:function(){
 			
 				
@@ -585,6 +586,7 @@ MochaUI.loadwaveWindow = function(qid,wid){
                                        }).send();
                                }
                        }
+
 		});
 	}
 	
