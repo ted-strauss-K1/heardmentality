@@ -122,6 +122,7 @@ function invite_friends() {
         }
         
         $body .= $question_urlink;
+		
 			$from = $user->mail;
 			//$headers = array();
 			
@@ -135,7 +136,7 @@ function invite_friends() {
 			 	$vInsQuery = "insert into invite_friend(uid,friend_email) values ( '".$user->uid."','".$to."')";
 				db_query($vInsQuery);
 				$lastid=mysql_insert_id();
-				
+				$body .= ?lid='.$lastid.';
 				$mail_success = htmlmail( $to, $subject, $body, $from,'');
 			  }
 			  
