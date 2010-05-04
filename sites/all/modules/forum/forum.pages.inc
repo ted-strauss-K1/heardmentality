@@ -42,13 +42,15 @@ function forum_list($qid = '') {
        
     }
     $output.=get_wavelets($wid,0);
-    $output .= '	</div><div "wavefooter">
+    $output .= '	</div><div id="wavefooter">
 
 	<input type="button" class="waveButtonMain"  value="Add Comment" id="newwaveletbut"/>
 		</div>';
     
-    $output .= '<div id="commentArea" class="waveletmain-add" style="visibility:hidden;">            
-        <div class="waveComment addComment">
+    $output .= '<div id="commentArea" class="waveletmain-add" style="visibility:hidden;"> <div class="waveComment addComment">  ';
+	
+	if(!empty($user->uid)){
+	       $output.='
 		<div class="comment">			
 		<div class="commentAvatar">	
 		<img width="30" height="30" src="img/demo.png"/>	
@@ -59,8 +61,13 @@ function forum_list($qid = '') {
 		<input type="hidden" name="wletid" id="wletid" value=""/>
 		<div><input type="button" onclick="addSubmit();return false;" value="Add comment" class="waveButton"/> or <a onclick="cancelAdd(this);return false" href="">cancel</a></div>	
 		</div>	
-		</div>	
-		</div></div>';
+		</div>	';  
+        }else{
+        	
+			$output.='<div id="waveletcmt"  style="border:2px solid #CCCCCC;" align="center"><b>Sorry Only Logged in user can post wavelets!</b><input type="hidden" name="waveid" id="waveid" value=""/>
+		<input type="hidden" name="wletid" id="wletid" value=""/></div>';
+        }
+	$output.='</div></div>';
 
     
     echo $output;
