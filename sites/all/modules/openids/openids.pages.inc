@@ -420,7 +420,10 @@ if($select_user_count==0)
 	 $lid=mysql_insert_id();
 	 if($_SESSION['friend_id']!='')
 	 {
-	 $insert_follwer="";
+   $selectuserm= db_query("select *  invite_friend  where inv_id='".$_SESSION['friend_id']."'");
+    $userlistmr = db_fetch_object($selectuserm);
+	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$userlistmr->uid."','".$lid."','1','".date('Y-m-d')."') ";
+	$rs_commg=db_query($ins_commg);
 	$select_user_count = db_query("update  invite_friend set status='1' where inv_id='".$_SESSION['friend_id']."'");
     
 	
