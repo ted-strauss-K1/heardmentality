@@ -138,7 +138,7 @@ function invite_friends() {
 				$lastid=mysql_insert_id();
 				//$body .= '?lid='.$lastid.' ';
 				
-			$find_urls = db_query("select url from {question} where qid='$qid'");
+			$find_urls = db_query("select url from {question} where qid='".$_REQUEST['qid']."'");
 			$question_urls = db_fetch_object($find_urls);
 			
 				$subject = "Heardmentality Question Invite";
