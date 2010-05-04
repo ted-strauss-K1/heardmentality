@@ -28,7 +28,7 @@ function htmlmail($to, $subject, $message, $headers = NULL)
 {
 	$mime_boundary = md5(time()); 
 
-	//$headers .= "\nMessage-ID: <" . time() . " TheSystem@{$_SERVER['SERVER_NAME']}>\n";
+	$headers .= "\nMessage-ID: <" . time() . " TheSystem@$_SERVER['SERVER_NAME']>\n";
 	$headers .= "X-Mailer: PHP " . phpversion() . "\n";
 	$headers .= "MIME-Version: 1.0\n";
 	$headers .= "Content-Type: multipart/alternative;boundary={$mime_boundary}\n\n";
