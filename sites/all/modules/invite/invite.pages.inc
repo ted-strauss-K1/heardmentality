@@ -110,12 +110,9 @@ function invite_friends() {
         $body .= $message."<br/>";
         if (isset($_REQUEST['qid'])) {
 		
-		 $find_url = db_query("select url from {question} where qid='".$_REQUEST['qid']."'");
-        $question_url = db_fetch_array($find_url);
-		 $question_urlffd = $question_url['url'];
             $subject = "Heardmentality Question Invite";
             
-            $body .= "Check this question url $question_urlffd";
+            $body .= "Check this question url $question_urlink";
 
         
         } else if (isset($_REQUEST['uid'])) {
