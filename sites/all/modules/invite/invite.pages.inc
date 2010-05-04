@@ -71,7 +71,7 @@ function invite_friends() {
             $question_urlff = $question_url['url'];
 				$input='<input type="hidden" name="qid" value="'.$question_id.'" />';
         }
-       $question_urlink ='<a href="'.$gSitePath.$question_urlff.'"> </a>';
+       $question_urlink = $gSitePath.$question_urlff;
     } else if (isset($_REQUEST['uid'])) {
         $uid = $_REQUEST['uid'];
         $find_url = db_query("select name from {users} where uid='$uid'");
