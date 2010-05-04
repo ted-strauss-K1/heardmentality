@@ -107,7 +107,7 @@ function invite_friends() {
         $mail_cont = explode(',', $senderlist);
         $guest_mail = array();
         //mail
-        $body .= $message."<br/>";
+       // $body .= $message."<br/>";
         if (isset($_REQUEST['qid'])) {
             $subject = "Heardmentality Question Invite";
             
