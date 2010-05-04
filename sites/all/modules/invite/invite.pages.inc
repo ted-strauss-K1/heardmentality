@@ -69,7 +69,7 @@ function invite_friends() {
         $question_url = db_fetch_array($find_url);
         if (isset($question_url)) {
             $question_urlff = $question_url['url'];
-				$input='<input type="hidden" name="qid" value="'.$uid.'" />';
+				$input='<input type="hidden" name="qid" value="'.$question_id.'" />';
         }
        $question_urlink = $gSitePath.$question_urlff;
     } else if (isset($_REQUEST['uid'])) {
@@ -107,21 +107,21 @@ function invite_friends() {
         $mail_cont = explode(',', $senderlist);
         $guest_mail = array();
         //mail
-       // $body .= $message."<br/>";
+       $body .= $message."<br/>";
         if (isset($_REQUEST['qid'])) {
 		
-          //  $subject = "Heardmentality Question Invite";
+           $subject = "Heardmentality Question Invite";
             
-          //  $body .= "Check this question url <br/>";
+           $body .= "Check this question url <br/>";
 
         
         } else if (isset($_REQUEST['uid'])) {
-           // $subject = "Heardmentality Profile Invite";
+           $subject = "Heardmentality Profile Invite";
             
-           // $body .= "Check this profile url <br/>";
+           $body .= "Check this profile url <br/>";
         }
         
-      //  $body .= $question_urlink;
+      $body .= $question_urlink;
 		
 			$from = $user->mail;
 			//$headers = array();
@@ -138,12 +138,10 @@ function invite_friends() {
 				$lastid=mysql_insert_id();
 				//$body .= '?lid='.$lastid.' ';
 				
-			$find_urls = db_query("select url from {question} where qid='$qid'");
-			$question_urls = db_fetch_array($find_urls);
-			
+				
 				$subject = "Heardmentality Question Invite";
 				
-				$body = " $message Check this question url $question_urls?lid='.$lastid.' <br/>";
+				$body = " $message Check this question url $question_urlink<br/>";
 				
 				
 				$mail_success = htmlmail( $to, $subject, $body, $from,'');
