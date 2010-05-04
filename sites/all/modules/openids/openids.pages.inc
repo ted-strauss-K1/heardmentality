@@ -422,7 +422,7 @@ if($select_user_count==0)
 	 {
    $selectuserm= db_query("select * from  invite_friend  where inv_id='".$_SESSION['friend_id']."'");
     $userlistmr = db_fetch_object($selectuserm);
-	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$userlistmr->uid."','".$lid."','1','".date('Y-m-d')."') ";
+	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$userlistmr->uid."','1','".date('Y-m-d')."') ";
 	$rs_commg=db_query($ins_commg);
 	$select_user_count = db_query("update  invite_friend set status='1' where inv_id='".$_SESSION['friend_id']."'");
     
