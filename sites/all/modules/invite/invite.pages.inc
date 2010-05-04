@@ -138,7 +138,7 @@ function invite_friends() {
 				$lastid=mysql_insert_id();
 				$idlink = '?lid='.$lastid.' ';
 				
-				$msginvite=$body.$idlink 
+				$msginvite=$body.$idlink ;
 				
 				
 				
