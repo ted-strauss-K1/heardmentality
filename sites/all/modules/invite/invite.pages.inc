@@ -112,7 +112,7 @@ function invite_friends() {
 		
             $subject = "Heardmentality Question Invite";
             
-            $body .= "Check this question url $question_urlink";
+            $body .= "Check this question url <br/>";
 
         
         } else if (isset($_REQUEST['uid'])) {
