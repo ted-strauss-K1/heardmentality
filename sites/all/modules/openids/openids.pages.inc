@@ -383,7 +383,7 @@ echo $showops;
 function openid_login_save()
 {
 global $gSitePath,$user,$gDocPath,$base_root;
-$formret=print_r($_GET);
+//$formret=print_r($_GET);
 
 if($_GET['gender']=='m')
 $gender='1';
