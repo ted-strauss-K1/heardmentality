@@ -187,9 +187,10 @@ function invite_friends() {
 		          <option value="hotmail"> Hotmail</option>
 				  <option value="linkedin">LinkedIn</option>
 		          <option value="yahoo">Yahoo</option>';
-    echo "select url from {question} where qid='".$_REQUEST['qid']."'";
+    $find_urls = db_query("select url from {question} where qid='".$_REQUEST['qid']."'");
+			$question_urls = db_fetch_object($find_urls);
 			
-			
+			echo  $find_urls->url;
 			
 			
     $strReturn = '
