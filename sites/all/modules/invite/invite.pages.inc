@@ -168,7 +168,7 @@ function invite_friends() {
     }
 
     
-    if (isset(question_urlink) && $question_urlink != NULL) {
+    if (isset($question_urlink) && $question_urlink != NULL) {
         $question_urlink = $question_urlink;
     }
     $mail_options = '<option value="aol">AOL</option>
