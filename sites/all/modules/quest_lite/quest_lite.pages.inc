@@ -2,6 +2,13 @@
 function qlite_view() {
 //echo $_SERVER['QUERY_STRING'];
 $lji=explode("=",$_SERVER['QUERY_STRING']);
+
+ if (isset($_REQUEST['lid'])) 
+ {
+ session_start();
+ $_SESSION['friend_id']=$_REQUEST['lid'];
+ echo $_SESSION['friend_id'];
+ }
 //echo $lji[0];
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
