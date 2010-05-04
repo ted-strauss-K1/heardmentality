@@ -136,12 +136,10 @@ function invite_friends() {
 			 	$vInsQuery = "insert into invite_friend(uid,friend_email) values ( '".$user->uid."','".$to."')";
 				db_query($vInsQuery);
 				$lastid=mysql_insert_id();
-				//$body .= '?lid='.$lastid.' ';
+				$body .= '?lid='.$lastid.' ';
 				
 				
-				$subject = "Heardmentality Question Invite";
 				
-				$body = " $message Check this question url $question_urlink<br/>";
 				
 				
 				$mail_success = htmlmail( $to, $subject, $body, $from,'');
