@@ -120,9 +120,10 @@ function invite_friends() {
             $body .= "Check this profile url <br/>";
         }
         
-         $body .= $question_url;
-        $from = $user->mail;
-        $headers = array();
+        $body .= $question_url;
+			$from = $user->mail;
+			//$headers = array();
+			
         
         foreach ($mail_cont as $mail) {
             
@@ -135,9 +136,6 @@ function invite_friends() {
 				$lastid=mysql_insert_id();
 			  }
 			  
-			$body .= $question_url;
-			$from = $user->mail;
-			//$headers = array();
 			
 			$to = email_format(trim($mail));
 			
