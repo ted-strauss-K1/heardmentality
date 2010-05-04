@@ -68,10 +68,10 @@ function invite_friends() {
         $find_url = db_query("select url from {question} where qid='$question_id'");
         $question_url = db_fetch_array($find_url);
         if (isset($question_url)) {
-            $question_url = $question_url['url'];
+            $question_urlff = $question_url['url'];
 				$input='<input type="hidden" name="qid" value="'.$uid.'" />';
         }
-        $question_url = $gSitePath.$question_url;
+       $question_urlink = $gSitePath.$question_urlff;
     } else if (isset($_REQUEST['uid'])) {
         $uid = $_REQUEST['uid'];
         $find_url = db_query("select name from {users} where uid='$uid'");
@@ -120,7 +120,7 @@ function invite_friends() {
             $body .= "Check this profile url <br/>";
         }
         
-        $body .= $question_url;
+        $body .= $question_urlink;
 			$from = $user->mail;
 			//$headers = array();
 			
@@ -143,7 +143,7 @@ function invite_friends() {
 			
 			
 			
-			
+		
 			
 			//$mail_success = drupal_mail('invite', $to, $subject, $body, $from);
             if (! empty($to)) {
