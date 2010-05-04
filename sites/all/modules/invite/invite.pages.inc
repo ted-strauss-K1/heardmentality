@@ -121,7 +121,7 @@ function invite_friends() {
            $body .= "Check this profile url <br/>";
         }
         
-      $body .= $question_urlink;
+     // $body .= $question_urlink;
 		
 			$from = $user->mail;
 			//$headers = array();
@@ -136,7 +136,7 @@ function invite_friends() {
 			 	$vInsQuery = "insert into invite_friend(uid,friend_email) values ( '".$user->uid."','".$to."')";
 				db_query($vInsQuery);
 				$lastid=mysql_insert_id();
-				$idlink = '?lid='.$lastid.' ';
+				$idlink = '<a href="$question_urlink.'?lid='.$lastid.' "> Link </a> ';
 				
 				$msginvite=$body.$idlink ;
 				
