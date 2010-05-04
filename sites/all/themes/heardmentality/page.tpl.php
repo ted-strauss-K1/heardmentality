@@ -158,7 +158,7 @@ var login_params=
 	,width: 150
 	,containerID: 'componentDiv'
 	,useFacebookConnect: 'true'
-	, redirectURL:'<?php echo $gSitePath?>member/save'  
+	, redirectURL:'<?php echo $gSitePath?>openids/save'  
 }
 </script>
 <div id="componentDiv"></div>
