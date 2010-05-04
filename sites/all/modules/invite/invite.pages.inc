@@ -128,13 +128,22 @@ function invite_friends() {
             
             $to = email_format(trim($mail));
             $mail_success = drupal_mail('invite', $to, $subject, $body, $from);
+			
+			
+			 
+			  
+			  
+			  db_query($vInsQuery);
             if (! empty($to)) {
+			
                 // $mail_success=drupal_mail('invite', 'invitation', $EmailTo, language_default(), $params);
                 if (!$mail_success) {
                 $flag=0;
 				$msg='Invitation not sent server error!';
 				    drupal_set_message(t('There has been an error.\\nTo: '.$to.'\/nSubject: '.$subject.'\rBody: '.$body.'\nFrom: '.$from.'\nHeaders: '.$headers));
                 } else {
+				
+				$vInsQuery = "insert into invite_friend(uid,friend_email) values ( '".$user->uid."','".$to."')";
                     $flag=1;
 					$msg='Invitation sent successfully!';
                     drupal_set_message(t('Mail Sent Successfully!'), 'success');
@@ -256,14 +265,14 @@ function email_format($valueFrmsubmit = '') {
     if (sizeof($t) > 1) {
         $e = explode(">", $t[1]);
         if (ereg("^[a-zA-Z0-9_\.\-]+[a-zA-Z0-9_\+\.\-]*@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+[a-zA-Z0-9\-\.]*$", trim($e[0]))) {
-            $email = trim($e[0]);
+           return $email = trim($e[0]);
             $contact_names[trim($e[0])] = trim($t[0]);
         }
     } else {
         if (ereg("^[a-zA-Z0-9_\.\-]+[a-zA-Z0-9_\+\.\-]*@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+[a-zA-Z0-9\-\.]*$", $valueFrmsubmit)) {
-            $email = $valueFrmsubmit;
+          return  $email = $valueFrmsubmit;
         }
-        return $email;
+       // return $email;
     }
 
 
