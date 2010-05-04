@@ -202,7 +202,20 @@ var login_params=
 			
 			?>
 			<ul class="menu-right">
-				<li>Welcome <a href="<?php echo $gSitePath?>profile" ><?php $unaprint= explode("@",$user->mail); echo $unaprint[0];?></a>.</li>
+				<li>Welcome <a href="<?php echo $gSitePath?>profile" ><?php
+				 $user_prof = db_fetch_object(db_query("SELECT * from {user_profile} where  uid=".$user->uid." "));
+				if($user_prof->real_name=='')
+				{
+				 $unaprint= explode("@",$user->mail); 
+				 echo $unaprint[0];
+				 
+                 }
+                 else
+                 {
+                echo $user_prof->real_name;
+                 }
+				 ?>
+                 </a>.</li>
 				<li><a  href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>logout'">Sign Out</a></li>
 			</ul>
             <?php
