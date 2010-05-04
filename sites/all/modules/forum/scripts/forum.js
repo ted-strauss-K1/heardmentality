@@ -3,19 +3,31 @@
  */
 window.addEvent('domready', function() {
 	
-$('newwaveletbut').addEvent('click', addComment.bindWithEvent(this,element)); 
+//$('newwaveletbut').addEvent('click', addComment.bindWithEvent(this,element)); 
 	
+	var elements=$$('div.replyLink').getElements('a');
+	
+	 elements.each(function(element,index){
+ 		
+element.addEvent('click', addComment.bindWithEvent(this,element)); 
+
+ });
 	
 
 });
 
 
-function addComment(wid,wlet){
-		$('waveletcmt').setStyle('border-color','');
-		$('waveletcmt').set('value','');
-	$('waveid').set('value',wid);	
+function addComment(val,el){
+
+var wid=el.get('id');
+
+	var gid=wid.split('-');
+		 
+	$('waveletcmt').setStyle('border-color','');
+	$('waveletcmt').set('value','');
+	$('waveid').set('value',gid[0]);	
 	$('commentArea').fade('in');
-	$('wletid').set('value',wlet);
+	$('wletid').set('value',gid[1]);
 }
 
 

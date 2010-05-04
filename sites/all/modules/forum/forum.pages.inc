@@ -26,13 +26,13 @@ function forum_list($qid = '') {
 	<div class="comment com-1" style="background:#ECECEF">
 	<div class="waveTime">'.$date.'</div>
 	<div class="commentAvatar">
-				<img width="30" height="30" alt="" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$forum['image'].'"/>
+				<img  alt="'.$forum['name'].'" title="'.$forum['name'].'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$forum['image'].'"/>
 				</div>
 				<div class="commentText" >
 				<span class="name" >'.$account->name.':</span>  '.$forum['title'].'
 				</div>
 				<div class="replyLink">
-				<a onclick="addComment('.$wid.',0);return false;" href="#commentArea">add a reply »</a>
+				<a id="'.$wid.'-0" href="#commentArea">add a reply »</a>
 				</div>
 				<div class="clear"></div>
 			</div></div>
@@ -44,7 +44,7 @@ function forum_list($qid = '') {
     $output.=get_wavelets($wid,0);
     $output .= '	</div><div class="wavefooter">
 
-	<input type="button" class="waveButtonMain"  value="Add Comment" id="newwaveletbut"/>
+<!--	<input type="button" class="waveButtonMain"  value="Add Comment" id="newwaveletbut"/>-->
 		</div>';
     
     $output .= '<div id="commentArea" class="waveletmain-add" style="visibility:hidden;"> <div class="waveComment addComment">  ';
@@ -117,13 +117,13 @@ function get_wavelets($wid='',$pid=''){
 	<div class="comment">
 	<div class="waveTime">'.$date.'</div>
 	<div class="commentAvatar">
-				<img width="30" height="30" alt="" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$forum['image'].'"/>
+					<img  alt="'.$forum['name'].'" title="'.$forum['name'].'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$forum['image'].'"/>
 				</div>
 				<div class="commentText" >
 				<span class="name">'.$account->name.':</span>  '.$forum['wavelet'].'
 				</div>
 				<div class="replyLink">
-				<a onclick="addComment('.$wid.','.$forum['wlid'].');return false;" href="#commentArea">add a reply »</a>
+				<a id="'.$wid.'-'.$forum['wlid'].'" href="#commentArea">add a reply »</a>
 				</div>
 				<div class="clear">
 			</div>
