@@ -415,13 +415,13 @@ $select_user_count = db_result(db_query("SELECT COUNT(*) from users where name='
 
 if($select_user_count==0)
 {
-	echo $insert="insert into users (name,pass,mail,provider,created,access,login,status)values('".$uname."','".md5($pass)."','".$_GET['email']."','".$_GET['provider']."','".time()."','".time()."','".time()."','1') ";
+	 $insert="insert into users (name,pass,mail,provider,created,access,login,status)values('".$uname."','".md5($pass)."','".$_GET['email']."','".$_GET['provider']."','".time()."','".time()."','".time()."','1') ";
 	$insersult=db_query($insert);
 	echo $lid=mysql_insert_id();
 	if($_GET['email']=='')
 	{
 	$lnk=$lid.'@heardmentality.com';
-	echo $updates="update users set mail='$lnk' where uid=$lid";
+	 $updates="update users set mail='$lnk' where uid=$lid";
 	$up=db_query($updates);
 	}
 	$insert_profile="insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$_GET['firstName']."' ,'".$_GET['lastName']."' ,'".$gender."','".$_GET['zip']."','".$_GET['country']."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
@@ -432,8 +432,8 @@ if($select_user_count==0)
 	//echo $pass;
 	//echo md5($pass);
 	
-	echo $uname;
-	echo $pass;
+	//echo $uname;
+	//echo $pass;
 	$formret.='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$uname.' class="form-text required"/>
 			<input type="password" name="pass" id="edit-pass" value='.$pass.'  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
