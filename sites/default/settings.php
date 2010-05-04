@@ -72,7 +72,7 @@
  *   $db_prefix = 'main_';
  *
  * To provide prefixes for specific tables, set $db_prefix as an array.
- * The array's keys are the table names and the values are the prefixes.
+ * The array's keys are the table names and the values are the prefixes.a
  * The 'default' element holds the prefix for any tables not specified
  * elsewhere in the array. Example:
  *
@@ -89,7 +89,7 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-$db_url = 'mysql://root:oPenWave#1220@localhost/heardmentality';
+$db_url = 'mysql://root:@localhost/heardmentality';
 $db_prefix = '';
 
 /**

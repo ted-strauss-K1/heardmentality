@@ -552,7 +552,7 @@ MochaUI.loadwaveWindow = function(qid,wid){
 			loadMethod: 'xhr',
 			contentURL: 'question/forum/?qid='+qid+'&wid='+wid,
 			type: 'modal',
-			width: 450,
+			width: 600,
 			height:500,
 			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
 			contentBgColor: '#FFF',
@@ -560,7 +560,18 @@ MochaUI.loadwaveWindow = function(qid,wid){
 			
 				
 
-			}
+			},onContentLoaded: function(){
+                               if ( !MochaUI.resourceScript == true ){
+                                       new Request({
+                                               url: '<?php echo $gSitePath.drupal_get_path('module','forum'); ?>/scripts/forum.js',
+                                               method: 'get',
+                                               onSuccess: function() {
+										
+                                                       MochaUI.resourceScript = false;
+                                               }.bind(this)
+                                       }).send();
+                               }
+                       }
 		});
 	}
 	

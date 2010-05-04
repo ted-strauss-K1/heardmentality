@@ -690,7 +690,10 @@ function rpx_update_user_profile_form_submit($form_values) {
     $userDataRpxProfile['profile']['address']['country'] = $form_values['#post']['country'];
 
     $rpx_data = array( 'rpx_data' => $userDataRpxProfile );
+     drupal_set_message($message = 'Please set your own password for rememberance purposes!', $type = 'error');
+    drupal_set_message($message = 'Thank you, Registration Success!', $type = 'success');
     return user_save( $GLOBALS['user'], $rpx_data );
+    
 }
 
 function _rpx_update_user_login_form( &$form, &$form_state ) {
@@ -727,13 +730,16 @@ function _rpx_update_user_login_form( &$form, &$form_state ) {
  */
 function _rpx_token_url() {
   // Set destination so user will return to current page after login/registration
-  $dest = drupal_get_destination();
+ // $dest = drupal_get_destination();
+ $dest = 'destination=profile/edit';
   // If initiating RPX login/registration from login or registration page send
   // user to their account page
   if (strpos($dest, 'user%2Flogin') !== FALSE || strpos($dest, 'user%2Fregister') !== FALSE) {
-    $dest = 'destination=user';
+    $dest = 'destination=profile/edit';
   }
+ 
   return url('rpx/end_point', array('query' => $dest, 'absolute' => TRUE));
+  
 }
 
 
