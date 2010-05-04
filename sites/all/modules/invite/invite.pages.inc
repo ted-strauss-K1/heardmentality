@@ -121,7 +121,7 @@ function invite_friends() {
            $body .= "Check this profile url <br/>";
         }
         
-      $body .= $question_urlink;
+      $body .= <a href="'.$question_urlink.'"> $question_urlink</a>;
 		
 			$from = $user->mail;
 			//$headers = array();
