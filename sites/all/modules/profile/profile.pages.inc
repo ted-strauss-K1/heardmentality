@@ -318,8 +318,9 @@ function profile_edit() {
 
         
         if ($chk1) {
-            
-            $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset' where uid='$user->uid' ");
+		
+            $update_user=db_query("update {users} set mail='$mail' where uid='$user->uid' ");
+            $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
         
         } else {
             $result = db_query("INSERT INTO {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset'");
@@ -344,7 +345,8 @@ function profile_edit() {
 	}	else{
 		if($sucflag){
 			echo "<script>window.location.href='$gSitePath/profile/';</script>";
-		drupal_goto('profile/');}
+		drupal_goto('profile/');
+		}
 	}
 	
 	
@@ -382,22 +384,26 @@ function profile_edit() {
 		<form name="profile" id="profile"  onsubmit="return validate_profile();"  method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend><b><i>Account information</i></b></legend>
-				<div class="form-item" id="edit-name-wrapper"> 
+				<!--<div class="form-item" id="edit-name-wrapper"> 
 					<label for="edit-name">Username: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="60" name="name" id="edit-name" disabled="disabled" size="60" value="'.$user->name.'" class="form-text required" type="text">
                      
 					<div class="description">Spaces are allowed; punctuation is not allowed except for periods, hyphens, and underscores.</div>
-               </div>
+               </div>-->
 			<div class="form-item" id="edit-mail-wrapper"> 
-            	<label for="edit-mail">E-mail address: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="64" name="mail" id="edit-mail" size="60"  disabled="disabled"  value="'.$user->mail.'"  class="form-text required" type="text"> 
+            	<label for="edit-mail">E-mail address: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="64" name="mail" id="edit-mail" size="60"  value="'.$user->mail.'"  class="form-text required" type="text"> 
                 <div class="description">A valid e-mail address. All e-mails from the system will be sent to this address. The e-mail address is not made public and will only be used if you wish to receive a new password or wish to receive certain news or notifications by e-mail.</div>
            </div>
+<<<<<<< .mine
+		<!--<div class="form-item" id="edit-pass-wrapper"> 
+=======
 		<!-- <div class="form-item" id="edit-pass-wrapper">
+>>>>>>> .r1064
         	<div class="form-item" id="edit-pass-pass1-wrapper"> 
             	<label for="edit-pass-pass1">Password: </label> <input name="pass1" id="edit-pass-pass1" maxlength="128" size="25" class="form-text password-field validate[\'required\']" type="password">
             </div>
 			<div class="form-item" id="edit-pass-pass2-wrapper"> <label for="edit-pass-pass2">Confirm password: </label> <input name="pass2" id="edit-pass-pass2" maxlength="128" size="25" class="form-text password-confirm validate[\'required\',\'confirm[password]\']" type="password"></div> 
             <div class="description">To change the current user password, enter the new password in both fields.</div>
-       </div>
+       </div>-->
 	  <div class="form-item"> <label>Status: </label>
              <div class="form-radios">
                  <div class="form-item" id="edit-status-0-wrapper"> <label class="option" for="edit-status-0"><input id="edit-status-0" name="status" value="0"  class="form-radio validate[\'required\']" type="radio"> Blocked</label></div>
@@ -410,6 +416,15 @@ function profile_edit() {
 			<legend> <b><i>Profile Bio</i></b> </legend>
 				<div class="form-item" id="edit-name-wrapper"> 
 					<label for="edit-rname">Real Name: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="60" name="rname" id="edit-rname" size="40"  value="'.$real_name.'"  class="form-text required"  type="text"> 
+					
+                </div>
+				<div class="form-item" id="edit-fname-wrapper"> 
+					<label for="edit-rname">First Name: </label> <input maxlength="60" name="fname" id="edit-fname" size="40"  value="'.$first_name.'"  class="form-text required"  type="text"> 
+					
+                </div>
+				
+				<div class="form-item" id="edit-lname-wrapper"> 
+					<label for="edit-lname">Last Name: </label> <input maxlength="60" name="lname" id="edit-lname" size="40"  value="'.$last_name.'"  class="form-text required"  type="text"> 
 					<div class="description">Spaces are allowed; punctuation is not allowed except for periods, hyphens, and underscores.</div>
                 </div>
 				<div class="form-item" id="edit-image-wrapper"> <label for="edit-image">Image : </label> <input type="file" name="image" id="image" /> <img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'" align="absmiddle" alt="Profile Image" >
