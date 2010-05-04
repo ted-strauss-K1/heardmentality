@@ -126,14 +126,26 @@ function invite_friends() {
         
         foreach ($mail_cont as $mail) {
             
-            $to = email_format(trim($mail));
-            $mail_success = drupal_mail('invite', $to, $subject, $body, $from);
+          
+			
+			if($to!='')
+			{
+			 	$vInsQuery = "insert into invite_friend(uid,friend_email) values ( '".$user->uid."','".$to."')";
+				db_query($vInsQuery);
+				$lastid=mysql_insert_id();
+			  }
+			  
+			$body .= $question_url;
+			$from = $user->mail;
+			//$headers = array();
+			
+			$to = email_format(trim($mail));
 			
 			
-			 
-			  
-			  
-			  db_query($vInsQuery);
+			
+			$mail_success = htmlmail( $to, $subject, $body, $from,'');
+			
+			//$mail_success = drupal_mail('invite', $to, $subject, $body, $from);
             if (! empty($to)) {
 			
                 // $mail_success=drupal_mail('invite', 'invitation', $EmailTo, language_default(), $params);
@@ -143,7 +155,7 @@ function invite_friends() {
 				    drupal_set_message(t('There has been an error.\\nTo: '.$to.'\/nSubject: '.$subject.'\rBody: '.$body.'\nFrom: '.$from.'\nHeaders: '.$headers));
                 } else {
 				
-				$vInsQuery = "insert into invite_friend(uid,friend_email) values ( '".$user->uid."','".$to."')";
+			
                     $flag=1;
 					$msg='Invitation sent successfully!';
                     drupal_set_message(t('Mail Sent Successfully!'), 'success');
