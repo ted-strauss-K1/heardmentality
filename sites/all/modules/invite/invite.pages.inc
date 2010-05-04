@@ -190,7 +190,7 @@ function invite_friends() {
     $find_urls = db_query("select url from {question} where qid='".$_REQUEST['qid']."'");
 			$question_urls = db_fetch_object($find_urls);
 			
-			echo  $find_urls->url;
+			echo  $question_urls->url;
 			
 			
     $strReturn = '
