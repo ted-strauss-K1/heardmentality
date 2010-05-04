@@ -23,16 +23,16 @@ function forum_list($qid = '') {
         
         $output .= '
 		
-	<div class="comment com-1">
+	<div class="comment com-1" style="background:#ECECEF">
 	<div class="waveTime">'.$date.'</div>
 	<div class="commentAvatar">
 				<img width="30" height="30" alt="" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$forum['image'].'"/>
 				</div>
-				<div class="commentText">
-				<span class="name">'.$account->name.':</span>  '.$forum['title'].'
+				<div class="commentText" >
+				<span class="name" >'.$account->name.':</span>  '.$forum['title'].'
 				</div>
 				<div class="replyLink">
-				<a onclick="addComment('.$wid.',0);return false;" href="#">add a reply »</a>
+				<a onclick="addComment('.$wid.',0);return false;" href="#commentArea">add a reply »</a>
 				</div>
 				<div class="clear"></div>
 			</div></div>
@@ -87,6 +87,7 @@ function cmt_submit(){
 function get_wavelets($wid='',$pid=''){
 	
 	$output='';
+	$bg='';
 	if(!empty($wid)){
 		
 		
@@ -101,20 +102,23 @@ function get_wavelets($wid='',$pid=''){
        // $date = cdatetime($forum['date_added']).$forum['date_added'];
 	   $date = format_date_class($forum['date_added'],date());
         $account = user_load($forum['uid']);
-
+		
+		if($forum['parentid']== 0){
+		//$bg.='style="background:#ECECEF;"';	
+		}
         
         $output .= '
-		<div class="waveComment com-'.$forum['wlid'].'">
+		<div class="waveComment com-'.$forum['wlid'].'" '.$bg.'>
 	<div class="comment">
 	<div class="waveTime">'.$date.'</div>
 	<div class="commentAvatar">
 				<img width="30" height="30" alt="" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$forum['image'].'"/>
 				</div>
-				<div class="commentText">
+				<div class="commentText" >
 				<span class="name">'.$account->name.':</span>  '.$forum['wavelet'].'
 				</div>
 				<div class="replyLink">
-				<a onclick="addComment('.$wid.','.$forum['wlid'].');return false;" href="#">add a reply »</a>
+				<a onclick="addComment('.$wid.','.$forum['wlid'].');return false;" href="#commentArea">add a reply »</a>
 				</div>
 				<div class="clear">
 			</div>

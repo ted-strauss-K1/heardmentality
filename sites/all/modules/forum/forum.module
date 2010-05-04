@@ -89,7 +89,7 @@ function cdatetime($timestamp)
 		  $date2= strToTime($date2);
 		$time=date('h:i ',$date).$params['sf'];
 		//$default=date('M j,y h:i ',$date).$params['sf']."-".date('M j,y h:i ',$date2).$params['ef'];
-	echo $difference = $date - strToTime(date("Y-m-d"));
+	 $difference = $date - strToTime(date("Y-m-d"));
   //  $diff_days = round($difference / (24*3600));
  $diff_days    = floor($difference/(60*60*24));
     if($date) { 
@@ -154,21 +154,18 @@ function cdatetime($timestamp)
         }
         else {
             $diff_days = -$diff_days;
+			 
             if($diff_days < 13) {
                 // days to a week
                 switch($diff_days) {
                     case 0:
-                        if($twodiff==0){
+                       
 						  $fuzz = "Today ".$time;
-						}else{
-						 $fuzz = $default;
-						}
+						
                     case 1:
-                        if($twodiff==0){
+                       
 						  $fuzz = "Yesterday ".$time;
-						}else{
-						 $fuzz = $default;
-						}
+						
                         break;
                     case 2: 
                     case 3:
