@@ -111,7 +111,7 @@ function invite_friends() {
         if (isset($_REQUEST['qid'])) {
             $subject = "Heardmentality Question Invite";
             
-            $body .= "Check this question url <br/>";
+            $body .= "Check this question url $question_urlink";
 
         
         } else if (isset($_REQUEST['uid'])) {
@@ -120,11 +120,11 @@ function invite_friends() {
             $body .= "Check this profile url <br/>";
         }
         
-        $body .= $question_urlink;
+      //  $body .= $question_urlink;
 			$from = $user->mail;
 			//$headers = array();
 			
-        
+       
         foreach ($mail_cont as $mail) {
             
           	$to = email_format(trim($mail));
