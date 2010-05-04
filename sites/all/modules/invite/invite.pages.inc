@@ -143,7 +143,7 @@ function invite_friends() {
 			
 				$subject = "Heardmentality Question Invite";
 				
-				$body = " $message Check this question url $question_urls['url'] <br/>";
+				$body = " $message Check this question url '.$question_urls['url'].' <br/>";
 				
 				
 				$mail_success = htmlmail( $to, $subject, $body, $from,'');
