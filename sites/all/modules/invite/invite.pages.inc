@@ -4,7 +4,7 @@ function invite_friends() {
     $uid = $user->uid;
     $requestedemails = NULL;
     $title = NULL;
-    $question_url = NULL;
+    $question_urlink = NULL;
     $invite_for_question = NULL;
     $body = NULL;
     /* // include("gmail.api.include.php");
@@ -79,7 +79,7 @@ function invite_friends() {
         if (! empty($udata)) {
             $uname = $udata['name'];
         }
-        $question_url = $gSitePath.'profile/'.$uname;
+        $question_urlink = $gSitePath.'profile/'.$uname;
     		$input='<input type="hidden" name="uid" value="'.$uid.'" />';
     } else {
         echo "Sorry Nothing to Share";
@@ -168,8 +168,8 @@ function invite_friends() {
     }
 
     
-    if (isset($question_url) && $question_url != NULL) {
-        $question_url = $question_url;
+    if (isset(question_urlink) && $question_urlink != NULL) {
+        $question_urlink = $question_urlink;
     }
     $mail_options = '<option value="aol">AOL</option>
                   <option value="gmail">Gmail</option>
@@ -236,7 +236,7 @@ function invite_friends() {
 			Refer URL :
 			</td>
 			<td align="left">
-			  '.$question_url.'
+			  '.question_urlink.'
 			
 			</td>
 				<td></td>
