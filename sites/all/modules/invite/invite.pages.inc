@@ -71,7 +71,7 @@ function invite_friends() {
             $question_urlff = $question_url['url'];
 				$input='<input type="hidden" name="qid" value="'.$question_id.'" />';
         }
-       $question_urlink = $gSitePath.$question_urlff;
+       $question_urlink ='<a href="'.$gSitePath.$question_urlff.'"> </a>';
     } else if (isset($_REQUEST['uid'])) {
         $uid = $_REQUEST['uid'];
         $find_url = db_query("select name from {users} where uid='$uid'");
@@ -121,7 +121,7 @@ function invite_friends() {
            $body .= "Check this profile url <br/>";
         }
         
-      $body .= '<a href="'.$question_urlink.'"> $question_urlink</a>';
+      $body .= $question_urlink;
 		
 			$from = $user->mail;
 			//$headers = array();
@@ -138,7 +138,7 @@ function invite_friends() {
 				$lastid=mysql_insert_id();
 				$idlink = '?lid='.$lastid.' ';
 				
-				$msginvite=$body.$idlink ;
+				$msginvite=$body.$idlink 
 				
 				
 				
