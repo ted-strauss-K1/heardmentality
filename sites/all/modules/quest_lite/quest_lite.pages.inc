@@ -366,6 +366,12 @@ $lji=explode("=",$_SERVER['QUERY_STRING']);
 		
 		document.getElementById(\'answer_frm\').submit();
 		}
+		if(mtype==2)
+		{
+		
+		load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile \');
+		//onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');
+		}
 		if(mtype==3)
 		{
 		loadflagquestion(\''.$gSitePath.'qlite/flag/\'+ids,\'Report \');
@@ -480,8 +486,9 @@ $lji=explode("=",$_SERVER['QUERY_STRING']);
 		            + event.providers;
 		}    
 	</script>';
-	$voutput.='<div class="rht_select">
-	<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
+	//<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
+	$voutput.='<div class="rht_select">';
+	
     $voutput .= '
 	
     <input type="button" onclick="showShareUI();" value="Share"/>
