@@ -236,7 +236,7 @@ function invite_friends() {
 			Refer URL :
 			</td>
 			<td align="left">
-			  '.question_urlink.'
+			  '.$question_urlink.'
 			
 			</td>
 				<td></td>
