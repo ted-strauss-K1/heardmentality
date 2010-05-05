@@ -625,7 +625,7 @@ function followinglist($uids)
 	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
 	 $PROFILE_IMAGE= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
 
-	$following[]='<div  id="show-'.$following_list->id.'"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$PROFILE_IMAGE.$user_namelist->name.'  </a>'.$flinks.'</div>' ;
+	$following[]='<div  id="show-'.$following_list->id.'"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$PROFILE_IMAGE.$user_namelist->real_name.'  </a>'.$flinks.'</div>' ;
 	
 	}
 	if($numfolls>5)
@@ -718,11 +718,11 @@ function followerlist($umid)
 	  }
 	if($follower_resultfuser->follower_status==0)
 	{
-		$followeru[]='<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'. $PROFILE_IMAGE.$user_namelistf->name.' </a> '.$flink1.'</div>';
+		$followeru[]='<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'. $PROFILE_IMAGE.$user_namelistf->real_name.' </a> '.$flink1.'</div>';
 	} 
 	else 
 	{
-		$followeru[]='<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'. $PROFILE_IMAGE.$user_namelistf->name.' </a> '.$flink1.'</div>';
+		$followeru[]='<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'. $PROFILE_IMAGE.$user_namelistf->real_name.' </a> '.$flink1.'</div>';
 	
 	} 
 	
@@ -770,7 +770,7 @@ $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  i
 	$valss='Block';
     $blkid='0';
 	}
-	echo '<div id="'.$_REQUEST['ids'].'" ><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
+	echo '<div id="'.$_REQUEST['ids'].'" ><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->real_name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
 	
 }
 
