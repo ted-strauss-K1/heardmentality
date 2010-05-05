@@ -88,6 +88,21 @@ drupal_goto("search/");
 	}
 
 return $fetresult;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 function user_follower()
@@ -135,7 +150,9 @@ function user_follower()
 	while($follower_result=db_fetch_object($rs_follower))
 	{
 	
-	$sel_userm="select * from users  where uid='".$follower_result->uid."' ";
+	
+	
+	 $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$follower_result->uid."'";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
 	if($follower_result->follower_status==0){
@@ -144,7 +161,7 @@ function user_follower()
 	  $linkr='<a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',1)" >UnBlock</a>';
 	  }
 	$blocklink='<input type="hidden" value="1" name="blk" id="blk"/>';
-	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> '.$linkr.'</div>';
+	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->real_name.'</strong> '.$linkr.'</div>';
 	
 	} 
 	else 
@@ -154,7 +171,7 @@ function user_follower()
 	  $blocklink='<a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',0)" >Block</a>';
 	  }
 	$blocklink='<input type="hidden" value="0" name="blk" id="blk"/>';
-	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong>'.$blocklink.'</div>';
+	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->real_name.'</strong>'.$blocklink.'</div>';
 	
 	
 	} 
@@ -217,7 +234,8 @@ function user_following()
 	$countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$follid."'  and follower_status='1'"));
 		while($following_result=db_fetch_object($rs_following))
 	{
-	 $sel_userm="select * from users  where uid='".$following_result->follower_id."' ";
+	// $sel_userm="select * from users  where uid='".$following_result->follower_id."' ";
+	 $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$following_result->follower_id."'";
 	$rs_userm=db_query($sel_userm);
 	$user_namelist=db_fetch_object($rs_userm);
 	 if($follid==$user->uid)
@@ -225,7 +243,7 @@ function user_following()
 	  $linkj='<a href="?delete='.$following_result->id.'" class="delete">Unfollow</a>';
 	  
 	  }
-	$following.= '<div class="record" id="record-'.$following_result->id.'"><strong>'.$user_namelist->name.'</strong> '.$linkj.' </div>';
+	$following.= '<div class="record" id="record-'.$following_result->id.'"><strong>'.$user_namelist->real_name.'</strong> '.$linkj.' </div>';
 	}
 	if($countrows==0)
 	{
@@ -248,62 +266,32 @@ function suggest_follow()
 	
 	array_push($array2,$flwing_result->follower_id);
 	
-	$sel_suge="select * from follower  where uid='".$flwing_result->follower_id."' and follower_id!='".$user->uid."' limit 0,5";
+	 $sel_suge="select * from follower  where uid='".$flwing_result->follower_id."' and follower_id!='".$user->uid."' limit 0,5";
 	$rs_suges=db_query($sel_suge);
 	
 	while($suggest_list=db_fetch_object($rs_suges))
 	{
 	
-	
+	//echo $suggest_list->follower_id;
 	array_push($array1,$suggest_list->follower_id);
 	
 	}
 	}
 	
-	
-	//print_r($array1);
-	//print_r($array2);
-	//echo count($array1);
-	//echo	count($array2);
+
 	$reult = array_diff($array1, $array2);
 		
-		//print_r($reult);
-		$result_array=array_values($reult);
-		//print_r($result_array);
-		//echo $result_array[$m];
-		$suggest_follow='<style type="text/css">
-		ul{ list-style-type: none; }
-		#container{ width: 960px; margin: 0 auto; position: relative; }
-		#feature,
-		.feature { padding: 10px 20px 0 20px;}
-		#feature li a,
-		.feature li a { color: #F37321; text-decoration: none;}
-		.feature h4 {
-		font-style:italic;
-		overflow:hidden;
-		}
-		.feature p{
-		color:#464A3F;
-		font-size:11px;
-		margin:3px 0;
-		font-family:inherit;
-		font-size:100%;
-		font-style:inherit;
-		font-weight:inherit;
-		}
-		.linkfol
-		{
-		background:#098ED1 none repeat scroll 0 0;
-		color:#fff;
-		padding:3px 6px;
-		text-decoration:none;
-		}
 		
-		</style>
+		$result_array=array_values($reult);
+		if(count($result_array)!=0)
+		{
+		$suggest_follow='
 		<div id="container">
 		<div class="feature">
 		<div class="l col">
 		<ul>';
+		
+		
 		
 		for($m=0;$m<count($result_array);$m++)
 		{
@@ -312,22 +300,27 @@ function suggest_follow()
 		$user_resultry=db_fetch_object($user_qrylist);
 	
 		$suggest_follow.='<li>
-	<h3><a href="'.$gSitePath.'user/'.$user_resultry->uid.'">'.$user_resultry->name.'</a>      </h3>
-	<h4>'.$user_resultry->mail.'</h4>		 	
+	<h3><a href="'.$gSitePath.'profile/'.$user_resultry->name.'">'.$user_resultry->name.'</a>      </h3>';
 	
-	</li><a class="linkfol" href="follow/'.$user_resultry->uid.'?act=flag">Follow </a>';
+	
+	
 	
 	}
 	
-	$suggest_follow.='</ul>
+	
+	
+	$suggest_follow.='</ul></div>
+	</div>
+	</div>
 	';
+}
+else
+{
+//////////////////// Maximum User Posted Questions//////////////////////
 	
 	
-	//////////////////// Maximum User Posted Questions//////////////////////
 	
-	
-	
-	$qusetion_user="SELECT uid, count( uid )FROM question GROUP BY uid limit 0, 10";
+	 $qusetion_user="SELECT uid, count( uid )FROM question GROUP BY uid limit 0, 10";
 	
 	$rs_user_quest=db_query($qusetion_user);
 	$quid=array();
@@ -340,19 +333,21 @@ function suggest_follow()
 	}
 	
 	//print_r($quid);
-	$reultss= array_diff($array1, $quid);
+	//	print_r($array1);
+	$reultss= array_diff($quid, $array1);
 	//print_r($reultss);
-	$valueresult= array_diff($reultss, $result_array);
-	//print_r($valueresult);
 	
-	$result_array_quest=array_values($valueresult);
 	
+	$result_array_quest=array_values($reultss);
+	//print_r($result_array_quest);
 	
 	$suggest_follow.='<ul>';
 		
 		for($t=0;$t<count($result_array_quest);$t++)
 		{
-		  $user_quest="select * from {users} where status='1' and uid='$result_array_quest[$t]'";
+		if($result_array_quest[$t]!=$user-uid)
+		{
+		  $user_quest="select * from {users} where status='1' and uid='$result_array_quest[$t]' ";
 		$user_qryqlist=db_query($user_quest);
 		$user_resultrym=db_fetch_object($user_qryqlist);
 	
@@ -361,7 +356,7 @@ function suggest_follow()
 	<h4>'.$user_resultrym->mail.'</h4>		 	
 	
 	</li><a class="linkfol" href="follow/'.$user_resultrym->uid.'?act=flag">Follow </a>';
-	
+	}
 	}
 
 	
@@ -369,7 +364,11 @@ function suggest_follow()
 	</div>
 	</div>
 	</div>';
-	
+
+
+
+}
+	//echo $suggest_follow;
 	
 	
 	
@@ -407,6 +406,19 @@ $suggest_follow.='No suggested Users';
 }
 	return $suggest_follow;
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
