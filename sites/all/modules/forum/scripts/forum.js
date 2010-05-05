@@ -6,8 +6,9 @@ window.addEvent('domready', function() {
 //$('newwaveletbut').addEvent('click', addComment.bindWithEvent(this,element)); 
 	
 	
-	bind_clk();
 
+	bind_clk();
+	
 });
 
 
@@ -56,16 +57,31 @@ function addSubmit(){
 	var cmt=$('waveletcmt').get('value');
 	var wid=$('waveid').get('value');
 	var wlid=$('wletid').get('value');
+	if($('privt').checked) {
+		var pvt=1;
+		}else{
+			var pvt=0;
+		}
+
+var myVerticalSlide = new Fx.Slide('wavelet-list');
+	
 	if(cmt.length>5){
 	var req = new Request({
 			method: 'get',
 			url: 'question/forum/savecmt',
-			data: { 'wid':wid,'wlet':wlid,'cmt':cmt },
-			onRequest: function() { 	$('commentArea').fade('out');	MochaUI.notification('Please wait while posting...');},
+			data: { 'wid':wid,'wlet':wlid,'cmt':cmt,'pvt':pvt },
+			onRequest: function() { 	$('commentArea').fade('out');	
+	
+		myVerticalSlide.slideOut();
+MochaUI.notification('Please wait while posting...');},
 			onComplete: function(response) { 
 			 MochaUI.notification('Thank you posted successfully...'); 
 			 $('wavelet-list').set('html',response); 
+			 	myVerticalSlide.slideIn();
+				
 			 bind_clk();
+			 $('privt').setProperty('checked',false);
+			  $('wavelet-list').setStyle('height','auto');
 			}
 		}).send();
 		

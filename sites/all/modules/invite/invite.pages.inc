@@ -153,8 +153,7 @@ function invite_friends() {
 			  
 			
 		
-			
-			
+						
 			
 		
 			
