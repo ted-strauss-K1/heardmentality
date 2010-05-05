@@ -712,8 +712,8 @@ function followerlist($umid)
 	  $user_namelistf->name;
 	  if($umid==$user->uid)
 	  {
-	  $flink1='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',1)" >UnBlock</a>';
-	  $flink2='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',0)" >Block</a>';
+	  $flink1='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',1)" >Block</a>';
+	  $flink2='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',0)" >UnBlock</a>';
 	  
 	  }
 	if($follower_resultfuser->follower_status==0)
@@ -763,11 +763,11 @@ $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  i
 	if($_REQUEST['blk']==0)
 	{
 	$blkid='1';
-	$valss='Block';
+	$valss='UnBlock';
 	}
 	else
 	{
-	$valss='UnBlock';
+	$valss='Block';
     $blkid='0';
 	}
 	echo '<div id="'.$_REQUEST['ids'].'" ><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->real_name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
