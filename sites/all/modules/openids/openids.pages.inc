@@ -252,6 +252,8 @@ var OpenIdSelector = new Class({
             if (!onload) $(\'openid_form\').submit();
         }
     },
+
+
        submit: function(){
         var url = this.provider_url;
         if (url) {
@@ -384,6 +386,11 @@ function openid_login_save()
 {
 global $gSitePath,$user,$gDocPath,$base_root;
 //$formret=print_r($_GET);
+//echo $_COOKIE['friend_id'];
+
+//echo $sessname;
+
+
 
 if($_GET['gender']=='m')
 $gender='1';
@@ -418,9 +425,9 @@ if($select_user_count==0)
 	 $insert="insert into users (name,pass,mail,provider,created,access,login,status)values('".$uname."','".md5($pass)."','".$_GET['email']."','".$_GET['provider']."','".time()."','".time()."','".time()."','1') ";
 	$insersult=db_query($insert);
 	 $lid=mysql_insert_id();
-	 if($_SESSION['friend_id']!='')
+	 if($_COOKIE['friend_id']!='0')
 	 {
-   $selectuserm= db_query("select * from  invite_friend  where inv_id='".$_SESSION['friend_id']."'");
+   $selectuserm= db_query("select * from  invite_friend  where inv_id='".$_COOKIE['friend_id']."'");
     $userlistmr = db_fetch_object($selectuserm);
 	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$userlistmr->uid."','1','".date('Y-m-d')."') ";
 	$rs_commg=db_query($ins_commg);
@@ -430,6 +437,7 @@ if($select_user_count==0)
 	$fetuserpts=db_fetch_object($query_ptinfo);
 	$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$userlistmr->uid."' ,'6',$fetuserpts->points,'0') ";
 	$rs_commg=db_query($ins_commg);
+	setcookie("friend_id", '0');
 	}
 	if($_GET['email']=='')
 	{
