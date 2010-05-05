@@ -712,8 +712,8 @@ function followerlist($umid)
 	  $user_namelistf->name;
 	  if($umid==$user->uid)
 	  {
-	  $flink1='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',0)" >Block</a>';
-	  $flink2='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',1)" >UnBlock</a>';
+	  $flink1='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',1)" >Block</a>';
+	  $flink2='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',0)" >UnBlock</a>';
 	  
 	  }
 	if($follower_resultfuser->follower_status==1)
@@ -754,6 +754,8 @@ function save_follower_profile()
 if(isset($_GET['action']))
 {
 
+echo lllll.$del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  id='".$_GET['action']."' ";
+	$rs_blog_del=db_query($del_blog);
 	
 	 $sel_userms = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_GET['usid']."'";
 	// $sel_userms="select * from users  where uid='".$_GET['usid']."' ";
@@ -763,15 +765,13 @@ if(isset($_GET['action']))
 	{
 	$blkid='1';
 	$valss='UnBlock';
-	echo $del_blog="update  follower  set follower_status='1' where  id='".$_GET['action']."' ";
-	$rs_blog_del=db_query($del_blog);
+	
 	}
 	else
 	{
 	$valss='Block';
     $blkid='0';
-	echo lllll.$del_blog="update  follower  set follower_status='0' where  id='".$_GET['action']."' ";
-	$rs_blog_del=db_query($del_blog);
+	
 	}
 	echo '<div id="'.$_REQUEST['ids'].'" ><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->real_name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
 	
