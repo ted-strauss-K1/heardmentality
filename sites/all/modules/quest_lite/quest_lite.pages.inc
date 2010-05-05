@@ -10,7 +10,7 @@ if($select_user_count==0)
 {
  session_start();
  $_SESSION['friend_id']=$_REQUEST['lid'];
- echo $_SESSION['friend_id'];
+// echo $_SESSION['friend_id'];
  }
  }
 //echo $lji[0];
