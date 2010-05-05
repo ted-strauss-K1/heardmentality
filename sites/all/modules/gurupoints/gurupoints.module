@@ -64,25 +64,6 @@ function increasepoints($ptype,$qid,$idm)
 	$quspts=db_query($uppts);
 	}
 	}
-	elseif(($idm=='0')&&($qid==0))
-	{
-	
-	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where point_id=$ptype  and uid=$user->uid"));
-	  $query_pt= "SELECT * FROM tbl_points where id='$ptype' "; 
-	$query_ptinfo=db_query($query_pt);
-	$fetuserpts=db_fetch_object($query_ptinfo);
-	
-	if($numpt==0)
-	{
-	  $insert_pts="insert into tbl_user_points (uid,qid,point_id,points,vote_point_id) values($user->uid,$qid,$ptype,$fetuserpts->points,$idm)";
-	$qus=db_query($insert_pts);
-	$totpts=$userresult->points+$fetuserpts->points;
-	$uppts="update user_profile set points=$totpts where uid=$user->uid";
-	$quspts=db_query($uppts);
-	}
-	
-	
-	}
 	else
 	{
 	//echo $idm;
