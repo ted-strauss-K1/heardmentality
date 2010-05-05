@@ -1,0 +1,10 @@
+; $Id: Question.info,v 1.4 2007/06/08 05:50:55 dries Exp $
+name = Notify
+description = This Module is developed to set user notification settings.
+package = Notify - core
+version = VERSION
+core = 6.x
+; Information added by drupal.org packaging script on 2009-07-01
+version = "6.15"
+project = "drupal"
+datestamp = "1246481719"

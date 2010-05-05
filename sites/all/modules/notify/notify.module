@@ -1,0 +1,43 @@
+<?php
+/**
+ * Implementation of hook_perm().
+ */
+function notify_perm() {
+  return array('notify','Notify Report','Notify Report Content');
+}
+
+
+/**
+ * Implementation of hook_menu().
+ */
+ 
+function notify_menu() {	
+
+$items['notify'] = array(
+    'title' => ' Notification',
+    'page callback' => 'my_notify',
+    'access arguments' => array('notify'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'notify.pages.inc',
+  );
+
+ $items['notify/report'] = array(
+    'title' => 'Notification',
+    'page callback' => 'notify_report',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Notify Report'),
+    'file' => 'notify.pages.inc',
+  );
+  $items['notify/repcontent'] = array(
+    'title' => 'Notification',
+    'page callback' => 'notify_content',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Notify Report Content'),
+    'file' => 'notify.pages.inc',
+  );
+ 
+  return $items;
+}
+
+	
+	
