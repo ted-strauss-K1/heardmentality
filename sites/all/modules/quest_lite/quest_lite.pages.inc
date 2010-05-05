@@ -1174,11 +1174,11 @@ function forum_wave($qid = '') {
 	<form  id="newwaveform" class="newwave" action="'.url($_GET['q'], array('absolute'=>true)).'?type=Forum" method="post" accept-charset="utf-8">
 	<div ><b>Post New Wave</b></div>
 	<p><textarea row="7" class="textArea" cols="55" name="wtitle" id="wtitle" ></textarea></p>	
-	<div ><b>Private Reply :</b> [Only followers can do reply]</div>
+	<!--<div ><b>Private Reply :</b> [Only followers can do reply]</div>
 	<p><select name="wprivate" id="wprivate">
 	<option value="0"> Disabled</option>
 	<option value="1"> Enabled  </option>
-	</select></p>					
+	</select></p>		-->			
 	<p><input type="button" class="waveButtonMain" onclick="wave_form();" value="Post" /></p>
 </form>';
 	}
