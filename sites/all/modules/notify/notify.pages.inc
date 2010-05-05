@@ -9,7 +9,22 @@ function my_notify() {
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-  $qid=get_nqid($idb);
+ // $qid=get_nqid($idb);
+// echo $idb;
+	if(($idb=='otify')||($idb=='repcontent'))
+	{
+	$query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
+	  $quest = db_query($query);
+	$qid = db_result($quest);
+	
+	}
+    else
+	{
+	$query = "SELECT qid from {question} where url='".$idb."'";
+	    $quest = db_query($query);
+	  $qid = db_result($quest); 
+	
+	}
 	 
 
    
@@ -57,12 +72,12 @@ function my_notify() {
 }
 function get_nqid($idm){
 	
-	 global $gSitePath,$user,$gDocPath,$base_root;
+	/* global $gSitePath,$user,$gDocPath,$base_root;
 	 $qid=$idm;
 	// echo $qid;
 	 if($qid!='otify'&&$qid!='map' && $qid!='graph'){
 	//echo kkkk;
-	   $query = "SELECT * from {question} where url='".$idm."'";
+	   $query = "SELECT qid from {question} where url='".$idm."'";
 	    $quest = db_query($query);
 	  $qid = db_result($quest); 
 	 
@@ -76,14 +91,14 @@ function get_nqid($idm){
 	 }
    
 	 
-	 return $qid;
+	 return $qid;*/
 	
 }
 
 function notify_report($idb='') {
     global $gSitePath,$user,$gDocPath,$base_root;
-
-
+  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+//echo veni  .$idb;
   echo  $output= '<div class="toolbarTabs">
 	<ul id="qTabs" class="tab-menu">
 	<li id="qTabs1Link" class="selected"><a>Percentage</a></li>
@@ -100,21 +115,21 @@ function notify_report($idb='') {
 	$("qTabs1Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("notify-panel"),
-	"url":       "'.$gSitePath.'notify/repcontent/?t=per"
+	"url":       "'.$gSitePath.'notify/repcontent/'.$idb.'?t=per"
 	});
 	});
 	
 	$("qTabs2Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("notify-panel"),
-	"url":       "'.$gSitePath.'notify/repcontent/?t=time"
+	"url":       "'.$gSitePath.'notify/repcontent/'.$idb.'?t=time"
 	});
 	});
 	
 	$("qTabs3Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("notify-panel"),
-	"url":       "'.$gSitePath.'notify/repcontent/?t=area"
+	"url":       "'.$gSitePath.'notify/repcontent/'.$idb.'?t=area"
 	});
 	});
 
@@ -124,10 +139,23 @@ function notify_report($idb='') {
 }
 function notify_content() {
     global $gSitePath,$user,$gDocPath,$base_root;
-     $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-  $qid=get_nqid($idb);
+      $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	if(($idb=='otify')||($idb=='repcontent'))
+	{
+	$query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
+	$quest = db_query($query);
+	$qid = db_result($quest);
+	
+	}
+	else
+	{
+	$query = "SELECT qid from {question} where url='".$idb."'";
+	    $quest = db_query($query);
+	  $qid = db_result($quest); 
+	
+	}
    
-	 echo $qid;
+	 //echo "kkkkkkkk".$qid;
     $type=$_REQUEST[t];
    
     switch ($type) {
