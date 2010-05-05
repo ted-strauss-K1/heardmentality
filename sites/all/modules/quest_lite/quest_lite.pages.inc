@@ -25,13 +25,13 @@ if($select_user_count==0)
     $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
     $query_list = db_query($query);
     $fetvot = db_fetch_object($query_list);
-    //echo $fetvot->possiblevote;
+   $vot1= $fetvot->possiblevote;
     
     $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid";
     $query_sugestlist = db_query($query_sugest);
     $fetvotsugest = db_fetch_object($query_sugestlist);
-    
-    $totalvotes = $fetvot->possiblevote + $fetvotsugest->suggestv;
+    $vot2=$fetvotsugest->suggestv;
+    $totalvotes = $vot1 + $vot2;
 
     
     $vqry = "select * from tbl_vote_gurupoints where vstart=$totalvotes and vend>$totalvotes";
