@@ -425,8 +425,11 @@ if($select_user_count==0)
 	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$userlistmr->uid."','1','".date('Y-m-d')."') ";
 	$rs_commg=db_query($ins_commg);
 	$select_user_count = db_query("update  invite_friend set status='1' where inv_id='".$_SESSION['friend_id']."'");
-       increasepoints('6','0','0');
-	
+	$query_pt= "SELECT * FROM tbl_points where id='6' "; 
+	$query_ptinfo=db_query($query_pt);
+	$fetuserpts=db_fetch_object($query_ptinfo);
+	$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$userlistmr->uid."' ,'6',$fetuserpts->points,'0') ";
+	$rs_commg=db_query($ins_commg);
 	}
 	if($_GET['email']=='')
 	{
