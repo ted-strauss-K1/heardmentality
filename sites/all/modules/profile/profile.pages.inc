@@ -716,7 +716,7 @@ function followerlist($umid)
 	  $flink2='<a style="color:#F37321;" onclick="blockandunblock('.$follower_resultfuser->id.','.$follower_resultfuser->uid.',1)" >UnBlock</a>';
 	  
 	  }
-	if($follower_resultfuser->follower_status==0)
+	if($follower_resultfuser->follower_status==1)
 	{
 		$followeru[]='<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'. $PROFILE_IMAGE.$user_namelistf->real_name.' </a> '.$flink1.'</div>';
 	} 
