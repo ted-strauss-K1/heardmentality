@@ -8,7 +8,7 @@ $lji=explode("=",$_SERVER['QUERY_STRING']);
  $select_user_count = db_result(db_query("SELECT COUNT(*) from invite_friend where inv_id='".$_REQUEST['lid']."' and  status='1' "));
 if($select_user_count==0)
 {
- session_start();
+// session_start();
  $_SESSION['friend_id']=$_REQUEST['lid'];
 // echo $_SESSION['friend_id'];
  }
