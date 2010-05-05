@@ -149,7 +149,7 @@ function wave_access($id='',$pvt=''){
 	 
 	 
 	if($pvt==1){
-		 $query = "select * from {forum_wavelets} as f left join {user_profile} as u on u.uid=f.uid  where f.wlid='$id' ";
+		 $query = "select *,f.uid as uid from {forum_wavelets} as f left join {user_profile} as u on u.uid=f.uid  where f.wlid='$id' ";
         
         $list = ExecuteQuery($query, "select");
 		//print_r($list);
@@ -157,6 +157,20 @@ function wave_access($id='',$pvt=''){
 	if($list[0]['uid']==$user->uid){
 		
 		return true;
+	}else{
+		
+		//followers or following 
+		
+		$query = "(select count(*) as a from {follower} where uid='".$list[0]['uid']."' AND follower_id='$user->uid') union (select count(*) as b from {follower} where uid='$user->uid' AND follower_id='".$list[0]['uid']."') ";
+        
+        $fet = ExecuteQuery($query, "select");
+		
+		if($fet[0]['a']||$fet[0]['b']){
+		return true;	
+		}
+		
+		
+		
 	}	
 	
 		
@@ -165,7 +179,7 @@ function wave_access($id='',$pvt=''){
 		return true;
 	}
 
-	
+	return false;
 }
 
 
