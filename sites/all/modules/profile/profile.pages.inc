@@ -722,7 +722,7 @@ function followerlist($umid)
 	} 
 	else 
 	{
-		$followeru[]='<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'. $PROFILE_IMAGE.$user_namelistf->real_name.' </a> '.$flink1.'</div>';
+		$followeru[]='<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'. $PROFILE_IMAGE.$user_namelistf->real_name.' </a> '.$flink2.'</div>';
 	
 	} 
 	
