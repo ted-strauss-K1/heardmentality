@@ -756,8 +756,8 @@ if(isset($_GET['action']))
 $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  id='".$_GET['action']."' ";
 	$rs_blog_del=db_query($del_blog);
 	
-	 
-	 $sel_userms="select * from users  where uid='".$_GET['usid']."' ";
+	 $sel_userms = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_GET['usid']."'";
+	// $sel_userms="select * from users  where uid='".$_GET['usid']."' ";
 	$rs_userms=db_query($sel_userms);
 	$resulrnames=db_fetch_object($rs_userms);
 	if($_REQUEST['blk']==0)
