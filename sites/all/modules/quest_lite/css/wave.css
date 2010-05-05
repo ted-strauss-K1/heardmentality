@@ -217,7 +217,13 @@ span.name{
 	float:left;
 	margin-right:10px;
 }
-
+.commentAvatar img{
+	
+	width:30px;
+	height:30px;
+	border:0px;
+	
+}
 
 .waveComment a,
 .waveComment a:visited{
