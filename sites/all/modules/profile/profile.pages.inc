@@ -763,11 +763,11 @@ $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  i
 	if($_REQUEST['blk']==0)
 	{
 	$blkid='1';
-	$valss='UnBlock';
+	$valss='Block';
 	}
 	else
 	{
-	$valss='Block';
+	$valss='UnBlock';
     $blkid='0';
 	}
 	echo '<div id="'.$_REQUEST['ids'].'" ><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->real_name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
