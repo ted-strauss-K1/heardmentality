@@ -5,16 +5,28 @@ window.addEvent('domready', function() {
 	
 //$('newwaveletbut').addEvent('click', addComment.bindWithEvent(this,element)); 
 	
+	
+	bind_clk();
+
+});
+
+
+
+function bind_clk(){
+	
+	
+	
 	var elements=$$('div.replyLink').getElements('a');
 	
 	 elements.each(function(element,index){
- 		
+ 	
 element.addEvent('click', addComment.bindWithEvent(this,element)); 
 
  });
 	
-
-});
+	
+	
+}
 
 
 function addComment(val,el){
@@ -50,12 +62,17 @@ function addSubmit(){
 			url: 'question/forum/savecmt',
 			data: { 'wid':wid,'wlet':wlid,'cmt':cmt },
 			onRequest: function() { 	$('commentArea').fade('out');	MochaUI.notification('Please wait while posting...');},
-			onComplete: function(response) {  MochaUI.notification('Thank you posted successfully...'); $('wavelet-list').set('html',response); }
+			onComplete: function(response) { 
+			 MochaUI.notification('Thank you posted successfully...'); 
+			 $('wavelet-list').set('html',response); 
+			 bind_clk();
+			}
 		}).send();
-
+		
 	}else{
 		
 		$('waveletcmt').setStyle('border-color','#EF2C2C');
+		return false;
 	}
-	
+
 }
