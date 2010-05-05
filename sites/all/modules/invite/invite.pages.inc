@@ -128,8 +128,14 @@ function invite_friends() {
 			
        
         foreach ($mail_cont as $mail) {
+
+         
+          //   $to = email_format(trim($mail));
+           // $mail_success = drupal_mail('invite', $to, $subject, $body, $from);
+
             
           	$to = email_format(trim($mail));
+
 			
 			if($to!='')
 			{
@@ -284,14 +290,17 @@ function email_format($valueFrmsubmit = '') {
     if (sizeof($t) > 1) {
         $e = explode(">", $t[1]);
         if (ereg("^[a-zA-Z0-9_\.\-]+[a-zA-Z0-9_\+\.\-]*@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+[a-zA-Z0-9\-\.]*$", trim($e[0]))) {
-           return $email = trim($e[0]);
+          return  $email = trim($e[0]);
+
             $contact_names[trim($e[0])] = trim($t[0]);
         }
     } else {
         if (ereg("^[a-zA-Z0-9_\.\-]+[a-zA-Z0-9_\+\.\-]*@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+[a-zA-Z0-9\-\.]*$", $valueFrmsubmit)) {
           return  $email = $valueFrmsubmit;
         }
-       // return $email;
+
+        //return $email;
+
     }
 
 
