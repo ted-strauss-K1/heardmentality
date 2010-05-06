@@ -40,6 +40,16 @@
 	margin:30px auto;
 }
 
+.href{
+
+color:#098ED1;
+font-weight:bold;
+cursor:pointer;
+text-decoration:none;
+cursor:pointer;
+	
+}
+
 #wave{
 	/* CSS rounded corners */
 	-moz-border-radius:6px;
