@@ -25,6 +25,8 @@ addJavascript('http://www.plaxo.com/css/m/js/abc_launcher.js','head');
 		e.stop();
 		//Empty the log and show the spinning indicator.
 		var log = $('log_res').empty().addClass('ajax-loading');
+		var myVerticalSlide = new Fx.Slide('inviteform');
+		myVerticalSlide.slideOut();
 		//Set the options of the form's Request handler. 
 		//("this" refers to the $('myForm') element).
 		this.set('send', {onComplete: function(response) { 
