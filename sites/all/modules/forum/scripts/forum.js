@@ -20,9 +20,10 @@ function bind_clk(){
 	var elements=$$('div.replyLink').getElements('a');
 	
 	 elements.each(function(element,index){
- 	
+	 	
+ 	if(element.get('id')!='likelink'){
 element.addEvent('click', addComment.bindWithEvent(this,element)); 
-
+}
  });
 	
 	
@@ -51,6 +52,40 @@ function cancelAdd(id){
 	
 	
 }
+
+function likethis(wid,el){
+	
+	//var myVerticalSlide = new Fx.Slide('likelink');
+
+	
+	 //	myVerticalSlide.slideOut();
+	 	$('likelink').fade('out');
+	//$('likelink').set('slide', {duration: 'long', transition: 'bounce:out'});
+//$('likelink').slide('in');
+$('likelink').slide('hide').slide('in');
+
+		$('likelink').empty();
+		
+			var url = spath+'question/forum/savecmt';
+									var req = new Request({    
+											method: 'get'
+											,url: url
+											,data: { 'like':'1','wid':wid },
+											onRequest: function() {$('waveerr').set('html','<b>Saving your like..!</b>'); $('waveerr').slide('hide').slide('in');},
+											onComplete: function(response) {
+									 $('waveerr').set('html', response);
+								//	 $('waveerr').slide('hide').slide('in');
+											}
+									}).send();
+		
+		
+		
+		//$('waveerr').set('html','<b>Thanks for your like!</b>');
+	
+}
+
+
+
 
 function addSubmit(){
 	

@@ -19,20 +19,23 @@ function forum_list($qid = '') {
         //$date = cdatetime($forum['date_added']).$forum['date_added'];
         $date = format_date_class($forum['date_added'], date());
         $account = user_load($forum['uid']);
-
-        
+			
+			$image=empty($forum['image'])?'noimage.jpg':$forum['image'];
+       
+			$name=empty($forum['real_name'])?$forum['first_name']:$forum['real_name'];
+			
         $output .= '
-		
+		<div id="waveerr" align="center"></div>
 	<div class="comment com-1" style="background:#ECECEF">
 	<div class="waveTime">'.$date.'</div>
 	<div class="commentAvatar">
-				<img  alt="'.$forum['name'].'" title="'.$forum['name'].'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$forum['image'].'"/>
+				<img  alt="'.$name.'" title="'.$name.'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'"/>
 				</div>
 				<div class="commentText" >
-				<span class="name" >'.$account->name.':</span>  '.$forum['title'].'
+				<span class="name" ><a href="'.$gSitePath.'/user/'.$account->name.'">'.$name.'</a>:</span>  '.$forum['title'].'
 				</div>
 				<div class="replyLink">
-				<a id="'.$wid.'-0" href="#commentArea">add a reply »</a>
+				<span class="href" onclick="likethis('.$wid.',this);" id="likelink" > I like this wave</span><span><b> | </b></span><a id="'.$wid.'-0" onclick="addComment(this,this);" href="#commentArea">add a reply »</a>
 				</div>
 				<div class="clear"></div>
 			</div></div>
@@ -57,7 +60,7 @@ function forum_list($qid = '') {
 		<textarea name="waveletcmt" id="waveletcmt" cols="70" rows="2"  class="textArea"></textarea>
 		<input type="hidden" name="waveid" id="waveid" value=""/>
 		<input type="hidden" name="wletid" id="wletid" value=""/>
-		<div><input type="checkbox" name="privt" value="1" id="privt" > <small>Private Reply</small> &nbsp;<input type="button" onclick="addSubmit();return false;" value="Add comment" class="waveButton"/> or <a onclick="cancelAdd(this);return false" href="">cancel</a></div>	
+		<div><span><input type="checkbox" name="privt" value="1" id="privt"/></span> <span><small>Private Reply</small> </span><span> <input type="button" onclick="addSubmit();return false;" value="Add comment" class="waveButton"/> </span><span>  or <a onclick="cancelAdd(this);return false" href="">cancel</a></span> </div>	
 		</div>	
 		</div>	';
     } else {
@@ -74,22 +77,55 @@ function forum_list($qid = '') {
 }
 
 function cmt_submit() {
+	 extract($_REQUEST);
+        global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
-    //print_r($_REQUEST);
-    extract($_REQUEST);
-    global $gSitePath,$user,$gDocPath,$base_root;
-    
-    $query = "insert into {forum_wavelets} set wid='$wid',uid='$user->uid',parentid='$wlet',wavelet='$cmt',private='$pvt'";
-    
-    $set = ExecuteQuery($query, "insert");
 
-    
-    echo $output = get_wavelets($wid, 0);
-    exit;
+    if(!isset($user->uid)){
+    	
+			echo "<b>Sorry, Please login to do this action!</b>";
+			exit;
+		}
+		
+    if (isset($_REQUEST['like'])) {
+		
+
+		
+    $query = "select * from {forumwave_like} where wid='$wid' AND uid='$user->uid'";
+        
+        $chk = db_result(db_query($query));
+		
+		if(!$chk){
+			
+		$query = "insert into {forumwave_like} set wid='$wid',uid='$user->uid',like_yes='1'";
+        
+        $chk = db_query($query);	
+		echo "<b>Thank you for liking, Have a great day!";
+		
+		}else{
+			
+			echo "<b>Sorry, Already u liked this wave!</b>";
+		}
+		
+	
+	exit;
+    } else {
+        //print_r($_REQUEST);
+       
+        
+        $query = "insert into {forum_wavelets} set wid='$wid',uid='$user->uid',parentid='$wlet',wavelet='$cmt',private='$pvt'";
+        
+        $set = ExecuteQuery($query, "insert");
+
+        
+        echo $output = get_wavelets($wid, 0);
+        exit;
+    }
+
 }
 
 function get_wavelets($wid = '', $pid = '') {
-     global $gSitePath,$user,$gDocPath,$base_root;
+    global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     $bg = '';
     if (! empty($wid)) {
@@ -99,7 +135,7 @@ function get_wavelets($wid = '', $pid = '') {
         
         $list = ExecuteQuery($query, "select");
         
-        print_r($set);
+        //print_r($set);
         
         foreach ($list as $forum) {
             
@@ -108,19 +144,23 @@ function get_wavelets($wid = '', $pid = '') {
             $account = user_load($forum['uid']);
 
             
-            if (wave_access($forum['wlid'],$forum['private'])) {
+            if (wave_access($forum['wlid'], $forum['private'])) {
+            	
+				$image=empty($forum['image'])?'noimage.jpg':$forum['image'];
+				$name=empty($forum['real_name'])?$forum['first_name']:$forum['real_name'];
+				
                 $output .= '
 							<div class="waveComment com-'.$forum['wlid'].'" '.$bg.'>
 							<div class="comment">
 							<div class="waveTime">'.$date.'</div>
 							<div class="commentAvatar">
-								<img  alt="'.$forum['name'].'" title="'.$forum['name'].'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$forum['image'].'"/>
+								<img  alt="'.$name.'" title="'.$name.'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'"/>
 							</div>
 							<div class="commentText" >
-							<span class="name">'.$account->name.':</span>  '.$forum['wavelet'].'
+							<span class="name">'.$name.':</span>  '.$forum['wavelet'].'
 							</div>
 							<div class="replyLink">
-							<a id="'.$wid.'-'.$forum['wlid'].'" href="#commentArea">add a reply »</a>
+							<a id="'.$wid.'-'.$forum['wlid'].'" onclick="addComment(this,this);" href="#commentArea">add a reply »</a>
 							</div>
 							<div class="clear">
 						</div>
@@ -144,42 +184,41 @@ function get_wavelets($wid = '', $pid = '') {
 
 }
 
-function wave_access($id='',$pvt=''){
-	 global $gSitePath,$user,$gDocPath,$base_root;
-	 
-	 
-	if($pvt==1){
-		 $query = "select *,f.uid as uid from {forum_wavelets} as f left join {user_profile} as u on u.uid=f.uid  where f.wlid='$id' ";
+function wave_access($id = '', $pvt = '') {
+    global $gSitePath,$user,$gDocPath,$base_root;
+
+    
+    if ($pvt == 1) {
+        $query = "select *,f.uid as uid from {forum_wavelets} as f left join {user_profile} as u on u.uid=f.uid  where f.wlid='$id' ";
         
         $list = ExecuteQuery($query, "select");
-		//print_r($list);
-		
-	if($list[0]['uid']==$user->uid){
-		
-		return true;
-	}else{
-		
-		//followers or following 
-		
-		$query = "(select count(*) as a from {follower} where uid='".$list[0]['uid']."' AND follower_id='$user->uid') union (select count(*) as b from {follower} where uid='$user->uid' AND follower_id='".$list[0]['uid']."') ";
+        //print_r($list);
         
-        $fet = ExecuteQuery($query, "select");
-		
-		if($fet[0]['a']||$fet[0]['b']){
-		return true;	
-		}
-		
-		
-		
-	}	
-	
-		
-	}else{
-		
-		return true;
-	}
+        if ($list[0]['uid'] == $user->uid) {
+            
+            return true;
+        } else {
+            
+            //followers or following
+            
+            $query = "(select count(*) as a from {follower} where uid='".$list[0]['uid']."' AND follower_id='$user->uid') union (select count(*) as b from {follower} where uid='$user->uid' AND follower_id='".$list[0]['uid']."') ";
+            
+            $fet = ExecuteQuery($query, "select");
+            
+            if ($fet[0]['a'] || $fet[0]['b']) {
+                return true;
+            }
 
-	return false;
+        
+        }
+
+    
+    } else {
+        
+        return true;
+    }
+    
+    return false;
 }
 
 
