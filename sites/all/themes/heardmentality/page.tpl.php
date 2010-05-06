@@ -201,7 +201,8 @@ var login_params=
 			 else:
 			
 			?>
-			<ul class="menu-right">
+            
+     	<ul class="menu-right">
 				<li>Welcome <a href="<?php echo $gSitePath?>profile" ><?php
 				 $user_prof = db_fetch_object(db_query("SELECT * from {user_profile} where  uid=".$user->uid." "));
 				if($user_prof->real_name=='')
@@ -230,8 +231,12 @@ var login_params=
                 </ul>	-->
                <?php //print garland_user_bar() ?>
                </ul>
+               
+   
 		</div>
+        
 	</div>
+    
 </div>
 	
 <div id="desktopNavbar">
