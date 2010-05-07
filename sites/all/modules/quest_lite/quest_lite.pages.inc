@@ -8,11 +8,10 @@ $lji=explode("=",$_SERVER['QUERY_STRING']);
  $select_user_count = db_result(db_query("SELECT COUNT(*) from invite_friend where inv_id='".$_REQUEST['lid']."' and  status='1' "));
 if($select_user_count==0)
 {
-// session_start();
- $_SESSION['friend_id']=$_REQUEST['lid'];
-// echo $_SESSION['friend_id'];
+setcookie("friend_id", $_REQUEST['lid']);
  }
  }
+
 //echo $lji[0];
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
@@ -239,54 +238,30 @@ if($select_user_count==0)
         $ufet = db_fetch_object($username);
         $ufet->mail;
         $subject_proj = 'Heard Menatlity-Answer Has Been Replaced For Your Question';
-        $content_pro = '<html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-		<title>Heard Menatlity.com</title>
-		</head>
-		<style>
-		.link2 {
-		font-family: verdana;
-		font-size: 10px;
-		font-weight: bold;
-		text-transform: none;
-		color: #818181;
-		text-decoration: none;
-		}
-		</style>
-		<body link="#990000" vlink="#990000" alink="#990000" leftmargin="5" topmargin="5" marginwidth="0" marginheight="0">
-		<table width="465" height="332" border="0" cellpadding="8" cellspacing="2" bgcolor="#C20C3D">
-		<tr> 
-		<td width="439" bgcolor="#FFFFFF"><img src="'.$gSitePath.'sites/all/themes/heardmentality/images/logo.gif" height="75" width="150"></td>
-		</tr>
-		<tr> 
-		<td bgcolor="#FFFFFF" class="text"><p><font  size="2" face="Arial, Helvetica, sans-serif">Hi <font color="#7B7B7B"><strong>'.$ufet->name.'</strong>,</font> </font></p>
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours .</strong></font></p>
+        $content_pro = ' <table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
+                  border=0>
+                    <tbody> 
+                    <tr> 
+                      <td valign=top align=left><font 
+                        face="Verdana, Arial, Helvetica, sans-serif" 
+                        size=2> Hi '.$ufet->name.' ,<br>
+<div align="justify">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours . 
 
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Please login to see Suggest Answer. </font></p>
-		
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Thanks,<font color="#B1546A"><br/> 
-		Heard Menatality Team.</font></font><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><br/>
-		</font></p>
-		</td>
-		</tr>
-		</table>
-		</body>
-		</html>';
+Please login to View  Suggest Answer.</div>
+<br>
+
+                        <br>
+                        </font></td>
+                    </tr>
+                    </tbody> 
+                  </table>
+	
+				';
         $contentm_pros = $content_pro;
         $messpro_list = stripslashes($contentm_pros);
-        $eol = "\n";
-        $mime_boundary = md5(time());
-        $headers .= "From: Heard Menatality  <support@heardmenatlity.com>".$eol;
-        $headers .= "Reply-To: Heard Menatality   <support@heardmenatlity.com>".$eol;
-        $headers .= "Return-Path: Heard Menatality   <support@heardmenatlity.com>".$eol;
-        $headers .= "X-Mailer: PHP v".phpversion().$eol;
-        $headers .= 'MIME-Version: 1.0'.$eol;
-        $headers .= "Content-Type: text/html; charset=iso-8859-1".$eol;
-        if (preg_match('/gmail/', $email))
-            $headers = str_replace("\r\n", "\n", $headers);
-        mail($ufet->mail, $subject_proj, $messpro_list, $headers);
+      
 
-        
+        $mail_successs = htmlmail( $ufet->mail, $subject_proj, $messpro_list, $from,'');
         $delossld = "delete  from possible_answer_changeids where ans_id='".$array2[$x]."'";
         $delssqry = db_query($delossld);
         $deloldwds = "delete  from suggest_ans_changeids where ans_id='".$array1[$x]."'";
@@ -307,49 +282,37 @@ if($select_user_count==0)
         $ufets = db_fetch_object($usernames);
         $ufets->mail;
         $subject_proj = 'Heard Menatlity-Answer Has Been Replaced ';
-        $content_pro = '<html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-		<title>Heard Menatlity.com</title>
-		</head>
-		<style>
-		.link2 {
-		font-family: verdana;
-		font-size: 10px;
-		font-weight: bold;
-		text-transform: none;
-		color: #818181;
-		text-decoration: none;
-		}
-		</style>
-		<body link="#990000" vlink="#990000" alink="#990000" leftmargin="5" topmargin="5" marginwidth="0" marginheight="0">
-		<table width="465" height="332" border="0" cellpadding="8" cellspacing="2" bgcolor="#C20C3D">
-		<tr> 
-		<td width="439" bgcolor="#FFFFFF"><img src="'.$gSitePath.'sites/all/themes/heardmentality/images/logo.gif" height="75" width="150"></td>
-		</tr>
-		<tr> 
-		<td bgcolor="#FFFFFF" class="text"><p><font  size="2" face="Arial, Helvetica, sans-serif">Hi <font color="#7B7B7B"><strong>'.$ufets->name.'</strong>,</font> </font></p>
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours .</strong></font></p>
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Thanks,<font color="#B1546A"><br/> 
-		Heard Menatality Team.</font></font><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><br/>
-		</font></p>
-		</td>
-		</tr>
-		</table>
-		</body>
-		</html>';
+     
+		
+		
+		 $content_pro = ' <table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
+                  border=0>
+                    <tbody> 
+                    <tr> 
+                      <td valign=top align=left><font 
+                        face="Verdana, Arial, Helvetica, sans-serif" 
+                        size=2> Hi '.$ufets->name.' ,<br>
+<div align="justify">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours . 
+
+Please login to View  Suggest Answer.</div>
+<br>
+
+                        <br>
+                        </font></td>
+                    </tr>
+                    </tbody> 
+                  </table>
+	
+				';
+		
+		
+		
         $contentm_pro = $content_pro;
         $messpro_list = stripslashes($contentm_pro);
-        $eol = "\n";
-        $mime_boundary = md5(time());
-        $headers .= "From: Heard Menatality  <support@heardmenatlity.com>".$eol;
-        $headers .= "Reply-To: Heard Menatality   <support@heardmenatlity.com>".$eol;
-        $headers .= "Return-Path: Heard Menatality   <support@heardmenatlity.com>".$eol;
-        $headers .= "X-Mailer: PHP v".phpversion().$eol;
-        $headers .= 'MIME-Version: 1.0'.$eol;
-        $headers .= "Content-Type: text/html; charset=iso-8859-1".$eol;
-        if (preg_match('/gmail/', $email))
-            $headers = str_replace("\r\n", "\n", $headers);
-        mail($ufets->mail, $subject_proj, $messpro_list, $headers);
+       
+			
+		$mail_successs = htmlmail($ufets->mail, $subject_proj, $messpro_list, $from,'');	
+      
 
         
         $deltmp = db_query("delete  from suggest_ans_tmp");
@@ -1196,7 +1159,11 @@ else{
 function list_wave($qid=''){
 	
 	$wave='';	
+<<<<<<< .mine
+	 $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost from {forum_wave} as f where f.qid_rid='$qid' ";
+=======
 	 $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {forumwave_like} as l where l.wid=f.fid group by l.wid),0) as cntlike from {forum_wave} as f where f.qid_rid='$qid' ";
+>>>>>>> .r1166
     $cnt = ExecuteQuery($query, "select");
 	if(!empty($cnt)){
 	   foreach ($cnt as $forum) {
@@ -1231,6 +1198,7 @@ function list_wave($qid=''){
 	<div class="comment">
 		<div class="div4">
 	<b>No Waves Posted Yet!!</b>
+
 		</div>	
 	
 	
