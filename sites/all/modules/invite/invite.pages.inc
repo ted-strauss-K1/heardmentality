@@ -107,12 +107,12 @@ function invite_friends() {
         $mail_cont = explode(',', $senderlist);
         $guest_mail = array();
         //mail
-       $body .= $message."<br/>";
+       $body .= $message;
         if (isset($_REQUEST['qid'])) {
 		
            $subject = "Heardmentality Question Invite";
             
-           $body .= "Check this question url <br/>";
+           //$body .= "Check this question url <br/>";
 
         
         } else if (isset($_REQUEST['uid'])) {
@@ -124,9 +124,12 @@ function invite_friends() {
      // $body .= $question_urlink;
 		
 			$from = $user->mail;
+			
 			//$headers = array();
 			
-       
+		$sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$user->uid."'";
+		$rs_umlog=db_query($sel_ulist);
+		$user_namelistf=db_fetch_object($rs_umlog);
         foreach ($mail_cont as $mail) {
 
          
@@ -139,12 +142,74 @@ function invite_friends() {
 			
 			if($to!='')
 			{
+			
+		$query_pt= "SELECT * FROM tbl_points where id='5' "; 
+		$query_ptinfo=db_query($query_pt);
+		$fetuserpts=db_fetch_object($query_ptinfo);
+		$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$user->uid."' ,'5',$fetuserpts->points,'0') ";
+		$rs_commg=db_query($ins_commg);
+			
 			 	$vInsQuery = "insert into invite_friend(uid,friend_email) values ( '".$user->uid."','".$to."')";
 				db_query($vInsQuery);
 				$lastid=mysql_insert_id();
-				$idlink = '<a href="'.$question_urlink.'?lid='.$lastid.' "> Link </a> ';
 				
-				$msginvite=$body.$idlink ;
+				$idlink = '<a href="'.$question_urlink.'?lid='.$lastid.' "> Click here to View question  </a> ';
+				
+				$contentlink='<font face="Verdana, Arial, Helvetica, sans-serif"> 
+                  <p class="text_black"><font face="Verdana, Arial, Helvetica, sans-serif" 
+                  size=2><i>['.$user_namelistf->real_name.'] Someone you know has invited you to join Heardmentality, 
+                    a free sharing  site!</i></font></p>
+                 </font> 
+                  <br>
+  
+                  <br>
+                  <table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
+                  border=0>
+                    <tbody> 
+                    <tr> 
+                      <td valign=top align=left><font 
+                        face="Verdana, Arial, Helvetica, sans-serif" 
+                        size=2>'.$user_namelistf->real_name.' invites you to join us at <a href="'.$gSitePath.'">'.$gSitePath.'</a>.<br>
+<div align="justify">The Heardmentality Team is trying to build the largest  site for users to post free question and answers . 
+
+HeardMentality: Its all about Sharing </div>
+<br>
+<br>
+<b>This is a message from '.$user_namelistf->real_name.':</b> <br>
+                        <br>
+                        '.nl2br($message).'</font></td>
+                    </tr>
+                    </tbody> 
+                  </table>
+                  <br>
+				
+                '. $idlink.' </td>
+				  
+              </tr>
+              </tbody> 
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> 
+    <td> 
+      <p align=left><font face="Verdana, Arial, Helvetica, sans-serif" 
+            size=1><br>
+        You received this email because someone who knows you sent you an invitation 
+        to join them on Heardmentality<br>
+        <br>
+        </font></p>';
+				
+				
+				
+				
+				
+				
+				
+				
+				$msginvite=$contentlink ;
 				
 				
 				
