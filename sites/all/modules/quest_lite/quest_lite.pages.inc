@@ -1196,7 +1196,15 @@ else{
 function list_wave($qid=''){
 	
 	$wave='';	
+<<<<<<< .mine
+
+=======
+>>>>>>> .r1168
 	 $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {forumwave_like} as l where l.wid=f.fid group by l.wid),0) as cntlike from {forum_wave} as f where f.qid_rid='$qid' ";
+<<<<<<< .mine
+
+=======
+>>>>>>> .r1168
     $cnt = ExecuteQuery($query, "select");
 	if(!empty($cnt)){
 	   foreach ($cnt as $forum) {
