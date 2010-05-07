@@ -60,7 +60,7 @@ function forum_list($qid = '') {
 		<textarea name="waveletcmt" id="waveletcmt" cols="70" rows="2"  class="textArea"></textarea>
 		<input type="hidden" name="waveid" id="waveid" value=""/>
 		<input type="hidden" name="wletid" id="wletid" value=""/>
-		<div><span><input type="checkbox" name="privt" value="1" id="privt"/></span> <span><small>Private Reply</small> </span><span> <input type="button" onclick="addSubmit();return false;" value="Add comment" class="waveButton"/> </span><span>  or <a onclick="cancelAdd(this);return false" href="">cancel</a></span> </div>	
+		<div><span><input type="checkbox" name="privt" value="1" id="privt"/></span> <span><small>Private Reply</small> </span><span> <input type="button" value="Add comment" id="waveButton" class="waveButton"/> </span><span>  or <a onclick="cancelAdd(this);return false" id="wavecancel" href="">cancel</a></span> </div>	
 		</div>	
 		</div>	';
     } else {

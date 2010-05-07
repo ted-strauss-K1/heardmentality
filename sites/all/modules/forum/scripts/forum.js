@@ -5,7 +5,7 @@ window.addEvent('domready', function() {
 	
 //$('newwaveletbut').addEvent('click', addComment.bindWithEvent(this,element)); 
 	
-	
+
 
 	bind_clk();
 	
@@ -42,6 +42,8 @@ var wid=el.get('id');
 	$('waveid').set('value',gid[0]);	
 	$('commentArea').fade('in');
 	$('wletid').set('value',gid[1]);
+		$('waveButton').addEvent('click', addSubmit.bindWithEvent(this)); 
+			$('wavecancel').addEvent('click', cancelAdd.bindWithEvent(this)); 
 }
 
 
@@ -107,12 +109,12 @@ var myVerticalSlide = new Fx.Slide('wavelet-list');
 			data: { 'wid':wid,'wlet':wlid,'cmt':cmt,'pvt':pvt },
 			onRequest: function() { 	$('commentArea').fade('out');	
 	
-		myVerticalSlide.slideOut();
+		//myVerticalSlide.slideOut();
 MochaUI.notification('Please wait while posting...');},
 			onComplete: function(response) { 
 			 MochaUI.notification('Thank you posted successfully...'); 
 			 $('wavelet-list').set('html',response); 
-			 	myVerticalSlide.slideIn();
+			 	//myVerticalSlide.slideIn();
 				
 			 bind_clk();
 			 $('privt').setProperty('checked',false);
