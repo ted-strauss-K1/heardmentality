@@ -338,13 +338,14 @@ function cal_active_rate() {
 		if(!empty($fcnt)){
 			$cntr=$fcnt->wcnt;
 		$wcnt=$fcnt->rcnt;
-			
+			   $active = (($j * $tvote) + ($k * $cntr) + ($l * $wcnt));
+			       db_query("update {question} set active_rate='".$active."' where qid='".$quest['qid']."'");
 		}
 		
         
-        $active = (($j * $tvote) + ($k * $cntr) + ($l * $wcnt));
+     
         
-        db_query("update {question} set active_rate='".$active."' where qid='".$quest['qid']."'");
+    
     
     }
 
