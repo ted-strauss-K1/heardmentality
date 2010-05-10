@@ -335,8 +335,12 @@ function cal_active_rate() {
         
         //The value “active” will be calculated as follows (j,k,l are constant values that will be hard-coded):
         //Active =  (j * #_of_votes_for_question) + (k * #_of_forum_posts) + (l * #_of_posted_resources)
-		$cntr=$fcnt->wcnt;
+		if(isset($fcnt)){
+			$cntr=$fcnt->wcnt;
 		$wcnt=$fcnt->rcnt;
+			
+		}
+		
         
         $active = (($j * $tvote) + ($k * $cntr) + ($l * $wcnt));
         
