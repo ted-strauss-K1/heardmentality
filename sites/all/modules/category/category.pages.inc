@@ -332,7 +332,7 @@ function menu_delete_confirm(&$form_state, $category) {
 		{
 		$strReturn=null;
 		if($level<2){
-					 $client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$id."'");
+					 $client_select =db_query("SELECT cat_id,cat_name,(select cat_name from {category} where cat_id='$id') as mcat FROM {category} where parent_id='".$id."'  ");
 					
 					$client_array=array();
 					$client_key=array();
@@ -342,9 +342,9 @@ function menu_delete_confirm(&$form_state, $category) {
 				
 				   $client_array[] = $list->cat_name;
 					$client_key[]=$list->cat_id;
-				
+						$mcat=$list->mcat;
 					}
-										
+					$strReturn.='<div>'.$mcat.'</div>';					
 					if(count($client_array)>0){
 						 $strReturn.='<ul >';
 					 
