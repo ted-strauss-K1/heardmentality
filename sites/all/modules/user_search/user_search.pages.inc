@@ -3,9 +3,321 @@
 function search_results()
 {
 global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+//echo $_SERVER['PHP_SELF'];
+extract($_REQUEST);
+$page_name="searchuser"; //  If you use this code with a different page ( or file ) name then change this 
+$start=$_GET['start'];
+if(strlen($start) > 0 and !is_numeric($start)){
+echo "Data Error";
+exit;
+}
 
-/*$fetresult='<style type="text/css" src="'.$gSitePath.'/sites/all/modules/user_search/style/style.css">
-</style>';*/
+
+$eu = ($start - 0); 
+$limit = 5;                                 // No of records to be shown per page.
+$this1 = $eu + $limit; 
+$back = $eu - $limit; 
+$next = $eu + $limit; 
+$fetresult .= '<script type="text/javascript">
+				var spath=\''.$gSitePath.'\';
+			
+				function setDefaultCountry() {
+  var countrySelect = document.getElementById("q_country");
+
+  for (i=0;i< countrySelect.length;i++) {
+    // the javascript geonamesData.js contains the countrycode
+    // of the userIp in the variable \'geonamesUserIpCountryCode\'
+    if (countrySelect[i].value == geonamesUserIpCountryCode) {
+      // set the country selectionfield
+	      countrySelect.selectedIndex = i;
+		get_state(geonamesUserIpCountryCode);
+    }
+  }
+}
+
+
+window.addEvent(\'domready\', function(){
+//setDefaultCountry();
+});
+	
+				
+				 function get_profile_details(urid){
+						//alert(urid);
+						var url = "'.$gSitePath.'userinfo";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: {\'getuid\':urid },
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'user_info\').set(\'html\', response);
+											}
+									}).send();
+						
+						
+						}
+					
+						
+				
+			
+						
+						function get_state(code){
+						
+						var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':1,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_state\').set(\'html\', response);
+											}
+									}).send();
+						
+							var url = "'.$gSitePath.'userresults";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':1,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'container-user\').set(\'html\', response);
+											}
+									}).send();
+						}
+							function get_city(code){
+							
+							var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':2,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_city\').set(\'html\', response);
+											}
+									}).send();
+							
+							}
+							
+			
+							
+						</script>
+			
+			';
+$fetresult.='<style type="text/css">
+ul{ list-style-type: none; }
+#container{ width: 960px; margin: 0 auto; position: relative; }
+#feature,
+.feature { padding: 10px 20px 0 20px;}
+#feature li a,
+.feature li a { color: #F37321; text-decoration: none;}
+.feature h4 {
+font-style:italic;
+overflow:hidden;
+}
+.feature p{
+color:#464A3F;
+font-size:11px;
+margin:3px 0;
+font-family:inherit;
+font-size:100%;
+font-style:inherit;
+font-weight:inherit;
+}
+.linkfol
+{
+background:#098ED1 none repeat scroll 0 0;
+color:#fff;
+padding:3px 6px;
+text-decoration:none;
+}
+
+	</style>
+	<div id="container-user">
+	<div class="feature">
+	<div class="l col">
+	<ul>';
+	
+	  $name=$_REQUEST['txt_search'];
+	 
+		if($name)
+			$qry.="(img.real_name LIKE '".$name."%') AND ";
+		if($code)
+			$qry.="(img.real_name LIKE '".$name."%') AND ";
+	 
+	 if($user->uid!='')
+		   $sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND status='1' ";
+		else
+			$sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid  ";
+	// echo $sel;
+	$user_qry=db_query($sel);
+	if($user->uid!='')
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND status='1'"));
+	else
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
+		$sel.=" limit $eu, $limit";
+		$sel_search=db_query($sel);
+	
+	while($user_result=db_fetch_object($sel_search))
+	{
+	if($user->uid!='')
+	{
+	$flink='<a class="linkfol" href="user/'.$user_result->uid.'?act=flag">Follow </a>';
+	//$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
+	}
+	$fetresult.='<li>
+	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
+	<h4>'.$user_result->mail.'</h4>		 	
+	<p>';
+	echo $user_result->image_url;
+	if($user_result->image!='')
+	{
+	 $imgsrc = $user_result->image;
+	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
+	 $fetresult.= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
+	}
+	elseif($user_result->image_url!='')
+	{
+	//echo lllll;
+	$fetresult.='<img src="'.$user_result->image_url.'" align="absmiddle" height="50" width="50"/>';
+	 }
+	 else
+	 {
+	 $imgsrc = 'noimage.jpg';
+	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
+	 $fetresult.= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
+	 
+	 }
+	$fetresult.='</p> 
+	
+	</li> '.$flink.'';
+	}
+	
+	$fetresult.='<input type="hidden" name="stype" value="'.$_REQUEST['stype'].'"/></ul>';
+	
+	
+	
+if($sel_count > $limit ){ 
+
+$fetresult.="<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
+if($back >=0) { 
+$fetresult.= "<a href='$page_name?start=$back&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>PREV</font></a>"; 
+} 
+$fetresult.= "</td><td align=center width='30%'>";
+$i=0;
+$l=1;
+for($i=0;$i < $sel_count;$i=$i+$limit){
+if($i <> $eu){
+$fetresult.= " <a href='$page_name?start=$i&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>$l</font></a> ";
+}
+else { $fetresult.= "<font face='Verdana' size='4' color=red>$l</font>";}      
+$l=$l+1;
+}
+
+
+$fetresult.="</td><td  align='right' width='30%'>";
+if($this1 < $sel_count) { 
+$fetresult.= "<a href='$page_name?start=$next&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>NEXT</font></a>";} 
+$fetresult.= "</td></tr></table>";
+
+}
+	$fetresult.=' </div>
+	</div>
+	</div>';
+	
+	
+	if($_REQUEST['act']=='flag')
+	{
+	$mem_id = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	 
+	 
+	 $res_num= db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$mem_id."'  and  uid ='".$user->uid."'"));
+	if($res_num==0)
+	{
+	 $ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$user->uid."','".$mem_id."','1','".date('Y-m-d')."') ";
+	$rs_commg=db_query($ins_commg);
+	
+	drupal_set_message(t('Successfully Added as Follower'), $type = 'success');
+	}
+	else
+	{
+	$sel_usermdet="select * from users  where uid='".$mem_id."' ";
+	$rs_usernam=db_query($sel_usermdet);
+	$namelist=db_fetch_object($rs_usernam);
+	
+	drupal_set_message(t('You are already following '.$namelist->name.'.'), $type = 'error');
+	}
+	}
+
+return $fetresult;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+function search_results_question()
+{
+global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+ $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+//echo $idb;
+$page_name="searchquestion"; 
+$start=$_GET['start'];
+if(strlen($start) > 0 and !is_numeric($start)){
+echo "Data Error";
+exit;
+}
+
+
+$eu = ($start - 0); 
+$limit = 5;                                 // No of records to be shown per page.
+$this1 = $eu + $limit; 
+$back = $eu - $limit; 
+$next = $eu + $limit; 
+$fetresult .= '<script type="text/javascript">
+				
+
+window.addEvent(\'domready\', function(){
+//setDefaultCountry();
+});
+	
+				
+				 function get_quest_details(quid){
+						//alert(quid);
+						var url = "'.$gSitePath.'questinfo";
+						//alert(url);
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: {\'qsaid\':quid },
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'quest_info\').set(\'html\', response);
+											}
+									}).send();
+						
+						
+						}
+					
+						
+				
+			
+			
+							
+						</script>
+			
+			';
 $fetresult.='<style type="text/css">
 ul{ list-style-type: none; }
 #container{ width: 960px; margin: 0 auto; position: relative; }
@@ -39,53 +351,95 @@ text-decoration:none;
 	<div class="feature">
 	<div class="l col">
 	<ul>';
-	 $user_list="select * from {users} where status='1' and uid!=$user->uid";
-	$user_qry=db_query($user_list);
-	while($user_result=db_fetch_object($user_qry))
+  $name=$_REQUEST['txt_search'];
+	
+	if($name)
+			$qry.="(question LIKE '".$name."%') AND ";
+	 
+	 if($user->uid!='')
+		   $sel="SELECT * FROM {question}  WHERE $qry uid<>$user->uid AND status='1' ";
+		else
+			$sel="SELECT * FROM {question} img WHERE $qry status='1'  ";
+	
+	$user_qry=db_query($sel);
+	if($user->uid!='')
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}  WHERE $qry uid<>$user->uid AND status='1' "));
+	else
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} img WHERE $qry status='1'  "));
+	$sel.=" limit  $eu, $limit";
+	//echo $sel;
+		$sel_search=db_query($sel);
+	while($user_result=db_fetch_object($sel_search))
 	{
 	if($user->uid!='')
 	{
-	$flink='<a class="linkfol" href="search/'.$user_result->uid.'?act=flag">Follow </a>';
+	//$flink='<a class="linkfol" href="'.$gSitePath.''.$user_result->url.'">View More </a>';
 	}
+	$vans = "select * from {possible_answer} where  qid=$user_result->qid order by vote desc";
+    
+    $vlist = db_query($vans);
+  
+  $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$user_result->qid' GROUP BY qid";
+    $query_list = db_query($query);
+    $fetvot = db_fetch_object($query_list);
+   $vot1= $fetvot->possiblevote;
+    
+    $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$user_result->qid' GROUP BY qid";
+    $query_sugestlist = db_query($query_sugest);
+    $fetvotsugest = db_fetch_object($query_sugestlist);
+    $vot2=$fetvotsugest->suggestv;
+    $totalvotes = $vot1 + $vot2;
+   
+	 $numresum = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$user_result->qid'"));
 	$fetresult.='<li>
-	<h3><a href="'.$gSitePath.'user/'.$user_result->uid.'">'.$user_result->name.'</a>      </h3>
-	<h4>'.$user_result->mail.'</h4>		 	
-	<p>Follow
-	FlyLady as she weaves her way through housecleaning &amp; organizing
-	tips, with homespun humor, daily musings about life &amp; love, and
-	anything else. </p> 
+	<h3><a onclick="get_quest_details('.$user_result->qid.');">'.$user_result->question.'</a>      </h3>';
+	 while($vlistquest = db_fetch_object($vlist))
+	 {
+	$fetresult.='<h4><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />'.$vlistquest->answer.'</h4>';		 	
 	
-	</li> '.$flink.'';
+	}
+	$fetresult.='</li> '.$flink.' '.$totalvotes.' Votes  '.$numresum.' Posts';
 	}
 	
-	$fetresult.='</ul>
-	</div>
+	$fetresult.='<input type="hidden" name="stype" value="'.$_REQUEST['stype'].'"/></ul>';
+	
+	
+	
+	
+	/////////////////////////////// 
+if($sel_count > $limit ){ // Let us display bottom links if sufficient records are there for paging
+
+/////////////// Start the bottom links with Prev and next link with page numbers /////////////////
+$fetresult.="<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
+//// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
+if($back >=0) { 
+$fetresult.= "<a href='$page_name?start=$back&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>PREV</font></a>"; 
+} 
+//////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
+$fetresult.= "</td><td align=center width='30%'>";
+$i=0;
+$l=1;
+for($i=0;$i < $sel_count;$i=$i+$limit){
+if($i <> $eu){
+$fetresult.= " <a href='$page_name?start=$i&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>$l</font></a> ";
+}
+else { $fetresult.= "<font face='Verdana' size='4' color=red>$l</font>";}        /// Current page is not displayed as link and given font color red
+$l=$l+1;
+}
+
+
+$fetresult.="</td><td  align='right' width='30%'>";
+///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
+if($this1 < $sel_count) { 
+$fetresult.= "<a href='$page_name?start=$next&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>NEXT</font></a>";} 
+$fetresult.= "</td></tr></table>";
+
+}// end of if checking sufficient records are there to display bottom navigational link. 
+	$fetresult.=' </div>
 	</div>
 	</div>';
 	
-	if($_REQUEST['act']=='flag')
-	{
-	$mem_id = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	 
-	 
-	 $res_num= db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$mem_id."'  and  uid ='".$user->uid."'"));
-	if($res_num==0)
-	{
-	 $ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$user->uid."','".$mem_id."','1','".date('Y-m-d')."') ";
-	$rs_commg=db_query($ins_commg);
-	
-	drupal_set_message(t('Successfully Added as Follower'), $type = 'success');
-	}
-	else
-	{
-	$sel_usermdet="select * from users  where uid='".$mem_id."' ";
-	$rs_usernam=db_query($sel_usermdet);
-	$namelist=db_fetch_object($rs_usernam);
-	
-	drupal_set_message(t('You are already following '.$namelist->name.'.'), $type = 'error');
-	}
-drupal_goto("search/");
-	}
+
 
 return $fetresult;
 
@@ -104,7 +458,6 @@ return $fetresult;
 
 
 }
-
 function user_follower()
 {
 
@@ -463,4 +816,523 @@ $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  i
 }
 
 }
+
+function get_user_details()
+{
+ extract($_REQUEST);
+  $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$getuid."'";
+ $rs_userms=db_query($sel_userm);
+	$resulrnames=db_fetch_object($rs_userms);
+	//echo $resulrnames->real_name;
+ //$ret = $resulrnames->real_name;
+   if($resulrnames->gender==1)
+   {
+   $usetype='Male';
+   }
+   else
+   {
+   
+   $usetype='Female';
+   
+   }
+	$ret='<table width="100%" border="0">
+  <tr>
+    <td width="26%">&nbsp;</td>
+    <td colspan="2">
+      <table width="300" border="1">
+        <tr>
+          <td width="96">First Name</td>
+          <td width="188">'.$resulrnames->first_name.'</td>
+        </tr>
+        <tr>
+          <td>Last Name</td>
+          <td>'.$resulrnames->last_name.'</td>
+        </tr>
+        <tr>
+          <td>Display name</td>
+          <td>'.$resulrnames->real_name.'</td>
+        </tr>
+        <tr>
+          <td>DOB</td>
+          <td>'.$resulrnames->dob.'</td>
+        </tr>
+        <tr>
+          <td>Country</td>
+          <td>'.$resulrnames->country.'</td>
+        </tr>
+        <tr>
+          <td>Gender </td>
+          <td>&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr>
+    <td>Bio</td>
+    <td width="17%">Links</td>
+    <td width="57%">'.$resulrnames->bio.'</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Facebook</td>
+    <td>'.$resulrnames->facebook.'</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>Twitter</td>
+    <td>'.$resulrnames->twitter.'</td>
+  </tr>
+  <tr>
+    <td>Following</td>
+    <td colspan="2">Followers</td>
+  </tr>';
+
+$sel_list="select * from follower  where uid='".$getuid."'  and follower_status='1' ";
+	$rs_foll_list=db_query($sel_list);
+	$numfolls= db_result(db_query("SELECT COUNT(*)  from follower  where uid='".$getuid."'  and follower_status='1'  "));
+
+if($numfolls!=0)
+	{
+while($following_list=db_fetch_object($rs_foll_list))
+	{
+	
+	
+	  $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$following_list->follower_id."'";
+		$rs_userm=db_query($sel_userm);
+	$user_namelist=db_fetch_object($rs_userm);
+	
+	
+
+	
+	
+	
+
+
+
+
+
+
+ $ret.='<tr>
+    <td>&nbsp;</td>
+    <td colspan="2"> <a href="'.$gSitePath.'../profile/'.$user_namelistf->name.'">'.$user_namelist->name.'</a>   </td>
+  </tr>';
+  
+ 
+				
+				}
+	}			
+	else
+	{			
+	$ret.='No Records';
+	}
+	
+	
+	
+	$sel_listf="select * from follower  where follower_id='".$getuid."'   limit 0,5  ";
+	$rs_followerf=db_query($sel_listf);
+	
+	 $numfoll= db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='".$getuid."'   "));
+	
+	
+	while($follower_resultfuser=db_fetch_object($rs_followerf))
+	{
+	
+	 
+	   $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$follower_resultfuser->uid."'";
+	$rs_umlog=db_query($sel_ulist);
+	$user_namelistf=db_fetch_object($rs_umlog);
+	
+	
+	
+		$ret.='<a href="'.$gSitePath.'../profile/'.$user_namelistf->name.'">'.$user_namelistf->real_name.' </a>';
+	
+	
+	
+	
+	}
+	
+	
+	if($_REQUEST=='')
+	{	
+ $ret.=' <tr>
+    <td colspan="3">Select User</td>
+  </tr>';
+  
+    }
+ $ret.=' <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr> 
+</table>';
+
+	echo $ret;
+
+
+}
+
+function search_results_user()
+{
+global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+
+
+
+extract($_REQUEST);
+//echo $_REQUEST['code'];
+$page_name="user"; //  If you use this code with a different page ( or file ) name then change this 
+$start=$_GET['start'];
+if(strlen($start) > 0 and !is_numeric($start)){
+echo "Data Error";
+exit;
+}
+
+
+$eu = ($start - 0); 
+$limit = 5;                                 // No of records to be shown per page.
+$this1 = $eu + $limit; 
+$back = $eu - $limit; 
+$next = $eu + $limit; 
+$fetresult .= '<script type="text/javascript">
+				var spath=\''.$gSitePath.'\';
+			
+				function setDefaultCountry() {
+  var countrySelect = document.getElementById("q_country");
+
+  for (i=0;i< countrySelect.length;i++) {
+    // the javascript geonamesData.js contains the countrycode
+    // of the userIp in the variable \'geonamesUserIpCountryCode\'
+    if (countrySelect[i].value == geonamesUserIpCountryCode) {
+      // set the country selectionfield
+	      countrySelect.selectedIndex = i;
+		get_state(geonamesUserIpCountryCode);
+    }
+  }
+}
+
+
+window.addEvent(\'domready\', function(){
+//setDefaultCountry();
+});
+	
+				
+				 function get_profile_details(urid){
+						alert(urid);
+						var url = "'.$gSitePath.'userinfo";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: {\'getuid\':urid },
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'user_info\').set(\'html\', response);
+											}
+									}).send();
+						
+						
+						}
+					
+						
+				
+			
+						
+						function get_state(code){
+						
+						var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':1,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_state\').set(\'html\', response);
+											}
+									}).send();
+						
+							var url = "'.$gSitePath.'userresults";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':1,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'container-user\').set(\'html\', response);
+											}
+									}).send();
+						}
+							function get_city(code){
+							
+							var url = "'.$gSitePath.'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':2,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_city\').set(\'html\', response);
+											}
+									}).send();
+							
+							}
+							
+			
+							
+						</script>
+			
+			';
+$fetresult.='<style type="text/css">
+ul{ list-style-type: none; }
+#container{ width: 960px; margin: 0 auto; position: relative; }
+#feature,
+.feature { padding: 10px 20px 0 20px;}
+#feature li a,
+.feature li a { color: #F37321; text-decoration: none;}
+.feature h4 {
+font-style:italic;
+overflow:hidden;
+}
+.feature p{
+color:#464A3F;
+font-size:11px;
+margin:3px 0;
+font-family:inherit;
+font-size:100%;
+font-style:inherit;
+font-weight:inherit;
+}
+.linkfol
+{
+background:#098ED1 none repeat scroll 0 0;
+color:#fff;
+padding:3px 6px;
+text-decoration:none;
+}
+
+	</style>
+	<div id="container-user_list">
+	<div class="feature">
+	<div class="l col">
+	<ul>';
+	
+	  $name=$_REQUEST['txt_search'];
+	 
+		if($name)
+			$qry.="(img.real_name LIKE '".$name."%') AND ";
+		if($code)
+			$qry.="(img.country LIKE '".$code."%') AND ";
+	 
+	 if($user->uid!='')
+		   $sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND status='1' ";
+		else
+			$sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid  ";
+//echo $sel;
+	$user_qry=db_query($sel);
+	if($user->uid!='')
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND status='1'"));
+	else
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
+		$sel.=" limit $eu, $limit";
+		$sel_search=db_query($sel);
+	
+	while($user_result=db_fetch_object($sel_search))
+	{
+	if($user->uid!='')
+	{
+	//$flink='<a class="linkfol" href="search/'.$user_result->uid.'?act=flag">Follow </a>';
+	//$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
+	}
+	$fetresult.='<li>
+	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
+	<h4>'.$user_result->mail.'</h4>		 	
+	<p>';
+	echo $user_result->image_url;
+	if($user_result->image!='')
+	{
+	 $imgsrc = $user_result->image;
+	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
+	 $fetresult.= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
+	}
+	elseif($user_result->image_url!='')
+	{
+	
+	$fetresult.='<img src="'.$user_result->image_url.'" align="absmiddle" height="50" width="50"/>';
+	 }
+	 else
+	 {
+	 $imgsrc = 'noimage.jpg';
+	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
+	 $fetresult.= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
+	 
+	 }
+	$fetresult.='</p> 
+	
+	</li> '.$flink.'';
+	}
+	
+	$fetresult.='<input type="hidden" name="stype" value="'.$_REQUEST['stype'].'"/></ul>';
+	
+	
+	
+if($sel_count > $limit ){ 
+
+$fetresult.="<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
+if($back >=0) { 
+$fetresult.= "<a href='$page_name?start=$back&stype=$code'><font face='Verdana' size='2'>PREV</font></a>"; 
+} 
+$fetresult.= "</td><td align=center width='30%'>";
+$i=0;
+$l=1;
+for($i=0;$i < $sel_count;$i=$i+$limit){
+if($i <> $eu){
+$fetresult.= " <a href='$page_name?start=$i&stype=$code'><font face='Verdana' size='2'>$l</font></a> ";
+}
+else { $fetresult.= "<font face='Verdana' size='4' color=red>$l</font>";}      
+$l=$l+1;
+}
+
+
+$fetresult.="</td><td  align='right' width='30%'>";
+if($this1 < $sel_count) { 
+$fetresult.= "<a href='$page_name?start=$next&stype=$code'><font face='Verdana' size='2'>NEXT</font></a>";} 
+$fetresult.= "</td></tr></table>";
+
+}
+if($sel_count==0)
+{
+$fetresult.='<b>No Search Results </b>';
+
+}
+	$fetresult.=' </div>
+	</div>
+	</div>';
+	
+	
+
+
+echo  $fetresult;
+
+
+
+
+
+
+
+
+
+}
+
+function get_question_details()
+{
+global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+
+
+
+extract($_REQUEST);
+
+ $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where q.status='1' and q.qid='$qsaid'  ";
+    $rlist = db_query($vSql);
+    $oListquest = db_fetch_object($rlist);
+  $vresultm=$oListquest->question;
+ $vans = "select * from {possible_answer} where  qid=$qsaid order by vote desc";
+    
+    $vlist = db_query($vans);
+    $chk = '';
+    while ($vlistquest = db_fetch_object($vlist)) {
+        if ($numran == 0) {
+            $answprc = $vlistquest->vote / 100 * $totalvotes;
+            $valu = $answprc * 100;
+            $vresultm .= '
+		 <br/><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'  ';
+        } else {
+            $answprc = $vlistquest->vote / 100 * $totalvotes;
+            $valu = $answprc * 100;
+            $chk = '';
+            if ($answer_id->panswer_id == $vlistquest->paid) {
+                
+                $chk = "checked";
+            }
+            $vresultm .= ' <br/><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'   ';
+        
+        }
+        $chk = '';
+    }
+
+
+
+
+echo $vresultm;
+}
+
+
+function search_report($idb='') {
+    global $gSitePath,$user,$gDocPath,$base_root;
+  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+//echo veni  .$idb;
+  echo  $output= '<div class="toolbarTabs">
+	<ul id="qTabs" class="tab-menu">
+	<li id="qTabs1Link" class="selected"><a>Percentage</a></li>
+	<li id="qTabs2Link"><a>Over Time</a></li>
+	<li id="qTabs3Link" ><a>By Area</a></li>
+	</ul>
+	<div class="clear"></div>
+	</div>
+
+	<script type="text/javascript">
+	
+	MochaUI.initializeTabs("qTabs");
+	
+	$("qTabs1Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("search-panel"),
+	"url":       "'.$gSitePath.'searchcontent/'.$idb.'?t=per"
+	});
+	});
+	
+	$("qTabs2Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("notify-panel"),
+	"url":       "'.$gSitePath.'searchcontent/'.$idb.'?t=time"
+	});
+	});
+	
+	$("qTabs3Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("notify-panel"),
+	"url":       "'.$gSitePath.'searchcontent/'.$idb.'?t=area"
+	});
+	});
+
+	
+	</script>';
+
+}
+function search_content() {
+    global $gSitePath,$user,$gDocPath,$base_root;
+      $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	
+	 //echo "kkkkkkkk".$qid;
+    $type=$_REQUEST[t];
+   
+    switch ($type) {
+    	
+        case "time":
+            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/graph/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
+            break;
+        case "area":
+            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/map/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
+            break;
+		 case "per":	
+        default:
+            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/percent/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
+            break;
+    }
+	
+	
+	$output.='<div>108 comments &nbsp;&nbsp;&nbsp;'.$numres.' Resources </div>';
+	
+    echo $output;
+}
+
+
+
+
+
 ?>

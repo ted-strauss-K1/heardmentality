@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function user_search_perm() {
-  return array('Search User','Following','Follower','Suggested Users');
+  return array('Search User','Following','Follower','Suggested Users','User Information','Question Information');
 }
 
 
@@ -13,14 +13,20 @@ function user_search_perm() {
  
 function user_search_menu() {	
 
-$search_result['search'] = array(
-    'title' => ' USER SEARCH RESULTS',
+$search_result['searchuser'] = array(
+    'title' => '  SEARCH RESULTS',
     'page callback' => 'search_results',
     'access arguments' => array('Search User'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'user_search.pages.inc',
   );
-
+$search_result['searchquestion'] = array(
+    'title' => '  SEARCH RESULTS',
+    'page callback' => 'search_results_question',
+    'access arguments' => array('Search User'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'user_search.pages.inc',
+  );
 $search_result['follower'] = array(
     'title' => 'Follower',
     'page callback' => 'user_follower',
@@ -60,6 +66,43 @@ $search_result['following'] = array(
     'page callback' => 'save_follower',
     'access arguments' => array('Following'),
     'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'user_search.pages.inc',
+  );
+  
+    $search_result['userinfo'] = array(
+    'title' => ' User Information',
+    'page callback' => 'get_user_details',
+    'access arguments' => array('User Information'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'user_search.pages.inc',
+  );
+    $search_result['questinfo'] = array(
+    'title' => ' User Information',
+    'page callback' => 'get_question_details',
+    'access arguments' => array('Question Information'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'user_search.pages.inc',
+  );
+   $search_result['userresults'] = array(
+    'title' => ' SEARCH RESULTS',
+    'page callback' => 'search_results_user',
+    'access arguments' => array('User Information'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'user_search.pages.inc',
+  );
+  
+  $search_result['searchreport'] = array(
+    'title' => 'SEARCH RESULTS',
+    'page callback' => 'search_report',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Notify Report'),
+    'file' => 'user_search.pages.inc',
+  );
+  $search_result['searchcontent'] = array(
+    'title' => 'SEARCH RESULTS',
+    'page callback' => 'search_content',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Notify Report Content'),
     'file' => 'user_search.pages.inc',
   );
   
