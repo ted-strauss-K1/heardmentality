@@ -323,14 +323,14 @@ function cal_active_rate() {
     foreach ($list as $quest) {
 
         
-        $query1 = "select (select count(*) from {possible_answer_vote} as pa where q.qid=pa.qid group by pa.qid ) as pvote,(select count(*) from {suggest_answer_vote} as sa where q.qid=sa.qid group by sa.qid ) as svote from {question} as q where q.qid='".$quest['qid']."'";
+        $query1 = "select IFNULL((select count(*) from {possible_answer_vote} as pa where q.qid=pa.qid group by pa.qid ),0) as pvote,(select count(*) from {suggest_answer_vote} as sa where q.qid=sa.qid group by sa.qid ) as svote from {question} as q where q.qid='".$quest['qid']."'";
         $gvote = ExecuteQuery($query1, "select");
 		$m1=$gvote[0]['pvote'];
 		$m2=$gvote[0]['svote'];
         
         $tvote = $m1 + $m2;
         
-        $query2 = "select (select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid) as wcnt,(select count(*) from {resource} where qid='".$quest['qid']."' group by qid) as rcnt from {forum_wave} as f where f.qid_rid='".$quest['qid']."' ";
+        $query2 = "select IFNULL((select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid),0) as wcnt,(select count(*) from {resource} where qid='".$quest['qid']."' group by qid) as rcnt from {forum_wave} as f where f.qid_rid='".$quest['qid']."' ";
         $fcnt = ExecuteQuery($query2, "select");
         
         //The value “active” will be calculated as follows (j,k,l are constant values that will be hard-coded):
