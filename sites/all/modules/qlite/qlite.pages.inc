@@ -330,9 +330,9 @@ function cal_active_rate() {
         
         $tvote = $m1 + $m2;
         
-        $query2 = "select IFNULL((select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid),0) as wcnt,(select count(*) from {resource} where qid='".$quest['qid']."' group by qid) as rcnt from {forum_wave} as f where f.qid_rid='".$quest['qid']."' ";
+        $query2 = "select IFNULL((select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid),0) as wcnt,IFNULL((select count(*) from {resource} where qid='".$quest['qid']."' group by qid),0) as rcnt from {forum_wave} as f where f.qid_rid='".$quest['qid']."' ";
         $fcnt = db_fetch_object(db_query($query2));
-        print_r($fcnt);
+        
         //The value “active” will be calculated as follows (j,k,l are constant values that will be hard-coded):
         //Active =  (j * #_of_votes_for_question) + (k * #_of_forum_posts) + (l * #_of_posted_resources)
 		$cntr=$fcnt->wcnt;
