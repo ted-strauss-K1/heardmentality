@@ -754,7 +754,7 @@ function save_follower_profile()
 if(isset($_GET['action']))
 {
 
-echo lllll.$del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  id='".$_GET['action']."' ";
+$del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  id='".$_GET['action']."' ";
 	$rs_blog_del=db_query($del_blog);
 	
 	 $sel_userms = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_GET['usid']."'";
