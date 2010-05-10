@@ -331,8 +331,10 @@ function cal_active_rate() {
         
         //The value “active” will be calculated as follows (j,k,l are constant values that will be hard-coded):
         //Active =  (j * #_of_votes_for_question) + (k * #_of_forum_posts) + (l * #_of_posted_resources)
+		$cntr=$fcnt[0]['wcnt'];
+		$wcnt=$fcnt[0]['rcnt'];
         
-        $active = (($j * $tvote) + ($k * $fcnt[0]['wcnt']) + ($l * $fcnt[0]['rcnt']));
+        $active = (($j * $tvote) + ($k * $cntr) + ($l * $wcnt));
         
         db_query("update {question} set active_rate='".$active."' where qid='".$quest['qid']."'");
     
