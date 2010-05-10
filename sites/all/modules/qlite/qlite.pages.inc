@@ -315,6 +315,8 @@ function cal_active_rate() {
     $j = 5;
     $k = 5;
     $l = 5;
+	$fcnt='';
+	$gvote='';
     $query = "SELECT * from {question}";
     $list = ExecuteQuery($query, "select");
     
