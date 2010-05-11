@@ -415,7 +415,7 @@ text-decoration:none;
 	
 	
 	
-	if($_REQUEST['cid']!='')
+	if(($_REQUEST['cid']!='')|| ($_REQUEST['scid']!=''))
 	{
 	
 	//$lkr='cid='.$cid.'';
