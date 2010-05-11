@@ -256,13 +256,16 @@ var login_params=
 			
 			}
 			</script>
+            <?php
+			$spe=$_REQUEST['stype'];
+			?>
             <form name="search" method="post" action="">
     <input type="text" name="txt_search" id="txt_search" />
     
     <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
-    <input type="radio" name="stype" id="stype" id="stype" value="1" <?php if($_REQUEST['stype']==1) { ?> checked="checked" <?php }?> />Question
+    <input type="radio" name="stype" id="stype" id="stype" value="1" <?php if($spe==1) { ?> checked="checked" <?php }?> />Question
     
-    <input type="radio" name="stype" id="stype" id="stype" value="2" <?php if($_REQUEST['stype']==2) { ?> checked="checked" <?php }?> />Users
+    <input type="radio" name="stype" id="stype" id="stype" value="2" <?php if($spe==2) { ?> checked="checked" <?php }?> />Users
     
     </form>
     </div>
