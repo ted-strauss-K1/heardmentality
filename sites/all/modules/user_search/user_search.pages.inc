@@ -252,8 +252,7 @@ return $fetresult;
 function search_results_question()
 {
 global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-$chk='null';
-$tag='null';
+
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 //echo $idb;
 $page_name="searchquestion"; 
