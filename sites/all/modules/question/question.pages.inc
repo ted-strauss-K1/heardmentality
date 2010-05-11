@@ -1132,3 +1132,54 @@ function question_delete_confirm_submit($form, &$form_state) {
     drupal_goto("question/");
 }
 
+function admin_question(){
+	
+	$strReturn='';
+	 global $gSitePath,$user,$gDocPath,$base_root;
+	 
+	 
+	    $type = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	 switch($type){
+	 	
+		case 'flagged':
+		drupal_set_title("Admin Flagged Questions");
+		$query = "SELECT *  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY q.date_added DESC LIMIT 0,15";
+    $list = ExecuteQuery($query, "select");
+	
+				
+					
+		break;
+		case 'new':
+				
+	    $query = "SELECT *  FROM {question} ORDER BY date_added DESC LIMIT 0,15";
+    $list = ExecuteQuery($query, "select");
+
+    
+
+	
+			break;		
+	 }
+
+	    $strReturn .= '<div class="clear-block">';
+    $strReturn .= '<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+    for ($i = 0; $i < count($list); $i++) {
+          $date = format_date_class($list[$i]['date_added'], date('Y-m-d H:i:s'));
+        $strReturn .= '<tr><td>';
+        $strReturn .= '<a href="'.$gSitePath.$list[$i]['url'].'">'.$list[$i]['question'].'</a>';
+        $strReturn .= '</td><td>'.$date.'</td><td>';
+        
+        $strReturn .= '<!--<b>/</b>&nbsp;<a href="'.$gSitePath.'question/edit/'.$list[$i]['qid'].'">Edit</a>&nbsp;<b>/</b>-->&nbsp;<a href="'.$gSitePath.'question/delete/'.$list[$i]['qid'].'">Delete</a> ';
+        
+        $strReturn .= '</td></tr>';
+    
+    }
+    
+    $strReturn .= '</table></div>';
+    if (count($list) < 1) {
+        drupal_set_message($message = 'No Questions Found!', $type = 'error');
+    }
+    
+   
+	 echo $strReturn;
+	
+}
