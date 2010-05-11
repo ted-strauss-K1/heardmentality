@@ -393,7 +393,7 @@ text-decoration:none;
 	$fetresult.='<h4><input name="answer_al" type="radio"  value="'.$vlistquest->paid.'" />'.$vlistquest->answer.'</h4>';		 	
 	
 	}
-	$fetresult.='</li> '.$flink.' '.$totalvotes.' Votes  '.$numresum.' Posts';
+	$fetresult.='</li> '.$totalvotes.' Votes  '.$numresum.' Posts';
 	}
 	
 	
