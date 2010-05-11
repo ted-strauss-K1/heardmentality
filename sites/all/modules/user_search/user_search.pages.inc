@@ -3,7 +3,6 @@
 function search_results()
 {
 global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-//echo $_SERVER['PHP_SELF'];
 extract($_REQUEST);
 $page_name="searchuser"; //  If you use this code with a different page ( or file ) name then change this 
 $start=$_GET['start'];
@@ -170,25 +169,7 @@ text-decoration:none;
 	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
 	<h4>'.$user_result->mail.'</h4>		 	
 	<p>';
-	echo $user_result->image_url;
-	if($user_result->image!='')
-	{
-	 $imgsrc = $user_result->image;
-	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
-	 $fetresult.= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
-	}
-	elseif($user_result->image_url!='')
-	{
-	//echo lllll;
-	$fetresult.='<img src="'.$user_result->image_url.'" align="absmiddle" height="50" width="50"/>';
-	 }
-	 else
-	 {
-	 $imgsrc = 'noimage.jpg';
-	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
-	 $fetresult.= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
-	 
-	 }
+	
 	$fetresult.='</p> 
 	
 	</li> '.$flink.'';
@@ -419,6 +400,7 @@ text-decoration:none;
 	{
 	
 	//$lkr='cid='.$cid.'';
+	
 	$lkr='cid='.$cid.'&scid='.$scid.'&sscid='.$sscid.'';
 	}
 	
