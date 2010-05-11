@@ -251,7 +251,7 @@ return $fetresult;
 }
 function search_results_question()
 {
-global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+global var $gSitePath,$user, $gDocPath,$base_root,$base_path;
 
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 //echo $idb;
@@ -401,7 +401,7 @@ text-decoration:none;
 	if(($_REQUEST['cid']!='')|| ($_REQUEST['scid']!=''))
 	{
 	
-	//$lkr='cid='.$cid.'';
+	
 	
 	$lkr='cid='.$cid.'&scid='.$scid.'&sscid='.$sscid.'';
 	}
