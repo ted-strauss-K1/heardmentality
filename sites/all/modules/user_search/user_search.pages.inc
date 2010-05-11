@@ -176,7 +176,7 @@ text-decoration:none;
 	</li> '.$flink.'';
 	}
 	
-	$fetresult.='<input type="hidden" name="stype" value="'.$_REQUEST['stype'].'"/></ul>';
+	$fetresult.='</ul>';
 	
 	
 	
