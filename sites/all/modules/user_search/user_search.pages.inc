@@ -259,6 +259,7 @@ function search_results_question()
 	$suid=''; 
 	$lkr='';
 	$tag='';
+	$name='';
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 //echo $idb;
 $page_name="searchquestion"; 
