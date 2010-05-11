@@ -351,14 +351,7 @@ text-decoration:none;
 	$sel_catm=db_query("select * from category  where cat_id='".$suid."'   ");
 	$saveresult=db_fetch_object($sel_catm);
 	 $qry='';
-	if(isset($_REQUEST['cid'])){
-	{
-	$cid=$_REQUEST['cid'];
-	}
-	if(isset($_REQUEST['scid'])){
-	{
-	$scid=$_REQUEST['scid'];
-	}
+	
 	if($name)
 			$qry.="(question LIKE '".$name."%') AND ";
 	 if($cid)
