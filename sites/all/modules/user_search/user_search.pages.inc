@@ -393,9 +393,10 @@ text-decoration:none;
     $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$user_result->qid' GROUP BY qid";
     $query_sugestlist = db_query($query_sugest);
     $fetvotsugest = db_fetch_object($query_sugestlist);
+	if(!empty($fetvotsugest)){
     $vot2=$fetvotsugest->suggestv;
     $totalvotes = $vot1 + $vot2;
-   
+	}
 	 $numresum = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$user_result->qid'"));
 	$fetresult.='<li>
 	<h3><a onclick="get_quest_details('.$user_result->qid.');">'.$user_result->question.'</a>      </h3>';
