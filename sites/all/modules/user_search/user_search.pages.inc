@@ -259,7 +259,11 @@ function search_results_question()
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 //echo $idb;
 $page_name="searchquestion"; 
-$start=$_GET['start'];
+if(isset($_GET['start'])){
+	$start=$_GET['start'];
+	
+}
+
 if(strlen($start) > 0 and !is_numeric($start)){
 echo "Data Error";
 exit;
@@ -380,7 +384,11 @@ text-decoration:none;
   $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$user_result->qid' GROUP BY qid";
     $query_list = db_query($query);
     $fetvot = db_fetch_object($query_list);
-   $vot1= $fetvot->possiblevote;
+	if(!empty($fetvot)){
+		
+		  $vot1= $fetvot->possiblevote;
+	}
+ 
     
     $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$user_result->qid' GROUP BY qid";
     $query_sugestlist = db_query($query_sugest);
@@ -458,18 +466,6 @@ $fetresult.='<b>No Search Results </b>';
 
 
 return $fetresult;
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
