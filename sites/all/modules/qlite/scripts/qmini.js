@@ -22,7 +22,7 @@ function get_toplist(sid,level){
 											}
 									}).send();
 	
-	if(level==1){
+	if(level==1&&sid!=''){
 	var req = new Request({    
 											method: 'post'
 											,url: url
@@ -33,6 +33,9 @@ function get_toplist(sid,level){
 											}
 									}).send();
 	
+	}else if(level==1&&sid==''){
+		
+		 $('res_scat').set('html', '');	
 	}
 	
 }
