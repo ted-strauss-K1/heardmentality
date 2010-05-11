@@ -345,8 +345,9 @@ text-decoration:none;
 	<div class="l col">
 	<ul>';
 	extract($_REQUEST);
-	
+	if(isset($_REQUEST['txt_search'])){
 	$name=$_REQUEST['txt_search'];
+	}
 	
 	if(isset($_GET['scid'])){
 	$suid=$_GET['scid'];
