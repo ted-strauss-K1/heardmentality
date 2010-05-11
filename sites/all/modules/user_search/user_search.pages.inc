@@ -390,7 +390,7 @@ text-decoration:none;
 	<h3><a onclick="get_quest_details('.$user_result->qid.');">'.$user_result->question.'</a>      </h3>';
 	 while($vlistquest = db_fetch_object($vlist))
 	 {
-	$fetresult.='<h4><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />'.$vlistquest->answer.'</h4>';		 	
+	$fetresult.='<h4><input name="answer_al" type="radio"  value="'.$vlistquest->paid.'" />'.$vlistquest->answer.'</h4>';		 	
 	
 	}
 	$fetresult.='</li> '.$flink.' '.$totalvotes.' Votes  '.$numresum.' Posts';
