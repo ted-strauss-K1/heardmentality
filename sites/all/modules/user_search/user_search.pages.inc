@@ -254,8 +254,7 @@ function search_results_question()
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 	$start='';
 	$txt_search='';
-	$scid='';
-	$sscid=''; 
+	$suid='';
 	$lkr='';
 	$tag='';
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
