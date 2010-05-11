@@ -343,7 +343,7 @@ text-decoration:none;
 	<div class="l col">
 	<ul>';
 	extract($_REQUEST);
-	$scid='';
+	
 	$name=$_REQUEST['txt_search'];
 	$suid=$_REQUEST['scid'];
 	//echo "select * from category  where cat_id='".$suid."' " ;
