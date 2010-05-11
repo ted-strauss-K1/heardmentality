@@ -184,14 +184,14 @@ if($sel_count > $limit ){
 
 $fetresult.="<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
 if($back >=0) { 
-$fetresult.= "<a href='$page_name?start=$back&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>PREV</font></a>"; 
+$fetresult.= "<a href='$page_name?start=$back'><font face='Verdana' size='2'>PREV</font></a>"; 
 } 
 $fetresult.= "</td><td align=center width='30%'>";
 $i=0;
 $l=1;
 for($i=0;$i < $sel_count;$i=$i+$limit){
 if($i <> $eu){
-$fetresult.= " <a href='$page_name?start=$i&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>$l</font></a> ";
+$fetresult.= " <a href='$page_name?start=$i'><font face='Verdana' size='2'>$l</font></a> ";
 }
 else { $fetresult.= "<font face='Verdana' size='4' color=red>$l</font>";}      
 $l=$l+1;
@@ -200,7 +200,7 @@ $l=$l+1;
 
 $fetresult.="</td><td  align='right' width='30%'>";
 if($this1 < $sel_count) { 
-$fetresult.= "<a href='$page_name?start=$next&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>NEXT</font></a>";} 
+$fetresult.= "<a href='$page_name?start=$next'><font face='Verdana' size='2'>NEXT</font></a>";} 
 $fetresult.= "</td></tr></table>";
 
 }
