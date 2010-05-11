@@ -379,7 +379,7 @@ text-decoration:none;
 	else
 	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}   WHERE $qry status='1'  "));
 	$sel.=" limit  $eu, $limit";
-	echo $sel;
+	//echo $sel;
 		$sel_search=db_query($sel);
 	while($user_result=db_fetch_object($sel_search))
 	{
@@ -418,22 +418,13 @@ text-decoration:none;
 	if($_REQUEST['cid']!='')
 	{
 	
-	$lkr='cid='.$cid.'';
-	}
-	elseif($_REQUEST['scid']!='')
-	{
-	
-	$lkr='cid='.$cid.'&scid='.$scid.'';
-	
-	}
-	elseif($sscid!='')
-	{
-	
+	//$lkr='cid='.$cid.'';
 	$lkr='cid='.$cid.'&scid='.$scid.'&sscid='.$sscid.'';
 	}
-	elseif($tag!='')
+	
+	if($tag!='')
 	{
-	$lkr='tag='.$tag.'';
+	$lkr='cid='.$cid.'&scid='.$scid.'&sscid='.$sscid.'&tag='.$tag.'';
 	
 	}
 	
