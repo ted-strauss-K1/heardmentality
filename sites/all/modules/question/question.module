@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function question_perm() {
-  return array('Question user','Question add','Question save','Question ajax','Question edit','Question delete');
+  return array('Question user','Question add','Question save','Question ajax','Question edit','Question delete','Admin Panel');
 }
 
 
@@ -56,6 +56,33 @@ $items['question/save'] = array(
     'type' => MENU_CALLBACK,
     'file' => 'question.pages.inc',
   );
+ 
+ 
+ $items['admin/questions'] = array(
+    'title' => 'Admin Panel',
+    'page callback' => 'admin_content',
+	 'type' => MENU_CALLBACK,
+	   'access arguments' => array('Admin Panel'),
+       'file' => 'question.pages.inc',
+  );
+ 
+  $items['admin/panel'] = array(
+    'title' => 'Admin Panel',
+    'page callback' => 'admin_panel_tab',
+	 'type' => MENU_CALLBACK,
+	   'access arguments' => array('Admin Panel'),
+       'file' => 'question.pages.inc',
+  );
+ 
+ 
+  $items['admin/panelc'] = array(
+    'title' => 'Admin Panel',
+    'page callback' => 'panel_content',
+	 'type' => MENU_CALLBACK,
+	   'access arguments' => array('Admin Panel'),
+    'file' => 'question.pages.inc',
+  );
+ 
  
   
   return $items;

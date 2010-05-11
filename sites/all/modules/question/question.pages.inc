@@ -1183,3 +1183,95 @@ function admin_question(){
 	 echo $strReturn;
 	
 }
+
+function admin_content()
+{
+ global $gSitePath,$user,$gDocPath,$base_root;
+$outputcontent='';
+
+return $outputcontent;
+
+
+}
+
+
+
+
+
+
+
+function admin_panel_tab() {
+    global $gSitePath,$user,$gDocPath,$base_root;
+  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+  echo  $output= '<div class="toolbarTabs">
+	<ul id="qTabs" class="tab-menu">
+	<li id="qTabs1Link" class="selected"><a>New</a></li>
+	<li id="qTabs2Link"><a>Users</a></li>
+	<li id="qTabs3Link" ><a>Falgged</a></li>
+	</ul>
+	<div class="clear"></div>
+	</div>
+
+	<script type="text/javascript">
+	
+	MochaUI.initializeTabs("qTabs");
+	
+	$("qTabs1Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("admin-id"),
+	"url":       "'.$gSitePath.'admin/panelc?t=per"
+	});
+	});
+	
+	$("qTabs2Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("admin-id"),
+	"url":       "'.$gSitePath.'admin/panelc?t=time"
+	});
+	});
+	
+	$("qTabs3Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("admin-id"),
+	"url":       "'.$gSitePath.'admin/panelc?t=area"
+	});
+	});
+
+	
+	</script>';
+
+}
+function panel_content() {
+    global $gSitePath,$user,$gDocPath,$base_root;
+      $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	
+
+	
+    $type=$_REQUEST[t];
+   
+    switch ($type) {
+    	
+        case "time":
+            $output = 'content 3';
+            break;
+        case "area":
+            $output = 'content 2';
+            break;
+		 case "per":	
+        default:
+            $output = 'content1';
+            break;
+    }
+	
+	
+	
+	
+    echo $output;
+}
+
+
+
+
+
+
