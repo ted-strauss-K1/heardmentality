@@ -351,7 +351,7 @@ text-decoration:none;
 	$sel_catm=db_query("select * from category  where cat_id='".$suid."'   ");
 	$saveresult=db_fetch_object($sel_catm);
 	 $qry='';
-	
+	 $cid='';
 	if($name)
 			$qry.="(question LIKE '".$name."%') AND ";
 	 if($cid)
