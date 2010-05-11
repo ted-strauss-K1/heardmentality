@@ -331,7 +331,9 @@ function menu_delete_confirm(&$form_state, $category) {
 		function sub_menu($id='',$level='')
 		{
 		$strReturn=null;
+	
 		if($level<2){
+	
 					 $client_select =db_query("SELECT cat_id,cat_name,(select cat_name from {category} where cat_id='$id') as mcat FROM {category} where parent_id='".$id."'  ");
 					
 					$client_array=array();
@@ -344,18 +346,34 @@ function menu_delete_confirm(&$form_state, $category) {
 					$client_key[]=$list->cat_id;
 						$mcat=$list->mcat;
 					}
-					$strReturn.='<div>'.$mcat.'</div>';					
+					$strReturn.='<div><a href="'.$gSitePath.'searchquestion?cid='.$id.'" >'.$mcat.'</a></div>';					
 					if(count($client_array)>0){
 						 $strReturn.='<ul >';
 					 
 						 for($i=0;$i<count($client_array);$i++){
 					
-						 $strReturn .= '<li>'.$client_array[$i].'';
+					
+					//echo $level;
+					if($level==0)
+					{
+					$lnrk='cid='.$id.'&scid='.$client_key[$i].'';
+					
+					}
+					if($level==1)
+					{
+					$lnr='scid='.$id.'&sscid='.$client_key[$i].'';
+					}
+					
+					
+					
+						// $strReturn .= '<li><a href="'.$gSitePath.'searchquestion?cid='.$id.'&scid='.$client_key[$i].'">'.$client_array[$i].' </a>';
+						$strReturn .= '<li><a href="'.$gSitePath.'searchquestion?'.$lnrk.''.$lnr.'">'.$client_array[$i].' </a>';
 			 if (user_access("administer nodes")) {
  			   // is admin
 						 if($level==0){
 						 $strReturn.='&nbsp; <a id="ajaxpageLinkCheck" href="add/'.$client_key[$i].'">Add </a>';
 						 }
+						 
 				  			$strReturn.='&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="edit/'.$client_key[$i].'">Edit </a>';
 								$strReturn.='&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="delete/'.$client_key[$i].'">Delete </a>';
 						}
