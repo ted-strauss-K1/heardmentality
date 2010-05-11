@@ -336,6 +336,7 @@ text-decoration:none;
 	<ul>';
 	extract($_REQUEST);
 	$name=$_REQUEST['txt_search'];
+	if(isset($_REQUEST['scid']))
 	$suid=$_REQUEST['scid'];
 	//echo "select * from category  where cat_id='".$suid."' " ;
 	$sel_catm=db_query("select * from category  where cat_id='".$suid."'   ");
