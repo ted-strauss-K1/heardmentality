@@ -377,9 +377,9 @@ text-decoration:none;
 	if($tag!='')
 	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));
 	else
-	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} as  q,qtag as tag  WHERE $qry status='1' and tag.qid=q.qid  "));
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}   WHERE $qry status='1'  "));
 	$sel.=" limit  $eu, $limit";
-	//echo $sel;
+	echo $sel;
 		$sel_search=db_query($sel);
 	while($user_result=db_fetch_object($sel_search))
 	{
