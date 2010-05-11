@@ -139,7 +139,7 @@ global $user;
                       <li><a href="<?php echo $gSitePath?>openids/new">Sign In</a></li>-->
                       
                    <!-- socialize.js script should only be included once -->
-<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8"></script>
+<!--<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8"></script>
 <script type="text/javascript">
 var conf=
 {
@@ -164,12 +164,12 @@ var login_params=
 <div id="componentDiv"></div>
 <script type="text/javascript">
    gigya.services.socialize.showLoginUI(conf,login_params);
-</script>
+</script>-->
 
 
 
 <!-- socialize.js script should only be included once -->
-<!--<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j"></script>
+<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j"></script>
 <script type="text/javascript">
 var conf=
 {
@@ -192,7 +192,7 @@ var login_params=
 <div id="componentDiv"></div>
 <script type="text/javascript">
    gigya.services.socialize.showLoginUI(conf,login_params);
-</script>-->
+</script>
 
 
 
@@ -202,7 +202,8 @@ var login_params=
 			
 			?>
             
-     	<ul class="menu-right">
+          
+			<ul class="menu-right">
 				<li>Welcome <a href="<?php echo $gSitePath?>profile" ><?php
 				 $user_prof = db_fetch_object(db_query("SELECT * from {user_profile} where  uid=".$user->uid." "));
 				if($user_prof->real_name=='')
@@ -221,9 +222,50 @@ var login_params=
 			</ul>
             <?php
             endif;
+			
 			?>
             
-            
+            <div>
+            <?php
+            /*if($_REQUEST['stype']==2)
+			{?>
+			<form name="search" method="post" action="<?php echo $gSitePath?>search/user">
+            <?php 
+			}
+            else
+			{?>
+			<form name="search" method="post" action="<?php echo $gSitePath?>search/question">
+            <?php
+			}*/
+			?>
+            <script type="text/javascript">
+			function callfunction()
+			{
+			typem=document.search.stype[0].checked;
+			if(typem==false)
+			{
+			
+			document.search.action="<?php echo $gSitePath?>searchuser";
+			document.search.submit();
+			}
+			else
+			{
+				document.search.action="<?php echo $gSitePath?>searchquestion";
+			document.search.submit();
+			}
+			
+			}
+			</script>
+            <form name="search" method="post" action="">
+    <input type="text" name="txt_search" id="txt_search" />
+    
+    <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
+    <input type="radio" name="stype" id="stype" id="stype" value="1" <?php if($_REQUEST['stype']==1) { ?> checked="checked" <?php }?> />Question
+    
+    <input type="radio" name="stype" id="stype" id="stype" value="2" <?php if($_REQUEST['stype']==2) { ?> checked="checked" <?php }?> />Users
+    
+    </form>
+    </div>
             
             <!--  <ul class="menu-right">
                 
@@ -232,13 +274,40 @@ var login_params=
                <?php //print garland_user_bar() ?>
                </ul>
                
-   
+          
 		</div>
-        
 	</div>
-    
 </div>
+	<?php
+	//$_SERVER['PHP_SELF']
 	
+	$linkuse = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	
+	if($linkuse=='user')
+	{
+	?>
+    <script type="text/javascript">
+    var widthmain=520;
+	</script>
+    <?php 
+	}
+	 elseif($linkuse=='question')
+    {
+	?>
+	<script type="text/javascript">
+    var widthmain=450;
+	</script>
+	<?php 
+	}
+    else
+    {
+	?>
+	<script type="text/javascript">
+    var widthmain=220;
+	</script>
+	<?php 
+	}
+	?>
 <div id="desktopNavbar">
 	<?php if (count($primary_links)) : ?>
 	<ul>
@@ -325,11 +394,13 @@ window.addEvent('domready', function(){
 		width: null,
 		resizeLimit: [100, 300]
 	});
+	
+	
 <?php if ($right): ?>
 	new MochaUI.Column({
 		id: 'sideColumn2',
 		placement: 'right',	
-		width: 220,		
+		width: widthmain,		
 		resizeLimit: [195, 300]
 	});
 <?php endif; ?>
@@ -354,7 +425,7 @@ window.addEvent('domready', function(){
 <?php if($user->uid==0)
 	{ ?>
 	
-	initSlidingContent('scrollingContainer',3);
+	//initSlidingContent('scrollingContainer',3);
 <?php 
  }
 ?>
