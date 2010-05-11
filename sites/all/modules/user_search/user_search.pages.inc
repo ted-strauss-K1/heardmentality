@@ -251,7 +251,7 @@ return $fetresult;
 }
 function search_results_question()
 {
- global var  $gSitePath,$user,$gDocPath,$base_root,$base_path;
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 //echo $idb;
