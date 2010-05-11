@@ -354,7 +354,11 @@ text-decoration:none;
 	if(isset($_GET['cid'])){
 	$cid=$_GET['cid'];
 	
-}
+	}
+	if(isset($_GET['scid'])){
+	$scid=$_GET['scid'];
+	
+	}
 	if($name)
 			$qry.="(question LIKE '".$name."%') AND ";
 	 if($cid)
