@@ -351,21 +351,33 @@ text-decoration:none;
 	<div class="feature">
 	<div class="l col">
 	<ul>';
-  $name=$_REQUEST['txt_search'];
+	extract($_REQUEST);
+	$name=$_REQUEST['txt_search'];
+	$suid=$_REQUEST['scid'];
+	//echo "select * from category  where cat_id='".$suid."' " ;
+	$sel_catm=db_query("select * from category  where cat_id='".$suid."'   ");
+	$saveresult=db_fetch_object($sel_catm);
+	
 	
 	if($name)
 			$qry.="(question LIKE '".$name."%') AND ";
-	 
-	 if($user->uid!='')
-		   $sel="SELECT * FROM {question}  WHERE $qry uid<>$user->uid AND status='1' ";
+	 if($cid)
+	 $qry.="(cid='".$cid."') AND ";
+	  if($scid)
+	 $qry.="(scid='".$scid."') AND";
+	 if($sscid)
+	 $qry.="(sscid='".$sscid."') AND (cid='".$saveresult->parent_id."') AND ";
+	
+	 if($tag!='')
+		   $sel="SELECT * FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
 		else
-			$sel="SELECT * FROM {question} img WHERE $qry status='1'  ";
+			$sel="SELECT * FROM {question}   WHERE $qry status='1'   ";
 	
 	$user_qry=db_query($sel);
-	if($user->uid!='')
-	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}  WHERE $qry uid<>$user->uid AND status='1' "));
+	if($tag!='')
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));
 	else
-	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} img WHERE $qry status='1'  "));
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} as  q,qtag as tag  WHERE $qry status='1' and tag.qid=q.qid  "));
 	$sel.=" limit  $eu, $limit";
 	//echo $sel;
 		$sel_search=db_query($sel);
@@ -401,9 +413,29 @@ text-decoration:none;
 	$fetresult.='</li> '.$flink.' '.$totalvotes.' Votes  '.$numresum.' Posts';
 	}
 	
-	$fetresult.='<input type="hidden" name="stype" value="'.$_REQUEST['stype'].'"/></ul>';
 	
 	
+	if($_REQUEST['cid']!='')
+	{
+	
+	$lkr='cid='.$cid.'';
+	}
+	elseif($_REQUEST['scid']!='')
+	{
+	
+	$lkr='cid='.$cid.'&scid='.$scid.'';
+	
+	}
+	elseif($sscid!='')
+	{
+	
+	$lkr='cid='.$cid.'&scid='.$scid.'&sscid='.$sscid.'';
+	}
+	elseif($tag!='')
+	{
+	$lkr='tag='.$tag.'';
+	
+	}
 	
 	
 	/////////////////////////////// 
@@ -413,7 +445,7 @@ if($sel_count > $limit ){ // Let us display bottom links if sufficient records a
 $fetresult.="<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
 //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
 if($back >=0) { 
-$fetresult.= "<a href='$page_name?start=$back&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>PREV</font></a>"; 
+$fetresult.= "<a href='$page_name?start=$back&$lkr'><font face='Verdana' size='2'>PREV</font></a>"; 
 } 
 //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
 $fetresult.= "</td><td align=center width='30%'>";
@@ -421,7 +453,7 @@ $i=0;
 $l=1;
 for($i=0;$i < $sel_count;$i=$i+$limit){
 if($i <> $eu){
-$fetresult.= " <a href='$page_name?start=$i&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>$l</font></a> ";
+$fetresult.= " <a href='$page_name?start=$i&$lkr'><font face='Verdana' size='2'>$l</font></a> ";
 }
 else { $fetresult.= "<font face='Verdana' size='4' color=red>$l</font>";}        /// Current page is not displayed as link and given font color red
 $l=$l+1;
@@ -431,10 +463,16 @@ $l=$l+1;
 $fetresult.="</td><td  align='right' width='30%'>";
 ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
 if($this1 < $sel_count) { 
-$fetresult.= "<a href='$page_name?start=$next&stype=$_REQUEST[stype]'><font face='Verdana' size='2'>NEXT</font></a>";} 
+$fetresult.= "<a href='$page_name?start=$next&$lkr'><font face='Verdana' size='2'>NEXT</font></a>";} 
 $fetresult.= "</td></tr></table>";
 
-}// end of if checking sufficient records are there to display bottom navigational link. 
+}
+
+if($sel_count==0)
+{
+$fetresult.='<b>No Search Results </b>';
+
+}
 	$fetresult.=' </div>
 	</div>
 	</div>';
