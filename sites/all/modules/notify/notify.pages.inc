@@ -9,8 +9,84 @@ function my_notify() {
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
- // $qid=get_nqid($idb);
-// echo $idb;
+$voutput ='<style>
+              .black_overlay{
+                  display: none;
+                  position: absolute;
+                  top: 0%;
+                  left: 0%;
+                  width: 100%;
+                 
+                 
+                  z-index:1001;
+                  -moz-opacity: 0.8;
+                  opacity:.30;
+				  filter: alpha(opacity=80);
+              }
+              .white_content {
+                  display: none;
+                  position: absolute;
+                  top: 17%;
+                  left:10%;
+				  z-index:1002;
+                  overflow: auto;
+				  cursor: move;
+              }
+          </style>
+<script type="text/javascript">
+function call()
+{
+
+document.getElementById(\'light\').style.display=\'block\';
+
+}
+function con_close()
+{
+document.getElementById(\'light\').style.display=\'none\';
+
+		
+}
+				var spath=\''.$gSitePath.'\';
+			
+				 function get_message(){
+						var clearfi=\'\';
+						var url = "'.$gSitePath.'message";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: {\'sendmail\':1 },
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'div_msg\').set(\'html\', response);
+													  $(\'show_box\').set(\'html\', clearfi);
+											}
+									}).send();
+						
+						
+						}
+						
+						
+						
+						 function get_Reply(){
+						
+						var url = "'.$gSitePath.'reply";
+						var clearfi=\'\';
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: {\'reply\':1 },
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'show_box\').set(\'html\', response);
+													 $(\'div_msg\').set(\'html\', clearfi);
+											}
+									}).send();
+						
+						
+						}
+					</script>
+			
+			';
 	if(($idb=='otify')||($idb=='repcontent'))
 	{
 	$query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
@@ -36,8 +112,7 @@ function my_notify() {
     $numran = mysql_num_rows($list_lengthan);
     $answer_id = db_fetch_object($list_lengthan);
     drupal_set_title($oListquest->question);
-    $voutput = '
-		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
+    $voutput.= '<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<p>'.$oListquest->context.'</p>';
     $vans = "select * from {possible_answer} where  qid=$qid order by paid ASC";
 
@@ -178,3 +253,35 @@ function notify_content() {
     echo $output;
 }
 
+function mail_sent_reply()
+{
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+	$numrancnt = db_result(db_query("SELECT COUNT(*) from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid "));
+	if($numrancnt==0)
+	$sel_flow="select * from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid ";
+	else
+	$sel_flow="select * from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid ";
+	$rs_folwin=db_query($sel_flow);
+	
+	while($flwing_result=db_fetch_object($rs_folwin))
+	{
+	
+    $update_quest="delete  from possible_answer_vote where qid=".$flwing_result->qid." and uid=".$user->uid." ";
+
+$ress=db_query($update_quest);
+
+
+    }
+ echo "Cleared Successfully";
+
+}
+
+function reply_box()
+{
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+	echo '<textarea name="comment" ></textarea>';
+
+}
