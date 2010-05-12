@@ -35,7 +35,20 @@ $items['notify'] = array(
 	   'access arguments' => array('Notify Report Content'),
     'file' => 'notify.pages.inc',
   );
- 
+ $items['message'] = array(
+    'title' => 'Notification',
+    'page callback' => 'mail_sent_reply',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Notify Report Content'),
+    'file' => 'notify.pages.inc',
+  );
+  $items['reply'] = array(
+    'title' => 'Notification',
+    'page callback' => 'reply_box',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Notify Report Content'),
+    'file' => 'notify.pages.inc',
+  );
   return $items;
 }
 
