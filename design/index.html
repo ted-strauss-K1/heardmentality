@@ -4,6 +4,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Heard Mentality &trade;</title>
 <link href="css/core-hm.css" type="text/css" rel="stylesheet" />
+
+<!--Tab Star-->
+<link href="css/tab.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	//Default Action
+	$(".tab_content").hide(); //Hide all content
+	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+	
+	//On Click Event
+	$("ul.tabs li").click(function() {
+		$("ul.tabs li").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab_content").hide(); //Hide all tab content
+		var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active content
+		return false;
+	});
+
+});
+</script>
+<!--Tab End-->
+
 </head>
 
 <body>
@@ -65,7 +92,7 @@
             </div>
         </div>
     	<div class="centerPanel">
-        	<div class="lPanel1">
+        	<div class="cpanel1">
                 <div class="head1">Your question goes here.. <a href="#" class="linkTwo">View More</a></div>
                 <div class="base1">
                 	<div class="questions">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
@@ -78,9 +105,45 @@
                         	<li><label><input type="radio" name="answers" id="answers" class="radBut" /> Third option goes here</label></li>
                         </ul>
                     </div>
-                    <div class="spacer"></div>
+                    <!--<div class="spacer"></div>-->
                 </div>
             </div>
+            <div class="spacer"></div>
+            <div class="cpanel1">
+                <div class="head1">
+                	<ul class="tabs">
+                        <li class="active"><a href="#tab1">Tab 1 </a></li>
+                        <li class=""><a href="#tab2">Tab 2</a></li>
+                        <li class=""><a href="#tab3">Tab 3</a></li>
+                    </ul>
+                </div>
+                <div class="body-tab">	
+                    
+                    <div class="tab_container">
+                        <div style="display: block;" id="tab1" class="tab_content">
+                            <h2>Tab 1</h2>                            
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. </p>
+                            
+                           
+                        </div>
+                        <div style="display: block;" id="tab2" class="tab_content">
+                            <h2>Tab 2</h2>                            
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. </p>
+                            
+                           
+                        </div>
+                        <div style="display: block;" id="tab3" class="tab_content">
+                            <h2>Tab 3</h2>                            
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. </p>
+                            
+                           
+                        </div>                        
+                    </div>
+                </div>
+            	<div class="clr"></div>
+            </div>
+            
+            
         </div>
         <div class="rightPanel">
         	<div class="lPanel1">
@@ -100,6 +163,7 @@
             </div>
         </div>
     </div>
+    <div class="clr"></div>
     <!-- BODY ENDS -->
     
      <!-- FOOTER STARTS -->
