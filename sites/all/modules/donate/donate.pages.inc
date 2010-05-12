@@ -154,18 +154,22 @@ else
 $amt = $_REQUEST["amount"];
 //echo $amt;
  $ccode = $_REQUEST["currency_code"];
-
-
+$cmt=$_REQUEST["comment"];
+$amtr=$amt;
+$ins_commg="insert into   donor_list (uid,comment,amount,ccode) values('".$user->uid."' ,'".$cmt."','".$amtr."','".$ccode."') ";
+$rs_commg=db_query($ins_commg);
+$lid=mysql_insert_id();
 $chkop='<body>
 <form  action="https://www.sandbox.paypal.com/cgi-bin/webscr"  method="get" name= "form1" id="form1">
 		<INPUT TYPE="hidden" NAME="cmd" VALUE="_xclick">
 		<input type="hidden" name="business" value="nagasubramani@yahoo.com">
 		
 		<input type="hidden" name="item_name" value="Heardmentality">
-		<input type="hidden" name="item_number" value="1">
+		<input type="hidden" name="item_number" value="'.$lid.'">
 		<input type="hidden" name="amount" value="'.$amt.'">
 		<input type="hidden" name="rm" value="2">
-		<input type="hidden" name="user_id" value="'.$user->uid.'">
+		<input type="hidden" name="txt_cmt" value="'.$cmt.'">
+		
 		<input type="hidden" name="shipping" value="0.00">
 		<input type="hidden" name="shipping_extra" value="0.00">
 		<input type="hidden" name="no_shipping" value="1">
@@ -190,9 +194,56 @@ return $opfail;
 function paypal_success()
 {
 global $gSitePath,$user, $gDocPath,$base_root;
-$userfid=$_POST['user_id'];
-$opsuc='Thanks for donation '.$userfid.'';
+if($_POST["item_number"] && $_POST['verify_sign'] && $_POST['payment_status'])
+{
+$updt="update donor_list set paid='1' where did='".$_POST["item_number"]."'";
+$str=db_query($updt);
+}
+
+$opsuc='Thanks for donation ';
 return $opsuc;
 
 }
+
+function donor_list()
+{
+
+global $gSitePath,$user, $gDocPath,$base_root;
+
+$seldonar="select * from donor_list where paid='1'";
+
+$res_donar=db_query($seldonar);
+$listd='<table width="100%" border="1">
+  <tr>
+    <td>Name</td>
+    <td>comment</td>
+    <td>Amount</td>
+    <td>Date</td>
+  </tr>';
+while($don=db_fetch_object($res_donar))
+{
+if($don->uid=='0')
+{
+$uname='Anononyms';
+}
+else
+{
+ $sellist="select * from users where uid='".$don->uid."'";
+$res_users=db_query($sellist);
+$usert=db_fetch_object($res_users);
+ $uname=$usert->name;
+}
+$listd.='<tr>
+    <td>'.$uname.'</td>
+    <td>'.$don->comment.'</td>
+    <td>'.$don->amount.' '.$don->ccode.'</td>
+    <td>'.$don->donate_date.'</td>
+  </tr>';
+
+
+}
+
+return $listd;
+}
+
 ?>

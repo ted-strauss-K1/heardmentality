@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function donate_perm() {
-  return array('Donation');
+  return array('Donation','Donor list');
 }
 
 
@@ -44,7 +44,13 @@ $donate_result['donation'] = array(
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'donate.pages.inc',
   );
-  
+   $donate_result['admin/donorlist'] = array(
+    'title' => ' Donation',
+    'page callback' => 'donor_list',
+    'access arguments' => array('Donor list'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'donate.pages.inc',
+  );
   return $donate_result;
 }
 
