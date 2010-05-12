@@ -431,7 +431,7 @@ if($select_user_count==0)
 	<script>
         var conf = 
         {
-            APIKey: \'2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8\'
+            APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
         };
         
         function onLoad()
@@ -474,7 +474,7 @@ if($select_user_count==0)
 			    userAction: act,  	                                  
 			    onError: onError,  
 			    onSendDone: onSendDone, 
-                		    showEmailButton:false,
+                		    showEmailButton:true,
                 		    showMoreButton:false
 			};
 
