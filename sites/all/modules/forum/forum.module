@@ -88,7 +88,7 @@ function cdatetime($timestamp)
 		 $date = strToTime($date);
 		  $date2= strToTime($date2);
 		$time=date('h:i ',$date).$params['sf'];
-		//$default=date('M j,y h:i ',$date).$params['sf']."-".date('M j,y h:i ',$date2).$params['ef'];
+		$default=date('M j,y h:i ',$date);
 	 $difference = $date - strToTime(date("Y-m-d"));
   //  $diff_days = round($difference / (24*3600));
  $diff_days    = floor($difference/(60*60*24));
@@ -113,12 +113,12 @@ function cdatetime($timestamp)
                         break;
                     case 8:
                       $fuzz .= "In a week ";
-					     $fuzz.= "[$default]";
+					    // $fuzz.= "[$default]";
                         break;
                     default:
 					
                      $fuzz .= "In ".$diff_days." days ";
-					   $fuzz.= "[$default]";
+					  // $fuzz.= "[$default]";
                 }
             }
             elseif($diff_days < 25) {
@@ -172,34 +172,34 @@ function cdatetime($timestamp)
                     case 4:
                     case 5:
                         $fuzz = $diff_days." days ago";
-						$fuzz.= "[$default]";
+						//$fuzz.= "[$default]";
                          break;
                     case 6:
                     case 7:
                     case 8:
                         $fuzz = "Around last week";
-						$fuzz.= "[$default]";
+					//	$fuzz.= "[$default]";
                     default:
                         $fuzz = "Over a week ago";
-						 $fuzz.= "[$default]";
+						// $fuzz.= "[$default]";
                 }
             }
             elseif($diff_days < 25) {
                 // weeks
                 $diff_weeks = round($diff_days / 7);
                 $fuzz = "Around ".$diff_weeks." weeks ago";
-				 $fuzz.= "[$default]";
+				// $fuzz.= "[$default]";
             }
             elseif($diff_days < 340) {
                 // months
                 $diff_months = round($diff_days / 30.4); // this gives good approximation to average month duration (365/12 = 30.416...), (365.25/12 = 30.4375)
                 if($diff_months == 1) {
                     $fuzz = "Around last month";
-					 $fuzz.= "[$default]";
+					// $fuzz.= "[$default]";
                 }
                 else {
                     $fuzz = "Around ".$diff_months." months ago";
-					 $fuzz.= "[$default]";
+					// $fuzz.= "[$default]";
                 }
             }
             else {
