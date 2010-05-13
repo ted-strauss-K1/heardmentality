@@ -247,10 +247,26 @@ function mail_sent_reply()
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
 	$numrancnt = db_result(db_query("SELECT COUNT(*) from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid "));
-	if($numrancnt==0)
-	$sel_flow="select * from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid ";
-	else
+$numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid "));
+
+
+	if(($numrancnt==0)&&($numrancntss==0))
+	{
+	
+	
+	$sel_flow="select * from  question   where uid!=".$user->uid."   ";
+	}
+	elseif($numrancntss==0)
+	{
+
 	$sel_flow="select * from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid ";
+	}
+	else
+	{
+
+	 $sel_flow="select * from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid ";
+
+	}
 	$rs_folwin=db_query($sel_flow);
 	
 	while($flwing_result=db_fetch_object($rs_folwin))
