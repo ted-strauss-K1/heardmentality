@@ -926,7 +926,36 @@ function flag_question() {
 	
 	</script>
 	';
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+   
+   	if(isset($_REQUEST['uid'])){
+   		
+			$uid =$_REQUEST['uid'];
+    $vSql = "select * from {user_profile} where  uid='$uid' ";
+    $rlist = db_query($vSql);
+    $oListquest = db_fetch_object($rlist);
+	 $img_path1=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$oListquest->image;
+	 $PROFILE_IMAGE= '<img src="'.$img_path1.'" align="absmiddle" alt="Profile image" >';
+    $falgq .= '<div id="log">
+	
+	<div id=""><b>Report this user!</b></div>
+	<div id="log_res"></div>
+	<span class="clr"><!-- spanner --></span>';
+    $falgq .= '<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data">
+	<input type="hidden" name="uid" value="'.$uid.'"/>
+	<div class="cmt_list"><div class="lft_view">  <p><span>'.$PROFILE_IMAGE.'</span><span>  </span><span>'.$oListquest->real_name.'</span> </p>
+	 <p class="cmt_date">  '.$oListquest->context.' </p></div></div>
+	<div class="txt_area">
+	<input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
+	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
+	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
+	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
+	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form>';
+    
+		
+		
+   	}else{
+   		
+	$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $vSql = "select * from {question} where status='1' and qid=$qid ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
@@ -935,7 +964,8 @@ function flag_question() {
 	<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
-    $falgq .= '<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"/>
+    $falgq .= '<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data">
+	<input type="hidden" name="qaid" value="'.$qid.'"/>
 	<div class="cmt_list"><div class="lft_view">  <p>'.$oListquest->question.' </p>
  <p class="cmt_date">  '.$oListquest->context.' </p></div></div>
 <div class="txt_area">
@@ -945,6 +975,11 @@ function flag_question() {
 	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
 	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form>';
     
+		
+		
+   	}
+   
+   
     echo $falgq;
 
 }
@@ -1252,7 +1287,31 @@ function flag_report() {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $userPoints = checkUserPoints($user->uid);
-    if (isset($userPoints) && $userPoints > 14) {
+	  if (isset($userPoints) && $userPoints > 14) {
+	if(isset($_REQUEST['uid'])){
+	
+		 $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['uid']."' and uid='".$user->uid."' and  type='user' "));
+        if ($_REQUEST['abuse_type'] != '') {
+            if ($numr == 0) {
+                 $flagquery = "insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['uid']."','".$user->uid."','".date('Y-m-d')."','user','".$_REQUEST['abuse_type']."')";
+                db_query($flagquery);
+                increasepoints('4', $_REQUEST['uid'], '0');
+                echo '<div class="messages success">You Have Flagged successfully ! </div>';
+
+            } else {
+                echo '<div class="messages error">You Have Already Flagged !</div>';
+            }
+        } else {
+            
+            echo '<div class="messages error">Select Report Type !</div>';
+        }
+		
+		
+	}else{
+		
+		
+		
+  
         $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' "));
         if ($_REQUEST['abuse_type'] != '') {
             if ($numr == 0) {
@@ -1268,10 +1327,14 @@ function flag_report() {
             
             echo '<div class="messages error">Select Report Type !</div>';
         }
-    } else {
+
+		
+	}
+	} else {
         
-        echo '<div class="messages error">Sorry You Not Have Sufficent User Points To Flag This!</div>';
+        echo '<div class="messages error">Sorry You Not Have Sufficent User Points To Flag !</div>';
     }
+	
 
 }
 
