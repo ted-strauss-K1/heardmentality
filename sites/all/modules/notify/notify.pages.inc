@@ -303,8 +303,8 @@ $numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question
 	$subject="Reply For Your Question";
 	$msgcmt=$_REQUEST['cmt_txt'] ;
 				
-				
-				
+			echo $userfrommail->mail;	
+		//echo $user_namelistf->mail; 		
 				$mail_success = htmlmail( $user_namelistf->mail, $subject, $msgcmt, $userfrommail->mail,'');
 	
 	}
