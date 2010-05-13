@@ -140,11 +140,12 @@ text-decoration:none;
 	<ul>';
 	
 	  $name=$_REQUEST['txt_search'];
+	  $code=$_REQUEST['code'];
 	 $qry='';
 		if($name)
 			$qry.="(img.real_name LIKE '".$name."%') AND ";
 		if($code)
-			$qry.="(img.country LIKE '".$code."%') AND ";
+			$qry.="(img.country ='".$code."') AND ";
 	 
 	 if($user->uid!='')
 		   $sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1' ";
