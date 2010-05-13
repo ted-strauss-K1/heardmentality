@@ -49,6 +49,15 @@ $items['notify'] = array(
 	   'access arguments' => array('Notify Report Content'),
     'file' => 'notify.pages.inc',
   );
+  
+    $items['savemsg'] = array(
+    'title' => 'Notification',
+    'page callback' => 'savemessage',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Notify Report Content'),
+    'file' => 'notify.pages.inc',
+  );
+  
   return $items;
 }
 
