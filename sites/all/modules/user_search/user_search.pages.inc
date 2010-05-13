@@ -144,7 +144,7 @@ text-decoration:none;
 		if($name)
 			$qry.="(img.real_name LIKE '".$name."%') AND ";
 		if($code)
-			$qry.="(img.real_name LIKE '".$name."%') AND ";
+			$qry.="(img.country LIKE '".$code."%') AND ";
 	 
 	 if($user->uid!='')
 		   $sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1' ";
