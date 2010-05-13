@@ -246,25 +246,25 @@ function mail_sent_reply()
 {
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
-	$numrancnt = db_result(db_query("SELECT COUNT(*) from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid "));
-$numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid "));
+	$numrancnt = db_result(db_query("SELECT COUNT(*) from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid  and b.status='1'"));
+$numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid  and b.status='1' "));
 
 
 	if(($numrancnt==0)&&($numrancntss==0))
 	{
 	
 	
-	$sel_flow="select * from  question   where uid!=".$user->uid."   ";
+	$sel_flow="select * from  question   where uid!=".$user->uid." and status='1'   ";
 	}
 	elseif($numrancntss==0)
 	{
 
-	$sel_flow="select * from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid ";
+	$sel_flow="select * from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid and b.status='1' ";
 	}
 	else
 	{
 
-	 $sel_flow="select * from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid ";
+	 $sel_flow="select * from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid  and b.status='1'";
 
 	}
 	$rs_folwin=db_query($sel_flow);
