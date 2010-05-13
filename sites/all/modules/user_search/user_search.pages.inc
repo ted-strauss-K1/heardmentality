@@ -147,13 +147,13 @@ text-decoration:none;
 			$qry.="(img.real_name LIKE '".$name."%') AND ";
 	 
 	 if($user->uid!='')
-		   $sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND status='1' ";
+		   $sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1' ";
 		else
-			$sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid  ";
+			$sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.status='1' and img.uid=reg.uid  ";
 	// echo $sel;
 	$user_qry=db_query($sel);
 	if($user->uid!='')
-	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND status='1'"));
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'"));
 	else
 	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
 		$sel.=" limit $eu, $limit";
@@ -1362,8 +1362,106 @@ function search_content() {
     echo $output;
 }
 
+function search_quest_cat()
+{
+$link1 ='';
+$link2 ='';
+$link3='';
+$cid='';
+$scid='';
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+if(($_REQUEST['scid']!='')||($_REQUEST['cid']!=''))
+{
+$suid=$_REQUEST['scid'];
+if($_REQUEST['cid']=='')
+{
+$sel_catm=db_query("select * from category  where cat_id='".$suid."'   ");
+$saveresult=db_fetch_object($sel_catm);
+$cid=$saveresult->parent_id;
+}
+else
+{
+$cid=$_REQUEST['cid'];
+}
+
+//$catlist='Category';
+   $sel_cat=db_query("select * from category  where cat_id=".$cid."   ");
+   $saveresult=db_fetch_object($sel_cat);
 
 
+    $sel_suge="select * from category  where parent_id=".$cid."   ";
+	
+	$rs_folwin=db_query($sel_suge);
+	$numrancnt = db_result(db_query("SELECT COUNT(*) from  question   where cid=".$cid."  "));
+	
+	$catlist='
+		<div id="container">
+		<div class="feature">
+		<div class="l col">
+		<ul><li><b><a href="'.$gSitePath.'searchquestion?cid='.$cid.'">'.$saveresult->cat_name.'('.$numrancnt.')</a></b></li>';
+      
+	while($flwing_result=db_fetch_object($rs_folwin))
+	{
+	//echo "SELECT COUNT(*) from  question   where cid=".$cid." and scid=".$flwing_result->cat_id."";
+	
+	$numrancnts= db_result(db_query("SELECT COUNT(*) from  question   where cid=".$cid." and scid=".$flwing_result->cat_id.""));
+	
+	
+	$catlist.='<li>&nbsp;<a href="'.$gSitePath.'searchquestion?cid='.$cid.'&scid='.$flwing_result->cat_id.'">'.$flwing_result->cat_name.'('.$numrancnts.')</li>';
+	//echo $flwing_result->cat_id;
+	
+	 $sel_sugess="select * from category  where parent_id=".$flwing_result->cat_id."   ";
+	 $rs_folwinss=db_query($sel_sugess);
+	while($sm_result=db_fetch_object($rs_folwinss))
+	{
+	$numrancntss= db_result(db_query("SELECT COUNT(*) from  question   where cid=".$cid." and scid=".$flwing_result->cat_id." and  sscid=".$sm_result->cat_id.""));
+	$catlist.='<li>&nbsp;&nbsp; <a href="'.$gSitePath.'searchquestion?cid='.$cid.'&scid='.$flwing_result->cat_id.'&sscid='.$sm_result->cat_id.'">'.$sm_result->cat_name.'('.$numrancntss.') </a> </li>';
+	
+	}
+	}
+$catlist.='</ul></div>
+	</div>
+	</div>
+	';
+	}
+	else
+	{
+	
+	//$catlist='Category';
+   
+
+    $sel_sugef="select * from category where parent_id='0'    ";
+	
+	$rs_cat=db_query($sel_sugef);
+	
+	
+	$catlist='
+		<div id="container">
+		<div class="feature">
+		<div class="l col">
+		<ul>';
+      
+	while($cat_result=db_fetch_object($rs_cat))
+	{
+	
+	
+	$numrancnts= db_result(db_query("SELECT COUNT(*) from  question where  cid=".$cat_result->cat_id.""));
+	
+	
+	$catlist.='<li>&nbsp;<a href="'.$gSitePath.'searchquestion?cid='.$cat_result->cat_id.'">'.$cat_result->cat_name.'('.$numrancnts.')</li>';
+	
+	
+	
+	}
+$catlist.='</ul></div>
+	</div>
+	</div>
+	';
+	
+	
+	}
+	echo  $catlist;
+}
 
 
 ?>
