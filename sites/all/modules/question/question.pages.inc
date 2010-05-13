@@ -51,8 +51,8 @@ function question_add() {
     global $gSitePath,$user,$gDocPath,$base_root;
     //get error msgs
     $error = drupal_get_messages();
-	$list_err='';
-    if (!empty($error)) {
+    $list_err = '';
+    if (! empty($error)) {
         $list_err = implode("<br/>", $error['error']);
     }
 
@@ -63,7 +63,7 @@ function question_add() {
     $q_context = '';
     $q_ans1 = '';
     $q_ans2 = '';
-    if (isset($_SESSION['post'])&&!empty($_SESSION['post'])) {
+    if (isset($_SESSION['post']) && ! empty($_SESSION['post'])) {
         extract($_SESSION['post']);
     }
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -220,9 +220,9 @@ window.addEvent(\'domready\', function(){
 			';
     
     //geoname api
-    $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
-    $result = geonames_query('countryinfo',NULL,$options);
-	$optionlist.=' <option value="0" >--Country--</option>';
+    $options = array('sortby'=>'countryname', 'sortorder'=>'ASC');
+    $result = geonames_query('countryinfo', NULL, $options);
+    $optionlist .= ' <option value="0" >--Country--</option>';
     foreach ($result->results as $country) {
         $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
     }
@@ -384,18 +384,17 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
 }
 
 function get_tagging($tag = '') {
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    $randomtag='';
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    $randomtag = '';
     $content = '';
     $tagged = '';
-	
-	 $randomtag=popular_tag();
+    
+    $randomtag = popular_tag();
     if ($tag != '') {
         
         $exp = explode(",", $tag);
-		
-     
-		
+
+        
         foreach ($exp as $list) {
             
             $tagged .= '<div id="tagset" class="tagging-tag" onclick="tag_delq(this);return false;">'.$list.'</div>';
@@ -456,14 +455,14 @@ function question_save() {
         $dst = clean_url(myTruncate($q_quest, 100, ' '));
         
         $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',url='$dst',share='$qrset'  ");
-			
-			 $ins_id = db_last_insert_id('question', 'qid');
-			//forum
-			
-		 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$ins_id',type='1',uid='$user->uid',title='Discuss about this question',private='0' ");	
         
-       
-         increasepoints('1',$ins_id,'0');
+        $ins_id = db_last_insert_id('question', 'qid');
+        //forum
+        
+        $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$ins_id',type='1',uid='$user->uid',title='Discuss about this question',private='0' ");
+
+        
+        increasepoints('1', $ins_id, '0');
         //for url alias
         $url = 'qlite/view/'.$ins_id;
         
@@ -478,12 +477,12 @@ function question_save() {
         
         if ($q_tag != '') {
             
-				$q_tag=explode(',',$q_tag);
-				
-				//its in quset_lite.module
-				process_tags($q_tag,$ins_id,0);
-			
-			
+            $q_tag = explode(',', $q_tag);
+            
+            //its in quset_lite.module
+            process_tags($q_tag, $ins_id, 0);
+
+        
         }
         
         if ($result)
@@ -513,8 +512,6 @@ function question_save() {
     
     echo implode("<br/>", $output['error']);
 }
-
-
 
 
 function question_edit_save($array) {
@@ -932,8 +929,8 @@ function question_ajax() {
                 $tab = 16; //	get_subcat(\'q_cat\',\'chg_scat\',1);
             }
             $ret = '<select tabindex="'.$tab.'"  size="5" multiple="multiple" onchange="get_subcat('.$qscat.',\'chg_sscat\','.++$action.');" id="'.$qscat.'" name="q_scat[]"> ';
-           
-		    for ($i = 0; $i < count($client_array); $i++) {
+            
+            for ($i = 0; $i < count($client_array); $i++) {
                 
                 $ret .= '<option value="'.$client_key[$i].'">'.$client_array[$i].'</option>';
             
@@ -1004,11 +1001,11 @@ function question_ajax() {
                 array_push($taglist, $single['tag']);
             }
         }
-     //for category taglist         
+        //for category taglist
         if (! empty($cat1)) {
             
             $exp = explode(',', $cat1);
-			
+            
             $qids = array();
             foreach ($exp as $scat) {
                 
@@ -1016,68 +1013,64 @@ function question_ajax() {
                 $result = ExecuteQuery($query, "select");
                 
                 foreach ($result as $man) {
-                	
+                    
                     $getcat = explode(',', $man['cid']);
-                
-				  if (in_array($scat, $getcat)) {
+                    
+                    if (in_array($scat, $getcat)) {
                         
                         array_push($qids, $man['qid']);
                     
                     }
                 }
-				
-				/*
-if(!empty($cat2)){
-					 $exp1 = explode(',', $cat2);
-			
-                      foreach ($exp1 as $ocat) {
                 
-                $query = " SELECT * FROM {question}";
+                /*
+                 if(!empty($cat2)){
+                 $exp1 = explode(',', $cat2);
+                 
+                 foreach ($exp1 as $ocat) {
+                 
+                 $query = " SELECT * FROM {question}";
+                 $result = ExecuteQuery($query, "select");
+                 
+                 foreach ($result as $man) {
+                 
+                 $getcat1 = explode(',', $man['scid']);
+                 
+                 if (in_array($ocat, $getcat1)) {
+                 
+                 array_push($qids, $man['qid']);
+                 
+                 }
+                 }
+                 
+                 }
+                 */
+
+
+                $qids = array_unique($qids);
+                $qids = implode(',', $qids);
+                
+                $query = " SELECT * FROM {tagging} WHERE `qid` IN ($qids) ";
                 $result = ExecuteQuery($query, "select");
-                
-                foreach ($result as $man) {
-                	
-                    $getcat1 = explode(',', $man['scid']);
-                
-				  if (in_array($ocat, $getcat1)) {
-                        
-                        array_push($qids, $man['qid']);
-                    
-                    }
+                foreach ($result as $single) {
+                    array_push($taglist, $single['tag']);
                 }
-					
-				}
-*/
-				
-				
-				
-				
-				
-                $qids=array_unique($qids);
-              $qids= implode(',', $qids);
-			  
-			  $query = " SELECT * FROM {tagging} WHERE `qid` IN ($qids) ";
-            $result = ExecuteQuery($query, "select");
-            foreach ($result as $single) {
-                array_push($taglist, $single['tag']);
-            }
             
             }
 
         
         }
-		
-		
-		
-		 $taglist = array_filter($taglist);
+
+        
+        $taglist = array_filter($taglist);
         
         $taglist = array_unique($taglist);
         $taglist = implode(',', $taglist);
         $taglist = explode(',', $taglist);
         $taglist = array_filter($taglist);
         $taglist = array_unique($taglist);
-		
-		 $tag = ' <label>
+        
+        $tag = ' <label>
             	                    Suggestions:
             	                </label>';
         if (! empty($taglist)) {
@@ -1132,38 +1125,35 @@ function question_delete_confirm_submit($form, &$form_state) {
     drupal_goto("question/");
 }
 
-function admin_question(){
-	
-	$strReturn='';
-	 global $gSitePath,$user,$gDocPath,$base_root;
-	 
-	 
-	    $type = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-	 switch($type){
-	 	
-		case 'flagged':
-		drupal_set_title("Admin Flagged Questions");
-		$query = "SELECT *  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY q.date_added DESC LIMIT 0,15";
-    $list = ExecuteQuery($query, "select");
-	
-				
-					
-		break;
-		case 'new':
-				
-	    $query = "SELECT *  FROM {question} ORDER BY date_added DESC LIMIT 0,15";
-    $list = ExecuteQuery($query, "select");
+function admin_question() {
+    
+    $strReturn = '';
+    global $gSitePath,$user,$gDocPath,$base_root;
 
     
+    $type = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    switch ($type) {
+        
+        case 'flagged':
+            drupal_set_title("Admin Flagged Questions");
+            $query = "SELECT *  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY q.date_added DESC LIMIT 0,15";
+            $list = ExecuteQuery($query, "select");
 
-	
-			break;		
-	 }
+            
+            break;
+        case 'new':
+            
+            $query = "SELECT *  FROM {question} ORDER BY date_added DESC LIMIT 0,15";
+            $list = ExecuteQuery($query, "select");
 
-	    $strReturn .= '<div class="clear-block">';
+            
+            break;
+    }
+    
+    $strReturn .= '<div class="clear-block">';
     $strReturn .= '<table width="98%" border="1" cellspacing="5" cellpadding="5">';
     for ($i = 0; $i < count($list); $i++) {
-          $date = format_date_class($list[$i]['date_added'], date('Y-m-d H:i:s'));
+        $date = format_date_class($list[$i]['date_added'], date('Y-m-d H:i:s'));
         $strReturn .= '<tr><td>';
         $strReturn .= '<a href="'.$gSitePath.$list[$i]['url'].'">'.$list[$i]['question'].'</a>';
         $strReturn .= '</td><td>'.$date.'</td><td>';
@@ -1178,37 +1168,31 @@ function admin_question(){
     if (count($list) < 1) {
         drupal_set_message($message = 'No Questions Found!', $type = 'error');
     }
+
     
-   
-	 echo $strReturn;
-	
-}
-
-function admin_content()
-{
- global $gSitePath,$user,$gDocPath,$base_root;
-$outputcontent='';
-
-return $outputcontent;
-
+    echo $strReturn;
 
 }
 
+function admin_content() {
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $outputcontent = '';
+    drupal_add_js(drupal_get_path('module', 'question').'/scripts/qadmin.js');
+    return $outputcontent;
 
 
-
-
+}
 
 
 function admin_panel_tab() {
     global $gSitePath,$user,$gDocPath,$base_root;
-  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-
-  echo  $output= '<div class="toolbarTabs">
+    $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    
+    echo $output = '<div class="toolbarTabs">
 	<ul id="qTabs" class="tab-menu">
 	<li id="qTabs1Link" class="selected"><a>New</a></li>
-	<li id="qTabs2Link"><a>Users</a></li>
-	<li id="qTabs3Link" ><a>Falgged</a></li>
+	<li id="qTabs2Link"><a>Flagged</a></li>
+	<li id="qTabs3Link" ><a>User</a></li>
 	</ul>
 	<div class="clear"></div>
 	</div>
@@ -1220,58 +1204,248 @@ function admin_panel_tab() {
 	$("qTabs1Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("admin-id"),
-	"url":       "'.$gSitePath.'admin/panelc?t=per"
+	"url":       "'.$gSitePath.'admin/panelc/new"
 	});
 	});
 	
 	$("qTabs2Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("admin-id"),
-	"url":       "'.$gSitePath.'admin/panelc?t=time"
+	"url":       "'.$gSitePath.'admin/panelc/flagged"
 	});
 	});
 	
 	$("qTabs3Link").addEvent("click", function(e){
 	MochaUI.updateContent({
 	"element":  $("admin-id"),
-	"url":       "'.$gSitePath.'admin/panelc?t=area"
+	"url":       "'.$gSitePath.'admin/panelc/user"
 	});
 	});
-
 	
 	</script>';
 
 }
-function panel_content() {
+function panel_content($type = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
-      $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-	
-
-	
-    $type=$_REQUEST[t];
-   
-    switch ($type) {
-    	
-        case "time":
-            $output = 'content 3';
-            break;
-        case "area":
-            $output = 'content 2';
-            break;
-		 case "per":	
-        default:
-            $output = 'content1';
-            break;
+    
+    $strReturn = '';
+    $strReturn .= '<div class="clear-block"><script>admin_approve();</script>';
+    
+    if ( empty($type)) {
+        
+        $type = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     }
-	
-	
-	
-	
-    echo $output;
+    
+    switch ($type) {
+        
+        case 'flagged':
+            drupal_set_title("Admin Flagged Questions");
+            $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY f.flag_date DESC LIMIT 0,15";
+            $list = ExecuteQuery($query, "select");
+            
+            $strReturn .= '
+	<div id="qlist">
+	<form id="qadmin" method="post" action="'.$gSitePath.'admin/panelc/flagsave" >
+	<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+            foreach ($list as $quest) {
+                $date = format_date_class($quest['flag_date'], date('Y-m-d H:i:s'));
+                $strReturn .= '<tr><td>';
+                $strReturn .= '<a href="'.$gSitePath.$quest['url'].'">'.wordwrap($quest['question'], 80, '<br/>').'</a>';
+                $strReturn .= '</td><td>'.$quest['abuse_type'].'</td><td># Flag :'.$quest['fcnt'].'</td>';
+                $strReturn .= '</td><td>'.$date.'</td><td>';
+                
+                $strReturn .= '<!--<b>/</b>&nbsp;<a href="'.$gSitePath.'question/edit/'.$quest['qid'].'">Edit</a>&nbsp;<b>/</b><a href="'.$gSitePath.'question/delete/'.$list[$i]['qid'].'">Delete</a>-->&nbsp;<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['fid'].'" /> ';
+                
+                $strReturn .= '</td></tr>';
+            
+            }
+
+            
+            if (count($list) < 1) {
+                //  drupal_set_message($message = 'No Questions Found!', $type = 'error');
+                $strReturn .= ' <div class="error" align="left" >No Questions Found!</div> ';
+            } else {
+                
+                $strReturn .= '</table>
+	<div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
+	</div></form></div>';
+            }
+            break;
+        case 'flagsave':
+            
+            $qids = implode(',', $_REQUEST['qids']);
+            if ($_REQUEST['action']) {
+                
+                $query = db_query("delete from {question_flags} where type='question' AND fid in ($qids)");
+                echo '<div class="success">Question updated successfully!</div>';
+            } else {
+                $query = db_query("delete from {question} where qid in ($qids)");
+                echo '<div class="success">Question updated successfully!</div>';
+            
+            }
+            
+            panel_content('flagged');
+            exit;
+            break;
+
+        
+        case 'new':
+            
+            $query = "SELECT *  FROM {question} where status='0' ORDER BY date_added DESC LIMIT 0,15";
+            $list = ExecuteQuery($query, "select");
+            
+            $strReturn .= '
+	<div id="qlist">
+	<form id="qadmin" method="post" action="'.$gSitePath.'admin/panelc/save" >
+	<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+            for ($i = 0; $i < count($list); $i++) {
+                $date = format_date_class($list[$i]['date_added'], date('Y-m-d H:i:s'));
+                $strReturn .= '<tr><td>';
+                $strReturn .= '<a href="'.$gSitePath.$list[$i]['url'].'">'.wordwrap($list[$i]['question'], 80, '<br/>').'</a>';
+                $strReturn .= '</td><td>'.$date.'</td><td>';
+                
+                $strReturn .= '<!--<b>/</b>&nbsp;<a href="'.$gSitePath.'question/edit/'.$list[$i]['qid'].'">Edit</a>&nbsp;<b>/</b><a href="'.$gSitePath.'question/delete/'.$list[$i]['qid'].'">Delete</a>-->&nbsp;<input type="checkbox" class="check-me" name="qids[]" value="'.$list[$i]['qid'].'" /> ';
+                
+                $strReturn .= '</td></tr>';
+            
+            }
+
+            
+            if (count($list) < 1) {
+                //  drupal_set_message($message = 'No Questions Found!', $type = 'error');
+                $strReturn .= ' <div class="error" align="left" >No Questions Found!</div> ';
+            } else {
+                
+                $strReturn .= '</table>
+				<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
+	<br/><div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Approve"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
+	</div></form></div>';
+            }
+            break;
+        case 'save':
+
+            
+            $qids = implode(',', $_REQUEST['qids']);
+            if ($_REQUEST['action']) {
+                
+                $query = db_query("update {question} set status='".$_REQUEST['action']."' where qid in ($qids)");
+                echo '<div class="success">Question updated successfully!</div>';
+            } else {
+              //  $query = db_query("delete from {question} where qid in ($qids)");
+                echo '<div class="success">Question updated successfully!</div>';
+                flag_quest_mail($_REQUEST['qids']);
+            }
+            
+            panel_content('new');
+            exit;
+            break;
+        case 'user':
+            $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=u.uid AND type='user' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {user_profile} as u  on f.nodeid=u.uid where f.type='user' ORDER BY f.flag_date DESC LIMIT 0,15";
+            $list = ExecuteQuery($query, "select");
+            
+            $strReturn .= '
+	<div id="qlist">
+	<form id="qadmin" method="post" action="'.$gSitePath.'admin/panelc/ufsave" >
+	<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+            foreach ($list as $quest) {
+                $date = format_date_class($quest['flag_date'], date('Y-m-d H:i:s'));
+                $strReturn .= '<tr><td>';
+                $strReturn .= '<a href="#">'.wordwrap($quest['real_name'], 80, '<br/>').'</a>';
+                $strReturn .= '</td><td>'.$quest['abuse_type'].'</td><td># Flag :'.$quest['fcnt'].'</td>';
+                $strReturn .= '</td><td>'.$date.'</td><td>';
+                
+                $strReturn .= '<!--<b>/</b>&nbsp;<a href="'.$gSitePath.'question/edit/'.$quest['qid'].'">Edit</a>&nbsp;<b>/</b><a href="'.$gSitePath.'question/delete/'.$list[$i]['qid'].'">Delete</a>-->&nbsp;<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['fid'].'" /> ';
+                
+                $strReturn .= '</td></tr>';
+            
+            }
+
+            
+            if (count($list) < 1) {
+                //  drupal_set_message($message = 'No Questions Found!', $type = 'error');
+                $strReturn .= ' <div class="error" align="left" >No Flagged User(s) Found!</div> ';
+            } else {
+                
+                $strReturn .= '</table>
+	<div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
+	</div></form></div>';
+            }
+            
+            break;
+        case 'ufsave':
+            
+            $qids = implode(',', $_REQUEST['qids']);
+            if ($_REQUEST['action']) {
+                
+                $query = db_query("delete  from {question_flags} where type='user' AND fid in ($qids)");
+                echo '<div class="success">User(s) updated successfully!</div>';
+            } else {
+                $query = db_query("update  {user} set status='0' where uid in ($qids)");
+                flag_user_mail($_REQUEST['qids']);
+                echo '<div class="success">User(s) updated successfully!</div>';
+            
+            }
+            
+            panel_content('user');
+            exit;
+
+            
+            break;
+    
+    }
+
+    
+    echo $strReturn;
+
+
 }
 
 
+function flag_quest_mail($qids = '') {
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
+    
+     $from = variable_get('site_mail');
+     $subject = 'Heardmentality Question Removal';
+    $msg = $_REQUEST['reporttext'];
+    foreach ($qids as $id) {
+
+      
+        $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
+        $det = db_fetch_object($query);
+        
+         $to = $det->mail;
+         $msg .= '<br/>Question : '.$det->question.'<br/>';
+        if(!empty($to)){
+        	
+			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+       
+    }
+return true;
+}
 
 
+function flag_user_mail($uids = '') {
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
+    
+     $from = variable_get('site_mail');
+     $subject = 'Heardmentality Account Blocked';
+    $msg = $_REQUEST['reporttext'];
+    foreach ($qids as $id) {
 
-
+      
+        $query = db_query("select u.mail  from {users} where uid='$id' ");
+        $det = db_fetch_object($query);
+        
+         $to = $det->mail;
+        
+        if(!empty($to)){
+        	
+			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+       
+    }
+return true;
+}
