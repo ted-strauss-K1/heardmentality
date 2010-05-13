@@ -3,11 +3,11 @@
 function my_notify() {
     
      global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    //SELECT answer, vote * 2.75/100 AS PercentOfTotal FROM suggested_answer order by PercentOfTotal desc limit 0,3
     
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
+	 drupal_add_js(drupal_get_path('module', 'notify').'/scripts/script.js');
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 $voutput ='<style>
               .black_overlay{
@@ -56,23 +56,7 @@ $voutput ='<style>
 						
 						
 						
-						 function get_Reply(){
 						
-						var url = "'.$gSitePath.'reply";
-						var clearfi=\'\';
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: {\'reply\':1 },
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'show_box\').set(\'html\', response);
-													 $(\'div_msg\').set(\'html\', clearfi);
-											}
-									}).send();
-						
-						
-						}
 					</script>
 			
 			';
@@ -247,24 +231,24 @@ function mail_sent_reply()
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
 	$numrancnt = db_result(db_query("SELECT COUNT(*) from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid  and b.status='1'"));
-$numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid  and b.status='1' "));
+$numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid  and b.status='1'"));
 
 
 	if(($numrancnt==0)&&($numrancntss==0))
 	{
 	
 	
-	$sel_flow="select * from  question   where uid!=".$user->uid." and status='1'   ";
+	$sel_flow="select * from  question   where uid!=".$user->uid." and status='1'  order by qid desc  ";
 	}
 	elseif($numrancntss==0)
 	{
 
-	$sel_flow="select * from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid and b.status='1' ";
+	$sel_flow="select * from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid and b.status='1'  order by a.id desc";
 	}
 	else
 	{
 
-	 $sel_flow="select * from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid  and b.status='1'";
+	 $sel_flow="select * from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid  and b.status='1' order by a.id desc";
 
 	}
 	$rs_folwin=db_query($sel_flow);
@@ -288,34 +272,7 @@ function reply_box()
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
 
-      echo '<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	<div id="log_response_txt"><!-- spanner --></div>
-	<span class="clr"><!-- spanner --></span>';
-
-	echo '<script type="text/javascript">
-	window.addEvent(\'domready\', function() {
-	
-	if (!window.demo_path) window.demo_path = \'\';
-	var demo_path = window.demo_path;
-	
-	$(\'cmt\').addEvent(\'submit\', function(e) {
-	
-	e.stop();
-	
-	var log = $(\'log_response_txt\').empty().addClass(\'ajax-loadings\');
-	
-	this.set(\'send\', {onComplete: function(response) { 
-	log.removeClass(\'ajax-loadings\');
-	log.set(\'html\', response);
-	}});
-	
-	this.send();
-	});
-	});
-	
-	
-	</script><form id="cmt"  method="post" action="'.$gSitePath.'savemsg"  ><textarea name="comment_txt" id="comment_txt" ></textarea><br>
-	<input type="submit" name="buttonvote" id="message"  value="Send "/></form>';
+      echo 'ddddddddddd';
 
 }
 
