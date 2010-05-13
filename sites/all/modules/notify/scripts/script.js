@@ -24,7 +24,7 @@ function get_Reply(make){
     
         $('showbox_cmt').setStyle('display', 'block');
         $('showbox_cmt').slide('hide').slide('in');
-        $('reporttext').focus();
+        $('showbox_cmt').focus();
         return false;
     }
     if (report.trim().length < 5) {
