@@ -1267,6 +1267,8 @@ function panel_content($type = '') {
             } else {
                 
                 $strReturn .= '</table>
+					<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
+	<br/>
 	<div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
 	</div></form></div>';
             }
@@ -1367,6 +1369,8 @@ function panel_content($type = '') {
             } else {
                 
                 $strReturn .= '</table>
+					<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
+	<br/>
 	<div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
 	</div></form></div>';
             }
