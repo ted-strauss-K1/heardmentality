@@ -38,7 +38,7 @@ $(document).ready(function() {
 	<!-- HEADER STARTS -->
     <div class="header">
     	<div class="headerRow1">
-        	<div class="logoHolder"><a href="index.html"><img src="images/logo.jpg" height="71" width="244" /></a></div>
+        	<div class="logoHolder"><a href="index.html"><img src="images/logo.jpg" height="71" width="244" alt="Heard Mentality" /></a></div>
             <div class="naviHolder">
             	<div class="naviBg">
                 	<ul>
@@ -53,14 +53,14 @@ $(document).ready(function() {
             </div>
             <div class="communityHolder">
             	<ul>
-                	<li><a href="#"><img src="images/iconFacebuk.jpg" width="30" height="30" /></a></li>
-                    <li><a href="#"><img src="images/iconMySpace.jpg" width="30" height="30" /></a></li>
-                    <li><a href="#"><img src="images/iconTwitter.jpg" width="30" height="30" /></a></li>
+                	<li><a href="#"><img src="images/iconFacebuk.jpg" width="30" height="30" alt="Facebook" /></a></li>
+                    <li><a href="#"><img src="images/iconMySpace.jpg" width="30" height="30" alt="My Space" /></a></li>
+                    <li><a href="#"><img src="images/iconTwitter.jpg" width="30" height="30" alt="Twitter" /></a></li>
                 </ul>
             </div>
         </div>
         <div class="headerRow2">
-       	   <form id="search" action="" method="" >
+       	   <form id="search" action="" method="post" >
         	<div class="searchBg">
             	<label><input type="text" id="searchTxt" value="" class="search" /></label>
                 <label><input type="submit" id="searchBtn" value="Search" class="btnOne" /></label>
@@ -93,16 +93,21 @@ $(document).ready(function() {
         </div>
     	<div class="centerPanel">
         	<div class="cpanel1">
-                <div class="head1">Your question goes here.. <a href="#" class="linkTwo">View More</a></div>
+                <div class="head1">
+                	<div class="headLeft">
+                        Your question goes here.. <a href="#" class="linkTwo">View More</a>
+                    </div>
+                    <div class="headRight"><a href="#"><img src="images/dropBtn.png" height="17" width="17" alt="Expand/ Collapse" /></a></div>
+                </div>
                 <div class="base1">
                 	<div class="questions">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
                     totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt 
                     explicabo?</div>
                     <div class="answers">
                     	<ul>
-                    		<li><label><input type="radio" name="answers" id="answers" class="radBut" /> Your option one goes here</label></li>
-                        	<li><label><input type="radio" name="answers" id="answers" class="radBut" /> Option two goes here</label></li>
-                        	<li><label><input type="radio" name="answers" id="answers" class="radBut" /> Third option goes here</label></li>
+                    		<li><label><input type="radio" name="answers" class="radBut" /> Your option one goes here</label></li>
+                        	<li><label><input type="radio" name="answers" class="radBut" /> Option two goes here</label></li>
+                        	<li><label><input type="radio" name="answers" class="radBut" /> Third option goes here</label></li>
                         </ul>
                     </div>
                     <!--<div class="spacer"></div>-->
@@ -111,11 +116,14 @@ $(document).ready(function() {
             <div class="spacer"></div>
             <div class="cpanel1">
                 <div class="head1">
-                	<ul class="tabs">
-                        <li class="active"><a href="#tab1">Tab 1 </a></li>
-                        <li class=""><a href="#tab2">Tab 2</a></li>
-                        <li class=""><a href="#tab3">Tab 3</a></li>
-                    </ul>
+                	<div class="headLeft">
+                        <ul class="tabs">
+                            <li class="active"><a href="#tab1">Tab 1 </a></li>
+                            <li class=""><a href="#tab2">Tab 2</a></li>
+                            <li class=""><a href="#tab3">Tab 3</a></li>
+                        </ul>
+                    </div>
+                    <div class="headRight"><a href="#"><img src="images/dropBtn.png" height="17" width="17" alt="Expand/ Collapse" /></a></div>
                 </div>
                 <div class="body-tab">	
                     
@@ -149,7 +157,7 @@ $(document).ready(function() {
         	<div class="lPanel1">
                 <div class="head1">News</div>
                 <div class="base1">
-                	<marquee behavior="scroll" direction="up" scrolldelay="2" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();" >
+                	<marquee behavior="scroll" direction="up" scrolldelay="2" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();">
                         <div class="newsHead"><a href="#" class="linkThree">Title of news goes here</a></div>
                         <div class="newsText">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium..</div>
                         

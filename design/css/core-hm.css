@@ -1,10 +1,10 @@
 /* General Classes */
 
 body, html{ margin:0px; background-color:#ffffff; font:normal 12px Arial, Helvetica, sans-serif; color:#333333; /*height:100%;*/ padding:0px;}
-a, .header img{ outline:0px; border:0px;}
+a, .header img, img{ outline:0px; border:0px;}
 .wrapper{ font:normal 12px Arial, Helvetica, sans-serif; color:#333333; height:60%; }
 input{ border:1px solid #a4a4a4; background-image:url(../images/txtBoxBg.jpg); background-repeat:repeat-x; font:normal 12px Arial, Helvetica, sans-serif; color:#333333; padding:2px; }
-input.search{ width:260px;}
+input.search{ width:160px;}
 input.btnOne{ background-color:#a9d3e3; background-image:url(../images/bgBtn.jpg); background-repeat:repeat-x; padding:2px 5px 1px 5px; font:bold 11px Arial, Helvetica, sans-serif; color:#ffffff; border:1px solid #247695; border-left:2px solid #a9d3e3; border-top:2px solid #a9d3e3; cursor:pointer;}
 input.chkBox{ border:1px solid #a4a4a4; padding:0px; }
 input.radBut{ border:0px; background:transparent; padding:0px; }
@@ -28,7 +28,7 @@ label{ padding-right:3px; padding-left:3px; cursor:pointer;}
 .communityHolder ul li{  display:inline; margin:0px; }
 
 .headerRow2{ width:100%;}
-.searchBg{ border:2px solid #7eb4c4; margin:auto; width:40%; padding:8px 10px 8px 10px;  }
+.searchBg{ border:2px solid #7eb4c4; margin:auto; width:40%; padding:8px 10px 8px 10px; text-align:center;  }
 
 
 
@@ -47,6 +47,8 @@ label{ padding-right:3px; padding-left:3px; cursor:pointer;}
 .questions{ padding-left:20px; background-image:url(../images/iconQuest.png); background-repeat:no-repeat; background-position:left top; margin-bottom:10px; margin-top:10px;}
 .answers{ background-color:#e9eaea; font:normal 12px Arial, Helvetica, sans-serif; color:#333333; padding:10px; }
 .answers ul li{background:none;}
+.headLeft{ width:50%; float:left; clear:right; display:table-cell; padding-top:0px; }
+.headRight{ width:50%; float:left; clear:right; text-align:right;}
 
 .rightPanel{ width:20%; float:left; margin-right:0px; margin-left:0px; padding:0px; height:100%;}
 .rPanel1{ border:1px solid #8ab9c9; width:95%; min-height:100%; }
