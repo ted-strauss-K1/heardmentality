@@ -1007,7 +1007,7 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 
 extract($_REQUEST);
 //echo $_REQUEST['code'];
-$page_name="user"; //  If you use this code with a different page ( or file ) name then change this 
+$page_name="searchuser"; //  If you use this code with a different page ( or file ) name then change this 
 $start=$_GET['start'];
 if(strlen($start) > 0 and !is_numeric($start)){
 echo "Data Error";
@@ -1149,15 +1149,15 @@ text-decoration:none;
 			$qry.="(img.country LIKE '".$code."%') AND ";
 	 
 	 if($user->uid!='')
-		   $sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND status='1' ";
+		   $sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1' ";
 		else
-			$sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid  ";
+			$sel="SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.status='1' and img.uid=reg.uid  ";
 //echo $sel;
 	$user_qry=db_query($sel);
 	if($user->uid!='')
-	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND status='1'"));
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'"));
 	else
-	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.status='1' and img.uid=reg.uid "));
 		$sel.=" limit $eu, $limit";
 		$sel_search=db_query($sel);
 	
@@ -1172,7 +1172,7 @@ text-decoration:none;
 	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
 	<h4>'.$user_result->mail.'</h4>		 	
 	<p>';
-	echo $user_result->image_url;
+	//echo $user_result->image_url;
 	if($user_result->image!='')
 	{
 	 $imgsrc = $user_result->image;
@@ -1204,14 +1204,14 @@ if($sel_count > $limit ){
 
 $fetresult.="<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
 if($back >=0) { 
-$fetresult.= "<a href='$page_name?start=$back&stype=$code'><font face='Verdana' size='2'>PREV</font></a>"; 
+$fetresult.= "<a href='$page_name?start=$back&code=$code'><font face='Verdana' size='2'>PREV</font></a>"; 
 } 
 $fetresult.= "</td><td align=center width='30%'>";
 $i=0;
 $l=1;
 for($i=0;$i < $sel_count;$i=$i+$limit){
 if($i <> $eu){
-$fetresult.= " <a href='$page_name?start=$i&stype=$code'><font face='Verdana' size='2'>$l</font></a> ";
+$fetresult.= " <a href='$page_name?start=$i&code=$code'><font face='Verdana' size='2'>$l</font></a> ";
 }
 else { $fetresult.= "<font face='Verdana' size='4' color=red>$l</font>";}      
 $l=$l+1;
@@ -1220,7 +1220,7 @@ $l=$l+1;
 
 $fetresult.="</td><td  align='right' width='30%'>";
 if($this1 < $sel_count) { 
-$fetresult.= "<a href='$page_name?start=$next&stype=$code'><font face='Verdana' size='2'>NEXT</font></a>";} 
+$fetresult.= "<a href='$page_name?start=$next&code=$code'><font face='Verdana' size='2'>NEXT</font></a>";} 
 $fetresult.= "</td></tr></table>";
 
 }
