@@ -270,9 +270,46 @@ function reply_box()
 {
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+$numrancnt = db_result(db_query("SELECT COUNT(*) from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid  and b.status='1'"));
+$numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid and b.status='1' "));
 
 
-      echo 'ddddddddddd';
+	if(($numrancnt==0)&&($numrancntss==0))
+	{
+	
+	
+	$sel_flow="select * from  question   where uid!=".$user->uid." and status='1'   order by qid desc ";
+	}
+	elseif($numrancntss==0)
+	{
+
+	$sel_flow="select * from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid  and b.status='1'  order by a.id desc ";
+	}
+	else
+	{
+
+	 $sel_flow="select * from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid and b.status='1' ";
+
+	}
+	$rs_folwin=db_query($sel_flow);
+	while($flwing_result=db_fetch_object($rs_folwin))
+	{
+	$sel_user_mail="SELECT * FROM users Where uid='".$user->uid."'";
+	$rs_usermail=db_query($sel_user_mail);
+	$userfrommail=db_fetch_object($rs_usermail);
+	$sel_ulist = "SELECT * FROM users Where uid='".$flwing_result->uid."'";
+	$rs_umlog=db_query($sel_ulist);
+	$user_namelistf=db_fetch_object($rs_umlog);
+	$subject="Reply For Your Question";
+	$msgcmt=$_REQUEST['cmt_txt'] ;
+				
+				
+				
+				$mail_success = htmlmail( $user_namelistf->mail, $subject, $msgcmt, $userfrommail->mail,'');
+	
+	}
+
+      echo 'mail send successfully';
 
 }
 

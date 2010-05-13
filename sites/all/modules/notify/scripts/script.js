@@ -39,7 +39,7 @@ function get_Reply(make){
             
             $('cmtform').set('send', {
                 onComplete: function(response){
-                    var log = $('qlist').empty().addClass('ajax-loading');
+                    var log = $('clist').empty().addClass('ajax-loading');
                     log.set('html', response);
                    
                 }
