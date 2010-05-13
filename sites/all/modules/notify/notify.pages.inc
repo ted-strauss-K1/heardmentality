@@ -34,18 +34,7 @@ $voutput ='<style>
               }
           </style>
 <script type="text/javascript">
-function call()
-{
 
-document.getElementById(\'light\').style.display=\'block\';
-
-}
-function con_close()
-{
-document.getElementById(\'light\').style.display=\'none\';
-
-		
-}
 				var spath=\''.$gSitePath.'\';
 			
 				 function get_message(){
@@ -282,6 +271,41 @@ function reply_box()
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
-	echo '<textarea name="comment" ></textarea>';
+
+      echo '<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	<div id="log_response_txt"><!-- spanner --></div>
+	<span class="clr"><!-- spanner --></span>';
+
+	echo '<script type="text/javascript">
+	window.addEvent(\'domready\', function() {
+	
+	if (!window.demo_path) window.demo_path = \'\';
+	var demo_path = window.demo_path;
+	
+	$(\'cmt\').addEvent(\'submit\', function(e) {
+	
+	e.stop();
+	
+	var log = $(\'log_response_txt\').empty().addClass(\'ajax-loadings\');
+	
+	this.set(\'send\', {onComplete: function(response) { 
+	log.removeClass(\'ajax-loadings\');
+	log.set(\'html\', response);
+	}});
+	
+	this.send();
+	});
+	});
+	
+	
+	</script><form id="cmt"  method="post" action="'.$gSitePath.'savemsg"  ><textarea name="comment_txt" id="comment_txt" ></textarea><br>
+	<input type="submit" name="buttonvote" id="message"  value="Send "/></form>';
+
+}
+
+function savemessage()
+{
+
+echo "jjjjjjjjjjjj";
 
 }
