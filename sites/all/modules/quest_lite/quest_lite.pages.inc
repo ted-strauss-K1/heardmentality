@@ -504,7 +504,10 @@ if($select_user_count==0)
 	
     <input type="button" onclick="showShareUI();" value="Share"/>
     <div id="status"></div>
-	
+	<!-- AddThis Button BEGIN -->
+<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bebc2a1621b1868"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bebc2a1621b1868"></script>
+<!-- AddThis Button END -->
+
 	<select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 		<option value=""> Select</option >
 		'.$optio.'
@@ -1287,7 +1290,8 @@ function flag_report() {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $userPoints = checkUserPoints($user->uid);
-	  if (isset($userPoints) && $userPoints > 14) {
+	//&& $userPoints > 14
+	  if (isset($userPoints) ) {
 	if(isset($_REQUEST['uid'])){
 	
 		 $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['uid']."' and uid='".$user->uid."' and  type='user' "));
