@@ -67,7 +67,7 @@ function get_qid() {
     }
     
     if ($qid == '') {
-        $query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
+        $query = "SELECT qid from {question} where status='1' order by qid DESC limit 0,1 ";
         $quest = db_query($query);
         $qid = db_result($quest);
     }
@@ -224,7 +224,7 @@ function get_top_list() {
     $cond=load_condition();
 	
 	
-    $query = "SELECT * from {question} where qid>0 $cond order by active_rate  DESC LIMIT 0,10";
+    $query = "SELECT * from {question} where status='1' $cond order by active_rate  DESC LIMIT 0,10";
     $list = ExecuteQuery($query, "select");
     $output .= '<div id="pageWrapper" >';
 	 if (! empty($list)) {
@@ -257,7 +257,7 @@ function get_hot_list() {
     $date = date('Y-m-d', mktime(0, 0, 0, $m, ($de - 7), $y));
 
     
-    $query = "SELECT * from {question} where date(date_added) >= '$date' $cond order by active_rate  DESC LIMIT 0,10 ";
+    $query = "SELECT * from {question} where status='1' AND date(date_added) >= '$date' $cond order by active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div id="pageWrapper" >';
     if (! empty($list)) {
@@ -288,7 +288,7 @@ function get_local_list() {
     $homepage = file_get_contents('http://api.hostip.info/country.php');
     
 
-    $query = "SELECT * from {question} where country='".trim($homepage)."' $cond order by active_rate  DESC LIMIT 0,10 ";
+    $query = "SELECT * from {question} where status='1' AND country='".trim($homepage)."' $cond order by active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div id="pageWrapper" >';
 	
