@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function category_perm() {
-  return array('Category list','Category add','Category view');
+  return array('Category list','Category add','Category view','Admin Category');
 }
 
 
@@ -49,8 +49,44 @@ $items['category/list'] = array(
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'category.pages.inc',
   );
-
-
+$items['admin/category'] = array(
+    'title' => 'Admin Category',
+    'page callback' => 'category_admin',
+	'access arguments' => array('Admin Category'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'category.pages.inc',
+  );
+$items['admin/category/add'] = array(
+    'title' => ' Add Category',
+    'page callback' => 'treemenu_add',
+    'access arguments' => array('Admin Category add'),
+    'type' => MENU_CALLBACK,
+    'file' => 'category.pages.inc',
+  );
+$items['admin/category/edit'] = array(
+    'title' => ' Edit Category',
+    'page callback' => 'treemenu_edit',
+    'access arguments' => array('Admin Category edit'),
+    'type' => MENU_CALLBACK,
+    'file' => 'category.pages.inc',
+  );
+$items['admin/category/delete'] = array(
+    'title' => 'Delete Category',
+    'page callback' => 'drupal_get_form',
+	'page arguments' => array('menu_delete_confirm', 3),
+    'access arguments' => array('Admin Category delete'),
+    'type' => MENU_CALLBACK,
+    'file' => 'category.pages.inc',
+  );
+  $items['admin/category/add'] = array(
+    'title' => ' Admin Add Category',
+    'page callback' => 'treemenu_add',
+    'access arguments' => array('Admin Category add'),
+    'type' => MENU_CALLBACK,
+    'file' => 'category.pages.inc',
+  );
+  
+  
   return $items;
 }
 

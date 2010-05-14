@@ -158,7 +158,7 @@ function menu_delete_confirm(&$form_state, $category) {
  
 	return confirm_form($form,
     	t('Are you sure you want to delete this category?'),
-    	isset($_GET['destination']) ? $_GET['destination'] : "category/",
+    	isset($_GET['destination']) ? $_GET['destination'] : "admin/category/",
     	t('This action cannot be undone.'),
     	t('Delete'),
     	t('Cancel'));
@@ -172,10 +172,10 @@ function menu_delete_confirm(&$form_state, $category) {
  
 	db_query("delete from {category} where cat_id='".$menu."'");
  
-		drupal_set_message(t('Cateogry has been deleted successfully.'));
+		drupal_set_message(t('Cateogry has been deleted successfully.'),'success');
   	}
  
-	drupal_goto("category/");
+	drupal_goto("admin/category/");
 }	
 				
 // category menu add validation
@@ -218,9 +218,9 @@ function menu_delete_confirm(&$form_state, $category) {
 			  $nid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 			   //$result = db_query("INSERT INTO {category} set cat_name='".$form_state['values']['cname']."'");
 				  $result =   db_query("INSERT INTO {category} (cat_name,parent_id) VALUES ('%s', %d)", $form_state['values']['cname'],$nid);
-			  drupal_set_message(t('Category added successfully!'));
+			  drupal_set_message(t('Category added successfully!'),'success');
 				
-			 $form_state['redirect'] = $gSitePath.'category/';
+			 $form_state['redirect'] = $gSitePath.'admin/category/';
 			  return;
 		}
 	//cat update save
@@ -229,9 +229,9 @@ function menu_delete_confirm(&$form_state, $category) {
 			  $nid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 			   $result = db_query("UPDATE  {category} set cat_name='".$form_state['values']['cname']."' where cat_id='".$nid."'");
 				//  $result =   db_query("INSERT INTO {category} (cat_name,parent_id) VALUES ('%s', %d)", $form_state['values']['cname'],$nid);
-			  drupal_set_message(t('Category Updated successfully!'));
+			  drupal_set_message(t('Category Updated successfully!'),'success');
 				
-			 $form_state['redirect'] = $gSitePath.'category/';
+			 $form_state['redirect'] = $gSitePath.'admin/category/';
 			  return;
 		}
 		
@@ -392,5 +392,98 @@ function menu_delete_confirm(&$form_state, $category) {
 	
 		}
 	
+function category_admin(){
+	 global $gSitePath,$user,$gDocPath,$base_root;
+		drupal_add_js(drupal_get_path('module', 'category').'/scripts/admincat.js');	
+	  $query = "SELECT cat_id,cat_name FROM {category} where parent_id='0'";
+            $list = ExecuteQuery($query, "select");
+            
+            $strReturn .= '<div class="clear-block">
+	
+	<div align="right"><a href="'.$gSitePath.'admin/category/add">Add New</a></div>
+	<form id="qadmin" method="post" action="'.$gSitePath.'admin/panelc/flagsave" >
+	<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+            foreach ($list as $quest) {
+                $date = format_date_class($quest['flag_date'], date('Y-m-d H:i:s'));
+                $strReturn .= '<tr><td>';
+                $strReturn .= $quest['cat_name'];
+                $strReturn .= '</td>';
+                $strReturn .= '<td>';
+                
+                $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['cat_id'].'" />--><a href="'.$gSitePath.'admin/category/delete/'.$quest['cat_id'].'">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/category/edit/'.$quest['cat_id'].'">Edit</a>  ';
+                
+                $strReturn .= '</td></tr>';
+            $strReturn .= '<tr><td colspan="2">'.admin_sub_menu($quest['cat_id'],0).'</td></tr>';
+            }
+
+            
+            if (count($list) < 1) {
+                //  drupal_set_message($message = 'No Questions Found!', $type = 'error');
+                $strReturn .= ' <div class="error" align="left" >No Questions Found!</div> ';
+            } else {
+                
+                $strReturn .= '</div>';
+            }
+	
+	return $strReturn;
+	
+}
+
+function admin_sub_menu($id='',$level='')
+		{
+		$strReturn=null;
+	 global $gSitePath,$user,$gDocPath,$base_root;
+		if($level<2){
+	
+					 $client_select =db_query("SELECT cat_id,cat_name FROM {category} where parent_id='".$id."'  ");
+					
+					$client_array=array();
+					$client_key=array();
+				
+					while($list=db_fetch_object($client_select))
+					{
+				
+				   $client_array[] = $list->cat_name;
+					$client_key[]=$list->cat_id;
+						$mcat=$list->mcat;
+					}
+									
+					if(count($client_array)>0){
+						 $strReturn.='<ul >';
+					 
+						 for($i=0;$i<count($client_array);$i++){
+					
+					
+					
+					
+					
+					
+						// $strReturn .= '<li><a href="'.$gSitePath.'searchquestion?cid='.$id.'&scid='.$client_key[$i].'">'.$client_array[$i].' </a>';
+						$strReturn .= '<li>'.$client_array[$i].'';
+			 if (user_access("administer nodes")) {
+ 			   // is admin
+						 if($level==0){
+						 $strReturn.='&nbsp; <a id="" href="'.$gSitePath.'admin/category/add/'.$client_key[$i].'">Add </a>';
+						 }
+						 
+				  			$strReturn.='&nbsp;|&nbsp;<a id="" href="'.$gSitePath.'admin/category/edit/'.$client_key[$i].'">Edit </a>';
+								$strReturn.='&nbsp;|&nbsp;<a id="" href="'.$gSitePath.'admin/category/delete/'.$client_key[$i].'">Delete </a>';
+						}
+						 $strReturn.=admin_sub_menu($client_key[$i],$level+1);
+						 
+						$strReturn.='</li>';
+					}
+				
+				
+					
+				 $strReturn.='</ul>';
+				 
+				 }
+			}
+			return $strReturn;
+	
+		}
+
+
 
 	
