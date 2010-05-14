@@ -190,8 +190,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 	{
 	
 
-<<<<<<< .mine
-	 
+
 	  $res_num= db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$_REQUEST['act']."'  and  uid ='".$user->uid."'"));
 	 
 	if($res_num==0)
@@ -216,13 +215,13 @@ if($uid!=$user->uid)
 	
 	}
 
-=======
+
 	$share='';
 	if($uid!=$user->uid){
 	$share='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';	
 	}
->>>>>>> .r1268
+
     $strReturn = '<div class="main">
 			
 			<div class="lft">
@@ -231,12 +230,12 @@ if($uid!=$user->uid)
 			<div class="img">'.$PROFILE_IMAGE.$medal.'
 			</div>
 			<div class="info">
-<<<<<<< .mine
+
 					'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>] &nbsp; '.$flink.' <br/>
-=======
+
 '.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share 
 .'<br/>
->>>>>>> .r1268
+
 					'.$real_name1.'<br/>
 					'.$dob1.'<br/>	
 					'.$gender_name1.'<br/>	
