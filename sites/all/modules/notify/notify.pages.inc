@@ -209,14 +209,14 @@ function notify_content() {
     switch ($type) {
     	
         case "time":
-            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/graph/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
+            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'qlite/graph/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
             break;
         case "area":
-            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/map/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
+            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'qlite/map/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
             break;
 		 case "per":	
         default:
-            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/percent/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
+            $output = '<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'qlite/percent/'.$qid.'" border="0" height="450" frameborder="0" width="100%"></iframe></div>';
             break;
     }
 	
