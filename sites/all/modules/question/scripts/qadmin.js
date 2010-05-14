@@ -1,10 +1,11 @@
+
 /**
  * @author gobinath.m
  */
 window.addEvent('domready', function(){
 
 
-    setTimeout('admin_approve();', 1000);
+    setTimeout('admin_approve();',5000);
     
 });
 
@@ -15,11 +16,14 @@ function admin_approve(make){
         $('qadmin').addEvent('submit', function(e){
         
             e.stop();
-            var vals = [];
-            $$('.check-me:checked').each(function(e){
-                vals.push(e.value);
-            });
-            
+           var vals = [];
+    $$('.check-me').each(function(e){
+		if(e.getProperty('checked')){
+			
+			  vals.push(e.value);
+		}
+      
+    });
             if (vals.length > 0) {
                 //Prevents the default submit event from loading a new page.
                 
@@ -55,13 +59,20 @@ function admin_approve(make){
 function admin_reject(make){
 
     var vals = [];
-    $$('.check-me:checked').each(function(e){
-        vals.push(e.value);
+    $$('.check-me').each(function(e){
+		if(e.getProperty('checked')){
+			
+			  vals.push(e.value);
+		}
+      
     });
-    
+       
     var report = $('reporttext').get('value');
 	
-    if ($('showbox').getStyle('display') == 'none') {
+
+    if (vals.length > 0) {
+		
+		    if ($('showbox').getStyle('display') == 'none') {
     
         $('showbox').setStyle('display', 'block');
         $('showbox').slide('hide').slide('in');
@@ -75,7 +86,9 @@ function admin_reject(make){
 		 $('reporttext').setStyle('border-color', '');
 		
 	}
-    if (vals.length > 0) {
+	
+		
+		
         if (confirm('Are you sure to reject the selected Questions?')) {
             $('action').set('value', make);
             
