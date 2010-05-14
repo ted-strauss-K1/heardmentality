@@ -480,10 +480,10 @@ function admin_sub_menu($id='',$level='')
 				 
 				 }
 			}
-			
-			if(empty($strReturn)){
+			$get=trim($strReturn);
+			if(empty($get)){
 				
-				$strReturn='<b>No Sub Category!</b>';
+				//$strReturn.='<b>No Sub Category!</b>';
 			}
 			return $strReturn;
 	
