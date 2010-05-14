@@ -28,6 +28,13 @@ $mdtrest['admin/moderateuser'] = array(
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'moderator.pages.inc',
   );
+ $mdtrest['admin/notifymail'] = array(
+    'title' => 'Moderate Question',
+    'page callback' => 'moderate_quest',
+    'access arguments' => array('Moderate Question'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'moderator.pages.inc',
+  );
 
   return $mdtrest;
 }
