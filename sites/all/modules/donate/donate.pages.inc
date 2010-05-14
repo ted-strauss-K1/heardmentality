@@ -2,8 +2,8 @@
 function donation_paypal()
 {
 global $gSitePath,$user, $gDocPath,$base_root;
-$opdonate='<div style="border: 1px solid rgb(158, 204, 152); background: rgb(193, 228, 183) none repeat scroll 0% 0%; width: 100%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left;">
-<h2 style="border: 1px solid rgb(120, 173, 137); margin: 5px; padding: 0.2em 0.4em; background: rgb(120, 173, 137) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-size: 120%; font-weight: bold; text-align: left; color: rgb(0, 0, 0);"> <span id="Make_your_donation_now" class="mw-headline">Make your donation now</span></h2>
+$opdonate='<div style="border: 1px solid #000; background-color:#fff; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left;">
+<h2 style="border: 1px solid #000; margin: 5px; padding: 0.2em 0.4em; background-color:#fff; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-size: 120%; font-weight: bold; text-align: left; color: rgb(0, 0, 0);"> <span id="Make_your_donation_now" class="mw-headline">Make your donation now</span></h2>
 <div style="padding: 0pt 7px 7px; font-weight: normal;">
 <p>
 <script language="javascript" type="text/javascript">
