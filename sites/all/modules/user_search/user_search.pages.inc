@@ -164,7 +164,7 @@ text-decoration:none;
 	{
 	if($user->uid!='')
 	{
-	$flink='<a class="linkfol" href="user/'.$user_result->uid.'?act=flag">Follow </a>';
+	//$flink='<a class="linkfol" href="user/'.$user_result->uid.'?act=flag">Follow </a>';
 	//$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
 	}
 	$fetresult.='<li>
