@@ -432,6 +432,8 @@ function category_admin(){
 function admin_sub_menu($id='',$level='')
 		{
 		$strReturn=null;
+		$mcat='';
+		$flag_date=''; 
 	 global $gSitePath,$user,$gDocPath,$base_root;
 		if($level<2){
 	
