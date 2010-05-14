@@ -231,10 +231,10 @@ if($uid!=$user->uid)
 			</div>
 			<div class="info">
 
-					'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>] &nbsp; '.$flink.' <br/>
+					<br/>
 
 '.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share 
-.'<br/>
+.' '.$flink.' <br/>
 
 					'.$real_name1.'<br/>
 					'.$dob1.'<br/>	
