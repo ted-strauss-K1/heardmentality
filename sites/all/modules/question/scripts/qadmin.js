@@ -31,16 +31,19 @@ function admin_approve(make){
                 
                 //Set the options of the form's Request handler. 
                 //("this" refers to the $('myForm') element).
+			
                 this.set('send', {
                     onComplete: function(response){
-                        var log = $('qlist').empty().addClass('ajax-loading');
+						
+                     var log = $('qlist').empty().addClass('ajax-loading');
                         log.set('html', response);
-                        setTimeout('admin_approve();', 1000);
+                      setTimeout('admin_approve();', 1000);
                     }
                 });
                 //Send the form.
+			
                 this.send();
-                
+               
             }
             else {
             
@@ -90,8 +93,8 @@ function admin_reject(make){
 		
 		
         if (confirm('Are you sure to reject the selected Questions?')) {
-            $('action').set('value', make);
-            
+            $('actions').set('value', make);
+          
             $('qadmin').set('send', {
                 onComplete: function(response){
                     var log = $('qlist').empty().addClass('ajax-loading');
