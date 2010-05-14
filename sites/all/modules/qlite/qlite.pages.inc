@@ -7,19 +7,20 @@ function qlitemini() {
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
    
-    $qid = get_qid();
+     $qid = get_qid();
     
     //for calculating active points
     cal_active_rate();
     
-    $vSql = "select * from {question} where status='1' and qid=$qid ";
+    $vSql = "select * from {question} where qid='$qid' ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
-    
+  
     $list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
     $numran = mysql_num_rows($list_lengthan);
     $answer_id = db_fetch_object($list_lengthan);
-    drupal_set_title($oListquest->question.'  <a href="'.$gSitePath.$oListquest->url.'">View More</a>');
+	
+    drupal_set_title(myTruncate($oListquest->question,80,'','..').'  <a href="'.$gSitePath.$oListquest->url.'">View More</a>');
     $voutput = '
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<p>'.$oListquest->context.'</p>';
