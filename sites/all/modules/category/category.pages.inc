@@ -406,14 +406,14 @@ function category_admin(){
             foreach ($list as $quest) {
                 $date = format_date_class($quest['flag_date'], date('Y-m-d H:i:s'));
                 $strReturn .= '<tr><td>';
-                $strReturn .= $quest['cat_name'];
+                $strReturn .= '<a href="javascript:void(0);" onclick="toggle_sub('.$quest['cat_id'].');">'.$quest['cat_name'].'</a>';
                 $strReturn .= '</td>';
                 $strReturn .= '<td>';
                 
                 $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['cat_id'].'" />--><a href="'.$gSitePath.'admin/category/delete/'.$quest['cat_id'].'">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/category/edit/'.$quest['cat_id'].'">Edit</a>  ';
                 
                 $strReturn .= '</td></tr>';
-            $strReturn .= '<tr><td colspan="2">'.admin_sub_menu($quest['cat_id'],0).'</td></tr>';
+            $strReturn .= '<tr  id="q'.$quest['cat_id'].'" style="display: none;"><td colspan="2" >'.admin_sub_menu($quest['cat_id'],0).'</td></tr>';
             }
 
             
