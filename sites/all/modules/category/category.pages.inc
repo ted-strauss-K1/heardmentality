@@ -480,6 +480,11 @@ function admin_sub_menu($id='',$level='')
 				 
 				 }
 			}
+			
+			if(empty($strReturn)){
+				
+				$strReturn='<b>No Sub Category!</b>';
+			}
 			return $strReturn;
 	
 		}
