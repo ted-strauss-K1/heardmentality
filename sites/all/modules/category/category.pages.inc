@@ -444,10 +444,14 @@ function admin_sub_menu($id='',$level='')
 				
 					while($list=db_fetch_object($client_select))
 					{
-				
-				   $client_array[] = $list->cat_name;
+				if(!empty($list)){
+					
+				 $client_array[] = $list->cat_name;
 					$client_key[]=$list->cat_id;
-						$mcat=$list->mcat;
+						$mcat=$list->mcat;	
+					
+				}
+				  
 					}
 									
 					if(count($client_array)>0){
