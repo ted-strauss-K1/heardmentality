@@ -1229,7 +1229,7 @@ function panel_content($type = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $strReturn = '';
-    $strReturn .= '<div class="clear-block"><script>admin_approve();</script>';
+    $strReturn .= '<div class="clear-block">';
     
     if ( empty($type)) {
         
@@ -1270,7 +1270,7 @@ function panel_content($type = '') {
 					<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
 	<br/>
 	<div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
-	</div></form></div>';
+	</div></form><script>admin_approve();</script></div>';
             }
             break;
         case 'flagsave':
@@ -1321,7 +1321,7 @@ function panel_content($type = '') {
                 $strReturn .= '</table>
 				<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
 	<br/><div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Approve"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
-	</div></form></div>';
+	</div></form><script>admin_approve();</script></div>';
             }
             break;
         case 'save':
@@ -1354,7 +1354,7 @@ function panel_content($type = '') {
                 $strReturn .= '<tr><td>';
                 $strReturn .= '<a href="#">'.wordwrap($quest['real_name'], 80, '<br/>').'</a>';
                 $strReturn .= '</td><td>'.$quest['abuse_type'].'</td><td># Flag :'.$quest['fcnt'].'</td>';
-                $strReturn .= '</td><td>'.$date.'</td><td>';
+                $strReturn .= '<td>'.$date.'</td><td>';
                 
                 $strReturn .= '<!--<b>/</b>&nbsp;<a href="'.$gSitePath.'question/edit/'.$quest['qid'].'">Edit</a>&nbsp;<b>/</b><a href="'.$gSitePath.'question/delete/'.$list[$i]['qid'].'">Delete</a>-->&nbsp;<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['fid'].'" /> ';
                 
@@ -1372,7 +1372,7 @@ function panel_content($type = '') {
 					<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
 	<br/>
 	<div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
-	</div></form></div>';
+	</div></form><script>admin_approve();</script></div>';
             }
             
             break;
