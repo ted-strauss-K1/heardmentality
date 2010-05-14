@@ -1333,7 +1333,7 @@ function panel_content($type = '') {
                 $query = db_query("update {question} set status='".$_REQUEST['actions']."' where qid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
             } else {
-              //  $query = db_query("delete from {question} where qid in ($qids)");
+              $query = db_query("delete from {question} where qid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
                 flag_quest_mail($_REQUEST['qids']);
             }
