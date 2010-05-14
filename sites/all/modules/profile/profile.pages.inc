@@ -97,7 +97,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
        $twitter1  =   '<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/twitter.png" align="absmiddle" alt="Twitter" >&nbsp;'.$twitter;
 	}
 	//answers posted
-	$get_ans= db_query("select q.* from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where a.uid='".$uid."'");
+	$get_ans= db_query("select q.* from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='".$uid."'");
   $ins_ans='<ul>';
     while($setans = db_fetch_object($get_ans)){
     	
@@ -111,7 +111,7 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 	//answers ends
 	
 	//question sposted
-	$get_ans= db_query("select q.* from {question} as q where q.uid='".$uid."' ORDER BY q.qid DESC  LIMIT 0,5");
+	$get_ans= db_query("select q.* from {question} as q where q.uid='".$uid."' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
   $ins_qns='<ul>';
     while($setans = db_fetch_object($get_ans)){
     	
