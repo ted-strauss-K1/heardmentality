@@ -52,13 +52,23 @@ if($select_user_count==0)
     //echo $percent;
     $tot = $percent * 100;
     
-    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where q.status='1' and q.qid='$qid'  ";
+    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='$qid'  ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
     
-    //question privacy check
+	//question privacy check
+	if(!$oListquest->status){
+		
+		if($user->uid!=$oListquest->uid||$oListquest->uid!=1){
+			
+			drupal_set_message('Sorry Question is inactive for user access!','error');
+			drupal_goto('qmini');
+		}
+	}
+	
+    
     privacy_chk($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
-
+	////question privacy check ends
     
     $list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
     $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'"));
