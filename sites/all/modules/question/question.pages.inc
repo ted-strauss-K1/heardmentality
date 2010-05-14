@@ -1269,14 +1269,14 @@ function panel_content($type = '') {
                 $strReturn .= '</table>
 					<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
 	<br/>
-	<div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
+	<div align="left" style="width:100%" ><input type="hidden" id="actions" name="actions" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
 	</div></form><script>admin_approve();</script></div>';
             }
             break;
         case 'flagsave':
             
             $qids = implode(',', $_REQUEST['qids']);
-            if ($_REQUEST['action']) {
+            if ($_REQUEST['actions']) {
                 
                 $query = db_query("delete from {question_flags} where type='question' AND fid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
@@ -1320,7 +1320,7 @@ function panel_content($type = '') {
                 
                 $strReturn .= '</table>
 				<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
-	<br/><div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Approve"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
+	<br/><div align="left" style="width:100%" ><input type="hidden" id="actions" name="actions" value="1"/><input type="submit"  value="Approve"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
 	</div></form><script>admin_approve();</script></div>';
             }
             break;
@@ -1328,9 +1328,9 @@ function panel_content($type = '') {
 
             
             $qids = implode(',', $_REQUEST['qids']);
-            if ($_REQUEST['action']) {
+            if ($_REQUEST['actions']) {
                 
-                $query = db_query("update {question} set status='".$_REQUEST['action']."' where qid in ($qids)");
+                $query = db_query("update {question} set status='".$_REQUEST['actions']."' where qid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
             } else {
               //  $query = db_query("delete from {question} where qid in ($qids)");
@@ -1371,7 +1371,7 @@ function panel_content($type = '') {
                 $strReturn .= '</table>
 					<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
 	<br/>
-	<div align="left" style="width:100%" ><input type="hidden" id="action" name="action" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
+	<div align="left" style="width:100%" ><input type="hidden" id="actions" name="actions" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
 	</div></form><script>admin_approve();</script></div>';
             }
             
@@ -1379,7 +1379,7 @@ function panel_content($type = '') {
         case 'ufsave':
             
             $qids = implode(',', $_REQUEST['qids']);
-            if ($_REQUEST['action']) {
+            if ($_REQUEST['actions']) {
                 
                 $query = db_query("delete  from {question_flags} where type='user' AND fid in ($qids)");
                 echo '<div class="success">User(s) updated successfully!</div>';
