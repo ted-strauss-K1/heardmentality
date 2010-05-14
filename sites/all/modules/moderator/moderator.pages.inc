@@ -10,7 +10,7 @@ $seldonar="select count(nodeid) as cnt ,f.nodeid from question_flags as f   wher
 $res_donar=db_query($seldonar);
 $moduser='<table width="100%" border="1">
   <tr>
-    <td>Qusetion </td>
+    <td>Question </td>
     <td>Flagged </td>
     <td>Question Author </td>
     <td></td>
