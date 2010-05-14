@@ -185,12 +185,44 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 					</tbody>
 					</table>';
 	}
+	
+	if($_REQUEST['act']!='')
+	{
+	
 
+<<<<<<< .mine
+	 
+	  $res_num= db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$_REQUEST['act']."'  and  uid ='".$user->uid."'"));
+	 
+	if($res_num==0)
+	{
+	 $ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$user->uid."','".$_REQUEST['act']."','1','".date('Y-m-d')."') ";
+	$rs_commg=db_query($ins_commg);
+	
+	drupal_set_message(t('Successfully Added as Follower'), $type = 'success');
+	}
+	else
+	{
+	$sel_usermdet="select * from users  where uid='".$_REQUEST['act']."' ";
+	$rs_usernam=db_query($sel_usermdet);
+	$namelist=db_fetch_object($rs_usernam);
+	
+	drupal_set_message(t('You are already following '.$namelist->name.'.'), $type = 'error');
+	}
+	}
+if($uid!=$user->uid)
+	{
+	$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act='.$uid.'">Follow </a>';
+	
+	}
+
+=======
 	$share='';
 	if($uid!=$user->uid){
 	$share='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';	
 	}
+>>>>>>> .r1268
     $strReturn = '<div class="main">
 			
 			<div class="lft">
@@ -199,8 +231,12 @@ if( ($userSettings['dob'] == 1) || ($userSettings['dob'] == 3  && $user->uid !=0
 			<div class="img">'.$PROFILE_IMAGE.$medal.'
 			</div>
 			<div class="info">
+<<<<<<< .mine
+					'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>] &nbsp; '.$flink.' <br/>
+=======
 '.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share 
 .'<br/>
+>>>>>>> .r1268
 					'.$real_name1.'<br/>
 					'.$dob1.'<br/>	
 					'.$gender_name1.'<br/>	
