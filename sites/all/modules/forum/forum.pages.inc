@@ -223,6 +223,7 @@ function wave_access($id = '', $pvt = '') {
 
 function admin_forum(){
 	  global $gSitePath,$user,$gDocPath,$base_root;
+	  $strReturn='';
 	 drupal_add_js(drupal_get_path('module', 'forum').'/scripts/admin_forum.js');
 	// print_r($_REQUEST);
 	if(isset($_REQUEST['fdelete'])){
@@ -282,7 +283,7 @@ function admin_forum(){
         $strReturn .= '<td><a href="'.$gSitePath.'admin/wavelets/'.$quest['fid'].'">'.$quest['cntpost'].'</a></td>
 		<td>'.$quest['real_name'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
         
-        $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['cat_id'].'" />--><a href="javascript:void(0);" onclick="forum_del('.$quest['fid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/forum/edit/'.$quest['fid'].'">Edit</a>  ';
+        $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="" />--><a href="javascript:void(0);" onclick="forum_del('.$quest['fid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/forum/edit/'.$quest['fid'].'">Edit</a>  ';
         
         $strReturn .= '</td></tr>';
         $strReturn .= '<tr  id="q'.$quest['qid_rid'].$rand.'" style="display:none;"><td colspan="6" ><b>Posted For Question :</b><a  href="'.$gSitePath.$oListquest->url.'">'.wordwrap($oListquest->question, 80, '<br/>').'</a></td></tr>';
@@ -305,6 +306,7 @@ function admin_forum(){
 function admin_forum_edit(){
 	
 	 global $gSitePath,$user,$gDocPath,$base_root;
+	 $strReturn='';
 	  $fid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 	  
 	  if(isset($_REQUEST['fsubmit'])){
@@ -387,7 +389,7 @@ function admin_forum_wlets(){
         $strReturn .= '</td>';
         $strReturn .= '<td>'.$quest['real_name'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
         
-        $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['cat_id'].'" />--><a href="javascript:void(0);" onclick="wavelet_del('.$quest['wlid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/wavelets/edit/'.$quest['wlid'].'">Edit</a>  ';
+        $strReturn .= '<a href="javascript:void(0);" onclick="wavelet_del('.$quest['wlid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/wavelets/edit/'.$quest['wlid'].'">Edit</a>  ';
         
         $strReturn .= '</td></tr>';
        
