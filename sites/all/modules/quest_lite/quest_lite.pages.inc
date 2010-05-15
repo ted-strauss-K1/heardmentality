@@ -1097,7 +1097,7 @@ function panel_content() {
 						
 						  $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 						  extract($_POST);
-							 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$qid',type='1',uid='$user->uid',title='$wtitle',private='$wprivate' ");	
+							 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$qid',type='1',uid='$user->uid',title='".mysql_escape_string($wtitle)."',private='$wprivate' ");	
 							echo list_wave($qid);						
 						exit;
 					}elseif(isset($_POST['wtitle'])){
