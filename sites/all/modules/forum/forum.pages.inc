@@ -381,7 +381,7 @@ function admin_forum_wlets(){
 	  drupal_add_js(drupal_get_path('module', 'forum').'/scripts/admin_forum.js');
 	  $wid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 		
-		if(isset($_REQUEST['fdelete'])){
+		if(isset($_REQUEST['fdelete'])&&$_REQUEST['fdelete']==1){
 		//echo $_REQUEST['fid'];
 		//$ids=(!empty($_REQUEST['fid']))?$_REQUEST['fid']:$_REQUEST['fids'];
 		 $qid=$_REQUEST['fid'];
@@ -390,6 +390,32 @@ function admin_forum_wlets(){
 		db_query("delete from {forum_wavelets} where wlid in ($qid)");
 		  drupal_set_message($message = 'wavelets deleted successfully!', $type = 'success');
 		  drupal_goto('admin/wavelets/'.$wid);
+	}elseif(isset($_REQUEST['Inactive'])){
+		
+		 $ids=implode(',',$_REQUEST['qids']);
+		if(!empty($ids)){
+	
+			db_query("update {forum_wavelets} set status='0' where wlid in ($ids)");
+		  drupal_set_message($message = 'Forum wavelets InActive  successfully!', $type = 'success');	
+			
+		}else{
+			
+		 drupal_set_message($message = 'Sorry no Wavelets Selected', $type = 'error');		
+		}
+		
+	}elseif(isset($_REQUEST['Active'])){
+		
+		 $ids=implode(',',$_REQUEST['qids']);
+		if(!empty($ids)){
+		
+			db_query("update {forum_wavelets} set status='1' where wlid in ($ids)");
+		  drupal_set_message($message = 'Forum  wavelets Activated  successfully!', $type = 'success');	
+			
+		}else{
+			
+		 drupal_set_message($message = 'Sorry no Wavelets Selected', $type = 'error');		
+		}
+		
 	}
 		
 		
@@ -418,7 +444,7 @@ function admin_forum_wlets(){
         $strReturn .= '</td>';
         $strReturn .= '<td>'.$quest['real_name'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
         
-        $strReturn .= '<a href="javascript:void(0);" onclick="wavelet_del('.$quest['wlid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/wavelets/edit/'.$quest['wlid'].'">Edit</a>  ';
+        $strReturn .= '<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['wlid'].'" /> <b>|</b><a href="javascript:void(0);" onclick="wavelet_del('.$quest['wlid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/wavelets/edit/'.$quest['wlid'].'">Edit</a>  ';
         
         $strReturn .= '</td></tr>';
        
@@ -430,7 +456,9 @@ function admin_forum_wlets(){
         $strReturn .= ' <div class="error" align="left" >No Result Found!</div> ';
     } else {
         
-        $strReturn .= '</div>';
+        $strReturn .= '</table>
+		<div><input type="submit" name="Inactive" value="Inactive" />   <input type="submit" name="Active" value="Active" /><span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></form>
+		</div>';
     }
     
     return $strReturn;
