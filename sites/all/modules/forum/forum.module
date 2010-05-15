@@ -119,7 +119,7 @@ function cdatetime($timestamp)
 	 $twodiff=datediff('y',$date,date("Y-m-d H:i:s"),'');
 		 $date = strToTime($date);
 		  $date2= strToTime($date2);
-		$time=date('h:i ',$date).$params['sf'];
+		$time=date('h:i ',$date);
 		$default=date('M j,y h:i ',$date);
 	 $difference = $date - strToTime(date("Y-m-d"));
   //  $diff_days = round($difference / (24*3600));

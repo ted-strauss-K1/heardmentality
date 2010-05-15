@@ -349,6 +349,7 @@ function admin_forum_edit(){
 function admin_forum_wlets(){
 	
 	 global $gSitePath,$user,$gDocPath,$base_root;
+	  $strReturn ='';
 	  drupal_add_js(drupal_get_path('module', 'forum').'/scripts/admin_forum.js');
 	  $wid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 		
