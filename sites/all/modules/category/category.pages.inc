@@ -326,9 +326,10 @@ function sub_menu($id = '', $level = '') {
 }
 
 function category_admin() {
+	 $strReturn = null;
     global $gSitePath,$user,$gDocPath,$base_root;
     drupal_add_js(drupal_get_path('module', 'category').'/scripts/admincat.js');
-    $query = "SELECT cat_id,cat_name FROM {category} where parent_id='0'";
+    $query = "SELECT cat_id,cat_name,IFNULL((select count(*) from {question} where cid=cat_id),0) as qcnt FROM {category} where parent_id='0'";
     $list = ExecuteQuery($query, "select");
     
     $strReturn .= '<div class="clear-block">
@@ -341,7 +342,7 @@ function category_admin() {
         $strReturn .= '<tr><td>';
         $strReturn .= '<a href="javascript:void(0);" onclick="toggle_sub('.$quest['cat_id'].');">'.$quest['cat_name'].'</a>';
         $strReturn .= '</td>';
-        $strReturn .= '<td>';
+        $strReturn .= '<td>#Questions : '.$quest['qcnt'].'</td><td>';
         
         $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['cat_id'].'" />--><a href="'.$gSitePath.'admin/category/delete/'.$quest['cat_id'].'">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/category/edit/'.$quest['cat_id'].'">Edit</a>  ';
         
@@ -379,7 +380,7 @@ function admin_sub_menu($id = '', $level = '') {
                 
                 $client_array[] = $list->cat_name;
                 $client_key[] = $list->cat_id;
-                $mcat = $list->mcat;
+                
             
             }
         
