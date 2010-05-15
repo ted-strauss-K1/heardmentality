@@ -21,7 +21,6 @@ function my_question() {
 
     $query = "SELECT *  FROM {question} where uid='".$user->uid."'";
     $list = ExecuteQuery($query, "select");
-
     
     $strReturn .= '<div class="clear-block">';
     $strReturn .= '<table width="98%" border="1" cellspacing="5" cellpadding="5">';
