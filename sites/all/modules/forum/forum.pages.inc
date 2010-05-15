@@ -32,10 +32,10 @@ function forum_list($qid = '') {
 				<img  alt="'.$name.'" title="'.$name.'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'"/>
 				</div>
 				<div class="commentText" >
-				<span class="name" ><a href="'.$gSitePath.'/user/'.$account->name.'">'.$name.'</a>:</span>  '.$forum['title'].'
+				<span class="name" ><a href="'.$gSitePath.'profile/'.$account->name.'">'.$name.'</a>:</span>  '.$forum['title'].'
 				</div>
 				<div class="replyLink">
-				<span class="href" onclick="likethis('.$wid.',this);" id="likelink" > I like this wave</span><span><b> | </b></span><a id="'.$wid.'-0" onclick="addComment(this,this);" href="#commentArea">add a reply »</a>
+				<span class="href" onclick="likethis('.$wid.',this);" id="likelink" > I like this wave</span><span><b> | </b></span><a id="'.$wid.'-0" href="#commentArea">add a reply »</a>
 				</div>
 				<div class="clear"></div>
 			</div></div>
@@ -113,7 +113,7 @@ function cmt_submit() {
         //print_r($_REQUEST);
        
         
-        $query = "insert into {forum_wavelets} set wid='$wid',uid='$user->uid',parentid='$wlet',wavelet='$cmt',private='$pvt'";
+        $query = "insert into {forum_wavelets} set wid='$wid',uid='$user->uid',parentid='$wlet',wavelet='".mysql_escape_string($cmt)."',private='$pvt'";
         
         $set = ExecuteQuery($query, "insert");
 
@@ -157,10 +157,10 @@ function get_wavelets($wid = '', $pid = '') {
 								<img  alt="'.$name.'" title="'.$name.'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'"/>
 							</div>
 							<div class="commentText" >
-							<span class="name">'.$name.':</span>  '.$forum['wavelet'].'
+							<span class="name"><a href="'.$gSitePath.'profile/'.$name.'">'.$name.'</a>:</span>  '.$forum['wavelet'].'
 							</div>
 							<div class="replyLink">
-							<a id="'.$wid.'-'.$forum['wlid'].'" onclick="addComment(this,this);" href="#commentArea">add a reply »</a>
+							<a id="'.$wid.'-'.$forum['wlid'].'" href="#commentArea">add a reply »</a>
 							</div>
 							<div class="clear">
 						</div>
@@ -220,5 +220,235 @@ function wave_access($id = '', $pvt = '') {
     
     return false;
 }
+
+function admin_forum(){
+	  global $gSitePath,$user,$gDocPath,$base_root;
+	 drupal_add_js(drupal_get_path('module', 'forum').'/scripts/admin_forum.js');
+	// print_r($_REQUEST);
+	if(isset($_REQUEST['fdelete'])){
+		//echo $_REQUEST['fid'];
+		//$ids=(!empty($_REQUEST['fid']))?$_REQUEST['fid']:$_REQUEST['fids'];
+		 $qid=$_REQUEST['fid'];
+		
+		db_query("delete from {forum_wave} where fid in ($qid)");
+		
+		db_query("delete from {forum_wavelets} where wid in ($qid)");
+		  drupal_set_message($message = 'Forum wave & wavelets deleted successfully!', $type = 'success');
+		  drupal_goto('admin/forum');
+	}
+	 
+	 
+	 $query = "select f.*,u.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {forumwave_like} as l where l.wid=f.fid group by l.wid),0) as cntlike from {forum_wave} as f  join {user_profile} as u on u.uid=f.uid ORDER BY f.fid DESC ";
+    $list = ExecuteQuery($query, "select");
+    //pagination
+	
+	$nodes_per_page =2; 
+
+	/* $rs = pager_query($query,$nodes_per_page,0,count($list));
+	$array=array();
+	while($rw = db_fetch_array($rs))
+	{
+		array_push($array,$rw);
+	}
+
+	//pagination */
+	
+	
+    $strReturn .= '<div class="clear-block">
+	
+	<div align="right"></div>
+	<form id="fadmin" method="post" action="'.url($_GET['q'], array('absolute'=>true)).'" >
+	<input type="hidden" name="fdelete" id="fdelete" value=""/>
+	<input type="hidden" name="fid" id="fid" value=""/>
+	<table width="98%" border="1" cellspacing="5" cellpadding="5">
+	<tr><td><b><i>Forum Topics</i></b></td><td><i><b># Wavelets</b></i></td><td><i><b>Posted By</b></i></td><td><i><b>Status</b></i></td><td><i><b>Date</b></i></td><td><i><b>Action</b></i></td></tr>
+	';
+    foreach ($list as $quest) {
+      
+	  if($quest['type']==1){
+	  	
+		  $vSql = "select * from {question} where qid='".$quest['qid_rid']."' ";
+    $rlist = db_query($vSql);
+    $oListquest = db_fetch_object($rlist);
+	  }
+	  $rand= rand(10,100);
+	  $stat=($quest['status']==1)?'Active':'InActive';
+	    $date = format_date_class($quest['date_added'], date('Y-m-d H:m:s'));
+	  		//$date= date_format('Y-m-d H:m:s',$quest['date_added']);
+	  
+        $strReturn .= '<tr><td>';
+        $strReturn .= '<a href="javascript:void(0);" onclick="toggle_sub('.$quest['qid_rid'].$rand.');">'.wordwrap($quest['title'], 40, '<br/>').'</a>';
+        $strReturn .= '</td>';
+        $strReturn .= '<td><a href="'.$gSitePath.'admin/wavelets/'.$quest['fid'].'">'.$quest['cntpost'].'</a></td>
+		<td>'.$quest['real_name'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
+        
+        $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['cat_id'].'" />--><a href="javascript:void(0);" onclick="forum_del('.$quest['fid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/forum/edit/'.$quest['fid'].'">Edit</a>  ';
+        
+        $strReturn .= '</td></tr>';
+        $strReturn .= '<tr  id="q'.$quest['qid_rid'].$rand.'" style="display:none;"><td colspan="6" ><b>Posted For Question :</b><a  href="'.$gSitePath.$oListquest->url.'">'.wordwrap($oListquest->question, 80, '<br/>').'</a></td></tr>';
+    }
+
+    
+    if (count($list) < 1) {
+        //  drupal_set_message($message = 'No Questions Found!', $type = 'error');
+        $strReturn .= ' <div class="error" align="left" >No Result Found!</div> ';
+    } else {
+        
+        $strReturn .= '</div>';
+    }
+    $strReturn .= theme('pager', NULL, 10);
+
+    return $strReturn;
+}
+
+
+function admin_forum_edit(){
+	
+	 global $gSitePath,$user,$gDocPath,$base_root;
+	  $fid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	  
+	  if(isset($_REQUEST['fsubmit'])){
+	  	extract($_REQUEST);
+		if(!empty($ftopic)){
+			
+		 $query="update {forum_wave} set title='".mysql_escape_string($ftopic)."' where fid='$fid'";	
+		
+		 $up = db_query($query);
+		   drupal_set_message($message = 'Thank you Topic updated', $type = 'success');
+		 drupal_goto('admin/forum');
+		}else{
+			
+			 drupal_set_message($message = 'Topic should not be empty!', $type = 'error');
+			
+		}
+		
+	  }
+	  
+	  
+	  
+	 drupal_add_js(drupal_get_path('module', 'forum').'/scripts/admin_forum.js');
+	 $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {forumwave_like} as l where l.wid=f.fid group by l.wid),0) as cntlike from {forum_wave} as f where f.fid='$fid' ";
+    $list = ExecuteQuery($query, "select");
+	
+	 $strReturn .= '<div class="clear-block">
+	<div align="right"></div>
+	<form id="qadmin" method="post" action="'.url($_GET['q'], array('absolute'=>true)).'" >
+	<table width="98%" border="0" cellspacing="5" cellpadding="5">
+	<tr><td align="left"><b>Edit Forum Topic</b> </td></tr>
+	<tr><td align="left"><textarea cols="40" rows="17" name="ftopic" id="ftopic" >'.$list[0]['title'].'</textarea> </td></tr>
+	<tr><td align="left"><input type="submit" name="fsubmit" value="Update"/> <span> </span><input type="button" name="fback" value="Back" onclick="window.location.href=\''.$gSitePath.'admin/forum\';"/></td></tr>
+	</form>
+	';
+	
+	   return $strReturn;
+}
+
+
+function admin_forum_wlets(){
+	
+	 global $gSitePath,$user,$gDocPath,$base_root;
+	  drupal_add_js(drupal_get_path('module', 'forum').'/scripts/admin_forum.js');
+	  $wid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+		
+		if(isset($_REQUEST['fdelete'])){
+		//echo $_REQUEST['fid'];
+		//$ids=(!empty($_REQUEST['fid']))?$_REQUEST['fid']:$_REQUEST['fids'];
+		 $qid=$_REQUEST['fid'];
+		
+				
+		db_query("delete from {forum_wavelets} where wlid in ($qid)");
+		  drupal_set_message($message = 'wavelets deleted successfully!', $type = 'success');
+		  drupal_goto('admin/wavelets/'.$wid);
+	}
+		
+		
+	$query = "select * from {forum_wavelets} as f left join {user_profile} as u on u.uid=f.uid where f.wid='$wid'";
+        
+        $list = ExecuteQuery($query, "select");
+    
+    $strReturn .= '<div class="clear-block">
+	
+	<div align="right"><a href="'.$gSitePath.'admin/forum">Back To Forum </a></div>
+	<form id="fadmin" method="post" action="'.url($_GET['q'], array('absolute'=>true)).'" >
+	<input type="hidden" name="fdelete" id="fdelete" value=""/>
+	<input type="hidden" name="fid" id="fid" value=""/>
+	<table width="98%" border="1" cellspacing="5" cellpadding="5">
+	<tr><td><b><i>Wavelets</i></b></td><td><b><i>Posted By</i></b></td><td><i><b>Status</b></i></td><td><i><b>Date</b></i></td><td><i><b>Action</b></i></td></tr>
+	';
+    foreach ($list as $quest) {
+      
+	  
+	  $stat=($quest['status']==1)?'Active':'InActive';
+	    $date = format_date_class($quest['date_added'], date('Y-m-d H:m:s'));
+	  		//$date= date_format('Y-m-d H:m:s',$quest['date_added']);
+	  
+        $strReturn .= '<tr><td>';
+        $strReturn .= wordwrap($quest['wavelet'], 40, '<br/>');
+        $strReturn .= '</td>';
+        $strReturn .= '<td>'.$quest['real_name'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
+        
+        $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['cat_id'].'" />--><a href="javascript:void(0);" onclick="wavelet_del('.$quest['wlid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/wavelets/edit/'.$quest['wlid'].'">Edit</a>  ';
+        
+        $strReturn .= '</td></tr>';
+       
+    }
+
+    
+    if (count($list) < 1) {
+        //  drupal_set_message($message = 'No Questions Found!', $type = 'error');
+        $strReturn .= ' <div class="error" align="left" >No Result Found!</div> ';
+    } else {
+        
+        $strReturn .= '</div>';
+    }
+    
+    return $strReturn;
+	
+}
+
+
+function admin_wlets_edit(){
+	
+	 global $gSitePath,$user,$gDocPath,$base_root;
+	  $fid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	  
+	  if(isset($_REQUEST['fsubmit'])){
+	  	extract($_REQUEST);
+		if(!empty($ftopic)){
+			
+		 $query="update {forum_wavelets} set wavelet='".mysql_escape_string($ftopic)."' where wlid='$fid'";	
+		
+		 $up = db_query($query);
+		   drupal_set_message($message = 'Thank you Topic updated', $type = 'success');
+		 drupal_goto('admin/wavelets/'.$fid);
+		}else{
+			
+			 drupal_set_message($message = 'Wavelet should not be empty!', $type = 'error');
+			
+		}
+		
+	  }
+	  
+	  
+	  
+	 drupal_add_js(drupal_get_path('module', 'forum').'/scripts/admin_forum.js');
+	 $query = "select * from {forum_wavelets} where wlid='$fid' ";
+    $list = ExecuteQuery($query, "select");
+	
+	 $strReturn .= '<div class="clear-block">
+	<div align="right"></div>
+	<form id="qadmin" method="post" action="'.url($_GET['q'], array('absolute'=>true)).'" >
+	<input type="hidden" name="fid" value="'.$list[0]['wid'].'"/>
+	<table width="98%" border="0" cellspacing="5" cellpadding="5">
+	<tr><td align="left"><b>Edit Forum Wavelet</b> </td></tr>
+	<tr><td align="left"><textarea cols="40" rows="17" name="ftopic" id="ftopic" >'.$list[0]['wavelet'].'</textarea> </td></tr>
+	<tr><td align="left"><input type="submit" name="fsubmit" value="Update"/> <span> </span><input type="button" name="fback" value="Back" onclick="window.location.href=\''.$gSitePath.'admin/wavelets/'.$list[0]['wid'].'\';"/></td></tr>
+	</form>
+	';
+	
+	   return $strReturn;
+}
+
+
 
 

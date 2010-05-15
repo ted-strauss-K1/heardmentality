@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function forum_perm() {
-  return array('Question Forum','Question Forum Submit');
+  return array('Question Forum','Question Forum Submit','Admin Forum','Admin Edit Forum','Admin Forum Wavelets');
 }
 
 
@@ -26,7 +26,36 @@ function forum_menu() {
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'forum.pages.inc',
   );
-
+ $items['admin/forum'] = array(
+    'title' => 'Admin Forum',
+    'page callback' => 'admin_forum',
+    'access arguments' => array('Admin Forum'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'forum.pages.inc',
+  );
+  
+  $items['admin/forum/edit'] = array(
+    'title' => 'Admin Edit Forum',
+    'page callback' => 'admin_forum_edit',
+    'access arguments' => array('Admin Edit Forum'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'forum.pages.inc',
+  );
+  $items['admin/wavelets'] = array(
+    'title' => 'Admin Forum Wavelets',
+    'page callback' => 'admin_forum_wlets',
+    'access arguments' => array('Admin Forum Wavelets'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'forum.pages.inc',
+  );
+  
+  $items['admin/wavelets/edit'] = array(
+    'title' => 'Admin Forum Wavelets',
+    'page callback' => 'admin_wlets_edit',
+    'access arguments' => array('Admin Forum Wavelets'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'forum.pages.inc',
+  ); 
   return $items;
 }
 
@@ -75,6 +104,9 @@ function cdatetime($timestamp)
  
 	return $text;
 }
+
+
+
 
   function format_date_class($date,$date2) {
     // this function gives a fuzzy description of the date relative to today
