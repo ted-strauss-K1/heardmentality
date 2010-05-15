@@ -49,3 +49,13 @@ function wavelet_del(id){
 	
 	
 }
+
+
+function checkall(val){
+
+
+    $$('.check-me').each(function(el){
+        el.checked = val;
+    });
+    
+}

@@ -226,7 +226,7 @@ function admin_forum(){
 	  $strReturn='';
 	 drupal_add_js(drupal_get_path('module', 'forum').'/scripts/admin_forum.js');
 	// print_r($_REQUEST);
-	if(isset($_REQUEST['fdelete'])){
+	if(isset($_REQUEST['fdelete'])&& $_REQUEST['delete']==1){
 		//echo $_REQUEST['fid'];
 		//$ids=(!empty($_REQUEST['fid']))?$_REQUEST['fid']:$_REQUEST['fids'];
 		 $qid=$_REQUEST['fid'];
@@ -236,6 +236,32 @@ function admin_forum(){
 		db_query("delete from {forum_wavelets} where wid in ($qid)");
 		  drupal_set_message($message = 'Forum wave & wavelets deleted successfully!', $type = 'success');
 		  drupal_goto('admin/forum');
+	}elseif(isset($_REQUEST['Inactive'])){
+		
+		 $ids=implode(',',$_REQUEST['qids']);
+		if(!empty($ids)){
+		db_query("update {forum_wave} set status='0' where fid in ($ids)");
+			db_query("update {forum_wavelets} set status='0' where wid in ($ids)");
+		  drupal_set_message($message = 'Forum wave & wavelets InActive  successfully!', $type = 'success');	
+			
+		}else{
+			
+		 drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');		
+		}
+		
+	}elseif(isset($_REQUEST['Active'])){
+		
+		 $ids=implode(',',$_REQUEST['qids']);
+		if(!empty($ids)){
+		db_query("update {forum_wave} set status='1' where fid in ($ids)");
+			db_query("update {forum_wavelets} set status='1' where wid in ($ids)");
+		  drupal_set_message($message = 'Forum wave & wavelets Activated  successfully!', $type = 'success');	
+			
+		}else{
+			
+		 drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');		
+		}
+		
 	}
 	 
 	 
@@ -283,7 +309,7 @@ function admin_forum(){
         $strReturn .= '<td><a href="'.$gSitePath.'admin/wavelets/'.$quest['fid'].'">'.$quest['cntpost'].'</a></td>
 		<td>'.$quest['real_name'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
         
-        $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="" />--><a href="javascript:void(0);" onclick="forum_del('.$quest['fid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/forum/edit/'.$quest['fid'].'">Edit</a>  ';
+        $strReturn .= '<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['fid'].'" /> <b>|</b> <a href="javascript:void(0);" onclick="forum_del('.$quest['fid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/forum/edit/'.$quest['fid'].'">Edit</a>  ';
         
         $strReturn .= '</td></tr>';
         $strReturn .= '<tr  id="q'.$quest['qid_rid'].$rand.'" style="display:none;"><td colspan="6" ><b>Posted For Question :</b><a  href="'.$gSitePath.$oListquest->url.'">'.wordwrap($oListquest->question, 80, '<br/>').'</a></td></tr>';
@@ -295,7 +321,9 @@ function admin_forum(){
         $strReturn .= ' <div class="error" align="left" >No Result Found!</div> ';
     } else {
         
-        $strReturn .= '</div>';
+        $strReturn .= '</table>
+		<div><input type="submit" name="Inactive" value="Inactive" />   <input type="submit" name="Active" value="Active" /><span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></form>
+		</div>';
     }
     $strReturn .= theme('pager', NULL, 10);
 
