@@ -301,7 +301,7 @@ $('q_tag').set('value',rtag);
 	}
 	
 function tag_delq(val,el){
-	alert(el);
+
 	var result = el.hasClass('inp');
 
 	if (!result) {

@@ -439,6 +439,63 @@ function get_tagging($tag = '') {
 }
 
 
+function get_tagging_edit($midr) {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    $randomtag = '';
+    $content = '';
+    $tagged = '';
+    
+    $randomtag = popular_tag();
+    if ($midr != '') {
+        
+       // $exp = explode(",", $tag);
+
+        
+          echo  $selmlist="select * from qtag as a, tagging as b where a.qid='$midr' and a.tag_id=b.tid ";
+	 $mysqlfet=db_query($selmlist);
+	 while($rewdisp=db_fetch_object($mysqlfet))
+         {   
+            $tagged .= '<div id="tagset" class="tagging-tag" >'.$rewdisp->tag.'</div>';
+        }
+    
+    }
+    $content .= '<div id="tagging-widget-container">
+        <fieldset>
+            <legend>
+            <b><i>    Tag Question for Searching </i></b>
+            </legend>
+            <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
+                <label>
+                    Assigned Tags:
+                </label>
+				'.$tagged.'
+            </div>
+            <div class="form-item" id="tagging-widget-input-1-wrapper">
+			
+                <span class="field-prefix">
+                    <div class="taggin-widget-input-wrapper">
+                        <input maxlength="20" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"></span></a>
+						
+						<input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"></span>
+						
+						<input name="q_tag" type="hidden" id="q_tag" value="'.$tag.'"  >
+                    </div>
+                </span>
+                <div class="description">
+                   Add New Tag
+                </div>
+            </div>
+            <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value="http://localhost/heardmentalitylocal/taxonomy/autocomplete/1" disabled="disabled" type="hidden">
+          
+		    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
+               <label>Suggestions:</label>
+               '.$randomtag.'
+            </div>
+        </fieldset></div>';
+
+    
+    return $content;
+}
 function question_save() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -2162,18 +2219,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 	 $mysqlfet=db_query($selmlist);
 	
 	
-    $output .= '<tr><td colspan="6"><div class="tagging-curtags-wrapper tagging-curtags-wrapper-1" id="tagdiv">
-                <label>
-                    Assigned Tags:
-                </label>';
-			 while($fetresultsd=db_fetch_object($mysqlfet))
-	 {	
-	 
-	 // echo $fetresultsd->tag;
-            $output .= '<div id="tagset" class="tagging-tag">'.$fetresultsd->tag.'</div>';
-			
-			}
-			$output .= '</div>'.get_tagging().'</td></tr>';
+    $output .= '<tr><td colspan="6">'.get_tagging_edit($nid).'</td></tr>';
 
     
     $output .= ' </td></tr>
