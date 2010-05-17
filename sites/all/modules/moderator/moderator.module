@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function moderator_perm() {
-  return array('Moderate User','Moderate Question');
+  return array('Moderate User','Moderate Question','Edit Question','View Question');
 }
 
 
@@ -35,7 +35,22 @@ $mdtrest['admin/moderateuser'] = array(
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'moderator.pages.inc',
   );
-
+ $mdtrest['admin/editquestions'] = array(
+    'title' => 'Edit Question',
+    'page callback' => 'edit_questions',
+    'access arguments' => array('Edit Question'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'moderator.pages.inc',
+  );
+  $mdtrest['admin/viewquestion'] = array(
+    'title' => 'View Question',
+    'page callback' => 'view_questions',
+    'access arguments' => array('View Question'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'moderator.pages.inc',
+  );
+  
+  
   return $mdtrest;
 }
 
