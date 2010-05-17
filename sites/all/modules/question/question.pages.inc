@@ -1836,7 +1836,7 @@ function edit_questions()
     
     $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
     $quest = db_fetch_object($result);
-  //  drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
+  
     $output .= '
 		<script type="text/javascript">
 		
@@ -1990,7 +1990,8 @@ setDefaultCountry();
     
     $output .= '<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
-<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
+<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
+<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/question.js" type="text/javascript"></script>';
     $output .= '<div id="err" class="clear"></div>
 <div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
 				<form id="question" name="question" method="post"   onsubmit="return validate_question();" ><table width="100%" border="0" align="center" style="border:0px;">
@@ -2114,8 +2115,22 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     <td>&nbsp;</td>
   </tr>-->
   <tr><td colspan="6">';
-    
-    $output .= '<tr><td colspan="6"></td></tr>';
+      $selmlist="select * from qtag as a, tagging as b where a.qid='$nid' and a.tag_id=b.tid ";
+	 $mysqlfet=db_query($selmlist);
+	
+	
+    $output .= '<tr><td colspan="6"><div class="tagging-curtags-wrapper tagging-curtags-wrapper-1" id="tagdiv">
+                <label>
+                    Assigned Tags:
+                </label>';
+			 while($fetresultsd=db_fetch_object($mysqlfet))
+	 {	
+	 
+	 // echo $fetresultsd->tag;
+            $output .= '<div id="tagset" onclick="tag_delq(this);return false;" class="tagging-tag">'.$fetresultsd->tag.'</div>';
+			
+			}
+			$output .= '</div>'.get_tagging().'</td></tr>';
 
     
     $output .= ' </td></tr>
