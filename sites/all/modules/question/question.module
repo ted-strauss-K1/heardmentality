@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function question_perm() {
-  return array('Question user','Question add','Question save','Question ajax','Question edit','Question delete','Admin Panel');
+  return array('Question user','Question add','Question save','Question ajax','Question edit','Question delete','Admin Panel','Users List','Question List','Edit Question','View Question');
 }
 
 
@@ -83,7 +83,42 @@ $items['question/save'] = array(
     'file' => 'question.pages.inc',
   );
  
- 
+ $items['admin/userlist'] = array(
+    'title' => 'Users List',
+    'page callback' => 'moderate_user',
+    'access arguments' => array('Users List'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
+
+  $items['admin/question/list'] = array(
+    'title' => 'Question List',
+    'page callback' => 'moderate_quest',
+    'access arguments' => array('Question List'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
+ $items['admin/notifymail'] = array(
+    'title' => 'Moderate Question',
+    'page callback' => 'moderate_user_mail',
+    'access arguments' => array('Moderate User'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
+ $items['admin/edit/questions'] = array(
+    'title' => 'Edit Question',
+    'page callback' => 'edit_questions',
+    'access arguments' => array('Edit Question'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
+  $items['admin/view/question'] = array(
+    'title' => 'View Question',
+    'page callback' => 'view_questions',
+    'access arguments' => array('View Question'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
   
   return $items;
 }
