@@ -1599,7 +1599,41 @@ function moderate_quest()
 
 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 	
+if(isset($_REQUEST['Inactive'])){
+		
+		 $ids=implode(',',$_REQUEST['qidsl']);
+		if(!empty($ids)){
+		db_query("update {question} set status='0' where qid in ($ids)");
+		
+		  drupal_set_message($message = 'Question InActivated  successfully!', $type = 'success');	
+			
+		}else{
+			
+		 drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');		
+		}
+		
+	}
+	
+	
+	if(isset($_REQUEST['Active'])){
+		
+		 $ids=implode(',',$_REQUEST['qidsl']);
+		if(!empty($ids)){
+		db_query("update {question} set status='1' where qid in ($ids)");
+		
+		  drupal_set_message($message = 'Question Activated  successfully!', $type = 'success');	
+			
+		}else{
+			
+		 drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');		
+		}
+		
+	}
+	 
 
+	
+	
+	
 $page_name="moderatequestion"; 
 if(isset($_GET['start'])){
 	$start=$_GET['start'];
@@ -1618,8 +1652,17 @@ $this1 = $eu + $limit;
 $back = $eu - $limit; 
 $next = $eu + $limit; 
 
-$modquest.='
-	<form id="notify" method="post" action="'.$gSitePath.'admin/notifymail" ><table width="100%" border="1">
+$modquest.='<script type="text/javascript">
+function checkall(val){
+
+
+    $$(\'.check-me\').each(function(el){
+        el.checked = val;
+    });
+    
+}
+</script>
+	<form id="notify" method="post" action="" ><table width="100%" border="1">
   <tr>
     <td>Question </td>
  
@@ -1661,14 +1704,14 @@ $modquest.='
 	
 	<td>'.$uname.' </td>
 	<td>'.$blockedst.' </td>
-	<td><a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'"> Delete </a>/<a href="'.$gSitePath.'admin/view/question/'.$qid_result->qid.'"> View </a>  </td>
+	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'"> Delete </a>/<a href="'.$gSitePath.'admin/view/question/'.$qid_result->qid.'"> View </a>  </td>
 	</tr>';
 	
 	
 	}
 	
 	
-	$modquest.='</table>';
+	$modquest.='</table><div><input type="submit" name="Inactive" value="Inactive" />   <input type="submit" name="Active" value="Active" /><span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span>';
 	/////////////////////////////// 
 if($sel_count > $limit ){ // Let us display bottom links if sufficient records are there for paging
 

@@ -235,7 +235,7 @@ function bind_event_added(){
 	var elements = $('tagdiv').getElements('div');
 	
  elements.each(function(element,index){
- 		
+ 	alert("llll");	
 element.addEvent('click', tag_delq.bindWithEvent(this,element)); 
  });
 	
@@ -301,7 +301,6 @@ $('q_tag').set('value',rtag);
 	}
 	
 function tag_delq(val,el){
-	
 	var result = el.hasClass('inp');
 
 	if (!result) {
