@@ -344,7 +344,7 @@ function category_admin() {
         $strReturn .= '</td>';
         $strReturn .= '<td>#Questions : '.$quest['qcnt'].'</td><td>';
         
-        $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['cat_id'].'" />--><a href="'.$gSitePath.'admin/category/delete/'.$quest['cat_id'].'">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/category/edit/'.$quest['cat_id'].'">Edit</a>  ';
+        $strReturn .= '<!--<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['cat_id'].'" />--><a id="" href="'.$gSitePath.'admin/category/add/'.$quest['cat_id'].'">Add </a> <b>|</b> <a href="'.$gSitePath.'admin/category/delete/'.$quest['cat_id'].'">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/category/edit/'.$quest['cat_id'].'">Edit</a>  ';
         
         $strReturn .= '</td></tr>';
         $strReturn .= '<tr  id="q'.$quest['cat_id'].'" style="display: none;"><td colspan="2" >'.admin_sub_menu($quest['cat_id'], 0).'</td></tr>';
