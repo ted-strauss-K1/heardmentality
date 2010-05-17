@@ -2170,7 +2170,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 	 {	
 	 
 	 // echo $fetresultsd->tag;
-            $output .= '<div id="tagset" onclick="tag_delq(this);return false;" class="tagging-tag">'.$fetresultsd->tag.'</div>';
+            $output .= '<div id="tagset" class="tagging-tag">'.$fetresultsd->tag.'</div>';
 			
 			}
 			$output .= '</div>'.get_tagging().'</td></tr>';
