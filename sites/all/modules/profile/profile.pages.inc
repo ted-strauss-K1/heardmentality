@@ -243,7 +243,24 @@ function profile($uid = '') {
 	
 	 $history = '[<a href="'.url($_GET['q'], array('absolute' => true)).'?tag=activity" >Hisotry</a>]';
 	
+<<<<<<< .mine
+	drupal_set_message(t('You are already following '.$namelist->name.'.'), $type = 'error');
+	}
+	}
+
+
+
+	$share='';
+	$flinkflw='';
+	if($uid!=$user->uid){
+	$share='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
+">Report</a>]';	
+$flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act='.$uid.'">Follow </a>';
+	}
+
+=======
 	
+>>>>>>> .r1311
     $strReturn = '<div class="main">
 			
 			<div class="lft">
@@ -255,7 +272,12 @@ function profile($uid = '') {
 
 					<br/>
 
+<<<<<<< .mine
+'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share 
+.' '.$flinkflw.' <br/>
+=======
 '.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share.' '.$flink.' '.$history.'<br/>
+>>>>>>> .r1311
 
 					'.$real_name1.'<br/>
 					'.$dob1.'<br/>	
@@ -371,8 +393,13 @@ function profile_edit() {
 
         
         if ($chk1) {
+<<<<<<< .mine
+		echo "update {users} set mail='$mail' ,notify_type='$ntype' where uid='$user->uid' ";
+            $update_user=db_query("update {users} set mail='$mail' ,notify_type='$ntype' where uid='$user->uid' ");
+=======
             
             $update_user = db_query("update {users} set mail='$mail' where uid='$user->uid' ");
+>>>>>>> .r1311
             $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
         
         } else {
@@ -407,8 +434,9 @@ function profile_edit() {
     
     $get_cn = db_query("select * from {user_profile} where uid='$user->uid'");
     $result = db_fetch_array($get_cn);
+	
     extract($result);
-    
+   
     drupal_add_js(drupal_get_path('module', 'profile').'/js/en.js');
     drupal_add_js(drupal_get_path('module', 'profile').'/js/formcheck.js');
     drupal_add_css(drupal_get_path('module', 'profile').'/theme/classic/formcheck.css');
@@ -423,7 +451,13 @@ function profile_edit() {
         
         $optionlist .= sprintf('<option %s value="%s">%s</option>', $select, $countries['countrycode'], $countries['countryname']);
     }
-    
+	//echo $user->notify_type;
+    if($user->notify_type==1){
+		$checkm="checked='checked'";
+	}elseif($user->notify_type==2){
+			$checkf="checked='checked'";
+		
+	}
     if ($gender == 1) {
         $check1 = "checked='checked'";
     } elseif ($gender == 2) {
@@ -534,6 +568,12 @@ function profile_edit() {
             <label for="edit-"></label>
              <input type="radio" name="qrset" class="qrset"  value="4">&nbsp;Prompt on all (if prompt all, pop up to ask if he wants to share with
 everyone or just followers or not at all while adding a question)
+            <div class="description"></div>
+        </div>
+		
+		  <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-">Notify Type </label>
+             <input type="radio" name="ntype" class="ntype" '.$checkm.'  value="1"> E-mail  <input type="radio" name="ntype" class="ntype" '.$checkf.'  value="2"> Internal  Message Only
             <div class="description"></div>
         </div>
         </fieldset>		
