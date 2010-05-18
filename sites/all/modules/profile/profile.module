@@ -134,5 +134,12 @@ function checkPrivacySettings( $uid = null){
 	return 0;
  
  }
+function get_question($qid=''){
+	 global $gSitePath,$user,$gDocPath,$base_root;
+	
+	 $sel_userms = "SELECT * FROM {question} where qid='$qid' ";
+              $rs_userms = db_query($sel_userms);
+      return  $resulrnames = db_fetch_object($rs_userms);
+}
 
  ?>
