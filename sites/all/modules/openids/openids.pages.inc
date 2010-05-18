@@ -431,13 +431,44 @@ if($select_user_count==0)
     $userlistmr = db_fetch_object($selectuserm);
 	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$userlistmr->uid."','1','".date('Y-m-d')."') ";
 	$rs_commg=db_query($ins_commg);
-	$select_user_count = db_query("update  invite_friend set status='1' where inv_id='".$_SESSION['friend_id']."'");
+	$select_user_count = db_query("update  invite_friend set status='1' where inv_id='".$_COOKIE['friend_id']."'");
 	$query_pt= "SELECT * FROM tbl_points where id='6' "; 
 	$query_ptinfo=db_query($query_pt);
 	$fetuserpts=db_fetch_object($query_ptinfo);
 	$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$userlistmr->uid."' ,'6',$fetuserpts->points,'0') ";
 	$rs_commg=db_query($ins_commg);
 	setcookie("friend_id", '0');
+	$sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$lid."'";
+	$rs_umlog=db_query($sel_ulist);
+	$user_namelistf=db_fetch_object($rs_umlog);
+	
+	$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$userlistmr->uid."'";
+	$rs_umlogs=db_query($sel_ulists);
+	$user_namelistfs=db_fetch_object($rs_umlogs);
+	
+	$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$userlistmr->uid."','1','1','".$lid."' ");
+	$subject='You Got new Follower in Heardmenatlity ';
+	$content='<table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
+                  border=0>
+                    <tbody> 
+                    <tr> 
+                      <td valign=top align=left><font 
+                        face="Verdana, Arial, Helvetica, sans-serif" 
+                        size=2> Hi '.$user_namelistfs->real_name.' <br>
+<div align="justify"> '.$user_namelistfs->real_name.' has registered in site and Became Your  follower. Please view Your Profile. </div>
+</font></td>
+                    </tr>
+                    </tbody> 
+                  </table>';
+	
+	
+	
+	
+	
+	
+	
+	$mail_success = htmlmail($user_namelistfs->email,$subject,$content,$from,'');
+	
 	}
 	if($_GET['email']=='')
 	{
