@@ -298,6 +298,7 @@ function quest_lite_menu() {
 	
 	function popular_tag(){
 	 $randomtag='';
+	
 		 $query = " SELECT tag from {tagging}  ORDER BY rand() limit 0,10";
                 $result = ExecuteQuery($query, "select");
 			 foreach ($result as $rtag) {

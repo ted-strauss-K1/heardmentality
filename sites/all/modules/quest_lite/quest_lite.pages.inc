@@ -244,63 +244,41 @@ if($select_user_count==0)
         /////////////Mail For question Author///////////
 
         
-        $vuser = "select * from {users} where  uid=$oListquest->uid ";
+       echo ssssssss.  $vuser = "select * from {users} where  uid='".$oListquest->uid."'";
         $username = db_query($vuser);
         $ufet = db_fetch_object($username);
         $ufet->mail;
         $subject_proj = 'Heard Menatlity-Answer Has Been Replaced For Your Question';
-        $content_pro = '<html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-		<title>Heard Menatlity.com</title>
-		</head>
-		<style>
-		.link2 {
-		font-family: verdana;
-		font-size: 10px;
-		font-weight: bold;
-		text-transform: none;
-		color: #818181;
-		text-decoration: none;
-		}
-		</style>
-		<body link="#990000" vlink="#990000" alink="#990000" leftmargin="5" topmargin="5" marginwidth="0" marginheight="0">
-		<table width="465" height="332" border="0" cellpadding="8" cellspacing="2" bgcolor="#C20C3D">
-		<tr> 
-		<td width="439" bgcolor="#FFFFFF"><img src="'.$gSitePath.'sites/all/themes/heardmentality/images/logo.gif" height="75" width="150"></td>
-		</tr>
-		<tr> 
-		<td bgcolor="#FFFFFF" class="text"><p><font  size="2" face="Arial, Helvetica, sans-serif">Hi <font color="#7B7B7B"><strong>'.$ufet->name.'</strong>,</font> </font></p>
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours .</strong></font></p>
-
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Please login to see Suggest Answer. </font></p>
+       
 		
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Thanks,<font color="#B1546A"><br/> 
-		Heard Menatality Team.</font></font><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><br/>
-		</font></p>
-		</td>
+		$content_pro='<table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
+		border=0>
+		<tbody> 
+		<tr> 
+		<td valign=top align=left><font 
+		face="Verdana, Arial, Helvetica, sans-serif" 
+		size=2> Hi '.$ufet->name.' <br>
+		<div align="justify">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).' of Yours .</div>
+		</font></td>
 		</tr>
-		</table>
-		</body>
-		</html>';
+		</tbody> 
+		</table>';
+		
+		
+		
+		
+		
         $contentm_pros = $content_pro;
-        $messpro_list = stripslashes($contentm_pros);
-        $eol = "\n";
-        $mime_boundary = md5(time());
-        $headers .= "From: Heard Menatality  <support@heardmenatlity.com>".$eol;
-        $headers .= "Reply-To: Heard Menatality   <support@heardmenatlity.com>".$eol;
-        $headers .= "Return-Path: Heard Menatality   <support@heardmenatlity.com>".$eol;
-        $headers .= "X-Mailer: PHP v".phpversion().$eol;
-        $headers .= 'MIME-Version: 1.0'.$eol;
-        $headers .= "Content-Type: text/html; charset=iso-8859-1".$eol;
-        if (preg_match('/gmail/', $email))
-            $headers = str_replace("\r\n", "\n", $headers);
-        mail($ufet->mail, $subject_proj, $messpro_list, $headers);
-
+      
+      $mail_success = htmlmail($ufet->mail,$subject_proj,$messpro_list,$from,'');
         
         $delossld = "delete  from possible_answer_changeids where ans_id='".$array2[$x]."'";
         $delssqry = db_query($delossld);
         $deloldwds = "delete  from suggest_ans_changeids where ans_id='".$array1[$x]."'";
         $delqrysss = db_query($deloldwds);
+		
+		$insert_notify=db_query("insert into notification (uid,new_answer,is_question,node_id) values('".$oListquest->uid."','1','1','".$qid."' ");
+        
     
     }
     
@@ -312,70 +290,43 @@ if($select_user_count==0)
         $dumy_rec = db_query($insert_dumm);
         
         ///////////////////////mail notification for who voted answers ///////////////////////////////
-        $vusers = "select * from {users} where  uid=$tmp_rec->uid ";
+       echo jjjjj. $vusers = "select * from {users} where  uid='".$tmp_rec->uid."' ";
         $usernames = db_query($vusers);
         $ufets = db_fetch_object($usernames);
         $ufets->mail;
         $subject_proj = 'Heard Menatlity-Answer Has Been Replaced ';
-        $content_pro = '<html xmlns="http://www.w3.org/1999/xhtml">
-		<head>
-		<title>Heard Menatlity.com</title>
-		</head>
-		<style>
-		.link2 {
-		font-family: verdana;
-		font-size: 10px;
-		font-weight: bold;
-		text-transform: none;
-		color: #818181;
-		text-decoration: none;
-		}
-		</style>
-		<body link="#990000" vlink="#990000" alink="#990000" leftmargin="5" topmargin="5" marginwidth="0" marginheight="0">
-		<table width="465" height="332" border="0" cellpadding="8" cellspacing="2" bgcolor="#C20C3D">
+       
+		$content_pro='<table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
+		border=0>
+		<tbody> 
 		<tr> 
-		<td width="439" bgcolor="#FFFFFF"><img src="'.$gSitePath.'sites/all/themes/heardmentality/images/logo.gif" height="75" width="150"></td>
+		<td valign=top align=left><font 
+		face="Verdana, Arial, Helvetica, sans-serif" 
+		size=2> Hi '.$ufets->name.' <br>
+		<div align="justify">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).' of Yours .</div>
+		</font></td>
 		</tr>
-		<tr> 
-		<td bgcolor="#FFFFFF" class="text"><p><font  size="2" face="Arial, Helvetica, sans-serif">Hi <font color="#7B7B7B"><strong>'.$ufets->name.'</strong>,</font> </font></p>
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).'</strong></font> of<strong> Yours .</strong></font></p>
-		<p><font  size="2" face="Arial, Helvetica, sans-serif">Thanks,<font color="#B1546A"><br/> 
-		Heard Menatality Team.</font></font><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><br/>
-		</font></p>
-		</td>
-		</tr>
-		</table>
-		</body>
-		</html>';
+		</tbody> 
+		</table>';
         $contentm_pro = $content_pro;
         $messpro_list = stripslashes($contentm_pro);
-        $eol = "\n";
-        $mime_boundary = md5(time());
-        $headers .= "From: Heard Menatality  <support@heardmenatlity.com>".$eol;
-        $headers .= "Reply-To: Heard Menatality   <support@heardmenatlity.com>".$eol;
-        $headers .= "Return-Path: Heard Menatality   <support@heardmenatlity.com>".$eol;
-        $headers .= "X-Mailer: PHP v".phpversion().$eol;
-        $headers .= 'MIME-Version: 1.0'.$eol;
-        $headers .= "Content-Type: text/html; charset=iso-8859-1".$eol;
-        if (preg_match('/gmail/', $email))
-            $headers = str_replace("\r\n", "\n", $headers);
-        mail($ufets->mail, $subject_proj, $messpro_list, $headers);
-
+		$mail_success = htmlmail($ufets->mail,$subject_proj,$messpro_list,$from,'');
+       $insert_notify=db_query("insert into notification (uid,new_answer,is_question,node_id) values('".$tmp_rec->uid."','1','1','".$qid."' ");
         
         $deltmp = db_query("delete  from suggest_ans_tmp");
     
     }
     
-    $seltmps = db_query("select * from possible_answer_tmp");
-    
-    while ($tmp_recs = db_fetch_object($seltmps)) {
-        
-        $insert_dumms = "insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('".$tmp_recs->qid."','".$tmp_recs->uid."','".$tmp_recs->panswer_id."','".$tmp_recs->vote_pdate."')";
-        $dumy_recs = db_query($insert_dumms);
-        
-        $deltmps = db_query("delete  from possible_answer_tmp");
-    
-    }
+	$seltmps = db_query("select * from possible_answer_tmp");
+	
+	while ($tmp_recs = db_fetch_object($seltmps)) {
+	
+	$insert_dumms = "insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('".$tmp_recs->qid."','".$tmp_recs->uid."','".$tmp_recs->panswer_id."','".$tmp_recs->vote_pdate."')";
+	$dumy_recs = db_query($insert_dumms);
+	
+	$deltmps = db_query("delete  from possible_answer_tmp");
+	
+	}
 
     
     $voutput .= '<script type="text/javascript">
