@@ -123,9 +123,6 @@ function mashupConfrim($pmApiKey)
 					<td><b>Api:</b>&nbsp;'.$pmApiKey.'</td>
 				  </tr>
 				  <tr>
-				  	<td>'.nl2br(htmlentities($vJquery)).'</td>
-				  </tr>
-				  <tr>
 					<td><b>For Jquery Code:</b></td>
 				  </tr>
 				  <tr>
