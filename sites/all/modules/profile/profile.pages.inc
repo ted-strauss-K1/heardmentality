@@ -239,15 +239,12 @@ function profile($uid = '') {
         $share = '[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';
     }
+	
+	
     $history='';
 	
 	 $history = '[<a href="'.url($_GET['q'], array('absolute' => true)).'?tag=activity" >Hisotry</a>]';
 	
-<<<<<<< .mine
-	drupal_set_message(t('You are already following '.$namelist->name.'.'), $type = 'error');
-	}
-	}
-
 
 
 	$share='';
@@ -258,9 +255,7 @@ function profile($uid = '') {
 $flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act='.$uid.'">Follow </a>';
 	}
 
-=======
-	
->>>>>>> .r1311
+
     $strReturn = '<div class="main">
 			
 			<div class="lft">
@@ -272,12 +267,9 @@ $flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act
 
 					<br/>
 
-<<<<<<< .mine
-'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share 
-.' '.$flinkflw.' <br/>
-=======
+
 '.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share.' '.$flink.' '.$history.'<br/>
->>>>>>> .r1311
+
 
 					'.$real_name1.'<br/>
 					'.$dob1.'<br/>	
@@ -393,13 +385,9 @@ function profile_edit() {
 
         
         if ($chk1) {
-<<<<<<< .mine
-		echo "update {users} set mail='$mail' ,notify_type='$ntype' where uid='$user->uid' ";
+
             $update_user=db_query("update {users} set mail='$mail' ,notify_type='$ntype' where uid='$user->uid' ");
-=======
-            
-            $update_user = db_query("update {users} set mail='$mail' where uid='$user->uid' ");
->>>>>>> .r1311
+
             $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
         
         } else {
