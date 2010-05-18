@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function notify_perm() {
-  return array('notify','Notify Report','Notify Report Content');
+  return array('notify','Notify Report','Notify Report Content','Admin Notify');
 }
 
 
@@ -50,11 +50,11 @@ $items['notify'] = array(
     'file' => 'notify.pages.inc',
   );
   
-    $items['savemsg'] = array(
+    $items['admin/notify/change'] = array(
     'title' => 'Notification',
-    'page callback' => 'savemessage',
+    'page callback' => 'admin_notify',
 	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Notify Report Content'),
+	   'access arguments' => array('Admin Notify'),
     'file' => 'notify.pages.inc',
   );
   

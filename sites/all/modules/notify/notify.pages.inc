@@ -313,9 +313,11 @@ $numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question
 
 }
 
-function savemessage()
+function admin_notify()
 {
 
-echo "jjjjjjjjjjjj";
+$mmm= "jjjjjjjjjjjj";
+
+return $mmm;
 
 }
