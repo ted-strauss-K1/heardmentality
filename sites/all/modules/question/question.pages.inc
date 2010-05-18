@@ -1638,10 +1638,11 @@ function quest_mail_warning($qids = '') {
     foreach ($qids as $id) {
 
       
-        $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
+        $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
         $det = db_fetch_object($query);
         
          $to = $det->mail;
+		 $insert_notify=db_query("insert into notification (uid,admin_warning,is_user,node_id) values('".$det->uid."','1','1','".$det->uid."' ");
          $msg = '<br/>Question : '.$det->question.' '.$warn.'<br/>';
         if(!empty($to)){
         	
