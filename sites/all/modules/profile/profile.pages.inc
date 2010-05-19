@@ -58,10 +58,10 @@ function profile($uid = '') {
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
     
-    $vot_counts = checkUpAndDownVotes($uid);
+   // $vot_counts = checkUpAndDownVotes($uid);
     $userPoints = checkUserPoints($user->uid);
-    $upcount = $vot_counts['upcount'];
-    $downcount = $vot_counts['downcount'];
+    //$upcount = $vot_counts['upcount'];
+   // $downcount = $vot_counts['downcount'];
     if (is_array($result))
         extract($result);
     $userSettings = checkPrivacySettings($uid);
@@ -187,7 +187,7 @@ function profile($uid = '') {
     }
     
     if ((isset($userPoints) && $userPoints > 999) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['vote_graph'] == 1) || ($userSettings['vote_graph'] == 3 && $user->uid != 0)) {
-        $updownvote_display = '<p><b>Votes</b></p>
+       /* $updownvote_display = '<p><b>Votes</b></p>
 				<table>
 					<tbody>
 					<tr>
@@ -207,7 +207,7 @@ function profile($uid = '') {
 					</td>
 					</tr>
 					</tbody>
-					</table>';
+					</table>';*/
     }
     
     if ($_REQUEST['act'] != '') {
@@ -216,8 +216,35 @@ function profile($uid = '') {
         $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$_REQUEST['act']."'  and  uid ='".$user->uid."'"));
         
         if ($res_num == 0) {
-            $ins_commg = "insert into   follower (uid,follower_id,follower_status,joindate) values('".$user->uid."','".$_REQUEST['act']."','1','".date('Y-m-d')."') ";
+           $ins_commg = "insert into   follower (uid,follower_id,follower_status,joindate) values('".$user->uid."','".$_REQUEST['act']."','1','".date('Y-m-d')."') ";
             $rs_commg = db_query($ins_commg);
+			
+			//echo "insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['act']."','1','1','".$user->uid."' ";
+		$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['act']."','1','1','".$user->uid."') ");
+		
+		$subject='You Got new Follower in Heardmenatlity ';
+			$sel_ulists="SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_REQUEST['act']."'";
+		$rs_umlogs=db_query($sel_ulists);
+		$user_namelistfs=db_fetch_object($rs_umlogs);
+		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='1'";
+		$rs_mgmt=db_query($sel_user_cmt);
+		$list_content=db_fetch_object($rs_mgmt);
+			$contentm=str_replace("#uname#",$user->name,$list_content->content);
+			$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
+			//echo $contentm;
+		
+	
+		
+		
+		$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
+	
+			
+			
+			
+			
+			
+			
+			
             
             drupal_set_message(t('Successfully Added as Follower'), $type = 'success');
         } else {
@@ -253,10 +280,12 @@ function profile($uid = '') {
 	$share='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';	
 $flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act='.$uid.'">Follow </a>';
+
+$sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a>]<br/><div id="showboxcmt" align="left" style="width:100%;display:none"><label for="msgs"><b>Send Message :</b></label><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><input type="button"  value="sendmessage"/></div>';
 	}
 
 
-    $strReturn = '<div class="main">
+    $strReturn = '<script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript"></script><div id="profile_page"><form id="proform" method="post" action="'.$gSitePath.'postmessage" ><div class="main">
 			
 			<div class="lft">
 			
@@ -268,7 +297,7 @@ $flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act
 					<br/>
 
 
-'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share.' '.$flink.' '.$history.'<br/>
+'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share.' '.$flink.' '.$history.' '.$sendmsg.'<br/>
 
 
 					'.$real_name1.'<br/>
@@ -331,7 +360,8 @@ $flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act
 			
 			
 		</div>
-	
+		
+	</form></div>
 	';
     return $strReturn;
 
@@ -386,7 +416,7 @@ function profile_edit() {
         
         if ($chk1) {
 
-            $update_user=db_query("update {users} set mail='$mail' ,notify_type='$ntype' where uid='$user->uid' ");
+            $update_user=db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
 
             $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
         
@@ -440,9 +470,11 @@ function profile_edit() {
         $optionlist .= sprintf('<option %s value="%s">%s</option>', $select, $countries['countrycode'], $countries['countryname']);
     }
 	//echo $user->notify_type;
-    if($user->notify_type==1){
+    if($user->notify_etype==1){
 		$checkm="checked='checked'";
-	}elseif($user->notify_type==2){
+	}
+	
+	if($user->notify_itype==1){
 			$checkf="checked='checked'";
 		
 	}
@@ -561,8 +593,9 @@ everyone or just followers or not at all while adding a question)
 		
 		  <div class="form-item" id="edit-name-wrapper">
             <label for="edit-">Notify Type </label>
-             <input type="radio" name="ntype" class="ntype" '.$checkm.'  value="1"> E-mail  <input type="radio" name="ntype" class="ntype" '.$checkf.'  value="2"> Internal  Message Only
-            <div class="description"></div>
+             <input name="ntype" type="checkbox" '.$checkm.'  value="1"  /> E-mail    <input name="nitype" type="checkbox" '.$checkf.'  value="1"  /> Internal  Message Only
+           
+			<div class="description"></div>
         </div>
         </fieldset>		
 	<div class="clear"  style="height:100px;"><input type="submit" name="update" value="Update"></div>
@@ -786,9 +819,9 @@ function followerlist($umid) {
         
         }
         if ($follower_resultfuser->follower_status == 0) {
-            $followeru[] = '<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$PROFILE_IMAGE.$user_namelistf->real_name.' </a> '.$flink1.'</div>';
+            $followeru[] = '<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$PROFILE_IMAGE.$user_namelistf->name.' </a> '.$flink1.'</div>';
         } else {
-            $followeru[] = '<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$PROFILE_IMAGE.$user_namelistf->real_name.' </a> '.$flink2.'</div>';
+            $followeru[] = '<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$PROFILE_IMAGE.$user_namelistf->name.' </a> '.$flink2.'</div>';
         
         }
 
@@ -796,7 +829,7 @@ function followerlist($umid) {
         //$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
     }
     
-    if ($numfoll > 5) {
+    if ($numfoll > 0) {
         $followeru[] .= '<a style="color:#F37321;
 text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower/'.$umid.'\',\'Follower\');">More</a>';
     }
@@ -811,7 +844,7 @@ text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower/'.$umid.'\
 
 
 function save_follower_profile() {
-    
+    global $gSitePath,$user,$gDocPath,$base_root;
     if (isset($_GET['action'])) {
         
         $del_blog = "update  follower  set follower_status='".$_REQUEST['blk']."' where  id='".$_GET['action']."' ";
@@ -824,11 +857,27 @@ function save_follower_profile() {
         if ($_REQUEST['blk'] == 0) {
             $blkid = '1';
             $valss = 'UnBlock';
+			 $insert_notify=db_query("insert into notification (uid,is_block,is_user,node_id) values('".$_GET['usid']."','1','1','".$user->uid."' ");
+			$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_GET['usid']."'";
+			$rs_umlogs=db_query($sel_ulists);
+			$user_namelistfs=db_fetch_object($rs_umlogs);
+			
+			
+			
+			
+		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='2'";
+		$rs_mgmt=db_query($sel_user_cmt);
+		$list_content=db_fetch_object($rs_mgmt);
+		$contentm=str_replace("#uname#",$user_namelistfs->name,$list_content->content);
+		$contentm.= str_replace("#anothername#",$user->name,$contentm);
+	// $contentm;
+			
+			$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
         } else {
             $valss = 'Block';
             $blkid = '0';
         }
-        echo '<div id="'.$_REQUEST['ids'].'" ><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->real_name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
+        echo '<div id="'.$_REQUEST['ids'].'" ><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
     
     }
 
