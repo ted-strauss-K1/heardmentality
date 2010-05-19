@@ -98,12 +98,13 @@ function mashupSave()
 		$vInsertSql	= "insert into mashup (apikey, question, quest_font_size, quest_font_color, ans_font_size, ans_font_color, weight, height, border) values ('".$vApiKey."', '".$vQuestId."', '".$vQFSize."', '".$vQFColor."', '".$vAFSize."', '".$vAFColor."', '".$vWidth."', '".$vHeight."', '$vFBColor')";
 		db_query($vInsertSql);
 		drupal_set_message(t('you have success full create a mashup. Please copy your mashup sample code'));
-		drupal_goto($gSitePath."mashup/confrim/".$vApiKey);
+		drupal_goto($gSitePath."mashup/confrim/".base64_encode($vApiKey));
 	}
 }
 function mashupConfrim($pmApiKey)
 {
 	global $gSitePath,$gDocPath;
+	$pmApiKey = base64_decode($pmApiKey);
 	 $vJquery ='
 			<script type="text/javascript" src="'.$gSitePath.'misc/jquery.js"></script>
 			<script src="'.$gSitePath.'sites/all/modules/mashup/mashup.js"></script>
