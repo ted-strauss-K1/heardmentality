@@ -51,7 +51,7 @@ $items['notify'] = array(
   );
   
     $items['admin/notify/change'] = array(
-    'title' => 'Notification',
+    'title' => 'Change Notification Mail',
     'page callback' => 'admin_notify',
 	   'type' => MENU_CALLBACK,
 	   'access arguments' => array('Admin Notify'),
