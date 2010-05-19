@@ -19,7 +19,7 @@ qns_like(0);
 	
 });
 */
-
+ 
 function qns_like(type,qid){
 
 
