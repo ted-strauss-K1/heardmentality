@@ -315,9 +315,69 @@ $numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question
 
 function admin_notify()
 {
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+drupal_add_js(drupal_get_path('module', 'notify').'/tinymce/jscripts/tiny_mce/tiny_mce.js');
+drupal_add_js(drupal_get_path('module', 'notify').'/scripts/tiny.js');
+$linkval = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+$adminmgmt='<form id="myForm" name="myForm"  method="post" action="'.$gSitePath.'admin/save_notify"  ><table width="100%" border="0">
+  <tr>
+    <td> <a href="'.$gSitePath.'admin/notify/change/1">New followee Mail </a></td>
+    <td> <a href="'.$gSitePath.'admin/notify/change/2">Follower Blocking Mail </a></td>
+    <td><a href="'.$gSitePath.'admin/notify/change/3">New Answer approved  Mail </a></td>
+    <td> <a href="'.$gSitePath.'admin/notify/change/4">New Question Posted  Mail </a></td>
+    <td>&nbsp;</td>
+  </tr>';
+  
+  if($linkval!='change')
+  {
+  $mid=$linkval;
+  }
+  else
+  {
+  $mid='1';
+  
+  }
+$sel_user_cmt="SELECT * FROM notification_mail_format Where id='".$mid."'";
+	$rs_mgmt=db_query($sel_user_cmt);
+	$contenmt=db_fetch_object($rs_mgmt);
+  
+  
+  
+ $adminmgmt.='
+</table>
+<table width="100%" border="0">
+ 
+<tr colspan="6">
+    <td><textarea id="elm1" name="content" rows="15" cols="80">'.$contenmt->content.'</textarea></td>
+    <input type="hidden" name="mlink" value="'.$mid.'"/>
+  </tr>
+   <tr colspan="6">
+    <td><input type="submit" name="Submit" value="Save" class="btn"></td>
+    
+  </tr>
+</table>
 
-$mmm= "jjjjjjjjjjjj";
 
-return $mmm;
+
+
+
+
+
+</form>';
+
+return $adminmgmt;
+
+}
+function admin_notify_save()
+{
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+ $mid=$_REQUEST['mlink'];
+   $updatevoteposs = "update  notification_mail_format set content='".addslashes($_REQUEST['content'])."' where id='".$_REQUEST['mlink']."'";
+            db_query($updatevoteposs);
+			
+		drupal_goto("admin/notify/change/$mid");
+			
+			return $savelink;
 
 }
