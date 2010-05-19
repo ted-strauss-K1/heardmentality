@@ -20,3 +20,62 @@ function validate_profile(){
     
 }
 
+
+
+
+/**
+ * @author gobinath.m
+ */
+window.addEvent('domready', function(){
+
+
+   
+    
+});
+
+
+
+
+function profile_comment(make){
+
+  
+    var report = $('msgs').get('value');
+	
+alert("sssssssssss");
+  
+		
+		    if ($('showboxcmt').getStyle('display') == 'none') {
+    
+        $('showboxcmt').setStyle('display', 'block');
+        $('showboxcmt').slide('hide').slide('in');
+        $('msgs').focus();
+        return false;
+    }
+    if (report.trim().length < 5) {
+        $('msgs').setStyle('border-color', '#EF2C2C');
+        return false;
+    }else{
+		 $('msgs').setStyle('border-color', '');
+		
+	}
+	
+		
+		
+        
+            
+          
+            $('proform').set('send', {
+                onComplete: function(response){
+                    var log = $('profile_page').empty().addClass('ajax-loading');
+                    log.set('html', response);
+                 
+                }
+            });
+            //Send the form.
+            $('proform').send();
+            
+       
+    }
+   
+
+
