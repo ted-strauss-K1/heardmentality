@@ -3,6 +3,7 @@
  */
 
 
+/*
 window.addEvent('domready', function() {
 	
 	 var selObj = $('vote-up');
@@ -17,6 +18,7 @@ qns_like(0);
   }); 	
 	
 });
+*/
 
 function qns_like(type,qid){
 

@@ -20,7 +20,8 @@ if($select_user_count==0)
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
 	  drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/wave.css');
  drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/wave.js');
-    
+     drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
+	    drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
     $query_list = db_query($query);
@@ -895,7 +896,7 @@ function save_resources() {
             $ytvID;
         }
         
-        $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,posted_date,uid,qid,nimage,document,video_id) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."','".date('Y-m-d')."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."','".$ytvID."')";
+        $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id) values ('".$_REQUEST['rtype']."','".addslashes($_REQUEST['nlink'])."','".addslashes($_REQUEST['ntitle'])."','".addslashes($_REQUEST['ncontent'])."','".$_REQUEST['mtype']."','".addslashes($_REQUEST['membed'])."','".addslashes($_REQUEST['flink'])."', '".$user->uid."','".$_REQUEST['qaid']."','".$_REQUEST['path']."','".$_REQUEST['docpath']."','".$ytvID."')";
         db_query($resourceadd);
         echo '<div class="messages success"> Resources Added Successfull </div>';
     
@@ -958,7 +959,33 @@ function flag_question() {
     
 		
 		
-   	}else{
+   	}elseif(isset($_REQUEST['rid'])){
+   		
+					$rid =$_REQUEST['rid'];
+    $vSql = "select * from {resource} as r  join {user_profile} as u on u.uid=r.uid where  r.rid='$rid' ";
+    $rlist = db_query($vSql);
+    $oListquest = db_fetch_object($rlist);
+	$content='';
+	 $content=(!empty($oListquest->nlink))?$oListquest->nlink:(!empty($oListquest->membed))?$oListquest->membed:(!empty($oListquest->facts))?$oListquest->facts:'No Resource';
+	$date='';
+	 $date = format_date_class($oListquest->posted_date, date('Y-m-d h:i:s'));
+    $falgq .= '<div id="log">
+	
+	<div id=""><b>Report this Resource!</b></div>
+	<div id="log_res"></div>
+	<span class="clr"><!-- spanner --></span>';
+    $falgq .= '<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data">
+	<input type="hidden" name="rid" value="'.$rid.'"/>
+	<div class="cmt_list"><div class="lft_view">  <p><span>Posted by '.$oListquest->real_name.' on '.$date.'</span> </p>
+	 <p class="cmt_date">  '.$content.' </p></div></div>
+	<div class="txt_area">
+	<input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
+	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
+	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
+	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
+	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form>';
+    
+	}else{
    		
 	$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $vSql = "select * from {question} where status='1' and qid=$qid ";
@@ -1103,6 +1130,7 @@ function panel_content() {
         case "Resources":
             
             $output = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/subtab.css" type="text/css" />
+			<div id="waveerr"></div>
                        <ul id="tabmenu" >
                                        <li><a class="" href="javascript:tabactive(1,\''.$gSitePath.'\',\''.$qid.'\')" id="tab1">In the News</a></li>
                                        <li><a class="" href="javascript:tabactive(2,\''.$gSitePath.'\',\''.$qid.'\')" id="tab2">Multimedia</a></li>
@@ -1237,7 +1265,7 @@ function list_wave($qid=''){
 	
 	$wave='';	
 
-	 $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {forumwave_like} as l where l.wid=f.fid group by l.wid),0) as cntlike from {forum_wave} as f where f.qid_rid='$qid' ";
+	 $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.fid AND is_wave='1' AND is_like='1' group by l.node_id),0) as cntlike from {forum_wave} as f where f.qid_rid='$qid' ";
 
     $cnt = ExecuteQuery($query, "select");
 	if(!empty($cnt)){
@@ -1299,7 +1327,7 @@ function flag_report() {
 		 $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['uid']."' and uid='".$user->uid."' and  type='user' "));
         if ($_REQUEST['abuse_type'] != '') {
             if ($numr == 0) {
-                 $flagquery = "insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['uid']."','".$user->uid."','".date('Y-m-d')."','user','".$_REQUEST['abuse_type']."')";
+                 $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('".$_REQUEST['uid']."','".$user->uid."','user','".$_REQUEST['abuse_type']."')";
                 db_query($flagquery);
                 increasepoints('4', $_REQUEST['uid'], '0');
                 echo '<div class="messages success">You Have Flagged successfully ! </div>';
@@ -1313,15 +1341,80 @@ function flag_report() {
         }
 		
 		
-	}else{
+	}elseif(isset($_REQUEST['rid'])){
+		
+		 $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['rid']."' and uid='".$user->uid."' and  type='resource' "));
+        if ($_REQUEST['abuse_type'] != '') {
+            if ($numr == 0) {
+                 $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('".$_REQUEST['rid']."','".$user->uid."','resource','".$_REQUEST['abuse_type']."')";
+                db_query($flagquery);
+                increasepoints('4', $_REQUEST['uid'], '0');
+                echo '<div class="messages success">You Have Flagged successfully ! </div>';
+
+            } else {
+                echo '<div class="messages error">You Have Already Flagged !</div>';
+            }
+        } else {
+            
+            echo '<div class="messages error">Select Report Type !</div>';
+        }
 		
 		
 		
+	}elseif($_REQUEST['rwave']&&$_REQUEST['rwave']>0){
+	
+	
+	 $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['rwave']."' and uid='".$user->uid."' and  type='wave' "));
+        if ($_REQUEST['abuse_type'] != '') {
+            if ($numr == 0) {
+                 $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('".$_REQUEST['rwave']."','".$user->uid."','wave','".$_REQUEST['abuse_type']."')";
+                db_query($flagquery);
+                increasepoints('4', $_REQUEST['uid'], '0');
+                echo '<div class="messages success">You Have Flagged successfully ! </div>';
+
+            } else {
+                echo '<div class="messages error">You Have Already Flagged !</div>';
+            }
+        } else {
+            
+            echo '<div class="messages error">Select Report Type !</div>';
+        }
+	
+	
+	
+	
+	}elseif($_REQUEST['rwavelet']&&$_REQUEST['rwavelet']>0){
+	
+	
+	 $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['rwavelet']."' and uid='".$user->uid."' and  type='wavelet' "));
+        if ($_REQUEST['abuse_type'] != '') {
+            if ($numr == 0) {
+                 $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('".$_REQUEST['rwavelet']."','".$user->uid."','wavelet','".$_REQUEST['abuse_type']."')";
+                db_query($flagquery);
+                increasepoints('4', $_REQUEST['uid'], '0');
+                echo '<div class="messages success">You Have Flagged successfully ! </div>';
+
+            } else {
+                echo '<div class="messages error">You Have Already Flagged !</div>';
+            }
+        } else {
+            
+            echo '<div class="messages error">Select Report Type !</div>';
+        }
+	
+	
+	
+	
+	}
+	
+	
+	
+	else{
   
         $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' "));
         if ($_REQUEST['abuse_type'] != '') {
             if ($numr == 0) {
-                $flagquery = "insert into question_flags(nodeid,uid,flag_date,type,abuse_type) values ('".$_REQUEST['qaid']."','".$user->uid."','".date('Y-m-d')."','question','".$_REQUEST['abuse_type']."')";
+                $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('".$_REQUEST['qaid']."','".$user->uid."','question','".$_REQUEST['abuse_type']."')";
                 db_query($flagquery);
                 increasepoints('4', $_REQUEST['qaid'], '0');
                 echo '<div class="messages success">You Have Flagged successfully ! </div>';
@@ -1472,16 +1565,32 @@ function question_news() {
         }
         
         foreach ($valuesresult as $opkt) {
-
+			$like='';
+			$flag='';
+             $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='".$usernews->rid."'";
+        $fetch = ExecuteQuery($querylike, "select");
+        
+        if (count($fetch) < 1||$fetch[0]['is_like']=='0') {
             
+            $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$usernews->rid.',1,this);">Like</a></span>';
+        } elseif($fetch[0]['is_like']=='1') {
+            
+            $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$usernews->rid.',0,this);">Unlike</a></span>';
+        }
+		
+	//flag
+		$flag.='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?rid='.$usernews->rid.'\',\'Report \');
+">Report</a>]';
+		
+		
             $newsresult .= '<div class="cmt_list">
 	
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$opkt["LINK"].'" target="new"> '.$opkt["TITLE"].' </a> </h4>
 		<p>'.$opkt['DESCRIPTION'].' </p>  
 	<p class="cmt_date"> '.date("D j M Y", strtotime($opkt['PUBDATE'])).'</p></div>
-	<div class="rght_view" onclick="resource_like('.$usernews->rid.','.$user->uid.',1);" >
+	<!--<div class="rght_view" onclick="resource_like('.$usernews->rid.','.$user->uid.',1);" >
 	<p id ="resource-fact">'.$like_count.'</p>Like	
-	</div>
+	</div>-->'.$like.' <span>'.$flag.'</span>
 	</div>';
 
         
@@ -1507,6 +1616,25 @@ function question_media() {
     $nummedia = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
     $mediaresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
     while ($usermedia = db_fetch_object($rlistmedia)) {
+    	
+	//flag
+	$flag='';
+		$flag.='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?rid='.$usermedia->rid.'\',\'Report \');
+">Report</a>]';	
+	$like='';
+             $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='".$usermedia->rid."'";
+        $fetch = ExecuteQuery($querylike, "select");
+        
+        if (count($fetch) < 1||$fetch[0]['is_like']=='0') {
+            
+            $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$usermedia->rid.',1,this);">Like</a></span>';
+        } elseif($fetch[0]['is_like']=='1') {
+            
+            $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$usermedia->rid.',0,this);">Unlike</a></span>';
+        }
+		
+		
+		
         $like_count = resource_Like_checkCount($usermedia->rid, 2);
         $mediaresult .= '<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
@@ -1521,9 +1649,9 @@ function question_media() {
 
  </p>
 	<p class="cmt_date"> '.date("D j M Y", strtotime($usermedia->posted_date)).'</p> </div>
-	<div class="rght_view" onclick="resource_like('.$usermedia->rid.','.$user->uid.',2);" >
+<!--	<div class="rght_view" onclick="resource_like('.$usermedia->rid.','.$user->uid.',2);" >
 	<p id ="resource-fact">'.$like_count.'</p>Like	
-	</div>
+	</div>--><div>'.$like.' <span>'.$flag.'</span></div>
 	</div>';
     }
     if ($nummedia == 0) {
@@ -1544,13 +1672,33 @@ function question_facts() {
     $numfacts = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
     $factsesult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
     while ($userfacts = db_fetch_object($rlistfacts)) {
+    	
+		$like='';
+             $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='".$userfacts->rid."'";
+        $fetch = ExecuteQuery($querylike, "select");
+        
+        if (count($fetch) < 1||$fetch[0]['is_like']=='0') {
+            
+            $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$userfacts->rid.',1,this);">Like</a></span>';
+        } elseif($fetch[0]['is_like']=='1') {
+            
+            $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$userfacts->rid.',0,this);">Unlike</a></span>';
+        }
+		
+		//flag
+	$flag='';
+		$flag.='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?rid='.$userfacts->rid.'\',\'Report \');
+">Report</a>]';	
+		
         $like_count = resource_Like_checkCount($userfacts->rid, 3);
         $factsesult .= '<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a href="'.$userfacts->facts.'" target="_blank" style="color:#02a33c;text-decoration:none;"> '.$userfacts->facts.' </a> </h4>
 	<p class="cmt_date"> '.date("D j M Y", strtotime($userfacts->posted_date)).'</p> '.$userfacts->posted_date.'</div>
-	<div class="rght_view" onclick="resource_like('.$userfacts->rid.','.$user->uid.',3);" >
+	<!--<div class="rght_view" onclick="resource_like('.$userfacts->rid.','.$user->uid.',3);" >
 	<p id ="resource-fact">'.$like_count.'</p>Like	
-	</div></div>';
+	</div>-->
+	<div>'.$like.' <span>'.$flag.'</span></div>
+	</div>';
     }
     if ($numfacts == 0) {
         
