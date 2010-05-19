@@ -270,46 +270,69 @@ function reply_box()
 {
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-$numrancnt = db_result(db_query("SELECT COUNT(*) from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid  and b.status='1'"));
-$numrancntss = db_result(db_query("SELECT COUNT(*)  from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid and b.status='1' "));
 
-
-	if(($numrancnt==0)&&($numrancntss==0))
-	{
+//print_r($_REQUEST);
+     
+	 
+	  if ($_REQUEST['action']=='1') 
+	  {
 	
+		$sel_flow="select * from notification as a, question as b  where a.uid=".$user->uid." and a.follower_action='1'  and a.is_question='1' and a.node_id=b.qid  and b.status='1'  order by a.nid desc ";
+	$rs_folwin=db_query($sel_flow);
 	
-	$sel_flow="select * from  question   where uid!=".$user->uid." and status='1'   order by qid desc ";
-	}
-	elseif($numrancntss==0)
+	while($flwing_result=db_fetch_object($rs_folwin))
 	{
-
-	$sel_flow="select * from follower as a, question as b  where a.uid=".$user->uid."  and a.follower_status='1' and a.follower_id=b.uid  and b.status='1'  order by a.id desc ";
+	echo $uif=$flwing_result->qid;
+	if($_REQUEST[$uif]!='')
+	{
+	$update_quest="delete  from possible_answer_vote where qid=".$flwing_result->qid." and uid=".$user->uid." ";
+	$ress=db_query($update_quest);
+	$insert_dumm = "insert into possible_answer_vote (qid,uid,panswer_id,vote_pdate) values ('".$flwing_result->qid."','".$user->uid."','".$_REQUEST[$uif]."','')";
+	$ress=db_query($insert_dumm);
+	
 	}
 	else
 	{
-
-	 $sel_flow="select * from follower as a, question as b  where a.follower_id=".$user->uid."   and a.uid=b.uid and b.status='1' ";
-
-	}
-	$rs_folwin=db_query($sel_flow);
-	while($flwing_result=db_fetch_object($rs_folwin))
-	{
-	$sel_user_mail="SELECT * FROM users Where uid='".$user->uid."'";
-	$rs_usermail=db_query($sel_user_mail);
-	$userfrommail=db_fetch_object($rs_usermail);
-	$sel_ulist = "SELECT * FROM users Where uid='".$flwing_result->uid."'";
-	$rs_umlog=db_query($sel_ulist);
-	$user_namelistf=db_fetch_object($rs_umlog);
-	$subject="Reply For Your Question";
-	$msgcmt=$_REQUEST['cmt_txt'] ;
-				
-			echo $userfrommail->mail;	
-		//echo $user_namelistf->mail; 		
-				$mail_success = htmlmail( $user_namelistf->mail, $subject, $msgcmt, $userfrommail->mail,'');
+	$update_quest="delete  from possible_answer_vote where qid=".$flwing_result->qid." and uid=".$user->uid." ";
+	$ress=db_query($update_quest);
 	
 	}
+    
 
-      echo 'mail send successfully';
+    }
+	  }
+	  else
+	  {
+	
+	   $sids=$_REQUEST['usids'];
+	      $msg .= $_REQUEST['cmt_txt'];
+	   foreach ($sids as $idu) {
+
+    
+        $query = db_query("select * from users   where uid='".$idu."' ");
+        $det = db_fetch_object($query);
+        
+          $to = $det->mail;
+      
+        if(!empty($to)){
+        	
+			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+			 
+			 
+			$inmessage=db_query("insert into messages (from_id,to_id,message) values('".$idu."','".$user->uid."','".$_REQUEST['cmt_txt']."')");
+			if($det->notify_itype==1)
+			{
+			$insert_notify=db_query("insert into notification (uid,is_message,is_user,node_id) values('".$idu."','1','1','".$user->uid."') ");
+			}
+			 
+			 
+        }
+	  }
+	
+	echo "Message sent ";
+	
+	}
+	
 
 }
 
