@@ -168,7 +168,7 @@ text-decoration:none;
 	//$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
 	}
 	$fetresult.='<li>
-	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
+	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->name.'</a>      </h3>
 	<h4>'.$user_result->mail.'</h4>		 	
 	<p>';
 	
@@ -495,8 +495,8 @@ function user_follower()
 
 	global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	$follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
-	
-	
+	//echo $follid;
+	//echo $user->uid;
 	$follower='<script type="text/javascript">
 		function changeblk(fid,divid,blk){
 			var abc="welcum-"+fid;
@@ -529,7 +529,7 @@ function user_follower()
 	drupal_goto("follower/");
 	}
 	$follower.='<div class="following">';
-	$sel_pro="select * from follower  where follower_id='".$follid."'  ";
+	 $sel_pro="select * from follower  where follower_id='".$follid."'  ";
 	$rs_follower=db_query($sel_pro);
 	$countrowsm= db_result(db_query("SELECT COUNT(*) from follower  where follower_id='".$follid."' "));
 	while($follower_result=db_fetch_object($rs_follower))
@@ -546,17 +546,17 @@ function user_follower()
 	  $linkr='<a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',1)" >UnBlock</a>';
 	  }
 	$blocklink='<input type="hidden" value="1" name="blk" id="blk"/>';
-	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->real_name.'</strong> '.$linkr.'</div>';
+	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong> '.$linkr.'</div>';
 	
 	} 
 	else 
 	{
 	 if($follid==$user->uid)
 	  {
-	  $blocklink='<a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',0)" >Block</a>';
+	  $blocklinkdd='<a onclick="changeblk('.$follower_result->id.','.$follower_result->uid.',0)" >Block</a>';
 	  }
 	$blocklink='<input type="hidden" value="0" name="blk" id="blk"/>';
-	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->real_name.'</strong>'.$blocklink.'</div>';
+	$blocklink.='<div  id="welcum-'.$follower_result->id.'"><strong>'.$user_namelist->name.'</strong>'.$blocklinkdd.'</div>';
 	
 	
 	} 
@@ -823,6 +823,7 @@ $result = db_query($query);
 
 function save_follower()
 {
+global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 $follid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 if(isset($_GET['action']))
 {
@@ -837,6 +838,19 @@ $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  i
 	{
 	$blkid='1';
 	$valss='UnBlock';
+
+			
+			 $insert_notify=db_query("insert into notification (uid,is_block,is_user,node_id) values('".$_GET['usid']."','1','1','".$user->uid."' ");
+			
+			
+		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='2'";
+		$rs_mgmt=db_query($sel_user_cmt);
+		$list_content=db_fetch_object($rs_mgmt);
+		$contentm=str_replace("#uname#",$resulrnames->name,$list_content->content);
+		$contentm.= str_replace("#anothername#",$user->name,$contentm);
+	//echo  $contentm;
+			
+			$mail_success = htmlmail_function($resulrnames->email,$subject,$contentm,$from,'');
 	}
 	else
 	{
@@ -851,6 +865,7 @@ $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  i
 
 function get_user_details()
 {
+global $gSitePath,$user, $gDocPath,$base_root,$base_path;
  extract($_REQUEST);
   $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$getuid."'";
  $rs_userms=db_query($sel_userm);
