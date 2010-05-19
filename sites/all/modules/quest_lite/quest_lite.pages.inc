@@ -232,7 +232,29 @@ if($select_user_count==0)
         
         $rechg_new = db_fetch_object($rechange_list_new);
         $rechg_new->vote;
-
+        $sel_user_cmt="SELECT * FROM notification_mail_format Where id='3'";
+		$rs_mgmt=db_query($sel_user_cmt);
+		$list_content=db_fetch_object($rs_mgmt);
+		
+			$vuser_ownersug = "select * from {users} where  uid='".$rechg_new->uid."'";
+        $userown = db_query($vuser_ownersug);
+        $ufet_qwn = db_fetch_object($userown );
+        $ufet_qwn->mail;
+		 $subject_proj = 'Heard Menatlity-Answer Has Been Replaced  Question';
+       
+		
+		
+		
+		
+		
+		
+		$contentm=str_replace("#uname#",$ufet_qwn->name,$list_content->content);
+		$contentm.= str_replace("#quest#",$oListquest->question,$contentm);
+	echo  $contentm;
+			
+			$mail_success = htmlmail_function($ufet_qwn->email,$subject_proj,$contentm,$from,'');
+		
+		//////////mail for suggest answer owner///////////////
         
         $update_ids = "update possible_answer set  answer='$rechg_new->answer', vote='$rechg_new->vote'  where paid='$array2[$x]' ";
         $updateqry = db_query($update_ids);
@@ -241,36 +263,38 @@ if($select_user_count==0)
         $updateqrys = db_query($update_sug);
 
         
+	
+		
+		
+		
+		
+		
+		
+		
         /////////////Mail For question Author///////////
 
         
-       echo ssssssss.  $vuser = "select * from {users} where  uid='".$oListquest->uid."'";
+       $vuser = "select * from {users} where  uid='".$oListquest->uid."'";
         $username = db_query($vuser);
         $ufet = db_fetch_object($username);
         $ufet->mail;
-        $subject_proj = 'Heard Menatlity-Answer Has Been Replaced For Your Question';
+        $subject_projm = 'Heard Menatlity-Answer Has Been Replaced For Your Question';
        
 		
-		$content_pro='<table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
-		border=0>
-		<tbody> 
-		<tr> 
-		<td valign=top align=left><font 
-		face="Verdana, Arial, Helvetica, sans-serif" 
-		size=2> Hi '.$ufet->name.' <br>
-		<div align="justify">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).' of Yours .</div>
-		</font></td>
-		</tr>
-		</tbody> 
-		</table>';
 		
 		
 		
 		
 		
-        $contentm_pros = $content_pro;
+		$contentmown=str_replace("#uname#",$ufet->name,$list_content->content);
+		$contentmown.= str_replace("#quest#",$oListquest->question,$contentmown);
+	echo  $contentmown;
+			
+			$mail_success = htmlmail_function($ufet->email,$subject_projm,$contentmown,$from,'');
+		
       
-      $mail_success = htmlmail($ufet->mail,$subject_proj,$messpro_list,$from,'');
+      
+     // $mail_success = htmlmail_function($ufet->mail,$subject_proj,$messpro_list,$from,'');
         
         $delossld = "delete  from possible_answer_changeids where ans_id='".$array2[$x]."'";
         $delssqry = db_query($delossld);
@@ -290,27 +314,26 @@ if($select_user_count==0)
         $dumy_rec = db_query($insert_dumm);
         
         ///////////////////////mail notification for who voted answers ///////////////////////////////
-       echo jjjjj. $vusers = "select * from {users} where  uid='".$tmp_rec->uid."' ";
+       $vusers = "select * from {users} where  uid='".$tmp_rec->uid."' ";
         $usernames = db_query($vusers);
         $ufets = db_fetch_object($usernames);
         $ufets->mail;
-        $subject_proj = 'Heard Menatlity-Answer Has Been Replaced ';
+        $subject_projlist = 'Heard Menatlity-Answer Has Been Replaced ';
        
-		$content_pro='<table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
-		border=0>
-		<tbody> 
-		<tr> 
-		<td valign=top align=left><font 
-		face="Verdana, Arial, Helvetica, sans-serif" 
-		size=2> Hi '.$ufets->name.' <br>
-		<div align="justify">Suggest answer Has been  Replaced  for the question  <font color="#B1546A"><strong>'.($oListquest->question).' of Yours .</div>
-		</font></td>
-		</tr>
-		</tbody> 
-		</table>';
-        $contentm_pro = $content_pro;
-        $messpro_list = stripslashes($contentm_pro);
-		$mail_success = htmlmail($ufets->mail,$subject_proj,$messpro_list,$from,'');
+		
+	
+	
+	$sel_user_cmt="SELECT * FROM notification_mail_format Where id='3'";
+		$rs_mgmt=db_query($sel_user_cmt);
+		$list_content=db_fetch_object($rs_mgmt);
+		$contentmlist=str_replace("#uname#",$ufets->name,$list_content->content);
+		$contentmlist.= str_replace("#quest#",$oListquest->question,$contentmlist);
+	// $contentm;
+			
+			$mail_success = htmlmail_function($ufets->email,$subject_projlist,$contentmlist,$from,'');
+	
+	
+	
        $insert_notify=db_query("insert into notification (uid,new_answer,is_question,node_id) values('".$tmp_rec->uid."','1','1','".$qid."' ");
         
         $deltmp = db_query("delete  from suggest_ans_tmp");
