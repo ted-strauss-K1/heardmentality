@@ -11,13 +11,14 @@ window.addEvent('domready', function(){
         
             e.stop();
             
-        var log = $('freport').addClass('ajax-loading');
+        var log = $('log_res').addClass('ajax-loading');
             
             this.set('send', {
                 onComplete: function(response){
                     log.removeClass('ajax-loading');
                     log.set('html', response);
-					 setTimeout("$('freport').slide('out');",2000);
+					
+					 setTimeout("$('freport').slide('out');$('log_res').empty();",2000);
                 }
             });
             
@@ -208,6 +209,8 @@ function report_forum(typ, id){
     $('commentArea').slide('out');
     $('commentArea').setStyle('display', 'none');
     el = $('freport');
+	$('rwave').set('value','');
+		$('rwavelet').set('value','');
     $(typ).set('value', id);
     el.setStyle('display', 'block');
     el.slide('hide').slide('in');

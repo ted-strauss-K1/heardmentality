@@ -206,7 +206,7 @@ function get_wavelets($wid = '', $pid = '') {
 		
 		//flag
 		$flag='';
-		$flag.='<a href="#wavefooter" onclick="report_forum(\'rwavelet\','.$wid.');">Report</a>';
+		$flag.='<a href="#wavefooter" onclick="report_forum(\'rwavelet\','.$forum['wlid'].');">Report</a>';
 		
 		
                 $output .= '
