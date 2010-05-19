@@ -90,7 +90,7 @@ function forum_list($qid = '') {
 	
     $output .= '</div></div>';
 $output.='<div class="comment" id="freport" style="background:#ECECEF;display:none;">';
-	$output.='<form  action="http://localhost/heardmentality/qlite/flagreport" method="post" id="flagform">
+	$output.='<form  action="'.$gSitePath.'qlite/flagreport" method="post" id="flagform">
 	<input type="hidden" value="" id="rwave" name="rwave"/>
 	<input type="hidden" value="" id="rwavelet" name="rwavelet"/>
 	<div class="cmt_list">  <p id="log_res"><span>Report the Post</span> </p></div>
