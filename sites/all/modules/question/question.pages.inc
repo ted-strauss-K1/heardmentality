@@ -513,6 +513,50 @@ function question_save() {
         $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',url='$dst',share='$qrset'  ");
         
         $ins_id = db_last_insert_id('question', 'qid');
+		
+		////////////mail notication for user follwers to me//////////////////////////////////////
+		$sel_listf = "select * from follower  where uid='".$user->uid."'   ";
+		$rs_followerf = db_query($sel_listf);
+		while ($follower_resultfuser = db_fetch_object($rs_followerf)) 
+		{
+			$sellist="select * from users where uid='".$follower_resultfuser->uid."'";
+			$res_users=db_query($sellist);
+			$usert=db_fetch_object($res_users);
+			 $to = $usert->mail;
+		if($usert->notify_itype==1)
+		{
+		
+		$insert_notify=db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->follower_id ."','1','1','".$ins_id."' ) ");
+		
+		}
+		if($usert->notify_etype==1)
+		{
+		
+		///////////email for following ///////////////
+		
+		
+		$subject_proj='New question Posted By your Follower';
+		
+		
+		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='4'";
+		$rs_mgmt=db_query($sel_user_cmt);
+		$list_content=db_fetch_object($rs_mgmt);
+		$contentm=str_replace("#uname#",$usert->name,$list_content->content);
+		$contentm.= str_replace("#anothername#",$user->name,$contentm);
+		
+		
+		
+		
+		
+		
+		$messpro_list = stripslashes($contentm);
+		//$mail_success = htmlmail($to,$subject_proj,$messpro_list,$from,'');
+		$mail_success = htmlmail_function($to,$subject_proj,$messpro_list,$from,'');
+		}
+		
+		}
+        
+		
         //forum
         
         $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$ins_id',type='1',uid='$user->uid',title='Discuss about this question',private='0' ");
