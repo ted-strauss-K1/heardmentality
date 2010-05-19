@@ -58,6 +58,22 @@ $items['notify'] = array(
     'file' => 'notify.pages.inc',
   );
   
+  
+  
+  $items['admin/save_notify'] = array(
+    'title' => 'Notification',
+    'page callback' => 'admin_notify_save',
+	   'type' => MENU_CALLBACK,
+	   'access arguments' => array('Admin Notify'),
+    'file' => 'notify.pages.inc',
+  );
+  
+  
+  
+  
+  
+  
+  
   return $items;
 }
 
