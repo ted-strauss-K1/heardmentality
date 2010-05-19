@@ -270,7 +270,7 @@ function profile($uid = '') {
 	
     $history='';
 	
-	 $history = '[<a href="'.url($_GET['q'], array('absolute' => true)).'?tag=activity" >Hisotry</a>]';
+	 $history = '[<a href="'.url($_GET['q'], array('absolute' => true)).'?tag=activity" >History</a>]';
 	
 
 
