@@ -839,10 +839,12 @@ $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  i
 	$blkid='1';
 	$valss='UnBlock';
 
-			
+		if($resulrnames->notify_itype==1)
+		{	
 			 $insert_notify=db_query("insert into notification (uid,is_block,is_user,node_id) values('".$_GET['usid']."','1','1','".$user->uid."' ");
-			
-			
+		}	
+		if($resulrnames->notify_etype==1)
+		{	
 		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='2'";
 		$rs_mgmt=db_query($sel_user_cmt);
 		$list_content=db_fetch_object($rs_mgmt);
@@ -851,6 +853,7 @@ $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  i
 	//echo  $contentm;
 			
 			$mail_success = htmlmail_function($resulrnames->email,$subject,$contentm,$from,'');
+	   }
 	}
 	else
 	{
