@@ -445,21 +445,20 @@ if($select_user_count==0)
 	$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$userlistmr->uid."'";
 	$rs_umlogs=db_query($sel_ulists);
 	$user_namelistfs=db_fetch_object($rs_umlogs);
-	
-	$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$userlistmr->uid."','1','1','".$lid."' ");
+	if($user_namelistfs->notify_itype==1)
+	{
+	$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$userlistmr->uid."','1','1','".$lid."') ");
+	}
+	if($user_namelistfs->notify_etype==1)
+	{
 	$subject='You Got new Follower in Heardmenatlity ';
-	$content='<table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
-                  border=0>
-                    <tbody> 
-                    <tr> 
-                      <td valign=top align=left><font 
-                        face="Verdana, Arial, Helvetica, sans-serif" 
-                        size=2> Hi '.$user_namelistfs->real_name.' <br>
-<div align="justify"> '.$user_namelistfs->real_name.' has registered in site and Became Your  follower. Please view Your Profile. </div>
-</font></td>
-                    </tr>
-                    </tbody> 
-                  </table>';
+		
+	
+	
+	
+	
+	
+	//$mail_success = htmlmail($user_namelistfs->email,$subject,$content,$from,'');
 	
 	
 	
@@ -467,8 +466,15 @@ if($select_user_count==0)
 	
 	
 	
-	$mail_success = htmlmail($user_namelistfs->email,$subject,$content,$from,'');
-	
+	$sel_user_cmt="SELECT * FROM notification_mail_format Where id='2'";
+		$rs_mgmt=db_query($sel_user_cmt);
+		$list_content=db_fetch_object($rs_mgmt);
+		$contentm=str_replace("#uname#",$user_namelistf->name,$list_content->content);
+		$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
+	// $contentm;
+			
+			$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
+	}
 	}
 	if($_GET['email']=='')
 	{
