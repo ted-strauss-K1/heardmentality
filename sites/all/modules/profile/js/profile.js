@@ -38,11 +38,9 @@ window.addEvent('domready', function(){
 
 function profile_comment(make){
 
-  
+ 
     var report = $('msgs').get('value');
 	
-alert("sssssssssss");
-  
 		
 		    if ($('showboxcmt').getStyle('display') == 'none') {
     
