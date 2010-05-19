@@ -1,0 +1,14 @@
+.formstyle { 
+	  margin:0px 0px 0px 0px; 
+	  padding:0px 0px 0px 0px; 
+ } 
+ .formstyle td { 
+	 vertical-align: top; 
+ } 
+.err {
+color:#FF0000;
+font-family:Arial,Helvetica,sans-serif;
+font-size:12px;
+font-weight:bold;
+text-decoration:none;
+}

@@ -3,7 +3,9 @@
 function createMashup($pmID) {
     
     global $gSitePath;
+	drupal_add_css(drupal_get_path('module', 'mashup').'/mashup.css');
 	drupal_add_js(drupal_get_path('module', 'mashup').'/jscolor/jscolor.js');
+	drupal_add_js(drupal_get_path('module', 'mashup').'/mashupvalid.js');
     /*$vOutput ='
 			<!--script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
 			<script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script-->
@@ -15,7 +17,7 @@ function createMashup($pmID) {
 				</script>
 				<div id="testMash"></div>
 				';*/
-	$vOutput ='<form class="formstyle" action="'.$gSitePath.'mashup/save" method="POST" name="frmMail" id="frmMail" onsubmit="return funValidContact(this);">
+	$vOutput ='<form class="formstyle" action="'.$gSitePath.'mashup/save" method="POST" name="frmMail" id="frmMail" onsubmit="return validMashup(this);">
 					<input type="hidden" name="hidId" id="hidId" value="'.$pmID.'">
 						<table width="100%" border="0" cellspacing="7" cellpadding="7">
 						  <tr>
