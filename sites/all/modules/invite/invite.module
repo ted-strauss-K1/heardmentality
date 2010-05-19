@@ -26,8 +26,10 @@ $items['invite/invite_friends'] = array(
 
 function htmlmail($to, $subject, $message, $headers = NULL)
 {
-	
+	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
+$imgw=$gSitePath."/sites/all/modules/heardmentality/images/logo_mail.gif";
+	$imag=$config['file_path'].$img;
 // To send HTML mail, the Content-type header must be set
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -40,19 +42,41 @@ $headers .= 'From: HeardMentality <support@heardmenatlity.com>' . "\r\n";
 
 
 
-	$newmessage .= '<body link="#990000" vlink="#990000" alink="#990000" leftmargin="5" topmargin="5" marginwidth="0" marginheight="0">
-		<table width="465" height="332" border="0" cellpadding="8" cellspacing="2" bgcolor="#C20C3D">
-		<tr> 
-		<td width="439" bgcolor="#FFFFFF"><img src="'.$gSitePath.'sites/all/themes/heardmentality/images/logo.gif" height="75" width="150"></td>
-		</tr>
-		<tr> 
-		<td bgcolor="#FFFFFF" class="text">';
+	$newmessage .= '<html>
+<head>
+<title>welcome</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+</head>
+<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table cellspacing=0 cellpadding=0 width=600 align=center bgcolor=#ffffff 
+      border=0>
+  <tbody> 
+  <tr>  
+    <td background="'.$gSitePath.'/sites/all/themes/heardmentality/images/header_bg.gif"><img src="'.$gSitePath.'/sites/all/themes/heardmentality/images/logo_mail.jpg" width="100" height="140" ></td>
+ 
+  </tr>
+  <tr> 
+    <td> 
+      <table width="100%" border="0" cellspacing="1" cellpadding="0" bgcolor="#494DCD">
+        <tr> 
+          <td> 
+            <table cellspacing=1 cellpadding=25 width=600 
+            align=center border=0 class="text_black" bgcolor="#F2F2EC">
+              <tbody> 
+              <tr> 
+                <td valign=top align=middle class="text_black">';
 
 	
 	$newmessage .= $message;
 
 	
-	$newmessage .= '</td></tr></table></td></tr></table></body>
+	$newmessage .= ' </td>
+  </tr>
+  
+  </tbody> 
+</table>
+</body>
 </html>
 ';
 
