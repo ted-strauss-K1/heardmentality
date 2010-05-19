@@ -50,6 +50,13 @@ $items['profile/deletefollow'] = array(
     'type' => MENU_CALLBACK,
     'file' => 'profile.pages.inc',
   );
+   $items['postmessage'] = array(
+    'title' => ' Profile',
+    'page callback' => 'save_message',
+    'access arguments' => array('Profile View'),
+    'type' => MENU_CALLBACK,
+    'file' => 'profile.pages.inc',
+  );
   return $items;
 }
 
