@@ -240,29 +240,34 @@ if($select_user_count==0)
         $userown = db_query($vuser_ownersug);
         $ufet_qwn = db_fetch_object($userown );
         $ufet_qwn->mail;
+		if($usert->notify_etype==1)
+		{
 		 $subject_proj = 'Heard Menatlity-Answer Has Been Replaced  Question';
        
 		
 		
-		
+		//////////mail for suggest answer owner///////////////
 		
 		
 		
 		$contentm=str_replace("#uname#",$ufet_qwn->name,$list_content->content);
 		$contentm.= str_replace("#quest#",$oListquest->question,$contentm);
-	echo  $contentm;
-			
-			$mail_success = htmlmail_function($ufet_qwn->email,$subject_proj,$contentm,$from,'');
+		//echo  $contentm;
 		
-		//////////mail for suggest answer owner///////////////
-        
-        $update_ids = "update possible_answer set  answer='$rechg_new->answer', vote='$rechg_new->vote'  where paid='$array2[$x]' ";
-        $updateqry = db_query($update_ids);
-        
-        $update_sug = "update suggest_answer set  answer='$rechg->answer', vote='$rechg->vote',uid='$oListquest->uid' where said='$array1[$x]' ";
-        $updateqrys = db_query($update_sug);
-
-        
+		$mail_success = htmlmail_function($ufet_qwn->email,$subject_proj,$contentm,$from,'');
+		
+		}
+		if($usert->notify_itype==1)
+		{
+		$insert_notify=db_query("insert into notification (uid,new_answer,is_question,node_id) values('".$rechg_new->uid."','1','1','".$qid."') ");
+		}
+		$update_ids = "update possible_answer set  answer='$rechg_new->answer', vote='$rechg_new->vote'  where paid='$array2[$x]' ";
+		$updateqry = db_query($update_ids);
+		
+		$update_sug = "update suggest_answer set  answer='$rechg->answer', vote='$rechg->vote',uid='$oListquest->uid' where said='$array1[$x]' ";
+		$updateqrys = db_query($update_sug);
+		
+		
 	
 		
 		
@@ -278,6 +283,8 @@ if($select_user_count==0)
         $username = db_query($vuser);
         $ufet = db_fetch_object($username);
         $ufet->mail;
+		if($ufet->notify_etype==1)
+		{
         $subject_projm = 'Heard Menatlity-Answer Has Been Replaced For Your Question';
        
 		
@@ -295,14 +302,15 @@ if($select_user_count==0)
       
       
      // $mail_success = htmlmail_function($ufet->mail,$subject_proj,$messpro_list,$from,'');
-        
+        }
         $delossld = "delete  from possible_answer_changeids where ans_id='".$array2[$x]."'";
         $delssqry = db_query($delossld);
         $deloldwds = "delete  from suggest_ans_changeids where ans_id='".$array1[$x]."'";
         $delqrysss = db_query($deloldwds);
-		
-		$insert_notify=db_query("insert into notification (uid,new_answer,is_question,node_id) values('".$oListquest->uid."','1','1','".$qid."' ");
-        
+		if($ufet->notify_itype==1)
+		{
+		$insert_notify=db_query("insert into notification (uid,new_answer,is_question,node_id) values('".$ufet->uid."','1','1','".$qid."') ");
+        }
     
     }
     
@@ -318,6 +326,8 @@ if($select_user_count==0)
         $usernames = db_query($vusers);
         $ufets = db_fetch_object($usernames);
         $ufets->mail;
+		if($ufets->notify_etype==1)
+		{
         $subject_projlist = 'Heard Menatlity-Answer Has Been Replaced ';
        
 		
@@ -331,11 +341,14 @@ if($select_user_count==0)
 	// $contentm;
 			
 			$mail_success = htmlmail_function($ufets->email,$subject_projlist,$contentmlist,$from,'');
+	}
 	
+	if($ufets->notify_itype==1)
+		{
 	
 	
        $insert_notify=db_query("insert into notification (uid,new_answer,is_question,node_id) values('".$tmp_rec->uid."','1','1','".$qid."' ");
-        
+        }
         $deltmp = db_query("delete  from suggest_ans_tmp");
     
     }
@@ -375,6 +388,11 @@ if($select_user_count==0)
 		if(mtype==4)
 		{
 		loadsuggest(\''.$gSitePath.'qlite/suggest/\'+ids,\'Answers \');
+		
+		}
+		if(mtype==5)
+		{
+		window.location.href="'.$gSitePath.'mashup/'.$qid.'";
 		
 		}
 		}
