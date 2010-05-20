@@ -2,28 +2,74 @@
 function qlitemini() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     //SELECT answer, vote * 2.75/100 AS PercentOfTotal FROM suggested_answer order by PercentOfTotal desc limit 0,3
-    
+    $voutput = '';
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
-   
-     $qid = get_qid();
     
+    $qid = get_qid();
+    $voutput .= '<script type="text/javascript">
+		function formsubmittype(mtype,ids){
+		
+		if(mtype==1)
+		{
+		
+		
+		document.getElementById(\'answer_frm\').submit();
+		}
+		if(mtype==2)
+		{
+		
+		load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile \');
+		//onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');
+		}
+		if(mtype==3)
+		{
+		loadflagquestion(\''.$gSitePath.'qlite/flag/\'+ids,\'Report \');
+		
+		}
+		if(mtype==4)
+		{
+		loadsuggest(\''.$gSitePath.'qlite/suggest/\'+ids,\'Answers \');
+		
+		}
+		if(mtype==5)
+		{
+		window.location.href="'.$gSitePath.'mashup/'.$qid.'";
+		
+		}
+		}
+		</script>
+		';
+    
+    $optio = '';
     //for calculating active points
     cal_active_rate();
     
     $vSql = "select * from {question} where qid='$qid' ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
-  
+    
     $list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
     $numran = mysql_num_rows($list_lengthan);
     $answer_id = db_fetch_object($list_lengthan);
-	
-    drupal_set_title(myTruncate($oListquest->question,80,'','..').'  <a href="'.$gSitePath.$oListquest->url.'">View More</a>');
-    $voutput = '
+    
+    drupal_set_title(myTruncate($oListquest->question, 80, '', '..').'  <a href="'.$gSitePath.$oListquest->url.'">View More</a>');
+    $voutput .= '
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
-		<p>'.$oListquest->context.'</p>';
+		<p>'.$oListquest->context.'</p><div align="right">
+		<!-- AddThis Button BEGIN -->
+<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bebc2a1621b1868"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bebc2a1621b1868"></script>
+<!-- AddThis Button END -->
+		<select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
+		<option value=""> Select</option >
+		'.$optio.'
+		<option value="2"> Invite</option >
+		<option value="3"> Flag</option >
+		<option value="4">Suggest New Answer</option> 
+		<option value="5">Create Mashup:</option> 
+		</select>
+		</div>';
     $vans = "select * from {possible_answer} where  qid=$qid order by paid ASC";
 
     
@@ -125,6 +171,15 @@ function report_content() {
     
     $qid = get_qid();
     $numres = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$qid'"));
+    
+     $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid_rid = '$qid' ";
+    $list = ExecuteQuery($query, "select");
+   	$x=0;
+	foreach($list as $fcnt){
+		
+		$x=$x+$fcnt['wcnt'];
+	}
+	 
     $type = $_REQUEST[t];
     
     switch ($type) {
@@ -142,99 +197,100 @@ function report_content() {
     }
 
     
-    $output .= '<div>108 comments &nbsp;&nbsp;&nbsp;'.$numres.' Resources </div>';
+    $output .= '<div>'.$x.' comments &nbsp;&nbsp;&nbsp;'.$numres.' Resources </div>';
     
     echo $output;
 }
 
-function load_ajax(){
-	
-	 global $gSitePath,$user,$gDocPath,$base_root;
-	 $output='';
-	 $action=$_REQUEST['action'];
-	 
-	 switch($action){
-	 	
-		case '1':
-		case '2':
-			
-				$output='';
-	
-	$output.=get_top_list();
-	
-	$output.=get_hot_list();
-	
-	$output.=get_local_list();	
-	
-	echo $output; 
-						
-				break;
-		case '5':
-			extract($_REQUEST);
-			
-	$query = "SELECT * from {category} where parent_id='$cid' ORDER BY cat_name ASC";
-    $list = ExecuteQuery($query, "select");
-	$output.='<select id="tscat" onchange="get_toplist(this.value,2)"><option value="" >Select</option>';
-	foreach($list as $cat){
-		
-		$output.='<option value='.$cat['cat_id'].' > '.$cat['cat_name'].' </option>';
-	}
-	
-	$output.='</select>';
-	
-	echo $output;
-				break;
-		default:
-
-		break;				
-		
-		
-	 }
-	 
-	exit;
-	
-	}
-
-function load_condition(){
-	$cond='';
-	//print_r($_REQUEST);
-	if(isset($_REQUEST['cid'])&&isset($_REQUEST['action'])){
-		extract($_REQUEST);
-		if(!empty($cid)){
-			
-			$cond.=" AND cid='$cid'";
-		}
-		
-		if(!empty($scid)){
-			
-			$cond.=" AND scid='$scid'";	
-		}
-		
-	}
-	
-	return $cond;
-	
-}
-
-function get_top_list() {
-	
-	 global $gSitePath,$user,$gDocPath,$base_root;
-    $output = '';$cond='';
-   
-
-    $cond=load_condition();
-	
-	
-    $query = "SELECT * from {question} where status='1' $cond order by active_rate  DESC LIMIT 0,10";
-    $list = ExecuteQuery($query, "select");
-    $output .= '<div id="pageWrapper" >';
-	 if (! empty($list)) {
-    foreach ($list as $quest) {
+function load_ajax() {
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $output = '';
+    $action = $_REQUEST['action'];
+    
+    switch ($action) {
         
-        $output .= '<li><a href="'.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
+        case '1':
+        case '2':
+            
+            $output = '';
+            
+            $output .= get_top_list();
+            
+            $output .= get_hot_list();
+            
+            $output .= get_local_list();
+            
+            echo $output;
+            
+            break;
+        case '5':
+            extract($_REQUEST);
+            
+            $query = "SELECT * from {category} where parent_id='$cid' ORDER BY cat_name ASC";
+            $list = ExecuteQuery($query, "select");
+            $output .= '<select id="tscat" onchange="get_toplist(this.value,2)"><option value="" >Select</option>';
+            foreach ($list as $cat) {
+                
+                $output .= '<option value='.$cat['cat_id'].' > '.$cat['cat_name'].' </option>';
+            }
+            
+            $output .= '</select>';
+            
+            echo $output;
+            break;
+        default:
+            
+            break;
 
     
     }
+    
+    exit;
+
+}
+
+function load_condition() {
+    $cond = '';
+    //print_r($_REQUEST);
+    if (isset($_REQUEST['cid']) && isset($_REQUEST['action'])) {
+        extract($_REQUEST);
+        if (! empty($cid)) {
+            
+            $cond .= " AND cid='$cid'";
+        }
+        
+        if (! empty($scid)) {
+            
+            $cond .= " AND scid='$scid'";
+        }
+    
+    }
+    
+    return $cond;
+
+}
+
+function get_top_list() {
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $output = '';
+    $cond = '';
+
+    
+    $cond = load_condition();
+
+    
+    $query = "SELECT * from {question} where status='1' $cond order by active_rate  DESC LIMIT 0,10";
+    $list = ExecuteQuery($query, "select");
+    $output .= '<div id="pageWrapper" >';
+    if (! empty($list)) {
+        foreach ($list as $quest) {
+            
+            $output .= '<li><a href="'.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
+
+        
+        }
     } else {
         
         $output .= '<div><b>No Top List Found</b></div>';
@@ -246,12 +302,13 @@ function get_top_list() {
 
 function get_hot_list() {
     
-     global $gSitePath,$user,$gDocPath,$base_root;
-    $output = '';$cond='';
-   
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $output = '';
+    $cond = '';
 
-    $cond=load_condition();
-	
+    
+    $cond = load_condition();
+    
     $m = date("m");
     $de = date("d");
     $y = date("Y");
@@ -281,25 +338,26 @@ function get_hot_list() {
 
 function get_local_list() {
     global $gSitePath,$user,$gDocPath,$base_root;
-    $output = '';$cond='';
-   
+    $output = '';
+    $cond = '';
 
-    $cond=load_condition();
-	
-    $homepage = file_get_contents('http://api.hostip.info/country.php');
     
+    $cond = load_condition();
+    
+    $homepage = file_get_contents('http://api.hostip.info/country.php');
 
+    
     $query = "SELECT * from {question} where status='1' AND country='".trim($homepage)."' $cond order by active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div id="pageWrapper" >';
-	
-	if (! empty($list)) {
-    foreach ($list as $quest) {
-        
-        $output .= '<li><a href="'.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
     
-    }
-	   } else {
+    if (! empty($list)) {
+        foreach ($list as $quest) {
+            
+            $output .= '<li><a href="'.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
+        
+        }
+    } else {
         
         $output .= '<div><b>No Local List Found</b></div>';
     
@@ -316,8 +374,8 @@ function cal_active_rate() {
     $j = 5;
     $k = 5;
     $l = 5;
-	$fcnt=array();
-	$gvote=array();
+    $fcnt = array();
+    $gvote = array();
     $query = "SELECT * from {question}";
     $list = ExecuteQuery($query, "select");
     
@@ -326,8 +384,8 @@ function cal_active_rate() {
         
         $query1 = "select IFNULL((select count(*) from {possible_answer_vote} as pa where q.qid=pa.qid group by pa.qid ),0) as pvote,(select count(*) from {suggest_answer_vote} as sa where q.qid=sa.qid group by sa.qid ) as svote from {question} as q where q.qid='".$quest['qid']."'";
         $gvote = ExecuteQuery($query1, "select");
-		$m1=$gvote[0]['pvote'];
-		$m2=$gvote[0]['svote'];
+        $m1 = $gvote[0]['pvote'];
+        $m2 = $gvote[0]['svote'];
         
         $tvote = $m1 + $m2;
         
@@ -336,17 +394,13 @@ function cal_active_rate() {
         
         //The value “active” will be calculated as follows (j,k,l are constant values that will be hard-coded):
         //Active =  (j * #_of_votes_for_question) + (k * #_of_forum_posts) + (l * #_of_posted_resources)
-		if(!empty($fcnt)){
-			$cntr=$fcnt->wcnt;
-		$wcnt=$fcnt->rcnt;
-			   $active = (($j * $tvote) + ($k * $cntr) + ($l * $wcnt));
-			       db_query("update {question} set active_rate='".$active."' where qid='".$quest['qid']."'");
-		}
-		
-        
-     
-        
-    
+        if (! empty($fcnt)) {
+            $cntr = $fcnt->wcnt;
+            $wcnt = $fcnt->rcnt;
+            $active = (($j * $tvote) + ($k * $cntr) + ($l * $wcnt));
+            db_query("update {question} set active_rate='".$active."' where qid='".$quest['qid']."'");
+        }
+
     
     }
 
