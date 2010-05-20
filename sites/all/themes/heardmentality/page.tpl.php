@@ -125,6 +125,17 @@ global $user;
 		<!--h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2-->
 		<div id="topNav">
          <ul class="menu-right">
+         	    <div id="google_translate_element">
+                    </div>
+                    <script>
+                        function googleTranslateElementInit(){
+                            new google.translate.TranslateElement({
+                                pageLanguage: 'en'
+                            }, 'google_translate_element');
+                        }
+                    </script>
+                    <script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+                    </script>
         	<?php 
 			global $user;    
 			if($user->uid == ''|| $user->uid == '0'):
