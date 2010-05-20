@@ -371,11 +371,12 @@ text-decoration:none;
 	if($name)
 			$qry.="(question LIKE '".$name."%') AND ";
 	 if($cid)
-	 $qry.="(cid='".$cid."') AND ";
+	 $qry.="(cid  LIKE '%".$cid."%') AND ";
 	  if($scid)
-	 $qry.="(scid='".$scid."') AND";
+	 $qry.="(scid LIKE '%".$scid."%') AND";
 	 if($sscid)
-	 $qry.="(sscid='".$sscid."') AND (cid='".$saveresult->parent_id."') AND ";
+	// $qry.="(sscid LIKE '%".$sscid."%') AND (cid  LIKE '%".$saveresult->parent_id."%') AND ";
+	$qry.="(sscid LIKE '%".$sscid."%')  AND ";
 	
 	 if($tag!='')
 		   $sel="SELECT * FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
