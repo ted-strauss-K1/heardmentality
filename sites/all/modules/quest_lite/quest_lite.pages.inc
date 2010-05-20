@@ -1265,7 +1265,7 @@ function list_wave($qid=''){
 	
 	$wave='';	
 
-	 $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.fid AND is_wave='1' AND is_like='1' group by l.node_id),0) as cntlike from {forum_wave} as f where f.qid_rid='$qid' ";
+	 $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.fid AND is_wave='1' AND is_like='1' group by l.node_id),0) as cntlike from {forum_wave} as f where f.qid_rid='$qid' AND status='1' ";
 
     $cnt = ExecuteQuery($query, "select");
 	if(!empty($cnt)){

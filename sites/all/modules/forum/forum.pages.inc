@@ -9,7 +9,7 @@ function forum_list($qid = '') {
     //drupal_add_css(drupal_get_path('module', 'quest').'/styles/screen.css');
 
     
-    $query = "SELECT *,u.uid as uid  FROM {forum_wave} as f left join {user_profile} as u on u.uid=f.uid   where f.qid_rid='$qid' AND f.fid='$wid'";
+    $query = "SELECT *,u.uid as uid  FROM {forum_wave} as f  join {user_profile} as u on u.uid=f.uid   where f.qid_rid='$qid' AND f.fid='$wid' AND f.status='1'";
     $list = ExecuteQuery($query, "select");
     
     $output .= '<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
@@ -176,7 +176,7 @@ function get_wavelets($wid = '', $pid = '') {
     if (! empty($wid)) {
 
         
-        $query = "select * from {forum_wavelets} as f left join {user_profile} as u on u.uid=f.uid  where f.wid='$wid' and parentid='$pid'";
+        $query = "select * from {forum_wavelets} as f  join {user_profile} as u on u.uid=f.uid  where f.wid='$wid' and f.status='1' and parentid='$pid'";
         
         $list = ExecuteQuery($query, "select");
         
