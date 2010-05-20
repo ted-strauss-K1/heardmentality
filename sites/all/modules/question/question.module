@@ -120,6 +120,14 @@ $items['question/save'] = array(
     'file' => 'question.pages.inc',
   );
   
+    $items['autosuggest'] = array(
+    'title' => 'Dupe Question',
+    'page callback' => 'auto_suggest_quest',
+    'access arguments' => array('Dupe Question'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
+  
   return $items;
 }
 

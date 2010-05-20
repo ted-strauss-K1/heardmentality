@@ -89,7 +89,8 @@ function question_add() {
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	
 	<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>
 	<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/question.js" type="text/javascript"></script>
-
+	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
+<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/auto.js" type="text/javascript"></script>
 	
 	
 	
@@ -242,7 +243,21 @@ window.addEvent(\'domready\', function(){
     <td width="0%" height="44">&nbsp;</td>
     <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
     <td colspan="4">
-        <input type="text" name="q_quest" tabindex="1" value="'.$q_quest.'" id="q_quest"  size="100"/>    </td>
+      <!--  <input type="text" name="q_quest" tabindex="1" value="'.$q_quest.'" id="q_quest"  size="100"/> -->
+		
+		
+		
+		
+		
+		
+		  <input size="100" autocomplete="off"  name="q_quest" id="q_quest" value="" onkeyup="suggest(this.value);" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"/>
+		 <div class="suggestionsBox" id="suggestions" style="visibility:hidden;">
+                                
+                                <div class="suggestionList" id= "suggestionsList">
+                                </div>
+								</div>
+		
+		   </td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -2748,3 +2763,54 @@ function question_edited_mail_suggest($qaid) {
    }
 return true;
 }
+ function auto_suggest_quest() {
+     
+   
+                $q = $_REQUEST["queryString"];
+                
+                if (!$q)
+                    return;
+                $taglist = array();
+                $items = array();
+				$urld = array();
+                  $query = "SELECT * FROM question WHERE question LIKE ('$q%') or question LIKE ('%$q%') or  context LIKE ('%$q%') and status='1' LIMIT 0 , 15 ";
+                $result = ExecuteQuery($query, "select");
+                $vResult = db_query($query);
+              
+				  $list = "<ul>";
+                foreach ($result as $single) {
+                    array_push($taglist, $single['question']);
+					
+					  $list .= '<a onclick=fill("'.$single['url'].'")>'.$single['question'].'</a><br>';
+					array_push($urld, $single['url']);
+                }
+                
+                echo $list .= "</ul>";
+             /* $taglist = array_filter($taglist);
+                
+                $taglist = array_unique($taglist);
+                $taglist = implode(',', $taglist);
+                $taglist = explode(',', $taglist);
+                $taglist = array_filter($taglist);
+                $items = array_unique($taglist);
+                $urlds = array_unique($urld);
+                //print_r($items);
+                $list = "<ul>";
+                if (! empty($items)) {
+                    //print_r($items);
+                    foreach ($urlds as $value) {
+                        //     if (strpos(strtolower($value), $q) !== false) {
+                        $list .= '<a onclick=fill("'.$value.'")>'.$value.'</a><br>';
+                        //  }
+                    }
+                
+                } else {
+                    
+                   // $list .= '<li>No Result</li>';
+                }
+                echo $list .= "</ul>";*/
+                
+              
+              
+    
+    }
