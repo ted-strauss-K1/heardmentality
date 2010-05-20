@@ -284,6 +284,7 @@ function wave_access($id = '', $pvt = '') {
 function admin_forum() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $strReturn = '';
+
     drupal_add_js(drupal_get_path('module', 'forum').'/scripts/admin_forum.js');
     // print_r($_REQUEST);
     if (isset($_REQUEST['fdelete']) && $_REQUEST['delete'] == 1) {
@@ -325,7 +326,7 @@ function admin_forum() {
     }
 
     
-    $query = "select f.*,u.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {forumwave_like} as l where l.wid=f.fid group by l.wid),0) as cntlike from {forum_wave} as f  join {user_profile} as u on u.uid=f.uid ORDER BY f.fid DESC ";
+    $query = "select f.*,u.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {forumwave_like} as l where l.wid=f.fid group by l.wid),0) as cntlike,IFNULL((select count(*) from {user_likes} where is_wave='1' AND node_id=f.fid group by node_id),0) as cntlikes,IFNULL((select count(*) from {question_flags} where type='wave' and nodeid=f.fid group by nodeid),0) as cntflag from {forum_wave} as f  join {user_profile} as u on u.uid=f.uid ORDER BY f.fid DESC ";
     $list = ExecuteQuery($query, "select");
     //pagination
     
@@ -347,7 +348,7 @@ function admin_forum() {
 	<input type="hidden" name="fdelete" id="fdelete" value=""/>
 	<input type="hidden" name="fid" id="fid" value=""/>
 	<table width="98%" border="1" cellspacing="5" cellpadding="5">
-	<tr><td><b><i>Forum Topics</i></b></td><td><i><b># Wavelets</b></i></td><td><i><b>Posted By</b></i></td><td><i><b>Status</b></i></td><td><i><b>Date</b></i></td><td><i><b>Action</b></i></td></tr>
+	<tr><td><b><i>Forum Topics</i></b></td><td><i><b># Wavelets</b></i></td><td><i><b># Likes</b></i></td><td><i><b>Posted By</b></i></td><td><i><b>#Flags</b></i></td><td><i><b>Status</b></i></td><td><i><b>Date</b></i></td><td><i><b>Action</b></i></td></tr>
 	';
     foreach ($list as $quest) {
         
@@ -357,6 +358,23 @@ function admin_forum() {
             $rlist = db_query($vSql);
             $oListquest = db_fetch_object($rlist);
         }
+		
+		//flag report
+			$flag_report='';
+		if($quest['cntflag']>0){
+			   $fquery = "select u.real_name,l.* from {question_flags} as l join {user_profile} as u on u.uid=l.uid  where l.type='wave' AND l.nodeid='".$quest['fid']."' ORDER BY flag_date DESC";
+  			  $flaglist = ExecuteQuery($fquery, "select");
+			  foreach($flaglist as $flist){
+			  	$flag_report.='<span>Flagged by '.$flist['real_name'].'</span>';
+			$flag_report.='<span> as '.$flist['abuse_type'].'</span>';
+			$flag_report.='<span> on '.$flist['flag_date'].'</span><hr/>';
+				
+			  }
+			
+		}
+		
+		
+		
         $rand = rand(10, 100);
         $stat = ($quest['status'] == 1) ? 'Active' : 'InActive';
         $date = format_date_class($quest['date_added'], date('Y-m-d H:m:s'));
@@ -365,13 +383,14 @@ function admin_forum() {
         $strReturn .= '<tr><td>';
         $strReturn .= '<a href="javascript:void(0);" onclick="toggle_sub('.$quest['qid_rid'].$rand.');">'.wordwrap($quest['title'], 40, '<br/>').'</a>';
         $strReturn .= '</td>';
-        $strReturn .= '<td><a href="'.$gSitePath.'admin/wavelets/'.$quest['fid'].'">'.$quest['cntpost'].'</a></td>
-		<td>'.$quest['real_name'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
+        $strReturn .= '<td><a href="'.$gSitePath.'admin/wavelets/'.$quest['fid'].'">'.$quest['cntpost'].'</a></td><td>'.$quest['cntlike'].'</td>
+		<td>'.$quest['real_name'].'</td><td>'.$quest['cntflag'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
         
         $strReturn .= '<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['fid'].'" /> <b>|</b> <a href="javascript:void(0);" onclick="forum_del('.$quest['fid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/forum/edit/'.$quest['fid'].'">Edit</a>  ';
         
         $strReturn .= '</td></tr>';
-        $strReturn .= '<tr  id="q'.$quest['qid_rid'].$rand.'" style="display:none;"><td colspan="6" ><b>Posted For Question :</b><a  href="'.$gSitePath.$oListquest->url.'">'.wordwrap($oListquest->question, 80, '<br/>').'</a></td></tr>';
+        $strReturn .= '<TR id="q'.$quest['qid_rid'].$rand.'" style="display:none;"> <TH COLSPAN=7><b>Posted For Question :</b><a  href="'.$gSitePath.$oListquest->url.'">'.wordwrap($oListquest->question, 80, '<br/>').'</a></TH><th>'.$flag_report.'</th> </TR>
+';
     }
 
     
@@ -477,8 +496,8 @@ function admin_forum_wlets() {
     }
 
     
-    $query = "select * from {forum_wavelets} as f left join {user_profile} as u on u.uid=f.uid where f.wid='$wid'";
-    
+    $query = "select *, IFNULL((select count(*) from {forum_wavelets} as wl where wl.parentid=f.wlid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {user_likes} where is_wavelets='1' and node_id=f.wlid group by node_id ),0) as cntlike,IFNULL((select count(*) from {question_flags} where type='wavelet' and nodeid=f.wlid group by nodeid),0) as cntflag from {forum_wavelets} as f  join {user_profile} as u on u.uid=f.uid where f.wid='$wid'";
+   
     $list = ExecuteQuery($query, "select");
     
     $strReturn .= '<div class="clear-block">
@@ -488,7 +507,7 @@ function admin_forum_wlets() {
 	<input type="hidden" name="fdelete" id="fdelete" value=""/>
 	<input type="hidden" name="fid" id="fid" value=""/>
 	<table width="98%" border="1" cellspacing="5" cellpadding="5">
-	<tr><td><b><i>Wavelets</i></b></td><td><b><i>Posted By</i></b></td><td><i><b>Status</b></i></td><td><i><b>Date</b></i></td><td><i><b>Action</b></i></td></tr>
+	<tr><td><b><i>Wavelets</i></b></td><td><b><i># Reply</i></b></td><td><b><i># Likes</i></b></td><td><b><i># flag</i></b></td> <td><b><i>Posted By</i></b></td><td><i><b>Status</b></i></td><td><i><b>Date</b></i></td><td><i><b>Action</b></i></td></tr>
 	';
     foreach ($list as $quest) {
 
@@ -496,11 +515,22 @@ function admin_forum_wlets() {
         $stat = ($quest['status'] == 1) ? 'Active' : 'InActive';
         $date = format_date_class($quest['date_added'], date('Y-m-d H:m:s'));
         //$date= date_format('Y-m-d H:m:s',$quest['date_added']);
-        
+        	$flag_report='';
+		if($quest['cntflag']>0){
+			   $fquery = "select u.real_name,l.* from {question_flags} as l join {user_profile} as u on u.uid=l.uid  where l.type='wavelet' AND l.nodeid='".$quest['wlid']."' ORDER BY flag_date DESC";
+  			  $flaglist = ExecuteQuery($fquery, "select");
+			  foreach($flaglist as $flist){
+			  	$flag_report.='<span>Flagged by '.$flist['real_name'].'</span>';
+			$flag_report.='<span> as '.$flist['abuse_type'].'</span>';
+			$flag_report.='<span> on '.$flist['flag_date'].'</span><hr/>';
+				
+			  }
+			
+		}
         $strReturn .= '<tr><td>';
         $strReturn .= wordwrap($quest['wavelet'], 40, '<br/>');
         $strReturn .= '</td>';
-        $strReturn .= '<td>'.$quest['real_name'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
+        $strReturn .= '<td>'.$quest['cntpost'].'</td><td>'.$quest['cntlike'].'</td><td>'.$quest['cntflag'].'</td><td>'.$quest['real_name'].'</td><td>'.$stat.'</td><td>'.$date.'</td><td>';
         
         $strReturn .= '<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['wlid'].'" /> <b>|</b><a href="javascript:void(0);" onclick="wavelet_del('.$quest['wlid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/wavelets/edit/'.$quest['wlid'].'">Edit</a>  ';
         
