@@ -1,6 +1,6 @@
 <?php
 
-function my_notify() {
+function my_notify_list() {
     
      global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     
