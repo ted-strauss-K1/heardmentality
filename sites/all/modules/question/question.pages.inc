@@ -91,7 +91,10 @@ function question_add() {
 	<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/question.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
 <script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/auto.js" type="text/javascript"></script>
-	
+	<script>
+			var mpath=\''.$gSitePath.'\';
+		
+			</script>';
 	
 	
 	
