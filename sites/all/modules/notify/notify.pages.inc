@@ -189,7 +189,7 @@ function notify_report($idb='') {
 function notify_content() {
     global $gSitePath,$user,$gDocPath,$base_root;
       $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-	if(($idb=='ynotify ')||($idb=='repcontent'))
+	if(($idb=='ynotify')||($idb=='repcontent'))
 	{
 	$query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
 	$quest = db_query($query);
