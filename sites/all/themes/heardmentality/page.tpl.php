@@ -255,7 +255,7 @@ var login_params=
                  }
 				 ?>
                  </a>.</li>
-				<li><a  href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>logout'">Sign Out</a>&nbsp;&nbsp;<a href="<?php echo $gSitePath?>notify">Notify </a></li>
+				<li><a  href="javascript:void(0)" onclick="window.location='<?php echo $gSitePath?>logout'">Sign Out</a>&nbsp;&nbsp;<a href="<?php echo $gSitePath?>mynotify">Notify </a></li>
 			</ul>
             <?php
             endif;
