@@ -9,6 +9,7 @@ function my_notify_list() {
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
 	 drupal_add_js(drupal_get_path('module', 'notify').'/scripts/script.js');
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+ echo $idb;
 $voutput ='<style>
               .black_overlay{
                   display: none;
@@ -60,7 +61,7 @@ $voutput ='<style>
 					</script>
 			
 			';
-	if(($idb=='otify')||($idb=='repcontent'))
+	if(($idb=='ynotify')||($idb=='repcontent'))
 	{
 	$query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
 	  $quest = db_query($query);
@@ -69,7 +70,7 @@ $voutput ='<style>
 	}
     else
 	{
-	$query = "SELECT qid from {question} where url='".$idb."'";
+	 $query = "SELECT qid from {question} where url='".$idb."'";
 	    $quest = db_query($query);
 	  $qid = db_result($quest); 
 	
@@ -123,7 +124,7 @@ function get_nqid($idm){
 	/* global $gSitePath,$user,$gDocPath,$base_root;
 	 $qid=$idm;
 	// echo $qid;
-	 if($qid!='otify'&&$qid!='map' && $qid!='graph'){
+	 if($qid!='ynotify'&&$qid!='map' && $qid!='graph'){
 	//echo kkkk;
 	   $query = "SELECT qid from {question} where url='".$idm."'";
 	    $quest = db_query($query);
@@ -131,7 +132,7 @@ function get_nqid($idm){
 	 
 	 }
 	 
-	 if($qid=='otify'|| $qid=='map' || $qid=='graph'){
+	 if($qid=='ynotify'|| $qid=='map' || $qid=='graph'){
 	// echo jkjjjj;
 		   $query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
 		  $quest = db_query($query);
@@ -188,7 +189,7 @@ function notify_report($idb='') {
 function notify_content() {
     global $gSitePath,$user,$gDocPath,$base_root;
       $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-	if(($idb=='otify')||($idb=='repcontent'))
+	if(($idb=='ynotify ')||($idb=='repcontent'))
 	{
 	$query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
 	$quest = db_query($query);
