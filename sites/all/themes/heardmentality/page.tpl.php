@@ -141,9 +141,16 @@ global $user;
 					  <!--Form Search  --->
 					 <?php
 			$spe=$_REQUEST['stype'];
+			
+			if(isset($_REQUEST['txt_search'])){
+				
+				$skey=$_REQUEST['txt_search'];
+			}else{
+				$skey='';
+			}
 			?>
 			 <div style="margin-left: -10px;margin-top:0px; position: absolute;top:0px; left: 420px;"> <form name="search" method="post" action="">
-    <input type="text" name="txt_search" id="txt_search" />
+    <input type="text" name="txt_search"  value="<?php echo $skey; ?>" id="txt_search" />
     
     <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
     <input type="radio" name="stype" id="stype" id="stype" value="1" <?php if($spe==1) { ?> checked="checked" <?php }?> />Question
@@ -305,7 +312,7 @@ var login_params=
 	
 	$linkuse = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 	
-	if($linkuse=='user')
+	if($linkuse=='searchuser')
 	{
 	?>
     <script type="text/javascript">
@@ -313,7 +320,7 @@ var login_params=
 	</script>
     <?php 
 	}
-	 elseif($linkuse=='question')
+	 elseif($linkuse=='searchquestion')
     {
 	?>
 	<script type="text/javascript">
