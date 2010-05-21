@@ -8,7 +8,8 @@ function suggest(inputString){
 	else {
 	
 	$('q_quest').addClass('load');
-		var urr='http://localhost/heardmentality/autosuggest?action=tag';
+	
+		var urr=mpath+'autosuggest?action=tag';
 		var req = new Request({    
 			method: 'post',
 			url: urr,
