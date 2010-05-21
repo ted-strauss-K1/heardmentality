@@ -124,8 +124,7 @@ global $user;
 		<h1 class="applicationTitle"><a href="<?php echo $gSitePath?>">Mocha UI</a></h1>
 		<!--h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2-->
 		<div id="topNav">
-         <ul class="menu-right">
-         	    <div id="google_translate_element">
+			<div align="left" id="google_translate_element">
                     </div>
                     <script>
                         function googleTranslateElementInit(){
@@ -136,6 +135,8 @@ global $user;
                     </script>
                     <script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
                     </script>
+         <ul class="menu-right">
+         	    
         	<?php 
 			global $user;    
 			if($user->uid == ''|| $user->uid == '0'):
