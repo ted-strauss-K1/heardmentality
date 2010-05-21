@@ -168,7 +168,7 @@ text-decoration:none;
 	//$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
 	}
 	$fetresult.='<li>
-	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->name.'</a>      </h3>
+	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
 	<h4>'.$user_result->mail.'</h4>		 	
 	<p>';
 	
@@ -205,10 +205,14 @@ $fetresult.= "<a href='$page_name?start=$next&code=$code&txt_search=$name'><font
 $fetresult.= "</td></tr></table>";
 
 }
+	if($sel_count==0)
+{
+$fetresult.='<b>No Search Results </b>';
+
+}
 	$fetresult.=' </div>
 	</div>
 	</div>';
-	
 	
 	if($_REQUEST['act']=='flag')
 	{
