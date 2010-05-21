@@ -124,7 +124,10 @@ global $user;
 		<h1 class="applicationTitle"><a href="<?php echo $gSitePath?>">Mocha UI</a></h1>
 		<!--h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2-->
 		<div id="topNav">
-			<div align="left" id="google_translate_element" style="margin-left:-10px;position:absolute;left:220px;">
+			
+				
+			<!-- Google Translate -->
+			<div align="left" id="google_translate_element" style="margin-left: -10px;margin-top:0px; position: absolute;top:0px; left: 220px;">
                     </div>
                     <script>
                         function googleTranslateElementInit(){
@@ -135,6 +138,20 @@ global $user;
                     </script>
                     <script src="http://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
                     </script>
+					  <!--Form Search  --->
+					 <?php
+			$spe=$_REQUEST['stype'];
+			?>
+			 <div style="margin-left: -10px;margin-top:0px; position: absolute;top:0px; left: 420px;"> <form name="search" method="post" action="">
+    <input type="text" name="txt_search" id="txt_search" />
+    
+    <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
+    <input type="radio" name="stype" id="stype" id="stype" value="1" <?php if($spe==1) { ?> checked="checked" <?php }?> />Question
+    
+    <input type="radio" name="stype" id="stype" id="stype" value="2" <?php if($spe==2) { ?> checked="checked" <?php }?> />Users
+    
+    </form>
+			</div>		
          <ul class="menu-right">
          	    
         	<?php 
@@ -268,18 +285,8 @@ var login_params=
 			
 			}
 			</script>
-            <?php
-			$spe=$_REQUEST['stype'];
-			?>
-            <form name="search" method="post" action="">
-    <input type="text" name="txt_search" id="txt_search" />
-    
-    <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
-    <input type="radio" name="stype" id="stype" id="stype" value="1" <?php if($spe==1) { ?> checked="checked" <?php }?> />Question
-    
-    <input type="radio" name="stype" id="stype" id="stype" value="2" <?php if($spe==2) { ?> checked="checked" <?php }?> />Users
-    
-    </form>
+         	
+         
     </div>
             
             <!--  <ul class="menu-right">
