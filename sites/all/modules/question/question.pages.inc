@@ -1820,7 +1820,7 @@ function checkall(val){
 	$usert=db_fetch_object($res_users);
 	$uname=$usert->name;
 	$modquest.='<tr>
-	<td><a href="../'.$qid_result->url.'">'.wordwrap($qid_result->question,"50","<br/>\n").'</a></td>
+	<td><a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">'.wordwrap($qid_result->question,"50","<br/>\n").'</a></td>
 	
 	<td>'.$uname.' </td>
 	<td>'.$blockedst.' </td>
