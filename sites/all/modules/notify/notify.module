@@ -15,7 +15,7 @@ function notify_menu() {
 
 $items['mynotify'] = array(
     'title' => ' Notification',
-    'page callback' => 'my_notify',
+    'page callback' => 'my_notify_list',
     'access arguments' => array('notify'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'notify.pages.inc',
