@@ -94,7 +94,7 @@ function question_add() {
 	<script>
 			var mpath=\''.$gSitePath.'\';
 		
-			</script>';
+			</script>
 	
 	
 	
