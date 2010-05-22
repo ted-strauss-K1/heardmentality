@@ -296,7 +296,7 @@ if($select_user_count==0)
 		
 		$contentmown=str_replace("#uname#",$ufet->name,$list_content->content);
 		$contentmown.= str_replace("#quest#",$oListquest->question,$contentmown);
-	echo  $contentmown;
+//	echo  $contentmown;
 			
 			$mail_success = htmlmail_function($ufet->email,$subject_projm,$contentmown,$from,'');
 		
