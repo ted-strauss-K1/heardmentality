@@ -235,4 +235,63 @@ function enthusiast($uid=''){
 	
 	
 }
+function yearling()
+{
+$datefunction="";
+
+$selusers="SELECT *FROM users where status='1'";
+$listmuser = db_query($selusers);
+while($userlist = db_fetch_object($listmuser))
+{
+
+$dtint= date("Y-m-d",$userlist->created);
+ 
+ 
+ 
+ for ( $counter = 1; $counter <= 10; $counter ++) {
+	
+	
+	
+	
+	
+	
+	$twlnk="12";
+	$intvl=$twlnk*$counter;
+	echo $intvl;
+	//echo $counter;
+/*$mysqlqry="SELECT DATE_ADD('$dtint', INTERVAL $counter MONTH) as dateint";
+$listqry=db_query($mysqlqry);
+$mlist = db_fetch_object($listqry);*/
+//echo $mlist->dateint;
+
+
+
+}
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+}
+
+
+}
+
+
+
+function convert_datetime($str) 
+{
+
+
+
+return $timestamp;
+}
+
+
+
+
+
 
