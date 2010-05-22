@@ -215,7 +215,24 @@ function electorate($uid='',$qid=''){
 
 function enlighten($uid=''){
 	
-
+global $gSitePath,$user,$gDocPath,$base_root;
+	 if ( empty($uid)) {
+        $uid = $user->uid;
+    }
 	
 	
 }
+
+
+function enthusiast($uid=''){
+	
+	global $gSitePath,$user,$gDocPath,$base_root;
+	 if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+	
+	
+	
+	
+}
+
