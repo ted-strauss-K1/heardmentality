@@ -257,12 +257,17 @@ $dtint= date("Y-m-d",$userlist->created);
 	
 	$twlnk="12";
 	$intvl=$twlnk*$counter;
-	echo $intvl;
+	$badge=$counter*1;
+	echo $intvl."      ".$badge;
+	echo "<br>";
 	//echo $counter;
+	
 /*$mysqlqry="SELECT DATE_ADD('$dtint', INTERVAL $counter MONTH) as dateint";
 $listqry=db_query($mysqlqry);
 $mlist = db_fetch_object($listqry);*/
 //echo $mlist->dateint;
+
+
 
 
 
