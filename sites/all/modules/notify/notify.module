@@ -14,7 +14,7 @@ function notify_perm() {
 function notify_menu() {	
 
 $items['mynotify'] = array(
-    'title' => ' Notification',
+    'title' => 'Notification',
     'page callback' => 'my_notify_list',
     'access arguments' => array('notify'),
     'type' => MENU_SUGGESTED_ITEM,
@@ -50,7 +50,7 @@ $items['mynotify'] = array(
     'file' => 'notify.pages.inc',
   );
   
-    $items['admin/notify/change'] = array(
+    $items['admin/notify/changes'] = array(
     'title' => 'Change Notification Mail',
     'page callback' => 'admin_notify',
 	   'type' => MENU_SUGGESTED_ITEM,
