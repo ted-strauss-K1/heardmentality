@@ -718,6 +718,13 @@ function qlite_save() {
     
     if ($_REQUEST['txt_act'] == 1) {
         
+		
+		    $rlist = db_query("select * from possible_answer_vote where qid='".$mid."' and uid='".$user->uid."'");
+    $ins = db_fetch_object($rlist);
+		
+		 $query="insert into {answer_withdraw} set uid='$user->uid',ans_type='',pid_sid='".$ins->vote_pid."',qid='$mid',ans_id='".$ins->panswer_id."',voted_date='".$ins->vote_pdate."'";
+		db_query($query);
+		
         $delQuery = "delete from  possible_answer_vote where qid='".$mid."' and uid='".$user->uid."' ";
         db_query($delQuery);
         
