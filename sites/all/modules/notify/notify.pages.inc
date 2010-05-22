@@ -9,7 +9,7 @@ function my_notify_list() {
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
 	 drupal_add_js(drupal_get_path('module', 'notify').'/scripts/script.js');
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
- echo $idb;
+// echo $idb;
 $voutput ='<style>
               .black_overlay{
                   display: none;
