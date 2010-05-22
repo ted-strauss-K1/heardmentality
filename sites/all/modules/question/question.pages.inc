@@ -469,7 +469,7 @@ function get_tagging_edit($midr) {
        // $exp = explode(",", $tag);
 
         
-          echo  $selmlist="select * from qtag as a, tagging as b where a.qid='$midr' and a.tag_id=b.tid ";
+           $selmlist="select * from qtag as a, tagging as b where a.qid='$midr' and a.tag_id=b.tid ";
 	 $mysqlfet=db_query($selmlist);
 	 while($rewdisp=db_fetch_object($mysqlfet))
          {   
