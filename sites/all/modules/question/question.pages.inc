@@ -1824,7 +1824,7 @@ function checkall(val){
 	
 	<td>'.$uname.' </td>
 	<td>'.$blockedst.' </td>
-	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'"> Delete </a>/<a href="'.$gSitePath.'admin/view/question/'.$qid_result->qid.'"> View </a>  </td>
+	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a      onclick="loaddupe(\''.$gSitePath.'admin/dupe/questions/'.$qid_result->qid.'\',\'Dupe  Questions \'); ">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'"> Delete </a>/<a href="'.$gSitePath.'admin/view/question/'.$qid_result->qid.'"> View </a>  </td>
 	</tr>';
 	
 	
@@ -2776,15 +2776,88 @@ return true;
                 $taglist = array();
                 $items = array();
 				$urld = array();
-                  $query = "SELECT * FROM question WHERE question LIKE ('$q%') or question LIKE ('%$q%') or  context LIKE ('%$q%') and status='1' LIMIT 0 , 15 ";
-                $result = ExecuteQuery($query, "select");
-                $vResult = db_query($query);
+                //  $query = "SELECT * FROM question WHERE question LIKE ('$q%') or question LIKE ('%$q%') or  context LIKE ('%$q%') and status='1' LIMIT 0 , 15 ";
+				  
+		  $query = "SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$q%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$q%' USING latin1 )
+COLLATE latin1_swedish_ci and status='1'";
+				  
+				  $myql_qry=mysql_query($query);
+				  
+				  while($mylist=mysql_fetch_array($myql_qry))
+				  {
+				    $list .= '<a onclick=fill("'.$mylist['url'].'")>'.$mylist['question'].'</a><br>';
+				  }
+            /*    $result = ExecuteQuery($query, "select");
+              //  $vResult = db_query($query);
               
 				  $list = "<ul>";
                 foreach ($result as $single) {
                     array_push($taglist, $single['question']);
 					
 					  $list .= '<a onclick=fill("'.$single['url'].'")>'.$single['question'].'</a><br>';
+					array_push($urld, $single['url']);
+                }
+                */
+                echo $list .= "</ul>";
+             /* $taglist = array_filter($taglist);
+                
+                $taglist = array_unique($taglist);
+                $taglist = implode(',', $taglist);
+                $taglist = explode(',', $taglist);
+                $taglist = array_filter($taglist);
+                $items = array_unique($taglist);
+                $urlds = array_unique($urld);
+                //print_r($items);
+                $list = "<ul>";
+                if (! empty($items)) {
+                    //print_r($items);
+                    foreach ($urlds as $value) {
+                        //     if (strpos(strtolower($value), $q) !== false) {
+                        $list .= '<a onclick=fill("'.$value.'")>'.$value.'</a><br>';
+                        //  }
+                    }
+                
+                } else {
+                    
+                   // $list .= '<li>No Result</li>';
+                }
+                echo $list .= "</ul>";*/
+                
+              
+              
+    
+    }
+	
+	function dupe_question() {
+      global $gSitePath,$user,$gDocPath,$base_root;
+   $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+              
+                $query = db_query("select * from question  where qid='$qaid'  ");
+				$detquest = db_fetch_object($query);
+				  $q = rtrim($detquest->question);
+                if (!$q)
+                    return;
+                $taglist = array();
+                $items = array();
+				$urld = array();
+			$words = explode(" ",$q);
+			for($i=0;$i<count($words);$i++){$query_string .= " '%".$words[$i]."%'  ";}
+			$query_string = substr($query_string,0,strlen($query_string)-4);
+		/*	echo $query = "SELECT * FROM question WHERE question LIKE ".$query_string." ";*/
+			
+			
+			echo  $query = "SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$q%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$q%' USING latin1 )
+COLLATE latin1_swedish_ci and status='0'";
+                $result =mysql_query($query);
+              
+              
+				  $list = "<ul>";
+                while ($single=mysql_fetch_array($result)) {
+				
+                    array_push($taglist, $single['question']);
+					
+					  $list .= '<a onclick=fill("'.$single['url'].'")>'.$single['question'].'</a><br>';
+					 
 					array_push($urld, $single['url']);
                 }
                 
@@ -2817,3 +2890,16 @@ return true;
               
     
     }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
