@@ -2846,7 +2846,11 @@ COLLATE latin1_swedish_ci and status='1'";
 			for($i=0;$i<count($words);$i++){
 			$samples= " ".$words[$i]."  ";
 			//echo $samples;
-			 $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+			// $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+			 
+			 
+			 $query = " SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 )
+COLLATE latin1_swedish_ci and status='0'";
 			 $myql_qry=db_query($query);
 			while($mylist=db_fetch_array($myql_qry))
 			{
