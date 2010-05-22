@@ -2834,59 +2834,51 @@ COLLATE latin1_swedish_ci and status='1'";
               
                 $query = db_query("select * from question  where qid='$qaid'  ");
 				$detquest = db_fetch_object($query);
-				  $q = rtrim($detquest->question);
+				  $q = $detquest->question;
+				  
+				  echo 'Dupe Search For '.$q.'<br/>';
                 if (!$q)
                     return;
                 $taglist = array();
-                $items = array();
-				$urld = array();
+                $urlm = array();
+				$questionlm = array();
 			$words = explode(" ",$q);
-			for($i=0;$i<count($words);$i++){$query_string .= " '%".$words[$i]."%'  ";}
-			$query_string = substr($query_string,0,strlen($query_string)-4);
-		/*	echo $query = "SELECT * FROM question WHERE question LIKE ".$query_string." ";*/
+			for($i=0;$i<count($words);$i++){
+			$samples= " ".$words[$i]."  ";
+			//echo $samples;
+			 $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+			 $myql_qry=db_query($query);
+			while($mylist=db_fetch_array($myql_qry))
+			{
+			if($qaid!=$mylist['qid'])
+			{
+			array_push($questionlm, $mylist['qid']);
+			}
+			array_push($urlm, $mylist['url']);
+			}
+
+			}
 			
-			
-			echo  $query = "SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$q%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$q%' USING latin1 )
-COLLATE latin1_swedish_ci and status='0'";
-                $result =mysql_query($query);
-              
-              
-				  $list = "<ul>";
-                while ($single=mysql_fetch_array($result)) {
-				
-                    array_push($taglist, $single['question']);
-					
-					  $list .= '<a onclick=fill("'.$single['url'].'")>'.$single['question'].'</a><br>';
-					 
-					array_push($urld, $single['url']);
-                }
-                
-                echo $list .= "</ul>";
-             /* $taglist = array_filter($taglist);
-                
-                $taglist = array_unique($taglist);
-                $taglist = implode(',', $taglist);
-                $taglist = explode(',', $taglist);
-                $taglist = array_filter($taglist);
-                $items = array_unique($taglist);
-                $urlds = array_unique($urld);
-                //print_r($items);
-                $list = "<ul>";
-                if (! empty($items)) {
-                    //print_r($items);
-                    foreach ($urlds as $value) {
-                        //     if (strpos(strtolower($value), $q) !== false) {
-                        $list .= '<a onclick=fill("'.$value.'")>'.$value.'</a><br>';
-                        //  }
-                    }
-                
-                } else {
-                    
-                   // $list .= '<li>No Result</li>';
-                }
-                echo $list .= "</ul>";*/
-                
-              
+		 $urldsi = array_unique($questionlm);
+		 
+		// echo count($urldsi);
+		if(count($urldsi)!=0)
+		{
+		foreach ($urldsi as $value) {
+		
+		
+		$querysquest = db_query("select * from question  where qid='$value'  ");
+		$detquestqes = db_fetch_object($querysquest);
+		$mlist = $detquestqes->question;
+		echo '<a href="'.$detquestqes->url.'">'.$mlist.'</a><br>';
+		}
+        }
+		else
+		{
+		
+		echo "<b>No Dupe Questions</b>";
+		
+		}   
               
     
     }
