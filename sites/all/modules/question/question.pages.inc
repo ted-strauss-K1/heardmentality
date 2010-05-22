@@ -2697,7 +2697,7 @@ function question_edited_mail($qaid) {
         $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
         $det = db_fetch_object($query);
         
-      echo  $to = $det->mail;
+        $to = $det->mail;
          $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
         if(!empty($to)){
         	
@@ -2723,7 +2723,7 @@ function question_edited_mail_voters($qaid) {
 	$sellist="select * from users where uid='".$det->uid."'";
 	$res_users=db_query($sellist);
 	$usert=db_fetch_object($res_users);
-	echo  $to = $usert->mail;
+	  $to = $usert->mail;
          $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
 		 
 		 
@@ -2753,7 +2753,7 @@ function question_edited_mail_suggest($qaid) {
 	$sellist="select * from users where uid='".$det->uid."'";
 	$res_users=db_query($sellist);
 	$usert=db_fetch_object($res_users);
-	echo $to = $usert->mail;
+	 $to = $usert->mail;
          $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
 		 
 		 
