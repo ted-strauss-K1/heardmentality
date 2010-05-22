@@ -29,76 +29,10 @@ function badges_list() {
     
     }
     
-    biographer();
-    citizen_patrol();
+   // biographer();
+   // citizen_patrol();
+	cleanup();
     return $strReturn;
 
 }
 
-// fill profile get the biographer badge
-function biographer($uid = '') {
-    global $gSitePath,$user,$gDocPath,$base_root;
-    $i = 0;
-    
-    if ( empty($uid)) {
-        $uid = $user->uid;
-    }
-
-    
-    $data = db_fetch_object(db_query('SELECT * FROM {user_profile} WHERE uid=%d LIMIT 1', $uid));
-    //print_r($data);
-    if (! empty($data->real_name))
-        $i++;
-    
-    if (! empty($data->bio))
-        $i++;
-    
-    if ($data->gender > 0)
-        $i++;
-    
-    if (! empty($data->zip))
-        $i++;
-    
-    if (! empty($data->country))
-        $i++;
-    
-    if (! empty($data->religion))
-        $i++;
-    
-    if (! empty($data->ethnic))
-        $i++;
-    
-    if (! empty($data->slant))
-        $i++;
-    
-    if (! empty($data->facebook))
-        $i++;
-    
-    if (! empty($data->twitter))
-        $i++;
-    
-    if (! empty($data->dob))
-        $i++;
-    
-    if ($i == 11) {
-        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 1, $uid);
-    }
-}
-
-
-function citizen_patrol($uid = '') {
-    global $gSitePath,$user,$gDocPath,$base_root;
-
-    
-    if ( empty($uid)) {
-        $uid = $user->uid;
-    }
-    
-    $count = db_result(db_query('SELECT COUNT(uid) FROM {question_flags} where uid=$uid'));
-    
-    if ($count == 1) {
-        
-        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 2, $uid);
-    }
-
-}

@@ -25,3 +25,197 @@ function badges_menu() {
 }
 
 
+// fill profile get the biographer badge
+function biographer($uid = '') {
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $i = 0;
+    
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+
+    
+    $data = db_fetch_object(db_query('SELECT * FROM {user_profile} WHERE uid=%d LIMIT 1', $uid));
+    //print_r($data);
+    if (! empty($data->real_name))
+        $i++;
+    
+    if (! empty($data->bio))
+        $i++;
+    
+    if ($data->gender > 0)
+        $i++;
+    
+    if (! empty($data->zip))
+        $i++;
+    
+    if (! empty($data->country))
+        $i++;
+    
+    if (! empty($data->religion))
+        $i++;
+    
+    if (! empty($data->ethnic))
+        $i++;
+    
+    if (! empty($data->slant))
+        $i++;
+    
+    if (! empty($data->facebook))
+        $i++;
+    
+    if (! empty($data->twitter))
+        $i++;
+    
+    if (! empty($data->dob))
+        $i++;
+    
+    if ($i == 11) {
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 1, $uid);
+    }
+}
+
+
+function citizen_patrol($uid = '') {
+    global $gSitePath,$user,$gDocPath,$base_root;
+
+    
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+    
+    $count = db_result(db_query('SELECT COUNT(uid) FROM {question_flags} where uid=$uid'));
+    
+    if ($count == 1) {
+        
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 2, $uid);
+    }
+
+}
+
+function civic_duty($uid=''){
+	  global $gSitePath,$user,$gDocPath,$base_root;
+	
+	
+	 if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+    
+    $count1 = db_result(db_query('SELECT COUNT(uid) FROM {possible_answer_vote} where uid=$uid'));
+	    $count2 = db_result(db_query('SELECT COUNT(uid) FROM {suggested_answer_vote} where uid=$uid'));
+    $count=$count1+$count2;
+	
+    if ($count >= 300) {
+        
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",3, $uid);
+    }
+
+	
+	
+}
+
+function cleanup($uid=''){
+	
+	 global $gSitePath,$user,$gDocPath,$base_root;
+	
+	
+	 if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+ 
+    $count = db_fetch_object(db_query("SELECT * FROM {answer_withdraw} where uid='$uid' AND status='0' LIMIT 0,1"));
+	   
+  
+    if (!empty($count)) {
+    	
+        db_query("update {answer_withdraw} set status='1' where uid='$uid' AND pid_sid='$count->pid_sid' ");
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",4, $uid);
+    }
+	
+	
+	
+}
+
+function commentator($uid=''){
+	
+	
+	 global $gSitePath,$user,$gDocPath,$base_root;
+	
+	
+	 if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+    
+    $count1 = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
+	   
+   
+	
+    if ($count >= 10) {
+        
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",5, $uid);
+    }
+	
+	
+}
+
+function critic($uid=''){
+	
+	
+	
+	
+	
+	
+}
+function discipline($uid='',$qid=''){
+	
+	
+	global $gSitePath,$user,$gDocPath,$base_root;
+	
+	
+	 if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+  
+    $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where qid='$qid'"));
+	   
+   
+	
+    if ($count >= 3) {
+        
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",7, $uid);
+    }
+	
+	
+	
+}
+
+function first_edit($uid='',$qid=''){
+	
+	global $gSitePath,$user,$gDocPath,$base_root;
+	 if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+}
+
+function electorate($uid='',$qid=''){
+	
+	global $gSitePath,$user,$gDocPath,$base_root;
+	 if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+	
+	
+	  $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where qid='$qid'"));
+	
+	  if ($count >= 10) {
+        
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",9, $uid);
+    }
+}
+
+function enlighten($uid=''){
+	
+
+	
+	
+}
