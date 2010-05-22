@@ -1754,7 +1754,7 @@ if(isset($_REQUEST['Inactive'])){
 	
 	
 	
-$page_name="moderatequestion"; 
+$page_name="list"; 
 if(isset($_GET['start'])){
 	$start=$_GET['start'];
 	
