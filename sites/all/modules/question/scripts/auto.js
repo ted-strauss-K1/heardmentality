@@ -33,7 +33,7 @@ function suggest(inputString){
 			
 			 <!-- $('q_quest').set('value',thisValue);
         //setTimeout("$('suggestions').fade('out')", 600);-->
-		window.top.location.href="http://localhost/heardmentality/"+thisValue;
+		window.top.location.href=mpath+thisValue;
       
     }
 
