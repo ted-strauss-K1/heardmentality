@@ -2279,13 +2279,14 @@ function insertviews()
 	
 	$ulid=0;
 	 $ipid=$_SERVER['REMOTE_ADDR'];
+	 echo "SELECT COUNT(*) FROM {qviews} where ip='".$_SERVER['SERVER_ADDR']."'  and qid='$qid' and view_date='".date("Y-m-d")."'";
 	$countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where ip='".$_SERVER['SERVER_ADDR']."'  and qid='$qid' and view_date='".date("Y-m-d")."'"));
 
 	}
 	// $countret;
 	if($countret==0)
 	{
-	db_query("INSERT INTO {qviews} (ip, uid,qid,view_date) VALUES ('$ipid',$ulid,$qid,'".date("Y-m-d")."')");
+	db_query("INSERT INTO {qviews} (ip,uid,qid,view_date) VALUES ('$ipid',$ulid,$qid,'".date("Y-m-d")."')");
 	}
 
 }	
