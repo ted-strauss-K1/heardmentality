@@ -2285,7 +2285,7 @@ function insertviews()
 	// $countret;
 	if($countret==0)
 	{
-	db_query("INSERT INTO {qviews} (ip, uid,qid) VALUES (%d, %d,%d)",$ipid, $ulid,$qid);
+	db_query("INSERT INTO {qviews} (ip, uid,qid) VALUES ($ipid, $ulid,$qid)");
 	}
 
 }	
