@@ -1,8 +1,11 @@
 <?php
 function qlite_view() {
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 //echo $_SERVER['QUERY_STRING'];
 $lji=explode("=",$_SERVER['QUERY_STRING']);
-
+/////////////qviews /////////////////////////
+insertviews();
+//////////////////////////////
  if (isset($_REQUEST['lid'])) 
  {
  $select_user_count = db_result(db_query("SELECT COUNT(*) from invite_friend where inv_id='".$_REQUEST['lid']."' and  status='1' "));
@@ -14,7 +17,7 @@ if($select_user_count==0)
  }
  }
 //echo $lji[0];
-    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+   
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
@@ -2259,4 +2262,32 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     
     }
     
+function insertviews()
+{
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+ $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+ 
+	if($user->uid!='')
+	{
+	$ulid=$user->uid;
+	$ipid='';
+	$countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='$qid' and view_date='".date("Y-m-d")."' "));
+
+	}
+	else
+	{
+	
+	$ulid='';
+	echo $ipid=$_SERVER['REMOTE_ADDR'];
+	$countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where ip='".$_SERVER['SERVER_ADDR']."'  and qid='$qid' and view_date='".date("Y-m-d")."'"));
+
+	}
+	echo $countret;
+db_query("INSERT INTO {qviews} (ip, uid,qid) VALUES (%d, %d,%d)",$ipid, $ulid,$qid);
+
+}	
+	
+	
+	
+	
 ?>
