@@ -2277,7 +2277,7 @@ function insertviews()
 	else
 	{
 	
-	$ulid='';
+	$ulid=0;
 	 $ipid=$_SERVER['REMOTE_ADDR'];
 	$countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where ip='".$_SERVER['SERVER_ADDR']."'  and qid='$qid' and view_date='".date("Y-m-d")."'"));
 
@@ -2285,7 +2285,7 @@ function insertviews()
 	// $countret;
 	if($countret==0)
 	{
-	db_query("INSERT INTO {qviews} (ip, uid,qid) VALUES ($ipid, $ulid,$qid)");
+	db_query("INSERT INTO {qviews} (ip, uid,qid) VALUES ($ipid,$ulid,$qid)");
 	}
 
 }	
