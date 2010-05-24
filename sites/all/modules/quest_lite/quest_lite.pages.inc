@@ -2270,7 +2270,7 @@ function insertviews()
 	if($user->uid!='')
 	{
 	$ulid=$user->uid;
-	$ipid='';
+	$ipid=$_SERVER['REMOTE_ADDR'];
 	$countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='$qid' and view_date='".date("Y-m-d")."' "));
 
 	}
@@ -2278,11 +2278,11 @@ function insertviews()
 	{
 	
 	$ulid='';
-	echo $ipid=$_SERVER['REMOTE_ADDR'];
+	 $ipid=$_SERVER['REMOTE_ADDR'];
 	$countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where ip='".$_SERVER['SERVER_ADDR']."'  and qid='$qid' and view_date='".date("Y-m-d")."'"));
 
 	}
-	echo $countret;
+	 $countret;
 db_query("INSERT INTO {qviews} (ip, uid,qid) VALUES (%d, %d,%d)",$ipid, $ulid,$qid);
 
 }	
