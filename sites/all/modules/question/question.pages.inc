@@ -1879,8 +1879,8 @@ $del_sansw=db_query("Delete  FROM {suggest_answer} where qid='".$_REQUEST['del']
 question_deleted_mail($_REQUEST['del']);
 question_deleted_mail_voters($_REQUEST['del']);
 question_deleted_mail_suggest($_REQUEST['del']);
-	echo '<div class="success">Deleted   successfully!</div>';
-drupal_goto('admin/moderatequestion');
+	
+drupal_goto('admin/question/list');
 }
 
 return $modquest;
