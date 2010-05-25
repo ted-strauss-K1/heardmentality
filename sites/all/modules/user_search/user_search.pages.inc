@@ -987,7 +987,8 @@ while($following_list=db_fetch_object($rs_foll_list))
 	
 	 $numfoll= db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='".$getuid."'   "));
 	
-	
+	if($numfoll!=0)
+	{
 	while($follower_resultfuser=db_fetch_object($rs_followerf))
 	{
 	
@@ -1004,7 +1005,11 @@ while($following_list=db_fetch_object($rs_foll_list))
 	
 	
 	}
-	
+	}			
+	else
+	{			
+	$ret.='No Records';
+	}
 	
 	if($_REQUEST=='')
 	{	
