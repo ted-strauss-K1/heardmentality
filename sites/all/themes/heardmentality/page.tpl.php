@@ -115,6 +115,7 @@
 global $user;
 //echo strtotime('1270549824');
 //echo $user->uid;
+//echo base64_encode('admin')
 ?>
 <div id="desktop">
 
@@ -205,11 +206,15 @@ var login_params=
 
 
 <!-- socialize.js script should only be included once -->
+
+
 <script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j"></script>
 <script type="text/javascript">
 var conf=
 {
-	APIKey: '2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j'
+	//APIKey: '2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j'
+	
+	APIKey: '2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8'
 }
 </script>
 
@@ -582,7 +587,20 @@ window.addEvent('domready', function(){
 	}
 	
 	
-	
+	MochaUI.dupeWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 500,
+		
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF'
+		});
+	}
 	
 	MochaUI.loginWindow = function(url,title){
 			new MochaUI.Window({
@@ -782,7 +800,13 @@ MochaUI.loginWindow(url,title);
 
 	
 }
+function loaddupe(url,title)
+{
+MochaUI.closeAll();
+MochaUI.dupeWindow(url,title);
 
+	
+}
 	</script>
     
     <?php
