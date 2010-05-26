@@ -385,18 +385,20 @@ echo $showops;
 function openid_login_save()
 {
 global $gSitePath,$user,$gDocPath,$base_root;
-//$formret=print_r($_GET);
-//echo $_COOKIE['friend_id'];
+//print_r($_GET);
+  extract($_REQUEST);
 
-//echo $sessname;
-
-
-
+	
 if($_GET['gender']=='m')
-$gender='1';
+$genderl='1';
 else
-$gender='2';
-$pass=$_GET['UID'];
+$genderl='2';
+if ($gender == 'm') {
+$check1 = "checked='checked'";
+} elseif ($gender == 'f') {
+$check2 = "checked='checked'";
+
+}
 $dob=$_GET['birthDay']."/".$_GET['birthMonth']."/".$_GET['birthYear'];
 if($_GET['provider']=='facebook')
 {
@@ -414,21 +416,30 @@ else
 
 $prolink='';
 $prolink2='';
-}
-//echo "SELECT COUNT(*) from users where name='".$_GET['UID']."' and provider='".$_GET['provider']."'";
-
-$uname=substr($_GET['provider'].$_GET['UID'],0,25);
-$select_user_count = db_result(db_query("SELECT COUNT(*) from users where name='".$uname."' and provider='".$_GET['provider']."'"));
-
-if($select_user_count==0)
+}	
+	
+	
+	
+	
+	//echo $gender;
+	
+	$select_user_count = db_result(db_query("SELECT COUNT(*) from users where Identity='".$UID."' and provider='".$provider."'"));
+	$select_user_name = db_result(db_query("SELECT COUNT(*) from users where name='".$uname."' "));
+	if($select_user_count==0)
 {
-	 $insert="insert into users (name,pass,mail,provider,created,access,login,status)values('".$uname."','".md5($pass)."','".$_GET['email']."','".$_GET['provider']."','".time()."','".time()."','".time()."','1') ";
+	if($saveForm!='')
+	{
+	
+	
+	if($select_user_name==0)
+	{
+	$insert="insert into users (name,pass,mail,provider,created,access,login,status,Identity,hidden_pass)values('".$uname."','".md5($pass1)."','".$email."','".$provider."','".time()."','".time()."','".time()."','1','".$UID."','".$pass1."') ";
 	$insersult=db_query($insert);
-	 $lid=mysql_insert_id();
-	 if($_COOKIE['friend_id']!='0')
-	 {
-   $selectuserm= db_query("select * from  invite_friend  where inv_id='".$_COOKIE['friend_id']."'");
-    $userlistmr = db_fetch_object($selectuserm);
+	$lid=mysql_insert_id();
+	if($_COOKIE['friend_id']!='0')
+	{
+	$selectuserm= db_query("select * from  invite_friend  where inv_id='".$_COOKIE['friend_id']."'");
+	$userlistmr = db_fetch_object($selectuserm);
 	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$userlistmr->uid."','1','".date('Y-m-d')."') ";
 	$rs_commg=db_query($ins_commg);
 	$select_user_count = db_query("update  invite_friend set status='1' where inv_id='".$_COOKIE['friend_id']."'");
@@ -452,7 +463,7 @@ if($select_user_count==0)
 	if($user_namelistfs->notify_etype==1)
 	{
 	$subject='You Got new Follower in Heardmenatlity ';
-		
+	
 	
 	
 	
@@ -476,25 +487,141 @@ if($select_user_count==0)
 			$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
 	}
 	}
-	if($_GET['email']=='')
-	{
-	$lnk=$lid.'@heardmentality.com';
-	 $updates="update users set mail='$lnk' where uid=$lid";
-	$up=db_query($updates);
-	}
-	$insert_profile="insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$_GET['firstName']."' ,'".$_GET['lastName']."' ,'".$gender."','".$_GET['zip']."','".$_GET['country']."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
+	
+	$insert_profile="insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$firstName."' ,'".$lastName."' ,'".$genderl."','".$zip."','".$country."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
 	
 	$insersult=db_query($insert_profile);
+	$select_fet = db_query("SELECT * from users where Identity='".$UID."' and provider='".$provider."'");
+	$prouser=db_fetch_object($select_fet);
+	//echo $prouser->name;
+	$formret='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
+			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value="'.$prouser->name.'" class="form-text required"/>
+			<input type="password" name="pass" id="edit-pass" value="'.$prouser->hidden_pass.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
+			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
+			
+			</form>
+			<script language="JavaScript" type="text/javascript">
+			
+			document.getElementById(\'user-login\').submit();
+			
+			
+			</script>
+			';
+	}
+	else
+	{
+	$emsg='User Name Already Exist';
+	}
+	
 	
 	}
-	//echo $pass;
-	//echo md5($pass);
 	
-	//echo $uname;
-	//echo $pass;
+$formret.='<script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
+		<link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/log.css" /><div id="container">
+   <form name="reg" id="reg"    method="post" enctype="multipart/form-data">
+    <div class="info">
+    <h2> Registration</h2>
+	 <input type="text" class="hidden_box1" readonly="true" border="0" width="1" size="1" name="errbox" id="errbox"><div id="err_div" class="warningMessage">'.$emsg.'</div>
+    </div>
+    <ul>
+    <li id="foli0" class="name">
+    <label class="desc" id="title0" for="Field0">
+    Name
+    <span id="req_0" class="req">*</span>
+    </label>
+    <span>
+    <input id="uname" name="uname" class="field text" value="" size="10" tabindex="1" type="text">
+    <label for="Field0">User Name</label>
+    </span>
+   
+    
+    </li>
+	
+	 <li id="foli0" class="firstName">
+    <label class="desc" id="title0" for="Field0">
+   First Name
+  
+    </label>
+   
+    <span>
+    <input id="firstName" name="firstName" class="field text" value="'.$firstName.'" size="8" tabindex="2" type="text">
+   
+    </span>
+    
+    </li>
+	 <li id="foli0" class="lastName">
+    <label class="desc" id="title0" for="Field0">
+   Last Name
+  
+    </label>
+   
+    <span>
+    <input id="lastName" name="lastName" class="field text" value="'.$lastName.'" size="12" tabindex="3" type="text">
+   
+    </span>
+    
+    </li>
+	
+    <li id="foli11" class="">
+    <label class="desc" id="title11" for="Field11">
+    Password
+    <span id="req_11" class="req">*</span>
+    </label>
+    <div>
+    <input id="pass1" name="pass1" class="field text medium" value="" maxlength="255" tabindex="11" type="password"> 
+    </div>
+	<label class="desc" id="title11" for="Field11">
+   Confirm Password
+    <span id="req_11" class="req">*</span>
+    </label>
+    <div>
+    <input id="pass2" name="pass2" class="field text medium" value="" maxlength="255" tabindex="11" type="password"> 
+    </div>
+    <label class="desc" id="title11" for="Field11">
+    Email
+    <span id="req_11" class="req">*</span>
+    </label>
+    <div>
+    <input id="email" name="email" class="field text medium" value="'.$email.'" maxlength="255" tabindex="11" type="text"> 
+    </div>
+	</li>
+    <li id="foli14" class="">
+    <label class="desc" id="title14" for="Field14">
+   Real Name
+    </label>
+    <div>
+    <input id="nickname" name="nickname" class="field text medium" value="'.$nickname.'" maxlength="255" tabindex="11" type="text"> 
+    </div>
+    </li>
+   
+	 <li id="foli14" class="">
+    <label class="desc" id="title14" for="Field14">
+  Gender
+    </label>
+    <div>
+    <label class="option" for="edit-gender-0"><input id="edit-gender-0" name="gender" value="m" class="form-radio" '.$check1.' type="radio"> Male</label>
+	<label class="option" for="edit-gender-1"><input id="edit-gender-1" name="gender" value="f" class="form-radio" '.$check2.' type="radio"> Female</label>
+    </div>
+    </li>
+    <li class="buttons">
+    <input id="saveForm" name="saveForm" class="btTxt submit" value="Submit" type="submit" onclick="return validate_reg();">
+	
+    </li>
+    </ul>
+    </form>
+    </div>
+';	
+
+	}
+	else
+	{
+	$select_fet = db_query("SELECT * from users where Identity='".$UID."' and provider='".$provider."'");
+	$prouser=db_fetch_object($select_fet);
+	//echo $prouser->name;
+	//echo md5('veni');
 	$formret.='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
-			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$uname.' class="form-text required"/>
-			<input type="password" name="pass" id="edit-pass" value='.$pass.'  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
+			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$prouser->name.' class="form-text required"/>
+			<input type="password" name="pass" id="edit-pass" value="'.$prouser->hidden_pass.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
 			
 			</form>
@@ -506,9 +633,7 @@ if($select_user_count==0)
 			</script>
 			';
 	
-	
-	
-	
+	}
 	
 	
 	
@@ -519,38 +644,22 @@ return $formret;
 function openid_login3()
 {
  global $gSitePath,$user,$gDocPath,$base_root;
-$ouptii='  <link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" /><link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/openid.css" />
-<script type="text/javascript" src="'.$gSitePath.'sites/all/modules/openids/js/openid-jquery.js"></script>
-	<script type="text/javascript">
-	jQuery(document).ready(function() {
-	    openid.init(\'openid_identifier\');
-	});
-	</script><form name="openid_form" id="openid_form" action="'.$gSitePath.'openids/save" method="get" autocomplete="off">
-		<label>
-			OpenID URL: <input type="text" name="openid_identifier" id="openid_identifier" maxlength="320" />
-		</label>
-		
-		<input type="hidden" name="process" value="1" />
-
-      
-         
-            <input type="hidden" name="action" value="verify" />
-
-            <div id="openid_choice">
-                <p>Please click your account provider:</p>
-                <div id="openid_btns">
-            </div>
-            </div>
-            <div id="openid_input_area">
-                <input id="openid_identifier" name="openid_identifier" type="text" value="http://" />
-                <input id="openid_submit" type="submit" value="Sign-In"/>
-            </div>
-           
-        
-        
-          
-        
-	</form>';
+$select_fet = db_query("SELECT * from users order by uid desc limit 0,1");
+	$prouser=db_fetch_object($select_fet);
+	
+	$ouptii='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
+			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$prouser->name.' class="form-text required"/>
+			<input type="password" name="pass" id="edit-pass" value="'.$prouser->hidden_pass.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
+			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
+			
+			</form>
+			<script language="JavaScript" type="text/javascript">
+			
+			document.getElementById(\'user-login\').submit();
+			
+			
+			</script>
+			';
 return $ouptii;
 
 }
