@@ -237,62 +237,168 @@ function enthusiast($uid=''){
 }
 function yearling()
 {
-$datefunction="";
 
-$selusers="SELECT *FROM users where status='1'";
+
+$selusers="SELECT * FROM users as a ,user_profile as b   where a.status='1' and a.uid=b.uid";
 $listmuser = db_query($selusers);
 while($userlist = db_fetch_object($listmuser))
 {
+//echo "<br>";
+//echo $userlist->points;
+//echo "<br>";
 
-$dtint= date("Y-m-d",$userlist->created);
+$dtint= date("Y-m-d h:i:s",$userlist->created);
  
- 
- 
- for ( $counter = 1; $counter <= 10; $counter ++) {
-	
-	
-	
-	
-	
-	
-	$twlnk="12";
-	$intvl=$twlnk*$counter;
-	$badge=$counter*1;
-	echo $intvl."      ".$badge;
-	echo "<br>";
-	//echo $counter;
-	
-/*$mysqlqry="SELECT DATE_ADD('$dtint', INTERVAL $counter MONTH) as dateint";
-$listqry=db_query($mysqlqry);
-$mlist = db_fetch_object($listqry);*/
-//echo $mlist->dateint;
+ $date1 = $dtint;
+$date2 = date("Y-m-d h:i:s");
+
+$diff = abs(strtotime($date2) - strtotime($date1));
+$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+//echo "<br>";
+//echo $months;
+$b="12";
+
+/////////////////check for month////////////////////////////////
+if($months>=12)
+{
+$mval=$months % $b;
+//echo $mval;
 
 
+/////////////////check for Points////////////////////////////////
+ $count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid'"));
 
-
+ if($count>0)
+ {
+$cnt=$count+1;
+$rep=$cnt*200;
 
 }
- 
- 
- 
- 
- 
- 
- 
-
+else
+{
+$rep='200';
 }
-
-
-}
-
-
-
-function convert_datetime($str) 
+//echo $rep;
+if($rep>=200)
 {
 
+if(($mval==0)&&($rep==$userlist->points))
+{
+//echo "SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' ";
+$countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' "));
+if($countret==0)
+{
+db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)",43, $userlist->uid,$rep);
+}
+}
+}
 
 
-return $timestamp;
+
+}
+}
+}
+
+function Tumbleweed() 
+{
+$selquestion="select * from question where status='1'";
+$listquestm = db_query($selquestion);
+while($qklisy = db_fetch_object($listquestm))
+{
+//echo $qklisy->qid;
+//echo "<br>";
+
+
+$datbt=db_query("SELECT DATE_ADD('$qklisy->date_added', INTERVAL 7 DAY)as weekday") ;
+$dtrange = db_fetch_object($datbt);
+
+ $dtrange->weekday;
+
+$dtint= explode(" ",$dtrange->weekday);
+
+
+
+
+
+////////////////to check whether answeres ////////////////////////////////
+$answercnt = db_result(db_query("SELECT COUNT(*) FROM {suggest_answer} where qid='$qklisy->qid' and date_added<='$dtint[0]'"));
+//echo "SELECT COUNT(*) FROM {forum_wave} where qid_rid='$qklisy->qid' and date_added<='$dtint[0]'";
+$cmtcnt = db_result(db_query("SELECT COUNT(*) FROM {forum_wave} where qid_rid='$qklisy->qid' and date_added<='$dtint[0]'"));
+$viewcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='$qklisy->qid' and view_date<='$dtint[0]'"));
+//echo $answercnt;
+if(($answercnt==0)&&($cmtcnt==0)&&($viewcnt<5))
+{
+$viewbad = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qklisy->uid' and  qid='$qklisy->qid' and bid='42'"));
+if($viewbad==0)
+{
+db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('42', '$qklisy->uid','$qklisy->qid') ");
+}
+}
+}
+}
+
+
+function Taxonomist()
+{
+
+$seltagging="select * from tagging where status='1'";
+$listag = db_query($seltagging);
+while($qtag = db_fetch_object($listag))
+{
+$tagcnt = db_result(db_query("SELECT COUNT(*) FROM {qtag} where tag_id='$qtag->tid'"));
+//echo $tagcnt;
+//echo "<br>";
+if($tagcnt==50)
+{
+$tagcntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qtag->uid' and tid='$qtag->tid'  and bid='40'"));
+if($tagcntr==0)
+{
+db_query("INSERT INTO {user_badges} (bid, uid,tid) VALUES ('40','$qtag->uid','$qtag->tid') ");
+}
+}
+}
+}
+
+function Necromancer()
+{
+
+$date1 = "2007-03-24";
+$date2 = "2009-06-26";
+
+$diff = abs(strtotime($date2) - strtotime($date1));
+
+$days = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+
+
+
+
+
+
+
+
+}
+function Student()
+{
+
+ $stlist= "SELECT uid , MIN(qid)as qid FROM question where status='1' GROUP BY uid  ";
+$listtrg = db_query($stlist);
+
+while($qstude = db_fetch_object($listtrg))
+{
+//echo $qstude->qid;
+//echo "<br>";
+//echo "SELECT COUNT(*) FROM {possible_answer_vote} where qid='$qstude->qid' ";
+$answercnt = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where qid='$qstude->qid' "));
+//echo $answercnt;
+if($answercnt==1)
+{
+$stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qstude->uid' and qid='$qstude->qid'  and bid='38'"));
+if($stucntr==0)
+{
+db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('38','$qstude->uid','$qstude->qid') ");
+}
+}
 }
 
 
@@ -300,3 +406,93 @@ return $timestamp;
 
 
 
+}
+/////////////popular qusetion ////////// notable question /////////// Famous Question  /////////////////////
+function popquest()
+{
+$stlist= "SELECT *  FROM question where status='1'  ";
+$listpop = db_query($stlist);
+
+while($qspop = db_fetch_object($listpop))
+{
+$popcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='$qspop->qid' "));
+
+if($popcnt==1000)
+{
+$stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='30'"));
+if($stucntr==0)
+{
+db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('30','$qspop->uid','$qspop->qid') ");
+}
+}
+////////////////////notable question//////////////
+if($popcnt==2500)
+{
+$stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='27'"));
+if($stucntr==0)
+{
+db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('27','$qspop->uid','$qspop->qid') ");
+}
+}
+
+/////////////////famous question ////////////////
+
+
+if($popcnt==10000)
+{
+$stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='13'"));
+if($stucntr==0)
+{
+db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','$qspop->uid','$qspop->qid') ");
+}
+}
+
+
+}
+
+
+}
+/////////////////////////nice answer /////////Good Answer ////////////////Great Answer////////
+function niceans()
+{
+
+  $nicelist= "SELECT a.qid, b.uid, count(a.uid)as tot FROM possible_answer_vote as a,question as b where a.qid=b.qid  GROUP BY a.qid 	  ";
+ $ansresult = db_query($nicelist);
+
+while($ansrem = db_fetch_object($ansresult))
+{
+
+//echo $ansrem->tot;
+//echo "<br>";
+if($ansrem->tot==10)
+{
+$stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='25'"));
+if($stucntr==0)
+{
+db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','$ansrem->uid') ");
+}
+
+}
+//////////////Good Answer///////////////////////
+if($ansrem->tot==25)
+{
+$stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='17'"));
+if($stucntr==0)
+{
+db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','$ansrem->uid') ");
+}
+
+}
+//////////////great answers///////////////////////
+if($ansrem->tot==100)
+{
+$stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='19'"));
+if($stucntr==0)
+{
+db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','$ansrem->uid') ");
+}
+
+}
+}
+
+}
