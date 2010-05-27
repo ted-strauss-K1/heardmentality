@@ -36,6 +36,8 @@ function set_badges() {
 
     
     }
+	
+	
 }
 // fill profile get the biographer badge
 function biographer($uid = '') {
