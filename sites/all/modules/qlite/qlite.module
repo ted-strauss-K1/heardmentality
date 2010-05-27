@@ -1,127 +1,99 @@
 <?php
-
 function qlite_perm() {
-
-  return array('QLite','Report','Report Content','Ajax Content');
+    
+    return array('QLite', 'Report', 'Report Content', 'Ajax Content');
 
 } // function newmodule_perm
-function qlite_menu() {	
- 
-  $item['qmini'] = array(
-    'title' => 'Question Lite',
-    'page callback' => 'qlitemini',
-    'access arguments' => array('QLite'),
-	   'type' => MENU_CALLBACK,
-    'file' => 'qlite.pages.inc',
-  );
- 
-  $item['qmini/report'] = array(
-    'title' => 'Question Lite',
-    'page callback' => 'qlite_report',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Report'),
-    'file' => 'qlite.pages.inc',
-  );
-  $item['qmini/repcontent'] = array(
-    'title' => 'Question Lite',
-    'page callback' => 'report_content',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Report Content'),
-    'file' => 'qlite.pages.inc',
-  );
- $item['qmini/ajax'] = array(
-    'title' => 'Question Lite',
-    'page callback' => 'load_ajax',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Ajax Content'),
-    'file' => 'qlite.pages.inc',
-  );
- 
-  return $item;
-  
- 
-  
+function qlite_menu() {
+    
+    $item['qmini'] = array('title'=>'Question Lite', 'page callback'=>'qlitemini', 'access arguments'=>array('QLite'), 'type'=>MENU_CALLBACK, 'file'=>'qlite.pages.inc', );
+    
+    $item['qmini/report'] = array('title'=>'Question Lite', 'page callback'=>'qlite_report', 'type'=>MENU_CALLBACK, 'access arguments'=>array('Report'), 'file'=>'qlite.pages.inc', );
+    $item['qmini/repcontent'] = array('title'=>'Question Lite', 'page callback'=>'report_content', 'type'=>MENU_CALLBACK, 'access arguments'=>array('Report Content'), 'file'=>'qlite.pages.inc', );
+    $item['qmini/ajax'] = array('title'=>'Question Lite', 'page callback'=>'load_ajax', 'type'=>MENU_CALLBACK, 'access arguments'=>array('Ajax Content'), 'file'=>'qlite.pages.inc', );
+    
+    return $item;
+
+
 }
 
-function top_list(){
-	 drupal_add_js(drupal_get_path('module', 'qlite').'/scripts/qmini.js');
-	$output='';
-	
-	$query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
+function top_list() {
+    drupal_add_js(drupal_get_path('module', 'qlite').'/scripts/qmini.js');
+    $output = '';
+    
+    $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     $list = ExecuteQuery($query, "select");
-	$output.='<select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
-	foreach($list as $cat){
-		
-		$output.='<option value='.$cat['cat_id'].' > '.$cat['cat_name'].' </option>';
-	}
-	
-	$output.='</select><br/>	<div id="res_scat"> </div><br/><div id="res_top">';
-	
-	$output.=get_top_list();
-	
-	$output.=get_hot_list();
-	
-	$output.=get_local_list();
-	
-	echo "</div>";
-	
-	
-	
-	return $output;
+    $output .= '<select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
+    foreach ($list as $cat) {
+        
+        $output .= '<option value='.$cat['cat_id'].' > '.$cat['cat_name'].' </option>';
+    }
+    
+    $output .= '</select><br/>	<div id="res_scat"> </div><br/><div id="res_top">';
+    
+    $output .= get_top_list();
+    
+    $output .= get_hot_list();
+    
+    $output .= get_local_list();
+    
+    echo "</div>";
 
-	
-	
+    
+    return $output;
+
+
 }
 
 
-function user_daily_stat(){
-	
-	 global $gSitePath,$user,$gDocPath,$base_root;
-	
-	 $uid = $user->uid;
-	 
-	 $query = "SELECT date(daily_start_date) as sdate,date(now()) as nowdate,date(daily_todays_date) as tdate,date(daily_end_date) as edate  from {user_profile} where uid='$uid'";
+function user_daily_stat() {
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
+    
+    $uid = $user->uid;
+    
+    $query = "SELECT date(daily_start_date) as sdate,date(now()) as nowdate,date(daily_todays_date) as tdate,date(daily_end_date) as edate  from {user_profile} where uid='$uid'";
     $list = ExecuteQuery($query, "select");
-	 
-	 		
- 			 $diff1= db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['tdate']."') as ddiff"));
-			
-			if($diff1==1){
-				
-		 $query="update {user_profile} set daily_todays_date=now() where uid='$uid'";
-	 db_query($query);		
-				
-			if($list[0]['nowdate']==$list[0]['edate']){
-				
-			$diff2= db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['edate']."') as ddiff"));	
-			
-			if($diff2==0){
-				
-				$diff3= db_result(db_query("SELECT DATEDIFF('".$list[0]['sdate']."','".$list[0]['tdate']."') as ddiff"));	
-				//11 Enthusiast Badges
-				if($diff3==30){
-	
-				db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",11, $uid);	
-				}
-				
-				
-			}	
-			}	
-				
-			}else{
-				// not consecutive so check its today 
-			$diffa= db_result(db_query("SELECT DATEDIFF('".$list[0]['tdate']."','".$list[0]['nowdate']."') as ddiff"));	
-			// if not today then reset the consecutive 30 days
-			if($diffa!=0){
-				
-			$query="update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,DATE(NOW())) where uid='$uid'";
-	 db_query($query);		
-			}
-	 
-				
-			}
-		
-	
-	
-	
+
+    
+    $diff1 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['tdate']."') as ddiff"));
+    
+    if ($diff1 == 1) {
+        
+        $query = "update {user_profile} set daily_todays_date=now() where uid='$uid'";
+        db_query($query);
+        
+        if ($list[0]['nowdate'] == $list[0]['edate']) {
+            
+            $diff2 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['edate']."') as ddiff"));
+            
+            if ($diff2 == 0) {
+                
+                echo $diff3 = db_result(db_query("SELECT DATEDIFF('".$list[0]['tdate']."','".$list[0]['nowdate']."') as ddiff"));
+               //11 Enthusiast Badges
+                if ($diff3 == 30) {
+                    
+                    db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
+                    $query = "update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,NOW()) where uid='$uid'";
+                    db_query($query);
+                }
+
+            
+            }
+        }
+    
+    } else {
+        // not consecutive so check its today
+        $diffa = db_result(db_query("SELECT DATEDIFF('".$list[0]['tdate']."','".$list[0]['nowdate']."') as ddiff"));
+        // if not today then reset the consecutive 30 days
+        if ($diffa != 0) {
+            
+            $query = "update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,NOW()) where uid='$uid'";
+            db_query($query);
+        }
+
+    
+    }
+
+
 }
