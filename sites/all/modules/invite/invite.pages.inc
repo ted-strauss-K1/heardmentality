@@ -251,11 +251,7 @@ HeardMentality: Its all about Sharing </div>
     if (isset($question_urlink) && $question_urlink != NULL) {
         $question_urlink = $question_urlink;
     }
-    $mail_options = '<option value="aol">AOL</option>
-                  <option value="gmail">Gmail</option>
-		          <option value="hotmail"> Hotmail</option>
-				  <option value="linkedin">LinkedIn</option>
-		          <option value="yahoo">Yahoo</option>';
+    
     
     $strReturn = '
 		<div id="log_res"><!-- spanner --></div>
@@ -264,40 +260,15 @@ HeardMentality: Its all about Sharing </div>
 		<form name="inviteform" id="inviteform" action="'.url($_GET['q'], array('absolute'=>true)).'" method="post" enctype="multipart/form-data">
 		<fieldset>
 		 <legend>
-                        Invite Friends
+                        Invite Facebook Friends 
                     </legend>
         	 <table width="100%" border="0" cellpadding="2" cellspacing="2">
-            <tr>
-                <td width="30%">
-                </td>
-                <td width="40%">
-                </td>
-				<td width="40%"  rowspan="5"> <!--<img src="'.$gSitePath.drupal_get_path('module', 'invite').'/images/invite_mail.jpg" border="0" />--></td>
-            </tr>
-            <tr>
-                <td align="left">
-                   
-                    <!--		<p>	<label for="edit-name">Email: <span class="form-required" title="This field is required.">*</span></label>
-                    <input type="text" name="email_box" >&nbsp;&nbsp;&nbsp;<select name="provider_box">'.$mail_options.'</select>
-                    <br/></p>
-                    <input type="hidden" name="step" value="get_contacts">
-                    <p> <label for="edit-name">Password: <span class="form-required" title="This field is required.">*</span></label> <input type="password" name="password_box" ></p>
-                    <input type="submit" name="go" value="go"></br></br>
-                    <h2>'.$title.'</h2> --> 
-					To: 
-                    <br/>
-                    (use commas to separate emails)
-                </td>
-                <td align="left">
-                    <textarea id="recipient_list" rows="3" cols="80" name="recipient_list"></textarea>
-                </td>
-					<td></td>
-            </tr>
+           
             <tr>
                 <td>
                 </td>
                 <td align="left">
-                    <a href="#" onclick="showPlaxoABChooser(\'recipient_list\', \'heardmentality/'.drupal_get_path('module', 'quest_lite').'/plaxo.html\'); return false"><img src="http://www.plaxo.com/images/abc/buttons/add_button.gif" alt="Add from my address book" /></a>
+                    
 <script type="text/javascript" 
 	src="http://cdn.gigya.com/JS/socialize.js?apikey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j">
 </script>
@@ -305,7 +276,7 @@ HeardMentality: Its all about Sharing </div>
 var conf =
 {
    // APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
-   APIKey: '2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8'
+   APIKey: \'2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8\'
     ,enabledProviders: \'facebook\' 
 	
 }
@@ -354,34 +325,13 @@ function printResponse(response) {
 
                 </td>
             </tr>
-            <tr>
-                <td align="left">
-                    Message:
-                    <br/>
-                    (optional) 
-                </td>
-                <td align="left">
-             <textarea id="message" name="message" rows="3" cols="80"></textarea>
-                </td>
-					<td></td>
-            </tr>
-			<tr>
-			<td>
-			Refer URL :
-			</td>
-			<td align="left">
-			  '.$question_urlink.'
+            
 			
-			</td>
-				<td></td>
-			</tr>
 			
         </table>
 			</fieldset>
 	
-			<div class="clear" style="height:100px;" >'.$input.'<input type="submit" name="invite" value="Invite">
 			
-			<input type="submit" name="cancel" onclick="MochaUI.closeAll();" value="Cancel"></div>
 			</form>		';
     echo $strReturn;
 
