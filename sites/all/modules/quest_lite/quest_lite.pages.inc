@@ -1212,7 +1212,7 @@ function panel_content() {
         default:
             $output = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/subtab.css" type="text/css" />
 			<ul id="tabmenu" >
-				<li ><a href="javascript:loadReport(1,\''.$gSitePath.'\','.$qid.');" class="" id="tab1">Percentage</a></li>
+				<li ><a href="javascript:loadReport(1,\''.$gSitePath.'\','.$qid.');" class="" id="tab1">Votes</a></li>
 				<li ><a href="javascript:loadReport(2,\''.$gSitePath.'\','.$qid.');" class="" id="tab2">Overtime</a></li>
 				<li ><a href="javascript:loadReport(3,\''.$gSitePath.'\','.$qid.');" class="" id="tab3">By Area</a></li>
 			</ul>
@@ -2073,7 +2073,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         // print_r($_REQUEST);
         global $gSitePath,$user,$gDocPath,$base_root,$base_path;
         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-
+		$uid=$user->uid;
         
         if (isset($_REQUEST['tagsubmit'])) {
 
@@ -2086,9 +2086,20 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
             $qtag = explode(',', $q_tag);
             
             //its in quset_lite.module
-            process_tags($qtag, $qid, 1);
-            drupal_set_message($message = 'Thank you Tags are updated', $type = 'success');
+           $tru=process_tags($qtag, $qid, 1);
+		   
+		   if($tru){
+		   	
+			$chkbadge=db_result(db_query("select (*) from {user_badges} where uid='$uid' and bid='28'"));
+			if($chkbadge<1){
+				
+				db_query("insert into {user_badges} set bid='28',uid='$uid',qid='$qid'");
+			}
+			
+			drupal_set_message($message = 'Thank you Tags are updated', $type = 'success');
             echo "<b>Thank you Tags are updated</b> ";
+		   }
+            
             
             exit;
         }

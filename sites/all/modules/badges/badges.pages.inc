@@ -15,7 +15,7 @@ function badges_list() {
     
     //print_r($user);
     
-    $query = "select * from  {badges} where status='1'";
+    $query = "select *,IFNULL((select count(*) from {user_badges} as ub where ub.bid=b.bid group by ub.bid ),0) as cnt from  {badges} as b where b.status='1'";
     
     $list = ExecuteQuery($query, 'select');
 
@@ -24,14 +24,12 @@ function badges_list() {
     
     foreach ($list as $bad) {
         
-        $strReturn .= "<div class='lft'> <b>".$bad['name']."</b> </div><div class='rht'>".$bad['info']."</div><br/>";
+        $strReturn .= "<div class='lft'> <b>".$bad['name']." X ".$bad['cnt']."</b> </div><div class='rht'>".$bad['info']."</div><br/>";
 
     
     }
     
-   // biographer();
-   // citizen_patrol();
-	cleanup();
+  set_badges();
     return $strReturn;
 
 }
