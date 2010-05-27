@@ -65,10 +65,13 @@ function invite_friends() {
 
     if (isset($_REQUEST['qid'])) {
         $question_id = $_REQUEST['qid'];
-        $find_url = db_query("select url from {question} where qid='$question_id'");
+        $find_url = db_query("select * from {question} where qid='$question_id'");
         $question_url = db_fetch_array($find_url);
         if (isset($question_url)) {
             $question_urlff = $question_url['url'];
+			 $qtion = $question_url['question'];
+			  $ctxt = $question_url['context'];
+			
 				$input='<input type="hidden" name="qid" value="'.$question_id.'" />';
         }
        $question_urlink = $gSitePath.$question_urlff;
@@ -295,6 +298,59 @@ HeardMentality: Its all about Sharing </div>
                 </td>
                 <td align="left">
                     <a href="#" onclick="showPlaxoABChooser(\'recipient_list\', \'heardmentality/'.drupal_get_path('module', 'quest_lite').'/plaxo.html\'); return false"><img src="http://www.plaxo.com/images/abc/buttons/add_button.gif" alt="Add from my address book" /></a>
+<script type="text/javascript" 
+	src="http://cdn.gigya.com/JS/socialize.js?apikey=2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j">
+</script>
+<script type="text/javascript">
+var conf =
+{
+    APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
+    ,enabledProviders: \'facebook\' 
+	
+}
+
+
+var invite =
+{
+    title: "Invite your friends to Answer Question on Heardmentality",
+    text: "You are invited to Answer the "
+		+ "<a href=\''.$question_urlink.'\'>Question .</a>" 
+		+ " '.$ctxt.'.",
+    name: "'.$qtion.'",
+    actionText: "Answer This question on Heardmentality",
+    actionURL: " '.$question_urlink.'"
+}
+
+
+
+var params =
+{
+showTermsLink:false, 
+    containerID: "loginDiv", // The Plugin will embed itself inside 
+		invite:invite
+	   
+};
+function printResponse(response) {  
+    if ( response.errorCode == 0 ) {             
+        var user = response.user;
+ 
+    }
+    else {
+   
+    }  
+}
+
+</script>
+
+<div id="loginDiv"></div>
+<script type="text/javascript">
+  
+	gigya.services.socialize.disconnect(conf,{callback:printResponse, provider:\'facebook\'});
+    gigya.services.socialize.showLoginUI(conf, params);
+	
+</script>
+
+
                 </td>
             </tr>
             <tr>
