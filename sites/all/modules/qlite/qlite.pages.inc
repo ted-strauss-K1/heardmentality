@@ -130,7 +130,7 @@ function qlite_report($qid = '') {
     
     echo $output = '<div class="toolbarTabs">
 	<ul id="qTabs" class="tab-menu">
-	<li id="qTabs1Link" class="selected"><a>Percentage</a></li>
+	<li id="qTabs1Link" class="selected"><a>Votes</a></li>
 	<li id="qTabs2Link"><a>Over Time</a></li>
 	<li id="qTabs3Link" ><a>By Area</a></li>
 	</ul>

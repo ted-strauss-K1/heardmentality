@@ -46,7 +46,7 @@ function top_list() {
 }
 
 
-function user_daily_stat() {
+function user_daily_stat($uid='') {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
