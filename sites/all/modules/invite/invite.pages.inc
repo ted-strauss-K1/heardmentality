@@ -304,7 +304,8 @@ HeardMentality: Its all about Sharing </div>
 <script type="text/javascript">
 var conf =
 {
-    APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
+   // APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
+   APIKey: '2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8'
     ,enabledProviders: \'facebook\' 
 	
 }
