@@ -2266,6 +2266,17 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                 
                 echo $list;
                 break;
+			case 'zipcity':
+				$code=$_REQUEST['code'];
+				 $query = array('postalcode'=>$code, 'maxrows'=>1);
+   				 $result = geonames_query('postalcodesearch', $query);
+ 					$city=$result->results;
+				echo '<b>Province/State :</b>'.$city[0]['adminname1'];
+				echo '<br/><b>City :</b>'.$city[0]['adminname2'];
+				echo '<input type="hidden" name="state" value="'.$city[0]['adminname1'].'">
+				<input type="hidden" name="city" value="'.$city[0]['adminname2'].'">
+				';
+			break;			
             default:
                 break;
         }

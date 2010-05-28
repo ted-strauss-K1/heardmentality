@@ -314,4 +314,4 @@ function quest_lite_menu() {
 	return $randomtag;
 }
 	
-	
+
