@@ -98,7 +98,10 @@ function profile($uid = '') {
         $bio1 = $bio;
     }
     if (($userSettings['country'] == 1) || ($userSettings['country'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['country'] == 2 && $is_follow_follower == TRUE)) {
-        $country1 = $country;
+        $country1 .= $country;
+		if(!empty($state)){
+			$country1.='('.$state.','.$city.')';
+		}
     }
     if (($userSettings['religion'] == 1) || ($userSettings['religion'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['religion'] == 2 && $is_follow_follower == TRUE)) {
         $religion1 = $religion;
