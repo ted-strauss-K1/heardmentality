@@ -471,7 +471,7 @@ function profile_edit() {
             $select = "SELECTED='SELECTED'";
         }
         
-        $optionlist .= sprintf('<option %s value="%s">%s</option>', $select, $countries['countrycode'], $countries['countryname']);
+        $optionlist .= sprintf('<option %s value="%s">%s</option>', $select, $countries['countryname'], $countries['countryname']);
     }
 	//echo $user->notify_type;
     if($user->notify_etype==1){
