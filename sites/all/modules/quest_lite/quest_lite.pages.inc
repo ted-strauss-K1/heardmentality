@@ -382,7 +382,7 @@ if($select_user_count==0)
 		{
 		
 		load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile \');
-		//onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');
+		//onclick="load_invite(\''.$gSitePath.'c?qid='.$qid.'\',\'Profile\');
 		}
 		if(mtype==3)
 		{
@@ -481,8 +481,8 @@ if($select_user_count==0)
 			    userAction: act,  	                                  
 			    onError: onError,  
 			    onSendDone: onSendDone, 
-                		    showEmailButton:true,
-                		    showMoreButton:false
+               showEmailButton:true,
+               showMoreButton:true
 			};
 
 			
@@ -510,7 +510,7 @@ if($select_user_count==0)
     $voutput .= '<input type="button" onclick="showShareUI();" value="Share"/>
     <div id="status"></div>
 	<!-- AddThis Button BEGIN -->
-<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bebc2a1621b1868"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bebc2a1621b1868"></script>
+<!--<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bebc2a1621b1868"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bebc2a1621b1868"></script>-->
 <!-- AddThis Button END -->
 
 	<select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
