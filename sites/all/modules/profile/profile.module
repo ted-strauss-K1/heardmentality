@@ -3,150 +3,131 @@
  * Implementation of hook_perm().
  */
 function profile_perm() {
-  return array('Profile Edit','Profile View','Profile Privacy','User Sign In');
+    return array('Profile Edit', 'Profile View', 'Profile Privacy', 'User Sign In');
 }
 
 
 /**
  * Implementation of hook_menu().
  */
- 
-function profile_menu() {	
-  $items['profile'] = array(
-    'title' => 'Profile',
-    'page callback' => 'profile_view',
-    'access arguments' => array('Profile View'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'profile.pages.inc',
-  );
-$items['profile/edit'] = array(
-    'title' => ' Edit Profile',
-    'page callback' => 'profile_edit',
-    'access arguments' => array('Profile Edit'),
-    'type' => MENU_CALLBACK,
-    'file' => 'profile.pages.inc',
-  );
 
-$items['profile/privacy_settings'] = array(
-    'title' => ' Privacy Profile',
-    'page callback' => 'privacy_settings',
-    'access arguments' => array('Profile Privacy'),
-    'type' => MENU_CALLBACK,
-    'file' => 'profile.pages.inc',
-  );
-
-$items['profile/deletefollow'] = array(
-    'title' => ' Profile',
-    'page callback' => 'save_follow_profile',
-    'access arguments' => array('Profile View'),
-    'type' => MENU_CALLBACK,
-    'file' => 'profile.pages.inc',
-  );
-  
-  $items['profile/savefollowerlink'] = array(
-    'title' => ' Profile',
-    'page callback' => 'save_follower_profile',
-    'access arguments' => array('Profile View'),
-    'type' => MENU_CALLBACK,
-    'file' => 'profile.pages.inc',
-  );
-   $items['postmessage'] = array(
-    'title' => ' Profile',
-    'page callback' => 'save_message',
-    'access arguments' => array('Profile View'),
-    'type' => MENU_CALLBACK,
-    'file' => 'profile.pages.inc',
-  );
-  return $items;
+function profile_menu() {
+    $items['profile'] = array('title'=>'Profile', 'page callback'=>'profile_view', 'access arguments'=>array('Profile View'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'profile.pages.inc', );
+    $items['profile/edit'] = array('title'=>' Edit Profile', 'page callback'=>'profile_edit', 'access arguments'=>array('Profile Edit'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
+    
+    $items['profile/privacy_settings'] = array('title'=>' Privacy Profile', 'page callback'=>'privacy_settings', 'access arguments'=>array('Profile Privacy'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
+    
+    $items['profile/deletefollow'] = array('title'=>' Profile', 'page callback'=>'save_follow_profile', 'access arguments'=>array('Profile View'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
+    
+    $items['profile/savefollowerlink'] = array('title'=>' Profile', 'page callback'=>'save_follower_profile', 'access arguments'=>array('Profile View'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
+    $items['postmessage'] = array('title'=>' Profile', 'page callback'=>'save_message', 'access arguments'=>array('Profile View'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
+    return $items;
 }
 
- function userTypes(){
+function userTypes() {
     $ques_query = "SELECT * FROM {user_types}";
     $list = ExecuteQuery($ques_query, "select");
-	$usertypes= array();
-	$i=0;
-	foreach($list as $options){
-	$usertypes[$i] = $options['id'];
-    $usertypes[$i] = $options['name'];
-	$i++;
-	}
-	return $usertypes;
- }
+    $usertypes = array();
+    $i = 0;
+    foreach ($list as $options) {
+        $usertypes[$i] = $options['id'];
+        $usertypes[$i] = $options['name'];
+        $i++;
+    }
+    return $usertypes;
+}
 
-function checkPrivacySettings( $uid = null){
- $ques_query = "SELECT * FROM {privacy_settings} where uid='".$uid."'";
- $list = ExecuteQuery($ques_query, "select");
- $userFields= array();	
-  $i=0;
-	foreach($list as $options){
-	$userFields[$i]['id'] = $options['id'];
-    $userFields[$i]['email'] = $options['email'];
-    $userFields[$i]['real_name'] = $options['real_name'];
-    $userFields[$i]['image'] = $options['image'];
-    $userFields[$i]['bio'] = $options['bio'];
-    $userFields[$i]['gender'] = $options['gender'];
-    $userFields[$i]['zip'] = $options['zip'];
-    $userFields[$i]['country'] = $options['country'];
-    $userFields[$i]['religion'] = $options['religion'];
-    $userFields[$i]['ethnic'] = $options['ethnic'];
-    $userFields[$i]['slant'] = $options['slant'];
-    $userFields[$i]['facebook'] = $options['facebook'];
-    $userFields[$i]['twitter'] = $options['twitter'];
-    $userFields[$i]['following'] = $options['following'];
-    $userFields[$i]['followers'] = $options['followers'];
-    $userFields[$i]['medal'] = $options['medal'];
-	$userFields[$i]['answers'] = $options['answers'];
-	$userFields[$i]['questions'] = $options['questions'];
-	$userFields[$i]['dob'] = $options['dob'];
-	$i++;
-	}
-  if( isset($userFields[0]) && count($userFields[0]) > 0) {
-	  return $userFields[0];
-  }
-  
+function checkPrivacySettings($uid = null) {
+    $ques_query = "SELECT * FROM {privacy_settings} where uid='".$uid."'";
+    $list = ExecuteQuery($ques_query, "select");
+    $userFields = array();
+    $i = 0;
+    foreach ($list as $options) {
+        $userFields[$i]['id'] = $options['id'];
+        $userFields[$i]['email'] = $options['email'];
+        $userFields[$i]['real_name'] = $options['real_name'];
+        $userFields[$i]['image'] = $options['image'];
+        $userFields[$i]['bio'] = $options['bio'];
+        $userFields[$i]['gender'] = $options['gender'];
+        $userFields[$i]['zip'] = $options['zip'];
+        $userFields[$i]['country'] = $options['country'];
+        $userFields[$i]['religion'] = $options['religion'];
+        $userFields[$i]['ethnic'] = $options['ethnic'];
+        $userFields[$i]['slant'] = $options['slant'];
+        $userFields[$i]['facebook'] = $options['facebook'];
+        $userFields[$i]['twitter'] = $options['twitter'];
+        $userFields[$i]['following'] = $options['following'];
+        $userFields[$i]['followers'] = $options['followers'];
+        $userFields[$i]['medal'] = $options['medal'];
+        $userFields[$i]['answers'] = $options['answers'];
+        $userFields[$i]['questions'] = $options['questions'];
+        $userFields[$i]['dob'] = $options['dob'];
+        $i++;
+    }
+    if (isset($userFields[0]) && count($userFields[0]) > 0) {
+        return $userFields[0];
+    }
+
 }
 // to check only follower or followee will see the profile
- function checkFollowStatus( $login_user_id = null, $profile_user_id = null){
-
+function checkFollowStatus($login_user_id = null, $profile_user_id = null) {
+    
     $ques_query = "SELECT *  from {follower}  where uid='".$login_user_id."'  AND follower_status='1' AND  follower_id='".$profile_user_id."' UNION
 	SELECT *  from {follower}  where uid='".$profile_user_id."'  AND follower_status='1' AND  follower_id='".$login_user_id."'
 	";
     $list = ExecuteQuery($ques_query, "select");
-	$isfollow = FALSE;
-    if(isset($list) && count($list)> 0){
-	    $isfollow = TRUE;
-		return $isfollow;
- 	}
-	return $isfollow;
- }
-
-// To check user points for user privacy settings
- function checkUserPoints( $uid = null ){
-    $ques_query = "SELECT points FROM {user_profile} where  uid='".$uid."'";
-    $list = ExecuteQuery($ques_query, "select");
-	  if( isset($list[0]['points']) ) {
-	  return $list[0]['points'];
-	}
-	return 0;
- 
- }
-
-// To check user votes to display in profile
- function checkUpAndDownVotes( $uid = null ){
-   $ques_query = "(SELECT count(*) as upcount,(SELECT count(*) FROM {question_like} where  uid='".$uid."' AND like_yes= '-1') as downcount FROM {question_like} where  uid='".$uid."' AND like_yes= '1' )";
-	$list = ExecuteQuery($ques_query, "select");
-	  if( isset($list[0]) ) {
-	  return $list[0];
-	}
-	return 0;
- 
- }
-function get_question($qid=''){
-	 global $gSitePath,$user,$gDocPath,$base_root;
-	
-	 $sel_userms = "SELECT * FROM {question} where qid='$qid' ";
-              $rs_userms = db_query($sel_userms);
-      return  $resulrnames = db_fetch_object($rs_userms);
+    $isfollow = FALSE;
+    if (isset($list) && count($list) > 0) {
+        $isfollow = TRUE;
+        return $isfollow;
+    }
+    return $isfollow;
 }
 
- ?>
+// To check user points for user privacy settings
+function checkUserPoints($uid = null) {
+    $ques_query = "SELECT points FROM {user_profile} where  uid='".$uid."'";
+    $list = ExecuteQuery($ques_query, "select");
+    if (isset($list[0]['points'])) {
+        return $list[0]['points'];
+    }
+    return 0;
+
+}
+
+// To check user votes to display in profile
+function checkUpAndDownVotes($uid = null) {
+    $ques_query = "(SELECT count(*) as upcount,(SELECT count(*) FROM {question_like} where  uid='".$uid."' AND like_yes= '-1') as downcount FROM {question_like} where  uid='".$uid."' AND like_yes= '1' )";
+    $list = ExecuteQuery($ques_query, "select");
+    if (isset($list[0])) {
+        return $list[0];
+    }
+    return 0;
+
+}
+function get_question($qid = '') {
+    global $gSitePath,$user,$gDocPath,$base_root;
+    
+    $sel_userms = "SELECT * FROM {question} where qid='$qid' ";
+    $rs_userms = db_query($sel_userms);
+    return $resulrnames = db_fetch_object($rs_userms);
+}
+
+
+function get_state($code = '') {
+    
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    
+    $query = array('postalcode'=>$code, 'maxrows'=>1);
+    $result = geonames_query('postalcodesearch', $query);
+    
+    print_r($result);
+	
+	return $reuslt;
+
+}
+
+
+
+
+?>

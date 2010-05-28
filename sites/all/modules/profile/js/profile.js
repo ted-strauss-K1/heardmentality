@@ -75,5 +75,21 @@ function profile_comment(make){
        
     }
    
-
+function get_zip_city(code){
+	
+	var urr=spath+'qlite/ajax?action=zipcity';
+		var req = new Request({    
+			method: 'post',
+			url: urr,
+			data: {
+			code: code,
+          	},
+			onComplete: function(response){
+		        $('edit-city-wrapper').set('html', response);
+				 	
+		}
+		}).send();
+	
+	
+}
 

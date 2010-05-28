@@ -391,6 +391,7 @@ function profile_edit() {
     $dob = '';
     
     if ($_REQUEST['update'] == 'Update') {
+    
         extract($_REQUEST);
         if ($rname == '') {
             drupal_set_message($message = 'Real Name should not be empty!', $type = 'error');
@@ -418,10 +419,10 @@ function profile_edit() {
 
             $update_user=db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
 
-            $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
+            $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
         
         } else {
-            $result = db_query("INSERT INTO {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset'");
+            $result = db_query("INSERT INTO {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',state='$edit-state',city='$edit-city',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset'");
         }
         if ($result) {
             $sucflag = '';
@@ -484,9 +485,21 @@ function profile_edit() {
         $check2 = "checked='checked'";
     
     }
+	if(!empty($state)){
+		
+		$statecity='<b>Province/State :</b>'.$state.'<br/><b>City :</b>'.$city.'
+				<input type="hidden" name="state" value="'.$state.'">
+				<input type="hidden" name="city" value="'.$city.'">
+				';
+	}
+	
+	
     
-    $strReturn = '	
+    $strReturn = '	<script>
+		var spath=\''.$gSitePath.'\';
+		</script>
 		<script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript"></script>
+		
 		<form name="profile" id="profile"  onsubmit="return validate_profile();"  method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend><b><i>Account information</i></b></legend>
@@ -551,10 +564,11 @@ function profile_edit() {
                    </div>
 				</div> 
 			        		<div class="form-item" id="edit-country-wrapper"> <label for="edit-country">Country : </label><select name="country" style="width: 125px;" tabindex="16" id="edit-country">'.$optionlist.'</select> <div class="description"></div></div>	
-        		<div class="form-item" id="edit-zip-wrapper"> <label for="edit-zip">Zip/Postal code : </label> <input name="zip"  value="'.$zip.'"  id="edit-zip" maxlength="128" size="25" class="form-text" type="text"> </div>
-        		<div class="form-item" id="edit-religion-wrapper"> <label for="edit-religion">Religion : </label> <input name="religion"  value="'.$religion.'"  id="edit-religion" maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
-        		<div class="form-item" id="edit-ethnic-wrapper"> <label for="edit-ethnic">Ethnicity : </label> <input name="ethnic"  value="'.$ethnic.'"  id="edit-ethnic" maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
-          		<div class="form-item" id="edit-slant-wrapper"> <label for="edit-slant">Slant : </label> <input name="slant" id="edit-slant"  value="'.$slant.'"  maxlength="128" size="25" class="form-text" type="text"> <div class="description"></div></div>
+        		<div class="form-item" id="edit-zip-wrapper"> <label for="edit-zip">Zip/Postal code : </label> <input name="zip"  value="'.$zip.'" maxlength="9" onblur="get_zip_city(this.value);" id="edit-zip" maxlength="128" size="25" class="form-text" type="text"> </div>
+        		        		<div class="form-item" id="edit-city-wrapper">'.$statecity.' </div>
+				<div class="form-item" id="edit-religion-wrapper"> <label for="edit-religion">Religion : '.$religion.'</label> <select  name="religion" id="edit-religion" class="form-text" ><option value="" >Select</option><option value="Christian" >Christian (Cath or Prod)</option><option value="Muslim">Muslim (Suni Shiite)</option><option value="Jewish">Jewish</option><option value="Hindu"> Hindu</option><option value="Buddhist">Buddhist</option><option value="Other">Other</option></select> <div class="description"></div></div>
+        		<div class="form-item" id="edit-ethnic-wrapper"> <label for="edit-ethnic">Ethnicity : '.$ethnic.'</label> <select name="ethnic" id="edit-ethnic" class="form-text" ><option value="">Select </option><option value="Caucasian">Caucasian</option><option value="Black">Black</option><option value="Asian">Asian</option> <option value="Indian">Indian</option> <option value="Semetic">Semetic</option><option value="Latin">Latin</option> <option value="Aborigines">Aborigines</option>  </select> <div class="description"></div></div>
+          		<div class="form-item" id="edit-slant-wrapper"> <label for="edit-slant">Slant : '.$slant.'</label> <select name="slant" id="edit-slant"  class="form-text" ><option value="">Select</option><option value="Left">Left</option><option value="Right">Right </option> <option value="Center">Center </option>  </select><div class="description"></div></div>
          
         </fieldset>
 	  <fieldset>
