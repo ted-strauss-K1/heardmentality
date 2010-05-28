@@ -111,7 +111,7 @@ function profile($uid = '') {
         $PROFILE_IMAGE = '<img src="'.$img_path1.'" align="absmiddle" alt="Profile image" >';
     }
     if (($userSettings['zip'] == 1) || ($userSettings['zip'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['zip'] == 2 && $is_follow_follower == TRUE)) {
-        $zip1 = $zip;
+        $zip1 =' - '.$zip;
     }
     if (($userSettings['dob'] == 1) || ($userSettings['dob'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['dob'] == 2 && $is_follow_follower == TRUE)) {
         $dob1 = $dob;
@@ -278,13 +278,18 @@ function profile($uid = '') {
 
 
 	$share='';
+	$edit='';
 	$flinkflw='';
+	$sendmsg='';
 	if($uid!=$user->uid){
 	$share='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';	
 $flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act='.$uid.'">Follow </a>';
 
 $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a>]<br/><div id="showboxcmt" align="left" style="width:100%;display:none"><label for="msgs"><b>Send Message :</b></label><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><input type="button"  value="sendmessage"/></div>';
+	}else{
+		
+	$edit.='&nbsp;[<a href="'.$gSitePath.'profile/edit" >Edit My Profile </a>]';	
 	}
 
 
@@ -300,15 +305,15 @@ $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message 
 					<br/>
 
 
-'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share.' '.$flink.' '.$history.' '.$sendmsg.'<br/>
+'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share.' '.$flink.' '.$history.' '.$sendmsg.' '.$edit.'<br/>
 
 
 					'.$real_name1.'<br/>
 					'.$dob1.'<br/>	
 					'.$gender_name1.'<br/>	
 					'.$religion1.'<br/>
-					'.$country1.'<br/>
-					'.$zip1.'<br/>	
+					'.$country1.$zip1.'<br/>
+					
 			</div>
 			</div>	
 			<!--<div class="clear">&nbsp; </div>-->	<div class="clear">&nbsp; </div>
@@ -446,7 +451,7 @@ function profile_edit() {
             }
         } else {
             if ($sucflag) {
-                echo "<script>window.location.href='$gSitePath/profile/';</script>";
+               // echo "<script>window.location.href='".$gSitePath."'profile/';</script>";
                 drupal_goto('profile/');
             }
         }
