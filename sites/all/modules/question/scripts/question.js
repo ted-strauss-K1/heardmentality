@@ -249,7 +249,7 @@ function tag_add_input(val){
 	if(context.length>0){
 		var etarget=$('tagdiv');
 	//set the tag
-	 var ele = new Element('div',{ id : 'tagset','onclick':'tag_delq(this);return false;'
+	 var ele = new Element('div',{ id : 'tagset'
 	 	 
 	 }).inject(etarget);
 			ele.addClass('tagging-tag');
@@ -271,9 +271,8 @@ function tag_add(val,el){
 		if (context != '') {
 			//set the tag
 			var ele = new Element('div', {
-				id: 'tagset',
-				'onclick': 'tag_delq(this);return false;'
-			
+				id: 'tagset'
+							
 			}).inject(etarget);
 			ele.addClass('tagging-tag');
 			ele.set('text', context);
@@ -301,7 +300,7 @@ $('q_tag').set('value',rtag);
 	}
 	
 function tag_delq(val,el){
-
+alert(val);alert(el);
 	var result = el.hasClass('inp');
 
 	if (!result) {
@@ -326,7 +325,7 @@ function tag_delq(val,el){
 		
 	}else {
 		
-		val.destroy();
+		el.destroy();
 	}	
 				
 	insert_tag();			
