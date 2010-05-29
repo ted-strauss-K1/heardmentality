@@ -598,3 +598,66 @@ function admin_wlets_edit() {
 
 
 
+function resforum_list() {
+    global $gSitePath,$user,$gDocPath,$base_root;
+	 $rid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+	 
+	 if(isset($_POST['wtitle'])&&!empty($user->uid)){
+						
+						  $rid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+						  extract($_POST);
+							 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$rid',type='2',uid='$user->uid',title='".mysql_escape_string($wtitle)."',private='$wprivate' ");	
+							echo list_wave($rid,2);						
+						exit;
+					}elseif(isset($_POST['wtitle'])){
+						echo '<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
+						echo list_wave($rid,2);	
+						exit;
+					}
+	 
+   // $rid=$_REQUEST['rid'];
+    $wave = '';
+    $wave .= '
+	
+	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
+ 
+    //print_r($cnt);
+    $wave .= '<div class="">
+		<div class="qwavebut">
+	<!--	<input type="button" onclick="newwave(\''.$gSitePath.'question/forum/'.$rid.'?action=new\',\'New Wave\')" value="New Wave" class="waveButtonMain"/> -->
+	<input type="button" id="newwavebut" value="New Wave" onclick="toggle();" class="waveButtonMain"/>
+		</div>
+		<div id="qwave" class="">
+		
+		';
+ $wave.=list_wave($rid,2);
+ 
+ 
+    $wave .= '</div>
+	<div class="comment" id="newwavediv" style="visibility:hidden;">';
+	if(!empty($user->uid)){
+	$wave.='
+	<div align="right"><a href="javascript:void(0);" onclick="$(\'newwavediv\').fade(\'out\');">Close</a></div>
+	<form  id="newwaveform" class="newwave" action="'.url($_GET['q'], array('absolute'=>true)).'" method="post" accept-charset="utf-8">
+	<div ><b>Post New Wave</b></div>
+	<p><textarea row="7" class="textArea" cols="55" name="wtitle" id="wtitle" ></textarea></p>	
+	<!--<div ><b>Private Reply :</b> [Only followers can do reply]</div>
+	<p><select name="wprivate" id="wprivate">
+	<option value="0"> Disabled</option>
+	<option value="1"> Enabled  </option>
+	</select></p>		-->			
+	<input type="hidden" name="type" value="2"/>
+	<p><input type="button" class="waveButtonMain" onclick="wave_form();" value="Post" /></p>
+</form>';
+	}
+else{
+		$wave.='<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
+}
+	$wave.='</div>
+	<div>';
+  
+    echo $wave;
+
+
+}
+

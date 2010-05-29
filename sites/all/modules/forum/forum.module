@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function forum_perm() {
-  return array('Question Forum','Question Forum Submit','Admin Forum','Admin Edit Forum','Admin Forum Wavelets');
+  return array('Question Forum','Question Forum Submit','Admin Forum','Admin Edit Forum','Admin Forum Wavelets','Resource Forum');
 }
 
 
@@ -16,6 +16,13 @@ function forum_menu() {
     'title' => ' Forum',
     'page callback' => 'forum_list',
     'access arguments' => array('Question Forum'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'forum.pages.inc',
+  );
+    $items['resource/forum'] = array(
+    'title' => 'Resource Forum',
+    'page callback' => 'resforum_list',
+    'access arguments' => array('Resource Forum'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'forum.pages.inc',
   );
