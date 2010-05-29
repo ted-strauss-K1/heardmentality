@@ -714,10 +714,45 @@ MochaUI.loadwaveWindow = function(qid,wid){
 		});
 	}
 	
+	
+		MochaUI.loadrforumWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 500,
+		
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF',onContentLoaded: function(){
+                               if ( !MochaUI.resourceScript == true ){
+                                       new Request({
+                                               url: '<?php echo $gSitePath.drupal_get_path('module','forum'); ?>/scripts/forum.js',
+                                               method: 'get',
+                                               onSuccess: function() {
+										
+                                                       MochaUI.resourceScript = false;
+                                               }.bind(this)
+                                       }).send();
+                               }
+                       }
+		});
+	}
+	
+	
 		//subtab()
 });
 
-
+function loadrforum(url,title){
+	
+	
+MochaUI.closeAll();
+MochaUI.loadrforumWindow(url,title);	
+	
+	
+}
 
 function loadwave(qid,wid)
 {
