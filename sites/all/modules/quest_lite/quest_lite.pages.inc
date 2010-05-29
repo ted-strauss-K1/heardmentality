@@ -1126,11 +1126,11 @@ function panel_content() {
 						  $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 						  extract($_POST);
 							 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$qid',type='1',uid='$user->uid',title='".mysql_escape_string($wtitle)."',private='$wprivate' ");	
-							echo list_wave($qid);						
+							echo list_wave($qid,1);						
 						exit;
 					}elseif(isset($_POST['wtitle'])){
 						echo '<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
-						echo list_wave($qid);	
+						echo list_wave($qid,1);	
 						exit;
 					}
 						
@@ -1240,7 +1240,7 @@ function forum_wave($qid = '') {
 		<div id="qwave" class="">
 		
 		';
- $wave.=list_wave($qid);
+ $wave.=list_wave($qid,1);
  
  
     $wave .= '</div>
@@ -1268,58 +1268,6 @@ else{
     return $wave;
 
 
-}
-
-function list_wave($qid=''){
-	
-	$wave='';	
-
-	 $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.fid AND is_wave='1' AND is_like='1' group by l.node_id),0) as cntlike from {forum_wave} as f where f.qid_rid='$qid' AND status='1' ";
-
-    $cnt = ExecuteQuery($query, "select");
-	if(!empty($cnt)){
-	   foreach ($cnt as $forum) {
-        
-        $wave .= '
-	<div class="comment">
-		<div class="div1">
-			
-		</div>	
-		<div class="div2">
-			'.$forum['cntlike'].' likes
-		</div>
-		<div class="div3">
-			'.$forum['cntpost'].' post
-		</div>
-		<div class="div4">
-			<a href="javascript:void(0);" onclick="loadwave('.$qid.','.$forum['fid'].')"> '.myTruncate($forum['title'],'25','','..').'</a>
-		</div>
-		<div class="div5">
-			'.$forum['date_added'].'
-		</div>
-		
-		</div>	
-	
-	
-	';
-   
-    }
-		}else{
-			
-			 $wave .= '
-	<div class="comment">
-		<div class="div4">
-	<b>No Waves Posted Yet!!</b>
-		</div>	
-	
-	
-	';
-			
-		}
- return $wave;		
-		
-	
-	
 }
 
 
@@ -1557,7 +1505,7 @@ function question_news() {
     require ('RSSParser.class.php');
     $xml = & new RSSParser;
     
-    $vSql = "SELECT *	FROM resource where rtype='1' and qid='$qid' ";
+    $vSql = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='1' and r.qid='$qid' ";
     $rlistnews = db_query($vSql);
     $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
     $newsresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
@@ -1576,6 +1524,7 @@ function question_news() {
         foreach ($valuesresult as $opkt) {
 			$like='';
 			$flag='';
+			$post='';
              $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='".$usernews->rid."'";
         $fetch = ExecuteQuery($querylike, "select");
         
@@ -1591,6 +1540,9 @@ function question_news() {
 		$flag.='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?rid='.$usernews->rid.'\',\'Report \');
 ">Report</a>]';
 		
+		//posts
+		$post.='[<a href="javascript:void(0);" onclick="loadrforum(\''.$gSitePath.'resource/forum/'.$usernews->rid.'\',\'Resource forum \');
+">'.$usernews->cntpost.' Post</a>]';
 		
             $newsresult .= '<div class="cmt_list">
 	
@@ -1599,7 +1551,7 @@ function question_news() {
 	<p class="cmt_date"> '.date("D j M Y", strtotime($opkt['PUBDATE'])).'</p></div>
 	<!--<div class="rght_view" onclick="resource_like('.$usernews->rid.','.$user->uid.',1);" >
 	<p id ="resource-fact">'.$like_count.'</p>Like	
-	</div>-->'.$like.' <span>'.$flag.'</span>
+	</div>-->'.$like.' <span>'.$flag.'</span><span>'.$post.'</span>
 	</div>';
 
         
@@ -1620,7 +1572,7 @@ function question_media() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $vSqlmedia = "SELECT *	FROM resource where rtype='2' and qid='$qid' ";
+    $vSqlmedia = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='2' and r.qid='$qid' ";
     $rlistmedia = db_query($vSqlmedia);
     $nummedia = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
     $mediaresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
@@ -1628,6 +1580,7 @@ function question_media() {
     	
 	//flag
 	$flag='';
+	$post='';
 		$flag.='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?rid='.$usermedia->rid.'\',\'Report \');
 ">Report</a>]';	
 	$like='';
@@ -1642,7 +1595,9 @@ function question_media() {
             $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$usermedia->rid.',0,this);">Unlike</a></span>';
         }
 		
-		
+		//posts
+		$post.='[<a href="javascript:void(0);" onclick="loadrforum(\''.$gSitePath.'resource/forum/'.$usermedia->rid.'\',\'Resource forum \');
+">'.$usermedia->cntpost.' Post</a>]';	
 		
         $like_count = resource_Like_checkCount($usermedia->rid, 2);
         $mediaresult .= '<div class="cmt_list">
@@ -1660,7 +1615,7 @@ function question_media() {
 	<p class="cmt_date"> '.date("D j M Y", strtotime($usermedia->posted_date)).'</p> </div>
 <!--	<div class="rght_view" onclick="resource_like('.$usermedia->rid.','.$user->uid.',2);" >
 	<p id ="resource-fact">'.$like_count.'</p>Like	
-	</div>--><div>'.$like.' <span>'.$flag.'</span></div>
+	</div>--><div>'.$like.' <span>'.$flag.'</span><span>'.$post.'</span></div>
 	</div>';
     }
     if ($nummedia == 0) {
@@ -1676,7 +1631,7 @@ function question_facts() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $vSqlfact = "SELECT *	FROM resource where rtype='3' and qid='$qid' ";
+    $vSqlfact ="SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='3' and r.qid='$qid' ";
     $rlistfacts = db_query($vSqlfact);
     $numfacts = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
     $factsesult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
@@ -1696,9 +1651,13 @@ function question_facts() {
 		
 		//flag
 	$flag='';
+	$post='';
 		$flag.='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?rid='.$userfacts->rid.'\',\'Report \');
 ">Report</a>]';	
-		
+			//posts
+		$post.='[<a href="javascript:void(0);" onclick="loadrforum(\''.$gSitePath.'resource/forum/'.$userfacts->rid.'\',\'Resource forum \');
+">'.$userfacts->cntpost.' Post</a>]';	
+
         $like_count = resource_Like_checkCount($userfacts->rid, 3);
         $factsesult .= '<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a href="'.$userfacts->facts.'" target="_blank" style="color:#02a33c;text-decoration:none;"> '.$userfacts->facts.' </a> </h4>
@@ -1706,7 +1665,7 @@ function question_facts() {
 	<!--<div class="rght_view" onclick="resource_like('.$userfacts->rid.','.$user->uid.',3);" >
 	<p id ="resource-fact">'.$like_count.'</p>Like	
 	</div>-->
-	<div>'.$like.' <span>'.$flag.'</span></div>
+	<div>'.$like.' <span>'.$flag.'</span><span>'.$post.'</span></div>
 	</div>';
     }
     if ($numfacts == 0) {
