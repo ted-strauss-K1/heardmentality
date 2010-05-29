@@ -266,7 +266,13 @@ function rwavelet(rid, wid){
             
           //   var myElementw = new Element('div', { 'id': 'documentBody'});
             
-            $('ajaxpage_content').unwrap();
+         //  var el=$('ajaxpage_content').getParent();
+		  
+		  // el.setStyle('height', 'auto');
+			 // el.setAttribute('style','');
+		 
+		  $('ajaxpage_content').unwrap();
+		 
             myElement.inject($('ajaxpage_content'),'top');
 			back.inject(myElement);
 			back.appendText('Back');
