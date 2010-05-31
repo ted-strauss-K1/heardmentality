@@ -249,7 +249,7 @@ HeardMentality: Its all about Sharing </div>
 
     
     if (isset($question_urlink) && $question_urlink != NULL) {
-        $question_urlink = $question_urlink;
+        $question_urlink = $question_urlink."?faceid=$user->uid";
     }
     
     
@@ -392,3 +392,122 @@ function invite_mail($key, &$message, $params) {
 }
 
 
+function twitter_login()
+{
+global $gSitePath,$user,$gDocPath,$base_root;
+
+$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+ $log = '<script type="text/javascript">
+	window.addEvent(\'domready\', function() {
+	
+	if (!window.demo_path) window.demo_path = \'\';
+	var demo_path = window.demo_path;
+	
+	$(\'twitform\').addEvent(\'submit\', function(e) {
+	
+	e.stop();
+	
+	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
+	
+	this.set(\'send\', {onComplete: function(response) { 
+	log.removeClass(\'ajax-loading\');
+	log.set(\'html\', response);
+	}});
+	
+	this.send();
+	});
+	});
+	
+	
+	</script>
+	';
+$log.='<div id="log_res"></div><div id="form" align="center"><!--Start Form-->
+<form id="twitform"  method="post" action="'.$gSitePath.'twitterpost" enctype="multipart/form-data">
+  <p><br />
+  <label>
+    Twitter Username:
+    <input name="t_user" type="text" id="t_user">
+  </label>
+  </p>
+  
+  <p><br />
+    <label>Twitter Password:
+    <input name="t_pass" type="password" id="t_pass">
+	 <input name="t_qid" type="hidden" id="t_qid" value="'.$qid.'">
+    </label>
+    </p>
+  
+    <label>
+	  
+	  <input type="submit" name="button" id="submitter"  value="Post To Your Twitter Account!/>
+    </label>
+  </p>
+</form>
+</div>';
+
+
+
+
+
+echo $log;
+
+
+
+
+
+}
+
+
+
+function twitterpost_save()
+{
+global $gSitePath,$user,$gDocPath,$base_root;
+
+
+
+
+    $vSql = "select * from {question} where status='1' and qid='".$_POST[t_qid]."' ";
+    $rlist = db_query($vSql);
+    $oListquest = db_fetch_object($rlist);
+
+
+
+
+
+$username = ($_POST['t_user']);
+$password = ($_POST['t_pass']);
+$file= "http://api.bit.ly/v3/shorten?login=amsaveni&apiKey=R_c5d3d662c70676d01183c1e59e1f048a&longUrl=http%3A%2F%2Fbetaworks.com%2F&format=json";
+$url= file_get_contents($file);
+$message = $oListquest->question.'  copy and paste this link  '.$gSitePath.''.$oListquest->url;
+
+$url = 'http://twitter.com/statuses/update.xml';
+$curl_handle = curl_init();
+curl_setopt($curl_handle, CURLOPT_URL, "$url");
+curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2);
+curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl_handle, CURLOPT_POST, 1);
+curl_setopt($curl_handle, CURLOPT_POSTFIELDS, "status=$message");
+curl_setopt($curl_handle, CURLOPT_USERPWD, "$username:$password");
+
+$buffer = curl_exec($curl_handle);
+curl_close($curl_handle);
+//echo $buffer;
+if ($buffer=="Could not authenticate you") {
+    echo "<p align=\"center\" >".'Sorry, due to an error your Twitter status could not be updated! Please check your username/password!'."</p>";
+}
+else
+{
+echo "<p align=\"center\" >".' Twitter  updated successfully !'."</p>";
+} 
+
+
+
+
+
+
+
+
+
+
+}

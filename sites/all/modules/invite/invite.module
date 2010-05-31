@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function invite_perm() {
-  return array('Invite Friends');
+  return array('Invite Friends','Twitter Login');
 }
 
 
@@ -20,6 +20,23 @@ $items['invite/invite_friends'] = array(
     'type' => MENU_CALLBACK,
     'file' => 'invite.pages.inc',
   );
+  $items['twitter/post'] = array(
+    'title' => ' Twitter ',
+    'page callback' => 'twitter_login',
+    'access arguments' => array('Twitter Login'),
+    'type' => MENU_CALLBACK,
+    'file' => 'invite.pages.inc',
+  );
+  
+    $items['twitterpost'] = array(
+    'title' => ' Twitter ',
+    'page callback' => 'twitterpost_save',
+    'access arguments' => array('Twitter Login'),
+    'type' => MENU_CALLBACK,
+    'file' => 'invite.pages.inc',
+  );
+  
+  
   return $items;
 }
 
