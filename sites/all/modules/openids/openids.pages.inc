@@ -436,57 +436,64 @@ $prolink2='';
 	$insert="insert into users (name,pass,mail,provider,created,access,login,status,Identity,hidden_pass)values('".$uname."','".md5($pass1)."','".$email."','".$provider."','".time()."','".time()."','".time()."','1','".$UID."','".$pass1."') ";
 	$insersult=db_query($insert);
 	$lid=mysql_insert_id();
-	if($_COOKIE['friend_id']!='0')
+	if($_COOKIE["faceid"]!='')
 	{
-	$selectuserm= db_query("select * from  invite_friend  where inv_id='".$_COOKIE['friend_id']."'");
-	$userlistmr = db_fetch_object($selectuserm);
-	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$userlistmr->uid."','1','".date('Y-m-d')."') ";
+	//////////////////////faceboook friends////////////////////////////////
+	$insertface="insert into facebook_friends (uid,face_uid)values('".$_COOKIE['faceid']."','".$lid."') ";
+	$insersult=db_query($insertface);
+	
+	
+	///////////////////////// follower list///////////
+	
+	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$_COOKIE['faceid']."','1','".date('Y-m-d')."') ";
 	$rs_commg=db_query($ins_commg);
-	$select_user_count = db_query("update  invite_friend set status='1' where inv_id='".$_COOKIE['friend_id']."'");
+	
 	$query_pt= "SELECT * FROM tbl_points where id='6' "; 
 	$query_ptinfo=db_query($query_pt);
 	$fetuserpts=db_fetch_object($query_ptinfo);
-	$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$userlistmr->uid."' ,'6',$fetuserpts->points,'0') ";
+	$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$_COOKIE['faceid']."' ,'6',$fetuserpts->points,'0') ";
 	$rs_commg=db_query($ins_commg);
 	setcookie("friend_id", '0');
 	$sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$lid."'";
 	$rs_umlog=db_query($sel_ulist);
 	$user_namelistf=db_fetch_object($rs_umlog);
 	
-	$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$userlistmr->uid."'";
+	$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_COOKIE['faceid']."'";
 	$rs_umlogs=db_query($sel_ulists);
 	$user_namelistfs=db_fetch_object($rs_umlogs);
 	if($user_namelistfs->notify_itype==1)
 	{
-	$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$userlistmr->uid."','1','1','".$lid."') ");
+	$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_COOKIE['faceid']."','1','1','".$lid."') ");
 	}
 	if($user_namelistfs->notify_etype==1)
 	{
 	$subject='You Got new Follower in Heardmenatlity ';
-	
-	
-	
-	
-	
-	
-	//$mail_success = htmlmail($user_namelistfs->email,$subject,$content,$from,'');
-	
-	
-	
-	
-	
-	
+		
 	
 	$sel_user_cmt="SELECT * FROM notification_mail_format Where id='2'";
-		$rs_mgmt=db_query($sel_user_cmt);
-		$list_content=db_fetch_object($rs_mgmt);
-		$contentm=str_replace("#uname#",$user_namelistf->name,$list_content->content);
-		$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
+	$rs_mgmt=db_query($sel_user_cmt);
+	$list_content=db_fetch_object($rs_mgmt);
+	$contentm=str_replace("#uname#",$user_namelistf->name,$list_content->content);
+	$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
 	// $contentm;
-			
-			$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
+	
+	$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
+	
+	
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	setcookie("faceid");
+	
 	}
+	
 	
 	$insert_profile="insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$firstName."' ,'".$lastName."' ,'".$genderl."','".$zip."','".$country."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
 	
@@ -663,6 +670,47 @@ $select_fet = db_query("SELECT * from users order by uid desc limit 0,1");
 return $ouptii;
 
 }
+function friends_answers()
+{
+global $gSitePath,$user,$gDocPath,$base_root;
 
+$listans = '<div>';
+$sel_count = db_result(db_query("SELECT COUNT(*) from facebook_friends as a,possible_answer_vote as b,question as c   where a.uid=$user->uid and a.face_uid=b.uid and b.qid=c.qid "));
+//echo "select * from facebook_friends as a,possible_answer_vote as b,question as c   where a.uid=$user->uid and a.face_uid=b.uid and b.qid=c.qid ";
+ $selmrq=db_query("select * from facebook_friends as a,possible_answer_vote as b,question as c   where a.uid=$user->uid and a.face_uid=b.uid and b.qid=c.qid ");
+while($in_list=db_fetch_object($selmrq))
+{
+    $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$in_list->qid."' and uid='".$in_list->face_uid."'"));
+
+	$listans.='<li> <a href="'.$gSitePath.''.$in_list->url.'">'.$in_list->question.' </a> </li>';
+	$vans = "select * from {possible_answer} where  qid='".$in_list->qid."'order by vote desc";
+	
+	$vlist = db_query($vans);
+	 while ($vlistquest = db_fetch_object($vlist)) {
+	// echo $in_list->panswer_id;
+	  $chk = '';
+	  if ($in_list->panswer_id == $vlistquest->paid) {
+                
+                $chk = "checked";
+            }
+	$listans.='<div><input name="answer_al.'.$in_list->qid.'" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
+	'.$vlistquest->answer.'</div>';
+  }
+}
+if($sel_count==0)
+{
+$listans.='No Question answered by Your Facebook Friends';
+
+}
+$listans.= '</div>';
+return $listans;
+
+
+
+
+
+
+
+}
 
 ?>

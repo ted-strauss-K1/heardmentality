@@ -1,7 +1,7 @@
 <?php
 function openids_perm() {
 
-  return array('Login');
+  return array('Login','Facebook Friends');
 
 } // function newmodule_perm
 function openids_menu() {	
@@ -41,6 +41,13 @@ $log['member/index'] = array(
     'file' => 'openids.pages.inc',
   );
   
+  $log['facebook/answers'] = array(
+    'title' => 'Facebook Friends Answered question',
+    'page callback' => 'friends_answers',
+    'access arguments' => array('Facebook Friends'),
+	   'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'openids.pages.inc',
+  );
   
   
   
