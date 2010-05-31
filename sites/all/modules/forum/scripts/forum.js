@@ -232,20 +232,22 @@ function rwavelet(rid, wid){
             'color': 'blue',
             'border': '1px solid #CCCCCC'
         },
-              
+        
         //Any other property uses Element:setProperty.
-        'id': 'documentBody','align':'right'
+        'id': 'documentBody',
+        'align': 'right'
     });
     
-	var back=new Element('a', {
-       //The 'events' property passes the object to Element:addEvents.
+    var back = new Element('a', {
+        //The 'events' property passes the object to Element:addEvents.
         'events': {
             'click': function(){
-               return_back(rid);
+                return_back(rid);
             }
-             },
+        },
         //Any other property uses Element:setProperty.
-        'id': 'back','href':'#'
+        'id': 'back',
+        'href': '#'
     });
     
     var req = new Request({
@@ -264,33 +266,31 @@ function rwavelet(rid, wid){
         
             $('ajaxpage_content').set('html', response);
             
-          //   var myElementw = new Element('div', { 'id': 'documentBody'});
+            //   var myElementw = new Element('div', { 'id': 'documentBody'});
             
-         //  var el=$('ajaxpage_content').getParent();
-		  
-		  // el.setStyle('height', 'auto');
-			 // el.setAttribute('style','');
-		 
-		  $('ajaxpage_content').unwrap();
-		 
-            myElement.inject($('ajaxpage_content'),'top');
-			back.inject(myElement);
-			back.appendText('Back');
+            var el = $('ajaxpage_content').getParent();
+            
+            // el.setStyle('height', 'auto');
+            // el.setAttribute('style','');
+            
+            $('ajaxpage_content').unwrap();
+            
+            myElement.inject($('ajaxpage_content'), 'top');
+            back.inject(myElement);
+            back.appendText('Back');
             bind_clk();
         }
     }).send();
 }
 
 function return_back(rid){
-	
-	 var url = 'resource/forum/'+rid;
-	 
-	 var req = new Request({
+
+    var url = 'resource/forum/' + rid;
+    
+    var req = new Request({
         method: 'get',
         url: url,
-        data: {
-                    
-        },
+        data: {},
         onRequest: function(){
             $('ajaxpage_content').set('html', '<b>Loading waves..!</b>');
             $('ajaxpage_content').slide('hide').slide('in');
@@ -299,15 +299,15 @@ function return_back(rid){
         
             $('ajaxpage_content').set('html', response);
             
-          
             
-          
-          
-        
+            
+            
+            
+            
         }
     }).send();
-	
-	
-	
-	
+    
+    
+    
+    
 }
