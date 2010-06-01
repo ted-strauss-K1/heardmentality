@@ -329,7 +329,7 @@ function yearling() {
 
 }
 /////////////////check for Points////////////////////////////////
-$count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid'"));
+$count =db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid'"));
 
 if ($count > 0) {
     $cnt = $count + 1;
