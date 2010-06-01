@@ -163,7 +163,7 @@ function commentator($uid = '') {
         $uid = $user->uid;
     }
     
-    $count1 = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
+    $count = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='5'"));
     
     if ($count >= 10 && $badgecnt == 0) {
