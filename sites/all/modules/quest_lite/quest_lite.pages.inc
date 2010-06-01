@@ -693,7 +693,9 @@ function qlite_save() {
             db_query($vInsQuery);
             drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
             increasepoints('2', $mid, '0');
-            
+            //badges 
+			teacher($user->uid,$mid);
+			
             $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
             $query_listd = db_query($queryd);
             $fetvotd = db_fetch_object($query_listd);
@@ -1491,6 +1493,10 @@ function suggest_answer_save() {
         if ($numr == 0) {
             $answerquery = "insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
             db_query($answerquery);
+			//Suggest Answer badges
+			db_query("insert into {user_badges} set bid='38',uid='$uid',qid='".$_REQUEST['qaid']."'");
+			
+			
             echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
         }
     } else {
@@ -2048,7 +2054,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
            $tru=process_tags($qtag, $qid, 1);
 		   
 		   if($tru){
-		   	
+		   	//badges
 			$chkbadge=db_result(db_query("select (*) from {user_badges} where uid='$uid' and bid='28'"));
 			if($chkbadge<1){
 				
@@ -2271,7 +2277,6 @@ function insertviews()
 
 }	
 	
-	
-	
+
 	
 ?>

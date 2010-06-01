@@ -21,6 +21,8 @@ function profile_view() {
             $strReturn = activities($uid);
             break;
         default:
+//badges
+		enthusiast($uid);
             $strReturn = profile($uid);
 
     

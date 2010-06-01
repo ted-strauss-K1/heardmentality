@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function badges_perm() {
-    return array('Badges list');
+    return array('Badges list','User list');
 }
 
 
@@ -13,6 +13,7 @@ function badges_perm() {
 
 function badges_menu() {
     $items['badges'] = array('title'=>' Badges', 'page callback'=>'badges_list', 'access arguments'=>array('Badges list'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'badges.pages.inc', );
+	 $items['badges/user'] = array('title'=>'Users Badges', 'page callback'=>'user_list', 'access arguments'=>array('User list'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'badges.pages.inc', );
 
     
     return $items;
@@ -33,11 +34,12 @@ function set_badges() {
         civic_duty($uid);
         cleanup($uid);
         commentator($uid);
-
-    
+		supporter($uid);
+    	pundit($uid);
+		generalist($uid);
     }
-	
-	
+
+
 }
 // fill profile get the biographer badge
 function biographer($uid = '') {
@@ -99,8 +101,9 @@ function citizen_patrol($uid = '') {
     }
     
     $count = db_result(db_query("SELECT COUNT(uid) FROM {question_flags} where uid='$uid'"));
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='2'"));
     
-    if ($count == 1) {
+    if ($count == 1 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 2, $uid);
     }
@@ -118,9 +121,10 @@ function civic_duty($uid = '') {
     $count1 = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where uid='$uid' group by uid"));
     
     $count2 = db_result(db_query("SELECT COUNT(*) FROM {suggest_answer_vote} where uid='$uid' group by uid"));
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='3'"));
     $count = $count1 + $count2;
     
-    if ($count >= 300) {
+    if ($count >= 300 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 3, $uid);
     }
@@ -160,9 +164,9 @@ function commentator($uid = '') {
     }
     
     $count1 = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
-
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='5'"));
     
-    if ($count >= 10) {
+    if ($count >= 10 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 5, $uid);
     }
@@ -219,11 +223,57 @@ function electorate($uid = '', $qid = '') {
     }
 }
 
-function enlighten($uid = '') {
-    
+function enthusiast($uid=''){    
     global $gSitePath,$user,$gDocPath,$base_root;
     if ( empty($uid)) {
         $uid = $user->uid;
+    }
+
+    $query = "SELECT date(daily_start_date) as sdate,date(now()) as nowdate,date(daily_todays_date) as tdate,date(daily_end_date) as edate  from {user_profile} where uid='$uid'";
+    $list = ExecuteQuery($query, "select");
+
+    
+    $diff1 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['tdate']."') as ddiff"));
+    
+    if ($diff1 == 1) {
+        
+       $query = "update {user_profile} set daily_todays_date=now() where uid='$uid'";
+        db_query($query);
+        
+        if ($list[0]['nowdate'] == $list[0]['edate']) {
+           
+             $diff2 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['edate']."') as ddiff"));
+            
+            if ($diff2 == 0||$diff2=='') {
+                
+                 $diff3 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['sdate']."') as ddiff"));
+            
+			   //11 Enthusiast Badges
+                if ($diff3 >=30) {
+                    
+                    db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
+                    $query = "update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,NOW()) where uid='$uid'";
+                    db_query($query);
+                }
+
+            
+            }
+        }
+    
+    } else {
+    	
+        // not consecutive so check its today
+	
+        $diffa = db_result(db_query("SELECT DATEDIFF('".$list[0]['tdate']."','".$list[0]['nowdate']."') as ddiff"));
+		
+        // if not today then reset the consecutive 30 days
+        if ($diffa != 0||$diffa=='') {
+            
+            $query = "update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,NOW()) where uid='$uid'";
+            db_query($query);
+        }
+
+    
     }
 
 
@@ -275,185 +325,289 @@ function yearling() {
 
         
         }
-	}
+    }
+
+}
+/////////////////check for Points////////////////////////////////
+$count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid'"));
+
+if ($count > 0) {
+    $cnt = $count + 1;
+    $rep = $cnt * 200;
+
+} else {
+    $rep = '200';
+}
+//echo $rep;
+if ($rep >= 200) {
+
+    
+    if (($mval == 0) && ($rep == $userlist->points)) {
+        //echo "SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' ";
+        $countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' "));
+        if ($countret == 0) {
+            db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)", 43, $userlist->uid, $rep);
+        }
+    }
+}
+
+
+function Tumbleweed() {
+    $selquestion = "select * from question where status='1'";
+    $listquestm = db_query($selquestion);
+    while ($qklisy = db_fetch_object($listquestm)) {
+        //echo $qklisy->qid;
+        //echo "<br>";
+
+        
+        $datbt = db_query("SELECT DATE_ADD('$qklisy->date_added', INTERVAL 7 DAY)as weekday");
+        $dtrange = db_fetch_object($datbt);
+        
+        $dtrange->weekday;
+        
+        $dtint = explode(" ", $dtrange->weekday);
+
+        
+        ////////////////to check whether answeres ////////////////////////////////
+        $answercnt = db_result(db_query("SELECT COUNT(*) FROM {suggest_answer} where qid='$qklisy->qid' and date_added<='$dtint[0]'"));
+        //echo "SELECT COUNT(*) FROM {forum_wave} where qid_rid='$qklisy->qid' and date_added<='$dtint[0]'";
+        $cmtcnt = db_result(db_query("SELECT COUNT(*) FROM {forum_wave} where qid_rid='$qklisy->qid' and date_added<='$dtint[0]'"));
+        $viewcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='$qklisy->qid' and view_date<='$dtint[0]'"));
+        //echo $answercnt;
+        if (($answercnt == 0) && ($cmtcnt == 0) && ($viewcnt < 5)) {
+            $viewbad = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qklisy->uid' and  qid='$qklisy->qid' and bid='42'"));
+            if ($viewbad == 0) {
+                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('42', '$qklisy->uid','$qklisy->qid') ");
+            }
+        }
+    }
+}
+
+
+function Taxonomist() {
+    
+    $seltagging = "select * from tagging where status='1'";
+    $listag = db_query($seltagging);
+    while ($qtag = db_fetch_object($listag)) {
+        $tagcnt = db_result(db_query("SELECT COUNT(*) FROM {qtag} where tag_id='$qtag->tid'"));
+        //echo $tagcnt;
+        //echo "<br>";
+        if ($tagcnt == 50) {
+            $tagcntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qtag->uid' and tid='$qtag->tid'  and bid='40'"));
+            if ($tagcntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid, uid,tid) VALUES ('40','$qtag->uid','$qtag->tid') ");
+            }
+        }
+    }
+}
+
+function Necromancer() {
+    
+    $date1 = "2007-03-24";
+    $date2 = "2009-06-26";
+    
+    $diff = abs(strtotime($date2) - strtotime($date1));
+    
+    $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+
+}
+function Student() {
+    
+    $stlist = "SELECT uid , MIN(qid) as qid FROM question where status='1' GROUP BY uid  ";
+    $listtrg = db_query($stlist);
+    
+    while ($qstude = db_fetch_object($listtrg)) {
+        //echo $qstude->qid;
+        //echo "<br>";
+        //echo "SELECT COUNT(*) FROM {possible_answer_vote} where qid='$qstude->qid' ";
+        $answercnt = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where qid='$qstude->qid' "));
+        //echo $answercnt;
+        if ($answercnt == 1) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qstude->uid' and qid='$qstude->qid'  and bid='38'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('38','$qstude->uid','$qstude->qid') ");
+            }
+        }
+    }
+
+
+}
+/////////////popular qusetion ////////// notable question /////////// Famous Question  /////////////////////
+function popquest() {
+    $stlist = "SELECT *  FROM question where status='1'  ";
+    $listpop = db_query($stlist);
+    
+    while ($qspop = db_fetch_object($listpop)) {
+        $popcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='$qspop->qid' "));
+        
+        if ($popcnt == 1000) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='30'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('30','$qspop->uid','$qspop->qid') ");
+            }
+        }
+        ////////////////////notable question//////////////
+        if ($popcnt == 2500) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='27'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('27','$qspop->uid','$qspop->qid') ");
+            }
+        }
+        
+        /////////////////famous question ////////////////
+
+        
+        if ($popcnt == 10000) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='13'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','$qspop->uid','$qspop->qid') ");
+            }
+        }
+
+    
+    }
+
+
+}
+/////////////////////////nice answer /////////Good Answer ////////////////Great Answer////////
+function niceans() {
+    
+    $nicelist = "SELECT a.qid, b.uid, count(a.uid)as tot FROM possible_answer_vote as a,question as b where a.qid=b.qid  GROUP BY a.qid 	  ";
+    $ansresult = db_query($nicelist);
+    
+    while ($ansrem = db_fetch_object($ansresult)) {
+        
+        //echo $ansrem->tot;
+        //echo "<br>";
+        if ($ansrem->tot == 10) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='25'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','$ansrem->uid') ");
+            }
+        
+        }
+        //////////////Good Answer///////////////////////
+        if ($ansrem->tot == 25) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='17'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','$ansrem->uid') ");
+            }
+        
+        }
+        //////////////great answers///////////////////////
+        if ($ansrem->tot == 100) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='19'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','$ansrem->uid') ");
+            }
+        
+        }
+    }
+
+}
+
+/*
+function teacher($uid = '', $qid = '') {
+    //Answered first question with at least one up vote
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
+
+    
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+    
+    $count = db_result(db_query("SELECT COUNT(uid) FROM {possible_answer_vote} where qid='$qid'"));
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='41'"));
+    $wave_like = db_query(" SELECT count( * ) FROM forum_wave AS fw JOIN user_likes AS ul ON ul.node_id = fw.fid WHERE qid_rid = '$qid' AND TYPE = '1' ");
+    
+    if ($count > 1 && $badgecnt == 0 && $wave_like > 1) {
+        
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 41, $uid);
+    }
+
+
+}
+*/
+
+function supporter($uid=''){
+	//- like forum post
+ global $gSitePath,$user,$gDocPath,$base_root;
+
+    
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+    
+    $count1 = db_result(db_query("SELECT COUNT(*) FROM {user_likes} where is_wave='1' AND is_like='1' AND uid='$uid'"));
+	 $count2 = db_result(db_query("SELECT COUNT(*) FROM {user_likes} where is_wavelets='1' AND is_like='1' AND  uid='$uid'"));
+	 $count=$count1+$count2;
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='39'"));
+   
+    if ($count > 1 && $badgecnt == 0) {
+        
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 39, $uid);
+    }
+	
 	
 }
-        /////////////////check for Points////////////////////////////////
-        $count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid'"));
-        
-        if ($count > 0) {
-            $cnt = $count + 1;
-            $rep = $cnt * 200;
-        
-        } else {
-            $rep = '200';
-        }
-        //echo $rep;
-        if ($rep >= 200) {
 
-            
-            if (($mval == 0) && ($rep == $userlist->points)) {
-                //echo "SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' ";
-                $countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' "));
-                if ($countret == 0) {
-                    db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)", 43, $userlist->uid, $rep);
-                }
-            }
-        }
+function pundit($uid=''){
+	//Left 10 comments with score of 10 or more
+	
+	 global $gSitePath,$user,$gDocPath,$base_root;
 
+    
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+    
+   
+	 $wcnt = db_result(db_query("SELECT COUNT(uid) FROM {forum_wave} where uid='$uid'"));
+	 $wlikecnt = db_result(db_query(" SELECT count(*) FROM {user_likes} AS l JOIN {forum_wave} AS f ON f.fid = l.node_id WHERE l.is_wave = '1'
+AND l.is_like = '1' AND f.uid = '$uid' "));
+	 $wlcnt = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
+	 $wllikecnt = db_result(db_query("SELECT count(*) FROM {user_likes} AS l JOIN {forum_wavelets} AS f ON f.wlid = l.node_id WHERE l.is_wavelets = '1'
+AND l.is_like = '1' AND f.uid = '$uid'"));
+
+	 $count1=$wcnt+$wlcnt;
+	 $count2=$wlikecnt+$wllikecnt;
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='32'"));
+   
+    if ($count1 > 10 && $count2 >=10 &&  $badgecnt == 0) {
         
-        function Tumbleweed() {
-            $selquestion = "select * from question where status='1'";
-            $listquestm = db_query($selquestion);
-            while ($qklisy = db_fetch_object($listquestm)) {
-                //echo $qklisy->qid;
-                //echo "<br>";
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 32, $uid);
+    }
 
-                
-                $datbt = db_query("SELECT DATE_ADD('$qklisy->date_added', INTERVAL 7 DAY)as weekday");
-                $dtrange = db_fetch_object($datbt);
-                
-                $dtrange->weekday;
-                
-                $dtint = explode(" ", $dtrange->weekday);
+	
+}
 
-                
-                ////////////////to check whether answeres ////////////////////////////////
-                $answercnt = db_result(db_query("SELECT COUNT(*) FROM {suggest_answer} where qid='$qklisy->qid' and date_added<='$dtint[0]'"));
-                //echo "SELECT COUNT(*) FROM {forum_wave} where qid_rid='$qklisy->qid' and date_added<='$dtint[0]'";
-                $cmtcnt = db_result(db_query("SELECT COUNT(*) FROM {forum_wave} where qid_rid='$qklisy->qid' and date_added<='$dtint[0]'"));
-                $viewcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='$qklisy->qid' and view_date<='$dtint[0]'"));
-                //echo $answercnt;
-                if (($answercnt == 0) && ($cmtcnt == 0) && ($viewcnt < 5)) {
-                    $viewbad = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qklisy->uid' and  qid='$qklisy->qid' and bid='42'"));
-                    if ($viewbad == 0) {
-                        db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('42', '$qklisy->uid','$qklisy->qid') ");
-                    }
-                }
-            }
-        }
+function generalist($uid=''){
+	//Active in many different tags
+	
+		 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+	
+	 $count = db_result(db_query("SELECT COUNT(*) FROM {qtag} as t join {question} as q  where q.uid='$uid' group by t.tid"));
+	
+	 $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='16'"));
+	 
+	if($count>50 && $badgecnt==0){
+		
+		 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 16, $uid);
+		
+	} 
+	 
+	 
+	 
+}	
+	
+function fanatic($uid=''){
+	
+	
+		 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+	
+	
+	
+}
 
-        
-        function Taxonomist() {
-            
-            $seltagging = "select * from tagging where status='1'";
-            $listag = db_query($seltagging);
-            while ($qtag = db_fetch_object($listag)) {
-                $tagcnt = db_result(db_query("SELECT COUNT(*) FROM {qtag} where tag_id='$qtag->tid'"));
-                //echo $tagcnt;
-                //echo "<br>";
-                if ($tagcnt == 50) {
-                    $tagcntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qtag->uid' and tid='$qtag->tid'  and bid='40'"));
-                    if ($tagcntr == 0) {
-                        db_query("INSERT INTO {user_badges} (bid, uid,tid) VALUES ('40','$qtag->uid','$qtag->tid') ");
-                    }
-                }
-            }
-        }
-        
-        function Necromancer() {
-            
-            $date1 = "2007-03-24";
-            $date2 = "2009-06-26";
-            
-            $diff = abs(strtotime($date2) - strtotime($date1));
-            
-            $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
-
-        
-        }
-        function Student() {
-            
-            $stlist = "SELECT uid , MIN(qid)as qid FROM question where status='1' GROUP BY uid  ";
-            $listtrg = db_query($stlist);
-            
-            while ($qstude = db_fetch_object($listtrg)) {
-                //echo $qstude->qid;
-                //echo "<br>";
-                //echo "SELECT COUNT(*) FROM {possible_answer_vote} where qid='$qstude->qid' ";
-                $answercnt = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where qid='$qstude->qid' "));
-                //echo $answercnt;
-                if ($answercnt == 1) {
-                    $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qstude->uid' and qid='$qstude->qid'  and bid='38'"));
-                    if ($stucntr == 0) {
-                        db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('38','$qstude->uid','$qstude->qid') ");
-                    }
-                }
-            }
-
-        
-        }
-        /////////////popular qusetion ////////// notable question /////////// Famous Question  /////////////////////
-        function popquest() {
-            $stlist = "SELECT *  FROM question where status='1'  ";
-            $listpop = db_query($stlist);
-            
-            while ($qspop = db_fetch_object($listpop)) {
-                $popcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='$qspop->qid' "));
-                
-                if ($popcnt == 1000) {
-                    $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='30'"));
-                    if ($stucntr == 0) {
-                        db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('30','$qspop->uid','$qspop->qid') ");
-                    }
-                }
-                ////////////////////notable question//////////////
-                if ($popcnt == 2500) {
-                    $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='27'"));
-                    if ($stucntr == 0) {
-                        db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('27','$qspop->uid','$qspop->qid') ");
-                    }
-                }
-                
-                /////////////////famous question ////////////////
-
-                
-                if ($popcnt == 10000) {
-                    $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='13'"));
-                    if ($stucntr == 0) {
-                        db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','$qspop->uid','$qspop->qid') ");
-                    }
-                }
-
-            
-            }
-
-        
-        }
-        /////////////////////////nice answer /////////Good Answer ////////////////Great Answer////////
-        function niceans() {
-            
-            $nicelist = "SELECT a.qid, b.uid, count(a.uid)as tot FROM possible_answer_vote as a,question as b where a.qid=b.qid  GROUP BY a.qid 	  ";
-            $ansresult = db_query($nicelist);
-            
-            while ($ansrem = db_fetch_object($ansresult)) {
-                
-                //echo $ansrem->tot;
-                //echo "<br>";
-                if ($ansrem->tot == 10) {
-                    $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='25'"));
-                    if ($stucntr == 0) {
-                        db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','$ansrem->uid') ");
-                    }
-                
-                }
-                //////////////Good Answer///////////////////////
-                if ($ansrem->tot == 25) {
-                    $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='17'"));
-                    if ($stucntr == 0) {
-                        db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','$ansrem->uid') ");
-                    }
-                
-                }
-                //////////////great answers///////////////////////
-                if ($ansrem->tot == 100) {
-                    $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='19'"));
-                    if ($stucntr == 0) {
-                        db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','$ansrem->uid') ");
-                    }
-                
-                }
-            }
-        
-        }
-        

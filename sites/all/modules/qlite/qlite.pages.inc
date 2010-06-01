@@ -96,7 +96,7 @@ function qlitemini() {
 
     
     $voutput .= '</div></div>';
-    user_daily_stat();
+    
     // $voutput.=qlite_report($qid);
     return $voutput;
 }
