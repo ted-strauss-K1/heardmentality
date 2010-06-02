@@ -804,7 +804,8 @@ if(!empty($state)){
 	$op='<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	<script type="text/javascript">
 var spath=\''.$gSitePath.'\';
-</script><script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript"></script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
+</script><script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript">
+</script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
 		<link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/log.css" /><div id="container">
    <form name="reg" id="reg"    method="post" enctype="multipart/form-data">
     <div class="info">
