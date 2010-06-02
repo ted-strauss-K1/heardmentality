@@ -794,7 +794,13 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	$seleant3 = "selected='selected'";
 	
 	}
-
+if(!empty($state)){
+		
+		$statecity='<b>Province/State :</b>'.$state.'<br/><b>City :</b>'.$city.'
+				<input type="hidden" name="state" value="'.$state.'">
+				<input type="hidden" name="city" value="'.$city.'">
+				';
+	}
 	$op='<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	<script type="text/javascript">
 var spath=\''.$gSitePath.'\';
