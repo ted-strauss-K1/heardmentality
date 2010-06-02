@@ -1399,11 +1399,12 @@ function user_authenticate_finalize(&$edit) {
  * the query string (as done by the user login block) overrides the redirect.
  */
 function user_login_submit($form, &$form_state) {
-  global $user;
+  global $user,$gSitePath;
   if ($user->uid) {
   
    $numedit = db_result(db_query("SELECT COUNT(*) from {users} where uid='".$user->uid."' and profile_edit='1'"));
-   if($numedit==0)
+   $numedit2 = db_result(db_query("SELECT COUNT(*) from {users} where uid='".$user->uid."' and prompt='1'"));
+  /* if($numedit==0)
    {
     $form_state['redirect'] = 'profile/edit';
    }
@@ -1411,7 +1412,27 @@ function user_login_submit($form, &$form_state) {
    {
     $form_state['redirect'] = 'profile';
    
+   }*/
+   
+   
+    if(($numedit==0)&&($numedit2==1))
+   {
+    $form_state['redirect'] = $gSitePath."?act=edit2";
    }
+   elseif($numedit==0)
+   {
+    $form_state['redirect'] = $gSitePath."?act=edit";
+   }
+   else
+   {
+    $form_state['redirect'] = 'profile';
+   
+   }
+   
+   
+   
+   
+   
     return;
   }
 }
