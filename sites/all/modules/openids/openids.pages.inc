@@ -385,125 +385,80 @@ echo $showops;
 function openid_login_save()
 {
 global $gSitePath,$user,$gDocPath,$base_root;
-//print_r($_GET);
-  extract($_REQUEST);
 
+	$pass=$_GET['UID'];
+	//print_r($_REQUEST);
 	
-if($_GET['gender']=='m')
-$genderl='1';
-else
-$genderl='2';
-if ($gender == 'm') {
-$check1 = "checked='checked'";
-} elseif ($gender == 'f') {
-$check2 = "checked='checked'";
-
-}
-$dob=$_GET['birthDay']."/".$_GET['birthMonth']."/".$_GET['birthYear'];
-if($_GET['provider']=='facebook')
-{
-$prolink=$_GET['profileURL'];
-$prolink2='';
-}
-elseif($_GET['provider']=='twitter')
-{
-$prolink='';
-$prolink2=$_GET['profileURL'];
-
-}
-else
-{
-
-$prolink='';
-$prolink2='';
-}	
+	if($_GET['gender']=='m')
+	$gender='1';
+	else
+	$gender='2';
+	$pass=$_GET['UID'];
+	$dob=$_GET['birthDay']."/".$_GET['birthMonth']."/".$_GET['birthYear'];
+	if($_GET['provider']=='facebook')
+	{
+	$prolink=$_GET['profileURL'];
+	$prolink2='';
+	}
+	elseif($_GET['provider']=='twitter')
+	{
+	$prolink='';
+	$prolink2=$_GET['profileURL'];
+	
+	}
+	else
+	{
+	
+	$prolink='';
+	$prolink2='';
+	}
 	
 	
+	/////////////////////NEW USER//////////////////////////////
+	$select_user_count = db_result(db_query("SELECT COUNT(*) from users where Identity='".$pass."' and provider='".$_GET['provider']."'"));
 	
-	
-	//echo $gender;
-	
-	$select_user_count = db_result(db_query("SELECT COUNT(*) from users where Identity='".$UID."' and provider='".$provider."'"));
-	$select_user_name = db_result(db_query("SELECT COUNT(*) from users where name='".$uname."' "));
 	if($select_user_count==0)
-{
-	if($saveForm!='')
 	{
-	
-	
-	if($select_user_name==0)
-	{
-	$insert="insert into users (name,pass,mail,provider,created,access,login,status,Identity,hidden_pass)values('".$uname."','".md5($pass1)."','".$email."','".$provider."','".time()."','".time()."','".time()."','1','".$UID."','".$pass1."') ";
+	 $insert="insert into users (pass,mail,provider,created,access,login,status,Identity)values('".md5($pass)."','".$_GET['email']."','".$_GET['provider']."','".time()."','".time()."','".time()."','1','".$pass."') ";
 	$insersult=db_query($insert);
 	$lid=mysql_insert_id();
-	if($_COOKIE["faceid"]!='')
+	
+	
+	if($_GET['nickname']!='')
 	{
-	//////////////////////faceboook friends////////////////////////////////
-	$insertface="insert into facebook_friends (uid,face_uid)values('".$_COOKIE['faceid']."','".$lid."') ";
-	$insersult=db_query($insertface);
 	
-	
-	///////////////////////// follower list///////////
-	
-	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$_COOKIE['faceid']."','1','".date('Y-m-d')."') ";
-	$rs_commg=db_query($ins_commg);
-	
-	$query_pt= "SELECT * FROM tbl_points where id='6' "; 
-	$query_ptinfo=db_query($query_pt);
-	$fetuserpts=db_fetch_object($query_ptinfo);
-	$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$_COOKIE['faceid']."' ,'6',$fetuserpts->points,'0') ";
-	$rs_commg=db_query($ins_commg);
-	setcookie("friend_id", '0');
-	$sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$lid."'";
-	$rs_umlog=db_query($sel_ulist);
-	$user_namelistf=db_fetch_object($rs_umlog);
-	
-	$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_COOKIE['faceid']."'";
-	$rs_umlogs=db_query($sel_ulists);
-	$user_namelistfs=db_fetch_object($rs_umlogs);
-	if($user_namelistfs->notify_itype==1)
-	{
-	$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_COOKIE['faceid']."','1','1','".$lid."') ");
+	$uname = str_replace(" ", "", $_GET['nickname']);
+	echo $onlyconsonants;
 	}
-	if($user_namelistfs->notify_etype==1)
+	else
 	{
-	$subject='You Got new Follower in Heardmenatlity ';
+	$uname="user".$lid;
+	
+	}
+	
+	
+	
+	/////////////////update user name/////////////////////////
+	
+	$updates="update users set name='$uname' where uid=$lid";
+	$up=db_query($updates);
+	
+	
+	
+	
+	
+	
+	/////////////insert into new profile user///////////////
+	
+	$insert_profile="insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$_GET['firstName']."' ,'".$_GET['lastName']."' ,'".$gender."','".$_GET['zip']."','".$_GET['country']."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
+		$insersult=db_query($insert_profile);
 		
-	
-	$sel_user_cmt="SELECT * FROM notification_mail_format Where id='2'";
-	$rs_mgmt=db_query($sel_user_cmt);
-	$list_content=db_fetch_object($rs_mgmt);
-	$contentm=str_replace("#uname#",$user_namelistf->name,$list_content->content);
-	$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
-	// $contentm;
-	
-	$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
-	
-	
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	setcookie("faceid");
-	
-	}
-	
-	
-	$insert_profile="insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$firstName."' ,'".$lastName."' ,'".$genderl."','".$zip."','".$country."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
-	
-	$insersult=db_query($insert_profile);
-	$select_fet = db_query("SELECT * from users where Identity='".$UID."' and provider='".$provider."'");
-	$prouser=db_fetch_object($select_fet);
-	//echo $prouser->name;
-	$formret='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
-			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value="'.$prouser->name.'" class="form-text required"/>
-			<input type="password" name="pass" id="edit-pass" value="'.$prouser->hidden_pass.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
+		
+		
+		
+		$formret.='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
+			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$uname.' class="form-text required"/>
+			<input type="password" name="pass" id="edit-pass" value='.$pass.'  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
 			
 			</form>
@@ -514,135 +469,56 @@ $prolink2='';
 			
 			</script>
 			';
+		
+		
+		
+		
+		
 	}
 	else
 	{
-	$emsg='User Name Already Exist';
-	}
+	  $result_profile_edit_promt = db_query("UPDATE {users} set prompt='1'where Identity='".$pass."' and provider='".$_GET['provider']."' ");
+	$select_user_list = db_fetch_object(db_query("SELECT * from users where Identity='".$pass."' and provider='".$_GET['provider']."'"));
+	 $unamelog=$select_user_list->name;
+	 $passlog=$_GET['UID'];
+ 
 	
-	
-	}
-	
-$formret.='<script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
-		<link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/log.css" /><div id="container">
-   <form name="reg" id="reg"    method="post" enctype="multipart/form-data">
-    <div class="info">
-    <h2> Registration</h2>
-	 <input type="text" class="hidden_box1" readonly="true" border="0" width="1" size="1" name="errbox" id="errbox"><div id="err_div" class="warningMessage">'.$emsg.'</div>
-    </div>
-    <ul>
-    <li id="foli0" class="name">
-    <label class="desc" id="title0" for="Field0">
-    Name
-    <span id="req_0" class="req">*</span>
-    </label>
-    <span>
-    <input id="uname" name="uname" class="field text" value="" size="10" tabindex="1" type="text">
-    <label for="Field0">User Name</label>
-    </span>
-   
-    
-    </li>
-	
-	 <li id="foli0" class="firstName">
-    <label class="desc" id="title0" for="Field0">
-   First Name
-  
-    </label>
-   
-    <span>
-    <input id="firstName" name="firstName" class="field text" value="'.$firstName.'" size="8" tabindex="2" type="text">
-   
-    </span>
-    
-    </li>
-	 <li id="foli0" class="lastName">
-    <label class="desc" id="title0" for="Field0">
-   Last Name
-  
-    </label>
-   
-    <span>
-    <input id="lastName" name="lastName" class="field text" value="'.$lastName.'" size="12" tabindex="3" type="text">
-   
-    </span>
-    
-    </li>
-	
-    <li id="foli11" class="">
-    <label class="desc" id="title11" for="Field11">
-    Password
-    <span id="req_11" class="req">*</span>
-    </label>
-    <div>
-    <input id="pass1" name="pass1" class="field text medium" value="" maxlength="255" tabindex="11" type="password"> 
-    </div>
-	<label class="desc" id="title11" for="Field11">
-   Confirm Password
-    <span id="req_11" class="req">*</span>
-    </label>
-    <div>
-    <input id="pass2" name="pass2" class="field text medium" value="" maxlength="255" tabindex="11" type="password"> 
-    </div>
-    <label class="desc" id="title11" for="Field11">
-    Email
-    <span id="req_11" class="req">*</span>
-    </label>
-    <div>
-    <input id="email" name="email" class="field text medium" value="'.$email.'" maxlength="255" tabindex="11" type="text"> 
-    </div>
-	</li>
-    <li id="foli14" class="">
-    <label class="desc" id="title14" for="Field14">
-   Real Name
-    </label>
-    <div>
-    <input id="nickname" name="nickname" class="field text medium" value="'.$nickname.'" maxlength="255" tabindex="11" type="text"> 
-    </div>
-    </li>
-   
-	 <li id="foli14" class="">
-    <label class="desc" id="title14" for="Field14">
-  Gender
-    </label>
-    <div>
-    <label class="option" for="edit-gender-0"><input id="edit-gender-0" name="gender" value="m" class="form-radio" '.$check1.' type="radio"> Male</label>
-	<label class="option" for="edit-gender-1"><input id="edit-gender-1" name="gender" value="f" class="form-radio" '.$check2.' type="radio"> Female</label>
-    </div>
-    </li>
-    <li class="buttons">
-    <input id="saveForm" name="saveForm" class="btTxt submit" value="Submit" type="submit" onclick="return validate_reg();">
-	
-    </li>
-    </ul>
-    </form>
-    </div>
-';	
+		$formret.='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
+			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$unamelog.' class="form-text required"/>
+			<input type="password" name="pass" id="edit-pass" value='.$passlog.'  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
+			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
+			
+			</form>
+			<script language="JavaScript" type="text/javascript">
+			
+			document.getElementById(\'user-login\').submit();
+			
+			
+			</script>
+			';
 
-	}
-	else
-	{
-	$select_fet = db_query("SELECT * from users where Identity='".$UID."' and provider='".$provider."'");
-	$prouser=db_fetch_object($select_fet);
-	//echo $prouser->name;
-	//echo md5('veni');
-	$formret.='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
-			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$prouser->name.' class="form-text required"/>
-			<input type="password" name="pass" id="edit-pass" value="'.$prouser->hidden_pass.'"  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
-			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
-			
-			</form>
-			<script language="JavaScript" type="text/javascript">
-			
-			document.getElementById(\'user-login\').submit();
-			
-			
-			</script>
-			';
+	
+	
+	
+	
 	
 	}
+
+	
+	/*$formret='<script type="text/javascript">
+	</script>
+	
+	<div id="desktopNavbar">
+	<ul>        
+	<li><a title="Add  Question" id="advanced1" class="advanced1" rel="width:850,height:570" href="http://192.9.200.10/heardmentality/question/add/">Add  Question</a>            
+	</li>
+	</ul>	
+	</div>
+	';*/
 	
 	
+	
+
 	
 return $formret;
 
@@ -712,5 +588,404 @@ return $listans;
 
 
 }
+function welcome_page()
+{
+global $gSitePath,$user,$gDocPath,$base_root;
+
+    //print_r($_REQUEST);
+    $uid = $user->uid;
+    $bio = '';
+    $real_name = '';
+    $gender = '';
+    $optionlist = '';
+    $image = 'noimage.jpg';
+    $zip = '';
+    $country = '';
+    $slant = '';
+    $religion = '';
+    $ethnic = '';
+    $facebook = '';
+    $twitter = '';
+    $check1 = '';
+    $check2 = '';
+    $question_privacy = '';
+    $dob = '';
+    
+    if ($_REQUEST['update'] == 'Update') {
+        extract($_REQUEST);
+       
+
+        
+        if (isset($_FILES)) {
+
+            
+            $return = event_photo_profile();
+            //print_r($return);
+            $insimage = $return['image'];
+            $flag = $return['flag'];
+            $suc = $return['suc'];
+
+        
+        }
+        
+        $chk = db_query("select * from {user_profile} where uid='$user->uid'");
+        $chk1 = db_result($chk);
+        $result_profile = db_fetch_object($chk);
+        
+       
+
+            $update_user=db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
+
+            $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
+			
+			$sel_ulists="select * from {user_profile} where uid='$user->uid'";
+		$rs_umlogs=db_query($sel_ulists);
+		$user_namelistfs=db_fetch_object($rs_umlogs);
+		
+			if(($user_namelistfs->religion!='')&&($user_namelistfs->ethnic!='')&&($user_namelistfs->slant!='')&&($user_namelistfs->dob!='')&&($user_namelistfs->gender!='')&&($user_namelistfs->zip!=''))
+			{
+			 $result_profile_edit = db_query("UPDATE {users} set profile_edit='1' where uid='$user->uid' ");
+
+			
+			}
+			
+			
+			
+			
+			
+			
+        
+       
+        if ($result) {
+            $sucflag = '';
+            $sucflag = 1;
+           $message = 'Profile Updated Successfully!';
+        
+        }
+        
+
+    
+    }
+    
+    $get_cn = db_query("select * from {user_profile} as a, {users} as b where a.uid='$user->uid' and b.uid='$user->uid'");
+    $result = db_fetch_array($get_cn);
+	
+    extract($result);
+   
+    drupal_add_js(drupal_get_path('module', 'profile').'/js/en.js');
+    drupal_add_js(drupal_get_path('module', 'profile').'/js/formcheck.js');
+    drupal_add_css(drupal_get_path('module', 'profile').'/theme/classic/formcheck.css');
+    //geoname
+    $options = array('sortby'=>'countryname', 'sortorder'=>'ASC');
+    $result = geonames_query('countryinfo', NULL, $options);
+    foreach ($result->results as $countries) {
+        $select = '';
+        if ($country == $countries['countrycode']) {
+            $select = "SELECTED='SELECTED'";
+        }
+        
+        $optionlist .= sprintf('<option %s value="%s">%s</option>', $select, $countries['countrycode'], $countries['countryname']);
+    }
+	//echo $user->notify_type;
+    if($user->notify_etype==1){
+		$checkm="checked='checked'";
+	}
+	
+	if($user->notify_itype==1){
+			$checkf="checked='checked'";
+		
+	}
+    if ($gender == 1) {
+        $check1 = "checked='checked'";
+    } elseif ($gender == 2) {
+        $check2 = "checked='checked'";
+    
+    }
+ //////////////////question privacy/////////////////////////
+
+     if($question_privacy==1)
+	 {
+	 $selm = "checked='checked'";
+	 }
+	 elseif($question_privacy==2)
+	 {
+	  $selm2= "checked='checked'";
+	 
+	 }
+	 elseif($question_privacy==3)
+	 {
+	  $selm3 = "checked='checked'";
+	 
+	 }
+	 elseif($question_privacy==4)
+	 {
+	  $selm4 = "checked='checked'";
+	 }
+	 //////////////////religion/////////////////////////
+      if($religion=='Christian')
+	 {
+	 $selr1 = "selected='selected'";
+	 }
+	 elseif($religion=='Muslim')
+	 {
+	  $selr2= "selected='selected'";
+	 
+	 }
+	 elseif($religion=='Jewish')
+	 {
+	  $selr3 = "selected='selected'";
+	 
+	 }
+	 elseif($religion=='Hindu')
+	 {
+	  $selr4 = "selected='selected'";
+	 }
+      elseif($religion=='Buddhist')
+	 {
+	  $selr5 = "selected='selected'";
+	 }
+	  elseif($religion=='Other')
+	 {
+	  $selr6 = "selected='selected'";
+	 }
+ //////////////////ethinicity/////////////////////////
+ 
+	if($ethnic=='Caucasian')
+	{
+	$sele1 = "selected='selected'";
+	}
+	elseif($ethnic=='Black')
+	{
+	$sele2= "selected='selected'";
+	
+	}
+	elseif($ethnic=='Asian')
+	{
+	$sele3 = "selected='selected'";
+	
+	}
+	elseif($ethnic=='Indian')
+	{
+	$sele4 = "selected='selected'";
+	}
+	elseif($ethnic=='Semetic')
+	{
+	$sele5 = "selected='selected'";
+	}
+	elseif($ethnic=='Latin')
+	{
+	$sele6 = "selected='selected'";
+	}
+	elseif($ethnic=='Aborigines')
+	{
+	$sele7 = "selected='selected'";
+	}
+	if($slant =='Left')
+	{
+	$seleant1 = "selected='selected'";
+	}
+	elseif($slant =='Right')
+	{
+	$seleant2= "selected='selected'";
+	
+	}
+	elseif($slant =='Center')
+	{
+	$seleant3 = "selected='selected'";
+	
+	}
+
+	$op='<script type="text/javascript">
+function show_confirm()
+{
+var r=confirm("Do yuo want to earn the Biographer badge by competing your profile information?");
+if (r==true)
+  {
+  alert("You pressed OK!");
+  }
+else
+  {
+  alert("You pressed Cancel!");
+  }
+}
+</script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
+		<link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/log.css" /><div id="container">
+   <form name="reg" id="reg"    method="post" enctype="multipart/form-data">
+    <div class="info">
+	 <input type="text" class="hidden_box1" readonly="true" border="0" width="1" size="1" name="errbox" id="errbox"><div id="err_div" class="warningMessage">'.$emsg.' '.$message.'</div>
+    </div>
+    <ul>
+    <fieldset>
+	 <legend><b><i> Basic Info</i></b> </legend>
+	
+	 <li id="foli0" class="firstName">
+	<label class="desc" id="title0" for="Field0">
+	First Name
+	&nbsp;&nbsp;&nbsp;Last Name
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Real Name
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOB
+	</label>
+   
+    <span>
+    <input id="fname" name="fname" class="field text" value="'.$first_name.'" size="8" tabindex="2" type="text">
+   <input id="lname" name="lname" class="field text" value="'.$last_name.'" size="12" tabindex="3" type="text">
+    <input id="rname" name="rname" class="field text" value="'.$real_name.'" tabindex="4" type="text"> 
+       <input id="edit-mail" name="mail" class="field text " value="'.$mail.'" maxlength="255" tabindex="5" type="text"> 
+	   <input name="dob"  value="'.$dob.'"  id="dob" class="field text "  tabindex="5" type="text">
+    </span>
+     
+  
+    
+
+    </li>
+	  </fieldset>		
+	 <fieldset>
+	 <legend><b><i> Personal Info</i></b> </legend>
+  <li id="foli14" class="">
+			<label class="desc" id="title14" for="Field14"> 
+			Gender
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Country 
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Religion :'.$religion.'
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethnicity: '.$ethnic.'
+			&nbsp;&nbsp;Slant: '.$slant.'
+			</label> 
+	<label class="option" for="edit-gender-0"><input id="edit-gender-0" name="gender" value="1" class="form-radio" '.$check1.' type="radio"> Male</label>
+	<label class="option" for="edit-gender-1"><input id="edit-gender-1" name="gender" value="2" class="form-radio" '.$check2.' type="radio"> Female</label> 
+       <select name="country" style="width: 125px;" tabindex="16" id="edit-country">'.$optionlist.'</select> 
+		 <select  name="religion" id="edit-religion" class="form-text" ><option value="" >Select</option><option value="Christian" '.$selr1.' >Christian (Cath or Prod)</option><option value="Muslim" '.$selr2.' >Muslim (Suni Shiite)</option><option value="Jewish" '.$selr3.' >Jewish</option><option value="Hindu" '.$selr4.' > Hindu</option><option value="Buddhist" '.$selr5.' >Buddhist</option><option value="Other" '.$selr6.'>Other</option></select> 
+		<select name="ethnic" id="edit-ethnic" class="form-text" ><option value="">Select </option><option value="Caucasian" '.$sele1.'>Caucasian</option><option value="Black" '.$sele2.'>Black</option><option value="Asian" '.$sele3.'>Asian</option> <option value="Indian" '.$sele4.'>Indian</option> <option value="Semetic" '.$sele5.'>Semetic</option><option value="Latin" '.$sele6.'>Latin</option> <option value="Aborigines" '.$sele7.'>Aborigines</option>  </select>
+		<select name="slant" id="edit-slant"  class="form-text" ><option value="">Select</option><option value="Left" '.$seleant1.'>Left</option><option value="Right" '.$seleant2.'>Right </option> <option value="Center" '.$seleant3.'>Center </option>  </select>
+	       
+			 </li>
+  
+    <li id="foli14" class="">
+	<label class="desc" id="title14" for="Field14"> 
+	Image
+	</label> 
+	
+	 <input type="file" name="image" id="image" /> <img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'" align="absmiddle" alt="Profile Image" >
+				<input type="hidden" name="oldimg" value="'.$image.'"/>
+	 </li>
+	  <li id="foli14" class="">
+	<label class="desc" id="title14" for="Field14"> 
+	Zipcode
+	</label> 
+	 <input name="zip"  value="'.$zip.'"  onblur="get_zip_city(this.value);" id="edit-zip"  class="field text" type="text">
+	 <div class="form-item" id="edit-city-wrapper">'.$statecity.' </div>
+	 </li>
+	</fieldset>	
+	
+	 <fieldset>
+		<legend><b><i>Question & Resource Privacy Settings</i></b> </legend>
+		<div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset"  class="qrset" value="1" '.$selm.'>&nbsp;Always Post Non-Anonymous
+            <div class="description"></div>
+        </div>
+        <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset" value="2" '.$selm2.'>&nbsp;Only allow Followers & Followees to see
+            <div class="description"></div>
+        </div>
+         <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset"  value="3" '.$selm3.'>&nbsp;Only Post Anonymous
+            <div class="description"></div>
+        </div>
+        <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset"  value="4" '.$selm4.'>&nbsp;Prompt on all (if prompt all, pop up to ask if he wants to share with
+everyone or just followers or not at all while adding a question)
+            <div class="description"></div>
+        </div>
+		
+		  <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"><b>Notify Type </b></label>
+             <input name="ntype" type="checkbox" '.$checkm.'  value="1"  /> E-mail    <input name="nitype" type="checkbox" '.$checkf.'  value="1"  /> Internal  Message Only
+           
+			<div class="description"></div>
+        </div>
+        </fieldset>		
+	
+	
+	
+    <li class="buttons">
+    <input type="submit" name="update" value="Update" onclick="return validate_reg();">
+	
+    </li>
+    </ul>
+    </form>
+	
+    </div>
+';	
+
+echo $op;
+
+
+}
+
+function event_photo_profile() {
+    global $objSmarty,$config;
+    $return = array();
+    $filename = $_FILES['image']['name'];// file up starts
+    $tmp_image = $_FILES['image']['tmp_name'];
+    if ($filename != '') {
+        include drupal_get_path('module', 'profile')."/img_resize.php";
+        $ext = strtolower(substr($filename, strpos($filename, '.'), strlen($filename) - 1));
+        
+        if ($ext == '.jpg' || $ext == '.gif' || $ext == '.jpeg') {
+            $imagefun = new SimpleImage();
+            
+            $image = time().$filename;
+            
+            $path = drupal_get_path('module', 'profile')."/snap/";
+            copy($tmp_image, $path.$image);
+            //img resize
+            $sz = getimagesize($path.$image);
+            
+            $x = $sz[0]; // org image width
+            $y = $sz[1]; // org image height
+            if ($x > 100) {
+                $imagefun->load($path.$image);
+                
+                $imagefun->resizeToWidth(100);
+                
+                $imagefun->save($path.$image);
+            
+            }
+
+            
+            if ($image != "") {
+                $insimage = $image;
+                //include('round_corner.php');
+            }
+        } else {
+            $flag = 1;
+            $suc = ' Sorry Image Cant Uploaded It Should be gif or Jpeg format!';
+        }
+    } elseif (isset($_REQUEST['oldimg'])) {
+        $insimage = $_REQUEST['oldimg'];
+        $flag = 0;
+    } else {
+        $flag = 0;
+        $insimage = "noimage.jpg";
+    }//file up ends
+    
+    $return['image'] = $insimage;
+    $return['flag'] = $flag;
+    $return['suc'] = $suc;
+    return $return;
+}
+
+
+
+
+
+
+
+
+
+
 
 ?>
