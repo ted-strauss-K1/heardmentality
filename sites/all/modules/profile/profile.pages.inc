@@ -23,6 +23,7 @@ function profile_view() {
         default:
 //badges
 		enthusiast($uid);
+		fanatic($uid);
             $strReturn = profile($uid);
 
     

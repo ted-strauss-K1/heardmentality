@@ -603,14 +603,6 @@ function generalist($uid=''){
 	 
 }	
 	
-function fanatic($uid=''){
-	
-	
-		 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	
-	
-	
-}
 
 function legendary($uid=''){
 	//Hit the daily reputation cap on 150 days
@@ -640,3 +632,62 @@ function legendary($uid=''){
 	  }
 
 }
+
+function fanatic($uid=''){    
+    global $gSitePath,$user,$gDocPath,$base_root;
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+
+    $query = "SELECT date(fanatic_start_date) as sdate,date(now()) as nowdate,date(fanatic_todays_date) as tdate,date(fanatic_end_date) as edate  from {user_profile} where uid='$uid'";
+    $list = ExecuteQuery($query, "select");
+
+    
+    $diff1 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['tdate']."') as ddiff"));
+    
+    if ($diff1 == 1) {
+        
+       $query = "update {user_profile} set fanatic_todays_date=now() where uid='$uid'";
+        db_query($query);
+        
+        if ($list[0]['nowdate'] == $list[0]['edate']) {
+           
+             $diff2 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['edate']."') as ddiff"));
+            
+            if ($diff2 == 0||$diff2=='') {
+                
+                 $diff3 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['sdate']."') as ddiff"));
+            
+			   //11 Enthusiast Badges
+                if ($diff3 >=50) {
+                    
+                    db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
+                    $query = "update {user_profile} set fanatic_start_date=now(),fanatic_todays_date=now(),fanatic_end_date=TIMESTAMPADD(DAY,50,NOW()) where uid='$uid'";
+                    db_query($query);
+                }
+
+            
+            }
+        }
+    
+    } else {
+    	
+        // not consecutive so check its today
+	
+        $diffa = db_result(db_query("SELECT DATEDIFF('".$list[0]['tdate']."','".$list[0]['nowdate']."') as ddiff"));
+		
+        // if not today then reset the consecutive 30 days
+        if ($diffa != 0||$diffa=='') {
+            
+            $query = "update {user_profile} set fanatic_start_date=now(),fanatic_todays_date=now(),fanatic_end_date=TIMESTAMPADD(DAY,50,NOW()) where uid='$uid'";
+            db_query($query);
+        }
+
+    
+    }
+
+
+}
+
+
+
