@@ -419,7 +419,7 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	
 	if($select_user_count==0)
 	{
-	echo  $insert="insert into users (pass,mail,provider,created,access,login,status,Identity)values('".md5($pass)."','".$_GET['email']."','".$_GET['provider']."','".time()."','".time()."','".time()."','1','".$pass."') ";
+	 $insert="insert into users (pass,mail,provider,created,access,login,status,Identity)values('".md5($pass)."','".$_GET['email']."','".$_GET['provider']."','".time()."','".time()."','".time()."','1','".$pass."') ";
 	$insersult=db_query($insert);
 	$lid=mysql_insert_id();
 	
@@ -456,7 +456,7 @@ global $gSitePath,$user,$gDocPath,$base_root;
 		
 		
 		
-	/*	$formret.='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
+		$formret.='<form action="'.$gSitePath.'user/login" method="post" id="user-login">
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$uname.' class="form-text required"/>
 			<input type="password" name="pass" id="edit-pass" value='.$pass.'  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
@@ -468,7 +468,7 @@ global $gSitePath,$user,$gDocPath,$base_root;
 			
 			
 			</script>
-			';*/
+			';
 		
 		
 		
