@@ -445,6 +445,63 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	
 	
 	
+	if($_COOKIE["faceid"]!='')
+	{
+	//////////////////////faceboook friends////////////////////////////////
+	$insertface="insert into facebook_friends (uid,face_uid)values('".$_COOKIE['faceid']."','".$lid."') ";
+	$insersult=db_query($insertface);
+	
+	
+	///////////////////////// follower list///////////
+	
+	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$_COOKIE['faceid']."','1','".date('Y-m-d')."') ";
+	$rs_commg=db_query($ins_commg);
+	
+	$query_pt= "SELECT * FROM tbl_points where id='6' "; 
+	$query_ptinfo=db_query($query_pt);
+	$fetuserpts=db_fetch_object($query_ptinfo);
+	$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$_COOKIE['faceid']."' ,'6',$fetuserpts->points,'0') ";
+	$rs_commg=db_query($ins_commg);
+	setcookie("friend_id", '0');
+	$sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$lid."'";
+	$rs_umlog=db_query($sel_ulist);
+	$user_namelistf=db_fetch_object($rs_umlog);
+	
+	$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_COOKIE['faceid']."'";
+	$rs_umlogs=db_query($sel_ulists);
+	$user_namelistfs=db_fetch_object($rs_umlogs);
+	if($user_namelistfs->notify_itype==1)
+	{
+	$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_COOKIE['faceid']."','1','1','".$lid."') ");
+	}
+	if($user_namelistfs->notify_etype==1)
+	{
+	$subject='You Got new Follower in Heardmenatlity ';
+		
+	
+	$sel_user_cmt="SELECT * FROM notification_mail_format Where id='2'";
+	$rs_mgmt=db_query($sel_user_cmt);
+	$list_content=db_fetch_object($rs_mgmt);
+	$contentm=str_replace("#uname#",$user_namelistf->name,$list_content->content);
+	$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
+	// $contentm;
+	
+	$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	setcookie("faceid");
+	
+	}
 	
 	
 	
