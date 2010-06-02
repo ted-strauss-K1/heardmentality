@@ -808,7 +808,7 @@ else
   alert("You pressed Cancel!");
   }
 }
-</script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
+</script><script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript"></script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
 		<link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/log.css" /><div id="container">
    <form name="reg" id="reg"    method="post" enctype="multipart/form-data">
     <div class="info">
