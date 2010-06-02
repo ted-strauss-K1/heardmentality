@@ -37,6 +37,7 @@ function set_badges() {
 		supporter($uid);
     	pundit($uid);
 		generalist($uid);
+		legendary($uid);
     }
 
 
@@ -611,3 +612,31 @@ function fanatic($uid=''){
 	
 }
 
+function legendary($uid=''){
+	//Hit the daily reputation cap on 150 days
+	//30 days for 50 repatution cap 
+	 global $gSitePath,$user,$gDocPath,$base_root;
+	 $sum=0;
+    $bid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $strReturn = '';
+	  for ($mn = 30; $mn >= 0; $mn--) {
+        
+        $year = date("Y");
+        $month = date("m") - 1;
+        $dat = date("d") - $mn;
+         $date = date('Y-m-d', mktime(0, 0, 0, $month + 1, $dat, $year))."<br/>";
+		 
+		 $totalpts = db_result(db_query("SELECT sum(points) FROM {tbl_user_points} where uid='".$uid."' AND date(date_added)='$date' group by uid"))."<br/>";
+		if($totalpts>=50){
+			
+			 $sum=$sum+1;
+		}
+		 
+	  }
+	  
+	  if($sum==30){
+	  	
+		 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 22, $uid);
+	  }
+
+}
