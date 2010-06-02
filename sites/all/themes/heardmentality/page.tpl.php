@@ -83,7 +83,7 @@
 				descClassName: 'advancedDesc'
 			});
 			
-			var box = new multiBox('advanced4', {
+			var box2 = new multiBox('advanced4', {
 				overlay: new overlay()
 			});
 			
@@ -97,32 +97,77 @@
 			var box = new multiBox('advanced7', {
 				overlay: new overlay()
 			});
-			
+		
+window.setTimeout(function(){box.open($('advanced1'));
+var el=$('div.MultiBoxClose');
+	  el.addEvent('click', closebox.bindWithEvent(this));
+},'5000');
+
+		
 		});
+	
+	function closebox()
+	{
+	
+	box.close();
+	}
 	
 	</script>
 
 <!--<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/themes/heardmentality/scripts/mocha-init.js"></script>-->
-
+<script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/openids/js/popup.js"></script>
 </head>
-<body>
+<?php 
+
+if($_REQUEST["act"]=='edit2')
+{
+?>
+<script type="text/javascript">
+function show_confirm()
+{
+var r=confirm("Do yuo want to earn the Biographer badge by competing your profile information?");
+if (r==true)
+  {
+ loadPopupWindow('Edit Profile','640px','880px','http://localhost/heardmentality/edit?act=edit');
+  }
+else
+  {
+ // alert("You pressed Cancel!");
+  }
+}
+</script>
+<!--<body onLoad="loadPopupWindow('Edit Profile','640px','880px','http://localhost/heardmentality/edit?act=edit');">-->
+<body onLoad="show_confirm();">
+<?php
+}
+elseif($_REQUEST["act"]=='edit')
+{
+?>
+
+<body onLoad="loadPopupWindow('Edit Profile','640px','880px','http://localhost/heardmentality/edit?act=edit');">
 
 <?php
-
+}
+else
+{
+?>
+<body>
+<?php
+}
 //echo md5('admin');
 //echo "<br>";
 //echo '21232f297a57a5a743894a0e4a801fc3';
 global $user;
-//echo strtotime('1270549824');
-//echo $user->uid;
-//echo base64_encode('admin')
+echo $_COOKIE["faceid"];
+setcookie("faceid");
 ?>
+
 <div id="desktop">
 
 <div id="desktopHeader">
 <div id="desktopTitlebarWrapper">
 	<div id="desktopTitlebar">
-		<h1 class="applicationTitle"><a href="<?php echo $gSitePath?>">Mocha UI</a></h1>
+		<h1 class="applicationTitle"><a  href="<?php echo $gSitePath?>">Mocha UI</a></h1>
 		<!--h2 class="tagline">A Web Applications <span class="taglineEm">User Interface Library</span></h2-->
 		<div id="topNav">
 			
@@ -234,6 +279,14 @@ var login_params=
 <script type="text/javascript">
    gigya.services.socialize.showLoginUI(conf,login_params);
 </script>
+
+
+
+
+
+
+
+
 
 
 
@@ -602,6 +655,24 @@ window.addEvent('domready', function(){
 		});
 	}
 	
+	
+	
+	MochaUI.twitWindow = function(url,title){
+			new MochaUI.Window({
+			id: 'ajaxpage',
+			title: ' '+title,
+			loadMethod: 'xhr',
+			contentURL: url,
+			type: 'modal',
+			width: 650,
+			height: 500,
+		
+			resizeLimit:  {'x': [330, 2500], 'y': [250, 2000]},
+			contentBgColor: '#FFF'
+		});
+	}
+	
+	
 	MochaUI.loginWindow = function(url,title){
 			new MochaUI.Window({
 			id: 'ajaxpage',
@@ -842,6 +913,18 @@ MochaUI.dupeWindow(url,title);
 
 	
 }
+
+
+
+function load_twitter(url,title)
+{
+MochaUI.closeAll();
+MochaUI.twitWindow(url,title);
+
+	
+}
+
+
 	</script>
     
     <?php
