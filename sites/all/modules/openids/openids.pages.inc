@@ -796,18 +796,7 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	}
 
 	$op='<script type="text/javascript">
-function show_confirm()
-{
-var r=confirm("Do yuo want to earn the Biographer badge by competing your profile information?");
-if (r==true)
-  {
-  alert("You pressed OK!");
-  }
-else
-  {
-  alert("You pressed Cancel!");
-  }
-}
+var spath=\''.$gSitePath.'\';
 </script><script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript"></script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
 		<link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/log.css" /><div id="container">
    <form name="reg" id="reg"    method="post" enctype="multipart/form-data">
