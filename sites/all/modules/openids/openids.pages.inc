@@ -857,14 +857,14 @@ var spath=\''.$gSitePath.'\';
   
     <li id="foli14" class="">
 	<label class="desc" id="title14" for="Field14"> 
-	Image
-	Bio
+	Bio:
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Image:
 	</label> 
-	
+		 <textarea name="bio" id="edit-bio" class="form-text" rows="4" cols="30">'.$bio.'</textarea>
 	 <input type="file" name="image" id="image" /> <img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'" align="absmiddle" alt="Profile Image" >
 				<input type="hidden" name="oldimg" value="'.$image.'"/>
 				
-				 <textarea name="bio" id="edit-bio" class="form-text" rows="4" cols="30">'.$bio.'</textarea>
+			
 	 </li>
 	  <li id="foli14" class="">
 	<label class="desc" id="title14" for="Field14"> 
