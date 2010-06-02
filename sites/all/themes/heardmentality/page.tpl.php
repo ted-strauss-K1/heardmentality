@@ -128,7 +128,7 @@ function show_confirm()
 var r=confirm("Do yuo want to earn the Biographer badge by competing your profile information?");
 if (r==true)
   {
- loadPopupWindow('Edit Profile','640px','880px','http://localhost/heardmentality/edit?act=edit');
+ loadPopupWindow('Edit Profile','640px','880px','<?php echo $gSitePath?>edit');
   }
 else
   {
@@ -144,7 +144,7 @@ elseif($_REQUEST["act"]=='edit')
 {
 ?>
 
-<body onLoad="loadPopupWindow('Edit Profile','640px','880px','http://localhost/heardmentality/edit?act=edit');">
+<body onLoad="loadPopupWindow('Edit Profile','640px','880px','<?php echo $gSitePath?>edit');">
 
 <?php
 }
