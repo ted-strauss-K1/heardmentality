@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function badges_perm() {
-    return array('Badges list','User list');
+    return array('Badges list', 'User list');
 }
 
 
@@ -13,7 +13,7 @@ function badges_perm() {
 
 function badges_menu() {
     $items['badges'] = array('title'=>' Badges', 'page callback'=>'badges_list', 'access arguments'=>array('Badges list'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'badges.pages.inc', );
-	 $items['badges/user'] = array('title'=>'Users Badges', 'page callback'=>'user_list', 'access arguments'=>array('User list'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'badges.pages.inc', );
+    $items['badges/user'] = array('title'=>'Users Badges', 'page callback'=>'user_list', 'access arguments'=>array('User list'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'badges.pages.inc', );
 
     
     return $items;
@@ -34,10 +34,10 @@ function set_badges() {
         civic_duty($uid);
         cleanup($uid);
         commentator($uid);
-		supporter($uid);
-    	pundit($uid);
-		generalist($uid);
-		legendary($uid);
+        supporter($uid);
+        pundit($uid);
+        generalist($uid);
+        legendary($uid);
     }
 
 
@@ -224,12 +224,12 @@ function electorate($uid = '', $qid = '') {
     }
 }
 
-function enthusiast($uid=''){    
+function enthusiast($uid = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
     if ( empty($uid)) {
         $uid = $user->uid;
     }
-
+    
     $query = "SELECT date(daily_start_date) as sdate,date(now()) as nowdate,date(daily_todays_date) as tdate,date(daily_end_date) as edate  from {user_profile} where uid='$uid'";
     $list = ExecuteQuery($query, "select");
 
@@ -238,19 +238,19 @@ function enthusiast($uid=''){
     
     if ($diff1 == 1) {
         
-       $query = "update {user_profile} set daily_todays_date=now() where uid='$uid'";
+        $query = "update {user_profile} set daily_todays_date=now() where uid='$uid'";
         db_query($query);
         
         if ($list[0]['nowdate'] == $list[0]['edate']) {
-           
-             $diff2 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['edate']."') as ddiff"));
             
-            if ($diff2 == 0||$diff2=='') {
+            $diff2 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['edate']."') as ddiff"));
+            
+            if ($diff2 == 0 || $diff2 == '') {
                 
-                 $diff3 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['sdate']."') as ddiff"));
-            
-			   //11 Enthusiast Badges
-                if ($diff3 >=30) {
+                $diff3 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['sdate']."') as ddiff"));
+                
+                //11 Enthusiast Badges
+                if ($diff3 >= 30) {
                     
                     db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
                     $query = "update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,NOW()) where uid='$uid'";
@@ -262,13 +262,13 @@ function enthusiast($uid=''){
         }
     
     } else {
-    	
+        
         // not consecutive so check its today
-	
+        
         $diffa = db_result(db_query("SELECT DATEDIFF('".$list[0]['tdate']."','".$list[0]['nowdate']."') as ddiff"));
-		
+        
         // if not today then reset the consecutive 30 days
-        if ($diffa != 0||$diffa=='') {
+        if ($diffa != 0 || $diffa == '') {
             
             $query = "update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,NOW()) where uid='$uid'";
             db_query($query);
@@ -281,68 +281,58 @@ function enthusiast($uid=''){
 }
 
 
-function yearling()
-{
+function yearling() {
 
+    
+    $selusers = "SELECT * FROM users as a ,user_profile as b where a.status='1' and a.uid=b.uid";
+    $listmuser = db_query($selusers);
+    while ($userlist = db_fetch_object($listmuser)) {
+        //echo "<br>";
+        //echo $userlist->points;
+        //echo "<br>";
+        
+        $dtint = date("Y-m-d h:i:s", $userlist->created);
+        
+        $date1 = $dtint;
+        $date2 = date("Y-m-d h:i:s");
+        
+        $diff = abs(strtotime($date2) - strtotime($date1));
+        $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+        //echo "<br>";
+        //echo $months;
+        $b = "12";
+        
+        /////////////////check for month////////////////////////////////
+        if ($months >= 12) {
+            $mval = $months % $b;
+            //echo $mval;
 
-$selusers="SELECT * FROM users as a ,user_profile as b where a.status='1' and a.uid=b.uid";
-$listmuser = db_query($selusers);
-while($userlist = db_fetch_object($listmuser))
-{
-//echo "<br>";
-//echo $userlist->points;
-//echo "<br>";
+            
+            /////////////////check for Points////////////////////////////////
+            $count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid'"));
+            
+            if ($count > 0) {
+                $cnt = $count + 1;
+                $rep = $cnt * 200;
+            
+            } else {
+                $rep = '200';
+            }
+            //echo $rep;
+            if ($rep >= 200) {
+                
+                if (($mval == 0) && ($rep == $userlist->points)) {
+                    //echo "SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' ";
+                    $countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' "));
+                    if ($countret == 0) {
+                        db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)", 43, $userlist->uid, $rep);
+                    }
+                }
+            }
 
-$dtint= date("Y-m-d h:i:s",$userlist->created);
-
-$date1 = $dtint;
-$date2 = date("Y-m-d h:i:s");
-
-$diff = abs(strtotime($date2) - strtotime($date1));
-$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-//echo "<br>";
-//echo $months;
-$b="12";
-
-/////////////////check for month////////////////////////////////
-if($months>=12)
-{
-$mval=$months % $b;
-//echo $mval;
-
-
-/////////////////check for Points////////////////////////////////
-$count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid'"));
-
-if($count>0)
-{
-$cnt=$count+1;
-$rep=$cnt*200;
-
-}
-else
-{
-$rep='200';
-}
-//echo $rep;
-if($rep>=200)
-{
-
-if(($mval==0)&&($rep==$userlist->points))
-{
-//echo "SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' ";
-$countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' "));
-if($countret==0)
-{
-db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)",43, $userlist->uid,$rep);
-}
-}
-}
-
-
-
-}
-}
+        
+        }
+    }
 }
 
 
@@ -502,32 +492,30 @@ function niceans() {
 }
 
 /*
-function teacher($uid = '', $qid = '') {
-    //Answered first question with at least one up vote
-    
-    global $gSitePath,$user,$gDocPath,$base_root;
-
-    
-    if ( empty($uid)) {
-        $uid = $user->uid;
-    }
-    
-    $count = db_result(db_query("SELECT COUNT(uid) FROM {possible_answer_vote} where qid='$qid'"));
-    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='41'"));
-    $wave_like = db_query(" SELECT count( * ) FROM forum_wave AS fw JOIN user_likes AS ul ON ul.node_id = fw.fid WHERE qid_rid = '$qid' AND TYPE = '1' ");
-    
-    if ($count > 1 && $badgecnt == 0 && $wave_like > 1) {
-        
-        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 41, $uid);
-    }
-
-
-}
-*/
-
-function supporter($uid=''){
-	//- like forum post
+ function teacher($uid = '', $qid = '') {
+ //Answered first question with at least one up vote
+ 
  global $gSitePath,$user,$gDocPath,$base_root;
+ 
+ if ( empty($uid)) {
+ $uid = $user->uid;
+ }
+ 
+ $count = db_result(db_query("SELECT COUNT(uid) FROM {possible_answer_vote} where qid='$qid'"));
+ $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='41'"));
+ $wave_like = db_query(" SELECT count( * ) FROM forum_wave AS fw JOIN user_likes AS ul ON ul.node_id = fw.fid WHERE qid_rid = '$qid' AND TYPE = '1' ");
+ 
+ if ($count > 1 && $badgecnt == 0 && $wave_like > 1) {
+ 
+ db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 41, $uid);
+ }
+ }
+ */
+
+
+function supporter($uid = '') {
+    //- like forum post
+    global $gSitePath,$user,$gDocPath,$base_root;
 
     
     if ( empty($uid)) {
@@ -535,103 +523,100 @@ function supporter($uid=''){
     }
     
     $count1 = db_result(db_query("SELECT COUNT(*) FROM {user_likes} where is_wave='1' AND is_like='1' AND uid='$uid'"));
-	 $count2 = db_result(db_query("SELECT COUNT(*) FROM {user_likes} where is_wavelets='1' AND is_like='1' AND  uid='$uid'"));
-	 $count=$count1+$count2;
+    $count2 = db_result(db_query("SELECT COUNT(*) FROM {user_likes} where is_wavelets='1' AND is_like='1' AND  uid='$uid'"));
+    $count = $count1 + $count2;
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='39'"));
-   
+    
     if ($count > 1 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 39, $uid);
     }
-	
-	
+
+
 }
 
-function pundit($uid=''){
-	//Left 10 comments with score of 10 or more
-	
-	 global $gSitePath,$user,$gDocPath,$base_root;
+function pundit($uid = '') {
+    //Left 10 comments with score of 10 or more
+    
+    global $gSitePath,$user,$gDocPath,$base_root;
 
     
     if ( empty($uid)) {
         $uid = $user->uid;
     }
-    
-   
-	 $wcnt = db_result(db_query("SELECT COUNT(uid) FROM {forum_wave} where uid='$uid'"));
-	 $wlikecnt = db_result(db_query(" SELECT count(*) FROM {user_likes} AS l JOIN {forum_wave} AS f ON f.fid = l.node_id WHERE l.is_wave = '1'
-AND l.is_like = '1' AND f.uid = '$uid' "));
-	 $wlcnt = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
-	 $wllikecnt = db_result(db_query("SELECT count(*) FROM {user_likes} AS l JOIN {forum_wavelets} AS f ON f.wlid = l.node_id WHERE l.is_wavelets = '1'
-AND l.is_like = '1' AND f.uid = '$uid'"));
 
-	 $count1=$wcnt+$wlcnt;
-	 $count2=$wlikecnt+$wllikecnt;
+    
+    $wcnt = db_result(db_query("SELECT COUNT(uid) FROM {forum_wave} where uid='$uid'"));
+    $wlikecnt = db_result(db_query(" SELECT count(*) FROM {user_likes} AS l JOIN {forum_wave} AS f ON f.fid = l.node_id WHERE l.is_wave = '1'
+AND l.is_like = '1' AND f.uid = '$uid' "));
+    $wlcnt = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
+    $wllikecnt = db_result(db_query("SELECT count(*) FROM {user_likes} AS l JOIN {forum_wavelets} AS f ON f.wlid = l.node_id WHERE l.is_wavelets = '1'
+AND l.is_like = '1' AND f.uid = '$uid'"));
+    
+    $count1 = $wcnt + $wlcnt;
+    $count2 = $wlikecnt + $wllikecnt;
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='32'"));
-   
-    if ($count1 > 10 && $count2 >=10 &&  $badgecnt == 0) {
+    
+    if ($count1 > 10 && $count2 >= 10 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 32, $uid);
     }
 
-	
+
 }
 
-function generalist($uid=''){
-	//Active in many different tags
-	
-		 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	
-	 $count = db_result(db_query("SELECT COUNT(*) FROM {qtag} as t join {question} as q  where q.uid='$uid' group by t.tid"));
-	
-	 $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='16'"));
-	 
-	if($count>50 && $badgecnt==0){
-		
-		 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 16, $uid);
-		
-	} 
-	 
-	 
-	 
-}	
-	
+function generalist($uid = '') {
+    //Active in many different tags
+    
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    
+    $count = db_result(db_query("SELECT COUNT(*) FROM {qtag} as t join {question} as q  where q.uid='$uid' group by t.tid"));
+    
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='16'"));
+    
+    if ($count > 50 && $badgecnt == 0) {
+        
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 16, $uid);
+    
+    }
 
-function legendary($uid=''){
-	//Hit the daily reputation cap on 150 days
-	//30 days for 50 repatution cap 
-	 global $gSitePath,$user,$gDocPath,$base_root;
-	 $sum=0;
+
+}
+
+
+function legendary($uid = '') {
+    //Hit the daily reputation cap on 150 days
+    //30 days for 50 repatution cap
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $sum = 0;
     $bid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $strReturn = '';
-	  for ($mn = 30; $mn >= 0; $mn--) {
+    
+    $userload = user_load($uid);
+    $sdate = format_date($userload->created, "custom", "Y-m-d");
+    $date = date('Y-m-d');
+    $diff1 = db_result(db_query("SELECT DATEDIFF('".$date."','".$sdate."') as ddiff"));
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='22'"));
+    if ($diff1 == 10) {
         
-        $year = date("Y");
-        $month = date("m") - 1;
-        $dat = date("d") - $mn;
-         $date = date('Y-m-d', mktime(0, 0, 0, $month + 1, $dat, $year))."<br/>";
-		 
-		 $totalpts = db_result(db_query("SELECT sum(points) FROM {tbl_user_points} where uid='".$uid."' AND date(date_added)='$date' group by uid"))."<br/>";
-		if($totalpts>=50){
-			
-			 $sum=$sum+1;
-		}
-		 
-	  }
-	  
-	  if($sum==30){
-	  	
-		 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 22, $uid);
-	  }
+        $totalpts = db_result(db_query("SELECT sum(points) FROM {tbl_user_points} where uid='".$uid."' AND date(date_added) between '$sdate' AND '$date' group by uid"))."<br/>";
+        
+        if ($sum >= 20 && $badgecnt == 0) {
+            
+            db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 22, $uid);
+        }
+    
+    }
+
 
 }
 
-function fanatic($uid=''){    
+function fanatic($uid = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
     if ( empty($uid)) {
         $uid = $user->uid;
     }
-
+    
     $query = "SELECT date(fanatic_start_date) as sdate,date(now()) as nowdate,date(fanatic_todays_date) as tdate,date(fanatic_end_date) as edate  from {user_profile} where uid='$uid'";
     $list = ExecuteQuery($query, "select");
 
@@ -640,19 +625,19 @@ function fanatic($uid=''){
     
     if ($diff1 == 1) {
         
-       $query = "update {user_profile} set fanatic_todays_date=now() where uid='$uid'";
+        $query = "update {user_profile} set fanatic_todays_date=now() where uid='$uid'";
         db_query($query);
         
         if ($list[0]['nowdate'] == $list[0]['edate']) {
-           
-             $diff2 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['edate']."') as ddiff"));
             
-            if ($diff2 == 0||$diff2=='') {
+            $diff2 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['edate']."') as ddiff"));
+            
+            if ($diff2 == 0 || $diff2 == '') {
                 
-                 $diff3 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['sdate']."') as ddiff"));
-            
-			   //11 Enthusiast Badges
-                if ($diff3 >=50) {
+                $diff3 = db_result(db_query("SELECT DATEDIFF('".$list[0]['nowdate']."','".$list[0]['sdate']."') as ddiff"));
+                
+                //11 Enthusiast Badges
+                if ($diff3 >= 50) {
                     
                     db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
                     $query = "update {user_profile} set fanatic_start_date=now(),fanatic_todays_date=now(),fanatic_end_date=TIMESTAMPADD(DAY,50,NOW()) where uid='$uid'";
@@ -664,13 +649,13 @@ function fanatic($uid=''){
         }
     
     } else {
-    	
+        
         // not consecutive so check its today
-	
+        
         $diffa = db_result(db_query("SELECT DATEDIFF('".$list[0]['tdate']."','".$list[0]['nowdate']."') as ddiff"));
-		
+        
         // if not today then reset the consecutive 30 days
-        if ($diffa != 0||$diffa=='') {
+        if ($diffa != 0 || $diffa == '') {
             
             $query = "update {user_profile} set fanatic_start_date=now(),fanatic_todays_date=now(),fanatic_end_date=TIMESTAMPADD(DAY,50,NOW()) where uid='$uid'";
             db_query($query);
