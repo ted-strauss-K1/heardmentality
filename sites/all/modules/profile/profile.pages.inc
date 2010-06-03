@@ -308,7 +308,7 @@ $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message 
 	}
 	if(empty($badgelist)){
 		
-		$badges.='<div class="error">No Badges Yet !</div>';
+		$badges.='<div class=""><h3>No Badges Yet !</h3></div>';
 	}
 //content starts
     $strReturn = '<script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript"></script><div id="profile_page"><form id="proform" method="post" action="'.$gSitePath.'postmessage" ><div class="main">
