@@ -1175,7 +1175,9 @@ function activities($uid = '') {
 	(select 4 as tbl,f.qid_rid as qid,w.date_added as dat,wavelet as vars  from {forum_wavelets} w join {forum_wave} as f on f.fid=w.wid where w.uid='$uid' ) union
 	(select 5 as tbl,f.qid_rid as qid,l.date_added as dat,f.title as vars  from {forumwave_like} as l join {forum_wave} as f on f.fid=l.wid where l.uid='$uid' ) union
 	(select 6 as tbl,u.image_url as qid,f.joindate as dat,u.real_name as vars from {follower} as f join {user_profile} as u on u.uid=f.uid where f.follower_id='$uid' )union
-	(select 7 as tbl,qid,posted_date as dat,0 as vars  from {resource} where uid='$uid') 
+	(select 7 as tbl,qid,posted_date as dat,0 as vars  from {resource} where uid='$uid') union
+	(select 8 as tbl,qid,vote_date as dat,0 as vars from {suggest_answer_vote} where uid='$uid') union
+	(select 9 as tbl,qid as qid,date_added as dat,`badge` as vars from {user_badges} where uid='$uid') 
 	ORDER BY dat DESC LIMIT 0,50 ";
     $fetch = ExecuteQuery($selQ, "select");
     
@@ -1251,7 +1253,31 @@ function activities($uid = '') {
                 $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
                 $strReturn .= '<div ><span>'.$date.'</span><span> <b>New Resource posted for </b> <a href="'.$gSitePath.$quest->url.'">'.myTruncate($quest->question, '60', '..', '..').' </a></span></div>';
 				}
-				break;			
+				break;
+			case '8':
+                //suggest answer answered
+			
+				$quest=get_question($list['qid']);
+				if(!empty($quest)){
+				 $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                $strReturn .= '<div ><span>'.$date.'</span><span> <b>Suggested Answer</b></span> <span><a href="'.$gSitePath.$quest->url.'">'.myTruncate($quest->question, '60', '..', '..').' </a></span></div>';	
+					
+				}
+				break;
+             case '9':
+			 	echo "select * from {user_badges}  where `badge`='".$list['vars']."'";
+				$bad=db_fetch_object(db_query("select * from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.badge='".$list['vars']."'"));
+				
+				//echo "<pre>"; print_r($bad);
+				
+				if(!empty($bad)){
+				 $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                $strReturn .= '<div ><span>'.$date.'</span><span> <b>Awarded Badge </b></span> <span><a title='.$bad->info.' href="'.$gSitePath.'badges/user/'.$bad->bid.'">'.$bad->name.' </a></span></div>';	
+				}
+						
+							
+								  
+                break;			
             default:
 			   drupal_set_message($message = 'Oops, No Recent Activities !', $type = 'error');
                 break;
