@@ -281,75 +281,68 @@ function enthusiast($uid=''){
 }
 
 
-function yearling() {
-    $datefunction = "";
-    
-    $selusers = "SELECT * FROM users where status='1'";
-    $listmuser = db_query($selusers);
-    while ($userlist = db_fetch_object($listmuser)) {
-        
-        $dtint = date("Y-m-d", $userlist->created);
-        
-        $dtint = date("Y-m-d h:i:s", $userlist->created);
-        
-        $date1 = $dtint;
-        $date2 = date("Y-m-d h:i:s");
+function yearling()
+{
 
-        
-        for ($counter = 1; $counter <= 10; $counter++) {
-            
-            $diff = abs(strtotime($date2) - strtotime($date1));
-            $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
-            //echo "<br>";
-            //echo $months;
-            $b = "12";
-            
-            $twlnk = "12";
-            $intvl = $twlnk * $counter;
-            $badge = $counter * 1;
-            echo $intvl."      ".$badge;
-            echo "<br>";
-            //echo $counter;
-            
-            /*$mysqlqry="SELECT DATE_ADD('$dtint', INTERVAL $counter MONTH) as dateint";
-             $listqry=db_query($mysqlqry);
-             $mlist = db_fetch_object($listqry);*/
-            //echo $mlist->dateint;
-            
-            /////////////////check for month////////////////////////////////
-            if ($months >= 12) {
-                $mval = $months % $b;
-                //echo $mval;
 
-            
-            }
+$selusers="SELECT * FROM users as a ,user_profile as b where a.status='1' and a.uid=b.uid";
+$listmuser = db_query($selusers);
+while($userlist = db_fetch_object($listmuser))
+{
+//echo "<br>";
+//echo $userlist->points;
+//echo "<br>";
 
-        
-        }
-    }
+$dtint= date("Y-m-d h:i:s",$userlist->created);
+
+$date1 = $dtint;
+$date2 = date("Y-m-d h:i:s");
+
+$diff = abs(strtotime($date2) - strtotime($date1));
+$months = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+//echo "<br>";
+//echo $months;
+$b="12";
+
+/////////////////check for month////////////////////////////////
+if($months>=12)
+{
+$mval=$months % $b;
+//echo $mval;
+
+
+/////////////////check for Points////////////////////////////////
+$count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid'"));
+
+if($count>0)
+{
+$cnt=$count+1;
+$rep=$cnt*200;
 
 }
-/////////////////check for Points////////////////////////////////
-$count =db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid'"));
-
-if ($count > 0) {
-    $cnt = $count + 1;
-    $rep = $cnt * 200;
-
-} else {
-    $rep = '200';
+else
+{
+$rep='200';
 }
 //echo $rep;
-if ($rep >= 200) {
+if($rep>=200)
+{
 
-    
-    if (($mval == 0) && ($rep == $userlist->points)) {
-        //echo "SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' ";
-        $countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' "));
-        if ($countret == 0) {
-            db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)", 43, $userlist->uid, $rep);
-        }
-    }
+if(($mval==0)&&($rep==$userlist->points))
+{
+//echo "SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' ";
+$countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' "));
+if($countret==0)
+{
+db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)",43, $userlist->uid,$rep);
+}
+}
+}
+
+
+
+}
+}
 }
 
 
