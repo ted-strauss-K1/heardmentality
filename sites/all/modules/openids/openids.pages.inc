@@ -423,12 +423,14 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	$insersult=db_query($insert);
 	$lid=mysql_insert_id();
 	
+	echo $_GET['nickname'];
 	
 	if($_GET['nickname']!='')
 	{
 	
-	$uname = str_replace(" ", "", $_GET['nickname']);
-	echo $onlyconsonants;
+	$unames = str_replace(" ", "", $_GET['nickname']);
+	$uname=$unames.$lid;
+	//echo $onlyconsonants;
 	}
 	else
 	{
@@ -440,17 +442,87 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	
 	/////////////////update user name/////////////////////////
 	
-	$updates="update users set name='$uname' where uid=$lid";
+	 $updates="update users set name='$uname' where uid=$lid";
 	$up=db_query($updates);
 	
 	
 	
+	if($_SESSION["faceid"]!='')
+	{
+	//////////////////////faceboook friends////////////////////////////////
+	$insertface="insert into facebook_friends (uid,face_uid)values('".$_SESSION['faceid']."','".$lid."') ";
+	$insersult=db_query($insertface);
+	
+	
+	///////////////////////// follower list///////////
+	
+	$ins_commg="insert into   follower (uid,follower_id,follower_status,joindate) values('".$lid."' ,'".$_SESSION['faceid']."','1','".date('Y-m-d')."') ";
+	$rs_commg=db_query($ins_commg);
+	
+	$query_pt= "SELECT * FROM tbl_points where id='6' "; 
+	$query_ptinfo=db_query($query_pt);
+	$fetuserpts=db_fetch_object($query_ptinfo);
+	$ins_commg="insert into   tbl_user_points (uid,point_id,points,vote_point_id) values('".$_SESSION['faceid']."' ,'6',$fetuserpts->points,'0') ";
+	$rs_commg=db_query($ins_commg);
+	setcookie("friend_id", '0');
+	$sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$lid."'";
+	$rs_umlog=db_query($sel_ulist);
+	$user_namelistf=db_fetch_object($rs_umlog);
+	
+	$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_SESSION['faceid']."'";
+	$rs_umlogs=db_query($sel_ulists);
+	$user_namelistfs=db_fetch_object($rs_umlogs);
+	if($user_namelistfs->notify_itype==1)
+	{
+	$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_SESSION['faceid']."','1','1','".$lid."') ");
+	}
+	if($user_namelistfs->notify_etype==1)
+	{
+	$subject='You Got new Follower in Heardmenatlity ';
+		
+	
+	$sel_user_cmt="SELECT * FROM notification_mail_format Where id='2'";
+	$rs_mgmt=db_query($sel_user_cmt);
+	$list_content=db_fetch_object($rs_mgmt);
+	$contentm=str_replace("#uname#",$user_namelistf->name,$list_content->content);
+	$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
+	// $contentm;
+	
+	$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
+	
+	
+	}
 	
 	
 	
-	/////////////insert into new profile user///////////////
 	
-	$insert_profile="insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$_GET['firstName']."' ,'".$_GET['lastName']."' ,'".$gender."','".$_GET['zip']."','".$_GET['country']."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
+	
+	
+	
+	
+	
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		/////////////insert into new profile user///////////////
+		
+		$insert_profile="insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$_GET['firstName']."' ,'".$_GET['lastName']."' ,'".$gender."','".$_GET['zip']."','".$_GET['country']."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
 		$insersult=db_query($insert_profile);
 		
 		
@@ -505,16 +577,7 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	}
 
 	
-	/*$formret='<script type="text/javascript">
-	</script>
 	
-	<div id="desktopNavbar">
-	<ul>        
-	<li><a title="Add  Question" id="advanced1" class="advanced1" rel="width:850,height:570" href="http://192.9.200.10/heardmentality/question/add/">Add  Question</a>            
-	</li>
-	</ul>	
-	</div>
-	';*/
 	
 	
 	
@@ -614,7 +677,16 @@ global $gSitePath,$user,$gDocPath,$base_root;
     if ($_REQUEST['update'] == 'Update') {
         extract($_REQUEST);
        
-
+		$chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
+		$chk1 = db_result($chk);
+		if ($chk1) {
+		$result = db_query("UPDATE {privacy_settings} set real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
+		followers='$followers',following='$following',medal='$medal',questions='$questions',answers='$answers'  where uid=$user->uid ");
+		
+		} else {
+		$result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
+		followers='$followers',following='$following',questions='$questions',answers='$answers' ,medal='$medal'");
+		}
         
         if (isset($_FILES)) {
 
@@ -801,6 +873,19 @@ if(!empty($state)){
 				<input type="hidden" name="city" value="'.$city.'">
 				';
 	}
+		$query = "select * from {privacy_settings} where uid='$user->uid'";
+		$fetch = ExecuteQuery($query, "select");
+		if (is_array($fetch)) {
+		$get = extract($fetch);
+		} else {
+		$get = NULL;
+		}
+		
+		//privacy settings form
+		$usertypes = userTypes();
+	  $option1 = '<option value=1>'.$usertypes[0].'</option>';
+    $option2 = '<option value=2>'.$usertypes[1].'</option>';
+    $option3 = '<option value=3>'.$usertypes[2].'</option>';
 	$op='<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	<script type="text/javascript">
 var spath=\''.$gSitePath.'\';
@@ -919,7 +1004,78 @@ everyone or just followers or not at all while adding a question)
         </div>
         </fieldset>		
 	
+	 <fieldset>
+	 <legend><b><i> Privacy Settings</i></b> </legend>
 	
+	 <li id="foli0" class="firstName">
+	<label class="desc" id="title0" for="Field0">
+	Email
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Real Name
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Image
+	</label>
+    <span>
+    <select class="email" name="email">'.$option1.$option2.$option3.'</select>
+  <select class="real_name" name="real_name">'.$option1.$option2.$option3.'</select> 
+   <select class="image"  name="image">'.$option1.$option2.$option3.'</select>
+    </span>
+    </li>
+	
+	<label class="desc" id="title0" for="Field0">
+	Bio
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gender
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zip
+	</label>
+    <span>
+	<select class="bio"  name="bio">'.$option1.$option2.$option3.'</select>
+	 <select class="gender"  name="gender">'.$option1.$option2.$option3.'</select> 
+	 <select class="zip"  name="zip">'.$option1.$option2.$option3.'</select>
+	    </span>
+		<label class="desc" id="title0" for="Field0">
+	Country
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Religion
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethnic
+	
+	</label>
+    <span>
+<select class="country"  name="country">'.$option1.$option2.$option3.'</select>
+<select class="religion"  name="religion">'.$option1.$option2.$option3.'</select>
+<select class="ethnic"  name="ethnic">'.$option1.$option2.$option3.'</select>
+		 </span>
+			<label class="desc" id="title0" for="Field0">
+	Slant
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter
+	</label>
+		
+		 <span>
+		
+		<select class="slant"  name="slant">'.$option1.$option2.$option3.'</select>
+		<select class="facebook"  name="facebook">'.$option1.$option2.$option3.'</select>
+		<select class="twitter"  name="twitter">'.$option1.$option2.$option3.'</select>
+		 </span>
+		 	<label class="desc" id="title0" for="Field0">
+	Followers
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Following
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Medal
+	</label>
+		<span>
+		<select class="followers"  name="followers">'.$option1.$option2.$option3.'</select> 
+		<select class="following"  name="following">'.$option1.$option2.$option3.'</select>
+		<select class="medal"  name="medal">'.$option1.$option2.$option3.'</select>
+		</span>
+		<label class="desc" id="title0" for="Field0">
+		Posted Answers
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Posted Questions
+		
+		</label>
+		
+		 <span>
+		 <select class="answers"  name="answers">'.$option1.$option2.$option3.'</select>
+		 
+		 <select class="questions"  name="questions">'.$option1.$option2.$option3.'</select>
+		 
+		   </span>
+	  </fieldset>	
 	
     <li class="buttons">
     <input type="submit" name="update" value="Update" onclick="return validate_reg();">
@@ -927,6 +1083,101 @@ everyone or just followers or not at all while adding a question)
     </li>
     </ul>
     </form>
+		<script>
+			
+			setTimeout(markit,1000);
+
+function markit(){
+	
+var chk=\''.$fetch[0]['email'].'\';
+var elt=$$(\'.email\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['real_name'].'\';
+var elt=$$(\'.real_name\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+	
+	var chk=\''.$fetch[0]['image'].'\';
+var elt=$$(\'.image\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['bio'].'\';
+var elt=$$(\'.bio\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['gender'].'\';
+var elt=$$(\'.gender\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['zip'].'\';
+var elt=$$(\'.zip\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['country'].'\';
+var elt=$$(\'.country\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+
+var chk=\''.$fetch[0]['religion'].'\';
+var elt=$$(\'.religion\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['ethnic'].'\';
+var elt=$$(\'.ethnic\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['slant'].'\';
+var elt=$$(\'.slant\');
+elt.each(function(el){ el.set(\'value\',chk); });
+
+var chk=\''.$fetch[0]['facebook'].'\';
+var elt=$$(\'.facebook\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+
+var chk=\''.$fetch[0]['twitter'].'\';
+var elt=$$(\'.twitter\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['followers'].'\';
+var elt=$$(\'.followers\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['following'].'\';
+var elt=$$(\'.following\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['medal'].'\';
+var elt=$$(\'.medal\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['answers'].'\';
+var elt=$$(\'.answers\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['questions'].'\';
+var elt=$$(\'.questions\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+}
+			</script>
 	
     </div>
 ';	
