@@ -284,6 +284,7 @@ function profile($uid = '') {
 	$edit='';
 	$flinkflw='';
 	$sendmsg='';
+	$badges='';
 	if($uid!=$user->uid){
 	$share='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';	
@@ -295,7 +296,17 @@ $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message 
 	$edit.='&nbsp;[<a href="'.$gSitePath.'profile/edit" >Edit My Profile </a>]';	
 	}
 
+	$badges.='<h1>Badges</h1>';
+	
+	
+	  $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid";
+    $badgelist= ExecuteQuery($getbadges, "select");
 
+	foreach($badgelist as $badgeach){
+		
+	$badges.='<h4><b>'.$badgeach['name'].'</b>['.$badgeach['bcnt'].']</h4>';	
+	}
+//content starts
     $strReturn = '<script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript"></script><div id="profile_page"><form id="proform" method="post" action="'.$gSitePath.'postmessage" ><div class="main">
 			
 			<div class="lft">
@@ -367,7 +378,8 @@ $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message 
 			</div>
 			
 			<div class="">'.$answer1.$question1.'
-			</div>'.$updownvote_display.'
+			</div>
+			<div class="lft">'.$badges.'</div>
 			
 			
 		</div>
