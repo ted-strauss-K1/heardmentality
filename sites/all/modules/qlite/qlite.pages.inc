@@ -257,12 +257,12 @@ function load_condition() {
         extract($_REQUEST);
         if (! empty($cid)) {
             
-            $cond .= " AND cid='$cid'";
+            $cond .= " AND q.cid='$cid'";
         }
         
         if (! empty($scid)) {
             
-            $cond .= " AND scid='$scid'";
+            $cond .= " AND q.scid='$scid'";
         }
     
     }
@@ -281,7 +281,7 @@ function get_top_list() {
     $cond = load_condition();
 
     
-    $query = "SELECT * from {question} where status='1' $cond order by active_rate  DESC LIMIT 0,10";
+    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' $cond order by q.active_rate  DESC LIMIT 0,10";
     $list = ExecuteQuery($query, "select");
     $output .= '<div id="pageWrapper" >';
     if (! empty($list)) {
@@ -315,7 +315,7 @@ function get_hot_list() {
     $date = date('Y-m-d', mktime(0, 0, 0, $m, ($de - 7), $y));
 
     
-    $query = "SELECT * from {question} where status='1' AND date(date_added) >= '$date' $cond order by active_rate  DESC LIMIT 0,10 ";
+    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' AND q.date(date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div id="pageWrapper" >';
     if (! empty($list)) {
@@ -347,7 +347,7 @@ function get_local_list() {
     $homepage = file_get_contents('http://api.hostip.info/country.php');
 
     
-    $query = "SELECT * from {question} where status='1' AND country='".trim($homepage)."' $cond order by active_rate  DESC LIMIT 0,10 ";
+    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' AND q.country='".trim($homepage)."' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div id="pageWrapper" >';
     
