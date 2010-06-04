@@ -90,12 +90,18 @@ function question_add() {
 	<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>
 	<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/question.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
-<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/auto.js" type="text/javascript"></script>
-	<script>
+<!--<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/auto.js" type="text/javascript"></script>
+-->	
+
+<script>
 			var mpath=\''.$gSitePath.'\';
 		
 			</script>
-	
+
+
+<script src="'.$gSitePath.'sites/all/modules/question/scripts/suggest_dynamic.js" type="text/javascript"></script>
+<script src="'.$gSitePath.'sites/all/modules/question/scripts/post_list.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/question/styles/auto.css" type="text/css" />
 	
 	
 				<script type="text/javascript">
@@ -246,19 +252,21 @@ window.addEvent(\'domready\', function(){
     <td width="0%" height="44">&nbsp;</td>
     <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
     <td colspan="4">
-      <!--  <input type="text" name="q_quest" tabindex="1" value="'.$q_quest.'" id="q_quest"  size="100"/> -->
+       <!-- <input type="text" name="q_quest" tabindex="1" value="'.$q_quest.'" id="q_quest"  size="100"/> -->
 		
 		
 		
+		<input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" 
+     onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" 
+     onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" size="100" >
 		
 		
-		
-		  <input size="100" autocomplete="off"  name="q_quest" id="q_quest" value="" onkeyup="suggest(this.value);" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"/>
+		<!--  <input size="100" autocomplete="off"  name="q_quest" id="q_quest" value="" onkeyup="suggest(this.value);" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"/>
 		 <div class="suggestionsBox" id="suggestions" style="visibility:hidden;">
                                 
                                 <div class="suggestionList" id= "suggestionsList">
                                 </div>
-								</div>
+								</div>-->
 		
 		   </td>
   </tr>
@@ -2768,15 +2776,15 @@ return true;
 }
  function auto_suggest_quest() {
      
-   
-                $q = $_REQUEST["queryString"];
+   global $gSitePath,$user,$gDocPath,$base_root;
+                /*   $q = $_REQUEST["queryString"];
                 
                 if (!$q)
                     return;
                 $taglist = array();
                 $items = array();
 				$urld = array();
-                //  $query = "SELECT * FROM question WHERE question LIKE ('$q%') or question LIKE ('%$q%') or  context LIKE ('%$q%') and status='1' LIMIT 0 , 15 ";
+                  $query = "SELECT * FROM question WHERE question LIKE ('$q%') or question LIKE ('%$q%') or  context LIKE ('%$q%') and status='1' LIMIT 0 , 15 ";
 				  
 		  $query = "SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$q%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$q%' USING latin1 )
 COLLATE latin1_swedish_ci and status='1'";
@@ -2785,16 +2793,16 @@ COLLATE latin1_swedish_ci and status='1'";
 				  
 				  while($mylist=mysql_fetch_array($myql_qry))
 				  {
-				    $list .= '<a onclick=fill("'.$mylist['url'].'")>'.$mylist['question'].'</a><br>';
+				    $list .= '<a onclick=fillout("'.$mylist['url'].'")>'.$mylist['question'].'</a><br>';
 				  }
-            /*    $result = ExecuteQuery($query, "select");
+             $result = ExecuteQuery($query, "select");
               //  $vResult = db_query($query);
               
 				  $list = "<ul>";
                 foreach ($result as $single) {
                     array_push($taglist, $single['question']);
 					
-					  $list .= '<a onclick=fill("'.$single['url'].'")>'.$single['question'].'</a><br>';
+					  $list .= '<a onclick=fillout("'.$single['url'].'")>'.$single['question'].'</a><br>';
 					array_push($urld, $single['url']);
                 }
                 */
@@ -2822,6 +2830,33 @@ COLLATE latin1_swedish_ci and status='1'";
                    // $list .= '<li>No Result</li>';
                 }
                 echo $list .= "</ul>";*/
+				
+				
+				if(isset($_GET['getCountriesByLetters']) && isset($_GET['letters']) && isset($_GET['GetVal'])){
+		 $letters = $_GET['letters'];
+				//$letters = preg_replace("/[^a-z0-9 ]/si","",$letters);
+	$where_condition.="WHERE question LIKE CONVERT( _utf8 '%$letters%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '$letters' USING latin1 )
+	COLLATE latin1_swedish_ci and status='1'";
+		
+		if($_GET['GetVal']=="C1"){
+			  $sql = "SELECT * FROM question   $where_condition";
+			$res=mysql_query($sql);
+			 $dir=mysql_num_rows($res);
+			if($dir>0)
+			{
+				while($inf=mysql_fetch_array($res))
+					echo " <a href='".$gSitePath."".$inf["url"]."' target='_blank'>".$inf["question"]."</a>|";
+					}
+			
+		}
+				} 
+				
+				
+				
+				
+				
+				
+				
                 
               
               
