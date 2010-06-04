@@ -4,8 +4,13 @@ function profile_view() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
+	
     $getuser = user_load(array('name'=>$profile_name));
-    $uid = $getuser->uid;
+	if(isset($getuser)){
+	$uid = $getuser->uid;	
+		
+	}
+    
     if ($uid == '') {
         $uid = $user->uid;
     }
@@ -13,7 +18,10 @@ function profile_view() {
     
     //activities
     $tag = '';
-    $tag = $_REQUEST['tag'];
+	if(isset($_REQUEST['tag'])){
+	 $tag = $_REQUEST['tag'];	
+	}
+   
     switch ($tag) {
         
         case 'activity':
@@ -89,6 +97,7 @@ function profile($uid = '') {
     $dob1 = NULL;
     $answer1 = NULL;
     $question1 = NULL;
+	$flink='';
     if (is_array($result))
         extract($result);
     
@@ -261,7 +270,7 @@ function profile($uid = '') {
             drupal_set_message(t('You are already following '.$namelist->name.'.'), $type = 'error');
         }
     }
-    if ($uid != $user->uid) {
+    if ($uid != $user->uid && isset($getuser)) {
         $flink = '<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act='.$uid.'">Follow </a>';
     
     }
