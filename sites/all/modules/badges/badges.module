@@ -87,7 +87,8 @@ function biographer($uid = '') {
     if (! empty($data->dob))
         $i++;
     
-    if ($i == 11) {
+	$badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='1'"));
+    if ($i == 11&&$badgecnt==0) {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 1, $uid);
     }
 }
@@ -106,7 +107,7 @@ function citizen_patrol($uid = '') {
     
     if ($count == 1 && $badgecnt == 0) {
         
-        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 2, $uid);
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",2, $uid);
     }
 
 }
