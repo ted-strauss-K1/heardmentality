@@ -1,21 +1,32 @@
 <?php
 function qlite_view() {
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path,$saaais;
 //echo $_SERVER['QUERY_STRING'];
 $lji=explode("=",$_SERVER['QUERY_STRING']);
 /////////////qviews /////////////////////////
 insertviews();
+
 //////////////////////////////
  if (isset($_REQUEST['lid'])) 
  {
  $select_user_count = db_result(db_query("SELECT COUNT(*) from invite_friend where inv_id='".$_REQUEST['lid']."' and  status='1' "));
 if($select_user_count==0)
 {
-// session_start();
- $_SESSION['friend_id']=$_REQUEST['lid'];
+ //session_start();
+ //$_SESSION['friend_id']=$_REQUEST['lid'];
 // echo $_SESSION['friend_id'];
  }
  }
+ if(isset($_REQUEST['faceid']))
+ {
+
+setcookie("faceidc", $_REQUEST['faceid']);
+
+ }
+
+               
+            
+      // unset($user->new_id);
 //echo $lji[0];
    
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
@@ -507,7 +518,7 @@ if($select_user_count==0)
 	//<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
 	$voutput.='<div class="rht_select">';
 	
-    $voutput .= '<input type="button" onclick="showShareUI();" value="Share"/>
+    $voutput .= '	<!--<a href="javascript:void(0);" onclick="load_twitter(\''.$gSitePath.'twitter/post/'.$qid.'\',\'Twitter\');">Tweet this</a>--><input type="button" onclick="showShareUI();" value="Share"/>
     <div id="status"></div>
 	<!-- AddThis Button BEGIN -->
 <!--<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bebc2a1621b1868"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bebc2a1621b1868"></script>-->
@@ -529,6 +540,8 @@ if($select_user_count==0)
 	
 		<b>Tags [<a href="#" onclick="loadtag(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
 		</div>
+	
+		
 			</form>
 		
 		';
@@ -2278,5 +2291,4 @@ function insertviews()
 }	
 	
 
-	
 ?>
