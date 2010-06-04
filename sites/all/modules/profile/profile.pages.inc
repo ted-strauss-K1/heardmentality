@@ -1167,9 +1167,11 @@ function activities($uid = '') {
 	 drupal_set_title('Recent Activities');
     global $gSitePath,$user,$gDocPath,$base_root;
     //$uid = $user->uid;
+	
+		
     $strReturn = '';
     //Questions
-    $selQ = "(select 1 as tbl,qid,date_added as dat,0 as vars  from {question} where uid='$uid' ORDER BY qid DESC) union 
+     $selQ = "(select 1 as tbl,qid,date_added as dat,0 as vars  from {question} where uid='$uid' ORDER BY qid DESC) union 
 	(select 2 as tbl,qid,vote_pdate as dat,0 as vars  from {possible_answer_vote} where uid='$uid') union 
 	(select 3 as tbl,qid_rid as qid,date_added as dat,title as vars  from {forum_wave} where uid='$uid' ) union
 	(select 4 as tbl,f.qid_rid as qid,w.date_added as dat,wavelet as vars  from {forum_wavelets} w join {forum_wave} as f on f.fid=w.wid where w.uid='$uid' ) union
@@ -1177,7 +1179,7 @@ function activities($uid = '') {
 	(select 6 as tbl,u.image_url as qid,f.joindate as dat,u.real_name as vars from {follower} as f join {user_profile} as u on u.uid=f.uid where f.follower_id='$uid' )union
 	(select 7 as tbl,qid,posted_date as dat,0 as vars  from {resource} where uid='$uid') union
 	(select 8 as tbl,qid,vote_date as dat,0 as vars from {suggest_answer_vote} where uid='$uid') union
-	(select 9 as tbl,qid as qid,date_added as dat,`badge` as vars from {user_badges} where uid='$uid') 
+	(select 9 as tbl,badge as qid,date_added as dat,badge as vars from {user_badges} where uid='$uid') 
 	ORDER BY dat DESC LIMIT 0,50 ";
     $fetch = ExecuteQuery($selQ, "select");
     
@@ -1265,7 +1267,7 @@ function activities($uid = '') {
 				}
 				break;
              case '9':
-			 	echo "select * from {user_badges}  where `badge`='".$list['vars']."'";
+			 
 				$bad=db_fetch_object(db_query("select * from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.badge='".$list['vars']."'"));
 				
 				//echo "<pre>"; print_r($bad);
