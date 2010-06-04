@@ -20,7 +20,7 @@ function validate_reg()
 	if (document.getElementById("rname").value=='')
 	{
 	document.getElementById("errbox").focus();
-	document.getElementById("err_div").innerHTML = "NickName must not blank..."; 	   
+	document.getElementById("err_div").innerHTML = "RealName must not blank..."; 	   
 	return false;
 	}
 	
@@ -41,7 +41,7 @@ function validate_reg()
 	if (document.getElementById("dob").value=='')
 	{
 	document.getElementById("errbox").focus();
-	document.getElementById("err_div").innerHTML = "NickName must not blank..."; 	   
+	document.getElementById("err_div").innerHTML = "Date Of Birth must not blank..."; 	   
 	return false;
 	}
 	//alert(document.getElementById("edit-religion").value);
