@@ -6,7 +6,8 @@ function profile_view() {
     
 	
     $getuser = user_load(array('name'=>$profile_name));
-	if(isset($getuser)){
+	if(isset($getuser)&&!empty($getuser)){
+		
 	$uid = $getuser->uid;	
 		
 	}
@@ -16,7 +17,7 @@ function profile_view() {
 		
     }
     $strReturn = '';
-     $getuser = user_load(array('uid'=>$uid));
+   
 	
     //activities
     $tag = '';
