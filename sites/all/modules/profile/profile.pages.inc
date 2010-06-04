@@ -13,9 +13,10 @@ function profile_view() {
     
     if ($uid == '') {
         $uid = $user->uid;
+		
     }
     $strReturn = '';
-    
+     $getuser = user_load(array('uid'=>$uid));
     //activities
     $tag = '';
 	if(isset($_REQUEST['tag'])){
@@ -225,7 +226,7 @@ function profile($uid = '') {
 					</table>';*/
     }
     
-    if ($_REQUEST['act'] != '') {
+    if (isset($_REQUEST['act'])) {
 
         
         $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$_REQUEST['act']."'  and  uid ='".$user->uid."'"));
