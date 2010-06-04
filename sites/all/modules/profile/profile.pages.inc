@@ -3,7 +3,7 @@
 function profile_view() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    
+    $uid='';
 	
     $getuser = user_load(array('name'=>$profile_name));
 	if(isset($getuser)&&!empty($getuser)){
