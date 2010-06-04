@@ -17,6 +17,7 @@ function profile_view() {
     }
     $strReturn = '';
      $getuser = user_load(array('uid'=>$uid));
+	
     //activities
     $tag = '';
 	if(isset($_REQUEST['tag'])){
@@ -74,6 +75,7 @@ function profile($uid = '') {
     $userPoints = checkUserPoints($user->uid);
     //$upcount = $vot_counts['upcount'];
    // $downcount = $vot_counts['downcount'];
+    $getuser = user_load(array('uid'=>$user->uid));
     if (is_array($result))
         extract($result);
     $userSettings = checkPrivacySettings($uid);
