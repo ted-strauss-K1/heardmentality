@@ -118,8 +118,8 @@ var el=$('div.MultiBoxClose');
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/openids/js/popup.js"></script>
 </head>
 <?php 
-
-if($_REQUEST["act"]=='edit2')
+ 
+if(isset($_REQUEST["act"])=='edit2')
 {
 ?>
 <script type="text/javascript">
@@ -128,7 +128,7 @@ function show_confirm()
 var r=confirm("Do yuo want to earn the Biographer badge by competing your profile information?");
 if (r==true)
   {
- loadPopupWindow('Edit Profile','640px','880px','<?php echo $gSitePath?>edit');
+ loadPopupWindow('Edit Profile','650px','950px','<?php echo $gSitePath?>edit');
   }
 else
   {
@@ -140,11 +140,11 @@ else
 <body onLoad="show_confirm();">
 <?php
 }
-elseif($_REQUEST["act"]=='edit')
+elseif(isset($_REQUEST["act"])=='edit')
 {
 ?>
 
-<body onLoad="loadPopupWindow('Edit Profile','640px','880px','<?php echo $gSitePath?>edit');">
+<body onLoad="loadPopupWindow('Edit Profile','650px','950px','<?php echo $gSitePath?>edit');">
 
 <?php
 }
@@ -158,8 +158,8 @@ else
 //echo "<br>";
 //echo '21232f297a57a5a743894a0e4a801fc3';
 global $user;
-echo $_COOKIE["faceid"];
-setcookie("faceid");
+
+//echo $_COOKIE["faceidc"];
 ?>
 
 <div id="desktop">
@@ -199,12 +199,12 @@ setcookie("faceid");
     <input type="text" name="txt_search"  value="<?php echo $skey; ?>" id="txt_search" />
     
     <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
-    <input type="radio" name="stype" id="stype" id="stype" value="1" <?php if($spe==1) { ?> checked="checked" <?php }?> />Question
+    <input type="radio" name="stype" id="stype" id="stype" value="1" <?php if((isset($_REQUEST['stype']))==1) { ?> checked="checked" <?php }?> />Question
     
-    <input type="radio" name="stype" id="stype" id="stype" value="2" <?php if($spe==2) { ?> checked="checked" <?php }?> />Users
+    <input type="radio" name="stype" id="stype" id="stype" value="2" <?php if((isset($_REQUEST['stype']))==2) { ?> checked="checked" <?php }?> />Users
     
     </form>
-			</div>		
+			</div>	
          <ul class="menu-right">
          	    
         	<?php 
