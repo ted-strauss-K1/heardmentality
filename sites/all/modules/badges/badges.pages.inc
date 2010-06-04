@@ -30,6 +30,13 @@ function badges_list() {
     }
     
     set_badges();
+	//yearling();
+	//Tumbleweed();
+	//Taxonomist();
+	//Necromancer();
+	//Student();
+	//popquest();
+	niceans();
     return $strReturn;
 
 }
