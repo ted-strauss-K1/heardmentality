@@ -168,7 +168,7 @@ text-decoration:none;
 	//$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
 	}
 	$fetresult.='<li>
-	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
+	<h3>'.UserPicture_small($user_result->uid).'<a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
 	<h4>'.$user_result->mail.'</h4>		 	
 	<p>';
 	
@@ -892,12 +892,12 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
    }
 	$ret='<table width="100%" border="0">
   <tr>
-    <td width="26%">&nbsp;</td>
+    <td width="26%">'.UserPicture($resulrnames->uid).'</td>
     <td colspan="2">
       <table width="300" border="1">
         <tr>
           <td width="96">First Name</td>
-          <td width="188">'.$resulrnames->first_name.'</td>
+          <td width="188"> '.$resulrnames->first_name.'</td>
         </tr>
         <tr>
           <td>Last Name</td>
@@ -1198,28 +1198,10 @@ text-decoration:none;
 	//$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
 	}
 	$fetresult.='<li>
-	<h3><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
+	<h3>'.UserPicture_small($user_result->uid).'<a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
 	<h4>'.$user_result->mail.'</h4>		 	
 	<p>';
-	//echo $user_result->image_url;
-	if($user_result->image!='')
-	{
-	 $imgsrc = $user_result->image;
-	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
-	 $fetresult.= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
-	}
-	elseif($user_result->image_url!='')
-	{
 	
-	$fetresult.='<img src="'.$user_result->image_url.'" align="absmiddle" height="50" width="50"/>';
-	 }
-	 else
-	 {
-	 $imgsrc = 'noimage.jpg';
-	 $img_path=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
-	 $fetresult.= '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
-	 
-	 }
 	$fetresult.='</p> 
 	
 	</li> '.$flink.'';
