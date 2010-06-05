@@ -577,7 +577,7 @@ function question_save() {
 		
 		$messpro_list = stripslashes($contentm);
 		//$mail_success = htmlmail($to,$subject_proj,$messpro_list,$from,'');
-		$mail_success = htmlmail_function($to,$subject_proj,$messpro_list,$from,'');
+		$mail_success = htmlmail_function($to,$subject_proj,$messpro_list,'');
 		}
 		
 		}
