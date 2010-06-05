@@ -589,8 +589,8 @@ return $listans;
 function welcome_page()
 {
 global $gSitePath,$user,$gDocPath,$base_root;
-print_r($_COOKIE);
-echo $_COOKIE["faceidc"];
+//print_r($_COOKIE);
+//echo $_COOKIE["faceidc"];
     //print_r($_REQUEST);
     $uid = $user->uid;
     $bio = '';
