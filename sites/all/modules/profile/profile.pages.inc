@@ -256,7 +256,7 @@ function profile($uid = '') {
 	
 		
 		
-		$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
+		$mail_success = htmlmail_function($user_namelistfs->mail,$subject,$contentm,'');
 	
 			
 			
@@ -915,7 +915,7 @@ function save_follower_profile() {
 		$contentm.= str_replace("#anothername#",$user->name,$contentm);
 	// $contentm;
 			
-			$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
+			$mail_success = htmlmail_function($user_namelistfs->mail,$subject,$contentm,$from,'');
         } else {
             $valss = 'Block';
             $blkid = '0';
