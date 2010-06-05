@@ -653,7 +653,7 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
 	// $contentm;
 	
-	$mail_success = htmlmail_function($user_namelistfs->email,$subject,$contentm,$from,'');
+	$mail_success = htmlmail_function($user_namelistfs->mail,$subject,$contentm,$from,'');
 	
 	
 	}
