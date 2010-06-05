@@ -857,7 +857,7 @@ $del_blog="update  follower  set follower_status='".$_REQUEST['blk']."' where  i
 		$contentm.= str_replace("#anothername#",$user->name,$contentm);
 	//echo  $contentm;
 			
-			$mail_success = htmlmail_function($resulrnames->email,$subject,$contentm,$from,'');
+			$mail_success = htmlmail_function($resulrnames->mail,$subject,$contentm,$from,'');
 	   }
 	}
 	else
