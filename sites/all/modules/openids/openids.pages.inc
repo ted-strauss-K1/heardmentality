@@ -650,10 +650,10 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	$rs_mgmt=db_query($sel_user_cmt);
 	$list_content=db_fetch_object($rs_mgmt);
 	$contentm=str_replace("#uname#",$user_namelistf->name,$list_content->content);
-	$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
+	$contentm= str_replace("#anothername#",$user_namelistfs->name,$contentm);
 	// $contentm;
 	
-	$mail_success = htmlmail_function($user_namelistfs->mail,$subject,$contentm,$from,'');
+	$mail_success = htmlmail_function($user_namelistfs->mail,$subject,$contentm,'');
 	
 	
 	}
