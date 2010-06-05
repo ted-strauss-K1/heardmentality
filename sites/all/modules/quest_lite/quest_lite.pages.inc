@@ -355,7 +355,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
 		$contentmlist.= str_replace("#quest#",$oListquest->question,$contentmlist);
 	// $contentm;
 			
-			$mail_success = htmlmail_function($ufets->mail,$subject_projlist,$contentmlist,$from,'');
+			$mail_success = htmlmail_function($ufets->mail,$subject_projlist,$contentmlist,'');
 	}
 	
 	if($ufets->notify_itype==1)
