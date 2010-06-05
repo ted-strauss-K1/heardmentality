@@ -69,6 +69,7 @@ function profile($uid = '') {
     $qns_list = '';
     $upcount = null;
     $downcount = null;
+	
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
     
@@ -229,20 +230,20 @@ function profile($uid = '') {
 					</table>';*/
     }
     
-    if (isset($_REQUEST['act'])) {
+    if (isset($_REQUEST['delm'])) {
 
         
-        $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$_REQUEST['act']."'  and  uid ='".$user->uid."'"));
+        $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='".$_REQUEST['delm']."'  and  uid ='".$user->uid."'"));
         
         if ($res_num == 0) {
-           $ins_commg = "insert into   follower (uid,follower_id,follower_status,joindate) values('".$user->uid."','".$_REQUEST['act']."','1','".date('Y-m-d')."') ";
+           $ins_commg = "insert into   follower (uid,follower_id,follower_status,joindate) values('".$user->uid."','".$_REQUEST['delm']."','1','".date('Y-m-d')."') ";
             $rs_commg = db_query($ins_commg);
 			
-			//echo "insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['act']."','1','1','".$user->uid."' ";
-		$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['act']."','1','1','".$user->uid."') ");
+			//echo "insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['delm']."','1','1','".$user->uid."' ";
+		$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['delm']."','1','1','".$user->uid."') ");
 		
 		$subject='You Got new Follower in Heardmenatlity ';
-			$sel_ulists="SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_REQUEST['act']."'";
+			$sel_ulists="SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_REQUEST['delm']."'";
 		$rs_umlogs=db_query($sel_ulists);
 		$user_namelistfs=db_fetch_object($rs_umlogs);
 		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='1'";
@@ -267,7 +268,7 @@ function profile($uid = '') {
             
             drupal_set_message(t('Successfully Added as Follower'), $type = 'success');
         } else {
-            $sel_usermdet = "select * from users  where uid='".$_REQUEST['act']."' ";
+            $sel_usermdet = "select * from users  where uid='".$_REQUEST['delm']."' ";
             $rs_usernam = db_query($sel_usermdet);
             $namelist = db_fetch_object($rs_usernam);
             
@@ -275,7 +276,7 @@ function profile($uid = '') {
         }
     }
     if ($uid != $user->uid && isset($getuser)) {
-        $flink = '<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act='.$uid.'">Follow </a>';
+        $flink = '<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?delm='.$uid.'">Follow </a>';
     
     }
 
@@ -301,7 +302,7 @@ function profile($uid = '') {
 	if($uid!=$user->uid){
 	$share='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';	
-$flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?act='.$uid.'">Follow </a>';
+$flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?delm='.$uid.'">Follow </a>';
 
 $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a>]<br/><div id="showboxcmt" align="left" style="width:100%;display:none"><label for="msgs"><b>Send Message :</b></label><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><input type="button"  value="sendmessage"/></div>';
 	}else{
@@ -311,7 +312,7 @@ $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message 
 
 	$badges.='<h1>Badges</h1>';
 	
-	
+	//$imageresult=UserPicture($uid);
 	  $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid";
     $badgelist= ExecuteQuery($getbadges, "select");
 
@@ -329,7 +330,7 @@ $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message 
 			<div class="lft">
 			
 			<div class="">
-			<div class="img">'.$PROFILE_IMAGE.$medal.'
+			<div class="img">'.UserPicture($uid).$medal.'
 			</div>
 			<div class="info">
 
@@ -781,15 +782,9 @@ function followinglist($uids) {
         $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$following_list->follower_id."'";
         $rs_userm = db_query($sel_userm);
         $user_namelist = db_fetch_object($rs_userm);
-        if (isset($user_namelist->image) && ! empty($user_namelist->image)) {
-            $imgsrc = $user_namelist->image;
-        } else {
-            $imgsrc = 'noimage.jpg';
-        }
-        $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
-        $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
+       
         
-        $following[] = '<div  id="show-'.$following_list->id.'"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.$PROFILE_IMAGE.$user_namelist->real_name.'  </a>'.$flinks.'</div>';
+        $following[] = '<div  id="show-'.$following_list->id.'"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.UserPicture_small($following_list->follower_id).$user_namelist->real_name.'  </a>'.$flinks.'</div>';
     
     }
     if ($numfolls > 5) {
@@ -858,13 +853,7 @@ function followerlist($umid) {
         $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$follower_resultfuser->uid."'";
         $rs_umlog = db_query($sel_ulist);
         $user_namelistf = db_fetch_object($rs_umlog);
-        if (isset($user_namelistf->image) && ! empty($user_namelistf->image)) {
-            $imgsrc = $user_namelist->image;
-        } else {
-            $imgsrc = 'noimage.jpg';
-        }
-        $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$imgsrc;
-        $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="27" width="27" alt="Profile image" >';
+       
         
         $user_namelistf->name;
         if ($umid == $user->uid) {
@@ -873,9 +862,9 @@ function followerlist($umid) {
         
         }
         if ($follower_resultfuser->follower_status == 0) {
-            $followeru[] = '<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$PROFILE_IMAGE.$user_namelistf->name.' </a> '.$flink1.'</div>';
+            $followeru[] = '<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.UserPicture_small($follower_resultfuser->uid).$user_namelistf->name.' </a> '.$flink1.'</div>';
         } else {
-            $followeru[] = '<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$PROFILE_IMAGE.$user_namelistf->name.' </a> '.$flink2.'</div>';
+            $followeru[] = '<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-'.$follower_resultfuser->id.'"><a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.UserPicture_small($follower_resultfuser->uid).$user_namelistf->name.' </a> '.$flink2.'</div>';
         
         }
 
@@ -883,7 +872,7 @@ function followerlist($umid) {
         //$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
     }
     
-    if ($numfoll > 0) {
+    if ($numfoll > 5) {
         $followeru[] .= '<a style="color:#F37321;
 text-decoration:none;" onclick="loadfollower(\''.$gSitePath.'follower/'.$umid.'\',\'Follower\');">More</a>';
     }
@@ -931,7 +920,7 @@ function save_follower_profile() {
             $valss = 'Block';
             $blkid = '0';
         }
-        echo '<div id="'.$_REQUEST['ids'].'" ><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
+        echo '<div id="'.$_REQUEST['ids'].'" >'.UserPicture_small($_GET['usid']).'<a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.$resulrnames->name.'</a> <a onclick="blockandunblock('.$_GET['action'].','.$_GET['usid'].','.$blkid.')" style="color:#F37321;" >'.$valss.'</a></div>';
     
     }
 
