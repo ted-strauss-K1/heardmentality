@@ -125,7 +125,7 @@ if(isset($_REQUEST["act"])=='edit2')
 <script type="text/javascript">
 function show_confirm()
 {
-var r=confirm("Do yuo want to earn the Biographer badge by competing your profile information?");
+var r=confirm("Do you want to earn the Biographer badge by competing your profile information?");
 if (r==true)
   {
  loadPopupWindow('Edit Profile','650px','950px','<?php echo $gSitePath?>edit');
@@ -186,7 +186,12 @@ global $user;
                     </script>
 					  <!--Form Search  --->
 					 <?php
+	if(isset($_REQUEST['stype']))
+{
+
+
 			$spe=$_REQUEST['stype'];
+}
 			
 			if(isset($_REQUEST['txt_search'])){
 				
