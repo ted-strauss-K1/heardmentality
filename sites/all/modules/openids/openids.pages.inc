@@ -635,6 +635,8 @@ echo $_COOKIE["faceidc"];
 	$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_COOKIE["faceidc"]."'";
 	$rs_umlogs=db_query($sel_ulists);
 	$user_namelistfs=db_fetch_object($rs_umlogs);
+	
+	///////////////////Noftication  for invite friend //////////////////////////////////
 	if($user_namelistfs->notify_itype==1)
 	{
 	$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_COOKIE["faceidc"]."','1','1','".$user->uid."') ");
@@ -657,7 +659,7 @@ echo $_COOKIE["faceidc"];
 	}
 	
 	
-	
+	///////////////////badges for invite friend //////////////////////////////////
 	
 	$insert_badges="insert into user_badges (uid,bid) values('".$_COOKIE["faceidc"]."','1') ";
 	$result_badges=db_query($insert_badges);
