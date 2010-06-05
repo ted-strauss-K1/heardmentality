@@ -131,9 +131,11 @@ function cmt_submit() {
         
         if (!$chk) {
             
-         echo   $query = "insert into {user_likes} set $set ,node_id='$nodeid',uid='$user->uid',is_like='$like'";
+            $query = "insert into {user_likes} set $set ,node_id='$nodeid',uid='$user->uid',is_like='$like'";
             
             $chk = db_query($query);
+			if($action=='is_wave'||$action=='is_wavelets')
+			db_query("insert into {notification} set is_like='1',$set,uid='$user->uid',node_id='$nodeid' ");
             
             //	echo "<b>Thank you for liking, Have a great day!";
         echo '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\''.$action.'\','.$nodeid.',0,this);">Unlike</a></span>';
