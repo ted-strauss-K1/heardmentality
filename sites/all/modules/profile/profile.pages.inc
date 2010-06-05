@@ -250,7 +250,7 @@ function profile($uid = '') {
 		$rs_mgmt=db_query($sel_user_cmt);
 		$list_content=db_fetch_object($rs_mgmt);
 			$contentm=str_replace("#uname#",$user->name,$list_content->content);
-			$contentm.= str_replace("#anothername#",$user_namelistfs->name,$contentm);
+			$contentm= str_replace("#anothername#",$user_namelistfs->name,$contentm);
 			//echo $contentm;
 		
 	
@@ -912,10 +912,10 @@ function save_follower_profile() {
 		$rs_mgmt=db_query($sel_user_cmt);
 		$list_content=db_fetch_object($rs_mgmt);
 		$contentm=str_replace("#uname#",$user_namelistfs->name,$list_content->content);
-		$contentm.= str_replace("#anothername#",$user->name,$contentm);
+		$contentm= str_replace("#anothername#",$user->name,$contentm);
 	// $contentm;
 			
-			$mail_success = htmlmail_function($user_namelistfs->mail,$subject,$contentm,$from,'');
+			$mail_success = htmlmail_function($user_namelistfs->mail,$subject,$contentm,'');
         } else {
             $valss = 'Block';
             $blkid = '0';
