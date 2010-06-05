@@ -266,10 +266,10 @@ setcookie("faceidc", $_REQUEST['faceid']);
 		
 		
 		$contentm=str_replace("#uname#",$ufet_qwn->name,$list_content->content);
-		$contentm.= str_replace("#quest#",$oListquest->question,$contentm);
+		$contentm= str_replace("#quest#",$oListquest->question,$contentm);
 		//echo  $contentm;
 		
-		$mail_success = htmlmail_function($ufet_qwn->mail,$subject_proj,$contentm,$from,'');
+		$mail_success = htmlmail_function($ufet_qwn->mail,$subject_proj,$contentm,'');
 		
 		}
 		if($usert->notify_itype==1)
@@ -352,7 +352,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
 		$rs_mgmt=db_query($sel_user_cmt);
 		$list_content=db_fetch_object($rs_mgmt);
 		$contentmlist=str_replace("#uname#",$ufets->name,$list_content->content);
-		$contentmlist.= str_replace("#quest#",$oListquest->question,$contentmlist);
+		$contentmlist= str_replace("#quest#",$oListquest->question,$contentmlist);
 	// $contentm;
 			
 			$mail_success = htmlmail_function($ufets->mail,$subject_projlist,$contentmlist,'');
