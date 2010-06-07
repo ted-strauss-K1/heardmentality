@@ -609,7 +609,7 @@ global $gSitePath,$user,$gDocPath,$base_root;
     $check2 = '';
     $question_privacy = '';
     $dob = '';
-    
+    $selr1='';
 	if($_COOKIE["faceidc"]!='')
 	{
 	//////////////////////faceboook friends////////////////////////////////
