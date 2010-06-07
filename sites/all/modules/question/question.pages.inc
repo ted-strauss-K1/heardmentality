@@ -553,7 +553,7 @@ function question_save() {
 		if($usert->notify_itype==1)
 		{
 		
-		//$insert_notify=db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid ."','1','1','".$ins_id."' ) ");
+		$insert_notify=db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid ."','1','1','".$ins_id."' ) ");
 		
 		}
 		if($usert->notify_etype==1)

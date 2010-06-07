@@ -136,8 +136,10 @@ function cmt_submit() {
             $chk = db_query($query);
 			//guru points
 		  insertpoints($action, $nodeid);
+		  //notification
 			if($action=='is_wave'||$action=='is_wavelets')
-			db_query("insert into {notification} set is_like='1',$set,uid='$user->uid',node_id='$nodeid' ");
+				like_notification($nodeid,$set);
+			
             
             //	echo "<b>Thank you for liking, Have a great day!";
         echo '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\''.$action.'\','.$nodeid.',0,this);">Unlike</a></span>';
@@ -172,6 +174,48 @@ function cmt_submit() {
     }
 
 }
+
+function like_notification($nid='',$set=''){
+	 global $gSitePath,$user,$gDocPath,$base_root;
+	////////////mail notication for user follwers to me//////////////////////////////////////
+		 $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+		$rs_followerf = db_query($sel_listf);
+		while ($follower_resultfuser = db_fetch_object($rs_followerf)) 
+		{
+		
+			$sellist="select * from users where uid='".$follower_resultfuser->uid."'";
+			$res_users=db_query($sellist);
+			$usert=db_fetch_object($res_users);
+			 $to = $usert->mail;
+		if($usert->notify_itype==1)
+		{
+		
+		
+		db_query("insert into {notification} set is_like='1',$set,uid='$follower_resultfuser->uid',node_id='$nid' ");	
+		}
+		if($usert->notify_etype==1)
+		{
+		
+		///////////email for following ///////////////
+		
+		
+		$subject_proj='Post liked By '.$user->name;
+		
+		
+		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='5'";
+		$rs_mgmt=db_query($sel_user_cmt);
+		$list_content=db_fetch_object($rs_mgmt);
+		$contentm=str_replace("#uname#",$usert->name,$list_content->content);
+		$contentm= str_replace("#anothername#",$user->name,$contentm);
+		//echo $contentm;
+		$mail_success = htmlmail_function($to,$subject_proj,$contentm,'');
+		}
+		
+		}
+       
+}
+
+
 
 function get_wavelets($wid = '', $pid = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
