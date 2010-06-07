@@ -2773,65 +2773,13 @@ return true;
    global $gSitePath,$user,$gDocPath,$base_root;
    $list='';
    $where_condition='';
-                /*   $q = $_REQUEST["queryString"];
-                
-                if (!$q)
-                    return;
-                $taglist = array();
-                $items = array();
-				$urld = array();
-                  $query = "SELECT * FROM question WHERE question LIKE ('$q%') or question LIKE ('%$q%') or  context LIKE ('%$q%') and status='1' LIMIT 0 , 15 ";
-				  
-		  $query = "SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$q%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$q%' USING latin1 )
-COLLATE latin1_swedish_ci and status='1'";
-				  
-				  $myql_qry=mysql_query($query);
-				  
-				  while($mylist=mysql_fetch_array($myql_qry))
-				  {
-				    $list .= '<a onclick=fillout("'.$mylist['url'].'")>'.$mylist['question'].'</a><br>';
-				  }
-             $result = ExecuteQuery($query, "select");
-              //  $vResult = db_query($query);
-              
-				  $list = "<ul>";
-                foreach ($result as $single) {
-                    array_push($taglist, $single['question']);
-					
-					  $list .= '<a onclick=fillout("'.$single['url'].'")>'.$single['question'].'</a><br>';
-					array_push($urld, $single['url']);
-                }
-                */
-                echo $list .= "</ul>";
-             /* $taglist = array_filter($taglist);
-                
-                $taglist = array_unique($taglist);
-                $taglist = implode(',', $taglist);
-                $taglist = explode(',', $taglist);
-                $taglist = array_filter($taglist);
-                $items = array_unique($taglist);
-                $urlds = array_unique($urld);
-                //print_r($items);
-                $list = "<ul>";
-                if (! empty($items)) {
-                    //print_r($items);
-                    foreach ($urlds as $value) {
-                        //     if (strpos(strtolower($value), $q) !== false) {
-                        $list .= '<a onclick=fill("'.$value.'")>'.$value.'</a><br>';
-                        //  }
-                    }
-                
-                } else {
-                    
-                   // $list .= '<li>No Result</li>';
-                }
-                echo $list .= "</ul>";*/
+           
 				
 				
 				if(isset($_GET['getCountriesByLetters']) && isset($_GET['letters']) && isset($_GET['GetVal'])){
 		 $letters = $_GET['letters'];
 				//$letters = preg_replace("/[^a-z0-9 ]/si","",$letters);
-	$where_condition.="WHERE question LIKE CONVERT( _utf8 '%$letters%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '$letters' USING latin1 )
+	$where_condition="WHERE question LIKE CONVERT( _utf8 '%$letters%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '$letters' USING latin1 )
 	COLLATE latin1_swedish_ci and status='1'";
 		
 		if($_GET['GetVal']=="C1"){
