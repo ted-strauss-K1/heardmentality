@@ -89,7 +89,8 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-$db_url = 'mysql://root:oPenWave#1220@localhost/heardmentality';
+//$db_url = 'mysql://root:@localhost/heards10';
+$db_url = 'mysql://root:oPenWave#1220@192.9.200.10/heardmentality';
 $db_prefix = '';
 
 /**
@@ -146,9 +147,26 @@ ini_set('session.use_cookies',      1);
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use_trans_sid',    0);
 ini_set('url_rewriter.tags',        '');
-global $gSitePath ,$gDocPath;
+global $gSitePath ,$gDocPath,$apikey;
 $gSitePath="http://".$_SERVER['HTTP_HOST']."/heardmentality/";
 $gDocPath=$_SERVER['DOCUMENT_ROOT']."/heardmentality/";
+if($_SERVER['HTTP_HOST']=='localhost')
+{
+
+$apikey='2_NzdYHs2MdPR8dCPkrBvof2XeiahJHMchg3EjXK8yhHlLqp1KkHFZeUZaE7N6vRBu';
+}
+elseif($_SERVER['HTTP_HOST']=='192.9.200.10')
+{
+
+$apikey='2_6Ri1VC9GBnueul98ju3L8e2d8kY6Mdu06ZiJKaeU_Y32hhMMIHjxMB6zgCIKu8wv';
+}
+else
+{
+$apikey='2_7IH6xLn1pLF5KHr3qf2xLMSlrh_c-6cxoPXhe4cm5sRqu9XzfrohK2-nAX0rPU0I';
+
+}
+
+
 /**
  * If you encounter a situation where users post a large amount of text, and
  * the result is stripped out upon viewing but can still be edited, Drupal's
