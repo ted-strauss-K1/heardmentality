@@ -345,10 +345,10 @@ drupal_add_js(drupal_get_path('module', 'notify').'/scripts/tiny.js');
 $linkval = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 $adminmgmt='<form id="myForm" name="myForm"  method="post" action="'.$gSitePath.'admin/save_notify"  ><table width="100%" border="0">
   <tr>
-    <td> <a href="'.$gSitePath.'admin/notify/change/1">New followee Mail </a></td>
-    <td> <a href="'.$gSitePath.'admin/notify/change/2">Follower Blocking Mail </a></td>
-    <td><a href="'.$gSitePath.'admin/notify/change/3">New Answer approved  Mail </a></td>
-    <td> <a href="'.$gSitePath.'admin/notify/change/4">New Question Posted  Mail </a></td>
+    <td> <a href="'.$gSitePath.'admin/notification/1">New followee Mail </a></td>
+    <td> <a href="'.$gSitePath.'admin/notification/2">Follower Blocking Mail </a></td>
+    <td><a href="'.$gSitePath.'admin/notification/3">New Answer approved  Mail </a></td>
+    <td> <a href="'.$gSitePath.'admin/notification/4">New Question Posted  Mail </a></td>
     <td>&nbsp;</td>
   </tr>';
   
