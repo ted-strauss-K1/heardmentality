@@ -1,6 +1,6 @@
 <?php
 function invite_friends() {
-    global $gSitePath,$user,$gDocPath,$base_root;
+    global $gSitePath,$user,$gDocPath,$base_root,$apikey;
     $uid = $user->uid;
     $requestedemails = NULL;
     $title = NULL;
@@ -276,7 +276,7 @@ HeardMentality: Its all about Sharing </div>
 var conf =
 {
    // APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
- APIKey: \'2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8\'
+ APIKey: \''.$apikey.'\'
   //  APIKey: \'2_nyUH8AtI3Nced_GmaSm9Z0pg_mpO1tRigdBl_YpgUAAyZtfk42_V4sAE41M8WZ0i\'
    
     ,enabledProviders: \'facebook\' 
