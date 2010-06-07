@@ -631,7 +631,7 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	$selm3='';
 	$selm4='';
 	$statecity='';
-	 $ntype=''
+	 $ntype='';
 	 $nitype='';
 	 $questions='';
 	 $emsg='';
