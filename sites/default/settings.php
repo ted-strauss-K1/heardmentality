@@ -155,7 +155,7 @@ if($_SERVER['HTTP_HOST']=='localhost')
 
 $apikey='2_NzdYHs2MdPR8dCPkrBvof2XeiahJHMchg3EjXK8yhHlLqp1KkHFZeUZaE7N6vRBu';
 }
-elseif($_SERVER['HTTP_HOST']=='192.9.200.10')
+elseif($_SERVER['HTTP_HOST']=='59.144.131.196')
 {
 
 $apikey='2_6Ri1VC9GBnueul98ju3L8e2d8kY6Mdu06ZiJKaeU_Y32hhMMIHjxMB6zgCIKu8wv';
