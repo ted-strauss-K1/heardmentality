@@ -2771,8 +2771,7 @@ return true;
  function auto_suggest_quest() {
      
    global $gSitePath,$user,$gDocPath,$base_root;
-   $list='';
-   $where_condition='';
+  
            
 				
 				
