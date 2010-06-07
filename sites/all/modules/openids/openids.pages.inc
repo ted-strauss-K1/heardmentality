@@ -621,10 +621,24 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	$sele4='';
 	$sele5='';
 	$sele6='';
+	$sele7='';
 	$seleant1='';
 	$seleant2='';
 	$seleant3='';
-	
+	$checkm='';
+	$checkf='';
+	$selm2='';
+	$selm3='';
+	$selm4='';
+	$statecity='';
+	 $ntype=''
+	 $nitype='';
+	 $questions='';
+	 $emsg='';
+	 $message='';
+	 $suc='';
+	 $medal='';
+	 
 	if($_COOKIE["faceidc"]!='')
 	{
 	//////////////////////faceboook friends////////////////////////////////
