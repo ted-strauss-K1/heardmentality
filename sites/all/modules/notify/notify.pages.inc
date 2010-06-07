@@ -349,7 +349,7 @@ $adminmgmt='<form id="myForm" name="myForm"  method="post" action="'.$gSitePath.
     <td> <a href="'.$gSitePath.'admin/notification/2">Follower Blocking Mail </a></td>
     <td><a href="'.$gSitePath.'admin/notification/3">New Answer approved  Mail </a></td>
     <td> <a href="'.$gSitePath.'admin/notification/4">New Question Posted  Mail </a></td>
-    <td>&nbsp;</td>
+    <td><a href="'.$gSitePath.'admin/notification/5">Post Like  Mail </a></td>
   </tr>';
  // echo $linkval;
   if($linkval!='notification')
