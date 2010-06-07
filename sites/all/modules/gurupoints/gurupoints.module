@@ -50,7 +50,7 @@ function increasepoints($ptype,$qid,$idm)
 	
 	if($idm=='0')
 	{
-	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where point_id=$ptype and qid=$qid and uid=$user->uid"));
+	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where point_id='$ptype' and qid=$qid and uid=$user->uid"));
 	  $query_pt= "SELECT * FROM tbl_points where id='$ptype' "; 
 	$query_ptinfo=db_query($query_pt);
 	$fetuserpts=db_fetch_object($query_ptinfo);
@@ -95,3 +95,29 @@ function increasepoints($ptype,$qid,$idm)
 	
 
 }
+
+
+function insertpoints($action='',$nodeid='')
+{
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+	
+	if(!empty($nodeid)&&!empty($action)){
+		$set=$action."='1'";
+	
+		$queryuser= "SELECT count(*) FROM {tbl_user_points}  where uid='$user->uid' AND $set AND nodeid='$nodeid' "; 
+	$rcnt=db_result(db_query($queryuser));
+	
+	if($rcnt==0){
+		
+	db_query("insert into {tbl_user_points} set uid='$user->uid',$set,nodeid='$nodeid'");	
+		
+	}
+	
+		
+	}
+	
+	
+
+}
+
+

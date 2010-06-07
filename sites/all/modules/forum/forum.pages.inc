@@ -128,12 +128,14 @@ function cmt_submit() {
         $query = "select * from {user_likes} where node_id='$nodeid' $cond AND uid='$user->uid'";
         
         $chk = db_result(db_query($query));
-        
+      
         if (!$chk) {
             
             $query = "insert into {user_likes} set $set ,node_id='$nodeid',uid='$user->uid',is_like='$like'";
             
             $chk = db_query($query);
+			//guru points
+		  insertpoints($action, $nodeid);
 			if($action=='is_wave'||$action=='is_wavelets')
 			db_query("insert into {notification} set is_like='1',$set,uid='$user->uid',node_id='$nodeid' ");
             
