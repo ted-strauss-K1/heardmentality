@@ -118,7 +118,7 @@ var el=$('div.MultiBoxClose');
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/openids/js/popup.js"></script>
 </head>
 <?php 
- echo $_SERVER['HTTP_HOST'];
+ //echo $_SERVER['HTTP_HOST'];
 if(isset($_REQUEST["act"])=='edit2')
 {
 ?>
@@ -267,7 +267,7 @@ var conf=
 	//APIKey: '2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8'
 	//APIKey: '2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8'
 	
-	APIKey: '2_NzdYHs2MdPR8dCPkrBvof2XeiahJHMchg3EjXK8yhHlLqp1KkHFZeUZaE7N6vRBu'
+	APIKey: '<?php echo $apikey?>'
 	
 	
 	
