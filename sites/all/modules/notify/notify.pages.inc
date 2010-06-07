@@ -351,8 +351,8 @@ $adminmgmt='<form id="myForm" name="myForm"  method="post" action="'.$gSitePath.
     <td> <a href="'.$gSitePath.'admin/notification/4">New Question Posted  Mail </a></td>
     <td>&nbsp;</td>
   </tr>';
-  
-  if($linkval!='change')
+ // echo $linkval;
+  if($linkval!='notification')
   {
   $mid=$linkval;
   }
