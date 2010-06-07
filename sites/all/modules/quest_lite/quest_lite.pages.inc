@@ -1,6 +1,6 @@
 <?php
 function qlite_view() {
- global $gSitePath,$user,$gDocPath,$base_root,$base_path,$saaais;
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path,$saaais,$apikey;
 //echo $_SERVER['QUERY_STRING'];
 $lji=explode("=",$_SERVER['QUERY_STRING']);
 /////////////qviews /////////////////////////
@@ -449,7 +449,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
         var conf = 
         {
            // APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
-		   APIKey: \'2_OdDWGhe73p04B0m5k4zqlKdtnBCu9jbyud93Jgy-b8jEtbAXlAkbfpk9qBp781g8\'
+		   APIKey: \''.$apikey.'\'
         };
         
         function onLoad()
