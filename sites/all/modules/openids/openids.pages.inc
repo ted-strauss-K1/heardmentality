@@ -609,7 +609,22 @@ global $gSitePath,$user,$gDocPath,$base_root;
     $check2 = '';
     $question_privacy = '';
     $dob = '';
-    $selr1='';
+	$selr1='';
+	$selr2='';
+	$selr3='';
+	$selr4='';
+	$selr5='';
+	$selr6='';
+	$sele1='';
+	$sele2='';
+	$sele3='';
+	$sele4='';
+	$sele5='';
+	$sele6='';
+	$seleant1='';
+	$seleant2='';
+	$seleant3='';
+	
 	if($_COOKIE["faceidc"]!='')
 	{
 	//////////////////////faceboook friends////////////////////////////////
