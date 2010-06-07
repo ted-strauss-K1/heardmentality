@@ -1,4 +1,4 @@
-<?php global $gSitePath;?>
+<?php global $gSitePath,$apikey;?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>">
@@ -118,6 +118,7 @@ var el=$('div.MultiBoxClose');
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/openids/js/popup.js"></script>
 </head>
 <?php 
+echo  $apikey;
  //echo $_SERVER['HTTP_HOST'];
 if(isset($_REQUEST["act"])=='edit2')
 {
@@ -258,7 +259,7 @@ var login_params=
 <!-- socialize.js script should only be included once -->
 
 
-<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_NzdYHs2MdPR8dCPkrBvof2XeiahJHMchg3EjXK8yhHlLqp1KkHFZeUZaE7N6vRBu"></script>
+<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php echo $apikey?>"></script>
 <script type="text/javascript">
 var conf=
 {
