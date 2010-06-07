@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function notify_perm() {
-  return array('notify','Notify Report','Notify Report Content','Admin Notify');
+  return array('notify','Notify Report','Notify Report Content','Notify Report Content2','Notify Report Content3','Admin Notification');
 }
 
 
@@ -39,22 +39,22 @@ $items['mynotify'] = array(
     'title' => 'Notification',
     'page callback' => 'mail_sent_reply',
 	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Notify Report Content'),
+	   'access arguments' => array('Notify Report Content2'),
     'file' => 'notify.pages.inc',
   );
   $items['reply'] = array(
     'title' => 'Notification',
     'page callback' => 'reply_box',
 	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Notify Report Content'),
+	   'access arguments' => array('Notify Report Content3'),
     'file' => 'notify.pages.inc',
   );
   
-    $items['admin/notify/changes'] = array(
+    $items['admin/notification'] = array(
     'title' => 'Change Notification Mail',
     'page callback' => 'admin_notify',
 	   'type' => MENU_SUGGESTED_ITEM,
-	   'access arguments' => array('Admin Notify'),
+	   'access arguments' => array('Admin Notification'),
     'file' => 'notify.pages.inc',
   );
   
@@ -64,7 +64,7 @@ $items['mynotify'] = array(
     'title' => 'Notification',
     'page callback' => 'admin_notify_save',
 	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Admin Notify'),
+	   'access arguments' => array('Admin Notification'),
     'file' => 'notify.pages.inc',
   );
   
