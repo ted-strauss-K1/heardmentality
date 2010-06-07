@@ -570,7 +570,7 @@ function question_save() {
 		$list_content=db_fetch_object($rs_mgmt);
 		$contentm=str_replace("#uname#",$usert->name,$list_content->content);
 		$contentm= str_replace("#anothername#",$user->name,$contentm);
-		echo $contentm;
+		//echo $contentm;
 		$mail_success = htmlmail_function($to,$subject_proj,$contentm,'');
 		}
 		
