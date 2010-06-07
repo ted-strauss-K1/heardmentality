@@ -118,7 +118,7 @@ var el=$('div.MultiBoxClose');
 <script type="text/javascript" src="<?php echo $gSitePath?>sites/all/modules/openids/js/popup.js"></script>
 </head>
 <?php 
-echo  $apikey;
+//echo  $apikey;
  //echo $_SERVER['HTTP_HOST'];
 if(isset($_REQUEST["act"])=='edit2')
 {
