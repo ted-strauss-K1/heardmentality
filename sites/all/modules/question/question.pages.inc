@@ -553,7 +553,7 @@ function question_save() {
 		if($usert->notify_itype==1)
 		{
 		
-		$insert_notify=db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid ."','1','1','".$ins_id."' ) ");
+		//$insert_notify=db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid ."','1','1','".$ins_id."' ) ");
 		
 		}
 		if($usert->notify_etype==1)
@@ -568,10 +568,9 @@ function question_save() {
 		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='4'";
 		$rs_mgmt=db_query($sel_user_cmt);
 		$list_content=db_fetch_object($rs_mgmt);
-		 $list_content->content;
 		$contentm=str_replace("#uname#",$usert->name,$list_content->content);
 		$contentm= str_replace("#anothername#",$user->name,$contentm);
-		//echo $contentm;
+		echo $contentm;
 		$mail_success = htmlmail_function($to,$subject_proj,$contentm,'');
 		}
 		
@@ -611,7 +610,7 @@ function question_save() {
         unset($_SESSION['post']);
         $_SESSION['post'] = '';
         // drupal_goto("question");
-       // echo '<script>window.parent.location.href="'.$gSitePath.'question/";</script>';
+       echo '<script>window.parent.location.href="'.$gSitePath.'question/";</script>';
     } else {
         drupal_get_messages($type = 'error', $clear = 'TRUE');
         $_SESSION['post'] = $_POST;
@@ -627,7 +626,7 @@ function question_save() {
             drupal_set_message($message = 'Main Category should not be Empty!', $type = 'error');
 
         
-      //  drupal_goto("question/add");
+        drupal_goto("question/add");
     
     }
     
