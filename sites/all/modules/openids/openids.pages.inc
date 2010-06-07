@@ -638,7 +638,10 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	 $message='';
 	 $suc='';
 	 $medal='';
-	 
+	 $answers='';
+	 $email='';
+	 $followers='';
+	 $following=''; 
 	if($_COOKIE["faceidc"]!='')
 	{
 	//////////////////////faceboook friends////////////////////////////////
@@ -708,7 +711,7 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	
 	
 	
-    if ($_REQUEST['update'] == 'Update') {
+    if (isset($_REQUEST['update'])== 'Update') {
         extract($_REQUEST);
        
 		$chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
@@ -1225,6 +1228,7 @@ echo $op;
 
 function event_photo_profile() {
     global $objSmarty,$config;
+	$suc='';
     $return = array();
     $filename = $_FILES['image']['name'];// file up starts
     $tmp_image = $_FILES['image']['tmp_name'];
