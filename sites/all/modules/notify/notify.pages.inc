@@ -283,7 +283,7 @@ function reply_box()
 	
 	while($flwing_result=db_fetch_object($rs_folwin))
 	{
-	echo $uif=$flwing_result->qid;
+	//echo $uif=$flwing_result->qid;
 	if($_REQUEST[$uif]!='')
 	{
 	$update_quest="delete  from possible_answer_vote where qid=".$flwing_result->qid." and uid=".$user->uid." ";
