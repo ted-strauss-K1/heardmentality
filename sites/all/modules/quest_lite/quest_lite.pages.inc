@@ -2029,7 +2029,8 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         
         $infooutput = '<form id="answer" name="answer" method="post" action="'.$gSitePath.'admin/qlite/percentsave"  > <div class="cmt_list">
 		<div class="lft_view">
-		<p><input type="text" name="percentage" value="'.$oListquestb->percent.'"/>%</p>
+		<p> Percentage of vote </p>
+		<p><input type="text" name="percentage" value="'.$oListquestb->percent.'"/>% of total votes</p>
 		<p><input type="submit" name="submitpercent" value="Save"/></p>	</div></div>	';
         
         return $infooutput;
