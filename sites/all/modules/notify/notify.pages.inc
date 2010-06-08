@@ -370,7 +370,10 @@ $sel_user_cmt="SELECT * FROM notification_mail_format Where id='".$mid."'";
  $adminmgmt.='
 </table>
 <table width="100%" border="0">
- 
+ <tr colspan="6">
+    <td>Subject : <input type="text" name="msub" value="'.$contenmt->subject.'"/></td>
+   
+  </tr>
 <tr colspan="6">
     <td><textarea id="elm1" name="content" rows="15" cols="80">'.$contenmt->content.'</textarea></td>
     <input type="hidden" name="mlink" value="'.$mid.'"/>
@@ -397,10 +400,10 @@ function admin_notify_save()
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
  $mid=$_REQUEST['mlink'];
-   $updatevoteposs = "update  notification_mail_format set content='".addslashes($_REQUEST['content'])."' where id='".$_REQUEST['mlink']."'";
+   $updatevoteposs = "update  notification_mail_format set subject='".addslashes($_REQUEST['msub'])."', content='".addslashes($_REQUEST['content'])."' where id='".$_REQUEST['mlink']."'";
             db_query($updatevoteposs);
 			
-		drupal_goto("admin/notify/change/$mid");
+		drupal_goto("admin/notification/$mid");
 			
 			return $savelink;
 
