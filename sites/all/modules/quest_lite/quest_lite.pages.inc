@@ -257,7 +257,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
         $ufet_qwn->mail;
 		if($usert->notify_etype==1)
 		{
-		 $subject_proj = 'Heard Menatlity-Answer Has Been Replaced  Question';
+		 $subject_proj = $list_content->subject;
        
 		
 		
