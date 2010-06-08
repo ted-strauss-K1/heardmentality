@@ -562,7 +562,7 @@ function question_save() {
 		///////////email for following ///////////////
 		
 		
-		$subject_proj='New question Posted By your Follower';
+		$subject_proj=$list_content->subject;
 		
 		
 		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='4'";
