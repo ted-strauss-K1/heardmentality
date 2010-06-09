@@ -30,10 +30,10 @@ function political_api() {
                         
                         if ($i > 5)
                             break;
+
                         
-                                           
-						$count = db_result(db_query("SELECT COUNT(*) FROM {user} where political_user='1' AND political_id='".$final['ID']."' group by uid"));
-                        if (! empty($final['ID']) && $final['ID'] > 0 && $count==0) {
+                        $count = db_result(db_query("SELECT COUNT(*) FROM {user} where political_user='1' AND political_id='".$final['ID']."' group by uid"));
+                        if (! empty($final['ID']) && $final['ID'] > 0 && $count == 0) {
                             
                             $insert = "insert into {users} (name,pass,mail,provider,created,access,login,status,Identity,political_user,political_id)values('".mysql_escape_string($final['FIRSTNAME'].$final['ID'])."','','','Political','".time()."','".time()."','".time()."','1','','1','".$final['ID']."') ";
                             $insersult = db_query($insert);
@@ -50,7 +50,7 @@ function political_api() {
                 
                 }
             }
-			
+            
             break;
         case 'question':
             
@@ -67,27 +67,32 @@ function political_api() {
                     
                     if ($i > 5)
                         break;
-                   
+                    
                     foreach ($result as $final) {
                         
-                    if(strlen($final['TITLE'])>5){
-                    	
-					 $result = db_query("INSERT INTO {question} set uid='1',question='".$final['TITLE']."',context='".$final['OFFICIAL-TITLE']."',cid='1',country='US' ");
-                        
-                        $ins_id = db_last_insert_id('question', 'qid');
-                        
-                        $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, 'Yay');
-                        $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, 'Nay');
-                    	
-                    }
-                       
+                        if (strlen($final['TITLE']) > 5) {
+                            $dst = clean_url(myTruncate($final['TITLE'], 100, ' '));
+                            $result = db_query("INSERT INTO {question} set uid='1',question='".$final['TITLE']."',context='".$final['OFFICIAL-TITLE']."',cid='1',url='$dst',country='US' ");
+                            
+                            $ins_id = db_last_insert_id('question', 'qid');
+                            
+                            $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, 'Yay');
+                            $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, 'Nay');
+                            
+                            //url alias
+                            
+                            $url = 'qlite/view/'.$ins_id;
+                            
+                            $urlins = db_query("insert INTO {url_alias} set src='".$url."',dst='".$dst."'");
+                        }
+                    
                     }
                     $i++;
                 
                 }
             }
-
-             echo "Data updated successfully!";
+            
+            echo "Data updated successfully!";
             break;
         
         default:
@@ -97,7 +102,7 @@ function political_api() {
     
     }
 
-   
+    
     //return $strReturn;
 
 
