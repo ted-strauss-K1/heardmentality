@@ -21,11 +21,11 @@ function political_api() {
                 if ($i > 5)
                     break;
                 foreach ($opkt as $result) {
-                  
+                    echo $i;
                     if ($i > 5)
                         break;
                     
-                   
+                    echo $result['name'];
                     foreach ($result as $final) {
                         
                         if ($i > 5)
@@ -50,7 +50,7 @@ function political_api() {
                 
                 }
             }
-			 echo "Data updated successfully!";
+			
             break;
         case 'question':
             
@@ -70,14 +70,17 @@ function political_api() {
                    
                     foreach ($result as $final) {
                         
-                    	 $dst = clean_url(myTruncate($final['TITLE'], 100, ' '));
-                        $result = db_query("INSERT INTO {question} set uid='1',question='".$final['TITLE']."',context='".$final['OFFICIAL-TITLE']."',cid='1',country='US' ");
+                    if(strlen($final['TITLE'])>5){
+                    	
+					 $result = db_query("INSERT INTO {question} set uid='1',question='".$final['TITLE']."',context='".$final['OFFICIAL-TITLE']."',cid='1',country='US' ");
                         
                         $ins_id = db_last_insert_id('question', 'qid');
                         
                         $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, 'Yay');
                         $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, 'Nay');
-                    
+                    	
+                    }
+                       
                     }
                     $i++;
                 
