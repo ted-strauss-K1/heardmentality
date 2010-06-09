@@ -31,24 +31,9 @@ function political_api() {
                         if ($i > 5)
                             break;
                         
-                        echo "<pre>";
-                        echo $final['ID'];
-                        echo "<br>";
-                        echo $final['FIRSTNAME'];
-                        echo "<br>";
-                        
-                        echo $final['LASTNAME'];
-                        echo "<br>";
-                        
-                        echo $final['BIRTHDAY'];
-                        echo "<br>";
-                        
-                        echo $final['STATE'];
-                        echo "<br>";
-                        echo $final['GENDER'];
-                        echo "<br/>";
-                        
-                        if (! empty($final['ID']) && $final['ID'] > 0) {
+                                           
+						$count = db_result(db_query("SELECT COUNT(*) FROM {user} where political_user='1' AND political_id='".$final['ID']."' group by uid"));
+                        if (! empty($final['ID']) && $final['ID'] > 0 && $count==0) {
                             
                             $insert = "insert into {users} (name,pass,mail,provider,created,access,login,status,Identity,political_user,political_id)values('".mysql_escape_string($final['FIRSTNAME'].$final['ID'])."','','','Political','".time()."','".time()."','".time()."','1','','1','".$final['ID']."') ";
                             $insersult = db_query($insert);
@@ -81,11 +66,10 @@ function political_api() {
                     
                     if ($i > 5)
                         break;
-                    echo "<pre>";
-                    print_r($result);
+                   
                     foreach ($result as $final) {
                         
-                        echo $final['TITLE'];
+                    
                         $result = db_query("INSERT INTO {question} set uid='1',question='".$final['TITLE']."',context='".$final['OFFICIAL-TITLE']."',cid='1',country='US' ");
                         
                         $ins_id = db_last_insert_id('question', 'qid');
@@ -109,7 +93,7 @@ function political_api() {
     
     }
 
-    
+    echo "Data updated successfully!";
     //return $strReturn;
 
 
