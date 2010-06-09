@@ -50,6 +50,7 @@ function political_api() {
                 
                 }
             }
+			 echo "Data updated successfully!";
             break;
         case 'question':
             
@@ -83,7 +84,7 @@ function political_api() {
                 }
             }
 
-            
+             echo "Data updated successfully!";
             break;
         
         default:
@@ -93,7 +94,7 @@ function political_api() {
     
     }
 
-    echo "Data updated successfully!";
+   
     //return $strReturn;
 
 
