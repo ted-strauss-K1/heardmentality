@@ -199,12 +199,13 @@ function like_notification($nid='',$set=''){
 		///////////email for following ///////////////
 		
 		
-		$subject_proj='Post liked By '.$user->name;
+		
 		
 		
 		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='5'";
 		$rs_mgmt=db_query($sel_user_cmt);
 		$list_content=db_fetch_object($rs_mgmt);
+		$subject_proj=$list_content->subject;
 		$contentm=str_replace("#uname#",$usert->name,$list_content->content);
 		$contentm= str_replace("#anothername#",$user->name,$contentm);
 		//echo $contentm;
