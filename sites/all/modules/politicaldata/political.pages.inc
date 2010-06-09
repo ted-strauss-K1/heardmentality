@@ -70,7 +70,7 @@ function political_api() {
                    
                     foreach ($result as $final) {
                         
-                    
+                    	 $dst = clean_url(myTruncate($final['TITLE'], 100, ' '));
                         $result = db_query("INSERT INTO {question} set uid='1',question='".$final['TITLE']."',context='".$final['OFFICIAL-TITLE']."',cid='1',country='US' ");
                         
                         $ins_id = db_last_insert_id('question', 'qid');
