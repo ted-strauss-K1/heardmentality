@@ -21,11 +21,11 @@ function political_api() {
                 if ($i > 5)
                     break;
                 foreach ($opkt as $result) {
-                    echo $i;
+                  
                     if ($i > 5)
                         break;
                     
-                    echo $result['name'];
+                   
                     foreach ($result as $final) {
                         
                         if ($i > 5)
