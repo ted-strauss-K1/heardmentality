@@ -242,13 +242,14 @@ function profile($uid = '') {
 			//echo "insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['delm']."','1','1','".$user->uid."' ";
 		$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['delm']."','1','1','".$user->uid."') ");
 		
-		$subject='You Got new Follower in Heardmenatlity ';
+		
 			$sel_ulists="SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_REQUEST['delm']."'";
 		$rs_umlogs=db_query($sel_ulists);
 		$user_namelistfs=db_fetch_object($rs_umlogs);
 		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='1'";
 		$rs_mgmt=db_query($sel_user_cmt);
 		$list_content=db_fetch_object($rs_mgmt);
+		$subject=$list_content->subject;
 			$contentm=str_replace("#uname#",$user->name,$list_content->content);
 			$contentm= str_replace("#anothername#",$user_namelistfs->name,$contentm);
 			//echo $contentm;
