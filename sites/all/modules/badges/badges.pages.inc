@@ -36,7 +36,7 @@ function badges_list() {
 	//Necromancer();
 	//Student();
 	//popquest();
-	niceans();
+	//niceans();
     return $strReturn;
 
 }
