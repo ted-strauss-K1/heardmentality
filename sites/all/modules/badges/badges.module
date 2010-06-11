@@ -420,42 +420,7 @@ function Student() {
 
 }
 
-/////////////////////////nice answer /////////Good Answer ////////////////Great Answer////////
-function niceans() {
-    
-    $nicelist = "SELECT a.qid, b.uid, count(a.uid)as tot FROM possible_answer_vote as a,question as b where a.qid=b.qid  GROUP BY a.qid 	  ";
-    $ansresult = db_query($nicelist);
-    
-    while ($ansrem = db_fetch_object($ansresult)) {
-        
-        //echo $ansrem->tot;
-        //echo "<br>";
-        if ($ansrem->tot == 1) {
-            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='25'"));
-            if ($stucntr == 0) {
-                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','$ansrem->uid') ");
-            }
-        
-        }
-        //////////////Good Answer///////////////////////
-        if ($ansrem->tot == 3) {
-            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='17'"));
-            if ($stucntr == 0) {
-                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','$ansrem->uid') ");
-            }
-        
-        }
-        //////////////great answers///////////////////////
-        if ($ansrem->tot == 5) {
-            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='19'"));
-            if ($stucntr == 0) {
-                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','$ansrem->uid') ");
-            }
-        
-        }
-    }
 
-}
 
 /*
  function teacher($uid = '', $qid = '') {
