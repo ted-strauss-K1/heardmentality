@@ -4,8 +4,10 @@ function qlite_view() {
 //echo $_SERVER['QUERY_STRING'];
 $lji=explode("=",$_SERVER['QUERY_STRING']);
 /////////////qviews /////////////////////////
-insertviews();
+popquest();
 
+insertviews();
+//popquest();
 //////////////////////////////
  if (isset($_REQUEST['lid'])) 
  {
@@ -37,12 +39,12 @@ setcookie("faceidc", $_REQUEST['faceid']);
      drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
 	    drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
+    $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='".$qid."' GROUP BY qid";
     $query_list = db_query($query);
     $fetvot = db_fetch_object($query_list);
    $vot1= $fetvot->possiblevote;
     
-    $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid";
+    $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='".$qid."' GROUP BY qid";
     $query_sugestlist = db_query($query_sugest);
     $fetvotsugest = db_fetch_object($query_sugestlist);
     $vot2=$fetvotsugest->suggestv;
@@ -67,7 +69,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
     //echo $percent;
     $tot = $percent * 100;
     
-    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='$qid'  ";
+    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='".$qid."'  ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
     
@@ -126,7 +128,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
 		<div>'.$shortdesc.' '.$linkj.'';
     //likes
     
-    $query = "select sum(like_yes) as res from {question_like} where qid='$qid' group by qid ";
+    $query = "select sum(like_yes) as res from {question_like} where qid='".$qid."' group by qid ";
     $set = ExecuteQuery($query, "select");
     
     $set_cnt = ( empty($set[0]['res']) ? '0' : $set[0]['res']);
@@ -213,13 +215,13 @@ setcookie("faceidc", $_REQUEST['faceid']);
     
     }
     
-    $qry1 = db_query("select * from suggest_ans_changeids where qid ='$qid'");
+    $qry1 = db_query("select * from suggest_ans_changeids where qid ='".$qid."'");
     $array1 = array();
     while ($row1 = db_fetch_object($qry1)) {
         $array1[] = $row1->ans_id;
     }
     
-    $qry2 = db_query("select * from possible_answer_changeids where qid ='$qid' ");
+    $qry2 = db_query("select * from possible_answer_changeids where qid ='".$qid."' ");
     while ($row2 = db_fetch_object($qry2)) {
         $array2[] = $row2->ans_id;
     }
@@ -702,18 +704,22 @@ function qlite_save() {
                 $votepointp = $olistquest->vote + 1;
             }
             
-            $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
+          $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
             db_query($vInsQuery);
             drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
+			
+			
+			
+		
             increasepoints('2', $mid, '0');
             //badges 
-			teacher($user->uid,$mid);
+			//teacher($user->uid,$mid);
 			
-            $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
+            $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='".$mid."' GROUP BY qid";
             $query_listd = db_query($queryd);
             $fetvotd = db_fetch_object($query_listd);
             
-            $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid";
+            $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='".$mid."' GROUP BY qid";
             $query_sugestlistd = db_query($query_sugests);
             $fetvotsugestbg = db_fetch_object($query_sugestlistd);
             $totalvotesm = $fetvotd->possiblevote + $fetvotsugestbg->suggestv;
@@ -721,6 +727,38 @@ function qlite_save() {
             $calc = $totalvotesm * $votepointp / 100;
             $updatevoteposs = "update  possible_answer set vote='$votepointp' where paid='".$_REQUEST['answer']."'";
             db_query($updatevoteposs);
+			
+			
+			/////////////////////////nice answer /////////Good Answer ////////////////Great Answer////////
+
+		  $popcntans = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where qid='".$mid."' "));
+     //  echo $popcntans; 
+  $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='".$mid."'  ";
+    $rlist = db_query($vSql);
+    $ansrem = db_fetch_object($rlist);
+        if ($popcntans == 1) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$ansrem->uid."'  and bid='25'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','".$ansrem->uid."') ");
+            }
+        
+        }
+        //////////////Good Answer///////////////////////
+        if ($popcntans == 3) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$ansrem->uid."'  and bid='17'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','".$ansrem->uid."') ");
+            }
+        
+        }
+        //////////////great answers///////////////////////
+        if ($popcntans == 5) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$ansrem->uid."'  and bid='19'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','".$ansrem->uid."') ");
+            }
+        
+        }
             drupal_goto("qlite/view/$mid");
 
         
@@ -750,7 +788,7 @@ function qlite_save() {
 
     
     }
-    drupal_goto("qlite/view/$mid");
+   drupal_goto("qlite/view/$mid");
     
     return $voutput;
 
@@ -1116,11 +1154,11 @@ function panel_content() {
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
     $type = $_REQUEST['type'];
-    $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='$qid' GROUP BY qid";
+    $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='".$qid."' GROUP BY qid";
     $query_listd = db_query($queryd);
     $fetvotd = db_fetch_object($query_listd);
     
-    $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$qid' GROUP BY qid";
+    $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='".$qid."' GROUP BY qid";
     $query_sugestlistd = db_query($query_sugests);
     $fetvotsugestbg = db_fetch_object($query_sugestlistd);
     $totalvotesm = $fetvotd->possiblevote + $fetvotsugestbg->suggestv;
@@ -1140,7 +1178,7 @@ function panel_content() {
 						
 						  $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 						  extract($_POST);
-							 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$qid',type='1',uid='$user->uid',title='".mysql_escape_string($wtitle)."',private='$wprivate' ");	
+							 $forum = db_query("INSERT INTO {forum_wave} set qid_rid='".$qid."',type='1',uid='$user->uid',title='".mysql_escape_string($wtitle)."',private='$wprivate' ");	
 							echo list_wave($qid,1);						
 						exit;
 					}elseif(isset($_POST['wtitle'])){
@@ -1416,10 +1454,10 @@ function suggest_answer() {
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $ansoutput = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
     
-    $answers = "SELECT *	FROM suggest_answer where qid='$qid'  ";
+    $answers = "SELECT *	FROM suggest_answer where qid='".$qid."'  ";
     $anslist = db_query($answers);
     $count_row = db_result(db_query($answers));
-    $numr = db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='$qid' and uid='".$user->uid."'"));
+    $numr = db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='".$qid."' and uid='".$user->uid."'"));
     $ansoutput .= '<div id="log">
 	<div id="log_res"><!-- spanner --></div>
 	</div>
@@ -1524,9 +1562,9 @@ function question_news() {
     require ('RSSParser.class.php');
     $xml = & new RSSParser;
     
-    $vSql = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='1' and r.qid='$qid' ";
+    $vSql = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='1' and r.qid='".$qid."' ";
     $rlistnews = db_query($vSql);
-    $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='$qid'"));
+    $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='".$qid."'"));
     $newsresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
     while ($usernews = db_fetch_object($rlistnews)) {
         
@@ -1591,9 +1629,9 @@ function question_media() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $vSqlmedia = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='2' and r.qid='$qid' ";
+    $vSqlmedia = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='2' and r.qid='".$qid."' ";
     $rlistmedia = db_query($vSqlmedia);
-    $nummedia = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='$qid'"));
+    $nummedia = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='".$qid."'"));
     $mediaresult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
     while ($usermedia = db_fetch_object($rlistmedia)) {
     	
@@ -1650,9 +1688,9 @@ function question_facts() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $vSqlfact ="SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='3' and r.qid='$qid' ";
+    $vSqlfact ="SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='3' and r.qid='".$qid."' ";
     $rlistfacts = db_query($vSqlfact);
-    $numfacts = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='$qid'"));
+    $numfacts = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='".$qid."'"));
     $factsesult = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
     while ($userfacts = db_fetch_object($rlistfacts)) {
     	
@@ -1707,7 +1745,7 @@ function qlite_percent() {
     $output = '';
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
-    $vans = "select * from {possible_answer} where  qid='$qid'";
+    $vans = "select * from {possible_answer} where  qid='".$qid."'";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
     $script = " 			
@@ -1960,6 +1998,8 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
       function answer_vote() {
         
         global $gSitePath,$user,$gDocPath,$base_root;
+		
+		
         $list_length = db_query("select * from {suggest_answer_vote} where answer_id='".$_REQUEST['suggest']."' and uid='".$user->uid."'  ");
         
         $fetvote = db_fetch_object($list_length);
@@ -1985,6 +2025,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     
                     $updatevotesug = "update  suggest_answer set vote='$votepoint' where said='".$_REQUEST['suggest']."'";
                     db_query($updatevotesug);
+						
                     echo '<div class="messages success">Thanks For Voting ! </div>';
                 } else {
                     echo '<div class="messages error"> You Have Already Voted This Answer ! </div>';
@@ -2001,6 +2042,8 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         
         }
     
+	
+
     }
 
 
@@ -2058,7 +2101,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 
             
             //reset tags
-            db_query("DELETE FROM {qtag} where  qid='$qid'");
+            db_query("DELETE FROM {qtag} where  qid='".$qid."'");
             
             extract($_REQUEST);
             
@@ -2072,7 +2115,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 			$chkbadge=db_result(db_query("select (*) from {user_badges} where uid='$uid' and bid='28'"));
 			if($chkbadge<1){
 				
-				db_query("insert into {user_badges} set bid='28',uid='$uid',qid='$qid'");
+				db_query("insert into {user_badges} set bid='28',uid='$uid',qid='".$qid."'");
 			}
 			
 			drupal_set_message($message = 'Thank you Tags are updated', $type = 'success');
@@ -2271,7 +2314,8 @@ function insertviews()
 	{
 	$ulid=$user->uid;
 	$ipid=$_SERVER['REMOTE_ADDR'];
-	$countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='$qid' and view_date='".date("Y-m-d")."' "));
+	//echo "SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='".$qid."' and view_date='".date("Y-m-d")."' ";
+	$countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='".$qid."' and view_date='".date("Y-m-d")."' "));
 
 	}
 	else
@@ -2280,16 +2324,93 @@ function insertviews()
 	$ulid=0;
 	 $ipid=$_SERVER['REMOTE_ADDR'];
 	 
-	$countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where ip='$ipid'  and qid='$qid' and view_date='".date("Y-m-d")."'"));
+	$countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where ip='$ipid'  and qid='".$qid."' and view_date='".date("Y-m-d")."'"));
 
 	}
-	// $countret;
+	//echo  $countret;
 	if($countret==0)
 	{
+	
 	db_query("INSERT INTO {qviews} (ip,uid,qid,view_date) VALUES ('$ipid',$ulid,$qid,'".date("Y-m-d")."')");
 	}
 
 }	
-	
+/////////////popular qusetion ////////// notable question /////////// Famous Question  /////////////////////
+function popquest() {
 
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+ $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+  
+     $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='".$qid."'  ";
+    $rlist = db_query($vSql);
+    $oListquest = db_fetch_object($rlist);
+//echo $oListquest->uid;
+//echo "SELECT COUNT(*) FROM {qviews} where qid='".$qid."' ";
+       $popcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='".$qid."' "));
+     //  echo  $popcnt;
+        if ($popcnt == 1) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$oListquest->uid."' and qid='".$qid."'  and bid='30'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('30','".$oListquest->uid."','".$qid."') ");
+            }
+        }
+        ////////////////////notable question//////////////
+        if ($popcnt == 3) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$oListquest->uid."' and qid='".$qid."'  and bid='27'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('27','".$oListquest->uid."','".$qid."') ");
+            }
+        }
+        
+        /////////////////famous question ////////////////
+
+        
+        if ($popcnt == 5) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$oListquest->uid."' and qid='".$qid."'  and bid='13'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','".$oListquest->uid."','".$qid."') ");
+            }
+        }
+
+    
+    
+
+
+}	
+
+/////////////////////////nice answer /////////Good Answer ////////////////Great Answer////////
+function niceans() {
+     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+ $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+ 
+     $popcntans = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where qid='".$qid."' "));
+       echo $popcntans; 
+  $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='".$qid."'  ";
+    $rlist = db_query($vSql);
+    $ansrem = db_fetch_object($rlist);
+        if ($popcntans == 1) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$ansrem->uid."'  and bid='25'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','".$ansrem->uid."') ");
+            }
+        
+        }
+        //////////////Good Answer///////////////////////
+        if ($popcntans == 3) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$ansrem->uid."'  and bid='17'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','".$ansrem->uid."') ");
+            }
+        
+        }
+        //////////////great answers///////////////////////
+        if ($popcntans == 5) {
+            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$ansrem->uid."'  and bid='19'"));
+            if ($stucntr == 0) {
+                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','".$ansrem->uid."') ");
+            }
+        
+        }
+   
+}
 ?>
