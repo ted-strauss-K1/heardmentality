@@ -419,43 +419,7 @@ function Student() {
 
 
 }
-/////////////popular qusetion ////////// notable question /////////// Famous Question  /////////////////////
-function popquest() {
-    $stlist = "SELECT *  FROM question where status='1'  ";
-    $listpop = db_query($stlist);
-    
-    while ($qspop = db_fetch_object($listpop)) {
-        $popcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='$qspop->qid' "));
-        
-        if ($popcnt == 1) {
-            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='30'"));
-            if ($stucntr == 0) {
-                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('30','$qspop->uid','$qspop->qid') ");
-            }
-        }
-        ////////////////////notable question//////////////
-        if ($popcnt == 3) {
-            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='27'"));
-            if ($stucntr == 0) {
-                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('27','$qspop->uid','$qspop->qid') ");
-            }
-        }
-        
-        /////////////////famous question ////////////////
 
-        
-        if ($popcnt == 5) {
-            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='13'"));
-            if ($stucntr == 0) {
-                db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','$qspop->uid','$qspop->qid') ");
-            }
-        }
-
-    
-    }
-
-
-}
 /////////////////////////nice answer /////////Good Answer ////////////////Great Answer////////
 function niceans() {
     
