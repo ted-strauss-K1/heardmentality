@@ -301,10 +301,11 @@ function yearling() {
         $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
         //echo "<br>";
         //echo $months;
-        $b = "12";
-        
+      //  $b = "12";
+         $b = "1";
+		//  if ($months >= 12) 
         /////////////////check for month////////////////////////////////
-        if ($months >= 12) {
+        if ($months >= 1) {
             $mval = $months % $b;
             //echo $mval;
 
@@ -359,7 +360,7 @@ function Tumbleweed() {
         $cmtcnt = db_result(db_query("SELECT COUNT(*) FROM {forum_wave} where qid_rid='$qklisy->qid' and date_added<='$dtint[0]'"));
         $viewcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='$qklisy->qid' and view_date<='$dtint[0]'"));
         //echo $answercnt;
-        if (($answercnt == 0) && ($cmtcnt == 0) && ($viewcnt < 5)) {
+        if (($answercnt == 0) && ($cmtcnt == 0) && ($viewcnt < 2)) {
             $viewbad = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qklisy->uid' and  qid='$qklisy->qid' and bid='42'"));
             if ($viewbad == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('42', '$qklisy->uid','$qklisy->qid') ");
@@ -377,7 +378,7 @@ function Taxonomist() {
         $tagcnt = db_result(db_query("SELECT COUNT(*) FROM {qtag} where tag_id='$qtag->tid'"));
         //echo $tagcnt;
         //echo "<br>";
-        if ($tagcnt == 50) {
+        if ($tagcnt == 2) {
             $tagcntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qtag->uid' and tid='$qtag->tid'  and bid='40'"));
             if ($tagcntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,tid) VALUES ('40','$qtag->uid','$qtag->tid') ");
@@ -426,14 +427,14 @@ function popquest() {
     while ($qspop = db_fetch_object($listpop)) {
         $popcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='$qspop->qid' "));
         
-        if ($popcnt == 1000) {
+        if ($popcnt == 1) {
             $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='30'"));
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('30','$qspop->uid','$qspop->qid') ");
             }
         }
         ////////////////////notable question//////////////
-        if ($popcnt == 2500) {
+        if ($popcnt == 3) {
             $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='27'"));
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('27','$qspop->uid','$qspop->qid') ");
@@ -443,7 +444,7 @@ function popquest() {
         /////////////////famous question ////////////////
 
         
-        if ($popcnt == 10000) {
+        if ($popcnt == 5) {
             $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qspop->uid' and qid='$qspop->qid'  and bid='13'"));
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','$qspop->uid','$qspop->qid') ");
@@ -465,7 +466,7 @@ function niceans() {
         
         //echo $ansrem->tot;
         //echo "<br>";
-        if ($ansrem->tot == 10) {
+        if ($ansrem->tot == 1) {
             $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='25'"));
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','$ansrem->uid') ");
@@ -473,7 +474,7 @@ function niceans() {
         
         }
         //////////////Good Answer///////////////////////
-        if ($ansrem->tot == 25) {
+        if ($ansrem->tot == 3) {
             $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='17'"));
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','$ansrem->uid') ");
@@ -481,7 +482,7 @@ function niceans() {
         
         }
         //////////////great answers///////////////////////
-        if ($ansrem->tot == 100) {
+        if ($ansrem->tot == 5) {
             $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$ansrem->uid'  and bid='19'"));
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','$ansrem->uid') ");
