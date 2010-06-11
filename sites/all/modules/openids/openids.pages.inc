@@ -1052,8 +1052,8 @@ everyone or just followers or not at all while adding a question)
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Image
 	</label>
     <span>
-    <select class="email" name="email_privacy">'.$option1.$option2.$option3.'</select>
-  <select class="real_name" name="real_name_privacy">'.$option1.$option2.$option3.'</select> 
+    <select class="email_privacy" name="email_privacy">'.$option1.$option2.$option3.'</select>
+  <select class="real_name_privacy" name="real_name_privacy">'.$option1.$option2.$option3.'</select> 
    <select class="image"  name="image_privacy">'.$option1.$option2.$option3.'</select>
     </span>
     </li>
@@ -1063,8 +1063,8 @@ everyone or just followers or not at all while adding a question)
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zip
 	</label>
     <span>
-	<select class="bio"  name="bio_privacy">'.$option1.$option2.$option3.'</select>
-	 <select class="gender"  name="gender_privacy">'.$option1.$option2.$option3.'</select> 
+	<select class="bio_privacy"  name="bio_privacy">'.$option1.$option2.$option3.'</select>
+	 <select class="gender_privacy"  name="gender_privacy">'.$option1.$option2.$option3.'</select> 
 	 <select class="zip"  name="zip_privacy">'.$option1.$option2.$option3.'</select>
 	    </span>
 		<label class="desc" id="title0" for="Field0">
