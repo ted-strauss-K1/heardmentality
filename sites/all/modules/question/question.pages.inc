@@ -1762,11 +1762,11 @@ if(isset($_GET['start'])){
 	
 }
 
-if(strlen($start) > 0 and !is_numeric($start)){
+/*if(strlen($start) > 0 and !is_numeric($start)){
 echo "Data Error";
 exit;
 }
-
+*/
 
 $eu = ($start - 0); 
 $limit = 10;                                 
