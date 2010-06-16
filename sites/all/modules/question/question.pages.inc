@@ -1824,6 +1824,10 @@ function checkall(val){
 	{
 	$uname=$usert->name;
 	}
+	else
+	{
+	$uname='';
+	}
 	$modquest.='<tr>
 	<td><a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">'.wordwrap($qid_result->question,"50","<br/>\n").'</a></td>
 	
