@@ -1859,7 +1859,7 @@ for($i=0;$i < $sel_count;$i=$i+$limit){
 if($i <> $eu){
 $modquest.= " <a href='$page_name?start=$i&$lkr'><font face='Verdana' size='2'>$l</font></a> ";
 }
-else { $fetresult.= "<font face='Verdana' size='4' color=red>$l</font>";}        /// Current page is not displayed as link and given font color red
+else { $modquest.= "<font face='Verdana' size='4' color=red>$l</font>";}        /// Current page is not displayed as link and given font color red
 $l=$l+1;
 }
 
