@@ -1820,7 +1820,10 @@ function checkall(val){
 	$sellist="select * from users where uid='".$qid_result->uid."'";
 	$res_users=db_query($sellist);
 	$usert=db_fetch_object($res_users);
+	if($usert!='')
+	{
 	$uname=$usert->name;
+	}
 	$modquest.='<tr>
 	<td><a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">'.wordwrap($qid_result->question,"50","<br/>\n").'</a></td>
 	
