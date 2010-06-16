@@ -1846,7 +1846,7 @@ function checkall(val){
 if($sel_count > $limit ){ // Let us display bottom links if sufficient records are there for paging
 
 /////////////// Start the bottom links with Prev and next link with page numbers /////////////////
-$fetresult.="<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
+$modquest.="<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
 //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
 if($back >=0) { 
 $modquest.= "<a href='$page_name?start=$back&$lkr'><font face='Verdana' size='2'>PREV</font></a>"; 
