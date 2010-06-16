@@ -1720,7 +1720,7 @@ function moderate_quest()
 {
 
 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	
+	 $eu='';
 if(isset($_REQUEST['Inactive'])){
 		
 		 $ids=implode(',',$_REQUEST['qidsl']);
