@@ -1578,7 +1578,7 @@ function moderate_user()
 global $gSitePath,$user, $gDocPath,$base_root,$base_path;
  drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/moderate.js');
 
-$seldonar="select count(nodeid) as cnt ,f.nodeid from question_flags as f   where f.type='question'   group by nodeid";
+echo $seldonar="select count(nodeid) as cnt ,f.nodeid from question_flags as f   where f.type='question'   group by nodeid";
 
 $res_donar=db_query($seldonar);
 $moduser='<div id="nlist"></div>
