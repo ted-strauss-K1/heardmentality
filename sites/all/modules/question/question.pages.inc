@@ -1762,7 +1762,7 @@ if(isset($_GET['start'])){
 	
 }
 
-if(isset(strlen($start) > 0 and !is_numeric($start))){
+if(strlen($start) > 0 and !is_numeric($start)){
 echo "Data Error";
 exit;
 }
