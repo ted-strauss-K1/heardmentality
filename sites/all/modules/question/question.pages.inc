@@ -1592,7 +1592,7 @@ $moduser='<div id="nlist"></div>
   </tr>';
 while($don=db_fetch_object($res_donar))
 {
- $sequest="select * from question where qid='".$don->nodeid."'";
+ echo $sequest="select * from question where qid='".$don->nodeid."'";
 $res_quest=db_query($sequest);
 $qlist=db_fetch_object($res_quest);
  // $ss=$qlist->question;
