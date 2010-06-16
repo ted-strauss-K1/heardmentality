@@ -1721,6 +1721,7 @@ function moderate_quest()
 
 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 	 $start='';
+	 $lkr='';
 if(isset($_REQUEST['Inactive'])){
 		
 		 $ids=implode(',',$_REQUEST['qidsl']);
