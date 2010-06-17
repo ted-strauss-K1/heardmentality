@@ -3,7 +3,7 @@
 function add_points()
 {
 global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-	if($_REQUEST['del']!='')
+	if(isset($_REQUEST['del']!=''))
 	{
 	$delpt="delete from tbl_vote_gurupoints where id='".$_REQUEST['del']."' ";
 	$delcum=db_query($delpt);
