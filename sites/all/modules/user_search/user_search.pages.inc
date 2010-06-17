@@ -224,7 +224,7 @@ $fetresult.='<b>No Search Results </b>';
 	</div>
 	</div>';
 	
-	if($_REQUEST['act']=='flag')
+	if(isset($_REQUEST['act'])=='flag')
 	{
 	$mem_id = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	 
