@@ -173,7 +173,7 @@ function save_points()
 	 
 	// echo $idm;
 	
-		if($_REQUEST['Add'])
+		if(isset($_REQUEST['Add']))
 		{
 		
 		  $insertsql="insert into  tbl_vote_gurupoints (vstart,vend,points) values('".$_REQUEST['fromr']."','".$_REQUEST['tor']."','".$_REQUEST['voteptsr']."')";
