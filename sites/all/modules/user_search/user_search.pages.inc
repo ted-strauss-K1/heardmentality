@@ -5,9 +5,14 @@ function search_results()
 global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 $start='';
 $flink='';
+$fetresult='';
 extract($_REQUEST);
 $page_name="searchuser"; //  If you use this code with a different page ( or file ) name then change this 
+if(isset($_GET['start']))
+{
+
 $start=$_GET['start'];
+}
 if(strlen($start) > 0 and !is_numeric($start)){
 echo "Data Error";
 exit;
@@ -141,7 +146,10 @@ text-decoration:none;
 	<ul>';
 	
 	  $name=$_REQUEST['txt_search'];
-	  $code=$_REQUEST['code'];
+	if(isset($_REQUEST['code']))
+	{
+	$code=$_REQUEST['code'];
+	}
 	 $qry='';
 		if($name)
 			$qry.="(img.real_name LIKE '".$name."%') AND ";
@@ -215,7 +223,8 @@ $fetresult.='<b>No Search Results </b>';
 	</div>
 	</div>';
 	
-	if($_REQUEST['act']=='flag')
+	
+	if(isset($_REQUEST["act"])=='flag')
 	{
 	$mem_id = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
 	 
