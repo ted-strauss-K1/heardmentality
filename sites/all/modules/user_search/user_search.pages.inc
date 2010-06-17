@@ -143,7 +143,14 @@ text-decoration:none;
 	<ul>';
 	
 	  $name=$_REQUEST['txt_search'];
+	  if(isset($_REQUEST['code']))
+	  {
 	  $code=$_REQUEST['code'];
+	  }
+	  else
+	  {
+	  $code='';
+	  }
 	 $qry='';
 		if($name)
 			$qry.="(img.real_name LIKE '".$name."%') AND ";
