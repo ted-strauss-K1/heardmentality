@@ -150,8 +150,6 @@ function save_points()
 		// echo count($gpoint);
 		for($i=0;$i<=count($gpoint);$i++)
 		{
-		if($gpoint!='')
-		{
 		$gid= $gpoint[$i]['id'];
 		$fromt="from".$gid;
 		$fromp=$_REQUEST[$fromt];
@@ -159,7 +157,7 @@ function save_points()
 		$topin=$_REQUEST[$tot];
 		$vtpts="votepts".$gid;
 		$vtptsy=$_REQUEST[$vtpts];
-		}
+		
 		  $updateguru="update  tbl_vote_gurupoints set vstart=$fromp ,vend=$topin, points='$vtptsy' where id='".$gid."' ";
 		db_query($updateguru);
 		
