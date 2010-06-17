@@ -375,7 +375,7 @@ text-decoration:none;
 	}
 	if($name)
 			$qry.="(question LIKE '".$name."%') AND ";
-	 if($cid)
+	 if(isset($cid))
 	 $qry.="(cid  LIKE '%".$cid."%') AND ";
 	  if($scid)
 	 $qry.="(scid LIKE '%".$scid."%') AND";
