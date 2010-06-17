@@ -151,6 +151,7 @@ function save_points()
 		for($i=0;$i<=count($gpoint);$i++)
 		{
 		if($gpoint!='')
+		{
 		$gid= $gpoint[$i]['id'];
 		$fromt="from".$gid;
 		$fromp=$_REQUEST[$fromt];
