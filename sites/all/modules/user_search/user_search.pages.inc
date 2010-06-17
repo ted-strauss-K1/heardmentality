@@ -6,6 +6,7 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 $start='';
 $flink='';
 $fetresult='';
+$code='';
 extract($_REQUEST);
 $page_name="searchuser"; //  If you use this code with a different page ( or file ) name then change this 
 if(isset($_GET['start']))
