@@ -265,6 +265,7 @@ function search_results_question()
 	$lkr='';
 	$tag='';
 	$name='';
+	$fetresult='';
  $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 //echo $idb;
 $page_name="searchquestion"; 
@@ -317,7 +318,7 @@ window.addEvent(\'domready\', function(){
 						</script>
 			
 			';
-$fetresult.='<style type="text/css">
+$fetresult='<style type="text/css">
 ul{ list-style-type: none; }
 #container{ width: 960px; margin: 0 auto; position: relative; }
 #feature,
