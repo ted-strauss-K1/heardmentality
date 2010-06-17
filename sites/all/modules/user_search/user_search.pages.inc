@@ -5,8 +5,10 @@ function search_results()
 global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 $start='';
 $flink='';
+$fetresult='';
 extract($_REQUEST);
 $page_name="searchuser"; //  If you use this code with a different page ( or file ) name then change this 
+
 $start=$_GET['start'];
 if(strlen($start) > 0 and !is_numeric($start)){
 echo "Data Error";
@@ -19,7 +21,7 @@ $limit = 5;                                 // No of records to be shown per pag
 $this1 = $eu + $limit; 
 $back = $eu - $limit; 
 $next = $eu + $limit; 
-$fetresult .= '<script type="text/javascript">
+$fetresult = '<script type="text/javascript">
 				var spath=\''.$gSitePath.'\';
 			
 				function setDefaultCountry() {
