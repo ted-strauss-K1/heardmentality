@@ -8,7 +8,7 @@ $flink='';
 $fetresult='';
 extract($_REQUEST);
 $page_name="searchuser"; //  If you use this code with a different page ( or file ) name then change this 
-if(isset($_GET['start'])
+if(isset($_GET['start']))
 {
 $start=$_GET['start'];
 }
