@@ -147,7 +147,7 @@ text-decoration:none;
 	 $qry='';
 		if($name)
 			$qry.="(img.real_name LIKE '".$name."%') AND ";
-		if($code)
+		if(isset($_REQUEST['code']))
 			$qry.="(img.country ='".$code."') AND ";
 	 
 	 if($user->uid!='')
