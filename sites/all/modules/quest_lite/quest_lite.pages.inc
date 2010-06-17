@@ -2378,39 +2378,5 @@ function popquest() {
 
 }	
 
-/////////////////////////nice answer /////////Good Answer ////////////////Great Answer////////
-function niceans() {
-     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
- $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
- 
-     $popcntans = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where qid='".$qid."' "));
-       echo $popcntans; 
-  $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='".$qid."'  ";
-    $rlist = db_query($vSql);
-    $ansrem = db_fetch_object($rlist);
-        if ($popcntans == 1) {
-            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$ansrem->uid."'  and bid='25'"));
-            if ($stucntr == 0) {
-                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','".$ansrem->uid."') ");
-            }
-        
-        }
-        //////////////Good Answer///////////////////////
-        if ($popcntans == 3) {
-            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$ansrem->uid."'  and bid='17'"));
-            if ($stucntr == 0) {
-                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','".$ansrem->uid."') ");
-            }
-        
-        }
-        //////////////great answers///////////////////////
-        if ($popcntans == 5) {
-            $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='".$ansrem->uid."'  and bid='19'"));
-            if ($stucntr == 0) {
-                db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','".$ansrem->uid."') ");
-            }
-        
-        }
-   
-}
+
 ?>
