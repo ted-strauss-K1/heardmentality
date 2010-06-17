@@ -285,7 +285,7 @@ $limit = 5;                                 // No of records to be shown per pag
 $this1 = $eu + $limit; 
 $back = $eu - $limit; 
 $next = $eu + $limit; 
-$fetresult .= '<script type="text/javascript">
+$fetresult = '<script type="text/javascript">
 				
 
 window.addEvent(\'domready\', function(){
@@ -318,7 +318,7 @@ window.addEvent(\'domready\', function(){
 						</script>
 			
 			';
-$fetresult='<style type="text/css">
+$fetresult.='<style type="text/css">
 ul{ list-style-type: none; }
 #container{ width: 960px; margin: 0 auto; position: relative; }
 #feature,
