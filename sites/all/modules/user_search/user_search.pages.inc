@@ -435,7 +435,7 @@ text-decoration:none;
 	
 	
 	
-	if(isset(($_REQUEST['cid']!='')|| ($_REQUEST['scid']!='')))
+	if(isset($_REQUEST['cid'])|| ($_REQUEST['scid']!=''))
 	{
 	
 	
