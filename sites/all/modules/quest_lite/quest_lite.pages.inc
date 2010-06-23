@@ -1916,7 +1916,8 @@ function qlite_map() {
 			   if(!empty($uzip)){
 			   	$list=array();
                 $list = qlite_get_zip($uzip, $cntcode);
-			
+				echo "hiiiiiiiiiiiiiiiiiiiii<pre>";
+			print_r($list);
 			if($list->results[0][countrycode]!=''){
 					$zcnt++;
 				 $mlat .= "'".$list->results[0][lat]."',";	
