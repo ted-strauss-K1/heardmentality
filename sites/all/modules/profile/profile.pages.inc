@@ -75,12 +75,12 @@ function profile($uid = '') {
 	
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
-    
+   
    // $vot_counts = checkUpAndDownVotes($uid);
     $userPoints = checkUserPoints($user->uid);
     //$upcount = $vot_counts['upcount'];
    // $downcount = $vot_counts['downcount'];
-    $getuser = user_load(array('uid'=>$result[0]['uid']));
+    $getuser = user_load(array('uid'=>$result['uid']));
 	
     if (is_array($result))
         extract($result);
