@@ -13,7 +13,7 @@ function qlitemini() {
 	<script type="text/javascript">
 		 var pconf1={  
          CID: "Site 1 - Widget A",  
-         defaultContent: "embedCode1",  
+         defaultContent: window.location.href,  
          UIConfig: \'<config><display showPost="true" showBookmark="true" showEmail="true" /></config>\'  
      };  
    
