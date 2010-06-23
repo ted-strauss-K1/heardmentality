@@ -402,10 +402,13 @@ text-decoration:none;
 	// $qry.="(sscid LIKE '%".$sscid."%') AND (cid  LIKE '%".$saveresult->parent_id."%') AND ";
 	$qry.="(sscid LIKE '%".$sscid."%')  AND ";
 	
-	 if($tag!='')
-		   $sel="SELECT * FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
-		else
-			$sel="SELECT * FROM {question}   WHERE $qry status='1'   ";
+	 if($tag!=''){
+	 $sel="SELECT * FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";	
+	 }	   
+	else{
+	echo $sel="SELECT * FROM {question}   WHERE $qry status='1'   ";	
+	}
+			
 	
 	$user_qry=db_query($sel);
 	if($tag!=''){
