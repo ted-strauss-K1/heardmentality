@@ -1916,13 +1916,13 @@ function qlite_map() {
 			   if(!empty($uzip)){
 			   	$list=array();
                 $list = qlite_get_zip($uzip, $cntcode);
-				echo "hiiiiiiiiiiiiiiiiiiiii<pre>";
-			print_r($list);
-			if($list->results[0][countrycode]!=''){
+				$list=$list->results;
+			
+			if($list[0]['countrycode']!=''){
 					$zcnt++;
-				 $mlat .= "'".$list->results[0][lat]."',";	
+				 $mlat .= "'".$list[0]['lat']."',";	
                              
-                $mlong .= "'".$list->results[0][lng]."',";
+                $mlong .= "'".$list[0]['lng']."',";
 			
                 //   $mlat .= "'".rand('30.232','72.03')."',";
                 //  $mlong .= "'".rand('56.232','103.03')."',";
