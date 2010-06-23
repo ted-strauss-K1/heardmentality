@@ -1602,12 +1602,13 @@ function question_news() {
 		//posts
 		$post.='[<a href="javascript:void(0);" onclick="loadrforum(\''.$gSitePath.'resource/forum/'.$usernews->rid.'\',\'Resource forum \');
 ">'.$usernews->cntpost.' Post</a>]';
-		
+		 $getuser = user_load(array('uid'=>$usernews->uid));
             $newsresult .= '<div class="cmt_list">
 	
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$opkt["LINK"].'" target="new"> '.$opkt["TITLE"].' </a> </h4>
 		<p>'.$opkt['DESCRIPTION'].' </p>  
-	<p class="cmt_date"> '.date("D j M Y", strtotime($opkt['PUBDATE'])).'</p></div>
+	<p class="cmt_date"> '.date("D j M Y", strtotime($opkt['PUBDATE'])).'</p>
+		<p class="cmt_date"> Posted by <a href="'.$gSitePath.'profile/'.$getuser->name.'">'.$getuser->name.'</a></p></div>
 	<!--<div class="rght_view" onclick="resource_like('.$usernews->rid.','.$user->uid.',1);" >
 	<p id ="resource-fact">'.$like_count.'</p>Like	
 	</div>-->'.$like.' <span>'.$flag.'</span><span>'.$post.'</span>
@@ -1657,7 +1658,7 @@ function question_media() {
 		//posts
 		$post.='[<a href="javascript:void(0);" onclick="loadrforum(\''.$gSitePath.'resource/forum/'.$usermedia->rid.'\',\'Resource forum \');
 ">'.$usermedia->cntpost.' Post</a>]';	
-		
+			 $getuser = user_load(array('uid'=>$usermedia->uid));
         $like_count = resource_Like_checkCount($usermedia->rid, 2);
         $mediaresult .= '<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
@@ -1671,7 +1672,8 @@ function question_media() {
 </object>
 
  </p>
-	<p class="cmt_date"> '.date("D j M Y", strtotime($usermedia->posted_date)).'</p> </div>
+	<p class="cmt_date"> '.date("D j M Y", strtotime($usermedia->posted_date)).'</p> 
+		<p class="cmt_date"> Posted by <a href="'.$gSitePath.'profile/'.$getuser->name.'">'.$getuser->name.'</a></p></div>
 <!--	<div class="rght_view" onclick="resource_like('.$usermedia->rid.','.$user->uid.',2);" >
 	<p id ="resource-fact">'.$like_count.'</p>Like	
 	</div>--><div>'.$like.' <span>'.$flag.'</span><span>'.$post.'</span></div>
