@@ -1225,7 +1225,7 @@ function panel_content() {
                         $li_img_source = $pat."/images/gold.jpg";
                     }
                     $output1 .= '<div class="img"><p><img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$profile['image'].'" align="absmiddle" alt="Profile Image" >
-				'.$profile['name'].'   
+				 <a href="'.$gSitePath.'profile/'.$profile['name'].'">'.$profile['name'].'  </a> 
 			    <span><img title="'.$li.'"   src="'.$li_img_source.'" >'.$badge_type_id.'
 			    </span>'.$profile['post_count'].'
 			     </p>
@@ -1244,7 +1244,7 @@ function panel_content() {
             
             break;
         case "Info":
-            $output = ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> <a href="'.$gSitePath.'/profile/'.$fetuserlist->name.'">'.$fetuserlist->name.'</a> <br/>
+            $output = ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> <a href="'.$gSitePath.'profile/'.$fetuserlist->name.'">'.$fetuserlist->name.'</a> <br/>
 			<b>Date Created:</b> '.date("D j M Y", strtotime($oListquest->date_added)).' <br/>
 			<b>Number of Votes:</b> '.$totalvotesm.'<br/>
 			<b>Number of Forum Posts:</b> 0 <br/>
