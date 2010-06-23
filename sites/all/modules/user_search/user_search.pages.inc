@@ -390,7 +390,7 @@ text-decoration:none;
 	
 	}
 	if($name){
-	$qry.="(question LIKE '%".$name."%') AND ";	
+	$qry.=" question LIKE '%".$name."%' AND ";	
 		
 	}
 			
@@ -406,7 +406,7 @@ text-decoration:none;
 	 $sel="SELECT * FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";	
 	 }	   
 	else{
-	echo $sel="SELECT * FROM {question}   WHERE $qry status='1'   ";	
+	 $sel="SELECT * FROM {question}   WHERE $qry status='1'   ";	
 	}
 			
 	
@@ -421,6 +421,8 @@ text-decoration:none;
 	
 	$sel.=" limit  $eu, $limit";
 	//echo $sel;
+	// $sel_search = ExecuteQuery($sel, "select");
+	// print_r($sel_search);
 		$sel_search=db_query($sel);
 	while($user_result=db_fetch_object($sel_search))
 	{
