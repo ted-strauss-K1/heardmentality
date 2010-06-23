@@ -80,7 +80,7 @@ function profile($uid = '') {
     $userPoints = checkUserPoints($user->uid);
     //$upcount = $vot_counts['upcount'];
    // $downcount = $vot_counts['downcount'];
-    $getuser = user_load(array('uid'=>$result->uid));
+    $getuser = user_load(array('uid'=>$result[0]['uid']));
 	
     if (is_array($result))
         extract($result);
