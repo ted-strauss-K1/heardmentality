@@ -389,8 +389,11 @@ text-decoration:none;
 	$scid=$_GET['scid'];
 	
 	}
-	if($name)
-			$qry.="(question LIKE '".$name."%') AND ";
+	if($name){
+	$qry.="(question LIKE '%".$name."%') AND ";	
+		
+	}
+			
 	 if(isset($cid))
 	 $qry.="(cid  LIKE '%".$cid."%') AND ";
 	  if($scid)
@@ -405,10 +408,14 @@ text-decoration:none;
 			$sel="SELECT * FROM {question}   WHERE $qry status='1'   ";
 	
 	$user_qry=db_query($sel);
-	if($tag!='')
-	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));
-	else
-	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}   WHERE $qry status='1'  "));
+	if($tag!=''){
+	 $sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));	
+	
+	}
+	else{
+	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}   WHERE $qry status='1'  "));	
+	}
+	
 	$sel.=" limit  $eu, $limit";
 	//echo $sel;
 		$sel_search=db_query($sel);
