@@ -1244,7 +1244,7 @@ function panel_content() {
             
             break;
         case "Info":
-            $output = ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> '.$fetuserlist->name.' <br/>
+            $output = ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> <a href="'.$gSitePath.'/profile/'.$fetuserlist->name.'">'.$fetuserlist->name.'</a> <br/>
 			<b>Date Created:</b> '.date("D j M Y", strtotime($oListquest->date_added)).' <br/>
 			<b>Number of Votes:</b> '.$totalvotesm.'<br/>
 			<b>Number of Forum Posts:</b> 0 <br/>
@@ -1702,10 +1702,10 @@ function question_facts() {
         
         if (count($fetch) < 1||$fetch[0]['is_like']=='0') {
             
-            $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$userfacts->rid.',1,this);">Like</a></span>';
+            $like .= '<span  id="likelink" >[<a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$userfacts->rid.',1,this);">Like</a>]</span>';
         } elseif($fetch[0]['is_like']=='1') {
             
-            $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$userfacts->rid.',0,this);">Unlike</a></span>';
+            $like .= '<span id="likelink" > [<a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\','.$userfacts->rid.',0,this);">Unlike</a>]</span>';
         }
 		
 		//flag
@@ -1718,9 +1718,13 @@ function question_facts() {
 ">'.$userfacts->cntpost.' Post</a>]';	
 
         $like_count = resource_Like_checkCount($userfacts->rid, 3);
+	
+		 $getuser = user_load(array('uid'=>$userfacts->uid));
+		
         $factsesult .= '<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a href="'.$userfacts->facts.'" target="_blank" style="color:#02a33c;text-decoration:none;"> '.$userfacts->facts.' </a> </h4>
-	<p class="cmt_date"> '.date("D j M Y", strtotime($userfacts->posted_date)).'</p> '.$userfacts->posted_date.'</div>
+	<p class="cmt_date"> '.date("D j M Y", strtotime($userfacts->posted_date)).'</p>
+	<p class="cmt_date"> Posted by <a href="'.$gSitePath.'profile/'.$getuser->name.'">'.$getuser->name.'</a></p></div>
 	<!--<div class="rght_view" onclick="resource_like('.$userfacts->rid.','.$user->uid.',3);" >
 	<p id ="resource-fact">'.$like_count.'</p>Like	
 	</div>-->
