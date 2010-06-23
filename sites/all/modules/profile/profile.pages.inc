@@ -5,10 +5,12 @@ function profile_view() {
     $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $uid='';
 	
+	 $profile_name=strtolower($profile_name);
     $getuser = user_load(array('name'=>$profile_name));
+	
 	if(isset($getuser)&&!empty($getuser)){
 		
-	$uid = $getuser->uid;	
+	 $uid = $getuser->uid;	
 		
 	}
     
@@ -56,6 +58,7 @@ function profile($uid = '') {
     $optionlist = '';
     $image = 'noimage.jpg';
     $zip = '';
+	$dob='';
     $country = '';
     $slant = '';
     $religion = '';
@@ -77,7 +80,8 @@ function profile($uid = '') {
     $userPoints = checkUserPoints($user->uid);
     //$upcount = $vot_counts['upcount'];
    // $downcount = $vot_counts['downcount'];
-    $getuser = user_load(array('uid'=>$user->uid));
+    $getuser = user_load(array('uid'=>$result->uid));
+	
     if (is_array($result))
         extract($result);
     $userSettings = checkPrivacySettings($uid);
