@@ -1894,8 +1894,7 @@ function qlite_map() {
     iconRed.iconAnchor = new GPoint(6, 20);
     iconRed.infoWindowAnchor = new GPoint(5, 1);
   
-// Set up our GMarkerOptions object
-markerOptions = { icon:iconRed };';
+';
         
        // $desc .= '<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png" border="0" alt=""/> &nbsp; '.$vlist[$i]['answer'].'<br/>';
         $desc .= '<img src="http://labs.google.com/ridefinder/images/mm_20_'.$marker[$i].'.png" border="0" alt=""/> &nbsp; '.$vlist[$i]['answer'].'<br/>';
@@ -1943,7 +1942,7 @@ markerOptions = { icon:iconRed };';
 		        	
 		            var latlng = new GLatLng(lat[i],lng[i]);
 		          // map.addOverlay(new GMarker(latlng, markerOptions));
-				    map.addOverlay(createMarker(latlng, '".$uzip."'));
+				    map.addOverlay(createMarker(latlng, '".$uzip."',iconRed));
 		          }
 }";
         }
@@ -1959,8 +1958,10 @@ markerOptions = { icon:iconRed };';
     	var map = new google.maps.Map2(document.getElementById('map_div'));
 		 map.setCenter(new GLatLng(34, 0), 1);
  geocoder = new GClientGeocoder();
- 	function createMarker(latlng, number) {
-      var marker = new GMarker(latlng);
+ 	function createMarker(latlng, number,iconRed) {
+ 		// Set up our GMarkerOptions object
+markerOptions = { icon:iconRed };
+      var marker = new GMarker(latlng,markerOptions);
       marker.value = number;
       GEvent.addListener(marker,\"click\", function() {
         var myHtml =number;
