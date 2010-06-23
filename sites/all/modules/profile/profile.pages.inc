@@ -283,13 +283,13 @@ function profile($uid = '') {
 
     
     $share = '';
- /*
+
    if ($uid != $user->uid) {
         $share = '[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';
     }
 	
-*/
+
 	
     $history='';
 	
@@ -298,6 +298,8 @@ function profile($uid = '') {
 
 
 	$share='';
+	$shareme='';
+	$shareme='[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]';
 	$edit='';
 	$flinkflw='';
 	$sendmsg='';
@@ -340,7 +342,7 @@ $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message 
 					<br/>
 
 
-'.$getuser->name.'&nbsp;[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]'.$share.' '.$flink.' '.$history.' '.$sendmsg.' '.$edit.'<br/>
+'.$getuser->name.'&nbsp;'.$share.' '.$flink.' '.$history.' '.$sendmsg.' '.$edit.'<br/>
 
 
 					'.$real_name1.'<br/>
