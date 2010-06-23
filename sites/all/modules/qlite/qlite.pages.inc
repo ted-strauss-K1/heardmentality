@@ -94,7 +94,6 @@ function qlitemini() {
 		<option value="5">Create Mashup:</option> 
 		</select>
 		</div>
-		//added button
 		<div id="divWildfirePost" onmouseout="hideBook()"></div>
 		<script> Wildfire.initPost("PARTNER-ID", "divWildfirePost", 400, 300, pconf1);  </script>
 		';
