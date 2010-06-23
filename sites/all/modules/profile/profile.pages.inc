@@ -283,11 +283,13 @@ function profile($uid = '') {
 
     
     $share = '';
-    if ($uid != $user->uid) {
+ /*
+   if ($uid != $user->uid) {
         $share = '[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';
     }
 	
+*/
 	
     $history='';
 	

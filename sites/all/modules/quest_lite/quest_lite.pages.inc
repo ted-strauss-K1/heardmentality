@@ -172,6 +172,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
         $answprcs = $vlsistquest->vote / 100 * $totalvotes;
         
         $valuss = $answprcs * 100;
+		
         if ($valuss > $tot) {
             $insert_change = "insert into suggest_ans_changeids (qid,ans_id)Values('".$qid."','".$vlsistquest->said."') ";
             $listchnge = db_query($insert_change);
@@ -520,7 +521,8 @@ setcookie("faceidc", $_REQUEST['faceid']);
 	//<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
 	$voutput.='<div class="rht_select">';
 	
-    $voutput .= '	<!--<a href="javascript:void(0);" onclick="load_twitter(\''.$gSitePath.'twitter/post/'.$qid.'\',\'Twitter\');">Tweet this</a>--><input type="button" onclick="showShareUI();" value="Share"/>
+    $voutput .= '	<!--<a href="javascript:void(0);" onclick="load_twitter(\''.$gSitePath.'twitter/post/'.$qid.'\',\'Twitter\');">Tweet this</a>-->
+	<input type="button" onclick="showShareUI();" value="Share"/>
     <div id="status"></div>
 	<!-- AddThis Button BEGIN -->
 <!--<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bebc2a1621b1868"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bebc2a1621b1868"></script>-->
@@ -1934,7 +1936,8 @@ markerOptions = { icon:iconRed };';
 		        for (var i = 0; i <".$zcnt."; i++) {
 		        	
 		            var latlng = new GLatLng(lat[i],lng[i]);
-		           map.addOverlay(new GMarker(latlng, markerOptions));
+		          // map.addOverlay(new GMarker(latlng, markerOptions));
+				    map.addOverlay(createMarker(latlng, '".$uzip."'));
 		          }
 }";
         }
@@ -1945,10 +1948,20 @@ markerOptions = { icon:iconRed };';
 		<link rel='stylesheet' href='".$gSitePath.drupal_get_path('theme','heardmentality')."/css/content.css' type='text/css' />
 				<script src='http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAk7qgEva0Ioa4Suru5Tb5eBQFLOarkQUzCA92TG3xPimqxCbarBQTnRVvbdF68v6R547r-Sy34P_yWA' type='text/javascript'></script>
 				<script type='text/javascript' >
+			
 				 function initialize() {
     	var map = new google.maps.Map2(document.getElementById('map_div'));
 		 map.setCenter(new GLatLng(34, 0), 1);
  geocoder = new GClientGeocoder();
+ 	function createMarker(latlng, number) {
+      var marker = new GMarker(latlng);
+      marker.value = number;
+      GEvent.addListener(marker,\"click\", function() {
+        var myHtml =number;
+        map.openInfoWindowHtml(latlng, myHtml);
+      });
+      return marker;
+  }
 		//map.setCenter(new GLatLng(37.4419, -122.1419), 13);
 		  map.addControl(new GLargeMapControl());
     map.addControl(new GMapTypeControl());

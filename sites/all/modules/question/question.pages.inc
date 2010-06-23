@@ -82,6 +82,25 @@ function question_add() {
 
     
     //drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
+    $cncode = '';
+    $zicode = db_result(db_query("select zip from {user_profile} where uid='$user->uid'"));
+	$ustate=db_result(db_query("select state from {user_profile} where uid='$user->uid'"));
+    if (! empty($zicode)) {
+        
+        $query = array('postalcode'=>$zicode, 'maxrows'=>1);
+        $result = geonames_query('postalcodesearch', $query);
+        $state = $result->results;
+        
+     // print_r($state);
+        $cncode = $state['0']['countrycode'];
+		$options = array('columns' => array('geonameid', 'countrycode') );
+		 $query = array('query'=>$state['0']['adminname1'], 'maxrows'=>1);
+		$result = geonames_query('search', $query,$options);
+		$fstate=$result->results;
+		//print_r($fstate);
+		$setstate=$fstate['0']['geonameid'];
+    }
+
     
     $output .= '
 	
@@ -107,23 +126,42 @@ function question_add() {
 				<script type="text/javascript">
 				var spath=\''.$gSitePath.'\';
 			
-				function setDefaultCountry() {
-  var countrySelect = document.getElementById("q_country");
+				function setDefaultCountry(cn) {
+  if(cn.length>0){
+  	
+	var countrySelect = document.getElementById("q_country");
 
   for (i=0;i< countrySelect.length;i++) {
     // the javascript geonamesData.js contains the countrycode
     // of the userIp in the variable \'geonamesUserIpCountryCode\'
-    if (countrySelect[i].value == geonamesUserIpCountryCode) {
-      // set the country selectionfield
-	      countrySelect.selectedIndex = i;
-		get_state(geonamesUserIpCountryCode);
-    }
+   			 if (countrySelect[i].value == cn) {
+    		  // set the country selectionfield
+	     		 countrySelect.selectedIndex = i;
+		get_state(cn);
+		get_city(\''.$setstate.'\');
+				}
+   		 }
+	
+				
+				
+			var stateSelect = document.getElementById("q_state");	
+			for (i=0;i< stateSelect.length;i++) {
+       			 if (stateSelect[i].value == \''.$ustate.'\') {
+    		  // set the country selectionfield
+	     		 stateSelect.selectedIndex = i;
+		get_city(\''.$setstate.'\');	 
+		
+				}
+   		 }
+				
+		 
+		 
   }
 }
 
 
 window.addEvent(\'domready\', function(){
-//setDefaultCountry();
+setDefaultCountry(\''.$cncode.'\');
 });
 	//	window.setTimeout("setDefaultCountry()", 1000);
 			/*	jQuery(function() {
@@ -474,13 +512,12 @@ function get_tagging_edit($midr) {
     $randomtag = popular_tag();
     if ($midr != '') {
         
-       // $exp = explode(",", $tag);
+        // $exp = explode(",", $tag);
 
         
-           $selmlist="select * from qtag as a, tagging as b where a.qid='$midr' and a.tag_id=b.tid ";
-	 $mysqlfet=db_query($selmlist);
-	 while($rewdisp=db_fetch_object($mysqlfet))
-         {   
+        $selmlist = "select * from qtag as a, tagging as b where a.qid='$midr' and a.tag_id=b.tid ";
+        $mysqlfet = db_query($selmlist);
+        while ($rewdisp = db_fetch_object($mysqlfet)) {
             $tagged .= '<div id="tagset" class="tagging-tag" >'.$rewdisp->tag.'</div>';
         }
     
@@ -539,44 +576,41 @@ function question_save() {
         $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',url='$dst',share='$qrset'  ");
         
         $ins_id = db_last_insert_id('question', 'qid');
-		
-		////////////mail notication for user follwers to me//////////////////////////////////////
-		 $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
-		$rs_followerf = db_query($sel_listf);
-		while ($follower_resultfuser = db_fetch_object($rs_followerf)) 
-		{
-		
-			$sellist="select * from users where uid='".$follower_resultfuser->uid."'";
-			$res_users=db_query($sellist);
-			$usert=db_fetch_object($res_users);
-			 $to = $usert->mail;
-		if($usert->notify_itype==1)
-		{
-		
-		$insert_notify=db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid ."','1','1','".$ins_id."' ) ");
-		
-		}
-		if($usert->notify_etype==1)
-		{
-		
-		///////////email for following ///////////////
-		
-		
-		$subject_proj=$list_content->subject;
-		
-		
-		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='4'";
-		$rs_mgmt=db_query($sel_user_cmt);
-		$list_content=db_fetch_object($rs_mgmt);
-		$contentm=str_replace("#uname#",$usert->name,$list_content->content);
-		$contentm= str_replace("#anothername#",$user->name,$contentm);
-		//echo $contentm;
-		$mail_success = htmlmail_function($to,$subject_proj,$contentm,'');
-		}
-		
-		}
-       
-		
+        
+        ////////////mail notication for user follwers to me//////////////////////////////////////
+        $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+        $rs_followerf = db_query($sel_listf);
+        while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
+            
+            $sellist = "select * from users where uid='".$follower_resultfuser->uid."'";
+            $res_users = db_query($sellist);
+            $usert = db_fetch_object($res_users);
+            $to = $usert->mail;
+            if ($usert->notify_itype == 1) {
+                
+                $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid."','1','1','".$ins_id."' ) ");
+            
+            }
+            if ($usert->notify_etype == 1) {
+                
+                ///////////email for following ///////////////
+
+                
+                $subject_proj = $list_content->subject;
+
+                
+                $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='4'";
+                $rs_mgmt = db_query($sel_user_cmt);
+                $list_content = db_fetch_object($rs_mgmt);
+                $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+                $contentm = str_replace("#anothername#", $user->name, $contentm);
+                //echo $contentm;
+                $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+            }
+        
+        }
+
+        
         //forum
         
         $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$ins_id',type='1',uid='$user->uid',title='Discuss about this question',private='0' ");
@@ -610,7 +644,7 @@ function question_save() {
         unset($_SESSION['post']);
         $_SESSION['post'] = '';
         // drupal_goto("question");
-       echo '<script>window.parent.location.href="'.$gSitePath.'question/";</script>';
+        echo '<script>window.parent.location.href="'.$gSitePath.'question/";</script>';
     } else {
         drupal_get_messages($type = 'error', $clear = 'TRUE');
         $_SESSION['post'] = $_POST;
@@ -1233,9 +1267,9 @@ function question_delete_confirm_submit($form, &$form_state) {
     
     if ($form_state['values']['confirm']) {
         $qid = $form_state['values']['nid'];
-        discipline($uid,$qid);
-       $result = db_query("delete from {question} where qid='".$qid."' AND uid='".$user->uid."'");
-     db_query("delete from {possible_answer} where qid='".$qid."'");
+        discipline($uid, $qid);
+        $result = db_query("delete from {question} where qid='".$qid."' AND uid='".$user->uid."'");
+        db_query("delete from {possible_answer} where qid='".$qid."'");
         if ($result)
             drupal_set_message(t('Question has been deleted successfully.'), $type = 'success');
         else
@@ -1453,7 +1487,7 @@ function panel_content($type = '') {
                 $query = db_query("update {question} set status='".$_REQUEST['actions']."' where qid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
             } else {
-              $query = db_query("delete from {question} where qid in ($qids)");
+                $query = db_query("delete from {question} where qid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
                 flag_quest_mail($_REQUEST['qids']);
             }
@@ -1529,24 +1563,24 @@ function flag_quest_mail($qids = '') {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
-     $subject = 'Heardmentality Question Removal';
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Question Removal';
     $msg = $_REQUEST['reporttext'];
     foreach ($qids as $id) {
 
-      
+        
         $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
         $det = db_fetch_object($query);
         
-         $to = $det->mail;
-         $msg .= '<br/>Question : '.$det->question.'<br/>';
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        $to = $det->mail;
+        $msg .= '<br/>Question : '.$det->question.'<br/>';
+        if (! empty($to)) {
+            
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
         }
-       
+    
     }
-return true;
+    return true;
 }
 
 
@@ -1554,34 +1588,33 @@ function flag_user_mail($uids = '') {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
-     $subject = 'Heardmentality Account Blocked';
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Account Blocked';
     $msg = $_REQUEST['reporttext'];
     foreach ($qids as $id) {
 
-      
+        
         $query = db_query("select u.mail  from {users} where uid='$id' ");
         $det = db_fetch_object($query);
         
-         $to = $det->mail;
+        $to = $det->mail;
         
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        if (! empty($to)) {
+            
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
         }
-       
+    
     }
-return true;
+    return true;
 }
-function moderate_user()
-{
-global $gSitePath,$user, $gDocPath,$base_root,$base_path;
- drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/moderate.js');
-
-$seldonar="select count(nodeid) as cnt ,f.nodeid from question_flags as f   where f.type='question'   group by nodeid";
-
-$res_donar=db_query($seldonar);
-$moduser='<div id="nlist"></div>
+function moderate_user() {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/moderate.js');
+    
+    $seldonar = "select count(nodeid) as cnt ,f.nodeid from question_flags as f   where f.type='question'   group by nodeid";
+    
+    $res_donar = db_query($seldonar);
+    $moduser = '<div id="nlist"></div>
 	<form id="notify" method="post" action="'.$gSitePath.'admin/notifymail" ><table width="100%" border="1">
   <tr>
     <td>Question </td>
@@ -1590,192 +1623,175 @@ $moduser='<div id="nlist"></div>
 	 <td>Status</td>
     <td></td>
   </tr>';
-while($don=db_fetch_object($res_donar))
-{
- $sequest="select * from question where qid='".$don->nodeid."'";
-$res_quest=db_query($sequest);
-$qlist=db_fetch_object($res_quest);
- // $ss=$qlist->question;
- $sellist="select * from users where uid='".$qlist->uid."'";
-$res_users=db_query($sellist);
-$usert=db_fetch_object($res_users);
- $uname=$usert->name;
-if($user->uid!=$qlist->uid)
-{
-if($usert->status=='0')
-{
-$blockedst="Blocked";
-}
-$moduser.='<tr>
+    while ($don = db_fetch_object($res_donar)) {
+        $sequest = "select * from question where qid='".$don->nodeid."'";
+        $res_quest = db_query($sequest);
+        $qlist = db_fetch_object($res_quest);
+        // $ss=$qlist->question;
+        $sellist = "select * from users where uid='".$qlist->uid."'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $uname = $usert->name;
+        if ($user->uid != $qlist->uid) {
+            if ($usert->status == '0') {
+                $blockedst = "Blocked";
+            }
+            $moduser .= '<tr>
     <td>'.$qlist->question.'</td>
     <td>'.$don->cnt.'</td>
     <td>'.$uname.' </td>
 	 <td>'.$blockedst.' </td>
     <td><input type="checkbox" class="check-user" name="us_id[]" value="'.$don->nodeid.'" /> </td>
   </tr>';
-}
-
-}
-$moduser.=' </table><div id="showbox_user" align="left" style="width:100%;display:none"><label for="warn_msg"><b>Send Warning Message :</b></label><br/><textarea name="warn_msg" cols="55" row="17" id="warn_msg"></textarea></div><div><input type="hidden" id="action_value" name="action_value" value=""/> <input type="button" onclick="send_notify(1);"  value="Send warning message"/>&nbsp; <input onclick="send_suspend(0);" type="button" value="Suspend User"/></div>';
- 
-return $moduser;
-
-
+        }
+    
+    }
+    $moduser .= ' </table><div id="showbox_user" align="left" style="width:100%;display:none"><label for="warn_msg"><b>Send Warning Message :</b></label><br/><textarea name="warn_msg" cols="55" row="17" id="warn_msg"></textarea></div><div><input type="hidden" id="action_value" name="action_value" value=""/> <input type="button" onclick="send_notify(1);"  value="Send warning message"/>&nbsp; <input onclick="send_suspend(0);" type="button" value="Suspend User"/></div>';
+    
+    return $moduser;
 
 
 }
-function moderate_user_mail()
-{
-global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+function moderate_user_mail() {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    
+    $us_id = implode(',', $_REQUEST['us_id']);
+    $idr = $_REQUEST['us_id'];
+    if ($_REQUEST['action_value']) {
 
-$us_id = implode(',', $_REQUEST['us_id']);
-$idr=$_REQUEST['us_id'];
-		if ($_REQUEST['action_value']) {
-		
-		
-		foreach ($idr as $idd) {
-		
-		$query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$idd' ");
-		$det = db_fetch_object($query);
-		
-		quest_mail_warning($det->uid); 
-		}
-		echo '<div class="success">Warning Message Send!</div>';
-		} else {
-		
-		
-		
-		foreach ($idr as $idd) {
-		
-		
-		
-		$query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$us_id' ");
-		$det = db_fetch_object($query);
-		$query_block = db_query("update {users} set status='0' where uid='$det->uid'");
-		}
-		
-		
-		
-		echo '<div class="success">Suspended  successfully!</div>';
-		quest_mail($_REQUEST['us_id']);
-		}
+        
+        foreach ($idr as $idd) {
+            
+            $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$idd' ");
+            $det = db_fetch_object($query);
+            
+            quest_mail_warning($det->uid);
+        }
+        echo '<div class="success">Warning Message Send!</div>';
+    } else {
+
+        
+        foreach ($idr as $idd) {
+
+            
+            $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$us_id' ");
+            $det = db_fetch_object($query);
+            $query_block = db_query("update {users} set status='0' where uid='$det->uid'");
+        }
+
+        
+        echo '<div class="success">Suspended  successfully!</div>';
+        quest_mail($_REQUEST['us_id']);
+    }
 
 }
-
-
-
 
 
 function quest_mail($qids = '') {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
-     $subject = 'Heardmentality suspended Your account  ';
-  $warn = $_REQUEST['warn_msg'];
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality suspended Your account  ';
+    $warn = $_REQUEST['warn_msg'];
     foreach ($qids as $id) {
 
-      
+        
         $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
         $det = db_fetch_object($query);
         
-         $to = $det->mail;
-         $msg = '<br/>Question : '.$det->question.' '.$warn.'<br/>';
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        $to = $det->mail;
+        $msg = '<br/>Question : '.$det->question.' '.$warn.'<br/>';
+        if (! empty($to)) {
+            
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
         }
-       
+    
     }
-return true;
+    return true;
 }
-
 
 
 function quest_mail_warning($qids = '') {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
-     $subject = 'Heardmentality Warning Mail for Flagged question of yours  ';
-   $warn='Has been Flagged Many times, This is warning message from Heardmentality .If this continues we will block Your account';
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Warning Mail for Flagged question of yours  ';
+    $warn = 'Has been Flagged Many times, This is warning message from Heardmentality .If this continues we will block Your account';
     foreach ($qids as $id) {
 
-      
+        
         $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
         $det = db_fetch_object($query);
         
-         $to = $det->mail;
-		 $insert_notify=db_query("insert into notification (uid,admin_warning,is_user,node_id) values('".$det->uid."','1','1','".$det->uid."' ");
-         $msg = '<br/>Question : '.$det->question.' '.$warn.'<br/>';
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        $to = $det->mail;
+        $insert_notify = db_query("insert into notification (uid,admin_warning,is_user,node_id) values('".$det->uid."','1','1','".$det->uid."' ");
+        $msg = '<br/>Question : '.$det->question.' '.$warn.'<br/>';
+        if (! empty($to)) {
+            
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
         }
-       
+    
     }
-return true;
+    return true;
 }
-function moderate_quest()
-{
+function moderate_quest() {
+    
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    $start = '';
+    $lkr = '';
+    if (isset($_REQUEST['Inactive'])) {
+        
+        $ids = implode(',', $_REQUEST['qidsl']);
+        if (! empty($ids)) {
+            db_query("update {question} set status='0' where qid in ($ids)");
+            
+            drupal_set_message($message = 'Question InActivated  successfully!', $type = 'success');
+        
+        } else {
+            
+            drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');
+        }
+    
+    }
 
-global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	 $start='';
-	 $lkr='';
-if(isset($_REQUEST['Inactive'])){
-		
-		 $ids=implode(',',$_REQUEST['qidsl']);
-		if(!empty($ids)){
-		db_query("update {question} set status='0' where qid in ($ids)");
-		
-		  drupal_set_message($message = 'Question InActivated  successfully!', $type = 'success');	
-			
-		}else{
-			
-		 drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');		
-		}
-		
-	}
-	
-	
-	if(isset($_REQUEST['Active'])){
-		
-		 $ids=implode(',',$_REQUEST['qidsl']);
-		if(!empty($ids)){
-		db_query("update {question} set status='1' where qid in ($ids)");
-		
-		  drupal_set_message($message = 'Question Activated  successfully!', $type = 'success');	
-			
-		}else{
-			
-		 drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');		
-		}
-		
-	}
-	 
+    
+    if (isset($_REQUEST['Active'])) {
+        
+        $ids = implode(',', $_REQUEST['qidsl']);
+        if (! empty($ids)) {
+            db_query("update {question} set status='1' where qid in ($ids)");
+            
+            drupal_set_message($message = 'Question Activated  successfully!', $type = 'success');
+        
+        } else {
+            
+            drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');
+        }
+    
+    }
 
-	
-	
-	
-$page_name="list"; 
-if(isset($_GET['start'])){
-	$start=$_GET['start'];
-	
-}
-
-/*if(strlen($start) > 0 and !is_numeric($start)){
-echo "Data Error";
-exit;
-}
-*/
-
-$eu = ($start - 0); 
-$limit = 10;                                 
-$this1 = $eu + $limit; 
-$back = $eu - $limit; 
-$next = $eu + $limit; 
-
-$modquest.='<script type="text/javascript">
+    
+    $page_name = "list";
+    if (isset($_GET['start'])) {
+        $start = $_GET['start'];
+    
+    }
+    
+    /*if(strlen($start) > 0 and !is_numeric($start)){
+     echo "Data Error";
+     exit;
+     }
+     */
+    
+    $eu = ($start - 0);
+    $limit = 10;
+    $this1 = $eu + $limit;
+    $back = $eu - $limit;
+    $next = $eu + $limit;
+    
+    $modquest .= '<script type="text/javascript">
 function checkall(val){
 
 
@@ -1793,108 +1809,98 @@ function checkall(val){
 	 <td>Status</td>
     <td></td>
   </tr>';
-	
 
-	
-	
-	$sel="SELECT * FROM {question}     ";
-	
-	$user_qry=db_query($sel);
-	
-	$sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}    "));
-	$sel.=" limit  $eu, $limit";
-	
-	$sel_search=db_query($sel);
-	while($qid_result=db_fetch_object($sel_search))
-	{
-	if($qid_result->status=='1')
-	{
-	$blockedst='Active';
-	
-	}
-	else
-	{
-	
-	$blockedst='Inactive';
-	
-	}
-	$sellist="select * from users where uid='".$qid_result->uid."'";
-	$res_users=db_query($sellist);
-	$usert=db_fetch_object($res_users);
-	if($usert!='')
-	{
-	$uname=$usert->name;
-	}
-	else
-	{
-	$uname='';
-	}
-	$modquest.='<tr>
-	<td><a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">'.wordwrap($qid_result->question,"50","<br/>\n").'</a></td>
+    
+    $sel = "SELECT * FROM {question}     ";
+    
+    $user_qry = db_query($sel);
+    
+    $sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}    "));
+    $sel .= " limit  $eu, $limit";
+    
+    $sel_search = db_query($sel);
+    while ($qid_result = db_fetch_object($sel_search)) {
+        if ($qid_result->status == '1') {
+            $blockedst = 'Active';
+        
+        } else {
+            
+            $blockedst = 'Inactive';
+        
+        }
+        $sellist = "select * from users where uid='".$qid_result->uid."'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        if ($usert != '') {
+            $uname = $usert->name;
+        } else {
+            $uname = '';
+        }
+        $modquest .= '<tr>
+	<td><a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">'.wordwrap($qid_result->question, "50", "<br/>\n").'</a></td>
 	
 	<td>'.$uname.' </td>
 	<td>'.$blockedst.' </td>
 	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a      onclick="loaddupe(\''.$gSitePath.'admin/dupe/questions/'.$qid_result->qid.'\',\'Dupe  Questions \'); ">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'"> Delete </a>/<a href="'.$gSitePath.'admin/view/question/'.$qid_result->qid.'"> View </a>  </td>
 	</tr>';
-	
-	
-	}
-	
-	
-	$modquest.='</table><div><input type="submit" name="Inactive" value="Inactive" />   <input type="submit" name="Active" value="Active" /><span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span>';
-	/////////////////////////////// 
-if($sel_count > $limit ){ // Let us display bottom links if sufficient records are there for paging
 
-/////////////// Start the bottom links with Prev and next link with page numbers /////////////////
-$modquest.="<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
-//// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
-if($back >=0) { 
-$modquest.= "<a href='$page_name?start=$back&$lkr'><font face='Verdana' size='2'>PREV</font></a>"; 
-} 
-//////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
-$modquest.= "</td><td align=center width='30%'>";
-$i=0;
-$l=1;
-for($i=0;$i < $sel_count;$i=$i+$limit){
-if($i <> $eu){
-$modquest.= " <a href='$page_name?start=$i&$lkr'><font face='Verdana' size='2'>$l</font></a> ";
-}
-else { $modquest.= "<font face='Verdana' size='4' color=red>$l</font>";}        /// Current page is not displayed as link and given font color red
-$l=$l+1;
-}
+    
+    }
 
+    
+    $modquest .= '</table><div><input type="submit" name="Inactive" value="Inactive" />   <input type="submit" name="Active" value="Active" /><span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span>';
+    ///////////////////////////////
+    if ($sel_count > $limit) { // Let us display bottom links if sufficient records are there for paging
+        
+        /////////////// Start the bottom links with Prev and next link with page numbers /////////////////
+        $modquest .= "<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
+        //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
+        if ($back >= 0) {
+            $modquest .= "<a href='$page_name?start=$back&$lkr'><font face='Verdana' size='2'>PREV</font></a>";
+        }
+        //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
+        $modquest .= "</td><td align=center width='30%'>";
+        $i = 0;
+        $l = 1;
+        for ($i = 0; $i < $sel_count; $i = $i + $limit) {
+            if ($i <> $eu) {
+                $modquest .= " <a href='$page_name?start=$i&$lkr'><font face='Verdana' size='2'>$l</font></a> ";
+            } else {
+                $modquest .= "<font face='Verdana' size='4' color=red>$l</font>";
+            } /// Current page is not displayed as link and given font color red
+            $l = $l + 1;
+        }
 
-$modquest.="</td><td  align='right' width='30%'>";
-///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
-if($this1 < $sel_count) { 
-$modquest.= "<a href='$page_name?start=$next&$lkr'><font face='Verdana' size='2'>NEXT</font></a>";} 
-$modquest.= "</td></tr></table>";
+        
+        $modquest .= "</td><td  align='right' width='30%'>";
+        ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
+        if ($this1 < $sel_count) {
+            $modquest .= "<a href='$page_name?start=$next&$lkr'><font face='Verdana' size='2'>NEXT</font></a>";
+        }
+        $modquest .= "</td></tr></table>";
+    
+    }
+    
+    if ($sel_count == 0) {
+        $modquest .= '<b>No Search Results </b>';
+    
+    }
 
-}
-
-if($sel_count==0)
-{
-$modquest.='<b>No Search Results </b>';
-
-}
-	
-	
-if(isset($_REQUEST['del']))
-{
-
-//echo "lllll";
-$del_ques=db_query("Delete  FROM {question} where qid='".$_REQUEST['del']."'    ");
-$del_answ=db_query("Delete  FROM {possible_answer} where qid='".$_REQUEST['del']."'    ");
-$del_sansw=db_query("Delete  FROM {suggest_answer} where qid='".$_REQUEST['del']."'    ");
-question_deleted_mail($_REQUEST['del']);
-question_deleted_mail_voters($_REQUEST['del']);
-question_deleted_mail_suggest($_REQUEST['del']);
-	
-drupal_goto('admin/question/list');
-}
-
-return $modquest;
-
+    
+    if (isset($_REQUEST['del'])) {
+        
+        //echo "lllll";
+        $del_ques = db_query("Delete  FROM {question} where qid='".$_REQUEST['del']."'    ");
+        $del_answ = db_query("Delete  FROM {possible_answer} where qid='".$_REQUEST['del']."'    ");
+        $del_sansw = db_query("Delete  FROM {suggest_answer} where qid='".$_REQUEST['del']."'    ");
+        question_deleted_mail($_REQUEST['del']);
+        question_deleted_mail_voters($_REQUEST['del']);
+        question_deleted_mail_suggest($_REQUEST['del']);
+        
+        drupal_goto('admin/question/list');
+    }
+    
+    return $modquest;
 
 
 }
@@ -1903,89 +1909,84 @@ function question_deleted_mail($qaid) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
-     $subject = 'Heardmentality Question Has Been Deleted ';
-   $delmsg='Has been Deleted By Headmentality admin';
- 
-        $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
-        $det = db_fetch_object($query);
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Question Has Been Deleted ';
+    $delmsg = 'Has been Deleted By Headmentality admin';
+    
+    $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    $det = db_fetch_object($query);
+    
+    $to = $det->mail;
+    $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+    if (! empty($to)) {
         
-        $to = $det->mail;
-         $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
-        }
-       
-   
-return true;
+        $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+    }
+
+    
+    return true;
 }
 
 function question_deleted_mail_voters($qaid) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
-     $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
-   $delmsg='Has been Deleted By Headmentality admin';
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
+    $delmsg = 'Has been Deleted By Headmentality admin';
+    
+    $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    
+    while ($det = db_fetch_object($query)) {
+        
+        $sellist = "select * from users where uid='".$det->uid."'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
 
-       $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
-      
-        while($det = db_fetch_object($query))
-		{
-        	
-	$sellist="select * from users where uid='".$det->uid."'";
-	$res_users=db_query($sellist);
-	$usert=db_fetch_object($res_users);
-	 $to = $usert->mail;
-         $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
-		 
-		 
-		 
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        
+        if (! empty($to)) {
+            
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
         }
-       
-   }
-return true;
+    
+    }
+    return true;
 }
 
 function question_deleted_mail_suggest($qaid) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
-     $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
-   $delmsg='Has been Deleted By Headmentality admin';
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
+    $delmsg = 'Has been Deleted By Headmentality admin';
+    
+    $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    
+    while ($det = db_fetch_object($query)) {
+        
+        $sellist = "select * from users where uid='".$det->uid."'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
 
-       $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
-      
-        while($det = db_fetch_object($query))
-		{
-        	
-	$sellist="select * from users where uid='".$det->uid."'";
-	$res_users=db_query($sellist);
-	$usert=db_fetch_object($res_users);
-	 $to = $usert->mail;
-         $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
-		 
-		 
-		 
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        
+        if (! empty($to)) {
+            
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
         }
-       
-   }
-return true;
+    
+    }
+    return true;
 }
 
-function edit_questions()
-{
+function edit_questions() {
     global $gSitePath,$user,$gDocPath,$base_root;
 
-  
+    
     $output = '';
 
     
@@ -2009,7 +2010,7 @@ function edit_questions()
     
     $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
     $quest = db_fetch_object($result);
-  
+    
     $output .= '
 		<script type="text/javascript">
 		
@@ -2288,10 +2289,10 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     <td>&nbsp;</td>
   </tr>-->
   <tr><td colspan="6">';
-      $selmlist="select * from qtag as a, tagging as b where a.qid='$nid' and a.tag_id=b.tid ";
-	 $mysqlfet=db_query($selmlist);
-	
-	
+    $selmlist = "select * from qtag as a, tagging as b where a.qid='$nid' and a.tag_id=b.tid ";
+    $mysqlfet = db_query($selmlist);
+
+    
     $output .= '<tr><td colspan="6">'.get_tagging_edit($nid).'</td></tr>';
 
     
@@ -2338,8 +2339,8 @@ function question_edit_save_admin($array) {
                 if (! empty($$aid)) {
                     $result = db_query("UPDATE {possible_answer} set answer='".$$name."' where paid='".$$aid."' AND qid='".$nid."'");
                 } else {
-                   // echo kkkkkkkkkk;
-				//	echo "INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $nid, $$name;
+                    // echo kkkkkkkkkk;
+                    //	echo "INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $nid, $$name;
                     $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $nid, $$name);
                 }
             }
@@ -2347,17 +2348,17 @@ function question_edit_save_admin($array) {
         
         if (db_query("select * from {qtag} where qid='".$nid."'")) {
             
-           // db_query("update {qtag} set tag='".$q_tag."' where qid='".$nid."'");
+            // db_query("update {qtag} set tag='".$q_tag."' where qid='".$nid."'");
         
         }
         
         if ($result)
             drupal_set_message(t('Thank you, Question updated successfully!'), $type = 'success');
-		//	print_r($result);
-		question_edited_mail($nid);
-		question_edited_mail_voters($nid);
-		question_edited_mail_suggest($nid);
-    //  drupal_goto("admin/moderatequestion");
+        //	print_r($result);
+        question_edited_mail($nid);
+        question_edited_mail_voters($nid);
+        question_edited_mail_suggest($nid);
+        //  drupal_goto("admin/moderatequestion");
     } else {
         
         $_SESSION['post'] = $_POST;
@@ -2377,11 +2378,10 @@ function question_edit_save_admin($array) {
     
     return $output;
 }
-function view_questions()
-{
-          global $gSitePath,$user,$gDocPath,$base_root;
+function view_questions() {
+    global $gSitePath,$user,$gDocPath,$base_root;
 
-  
+    
     $output = '';
 
     
@@ -2405,7 +2405,7 @@ function view_questions()
     
     $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
     $quest = db_fetch_object($result);
-  //  drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
+    //  drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
     $output .= '
 		<script type="text/javascript">
 		
@@ -2700,188 +2700,166 @@ function question_edited_mail($qaid) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
-     $subject = 'Heardmentality Question Has Been Edited By admin ';
-   $delmsg='Has been Edited By Headmentality admin';
- 
-        $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
-        $det = db_fetch_object($query);
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Question Has Been Edited By admin ';
+    $delmsg = 'Has been Edited By Headmentality admin';
+    
+    $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    $det = db_fetch_object($query);
+    
+    $to = $det->mail;
+    $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+    if (! empty($to)) {
         
-        $to = $det->mail;
-         $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
-        }
-       
-   
-return true;
+        $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+    }
+
+    
+    return true;
 }
 
 function question_edited_mail_voters($qaid) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
-   $subject = 'Heardmentality Question Has Been Edited By admin ';
-   $delmsg='Has been Edited By Headmentality admin';
-       $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
-      
-        while($det = db_fetch_object($query))
-		{
-        	
-	$sellist="select * from users where uid='".$det->uid."'";
-	$res_users=db_query($sellist);
-	$usert=db_fetch_object($res_users);
-	  $to = $usert->mail;
-         $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
-		 
-		 
-		 
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Question Has Been Edited By admin ';
+    $delmsg = 'Has been Edited By Headmentality admin';
+    $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    
+    while ($det = db_fetch_object($query)) {
+        
+        $sellist = "select * from users where uid='".$det->uid."'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+        
+        if (! empty($to)) {
+            
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
         }
-       
-   }
-return true;
+    
+    }
+    return true;
 }
 
 function question_edited_mail_suggest($qaid) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-     $from = variable_get('site_mail');
+    $from = variable_get('site_mail');
     $subject = 'Heardmentality Question Has Been Edited By admin ';
-   $delmsg='Has been Edited By Headmentality admin';
+    $delmsg = 'Has been Edited By Headmentality admin';
+    
+    $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    
+    while ($det = db_fetch_object($query)) {
+        
+        $sellist = "select * from users where uid='".$det->uid."'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
 
-       $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
-      
-        while($det = db_fetch_object($query))
-		{
-        	
-	$sellist="select * from users where uid='".$det->uid."'";
-	$res_users=db_query($sellist);
-	$usert=db_fetch_object($res_users);
-	 $to = $usert->mail;
-         $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
-		 
-		 
-		 
-        if(!empty($to)){
-        	
-			 $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        
+        if (! empty($to)) {
+            
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
         }
-       
-   }
-return true;
+    
+    }
+    return true;
 }
- function auto_suggest_quest() {
-     
-   global $gSitePath,$user,$gDocPath,$base_root;
-  
-           
-				
-				
-				if(isset($_GET['getCountriesByLetters']) && isset($_GET['letters']) && isset($_GET['GetVal'])){
-		 $letters = $_GET['letters'];
-				//$letters = preg_replace("/[^a-z0-9 ]/si","",$letters);
-	$where_condition="WHERE question LIKE CONVERT( _utf8 '%$letters%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '$letters' USING latin1 )
-	COLLATE latin1_swedish_ci and status='1'";
-		
-		if($_GET['GetVal']=="C1"){
-			  $sql = "SELECT * FROM question   $where_condition";
-			$res=mysql_query($sql);
-			 $dir=mysql_num_rows($res);
-			if($dir>0)
-			{
-				while($inf=mysql_fetch_array($res))
-					echo " <a href='".$gSitePath."".$inf["url"]."' target='_blank'>".$inf["question"]."</a>|";
-					}
-			
-		}
-				} 
-				
-				
-				
-				
-				
-				
-				
-                
-              
-              
+function auto_suggest_quest() {
     
-    }
-	
-	function dupe_question() {
-      global $gSitePath,$user,$gDocPath,$base_root;
-   $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-              
-                $query = db_query("select * from question  where qid='$qaid'  ");
-				$detquest = db_fetch_object($query);
-				  $q = $detquest->question;
-				  
-				  echo 'Dupe Search For '.$q.'<br/>';
-                if (!$q)
-                    return;
-                $taglist = array();
-                $urlm = array();
-				$questionlm = array();
-			$words = explode(" ",$q);
-			for($i=0;$i<count($words);$i++){
-			$samples= " ".$words[$i]."  ";
-			//echo $samples;
-			// $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
-			 
-			 
-			 $query = " SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 )
-COLLATE latin1_swedish_ci and status='0'";
-			 $myql_qry=db_query($query);
-			while($mylist=db_fetch_array($myql_qry))
-			{
-			if($qaid!=$mylist['qid'])
-			{
-			array_push($questionlm, $mylist['qid']);
-			}
-			array_push($urlm, $mylist['url']);
-			}
+    global $gSitePath,$user,$gDocPath,$base_root;
 
-			}
-			
-		 $urldsi = array_unique($questionlm);
-		 
-		// echo count($urldsi);
-		if(count($urldsi)!=0)
-		{
-		foreach ($urldsi as $value) {
-		
-		
-		$querysquest = db_query("select * from question  where qid='$value'  ");
-		$detquestqes = db_fetch_object($querysquest);
-		$mlist = $detquestqes->question;
-		echo '<a href="'.$detquestqes->url.'">'.$mlist.'</a><br>';
-		}
+    
+    if (isset($_GET['getCountriesByLetters']) && isset($_GET['letters']) && isset($_GET['GetVal'])) {
+        $letters = $_GET['letters'];
+        //$letters = preg_replace("/[^a-z0-9 ]/si","",$letters);
+        $where_condition = "WHERE question LIKE CONVERT( _utf8 '%$letters%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '$letters' USING latin1 )
+	COLLATE latin1_swedish_ci and status='1'";
+        
+        if ($_GET['GetVal'] == "C1") {
+            $sql = "SELECT * FROM question   $where_condition";
+            $res = mysql_query($sql);
+            $dir = mysql_num_rows($res);
+            if ($dir > 0) {
+                while ($inf = mysql_fetch_array($res))
+                    echo " <a href='".$gSitePath."".$inf["url"]."' target='_blank'>".$inf["question"]."</a>|";
+            }
+        
         }
-		else
-		{
-		
-		echo "<b>No Dupe Questions</b>";
-		
-		}   
-              
+    }
+
+
+}
+
+function dupe_question() {
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    
+    $query = db_query("select * from question  where qid='$qaid'  ");
+    $detquest = db_fetch_object($query);
+    $q = $detquest->question;
+    
+    echo 'Dupe Search For '.$q.'<br/>';
+    if (!$q)
+        return;
+    $taglist = array();
+    $urlm = array();
+    $questionlm = array();
+    $words = explode(" ", $q);
+    for ($i = 0; $i < count($words); $i++) {
+        $samples = " ".$words[$i]."  ";
+        //echo $samples;
+        // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+
+        
+        $query = " SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 )
+COLLATE latin1_swedish_ci and status='0'";
+        $myql_qry = db_query($query);
+        while ($mylist = db_fetch_array($myql_qry)) {
+            if ($qaid != $mylist['qid']) {
+                array_push($questionlm, $mylist['qid']);
+            }
+            array_push($urlm, $mylist['url']);
+        }
     
     }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    
+    $urldsi = array_unique($questionlm);
+    
+    // echo count($urldsi);
+    if (count($urldsi) != 0) {
+        foreach ($urldsi as $value) {
+
+            
+            $querysquest = db_query("select * from question  where qid='$value'  ");
+            $detquestqes = db_fetch_object($querysquest);
+            $mlist = $detquestqes->question;
+            echo '<a href="'.$detquestqes->url.'">'.$mlist.'</a><br>';
+        }
+    } else {
+        
+        echo "<b>No Dupe Questions</b>";
+    
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
