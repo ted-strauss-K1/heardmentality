@@ -6,9 +6,18 @@ function qlitemini() {
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
+	//drupal_add_js('http://cdn.gigya.com/wildfire/js/wfapiv2.js');
     
     $qid = get_qid();
-    $voutput .= '<script type="text/javascript">
+    $voutput .= '<script src="http://cdn.gigya.com/wildfire/js/wfapiv2.js"></script> 
+	<script type="text/javascript">
+		 var pconf1={  
+         CID: "Site 1 - Widget A",  
+         defaultContent: "embedCode1",  
+         UIConfig: \'<config><display showPost="true" showBookmark="true" showEmail="true" /></config>\'  
+     };  
+   
+       
 		function formsubmittype(mtype,ids){
 		
 		if(mtype==1)
@@ -39,6 +48,14 @@ function qlitemini() {
 		
 		}
 		}
+		function displayBook()
+		{
+			document.getElementById("divWildfirePost").style.display="block"
+		}
+		function hideBook()
+		{
+			document.getElementById("divWildfirePost").style.display="none"
+		}
 		</script>
 		';
     
@@ -56,11 +73,18 @@ function qlitemini() {
     
     drupal_set_title(myTruncate($oListquest->question, 80, '', '..').'  <a href="'.$gSitePath.$oListquest->url.'">View More</a>');
     $voutput .= '
+		
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
 		<p>'.$oListquest->context.'</p><div align="right">
+		<a href="javascript:void(0)" onmouseover="displayBook()">Bookmarks</a>
 		<!-- AddThis Button BEGIN -->
-<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bebc2a1621b1868"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bebc2a1621b1868"></script>
+<!--a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bebc2a1621b1868"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bebc2a1621b1868"></script-->
 <!-- AddThis Button END -->
+		<textarea rows="1" cols="1" id="TEXTAREA_ID" style="display: none">  
+    	  Hello from Gigya!!! (Post content)  
+	    </textarea>
+		
+		
 		<select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
 		<option value=""> Select</option >
 		'.$optio.'
@@ -69,7 +93,10 @@ function qlitemini() {
 		<option value="4">Suggest New Answer</option> 
 		<option value="5">Create Mashup:</option> 
 		</select>
-		</div>';
+		</div>
+		<div id="divWildfirePost" onmouseout="hideBook()"></div>
+		<script> Wildfire.initPost("PARTNER-ID", "divWildfirePost", 400, 300, pconf1);  </script>
+		';
     $vans = "select * from {possible_answer} where  qid=$qid order by paid ASC";
 
     

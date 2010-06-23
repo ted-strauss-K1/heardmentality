@@ -167,4 +167,13 @@ width:560px;
 }
 #donate a.donate:hover { color:#FFF; background-position:8px -38px; text-decoration:underline; }
 
-
+#divWildfirePost{
+display:none;
+z-index:2000;
+position:fixed;
+margin-left:475px;
+}
+#wfmodule_divWildfirePost{
+width:443px;
+height:360px;
+}
