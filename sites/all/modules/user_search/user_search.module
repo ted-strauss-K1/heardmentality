@@ -109,3 +109,90 @@ $search_result['following'] = array(
   return $search_result;
 }
 
+function facetad_refine(){
+	//query builder
+	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+	     $start = '';
+    $txt_search = '';
+    $scid = '';
+    $sscid = '';
+    $suid = '';
+    $lkr = '';
+    $tag = '';
+    $name = '';
+    $fetresult = '';
+    $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    //echo $idb;
+    $page_name = "searchquestion";
+    if (isset($_GET['start'])) {
+        $start = $_GET['start'];
+    
+    }
+    
+    if (strlen($start) > 0 and !is_numeric($start)) {
+        echo "Data Error";
+        exit;
+    }
+
+    
+    $eu = ($start - 0);
+    $limit = 5; // No of records to be shown per page.
+    $this1 = $eu + $limit;
+    $back = $eu - $limit;
+    $next = $eu + $limit;
+	 
+	extract($_REQUEST);
+    if (isset($_REQUEST['txt_search'])) {
+        $name = $_REQUEST['txt_search'];
+    }
+    
+    if (isset($_GET['scid'])) {
+        $suid = $_GET['scid'];
+    
+    }
+    //$suid=$_REQUEST['scid'];
+    //echo "select * from category  where cat_id='".$suid."' " ;
+    $sel_catm = db_query("select * from category  where cat_id='".$suid."'   ");
+    $saveresult = db_fetch_object($sel_catm);
+    $qry = '';
+    if (isset($_GET['cid'])) {
+        $cid = $_GET['cid'];
+    
+    }
+    if (isset($_GET['scid'])) {
+        $scid = $_GET['scid'];
+    
+    }
+    if ($name) {
+        $qry .= " question LIKE '%".$name."%' AND ";
+    
+    }
+    
+    if (isset($cid))
+        $qry .= "(cid  LIKE '%".$cid."%') AND ";
+    if ($scid)
+        $qry .= "(scid LIKE '%".$scid."%') AND";
+    if ($sscid)
+        // $qry.="(sscid LIKE '%".$sscid."%') AND (cid  LIKE '%".$saveresult->parent_id."%') AND ";
+        $qry .= "(sscid LIKE '%".$sscid."%')  AND ";
+    
+    if ($tag != '') {
+        $sel = "SELECT * FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
+    } else {
+        $sel = "SELECT * FROM {question}   WHERE $qry status='1'   ";
+    }
+
+    
+    $user_qry = db_query($sel);
+    if ($tag != '') {
+        $sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));
+    
+    } else {
+        $sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}   WHERE $qry status='1'  "));
+    }
+    
+   $ret['query']=$sel;
+	$ret['qcnt']=$sel_count;
+	$ret['txt_search']=$_REQUEST['txt_search'];
+	return $ret;
+}
