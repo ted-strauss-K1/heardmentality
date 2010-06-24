@@ -247,6 +247,7 @@ function search_results_question() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     $start = '';
     $txt_search = '';
+	$cid='';
     $scid = '';
     $sscid = '';
     $suid = '';
