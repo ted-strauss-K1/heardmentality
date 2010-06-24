@@ -177,18 +177,18 @@ function facetad_refine(){
         $qry .= "(sscid LIKE '%".$sscid."%')  AND ";
     
     if ($tag != '') {
-        $sel = "SELECT * FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
+        $sel = "SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
     } else {
-        $sel = "SELECT * FROM {question}   WHERE $qry status='1'   ";
+        $sel = "SELECT * FROM question   WHERE $qry status='1'   ";
     }
 
     
     $user_qry = db_query($sel);
     if ($tag != '') {
-        $sel_count = db_result(db_query("SELECT COUNT(*) FROM {question} as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));
+        $sel_count = mysql_num_rows(mysql_query("SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));
     
     } else {
-        $sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}   WHERE $qry status='1'  "));
+        $sel_count = mysql_num_rows(mysql_query("SELECT * FROM question   WHERE $qry status='1'  "));
     }
     
    $ret['query']=$sel;

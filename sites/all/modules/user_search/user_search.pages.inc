@@ -350,7 +350,7 @@ text-decoration:none;
     // print_r($sel_search);
 	
 	
-    $sel_search = db_query($sel['query']);
+    $sel_search =mysql_query($sel['query']);
     while ($user_result = db_fetch_object($sel_search)) {
     
         if ($user->uid != '') {
