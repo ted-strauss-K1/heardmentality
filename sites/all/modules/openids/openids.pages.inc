@@ -711,20 +711,20 @@ global $gSitePath,$user,$gDocPath,$base_root;
 	
 	
 	
-	
+
     if (isset($_REQUEST['update'])== 'Update') {
         extract($_REQUEST);
        
 		$chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
 		$chk1 = db_result($chk);
-		if ($chk1) {
-		$result = db_query("UPDATE {privacy_settings} set real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
-		followers='$followers',following='$following',medal='$medal',questions='$questions',answers='$answers'  where uid=$user->uid ");
-		
-		} else {
-		$result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
-		followers='$followers',following='$following',questions='$questions',answers='$answers' ,medal='$medal'");
-		}
+		 if ($chk1) {
+            $result = db_query("UPDATE {privacy_settings} set real_name='$real_name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
+			followers='$followers_privacy',following='$following_privacy',medal='$medal_privacy',questions='$questions_privacy',answers='$answers_privacy'  where uid=$user->uid ");
+        
+        } else {
+            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
+			followers='$followers_privacy',following='$following_privacy',questions='$questions_privacy',answers='$answers_privacy' ,medal='$medal_privacy'");
+        }
         
         if (isset($_FILES)) {
 
