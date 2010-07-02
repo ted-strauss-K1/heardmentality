@@ -759,14 +759,13 @@ global $gSitePath,$user,$gDocPath,$base_root;
 
 			
 			}
+		
 			
 			
 			
 			
 			
-			
-        
-       
+               
         if ($result) {
             $sucflag = '';
             $sucflag = 1;
