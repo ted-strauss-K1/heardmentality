@@ -1,10 +1,14 @@
 <?php
-
 function qlite_view() {
  global $gSitePath,$user,$gDocPath,$base_root,$base_path,$saaais,$apikey;
 //echo $_SERVER['QUERY_STRING'];
 $lji=explode("=",$_SERVER['QUERY_STRING']);
+/////////////qviews /////////////////////////
+popquest();
 
+insertviews();
+//popquest();
+//////////////////////////////
  if (isset($_REQUEST['lid'])) 
  {
  $select_user_count = db_result(db_query("SELECT COUNT(*) from invite_friend where inv_id='".$_REQUEST['lid']."' and  status='1' "));
@@ -22,6 +26,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
 
  }
 
+               
             
       // unset($user->new_id);
 //echo $lji[0];
@@ -33,20 +38,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
  drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/wave.js');
      drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
 	    drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
-		
-		
-   $qid=get_qid();
-
-    //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-	
-	/////////////qviews /////////////////////////
-popquest();
-
-insertviews($qid);
-//popquest();
-//////////////////////////////
-	
-	
+    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='".$qid."' GROUP BY qid";
     $query_list = db_query($query);
     $fetvot = db_fetch_object($query_list);
@@ -87,7 +79,7 @@ insertviews($qid);
 		if($user->uid!=$oListquest->uid||$oListquest->uid!=1){
 			
 			drupal_set_message('Sorry Question is inactive for user access!','error');
-			drupal_goto();
+			drupal_goto('qmini');
 		}
 	}
 	
@@ -619,7 +611,7 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
             
             if ( empty($user)) {
                 drupal_set_message($message = 'Sorry Please login to post your answers!', $type = 'error');
-                drupal_goto();
+                drupal_goto("qmini");
             } else {
 
             
@@ -636,7 +628,7 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
             
             } else {
                 drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
-               drupal_goto();
+                drupal_goto("qmini");
             
             }
             //check followee
@@ -672,13 +664,13 @@ function prompt_privacy($owner = '', $share = '') {
             
             } else {
                 drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
-               drupal_goto();
+                drupal_goto("qmini");
             
             }
             break;
         case 3:
             drupal_set_message($message = 'Sorry, Question is blocked for public by owner!', $type = 'error');
-           drupal_goto();
+            drupal_goto("qmini");
             break;
         case 1:
         default:
@@ -2334,10 +2326,10 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     
     }
     
-function insertviews($qid='')
+function insertviews()
 {
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
- //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+ $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
  
 	if($user->uid!='')
 	{
