@@ -316,7 +316,7 @@ $flinkflw='[<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?de
 $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a>]<br/><div id="showboxcmt" align="left" style="width:100%;display:none"><label for="msgs"><b>Send Message :</b></label><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><input type="button"  value="sendmessage"/></div>';
 	}else{
 		
-	$edit.='&nbsp;[<a href="'.$gSitePath.'profile/edit" >Edit My Profile </a>]';	
+	$edit.='&nbsp;[<a href="'.$gSitePath.'?act=edit" >Edit My Profile </a>]';	
 	}
 
 	$badges.='<h1>Badges</h1>';
