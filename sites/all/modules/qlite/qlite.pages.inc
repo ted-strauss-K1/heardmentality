@@ -128,7 +128,7 @@ function qlitemini() {
     return $voutput;
 }
 
-function get_qid() {
+function get_qid_old() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = '';
