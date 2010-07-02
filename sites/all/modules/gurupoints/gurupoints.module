@@ -126,9 +126,9 @@ function insertpoints($action='',$nodeid='')
 
 function guru_points(){
 	
+	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 	
-	
-		$user_pt = "SELECT a.uid, a.name, a.mail, SUM(b.points) AS point FROM users as a LEFT OUTER JOIN tbl_user_points as b ON a.uid = b.uid GROUP BY uid  "; 
+		$user_pt = "SELECT a.uid, a.name,u.real_name, a.mail, SUM(b.points) AS point FROM users as a join {user_profile} as u on u.uid=a.uid  LEFT OUTER JOIN tbl_user_points as b ON a.uid = b.uid GROUP BY uid  "; 
 
 	 $point_list = ExecuteQuery($user_pt, "select");
    
@@ -193,7 +193,7 @@ function guru_points(){
 	   $vtpt=$pt-($spt+$pt1+$pt2+$pt3+$pt4+$pt5);
 	
   $outputppt.=' <tr>
-	<td height="40">'.$point_list[$p]['name'].'</td>
+	<td height="40"><a href="'.$gSitePath.'profile/'.$point_list[$p]['name'].'">'.$point_list[$p]['real_name'].'</a></td>
 	<td>'.$pt.'</td>
   </tr>';
   
