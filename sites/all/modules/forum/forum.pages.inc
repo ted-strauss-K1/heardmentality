@@ -78,6 +78,7 @@ function forum_list($qid = '') {
 		<textarea name="waveletcmt" id="waveletcmt" cols="70" rows="2"  class="textArea"></textarea>
 		<input type="hidden" name="waveid" id="waveid" value=""/>
 		<input type="hidden" name="wletid" id="wletid" value=""/>
+			<input type="hidden" name="burl" value="'.$gSitePath.'" id="burl"/>
 		<div><span><input type="checkbox" name="privt" value="1" id="privt"/></span> <span><small>Private Reply</small> </span><span> <input type="button" value="Add comment" id="waveButton" class="waveButton"/> </span><span>  or <a onclick="cancelAdd(this);return false" id="wavecancel" href="">cancel</a></span> </div>	
 		</div>	
 		</div>	';
@@ -696,6 +697,7 @@ function resforum_list() {
 	<option value="1"> Enabled  </option>
 	</select></p>		-->			
 	<input type="hidden" name="type" value="2"/>
+	<input type="hidden" name="burl" value="'.$gSitePath.'" id="burl"/>
 	<p><input type="button" class="waveButtonMain" onclick="wave_form();" value="Post" /></p>
 </form>';
 	}

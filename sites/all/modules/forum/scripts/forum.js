@@ -157,6 +157,7 @@ function addSubmit(){
     var cmt = $('waveletcmt').get('value');
     var wid = $('waveid').get('value');
     var wlid = $('wletid').get('value');
+	var url=$('burl').get('value');
     if ($('privt').checked) {
         var pvt = 1;
     }
@@ -169,7 +170,7 @@ function addSubmit(){
     if (cmt.length > 5) {
         var req = new Request({
             method: 'get',
-            url: 'question/forum/savecmt',
+            url: url+'question/forum/savecmt',
             data: {
                 'wid': wid,
                 'wlet': wlid,
