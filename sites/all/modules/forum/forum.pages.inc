@@ -114,9 +114,9 @@ function cmt_submit() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     
-    if (!isset($user->uid)) {
+     if(empty($user->user)){
         
-        echo "<b>Sorry, Please login to do this action!</b>";
+        echo "<small>Sorry, Please login to do this action!</small>";
         exit;
     }
     
