@@ -582,7 +582,7 @@ function profile_edit() {
 		<fieldset>
 			<legend> <b><i>Profile Bio</i></b> </legend>
 				<div class="form-item" id="edit-name-wrapper"> 
-					<label for="edit-rname">Real Name: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="60" name="rname" id="edit-rname" size="40"  value="'.$real_name.'"  class="form-text required"  type="text"> 
+					<label for="edit-rname">User Name: <span class="form-required" title="This field is required.">*</span></label> <input maxlength="60" name="rname" id="edit-rname" size="40"  value="'.$real_name.'"  class="form-text required"  type="text"> 
 					
                 </div>
 				<div class="form-item" id="edit-fname-wrapper"> 
