@@ -1759,6 +1759,9 @@ function resource_Like_checkCount($rid = null, $rtype = null) {
 function qlite_percent() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     $output = '';
+	$filter='';
+	$incflt='';
+	$opt='';
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
     $vans = "select * from {possible_answer} where  qid='".$qid."'";
@@ -1786,12 +1789,59 @@ function qlite_percent() {
     echo $script .= "	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
 			chart.draw(data, {width: 400, height: 200, is3D: false, title: '',titleY:'',titleX:''});
 			}
-			</script>";
-    
+		
+var spath='".$gSitePath."';
+</script>
+	
+<script type='text/javascript' src='".$gSitePath.drupal_get_path('module','quest_lite')."/scripts/filter.js'></script>						
+	
+			";
+   $output.='<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>			';
     //drupal_add_js($script,'inline');
+	
+	 $filter = (!empty($_REQUEST['other'])) ? $_REQUEST['dochg'] : $_REQUEST['filter'];
+	
+	 if(!empty($filter)){
+	 	
+		 if($filter=='gender'){
+	 	$opt=$_REQUEST['fopt'];
+		$opt=($opt=='1')?'Male':'Female';
+		
+	 }else{
+	 		$opt=$_REQUEST['fopt'];
+	 }
+		
+	 	 $incflt='<div ><b>Filter by :</b><i>'.ucwords($filter).'&nbsp; '.ucwords($opt).'</i>&nbsp; <input type="button" name="go_button" id= "go_button" value="Reset" onclick="MM_jumpMenuGo(this.value)" /></div>';
+	 }
+	
+	 
     echo $output .= '
 <div id="contentr1" class="clear">
-     
+	'.$incflt.'
+     <div align="right" > <form id="form1" name="form1" method="post" action="">
+    <label>
+    <input type="radio" name="filter" value="gender" onchange="get_filter_option(this.value);" id="filter_0" />
+      Gender</label>
+    
+    <label>
+    <input type="radio" name="filter" value="age" onchange="get_filter_option(this.value);" id="filter_1" />
+      Age</label>
+	     <label>
+    <input type="radio" name="other" value="age"  id="filter_2" />
+      
+  <select name="dochg" onchange="get_filter_option(this.value);" id="dochg">
+  <option value="">Others</option>
+    <option value="religion">religion</option>
+    <option value="ethnicity">ethnicity</option>
+    <option value="slant">slant</option>
+   
+  </select></label>
+  <span id="fopt" ></span>
+  <input type="button" name="go_button" id= "go_button" value="Go" onclick="MM_jumpMenuGo(this.value)" />
+  
+    <br />
+ </form></div>
     <div id="chart_div" style="width: 700px; height: 240px;">
     </div>
 </div>';
@@ -2007,8 +2057,17 @@ function qlite_get_zip($code = '', $ccode = '') {
 function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     switch ($action) {
         case 'percent':
-            $query = "select * from possible_answer_vote where qid='".$qid."' and panswer_id='".$aid."' ";
-            $answer = ExecuteQuery($query, "norows");
+			if($_REQUEST['fopt']){
+			$opt=filter_opt($_REQUEST);
+		
+			 $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$aid."' $opt ";
+            $answer = ExecuteQuery($query, "norows");		
+			}else{
+				
+			$query = "select * from {possible_answer_vote} where qid='".$qid."' and panswer_id='".$aid."' ";
+            $answer = ExecuteQuery($query, "norows");	
+			}
+            
             
             return $answer;
             break;
@@ -2016,14 +2075,38 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
             $query = "select count(*) as cnt from possible_answer_vote where qid='".$qid."' and panswer_id='".$aid."'AND vote_pdate<='".$date."' ";
             $answer = ExecuteQuery($query, "select");
             
-            return $answer ? $answer[0]['cnt']:
-                0;
+            return $answer ? $answer[0]['cnt']:0;
                 
                 break;
         
         }
     }
     
+	function filter_opt($array=''){
+		$code='';$filter='';
+		 $filter = (!empty($array['other'])) ? $array['dochg'] : $array['filter'];
+		switch($filter){
+			case 'gender':
+			 $code=" AND gender='".$array['fopt']."'";
+				break;	
+			case 'age':
+				$code="age>=18 AND age<=50 ";
+				break;	
+			case 'religion':
+			$code=" AND religion='".$array['fopt']."'";
+				break;		
+			case 'slant':
+			$code=" AND slant='".$array['fopt']."'";	
+				break;	
+			default:
+			break;
+		
+			
+		}
+		return $code;
+	}
+	
+	
       function answer_vote() {
         
         global $gSitePath,$user,$gDocPath,$base_root;
@@ -2327,7 +2410,32 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 				echo '<input type="hidden" name="state" value="'.$city[0]['adminname1'].'">
 				<input type="hidden" name="city" value="'.$city[0]['adminname2'].'">
 				';
-			break;			
+			break;
+			case 'filter':
+				$type=$_REQUEST['type'];
+					$output='';
+					$output.='&nbsp;';
+				switch($type){
+					case 'gender':
+					echo $output.= "<select name='fopt' id='fopt'> <option value='1'>Male</option><option value='2'>Female</option></select>";
+						break;	
+					case 'age':
+				echo $output.= "<select name='fopt' id='fopt'> <option value='18-30'>18-30</option><option value='30-50'>30-50</option><option value='above'>Above 50</option></select>";
+						break;
+					case 'religion':
+				echo $output.='<select class="form-text" id="fopt" name="fopt"><option value="Christian">Christian (Cath or Prod)</option><option value="Muslim">Muslim (Suni Shiite)</option><option value="Jewish">Jewish</option><option value="Hindu"> Hindu</option><option value="Buddhist">Buddhist</option><option value="Other">Other</option></select>';		
+					break;	
+				case 'ethnicity':
+					echo $output.='<select class="form-text" id="fopt" name="fopt"><option value="Caucasian">Caucasian</option><option value="Black">Black</option><option value="Asian">Asian</option> <option value="Indian">Indian</option> <option value="Semetic">Semetic</option><option value="Latin">Latin</option> <option value="Aborigines">Aborigines</option>  </select>';
+						break;	
+				case 'slant':
+					echo $output.='<select class="form-text" id="fopt" name="fopt"><option  value="Left">Left</option><option value="Right">Right </option> <option value="Center">Center </option>  </select>';		
+					default:
+					break;
+					
+				}
+						
+				break;						
             default:
                 break;
         }
