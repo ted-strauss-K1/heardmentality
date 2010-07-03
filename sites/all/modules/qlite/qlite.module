@@ -61,7 +61,7 @@ function get_top_list() {
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .= '<li><a href="'.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
+            $output .= '<li><a href="'.$gSitePath.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
 
         
         }
@@ -95,7 +95,7 @@ function get_hot_list() {
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .= '<li><a href="'.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
+            $output .= '<li><a href="'.$gSitePath.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
 
         
         }
@@ -128,7 +128,7 @@ function get_local_list() {
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .= '<li><a href="'.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
+            $output .= '<li><a href="'.$gSitePath.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
         
         }
     } else {
@@ -166,7 +166,7 @@ function cal_active_rate() {
         $query2 = "select IFNULL((select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid),0) as wcnt,IFNULL((select count(*) from {resource} where qid='".$quest['qid']."' group by qid),0) as rcnt from {forum_wave} as f where f.qid_rid='".$quest['qid']."' ";
         $fcnt = db_fetch_object(db_query($query2));
         
-        //The value “active” will be calculated as follows (j,k,l are constant values that will be hard-coded):
+        //The value ï¿½activeï¿½ will be calculated as follows (j,k,l are constant values that will be hard-coded):
         //Active =  (j * #_of_votes_for_question) + (k * #_of_forum_posts) + (l * #_of_posted_resources)
         if (! empty($fcnt)) {
             $cntr = $fcnt->wcnt;
