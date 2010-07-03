@@ -455,6 +455,7 @@ insertviews($qid);
     
 	
 	
+/*
 	$voutput.='<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
 	<script>
         var conf = 
@@ -526,6 +527,7 @@ insertviews($qid);
 		            + event.providers;
 		}    
 	</script>';
+*/
 	//<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
 	$voutput.='<div class="rht_select">';
 	
