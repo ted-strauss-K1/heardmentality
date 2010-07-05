@@ -128,7 +128,7 @@ function guru_points(){
 	
 	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 	
-		$user_pt = "SELECT a.uid, a.name,u.real_name, a.mail, SUM(b.points) AS point FROM users as a join {user_profile} as u on u.uid=a.uid  LEFT OUTER JOIN tbl_user_points as b ON a.uid = b.uid GROUP BY uid  "; 
+		$user_pt = "SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=a.uid group by uid) as tpoints,a.uid, a.name,u.real_name, a.mail, SUM(b.points) AS point FROM users as a join {user_profile} as u on u.uid=a.uid  LEFT OUTER JOIN tbl_user_points as b ON a.uid = b.uid GROUP BY uid  "; 
 
 	 $point_list = ExecuteQuery($user_pt, "select");
    
@@ -144,23 +144,25 @@ function guru_points(){
 	
 	$puid=$point_list[$p]['uid'];
 	
-	   $qptstd="select (select SUM(points) AS qpt   FROM tbl_user_points where  uid='$puid' and point_id='2' group by uid)
-	   +(select SUM(points) AS qpt   FROM tbl_user_points where  uid='$puid' and point_id='1' group by uid)
-	   +(select SUM(points) AS qpt   FROM tbl_user_points where  uid='$puid' and point_id='3' group by uid)
-	   +(select SUM(points) AS qpt   FROM tbl_user_points where  uid='$puid' and point_id='4' group by uid)
-	   +(select SUM(points) AS qpt   FROM tbl_user_points where  uid='$puid' and point_id='5' group by uid)
-	   +(select SUM(points) AS qpt   FROM tbl_user_points where  uid='$puid' and point_id='6' group by uid) as totalcnt from {users} where uid='$puid' having totalcnt>50 order by uid";
-	  // $qrylist = ExecuteQuery($qptstd, "select");
+	   /*
+$qptstd="select (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='2' group by uid) as a,
+	   (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='1' group by uid) as b,
+	   (select SUM(points) AS qpt   FROM tbl_user_points where uid=u.uid and point_id='3' group by uid) as c,
+	   (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='4' group by uid) as d,
+	   (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='5' group by uid) as e,
+	   (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='6' group by uid) as f from {users} as u where u.status='1'  order by uid DESC";
 	 
-	 $voteqrylist = db_query($qptstd);
-    $fetqrylist = db_result($voteqrylist);
-	
+*/
+
+
+    $sump = $point_list[$p]['tpoints'];
+	$tpoint=(!empty($sump))?$sump:0;
 	
 
 	
   $outputppt.=' <tr>
 	<td height="40"><a href="'.$gSitePath.'profile/'.$point_list[$p]['name'].'">'.$point_list[$p]['real_name'].'</a></td>
-	<td>'.$fetqrylist.'</td>
+	<td>'.$tpoint.'</td>
   </tr>';
   
   }

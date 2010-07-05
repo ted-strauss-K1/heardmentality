@@ -444,7 +444,7 @@ function profile_edit() {
     
         extract($_REQUEST);
         if ($rname == '') {
-            drupal_set_message($message = 'Real Name should not be empty!', $type = 'error');
+            drupal_set_message($message = 'User Name should not be empty!', $type = 'error');
             drupal_goto('profile/edit');
         }
 
@@ -987,7 +987,7 @@ function privacy_settings() {
    			        <td><select class="email" name="email">'.$option1.$option2.$option3.'</select>  </td>
 			   </tr>
 			   <tr><td></td><td></td><td></td></tr>
-		       <tr><td>Real Name  </td>
+		       <tr><td>User Name  </td>
    			       <td></td>
    			       <td><select class="real_name" name="real_name">'.$option1.$option2.$option3.'</select> </td>
 				</tr>
