@@ -127,9 +127,13 @@ function insertpoints($action='',$nodeid='')
 function guru_points(){
 	
 	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	
-		$user_pt = "SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=a.uid group by uid) as tpoints,a.uid, a.name,u.real_name, a.mail, SUM(b.points) AS point FROM users as a join {user_profile} as u on u.uid=a.uid  LEFT OUTER JOIN tbl_user_points as b ON a.uid = b.uid GROUP BY uid  "; 
-
+	db_query("DROP VIEW {gurulist}");
+		
+		// $view = "CREATE VIEW {gurulist} (SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=a.uid group by uid) as tpoints,a.uid, a.name,u.real_name, a.mail, SUM(b.points) AS point FROM users as a join {user_profile} as u on u.uid=a.uid  LEFT OUTER JOIN tbl_user_points as b ON a.uid = b.uid GROUP BY uid) "; 
+		$view="CREATE VIEW gurulist as (SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=u.uid group by uid) as tpoints,a.uid as uid, a.name,u.real_name FROM {users} as a join {user_profile} as u on u.uid=a.uid where a.status='1')";
+		db_query($view);
+		
+	$user_pt="select * from {gurulist} order by tpoints desc ";	
 	 $point_list = ExecuteQuery($user_pt, "select");
    
    $outputppt='<table width="60%" border="0" cellspacing="0" cellpadding="0">
