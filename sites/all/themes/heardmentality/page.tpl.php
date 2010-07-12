@@ -770,7 +770,7 @@ MochaUI.loadwaveWindow = function(qid,wid){
 			id: 'ajaxpage',
 			title: 'Forum Wavelets',
 			loadMethod: 'xhr',
-			contentURL: 'question/forum/?qid='+qid+'&wid='+wid,
+			contentURL: '<?php echo $gSitePath;?>question/forum/?qid='+qid+'&wid='+wid,
 			type: 'modal',
 			width: 600,
 			height:500,
