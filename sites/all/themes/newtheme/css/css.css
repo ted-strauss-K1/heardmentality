@@ -1,0 +1,68 @@
+@charset "utf-8";
+*{ margin:0px; padding:0px; font-family:normal Georgia,"Times New Roman",Times,serif;}
+body{ background-image:url(../images/bg.gif); background-repeat:repeat; font-family:normal Georgia,"Times New Roman",Times,serif;}
+.main {width: 1050px; margin:auto; padding:0px; margin-top:30px; }
+.top{ background-image:url(../images/top.png); height:10px; background-repeat:no-repeat;}
+.mid{background-image:url(../images/cen-bg.png); background-repeat:repeat-y;}
+.bott{ background-image:url(../images/bott.png); height:10px; background-repeat:no-repeat;}
+.mid .inn{ width:1024px; margin:auto; padding:0px;}
+/*header*/
+#header{ width:1024px; }
+.logo{ width:578px; float:left; height:67px; }
+.logo a{ display:block;width:578px;height:67px; background-image:url(../images/logo.gif);}
+.loginvi{ width:162px; height:58px; overflow:hidden; float:right; border:1px #f0f0f0 solid;}
+.clr{ clear:both;}
+/*menu*/
+#menu{ width:1024px; margin-top:6px;}
+.search{ width:336px;background:url(../images/m-bg.gif) repeat-x;height:32px;float:left; padding-top:3px;}
+.search div{ padding-top:2px;}
+.searchbox{ width:336px;}
+.searchtext{ width:130px; float:left; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; margin-top:3px}
+.searchtext input{ width:130px; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px;}
+.searchr{float:left; font:13px/21px normal Georgia, "Times New Roman", Times, serif; margin-left:10px; clear:right}
+.slab{ float:left;clear:right; line-height:17px; padding-left:2px;}
+.stext{ float:left; clear:right}
+.searchbut{ cursor:pointer;}
+
+.men{ width:508px;background:url(../images/m-bg.gif) repeat-x;height:32px; margin:0px 8px 0px 8px;float:left; padding-top:1px; text-align:center}
+.edition{ width:164px;background:url(../images/m-bg.gif) repeat-x;height:32px;float:left; }
+.edition div{padding:5px 0px 4px 0px;font:12px/21px normal Georgia, "Times New Roman", Times, serif;}
+.edition select{ width:115px; margin-left:5px; font-size:11px; font-family:Georgia, "Times New Roman", Times, serif; font-weight:normal;padding:2px;}
+.black11{ font-family:Georgia, "Times New Roman", Times, serif; color:#000000; font-size:10px; text-decoration:none; }
+.btex{ margin-top:10px; text-align:center;}
+/*content*/
+.contarea{ width:1024px; padding-top:20px;}
+/*cont-left*/
+.commu{ width:336px;float:left; border:1px #cccccc solid;  min-height:544px}
+.commutop{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff;}
+.commutop select{width:150px; font-size:11px; font-family:Georgia, "Times New Roman", Times, serif; font-weight:normal; padding:2px;}
+.commu .inner{ width:325px; margin:auto; padding:0px;}
+.inner h3{ font:15px/21px Georgia, "Times New Roman", Times, serif; color:#3F3F3F}
+.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
+.innerbox span{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#cf9f10;}
+/*cont-center*/
+.ques{ width:512px;float:left;margin:0px 3px 0px 5px;}
+.questop{ background-image:url(../images/c-top.gif); background-repeat:no-repeat; height:34px; font:17px/33px  normal Georgia, "Times New Roman", Times, serif; color:#000; padding-left:10px;}
+.questopl{ width:370px; float:left;}
+.questopr{ width:130px; float:left;}
+.quesbg{ background-image:url(../images/c-bg.gif); background-repeat:repeat-y; padding:10px;  min-height:485px; }
+.quesbott{ background-image:url(../images/c-bottom.gif); height:13px;}
+.ques h2{font:18px/25px  normal Georgia, "Times New Roman", Times, serif; color:#4170a0; }
+.quesinner{ border-right:1px #ccc solid; width:90px; float:left; margin-right:5px;}
+.quesinnerr{ width:40px;float:left; font:12px/21px normal Georgia, "Times New Roman", Times, serif;}
+.quesin{ padding:10px 0px 40px 0px; }
+.quesin ul{ margin:0px; padding:0px;}
+.quesin li{ list-style:none; background-image:url(../images/dot.gif); background-position:left; background-repeat:no-repeat; float:left; padding-left:10px; font-family:Georgia, "Times New Roman", Times, serif; color:#996600; font-size:11px; line-height:20px; }
+.quesin li a{ color:#996600; text-decoration:none;}
+.quesin li a:hover{ color:#000; text-decoration:underline;}
+/*cont-right*/
+.fact{ width:162px;float:left;border:1px #cccccc solid }
+.facttop{font:16px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
+.facttop2{font:14px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
+.fact1{ width:65px; margin:7px; float:left;font:14px normal Georgia, "Times New Roman", Times, serif; color:#996600; text-align:center; }
+.factblu{ width:65px; margin:7px; float:left;font:14px normal Georgia, "Times New Roman", Times, serif; color:#336699; text-align:center;}
+.facttext{ font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#333333; padding:5px; }
+.factmore a{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none;}
+.factmore a:hover{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#000; text-decoration:none;}
+.facttext2{ font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#666666; padding:5px; }
+
