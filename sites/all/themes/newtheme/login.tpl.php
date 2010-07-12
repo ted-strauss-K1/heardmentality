@@ -54,7 +54,7 @@ var login_params=
                  }
 				 ?>
                  </a>&nbsp;
-			<a  href="javascript:void(0)" onClick="<?php $gSitePath ?>logout'">Sign Out</a>&nbsp;&nbsp;<a href="<?php echo $gSitePath?>mynotify">Notify </a>	</small></div>	
+			<a  href="<?php $gSitePath ?>logout">Sign Out</a>&nbsp;&nbsp;<a href="<?php echo $gSitePath?>mynotify">Notify </a>	</small></div>	
             <?php
             endif;
 			
