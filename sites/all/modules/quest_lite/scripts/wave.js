@@ -20,50 +20,64 @@ window.addEvent('domready', function() {
 	function wave_form(){
 		//Prevents the default submit event from loading a new page.
 		//e.stop();
-		var wt=$('newwavediv').getElement('.textArea');
-		var formwave=$('newwaveform');
-		var post=wt.get('value');
-		if(post.trim().length<8){
+		var wt=jQuery('#newwavediv').find('.textArea');
+		var post=wt.val();
+		var formwave=jQuery('#newwaveform');
 		
-			wt.setStyle('border-color','#EF2C2C');
-			wt.set('id','wtitlerror');
+		if(jQuery.trim(post).length<8){
+		
+			wt.css("border-color","#EF2C2C");
+			wt.attr('id','wtitlerror');
 			return false;
 		}else{
 			
-	wt.set('id','wtitle');	
+	wt.attr('id','wtitle');	
 		}
-		//Empty the log and show the spinning indicator.
-		//var log = $('newwavediv').empty().addClass('ajax-loading');
-		//Set the options of the form's Request handler. 
-		//("this" refers to the $('myForm') element).
-		formwave.set('send', {
-		
+jQuery.post(formwave.attr('action'),formwave.serialize(),
+   function(data){
+    jQuery('#qwave').html(data);
+   });
+				jQuery('#qwave').fadeOut('slow');
+				jQuery('#qwave').empty();
 			
-						onComplete: function(response) { 
-			//log.removeClass('ajax-loading');
-				$('qwave').fade('out');
-				$('qwave').empty();
-			$('qwave').set('html', response);
-				$('qwave').fade('in');
-				wt.set('value','');
-				MochaUI.notification('Wave posted successfully...!');
-			
-		},onRequest: function() { $('newwavediv').fade('out');MochaUI.notification('Please Wait...');}
+				jQuery('#qwave').fadeIn('slow');
+				wt.attr('value','');
 		
-		
-		});
-		//Send the form.
-		$('newwaveform').send();
+			jQuery('#newwavediv').fadeOut('slow');
 }
 
 function toggle(){
 	
-	var mySlide = new Fx.Slide('newwavediv');
+	//var mySlide = new Fx.Slide('newwavediv');
 
 	
 		//mySlide.toggle();
-	
-	$('newwavediv').fade('in');
+	jQuery('#newwavediv').focus();
+jQuery('.textArea').focus();
+	jQuery('#newwavediv').toggle();
 	//$('newwavediv').fade('out');
+	
+}
+
+function loadwave(qid,wid){
+	
+	url= gSitePath+'question/forum/?qid='+qid+'&wid='+wid;
+	jQuery.nyroModalSettings({ title:'Forum Posts'});
+
+	jQuery.nyroModalManual({
+    url: url,width:550,height:450,title:'Forum Posts'
+  });
+
+}
+
+
+function loadrforum(url,title){
+	
+	jQuery.nyroModalSettings({ title:'Forum Posts'});
+
+	jQuery.nyroModalManual({
+    url: url,width:550,height:450,title:'Forum Posts'
+  });
+
 	
 }

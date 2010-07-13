@@ -1299,7 +1299,7 @@ function panel_content() {
 				<li ><a href="javascript:loadReport(2,\''.$gSitePath.'\','.$qid.');" class="" id="tab2">Overtime</a></li>
 				<li ><a href="javascript:loadReport(3,\''.$gSitePath.'\','.$qid.');" class="" id="tab3">By Area</a></li>
 			</ul>
-			<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/percent/'.$qid.'" border="0" height="300" frameborder="0" width="100%"></iframe></div>
+			<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/percent/'.$qid.'" border="0" height="400" frameborder="0" width="100%"></iframe></div>
 			<script type="text/javascript">loadReport(1,\''.$gSitePath.'\','.$qid.')</script>';
             break;
     }
@@ -1320,17 +1320,10 @@ function forum_wave($qid = '') {
 	<!--	<input type="button" onclick="newwave(\''.$gSitePath.'question/forum/'.$qid.'?action=new\',\'New Wave\')" value="New Wave" class="waveButtonMain"/> -->
 	<input type="button" id="newwavebut" value="New Wave" onclick="toggle();" class="waveButtonMain"/>
 		</div>
-		<div id="qwave" class="">
-		
-		';
- $wave.=list_wave($qid,1);
- 
- 
-    $wave .= '</div>
-	<div class="comment" id="newwavediv" style="visibility:hidden;">';
-	if(!empty($user->uid)){
+		<div class="comment" id="newwavediv" style="display:none">';
+		if(!empty($user->uid)){
 	$wave.='
-	<div align="right"><a href="javascript:void(0);" onclick="$(\'newwavediv\').fade(\'out\');">Close</a></div>
+	<div align="right"><a href="javascript:void(0);" onclick="toggle();">Close</a></div>
 	<form  id="newwaveform" class="newwave" action="'.url($_GET['q'], array('absolute'=>true)).'?type=Forum" method="post" accept-charset="utf-8">
 	<div ><b>Post New Wave</b></div>
 	<p><textarea row="7" class="textArea" cols="55" name="wtitle" id="wtitle" ></textarea></p>	
@@ -1346,7 +1339,15 @@ else{
 		$wave.='<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
 }
 	$wave.='</div>
-	<div>';
+	<div><div id="qwave" class="">';
+		
+		
+ $wave.=list_wave($qid,1);
+ 
+ 
+    $wave .= '</div>
+	';
+	
   
     return $wave;
 
@@ -1816,8 +1817,8 @@ var spath='".$gSitePath."';
 <script type='text/javascript' src='".$gSitePath.drupal_get_path('module','quest_lite')."/scripts/filter.js'></script>						
 	
 			";
-   $output.='<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>			';
+  /* $output.='<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>			';*/
     //drupal_add_js($script,'inline');
 	
 	 $filter = (!empty($_REQUEST['other'])) ? $_REQUEST['dochg'] : $_REQUEST['filter'];
@@ -2061,7 +2062,7 @@ markerOptions = { icon:iconRed };
 					";
 
     
-    echo '  <body onload="initialize()" onunload="GUnload()"><div style="width:100%;"><div  class=""><div id="map_div" style="width: 472px; height: 378px"></div><br/><div style="position: relative;" id="desc">'.$desc.'</div></div>';
+    echo '  <body onload="initialize()" onunload="GUnload()"><div style="width:100%;"><div  class=""><div id="map_div" style="width: 472px; height: 300px"></div><br/><div style="position: relative;" id="desc">'.$desc.'</div></div>';
 }
 
 

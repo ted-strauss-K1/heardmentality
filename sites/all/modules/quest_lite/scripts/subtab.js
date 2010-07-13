@@ -50,3 +50,10 @@ jQuery.ajax({
   }
 });*/
 }
+
+
+function loadresource(url,title)
+{
+	
+	
+}
