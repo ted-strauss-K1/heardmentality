@@ -10,6 +10,7 @@
  *
  */
   global $user,$gSitePath,$apikey;
+  $directory=$base_path.$directory;
   ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -18,10 +19,13 @@
 <head>
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>
-  <?php print $styles; ?>
-  <link rel="stylesheet" href="<?php $directory;?>/css/nyroModal.css" type="text/css" media="screen" />
+  <link rel="shortcut icon" type="image/x-icon" href="<?php echo $directory;?>/images/favico.ico"/>
+
+    <?php print $styles; ?>
+  
   <?php print $scripts; ?>
 <script type="text/javascript">
+var gSitePath='<?php echo $gSitePath;?>';
 jQuery(document).ready(function(){
 			
 						jQuery("#loading").ajaxStart(function(){
@@ -92,17 +96,17 @@ jQuery(document).ready(function(){
               <input type="button" class="searchbut" title="Search" value="Search" />
             </div>
                        </div>
-       <!--          <div class="men"> 
+            <div class="men"> 
          <?php if (count($primary_links)) : ?>
 	
     <?php $mb=1;foreach ($primary_links as $link): ?>
-      <a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> rel="width:850,height:570" class="advanced<?php echo $mb++; ?>" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a>
+      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> rel="width:850,height:570" class="advanced<?php echo $mb++; ?>" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a></li>
     <?php endforeach; ?>
 	
     <?php endif;?>
          
-         </div>-->
-         <div class="men"> <a href="<?php echo $gSitePath; ?>category" title="CATEGORIES" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image1','','<?php echo $directory; ?>/images/mh1.gif',1)"><img src="<?php echo $directory; ?>/images/m1.gif" alt="CATEGORIES" name="Image1" width="124" height="30" border="0" id="Image1" /></a><a href="#" title="ADD A QUESTION" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image2','','<?php echo $directory; ?>/images/mh2.gif',1)"><img src="<?php echo $directory; ?>/images/m2.gif" alt="ADD A QUESTION" name="Image2" width="154" height="30" border="0" id="Image2" /></a><a href="#" title="GURU" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image3','','<?php echo $directory; ?>/images/mh3.gif',1)"><img src="<?php echo $directory; ?>/images/m3.gif" alt="GURU" name="Image3" width="68" height="30" border="0" id="Image3" /></a><a href="#" title="ABOUT US" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image4','','<?php echo $directory; ?>/images/mh4.gif',1)"><img src="<?php echo $directory; ?>/images/m4.gif" alt="ABOUT US" name="Image4" width="106" height="30" border="0" id="Image4" /></a></div>
+         </div>
+    
           <div class="edition">
             <div>Edition:
               <select>
@@ -156,18 +160,25 @@ jQuery(document).ready(function(){
   
   <div class="clr"></div>
   <div class="bott"></div>
+  <div id="footer"><div class="footerleft">Copyright <a href="http://creativecommons.org/licenses/by-sa/2.5/" title="creativecommons"><img border="0" alt="cc" src="images/cc.jpg"/></a> 2010 Heardmentality.org </div>
+  <div class="footerright">  <?php   $mbl=4;$min=0; foreach ($secondary_links as $linksm): $min++;?>
+         <a href="<?php print($gSitePath.$linksm['href']);?>" <?php if($linksm['title'] == 'Contact Us'||($linksm['title'] == 'Privacy & Policy')||($linksm['title'] == 'User Agreement')):?> rel="width:850,height:570" class="advanced<?php echo $mbl++; ?>" title="<?php print($linksm['title']);?>"<?php endif;?>><?php print($linksm['title']);?></a><?php if((count($secondary_links))>=$min){ echo " - ";}$min++;?> 
+          <?php endforeach; ?>
+          <a href="http://www.opensource.org/" title="opensource"><img border="0" alt="opensource" src="<?php echo $directory;?>/images/icon1.png"/></a><a href="http://drupal.org/" title="drupal"><img border="0" alt="drupal" src="<?php echo $directory;?>/images/icon2.png"/></a><a href="http://www.govtrack.us/" title="govtrack"><img border="0" alt="govtrack" src="<?php echo $directory;?>/images/icon3.png"/></a></div>
+  </div>
 </div>
 <!--main div close-->
+
 <script type="text/javascript">
-$(function() {
+jQuery(function() {
   function preloadImg(image) {
     var img = new Image();
     img.src = image;
   }
 
-  preloadImg('<?php $directory;?>/img/ajaxLoader.gif');
-  preloadImg('<?php $directory;?>/img/prev.gif');
-  preloadImg('<?php $directory;?>/img/next.gif');
+  preloadImg('<?php echo $directory;?>/img/ajaxLoader.gif');
+  preloadImg('<?php echo $directory;?>/img/prev.gif');
+  preloadImg('<?php echo $directory;?>/img/next.gif');
 });
 </script>
 

@@ -1,9 +1,9 @@
 @charset "utf-8";
 *{ margin:0px; padding:0px;}
-body{ background-image:url(../images/bg.gif); background-repeat:repeat;}
+body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:normal 12px Georgia, Arial, Helvetica, sans-serif;}
 .main {width: 1050px; margin:auto; padding:0px; margin-top:30px; }
 .top{ background-image:url(../images/top.png); height:10px; background-repeat:no-repeat;}
-.mid{background-image:url(../images/cen-bg.png); background-repeat:repeat-y;}
+.mid{background-image:url(../images/cen-bg.png); background-repeat:repeat-y; overflow:hidden}
 .bott{ background-image:url(../images/bott.png); height:10px; background-repeat:no-repeat;}
 .mid .inn{ width:1024px; margin:auto; padding:0px;}
 /*header*/
@@ -86,7 +86,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat;}
 .cateno{ border-bottom:none;}
 .cate li a{ font-family:Georgia, "Times New Roman", Times, serif; color:#000000; text-decoration:none;}
 .cate li a:hover{ color:#996600;}
-a{ text-decoration:none; color:#CC6600;}
+a{ text-decoration:none; color:#CC6600; font: normal 12px Georgia, "Times New Roman", Times, serif;}
 a:hover{ text-decoration:underline;}
 
 /*Edited for developer purposes*/
@@ -110,3 +110,5 @@ top:0px; left:150px;
 width:65px; height:20px;
 z-index:1000; -moz-border-radius:5px;
 }
+.men a{ font:normal 14px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; margin-right:5px;}
+.men li{ background:url(../images/list_bullet.jpg) no-repeat left 9px; padding-left:10px; text-transform:uppercase; list-style:none; float:left;}
