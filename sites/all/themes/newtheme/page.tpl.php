@@ -100,7 +100,7 @@ jQuery(document).ready(function(){
          <?php if (count($primary_links)) : ?>
 	
     <?php $mb=1;foreach ($primary_links as $link): ?>
-      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> rel="width:850,height:570" class="advanced<?php echo $mb++; ?>" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a></li>
+      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> rel="width:850,height:570" class="nyroModal" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a></li>
     <?php endforeach; ?>
 	
     <?php endif;?>
