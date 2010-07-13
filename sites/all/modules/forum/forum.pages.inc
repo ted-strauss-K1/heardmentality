@@ -2,17 +2,24 @@
 // tree menu listing
 function forum_list($qid = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
-    $output = '';
+	$output = '';
     $like = '';
 	$flag='';
     extract($_REQUEST);
-    //drupal_add_css(drupal_get_path('module', 'quest').'/styles/screen.css');
 
+		
     
     $query = "SELECT *,u.uid as uid  FROM {forum_wave} as f  join {user_profile} as u on u.uid=f.uid   where f.qid_rid='$qid' AND f.fid='$wid' AND f.status='1'";
     $list = ExecuteQuery($query, "select");
     
-    $output .= '<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
+    $output .= '	<script>
+	var spath="'.$gSitePath.'";
+	</script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'forum').'/scripts/forum.js"></script>
+	<link rel="stylesheet" href="'.base_path().path_to_theme().'/css/css.css" type="text/css" />
+	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
     
     $output .= '<div class="">';
     foreach ($list as $forum) {
@@ -79,7 +86,7 @@ function forum_list($qid = '') {
 		<input type="hidden" name="waveid" id="waveid" value=""/>
 		<input type="hidden" name="wletid" id="wletid" value=""/>
 			<input type="hidden" name="burl" value="'.$gSitePath.'" id="burl"/>
-		<div><span><input type="checkbox" name="privt" value="1" id="privt"/></span> <span><small>Private Reply</small> </span><span> <input type="button" value="Add comment" id="waveButton" class="waveButton"/> </span><span>  or <a onclick="cancelAdd(this);return false" id="wavecancel" href="">cancel</a></span> </div>	
+		<div><span><input type="checkbox" name="privt" value="1" id="privt"/></span> <span><small>Private Reply</small> </span><span> <input type="button" value="Add comment" id="waveButton" class="waveButton"/> </span><span>  or <a onclick="cancelAdd(this);return false" id="wavecancel" href="javascript:void(0);">cancel</a></span> </div>	
 		</div>	
 		</div>	';
     } else {
@@ -667,12 +674,19 @@ function resforum_list() {
 	 
    // $rid=$_REQUEST['rid'];
     $wave = '';
-    $wave .= '
-	
+  $wave .= '	<script>
+	var spath="'.$gSitePath.'";
+	</script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'forum').'/scripts/forum.js"></script>
+	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
  
     //print_r($cnt);
-    $wave .= '<div class="">
+    $wave .= '<div class="top"></div><div class="clr"></div>
+	<div class="mid"/>
+	<div id="ajaxpage_content">
 		<div class="qwavebut">
 	<!--	<input type="button" onclick="newwave(\''.$gSitePath.'question/forum/'.$rid.'?action=new\',\'New Wave\')" value="New Wave" class="waveButtonMain"/> -->
 	<input type="button" id="newwavebut" value="New Wave" onclick="toggle();" class="waveButtonMain"/>
@@ -705,7 +719,11 @@ else{
 		$wave.='<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
 }
 	$wave.='</div>
-	<div>';
+	<div>
+	</div>
+	<div class="clr"/>
+<div class="bott"/>
+	';
   
     echo $wave;
 
