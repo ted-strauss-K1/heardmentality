@@ -19,6 +19,7 @@
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
+  <link rel="stylesheet" href="<?php $directory;?>/css/nyroModal.css" type="text/css" media="screen" />
   <?php print $scripts; ?>
 <script type="text/javascript">
 jQuery(document).ready(function(){
@@ -157,5 +158,18 @@ jQuery(document).ready(function(){
   <div class="bott"></div>
 </div>
 <!--main div close-->
+<script type="text/javascript">
+$(function() {
+  function preloadImg(image) {
+    var img = new Image();
+    img.src = image;
+  }
+
+  preloadImg('<?php $directory;?>/img/ajaxLoader.gif');
+  preloadImg('<?php $directory;?>/img/prev.gif');
+  preloadImg('<?php $directory;?>/img/next.gif');
+});
+</script>
+
 </body>
 </html>
