@@ -39,7 +39,8 @@ var login_params=
 			
 			?>
  			
-			<div class="carousel-clip-region">	<small>Welcome <a href="<?php echo $gSitePath?>profile" ><?php
+			<div class="welcome"> Welcome 
+  <a href="<?php echo $gSitePath;?>profile" ><?php
 				 $user_prof = db_fetch_object(db_query("SELECT real_name from {user_profile} where  uid=".$user->uid." "));
 				if($user_prof->real_name=='')
 				{
@@ -54,7 +55,7 @@ var login_params=
                  }
 				 ?>
                  </a>&nbsp;
-			<a  href="<?php $gSitePath ?>logout">Sign Out</a>&nbsp;&nbsp;<a href="<?php echo $gSitePath?>mynotify">Notify </a>	</small></div>	
+			<a  href="<?php echo $gSitePath; ?>logout">Sign Out</a>&nbsp;&nbsp;<a href="<?php echo $gSitePath?>mynotify">Notify </a>	</div>
             <?php
             endif;
 			

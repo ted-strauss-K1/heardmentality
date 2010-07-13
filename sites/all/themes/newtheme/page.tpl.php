@@ -19,13 +19,28 @@
   <?php print $head; ?>
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
-<link rel="stylesheet" href="<?php echo $directory?>/css/yui.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo $directory?>/css/carousel.css" type="text/css" />
   <?php print $scripts; ?>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+			
+						jQuery("#loading").ajaxStart(function(){
+				  jQuery(this).fadeIn();
+				 });
+				 
+				jQuery("#loading").ajaxStop(function(){
+				   jQuery(this).fadeOut();
+				 });	
+			});
 
+</script>
 </head>
 <body class="<?php print $body_classes; ?>" onload="MM_preloadImages('images/mh1.gif','images/mh2.gif','images/mh3.gif','images/mh4.gif')">
 <!--main div-->
+<div id="loading">
+  <marquee  >
+  Loading...
+  </marquee>
+</div>
 <div class="main">
   <div class="top"></div>
   <div class="clr"></div>
@@ -76,7 +91,7 @@
               <input type="button" class="searchbut" title="Search" value="Search" />
             </div>
                        </div>
-                 <div class="men"> 
+       <!--          <div class="men"> 
          <?php if (count($primary_links)) : ?>
 	
     <?php $mb=1;foreach ($primary_links as $link): ?>
@@ -85,7 +100,8 @@
 	
     <?php endif;?>
          
-         </div>
+         </div>-->
+         <div class="men"> <a href="<?php echo $gSitePath; ?>category" title="CATEGORIES" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image1','','<?php echo $directory; ?>/images/mh1.gif',1)"><img src="<?php echo $directory; ?>/images/m1.gif" alt="CATEGORIES" name="Image1" width="124" height="30" border="0" id="Image1" /></a><a href="#" title="ADD A QUESTION" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image2','','<?php echo $directory; ?>/images/mh2.gif',1)"><img src="<?php echo $directory; ?>/images/m2.gif" alt="ADD A QUESTION" name="Image2" width="154" height="30" border="0" id="Image2" /></a><a href="#" title="GURU" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image3','','<?php echo $directory; ?>/images/mh3.gif',1)"><img src="<?php echo $directory; ?>/images/m3.gif" alt="GURU" name="Image3" width="68" height="30" border="0" id="Image3" /></a><a href="#" title="ABOUT US" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image4','','<?php echo $directory; ?>/images/mh4.gif',1)"><img src="<?php echo $directory; ?>/images/m4.gif" alt="ABOUT US" name="Image4" width="106" height="30" border="0" id="Image4" /></a></div>
           <div class="edition">
             <div>Edition:
               <select>
@@ -121,6 +137,7 @@
 
            <?php print $content; ?>
   </div>
+  
      <div class="quesbott"></div>
         </div>
   <div class="fact">
@@ -135,7 +152,7 @@
       <div class="clr"></div>
       <!--content area close-->
     </div>
-  </div>
+  
   <div class="clr"></div>
   <div class="bott"></div>
 </div>
