@@ -27,14 +27,14 @@ setcookie("faceidc", $_REQUEST['faceid']);
 //echo $lji[0];
    
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
-    drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
-    drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
+    //drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
+   // drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
 	  drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/wave.css');
  drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/wave.js');
      drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
 	    drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
-		
-		
+		 drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/subtab.js');
+		  drupal_add_css(drupal_get_path('theme', 'newtheme').'/rotate_files/ui.css');
    $qid=get_qid();
 
     //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
@@ -392,7 +392,12 @@ insertviews($qid);
 
     
     $voutput .= '<script type="text/javascript">
-		function formsubmittype(mtype,ids){
+	        
+      jQuery(document).ready(function() {
+    jQuery("#rotate > ul").tabs({ fx: { opacity: "toggle" } }).tabs();
+      });
+
+			function formsubmittype(mtype,ids){
 		
 		if(mtype==1)
 		{
@@ -548,18 +553,31 @@ insertviews($qid);
 		</select></div>
 		</div>		
 		'.$submitbutt.' 
-		</div></div>
-		
-		<div>
-	
-		<b>Tags [<a href="#" onclick="loadtag(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
 		</div>
 	
+		<b>Tags [<a href="#" onclick="loadtag(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
+			
 		
 			</form>
 		
 		';
+		
+		
+	$voutput.='<div class="clr"></div><div id="rotate">
+              <ul class="ui-tabs-nav">
+                <li class="ui-tabs-selected"><a href="'.$gSitePath.'/qlite/panel/'.$qid.'" title="Votes"><span>Reporting</span>
+                 </a></li>
+                <li class=""><a href="'.$gSitePath.'/qlite/panel/'.$qid.'?type=Forum" title="Over Time"><span>Forum</span></a></li>
+                <li class=""><a href="'.$gSitePath.'/qlite/panel/'.$qid.'?type=Resources" title="Resources"><span>Resources</span></a></li>
+				  <li class=""><a href="'.$gSitePath.'/qlite/panel/'.$qid.'?type=Gurus" title="Gurus"><span>Gurus</span></a></li>
+				  <li class=""><a href="'.$gSitePath.'/qlite/panel/'.$qid.'?type=Info" title="Info"><span>Info</span></a></li>
+				  
+              </ul>
+   
+           </div>';	
     return $voutput;
+	
+
 }
 
 
@@ -1206,13 +1224,13 @@ function panel_content() {
             $output = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/subtab.css" type="text/css" />
 			<div id="waveerr"></div>
                        <ul id="tabmenu" >
-                                       <li><a class="" href="javascript:tabactive(1,\''.$gSitePath.'\',\''.$qid.'\')" id="tab1">In the News</a></li>
-                                       <li><a class="" href="javascript:tabactive(2,\''.$gSitePath.'\',\''.$qid.'\')" id="tab2">Multimedia</a></li>
-                                       <li><a class="" href="javascript:tabactive(3,\''.$gSitePath.'\',\''.$qid.'\')" id="tab3">Facts</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'In\',\''.$gSitePath.'\',\''.$qid.'\')" id="tabIn">In the News</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'M\',\''.$gSitePath.'\',\''.$qid.'\')" id="tabM">Multimedia</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'F\',\''.$gSitePath.'\',\''.$qid.'\')" id="tabF">Facts</a></li>
                                        <li><a class="" href="javascript:loadresource(\''.$gSitePath.'qlite/resource/'.$qid.'\',\'Add\')" id="tab4">Add Resource</a></li>
                                </ul>
-                               <div id="contents"></div>
-                               <script type="text/javascript">tabactive(1,\''.$gSitePath.'\',\''.$qid.'\')</script>';
+                               <div id="rcontents"></div>
+                               <script type="text/javascript">tabactive(\'In\',\''.$gSitePath.'\',\''.$qid.'\')</script>';
             
             break;
         case "Gurus":
@@ -1281,7 +1299,7 @@ function panel_content() {
 				<li ><a href="javascript:loadReport(2,\''.$gSitePath.'\','.$qid.');" class="" id="tab2">Overtime</a></li>
 				<li ><a href="javascript:loadReport(3,\''.$gSitePath.'\','.$qid.');" class="" id="tab3">By Area</a></li>
 			</ul>
-			<div id="contents"><iframe id="frmGoogle" src="" border="0" height="450" frameborder="0" width="100%"></iframe></div>
+			<div id="contents"><iframe id="frmGoogle" src="'.$gSitePath.'/qlite/percent/'.$qid.'" border="0" height="300" frameborder="0" width="100%"></iframe></div>
 			<script type="text/javascript">loadReport(1,\''.$gSitePath.'\','.$qid.')</script>';
             break;
     }
@@ -1672,12 +1690,12 @@ function question_media() {
         $like_count = resource_Like_checkCount($usermedia->rid, 2);
         $mediaresult .= '<div class="cmt_list">
 	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="'.$gSitePath.''.$usermedia->document.'" target="new"> '.$usermedia->document.' </a> </h4>
-	<p><img src="http://img.youtube.com/vi/'.$usermedia->video_id.'/default.jpg" ></p>
-	<br/>  
+	<!--<p><img src="http://img.youtube.com/vi/'.$usermedia->video_id.'/default.jpg" ></p>
+	<br/> --> 
 	<p>  <object width="425" height="350">
        <param name="movie" value="http://www.youtube.com/v/'.$usermedia->video_id.'">
        </param>
-       <embed src="http://www.youtube.com/v/'.$usermedia->video_id.'" type="application/x-shockwave-flash" width="425" height="350">
+       <embed src="http://www.youtube.com/v/'.$usermedia->video_id.'" type="application/x-shockwave-flash" width="320" height="220">
        </embed>
 </object>
 
@@ -1909,7 +1927,7 @@ google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
 ";
 
     
-    echo '<div  ><div id="annot_div" style="width: 700px; height: 240px;"></div></div>';
+    echo '<div  ><div id="annot_div" style="width: 472px; height: 250px"></div></div>';
 
 }
 
@@ -2043,7 +2061,7 @@ markerOptions = { icon:iconRed };
 					";
 
     
-    echo '  <body onload="initialize()" onunload="GUnload()"><div style="width:100%;"><div  class=""><div id="map_div" style="width: 700px; height: 300px"></div><div style="position: absolute; right: 0pt; top: 0pt;" id="desc">'.$desc.'</div></div>';
+    echo '  <body onload="initialize()" onunload="GUnload()"><div style="width:100%;"><div  class=""><div id="map_div" style="width: 472px; height: 378px"></div><br/><div style="position: relative;" id="desc">'.$desc.'</div></div>';
 }
 
 

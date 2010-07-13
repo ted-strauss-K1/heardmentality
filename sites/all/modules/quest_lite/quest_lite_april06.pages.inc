@@ -1034,11 +1034,7 @@ $falgq.='<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagrepo
 		while($usernews=db_fetch_object($rlistnews))
 		{
 		$output = $xml->parse($usernews->nlink);
-		
-		
-		
-		
-		
+
 		foreach($output as $valuesresult)
 		{
 		

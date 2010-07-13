@@ -1,54 +1,52 @@
 // JavaScript Document
 function tabactive(pmID, pmPath,id)
 {
-	$('tab1').set('class', '');
-	$('tab2').set('class', '');
-	$('tab3').set('class', '');
+	jQuery('#tabIn').removeClass('active');
+	jQuery('#tabM').removeClass('active');
+	jQuery('#tabF').removeClass('active');
 	
-	$('tab'+pmID).set('class', 'active');
-		if(pmID == 1)
+	jQuery('#tab'+pmID).addClass('active');
+		if(pmID == 'In')
 		vPath=pmPath+"qlite/innews/"+id
-	else if(pmID == 2)
+	else if(pmID == 'M')
 		vPath=pmPath+"qlite/media/"+id
-	else if(pmID == 3)
+	else if(pmID == 'F')
 		vPath=pmPath+"qlite/facts/"+id
-	var req = new Request({
-				method: 'get',
-				url: vPath,
-				data: { },
- 				onRequest: function() {$('contents').set('html', 'Please wait...'); },
-				onComplete: function(response) {
-					$('contents').set('html', response);
- 				}
-	}).send();
+
+	jQuery.ajax({
+  url: vPath,
+  cache: false,
+  success: function(response){
+	  
+  jQuery('#rcontents').html(response);
+  }
+});
 }
 
 
 
 function loadReport(pmID, pmPath,id)
 {
-	$('tab1').set('class', '');
-	$('tab2').set('class', '');
-	$('tab3').set('class', '');
+	jQuery('#tab1').removeClass('active');
+	jQuery('#tab2').removeClass('active');
+	jQuery('#tab3').removeClass('active');
 	
-	$('tab'+pmID).set('class', 'active');
+	jQuery('#tab'+pmID).addClass('active');
 	if(pmID == 1)
 		vPath=pmPath+"qlite/percent/"+id
 	else if(pmID == 2)
 		vPath=pmPath+"qlite/graph/"+id
 	else if(pmID == 3)
 		vPath=pmPath+"qlite/map/"+id
-		
-		$('frmGoogle').src=vPath
+	
+		jQuery('#frmGoogle').attr('src',vPath);
+
 	/*
-var req = new Request({
-				method: 'get',
-				url: vPath,
-				data: { },
- 				onRequest: function() {$('contents').set('html', 'Please wait...'); },
-				onComplete: function(response) {
-					$('contents').set('html', response);
- 				}
-	}).send();
-*/
+jQuery.ajax({
+  url: vPath,
+  cache: false,
+  success: function(response){
+  jQuery('#contents').html(response);
+  }
+});*/
 }
