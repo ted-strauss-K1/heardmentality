@@ -61,7 +61,44 @@ function bind_clk(){
     
     
 }
-
+/*mootool version*/
+function wave_form(){
+		//Prevents the default submit event from loading a new page.
+		//e.stop();
+		var wt=$('newwavediv').getElement('.textArea');
+		var formwave=$('newwaveform');
+		var post=wt.get('value');
+		if(post.trim().length<8){
+		
+			wt.setStyle('border-color','#EF2C2C');
+			wt.set('id','wtitlerror');
+			return false;
+		}else{
+			
+	wt.set('id','wtitle');	
+		}
+		//Empty the log and show the spinning indicator.
+		//var log = $('newwavediv').empty().addClass('ajax-loading');
+		//Set the options of the form's Request handler. 
+		//("this" refers to the $('myForm') element).
+		formwave.set('send', {
+		
+			
+						onComplete: function(response) { 
+			//log.removeClass('ajax-loading');
+				$('qwave').fade('out');
+				$('qwave').empty();
+			$('qwave').set('html', response);
+				$('qwave').fade('in');
+				wt.set('value','');
+							
+		},onRequest: function() { $('newwavediv').fade('out');}
+		
+		
+		});
+		//Send the form.
+		$('newwaveform').send();
+}
 
 function addComment(val, el){
 
