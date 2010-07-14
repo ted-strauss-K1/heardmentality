@@ -62,7 +62,7 @@ function get_top_list() {
     $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' $cond order by q.active_rate  DESC LIMIT 0,10";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
-              <h3><strong>Top questions</strong></h3><div id="innerbox" >';
+              <h3><strong>Top questions</strong></h3><div class="innerbox" ><ul class="menu">';
     if (! empty($list)) {
         foreach ($list as $quest) {
             
@@ -75,7 +75,7 @@ function get_top_list() {
         $output .= '<div><b>No Top List Found</b></div>';
     
     }
-    $output .= '</div> </div><div class="clr"></div>';
+    $output .= '</ul></div> </div><div class="clr"></div>';
     return $output;
 }
 
@@ -97,7 +97,7 @@ function get_hot_list() {
     $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
-              <h3><strong>Hot questions</strong></h3><div id="innerbox" >';
+              <h3><strong>Hot questions</strong></h3><div class="innerbox" ><ul class="menu">';
     if (! empty($list)) {
         foreach ($list as $quest) {
             
@@ -110,7 +110,7 @@ function get_hot_list() {
         $output .= '<div><b>No Hot List Found</b></div>';
     
     }
-      $output .= '</div> </div><div class="clr"></div>';
+      $output .= '</ul></div> </div><div class="clr"></div>';
     return $output;
 
 
@@ -131,7 +131,7 @@ function get_local_list() {
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
               <h3><strong>Local questions</strong></h3>
-              <div class="innerbox">';
+              <div class="innerbox"><ul class="menu">';
     
     if (! empty($list)) {
         foreach ($list as $quest) {
@@ -144,7 +144,7 @@ function get_local_list() {
         $output .= '<div><b>No Local List Found</b></div>';
     
     }
-	   $output .= '</div> </div><div class="clr"></div>';
+	   $output .= '</ul></div> </div><div class="clr"></div>';
     return $output;
 
 
