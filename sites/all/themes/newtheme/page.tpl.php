@@ -39,7 +39,7 @@ jQuery(document).ready(function(){
 
 </script>
 </head>
-<body class="<?php print $body_classes; ?>" onload="MM_preloadImages('images/mh1.gif','images/mh2.gif','images/mh3.gif','images/mh4.gif')">
+<body class="<?php print $body_classes; ?>" >
 <!--main div-->
 <div id="loading">
   <marquee  >
@@ -127,12 +127,13 @@ jQuery(document).ready(function(){
 
       <?php if (!empty($left)): ?>
         <div id="sidebar-left" class="column sidebar">
-          <?php //print $left; ?>
+          <?php print $left; ?>
         </div> <!-- /sidebar-left -->
       <?php endif; ?>
     <div class="clr"></div>
           </div>
-        </div>
+       </div></div>
+        
            <div class="ques">
           <div class="questop">
             <div class="questopl">  <?php if (!empty($title)): ?><?php print $title; ?><?php endif; ?></div>
