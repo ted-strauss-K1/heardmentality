@@ -81,3 +81,18 @@ function loadrforum(url,title){
 
 	
 }
+
+function loadflagquestion(url,title)
+{
+	
+	
+	jQuery.nyroModalSettings({ title:'Flag Posts'});
+
+	jQuery.nyroModalManual({
+    url: url,width:550,height:450,title:'Flag Posts'
+  });
+
+	
+	
+	
+}

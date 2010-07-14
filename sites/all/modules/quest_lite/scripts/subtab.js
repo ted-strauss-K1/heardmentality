@@ -55,5 +55,12 @@ jQuery.ajax({
 function loadresource(url,title)
 {
 	
-	
+
+	jQuery.nyroModalSettings({ title:'Add Resources'});
+
+	jQuery.nyroModalManual({
+    url: url,width:550,height:450,title:'Add Resources'
+  });
+
+		
 }

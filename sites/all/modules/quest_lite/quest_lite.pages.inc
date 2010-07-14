@@ -32,7 +32,7 @@ setcookie("faceidc", $_REQUEST['faceid']);
 	  drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/wave.css');
  drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/wave.js');
      drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/like.js');
-	    drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
+	   // drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
 		 drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/subtab.js');
 		  drupal_add_css(drupal_get_path('theme', 'newtheme').'/rotate_files/ui.css');
    $qid=get_qid();
@@ -829,7 +829,10 @@ function add_resources() {
     
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $resources = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />
-	
+		<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/add_resource.js"></script>
+	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 	';
     $resources .= '<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
@@ -1023,8 +1026,16 @@ function flag_question() {
 	
 	
 	</script>
+	
 	';
-   
+     $falgq .= '	<script>
+	var spath="'.$gSitePath.'";
+	</script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'forum').'/scripts/forum.js"></script>
+	<link rel="stylesheet" href="'.base_path().path_to_theme().'/css/css.css" type="text/css" />
+	';
    	if(isset($_REQUEST['uid'])){
    		
 			$uid =$_REQUEST['uid'];
