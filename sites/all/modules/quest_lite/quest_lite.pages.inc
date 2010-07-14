@@ -110,20 +110,12 @@ insertviews($qid);
 		
 		</script>';
     //echo $stringfunct;
-    /*	if($stringfunct>160)
-     {*/
-
+	if(drupal_is_front_page()){
+	$qlink = 'QUESTION OF THE DAY';	
+	}else{
+	$qlink = substr($oListquest->question, 0, 160).'<a onclick="showdetails('.$qid.');">...</a>';	
+	}
     
-    $qlink = substr($oListquest->question, 0, 160).'<a onclick="showdetails('.$qid.');">...</a>';
-    /* drupal_set_title($qlink);
-     }
-     else
-     {
-     
-     }*/
-
-
-    $qlink = substr($oListquest->question, 0, 160).'<a onclick="showdetails('.$qid.');">...</a>';
     drupal_set_title($qlink);
     $len = strlen($oListquest->context);
     if ($oListquest->context != "") {
@@ -132,8 +124,11 @@ insertviews($qid);
     $shortdesc = substr($oListquest->context, 0, 250);
     
     $voutput .= '<form id="answer_frm" name="answer_frm" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
-		<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
-		<div>'.$shortdesc.' '.$linkj.'';
+		<div class="lft_view"> <!--<h4 class="cmt_name"><a></a></h4>-->
+		<div>
+              <h2>'.rtrim($oListquest->question, "?").'? </h2>
+            </div>
+		<!--<div>'.$shortdesc.' '.$linkj.'--><div>';
     //likes
     
     $query = "select sum(like_yes) as res from {question_like} where qid='".$qid."' group by qid ";
@@ -536,7 +531,31 @@ insertviews($qid);
 	//<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
 	$voutput.='<div class="rht_select">';
 	
-    $voutput .= '	<!--<a href="javascript:void(0);" onclick="load_twitter(\''.$gSitePath.'twitter/post/'.$qid.'\',\'Twitter\');">Tweet this</a>-->
+    $voutput .= '
+	<div class="quesin">
+              <div class="quesinner">
+                <div class="quesinnerr">
+                  <label>
+                  <input type="radio" value="" name="Question"/>
+                  yes</label>
+                </div>
+                <div class="quesinnerr">
+                  <label>
+                  <input type="radio" value="" name="Question"/>
+                  no</label>
+                </div>
+              </div>
+              <div>
+                <ul>
+                  <li><a title="Bookmark" href="#">Bookmark</a></li>
+                  <li><a title="Invite" href="#">Invite</a></li>
+                  <li><a title="Flag" href="#">Flag</a> </li>
+                  <li><a title="Suggest a new answer" href="#">Suggest a new answer</a></li>
+                  <li><a title="Create Mashup" href="#">Create Mashup</a></li>
+                </ul>
+              </div>
+            </div>
+		<!--<a href="javascript:void(0);" onclick="load_twitter(\''.$gSitePath.'twitter/post/'.$qid.'\',\'Twitter\');">Tweet this</a>-->
 	<input type="button" onclick="showShareUI();" value="Share"/>
     <div id="status"></div>
 	<!-- AddThis Button BEGIN -->
