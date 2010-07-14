@@ -112,3 +112,32 @@ z-index:1000; -moz-border-radius:5px;
 }
 .men a{ font:normal 14px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; margin-right:5px;}
 .men li{ background:url(../images/list_bullet.jpg) no-repeat left 9px; padding-left:10px; text-transform:uppercase; list-style:none; float:left;}
+
+
+.messages,.error{
+	background: #fff6bf url(bioneural/exclamation.png) 15px center no-repeat;
+	text-align: left;
+	padding: 5px 20px 5px 45px;
+	border-top: 2px solid #ffd324;
+	border-bottom: 2px solid #ffd324; color:red; font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold;
+	}
+	
+.status
+{
+color:#529214;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+font-weight:bold;
+padding: 5px 20px 5px 45px;
+	border-top: 2px solid #ffd324;
+	border-bottom: 2px solid #ffd324;
+}
+
+.notice,.success{
+
+background: #F8FFF0 url(bioneural/exclamation.png) 15px center no-repeat;
+	text-align: left; color:#A0DC11; 
+	padding: 5px 20px 5px 45px;
+	border-top: 2px solid #A0DC11;
+	border-bottom: 2px solid #A0DC11;
+font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold;
+}

@@ -24,6 +24,8 @@
     <?php print $styles; ?>
   
   <?php print $scripts; ?>
+  <script src="http://jquery-translate.googlecode.com/files/jquery.translate-1.3.9.min.js"></script> 
+<script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script> 
 <script type="text/javascript">
 var gSitePath='<?php echo $gSitePath;?>';
 jQuery(document).ready(function(){
@@ -38,6 +40,59 @@ jQuery(document).ready(function(){
 			});
 
 </script>
+<script language="javascript">
+  jQuery(function(){ 
+   if(jQuery.cookie('destLang')!='')
+    var destLang =jQuery.cookie('destLang');
+	else
+	var destLang ='English'; //when the script is loaded
+
+ jQuery.translate(function(){ //when the Google Language API is loaded
+   jQuery.translate.ui('select', 'option') //generate dropdown
+      .change(function(){ 
+	 //when selecting another language
+       jQuery('body').translate( 'english',jQuery(this).val(), { //translate from english to the selected language
+          not: '.jq-translate-ui', //exclude these elements
+          fromOriginal:true //always translate from english (even after the page has been translated)
+        });
+		 jQuery.cookie('destLang',jQuery(this).val() ); 
+      })
+      .val(destLang) //select English as default
+      .appendTo('#lang')
+	    .css({'color':'#105F97', 'background-color':'white','font-size':'11px'})
+      .find(' option')
+      .css('cursor','pointer'); //insert the dropdown to the page
+
+
+jQuery(".jq-translate-ui:first").hide(); });
+});
+jQuery(function(){ 
+
+     function translateTo( destLang ){ //this can be declared in the global scope too if you need it somewhere else
+	      jQuery('body').translate( 'english', destLang, {   //translate from english to the selected language
+          not: '.jq-translate-ui',  //by default the generated element has this className
+          fromOriginal:true   //always translate from english (even after the page has been translated)
+        });
+    }   
+	
+	jQuery.translate.ui('select', 'option') .appendTo('#lang')    //insert the element to the page
+      
+      .find('#lang select option')
+      .css('cursor','pointer')
+	  .attr('value','');
+	
+	
+	 var destLang =jQuery.cookie('destLang'); //get previously translated language
+    	jQuery("#lang select option[value=English]").attr("selected",true);
+    if( destLang )
+        translateTo( destLang );
+		
+	jQuery("option[value="+destLang+"]").attr("selected",true);//select beta
+   }); //end of Google Language API loaded
+
+  
+  
+ </script>
 </head>
 <body class="<?php print $body_classes; ?>" >
 <!--main div-->
@@ -108,11 +163,9 @@ jQuery(document).ready(function(){
          </div>
     
           <div class="edition">
-            <div>Edition:
-              <select>
-                <option>select language</option>
-              </select>
-            </div>
+            <div >Edition:<span id="lang"></span>
+              <!-- Google Translate -->
+			
           </div>
       </div> <!-- /navigation -->
          </div> <!-- /header -->   
@@ -158,7 +211,7 @@ jQuery(document).ready(function(){
       <div class="clr"></div>
       <!--content area close-->
     </div>
-  
+  </div>
   <div class="clr"></div>
   <div class="bott"></div>
   <div id="footer"><div class="footerleft">Copyright <a href="http://creativecommons.org/licenses/by-sa/2.5/" title="creativecommons"><img border="0" alt="cc" src="images/cc.jpg"/></a> 2010 Heardmentality.org </div>
