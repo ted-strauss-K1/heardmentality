@@ -132,7 +132,7 @@ jQuery(document).ready(function(){
       <?php endif; ?>
     <div class="clr"></div>
           </div>
-       </div></div>
+       </div>
         
            <div class="ques">
           <div class="questop">
