@@ -23,13 +23,17 @@ function top_list() {
     
     $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     $list = ExecuteQuery($query, "select");
-    $output .= '<select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
+    $output .= '  <p>COMMUNITY DISCUSSION</p>
+            <div><select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
     foreach ($list as $cat) {
         
-        $output .= '<option value='.$cat['cat_id'].' > '.$cat['cat_name'].' </option>';
+        $output .= '    
+          <option value='.$cat['cat_id'].' > '.$cat['cat_name'].' </option> ';
     }
     
-    $output .= '</select><br/>	<div id="res_scat"> </div><br/><div id="res_top">';
+    $output .= '</select> &nbsp;  <span id="res_scat"><select name="" disabled="disabled">
+                <option>selecct a sub-category</option>
+              </select> </span></div> </div>  <div class="inner"><div id="res_top">';
     
     $output .= get_top_list();
     
@@ -57,7 +61,8 @@ function get_top_list() {
     
     $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' $cond order by q.active_rate  DESC LIMIT 0,10";
     $list = ExecuteQuery($query, "select");
-    $output .= '<div id="pageWrapper" >';
+    $output .= '<div>
+              <h3><strong>Top questions</strong></h3><div id="innerbox" >';
     if (! empty($list)) {
         foreach ($list as $quest) {
             
@@ -70,7 +75,7 @@ function get_top_list() {
         $output .= '<div><b>No Top List Found</b></div>';
     
     }
-    $output .= '</div>';
+    $output .= '</div> </div><div class="clr"></div>';
     return $output;
 }
 
@@ -91,7 +96,8 @@ function get_hot_list() {
     
     $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
-    $output .= '<div id="pageWrapper" >';
+    $output .= '<div>
+              <h3><strong>Hot questions</strong></h3><div id="innerbox" >';
     if (! empty($list)) {
         foreach ($list as $quest) {
             
@@ -104,7 +110,7 @@ function get_hot_list() {
         $output .= '<div><b>No Hot List Found</b></div>';
     
     }
-    $output .= '</div>';
+      $output .= '</div> </div><div class="clr"></div>';
     return $output;
 
 
@@ -123,7 +129,9 @@ function get_local_list() {
     
     $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' AND q.country='".trim($homepage)."' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
-    $output .= '<div id="pageWrapper" >';
+    $output .= '<div>
+              <h3><strong>Local questions</strong></h3>
+              <div class="innerbox">';
     
     if (! empty($list)) {
         foreach ($list as $quest) {
@@ -136,6 +144,7 @@ function get_local_list() {
         $output .= '<div><b>No Local List Found</b></div>';
     
     }
+	   $output .= '</div> </div><div class="clr"></div>';
     return $output;
 
 

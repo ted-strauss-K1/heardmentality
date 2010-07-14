@@ -4,12 +4,22 @@ function qlitemini() {
     //SELECT answer, vote * 2.75/100 AS PercentOfTotal FROM suggested_answer order by PercentOfTotal desc limit 0,3
     $voutput = '';
     drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
-    drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
-    drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
+   // drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
+   // drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
+   
 	//drupal_add_js('http://cdn.gigya.com/wildfire/js/wfapiv2.js');
     
     $qid = get_qid();
-    $voutput .= '<script src="http://cdn.gigya.com/wildfire/js/wfapiv2.js"></script> 
+    $voutput .= '
+<script type="text/javascript">
+          
+      jQuery(document).ready(function() {
+    jQuery("#rotate > ul").tabs({ fx: { opacity: "toggle" } }).tabs();
+      });
+
+
+        </script>	
+	<script src="http://cdn.gigya.com/wildfire/js/wfapiv2.js"></script> 
 	<script type="text/javascript">
 		 var pconf1={  
          CID: "Site 1 - Widget A",  
@@ -96,6 +106,7 @@ function qlitemini() {
 		</div>
 		<div id="divWildfirePost" onmouseout="hideBook()"></div>
 		<script> Wildfire.initPost("PARTNER-ID", "divWildfirePost", 400, 300, pconf1);  </script>
+		
 		';
     $vans = "select * from {possible_answer} where  qid=$qid order by paid ASC";
 
@@ -122,7 +133,15 @@ function qlitemini() {
     $chk = '';
 
     
-    $voutput .= '</div></div>';
+    $voutput .= '<div id="rotate">
+              <ul class="ui-tabs-nav">
+                <li class="ui-tabs-selected"><a href="'.$gSitePath.'/qlite/percent/'.$qid.'" title="Votes">Votes
+                 </a></li>
+                <li class=""><a href="'.$gSitePath.'/qlite/graph/'.$qid.'" title="Over Time">Over Time</a></li>
+                <li class=""><a href="'.$gSitePath.'/qlite/map/'.$qid.'" title="By Area">By Area</a></li>
+              </ul>
+     
+            </div></div>';
     
     // $voutput.=qlite_report($qid);
     return $voutput;
