@@ -30,11 +30,9 @@ var login_params=
 <script type="text/javascript">
    gigya.services.socialize.showLoginUI(conf,login_params);
 </script>
-<div id="componentDiv"></div>
+</div>
   
-<script type="text/javascript">
-   gigya.services.socialize.showLoginUI(conf,login_params);
-</script>  <?php
+ <?php
 			 else:
 			
 			?>

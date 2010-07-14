@@ -169,7 +169,7 @@ jQuery(function(){
           </div>
       </div> <!-- /navigation -->
          </div>
-         </div> <!-- /header -->   
+          <!-- /header -->   
                <div class="clr"></div>
                <!--Header close-->
       <!--content area-->
