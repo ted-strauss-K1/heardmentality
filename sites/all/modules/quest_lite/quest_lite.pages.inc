@@ -114,6 +114,7 @@ insertviews($qid);
 	$qlink = 'QUESTION OF THE DAY';	
 	}else{
 	$qlink = substr($oListquest->question, 0, 160).'<a onclick="showdetails('.$qid.');">...</a>';	
+	$qlink="Question";
 	}
     
     drupal_set_title($qlink);
@@ -531,10 +532,10 @@ insertviews($qid);
 	//<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
 	$voutput.='<div class="rht_select">';
 	
-    $voutput .= '
+    $voutput .= $submitbutt.' 
 	<div class="quesin">
               <div class="quesinner">
-                <div class="quesinnerr">
+               <!-- <div class="quesinnerr">
                   <label>
                   <input type="radio" value="" name="Question"/>
                   yes</label>
@@ -543,7 +544,7 @@ insertviews($qid);
                   <label>
                   <input type="radio" value="" name="Question"/>
                   no</label>
-                </div>
+                </div>-->
               </div>
               <div>
                 <ul>
@@ -571,7 +572,7 @@ insertviews($qid);
 		<option value="5">Create Mashup:</option> 
 		</select></div>
 		</div>		
-		'.$submitbutt.' 
+		
 		</div>
 	
 		<b>Tags [<a href="#" onclick="loadtag(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
