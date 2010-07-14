@@ -90,6 +90,7 @@ a{ text-decoration:none; color:#CC6600; font: normal 12px Georgia, "Times New Ro
 a:hover{ text-decoration:underline;}
 
 /*Edited for developer purposes*/
+.innerbox ul li{ list-style:none;}
 #loading{ 
 -x-system-font:none; 
 background-color:#C23A2F;

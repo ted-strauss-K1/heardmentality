@@ -168,6 +168,7 @@ jQuery(function(){
 			
           </div>
       </div> <!-- /navigation -->
+         </div>
          </div> <!-- /header -->   
                <div class="clr"></div>
                <!--Header close-->
@@ -190,7 +191,7 @@ jQuery(function(){
            <div class="ques">
           <div class="questop">
             <div class="questopl">  <?php if (!empty($title)): ?><?php print $title; ?><?php endif; ?></div>
-            <div class="questopr">July 4, 2010</div>
+            <div class="questopr"><?php echo date("M d,Y") ?></div>
           </div>
           <div class="quesbg">
 
