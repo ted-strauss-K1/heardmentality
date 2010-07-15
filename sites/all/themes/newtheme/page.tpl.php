@@ -29,7 +29,25 @@
 <script type="text/javascript">
 var gSitePath='<?php echo $gSitePath;?>';
 jQuery(document).ready(function(){
-			
+ var height = jQuery(window).height();
+        var width = jQuery(window).width();
+
+        var autosizable = true;
+        var windowResize = true;
+        var resizeable = true;
+
+	jQuery.nyroModalSettings({  galleryCounts: '', forceType: 'iframe',minWidth: 600, // Minimum width
+  minHeight: 400, // Minimum height
+  resizable: true, // Indicate if the content is resizable. Will be set to false for swf
+  autoSizable: true, // Indicate if the content is auto sizable. If not, the min size will be used
+  padding:30, // padding for the max modal size
+  gallery: null, // Gallery name if provided
+  galleryLinks: '', // Use .nyroModalPrev and .nyroModalNext to set the navigation link
+  windowResize: windowResize,
+            width: width/2,
+            height: height,
+
+ });
 						jQuery("#loading").ajaxStart(function(){
 				  jQuery(this).fadeIn();
 				 });
@@ -59,8 +77,7 @@ jQuery(document).ready(function(){
       })
       .val(destLang) //select English as default
       .appendTo('#lang')
-	    .css({'color':'#105F97', 'background-color':'white','font-size':'11px'})
-      .find(' option')
+	   .find(' option')
       .css('cursor','pointer'); //insert the dropdown to the page
 
 
@@ -93,6 +110,7 @@ jQuery(function(){
   
   
  </script>
+
 </head>
 <body class="<?php print $body_classes; ?>" >
 <!--main div-->
@@ -155,7 +173,7 @@ jQuery(function(){
          <?php if (count($primary_links)) : ?>
 	
     <?php $mb=1;foreach ($primary_links as $link): ?>
-      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> rel="width:850,height:570" class="nyroModal" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a></li>
+      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> rel="width:850,height:570" class="nyroModal" rel="nofollow" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a></li>
     <?php endforeach; ?>
 	
     <?php endif;?>
