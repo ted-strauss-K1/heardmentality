@@ -976,12 +976,12 @@ function privacy_settings() {
   <script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.'sites/all/themes/heardmentality/scripts/mootools-1.2-more.js"></script>	
   <link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
-	<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+		<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 	
 		<form name="profile" id="profile" method="post" enctype="multipart/form-data">
 		<fieldset>
         	<legend>Privacy Settings</legend>
-			<table>
+			<table border="0" cellpadding="4" cellspacing="4"  >
 		       <tr><td>Email  </td>
    			        <td></td>
    			        <td><select class="email" name="email">'.$option1.$option2.$option3.'</select>  </td>
