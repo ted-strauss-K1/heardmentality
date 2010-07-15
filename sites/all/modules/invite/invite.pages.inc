@@ -254,6 +254,8 @@ HeardMentality: Its all about Sharing </div>
     
     
     $strReturn = '
+			<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
+			<div class="facttop2">INVITE YOUR FRIENDS</div>
 		<div id="log_res"><!-- spanner --></div>
 	<div id="err"></div>
 	<span class="clr"><!-- spanner --></span>
