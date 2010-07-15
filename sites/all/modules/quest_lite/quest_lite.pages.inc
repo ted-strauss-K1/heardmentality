@@ -532,7 +532,7 @@ insertviews($qid);
 	//<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
 	$voutput.='<div class="rht_select">';
 	
-    $voutput .= $submitbutt.' 
+    $voutput .= $submitbutt.' 	</form>
 	<div class="quesin">
               <div class="quesinner">
                <!-- <div class="quesinnerr">
@@ -578,7 +578,7 @@ insertviews($qid);
 		<b>Tags [<a href="#" onclick="loadtag(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
 			
 		
-			</form>
+		
 		
 		';
 		
