@@ -173,7 +173,7 @@ jQuery(function(){
          <?php if (count($primary_links)) : ?>
 	
     <?php $mb=1;foreach ($primary_links as $link): ?>
-      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> rel="width:850,height:570" class="nyroModal" rel="nofollow" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a></li>
+      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> class="nyroModal" rel="nofollow" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a></li>
     <?php endforeach; ?>
 	
     <?php endif;?>
@@ -189,6 +189,8 @@ jQuery(function(){
          </div>
           <!-- /header -->   
                <div class="clr"></div>
+               <?php if ($show_messages && $messages): print '<div class="messages">'. $messages .'</div>'; endif; ?>
+                <div class="clr"></div>
                <!--Header close-->
       <!--content area-->
       <div class="contarea">
