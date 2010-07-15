@@ -44,7 +44,7 @@ clear:both;
 }
 
 .tagging-curtags-wrapper {  
-  background-color:#eee;
+ /* background-color:#eee;*/
   padding:5px 0px 10px 0px;
   display:inline-block;
   width:100%; 
@@ -58,7 +58,7 @@ clear:both;
 
 .tagging-suggestions-wrapper {
   clear:both;
-  background-color:#eee;
+ /* background-color:#eee;*/
   padding:10px 0px 5px 0px;
   display:inline-block;
   width:100%; 
