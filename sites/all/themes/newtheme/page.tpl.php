@@ -29,6 +29,7 @@
 <script type="text/javascript">
 var gSitePath='<?php echo $gSitePath;?>';
 jQuery(document).ready(function(){
+
  var height = jQuery(window).height();
         var width = jQuery(window).width();
 
@@ -235,7 +236,7 @@ jQuery(function(){
   </div>
   <div class="clr"></div>
   <div class="bott"></div>
-  <div id="footer"><div class="footerleft">Copyright <a href="http://creativecommons.org/licenses/by-sa/2.5/" title="creativecommons"><img border="0" alt="cc" src="images/cc.jpg"/></a> 2010 Heardmentality.org </div>
+  <div id="footer"><div class="footerleft">Copyright <a href="http://creativecommons.org/licenses/by-sa/2.5/" title="creativecommons"><img border="0" alt="cc" src="<?php echo $directory;?>/images/cc.jpg"/></a> 2010 Heardmentality.org </div>
   <div class="footerright">  <?php   $mbl=4;$min=0; foreach ($secondary_links as $linksm): $min++;?>
          <a href="<?php print($gSitePath.$linksm['href']);?>" <?php if($linksm['title'] == 'Contact Us'||($linksm['title'] == 'Privacy & Policy')||($linksm['title'] == 'User Agreement')):?> rel="width:850,height:570" class="advanced<?php echo $mbl++; ?>" title="<?php print($linksm['title']);?>"<?php endif;?>><?php print($linksm['title']);?></a><?php if((count($secondary_links))>=$min){ echo " - ";}$min++;?> 
           <?php endforeach; ?>
