@@ -28,6 +28,8 @@ function heard_page_title($node) {
   return $node->title;
 }
 function heard_page_view($node, $cid = NULL) {
+ global $gSitePath,$user,$gDocPath,$base_root;
   drupal_set_title(check_plain($node->title));
+  echo '<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />';
   echo node_show($node, $cid);
 }
