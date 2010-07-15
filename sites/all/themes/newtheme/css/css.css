@@ -115,8 +115,8 @@ z-index:1000; -moz-border-radius:5px;
 .men a{ font:normal 14px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; margin-right:5px;}
 .men li{ background:url(../images/list_bullet.jpg) no-repeat left 9px; padding-left:10px; text-transform:uppercase; list-style:none; float:left;}
 
-
-.messages,.error{
+.messages{ width:100%; display:block; clear:both; border-color:#CC6600;}
+.error{
 	background: #fff6bf url(bioneural/exclamation.png) 15px center no-repeat;
 	text-align: left;
 	padding: 5px 20px 5px 45px;
