@@ -279,7 +279,7 @@ setDefaultCountry(\''.$cncode.'\');
 	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
     $output .= '<style>td,select{font-size:12px;}</style>
-	
+	<div class="facttop">ADD QUESTION</div>
 		<div id="err" style="border: 3px solid rgb(221, 151, 161); display: block; background-color: rgb(238, 238, 238); height: auto; color: red;">'.$list_err.'</div>
 	
 			<br/>
