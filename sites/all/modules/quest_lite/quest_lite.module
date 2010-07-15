@@ -118,9 +118,9 @@ function process_tags($qtag = '', $qid = '', $edit = '') {
                     
                     if ($result[0]['tcnt'] < 1) {
 
-                        
+                        if(!empty($ins_clean)){
                         $setnew = db_query("INSERT INTO {tagging} set uid='$user->uid',tag='$ins_clean'  ");
-
+							}
                         
                         $tins = db_last_insert_id('tagging', 'qid');
                         $result = db_query("INSERT INTO {qtag} (qid,tag) VALUES (%d,'%s')", $qid, $tins);

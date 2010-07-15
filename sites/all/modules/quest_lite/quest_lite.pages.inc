@@ -124,7 +124,7 @@ insertviews($qid);
     }
     $shortdesc = substr($oListquest->context, 0, 250);
     
-    $voutput .= '<form id="answer_frm" name="answer_frm" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="cmt_list">
+    $voutput .= '<form id="answer_frm" name="answer_frm" method="post" action="'.$gSitePath.'qlite/save"  > <input type="hidden" name="mid" value="'.$qid.'"><div class="">
 		<div class="lft_view"> <!--<h4 class="cmt_name"><a></a></h4>-->
 		<div>
               <h2>'.rtrim($oListquest->question, "?").'? </h2>
@@ -446,7 +446,7 @@ insertviews($qid);
         foreach ($gettag as $intag) {
             $etag = '';
             
-            $instags .= "<b>".$intag['tag']."</b>&nbsp;";
+            $instags .= $intag['tag']."&nbsp;";
         }
     } else {
         $instags .= "&nbsp;<b> - -</b>&nbsp;";
@@ -456,7 +456,7 @@ insertviews($qid);
     
 	
 	
-/*
+
 	$voutput.='<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
 	<script>
         var conf = 
@@ -528,62 +528,35 @@ insertviews($qid);
 		            + event.providers;
 		}    
 	</script>';
-*/
-	//<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile\');">Share This Question </a>';
-	$voutput.='<div class="rht_select">';
+
 	
     $voutput .= $submitbutt.' 	</form>
 	<div class="quesin">
               <div class="quesinner">
-               <!-- <div class="quesinnerr">
-                  <label>
-                  <input type="radio" value="" name="Question"/>
-                  yes</label>
-                </div>
-                <div class="quesinnerr">
-                  <label>
-                  <input type="radio" value="" name="Question"/>
-                  no</label>
-                </div>-->
+              
               </div>
               <div>
                 <ul>
-                  <li><a title="Bookmark" href="#">Bookmark</a></li>
-                  <li><a title="Invite" href="#">Invite</a></li>
-                  <li><a title="Flag" href="#">Flag</a> </li>
-                  <li><a title="Suggest a new answer" href="#">Suggest a new answer</a></li>
-                  <li><a title="Create Mashup" href="#">Create Mashup</a></li>
+				'.$optio.'
+                  <li><a title="Bookmark"  onclick="showShareUI();" href="javascript:void(0);">Bookmark</a></li>
+                  <li><a title="Invite" onclick="formsubmittype(2,'.$qid.');" href="javascript:void(0);">Invite</a></li>
+                  <li><a title="Flag"  onclick="formsubmittype(3,'.$qid.');" href="javascript:void(0);">Flag</a> </li>
+                  <li><a title="Suggest a new answer"  onclick="formsubmittype(4,'.$qid.');" href="javascript:void(0);">Suggest a new answer</a></li>
+                  <li><a title="Create Mashup"  onclick="formsubmittype(5,'.$qid.');" href="javascript:void(0);">Create Mashup</a></li>
                 </ul>
               </div>
             </div>
-		<!--<a href="javascript:void(0);" onclick="load_twitter(\''.$gSitePath.'twitter/post/'.$qid.'\',\'Twitter\');">Tweet this</a>-->
-	<input type="button" onclick="showShareUI();" value="Share"/>
-    <div id="status"></div>
-	<!-- AddThis Button BEGIN -->
-<!--<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4bebc2a1621b1868"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4bebc2a1621b1868"></script>-->
-<!-- AddThis Button END -->
-
-	<select name="txt_act" id="txt_act"  onchange="formsubmittype(this.value,'.$qid.');">
-		<option value=""> Select</option >
-		'.$optio.'
-		<option value="2"> Invite</option >
-		<option value="3"> Flag</option >
-		<option value="4">Suggest New Answer</option> 
-		<option value="5">Create Mashup:</option> 
-		</select></div>
-		</div>		
-		
-		</div>
 	
-		<b>Tags [<a href="#" onclick="loadtag(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
+		<div class="cmt_list"><b>Tags [<a href="#" onclick="loadtag(\''.$gSitePath.'qlite/addtag/'.$qid.'\',\'Edit Tags \'); ">Retag</a>]:</b>&nbsp;'.$instags.'</div>
 			
-		
+		</div></div></div>
 		
 		
 		';
 		
 		
-	$voutput.='<div class="clr"></div><div id="rotate">
+	$voutput.='<div class="clr"></div>
+	<div id="rotate">
               <ul class="ui-tabs-nav">
                 <li class="ui-tabs-selected"><a href="'.$gSitePath.'/qlite/panel/'.$qid.'" title="Votes"><span>Reporting</span>
                  </a></li>
@@ -1065,7 +1038,7 @@ function flag_question() {
 	 $img_path1=  $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$oListquest->image;
 	 $PROFILE_IMAGE= '<img src="'.$img_path1.'" align="absmiddle" alt="Profile image" >';
     $falgq .= '<div id="log">
-	
+	<div class="facttop2">FLAG USERS</div>
 	<div id=""><b>Report this user!</b></div>
 	<div id="log_res"></div>
 	<span class="clr"><!-- spanner --></span>';
@@ -1093,7 +1066,7 @@ function flag_question() {
 	$date='';
 	 $date = format_date_class($oListquest->posted_date, date('Y-m-d h:i:s'));
     $falgq .= '<div id="log">
-	
+	<div class="facttop2">FLAG RESOURCES</div>
 	<div id=""><b>Report this Resource!</b></div>
 	<div id="log_res"></div>
 	<span class="clr"><!-- spanner --></span>';
@@ -1114,24 +1087,23 @@ function flag_question() {
     $vSql = "select * from {question} where status='1' and qid=$qid ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
-    $falgq .= '<div id="log">
-	
+    $falgq .= '
+	<div id="log">
+	<div class="facttop2">FLAG QUESTIONS</div>
 	<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
     $falgq .= '<form id="flagform"  method="post" action="'.$gSitePath.'qlite/flagreport" enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="'.$qid.'"/>
-	<div class="cmt_list"><div class="lft_view">  <p>'.$oListquest->question.' </p>
- <p class="cmt_date">  '.$oListquest->context.' </p></div></div>
+	<div class="cmt_list"><div class="lft_view">  <p><b>Question :</b>'.$oListquest->question.' </p>
+ <p class="cmt_date"> <b>Context :</b> '.$oListquest->context.' </p></div></div>
 <div class="txt_area">
 	<input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
 	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
 	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
 	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
 	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form>';
-    
-		
-		
+
    	}
    
    
@@ -1514,13 +1486,17 @@ function suggest_answer() {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $ansoutput = '<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+    $ansoutput = '	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	
+	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
+	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
     
     $answers = "SELECT *	FROM suggest_answer where qid='".$qid."'  ";
     $anslist = db_query($answers);
     $count_row = db_result(db_query($answers));
     $numr = db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='".$qid."' and uid='".$user->uid."'"));
     $ansoutput .= '<div id="log">
+	<div class="facttop">SUGGEST A NEW ANSWER</div>
 	<div id="log_res"><!-- spanner --></div>
 	</div>
 	<span class="clr"><!-- spanner --></span>';
@@ -1590,19 +1566,22 @@ function suggest_answer() {
 	});
 	});
 	</script>	<form id="answerform"  method="post" action="'.$gSitePath.'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="'.$qid.'"/>
-	
+	<br/>
 	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
 	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
 	</div></form>';
     }
+	if($user->uid<1){
+	$ansoutput='<div class="messages error"> Sorry Only Registered User Can Suggest Answer! </div>';
+	}
     
     echo $ansoutput;
 }
 function suggest_answer_save() {
     global $gSitePath,$user,$gDocPath,$base_root;
-    
+
     $numr = db_result(db_query("SELECT COUNT(*) from {suggest_answer} where qid='".$_REQUEST['qaid']."' and uid='".$user->uid."'"));
-    if ($_REQUEST['txt_answer'] != '') {
+    if ($_REQUEST['txt_answer'] != ''&&$user->uid>0) {
         if ($numr == 0) {
             $answerquery = "insert into suggest_answer(qid,uid,answer,date_added) values ('".$_REQUEST['qaid']."','".$user->uid."','".$_REQUEST['txt_answer']."','".date('Y-m-d')."')";
             db_query($answerquery);
@@ -1613,7 +1592,7 @@ function suggest_answer_save() {
             echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
         }
     } else {
-        echo '<div class="messages error">Please Enter Suggest Answer </div>';
+        echo '<div class="messages error">Sorry Error Occurs while voting! </div>';
     
     }
 
@@ -2283,7 +2262,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 			}
 			
 			drupal_set_message($message = 'Thank you Tags are updated', $type = 'success');
-            echo "<b>Thank you Tags are updated</b> ";
+            echo '<div class="success">Thank you Tags are updated</div>';
 		   }
             
             
@@ -2291,9 +2270,10 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
         }
         
         $display .= '
-
+					<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 				<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
-				<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
+				<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/scripts/tagging.js"></script>
+				<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'tagging').'/tagging.css" type="text/css" />
 				<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/Autocompleter.css" type="text/css" media="screen" />
 			<script>
 			var mpath=\''.$gSitePath.'\';
@@ -2327,7 +2307,9 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
 
         
         $tag = implode(',', $tag);
-        $content .= '<div id="log_res"><!-- spanner --></div>
+        $content .= '
+		<div class="facttop">RETAG THIS QUESTION</div>
+		<div id="log_res"><!-- spanner --></div>
 	<div id="err"></div>
 	<span class="clr"><!-- spanner --></span> <div id="tagging-widget-container">
 	<form id="retagform" action="'.url($_GET['q'], array('absolute'=>true)).'" class="" method="post" >
@@ -2372,7 +2354,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                         '.$randomtag.'
                        
                     </div>
-					<div ><input type="submit" name="tagsubmit" value="Retag" /> </div>
+					<div ><input type="submit" name="tagsubmit" value="Retag" /> &nbsp; <input type="button" value="Cancel" class="nyroModalClose" onclick="window.top.location.reload();" /></div>
                
             </fieldset>
 			</form>

@@ -64,3 +64,34 @@ function loadresource(url,title)
 
 		
 }
+
+function loadsuggest(url,title){
+	
+	jQuery.nyroModalSettings({ title:'Suggest an Answer'});
+
+	jQuery.nyroModalManual({
+    url: url,width:550,height:450, padding:40,title:'Suggest an Answer'
+  });
+
+}
+function load_invite(url,title){
+	
+	jQuery.nyroModalSettings({ title:'Flag this question'});
+
+	jQuery.nyroModalManual({
+    url: url,width:550,height:450, padding:40,title:'Flag this question'
+  });
+}
+
+
+function loadtag(url,title)
+{
+	
+jQuery.nyroModalSettings({ title:'Retag this question'});
+
+	jQuery.nyroModalManual({
+    url: url,width:550,height:450, padding:40,title:'Retag this question'
+  });	
+	
+	
+}
