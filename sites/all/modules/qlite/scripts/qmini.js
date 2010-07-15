@@ -2,7 +2,7 @@
  * @author gobinath.m
  */
 function get_toplist(sid,level){
-	cid=$('tcat').get('value');
+	cid=jQuery('#tcat').val();
 	if(level==2){
 			scid=sid;
 		
@@ -11,31 +11,32 @@ function get_toplist(sid,level){
 		
 		scid='';
 	}
-		var url = 'qmini/ajax';
-									var req = new Request({    
-											method: 'post'
-											,url: url
-											,data: { 'action':level,'cid':cid,'scid':scid},
-											onRequest: function() { $('res_top').set('html', 'Loading...'); },
-											onComplete: function(response) {
-													 $('res_top').set('html', response);
-											}
-									}).send();
+
+		var url = gSitePath+'qmini/ajax';
+									
+			jQuery.ajax({
+   type: "POST",
+   url: url,
+   data: { action:level,cid:cid,scid:scid},
+   success: function(msg){
+     jQuery('#res_top').html(msg);
+   }
+ });						
+									
 	
 	if(level==1&&sid!=''){
-	var req = new Request({    
-											method: 'post'
-											,url: url
-											,data: { 'action':5,'cid':cid},
-											onRequest: function() { $('res_top').set('html', 'Loading...'); },
-											onComplete: function(response) {
-													 $('res_scat').set('html', response);
-											}
-									}).send();
 	
+	jQuery.ajax({
+   type: "POST",
+   url: url,
+   data: { action:5,cid:cid},
+   success: function(msg){
+     jQuery('#res_scat').html(msg);
+   }
+	 });	
 	}else if(level==1&&sid==''){
 		
-		 $('res_scat').set('html', '');	
+		 jQuery('#res_scat').html('');	
 	}
 	
 }
