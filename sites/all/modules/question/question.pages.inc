@@ -276,8 +276,7 @@ setDefaultCountry(\''.$cncode.'\');
 
     
     $output .= '<link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
-	<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
-<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
     $output .= '<style>td,select{font-size:12px;}</style>
 	
