@@ -91,6 +91,7 @@ a{ text-decoration:none; color:#CC6600; font: normal 12px Georgia, "Times New Ro
 a:hover{ text-decoration:underline;}
 
 /*Edited for developer purposes*/
+.cmt_list { border:1px #cccccc solid;  margin-bottom:10px; padding:2px;  display:block; line-height:20px; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
 .innerbox ul li{ list-style:none;}
 #loading{ 
 -x-system-font:none; 
@@ -133,6 +134,12 @@ padding: 5px 20px 5px 45px;
 	border-top: 2px solid #ffd324;
 	border-bottom: 2px solid #ffd324;
 }
+input[type=button],input[type=submit] {
+border:1px solid #D5D5D5; 
+color:#6B6D67;
+font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold;
+font-size:11px; cursor:pointer;
+padding:2px;}
 
 .notice,.success{
 
