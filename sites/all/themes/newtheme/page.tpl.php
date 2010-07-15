@@ -111,7 +111,24 @@ jQuery(function(){
   
   
  </script>
-
+ <script type="text/javascript">
+			function callfunction()
+			{
+			
+			if(jQuery('#stype1').is(':checked'))
+			{
+			
+			document.search.action="<?php echo $gSitePath?>searchquestion";
+			document.search.submit();
+			}
+			else
+			{
+				document.search.action="<?php echo $gSitePath?>searchuser";
+			document.search.submit();
+			}
+			
+			}
+			</script>
 </head>
 <body class="<?php print $body_classes; ?>" >
 <!--main div-->
@@ -149,28 +166,42 @@ jQuery(function(){
           <?php print $header; ?>
         </div>
       <?php endif; ?>
+ <?php
+	if(isset($_REQUEST['stype']))
+{
 
+
+			$spe=$_REQUEST['stype'];
+}
+			
+			if(isset($_REQUEST['txt_search'])){
+				
+				$skey=$_REQUEST['txt_search'];
+			}else{
+				$skey='Search';
+			}
+			?>
  <div class="clr"></div>
      <div id="menu">
-          <div class="search"> <form method="get" name="form1" action="">
+          <div class="search">  <form name="search" method="post" action="">
             <div class="searchtext">
-          <input name="Search" value="Search" type="text"  onblur="if(form1.Search.value =='') form1.Search.value = 'Search'" onfocus="if(form1.Search.value =='Search') form1.Search.value = ''" />
+          <input name="txt_search"  id="txt_search" value="<?php echo $skey; ?>" type="text"  onblur="if(search.txt_search.value =='') search.txt_search.value = 'Search'" onfocus="if(search.txt_search.value =='Search') search.txt_search.value = ''" />
             </div>    </form>
             <div class="searchr">
              
-             <div class="stext"> <input name="Search" type="radio" id="radio"  value="" /></div>
-              <label for="radio" class="slab">question</label>
+             <div class="stext">  <input type="radio" name="stype[]" id="stype1" value="1" <?php if(isset($_REQUEST['stype'])) { if($_REQUEST['stype']==1) {?> checked="checked" <?php } }else{?> checked="checked" <?php }?>  /></div>
+              <label for="radio" class="slab">Questions</label>
             </div>
             <div class="searchr">
               
-            <div class="stext">    <input name="Search" id="radio2" type="radio" value="" /></div>
-             <label for="radio2" class="slab">user</label>
+            <div class="stext">    <input type="radio" name="stype[]" id="stype2" value="2" <?php if(isset($_REQUEST['stype'])) { if($_REQUEST['stype']==2) {?> checked="checked" <?php } }?> /></div>
+             <label for="radio2" class="slab">Users</label>
             </div>
             <div>&nbsp;
-              <input type="button" class="searchbut" title="Search" value="Search" />
+                       <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
             </div>
-                       </div>
-            <div class="men"> 
+                  </form>     </div>
+                     <div class="men"> 
          <?php if (count($primary_links)) : ?>
 	
     <?php $mb=1;foreach ($primary_links as $link): ?>
