@@ -304,8 +304,8 @@ function profile($uid = '') {
 	$sendmsg='';
 	$badges='';
 	if($uid!=$user->uid){
-	$share='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
-">Report</a>]';	
+	$share='<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
+">Report</a><span class="separate">|</span>';	
 $flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?delm='.$uid.'">Follow </a><span class="separate">|</span> ';
 
 $sendmsg='<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a><span class="separate">|</span> <br/><div id="showboxcmt" align="left" style="width:100%;display:none"><label for="msgs"><b>Send Message :</b></label><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><input type="button"  value="sendmessage"/></div>';
