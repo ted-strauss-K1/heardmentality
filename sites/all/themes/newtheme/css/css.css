@@ -89,7 +89,37 @@ td,fieldset,div,span,input,select,textarea{ font-family:Georgia,Arial,Helvetica,
 .cate li a:hover{ color:#996600;}
 a{ text-decoration:none; color:#CC6600; font: normal 12px Georgia, "Times New Roman", Times, serif;}
 a:hover{ text-decoration:underline;}
+/*profile part*/
+.profile_part{ width:1012px; border:1px solid #ededed; margin:0 auto; padding:5px; font:normal 12px Arial, Helvetica, sans-serif; color:#000;}
+.rht_link{ float:right; font:normal 11px Arial, Helvetica, sans-serif;}
+.rht_link a{ font:normal 12px Arial, Helvetica, sans-serif; color:#727171; text-decoration:none;}
+.rht_link a:hover{ color:#000;}
+span.separate{ margin:0 10px; color:#727171;}
+.bor_bot{border-bottom:1px solid #000; margin-bottom:5px;}
+.profile_lft{ float:left; width:600px;}
+.profile_rht{ float:right; width:400px;}
+.pro_row{ border-bottom:1px solid #000; padding-bottom:5px;}
+.profile_pict{ float:left; width:135px; height:145px; border:1px solid #ededed; margin-right:15px; background:#EDEDED; text-align:center;}
+.profile_desc{ float:left; font:normal 11px Arial, Helvetica, sans-serif; color:#000; line-height:25px; color:#000;}
+.profile_rht h4{ font:bold 14px Arial, Helvetica, sans-serif; color:#535252;}
+.profile_rht ul{ margin:0px 0 0 15px; padding:0px;}
+.profile_rht ul li{ list-style-type:none; margin:5px 0;}
+.profile_rht ul li a{ color:#000; text-decoration:none; font:normal 12px Arial, Helvetica, sans-serif; color:#727171;}
+.profile_rht ul li img{ margin-right:5px;}
+.profile_rht ul li a:hover{ text-decoration:none; font:normal 12px Arial, Helvetica, sans-serif; color:#996600; text-decoration:underline;}
 
+.face_book{ width:277px; float:left; margin-top:20px;}
+.face_book h4{ margin-bottom:5px;}
+.face_book a{ font:bold 12px Arial, Helvetica, sans-serif; color:#000; text-decoration:none; float:left; line-height:30px;}
+.face_book a:hover{ color:#7f5500;}
+.face_book span{ float:left; color:#000; margin:5px 18px 0 18px;}
+.face_book a img{ margin-right:12px; text-decoration:none;}
+img{ border:none;}
+.pro_row h4{ margin:5px 0; color:#7f5500;}
+.pro_row ul{ margin-left:25px;}
+.pro_row ul li{ margin:5px 0; line-height:20px;}
+.pro_row li a{ color:#996600; text-decoration:none;}
+.pro_row li a:hover{ text-decoration:underline;}
 /*Edited for developer purposes*/
 .cmt_list { border:1px #cccccc solid;  margin-bottom:10px; padding:2px;  display:block; line-height:20px; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
 .innerbox ul li{ list-style:none;}

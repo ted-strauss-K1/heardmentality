@@ -41,6 +41,7 @@ function phptemplate_breadcrumb($breadcrumb) {
  * Override or insert PHPTemplate variables into the templates.
  */
 function phptemplate_preprocess_page(&$vars) {
+
 	 if ((arg(1) == 'block')) {
         $vars['template_files'][0] = 'page-test';
       }
@@ -170,6 +171,5 @@ function sub_menu_cat($id='',$level='')
 
 }
 
-
-
 ?>
+
