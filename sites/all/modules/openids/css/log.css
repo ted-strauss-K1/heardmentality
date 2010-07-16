@@ -6,7 +6,7 @@ URL : http://wufoo.com
 
 - - - - - - - - - - - - - - - - - - - - - */
 
-
+td span strong{font-family:Georgia, "Times New Roman", Times, serif; font-size:12px; font-style:normal}
 
 #container{
 	text-align:left;
@@ -17,7 +17,7 @@ URL : http://wufoo.com
 	font-size:small;
 	-webkit-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
 	-moz-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
-	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+	font-family:Georgia, "Times New Roman", Times, serif;
 }
 #container, #top, #bottom, #footer{
 	margin:0 auto;
@@ -42,7 +42,7 @@ form.wufoo{
 .free_trail{float:right; margin-right:135px;}
 
 .wufoo{
-	font-family:"Lucida Grande", Tahoma, Arial, sans-serif;
+	font-family:Georgia, "Times New Roman", Times, serif;
 }
 .wufoo li{
 	width:62%;
@@ -209,7 +209,7 @@ form li div label .currently{
 /* ----- FIELDS ----- */
 
 input.text, input.search, input.file, textarea.textarea, select.select{
-	font-family:"Lucida Grande", Tahoma, Arial, sans-serif;
+	font-family:Georgia, "Times New Roman", Times, serif;
 	font-size:100%;
 	color:#333;
 	margin:0;
@@ -321,7 +321,7 @@ form span.req{
 
 
 .hidden_box1 {
-	font-family: verdana;
+	font-family:Georgia, "Times New Roman", Times, serif;
 	font-size: 0px;
 	border:0px;
 	font-weight: normal;
@@ -330,10 +330,10 @@ form span.req{
 	background-color: #E2E6E7;
 	text-decoration: none
 }
-.warningMessage{ font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; color: #FF0000; text-decoration: none}
+.warningMessage{ font-family:Georgia, "Times New Roman", Times, serif; font-size: 11px; font-weight: bold; color: #FF0000; text-decoration: none}
 
 
-
+span.spacer{ padding:40px;}
 
 
 

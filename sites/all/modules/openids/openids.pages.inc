@@ -527,6 +527,7 @@ function friends_answers() {
 
 }
 function welcome_page() {
+ob_start();
     global $gSitePath,$user,$gDocPath,$base_root;
     //print_r($_COOKIE);
     //echo $_COOKIE["faceidc"];
@@ -809,10 +810,12 @@ function welcome_page() {
 var spath=\''.$gSitePath.'\';
 </script><script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript">
 </script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
-		<link type="text/css" rel="stylesheet" href="'.$gSitePath.'sites/all/modules/openids/css/log.css" /><div id="container">
+<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
+		<link type="text/css" rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'openids').'/css/log.css" /><div id="container">
    <form name="reg" id="reg"    method="post" enctype="multipart/form-data">
+   <div class="facttop2">EDIT PROFILE</div>
     <div class="info">
-	 <input type="text" class="hidden_box1" readonly="true" border="0" width="1" size="1" name="errbox" id="errbox"><div id="err_div" class="warningMessage">'.$emsg.' '.$message.'</div>
+	 <input type="text" class="hidden_box1" readonly="true" border="0" width="1" size="1" name="errbox" id="errbox"><div id="err_div" class="error">'.$emsg.' '.$message.'</div>
     </div>
     <ul>
     <fieldset>
@@ -846,9 +849,9 @@ var spath=\''.$gSitePath.'\';
 			<label class="desc" id="title14" for="Field14"> 
 			Gender
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Country 
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Religion :'.$religion.'
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethnicity: '.$ethnic.'
-			&nbsp;&nbsp;Slant: '.$slant.'
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Religion :
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethnicity:
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Slant: 
 			</label> 
 	<label class="option" for="edit-gender-0"><input id="edit-gender-0" name="gender" value="1" class="form-radio" '.$check1.' type="radio"> Male</label>
 	<label class="option" for="edit-gender-1"><input id="edit-gender-1" name="gender" value="2" class="form-radio" '.$check2.' type="radio"> Female</label> 
@@ -924,75 +927,101 @@ everyone or just followers or not at all while adding a question)
 	
 	 <fieldset>
 	 <legend><b><i> Privacy Settings</i></b> </legend>
+<table width="98%" border="0" align="center" cellpadding="1" cellspacing="1">
+  <tr>
+    <td><span class="desc"><strong>Email</strong></span><br/>
+    <select class="email_privacy" name="email_privacy">'.$option1.$option2.$option3.'</select>    </td>
+    <td><span class="desc"><strong>User Name</strong></span><br/>
+    <select class="real_name_privacy" name="real_name_privacy">'.$option1.$option2.$option3.'</select> </td>
+    <td><span class="desc"><strong>Image</strong></span><br/>
+     <select class="image"  name="image_privacy">'.$option1.$option2.$option3.'</select>
+    </td>
+  </tr>
+  <tr>
+    <td><span class="desc"><strong>Bio</strong>   </span><br/>
+      <select class="bio_privacy"  name="bio_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+ </td>
+    <td><span class="desc"><strong>Gender</strong>   </span><br/>
+      <select class="gender_privacy"  name="gender_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+    <td><span class="desc"><strong>Zip</strong>   </span><br/>
+      <select class="zip"  name="zip_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+  </tr>
+  <tr>
+    <td><span class="desc"><strong>Country</strong>   </span><br/>
+      <select class="country"  name="country_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+    <td><span class="desc"><strong>Religion</strong>   </span><br/>
+      <select class="religion"  name="religion_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+    <td><span class="desc"><strong>Ethnic</strong>   </span><br/>
+      <select class="ethnic"  name="ethnic_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+  </tr>
+  <tr>
+    <td><span class="desc"><strong>Slant</strong>   </span><br/>
+      <select class="slant"  name="slant_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+    <td><span class="desc"><strong>Facebook</strong>   </span><br/>
+      <select class="facebook"  name="facebook_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+    <td><span class="desc"><strong>Twitter</strong>   </span><br/>
+      <select class="twitter"  name="twitter_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+  </tr>
+  <tr>
+    <td><span class="desc"><strong>Followers</strong>   </span><br/>
+      <select class="followers"  name="followers_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+    <td><span class="desc"><strong>Following</strong>   </span><br/>
+      <select class="following"  name="following_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+    <td><span class="desc"><strong>Medal</strong>   </span><br/>
+      <select class="medal"  name="medal_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+  </tr>
+  <tr>
+    <td><span class="desc"><strong>Posted Answers</strong>   </span><br/>
+      <select class="answers"  name="answers_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+    <td><span class="desc"><strong>Posted Questions</strong>   </span><br/>
+      <select class="questions"  name="questions_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+	 
 
-	 <li id="foli0" class="firstName">
-	<label class="desc" id="title0" for="Field0">
-	Email
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Name
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Image
-	</label>
-    <span>
-    <select class="email_privacy" name="email_privacy">'.$option1.$option2.$option3.'</select>
-  <select class="real_name_privacy" name="real_name_privacy">'.$option1.$option2.$option3.'</select> 
-   <select class="image"  name="image_privacy">'.$option1.$option2.$option3.'</select>
-    </span>
-    </li>
-	<label class="desc" id="title0" for="Field0">
-	Bio
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Gender
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Zip
-	</label>
-    <span>
-	<select class="bio_privacy"  name="bio_privacy">'.$option1.$option2.$option3.'</select>
-	 <select class="gender_privacy"  name="gender_privacy">'.$option1.$option2.$option3.'</select> 
-	 <select class="zip"  name="zip_privacy">'.$option1.$option2.$option3.'</select>
-	    </span>
-		<label class="desc" id="title0" for="Field0">
-	Country
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Religion
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethnic
-	
-	</label>
-    <span>
-<select class="country"  name="country_privacy">'.$option1.$option2.$option3.'</select>
-<select class="religion"  name="religion_privacy">'.$option1.$option2.$option3.'</select>
-<select class="ethnic"  name="ethnic_privacy">'.$option1.$option2.$option3.'</select>
-		 </span>
-			<label class="desc" id="title0" for="Field0">
-	Slant
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Facebook
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitter
-	</label>
-		
-		 <span>
-		
-		<select class="slant"  name="slant_privacy">'.$option1.$option2.$option3.'</select>
-		<select class="facebook"  name="facebook_privacy">'.$option1.$option2.$option3.'</select>
-		<select class="twitter"  name="twitter_privacy">'.$option1.$option2.$option3.'</select>
-		 </span>
-		 	<label class="desc" id="title0" for="Field0">
-	Followers
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Following
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Medal
-	</label>
-		<span>
-		<select class="followers"  name="followers_privacy">'.$option1.$option2.$option3.'</select> 
-		<select class="following"  name="following_privacy">'.$option1.$option2.$option3.'</select>
-		<select class="medal"  name="medal_privacy">'.$option1.$option2.$option3.'</select>
-		</span>
-		<label class="desc" id="title0" for="Field0">
-		Posted Answers
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Posted Questions
-		
-		</label>
-		
-		 <span>
-		 <select class="answers"  name="answers_privacy">'.$option1.$option2.$option3.'</select>
-		 
-		 <select class="questions"  name="questions_privacy">'.$option1.$option2.$option3.'</select>
-		 
-		   </span>
-	  </fieldset>	
+	 </fieldset>	
 	
 
     <li class="buttons">
