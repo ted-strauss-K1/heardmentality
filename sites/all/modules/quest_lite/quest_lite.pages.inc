@@ -429,7 +429,7 @@ insertviews($qid);
     $optio = '';
     if ($numran != 0) {
         
-        $optio = '<option value="1"> Withdraw answer</option>';
+        $optio = '<li><a title="Withdraw Your Answer" onclick="formsubmittype(1,'.$qid.');" href="javascript:void(0);">Withdraw</a></li>';
     }
     if ($numran == 0) {
         
