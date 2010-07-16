@@ -113,7 +113,7 @@ $voutput ='<style>
         $chk = '';
     
     
-		$voutput.='</div></div>';
+		$voutput.='</div>';
 
    // $voutput.=qlite_report($qid);
     return $voutput;
