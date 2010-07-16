@@ -143,34 +143,34 @@ function profile($uid = '') {
         $gender_name1 = $gender_name;
     }
     if (($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['facebook'] == 2 && $is_follow_follower == TRUE)) {
-        $facebook1 = '<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/facebook.png" align="absmiddle" alt="Facebook" >&nbsp; '.$facebook;
+        $facebook1 = $facebook;
     }
     if (($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['twitter'] == 2 && $is_follow_follower == TRUE)) {
-        $twitter1 = '<img src="'.$gSitePath.drupal_get_path('module', 'profile').'/images/twitter.png" align="absmiddle" alt="Twitter" >&nbsp;'.$twitter;
+        $twitter1 = $twitter;
     }
     //answers posted
     $get_ans = db_query("select q.* from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='".$uid."'");
-    $ins_ans = '<ul>';
+
     while ($setans = db_fetch_object($get_ans)) {
         
         $inc_list .= "<li><a href='".$gSitePath.$setans->url."'>$setans->question?</a></li>";
     
     }
     
-    $ins_ans .= $inc_list."</ul>";
+    $ins_ans .= $inc_list;
     
     $ins_ans = ( empty($inc_list)) ? 'No Result' : $ins_ans;
     //answers ends
     
     //question sposted
     $get_ans = db_query("select q.* from {question} as q where q.uid='".$uid."' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
-    $ins_qns = '<ul>';
+  
     while ($setans = db_fetch_object($get_ans)) {
         
         $qns_list .= "<li><a href='".$gSitePath.$setans->url."'>$setans->question?</a></li>";
     
     }
-    $inc_qns .= $qns_list."</ul>";
+    $inc_qns .= $qns_list;
     
     $inc_qns = ( empty($qns_list)) ? 'No Result' : $inc_qns;
     //question ends
@@ -198,16 +198,11 @@ function profile($uid = '') {
     }
     
     if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 2 && $is_follow_follower == TRUE)) {
-        $answer1 = '<div  class="lft">
-				<p><b>Answers</b></p>
-				'.$ins_ans.'
-				</div>';
+        $answer1 = $ins_ans;
+				
     }
     if (($userSettings['questions'] == 1) || ($userSettings['questions'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['questions'] == 2 && $is_follow_follower == TRUE)) {
-        $question1 = '<div class="rht">
-				<p><b>Questions Posted</b></p>
-				'.$inc_qns.'
-				</div>';
+        $question1 = $inc_qns;
     }
     
     if ((isset($userPoints) && $userPoints > 999) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['vote_graph'] == 1) || ($userSettings['vote_graph'] == 3 && $user->uid != 0)) {
@@ -281,7 +276,7 @@ function profile($uid = '') {
         }
     }
     if ($uid != $user->uid && isset($getuser)) {
-        $flink = '<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?delm='.$uid.'">Follow </a>';
+        $flink = '<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?delm='.$uid.'">Follow </a><span class="separate">|</span> ';
     
     }
 
@@ -289,21 +284,21 @@ function profile($uid = '') {
     $share = '';
 
    if ($uid != $user->uid) {
-        $share = '[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
-">Report</a>]';
+        $share = '<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
+">Report</a><span class="separate">|</span> ';
     }
 	
 
 	
     $history='';
 	
-	 $history = '[<a href="'.url($_GET['q'], array('absolute' => true)).'?tag=activity" >History</a>]';
+	 $history = '<a href="'.url($_GET['q'], array('absolute' => true)).'?tag=activity" >History</a><span class="separate">|</span> ';
 	
 
 
 	$share='';
 	$shareme='';
-	$shareme='[<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a>]';
+	$shareme='<a href="javascript:void(0);" onclick="load_invite(\''.$gSitePath.'invite/invite_friends?uid='.$uid.'\',\'Profile\');">Share Me </a><span class="separate">|</span> ';
 	$edit='';
 	$flinkflw='';
 	$sendmsg='';
@@ -311,15 +306,15 @@ function profile($uid = '') {
 	if($uid!=$user->uid){
 	$share='[<a href="javascript:void(0);" onclick="loadflagquestion(\''.$gSitePath.'qlite/flag/?uid='.$uid.'\',\'Report \');
 ">Report</a>]';	
-$flinkflw='[<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?delm='.$uid.'">Follow </a>]';
+$flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?delm='.$uid.'">Follow </a><span class="separate">|</span> ';
 
-$sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a>]<br/><div id="showboxcmt" align="left" style="width:100%;display:none"><label for="msgs"><b>Send Message :</b></label><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><input type="button"  value="sendmessage"/></div>';
+$sendmsg='<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a><span class="separate">|</span> <br/><div id="showboxcmt" align="left" style="width:100%;display:none"><label for="msgs"><b>Send Message :</b></label><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><input type="button"  value="sendmessage"/></div>';
 	}else{
 		
-	$edit.='&nbsp;[<a href="'.$gSitePath.'?act=edit" >Edit My Profile </a>]';	
+	$edit.='<a href="'.$gSitePath.'?act=edit" >Edit My Profile </a><span class="separate">|</span> ';	
 	}
 
-	$badges.='<h1>Badges</h1>';
+	$badges.='';
 	
 	//$imageresult=UserPicture($uid);
 	  $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid";
@@ -327,92 +322,103 @@ $sendmsg='&nbsp;[<a onclick="profile_comment('.$getuser->uid.');" >Send Message 
 
 	foreach($badgelist as $badgeach){
 		
-	$badges.='<h4><b>'.$badgeach['name'].'</b>['.$badgeach['bcnt'].']</h4>';	
+	$badges.='<li>'.$badgeach['name'].'</b>['.$badgeach['bcnt'].']</li>';	
 	}
 	if(empty($badgelist)){
 		
-		$badges.='<div class=""><h3>No Badges Yet !</h3></div>';
+		$badges.='<li><h3>No Badges Yet !</h3></li>';
 	}
-//content starts
-    $strReturn = '<script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript"></script><div id="profile_page"><form id="proform" method="post" action="'.$gSitePath.'postmessage" ><div class="main">
-			
-			<div class="lft">
-			
-			<div class="">
-			<div class="img">'.UserPicture($uid).$medal.'
-			</div>
-			<div class="info">
+	
+	
+///content starts	
+	
+ $strReturn .= ' 
+     
+		<div class="rht_link">
 
-					<br/>
-
-
-'.$getuser->name.'&nbsp;'.$share.' '.$flink.' '.$history.' '.$sendmsg.' '.$edit.'<br/>
-
-
-					'.$real_name1.'<br/>
-					'.$dob1.'<br/>	
-					'.$gender_name1.'<br/>	
-					'.$religion1.'<br/>
-					'.$country1.$zip1.'<br/>
-					
-			</div>
-			</div>	
-			<!--<div class="clear">&nbsp; </div>-->	<div class="clear">&nbsp; </div>
-<hr align="center" size="1"  style="width:96%"  noshade="noshade" />
-				<div class="lft bio">
-					
-					'.$bio1.'
-				</div>
-				<div class="rht">
-					<a href="'.$facebook.'" target="blank">'.$facebook1.'</a><br/>
-					<a href="'.$twitter.'" target="blank">'.$twitter1.'</a>
-				</div>
-				
-				
-				
-			</div>
-			
-		<div class="rht">
-		
-				<div class="follow">';
-
-    
-    if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE)) {
-        $strReturn .= '<p><b>Following</b></p><div id="showid"> </div>';
+        '.$share.$flink.$history.$sendmsg.$edit.'
+        </div>
+        <br class="clr" />
+      </div>
+      <div class="profile_lft">
+      	<div class="pro_row">
+        <div class="profile_pict">'.UserPicture($uid).$medal.'</div>
+        <div class="profile_desc">
+        	<div>'.$real_name1.'<br />
+			'.$dob1.'<br />
+			'.$gender_name1.'<br />
+			'.$religion1.'<br />
+			'.$country1.$zip1.'</div>
+        </div>
+        <br class="clr" />
+        </div>
+        <div class="pro_row">
+        <h4>Bio</h4>
+        	<p> '.$bio1.'</p>
+        
+        </div>
+        <div class="pro_row">
+        <div class="face_book">
+            <h4>Follow me on</h4>
+                    <a title="FaceBook" target="_blank" href="'.$facebook1.'"><img align="left" alt="" src="'.$gSitePath.path_to_theme().'/images/face_icon.png"/>Face Book</a> <span>|</span>
+                    <a title="Twitter" target="_blank" href="'.$twitter1.'"><img align="left" alt="" src="'.$gSitePath.path_to_theme().'/images/twitter.png"/>Twitter</a>
+            </div>
+            <br class="clr" />
+        </div>
+        
+        <div class="pro_row">
+        <h4>Answers</h4>
+        	<ul>
+         '.$answer1.'
+            </ul>
+        </div>
+        
+        <div class="pro_row">
+        <h4>Questions Posted</h4>
+        	<ul>
+           '.$question1.'
+            </ul>
+        </div>
+        
+        <div class="pro_row">
+        <h4>Badges</h4>
+        <ul>
+        	'.$badges.'
+        </ul>
+        </div></div>';
+          if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE)) {
+     $following='';
         $newlist = followinglist($uid);
         for ($i = 0; $i < count($newlist); $i++) {
-            $strReturn .= ''.$newlist[$i].'';
+            $following .= ''.$newlist[$i].'';
         
         }
     }
-    $strReturn .= '</div>
-				<div class="follower">
-				';
-    
-    if (($userSettings['followers'] == 1) || ($userSettings['followers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['followers'] == 2 && $is_follow_follower == TRUE)) {
+      $strReturn .= ' 
+      <div class="profile_rht">
+      <h4>Following</h4>
+      <ul>
+      	'.$following.'
+      </ul>';
+      if (($userSettings['followers'] == 1) || ($userSettings['followers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['followers'] == 2 && $is_follow_follower == TRUE)) {
         
-        $strReturn .= '<p><b>Followers</b></p>';
+      $follower='';
         $newlist2 = followerlist($uid);
         for ($k = 0; $k < count($newlist2); $k++) {
-            $strReturn .= ''.$newlist2[$k].'';
+            $follower .= ''.$newlist2[$k].'';
         
         }
     }
-    $strReturn .= '</div>
-				
-				
-				
-			</div>
-			
-			<div class="">'.$answer1.$question1.'
-			</div>
-			<div class="lft">'.$badges.'</div>
-			
-			
-		</div>
-		
-	</form></div>
-	';
+      $strReturn.='
+      <h4>Followers</h4>
+      <ul>
+      	'.$follower.'
+      </ul>
+     
+      ';
+	  
+	  
+	  
     return $strReturn;
 
 
@@ -1194,6 +1200,18 @@ function activities($uid = '') {
 	ORDER BY dat DESC LIMIT 0,50 ";
     $fetch = ExecuteQuery($selQ, "select");
     
+	
+	$strReturn.='
+	
+	<div class="rht_link">
+
+       <a href="'.$gSitePath.'profile">Back To Profile</a>
+        </div>
+		  <br class="clr" />
+      </div>
+		
+		';
+	
 	if(!empty($fetch)){
 		
 		
