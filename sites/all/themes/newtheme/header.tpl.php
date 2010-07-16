@@ -129,6 +129,54 @@ jQuery(function(){
 			
 			}
 			</script>
+            
+					  <?php 
+            //echo  $apikey;
+             //echo $_SERVER['HTTP_HOST'];
+            if(isset($_REQUEST["act"]))
+            {
+			if($_REQUEST["act"]=="edit2")
+			{
+            ?>
+            <script type="text/javascript">
+           var r=confirm("Do you want to earn the Biographer badge by competing your profile information?");
+            if (r==true)
+              {
+		   jQuery(document).ready(function(){
+		    jQuery.nyroModalSettings({ title:'Edit Profile'});
+
+	jQuery.nyroModalManual({
+    url:'<?php echo $gSitePath?>edit',width:850,height:700,title:'Edit Profile'
+  }); });
+
+              }
+           
+            </script>
+                 
+            <?php
+            }  
+            elseif($_REQUEST["act"]=='edit')
+            {
+            ?>
+            <script>
+           
+		   jQuery(document).ready(function(){
+		    jQuery.nyroModalSettings({ title:'Edit Profile'});
+
+	jQuery.nyroModalManual({
+    url:'<?php echo $gSitePath?>edit',width:850,height:700,title:'Edit Profile'
+  }); });
+</script>
+
+            <?php
+            }
+            }
+            ?>
+            
+                        
+                        
+            
+            
 </head>
 <body class="<?php print $body_classes; ?>" >
 <!--main div-->
