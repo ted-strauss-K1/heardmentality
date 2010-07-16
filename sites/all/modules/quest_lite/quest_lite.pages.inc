@@ -914,7 +914,7 @@ function add_resources() {
 	';
     
     $resources .= '<div id="log">
-	
+	<div class="facttop2">ADD RESOURCES</div>
 	<div id="log_res"><!-- spanner --></div>
 	</div><div id="err">'.$list_err.'</div><br/>
 	<span class="clr"><!-- spanner --></span>';
