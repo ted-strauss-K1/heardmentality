@@ -457,24 +457,7 @@ insertviews($qid);
 	
 	
 
-	$voutput.='<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
-	<script>
-        var conf = 
-        {
-           // APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
-		   APIKey: \''.$apikey.'\'
-        };
-        
-        function onLoad()
-        {
-            gigya.services.socialize.getUserInfo(conf,{callback:renderUI});	    
-            
-           
-            gigya.services.socialize.addEventHandlers(conf, { onConnect:renderUI, onDisconnect:renderUI}   ); 
-            
-        }
-    </script>
-    
+	$voutput.='    
        <script type="text/javascript">
 
         
