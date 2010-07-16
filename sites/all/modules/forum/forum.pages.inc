@@ -21,7 +21,7 @@ function forum_list($qid = '') {
 	<link rel="stylesheet" href="'.base_path().path_to_theme().'/css/css.css" type="text/css" />
 	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
     
-    $output .= '<div class="">';
+    $output .= '	<div class="facttop2">FORUM POSTS</div><div class="">';
     foreach ($list as $forum) {
 
         
@@ -46,9 +46,6 @@ function forum_list($qid = '') {
 		//flag
 		$flag.='<a href="#wavefooter" onclick="report_forum(\'rwave\','.$wid.');">Report</a>';
         
-		
-		
-		
         $output .= '
 		<div id="waveerr" align="center"></div>
 	<div class="comment com-1" style="background:#ECECEF">
@@ -685,9 +682,10 @@ function resforum_list() {
 	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
  
     //print_r($cnt);
-    $wave .= '<div class="top"></div><div class="clr"></div>
-	<div class="mid"/>
+    $wave .= '
+	
 	<div id="ajaxpage_content">
+	<div class="facttop2">FORUM POSTS</div>
 		<div class="qwavebut">
 	<!--	<input type="button" onclick="newwave(\''.$gSitePath.'question/forum/'.$rid.'?action=new\',\'New Wave\')" value="New Wave" class="waveButtonMain"/> -->
 	<input type="button" id="newwavebut" value="New Wave" onclick="toggle();" class="waveButtonMain"/>
@@ -722,8 +720,7 @@ else{
 	$wave.='</div>
 	<div>
 	</div>
-	<div class="clr"/>
-<div class="bott"/>
+	<div class="clr"></div>
 	';
   
     echo $wave;
