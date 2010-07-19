@@ -57,7 +57,7 @@ jQuery(document).ready(function(){
     .appendTo('#lang'); //insert the dropdown to the page
 
     //insert Google's logo after the dropdown:
-jQuery.translate.getBranding().appendTo(jQuery('#lang'));
+//jQuery.translate.getBranding().appendTo(jQuery('#lang'));
 
     //get previously translated language      
     var destLang = jQuery.cookie('destLang'); 
