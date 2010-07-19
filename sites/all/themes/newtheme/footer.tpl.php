@@ -24,7 +24,8 @@ jQuery(function() {
 });
 
 
-function translateTo( destLang ){  
+function translateTo( destLang ){ 
+
   jQuery('body').translate(
       'english', 
       destLang, 
@@ -34,7 +35,10 @@ function translateTo( destLang ){
   
 	  }
       )
-	  
+	jQuery(".jq-translate-ui").val(destLang).attr("selected", "selected");
+  jQuery(".jq-translate-ui option:contains("+destLang+")").val();
+jQuery(".jq-translate-ui option[text=" + destLang +"]").attr("selected","selected") ;
+
 }
 
 jQuery(document).ready(function(){
