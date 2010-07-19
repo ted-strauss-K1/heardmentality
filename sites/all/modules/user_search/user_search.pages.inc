@@ -109,35 +109,7 @@ window.addEvent(\'domready\', function(){
 						</script>
 			
 			';
-    $fetresult .= '<style type="text/css">
-ul{ list-style-type: none; }
-#container{ width: 960px; margin: 0 auto; position: relative; }
-#feature,
-.feature { padding: 10px 20px 0 20px;}
-#feature li a,
-.feature li a { color: #F37321; text-decoration: none;}
-.feature h4 {
-font-style:italic;
-overflow:hidden;
-}
-.feature p{
-color:#464A3F;
-font-size:11px;
-margin:3px 0;
-font-family:inherit;
-font-size:100%;
-font-style:inherit;
-font-weight:inherit;
-}
-.linkfol
-{
-background:#098ED1 none repeat scroll 0 0;
-color:#fff;
-padding:3px 6px;
-text-decoration:none;
-}
-
-	</style>
+    $fetresult .= '
 	<div id="container-user">
 	<div class="feature">
 	<div class="l col">
@@ -308,35 +280,7 @@ window.addEvent(\'domready\', function(){
 						</script>
 			
 			';
-    $fetresult .= '<style type="text/css">
-ul{ list-style-type: none; }
-#container{ width: 960px; margin: 0 auto; position: relative; }
-#feature,
-.feature { padding: 10px 20px 0 20px;}
-#feature li a,
-.feature li a { color: #F37321; text-decoration: none;}
-.feature h4 {
-font-style:italic;
-overflow:hidden;
-}
-.feature p{
-color:#464A3F;
-font-size:11px;
-margin:3px 0;
-font-family:inherit;
-font-size:100%;
-font-style:inherit;
-font-weight:inherit;
-}
-.linkfol
-{
-background:#098ED1 none repeat scroll 0 0;
-color:#fff;
-padding:3px 6px;
-text-decoration:none;
-}
-
-	</style>
+    $fetresult .= '
 	<div id="container">
 	<div class="feature">
 	<div class="l col">
@@ -999,35 +943,7 @@ window.addEvent(\'domready\', function(){
 						</script>
 			
 			';
-    $fetresult .= '<style type="text/css">
-ul{ list-style-type: none; }
-#container{ width: 960px; margin: 0 auto; position: relative; }
-#feature,
-.feature { padding: 10px 20px 0 20px;}
-#feature li a,
-.feature li a { color: #F37321; text-decoration: none;}
-.feature h4 {
-font-style:italic;
-overflow:hidden;
-}
-.feature p{
-color:#464A3F;
-font-size:11px;
-margin:3px 0;
-font-family:inherit;
-font-size:100%;
-font-style:inherit;
-font-weight:inherit;
-}
-.linkfol
-{
-background:#098ED1 none repeat scroll 0 0;
-color:#fff;
-padding:3px 6px;
-text-decoration:none;
-}
-
-	</style>
+    $fetresult .= '
 	<div id="container-user_list">
 	<div class="feature">
 	<div class="l col">
