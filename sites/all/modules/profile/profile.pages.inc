@@ -308,7 +308,7 @@ function profile($uid = '') {
 ">Report</a><span class="separate">|</span>';	
 $flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?delm='.$uid.'">Follow </a><span class="separate">|</span> ';
 
-$sendmsg='<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a><span class="separate">|</span> <br/><div id="showboxcmt" align="left" style="width:100%;display:none"><label for="msgs"><b>Send Message :</b></label><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><input type="button"  value="sendmessage"/></div>';
+$sendmsg='<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a><span class="separate">|</span> <br/><form id="proform" method="post" action="'.$gSitePath.'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
 	}else{
 		
 	$edit.='<a href="'.$gSitePath.'?act=edit" >Edit My Profile </a><span class="separate">|</span> ';	
@@ -329,7 +329,7 @@ $sendmsg='<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a><sp
 		$badges.='<li><h3>No Badges Yet !</h3></li>';
 	}
 	
-	
+	 drupal_add_js(drupal_get_path('module', 'profile').'/js/profile.js');
 ///content starts	
 	
  $strReturn .= ' 
@@ -513,6 +513,7 @@ function profile_edit() {
     extract($result);
    
     drupal_add_js(drupal_get_path('module', 'profile').'/js/en.js');
+	 drupal_add_js(drupal_get_path('module', 'profile').'/js/profile.js');
     drupal_add_js(drupal_get_path('module', 'profile').'/js/formcheck.js');
     drupal_add_css(drupal_get_path('module', 'profile').'/theme/classic/formcheck.css');
     //geoname

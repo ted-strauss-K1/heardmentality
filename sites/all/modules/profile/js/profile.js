@@ -26,53 +26,40 @@ function validate_profile(){
 /**
  * @author gobinath.m
  */
-window.addEvent('domready', function(){
 
-
-   
-    
-});
-
-
-
+  
 
 function profile_comment(make){
 
+jQuery(document).ready(function(){
+ jQuery("#usmsg").click(function () { 
+ var formmsg=jQuery('#proform');
+    jQuery.post(formmsg.attr('action'),formmsg.serialize(),
+   function(data){
+    jQuery('.rht_link').prepend(data);
+	  jQuery('#showboxcmt').slideToggle("slow");
+	  formmsg.get(0).reset();
+
+   });
+    });
+});
  
-    var report = $('msgs').get('value');
+ 
+    var report = jQuery('#msgs').val();
 	
 		
-		    if ($('showboxcmt').getStyle('display') == 'none') {
-    
-        $('showboxcmt').setStyle('display', 'block');
-        $('showboxcmt').slide('hide').slide('in');
-        $('msgs').focus();
+		  jQuery('#showboxcmt').slideToggle("slow");
+        jQuery('#msgs').focus();
         return false;
-    }
+  
     if (report.trim().length < 5) {
-        $('msgs').setStyle('border-color', '#EF2C2C');
+        jQuery('msgs').css('border-color', '#EF2C2C');
         return false;
     }else{
-		 $('msgs').setStyle('border-color', '');
+		 jQuery('#msgs').css('border-color', '');
 		
 	}
-	
-		
-		
-        
-            
-          
-            $('proform').set('send', {
-                onComplete: function(response){
-                    var log = $('profile_page').empty().addClass('ajax-loading');
-                    log.set('html', response);
-                 
-                }
-            });
-            //Send the form.
-            $('proform').send();
-            
-       
+
     }
    
 function get_zip_city(code){

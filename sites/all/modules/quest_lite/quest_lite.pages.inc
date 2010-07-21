@@ -979,32 +979,9 @@ function save_resources() {
 
 function flag_question() {
     global $gSitePath,$user,$gDocPath,$base_root;
-    $falgq = '<script type="text/javascript">
-	window.addEvent(\'domready\', function() {
 	
-	if (!window.demo_path) window.demo_path = \'\';
-	var demo_path = window.demo_path;
-	
-	$(\'flagform\').addEvent(\'submit\', function(e) {
-	
-	e.stop();
-	
-	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
-	
-	this.set(\'send\', {onComplete: function(response) { 
-	log.removeClass(\'ajax-loading\');
-	log.set(\'html\', response);
-	}});
-	
-	this.send();
-	});
-	});
-	
-	
-	</script>
-	
-	';
-     $falgq .= '	<script>
+	$falgq='';
+	    $falgq .= '	<script>
 	var spath="'.$gSitePath.'";
 	</script>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
@@ -1012,6 +989,11 @@ function flag_question() {
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'forum').'/scripts/forum.js"></script>
 	<link rel="stylesheet" href="'.base_path().path_to_theme().'/css/css.css" type="text/css" />
 	';
+	
+    $falgq.= '
+	
+	';
+ 
    	if(isset($_REQUEST['uid'])){
    		
 			$uid =$_REQUEST['uid'];

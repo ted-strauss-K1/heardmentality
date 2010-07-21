@@ -95,3 +95,46 @@ jQuery.nyroModalSettings({ title:'Retag this question'});
 	
 	
 }
+
+
+function likethis(action, wid, like, ele){
+
+    el = jQuery(ele);
+    
+    el.empty();
+    //var myVerticalSlide = new Fx.Slide('likelink');
+    
+    
+    //	myVerticalSlide.slideOut();
+    // el.fade('out');
+    //$('likelink').set('slide', {duration: 'long', transition: 'bounce:out'});
+    //$('likelink').slide('in');
+    //el.slide('hide').slide('in');
+   // el.slideDown();
+    // $('likelink').empty();
+    
+    var url = spath + 'question/forum/savecmt';
+ 
+    jQuery('#waveerr').html('<b>Saving your like..!</b>');
+         // jQuery('#waveerr').slideDown().slideUp();
+    		jQuery.ajax({
+   type: "POST",
+   url: url,
+   dataType:'xhr',
+  data: {
+            action: action,
+            like: like,
+            nodeid: wid
+        },
+   success: function(msg){
+    el.html(msg);
+	jQuery('#waveerr').slideUp();
+   }
+ });	
+    
+    //$('waveerr').set('html','<b>Thanks for your like!</b>');
+
+}
+
+
+

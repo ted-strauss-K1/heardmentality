@@ -59,3 +59,5 @@ function resource_like(rid,uid,rtype){
 		}).send();;
     
 }
+
+

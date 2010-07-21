@@ -526,6 +526,28 @@ function friends_answers() {
 
 
 }
+
+
+function age($date){
+	
+$year_diff = '';
+	$time = strtotime($date);
+	if(FALSE == $time){
+		return '';
+	}
+
+
+	$date=date('Y-m-d',$time);
+	list($year,$month,$day)=explode("-",$date);
+	$year_diff = date("Y")-$year;
+	$month_diff = date("m")-$month;
+	$day_diff = date("d")- $day;
+	if ($day_diff < 0 || $month_diff < 0) $year_diff–;
+
+	return $year_diff;
+}
+
+
 function welcome_page() {
 ob_start();
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -669,7 +691,8 @@ ob_start();
 
         
         $update_user = db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
-        
+        $age='';
+		$age=age($dob);
         $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
 
         

@@ -180,4 +180,16 @@ else
 }
 return $PROFILE_IMAGE ;
 }
+
+
+function save_message(){
+	
+	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+	 $uid=$_REQUEST['actions'];
+	db_query("insert into messages (from_id,to_id,message) values('".$user->uid."','".$uid."','".$_REQUEST['msgs']."')");
+	
+	echo '<div class="messages success">Message sent successfully!</div>';
+	exit;
+	
+}
 ?>

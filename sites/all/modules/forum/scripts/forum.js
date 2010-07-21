@@ -10,7 +10,7 @@ window.addEvent('domready', function(){
         $('flagform').addEvent('submit', function(e){
         
             e.stop();
-            
+           
             var log = $('log_res').addClass('ajax-loading');
             
             this.set('send', {
@@ -18,7 +18,7 @@ window.addEvent('domready', function(){
                     log.removeClass('ajax-loading');
                     log.set('html', response);
                     
-                    setTimeout("$('freport').slide('out');$('log_res').empty();", 2000);
+                    setTimeout("$('flagform').slide('out');", 2000);
                 }
             });
             
