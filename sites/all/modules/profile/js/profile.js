@@ -32,6 +32,8 @@ function validate_profile(){
 function profile_comment(make){
 
 jQuery(document).ready(function(){
+	jQuery("#usmsg").unbind("click");
+
  jQuery("#usmsg").click(function () { 
  var formmsg=jQuery('#proform');
     jQuery.post(formmsg.attr('action'),formmsg.serialize(),

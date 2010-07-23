@@ -48,6 +48,8 @@ function profile_view() {
 
 }
 
+
+
 function profile($uid = '') {
     
     global $gSitePath,$user,$gDocPath,$base_root;

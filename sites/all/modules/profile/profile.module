@@ -186,10 +186,54 @@ function save_message(){
 	
 	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 	 $uid=$_REQUEST['actions'];
-	db_query("insert into messages (from_id,to_id,message) values('".$user->uid."','".$uid."','".$_REQUEST['msgs']."')");
+	 if(!empty($uid)&&!empty($_REQUEST['msgs'])&&!empty($user->uid)){
+	 	db_query("insert into messages (from_id,to_id,message) values('".$user->uid."','".$uid."','".$_REQUEST['msgs']."')");
 	
 	echo '<div class="messages success">Message sent successfully!</div>';
+	
+	 }else{
+	 	echo '<div class="messages error">Sorry Error Occurs!</div>';
+		
+	 }
 	exit;
 	
+}
+
+
+function user_facts(){
+	  global $gSitePath,$user,$gDocPath,$base_root;
+	 $time_period = variable_get('user_block_seconds_online', 900);
+	$output='';
+	
+	$usercnt='';
+	$quest='';
+	$ans='';
+	$usercnt=db_result(db_query("select count(uid) from {users} where status='1'"));
+	$quest=db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1'"));
+	$ans=db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1'"));
+		
+	  $userslist = db_query('SELECT uid, name, access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
+        $total_users = db_result($userslist);
+	
+	$output.='
+    <div><img src="'.$gSitePath.path_to_theme().'/images/map.gif" alt="map"/>
+</div>
+<div>
+            <div class="fact1">
+              <p>'.$usercnt.'</p>
+              users</div>
+            <div class="fact1">
+              <p>'.$quest.'</p>
+              questions</div>
+            <div class="factblu">
+              <p>'.$total_users.'</p>
+              online</div>
+            <div class="fact1">
+              <p>'.$ans.'</p>
+              answers</div>
+          </div>
+<div class="clr"></div>
+  ';
+	return $output;
 }
 ?>
