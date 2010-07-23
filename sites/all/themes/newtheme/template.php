@@ -170,6 +170,36 @@ function sub_menu_cat($id='',$level='')
 	return $strReturn;
 
 }
-
+function onlineuser_count(){
+	global $gSitePath;
+    $number = db_result(db_query('SELECT COUNT(uid) AS number FROM {users} WHERE status=1'));
+    if (user_access('access content')) {
+        // Count users with activity in the past defined period.
+        $time_period = variable_get('user_block_seconds_online', 900);
+       
+        // Perform database queries to gather online user lists.
+        $guests = db_fetch_object(db_query('SELECT COUNT(sid) AS count FROM {sessions} WHERE timestamp >= %d AND uid = 0', time() - $time_period));
+        $userslist = db_query('SELECT uid, name, access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
+        $total_users = db_result($userslist);
+       
+        // Format the output with proper grammar.
+        echo "Out of $number registered users ";
+        if ($total_users == 1 && $guests->count == 1) {
+            $output = t('%members and %visitors online.', array('%members' => format_plural($total_users, 'there is currently 1 user', 'there are currently @count users'), '%visitors' => format_plural($guests->count, '1 guest', '@count guests')));
+        } else {
+            $output = t('there are currently %members and %visitors online.', array('%members' => format_plural($total_users, '1 user', '@count users'), '%visitors' => format_plural($guests->count, '1 guest', '@count guests')));
+        }
+        // Display a list of currently online users.
+        $max_users = variable_get('user_block_max_list_count', 10);
+        if ($total_users && $max_users) {
+            $items = array();
+            while ($max_users-- && $account = db_fetch_object($users)) {
+                $items[] = $account;
+            }
+            $output .= theme('user_list', $items, t('Online users'));
+        }
+    }
+    return $output;
+}
 ?>
 

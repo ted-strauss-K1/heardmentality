@@ -46,7 +46,7 @@ jQuery(document).ready(function(){
   galleryLinks: '', // Use .nyroModalPrev and .nyroModalNext to set the navigation link
   windowResize: windowResize,
             width: width/2,
-            height: height,
+            height: height
 
  });
 						jQuery("#loading").ajaxStart(function(){

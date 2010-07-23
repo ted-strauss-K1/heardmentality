@@ -18,8 +18,8 @@ td,fieldset,div,span,input,select,textarea{ font-family:Georgia,Arial,Helvetica,
 .search{ width:336px;background:url(../images/m-bg.gif) repeat-x;height:32px;float:left; padding-top:4px;}
 .search div{ padding-top:1px;}
 .searchbox{ width:336px;}
-.searchtext{ width:130px; float:left; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; margin-top:2px;}
-.searchtext input{ width:130px; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px;}
+.searchtext{ width:120px; float:left; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; margin-top:2px;}
+.searchtext input{ width:120px; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px;}
 .searchr{float:left; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; margin-left:5px;}
 .slab{ float:left; padding-top:1px; margin-left:2px; line-height:15px; }
 .slab_ie{ float:left; padding-top:0px; margin-left:2px; line-height:0px; }
@@ -169,7 +169,7 @@ border:1px solid #D5D5D5;
 color:#6B6D67;
 font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold;
 font-size:11px; cursor:pointer;
-padding:2px;}
+padding:0px;}
 
 .notice,.success{
 
@@ -179,4 +179,27 @@ background: #F8FFF0 url(bioneural/exclamation.png) 15px center no-repeat;
 	border-top: 2px solid #A0DC11;
 	border-bottom: 2px solid #A0DC11;
 font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold;
+}
+
+
+#showboxcmt{
+ float: right;
+ position: absolute; z-index:4;
+ opacity: .8;
+ /* For IE 5-7 */
+ filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+ /* For IE 8 */
+ -MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+ -moz-border-radius-bottomleft:5px;
+-moz-border-radius-bottomright:5px;
+-moz-border-radius-topleft:5px;
+-moz-border-radius-topright:5px;
+background:#FFFFFF none repeat scroll 0 0;
+border:1px solid #AAAAAA;
+margin:2px 2px 10px;
+padding:5px; line-height:20px;
+  }
+#showboxcmt textarea{
+	
+	 font-size:12px; width:auto; overflow:visible; border-style:groove; border-width:2px;
 }
