@@ -219,18 +219,15 @@ function user_facts(){
     <div><img src="'.$gSitePath.path_to_theme().'/images/map.gif" alt="map"/>
 </div>
 <div>
-            <div class="fact1">
-              <p>'.$usercnt.'</p>
-              users</div>
-            <div class="fact1">
-              <p>'.$quest.'</p>
-              questions</div>
-            <div class="factblu">
-              <p>'.$total_users.'</p>
-              online</div>
-            <div class="fact1">
-              <p>'.$ans.'</p>
-              answers</div>
+         <div class="fa-item">
+          <ul>
+          <li><a href="#">'.$usercnt.' Users</a></li>
+          <li><a href="#">'.$total_users.' Online</a></li>
+          <li><a href="#">'.$quest.' Questions</a></li>
+          <li><a href="#">'.$ans.' Answers</a></li>
+          </ul>
+          
+          
           </div>
 <div class="clr"></div>
   ';
