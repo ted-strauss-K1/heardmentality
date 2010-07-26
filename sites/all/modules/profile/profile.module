@@ -226,7 +226,7 @@ function user_facts(){
           <li><a href="#">'.$quest.' Questions</a></li>
           <li><a href="#">'.$ans.' Answers</a></li>
           </ul>
-          
+          </div>
           
           </div>
 <div class="clr"></div>
