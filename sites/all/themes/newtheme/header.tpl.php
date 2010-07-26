@@ -11,6 +11,9 @@
  */
   global $user,$gSitePath,$apikey;
   $directory=$base_path.$directory;
+  ini_set("display_errors","1");
+ERROR_REPORTING(E_ALL);
+
   ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -142,6 +145,14 @@ jQuery(document).ready(function(){
       <!--Header-->
   
     <div id="header">
+    <div class="top-left-outer">
+      <div class="text-logo">
+      </div>
+      <div class="date-time">
+      November 22,2010 | 11:22pm EST
+      
+      </div>
+      </div>
       <div id="logo-title" class="logo">
 
         <a href="<?php print $front_page; ?>" rel="home" id="logo" title="<?php print t('Home'); ?>"></a>
@@ -150,11 +161,13 @@ jQuery(document).ready(function(){
   
       </div> <!-- /logo-title -->
        
-  
+   <div class="loginvi-outer">
 	
 		<?php include "login.tpl.php"; ?>
+</div>
+</div>     
 
-</div>      <?php if (!empty($search_box)): ?>
+ <?php if (!empty($search_box)): ?>
         <div id="search-box"><?php print $search_box; ?></div>
       <?php endif; ?>
 

@@ -35,5 +35,6 @@
         </div> <!-- /sidebar-right -->
       <?php endif; ?>
 </div>
+ <div class="clr"></div>
 </div>
    <?php include "footer.tpl.php"; ?>

@@ -37,8 +37,11 @@ var login_params=
 			
 			?>
  			
-			<div class="welcome"> Welcome 
-  <a href="<?php echo $gSitePath;?>profile" ><?php
+                    <div class="signin-name-outer">
+        
+        <div class="signout">
+        <ul>
+        <li> <p>Welcome <b><a href="<?php echo $gSitePath;?>profile" ><?php
 				 $user_prof = db_fetch_object(db_query("SELECT real_name from {user_profile} where  uid=".$user->uid." "));
 				if($user_prof->real_name=='')
 				{
@@ -52,8 +55,17 @@ var login_params=
 				
                  }
 				 ?>
-                 </a>&nbsp;
-			<a  href="<?php echo $gSitePath; ?>logout">Sign Out</a>&nbsp;&nbsp;<a href="<?php echo $gSitePath?>mynotify">Notify </a>	</div>
+                 </a></b></p>
+       </li>
+        <li>|</li>
+        <li><a  href="<?php echo $gSitePath; ?>logout">Sign Out</a></li>
+        <li>|</li>
+        <li><a href="<?php echo $gSitePath?>mynotify">Notify </a></li>
+        </ul>
+        </div>
+        </div><!--signin name outer-->
+ 
+			
             <?php
             endif;
 			
