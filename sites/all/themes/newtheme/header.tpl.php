@@ -147,8 +147,13 @@ jQuery(document).ready(function(){
       <div class="text-logo">
       </div>
       <div class="date-time">
-      November 22,2010 | 11:22pm EST
       
+      <?php
+	   $timezone = new DateTimeZone( "America/New_York" );
+$date = new DateTime();
+$date->setTimezone( $timezone );
+echo  $date->format( "F j,Y | g:i a Y T"); 
+    ?>
       </div>
       </div>
       <div id="logo-title" class="logo">
