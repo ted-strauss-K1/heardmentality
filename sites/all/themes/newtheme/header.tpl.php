@@ -11,9 +11,7 @@
  */
   global $user,$gSitePath,$apikey;
   $directory=$base_path.$directory;
-  ini_set("display_errors","1");
-ERROR_REPORTING(E_ALL);
-
+  
   ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
