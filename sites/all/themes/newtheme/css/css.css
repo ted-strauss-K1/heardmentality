@@ -1,25 +1,39 @@
 @charset "utf-8";
 *{ margin:0px; padding:0px;}
 body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:normal 12px Georgia, Arial, Helvetica, sans-serif;}
-td,fieldset,div,span,input,select,textarea{ font-family:Georgia,Arial,Helvetica,sans-serif;}
 .main {width: 1050px; margin:auto; padding:0px; margin-top:30px; }
 .top{ background-image:url(../images/top.png); height:10px; background-repeat:no-repeat;}
-.mid{background-image:url(../images/cen-bg.png); background-repeat:repeat-y; overflow:hidden}
+.mid{background-image:url(../images/cen-bg.png); background-repeat:repeat-y;}
 .bott{ background-image:url(../images/bott.png); height:10px; background-repeat:no-repeat;}
 .mid .inn{ width:1024px; margin:auto; padding:0px;}
 /*header*/
 #header{ width:1024px; }
 .logo{ width:578px; float:left; height:67px; }
 .logo a{ display:block;width:578px;height:67px; background-image:url(../images/logo.gif);}
-.loginvi{ width:162px; height:71px; float:right; border:1px #f0f0f0 solid;}
+.top-left-outer{ width:164px; float:left; margin-right:50px;}
+.loginvi-outer{ width:232px; float:right;}
+.text-logo{ background:url(../images/text-logo.png) no-repeat; width:162px; height:48px; border:1px #f0f0f0 solid;}
+.date-time{ width:232px; font:normal 10px Georgia, "Times New Roman", Times, serif; color:#000000;}
+.loginvi{ width:162px; height:51px; float:right; border:1px #f0f0f0 solid;}
+.signin-name-outer{ width:232px; float:right;}
+.signin-name{ width: 100px; font:normal 8px Georgia, "Times New Roman", Times, serif; float:left;}
+.signin-name p{ color:#999999; display:inline; margin:0; padding:0;}
+.signin-name b{color:#000000; margin:0; padding:0;}
+.signout{ float:left; width:auto; }
+.signout ul{ float:right; }
+.signout ul li{ list-style:none; font:normal 10px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; padding-right:5px; float:left; padding-left:5px;}
+.signout ul li a{ list-style:none; font:normal 10px  Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration: none;}
+.signout ul li a:hover{ color:#333333;}
+
+
 .clr{ clear:both;}
 /*menu*/
 #menu{ width:1024px; margin-top:6px;}
 .search{ width:336px;background:url(../images/m-bg.gif) repeat-x;height:32px;float:left; padding-top:4px;}
 .search div{ padding-top:1px;}
 .searchbox{ width:336px;}
-.searchtext{ width:120px; float:left; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; margin-top:2px;}
-.searchtext input{ width:120px; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px;}
+.searchtext{ width:130px; float:left; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; margin-top:2px;}
+.searchtext input{ width:130px; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px;}
 .searchr{float:left; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; margin-left:5px;}
 .slab{ float:left; padding-top:1px; margin-left:2px; line-height:15px; }
 .slab_ie{ float:left; padding-top:0px; margin-left:2px; line-height:0px; }
@@ -51,15 +65,17 @@ td,fieldset,div,span,input,select,textarea{ font-family:Georgia,Arial,Helvetica,
 .quesbg{ background-image:url(../images/c-bg.gif); background-repeat:repeat-y; padding:10px;  min-height:485px; }
 .quesbott{ background-image:url(../images/c-bottom.gif); height:13px;}
 .ques h2{font:18px/25px  normal Georgia, "Times New Roman", Times, serif; color:#4170a0; }
-.quesinner{ border-right:1px #ccc solid; width:90px; float:left; margin-right:5px;}
-.quesinnerr{ width:40px;float:left; font:12px/21px normal Georgia, "Times New Roman", Times, serif;}
+.quesinner{ border-right:0px #ccc solid; width:90px; float:left; margin-right:5px;}
+.quesinnerr{ width:400px;float:left; font:12px/21px normal Georgia, "Times New Roman", Times, serif;}
 .quesin{ padding:10px 0px 40px 0px; }
 .quesin ul{ margin:0px; padding:0px;}
-.quesin li{ list-style:none; background-image:url(../images/dot.gif); background-position:left; background-repeat:no-repeat; float:left; padding-left:10px; font-family:Georgia, "Times New Roman", Times, serif; color:#996600; font-size:11px; line-height:20px; }
+.quesin li{ list-style:none;float:left; padding-left:9px; font-family:Georgia, "Times New Roman", Times, serif; color:#996600; font-size:9px; line-height:20px; }
 .quesin li a{ color:#996600; text-decoration:none;}
 .quesin li a:hover{ color:#000; text-decoration:underline;}
 /*cont-right*/
 .fact{ width:162px;float:left;border:1px #cccccc solid }
+.sitetour{ width:162px; margin-bottom:10px; border-bottom:1px #cccccc solid;}
+.sitetour img:hover{ opacity:0.7;}
 .facttop{font:16px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
 .facttop2{font:14px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
 .fact1{ width:65px; margin:7px; float:left;font:14px normal Georgia, "Times New Roman", Times, serif; color:#996600; text-align:center; }
@@ -87,8 +103,8 @@ td,fieldset,div,span,input,select,textarea{ font-family:Georgia,Arial,Helvetica,
 .cateno{ border-bottom:none;}
 .cate li a{ font-family:Georgia, "Times New Roman", Times, serif; color:#000000; text-decoration:none;}
 .cate li a:hover{ color:#996600;}
-a{ text-decoration:none; color:#CC6600; font: normal 12px Georgia, "Times New Roman", Times, serif;}
-a:hover{ text-decoration:underline;}
+
+
 /*profile part*/
 .profile_part{ width:1012px; border:1px solid #ededed; margin:0 auto; padding:5px; font:normal 12px Arial, Helvetica, sans-serif; color:#000;}
 .rht_link{ float:right; font:normal 11px Arial, Helvetica, sans-serif;}
@@ -120,7 +136,56 @@ img{ border:none;}
 .pro_row ul li{ margin:5px 0; line-height:20px;}
 .pro_row li a{ color:#996600; text-decoration:none;}
 .pro_row li a:hover{ text-decoration:underline;}
+/* facts and figures*/
+
+.fa-item{ width:162px; padding:10px;}
+.fa-item ul{ padding:0px; margin:0px;}
+.fa-item ul li{ list-style:none; font:bold 14px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; background:none; padding-left:10px;}
+.fa-item ul li a{ font:bold 14px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; padding-left:10px;}
+.fa-item ul li a:hover{ background: url(../images/bullet.png) no-repeat 0 0px; font:bold 14px Georgia, "Times New Roman", Times, serif; color:#4e7aa6; text-decoration:none;padding-left:10px;}
+/*tag section*/
+.tag{ font:normal 9px Georgia, "Times New Roman", Times, serif; color:#996600; padding-left:9px;}
+.tag span{ color:#000;}
+
+/*Share flag section-top of the script*/
+.sharing-section{ width:480px; border-top:1px #cccccc solid; border-bottom:1px #cccccc solid; margin:5px; height:26px; font: normal 10px  Georgia, "Times New Roman", Times, serif; color:#996600; padding-top:2px;}
+.sharing-section .share1{ background:url(../images/share1-bg.png)  no-repeat 0px center; height:24px; width:130px; float:left;}
+.sharing-section .share1 img{ margin-top:4px; margin-left:6px;}
+.sharing-section .share1 img:hover{ opacity:0.7;}
+.sharing-section .share2{ background:url(../images/share2-bg.png)  no-repeat 0px center; height:24px; width:88px; float:left; margin-left:3px; text-align:center;}
+.sharing-section .share3{ background:url(../images/share3.png)  no-repeat 0px center; height:24px; width:58px; float:left; margin-left:3px; text-align:center;}
+
+
+/*footer satrt*/
+.footer{ width:1050px; background:#666666; height:36px;  margin:0 auto; margin-top:13px; margin-bottom:13px;}
+.footer .copy{ float:left; width:150px; font: normal 11px Arial, Helvetica, sans-serif; color:#ffffff; padding:10px 0px 0px 20px;}
+.footer .menu{ float:left; width:350px; padding-top:10px; margin-left:350px;}
+.footer .menu ul{margin:0; padding:0; padding-left:10px;}
+.footer .menu ul li{float:left; padding-left:5px; list-style:disc; font:normal 11px Arial, Helvetica, sans-serif; color:#ffffff; text-decoration:none; padding-right:30px;} 
+.footer .menu ul li a{float:left; padding-left:5px;  font:normal 11px Arial, Helvetica, sans-serif; color:#ffffff; text-decoration:none; padding-left:0px; list-style:disc;}
+.footer .menu ul li a:hover{float:left; padding-left:5px;font:normal 11px Arial, Helvetica, sans-serif; color:#ffffff; text-decoration:underline; padding-left:0px; list-style:disc;}
+.listnone{ list-style:none;}
+.footer-icon-outer{float:right; width:175px; margin-top:8px;}
+.footer-icon-outer img{ margin-right:4px; float:right;}
+/*hover*/
+.share-link{ font: normal 11px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none;}
+.share-link:hover{  border-bottom: 3px #cccccc solid;}
+/* blocks*/
+#block-1{}
+#block-2{}
+#block-3{}
+
+/*--------inner pages----------------------*/
+
+.inner-page-cont{border: 2px #666666 solid; min-height:600px; height:auto !important; height:600px; width:500px; margin:0 auto; float:left; margin-left:2px; margin-right:2px;}
+.inner-commutop{ height:29px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff;}
+.black11{ font:normal 10px Georgia, "Times New Roman", Times, serif; color:#000000; padding:5px;}
+.sharing-width{ width:260px; border:none; margin:5px;}
+.sharing-margin{ margin:5px;}
+
 /*Edited for developer purposes*/
+a{ text-decoration:none; color:#CC6600; font: normal 12px Georgia, "Times New Roman", Times, serif;}
+a:hover{ text-decoration:underline;}
 .cmt_list { border:1px #cccccc solid;  margin-bottom:10px; padding:2px;  display:block; line-height:20px; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
 .innerbox ul li{ list-style:none;}
 #loading{ 
