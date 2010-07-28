@@ -216,10 +216,10 @@ window.addEvent(\'domready\', function(){
 
 }
 function search_results_question() {
-    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+     global $gSitePath,$user,$gDocPath,$base_root,$base_path,$apikey;
     $start = '';
     $txt_search = '';
-	$cid='';
+    $cid = '';
     $scid = '';
     $sscid = '';
     $suid = '';
@@ -227,9 +227,11 @@ function search_results_question() {
     $tag = '';
     $name = '';
     $fetresult = '';
-	$totalvotes=0;
+    $totalvotes = 0;
     $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     //echo $idb;
+	 drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/subtab.js');
+    drupal_add_js(drupal_get_path('module', 'user_search').'/js/search.js');
     $page_name = "searchquestion";
     if (isset($_GET['start'])) {
         $start = $_GET['start'];
@@ -243,60 +245,39 @@ function search_results_question() {
 
     
     $eu = ($start - 0);
-    $limit = 15; // No of records to be shown per page.
+    $limit = 5; // No of records to be shown per page.
     $this1 = $eu + $limit;
     $back = $eu - $limit;
     $next = $eu + $limit;
-    $fetresult = '<script type="text/javascript">
-				
-
-window.addEvent(\'domready\', function(){
-//setDefaultCountry();
-});
-	
-				
-				 function get_quest_details(quid){
-						//alert(quid);
-						var url = "'.$gSitePath.'questinfo";
-						//alert(url);
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: {\'qsaid\':quid },
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'quest_info\').set(\'html\', response);
-											}
-									}).send();
-						
-						
-						}
-					
-						
-				
-			
-			
-							
-						</script>
-			
-			';
-    $fetresult .= '
-	<div id="container">
-	<div class="feature">
-	<div class="l col">
-	<ul>';
-    $sel=facetad_refine();
-	$sel_count=$sel['qcnt'];
-	 $sel['query'] .= " limit  $eu, $limit";
-	
-// echo $sel;
+    
+    $sel = facetad_refine();
+    $sel_count = $sel['qcnt'];
+    $sel['query'] .= " limit  $eu, $limit";
+    
+    // echo $sel;
     // $sel_search = ExecuteQuery($sel, "select");
     // print_r($sel_search);
-	
-	
-    $sel_search =mysql_query($sel['query']);
-    while ($user_result = db_fetch_object($sel_search)) {
+	$fetresult.='<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
+	<script>
+        var conf = 
+        {
+           // APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
+		   APIKey: \''.$apikey.'\'
+        };
+        
+        function onLoad()
+        {
+            gigya.services.socialize.getUserInfo(conf,{callback:renderUI});	    
+            
+           
+            gigya.services.socialize.addEventHandlers(conf, { onConnect:renderUI, onDisconnect:renderUI}   ); 
+            
+        }
+    </script>   ';
     
+    $sel_search = mysql_query($sel['query']);
+    while ($user_result = db_fetch_object($sel_search)) {
+        
         if ($user->uid != '') {
             //$flink='<a class="linkfol" href="'.$gSitePath.''.$user_result->url.'">View More </a>';
         }
@@ -321,14 +302,31 @@ window.addEvent(\'domready\', function(){
             $totalvotes = $vot1 + $vot2;
         }
         $numresum = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$user_result->qid'"));
-        $fetresult .= '<li>
-	<h3><a onclick="get_quest_details('.$user_result->qid.');">'.$user_result->question.'</a>      </h3>';
+        $fetresult .= ' <div class="result-item">
+		 
+       <div class="titl">
+	<a href="javascript:void(0);" onclick="get_quest_details('.$user_result->qid.',this);">'.rtrim($user_result->question, "?").'?</a>    </div><div class="rleft">';
         while ($vlistquest = db_fetch_object($vlist)) {
-            $fetresult .= '<h4><input name="answer_al" type="radio"  value="'.$vlistquest->paid.'" />'.$vlistquest->answer.'</h4>';
+            $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="'.$vlistquest->paid.'" />'.$vlistquest->answer.'</div>';
         
         }
-        $fetresult .= '<p><b>'.$totalvotes.'</b> Votes  <b>'.$numresum.'</b> Posts </p>';
-		$fetresult.='</li> <hr/>';
+        $fetresult .= '</div><div class="rright">
+      <div class="vote-post-outer">
+      <div class="vote-post-outer-top">
+	   <div align="center"><a href="#" class="vote-post">'.$totalvotes.'</a></div>
+      <div align="center"><a href="#" class="vote-post">'.$numresum.'</a></div>
+      </div>';
+        $fetresult .= '     <div class="vote-post-outer-bottom">
+      <div align="center" class="vot-t">Votes</div>
+       <div align="center" class="vot-t">Posts</div>
+      
+      </div>
+      
+      </div>
+      
+      </div>  </div>    
+       <div class="clr"></div>
+';
     }
 
     
@@ -346,12 +344,12 @@ window.addEvent(\'domready\', function(){
     
     ///////////////////////////////
     if ($sel_count > $limit) { // Let us display bottom links if sufficient records are there for paging
-       
+        
         /////////////// Start the bottom links with Prev and next link with page numbers /////////////////
-        $fetresult .= "<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
+        $fetresult .= " <div class='result-item factmore'><table align = 'center' width='98%'><tr><td  align='left' width='30%'>";
         //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
         if ($back >= 0) {
-            $fetresult .= "<a href='$page_name?start=$back&$lkr'><font face='Verdana' size='2'>PREV</font></a>";
+            $fetresult .= "<a class='' href='$page_name?start=$back&$lkr'><font  size='2'>PREV</font></a>";
         }
         //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
         $fetresult .= "</td><td align=center width='30%'>";
@@ -359,9 +357,9 @@ window.addEvent(\'domready\', function(){
         $l = 1;
         for ($i = 0; $i < $sel_count; $i = $i + $limit) {
             if ($i <> $eu) {
-                $fetresult .= " <a href='$page_name?start=$i&$lkr'><font face='Verdana' size='2'>$l</font></a> ";
+                $fetresult .= " <a class='sidelinks' href='$page_name?start=$i&$lkr'><font  size='2'>$l</font></a> ";
             } else {
-                $fetresult .= "<font face='Verdana' size='4' color=red>$l</font>";
+                $fetresult .= "<font color='black' size='4' >$l</font>";
             } /// Current page is not displayed as link and given font color red
             $l = $l + 1;
         }
@@ -370,20 +368,16 @@ window.addEvent(\'domready\', function(){
         $fetresult .= "</td><td  align='right' width='30%'>";
         ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
         if ($this1 < $sel_count) {
-            $fetresult .= "<a href='$page_name?start=$next&$lkr'><font face='Verdana' size='2'>NEXT</font></a>";
+            $fetresult .= "<a class='sidelinks' href='$page_name?start=$next&$lkr'><font size='2'>NEXT</font></a>";
         }
-        $fetresult .= "</td></tr></table>";
+        $fetresult .= "</td></tr></table></div>";
     
     }
     
     if ($sel_count == 0) {
-        $fetresult .= '<b>No Search Results </b>';
+        $fetresult .= ' <div  align="center" class="result-item"><b>No Search Results </b></div>';
     
     }
-    $fetresult .= ' </div>
-	</div>
-	</div>';
-
     
     return $fetresult;
 
@@ -1028,7 +1022,7 @@ window.addEvent(\'domready\', function(){
 }
 
 function get_question_details() {
-    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path,$apikey;
 
     
     extract($_REQUEST);
@@ -1036,9 +1030,13 @@ function get_question_details() {
     $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where q.status='1' and q.qid='$qsaid'  ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
-    $vresultm = $oListquest->question;
+    $qid = $oListquest->qid;
+    $vresultm .= '<div><small>'.$oListquest->question.'</small><br/>';
     $vans = "select * from {possible_answer} where  qid=$qsaid order by vote desc";
-    
+	//voted answer
+	$list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
+    $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'"));
+    $answer_id = db_fetch_object($list_lengthan);
     $vlist = db_query($vans);
     $chk = '';
     while ($vlistquest = db_fetch_object($vlist)) {
@@ -1046,8 +1044,8 @@ function get_question_details() {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
             $valu = $answprc * 100;
             $vresultm .= '
-		 <br/><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.'  ';
+		 <input name="answer" type="radio" value="'.$vlistquest->paid.'" /> <span class="black11">
+		'.$vlistquest->answer.'</span> <br/>  ';
         } else {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
             $valu = $answprc * 100;
@@ -1056,13 +1054,136 @@ function get_question_details() {
                 
                 $chk = "checked";
             }
-            $vresultm .= ' <br/><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
-		'.$vlistquest->answer.'   ';
+            $vresultm .= ' <input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" /><span class="black11">
+		'.$vlistquest->answer.' </span> <br/>   ';
         
         }
         $chk = '';
     }
 
+    $vresultm.='<script>	function formsubmittype(mtype,ids){
+		jQuery("#txt_act").val(mtype);
+		if(mtype==1)
+		{
+		
+		
+		document.getElementById(\'answer_frm\').submit();
+		}
+		if(mtype==2)
+		{
+		
+		load_invite(\''.$gSitePath.'invite/invite_friends?qid='.$qid.'\',\'Profile \');
+		//onclick="load_invite(\''.$gSitePath.'c?qid='.$qid.'\',\'Profile\');
+		}
+		if(mtype==3)
+		{
+		loadflagquestion(\''.$gSitePath.'qlite/flag/\'+ids,\'Report \');
+		
+		}
+		if(mtype==4)
+		{
+		loadsuggest(\''.$gSitePath.'qlite/suggest/\'+ids,\'Answers \');
+		
+		}
+		if(mtype==5)
+		{
+		window.location.href="'.$gSitePath.'mashup/'.$qid.'";
+		
+		}
+		}</script>';
+		$vresultm.=' 
+		
+       <script type="text/javascript">
+
+        
+        function showShareUI() {
+
+		   
+		    var act = new gigya.services.socialize.UserAction();
+
+		    act.setUserMessage("Your comment here...");
+
+		   
+		    act.setTitle("'.$oListquest->question.'");
+		    act.setDescription("'.$oListquest->context.'");
+
+           
+		    act.setLinkBack("'.$gSitePath.''.$oListquest->url.'");
+
+		  
+		    act.addActionLink("'.$oListquest->question.'", 
+		        "'.$gSitePath.''.$lji[1].'");
+
+		   
+	       
+
+			
+			var params = 
+			{
+			    userAction: act,  	                                  
+			    onError: onError,  
+			    onSendDone: onSendDone, 
+               showEmailButton:true,
+               showMoreButton:true
+			};
+
+			
+			gigya.services.socialize.showShareUI(conf, params);
+
+		}
+		
+		
+		function onError(event) {
+		    alert(\'An error has occured\' + \': \' + event.status + \'; \' + event.statusMessage);
+		}
+
+		
+		function onSendDone(event)
+		{
+		    document.getElementById(\'status\').style.color = "green";
+		    document.getElementById(\'status\').innerHTML = 
+                            \'The newsfeed has been posted to: \' 
+		            + event.providers;
+		}    
+	</script>';	
+		
+		
+		
+    $vresultm .= '   <div class="sharing-section sharing-width paddi40">
+        
+               <div class="share1">
+            <a title="Bookmark" class="share-link" onclick="showShareUI();" href="javascript:void(0);">Bookmark</a> / <a title="Invite" onclick="formsubmittype(2,'.$qid.');" href="javascript:void(0);" class="share-link">Invite</a>
+             </div>
+             
+						      
+             <div align="center" class="share1">
+              <a title="Suggest a new answer" class="share-link"  onclick="formsubmittype(4,'.$qid.');" href="javascript:void(0);">Suggest a new answer</a>
+             </div>
+             <div class="share3">
+        <a title="Create Mashup" class="share-link" onclick="formsubmittype(5,'.$qid.');" href="javascript:void(0);">&lt;Embed&gt;</a>
+             </div>
+             <div class="share3">
+             <img src="'.$gSitePath.path_to_theme().'/images/flag.png" alt="flag" align="middle" /><a title="Flag" class="share-link"  onclick="formsubmittype(3,'.$qid.');" href="javascript:void(0);">Flag</a>    </div>
+             
+            </div>
+			  <div class="clr"></div>
+            </div>
+              <h3>PERCENTAGE</h3>
+              <div class="innerbox"><iframe width="300" height="200" frameborder="0" border="0" src="'.$gSitePath.'/qlite/percent/'.$qid.'" id="frmGooglevotes"/></div>
+            </div>
+            <div class="clr"/>
+            <div>
+              <h3>OVERTIME</h3>
+              <div class="innerbox"><iframe width="300" height="200" frameborder="0" border="0" src="'.$gSitePath.'/qlite/graph/'.$qid.'" id="frmGooglepercent"/></div>
+            </div>
+            <div class="clr"/>
+            <div>
+              <h3>BY AREA</h3>
+<div class="innerbox"><iframe width="300" height="200" frameborder="0" border="0" src="'.$gSitePath.'/qlite/map/'.$qid.'" id="frmGooglemap"/></div>
+        
+            </div>
+            <div class="clr"></div>
+          ';
     
     echo $vresultm;
 }
