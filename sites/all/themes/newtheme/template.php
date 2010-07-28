@@ -45,6 +45,11 @@ function phptemplate_preprocess_page(&$vars) {
 	 if ((arg(1) == 'block')) {
         $vars['template_files'][0] = 'page-test';
       }
+	if(arg(0)=='searchuser'){
+	  	
+		 $variables['template_file'][0] = 'page-searchquestion';
+	  }
+	  
   $vars['tabs2'] = menu_secondary_local_tasks();
 
   // Hook into color.module
@@ -62,6 +67,13 @@ function garland_preprocess_comment_wrapper(&$vars) {
   }
 }
 
+function newtheme_preprocess_page(&$vars){
+	print_r($vars);die;
+	if ($vars['content'] && $vars['node']->type != 'forum') {
+    $vars['content'] = '<h2 class="comments">'. t('Comments') .'</h2>'.  $vars['content'];
+  }
+	
+}
 /**
  * Returns the rendered local tasks. The default implementation renders
  * them as tabs. Overridden to split the secondary tasks.
@@ -109,6 +121,7 @@ function phptemplate_variables($hook, $variables = array()) {
       if ((arg(0) == 'blog')) {
         $variables['template_file'] = 'page-blog';
       }
+	  
       break;
   }
 

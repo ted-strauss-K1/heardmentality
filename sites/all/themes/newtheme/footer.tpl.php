@@ -20,7 +20,6 @@
      
           </div>
   </div>
-</div>
 <!--main div close-->
 
 <script type="text/javascript">
