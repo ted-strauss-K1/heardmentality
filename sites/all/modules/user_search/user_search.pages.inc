@@ -22,98 +22,8 @@ function search_results() {
     $this1 = $eu + $limit;
     $back = $eu - $limit;
     $next = $eu + $limit;
-    $fetresult = '<script type="text/javascript">
-				var spath=\''.$gSitePath.'\';
-			
-				function setDefaultCountry() {
-  var countrySelect = document.getElementById("q_country");
-
-  for (i=0;i< countrySelect.length;i++) {
-    // the javascript geonamesData.js contains the countrycode
-    // of the userIp in the variable \'geonamesUserIpCountryCode\'
-    if (countrySelect[i].value == geonamesUserIpCountryCode) {
-      // set the country selectionfield
-	      countrySelect.selectedIndex = i;
-		get_state(geonamesUserIpCountryCode);
-    }
-  }
-}
-
-
-window.addEvent(\'domready\', function(){
-//setDefaultCountry();
-});
-	
-				
-				 function get_profile_details(urid){
-						//alert(urid);
-						var url = "'.$gSitePath.'userinfo";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: {\'getuid\':urid },
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'user_info\').set(\'html\', response);
-											}
-									}).send();
-						
-						
-						}
-					
-						
-				
-			
-						
-						function get_state(code){
-						
-						var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':1,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'chg_state\').set(\'html\', response);
-											}
-									}).send();
-						
-							var url = "'.$gSitePath.'userresults";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':1,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'container-user\').set(\'html\', response);
-											}
-									}).send();
-						}
-							function get_city(code){
-							
-							var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':2,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'chg_city\').set(\'html\', response);
-											}
-									}).send();
-							
-							}
-							
-			
-							
-						</script>
-			
-			';
-    $fetresult .= '
-	<div id="container-user">
-	<div class="feature">
-	<div class="l col">
-	<ul>';
+    $fetresult = '';
+    drupal_add_js(drupal_get_path('module', 'user_search').'/js/search.js');
     
     $name = $_REQUEST['txt_search'];
     if (isset($_REQUEST['code'])) {
@@ -144,23 +54,47 @@ window.addEvent(\'domready\', function(){
         if ($user->uid != '') {
             //$flink='<a class="linkfol" href="user/'.$user_result->uid.'?act=flag">Follow </a>';
             //$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
-        }
-        $fetresult .= '<li>
-	<h3>'.UserPicture_small($user_result->uid).'<a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
-	<h4>'.$user_result->mail.'</h4>		 	
-	<p>';
-        
-        $fetresult .= '</p> 
-	
-	</li> '.$flink.'';
-    }
+			  }
+			  $gquery="select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid='".$user_result->uid."' group by uid";
+			  $gpoints=db_result(db_query($gquery));
+      
+         $fetresult .= '<div class="result-item">
+		 <div class="first-col"> 
+		 <div class="photo"><a href="#">'.UserPicture_small($user_result->uid).'<img src="images/profile.jpg" alt="photo" width="70"  height="70"/></a></div>
+		 </div>
+		    <div class="second-col">
+    <div class="textouter"> <div class="grayt">Username:</div>
+    <div class="blakt"><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a></div>
+    </div>
+	<div class="clr"></div>
+	<div class="textouter"> <div class="grayt">Name:</div>
+    <div class="blakt"> '.$user_result->first_name.'</div>
+    </div>
+        <div class="clr"></div>
+	 <div class="textouter"> <div class="grayt">Sex:</div>
+    <div class="blakt">'.$user_result->gender.'</div>
+    </div>
     
-    $fetresult .= '</ul>';
-
+        <div class="clr"></div>
+		
+		<div class="textouter"> <div class="grayt">Points:</div>
+    <div class="blakt">'.$gpoints.'</div>
+    </div>
+    
+        <div class="clr"></div>
+		<div class="textouter"> <div class="grayt">Badges:</div>
+    <div class="blakt"><img src="'.$gSitePath.path_to_theme().'/images/yellow-dot.png" alt="yellow badge" />2 <img src="'.$gSitePath.path_to_theme().'/images/violet-dot.png" alt="violet-badges" />4 <img src="'.$gSitePath.path_to_theme().'/images/brown-dot.png" alt="brown badges" />40</div>
+    </div>
+    
+    </div>
+      
+       </div> <div class="clr"></div>
+		';
+	}
     
     if ($sel_count > $limit) {
         
-        $fetresult .= "<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
+        $fetresult .= "   <div class='result-item factmore'><table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
         if ($back >= 0) {
             $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'><font face='Verdana' size='2'>PREV</font></a>";
         }
@@ -181,16 +115,14 @@ window.addEvent(\'domready\', function(){
         if ($this1 < $sel_count) {
             $fetresult .= "<a href='$page_name?start=$next&code=$code&txt_search=$name'><font face='Verdana' size='2'>NEXT</font></a>";
         }
-        $fetresult .= "</td></tr></table>";
+        $fetresult .= "</td></tr></table></div>";
     
     }
     if ($sel_count == 0) {
         $fetresult .= '<b>No Search Results </b>';
     
     }
-    $fetresult .= ' </div>
-	</div>
-	</div>';
+    $fetresult .= ' ';
     
     if (isset($_REQUEST['act']) == 'flag') {
         $mem_id = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
@@ -231,7 +163,7 @@ function search_results_question() {
     $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     //echo $idb;
 	 drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/subtab.js');
-    drupal_add_js(drupal_get_path('module', 'user_search').'/js/search.js');
+   
     $page_name = "searchquestion";
     if (isset($_GET['start'])) {
         $start = $_GET['start'];
@@ -253,7 +185,7 @@ function search_results_question() {
     $sel = facetad_refine();
     $sel_count = $sel['qcnt'];
     $sel['query'] .= " limit  $eu, $limit";
-    
+      drupal_add_js(drupal_get_path('module', 'user_search').'/js/search.js');
     // echo $sel;
     // $sel_search = ExecuteQuery($sel, "select");
     // print_r($sel_search);
@@ -702,6 +634,162 @@ function save_follower() {
 
 }
 
+
+function get_user_details() {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    extract($_REQUEST);
+    $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$getuid."'";
+    $rs_userms = db_query($sel_userm);
+    $resulrnames = db_fetch_object($rs_userms);
+	  $gquery="select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid='".$getuid."' group by uid";
+			  $gpoints=db_result(db_query($gquery));
+    //echo $resulrnames->real_name;
+    //$ret = $resulrnames->real_name;
+    if ($resulrnames->gender == 1) {
+        $usetype = 'Male';
+    } else {
+        
+        $usetype = 'Female';
+    
+    }
+	
+	//followers
+	  $sel_list = "select * from follower  where uid='".$getuid."'  and follower_status='1' ";
+    $rs_foll_list = db_query($sel_list);
+    $numfolls = db_result(db_query("SELECT COUNT(*)  from follower  where uid='".$getuid."'  and follower_status='1'  "));
+    
+    if ($numfolls != 0) {
+        while ($following_list = db_fetch_object($rs_foll_list)) {
+
+            
+            $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$following_list->follower_id."'";
+            $rs_userm = db_query($sel_userm);
+            $user_namelist = db_fetch_object($rs_userm);
+
+            
+            $following .= '<div class="thumb2"><a href="'.$gSitePath.'/profile/'.$user_namelistf->name.'">'.$user_namelist->name.'</a></div>  ';
+
+        
+        }
+    } else {
+        $following .= 'No Records';
+    }
+	
+	    $sel_listf = "select * from follower  where follower_id='".$getuid."'   limit 0,5  ";
+    $rs_followerf = db_query($sel_listf);
+    
+    $numfoll = db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='".$getuid."'   "));
+    
+    if ($numfoll != 0) {
+        while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
+
+            
+            $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$follower_resultfuser->uid."'";
+            $rs_umlog = db_query($sel_ulist);
+            $user_namelistf = db_fetch_object($rs_umlog);
+
+            
+            $followers .= '  <div class="thumb"><a href="'.$gSitePath.'/profile/'.$user_namelistf->name.'">'.$user_namelistf->real_name.' </a></div>
+';
+
+        
+        }
+    } else {
+        $followers .= 'No Records';
+    }
+    
+	
+    $ret = '<div class="inner-commutop">
+            <p>PROFILE INFORMATION</p>
+		  <div class="inner">
+          <div class="result-item width200">
+     <div class="first-col"> 
+     <div class="photo"><a href="#">'.UserPicture($resulrnames->uid).'<img src="images/profile.jpg" alt="photo" width="70"  height="70"/></a></div>	
+		 </div>	
+	<div class="second-col width200">
+    <div class="textouter"> <div class="grayt">Username:</div>
+    <div class="blakt"> '.$resulrnames->name.'</div>
+    </div>
+    <div class="clr"></div>
+    
+    <div class="textouter"> <div class="grayt">Name:</div>
+    <div class="blakt">'.$resulrnames->real_name.'</div>
+    </div>
+        <div class="clr"></div>		
+		 <div class="textouter"> <div class="grayt">Sex:</div>
+    <div class="blakt">'.$usetype.'</div>
+    </div>
+    
+        <div class="clr"></div>
+    
+    <div class="textouter"> <div class="grayt">Points:</div>
+    <div class="blakt">'.$gpoints.'</div>
+    </div>
+            <div class="clr"></div>
+ <div class="textouter"> <div class="grayt">Badges:</div>
+    <div class="blakt"><img src="'.$gSitePath.path_to_theme().'/images/yellow-dot.png" alt="yellow badge" />2 <img src="'.$gSitePath.path_to_theme().'/images/violet-dot.png" alt="violet-badges" />4 <img src="'.$gSitePath.path_to_theme().'/images/brown-dot.png" alt="brown badges" />40</div>
+    </div>
+          
+          </div>
+        </div>
+      </div>
+          </div>
+      <div class="clr"></div>
+    <div class="outer-foll">
+      <div class="navig">
+  <ul>
+  <li><a href="#" title="History">History</a></li>
+  <li>|</li>
+  <li><a href="#" title="Edit my profile">Edit My Profile</a></li>
+   <li>|</li>
+  <li><a href="#" title="Notifications">Notifications</a></li>
+   <li>|</li>
+  <li><a href="#" title="Follow">Follow</a></li>
+  
+</ul>
+      
+  </div>
+  <div class="clr"></div>
+  
+    <div class="left-contd">
+  <div class="bio-box">
+  <strong>Bio</strong><br />
+'.$resulrnames->bio.'
+  
+  </div>
+  
+  <div class="followers">
+  <div>Followers</div>
+  '.$followers.'
+  </div>
+  
+  </div>    
+  
+  <div class="right-contd">
+  <div class="links-box">
+  <strong>Links</strong><br/>
+  <a target="_blank" href="'.$resulrnames->facebook.'" class="links">Facebook</a><br/>
+  <a target="_blank" href="'.$resulrnames->twitter.'" class="links">Twitter</a><br/>
+  <a target="_blank" href="#" class="links">Seddoeiusmod.org</a><br/>
+  <a target="_blank" href="#" class="links">Utenimad.minimum.com</a><br/>
+  </div>
+  
+  <div class="following">
+  <div>Following</div>
+	'.$following.'
+  </div>
+  
+  </div>
+  
+  
+';
+    
+  echo $ret;
+
+    }
+
+    
+/*
 function get_user_details() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     extract($_REQUEST);
@@ -831,6 +919,7 @@ function get_user_details() {
 
 }
 
+*/
 function search_results_user() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
@@ -937,12 +1026,7 @@ window.addEvent(\'domready\', function(){
 						</script>
 			
 			';
-    $fetresult .= '
-	<div id="container-user_list">
-	<div class="feature">
-	<div class="l col">
-	<ul>';
-    
+    $fetresult .= '';   
     $name = $_REQUEST['txt_search'];
     
     if ($name)
@@ -968,19 +1052,45 @@ window.addEvent(\'domready\', function(){
             //$flink='<a class="linkfol" href="search/'.$user_result->uid.'?act=flag">Follow </a>';
             //$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
         }
-        $fetresult .= '<li>
-	<h3>'.UserPicture_small($user_result->uid).'<a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a>      </h3>
-	<h4>'.$user_result->mail.'</h4>		 	
-	<p>';
+        $fetresult .= '<div class="result-item">
+		 <div class="first-col"> 
+		 <div class="photo"><a href="#"><a href="#">'.UserPicture_small($user_result->uid).'<img src="images/profile.jpg" alt="photo" width="70"  height="70"/></a></div>
+		 </div>
+		    <div class="second-col">
+    <div class="textouter"> <div class="grayt">Username:</div>
+    <div class="blakt"><a  onclick="get_profile_details('.$user_result->uid.');" > '.$user_result->real_name.'</a></div>
+    </div>
+	<div class="clr"></div>
+	<div class="textouter"> <div class="grayt">Name:</div>
+    <div class="blakt">Loremi</div>
+    </div>
+        <div class="clr"></div>
+	 <div class="textouter"> <div class="grayt">Sex:</div>
+    <div class="blakt">Male</div>
+    </div>
+    
+        <div class="clr"></div>
+		
+		<div class="textouter"> <div class="grayt">Points:</div>
+    <div class="blakt">12, 13, 405</div>
+    </div>
+    
+        <div class="clr"></div>
+		<div class="textouter"> <div class="grayt">Badges:</div>
+    <div class="blakt"><img src="images/yellow-dot.png" alt="yellow badge" />2 <img src="images/violet-dot.png" alt="violet-badges" />4 <img src="images/brown-dot.png" alt="brown badges" />40</div>
+    </div>
+    
+    </div>
+      
+       </div> <div class="clr"></div>
+		';
         
-        $fetresult .= '</p> 
-	
-	</li> '.$flink.'';
+        $fetresult .= $flink;
     }
     
     $fetresult .= '<input type="hidden" name="stype" value="'.$_REQUEST['stype'].'"/></ul>';
 
-    
+
     if ($sel_count > $limit) {
         
         $fetresult .= "<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
@@ -1011,9 +1121,7 @@ window.addEvent(\'domready\', function(){
         $fetresult .= '<b>No Search Results </b>';
     
     }
-    $fetresult .= ' </div>
-	</div>
-	</div>';
+    $fetresult .= ' ';
 
     
     echo $fetresult;
