@@ -137,19 +137,21 @@ if($resultimage->image!='noimage.jpg')
 {
 
  $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
-        $PROFILE_IMAGE = '<img src="'.$img_path.'" alt="Profile image" height="100" width="100"  >';
+        $PROFILE_IMAGE = '<img src="'.$img_path.'" alt="photo" width="70"  height="70" >';
 }
 elseif($resultimage->image_url!='')
 {
 
- $resultimage->image_url;
- $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" height="100" width="100" alt="Profile image" >';
+ 
+ 	 $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" alt="photo" width="70"  height="70">';
+
+
 }
 else
 {
 //echo $resultimage->image;
    $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
-        $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="100" width="100" alt="Profile image" >';
+        $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" alt="photo" width="70"  height="70" >';
 }
 return $PROFILE_IMAGE ;
 }
@@ -164,7 +166,12 @@ if($resultimage->image!='noimage.jpg')
 {
 
  $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
-        $PROFILE_IMAGE = '<img src="'.$img_path.'" alt="Profile image" height="30" width="30" >';
+ if(file_exists($img_path)){
+   $PROFILE_IMAGE = '<img src="'.$img_path.'" alt="Photo" height="30" width="30" >';	
+ }else{
+ 	   $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+ }
+      
 }
 elseif($resultimage->image_url!='')
 {
