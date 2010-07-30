@@ -60,7 +60,7 @@ function search_results() {
       
          $fetresult .= '<div class="result-item">
 		 <div class="first-col"> 
-		 <div class="photo"><a href="#">'.UserPicture_small($user_result->uid).'<img src="images/profile.jpg" alt="photo" width="70"  height="70"/></a></div>
+		 <div class="photo"><a href="#" onclick="get_profile_details('.$user_result->uid.');">'.UserPicture($user_result->uid).'</a></div>
 		 </div>
 		    <div class="second-col">
     <div class="textouter"> <div class="grayt">Username:</div>
@@ -667,7 +667,7 @@ function get_user_details() {
             $user_namelist = db_fetch_object($rs_userm);
 
             
-            $following .= '<div class="thumb2"><a href="'.$gSitePath.'/profile/'.$user_namelistf->name.'">'.$user_namelist->name.'</a></div>  ';
+      $following .= '<div class="thumb2"><a href="'.$gSitePath.'profile/'.$user_namelist->name.'">'.UserPicture_small($user_namelist->uid).'</a></div>  ';
 
         
         }
@@ -689,8 +689,7 @@ function get_user_details() {
             $user_namelistf = db_fetch_object($rs_umlog);
 
             
-            $followers .= '  <div class="thumb"><a href="'.$gSitePath.'/profile/'.$user_namelistf->name.'">'.$user_namelistf->real_name.' </a></div>
-';
+          $followers .= '  <div class="thumb"><a  title="'.$user_namelistf->name.'" href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.UserPicture_small($user_namelistf->uid).'</a></div>';
 
         
         }
@@ -704,7 +703,7 @@ function get_user_details() {
 		  <div class="inner">
           <div class="result-item width200">
      <div class="first-col"> 
-     <div class="photo"><a href="#">'.UserPicture($resulrnames->uid).'<img src="images/profile.jpg" alt="photo" width="70"  height="70"/></a></div>	
+     <div class="photo"><a href="'.$gSitePath.'profile/'.$resulrnames->name.'">'.UserPicture($resulrnames->uid).'</a></div>	
 		 </div>	
 	<div class="second-col width200">
     <div class="textouter"> <div class="grayt">Username:</div>
