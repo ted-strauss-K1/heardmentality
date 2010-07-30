@@ -2,10 +2,10 @@
 function donation_paypal()
 {
 global $gSitePath,$user, $gDocPath,$base_root;
-$opdonate='<div style="border: 1px solid #000; background-color:#fff; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; text-align: left;">
-<h2 style="border: 1px solid #000; margin: 5px; padding: 0.2em 0.4em; background-color:#fff; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-size: 120%; font-weight: bold; text-align: left; color: rgb(0, 0, 0);"> <span id="Make_your_donation_now" class="mw-headline">Make your donation now</span></h2>
-<div style="padding: 0pt 7px 7px; font-weight: normal;">
-<p>
+$opdonate='        <div class="do-intop">MAKE A DONATION</div>
+        <div class="inside">
+        Heard Mentality is a nonprofit and relies on your individual donations.<br />
+        Please make your donation now.<br /><br />
 <script language="javascript" type="text/javascript">
 function validateForm(form) {
 
@@ -69,26 +69,28 @@ function redirectPayment(i) {
     }
 }
 </script>
-</p><body><form name="paypalcontribution" method="post" id="paypalcontribution" action="'.$gSitePath.'paypal">
+<form name="paypalcontribution" method="post" onSubmit="return validateForm(this);" id="paypalcontribution" action="'.$gSitePath.'paypal">
   
 
-<div style="padding: 0.2em 0.4em; font-weight: normal;">
-<p style="font-weight: normal;"> Please make your donation now.</p><p>
-</p><p style="font-weight: bold;">			
-Select your tax-deductible gift amount:<br/>
-</p><div style="padding: 0pt; font-size: 87%; margin-left: -5px;" id="amount-box"> 
-<input type="radio" value="35" onclick="document.getElementById(\'amountGiven\').value=\'\'" id="input_amount_3" name="amount"/><label for="input_amount_3">$35</label> 
-<input type="radio" value="50" onclick="document.getElementById(\'amountGiven\').value=\'\'" id="input_amount_2" name="amount"/>
-<label for="input_amount_2">$50</label> 
-<input type="radio" value="75" onclick="document.getElementById(\'amountGiven\').value=\'\'" id="input_amount_1" name="amount"/>
-<label for="input_amount_1">$75</label> 
-<input type="radio" value="100" onclick="document.getElementById(\'amountGiven\').value=\'\'" id="input_amount_0" name="amount"/>
-<label for="input_amount_0">$100</label>
+<div class="row1">
+<strong>Select your tax-deductible gift amount:</strong>
+<div class="clr"></div>
 
-<span style="white-space: nowrap;">
-<input type="radio" value="Other" id="input_amount_other" name="amount"/><label for="input_amount_other">Other:</label>
+<div class="lin1"><input type="radio" value="35" onclick="document.getElementById(\'amountGiven\').value=\'\'" id="input_amount_3" name="amount"/>$35</div> 
+<div class="lin1"><input type="radio" value="50" onclick="document.getElementById(\'amountGiven\').value=\'\'" id="input_amount_2" name="amount"/>
+$50 </div>
+<div class="lin1"><input type="radio" value="75" onclick="document.getElementById(\'amountGiven\').value=\'\'" id="input_amount_1" name="amount"/>
+$75 </div>
+<div class="lin1"><input type="radio" value="100" onclick="document.getElementById(\'amountGiven\').value=\'\'" id="input_amount_0" name="amount"/>
+$100</div>
+<div class="lin1">
+
+<input type="radio" value="Other" id="input_amount_other" name="amount"/>Other:
+</div>
+<div class="lin2">
 <input type="text" onfocus="this.form.input_amount_other.checked=true;" size="3" name="amountGiven" id="amountGiven"/> 
-
+</div>
+<div class="lin2">
 <!-- currency menu --><select onchange="updateCC(this.value);" style="width: 7em;" size="1" id="input_currency_code" name="currency_code"><option selected="" value="USD">USD &#45; &#36</option>
 <option value="XXX">-------</option>
 <option value="GBP">GBP &#45; &#163;</option>
@@ -103,42 +105,44 @@ Select your tax-deductible gift amount:<br/>
 <option value="HKD">HKD &#45; HK$</option>
 <option value="HUF">HUF &#45; Ft</option>
 <option value="ILS">ILS - ?</option>
-<option value="JPY">JPY &#45; ¥</option>
+<option value="JPY">JPY &#45; ï¿½</option>
 <option value="NOK">NOK &#45; kr</option>
 <option value="NZD">NZD &#45; NZ&#36</option>
 <option value="PLN">PLN &#45; zl</option>
 <option value="SEK">SEK &#45; kr</option>
 <option value="SGD">SGD &#45; S&#36</option></select>
-</span>
+
 </div>
+</div>
+<div class="clr"></div>
+<div class="row1"><br />
 
-
-<p style="font-weight: bold;">Public comment</p>
-<p style="font-style: italic; font-weight: normal;">Have a thought to share with the world?  Put up to 200 characters here:</p>
-<p>
+<strong>Public comment</strong><br />
+Have a thought to share with the world? Put up to 200 characters here:
+<div class="textbox-lengthy">
 <input type="text" style="width: 70%;" maxlength="200" size="30" name="comment"/>
+</div>
+<div><input type="checkbox" checked="checked" value="1" id="input_comment-option" name="comment-option" style="margin: 0pt;"/>  <label for="input_comment-option">Please list my name (next to my comment) on the public donor list.</label></div>
+<div><input name="" checked="checked"  disabled="disabled" type="checkbox" value="" />&nbsp;&nbsp; I agree to receive future Heard Mentality newsletters or emails .(We will never sell or trade your information . Our privacy policy can be found<span> here</span>) </div>
+</div>
+<div class="clr"></div>
 
-</p><p/><div id="small"><input type="checkbox" checked="checked" value="1" id="input_comment-option" name="comment-option" style="margin: 0pt;"/>  <label for="input_comment-option">Please list my name (next to my comment) on the public donor list.</label></div>
-<p/>
+
+<div class="donate">
+<input type="image" src="'.$gSitePath.path_to_theme().'/images/donate-paypal.png"   class="input-button button-navyblue" value="Donate via PayPal"/>
+</div>
+<div class="clr"></div>
+<div>
+<strong>Other ways to give</strong><br />
+
+For more information about our non-profit status or other questions , <span><a href="#" class="links">click here.</a></span>
 
 
-
-<div id="paypal-donate-button">
-<input type="button" onclick="redirectPayment(this.form);" class="input-button button-navyblue" value="Donate via PayPal"/>
 </div>
 
- 
-
-<p>	
-
-
-</p></div>
-
-
-
-
-</form></div>
-</div></body>';
+        
+        
+        </div>';
 
 return $opdonate;
 
