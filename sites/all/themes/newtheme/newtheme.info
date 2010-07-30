@@ -10,7 +10,6 @@ stylesheets[print][] = print.css
 
 scripts[] = rotate_files/ui_002.js
 scripts[] = rotate_files/ui.js
-scripts[] = scripts/container_core-min.js
 scripts[] = scripts/preload.js
 scripts[] = scripts/nyroModal.pack.js
 ; Information added by drupal.org packaging script on 2010-07-16
