@@ -33,8 +33,8 @@ function treemenu_list() {
     $strReturn .= '<ul id="navigation">';
     
     for ($i = 0; $i < count($client_array); $i++) {
-        
-        $strReturn .= '<li>'.$client_array[$i].'';
+       
+        $strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.$client_array[$i].'</a></div>';
         if (user_access("administer nodes")) {
             // Do something.
             
@@ -269,7 +269,7 @@ function treemenu_get($nid = '') {
 
 function sub_menu($id = '', $level = '') {
     $strReturn = null;
-    
+     global $gSitePath,$user,$gDocPath,$base_root;
     if ($level < 2) {
         
         $client_select = db_query("SELECT cat_id,cat_name,(select cat_name from {category} where cat_id='$id') as mcat FROM {category} where parent_id='".$id."'  ");
@@ -283,7 +283,7 @@ function sub_menu($id = '', $level = '') {
             $client_key[] = $list->cat_id;
             $mcat = $list->mcat;
         }
-        $strReturn .= '<div><a href="'.$gSitePath.'searchquestion?cid='.$id.'" >'.$mcat.'</a></div>';
+       // $strReturn .= '<div><a href="'.$gSitePath.'searchquestion?cid='.$id.'" >'.$mcat.'</a></div>';
         if (count($client_array) > 0) {
             $strReturn .= '<ul >';
             
@@ -364,6 +364,7 @@ function category_admin() {
 }
 
 function admin_sub_menu($id = '', $level = '') {
+
     $strReturn = null;
     $mcat = '';
     $flag_date = '';
