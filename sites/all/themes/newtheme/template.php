@@ -68,7 +68,7 @@ function garland_preprocess_comment_wrapper(&$vars) {
 }
 
 function newtheme_preprocess_page(&$vars){
-	print_r($vars);die;
+	
 	if ($vars['content'] && $vars['node']->type != 'forum') {
     $vars['content'] = '<h2 class="comments">'. t('Comments') .'</h2>'.  $vars['content'];
   }
