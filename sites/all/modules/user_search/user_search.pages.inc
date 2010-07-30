@@ -55,8 +55,18 @@ function search_results() {
             //$flink='<a class="linkfol" href="user/'.$user_result->uid.'?act=flag">Follow </a>';
             //$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
 			  }
-			  $gquery="select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid='".$user_result->uid."' group by uid";
+			  $gquery="select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid='".$user_result->uid."'";
 			  $gpoints=db_result(db_query($gquery));
+			   if ($user_result->gender == 1) {
+        $usetype = 'Male';
+    } elseif($user_result->gender == 2) {
+        
+        $usetype = 'Female';
+    
+    }else{
+    	  $usetype = '<b>--</b>';
+    }
+	
       
          $fetresult .= '<div class="result-item">
 		 <div class="first-col"> 
@@ -72,7 +82,7 @@ function search_results() {
     </div>
         <div class="clr"></div>
 	 <div class="textouter"> <div class="grayt">Sex:</div>
-    <div class="blakt">'.$user_result->gender.'</div>
+    <div class="blakt">'.$usetype.'</div>
     </div>
     
         <div class="clr"></div>
@@ -647,10 +657,12 @@ function get_user_details() {
     //$ret = $resulrnames->real_name;
     if ($resulrnames->gender == 1) {
         $usetype = 'Male';
-    } else {
+    } elseif($resulrnames->gender == 2) {
         
         $usetype = 'Female';
     
+    }else{
+    	  $usetype = '<b>--</b>';
     }
 	
 	//followers
@@ -767,10 +779,9 @@ function get_user_details() {
   <div class="right-contd">
   <div class="links-box">
   <strong>Links</strong><br/>
-  <a target="_blank" href="'.$resulrnames->facebook.'" class="links">Facebook</a><br/>
-  <a target="_blank" href="'.$resulrnames->twitter.'" class="links">Twitter</a><br/>
-  <a target="_blank" href="#" class="links">Seddoeiusmod.org</a><br/>
-  <a target="_blank" href="#" class="links">Utenimad.minimum.com</a><br/>
+  <a target="_blank" href="'.(!empty($resulrnames->facebook)?'http://'.$resulrnames->facebook:'#').'" class="links">Facebook</a><br/>
+  <a target="_blank" href="'.(!empty($resulrnames->twitter)?'http://'.$resulrnames->twitter:'#').'" class="links">Twitter</a><br/>
+  
   </div>
   
   <div class="following">
