@@ -3,23 +3,21 @@
  */
 function get_filter_option(type){
 	
-	var urr=spath+'qlite/ajax?action=filter';
-		var req = new Request({    
-			method: 'post',
-			url: urr,
-			data: {
-			type: type,
-          	},
-			onRequest: function() {$('fopt').set('html', 'loading...'); },
-			onComplete: function(response){
-				
-		        $('fopt').set('html', response);
-				 	
-		}
-		}).send();
+	var url=spath+'qlite/ajax?action=filter';
 
-	
-	
+
+	jQuery('#fopt').html('');
+		jQuery.ajax({
+   type: "POST",
+   url: url,
+    data: {
+            type: type,
+   
+        },
+   success: function(msg){
+	jQuery('#fopt').html(msg);
+   }
+ });	
 	
 }
 

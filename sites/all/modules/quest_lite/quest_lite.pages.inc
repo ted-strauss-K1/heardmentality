@@ -521,9 +521,9 @@ function qlite_view() {
     $voutput .= $submitbutt.'
                   <div >
                 <ul>
-                  <li><a href="#Forum" onclick="var $tabs = jQuery(\'#rotate\').tabs();$tabs.tabs(\'select\', 1);return false;"  title="Bookmark">'.$x.' comments</a></li>
+                  <li><a href="#Forum" onclick="var $tabs = jQuery(\'#rotate > ul\').tabs();$tabs.tabs(\'select\', \'Forum\');return false;"  title="Bookmark">'.$x.' comments</a></li>
                   <li>|</li>
-                  <li><a href="#Resources" onclick="var $tabs = jQuery(\'#rotate\').tabs();$tabs.tabs(\'select\', 2);return false;"  title="Invite">'.$numres.' Resources</a></li>
+                  <li><a href="#Resources" onclick="var $tabs = jQuery(\'#rotate > ul\').tabs();$tabs.tabs(\'select\', \'Resources\');return false;"  title="Invite">'.$numres.' Resources</a></li>
                   </ul>
               </div>
                 </div>
@@ -1791,7 +1791,7 @@ function qlite_percent() {
 		
 var spath='".$gSitePath."';
 </script>
-	
+	<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>		
 <script type='text/javascript' src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/filter.js'></script>						
 	
 			";
