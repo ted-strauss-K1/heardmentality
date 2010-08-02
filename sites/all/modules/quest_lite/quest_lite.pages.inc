@@ -363,8 +363,8 @@ function qlite_view() {
     
     }
 
-    
-    $voutput .= '
+    if($user->uid>0){
+    	    $voutput .= '
 	<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
 	<script>
         var conf = 
@@ -380,9 +380,12 @@ function qlite_view() {
             gigya.services.socialize.addEventHandlers(conf, { onConnect:renderUI, onDisconnect:renderUI}   ); 
             
         }
-    </script>
+    </script> ';
+		
+    }
+
 	
-	
+	  $voutput .= '
 	<script type="text/javascript">
 	        
       jQuery(document).ready(function() {
