@@ -4,7 +4,7 @@
 function checkall(val){
 
 
-    $$('.check-me').each(function(el){
+    jQuery('.check-me').each(function(el){
         el.checked = val;
     });
     
@@ -14,14 +14,14 @@ function checkall(val){
 function toggle_sub(id){
 	
 	
-	  if ($('q'+id).getStyle('display') == 'none') {
+	  if (jQuery('#q'+id).css('display') == 'none') {
     
-        $('q'+id).setStyle('display', 'block');
-       $('q'+id).slide('hide').slide('in');
+        jQuery('#q'+id).css('display', 'block');
+       jQuery('#q'+id).sildeDown('slow');
       
            }else{
-		   $('q'+id).setStyle('display', 'none');
-        $('q'+id).slide('hide').slide('out');
+		   jQuery('#q'+id).css('display', 'none');
+        jQuery('#q'+id).slideUp('slow');
  		
 		   }
 

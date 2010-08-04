@@ -2,28 +2,29 @@
 /**
  * @author gobinath.m
  */
-window.addEvent('domready', function(){
+jQuery(document).ready(function(){
 
 
-    setTimeout('admin_approve();',5000);
+    setTimeout('admin_approve();', 5000);
     
 });
 
 
 function admin_approve(make){
 
-    window.addEvent('domready', function(){
-        $('qadmin').addEvent('submit', function(e){
+    jQuery(document).ready(function(){
+        jQuery('#qadmin').submit(function(){
         
-            e.stop();
-           var vals = [];
-    $$('.check-me').each(function(e){
-		if(e.getProperty('checked')){
-			
-			  vals.push(e.value);
-		}
-      
-    });
+            var vals = [];
+            jQuery('.check-me').each(function(e){
+                if (e.getProperty('checked')) {
+                
+                    vals.push(e.value);
+                }
+                
+                
+            });
+            
             if (vals.length > 0) {
                 //Prevents the default submit event from loading a new page.
                 
@@ -31,19 +32,29 @@ function admin_approve(make){
                 
                 //Set the options of the form's Request handler. 
                 //("this" refers to the $('myForm') element).
-			
-                this.set('send', {
+                
+             /*
+   this.set('send', {
                     onComplete: function(response){
-						
-                     var log = $('qlist').empty().addClass('ajax-loading');
+                    
+                        var log = jQuery('#qlist').empty().addClass('ajax-loading');
                         log.set('html', response);
-                      setTimeout('admin_approve();', 1000);
+                        setTimeout('admin_approve();', 1000);
                     }
                 });
                 //Send the form.
-			
+                
                 this.send();
+*/
                
+			      var formwave=jQuery(this);
+		jQuery.post(formwave.attr('action'),formwave.serialize(),
+   function(data){
+   jQuery('#qlist').empty().html(data);
+	 setTimeout('admin_approve();', 1000);
+   });
+			   
+			    
             }
             else {
             
@@ -62,49 +73,50 @@ function admin_approve(make){
 function admin_reject(make){
 
     var vals = [];
-    $$('.check-me').each(function(e){
-		if(e.getProperty('checked')){
-			
-			  vals.push(e.value);
-		}
-      
+    jQuery('.check-me').each(function(){
+		var e=jQuery(this);
+        if (e.attr('checked')) {
+        
+            vals.push(e.value);
+        }
+        
     });
-       
-    var report = $('reporttext').get('value');
-	
-
-    if (vals.length > 0) {
-		
-		    if ($('showbox').getStyle('display') == 'none') {
     
-        $('showbox').setStyle('display', 'block');
-        $('showbox').slide('hide').slide('in');
-        $('reporttext').focus();
-        return false;
-    }
-    if (report.trim().length < 5) {
-        $('reporttext').setStyle('border-color', '#EF2C2C');
-        return false;
-    }else{
-		 $('reporttext').setStyle('border-color', '');
-		
-	}
-	
-		
-		
-        if (confirm('Are you sure to reject the selected Questions?')) {
-            $('actions').set('value', make);
-          
-            $('qadmin').set('send', {
-                onComplete: function(response){
-                    var log = $('qlist').empty().addClass('ajax-loading');
-                    log.set('html', response);
-                    setTimeout('admin_approve();', 1000);
-                }
-            });
-            //Send the form.
-            $('qadmin').send();
+    var report = jQuery('#reporttext').val();
+    
+    
+    if (vals.length > 0) {
+    
+        if (jQuery('#showbox').css('display') == 'none') {
+        
+            jQuery('#showbox').css('display', 'block');
+            jQuery('#showbox').slideDown('slow');
+           jQuery('#reporttext').focus();
+            return false;
+        }
+        if (jQuery.trim(report).length < 5) {
+            jQuery('reporttext').css('border-color', '#EF2C2C');
+            return false;
+        }
+        else {
+            jQuery('reporttext').css('border-color', '');
             
+        }
+        
+        
+        
+        if (confirm('Are you sure to reject the selected Questions?')) {
+            jQuery('#actions').attr('value', make);
+     
+	 //send form       
+          var formwave=jQuery('#qadmin');
+		jQuery.post(formwave.attr('action'),formwave.serialize(),
+   function(data){
+   jQuery('#qlist').empty().html(data);
+	 setTimeout('admin_approve();', 1000);
+   });
+		
+		    
         }
         else {
             return false;
@@ -122,8 +134,8 @@ function admin_reject(make){
 function checkall(val){
 
 
-    $$('.check-me').each(function(el){
-        el.checked = val;
+    jQuery('.check-me').each(function(){
+		    jQuery(this).attr('checked',val);
     });
     
 }

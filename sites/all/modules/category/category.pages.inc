@@ -332,7 +332,7 @@ function category_admin() {
     $query = "SELECT cat_id,cat_name,IFNULL((select count(*) from {question} where cid=cat_id),0) as qcnt FROM {category} where parent_id='0'";
     $list = ExecuteQuery($query, "select");
     
-    $strReturn .= '<div class="clear-block">
+    $strReturn .= '<div class="">
 	
 	<div align="right"><a href="'.$gSitePath.'admin/category/add">Add New</a></div>
 	<form id="qadmin" method="post" action="'.$gSitePath.'admin/panelc/flagsave" >
@@ -356,7 +356,7 @@ function category_admin() {
         $strReturn .= ' <div class="error" align="left" >No Questions Found!</div> ';
     } else {
         
-        $strReturn .= '</div>';
+        $strReturn .= '</table></form></div>';
     }
     
     return $strReturn;

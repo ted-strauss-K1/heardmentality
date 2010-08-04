@@ -1331,6 +1331,57 @@ function admin_content() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $outputcontent = '';
     drupal_add_js(drupal_get_path('module', 'question').'/scripts/qadmin.js');
+      
+
+	$outputcontent='	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.tabs.css" />
+	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.theme.css" />
+	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.base.css" />
+	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.core.css" />
+	
+    <script type="text/javascript"
+        src="http://jqueryui.com/js/jquery.js"></script>
+        
+          <script src="http://jqueryui.com/ui/jquery.ui.widget.js"></script>
+     <script src="http://jqueryui.com/ui/jquery.ui.accordion.js"></script>
+        <script src="http://jqueryui.com/ui/jquery.ui.tabs.js"></script>
+  
+  <script type="text/javascript">
+  jQuery(function() {
+    jQuery("#accordion").accordion();
+  });
+  </script>
+  <script type="text/javascript">
+  
+
+  jQuery(function() {
+  	var prevTab = 0;
+   jQuery("#tabs").tabs({ fx: { opacity: "toggle" }, cache: false,
+   show: function(event, ui) {
+   	alert(prevTab);
+             var prevTab = ui.index;
+	   jQuery("#ui-tabs-"+prevTab).empty();  //set the new previous tab index to the current index
+   }
+
+ });
+  });
+  </script>
+
+
+
+<div class="demo">
+
+<div id="tabs">
+  <ul>
+    <li><a href= "'.$gSitePath.'admin/panelc/new">New Questions</a></li>
+    <li><a href= "'.$gSitePath.'admin/panelc/flagged">Flagged Questions</a></li>
+    <li><a href= "'.$gSitePath.'admin/panelc/user">Flagged Users</a></li>
+  </ul>
+
+</div>
+
+</div><!-- End demo -->
+
+  ';
     return $outputcontent;
 
 
