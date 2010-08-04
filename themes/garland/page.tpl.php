@@ -4,16 +4,37 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>">
   <head>
-    <?php print $head ?>
+      <?php print $head ?>
     <title><?php print $head_title ?></title>
     <?php print $styles ?>
+	
     <?php print $scripts ?>
+<script type="text/javascript">
+var gSitePath='<?php echo $gSitePath;?>';
+jQuery(document).ready(function(){
+
+ 
+						jQuery("#loading").ajaxStart(function(){
+				  jQuery(this).fadeIn();
+				 });
+				 
+				jQuery("#loading").ajaxStop(function(){
+				   jQuery(this).fadeOut();
+				 });	
+			});
+
+</script>
+
     <!--[if lt IE 7]>
       <?php print phptemplate_get_ie_styles(); ?>
     <![endif]-->
   </head>
   <body<?php print phptemplate_body_class($left, $right); ?>>
-
+<div id="loading">
+  <marquee  >
+  Loading...
+  </marquee>
+</div>
 <!-- Layout -->
   <div id="header-region" class="clear-block"><?php print $header; ?></div>
 
