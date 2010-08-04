@@ -69,10 +69,12 @@ function garland_preprocess_comment_wrapper(&$vars) {
 
 function newtheme_preprocess_page(&$vars){
 	
-	if ($vars['content'] && $vars['node']->type != 'forum') {
-   // $vars['content'] = '<h2 class="comments">'. t('Comments') .'</h2>'.  $vars['content'];
+	/*
+if ($vars['content'] && $vars['node']->type != 'forum') {
+    $vars['content'] = '<h2 class="comments">'. t('Comments') .'</h2>'.  $vars['content'];
   }
 	
+*/
 }
 /**
  * Returns the rendered local tasks. The default implementation renders
