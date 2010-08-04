@@ -135,3 +135,23 @@ table.screenshot {
 html.js .custom-container label {
   visibility: hidden;
 }
+#loading{ 
+-x-system-font:none; 
+background-color:#C23A2F;
+color:#FFFFFF; 
+font-family:Arial;
+font-size:12px;
+font-size-adjust:none;
+font-stretch:normal;
+font-style:normal;
+font-variant:normal;
+font-weight:bold;
+height:20px;
+display:none;
+line-height:normal;
+padding:3px 2px 0 7px;
+position:fixed;
+top:0px; left:150px;
+width:65px; height:20px;
+z-index:1000; -moz-border-radius:5px;
+}
