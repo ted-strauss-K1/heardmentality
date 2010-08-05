@@ -26,7 +26,7 @@ function get_profile_details(urid){
 
 
 function get_state(code,nochg){
-alert(nochg);
+
     var url = gSitePath + 'question/ajax';
      
 	jQuery.ajax({
