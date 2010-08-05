@@ -2,19 +2,10 @@
  * @author gobinath.m
  */
 function toggle_sub(id){
-	
-	
-	  if ($('q'+id).getStyle('display') == 'none') {
-    
-        $('q'+id).setStyle('display', 'block');
-       $('q'+id).slide('hide').slide('in');
-      
-           }else{
-		   $('q'+id).setStyle('display', 'none');
-        $('q'+id).slide('hide').slide('out');
- 		
-		   }
 
+        jQuery('#q'+id).slideToggle("slow");
+ 		
+	
 	
 	
 	
@@ -24,9 +15,9 @@ function forum_del(id){
 	
 	if(confirm('Are you sure want to delete waves and their wavlets?')){
 		
-		$('fdelete').set('value',1);
-		$('fid').set('value',id);
-	$('fadmin').submit();
+		jQuery('#fdelete').val(1);
+		jQuery('#fid').val(id);
+	jQuery('#fadmin').submit();
 		
 	}else{
 		
@@ -54,8 +45,8 @@ function wavelet_del(id){
 function checkall(val){
 
 
-    $$('.check-me').each(function(el){
-        el.checked = val;
+    jQuery('.check-me').each(function(){
+        jQuery(this).attr('checked',val);
     });
     
 }

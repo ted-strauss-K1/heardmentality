@@ -443,7 +443,7 @@ function admin_forum() {
         $strReturn .= '<input type="checkbox" class="check-me" name="qids[]" value="'.$quest['fid'].'" /> <b>|</b> <a href="javascript:void(0);" onclick="forum_del('.$quest['fid'].');">Delete</a> <b>|</b><a href="'.$gSitePath.'admin/forum/edit/'.$quest['fid'].'">Edit</a>  ';
         
         $strReturn .= '</td></tr>';
-        $strReturn .= '<TR id="q'.$quest['qid_rid'].$rand.'" style="display:none;"> <TH COLSPAN=7><b>Posted For Question :</b><a  href="'.$gSitePath.$oListquest->url.'">'.wordwrap($oListquest->question, 80, '<br/>').'</a></TH><th>'.$flag_report.'</th> </TR>
+        $strReturn .= '<TR > <TD height="0" COLSPAN=8><div style="display:none;" id="q'.$quest['qid_rid'].$rand.'"><b>Posted For Question :</b><a  href="'.$gSitePath.$oListquest->url.'">'.wordwrap($oListquest->question, 80, '<br/>').'</a>&nbsp;'.$flag_report.'</div></TD> </TR>
 ';
     }
 
