@@ -1,20 +1,6 @@
 /**
  * @author gobinath.m
  */
-function setDefaultCountry(){
-    var countrySelect = document.getElementById("q_country");
-    
-    for (i = 0; i < countrySelect.length; i++) {
-        // the javascript geonamesData.js contains the countrycode
-        // of the userIp in the variable \'geonamesUserIpCountryCode\'
-        if (countrySelect[i].value == geonamesUserIpCountryCode) {
-            // set the country selectionfield
-            countrySelect.selectedIndex = i;
-            get_state(geonamesUserIpCountryCode);
-        }
-    }
-}
-
 
 function get_profile_details(urid){
     //alert(urid);
@@ -39,8 +25,8 @@ function get_profile_details(urid){
 
 
 
-function get_state(code){
-
+function get_state(code,nochg){
+alert(nochg);
     var url = gSitePath + 'question/ajax';
      
 	jQuery.ajax({
@@ -57,8 +43,9 @@ function get_state(code){
         }
     });
 	
-	
-    var url = gSitePath + "userresults";
+	if(nochg!=1){
+		
+	 var url = gSitePath + "userresults";
    
 	 jQuery.ajax({
         type: "POST",
@@ -74,7 +61,9 @@ function get_state(code){
         }
     });
     
-	
+		
+	}
+   
 	
 }
 
@@ -121,3 +110,38 @@ function get_quest_details(quid){
     
     
 }
+
+			
+				function setDefaultCountry(cnt) {
+					
+					
+				
+      $(document).ready(function() {
+   var countrySelect = document.getElementById("q_country");
+
+  for (i=0;i< countrySelect.length;i++) {
+    // the javascript geonamesData.js contains the countrycode
+    // of the userIp in the variable \'geonamesUserIpCountryCode\'
+    if (countrySelect[i].value == cnt) {
+      // set the country selectionfield
+	      countrySelect.selectedIndex = i;
+		get_state(cnt);
+    }
+  }
+      });
+
+
+  
+}
+
+
+
+			
+						
+				
+			
+						
+						
+							
+
+

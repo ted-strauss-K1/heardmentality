@@ -9,7 +9,7 @@ function search_results() {
     if (isset($_GET['start'])) {
         $start = $_GET['start'];
     } else {
-        $start = '';
+        $start = 0;
     }
     if (strlen($start) > 0 and !is_numeric($start)) {
         echo "Data Error";
@@ -24,6 +24,11 @@ function search_results() {
     $next = $eu + $limit;
     $fetresult = '';
     drupal_add_js(drupal_get_path('module', 'user_search').'/js/search.js');
+	
+	if(!empty($_REQUEST['code'])){
+		 $code=$_REQUEST['code'];
+		drupal_add_js("setDefaultCountry('".$code."');",'inline');
+	}
     
     $name = $_REQUEST['txt_search'];
     if (isset($_REQUEST['code'])) {
@@ -937,7 +942,11 @@ function search_results_user() {
     extract($_REQUEST);
     //echo $_REQUEST['code'];
     $page_name = "searchuser"; //  If you use this code with a different page ( or file ) name then change this
-    $start = $_GET['start'];
+   if (isset($_GET['start'])) {
+        $start = $_GET['start'];
+    } else {
+        $start = 0;
+    }
     if (strlen($start) > 0 and !is_numeric($start)) {
         echo "Data Error";
         exit;
@@ -945,97 +954,11 @@ function search_results_user() {
 
     
     $eu = ($start - 0);
-    $limit = 5; // No of records to be shown per page.
+    $limit = 2; // No of records to be shown per page.
     $this1 = $eu + $limit;
     $back = $eu - $limit;
     $next = $eu + $limit;
-    $fetresult .= '<script type="text/javascript">
-				var spath=\''.$gSitePath.'\';
-			
-				function setDefaultCountry() {
-  var countrySelect = document.getElementById("q_country");
-
-  for (i=0;i< countrySelect.length;i++) {
-    // the javascript geonamesData.js contains the countrycode
-    // of the userIp in the variable \'geonamesUserIpCountryCode\'
-    if (countrySelect[i].value == geonamesUserIpCountryCode) {
-      // set the country selectionfield
-	      countrySelect.selectedIndex = i;
-		get_state(geonamesUserIpCountryCode);
-    }
-  }
-}
-
-
-window.addEvent(\'domready\', function(){
-//setDefaultCountry();
-});
-	
-				
-				 function get_profile_details(urid){
-						alert(urid);
-						var url = "'.$gSitePath.'userinfo";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: {\'getuid\':urid },
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'user_info\').set(\'html\', response);
-											}
-									}).send();
-						
-						
-						}
-					
-						
-				
-			
-						
-						function get_state(code){
-						
-						var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':1,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'chg_state\').set(\'html\', response);
-											}
-									}).send();
-						
-							var url = "'.$gSitePath.'userresults";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':1,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'container-user\').set(\'html\', response);
-											}
-									}).send();
-						}
-							function get_city(code){
-							
-							var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':2,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'chg_city\').set(\'html\', response);
-											}
-									}).send();
-							
-							}
-							
-			
-							
-						</script>
-			
-			';
+   
     $fetresult .= '';   
     $name = $_REQUEST['txt_search'];
     
