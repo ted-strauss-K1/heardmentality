@@ -84,21 +84,21 @@ function question_add() {
     //drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
     $cncode = '';
     $zicode = db_result(db_query("select zip from {user_profile} where uid='$user->uid'"));
-	$ustate=db_result(db_query("select state from {user_profile} where uid='$user->uid'"));
+    $ustate = db_result(db_query("select state from {user_profile} where uid='$user->uid'"));
     if (! empty($zicode)) {
         
         $query = array('postalcode'=>$zicode, 'maxrows'=>1);
         $result = geonames_query('postalcodesearch', $query);
         $state = $result->results;
         
-     // print_r($state);
+        // print_r($state);
         $cncode = $state['0']['countrycode'];
-		$options = array('columns' => array('geonameid', 'countrycode') );
-		 $query = array('query'=>$state['0']['adminname1'], 'maxrows'=>1);
-		$result = geonames_query('search', $query,$options);
-		$fstate=$result->results;
-		//print_r($fstate);
-		$setstate=$fstate['0']['geonameid'];
+        $options = array('columns'=>array('geonameid', 'countrycode'));
+        $query = array('query'=>$state['0']['adminname1'], 'maxrows'=>1);
+        $result = geonames_query('search', $query, $options);
+        $fstate = $result->results;
+        //print_r($fstate);
+        $setstate = $fstate['0']['geonameid'];
     }
 
     
@@ -1331,9 +1331,9 @@ function admin_content() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $outputcontent = '';
     drupal_add_js(drupal_get_path('module', 'question').'/scripts/qadmin.js');
-      
 
-	$outputcontent='	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.tabs.css" />
+    
+    $outputcontent = '	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.tabs.css" />
 	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.theme.css" />
 	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.base.css" />
 	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.core.css" />
@@ -1357,8 +1357,8 @@ function admin_content() {
   	var prevTab = 0;
    jQuery("#tabs").tabs({ fx: { opacity: "toggle" }, cache: false,
    show: function(event, ui) {
-   	alert(prevTab);
-             var prevTab = ui.index;
+  
+              prevTab = ui.index;
 	   jQuery("#ui-tabs-"+prevTab).empty();  //set the new previous tab index to the current index
    }
 
@@ -1485,6 +1485,17 @@ function panel_content($type = '') {
                 $query = db_query("delete from {question_flags} where type='question' AND fid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
             } else {
+                $query = "select nodeid from {question_flags} where fid in ($qids)";
+                $ids = ExecuteQuery($query, "select");
+                $target = array();
+             
+                    foreach ($ids as $value) {
+                        $target = $value;
+                    }
+               
+					$target=array_unique($target);
+                
+                 $qids = implode(',', $target);
                 $query = db_query("delete from {question} where qid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
             

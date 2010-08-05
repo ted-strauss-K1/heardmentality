@@ -16,7 +16,8 @@ function admin_approve(make){
         jQuery('#qadmin').submit(function(){
         
             var vals = [];
-            jQuery('.check-me').each(function(e){
+            jQuery('.check-me').each(function(){
+				var e=jQuery(this);
                 if (e.getProperty('checked')) {
                 
                     vals.push(e.value);
