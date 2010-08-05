@@ -198,7 +198,7 @@ echo  $date->format( "F j,Y | g:i a Y T");
      <div id="menu">
           <div class="search">  <form name="search" method="post" action="">
             <div class="searchtext">
-          <input name="txt_search"  id="txt_search" value="<?php echo $skey; ?>" type="text"  onblur="if(search.txt_search.value =='') search.txt_search.value = 'Search'" onfocus="if(search.txt_search.value =='Search') search.txt_search.value = ''" />
+          <input name="txt_search"  id="txt_search" value="<?php echo $skey; ?>" type="text"  onblur="if(search.txt_search.value =='') search.txt_search.value = ''" onfocus="if(search.txt_search.value =='Search') search.txt_search.value = ''" />
             </div>    </form>
             <div class="searchr">
              
