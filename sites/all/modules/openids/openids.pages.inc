@@ -666,11 +666,11 @@ ob_start();
         $chk1 = db_result($chk);
         if ($chk1) {
             $result = db_query("UPDATE {privacy_settings} set real_name='$real_name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
-			followers='$followers_privacy',following='$following_privacy',medal='$medal_privacy',questions='$questions_privacy',answers='$answers_privacy'  where uid=$user->uid ");
+			followers='$followers_privacy',following='$following_privacy',medal='$medal_privacy',questions='$questions_privacy',answers='$answers_privacy',dob='$dob_privacy'  where uid=$user->uid ");
         
         } else {
             $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
-			followers='$followers_privacy',following='$following_privacy',questions='$questions_privacy',answers='$answers_privacy' ,medal='$medal_privacy'");
+			followers='$followers_privacy',following='$following_privacy',questions='$questions_privacy',answers='$answers_privacy' ,medal='$medal_privacy',dob='$dob_privacy'");
         }
         
         if (isset($_FILES)) {
@@ -710,7 +710,7 @@ ob_start();
         if ($result) {
             $sucflag = '';
             $sucflag = 1;
-            $message = 'Profile Updated Successfully!';
+            $message = 'Profile Updated Successfully!<script>parent.$.nyroModalRemove();</script>';
         
         }
 
@@ -1039,7 +1039,12 @@ everyone or just followers or not at all while adding a question)
         '.$option1.$option2.$option3.'
       </select>
   </td>
-    <td>&nbsp;</td>
+
+    <td><span class="desc"><strong>Date Of Birth</strong>   </span><br/>
+      <select class="dob_privacy"  name="dob_privacy">
+        '.$option1.$option2.$option3.'
+      </select>
+  </td>
   </tr>
 </table>
 	 
@@ -1144,6 +1149,11 @@ elt.each(function(el){ el.set(\'value\',chk); });
 }
 var chk=\''.$fetch[0]['questions'].'\';
 var elt=$$(\'.questions_privacy\');
+if(chk!=\'\'){
+elt.each(function(el){ el.set(\'value\',chk); });
+}
+var chk=\''.$fetch[0]['dob'].'\';
+var elt=$$(\'.dob_privacy\');
 if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
 }
