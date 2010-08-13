@@ -447,7 +447,7 @@ function profile_edit() {
     $check2 = '';
     $question_privacy = '4';
     $dob = '';
-    
+    exit;
     if ($_REQUEST['update'] == 'Update') {
     
         extract($_REQUEST);
