@@ -957,7 +957,7 @@ everyone or just followers or not at all while adding a question)
     <td><span class="desc"><strong>User Name</strong></span><br/>
     <select class="real_name_privacy" name="real_name_privacy">'.$option1.$option2.$option3.'</select> </td>
     <td><span class="desc"><strong>Image</strong></span><br/>
-     <select class="image"  name="image_privacy">'.$option1.$option2.$option3.'</select>
+     <select class="image_privacy"  name="image_privacy">'.$option1.$option2.$option3.'</select>
     </td>
   </tr>
   <tr>
@@ -972,70 +972,70 @@ everyone or just followers or not at all while adding a question)
       </select>
   </td>
     <td><span class="desc"><strong>Zip</strong>   </span><br/>
-      <select class="zip"  name="zip_privacy">
+      <select class="zip_privacy"  name="zip_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
   </tr>
   <tr>
     <td><span class="desc"><strong>Country</strong>   </span><br/>
-      <select class="country"  name="country_privacy">
+      <select class="country_privacy"  name="country_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
     <td><span class="desc"><strong>Religion</strong>   </span><br/>
-      <select class="religion"  name="religion_privacy">
+      <select class="religion_privacy"  name="religion_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
     <td><span class="desc"><strong>Ethnic</strong>   </span><br/>
-      <select class="ethnic"  name="ethnic_privacy">
+      <select class="ethnic_privacy"  name="ethnic_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
   </tr>
   <tr>
     <td><span class="desc"><strong>Slant</strong>   </span><br/>
-      <select class="slant"  name="slant_privacy">
+      <select class="slant_privacy"  name="slant_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
     <td><span class="desc"><strong>Facebook</strong>   </span><br/>
-      <select class="facebook"  name="facebook_privacy">
+      <select class="facebook_privacy"  name="facebook_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
     <td><span class="desc"><strong>Twitter</strong>   </span><br/>
-      <select class="twitter"  name="twitter_privacy">
+      <select class="twitter_privacy"  name="twitter_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
   </tr>
   <tr>
     <td><span class="desc"><strong>Followers</strong>   </span><br/>
-      <select class="followers"  name="followers_privacy">
+      <select class="followers_privacy"  name="followers_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
     <td><span class="desc"><strong>Following</strong>   </span><br/>
-      <select class="following"  name="following_privacy">
+      <select class="following_privacy"  name="following_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
     <td><span class="desc"><strong>Medal</strong>   </span><br/>
-      <select class="medal"  name="medal_privacy">
+      <select class="medal_privacy"  name="medal_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
   </tr>
   <tr>
     <td><span class="desc"><strong>Posted Answers</strong>   </span><br/>
-      <select class="answers"  name="answers_privacy">
+      <select class="answers_privacy"  name="answers_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
     <td><span class="desc"><strong>Posted Questions</strong>   </span><br/>
-      <select class="questions"  name="questions_privacy">
+      <select class="questions_privacy"  name="questions_privacy">
         '.$option1.$option2.$option3.'
       </select>
   </td>
