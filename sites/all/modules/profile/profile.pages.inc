@@ -33,6 +33,9 @@ function profile_view() {
             
             $strReturn = activities($uid);
             break;
+        case 'msg':
+            $strReturn=inbox_msg();
+            break;
         default:
 //badges
 		enthusiast($uid);
@@ -48,7 +51,71 @@ function profile_view() {
 
 }
 
+function inbox_flex(){
+      global $gSitePath,$user,$gDocPath,$base_root;
+      $case=$_REQUEST['action'];
+      switch($case){
 
+     case 'delete':
+$ids=$_REQUEST['id'];
+
+ $query="delete from {messages} where mid='$ids' AND to_id='$user->uid'";
+db_query($query);
+$result=db_affected_rows();
+
+if($result)echo '<div class="messages success">Message deleted successfully, please wait to reload...!</div>';
+break;
+default :
+    echo '<div class="messages error">Sorry no event occurs!</div>';
+    break;
+      }
+}
+
+function inbox_msg(){
+
+   global $gSitePath,$user,$gDocPath,$base_root;
+    $inbox='';
+  $query = "select * from {messages} as m join {user_profile} as u on u.uid=m.from_id where m.to_id='$user->uid' order by mid DESC";
+    $msgs= ExecuteQuery($query, "select");
+    $i=1;
+    if(!empty($msgs)){
+
+      foreach($msgs as $list){
+
+       $inbox.='  <tr><td height="40px" style="font-style:justify;" >'.$i.'</td><td>'.wordwrap($list['message'], 100,"<br/>").'</td><td>'.$list['real_name'].'</td><td>'.format_date_class($list['posted_date'],date('Y-m-d')).'</td><td><a href="#" onclick="del_msg('.$list['mid'].',this);">Delete</a> &nbsp;/&nbsp; <a href="#" onclick="rel_msg('.$list['from_id'].');">Reply</a></td></tr>' ;
+       $i++;
+    }
+    }else{
+
+      $inbox='  <tr><td height="40px" align="center" colspan="5" style="font-style:justify;" > <b>No Messages</b></td></tr>' ;
+
+    }
+    
+   $content='';
+   //drupal_add_js(drupal_get_path('module','profile').'/js/flexigrid.js');
+  drupal_add_js(drupal_get_path('module','profile').'/js/profile.js');
+   //drupal_add_css(drupal_get_path('module','profile').'/css/flexigrid/flexigrid.css');
+   $content='
+       <script>
+       $(document).ready(function() {
+
+            $(\'#inbox > tbody > tr:odd\').css("background-color", "#EDEDED");
+
+        });
+
+    </script>
+    <form action="'.$gSitePath.'postmessage" method="post" id="proform"><div align="left" style="display: none;" id="showboxcmt"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="msgs"></textarea><input type="hidden" value="" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg"></div></form>
+       <div class="facttop2">INBOX MESSAGE(S)</div>
+       <div>
+
+<table id="inbox" width="100%" style="height:100%;padding:10px;"><thead><tr><th align="left">S.No</th><th align="left">Msg</th><th align="left">From</th><th align="left">Date</th><th align="left">Action</th></tr></thead><tbody>
+            '.$inbox.'
+
+          </tbody></table>
+    </div>';
+    
+    return $content;
+}
 
 function profile($uid = '') {
     
@@ -123,7 +190,7 @@ function profile($uid = '') {
     if (($userSettings['country'] == 1) || ($userSettings['country'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['country'] == 2 && $is_follow_follower == TRUE)) {
         $country1 .= $country;
 		if(!empty($state)){
-			$country1.='('.$state.','.$city.')';
+			$country1.='('.$state.','.$city.').';
 		}
     }
     if (($userSettings['religion'] == 1) || ($userSettings['religion'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['religion'] == 2 && $is_follow_follower == TRUE)) {
@@ -134,10 +201,10 @@ function profile($uid = '') {
         $PROFILE_IMAGE = '<img src="'.$img_path1.'" align="absmiddle" alt="Profile image" >';
     }
     if (($userSettings['zip'] == 1) || ($userSettings['zip'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['zip'] == 2 && $is_follow_follower == TRUE)) {
-        $zip1 =' - '.$zip;
+       // $zip1 =' - '.$zip;
     }
     if (($userSettings['dob'] == 1) || ($userSettings['dob'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['dob'] == 2 && $is_follow_follower == TRUE)) {
-        $dob1 = $dob;
+        $dob1 = $age;
     }
 
     
@@ -297,6 +364,9 @@ function profile($uid = '') {
 	 $history = '<a href="'.url($_GET['q'], array('absolute' => true)).'?tag=activity" >History</a><span class="separate">|</span> ';
 	
 
+        $cnt_msg=0;
+        $cnt_msg=db_result(db_query("select count(*) from {messages}  where to_id='$user->uid'"));
+
 
 	$share='';
 	$shareme='';
@@ -310,10 +380,10 @@ function profile($uid = '') {
 ">Report</a><span class="separate">|</span>';	
 $flinkflw='<a class="linkfol" href="'.$gSitePath.'profile/'.$getuser->name.'?delm='.$uid.'">Follow </a><span class="separate">|</span> ';
 
-$sendmsg='<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a><span class="separate">|</span> <br/><form id="proform" method="post" action="'.$gSitePath.'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="1"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
+$sendmsg='<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a><span class="separate">|</span> <br/><form id="proform" method="post" action="'.$gSitePath.'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="'.$uid.'"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
 	}else{
 		
-	$edit.='<a href="'.$gSitePath.'?act=edit" >Edit My Profile </a><span class="separate">|</span> ';	
+	$edit.='<a href="'.$gSitePath.'?act=edit" >Edit My Profile </a><span class="separate">|</span><a href="'.$gSitePath.'profile/?tag=msg" >Messages('.$cnt_msg.') </a> ';
 	}
 
 	$badges.='';

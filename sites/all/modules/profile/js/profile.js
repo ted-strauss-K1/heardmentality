@@ -38,10 +38,12 @@ jQuery(document).ready(function(){
  var formmsg=jQuery('#proform');
     jQuery.post(formmsg.attr('action'),formmsg.serialize(),
    function(data){
+        jQuery('.rht_link').css('width','auto');
+         jQuery('.rht_link').css('overflow','hidden');
     jQuery('.rht_link').prepend(data);
 	  jQuery('#showboxcmt').slideToggle("slow");
 	  formmsg.get(0).reset();
-
+          setTimeout("jQuery('.rht_link > div.messages').hide();",1000);
    });
     });
 });
@@ -71,7 +73,7 @@ function get_zip_city(code){
 			method: 'post',
 			url: urr,
 			data: {
-			code: code,
+			code: code
           	},
 			onComplete: function(response){
 		        $('edit-city-wrapper').set('html', response);
@@ -82,3 +84,41 @@ function get_zip_city(code){
 	
 }
 
+function del_msg(ids,tr){
+
+    var urr=gSitePath+'profile/inbox';
+
+		jQuery.ajax({
+   type: "POST",
+   url: urr,
+   dataType:'xhr',
+  data: {
+	id: ids,action:'delete'
+          	},
+		 success: function(msg){
+    jQuery('.profile_part').prepend(msg);
+    jQuery(tr).parents('tr').fadeOut('slow');
+    setTimeout("window.location.reload();",3000);
+   }
+ });
+
+}
+
+function rel_msg(id){
+
+jQuery('#actions').val(id);
+jQuery('#showboxcmt').slideToggle('slow');
+ jQuery("#usmsg").unbind("click");
+
+ jQuery("#usmsg").click(function () {
+ var formmsg=jQuery('#proform');
+    jQuery.post(formmsg.attr('action'),formmsg.serialize(),
+   function(data){
+     
+    jQuery('.profile_part').prepend(data);
+	  jQuery('#showboxcmt').slideToggle("slow");
+	  formmsg.get(0).reset();
+          setTimeout("jQuery('.profile_part > div.messages').hide();",1000);
+   });
+    });
+}
