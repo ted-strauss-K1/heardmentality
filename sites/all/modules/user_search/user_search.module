@@ -169,12 +169,12 @@ function facetad_refine(){
     }
     
     if (isset($cid))
-        $qry .= "(cid  LIKE '%".$cid."%') AND ";
+        $qry .= "cid=".$cid." AND ";
     if ($scid)
-        $qry .= "(scid LIKE '%".$scid."%') AND";
+        $qry .= "scid=".$scid." AND ";
     if ($sscid)
         // $qry.="(sscid LIKE '%".$sscid."%') AND (cid  LIKE '%".$saveresult->parent_id."%') AND ";
-        $qry .= "(sscid LIKE '%".$sscid."%')  AND ";
+        $qry .= "sscid=".$sscid."  AND ";
     
     if ($tag != '') {
         $sel = "SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
@@ -191,8 +191,9 @@ function facetad_refine(){
         $sel_count = mysql_num_rows(mysql_query("SELECT * FROM question   WHERE $qry status='1'  "));
     }
     
-   $ret['query']=$sel;
+    $ret['query']=$sel;
 	$ret['qcnt']=$sel_count;
 	$ret['txt_search']=$_REQUEST['txt_search'];
+
 	return $ret;
 }

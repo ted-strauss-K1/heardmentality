@@ -185,8 +185,18 @@ function search_results_question() {
         echo "Data Error";
         exit;
     }
+if (isset($_GET['cid'])) {
+        $cid = $_GET['cid'];
 
-    
+    }
+    if (isset($_GET['scid'])) {
+        $scid = $_GET['scid'];
+
+    }
+     if (isset($_GET['sscid'])) {
+        $scid = $_GET['sscid'];
+
+    }
     $eu = ($start - 0);
     $limit = 15; // No of records to be shown per page.
     $this1 = $eu + $limit;
