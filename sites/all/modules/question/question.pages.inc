@@ -579,7 +579,7 @@ function question_save() {
         //check dupe if so flag it
            chk_dupe($q_quest,$ins_id);
            //url alias
-             $dst = clean_url(myTruncate($q_quest, 100, '',$ins_id));
+             $dst = clean_url(myTruncate($q_quest, 100, ''),'','',$ins_id);
 
         ////////////mail notication for user follwers to me//////////////////////////////////////
         $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
@@ -623,7 +623,7 @@ function question_save() {
         increasepoints('1', $ins_id, '0');
         //for url alias
         $url = 'qlite/view/'.$ins_id;
-        $update=db_query("update {question} set url='".$url."' where qid='".$ins_id."'");
+        $update=db_query("update {question} set url='".$dst."' where qid='".$ins_id."'");
         $urlins = db_query("insert INTO {url_alias} set src='".$url."',dst='".$dst."'");
         
         for ($i = 1; $i <= $ans_cnt; $i++) {
