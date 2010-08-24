@@ -569,13 +569,18 @@ function question_save() {
     $g_global = '';
     if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($cat1)) {
         $edate = $q_edate;
-        
-        $dst = clean_url(myTruncate($q_quest, 100, ' '));
-        
-        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',url='$dst',share='$qrset'  ");
+       
+      
+
+      
+        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',share='$qrset'  ");
         
         $ins_id = db_last_insert_id('question', 'qid');
-        
+        //check dupe if so flag it
+           chk_dupe($q_quest,$ins_id);
+           //url alias
+             $dst = clean_url(myTruncate($q_quest, 100, '',$ins_id));
+
         ////////////mail notication for user follwers to me//////////////////////////////////////
         $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
         $rs_followerf = db_query($sel_listf);
@@ -618,7 +623,7 @@ function question_save() {
         increasepoints('1', $ins_id, '0');
         //for url alias
         $url = 'qlite/view/'.$ins_id;
-        
+        $update=db_query("update {question} set url='".$url."' where qid='".$ins_id."'");
         $urlins = db_query("insert INTO {url_alias} set src='".$url."',dst='".$dst."'");
         
         for ($i = 1; $i <= $ans_cnt; $i++) {
@@ -662,11 +667,25 @@ function question_save() {
         drupal_goto("question/add");
     
     }
-    
+    if(!empty($output['error'])){
     echo implode("<br/>", $output['error']);
+    }
 }
 
+function chk_dupe($quest='',$qid=''){
 
+    global $gSitePath,$user,$gDocPath,$base_root;
+
+    $query=db_result(db_query("select count(*) from {question} where question like '%".$quest."%'"));
+
+    if($query>0){
+
+       $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('".$qid."','".$user->uid."','question','Duped Question')";
+                    db_query($flagquery);
+    }
+
+
+}
 function question_edit_save($array) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -1856,8 +1875,8 @@ function moderate_quest() {
 function checkall(val){
 
 
-    $$(\'.check-me\').each(function(el){
-        el.checked = val;
+   jQuery(\'.check-me\').each(function(el){
+        jQuery(this).checked = val;
     });
     
 }
@@ -1880,6 +1899,7 @@ function checkall(val){
     $sel .= " limit  $eu, $limit";
     
     $sel_search = db_query($sel);
+    
     while ($qid_result = db_fetch_object($sel_search)) {
         if ($qid_result->status == '1') {
             $blockedst = 'Active';
