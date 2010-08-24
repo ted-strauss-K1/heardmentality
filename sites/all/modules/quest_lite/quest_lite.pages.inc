@@ -2410,9 +2410,17 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                 $query = array('postalcode'=>$code, 'maxrows'=>1);
                 $result = geonames_query('postalcodesearch', $query);
                 $city = $result->results;
-                echo '<b>Province/State :</b>'.$city[0]['adminname1'];
+
+                $query = array('country'=>$city[0]['countrycode'], 'maxrows'=>1);
+                $result1 = geonames_query('countryinfo', $query);
+                $cnt = $result1->results;
+                 //   print_r($cnt);
+                //print_r($city);
+                echo '<b>Country :</b>'.$cnt[0]['countryname'];
+                echo '<br/><b>Province/State :</b>'.$city[0]['adminname1'];
                 echo '<br/><b>City :</b>'.$city[0]['adminname2'];
-                echo '<input type="hidden" name="state" value="'.$city[0]['adminname1'].'">
+                echo '<input type="hidden" name="country" value="'.$cnt[0]['countryname'].'">
+                    <input type="hidden" name="state" value="'.$city[0]['adminname1'].'">
 				<input type="hidden" name="city" value="'.$city[0]['adminname2'].'">
 				';
                 break;
