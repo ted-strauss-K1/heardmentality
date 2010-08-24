@@ -1412,7 +1412,7 @@ function user_login_submit($form, &$form_state) {
    {
     $form_state['redirect'] = 'profile';
    
-   }*/
+   }
    
    
     if(($numedit==0)&&($numedit2==1))
@@ -1429,10 +1429,17 @@ function user_login_submit($form, &$form_state) {
    
    }
    
-   
-   
-   
-   
+   */
+ 
+    if($form_state['newuser'])
+   {
+    $form_state['redirect'] = $gSitePath."?act=edit2";
+   }
+   else
+   {
+    $form_state['redirect'] = $gSitePath."?act=edit";
+   }
+      
     return;
   }
 }
