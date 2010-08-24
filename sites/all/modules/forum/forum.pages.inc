@@ -18,6 +18,7 @@ function forum_list($qid = '') {
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'forum').'/scripts/forum.js"></script>
+          <script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'forum').'/scripts/Overlay.js"></script>
 	<link rel="stylesheet" href="'.base_path().path_to_theme().'/css/css.css" type="text/css" />
 	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
     

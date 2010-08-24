@@ -1,6 +1,11 @@
 /**
  * @author gobinath.m
  */
+
+var overlay;
+window.addEvent('domready',function(){
+	overlay = new Overlay($(document.body)).open();
+});
 window.addEvent('domready', function(){
 
     //$('newwaveletbut').addEvent('click', addComment.bindWithEvent(this,element)); 
@@ -112,7 +117,8 @@ function addComment(val, el){
     $('commentArea').setStyle('display', 'block');
     $('commentArea').slide('hide').slide('in');
     $('wletid').set('value', gid[1]);
-    
+   // var html=$('commentArea').get('html');
+   //$$('div.com-'+gid[1]).set('html',html);
     $('waveButton').removeEvents('click');
     $('wavecancel').removeEvents('click');
     $('waveButton').addEvent('click', addSubmit.bindWithEvent(this));
@@ -133,8 +139,7 @@ function cancelAdd(id){
             $('freport').setStyle('display', 'none');
             
         }
-    
-    
+
 }
 
 function likethis(action, wid, like, ele){
