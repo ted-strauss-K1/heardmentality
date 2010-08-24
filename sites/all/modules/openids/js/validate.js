@@ -38,13 +38,17 @@ function validate_reg()
 	document.getElementById("err_div").innerHTML = "Please Enter the Valid Email Id...";
 	return false;
 	} 
-	if (document.getElementById("dob").value=='')
+	
+        if (document.getElementById("dob").value!='')
 	{
+            
+        if(!(/^([0-2]\d|3[0-1]|[1-9])\/(0\d|1[0-2]|[1-9])\/(\d{4})$/.test(document.getElementById("dob").value)))
+        {
 	document.getElementById("errbox").focus();
-	document.getElementById("err_div").innerHTML = "Date Of Birth must not blank..."; 	   
+	document.getElementById("err_div").innerHTML = "Date Of Birth must be valid format MM/DD/YYYY-[14/07/1986]...";
 	return false;
-	}
-	//alert(document.getElementById("edit-religion").value);
+	}}
+	/*//alert(document.getElementById("edit-religion").value);
 	if (document.getElementById("edit-religion").value=='')
 	{
 	document.getElementById("errbox").focus();
@@ -76,7 +80,7 @@ function validate_reg()
 	return false;
 	}
 	
-	
+	*/
 	
 	return true;
 }

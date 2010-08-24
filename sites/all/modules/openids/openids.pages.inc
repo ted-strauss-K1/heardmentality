@@ -376,8 +376,9 @@ function openid_login_save() {
     
     if ($_GET['gender'] == 'm')
         $gender = '1';
-    else
+    else if($_GET['gender']=='f'){
         $gender = '2';
+    }
     $pass = $_GET['UID'];
     $dob = $_GET['birthDay']."/".$_GET['birthMonth']."/".$_GET['birthYear'];
     if ($_GET['provider'] == 'facebook') {
@@ -419,10 +420,11 @@ function openid_login_save() {
         $updates = "update users set name='$uname' where uid=$lid";
         $up = db_query($updates);
 
-        
+         $age='';
+         // $age=age($dob);
         /////////////insert into new profile user///////////////
         
-        $insert_profile = "insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$_GET['firstName']."' ,'".$_GET['lastName']."' ,'".$gender."','".$_GET['zip']."','".$_GET['country']."','".$prolink."','".$prolink2."','".$dob."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
+        $insert_profile = "insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,facebook,twitter,dob,age,image_url,provider)values('".$lid."','".$_GET['nickname']."','".$_GET['firstName']."' ,'".$_GET['lastName']."' ,'".$gender."','".$_GET['zip']."','".$_GET['country']."','".$prolink."','".$prolink2."','".$dob."','".$age."','".$_GET['photoURL']."','".$_GET['provider']."'  ) ";
         
         $insersult = db_query($insert_profile);
 
@@ -431,7 +433,7 @@ function openid_login_save() {
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$uname.' class="form-text required"/>
 			<input type="password" name="pass" id="edit-pass" value='.$pass.'  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
-			
+			<input type="hidden" name="newuser" value="1" />
 			</form>
 			<script language="JavaScript" type="text/javascript">
 			
@@ -443,7 +445,7 @@ function openid_login_save() {
 
     
     } else {
-        $result_profile_edit_promt = db_query("UPDATE {users} set prompt='1'where Identity='".$pass."' and provider='".$_GET['provider']."' ");
+        $result_profile_edit_promt = db_query("UPDATE {users} set prompt='1' where Identity='".$pass."' and provider='".$_GET['provider']."' ");
         $select_user_list = db_fetch_object(db_query("SELECT * from users where Identity='".$pass."' and provider='".$_GET['provider']."'"));
         $unamelog = $select_user_list->name;
         $passlog = $_GET['UID'];
@@ -453,7 +455,7 @@ function openid_login_save() {
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value='.$unamelog.' class="form-text required"/>
 			<input type="password" name="pass" id="edit-pass" value='.$passlog.'  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
 			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
-			
+			<input type="hidden" name="newuser" value="0" />
 			</form>
 			<script language="JavaScript" type="text/javascript">
 			
@@ -467,7 +469,7 @@ function openid_login_save() {
     }
 
     
-    return $formret;
+    echo $formret;
 
 
 }
@@ -531,20 +533,19 @@ function friends_answers() {
 function age($date){
 	
 $year_diff = '';
-	$time = strtotime($date);
-	if(FALSE == $time){
-		return '';
-	}
-
-
-	$date=date('Y-m-d',$time);
-	list($year,$month,$day)=explode("-",$date);
-	$year_diff = date("Y")-$year;
+	if(!empty($date)){
+	list($day,$month,$year)=explode("/",$date);
+   
+	 $year_diff = date("Y")-$year;
 	$month_diff = date("m")-$month;
 	$day_diff = date("d")- $day;
 	if ($day_diff < 0 || $month_diff < 0) $year_diff–;
 
 	return $year_diff;
+        }else{
+
+            return '';
+        }
 }
 
 
@@ -692,8 +693,9 @@ ob_start();
         
         $update_user = db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
         $age='';
-		$age=age($dob);
-        $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
+		 $age=age($dob);
+      
+        $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
 
         
         $sel_ulists = "select * from {user_profile} where uid='$user->uid'";
@@ -810,7 +812,8 @@ ob_start();
     }
     if (! empty($state)) {
         
-        $statecity = '<b>Province/State :</b>'.$state.'<br/><b>City :</b>'.$city.'
+        $statecity = '<b>Country :</b>'.$country.'<br/><b>Province/State :</b>'.$state.'<br/><b>City :</b>'.$city.'
+                                <input type="hidden" name="country" value="'.$country.'">
 				<input type="hidden" name="state" value="'.$state.'">
 				<input type="hidden" name="city" value="'.$city.'">
 				';
@@ -858,7 +861,7 @@ var spath=\''.$gSitePath.'\';
    <input id="lname" name="lname" class="field text" value="'.$last_name.'" size="12" tabindex="3" type="text">
     <input id="rname" name="rname" class="field text" value="'.$real_name.'" tabindex="4" type="text"> 
        <input id="edit-mail" name="mail" class="field text " value="'.$mail.'" maxlength="255" tabindex="5" type="text"> 
-	   <input name="dob"  value="'.$dob.'"  id="dob" class="field text "  tabindex="5" type="text">
+	   <input name="dob"  value="'.$dob.'"  id="dob" class="field text "  tabindex="5" type="text">[mm/dd/yyyy]
     </span>
      
   
@@ -871,14 +874,14 @@ var spath=\''.$gSitePath.'\';
   <li id="foli14" class="">
 			<label class="desc" id="title14" for="Field14"> 
 			Gender
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Country 
+			<!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Country  -->
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Religion :
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethnicity:
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Slant: 
 			</label> 
 	<label class="option" for="edit-gender-0"><input id="edit-gender-0" name="gender" value="1" class="form-radio" '.$check1.' type="radio"> Male</label>
 	<label class="option" for="edit-gender-1"><input id="edit-gender-1" name="gender" value="2" class="form-radio" '.$check2.' type="radio"> Female</label> 
-       <select name="country" style="width: 125px;" tabindex="16" id="edit-country">'.$optionlist.'</select> 
+       <!--<select name="country1" style="width: 125px;" tabindex="16" id="edit-country">'.$optionlist.'</select>-->
 		 <select  name="religion" id="edit-religion" class="form-text" ><option value="" >Select</option><option value="Christian" '.$selr1.' >Christian (Cath or Prod)</option><option value="Muslim" '.$selr2.' >Muslim (Suni Shiite)</option><option value="Jewish" '.$selr3.' >Jewish</option><option value="Hindu" '.$selr4.' > Hindu</option><option value="Buddhist" '.$selr5.' >Buddhist</option><option value="Other" '.$selr6.'>Other</option></select> 
 		<select name="ethnic" id="edit-ethnic" class="form-text" ><option value="">Select </option><option value="Caucasian" '.$sele1.'>Caucasian</option><option value="Black" '.$sele2.'>Black</option><option value="Asian" '.$sele3.'>Asian</option> <option value="Indian" '.$sele4.'>Indian</option> <option value="Semetic" '.$sele5.'>Semetic</option><option value="Latin" '.$sele6.'>Latin</option> <option value="Aborigines" '.$sele7.'>Aborigines</option>  </select>
 		<select name="slant" id="edit-slant"  class="form-text" ><option value="">Select</option><option value="Left" '.$seleant1.'>Left</option><option value="Right" '.$seleant2.'>Right </option> <option value="Center" '.$seleant3.'>Center </option>  </select>
@@ -900,7 +903,7 @@ var spath=\''.$gSitePath.'\';
 	<label class="desc" id="title14" for="Field14"> 
 	Zipcode
 	</label> 
-	 <input name="zip"  value="'.$zip.'"  onblur="get_zip_city(this.value);" id="edit-zip"  class="field text" type="text">
+	 <input name="zip"  value="'.$zip.'"  onkeyup="get_zip_city(this.value);" onblur="get_zip_city(this.value);" id="edit-zip"  class="field text" type="text">
 	 <div class="form-item" id="edit-city-wrapper">'.$statecity.' </div>
 	 </li>
 	 
