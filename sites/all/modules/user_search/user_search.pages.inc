@@ -188,7 +188,7 @@ function search_results_question() {
 
     
     $eu = ($start - 0);
-    $limit = 5; // No of records to be shown per page.
+    $limit = 15; // No of records to be shown per page.
     $this1 = $eu + $limit;
     $back = $eu - $limit;
     $next = $eu + $limit;
