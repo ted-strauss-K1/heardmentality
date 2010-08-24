@@ -25,8 +25,8 @@ function get_profile_details(urid){
 
 
 
-function get_state(code,nochg){
-
+function get_state(code){
+ $(document).ready(function() {
     var url = gSitePath + 'question/ajax';
      
 	jQuery.ajax({
@@ -43,8 +43,7 @@ function get_state(code,nochg){
         }
     });
 	
-	if(nochg!=1){
-		
+
 	 var url = gSitePath + "userresults";
    
 	 jQuery.ajax({
@@ -62,8 +61,8 @@ function get_state(code,nochg){
     });
     
 		
-	}
-   
+	
+   });
 	
 }
 

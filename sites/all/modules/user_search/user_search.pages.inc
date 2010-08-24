@@ -25,11 +25,7 @@ function search_results() {
     $fetresult = '';
     drupal_add_js(drupal_get_path('module', 'user_search').'/js/search.js');
 	
-	if(!empty($_REQUEST['code'])){
-		 $code=$_REQUEST['code'];
-		drupal_add_js("setDefaultCountry('".$code."');",'inline');
-	}
-    
+	
     $name = $_REQUEST['txt_search'];
     if (isset($_REQUEST['code'])) {
         $code = $_REQUEST['code'];
@@ -987,7 +983,7 @@ function search_results_user() {
         }
         $fetresult .= '<div class="result-item">
 		 <div class="first-col"> 
-		 <div class="photo"><a href="#"><a href="#">'.UserPicture_small($user_result->uid).'<img src="images/profile.jpg" alt="photo" width="70"  height="70"/></a></div>
+		 <div class="photo"><a href="#" onclick="get_profile_details('.$user_result->uid.');">'.UserPicture($user_result->uid).'</a></div>
 		 </div>
 		    <div class="second-col">
     <div class="textouter"> <div class="grayt">Username:</div>
