@@ -103,7 +103,7 @@ function process_tags($qtag = '', $qid = '', $edit = '') {
     switch ($edit) {
         case 1:
             foreach ($qtag as $ins) {
-                $ins_clean = clean_url($ins);
+                $ins_clean = clean_url($ins,'','','');
                 $query = " SELECT * , (SELECT count( * )FROM qtag AS q WHERE t.tid = q.tag_id AND q.qid='$qid' GROUP BY q.tag_id) AS tcnt FROM tagging AS t WHERE t.tag LIKE '$ins_clean' LIMIT 0 , 1 ";
                 $result = ExecuteQuery($query, "select");
                 // print_r($result);
