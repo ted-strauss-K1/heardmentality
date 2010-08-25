@@ -8,103 +8,68 @@ $scid = '';
 global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 $query = facetad_refine();
 $sel_search = mysql_query($query['query']);
-$txt_search = $query['txt_search'];
+$txt_search = trim($query['txt_search']);
 $qids = array();
-while ($push = db_fetch_array($sel_search)) {
 
-    array_push($qids, $push['qid']);
+
+//keyword exist make count based on that
+$search = '';
+if (!empty($txt_search)) {
+
+    $search.= " AND q.question LIKE  '%" . $txt_search . "%'";
 }
-
-$qids = implode(",", $qids);
-
-if (isset($_REQUEST['scid']) || isset($_REQUEST['cid'])) {
-    $suid = $_REQUEST['scid'];
-    if ($_REQUEST['cid'] == '') {
-        $sel_catm = db_query("select * from category  where cat_id='" . $suid . "'   ");
-        $saveresult = db_fetch_object($sel_catm);
-        $cid = $saveresult->parent_id;
-    } else {
-        $cid = $_REQUEST['cid'];
-    }
-
-    $catlist = "<b>Category</b>";
-    $sel_cat = db_query("select * from category where cat_id=" . $cid . "   ");
-    $saveresult = db_fetch_object($sel_cat);
-
-
-    $sel_suge = "select * from category  where parent_id=" . $cid . "   ";
-
-    $rs_folwin = db_query($sel_suge);
-
-    if (!empty($qids)) {
-        $numrancnt = db_result(db_query("SELECT COUNT(*) from  question   where cid=" . $cid . "   "));
-
-        $catlist.='
-		<div id="container">
-		<div class="feature">
-		<div class="l col">
-		<ul><li><b><a href="' . $gSitePath . 'searchquestion?cid=' . $cid . '&txt_search=' . $txt_search . '">' . $saveresult->cat_name . '(' . $numrancnt . ')</a></b></li>';
-
-        while ($flwing_result = db_fetch_object($rs_folwin)) {
-            //echo "SELECT COUNT(*) from  question   where cid=".$cid." and scid=".$flwing_result->cat_id."";
-
-            $numrancnts = db_result(db_query("SELECT COUNT(*) from  question   where cid=" . $cid . " and scid=" . $flwing_result->cat_id . " "));
-
-
-            $catlist.='<li>&nbsp;<a href="' . $gSitePath . 'searchquestion?cid=' . $cid . '&scid=' . $flwing_result->cat_id . '&txt_search=' . $txt_search . '">' . $flwing_result->cat_name . '(' . $numrancnts . ')</a></li>';
-            //echo $flwing_result->cat_id;
-
-            $sel_sugess = "select * from category as c  where c.parent_id=" . $flwing_result->cat_id . "   ";
-            $rs_folwinss = db_query($sel_sugess);
-            while ($sm_result = db_fetch_object($rs_folwinss)) {
-
-                $numrancntss = db_result(db_query("SELECT COUNT(*) from  question   where cid=" . $cid . " and scid=" . $flwing_result->cat_id . " and  sscid=" . $sm_result->cat_id . " AND qid in (" . $qids . ")"));
-                $catlist.='<li>&nbsp;&nbsp; <a href="' . $gSitePath . 'searchquestion?cid=' . $cid . '&scid=' . $flwing_result->cat_id . '&sscid=' . $sm_result->cat_id . '">' . $sm_result->cat_name . '(' . $numrancntss . ') </a> </li>';
-            }
+if (!empty($_REQUEST['cid'])) {
+    $cid = $_REQUEST['cid'];
+   
+}
+if (!empty($_REQUEST['scid'])) {
+    $scid = $_REQUEST['scid'];
+}
+if (!empty($_REQUEST['sscid'])) {
+    $sscid = $_REQUEST['sscid'];
+}
+$catlist.='<div class="padding10 minheight"><span class="black12">Category :</span><br/>';
+$sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
+$listcat = ExecuteQuery($sel_cat, "select");
+if (!empty($listcat)) {
+    foreach ($listcat as $cat) {
+        $style = '';
+        if ($cid == $cat['cat_id']) {
+            $style = 'class="sidelinks"';
         }
-    } else {
-        $catlist.='<li>&nbsp;&nbsp;No Category Found</li>';
+        $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' . $cat['cntc'] . ']</a></span><br/>';
+        //subcat list
+        if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
+            $catlist.='<ul>';
+            $sel_scat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $cat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
+            $listscat = ExecuteQuery($sel_scat, "select");
+            foreach ($listscat as $scat) {
+                  $style = '';
+                if ($scid == $scat['cat_id']) {
+                    $style = 'style="font-weight:bold"';
+                }
+                $catlist.='<li ' . $style . '><a href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $scat['cntc'] . ']</a></li>';
+                //sub subcat list
+                if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
+                    $catlist.='<ul>';
+                    $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
+                    $listsscat = ExecuteQuery($sel_sscat, "select");
+                    foreach ($listsscat as $sscat) {
+                          $style = '';
+                        if ($sscid == $sscat['cat_id']) {
+                            $style = 'style="font-weight:bold"';
+                        }
+                        $catlist.='<li ' . $style . '><a href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $sscat['cntc'] . ']</a></li>';
+                    }
+                    $catlist.='</ul>';
+                }
+            }
+            $catlist.='</ul>';
+        }
     }
-
-
-    $catlist.='</ul></div>
-	</div>
-	</div>
-	';
 } else {
 
-    $catlist = "<b>Category</b>";
-
-    if (!empty($qids)) {
-
-
-        $sel_sugef = "select * from {category} as c join {question} as q on c.cat_id=q.cid where q.qid in (" . $qids . ") AND parent_id='0' group by c.cat_id   ";
-
-        $rs_cat = db_query($sel_sugef);
-
-
-        $catlist.='
-		<div id="container">
-		<div class="feature">
-		<div class="l col">
-		<ul>';
-
-        while ($cat_result = db_fetch_object($rs_cat)) {
-
-            $cntquery = "SELECT COUNT(*) from  question where  cid=" . $cat_result->cat_id . " AND qid in (" . $qids . ")";
-            $numrancnts = db_result(db_query($cntquery));
-
-
-            $catlist.='<li>&nbsp;<a href="' . $gSitePath . 'searchquestion?cid=' . $cat_result->cat_id . '&txt_search=' . $txt_search . '">' . $cat_result->cat_name . '(' . $numrancnts . ')</a></li>';
-        }
-        $catlist.='</ul></div>
-	</div>
-	</div>
-	';
-    } else {
-
-        $catlist.='<p>No Result Found</p>';
-    }
+    $catlist.='<span><b>No Category Found</b></span>';
 }
 echo $catlist;
 
@@ -114,6 +79,7 @@ echo $catlist;
 
 if (isset($_REQUEST['cid'])) {
     $link1 = '&cid=' . $_REQUEST['cid'] . '';
+    
 }
 if (isset($_REQUEST['scid'])) {
     $link2 = '&scid=' . $_REQUEST['scid'] . '';
@@ -121,65 +87,43 @@ if (isset($_REQUEST['scid'])) {
 if (isset($_REQUEST['sscid'])) {
     $link3 = '&sscid=' . $_REQUEST['sscid'] . '';
 }
-if (isset($_REQUEST['cid'])) {
-    $tagslist = "<b>Tags</b>";
-    if (!empty($qids)) {
-        $qry_tags = "select  distinct(tag.tag_id)  from question as  q,qtag as tag ,tagging as tg WHERE tag.qid in (" . $qids . ") AND q.cid='" . $_REQUEST['cid'] . "' and tag.qid=q.qid and tg.tid=tag.tag_id";
-        $rs_tags = db_query($qry_tags);
-        $tagslist.='
-	<div id="container">
-	<div class="feature">
-	<div class="l col">
-	<ul>';
-        if (db_result($rs_tags) > 0) {
-            while ($tag_result = db_fetch_object($rs_tags)) {
-                $numtag = db_result(db_query("SELECT COUNT(*) from  qtag   where tag_id=" . $tag_result->tag_id . ""));
-                $tagnme = db_query("select  *  from tagging  WHERE tid=" . $tag_result->tag_id . " ");
-                $tagnme_result = db_fetch_object($tagnme);
-                $tagslist.='<li>&nbsp;&nbsp; <a href="' . $gSitePath . 'searchquestion?tag=' . $tag_result->tag_id . '' . $link1 . '' . $link2 . '' . $link3 . '">' . $tagnme_result->tag . '(' . $numtag . ') </a> </li>';
-            }
-        } else {
-            $tagslist.='<li>&nbsp;&nbsp;No Tags Found</li>';
-        }
 
-        $tagslist.='</ul></div>
-	</div>
-	</div>
-	';
-    } else {
-        $tagslist.='<li>No Tags Found</li>';
+if (!empty($link3))
+         $searchcat = " AND qc.sscat='$sscid' ";
+    elseif (!empty($link2))
+        $searchcat = " AND qc.scat='$scid' ";
+    elseif (!empty($link1))
+        $searchcat = " AND qc.cat='$cid' ";
+
+
+
+$tagslist = '<br/><br/><span class="black12">Tags :</span><br/>';
+
+$tsearch = '';
+if (!empty($txt_search)) {
+
+    $tsearch.= " AND q.question LIKE  '%" . $txt_search . "%'";
+    
+}
+$ins_query='';
+if(!empty ($txt_search)||!empty($_REQUEST['cid'])){
+ $ins_query="left join {question_cat} as qc on qc.qid=q.qid ";
+}
+   $qry_tags = "select *,count(*) as cntc from {tagging} as t join {qtag} as qt on qt.tag_id=t.tid  join {question} as q on q.qid=qt.qid ".$ins_query." where  q.status='1' " .$searchcat . $tsearch . "  group by t.tid";
+$rs_tags = ExecuteQuery($qry_tags, "select");
+$tagslist.='<br/>';
+if (!empty($rs_tags)) {
+
+    foreach ($rs_tags as $tag_result) {
+
+        $tagslist.='<span class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?tag=' . $tag_result['tag_id'] . '' . $link1 . '' . $link2 . '' . $link3 . '&txt_search=' . $txt_search . '">' . $tag_result['tag'] . '[' . $tag_result['cntc'] . '] </a> </span><br/>';
     }
 } else {
-    $tagslist = "<b>Tags</b>";
-    if (!empty($qids)) {
-        $qry_tags = "select  distinct(tag.tag_id)  from question as  q,qtag as tag ,tagging as tg WHERE tag.qid in (" . $qids . ") AND tag.qid=q.qid and tg.tid=tag.tag_id";
-        $rs_tags = db_query($qry_tags);
 
-        $tagslist.='
-	<div id="container">
-	<div class="feature">
-	<div class="l col">
-	<ul>';
-        if (db_result($rs_tags) > 0) {
-
-            while ($tag_result = db_fetch_object($rs_tags)) {
-                $numtag = db_result(db_query("SELECT COUNT(*) from  qtag   where tag_id=" . $tag_result->tag_id . ""));
-                $tagnme = db_query("select  *  from tagging  WHERE tid=" . $tag_result->tag_id . " ");
-                $tagnme_result = db_fetch_object($tagnme);
-                $tagslist.='<li>&nbsp;&nbsp; <a href="' . $gSitePath . 'searchquestion?tag=' . $tag_result->tag_id . '' . $link1 . '' . $link2 . '' . $link3 . '&txt_search=' . $txt_search . '">' . $tagnme_result->tag . '(' . $numtag . ') </a> </li>';
-            }
-        } else {
-
-            $tagslist.='<li>No Tags Found</li>';
-        }
-
-        $tagslist.='</ul></div>
-	</div>
-	</div>
-	';
-    } else {
-        $tagslist.='<li>&nbsp;&nbsp;No Tags Found</li>';
-    }
+    $tagslist.='<span><b>No Tags Found</b></span>';
 }
+
+
+$tagslist.='</div>';
 echo $tagslist;
 ?>

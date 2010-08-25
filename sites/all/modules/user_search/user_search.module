@@ -1,118 +1,117 @@
 <?php
+
 /**
  * Implementation of hook_perm().
  */
 function user_search_perm() {
-  return array('Search User','Following','Follower','Suggested Users','User Information','Question Information');
+    return array('Search User', 'Following', 'Follower', 'Suggested Users', 'User Information', 'Question Information');
 }
-
 
 /**
  * Implementation of hook_menu().
  */
- 
-function user_search_menu() {	
+function user_search_menu() {
 
-$search_result['searchuser'] = array(
-    'title' => '  SEARCH RESULTS',
-    'page callback' => 'search_results',
-    'access arguments' => array('Search User'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
-$search_result['searchquestion'] = array(
-    'title' => '  SEARCH RESULTS',
-    'page callback' => 'search_results_question',
-    'access arguments' => array('Search User'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
-$search_result['follower'] = array(
-    'title' => 'Follower',
-    'page callback' => 'user_follower',
-    'access arguments' => array('Follower'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
+    $search_result['searchuser'] = array(
+        'title' => '  SEARCH RESULTS',
+        'page callback' => 'search_results',
+        'access arguments' => array('Search User'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+    $search_result['searchquestion'] = array(
+        'title' => '  SEARCH RESULTS',
+        'page callback' => 'search_results_question',
+        'access arguments' => array('Search User'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+    $search_result['follower'] = array(
+        'title' => 'Follower',
+        'page callback' => 'user_follower',
+        'access arguments' => array('Follower'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
 
-$search_result['following'] = array(
-    'title' => ' Following',
-    'page callback' => 'user_following',
-    'access arguments' => array('Following'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
-  
-  $search_result['suggest/follow'] = array(
-    'title' => ' Suggested Users',
-    'page callback' => 'suggest_follow',
-    'access arguments' => array('Suggested Users'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
-  
-  
-  $search_result['savefollowing'] = array(
-    'title' => ' Following',
-    'page callback' => 'save_follow',
-    'access arguments' => array('Following'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
-  
-  
-   $search_result['savefollower'] = array(
-    'title' => ' Following',
-    'page callback' => 'save_follower',
-    'access arguments' => array('Following'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
-  
+    $search_result['following'] = array(
+        'title' => ' Following',
+        'page callback' => 'user_following',
+        'access arguments' => array('Following'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+
+    $search_result['suggest/follow'] = array(
+        'title' => ' Suggested Users',
+        'page callback' => 'suggest_follow',
+        'access arguments' => array('Suggested Users'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+
+
+    $search_result['savefollowing'] = array(
+        'title' => ' Following',
+        'page callback' => 'save_follow',
+        'access arguments' => array('Following'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+
+
+    $search_result['savefollower'] = array(
+        'title' => ' Following',
+        'page callback' => 'save_follower',
+        'access arguments' => array('Following'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+
     $search_result['userinfo'] = array(
-    'title' => ' User Information',
-    'page callback' => 'get_user_details',
-    'access arguments' => array('User Information'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
+        'title' => ' User Information',
+        'page callback' => 'get_user_details',
+        'access arguments' => array('User Information'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
     $search_result['questinfo'] = array(
-    'title' => ' User Information',
-    'page callback' => 'get_question_details',
-    'access arguments' => array('Question Information'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
-   $search_result['userresults'] = array(
-    'title' => ' SEARCH RESULTS',
-    'page callback' => 'search_results_user',
-    'access arguments' => array('User Information'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'user_search.pages.inc',
-  );
-  
-  $search_result['searchreport'] = array(
-    'title' => 'SEARCH RESULTS',
-    'page callback' => 'search_report',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Notify Report'),
-    'file' => 'user_search.pages.inc',
-  );
-  $search_result['searchcontent'] = array(
-    'title' => 'SEARCH RESULTS',
-    'page callback' => 'search_content',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Notify Report Content'),
-    'file' => 'user_search.pages.inc',
-  );
-  
-  return $search_result;
+        'title' => ' User Information',
+        'page callback' => 'get_question_details',
+        'access arguments' => array('Question Information'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+    $search_result['userresults'] = array(
+        'title' => ' SEARCH RESULTS',
+        'page callback' => 'search_results_user',
+        'access arguments' => array('User Information'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+
+    $search_result['searchreport'] = array(
+        'title' => 'SEARCH RESULTS',
+        'page callback' => 'search_report',
+        'type' => MENU_CALLBACK,
+        'access arguments' => array('Notify Report'),
+        'file' => 'user_search.pages.inc',
+    );
+    $search_result['searchcontent'] = array(
+        'title' => 'SEARCH RESULTS',
+        'page callback' => 'search_content',
+        'type' => MENU_CALLBACK,
+        'access arguments' => array('Notify Report Content'),
+        'file' => 'user_search.pages.inc',
+    );
+
+    return $search_result;
 }
 
-function facetad_refine(){
-	//query builder
-	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	     $start = '';
+function facetad_refine() {
+    //query builder
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $start = '';
     $txt_search = '';
     $scid = '';
     $sscid = '';
@@ -126,74 +125,67 @@ function facetad_refine(){
     $page_name = "searchquestion";
     if (isset($_GET['start'])) {
         $start = $_GET['start'];
-    
     }
-    
+
     if (strlen($start) > 0 and !is_numeric($start)) {
         echo "Data Error";
         exit;
     }
 
-    
+
     $eu = ($start - 0);
     $limit = 5; // No of records to be shown per page.
     $this1 = $eu + $limit;
     $back = $eu - $limit;
     $next = $eu + $limit;
-	 
-	extract($_REQUEST);
+
+
     if (isset($_REQUEST['txt_search'])) {
         $name = $_REQUEST['txt_search'];
     }
-    
+    extract($_REQUEST);
     if (isset($_GET['scid'])) {
         $suid = $_GET['scid'];
-    
     }
     //$suid=$_REQUEST['scid'];
     //echo "select * from category  where cat_id='".$suid."' " ;
-    $sel_catm = db_query("select * from category  where cat_id='".$suid."'   ");
+    $sel_catm = db_query("select * from category  where cat_id='" . $suid . "'   ");
     $saveresult = db_fetch_object($sel_catm);
     $qry = '';
     if (isset($_GET['cid'])) {
         $cid = $_GET['cid'];
-    
     }
     if (isset($_GET['scid'])) {
         $scid = $_GET['scid'];
-    
     }
     if ($name) {
-        $qry .= " question LIKE '%".$name."%' AND ";
-    
+        $qry .= " question LIKE '%" . $name . "%' AND ";
     }
-    
-    if (isset($cid))
-        $qry .= "cid=".$cid." AND ";
-    if ($scid)
-        $qry .= "scid=".$scid." AND ";
-    if ($sscid)
-        // $qry.="(sscid LIKE '%".$sscid."%') AND (cid  LIKE '%".$saveresult->parent_id."%') AND ";
-        $qry .= "sscid=".$sscid."  AND ";
-    
+
+    if (!empty($sscid))
+        $qry .= "qc.sscat=" . $sscid . "  AND ";
+    elseif (!empty($scid))
+        $qry .= "qc.scat=" . $scid . " AND ";
+    elseif (!empty($cid))
+        $qry .= "qc.cat=" . $cid . " AND ";
+
     if ($tag != '') {
         $sel = "SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
     } else {
-        $sel = "SELECT * FROM question   WHERE $qry status='1'   ";
+        $sel = "SELECT * FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid ";
     }
 
-    
+
     $user_qry = db_query($sel);
     if ($tag != '') {
-        $sel_count = mysql_num_rows(mysql_query("SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));
-    
+        $sel_count = mysql_num_rows(db_query("SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));
     } else {
-        $sel_count = mysql_num_rows(mysql_query("SELECT * FROM question   WHERE $qry status='1'  "));
+        $sel_count = mysql_num_rows(db_query($sel));
     }
-    
-    $ret['query']=$sel;
-	$ret['qcnt']=$sel_count;
-	$ret['txt_search']=$_REQUEST['txt_search'];
 
-	return $ret;
+    $ret['query'] = $sel;
+    $ret['qcnt'] = $sel_count;
+    $ret['txt_search'] = $_REQUEST['txt_search'];
+
+    return $ret;
 }
