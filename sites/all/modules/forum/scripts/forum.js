@@ -2,10 +2,6 @@
  * @author gobinath.m
  */
 
-var overlay;
-window.addEvent('domready',function(){
-	overlay = new Overlay($(document.body)).open();
-});
 window.addEvent('domready', function(){
 
     //$('newwaveletbut').addEvent('click', addComment.bindWithEvent(this,element)); 
