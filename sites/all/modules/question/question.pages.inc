@@ -563,23 +563,51 @@ function question_save() {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $q_quest = '';
-    // print_r($_REQUEST);
+   //print_r($_REQUEST);die;
     extract($_REQUEST);
     $output = '';
     $g_global = '';
     if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($cat1)) {
         $edate = $q_edate;
        
-      
+        
 
       
-        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',cid=' $cat1',scid='$cat2',sscid='$cat3',country='$q_country',state='$q_state',city='$q_city',share='$qrset'  ");
+        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',country='$q_country',state='$q_state',city='$q_city',share='$qrset'  ");
         
         $ins_id = db_last_insert_id('question', 'qid');
+
+        //cid=' $cat1',scid='$cat2',sscid='$cat3'
+
+        if(!empty($cat1)){
+        $cat1=explode(',',$cat1);
+
+        foreach($cat1 as $ins1){
+         db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
+        }
+         
+        }
+        if(!empty($cat2)){
+        $cat2=explode(',',$cat2);
+
+        foreach($cat2 as $ins2){
+         db_query("insert into {question_cat} set qid='$ins_id',scat='$ins2'");
+        }
+
+        }
+        if(!empty($cat3)){
+        $cat3=explode(',',$cat3);
+
+        foreach($cat3 as $ins3){
+         db_query("insert into {question_cat} set qid='$ins_id',sscat='$ins3'");
+        }
+
+        }
+
         //check dupe if so flag it
            chk_dupe($q_quest,$ins_id);
            //url alias
-             $dst = clean_url(myTruncate($q_quest, 100, ''),'','',$ins_id);
+             $dst = clean_url(myTruncate($q_quest, 100, ''),'','-',$ins_id);
 
         ////////////mail notication for user follwers to me//////////////////////////////////////
         $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
