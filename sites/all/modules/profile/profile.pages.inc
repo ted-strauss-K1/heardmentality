@@ -245,26 +245,8 @@ function profile($uid = '') {
     //question ends
     
     //profile badge
-    $arr = updateProfileBadge($uid);
-    $pat = $gSitePath.drupal_get_path('module', 'profile');
-    $post_count = isset($arr['post_count']) ? $arr['post_count'] : '';
-    if ($arr['badge_type_id'] == 1) {
-        $li = "Brown";
-        $li_img_source = $pat."/images/brown.jpg";
-    } elseif ($arr['badge_type_id'] == 2) {
-        $li = "Silver";
-        $li_img_source = $pat."/images/silver.jpg";
-    } elseif ($arr['badge_type_id'] == 3) {
-        $li = "Gold";
-        $li_img_source = $pat."/images/gold.jpg";
-    }
-    
-    if (($userSettings['medal'] == 1) || ($userSettings['medal'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['medal'] == 2 && $is_follow_follower == TRUE)) {
-        $medal = '<p>
-			<span><img title="'.$li.'"  src="'.$li_img_source.'" >
-			</span>'.$post_count.'
-			</p>';
-    }
+    $medal = updateProfileBadge($uid);
+
     
     if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 2 && $is_follow_follower == TRUE)) {
         $answer1 = $ins_ans;
