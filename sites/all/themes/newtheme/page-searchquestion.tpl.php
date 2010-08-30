@@ -14,11 +14,6 @@
         <?php print $content; ?>
     </div>
     <div class="commu">
-        <div class="inner-commutop">
-            <p>
-                No Question Selected
-            </p>
-        </div>
         <?php if (! empty($right)): ?>
         <div id="sidebar-right" class="column sidebar">
             <?php print $right; ?>
