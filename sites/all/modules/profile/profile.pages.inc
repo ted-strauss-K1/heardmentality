@@ -141,7 +141,7 @@ function profile($uid = '') {
     $qns_list = '';
     $upcount = null;
     $downcount = null;
-	
+	$strReturn='';
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
    
