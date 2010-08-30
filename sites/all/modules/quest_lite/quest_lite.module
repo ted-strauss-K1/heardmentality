@@ -133,9 +133,9 @@ function process_tags($qtag = '', $qid = '', $edit = '') {
         default:
             foreach ($qtag as $settag) {
                 $ins_clean = clean_url($settag);
-                $query = " SELECT count(*) as cnt,tid FROM {tagging} WHERE `tag` LIKE '$ins_clean' LIMIT 0 , 1 ";
-                $result_tag = ExecuteQuery($query, "select");
-                if ($result_tag[0]['cnt'] > 0) {
+                $query = " SELECT *,tid FROM {tagging} WHERE `tag` LIKE '$ins_clean' LIMIT 0 , 1 ";
+                $result_tag = ExecuteQuery($query, "norows");
+                if ($result_tag > 0) {
                     $result = db_query("INSERT INTO {qtag} (qid,tag_id) VALUES (%d,%d)", $qid, $result_tag[0]['tid']);
                 } else {
                     
