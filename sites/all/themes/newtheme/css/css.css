@@ -92,7 +92,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .welcome a:hover{ text-decoration:none;}
 
 /*profile part*/
-.profile_part{ width:1012px; border:1px solid #ededed; margin:0 auto; padding:5px; font:normal 12px Georgia, "Times New Roman", Times, serif; color:#000;}
+.profile_part{ width:1012px; border:1px solid #ededed; margin:0 auto; padding:5px; font:normal 12px Georgia, "Times New Roman", Times, serif; color:#000;overflow: hidden;}
 .rht_link{ float:right; font:normal 11px Georgia, "Times New Roman", Times, serif;}
 .rht_link a{ font:normal 12px Georgia, "Times New Roman", Times, serif; color:#727171; text-decoration:none;}
 .rht_link a:hover{ color:#000;}
@@ -320,4 +320,38 @@ padding:5px; line-height:20px;
 #showboxcmt textarea{
 	
 	 font-size:12px; width:auto; overflow:visible; border-style:groove; border-width:2px;
+}
+.badge1, .badge2, .badge3 {
+background-position:-40px -1034px;
+display:inline-block;
+height:11px;
+line-height:inherit;
+margin:0 1px 1px 3px;
+overflow:hidden;
+vertical-align:text-bottom;
+width:6px;
+}
+
+.badgecount {
+color:#808185;
+padding-left:1px;
+}
+
+.reputation-score {
+color:#444444;
+font-size:120%;
+font-weight:bold;
+margin-right:2px;
+}
+
+.gold {
+	background-color:#ffd324;	
+}
+.silver {
+	
+	background-color:#ededed;
+}
+.bronze {
+	background-color:#CC6600;
+	
 }
