@@ -207,7 +207,7 @@ $items['question/save'] = array(
 	$gp=guru_points('user',$uid);
 	$badges.='<br/><span title="reputation score '.$gp.'" class="reputation-score">'.$gp.'</span>';
 	
-	echo $query="SELECT count(*) as cnt,btype FROM user_badges as ub left join badges as b on b.bid=ub.bid where ub.uid='$uid' group by b.btype ";
+	 $query="SELECT count(*) as cnt,btype FROM user_badges as ub left join badges as b on b.bid=ub.bid where ub.uid='$uid' group by b.btype ";
 	$btype= ExecuteQuery($query, "select");
 	
 	if(count($btype)>0){
