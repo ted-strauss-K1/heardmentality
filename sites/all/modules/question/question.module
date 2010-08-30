@@ -201,7 +201,7 @@ $items['question/save'] = array(
 	}
 //function to update profileabadge by post
  function updateProfileBadge($uid = null){
-   global $user;
+       global $gSitePath,$user,$gDocPath,$base_root;
 	$badges=''; $gold='';$silver='';$bronze='';
 	 $pat = $gSitePath.drupal_get_path('module', 'profile');
 	$gp=guru_points('user',$uid);
