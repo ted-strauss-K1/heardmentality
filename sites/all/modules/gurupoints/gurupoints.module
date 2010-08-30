@@ -3,178 +3,159 @@
  * Implementation of hook_perm().
  */
 function gurupoints_perm() {
-  return array('Add Points','list Points');
+    return array('Add Points', 'list Points');
 }
 
 
 /**
  * Implementation of hook_menu().
  */
- 
-function gurupoints_menu() {	
 
-$search_result['admin/addpoints'] = array(
-    'title' => ' Add Points',
-    'page callback' => 'add_points',
-    'access arguments' => array('Add Points'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'gurupoints.pages.inc',
-  );
-
-$search_result['admin/point/save'] = array(
-    'title' => ' Add Points',
-    'page callback' => 'save_points',
-    'access arguments' => array('Add Points'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'gurupoints.pages.inc',
-  );
-  
-  $search_result['admin/userpoints'] = array(
-    'title' => 'User Points',
-    'page callback' => 'user_points',
-    'access arguments' => array('list Points'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'gurupoints.pages.inc',
-  );
-  return $search_result;
+function gurupoints_menu() {
+    
+    $search_result['admin/addpoints'] = array('title'=>' Add Points', 'page callback'=>'add_points', 'access arguments'=>array('Add Points'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
+    
+    $search_result['admin/point/save'] = array('title'=>' Add Points', 'page callback'=>'save_points', 'access arguments'=>array('Add Points'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
+    
+    $search_result['admin/userpoints'] = array('title'=>'User Points', 'page callback'=>'user_points', 'access arguments'=>array('list Points'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
+    return $search_result;
 }
 
-function increasepoints($ptype,$qid,$idm)
-{
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	
-	
-	$queryuser= "SELECT * FROM user_profile where uid=$user->uid "; 
-	$query_result=db_query($queryuser);
-	$userresult=db_fetch_object($query_result);
-	
-	if($idm=='0')
-	{
-	$numpt= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where point_id='$ptype' and qid='$qid' and uid='$user->uid'"));
-	  $query_pt= "SELECT * FROM tbl_points where id='$ptype' "; 
-	$query_ptinfo=db_query($query_pt);
-	$fetuserpts=db_fetch_object($query_ptinfo);
-	
-	if($numpt==0)
-	{
-	  $insert_pts="insert into tbl_user_points (uid,qid,point_id,points,vote_point_id) values($user->uid,$qid,$ptype,$fetuserpts->points,$idm)";
-	$qus=db_query($insert_pts);
-	$totpts=$userresult->points+$fetuserpts->points;
-	$uppts="update user_profile set points=$totpts where uid=$user->uid";
-	$quspts=db_query($uppts);
-	}
-	}
-	else
-	{
-	//echo $idm;
-	
-	
-	$cntr= db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where vote_point_id='$idm' and qid='$qid' and uid='$user->uid'"));
-	
-	 $query_ptm ="select * from tbl_vote_gurupoints where id='".$idm."'"; 
-	$query_ptinfo=db_query($query_ptm);
-	$fetuserpts=db_fetch_object($query_ptinfo);
-	
-	
-	
-	if($cntr==0)
-	{
-	 $insert_pts="insert into tbl_user_points (uid,qid,point_id,points,vote_point_id) values($user->uid,$qid,$ptype,$fetuserpts->points,$idm)";
-	$qus=db_query($insert_pts);
-	$totpts=$userresult->points+$fetuserpts->points;
-	$uppts="update user_profile set points=$totpts where uid=$user->uid";
-	$quspts=db_query($uppts);
-	}
-	
-	
-	
-	
-	
-	
-	}
-	
+function increasepoints($ptype, $qid, $idm) {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+    
+    $queryuser = "SELECT * FROM user_profile where uid=$user->uid ";
+    $query_result = db_query($queryuser);
+    $userresult = db_fetch_object($query_result);
+    
+    if ($idm == '0') {
+        $numpt = db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where point_id='$ptype' and qid='$qid' and uid='$user->uid'"));
+        $query_pt = "SELECT * FROM tbl_points where id='$ptype' ";
+        $query_ptinfo = db_query($query_pt);
+        $fetuserpts = db_fetch_object($query_ptinfo);
+        
+        if ($numpt == 0) {
+            $insert_pts = "insert into tbl_user_points (uid,qid,point_id,points,vote_point_id) values($user->uid,$qid,$ptype,$fetuserpts->points,$idm)";
+            $qus = db_query($insert_pts);
+            $totpts = $userresult->points + $fetuserpts->points;
+            $uppts = "update user_profile set points=$totpts where uid=$user->uid";
+            $quspts = db_query($uppts);
+        }
+    } else {
+        //echo $idm;
+
+        
+        $cntr = db_result(db_query("SELECT COUNT(*) from {tbl_user_points} where vote_point_id='$idm' and qid='$qid' and uid='$user->uid'"));
+        
+        $query_ptm = "select * from tbl_vote_gurupoints where id='".$idm."'";
+        $query_ptinfo = db_query($query_ptm);
+        $fetuserpts = db_fetch_object($query_ptinfo);
+
+        
+        if ($cntr == 0) {
+            $insert_pts = "insert into tbl_user_points (uid,qid,point_id,points,vote_point_id) values($user->uid,$qid,$ptype,$fetuserpts->points,$idm)";
+            $qus = db_query($insert_pts);
+            $totpts = $userresult->points + $fetuserpts->points;
+            $uppts = "update user_profile set points=$totpts where uid=$user->uid";
+            $quspts = db_query($uppts);
+        }
+
+    
+    }
+
 
 }
 
 
-function insertpoints($action='',$nodeid='')
-{
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	
-	if(!empty($nodeid)&&!empty($action)){
-		$set=$action."='1'";
-		//points 
-			 $query_pt= "SELECT * FROM tbl_points where id='3' "; 
-	$query_ptinfo=db_query($query_pt);
-	$fetuserpts=db_fetch_object($query_ptinfo);
-		$queryuser= "SELECT count(*) FROM {tbl_user_points}  where uid='$user->uid' AND $set AND nodeid='$nodeid' "; 
-	$rcnt=db_result(db_query($queryuser));
-	
-	if($rcnt==0){
-		
-	db_query("insert into {tbl_user_points} set point_id='$fetuserpts->id',points='$fetuserpts->points',uid='$user->uid',$set,nodeid='$nodeid'");	
-		
-	}
-	
-		
-	}
-	
-	
+function insertpoints($action = '', $nodeid = '') {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    
+    if (! empty($nodeid) && ! empty($action)) {
+        $set = $action."='1'";
+        //points
+        $query_pt = "SELECT * FROM tbl_points where id='3' ";
+        $query_ptinfo = db_query($query_pt);
+        $fetuserpts = db_fetch_object($query_ptinfo);
+        $queryuser = "SELECT count(*) FROM {tbl_user_points}  where uid='$user->uid' AND $set AND nodeid='$nodeid' ";
+        $rcnt = db_result(db_query($queryuser));
+        
+        if ($rcnt == 0) {
+            
+            db_query("insert into {tbl_user_points} set point_id='$fetuserpts->id',points='$fetuserpts->points',uid='$user->uid',$set,nodeid='$nodeid'");
+        
+        }
+
+    
+    }
+
 
 }
 
 
-function guru_points(){
-	
-	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	db_query("DROP VIEW IF EXISTS {gurulist}");
-		
-		// $view = "CREATE VIEW {gurulist} (SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=a.uid group by uid) as tpoints,a.uid, a.name,u.real_name, a.mail, SUM(b.points) AS point FROM users as a join {user_profile} as u on u.uid=a.uid  LEFT OUTER JOIN tbl_user_points as b ON a.uid = b.uid GROUP BY uid) "; 
-		$view="CREATE VIEW gurulist as (SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=u.uid group by uid) as tpoints,a.uid as uid, a.name,u.real_name FROM {users} as a join {user_profile} as u on u.uid=a.uid where a.status='1')";
-		db_query($view);
-		
-	$user_pt="select * from {gurulist} order by tpoints desc ";	
-	 $point_list = ExecuteQuery($user_pt, "select");
-   
-   $outputppt='<table width="60%" border="0" cellspacing="0" cellpadding="0">
+function guru_points($switch = '', $uid = '') {
+
+    
+    switch ($switch) {
+		case 'user':
+			
+				$view="SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=u.uid group by uid) as tpoints FROM {users} as a join {user_profile} as u on u.uid='$uid' where a.status='1'";
+				 $outputppt =db_result(db_query($view));
+					
+        break;
+        default:
+            
+            global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+            db_query("DROP VIEW IF EXISTS {gurulist}");
+            
+            // $view = "CREATE VIEW {gurulist} (SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=a.uid group by uid) as tpoints,a.uid, a.name,u.real_name, a.mail, SUM(b.points) AS point FROM users as a join {user_profile} as u on u.uid=a.uid  LEFT OUTER JOIN tbl_user_points as b ON a.uid = b.uid GROUP BY uid) ";
+            $view = "CREATE VIEW gurulist as (SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=u.uid group by uid) as tpoints,a.uid as uid, a.name,u.real_name FROM {users} as a join {user_profile} as u on u.uid=a.uid where a.status='1')";
+            db_query($view);
+            
+            $user_pt = "select * from {gurulist} order by tpoints desc ";
+            $point_list = ExecuteQuery($user_pt, "select");
+            
+            $outputppt = '<table width="60%" border="0" cellspacing="0" cellpadding="0">
    
    
   <tr>
     <td><h2>User</h2></td>
    <td><h2>Total Points</h2></td>
   </tr>';
-  for($p=0;$p<count($point_list);$p++)
-	{
-	
-	$puid=$point_list[$p]['uid'];
-	
-	   /*
-$qptstd="select (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='2' group by uid) as a,
-	   (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='1' group by uid) as b,
-	   (select SUM(points) AS qpt   FROM tbl_user_points where uid=u.uid and point_id='3' group by uid) as c,
-	   (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='4' group by uid) as d,
-	   (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='5' group by uid) as e,
-	   (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='6' group by uid) as f from {users} as u where u.status='1'  order by uid DESC";
-	 
-*/
+            for ($p = 0; $p < count($point_list); $p++) {
+                
+                $puid = $point_list[$p]['uid'];
+                
+                /*
+                 $qptstd="select (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='2' group by uid) as a,
+                 (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='1' group by uid) as b,
+                 (select SUM(points) AS qpt   FROM tbl_user_points where uid=u.uid and point_id='3' group by uid) as c,
+                 (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='4' group by uid) as d,
+                 (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='5' group by uid) as e,
+                 (select SUM(points) AS qpt   FROM tbl_user_points where  uid=u.uid and point_id='6' group by uid) as f from {users} as u where u.status='1'  order by uid DESC";
+                 
+                 */
 
 
-    $sump = $point_list[$p]['tpoints'];
-	$tpoint=(!empty($sump))?$sump:0;
-	
+                $sump = $point_list[$p]['tpoints'];
+                $tpoint = (! empty($sump)) ? $sump : 0;
 
-	
-  $outputppt.=' <tr>
+                
+                $outputppt .= ' <tr>
 	<td height="40"><a href="'.$gSitePath.'profile/'.$point_list[$p]['name'].'">'.$point_list[$p]['real_name'].'</a></td>
 	<td>'.$tpoint.'</td>
   </tr>';
-  
-  }
-$outputppt.='</table>';
-   
-   return $outputppt;
-	
-	
+            
+            }
+            $outputppt .= '</table>';
+            
+            
+            
+            break;
+    
+    }
+return $outputppt;
+
 }
 
 
