@@ -1227,28 +1227,14 @@ function panel_content() {
             if (count($profileBadges) > 0) {
                 $pat = $gSitePath.drupal_get_path('module', 'profile');
                 foreach ($profileBadges as $profile) {
-                    if ($profile['badge_type_id'] == 1) {
-                        $li = "Brown";
-                        $li_img_source = $pat."/images/brown.jpg";
-                    } elseif ($profile['badge_type_id'] == 2) {
-                        $li = "Silver";
-                        $li_img_source = $pat."/images/silver.jpg";
-                    } elseif ($profile['badge_type_id'] == 3) {
-                        $li = "Gold";
-                        $li_img_source = $pat."/images/gold.jpg";
-                    }
-                    $output1 .= '<div class="img"><p><img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$profile['image'].'" align="absmiddle" alt="Profile Image" >
+                    $medal = updateProfileBadge($profile['uid']);
+                    $output1 .= '<div class="img">
+					<p>'.UserPicture($profile['uid']).$medal.'
 				 <a href="'.$gSitePath.'profile/'.$profile['name'].'">'.$profile['name'].'  </a> 
-			    <span><img title="'.$li.'"   src="'.$li_img_source.'" >'.$badge_type_id.'
-			    </span>'.$profile['post_count'].'
+			  
 			     </p>
 				</div>';
-                    /*			$output1.='<ul>
-                     <li>Name: '.$profile['name'].'</li>
-                     <li>Medal: '.$profile['badgename'].'</li>
-                     <li>Post Count: '.$profile['post_count'].'</li>
-                     <li></li>
-                     </ul>';*/
+                
                 }
             } else {
                 $output1 = "No Users available";
