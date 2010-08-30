@@ -387,7 +387,7 @@ $sendmsg='<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a><sp
 ///content starts	
 	
  $strReturn .= ' 
-     
+      <div class="bor_bot">
 		<div class="rht_link">
 
         '.$share.$flink.$history.$sendmsg.$edit.'
@@ -468,7 +468,9 @@ $sendmsg='<a onclick="profile_comment('.$getuser->uid.');" >Send Message </a><sp
       <ul>
       	'.$follower.'
       </ul>
-     
+     </div>
+	
+	 
       ';
 	  
 	  
@@ -1257,14 +1259,14 @@ function activities($uid = '') {
     
 	
 	$strReturn.='
-	
+	 <div class="bor_bot">
 	<div class="rht_link">
 
        <a href="'.$gSitePath.'profile">Back To Profile</a>
-        </div>
-		  <br class="clr" />
+       
+		</div>
+        <br class="clr">
       </div>
-		
 		';
 	
 	if(!empty($fetch)){
@@ -1377,8 +1379,8 @@ function activities($uid = '') {
 		  drupal_set_message($message = 'Oops, No Recent Activities !', $type = 'error');
 	}
 
-    
-    return $strReturn;
+   // return $uid;
+  return $strReturn;
 }
 
 
