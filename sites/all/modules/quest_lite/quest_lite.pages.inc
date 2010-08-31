@@ -362,9 +362,9 @@ function qlite_view() {
         $deltmps = db_query("delete  from possible_answer_tmp");
     
     }
-
-    if($user->uid>0){
-    	    $voutput .= '
+    
+    if ($user->uid > 0) {
+        $voutput .= '
 	<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
 	<script>
         var conf = 
@@ -381,11 +381,11 @@ function qlite_view() {
             
         }
     </script> ';
-		
+    
     }
 
-	
-	  $voutput .= '
+    
+    $voutput .= '
 	<script type="text/javascript">
 	        
       jQuery(document).ready(function() {
@@ -1409,8 +1409,7 @@ function flag_report() {
             }
 
         
-        }
-        else {
+        } else {
             
             $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='".$_REQUEST['qaid']."' and uid='".$user->uid."' and  type='question' "));
             if ($_REQUEST['abuse_type'] != '') {
@@ -1744,6 +1743,129 @@ function resource_Like_checkCount($rid = null, $rtype = null) {
     return $like_count;
 
 }
+function flip($arr) {
+    $out = array();
+    
+    foreach ($arr as $key=>$subarr) {
+        foreach ($subarr as $subkey=>$subvalue) {
+            $out[$subkey][$key] = $subvalue;
+        }
+    }
+    
+    return $out;
+}
+function percent_broken($qid = '', $aid = '', $array = '') {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+    
+    $filter = '';
+    $filter = (! empty($array['other'])) ? $array['dochg'] : $array['filter'];
+    $vans = "select * from {possible_answer} where  qid='".$qid."'";
+    $vlist = ExecuteQuery($vans, "select");
+    switch ($filter) {
+        case 'gender':
+            $answer['divide'] = array('male', 'female');
+
+            
+            for ($ab = 0; $ab < count($vlist); $ab++) {
+                $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' AND gender='1' ";
+                $male = ExecuteQuery($query, "norows");
+                $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' AND gender='2' ";
+                $female = ExecuteQuery($query, "norows");
+                $answer_cnt[] = '['.$male.','.$female.']';
+            }
+            
+            break;
+        case 'age':
+            $answer['divide'] = array('18-30', '30-50', '50 above');
+            
+            foreach ($answer['divide'] as $key=>$value) {
+                if ($key == 0)
+                    $query_ins = "AND u.age BETWEEN '18' AND '30' ";
+                elseif ($key == 1)
+                    $query_ins = "AND u.age BETWEEN '30' AND '50'";
+                elseif ($key == 2)
+                    $query_ins = "AND u.age>='50' ";
+                $inc_cnt = '[';
+                for ($ab = 0; $ab < count($vlist); $ab++) {
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' ".$query_ins;
+                    $tcnt = ExecuteQuery($query, "norows");
+                    $inc_cnt .= $tcnt.',';
+                }
+                $inc_cnt .= ']';
+                $answer_cnt[] = $inc_cnt;
+            }
+
+            
+            //$answer_cnt;
+            break;
+        case 'religion':
+            $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other');
+            
+            foreach ($answer['divide'] as $list) {
+                $inc_cnt = '[';
+                for ($ab = 0; $ab < count($vlist); $ab++) {
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' AND religion='".$list."'";
+                    $tcnt = ExecuteQuery($query, "norows");
+                    $inc_cnt .= $tcnt.',';
+                }
+                $inc_cnt .= ']';
+                $answer_cnt[] = $inc_cnt;
+            }
+
+            
+            break;
+        case 'ethnicity':
+			 $answer['divide'] = array('Caucasian', 'Black', 'Asian', 'Indian', 'Semetic', 'Latin','Aborigines');
+            
+            foreach ($answer['divide'] as $list) {
+                $inc_cnt = '[';
+                for ($ab = 0; $ab < count($vlist); $ab++) {
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' AND ethnic='".$list."'";
+                    $tcnt = ExecuteQuery($query, "norows");
+                    $inc_cnt .= $tcnt.',';
+                }
+                $inc_cnt .= ']';
+                $answer_cnt[] = $inc_cnt;
+            }
+
+            
+            break;
+        case 'slant':
+            $answer['divide'] = array('Left', 'Right', 'Center');
+            
+            foreach ($answer['divide'] as $list) {
+                $inc_cnt = '[';
+                for ($ab = 0; $ab < count($vlist); $ab++) {
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' AND slant='".$list."'";
+                    $tcnt = ExecuteQuery($query, "norows");
+                    $inc_cnt .= $tcnt.',';
+                }
+                $inc_cnt .= ']';
+                $answer_cnt[] = $inc_cnt;
+            }
+            
+            break;
+        default:
+            $answer['divide'] = array('Total No Of Votes');
+            $inc_cnt = '[';
+            for ($ab = 0; $ab < count($vlist); $ab++) {
+                $query = "select * from {possible_answer_vote} where qid='".$qid."' and panswer_id='".$vlist[$ab]['paid']."' ";
+                $tcnt = ExecuteQuery($query, "norows");
+                $inc_cnt .= $tcnt.',';
+            }
+            $inc_cnt .= ']';
+            $answer_cnt[] = $inc_cnt;
+            
+            break;
+    
+    }
+    
+    $answer['cnt'] = $answer_cnt;
+    return $answer;
+
+}
+
 function qlite_percent() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     $output = '';
@@ -1755,52 +1877,85 @@ function qlite_percent() {
     $vans = "select * from {possible_answer} where  qid='".$qid."'";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
-    $script = " 			
-			<script type='text/javascript' src='http://www.google.com/jsapi'></script>
-		<link rel='stylesheet' href='".$gSitePath.drupal_get_path('theme', 'heardmentality')."/css/content.css' type='text/css' />
-			 <script type='text/javascript'> google.load(\"visualization\", \"1\", {packages:[\"barchart\"]});
-			google.setOnLoadCallback(drawChart);
-			function drawChart() {
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Answers');
-				
-			data.addColumn('number', 'Rate Count');
-			data.addRows(".$cnt_ans.");";
-    for ($ab = 0; $ab < $cnt_ans; $ab++) {
-        $per = answer_details($qid, $vlist[$ab]['paid'], 'percent');
-        $per = ( empty($per)) ? 0 : $per;
-        $inc = $ab + 1;
-        $script .= " data.setValue(".$ab.", 0, '".$vlist[$ab]['answer']."');
-			data.setValue(".$ab.", 1, ".$per.");";
-    }
-    
-    echo $script .= "	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-			chart.draw(data, {width: 400, height: 200, is3D: false, title: '',titleY:'',titleX:''});
-			}
-		
-var spath='".$gSitePath."';
-</script>
-	<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>		
-<script type='text/javascript' src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/filter.js'></script>						
+    $output .= " 	
+			<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>				
+			<script type='text/javascript' src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/highcharts.js'></script>	
+
+			<link rel='stylesheet' href='".$gSitePath.drupal_get_path('theme', 'heardmentality')."/css/content.css' type='text/css' />
+			<script type='text/javascript' src='".$gSitePath.drupal_get_path('module', 'quest_lite')."/scripts/filter.js'></script>						
 	
 			";
-    /* $output.='<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
-     <script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>			';*/
-    //drupal_add_js($script,'inline');
+    
+    $ans_array = array();
+    for ($ab = 0; $ab < $cnt_ans; $ab++) {
+        array_push($ans_array, $vlist[$ab]['answer']);
+    
+    }
+    $result = percent_broken($qid, '', $_REQUEST);
+    //echo "<pre>";
+    //print_r($result);
+    $ans = $result['divide'];
+    $cnt = $result['cnt'];
+    
+    foreach ($ans as $key=>$value) {
+        $ins_script .= "{	
+						name: '".$ans[$key]."',
+  				       data: ".$cnt[$key]."
+					},";
+    }
+    
+    $per = json_encode($result);
+    $inc = rtrim($inc, ',');
+    $output .= "
+		<script>
+		var spath='".$gSitePath."';
+		var chart;
+			$(document).ready(function() {
+				chart = new Highcharts.Chart({
+					chart: {
+						renderTo: 'chart_div',
+						defaultSeriesType: 'bar'
+					},
+					title: {
+						text: 'Percent Reporting'
+					},
+					xAxis: {
+						categories: ".json_encode($ans_array)."
+					},
+					yAxis: {
+						min: 0,
+						title: {
+							text: 'No Of Votes'
+						}
+					},
+					legend: {
+						backgroundColor: '#FFFFFF',
+						reversed: true
+					},
+					tooltip: {
+						formatter: function() {
+							return ''+
+								 this.series.name +': '+ this.y +'';
+						}
+					},
+					plotOptions: {
+						series: {
+							stacking: 'normal'
+						}
+					},
+				      series: [".$ins_script." ]
+				});
+				
+				
+			});</script>";
+
     
     $filter = (! empty($_REQUEST['other'])) ? $_REQUEST['dochg'] : $_REQUEST['filter'];
     
     if (! empty($filter)) {
         
-        if ($filter == 'gender') {
-            $opt = $_REQUEST['fopt'];
-            $opt = ($opt == '1') ? 'Male' : 'Female';
-        
-        } else {
-            $opt = $_REQUEST['fopt'];
-        }
-        
-        $incflt = '<div ><b>Filter by :</b><i>'.ucwords($filter).'&nbsp; '.ucwords($opt).'</i>&nbsp; <input type="button" name="go_button" id= "go_button" value="Reset" onclick="MM_jumpMenuGo(this.value)" /></div>';
+        $incflt = '<div ><b>Filter by :</b><i>'.ucwords($filter).'';
+        $incflt .= '<input type="button" name="go_button" id= "go_button" value="Reset" onclick="MM_jumpMenuGo(this.value)" /></div>';
     }
 
     
@@ -1809,16 +1964,16 @@ var spath='".$gSitePath."';
 	'.$incflt.'
      <div align="right" > <form id="form1" name="form1" method="post" action="">
     <label>
-    <input type="radio" name="filter" value="gender" onchange="get_filter_option(this.value);" id="filter_0" />
+    <input type="radio" name="filter" value="gender"  id="filter_0" />
       Gender</label>
     
     <label>
-    <input type="radio" name="filter" value="age" onchange="get_filter_option(this.value);" id="filter_1" />
+    <input type="radio" name="filter" value="age" id="filter_1" />
       Age</label>
 	     <label>
     <input type="radio" name="other" value="age"  id="filter_2" />
       
-  <select name="dochg" onchange="get_filter_option(this.value);" id="dochg">
+  <select name="dochg"  id="dochg">
   <option value="">Others</option>
     <option value="religion">religion</option>
     <option value="ethnicity">ethnicity</option>
@@ -1830,7 +1985,7 @@ var spath='".$gSitePath."';
   
     <br />
  </form></div>
-    <div id="chart_div" style="width: 700px; height: 240px;">
+    <div id="chart_div" style="width: 400px; height: 240px;">
     </div>
 </div>';
 
@@ -2080,7 +2235,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                 $code = " AND gender='".$array['fopt']."'";
                 break;
             case 'age':
-                $code = "age>=18 AND age<=50 ";
+                //$code = "age>=18 AND age<=50 ";
                 break;
             case 'religion':
                 $code = " AND religion='".$array['fopt']."'";
@@ -2396,11 +2551,11 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                 $query = array('postalcode'=>$code, 'maxrows'=>1);
                 $result = geonames_query('postalcodesearch', $query);
                 $city = $result->results;
-
+                
                 $query = array('country'=>$city[0]['countrycode'], 'maxrows'=>1);
                 $result1 = geonames_query('countryinfo', $query);
                 $cnt = $result1->results;
-                 //   print_r($cnt);
+                //   print_r($cnt);
                 //print_r($city);
                 echo '<b>Country :</b>'.$cnt[0]['countryname'];
                 echo '<br/><b>Province/State :</b>'.$city[0]['adminname1'];
