@@ -1759,7 +1759,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
 
     
     $filter = '';
-    $filter = (! empty($array['other'])) ? $array['dochg'] : $array['filter'];
+    $filter = (! empty($array['dochg'])) ? $array['dochg'] :'';
     $vans = "select * from {possible_answer} where  qid='".$qid."'";
     $vlist = ExecuteQuery($vans, "select");
     switch ($filter) {
@@ -1949,8 +1949,8 @@ function qlite_percent() {
 				
 			});</script>";
 
-    
-    $filter = (! empty($_REQUEST['other'])) ? $_REQUEST['dochg'] : $_REQUEST['filter'];
+  
+    $filter = (! empty($_REQUEST['dochg'])) ? $_REQUEST['dochg'] :'';
     
     if (! empty($filter)) {
         
@@ -1963,21 +1963,16 @@ function qlite_percent() {
 <div id="contentr1" class="clear">
 	'.$incflt.'
      <div align="right" > <form id="form1" name="form1" method="post" action="">
-    <label>
-    <input type="radio" name="filter" value="gender"  id="filter_0" />
-      Gender</label>
-    
-    <label>
-    <input type="radio" name="filter" value="age" id="filter_1" />
-      Age</label>
-	     <label>
-    <input type="radio" name="other" value="age"  id="filter_2" />
+Filter by :
       
   <select name="dochg"  id="dochg">
-  <option value="">Others</option>
-    <option value="religion">religion</option>
-    <option value="ethnicity">ethnicity</option>
-    <option value="slant">slant</option>
+
+  <option value="">Select</option>
+  <option value="gender">Gender</option>
+   <option value="age">Age</option>
+    <option value="religion">Religion</option>
+    <option value="ethnicity">Ethnicity</option>
+    <option value="slant">Slant</option>
    
   </select></label>
   <span id="fopt" ></span>
