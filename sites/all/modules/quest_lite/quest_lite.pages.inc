@@ -1768,13 +1768,17 @@ function percent_broken($qid = '', $aid = '', $array = '') {
 
             
             for ($ab = 0; $ab < count($vlist); $ab++) {
-                $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' AND gender='1' ";
+
+                
+                $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' AND u.gender='2' ";
+               $female = ExecuteQuery($query, "norows");
+               $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' AND u.gender='1' ";
                 $male = ExecuteQuery($query, "norows");
-                $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='".$qid."' and p.panswer_id='".$vlist[$ab]['paid']."' AND gender='2' ";
-                $female = ExecuteQuery($query, "norows");
                 $answer_cnt[] = '['.$male.','.$female.']';
-            }
-            
+              }//[1,0][1,1]
+           // $answer_cnt=array_reverse($answer_cnt);//[1,1][1,0]
+
+
             break;
         case 'age':
             $answer['divide'] = array('18-30', '30-50', '50 above');
