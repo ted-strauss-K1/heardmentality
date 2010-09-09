@@ -2224,7 +2224,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     function filter_opt($array = '') {
         $code = '';
         $filter = '';
-        $filter = (! empty($array['other'])) ? $array['dochg'] : $array['filter'];
+        $filter = (! empty($array['dochg'])) ? $array['dochg'] : '';
         switch ($filter) {
             case 'gender':
                 $code = " AND gender='".$array['fopt']."'";
