@@ -26,14 +26,28 @@
   
   <?php print $scripts; ?>
   <script src="<?php echo $directory; ?>/scripts/jquery.translate-1.4.0.min.js"></script> 
+  <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script> 
 <script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script> 
 <script type="text/javascript">
 var gSitePath='<?php echo $gSitePath;?>';
-jQuery(document).ready(function(){
 
+
+
+jQuery(document).ready(function(){
+	jQuery('body a').each(function()
+   {
+
+	jQuery(this).SetBubblePopup({
+									innerHtml: jQuery(this).attr("href"),
+										 color:'grey',
+										 imageFolder: '<?php echo $directory; ?>/images/bp_images',
+
+								});
+								
+		});						
  var height = jQuery(window).height();
         var width = jQuery(window).width();
-
+	
         var autosizable = true;
         var windowResize = true;
         var resizeable = true;

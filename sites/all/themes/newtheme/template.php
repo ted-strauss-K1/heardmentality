@@ -216,5 +216,5 @@ function onlineuser_count(){
     }
     return $output;
 }
-?>
+
 
