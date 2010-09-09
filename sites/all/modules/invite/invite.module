@@ -104,9 +104,11 @@ $headers .= 'From: HeardMentality <support@heardmenatlity.com>' . "\r\n";
 
 function htmlmail_function($to, $subject, $message, $headers = NULL)
 {
-	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+	 global $gSitePath,$user,$gDocPath,$base_root,$base_path,$theme_path,$theme;
+$path = drupal_get_path('theme', 'newtheme');
 
-$imgw=$gSitePath."/sites/all/modules/heardmentality/images/logo_mail.gif";
+
+$imgw=$gSitePath.$path."/images/logo_mail.gif";
 	$imag=$config['file_path'].$img;
 // To send HTML mail, the Content-type header must be set
 $headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -131,7 +133,7 @@ $headers .= 'From: HeardMentality <support@heardmenatlity.com>' . "\r\n";
       border=0>
   <tbody> 
   <tr>  
-    <td background="'.$gSitePath.'/sites/all/themes/heardmentality/images/header_bg.gif"><img src="'.$gSitePath.'/sites/all/themes/heardmentality/images/logo_mail.jpg" width="100" height="140" ></td>
+    <td background="'.$gSitePath.$path.'/images/header_bg.gif"><img src="'.$gSitePath.$path.'/images/logo_mail.jpg" width="100" height="140" ></td>
  
   </tr>
   <tr> 
@@ -149,9 +151,15 @@ $headers .= 'From: HeardMentality <support@heardmenatlity.com>' . "\r\n";
 	$newmessage .= $message;
 
 	
-	$newmessage .= ' </td>
+	 $newmessage .= ' </td>
   </tr>
-  
+  <tr><td>
+  <p>Visit our website <a href="'.$gSitePath.'">Heardmentality.com</a>
+<br/><br/>
+Thanks,
+  <br/>
+  Heardmentality Team.
+</td></tr>
   </tbody> 
 </table>
 </body>
