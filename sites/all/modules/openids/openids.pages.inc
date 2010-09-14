@@ -360,10 +360,10 @@ var OpenIdSelector = new Class({
 
 </body>
 </html>';
-    echo $showops;
+  //  echo $showops;
 
     
-    //return $showops;
+    return $showops;
 
 
 }
@@ -469,8 +469,8 @@ function openid_login_save() {
     }
 
     
-    echo $formret;
-
+  //  echo $formret;
+return $formret;
 
 }
 function openid_login3() {
