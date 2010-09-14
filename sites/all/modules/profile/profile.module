@@ -37,7 +37,12 @@ function userTypes() {
     }
     return $usertypes;
 }
+function load_user($uid=''){
 
+     $query="select * from {users} as u join {user_profile} as up on u.uid=up.uid  where u.uid='$uid'";
+    $result=db_fetch_object(db_query($query));
+return $result;
+}
 function checkPrivacySettings($uid = null) {
     $ques_query = "SELECT * FROM {privacy_settings} where uid='".$uid."'";
     $list = ExecuteQuery($ques_query, "select");

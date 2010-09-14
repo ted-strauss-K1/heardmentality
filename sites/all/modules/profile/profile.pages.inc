@@ -119,7 +119,8 @@ function inbox_msg(){
 
 function profile($uid = '') {
     
-    global $gSitePath,$user,$gDocPath,$base_root;
+    global $gSitePath,$user,$gDocPath,$base_root,$theme,$directory;
+
     $image = 'noimage.jpg';
     $bio = '';
     $real_name = '';
@@ -292,22 +293,17 @@ function profile($uid = '') {
 			//echo "insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['delm']."','1','1','".$user->uid."' ";
 		$insert_notify=db_query("insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['delm']."','1','1','".$user->uid."') ");
 		
-		
-			$sel_ulists="SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_REQUEST['delm']."'";
-		$rs_umlogs=db_query($sel_ulists);
-		$user_namelistfs=db_fetch_object($rs_umlogs);
+    $sel_ulists="SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$_REQUEST['delm']."'";
+		$user_namelistfs=ExecuteQuery($sel_ulists, "select");
 		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='1'";
 		$rs_mgmt=db_query($sel_user_cmt);
 		$list_content=db_fetch_object($rs_mgmt);
 		$subject=$list_content->subject;
 			$contentm=str_replace("#uname#",$user->name,$list_content->content);
-			$contentm= str_replace("#anothername#",$user_namelistfs->name,$contentm);
-			//echo $contentm;
-		
-	
-		
-		
-		$mail_success = htmlmail_function($user_namelistfs->mail,$subject,$contentm,'');
+			$contentm= str_replace("#anothername#",$user_namelistfs[0]['name'],$contentm);
+			//echo $contentm;die;
+
+		$mail_success = htmlmail_function($user_namelistfs[0]['mail'],$subject,$contentm,'');
 	
 			
 			
@@ -819,25 +815,7 @@ function followinglist($uids) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
-    print '<script type="text/javascript">
-		function deletefollowing(fid){
-		var abc="show-"+fid;
-									var url = "'.$gSitePath.'profile/deletefollow";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':fid,\'ids\':abc},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(abc).set(\'html\', response);
-											}
-									}).send();
-						
-							
-                           
-							}	
-	
-	</script>';
+  
     $sel_list = "select * from follower  where uid='".$uids."'  and follower_status='1' limit 0,5";
     $rs_foll_list = db_query($sel_list);
     $numfolls = db_result(db_query("SELECT COUNT(*)  from follower  where uid='".$uids."'  and follower_status='1'  "));
@@ -872,11 +850,11 @@ text-decoration:none;" onclick="loadfollowing(\''.$gSitePath.'following/'.$uids.
 }
 
 function save_follow_profile() {
-    
-    if (isset($_GET['action'])) {
-        $query = 'DELETE FROM follower WHERE id = '.(int) $_GET['action'];
+
+    if (isset($_REQUEST['action'])) {
+        $query = 'DELETE FROM follower WHERE id = '.(int) $_REQUEST['action'];
         $result = db_query($query);
-        echo '<div id="'.$_REQUEST['ids'].'" ></div>';
+        echo '<div id="'.$_REQUEST['ids'].'" >Removed</div>';
     }
 
 }
@@ -888,30 +866,6 @@ function save_follow_profile() {
 function followerlist($umid) {
     
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    
-    print '<script type="text/javascript">
-		function blockandunblock(fid,divid,blk){
-			var abcm="list-"+fid;
-			
-			
-									var url = "'.$gSitePath.'profile/savefollowerlink";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':fid,\'ids\':abcm,\'blk\':blk,\'usid\':divid},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(abcm).set(\'html\', response);
-											}
-									}).send();
-						
-							
-                           
-							}	
-	
-	</script>
-	';
-
     
     $sel_listf = "select * from follower  where follower_id='".$umid."'   limit 0,5  ";
     $rs_followerf = db_query($sel_listf);
