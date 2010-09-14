@@ -572,6 +572,8 @@ function qlite_view() {
               </ul>
    
            </div>';
+           // cron job 
+        cal_active_rate();
     return $voutput;
 
 
@@ -733,7 +735,7 @@ function qlite_save() {
             $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('".$mid."', '".$user->uid."','".$_REQUEST['answer']."','".date('Y-m-d h:i:s')."')";
             db_query($vInsQuery);
             drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
-
+             send_votenotify($mid);
             
             increasepoints('2', $mid, '0');
             //badges
@@ -2281,7 +2283,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
                     
                     $updatevotesug = "update  suggest_answer set vote='$votepoint' where said='".$_REQUEST['suggest']."'";
                     db_query($updatevotesug);
-                    
+                    send_votenotify($_REQUEST['qaid']);
                     echo '<div class="messages success">Thanks For Voting ! </div>';
                 } else {
                     echo '<div class="messages error"> You Have Already Voted This Answer ! </div>';
@@ -2301,7 +2303,46 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
     
     }
 
-    
+    function send_votenotify($qid=''){
+        global $gSitePath,$user,$gDocPath,$base_root;
+            ////////////mail notication for user follwers to me//////////////////////////////////////
+        $qdetails=load_question($qid);
+        
+        $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+        $rs_followerf = db_query($sel_listf);
+        while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
+
+            $sellist = "select * from users where uid='".$follower_resultfuser->uid."'";
+            $res_users = db_query($sellist);
+            $usert = db_fetch_object($res_users);
+            $to = $usert->mail;
+            if ($usert->notify_itype == 1) {
+
+                $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid."','1','1','".$qid."' ) ");
+
+            }
+            if ($usert->notify_etype == 1) {
+
+                ///////////email for following ///////////////
+
+                $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+                $rs_mgmt = db_query($sel_user_cmt);
+                $list_content = db_fetch_object($rs_mgmt);
+                     $subject_proj = $list_content->subject;
+                $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+                $contentm = str_replace("#anothername#", $user->name, $contentm);
+                
+               // print_r($qdetails);
+                $contentm= str_replace("#question#",rtrim($qdetails['question'],'?').'?', $contentm);
+                 $contentm= str_replace("#link#",$gSitePath.$qdetails['url'], $contentm);
+                  $contentm= str_replace("#content#","voted for the below question. Kindly have a review", $contentm);
+           //echo  $contentm;
+                $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+            }
+
+        }
+
+}
     function qusetion_info() {
         global $gSitePath,$user,$gDocPath,$base_root,$base_path;
         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
