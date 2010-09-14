@@ -124,10 +124,27 @@ function get_local_list() {
     
     $cond = load_condition();
     
-    $homepage = file_get_contents('http://api.hostip.info/country.php');
+$country=my_country();
+if(!empty($country)){
+
+       $query = array('query'=>$country['cn'],'maxRows'=>'1','featureclass'=>'S');
+                $result = geonames_query('search', $query);
+                $cc=$result->results[0]['countrycode'];
+$cond.="AND q.country='".trim($cc)."'";
+if(!empty($country['state'])){
+
+   $cond.="OR q.state='".trim($country['state'])."'";
+}
+if(!empty($country['city'])){
+
+   $cond.="OR q.city='".trim($country['city'])."'";
+}
+}
+// $homepage = file_get_contents('http://api.hostip.info/country.php');
+  //  echo get_real_ip_addr();
 
     
-    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' AND q.country='".trim($homepage)."' $cond order by q.active_rate  DESC LIMIT 0,10 ";
+   $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
               <h3><strong>Local questions</strong></h3>
@@ -150,6 +167,71 @@ function get_local_list() {
 
 }
 
+function my_country(){
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+         $url= 'http://ipinfodb.com/ip_query_country.php?ip='.get_real_ip_addr();
+     $curl = curl_init();
+     $list=array();
+// Setup the curl settings
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 0);
+
+// grab the XML file
+$raw_xml = curl_exec($curl);
+
+curl_close($curl);
+
+// Setup the xml object
+$xml = simplexml_load_string( $raw_xml );
+
+if(!empty($user)){
+
+  $details=load_user($user->uid);
+
+}
+$list['cc']=(!empty($details->country))?$details->country:$xml->CountryCode;
+$list['cn']=(!empty($details->country))?$details->country:$xml->CountryCode;
+$list['state']=(!empty($details->state))?$details->state:$xml->RegionName;
+$list['city']=(!empty($details->city))?$details->city:$xml->City;
+/*
+ *
+ * <Ip>74.125.45.100</Ip>
+    <Status>OK</Status>
+    <CountryCode>US</CountryCode>
+    <CountryName>United States</CountryName>
+    <RegionCode>06</RegionCode>
+    <RegionName>California</RegionName>
+    <City>Mountain View</City>
+    <ZipPostalCode>94043</ZipPostalCode>
+    <Latitude>37.4192</Latitude>
+    <Longitude>-122.057</Longitude>
+    <Timezone>0</Timezone>
+    <Gmtoffset>0</Gmtoffset>
+    <Dstoffset>0</Dstoffset> 
+ */
+
+return $list;
+}
+
+
+function get_real_ip_addr()
+{
+if(!empty($_SERVER['HTTP_CLIENT_IP']))   //check ip from share internet
+{
+$ip=$_SERVER['HTTP_CLIENT_IP'];
+}
+else if(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy
+{
+$ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+}
+else
+{
+$ip=$_SERVER['REMOTE_ADDR'];
+}
+
+return $ip;
+}
 function cal_active_rate() {
 
     
