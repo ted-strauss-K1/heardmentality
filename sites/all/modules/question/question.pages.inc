@@ -284,6 +284,7 @@ setDefaultCountry(\''.$cncode.'\');
 	
 			<br/>
 			<div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
+<div id="qform">
 <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
   <tr>
     <td width="0%" height="44">&nbsp;</td>
@@ -295,7 +296,7 @@ setDefaultCountry(\''.$cncode.'\');
 		
 		<input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" 
      onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" 
-     onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" size="100" >
+     onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" size="100" >?
 		
 		
 		<!--  <input size="100" autocomplete="off"  name="q_quest" id="q_quest" value="" onkeyup="suggest(this.value);" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"/>
@@ -437,7 +438,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
   </tr>
 </table>
 </form>
-
+</div>
 ';
     
     echo $output;
@@ -570,10 +571,11 @@ function question_save() {
     if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($cat1)) {
         $edate = $q_edate;
        
-        
+        $country=my_country();
+$ccode=$country->CountryCode;
 
-      
-        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',country='$q_country',state='$q_state',city='$q_city',share='$qrset'  ");
+      $ccode=($q_country>0)?$q_country:$ccode;
+        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',country='$ccode',state='$q_state',city='$q_city',share='$qrset'  ");
         
         $ins_id = db_last_insert_id('question', 'qid');
 
@@ -609,39 +611,6 @@ function question_save() {
            //url alias
              $dst = clean_url(myTruncate($q_quest, 100, ''),'','-',$ins_id);
 
-        ////////////mail notication for user follwers to me//////////////////////////////////////
-        $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
-        $rs_followerf = db_query($sel_listf);
-        while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
-            
-            $sellist = "select * from users where uid='".$follower_resultfuser->uid."'";
-            $res_users = db_query($sellist);
-            $usert = db_fetch_object($res_users);
-            $to = $usert->mail;
-            if ($usert->notify_itype == 1) {
-                
-                $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid."','1','1','".$ins_id."' ) ");
-            
-            }
-            if ($usert->notify_etype == 1) {
-                
-                ///////////email for following ///////////////
-
-                
-                $subject_proj = $list_content->subject;
-
-                
-                $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='4'";
-                $rs_mgmt = db_query($sel_user_cmt);
-                $list_content = db_fetch_object($rs_mgmt);
-                $contentm = str_replace("#uname#", $usert->name, $list_content->content);
-                $contentm = str_replace("#anothername#", $user->name, $contentm);
-                //echo $contentm;
-                $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
-            }
-        
-        }
-
         
         //forum
         
@@ -676,6 +645,7 @@ function question_save() {
         unset($_SESSION['post']);
         $_SESSION['post'] = '';
         // drupal_goto("question");
+        send_qnotify($ins_id);
         echo '<script>window.parent.location.href="'.$gSitePath.'question/";</script>';
     } else {
         drupal_get_messages($type = 'error', $clear = 'TRUE');
@@ -699,6 +669,49 @@ function question_save() {
     echo implode("<br/>", $output['error']);
     }
 }
+
+function send_qnotify($qid=''){
+        global $gSitePath,$user,$gDocPath,$base_root;
+            ////////////mail notication for user follwers to me//////////////////////////////////////
+        $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+        $rs_followerf = db_query($sel_listf);
+        while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
+
+            $sellist = "select * from users where uid='".$follower_resultfuser->uid."'";
+            $res_users = db_query($sellist);
+            $usert = db_fetch_object($res_users);
+            $to = $usert->mail;
+            if ($usert->notify_itype == 1) {
+
+                $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid."','1','1','".$qid."' ) ");
+
+            }
+            if ($usert->notify_etype == 1) {
+
+                ///////////email for following ///////////////
+
+
+
+
+
+                $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='4'";
+                $rs_mgmt = db_query($sel_user_cmt);
+                $list_content = db_fetch_object($rs_mgmt);
+                     $subject_proj = $list_content->subject;
+                $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+                $contentm = str_replace("#anothername#", $user->name, $contentm);
+                $qdetails=load_question($qid);
+               // print_r($qdetails);
+                $contentm= str_replace("#question#",rtrim($qdetails['question'],'?').'?', $contentm);
+                 $contentm= str_replace("#link#",$gSitePath.$qdetails['url'], $contentm);
+           //echo  $contentm;
+                $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+            }
+
+        }
+
+}
+
 
 function chk_dupe($quest='',$qid=''){
 

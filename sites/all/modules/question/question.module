@@ -271,4 +271,18 @@ function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
 }
 	
 	
-	
+	function load_question($qid=''){
+           
+            if(!empty($qid)){
+
+                   $query="SELECT * FROM question where qid='$qid' LIMIT 0,1";
+		$result=ExecuteQuery($query, "select");
+            }
+            foreach($result as $final)
+            {
+
+            }
+            return $final;
+        }
+
+      

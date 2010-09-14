@@ -39,7 +39,9 @@ function validate_question(){
         
         return false;
     }
-    
+
+    $('qform').fade('out');
+   $$('div.facttop').set('html','Please wait till processing...!')
     return true;
     
 }
@@ -59,7 +61,7 @@ function add_ans(){
 		 
 		 if(ans_cnt>=3){
 		
-		$('del_ans').fade('in');
+		$('qform').fade('in');
 	}
 		
     if (ans_cnt < 11) {
