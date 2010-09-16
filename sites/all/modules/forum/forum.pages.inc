@@ -173,14 +173,50 @@ function cmt_submit() {
         $query = "insert into {forum_wavelets} set wid='$wid',uid='$user->uid',parentid='$wlet',wavelet='".mysql_escape_string($cmt)."',private='$pvt'";
         
         $set = ExecuteQuery($query, "insert");
-
+        post_notification($set);
         
         echo $output = get_wavelets($wid, 0);
         exit;
     }
 
 }
+function post_notification($nid='',$set=''){
+    
+ global $gSitePath,$user,$gDocPath,$base_root;
+	////////////mail notication for user follwers to me//////////////////////////////////////
+		 $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+		$rs_followerf = db_query($sel_listf);
+		while ($follower_resultfuser = db_fetch_object($rs_followerf))
+		{
 
+			$sellist="select * from users where uid='".$follower_resultfuser->uid."'";
+			$res_users=db_query($sellist);
+			$usert=db_fetch_object($res_users);
+			 $to = $usert->mail;
+		if($usert->notify_itype==1)
+		{
+
+
+		db_query("insert into {notification} set follower_action='1',is_wavelets='1',uid='$follower_resultfuser->uid',node_id='$nid' ");
+		}
+		if($usert->notify_etype==1)
+		{
+
+		///////////email for following ///////////////
+
+		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='5'";
+		$rs_mgmt=db_query($sel_user_cmt);
+		$list_content=db_fetch_object($rs_mgmt);
+		$subject_proj=$list_content->subject;
+		$contentm=str_replace("#uname#",$usert->name,$list_content->content);
+		$contentm= str_replace("#anothername#",$user->name,$contentm);
+		//echo $contentm;
+		$mail_success = htmlmail_function($to,$subject_proj,$contentm,'');
+		}
+
+		}
+
+}
 function like_notification($nid='',$set=''){
 	 global $gSitePath,$user,$gDocPath,$base_root;
 	////////////mail notication for user follwers to me//////////////////////////////////////
