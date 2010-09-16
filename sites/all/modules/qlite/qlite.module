@@ -126,11 +126,12 @@ function get_local_list() {
     
 $country=my_country();
 if(!empty($country)){
-
+    if(!empty($country['cn'])){
        $query = array('query'=>$country['cn'],'maxRows'=>'1','featureclass'=>'S');
                 $result = geonames_query('search', $query);
                 $cc=$result->results[0]['countrycode'];
 $cond.="AND q.country='".trim($cc)."'";
+    }
 if(!empty($country['state'])){
 
    $cond.="OR q.state='".trim($country['state'])."'";
@@ -144,7 +145,7 @@ if(!empty($country['city'])){
   //  echo get_real_ip_addr();
 
     
-   $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  DESC LIMIT 0,10 ";
+   $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
               <h3><strong>Local questions</strong></h3>
@@ -183,17 +184,17 @@ $raw_xml = curl_exec($curl);
 curl_close($curl);
 
 // Setup the xml object
-$xml = simplexml_load_string( $raw_xml );
-
+$xml =(array)simplexml_load_string( $raw_xml );
+//print_r($xml);
 if(!empty($user)){
 
   $details=load_user($user->uid);
 
 }
-$list['cc']=(!empty($details->country))?$details->country:$xml->CountryCode;
-$list['cn']=(!empty($details->country))?$details->country:$xml->CountryCode;
-$list['state']=(!empty($details->state))?$details->state:$xml->RegionName;
-$list['city']=(!empty($details->city))?$details->city:$xml->City;
+$list['cc']=(!empty($details->country))?$details->country:$xml['CountryCode'];
+$list['cn']=(!empty($details->country))?$details->country:$xml['CountryName'];
+$list['state']=(!empty($details->state))?$details->state:$xml['RegionName'];
+$list['city']=(!empty($details->city))?$details->city:$xml['City'];
 /*
  *
  * <Ip>74.125.45.100</Ip>
@@ -252,10 +253,10 @@ function cal_active_rate() {
         $m1 = $gvote[0]['pvote'];
         $m2 = $gvote[0]['svote'];
         
-        $tvote = $m1 + $m2;
+    $tvote = $m1 + $m2;
         
         $query2 = "select IFNULL((select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid),0) as wcnt,IFNULL((select count(*) from {resource} where qid='".$quest['qid']."' group by qid),0) as rcnt from {forum_wave} as f where f.qid_rid='".$quest['qid']."' ";
-        $fcnt = db_fetch_object(db_query($query2));
+       echo $fcnt = db_fetch_object(db_query($query2));
         
         //The value �active� will be calculated as follows (j,k,l are constant values that will be hard-coded):
         //Active =  (j * #_of_votes_for_question) + (k * #_of_forum_posts) + (l * #_of_posted_resources)
