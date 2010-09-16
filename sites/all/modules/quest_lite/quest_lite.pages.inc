@@ -1912,52 +1912,81 @@ function qlite_graph() {
     $cnt_ans = count($vlist);
 
     $script .= "
-<script src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/jsapi.js' type='text/javascript' ></script>
-				<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
-			 <script type='text/javascript'>
-google.load(\"visualization\", \"1\", {packages:[\"annotatedtimeline\"]});
-      google.setOnLoadCallback(drawAnnot);
-      function drawAnnot() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', 'Date');";
+        				<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
+        <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>	
+          <script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jquery.jqplot.js'></script>
+                 <script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.dateAxisRenderer.js'></script>
+                  <script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.highlighter.js'></script>
 
-    $ins_tot_ans = '';
-    $ins_tot_val = '';
-    for ($ab = 0; $ab < $cnt_ans; $ab++) {
-        $inc = $ab + 1;
-        $ins_tot_ans .= " data.addColumn('number', '" . $vlist[$ab]['answer'] . "');";
-    }
+                       <script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.enhancedLegendRenderer.js'></script>
+<script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.barRenderer.js'></script>
+<script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.categoryAxisRenderer.js'></script>
+<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
+<script type='text/javascript' language='javascript'>
 
-    for ($mn = 5; $mn >= 0; $mn--) {
+  jQuery(document).ready(function(){
+      jQuery.jqplot.config.enablePlugins = true;
+";
 
+    $s1=array();
+        $grid=array();
+        
+
+        for ($ab = 0; $ab < $cnt_ans; $ab++) {
+            $i=$ab+1;
+           $ans=array();
+             for ($mn = 5; $mn >= 0; $mn--) {
+      
         $year = date("Y");
         $month = date("m") - 1;
         $dat = date("d") - $mn;
         $date = date('Y-m-d', mktime(0, 0, 0, $month + 1, $dat, $year));
-        $ins_tot_val .= " [new Date(" . $year . ", " . $month . " ," . $dat . "),";
 
-        $inc_this = '';
-
-        for ($ab = 0; $ab < $cnt_ans; $ab++) {
-            $inc_this .= answer_details($qid, $vlist[$ab]['paid'], 'timeline', $date) . ",";
-        }
-        $ins_tot_val .= rtrim($inc_this, ',');
-        $ins_tot_val .= "],";
+            $inc_this= answer_details($qid, $vlist[$ab]['paid'], 'timeline', $date);
+       array_push($ans,"['".date("d-M-y", mktime(0, 0, 0, $month + 1, $dat, $year))."',".$inc_this."]");
+      
     }
+      $ins_sc.='s'.$i.'=['.implode(',',$ans).'];';
+      array_push($grid,"'".$vlist[$ab]['answer']."'");
+        }
+     $labels='['.implode(',',$grid).']';
+  $script.=$ins_sc;
+   echo  $script .= "
+     plot1 = $.jqplot('chart2',[s1,s2],{
+       title: 'Overtime Graph',
+       axes: {
+           xaxis: {
+               renderer: $.jqplot.DateAxisRenderer,
+               tickOptions: {
+                   formatString: '%b %#d, %Y'
+               },
+            
+           },
+           yaxis:{tickOptions:{formatString:'%d'}}
 
+       },
+         highlighter: {bringSeriesToFront: true},
+      legend:{
+           renderer: $.jqplot.EnhancedLegendRenderer,
+           show:true,
+           labels:".$labels.",
+           rendererOptions:{
+               numberRows:".$i."
+           },
+           placement: 'outsideGrid',
+           location: 's'
+		}
 
-    $script .= $ins_tot_ans;
-    $script .= "   data.addRows([" . rtrim($ins_tot_val, ',') . "]); ";
+    
+   });
 
-
-    echo $script .= " var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('annot_div'));
-        chart.draw(data, {displayAnnotations: false});
-      }
-	  </script>
+});
+</script>
 ";
 
 
-    echo '<div  ><div id="annot_div" style="width: 472px; height: 250px"></div></div>';
+    echo '
+         <div id="chart2" style="margin-top:20px; margin-left:20px; width:400px; height:300px;"></div>';
 }
 
 function qlite_map() {
@@ -2136,11 +2165,10 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
             return $answer;
             break;
         case 'timeline':
-            $query = "select count(*) as cnt from possible_answer_vote where qid='" . $qid . "' and panswer_id='" . $aid . "'AND vote_pdate<='" . $date . "' ";
+             $query = "select count(*) as cnt from possible_answer_vote where qid='" . $qid . "' and panswer_id='" . $aid . "'AND date(vote_pdate)<='" . $date . "' ";
             $answer = ExecuteQuery($query, "select");
 
-            return $answer ? $answer[0]['cnt'] :
-                    0;
+            return $answer ? $answer[0]['cnt'] :'null';
 
             break;
     }

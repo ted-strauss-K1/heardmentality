@@ -64,10 +64,10 @@ function loadwave(qid,wid){
 	url= gSitePath+'question/forum/?qid='+qid+'&wid='+wid;
 	jQuery.nyroModalSettings({ title:'Forum Posts'});
 
-	jQuery.nyroModalManual({
-    url: url,width:550,height:450,title:'Forum Posts'
-  });
-
+	//jQuery.nyroModalManual({
+   // url: url,width:550,height:450,title:'Forum Posts'
+ // });
+return hs.htmlExpand(url, { outlineType: 'rounded-white',wrapperClassName: 'draggable-header', objectType: 'iframe' } );
 }
 
 
