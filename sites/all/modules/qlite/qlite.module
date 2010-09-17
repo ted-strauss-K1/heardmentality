@@ -66,7 +66,7 @@ function get_top_list() {
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .= '<li><a href="'.$gSitePath.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
+            $output .=  '<li><a title="'.  wordwrap($quest['question'], 40).'" href="'.$gSitePath.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
 
         
         }
@@ -101,7 +101,7 @@ function get_hot_list() {
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .= '<li><a href="'.$gSitePath.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
+            $output .= '<li><a title="'.  wordwrap($quest['question'], 40).'" href="'.$gSitePath.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
 
         
         }
@@ -154,7 +154,7 @@ if(!empty($country['city'])){
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .= '<li><a href="'.$gSitePath.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
+            $output .=  '<li><a title="'.  wordwrap($quest['question'], 40).'" href="'.$gSitePath.$quest['url'].'">'.myTruncate($quest['question'], '40', '', '..').'</a></li>';
         
         }
     } else {
