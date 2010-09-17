@@ -23,12 +23,19 @@
   <link rel="shortcut icon" type="image/x-icon" href="<?php echo $directory;?>/images/favico.ico"/>
 
     <?php print $styles; ?>
-  
+
+
   <?php print $scripts; ?>
   <script src="<?php echo $directory; ?>/scripts/jquery.translate-1.4.0.min.js"></script> 
   <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script> 
-<script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script> 
+<script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script>
+<!-- Float box-->
+<link type="text/css" rel="stylesheet" href="<?php echo $directory; ?>/floatbox/floatbox.css" />
+<script type="text/javascript" src="<?php echo $directory; ?>/floatbox/floatbox.js"></script>
+<script type="text/javascript" src="<?php echo $directory; ?>/floatbox/options.js"></script>
+
 <script type="text/javascript">
+
 var gSitePath='<?php echo $gSitePath;?>';
 
 
@@ -97,7 +104,7 @@ jQuery(document).ready(function(){
 					  <?php 
             //echo  $apikey;
              //echo $_SERVER['HTTP_HOST'];
-            if(isset($_REQUEST["act"]))
+            if(isset($_REQUEST["act"])&&!empty($user->uid))
             {
 			if($_REQUEST["act"]=="edit2")
 			{
@@ -107,11 +114,17 @@ jQuery(document).ready(function(){
             if (r==true)
               {
 		   jQuery(document).ready(function(){
-		    jQuery.nyroModalSettings({ title:'Edit Profile'});
+		  //  jQuery.nyroModalSettings({ title:'Edit Profile'});
 
-	jQuery.nyroModalManual({
-    url:'<?php echo $gSitePath?>edit',width:850,height:700,title:'Edit Profile'
-  }); });
+	//jQuery.nyroModalManual({
+    //url:'<?php echo $gSitePath?>edit',width:850,height:700,title:'Edit Profile'
+  //});
+     var options = 'sameBox:true width:70% height:90% caption:' +
+  '`Edit Profile`';
+  parent.fb.start('<?php echo $gSitePath?>edit', options);
+
+
+  });
 
               }
            
@@ -125,11 +138,16 @@ jQuery(document).ready(function(){
             <script>
            
 		   jQuery(document).ready(function(){
-		    jQuery.nyroModalSettings({ title:'Edit Profile'});
+		   // jQuery.nyroModalSettings({ title:'Edit Profile'});
 
-	jQuery.nyroModalManual({
-    url:'<?php echo $gSitePath?>edit',width:850,height:700,title:'Edit Profile'
-  }); });
+	//jQuery.nyroModalManual({
+  //  url:'<?php echo $gSitePath?>edit',width:850,height:700,title:'Edit Profile'
+  //});
+   var options = 'sameBox:true width:70% height:90% caption:' +
+  '`Edit Profile`';
+  parent.fb.start('<?php echo $gSitePath?>edit', options);
+
+  });
 </script>
 
             <?php
@@ -232,7 +250,7 @@ echo  $date->format( "F j,Y | g:i a Y T");
          <?php if (count($primary_links)) : ?>
 	
     <?php $mb=1;foreach ($primary_links as $link): ?>
-      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> class="nyroModal" rel="nofollow" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a></li>
+      <li><a href="<?php print($gSitePath.$link['href']);?>" <?php if($link['title'] == 'About US'||($link['title'] == 'Add  Question')||($link['title'] == 'Privacy')):?> class="floatbox" rel="nofollow" title="<?php print($link['title']);?>"<?php endif;?>><?php print($link['title']);?></a></li>
     <?php endforeach; ?>
 	
     <?php endif;?>
