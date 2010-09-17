@@ -1914,18 +1914,10 @@ function qlite_graph() {
     $script .= "
         				<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>	
-          <script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.js'></script>
-                 <script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.dateAxisRenderer.js'></script>
-                  <script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.highlighter.js'></script>
-
-                       <script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.enhancedLegendRenderer.js'></script>
-<script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.barRenderer.js'></script>
-<script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.categoryAxisRenderer.js'></script>
+       			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
 <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 <script type='text/javascript' language='javascript'>
 
-  jQuery(document).ready(function(){
-      jQuery.jqplot.config.enablePlugins = true;
 ";
 
     $s1 = array();
@@ -1935,7 +1927,7 @@ function qlite_graph() {
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
         $i = $ab + 1;
         $ans = array();
-        for ($mn = 5; $mn >= 0; $mn--) {
+        for ($mn = 4; $mn >= 0; $mn--) {
 
             $year = date("Y");
             $month = date("m") - 1;
@@ -1943,49 +1935,102 @@ function qlite_graph() {
             $date = date('Y-m-d', mktime(0, 0, 0, $month + 1, $dat, $year));
 
             $inc_this = answer_details($qid, $vlist[$ab]['paid'], 'timeline', $date);
-            array_push($ans, "['" . date("d-M-y", mktime(0, 0, 0, $month + 1, $dat, $year)) . "'," . $inc_this . "]");
+            array_push($ans,$inc_this);
         }
-        $ins_sc.='s' . $i . '=[' . implode(',', $ans) . '];';
+        $ins_sc='[' . implode(',', $ans) . ']';
         array_push($grid, "'" . $vlist[$ab]['answer'] . "'");
+        $insdata.="{name :'".$vlist[$ab]['answer']."', data: ".$ins_sc."},";
     }
-    $labels = '[' . implode(',', $grid) . ']';
-    $script.=$ins_sc;
+   $sdate="Date.UTC(".$year.",".$month.",".(date("d")-6).", 0, 0, 0)";
+   // $script.=$ins_sc;
+
+   
+
     echo $script .= "
-     plot1 = $.jqplot('chart2',[s1,s2],{
-       title: 'Overtime Graph',
-       axes: {
-           xaxis: {
-               renderer: $.jqplot.DateAxisRenderer,
-               tickOptions: {
-                   formatString: '%b %#d, %Y'
-               },
-            
-           },
-           yaxis:{tickOptions:{formatString:'%d'}}
-
-       },
-         highlighter: {bringSeriesToFront: true},
-      legend:{
-           renderer: $.jqplot.EnhancedLegendRenderer,
-           show:true,
-           labels:" . $labels . ",
-           rendererOptions:{
-               numberRows:" . $i . "
-           },
-           placement: 'outsideGrid',
-           location: 's'
-		}
-
-    
+var chart;
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         defaultSeriesType: 'spline',
+         ignoreHiddenSeries: false
+      },
+      title: {
+         text: 'Overtime Graph'
+      },
+      subtitle: {
+         text: ''
+      },
+      xAxis: {
+         type: 'datetime'
+      },
+      yAxis: {
+         title: {
+            text: 'No Of Votes (Per Day)'
+         },
+         min: 0,
+         minorGridLineWidth: 0,
+         gridLineWidth: 0,
+         alternateGridColor: null,
+         plotBands: [{ // Light air
+            from: 0.3,
+            to: 1.5,
+            color: 'rgba(68, 170, 213, 0.1)'
+         }, { // Gentle breeze
+            from: 3.3,
+            to: 5.5,
+            color: 'rgba(68, 170, 213, 0.1)'
+         }, { // Fresh breeze
+            from: 8,
+            to: 11,
+            color: 'rgba(68, 170, 213, 0.1)'
+         }, { // High wind
+            from: 14,
+            to: 15,
+            color: 'rgba(68, 170, 213, 0.1)'
+         }]
+      },
+      tooltip: {
+         formatter: function() {
+                   return ''+
+               Highcharts.dateFormat('%e. %b %Y', this.x) +': '+ this.y +' Votes';
+         }
+      },
+      plotOptions: {
+         spline: {
+            lineWidth: 4,
+            states: {
+               hover: {
+                  lineWidth: 5
+               }
+            },
+            marker: {
+               enabled: false,
+               states: {
+                  hover: {
+                     enabled: true,
+                     symbol: 'circle',
+                     radius: 5,
+                     lineWidth: 1
+                  }
+               }
+            },
+            pointInterval: 3600000*36, // one hour
+            pointStart:".$sdate."
+         }
+      },
+      series: [".$insdata."]
    });
 
+
 });
+
 </script>
 ";
 
 
-    echo '
-         <div id="chart2" style="margin-top:20px; margin-left:20px; width:400px; height:300px;"></div>';
+    echo '<div id="container" class="highcharts-container" style="height:410px; width: 400px; margin: 0 auto; clear:both">
+';
 }
 
 function qlite_map() {
