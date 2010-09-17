@@ -2,7 +2,7 @@
 
 function qlite_view() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey;
-    //echo $_SERVER['QUERY_STRING'];
+    echo $_SERVER['QUERY_STRING'];die;
     $lji = explode("=", $_SERVER['QUERY_STRING']);
 
     if (isset($_REQUEST['lid'])) {
