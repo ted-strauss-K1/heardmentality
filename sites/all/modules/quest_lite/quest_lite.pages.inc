@@ -2,7 +2,7 @@
 
 function qlite_view() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey;
-    echo "sdssddssdds";die;
+    //echo $_SERVER['QUERY_STRING'];
     $lji = explode("=", $_SERVER['QUERY_STRING']);
 
     if (isset($_REQUEST['lid'])) {
@@ -559,7 +559,7 @@ function qlite_view() {
    
            </div>';
     // cron job
-    cal_active_rate();
+   // cal_active_rate();
     return $voutput;
 }
 
