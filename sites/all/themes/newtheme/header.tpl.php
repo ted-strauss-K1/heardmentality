@@ -41,15 +41,18 @@ var gSitePath='<?php echo $gSitePath;?>';
 
 
 jQuery(document).ready(function(){
-	jQuery('body a').each(function()
+	jQuery('.innerbox a,.facttext a').each(function()
    {
+    if( jQuery(this).attr("title").length>0){
 
-	jQuery(this).SetBubblePopup({
-									innerHtml: jQuery(this).attr("href"),
+        jQuery(this).SetBubblePopup({
+									innerHtml: jQuery(this).attr("title"),
 										 color:'grey',
 										 imageFolder: '<?php echo $directory; ?>/images/bp_images',
 
 								});
+    }
+	
 								
 		});						
  var height = jQuery(window).height();
