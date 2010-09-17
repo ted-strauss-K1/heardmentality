@@ -1914,13 +1914,13 @@ function qlite_graph() {
     $script .= "
         				<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>	
-          <script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jquery.jqplot.js'></script>
-                 <script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.dateAxisRenderer.js'></script>
-                  <script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.highlighter.js'></script>
+          <script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.js'></script>
+                 <script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.dateAxisRenderer.js'></script>
+                  <script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.highlighter.js'></script>
 
-                       <script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.enhancedLegendRenderer.js'></script>
-<script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.barRenderer.js'></script>
-<script language='javascript' type='text/javascript' src='". $gSitePath . drupal_get_path('module', 'quest_lite')."/plugins/jqplot.categoryAxisRenderer.js'></script>
+                       <script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.enhancedLegendRenderer.js'></script>
+<script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.barRenderer.js'></script>
+<script language='javascript' type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jqplot.categoryAxisRenderer.js'></script>
 <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 <script type='text/javascript' language='javascript'>
 
@@ -1928,30 +1928,29 @@ function qlite_graph() {
       jQuery.jqplot.config.enablePlugins = true;
 ";
 
-    $s1=array();
-        $grid=array();
-        
+    $s1 = array();
+    $grid = array();
 
-        for ($ab = 0; $ab < $cnt_ans; $ab++) {
-            $i=$ab+1;
-           $ans=array();
-             for ($mn = 5; $mn >= 0; $mn--) {
-      
-        $year = date("Y");
-        $month = date("m") - 1;
-        $dat = date("d") - $mn;
-        $date = date('Y-m-d', mktime(0, 0, 0, $month + 1, $dat, $year));
 
-            $inc_this= answer_details($qid, $vlist[$ab]['paid'], 'timeline', $date);
-       array_push($ans,"['".date("d-M-y", mktime(0, 0, 0, $month + 1, $dat, $year))."',".$inc_this."]");
-      
-    }
-      $ins_sc.='s'.$i.'=['.implode(',',$ans).'];';
-      array_push($grid,"'".$vlist[$ab]['answer']."'");
+    for ($ab = 0; $ab < $cnt_ans; $ab++) {
+        $i = $ab + 1;
+        $ans = array();
+        for ($mn = 5; $mn >= 0; $mn--) {
+
+            $year = date("Y");
+            $month = date("m") - 1;
+            $dat = date("d") - $mn;
+            $date = date('Y-m-d', mktime(0, 0, 0, $month + 1, $dat, $year));
+
+            $inc_this = answer_details($qid, $vlist[$ab]['paid'], 'timeline', $date);
+            array_push($ans, "['" . date("d-M-y", mktime(0, 0, 0, $month + 1, $dat, $year)) . "'," . $inc_this . "]");
         }
-     $labels='['.implode(',',$grid).']';
-  $script.=$ins_sc;
-   echo  $script .= "
+        $ins_sc.='s' . $i . '=[' . implode(',', $ans) . '];';
+        array_push($grid, "'" . $vlist[$ab]['answer'] . "'");
+    }
+    $labels = '[' . implode(',', $grid) . ']';
+    $script.=$ins_sc;
+    echo $script .= "
      plot1 = $.jqplot('chart2',[s1,s2],{
        title: 'Overtime Graph',
        axes: {
@@ -1969,9 +1968,9 @@ function qlite_graph() {
       legend:{
            renderer: $.jqplot.EnhancedLegendRenderer,
            show:true,
-           labels:".$labels.",
+           labels:" . $labels . ",
            rendererOptions:{
-               numberRows:".$i."
+               numberRows:" . $i . "
            },
            placement: 'outsideGrid',
            location: 's'
@@ -2005,6 +2004,9 @@ function qlite_map() {
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
 
+    $mlatall = '';
+    $mlongall = '';
+    $ziparyall = '';
     for ($i = 0; $i < $cnt_ans; $i++) {
 
         $pans = db_query("select * from {possible_answer_vote} as pav left join {user_profile} as u on u.uid=pav.uid where pav.panswer_id='" . $vlist[$i]['paid'] . "' ");
@@ -2017,31 +2019,12 @@ function qlite_map() {
         }
         $pcnt_ans = count($getresult);
 
-        $inc_script .= '
-	 // var blueIcon = new GIcon(G_DEFAULT_ICON);
-	 // blueIcon.image = "http://gmaps-samples.googlecode.com/svn/trunk/markers/' . $marker[$i] . '/blank.png";
-	  var iconRed = new GIcon(); 
-  iconRed.image = "http://labs.google.com/ridefinder/images/mm_20_' . $marker[$i] . '.png";
-    iconRed.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
-    iconRed.iconSize = new GSize(12, 20);
-    iconRed.shadowSize = new GSize(22, 20);
-    iconRed.iconAnchor = new GPoint(6, 20);
-    iconRed.infoWindowAnchor = new GPoint(5, 1);
-  
-';
-
         // $desc .= '<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png" border="0" alt=""/> &nbsp; '.$vlist[$i]['answer'].'<br/>';
         $desc .= '<img src="http://labs.google.com/ridefinder/images/mm_20_' . $marker[$i] . '.png" border="0" alt=""/> &nbsp; ' . $vlist[$i]['answer'] . '<br/>';
 
-        $mlat = '';
-        $mlong = '';
-
-        $mlat = "[";
-        $mlong = "[";
-
-
         if (is_array($getresult)) {
             $zcnt = 0;
+
             foreach ($getresult as $for_zip_user) {
                 $uzip = '';
                 $uzip = $for_zip_user->zip;
@@ -2054,10 +2037,11 @@ function qlite_map() {
 
                     if ($list[0]['countrycode'] != '') {
                         $zcnt++;
-                        $mlat .= "'" . $list[0]['lat'] . "',";
+                        $mlatall .= "'" . $list[0]['lat'] . "',";
 
-                        $mlong .= "'" . $list[0]['lng'] . "',";
-
+                        $mlongall .= "'" . $list[0]['lng'] . "',";
+                        $ziparyall.="'" . $uzip . "',";
+                        $colormark.="'" . $marker[$i] . "',";
                         //   $mlat .= "'".rand('30.232','72.03')."',";
                         //  $mlong .= "'".rand('56.232','103.03')."',";
                         //print_r($array);
@@ -2065,34 +2049,36 @@ function qlite_map() {
                 }
             }
         }
-        $mlat = rtrim($mlat, ',');
-        $mlong = rtrim($mlong, ',');
-        $mlat .= "]";
-        $mlong .= "]";
-        if (strlen($uzip) > 3) {
-            $inc_script .= "if(" . $zcnt . ">0){
-					var lat=" . $mlat . ";
-				var lng=" . $mlong . ";
-		        for (var i = 0; i <" . $zcnt . "; i++) {
-		        	
-		            var latlng = new GLatLng(lat[i],lng[i]);
-		          // map.addOverlay(new GMarker(latlng, markerOptions));
-				//    map.addOverlay(createMarker(latlng, '" . $uzip . "',iconRed));
-                                    marker=newMarker(new GLatLng(lat,lng),'" . $uzip . "',iconRed );
-
-                                       // var marker = new GMarker(latlng,{icon:iconRed});
-            markers.push(marker);
-
-		          }
-}";
-        }
     }
+    $mlat = "[";
+    $mlong = "[";
+    $zipary = "[";
+    $color = "[";
+    $mlat.= rtrim($mlatall, ',');
+    $mlong.= rtrim($mlongall, ',');
+    $zipary.=rtrim($ziparyall, ',');
+    $color.=rtrim($colormark, ',');
+    $mlat .= "]";
+    $mlong .= "]";
+    $zipary.="]";
+    $color.="]";
+    $inc_script .= "
+                                 var lat=" . $mlat . ";
+				 var lng=" . $mlong . ";
+                                 var zip=" . $zipary . ";
+                                 var color=" . $color . ";
+		        for (var i = 0; i <lat.length; i++) {
 
+		       var  marker=newMarker(new GLatLng(lat[i],lng[i]),zip[i],get_color(color[i]) );
+                        markers.push(marker);
+
+		          }";
 
     $script .= "
 		<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 				<script src='http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAk7qgEva0Ioa4Suru5Tb5eBQFLOarkQUzCA92TG3xPimqxCbarBQTnRVvbdF68v6R547r-Sy34P_yWA' type='text/javascript'></script>
                                 <script src='http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/src/markerclusterer.js' type='text/javascript'></script>
+                                  <script src=' http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/release/src/markermanager.js' type='text/javascript'></script>
 ";
 
 
@@ -2103,7 +2089,8 @@ function qlite_map() {
 				 function initialize() {
     	var map = new google.maps.Map2(document.getElementById('map_div'));
 		 map.setCenter(new GLatLng(34, 0), 1);
-                  
+                   mgr = new MarkerManager(map);
+
                     var markers = [];
                  geocoder = new GClientGeocoder();
                         function createMarker(latlng, number,iconRed) {
@@ -2120,16 +2107,32 @@ function qlite_map() {
 		//map.setCenter(new GLatLng(37.4419, -122.1419), 13);
 		  map.addControl(new GLargeMapControl());
     map.addControl(new GMapTypeControl());
-		" . $inc_script . "
+      	" . $inc_script . "
+                  
+                  
 	 var markerCluster = new MarkerClusterer(map, markers);
+
 }
 		
+		function get_color(type){
+
+      var iconRed = new GIcon();
+          iconRed.shadow = 'http://labs.google.com/ridefinder/images/mm_20_shadow.png';
+    iconRed.iconSize = new GSize(12, 20);
+    iconRed.shadowSize = new GSize(22, 20);
+    iconRed.iconAnchor = new GPoint(6, 20);
+    iconRed.infoWindowAnchor = new GPoint(5, 1);
+	
+	 iconRed.image = 'http://labs.google.com/ridefinder/images/mm_20_'+type+'.png';
+		return iconRed;
+		}
 		function newMarker(markerLocation, markerId,icon) {
-	var marker=new GMarker(markerLocation, {title:'Zip['+markerId+']',icon:icon});
-	GEvent.addListener(marker, 'click', function() {
-		marker.openInfoWindowHtml('<p>Zip['+markerId+']</p>');
+
+	var markering=new GMarker(markerLocation, {title:'Zip['+markerId+']',icon:icon});
+	GEvent.addListener(markering, 'click', function() {
+		markering.openInfoWindowHtml('<p>Zip['+markerId+']</p>');
 	});
-	return marker;
+	return markering;
 }
 
 				</script>
@@ -2165,10 +2168,10 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
             return $answer;
             break;
         case 'timeline':
-             $query = "select count(*) as cnt from possible_answer_vote where qid='" . $qid . "' and panswer_id='" . $aid . "'AND date(vote_pdate)<='" . $date . "' ";
+            $query = "select count(*) as cnt from possible_answer_vote where qid='" . $qid . "' and panswer_id='" . $aid . "'AND date(vote_pdate)<='" . $date . "' ";
             $answer = ExecuteQuery($query, "select");
 
-            return $answer ? $answer[0]['cnt'] :'null';
+            return $answer ? $answer[0]['cnt'] : 'null';
 
             break;
     }
