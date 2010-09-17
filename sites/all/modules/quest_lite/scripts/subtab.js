@@ -56,43 +56,53 @@ function loadresource(url,title)
 {
 	
 
-	jQuery.nyroModalSettings({ title:'Add Resources'});
+	//jQuery.nyroModalSettings({ title:'Add Resources'});
 
-	jQuery.nyroModalManual({
-    url: url,width:550,height:450,title:'Add Resources'
-  });
-
+	//jQuery.nyroModalManual({
+  //  url: url,width:550,height:450,title:'Add Resources'
+ // });
+ var options = 'sameBox:true width:50% height:70% caption:' +
+  '`Add Resources`';
+  parent.fb.start(url, options);
 		
 }
 
 function loadsuggest(url,title){
 	
-	jQuery.nyroModalSettings({ title:'Suggest an Answer'});
+	//jQuery.nyroModalSettings({ title:'Suggest an Answer'});
 
-	jQuery.nyroModalManual({
-    url: url,width:550,height:450, padding:40,title:'Suggest an Answer'
-  });
-
+	//jQuery.nyroModalManual({
+   // url: url,width:550,height:450, padding:40,title:'Suggest an Answer'
+ // });
+ var options = 'sameBox:true width:50% height:70% caption:' +
+  '`Suggest an Answer`';
+  parent.fb.start(url, options);
 }
 function load_invite(url,title){
 	
-	jQuery.nyroModalSettings({ title:'Flag this question'});
+	//jQuery.nyroModalSettings({ title:'Flag this question'});
 
-	jQuery.nyroModalManual({
-    url: url,width:550,height:450, padding:40,title:'Flag this question'
-  });
+	//jQuery.nyroModalManual({
+   // url: url,width:550,height:450, padding:40,title:'Flag this question'
+  //});
+   var options = 'sameBox:true width:50% height:70% caption:' +
+  '`Flag This Question`';
+  parent.fb.start(url, options);
 }
 
 
 function loadtag(url,title)
 {
 	
-jQuery.nyroModalSettings({ title:'Retag this question'});
+//jQuery.nyroModalSettings({ title:'Retag this question'});
 
-	jQuery.nyroModalManual({
-    url: url,width:550,height:450, padding:40,title:'Retag this question'
-  });	
-	
+	//jQuery.nyroModalManual({
+   // url: url,width:550,height:450, padding:40,title:'Retag this question'
+ // });
+
+  var options = 'sameBox:true width:50% height:70% caption:' +
+  '`Retag This Question`';
+  parent.fb.start(url, options);
 	
 }
 

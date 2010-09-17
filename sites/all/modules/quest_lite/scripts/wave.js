@@ -63,11 +63,13 @@ function loadwave(qid,wid){
 	
 	url= gSitePath+'question/forum/?qid='+qid+'&wid='+wid;
 	jQuery.nyroModalSettings({ title:'Forum Posts'});
-
-	//jQuery.nyroModalManual({
+  var options = 'sameBox:true width:70% height:90% caption:' +
+  '`Forum Posts`';
+  parent.fb.start(url, options);
+            //jQuery.nyroModalManual({
    // url: url,width:550,height:450,title:'Forum Posts'
  // });
-return hs.htmlExpand(url, { outlineType: 'rounded-white',wrapperClassName: 'draggable-header', objectType: 'iframe' } );
+//return hs.htmlExpand(url, { outlineType: 'rounded-white',wrapperClassName: 'draggable-header', objectType: 'iframe' } );
 }
 
 
@@ -75,10 +77,12 @@ function loadrforum(url,title){
 	
 	jQuery.nyroModalSettings({ title:'Forum Posts'});
 
-	jQuery.nyroModalManual({
-    url: url,width:550,height:450,title:'Forum Posts'
-  });
-
+	//jQuery.nyroModalManual({
+  //  url: url,width:550,height:450,title:'Forum Posts'
+ // });
+  var options = 'sameBox:true width:70% height:90% caption:' +
+  '`Forum Posts`';
+  parent.fb.start(url, options);
 	
 }
 
@@ -86,13 +90,15 @@ function loadflagquestion(url,title)
 {
 	
 	
-	jQuery.nyroModalSettings({ title:'Flag Posts'});
+	//jQuery.nyroModalSettings({ title:'Flag Posts'});
 
-	jQuery.nyroModalManual({
-    url: url,width:550,height:450,title:'Flag Posts'
-  });
+	//jQuery.nyroModalManual({
+   // url: url,width:550,height:450,title:'Flag Posts'
+//  });
 
-	
+	  var options = 'sameBox:true width:70% height:90% caption:' +
+  '`Flag Posts`';
+  parent.fb.start(url, options);
 	
 	
 }
