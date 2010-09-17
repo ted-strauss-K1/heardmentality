@@ -558,7 +558,7 @@ function qlite_view() {
               </ul>
    
            </div>';
-    // cron job
+    // cron job in qlite module
    // cal_active_rate();
     return $voutput;
 }
