@@ -1294,7 +1294,7 @@ function question_ajax() {
 
             
             }
-        } else {
+        }  else {
             
             $tag .= '<b>No Suggestions</b>';
         }
@@ -1302,7 +1302,47 @@ function question_ajax() {
         echo $tag;
         exit;
     
+    }elseif(isset($_REQUEST['ssearch'])){
+
+
+         $input=$_REQUEST['input'];
+    $stype=$_REQUEST['stype'];
+
+    if($stype=='2'){
+
+
+         $query = "select uid as id,real_name as value,first_name as info from {user_profile} where real_name like '%$input%' OR first_name like '%$input%'  ORDER BY uid ASC ";
+    $aResults = ExecuteQuery($query, "select");
+    }else{
+
+      
+         $query = "select qid as id,question as value,context as info from {question} where question like '%$input%' OR context like '%$input%' AND status='1' ORDER BY qid ASC ";
+    $aResults = ExecuteQuery($query, "select");
+
+
     }
+
+
+       // $aResults[]=array('id'=>'question_1','value'=>'Question vs','info'=>'currency','currency'=>'hello');
+          // $aResults[]=array('id'=>'question_2','value'=>'Question info','info'=>'currency','currency'=>'hello');
+           //print_r($aResults);
+               	header ("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+                  header ("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+                  header ("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+                  header ("Pragma: no-cache"); // HTTP/1.0
+
+            header("Content-Type: application/json");
+
+		echo "{\"results\": [";
+		$arr = array();
+		for ($i=0;$i<count($aResults);$i++)
+		{
+			$arr[] = "{\"id\": \"".$aResults[$i]['id']."\", \"value\": \"".$aResults[$i]['value']."\", \"info\": \"".$aResults[$i]['info']."\"}";
+		}
+		echo implode(", ", $arr);
+		echo "]}";
+
+        }
 }
 
 
