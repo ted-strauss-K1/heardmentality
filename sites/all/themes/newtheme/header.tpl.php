@@ -34,6 +34,13 @@
 <script type="text/javascript" src="<?php echo $directory; ?>/floatbox/floatbox.js"></script>
 <script type="text/javascript" src="<?php echo $directory; ?>/floatbox/options.js"></script>
 
+<!-- Autosuggest module -->
+<script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.watermarkinput.js"></script>
+<script type="text/javascript" src="<?php echo $directory; ?>/lib/autosuggest/bsn.AutoSuggest_2.1.3.js"></script>
+<link rel="stylesheet" href="<?php echo $directory; ?>/lib/autosuggest/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8">
+
+
+
 <script type="text/javascript">
 
 var gSitePath='<?php echo $gSitePath;?>';
@@ -231,24 +238,25 @@ echo  $date->format( "F j,Y | g:i a Y T");
 			?>
  <div class="clr"></div>
      <div id="menu">
-          <div class="search">  <form name="search" method="post" action="">
+          <div class="search">  <form class="home_searchEngine" name="search" method="post" action="">
             <div class="searchtext">
           <input name="txt_search"  id="txt_search" value="<?php echo $skey; ?>" type="text"  onblur="if(search.txt_search.value =='') search.txt_search.value = ''" onfocus="if(search.txt_search.value =='Search') search.txt_search.value = ''" />
-            </div>    </form>
+            </div>   
             <div class="searchr">
              
-             <div class="stext">  <input type="radio" name="stype[]" id="stype1" value="1" <?php if(isset($_REQUEST['stype'])) { if($_REQUEST['stype']==1) {?> checked="checked" <?php } }else{?> checked="checked" <?php }?>  /></div>
+             <div class="stext">  <input type="radio" name="stype[]" id="stype1" value="1" <?php if(isset($_REQUEST['stype'])) { if($_REQUEST['stype']==1) {?> checked="checked" <?php } }else{?> checked="checked" <?php }?>  onchange="var stype=this.value;" /></div>
               <label for="radio" class="slab">Questions</label>
             </div>
             <div class="searchr">
               
-            <div class="stext">    <input type="radio" name="stype[]" id="stype2" value="2" <?php if(isset($_REQUEST['stype'])) { if($_REQUEST['stype']==2) {?> checked="checked" <?php } }?> /></div>
+            <div class="stext">    <input type="radio" name="stype[]" id="stype2" value="2" <?php if(isset($_REQUEST['stype'])) { if($_REQUEST['stype']==2) {?> checked="checked" <?php } }?> onchange="var stype=this.value;" /></div>
              <label for="radio2" class="slab">Users</label>
             </div>
             <div>&nbsp;
                        <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
             </div>
                   </form>     </div>
+        		
                      <div class="men"> 
          <?php if (count($primary_links)) : ?>
 	
