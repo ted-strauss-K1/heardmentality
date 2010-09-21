@@ -1948,6 +1948,8 @@ function qlite_graph() {
 
     echo $script .= "
 var chart;
+var gSitePath='".$gSitePath."';
+
 $(document).ready(function() {
    chart = new Highcharts.Chart({
       chart: {
@@ -1997,6 +1999,16 @@ $(document).ready(function() {
          }
       },
       plotOptions: {
+          series: {
+            cursor: 'pointer',
+            point: {
+                events: {
+                    click: function() {
+                       display_resource(this.category);
+                    }
+                }
+            }
+        },
          spline: {
             lineWidth: 4,
             states: {
@@ -2025,11 +2037,33 @@ $(document).ready(function() {
 
 });
 
+function display_resource(dat){
+
+var url=gSitePath+'qlite/ajax';
+jQuery.ajax({
+   type: 'POST',
+   url: url,
+   dataType:'xhr',
+  data: {
+            action: 'graph',
+            date:dat,
+            qid:'".$qid."'
+        },
+   success: function(msg){
+jQuery('#resource').html(msg);
+   }
+ });
+
+}
+
+
 </script>
 ";
 
 
-    echo '<div id="container" class="highcharts-container" style="height:410px; width: 400px; margin: 0 auto; clear:both">
+    echo '<div id="container" class="highcharts-container" style="height:410px; width: 400px; margin: 0 auto; clear:both"></div>
+        <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+
 ';
 }
 
@@ -2642,6 +2676,40 @@ function qfull_ajax() {
                 default:
                     break;
             }
+
+            break;
+        case 'graph':
+         
+          $str=substr($_REQUEST['date'],'0','10');
+             $date=date('d-m-Y',$str);
+             $qid=$_REQUEST['qid'];
+             $query="select * from {resource} where date(posted_date)<='$date' AND qid='$qid'";
+             $set = ExecuteQuery($query, "select");
+             
+              $result.="<div> <b>Resources For Date :".date('d M,Y',$str)."</b></div><hr/><br/><ul>";
+              if(!empty($set)){
+             foreach($set as $list){
+
+                switch($list['rtype']){
+
+                 case '1':
+                    $inc.="<li><a href=\"".$list['ncontent']."\" target=\"_blank\">You Tube Video</a></li>";
+                     break;
+                 case '2':
+                    $inc.="<li><a href=\"".$list['membed']."\" target=\"_blank\">You Tube Video</a></li>";
+                     break;
+                 case '3':
+                   $inc.="<li><a href=\"".$list['facts']."\">".$list['facts']."</a></li>";
+                     break;
+
+                }
+                
+             }
+              }else{
+
+                  $inc="<b>No Resource for this Date</b>";
+              }
+          echo   $result=$result.$inc."</ul>";
 
             break;
         default:
