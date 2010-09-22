@@ -375,10 +375,7 @@ function qlite_view() {
     $voutput .= '
 	<script type="text/javascript">
 	        
-      jQuery(document).ready(function() {
-   var $tabs=jQuery("#rotate > ul").tabs({ fx: { opacity: "toggle" } });
-   $tabs.tabs();
-      });
+     
 
 			function formsubmittype(mtype,ids){
 		jQuery("#txt_act").val(mtype);
@@ -547,8 +544,9 @@ function qlite_view() {
 
     $voutput .= '<div class="clr"></div>
 	<div id="rotate">
-              <ul class="ui-tabs-nav">
-                <li class="ui-tabs-selected"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span>
+        <br/>
+              <ul id="maintabs" class="mytabs" >
+                <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span>
                  </a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
@@ -556,7 +554,9 @@ function qlite_view() {
 				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
 				  
               </ul>
-   
+              <div class="mytabs-container" id="tabcontent">
+            Loading. Please Wait...
+        </div>
            </div>';
     // cron job in qlite module
    // cal_active_rate();
@@ -1151,15 +1151,15 @@ function panel_content() {
             break;
         case "Resources":
 
-            $output = '<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/subtab.css" type="text/css" />
+            $output = '<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/jquery.tab.js"></script>
 			<div id="waveerr"></div>
-                       <ul id="tabmenu" >
+                       <ul id="tabmenu" class="mytabs" >
                                        <li><a class="" href="javascript:tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabIn">In the News</a></li>
                                        <li><a class="" href="javascript:tabactive(\'M\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabM">Multimedia</a></li>
                                        <li><a class="" href="javascript:tabactive(\'F\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabF">Facts</a></li>
                                        <li><a class="" href="javascript:loadresource(\'' . $gSitePath . 'qlite/resource/' . $qid . '\',\'Add\')" id="tab4">Add Resource</a></li>
                                </ul>
-                               <div id="rcontents"></div>
+                               <div id="rcontents" class="mytabs-container"></div>
                                <script type="text/javascript">tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';
 
             break;
@@ -1208,13 +1208,13 @@ function panel_content() {
             $output = 'sample content facts';
             break;
         default:
-            $output = '<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/subtab.css" type="text/css" />
-			<ul id="tabmenu" >
-				<li ><a href="javascript:loadReport(1,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab1">Votes</a></li>
+            $output = '
+			  <ul class="mytabs" id="tabs">
+				<li class="current"><a href="javascript:loadReport(1,\'' . $gSitePath . '\',' . $qid . ');"  id="tab1">Votes</a></li>
 				<li ><a href="javascript:loadReport(2,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab2">Overtime</a></li>
 				<li ><a href="javascript:loadReport(3,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab3">By Area</a></li>
 			</ul>
-			<div id="contents"><iframe id="frmGoogle" src="' . $gSitePath . '/qlite/percent/' . $qid . '" border="0" height="400" frameborder="0" width="100%"></iframe></div>
+			   <div class="mytabs-container" id="tabs-container"><iframe id="frmGoogle" src="' . $gSitePath . '/qlite/percent/' . $qid . '" border="0" height="400" frameborder="0" width="100%"></iframe></div>
 			<script type="text/javascript">loadReport(1,\'' . $gSitePath . '\',' . $qid . ')</script>';
             break;
     }

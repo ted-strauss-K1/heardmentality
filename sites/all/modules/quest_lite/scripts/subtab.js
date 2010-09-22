@@ -1,11 +1,11 @@
 // JavaScript Document
 function tabactive(pmID, pmPath,id)
 {
-	jQuery('#tabIn').removeClass('active');
-	jQuery('#tabM').removeClass('active');
-	jQuery('#tabF').removeClass('active');
+	jQuery('#tabIn').parent('li').removeClass('current');
+	jQuery('#tabM').parent('li').removeClass('current');
+	jQuery('#tabF').parent('li').removeClass('current');
 	
-	jQuery('#tab'+pmID).addClass('active');
+	jQuery('#tab'+pmID).parent('li').addClass('current');
 		if(pmID == 'In')
 		vPath=pmPath+"qlite/innews/"+id
 	else if(pmID == 'M')
@@ -27,11 +27,10 @@ function tabactive(pmID, pmPath,id)
 
 function loadReport(pmID, pmPath,id)
 {
-	jQuery('#tab1').removeClass('active');
-	jQuery('#tab2').removeClass('active');
-	jQuery('#tab3').removeClass('active');
-	
-	jQuery('#tab'+pmID).addClass('active');
+	jQuery('#tab1').parent('li').removeClass('current');
+	jQuery('#tab2').parent('li').removeClass('current');
+	jQuery('#tab3').parent('li').removeClass('current');
+	jQuery('#tab'+pmID).parent('li').addClass('current');
 	if(pmID == 1)
 		vPath=pmPath+"qlite/percent/"+id
 	else if(pmID == 2)
