@@ -37,7 +37,8 @@ jQuery(function() {
 
 			// => TO submit form (general use)
 			//$('#search_country_value').val(obj.id);
-			$('.home_searchEngine').submit();
+			//$('.home_searchEngine').submit();
+                        callfunction();
 		}
 	};
 
