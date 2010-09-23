@@ -386,7 +386,7 @@ function user_follower() {
 
         if ($countrowsm == 0) {
 
-            $follower .= ' No Records';
+            $follower .= '<span style="padding-left:17px;">No Followers Found</span> ';
         }elseif ($user->uid == $follid) {
             $follower.='  <div class="clear"><ul class="subtabs"><li>Select</li> <li><a href="#" onclick="chk_all(1);";>All</a> </li><li><a href="#" onclick="chk_all(0);";>None</a></li><li><a href="#" onclick="enable_form(1,this);";>Send Message</a><li><li></li></ul></div>
 <form name="frmsgform" id="frmsgform" action="' . $gSitePath . 'postmessage" method="POST">' . $follow . '
