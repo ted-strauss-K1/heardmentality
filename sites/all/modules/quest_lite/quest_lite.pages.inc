@@ -1154,7 +1154,7 @@ function panel_content() {
 
             $output = '<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/jquery.tab.js"></script>
 			<div id="waveerr"></div>
-                       <ul id="tabmenu" class="mytabs" >
+                       <ul id="tabmenu" class="subtabs" >
                                        <li><a class="" href="javascript:tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabIn">In the News</a></li>
                                        <li><a class="" href="javascript:tabactive(\'M\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabM">Multimedia</a></li>
                                        <li><a class="" href="javascript:tabactive(\'F\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabF">Facts</a></li>
@@ -1210,7 +1210,7 @@ function panel_content() {
             break;
         default:
             $output = '
-			  <ul class="mytabs" id="tabs">
+			  <ul class="subtabs" id="tabs">
 				<li class="current"><a href="javascript:loadReport(1,\'' . $gSitePath . '\',' . $qid . ');"  id="tab1">Votes</a></li>
 				<li ><a href="javascript:loadReport(2,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab2">Overtime</a></li>
 				<li ><a href="javascript:loadReport(3,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab3">By Area</a></li>
