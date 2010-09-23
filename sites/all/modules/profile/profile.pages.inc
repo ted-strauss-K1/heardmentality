@@ -813,7 +813,7 @@ function followinglist($uids) {
         $following[] .= '<a style="color:#F37321;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
     }
     if ($numfolls == 0) {
-        $following[] .= 'No Records';
+        $following[] .= '<span style="padding-left:17px;">Please Follow People</span>';
     }
     return $following;
 }
@@ -869,7 +869,7 @@ function followerlist($umid) {
         $followeru[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
     }
     if ($numfoll == 0) {
-        $followeru[] .= 'No Records';
+        $followeru[] .= '<span style="padding-left:17px;">No Followers Yet</span>';
     }
 
 
