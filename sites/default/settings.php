@@ -151,7 +151,7 @@ ini_set('url_rewriter.tags',        '');
 global $gSitePath ,$gDocPath,$apikey;
 $gSitePath="http://".$_SERVER['HTTP_HOST']."/heardmentality/";
 $gDocPath=$_SERVER['DOCUMENT_ROOT']."/heardmentality/";
-<<<<<<< .mine
+
 
 if($_SERVER['HTTP_HOST']=='localhost')
 {
