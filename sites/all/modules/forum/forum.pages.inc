@@ -790,11 +790,11 @@ function _make_web_ftp_clickable_cb($matches) {
 		$ret = substr($dest, -1);
 		$dest = substr($dest, 0, strlen($dest)-1);
 	}
-	return $matches[1] . "<a href=\"$dest\" rel=\"nofollow\">$dest</a>" . $ret;
+	return $matches[1] . "<a href=\"$dest\" rel=\"nofollow\" target=\"_blank\">$dest</a>" . $ret;
 }
 function _make_email_clickable_cb($matches) {
 	$email = $matches[2] . '@' . $matches[3];
-	return $matches[1] . "<a href=\"mailto:$email\">$email</a>";
+	return $matches[1] . "<a href=\"mailto:$email\" target=\"_blank\">$email</a>";
 }
 function make_clickable($ret) {
 	$ret = ' ' . $ret;
