@@ -1328,7 +1328,8 @@ $asscountry .=  " data.setValue(".$first.", 0,'".$geoans->country."');".' data.s
 //             }
              break;
              case 'index/map/questions':
-          $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
+         // $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
+        $geomap_qry = "select count(*) as count, country from question group by country";
     $geomap_exec= ExecuteQuery($geomap_qry, "select");
 
             $first='';
@@ -1358,7 +1359,7 @@ $asscountry .=  " data.setValue(".$first.", 0,'".$geoans->country."');".' data.s
       var data = new google.visualization.DataTable();
       data.addRows(6);
       data.addColumn('string', 'Country');
-      data.addColumn('number', 'Popularity');".$asscountry."
+      data.addColumn('number', 'Users');".$asscountry."
       var geomap = new google.visualization.GeoMap(
           document.getElementById('visualization'));
       geomap.draw(data,{width:650,height:375});
