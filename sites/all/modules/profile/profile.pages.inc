@@ -446,23 +446,19 @@ function profile($uid = '') {
             $follower .= '' . $newlist2[$k] . '';
         }
     }
-    $strReturn.='
-      <h4>Followers</h4>';
 
-    $follow.='  <ul id="mfollowers">
+    if($user->uid == $uid){
+
+        $inc='&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Send Message</a>]';
+    }
+    $strReturn.='<h4>Followers '.$inc.'</h4>';
+
+    $strReturn.='  <ul id="mfollowers">
       	' . $follower . '
       </ul>
    
       ';
-    if ($user->uid == $uid) {
-        $strReturn.='  <div class="clear"><ul class="subtabs"><li>Select</li> <li><a href="#" onclick="chk_all(1);";>All</a> </li><li><a href="#" onclick="chk_all(0);";>None</a></li><li><a href="#" onclick="enable_form(1);";>Send Message</a><li></ul></div>
-<form name="frmsgform" id="frmsgform" action="'.$gSitePath.'postmessage" method="POST">' .$follow. '
-     <div align="left" style="display:none;" id="frmsgbox"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="frmsgs"></textarea><input type="hidden" value="37" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg"></div>
-    
-</form>
-';
-    }
-
+   
 
     return $strReturn;
 }
@@ -814,8 +810,7 @@ function followinglist($uids) {
         $following[] = '<div  id="show-' . $following_list->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
     }
     if ($numfolls > 5) {
-        $following[] .= '<a style="color:#F37321;
-text-decoration:none;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
+        $following[] .= '<a style="color:#F37321;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
     }
     if ($numfolls == 0) {
         $following[] .= 'No Records';
@@ -854,25 +849,24 @@ function followerlist($umid) {
 
 
         $user_namelistf->name;
-        $input = '';
+       
         if ($umid == $user->uid) {
-            $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',1)" >UnBlock</a>';
-            $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',0)" >Block</a>';
-            $input = '<input type="checkbox" name="muid"  value="' . $follower_resultfuser->id . '"/> &nbsp;';
+            $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',1,0)" >UnBlock</a>';
+            $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',0,0)" >Block</a>';
+    
         }
         if ($follower_resultfuser->follower_status == 0) {
-            $followeru[] = '<input type="hidden" value="1" name="blk" id="blk"/><div  id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
+            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
         } else {
-            $followeru[] = '<input type="hidden" value="0" name="blk" id="blk"/><div  id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
+            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
         }
 
 
         //$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
     }
 
-    if ($numfoll > 1) {
-        $followeru[] .= '<a style="color:#F37321;
-text-decoration:none;" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
+    if ($numfoll > 5) {
+        $followeru[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
     }
     if ($numfoll == 0) {
         $followeru[] .= 'No Records';
@@ -884,20 +878,21 @@ text-decoration:none;" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $u
 
 function save_follower_profile() {
     global $gSitePath, $user, $gDocPath, $base_root;
-    if (isset($_GET['action'])) {
-
-        $del_blog = "update  follower  set follower_status='" . $_REQUEST['blk'] . "' where  id='" . $_GET['action'] . "' ";
+    print_r($_REQEST);
+    if (isset($_REQEST['action'])) {
+    print_r($_REQEST);
+        $del_blog = "update  follower  set follower_status='" . $_REQUEST['blk'] . "' where  id='" . $_REQEST['action'] . "' ";
         $rs_blog_del = db_query($del_blog);
 
-        $sel_userms = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $_GET['usid'] . "'";
+        $sel_userms = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $_REQEST['usid'] . "'";
         // $sel_userms="select * from users  where uid='".$_GET['usid']."' ";
         $rs_userms = db_query($sel_userms);
         $resulrnames = db_fetch_object($rs_userms);
         if ($_REQUEST['blk'] == 0) {
             $blkid = '1';
             $valss = 'UnBlock';
-            $insert_notify = db_query("insert into notification (uid,is_block,is_user,node_id) values('" . $_GET['usid'] . "','1','1','" . $user->uid . "' ");
-            $sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $_GET['usid'] . "'";
+            $insert_notify = db_query("insert into notification (uid,is_block,is_user,node_id) values('" . $_REQEST['usid'] . "','1','1','" . $user->uid . "' ");
+            $sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $_REQEST['usid'] . "'";
             $rs_umlogs = db_query($sel_ulists);
             $user_namelistfs = db_fetch_object($rs_umlogs);
 

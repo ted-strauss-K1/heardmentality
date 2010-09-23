@@ -192,20 +192,18 @@ function deletefollowing(fid){
 
 }
 
-function blockandunblock(fid,divid,blk){
+function blockandunblock(fid,divid,blk,show){
     var abcm="#list-"+fid;
-			
-
-    var url =gSitePath+'profile/savefollowerlink';
-
+    var url =gSitePath+'savefollower';
     jQuery.ajax({
-        type: "POST",
+        type: "GET",
         url: url,
         data: {
             'action':fid,
             'ids':abcm,
             'blk':blk,
-            'usid':divid
+            'usid':divid,
+            'show':show
         },
         success: function(msg){
             jQuery(abcm).html(msg);
@@ -217,7 +215,7 @@ function blockandunblock(fid,divid,blk){
 function loadfollower(url,title)
 {
 
- var options = 'sameBox:true width:50% height:50% caption:' +title;
+ var options = 'sameBox:true width:50% height:70% caption:' +title;
   parent.fb.start(url, options);
 
 }
@@ -228,3 +226,4 @@ function loadfollowing(url,title)
 
 
 }
+
