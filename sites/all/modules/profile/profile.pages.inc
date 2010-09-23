@@ -1308,17 +1308,24 @@ function google_map() {
               case 'index/map/online':
                    $time_period = variable_get('user_block_seconds_online', 900);
 
-                 // $userslist = db_query('SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
-                 // echo $total_users = db_result($userslist);
+                  //$userslist = db_query('SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
+                  //echo $total_users = db_result($userslist);
 
-          $geomap_qry = "'SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period";
-         $geomap_exec= ExecuteQuery($geomap_qry, "select");
+                  $get_ans = db_query('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
+                 $first = '';
+    while ($geoans = db_fetch_object($get_ans)) {
+    $first = $first + 1;
+$asscountry .=  " data.setValue(".$first.", 0,'".$geoans->country."');".' data.setValue('.$first.', 1,'.$geoans->count.');';
+    }
 
-            foreach($geomap_exec as $geomapeach){
-               echo $geomapeach['country'];
-            // $asscountry .=  "data.setValue(5, 0,'".$geomapeach['country']."');";
-            //$assuser .=  'data.setValue(5, 1,'.$geomapeach['uid'].');';
-             }
+          //$geomap_qry = "'SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period";
+         //$geomap_exec= ExecuteQuery($geomap_qry, "select");
+
+//            foreach($geomap_exec as $geomapeach){
+//               echo $geomapeach['country'];
+//            // $asscountry .=  "data.setValue(5, 0,'".$geomapeach['country']."');";
+//            //$assuser .=  'data.setValue(5, 1,'.$geomapeach['uid'].');';
+//             }
              break;
              case 'index/map/questions':
           $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
