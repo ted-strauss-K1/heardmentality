@@ -188,7 +188,6 @@ $apikey='2_7IH6xLn1pLF5KHr3qf2xLMSlrh_c-6cxoPXhe4cm5sRqu9XzfrohK2-nAX0rPU0I';
 }
 
 
->>>>>>> .r1815
 /**
  * If you encounter a situation where users post a large amount of text, and
  * the result is stripped out upon viewing but can still be edited, Drupal's
