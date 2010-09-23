@@ -143,13 +143,19 @@ if($resultimage->image!='noimage.jpg')
 {
 
  $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
+ $default=$gSitePath.drupal_get_path('module', 'profile').'/snap/noimage.jpg';
+ if(file_exists($img_path)){
         $PROFILE_IMAGE = '<img src="'.$img_path.'" alt="photo" width="70"  height="70" >';
+ }else{
+
+       $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" width="70"  height="70" >';
+ }
 }
 elseif($resultimage->image_url!='')
 {
 
  
- 	 $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" alt="photo" width="70"  height="70">';
+$PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" alt="photo" width="70"  height="70">';
 
 
 }
@@ -168,6 +174,7 @@ function UserPicture_small($mid)
  $selimage="select * from {user_profile} where uid='$mid'";
 $rs_image = db_query($selimage);
 $resultimage = db_fetch_object($rs_image);
+ $default=$gSitePath.drupal_get_path('module', 'profile').'/snap/noimage.jpg';
 if($resultimage->image!='noimage.jpg')
 {
 
@@ -175,7 +182,7 @@ if($resultimage->image!='noimage.jpg')
  if(file_exists($img_path)){
    $PROFILE_IMAGE = '<img src="'.$img_path.'" alt="Photo" height="30" width="30" >';	
  }else{
- 	   $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+ 	   $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
  }
       
 }
@@ -196,7 +203,7 @@ return $PROFILE_IMAGE ;
 
 
 function save_message(){
-	
+    //print_r($_REQUEST);
 	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 	 $uid=$_REQUEST['actions'];
 	 if(!empty($uid)&&!empty($_REQUEST['msgs'])&&!empty($user->uid)){
@@ -204,7 +211,17 @@ function save_message(){
 	
 	echo '<div class="messages success">Message sent successfully!</div>';
 	
-	 }else{
+	 }elseif(!empty($_REQUEST['muid'])&&!empty($_REQUEST['frmsgs'])){
+
+            foreach($_REQUEST['muid'] as $uids){
+                
+               db_query("insert into messages (from_id,to_id,message) values('".$user->uid."','".$uids."','".$_REQUEST['frmsgs']."')");
+	
+	
+	 
+            }
+             echo '<div class="messages success">Message sent successfully!</div>';
+         }else{
 	 	echo '<div class="messages error">Sorry Error Occurs!</div>';
 		
 	 }

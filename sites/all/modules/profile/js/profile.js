@@ -1,3 +1,9 @@
+
+/**
+ * @author gobinath.m
+ */
+
+
 function validate_profile(){
     var facebook = $('edit-facebook').value;
     var twitter = $('edit-twitter').value;
@@ -21,12 +27,31 @@ function validate_profile(){
 }
 
 
+function chk_all(typ){
 
+    jQuery('#mfollowers input:checkbox').each(function(el){
 
-/**
- * @author gobinath.m
- */
+        jQuery(this).attr('checked',typ);
 
+    });
+    
+
+}
+
+function enable_form(typ){
+
+    jQuery("#frmsgbox").slideToggle("slow");
+    jQuery("#usmsg").click(function () {
+        var formmsg=jQuery('#frmsgform');
+        jQuery.post(formmsg.attr('action'),formmsg.serialize(),
+            function(data){
+                  
+                jQuery('div.profile_part').prepend(data);
+              //  formmsg.reset();
+                jQuery("#frmsgbox").slideToggle("slow");
+            });
+    });
+}
   
 
 function profile_comment(make){
@@ -34,15 +59,15 @@ function profile_comment(make){
     jQuery(document).ready(function(){
         jQuery("#usmsg").unbind("click");
 
-        jQuery("#usmsg").click(function () {
+        jQuery("#usmsg").live(function () {
             var formmsg=jQuery('#proform');
             jQuery.post(formmsg.attr('action'),formmsg.serialize(),
                 function(data){
                     jQuery('.rht_link').css('width','auto');
                     jQuery('.rht_link').css('overflow','hidden');
-                    jQuery('.rht_link').prepend(data);
+                    jQuery('div.profile_part').prepend(data);
                     jQuery('#showboxcmt').slideToggle("slow");
-                    formmsg.get(0).reset();
+                    formmsg.clearForm();
                     setTimeout("jQuery('.rht_link > div.messages').hide();",1000);
                 });
         });
@@ -131,10 +156,10 @@ function deletefollowing(fid){
     var url =gSitePath+'profile/deletefollow';
 
 
-     jQuery.ajax({
+    jQuery.ajax({
         type: "POST",
         url: url,
-       data: {
+        data: {
             'action':fid,
             'ids':abc
         },
@@ -152,10 +177,10 @@ function blockandunblock(fid,divid,blk){
 
     var url =gSitePath+'profile/savefollowerlink';
 
- jQuery.ajax({
+    jQuery.ajax({
         type: "POST",
         url: url,
-     data: {
+        data: {
             'action':fid,
             'ids':abcm,
             'blk':blk,
