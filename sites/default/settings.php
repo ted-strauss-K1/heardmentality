@@ -89,7 +89,7 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-//$db_url = 'mysql://root:@localhost/heards10';
+//$db_url = 'mysql://root:@localhost/hm';
 $db_url = 'mysql://root:oPenWave#1220@192.9.200.10/heardmentality';
 $db_prefix = '';
 
@@ -155,10 +155,10 @@ if($_SERVER['HTTP_HOST']=='localhost')
 
 $apikey='2_NzdYHs2MdPR8dCPkrBvof2XeiahJHMchg3EjXK8yhHlLqp1KkHFZeUZaE7N6vRBu';
 }
-elseif($_SERVER['HTTP_HOST']=='59.144.131.196')
+elseif($_SERVER['HTTP_HOST']=='58.68.27.117')
 {
 
-$apikey='2_6Ri1VC9GBnueul98ju3L8e2d8kY6Mdu06ZiJKaeU_Y32hhMMIHjxMB6zgCIKu8wv';
+$apikey='2_CRglU1d9wu0oGhNKWnLKevzuVwbWRVkprtQhUS1zsCmdoYjEa0SfwwwRL9QCeV5E';
 }
 else
 {
