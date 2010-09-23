@@ -1107,6 +1107,7 @@ function tab_list() {
 }
 
 function panel_content() {
+	
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);

@@ -89,8 +89,8 @@
  *   $db_url = 'mysqli://username:password@localhost/databasename';
  *   $db_url = 'pgsql://username:password@localhost/databasename';
  */
-//$db_url = 'mysql://root:@localhost/heards10';
-$db_url = 'mysql://root:oPenWave#1220@192.9.200.10/heardmentality';
+$db_url = 'mysql://root:@localhost/heardmentality';
+//$db_url = 'mysql://root:oPenWave#1220@192.9.200.10/heardmentality';
 $db_prefix = '';
 
 /**
