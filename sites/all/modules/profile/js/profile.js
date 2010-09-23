@@ -29,30 +29,51 @@ function validate_profile(){
 
 function chk_all(typ){
 
-    jQuery('#mfollowers input:checkbox').each(function(el){
+    jQuery('#frmsgform input:checkbox').each(function(el){
 
         jQuery(this).attr('checked',typ);
 
     });
-    
+       $("ul.subtabs li").last().contains('select').remove();
 
 }
 
-function enable_form(typ){
+function enable_form(typ,thi){
+ var n = $("#frmsgform input:checked").length;
 
+if(n>0){
     jQuery("#frmsgbox").slideToggle("slow");
+     jQuery("#usmsg").unbind("click");
     jQuery("#usmsg").click(function () {
         var formmsg=jQuery('#frmsgform');
         jQuery.post(formmsg.attr('action'),formmsg.serialize(),
             function(data){
-                  
-                jQuery('div.profile_part').prepend(data);
-              //  formmsg.reset();
+
+                jQuery('div.following').prepend(data);
+              jQuery('#frmsgform').clearForm();
                 jQuery("#frmsgbox").slideToggle("slow");
             });
     });
+}else{
+    $("ul.subtabs li").last().append('<li>select atleast one</li>');
 }
-  
+    
+    
+}
+
+  jQuery.fn.clearForm = function() {
+  return this.each(function() {
+ var type = this.type, tag = this.tagName.toLowerCase();
+ if (tag == 'form')
+   return jQuery(':input',this).clearForm();
+ if (type == 'text' || type == 'password' || tag == 'textarea')
+   this.value = '';
+ else if (type == 'checkbox' || type == 'radio')
+   this.checked = false;
+ else if (tag == 'select')
+   this.selectedIndex = -1;
+  });
+};
 
 function profile_comment(make){
 
@@ -193,3 +214,17 @@ function blockandunblock(fid,divid,blk){
 
 }
 
+function loadfollower(url,title)
+{
+
+ var options = 'sameBox:true width:50% height:50% caption:' +title;
+  parent.fb.start(url, options);
+
+}
+function loadfollowing(url,title)
+{
+ var options = 'sameBox:true width:50% height:50% caption:' +title;
+  parent.fb.start(url, options);
+
+
+}
