@@ -387,14 +387,14 @@ function user_follower() {
         if ($countrowsm == 0) {
 
             $follower .= ' No Records';
-        }
-        if ($user->uid == $follid) {
+        }elseif ($user->uid == $follid) {
             $follower.='  <div class="clear"><ul class="subtabs"><li>Select</li> <li><a href="#" onclick="chk_all(1);";>All</a> </li><li><a href="#" onclick="chk_all(0);";>None</a></li><li><a href="#" onclick="enable_form(1,this);";>Send Message</a><li><li></li></ul></div>
 <form name="frmsgform" id="frmsgform" action="' . $gSitePath . 'postmessage" method="POST">' . $follow . '
      <div align="left" style="display:none;" id="frmsgbox"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="frmsgs"></textarea><input type="hidden" value="37" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg"></div>
 
 </form>
-';
+'; 
+           
         }
     } else {
 
