@@ -238,8 +238,12 @@ span.name{
 .waveComment a,
 .waveComment a:visited{
 	color:#0390c3;
-	text-transform:uppercase;
-	font-size:10px;	
+	/*text-transform:uppercase;vijay*/
+	font-size:11px;	
+}
+
+.hyp_up{
+text-transform:uppercase; /*vijay*/
 }
 
 .tutorial-info{
