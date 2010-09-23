@@ -253,7 +253,7 @@ function user_facts(){
 <div>
          <div class="fa-item">
           <ul>
-          <li><a href="javascript:loadtab(\'' . $gSitePath . 'index/map/users' . $qid . '\')">'.$usercnt.' Users</a></li>
+          <li><a href="javascript:loadtab(\'' . $gSitePath . 'index/map/users' . $qid . '\',\'' . $gSitePath . 'index/map/users' . $qid . '\')">'.$usercnt.' Users</a></li>
           <li><a href="javascript:loadtab(\'' . $gSitePath . 'index/map/online' . $qid . '\')">'.$total_users.' Online</a></li>
           <li><a href="javascript:loadtab(\'' . $gSitePath . 'index/map/questions' . $qid . '\')">'.$quest.' Questions</a></li>
           <li><a href="javascript:loadtab(\'' . $gSitePath . 'index/map/answer' . $qid . '\')">'.$ans.' Answers</a></li>
