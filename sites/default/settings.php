@@ -92,7 +92,6 @@
 
 $db_url = 'mysql://root:@localhost/heardmentality';
 $db_url = 'mysql://root:oPenWave#1220@192.9.200.10/heardmentality';
->>>>>>> .r1815
 $db_prefix = '';
 
 /**
