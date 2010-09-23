@@ -1292,26 +1292,24 @@ function activities($uid = '') {
 }
 
 function google_map() {
-//    echo "<pre>";
-//    print_r($_REQUEST);
-//    echo "</pre>";
     $page = $_REQUEST[q];
     switch ($page)
     {
         case 'index/map/users':
           $geomap_qry = "SELECT count(country)as count,country from `user_profile` group by country";
     $geomap_exec= ExecuteQuery($geomap_qry, "select");
-
+            $first='';
             foreach($geomap_exec as $geomapeach){
-             $asscountry .=  "data.setValue(5, 0,'".$geomapeach['country']."');";
-            $assuser .=  'data.setValue(5, 1,'.$geomapeach['count'].');';
+               $first = $first + 1;
+              $asscountry .=  " data.setValue(".$first.", 0,'".$geomapeach['country']."');".' data.setValue('.$first.', 1,'.$geomapeach['count'].');';
+             // $assuser .=  'data.setValue(5, 1,'.$geomapeach['count'].');';
              }
              break;
               case 'index/map/online':
                    $time_period = variable_get('user_block_seconds_online', 900);
 
                  // $userslist = db_query('SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
-                  //echo $total_users = db_result($userslist);
+                 // echo $total_users = db_result($userslist);
 
           $geomap_qry = "'SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period";
          $geomap_exec= ExecuteQuery($geomap_qry, "select");
@@ -1326,18 +1324,20 @@ function google_map() {
           $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
     $geomap_exec= ExecuteQuery($geomap_qry, "select");
 
+            $first='';
             foreach($geomap_exec as $geomapeach){
-             $asscountry .=  "data.setValue(5, 0,'".$geomapeach['country']."');";
-            $assuser .=  'data.setValue(5, 1,'.$geomapeach['count'].');';
+            $first = $first + 1;
+              $asscountry .=  " data.setValue(".$first.", 0,'".$geomapeach['country']."');".' data.setValue('.$first.', 1,'.$geomapeach['count'].');';
              }
              break;
              case 'index/map/answer':
           $geomap_qry = "select count(*)as count,q.country from possible_answer as a join question as q on q.qid=a.qid where q.status='1' group by q.country";
     $geomap_exec= ExecuteQuery($geomap_qry, "select");
 
+            $first='';
             foreach($geomap_exec as $geomapeach){
-             $asscountry .=  "data.setValue(5, 0,'".$geomapeach['country']."');";
-            $assuser .=  'data.setValue(5, 1,'.$geomapeach['count'].');';
+            $first = $first + 1;
+              $asscountry .=  " data.setValue(".$first.", 0,'".$geomapeach['country']."');".' data.setValue('.$first.', 1,'.$geomapeach['count'].');';
              }
              break;
 
@@ -1351,10 +1351,10 @@ function google_map() {
       var data = new google.visualization.DataTable();
       data.addRows(6);
       data.addColumn('string', 'Country');
-      data.addColumn('number', 'Popularity');".$asscountry.$assuser."
+      data.addColumn('number', 'Popularity');".$asscountry."
       var geomap = new google.visualization.GeoMap(
           document.getElementById('visualization'));
-      geomap.draw(data,{width:700,height:400});
+      geomap.draw(data,{width:650,height:375});
       geomap.drawingDone();
     }
     google.setOnLoadCallback(drawVisualization);
