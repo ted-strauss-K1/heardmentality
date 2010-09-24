@@ -60,15 +60,15 @@ UL.adtabs LI span {
 	color: #333333;
 	height: 15px;
 }
-/*
-UL.adtabs LI A:HOVER, UL.adtabs LI.current A {
+
+UL.adtabs LI A:HOVER, UL.adtabs LI.current span {
 	background: #FFFFFF;
-}*/
-/*UL.adtabs LI.current A {
+}
+UL.adtabs LI.current span {
 	font-weight: bold;
 	font-size: 14px;
 	border-bottom: 1px solid #FFFFFF;
-}*/
+}
 .adtabs-container {
 	position: relative;
 	z-index: 1;
