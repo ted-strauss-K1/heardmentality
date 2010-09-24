@@ -541,13 +541,19 @@ function qlite_view() {
 		
 		';
 
-
+//////////////vijay
+     $voteqry = "SELECT * FROM possible_answer_vote where uid='" .$user->uid . "' GROUP BY uid";
+    $votelist = db_query($voteqry);
+    $fetvote = db_fetch_object($votelist);
+   
+    if($user->uid==$fetvote->uid){
+        echo $fetvote->uid;
+    
     $voutput .= '<div class="clr"></div>
 	<div id="rotate">
         <br/>
               <ul id="maintabs" class="mytabs" >
-                <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span>
-                 </a></li>
+   <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
 				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Gurus</span></a></li>
@@ -558,6 +564,27 @@ function qlite_view() {
             Loading. Please Wait...
         </div>
            </div>';
+    }
+    else
+    {
+           
+        $voutput .= '<div class="clr"></div>
+	<div id="rotate">
+        <br/>
+              <ul id="maintabs" class="adtabs" >
+              <li class=""><span>Info</span></li>
+   <li><span>Reporting</span></li>
+                <li class=""><span>Forum</span></li>
+                <li class=""><span>Resources</span></li>
+		<li class=""><span>Gurus</span></li>		  
+              </ul>
+              <div class="mytabs-container" id="tabcontent">
+            Loading. Please Wait...
+        </div>
+           </div>';
+
+    }
+    
     // cron job in qlite module
    // cal_active_rate();
     return $voutput;
@@ -698,7 +725,7 @@ function qlite_save() {
                 $votepointp = $olistquest->vote + 1;
             }
 
-            $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";
+                $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";
             db_query($vInsQuery);
             drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
             send_votenotify($mid);
@@ -1124,7 +1151,16 @@ function panel_content() {
     $vSql = "select * from {question} where status='1' and qid=$qid ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
+//////////vijay 2
+    $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid_rid = '$qid' ";
+    $list = ExecuteQuery($query, "select");
+    $x = 0;
+    foreach ($list as $fcnt) {
 
+        $x = $x + $fcnt['wcnt'];
+    }
+
+ 
     $numresource = db_result(db_query("SELECT COUNT(*) from {resource} where qid=$qid"));
     $query_user = "SELECT * FROM users where uid='$oListquest->uid' ";
     $query_userinfo = db_query($query_user);
@@ -1191,7 +1227,7 @@ function panel_content() {
             $output = ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> <a href="' . $gSitePath . 'profile/' . $fetuserlist->name . '">' . $fetuserlist->name . '</a> <br/>
 			<b>Date Created:</b> ' . date("D j M Y", strtotime($oListquest->date_added)) . ' <br/>
 			<b>Number of Votes:</b> ' . $totalvotesm . '<br/>
-			<b>Number of Forum Posts:</b> 0 <br/>
+			<b>Number of Forum Posts:</b>'.$x.' <br/>
 			<b>Number of Resources:</b> ' . $numresource . '</p>
 		';
             break;
