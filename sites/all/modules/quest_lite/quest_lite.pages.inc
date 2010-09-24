@@ -554,7 +554,7 @@ function qlite_view() {
     $votelist = db_query($voteqry);
     $fetvote = db_fetch_object($votelist);
    
-    if($user->uid==$fetvote->uid&&$user->uid ){
+    if ($numran!= 0) {
         
     
     $voutput .= '<div class="clr"></div>
