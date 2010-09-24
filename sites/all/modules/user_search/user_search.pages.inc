@@ -86,15 +86,15 @@ function search_results() {
     <div class="blakt">' . $usetype . '</div>
     </div>
     
-        <div class="clr"></div>
+       <!-- <div class="clr"></div>
 		
 		<div class="textouter"> <div class="grayt">Points:</div>
     <div class="blakt">' . $gpoints . '</div>
     </div>
-    
+     -->
         <div class="clr"></div>
 		<div class="textouter"> <div class="grayt">Badges:</div>
-    <div class="blakt"><img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40</div>
+     <div class="blakt">'.updateProfileBadge($user_result->uid).'</div>
     </div>
     
     </div>
@@ -726,7 +726,7 @@ function get_user_details() {
     </div>
             <div class="clr"></div>
  <div class="textouter"> <div class="grayt">Badges:</div>
-    <div class="blakt"><img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40</div>
+    <div class="blakt">'.updateProfileBadge($resulrnames->uid).'</div>
     </div>
           
           </div>
