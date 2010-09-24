@@ -546,14 +546,14 @@ function qlite_view() {
     $votelist = db_query($voteqry);
     $fetvote = db_fetch_object($votelist);
    
-    if($user->uid==$fetvote->uid){
-        echo $fetvote->uid;
+    if($user->uid==$fetvote->uid&&$user->uid ){
+        
     
     $voutput .= '<div class="clr"></div>
 	<div id="rotate">
         <br/>
               <ul id="maintabs" class="mytabs" >
-   <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
+             <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
 				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Gurus</span></a></li>
@@ -572,11 +572,11 @@ function qlite_view() {
 	<div id="rotate">
         <br/>
               <ul id="maintabs" class="adtabs" >
-              <li class=""><span>Info</span></li>
-   <li><span>Reporting</span></li>
-                <li class=""><span>Forum</span></li>
-                <li class=""><span>Resources</span></li>
-		<li class=""><span>Gurus</span></li>		  
+              <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
+               <li><span>Reporting</span></li>
+                <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
+                <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
+		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Gurus</span></a></li>
               </ul>
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
@@ -1228,7 +1228,9 @@ function panel_content() {
 			<b>Date Created:</b> ' . date("D j M Y", strtotime($oListquest->date_added)) . ' <br/>
 			<b>Number of Votes:</b> ' . $totalvotesm . '<br/>
 			<b>Number of Forum Posts:</b>'.$x.' <br/>
-			<b>Number of Resources:</b> ' . $numresource . '</p>
+			<b>Number of Resources:</b> ' . $numresource . '<br/>
+                         <b>Context:</b> ' .$oListquest->context.'<br/>
+                       </p>
 		';
             break;
         case "Politician":
