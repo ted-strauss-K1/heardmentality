@@ -251,7 +251,7 @@ function search_results_question() {
         $fetresult .= ' <div class="result-item">
 		 
        <div class="titl">
-	<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);">' . rtrim($user_result->question, "?") . '?</a>    </div><div class="rleft">';
+	<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'.  wordwrap($user_result->question, 40,'<br/>').'">' . substr(rtrim($user_result->question, "?"),0,70) . '?</a>    </div><div class="rleft">';
         while ($vlistquest = db_fetch_object($vlist)) {
             $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" />' . $vlistquest->answer . '</div>';
         }
