@@ -71,6 +71,7 @@ if (!empty($listcat)) {
 
     $catlist.='<span><b>No Category Found</b></span>';
 }
+$catlist.='</div>';
 echo $catlist;
 
 
@@ -97,13 +98,13 @@ if (!empty($link3))
 
 
 
-$tagslist = '<br/><br/><span class="black12">Tags :</span><br/>';
+/*$tagslist = '<br/><br/><span class="black12">Tags :</span><br/>';
 
 $tsearch = '';
 if (!empty($txt_search)) {
 
     $tsearch.= " AND q.question LIKE  '%" . $txt_search . "%'";
-    
+
 }
 $ins_query='';
 if(!empty ($txt_search)||!empty($_REQUEST['cid'])){
@@ -125,5 +126,5 @@ if (!empty($rs_tags)) {
 
 
 $tagslist.='</div>';
-echo $tagslist;
+echo $tagslist;*/
 ?>

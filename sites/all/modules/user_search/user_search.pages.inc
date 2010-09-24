@@ -623,7 +623,7 @@ function save_follower() {
                 $list_content = db_fetch_object($rs_mgmt);
                 $contentm = str_replace("#uname#", $resulrnames->name, $list_content->content);
                 $contentm = str_replace("#anothername#", $user->name, $contentm);
-                //echo  $contentm;
+               //echo  $contentm;
                 $subjects = $list_content->subject;
                 $mail_success = htmlmail_function($resulrnames->mail, $subjects, $contentm, '');
             }
