@@ -18,10 +18,36 @@ function forum_list($qid = '') {
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'forum').'/scripts/forum.js"></script>
+         
+                   
           <script type="text/javascript" src="'.$gSitePath.drupal_get_path('module', 'forum').'/scripts/Overlay.js"></script>
-	<link rel="stylesheet" href="'.base_path().path_to_theme().'/css/css.css" type="text/css" />
+	  <script src="'.$gSitePath.'/misc/jquery.js"></script>
+              <script>jQuery.noConflict();
+ </script>
+     <script src="'.$gSitePath.drupal_get_path('theme', 'newtheme').'/scripts/jbubble.js"></script>
+<link rel="stylesheet" href="'.base_path().path_to_theme().'/css/css.css" type="text/css" />
 	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
-    
+    $output.="
+        <script>
+             jQuery(document).ready(function(){
+                        jQuery('body a').each(function()
+                        {
+                            if( jQuery(this).attr('rel').length>0){
+
+                                jQuery(this).SetBubblePopup({
+                                    innerHtml: jQuery(this).attr('rel'),
+                                    color:'grey',
+                                    imageFolder: '".$gSitePath.drupal_get_path('theme', 'newtheme')."/images/bp_images',
+
+                                });
+                            }
+
+
+                        });
+                        });
+
+                        </script>
+        ";
     $output .= '	<div class="facttop2">FORUM POSTS</div><div class="">';
     foreach ($list as $forum) {
 
@@ -46,16 +72,16 @@ function forum_list($qid = '') {
 		
 		//flag
 		$flag.='<a href="#wavefooter" onclick="report_forum(\'rwave\','.$wid.');">Report</a>';
-        
+        $bubble=load_bubble($account->uid);
         $output .= '
 		<div id="waveerr" align="center"></div>
 	<div class="comment com-1" style="background:#ECECEF">
 	<div class="waveTime">'.$date.'</div>
 	<div class="commentAvatar">
-				<img  alt="'.$name.'" title="'.$name.'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'"/>
+				'.UserPicture_small($account->uid).'
 				</div>
 				<div class="commentText" >
-				<span class="name" ><a href="'.$gSitePath.'profile/'.$account->name.'">'.$name.'</a>:</span>  '.$forum['title'].'
+				<span class="name" ><a  rel=\''.$bubble.'\' href="'.$gSitePath.'profile/'.$account->name.'">'.$name.'</a>:</span>  '.$forum['title'].'
 				</div>
 				<div class="replyLink">
 				'.$like.'<b> | </b><span>'.$flag.'</span><span><b> | </b></span><a class="rep" id="'.$wid.'-0" href="#wavefooter">add a reply »</a>
@@ -300,16 +326,17 @@ function get_wavelets($wid = '', $pid = '') {
 		$flag.='<a href="#wavefooter" onclick="report_forum(\'rwavelet\','.$forum['wlid'].');">Report</a>';
 		
 			/////////vijay
+                        $bubble=load_bubble($account->uid);
                 $output .= '
 							<div class="waveComment com-'.$forum['wlid'].'" '.$bg.'>
 							<div class="comment">
 							<div class="waveTime">'.$date.'</div>
 							<div class="commentAvatar">
-								<img  alt="'.$name.'" title="'.$name.'" src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'"/>
-							</div>
+                                                            '.  UserPicture_small($account->uid).'
+									</div>
 	                            
 							<div class="commentText" >
-							<span class="name hyp_up"><a href="'.$gSitePath.'profile/'.$name.'">'.$name.'</a>:</span>  '.make_clickable($forum['wavelet']).'
+							<span class="name hyp_up"><a rel=\''.$bubble.'\' href="'.$gSitePath.'profile/'.$name.'">'.$name.'</a>:</span>  '.make_clickable($forum['wavelet']).'
 							</div>
 							<div class="replyLink hyp_up">'.$like.' <b> | </b><span>'.$flag.'</span>  <span> <b>|</b> </span> 
 							<a class="rep" id="'.$wid.'-'.$forum['wlid'].'" href="#wavefooter">add a reply »</a>
