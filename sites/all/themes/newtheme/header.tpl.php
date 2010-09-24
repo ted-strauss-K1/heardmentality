@@ -47,7 +47,7 @@ $directory = $base_path . $directory;
 
 
                     jQuery(document).ready(function(){
-                        jQuery('.innerbox a,.facttext a').each(function()
+                        jQuery('.innerbox a,.facttext a,.titl a').each(function()
                         {
                             if( jQuery(this).attr("title").length>0){
 
