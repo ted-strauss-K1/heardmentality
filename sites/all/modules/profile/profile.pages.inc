@@ -71,14 +71,14 @@ function inbox_msg() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
     $inbox = '';
-    $query = "select * from {messages} as m join {user_profile} as u on u.uid=m.from_id where m.to_id='$user->uid' order by mid DESC";
+    $query = "select * from {messages} as m join {users} as u on u.uid=m.from_id where m.to_id='$user->uid' order by mid DESC";
     $msgs = ExecuteQuery($query, "select");
     $i = 1;
     if (!empty($msgs)) {
 
         foreach ($msgs as $list) {
-
-            $inbox.='  <tr><td height="40px" style="font-style:justify;" >' . $i . '</td><td>' . wordwrap($list['message'], 100, "<br/>") . '</td><td>' . $list['real_name'] . '</td><td>' . format_date_class($list['posted_date'], date('Y-m-d')) . '</td><td><a href="#" onclick="del_msg(' . $list['mid'] . ',this);">Delete</a> &nbsp;/&nbsp; <a href="#" onclick="rel_msg(' . $list['from_id'] . ');">Reply</a></td></tr>';
+               $bubble =load_bubble($list['from_id']);
+            $inbox.='  <tr><td height="40px" style="font-style:justify;" >' . $i . '</td><td>' . wordwrap($list['message'], 100, "<br/>") . '</td><td><a href="'.$gSitePath.'profile/'.$list['name'].'" rel=\''.$bubble.'\'>' .$list['name'] . '</a></td><td>' . format_date_class($list['posted_date'], date('Y-m-d')) . '</td><td><a href="#" onclick="del_msg(' . $list['mid'] . ',this);">Delete</a> &nbsp;/&nbsp; <a href="#" onclick="rel_msg(' . $list['from_id'] . ');">Reply</a></td></tr>';
             $i++;
         }
     } else {
@@ -806,8 +806,9 @@ function followinglist($uids) {
         $rs_userm = db_query($sel_userm);
         $user_namelist = db_fetch_object($rs_userm);
 
+         $bubble =load_bubble($following_list->id);
 
-        $following[] = '<div  id="show-' . $following_list->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
+        $following[] = '<div  id="show-' . $following_list->id . '"><a rel=\''.$bubble.'\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
     }
     if ($numfolls > 5) {
         $following[] .= '<a style="color:#F37321;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
@@ -855,10 +856,12 @@ function followerlist($umid) {
             $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',0,0)" >Block</a>';
     
         }
+         
+         $bubble =load_bubble($user_namelistf->uid);
         if ($follower_resultfuser->follower_status == 0) {
-            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
+            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\''.$bubble.'\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
         } else {
-            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
+            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\''.$bubble.'\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
         }
 
 
