@@ -421,7 +421,7 @@ function qlite_view() {
     }
 
     //tags
-    $instags = '';
+  /* $instags = '';
     $query = " SELECT t.tag FROM {qtag} as qt left join {tagging} as t on t.tid=qt.tag_id WHERE qt.qid='" . $qid . "' ";
     $gettag = ExecuteQuery($query, "select");
     $gettag = array_filter($gettag);
@@ -434,7 +434,7 @@ function qlite_view() {
         }
     } else {
         $instags .= "&nbsp;<b> - -</b>&nbsp;";
-    }
+    }*/
     //	$voutput .='<a href="'.$gSitePath.'invite/invite_friends">Share This Question </a>';
 
 
@@ -518,8 +518,8 @@ function qlite_view() {
               </div>
 	</div>
 		  <div class="clr"></div>
-            <div class="tag">
-             <span>Tags [<a href="#" onclick="loadtag(\'' . $gSitePath . 'qlite/addtag/' . $qid . '\',\'Edit Tags \'); ">Retag</a>]:</span>' . $instags . '</div>
+            <!--<div class="tag">
+             <span>Tags [<a href="#" onclick="loadtag(\'' . $gSitePath . 'qlite/addtag/' . $qid . '\',\'Edit Tags \'); ">Retag</a>]:</span>' . $instags . '</div>-->
             <div class="sharing-section">
              <div class="share1">
             <a title="Bookmark" class="share-link" onclick="showShareUI();" href="javascript:void(0);">Bookmark</a> / <a title="Invite" onclick="formsubmittype(2,' . $qid . ');" href="javascript:void(0);" class="share-link">Invite</a>
