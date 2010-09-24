@@ -575,7 +575,9 @@ function question_save() {
 $ccode=$country->CountryCode;
 
       $ccode=($q_country>0)?$q_country:$ccode;
-        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='$q_quest',context=' $q_context',country='$ccode',state='$q_state',city='$q_city',share='$qrset'  ");
+//echo "INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'";
+        //exit;
+        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'");
         
         $ins_id = db_last_insert_id('question', 'qid');
 
