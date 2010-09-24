@@ -412,8 +412,10 @@ function qlite_view() {
 
     $optio = '';
     if ($numran != 0) {
-
-        $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
+        $query="select vote_pid from {possible_answer_vote} where qid='$qid' AND uid='".$user->uid."'";
+        $voteid=db_result(db_query($query));
+     $submitbutt = ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="'.$voteid.'"/></p>';
+   //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
     }
     if ($numran == 0) {
 
@@ -507,9 +509,9 @@ function qlite_view() {
     $voutput .= $submitbutt . '
                   <div >
                 <ul>
-                  <li><a href="#Forum" onclick="var $tabs = jQuery(\'#rotate > ul\').tabs();$tabs.tabs(\'select\', \'Forum\');return false;"  title="Bookmark">' . $x . ' comments</a></li>
+                  <li><a href="#Forum" onclick=""  title="Bookmark">' . $x . ' comments</a></li>
                   <li>|</li>
-                  <li><a href="#Resources" onclick="var $tabs = jQuery(\'#rotate > ul\').tabs();$tabs.tabs(\'select\', \'Resources\');return false;"  title="Invite">' . $numres . ' Resources</a></li>
+                  <li><a href="#Resources" onclick=""  title="Invite">' . $numres . ' Resources</a></li>
                   </ul>
               </div>
                 </div>
@@ -522,10 +524,16 @@ function qlite_view() {
              <span>Tags [<a href="#" onclick="loadtag(\'' . $gSitePath . 'qlite/addtag/' . $qid . '\',\'Edit Tags \'); ">Retag</a>]:</span>' . $instags . '</div>-->
             <div class="sharing-section">
              <div class="share1">
-            <a title="Bookmark" class="share-link" onclick="showShareUI();" href="javascript:void(0);">Bookmark</a> / <a title="Invite" onclick="formsubmittype(2,' . $qid . ');" href="javascript:void(0);" class="share-link">Invite</a>
+              <a title="Bookmark" class="share-link" onclick="showShareUI();" href="javascript:void(0);">
+             <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="'.$gSitePath.path_to_theme().'/images/sm3.jpg"/>&nbsp;
+              <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="'.$gSitePath.path_to_theme().'/images/sm4.jpg"/>&nbsp;
+                  <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="'.$gSitePath.path_to_theme().'/images/sm5.jpg"/>&nbsp;
+                    Share</a>                 
              </div>
              
-			 ' . $optio . '
+			  <div class="share2">
+            <a title="Invite" onclick="formsubmittype(2,' . $qid . ');" href="javascript:void(0);" class="share-link"> Invite</a>
+             </div>
 			      
              <div align="center" class="share1">
               <a title="Suggest a new answer" class="share-link"  onclick="formsubmittype(4,' . $qid . ');" href="javascript:void(0);">Suggest a new answer</a>
@@ -705,13 +713,13 @@ function qlite_save() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
     $mid = $_REQUEST['mid'];
-
+  //  print_r($_REQUEST);
     $voutput = '';
     $vquest = "select * from {possible_answer} where paid='" . $_REQUEST['answer'] . "'  ";
     $rquest = db_query($vquest);
     $olistquest = db_fetch_object($rquest);
 
-    if (($_REQUEST['answer'] != '')) {
+    if (($_REQUEST['answer'] != '')&&(isset($_REQUEST['save']))) {
 
         $numr = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $mid . "' and uid='" . $user->uid . "'"));
 
@@ -780,6 +788,13 @@ function qlite_save() {
             drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
             drupal_goto("qlite/view/$mid");
         }
+    }elseif (($_REQUEST['answer_al'] != '')&&(isset($_REQUEST['change']))) {
+
+     $vInsQuery = "update {possible_answer_vote} set qid='".$mid."',panswer_id='".$_REQUEST['answer_al']."',vote_pdate=now() where vote_pid='".$_REQUEST['vote_id']."' AND uid='" . $user->uid . "'";
+            db_query($vInsQuery);
+            drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
+            send_votenotify($mid);
+
     }
 
 

@@ -85,7 +85,7 @@ function load_invite(url,title){
    // url: url,width:550,height:450, padding:40,title:'Flag this question'
   //});
    var options = 'sameBox:true width:50% height:70% caption:' +
-  '`Flag This Question`';
+  '`Invite your Facebook Friends`';
   parent.fb.start(url, options);
 }
 
