@@ -542,7 +542,7 @@ function qlite_view() {
 		';
 
 //////////////vijay
-     $voteqry = "SELECT * FROM possible_answer_vote where uid='" .$user->uid . "' GROUP BY uid";
+     $voteqry = "SELECT * FROM possible_answer_vote where qid='" .$qid . "'";
     $votelist = db_query($voteqry);
     $fetvote = db_fetch_object($votelist);
    
@@ -573,7 +573,7 @@ function qlite_view() {
         <br/>
               <ul id="maintabs" class="adtabs" >
               <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
-               <li><span>Reporting</span></li>
+               <li><span style="cursor:pointer" onClick="alert(\'Please vote the above question\')">Reporting</span></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
 		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Gurus</span></a></li>
