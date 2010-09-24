@@ -168,11 +168,11 @@ jQuery(document).ready(function(){
                         
                 <!--  Geo Location sharing html 5-->
        <script type="text/javascript">
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
+   // if (navigator.geolocation) {
+      //navigator.geolocation.getCurrentPosition(function(position) {
        // document.location.href ="http://maps.google.com/maps?q="+ position.coords.latitude + ",+"+ position.coords.longitude+ "&iwloc=A&hl=en";
-      });
-    }
+     // });
+   // }
   </script>
       
             
