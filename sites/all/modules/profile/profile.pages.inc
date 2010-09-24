@@ -237,7 +237,7 @@ function profile($uid = '') {
     $inc_qns = ( empty($qns_list)) ? 'No Result' : $inc_qns;
     //question ends
     //profile badge
-    $medal = updateProfileBadge($uid);
+    $medal ='<br/>'.updateProfileBadge($uid);
 
 
     if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 2 && $is_follow_follower == TRUE)) {
