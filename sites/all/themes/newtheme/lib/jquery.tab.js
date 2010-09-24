@@ -44,5 +44,21 @@ function loadTab(tabObj,containerId){
     $(containerId).load(tabObj.attr('href'), function(){
         $(containerId).removeClass('loading');
         $(containerId).fadeIn('fast');
+             jQuery('#tabcontent a').each(function()
+                        {
+
+                            if( jQuery(this).attr("rel").length>0){
+
+                                jQuery(this).SetBubblePopup({
+                                    innerHtml: jQuery(this).attr("rel"),
+                                    color:'grey',
+                                    imageFolder: '../images/bp_images',
+
+                                });
+                            }
+
+
+                        });
     });
+ 
 }

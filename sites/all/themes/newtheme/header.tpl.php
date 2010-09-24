@@ -47,7 +47,7 @@ $directory = $base_path . $directory;
 
 
                     jQuery(document).ready(function(){
-                        jQuery('.innerbox a,.facttext a,#mfollowers a').each(function()
+                        jQuery('.innerbox a,.facttext a').each(function()
                         {
                             if( jQuery(this).attr("title").length>0){
 
@@ -61,6 +61,24 @@ $directory = $base_path . $directory;
 	
 								
                         });
+
+                          jQuery('#mfollowers a,#mfollowing a,#inbox a').each(function()
+                        {
+                            if( jQuery(this).attr("rel").length>0){
+
+                                jQuery(this).SetBubblePopup({
+                                    innerHtml: jQuery(this).attr("rel"),
+                                    color:'grey',
+                                    imageFolder: '<?php echo $directory; ?>/images/bp_images',
+
+                                });
+                            }
+
+
+                        });
+
+
+
                         var height = jQuery(window).height();
                         var width = jQuery(window).width();
 	
