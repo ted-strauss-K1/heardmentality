@@ -395,7 +395,7 @@ width:580px; scroll;">'.$q_context.'</textarea>  </td>
     <td>&nbsp;</td>
   </tr>--><tr><td colspan="6">';
     
-    $output .= '<tr><td colspan="6">'.get_tagging().'</td></tr>';
+   // $output .= '<tr><td colspan="6">'.get_tagging().'</td></tr>';
 
     
     $get_cn = db_query("select * from {user_profile} where uid='$user->uid'");
