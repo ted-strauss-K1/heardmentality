@@ -166,8 +166,15 @@ jQuery(document).ready(function(){
             ?>
             
                         
-                        
-            
+                <!--  Geo Location sharing html 5-->
+       <script type="text/javascript">
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+       // document.location.href ="http://maps.google.com/maps?q="+ position.coords.latitude + ",+"+ position.coords.longitude+ "&iwloc=A&hl=en";
+      });
+    }
+  </script>
+      
             
 </head>
 <body class="<?php print $body_classes; ?>" >
@@ -177,6 +184,28 @@ jQuery(document).ready(function(){
   Loading...
   </marquee>
 </div>
+
+<!-- Tour created with Amberjack wizard: http://amberjack.org -->
+<div class="ajTourDef" id="MyTour" style="display:none">
+  <div title="http://localhost/heardmentality/">
+    Placeholder for page 1 - replace this text
+  </div>
+  <div title="http://localhost/heardmentality/profile">
+    Placeholder for page 2 - replace this text
+  </div>
+  <div title="http://localhost/heardmentality/donation">
+    Placeholder for page 3 - replace this text
+  </div>
+</div>
+
+<script type="text/javascript" src="http://amberjack.org/src/stable/amberjack.pack.js">
+</script>
+
+<script type="text/javascript" defer="true">
+  Amberjack.onCloseClickStay = true;
+  Amberjack.open();
+</script>
+<!-- Tour created with Amberjack wizard: http://amberjack.org -->
 <div class="main">
   <div class="top"></div>
   <div class="clr"></div>
