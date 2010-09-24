@@ -1241,7 +1241,7 @@ function panel_content() {
         case "Info":
               $bubble =load_bubble($fetuserlist->uid);
         
-            $output.= ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> <a id="bubble" href="' . $gSitePath . 'profile/' . $fetuserlist->name . '" rel=\''.$bubble.'\'>' . $fetuserlist->name . '</a> <br/>
+            $output.= ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> <a  href="' . $gSitePath . 'profile/' . $fetuserlist->name . '" rel=\''.$bubble.'\'>' . $fetuserlist->name . '</a> <br/>
 			<b>Date Created:</b> ' . date("D j M Y", strtotime($oListquest->date_added)) . ' <br/>
 			<b>Number of Votes:</b> ' . $totalvotesm . '<br/>
 			<b>Number of Forum Posts:</b>'.$x.' <br/>
