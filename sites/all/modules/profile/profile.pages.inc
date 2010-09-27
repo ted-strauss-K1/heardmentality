@@ -2,6 +2,7 @@
 
 // tree menu listing
 function profile_view() {
+  
     global $gSitePath, $user, $gDocPath, $base_root;
     $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $uid = '';
@@ -218,8 +219,10 @@ function profile($uid = '') {
 
     while ($setans = db_fetch_object($get_ans)) {
 
-        $inc_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
+        $inc_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."'>".htmlentities(substr($setans->question,0,40))."</a></li>";
     }
+	
+	
 
     $ins_ans .= $inc_list;
 
@@ -230,7 +233,8 @@ function profile($uid = '') {
 
     while ($setans = db_fetch_object($get_ans)) {
 
-        $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
+       // $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
+$qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."'>".htmlentities(substr($setans->question,0,40))."</a></li>";
     }
     $inc_qns .= $qns_list;
 
@@ -408,10 +412,10 @@ function profile($uid = '') {
         <div class="pro_row">
         <h4>Answers</h4>
         	<ul>
-         ' . $answer1 . '
+         ' .$answer1. '
             </ul>
         </div>
-        
+       
         <div class="pro_row">
         <h4>Questions Posted</h4>
         	<ul>
