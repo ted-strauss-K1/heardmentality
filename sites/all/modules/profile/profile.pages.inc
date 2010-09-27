@@ -219,7 +219,7 @@ function profile($uid = '') {
 
     while ($setans = db_fetch_object($get_ans)) {
 
-        $inc_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."'>".htmlentities(substr($setans->question,0,40))."</a></li>";
+        $inc_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' >".htmlentities(substr($setans->question,0,40))."</a></li>";
     }
 	
 	
@@ -234,7 +234,7 @@ function profile($uid = '') {
     while ($setans = db_fetch_object($get_ans)) {
 
        // $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
-$qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."'>".htmlentities(substr($setans->question,0,40))."</a></li>";
+$qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' style='".drupal_link_color($user->uid,$setans->qid)."'>".htmlentities(substr($setans->question,0,40))."</a></li>";
     }
     $inc_qns .= $qns_list;
 

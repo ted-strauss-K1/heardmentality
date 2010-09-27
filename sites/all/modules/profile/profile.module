@@ -276,5 +276,25 @@ function load_bubble($uid=''){
     return $output;
 
 }
+/// vijay link color
 
+    function drupal_link_color($userid,$quesid)
+    {
+
+   if($userid)
+    {
+        $linkcolor = db_query("select count(*) as count from {possible_answer_vote} where qid='" . $quesid . "' and uid='" . $userid . "'  ");
+         $get_linkcolor = db_fetch_object($linkcolor);
+         if($get_linkcolor->count==0)
+         {
+             return "color:red";
+         }
+          if($get_linkcolor->count==1)
+         {
+            return "color:green";
+         }
+    }
+            return "color:#CC6600";
+
+    }
 ?>
