@@ -111,15 +111,38 @@ function qlite_view() {
         $qlink = "Question";
     }
 
+/// vijay link color
+
+//    function drupal_link_color($userid,$quesid)
+//    {
+//
+//   if($userid)
+//    {
+//        $linkcolor = db_query("select count(*) as count from {possible_answer_vote} where qid='" . $quesid . "' and uid='" . $userid . "'  ");
+//         $get_linkcolor = db_fetch_object($linkcolor);
+//         if($get_linkcolor->count==0)
+//         {
+//             return "color:red";
+//         }
+//          if($get_linkcolor->count==1)
+//         {
+//            return "color:green";
+//         }
+//    }
+//            return "color:#CC6600";
+//
+//    }
+
     drupal_set_title($qlink);
     $len = strlen($oListquest->context);
     if ($oListquest->context != "") {
         $linkj = '<a onclick="loaddetails(\'' . $gSitePath . 'qlite/Details/' . $qid . '\',\'Question Information\');">...</a>';
     }
     $shortdesc = substr($oListquest->context, 0, 250);
+   
 
     $voutput .= '	  <div>
-              <h2>' . rtrim($oListquest->question, "?") . '? </h2>
+              <h2 style="'.drupal_link_color($user->uid,$oListquest->qid).'">' . rtrim($oListquest->question, "?") . '? </h2>
             </div>          <div class="quesin">
               <div class="quesinner">
                 <div class="quesinnerr">
