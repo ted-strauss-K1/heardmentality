@@ -87,7 +87,7 @@ $voutput ='<style>
     $answer_id = db_fetch_object($list_lengthan);
     drupal_set_title($oListquest->question);
     $voutput.= '<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
-		<p>'.$oListquest->context.'</p>';
+		<p><a>'.htmlentities(substr($oListquest->context,0,40)).'</a></p>';
     $vans = "select * from {possible_answer} where  qid=$qid order by paid ASC";
 
     
