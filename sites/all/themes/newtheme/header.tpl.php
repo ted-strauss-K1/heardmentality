@@ -11,6 +11,7 @@
  */
 global $user, $gSitePath, $apikey;
 $directory = $base_path . $directory;
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -47,7 +48,7 @@ $directory = $base_path . $directory;
 
 
                     jQuery(document).ready(function(){
-                        jQuery('.innerbox a,.facttext a,.titl a').each(function()
+                        jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').each(function()
                         {
                             if( jQuery(this).attr("title").length>0){
 
