@@ -17,7 +17,21 @@ function qlite_menu() {
 
 }
 
+//      $voutput .= '	  <div>
+//              <h2>' . rtrim($oListquest->question, "?") . '? </h2>
+//            </div>          <div class="quesin">
+//              <div class="quesinner">
+//                <div class="quesinnerr">
+//<form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save"  >
+//		 <input type="hidden" name="txt_act" id="txt_act" value=""/>
+//	 <input type="hidden" name="mid" value="' . $qid . '"/>
+//		<!--<div class=""><div class="lft_view"> <h4 class="cmt_name"><a></a></h4>-->
+//
+//		<!--<div>' . $shortdesc . ' ' . $linkj . '--><div>';
+   // a{ text-decoration:none; color:#CC6600; font: normal Georgia, "Times New Roman", Times, serif;outline:none;}
+
 function top_list() {
+
     drupal_add_js(drupal_get_path('module', 'qlite').'/scripts/qmini.js');
     $output = '';
     
@@ -28,7 +42,7 @@ function top_list() {
     foreach ($list as $cat) {
         
         $output .= '    
-          <option value='.$cat['cat_id'].' > '.$cat['cat_name'].' </option> ';
+          <option value='.$cat['cat_id'].'> '.$cat['cat_name'].' </option> ';
     }
     
     $output .= '</select> &nbsp;  <span id="res_scat"><select name="" disabled="disabled">
@@ -49,15 +63,16 @@ function top_list() {
 
 }
 
-function get_top_list() {
     
+function get_top_list() {
+   
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     $cond = '';
 
    
     $cond = load_condition();
-
+//$style = "color:red";
     
     $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' $cond order by q.active_rate  DESC LIMIT 0,10";
     $list = ExecuteQuery($query, "select");
@@ -66,7 +81,7 @@ function get_top_list() {
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .=  '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .=  '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
         
         }
@@ -101,7 +116,7 @@ function get_hot_list() {
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .= '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .= '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
         
         }
@@ -154,7 +169,7 @@ if(!empty($country['city'])){
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .=  '<li><a title="'.  htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .=  '<li><a title="'.  htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
         
         }
     } else {
