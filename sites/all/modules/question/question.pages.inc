@@ -579,26 +579,101 @@ $ccode=$country->CountryCode;
         //exit;
         $result = db_query("INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'");
         
+        
         $ins_id = db_last_insert_id('question', 'qid');
 
         //cid=' $cat1',scid='$cat2',sscid='$cat3'
 
-        if(!empty($cat1)){
-        $cat1=explode(',',$cat1);
 
-        foreach($cat1 as $ins1){
-         db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
-        }
-         
-        }
-        if(!empty($cat2)){
-        $cat2=explode(',',$cat2);
+        /////gopi filter insert category, subcategory
+//        if(!empty($cat1)){
+//        $cat1=explode(',',$cat1);
+//
+//
+//
+//        foreach($cat1 as $ins1){
+//
+//         db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
+//
+//        }
+//
+//        }
+//        if(!empty($cat2)){
+//        $cat2=explode(',',$cat2);
+//
+//        foreach($cat2 as $ins2){
+//         db_query("insert into {question_cat} set qid='$ins_id',scat='$ins2'");
+//        }
+//
+//        }
 
-        foreach($cat2 as $ins2){
-         db_query("insert into {question_cat} set qid='$ins_id',scat='$ins2'");
-        }
 
+        
+
+        ////vijay insert category, subcategory
+//        if(!empty($cat1)){
+//        $cat1=explode(',',$cat1);
+//
+//        foreach($cat1 as $ins1){
+//
+//         db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
+//
+//         if(!empty($cat2)){
+//        $cat2=explode(',',$cat2);
+//
+//        foreach($cat2 as $ins2){
+//         //db_query("insert into {question_cat} set qid='$ins_id',scat='$ins2'");
+//         db_query("updatento {question_cat} set qid='$ins_id',scat='$ins2'");
+//        }
+//                   }
+//
+//
+//        }
+
+       // print_r($cat1);
+       // exit;
+        ////vijay insert category subcategory start here
+       // print_r($cat1);
+          $cat_count=explode(',',$cat1);
+          //$cat_arr_count =  count($cat_count);
+
+           $subcat_count=explode(',',$cat2);
+          //$sub_arr_count =  count($subcat_count);
+
+          if(count($cat_count)>count($subcat_count))
+          {
+              $arr_count = count($cat_count);
+          }
+           if(count($cat_count)<count($subcat_count))
+          {
+              $arr_count = count($subcat_count);
+          }
+          if(count($cat_count)==count($subcat_count))
+          {
+              $arr_count = count($cat_count);
+          }
+       
+        for($i=0;$i<$arr_count;$i++)
+        {
+             $cate=explode(',',$cat1);
+           
+
+            $subcate = explode(',',$cat2);
+            $subcat_count = count($subcate);
+           
+            
+            for($j=0;$j<$subcat_count;$j++)
+            {
+                    if(!empty($cate[$i]))
+                    {
+                db_query("insert into {question_cat} set qid='$ins_id',cat='$cate[$i]',scat='$subcate[$j]'");
+                    }
+            }
         }
+       
+
+
+        ////vijay insert category subcategory end here
         if(!empty($cat3)){
         $cat3=explode(',',$cat3);
 
