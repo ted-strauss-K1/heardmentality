@@ -829,7 +829,7 @@ ob_start();
         $get = NULL;
     }
    //avatar
-   	if($pic_avt==2)
+   	if($image_avatar==2)
 	$avtchk2= "checked='checked'";
 		else
 	$avtchk1= "checked='checked'";
