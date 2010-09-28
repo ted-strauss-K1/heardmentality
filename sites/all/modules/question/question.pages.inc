@@ -706,7 +706,7 @@ function send_qnotify($qid=''){
                // print_r($qdetails);
                 $contentm= str_replace("#question#",rtrim($qdetails['question'],'?').'?', $contentm);
                  $contentm= str_replace("#link#",$gSitePath.$qdetails['url'], $contentm);
-           //echo  $contentm;
+          	//echo  $contentm;
                 $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
             }
 
