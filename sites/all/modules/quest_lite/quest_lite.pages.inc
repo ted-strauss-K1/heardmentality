@@ -1211,8 +1211,9 @@ function panel_content() {
 
                 $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
                 extract($_POST);
-                $forum = db_query("INSERT INTO {forum_wave} set qid_rid='" . $qid . "',type='1',uid='$user->uid',title='" . mysql_escape_string($wtitle) . "',private='$wprivate' ");
-                $nid = db_last_insert_id();
+                $forum ="INSERT INTO {forum_wave} set qid_rid='" . $qid . "',type='1',uid='$user->uid',title='" . mysql_escape_string($wtitle) . "',private='$wprivate' ";
+				
+                $nid = ExecuteQuery($forum,'insert');
                 echo list_wave($qid, 1);
                 send_forumnotify($nid, $qid);
                 exit;
@@ -2447,7 +2448,7 @@ function send_forumnotify($nid='', $qid='') {
     $rs_followerf = db_query($sel_listf);
 
     $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
-
+	print_r($sel_wave);
     while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
 
         $sellist = "select * from users where uid='" . $follower_resultfuser->uid . "'";
@@ -2469,12 +2470,12 @@ function send_forumnotify($nid='', $qid='') {
             $contentm = str_replace("#uname#", $usert->name, $list_content->content);
             $contentm = str_replace("#anothername#", $user->name, $contentm);
 
-            // print_r($qdetails);
+        // print_r($qdetails);
             $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
             $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
             $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
 
-            //echo  $contentm;
+         echo  $contentm;
             $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
         }
     }
