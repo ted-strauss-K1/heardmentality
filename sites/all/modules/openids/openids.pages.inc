@@ -830,7 +830,9 @@ ob_start();
     }
    //avatar
    	if($pic_avt==2)
-	$avtchk= "checked='checked'";
+	$avtchk2= "checked='checked'";
+		else
+	$avtchk1= "checked='checked'";
 	
     $avatarform = drupal_get_form('avatar_form');
 	
@@ -929,12 +931,12 @@ jQuery.noConflict();
 	</fieldset>	
 	<fieldset><legend><b><i>Picture</i></b></legend><input type="hidden" value="" id="edit-picture-delete" name="picture_delete">
 <div id="edit-picture-upload-wrapper" class="form-item">
- <label for="edit-picture-upload"><input name="pic_avt" type="radio" checked="checked" value="1"/>Upload picture: </label>
+ <label for="edit-picture-upload"><input name="pic_avt" type="radio" '.$avtchk1.' value="1"/>Upload picture: </label>
  <input type="file" size="48"  id="edit-picture-upload" class="form-file"  name="image" id="image" />'.UserPicture($uid,1).'
 				<input type="hidden" name="oldimg" value="'.$image.'"/>
  <div class="description">Please select your Image from your local file system. </div>
  <div ><b>[OR]</b></div>
- <input name="pic_avt" type="radio" '.$avtchk.' value="2"/>
+ <input name="pic_avt" type="radio" '.$avtchk2.' value="2"/>
 </div>
 '.$avatarform.'
 <div class="avatar-selection-pager-nav"></div></fieldset>
