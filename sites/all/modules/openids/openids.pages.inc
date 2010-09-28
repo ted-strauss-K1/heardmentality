@@ -930,7 +930,7 @@ jQuery.noConflict();
 	<fieldset><legend><b><i>Picture</i></b></legend><input type="hidden" value="" id="edit-picture-delete" name="picture_delete">
 <div id="edit-picture-upload-wrapper" class="form-item">
  <label for="edit-picture-upload"><input name="pic_avt" type="radio" checked="checked" value="1"/>Upload picture: </label>
- <input type="file" size="48"  id="edit-picture-upload" class="form-file"  name="image" id="image" />'.UserPicture($uid).'
+ <input type="file" size="48"  id="edit-picture-upload" class="form-file"  name="image" id="image" />'.UserPicture($uid,1).'
 				<input type="hidden" name="oldimg" value="'.$image.'"/>
  <div class="description">Please select your Image from your local file system. </div>
  <div ><b>[OR]</b></div>
@@ -1099,7 +1099,7 @@ everyone or just followers or not at all while adding a question)
 			});
 }else{
 	jQuery("div.user-avatar-select img:first").addClass("avatar-select");	
-
+	jQuery("div.user-avatar-select input:first").attr("checked","checked");	
 	
 }
 			
