@@ -249,7 +249,7 @@ function report_content() {
 }
 
 function load_ajax() {
-    
+    drupal_add_js(drupal_get_path('module', 'qlite').'/scripts/qmini.js');
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     $action = $_REQUEST['action'];
@@ -273,7 +273,7 @@ function load_ajax() {
         case '5':
             extract($_REQUEST);
             
-            $query = "SELECT * from {category} where parent_id='$cid' ORDER BY cat_name ASC";
+           $query = "SELECT * from {category} where parent_id='$cid' ORDER BY cat_name ASC";
             $list = ExecuteQuery($query, "select");
             $output .= '<select id="tscat" onchange="get_toplist(this.value,2)"><option value="" >Select</option>';
             foreach ($list as $cat) {

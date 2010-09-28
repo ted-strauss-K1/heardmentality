@@ -31,7 +31,6 @@ function qlite_menu() {
    // a{ text-decoration:none; color:#CC6600; font: normal Georgia, "Times New Roman", Times, serif;outline:none;}
 
 function top_list() {
-
     drupal_add_js(drupal_get_path('module', 'qlite').'/scripts/qmini.js');
     $output = '';
     
@@ -63,7 +62,7 @@ function top_list() {
 
 }
 
-    
+  ////vijay filter
 function get_top_list() {
    
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -74,7 +73,10 @@ function get_top_list() {
     $cond = load_condition();
 //$style = "color:red";
     
-    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' $cond order by q.active_rate  DESC LIMIT 0,10";
+ // echo  $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' $cond order by q.active_rate  DESC LIMIT 0,10";
+
+    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,10";
+    
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
               <h3><strong>Top questions</strong></h3><div class="innerbox" ><ul class="menu">';
@@ -108,8 +110,11 @@ function get_hot_list() {
     $y = date("Y");
     $date = date('Y-m-d', mktime(0, 0, 0, $m, ($de - 7), $y));
 
-    
-    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
+
+  $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' AND date(q.date_added) >= '$date' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,10 ";
+
+
+//  $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid   where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
               <h3><strong>Hot questions</strong></h3><div class="innerbox" ><ul class="menu">';
@@ -159,8 +164,9 @@ if(!empty($country['city'])){
 // $homepage = file_get_contents('http://api.hostip.info/country.php');
   //  echo get_real_ip_addr();
 
+ $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,10 ";
     
-   $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
+   //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
               <h3><strong>Local questions</strong></h3>
@@ -293,12 +299,15 @@ function load_condition() {
         extract($_REQUEST);
         if (! empty($cid)) {
             
-            $cond .= " AND q.cid='$cid'";
+            //$cond .= " AND q.cid='$cid'";
+            $cond .= " AND qcat.cat='$cid'";
+           //$cond .= " AND qcat.cat IN()";
         }
         
         if (! empty($scid)) {
             
-            $cond .= " AND q.scid='$scid'";
+            //$cond .= " AND q.scid='$scid'";
+           $cond .= " AND qcat.scat='$scid'";
         }
     
     }
