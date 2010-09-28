@@ -77,5 +77,56 @@ $items['mynotify'] = array(
   return $items;
 }
 
+
+
+
+
+
+
+function forum_post() {
+    global $user;
+    $qid = get_qid();
+	$output = '';
+	 $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
+	    $rlist = db_query($vSql);
+    $oListquest = db_fetch_object($rlist);
+
+
+
+            $output .= '<div id="container">';
+             $output .='<div class="feature">';
+		$output .= '<div class="l col">';
+		$output .= '<ul>';
+	$output .='<div>'. substr($oListquest->question,0,20).'...'.'</div>';
+	
+	
+    
+
+    $follow_query = "select * from follower where uid='$user->uid'";
+   
+    $follow_list=db_query($follow_query);
+$followid=db_fetch_object($follow_list);
+
+ $forum_query = "select * from forum_wave where uid='$followid->uid' and qid_rid='$oListquest->qid' order by fid desc limit 0,3";
+
+
+ $forum_list = ExecuteQuery($forum_query, "select");
+
+ foreach ($forum_list as $list) {
+     
+       // $output .= '<div>'.$list['title'].'</div>';
+       $output.='<li>
+	<a href="'.$gSitePath.'profile/'.$list['title'].'">'.$list['title'].'</a>';
+    }
+ $output .='</ul></div>
+	</div>
+	</div>';
+    return $output;
+
+
+}
+
+
+
 	
 	
