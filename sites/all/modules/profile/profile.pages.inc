@@ -60,6 +60,7 @@ function inbox_flex() {
             $result = db_affected_rows();
 
             if ($result
+
                 )echo '<div class="messages success">Message deleted successfully, please wait to reload...!</div>';
             break;
         default :
@@ -78,8 +79,8 @@ function inbox_msg() {
     if (!empty($msgs)) {
 
         foreach ($msgs as $list) {
-               $bubble =load_bubble($list['from_id']);
-            $inbox.='  <tr><td height="40px" style="font-style:justify;" >' . $i . '</td><td>' . wordwrap($list['message'], 100, "<br/>") . '</td><td><a href="'.$gSitePath.'profile/'.$list['name'].'" rel=\''.$bubble.'\'>' .$list['name'] . '</a></td><td>' . format_date_class($list['posted_date'], date('Y-m-d')) . '</td><td><a href="#" onclick="del_msg(' . $list['mid'] . ',this);">Delete</a> &nbsp;/&nbsp; <a href="#" onclick="rel_msg(' . $list['from_id'] . ');">Reply</a></td></tr>';
+            $bubble = load_bubble($list['from_id']);
+            $inbox.='  <tr><td height="40px" style="font-style:justify;" >' . $i . '</td><td>' . wordwrap($list['message'], 100, "<br/>") . '</td><td><a href="' . $gSitePath . 'profile/' . $list['name'] . '" rel=\'' . $bubble . '\'>' . $list['name'] . '</a></td><td>' . format_date_class($list['posted_date'], date('Y-m-d')) . '</td><td><a href="#" onclick="del_msg(' . $list['mid'] . ',this);">Delete</a> &nbsp;/&nbsp; <a href="#" onclick="rel_msg(' . $list['from_id'] . ');">Reply</a></td></tr>';
             $i++;
         }
     } else {
@@ -241,7 +242,7 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
     $inc_qns = ( empty($qns_list)) ? 'No Result' : $inc_qns;
     //question ends
     //profile badge
-    $medal ='<br/>'.updateProfileBadge($uid);
+    $medal = '<br/>' . updateProfileBadge($uid);
 
 
     if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 2 && $is_follow_follower == TRUE)) {
@@ -451,18 +452,18 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
         }
     }
 
-    if($user->uid == $uid){
+    if ($user->uid == $uid) {
 
-        $inc='&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Send Message</a>]';
+        $inc = '&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Send Message</a>]';
     }
-    $strReturn.='<h4>Followers '.$inc.'</h4>';
+    $strReturn.='<h4>Followers ' . $inc . '</h4>';
 
     $strReturn.='  <ul id="mfollowers">
       	' . $follower . '
       </ul>
    
       ';
-   
+
 
     return $strReturn;
 }
@@ -810,9 +811,9 @@ function followinglist($uids) {
         $rs_userm = db_query($sel_userm);
         $user_namelist = db_fetch_object($rs_userm);
 
-         $bubble =load_bubble($following_list->id);
+        $bubble = load_bubble($following_list->id);
 
-        $following[] = '<div  id="show-' . $following_list->id . '"><a rel=\''.$bubble.'\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
+        $following[] = '<div  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
     }
     if ($numfolls > 5) {
         $following[] .= '<a style="color:#F37321;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
@@ -854,18 +855,17 @@ function followerlist($umid) {
 
 
         $user_namelistf->name;
-       
+
         if ($umid == $user->uid) {
             $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',1,0)" >UnBlock</a>';
             $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',0,0)" >Block</a>';
-    
         }
-         
-         $bubble =load_bubble($user_namelistf->uid);
+
+        $bubble = load_bubble($user_namelistf->uid);
         if ($follower_resultfuser->follower_status == 0) {
-            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\''.$bubble.'\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
+            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
         } else {
-            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\''.$bubble.'\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
+            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
         }
 
 
@@ -887,7 +887,7 @@ function save_follower_profile() {
     global $gSitePath, $user, $gDocPath, $base_root;
     print_r($_REQEST);
     if (isset($_REQEST['action'])) {
-    print_r($_REQEST);
+        print_r($_REQEST);
         $del_blog = "update  follower  set follower_status='" . $_REQUEST['blk'] . "' where  id='" . $_REQEST['action'] . "' ";
         $rs_blog_del = db_query($del_blog);
 
@@ -1300,74 +1300,71 @@ function activities($uid = '') {
 
 function google_map() {
     $page = $_REQUEST[q];
-    switch ($page)
-    {
+    switch ($page) {
         case 'google/map/users':
-           $geomap_qry = "SELECT count(country)as count,country from `user_profile` where country!='' group by country ";
-    $geomap_exec= ExecuteQuery($geomap_qry, "select");
-            $first=0;
-            foreach($geomap_exec as $geomapeach){
-            
-               $asscountry .=  " data.setValue(".$first.", 0,'".$geomapeach['country']."');".' data.setValue('.$first.', 1,'.$geomapeach['count'].');';
-             // $assuser .=  'data.setValue(5, 1,'.$geomapeach['count'].');'; 
-		  $first = $first+1;
-             }
-             break;
-              case 'google/map/online':
-                   $time_period = variable_get('user_block_seconds_online', 900);
+            $geomap_qry = "SELECT count(country)as count,country from `user_profile` where country!='' group by country ";
+            $geomap_exec = ExecuteQuery($geomap_qry, "select");
+            $first = 0;
+            foreach ($geomap_exec as $geomapeach) {
 
-                  //$userslist = db_query('SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
-                  //echo $total_users = db_result($userslist);
+                $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+                // $assuser .=  'data.setValue(5, 1,'.$geomapeach['count'].');';
+                $first = $first + 1;
+            }
+            break;
+        case 'google/map/online':
+            $time_period = variable_get('user_block_seconds_online', 900);
 
-                  $get_ans = db_query('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
-                 $first = '';
-    while ($geoans = db_fetch_object($get_ans)) {
-    $first = $first + 1;
-$asscountry .=  " data.setValue(".$first.", 0,'".$geoans->country."');".' data.setValue('.$first.', 1,'.$geoans->count.');';
-    }
+            //$userslist = db_query('SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
+            //echo $total_users = db_result($userslist);
 
-          //$geomap_qry = "'SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period";
-         //$geomap_exec= ExecuteQuery($geomap_qry, "select");
+            $get_ans = db_query('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
+            $first = '';
+            while ($geoans = db_fetch_object($get_ans)) {
+                $first = $first + 1;
+                $asscountry .= " data.setValue(" . $first . ", 0,'" . $geoans->country . "');" . ' data.setValue(' . $first . ', 1,' . $geoans->count . ');';
+            }
 
+            //$geomap_qry = "'SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period";
+            //$geomap_exec= ExecuteQuery($geomap_qry, "select");
 //            foreach($geomap_exec as $geomapeach){
 //               echo $geomapeach['country'];
 //            // $asscountry .=  "data.setValue(5, 0,'".$geomapeach['country']."');";
 //            //$assuser .=  'data.setValue(5, 1,'.$geomapeach['uid'].');';
 //             }
-             break;
-             case 'google/map/questions':
-         // $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
-        $geomap_qry = "select count(*) as count, country from question group by country";
-    $geomap_exec= ExecuteQuery($geomap_qry, "select");
+            break;
+        case 'google/map/questions':
+            // $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
+            $geomap_qry = "select count(*) as count, country from question group by country";
+            $geomap_exec = ExecuteQuery($geomap_qry, "select");
 
-            $first='';
-            foreach($geomap_exec as $geomapeach){
-            $first = $first + 1;
-              $asscountry .=  " data.setValue(".$first.", 0,'".$geomapeach['country']."');".' data.setValue('.$first.', 1,'.$geomapeach['count'].');';
-             }
-             break;
-             case 'google/map/answer':
-          $geomap_qry = "select count(*)as count,q.country from possible_answer as a join question as q on q.qid=a.qid where q.status='1' group by q.country";
-    $geomap_exec= ExecuteQuery($geomap_qry, "select");
+            $first = '';
+            foreach ($geomap_exec as $geomapeach) {
+                $first = $first + 1;
+                $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+            }
+            break;
+        case 'google/map/answer':
+            $geomap_qry = "select count(*)as count,q.country from possible_answer as a join question as q on q.qid=a.qid where q.status='1' group by q.country";
+            $geomap_exec = ExecuteQuery($geomap_qry, "select");
 
-            $first='';
-            foreach($geomap_exec as $geomapeach){
-            $first = $first + 1;
-              $asscountry .=  " data.setValue(".$first.", 0,'".$geomapeach['country']."');".' data.setValue('.$first.', 1,'.$geomapeach['count'].');';
-             }
-             break;
-
+            $first = '';
+            foreach ($geomap_exec as $geomapeach) {
+                $first = $first + 1;
+                $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+            }
+            break;
     }
 
-    echo  $script .= "<script type='text/javascript' src='http://www.google.com/jsapi'></script>";
-	echo $script.="<script type='text/javascript'>
+    echo $script .= "<script type='text/javascript' src='http://www.google.com/jsapi'></script>";
+    echo $script.="<script type='text/javascript'>
     google.load('visualization', '1', {packages: ['geomap']});
 
     function drawVisualization() {
       var data = new google.visualization.DataTable();
       data.addRows(6);
       data.addColumn('string', 'Country');
-      data.addColumn('number', 'Users');".$asscountry."
+      data.addColumn('number', 'Users');" . $asscountry . "
       var geomap = new google.visualization.GeoMap(
           document.getElementById('visualization'));
       geomap.draw(data,{width:650,height:375});
@@ -1376,5 +1373,5 @@ $asscountry .=  " data.setValue(".$first.", 0,'".$geoans->country."');".' data.s
     google.setOnLoadCallback(drawVisualization);
   </script>";
 
-echo "<div id=visualization></div>";
+    echo "<div id=visualization></div>";
 }

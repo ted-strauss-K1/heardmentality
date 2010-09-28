@@ -61,6 +61,7 @@ if(n>0){
     
 }
 
+/*
   jQuery.fn.clearForm = function() {
   return this.each(function() {
  var type = this.type, tag = this.tagName.toLowerCase();
@@ -74,6 +75,7 @@ if(n>0){
    this.selectedIndex = -1;
   });
 };
+*/
 
 function profile_comment(make){
 
