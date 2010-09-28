@@ -84,7 +84,7 @@ $items['mynotify'] = array(
 
 
 function forum_post() {
-    global $user;
+    global $gSitePath,$user;
     $qid = get_qid();
 	$output = '';
 	 $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
@@ -96,8 +96,8 @@ function forum_post() {
             $output .= '<div id="container">';
              $output .='<div class="feature">';
 		$output .= '<div class="l col">';
-		$output .= '<ul>';
-	$output .='<div>'. substr($oListquest->question,0,20).'...'.'</div>';
+		//$output .= '<ul>';
+	$output .='<div><a href="'.$gSitePath.$oListquest->url.'">'. substr($oListquest->question,0,20).'...'.'</a></div>';
 	
 	
     
@@ -115,10 +115,10 @@ $followid=db_fetch_object($follow_list);
  foreach ($forum_list as $list) {
      
        // $output .= '<div>'.$list['title'].'</div>';
-       $output.='<li>
-	<a href="'.$gSitePath.'profile/'.$list['title'].'">'.$list['title'].'</a>';
+       $output.='
+	<div>'.$list['title'].'<div>';
     }
- $output .='</ul></div>
+ $output .='</div>
 	</div>
 	</div>';
     return $output;
