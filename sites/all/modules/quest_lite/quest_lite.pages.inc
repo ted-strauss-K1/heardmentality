@@ -2475,7 +2475,7 @@ function send_forumnotify($nid='', $qid='') {
             $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
             $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
 
-         echo  $contentm;
+         //echo  $contentm;
             $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
         }
     }
