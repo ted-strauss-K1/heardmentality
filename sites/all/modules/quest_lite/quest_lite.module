@@ -185,9 +185,11 @@ function list_wave($qid = '', $type = '') {
         foreach ($cnt as $forum) {
             
             if ($type == 1) {
+               
                 
                 $click = 'loadwave('.$qid.','.$forum['fid'].')';
             } else {
+               
                 $click = 'rwavelet('.$qid.','.$forum['fid'].')';
             }
 
