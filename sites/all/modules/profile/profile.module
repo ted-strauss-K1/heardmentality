@@ -143,11 +143,14 @@ function UserPicture($mid,$profile='') {
     $resultimage = db_fetch_object($rs_image);
 	$selected_avatar=$resultimage->avatar;
     $default = $gSitePath.drupal_get_path('module', 'profile').'/snap/noimage.jpg';
+	if($profile)
+	$resultimage->image_avatar=1;
+	
     switch ($resultimage->image_avatar) {
         case '2':
              $image_path = file_create_path('avatar_selection');
 			
-            echo  $ipath = $image_path.'/'.$selected_avatar;
+              $ipath = $image_path.'/'.$selected_avatar;
 	
             if (file_check_location($ipath)) {
                 $PROFILE_IMAGE = theme('image',$ipath);
