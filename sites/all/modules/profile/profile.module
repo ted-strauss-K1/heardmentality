@@ -147,7 +147,7 @@ function UserPicture($mid,$profile='') {
         case '2':
              $image_path = file_create_path('avatar_selection');
 			
-              $ipath = $image_path.'/'.$selected_avatar;
+            echo  $ipath = $image_path.'/'.$selected_avatar;
 	
             if (file_check_location($ipath)) {
                 $PROFILE_IMAGE = theme('image',$ipath);
