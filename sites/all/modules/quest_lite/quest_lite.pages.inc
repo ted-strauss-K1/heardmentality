@@ -2448,7 +2448,7 @@ function send_forumnotify($nid='', $qid='') {
     $rs_followerf = db_query($sel_listf);
 
     $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
-	print_r($sel_wave);
+	
     while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
 
         $sellist = "select * from users where uid='" . $follower_resultfuser->uid . "'";
