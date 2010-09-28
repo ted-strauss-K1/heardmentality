@@ -605,6 +605,8 @@ ob_start();
     $email = '';
     $followers = '';
     $following = '';
+  
+ //   print_r(avatar_selection_form_user_profile_form_alter());
     if ($_COOKIE["faceidc"] != '') {
         //////////////////////faceboook friends////////////////////////////////
         $insertface = "insert into facebook_friends (uid,face_uid)values('".$_COOKIE["faceidc"]."','".$user->uid."') ";
@@ -659,6 +661,7 @@ ob_start();
     
     }
 
+	//print_r($_REQUEST);
     
     if (isset($_REQUEST['update']) == 'Update') {
         extract($_REQUEST);
@@ -695,7 +698,7 @@ ob_start();
         $age='';
 		 $age=age($dob);
       
-        $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image='$insimage',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
+        $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
 
         
         $sel_ulists = "select * from {user_profile} where uid='$user->uid'";
@@ -825,7 +828,16 @@ ob_start();
     } else {
         $get = NULL;
     }
-    
+   //avatar
+   	if($pic_avt==2)
+	$avtchk= "checked='checked'";
+	
+    $avatarform = drupal_get_form('avatar_form');
+	
+	  $ava_js = drupal_get_path('module', 'avatar_selection') .'/js/avatar_selection.js';
+    $ava_css=drupal_get_path('module', 'avatar_selection') .'/avatar_selection.css';
+
+   
     //privacy settings form
     $usertypes = userTypes();
     $option1 = '<option value=1>'.$usertypes[0].'</option>';
@@ -837,8 +849,16 @@ var spath=\''.$gSitePath.'\';
 </script><script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript">
 </script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
 <link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
+</script><script src="'.$gSitePath.'/misc/jquery.js" type="text/javascript"></script>
+<script>
+jQuery.noConflict();
+</script>
+</script><script src="'.$gSitePath.'/misc/drupal.js" type="text/javascript"></script>
+
+</script><script src="'.$gSitePath.$ava_js.'" type="text/javascript"></script>
+<link rel="stylesheet" href="'.$gSitePath.$ava_css.'" type="text/css" />
 		<link type="text/css" rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'openids').'/css/log.css" /><div id="container">
-   <form name="reg" id="reg"    method="post" enctype="multipart/form-data">
+   <form name="reg" id="reg"  onsubmit="return validate_reg();"  method="post" enctype="multipart/form-data">
    <div class="facttop2">EDIT PROFILE</div>
     <div class="info">
 	 <input type="text" class="hidden_box1" readonly="true" border="0" width="1" size="1" name="errbox" id="errbox"><div id="err_div" class="error">'.$emsg.' '.$message.'</div>
@@ -891,11 +911,9 @@ var spath=\''.$gSitePath.'\';
     <li id="foli14" class="">
 	<label class="desc" id="title14" for="Field14"> 
 	Bio:
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Image:
 	</label> 
 		 <textarea name="bio" id="edit-bio" class="form-text" rows="4" cols="30">'.$bio.'</textarea>
-	 <input type="file" name="image" id="image" /> <img src="'.$gSitePath.drupal_get_path('module', 'profile').'/snap/'.$image.'" align="absmiddle" alt="Profile Image" >
-				<input type="hidden" name="oldimg" value="'.$image.'"/>
+	
 				
 			
 	 </li>
@@ -909,6 +927,17 @@ var spath=\''.$gSitePath.'\';
 	 
 	 
 	</fieldset>	
+	<fieldset><legend><b><i>Picture</i></b></legend><input type="hidden" value="" id="edit-picture-delete" name="picture_delete">
+<div id="edit-picture-upload-wrapper" class="form-item">
+ <label for="edit-picture-upload"><input name="pic_avt" type="radio" checked="checked" value="1"/>Upload picture: </label>
+ <input type="file" size="48"  id="edit-picture-upload" class="form-file"  name="image" id="image" />'.UserPicture($uid).'
+				<input type="hidden" name="oldimg" value="'.$image.'"/>
+ <div class="description">Please select your Image from your local file system. </div>
+ <div ><b>[OR]</b></div>
+ <input name="pic_avt" type="radio" '.$avtchk.' value="2"/>
+</div>
+'.$avatarform.'
+<div class="avatar-selection-pager-nav"></div></fieldset>
 	 <fieldset>
 		<legend><b><i>Links</i></b> </legend>
 		<div class="form-item" id="edit-name-wrapper"> 
@@ -1056,12 +1085,24 @@ everyone or just followers or not at all while adding a question)
 	
 
     <li class="buttons">
-    <input type="submit" name="update" value="Update" onclick="return validate_reg();">
+    <input type="submit" name="update" value="Update" >
 	
     </li>
     </ul>
     </form>
 		<script>
+			var avat="'.$avatar.'";
+			if(avat.length>2){
+			jQuery("div.user-avatar-select img").each(function(){ if(jQuery(this).attr("src").contains(avat)){
+		jQuery(this).addClass("avatar-select");	
+}
+			});
+}else{
+	jQuery("div.user-avatar-select img:first").addClass("avatar-select");	
+
+	
+}
+			
 			
 			setTimeout(markit,1000);
 
@@ -1161,6 +1202,8 @@ if(chk!=\'\'){
 elt.each(function(el){ el.set(\'value\',chk); });
 }
 }
+
+
 			</script>
 	
 
@@ -1172,8 +1215,51 @@ elt.each(function(el){ el.set(\'value\',chk); });
 
 }
 
+
+function avatar_form($form, &$form_state) {
+	    global $gSitePath,$user,$gDocPath,$base_root,$_GET;
+   //avatar 
+	$form=array();
+	  // We find out the current page number.
+  $page = 0;
+  if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+    $page = $_GET['page'];
+  }
+  $anon_user = drupal_anonymous_user();
+  $force_choose = variable_get('avatar_selection_force_user_avatar_reg', 0);
+  $avatars_per_page = variable_get('avatar_selection_avatar_per_page', 30);
+  $selects = _avatar_selection_image_list($anon_user, "", 0, $page * $avatars_per_page, $avatars_per_page);
+	
+	$udetails=load_user($user->uid);
+	
+	$avatar=(!empty($udetails->avatar))?$udetails->avatar:'';
+
+  if (count($selects['avatars'])) {
+  
+
+    drupal_add_js(drupal_get_path('module', 'avatar_selection') .'/js/avatar_selection_pager.js', 'module', 'header');
+    $form['picture']['select_avatar'] = array(
+      '#type' => 'radios',
+      '#title' => ($upload == 0 ? t('Select an avatar') : t('Or simply select an icon')),
+      '#description' => $upload ? '' : t('Your virtual face or picture.'),
+      '#options' => $selects['avatars'],
+      '#required' => $force_choose ? TRUE : FALSE,
+	  '#default_value' => $avatar,
+      '#attributes' => array('class' => 'user-avatar-select'),
+      '#prefix' =>  '<div id="avatar-selection-loading"></div>',
+      '#suffix' => theme('avatar_selection_pager', 'form#user-register', 'div.user-avatar-select', $selects['total'], $avatars_per_page, '/'. $js_file),
+    );
+	
+	  }
+	
+	
+	//avatar
+  return $form;
+} 
+
+
 function event_photo_profile() {
-    global $objSmarty,$config;
+    global $gSitePath,$user,$gDocPath,$base_root;
     $suc = '';
     $return = array();
     $filename = $_FILES['image']['name'];// file up starts

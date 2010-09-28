@@ -22,9 +22,9 @@ function profile_menu() {
     $items['profile/savefollowerlink'] = array('title'=>' Profile', 'page callback'=>'save_follower_profile', 'access arguments'=>array('Profile View'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
     $items['postmessage'] = array('title'=>' Profile', 'page callback'=>'save_message', 'access arguments'=>array('Profile View'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
     $items['profile/inbox'] = array('title'=>' Profile', 'page callback'=>'inbox_flex', 'access arguments'=>array('Profile Edit'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
-	
-	$items['google/map'] = array('title'=>'Facts', 'page callback'=>'google_map', 'access arguments'=>array('User Sign In'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'profile.pages.inc', );	
-	
+    
+    $items['google/map'] = array('title'=>'Facts', 'page callback'=>'google_map', 'access arguments'=>array('User Sign In'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'profile.pages.inc', );
+    
     return $items;
 }
 
@@ -40,11 +40,11 @@ function userTypes() {
     }
     return $usertypes;
 }
-function load_user($uid=''){
-
-     $query="select * from {users} as u join {user_profile} as up on u.uid=up.uid  where u.uid='$uid'";
-    $result=db_fetch_object(db_query($query));
-return $result;
+function load_user($uid = '') {
+    
+    $query = "select * from {users} as u join {user_profile} as up on u.uid=up.uid  where u.uid='$uid'";
+    $result = db_fetch_object(db_query($query));
+    return $result;
 }
 function checkPrivacySettings($uid = null) {
     $ques_query = "SELECT * FROM {privacy_settings} where uid='".$uid."'";
@@ -131,171 +131,193 @@ function get_state($code = '') {
     $result = geonames_query('postalcodesearch', $query);
     
     print_r($result);
+    
+    return $reuslt;
+
+}
+
+function UserPicture($mid,$profile='') {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    $selimage = "select * from {user_profile} where uid='$mid'";
+    $rs_image = db_query($selimage);
+    $resultimage = db_fetch_object($rs_image);
+	$selected_avatar=$resultimage->avatar;
+    $default = $gSitePath.drupal_get_path('module', 'profile').'/snap/noimage.jpg';
+    switch ($resultimage->image_avatar) {
+        case '2':
+             $image_path = file_create_path('avatar_selection');
+			
+              $ipath = $image_path.'/'.$selected_avatar;
 	
-	return $reuslt;
-
-}
-
-function UserPicture($mid)
-{
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
- $selimage="select * from {user_profile} where uid='$mid'";
-$rs_image = db_query($selimage);
-$resultimage = db_fetch_object($rs_image);
-if($resultimage->image!='noimage.jpg')
-{
-
- $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
- $default=$gSitePath.drupal_get_path('module', 'profile').'/snap/noimage.jpg';
- if(file_exists($img_path)){
-        $PROFILE_IMAGE = '<img src="'.$img_path.'" alt="photo" width="70"  height="70" >';
- }else{
-
-       $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" width="70"  height="70" >';
- }
-}
-elseif($resultimage->image_url!='')
-{
-
- 
-$PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" alt="photo" width="70"  height="70">';
-
-
-}
-else
-{
-//echo $resultimage->image;
-   $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
-        $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" alt="photo" width="70"  height="70" >';
-}
-return $PROFILE_IMAGE ;
-}
-
-function UserPicture_small($mid)
-{
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
- $selimage="select * from {user_profile} where uid='$mid'";
-$rs_image = db_query($selimage);
-$resultimage = db_fetch_object($rs_image);
- $default=$gSitePath.drupal_get_path('module', 'profile').'/snap/noimage.jpg';
-if($resultimage->image!='noimage.jpg')
-{
-
- $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
- if(file_exists($img_path)){
-   $PROFILE_IMAGE = '<img src="'.$img_path.'" alt="Photo" height="30" width="30" >';	
- }else{
- 	   $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
- }
-      
-}
-elseif($resultimage->image_url!='')
-{
-
- $resultimage->image_url;
- $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
-}
-else
-{
-//echo $resultimage->image;
-   $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
-        $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
-}
-return $PROFILE_IMAGE ;
-}
-
-
-function save_message(){
-    //print_r($_REQUEST);
-	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-	 $uid=$_REQUEST['actions'];
-	 if(!empty($uid)&&!empty($_REQUEST['msgs'])&&!empty($user->uid)){
-	 	db_query("insert into messages (from_id,to_id,message) values('".$user->uid."','".$uid."','".$_REQUEST['msgs']."')");
-	
-	echo '<div class="messages success">Message sent successfully!</div>';
-	
-	 }elseif(!empty($_REQUEST['muid'])&&!empty($_REQUEST['frmsgs'])){
-
-            foreach($_REQUEST['muid'] as $uids){
-                
-               db_query("insert into messages (from_id,to_id,message) values('".$user->uid."','".$uids."','".$_REQUEST['frmsgs']."')");
-	
-	
-	 
+            if (file_check_location($ipath)) {
+                $PROFILE_IMAGE = theme('image',$ipath);
+            } else {
+               $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE width="70"  height="70" >';
             }
-             echo '<div class="messages success">Message sent successfully!</div>';
-         }else{
-	 	echo '<div class="messages error">Sorry Error Occurs!</div>';
-		
-	 }
-	exit;
-	
+            
+            break;
+        default:
+            
+            if ($resultimage->image != 'noimage.jpg') {
+                
+                $img_path = drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
+                
+                if (file_check_location($img_path)) {
+                    $PROFILE_IMAGE = '<img src="'.$img_path.'" alt="photo" ALIGN=ABSMIDDLE width="70"  height="70" >';
+                } else {
+                    
+                    $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE width="70"  height="70" >';
+                }
+            } elseif ($resultimage->image_url != '') {
+
+                
+                $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" alt="photo" width="70"  height="70">';
+
+            
+            } else {
+                //echo $resultimage->image;
+                $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
+                $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" alt="photo" width="70" ALIGN=ABSMIDDLE  height="70" >';
+            }
+            break;
+    }
+    
+    return $PROFILE_IMAGE;
 }
 
-drupal_add_js(drupal_get_path('module', 'profile') . '/js/tab.js');
-function user_facts(){
-	  global $gSitePath,$user,$gDocPath,$base_root;
-	 $time_period = variable_get('user_block_seconds_online', 900);
-	$output='';
+function UserPicture_small($mid) {
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+    $rs_image = db_query($selimage);
+    $resultimage = db_fetch_object($rs_image);
+    $default = $gSitePath.drupal_get_path('module', 'profile').'/snap/noimage.jpg';
+    switch ($resultimage->image_avatar) {
+        case '2':
+            $image_path = file_create_path('avatar_selection');
+            $selected_avatar = $resultimage->avatar;
+            $ipath = $image_path.'/'.$selected_avatar;
 	
-	$usercnt='';
-	$quest='';
-	$ans='';
-	$usercnt=db_result(db_query("select count(uid) from {users} where status='1'"));
-	$quest=db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1'"));
-	$ans=db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1'"));
-	  $userslist = db_query('SELECT count(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
-          $total_users = db_result($userslist);
-	
-	$output.='
+            if (file_check_location($ipath)) {
+                $PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
+            } else {
+                $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+            }
+            
+            break;
+        default:
+            
+            if ($resultimage->image != 'noimage.jpg') {
+                
+                $img_path = drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
+                if (file_check_location($img_path)) {
+                    echo $PROFILE_IMAGE = '<img src="'.$img_path.'" ALIGN=ABSMIDDLE alt="Photo" height="30" width="30" >';
+                } else {
+                    $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+                }
+            
+            } elseif ($resultimage->image_url != '') {
+                
+                $resultimage->image_url;
+                $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
+            } else {
+                //echo $resultimage->image;
+                $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
+                $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
+            }
+            break;
+    }
+    
+    return $PROFILE_IMAGE;
+}
+
+
+function save_message() {
+    //print_r($_REQUEST);
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    $uid = $_REQUEST['actions'];
+    if (! empty($uid) && ! empty($_REQUEST['msgs']) && ! empty($user->uid)) {
+        db_query("insert into messages (from_id,to_id,message) values('".$user->uid."','".$uid."','".$_REQUEST['msgs']."')");
+        
+        echo '<div class="messages success">Message sent successfully!</div>';
+    
+    } elseif (! empty($_REQUEST['muid']) && ! empty($_REQUEST['frmsgs'])) {
+        
+        foreach ($_REQUEST['muid'] as $uids) {
+            
+            db_query("insert into messages (from_id,to_id,message) values('".$user->uid."','".$uids."','".$_REQUEST['frmsgs']."')");
+
+        
+        }
+        echo '<div class="messages success">Message sent successfully!</div>';
+    } else {
+        echo '<div class="messages error">Sorry Error Occurs!</div>';
+    
+    }
+    exit;
+
+}
+
+drupal_add_js(drupal_get_path('module', 'profile').'/js/tab.js');
+function user_facts() {
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $time_period = variable_get('user_block_seconds_online', 900);
+    $output = '';
+    
+    $usercnt = '';
+    $quest = '';
+    $ans = '';
+    $usercnt = db_result(db_query("select count(uid) from {users} where status='1'"));
+    $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1'"));
+    $ans = db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1'"));
+    $userslist = db_query('SELECT count(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
+    $total_users = db_result($userslist);
+    
+    $output .= '
     <div><img src="'.$gSitePath.path_to_theme().'/images/map.gif" alt="map"/>
 </div>
 <div>
          <div class="fa-item">
           <ul>
-          <li><a href="javascript:loadtab(\'' . $gSitePath . 'google/map/users' . $qid . '\',\'Facts And Figures : Total Users\')">'.$usercnt.' Users</a></li>
-          <li><a href="javascript:loadtab(\'' . $gSitePath . 'google/map/online' . $qid . '\',\'Facts And Figures : Online Users\')">'.$total_users.' Online</a></li>
-          <li><a href="javascript:loadtab(\'' . $gSitePath . 'google/map/questions' . $qid . '\',\'Facts And Figures : Total Questions\')">'.$quest.' Questions</a></li>
-          <li><a href="javascript:loadtab(\'' . $gSitePath . 'google/map/answer' . $qid . '\',\'Facts And Figures : Toatal Answers\')">'.$ans.' Answers</a></li>
+          <li><a href="javascript:loadtab(\''.$gSitePath.'google/map/users'.$qid.'\',\'Facts And Figures : Total Users\')">'.$usercnt.' Users</a></li>
+          <li><a href="javascript:loadtab(\''.$gSitePath.'google/map/online'.$qid.'\',\'Facts And Figures : Online Users\')">'.$total_users.' Online</a></li>
+          <li><a href="javascript:loadtab(\''.$gSitePath.'google/map/questions'.$qid.'\',\'Facts And Figures : Total Questions\')">'.$quest.' Questions</a></li>
+          <li><a href="javascript:loadtab(\''.$gSitePath.'google/map/answer'.$qid.'\',\'Facts And Figures : Toatal Answers\')">'.$ans.' Answers</a></li>
           </ul>
           </div>
           
           </div>
 <div class="clr"></div>
   ';
-	return $output;
+    return $output;
 }
 
-function load_bubble($uid=''){
-        //<img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40
-            $medal = updateProfileBadge($uid);
-            $details=load_user($uid);
-            $uname=$details->first_name.' '.$details->last_name;
-            $output='<table border="0" class="sitetour" ><tr><td>'.UserPicture($uid).'</td><td>'.$uname.'<br/>'.$medal.'</td></tr></table>';
-         
+function load_bubble($uid = '') {
+    //<img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40
+    $medal = updateProfileBadge($uid);
+    $details = load_user($uid);
+    $uname = $details->first_name.' '.$details->last_name;
+    $output = '<table border="0" class="sitetour" ><tr><td>'.UserPicture($uid).'</td><td>'.$uname.'<br/>'.$medal.'</td></tr></table>';
+    
     return $output;
 
 }
 /// vijay link color
 
-    function drupal_link_color($userid,$quesid)
-    {
-
-   if($userid)
-    {
-        $linkcolor = db_query("select count(*) as count from {possible_answer_vote} where qid='" . $quesid . "' and uid='" . $userid . "'  ");
-         $get_linkcolor = db_fetch_object($linkcolor);
-//         if($get_linkcolor->count==0)
-//         {
-//            // return "color:red";
-//         }
-          if($get_linkcolor->count==1)
-         {
-           // return "color:green";
-              return "font-weight:bold";
-         }
+function drupal_link_color($userid, $quesid) {
+    
+    if ($userid) {
+        $linkcolor = db_query("select count(*) as count from {possible_answer_vote} where qid='".$quesid."' and uid='".$userid."'  ");
+        $get_linkcolor = db_fetch_object($linkcolor);
+        //         if($get_linkcolor->count==0)
+        //         {
+        //            // return "color:red";
+        //         }
+        if ($get_linkcolor->count == 1) {
+            // return "color:green";
+            return "font-weight:bold";
+        }
     }
-           // return "color:#CC6600";
+    // return "color:#CC6600";
 
-    }
+}
 ?>
