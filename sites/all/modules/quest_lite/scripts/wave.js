@@ -60,7 +60,6 @@ jQuery('.textArea').focus();
 }
 
 function loadwave(qid,wid){
-	
 	url= gSitePath+'question/forum/?qid='+qid+'&wid='+wid;
 	jQuery.nyroModalSettings({ title:'Forum Posts'});
   var options = 'sameBox:true width:70% height:90% caption:' +
