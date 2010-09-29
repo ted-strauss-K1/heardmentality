@@ -177,10 +177,10 @@ $questlist.='</ul></div>
 	</div>
 	</div>
 	';
-        if($rs_folfet->count==0)
-        {
-            $questlist = "No records";
-        }
+//        if($rs_folfet->count==0)
+//        {
+//            $questlist = "No records";
+//        }
 
 	return $questlist;
 }
@@ -245,10 +245,10 @@ $questlist.='</ul></div>
 	</div>
 	</div>
 	';
-        if($rs_folfet->count==0)
-        {
-            $questlist = "No records";
-        }
+//        if($rs_folfet->count==0)
+//        {
+//            $questlist = "No records";
+//        }
 
 	return $questlist;
 }
