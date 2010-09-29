@@ -34,17 +34,18 @@ function treemenu_list() {
     
     for ($i = 0; $i < count($client_array); $i++) {
        
-        $strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.$client_array[$i].'</a></div>';
+        $strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.$client_array[$i].'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/follow/'.'catid='.$client_key[$i].'">Follow</a></div>';
         if (user_access("administer nodes")) {
             // Do something.
             
             $strReturn .= '&nbsp;<a href="'.$gSitePath.'category/add/'.$client_key[$i].'">Add</a>&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="'.$gSitePath.'category/edit/'.$client_key[$i].'">Edit </a>';
             $strReturn .= '&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="'.$gSitePath.'category/delete/'.$client_key[$i].'">Delete </a>';
+            //$strReturn .= '&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/follow/'.'catid='.$client_key[$i].'">Follow</a>';
         }
         $strReturn .= sub_menu($client_key[$i], 0);
         $strReturn .= '</li>';
     }
-
+ //<a href="'.$gSitePath.'searchquestion/follow/'.'catid='.$user_result->cat.'">Follow</a>
     
     $strReturn .= '</ul>';
     
