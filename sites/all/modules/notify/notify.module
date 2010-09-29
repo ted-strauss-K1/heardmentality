@@ -135,7 +135,8 @@ function notify_category()
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
- $sel_follow="select * from follower where uid='".$user->uid."'";
+ echo $sel_follow="select * from follower where uid='".$user->uid."'";
+ exit;
   $get_follow = db_query($sel_follow);
   $fet_follow = db_fetch_object($get_follow);
   
