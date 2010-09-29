@@ -37,6 +37,7 @@ function profile_view() {
             $strReturn = inbox_msg();
             break;
         default:
+		
 //badges
             enthusiast($uid);
             fanatic($uid);
@@ -115,7 +116,6 @@ function inbox_msg() {
 }
 
 function profile($uid = '') {
-
     global $gSitePath, $user, $gDocPath, $base_root, $theme, $directory;
 
     $image = 'noimage.jpg';
@@ -318,7 +318,7 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
         }
     }
     if ($uid != $user->uid && isset($getuser)) {
-        $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow </a><span class="separate">|</span> ';
+        $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow  </a><span class="separate">|</span> ';
     }
 
 
