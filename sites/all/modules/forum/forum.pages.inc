@@ -245,7 +245,7 @@ function post_notification($wid='',$wlid=''){
 		
 		 $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
             $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-		 $contentm = str_replace("#content#", "posted a reply['.$sel_wavelet->wavelet.'] under Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
+		 $contentm = str_replace("#content#", "posted a reply[".$sel_wavelet->wavelet."] under Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
 
 		//echo $contentm;
 		$mail_success = htmlmail_function($to,$subject_proj,$contentm,'');
