@@ -202,6 +202,11 @@ function notify_questions()
   // $fet_follow->follower_id;
   
 
+  $sel_flowcount="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
+    $rs_folquery = db_query($sel_flowcount);
+    $rs_folfet=db_fetch_object($rs_folquery);
+
+
 	//$sel_flow="select * from follower where uid='".$user->uid."' and question_id!=''";
         $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
      
@@ -240,6 +245,10 @@ $questlist.='</ul></div>
 	</div>
 	</div>
 	';
+        if($rs_folfet->count==0)
+        {
+            $questlist = "No records";
+        }
 
 	return $questlist;
 }
