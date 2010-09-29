@@ -1,27 +1,28 @@
 /**
  * @author gobinath.m
  */
-window.addEvent('domready', function(){
-
-
-    
-    
-});
+//window.addEvent('domready', function(){
+//
+//
+//
+//
+//});
 
 
 
 
 function get_Reply(make){
-
     var vals = [];
-    $$('.check-me').each(function(e){
-		if(e.getProperty('checked')){
-			
-			  vals.push(e.value);
-		}
-      
-    });
-	 if (vals.length > 0) {
+//    $$('.check-me').each(function(e){
+//		if(e.getProperty('checked')){
+//
+//			  vals.push(e.value);
+//		}
+//
+//    });
+ 
+	 //if (vals.length > 0) {
+        if($(":checkbox:checked").length) {
     var report = $('cmt_txt').get('value');
 	
     if ($('showbox_cmt').getStyle('display') == 'none') {
@@ -69,7 +70,6 @@ function get_votes(make){
     var vals = [];
     $$('.check-me').each(function(e){
 		if(e.getProperty('checked')){
-			
 			  vals.push(e.value);
 		}
       
@@ -87,10 +87,16 @@ function get_votes(make){
                 }
             });
             //Send the form.
-            $('cmtform').send();
-            
-       
-          
-   
-    
+            $('cmtform').send();   
+}
+function loadwave(qid,wid){
+	url= gSitePath+'question/forum/?qid='+qid+'&wid='+wid;
+	jQuery.nyroModalSettings({ title:'Forum Posts'});
+  var options = 'sameBox:true width:70% height:90% caption:' +
+  '`Forum Posts`';
+  parent.fb.start(url, options);
+            //jQuery.nyroModalManual({
+   // url: url,width:550,height:450,title:'Forum Posts'
+ // });
+//return hs.htmlExpand(url, { outlineType: 'rounded-white',wrapperClassName: 'draggable-header', objectType: 'iframe' } );
 }

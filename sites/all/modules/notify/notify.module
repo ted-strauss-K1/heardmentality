@@ -115,8 +115,10 @@ $followid=db_fetch_object($follow_list);
  foreach ($forum_list as $list) {
      
        // $output .= '<div>'.$list['title'].'</div>';
+      $click = 'loadwave('.$list['qid_rid'].','.$list['fid'].')';
+      
        $output.='
-	<div>'.$list['title'].'<div>';
+	<div><a href="javascript:void(0);" onclick="'.$click.'">'.$list['title'].'</a><div>';
     }
  $output .='</div>
 	</div>
@@ -128,5 +130,177 @@ $followid=db_fetch_object($follow_list);
 
 
 
+function notify_category()
+{
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+ $sel_follow="select * from follower where uid='".$user->uid."'";
+  $get_follow = db_query($sel_follow);
+  $fet_follow = db_fetch_object($get_follow);
+  
+
+
+
+ 
+	//$sel_flow="select * from follower where uid='".$user->uid."' and  cat_id!=''";
+       $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+        
+	$rs_folwin=db_query($sel_flow);
+	$questlist='
+		<div id="container">
+		<div class="feature">
+		<div class="l col">
+		<ul>';
+       $chk = '';
+	while($flwing_result=db_fetch_object($rs_folwin))
+	{
+
+	//$questlist.=' '.$flwing_result->cat_name.'';
+
+	$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
+	$mm=db_query($sel_suge);
+
+	$ans_result=db_fetch_object($mm);
+	//$questlist.=' '.$ans_result->cat_name.'<br/>';
+
+ //$queslist .='<div><a href="'.$gSitePath.'/searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
+        $questlist .='<div><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
+
+	}
+$questlist.='</ul></div>
+	</div>
+	</div>
+	';
+
+	return $questlist;
+}
+
+
+
+
+
+
+
+function notify_questions()
+{
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+ $sel_follow="select * from follower where uid='".$user->uid."'";
+  $get_follow = db_query($sel_follow);
+  $fet_follow = db_fetch_object($get_follow);
+  // $fet_follow->follower_id;
+  
+
+	//$sel_flow="select * from follower where uid='".$user->uid."' and question_id!=''";
+        $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
+     
+
+	$rs_folwin=db_query($sel_flow);
+	$questlist='
+		<div id="container">
+		<div class="feature">
+		<div class="l col">
+		<ul>';
+       $chk = '';
+	while($flwing_result=db_fetch_object($rs_folwin))
+	{
+
+	//$questlist.=' '.$flwing_result->cat_name.'';
+
+              $sel_count="select count(*) as count from possible_answer_vote  where qid=".$flwing_result->question_id."";
+              $ss = db_query($sel_count);
+              $sel_result=db_fetch_object($ss);
+              if(!$sel_result->count)
+              {
+
+	$sel_suge="select * from question  where qid=".$flwing_result->question_id."  ";
+     
+	$mm=db_query($sel_suge);
+
+	$ans_result=db_fetch_object($mm);
+              }
+	//$questlist.=' '.$ans_result->cat_name.'<br/>';
+
+ //$queslist .='<div><a href="'.$gSitePath.'/searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
+        $questlist .='<div><a href="'.$gSitePath.$ans_result->url.'">'.$ans_result->question.'</a></div>';
+
+	}
+$questlist.='</ul></div>
+	</div>
+	</div>
+	';
+
+	return $questlist;
+}
+
+
+function notify_questionstop(){
+
+     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+$numrancntss = db_result(db_query("SELECT COUNT(*)  from notification as a, question as b  where a.uid=".$user->uid." and a.follower_action='1'  and a.is_question='1' and a.node_id=b.qid  and b.status='1'  order by a.nid desc  "));
+
+ $numrancntss;
+
+	 $sel_flow="select * from notification as a, question as b  where a.uid=".$user->uid." and a.follower_action='1'  and a.is_question='1' and a.node_id=b.qid  and b.status='1'  order by a.nid desc ";
+
+	$rs_folwin=db_query($sel_flow);
+	$questlist='
+		<form id="cmtform" method="post" action="'.$gSitePath.'reply" ><div id="container">
+		<div class="feature">
+		<div class="l col">
+		<ul>';
+       $chk = '';
+	while($flwing_result=db_fetch_object($rs_folwin))
+	{
+
+	$sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$flwing_result->uid."'";
+	$rs_umlog=db_query($sel_ulist);
+	$user_namelistf=db_fetch_object($rs_umlog);
+
+	$sel_suge="select * from possible_answer  where qid=".$flwing_result->qid."  ";
+	$mm=db_query($sel_suge);
+
+
+		$questlist.='<li>
+	<h3><input type="checkbox" class="check-me" name="usids[]" value="'.$flwing_result->uid.'" /> <a href="'.$gSitePath.'profile/'.$user_namelistf->name.'" style="'.drupal_link_color($user->uid,$flwing_result->qid).'"> '.$user_namelistf->name.' </a> <br><a href="'.$gSitePath.'notify/'.$flwing_result->url.'">'.substr($flwing_result->question,0,10).'</a>      </h3><div>'.$flwing_result->context.'</div>
+	';
+
+	   $numrand = db_fetch_object(db_query("SELECT * from {possible_answer_vote} where qid=".$flwing_result->qid." and uid=".$user->uid." "));
+
+  $seltd = '';
+	while($ans_result=db_fetch_object($mm))
+	{
+	 $seltd = '';
+   if ($numrand->panswer_id ==$ans_result->paid)
+     {
+	 $seltd='checked="checked"';
+     }
+	$questlist.=' <input name="'.$flwing_result->qid.'" type="radio" value="'.$ans_result->paid.'" '.$seltd.' />'.$ans_result->answer.'<br>';
+
+	}
+	}
+
+$questlist.='</ul></div>
+	</div>
+
+	</div>
+	';
+	if($numrancntss==0)
+	{
+	$questlist.='No Notifications';
+	}
+	else
+	{
+	$questlist.='<div><div id="clist"></div><div id="showbox_cmt" align="left" style="width:100%;display:none"><label for="cmt_txt"><b> Message :</b></label><br/><textarea name="cmt_txt" cols="55" row="17" id="cmt_txt"></textarea><input type="hidden" id="action" name="action" value="1"/> </div><input type="button" name="Votes" value="Votes" onclick="get_votes(1);"/>
+	<input type="button" name="Reply" value="Reply" onclick="get_Reply(0);"/>
+	</div>';
+	}
+	$questlist.=' </form>';
+	//echo $questlist
+        return $questlist;    
+}
 	
 	
