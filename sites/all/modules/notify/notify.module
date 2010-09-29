@@ -144,6 +144,11 @@ function notify_category()
 
  
 	//$sel_flow="select * from follower where uid='".$user->uid."' and  cat_id!=''";
+    $sel_flowcount="select count(*) as count from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+    $rs_folquery = db_query($sel_flowcount);
+    $rs_folfet=db_fetch_object($rs_folquery);
+
+    
        $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
         
 	$rs_folwin=db_query($sel_flow);
@@ -172,6 +177,10 @@ $questlist.='</ul></div>
 	</div>
 	</div>
 	';
+        if($rs_folfet->count==0)
+        {
+            $questlist = "No records";
+        }
 
 	return $questlist;
 }
