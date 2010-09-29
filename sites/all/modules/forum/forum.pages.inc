@@ -198,20 +198,26 @@ function cmt_submit() {
         
         $query = "insert into {forum_wavelets} set wid='$wid',uid='$user->uid',parentid='$wlet',wavelet='".mysql_escape_string($cmt)."',private='$pvt'";
         
-        $set = ExecuteQuery($query, "insert");
-        post_notification($set);
+        $wlid = ExecuteQuery($query, "insert");
+     
         
-        echo $output = get_wavelets($wid, 0);
+        echo $output = get_wavelets($wid, 0); 
+		
+		  post_notification($wid,$wlid);
         exit;
     }
 
 }
-function post_notification($nid='',$set=''){
+function post_notification($wid='',$wlid=''){
     
  global $gSitePath,$user,$gDocPath,$base_root;
 	////////////mail notication for user follwers to me//////////////////////////////////////
 		 $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
 		$rs_followerf = db_query($sel_listf);
+		 $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$wid'"));
+		 
+		   $qdetails = load_question($sel_wave->qid_rid);
+		 $sel_wavelet = db_fetch_object(db_query("select * from {forum_wavelets} where wlid='$wlid' AND uid='$user->uid'"));
 		while ($follower_resultfuser = db_fetch_object($rs_followerf))
 		{
 
@@ -236,6 +242,11 @@ function post_notification($nid='',$set=''){
 		$subject_proj=$list_content->subject;
 		$contentm=str_replace("#uname#",$usert->name,$list_content->content);
 		$contentm= str_replace("#anothername#",$user->name,$contentm);
+		
+		 $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+            $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+		 $contentm = str_replace("#content#", "posted a reply['.$sel_wavelet->wavelet.'] under Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
+
 		//echo $contentm;
 		$mail_success = htmlmail_function($to,$subject_proj,$contentm,'');
 		}
