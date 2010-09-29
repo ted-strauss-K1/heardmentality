@@ -149,7 +149,8 @@ function notify_category()
     $rs_folfet=db_fetch_object($rs_folquery);
 
     
-       $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+      echo  $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+      exit;
         
 	$rs_folwin=db_query($sel_flow);
 	$questlist='
