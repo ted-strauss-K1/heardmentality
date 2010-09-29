@@ -718,6 +718,7 @@ $ccode=$country->CountryCode;
         }
         
         if ($result)
+		
             $output = drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
         unset($_SESSION['post']);
         $_SESSION['post'] = '';
@@ -748,9 +749,10 @@ $ccode=$country->CountryCode;
 }
 
 function send_qnotify($qid=''){
+    
         global $gSitePath,$user,$gDocPath,$base_root;
             ////////////mail notication for user follwers to me//////////////////////////////////////
-        $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+         $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
         $rs_followerf = db_query($sel_listf);
         while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
 
