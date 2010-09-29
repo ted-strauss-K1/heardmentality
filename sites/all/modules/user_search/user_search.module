@@ -19,6 +19,7 @@ function user_search_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
+	
     $search_result['searchquestion'] = array(
         'title' => '  SEARCH RESULTS',
         'page callback' => 'search_results_question',
@@ -26,6 +27,24 @@ function user_search_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
+	 
+	$search_result['searchquestion/follow'] = array(
+        'title' => '  SEARCH RESULTS',
+        'page callback' => 'search_follow',
+        'access arguments' => array('Search User'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+
+
+        $search_result['categoryquestion/follow'] = array(
+        'title' => '  SEARCH RESULTS',
+        'page callback' => 'question_follow',
+        'access arguments' => array('Search User'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+	
     $search_result['follower'] = array(
         'title' => 'Follower',
         'page callback' => 'user_follower',

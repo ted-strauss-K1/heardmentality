@@ -154,9 +154,55 @@ function search_results() {
 
     return $fetresult;
 }
+function search_follow()
+{
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+   $cat =  explode("/",$_REQUEST['q']);
+        $catid = explode("=",$cat[2]);
+
+          $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  cat_id='" .$catid[1]."'  and  uid ='" . $user->uid . "'"));
+        
+        if(!$res_num){
+             db_query("insert into follower(uid,cat_id)values('".$user->uid."','".$catid[1]."')");
+             $output = drupal_set_message(t('Category follows added successfully !'), $type = 'success');
+              echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
+        }
+        else
+        {
+             $output = drupal_set_message(t('Category follows already added !'), $type = 'success');
+             echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
+        }
+}
+
+
+function question_follow()
+{
+
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+   $ques =  explode("/",$_REQUEST['q']);
+        $quesid = explode("=",$ques[2]);
+       
+
+          $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  question_id='" .$quesid[1]."'  and  uid ='" . $user->uid . "'"));
+         
+
+        if(!$res_num){
+             db_query("insert into follower(uid,question_id)values('".$user->uid."','".$quesid[1]."')");
+             $output = drupal_set_message(t('Questions follows added successfully !'), $type = 'success');
+              echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
+        }
+        else
+        {
+             $output = drupal_set_message(t('Questions follows already added !'), $type = 'success');
+             echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
+        }
+   
+}
+
+
 
 function search_results_question() {
-    
+   
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
     $start = '';
     $txt_search = '';
@@ -250,15 +296,18 @@ function search_results_question() {
         }
         $numresum = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$user_result->qid'"));
         $fetresult .= ' <div class="result-item">
-		 
+		
        <div class="titl">
+        
 	<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>    </div><div class="rleft">';
         while ($vlistquest = db_fetch_object($vlist)) {
             $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" />' . $vlistquest->answer . '</div>';
         }
         $fetresult .= '</div><div class="rright">
+        <a href="'.$gSitePath.'categoryquestion/follow/'.'quesid='.$user_result->qid .'">Follow</a>
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
+	 
 	   <div align="center"><a href="#" class="vote-post">' . $totalvotes . '</a></div>
       <div align="center"><a href="#" class="vote-post">' . $numresum . '</a></div>
       </div>';
