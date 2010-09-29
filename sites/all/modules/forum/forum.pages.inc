@@ -1,6 +1,7 @@
 <?php
 // tree menu listing
 function forum_list($qid = '') {
+
     global $gSitePath,$user,$gDocPath,$base_root;
 	$output = '';
     $like = '';
@@ -27,27 +28,7 @@ function forum_list($qid = '') {
      <script src="'.$gSitePath.drupal_get_path('theme', 'newtheme').'/scripts/jbubble.js"></script>
 <link rel="stylesheet" href="'.base_path().path_to_theme().'/css/css.css" type="text/css" />
 	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/css/wave.css" type="text/css" />';
-    $output.="
-        <script>
-             jQuery(document).ready(function(){
-                        jQuery('body a').each(function()
-                        {
-                            if( jQuery(this).attr('rel').length>0){
-
-                                jQuery(this).SetBubblePopup({
-                                    innerHtml: jQuery(this).attr('rel'),
-                                    color:'grey',
-                                    imageFolder: '".$gSitePath.drupal_get_path('theme', 'newtheme')."/images/bp_images',
-
-                                });
-                            }
-
-
-                        });
-                        });
-
-                        </script>
-        ";
+    
     $output .= '	<div class="facttop2">FORUM POSTS</div><div class="">';
     foreach ($list as $forum) {
 
@@ -98,10 +79,11 @@ function forum_list($qid = '') {
 
 <!--	<input type="button" class="waveButtonMain"  value="Add Comment" id="newwaveletbut"/>-->
 		</div>';
-    
+    //// vijay comment box
     $output .= '<div id="commentArea" class="waveletmain-add" style="display:none;"> <div class="waveComment addComment">  ';
     
     if (! empty($user->uid)) {
+	
         $output .= '
 		<div class="comment">			
 		
