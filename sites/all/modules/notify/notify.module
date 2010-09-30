@@ -152,7 +152,7 @@ function notify_category()
     $rs_folfet=db_fetch_object($rs_folquery);*/
 
     
-     echo $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+      $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
      
       
       
@@ -184,7 +184,7 @@ function notify_category()
 
 
   }
-exit;
+
 
 
 $questlist.='</ul></div>
