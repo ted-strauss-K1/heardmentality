@@ -239,7 +239,7 @@ function notify_questions()
 
 	//$questlist.=' '.$flwing_result->cat_name.'';
 
-              $sel_count="select count(*) as count from possible_answer_vote  where qid=".$flwing_result->question_id."";
+              echo $sel_count="select count(*) as count from possible_answer_vote  where qid=".$flwing_result->question_id."";
               $ss = db_query($sel_count);
               $sel_result=db_fetch_object($ss);
               if(!$sel_result->count)
