@@ -155,9 +155,6 @@ function notify_category()
         $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
        
      
-      
-      
-      
         
 	$rs_folwin=db_query($sel_flow);
 	$questlist='
@@ -181,9 +178,6 @@ function notify_category()
         $questlist .='<div><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
 
 	}
-       
-
-
   }
 
 
