@@ -347,12 +347,12 @@ function search_results_question() {
   
        $sel_ans = db_query("select * from {possible_answer} where paid='".$get_value->panswer_id."'");
        $get_ans = db_fetch_object($sel_ans);
-       if($get_ans->answer==$vlistquest->answer)
+       if($get_ans->paid==$vlistquest->paid)
        {
             $check = "checked='".checked."'";
        }
 
-            $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" '.$check.'  />' . $vlistquest->answer . '</div>';
+            $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" '.$check.'  />' . $vlistquest->answer. '</div>';
         }
 
 
