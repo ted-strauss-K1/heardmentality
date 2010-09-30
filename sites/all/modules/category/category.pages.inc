@@ -312,6 +312,7 @@ function sub_menu($id = '', $level = '') {
                     $strReturn .= '&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="edit/'.$client_key[$i].'">Edit </a>';
                     $strReturn .= '&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="delete/'.$client_key[$i].'">Delete </a>';
                 }
+                $strReturn .= '|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/follow/'.'catid='.$client_key[$i].'">Follow</a>';
                 $strReturn .= sub_menu($client_key[$i], $level + 1);
                 
                 $strReturn .= '</li>';
