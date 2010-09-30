@@ -218,6 +218,25 @@ function question_follow()
    
 }
 
+function question_unfollow()
+{
+
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+   $ques =  explode("/",$_REQUEST['q']);
+        $quesid = explode("=",$ques[2]);
+
+
+          $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  question_id='" .$quesid[1]."'  and  uid ='" . $user->uid . "'"));
+
+
+        if($res_num==1){
+             //db_query("insert into follower(uid,question_id)values('".$user->uid."','".$quesid[1]."')");
+            db_query("delete from follower where uid='".$user->uid."' and question_id='".$quesid[1]."'");
+             $output = drupal_set_message(t('Questions follows deleted successfully !'), $type = 'success');
+              echo '<script>window.parent.location.href="'.$gSitePath.'categor/";</script>';
+        }
+}
+
 
 
 function search_results_question() {
@@ -322,8 +341,25 @@ function search_results_question() {
         while ($vlistquest = db_fetch_object($vlist)) {
             $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" />' . $vlistquest->answer . '</div>';
         }
+
+
+        $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='".$user->uid."'and question_id='".$user_result->qid."'");
+          $fol_list = db_fetch_object($fol_qry);
+
+          if($fol_list->count==1)
+          {
+                $follow = "UnFollow";
+          }
+          if($fol_list->count==0)
+          {
+              $follow = "Follow";
+          }
+
+
+          
+        
         $fetresult .= '</div><div class="rright">
-        <a href="'.$gSitePath.'categoryquestion/follow/'.'quesid='.$user_result->qid .'">Follow</a>
+        <a href="'.$gSitePath.'categoryquestion/'.$follow.'/'.'quesid='.$user_result->qid .'">'.$follow.'</a>
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
 	 
