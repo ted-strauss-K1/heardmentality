@@ -605,6 +605,9 @@ ob_start();
     $email = '';
     $followers = '';
     $following = '';
+	
+	if(!$user->uid>0)
+		drupal_not_found();
   
  //   print_r(avatar_selection_form_user_profile_form_alter());
     if ($_COOKIE["faceidc"] != '') {
@@ -715,7 +718,11 @@ ob_start();
         if ($result) {
             $sucflag = '';
             $sucflag = 1;
-            $message = 'Profile Updated Successfully!<script>parent.$.nyroModalRemove();</script>';
+			if(isset($_SESSION['filepath'])){
+				echo '<script>window.top.location.href="'.$gSitePath.'user/cropimage";</script>';
+			}
+			
+            $message = 'Profile Updated Successfully!<script>fb.end();</script>';
         
         }
 
@@ -845,13 +852,20 @@ ob_start();
     $option1 = '<option value=1>'.$usertypes[0].'</option>';
     $option2 = '<option value=2>'.$usertypes[1].'</option>';
     $option3 = '<option value=3>'.$usertypes[2].'</option>';
-    $op = '<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
+    $op = '
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+	<head>
+	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	<script type="text/javascript">
 var spath=\''.$gSitePath.'\';
 </script><script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript">
 </script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
 <link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 </script><script src="'.$gSitePath.'/misc/jquery.js" type="text/javascript"></script>
+<script src="'.$gSitePath.path_to_theme().'/floatbox/floatbox.js" type="text/javascript">
+</script>
 <script>
 jQuery.noConflict();
 </script>
@@ -859,7 +873,10 @@ jQuery.noConflict();
 
 </script><script src="'.$gSitePath.$ava_js.'" type="text/javascript"></script>
 <link rel="stylesheet" href="'.$gSitePath.$ava_css.'" type="text/css" />
-		<link type="text/css" rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'openids').'/css/log.css" /><div id="container">
+<link type="text/css" rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'openids').'/css/log.css" /><div id="container">
+</head>
+<body>
+		
    <form name="reg" id="reg"  onsubmit="return validate_reg();"  method="post" enctype="multipart/form-data">
    <div class="facttop2">EDIT PROFILE</div>
     <div class="info">
@@ -929,17 +946,11 @@ jQuery.noConflict();
 	 
 	 
 	</fieldset>	
-	<fieldset><legend><b><i>Picture</i></b></legend><input type="hidden" value="" id="edit-picture-delete" name="picture_delete">
-<div id="edit-picture-upload-wrapper" class="form-item">
- <label for="edit-picture-upload"><input name="pic_avt" type="radio" '.$avtchk1.' value="1"/>Upload picture: </label>
- <input type="file" size="48"  id="edit-picture-upload" class="form-file"  name="image" id="image" />'.UserPicture($uid,1).'
-				<input type="hidden" name="oldimg" value="'.$image.'"/>
- <div class="description">Please select your Image from your local file system. </div>
- <div ><b>[OR]</b></div>
- <input name="pic_avt" type="radio" '.$avtchk2.' value="2"/>
-</div>
+	<fieldset><legend><b><i>Picture</i></b></legend><input type="hidden" name="oldimg" value="'.$image.'"/>
+	<div class="porfile_pix">
 '.$avatarform.'
-<div class="avatar-selection-pager-nav"></div></fieldset>
+</div>
+</fieldset>
 	 <fieldset>
 		<legend><b><i>Links</i></b> </legend>
 		<div class="form-item" id="edit-name-wrapper"> 
@@ -1095,16 +1106,17 @@ everyone or just followers or not at all while adding a question)
 		<script>
 			var avat="'.$avatar.'";
 			if(avat.length>2){
-			jQuery("div.user-avatar-select img").each(function(){ if(jQuery(this).attr("src").contains(avat)){
+			jQuery("div.porfile_pix img").each(function(){ if(jQuery(this).attr("src").contains(avat)){
 		jQuery(this).addClass("avatar-select");	
 }
 			});
 }else{
-	jQuery("div.user-avatar-select img:first").addClass("avatar-select");	
-	jQuery("div.user-avatar-select input:first").attr("checked","checked");	
-	
+	jQuery("div.porfile_pix img:first").addClass("avatar-select");	
+	jQuery("div.porfile_pix input:first").attr("checked","checked");	
 }
+			var avatchk="'.$image_avatar.'";
 			
+			jQuery("div.porfile_pix input:radio[value="+avatchk+"]").attr("checked","checked");
 			
 			setTimeout(markit,1000);
 
@@ -1209,7 +1221,8 @@ elt.each(function(el){ el.set(\'value\',chk); });
 			</script>
 	
 
-    </div>
+    </div> </body>
+	</html>
 ';
     setcookie("faceidc");
     echo $op;
@@ -1224,7 +1237,30 @@ function avatar_form($form, &$form_state) {
 	$form=array();
 	  // We find out the current page number.
   $page = 0;
-  if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+  
+  $form['#attributes']['enctype'] = 'multipart/form-data';
+	  	
+	$form['pic_exp'] = array(
+    '#type' => 'markup',
+    '#value' => '<span>' . t('&nbsp;') . '</span><br/><input type="radio" value="1" name="pic_avt">',
+  );
+
+	$form['avatar_crop_title']=array(
+		'#prefix' => '<div class="avatar-crop-title">',
+  		'#suffix' => '</div>',
+  		'#value' => t('Choose profile picture.'),
+    );
+  	$form['file_upload'] = array(
+    	'#title' => t('Upload file'),
+    	'#type'  => 'file',
+  	);
+  	$form['submit_upload'] = array(
+    	'#type'  =>  'markup',
+    	'#value'  =>  '<div>'.UserPicture($user->uid,1).'<div>',
+  );
+  
+				
+    if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $page = $_GET['page'];
   }
   $anon_user = drupal_anonymous_user();
@@ -1237,7 +1273,12 @@ function avatar_form($form, &$form_state) {
 	$avatar=(!empty($udetails->avatar))?$udetails->avatar:'';
 
   if (count($selects['avatars'])) {
-  
+  	
+	$form['avt_exp'] = array(
+    '#type' => 'markup',
+    '#value' => '<br/><div><b>' . t('[OR]') . '</b></div><input type="radio" value="2" name="pic_avt">',
+  );
+
 
     drupal_add_js(drupal_get_path('module', 'avatar_selection') .'/js/avatar_selection_pager.js', 'module', 'header');
     $form['picture']['select_avatar'] = array(
@@ -1262,8 +1303,64 @@ function avatar_form($form, &$form_state) {
 
 function event_photo_profile() {
     global $gSitePath,$user,$gDocPath,$base_root;
-    $suc = '';
+	    $suc = '';
     $return = array();
+	
+	  $validators = array(
+  	'file_validate_is_image' => array(),
+    'file_validate_image_resolution' => array('500x500'),
+    'file_validate_size' => array(500 * 1024),
+  
+  );
+	  $upload_dir=variable_get('user_picture_path','pictures');
+	  $filepath=file_directory_path();
+	  $dest = $filepath . '/' .$upload_dir;
+	  $file = file_save_upload('file_upload', $validators, $dest);
+	  global $user;
+	  $owner=$user->uid;
+	  $filetype;
+	  $filetype = $file->filemime;
+	  $extension='';
+  switch ($filetype) { 
+	  case 'image/jpeg':
+	      $extension='jpg';
+	  break;
+	  case 'image/png':
+	      $extension='png';
+	  break;
+	  case 'image/gif':
+	      $extension='gif';
+	  break;
+  }
+  $dest = variable_get('user_picture_path', 'pictures') .'/picture-'. $owner .'.'. $extension;
+  
+  if ($file != 0) {      
+  	//$dest_path = 'files/upload_directory';
+   $result = file_move($file, $dest, FILE_EXISTS_RENAME);
+	$flag = 0;
+		
+  }
+  
+       if ($result == 1) {
+       	$insimage=$file->filepath;
+    	$_SESSION['filepath']=$file->filepath;
+    	$_SESSION['fid']=$file->fid;
+    	$_SESSION['filetype']=$file->filemime;
+    	 $flag = 0;
+    	
+    }  elseif (isset($_REQUEST['oldimg'])) {
+        $insimage = $_REQUEST['oldimg'];
+        $flag = 0;
+    } else {
+        $flag = 0;
+        $insimage = "noimage.jpg";
+    }//file up ends
+
+	 $return['image'] = $insimage;
+    $return['flag'] = $flag;
+    $return['suc'] = $suc;
+    return $return;
+/*
     $filename = $_FILES['image']['name'];// file up starts
     $tmp_image = $_FILES['image']['tmp_name'];
     if ($filename != '') {
@@ -1308,10 +1405,7 @@ function event_photo_profile() {
         $insimage = "noimage.jpg";
     }//file up ends
     
-    $return['image'] = $insimage;
-    $return['flag'] = $flag;
-    $return['suc'] = $suc;
-    return $return;
+   */
 }
 
 
