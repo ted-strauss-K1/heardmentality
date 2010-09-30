@@ -233,7 +233,7 @@ function question_unfollow()
              //db_query("insert into follower(uid,question_id)values('".$user->uid."','".$quesid[1]."')");
             db_query("delete from follower where uid='".$user->uid."' and question_id='".$quesid[1]."'");
              $output = drupal_set_message(t('Questions follows deleted successfully !'), $type = 'success');
-              echo '<script>window.parent.location.href="'.$gSitePath.'categor/";</script>';
+              echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
         }
 }
 
