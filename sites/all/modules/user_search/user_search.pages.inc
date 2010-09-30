@@ -339,7 +339,20 @@ function search_results_question() {
         
 	<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>    </div><div class="rleft">';
         while ($vlistquest = db_fetch_object($vlist)) {
-            $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" />' . $vlistquest->answer . '</div>';
+
+           
+        $sel_qry = db_query("select * from {possible_answer_vote} where qid='".$user_result->qid."' and uid='".$user->uid."'  ");
+        $get_value = db_fetch_object($sel_qry);
+       
+  
+       $sel_ans = db_query("select * from {possible_answer} where paid='".$get_value->panswer_id."'");
+       $get_ans = db_fetch_object($sel_ans);
+       if($get_ans->answer==$vlistquest->answer)
+       {
+            $check = "checked='".checked."'";
+       }
+
+            $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" '.$check.'  />' . $vlistquest->answer . '</div>';
         }
 
 
