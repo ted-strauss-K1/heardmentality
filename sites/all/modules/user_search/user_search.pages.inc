@@ -360,7 +360,8 @@ function search_results_question() {
        $get_ans = db_fetch_object($sel_ans);
 
        
-
+        echo $get_ans->paid;
+        echo $vlistquest->paid;
             $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" '.check_select($get_ans->paid,$vlistquest->paid).'  />' . $vlistquest->answer. '</div>';
         }
 
