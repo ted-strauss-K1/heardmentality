@@ -33,8 +33,21 @@ function treemenu_list() {
     $strReturn .= '<ul id="navigation">';
     
     for ($i = 0; $i < count($client_array); $i++) {
-       
-        $strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.$client_array[$i].'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/follow/'.'catid='.$client_key[$i].'">Follow</a></div>';
+
+         $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='".$user->uid."'and cat_id='".$client_key[$i]."'");
+          $fol_list = db_fetch_object($fol_qry);
+
+          if($fol_list->count==1)
+          {
+                $follow = "UnFollow";
+          }
+          if($fol_list->count==0)
+          {
+              $follow = "Follow";
+          }
+
+
+        $strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.$client_array[$i].'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid='.$client_key[$i].'">'.$follow.'</a></div>';
         if (user_access("administer nodes")) {
             // Do something.
             
