@@ -156,7 +156,7 @@ function search_results() {
 }
 function search_follow()
 {
-   
+       
      global $gSitePath, $user, $gDocPath, $base_root, $base_path;
    $cat =  explode("/",$_REQUEST['q']);
         $catid = explode("=",$cat[2]);
@@ -173,6 +173,24 @@ function search_follow()
              $output = drupal_set_message(t('Category follows already added !'), $type = 'success');
              echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
         }
+}
+function search_unfollow()
+{
+        
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+   $cat =  explode("/",$_REQUEST['q']);
+        $catid = explode("=",$cat[2]);
+
+          $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  cat_id='" .$catid[1]."'  and  uid ='" . $user->uid . "'"));
+
+
+        if($res_num){
+             db_query("delete from follower where uid='".$user->uid."' and cat_id='".$catid[1]."'");
+            // db_query("delete from follower(uid,cat_id)values('".$user->uid."','".$catid[1]."')");
+             $output = drupal_set_message(t('Category Unfollows successfully !'), $type = 'success');
+              echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
+        }
+        
 }
 
 
