@@ -135,24 +135,25 @@ function notify_category()
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
- echo $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
- exit;
+ $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
+ 
 
   $get_follow = db_query($sel_follow);
-  $fet_follow = db_fetch_object($get_follow);
+  while($fet_follow = db_fetch_object($get_follow))
+  {
   
 
 
 
  
 	//$sel_flow="select * from follower where uid='".$user->uid."' and  cat_id!=''";
-    $sel_flowcount="select count(*) as count from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+   /* $sel_flowcount="select count(*) as count from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
     $rs_folquery = db_query($sel_flowcount);
-    $rs_folfet=db_fetch_object($rs_folquery);
+    $rs_folfet=db_fetch_object($rs_folquery);*/
 
     
      echo $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
-     exit;
+     
       
       
       
@@ -179,6 +180,13 @@ function notify_category()
         $questlist .='<div><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
 
 	}
+        exit;
+
+
+  }
+
+
+
 $questlist.='</ul></div>
 	</div>
 	</div>
