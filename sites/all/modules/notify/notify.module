@@ -245,7 +245,7 @@ function notify_questions()
               if($sel_result->count!='')
               {
 
-	echo $sel_suge="select * from question  where qid=".$flwing_result->question_id."  ";
+	 $sel_suge="select * from question  where qid=".$flwing_result->question_id."  ";
         
      
 	$mm=db_query($sel_suge);
@@ -259,7 +259,6 @@ function notify_questions()
 
 	}
  }
- exit;
 
 $questlist.='</ul></div>
 	</div>
