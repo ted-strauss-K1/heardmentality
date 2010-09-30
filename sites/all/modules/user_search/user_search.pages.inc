@@ -156,8 +156,7 @@ function search_results() {
 }
 function search_follow()
 {
-    echo "hi follow";
-    exit;
+   
      global $gSitePath, $user, $gDocPath, $base_root, $base_path;
    $cat =  explode("/",$_REQUEST['q']);
         $catid = explode("=",$cat[2]);
