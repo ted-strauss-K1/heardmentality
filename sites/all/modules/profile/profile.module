@@ -337,7 +337,8 @@ function suggest_follow()
 
 	array_push($array2,$flwing_result->follower_id);
 
-	$sel_suge="select * from follower  where uid='".$flwing_result->follower_id."' and follower_id!='".$user->uid."' limit 0,5";
+	echo $sel_suge="select * from follower  where uid='".$flwing_result->follower_id."' and follower_id!='".$user->uid."' limit 0,5";
+        exit;
 	$rs_suges=db_query($sel_suge);
 
 	while($suggest_list=db_fetch_object($rs_suges))
