@@ -178,7 +178,7 @@ function notify_category()
 
  //$queslist .='<div><a href="'.$gSitePath.'/searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
        // $questlist .='<div><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
-      $questlist .= $ans_result->cat_name;
+     echo  $ans_result->cat_name;
 
 	}
        
