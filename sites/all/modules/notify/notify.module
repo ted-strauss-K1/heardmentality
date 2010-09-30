@@ -216,7 +216,8 @@ function notify_questions()
   // $fet_follow->follower_id;
   
 
-  $sel_flowcount="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
+  echo $sel_flowcount="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
+  exit;
     $rs_folquery = db_query($sel_flowcount);
     $rs_folfet=db_fetch_object($rs_folquery);
 
