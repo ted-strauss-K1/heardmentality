@@ -347,14 +347,18 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
     $flinkflw = '';
     $sendmsg = '';
     $badges = '';
+	$cavatar='';
+
+	
     if ($uid != $user->uid) {
+    	
         $share = '<a href="javascript:void(0);" onclick="loadflagquestion(\'' . $gSitePath . 'qlite/flag/?uid=' . $uid . '\',\'Report \');
 ">Report</a><span class="separate">|</span>';
         $flinkflw = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow </a><span class="separate">|</span> ';
 
         $sendmsg = '<a onclick="profile_comment(' . $getuser->uid . ');" >Send Message </a><span class="separate">|</span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' . $uid . '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
     } else {
-
+			$cavatar='<a href="'.$gSitePath.'user/getimage" >Change Picture</a>';
         $edit.='<a href="' . $gSitePath . '?act=edit" >Edit My Profile </a><span class="separate">|</span><a href="' . $gSitePath . 'profile/?tag=msg" >Messages(' . $cnt_msg . ') </a> ';
     }
 
@@ -386,7 +390,7 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
       </div>
       <div class="profile_lft">
       	<div class="pro_row">
-        <div class="profile_pict">' . UserPicture($uid) . $medal . '</div>
+        <div class="profile_pict">'.$cavatar. UserPicture($uid) . $medal . '</div>
         <div class="profile_desc">
         	<div>' . $real_name1 . '<br />
 			' . $dob1 . '<br />
@@ -811,7 +815,7 @@ function followinglist($uids) {
         $rs_userm = db_query($sel_userm);
         $user_namelist = db_fetch_object($rs_userm);
 
-        $bubble = load_bubble($following_list->id);
+        $bubble = load_bubble($following_list->follower_id);
 
         $following[] = '<div  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
     }
