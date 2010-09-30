@@ -41,24 +41,26 @@ function loadTab(tabObj,containerId){
     $(containerId).addClass('loading');
     $(containerId).fadeOut('fast');
     
-    $(containerId).load(tabObj.attr('href'), function(){
+    $(containerId).load(tabObj.attr('href'), function(response){
         $(containerId).removeClass('loading');
         $(containerId).fadeIn('fast');
-             jQuery('#tabcontent a').each(function()
-                        {
+  setTimeout("setbub()",3000) ;
+    });
 
-                            if( jQuery(this).attr("rel").length>0){
+}
+
+
+          function setbub(){
+    jQuery("#tabcontent").find("a").each(function(){
+             if( jQuery(this).attr("rel").length>0){
 
                                 jQuery(this).SetBubblePopup({
                                     innerHtml: jQuery(this).attr("rel"),
-                                    color:'grey',
-                                    imageFolder: '../images/bp_images',
+                                    color:"grey",
+                                    imageFolder: "/images/bp_images",
 
                                 });
                             }
 
 
-                        });
-    });
- 
-}
+        }); }

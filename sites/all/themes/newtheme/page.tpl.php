@@ -2,19 +2,21 @@
 
       <!--content area-->
       <div class="contarea">
-   <div class="commu">
-          <div class="">
+   
 
  
-
+			
       <?php if (!empty($left)): ?>
+	  <div class="commu">
+          <div class="">
         <div id="sidebar-left" class="column sidebar">
           <?php print $left; ?>
         </div> <!-- /sidebar-left -->
-      <?php endif; ?>
-    <div class="clr"></div>
+      <div class="clr"></div>
           </div>
        </div>
+	  <?php endif; ?>
+    
         
            <div class="ques">
           <div class="questop">

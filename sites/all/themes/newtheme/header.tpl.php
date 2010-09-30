@@ -55,7 +55,7 @@ $directory = $base_path . $directory;
                                 jQuery(this).SetBubblePopup({
                                     innerHtml: jQuery(this).attr("title"),
                                     color:'grey',
-                                    imageFolder: '<?php echo $directory; ?>/images/bp_images',
+                                    imageFolder: '<?php echo $directory; ?>/images/bp_images'
 
                                 });
                             }
@@ -70,7 +70,7 @@ $directory = $base_path . $directory;
                                 jQuery(this).SetBubblePopup({
                                     innerHtml: jQuery(this).attr("rel"),
                                     color:'grey',
-                                    imageFolder: '<?php echo $directory; ?>/images/bp_images',
+                                    imageFolder: '<?php echo $directory; ?>/images/bp_images'
 
                                 });
                             }
