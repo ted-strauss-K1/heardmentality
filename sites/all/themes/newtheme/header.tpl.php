@@ -71,7 +71,7 @@ $directory = $base_path . $directory;
 								
                         });
 
-                          jQuery('#mfollowers a,#mfollowing a,#inbox a').each(function()
+                          jQuery('.contarea a').each(function()
                         {
                             if( jQuery(this).attr("rel").length>0){
 
