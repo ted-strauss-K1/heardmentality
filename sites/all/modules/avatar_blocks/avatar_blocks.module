@@ -365,7 +365,8 @@ function avatar_blocks_getavatar($online_member, $imagecache_preset = '') {
   else {
     $output .= theme('user_picture', $online_member);
   }
-  $output='<a title="'.$online_member->name.'" href="'.$gSitePath.'profile/'.$online_member->uid.'">'.userPicture($online_member->uid).'</a>';
+        $bubble = load_bubble($online_member->uid);
+  $output='<a rel=\''.$bubble.'\' href="'.$gSitePath.'profile/'.$online_member->name.'">'.userPicture($online_member->uid).'</a>';
   return $output;
 }
 
