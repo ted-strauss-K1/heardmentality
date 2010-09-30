@@ -217,10 +217,10 @@ function notify_questions()
   // $fet_follow->follower_id;
  {
 
- echo  $sel_flowcount="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
+  /* $sel_flowcount="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
   
     $rs_folquery = db_query($sel_flowcount);
-    $rs_folfet=db_fetch_object($rs_folquery);
+    $rs_folfet=db_fetch_object($rs_folquery);*/
 
 
 	//$sel_flow="select * from follower where uid='".$user->uid."' and question_id!=''";
@@ -245,7 +245,8 @@ function notify_questions()
               if(!$sel_result->count)
               {
 
-	$sel_suge="select * from question  where qid=".$flwing_result->question_id."  ";
+	echo $sel_suge="select * from question  where qid=".$flwing_result->question_id."  ";
+        
      
 	$mm=db_query($sel_suge);
 
