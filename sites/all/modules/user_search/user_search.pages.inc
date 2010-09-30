@@ -318,6 +318,7 @@ function search_results_question() {
     </script>   ';
 
     $sel_search = db_query($sel['query']);
+    $i = 1;
     while ($user_result = db_fetch_object($sel_search)) {
 
         if ($user->uid != '') {
@@ -349,7 +350,7 @@ function search_results_question() {
        <div class="titl">
         
 	<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>    </div><div class="rleft">';
-        $i = 0;
+        
         while ($vlistquest = db_fetch_object($vlist)) {
 
            
@@ -363,7 +364,7 @@ function search_results_question() {
        
         
             $fetresult .= ' <div class="item1"><input name="answer_al['.$i.']" type="radio"  value="' . $vlistquest->paid . '" '.check_select($get_ans->paid,$vlistquest->paid).'  />' . $vlistquest->answer. '</div>';
-            $i++;
+           
         }
 
 
@@ -383,7 +384,7 @@ function search_results_question() {
           
         
         $fetresult .= '</div><div class="rright">
-        <a href="'.$gSitePath.'categoryquestion/'.$follow.'/'.'quesid='.$user_result->qid .'">'.$follow.'</a>
+      <a href="'.$gSitePath.'categoryquestion/'.$follow.'/'.'quesid='.$user_result->qid .'">'.$follow.'</a>
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
 	 
@@ -401,6 +402,7 @@ function search_results_question() {
       </div>  </div>    
        <div class="clr"></div>
 ';
+        $i++;
     }
 
 
