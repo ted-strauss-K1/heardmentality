@@ -59,7 +59,15 @@ $directory = $base_path . $directory;
 
                                 });
                             }
-	
+								if( jQuery(this).attr("rel").length>0){
+
+                                jQuery(this).SetBubblePopup({
+                                    innerHtml: jQuery(this).attr("rel"),
+                                    color:'grey',
+                                    imageFolder: '<?php echo $directory; ?>/images/bp_images'
+
+                                });
+                            }
 								
                         });
 
