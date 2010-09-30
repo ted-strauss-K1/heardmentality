@@ -1238,7 +1238,7 @@ function avatar_form($form, &$form_state) {
 	  // We find out the current page number.
   $page = 0;
   
-  $form['#attributes']['enctype'] = 'multipart/form-data';
+  //$form['#attributes']['enctype'] = 'multipart/form-data';
 	  	
 	$form['pic_exp'] = array(
     '#type' => 'markup',
