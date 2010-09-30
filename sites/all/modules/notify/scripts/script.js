@@ -20,13 +20,18 @@ function get_Reply(make){
 //		}
 //
 //    });
+
+ //var bg_color = $("show").css("background-color");
+       // alert (bg_color);
  
 	 //if (vals.length > 0) {
         if($(":checkbox:checked").length) {
+
+       
     var report = $('cmt_txt').get('value');
 	
     if ($('showbox_cmt').getStyle('display') == 'none') {
-    
+                
         $('showbox_cmt').setStyle('display', 'block');
         $('showbox_cmt').slide('hide').slide('in');
         $('showbox_cmt').focus();
