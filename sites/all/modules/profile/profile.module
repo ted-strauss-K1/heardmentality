@@ -325,7 +325,7 @@ function drupal_link_color($userid, $quesid) {
 
 }
 
-function suggest_follow()
+function nofity_suggest_follow()
 {
     global $gSitePath,$user, $gDocPath,$base_root,$base_path;
 	$sel_flow="select * from follower  where uid='".$user->uid."'  and follower_status='1' ";
