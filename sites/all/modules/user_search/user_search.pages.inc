@@ -349,8 +349,7 @@ function search_results_question() {
        $get_ans = db_fetch_object($sel_ans);
        if($get_ans->paid==$vlistquest->paid)
        {
-            echo"hi check";
-            exit;
+            
             $check = "checked='".checked."'";
        }
 
