@@ -300,7 +300,7 @@ function load_bubble($uid = '') {
     $medal = updateProfileBadge($uid);
     $details = load_user($uid);
     $uname = $details->first_name.' '.$details->last_name;
-    $output = '<table border="0" class="sitetour" ><tr><td>'.UserPicture($uid).'</td><td>'.$uname.'<br/>'.$medal.'</td></tr></table>';
+    $output = '<table border="0" class="sitetour" ><tr><td>'.UserPicture($uid).'</td><td><p>'.$uname.'</p><p>'.$medal.'</p></td></tr></table>';
     
     return $output;
 

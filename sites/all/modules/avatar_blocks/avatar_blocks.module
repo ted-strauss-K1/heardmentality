@@ -338,6 +338,7 @@ function avatar_blocks_getavatar($online_member, $imagecache_preset = '') {
   // are we using an imagecache preset?
  // print_r($online_member);
   global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+  $output='';
   $default_picture = variable_get('user_picture_default',  '');
   if (module_exists('imagecache') && ($imagecache_preset != '')) {
     $preset_options = array();
