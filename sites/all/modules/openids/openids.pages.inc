@@ -605,7 +605,8 @@ ob_start();
     $email = '';
     $followers = '';
     $following = '';
-	
+	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">';
 	if(!$user->uid>0)
 		drupal_not_found();
   
@@ -853,8 +854,7 @@ ob_start();
     $option2 = '<option value=2>'.$usertypes[1].'</option>';
     $option3 = '<option value=3>'.$usertypes[2].'</option>';
     $op = '
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+	
 
 	<head>
 	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
