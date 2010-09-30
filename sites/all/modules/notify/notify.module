@@ -180,11 +180,11 @@ function notify_category()
         $questlist .='<div><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
 
 	}
-        exit;
+       
 
 
   }
-
+exit;
 
 
 $questlist.='</ul></div>
