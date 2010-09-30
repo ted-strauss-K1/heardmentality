@@ -152,7 +152,7 @@ function notify_category()
     $rs_folfet=db_fetch_object($rs_folquery);*/
 
     
-     echo  $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+       $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
      
       
       
@@ -170,7 +170,7 @@ function notify_category()
 
 	//$questlist.=' '.$flwing_result->cat_name.'';
 
-	$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
+	echo $sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
 	$mm=db_query($sel_suge);
 
 	$ans_result=db_fetch_object($mm);
@@ -184,8 +184,8 @@ function notify_category()
 
 
   }
-
 exit;
+
 
 $questlist.='</ul></div>
 	</div>
