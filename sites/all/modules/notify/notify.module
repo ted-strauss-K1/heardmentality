@@ -210,14 +210,15 @@ function notify_questions()
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
- $sel_follow="select * from follower where uid='".$user->uid."'";
+ echo $sel_follow="select * from follower where uid='".$user->uid."'";
+ exit;
   $get_follow = db_query($sel_follow);
   $fet_follow = db_fetch_object($get_follow);
   // $fet_follow->follower_id;
   
 
-  echo $sel_flowcount="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
-  exit;
+   $sel_flowcount="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
+  
     $rs_folquery = db_query($sel_flowcount);
     $rs_folfet=db_fetch_object($rs_folquery);
 
