@@ -353,7 +353,7 @@ function search_results_question() {
             $check = "checked='".checked."'";
        }
 
-            $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" '.$check.'  />' . $vlistquest->answer. '</div>';
+            $fetresult .= ' <div class="item1"><input name="answer_al" type="radio"  value="' . $vlistquest->paid . '" />' . $vlistquest->answer. '</div>';
         }
 
 
