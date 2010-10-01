@@ -54,6 +54,8 @@ function top_list() {
     
     $output .= get_local_list();
     
+    $output .= get_top_pundits();
+    
     echo "</div>";
 
     
@@ -63,8 +65,108 @@ function top_list() {
 }
 
   ////vijay filter
-function get_top_list() {
+function get_top_pundits() {
+
+    global $gSitePath,$user,$gDocPath,$base_root;
+    $output = '';
+   $cat_id = $_REQUEST['cid'];
+
+    $output .= '
+     <div class="commutop-profile" align="center">PUNDITS</div>
+      <div class="hm-cen-pun">';
+//   $output .= '<div class="pun">
+//           <ul>
+//           <li><img src="images/pu-1.jpg" alt="img" /></li>
+//           <li><img src="images/pu-2.jpg" alt="img" width="60" height="54" /></li>
+//           <li><img src="images/pu-3.jpg" alt="img" /></li>
+//           <li><img src="images/pu-4.jpg" alt="img" /></li>
+//           <li><img src="images/pu-5.jpg" alt="img" /></li>
+//           </ul>
+//           </div><br />
+//           </div>
+//           ';
+   $output .= '<div class="pun">
+           <ul>';
+    if($cat_id!='')
+    {
+    $query = "select * from {follower} where cat_id='".$cat_id."'";
    
+    $list = ExecuteQuery($query, "select");
+     
+    foreach ($list as $quest) {
+
+            //$output .= '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+
+         $user_qry = "select * from users where uid='".$quest['uid']."'";
+        $db_query =  db_query($user_qry);
+         $oListquest = db_fetch_object($db_query);
+         //$output .= $oListquest->name;
+         $prof_qry = "select * from user_profile where uid='".$oListquest->uid."'";
+         $prof_fet = db_query($prof_qry);
+           $prof_exe = db_fetch_object($prof_fet);
+           //$prof_exe->image;
+          $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/noimage.jpg" alt="img" /></li>';
+        }
+        
+    }
+    else
+    {
+
+
+        $query = "select * from {follower} as f join {users} as u on f.uid=u.uid where f.cat_id!='' ";
+    $list = ExecuteQuery($query, "select");
+    foreach ($list as $quest) {
+
+            //$output .= '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+
+         $user_qry = "select * from users where uid='".$quest['uid']."'";
+        $db_query =  db_query($user_qry);
+         $oListquest = db_fetch_object($db_query);
+       //  $output .= $oListquest->name;
+         $prof_qry = "select * from user_profile where uid='".$oListquest->uid."'";
+         $prof_fet = db_query($prof_qry);
+           $prof_exe = db_fetch_object($prof_fet);
+           //$prof_exe->image;
+        $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/noimage.jpg" alt="img" /></li>';
+        }
+        
+    }
+    $output .= '</ul>
+           </div>';
+    $output .= '</div>';
+
+//    $cond = '';
+//
+//
+//    $cond = load_condition();
+////$style = "color:red";
+//
+// // echo  $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' $cond order by q.active_rate  DESC LIMIT 0,10";
+//
+//    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,10";
+//
+//    $list = ExecuteQuery($query, "select");
+//    $output .= '<div>
+//              <h3><strong>Top pundits</strong></h3><div class="innerbox" ><ul class="menu">';
+//    if (! empty($list)) {
+//        foreach ($list as $quest) {
+//
+//            $output .=  '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+//
+//
+//        }
+//    } else {
+//
+//        $output .= '<div><b>No Top List Found</b></div>';
+//
+//    }
+//    $output .= '</ul></div> </div><div class="clr"></div>';
+    
+    return $output;
+}
+
+function get_top_list() {
+  
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     $cond = '';

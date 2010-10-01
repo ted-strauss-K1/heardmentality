@@ -266,6 +266,7 @@ function load_ajax() {
             $output .= get_hot_list();
             
             $output .= get_local_list();
+            $output .= get_top_pundits();
             
             echo $output;
             
