@@ -89,7 +89,7 @@ function get_top_pundits() {
            <ul>';
     if($cat_id!='')
     {
-    $query = "select * from {follower} where cat_id='".$cat_id."'";
+    $query = "select * from {follower} where cat_id='".$cat_id."' limit 0,4";
    
     $list = ExecuteQuery($query, "select");
      
@@ -113,7 +113,7 @@ function get_top_pundits() {
     {
 
 
-        $query = "select * from {follower} as f join {users} as u on f.uid=u.uid where f.cat_id!='' ";
+        $query = "select * from {follower} as f join {users} as u on f.uid=u.uid where f.cat_id!='' limit 0,4";
     $list = ExecuteQuery($query, "select");
     foreach ($list as $quest) {
 
