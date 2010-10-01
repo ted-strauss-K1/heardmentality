@@ -105,7 +105,7 @@ function forum_post() {
           {
             $output .='<div><a href="'.$gSitePath.$sql_fet->url.'">'. substr($sql_fet->question,0,20).'...'.'</a></div>';
 
-            $forum_query = "select * from forum_wave where qid_rid='$sql_fet->qid' order by fid desc limit 0,3";
+            $forum_query = "select * from forum_wave where qid_rid='$sql_fet->qid' order by fid";
 
             $forum_list = ExecuteQuery($forum_query, "select");
 
