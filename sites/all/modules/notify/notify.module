@@ -88,7 +88,7 @@ function forum_post() {
     
 	$output = '';
 
-        $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
+        $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!='' order by id desc limit 0,5";
        
          $get_follow = db_query($sel_follow);
          
@@ -98,14 +98,14 @@ function forum_post() {
                 
   while($fet_follow = db_fetch_object($get_follow))
   {
-         $vSql = "select * from question where uid='".$fet_follow->follower_id."'";
-        
+          $vSql = "select * from question where uid='".$fet_follow->follower_id."' order by qid desc limit 0,5";
+         
           $sql_follow = db_query($vSql);
           while($sql_fet = db_fetch_object($sql_follow))
           {
             $output .='<div><a href="'.$gSitePath.$sql_fet->url.'">'. substr($sql_fet->question,0,20).'...'.'</a></div>';
 
-            $forum_query = "select * from forum_wave where qid_rid='$sql_fet->qid' order by fid";
+            $forum_query = "select * from forum_wave where qid_rid='$sql_fet->qid' order by fid desc limit 0,5";
 
             $forum_list = ExecuteQuery($forum_query, "select");
 
