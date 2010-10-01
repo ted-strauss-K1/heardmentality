@@ -30,13 +30,15 @@
   
      <div class="quesbott"></div>
         </div>
-  <div class="fact">
+
       <?php if (!empty($right)): ?>
+	    <div class="fact">
         <div id="sidebar-right" class="column sidebar">
           <?php print $right; ?>
         </div> <!-- /sidebar-right -->
+		</div>
       <?php endif; ?>
-</div>
+
  <div class="clr"></div>
 </div>
    <?php include "footer.tpl.php"; ?>
