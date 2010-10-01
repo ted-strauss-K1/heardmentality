@@ -140,9 +140,9 @@ function guru_points($switch = '', $uid = '') {
                 $sump = $point_list[$p]['tpoints'];
                 $tpoint = (! empty($sump)) ? $sump : 0;
 
-                
+                $bubble=load_bubble($puid);
                 $outputppt .= ' <tr>
-	<td height="40"><a href="'.$gSitePath.'profile/'.$point_list[$p]['name'].'">'.$point_list[$p]['real_name'].'</a></td>
+	<td height="40"><a rel=\''.$bubble.'\' href="'.$gSitePath.'profile/'.$point_list[$p]['name'].'">'.$point_list[$p]['real_name'].'</a></td>
 	<td>'.$tpoint.'</td>
   </tr>';
             
