@@ -45,6 +45,12 @@ function my_question() {
 
 
 }
+function question_reply()
+{
+    print_r($_REQUEST[usids]);
+    exit;
+    
+}
 // question add
 function question_add() {
     global $gSitePath,$user,$gDocPath,$base_root;

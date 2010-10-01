@@ -56,6 +56,13 @@ $items['question/save'] = array(
     'type' => MENU_CALLBACK,
     'file' => 'question.pages.inc',
   );
+  $items['question/reply'] = array(
+    'title' => ' Add Question',
+    'page callback' => 'question_reply',
+    'access arguments' => array('Question add'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
  
  
  $items['admin/questions'] = array(
