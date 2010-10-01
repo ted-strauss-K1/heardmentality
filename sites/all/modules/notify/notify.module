@@ -209,7 +209,7 @@ function notify_category()
 
 
 $questlist.='</ul></div>';
-     if(count($fet_follow)<1)
+     if(count($flwing_result)<1)
       {
           $questlist = "No records";
       }
