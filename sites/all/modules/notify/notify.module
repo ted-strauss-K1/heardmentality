@@ -85,47 +85,81 @@ $items['mynotify'] = array(
 
 function forum_post() {
     global $gSitePath,$user;
-    $qid = get_qid();
+    
 	$output = '';
-	 $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
-	    $rlist = db_query($vSql);
-    $oListquest = db_fetch_object($rlist);
 
-
-
-            $output .= '<div id="container">';
+        $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
+       
+         $get_follow = db_query($sel_follow);
+         
+         $output .= '<div id="container">';
              $output .='<div class="feature">';
 		$output .= '<div class="l col">';
-		//$output .= '<ul>';
-	$output .='<div><a href="'.$gSitePath.$oListquest->url.'">'. substr($oListquest->question,0,20).'...'.'</a></div>';
-	
-	
-    
+                
+  while($fet_follow = db_fetch_object($get_follow))
+  {
+         $vSql = "select * from question where uid='".$fet_follow->follower_id."'";
+        
+          $sql_follow = db_query($vSql);
+          while($sql_fet = db_fetch_object($sql_follow))
+          {
+            $output .='<div><a href="'.$gSitePath.$sql_fet->url.'">'. substr($sql_fet->question,0,20).'...'.'</a></div>';
 
-    $follow_query = "select * from follower where uid='$user->uid'";
-   
-    $follow_list=db_query($follow_query);
-$followid=db_fetch_object($follow_list);
+            $forum_query = "select * from forum_wave where qid_rid='$sql_fet->qid' order by fid desc limit 0,3";
 
- $forum_query = "select * from forum_wave where uid='$followid->uid' and qid_rid='$oListquest->qid' order by fid desc limit 0,3";
+            $forum_list = ExecuteQuery($forum_query, "select");
 
+             foreach ($forum_list as $list) {
+                 $click = 'loadwave('.$list['qid_rid'].','.$list['fid'].')';
+                 
+                  $output.='
+                    <div><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$list['title'].'</a><div>';
+             }
 
- $forum_list = ExecuteQuery($forum_query, "select");
-
- foreach ($forum_list as $list) {
-     
-       // $output .= '<div>'.$list['title'].'</div>';
-      $click = 'loadwave('.$list['qid_rid'].','.$list['fid'].')';
-      
-       $output.='
-	<div><a href="javascript:void(0);" onclick="'.$click.'">'.$list['title'].'</a><div>';
-    }
- $output .='</div>
+          }  
+  }
+   $output .='</div>
 	</div>
 	</div>';
+
+//	 $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
+//	    $rlist = db_query($vSql);
+//    $oListquest = db_fetch_object($rlist);
+//
+//
+//
+//            $output .= '<div id="container">';
+//             $output .='<div class="feature">';
+//		$output .= '<div class="l col">';
+//		//$output .= '<ul>';
+//	$output .='<div><a href="'.$gSitePath.$oListquest->url.'">'. substr($oListquest->question,0,20).'...'.'</a></div>';
+//
+//
+//
+//
+//    $follow_query = "select * from follower where uid='$user->uid'";
+//
+//    $follow_list=db_query($follow_query);
+//$followid=db_fetch_object($follow_list);
+//
+// $forum_query = "select * from forum_wave where uid='$followid->uid' and qid_rid='$oListquest->qid' order by fid desc limit 0,3";
+//
+//
+// $forum_list = ExecuteQuery($forum_query, "select");
+//
+// foreach ($forum_list as $list) {
+//
+//       // $output .= '<div>'.$list['title'].'</div>';
+//      $click = 'loadwave('.$list['qid_rid'].','.$list['fid'].')';
+//
+//       $output.='
+//	<div><a href="javascript:void(0);" onclick="'.$click.'">'.$list['title'].'</a><div>';
+//    }
+// $output .='</div>
+//	</div>
+//	</div>';
+
     return $output;
-
-
 }
 
 
@@ -268,8 +302,7 @@ $questlist.='</ul></div>
 }
 
 
-function notify_questionstop(){
-
+function notify_questionstop(){  
      global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
 $numrancntss = db_result(db_query("SELECT COUNT(*)  from notification as a, question as b  where a.uid=".$user->uid." and a.follower_action='1'  and a.is_question='1' and a.node_id=b.qid  and b.status='1'  order by a.nid desc  "));
@@ -280,11 +313,12 @@ $numrancntss = db_result(db_query("SELECT COUNT(*)  from notification as a, ques
 
 	$rs_folwin=db_query($sel_flow);
 	$questlist='
-		<form id="cmtform" method="post" action="'.$gSitePath.'reply" ><div id="container">
+		<form id="cmtform" name="cmtform" method="post" action="'.$gSitePath.'question/reply" ><div id="container">
 		<div class="feature">
 		<div class="l col">
 		<ul>';
        $chk = '';
+       $i=0;
 	while($flwing_result=db_fetch_object($rs_folwin))
 	{
 
@@ -297,7 +331,7 @@ $numrancntss = db_result(db_query("SELECT COUNT(*)  from notification as a, ques
 
 
 		$questlist.='<li>
-	<h3><input type="checkbox" class="check-me" name="usids[]" value="'.$flwing_result->uid.'" /> <a href="'.$gSitePath.'profile/'.$user_namelistf->name.'" style="'.drupal_link_color($user->uid,$flwing_result->qid).'"> '.$user_namelistf->name.' </a> <br><a href="'.$gSitePath.'notify/'.$flwing_result->url.'">'.substr($flwing_result->question,0,10).'</a>      </h3><div>'.$flwing_result->context.'</div>
+	<h3><input type="checkbox" class="check-me" name="usids['.$i.']" value="'.$flwing_result->uid.'" /> <a href="'.$gSitePath.'profile/'.$user_namelistf->name.'" style="'.drupal_link_color($user->uid,$flwing_result->qid).'"> '.$user_namelistf->name.' </a> <br><a href="'.$gSitePath.'notify/'.$flwing_result->url.'">'.substr($flwing_result->question,0,10).'</a>      </h3><div>'.$flwing_result->context.'</div>
 	';
 
 	   $numrand = db_fetch_object(db_query("SELECT * from {possible_answer_vote} where qid=".$flwing_result->qid." and uid=".$user->uid." "));
@@ -313,6 +347,7 @@ $numrancntss = db_result(db_query("SELECT COUNT(*)  from notification as a, ques
 	$questlist.=' <input name="'.$flwing_result->qid.'" type="radio" value="'.$ans_result->paid.'" '.$seltd.' />'.$ans_result->answer.'<br>';
 
 	}
+        $i++;
 	}
 
 $questlist.='</ul></div>
@@ -327,7 +362,7 @@ $questlist.='</ul></div>
 	else
 	{
 	$questlist.='<div><div id="clist"></div><div id="showbox_cmt" align="left" style="width:100%;display:none"><label for="cmt_txt"><b> Message :</b></label><br/><textarea name="cmt_txt" cols="55" row="17" id="cmt_txt"></textarea><input type="hidden" id="action" name="action" value="1"/> </div><input type="button" name="Votes" value="Votes" onclick="get_votes(1);"/>
-	<input type="button" name="Reply" value="Reply" onclick="get_Reply(0);"/>
+	<input type="button" name="Reply" value="Reply" onclick="get_Reply();"/>
 	</div>';
 	}
 	$questlist.=' </form>';
@@ -401,4 +436,68 @@ function notify_suggest_follow()
 	}
 
 	return $suggest_follow;
+}
+
+function notify_pundits()
+{
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+ $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
+
+
+  $get_follow = db_query($sel_follow);
+  while($fet_follow = db_fetch_object($get_follow))
+  {
+
+
+
+
+
+	//$sel_flow="select * from follower where uid='".$user->uid."' and  cat_id!=''";
+   /* $sel_flowcount="select count(*) as count from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+    $rs_folquery = db_query($sel_flowcount);
+    $rs_folfet=db_fetch_object($rs_folquery);*/
+
+
+        $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+
+
+
+	$rs_folwin=db_query($sel_flow);
+	$questlist='
+		<div id="container">
+		<div class="feature">
+		<div class="l col">
+		<ul>';
+       $chk = '';
+	while($flwing_result=db_fetch_object($rs_folwin))
+	{
+
+	//$questlist.=' '.$flwing_result->cat_name.'';
+
+	$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
+	$mm=db_query($sel_suge);
+
+	$ans_result=db_fetch_object($mm);
+	//$questlist.=' '.$ans_result->cat_name.'<br/>';
+
+ //$queslist .='<div><a href="'.$gSitePath.'/searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
+        $questlist .='<div><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
+        //echo $ans_result->cat_name;
+
+	}
+  }
+
+
+$questlist.='</ul></div>
+	</div>
+	</div>
+	';
+//        if($rs_folfet->count==0)
+//        {
+//            $questlist = "No records";
+//        }
+
+	return $questlist;
 }
