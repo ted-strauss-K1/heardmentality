@@ -413,7 +413,7 @@ function notify_suggest_follow()
 		$user_resultry=db_fetch_object($user_qrylist);
 
 		$suggest_follow.='<li>
-	<h3><a href="'.$gSitePath.'profile/'.$user_resultry->name.'">'.$user_resultry->name.'</a>      </h3></li>';
+	<a href="'.$gSitePath.'profile/'.$user_resultry->name.'">'.$user_resultry->name.'</a></li>';
 
 
 
