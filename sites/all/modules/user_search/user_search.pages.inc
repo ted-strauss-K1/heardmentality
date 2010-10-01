@@ -318,7 +318,7 @@ function search_results_question() {
     </script>   ';
 
     $sel_search = db_query($sel['query']);
-    $i = 1;
+    $i = 0;
     while ($user_result = db_fetch_object($sel_search)) {
 
         if ($user->uid != '') {
@@ -364,7 +364,7 @@ function search_results_question() {
        
         
             $fetresult .= ' <div class="item1"><input name="answer_al['.$i.']" type="radio"  value="' . $vlistquest->paid . '" '.check_select($get_ans->paid,$vlistquest->paid).'  />' . $vlistquest->answer. '</div>';
-           
+            
         }
 
 
@@ -379,12 +379,9 @@ function search_results_question() {
           {
               $follow = "Follow";
           }
-
-
           
-        
         $fetresult .= '</div><div class="rright">
-      <a href="'.$gSitePath.'categoryquestion/'.$follow.'/'.'quesid='.$user_result->qid .'">'.$follow.'</a>
+        <a href="'.$gSitePath.'categoryquestion/'.$follow.'/'.'quesid='.$user_result->qid .'">'.$follow.'</a>
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
 	 
