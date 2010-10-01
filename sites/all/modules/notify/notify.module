@@ -342,15 +342,16 @@ $questlist.='</ul></div>
 	';
 	if($numrancntss==0)
 	{
-	$questlist.='No Notifications';
+	$questlist='No Notifications';
 	}
 	else
 	{
 	$questlist.='<div><div id="clist"></div><div id="showbox_cmt" align="left" style="width:100%;display:none"><label for="cmt_txt"><b> Message :</b></label><br/><textarea name="cmt_txt" cols="55" row="17" id="cmt_txt"></textarea><input type="hidden" id="action" name="action" value="1"/> </div><input type="button" name="Votes" value="Votes" onclick="get_votes(1);"/>
 	<input type="button" name="Reply" value="Reply" onclick="get_Reply();"/>
 	</div>';
+        $questlist.=' </form>';
 	}
-	$questlist.=' </form>';
+	
 	//echo $questlist
         return $questlist;    
 }
