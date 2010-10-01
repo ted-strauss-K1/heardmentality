@@ -112,7 +112,7 @@ function guru_points($switch = '', $uid = '') {
             $view = "CREATE VIEW gurulist as (SELECT (select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid=u.uid group by uid) as tpoints,a.uid as uid, a.name,u.real_name FROM {users} as a join {user_profile} as u on u.uid=a.uid where a.status='1')";
             db_query($view);
             
-            $user_pt = "select * from {gurulist} order by tpoints desc ";
+            $user_pt = "select * from {gurulist} where tpoints !='NULL' order by tpoints desc ";
             $point_list = ExecuteQuery($user_pt, "select");
             
             $outputppt = '<table width="60%" border="0" cellspacing="0" cellpadding="0">
