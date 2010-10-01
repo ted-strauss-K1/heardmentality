@@ -191,9 +191,8 @@ function notify_category()
         
 	$rs_folwin=db_query($sel_flow);
 	$questlist='
-		<div id="container">
-		<div class="feature">
-		<div class="l col">
+		
+		<div class="">
 		<ul>';
        $chk = '';
 	while($flwing_result=db_fetch_object($rs_folwin))
@@ -208,17 +207,14 @@ function notify_category()
 	//$questlist.=' '.$ans_result->cat_name.'<br/>';
 
  //$queslist .='<div><a href="'.$gSitePath.'/searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
-        $questlist .='<div><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
+        $questlist .='<li><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></li>';
         //echo $ans_result->cat_name;
 
 	}
   }
 
 
-$questlist.='</ul></div>
-	</div>
-	</div>
-	';
+$questlist.='</ul></div>';
 //        if($rs_folfet->count==0)
 //        {
 //            $questlist = "No records";
