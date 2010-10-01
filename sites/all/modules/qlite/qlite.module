@@ -112,7 +112,7 @@ function get_top_pundits() {
            {
                 $image = $prof_exe->image;
            }
-          $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/"'.$image.'" alt="img" /></li>';
+          $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$image.' alt="img" /></li>';
         }
         
     }
@@ -142,7 +142,7 @@ function get_top_pundits() {
            {
                 $image = $prof_exe->image;
            }
-        $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/"'.$image.'" alt="img" /></li>';
+        $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$image.' alt="img" /></li>';
         }
         
     }
