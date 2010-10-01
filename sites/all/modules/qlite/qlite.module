@@ -113,7 +113,7 @@ function get_top_pundits() {
 //           {
 //                $image = $prof_exe->image;
 //           }
-          $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" /></li>';
+          $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" width="67" height="66" /></li>';
         }
         
     }
@@ -144,7 +144,7 @@ function get_top_pundits() {
 //                $image = $prof_exe->image;
 //           }
            
-        $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" /></li>';
+        $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" width="67" height="66" /></li>';
         }
         
     }
