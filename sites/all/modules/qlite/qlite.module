@@ -104,8 +104,15 @@ function get_top_pundits() {
          $prof_qry = "select * from user_profile where uid='".$oListquest->uid."'";
          $prof_fet = db_query($prof_qry);
            $prof_exe = db_fetch_object($prof_fet);
-           //$prof_exe->image;
-          $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/noimage.jpg" alt="img" /></li>';
+           if($prof_exe->image=='')
+           {
+               $image = "noimage.jpg";
+           }
+           else
+           {
+                $image = $prof_exe->image;
+           }
+          $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/"'.$image.'" alt="img" /></li>';
         }
         
     }
@@ -127,7 +134,15 @@ function get_top_pundits() {
          $prof_fet = db_query($prof_qry);
            $prof_exe = db_fetch_object($prof_fet);
            //$prof_exe->image;
-        $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/noimage.jpg" alt="img" /></li>';
+           if($prof_exe->image=='')
+           {
+               $image = "noimage.jpg";
+           }
+           else
+           {
+                $image = $prof_exe->image;
+           }
+        $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/"'.$image.'" alt="img" /></li>';
         }
         
     }
