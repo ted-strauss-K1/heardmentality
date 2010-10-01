@@ -92,13 +92,13 @@ function forum_post() {
        
          $get_follow = db_query($sel_follow);
          
-         $output .= '<div id="container">';
-             $output .='<div class="feature">';
-		$output .= '<div class="l col">';
+
+		  $output .= '<div id=""><ul>';
                 
   while($fet_follow = db_fetch_object($get_follow))
   {
-          $vSql = "select * from question where uid='".$fet_follow->follower_id."' order by qid desc limit 0,5";
+      $output.='<li>';
+      $vSql = "select * from question where uid='".$fet_follow->follower_id."' order by qid desc limit 0,5";
          
           $sql_follow = db_query($vSql);
           while($sql_fet = db_fetch_object($sql_follow))
@@ -116,11 +116,10 @@ function forum_post() {
                     <div><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$list['title'].'</a><div>';
              }
 
-          }  
+          }
+           $output.='</li>';
   }
-   $output .='</div>
-	</div>
-	</div>';
+        $output.='</ul></div>';
 
 //	 $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
 //	    $rlist = db_query($vSql);
@@ -404,9 +403,7 @@ function notify_suggest_follow()
 		if(count($result_array)!=0)
 		{
 		$suggest_follow='
-		<div id="container">
-		<div class="feature">
-		<div class="l col">
+		<div class="">
 		<ul>';
 
 		for($m=0;$m<count($result_array);$m++)
@@ -416,7 +413,7 @@ function notify_suggest_follow()
 		$user_resultry=db_fetch_object($user_qrylist);
 
 		$suggest_follow.='<li>
-	<h3><a href="'.$gSitePath.'profile/'.$user_resultry->name.'">'.$user_resultry->name.'</a>      </h3>';
+	<h3><a href="'.$gSitePath.'profile/'.$user_resultry->name.'">'.$user_resultry->name.'</a>      </h3></li>';
 
 
 
@@ -424,8 +421,7 @@ function notify_suggest_follow()
 	}
 
 	$suggest_follow.='</ul></div>
-	</div>
-	</div>
+	
 	';
 	}
 	else
