@@ -175,10 +175,6 @@ function notify_category()
   while($fet_follow = db_fetch_object($get_follow))
   {
   
-
-
-
- 
 	//$sel_flow="select * from follower where uid='".$user->uid."' and  cat_id!=''";
    /* $sel_flowcount="select count(*) as count from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
     $rs_folquery = db_query($sel_flowcount);
@@ -190,9 +186,7 @@ function notify_category()
      
         
 	$rs_folwin=db_query($sel_flow);
-	$questlist='
-		
-		<div class="">
+	$questlist='<div class="">
 		<ul>';
        $chk = '';
 	while($flwing_result=db_fetch_object($rs_folwin))
@@ -215,10 +209,10 @@ function notify_category()
 
 
 $questlist.='</ul></div>';
-//        if($rs_folfet->count==0)
-//        {
-//            $questlist = "No records";
-//        }
+     if(count($fet_follow)<1)
+      {
+          $questlist = "No records";
+      }
 
 	return $questlist;
 }
