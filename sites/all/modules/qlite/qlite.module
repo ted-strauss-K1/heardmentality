@@ -1,4 +1,143 @@
 <?php
+class CSSPagination
+{
+    private $totalrows;
+    private $rowsperpage;
+    private $website;
+    private $page;
+    private $sql;
+
+    public function __construct($sql, $rowsperpage, $website)
+    {
+        $this->sql = $sql;
+        $this->website = $website;
+        $this->rowsperpage = $rowsperpage;
+    }
+
+    public function setPage($page)
+    {
+        if (!$page) { $this->page=1; } else  { $this->page = $page; }
+    }
+
+    public function getLimit()
+    {
+        return ($this->page - 1) * $this->rowsperpage;
+    }
+
+    private function getTotalRows()
+    {
+        $result = @mysql_query($this->sql) or die ("query failed!");
+        $this->totalrows = mysql_num_rows($result);
+    }
+
+    private function getLastPage()
+    {
+        return ceil($this->totalrows / $this->rowsperpage);
+    }
+
+    public function showPage()
+    {
+        $this->getTotalRows();
+
+        $pagination = "";
+        $lpm1 = $this->getLastPage() - 1;
+        $page = $this->page;
+        $prev = $this->page - 1;
+        $next = $this->page + 1;
+
+        $pagination .= "<div class=\"pagination\"";
+        if($margin || $padding)
+        {
+            $pagination .= " style=\"";
+            if($margin)
+                $pagination .= "margin: $margin;";
+            if($padding)
+                $pagination .= "padding: $padding;";
+            $pagination .= "\"";
+        }
+        $pagination .= ">";
+
+
+
+        if ($this->getLastPage() > 1)
+        {
+            if ($page > 1)
+                $pagination .= "<a href="."\"$this->website&page=$prev\"".">&lt;&lt; prev</a>";
+            else
+                $pagination .= "<span class=\"disabled\">&lt;&lt; prev</span>";
+
+
+            if ($this->getLastPage() < 9)
+            {
+                for ($counter = 1; $counter <= $this->getLastPage(); $counter++)
+                {
+                    if ($counter == $page)
+                        $pagination .= "<span class=\"current\">".$counter."</span>";
+                    else
+                        $pagination .= "<a href=$this->website&page=$counter>".$counter."</a>";
+                }
+            }
+
+            elseif($this->getLastPage() >= 9)
+            {
+                if($page < 4)
+                {
+                    for ($counter = 1; $counter < 6; $counter++)
+                    {
+                        if ($counter == $page)
+                            $pagination .= "<span class=\"current\">".$counter."</span>";
+                        else
+                            $pagination .= "<a href=$this->website&page=$counter/>".$counter."</a>";
+                    }
+                    $pagination .= "...";
+                    $pagination .= "<a href=$this->website&page=$lpm1>".$lpm1."</a>";
+                    $pagination .= "<a href=$this->website&page=".$this->getLastPage().">".$this->getLastPage()."</a>";
+                }
+                elseif($this->getLastPage() - 3 > $page && $page > 1)
+                {
+                    $pagination .= "<a href=$this->website&page=1>1</a>";
+                    $pagination .= "<a href=$this->website&page=2>2</a>";
+                    $pagination .= "...";
+                    for ($counter = $page - 1; $counter <= $page + 1; $counter++)
+                    {
+                        if ($counter == $page)
+                            $pagination .= "<span class=\"current\">".$counter."</span>";
+                        else
+                            $pagination .= "<a href=$this->website&page=$counter>".$counter."</a>";
+                    }
+                    $pagination .= "...";
+                    $pagination .= "<a href=$this->website&page=$lpm1>$lpm1</a>";
+                    $pagination .= "<a href=$this->website&page=".$this->getLastPage().">".$this->getLastPage()."</a>";
+                }
+                else
+                {
+                    $pagination .= "<a href=$this->website&page=1>1</a>";
+                    $pagination .= "<a href=$this->website&page=2>2</a>";
+                    $pagination .= "...";
+                    for ($counter = $this->getLastPage() - 4; $counter <= $this->getLastPage(); $counter++)
+                    {
+                        if ($counter == $page)
+                            $pagination .= "<span class=\"current\">".$counter."</span>";
+                        else
+                            $pagination .= "<a href=$this->website&page=$counter>".$counter."</a>";
+                    }
+                }
+            }
+
+        if ($page < $counter - 1)
+            $pagination .= "<a href=$this->website&page=$next>next &gt;&gt;</a>";
+        else
+            $pagination .= "<span class=\"disabled\">next &gt;&gt;</span>";
+        $pagination .= "</div>\n";
+        }
+
+        return $pagination;
+    }
+}
+
+
+
+//////////////////////////paginationend
 function qlite_perm() {
     
     return array('QLite', 'Report', 'Report Content', 'Ajax Content');
@@ -92,11 +231,7 @@ function get_top_pundits() {
     $query = "select * from {follower} where cat_id='".$cat_id."' limit 0,4";
    
     $list = ExecuteQuery($query, "select");
-     
     foreach ($list as $quest) {
-
-            //$output .= '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
-
          $user_qry = "select * from users where uid='".$quest['uid']."'";
         $db_query =  db_query($user_qry);
          $oListquest = db_fetch_object($db_query);
@@ -105,14 +240,7 @@ function get_top_pundits() {
          $prof_fet = db_query($prof_qry);
            $prof_exe = db_fetch_object($prof_fet);
            
-//           if($prof_exe->image=='')
-//           {
-//               $image = "noimage.jpg";
-//           }
-//           else
-//           {
-//                $image = $prof_exe->image;
-//           }
+
           $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" width="67" height="66" /></li>';
         }
         
@@ -120,8 +248,16 @@ function get_top_pundits() {
     else
     {
 
-
-        $query = "select * from {follower} as f join {users} as u on f.uid=u.uid where f.cat_id!='' limit 0,4";
+//                         $sql1 = "select * from {follower} as f join {users} as u on f.uid=u.uid where f.cat_id!=''";
+//
+//                          $rowsperpage = "5"; // 5 records per page. You can change it.
+//                          //$website = $_SERVER['PHP_SELF']."?list=trash&ssdf=1"; // other arguments if need it.
+//                          $website = $_SERVER['PHP_SELF']."?cccc=1"; // other arguments if need it.
+//                          $pagination = new CSSPagination($sql1, $rowsperpage, $website); // create instance object
+//                          $pagination->setPage($_GET[page]); // dont change it
+//
+//    $query = "select * from {follower} as f join {users} as u on f.uid=u.uid where f.cat_id!='' LIMIT ".$pagination->getLimit().",".$rowsperpage;
+    $query = "select * from {follower} as f join {users} as u on f.uid=u.uid where f.cat_id!='' LIMIT 0,4";
     $list = ExecuteQuery($query, "select");
     foreach ($list as $quest) {
 
@@ -130,24 +266,15 @@ function get_top_pundits() {
          $user_qry = "select * from users where uid='".$quest['uid']."'";
         $db_query =  db_query($user_qry);
          $oListquest = db_fetch_object($db_query);
-       //  $output .= $oListquest->name;
+
+
          $prof_qry = "select * from user_profile where uid='".$oListquest->uid."'";
          $prof_fet = db_query($prof_qry);
            $prof_exe = db_fetch_object($prof_fet);
-           //$prof_exe->image;
-//           if($prof_exe->image=='')
-//           {
-//               $image = "noimage.jpg";
-//           }
-//           else
-//           {
-//                $image = $prof_exe->image;
-//           }
-           
         $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" width="67" height="66" /></li>';
         }
-        
     }
+  
     $output .= '</ul>
            </div>';
     $output .= '</div>';
@@ -220,8 +347,6 @@ function get_hot_list() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     $cond = '';
-
-    
     $cond = load_condition();
     
     $m = date("m");
