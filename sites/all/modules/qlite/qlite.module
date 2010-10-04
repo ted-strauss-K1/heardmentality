@@ -177,7 +177,7 @@ function get_top_pundits() {
          $prof_qry = "select * from user_profile where uid='".$oListquest->uid."'";
          $prof_fet = db_query($prof_qry);
            $prof_exe = db_fetch_object($prof_fet);
-        $output .= '<li><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" width="67" height="66" /></li>';
+        $output .= '<li><a href="'.$gSitePath.'/profile/'.$oListquest->name.'"><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" width="67" height="66" /></a></li>';
         }
     }
   
