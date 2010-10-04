@@ -151,7 +151,7 @@ function get_top_pundits() {
         $udetails=load_user($quest['uid']);
 
          $bubble = load_bubble($udetails->uid);
-          $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</li>';
+          $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
 
          
         }
@@ -164,7 +164,7 @@ function get_top_pundits() {
     foreach ($list as $quest) {
            $udetails=load_user($quest['uid']);
          $bubble = load_bubble($udetails->uid);
-          $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</li>';
+          $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
 
           }
     }
