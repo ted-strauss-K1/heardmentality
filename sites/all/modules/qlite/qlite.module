@@ -169,7 +169,7 @@ function get_top_pundits() {
 
             //$output .= '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
-         $user_qry = "select * from users where uid='".$quest['uid']."'";
+        echo  $user_qry = "select * from users where uid='".$quest['uid']."'";
         $db_query =  db_query($user_qry);
          $oListquest = db_fetch_object($db_query);
 
@@ -177,7 +177,7 @@ function get_top_pundits() {
          $prof_qry = "select * from user_profile where uid='".$oListquest->uid."'";
          $prof_fet = db_query($prof_qry);
            $prof_exe = db_fetch_object($prof_fet);
-        $output .= '<li><a href="'.$gSitePath.'/profile/'.$oListquest->name.'"><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" width="67" height="66" /></a></li>';
+        $output .= '<li><a href="'.$gSitePath.'profile/'.$oListquest->name.'"><img src="'.$gSitePath.'sites/all/modules/profile/snap/'.$prof_exe->image.'" alt="img" width="67" height="66" /></a></li>';
         }
     }
   
