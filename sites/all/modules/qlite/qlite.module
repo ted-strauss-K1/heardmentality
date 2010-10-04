@@ -169,7 +169,7 @@ function get_top_pundits() {
 
             //$output .= '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
-        echo  $user_qry = "select * from users where uid='".$quest['uid']."'";
+         $user_qry = "select * from users where uid='".$quest['uid']."'";
         $db_query =  db_query($user_qry);
          $oListquest = db_fetch_object($db_query);
 
