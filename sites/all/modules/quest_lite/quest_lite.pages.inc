@@ -572,7 +572,7 @@ function qlite_view() {
 		
 		';
 
-//////////////vijay
+//////////////vijay multilevel menu
      $voteqry = "SELECT * FROM possible_answer_vote where qid='" .$qid . "'";
     $votelist = db_query($voteqry);
     $fetvote = db_fetch_object($votelist);
@@ -756,8 +756,14 @@ function qlite_save() {
                 $votepointp = $olistquest->vote + 1;
             }
 
-                $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";
+                 $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";   
             db_query($vInsQuery);
+
+
+            $notify_insqry = "insert into notification(uid,is_answer,node_id)values('".$user->uid."','1','".$mid."')";
+            db_query($notify_insqry);
+
+
             drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
             send_votenotify($mid);
 
@@ -840,6 +846,12 @@ function qlite_save() {
 
     return $voutput;
 }
+
+
+
+
+
+
 
 function add_resources() {
     global $gSitePath, $user, $gDocPath, $base_root;
@@ -1189,7 +1201,7 @@ function panel_content() {
     $vSql = "select * from {question} where status='1' and qid=$qid ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
-//////////vijay 2
+//////////vijay 2 load submenu
     $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid_rid = '$qid' ";
     $list = ExecuteQuery($query, "select");
     $x = 0;
