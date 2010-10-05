@@ -484,3 +484,289 @@ $questlist.='</ul></div>
 
 	return $questlist;
 }
+
+
+
+////follower action
+
+function notify_followerquestions()
+{
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+$followlist = '';
+ $sel_follow="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
+
+  $get_follow = db_query($sel_follow);
+  $followlist='<div class=""><ul>
+		';
+  while($fet_follow = db_fetch_object($get_follow))
+  {
+
+        $sel_ques="select * from question  where uid='".$fet_follow->uid."' order by qid desc ";
+	$rs_ques=db_query($sel_ques);
+	
+       
+	while($fet_ques=db_fetch_object($rs_ques))
+	{
+
+          
+           $loadques = load_question($fet_ques->qid);
+
+            //$followlist .=  $loadques[2];
+            
+           
+          $followlist .='<li><a href="'.$gSitePath.$loadques[url].'" title="'.wordwrap($loadques[2],40, "<br/>").'">'.htmlentities(substr($loadques[2],0,40)).'....'.'</a></li>';
+	}
+       
+  }
+   $followlist.='</ul></div>';
+
+
+
+     if(count($fet_ques)<1)
+      {
+          $followlist = "No records";
+      }
+
+	return $followlist;
+}
+
+
+
+
+/////////follower notify answer
+
+function notify_followeranswer()
+{
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+ $followans="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
+
+  $get_followans = db_query($followans);
+  $anslist='<div class="">
+		<ul>';
+  while($fet_followans = db_fetch_object($get_followans))
+  {
+
+          $sel_ans="select * from possible_answer_vote  where uid='".$fet_followans->uid."'";
+         
+	$rs_ans=db_query($sel_ans);
+	
+
+	while($fet_ans=db_fetch_object($rs_ans))
+	{
+
+
+          // $loadques = load_question($fet_ques->qid);
+            $fet_ans->panswer_id;
+            $fet_ans->qid;
+
+            $poss_qry = "select * from  possible_answer as pa join possible_answer_vote as pv on pa.paid=pv.panswer_id where pa.qid='".$fet_ans->qid."' order by pv.vote_pid desc";
+            $possrs = db_query($poss_qry);
+           $possfet =  db_fetch_object($possrs);
+
+           //$anslist .= $possfet->answer;
+
+          $anslist .='<li><a title="'.wordwrap($possfet->answer,40, "<br/>").'">'.htmlentities(substr($possfet->answer,0,40)).'</a></li>';
+
+	/*$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
+	$mm=db_query($sel_suge);
+
+	$ans_result=db_fetch_object($mm);
+
+        $followlist .='<li><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></li>';*/
+	}
+  }
+
+
+$anslist.='</ul></div>';
+     if(count($fet_ans)<1)
+      {
+          $anslist = "No records";
+      }
+
+	return $anslist;
+}
+
+///// follower like forum
+
+
+function notify_followerlike()
+{
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+ $followlike="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
+
+  $get_followlike = db_query($followlike);
+  $likelist='<div class=""><ul>';
+  while($fet_followlike = db_fetch_object($get_followlike))
+  {
+
+        $sel_like="select * from user_likes where uid='".$fet_followlike->uid."' and is_wave='1' and is_like='1'";
+
+	$rs_like=db_query($sel_like);
+
+
+	while($fet_like=db_fetch_object($rs_like))
+	{
+
+
+          // $loadques = load_question($fet_ques->qid);
+            
+
+             $forum_qry = "select * from forum_wave where fid='".$fet_like->node_id."' order by fid desc";
+            $forumrs = db_query($forum_qry);
+           $forumfet =  db_fetch_object($forumrs);
+
+            $click = 'loadwave('.$forumfet->qid_rid.','.$forumfet->fid.')';
+
+       $likelist.='<li><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$forumfet->title.'</a></li>';
+        //$likelist .='<li><a title="'.wordwrap($forumfet->title,40, "<br/>").'">'.htmlentities(substr($forumfet->title,0,40)).'</a></li>';
+	}
+  }
+
+
+$likelist.='</ul></div>';
+     if(count($fet_like)<1)
+      {
+          $likelist = "No records";
+      }
+
+	return $likelist;
+}
+///////////////////  notify New answer approved on previously answered question
+
+
+/*function notify_answeredques()
+{
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+
+
+
+
+
+ $possible_qry = "select * from possible_answer_vote where uid!='".$user->uid."' group by qid";
+ $possible_res = db_query($possible_qry);
+
+ $answeredlist='<div class=""><ul>';
+ 
+  while($possible_rows = db_fetch_object($possible_res))
+  {
+            $possible_rows->qid;
+            $possible_rows->uid;
+            $possible_rows->panswer_id;
+
+            $ques_qry = "select * from question where qid='".$possible_rows->qid."'";
+            $ques_res = db_query($ques_qry);
+            $ques_rows = db_fetch_object($ques_res);
+            
+            $ques_rows->question;
+
+            $poss_qry = "select * from possible_answer where paid='".$possible_rows->panswer_id."'";
+            $poss_res = db_query($poss_qry);
+            $poss_rows = db_fetch_object($poss_res);
+
+            $poss_rows->answer;
+
+
+             $answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'">'. substr($ques_rows->question,0,20).'...'.'</a></div>';
+
+
+             $answeredlist .='<div style="color:black">'. substr($poss_rows->answer,0,20).'...'.'</div>';
+  }
+
+$answeredlist.='</ul></div>';
+
+
+
+
+     if(count($possible_rows)<1)
+      {
+          $answeredlist = "No records";
+      }
+
+	return $answeredlist;
+}*/
+
+function notify_answeredques()
+{
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+   $possible_qry = "select * from possible_answer_vote where uid='".$user->uid."'";
+  
+    $possible_res = db_query($possible_qry);
+    
+    $answeredlist='<div class=""><ul>';
+
+  while($possible_rows = db_fetch_object($possible_res))
+  {
+
+           $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
+
+           $q_res = db_query($q_qry);
+         while($q_rows = db_fetch_object($q_res))
+         {
+      
+            
+
+             $ques_qry = "select * from question where qid='".$q_rows->qid."'";
+            $ques_res = db_query($ques_qry);
+            $ques_rows = db_fetch_object($ques_res);
+
+           
+
+            /*$poss_qry = "select * from possible_answer where paid='".$q_rows->panswer_id."'";
+            $poss_res = db_query($poss_qry);
+            $poss_rows = db_fetch_object($poss_res);*/
+
+           
+
+
+             $answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'">'. substr($ques_rows->question,0,40).'...'.'</a></div>';
+             //$answeredlist .='<div style="color:black">'. substr($poss_rows->answer,0,20).'...'.'</div>';
+         }
+   
+  }
+  $answeredlist.='</ul></div>';
+
+  if(count($q_rows)<1)
+      {
+          $answeredlist = "No records";
+      }
+
+	return $answeredlist;
+
+
+}
+////////////////notify flagged question
+function notify_flagged()
+{
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+    $flag_qry = "select qf.* from question_flags as qf join question as q on qf.nodeid!=q.qid and qf.uid!='".$user->uid."' group by qf.nodeid desc limit 0,5";
+    $flag_res = db_query($flag_qry);
+
+    $flaggedlist='<div class=""><ul>';
+
+  while($flag_rows = db_fetch_object($flag_res))
+  {
+    
+ $flaggedlist .='<div align="left">'.$flag_rows->abuse_type.' / '. date("D j M Y", strtotime($flag_rows->flag_date)).'</div>';
+      
+  }
+  
+  $flaggedlist.='</ul></div>';
+
+  if(count($flag_rows)<1)
+      {
+          $flaggedlist = "No records";
+      }
+
+	return $flaggedlist;
+
+
+}
+
