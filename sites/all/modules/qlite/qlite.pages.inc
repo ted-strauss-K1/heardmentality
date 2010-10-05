@@ -248,6 +248,15 @@ function report_content() {
     echo $output;
 }
 
+function tophot()
+{
+
+    echo "hi top hot";
+    exit;
+
+}
+
+
 function load_ajax() {
     drupal_add_js(drupal_get_path('module', 'qlite').'/scripts/qmini.js');
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -260,7 +269,7 @@ function load_ajax() {
         case '2':
             
             $output = '';
-            
+
             $output .= get_top_list();
             
             $output .= get_hot_list();
