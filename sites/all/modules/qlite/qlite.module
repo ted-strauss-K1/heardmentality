@@ -1,71 +1,4 @@
 <?php
-////vijay pagination start here/////////////////
-class Pagination_class{
-	var $result;
-	var $anchors;
-	var $total;
-	function Pagination_class($qry,$starting,$recpage)
-	{
-		$rst		=	mysql_query($qry) or die(mysql_error());
-		$numrows	=	mysql_num_rows($rst);
-		$qry		 .=	" limit $starting, $recpage";
-		$this->result	=	mysql_query($qry) or die(mysql_error());
-		$next		=	$starting+$recpage;
-		$var		=	((intval($numrows/$recpage))-1)*$recpage;
-		$page_showing	=	intval($starting/$recpage)+1;
-		$total_page	=	ceil($numrows/$recpage);
-
-		if($numrows % $recpage != 0){
-			$last = ((intval($numrows/$recpage)))*$recpage;
-		}else{
-			$last = ((intval($numrows/$recpage))-1)*$recpage;
-		}
-		$previous = $starting-$recpage;
-		$anc = "<ul id='pagination-flickr'>";
-		if($previous < 0){
-			$anc .= "<li class='previous-off'>First</li>";
-			$anc .= "<li class='previous-off'>Previous</li>";
-		}else{
-			$anc .= "<li class='next'><a href='javascript:pagination(0);'>First </a></li>";
-			$anc .= "<li class='next'><a href='javascript:pagination($previous);'>Previous </a></li>";
-		}
-
-		################If you dont want the numbers just comment this block###############
-		$norepeat = 4;//no of pages showing in the left and right side of the current page in the anchors
-		$j = 1;
-		$anch = "";
-		for($i=$page_showing; $i>1; $i--){
-			$fpreviousPage = $i-1;
-			$page = ceil($fpreviousPage*$recpage)-$recpage;
-			$anch = "<li><a href='javascript:pagination($page);'>$fpreviousPage </a></li>".$anch;
-			if($j == $norepeat) break;
-			$j++;
-		}
-		$anc .= $anch;
-		$anc .= "<li class='active'>".$page_showing."</li>";
-		$j = 1;
-		for($i=$page_showing; $i<$total_page; $i++){
-			$fnextPage = $i+1;
-			$page = ceil($fnextPage*$recpage)-$recpage;
-			$anc .= "<li><a href='javascript:pagination($page);'>$fnextPage</a></li>";
-			if($j==$norepeat) break;
-			$j++;
-		}
-		############################################################
-		if($next >= $numrows){
-			$anc .= "<li class='previous-off'>Next</li>";
-			$anc .= "<li class='previous-off'>Last</li>";
-		}else{
-			$anc .= "<li class='next'><a href='javascript:pagination($next);'>Next </a></li>";
-			$anc .= "<li class='next'><a href='javascript:pagination($last);'>Last</a></li>";
-		}
-			$anc .= "</ul>";
-		$this->anchors = $anc;
-
-		$this->total = "Page : $page_showing <i> Of  </i> $total_page . Total Records Found: $numrows";
-	}
-}
-///////////vijay pagination end here///////////
 function qlite_perm() {
     
     return array('QLite', 'Report', 'Report Content', 'Ajax Content');
@@ -78,7 +11,7 @@ function qlite_menu() {
     $item['qmini/report'] = array('title'=>'Question Lite', 'page callback'=>'qlite_report', 'type'=>MENU_CALLBACK, 'access arguments'=>array('Report'), 'file'=>'qlite.pages.inc', );
     $item['qmini/repcontent'] = array('title'=>'Question Lite', 'page callback'=>'report_content', 'type'=>MENU_CALLBACK, 'access arguments'=>array('Report Content'), 'file'=>'qlite.pages.inc', );
     $item['qmini/ajax'] = array('title'=>'Question Lite', 'page callback'=>'load_ajax', 'type'=>MENU_CALLBACK, 'access arguments'=>array('Ajax Content'), 'file'=>'qlite.pages.inc', );
-    
+     $item['qlite/tophot'] = array('title'=>'Question Lite', 'page callback'=>'tophot', 'access arguments'=>array('QLite'), 'type'=>MENU_CALLBACK, 'file'=>'qlite.pages.inc', );
     return $item;
 
 
@@ -97,7 +30,80 @@ function qlite_menu() {
 //		<!--<div>' . $shortdesc . ' ' . $linkj . '--><div>';
    // a{ text-decoration:none; color:#CC6600; font: normal Georgia, "Times New Roman", Times, serif;outline:none;}
 
+
+function top_multimenu()
+{
+ global $gSitePath,$user,$gDocPath,$base_root;
+   drupal_add_css(drupal_get_path('module', 'qlite') . '/vijcss/css_59ea39c7d9f9d5df1918a96804e26b0e.css');
+   drupal_add_css(drupal_get_path('module', 'qlite') . '/vijcss/css_79056659359449ba4b98c92f77c64c47.css');
+   drupal_add_css(drupal_get_path('module', 'qlite') . '/vijcss/css_dd7a4f3be96d4cd91b185c859cde5dc0.css');
+   drupal_add_css(drupal_get_path('module', 'qlite') . '/vijcss/css_e7a4d977eb616bb3e720672384e070be.css');
+   
+   
+
+
+
+//    $voutput .= '<div class="clr"></div>
+//	<div id="rotate">
+//        <br/>
+//              <ul id="maintabs" class="mytabs" >
+//             <li class="current"><a href="" title="Report"><span>Top Questions</span></a></li>
+//                <li class=""><a href="" title="Forum"><span>Hot Questions</span></a></li>
+//              </ul>
+//              <div class="mytabs-container" id="tabcontent">
+//            Loading. Please Wait...
+//        </div>
+//           </div>';
+
+   $voutput .=  '<div id="content">
+
+
+
+<div id="node-7" class="node node-page">
+
+  <div class="node-content clearfix prose body-copy">
+          <div class="demo">
+
+<div id="block-mostpopular-0" class="block block-mostpopular">
+
+
+      <div class="block-content clear-block ">
+      <div class="mostpopular mostpopular--widget">
+      <div class="item-list" id="rotate">
+      <ul class="mostpopular--services" id="maintabs">
+<li class="selected"><a sid="4" href="' . $gSitePath . '/qlite/tophot/' . $qid . 'type=top">Top Questions</a></li>
+<li class="last"><a sid="3" href="' . $gSitePath . '/qlite/tophot/' . $qid . 'type=hot">Hot Questions</a></li>
+</ul></div><div class="item-list"><ul class="mostpopular--intervals">
+<li class="selected"><a iid="2" href="/mostpopular/items/3/2">Week</a></li>
+<li><a iid="3" href="/mostpopular/items/3/3">Month</a></li>
+<li class="last"><a iid="4" href="/mostpopular/items/3/4">Year</a></li>
+</ul></div>
+
+
+     
+</div>    </div>
+
+  </div>
+
+
+</div>
+          </div>
+
+  </div>
+
+
+      </div>';
+
+    
+    return $voutput;
+}
+
+
+
+
+
 function top_list() {
+   
     drupal_add_js(drupal_get_path('module', 'qlite').'/scripts/qmini.js');
     $output = '';
     
@@ -114,14 +120,17 @@ function top_list() {
     $output .= '</select> &nbsp;  <span id="res_scat"><select name="" disabled="disabled">
                 <option>selecct a sub-category</option>
               </select> </span></div> </div>  <div class="inner"><div id="res_top">';
-    
+
+
+   // $output .= top_multimenu();
+
     $output .= get_top_list();
     
-    $output .= get_hot_list();
+   $output .= get_hot_list();
     
-    $output .= get_local_list();
+   $output .= get_local_list();
     
-    $output .= get_top_pundits();
+   $output .= get_top_pundits();
     
     echo "</div>";
 
