@@ -703,17 +703,15 @@ function notify_answeredques()
 
   while($possible_rows = db_fetch_object($possible_res))
   {
-            if($possible_rows->qid)
-            {
+            
            $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
-            }
+           
 
            $q_res = db_query($q_qry);
          while($q_rows = db_fetch_object($q_res))
          {
       
-            if($q_rows->qid)
-            {
+            
             $ques_qry = "select * from question where qid='".$q_rows->qid."'";
             $ques_res = db_query($ques_qry);
             $ques_rows = db_fetch_object($ques_res);
@@ -728,7 +726,7 @@ function notify_answeredques()
 
 
              $answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'">'. substr($ques_rows->question,0,40).'...'.'</a></div>';
-            }
+           
              //$answeredlist .='<div style="color:black">'. substr($poss_rows->answer,0,20).'...'.'</div>';
          }
    
