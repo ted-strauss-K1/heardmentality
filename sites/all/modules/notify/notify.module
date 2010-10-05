@@ -704,7 +704,8 @@ function notify_answeredques()
   while($possible_rows = db_fetch_object($possible_res))
   {
 
-           $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
+         echo  $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
+         exit;
 
            $q_res = db_query($q_qry);
          while($q_rows = db_fetch_object($q_res))
