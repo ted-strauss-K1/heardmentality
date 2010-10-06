@@ -122,11 +122,11 @@ function top_list() {
               </select> </span></div> </div>  <div class="inner"><div id="res_top">';
 
 
-   // $output .= top_multimenu();
+    $output .= top_multimenu();
 
-    $output .= get_top_list();
+   // $output .= get_top_list();
     
-   $output .= get_hot_list();
+   //$output .= get_hot_list();
     
    $output .= get_local_list();
     
