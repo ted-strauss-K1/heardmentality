@@ -10,8 +10,8 @@ function notify_perm() {
 /**
  * Implementation of hook_menu().
  */
- 
-function notify_menu() {	
+
+function notify_menu() {
 
 $items['mynotify'] = array(
     'title' => 'Notification',
@@ -49,7 +49,7 @@ $items['mynotify'] = array(
 	   'access arguments' => array('Notify Report Content3'),
     'file' => 'notify.pages.inc',
   );
-  
+
     $items['admin/notification'] = array(
     'title' => 'Change Notification Mail',
     'page callback' => 'admin_notify',
@@ -57,9 +57,9 @@ $items['mynotify'] = array(
 	   'access arguments' => array('Admin Notification'),
     'file' => 'notify.pages.inc',
   );
-  
-  
-  
+
+
+
   $items['admin/save_notify'] = array(
     'title' => 'Notification',
     'page callback' => 'admin_notify_save',
@@ -67,13 +67,13 @@ $items['mynotify'] = array(
 	   'access arguments' => array('Admin Notification'),
     'file' => 'notify.pages.inc',
   );
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
   return $items;
 }
 
@@ -85,21 +85,21 @@ $items['mynotify'] = array(
 
 function forum_post() {
     global $gSitePath,$user;
-    
+
 	$output = '';
 
         $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!='' order by id desc limit 0,5";
-       
+
          $get_follow = db_query($sel_follow);
-         
+
 
 		  $output .= '<div id=""><ul>';
-                
+
   while($fet_follow = db_fetch_object($get_follow))
   {
       $output.='<li>';
       $vSql = "select * from question where uid='".$fet_follow->follower_id."' order by qid desc limit 0,5";
-         
+
           $sql_follow = db_query($vSql);
           while($sql_fet = db_fetch_object($sql_follow))
           {
@@ -111,7 +111,7 @@ function forum_post() {
 
              foreach ($forum_list as $list) {
                  $click = 'loadwave('.$list['qid_rid'].','.$list['fid'].')';
-                 
+
                   $output.='
                     <div><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$list['title'].'</a><div>';
              }
@@ -169,7 +169,7 @@ function notify_category()
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
  $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
- 
+
 
   $get_follow = db_query($sel_follow);
   while($fet_follow = db_fetch_object($get_follow))
@@ -246,26 +246,26 @@ function notify_questions()
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
  $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
- 
+
   $get_follow = db_query($sel_follow);
  while($fet_follow = db_fetch_object($get_follow))
   // $fet_follow->follower_id;
  {
 
   /* $sel_flowcount="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
-  
+
     $rs_folquery = db_query($sel_flowcount);
     $rs_folfet=db_fetch_object($rs_folquery);*/
 
 
 	//$sel_flow="select * from follower where uid='".$user->uid."' and question_id!=''";
         $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
-     
+
 
 	$rs_folwin=db_query($sel_flow);
 	$questlist='
 		<div id="">
-		
+
 		<ul>';
        $chk = '';
 	while($flwing_result=db_fetch_object($rs_folwin))
@@ -280,8 +280,8 @@ function notify_questions()
               {
 
 	 $sel_suge="select * from question  where qid=".$flwing_result->question_id."  ";
-        
-     
+
+
 	$mm=db_query($sel_suge);
 
 	$ans_result=db_fetch_object($mm);
@@ -304,7 +304,7 @@ $questlist.='</ul></div>';
 }
 
 
-function notify_questionstop(){  
+function notify_questionstop(){
      global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
 $numrancntss = db_result(db_query("SELECT COUNT(*)  from notification as a, question as b  where a.uid=".$user->uid." and a.follower_action='1'  and a.is_question='1' and a.node_id=b.qid  and b.status='1'  order by a.nid desc  "));
@@ -368,9 +368,9 @@ $questlist.='</ul></div>
 	</div>';
         $questlist.=' </form>';
 	}
-	
+
 	//echo $questlist
-        return $questlist;    
+        return $questlist;
 }
 
 
@@ -425,7 +425,7 @@ function notify_suggest_follow()
 	}
 
 	$suggest_follow.='</ul></div>
-	
+
 	';
 	}
 	else
@@ -521,20 +521,20 @@ $followlist = '';
 
         $sel_ques="select * from question  where uid='".$fet_follow->uid."' order by qid desc ";
 	$rs_ques=db_query($sel_ques);
-	
-       
+
+
 	while($fet_ques=db_fetch_object($rs_ques))
 	{
 
-          
+
            $loadques = load_question($fet_ques->qid);
 
             //$followlist .=  $loadques[2];
-            
-           
+
+
           $followlist .='<li><a href="'.$gSitePath.$loadques[url].'" title="'.wordwrap($loadques[2],40, "<br/>").'">'.htmlentities(substr($loadques[2],0,40)).'....'.'</a></li>';
 	}
-       
+
   }
    $followlist.='</ul></div>';
 
@@ -567,9 +567,9 @@ function notify_followeranswer()
   {
 
           $sel_ans="select * from possible_answer_vote  where uid='".$fet_followans->uid."'";
-         
+
 	$rs_ans=db_query($sel_ans);
-	
+
 
 	while($fet_ans=db_fetch_object($rs_ans))
 	{
@@ -631,7 +631,7 @@ function notify_followerlike()
 
 
           // $loadques = load_question($fet_ques->qid);
-            
+
 
              $forum_qry = "select * from forum_wave where fid='".$fet_like->node_id."' order by fid desc";
             $forumrs = db_query($forum_qry);
@@ -669,7 +669,7 @@ $likelist.='</ul></div>';
  $possible_res = db_query($possible_qry);
 
  $answeredlist='<div class=""><ul>';
- 
+
   while($possible_rows = db_fetch_object($possible_res))
   {
             $possible_rows->qid;
@@ -679,7 +679,7 @@ $likelist.='</ul></div>';
             $ques_qry = "select * from question where qid='".$possible_rows->qid."'";
             $ques_res = db_query($ques_qry);
             $ques_rows = db_fetch_object($ques_res);
-            
+
             $ques_rows->question;
 
             $poss_qry = "select * from possible_answer where paid='".$possible_rows->panswer_id."'";
@@ -713,40 +713,40 @@ function notify_answeredques()
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
    $possible_qry = "select * from possible_answer_vote where uid='".$user->uid."'";
-  
+
     $possible_res = db_query($possible_qry);
-    
+
     $answeredlist='<div class=""><ul>';
 
   while($possible_rows = db_fetch_object($possible_res))
   {
-            
+
            $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
-           
+
 
            $q_res = db_query($q_qry);
          while($q_rows = db_fetch_object($q_res))
          {
-      
-            
+
+
             $ques_qry = "select * from question where qid='".$q_rows->qid."'";
             $ques_res = db_query($ques_qry);
             $ques_rows = db_fetch_object($ques_res);
 
-            
+
 
             /*$poss_qry = "select * from possible_answer where paid='".$q_rows->panswer_id."'";
             $poss_res = db_query($poss_qry);
             $poss_rows = db_fetch_object($poss_res);*/
 
-           
+
 
 
              $answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'">'. substr($ques_rows->question,0,40).'...'.'</a></div>';
-           
+
              //$answeredlist .='<div style="color:black">'. substr($poss_rows->answer,0,20).'...'.'</div>';
          }
-   
+
   }
   $answeredlist.='</ul></div>';
 
@@ -771,11 +771,11 @@ function notify_flagged()
 
   while($flag_rows = db_fetch_object($flag_res))
   {
-    
+
  $flaggedlist .='<div align="left">'.$flag_rows->abuse_type.' / '. date("D j M Y", strtotime($flag_rows->flag_date)).'</div>';
-      
+
   }
-  
+
   $flaggedlist.='</ul></div>';
 
   if(count($flag_rows)<1)
@@ -788,3 +788,25 @@ function notify_flagged()
 
 }
 
+
+function load_following_notify($type=''){
+
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+        $list=array();
+     $sel_pro = "select * from follower  where uid='" .$user->uid. "'  and follower_status='1' ";
+    $rs_following =ExecuteQuery($sel_pro,'select');
+    $countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid. "'  and follower_status='1'"));
+    foreach($rs_following as $items){
+            if(!empty($items['follower_id']))
+        array_push($list,$items['follower_id']);
+
+    }
+    $list=implode(',',$list);
+
+    $query="select * from notification where ".$type."='1' AND uid in (".$list.")";
+    $result =ExecuteQuery($query,'select');
+
+    return $result;
+}
