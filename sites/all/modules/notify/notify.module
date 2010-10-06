@@ -828,15 +828,23 @@ function notify_flagged()
 {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
-    $flag_qry = "select qf.* from question_flags as qf join question as q on qf.nodeid!=q.qid and qf.uid!='".$user->uid."' group by qf.nodeid desc limit 0,5";
+    $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
+   
+    $get_follow = db_query($sel_follow);
+    while($fet_follow = db_fetch_object($get_follow))
+  {
+
+
+   $flag_qry = "select qf.*,q.question,q.url from question_flags as qf join question as q on qf.nodeid=q.qid and qf.uid='".$fet_follow->follower_id."' group by qf.nodeid desc limit 0,5";
+   
     $flag_res = db_query($flag_qry);
 
-    $flaggedlist='<div class=""><ul>';
+    $flaggedlist='<div class="innerbox_modify"><ul class="menu">';
 
   while($flag_rows = db_fetch_object($flag_res))
   {
-
- $flaggedlist .='<div align="left">'.$flag_rows->abuse_type.' / '. date("D j M Y", strtotime($flag_rows->flag_date)).'</div>';
+$flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'">'.substr($flag_rows->question,0,30).'</a></div>';
+ $flaggedlist .='<div align="left">'.$flag_rows->abuse_type.'</div>';
 
   }
 
@@ -846,6 +854,7 @@ function notify_flagged()
       {
           $flaggedlist = "No records";
       }
+  }
 
 	return $flaggedlist;
 
