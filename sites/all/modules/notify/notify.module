@@ -327,7 +327,7 @@ if(mysql_affected_rows()>=1)
 
            $vote=load_votes($ques_rows->qid);
            
-           $questlist .= '<div style="width:280px;padding:1px;margin-top:2px;">
+           $questlist .= '<div style="width:280px;padding:1px;margin-top:8px;">
                <div style="width:64px; height:63px; float:left">'.UserPicture($ques_rows->uid).'</div>
                <div style="float:right;width:200px"><p><li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
            </div>';
