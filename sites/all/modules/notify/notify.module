@@ -678,14 +678,20 @@ function notify_followerlike()
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
- $followlike="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
+ 
+
+
+    
+
+ //$followlike="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
+    $followlike="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
   $get_followlike = db_query($followlike);
   $likelist='<div class=""><ul>';
   while($fet_followlike = db_fetch_object($get_followlike))
   {
 
-        $sel_like="select * from user_likes where uid='".$fet_followlike->uid."' and is_wave='1' and is_like='1'";
+        $sel_like="select * from user_likes where uid='".$fet_followlike->follower_id."' and is_wave='1' and is_like='1'";
 
 	$rs_like=db_query($sel_like);
 
