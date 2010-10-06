@@ -708,7 +708,7 @@ function notify_followerlike()
            $forumfet =  db_fetch_object($forumrs);
 
 
-           $ques_qry = "select * from question where qid='".$forumfet->node_id."'";
+          echo  $ques_qry = "select * from question where qid='".$forumfet->node_id."'";
             $ques_res = db_query($ques_qry);
            $ques_rows =  db_fetch_object($ques_res);
 
