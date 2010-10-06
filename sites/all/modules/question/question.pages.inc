@@ -757,6 +757,11 @@ $ccode=$country->CountryCode;
 function send_qnotify($qid=''){
     
         global $gSitePath,$user,$gDocPath,$base_root;
+
+        //inline site notify
+        $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$user->uid."','1','1','".$qid."' ) ");
+
+
             ////////////mail notication for user follwers to me//////////////////////////////////////
          $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
         $rs_followerf = db_query($sel_listf);
@@ -766,17 +771,10 @@ function send_qnotify($qid=''){
             $res_users = db_query($sellist);
             $usert = db_fetch_object($res_users);
             $to = $usert->mail;
-            if ($usert->notify_itype == 1) {
-
-                $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('".$follower_resultfuser->uid."','1','1','".$qid."' ) ");
-
-            }
+       
             if ($usert->notify_etype == 1) {
 
                 ///////////email for following ///////////////
-
-
-
 
 
                 $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='4'";

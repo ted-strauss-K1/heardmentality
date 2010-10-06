@@ -292,4 +292,33 @@ function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
             return $final;
         }
 
+      function load_votes($qid=''){
+
+        $final=array();
+
+        //no of votes
+          $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='" . $qid . "' GROUP BY qid";
+            $query_listd = db_query($queryd);
+            $fetvotd = db_fetch_object($query_listd);
+
+            $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='" . $qid . "' GROUP BY qid";
+            $query_sugestlistd = db_query($query_sugests);
+            $fetvotsugestbg = db_fetch_object($query_sugestlistd);
+            $final['qns'] = $fetvotd->possiblevote + $fetvotsugestbg->suggestv;
+
+
+        //no of resource n forum posts
+         $final['resource'] = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$qid'"));
+
+    $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid_rid = '$qid' ";
+    $list = ExecuteQuery($query, "select");
+    $x = 0;
+    foreach ($list as $fcnt) {
+
+        $x = $x + $fcnt['wcnt'];
+    }
+         $final['post']=$x;
+
+      return $final;
+      }
       
