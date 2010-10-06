@@ -236,7 +236,7 @@ if(count($cat_rows)<1)
 
 
 
-function notify_questions()
+/*function notify_questions()
 {
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
@@ -247,14 +247,6 @@ function notify_questions()
  while($fet_follow = db_fetch_object($get_follow))
   // $fet_follow->follower_id;
  {
-
-  /* $sel_flowcount="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
-
-    $rs_folquery = db_query($sel_flowcount);
-    $rs_folfet=db_fetch_object($rs_folquery);*/
-
-
-	//$sel_flow="select * from follower where uid='".$user->uid."' and question_id!=''";
         $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
 
 
@@ -267,7 +259,6 @@ function notify_questions()
 	while($flwing_result=db_fetch_object($rs_folwin))
 	{
 
-	//$questlist.=' '.$flwing_result->cat_name.'';
         $questlist.='<li>';
               $sel_count="select count(*) as count from possible_answer_vote  where qid=".$flwing_result->question_id."";
               $ss = db_query($sel_count);
@@ -282,9 +273,6 @@ function notify_questions()
 
 	$ans_result=db_fetch_object($mm);
               }
-	//$questlist.=' '.$ans_result->cat_name.'<br/>';
-
- //$queslist .='<div><a href="'.$gSitePath.'/searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
         $questlist .='<div><a href="'.$gSitePath.$ans_result->url.'">'.$ans_result->question.'</a></div>';
          $questlist.='</li>';
 	}
@@ -295,6 +283,57 @@ $questlist.='</ul></div>';
 //        {
 //            $questlist = "No records";
 //        }
+
+	return $questlist;
+}*/
+
+
+function notify_based_category()
+{
+   global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+   $sel_follow="select * from follower where cat_id!=0 and uid!='".$user->uid."' ";
+   $get_follow = db_query($sel_follow);
+
+$questlist='<div class="innerbox_notify">
+		<ul class="menu">';
+  while($fet_follow = db_fetch_object($get_follow))
+  {
+
+      $cat_qry = "select * from question_cat where cat='".$fet_follow->cat_id."'";
+      $cat_res = db_query($cat_qry);
+
+     $category_qry = "select * from category where cat_id='".$fet_follow->cat_id."'";
+      $category_res = db_query($category_qry);
+      $category_rows = db_fetch_object($category_res);
+      $questlist .='<div><a href="'.$gSitePath.'" style="color:black">'.$category_rows->cat_name.'</a></div>';
+      
+       while($cat_rows = db_fetch_object($cat_res))
+       {
+           $ques_qry = "select * from question where qid='".$cat_rows->qid."'";
+           $ques_res = db_query($ques_qry);
+           $ques_rows = db_fetch_object($ques_res);
+           
+          // echo  $user = userPicture_small($ques_rows->uid);
+           //'.UserPicture($ques_rows->uid).'
+       $questlist .='<span>'.UserPicture_small($ques_rows->uid).'</span><li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li>';
+       
+         $vote=load_votes($ques_rows->qid);
+         
+         $questlist .= '<div>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</div>';
+
+         
+                  // print_r($qdet);
+           // $output.='<li><div><a href="javascript:void(0);" onclick="">'.truncate_utf8($qdet['question'], '50').'</a><div>
+             //   <div>'.$vote['qns'].' Votes &nbsp; '.$vote['post'].' Posts</div></li>';
+
+
+       }
+  }
+$questlist.='</ul></div>';
+if(count($cat_rows)<1)
+      {
+          $questlist = "No records";
+      }
 
 	return $questlist;
 }
