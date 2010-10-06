@@ -687,7 +687,7 @@ function notify_followerlike()
     $followlike="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
   $get_followlike = db_query($followlike);
-  $likelist='<div class=""><ul>';
+  $likelist='<div class="innerbox_notify"><ul class="menu">';
   while($fet_followlike = db_fetch_object($get_followlike))
   {
 
@@ -707,8 +707,14 @@ function notify_followerlike()
             $forumrs = db_query($forum_qry);
            $forumfet =  db_fetch_object($forumrs);
 
-            $click = 'loadwave('.$forumfet->qid_rid.','.$forumfet->fid.')';
 
+           $ques_qry = "select * from question where qid='".$forumfet->node_id."'";
+            $ques_res = db_query($ques_qry);
+           $ques_rows =  db_fetch_object($ques_res);
+
+            $click = 'loadwave('.$forumfet->qid_rid.','.$forumfet->fid.')';
+            
+       $likelist.='<div><a href="'.$gSitePath.$ques_rows->url.'">'.substr($ques_rows->quesion,0,30).'</a></div>';
        $likelist.='<li><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$forumfet->title.'</a></li>';
         //$likelist .='<li><a title="'.wordwrap($forumfet->title,40, "<br/>").'">'.htmlentities(substr($forumfet->title,0,40)).'</a></li>';
 	}
