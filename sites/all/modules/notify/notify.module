@@ -174,36 +174,18 @@ function notify_category()
   $get_follow = db_query($sel_follow);
   while($fet_follow = db_fetch_object($get_follow))
   {
-  
-	//$sel_flow="select * from follower where uid='".$user->uid."' and  cat_id!=''";
-   /* $sel_flowcount="select count(*) as count from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
-    $rs_folquery = db_query($sel_flowcount);
-    $rs_folfet=db_fetch_object($rs_folquery);*/
-
-    
         $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
-       
-     
-        
 	$rs_folwin=db_query($sel_flow);
 	$questlist='<div class="">
 		<ul>';
        $chk = '';
 	while($flwing_result=db_fetch_object($rs_folwin))
 	{
-
-	//$questlist.=' '.$flwing_result->cat_name.'';
-
 	$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
 	$mm=db_query($sel_suge);
 
 	$ans_result=db_fetch_object($mm);
-	//$questlist.=' '.$ans_result->cat_name.'<br/>';
-
- //$queslist .='<div><a href="'.$gSitePath.'/searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
         $questlist .='<li><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></li>';
-        //echo $ans_result->cat_name;
-
 	}
   }
 
@@ -216,6 +198,41 @@ $questlist.='</ul></div>';
 
 	return $questlist;
 }
+
+//function notify_category()
+//{
+//   global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+//   $sel_follow="select * from follower where cat_id!=0";
+//   $get_follow = db_query($sel_follow);
+//
+//
+//  while($fet_follow = db_fetch_object($get_follow))
+//  {
+//
+//      $cat_qry = "select * from question_cat where cat='".$fet_follow->cat_id."'";
+//      $cat_res = db_query($cat_qry);
+//       while($cat_rows = db_fetch_object($cat_res))
+//       {
+//
+//           $ques
+//       $questlist .='<li><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></li>';
+//
+//
+//
+//
+//       }
+//
+//
+//
+//
+//
+//
+//  }
+//
+//
+//
+//
+//}
 
 
 
