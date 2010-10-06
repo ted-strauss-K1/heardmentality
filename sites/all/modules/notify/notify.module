@@ -199,40 +199,36 @@ $questlist.='</ul></div>';
 	return $questlist;
 }
 
-//function notify_category()
-//{
-//   global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-//   $sel_follow="select * from follower where cat_id!=0";
-//   $get_follow = db_query($sel_follow);
-//
-//
-//  while($fet_follow = db_fetch_object($get_follow))
-//  {
-//
-//      $cat_qry = "select * from question_cat where cat='".$fet_follow->cat_id."'";
-//      $cat_res = db_query($cat_qry);
-//       while($cat_rows = db_fetch_object($cat_res))
-//       {
-//
-//           $ques
-//       $questlist .='<li><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></li>';
-//
-//
-//
-//
-//       }
-//
-//
-//
-//
-//
-//
-//  }
-//
-//
-//
-//
-//}
+/*function notify_category()
+{
+   global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+   $sel_follow="select * from follower where cat_id!=0 and ";
+   $get_follow = db_query($sel_follow);
+
+$questlist='<div class="">
+		<ul>';
+  while($fet_follow = db_fetch_object($get_follow))
+  {
+
+      $cat_qry = "select * from question_cat where cat='".$fet_follow->cat_id."'";
+      $cat_res = db_query($cat_qry);
+       while($cat_rows = db_fetch_object($cat_res))
+       {
+           $ques_qry = "select * from question where qid='".$cat_rows->qid."'";
+           $ques_res = db_query($ques_qry);
+           $ques_rows = db_fetch_object($ques_res);
+
+       $questlist .='<li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li>';
+       }
+  }
+$questlist.='</ul></div>';
+if(count($cat_rows)<1)
+      {
+          $questlist = "No records";
+      }
+
+	return $questlist;
+}*/
 
 
 
