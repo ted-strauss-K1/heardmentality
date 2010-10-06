@@ -1,6 +1,128 @@
 <?php
 
 function my_notify_list() {
+
+    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+    drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/main.css');
+   // drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
+   // drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
+	 drupal_add_js(drupal_get_path('module', 'notify').'/scripts/script.js');
+ $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+// echo $idb;
+$voutput ='<style>
+              .black_overlay{
+                  display: none;
+                  position: absolute;
+                  top: 0%;
+                  left: 0%;
+                  width: 100%;
+
+
+                  z-index:1001;
+                  -moz-opacity: 0.8;
+                  opacity:.30;
+				  filter: alpha(opacity=80);
+              }
+              .white_content {
+                  display: none;
+                  position: absolute;
+                  top: 17%;
+                  left:10%;
+				  z-index:1002;
+                  overflow: auto;
+				  cursor: move;
+              }
+          </style>
+<script type="text/javascript">
+
+				var spath=\''.$gSitePath.'\';
+
+				 function get_message(){
+						var clearfi=\'\';
+						var url = "'.$gSitePath.'message";
+									var req = new Request({
+											method: \'get\'
+											,url: url
+											,data: {\'sendmail\':1 },
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'div_msg\').set(\'html\', response);
+													  $(\'show_box\').set(\'html\', clearfi);
+											}
+									}).send();
+
+
+						}
+
+
+
+
+					</script>
+
+			';
+	if(($idb=='ynotify')||($idb=='repcontent'))
+	{
+	$query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
+	  $quest = db_query($query);
+	$qid = db_result($quest);
+
+	}
+    else
+	{
+	 $query = "SELECT qid from {question} where url='".$idb."'";
+	    $quest = db_query($query);
+	  $qid = db_result($quest);
+
+	}
+
+
+
+     $vSql = "select * from {question} where status='1' and qid=$qid ";
+    $rlist = db_query($vSql);
+    $oListquest = db_fetch_object($rlist);
+
+    $list_lengthan = db_query("select * from {possible_answer_vote} where qid='".$qid."' and uid='".$user->uid."'  ");
+    $numran = mysql_num_rows($list_lengthan);
+    $answer_id = db_fetch_object($list_lengthan);
+    drupal_set_title($oListquest->question);
+    $voutput.= '<div class="lft_view"> <!--<h4 class="cmt_name"><a>'.$oListquest->question.' </a></h4>-->
+		<p><a title="'.htmlentities(wordwrap($oListquest->context, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$oListquest->qid).'">'.htmlentities(substr($oListquest->context,0,40)).'</a></p>';
+    $vans = "select * from {possible_answer} where  qid=$qid order by paid ASC";
+
+
+    $vlist = db_query($vans);
+    $chk = '';
+    while ($vlistquest = db_fetch_object($vlist)) {
+        if ($numran == 0) {
+
+            $voutput .= '
+		 <p><input name="answer" type="radio" value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'   </p>';
+        } else {
+
+            $chk = '';
+            if ($answer_id->panswer_id == $vlistquest->paid) {
+
+                $chk = "checked";
+            }
+            $voutput .= ' <p><input name="answer_al" type="radio" '.$chk.'  value="'.$vlistquest->paid.'" />
+		'.$vlistquest->answer.'   </p>';
+		}
+        }
+        $chk = '';
+
+
+		$voutput.='</div>';
+
+   // $voutput.=qlite_report($qid);
+    return $voutput;
+
+}
+
+/*
+
+function my_notify_list() {
     
      global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     
@@ -119,6 +241,47 @@ $voutput ='<style>
     return $voutput;
 
 }
+ *
+ */
+
+function notify_follow_question(){
+
+ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+
+    $array=load_following_notify('is_question');
+ 
+        $output='';
+
+        $output.='<div> <ul>';
+
+        foreach($array as $list){
+
+            $qdet=load_question($list['node_id']);
+            $vote=load_votes($list['node_id']);
+                  // print_r($qdet);
+            $output.='<li><div><a href="javascript:void(0);" onclick="">'.truncate_utf8($qdet['question'], '50').'</a><div>
+                <div>'.$vote['qns'].' Votes &nbsp; '.$vote['post'].' Posts</div></li>';
+            
+
+        }
+          $output.=' </ul></div>';
+
+	if(count($array)<1)
+	{
+	$output='No Notifications';
+	}
+	
+	
+	return $output;
+
+
+
+
+
+}
+
+
 function get_nqid($idm){
 	
 	/* global $gSitePath,$user,$gDocPath,$base_root;
