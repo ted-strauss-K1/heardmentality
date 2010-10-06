@@ -291,58 +291,71 @@ $questlist.='</ul></div>';
 function notify_based_category()
 {
    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-   $sel_follow="select * from follower where cat_id!=0 and uid!='".$user->uid."' ";
- 
+   //$sel_follow="select * from follower where cat_id!=0 and uid!='".$user->uid."' ";
+   $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0";
+  
    $get_follow = db_query($sel_follow);
    
 
 $questlist='<div class="innerbox_notify">
 		<ul class="menu">';
-if(mysql_affected_rows()>=1)
-{
+
   while($fet_follow = db_fetch_object($get_follow))
   {
 
-      $cat_qry = "select * from question_cat where cat='".$fet_follow->cat_id."'";
-      $cat_res = db_query($cat_qry);
-
-     $category_qry = "select * from category where cat_id='".$fet_follow->cat_id."'";
-      $category_res = db_query($category_qry);
-      $category_rows = db_fetch_object($category_res);
-     // $questlist .='<div><a href="'.$gSitePath.'" style="color:black">'.$category_rows->cat_name.'</a></div>';
-     if(mysql_affected_rows()>=1)
+        $wer_qry = "select * from follower where uid='".$fet_follow->follower_id."' and follower_id=0 and cat_id!=0";
+        $db_res = db_query($wer_qry);
+         while($db_rows = db_fetch_object($db_res))
         {
-       while($cat_rows = db_fetch_object($cat_res))
-       {
-           $ques_qry = "select * from question where qid='".$cat_rows->qid."'";
-           $ques_res = db_query($ques_qry);
-           $ques_rows = db_fetch_object($ques_res);
-           
-      // $questlist .='<span>'.UserPicture_small($ques_rows->uid).'</span><li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li>';
-       
-        // $vote=load_votes($ques_rows->qid);
-         
-         //$questlist .= '<div>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</div>';
 
 
-           $vote=load_votes($ques_rows->qid);
-           
-           $questlist .= '<div style="width:280px;padding:1px;margin-top:8px;">
-               <div style="width:64px; height:63px; float:left">'.UserPicture($ques_rows->uid).'</div>
-               <div style="float:right;width:200px"><p><li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
-           </div>';
+
+              $cat_qry = "select * from question_cat where cat='".$db_rows->cat_id."'";
+              $cat_res = db_query($cat_qry);
+              if(mysql_affected_rows()>=1)
+              {
+              $category_qry = "select * from category where cat_id='".$db_rows->cat_id."'";
+              $category_res = db_query($category_qry);
+              $category_rows = db_fetch_object($category_res);
+              $questlist .='<div><a href="'.$gSitePath.'" style="color:black">'.$category_rows->cat_name.'</a></div>';
+              }
+
+               while($cat_rows = db_fetch_object($cat_res))
+               {
+                   $ques_qry = "select * from question where qid='".$cat_rows->qid."'";
+                   $ques_res = db_query($ques_qry);
+                   $ques_rows = db_fetch_object($ques_res);
+
+              // $questlist .='<span>'.UserPicture_small($ques_rows->uid).'</span><li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li>';
+
+                // $vote=load_votes($ques_rows->qid);
+
+                 //$questlist .= '<div>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</div>';
 
 
-         /*$questlist .= '<div style="width:280px;padding:1px;margin-top:2px;">
-               <div style="width:64px; height:63px; float:left"><img src="'.$gSitePath.'sites/all/modules/profile/snap/noimage.jpg" width="63" height="53"></div>
-               <div style="float:right;width:200px"><p>dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since</p><p>9 Votes  9 Posts</p></div>
-           </div>';*/
+                   $vote=load_votes($ques_rows->qid);
 
-       }
-        }
+                   $questlist .= '<div style="width:280px;padding:1px;margin-top:8px;">
+                       <div style="width:64px; height:63px; float:left">'.UserPicture($ques_rows->uid).'</div>
+                       <div style="float:right;width:200px"><p><li><a href="'.$gSitePath.$ques_rows->url.'">'.substr($ques_rows->question,0,40).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
+                   </div>';
+
+
+                 /*$questlist .= '<div style="width:280px;padding:1px;margin-top:2px;">
+                       <div style="width:64px; height:63px; float:left"><img src="'.$gSitePath.'sites/all/modules/profile/snap/noimage.jpg" width="63" height="53"></div>
+                       <div style="float:right;width:200px"><p>dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since</p><p>9 Votes  9 Posts</p></div>
+                   </div>';*/
+
+               }
+         }
+
+
+
+
+
   }
 
-}
+
 
 
 $questlist.='</ul></div>';
