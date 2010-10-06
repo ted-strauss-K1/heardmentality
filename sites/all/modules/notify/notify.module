@@ -309,7 +309,7 @@ if(mysql_affected_rows()>=1)
      $category_qry = "select * from category where cat_id='".$fet_follow->cat_id."'";
       $category_res = db_query($category_qry);
       $category_rows = db_fetch_object($category_res);
-      $questlist .='<div><a href="'.$gSitePath.'" style="color:black">'.$category_rows->cat_name.'</a></div>';
+     // $questlist .='<div><a href="'.$gSitePath.'" style="color:black">'.$category_rows->cat_name.'</a></div>';
      if(mysql_affected_rows()>=1)
         {
        while($cat_rows = db_fetch_object($cat_res))
