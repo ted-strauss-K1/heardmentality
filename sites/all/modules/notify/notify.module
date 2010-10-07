@@ -120,6 +120,10 @@ function forum_post() {
            $output.='</li>';
   }
         $output.='</ul></div>';
+        if($forum_list<1)
+      {
+          $output = "No records";
+      }
 
 //	 $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
 //	    $rlist = db_query($vSql);
@@ -180,7 +184,7 @@ function notify_category()
   {
         $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
 	$rs_folwin=db_query($sel_flow);
-        
+         $count =  mysql_num_rows($rs_folwin);
 	$questlist='<div class="">
 		<ul>';
        $chk = '';
@@ -196,7 +200,7 @@ function notify_category()
 
 
 $questlist.='</ul></div>';
-     if(count($flwing_result)<1)
+     if($count==0)
       {
           $questlist = "No records";
       }
@@ -210,7 +214,7 @@ function notify_badges()
      $badges.='';
 
     //$imageresult=UserPicture($uid);
-    $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$user->uid."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$user->uid."' and ub.status='1' group by ub.bid order by ub.badge desc limit 0,5";
+    $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$user->uid."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$user->uid."' and ub.status='1' group by ub.bid order by ub.date_added desc limit 0,5";
     $badgelist = ExecuteQuery($getbadges, "select");
     
     $badges .='<div class="">
@@ -218,6 +222,7 @@ function notify_badges()
     foreach ($badgelist as $badgeach) {
 
         $badges .='<li>' . $badgeach['name'] . '</b>[' . $badgeach['bcnt'] . ']</li>';
+        $badges .='<div>On '.date("j M Y", strtotime($badgeach['date_added'])).'</div>';
     }
    
     if (empty($badgelist)) {
@@ -662,8 +667,7 @@ $followlist = '';
 /////////follower follower action answer
 
 function notify_followeranswer()
-{
-
+{ 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
 
@@ -676,7 +680,9 @@ function notify_followeranswer()
   {
 
          $sel_ans="select * from possible_answer_vote where uid='".$fet_followans->follower_id."' group by qid order by vote_pid desc";
+         
 	$rs_ans=db_query($sel_ans);
+        $count =  mysql_num_rows($rs_ans);
 	while($fet_ans=db_fetch_object($rs_ans))
 	{
              $qdet=load_question($fet_ans->qid);
@@ -689,21 +695,28 @@ function notify_followeranswer()
 
             if($qdet['question']!='')
             {
+
+           
+            
             $anslist .= '<div class="notify_cat1">
 
                        <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($fet_ans->uid).'</a></div>
 
-                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$qdet['url'].'?ajax=1" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Votes   <span style="color:black">'.$vote['forum'].'</span> Posts / Recently posted on <span style="color:black">'.date("D j M Y", strtotime($fet_ans->vote_pdate)).'</span></p></div>
+                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$qdet['url'].'?ajax=1" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Votes   <span style="color:black">'.$vote['forum'].'</span> Posts / Recently Voted on <span style="color:black">'.date("D j M Y", strtotime($fet_ans->vote_pdate)).'</span></p></div>
                    </div>';
             }
 
 	}
   }
-$anslist.='</ul></div>';
-     if(count($fet_ans)<1)
+    $anslist.='</ul></div>';
+
+
+     if($count==0)
       {
+            
           $anslist = "No records";
       }
+    
 
 	return $anslist;
 }
@@ -725,6 +738,7 @@ function notify_followerlike()
     $followlike="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
   $get_followlike = db_query($followlike);
+  
   $likelist='<div class="innerbox_notify"><ul class="menu">';
   while($fet_followlike = db_fetch_object($get_followlike))
   {
@@ -743,6 +757,7 @@ function notify_followerlike()
 
              $forum_qry = "select * from forum_wave where fid='".$fet_like->node_id."' order by fid desc";
             $forumrs = db_query($forum_qry);
+             $count =  mysql_num_rows($forumrs);
            $forumfet =  db_fetch_object($forumrs);
 
 
@@ -761,7 +776,7 @@ function notify_followerlike()
 
 
 $likelist.='</ul></div>';
-     if(count($fet_like)<1)
+     if($count==0)
       {
           $likelist = "No records";
       }
@@ -846,6 +861,7 @@ function notify_answeredques()
 
             $ques_qry = "select * from question where qid='".$q_rows->qid."'";
             $ques_res = db_query($ques_qry);
+             $count =  mysql_num_rows($forumrs);
             $ques_rows = db_fetch_object($ques_res);
 
             $udetails=load_user($q_rows->uid);
@@ -868,7 +884,7 @@ function notify_answeredques()
   }
   $answeredlist.='</ul></div>';
 
-  if(count($q_rows)<1)
+  if($count==0)
       {
           $answeredlist = "No records";
       }
@@ -892,7 +908,7 @@ function notify_flagged()
    $flag_qry = "select qf.*,q.question,q.url from question_flags as qf join question as q on qf.nodeid=q.qid and qf.uid='".$fet_follow->follower_id."' group by qf.nodeid desc limit 0,5";
    
     $flag_res = db_query($flag_qry);
-
+     $count =  mysql_num_rows($flag_res);
     $flaggedlist='<div class="innerbox_notify"><ul class="menu">';
 
   while($flag_rows = db_fetch_object($flag_res))
@@ -904,7 +920,7 @@ $flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'?ajax=1
 
   $flaggedlist.='</ul></div>';
 
-  if(count($flag_rows)<1)
+  if($count==0)
       {
           $flaggedlist = "No records";
       }
