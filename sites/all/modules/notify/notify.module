@@ -302,8 +302,8 @@ function notify_based_category()
   while($fet_follow = db_fetch_object($get_follow))
   {
 
-        echo $wer_qry = "select * from follower where uid='".$fet_follow->follower_id."' and follower_id=0 and cat_id!=0";
-        exit;
+        $wer_qry = "select * from follower where uid='".$fet_follow->follower_id."' and follower_id=0 and cat_id!=0";
+        
         $db_res = db_query($wer_qry);
          while($db_rows = db_fetch_object($db_res))
         {
