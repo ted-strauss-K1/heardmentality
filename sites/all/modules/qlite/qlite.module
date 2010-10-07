@@ -218,7 +218,7 @@ function get_top_list($time='') {
     if (! empty($list)) {
         foreach ($list as $quest) {
 
-            $output .=  '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .=  '<li  class="leaf"><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
 
         }
@@ -268,11 +268,11 @@ function get_hot_list($time='') {
 //  $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid   where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
-              <h3><strong>Hot questions</strong></h3><div class="innerbox" ><ul class="menu">';
+              <div class="innerbox" ><ul class="menu">';
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .= '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .= '<li class="leaf"><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
         
         }
@@ -341,13 +341,13 @@ if(!empty($country['city'])){
    //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
-              <h3><strong>Local questions</strong></h3>
+             
               <div class="innerbox"><ul class="menu">';
     
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .=  '<li><a title="'.  htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .=  '<li  class="leaf"><a title="'.  htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
         
         }
     } else {
