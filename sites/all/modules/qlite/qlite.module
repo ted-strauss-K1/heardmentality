@@ -301,6 +301,7 @@ function get_local_list($time='') {
     $cond = load_condition();
     
 $country=my_country();
+print_r($country);
 if(!empty($country)){
     if(!empty($country['cn'])){
        $query = array('query'=>$country['cn'],'maxRows'=>'1','featureclass'=>'S');
@@ -382,7 +383,7 @@ curl_close($curl);
 
 // Setup the xml object
 $xml =(array)simplexml_load_string( $raw_xml );
-print_r($xml);
+//print_r($xml);
 if(!empty($user)){
 
   $details=load_user($user->uid);
