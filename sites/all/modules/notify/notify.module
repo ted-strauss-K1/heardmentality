@@ -333,12 +333,12 @@ $questlist='<div class="innerbox_notify">
                  //$questlist .= '<div>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</div>';
 
 
-                   $vote=load_votes($ques_rows->qid);
+                  
 
 
                    $udetails=load_user($ques_rows->uid);
                    $bubble = load_bubble($udetails->uid);
-         // $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
+                    $vote=load_votes($ques_rows->qid);
 
 
 
