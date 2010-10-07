@@ -381,7 +381,6 @@ function search_results_question() {
           }
           
         $fetresult .= '</div><div class="rright">
-        <a href="'.$gSitePath.'categoryquestion/'.$follow.'/'.'quesid='.$user_result->qid .'">'.$follow.'</a>
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
 	 
