@@ -264,7 +264,7 @@ function notify_follow_question() {
         $vote = load_votes($list['node_id']);
         // print_r($qdet);
         if ($qdet['question'] != '') {
-            $output.='<li><div><a href="' . $gSitePath . $qdet['url'] . '?ajax=1" >' . truncate_utf8($qdet['question'], '50') . '</a><div>
+            $output.='<li><div><a href="'.$gSitePath.$qdet['url'].'?ajax=1" >' . truncate_utf8($qdet['question'], '50') . '</a><div>
                 <div>' . $vote['qns'] . ' Votes &nbsp; ' . $vote['post'] . ' Posts</div></li>';
         }
     }
