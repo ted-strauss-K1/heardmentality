@@ -339,6 +339,8 @@ $questlist='<div class="innerbox_notify">
                    $udetails=load_user($ques_rows->uid);
                    $bubble = load_bubble($udetails->uid);
                     $vote=load_votes($ques_rows->qid);
+                    print_r($vote);
+                    exit;
 
 
 
