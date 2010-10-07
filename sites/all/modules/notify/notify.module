@@ -662,7 +662,7 @@ function notify_followeranswer()
 
                        <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($fet_ans->uid).'</a></div>
 
-                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$qdet['url'].'" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p>'.$vote['qns'].' Votes   '.$vote['forum'].' Posts / '.date("D j M Y", strtotime($fet_ans->vote_pdate)).'</p></div>
+                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$qdet['url'].'" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Votes   <span style="color:black">'.$vote['forum'].'</span> Posts / Recently posted on <span style="color:black">'.date("D j M Y", strtotime($fet_ans->vote_pdate)).'</span></p></div>
                    </div>';
             }
 
@@ -829,7 +829,7 @@ function notify_answeredques()
                 
         $answeredlist .= '<div class="notify_cat1">
         <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($q_rows->uid).'</a></div>
-        <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'.truncate_utf8($ques_rows->question, '50').'</a></li></p><p>'.$vote['qns'].' Posts Recently posted on '.date("D j M Y", strtotime($q_rows->vote_pdate)).'</p></div>
+        <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'.truncate_utf8($ques_rows->question, '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Posts / Recently posted on <span style="color:black">'.date("D j M Y", strtotime($q_rows->vote_pdate)).'</span></p></div>
         </div>';
             }
          }
@@ -867,7 +867,7 @@ function notify_flagged()
   while($flag_rows = db_fetch_object($flag_res))
   {
 $flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'" title="'.htmlentities(wordwrap($flag_rows->question, 40,'<br/>')).'">'.substr($flag_rows->question,0,70).'...'.'</a></div>';
- $flaggedlist .='<div align="left">Flagged for: '.$flag_rows->abuse_type.'</div>';
+ $flaggedlist .='<div align="left"><span style="color:#F7B63A">Flagged for :</span>  '.$flag_rows->abuse_type.'</div>';
 
   }
 
