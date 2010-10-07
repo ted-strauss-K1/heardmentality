@@ -310,7 +310,16 @@ function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
         //no of resource n forum posts
          $final['resource'] = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$qid'"));
 
+         //count forum post
+         $forum_qry = "select count(*) as forum_count from forum_wave where qid_rid='".$qid."'";
+         $forum_res = db_query($forum_qry);
+         $forum_rows = db_fetch_object($forum_res);
+         $final['forum'] = $forum_rows->forum_count;
+
+
+
     $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid_rid = '$qid' ";
+   
     $list = ExecuteQuery($query, "select");
     $x = 0;
     foreach ($list as $fcnt) {
