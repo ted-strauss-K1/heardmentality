@@ -301,7 +301,7 @@ function get_local_list($time='') {
     $cond = load_condition();
     
 $country=my_country();
-//print_r($country);
+print_r($country);
 if(!empty($country)){
     if(!empty($country['cn'])){
        $query = array('query'=>$country['cn'],'maxRows'=>'1','featureclass'=>'S');
