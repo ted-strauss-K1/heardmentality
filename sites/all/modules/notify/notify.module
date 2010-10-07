@@ -644,7 +644,7 @@ function notify_followeranswer()
   while($fet_followans = db_fetch_object($get_followans))
   {
 
-        echo $sel_ans="select * from possible_answer_vote where uid='".$fet_followans->follower_id."' group by qid order by vote_pid desc";
+         $sel_ans="select * from possible_answer_vote where uid='".$fet_followans->follower_id."' group by qid order by vote_pid desc";
 	$rs_ans=db_query($sel_ans);
 	while($fet_ans=db_fetch_object($rs_ans))
 	{
