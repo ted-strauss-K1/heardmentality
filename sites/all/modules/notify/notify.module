@@ -335,11 +335,18 @@ $questlist='<div class="innerbox_notify">
 
                    $vote=load_votes($ques_rows->qid);
 
+
+                   $udetails=load_user($ques_rows->uid);
+                   $bubble = load_bubble($udetails->uid);
+         // $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
+
+
+
                    if($ques_rows->question!='')
                    {
                    $questlist .= '<div style="width:280px;padding:1px;min-height:100px;margin-top:8px;">
                        
-                       <div style="width:64px; height:63px; float:left">'.UserPicture_small($ques_rows->uid).'</div>
+                       <div style="width:64px; height:63px; float:left"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($ques_rows->uid).'</a></div>
                            
                        <div style="float:right;width:200px"><p><li><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'.substr($ques_rows->question,0,70).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
                    </div>';
