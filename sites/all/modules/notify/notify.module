@@ -169,6 +169,9 @@ function notify_category()
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
 
+ //select * from category as c join follower as f on f.cat_id=c.
+
+
  $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0";
    $get_follow = db_query($sel_follow);
 
@@ -183,7 +186,7 @@ function notify_category()
        $chk = '';
 	while($flwing_result=db_fetch_object($rs_folwin))
 	{
-	$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."";
+	$sel_suge="select * from category   where cat_id=".$flwing_result->cat_id."";
 	$mm=db_query($sel_suge);
 
 	$ans_result=db_fetch_object($mm);
@@ -377,7 +380,7 @@ function notify_based_category()
                        
                        <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($ques_rows->uid).'</a></div>
                            
-                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'.substr($ques_rows->question,0,70).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
+                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'.substr($ques_rows->question,0,70).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
                    </div>';
                    }
 
