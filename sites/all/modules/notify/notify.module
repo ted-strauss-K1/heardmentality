@@ -183,7 +183,7 @@ function notify_category()
        $chk = '';
 	while($flwing_result=db_fetch_object($rs_folwin))
 	{
-	$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
+	$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."";
 	$mm=db_query($sel_suge);
 
 	$ans_result=db_fetch_object($mm);
@@ -199,6 +199,32 @@ $questlist.='</ul></div>';
       }
 
 	return $questlist;
+}
+
+function notify_badges()
+{
+     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+     $badges.='';
+
+    //$imageresult=UserPicture($uid);
+    $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$user->uid."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$user->uid."' and ub.status='1' group by ub.bid order by ub.badge desc limit 0,5";
+    $badgelist = ExecuteQuery($getbadges, "select");
+    
+    $badges .='<div class="">
+		<ul>';
+    foreach ($badgelist as $badgeach) {
+
+        $badges .='<li>' . $badgeach['name'] . '</b>[' . $badgeach['bcnt'] . ']</li>';
+    }
+   
+    if (empty($badgelist)) {
+
+        $badges .='<li><h3>No Badges Yet !</h3></li>';
+    }
+     $badges .='</ul></div>';
+
+     return $badges;
+
 }
 
 /*function notify_category()
