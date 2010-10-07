@@ -301,7 +301,7 @@ function get_local_list($time='') {
     $cond = load_condition();
     
 $country=my_country();
-print_r($country);
+//print_r($country);
 if(!empty($country)){
     if(!empty($country['cn'])){
        $query = array('query'=>$country['cn'],'maxRows'=>'1','featureclass'=>'S');
@@ -341,7 +341,7 @@ if(!empty($country['city'])){
 // $homepage = file_get_contents('http://api.hostip.info/country.php');
   //  echo get_real_ip_addr();
 
-echo $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,10 ";
+ $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,10 ";
     
    //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
