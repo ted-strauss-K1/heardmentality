@@ -74,7 +74,7 @@
 
 jQuery(document).ready(function(){
 
-    jQuery(".contarea li a[href*='?ajax=1']").each(function(){
+    jQuery(".contarea a[href*='?ajax=1']").each(function(){
    
         jQuery(this).click(function () {
          
