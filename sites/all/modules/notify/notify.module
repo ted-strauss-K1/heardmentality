@@ -639,7 +639,7 @@ function notify_followeranswer()
  echo $followans="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
   $get_followans = db_query($followans);
-  $anslist='<div class="innerbox">
+  $anslist='<div class="innerbox_notify">
 		<ul class="menu">';
   while($fet_followans = db_fetch_object($get_followans))
   {
