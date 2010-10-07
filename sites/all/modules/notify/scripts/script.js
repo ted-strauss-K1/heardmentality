@@ -74,7 +74,7 @@
 
 jQuery(document).ready(function(){
 
-    jQuery('li a').each(function(){
+    jQuery('.contarea li a').each(function(){
 
         jQuery(this).click(function () {
          
