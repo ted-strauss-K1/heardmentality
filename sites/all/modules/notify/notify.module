@@ -335,7 +335,7 @@ $questlist='<div class="innerbox_notify">
 
                    $vote=load_votes($ques_rows->qid);
 
-                   if($ques_rows->question!='')
+                   if(mysql_affected_rows()>=1)
                    {
                    $questlist .= '<div style="width:280px;padding:1px;margin-top:8px;">
                        
