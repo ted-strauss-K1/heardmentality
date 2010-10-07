@@ -37,7 +37,7 @@
 #mostpop .mostpopular--services a,#mostpop .mostpopular--intervals a{padding:4px 11px;color:white;}
 #mostpop .mostpopular--services .selected a,#mostpop .mostpopular--intervals .selected a{padding-bottom:5px;margin-bottom:-1px;color:black;}
 #mostpop .mostpopular--intervals a,#mostpop .mostpopular--intervals .selected a{background:none;-moz-border-radius-topleft:5px;-moz-border-radius-topright:5px;-webkit-border-top-left-radius:5px;-webkit-border-top-right-radius:5px;border-top-left-radius:5px;border-top-right-radius:5px;color:#333;text-shadow:0 -1px 1px #999;}
-#mostpop .mostpopular--intervals .selected a{background-color:#fff;text-shadow:0 1px 1px #888;}
+#mostpop .mostpopular--intervals .selected a{background-color:#fff;text-shadow:0 1px 1px #888;color:black;}
 #mostpop .mostpopular--content{padding:5px;border-style:solid;border-width:0 1px 1px;border-color:#aaa;background-color:#fff;-moz-border-radius-bottomleft:5px;-moz-border-radius-bottomright:5px;-webkit-border-bottom-left-radius:5px;-webkit-border-bottom-right-radius:5px;border-bottom-left-radius:5px;border-bottom-right-radius:5px;}
 #mostpop .mostpopular--no-results{font-size:22px;text-align:center;color:#999;text-shadow:0 0 5px #ccc;}
 #mostpop .mostpopular--items a{padding:10px 15px;border-radius:5px;-webkit-border-radius:5px;-o-border-radius:5px;-moz-border-radius:5px;background:none;}
