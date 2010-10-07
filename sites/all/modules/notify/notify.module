@@ -337,7 +337,7 @@ $questlist='<div class="innerbox_notify">
 
                    if($ques_rows->question!='')
                    {
-                   $questlist .= '<div style="width:280px;padding:1px;height:100px;margin-top:8px;">
+                   $questlist .= '<div style="width:280px;padding:1px;min-height:50px;margin-top:8px;">
                        
                        <div style="width:64px; height:63px; float:left">'.UserPicture_small($ques_rows->uid).'</div>
                            
