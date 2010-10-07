@@ -322,7 +322,7 @@ $questlist='<div class="innerbox_notify">
 
                while($cat_rows = db_fetch_object($cat_res))
                {
-                   $ques_qry = "select * from question where qid='".$cat_rows->qid."'";
+                   echo $ques_qry = "select * from question where qid='".$cat_rows->qid."'";
                    $ques_res = db_query($ques_qry);
                    $ques_rows = db_fetch_object($ques_res);
 
