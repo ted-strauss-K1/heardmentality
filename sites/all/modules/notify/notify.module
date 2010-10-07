@@ -889,7 +889,7 @@ function load_following_notify($type=''){
 
 
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-
+ $result='';
         $list=array();
      $sel_pro = "select * from follower  where uid='" .$user->uid. "'  and follower_status='1' ";
     $rs_following =ExecuteQuery($sel_pro,'select');
@@ -900,9 +900,9 @@ function load_following_notify($type=''){
 
     }
     $list=implode(',',$list);
-
+if(!empty($list)){
     $query="select * from notification where ".$type."='1' AND uid in (".$list.")";
     $result =ExecuteQuery($query,'select');
-
+}
     return $result;
 }
