@@ -893,7 +893,7 @@ function notify_flagged()
    
     $flag_res = db_query($flag_qry);
 
-    $flaggedlist='<div class="innerbox_modify"><ul class="menu">';
+    $flaggedlist='<div class="innerbox_notify"><ul class="menu">';
 
   while($flag_rows = db_fetch_object($flag_res))
   {
