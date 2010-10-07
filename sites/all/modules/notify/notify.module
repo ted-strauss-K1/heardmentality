@@ -183,7 +183,7 @@ function notify_category()
        $chk = '';
 	while($flwing_result=db_fetch_object($rs_folwin))
 	{
-	$sel_suge="select * from category  where cat_id!=".$flwing_result->cat_id."  ";
+	$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
 	$mm=db_query($sel_suge);
 
 	$ans_result=db_fetch_object($mm);
