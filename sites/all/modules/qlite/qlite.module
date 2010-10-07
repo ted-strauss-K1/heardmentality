@@ -55,11 +55,8 @@ drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/fade.js');
 
    $voutput .=  '
 
-<div class="block block-mostpopular" id="block-mostpopular-0">
 
-
-      <div class="block-content clear-block ">
-      <div class="mostpopular mostpopular--widget"><div class="item-list"><ul class="mostpopular--services">
+      <div id="mostpop" class="mostpopular mostpopular--widget"><div class="item-list"><ul class="mostpopular--services">
 <li class="selected"><a href="'.$gSitePath.'qlite/tophot/4/2" sid="4">Top</a></li>
 <li class=""><a href="'.$gSitePath.'qlite/tophot/3/2" sid="3">Hot</a></li>
 <li class="last"><a href="'.$gSitePath.'qlite/tophot/2/2" sid="2">Local</a></li>
@@ -72,9 +69,7 @@ drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/fade.js');
     <div class="ahah-progress ahah-progress-throbber" style="position: absolute; z-index: 100; display: none; top: 24px; left: 159px;">
     <div class="throbber">&nbsp;</div>
     </div>
-</div></div>    </div>
-
-  </div>
+</div></div>    
 ';
 
     
@@ -134,7 +129,7 @@ function top_list() {
     
    //$output .= get_hot_list();
     
-   $output .= get_local_list();
+   //$output .= get_local_list();
     
    $output .= get_top_pundits();
     
