@@ -363,5 +363,6 @@ margin-right:2px;
 .hm-cen-pun{ border:1px solid #ccc; padding:1px; padding-top:10px;}
 .pun{margin: 0}
 .notify_cat1{width:280px;padding:1px;min-height:100px;margin-top:8px; }
-.notify_cat2{width:64px; height:63px; float:left }
-.notify_cat3{float:right;width:200px}
+.notify_cat2{width:33pxpx; height:63px; float:left }
+/*.notify_cat3{float:right;width:200px;}*/
+.notify_cat3{margin-left:33px;}
