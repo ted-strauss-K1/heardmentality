@@ -89,7 +89,7 @@ function my_notify_list() {
     $list_lengthan = db_query("select * from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'  ");
     $numran = mysql_num_rows($list_lengthan);
     $answer_id = db_fetch_object($list_lengthan);
-    drupal_set_title($oListquest->question);
+    drupal_set_title('Notification');
     $voutput.= '<div class="lft_view"> <!--<h4 class="cmt_name"><a>' . $oListquest->question . ' </a></h4>-->
 		<p><a title="' . htmlentities(wordwrap($oListquest->context, 40, '<br/>')) . '" style="' . drupal_link_color($user->uid, $oListquest->qid) . '">' . htmlentities(substr($oListquest->context, 0, 40)) . '</a></p>';
     $vans = "select * from {possible_answer} where  qid=$qid order by paid ASC";
