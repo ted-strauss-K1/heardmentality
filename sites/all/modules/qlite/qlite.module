@@ -65,7 +65,7 @@ drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/fade.js');
 <li class="selected"><a href="'.$gSitePath.'qlite/tophot/4/2" iid="2">Week</a></li>
 <li class=""><a href="'.$gSitePath.'qlite/tophot/4/3" iid="3">Month</a></li>
 <li class="last"><a href="'.$gSitePath.'qlite/tophot/4/4" iid="4">Year</a></li>
-</ul></div><div style="position: relative;"><div class="mostpopular--content" style="opacity: 1;"><p class="mostpopular--no-results">No results found</p></div>
+</ul></div><div style="position: relative;"><div class="mostpopular--content" style="opacity: 1;"><p class="mostpopular--no-results">Loading...</p></div>
     <div class="ahah-progress ahah-progress-throbber" style="position: absolute; z-index: 100; display: none; top: 24px; left: 159px;">
     <div class="throbber">&nbsp;</div>
     </div>
