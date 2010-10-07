@@ -317,7 +317,7 @@ $questlist='<div class="innerbox_notify">
               $category_qry = "select * from category where cat_id='".$db_rows->cat_id."'";
               $category_res = db_query($category_qry);
               $category_rows = db_fetch_object($category_res);
-              $questlist .='<div><a href="'.$gSitePath.'" style="color:black">'.$category_rows->cat_name.'</a></div>';
+             // $questlist .='<div><a href="'.$gSitePath.'" style="color:black">'.$category_rows->cat_name.'</a></div>';
               }
 
                while($cat_rows = db_fetch_object($cat_res))
@@ -339,7 +339,7 @@ $questlist='<div class="innerbox_notify">
                    {
                    $questlist .= '<div style="width:280px;padding:1px;margin-top:8px;">
                        
-                       <div style="width:64px; height:63px; float:left">'.UserPicture($ques_rows->uid).'</div>
+                       <div style="width:64px; height:63px; float:left">'.UserPicture_small($ques_rows->uid).'</div>
                            
                        <div style="float:right;width:200px"><p><li><a href="'.$gSitePath.$ques_rows->url.'">'.substr($ques_rows->question,0,40).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
                    </div>';
