@@ -33,6 +33,7 @@ function qlite_view() {
     drupal_add_css(drupal_get_path('theme', 'newtheme') . '/rotate_files/ui.css');
     $qid = get_qid();
 
+ 
     //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     /////////////qviews /////////////////////////
     popquest();
@@ -618,7 +619,12 @@ function qlite_view() {
     
     // cron job in qlite module
    // cal_active_rate();
+   if($_REQUEST['ajax']==1){
+         echo $voutput;
+   }
+   else{
     return $voutput;
+   }
 }
 
 function qns_like() {
