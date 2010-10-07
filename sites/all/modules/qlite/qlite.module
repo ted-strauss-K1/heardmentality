@@ -34,12 +34,10 @@ function qlite_menu() {
 function top_multimenu()
 {
  global $gSitePath,$user,$gDocPath,$base_root;
-   drupal_add_css(drupal_get_path('module', 'qlite') . '/vijcss/css_59ea39c7d9f9d5df1918a96804e26b0e.css');
-   drupal_add_css(drupal_get_path('module', 'qlite') . '/vijcss/css_79056659359449ba4b98c92f77c64c47.css');
-   drupal_add_css(drupal_get_path('module', 'qlite') . '/vijcss/css_dd7a4f3be96d4cd91b185c859cde5dc0.css');
-   drupal_add_css(drupal_get_path('module', 'qlite') . '/vijcss/css_e7a4d977eb616bb3e720672384e070be.css');
-   
-   
+drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/fade.js');
+ drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/mostpopular.js');
+    drupal_add_css(drupal_get_path('module', 'qlite') . '/css/mostpopular-basic.css');
+   drupal_add_css(drupal_get_path('module', 'qlite') . '/css/mostpopular-full.css');
 
 
 
@@ -55,44 +53,29 @@ function top_multimenu()
 //        </div>
 //           </div>';
 
-   $voutput .=  '<div id="content">
+   $voutput .=  '
 
-
-
-<div id="node-7" class="node node-page">
-
-  <div class="node-content clearfix prose body-copy">
-          <div class="demo">
-
-<div id="block-mostpopular-0" class="block block-mostpopular">
+<div class="block block-mostpopular" id="block-mostpopular-0">
 
 
       <div class="block-content clear-block ">
-      <div class="mostpopular mostpopular--widget">
-      <div class="item-list" id="rotate">
-      <ul class="mostpopular--services" id="maintabs">
-<li class="selected"><a sid="4" href="' . $gSitePath . '/qlite/tophot/' . $qid . 'type=top">Top Questions</a></li>
-<li class="last"><a sid="3" href="' . $gSitePath . '/qlite/tophot/' . $qid . 'type=hot">Hot Questions</a></li>
+      <div class="mostpopular mostpopular--widget"><div class="item-list"><ul class="mostpopular--services">
+<li class="selected"><a href="'.$gSitePath.'qlite/tophot/4/2" sid="4">Top</a></li>
+<li class=""><a href="'.$gSitePath.'qlite/tophot/3/2" sid="3">Hot</a></li>
+<li class="last"><a href="'.$gSitePath.'qlite/tophot/2/2" sid="2">Local</a></li>
 </ul></div><div class="item-list"><ul class="mostpopular--intervals">
-<li class="selected"><a iid="2" href="/mostpopular/items/3/2">Week</a></li>
-<li><a iid="3" href="/mostpopular/items/3/3">Month</a></li>
-<li class="last"><a iid="4" href="/mostpopular/items/3/4">Year</a></li>
-</ul></div>
-
-
-     
-</div>    </div>
-
-  </div>
-
-
-</div>
-          </div>
+<li class=""><a href="'.$gSitePath.'qlite/tophot/4/1" iid="1">Day</a></li>
+<li class="selected"><a href="'.$gSitePath.'qlite/tophot/4/2" iid="2">Week</a></li>
+<li class=""><a href="'.$gSitePath.'qlite/tophot/4/3" iid="3">Month</a></li>
+<li class="last"><a href="'.$gSitePath.'qlite/tophot/4/4" iid="4">Year</a></li>
+</ul></div><div style="position: relative;"><div class="mostpopular--content" style="opacity: 1;"><p class="mostpopular--no-results">No results found</p></div>
+    <div class="ahah-progress ahah-progress-throbber" style="position: absolute; z-index: 100; display: none; top: 24px; left: 159px;">
+    <div class="throbber">&nbsp;</div>
+    </div>
+</div></div>    </div>
 
   </div>
-
-
-      </div>';
+';
 
     
     return $voutput;
@@ -100,6 +83,29 @@ function top_multimenu()
 
 
 
+function tophot()
+{
+    //Array ( [0] => qlite [1] => tophot [2] => 4 [3] => 2 )
+    $vars=arg();
+    $output='';
+    switch ($vars['2']){
+        case '4':
+            $output .= get_top_list($vars[3]);
+            break;
+        case '3':
+            $output .= get_hot_list($vars[3]);
+            break;
+        case '2':
+            $output .= get_local_list($vars[3]);
+            break;
+            default:
+                $output.='No Result Found';
+                break;
+    }
+    echo $output;
+    exit;
+
+}
 
 
 function top_list() {
@@ -140,7 +146,6 @@ function top_list() {
 
 }
 
-  ////vijay filter
 function get_top_pundits() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
@@ -184,40 +189,54 @@ function get_top_pundits() {
     return $output;
 }
 
-function get_top_list() {
+function get_top_list($time='') {
   
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     $cond = '';
+      $cond = load_condition();
+      $output .= '<div>
+              <div class="innerbox" ><ul class="menu">';
+   switch($time){
+   case '1':
+        $cond.=' AND DATE(date_added)="'.  date('Y-m-d').'" ';
+       break;
+   case '2':
+        $cond.=' AND YEARWEEK(date_added)=YEARWEEK("'.  date('Y-m-d').'") ';
+       break;
+    case '3':
+       $cond.=' AND MONTH(date_added)=MONTH("'.  date('Y-m-d').'") ';
+       break;
+    case '4':
+      $cond.=' AND YEAR(date_added)=YEAR("'.  date('Y-m-d').'") ';
+       break;
+    default:
+  
+     break;
 
-   
-    $cond = load_condition();
-//$style = "color:red";
-    
- // echo  $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1' $cond order by q.active_rate  DESC LIMIT 0,10";
+   }
 
-    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,10";
-    
+     $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,10";
+
     $list = ExecuteQuery($query, "select");
-    $output .= '<div>
-              <h3><strong>Top questions</strong></h3><div class="innerbox" ><ul class="menu">';
+
     if (! empty($list)) {
         foreach ($list as $quest) {
-            
+
             $output .=  '<li><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
-        
+
         }
     } else {
-        
+
         $output .= '<div><b>No Top List Found</b></div>';
-    
+
     }
     $output .= '</ul></div> </div><div class="clr"></div>';
     return $output;
 }
 
-function get_hot_list() {
+function get_hot_list($time='') {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
@@ -229,6 +248,24 @@ function get_hot_list() {
     $y = date("Y");
     $date = date('Y-m-d', mktime(0, 0, 0, $m, ($de - 7), $y));
 
+    switch($time){
+   case '1':
+        $cond.=' AND DATE(date_added)="'.  date('Y-m-d').'" ';
+       break;
+   case '2':
+        $cond.=' AND YEARWEEK(date_added)=YEARWEEK("'.  date('Y-m-d').'") ';
+       break;
+    case '3':
+       $cond.=' AND MONTH(date_added)=MONTH("'.  date('Y-m-d').'") ';
+       break;
+    case '4':
+      $cond.=' AND YEAR(date_added)=YEAR("'.  date('Y-m-d').'") ';
+       break;
+    default:
+
+     break;
+
+   }
 
   $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' AND date(q.date_added) >= '$date' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,10 ";
 
@@ -255,7 +292,7 @@ function get_hot_list() {
 
 }
 
-function get_local_list() {
+function get_local_list($time='') {
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     $cond = '';
@@ -280,6 +317,26 @@ if(!empty($country['city'])){
    $cond.="OR q.city='".trim($country['city'])."'";
 }
 }
+
+ switch($time){
+   case '1':
+        $cond.=' AND DATE(date_added)="'.  date('Y-m-d').'" ';
+       break;
+   case '2':
+        $cond.=' AND YEARWEEK(date_added)=YEARWEEK("'.  date('Y-m-d').'") ';
+       break;
+    case '3':
+       $cond.=' AND MONTH(date_added)=MONTH("'.  date('Y-m-d').'") ';
+       break;
+    case '4':
+      $cond.=' AND YEAR(date_added)=YEAR("'.  date('Y-m-d').'") ';
+       break;
+    default:
+
+     break;
+
+   }
+
 // $homepage = file_get_contents('http://api.hostip.info/country.php');
   //  echo get_real_ip_addr();
 

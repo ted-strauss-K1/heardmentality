@@ -248,13 +248,6 @@ function report_content() {
     echo $output;
 }
 
-function tophot()
-{
-
-    echo "hi top hot";
-    exit;
-
-}
 
 
 function load_ajax() {
