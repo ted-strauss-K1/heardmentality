@@ -194,6 +194,7 @@ function UserPicture_small($mid) {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
     $rs_image = db_query($selimage);
+    
     $resultimage = db_fetch_object($rs_image);
     $default = $gSitePath.drupal_get_path('module', 'profile').'/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
