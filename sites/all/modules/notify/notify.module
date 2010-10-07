@@ -636,7 +636,7 @@ function notify_followeranswer()
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
 
- echo $followans="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
+  $followans="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
   $get_followans = db_query($followans);
   $anslist='<div class="innerbox_notify">
@@ -644,7 +644,7 @@ function notify_followeranswer()
   while($fet_followans = db_fetch_object($get_followans))
   {
 
-        $sel_ans="select * from possible_answer_vote  where uid='".$fet_followans->follower_id."' group by qid order by vote_pid desc";
+        echo $sel_ans="select * from possible_answer_vote where uid='".$fet_followans->follower_id."' group by qid order by vote_pid desc";
 	$rs_ans=db_query($sel_ans);
 	while($fet_ans=db_fetch_object($rs_ans))
 	{
