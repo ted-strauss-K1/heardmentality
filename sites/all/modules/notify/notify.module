@@ -103,7 +103,7 @@ function forum_post() {
           $sql_follow = db_query($vSql);
           while($sql_fet = db_fetch_object($sql_follow))
           {
-            $output .='<div><a href="'.$gSitePath.$sql_fet->url.'">'. substr($sql_fet->question,0,20).'...'.'</a></div>';
+            $output .='<div><a href="'.$gSitePath.$sql_fet->url.'?ajax=1">'. substr($sql_fet->question,0,20).'...'.'</a></div>';
 
             $forum_query = "select * from forum_wave where qid_rid='$sql_fet->qid' order by fid desc limit 0,5";
 
