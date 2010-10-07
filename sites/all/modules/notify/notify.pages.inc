@@ -253,7 +253,7 @@ function notify_follow_question(){
  
         $output='';
 
-        $output.='<div class="innerbox_notify"> <ul class="menu">';
+        $output.='<div class="innerbox"> <ul class="menu">';
 
         foreach($array as $list){
 
