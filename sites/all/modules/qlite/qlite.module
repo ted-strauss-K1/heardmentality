@@ -125,7 +125,7 @@ function top_list() {
     
     $output .= '</select> &nbsp;  <span id="res_scat"><select name="" disabled="disabled">
                 <option>selecct a sub-category</option>
-              </select> </span></div> </div>  <div class="inner"><div id="res_top">';
+              </select> </span></div> </div></div>  <div class="inner"><div id="res_top">';
 
 
     $output .= top_multimenu();
