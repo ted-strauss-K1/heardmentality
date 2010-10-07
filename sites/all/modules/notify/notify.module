@@ -302,7 +302,7 @@ function notify_based_category()
   while($fet_follow = db_fetch_object($get_follow))
   {
 
-        $wer_qry = "select * from follower where uid='".$fet_follow->follower_id."' and follower_id=0 and cat_id!=0";
+         $wer_qry = "select * from follower where uid='".$fet_follow->follower_id."' and follower_id=0 and cat_id!=0";
         
         $db_res = db_query($wer_qry);
          while($db_rows = db_fetch_object($db_res))
@@ -628,7 +628,7 @@ $followlist = '';
 
 
 
-/////////follower notify answer
+/////////follower follower action answer
 
 function notify_followeranswer()
 {
@@ -639,47 +639,29 @@ function notify_followeranswer()
  $followans="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
   $get_followans = db_query($followans);
-
-
- //$followans="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
-
-  //$get_followans = db_query($followans);
-  $anslist='<div class="">
-		<ul>';
+  $anslist='<div class="innerbox">
+		<ul class="menu">';
   while($fet_followans = db_fetch_object($get_followans))
   {
 
-          $sel_ans="select * from possible_answer_vote  where uid='".$fet_followans->follower_id."'";
-
+        $sel_ans="select * from possible_answer_vote  where uid='".$fet_followans->follower_id."' group by qid order by vote_pid desc";
 	$rs_ans=db_query($sel_ans);
-
-
 	while($fet_ans=db_fetch_object($rs_ans))
 	{
+             $qdet=load_question($fet_ans->qid);
+             
+            $vote=load_votes($fet_ans->qid);
+            userPicture_small($fet_ans->uid);
 
+            $anslist .= '<div class="notify_cat1">
 
-          // $loadques = load_question($fet_ques->qid);
-            $fet_ans->panswer_id;
-            $fet_ans->qid;
+                       <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($ques_rows->uid).'</a></div>
 
-            $poss_qry = "select * from  possible_answer as pa join possible_answer_vote as pv on pa.paid=pv.panswer_id where pa.qid='".$fet_ans->qid."' order by pv.vote_pid desc";
-            $possrs = db_query($poss_qry);
-           $possfet =  db_fetch_object($possrs);
+                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$qdet['url'].'" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
+                   </div>';
 
-           //$anslist .= $possfet->answer;
-
-          $anslist .='<li><a title="'.wordwrap($possfet->answer,40, "<br/>").'">'.htmlentities(substr($possfet->answer,0,40)).'</a></li>';
-
-	/*$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
-	$mm=db_query($sel_suge);
-
-	$ans_result=db_fetch_object($mm);
-
-        $followlist .='<li><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></li>';*/
 	}
   }
-
-
 $anslist.='</ul></div>';
      if(count($fet_ans)<1)
       {
