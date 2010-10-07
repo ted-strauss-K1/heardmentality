@@ -866,7 +866,7 @@ function notify_flagged()
 
   while($flag_rows = db_fetch_object($flag_res))
   {
-$flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'" title="'.htmlentities(wordwrap($flag_rows->question, 40,'<br/>')).'">'.substr($flag_rows->question,0,50).'...'.'</a></div>';
+$flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'" title="'.htmlentities(wordwrap($flag_rows->question, 40,'<br/>')).'">'.substr($flag_rows->question,0,50).'....'.'</a></div>';
  $flaggedlist .='<div align="left">Flagged for: '.$flag_rows->abuse_type.'</div>';
 
   }
