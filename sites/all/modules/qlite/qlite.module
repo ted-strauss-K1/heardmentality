@@ -307,7 +307,7 @@ if(!empty($country)){
        $query = array('query'=>$country['cn'],'maxRows'=>'1','featureclass'=>'S');
                 $result = geonames_query('search', $query);
                 $cc=$result->results[0]['countrycode'];
-$cond.="AND q.country='".trim($cc)."'";
+$cond.="AND q.country='".trim($country['cn'])."'";
     }
 if(!empty($country['state'])){
 
