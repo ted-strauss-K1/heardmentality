@@ -168,7 +168,7 @@ function get_top_pundits() {
     }
     else
     {
-    $query = "select * from {follower} as f join {users} as u on f.uid=u.uid where f.cat_id=0 and f.question_id=0 group by f.uid LIMIT 0,4";
+    $query = "select * from {gurulist} LIMIT 0,4";
     $list = ExecuteQuery($query, "select");
     foreach ($list as $quest) {
            $udetails=load_user($quest['uid']);
