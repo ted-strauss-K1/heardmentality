@@ -800,12 +800,12 @@ function notify_answeredques()
 
     $possible_res = db_query($possible_qry);
 
-    $answeredlist='<div class=""><ul>';
+    $answeredlist='<div class="innerbox"><ul class="menu">';
 
   while($possible_rows = db_fetch_object($possible_res))
   {
 
-           $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
+            $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
 
 
            $q_res = db_query($q_qry);
@@ -822,13 +822,16 @@ function notify_answeredques()
             /*$poss_qry = "select * from possible_answer where paid='".$q_rows->panswer_id."'";
             $poss_res = db_query($poss_qry);
             $poss_rows = db_fetch_object($poss_res);*/
+             $vote=load_votes($ques_rows->qid);
+             
+            if($ques_rows->question!='')
+            {
+             $answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'. substr($ques_rows->question,0,40).'...'.'</a></div>';
 
+              $answeredlist .= '<p>'.$vote['qns'].' Votes / '.date("D j M Y", strtotime($q_rows->vote_pdate)).'</p>';
 
-
-
-             $answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'">'. substr($ques_rows->question,0,40).'...'.'</a></div>';
-
-             //$answeredlist .='<div style="color:black">'. substr($poss_rows->answer,0,20).'...'.'</div>';
+             
+            }
          }
 
   }
