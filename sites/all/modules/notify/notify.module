@@ -335,10 +335,15 @@ $questlist='<div class="innerbox_notify">
 
                    $vote=load_votes($ques_rows->qid);
 
+                   if($ques_rows->question)
+                   {
                    $questlist .= '<div style="width:280px;padding:1px;margin-top:8px;">
+                       
                        <div style="width:64px; height:63px; float:left">'.UserPicture($ques_rows->uid).'</div>
+                           
                        <div style="float:right;width:200px"><p><li><a href="'.$gSitePath.$ques_rows->url.'">'.substr($ques_rows->question,0,40).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
                    </div>';
+                   }
 
 
                  /*$questlist .= '<div style="width:280px;padding:1px;margin-top:2px;">
