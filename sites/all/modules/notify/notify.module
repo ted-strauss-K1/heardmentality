@@ -817,20 +817,20 @@ function notify_answeredques()
             $ques_res = db_query($ques_qry);
             $ques_rows = db_fetch_object($ques_res);
 
-
-
-            /*$poss_qry = "select * from possible_answer where paid='".$q_rows->panswer_id."'";
-            $poss_res = db_query($poss_qry);
-            $poss_rows = db_fetch_object($poss_res);*/
+            $udetails=load_user($q_rows->uid);
+            $bubble = load_bubble($udetails->uid);
              $vote=load_votes($ques_rows->qid);
              
             if($ques_rows->question!='')
             {
-             $answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'. substr($ques_rows->question,0,40).'...'.'</a></div>';
+             //$answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'. substr($ques_rows->question,0,40).'...'.'</a></div>';
 
-              $answeredlist .= '<p>'.$vote['qns'].' Votes / '.date("D j M Y", strtotime($q_rows->vote_pdate)).'</p>';
-
-             
+              //$answeredlist .= '<p>'.$vote['qns'].' Votes / '.date("D j M Y", strtotime($q_rows->vote_pdate)).'</p>';
+                
+        $answeredlist .= '<div class="notify_cat1">
+        <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($q_rows->uid).'</a></div>
+        <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'.truncate_utf8($ques_rows->question, '50').'</a></li></p><p>'.$vote['qns'].' Posts Recently posted on '.date("D j M Y", strtotime($q_rows->vote_pdate)).'</p></div>
+        </div>';
             }
          }
 
@@ -866,7 +866,7 @@ function notify_flagged()
 
   while($flag_rows = db_fetch_object($flag_res))
   {
-$flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'" title="'.htmlentities(wordwrap($flag_rows->question, 40,'<br/>')).'">'.substr($flag_rows->question,0,50).'...'.'</a></div>';
+$flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'" title="'.htmlentities(wordwrap($flag_rows->question, 40,'<br/>')).'">'.substr($flag_rows->question,0,70).'...'.'</a></div>';
  $flaggedlist .='<div align="left">Flagged for: '.$flag_rows->abuse_type.'</div>';
 
   }
