@@ -726,7 +726,7 @@ function notify_followerlike()
 
             $click = 'loadwave('.$forumfet->qid_rid.','.$forumfet->fid.')';
             
-       $likelist.='<div><a href="'.$gSitePath.$ques_rows->url.'">'.substr($ques_rows->question,0,30).'</a></div>';
+       $likelist.='<div><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'.substr($ques_rows->question,0,60).'</a></div>';
        
        $likelist.='<li><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$forumfet->title.'</a></li>';
         //$likelist .='<li><a title="'.wordwrap($forumfet->title,40, "<br/>").'">'.htmlentities(substr($forumfet->title,0,40)).'</a></li>';
