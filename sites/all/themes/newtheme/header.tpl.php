@@ -50,6 +50,10 @@ $directory = $base_path . $directory;
                     jQuery(document).ready(function(){
                         jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').each(function()
                         {
+                            $title = jQuery(this).attr('title');
+
+                            jQuery(this).attr('rel', $title).attr('title','');
+
                             if( jQuery(this).attr("title").length>0){
 
                                 jQuery(this).SetBubblePopup({
@@ -61,12 +65,12 @@ $directory = $base_path . $directory;
                             }
 								if( jQuery(this).attr("rel").length>0){
 
-                                jQuery(this).SetBubblePopup({
+                               /* jQuery(this).SetBubblePopup({
                                     innerHtml: jQuery(this).attr("rel"),
                                     color:'grey',
                                     imageFolder: '<?php echo $directory; ?>/images/bp_images'
 
-                                });
+                                });*/
                             }
 								
                         });
@@ -91,13 +95,13 @@ $directory = $base_path . $directory;
                         var height = jQuery(window).height();
                         var width = jQuery(window).width();
 	
-                        var autosizable = true;
+                        var autosizable = false;
                         var windowResize = true;
-                        var resizeable = true;
+                        var resizeable = false;
 
                         jQuery.nyroModalSettings({  galleryCounts: '', forceType: 'iframe',minWidth: 600, // Minimum width
                             minHeight: 400, // Minimum height
-                            resizable: true, // Indicate if the content is resizable. Will be set to false for swf
+                            resizable: false, // Indicate if the content is resizable. Will be set to false for swf
                             autoSizable: true, // Indicate if the content is auto sizable. If not, the min size will be used
                             padding:30, // padding for the max modal size
                             gallery: null, // Gallery name if provided
