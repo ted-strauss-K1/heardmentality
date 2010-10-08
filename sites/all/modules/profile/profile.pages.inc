@@ -1345,7 +1345,7 @@ function google_map() {
             $first = '';
             foreach ($geomap_exec as $geomapeach) {
                 $first = $first + 1;
-                $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+               $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
             }
             break;
         case 'google/map/answer':
@@ -1355,7 +1355,7 @@ function google_map() {
             $first = '';
             foreach ($geomap_exec as $geomapeach) {
                 $first = $first + 1;
-                $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+               echo $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
             }
             break;
     }
