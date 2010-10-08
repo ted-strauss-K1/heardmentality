@@ -910,7 +910,7 @@ function notify_flagged()
   {
 
 
-   $flag_qry = "select qf.*,q.question,q.url from question_flags as qf join question as q on qf.nodeid=q.qid and qf.uid='".$fet_follow->follower_id."' group by qf.nodeid desc limit 0,5";
+   $flag_qry = "select qf.*,q.question,q.url,q.qid from question_flags as qf join question as q on qf.nodeid=q.qid and qf.uid='".$fet_follow->follower_id."' group by qf.nodeid desc limit 0,5";
    
     $flag_res = db_query($flag_qry);
      $count =  mysql_num_rows($flag_res);
