@@ -385,7 +385,7 @@ function notify_based_category()
                        
                        <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($ques_rows->uid).'</a></div>
                            
-                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'.substr($ques_rows->question,0,70).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
+                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$ques_rows->qid).'">'.substr($ques_rows->question,0,70).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
                    </div>';
                    }
 
