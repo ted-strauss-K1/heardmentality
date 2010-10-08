@@ -842,7 +842,7 @@ function notify_answeredques()
 {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
-   $possible_qry = "select * from possible_answer_vote where uid='".$user->uid."'";
+   echo $possible_qry = "select * from possible_answer_vote where uid='".$user->uid."'";
 
     $possible_res = db_query($possible_qry);
 
