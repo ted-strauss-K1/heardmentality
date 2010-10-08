@@ -530,7 +530,7 @@ function notify_suggest_follow()
                 $count = mysql_num_rows($user_qrylist);
 		$user_resultry=db_fetch_object($user_qrylist);
 
-              if($count)
+              if($count!='')
               {
 		$suggest_follow.='<li>
             <a href="'.$gSitePath.'profile/'.$user_resultry->name.'">'.$user_resultry->name.'</a></li>';
