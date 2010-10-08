@@ -842,7 +842,7 @@ function notify_answeredques()
 {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
-   echo $possible_qry = "select * from possible_answer_vote where uid='".$user->uid."'";
+    $possible_qry = "select * from possible_answer_vote where uid='".$user->uid."'";
 
     $possible_res = db_query($possible_qry);
 
@@ -851,7 +851,7 @@ function notify_answeredques()
   while($possible_rows = db_fetch_object($possible_res))
   {
 
-           echo $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
+            $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
 
 
            $q_res = db_query($q_qry);
