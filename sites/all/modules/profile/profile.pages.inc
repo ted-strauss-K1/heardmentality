@@ -1322,7 +1322,7 @@ function google_map() {
             //echo $total_users = db_result($userslist);
 
             $get_ans = db_query('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
-            $first = '';
+            $first = 0;
             while ($geoans = db_fetch_object($get_ans)) {
                 $first = $first + 1;
                 $asscountry .= " data.setValue(" . $first . ", 0,'" . $geoans->country . "');" . ' data.setValue(' . $first . ', 1,' . $geoans->count . ');';
@@ -1341,7 +1341,7 @@ function google_map() {
             $geomap_qry = "select count(*) as count, country from question where country REGEXP '[^0-9]' group by country";
             $geomap_exec = ExecuteQuery($geomap_qry, "select");
 
-            $first = '';
+            $first = 0;
             foreach ($geomap_exec as $geomapeach) {
                 $first = $first + 1;
                 $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
@@ -1351,7 +1351,7 @@ function google_map() {
             $geomap_qry = "select count(*)as count,q.country from possible_answer as a join question as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]' group by q.country";
             $geomap_exec = ExecuteQuery($geomap_qry, "select");
 
-            $first = '';
+            $first = 0;
             foreach ($geomap_exec as $geomapeach) {
                 $first = $first + 1;
                 $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
