@@ -1355,7 +1355,7 @@ function google_map() {
             $first = '';
             foreach ($geomap_exec as $geomapeach) {
                 $first = $first + 1;
-               echo $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+                $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
             }
             break;
     }
