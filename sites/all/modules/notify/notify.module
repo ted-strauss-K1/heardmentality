@@ -861,7 +861,7 @@ function notify_answeredques()
 
             $ques_qry = "select * from question where qid='".$q_rows->qid."'";
             $ques_res = db_query($ques_qry);
-             $count =  mysql_num_rows($forumrs);
+             $count =  mysql_num_rows($ques_res);
             $ques_rows = db_fetch_object($ques_res);
 
             $udetails=load_user($q_rows->uid);
