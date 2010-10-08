@@ -525,12 +525,14 @@ function notify_suggest_follow()
 
 		for($m=0;$m<count($result_array);$m++)
 		{
-		 $user_listsm="select * from {users} where status='1' and uid='$result_array[$m]'";
+		 echo $user_listsm="select * from {users} where status='1' and uid='$result_array[$m]'";
 		$user_qrylist=db_query($user_listsm);
+                $count = mysql_num_rows($user_qrylist);
 		$user_resultry=db_fetch_object($user_qrylist);
 
+              
 		$suggest_follow.='<li>
-	<a href="'.$gSitePath.'profile/'.$user_resultry->name.'">'.$user_resultry->name.'</a></li>';
+            <a href="'.$gSitePath.'profile/'.$user_resultry->name.'">'.$user_resultry->name.'</a></li>';
 
 
 
