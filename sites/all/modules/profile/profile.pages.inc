@@ -1343,8 +1343,9 @@ function google_map() {
 
             $first = 0;
             foreach ($geomap_exec as $geomapeach) {
-                $first = $first + 1;
+               
                 $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+                 $first = $first + 1;
             }
             break;
         case 'google/map/answer':
@@ -1353,8 +1354,9 @@ function google_map() {
 
             $first = 0;
             foreach ($geomap_exec as $geomapeach) {
-                $first = $first + 1;
+                
                 $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+                $first = $first + 1;
             }
             break;
     }
