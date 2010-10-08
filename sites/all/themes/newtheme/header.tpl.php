@@ -50,9 +50,7 @@ $directory = $base_path . $directory;
                     jQuery(document).ready(function(){
                         jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').each(function()
                         {
-                            $title = jQuery(this).attr('title');
-
-                            jQuery(this).attr('rel', $title).attr('title','');
+                            
 
                             if( jQuery(this).attr("title").length>0){
 
