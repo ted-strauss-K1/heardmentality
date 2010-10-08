@@ -1371,7 +1371,6 @@ function google_map() {
       var geomap = new google.visualization.GeoMap(
           document.getElementById('visualization'));
       geomap.draw(data,{width:650,height:375});
-      geomap.drawingDone();
     }
     google.setOnLoadCallback(drawVisualization);
   </script>";
