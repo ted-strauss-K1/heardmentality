@@ -1301,7 +1301,6 @@ function activities($uid = '') {
     // return $uid;
     return $strReturn;
 }
-
 function google_map() {
     $page = $_REQUEST[q];
     switch ($page) {
@@ -1339,17 +1338,17 @@ function google_map() {
             break;
         case 'google/map/questions':
             // $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
-            $geomap_qry = "select count(*) as count, country from question where country REGEXP '[^0-9]' group by country";
+            $geomap_qry = "select count(*) as count, country from question group by country";
             $geomap_exec = ExecuteQuery($geomap_qry, "select");
 
             $first = '';
             foreach ($geomap_exec as $geomapeach) {
                 $first = $first + 1;
-               $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+                $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
             }
             break;
         case 'google/map/answer':
-            $geomap_qry = "select count(*)as count,q.country from possible_answer as a join question as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]' group by q.country";
+            $geomap_qry = "select count(*)as count,q.country from possible_answer as a join question as q on q.qid=a.qid where q.status='1' group by q.country";
             $geomap_exec = ExecuteQuery($geomap_qry, "select");
 
             $first = '';
