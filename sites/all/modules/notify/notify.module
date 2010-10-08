@@ -707,7 +707,7 @@ function notify_followeranswer()
 
                        <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($fet_ans->uid).'</a></div>
 
-                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$qdet['url'].'?ajax=1" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Votes   <span style="color:black">'.$vote['forum'].'</span> Posts / Recently Voted on <span style="color:black">'.date("D j M Y", strtotime($fet_ans->vote_pdate)).'</span></p></div>
+                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$qdet['url'].'?ajax=1" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$qdet['qid']).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Votes   <span style="color:black">'.$vote['forum'].'</span> Posts / Recently Voted on <span style="color:black">'.date("D j M Y", strtotime($fet_ans->vote_pdate)).'</span></p></div>
                    </div>';
             }
 
