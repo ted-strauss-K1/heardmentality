@@ -33,8 +33,14 @@ function profile_view() {
 
             $strReturn = activities($uid);
             break;
-        case 'msg':
-            $strReturn = inbox_msg();
+        case 'history':
+            $strReturn = profile_tab($tag,$uid);
+            break;
+        case 'badge':
+              $strReturn = profile_tab($tag,$uid);
+            break;
+        case 'info':
+              $strReturn = profile_tab($tag,$uid);
             break;
         default:
 		
@@ -48,6 +54,84 @@ function profile_view() {
     return $strReturn;
 }
 
+
+function profile_tab($tab='',$uid=''){
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $output='<div class="history-tab">';
+switch($tab){
+    case 'info':
+           $getuser = user_load($uid);
+        $output.='<div>
+            <span class="tab-historyspan4"><a href="#" onclick="jQuery(\'#bio\').toggle();jQuery(\'#link\').toggle();">Bio</a> </span>
+            <span class="tab-historyspan5"><a href="#" onClick="jQuery(\'#link\').toggle();jQuery(\'#bio\').toggle();jQuery(this).addClass(\'tab-historyspan4\');" > Links</a></span>
+            </div><br>
+';
+        $output.='<div id="bio">'.(!empty($getuser->bio)?$getuser->bio:"No Bio updated yet").'</div><div style="display:none;" id="link">
+            <div class="face_book">
+            <h4>Follow me on</h4>
+                    <a title="FaceBook" target="_blank" href="' . $getuser->facebook . '"><img align="left" alt="" src="' . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
+                    <a title="Twitter" target="_blank" href="' . $getuser->twitter . '"><img align="left" alt="" src="' .  path_to_theme() . '/images/twitter.png"/>Twitter</a>
+            </div>
+</div>';
+        break;
+    case 'badge':
+        $badges.='';
+
+    //$imageresult=UserPicture($uid);
+    $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid";
+    $badgelist = ExecuteQuery($getbadges, "select");
+
+    foreach ($badgelist as $badgeach) {
+
+        $badges.='<li>' . $badgeach['name'] . '</b>[' . $badgeach['bcnt'] . ']</li>';
+    }
+    if (empty($badgelist)) {
+
+        $badges.='<li><h3>No Badges Yet !</h3></li>';
+    }
+    $output.=$badges;
+        break;
+    case 'history':
+    $output.='
+<div><span class="tab-historyspan4"><a href="#">Issues Added</a> </span><span class="tab-historyspan5"><a href="#"> Issues Voted</a></span></div><br>
+
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
+';
+        break;
+    default:
+        $output='No Results';
+        break;
+}
+$output.='</div>';
+echo $output;
+}
 function inbox_flex() {
     global $gSitePath, $user, $gDocPath, $base_root;
     $case = $_REQUEST['action'];
@@ -347,6 +431,7 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
     $flinkflw = '';
     $sendmsg = '';
     $badges = '';
+    $inc='';
 	$cavatar='';
 
 	
@@ -360,25 +445,30 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
     } else {
 			$cavatar='<a href="'.$gSitePath.'user/getimage" >Change Picture</a>';
         $edit.='<a href="' . $gSitePath . '?act=edit" >Edit My Profile </a><span class="separate">|</span><a href="' . $gSitePath . 'profile/?tag=msg" >Messages(' . $cnt_msg . ') </a> ';
+   $inc = '&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Followers</a>]';
     }
 
-    $badges.='';
 
-    //$imageresult=UserPicture($uid);
-    $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid";
-    $badgelist = ExecuteQuery($getbadges, "select");
-
-    foreach ($badgelist as $badgeach) {
-
-        $badges.='<li>' . $badgeach['name'] . '</b>[' . $badgeach['bcnt'] . ']</li>';
-    }
-    if (empty($badgelist)) {
-
-        $badges.='<li><h3>No Badges Yet !</h3></li>';
-    }
 
     drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
 ///content starts
+ if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE)) {
+        $following = '';
+        $newlist = followinglist($uid);
+        for ($i = 0; $i < count($newlist); $i++) {
+            $following .= '' . $newlist[$i] . '';
+        }
+    }
+        if (($userSettings['followers'] == 1) || ($userSettings['followers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['followers'] == 2 && $is_follow_follower == TRUE)) {
+
+        $follower = '';
+        $newlist2 = followerlist($uid);
+        for ($k = 0; $k < count($newlist2); $k++) {
+            $follower .= '' . $newlist2[$k] . '';
+        }
+    }
+
+   
 
     $strReturn .= '
       <div class="bor_bot">
@@ -388,84 +478,65 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
         </div>
         <br class="clr" />
       </div>
-      <div class="profile_lft">
-      	<div class="pro_row">
-        <div class="profile_pict">'.$cavatar. UserPicture($uid) . $medal . '</div>
-        <div class="profile_desc">
-        	<div>' . $real_name1 . '<br />
-			' . $dob1 . '<br />
-			' . $gender_name1 . '<br />
-			' . $religion1 . '<br />
-			' . $country1 . $zip1 . '</div>
-        </div>
-        <br class="clr" />
-        </div>
-        <div class="pro_row">
-        <h4>Bio</h4>
-        	<p> ' . $bio1 . '</p>
-        
-        </div>
-        <div class="pro_row">
-        <div class="face_book">
-            <h4>Follow me on</h4>
-                    <a title="FaceBook" target="_blank" href="' . $facebook1 . '"><img align="left" alt="" src="' . $gSitePath . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
-                    <a title="Twitter" target="_blank" href="' . $twitter1 . '"><img align="left" alt="" src="' . $gSitePath . path_to_theme() . '/images/twitter.png"/>Twitter</a>
-            </div>
-            <br class="clr" />
-        </div>
-        
-        <div class="pro_row">
-        <h4>Answers</h4>
-        	<ul>
-         ' .$answer1. '
-            </ul>
-        </div>
-       
-        <div class="pro_row">
-        <h4>Questions Posted</h4>
-        	<ul>
-           ' . $question1 . '
-            </ul>
-        </div>
-        
-        <div class="pro_row">
-        <h4>Badges</h4>
-        <ul>
-        	' . $badges . '
+      <div class="profile-left">
+<div class="profile-img">
+<div class="profile-con">123456789101<br />
+23456<br />
+<div>
+<ul>
+<li><img src="'.  path_to_theme().'/images/pr1.jpg" alt="img" />2</li>
+<li><img src="'.  path_to_theme().'/images/pr2.jpg" alt="img" />4</li>
+<li><img src="'.  path_to_theme().'/images/pr3.jpg" alt="img" />40</li>
+</ul>
+</div>
+</div>
+
+</div>
+<div class="clr"></div>
+<div>
+<span class="profile-gray">Name </span>: ' . $real_name1 . '<br />
+
+<span class="profile-gray">Location </span>: ' . $country1 .'<br />
+<span class="profile-gray">Age </span>: ' . $dob1 . '<br />
+<span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br />
+<span class="profile-gray">Religion</span> : ' . $religion1 . '<br />
+<span class="profile-gray">Ethnicity </span>: ' . $ethnicity . '<br />
+<span class="profile-gray">Slant </span>: ' . $slant . '<br />
+</div>
+</div>
+<div class="profile-right">
+<div>
+<ul>
+<li><img src="'.  path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;Follow</li>
+<li>&nbsp;<img src="'.  path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" /> '.$inc.'</li>
+</ul>
+</div>
+<div class="clr"></div>
+<div class="p-foll">Following<br />
+<ul>
+	' . $following . '
+</ul>
+</div>
+<div class="p-foll">Followed by<br />
+<ul>
+	' . $follower . '
+</ul>
+</div>
+</div>
+<div class="clr"></div>
+<div class="profile-tab"></div>
+<div id="page">
+        <ul class="mytabs" id="tabs">
+            <li class="current"><a href="'.  check_plain(request_uri()).'?tag=info">Info</a></li>
+            <li><a href="'.  check_plain(request_uri()).'?tag=badge">Badges</a></li>
+            <li><a href="'.  check_plain(request_uri()).'?tag=activity">Activity</a></li>
+             <li><a href="'.  check_plain(request_uri()).'?tag=history">History</a></li>
         </ul>
-        </div></div>';
-    if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE)) {
-        $following = '';
-        $newlist = followinglist($uid);
-        for ($i = 0; $i < count($newlist); $i++) {
-            $following .= '' . $newlist[$i] . '';
-        }
-    }
-    $strReturn .= '
-      <div class="profile_rht">
-      <h4>Following</h4>
-      <ul id="mfollowing">
-      	' . $following . '
-      </ul>';
-    if (($userSettings['followers'] == 1) || ($userSettings['followers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['followers'] == 2 && $is_follow_follower == TRUE)) {
-
-        $follower = '';
-        $newlist2 = followerlist($uid);
-        for ($k = 0; $k < count($newlist2); $k++) {
-            $follower .= '' . $newlist2[$k] . '';
-        }
-    }
-
-    if ($user->uid == $uid) {
-
-        $inc = '&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Send Message</a>]';
-    }
-    $strReturn.='<h4>Followers ' . $inc . '</h4>';
-
-    $strReturn.='  <ul id="mfollowers">
-      	' . $follower . '
-      </ul>
-   
+        <div class="mytabs-container" id="tabs-container">
+            Loading. Please Wait...        </div>
+    </div>
+    
+     
       ';
 
 
@@ -817,8 +888,10 @@ function followinglist($uids) {
 
         $bubble = load_bubble($following_list->follower_id);
 
-        $following[] = '<div  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
-    }
+        //$following[] = '<div  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
+        $following[] = '<li  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">'.UserPicture_small($following_list->follower_id).'</a></li>';
+
+        }
     if ($numfolls > 5) {
         $following[] .= '<a style="color:#F37321;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
     }
@@ -867,11 +940,14 @@ function followerlist($umid) {
 
         $bubble = load_bubble($user_namelistf->uid);
         if ($follower_resultfuser->follower_status == 0) {
-            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
-        } else {
-            $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
-        }
+           // $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
+            $followeru[] = '<li  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>'. UserPicture_small($follower_resultfuser->uid).'</a></li>';
 
+        } else {
+          //  $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
+        
+             $followeru[] = '<li  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>'.UserPicture_small($follower_resultfuser->uid).'</a></li>';
+        }
 
         //$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
     }
@@ -1167,7 +1243,7 @@ function activities($uid = '') {
     //$uid = $user->uid;
 
 
-    $strReturn = '';
+    $strReturn = '<div class="history-tab">';
     //Questions
     $selQ = "(select 1 as tbl,qid,date_added as dat,0 as vars  from {question} where uid='$uid' ORDER BY qid DESC) union
 	(select 2 as tbl,qid,vote_pdate as dat,0 as vars  from {possible_answer_vote} where uid='$uid') union 
@@ -1182,16 +1258,7 @@ function activities($uid = '') {
     $fetch = ExecuteQuery($selQ, "select");
 
 
-    $strReturn.='
-	 <div class="bor_bot">
-	<div class="rht_link">
-
-       <a href="' . $gSitePath . 'profile">Back To Profile</a>
-       
-		</div>
-        <br class="clr">
-      </div>
-		';
+    $strReturn.='';
 
     if (!empty($fetch)) {
 
@@ -1297,9 +1364,9 @@ function activities($uid = '') {
 
         drupal_set_message($message = 'Oops, No Recent Activities !', $type = 'error');
     }
-
+$strReturn.='</div>';
     // return $uid;
-    return $strReturn;
+    echo $strReturn;
 }
 function google_map() {
     $page = $_REQUEST[q];
