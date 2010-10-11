@@ -92,38 +92,36 @@ switch($tab){
     $output.=$badges;
         break;
     case 'history':
-    $output.='
-<div><span class="tab-historyspan4"><a href="#">Issues Added</a> </span><span class="tab-historyspan5"><a href="#"> Issues Voted</a></span></div><br>
+            //answers posted
+      
+    $get_ans = db_query("select q.*,a.vote_pdate as vdate from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='" . $uid . "'");
 
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-<div class="tab-history"><span class="tab-historyspan1">2h</span>  <span class="tab-historyspan2">answered</span>  <span class="tab-historyspan3">Loremispsum dolor sit amet</span></div>
-';
+    while ($setans = db_fetch_object($get_ans)) {
+
+        $inc_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->vdate</span>  <span class='tab-historyspan2'>answered</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' style='".drupal_link_color($user->uid,$setans->qid)."'>".htmlentities(substr($setans->question,0,40))."</a></div>
+"; }
+
+
+
+    $ins_ans .= $inc_list;
+
+    $ins_ans = ( empty($inc_list)) ? 'No Result' : $ins_ans;
+    //answers ends
+    //question sposted
+    $get_ans = db_query("select q.* from {question} as q where q.uid='" . $uid . "' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
+
+    while ($setans = db_fetch_object($get_ans)) {
+
+       // $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
+$qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->date_added</span>  <span class='tab-historyspan2'>Issue Created</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' style='".drupal_link_color($user->uid,$setans->qid)."'>".htmlentities(substr($setans->question,0,40))."</a></div>
+";
+    }
+    $inc_qns .= $qns_list;
+
+    $inc_qns = ( empty($qns_list)) ? 'No Result' : $inc_qns;
+    //question ends
+$output.=$ins_ans.$inc_qns;
+
         break;
     default:
         $output='No Results';
@@ -299,36 +297,8 @@ function profile($uid = '') {
     if (($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['twitter'] == 2 && $is_follow_follower == TRUE)) {
         $twitter1 = $twitter;
     }
-    //answers posted
-    $get_ans = db_query("select q.* from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='" . $uid . "'");
 
-    while ($setans = db_fetch_object($get_ans)) {
-
-        $inc_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' >".htmlentities(substr($setans->question,0,40))."</a></li>";
-    }
-	
-	
-
-    $ins_ans .= $inc_list;
-
-    $ins_ans = ( empty($inc_list)) ? 'No Result' : $ins_ans;
-    //answers ends
-    //question sposted
-    $get_ans = db_query("select q.* from {question} as q where q.uid='" . $uid . "' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
-
-    while ($setans = db_fetch_object($get_ans)) {
-
-       // $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
-$qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' style='".drupal_link_color($user->uid,$setans->qid)."'>".htmlentities(substr($setans->question,0,40))."</a></li>";
-    }
-    $inc_qns .= $qns_list;
-
-    $inc_qns = ( empty($qns_list)) ? 'No Result' : $inc_qns;
-    //question ends
-    //profile badge
-    $medal = '<br/>' . updateProfileBadge($uid);
-
-
+  
     if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 2 && $is_follow_follower == TRUE)) {
         $answer1 = $ins_ans;
     }
@@ -480,15 +450,13 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
       </div>
       <div class="profile-left">
 <div class="profile-img">
-<div class="profile-con">123456789101<br />
-23456<br />
-<div>
-<ul>
-<li><img src="'.$gSitePath.path_to_theme().'/images/pr1.jpg" alt="img" />2</li>
-<li><img src="'. $gSitePath.path_to_theme().'/images/pr2.jpg" alt="img" />4</li>
-<li><img src="'.$gSitePath.path_to_theme().'/images/pr3.jpg" alt="img" />40</li>
-</ul>
-</div>
+<div class="profile-con">
+
+'. UserPicture_small($uid).'
+<br/>
+<ul><li>
+'.updateProfileBadge($uid).'
+    </li></ul></div>
 </div>
 
 </div>
