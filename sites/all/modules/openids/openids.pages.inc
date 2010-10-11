@@ -845,6 +845,7 @@ ob_start();
     $avatarform = drupal_get_form('avatar_form');
 	
 	  $ava_js = drupal_get_path('module', 'avatar_selection') .'/js/avatar_selection.js';
+          $ava_page_js = drupal_get_path('module', 'avatar_selection') .'/js/avatar_selection_pager.js';
     $ava_css=drupal_get_path('module', 'avatar_selection') .'/avatar_selection.css';
 
    
@@ -872,6 +873,7 @@ jQuery.noConflict();
 </script><script src="'.$gSitePath.'/misc/drupal.js" type="text/javascript"></script>
 
 </script><script src="'.$gSitePath.$ava_js.'" type="text/javascript"></script>
+    <script src="'.$gSitePath.$ava_page_js.'" type="text/javascript"></script>
 <link rel="stylesheet" href="'.$gSitePath.$ava_css.'" type="text/css" />
 <link type="text/css" rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'openids').'/css/log.css" /><div id="container">
 </head>
