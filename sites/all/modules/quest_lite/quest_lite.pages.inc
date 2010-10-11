@@ -2167,7 +2167,7 @@ jQuery('#resource').html(msg);
 
 function qlite_map() {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path,$googlekey;
 
     $inc_script = '';
     $resulte = '';
@@ -2253,7 +2253,7 @@ function qlite_map() {
 
     $script .= "
 		<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
-				<script src='http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAk7qgEva0Ioa4Suru5Tb5eBQFLOarkQUzCA92TG3xPimqxCbarBQTnRVvbdF68v6R547r-Sy34P_yWA' type='text/javascript'></script>
+				<script src='http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=".$googlekey."' type='text/javascript'></script>
                                 <script src='http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/src/markerclusterer.js' type='text/javascript'></script>
                                   <script src=' http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/release/src/markermanager.js' type='text/javascript'></script>
 ";
