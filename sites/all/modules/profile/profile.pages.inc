@@ -1367,7 +1367,7 @@ function google_map() {
 
     function drawVisualization() {
       var data = new google.visualization.DataTable();
-      data.addRows(6);
+      data.addRows(50);
       data.addColumn('string', 'Country');
       data.addColumn('number', 'Users');" . $asscountry . "
       var geomap = new google.visualization.GeoMap(
