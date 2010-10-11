@@ -22,6 +22,11 @@ function fetchPage(form_id, id, url, page, js_file) {
     jQuery(form_id).attr("action", action);
     jQuery("#avatar-selection-loading").hide();
     jQuery("body").css({'opacity': null});
+        // handle radio buttons
+    radio_button_handler();
+
+    // handle image selection
+    image_click_handler();
   });
   return false;
 }
