@@ -1,4 +1,14 @@
+BODY {
+	margin: 20px;
+	padding: 20px;
+	font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #333333;
+}
+#page {
+	margin: auto;
 
+}
 UL.mytabs {
 	position: relative;
 	z-index: 2;
@@ -12,29 +22,38 @@ UL.mytabs, UL.mytabs LI {
 UL.mytabs LI { padding: 0 2px; }
 UL.mytabs LI A {
 	float: left;
-	padding: 7px;
-	border: 1px solid #CCCCCC;
-	border-bottom: 1px solid #E0E0E0;
-	background: #F0F0F0;
 	text-decoration: none;
-	color: #333333;
-	height: 15px;
+	color: #af883c;
+	height: 22px;
+	background-color:#efefef;
+	padding-top:5px; padding-left:8px; padding-right:8px;
 }
 UL.mytabs LI A:HOVER, UL.mytabs LI.current A {
-	background: #FFFFFF;	
+	background: #fff;
+	color: #af883c;
+
+
 }
 UL.mytabs LI.current A {
-	font-weight: bold;
-	font-size: 14px;
+
+	font-size: 12px;
 	border-bottom: 1px solid #FFFFFF;
+	border-top:	1px solid #8f8f8f;
+	border-left:1px solid #8f8f8f;
+	border-right:1px solid #8f8f8f;
+	color: #000;
 }
 .mytabs-container {
 	position: relative;
 	z-index: 1;
 	clear: both;
-	border: 1px solid #E0E0E0;
-	padding: 10px;
+	border-top: 1px solid #8f8f8f;
+	padding-top:10px;
 	top: -1px;
+	color:#333333;
+ font-family:Verdana, Arial, Helvetica, sans-serif;
+ font-size:11px; width:
+
 }
 
 
