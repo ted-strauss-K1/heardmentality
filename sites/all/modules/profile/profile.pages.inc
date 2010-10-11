@@ -484,9 +484,9 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
 23456<br />
 <div>
 <ul>
-<li><img src="'.  path_to_theme().'/images/pr1.jpg" alt="img" />2</li>
-<li><img src="'.  path_to_theme().'/images/pr2.jpg" alt="img" />4</li>
-<li><img src="'.  path_to_theme().'/images/pr3.jpg" alt="img" />40</li>
+<li><img src="'.$gSitePath.path_to_theme().'/images/pr1.jpg" alt="img" />2</li>
+<li><img src="'. $gSitePath.path_to_theme().'/images/pr2.jpg" alt="img" />4</li>
+<li><img src="'.$gSitePath.path_to_theme().'/images/pr3.jpg" alt="img" />40</li>
 </ul>
 </div>
 </div>
@@ -507,8 +507,8 @@ $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "' title='".htmlentit
 <div class="profile-right">
 <div>
 <ul>
-<li><img src="'.  path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;Follow</li>
-<li>&nbsp;<img src="'.  path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" /> '.$inc.'</li>
+<li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;Follow</li>
+<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" /> '.$inc.'</li>
 </ul>
 </div>
 <div class="clr"></div>
