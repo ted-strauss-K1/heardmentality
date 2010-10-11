@@ -143,13 +143,18 @@ function top_list() {
 
 function get_top_pundits() {
     global $gSitePath,$user,$gDocPath,$base_root;
+    drupal_add_css(drupal_get_path('module', 'qlite') . '/css/skin.css');
+     drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/jquery.jcarousel.min.js');
+     drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/jquery.jcarousel.js');
+     drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/page_jcarousel.js');
     $output = '';
    $cat_id = $_REQUEST['cid'];
 
     $output .= '
      <div class="commutop-profile" align="center">PUNDITS</div>
       <div class="hm-cen-pun">';
-   $output .= '<div class="pun">
+   $output .= '<div>
+       <div id="mycarousel" class="jcarousel-skin-tango">
            <ul>';
     if($cat_id!='')
     {
@@ -161,26 +166,46 @@ function get_top_pundits() {
 
          $bubble = load_bubble($udetails->uid);
           $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
-
-         
         }
         
     }
     else
     {
-    $query = "select * from {gurulist} LIMIT 0,4";
+    $query = "select * from {gurulist}";
     $list = ExecuteQuery($query, "select");
+
+    $page_incr = 0;
+     $pager = 1;
     foreach ($list as $quest) {
-           $udetails=load_user($quest['uid']);
+        
+         $udetails=load_user($quest['uid']);
          $bubble = load_bubble($udetails->uid);
           $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
+           $page_incr = $page_incr + 1;
+         
+          if($page_incr==4)
+          {
+              $page .= '<a href="#">'.$pager.'</a>';
+              $page_incr = 0;
+              $pager = $pager + 1;
+          }
+         
+
+          
+        // $output_pager = '<div class="jcarousel-control">'.$page.'</div>';
+         $output_pager = '<span class="jcarousel-control">'.$page.'</span>';
 
           }
     }
   
     $output .= '</ul>
+            </div>
            </div>';
-    $output .= '</div>';    
+    $output .= '</div>';
+    
+    $output .='<div class="jcarousel-scroll">
+        <a href="#" id="mycarousel-prev">&laquo; Prev</a>'.$output_pager.'<a href="#" id="mycarousel-next">Next &raquo;</a>
+        </div>';
     return $output;
 }
 
