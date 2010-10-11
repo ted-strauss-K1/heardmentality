@@ -843,7 +843,8 @@ ob_start();
 	$avtchk1= "checked='checked'";
 	
     $avatarform = drupal_get_form('avatar_form');
-	
+	$avatarform=preg_replace("</form>", "", $avatarform);
+     $avatarform=str_replace('<form action="/heardmentality/edit"  accept-charset="UTF-8" method="post" id="avatar-form">',"", $avatarform);
 	  $ava_js = drupal_get_path('module', 'avatar_selection') .'/js/avatar_selection.js';
           $ava_page_js = drupal_get_path('module', 'avatar_selection') .'/js/avatar_selection_pager.js';
     $ava_css=drupal_get_path('module', 'avatar_selection') .'/avatar_selection.css';
