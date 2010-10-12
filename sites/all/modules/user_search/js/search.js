@@ -133,10 +133,83 @@ function get_quest_details(quid){
   
 }
 
+jQuery(document).ready(function(){
+
+    jQuery(".contarea a[href*='?ajax=1']").each(function(){
+   
+        jQuery(this).click(function () {
+         
+          jQuery(".commu").load(jQuery(this).attr('href'), function(response, status, xhr) {
+
+        
+  if (status == "success") {
+reset_tabs();
+}
+});
+
+            return false;
+        });
+       
+    });
+
+});
+
+function reset_tabs(){
+var tabarray=['#maintabs,#tabcontent'];
+
+      // Preload tab on page load
+    jQuery.each(tabarray,function(e){
+        var arr=this.split(",");
+
+        var tabsId = arr[0];
+        var containerId = arr[1];
 
 
-			
-						
+        if($(tabsId + ' LI.current A').length > 0){
+            loadTab($(tabsId + ' LI.current A'),containerId);
+        }
+
+        $(tabsId + ' A').click(function(){
+            if($(this).parent().hasClass('current')){
+                return false;
+            }
+
+            $(tabsId + ' LI.current').removeClass('current');
+            $(this).parent().addClass('current');
+
+            loadTab($(this),containerId);
+            return false;
+        });
+
+
+
+
+
+    });
+
+
+
+}
+
+jQuery(document).ready(function(){
+ $("#save").click(function() {	
+	var answer = $("#answer").val();
+		var dataString = 'answer='+ answer;
+		//alert (dataString);return false;
+		var url = gSitePath + "qlite/save";
+		$.ajax({
+      type: "POST",
+      url: url,
+      data: dataString,
+      success: function() {
+	  alert("Vote added successfully");
+        //$('.inner-page-cont').html("<div id='message'></div>");
+        //$('#message').html("<h2>Vote added successfully</h2>")
+      }
+     });
+    return false;
+	});			
+});						
 				
 			
 						

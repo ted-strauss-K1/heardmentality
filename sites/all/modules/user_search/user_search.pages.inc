@@ -251,6 +251,7 @@ function check_select($gid,$quid){
        }
 
 function search_results_question() {
+  
    
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
     $start = '';
@@ -267,6 +268,7 @@ function search_results_question() {
     $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     //echo $idb;
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
+    
 
     $page_name = "searchquestion";
     if (isset($_GET['start'])) {
@@ -296,6 +298,7 @@ function search_results_question() {
     $sel_count = $sel['qcnt'];
     $sel['query'] .= " limit  $eu, $limit";
     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
+     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/sub.js');
     // echo $sel;
     // $sel_search = ExecuteQuery($sel, "select");
     // print_r($sel_search);
@@ -335,8 +338,6 @@ function search_results_question() {
 
             $vot1 = $fetvot->possiblevote;
         }
-
-
         $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$user_result->qid' GROUP BY qid";
         $query_sugestlist = db_query($query_sugest);
         $fetvotsugest = db_fetch_object($query_sugestlist);
@@ -348,12 +349,15 @@ function search_results_question() {
         $fetresult .= ' <div class="result-item">
 		
        <div class="titl">
-        
-	<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>    </div><div class="rleft">';
+        <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save"  >
+             <input type="hidden" name="mid" value="' . $user_result->qid . '"/>
+<a href="'.$gSitePath.$user_result->url.'?ajax=1" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
+</div><div class="rleft">';
+//<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
         
         while ($vlistquest = db_fetch_object($vlist)) {
 
-           
+           ///vijay implement
         $sel_qry = db_query("select * from {possible_answer_vote} where qid='".$user_result->qid."' and uid='".$user->uid."'  ");
         $get_value = db_fetch_object($sel_qry);
        
@@ -362,10 +366,31 @@ function search_results_question() {
        $get_ans = db_fetch_object($sel_ans);
 
        
-        
-            $fetresult .= ' <div class="item1"><input name="answer_al['.$i.']" type="radio"  value="' . $vlistquest->paid . '" '.check_select($get_ans->paid,$vlistquest->paid).'  />' . $vlistquest->answer. '</div>';
+      //  name="answer_al['.$i.']"
+            $fetresult .= ' <div class="item1"><input name="answer" id="answer" type="radio"  value="' . $vlistquest->paid . '" '.check_select($get_ans->paid,$vlistquest->paid).'  />' . $vlistquest->answer. '</div>';
             
         }
+
+
+        $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" .$user_result->qid. "' and uid='" . $user->uid . "'"));
+        if ($numran != 0) {
+        $query="select vote_pid from {possible_answer_vote} where qid='$user_result->qid' AND uid='".$user->uid."'";
+        $voteid=db_result(db_query($query));
+     $fetresult .= ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="'.$voteid.'"/></p></form>';
+   //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
+    }
+    if ($numran == 0) {
+
+        $fetresult .= ' <p><input type="submit" name="save" id="save" value="Vote" /></p></form>';
+    }
+
+
+
+
+       
+
+
+       // $fetresult .= ' <p><input type="submit" name="save" id="save" value="Vote" /></p></form>';
 
 
         $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='".$user->uid."'and question_id='".$user_result->qid."'");
