@@ -216,6 +216,18 @@ jQuery(document).ready(function(){
         if (throbber) {
           throbber.hide();
         }
+  jQuery('.mostpopular--content li a').each(function()
+                        {
+                            if( jQuery(this).attr("title").length>0){
+                          
+                                jQuery(this).SetBubblePopup({
+                                    innerHtml: jQuery(this).attr("title"),
+                                    color:'grey',
+                                    imageFolder: '/heardmentality/sites/all/themes/newtheme/images/bp_images'
+
+                                });
+                            }
+                        });
       }
     });
   });
