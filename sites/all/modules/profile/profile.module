@@ -275,7 +275,7 @@ function user_facts() {
     $usercnt = db_result(db_query("select count(uid) from {users} where status='1'"));
    // $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1'"));
     $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1' and q.country REGEXP '[^0-9]'"));
-    $ans = db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1'"));
+    $ans = db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]'"));
     $userslist = db_query('SELECT count(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
     $total_users = db_result($userslist);
     
