@@ -272,7 +272,9 @@ function user_facts() {
     $usercnt = '';
     $quest = '';
     $ans = '';
-    $usercnt = db_result(db_query("select count(uid) from {users} where status='1'"));
+    //$usercnt = db_result(db_query("select count(uid) from {users} where status='1' and country REGEXP '[^0-9]'"));
+
+    $usercnt = db_result(db_query(" select count(u.uid) from users as u join user_profile as up on u.uid=up.uid where u.status=1 and up.country REGEXP '[^0-9]'"));
    // $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1'"));
     $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1' and q.country REGEXP '[^0-9]'"));
     $ans = db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]'"));
