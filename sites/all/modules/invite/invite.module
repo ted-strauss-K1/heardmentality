@@ -69,7 +69,7 @@ body,td,th {
 </style></head>
 
 <body>
-<table width="831px" border="0" cellspacing="0" cellpadding="0">
+<table width="600" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td height="591" valign="top" background="'.$gSitePath.$path.'/images/email.jpg" style="background-repeat:no-repeat"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
@@ -80,7 +80,8 @@ body,td,th {
         <td width="36%">&nbsp;</td>
         <td width="64%"><table style="border:1px solid #cc9900" width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="left" bgcolor="#FFFFFF" style="padding:5px;">'.$newmessage .= $message;
+            <td align="left" bgcolor="#FFFFFF" style="padding:5px;">';
+        $newmessage .= $message;
 	 $newmessage .='</td>
           </tr>
           <tr>
@@ -115,21 +116,16 @@ function htmlmail_function($to, $subject, $message, $headers = NULL)
 	 global $gSitePath,$user,$gDocPath,$base_root,$base_path,$theme_path,$theme;
 $path = drupal_get_path('theme', 'newtheme');
 
-
+$newmessage = '';
 $imgw=$gSitePath.$path."/images/logo_mail.gif";
 	$imag=$config['file_path'].$img;
 // To send HTML mail, the Content-type header must be set
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-
-//echo $message;
-//exit;
-
-
 $headers .= 'From: HeardMentality <support@heardmenatlity.com>' . "\r\n";
 
-$newmessage .='<html>
+ $newmessage .='<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Heard Mentality</title>
@@ -143,7 +139,7 @@ body,td,th {
 </style></head>
 
 <body>
-<table width="831px" border="0" cellspacing="0" cellpadding="0">
+<table width="600" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td height="591" valign="top" background="'.$gSitePath.$path.'/images/email.jpg" style="background-repeat:no-repeat"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
@@ -154,7 +150,8 @@ body,td,th {
         <td width="36%">&nbsp;</td>
         <td width="64%"><table style="border:1px solid #cc9900" width="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td align="left" bgcolor="#FFFFFF" style="padding:5px;">'.$newmessage .= $message;
+            <td align="left" bgcolor="#FFFFFF" style="padding:5px;">';
+ $newmessage .= $message;
 	 $newmessage .='</td>
           </tr>
           <tr>
@@ -176,7 +173,7 @@ Heardmentality Team. </td>
 </table>
 </body>
 </html>';
-
+ 
 	return mail($to, $subject, $newmessage, $headers);
 }
 
