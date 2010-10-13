@@ -326,7 +326,7 @@ function search_results_question() {
         if ($user->uid != '') {
             //$flink='<a class="linkfol" href="'.$gSitePath.''.$user_result->url.'">View More </a>';
         }
-        $vans = "select * from {possible_answer} where  qid='$user_result->qid' order by vote desc";
+       echo  $vans = "select * from {possible_answer} where  qid='$user_result->qid' order by vote desc";
 
         $vlist = db_query($vans);
 
