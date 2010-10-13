@@ -139,7 +139,7 @@ jQuery(document).ready(function(){
    
         jQuery(this).click(function () {
          
-          jQuery(".hm-cen").load(jQuery(this).attr('href'), function(response, status, xhr) {
+          jQuery("#quest_info").load(jQuery(this).attr('href'), function(response, status, xhr) {
 
         
   if (status == "success") {
