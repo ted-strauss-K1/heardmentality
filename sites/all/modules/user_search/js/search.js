@@ -139,7 +139,7 @@ jQuery(document).ready(function(){
    
         jQuery(this).click(function () {
          
-          jQuery(".commu").load(jQuery(this).attr('href'), function(response, status, xhr) {
+          jQuery(".hm-cen").load(jQuery(this).attr('href'), function(response, status, xhr) {
 
         
   if (status == "success") {
@@ -192,14 +192,18 @@ var tabarray=['#maintabs,#tabcontent'];
 }
 
 jQuery(document).ready(function(){
- $("#save").click(function() {	
+ $("#save").click(function() {
 	var answer = $("#answer").val();
-		var dataString = 'answer='+ answer;
+        var mid = $("#mid").val();
+
+
+        var dataString = 'answer='+ answer + '&mid=' + mid;
 		//alert (dataString);return false;
 		var url = gSitePath + "qlite/save";
-		$.ajax({
+                    
+		jQuery.ajax({
       type: "POST",
-      url: url,
+      url: gSitePath + "qlite/save",
       data: dataString,
       success: function() {
 	  alert("Vote added successfully");
