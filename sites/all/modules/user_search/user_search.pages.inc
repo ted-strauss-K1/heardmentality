@@ -347,8 +347,8 @@ function search_results_question() {
         }
         $numresum = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$user_result->qid'"));
         $fetresult .= ' <div class="result-item">
-		
-       <div class="rleft"><div class="titl">
+	<div class="rleft">
+       <div class="titl">
         <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save"  >
              <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
 <a href="'.$gSitePath.$user_result->url.'?ajax=1">' . htmlentities(rtrim($user_result->question, "?")). '?</a>
@@ -376,12 +376,12 @@ function search_results_question() {
         if ($numran != 0) {
         $query="select vote_pid from {possible_answer_vote} where qid='$user_result->qid' AND uid='".$user->uid."'";
         $voteid=db_result(db_query($query));
-     $fetresult .= ' <p style="margin-left:10px"><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="'.$voteid.'"/></p></form>';
+     $fetresult .= ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="'.$voteid.'"/></p></form>';
    //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
     }
     if ($numran == 0) {
 
-        $fetresult .= ' <p style="margin-left:10px"><input type="submit" name="save" id="save" value="Vote" /></p></form>';
+        $fetresult .= ' <p><input type="submit" name="save" id="save" value="Vote" /></p></form>';
     }
 
 
