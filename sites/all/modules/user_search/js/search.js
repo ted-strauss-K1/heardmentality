@@ -195,9 +195,9 @@ jQuery(document).ready(function(){
  $("#save").click(function() {
 	var answer = $("#answer").val();
         var mid = $("#mid").val();
+        var save = 1;
 
-
-        var dataString = 'answer='+ answer + '&mid=' + mid;
+        var dataString = 'answer='+ answer + '&mid=' + mid + '&save=' + save;
 		//alert (dataString);return false;
 		var url = gSitePath + "qlite/save";
                     
