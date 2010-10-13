@@ -9,14 +9,16 @@
         <!-- /sidebar-left -->
         <?php endif; ?>
     </div>
-    <div class="inner-page-cont">
+     <div class="issuesearch3">
         <span class="padding10"><h3>SEARCH RESULTS</h3></span>
         <?php print $content; ?>
     </div>
-    <div class="commu">
+    <div class="contributer">
         <?php if (! empty($right)): ?>
         <div id="sidebar-right" class="column sidebar">
+            <div class="hm-cen">
             <?php print $right; ?>
+            </div>
         </div>
         <!-- /sidebar-right -->
         <?php endif; ?>
