@@ -166,7 +166,8 @@ function invite_friends() {
                   <br>
   
                   <br>
-                  <table cellspacing=0 cellpadding=10 width=525  bgcolor="#EBE9D8"
+				  //#EBE9D8
+                  <table cellspacing=0 cellpadding=10 width=525  bgcolor=""
                   border=0>
                     <tbody> 
                     <tr> 

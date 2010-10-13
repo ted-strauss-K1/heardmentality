@@ -5,8 +5,6 @@
 function invite_perm() {
   return array('Invite Friends','Twitter Login');
 }
-
-
 /**
  * Implementation of hook_menu().
  */
@@ -40,7 +38,6 @@ $items['invite/invite_friends'] = array(
   return $items;
 }
 
-
 function htmlmail($to, $subject, $message, $headers = NULL)
 {
 	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
@@ -58,52 +55,63 @@ $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 $headers .= 'From: HeardMentality <support@heardmenatlity.com>' . "\r\n";
 
 
-
-	$newmessage .= '<html>
+	$newmessage .='<html>
 <head>
-<title>welcome</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Heard Mentality</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:25px;
+}
+.y18{font-family: Arial, Helvetica, sans-serif; font-size:18px; color:#cc9900; text-decoration:none;}
+-->
+</style></head>
 
-</head>
-<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<table cellspacing=0 cellpadding=0 width=600 align=center bgcolor=#ffffff 
-      border=0>
-  <tbody> 
-  <tr>  
-    <td background="'.$gSitePath.'/sites/all/themes/heardmentality/images/header_bg.gif"><img src="'.$gSitePath.'/sites/all/themes/heardmentality/images/logo_mail.jpg" width="100" height="140" ></td>
- 
+<body>
+<table width="831px" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="591" valign="top" background="'.$gSitePath.$path.'/images/email.jpg" style="background-repeat:no-repeat"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="187">&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="36%">&nbsp;</td>
+        <td width="64%"><table style="border:1px solid #cc9900" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="left" bgcolor="#FFFFFF" style="padding:5px;">'.$newmessage .= $message;
+	 $newmessage .='</td>
+          </tr>
+          <tr>
+            <td align="left" bgcolor="#FFFFFF" style="padding:5px;"><br />
+              Visit our website <a title="Heardmentality.com" href="'.$gSitePath.'" target="_blank" class="y18">Heardmentality.com</a> <br />
+              <br />
+Thanks, <br />
+Heardmentality Team. </td>
+          </tr>
+        </table></td>
+      </tr>
+
+      <tr>
+        <td>&nbsp;</td>
+        <td align="right"><img src="'.$gSitePath.$path.'/images/email-bot.jpg" alt="img" width="152" height="47" /></td>
+      </tr>
+    </table></td>
   </tr>
-  <tr> 
-    <td> 
-      <table width="100%" border="0" cellspacing="1" cellpadding="0" bgcolor="#494DCD">
-        <tr> 
-          <td> 
-            <table cellspacing=1 cellpadding=25 width=600 
-            align=center border=0 class="text_black" bgcolor="#F2F2EC">
-              <tbody> 
-              <tr> 
-                <td valign=top align=middle class="text_black">';
-
-	
-	$newmessage .= $message;
-
-	
-	$newmessage .= ' </td>
-  </tr>
-  
-  </tbody> 
 </table>
 </body>
-</html>
-';
+</html>';
 
-	return mail($to, $subject, $newmessage, $headers);
+return mail($to, $subject, $newmessage, $headers);
 }
 
 
 
 function htmlmail_function($to, $subject, $message, $headers = NULL)
 {
+
+ 
 	 global $gSitePath,$user,$gDocPath,$base_root,$base_path,$theme_path,$theme;
 $path = drupal_get_path('theme', 'newtheme');
 
@@ -115,56 +123,59 @@ $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
 
-
+//echo $message;
+//exit;
 
 
 $headers .= 'From: HeardMentality <support@heardmenatlity.com>' . "\r\n";
 
-
-
-	$newmessage .= '<html>
+$newmessage .='<html>
 <head>
-<title>welcome</title>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Heard Mentality</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:25px;
+}
+.y18{font-family: Arial, Helvetica, sans-serif; font-size:18px; color:#cc9900; text-decoration:none;}
+-->
+</style></head>
 
-</head>
-<body bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-<table cellspacing=0 cellpadding=0 width=600 align=center bgcolor=#ffffff 
-      border=0>
-  <tbody> 
-  <tr>  
-    <td background="'.$gSitePath.$path.'/images/header_bg.gif"><img src="'.$gSitePath.$path.'/images/logo_mail.jpg" width="100" height="140" ></td>
- 
+<body>
+<table width="831px" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="591" valign="top" background="'.$gSitePath.$path.'/images/email.jpg" style="background-repeat:no-repeat"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td height="187">&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="36%">&nbsp;</td>
+        <td width="64%"><table style="border:1px solid #cc9900" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="left" bgcolor="#FFFFFF" style="padding:5px;">'.$newmessage .= $message;
+	 $newmessage .='</td>
+          </tr>
+          <tr>
+            <td align="left" bgcolor="#FFFFFF" style="padding:5px;"><br />
+              Visit our website <a title="Heardmentality.com" href="'.$gSitePath.'" target="_blank" class="y18">Heardmentality.com</a> <br />
+              <br />
+Thanks, <br />
+Heardmentality Team. </td>
+          </tr>
+        </table></td>
+      </tr>
+
+      <tr>
+        <td>&nbsp;</td>
+        <td align="right"><img src="'.$gSitePath.$path.'/images/email-bot.jpg" alt="img" width="152" height="47" /></td>
+      </tr>
+    </table></td>
   </tr>
-  <tr> 
-    <td> 
-      <table width="100%" border="0" cellspacing="1" cellpadding="0" bgcolor="#494DCD">
-        <tr> 
-          <td> 
-            <table cellspacing=1 cellpadding=25 width=600 
-            align=center border=0 class="text_black" bgcolor="#F2F2EC">
-              <tbody> 
-              <tr> 
-                <td valign=top align=middle class="text_black">';
-
-	
-	$newmessage .= $message;
-
-	
-	 $newmessage .= ' </td>
-  </tr>
-  <tr><td>
-  <p>Visit our website <a href="'.$gSitePath.'">Heardmentality.com</a>
-<br/><br/>
-Thanks,
-  <br/>
-  Heardmentality Team.
-</td></tr>
-  </tbody> 
 </table>
 </body>
-</html>
-';
+</html>';
 
 	return mail($to, $subject, $newmessage, $headers);
 }
@@ -173,6 +184,8 @@ Thanks,
 
 
 
+            
+           
 
 
 
