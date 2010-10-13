@@ -1,5 +1,4 @@
 <?php
-
 function search_results() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
@@ -350,7 +349,7 @@ function search_results_question() {
 		
        <div class="titl">
         <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save"  >
-             <input type="hidden" name="mid" value="' . $user_result->qid . '"/>
+             <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
 <a href="'.$gSitePath.$user_result->url.'?ajax=1" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
 </div><div class="rleft">';
 //<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
@@ -407,14 +406,14 @@ function search_results_question() {
           
         $fetresult .= '</div><div class="rright">
       <div class="vote-post-outer">
-      <div class="vote-post-outer-top">
-	 
-	   <div align="center"><a href="#" class="vote-post">' . $totalvotes . '</a></div>
-      <div align="center"><a href="#" class="vote-post">' . $numresum . '</a></div>
+      <div class="vote-post-outer-top"> 
       </div>';
+       /*<div align="center"><a href="#" class="vote-post">' . $totalvotes . '</a></div>
+      <div align="center"><a href="#" class="vote-post">' . $numresum . '</a></div>*/
+        
         $fetresult .= '     <div class="vote-post-outer-bottom">
-      <div align="center" class="vot-t">Votes</div>
-       <div align="center" class="vot-t">Posts</div>
+      <div align="center" class="vot-t" style="border-right:1px solid black">Votes | '.$totalvotes.'</div>
+       <div align="center" class="vot-t">Posts | '.$numresum.'</div>
       
       </div>
       
