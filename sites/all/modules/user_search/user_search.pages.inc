@@ -413,8 +413,8 @@ function search_results_question() {
       <div align="center"><a href="#" class="vote-post">' . $numresum . '</a></div>*/
         
         $fetresult .= '     <div class="vote-post-outer-bottom">
-      <div align="center" class="vot-t" style="border-right:1px solid black">Votes | '.$totalvotes.'</div>
-       <div align="center" class="vot-t">Posts | '.$numresum.'</div>
+      <div align="center" class="vot-t" style="border-right:1px solid black"><img src="'.$gSitePath.'sites/all/themes/newtheme/images/tick.jpg" alt="img" /> Votes | '.$totalvotes.'</div>
+       <div align="center" class="vot-t"><img src="'.$gSitePath.'sites/all/themes/newtheme/images/post.jpg" alt="img" /> Posts | '.$numresum.'</div>
       
       </div>
       
