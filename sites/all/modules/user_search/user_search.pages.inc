@@ -351,7 +351,7 @@ function search_results_question() {
        <div class="titl">
         <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save"  >
              <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
-<a href="'.$gSitePath.$user_result->url.'?ajax=1" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
+<a href="'.$gSitePath.$user_result->url.'?ajax=1">' . htmlentities(rtrim($user_result->question, "?")). '?</a>
 </div><div class="rleft">';
 //<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
         
