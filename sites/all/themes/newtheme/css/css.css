@@ -186,32 +186,7 @@ img{ border:none;}
 
 .result-item{ width:370px; border-top:1px #dfdfdf solid;}
 .result-item .rleft{ float:left; display:block;}
-.result-item .rleft .titl a {
--x-system-font:none;
-color:#996600;
-font-family:Arial,Helvetica,sans-serif;
-font-size:14px;
-font-size-adjust:none;
-font-stretch:normal;
-font-style:normal;
-font-variant:normal;
-font-weight:normal;
-line-height:normal;
-text-decoration:none;
-}
-.result-item .rleft .titl a:hover {
--x-system-font:none;
-color:#336699;
-font-family:Arial,Helvetica,sans-serif;
-font-size:14px;
-font-size-adjust:none;
-font-stretch:normal;
-font-style:normal;
-font-variant:normal;
-font-weight:normal;
-line-height:normal;
-text-decoration:none;
-}
+.result-item .titl a{ font:normal 14px Georgia, "Times New Roman", Times, serif; color:#996600; padding:10px 10px;}
 .result-item .rleft .item1{ font: normal 11px Georgia, "Times New Roman", Times, serif; color:#000000; padding:0 0 0 10px;}
 .result-item .rright{ font: normal 11px Georgia, "Times New Roman", Times, serif; color:#000000; float:right;}
 .result-item .rright .vote-post-outer{ width:110px; float:right; margin:30px 0 0 100px;}
@@ -316,8 +291,8 @@ text-decoration:none;
 
 
 /*Edited for developer purposes*/
-/*a{ text-decoration:none; color:#CC6600; font: normal Georgia, "Times New Roman", Times, serif;outline:none;}
-a:hover{ text-decoration:underline;}*/
+a{ text-decoration:none; color:#CC6600; font: normal Georgia, "Times New Roman", Times, serif;outline:none;}
+a:hover{ text-decoration:underline;}
 .cmt_list { border:1px #cccccc solid;  margin-bottom:10px; padding:2px;  display:block; line-height:20px; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
 .innerbox ul li{ list-style:none;}
 #loading{ 
