@@ -318,7 +318,7 @@ function search_results_question() {
             
         }
     </script>   ';
-
+echo $sel['query'];
     $sel_search = db_query($sel['query']);
     $i = 0;
     while ($user_result = db_fetch_object($sel_search)) {
@@ -326,7 +326,7 @@ function search_results_question() {
         if ($user->uid != '') {
             //$flink='<a class="linkfol" href="'.$gSitePath.''.$user_result->url.'">View More </a>';
         }
-       echo  $vans = "select * from {possible_answer} where  qid='$user_result->qid' order by vote desc";
+         $vans = "select * from {possible_answer} where  qid='$user_result->qid' order by vote desc";
 
         $vlist = db_query($vans);
 
