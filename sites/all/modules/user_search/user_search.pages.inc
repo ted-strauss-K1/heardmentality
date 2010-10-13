@@ -296,6 +296,7 @@ function search_results_question() {
     $sel = facetad_refine();
     $sel_count = $sel['qcnt'];
     $sel['query'] .= " limit  $eu, $limit";
+   
     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
      drupal_add_js(drupal_get_path('module', 'user_search') . '/js/sub.js');
     // echo $sel;
@@ -318,7 +319,7 @@ function search_results_question() {
             
         }
     </script>   ';
-echo $sel['query'];
+
     $sel_search = db_query($sel['query']);
     $i = 0;
     while ($user_result = db_fetch_object($sel_search)) {
