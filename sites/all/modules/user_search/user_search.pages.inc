@@ -51,7 +51,19 @@ function search_results() {
     $sel .= " limit $eu, $limit";
     $sel_search = db_query($sel);
 
+    $incr = 0;
+
+     $fetresult = ' <div class="user_search_3">
+       <span class="padding10">SEARCH RESULTS</span><br />
+       <div class="clr"></div>
+       <div class="result-item"></div>
+       <div class="clr"></div>
+       <div class="clr"></div>
+       <div class="result-item">
+       <div class="rleft">';
+
     while ($user_result = db_fetch_object($sel_search)) {
+        $incr = $incr + 1;
         if ($user->uid != '') {
             //$flink='<a class="linkfol" href="user/'.$user_result->uid.'?act=flag">Follow </a>';
             //$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
@@ -66,9 +78,16 @@ function search_results() {
         } else {
             $usetype = '<b>--</b>';
         }
+        if($incr==2)
+        {
+            $divider = '<div class="clr"></div>';
+        }
+        else
+        {
+            $divider = '';
+        }
 
-
-        $fetresult .= '<div class="result-item">
+       /* $fetresult .= '<div class="result-item">
 		 <div class="first-col"> 
 		 <div class="photo"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');">' . UserPicture($user_result->uid) . '</a></div>
 		 </div>
@@ -97,10 +116,52 @@ function search_results() {
     </div>
     
     </div>
+       </div> <div class="clr"></div>';*/
+
+
+        
       
-       </div> <div class="clr"></div>
-		';
+
+      $fetresult .=  ' <div class="prof-it-1">
+        <div class="lefimg-it-c"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');">' . UserPicture($user_result->uid) . '</a></div>
+        <div class="ritecont-it-c">
+<div>
+<ul>
+<li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
+<li> ' . $user_result->first_name . '</li><br />
+<li> ' . $usetype . '</li><br />
+<li>' . $gpoints . '</li><br />
+</ul>
+</div>
+</div>
+<div class="clr"></div>
+   </div>';
     }
+   $fetresult .=  '</div>
+       </div>
+       <div class="clr"></div>
+       <div class="clr"></div>
+       <div class="result-item">
+
+
+       </div>
+       <div class="clr"></div>
+
+              <div align="center" class="page-n">
+              <ul>
+              <li><a title="Previous" href="#">Previous</a></li>
+              <li><img src="images/p-l.jpg" alt="Previous" /></li>
+              <li><a title="1" href="#">1</a></li>
+              <li><a title="2" href="#">2</a></li>
+              <li><a title="3" href="#">3</a></li>
+              <li><a title="4" href="#">4</a></li>
+              <li><a title="5" href="#">5</a></li>
+              <li><img src="images/p-r.jpg" alt="Next" /></li>
+              <li><a title="Next" href="#">Next</a></li>
+              </ul>
+              </div>
+       <div class="clr"></div>
+       </div>  ';
 
     if ($sel_count > $limit) {
 
@@ -789,7 +850,89 @@ function save_follower() {
 </div>';
     }
 }
+function followerlist($umid) {
 
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+    $sel_listf = "select * from follower  where follower_id='" . $umid . "' AND uid>0  limit 0,5  ";
+    $rs_followerf = db_query($sel_listf);
+
+    $numfoll = db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='" . $umid . "' AND uid>0  "));
+
+    $followeru = array();
+    while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
+
+        // $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
+        $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $follower_resultfuser->uid . "'";
+        $rs_umlog = db_query($sel_ulist);
+        $user_namelistf = db_fetch_object($rs_umlog);
+
+
+        $user_namelistf->name;
+
+        if ($umid == $user->uid) {
+            $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',1,0)" >UnBlock</a>';
+            $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',0,0)" >Block</a>';
+        }
+
+        $bubble = load_bubble($user_namelistf->uid);
+        if ($follower_resultfuser->follower_status == 0) {
+           // $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
+            $followeru[] = '<li  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>'. UserPicture_small($follower_resultfuser->uid).'</a></li>';
+
+        } else {
+          //  $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
+
+             $followeru[] = '<li  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>'.UserPicture_small($follower_resultfuser->uid).'</a></li>';
+        }
+
+        //$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
+    }
+
+    if ($numfoll > 5) {
+        $followeru[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
+    }
+    if ($numfoll == 0) {
+        $followeru[] .= '<span style="padding-left:17px;">No Followers Yet</span>';
+    }
+
+
+    return $followeru;
+}
+function followinglist($uids) {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+
+    $sel_list = "select * from follower  where uid='" . $uids . "'  and follower_status='1' limit 0,5";
+    $rs_foll_list = db_query($sel_list);
+    $numfolls = db_result(db_query("SELECT COUNT(*)  from follower  where uid='" . $uids . "'  and follower_status='1'  "));
+    $following = array();
+
+    while ($following_list = db_fetch_object($rs_foll_list)) {
+
+        if ($uids == $user->uid) {
+            $flinks = '<a onclick="deletefollowing(' . $following_list->id . ')" style="color:#F37321;" >Unfollow</a>';
+        }
+        //	 $sel_userm="select * from users  where uid='".$following_list->follower_id."' ";
+        $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $following_list->follower_id . "'";
+        $rs_userm = db_query($sel_userm);
+        $user_namelist = db_fetch_object($rs_userm);
+
+        $bubble = load_bubble($following_list->follower_id);
+
+        //$following[] = '<div  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
+        $following[] = '<li  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">'.UserPicture_small($following_list->follower_id).'</a></li>';
+
+        }
+    if ($numfolls > 5) {
+        $following[] .= '<a style="color:#F37321;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
+    }
+    if ($numfolls == 0) {
+        $following[] .= '<span style="padding-left:17px;">Please Follow People</span>';
+    }
+    return $following;
+}
 function get_user_details() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     extract($_REQUEST);
@@ -849,10 +992,12 @@ function get_user_details() {
         $followers .= 'No Records';
     }
 
-
-    $ret = '<div class="inner-commutop">
-            <p>PROFILE INFORMATION</p>
-		  <div class="inner">
+////old 
+   /* $ret = '<div class="contributer">
+           <div class="commutop-profile">
+  CONTRIBUTOR
+          </div>
+		  <div class="hm-cen">
           <div class="result-item width200">
      <div class="first-col"> 
      <div class="photo"><a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture($resulrnames->uid) . '</a></div>
@@ -930,9 +1075,238 @@ function get_user_details() {
   </div>
   
   </div>
-  
-  
+';*/
+    /// redesign
+    /*$ret = '<div class="contributer">
+          <div class="commutop-profile">
+  CONTRIBUTOR
+
+          </div>
+		  <div class="hm-cen">
+		  <div>
+		   <div class="profile-left-c">
+		   <div class="profile-img">
+		   <a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture($resulrnames->uid) . '</a>
+		  </div>
+		  <div class="clr"></div>
+		  <div>
+<span class="profile-gray">Username </span>: ' . $resulrnames->name . '<br />
+
+<span class="profile-gray">Name</span>: ' . $resulrnames->real_name . '<br />
+<span class="profile-gray">Sex </span>: ' . $usetype . '<br />
+<span class="profile-gray">Points</span> : ' . $gpoints . '<br />
+<span class="profile-gray">Badges</span> : '.updateProfileBadge($resulrnames->uid).'<br />
+</div>
+		  </div>
+		  <div class="profile-right-c">
+		  <div>
+<ul>
+<li>&nbsp;<a href="#" title="History">History</a></li>
+<li>&nbsp;<a href="#" title="Edit my profile">Edit My Profile</a></li>
+<li>&nbsp;<a href="#" title="Notifications">Notifications</a></li>
+<li>&nbsp;<a href="#" title="Follow">Follow</a></li>
+</ul>
+</div>
+</div>
+		  </div>
+
+		  </div>
+		  </div>';*/
+
+
+    
+    function profile_tab($tab='',$uid=''){
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $output='<div class="history-tab">';
+switch($tab){
+    case 'info':
+           $getuser = user_load($uid);
+        $output.='<div>
+            <span class="tab-historyspan4"><a href="#" onclick="jQuery(\'#bio\').toggle();jQuery(\'#link\').toggle();">Bio</a> </span>
+            <span class="tab-historyspan5"><a href="#" onClick="jQuery(\'#link\').toggle();jQuery(\'#bio\').toggle();jQuery(this).addClass(\'tab-historyspan4\');" > Links</a></span>
+            </div><br>
 ';
+        $output.='<div id="bio">'.(!empty($getuser->bio)?$getuser->bio:"No Bio updated yet").'</div><div style="display:none;" id="link">
+            <div class="face_book">
+            <h4>Follow me on</h4>
+                    <a title="FaceBook" target="_blank" href="' . $getuser->facebook . '"><img align="left" alt="" src="' . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
+                    <a title="Twitter" target="_blank" href="' . $getuser->twitter . '"><img align="left" alt="" src="' .  path_to_theme() . '/images/twitter.png"/>Twitter</a>
+            </div>
+</div>';
+        break;
+    case 'badge':
+        $badges.='';
+
+    //$imageresult=UserPicture($uid);
+    $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid";
+    $badgelist = ExecuteQuery($getbadges, "select");
+
+    foreach ($badgelist as $badgeach) {
+
+        $badges.='<li>' . $badgeach['name'] . '</b>[' . $badgeach['bcnt'] . ']</li>';
+    }
+    if (empty($badgelist)) {
+
+        $badges.='<li><h3>No Badges Yet !</h3></li>';
+    }
+    $output.=$badges;
+        break;
+    case 'history':
+            //answers posted
+
+    $get_ans = db_query("select q.*,a.vote_pdate as vdate from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='" . $uid . "'");
+
+    while ($setans = db_fetch_object($get_ans)) {
+
+        $inc_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->vdate</span>  <span class='tab-historyspan2'>answered</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' style='".drupal_link_color($user->uid,$setans->qid)."'>".htmlentities(substr($setans->question,0,40))."</a></div>
+"; }
+
+
+
+    $ins_ans .= $inc_list;
+
+    $ins_ans = ( empty($inc_list)) ? 'No Result' : $ins_ans;
+    //answers ends
+    //question sposted
+    $get_ans = db_query("select q.* from {question} as q where q.uid='" . $uid . "' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
+
+    while ($setans = db_fetch_object($get_ans)) {
+
+       // $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
+$qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->date_added</span>  <span class='tab-historyspan2'>Issue Created</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' style='".drupal_link_color($user->uid,$setans->qid)."'>".htmlentities(substr($setans->question,0,40))."</a></div>
+";
+    }
+    $inc_qns .= $qns_list;
+
+    $inc_qns = ( empty($qns_list)) ? 'No Result' : $inc_qns;
+    //question ends
+$output.=$ins_ans.$inc_qns;
+
+        break;
+    default:
+        $output='No Results';
+        break;
+}
+$output.='</div>';
+echo $output;
+}
+
+
+
+
+
+    $tag = '';
+    if (isset($_REQUEST['tag'])) {
+        $tag = $_REQUEST['tag'];
+    }
+
+    switch ($tag) {
+
+        case 'activity':
+            $strReturn = activities($resulrnames->uid);
+            break;
+        case 'history':
+            $strReturn = profile_tab($tag,$resulrnames->uid);
+            break;
+        case 'badge':
+              $strReturn = profile_tab($tag,$resulrnames->uid);
+            break;
+        case 'info':
+              $strReturn = profile_tab($tag,$resulrnames->uid);
+            break;
+        default:
+//badges
+           // enthusiast($uid);
+            //fanatic($uid);
+            //$strReturn = profile($uid);
+    }
+
+    
+    
+
+      $following = '';
+        $newlist = followinglist($resulrnames->uid);
+        for ($i = 0; $i < count($newlist); $i++) {
+            $following .= '' . $newlist[$i] . '';
+        }
+
+        $follower = '';
+        $newlist2 = followerlist($resulrnames->uid);
+        for ($k = 0; $k < count($newlist2); $k++) {
+            $follower .= '' . $newlist2[$k] . '';
+        }
+    
+    $ret = '<div class="contributer">
+          <div class="commutop-profile">
+  CONTRIBUTOR
+
+          </div>
+          <div class="hm-cen">
+
+            <div>
+            <div class="profile-left-c">
+<div>
+<a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture($resulrnames->uid) . '</a>
+<div class="profile-con">
+</div>
+
+</div>
+<div class="clr"></div>
+<div>
+<span class="profile-gray">Username</span>: ' . $resulrnames->name . '<br />
+
+<span class="profile-gray">Name </span>: ' . $resulrnames->real_name . '<br />
+<span class="profile-gray">Sex</span> : ' . $usetype . '<br />
+<span class="profile-gray">Points</span> : ' . $gpoints . '<br />
+<span class="profile-gray">Badges </span>: '.updateProfileBadge($resulrnames->uid).'<br />
+<span class="profile-gray">Slant </span>: Left<br />
+</div>
+</div>
+
+<div class="profile-right-c">
+<div>
+<ul>
+<li><img src="'.$gSitePath.'sites/all/themes/newtheme/images/follow.jpg" alt="img" width="19" height="13" />&nbsp;Follow</li>
+<li>&nbsp;<img src="'.$gSitePath.'sites/all/themes/newtheme/images/mail.jpg" alt="img" width="19" height="11" /> &nbsp;Contact Contributor</li>
+</ul>
+</div>
+<div class="clr"></div>
+<div class="p-foll-c">Following<br />
+<ul>
+	' . $following . '
+</ul>
+</div>
+<div class="p-foll-c">Followed by<br />
+<ul>
+	' . $follower. '
+</ul>
+</div>
+</div>
+<div class="clr"></div>
+
+            </div>
+            </div><br />
+
+
+            <div class="clr"></div>
+
+
+            <div class="clr"></div>
+            <div id="page">
+       <ul class="mytabs" id="tabs">
+            <li class="current"><a href="'.  check_plain(request_uri()).'?tag=info">Info</a></li>
+            <li><a href="'.  check_plain(request_uri()).'?tag=badge">Badges</a></li>
+            <li><a href="'.  check_plain(request_uri()).'?tag=activity">Activity</a></li>
+             <li><a href="'.  check_plain(request_uri()).'?tag=history">History</a></li>
+        </ul>
+        <div style="width:480px;" class="mytabs-container" id="tabs-container">
+            Loading. Please Wait...
+        </div>
+    </div>
+
+          </div>';
+
+
 
     echo $ret;
 }
