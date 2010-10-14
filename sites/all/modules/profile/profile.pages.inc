@@ -45,13 +45,14 @@ function profile_view() {
         case 'msg':
              $strReturn = profile_tab($tag,$uid);
         default:
-		 $strReturn ="something wrong";
+		// $strReturn ="something wrong";
 //badges
-           
-          //  $strReturn = profile($uid);
-    }
-     enthusiast($uid);
+           enthusiast($uid);
             fanatic($uid);
+            $strReturn = profile($uid);
+            break;
+    }
+     
 
     return $strReturn;
 }
@@ -134,6 +135,7 @@ $output.=$ins_ans.$inc_qns;
 }
 $output.='</div>';
 echo $output;
+exit;
 }
 function inbox_flex() {
     global $gSitePath, $user, $gDocPath, $base_root;
@@ -392,7 +394,7 @@ function profile($uid = '') {
 
     $history = '';
 
-    $history = '<a href="' . url($_GET['q'], array('absolute' => true)) . '?tag=activity" >History</a><span class="separate">|</span> ';
+   // $history = '<a href="' . url($_GET['q'], array('absolute' => true)) . '?tag=activity" >History</a><span class="separate">|</span> ';
 
 
     $cnt_msg = 0;
@@ -419,7 +421,7 @@ function profile($uid = '') {
         $sendmsg = '<a onclick="profile_comment(' . $getuser->uid . ');" >Send Message </a><span class="separate">|</span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' . $uid . '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
     } else {
 			$cavatar='<a href="'.$gSitePath.'user/getimage" >Change Picture</a>';
-        $edit.='<a href="' . $gSitePath . '?act=edit" >Edit My Profile </a><span class="separate">|</span><a href="' . $gSitePath . 'profile/?tag=msg" >Messages(' . $cnt_msg . ') </a> ';
+        $edit.='<a href="' . $gSitePath . '?act=edit" >Edit My Profile </a><span class="separate">|</span> ';
    $inc = '&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Followers</a>]';
     }
 
@@ -504,6 +506,7 @@ function profile($uid = '') {
             <li><a href="'.  check_plain(request_uri()).'?tag=badge">Badges</a></li>
             <li><a href="'.  check_plain(request_uri()).'?tag=activity">Activity</a></li>
              <li><a href="'.  check_plain(request_uri()).'?tag=history">History</a></li>
+                     <li><a href="'.  check_plain(request_uri()).'?tag=msg">Message['.$cnt_msg.']</a></li>
         </ul>
         <div class="mytabs-container" id="tabs-container">
             Loading. Please Wait...        </div>
