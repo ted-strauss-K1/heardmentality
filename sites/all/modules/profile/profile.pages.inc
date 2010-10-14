@@ -42,7 +42,7 @@ function profile_view() {
         case 'info':
               $strReturn = profile_tab($tag,$uid);
             break;
-        case 'message':
+        case 'msg':
              $strReturn = profile_tab($tag,$uid);
         default:
 		 $strReturn ="something wrong";
@@ -125,6 +125,9 @@ $qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->d
 $output.=$ins_ans.$inc_qns;
 
         break;
+        case 'msg':
+            $output=inbox_msg();
+            break;
     default:
         $output='No Results';
         break;
