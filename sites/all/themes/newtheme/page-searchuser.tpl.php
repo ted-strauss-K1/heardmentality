@@ -22,7 +22,7 @@
                  
       <?php print $content; ?>
       </div>  
-       <div class="commu">
+       <div class="contributer">
        	<div id="user_info">
           <div class="inner-commutop">
             <p>PROFILE INFORMATION</p>
