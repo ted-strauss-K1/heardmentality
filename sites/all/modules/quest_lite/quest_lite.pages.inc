@@ -603,7 +603,7 @@ function qlite_view() {
         $voutput .= '<div class="clr"></div>
 	<div id="rotate">
         <br/>
-              <ul id="maintabs" class="adtabs" >
+              <ul id="maintabs" class="mytabs" >
               <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
                <li><span style="cursor:pointer" onClick="alert(\'Please vote the above question\')">Reporting</span></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
