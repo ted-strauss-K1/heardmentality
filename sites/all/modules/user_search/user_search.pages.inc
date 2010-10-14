@@ -7,7 +7,8 @@ function search_results() {
     extract($_REQUEST);
     $page_name = "searchuser"; //  If you use this code with a different page ( or file ) name then change this
     if (isset($_GET['start'])) {
-        $start = $_GET['start'];
+         $start = $_GET['start'];
+        
     } else {
         $start = 0;
     }
@@ -18,7 +19,7 @@ function search_results() {
 
 
     $eu = ($start - 0);
-    $limit = 5; // No of records to be shown per page.
+    $limit = 10; // No of records to be shown per page.
     $this1 = $eu + $limit;
     $back = $eu - $limit;
     $next = $eu + $limit;
@@ -27,34 +28,41 @@ function search_results() {
 
 
     $name = $_REQUEST['txt_search'];
-    if (isset($_REQUEST['code'])) {
+    if ($_REQUEST['code']!='') {
         $code = $_REQUEST['code'];
-    } else {
-        $code = '';
     }
+    //else {
+      //  $code = '';
+   // }
     $qry = '';
-    if ($name)
+    if ($name!='')
         $qry .= "(img.real_name LIKE '" . $name . "%') AND ";
-    if (isset($_REQUEST['code']))
+    if ($_REQUEST['code']!='')
         $qry .= "(img.country ='" . $code . "') AND ";
 
     if ($user->uid != '')
         $sel = "SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1' ";
     else
         $sel = "SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.status='1' and img.uid=reg.uid  ";
-    // echo $sel;
+   
+   
+   //  echo $sel;
+   
     $user_qry = db_query($sel);
     if ($user->uid != '')
+            
         $sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'"));
     else
         $sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
     $sel .= " limit $eu, $limit";
+   
+   
     $sel_search = db_query($sel);
 
     $incr = 0;
 
      $fetresult = ' <div class="user_search_3">
-       <span class="padding10">SEARCH RESULTS</span><br />
+       <!--<span class="padding10">SEARCH RESULTS</span><br />-->
        <div class="clr"></div>
        <div class="result-item"></div>
        <div class="clr"></div>
@@ -145,21 +153,6 @@ function search_results() {
 
 
        </div>
-       <div class="clr"></div>
-
-              <div align="center" class="page-n">
-              <ul>
-              <li><a title="Previous" href="#">Previous</a></li>
-              <li><img src="images/p-l.jpg" alt="Previous" /></li>
-              <li><a title="1" href="#">1</a></li>
-              <li><a title="2" href="#">2</a></li>
-              <li><a title="3" href="#">3</a></li>
-              <li><a title="4" href="#">4</a></li>
-              <li><a title="5" href="#">5</a></li>
-              <li><img src="images/p-r.jpg" alt="Next" /></li>
-              <li><a title="Next" href="#">Next</a></li>
-              </ul>
-              </div>
        <div class="clr"></div>
        </div>  ';
 
@@ -1462,7 +1455,7 @@ function search_results_user() {
 
 
     $eu = ($start - 0);
-    $limit = 2; // No of records to be shown per page.
+    $limit = 10; // No of records to be shown per page.
     $this1 = $eu + $limit;
     $back = $eu - $limit;
     $next = $eu + $limit;
@@ -1470,9 +1463,9 @@ function search_results_user() {
     $fetresult .= '';
     $name = $_REQUEST['txt_search'];
 
-    if ($name)
+    if ($name!='')
         $qry .= "(img.real_name LIKE '" . $name . "%') AND ";
-    if ($code)
+    if ($code!='')
         $qry .= "(img.country LIKE '" . $code . "%') AND ";
 
     if ($user->uid != '')
@@ -1536,14 +1529,15 @@ function search_results_user() {
 
         $fetresult .= "<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
         if ($back >= 0) {
-            $fetresult .= "<a href='$page_name?start=$back&code=$code'><font face='Verdana' size='2'>PREV</font></a>";
+            $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'><font face='Verdana' size='2'>PREV</font></a>";
         }
         $fetresult .= "</td><td align=center width='30%'>";
         $i = 0;
         $l = 1;
+       
         for ($i = 0; $i < $sel_count; $i = $i + $limit) {
             if ($i <> $eu) {
-                $fetresult .= " <a href='$page_name?start=$i&code=$code'><font face='Verdana' size='2'>$l</font></a> ";
+                $fetresult .= " <a href='$page_name?start=$i&code=$code&txt_search=$name'><font face='Verdana' size='2'>$l</font></a> ";
             } else {
                 $fetresult .= "<font face='Verdana' size='4' color=red>$l</font>";
             }
@@ -1553,7 +1547,7 @@ function search_results_user() {
 
         $fetresult .= "</td><td  align='right' width='30%'>";
         if ($this1 < $sel_count) {
-            $fetresult .= "<a href='$page_name?start=$next&code=$code'><font face='Verdana' size='2'>NEXT</font></a>";
+            $fetresult .= "<a href='$page_name?start=$next&code=$code&txt_search=$name'><font face='Verdana' size='2'>NEXT</font></a>";
         }
         $fetresult .= "</td></tr></table>";
     }
@@ -1568,7 +1562,6 @@ function search_results_user() {
 
 function get_question_details() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
-
 
     extract($_REQUEST);
 

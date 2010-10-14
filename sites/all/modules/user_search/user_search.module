@@ -227,3 +227,26 @@ function facetad_refine() {
 
     return $ret;
 }
+
+function refine_search()
+{
+$options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
+    $result .= geonames_query('countryinfo',NULL,$options);
+   $result  .=  '  <div class="padding10 minheight" >';
+$optionlist .=' <option value="0" >--Country--</option>';
+    foreach ($result->results as $country) {
+        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
+    }
+
+    $result .= '<select name="q_country" style="width: 125px;" tabindex="16"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select>';
+//echo $optionlist;
+
+    $result .= '<div id="chg_state"><select id="q_state" name="q_state" onchange="get_citys(this.value);" style="width: 125px;" tabindex="18"><option value="0" >--State--</option></select></div>';
+
+    $result .= '<div id="chg_city"><select name="q_city" id="q_city" style="width: 125px;" tabindex="19"> <option value="0" >--Cities--</option></select></div>';
+
+    $result .= '</div>';
+
+    return $result;
+
+}
