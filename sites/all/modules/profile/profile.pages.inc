@@ -42,14 +42,16 @@ function profile_view() {
         case 'info':
               $strReturn = profile_tab($tag,$uid);
             break;
+        case 'message':
+             $strReturn = profile_tab($tag,$uid);
         default:
-		
+		 $strReturn ="something wrong";
 //badges
-            enthusiast($uid);
-            fanatic($uid);
-            $strReturn = profile($uid);
+           
+          //  $strReturn = profile($uid);
     }
-
+     enthusiast($uid);
+            fanatic($uid);
 
     return $strReturn;
 }
