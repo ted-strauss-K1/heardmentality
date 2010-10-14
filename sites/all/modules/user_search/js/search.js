@@ -25,11 +25,9 @@ function get_profile_details(urid){
 
 
 
-
 function get_state(code){
  $(document).ready(function() {
     var url = gSitePath + 'question/ajax';
-     
 	jQuery.ajax({
         type: "POST",
         url: url,
@@ -45,15 +43,16 @@ function get_state(code){
     });
 	
 
-	 var url = gSitePath + "userresults";
-   
+	var url = gSitePath + "userresults";
+	var t_search = $("#txt_search").val();
 	 jQuery.ajax({
         type: "POST",
         url: url,
         dataType: 'xhr',
         data: {
             action: '1',
-			code:code
+			code:code,
+			txt_search: t_search
         },
         success: function(msg){
             jQuery('.inner-page-cont').html(msg);
