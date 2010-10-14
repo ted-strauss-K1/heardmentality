@@ -1481,12 +1481,39 @@ function search_results_user() {
     $sel .= " limit $eu, $limit";
     $sel_search = db_query($sel);
 
+
+
+    $fetresult = ' <div class="user_search_3">
+       <!--<span class="padding10">SEARCH RESULTS</span><br />-->
+       <div class="clr"></div>
+       <div class="result-item"></div>
+       <div class="clr"></div>
+       <div class="clr"></div>
+       <div class="result-item">
+       <div class="rleft">';
+    
     while ($user_result = db_fetch_object($sel_search)) {
         if ($user->uid != '') {
             //$flink='<a class="linkfol" href="search/'.$user_result->uid.'?act=flag">Follow </a>';
             //$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
         }
-        $fetresult .= '<div class="result-item">
+            $fetresult .=  ' <div class="prof-it-1">
+                    <div class="lefimg-it-c"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');">' . UserPicture($user_result->uid) . '</a></div>
+                    <div class="ritecont-it-c">
+            <div>
+            <ul>
+            <li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
+            <li> ' . $user_result->first_name . '</li><br />
+            <li> ' . $usetype . '</li><br />
+            <li>' . $gpoints . '</li><br />
+            </ul>
+            </div>
+            </div>
+            <div class="clr"></div>
+               </div>';
+
+
+      /*  $fetresult .= '<div class="result-item">
 		 <div class="first-col"> 
 		 <div class="photo"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');">' . UserPicture($user_result->uid) . '</a></div>
 		 </div>
@@ -1516,11 +1543,21 @@ function search_results_user() {
     
     </div>
       
-       </div> <div class="clr"></div>
-		';
+       </div> <div class="clr"></div>';*/
 
         $fetresult .= $flink;
     }
+
+$fetresult .=  '</div>
+       </div>
+       <div class="clr"></div>
+       <div class="clr"></div>
+       <div class="result-item">
+
+
+       </div>
+       <div class="clr"></div>
+       </div>  ';
 
     $fetresult .= '<input type="hidden" name="stype" value="' . $_REQUEST['stype'] . '"/></ul>';
 
