@@ -14,8 +14,9 @@ function get_profile_details(urid){
             getuid: urid
         },
         success: function(msg){
-            jQuery('#user_info').html(msg);
-            
+              
+         jQuery('#user_info').html(msg);
+         reset_tabs();
         }
     });
 	
@@ -155,7 +156,7 @@ reset_tabs();
 });
 
 function reset_tabs(){
-var tabarray=['#maintabs,#tabcontent'];
+var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container'];
 
       // Preload tab on page load
     jQuery.each(tabarray,function(e){
@@ -186,9 +187,6 @@ var tabarray=['#maintabs,#tabcontent'];
 
 
     });
-
-
-
 }
 
 jQuery(document).ready(function(){
@@ -214,7 +212,9 @@ jQuery(document).ready(function(){
     return false;
 	});			
 });						
-				
+	
+
+	
 			
 						
 						
