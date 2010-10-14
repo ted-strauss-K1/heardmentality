@@ -19,8 +19,7 @@
              </div>
         </div>
       <br class="clr" />
-      </div>
-      <div class="clr"></div>
+   
       <!--content area close-->
 
   <?php include "footer.tpl.php"; ?>
