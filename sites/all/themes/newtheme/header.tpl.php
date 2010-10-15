@@ -102,7 +102,7 @@ $directory = $base_path . $directory;
                         var windowResize = true;
                         var resizeable = false;
 
-                        jQuery.nyroModalSettings({  galleryCounts: '', forceType: 'iframe',minWidth: 600, // Minimum width
+                        /*jQuery.nyroModalSettings({  galleryCounts: '', forceType: 'iframe',minWidth: 600, // Minimum width
                             minHeight: 400, // Minimum height
                             resizable: false, // Indicate if the content is resizable. Will be set to false for swf
                             autoSizable: true, // Indicate if the content is auto sizable. If not, the min size will be used
@@ -113,7 +113,7 @@ $directory = $base_path . $directory;
                             width: width/2,
                             height: height
 
-                        });
+                        });*/
                         jQuery("#loading").ajaxStart(function(){
                             jQuery(this).fadeIn();
                         });

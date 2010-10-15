@@ -17,7 +17,7 @@
           
         </div>
         <div class="inner-page-cont minheight544">
-       <span class="padding10"><h3>SEARCH RESULTS</h3></span>
+     <span class="padding10">SEARCH RESULTS</span>
  
                  
       <?php print $content; ?>
