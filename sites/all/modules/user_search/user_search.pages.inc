@@ -333,7 +333,7 @@ function search_results_question() {
             
         }
     </script>   ';
-echo $sel['query'];
+//echo $sel['query'];
     $sel_search = db_query($sel['query']);
     $i = 0;
     while ($user_result = db_fetch_object($sel_search)) {
