@@ -1143,7 +1143,7 @@ function question_ajax() {
         echo $ret;
         exit;
     } elseif (isset($_REQUEST['code'])) {
-        
+       
         switch ($action) {
             
             case 1: //get state
@@ -1163,7 +1163,7 @@ function question_ajax() {
                 break;
                 exit;
             case 2: //get city
-                
+               
                 $query = array('geonameid'=>$code);
                 $result = geonames_query('children', $query);
                 //print_r($result);
