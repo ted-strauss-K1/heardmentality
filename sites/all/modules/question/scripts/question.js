@@ -4,44 +4,32 @@
 
 function validate_question(){
 
-    var quest = $('q_quest').value;
-    var ans1 = $('q_ans1').value;
-    var ans2 = $('q_ans2').value;
+    var quest = jQuery('#q_quest').val();
+    var ans1 = jQuery('#q_ans1').val();
+    var ans2 = jQuery('#q_ans2').val();
     
-    var cat1 = $('cat1').value;
+    var cat1 = jQuery('#cat1').val();
     var err = '';
     
     if (quest.trim().length < 1) 
         err += '<li>Please Provide Proper Question!</li>';
     
-    if (ans1.trim().length < 1) 
-        err += '<li>Please Provide Answer 1!</li>';
-    
-    if (ans2.trim().length < 1) 
-        err += '<li>Please Provide Answer 2!</li>';
-    
-    
+    if (ans1.trim().length < 1||ans2.trim().length < 1)
+        err += '<li>Minimum 2 answers required</li>';
+ 
     if (cat1.trim().length < 1) 
         err += '<li>Please Provide Main Cateogry of the Question!</li>';
     
-    
+     jQuery("#add_more input").each(function(){ jQuery(this).css('border','')});
+       jQuery('#add_more input:text[value=""]').each(function(){ jQuery(this).css('border','1px solid red')});
     if (err.trim().length > 1) {
-        var el = $('err');
-        el.setStyle('background-color', '#eeeeee');
-        el.setStyle('height', 'auto');
-        el.setStyle('color', 'red');
-        el.setStyle('border', '3px solid #dd97a1');
-        el.setStyle('list-style', 'none');
-        
-        el.setStyle('display', 'block');
-        el.set('html', err);
-        el.highlight("#EBCC22");
-        
+       jQuery('#err').html(err);
+
         return false;
     }
 
-    $('qform').fade('out');
-    $$('div.facttop').set('html','Please wait till processing...!')
+    jQuery('#qform').slideOut('slow');
+    jQuery('div.facttop').html('Please wait till processing...!');
     return true;
     
 }
@@ -55,7 +43,7 @@ function add_ans(){
     tab=tab+1;
 	    //validate prev ans is empty
     if(jQuery('#q_ans'+ans_cnt).val().length>1){
-		
+	 jQuery("#add_more input").each(function(){ jQuery(this).css('border','')});
         ans_cnts = ++ans_cnt;
 		 
         if(ans_cnt>=3){
@@ -83,13 +71,15 @@ function add_ans(){
         }
     }else{
 		
-		alert('ss');
+		
 
         var el=jQuery("#err");
-        alert('sss');
+   
         el.css('display', 'block');
-        el.html('Answer should not be empty!');
-           jQuery('#add_more input:empty').css('border',red);
+        el.html('Some of the fields are still empty !');
+       
+         jQuery('#add_more input').each(function(){ jQuery(this).css('border','')});
+        jQuery('#add_more input:text[value=""]').each(function(){ jQuery(this).css('border','1px solid red')});
       //  el.highlight('#FF0000', '#6DB6DB');
 		
 	

@@ -269,17 +269,15 @@ setDefaultCountry(\''.$cncode.'\');
        <div class="right" id="qform">
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
        <ul id="add_more">
-       <li><label><span class="span1">Issue <b>*</b></span><span>
-       
-		<input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" 
-     onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" 
-     onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" size="100" >?
-</span></label></li>
-		 <li><label><span class="span1">Context</span><span> <textarea name="q_context" id="q_context" tabindex="2">'.$q_context.'</textarea> </span></label></li>
- <li><label><span class="span1">Answer<b>*</b></span><span> <input tabindex="3" name="q_ans1" type="text" id="q_ans1"  value="'.$q_ans1.'" size="40" /></span></label></li>
-       <li><label><span class="span1">Answer <b>*</b></span><span> <input name="q_ans2" tabindex="4" type="text" id="q_ans2"  onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" value="'.$q_ans2.'" size="40" />
-	</span></label></li>
-       <li>&nbsp;</li>
+               <li><label><span class="span1">Issue <b>*</b></span><span>
+          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" size="100" >?
+        </span></label>
+        </li>
+          <li><label><span class="span1">Context</span><span> <textarea name="q_context" id="q_context" tabindex="2">'.$q_context.'</textarea> </span></label></li>
+         <li><label><span class="span1">Answer<b>*</b></span><span> <input tabindex="3" name="q_ans1" type="text" id="q_ans1"  value="'.$q_ans1.'" size="40" /></span></label></li>
+         <li><label><span class="span1">Answer <b>*</b></span><span> <input name="q_ans2" tabindex="4" type="text" id="q_ans2"  onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" value="'.$q_ans2.'" size="40" />
+         </span></label></li>
+         <li>&nbsp;</li>
        </ul>
        <div class="clr"></div>
        <ul style="float:right">
@@ -291,7 +289,7 @@ setDefaultCountry(\''.$cncode.'\');
             <small><a href="javascript:void(0);" tabindex="88" onclick="del_ans();">[Remove]</a></small>
             </div><br/>
            <!-- <a href="#" title="Add Answer " tabindex="13"><img src="'.$gSitePath.path_to_theme().'/images/addanswer.jpg" onclick="add_ans();"  alt="Add Answer" /></a>-->
-            <input type="button"  tabindex="13" name="Add" disabled="disabled" onclick="add_ans();" id="Add" value="Add Answer" /> 
+            <input type="button"  tabindex="13" name="Add"  onclick="add_ans();" id="Add" value="Add Answer" /> 
             <input type="hidden" name="ans_cnt" id="ans_cnt" value="2">
             <input type="hidden" id="cat1" name="cat1" value="">
             <input type="hidden" id="cat2" name="cat2" value="">
