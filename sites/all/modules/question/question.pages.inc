@@ -392,9 +392,11 @@ $output.='<span>Required <b>*</b></span><span class="do-in2save" >
          <div class="clr"></div>
         </div>
 </form>
+ <div class="clr"></div>
         </div>
        </div>
         </div>
+         <div class="clr"></div>
         </div>
         ';
 
