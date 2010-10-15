@@ -176,6 +176,19 @@ function facetad_refine() {
     if (isset($_REQUEST['txt_search'])) {
         $name = $_REQUEST['txt_search'];
     }
+   if($_REQUEST['q_country']!='')
+     {
+         $q_country = $_REQUEST['q_country'];
+     }
+     if($_REQUEST['q_state']!='')
+     {
+         $q_state = $_REQUEST['q_state'];
+     }
+
+     if($_REQUEST['q_city']!='')
+     {
+         $q_city = $_REQUEST['q_city'];
+     }
     extract($_REQUEST);
     if (isset($_GET['scid'])) {
         $suid = $_GET['scid'];
@@ -195,12 +208,23 @@ function facetad_refine() {
         $qry .= " question LIKE '%" . $name . "%' AND ";
     }
 
+
+    
+     
     if (!empty($sscid))
         $qry .= "qc.sscat=" . $sscid . "  AND ";
     elseif (!empty($scid))
         $qry .= "qc.scat=" . $scid . " AND ";
     elseif (!empty($cid))
         $qry .= "qc.cat=" . $cid . " AND ";
+    elseif (!empty($q_country))
+        $qry .= "q.country='" . $q_country . "' AND ";
+     elseif (!empty($q_state))
+        $qry .= "q.state='" . $q_state . "' AND ";
+     elseif (!empty($q_city))
+        $qry .= "q.city='" . $q_city . "' AND ";
+
+    
 
     if ($tag != '') {
         $sel = "SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";

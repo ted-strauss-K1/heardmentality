@@ -66,6 +66,17 @@ function get_state(code){
 	
 }
 
+
+
+function get_statequestion(){
+ document.thisform.submit();
+}
+
+
+
+
+
+
 function get_city(code){
 
     var url = gSitePath + "question/ajax";

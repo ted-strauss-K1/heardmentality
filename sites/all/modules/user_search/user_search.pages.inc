@@ -263,8 +263,7 @@ function check_select($gid,$quid){
        }
 
 function search_results_question() {
-  
-   
+///vijay search
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
     $start = '';
     $txt_search = '';
@@ -291,15 +290,17 @@ function search_results_question() {
         echo "Data Error";
         exit;
     }
-    if (isset($_GET['cid'])) {
+    if ($_GET['cid']!='') {
         $cid = $_GET['cid'];
     }
-    if (isset($_GET['scid'])) {
+    if ($_GET['scid']!='') {
         $scid = $_GET['scid'];
     }
-    if (isset($_GET['sscid'])) {
+    if ($_GET['sscid']!='') {
         $scid = $_GET['sscid'];
     }
+     
+
     $eu = ($start - 0);
     $limit = 15; // No of records to be shown per page.
     $this1 = $eu + $limit;
@@ -332,7 +333,7 @@ function search_results_question() {
             
         }
     </script>   ';
-
+echo $sel['query'];
     $sel_search = db_query($sel['query']);
     $i = 0;
     while ($user_result = db_fetch_object($sel_search)) {
