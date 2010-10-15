@@ -142,6 +142,7 @@ function user_search_menu() {
 }
 
 function facetad_refine() {
+    print_r($_REQUEST);
     //query builder
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $start = '';
@@ -217,11 +218,11 @@ function facetad_refine() {
         $qry .= "qc.scat=" . $scid . " AND ";
     elseif (!empty($cid))
         $qry .= "qc.cat=" . $cid . " AND ";
-    elseif (!empty($q_country))
+        if (!empty($q_country))
         $qry .= "q.country='" . $q_country . "' AND ";
-     elseif (!empty($q_state))
+         if (!empty($q_state))
         $qry .= "q.state='" . $q_state . "' AND ";
-     elseif (!empty($q_city))
+        if (!empty($q_city))
         $qry .= "q.city='" . $q_city . "' AND ";
 
     
