@@ -355,7 +355,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
         </li>
         <li>
         <div class="listmenu2" id="chg_state">
-        <select id="q_state" name="q_state" onchange="get_city(this.value);" style="width: 125px;" tabindex="18"><option value="0" >--State--</option></select>
+        <select id="q_state" name="q_state" class="listbox2" onchange="get_city(this.value);" style="width: 125px;" tabindex="18"><option value="0" >--State--</option></select>
     </div>
     </li>
         <li>
