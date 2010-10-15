@@ -6,20 +6,7 @@ function my_question() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $strReturn = '';
-    /*$client_select =db_query("SELECT *  FROM {question} where uid='".$user->uid."'");
-     $client_array=array();
-     $client_key=array();
-     
-     while($list=db_fetch_object($client_select))
-     {
-     
-     $client_array[] = $list->cat_name;
-     $client_key[]=$list->cat_id;
-     
-     }
-     */
-
-    $query = "SELECT *  FROM {question} where uid='".$user->uid."'";
+        $query = "SELECT *  FROM {question} where uid='".$user->uid."'";
     $list = ExecuteQuery($query, "select");
     
     $strReturn .= '<div class="clear-block">';
@@ -74,20 +61,6 @@ function question_add() {
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     
-    //drupal_add_js(drupal_get_path('module', 'question').'/scripts/calendar.js');
-    //drupal_add_js('misc/jquery.js');
-    //drupal_add_js('misc/ui.core.min.js');
-
-    
-    //drupal_add_js('misc/ui.datepicker.min.js');
-    //drupal_add_css(drupal_get_path('module', 'question').'tagging/tagging.css');
-    
-    //drupal_static_reset('drupal_add_js');
-    //drupal_add_js('','external');
-    //		 drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
-
-    
-    //drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
     $cncode = '';
     $zicode = db_result(db_query("select zip from {user_profile} where uid='$user->uid'"));
     $ustate = db_result(db_query("select state from {user_profile} where uid='$user->uid'"));
@@ -588,56 +561,7 @@ $ccode=$country['cn'];
         
         $ins_id = db_last_insert_id('question', 'qid');
 
-        //cid=' $cat1',scid='$cat2',sscid='$cat3'
-
-
-        /////gopi filter insert category, subcategory
-//        if(!empty($cat1)){
-//        $cat1=explode(',',$cat1);
-//
-//
-//
-//        foreach($cat1 as $ins1){
-//
-//         db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
-//
-//        }
-//
-//        }
-//        if(!empty($cat2)){
-//        $cat2=explode(',',$cat2);
-//
-//        foreach($cat2 as $ins2){
-//         db_query("insert into {question_cat} set qid='$ins_id',scat='$ins2'");
-//        }
-//
-//        }
-
-
         
-
-        ////vijay insert category, subcategory
-//        if(!empty($cat1)){
-//        $cat1=explode(',',$cat1);
-//
-//        foreach($cat1 as $ins1){
-//
-//         db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
-//
-//         if(!empty($cat2)){
-//        $cat2=explode(',',$cat2);
-//
-//        foreach($cat2 as $ins2){
-//         //db_query("insert into {question_cat} set qid='$ins_id',scat='$ins2'");
-//         db_query("updatento {question_cat} set qid='$ins_id',scat='$ins2'");
-//        }
-//                   }
-//
-//
-//        }
-
-       // print_r($cat1);
-       // exit;
         ////vijay insert category subcategory start here
        // print_r($cat1);
           $cat_count=explode(',',$cat1);
@@ -1319,28 +1243,7 @@ function question_ajax() {
                     }
                 }
                 
-                /*
-                 if(!empty($cat2)){
-                 $exp1 = explode(',', $cat2);
-                 
-                 foreach ($exp1 as $ocat) {
-                 
-                 $query = " SELECT * FROM {question}";
-                 $result = ExecuteQuery($query, "select");
-                 
-                 foreach ($result as $man) {
-                 
-                 $getcat1 = explode(',', $man['scid']);
-                 
-                 if (in_array($ocat, $getcat1)) {
-                 
-                 array_push($qids, $man['qid']);
-                 
-                 }
-                 }
-                 
-                 }
-                 */
+               
 
 
                 $qids = array_unique($qids);
