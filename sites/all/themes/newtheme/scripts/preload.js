@@ -46,7 +46,7 @@ jQuery(function() {
 	var as_json = new bsn.AutoSuggest('txt_search', options);
 
 	// Display a little watermak
-	jQuery("#txt_search").Watermark("Ex : Why african people black...");
+	jQuery("#txt_search").Watermark("");
 
 
 });
