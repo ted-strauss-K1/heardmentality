@@ -98,7 +98,7 @@ function search_results() {
 <div>
 <ul>
 <li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
-<li>' . $gpoints . '</li><br />
+<!--<li>' . $gpoints . '</li><br />-->
 '.updateProfileBadge($user_result->uid).'
 </ul>
 </div>
@@ -1203,15 +1203,25 @@ exit;
 
             <div>
             <div class="profile-left-c">
-<div>
+
+
+
+
+
+		<div class="profile-img">
 <a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture($resulrnames->uid) . '</a>
-<div class="profile-con">
-</div>
-
-</div>
-<div class="clr"></div>
+<div class="profile-con">' . $resulrnames->real_name . '<br />
 <div>
+<ul>
+'.updateProfileBadge($resulrnames->uid).'
+</ul>
+</div>
+</div>
+</div>
 
+
+<div class="clr"></div>
+<div style="padding-top:20px">
 <span class="profile-gray">Name </span>: ' . $resulrnames->real_name . '<br />
 <span class="profile-gray">Location </span>: ' . $resulrnames->state . ',' . $resulrnames->country.'<br />
 <span class="profile-gray">Age</span> : ' .$resulrnames->age. '<br />
@@ -1343,7 +1353,7 @@ function search_results_user() {
             <div>
             <ul>
             <li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
-            <li>' . $gpoints . '</li><br />
+           <!--<li>' . $gpoints . '</li><br />-->
             '.updateProfileBadge($user_result->uid).'
             </ul>
             </div>
