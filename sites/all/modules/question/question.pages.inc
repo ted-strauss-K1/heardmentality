@@ -266,12 +266,24 @@ setDefaultCountry(\''.$cncode.'\');
         <div class="inside2">
 		<div id="err" style="border: 3px solid rgb(221, 151, 161); display: block; background-color: rgb(238, 238, 238); height: auto; color: red;">'.$list_err.'</div>
 	       <div class="clr">&nbsp;</div>
-<div class="left"><strong>Lorem ipsum dolor sit amet, </strong>consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+<div class="left"><strong>
+Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles</span> when creating a new issue</strong><br>
+         <strong><br>
+         All issues should be :   </strong>
+         <div class="creat"><ul>
+         <li>Concise</li>
+         <li>Clean</li>
+         <li>Original</li>
+         <li>Important</li>
+         <li>Unbiased</li>
+         <li>Contain no names</li>
+         </ul></div>
+          </div>
        <div class="right" id="qform">
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="'.$gSitePath.'question/save" >
        <ul id="add_more">
                <li><label><span class="span1">Issue <b>*</b></span><span>
-          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" size="100" >?
+          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" size="100" >
         </span></label>
         </li>
           <li><label><span class="span1">Context</span><span> <textarea name="q_context" id="q_context" tabindex="2">'.$q_context.'</textarea> </span></label></li>
@@ -284,27 +296,30 @@ setDefaultCountry(\''.$cncode.'\');
        <ul style="float:right">
          <li>
         
-         <span>
+    
              
             <div id="del_ans" style="display:none;padding:2px;">
             <small><a href="javascript:void(0);" tabindex="88" onclick="del_ans();">[Remove]</a></small>
-            </div><br/>
-      <a href="javascript:void(0);" id="Add" title="Add Answer " tabindex="13"><img src="'.$gSitePath.path_to_theme().'/images/addanswer.jpg" onclick="add_ans();"  alt="Add Answer" /></a>
-          <!--  <input type="button"  tabindex="13" name="Add"  onclick="add_ans();" id="Add" value="Add Answer" /> -->
-            <input type="hidden" name="ans_cnt" id="ans_cnt" value="2">
+            </div>
+       <!--<a href="javascript:void(0);" id="Add" title="Add Answer " tabindex="13"><img src="'.$gSitePath.path_to_theme().'/images/addanswer.jpg" onclick="add_ans();"  alt="Add Answer" /></a>-->
+            <div><div class="but-left"><img src="'.$gSitePath.path_to_theme().'/images/but-left.jpg"></div>
+           <input type="button"  tabindex="13" name="Add" title="Add More Answer" class="but"  onclick="add_ans();" id="Add" value="Add Answer" />
+           <div class="but-right">
+           <img width="7" height="24" src="'.$gSitePath.path_to_theme().'/images/but-right.jpg"></div></div>
+<input type="hidden" name="ans_cnt" id="ans_cnt" value="2">
             <input type="hidden" id="cat1" name="cat1" value="">
             <input type="hidden" id="cat2" name="cat2" value="">
             <input type="hidden"  id="cat3" name="cat3" value="">
-         </span>
+      
          </li>
        </ul>
        <div class="clr"></div>
        <div class="do-in2cat">
        <ul >
-         <li>Categorize:</li>
+         <li><span>Categorize <b>*</b></span>:</li>
           <li>
           <div class="listmenu2">
-            <select tabindex="14"  name="q_cat[]" id="q_cat" class="listbox2"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+           <select tabindex="14"  name="q_cat[]" id="q_cat" class="listbox2"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
             <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     while ($list = db_fetch_object($client_select)) {
@@ -387,8 +402,12 @@ $result=load_user($user->uid);
 
 
 $output.=' <div class="clr">&nbsp;</div>
-    <span>Required <b>*</b></span><span class="do-in2save" >
-       <input type="image" src="'.$gSitePath.path_to_theme().'/images/save.jpg"  name="save" tabindex="21" id="save" value="Save" class="question-save"/>
+    <span>Required <b>*</b></span><div class="do-in2save" >
+      <div><div class="but-left"><img src="'.$gSitePath.path_to_theme().'/images/but-left.jpg"></div>
+         <input type="submit"  class="but" name="save" tabindex="21" title="Submit an Issue" id="save" value="Save" class="question-save"/>
+           <div class="but-right">
+           <img width="7" height="24" src="'.$gSitePath.path_to_theme().'/images/but-right.jpg"></div></div>
+       </div>
               </div>
          <div class="clr"></div>
         </div>
