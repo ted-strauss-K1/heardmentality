@@ -246,11 +246,12 @@ img{ border:none;}
 .profile-right li{ float:left;list-style:none;color:#996600; padding-top:0px;}
 .profile-lefthm{ width:169px; float:left; border:1px solid #b7b7b7; padding:10px;}
 
-
 .inner2{ padding:10px;}
 .profile-tab{ width:1005px; margin-top:5px;}
-.profile-img{ width:156px; background-image:url(../images/user.jpg); height:56px; background-repeat:no-repeat;}
-.profile-con{ width:87px; float:right; padding:3px;}
+.profile-img{ width:156px;height:56px; background-repeat:no-repeat; background-color:#f8f5ee; border:1px solid #666666;}
+.profile-imgs{ float:left;}
+.profile-con{ width:87px; float:left; padding:3px;}
+
 .profile-con ul{ margin:0px; padding:0px;}
 .profile-con li{ list-style:none; float:left; padding-left:2px;}
 .profile-gray{ color:#666666; font-size:12px; }
@@ -326,6 +327,7 @@ z-index:1000; -moz-border-radius:5px;
 	border-top: 2px solid #ffd324;
 	border-bottom: 2px solid #ffd324; color:red; font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold;
 	}
+        .red{font:normal 10px Arial, Helvetica, sans-serif; color:red;}
 	
 .status
 {
@@ -574,7 +576,7 @@ margin-right:2px;
 .do-intop{ height:26px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
 .do-in2 .inside2{ font: normal 12px Arial, Helvetica, sans-serif; color:#000000; padding:5px 10px;}
 .do-in2 .left{ width:160px; float:left;}
-.do-in2 .right{ width:480px; float:left; padding-left:10px;}
+.do-in2 .right{ /*width:480px; float:left;*/ padding-left:10px;}
 .do-in2 .right ul{ float:left; }
 .do-in2 .right ul li{ margin:0px; padding:0px; list-style:none; padding-bottom:3px;}
 .do-in2 span input,.do-in2 span textarea{ width:395px; border:1px solid #838381;}
@@ -630,9 +632,6 @@ margin-right:2px;
 .prof-it-1 .ritecont-it-c ul{}
 .prof-it-1 .ritecont-it-c li{ float:left; list-style:none; font: normal 12px Arial, Helvetica, sans-serif; color:#666666; text-decoration:none;}
 .prof-it-1 .ritecont-it-c li span{ font:normal 12px Arial, Helvetica, sans-serif; color:#000;}
-
-
-
 
 
 
