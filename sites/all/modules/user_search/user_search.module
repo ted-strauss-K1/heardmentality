@@ -142,7 +142,7 @@ function user_search_menu() {
 }
 
 function facetad_refine() {
-    print_r($_REQUEST);
+    //print_r($_REQUEST);
     //query builder
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $start = '';
