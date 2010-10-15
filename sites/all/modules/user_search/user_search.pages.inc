@@ -1209,7 +1209,7 @@ exit;
 
 
 		<div class="profile-img">
-<a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture($resulrnames->uid) . '</a>
+<a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture_small($resulrnames->uid) . '</a>
 <div class="profile-con">' . $resulrnames->real_name . '<br />
 <div>
 <ul>
@@ -1233,7 +1233,7 @@ exit;
 </div>
 
 <div class="profile-right-c">
-<div>
+<div style="margin-left:8px;">
 <ul>
 <li><img src="'.$gSitePath.'sites/all/themes/newtheme/images/follow.jpg" alt="img" width="19" height="13" />&nbsp;Follow</li>
 <li>&nbsp;<img src="'.$gSitePath.'sites/all/themes/newtheme/images/mail.jpg" alt="img" width="19" height="11" /> &nbsp;Contact Contributor</li>
