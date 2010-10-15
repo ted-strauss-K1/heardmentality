@@ -212,8 +212,9 @@ $items['question/save'] = array(
 	$badges=''; $gold='';$silver='';$bronze='';
 	 $pat = $gSitePath.drupal_get_path('module', 'profile');
 	$gp=guru_points('user',$uid);
-	$badges.='<li title="reputation score '.$gp.'" class="reputation-score">'.$gp.'</li><br/>';
-	
+
+	$badges.='<b title="reputation score '.$gp.'" class="reputation-score">'.$gp.'</b>';
+
           $query="SELECT count(*) as cnt,btype FROM user_badges as ub left join badges as b on b.bid=ub.bid where ub.uid='$uid' group by b.btype ";
         
 	$btype= ExecuteQuery($query, "select");
@@ -226,15 +227,15 @@ $items['question/save'] = array(
 			{
 				case 'gold':
                                     
-                                    $gold .= '<li><img src="'.$gSitePath.'sites/all/themes/newtheme/images/pr1.jpg" title="'.$list['cnt'].' gold badges"/>'.$list['cnt'].'</li>';
+                                    $gold .= '<li title="'.$list['cnt'].' gold badges"><img src="'.$gSitePath.'sites/all/themes/newtheme/images/pr1.jpg" />'.$list['cnt'].'</li>';
 					//$gold.='<span title="'.$list['cnt'].' gold badges"><span class="badge1 gold"></span><span class="badgecount">'.$list['cnt'].'</span></span>&nbsp;';
 						break;
 				case 'silver':
-                                     $silver .= '<li><img src="'.$gSitePath.'sites/all/themes/newtheme/images/pr2.jpg" title="'.$list['cnt'].' silver badges" />'.$list['cnt'].'</li>';
+                                     $silver .= '<li title="'.$list['cnt'].' silver badges"><img src="'.$gSitePath.'sites/all/themes/newtheme/images/pr2.jpg"  />'.$list['cnt'].'</li>';
 					//$silver.='<span title="'.$list['cnt'].' silver badges"><span class="badge2 silver"></span><span class="badgecount">'.$list['cnt'].'</span></span>&nbsp;';
 						break;		
 				case 'bronze':
-                                    $bronze .= '<li><img src="'.$gSitePath.'sites/all/themes/newtheme/images/pr3.jpg" title="'.$list['cnt'].' bronze badges"/>'.$list['cnt'].'</li>';
+                                    $bronze .= '<li title="'.$list['cnt'].' bronze badges"><img src="'.$gSitePath.'sites/all/themes/newtheme/images/pr3.jpg" />'.$list['cnt'].'</li>';
 					//$bronze.='<span title="'.$list['cnt'].' bronze badges"><span class="badge3 bronze"></span><span class="badgecount">'.$list['cnt'].'</span></span>&nbsp;';
 						break;
 			}			
@@ -242,7 +243,7 @@ $items['question/save'] = array(
 
 	}
 	
-	$badges.=$gold.$silver.$bronze;
+	$badges.='<div><ul>'.$gold.$silver.$bronze.'</ul></div>';
 	
 	
 	return $badges;
