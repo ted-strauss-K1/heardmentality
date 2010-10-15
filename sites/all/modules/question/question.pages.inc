@@ -386,7 +386,8 @@ $result=load_user($user->uid);
 
 
 
-$output.='<span>Required <b>*</b></span><span class="do-in2save" >
+$output.=' <div class="clr">&nbsp;</div>
+    <span>Required <b>*</b></span><span class="do-in2save" >
        <input type="image" src="'.  path_to_theme().'/images/save.jpg"  name="save" tabindex="21" id="save" value="Save" class="question-save"/>
               </div>
          <div class="clr"></div>
