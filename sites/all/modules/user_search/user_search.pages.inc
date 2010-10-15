@@ -99,7 +99,7 @@ function search_results() {
 <ul>
 <li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
 <li>' . $gpoints . '</li><br />
-'.updateProfileBadge($uid).'
+'.updateProfileBadge($user_result->uid).'
 </ul>
 </div>
 </div>
@@ -1344,7 +1344,7 @@ function search_results_user() {
             <ul>
             <li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
             <li>' . $gpoints . '</li><br />
-            '.updateProfileBadge($uid).'
+            '.updateProfileBadge($user_result->uid).'
             </ul>
             </div>
             </div>
@@ -1362,8 +1362,13 @@ $fetresult .=  '</div>
 
 
        </div>
-       <div class="clr"></div>
-       </div>';
+       <div class="clr"></div>';
+
+if ($sel_count == 0) {
+        $fetresult .= '<div style="padding-top:10px" align="center"><b>No Search Results </b></div>';
+    }
+
+      $fetresult .=  '</div>';
 
     $fetresult .= '<input type="hidden" name="stype" value="' . $_REQUEST['stype'] . '"/></ul>';
 
@@ -1394,9 +1399,7 @@ $fetresult .=  '</div>
         }
         $fetresult .= "</td></tr></table>";
     }
-    if ($sel_count == 0) {
-        $fetresult .= '<b>No Search Results </b>';
-    }
+    
     $fetresult .= ' ';
 
 
