@@ -1,5 +1,6 @@
 <?php
 function search_results() {
+    ////vijay1
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
     $flink = '';
@@ -136,9 +137,8 @@ function search_results() {
 <div>
 <ul>
 <li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
-<li> ' . $user_result->first_name . '</li><br />
-<li> ' . $usetype . '</li><br />
 <li>' . $gpoints . '</li><br />
+'.updateProfileBadge($uid).'
 </ul>
 </div>
 </div>
@@ -926,6 +926,141 @@ function followinglist($uids) {
     }
     return $following;
 }
+
+function activities($uid = '') {
+    drupal_set_title('Recent Activities');
+    global $gSitePath, $user, $gDocPath, $base_root;
+    //$uid = $user->uid;
+
+
+    $strReturn = '<div class="history-tab">';
+    //Questions
+    $selQ = "(select 1 as tbl,qid,date_added as dat,0 as vars  from {question} where uid='$uid' ORDER BY qid DESC) union
+	(select 2 as tbl,qid,vote_pdate as dat,0 as vars  from {possible_answer_vote} where uid='$uid') union
+	(select 3 as tbl,qid_rid as qid,date_added as dat,title as vars  from {forum_wave} where uid='$uid' ) union
+	(select 4 as tbl,f.qid_rid as qid,w.date_added as dat,wavelet as vars  from {forum_wavelets} w join {forum_wave} as f on f.fid=w.wid where w.uid='$uid' ) union
+	(select 5 as tbl,f.qid_rid as qid,l.date_added as dat,f.title as vars  from {forumwave_like} as l join {forum_wave} as f on f.fid=l.wid where l.uid='$uid' ) union
+	(select 6 as tbl,u.image_url as qid,f.joindate as dat,u.real_name as vars from {follower} as f join {user_profile} as u on u.uid=f.uid where f.follower_id='$uid' )union
+	(select 7 as tbl,qid,posted_date as dat,0 as vars  from {resource} where uid='$uid') union
+	(select 8 as tbl,qid,vote_date as dat,0 as vars from {suggest_answer_vote} where uid='$uid') union
+	(select 9 as tbl,badge as qid,date_added as dat,badge as vars from {user_badges} where uid='$uid')
+	ORDER BY dat DESC LIMIT 0,50 ";
+    $fetch = ExecuteQuery($selQ, "select");
+
+
+    $strReturn.='';
+
+    if (!empty($fetch)) {
+
+
+
+        foreach ($fetch as $list) {
+
+
+            $type = $list['tbl'];
+
+            switch ($type) {
+
+
+                case '1':
+                    //questions
+                    $quest = get_question($list['qid']);
+                    if (!empty($quest)) {
+                        $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>Asked</b></span> <span><a href="' . $gSitePath . $quest->url . '">' . myTruncate($quest->question, '60', '..', '..') . ' </a></span></div>';
+                    }
+                    break;
+                case '2':
+                    //answered
+
+                    $quest = get_question($list['qid']);
+                    if (!empty($quest)) {
+                        $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>Answered</b></span> <span><a href="' . $gSitePath . $quest->url . '">' . myTruncate($quest->question, '60', '..', '..') . ' </a></span></div>';
+                    }
+
+                    break;
+                case '3':
+                    //New Wave Post
+                    $quest = get_question($list['qid']);
+
+                    if (!empty($quest)) {
+                        $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>New Wave</b></span> <span>' . $list['vars'] . '<span> <b>for</b>  <a href="' . $gSitePath . $quest->url . '">' . myTruncate($quest->question, '60', '..', '..') . ' </a></span></div>';
+                    }
+                    break;
+                case '4':
+                    $quest = get_question($list['qid']);
+                    //new wavelet
+                    if (!empty($quest)) {
+                        $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>New Wavelets</b></span> <span>' . $list['vars'] . '<span> <b>for</b> Wave <b>in</b><a href="' . $gSitePath . $quest->url . '">' . myTruncate($quest->question, '60', '..', '..') . ' </a></span></div>';
+                    }
+                    break;
+                case '5':
+
+                    //Like this wave
+                    $quest = get_question($list['qid']);
+
+                    if (!empty($quest)) {
+                        $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>I like This Wave</b></span> <span>' . $list['vars'] . '<span> <b>for</b>  <a href="' . $gSitePath . $quest->url . '">' . myTruncate($quest->question, '60', '..', '..') . ' </a></span></div>';
+                    }
+                    break;
+                case '6':
+                    //followers
+                    $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                    $strReturn .= '<div ><span>' . $date . '</span><span> <b>New Follower</b></span> <span><a href="' . $gSitePath . '/profile/' . $list['vars'] . '">' . $list['vars'] . '  <img src="' . $list['qid'] . '" border="0" width="20" height="20"></a></a></span></div>';
+                    break;
+                case '7':
+                    //New Resources
+                    //New Wave Post
+                    $quest = get_question($list['qid']);
+
+                    if (!empty($quest)) {
+                        $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>New Resource posted for </b> <a href="' . $gSitePath . $quest->url . '">' . myTruncate($quest->question, '60', '..', '..') . ' </a></span></div>';
+                    }
+                    break;
+                case '8':
+                    //suggest answer answered
+
+                    $quest = get_question($list['qid']);
+                    if (!empty($quest)) {
+                        $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>Suggested Answer</b></span> <span><a href="' . $gSitePath . $quest->url . '">' . myTruncate($quest->question, '60', '..', '..') . ' </a></span></div>';
+                    }
+                    break;
+                case '9':
+
+                    $bad = db_fetch_object(db_query("select * from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.badge='" . $list['vars'] . "'"));
+
+                    //echo "<pre>"; print_r($bad);
+
+                    if (!empty($bad)) {
+                        $date = format_date_class($list['dat'], date('Y-m-d h:i:s'));
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>Awarded Badge </b></span> <span><a title=' . $bad->info . ' href="' . $gSitePath . 'badges/user/' . $bad->bid . '">' . $bad->name . ' </a></span></div>';
+                    }
+
+
+
+                    break;
+                default:
+                    drupal_set_message($message = 'Oops, No Recent Activities !', $type = 'error');
+                    break;
+            }//switch ends
+        }//foreach ends
+    } else {
+
+        drupal_set_message($message = 'Oops, No Recent Activities !', $type = 'error');
+    }
+$strReturn.='</div>';
+    // return $uid;
+    echo $strReturn;
+    exit;
+}
+
+
 function get_user_details() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     extract($_REQUEST);
@@ -1182,6 +1317,7 @@ $output.=$ins_ans.$inc_qns;
 }
 $output.='</div>';
 echo $output;
+exit;
 }
 
 
@@ -1437,6 +1573,9 @@ echo $output;
  */
 
 function search_results_user() {
+    
+    ///vijay2
+    
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
 
@@ -1484,7 +1623,7 @@ function search_results_user() {
 
 
     $fetresult = ' <div class="user_search_3">
-       <!--<span class="padding10">SEARCH RESULTS</span><br />-->
+      <span class="padding10">SEARCH RESULTS</span><br />
        <div class="clr"></div>
        <div class="result-item"></div>
        <div class="clr"></div>
@@ -1497,15 +1636,17 @@ function search_results_user() {
             //$flink='<a class="linkfol" href="search/'.$user_result->uid.'?act=flag">Follow </a>';
             //$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
         }
+        $gquery = "select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid='" . $user_result->uid . "'";
+        $gpoints = db_result(db_query($gquery));
+        
             $fetresult .=  ' <div class="prof-it-1">
                     <div class="lefimg-it-c"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');">' . UserPicture($user_result->uid) . '</a></div>
                     <div class="ritecont-it-c">
             <div>
             <ul>
             <li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
-            <li> ' . $user_result->first_name . '</li><br />
-            <li> ' . $usetype . '</li><br />
             <li>' . $gpoints . '</li><br />
+            '.updateProfileBadge($uid).'
             </ul>
             </div>
             </div>
@@ -1557,7 +1698,7 @@ $fetresult .=  '</div>
 
        </div>
        <div class="clr"></div>
-       </div>  ';
+       </div>';
 
     $fetresult .= '<input type="hidden" name="stype" value="' . $_REQUEST['stype'] . '"/></ul>';
 

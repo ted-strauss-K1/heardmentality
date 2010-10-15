@@ -77,7 +77,6 @@ function user_search_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
-
     $search_result['suggest/follow'] = array(
         'title' => ' Suggested Users',
         'page callback' => 'suggest_follow',
@@ -85,8 +84,6 @@ function user_search_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
-
-
     $search_result['savefollowing'] = array(
         'title' => ' Following',
         'page callback' => 'save_follow',
