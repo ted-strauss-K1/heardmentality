@@ -5,12 +5,9 @@
 function profile_perm() {
     return array('Profile Edit', 'Profile View', 'Profile Privacy', 'User Sign In');
 }
-
-
 /**
  * Implementation of hook_menu().
  */
-
 function profile_menu() {
     $items['profile'] = array('title'=>'Profile', 'page callback'=>'profile_view', 'access arguments'=>array('Profile View'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'profile.pages.inc', );
     $items['profile/edit'] = array('title'=>' Edit Profile', 'page callback'=>'profile_edit', 'access arguments'=>array('Profile Edit'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
