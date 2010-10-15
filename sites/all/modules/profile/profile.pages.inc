@@ -423,7 +423,8 @@ function profile($uid = '') {
 			$cavatar='<a href="'.$gSitePath.'user/getimage" >Change Picture</a>';
         $edit.='<a href="' . $gSitePath . '?act=edit" >Edit My Profile </a><span class="separate">|</span> ';
    $inc = '&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Followers</a>]';
-    }
+   $inc_msg='  <li><a href="'.  check_plain(request_uri()).'?tag=msg">Message['.$cnt_msg.']</a></li>';
+   }
 
 
 
@@ -457,13 +458,13 @@ function profile($uid = '') {
       </div>
       <div class="profile-left">
 <div class="profile-img">
+<div class="profile-imgs">
+'. UserPicture_small($uid).'
+</div>
 <div class="profile-con">
 
-'. UserPicture_small($uid).'
-<br/>
-<ul><li>
 '.updateProfileBadge($uid).'
-    </li></ul></div>
+  </div>
 </div>
 
 </div>
@@ -506,7 +507,7 @@ function profile($uid = '') {
             <li><a href="'.  check_plain(request_uri()).'?tag=badge">Badges</a></li>
             <li><a href="'.  check_plain(request_uri()).'?tag=activity">Activity</a></li>
              <li><a href="'.  check_plain(request_uri()).'?tag=history">History</a></li>
-                     <li><a href="'.  check_plain(request_uri()).'?tag=msg">Message['.$cnt_msg.']</a></li>
+                   '.$inc_msg.'
         </ul>
         <div class="mytabs-container" id="tabs-container">
             Loading. Please Wait...        </div>
