@@ -268,7 +268,7 @@ setDefaultCountry(\''.$cncode.'\');
 	       <div class="clr">&nbsp;</div>
 <div class="left"><strong>Lorem ipsum dolor sit amet, </strong>consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
        <div class="right" id="qform">
-       <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
+       <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="'.$gSitePath.'question/save" >
        <ul id="add_more">
                <li><label><span class="span1">Issue <b>*</b></span><span>
           <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" size="100" >?
@@ -392,11 +392,9 @@ $output.='<span>Required <b>*</b></span><span class="do-in2save" >
          <div class="clr"></div>
         </div>
 </form>
- <div class="clr"></div>
         </div>
        </div>
         </div>
-         <div class="clr"></div>
         </div>
         ';
 
