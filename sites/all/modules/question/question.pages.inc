@@ -265,7 +265,8 @@ setDefaultCountry(\''.$cncode.'\');
         <div class="do-intop">ADD AN ISSUE</div>
         <div class="inside2">
 		<div id="err" style="border: 3px solid rgb(221, 151, 161); display: block; background-color: rgb(238, 238, 238); height: auto; color: red;">'.$list_err.'</div>
-	       <div class="left"><strong>Lorem ipsum dolor sit amet, </strong>consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
+	       <div class="clr">&nbsp;</div>
+<div class="left"><strong>Lorem ipsum dolor sit amet, </strong>consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </div>
        <div class="right" id="qform">
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="'.$gSitePath.'question/save" ><table width="100%" border="0" align="center" style="border:0px;">
        <ul id="add_more">
@@ -275,7 +276,7 @@ setDefaultCountry(\''.$cncode.'\');
         </li>
           <li><label><span class="span1">Context</span><span> <textarea name="q_context" id="q_context" tabindex="2">'.$q_context.'</textarea> </span></label></li>
          <li><label><span class="span1">Answer<b>*</b></span><span> <input tabindex="3" name="q_ans1" type="text" id="q_ans1"  value="'.$q_ans1.'" size="40" /></span></label></li>
-         <li><label><span class="span1">Answer <b>*</b></span><span> <input name="q_ans2" tabindex="4" type="text" id="q_ans2"  onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" value="'.$q_ans2.'" size="40" />
+         <li><label><span class="span1">Answer <b>*</b></span><span> <input name="q_ans2" tabindex="4" type="text" id="q_ans2"   value="'.$q_ans2.'" size="40" />
          </span></label></li>
          <li>&nbsp;</li>
        </ul>
@@ -288,8 +289,8 @@ setDefaultCountry(\''.$cncode.'\');
             <div id="del_ans" style="display:none;padding:2px;">
             <small><a href="javascript:void(0);" tabindex="88" onclick="del_ans();">[Remove]</a></small>
             </div><br/>
-           <!-- <a href="#" title="Add Answer " tabindex="13"><img src="'.$gSitePath.path_to_theme().'/images/addanswer.jpg" onclick="add_ans();"  alt="Add Answer" /></a>-->
-            <input type="button"  tabindex="13" name="Add"  onclick="add_ans();" id="Add" value="Add Answer" /> 
+      <a href="javascript:void(0);" id="Add" title="Add Answer " tabindex="13"><img src="'.$gSitePath.path_to_theme().'/images/addanswer.jpg" onclick="add_ans();"  alt="Add Answer" /></a>
+          <!--  <input type="button"  tabindex="13" name="Add"  onclick="add_ans();" id="Add" value="Add Answer" /> -->
             <input type="hidden" name="ans_cnt" id="ans_cnt" value="2">
             <input type="hidden" id="cat1" name="cat1" value="">
             <input type="hidden" id="cat2" name="cat2" value="">
