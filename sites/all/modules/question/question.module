@@ -212,7 +212,7 @@ $items['question/save'] = array(
 	$badges=''; $gold='';$silver='';$bronze='';
 	 $pat = $gSitePath.drupal_get_path('module', 'profile');
 	$gp=guru_points('user',$uid);
-	$badges.='<span title="reputation score '.$gp.'" class="reputation-score">'.$gp.'</span>';
+	$badges.='<li title="reputation score '.$gp.'" class="reputation-score">'.$gp.'</li><br/>';
 	
           $query="SELECT count(*) as cnt,btype FROM user_badges as ub left join badges as b on b.bid=ub.bid where ub.uid='$uid' group by b.btype ";
         
