@@ -35,11 +35,11 @@ $directory = $base_path . $directory;
         <script type="text/javascript" src="<?php echo $directory; ?>/floatbox/options.js"></script>
 
         <!-- Autosuggest module -->
-        <script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.watermarkinput.js"></script>
+     <script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.watermarkinput.js"></script>
         <script type="text/javascript" src="<?php echo $directory; ?>/lib/autosuggest/bsn.AutoSuggest_2.1.3.js"></script>
-        <link rel="stylesheet" href="<?php echo $directory; ?>/lib/autosuggest/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8">
-            <script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.tab.js"></script>
-            <link rel="stylesheet" href="<?php echo $directory; ?>/lib/jquery.tab.css" type="text/css" media="screen" charset="utf-8">
+          <link rel="stylesheet" href="<?php echo $directory; ?>/lib/autosuggest/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8">
+       <script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.tab.js"></script>
+        <link rel="stylesheet" href="<?php echo $directory; ?>/lib/jquery.tab.css" type="text/css" media="screen" charset="utf-8">
 
                 <script type="text/javascript">
 
@@ -182,7 +182,7 @@ $directory = $base_path . $directory;
                         //jQuery.nyroModalManual({
                         //  url:'<?php echo $gSitePath ?>edit',width:850,height:700,title:'Edit Profile'
                         //});
-                        var options = 'sameBox:true width:50% height:90% caption:' +
+                        var options = 'sameBox:true width:70% height:90% caption:' +
                             '`Edit Profile`';
                         parent.fb.start('<?php echo $gSitePath ?>edit', options);
 

@@ -57,7 +57,7 @@ function loadTab(tabObj,containerId){
                                 jQuery(this).SetBubblePopup({
                                     innerHtml: jQuery(this).attr("rel"),
                                     color:"grey",
-                                    imageFolder: "/images/bp_images",
+                                    imageFolder: "/images/bp_images"
 
                                 });
                             }
