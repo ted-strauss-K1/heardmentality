@@ -216,7 +216,7 @@ function notify_badges()
     //$imageresult=UserPicture($uid);
      //SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid
 
-   $sel_follow="select * from follower where uid='".$user->uid."' and cat_id=0 and question_id=0 and follower_status=1 order by id desc limit 0,5";
+   $sel_follow="select * from follower where uid='".$user->uid."' and cat_id=0 and question_id=0 and follower_status=1 order by id desc";
    $get_follow = db_query($sel_follow);
    while($fet_follow = db_fetch_object($get_follow))
   {
