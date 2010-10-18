@@ -216,13 +216,13 @@ function notify_badges()
     //$imageresult=UserPicture($uid);
      //SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid
 
-   $sel_follow="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
+   $sel_follow="select * from follower where uid='".$user->uid."' and cat_id=0 and question_id=0 and follower_status=1 order by id desc limit 0,5";
    $get_follow = db_query($sel_follow);
    while($fet_follow = db_fetch_object($get_follow))
   {
 
 
-     echo $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$fet_follow->uid."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$fet_follow->uid."' and ub.status='1' group by ub.bid order by ub.date_added desc limit 0,5";
+      $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$fet_follow->uid."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$fet_follow->uid."' and ub.status='1' group by ub.bid order by ub.date_added desc limit 0,5";
      $badgelist = ExecuteQuery($getbadges, "select");
     
       $badges .='<div class="">
