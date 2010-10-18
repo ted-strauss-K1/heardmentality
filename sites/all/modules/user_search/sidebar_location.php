@@ -6,7 +6,7 @@ $q_city = $_REQUEST['q_city'];
 
 $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
     $result = geonames_query('countryinfo',NULL,$options);
-	echo '<form name="thisform" action="' . $gSitePath . 'searchquestion" method="post">';
+	//echo '<form name="thisform" action="' . $gSitePath . 'searchquestion" method="post">';
    echo '  <div class="padding10" >';
 $optionlist.=' <option value="0" >--Country--</option>';
     foreach ($result->results as $country) {
@@ -20,10 +20,16 @@ $optionlist.=' <option value="0" >--Country--</option>';
         }
         $optionlist .= sprintf('<option value="%s" '.$select.'>%s</option>', $country['countrycode'], $country['countryname']);
     }
-echo '<select name="q_country" style="width: 125px;" tabindex="16"  onchange="get_statequestion();" id="q_country">'.$optionlist.'</select>';
+   $txt_search =  $_GET['txt_search'];
+   $cid =  $_GET['cid'];
 
+    /*onchange="click_submit(this.value,<?php echo $_GET['permission']?>)"*/?>
+<select name="q_country" style="width: 125px;" tabindex="16"  onchange="get_statequestion(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>')" id="q_country"><?php echo  $optionlist ?></select>
+<?php
 //echo '<input type="hidden" name="q_country" value='.$q_country.'/>';
 //echo $optionlist;
+$q_country = $_GET['q_country'];
+
 if($q_country!='')
 {
 $query = array('country'=>$q_country);
@@ -31,8 +37,11 @@ $query = array('country'=>$q_country);
 
                 $query = array('geonameid'=>$result->results[0][geonameid]);
                 $result = geonames_query('children', $query);
-                //print_r($result);
-                $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_statequestion();" id="q_state" name="q_state"> <option value="">--States--</option>';
+                $q_country = $_GET['q_country'];
+                ?>
+               
+                <select tabindex="18" class="listbox2" style="width: 125px;" onchange="get_cityquestion(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>','<?php echo $q_country ?>')"  id="q_state" name="q_state"> <option value="">--States--</option>
+                    <?php 
                 foreach ($result->results as $state) {
 
                     if($state['geonameid']==$q_state)
@@ -60,8 +69,10 @@ echo'<div id="chg_state">
                 $query = array('geonameid'=>$q_state);
                 $result = geonames_query('children', $query);
                 //print_r($result);
-                $ret = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city" onchange="get_statequestion();">
-                 <option value="">--Cities--</option> ';
+                ?>
+                <select class="listbox2"  tabindex="19" onchange="get_question(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>','<?php echo $q_country ?>','<?php echo $q_state ?>')"  style="width: 125px;"  id="q_city" name="q_city">
+                    <?php
+                 $ret = '<option value="">--Cities--</option> ';
                 foreach ($result->results as $state) {
 
                      if($state['geonameid']==$q_city)
@@ -85,5 +96,5 @@ echo'<div id="chg_state">
                // }
 
 echo '</div>';
-echo '</form>';
+//echo '</form>';
 ?>

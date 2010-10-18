@@ -68,8 +68,19 @@ function get_state(code){
 
 
 
-function get_statequestion(){
- document.thisform.submit();
+function get_statequestion(q_country,txt_search,cid){
+ //document.thisform.submit();
+
+ window.location = gSitePath+"searchquestion?q_country="+q_country+"&txt_search="+txt_search+"&cid="+cid;
+}
+
+function get_cityquestion(q_state,txt_search,cid,q_country){
+ //document.thisform.submit();
+ window.location = gSitePath+"searchquestion?q_state="+q_state+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country;
+}
+function get_question(q_city,txt_search,cid,q_country,q_state){
+ //document.thisform.submit();
+ window.location = gSitePath+"searchquestion?q_city="+q_city+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country+"&q_state="+q_state;
 }
 
 
