@@ -1,4 +1,174 @@
 // JavaScript Document
+jQuery(document).ready( function() {
+    jQuery('#q_cat').multiSelect();
+    setDefaultCountry(cncode);
+});
+/*
+		(function($) {
+  $(document).ready(function() {
+    $(\'input.tagging-widget-input\').tagging();
+  });
+})(jQuery);
+*/
+//	window.setTimeout("setDefaultCountry()", 1000);
+/*	jQuery(function() {
+		jQuery("#q_edate").datepicker({
+			changeMonth: true,
+			changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\'
+		});
+
+
+	});*/
+
+function setDefaultCountry(cn) {
+    if(cn.length>0){
+
+        var countrySelect = document.getElementById("q_country");
+
+        for (i=0;i< countrySelect.length;i++) {
+            // the javascript geonamesData.js contains the countrycode
+            // of the userIp in the variable \'geonamesUserIpCountryCode\'
+            if (countrySelect[i].value == cn) {
+                // set the country selectionfield
+                countrySelect.selectedIndex = i;
+                get_state(cn);
+                get_city(setstate);
+            }
+        }
+
+
+
+        var stateSelect = document.getElementById("q_state");
+        for (i=0;i< stateSelect.length;i++) {
+            if (stateSelect[i].value == ustate) {
+                // set the country selectionfield
+                stateSelect.selectedIndex = i;
+                get_city(setstate);
+
+            }
+        }
+
+
+
+    }
+}
+
+
+
+function get_state(code){
+    var url = spath+"question/ajax";
+ 
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'action': 1,
+            'code' :code
+        },
+        success: function(msg){
+            jQuery('#chg_state').html(msg);
+        }
+    });
+
+
+
+    jQuery('#chg_city').html('');
+    jQuery('#chg_city').fadeOut('slow');
+}
+function get_city(code){
+    jQuery('#chg_city').fadeIn('slow');
+    var url = spath+"question/ajax";
+
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'action': 2,
+            'code' :code
+        },
+        success: function(msg){
+            jQuery('#chg_city').html(msg);
+        }
+    });
+
+}
+
+jQuery("input[name='q_cat[]']").live("change", function(event) {
+
+    var values = new Array();
+    jQuery.each(jQuery("input[name='q_cat[]']:checked"), function() {
+        values.push(jQuery(this).val());
+    // or you can do something to the actual checked checkboxes by working directly with  'this'
+    // something like $(this).hide() (only something useful, probably) :P
+    });
+    var ids=values.join(',');
+
+    get_subcat('q_cat','chg_scat',1,ids);
+});
+
+jQuery("input[name='q_scat[]']").live("change", function(event) {
+
+    var values = new Array();
+    jQuery.each(jQuery("input[name='q_scat[]']:checked"), function() {
+        values.push(jQuery(this).val());
+    // or you can do something to the actual checked checkboxes by working directly with  'this'
+    // something like $(this).hide() (only something useful, probably) :P
+    });
+    var ids=values.join(',');
+
+    get_subcat('q_scat','chg_sscat',2,ids);
+});
+
+
+function get_subcat(sid,divid,level,ids){
+
+   
+
+    if(level==1){
+        jQuery('#cat1').val(ids);
+        jQuery('#chg_sscat').fadeOut('slow');
+    }
+
+    if(level==2){
+
+        jQuery('#cat2').val(ids);
+        jQuery('#chg_sscat').fadeIn('slow');
+    }
+    if(level==3)
+        jQuery('#cat3').val(ids);
+
+    if(ids.length>0){
+
+        if(level<3){
+
+            var url = spath+"question/ajax";
+
+            jQuery.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                    'action': level,
+                    'ids' :ids
+                },
+                success: function(msg){
+                    jQuery('#'+divid).html(msg);
+                    if(sid=='q_cat')
+                        window.setTimeout("jQuery('#q_scat').multiSelect()", 500);
+                    else if(sid=='q_scat')
+                        window.setTimeout("jQuery('#q_sscat').multiSelect()", 500);
+                // jQuery('#'+divid+'input:select').multiSelect();
+                }
+            });
+
+
+        //get_tag_cat(ids,level);
+        }
+    }else{
+        jQuery('#'+divid).html('No Subcategory');
+    }
+}
+
+
 
 
 
@@ -10,20 +180,24 @@ function validate_question(){
     
     var cat1 = jQuery('#cat1').val();
     var err = '';
-    
-    if (quest.trim().length < 1) 
+ 
+    if (jQuery.trim(quest).length < 1)
         err += '<li>Please Provide Proper Question!</li>';
     
-    if (ans1.trim().length < 1||ans2.trim().length < 1)
+    if (jQuery.trim(ans1).length < 1||jQuery.trim(ans2).length < 1)
         err += '<li>Minimum 2 answers required</li>';
  
-    if (cat1.trim().length < 1) 
+    if (jQuery.trim(cat1).length < 1) 
         err += '<li>Please Provide Main Cateogry of the Question!</li>';
     
-     jQuery("#add_more input").each(function(){ jQuery(this).css('border','')});
-       jQuery('#add_more input:text[value=""]').each(function(){ jQuery(this).css('border','1px solid red')});
-    if (err.trim().length > 1) {
-       jQuery('#err').html(err);
+    jQuery("#add_more input").each(function(){
+        jQuery(this).css('border','1px solid #838381');
+    });
+    jQuery('#add_more input:text[value=""]').each(function(){
+        jQuery(this).css('border','1px solid red');
+    });
+    if (jQuery.trim(err).length > 1) {
+        jQuery('#err').html(err);
 
         return false;
     }
@@ -37,37 +211,39 @@ function validate_question(){
 function add_ans(){
 
     var ans_cnt = jQuery('#ans_cnt').val();
-   //jQuery('#Add').attr('disabled',true);
+    //jQuery('#Add').attr('disabled',true);
     var tab=jQuery('#q_ans'+ans_cnt).attr('tabindex');
 	
     tab=tab+1;
-	    //validate prev ans is empty
+    //validate prev ans is empty
     if(jQuery('#q_ans'+ans_cnt).val().length>1){
-	 jQuery("#add_more input").each(function(){ jQuery(this).css('border','')});
+        jQuery("#add_more input").each(function(){
+            jQuery(this).css('border','')
+        });
         ans_cnts = ++ans_cnt;
 		 
         if(ans_cnt>=3){
 		
-           jQuery('#del_ans').fadeIn('slow');
+            jQuery('#del_ans').fadeIn('slow');
         }
 		
         if (ans_cnt < 11) {
-           jQuery('#ans_cnt').val(ans_cnts);
+            jQuery('#ans_cnt').val(ans_cnts);
             //	$('add_more').set('html','  <p>&nbsp;</p>');
             var firstElem='<li><label><span class="span1">Answer</span></label><span><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></span></li>';
                    
             jQuery("#add_more").append(firstElem);
-           // $('add_more').getLast('input').highlight('#F1F1F1', '#6DB6DB');
-          //  $('add_more').getLast('input').focus();
+            // $('add_more').getLast('input').highlight('#F1F1F1', '#6DB6DB');
+            //  $('add_more').getLast('input').focus();
             jQuery('#err').empty();
         
         }
         else {
 		    
-         jQuery('#add_more').append('<li><span class="red"> Upto 10 Answers only allowed!</span></li>').slideIn('slow');
+            jQuery('#add_more').append('<li><span class="red"> Upto 10 Answers only allowed!</span></li>').slideIn('slow');
            		
             jQuery('#Add').attr('disabled',true);
-           // el.highlight('#FF0000', '#6DB6DB');
+        // el.highlight('#FF0000', '#6DB6DB');
         }
     }else{
 		
@@ -78,14 +254,18 @@ function add_ans(){
         el.css('display', 'block');
         el.html('Some of the fields are still empty !');
        
-         jQuery('#add_more input').each(function(){ jQuery(this).css('border','')});
-        jQuery('#add_more input:text[value=""]').each(function(){ jQuery(this).css('border','1px solid red')});
-      //  el.highlight('#FF0000', '#6DB6DB');
+        jQuery('#add_more input').each(function(){
+            jQuery(this).css('border','1px solid #838381')
+        });
+        jQuery('#add_more input:text[value=""]').each(function(){
+            jQuery(this).css('border','1px solid red')
+        });
+        //  el.highlight('#FF0000', '#6DB6DB');
 		
 	
         if(ans_cnt>=3){
             jQuery('#Add').attr('disabled',true);
-         //  jQuery('#add_more input:last').('input').highlight('#F1F1F1', '#6DB6DB');
+        //  jQuery('#add_more input:last').('input').highlight('#F1F1F1', '#6DB6DB');
         }
     }
    
@@ -99,19 +279,19 @@ function del_ans(){
 	
         if (ans_cnt == 3) {
 		
-           jQuery('#del_ans').fadeOut('slow');
+            jQuery('#del_ans').fadeOut('slow');
         }
         if(ans_cnt==10){
 			
-          jQuery('#add_more li:last').remove();
+            jQuery('#add_more li:last').remove();
             jQuery('#Add').attr('disabled',false);
         }
 		
 		
-       jQuery('#q_ans' + ans_cnt).fadeOut('slow');
+        jQuery('#q_ans' + ans_cnt).fadeOut('slow');
 		
-         jQuery('#q_ans' + ans_cnt).remove();
-          jQuery('#add_more li:last').remove();
+        jQuery('#q_ans' + ans_cnt).remove();
+        jQuery('#add_more li:last').remove();
         jQuery('#ans_cnt').val(ans_cnt - 1);
 		
     }
@@ -292,3 +472,47 @@ function tag_delq(val,el){
 }
 
 
+ /*
+  jQuery(document).ready(function() {
+    var selected = new Array();
+
+   jQuery('select').mouseover(function() {
+      if (this.multiple == true) {
+        for (var i=0,a=0;i<this.options.length;i++) {
+          if (this.options[i].selected == true) {
+            selected[a] = this.options[i].value;
+            a++;
+          }
+        }
+      }
+    });
+
+    safe them when you click the mouse
+    jQuery('select').click(function() {
+      // make sure it's a multiple select
+      if (this.multiple == true) {
+        for(var i=0;i<selected.length;i++) {
+          for(var a=0;a<this.options.length;a++){
+            if (selected[i] == this.options[a].value && this.options[a].selected == true) {
+              this.options[a].selected = false;
+              selected.splice(i,1);
+            } else if (selected[i] == this.options[a].value) {
+              this.options[a].selected = true;
+            }
+          }
+        }
+      }
+
+      // load all selected options in array when the mouse pointer hovers the select box
+      if (this.multiple == true) {
+        for (var i=0,a=0;i<this.options.length;i++) {
+          if (this.options[i].selected == true) {
+            selected[a] = this.options[i].value;
+            a++;
+          }
+        }
+      }
+
+    });
+  });
+*/

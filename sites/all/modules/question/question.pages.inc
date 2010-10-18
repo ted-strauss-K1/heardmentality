@@ -84,168 +84,26 @@ function question_add() {
     $output .= '
 	<script type="text/javascript" src="'.$gSitePath.'/misc/jquery.js"></script>
 
-	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>
-
 	<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>
 	<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/question.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
 <!--<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/auto.js" type="text/javascript"></script>
 -->	
+        		<script type="text/javascript">
+                var mpath=\''.$gSitePath.'\';
+                    var spath=\''.$gSitePath.'\';
+                    var cncode=\''.$cncode.'\';
+                    var ustate=\''.$ustate.'\';
+                    var setstate=\''.$setstate.'\';
+		</script>
 
-<script>
-			var mpath=\''.$gSitePath.'\';
-		
-			</script>
-
-
-<script src="'.$gSitePath.'sites/all/modules/question/scripts/suggest_dynamic.js" type="text/javascript"></script>
-<script src="'.$gSitePath.'sites/all/modules/question/scripts/post_list.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/question/styles/auto.css" type="text/css" />
-	
-	
-				<script type="text/javascript">
-				var spath=\''.$gSitePath.'\';
-			
-				function setDefaultCountry(cn) {
-  if(cn.length>0){
-  	
-	var countrySelect = document.getElementById("q_country");
-
-  for (i=0;i< countrySelect.length;i++) {
-    // the javascript geonamesData.js contains the countrycode
-    // of the userIp in the variable \'geonamesUserIpCountryCode\'
-   			 if (countrySelect[i].value == cn) {
-    		  // set the country selectionfield
-	     		 countrySelect.selectedIndex = i;
-		get_state(cn);
-		get_city(\''.$setstate.'\');
-				}
-   		 }
-	
-				
-				
-			var stateSelect = document.getElementById("q_state");	
-			for (i=0;i< stateSelect.length;i++) {
-       			 if (stateSelect[i].value == \''.$ustate.'\') {
-    		  // set the country selectionfield
-	     		 stateSelect.selectedIndex = i;
-		get_city(\''.$setstate.'\');	 
-		
-				}
-   		 }
-				
-		 
-		 
-  }
-}
-
-
-window.addEvent(\'domready\', function(){
-setDefaultCountry(\''.$cncode.'\');
-});
-	//	window.setTimeout("setDefaultCountry()", 1000);
-			/*	jQuery(function() {
-		jQuery("#q_edate").datepicker({
-			changeMonth: true,
-			changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\' 
-		});
-
-		
-	});*/
-				
-				 
-					
-						
-				
-			function get_subcat(sid,divid,level){
-			
-										var foo = [];
-										$(sid).getSelected().each(function(number,i){
-										if(number.value!=\'\'){
-										  foo[i] =number.value;
-												}
-											});
-										var foo = foo.filter(function(item, index){
-    return item > 0;
-});
-			  						 var ids = foo.toString();
-			   					
-			  						if(level==1){
-									$(\'cat1\').set(\'value\',ids);
-									$(\'chg_sscat\').fade(\'out\');
-										}
-								
-									if(level==2){
-									
-									$(\'cat2\').set(\'value\',ids);
-									$(\'chg_sscat\').fade(\'in\');
-										}
-									if(level==3)
-									$(\'cat3\').set(\'value\',ids);
-									
-									if(ids.length>0){
-									
-									if(level<3){
-									
-									var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':level,\'ids\':ids},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(divid).set(\'html\', response);
-											}
-									}).send();
-										//get_tag_cat(ids,level);
-							}
-							}else{
-							 $(divid).set(\'html\',\'No Subcategory\');
-							}
-							}	
-						
-							function get_state(code){
-						
-						var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':1,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'chg_state\').set(\'html\', response);
-											}
-									}).send();
-							 $(\'chg_city\').set(\'html\', \'\');
-						 $(\'chg_city\').fade(\'out\');
-						}
-							function get_city(code){
-							 $(\'chg_city\').fade(\'in\');
-							var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':2,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'chg_city\').set(\'html\', response);
-											}
-									}).send();
-							
-							}
-							
-				/*
-		(function($) {
-  $(document).ready(function() {
-    $(\'input.tagging-widget-input\').tagging();
-  });
-})(jQuery);	
-*/
-							
-						</script>
-			
-			';
+		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
+		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.bgiframe.min.js"></script>
+                <script src="' . $gSitePath . drupal_get_path('module', 'question') .'/scripts/suggest_dynamic.js" type="text/javascript"></script>
+                <script src="' . $gSitePath . drupal_get_path('module', 'question') .'/scripts/post_list.js" type="text/javascript"></script>
+                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') .'/styles/auto.css" type="text/css" />
+                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') .'/styles/jquery.multiSelect.css" type="text/css" />
+';
     
     //geoname api
     $options = array('sortby'=>'countryname', 'sortorder'=>'ASC');
@@ -257,6 +115,7 @@ setDefaultCountry(\''.$cncode.'\');
 
     
     $output .= '<link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
+
 	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
     $output .= '<div class="contarea-make-donation">
@@ -319,7 +178,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          <li><span>Categorize <b>*</b></span>:</li>
           <li>
           <div class="listmenu2">
-           <select tabindex="14"  name="q_cat[]" id="q_cat" class="listbox2"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+           <select tabindex="14"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
             <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     while ($list = db_fetch_object($client_select)) {
@@ -542,11 +401,11 @@ function question_save() {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $q_quest = '';
-   //print_r($_REQUEST);die;
+ // print_r($_REQUEST);die;
     extract($_REQUEST);
     $output = '';
     $g_global = '';
-    if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($cat1)) {
+    if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($q_cat)) {
         $edate = $q_edate;
        
         $country=my_country();
@@ -584,10 +443,11 @@ $ccode=$country['cn'];
        
         for($i=0;$i<$arr_count;$i++)
         {
-             $cate=explode(',',$cat1);
-           
+             //$cate=explode(',',$cat1);
+             $cate=$q_scat;
 
-            $subcate = explode(',',$cat2);
+           // $subcate = explode(',',$cat2);
+             $subcate=$q_sscat;
             $subcat_count = count($subcate);
            
             
@@ -603,9 +463,10 @@ $ccode=$country['cn'];
 
 
         ////vijay insert category subcategory end here
-        if(!empty($cat3)){
-        $cat3=explode(',',$cat3);
-
+       // if(!empty($cat3)){
+      //  $cat3=explode(',',$cat3);
+      if(!empty($q_sscat)){
+           $cat3=$q_sscat;
         foreach($cat3 as $ins3){
          db_query("insert into {question_cat} set qid='$ins_id',sscat='$ins3'");
         }
@@ -657,23 +518,23 @@ $ccode=$country['cn'];
     } else {
         drupal_get_messages($type = 'error', $clear = 'TRUE');
         $_SESSION['post'] = $_POST;
-        drupal_set_message($message = 'Sorry, Following required fields are Empty!', $type = 'error');
+        drupal_set_message($message = '<li>Sorry, Following required fields are Empty!</li>', $type = 'error');
         
         if ( empty($q_quest))
-            drupal_set_message($message = 'Question should not be Empty!', $type = 'error');
+            drupal_set_message($message = '<li>Question should not be Empty!</li>', $type = 'error');
         
         if ( empty($q_ans1) || empty($q_ans2))
-            drupal_set_message($message = 'Minimum 2 answers should be needed!', $type = 'error');
+            drupal_set_message($message = '<li>Minimum 2 answers should be needed!</li>', $type = 'error');
         
         if ( empty($cat1))
-            drupal_set_message($message = 'Main Category should not be Empty!', $type = 'error');
+            drupal_set_message($message = '<li>Main Category should not be Empty!</li>', $type = 'error');
 
         
         drupal_goto("question/add");
     
     }
     if(!empty($output['error'])){
-    echo implode("<br/>", $output['error']);
+    echo implode(" ", $output['error']);
     }
 }
 
