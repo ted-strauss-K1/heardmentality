@@ -158,14 +158,22 @@ function get_top_pundits() {
            <ul>';
     if($cat_id!='')
     {
-    $query = "select * from {follower} where cat_id='".$cat_id."' limit 0,4";
+    $query = "select * from {follower} where cat_id='".$cat_id."'";
    
     $list = ExecuteQuery($query, "select");
     foreach ($list as $quest) {
-        $udetails=load_user($quest['uid']);
-
+         $udetails=load_user($quest['uid']);
          $bubble = load_bubble($udetails->uid);
           $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
+           $page_incr = $page_incr + 1;
+
+          if($page_incr==4)
+          {
+              $page .= '<a href="#">'.$pager.'</a>';
+              $page_incr = 0;
+              $pager = $pager + 1;
+          }
+
         }
         
     }
@@ -202,7 +210,7 @@ function get_top_pundits() {
     $output .= '</ul>
             </div>
            </div>';
-    $output .= '</div>';
+    $output .= '</div></div>';
     
    /* $output .='<div class="jcarousel-scroll">
         <a href="#" id="mycarousel-prev">&laquo; Prev</a>'.$output_pager.'<a href="#" id="mycarousel-next">Next &raquo;</a>
