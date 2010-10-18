@@ -192,8 +192,9 @@ function get_top_pundits() {
          
 
           
-        // $output_pager = '<div class="jcarousel-control">'.$page.'</div>';
-         $output_pager = '<span class="jcarousel-control">'.$page.'</span>';
+        
+        
+        // $output_pager = '<span class="jcarousel-control">'.$page.'</span>';
 
           }
     }
@@ -203,9 +204,9 @@ function get_top_pundits() {
            </div>';
     $output .= '</div>';
     
-    $output .='<div class="jcarousel-scroll">
+   /* $output .='<div class="jcarousel-scroll">
         <a href="#" id="mycarousel-prev">&laquo; Prev</a>'.$output_pager.'<a href="#" id="mycarousel-next">Next &raquo;</a>
-        </div>';
+        </div>';*/
     return $output;
 }
 
