@@ -10,7 +10,7 @@ fb.proto.globalOptions = {
 // Use the configurator.html form in this folder to generate globalOptions preferences through form selections.
 
 globalOptions: {
-  licenseKey: "",          // Paste your license key between the quotes, or enter it in the configurator form.
+  licenseKey: "x7QMwbQ2zqkDurkHS",          // Paste your license key between the quotes, or enter it in the configurator form.
   showIE6EndOfLife: false  // Everyone is encouraged to set this to true to give IE6 users a chance to upgrade.
 },
 
