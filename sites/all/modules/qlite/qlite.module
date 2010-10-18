@@ -210,7 +210,7 @@ function get_top_pundits() {
     $output .= '</ul>
             </div>
            </div>';
-    $output .= '</div></div>';
+    $output .= '</div>';
     
    /* $output .='<div class="jcarousel-scroll">
         <a href="#" id="mycarousel-prev">&laquo; Prev</a>'.$output_pager.'<a href="#" id="mycarousel-next">Next &raquo;</a>
