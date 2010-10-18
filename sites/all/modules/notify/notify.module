@@ -222,7 +222,7 @@ function notify_badges()
   {
 
 
-     echo $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$fet_follow->uid."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$fet_follow->uid."' and ub.status='1' group by ub.bid order by ub.date_added desc limit 0,5";
+     echo $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$fet_follow->follower_id."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$fet_follow->follower_id."' and ub.status='1' group by ub.bid order by ub.date_added desc limit 0,5";
      $badgelist = ExecuteQuery($getbadges, "select");
     
       $badges .='<div class="">
