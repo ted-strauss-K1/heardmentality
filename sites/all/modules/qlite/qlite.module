@@ -110,7 +110,7 @@ function top_list() {
     
     $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     $list = ExecuteQuery($query, "select");
-    $output .= ' <div style="display:none"> <p>COMMUNITY DISCUSSION</p>
+    $output .= ' <div> <p>COMMUNITY DISCUSSION</p>
             <div><select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
     foreach ($list as $cat) {
         
@@ -123,13 +123,13 @@ function top_list() {
               </select> </span></div> </div></div>  <div class="inner"><div id="res_top">';
 
 
-    $output .= top_multimenu();
+    //$output .= top_multimenu();
 
-   // $output .= get_top_list();
+   $output .= get_top_list();
     
-   //$output .= get_hot_list();
+  $output .= get_hot_list();
     
-   //$output .= get_local_list();
+  $output .= get_local_list();
     
    $output .= get_top_pundits();
     
