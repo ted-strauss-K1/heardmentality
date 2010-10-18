@@ -198,7 +198,7 @@ function UserPicture_small($mid) {
         case '2':
             $image_path = file_create_path('avatar_selection');
             $selected_avatar = $resultimage->avatar;
-            $ipath = $image_path.'/'.$selected_avatar;
+            $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
             if (file_check_location($ipath)) {
                 $PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
