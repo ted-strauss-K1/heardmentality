@@ -214,16 +214,28 @@ function notify_badges()
      $badges.='';
 
     //$imageresult=UserPicture($uid);
-    $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$user->uid."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$user->uid."' and ub.status='1' group by ub.bid order by ub.date_added desc limit 0,5";
-    $badgelist = ExecuteQuery($getbadges, "select");
-    
-    $badges .='<div class="">
-		<ul>';
-    foreach ($badgelist as $badgeach) {
+     //SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid
 
-        $badges .='<li>' . $badgeach['name'] . '</b>[' . $badgeach['bcnt'] . ']</li>';
-        $badges .='<div>On '.date("j M Y", strtotime($badgeach['date_added'])).'</div>';
-    }
+   $sel_follow="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
+   $get_follow = db_query($sel_follow);
+   while($fet_follow = db_fetch_object($get_follow))
+  {
+
+
+     $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$fet_follow->uid."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$fet_follow->uid."' and ub.status='1' group by ub.bid order by ub.date_added desc limit 0,5";
+     $badgelist = ExecuteQuery($getbadges, "select");
+    
+      $badges .='<div class="">
+		<ul>';
+        foreach ($badgelist as $badgeach) {
+
+            $badges .='<li>' . $badgeach['name'] . '</b>[' . $badgeach['bcnt'] . ']</li>';
+            $badges .='<div>On '.date("j M Y", strtotime($badgeach['date_added'])).'</div>';
+        }
+
+  }
+
+
    
     if (empty($badgelist)) {
 
@@ -938,8 +950,6 @@ $flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'?ajax=1
 
 
 function load_following_notify($type=''){
-
-
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
  $result='';
         $list=array();
