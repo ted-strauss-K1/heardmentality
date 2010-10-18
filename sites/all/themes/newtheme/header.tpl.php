@@ -182,7 +182,7 @@ $directory = $base_path . $directory;
                         //jQuery.nyroModalManual({
                         //  url:'<?php echo $gSitePath ?>edit',width:850,height:700,title:'Edit Profile'
                         //});
-                        var options = 'sameBox:true width:70% height:90% caption:' +
+                        var options = 'sameBox:true width:50% height:90% caption:' +
                             '`Edit Profile`';
                         parent.fb.start('<?php echo $gSitePath ?>edit', options);
 
