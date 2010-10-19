@@ -214,7 +214,7 @@ $qdetails = load_question($qid);
 
             
 
-        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject."','".$content."',0,now())";
+        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
          db_query($ins_qry);
          }
     }
