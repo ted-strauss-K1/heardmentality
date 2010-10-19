@@ -870,14 +870,14 @@ function notify_answeredques()
 
     $possible_res = db_query($possible_qry);
 
-    $answeredlist='<div><ul class="menu">';
+    $answeredlist = '<div style="border-bottom:1px solid black">';
+    $answeredlist .= '<div><b>Notify Previously answered questions</b></div>';
+    $answeredlist .= '<div><ul class="menu">';
 
   while($possible_rows = db_fetch_object($possible_res))
   {
 
-            $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
-
-
+       $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
            $q_res = db_query($q_qry);
          while($q_rows = db_fetch_object($q_res))
          {
@@ -906,7 +906,7 @@ function notify_answeredques()
          }
 
   }
-  $answeredlist.='</ul></div>';
+  $answeredlist.='</ul></div></div>';
 
   if($count==0)
       {
@@ -1055,8 +1055,10 @@ function notify_leftpanel()
         {
                 //echo "3";
                  $output .=  notify_followeranswer();
+                 $output .=   notify_answeredques();
                  $answer_access = 0;
         }
+       
         if($items['is_question']==1&&$question_access==1)
         {
                // echo "4";
