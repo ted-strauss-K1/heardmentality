@@ -247,36 +247,23 @@ function my_notify_list() {
  *
  */
 
-function notify_follow_question() {
-
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
 
-    $array = load_following_notify('is_question');
-
-    $output = '';
-
-    $output.='<div class="innerbox"> <ul class="menu">';
-
-    foreach ($array as $list) {
-
-        $qdet = load_question($list['node_id']);
-        $vote = load_votes($list['node_id']);
-        // print_r($qdet);
-        if ($qdet['question'] != '') {
-            $output.='<li><div><a href="'.$gSitePath.$qdet['url'].'?ajax=1" style="'.drupal_link_color($user->uid,$qdet['qid']).'" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'">' . truncate_utf8($qdet['question'], '50') . '</a><div>
-                <div>' . $vote['qns'] . ' Votes &nbsp; ' . $vote['forum'] . ' Posts</div></li>';
-          }
-    }
-    $output.=' </ul></div>';
-
-    if (count($array) < 1) {
-        $output = 'No Notifications';
-    }
 
 
-    return $output;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function get_nqid($idm) {
 
@@ -525,3 +512,5 @@ function admin_notify_save() {
 
     return $savelink;
 }
+
+

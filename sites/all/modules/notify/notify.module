@@ -343,8 +343,10 @@ function notify_based_category()
    
    $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0";
    $get_follow = db_query($sel_follow);
-   
-    $questlist='<div class="innerbox_notify">
+
+   // for scroll box innerbox_notify
+   $questlist  .= '<div><b>Notify based category</b></div>';
+    $questlist .='<div style="border-bottom:1px solid black">
 		<ul class="menu">';
 
   while($fet_follow = db_fetch_object($get_follow))
@@ -691,7 +693,10 @@ function notify_followeranswer()
   $followans="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
   $get_followans = db_query($followans);
-  $anslist='<div class="innerbox_notify">
+
+  $anslist = '<div style="border-bottom:1px solid black">';
+  $anslist .='<div><b>Notify follower answer</b></div>';
+  $anslist .='<div>
 		<ul class="menu">';
   while($fet_followans = db_fetch_object($get_followans))
   {
@@ -725,14 +730,14 @@ function notify_followeranswer()
 
 	}
   }
-    $anslist.='</ul></div>';
+    $anslist.='</ul></div></div>';
 
 
-     if($count==0)
+     /*if($count==0)
       {
             
           $anslist = "No records";
-      }
+      }*/
     
 
 	return $anslist;
@@ -755,8 +760,10 @@ function notify_followerlike()
     $followlike="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
   $get_followlike = db_query($followlike);
-  
-  $likelist='<div class="innerbox_notify"><ul class="menu">';
+
+  $likelist .= '<div style="border-bottom:1px solid black">';
+  $likelist .= '<div><b>Notify like</b></div>';
+  $likelist .= '<div><ul class="menu">';
   while($fet_followlike = db_fetch_object($get_followlike))
   {
 
@@ -792,11 +799,11 @@ function notify_followerlike()
   }
 
 
-$likelist.='</ul></div>';
-     if($count==0)
+$likelist.='</ul></div></div>';
+     /*if($count==0)
       {
           $likelist = "No records";
-      }
+      }*/
 
 	return $likelist;
 }
@@ -863,7 +870,7 @@ function notify_answeredques()
 
     $possible_res = db_query($possible_qry);
 
-    $answeredlist='<div class="innerbox"><ul class="menu">';
+    $answeredlist='<div><ul class="menu">';
 
   while($possible_rows = db_fetch_object($possible_res))
   {
@@ -918,6 +925,9 @@ function notify_flagged()
     $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
    
     $get_follow = db_query($sel_follow);
+
+      $flaggedlist .='<div style="border-bottom:1px solid black">';
+     $flaggedlist .='<div><b>Flaged Question</b></div>';
     while($fet_follow = db_fetch_object($get_follow))
   {
 
@@ -926,7 +936,9 @@ function notify_flagged()
    
     $flag_res = db_query($flag_qry);
      $count =  mysql_num_rows($flag_res);
-    $flaggedlist='<div class="innerbox_notify"><ul class="menu">';
+    
+    
+    $flaggedlist .='<div><ul class="menu">';
 
   while($flag_rows = db_fetch_object($flag_res))
   {
@@ -937,11 +949,13 @@ $flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'?ajax=1
 
   $flaggedlist.='</ul></div>';
 
-  if($count==0)
+  /*if($count==0)
       {
-          $flaggedlist = "No records";
-      }
+          $flaggedlist .= "No records";
+      }*/
   }
+   $flaggedlist .='</div>';
+ 
 
 	return $flaggedlist;
 
@@ -967,4 +981,97 @@ if(!empty($list)){
     $result =ExecuteQuery($query,'select');
 }
     return $result;
+}
+
+
+function notify_follow_question() {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+
+    $array = load_following_notify('is_question');
+
+    $output = '';
+    $output .='<div style="border-bottom:1px solid black">';
+    $output .='<div><b>Notify Follow questions</b></div>';
+    $output.='<div> <ul class="menu">';
+
+    foreach ($array as $list) {
+
+        $qdet = load_question($list['node_id']);
+        $vote = load_votes($list['node_id']);
+        // print_r($qdet);
+        if ($qdet['question'] != '') {
+            $output.='<li><div><a href="'.$gSitePath.$qdet['url'].'?ajax=1" style="'.drupal_link_color($user->uid,$qdet['qid']).'" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'">' . truncate_utf8($qdet['question'], '50') . '</a><div>
+                <div>' . $vote['qns'] . ' Votes &nbsp; ' . $vote['forum'] . ' Posts</div></li>';
+          }
+    }
+    $output.=' </ul></div></div>';
+
+    if (count($array) < 1) {
+        $output = 'No Notifications';
+    }
+
+
+    return $output;
+}
+
+
+
+
+////////////////////notify left panel start here////////////////////////
+function notify_leftpanel()
+{
+      
+      global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+      $flag_access=1;
+      $cat_access=1;
+      $answer_access=1;
+      $question_access=1;
+      $like_access=1;
+       $output = '';
+     //select * from follower as f join notification as n on f.follower_id=n.uid where f.uid='1'  and f.follower_status='1' and f.cat_id=0 and f.question_id=0  group by n.is_question,n.is_cat,n.is_answer,n.is_like,n.is_flag order by n.nid desc
+       //group by n.is_question,n.is_cat,n.is_answer,n.is_like,n.is_flag
+     $sel_pro = "select * from follower as f join notification as n on f.follower_id=n.uid where f.uid='".$user->uid."'  and f.follower_status='1' and f.cat_id=0 and f.question_id=0 order by n.nid desc";
+    $rs_following =ExecuteQuery($sel_pro,'select');
+    //$countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid. "'  and follower_status='1'"));
+    foreach($rs_following as $items)
+     {
+
+
+        if($items['is_flag']==1&&$flag_access==1)
+        {
+                //echo "1";
+                $output .= notify_flagged();
+                $flag_access = 0;
+        }
+        if($items['is_cat']==1&&$cat_access==1)
+        {
+                //echo "2";
+                $output .= notify_based_category();
+                $cat_access = 0;
+        }
+        if($items['is_answer']==1&&$answer_access==1)
+        {
+                //echo "3";
+                 $output .=  notify_followeranswer();
+                 $answer_access = 0;
+        }
+        if($items['is_question']==1&&$question_access==1)
+        {
+               // echo "4";
+                $output .= notify_follow_question();
+                $question_access = 0;
+        }
+        if($items['is_like']==1&&$like_access==1)
+        {
+               // echo "5";
+                $output .= notify_followerlike();
+                $like_access = 0;
+        }
+        
+    }
+
+    return $output;
+
 }
