@@ -187,17 +187,13 @@ Heardmentality Team. </td>
 function hm_mails($subject,$content)
 {
     global $gSitePath, $user, $gDocPath, $base_root;
-   echo  $sel_follow="select f.*,u.mail,u.notify_etype from follower as f join users as u on f.uid=u.uid where f.follower_id='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
-   exit;
-   
-    $get_follow = db_query($sel_follow);
 
-
-    
-    $mail_row = db_query("select mail from users where uid='".$user->uid."'");
+     $mail_row = db_query("select mail from users where uid='".$user->uid."'");
     $fet_mail = db_fetch_object($mail_row);
 
-    
+    $sel_follow="select f.*,u.mail,u.notify_etype from follower as f join users as u on f.uid=u.uid where f.follower_id='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
+   
+    $get_follow = db_query($sel_follow);
      while($fet_follow = db_fetch_object($get_follow))
     {
          if($fet_follow->notify_etype==1)
