@@ -2458,6 +2458,7 @@ function send_votenotify($qid='') {
       //  if ($usert->notify_itype == 1) {
 
             $insert_notify = db_query("insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ");
+           
        // }
         //if ($usert->notify_etype == 1) {
 
@@ -2477,7 +2478,9 @@ function send_votenotify($qid='') {
 
            // echo  $contentm;
             //exit;
-            $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+             hm_mails($subject_proj,$contentm);
+            //$mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+
        // }
     }
 }
