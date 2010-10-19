@@ -184,10 +184,10 @@ Heardmentality Team. </td>
 
 
 
-function hm_mails($subject,$content)
+function hm_mails($qid)
 {
     global $gSitePath, $user, $gDocPath, $base_root;
-
+$qdetails = load_question($qid);
      $mail_row = db_query("select mail from users where uid='".$user->uid."'");
     $fet_mail = db_fetch_object($mail_row);
 
@@ -198,6 +198,22 @@ function hm_mails($subject,$content)
     {
          if($fet_follow->notify_etype==1)
          {
+
+
+             $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+            $rs_mgmt = db_query($sel_user_cmt);
+            $list_content = db_fetch_object($rs_mgmt);
+            $subject_proj = $list_content->subject;
+            $contentm = str_replace("#uname#", $fet_follow->name, $list_content->content);
+            $contentm = str_replace("#anothername#", $user->name, $contentm);
+
+
+            $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+            $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+            $contentm = str_replace("#content#", "voted for the below question. Kindly have a review", $contentm);
+
+            
+
         $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject."','".$content."',0,now())";
          db_query($ins_qry);
          }
