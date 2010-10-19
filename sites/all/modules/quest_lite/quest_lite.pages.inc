@@ -1377,6 +1377,10 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['uid'] . "','" . $user->uid . "','user','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+					
+					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['uid'] . "',1)";
+					db_query($flagnotify);
+					
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="messages success">You Have Flagged successfully ! </div>';
                 } else {
@@ -1393,6 +1397,10 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rid'] . "','" . $user->uid . "','resource','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+					
+					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rid'] . "',1)";
+					db_query($flagnotify);
+					
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="messages success">You Have Flagged successfully ! </div>';
                 } else {
@@ -1410,6 +1418,10 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwave'] . "','" . $user->uid . "','wave','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+					
+					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwave'] ."',1)";
+					db_query($flagnotify);
+					
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="messages success">You Have Flagged successfully ! </div>';
                 } else {
@@ -1427,6 +1439,10 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwavelet'] . "','" . $user->uid . "','wavelet','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+					
+					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwavelet'] . "',1)";
+					db_query($flagnotify);
+					
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="messages success">You Have Flagged successfully ! </div>';
                 } else {
@@ -1443,6 +1459,10 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['qaid'] . "','" . $user->uid . "','question','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+					
+					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','". $_REQUEST['qaid'] ."',1)";
+					db_query($flagnotify);
+					
                     increasepoints('4', $_REQUEST['qaid'], '0');
                     echo '<div class="messages success">You Have Flagged successfully ! </div>';
                 } else {
