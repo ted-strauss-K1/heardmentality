@@ -178,6 +178,10 @@ function search_follow()
           $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  cat_id='" .$catid[1]."'  and  uid ='" . $user->uid . "'"));
         
         if(!$res_num){
+
+            //insert into notification
+            
+             db_query("insert into notification(uid,is_cat,node_id)values('".$user->uid."',1,'".$catid[1]."')");
              db_query("insert into follower(uid,cat_id)values('".$user->uid."','".$catid[1]."')");
              $output = drupal_set_message(t('Category follows added successfully !'), $type = 'success');
               echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
