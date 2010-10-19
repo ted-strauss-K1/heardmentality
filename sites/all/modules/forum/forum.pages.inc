@@ -251,8 +251,8 @@ function like_notification($nid='',$set=''){
 		if($usert->notify_itype==1)
 		{
 		
-		
-		db_query("insert into {notification} set is_like='1',$set,uid='$follower_resultfuser->uid',node_id='$nid' ");	
+		///$follower_resultfuser->uid vijay changed here
+		db_query("insert into {notification} set is_like='1',$set,uid='$user->uid',node_id='$nid' ");	
 		}
 		if($usert->notify_etype==1)
 		{
