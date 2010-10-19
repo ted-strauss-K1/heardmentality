@@ -590,6 +590,9 @@ function chk_dupe($quest='',$qid=''){
 
        $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('".$qid."','".$user->uid."','question','Duped Question')";
                     db_query($flagquery);
+					
+					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','".$qid."',1)";
+					db_query($flagnotify);
     }
 
 
