@@ -641,6 +641,17 @@ margin-right:2px;
 .prof-it-1 .ritecont-it-c li{ float:left; list-style:none; font: normal 12px Arial, Helvetica, sans-serif; color:#666666; text-decoration:none;}
 .prof-it-1 .ritecont-it-c li span{ font:normal 12px Arial, Helvetica, sans-serif; color:#000;}
 
+.page-mynotify #sidebar-left{
+  height: 800px; overflow: auto;
+}
+.page-mynotify #sidebar-left .facttop{
+  text-align: left;
+  background-color: white;
+  color: black;
+  border-bottom: 1px solid black;
+}
+
+
 
 
 
