@@ -2478,11 +2478,12 @@ function send_votenotify($qid='') {
 
            // echo  $contentm;
             //exit;
-             hm_mails($subject_proj,$contentm);
+            // hm_mails($subject_proj,$contentm);
             //$mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
 
        // }
     }
+     hm_mails($subject_proj,$contentm);
 }
 
 function send_forumnotify($nid='', $qid='') {
