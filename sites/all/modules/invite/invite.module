@@ -200,8 +200,7 @@ function hm_mails($subject,$content)
     {
          if($fet_follow->notify_etype==1)
          {
-       echo $ins_qry = "insert into hm_mails(mail_id,from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date,mail_type)values('".$fet_follow->uid."','mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject."','".$content."',0,now())";
-       exit;
+        $ins_qry = "insert into hm_mails(mail_id,from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date,mail_type)values('".$fet_follow->uid."','mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject."','".$content."',0,now())";
        db_query($ins_qry);
          }
     }
