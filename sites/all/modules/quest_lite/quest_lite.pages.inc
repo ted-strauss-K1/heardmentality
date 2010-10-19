@@ -2441,11 +2441,13 @@ function answer_vote() {
     }
 }
 
-function send_votenotify($qid='') {
+function send_votenotify($qid='') {///vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root;
     ////////////mail notication for user follwers to me//////////////////////////////////////
-    $qdetails = load_question($qid);
+    ///vijay coment start here////////////
+  /*  $qdetails = load_question($qid);
 
+    
     $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
     $rs_followerf = db_query($sel_listf);
     while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
@@ -2454,13 +2456,13 @@ function send_votenotify($qid='') {
         $res_users = db_query($sellist);
         $usert = db_fetch_object($res_users);
         $to = $usert->mail;
-        //vijay commented
-      //  if ($usert->notify_itype == 1) {
+        
+        if ($usert->notify_itype == 1) {
 
             $insert_notify = db_query("insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ");
            
-       // }
-        //if ($usert->notify_etype == 1) {
+        }
+        if ($usert->notify_etype == 1) {
 
             ///////////email for following ///////////////
 
@@ -2471,19 +2473,20 @@ function send_votenotify($qid='') {
             $contentm = str_replace("#uname#", $usert->name, $list_content->content);
             $contentm = str_replace("#anothername#", $user->name, $contentm);
 
-            // print_r($qdetails);
+          
             $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
             $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
             $contentm = str_replace("#content#", "voted for the below question. Kindly have a review", $contentm);
 
-           // echo  $contentm;
-            //exit;
-            // hm_mails($subject_proj,$contentm);
-            //$mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
-
-       // }
-    }
-     hm_mails($subject_proj,$contentm);
+           
+            
+            $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+        }
+            
+    }*/
+    
+     hm_mails($qid);
+    
 }
 
 function send_forumnotify($nid='', $qid='') {
