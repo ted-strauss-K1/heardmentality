@@ -2475,8 +2475,8 @@ function send_votenotify($qid='') {
             $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
             $contentm = str_replace("#content#", "voted for the below question. Kindly have a review", $contentm);
 
-            echo  $contentm;
-            exit;
+           // echo  $contentm;
+            //exit;
             $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
        // }
     }
