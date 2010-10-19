@@ -109,6 +109,9 @@ return mail($to, $subject, $newmessage, $headers);
 
 
 
+
+
+
 function htmlmail_function($to, $subject, $message, $headers = NULL)
 {
 
@@ -181,7 +184,49 @@ Heardmentality Team. </td>
 
 
 
+function hm_mails($subject,$content)
+{
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $sel_follow="select f.*,u.mail from follower as f join users as u on f.uid=u.uid where f.follower_id='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
+    $get_follow = db_query($sel_follow);
 
+
+    
+    $mail_row = db_query("select mail from users where uid='".$user->uid."'");
+    $fet_mail = db_fetch_object($mail_row);
+
+    
+     while($fet_follow = db_fetch_object($get_follow))
+    {
+         if($fet_follow->notify_etype==1)
+         {
+       $ins_qry = "insert into hm_mails(mail_id,from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date,mail_type)values('".$fet_follow->uid."','mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject."','".$content."',0,now())";
+       db_query($ins_qry);
+         }
+    }
+    
+}
+
+
+
+
+
+
+     /*$sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0";
+     $get_follow = db_query($sel_follow);
+
+     while($fet_follow = db_fetch_object($get_follow))
+    {
+
+     $wer_qry = "select * from follower where uid='".$fet_follow->follower_id."' and follower_id=0 and cat_id!=0";
+
+        $db_res = db_query($wer_qry);
+         while($db_rows = db_fetch_object($db_res))
+        {
+
+$insert_notify = db_query("insert into hm_mails (mail_id,from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date,mail_type)values('".$user->uid."','admin@gmail.com','".$user->uid."');
+        }
+    }*/
 
             
            
