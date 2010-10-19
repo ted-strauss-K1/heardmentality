@@ -187,8 +187,8 @@ Heardmentality Team. </td>
 function hm_mails($subject,$content)
 {
     global $gSitePath, $user, $gDocPath, $base_root;
-   echo  $sel_follow="select f.*,u.mail from follower as f join users as u on f.uid=u.uid where f.follower_id='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
-   exit;
+    $sel_follow="select f.*,u.mail,u.notify_etype from follower as f join users as u on f.uid=u.uid where f.follower_id='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
+   
     $get_follow = db_query($sel_follow);
 
 
@@ -201,9 +201,8 @@ function hm_mails($subject,$content)
     {
          if($fet_follow->notify_etype==1)
          {
-       echo  $ins_qry = "insert into hm_mails(mail_id,from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date,mail_type)values('".$fet_follow->uid."','mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject."','".$content."',0,now())";
-       exit;
-       db_query($ins_qry);
+         $ins_qry = "insert into hm_mails(mail_id,from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date,mail_type)values('".$fet_follow->uid."','mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject."','".$content."',0,now())";
+         db_query($ins_qry);
          }
     }
     
