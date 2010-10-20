@@ -193,8 +193,15 @@ function cmt_submit() {
 function post_notification($wid='',$wlid=''){ ///vijay important comented
     
  global $gSitePath,$user,$gDocPath,$base_root;
+ db_query("insert into {notification} set follower_action='1',is_wavelets='1',uid='$user->uid',node_id='$nid' ");
+
+
+ hm_mails('',$wid,'reply_forum');
 	////////////mail notication for user follwers to me//////////////////////////////////////
-		 $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+
+
+
+		/* $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
 		$rs_followerf = db_query($sel_listf);
 		 $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$wid'"));
 		 
@@ -234,7 +241,11 @@ function post_notification($wid='',$wlid=''){ ///vijay important comented
 		$mail_success = htmlmail_function($to,$subject_proj,$contentm,'');
 		}
 
-		}
+		}*/
+
+
+
+                
 
 }
 function like_notification($nid='',$set=''){ //vijay important comented
