@@ -538,7 +538,7 @@ $ccode=$country['cn'];
     }
 }
 
-function send_qnotify($qid=''){
+function send_qnotify($qid=''){ ///vijay important comented
     
         global $gSitePath,$user,$gDocPath,$base_root;
 
@@ -547,7 +547,9 @@ function send_qnotify($qid=''){
 
 
             ////////////mail notication for user follwers to me//////////////////////////////////////
-         $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+
+          hm_mails($qid);
+        /* $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
         $rs_followerf = db_query($sel_listf);
         while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
 
@@ -575,7 +577,12 @@ function send_qnotify($qid=''){
                 $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
             }
 
-        }
+        }*/
+
+
+
+
+
 
 }
 
