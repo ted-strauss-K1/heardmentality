@@ -217,6 +217,9 @@ function hm_mails($qid,$nid,$type)
                 $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
                 $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
                 $contentm = str_replace("#content#",'voted for the below question. Kindly have a review', $contentm);
+                
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
+             db_query($ins_qry);
              }
         }
             break;
@@ -365,9 +368,8 @@ function hm_mails($qid,$nid,$type)
         }
 
                 break;
+
   }
-   $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
-             db_query($ins_qry);
    
 }
 
