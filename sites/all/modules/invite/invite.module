@@ -188,26 +188,26 @@ function hm_mails($qid,$nid,$type)
 {
     global $gSitePath, $user, $gDocPath, $base_root;
 
-     switch($type)
-    {
-        case vote_answer:
-            $sub_content = "voted for the below question. Kindly have a review";
-            $id = 5;
-
-            $qdetails = load_question($qid);
+    $qdetails = load_question($qid);
          $mail_row = db_query("select mail from users where uid='".$user->uid."'");
         $fet_mail = db_fetch_object($mail_row);
 
         $sel_follow="select f.*,u.mail,u.notify_etype,u.name from follower as f join users as u on f.uid=u.uid where f.follower_id='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
         $get_follow = db_query($sel_follow);
+
+
+
+     switch($type)
+    {
+        case vote_answer:
+            
          while($fet_follow = db_fetch_object($get_follow))
         {
              if($fet_follow->notify_etype==1)
              {
 
-                //id=4 for add question
-                 $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='".$id."'";
+                 $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
                 $rs_mgmt = db_query($sel_user_cmt);
                 $list_content = db_fetch_object($rs_mgmt);
                 $subject_proj = $list_content->subject;
@@ -216,11 +216,7 @@ function hm_mails($qid,$nid,$type)
 
                 $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
                 $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-                $contentm = str_replace("#content#", $sub_content, $contentm);
-
-
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
-             db_query($ins_qry);
+                $contentm = str_replace("#content#",'voted for the below question. Kindly have a review', $contentm);
              }
         }
             break;
@@ -369,8 +365,9 @@ function hm_mails($qid,$nid,$type)
         }
 
                 break;
-
   }
+   $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
+             db_query($ins_qry);
    
 }
 
