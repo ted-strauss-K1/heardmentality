@@ -20,8 +20,6 @@ function badges_menu() {
 }
 
 function set_badges() {
-
-    
     $query = "select uid from {users} where status='1'";
     $fetch = ExecuteQuery($query, "select");
     
@@ -39,8 +37,6 @@ function set_badges() {
         generalist($uid);
         legendary($uid);
     }
-
-
 }
 // fill profile get the biographer badge
 function biographer($uid = '') {
@@ -90,6 +86,8 @@ function biographer($uid = '') {
 	$badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='1'"));
     if ($i == 11&&$badgecnt==0) {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 1, $uid);
+      $last_id =  mysql_insert_id();
+      hm_mails('',$last_id,'user_badges');
     }
 }
 
@@ -108,6 +106,8 @@ function citizen_patrol($uid = '') {
     if ($count == 1 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",2, $uid);
+         $last_id =  mysql_insert_id();
+        hm_mails('',$last_id,'user_badges');
     }
 
 }
@@ -129,6 +129,8 @@ function civic_duty($uid = '') {
     if ($count >= 300 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 3, $uid);
+         $last_id =  mysql_insert_id();
+         hm_mails('',$last_id,'user_badges');
     }
 
 
@@ -150,6 +152,8 @@ function cleanup($uid = '') {
         
         db_query("update {answer_withdraw} set status='1' where uid='$uid' AND pid_sid='$count->pid_sid' ");
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 4, $uid);
+        $last_id =  mysql_insert_id();
+        hm_mails('',$last_id,'user_badges');
     }
 
 
@@ -171,6 +175,8 @@ function commentator($uid = '') {
     if ($count >= 10 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 5, $uid);
+         $last_id =  mysql_insert_id();
+         hm_mails('',$last_id,'user_badges');
     }
 
 
@@ -196,6 +202,8 @@ function discipline($uid = '', $qid = '') {
     if ($count >= 3) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 7, $uid);
+         $last_id =  mysql_insert_id();
+         hm_mails('',$last_id,'user_badges');
     }
 
 
@@ -222,6 +230,8 @@ function electorate($uid = '', $qid = '') {
     if ($count >= 10) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 9, $uid);
+         $last_id =  mysql_insert_id();
+         hm_mails('',$last_id,'user_badges');
     }
 }
 
@@ -254,6 +264,8 @@ function enthusiast($uid = '') {
                 if ($diff3 >= 30) {
                     
                     db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
+                     $last_id =  mysql_insert_id();
+                    hm_mails('',$last_id,'user_badges');
                     $query = "update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,NOW()) where uid='$uid'";
                     db_query($query);
                 }
@@ -328,6 +340,8 @@ function yearling() {
                     $countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' "));
                     if ($countret == 0) {
                         db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)", 43, $userlist->uid, $rep);
+                         $last_id =  mysql_insert_id();
+                         hm_mails('',$last_id,'user_badges');
                     }
                 }
             }
@@ -364,6 +378,8 @@ function Tumbleweed() {
             $viewbad = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qklisy->uid' and  qid='$qklisy->qid' and bid='42'"));
             if ($viewbad == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('42', '$qklisy->uid','$qklisy->qid') ");
+                 $last_id =  mysql_insert_id();
+                 hm_mails('',$last_id,'user_badges');
             }
         }
     }
@@ -382,6 +398,8 @@ function Taxonomist() {
             $tagcntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qtag->uid' and tid='$qtag->tid'  and bid='40'"));
             if ($tagcntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,tid) VALUES ('40','$qtag->uid','$qtag->tid') ");
+                 $last_id =  mysql_insert_id();
+                 hm_mails('',$last_id,'user_badges');
             }
         }
     }
@@ -413,6 +431,8 @@ function Student() {
             $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qstude->uid' and qid='$qstude->qid'  and bid='38'"));
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('38','$qstude->uid','$qstude->qid') ");
+                 $last_id =  mysql_insert_id();
+                 hm_mails('',$last_id,'user_badges');
             }
         }
     }
@@ -461,6 +481,8 @@ function supporter($uid = '') {
     if ($count > 1 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 39, $uid);
+        $last_id =  mysql_insert_id();
+        hm_mails('',$last_id,'user_badges');
     }
 
 
@@ -491,6 +513,8 @@ AND l.is_like = '1' AND f.uid = '$uid'"));
     if ($count1 > 10 && $count2 >= 10 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 32, $uid);
+        $last_id =  mysql_insert_id();
+        hm_mails('',$last_id,'user_badges');
     }
 
 
@@ -508,6 +532,8 @@ function generalist($uid = '') {
     if ($count > 50 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 16, $uid);
+        $last_id =  mysql_insert_id();
+        hm_mails('',$last_id,'user_badges');
     
     }
 
@@ -535,6 +561,8 @@ function legendary($uid = '') {
         if ($sum >= 20 && $badgecnt == 0) {
             
             db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 22, $uid);
+            $last_id =  mysql_insert_id();
+            hm_mails('',$last_id,'user_badges');
         }
     
     }
@@ -571,6 +599,8 @@ function fanatic($uid = '') {
                 if ($diff3 >= 50) {
                     
                     db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
+                     $last_id =  mysql_insert_id();
+                     hm_mails('',$last_id,'user_badges');
                     $query = "update {user_profile} set fanatic_start_date=now(),fanatic_todays_date=now(),fanatic_end_date=TIMESTAMPADD(DAY,50,NOW()) where uid='$uid'";
                     db_query($query);
                 }
