@@ -196,12 +196,11 @@ $qdetails = load_question($qid);
     $get_follow = db_query($sel_follow);
      while($fet_follow = db_fetch_object($get_follow))
     {
-       
          if($fet_follow->notify_etype==1)
          {
 
 
-             $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+             $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='4'";
             $rs_mgmt = db_query($sel_user_cmt);
             $list_content = db_fetch_object($rs_mgmt);
             $subject_proj = $list_content->subject;
