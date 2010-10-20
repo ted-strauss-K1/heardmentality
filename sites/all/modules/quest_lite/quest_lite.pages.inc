@@ -2441,8 +2441,9 @@ function answer_vote() {
 
 function send_votenotify($qid='') {///vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root;
-
-    $insert_notify = db_query("insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ");
+echo $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ";
+exit;
+    $insert_notify = db_query($qry);
     ////////////mail notication for user follwers to me//////////////////////////////////////
     ///vijay coment start here////////////
   /*  $qdetails = load_question($qid);
@@ -2460,7 +2461,6 @@ function send_votenotify($qid='') {///vijay important comented
         if ($usert->notify_itype == 1) {
 
             $insert_notify = db_query("insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ");
-           
         }
         if ($usert->notify_etype == 1) {
 
