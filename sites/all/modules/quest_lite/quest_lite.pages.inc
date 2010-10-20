@@ -2441,7 +2441,7 @@ function answer_vote() {
 
 function send_votenotify($qid='') {///vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root;
-// $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ";
+ $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $user->uid . "','1','1','1'," . $qid . "' ) ";
 
   //  $insert_notify = db_query($qry);
     ////////////mail notication for user follwers to me//////////////////////////////////////
@@ -2484,12 +2484,16 @@ function send_votenotify($qid='') {///vijay important comented
         }
             
     }*/
-     hm_mails($qid,'vote_answer');
+     hm_mails($qid,'','vote_answer');
 }
 
 function send_forumnotify($nid='', $qid='') { //vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-    $qdetails = load_question($qid);
+
+ $insert_notify = db_query("insert into notification (uid,follower_action,is_wave,node_id) values('" . $user->uid . "','1','1','" . $nid . "' ) ");
+
+
+   /* $qdetails = load_question($qid);
     $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
     $rs_followerf = db_query($sel_listf);
 
@@ -2519,13 +2523,15 @@ function send_forumnotify($nid='', $qid='') { //vijay important comented
         // print_r($qdetails);
             $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
             $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-            $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
-
-         echo  $contentm;
-         exit;
+            $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);         
             $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+
+
+
+
         }
-    }
+    }*/
+    hm_mails($qid,$nid,'add_forum');
 }
 
 function qusetion_info() {
