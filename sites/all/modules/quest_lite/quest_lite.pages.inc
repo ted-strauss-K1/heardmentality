@@ -1607,8 +1607,6 @@ function question_news() {
     while ($usernews = db_fetch_object($rlistnews)) {
 
         $output = $xml->parse($usernews->nlink);
-
-
         foreach ($output as $valuesresult) {
 
             //print_r( $valuesresult);
@@ -1623,7 +1621,7 @@ function question_news() {
 
             if (count($fetch) < 1 || $fetch[0]['is_like'] == '0') {
 
-                $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usernews->rid . ',1,this);">Like</a></span>';
+               $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usernews->rid . ',1,this);">Like</a></span>';
             } elseif ($fetch[0]['is_like'] == '1') {
 
                 $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usernews->rid . ',0,this);">Unlike</a></span>';
@@ -2443,6 +2441,8 @@ function answer_vote() {
 
 function send_votenotify($qid='') {///vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root;
+
+    $insert_notify = db_query("insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ");
     ////////////mail notication for user follwers to me//////////////////////////////////////
     ///vijay coment start here////////////
   /*  $qdetails = load_question($qid);
@@ -2484,12 +2484,10 @@ function send_votenotify($qid='') {///vijay important comented
         }
             
     }*/
-    
-     hm_mails($qid);
-    
+     hm_mails($qid,'vote_answer');
 }
 
-function send_forumnotify($nid='', $qid='') {
+function send_forumnotify($nid='', $qid='') { //vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $qdetails = load_question($qid);
     $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
@@ -2523,7 +2521,8 @@ function send_forumnotify($nid='', $qid='') {
             $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
             $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
 
-         //echo  $contentm;
+         echo  $contentm;
+         exit;
             $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
         }
     }
