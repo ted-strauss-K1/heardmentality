@@ -261,7 +261,7 @@ function hm_mails($qid,$nid,$type)
         case add_like:
             $sub_content = "likes new forum";
             $id = 5;
-             $sel_forum = "select * from forum_wavelets where wlid='".$nid."'";
+            echo  $sel_forum = "select * from forum_wavelets where wlid='".$nid."'";
              $forum_fet = db_query($sel_forum);
              $forum_row = db_fetch_object($forum_fet);
              $wavelet = $forum_row->wavelet;
