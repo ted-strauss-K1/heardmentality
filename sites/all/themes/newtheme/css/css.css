@@ -708,7 +708,7 @@ margin-right:2px;
 .creat-inner-title-right{ width:599px; float:right; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background:#8f8f8f; }
 .creat-inner-gridpart{ width:965px; margin:0 auto; font:normal 12PX Arial, Helvetica, sans-serif; color:#333;}
 .creat-inner-gridpart .col-1{ width:624px; float:left;}
-.creat-inner-gridpart .col-2{ float:left; width:306px; border:2px #8f8f8f solid; margin-top:39px; padding:10px;}
+.creat-inner-gridpart .col-2{ float:left; width:306px; border:2px #8f8f8f solid; margin-top:12px; padding:10px;}
 .creat-inner-gridpart h4{ font:bold 16px "Times New Roman", Times, serif;}
 .creat-inner-gridpart .w-outer{ width:624px; float:left; margin:3px 0px;}
 .creat-inner-gridpart .w-outer .ti-1{ float:left; width:338px; background:#fff;}
