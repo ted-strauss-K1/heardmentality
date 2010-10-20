@@ -280,7 +280,6 @@ function hm_mails($qid,$nid,$type)
         {
              if($fet_follow->notify_etype==1)
              {
-
                 //id=4 for add question
                  $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='".$id."'";
                 $rs_mgmt = db_query($sel_user_cmt);
@@ -289,8 +288,8 @@ function hm_mails($qid,$nid,$type)
                 $contentm = str_replace("#uname#", $fet_follow->name, $list_content->content);
                 $contentm = str_replace("#anothername#", $user->name, $contentm);
 
-                $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-                $contentm = str_replace("#link#", $wavelet, $contentm);
+                $contentm = str_replace("#question#", $wavelet, $contentm);
+                //$contentm = str_replace("#link#", $wavelet, $contentm);
                 $contentm = str_replace("#content#", $sub_content, $contentm);
 
 
