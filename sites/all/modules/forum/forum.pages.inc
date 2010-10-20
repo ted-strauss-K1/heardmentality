@@ -236,10 +236,28 @@ function post_notification($wid='',$wlid=''){
 		}
 
 }
-function like_notification($nid='',$set=''){
-	 global $gSitePath,$user,$gDocPath,$base_root;
+function like_notification($nid='',$set=''){ //vijay important comented
+    
+  global $gSitePath,$user,$gDocPath,$base_root;
+
+
+
+    ///////vijay///
+   db_query("insert into {notification} set is_like='1',$set,uid='$user->uid',node_id='$nid' ");
+   $sel_forum = "select * from forum_wavelets as f join forum_wave as w on f.wlid=w.fid where f.wlid='".$nid."'";
+   $forum_fet = db_query($sel_forum);
+   $forum_row = db_fetch_object($forum_fet);
+   $qid_rid = $forum_row->qid_rid;
+   hm_mails($qid_rid);
+    //////vijay///
+   
+	 
+
+
+       // db_query("insert into {notification} set is_like='1',$set,uid='$user->uid',node_id='$nid' ");
+        //hm_mails($nid);
 	////////////mail notication for user follwers to me//////////////////////////////////////
-		 $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+		/* $sel_listf = "select * from follower  where follower_id='".$user->uid."'";
 		$rs_followerf = db_query($sel_listf);
 		while ($follower_resultfuser = db_fetch_object($rs_followerf)) 
 		{
@@ -258,27 +276,16 @@ function like_notification($nid='',$set=''){
 		{
 		
 		///////////email for following ///////////////
-		
-		
-		
-		
-		
 		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='5'";
 		$rs_mgmt=db_query($sel_user_cmt);
 		$list_content=db_fetch_object($rs_mgmt);
 		$subject_proj=$list_content->subject;
 		$contentm=str_replace("#uname#",$usert->name,$list_content->content);
 		$contentm= str_replace("#anothername#",$user->name,$contentm);
-		//echo $contentm;
 		$mail_success = htmlmail_function($to,$subject_proj,$contentm,'');
 		}
-		
-		}
-       
+		}*/
 }
-
-
-
 function get_wavelets($wid = '', $pid = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
