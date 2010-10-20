@@ -2441,9 +2441,9 @@ function answer_vote() {
 
 function send_votenotify($qid='') {///vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root;
-echo $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ";
-exit;
-    $insert_notify = db_query($qry);
+// $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ";
+
+  //  $insert_notify = db_query($qry);
     ////////////mail notication for user follwers to me//////////////////////////////////////
     ///vijay coment start here////////////
   /*  $qdetails = load_question($qid);
