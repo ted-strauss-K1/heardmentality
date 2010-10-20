@@ -548,7 +548,7 @@ function send_qnotify($qid=''){ ///vijay important comented
 
             ////////////mail notication for user follwers to me//////////////////////////////////////
 
-          hm_mails($qid);
+          hm_mails($qid,'add_question');
         /* $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
         $rs_followerf = db_query($sel_listf);
         while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
