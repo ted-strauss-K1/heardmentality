@@ -190,7 +190,7 @@ function cmt_submit() {
     }
 
 }
-function post_notification($wid='',$wlid=''){
+function post_notification($wid='',$wlid=''){ ///vijay important comented
     
  global $gSitePath,$user,$gDocPath,$base_root;
 	////////////mail notication for user follwers to me//////////////////////////////////////
@@ -217,6 +217,7 @@ function post_notification($wid='',$wlid=''){
 		{
 
 		///////////email for following ///////////////
+
 
 		$sel_user_cmt="SELECT * FROM notification_mail_format Where id='5'";
 		$rs_mgmt=db_query($sel_user_cmt);
@@ -248,7 +249,7 @@ function like_notification($nid='',$set=''){ //vijay important comented
    $forum_fet = db_query($sel_forum);
    $forum_row = db_fetch_object($forum_fet);
    $qid_rid = $forum_row->qid_rid;
-   hm_mails($qid_rid);
+   hm_mails($qid_rid,'add_like');
     //////vijay///
    
 	 
