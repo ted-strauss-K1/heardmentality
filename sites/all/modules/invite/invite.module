@@ -199,16 +199,13 @@ $qdetails = load_question($qid);
          if($fet_follow->notify_etype==1)
          {
 
-            //id=5
+            //id=4 for add question
              $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
             $rs_mgmt = db_query($sel_user_cmt);
             $list_content = db_fetch_object($rs_mgmt);
             $subject_proj = $list_content->subject;
             $contentm = str_replace("#uname#", $fet_follow->name, $list_content->content);
             $contentm = str_replace("#anothername#", $user->name, $contentm);
-            echo $contentm;
-            exit;
-
             $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
             $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
             $contentm = str_replace("#content#", "voted for the below question. Kindly have a review", $contentm);
