@@ -334,6 +334,9 @@ function hm_mails($qid,$nid,$type)
              }
         }
                 break;
+
+                case reply_forum:
+               
              $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
 
           $qdetails = load_question($sel_wave->qid_rid);
