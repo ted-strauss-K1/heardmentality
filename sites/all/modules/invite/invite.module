@@ -184,7 +184,7 @@ Heardmentality Team. </td>
 
 
 
-function hm_mails($qid,$type)
+function hm_mails($qid,$nid,$type)
 {
     global $gSitePath, $user, $gDocPath, $base_root;
 
@@ -193,21 +193,8 @@ function hm_mails($qid,$type)
         case vote_answer:
             $sub_content = "voted for the below question. Kindly have a review";
             $id = 5;
-            break;
-        case add_question:
-            $sub_content = " ";
-            $id = 4;
-            break;
-        case add_like:
-            $sub_content = "likes new question";
-            $id = 5;
-            break;
 
-
-
-  }
-
-    $qdetails = load_question($qid);
+            $qdetails = load_question($qid);
          $mail_row = db_query("select mail from users where uid='".$user->uid."'");
         $fet_mail = db_fetch_object($mail_row);
 
@@ -236,6 +223,88 @@ function hm_mails($qid,$type)
              db_query($ins_qry);
              }
         }
+            break;
+        case add_question:
+            $sub_content = " ";
+            $id = 4;
+
+            $qdetails = load_question($qid);
+         $mail_row = db_query("select mail from users where uid='".$user->uid."'");
+        $fet_mail = db_fetch_object($mail_row);
+
+        $sel_follow="select f.*,u.mail,u.notify_etype,u.name from follower as f join users as u on f.uid=u.uid where f.follower_id='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
+
+        $get_follow = db_query($sel_follow);
+         while($fet_follow = db_fetch_object($get_follow))
+        {
+             if($fet_follow->notify_etype==1)
+             {
+
+                //id=4 for add question
+                 $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='".$id."'";
+                $rs_mgmt = db_query($sel_user_cmt);
+                $list_content = db_fetch_object($rs_mgmt);
+                $subject_proj = $list_content->subject;
+                $contentm = str_replace("#uname#", $fet_follow->name, $list_content->content);
+                $contentm = str_replace("#anothername#", $user->name, $contentm);
+
+                $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+                $contentm = str_replace("#content#", $sub_content, $contentm);
+
+
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
+             db_query($ins_qry);
+             }
+        }
+            break;
+        case add_like:
+            $sub_content = "likes new forum";
+            $id = 5;
+             $sel_forum = "select * from forum_wavelets where wlid='".$nid."'";
+             $forum_fet = db_query($sel_forum);
+             $forum_row = db_fetch_object($forum_fet);
+             $wavelet = $forum_row->wavelet;
+
+
+
+
+            $qdetails = load_question($qid);
+         $mail_row = db_query("select mail from users where uid='".$user->uid."'");
+        $fet_mail = db_fetch_object($mail_row);
+
+        $sel_follow="select f.*,u.mail,u.notify_etype,u.name from follower as f join users as u on f.uid=u.uid where f.follower_id='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
+
+        $get_follow = db_query($sel_follow);
+         while($fet_follow = db_fetch_object($get_follow))
+        {
+             if($fet_follow->notify_etype==1)
+             {
+
+                //id=4 for add question
+                 $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='".$id."'";
+                $rs_mgmt = db_query($sel_user_cmt);
+                $list_content = db_fetch_object($rs_mgmt);
+                $subject_proj = $list_content->subject;
+                $contentm = str_replace("#uname#", $fet_follow->name, $list_content->content);
+                $contentm = str_replace("#anothername#", $user->name, $contentm);
+
+                $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+                $contentm = str_replace("#link#", $wavelet, $contentm);
+                $contentm = str_replace("#content#", $sub_content, $contentm);
+
+
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
+             db_query($ins_qry);
+             }
+        }
+            break;
+
+
+
+  }
+
+        
 
    
 }
