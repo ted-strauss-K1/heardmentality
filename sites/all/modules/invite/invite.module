@@ -199,7 +199,7 @@ function hm_mails($qid,$type)
             $id = 4;
             break;
         case add_like:
-            $sub_content = " ";
+            $sub_content = "likes new question";
             $id = 5;
             break;
 
