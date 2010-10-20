@@ -249,7 +249,6 @@ function like_notification($nid='',$set=''){ //vijay important comented
    $forum_fet = db_query($sel_forum);
    $forum_row = db_fetch_object($forum_fet);
    $qid_rid = $forum_row->qid_rid;
-   echo $nid;
    hm_mails($qid_rid,$nid,'add_like');
     //////vijay///
    
