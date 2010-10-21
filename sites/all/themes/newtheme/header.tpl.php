@@ -205,7 +205,7 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').livequery(funct
                         </marquee>
                     </div>
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
-                    <div class="ajTourDef" id="MyTour" style="display:none">
+                    <div class="ajTourDef" id="MyTour" style="display:none" title="http://58.68.27.117/heardmentality/">
                       <div title="http://58.68.27.117/heardmentality/tour/home/home">
                         Placeholder for page 1 - replace this text
                       </div>
