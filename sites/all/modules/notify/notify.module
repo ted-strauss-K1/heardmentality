@@ -99,7 +99,37 @@ function forum_post() {
 
   while($fet_follow = db_fetch_object($get_follow))
   {
-      $output.='<li>';
+         $test_forum = "select * from forum_wave where uid='$fet_follow->follower_id' group by qid_rid order by fid desc limit 0,5";
+         $test_follow = db_query($test_forum);
+         $output.='<li>';
+         while($test_fet = db_fetch_object($test_follow))
+         {
+
+             $ques_qry = "select * from question where qid='$test_fet->qid_rid'";
+              $ques_row = db_query($ques_qry);
+              $ques_fet = db_fetch_object($ques_row);
+          
+             $output .='<div><a href="'.$gSitePath.$ques_fet->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_fet->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$ques_fet->qid).'">'. substr($ques_fet->question,0,20).'...'.'</a></div>';
+
+             $forum_query = "select * from forum_wave where qid_rid='$ques_fet->qid' order by fid desc limit 0,5";
+
+            $forum_list = ExecuteQuery($forum_query, "select");
+
+             foreach ($forum_list as $list) {
+                 $click = 'loadwave('.$list['qid_rid'].','.$list['fid'].')';
+
+                  $output.='
+                    <div><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$list['title'].'</a><div>';
+             }
+
+
+
+         }
+         $output.='</li>';
+
+
+
+      /*$output.='<li>';
 
         $test_forum = "select * from forum_wave where uid='$fet_follow->follower_id' order by fid desc";
          $test_follow = db_query($test_forum);
@@ -124,7 +154,12 @@ function forum_post() {
              }
 
           }
-           $output.='</li>';
+           $output.='</li>';*/
+
+
+
+
+
   }
         $output.='</ul></div>';
         if($forum_list<1)
