@@ -18,6 +18,8 @@ function gurupoints_menu() {
     $search_result['admin/point/save'] = array('title'=>' Add Points', 'page callback'=>'save_points', 'access arguments'=>array('Add Points'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
     
     $search_result['admin/userpoints'] = array('title'=>'User Points', 'page callback'=>'user_points', 'access arguments'=>array('list Points'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
+    $search_result['pundit/ajax'] = array('title'=>'Ajax Listing', 'page callback'=>'ajax_pundits', 'access arguments'=>array('list Points'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
+
     return $search_result;
 }
 
@@ -67,6 +69,36 @@ function increasepoints($ptype, $qid, $idm) {
 
 }
 
+function ajax_pundits(){
+     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+ $output =array();
+        extract($_REQUEST);
+        $first=(!empty($first))?(($first==1)?'0':$first):'0';
+        $last=(!empty($last))?$last-1:'4';
+    $query = "select * from {gurulist} limit $first,4";
+    $list = ExecuteQuery($query, "select");
+    $total=db_result(db_query('select count(*) from {gurulist}'));
+    $page_incr = 0;
+     $pager = 1;
+     //$output.='<total>'.$total.'</total>';
+     $i = 0;
+    foreach ($list as $quest) {
+
+         $udetails=load_user($quest['uid']);
+         $bubble = load_bubble($udetails->uid);
+
+     //  $output.= '<li><a  href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
+          $output[$i]['total']=$total;
+         $output[$i]['title']=$udetails->real_name;
+         $output[$i]['url']=$gSitePath.'/profile/'.$udetails->name;
+         $output[$i]['image']=UserPicture($quest['uid']);
+          // $output[$i]['rel']=$bubble;
+      $i++;
+          }
+  
+
+    echo json_encode($output);
+}
 
 function insertpoints($action = '', $nodeid = '') {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;

@@ -145,12 +145,13 @@ function get_top_pundits() {
     global $gSitePath,$user,$gDocPath,$base_root;
     drupal_add_css(drupal_get_path('module', 'qlite') . '/css/skin.css');
      drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/jquery.jcarousel.min.js');
-     drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/jquery.jcarousel.js');
+    // drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/jquery.jcarousel.js');
      drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/page_jcarousel.js');
     $output = '';
    $cat_id = $_REQUEST['cid'];
 
     $output .= '
+        
      <div class="commutop-profile" align="center">PUNDITS</div>
       <div class="hm-cen-pun">';
    $output .= '<div>
@@ -188,7 +189,7 @@ function get_top_pundits() {
         
          $udetails=load_user($quest['uid']);
          $bubble = load_bubble($udetails->uid);
-          $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
+         // $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
            $page_incr = $page_incr + 1;
          
           if($page_incr==4)
@@ -197,12 +198,9 @@ function get_top_pundits() {
               $page_incr = 0;
               $pager = $pager + 1;
           }
-         
-
-          
+    
         
-        
-        // $output_pager = '<span class="jcarousel-control">'.$page.'</span>';
+         $output_pager = '<span class="jcarousel-control">'.$page.'</span>';
 
           }
     }
@@ -212,9 +210,9 @@ function get_top_pundits() {
            </div>';
     $output .= '</div>';
     
-   /* $output .='<div class="jcarousel-scroll">
+   $output .='<div class="jcarousel-scroll">
         <a href="#" id="mycarousel-prev">&laquo; Prev</a>'.$output_pager.'<a href="#" id="mycarousel-next">Next &raquo;</a>
-        </div>';*/
+        </div>';
     return $output;
 }
 

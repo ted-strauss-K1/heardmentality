@@ -669,7 +669,8 @@ ob_start();
     
     if (isset($_REQUEST['update']) == 'Update') {
         extract($_REQUEST);
-        
+
+       
         $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
         $chk1 = db_result($chk);
         if ($chk1) {
@@ -696,13 +697,13 @@ ob_start();
         $chk = db_query("select * from {user_profile} where uid='$user->uid'");
         $chk1 = db_result($chk);
         $result_profile = db_fetch_object($chk);
-
+          $urls=serialize(array_merge($ptitle,$purl));
         
         $update_user = db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
         $age='';
 		 $age=age($dob);
       
-        $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname' where uid='$user->uid' ");
+        $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
 
         
         $sel_ulists = "select * from {user_profile} where uid='$user->uid'";
@@ -734,7 +735,10 @@ ob_start();
     $result = db_fetch_array($get_cn);
     
     extract($result);
-    
+     drupal_set_title('Edit Profile');
+     echo $result['urls'];
+     $urls_ar=array();
+    $urls_ar=unserialize($result['urls']); print_r($urls_ar);die;
     drupal_add_js(drupal_get_path('module', 'profile').'/js/en.js');
     drupal_add_js(drupal_get_path('module', 'profile').'/js/formcheck.js');
     drupal_add_css(drupal_get_path('module', 'profile').'/theme/classic/formcheck.css');
@@ -743,13 +747,14 @@ ob_start();
     $result = geonames_query('countryinfo', NULL, $options);
     foreach ($result->results as $countries) {
         $select = '';
-        if ($country == $countries['countrycode']) {
-            $select = "SELECTED='SELECTED'";
+       if (strtoupper($country) == strtoupper($countries['countryname'])) {
+         //   if(preg_match('/$country/',$countries['countryname'])){
+             $select = "SELECTED='SELECTED'";
         }
         
-        $optionlist .= sprintf('<option %s value="%s">%s</option>', $select, $countries['countrycode'], $countries['countryname']);
+        $optionlist .= sprintf('<option %s value="%s">%s</option>', $select, $countries['countryname'], $countries['countryname']);
     }
-    //echo $user->notify_type;
+     //echo $user->notify_type;
     if ($user->notify_etype == 1) {
         $checkm = "checked='checked'";
     }
@@ -821,21 +826,20 @@ ob_start();
         $seleant3 = "selected='selected'";
     
     }
-    if (! empty($state)) {
-        
-        $statecity = '<b>Country :</b>'.$country.'<br/><b>Province/State :</b>'.$state.'<br/><b>City :</b>'.$city.'
-                                <input type="hidden" name="country" value="'.$country.'">
-				<input type="hidden" name="state" value="'.$state.'">
-				<input type="hidden" name="city" value="'.$city.'">
-				';
-    }
+  
     $query = "select * from {privacy_settings} where uid='$user->uid'";
-    $fetch = ExecuteQuery($query, "select");
-    if (is_array($fetch)) {
-        $get = extract($fetch);
-    } else {
-        $get = NULL;
-    }
+  $fetch = ExecuteQuery($query, "select");
+    $result = db_query($query);
+$i = 0;
+while($i<mysql_num_fields($result))
+{
+
+  $meta=mysql_fetch_field($result,$i);
+  $col=$meta->name;
+  $inc_script.='jQuery("input[name*=\''.$meta->name.'_privacy\']").filter(\'[value="'.$fetch[0][$col].'"]\').attr(\'checked\', true);';
+
+  $i++;
+} 
    //avatar
    	if($image_avatar==2)
 	$avtchk2= "checked='checked'";
@@ -876,236 +880,243 @@ jQuery.noConflict();
 </script><script src="'.$gSitePath.$ava_js.'" type="text/javascript"></script>
     <script src="'.$gSitePath.$ava_page_js.'" type="text/javascript"></script>
 <link rel="stylesheet" href="'.$gSitePath.$ava_css.'" type="text/css" />
-<link type="text/css" rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'openids').'/css/log.css" /><div id="container">
+<!--<link type="text/css" rel="stylesheet" href="'.$gSitePath.drupal_get_path('module', 'openids').'/css/log.css" />-->
 </head>
-<body>
-		
-   <form name="reg" id="reg"  onsubmit="return validate_reg();"  method="post" enctype="multipart/form-data">
-   <div class="facttop2">EDIT PROFILE</div>
-    <div class="info">
-	 <input type="text" class="hidden_box1" readonly="true" border="0" width="1" size="1" name="errbox" id="errbox"><div id="err_div" class="error">'.$emsg.' '.$message.'</div>
+<body style="background:none;">
+<form name="reg" id="reg"  onsubmit="return validate_reg();"  method="post" enctype="multipart/form-data">
+
+<div class="crete-profile-wrapper">
+<div class="inside-wrapper">
+<div class="crete-profile-toppart">
+    <div class="top-abturself">
+    TELL US ABOUT YOURSELF
     </div>
-    <ul>
-    <fieldset>
-	 <legend><b><i> Basic Info</i></b> </legend>
-	
-	 <li id="foli0" class="firstName">
-	<label class="desc" id="title0" for="Field0">
-	First Name
-	&nbsp;&nbsp;&nbsp;Last Name
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User Name
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DOB
-	</label>
-   
-    <span>
-    <input id="fname" name="fname" class="field text" value="'.$first_name.'" size="8" tabindex="2" type="text">
-   <input id="lname" name="lname" class="field text" value="'.$last_name.'" size="12" tabindex="3" type="text">
-    <input id="rname" name="rname" class="field text" value="'.$real_name.'" tabindex="4" type="text"> 
-       <input id="edit-mail" name="mail" class="field text " value="'.$mail.'" maxlength="255" tabindex="5" type="text"> 
-	   <input name="dob"  value="'.$dob.'"  id="dob" class="field text "  tabindex="5" type="text">[mm/dd/yyyy]
-    </span>
-     
+<div class="info">
+	 <input type="hidden" class=""  readonly="true" border="0" width="1" size="1" name="errbox" id="errbox">
+         <div id="err_div" class="">'.$emsg.' '.$message.'</div>
+    </div>
+    <div class="clr"></div>
+    <div class="creat-inner-title-outer">
+       <div class="creat-inner-title-left">INFO</div>
+       <div class="creat-inner-title-right">PRIVACY SETTINGS</div>
+       <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+          <div class="creat-inner-gridpart">
+          <div class="col-1">
+
+          <div class=" w-outer">
+                 <div class="ti-1">`</div>
+                 <div class="w3">Anyone</div>
+                 <div class="w4">Logged in Users</div>
+                 <div class="w5">Followers &amp; Followees</div>
+             </div>
+
+          <div class="clr"></div>
+                       <div class=" w-outer">
+                 <div class="w1">User Name:</div>
+                 <div class="w2"> <input id="rname" name="rname" class="txtbx-1" value="'.$real_name.'" tabindex="4" type="text">
+   </div>
+                 <div class="w3"><input name="real_name_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="real_name_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="real_name_privacy" type="radio" value="3" /></div>
+             </div>
+             <div class="clr"></div>
+
+             <div class=" w-outer">
+                 <div class="w1">First Name:</div>
+                 <div class="w2"><input id="fname" name="fname" class="txtbx" value="'.$first_name.'" size="8" tabindex="2" type="text"> <input id="lname" name="lname" class="txtbx" value="'.$last_name.'" size="12" tabindex="3" type="text">
+  </div>
+                 <div class="w3"><input name="name_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="name_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="name_privacy" type="radio" value="3" /></div>
+             </div>
+             <div class="clr"></div>
+             <div class=" w-outer">
+                 <div class="w1">Email:</div>
+                 <div class="w2"><input id="edit-mail" name="mail" class="txtbx-1" value="'.$mail.'" maxlength="255" tabindex="5" type="text">
+	</div>
+                 <div class="w3"><input name="email_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="email_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="email_privacy" type="radio" value="3" /></div>
+             </div>
+             <div class="clr"></div>
+             <div class=" w-outer">
+                 <div class="w1">Year Of Birth:</div>
+                 <div class="w2"> <input name="dob"  value="'.$dob.'"  id="dob" class="txtbx" maxlength="4"  tabindex="5" type="text"><small>[yyyy]</small></div>
+                 <div class="w3"><input name="dob_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="dob_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="dob_privacy" type="radio" value="3" /></div>
+             </div>
+             <div class="clr"></div>
+             <div class=" w-outer">
+                 <div class="w1">Gender:</div>
+                 <div class="w2"><span><input id="edit-gender-0" name="gender" value="1" '.$check1.' type="radio"> Male</span>&nbsp;&nbsp;<span><input id="edit-gender-1" name="gender" value="2" class="form-radio" '.$check2.' type="radio"> Female</span></div>
+                 <div class="w3"><input name="gender_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="gender_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="gender_privacy" type="radio" value="3" /></div>
+             </div>
+             <div class="clr"></div>
+             <div class=" w-outer">
+                 <div class="w1">Country:</div>
+                 <div class="w2"><select name="country1" class="txtbx-1" tabindex="16" id="edit-country">'.$optionlist.'</select></div>
+                 <div class="w3"><input name="country_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="country_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="country_privacy" type="radio" value="3" /></div>
+             </div>
+             <div class="clr"></div>
+             <div class=" w-outer">
+                 <div class="w1">Postal / Zip Code:</div>
+                 <div class="w2"> <input name="zip"  value="'.$zip.'" class="txtbx-1"  onkeyup="get_zip_city(this.value);" onblur="get_zip_city(this.value);" id="edit-zip"  type="text"><span style="display:none;" id="edit-city-wrapper">'.$statecity.' </span></div>
+                 <div class="w3"><input name="zip_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="zip_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="zip_privacy" type="radio" value="3" /></div>
+             </div>
+                 <div class="clr"></div>
+               
+             <div class=" w-outer">
+                 <div class="w1">Religion:</div>
+                 <div class="w2"> <select  name="religion" id="edit-religion"  class="txtbx-1" ><option value="" >Select</option><option value="Christian" '.$selr1.' >Christian (Cath or Prod)</option><option value="Muslim" '.$selr2.' >Muslim (Suni Shiite)</option><option value="Jewish" '.$selr3.' >Jewish</option><option value="Hindu" '.$selr4.' > Hindu</option><option value="Buddhist" '.$selr5.' >Buddhist</option><option value="Other" '.$selr6.'>Other</option></select> </div>
+                 <div class="w3"><input name="religion_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="religion_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="religion_privacy" type="radio" value="3" /></div>
+             </div>
+             <div class="clr"></div>
+             <div class=" w-outer">
+                 <div class="w1">Ethnicity:</div>
+                 <div class="w2"><select name="ethnic" id="edit-ethnic"  class="txtbx-1" ><option value="">Select </option><option value="Caucasian" '.$sele1.'>Caucasian</option><option value="Black" '.$sele2.'>Black</option><option value="Asian" '.$sele3.'>Asian</option> <option value="Indian" '.$sele4.'>Indian</option> <option value="Semetic" '.$sele5.'>Semetic</option><option value="Latin" '.$sele6.'>Latin</option> <option value="Aborigines" '.$sele7.'>Aborigines</option>  </select></div>
+                 <div class="w3"><input name="ethnic_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="ethnic_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="ethnic_privacy" type="radio" value="3" /></div>
+             </div>
+             <div class="clr"></div>
+             <div class=" w-outer">
+                 <div class="w1">Income Bracket:</div>
+                 <div class="w2"><select name="slant" id="edit-slant"  class="txtbx-1" ><option value="">Select</option><option value="Left" '.$seleant1.'>Left</option><option value="Right" '.$seleant2.'>Right </option> <option value="Center" '.$seleant3.'>Center </option>  </select>
+	       </div>
+                 <div class="w3"><input name="slant_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="slant_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="slant_privacy" type="radio" value="3" /></div>
+             </div>
+
+          </div>
+
+ <div class="col-2-outer">
+          <div class="col-2">
+          When i vote on issues or posting content to Heard Mentality I want the following privacy settings applied when other users view my profile<br /><br />
+
+<span><input type="radio" name="qrset"  class="qrset" value="1" '.$selm.'/>&nbsp;Anyone can see what i do</span><br />
+
+<span> <input type="radio" name="qrset" class="qrset" value="2" '.$selm2.'/>&nbsp;Only my followers and followees can see</span><br />
+
+<span> <input type="radio" name="qrset" class="qrset"  value="3" '.$selm3.'/>&nbsp;No one can see what i do</span><br />
+
+<span> <input type="radio" name="qrset" class="qrset"  value="4" '.$selm4.'/>&nbsp;I want to be asked each time</span><br />
+<br />
+<h4>NOTIFY TYPE</h4><br />
+
+
+<span> <input name="ntype" type="checkbox" '.$checkm.'  value="1"  />&nbsp;Email</span>
+<span><input name="nitype" type="checkbox" '.$checkf.'  value="1"  />&nbsp;Internal Message Only</span>
+          <div class="clr"></div>
+
+
+          </div>
+
+          <div class="clr"></div>
+
+          <div class="merge-social">
+          <div class="merge-social-tit">merge your social networks</div>
+          <div class="clr"></div>
+          <div class="merge-script-outer"><img src="images/merge-ur-social.jpg" width="274" height="40" alt="0"/></div>
+
+          </div>
+
+          </div>
+ </div>
+      </div>
+      <div class="clr"></div>
+      <div class="create-inner-bot">
+                 <div class="bio">
+                 <div class="bio-title">BIO <div class="clr"></div></div>
+                 <div class="clr"></div>
+                 <div>
+
+                 <div class="bio-left"> <textarea name="bio" id="edit-bio" class="form-text" rows="3" cols="9">'.$bio.'</textarea><br />
+<span>Write a short blurb that describes you. This provides context
+to your account, will appear in your profile, and will help you
+get found through search engines such as Google and Yahoo.</span></div>
+     <div class="bio-right">
+     '.$avatarform.'
+   </div>
+   </div>
+    <div class="clr"></div>
+<div class="clr"></div>
+                 </div>
+
+                     <div class="web-reference">
+                     <div class="web-reference-tit">WEB REFERENCES</div>
+                     <div class="clr"></div>
+                         <div class="social-outer">
+                          <div class="social-left"><img src="'.$gSitePath.path_to_theme().'/images/soc-face.jpg" width="26" height="27" alt="Facebook" /></div>
+                          <div class="social-rite"><input maxlength="60" name="facebook"   value="'.$facebook.'"  size="60"  type="text"> </div>
+                         </div>
+
+                         <div class="clr"></div>
+                         <div class="social-outer">
+                          <div class="social-left"><img src="'.$gSitePath.path_to_theme().'/images/soc-twit.jpg" width="27" height="27" alt="Twitter" /></div>
+                          <div class="social-rite"><input name="" type="text" /></div>
+                         </div>
+
+                         <div class="clr"></div>
+
+
+                         <div class="social-outer">
+                          <div class="social-left"><img src="'.$gSitePath.path_to_theme().'/images/soc-myspace.jpg" width="26" height="27" alt="My Space" /></div>
+                          <div class="social-rite"><input name="" type="text" /></div>
+                         </div>
+
+                         <div class="clr"></div>
+                         <div class="border4web"></div>
+                         <div class="clr"></div>
+                         <div class="social-outer">
+
+                          <div class="social-rite">Link Title :<input name="ptitle[]" type="text" maxlength="255" /></div>
+                         </div>
+                         <div class="clr"></div>
+
+                         <div class="social-outer">
+
+                          <div class="social-rite">URL :&nbsp; &nbsp; &nbsp; &nbsp;<input name="purl[]" maxlength="255"  type="text" /></div>
+                         </div>
+                         <div class="clr"></div>
+                         <div class="border4web"></div>
+                         <div class="clr"></div>
+                         <div class="social-outer">
+
+                          <div class="social-rite">Link Title :<input name="ptitle[]" type="text" maxlength="255" /></div>
+                         </div>
+                         <div class="clr"></div>
+                         <div class="social-outer">
+
+                          <div class="social-rite">URL :&nbsp; &nbsp; &nbsp; &nbsp;<input name="purl[]" type="text" maxlength="255"  /></div>
+                         </div>
+
+
+                     </div>
+
+      </div>
+    <div class="clr"></div>
+
+      </div>
+      <div class="clr"></div>
+      <div class="save-changes-outer"><input type="submit" name="update" value="Update" src="'.$gSitePath.path_to_theme().'/images/save-changes-bt.png" style="width:100px;height:21px;" alt="Save Changes" /></div>
+          </form>    </div>
+
+
+
+                 
   
-    
-
-    </li>
-	  </fieldset>		
-	 <fieldset>
-	 <legend><b><i> Personal Info</i></b> </legend>
-  <li id="foli14" class="">
-			<label class="desc" id="title14" for="Field14"> 
-			Gender
-			<!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Country  -->
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Religion :
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ethnicity:
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Slant: 
-			</label> 
-	<label class="option" for="edit-gender-0"><input id="edit-gender-0" name="gender" value="1" class="form-radio" '.$check1.' type="radio"> Male</label>
-	<label class="option" for="edit-gender-1"><input id="edit-gender-1" name="gender" value="2" class="form-radio" '.$check2.' type="radio"> Female</label> 
-       <!--<select name="country1" style="width: 125px;" tabindex="16" id="edit-country">'.$optionlist.'</select>-->
-		 <select  name="religion" id="edit-religion" class="form-text" ><option value="" >Select</option><option value="Christian" '.$selr1.' >Christian (Cath or Prod)</option><option value="Muslim" '.$selr2.' >Muslim (Suni Shiite)</option><option value="Jewish" '.$selr3.' >Jewish</option><option value="Hindu" '.$selr4.' > Hindu</option><option value="Buddhist" '.$selr5.' >Buddhist</option><option value="Other" '.$selr6.'>Other</option></select> 
-		<select name="ethnic" id="edit-ethnic" class="form-text" ><option value="">Select </option><option value="Caucasian" '.$sele1.'>Caucasian</option><option value="Black" '.$sele2.'>Black</option><option value="Asian" '.$sele3.'>Asian</option> <option value="Indian" '.$sele4.'>Indian</option> <option value="Semetic" '.$sele5.'>Semetic</option><option value="Latin" '.$sele6.'>Latin</option> <option value="Aborigines" '.$sele7.'>Aborigines</option>  </select>
-		<select name="slant" id="edit-slant"  class="form-text" ><option value="">Select</option><option value="Left" '.$seleant1.'>Left</option><option value="Right" '.$seleant2.'>Right </option> <option value="Center" '.$seleant3.'>Center </option>  </select>
-	       
-			 </li>
-  
-    <li id="foli14" class="">
-	<label class="desc" id="title14" for="Field14"> 
-	Bio:
-	</label> 
-		 <textarea name="bio" id="edit-bio" class="form-text" rows="4" cols="30">'.$bio.'</textarea>
-	
-				
-			
-	 </li>
-	  <li id="foli14" class="">
-	<label class="desc" id="title14" for="Field14"> 
-	Zipcode
-	</label> 
-	 <input name="zip"  value="'.$zip.'"  onkeyup="get_zip_city(this.value);" onblur="get_zip_city(this.value);" id="edit-zip"  class="field text" type="text">
-	 <div class="form-item" id="edit-city-wrapper">'.$statecity.' </div>
-	 </li>
-	 
-	 
-	</fieldset>	
-	<fieldset><legend><b><i>Picture</i></b></legend><input type="hidden" name="oldimg" value="'.$image.'"/>
-	<div class="porfile_pix">
-'.$avatarform.'
-</div>
-</fieldset>
-	 <fieldset>
-		<legend><b><i>Links</i></b> </legend>
-		<div class="form-item" id="edit-name-wrapper"> 
-			<label for="edit-facebook">Facebook: </label> <input maxlength="60" name="facebook" id="edit-facebook"  value="'.$facebook.'"  size="60"  class="field text " type="text"> 
-			
-        </div>
-		<div class="form-item" id="edit-twitter-wrapper"> <label for="edit-twitter">Twitter :</label> <input maxlength="64" value="'.$twitter.'"  name="twitter" id="edit-twitter" size="60" class="form-text required" type="text"> </div>
-	
-         
-        </fieldset>	
-	 <fieldset>
-		<legend><b><i>Question & Resource Privacy Settings</i></b> </legend>
-		<div class="form-item" id="edit-name-wrapper">
-            <label for="edit-"></label>
-             <input type="radio" name="qrset"  class="qrset" value="1" '.$selm.'>&nbsp;Always Post Non-Anonymous
-            <div class="description"></div>
-        </div>
-        <div class="form-item" id="edit-name-wrapper">
-            <label for="edit-"></label>
-             <input type="radio" name="qrset" class="qrset" value="2" '.$selm2.'>&nbsp;Only allow Followers & Followees to see
-            <div class="description"></div>
-        </div>
-         <div class="form-item" id="edit-name-wrapper">
-            <label for="edit-"></label>
-             <input type="radio" name="qrset" class="qrset"  value="3" '.$selm3.'>&nbsp;Only Post Anonymous
-            <div class="description"></div>
-        </div>
-        <div class="form-item" id="edit-name-wrapper">
-            <label for="edit-"></label>
-             <input type="radio" name="qrset" class="qrset"  value="4" '.$selm4.'>&nbsp;Prompt on all (if prompt all, pop up to ask if he wants to share with
-everyone or just followers or not at all while adding a question)
-            <div class="description"></div>
-        </div>
-		
-		  <div class="form-item" id="edit-name-wrapper">
-            <label for="edit-"><b>Notify Type </b></label>
-             <input name="ntype" type="checkbox" '.$checkm.'  value="1"  /> E-mail    <input name="nitype" type="checkbox" '.$checkf.'  value="1"  /> Internal  Message Only
-           
-			<div class="description"></div>
-        </div>
-        </fieldset>		
-	
-	 <fieldset>
-	 <legend><b><i> Privacy Settings</i></b> </legend>
-<table width="98%" border="0" align="center" cellpadding="1" cellspacing="1">
-  <tr>
-    <td><span class="desc"><strong>Email</strong></span><br/>
-    <select class="email_privacy" name="email_privacy">'.$option1.$option2.$option3.'</select>    </td>
-    <td><span class="desc"><strong>User Name</strong></span><br/>
-    <select class="real_name_privacy" name="real_name_privacy">'.$option1.$option2.$option3.'</select> </td>
-    <td><span class="desc"><strong>Image</strong></span><br/>
-     <select class="image_privacy"  name="image_privacy">'.$option1.$option2.$option3.'</select>
-    </td>
-  </tr>
-  <tr>
-    <td><span class="desc"><strong>Bio</strong>   </span><br/>
-      <select class="bio_privacy"  name="bio_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
- </td>
-    <td><span class="desc"><strong>Gender</strong>   </span><br/>
-      <select class="gender_privacy"  name="gender_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-    <td><span class="desc"><strong>Zip</strong>   </span><br/>
-      <select class="zip_privacy"  name="zip_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-  </tr>
-  <tr>
-    <td><span class="desc"><strong>Country</strong>   </span><br/>
-      <select class="country_privacy"  name="country_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-    <td><span class="desc"><strong>Religion</strong>   </span><br/>
-      <select class="religion_privacy"  name="religion_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-    <td><span class="desc"><strong>Ethnic</strong>   </span><br/>
-      <select class="ethnic_privacy"  name="ethnic_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-  </tr>
-  <tr>
-    <td><span class="desc"><strong>Slant</strong>   </span><br/>
-      <select class="slant_privacy"  name="slant_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-    <td><span class="desc"><strong>Facebook</strong>   </span><br/>
-      <select class="facebook_privacy"  name="facebook_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-    <td><span class="desc"><strong>Twitter</strong>   </span><br/>
-      <select class="twitter_privacy"  name="twitter_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-  </tr>
-  <tr>
-    <td><span class="desc"><strong>Followers</strong>   </span><br/>
-      <select class="followers_privacy"  name="followers_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-    <td><span class="desc"><strong>Following</strong>   </span><br/>
-      <select class="following_privacy"  name="following_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-    <td><span class="desc"><strong>Medal</strong>   </span><br/>
-      <select class="medal_privacy"  name="medal_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-  </tr>
-  <tr>
-    <td><span class="desc"><strong>Posted Answers</strong>   </span><br/>
-      <select class="answers_privacy"  name="answers_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-    <td><span class="desc"><strong>Posted Questions</strong>   </span><br/>
-      <select class="questions_privacy"  name="questions_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-
-    <td><span class="desc"><strong>Date Of Birth</strong>   </span><br/>
-      <select class="dob_privacy"  name="dob_privacy">
-        '.$option1.$option2.$option3.'
-      </select>
-  </td>
-  </tr>
-</table>
-	 
-
-	 </fieldset>	
-	
-
-    <li class="buttons">
-    <input type="submit" name="update" value="Update" >
-	
-    </li>
-    </ul>
-    </form>
 		<script>
 			var avat="'.$avatar.'";
 			if(avat.length>2){
@@ -1119,114 +1130,23 @@ everyone or just followers or not at all while adding a question)
 }
 			var avatchk="'.$image_avatar.'";
 			
-			jQuery("div.porfile_pix input:radio[value="+avatchk+"]").attr("checked","checked");
+			jQuery("div.bio-right input:radio[value="+avatchk+"]").attr("checked","checked");
 			
-			setTimeout(markit,1000);
+			
+jQuery(document).ready(function(){
+'.$inc_script.'
+});
 
-function markit(){
-	
-
-var chk=\''.$fetch[0]['email'].'\';
-var elt=$$(\'.email_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['real_name'].'\';
-var elt=$$(\'.real_name_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-	
-	var chk=\''.$fetch[0]['image'].'\';
-var elt=$$(\'.image_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['bio'].'\';
-var elt=$$(\'.bio_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['gender'].'\';
-var elt=$$(\'.gender_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['zip'].'\';
-var elt=$$(\'.zip_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['country'].'\';
-var elt=$$(\'.country_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-
-var chk=\''.$fetch[0]['religion'].'\';
-var elt=$$(\'.religion_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['ethnic'].'\';
-var elt=$$(\'.ethnic_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['slant'].'\';
-var elt=$$(\'.slant_privacy\');
-elt.each(function(el){ el.set(\'value\',chk); });
-
-var chk=\''.$fetch[0]['facebook'].'\';
-var elt=$$(\'.facebook_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-
-var chk=\''.$fetch[0]['twitter'].'\';
-var elt=$$(\'.twitter_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['followers'].'\';
-var elt=$$(\'.followers_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['following'].'\';
-var elt=$$(\'.following_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['medal'].'\';
-var elt=$$(\'.medal_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['answers'].'\';
-var elt=$$(\'.answers_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['questions'].'\';
-var elt=$$(\'.questions_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-var chk=\''.$fetch[0]['dob'].'\';
-var elt=$$(\'.dob_privacy\');
-if(chk!=\'\'){
-elt.each(function(el){ el.set(\'value\',chk); });
-}
-}
-
-
-			</script>
-	
+	</script>
 
     </div> </body>
 	</html>
 ';
+
+    
+
+
+
     setcookie("faceidc");
     echo $op;
 
@@ -1245,21 +1165,30 @@ function avatar_form($form, &$form_state) {
 	  	
 	$form['pic_exp'] = array(
     '#type' => 'markup',
-    '#value' => '<span>' . t('&nbsp;') . '</span><br/><input type="radio" value="1" name="pic_avt">',
+    '#value' => t(' <h4><input type="radio" value="1" name="pic_avt"> IMAGE UPLOAD</h4>'),
   );
 
 	$form['avatar_crop_title']=array(
-		'#prefix' => '<div class="avatar-crop-title">',
-  		'#suffix' => '</div>',
-  		'#value' => t('Choose profile picture.'),
+              '#type' => 'markup',
+		'#prefix' => ' <div>
+                                     <span class="imgupload-img">',
+  		'#suffix' => '</span>
+
+                                     <span class="imgupload-txt">Select an image file on your computer.(2MB max)</span>
+                                     </div>',
+  		'#value' =>UserPicture($user->uid,1),
     );
   	$form['file_upload'] = array(
+            '#prefix'=>'  <div class="clr"></div><br />',
+            '#suffix' => '     <div class="clr"></div>',
     	'#title' => t('Upload file'),
     	'#type'  => 'file',
+       '#size' => 20,
   	);
   	$form['submit_upload'] = array(
     	'#type'  =>  'markup',
-    	'#value'  =>  '<div>'.UserPicture($user->uid,1).'<div>',
+    	'#value'  =>  ' <div><h4 class="border4web">[OR]<input type="radio" value="2" name="pic_avt"> SELECT AN AVATAR </h4></div>
+<br  class="clr"/><div>',
   );
   
 				
@@ -1277,12 +1206,6 @@ function avatar_form($form, &$form_state) {
 
   if (count($selects['avatars'])) {
   	
-	$form['avt_exp'] = array(
-    '#type' => 'markup',
-    '#value' => '<br/><div><b>' . t('[OR]') . '</b></div><input type="radio" value="2" name="pic_avt">',
-  );
-
-
     drupal_add_js(drupal_get_path('module', 'avatar_selection') .'/js/avatar_selection_pager.js', 'module', 'header');
     $form['picture']['select_avatar'] = array(
       '#type' => 'radios',
@@ -1297,7 +1220,10 @@ function avatar_form($form, &$form_state) {
     );
 	
 	  }
-	
+	$form['submit_close'] = array(
+    	'#type'  =>  'markup',
+    	'#value'  =>  ' <div class="clr"></div></div>',
+  );
 	
 	//avatar
   return $form;
