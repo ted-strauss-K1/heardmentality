@@ -95,7 +95,7 @@ function forum_post() {
   {
          $test_forum = "select * from forum_wave where uid='$fet_follow->follower_id' group by qid_rid order by fid desc limit 0,5";
          $test_follow = db_query($test_forum);
-        // $output.='<ul><li>';
+         $output.='<ul><li>';
          while($test_fet = db_fetch_object($test_follow))
          {
 
@@ -119,7 +119,7 @@ function forum_post() {
 
 
          }
-       //  $output.='</li></ul>';
+         $output.='</li></ul>';
 
 
 
