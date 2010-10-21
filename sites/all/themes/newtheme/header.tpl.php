@@ -216,16 +216,16 @@ $directory = $base_path . $directory;
 
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
                     <div class="ajTourDef" id="MyTour" style="display:none">
-                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/home.jpeg">
+                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/home.jpg">
                           place holder for page 1
                         </div>
-                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/addquestion.jpeg">
+                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/addquestion.jpg">
                           place holder for page 2
                         </div>
-                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/notify.jpeg">
+                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/notify.jpg">
                          place holder for page 3
                         </div>
-                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/donate.jpeg">
+                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/donate.jpg">
                           place holder for page 4
                         </div>
                     </div>
