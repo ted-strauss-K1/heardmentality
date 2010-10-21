@@ -205,14 +205,14 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').livequery(funct
                         </marquee>
                     </div>
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
-                    <div class="ajTourDef" id="MyTour" style="display:none" title="http://58.68.27.117/heardmentality/">
-                      <div title="http://58.68.27.117/heardmentality/tour/home/home">
+                    <div class="ajTourDef" id="MyTour" style="display:none" title="http://192.9.200.10/heardmentality/">
+                      <div title="http://192.9.200.10/heardmentality/tour/home/home">
                         Placeholder for page 1 - replace this text
                       </div>
-                      <div title="http://58.68.27.117/heardmentality/tour/home/question">
+                      <div title="http://192.9.200.10/heardmentality/tour/home/question">
                         Placeholder for page 2 - replace this text
                       </div>
-                      <div title="http://58.68.27.117/heardmentality/tour/home/donate">
+                      <div title="http://192.9.200.10/heardmentality/tour/home/donate">
                         Placeholder for page 3 - replace this text
                       </div>
                     </div>
