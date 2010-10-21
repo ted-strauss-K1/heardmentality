@@ -195,7 +195,6 @@ $directory = $base_path . $directory;
         }
 ?>
 
-
                 <!--  Geo Location sharing html 5-->
                 <script type="text/javascript">
                     // if (navigator.geolocation) {
@@ -217,13 +216,16 @@ $directory = $base_path . $directory;
 
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
                     <div class="ajTourDef" id="MyTour" style="display:none">
-                        <div title="http://localhost/heardmentality/">
+                        <div title="<?php echo $gSitePath.path_to_theme();?>/tour/home.jpeg">
                             Placeholder for page 1 - replace this text
                         </div>
-                        <div title="http://localhost/heardmentality/profile">
+                        <div title="<?php echo $gSitePath.path_to_theme();?>/tour/addquestion.jpeg">
                             Placeholder for page 2 - replace this text
                         </div>
-                        <div title="http://localhost/heardmentality/donation">
+                        <div title="<?php echo $gSitePath.path_to_theme();?>/tour/notify.jpeg">
+                            Placeholder for page 3 - replace this text
+                        </div>
+                        <div title="<?php echo $gSitePath.path_to_theme();?>/tour/donate.jpeg">
                             Placeholder for page 3 - replace this text
                         </div>
                     </div>
