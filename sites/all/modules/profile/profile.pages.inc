@@ -1431,6 +1431,7 @@ function google_map() {
 
 function amber_tour()
 {
+    
     global $gSitePath, $user, $gDocPath, $base_root;
 
      $page = substr($_REQUEST['q'],strrpos($_REQUEST['q'],'/'));
