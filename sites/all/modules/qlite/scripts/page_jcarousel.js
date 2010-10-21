@@ -52,12 +52,12 @@ function mycarousel_itemLoadCallback(carousel, state)
 
             for (var i = carousel.first; i <= carousel.last; i++) {
                 
-                if (carousel.has(i)) {alert('ss'+i);
+                if (carousel.has(i)) {
                     continue;
                 }
 
                 if (i > mycarousel_itemList.length) {
-                    alert(i);
+                   
                    break;
                 }
             
