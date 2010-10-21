@@ -28,6 +28,7 @@ $directory = $base_path . $directory;
 <?php print $scripts; ?>
         <script src="<?php echo $directory; ?>/scripts/jquery.translate-1.4.0.min.js"></script>
         <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
+        <script src="<?php echo $directory; ?>/scripts/jquery.livequery.js"></script>
         <script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script>
         <!-- Float box-->
         <link type="text/css" rel="stylesheet" href="<?php echo $directory; ?>/floatbox/floatbox.css" />
@@ -42,68 +43,60 @@ $directory = $base_path . $directory;
         <link rel="stylesheet" href="<?php echo $directory; ?>/lib/jquery.tab.css" type="text/css" media="screen" charset="utf-8">
 
                 <script type="text/javascript">
+var gSitePath='<?php echo $gSitePath; ?>';
+jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').livequery(function () {
+    jQuery(this).each(function () {
 
-                    var gSitePath='<?php echo $gSitePath; ?>';
+        if (jQuery(this).attr("rel").length == 0) {
+            $title = jQuery(this).attr('title');
 
+            jQuery(this).attr('rel', $title).attr('title', '');
+        }
 
+        if (jQuery(this).attr("title").length > 0) {
+            jQuery(this).SetBubblePopup({
+                innerHtml: jQuery(this).attr("title"),
+                color: 'grey',
+                imageFolder: '<?php echo $directory; ?>/images/bp_images'
 
-                    jQuery(document).ready(function(){
-                        jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').each(function()
-                        {
-                            
-                            if(jQuery(this).attr("rel").length==0)
-                                {
-                            $title = jQuery(this).attr('title');
+            });
+        }
+        if (jQuery(this).attr("rel").length > 0) {
 
-                            jQuery(this).attr('rel', $title).attr('title','');
-                                }
+            jQuery(this).SetBubblePopup({
+                innerHtml: jQuery(this).attr("rel"),
+                color: 'grey',
+                imageFolder: '<?php echo $directory; ?>/images/bp_images'
 
-                            if( jQuery(this).attr("title").length>0){
+            });
+        }
 
-                                jQuery(this).SetBubblePopup({
-                                    innerHtml: jQuery(this).attr("title"),
-                                    color:'grey',
-                                    imageFolder: '<?php echo $directory; ?>/images/bp_images'
+    });
+});
+    jQuery('.p-foll li a,#mfollowing a,#inbox a,.contarea a').each(function () {
+        if (jQuery(this).attr("rel").length > 0) {
 
-                                });
-                            }
-								if( jQuery(this).attr("rel").length>0){
+            jQuery(this).SetBubblePopup({
+                innerHtml: jQuery(this).attr("rel"),
+                color: 'grey',
+                imageFolder: '<?php echo $directory; ?>/images/bp_images'
 
-                                jQuery(this).SetBubblePopup({
-                                    innerHtml: jQuery(this).attr("rel"),
-                                    color:'grey',
-                                    imageFolder: '<?php echo $directory; ?>/images/bp_images'
-
-                                });
-                            }
-								
-                        });
-
-                          jQuery('.p-foll li a,#mfollowing a,#inbox a,.contarea a').each(function()
-                        {
-                            if( jQuery(this).attr("rel").length>0){
-
-                                jQuery(this).SetBubblePopup({
-                                    innerHtml: jQuery(this).attr("rel"),
-                                    color:'grey',
-                                    imageFolder: '<?php echo $directory; ?>/images/bp_images'
-
-                                });
-                            }
+            });
+        }
 
 
-                        });
+    });
 
 
 
-                        var height = jQuery(window).height();
-                        var width = jQuery(window).width();
-	
-                        var autosizable = false;
-                        var windowResize = true;
-                        var resizeable = false;
+    var height = jQuery(window).height();
+    var width = jQuery(window).width();
 
-                        /*jQuery.nyroModalSettings({  galleryCounts: '', forceType: 'iframe',minWidth: 600, // Minimum width
+    var autosizable = false;
+    var windowResize = true;
+    var resizeable = false;
+
+/*jQuery.nyroModalSettings({  galleryCounts: '', forceType: 'iframe',minWidth: 600, // Minimum width
                             minHeight: 400, // Minimum height
                             resizable: false, // Indicate if the content is resizable. Will be set to false for swf
                             autoSizable: true, // Indicate if the content is auto sizable. If not, the min size will be used
@@ -115,15 +108,13 @@ $directory = $base_path . $directory;
                             height: height
 
                         });*/
-                        jQuery("#loading").ajaxStart(function(){
-                            jQuery(this).fadeIn();
-                        });
-				 
-                        jQuery("#loading").ajaxStop(function(){
-                            jQuery(this).fadeOut();
-                        });
-                    });
+    jQuery("#loading").ajaxStart(function () {
+        jQuery(this).fadeIn();
+    });
 
+    jQuery("#loading").ajaxStop(function () {
+        jQuery(this).fadeOut();
+    });
                 </script>
 
                 <script type="text/javascript">
