@@ -1427,3 +1427,34 @@ function google_map() {
 
     echo "<div id=visualization></div>";
 }
+
+
+function amber_tour()
+{
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+     $page = substr($_REQUEST['q'],strrpos($_REQUEST['q'],'/'));
+    $page =  ltrim($page,'/');
+
+    switch($page)
+    {
+        case home:
+
+           echo '<img src="' . $gSitePath . path_to_theme() . '/images/tour/home.jpg"/>';
+            exit;
+         break;
+
+     case question:
+           echo '<img src="' . $gSitePath . path_to_theme() . '/images/tour/addquestion.jpg"/>';
+         break;
+
+      case donate:
+           echo '<img src="' . $gSitePath . path_to_theme() . '/images/tour/donate.jpg"/>';
+         break;
+
+
+
+    }
+
+
+}
