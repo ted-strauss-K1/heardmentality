@@ -1439,9 +1439,7 @@ function amber_tour()
     switch($page)
     {
         case home:
-
            echo '<img src="' . $gSitePath . path_to_theme() . '/images/tour/home.jpg"/>';
-            exit;
          break;
 
      case question:
