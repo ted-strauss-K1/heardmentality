@@ -216,17 +216,17 @@ $directory = $base_path . $directory;
 
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
                     <div class="ajTourDef" id="MyTour" style="display:none">
-                        <div title="<?php echo $gSitePath.path_to_theme();?>/tour/home.jpeg">
-                            <?php echo $gSitePath.path_to_theme();?>/tour/home.jpeg
+                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/home.jpeg">
+                          place holder for page 1
                         </div>
-                        <div title="<?php echo $gSitePath.path_to_theme();?>/tour/addquestion.jpeg">
-                           <?php echo $gSitePath.path_to_theme();?>/tour/addquestion.jpeg
+                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/addquestion.jpeg">
+                          place holder for page 2
                         </div>
-                        <div title="<?php echo $gSitePath.path_to_theme();?>/tour/notify.jpeg">
-                           <?php echo $gSitePath.path_to_theme();?>/tour/notify.jpeg
+                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/notify.jpeg">
+                         place holder for page 3
                         </div>
-                        <div title="<?php echo $gSitePath.path_to_theme();?>/tour/donate.jpeg">
-                           <?php echo $gSitePath.path_to_theme();?>/tour/donate.jpeg
+                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/donate.jpeg">
+                          place holder for page 4
                         </div>
                     </div>
 
