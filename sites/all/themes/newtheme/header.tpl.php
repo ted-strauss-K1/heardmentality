@@ -217,16 +217,16 @@ $directory = $base_path . $directory;
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
                     <div class="ajTourDef" id="MyTour" style="display:none">
                         <div title="<?php echo $gSitePath.path_to_theme();?>/tour/home.jpeg">
-                            Placeholder for page 1 - replace this text
+                            <?php echo $gSitePath.path_to_theme();?>/tour/home.jpeg
                         </div>
                         <div title="<?php echo $gSitePath.path_to_theme();?>/tour/addquestion.jpeg">
-                            Placeholder for page 2 - replace this text
+                           <?php echo $gSitePath.path_to_theme();?>/tour/addquestion.jpeg
                         </div>
                         <div title="<?php echo $gSitePath.path_to_theme();?>/tour/notify.jpeg">
-                            Placeholder for page 3 - replace this text
+                           <?php echo $gSitePath.path_to_theme();?>/tour/notify.jpeg
                         </div>
                         <div title="<?php echo $gSitePath.path_to_theme();?>/tour/donate.jpeg">
-                            Placeholder for page 3 - replace this text
+                           <?php echo $gSitePath.path_to_theme();?>/tour/donate.jpeg
                         </div>
                     </div>
 
