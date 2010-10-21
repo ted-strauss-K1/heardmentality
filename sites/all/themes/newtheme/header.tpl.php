@@ -214,8 +214,30 @@ $directory = $base_path . $directory;
                         </marquee>
                     </div>
 
+
+
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
-                    <div class="ajTourDef" id="MyTour" style="display:none">
+                    <div class="ajTourDef" id="MyTour" style="display:none" title="http://58.68.27.117/heardmentality/">
+                      <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/home.jpg">
+                        Placeholder for page 1 - replace this text
+                      </div>
+                      <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/addquestion.jpg">
+                        Placeholder for page 2 - replace this text
+                      </div>
+                      <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/donate.jpg">
+                        Placeholder for page 3 - replace this text
+                      </div>
+                    </div>
+
+                    <script type="text/javascript" src="http://amberjack.org/src/stable/amberjack.pack.js">
+                    </script>
+
+                    <script type="text/javascript" defer="true">
+                      Amberjack.onCloseClickStay = true;
+                      Amberjack.open();
+                    </script>
+                    <!-- Tour created with Amberjack wizard: http://amberjack.org -->
+                   <!-- <div class="ajTourDef" id="MyTour" style="display:none">
                         <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/home.jpg">
                           place holder for page 1
                         </div>
@@ -236,7 +258,7 @@ $directory = $base_path . $directory;
                     <script type="text/javascript" defer="true">
                         Amberjack.onCloseClickStay = true;
                         Amberjack.open();
-                    </script>
+                    </script>-->
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
                     <div class="main">
                         <div class="top"></div>
