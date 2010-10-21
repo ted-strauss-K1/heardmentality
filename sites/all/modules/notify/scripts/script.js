@@ -74,6 +74,13 @@
 
 jQuery(document).ready(function(){
 
+    $('.facttext .menu a').click(function() {
+        //$('#box1').css("background","#9f9");
+        $(".facttext .menu a").css('color', '#DD6600');
+        $(this).css('color', '#4170A0');
+        
+});
+
     jQuery(".contarea a[href*='?ajax=1']").each(function(){
    
         jQuery(this).click(function () {
