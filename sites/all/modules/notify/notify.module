@@ -88,7 +88,7 @@ function forum_post() {
 
 	$output = '';
 
-        $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!='' order by id desc limit 0,5";
+        echo $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!='' order by id desc limit 0,5";
 
          $get_follow = db_query($sel_follow);
 
@@ -1002,7 +1002,7 @@ function notify_follow_question() {
         $vote = load_votes($list['node_id']);
         // print_r($qdet);
         if ($qdet['question'] != '') {
-            $output.='<li><div><a href="'.$gSitePath.$qdet['url'].'?ajax=1" style="'.drupal_link_color($user->uid,$qdet['qid']).'" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'">' . truncate_utf8($qdet['question'], '50') . '</a><div>
+            $output.='<li><div><a href="'.$gSitePath.$qdet['url'].'?ajax=1" style="'.drupal_link_color($user->uid,$qdet['qid']).'" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'" >' . truncate_utf8($qdet['question'], '50') . '</a><div>
                 <div>' . $vote['qns'] . ' Votes &nbsp; ' . $vote['forum'] . ' Posts</div></li>';
           }
     }
@@ -1037,8 +1037,6 @@ function notify_leftpanel()
     //$countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid. "'  and follower_status='1'"));
     foreach($rs_following as $items)
      {
-
-
         if($items['is_flag']==1&&$flag_access==1)
         {
                 //echo "1";

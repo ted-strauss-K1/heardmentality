@@ -91,6 +91,10 @@ reset_tabs();
        
     });
 
+    jQuery('div.facttext > ul.menu > li a').click(function(){
+        alert('clicked');
+        return false;
+    });
 });
 
 
