@@ -36,10 +36,41 @@ jQuery(document).ready(function() {
 function mycarousel_itemLoadCallback(carousel, state)
 {
     // Check if the requested items already exist
-    if (carousel.has(carousel.first, carousel.last)) {
+if (carousel.prevFirst != null) {
+        // Remove the last visible items to keep the list small
+        for (var i = carousel.prevFirst; i <= carousel.prevLast; i++) {
+            // jCarousel takes care not to remove visible items
+            carousel.remove(i);
+        }
+    }
+if (carousel.size>carousel.last) {
         return;
     }
+
+    var per_page = carousel.last - carousel.first + 1;
+    var currPage = 0;
+    var f,l;
+    var cr = carousel;
+
+    for (var i = carousel.first; i <= carousel.last; i++) {
+        var page = Math.ceil(i / per_page);
+
+        if (currPage != page) {
+            currPage = page;
+
+            f = ((page - 1) * per_page) + 1;
+            l = f + per_page - 1;
+
+            f = f < carousel.first ? carousel.first : f;
+            l = l > carousel.last ? carousel.last : l;
+
+            if (carousel.has(f, l)) {
+                continue;
+            }
+        } }
+
     var url=gSitePath+'pundit/ajax';
+ 
     jQuery.getJSON(
         url,
         {
@@ -49,20 +80,21 @@ function mycarousel_itemLoadCallback(carousel, state)
         function(xml) {
             // mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, xml);
             var mycarousel_itemList = xml;
+  carousel.unlock();
+  carousel.size(mycarousel_itemList[0].total);
+
 
             for (var i = carousel.first; i <= carousel.last; i++) {
                 
-                if (carousel.has(i)) {
-                    continue;
-                }
+          var per_page = carousel.last - carousel.first + 1;
+              
 
-                if (i > mycarousel_itemList.length) {
-                   
-                   break;
-                }
-            
-                // Create an object from HTML
-              var item = jQuery(mycarousel_getItemHTML(mycarousel_itemList[i-1])).get(0);
+
+        var pos = i - 1;
+        var idx = Math.round(((pos / per_page) - Math.floor(pos / per_page)) * per_page);
+
+                      // Create an object from HTML
+              var item = jQuery(mycarousel_getItemHTML(mycarousel_itemList[idx])).get(0);
               //var item=mycarousel_getItemHTML(mycarousel_itemList[i-1]);
                 // Apply thickbox
                 // tb_init(item);
@@ -91,6 +123,7 @@ function mycarousel_getItemHTML(item)
 jQuery(document).ready(function() {
     jQuery('#mycarousel').jcarousel({
         initCallback: mycarousel_initCallback,
+      visible: 4,
        // Uncomment the following option if you want items
         // which are outside the visible range to be removed
         // from the DOM.
