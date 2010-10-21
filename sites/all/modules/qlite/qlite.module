@@ -180,31 +180,23 @@ function get_top_pundits() {
     }
     else
     {
-    $query = "select * from {gurulist}";
-    $list = ExecuteQuery($query, "select");
-
-    $page_incr = 0;
-     $pager = 1;
-    foreach ($list as $quest) {
-        
-         $udetails=load_user($quest['uid']);
-         $bubble = load_bubble($udetails->uid);
-         // $output .= '<li><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture($quest['uid']).'</a></li>';
-           $page_incr = $page_incr + 1;
-         
-          if($page_incr==4)
-          {
-              $page .= '<a href="#">'.$pager.'</a>';
-              $page_incr = 0;
-              $pager = $pager + 1;
-          }
-    
-        
-         $output_pager = '<span class="jcarousel-control">'.$page.'</span>';
-
-          }
+    $query = "select count(*) from {gurulist}";
+    $cnt=db_result(db_query($query));
+     $limit=4;
+     $total=round($cnt/$limit);
+      $mod=$cnt%$limit;
+      $mul=1;
+    for($i=1;$i<=$total;$i++){
+             
+             $page .= '<a href="#" rel="'.$mul.'">'.$i.'</a>';
+             $mul=$mul+$limit;
+                  $mul--;
+       }
+       if($mod)
+           $page.='<a href="#" rel="'.$mul.'">'.$i.'</a>';
     }
-  
+  $output_pager = '<span class="jcarousel-control">'.$page.'</span>';
+
     $output .= '</ul>
             </div>
            </div>';
@@ -214,8 +206,8 @@ function get_top_pundits() {
         <a href="#" id="mycarousel-prev">&laquo; Prev</a>'.$output_pager.'<a href="#" id="mycarousel-next">Next &raquo;</a>
         </div>';
     return $output;
-}
 
+}
 function get_top_list($time='') {
   
     global $gSitePath,$user,$gDocPath,$base_root;

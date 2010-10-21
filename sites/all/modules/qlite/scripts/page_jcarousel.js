@@ -1,6 +1,6 @@
 function mycarousel_initCallback(carousel) {
-    /*  jQuery('.jcarousel-control a').bind('click', function() {
-        carousel.scroll(jQuery.jcarousel.intval(jQuery(this).text()));
+   jQuery('.jcarousel-control a').bind('click', function() {
+        carousel.scroll(jQuery.jcarousel.intval(jQuery(this).attr('rel')));
         return false;
     });
 
@@ -8,7 +8,7 @@ function mycarousel_initCallback(carousel) {
         carousel.options.scroll = jQuery.jcarousel.intval(this.options[this.selectedIndex].value);
         return false;
     });
-*/
+
     jQuery('#mycarousel-next').bind('click', function() {
         carousel.next();
         return false;
@@ -43,9 +43,7 @@ if (carousel.prevFirst != null) {
             carousel.remove(i);
         }
     }
-if (carousel.size>carousel.last) {
-        return;
-    }
+
 
     var per_page = carousel.last - carousel.first + 1;
     var currPage = 0;
@@ -83,16 +81,14 @@ if (carousel.size>carousel.last) {
   carousel.unlock();
   carousel.size(mycarousel_itemList[0].total);
 
-
+ var per_page = carousel.last - carousel.first + 1;
             for (var i = carousel.first; i <= carousel.last; i++) {
-                
-          var per_page = carousel.last - carousel.first + 1;
-              
-
-
-        var pos = i - 1;
+                          
+             var pos = i - 1;
         var idx = Math.round(((pos / per_page) - Math.floor(pos / per_page)) * per_page);
-
+        if (i>carousel.size()) {
+        break;
+    }
                       // Create an object from HTML
               var item = jQuery(mycarousel_getItemHTML(mycarousel_itemList[idx])).get(0);
               //var item=mycarousel_getItemHTML(mycarousel_itemList[i-1]);
@@ -113,10 +109,13 @@ if (carousel.size>carousel.last) {
 
 function mycarousel_getItemHTML(item)
 {
-    // var url_m = item.url.replace(/_s.jpg/g, '_m.jpg');
-    //var html=item.rel.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    var html='';
+     if(item){
+      var html='';
     return '<a  href="' + item.url + '" title="' + item.title + '">'+item.image+'</a>';
+     }else{
+         return '';
+     }
+   
 };
 
 
