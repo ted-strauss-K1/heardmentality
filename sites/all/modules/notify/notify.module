@@ -90,12 +90,12 @@ function forum_post() {
          $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!='' order by id desc limit 0,5";
 
          $get_follow = db_query($sel_follow);
-		  $output .= '<div id=""><ul>';
+		  $output .= '<div id="">';
   while($fet_follow = db_fetch_object($get_follow))
   {
          $test_forum = "select * from forum_wave where uid='$fet_follow->follower_id' group by qid_rid order by fid desc limit 0,5";
          $test_follow = db_query($test_forum);
-         $output.='<li>';
+         $output.='<ul><li>';
          while($test_fet = db_fetch_object($test_follow))
          {
 
@@ -119,7 +119,7 @@ function forum_post() {
 
 
          }
-         $output.='</li>';
+         $output.='</li></ul>';
 
 
 
@@ -155,7 +155,7 @@ function forum_post() {
 
 
   }
-        $output.='</ul></div>';
+        $output.='</div>';
         if($forum_list<1)
       {
           $output = "No records";
