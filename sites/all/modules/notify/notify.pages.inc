@@ -1,7 +1,7 @@
 <?php
 
 function my_notify_list() {
-
+    
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
     drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/main.css');
@@ -60,20 +60,15 @@ function my_notify_list() {
 													  $(\'show_box\').set(\'html\', clearfi);
 											}
 									}).send();
-
-
 						}
-
-
-
-
 					</script>
-
 			';
     if (($idb == 'ynotify') || ($idb == 'repcontent')) {
-        $query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
-        $quest = db_query($query);
-        $qid = db_result($quest);
+
+      $assign = 0;
+        //$query = "SELECT qid from {question} order by qid DESC limit 0,1 ";
+        //$quest = db_query($query);
+        //$qid = db_result($quest);
     } else {
         $query = "SELECT qid from {question} where url='" . $idb . "'";
         $quest = db_query($query);
@@ -115,9 +110,15 @@ function my_notify_list() {
         }
     }
     $chk = '';
+    
+    if($assign==0)
+    {
+        $voutput .="<div align='center'><b>No questions selected</b></div>";
+    }
 
 
     $voutput.='</div>';
+
 
     // $voutput.=qlite_report($qid);
     return $voutput;
