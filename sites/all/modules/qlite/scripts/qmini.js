@@ -4,9 +4,7 @@
 function get_toplist(sid,level){
 	cid=jQuery('#tcat').val();
 	if(level==2){
-			scid=sid;
-		
-
+	scid=sid;
 	}else{
 		
 		scid='';
@@ -39,4 +37,5 @@ function get_toplist(sid,level){
 		 jQuery('#res_scat').html('');	
 	}
 	
-}
+ }
+

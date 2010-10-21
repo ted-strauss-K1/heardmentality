@@ -242,7 +242,7 @@ function get_top_list($time='') {
     if (! empty($list)) {
         foreach ($list as $quest) {
 
-            $output .=  '<li  class="leaf"><a rel="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .=  '<li  class="leaf"><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
 
         }
@@ -296,7 +296,7 @@ function get_hot_list($time='') {
     if (! empty($list)) {
         foreach ($list as $quest) {
             
-            $output .= '<li class="leaf"><a rel="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .= '<li class="leaf"><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
         
         }
