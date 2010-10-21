@@ -213,18 +213,15 @@ $directory = $base_path . $directory;
                             Loading...
                         </marquee>
                     </div>
-
-
-
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
                     <div class="ajTourDef" id="MyTour" style="display:none">
-                      <div title="http://216.139.157.254/openwave/hm/sites/all/themes/newtheme/images/tour/home.jpg">
+                      <div title="http://58.68.27.117/heardmentality/tour/home/home">
                         Placeholder for page 1 - replace this text
                       </div>
-                      <div title="http://216.139.157.254/openwave/hm/sites/all/themes/newtheme/images/tour/addquestion.jpg">
+                      <div title="http://58.68.27.117/heardmentality/tour/home/question">
                         Placeholder for page 2 - replace this text
                       </div>
-                      <div title="http://216.139.157.254/openwave/hm/sites/all/themes/newtheme/images/tour/donate.jpg">
+                      <div title="http://58.68.27.117/heardmentality/tour/home/donate">
                         Placeholder for page 3 - replace this text
                       </div>
                     </div>
@@ -237,19 +234,15 @@ $directory = $base_path . $directory;
                       Amberjack.open();
                     </script>
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
-                   <!-- <div class="ajTourDef" id="MyTour" style="display:none">
-                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/home.jpg">
+                  <!--  <div class="ajTourDef" id="MyTour" style="display:none">
+                        <div title="http://localhost/heardmentality/tour/home/home">
                           place holder for page 1
                         </div>
-                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/addquestion.jpg">
+                        <div title="http://localhost/heardmentality/tour/home/question">
                           place holder for page 2
                         </div>
-                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/notify.jpg">
+                        <div title="http://localhost/heardmentality/tour/home/donate">
                          place holder for page 3
-                        </div>
-                        <div title="http://58.68.27.117/heardmentality/sites/all/themes/newtheme/images/tour/donate.jpg">
-                          place holder for page 4
-                        </div>
                     </div>
 
                     <script type="text/javascript" src="http://amberjack.org/src/stable/amberjack.pack.js">
