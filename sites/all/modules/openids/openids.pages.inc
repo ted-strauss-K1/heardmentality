@@ -534,12 +534,12 @@ function age($date){
 	
 $year_diff = '';
 	if(!empty($date)){
-	list($day,$month,$year)=explode("/",$date);
+	//list($day,$month,$year)=explode("/",$date);
    
-	 $year_diff = date("Y")-$year;
-	$month_diff = date("m")-$month;
-	$day_diff = date("d")- $day;
-	if ($day_diff < 0 || $month_diff < 0) $year_diff–;
+	 $year_diff = date("Y")-$date;
+	//$month_diff = date("m")-$month;
+	//$day_diff = date("d")- $day;
+	//if ($day_diff < 0 || $month_diff < 0) $year_diff–;
 
 	return $year_diff;
         }else{
@@ -550,8 +550,8 @@ $year_diff = '';
 
 
 function welcome_page() {
-ob_start();
-    global $gSitePath,$user,$gDocPath,$base_root;
+//ob_start();
+    global $gSitePath,$user,$gDocPath,$base_root,$apikey;
     //print_r($_COOKIE);
     //echo $_COOKIE["faceidc"];
     //print_r($_REQUEST);
@@ -697,13 +697,15 @@ ob_start();
         $chk = db_query("select * from {user_profile} where uid='$user->uid'");
         $chk1 = db_result($chk);
         $result_profile = db_fetch_object($chk);
-          $urls=serialize(array_merge($ptitle,$purl));
-        
+
+         $socials=implode('||',$social);
+        $urls=implode(';',$ptitle).'@'.implode('||',$purl);
+   
         $update_user = db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
         $age='';
 		 $age=age($dob);
       
-        $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',facebook='$facebook',twitter='$twitter',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
+        $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',social='$socials',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
 
         
         $sel_ulists = "select * from {user_profile} where uid='$user->uid'";
@@ -724,7 +726,7 @@ ob_start();
 				echo '<script>window.top.location.href="'.$gSitePath.'user/cropimage";</script>';
 			}
 			
-            $message = 'Profile Updated Successfully!<script>fb.end();</script>';
+            $message = '<div class="success">Profile Updated Successfully!</div><script>fb.end();</script>';
         
         }
 
@@ -736,12 +738,10 @@ ob_start();
     
     extract($result);
      drupal_set_title('Edit Profile');
-    // echo $result['urls'];
-     $serialized_object='O:1:"a":1:{s:5:"value";s:3:"100";}';
-     $urls_ar=array();
-    $urls_ar=unserialize($serialized_object);
-    print_r($urls_ar);
-    die;
+     $psplit=explode('@',$urls);
+     $ptitle=explode(';',$psplit[0]);
+     $purl=explode('||',$psplit[1]);
+     $social=explode('||',$social);
     drupal_add_js(drupal_get_path('module', 'profile').'/js/en.js');
     drupal_add_js(drupal_get_path('module', 'profile').'/js/formcheck.js');
     drupal_add_css(drupal_get_path('module', 'profile').'/theme/classic/formcheck.css');
@@ -839,7 +839,10 @@ while($i<mysql_num_fields($result))
 
   $meta=mysql_fetch_field($result,$i);
   $col=$meta->name;
+  if($fetch[0][$col]>1)
   $inc_script.='jQuery("input[name*=\''.$meta->name.'_privacy\']").filter(\'[value="'.$fetch[0][$col].'"]\').attr(\'checked\', true);';
+  else
+   $inc_script.='jQuery("input[name*=\''.$meta->name.'_privacy\']").filter(\'[value="1"]\').attr(\'checked\', true);';
 
   $i++;
 } 
@@ -866,15 +869,22 @@ while($i<mysql_num_fields($result))
 	
 
 	<head>
-	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="'.$gSitePath.drupal_get_path('theme', 'heardmentality').'/scripts/mootools-1.2-more.js"></script>	<script type="text/javascript">
+<script type="text/javascript">
 var spath=\''.$gSitePath.'\';
+    </script><script src="'.$gSitePath.'/misc/jquery.js" type="text/javascript"></script>
+<script src="'.$gSitePath.path_to_theme().'/floatbox/floatbox.js" type="text/javascript"></script>
+    	<SCRIPT type="text/javascript" lang="javascript"
+	   src="http://cdn.gigya.com/JS/socialize.js?apikey='.$apikey.'">
+	</SCRIPT>
+	<script>
+	    var conf =
+        {
+            APIKey: \''.$apikey.'\'
+        };
 </script><script src="'.$gSitePath.'sites/all/modules/profile/js/profile.js" type="text/javascript">
 </script><script src="'.$gSitePath.'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
 <link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
-</script><script src="'.$gSitePath.'/misc/jquery.js" type="text/javascript"></script>
-<script src="'.$gSitePath.path_to_theme().'/floatbox/floatbox.js" type="text/javascript">
-</script>
+
 <script>
 jQuery.noConflict();
 </script>
@@ -895,7 +905,7 @@ jQuery.noConflict();
     TELL US ABOUT YOURSELF
     </div>
 <div class="info">
-	 <input type="hidden" class=""  readonly="true" border="0" width="1" size="1" name="errbox" id="errbox">
+	 <input type="input" class="" style="display:none;"  readonly="true" border="0" width="1" size="1" name="errbox" id="errbox">
          <div id="err_div" class="">'.$emsg.' '.$message.'</div>
     </div>
     <div class="clr"></div>
@@ -1031,7 +1041,18 @@ jQuery.noConflict();
           <div class="merge-social">
           <div class="merge-social-tit">merge your social networks</div>
           <div class="clr"></div>
-          <div class="merge-script-outer"><img src="images/merge-ur-social.jpg" width="274" height="40" alt="0"/></div>
+          <div class="merge-script-outer"> <div id="divConnect"></div>
+    <script type="text/javascript">
+        // show Add Connections Plugin in "divConnect"
+        gigya.services.socialize.showAddConnectionsUI(conf, {
+			height:65
+			,width:175
+			,showTermsLink:false //remove trems link
+			,hideGigyaLink:true // remove Gigya link
+			,useHTML:true  // Use the HTML implementation of the Plugin (rather then Flash implementation)
+			,containerID: "divConnect" // The component will embed itself inside the divConnect Div
+		});
+    </script>    </div>
 
           </div>
 
@@ -1062,13 +1083,13 @@ get found through search engines such as Google and Yahoo.</span></div>
                      <div class="clr"></div>
                          <div class="social-outer">
                           <div class="social-left"><img src="'.$gSitePath.path_to_theme().'/images/soc-face.jpg" width="26" height="27" alt="Facebook" /></div>
-                          <div class="social-rite"><input maxlength="60" name="facebook"   value="'.$facebook.'"  size="60"  type="text"> </div>
+                          <div class="social-rite"><input maxlength="60" name="social[]"   value="'.$social[0].'"  size="60"  type="text"> </div>
                          </div>
 
                          <div class="clr"></div>
                          <div class="social-outer">
                           <div class="social-left"><img src="'.$gSitePath.path_to_theme().'/images/soc-twit.jpg" width="27" height="27" alt="Twitter" /></div>
-                          <div class="social-rite"><input name="" type="text" /></div>
+                          <div class="social-rite"><input name="social[]" value="'.$social[1].'" type="text" /></div>
                          </div>
 
                          <div class="clr"></div>
@@ -1076,7 +1097,7 @@ get found through search engines such as Google and Yahoo.</span></div>
 
                          <div class="social-outer">
                           <div class="social-left"><img src="'.$gSitePath.path_to_theme().'/images/soc-myspace.jpg" width="26" height="27" alt="My Space" /></div>
-                          <div class="social-rite"><input name="" type="text" /></div>
+                          <div class="social-rite"><input name="social[]" value="'.$social[2].'"  type="text" /></div>
                          </div>
 
                          <div class="clr"></div>
@@ -1084,25 +1105,25 @@ get found through search engines such as Google and Yahoo.</span></div>
                          <div class="clr"></div>
                          <div class="social-outer">
 
-                          <div class="social-rite">Link Title :<input name="ptitle[]" type="text" maxlength="255" /></div>
+                          <div class="social-rite">Link Title :<input name="ptitle[]" type="text" value="'.$ptitle[0].'" maxlength="255" /></div>
                          </div>
                          <div class="clr"></div>
 
                          <div class="social-outer">
 
-                          <div class="social-rite">URL :&nbsp; &nbsp; &nbsp; &nbsp;<input name="purl[]" maxlength="255"  type="text" /></div>
+                          <div class="social-rite">URL :&nbsp; &nbsp; &nbsp; &nbsp;<input name="purl[]" value="'.$purl[0].'" maxlength="255"  type="text" /></div>
                          </div>
                          <div class="clr"></div>
                          <div class="border4web"></div>
                          <div class="clr"></div>
                          <div class="social-outer">
 
-                          <div class="social-rite">Link Title :<input name="ptitle[]" type="text" maxlength="255" /></div>
+                          <div class="social-rite">Link Title :<input name="ptitle[]" value="'.$ptitle[1].'" type="text" maxlength="255" /></div>
                          </div>
                          <div class="clr"></div>
                          <div class="social-outer">
 
-                          <div class="social-rite">URL :&nbsp; &nbsp; &nbsp; &nbsp;<input name="purl[]" type="text" maxlength="255"  /></div>
+                          <div class="social-rite">URL :&nbsp; &nbsp; &nbsp; &nbsp;<input name="purl[]" value="'.$purl[1].'" type="text" maxlength="255"  /></div>
                          </div>
 
 
@@ -1121,25 +1142,28 @@ get found through search engines such as Google and Yahoo.</span></div>
                  
   
 		<script>
-			var avat="'.$avatar.'";
-			if(avat.length>2){
-			jQuery("div.porfile_pix img").each(function(){ if(jQuery(this).attr("src").contains(avat)){
-		jQuery(this).addClass("avatar-select");	
-}
-			});
-}else{
-	jQuery("div.porfile_pix img:first").addClass("avatar-select");	
-	jQuery("div.porfile_pix input:first").attr("checked","checked");	
-}
-			var avatchk="'.$image_avatar.'";
 			
-			jQuery("div.bio-right input:radio[value="+avatchk+"]").attr("checked","checked");
 			
 			
 jQuery(document).ready(function(){
+chk_avatar();
+			var avatchk="'.$image_avatar.'";
+
+			jQuery("div.bio-right input:radio[value="+avatchk+"]").attr("checked","checked");
+
 '.$inc_script.'
 });
 
+function chk_avatar(){
+
+var avat="'.$avatar.'";
+			if(avat.length>2){
+			jQuery("div.form-item img[src*=\''.$avatar.'\']").addClass("avatar-select").prev("input radio").attr("checked",true);
+}else{
+	jQuery("div.form-item img:first").addClass("avatar-select");
+	jQuery("input[name=select_avatar]:first").attr("checked",true);
+}
+}
 	</script>
 
     </div> </body>
