@@ -267,6 +267,8 @@ function check_select($gid,$quid){
 
 function search_results_question() {
 ///vijay search
+   // print_r($_REQUEST);
+   // exit;
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
     $start = '';
     $txt_search = '';
@@ -1321,7 +1323,7 @@ function search_results_user() {
     $name = $_REQUEST['txt_search'];
 
     if ($name!='')
-        $qry .= "(img.real_name LIKE '" . $name . "%') AND ";
+        $qry .= "(img.real_name LIKE '%" . $name . "%') AND ";
     if ($code!='')
         $qry .= "(img.country LIKE '" . $code . "%') AND ";
 
