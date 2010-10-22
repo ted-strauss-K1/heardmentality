@@ -186,7 +186,7 @@ function qlite_view() {
 
                 $chk = "checked";
             }
-            $voutput .= ' <br/><input name="answer_al" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
+            $voutput .= ' <br/><input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
 		<label>' . $vlistquest->answer . '  </label> ';
         }
         $chk = '';
@@ -742,8 +742,8 @@ function qlite_save() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
     $mid = $_REQUEST['mid'];
-    //print_r($_REQUEST);
-    //exit;
+   // print_r($_REQUEST);
+   // exit;
     $voutput = '';
     $vquest = "select * from {possible_answer} where paid='" . $_REQUEST['answer'] . "'  ";
     $rquest = db_query($vquest);
@@ -838,6 +838,18 @@ function qlite_save() {
         $poss_ans = $_REQUEST['answer_al'][$a];
      $vInsQuery = "update {possible_answer_vote} set qid='".$mid."',panswer_id='".$poss_ans."',vote_pdate=now() where vote_pid='".$_REQUEST['vote_id']."' AND uid='" . $user->uid . "'";
      
+            db_query($vInsQuery);
+            drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
+            send_votenotify($mid);
+
+    }
+
+    if (($_REQUEST['answer_a2'] != '')&&(isset($_REQUEST['change']))) {
+        //$arr = array_keys($_REQUEST['answer_al']);
+         //$a = $arr['0'];
+        //$poss_ans = $_REQUEST['answer_al'][$a];
+     $vInsQuery = "update {possible_answer_vote} set qid='".$mid."',panswer_id='".$_REQUEST['answer_a2']."',vote_pdate=now() where vote_pid='".$_REQUEST['vote_id']."' AND uid='" . $user->uid . "'";
+
             db_query($vInsQuery);
             drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
             send_votenotify($mid);
