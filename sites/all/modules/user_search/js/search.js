@@ -210,7 +210,9 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container'];
     });
 }
 
-jQuery(document).ready(function(){
+
+//temporarly disabled ajax post questions search
+/*jQuery(document).ready(function(){
  $("#save").click(function() {
 	var answer = $("#answer").val();
         var mid = $("#mid").val();
@@ -232,7 +234,7 @@ jQuery(document).ready(function(){
      });
     return false;
 	});			
-});						
+});*/
 	
 
 	
