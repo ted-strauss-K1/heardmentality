@@ -742,13 +742,18 @@ function qlite_save() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
     $mid = $_REQUEST['mid'];
-  //  print_r($_REQUEST);
+    //print_r($_REQUEST);
+    //exit;
     $voutput = '';
     $vquest = "select * from {possible_answer} where paid='" . $_REQUEST['answer'] . "'  ";
     $rquest = db_query($vquest);
     $olistquest = db_fetch_object($rquest);
 
     if (($_REQUEST['answer'] != '')&&(isset($_REQUEST['save']))) {
+
+
+
+
 
         $numr = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $mid . "' and uid='" . $user->uid . "'"));
 
@@ -823,14 +828,106 @@ function qlite_save() {
             drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
             drupal_goto("qlite/view/$mid");
         }
-    }elseif (($_REQUEST['answer_al'] != '')&&(isset($_REQUEST['change']))) {
 
-     $vInsQuery = "update {possible_answer_vote} set qid='".$mid."',panswer_id='".$_REQUEST['answer_al']."',vote_pdate=now() where vote_pid='".$_REQUEST['vote_id']."' AND uid='" . $user->uid . "'";
+
+
+
+    }elseif (($_REQUEST['answer_al'] != '')&&(isset($_REQUEST['change']))) {
+        $arr = array_keys($_REQUEST['answer_al']);
+         $a = $arr['0'];
+        $poss_ans = $_REQUEST['answer_al'][$a];
+     $vInsQuery = "update {possible_answer_vote} set qid='".$mid."',panswer_id='".$poss_ans."',vote_pdate=now() where vote_pid='".$_REQUEST['vote_id']."' AND uid='" . $user->uid . "'";
+     
             db_query($vInsQuery);
             drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
             send_votenotify($mid);
 
     }
+
+
+
+
+    ////////////question search vote added start here
+    if (($_REQUEST['answer_al'] != '')&&(isset($_REQUEST['save']))) {
+        $arr = array_keys($_REQUEST['answer_al']);
+         $a = $arr['0'];
+        $poss_ans = $_REQUEST['answer_al'][$a];
+
+
+     $numr = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $mid . "' and uid='" . $user->uid . "'"));
+        if ($numr == 0) {
+
+            $calvotep = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where panswer_id='" .$poss_ans. "' "));
+            if ($calvotep == 0) {
+                $votepointp = '1';
+            } else {
+                $votepointp = $olistquest->vote + 1;
+            }
+
+                 $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" .$poss_ans. "','" . date('Y-m-d h:i:s') . "')";
+            db_query($vInsQuery);
+
+
+            $notify_insqry = "insert into notification(uid,is_answer,node_id)values('".$user->uid."','1','".$mid."')";
+            db_query($notify_insqry);
+
+
+            drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
+            send_votenotify($mid);
+
+            increasepoints('2', $mid, '0');
+            //badges
+            //teacher($user->uid,$mid);
+
+            $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='" . $mid . "' GROUP BY qid";
+            $query_listd = db_query($queryd);
+            $fetvotd = db_fetch_object($query_listd);
+
+            $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='" . $mid . "' GROUP BY qid";
+            $query_sugestlistd = db_query($query_sugests);
+            $fetvotsugestbg = db_fetch_object($query_sugestlistd);
+            $totalvotesm = $fetvotd->possiblevote + $fetvotsugestbg->suggestv;
+            $totalvotesm;
+            $calc = $totalvotesm * $votepointp / 100;
+            $updatevoteposs = "update  possible_answer set vote='$votepointp' where paid='" .$poss_ans. "'";
+            db_query($updatevoteposs);
+
+
+            /////////////////////////nice answer /////////Good Answer ////////////////Great Answer////////
+
+            $popcntans = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} where qid='" . $mid . "' "));
+            //  echo $popcntans;
+            $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $mid . "'  ";
+            $rlist = db_query($vSql);
+            $ansrem = db_fetch_object($rlist);
+            if ($popcntans == 1) {
+                $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='25'"));
+                if ($stucntr == 0) {
+                    db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','" . $ansrem->uid . "') ");
+                }
+            }
+            //////////////Good Answer///////////////////////
+            if ($popcntans == 3) {
+                $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='17'"));
+                if ($stucntr == 0) {
+                    db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','" . $ansrem->uid . "') ");
+                }
+            }
+            //////////////great answers///////////////////////
+            if ($popcntans == 5) {
+                $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='19'"));
+                if ($stucntr == 0) {
+                    db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','" . $ansrem->uid . "') ");
+                }
+            }
+            drupal_goto("qlite/view/$mid");
+        } else {
+            drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
+            drupal_goto("qlite/view/$mid");
+        }
+
+    }
+     ////////////question search vote added end here
 
 
     if ($_REQUEST['txt_act'] == 1) {
