@@ -1163,23 +1163,28 @@ function question_ajax() {
 
          $input=trim(strtolower($_REQUEST['input']));
     $stype=$_REQUEST['stype'];
-
+     $aResults = array();
     if($stype=='2'){
 
 
-    $query = "select uid as id,real_name as value,first_name as info from {user_profile} where (real_name like '%$input%' OR first_name like '%$input%')  ORDER BY uid ASC ";   
-    $aResults = ExecuteQuery($query, "select");
-    
+    $query = "select uid as id,real_name as value,first_name as info from user_profile where (real_name like '%$input%' OR first_name like '%$input%')  ORDER BY uid ASC ";
+    //  $aResults = ExecuteQuery($query, "select");
+    $Result=mysql_query($query);
+   
+		
     }else{
 
       
-         $query = "select qid as id,question as value,context as info from {question} where question like '%$input%' OR context like '%$input%' AND status='1' ORDER BY qid ASC ";
-    $aResults = ExecuteQuery($query, "select");
+         $query = "select qid as id,question as value,context as info from question where question like '%$input%' OR context like '%$input%' AND status='1' ORDER BY qid ASC ";
+        //$aResults = ExecuteQuery($query, "select");
+         $Result=mysql_query($query);
 
 
     }
-
-
+        while($ResultSet1 = mysql_fetch_array($Result)){
+		$aResults[] = $ResultSet1;
+        }
+    //print_r($aResults);
        // $aResults[]=array('id'=>'question_1','value'=>'Question vs','info'=>'currency','currency'=>'hello');
           // $aResults[]=array('id'=>'question_2','value'=>'Question info','info'=>'currency','currency'=>'hello');
            //print_r($aResults);

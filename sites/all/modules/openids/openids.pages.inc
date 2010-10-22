@@ -866,9 +866,7 @@ while($i<mysql_num_fields($result))
     $option2 = '<option value=2>'.$usertypes[1].'</option>';
     $option3 = '<option value=3>'.$usertypes[2].'</option>';
     $op = '
-	
-
-	<head>
+<head>
 <script type="text/javascript">
 var spath=\''.$gSitePath.'\';
     </script><script src="'.$gSitePath.'/misc/jquery.js" type="text/javascript"></script>
