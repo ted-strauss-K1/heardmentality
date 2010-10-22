@@ -1177,6 +1177,7 @@ OR `first_name` LIKE CONVERT( _utf8 '%natarajan%'
 USING latin1 )
 COLLATE latin1_swedish_ci
 LIMIT 0 , 30";
+
     $aResults = ExecuteQuery($query, "select");
     
     }else{
@@ -1198,7 +1199,7 @@ LIMIT 0 , 30";
                   header ("Pragma: no-cache"); // HTTP/1.0
 
             header("Content-Type: application/json");
-
+            print_r($aResults);
 		echo "{\"results\": [";
 		$arr = array();
 		for ($i=0;$i<count($aResults);$i++)
