@@ -1408,12 +1408,6 @@ function google_map() {
              
                 $first = $first + 1;
             }
-             $asscountry .= "var options = {};
-                options['region'] = 'US';
-                options['colors'] = [0xE0FFD4, 0xA5EF63, 0x50AA00, 0x267114] //orange colors
-             options['dataMode'] = 'markers';
-             options['showZoomOut'] = 'true'
-             options['zoomOutLabel'] = 'Zoom Out'";
             break;
     }
 
