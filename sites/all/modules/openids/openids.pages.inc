@@ -736,9 +736,12 @@ ob_start();
     
     extract($result);
      drupal_set_title('Edit Profile');
-     echo $result['urls'];
+    // echo $result['urls'];
+     $serialized_object='O:1:"a":1:{s:5:"value";s:3:"100";}';
      $urls_ar=array();
-    $urls_ar=unserialize($result['urls']); print_r($urls_ar);die;
+    $urls_ar=unserialize($serialized_object);
+    print_r($urls_ar);
+    die;
     drupal_add_js(drupal_get_path('module', 'profile').'/js/en.js');
     drupal_add_js(drupal_get_path('module', 'profile').'/js/formcheck.js');
     drupal_add_css(drupal_get_path('module', 'profile').'/theme/classic/formcheck.css');

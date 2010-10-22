@@ -3,7 +3,7 @@
  * Implementation of hook_perm().
  */
 function gurupoints_perm() {
-    return array('Add Points', 'list Points');
+    return array('Add Points', 'list Points','Home List');
 }
 
 
@@ -18,7 +18,7 @@ function gurupoints_menu() {
     $search_result['admin/point/save'] = array('title'=>' Add Points', 'page callback'=>'save_points', 'access arguments'=>array('Add Points'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
     
     $search_result['admin/userpoints'] = array('title'=>'User Points', 'page callback'=>'user_points', 'access arguments'=>array('list Points'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
-    $search_result['pundit/ajax'] = array('title'=>'Ajax Listing', 'page callback'=>'ajax_pundits', 'access arguments'=>array('list Points'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
+    $search_result['pundit/ajax'] = array('title'=>'Ajax Listing', 'page callback'=>'ajax_pundits', 'access arguments'=>array('Home List'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'gurupoints.pages.inc', );
 
     return $search_result;
 }
