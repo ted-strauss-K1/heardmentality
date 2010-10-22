@@ -98,12 +98,20 @@ function forum_post() {
          $output.='<ul><li>';
          while($test_fet = db_fetch_object($test_follow))
          {
+             if(strlen($ques_fet->question)>40)
+                    {
+                        $bubble_question = 'title="'. htmlentities(wordwrap($ques_fet->question, 40,'<br/>')).'"';
+                    }
+                    else
+                    {
+                        $bubble_question = '';
+                    }
 
              $ques_qry = "select * from question where qid='$test_fet->qid_rid'";
               $ques_row = db_query($ques_qry);
               $ques_fet = db_fetch_object($ques_row);
           
-             $output .='<div><a href="'.$gSitePath.$ques_fet->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_fet->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$ques_fet->qid).'">'. substr($ques_fet->question,0,20).'...'.'</a></div>';
+             $output .='<div><a href="'.$gSitePath.$ques_fet->url.'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$ques_fet->qid).'">'. substr($ques_fet->question,0,20).'...'.'</a></div>';
 
              $forum_query = "select * from forum_wave where qid_rid='$ques_fet->qid' order by fid desc limit 0,5";
 
