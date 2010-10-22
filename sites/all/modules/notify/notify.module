@@ -419,7 +419,14 @@ function notify_based_category()
                  //$questlist .= '<div>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</div>';
 
 
-                  
+                  if(strlen($ques_rows->question)>40)
+                    {
+                        $bubble_question = 'title="'. htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'"';
+                    }
+                    else
+                    {
+                        $bubble_question = '';
+                    }
 
 
                    $udetails=load_user($ques_rows->uid);
@@ -435,7 +442,7 @@ function notify_based_category()
                        
                        <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($ques_rows->uid).'</a></div>
                            
-                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$ques_rows->qid).'">'.substr($ques_rows->question,0,70).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
+                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$ques_rows->qid).'">'.substr($ques_rows->question,0,70).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
                    </div>';
                    }
 
@@ -749,7 +756,20 @@ function notify_followeranswer()
             userPicture_small($fet_ans->uid);
 
              $udetails=load_user($fet_ans->uid);
-                 $bubble = load_bubble($udetails->uid);
+             $bubble = load_bubble($udetails->uid);
+             
+             
+             if(strlen($qdet['question'])>40)
+                    {
+                        $bubble_question = 'title="'. htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'"';
+                    }
+                    else
+                    {
+                        $bubble_question = '';
+                    }
+
+
+
 
             if($qdet['question']!='')
             {
@@ -760,7 +780,7 @@ function notify_followeranswer()
 
                        <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($fet_ans->uid).'</a></div>
 
-                       <div class="notify_cat3 "><p><li><a href="'.$gSitePath.$qdet['url'].'?ajax=1" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$qdet['qid']).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Votes   <span style="color:black">'.$vote['forum'].'</span> Posts / Recently Voted on <span style="color:black">'.date("D j M Y", strtotime($fet_ans->vote_pdate)).'</span></p></div>
+                       <div class="notify_cat3 "><p><li><a href="'.$gSitePath.$qdet['url'].'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$qdet['qid']).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Votes   <span style="color:black">'.$vote['forum'].'</span> Posts / Recently Voted on <span style="color:black">'.date("D j M Y", strtotime($fet_ans->vote_pdate)).'</span></p></div>
                    </div>';
             }
 
@@ -811,6 +831,14 @@ function notify_followerlike()
 	while($fet_like=db_fetch_object($rs_like))
 	{
 
+                    if(strlen($ques_rows->question)>40)
+                    {
+                        $bubble_question = 'title="'. htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'"';
+                    }
+                    else
+                    {
+                        $bubble_question = '';
+                    }
 
           // $loadques = load_question($fet_ques->qid);
 
@@ -827,7 +855,7 @@ function notify_followerlike()
 
             $click = 'loadwave('.$forumfet->qid_rid.','.$forumfet->fid.')';
             
-       $likelist.='<div><a href="'.$gSitePath.$ques_rows->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$ques_rows->qid).'">'.substr($ques_rows->question,0,60).'</a></div>';
+       $likelist.='<div><a href="'.$gSitePath.$ques_rows->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'" '.$bubble_question.'>'.substr($ques_rows->question,0,60).'</a></div>';
        
        $likelist.='<li><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$forumfet->title.'</a></li>';
         //$likelist .='<li><a title="'.wordwrap($forumfet->title,40, "<br/>").'">'.htmlentities(substr($forumfet->title,0,40)).'</a></li>';
@@ -927,6 +955,16 @@ function notify_answeredques()
             $udetails=load_user($q_rows->uid);
             $bubble = load_bubble($udetails->uid);
              $vote=load_votes($ques_rows->qid);
+
+
+                     if(strlen($ques_rows->question)>40)
+                    {
+                        $bubble_question = 'title="'. htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'"';
+                    }
+                    else
+                    {
+                        $bubble_question = '';
+                    }
              
             if($ques_rows->question!='')
             {
@@ -936,7 +974,7 @@ function notify_answeredques()
                 
         $answeredlist .= '<div class="notify_cat1">
         <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($q_rows->uid).'</a></div>
-        <div class="notify_cat3"><p><li><a  href="'.$gSitePath.$ques_rows->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$ques_rows->qid).'">'.truncate_utf8($ques_rows->question, '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Posts / Recently posted on <span style="color:black">'.date("D j M Y", strtotime($q_rows->vote_pdate)).'</span></p></div>
+        <div class="notify_cat3"><p><li><a  href="'.$gSitePath.$ques_rows->url.'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$ques_rows->qid).'">'.truncate_utf8($ques_rows->question, '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Posts / Recently posted on <span style="color:black">'.date("D j M Y", strtotime($q_rows->vote_pdate)).'</span></p></div>
         </div>';
             }
          }
@@ -978,7 +1016,17 @@ function notify_flagged()
 
   while($flag_rows = db_fetch_object($flag_res))
   {
-$flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'?ajax=1" title="'.htmlentities(wordwrap($flag_rows->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$flag_rows->qid).'">'.substr($flag_rows->question,0,70).'...'.'</a></div>';
+
+             if(strlen($flag_rows->question)>40)
+            {
+                $bubble_question = 'title="'. htmlentities(wordwrap($flag_rows->question, 40,'<br/>')).'"';
+            }
+            else
+            {
+                $bubble_question = '';
+            }
+            
+$flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$flag_rows->qid).'">'.substr($flag_rows->question,0,70).'...'.'</a></div>';
  $flaggedlist .='<div align="left"><span style="color:#F7B63A">Flagged for :</span>  '.$flag_rows->abuse_type.'</div>';
 
   }
@@ -1037,8 +1085,18 @@ function notify_follow_question() {
         $qdet = load_question($list['node_id']);
         $vote = load_votes($list['node_id']);
         // print_r($qdet);
+
+        if(strlen($qdet['question'])>40)
+                    {
+                        $bubble_question = 'title="'. htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'"';
+                    }
+                    else
+                    {
+                        $bubble_question = '';
+                    }
+
         if ($qdet['question'] != '') {
-            $output.='<li><div><a href="'.$gSitePath.$qdet['url'].'?ajax=1" style="'.drupal_link_color($user->uid,$qdet['qid']).'" title="'.htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'" >' . truncate_utf8($qdet['question'], '50') . '</a><div>
+            $output.='<li><div><a href="'.$gSitePath.$qdet['url'].'?ajax=1" style="'.drupal_link_color($user->uid,$qdet['qid']).'" '.$bubble_question.' >' . truncate_utf8($qdet['question'], '50') . '</a><div>
                 <div>' . $vote['qns'] . ' Votes &nbsp; ' . $vote['forum'] . ' Posts</div></li>';
           }
     }
