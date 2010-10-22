@@ -356,7 +356,7 @@ function search_results_question() {
             $vot1 = $fetvot->possiblevote;
         }
         $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$user_result->qid' GROUP BY qid";
-        $query_sugestlist = db_queryd($query_sugest);
+        $query_sugestlist = db_query($query_sugest);
         $fetvotsugest = db_fetch_object($query_sugestlist);
         if (!empty($fetvotsugest)) {
             $vot2 = $fetvotsugest->suggestv;
