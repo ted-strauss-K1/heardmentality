@@ -279,7 +279,7 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').livequery(funct
 
                                                     if (isset($_REQUEST['txt_search'])) {
 
-                                                        $skey = strtolower($_REQUEST['txt_search']);
+                                                        $skey = $_REQUEST['txt_search'];
                                                     } else {
                                                         $skey = 'Search';
                                                     }
