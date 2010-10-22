@@ -1105,14 +1105,18 @@ function notify_leftpanel()
                 $output .= notify_followerlike();
                 $like_access = 0;
         }
-        /*if($items['is_like']==0&&$items['is_question']==0&&$items['is_answer']==0&&$items['is_cat']==0&&$items['is_flag']==0)
-        {
-             $output .= "No record found";
-                $like_access = 0;
-        }*/
+       
         
     }
 
-    return $output;
+    //return $output;
+    if($output=='')
+    {
+       return $output="No records found";
+    }
+    else
+    {
+        return $output;
+    }
 
 }
