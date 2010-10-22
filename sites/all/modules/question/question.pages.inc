@@ -1168,7 +1168,7 @@ function question_ajax() {
 
 
       //$query = "select uid as id,real_name as value,first_name as info from {user_profile} where (real_name like '%$input%' OR first_name like '%$input%')  ORDER BY uid ASC ";
-        $query = "select uid as id,real_name as value,first_name as info from {user_profile} where (real_name like '%nat%' OR first_name like '%nat%')  ORDER BY uid ASC ";
+        echo $query = "select uid as id,real_name as value,first_name as info from {user_profile} where (real_name like '%nat%')  ORDER BY uid ASC ";
     $aResults = ExecuteQuery($query, "select");
     print_r($aResults);
     }else{
