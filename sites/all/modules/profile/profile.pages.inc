@@ -1404,8 +1404,15 @@ function google_map() {
             foreach ($geomap_exec as $geomapeach) {
                 
                 $asscountry .= " data.setValue(" . $first . ", 0,'" . $geomapeach['country'] . "');" . ' data.setValue(' . $first . ', 1,' . $geomapeach['count'] . ');';
+
+             
                 $first = $first + 1;
             }
+             $asscountry .= "var options = {};
+                options['region'] = 'US';
+                options['colors'] = [0xE0FFD4, 0xA5EF63, 0x50AA00, 0x267114] //orange colors
+             options['dataMode'] = 'markers';
+             options['showZoomOut'] = 'true'";
             break;
     }
 
