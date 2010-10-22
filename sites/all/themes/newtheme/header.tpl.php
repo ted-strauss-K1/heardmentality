@@ -205,14 +205,14 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').livequery(funct
                         </marquee>
                     </div>
                     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
-                    <div class="ajTourDef" id="MyTour" style="display:none" title="http://192.9.200.10/heardmentality/">
-                      <div title="http://192.9.200.10/heardmentality/tour/home/home">
+                    <div class="ajTourDef" id="MyTour" style="display:none">
+                      <div title="http://216.139.157.254/openwave/hm/tour/home/home">
                         Placeholder for page 1 - replace this text
                       </div>
-                      <div title="http://192.9.200.10/heardmentality/tour/home/question">
+                      <div title="http://216.139.157.254/openwave/hm/tour/home/question">
                         Placeholder for page 2 - replace this text
                       </div>
-                      <div title="http://192.9.200.10/heardmentality/tour/home/donate">
+                      <div title="http://216.139.157.254/openwave/hm/tour/home/donate">
                         Placeholder for page 3 - replace this text
                       </div>
                     </div>
@@ -224,26 +224,6 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').livequery(funct
                       Amberjack.onCloseClickStay = true;
                       Amberjack.open();
                     </script>
-                    <!-- Tour created with Amberjack wizard: http://amberjack.org -->
-                  <!--  <div class="ajTourDef" id="MyTour" style="display:none">
-                        <div title="http://localhost/heardmentality/tour/home/home">
-                          place holder for page 1
-                        </div>
-                        <div title="http://localhost/heardmentality/tour/home/question">
-                          place holder for page 2
-                        </div>
-                        <div title="http://localhost/heardmentality/tour/home/donate">
-                         place holder for page 3
-                    </div>
-
-                    <script type="text/javascript" src="http://amberjack.org/src/stable/amberjack.pack.js">
-                    </script>
-
-                    <script type="text/javascript" defer="true">
-                        Amberjack.onCloseClickStay = true;
-                        Amberjack.open();
-                    </script>-->
-                    <!-- Tour created with Amberjack wizard: http://amberjack.org -->
                     <div class="main">
                         <div class="top"></div>
                         <div class="clr"></div>
