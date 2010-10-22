@@ -384,7 +384,7 @@ function search_results_question() {
 
        
       //  name="answer_al['.$i.']"
-            $fetresult .= ' <div class="item1"><input name="answer" id="answer" type="radio"  value="' . $vlistquest->paid . '" '.check_select($get_ans->paid,$vlistquest->paid).'  />' . $vlistquest->answer. '</div>';
+            $fetresult .= ' <div class="item1"><input name="answer_al['.$i.']" id="answer" type="radio"  value="' . $vlistquest->paid . '" '.check_select($get_ans->paid,$vlistquest->paid).'  />' . $vlistquest->answer. '</div>';
             
         }
 
