@@ -343,16 +343,18 @@ if(!empty($country)){
     if(!empty($country['cn'])){
        $query = array('query'=>$country['cn'],'maxRows'=>'1','featureclass'=>'S');
                 $result = geonames_query('search', $query);
+              //  print_r($result);
                 $cc=$result->results[0]['countrycode'];
-$cond.="AND q.country='".trim($country['cn'])."'";
+                $putcon=(!empty($cc))?$cc:trim($country['cn']);
+$cond.=" AND q.country='".$putcon."'";
     }
 if(!empty($country['state'])){
 
-   $cond.="OR q.state='".trim($country['state'])."'";
+   $cond.=" OR q.state='".trim($country['state'])."'";
 }
 if(!empty($country['city'])){
 
-   $cond.="OR q.city='".trim($country['city'])."'";
+   $cond.=" OR q.city='".trim($country['city'])."'";
 }
 }
 
@@ -378,8 +380,8 @@ if(!empty($country['city'])){
 // $homepage = file_get_contents('http://api.hostip.info/country.php');
   //  echo get_real_ip_addr();
 
- $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,10 ";
-    
+ echo $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,10 ";
+
    //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>

@@ -1997,6 +1997,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                 $tcnt = ExecuteQuery($query, "norows");
                 $inc_cnt .= $tcnt . ',';
             }
+            $inc_cnt=rtrim($inc_cnt,",");
             $inc_cnt .= ']';
             $answer_cnt[] = $inc_cnt;
 
@@ -2041,7 +2042,7 @@ function qlite_percent() {
         $ins_script .= "{	
 						name: '" . $ans[$key] . "',
   				       data: " . $cnt[$key] . "
-					},";
+					}";
     }
 
     $per = json_encode($result);
@@ -2054,7 +2055,7 @@ function qlite_percent() {
 				chart = new Highcharts.Chart({
 					chart: {
 						renderTo: 'chart_div',
-						defaultSeriesType: 'bar'
+						defaultSeriesType:'bar'
 					},
 					title: {
 						text: 'Percent Reporting'
