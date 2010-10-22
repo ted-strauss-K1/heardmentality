@@ -242,7 +242,16 @@ function get_top_list($time='') {
     if (! empty($list)) {
         foreach ($list as $quest) {
 
-            $output .=  '<li  class="leaf"><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            if(strlen($quest['question'])>40)
+            {
+                $bubble_question = 'title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'"';
+            }
+            else
+            {
+                $bubble_question = '';
+            }
+
+            $output .=  '<li  class="leaf"><a '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
 
         }
@@ -295,8 +304,17 @@ function get_hot_list($time='') {
               <div class="innerbox" ><ul class="menu">';
     if (! empty($list)) {
         foreach ($list as $quest) {
+
+            if(strlen($quest['question'])>40)
+            {
+                $bubble_question = 'title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'"';
+            }
+            else
+            {
+                $bubble_question = '';
+            }
             
-            $output .= '<li class="leaf"><a title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .= '<li class="leaf"><a '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
         
         }
@@ -370,8 +388,18 @@ if(!empty($country['city'])){
     
     if (! empty($list)) {
         foreach ($list as $quest) {
-            
-            $output .=  '<li  class="leaf"><a title="'.  htmlentities(wordwrap($quest['question'], 40,'<br/>')).'" href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+
+
+            if(strlen($quest['question'])>40)
+            {
+                $bubble_question = 'title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'"';
+            }
+            else
+            {
+                $bubble_question = '';
+            }
+
+            $output .=  '<li  class="leaf"><a '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
         
         }
     } else {
