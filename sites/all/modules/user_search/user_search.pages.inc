@@ -1320,7 +1320,7 @@ function search_results_user() {
     $next = $eu + $limit;
 
     $fetresult .= '';
-    $name = $_REQUEST['txt_search'];
+    $name = strtolower($_REQUEST['txt_search']);
 
     if ($name!='')
         $qry .= "(img.real_name LIKE '%" . $name . "%') AND ";
