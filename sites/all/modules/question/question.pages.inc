@@ -1167,7 +1167,16 @@ function question_ajax() {
     if($stype=='2'){
 
 
-     $query = "select uid as id,real_name as value,first_name as info from {user_profile} where (real_name like '%$input%' OR first_name like '%$input%')  ORDER BY uid ASC ";
+    // $query = "select uid as id,real_name as value,first_name as info from {user_profile} where (real_name like '%$input%' OR first_name like '%$input%')  ORDER BY uid ASC ";
+        $query = "SELECT *
+FROM `user_profile`
+WHERE `real_name` LIKE CONVERT( _utf8 '%natarajan%'
+USING latin1 )
+COLLATE latin1_swedish_ci
+OR `first_name` LIKE CONVERT( _utf8 '%natarajan%'
+USING latin1 )
+COLLATE latin1_swedish_ci
+LIMIT 0 , 30";
     $aResults = ExecuteQuery($query, "select");
     
     }else{
