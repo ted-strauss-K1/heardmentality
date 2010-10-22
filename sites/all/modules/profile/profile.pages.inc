@@ -1440,20 +1440,20 @@ function amber_tour()
     switch($page)
     {
         case home:
-           echo '<img src="' . $gSitePath . path_to_theme() . '/images/tour/home.jpg"/>';
+           $output='<img width="650" height="600" src="' . $gSitePath . path_to_theme() . '/images/tour/home.jpg"/>';
          break;
 
      case question:
-           echo '<img src="' . $gSitePath . path_to_theme() . '/images/tour/addquestion.jpg"/>';
+           $output='<img width="650" height="600" src="' . $gSitePath . path_to_theme() . '/images/tour/addquestion.jpg"/>';
          break;
 
       case donate:
-           echo '<img src="' . $gSitePath . path_to_theme() . '/images/tour/donate.jpg"/>';
+           $output='<img width="650" height="600" src="' . $gSitePath . path_to_theme() . '/images/tour/donate.jpg"/>';
          break;
 
 
 
     }
 
-
+return $output;
 }

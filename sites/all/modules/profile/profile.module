@@ -21,7 +21,7 @@ function profile_menu() {
     $items['profile/inbox'] = array('title'=>' Profile', 'page callback'=>'inbox_flex', 'access arguments'=>array('Profile Edit'), 'type'=>MENU_CALLBACK, 'file'=>'profile.pages.inc', );
    
     $items['google/map'] = array('title'=>'Facts', 'page callback'=>'google_map', 'access arguments'=>array('User Sign In'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'profile.pages.inc', );
-    $items['tour/home'] = array('title'=>'Facts', 'page callback'=>'amber_tour', 'access arguments'=>array('User Sign In'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'profile.pages.inc', );
+    $items['tour/home'] = array('title'=>'Take a tour', 'page callback'=>'amber_tour', 'access arguments'=>array('User Sign In'), 'type'=>MENU_SUGGESTED_ITEM, 'file'=>'profile.pages.inc', );
     
     return $items;
 }
