@@ -588,7 +588,7 @@ function qlite_view() {
              <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
-				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Gurus</span></a></li>
+				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits</span></a></li>
 				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
 				  
               </ul>
@@ -608,7 +608,7 @@ function qlite_view() {
                <li><a href="javascript:void(0);return false;" onClick="alert(\'Please vote the above question\');return false;"><span >Reporting</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
-		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Gurus</span></a></li>
+		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits</span></a></li>
               </ul>
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
@@ -1242,7 +1242,7 @@ function tab_list() {
 	<li id="panelTabs1Link" class="selected"><a>Reporting</a></li>
 	<li id="panelTabs2Link"><a>Forum</a></li>
 	<li id="panelTabs3Link" ><a>Resources</a></li>
-	<li id="panelTabs4Link"><a>Gurus</a></li>
+	<li id="panelTabs4Link"><a>Pundits</a></li>
 	<li id="panelTabs5Link"><a>Info</a></li>
 	<li id="panelTabs6Link"><a>Politician</a></li>
 	</ul>
