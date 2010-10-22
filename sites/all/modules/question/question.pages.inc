@@ -1161,7 +1161,7 @@ function question_ajax() {
     }elseif(isset($_REQUEST['ssearch'])){
 
 
-         $input=strtolower($_REQUEST['input']);
+         $input=trim(strtolower($_REQUEST['input']));
     $stype=$_REQUEST['stype'];
 
     if($stype=='2'){
