@@ -81,5 +81,21 @@ function loadflagquestion(url,title)
 	
 	
 }
+function loadeditquestion(url,title)
+{
+	
+	
+	//jQuery.nyroModalSettings({ title:'Flag Posts'});
+
+	//jQuery.nyroModalManual({
+   // url: url,width:550,height:450,title:'Flag Posts'
+//  });
+
+	  var options = 'sameBox:true width:90% height:100% caption:' +
+  '`Edit Profile`';
+  parent.fb.start(url, options);
+	
+	
+}
 
 
