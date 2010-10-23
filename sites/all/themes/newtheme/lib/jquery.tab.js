@@ -3,6 +3,7 @@ var tabarray=['#tabs,#tabs-container','#maintabs,#tabcontent','#tabmenu,#rconten
 $(document).ready(function(){
     // Preload tab on page load
     jQuery.each(tabarray,function(e){
+       // e.preventDefault();
         var arr=this.split(",");
        
         var tabsId = arr[0];
@@ -14,10 +15,14 @@ $(document).ready(function(){
         }
 
         $(tabsId + ' A').click(function(){
+                if($(this).attr('href')=='') {
+                     return false;
+                     }
             if($(this).parent().hasClass('current')){
+                
                 return false;
             }
-
+          
             $(tabsId + ' LI.current').removeClass('current');
             $(this).parent().addClass('current');
 
