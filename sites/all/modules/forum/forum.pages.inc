@@ -46,13 +46,13 @@ function forum_list($qid = '') {
 </div> <div class="clr"></div>
 <div class="popmenu">
 <ul>
-<li><a href="#"><span><img src="images/menu-b1.png" width="14" height="7" alt="Menu1" /></span>Next</a></li>
-<li><a href="#"><span><img src="images/menu-b2.png" width="11" height="11" alt="menu2" /></span>Reply</a></li>
-<li><a href="#"><span><img src="images/menu-b3.png" width="9" height="11" alt="menu3"/></span>Edit</a></li>
-<li><a href="#" class="selectpop"><span><img src="images/menu-b4.png" width="8" height="7" alt="menu4" /></span>Playback</a></li>
-<li><a href="#"><span><img src="images/menu-b5.png" width="10" height="10" alt="menu5" /></span>Unfollow</a></li>
-<li><a href="#"><span><img src="images/menu-b6.png" width="10" height="11" alt="menu6" /></span>Archive</a></li>
-<li><a href="#"><span><img src="images/menu-b7.png" width="8" height="9" alt="menu7" /></span>Spam</a></li>
+<li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b1.png" width="14" height="7" alt="Menu1" /></span>Next</a></li>
+<li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b2.png" width="11" height="11" alt="menu2" /></span>Reply</a></li>
+<li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b3.png" width="9" height="11" alt="menu3"/></span>Edit</a></li>
+<li><a href="#" class="selectpop"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b4.png" width="8" height="7" alt="menu4" /></span>Playback</a></li>
+<li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b5.png" width="10" height="10" alt="menu5" /></span>Unfollow</a></li>
+<li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b6.png" width="10" height="11" alt="menu6" /></span>Archive</a></li>
+<li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b7.png" width="8" height="9" alt="menu7" /></span>Spam</a></li>
 
 
 </ul>
@@ -109,53 +109,12 @@ function forum_list($qid = '') {
 
         <div class="clr"></div>
         </div>
-	
-		</div></div>
+</div>
 <div class="clr"></div>
-<div class="bott-bord"></div>	';
+	';
     }
     $output .= get_wavelets($wid, 0);
-    $output .= '	</div><div class="wavefooter">
 
-<!--	<input type="button" class="waveButtonMain"  value="Add Comment" id="newwaveletbut"/>-->
-		</div>';
-    //// vijay comment box
-    $output .= '<div id="commentArea" class="waveletmain-add" style="display:none;"> <div class="waveComment addComment">  ';
-
-    if (!empty($user->uid)) {
-
-        $output .= '
-		<div class="comment">			
-		
-		<div class="commentText">			
-		<textarea name="waveletcmt" id="waveletcmt" cols="70" rows="2"  class="textArea"></textarea>
-		<input type="hidden" name="waveid" id="waveid" value=""/>
-		<input type="hidden" name="wletid" id="wletid" value=""/>
-			<input type="hidden" name="burl" value="' . $gSitePath . '" id="burl"/>
-		<div><span><input type="checkbox" name="privt" value="1" id="privt"/></span> <span><small>Private Reply</small> </span><span> <input type="button" value="Add comment" id="waveButton" class="waveButton"/> </span><span>  or <a onclick="cancelAdd(this);return false" id="wavecancel" href="javascript:void(0);">cancel</a></span> </div>	
-		</div>	
-		</div>	';
-    } else {
-
-        $output .= '<div id="waveletcmt"  align="center"><b>Sorry Only Logged in user can post wave</b><input type="hidden" name="waveid" id="waveid" value=""/>
-		<input type="hidden" name="wletid" id="wletid" value=""/></div>';
-    }
-
-
-    $output .= '</div></div>';
-    $output.='<div class="comment" id="freport" style="background:#ECECEF;display:none;">';
-    $output.='<form  action="' . $gSitePath . 'qlite/flagreport" method="post" id="flagform">
-	<input type="hidden" value="" id="rwave" name="rwave"/>
-	<input type="hidden" value="" id="rwavelet" name="rwavelet"/>
-	<div class="cmt_list">  <p id="log_res"><span>Report the Post</span> </p></div>
-	<div class="txt_area">
-	<input type="radio" checked="checked" value="Pornography or obscenity" id="abuse_type" name="abuse_type"/>
-	Pornography or obscenity <br/><input type="radio" value="radically or ethnically hateful content" id="abuse_type" name="abuse_type"/>
-	radically or ethnically hateful content  <br/> <input type="radio" value="Graphic Violence" id="abuse_type" name="abuse_type"/>
-	Graphic Violence <br/><input type="radio" value="other content inappropirate for young Viewers" id="abuse_type" name="abuse_type"/>
-	other content inappropirate for young Viewers <br/>
-	<input type="submit" value="Report Problem" class="waveButton" id="submitter" name="button"/>  or <a onclick="cancelAdd(this);return false" id="wavecancel1" href="">cancel</a>   </div>
-	</form><div>';
 
     $output.='<div class="clr"></div>
 </div>
@@ -439,13 +398,14 @@ function get_wavelets($wid = '', $pid = '') {
                        <div class="date">' . $date . '</div>
 
                     <div class="clr"></div>
-                    </div>
+        </div>
 
-            </div>
-</div><div class="clr"></div>';
+</div>
+<div class="clr"></div> ';
                $output .= get_wavelets($wid, $forum['wlid']);
 
-                $output .= '		';
+                $output .= '	</div>
+<div class="clr"></div>	';
                
             }
         }
