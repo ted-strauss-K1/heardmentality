@@ -64,3 +64,22 @@ jQuery.fn.clearForm = function() {
    this.selectedIndex = -1;
   });
 };
+
+function loadflagquestion(url,title)
+{
+	
+	
+	//jQuery.nyroModalSettings({ title:'Flag Posts'});
+
+	//jQuery.nyroModalManual({
+   // url: url,width:550,height:450,title:'Flag Posts'
+//  });
+
+	  var options = 'sameBox:true width:70% height:90% caption:' +
+  '`Flag Posts`';
+  parent.fb.start(url, options);
+	
+	
+}
+
+
