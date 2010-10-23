@@ -401,7 +401,7 @@ function question_save() {
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $q_quest = '';
- // print_r($_REQUEST);die;
+  //print_r($_REQUEST);die;
     extract($_REQUEST);
     $output = '';
     $g_global = '';
@@ -421,12 +421,12 @@ $ccode=$country['cn'];
 
         
         ////vijay insert category subcategory start here
-       // print_r($cat1);
+        
           $cat_count=explode(',',$cat1);
-          //$cat_arr_count =  count($cat_count);
-
+         
+           
            $subcat_count=explode(',',$cat2);
-          //$sub_arr_count =  count($subcat_count);
+          
 
           if(count($cat_count)>count($subcat_count))
           {
@@ -440,23 +440,41 @@ $ccode=$country['cn'];
           {
               $arr_count = count($cat_count);
           }
-       
+         
         for($i=0;$i<$arr_count;$i++)
         {
-             //$cate=explode(',',$cat1);
-             $cate=$q_scat;
-
-           // $subcate = explode(',',$cat2);
-             $subcate=$q_sscat;
-            $subcat_count = count($subcate);
-           
+             
+          
+             //$cate=$q_scat;
+           $cate = $q_cat;
+          
+             
             
-            for($j=0;$j<$subcat_count;$j++)
+            // $subcate=$q_sscat;
+           $subcate=$q_scat;
+
+             
+          
+             
+           $subcat_count = count($subcate);
+        
+          
+            if($subcat_count>0)
             {
-                    if(!empty($cate[$i]))
-                    {
-                db_query("insert into {question_cat} set qid='$ins_id',cat='$cate[$i]',scat='$subcate[$j]'");
-                    }
+                for($j=0;$j<$subcat_count;$j++)
+                {
+                        if(!empty($subcate[$j]))
+                        {
+                         db_query("insert into {question_cat} set qid='$ins_id',cat='$cate[$i]',scat='$subcate[$j]'");
+                        }
+                }
+            }
+            if($subcat_count==0)
+            {
+                        if(!empty($cate[$i]))
+                        {
+                        db_query("insert into {question_cat} set qid='$ins_id',cat='$cate[$i]'");
+                        }
             }
         }
        
