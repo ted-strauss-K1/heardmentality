@@ -107,8 +107,7 @@ function tophot()
 function top_list() {
 
      $vars=arg();
-     echo "hi";
-     exit;
+    
     print_r($vars);
     exit;
 
