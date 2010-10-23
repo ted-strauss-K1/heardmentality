@@ -82,6 +82,8 @@ function tophot()
 {
     //Array ( [0] => qlite [1] => tophot [2] => 4 [3] => 2 )
     $vars=arg();
+    print_r($vars);
+    exit;
     $output='';
     switch ($vars['2']){
         case '4':
