@@ -160,7 +160,7 @@ function get_top_pundits() {
            <ul>';
     if($cat_id!='')
     {
-    $query = "select * from {follower} where cat_id='".$cat_id."'";
+   echo  $query = "select * from {follower} where cat_id='".$cat_id."'";
    
     $list = ExecuteQuery($query, "select");
     foreach ($list as $quest) {
