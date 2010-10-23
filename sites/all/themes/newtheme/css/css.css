@@ -653,8 +653,8 @@ margin-right:2px;
 /* For Pop up */
 .pop-up-wrapper{ margin:0 auto; width:696px;}
 .pop-up{ width:697px; background:#fff;}
-.pop-up .pop-tp{ background:url(../images/pop-tp.png) no-repeat; height:14px; width:697px;}
-.pop-up .pop-md{ background:url(../images/pop-md.png) repeat-y; width:673px; padding:12px;}
+.pop-up .pop-tp{ background:url(../images/popgfg-tp.png) no-repeat; height:14px; width:697px;}
+.pop-up .pop-md{ background:url(../images/pop-mdgdfgdg.png) repeat-y; width:673px; padding:12px;}
 .pop-up .pop-md .tp-sandalbar{ background:#e2d9bc; width:630px; padding:10px 0px; padding-left:18px;}
 .pop-up .pop-md .tp-sandalbar .pimg{ float:left; margin-right:5px;}
 .pop-up .pop-md .tp-sandalbar .pimg img{ border:1px #9b9a98 solid;}
@@ -674,6 +674,7 @@ margin-right:2px;
 .post-title .rightside h4{ font: bold 12px Arial, Helvetica, sans-serif; color:#333; float:left;}
 .post-title .rightside p{ font:normal 12px Arial, Helvetica, sans-serif; color:#333;}
 .bott-bord{ border-bottom:1px #999 dashed; width:500px; margin:0 auto; }
+
 .likelink-outer{ width:468px; padding-bottom:20px;}
 .likelink-outer .likekink{ float:left; width:300px;}
 .likelink-outer .likekink ul{ margin:0; padding:0;}
@@ -683,10 +684,10 @@ margin-right:2px;
 
 .likelink-outer .date{ float:left; float:right; font:normal 11px Arial, Helvetica, sans-serif; color:#666;}
 
-.wite-title{  padding:10px; }
-.wite-title .white-left{ float:left; width:125px; text-align:center;}
+.wite-title{  padding:10px; margin:2px 5px; float:right; border:2px #ccc solid; -moz-border-radius:6px 6px 6px 6px; background:#fff; overflow:hidden;}
+.wite-title .white-left{ float:left; width:10%; text-align:center;}
 .wite-title .white-left img{ border:1px #999 solid;}
-.wite-title .white-right{ width:468px; float:left;}
+.wite-title .white-right{ width:90%; float:left;}
 .wite-title .white-right p{ font:normal 12px Arial, Helvetica, sans-serif; color:#333; text-align:left;}
 .comment-area{ width:540px; border:1px #e2d8bc solid; margin:0 auto; padding:10px 10px; text-align:left; margin-top:10px; margin-bottom:10px; background:#fff;}
 .comment-area .txtare{ border:1px #66aff9 solid; background-color:#fff; font: normal 11px Arial, Helvetica, sans-serif; text-align:left; width:300px; margin-bottom:10px;}
@@ -696,7 +697,6 @@ margin-right:2px;
 .adcomment-outer h5{ font:normal 10px Arial, Helvetica, sans-serif; color:#8e8f8f;}
 .adcomment-outer .cancel{ font: bold 12px Arial, Helvetica, sans-serif; color:#66aff9; text-decoration:none;}
 .adcomment-outer .cancel:hover{ text-decoration:underline;}
-.pop-up .pop-bt{ background:url(../images/pop-bt.png) no-repeat; width:697px; height:14px;  margin:0 auto;}
 
 
 /*create profile - page*/
