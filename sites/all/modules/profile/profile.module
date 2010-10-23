@@ -286,7 +286,7 @@ function user_facts() {
          <div class="fa-item">
           <ul>
         
-          <li><a href="JavaScript:void(0);" ondblclick="return loadtab(\''.$gSitePath.'google/map/users'.$qid.'\',\'Facts And Figures : Total Users\')" >'.$usercnt.' Users</a></li>
+          <li><a href="JavaScript:void(0);" ondblclick="return loadtab(\''.$gSitePath.'google/map/users'.$qid.'\',\'Facts And Figures : Total Users\')">'.$usercnt.' Users</a></li>
           <li><a href="javascript:void(0);" ondblclick="return loadtab(\''.$gSitePath.'google/map/online'.$qid.'\',\'Facts And Figures : Online Users\')">'.$total_users.' Online</a></li>
           <li><a href="javascript:void(0)" ondblclick="return loadtab(\''.$gSitePath.'google/map/questions'.$qid.'\',\'Facts And Figures : Total Questions\')">'.$quest.' Questions</a></li>
           <li><a href="javascript:void(0)" ondblclick="return loadtab(\''.$gSitePath.'google/map/answer'.$qid.'\',\'Facts And Figures : Toatal Answers\')">'.$ans.' Answers</a></li>
