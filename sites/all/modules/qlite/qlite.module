@@ -181,6 +181,9 @@ function get_top_pundits() {
     }
     else
     {
+
+    echo "hi";
+    exit;
     $query = "select count(*) from {gurulist}";
     $cnt=db_result(db_query($query));
      $limit=4;
