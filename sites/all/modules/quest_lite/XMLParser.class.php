@@ -78,10 +78,11 @@ class XMLParser{
       
        while ($data = fread($fp, 4096)) {
            if (!xml_parse($this->xml_obj, $data, feof($fp))) {
-               die(sprintf("XML error: %s at line %d",
+               /*die(sprintf("XML error: %s at line %d",
                xml_error_string(xml_get_error_code($this->xml_obj)),
                xml_get_current_line_number($this->xml_obj)));
-               xml_parser_free($this->xml_obj);
+               xml_parser_free($this->xml_obj);*/ // vijay comented
+               die("No records found");
            }
        }
       
