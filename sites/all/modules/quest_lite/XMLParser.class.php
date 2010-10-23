@@ -71,7 +71,8 @@ class XMLParser{
        xml_set_element_handler($this->xml_obj, "startHandler", "endHandler");
         
        if (!($fp = fopen($path, "r"))) {
-           die("Cannot open XML data file: $path");
+           //die("Cannot open XML data file: $path"); vijay commented
+           die("No records found");
            return false;
        }
       

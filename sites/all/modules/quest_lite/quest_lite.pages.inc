@@ -1716,6 +1716,7 @@ function question_news() {
     while ($usernews = db_fetch_object($rlistnews)) {
 
         $output = $xml->parse($usernews->nlink);
+
         foreach ($output as $valuesresult) {
 
             //print_r( $valuesresult);
