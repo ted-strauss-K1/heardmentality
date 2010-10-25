@@ -506,13 +506,19 @@ else
 echo "<p align=\"center\" >".' Twitter  updated successfully !'."</p>";
 } 
 
-
-
-
-
-
-
-
-
-
 }
+
+function send_mail()
+{
+        $send_qry = "select * from hm_mails";
+            $send_exec = ExecuteQuery($send_qry, "select");
+            foreach ($send_exec as $sendeach) {
+
+             $mail_success = htmlmail_function($sendeach['user_to_id'], $sendeach['subject'], $sendeach['content'], '');
+             if($mail_success)
+             {
+                 db_query("update hm_mails set mail_status=1 where mail_id='".$sendeach['user_to_id']."'");
+             }
+          }
+}
+
