@@ -377,9 +377,9 @@ jQuery(document).ready(function() {
 
         //Get the A tag
         var id = jQuery(this).attr('href');
-
+          jQuery.blockUI({ message: jQuery(id) });
         //Get the screen height and width
-        var maskHeight =jQuery(document).height();
+     /*   var maskHeight =jQuery(document).height();
         var maskWidth = jQuery(window).width();
 
         //Set heigth and width to mask to fill up the whole screen
@@ -402,22 +402,24 @@ jQuery(document).ready(function() {
 
         //transition effect
         jQuery(id).fadeIn(2000);
-
+*/
     });
 
     //if close button is clicked
     jQuery('.window .close').click(function (e) {
         //Cancel the link behavior
         e.preventDefault();
-
-        jQuery('#mask').hide();
-        jQuery('.window').hide();
+         jQuery.unblockUI();
+       // jQuery('#mask').hide();
+       // jQuery('.window').hide();
     });
 
     //if mask is clicked
     jQuery('#mask').click(function () {
-        jQuery(this).hide();
-        jQuery('.window').hide();
+       jQuery.unblockUI();
+
+        //jQuery(this).hide();
+       // jQuery('.window').hide();
     });
 
 });
