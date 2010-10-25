@@ -403,6 +403,22 @@ function openid_login_save() {
         $insersult = db_query($insert);
         $lid = mysql_insert_id();
 
+///////////////welcome mail start here ///////////////
+        $sel_ulists = "SELECT * FROM users where uid='$lid'";
+            $user_namelistfs = ExecuteQuery($sel_ulists, "select");
+            
+            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='6'";
+            $rs_mgmt = db_query($sel_user_cmt);
+            $list_content = db_fetch_object($rs_mgmt);
+            $subject_proj = $list_content->subject;
+            $contentm = str_replace("#uname#",$user_namelistfs[0]['name'], $list_content->content);
+            //echo $contentm;die;
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
+            db_query($ins_qry);
+
+            //$mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, '');
+///////////////welcome mail end here ///////////////
+
         
         if ($_GET['nickname'] != '') {
             
