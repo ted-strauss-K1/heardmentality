@@ -1488,6 +1488,7 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['uid'] . "','" . $user->uid . "','user','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+                     $last_id = mysql_insert_id();
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['uid'] . "',1)";
 					db_query($flagnotify);
@@ -1508,6 +1509,7 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rid'] . "','" . $user->uid . "','resource','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+                     $last_id = mysql_insert_id();
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rid'] . "',1)";
 					db_query($flagnotify);
@@ -1529,6 +1531,7 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwave'] . "','" . $user->uid . "','wave','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+                     $last_id = mysql_insert_id();
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwave'] ."',1)";
 					db_query($flagnotify);
@@ -1550,6 +1553,7 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwavelet'] . "','" . $user->uid . "','wavelet','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+                     $last_id = mysql_insert_id();
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwavelet'] . "',1)";
 					db_query($flagnotify);
@@ -1594,7 +1598,7 @@ function flag_report() {
                 $u_res = db_query($u_qry);
                  $u_rows = db_fetch_object($u_res);
 
-                 $flag_qry = "select * from question_flags where fid='".$last_id."'";
+                echo  $flag_qry = "select * from question_flags where fid='".$last_id."'";
                 $flag_res = db_query($flag_qry);
                  $flag_rows = db_fetch_object($flag_res);
                 
