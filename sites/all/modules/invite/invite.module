@@ -176,8 +176,8 @@ Heardmentality Team. </td>
 </table>
 </body>
 </html>';
-  //echo $newmessage;
-  //exit;
+  echo $newmessage;
+  exit;
 	return mail($to, $subject, $newmessage, $headers);
 }
 
@@ -363,6 +363,27 @@ function hm_mails($qid,$nid,$type)
             
         }
                     break;
+
+
+
+
+                     case follower:
+            $sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" .$nid. "'";
+                        
+            $user_namelistfs = ExecuteQuery($sel_ulists, "select");
+            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='1'";
+            $rs_mgmt = db_query($sel_user_cmt);
+            $list_content = db_fetch_object($rs_mgmt);
+            $subject_proj = $list_content->subject;
+            $contentm = str_replace("#uname#", $user->name, $list_content->content);
+            $contentm = str_replace("#anothername#", $user_namelistfs[0]['name'], $contentm);
+            //echo $contentm;die;
+           // $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$user->mail."','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,now())";
+             //    db_query($ins_qry);
+
+            $mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, '');
+                    break;
+
   }
    
 }
