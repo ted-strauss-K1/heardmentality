@@ -176,8 +176,8 @@ Heardmentality Team. </td>
 </table>
 </body>
 </html>';
-  echo $newmessage;
- exit;
+  //echo $newmessage;
+ //exit;
 	return mail($to, $subject, $newmessage, $headers);
 }
 
@@ -378,10 +378,10 @@ function hm_mails($qid,$nid,$type)
             $contentm = str_replace("#uname#",$user_namelistfs[0]['name'], $list_content->content);
             $contentm = str_replace("#anothername#",$user->name, $contentm);
             //echo $contentm;die;
-            //$ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$user->mail."','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
-             //db_query($ins_qry);
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$user->mail."','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
+            db_query($ins_qry);
 
-            $mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, '');
+            //$mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, '');
                     break;
 
   }
