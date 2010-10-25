@@ -1489,6 +1489,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['uid'] . "','" . $user->uid . "','user','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                      $last_id = mysql_insert_id();
+                      hm_frontnotify($_REQUEST['uid']);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['uid'] . "',1)";
 					db_query($flagnotify);
@@ -1510,6 +1511,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rid'] . "','" . $user->uid . "','resource','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                      $last_id = mysql_insert_id();
+                      hm_frontnotify($_REQUEST['rid']);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rid'] . "',1)";
 					db_query($flagnotify);
@@ -1532,6 +1534,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwave'] . "','" . $user->uid . "','wave','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                      $last_id = mysql_insert_id();
+                      hm_frontnotify($_REQUEST['rwave']);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwave'] ."',1)";
 					db_query($flagnotify);
@@ -1554,6 +1557,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwavelet'] . "','" . $user->uid . "','wavelet','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                      $last_id = mysql_insert_id();
+                       hm_frontnotify($_REQUEST['rwavelet']);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwavelet'] . "',1)";
 					db_query($flagnotify);
@@ -1575,6 +1579,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['qaid'] . "','" . $user->uid . "','question','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                     $last_id = mysql_insert_id();
+                    hm_frontnotify($_REQUEST['qaid']);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','". $_REQUEST['qaid'] ."',1)";
 					db_query($flagnotify);
@@ -1592,7 +1597,9 @@ function flag_report() {
 //////////////insert front end mail notification//////////////////////
     //hm_frontnotify($qid,'','flag_question');
 
-                $qdetails = load_question($_REQUEST['qaid']);
+        function hm_frontnotify($qid)
+        {
+                $qdetails = load_question($qid);
                 
                 $u_qry = "select * from users where uid='".$qdetails['uid']."'";
                 $u_res = db_query($u_qry);
@@ -1620,7 +1627,7 @@ function flag_report() {
 
             $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
              db_query($ins_qry);
-
+        }
 
 //////////////insert front end mail notification//////////////////////
 
