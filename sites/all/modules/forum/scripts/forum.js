@@ -1,6 +1,6 @@
 /**
  * @author gobinath.m
- */
+ 
 
 window.addEvent('domready', function(){
 
@@ -28,8 +28,7 @@ window.addEvent('domready', function(){
     }
     
     
-    //bind event  
-    bind_clk();
+
     
 });
 
@@ -46,101 +45,117 @@ Element.implement({
         return ($(this).length > 0);
     }
 });
+*/
+
 function bind_clk(){
 
+  
 
+    jQuery('a.rep').live('click', function(){
 
-    var elements = $$('div.replyLink').getElements('a.rep');
-    
-    elements.each(function(element, index){
-    
-        element.removeEvents('click'); // removes ALL click events
-        element.addEvent('click', addComment.bindWithEvent(this, element));
-        
+        addComment(jQuery(this));
+
     });
-    
-    
-    
+    //for submit
+   jQuery('#waveButton').live('click', function(){addSubmit(jQuery(this));});
+
+
+      if (jQuery('#flagform') != null) {
+        jQuery('#flagform').bind('submit', function(e){
+
+            e.preventDefault();
+
+            var log = $('#log_res').addClass('ajax-loading');
+
+         jQuery.post("test.php", $("#testform").serialize(),
+   function(data){
+     log.removeClass('ajax-loading');
+                    log.html(data);
+
+                    setTimeout("jQuery('#flagform').slideOut();", 2000);
+   });
+
+   jQuery(this).parents('form').submit(function() {
+  alert($(this).serialize());
+  return false;
+});
+
+        
+        });
+    }
+
 }
 /*mootool version*/
 function wave_form(){
-		//Prevents the default submit event from loading a new page.
-		//e.stop();
-		var wt=$('newwavediv').getElement('.textArea');
-		var formwave=$('newwaveform');
-		var post=wt.get('value');
-		if(post.trim().length<8){
+    //Prevents the default submit event from loading a new page.
+    //e.stop();
+    var wt=$('newwavediv').getElement('.textArea');
+    var formwave=$('newwaveform');
+    var post=wt.get('value');
+    if(post.trim().length<8){
 		
-			wt.setStyle('border-color','#EF2C2C');
-			wt.set('id','wtitlerror');
-			return false;
-		}else{
+        wt.setStyle('border-color','#EF2C2C');
+        wt.set('id','wtitlerror');
+        return false;
+    }else{
 			
-	wt.set('id','wtitle');	
-		}
-		//Empty the log and show the spinning indicator.
-		//var log = $('newwavediv').empty().addClass('ajax-loading');
-		//Set the options of the form's Request handler. 
-		//("this" refers to the $('myForm') element).
-		formwave.set('send', {
+        wt.set('id','wtitle');
+    }
+    //Empty the log and show the spinning indicator.
+    //var log = $('newwavediv').empty().addClass('ajax-loading');
+    //Set the options of the form's Request handler.
+    //("this" refers to the $('myForm') element).
+    formwave.set('send', {
 		
 			
-						onComplete: function(response) { 
-			//log.removeClass('ajax-loading');
-				$('qwave').fade('out');
-				$('qwave').empty();
-			$('qwave').set('html', response);
-				$('qwave').fade('in');
-				wt.set('value','');
+        onComplete: function(response) {
+            //log.removeClass('ajax-loading');
+            $('qwave').fade('out');
+            $('qwave').empty();
+            $('qwave').set('html', response);
+            $('qwave').fade('in');
+            wt.set('value','');
 							
-		},onRequest: function() { $('newwavediv').fade('out');}
+        },
+        onRequest: function() {
+            $('newwavediv').fade('out');
+        }
 		
 		
-		});
-		//Send the form.
-		$('newwaveform').send();
+    });
+    //Send the form.
+    $('newwaveform').send();
 }
 
-function addComment(val, el){
-
-    var wid = el.get('id');
-    
+function addComment(el){
+    var wid = el.attr('id');
+  
     var gid = wid.split('-');
     
-    $('waveletcmt').setStyle('border-color', '');
-    $('waveletcmt').set('value', '');
-    $('waveid').set('value', gid[0]);
-    $('commentArea').setStyle('display', 'block');
-    $('commentArea').slide('hide').slide('in');
-    $('wletid').set('value', gid[1]);
-   // var html=$('commentArea').get('html');
-   //$$('div.com-'+gid[1]).set('html',html);
-    $('waveButton').removeEvents('click');
-    $('wavecancel').removeEvents('click');
-    $('waveButton').addEvent('click', addSubmit.bindWithEvent(this));
-    $('wavecancel').addEvent('click', cancelAdd.bindWithEvent(this));
+    jQuery('#waveletcmt').css('border-color', '');
+    jQuery('#waveletcmt').val('');
+    jQuery('#waveid').val(gid[0]);
+    jQuery('#wletid').val(gid[1]);
+   
+// jQuery('#wavecancel').live('click', function(){cancelAdd(jQuery(this));});
+    
 }
 
 
 function cancelAdd(id){
 
-    if ($('commentArea').getStyle('display') == 'block') {
-        $('commentArea').slide('out');
-        $('commentArea').setStyle('display', 'none');
-        
-    }
-    else 
-        if ($('freport').getStyle('display') == 'block') {
-            $('freport').slide('out');
-            $('freport').setStyle('display', 'none');
+   
+    if ($('freport').getStyle('display') == 'block') {
+        $('freport').slide('out');
+        $('freport').setStyle('display', 'none');
             
-        }
+    }
 
 }
 
 function likethis(action, wid, like, ele){
 
-    el = $(ele);
+    el = jQuery(ele);
     
     el.empty();
     //var myVerticalSlide = new Fx.Slide('likelink');
@@ -150,39 +165,35 @@ function likethis(action, wid, like, ele){
     // el.fade('out');
     //$('likelink').set('slide', {duration: 'long', transition: 'bounce:out'});
     //$('likelink').slide('in');
-    el.slide('hide').slide('in');
+    el.slideDown('slow');
     
     // $('likelink').empty();
     
     var url = spath + 'question/forum/savecmt';
-    var req = new Request({
-        method: 'get',
-        url: url,
+
+         jQuery('#waveerr').html('<b>Saving your like..!</b>');
+           jQuery('#waveerr').slideDown('slow');
+           jQuery.ajax({
+            type: "POST",
+             url: url,
         data: {
             'action': action,
             'like': like,
             'nodeid': wid
         },
-        onRequest: function(){
-            $('waveerr').set('html', '<b>Saving your like..!</b>');
-            $('waveerr').slide('hide').slide('in');
-        },
-        onComplete: function(response){
-        
-            el.set('html', response);
-            
-            var finl = el.getElement('a');
+            success: function(msg){
+
+            el.html(msg);
+             var finl = el.find('a');
             //  el.fade('in');
-            
+
             finl.unwrap();
-            finl.unwrap();
-            $('waveerr').slide('hide').slide('out');
-        }
-    }).send();
-    
-    
-    
-    //$('waveerr').set('html','<b>Thanks for your like!</b>');
+           
+           jQuery('#waveerr').slideUp('slow');
+            }
+        });
+    return false;
+//$('waveerr').set('html','<b>Thanks for your like!</b>');
 
 }
 
@@ -192,51 +203,44 @@ function likethis(action, wid, like, ele){
 function addSubmit(){
 
 
-    var cmt = $('waveletcmt').get('value');
-    var wid = $('waveid').get('value');
-    var wlid = $('wletid').get('value');
-	var url=$('burl').get('value');
-    if ($('privt').checked) {
+    var cmt = jQuery('#waveletcmt').val();
+    var wid =jQuery('#waveid').val();
+    var wlid = jQuery('#wletid').val();
+    var url=jQuery('#burl').val();
+    if (jQuery('#privt').is(':checked')) {
         var pvt = 1;
     }
     else {
         var pvt = 0;
     }
     
-    var myVerticalSlide = new Fx.Slide('wavelet-list');
     
     if (cmt.length > 5) {
-        var req = new Request({
-            method: 'get',
-            url: url+'question/forum/savecmt',
+        jQuery.ajax({
+            type: "POST",
+            url: url+'question/forum/savecmt',cache:false,
             data: {
                 'wid': wid,
                 'wlet': wlid,
                 'cmt': cmt,
                 'pvt': pvt
             },
-            onRequest: function(){
-                $('commentArea').slide('out');
-                $('commentArea').setStyle('display', 'none');
-                
-                //myVerticalSlide.slideOut();
-                //MochaUI.notification('Please wait while posting...');
-            },
-            onComplete: function(response){
-               // MochaUI.notification('Thank you posted successfully...');
-                $('wavelet-list').set('html', response);
+            success: function(msg){
+                jQuery('#wavelet-list').html(msg);
                 //myVerticalSlide.slideIn();
-                
-                bind_clk();
-                $('privt').setProperty('checked', false);
-                $('wavelet-list').setStyle('height', 'auto');
+                jQuery('#commentArea').slideUp('slow');
+                jQuery('#privt').attr('checked', false);
+                jQuery('#wavelet-list').css('height', 'auto');
+                jQuery('#mask').hide();
+                jQuery('.window').hide();
             }
-        }).send();
-        
+        });
+
+
     }
     else {
     
-        $('waveletcmt').setStyle('border-color', '#EF2C2C');
+        jQuery('#waveletcmt').css('border-color', '#EF2C2C');
         return false;
     }
     
@@ -244,17 +248,17 @@ function addSubmit(){
 
 
 function report_forum(typ, id){
-    $('commentArea').slide('out');
-    $('commentArea').setStyle('display', 'none');
-    el = $('freport');
-    $('rwave').set('value', '');
-    $('rwavelet').set('value', '');
-    $(typ).set('value', id);
-    el.setStyle('display', 'block');
-    el.slide('hide').slide('in');
-    $('abuse_type').focus();
+   
+    el = jQuery('#freport');
+    jQuery('#rwave').val();
+    jQuery('#rwavelet').val();
+    jQuery(typ).val(id);
+    el.css('display', 'block');
+    el.slideDown('slow');
+    jQuery('#abuse_type').focus();
     
-    $('wavecancel1').addEvent('click', cancelAdd.bindWithEvent(this));
+    jQuery('#wavecancel1').bind('click', function() {cancelAdd(jQuery(this));});
+
     
     
 }
@@ -352,12 +356,68 @@ function return_back(rid){
 }
 function toggle(){
 	
-	var mySlide = new Fx.Slide('newwavediv');
+    var mySlide = new Fx.Slide('newwavediv');
 
 	
-		//mySlide.toggle();
+    //mySlide.toggle();
 	
-	$('newwavediv').fade('in');
-	//$('newwavediv').fade('out');
+    $('newwavediv').fade('in');
+//$('newwavediv').fade('out');
 
 }
+
+
+jQuery(document).ready(function() {
+    //bind event for reply link
+    bind_clk();
+    //select all the a tag with name equal to modal
+    jQuery('a[name=modal]').live('click', function(e){
+        //Cancel the link behavior
+        e.preventDefault();
+
+        //Get the A tag
+        var id = jQuery(this).attr('href');
+
+        //Get the screen height and width
+        var maskHeight =jQuery(document).height();
+        var maskWidth = jQuery(window).width();
+
+        //Set heigth and width to mask to fill up the whole screen
+        jQuery('#mask').css({
+            'width':maskWidth,
+            'height':maskHeight
+        });
+
+        //transition effect
+        jQuery('#mask').fadeIn(1000);
+        jQuery('#mask').fadeTo("slow",0.8);
+
+        //Get the window height and width
+        var winH = jQuery(window).height();
+        var winW =jQuery(window).width();
+
+        //Set the popup window to center
+        jQuery(id).css('top',  winH/2-jQuery(id).height()/2);
+        jQuery(id).css('left', winW/2-jQuery(id).width()/2);
+
+        //transition effect
+        jQuery(id).fadeIn(2000);
+
+    });
+
+    //if close button is clicked
+    jQuery('.window .close').click(function (e) {
+        //Cancel the link behavior
+        e.preventDefault();
+
+        jQuery('#mask').hide();
+        jQuery('.window').hide();
+    });
+
+    //if mask is clicked
+    jQuery('#mask').click(function () {
+        jQuery(this).hide();
+        jQuery('.window').hide();
+    });
+
+});

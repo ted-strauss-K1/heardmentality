@@ -17,18 +17,15 @@ function forum_list($qid = '') {
     $output .= '	<script>
 	var spath="' . $gSitePath . '";
 	</script>
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-more.js"></script>
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/forum.js"></script>
-         
+        
                    
-          <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/Overlay.js"></script>
-	  <script src="' . $gSitePath . '/misc/jquery.js"></script>
+          <script src="' . $gSitePath . '/misc/jquery.js"></script>
               <script>jQuery.noConflict();
  </script>
+ 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/forum.js"></script>
      <script src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/scripts/jbubble.js"></script>
 <link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />
-	<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/wave.css" type="text/css" />';
+	<!--<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/wave.css" type="text/css" />-->';
 
     $output .= '	<div class="pop-up-wrapper">
         <div class="pop-up" align="center">
@@ -61,7 +58,7 @@ function forum_list($qid = '') {
 
 <div class="clr"></div>
 <div class="content-popup">
-
+<div align="center" id="waveerr"></div>
 ';
     foreach ($list as $forum) {
 
@@ -75,16 +72,16 @@ function forum_list($qid = '') {
         //likes or not
         $querylike = "select * from {user_likes} where is_wave='1' AND uid='$user->uid' AND node_id='" . $forum['fid'] . "'";
         $fetch = ExecuteQuery($querylike, "select");
-
+        $likecont=db_result(db_query("select count(*) from {user_likes} where is_wave='1' AND is_like='1' AND node_id='" . $forum['fid'] . "'"));
         if (count($fetch) < 1 || $fetch[0]['is_like'] == '0') {
 
-            $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_wave\',' . $wid . ',1,this);">Like</a></span>';
+            $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_wave\',' . $wid . ',1,this);">Like ('.$likecont.')</a></span>';
         } elseif ($fetch[0]['is_like'] == '1') {
 
-            $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_wave\',' . $wid . ',0,this);">Unlike</a></span>';
+            $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href"  onclick="likethis(\'is_wave\',' . $wid . ',0,this);">Unlike ('.$likecont.')</a></span>';
         }//likes end
         //flag
-        $flag.='<a href="#wavefooter" onclick="report_forum(\'rwave\',' . $wid . ');">Report</a>';
+        $flag.='<a href="#freport" name="modal" onclick="report_forum(\'rwave\',' . $wid . ');">Report</a>';
         $bubble = load_bubble($account->uid);
         $output .= '
             <div class=" post-title">
@@ -95,11 +92,11 @@ function forum_list($qid = '') {
   <div class="likelink-outer">
            <div class="likekink">
                <ul>
-               <li>' . $like . ' (5)</li>
+               <li>' . $like . '</li>
                <li>|</li>
                <li>' . $flag . '</li>
                <li>|</li>
-               <li><a class="rep" id="' . $wid . '-0" href="#wavefooter">Add a reply »</a></li>
+               <li><a class="rep" name="modal" id="' . $wid . '-0" href="#postreply">Add a reply »</a></li>
 
                </ul>
 
@@ -111,18 +108,46 @@ function forum_list($qid = '') {
         </div>
 </div>
 <div class="clr"></div>
+<div id="wavelet-list">
 	';
     }
     $output .= get_wavelets($wid, 0);
 
 
-    $output.='<div class="clr"></div>
+    $output.='</div><div class="clr"></div>
 </div>
 <div class="clr"></div>
 </div>
 <div class="pop-bt"></div>
 </div>
 <div class="clr"></div>
+<div  id="postreply" class="window dialog">
+<div class="d-header">
+    <h3 class="">Post Reply</h3><span><a class="close" href="#"> [X] Close</a></span><hr width="96%" align="center">
+<div class="clr"></div>
+<div class="comment-area">
+<textarea name="waveletcmt" id="waveletcmt" cols="3" rows="3"  class="txtare"></textarea>
+		<input type="hidden" name="waveid" id="waveid" value=""/>
+		<input type="hidden" name="wletid" id="wletid" value=""/>
+			<input type="hidden" name="burl" value="' . $gSitePath . '" id="burl"/>
+<div class="clr"></div>
+
+<div class="adcomment-outer">
+<span> <h5><input type="checkbox" name="privt" value="1" id="privt"/> Private Reply</h5></span>
+<div class="ad-bt"><input type="button" value="Add comment" id="waveButton" class="waveButton"/><!--<a href="#"><img src="'.$gSitePath.path_to_theme().'/images/add-comment-bt.png" width="102" height="29" alt="Add comment" /></a>--></div>
+<span>Or</span>
+<span><a class="close cancel" id="wavecancel" href="javascript:void(0);">Cancel</a></span>
+<div class="clr"></div>
+</div>
+
+<div class="clr"></div>
+
+
+</div>
+</div>
+</div>
+<div id="mask"></div>
+
 </div>';
     echo $output;
 }
@@ -158,18 +183,21 @@ function cmt_submit() {
             if ($action == 'is_wave' || $action == 'is_wavelets')
                 like_notification($nodeid, $set);
 
+                $likecont=db_result(db_query("select count(*) from {user_likes} where $set AND is_like='1' AND node_id='" .$nodeid. "'"));
 
             //	echo "<b>Thank you for liking, Have a great day!";
-            echo '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'' . $action . '\',' . $nodeid . ',0,this);">Unlike</a></span>';
+            echo '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'' . $action . '\',' . $nodeid . ',0,this);">Unlike ('.$likecont.')</a></span>';
         } else {
             $query = "update {user_likes} set is_like='$like' where $set AND node_id='$nodeid' AND uid='$user->uid'";
             $chk = db_query($query);
+             $likecont=db_result(db_query("select count(*) from {user_likes} where $set AND is_like='1' AND node_id='" .$nodeid. "'"));
+
             if ($like) {
 
-                echo '<a href="javascript:void(0);" class="href" onclick="likethis(\'' . $action . '\',' . $nodeid . ',0,this);">Unlike</a>';
+                echo '<a href="javascript:void(0);" class="href" onclick="likethis(\'' . $action . '\',' . $nodeid . ',0,this);return false;">Unlike ('.$likecont.')</a>';
             } else {
 
-                echo '<a href="javascript:void(0);" class="href" onclick="likethis(\'' . $action . '\',' . $nodeid . ',1,this);">Like</a>';
+                echo '<a href="javascript:void(0);" class="href" onclick="likethis(\'' . $action . '\',' . $nodeid . ',1,this);return false;">Like ('.$likecont.')</a>';
             }
 
 
@@ -363,18 +391,20 @@ function get_wavelets($wid = '', $pid = '') {
                 $name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
                 $querylike = "select * from {user_likes} where is_wavelets='1' AND uid='$user->uid' AND node_id='" . $forum['wlid'] . "'";
                 $fetch = ExecuteQuery($querylike, "select");
+                 $likecont=db_result(db_query("select count(*) from {user_likes} where is_wavelets='1' AND is_like='1' AND node_id='" . $forum['wlid'] . "'"));
+
                 $like = '';
                 if (count($fetch) < 1 || $fetch[0]['is_like'] == '0') {
 
-                    $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_wavelets\',' . $forum['wlid'] . ',1,this);">Like</a></span>';
+                    $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_wavelets\',' . $forum['wlid'] . ',1,this);">Like ('.$likecont.')</a></span>';
                 } elseif ($fetch[0]['is_like'] == '1') {
 
-                    $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_wavelets\',' . $forum['wlid'] . ',0,this);">Unlike</a></span>';
+                    $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_wavelets\',' . $forum['wlid'] . ',0,this);">Unlike ('.$likecont.')</a></span>';
                 }
 
                 //flag
                 $flag = '';
-                $flag.='<a href="#wavefooter" onclick="report_forum(\'rwavelet\',' . $forum['wlid'] . ');">Report</a>';
+                $flag.='<a  href="#freport" name="modal"  onclick="report_forum(\'rwavelet\',' . $forum['wlid'] . ');">Report</a>';
 
                 /////////vijay
                 $bubble = load_bubble($account->uid);
@@ -385,11 +415,11 @@ function get_wavelets($wid = '', $pid = '') {
             <div class="likelink-outer">
                        <div class="likekink">
                            <ul>
-                           <li>' . $like . '(5)</li>
+                           <li>' . $like . '</li>
                            <li>|</li>
                            <li>' . $flag . '</li>
                            <li>|</li>
-                           <li><a class="rep" id="' . $wid . '-' . $forum['wlid'] . '" href="#wavefooter">add a reply »</a></li>
+                           <li><a class="rep" id="' . $wid . '-' . $forum['wlid'] . '" name="modal" href="#postreply">add a reply »</a></li>
 
                            </ul>
 

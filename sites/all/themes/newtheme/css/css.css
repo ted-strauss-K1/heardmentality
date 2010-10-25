@@ -754,7 +754,49 @@ margin-right:2px;
 .creat-inner-gridpart .col-2-outer{ float:left; width:326px; }
 
 .inside-wrapper{ margin:0 auto;}
-.save-changes-outer{ 918px; margin:0 auto; text-align:right; padding-right:100px; padding-top:20PX; padding-bottom:10PX;}
+.save-changes-outer{ width:918px; margin:0 auto; text-align:right; padding-right:100px; padding-top:20PX; padding-bottom:10PX;}
 
+
+/* light box */
+
+#mask {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:9000;
+  background-color:#000;
+  display:none;
+}
+
+.pop-up .window {
+  position:fixed;
+  left:0;
+  top:0;
+  width:440px;
+  height:200px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+}
+
+.pop-up .dialog {
+  width:auto;
+  height:auto;
+  padding:10px;
+  background-color:#ffffff;
+}
+
+#boxes #dialog1 {
+  width:375px;
+  height:203px;
+}
+
+.dialog .d-header {
+  border-color:#028cd2;
+  padding: 10px;
+  border-style: solid;
+  width:auto;
+  height:auto;
+}
 
 
