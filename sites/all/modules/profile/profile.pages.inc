@@ -418,7 +418,7 @@ function profile($uid = '') {
     } else {
 			$cavatar='<a href="'.$gSitePath.'user/getimage" >Change Picture</a>';
                         //' . $gSitePath . '?act=edit
-        $edit.='<a href="javascript:void(0);" onclick="loadeditquestion(\'' . $gSitePath . '?' .edit. '\',\'Report \');
+        $edit.='<a href="javascript:void(0);" onclick="loadeditquestion(\'' . $gSitePath . '' .edit. '\',\'Report \');
 " >Edit My Profile </a><span class="separate">|</span> ';
    $inc = '&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Followers</a>]';
    $inc_msg='  <li><a href="'.  check_plain(request_uri()).'?tag=msg">Message['.$cnt_msg.']</a></li>';
