@@ -1,9 +1,8 @@
 <?php
 //////////////insert front end mail notification//////////////////////
-    //hm_frontnotify($qid,'','flag_question');
-
         function hm_flag($qid,$last_id,$user,$admin)
         {
+            global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey;
                 $qdetails = load_question($qid);
 
                 $u_qry = "select * from users where uid='".$qdetails['uid']."'";
