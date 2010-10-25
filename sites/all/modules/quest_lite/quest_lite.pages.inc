@@ -1592,6 +1592,10 @@ function flag_report() {
                 $u_qry = "select * from users where uid='".$qdetails['uid']."'";
                 $u_res = db_query($u_qry);
                  $u_rows = db_fetch_object($u_res);
+
+                 $flag_qry = "select * from question_flags where fid='".mysql_insert_id()."'";
+                $flag_res = db_query($flag_qry);
+                 $flag_rows = db_fetch_object($flag_res);
                 
                 
                 $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
@@ -1600,14 +1604,13 @@ function flag_report() {
                 $subject_proj = $list_content->subject;
                 
                 $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
-                $contentm = str_replace("#anothername#", $user->name, $contentm);
-
+              //  $contentm = str_replace("#anothername#", $user->name, $contentm);
                 $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
                 $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-                $contentm = str_replace("#content#",'flag for the below question. Kindly have a review', $contentm);
+                $contentm = str_replace("#content#",'some one flagged your question due to '.$flag_rows->abuse_type.'', $contentm);
 
                  //$mail_success = htmlmail_function($sendeach['user_to_id'], $sendeach['subject'], $sendeach['content'], '');
-                $mail_success = htmlmail_function($u_rows->mail, $subject_proj, $contentm, '');
+                $mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
 
             $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
              db_query($ins_qry);
