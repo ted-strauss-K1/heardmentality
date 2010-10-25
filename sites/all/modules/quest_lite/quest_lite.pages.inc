@@ -17,7 +17,8 @@
                 $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
                 $rs_mgmt = db_query($sel_user_cmt);
                 $list_content = db_fetch_object($rs_mgmt);
-                $subject_proj = $list_content->subject;
+               // $subject_proj = $list_content->subject;
+               $subject_proj =  "Heardmentality : Flag Actions";
                 if($user){
                 $name = '';
                 $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
