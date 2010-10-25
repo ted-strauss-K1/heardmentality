@@ -2,7 +2,7 @@
 //////////////insert front end mail notification//////////////////////
     //hm_frontnotify($qid,'','flag_question');
 
-        function hm_frontnotify($qid,$last_id)
+        function hm_flag($qid,$last_id,$user,$admin)
         {
                 $qdetails = load_question($qid);
 
@@ -19,19 +19,39 @@
                 $rs_mgmt = db_query($sel_user_cmt);
                 $list_content = db_fetch_object($rs_mgmt);
                 $subject_proj = $list_content->subject;
+//                if($user){
+//                $name = '';
+//                $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
+//                $contentm = str_replace("#anothername#", $name, $contentm);
+//                $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+//                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+//                $contentm = str_replace("#content#",'some one flagged your question due to '.$flag_rows->abuse_type.'', $contentm);
+//
+//
+//                $mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+//            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','".$u_rows->mail."','".$subject_proj."','".$contentm."',0,1,now())";
+//             db_query($ins_qry);
+//                }
+                if($admin)
+                {
 
-                $name = '';
-                $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
-                $contentm = str_replace("#anothername#", $name, $contentm);
+                $contentm = str_replace("#uname#", Admin, $list_content->content);
+                $contentm = str_replace("#anothername#", $user->$name, $contentm);
                 $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
                 $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-                $contentm = str_replace("#content#",'some one flagged your question due to '.$flag_rows->abuse_type.'', $contentm);
+                $contentm = str_replace("#content#",' flagged your question due to '.$flag_rows->abuse_type.'', $contentm);
 
-                 //$mail_success = htmlmail_function($sendeach['user_to_id'], $sendeach['subject'], $sendeach['content'], '');
-                $mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+               $mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+              $admin_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','mgopi.php@gmail.com','".$subject_proj."','".$contentm."',0,1,now())";
+             db_query($admin_qry);
+                    
+                }
+             
+             
+             
+             
+                        
 
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
-             db_query($ins_qry);
         }
 
 //////////////insert front end mail notification//////////////////////
@@ -1524,7 +1544,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['uid'] . "','" . $user->uid . "','user','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                      $last_id = mysql_insert_id();
-                      hm_frontnotify($_REQUEST['uid'],$last_id);
+                      hm_flag($_REQUEST['uid'],$last_id,1,1);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['uid'] . "',1)";
 					db_query($flagnotify);
@@ -1546,7 +1566,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rid'] . "','" . $user->uid . "','resource','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                      $last_id = mysql_insert_id();
-                      hm_frontnotify($_REQUEST['rid'],$last_id);
+                      hm_flag($_REQUEST['rid'],$last_id,1,1);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rid'] . "',1)";
 					db_query($flagnotify);
@@ -1569,7 +1589,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwave'] . "','" . $user->uid . "','wave','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                      $last_id = mysql_insert_id();
-                      hm_frontnotify($_REQUEST['rwave'],$last_id);
+                      hm_flag($_REQUEST['rwave'],$last_id,1,1);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwave'] ."',1)";
 					db_query($flagnotify);
@@ -1592,7 +1612,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwavelet'] . "','" . $user->uid . "','wavelet','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                      $last_id = mysql_insert_id();
-                       hm_frontnotify($_REQUEST['rwavelet'],$last_id);
+                       hm_flag($_REQUEST['rwavelet'],$last_id,1,1);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwavelet'] . "',1)";
 					db_query($flagnotify);
@@ -1614,7 +1634,7 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['qaid'] . "','" . $user->uid . "','question','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                     $last_id = mysql_insert_id();
-                    hm_frontnotify($_REQUEST['qaid'],$last_id);
+                    hm_flag($_REQUEST['qaid'],$last_id,1,1);
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','". $_REQUEST['qaid'] ."',1)";
 					db_query($flagnotify);
