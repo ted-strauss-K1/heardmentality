@@ -125,7 +125,7 @@ function forum_list($qid = '') {
 <div class="clr"></div>
 <div  id="postreply" style="display:none;">
 <div class="d-header">
-    <h3 class="">Post Reply</h3><span><a class="close" href="#"> [X] Close</a></span><hr width="96%" align="center">
+    <h3 class="">Post Reply <a class="close" href="#"> [X] Close</a></h3>
 <div class="clr"></div>
 <div class="comment-area">
 <textarea name="waveletcmt" id="waveletcmt" cols="3" rows="3"  class="txtare"></textarea>
@@ -138,7 +138,7 @@ function forum_list($qid = '') {
 <span> <h5><input type="checkbox" name="privt" value="1" id="privt"/> Private Reply</h5></span>
 <div class="ad-bt"><input type="button" value="Add comment" id="waveButton" class="waveButton"/><!--<a href="#"><img src="'.$gSitePath.path_to_theme().'/images/add-comment-bt.png" width="102" height="29" alt="Add comment" /></a>--></div>
 <span>Or</span>
-<span><a class="close cancel" id="wavecancel" href="javascript:void(0);">Cancel</a></span>
+<span><a class="close" id="wavecancel" href="javascript:void(0);">Cancel</a></span>
 <div class="clr"></div>
 </div>
 
@@ -150,22 +150,30 @@ function forum_list($qid = '') {
 </div>
 <!-- end popup-->
 <div class="clr"></div>
-<div class="" id="freport" style="display:none;"> 
+<div class="" id="freport" style="display:none;">
 <div class="d-header">
- <h3 class="">Report the post</h3><hr width="96%" align="center">
-<div class="clr"></div>
-<form  action="' . $gSitePath . 'qlite/flagreport" method="post" id="flagform">
+ <h3 class="">Report the post<a class="close" href="#"> [X] Close</a></h3>
+<div class="clr"></div><form  action="' . $gSitePath . 'qlite/flagreport" method="post" id="flagform">
+<div class="comment-area">
+
 	<input type="hidden" value="" id="rwave" name="rwave"/>
 	<input type="hidden" value="" id="rwavelet" name="rwavelet"/>
-	<div class="cmt_list">  <p id="log_res"><span>Report the Post</span> </p></div>
-	<div class="txt_area">
-	<input type="radio" checked="checked" value="Pornography or obscenity" id="abuse_type" name="abuse_type"/>
-	Pornography or obscenity <br/><input type="radio" value="radically or ethnically hateful content" id="abuse_type" name="abuse_type"/>
-	radically or ethnically hateful content  <br/> <input type="radio" value="Graphic Violence" id="abuse_type" name="abuse_type"/>
-	Graphic Violence <br/><input type="radio" value="other content inappropirate for young Viewers" id="abuse_type" name="abuse_type"/>
-	other content inappropirate for young Viewers <br/>
-	<input type="submit" value="Report Problem" class="waveButton" id="submitter" name="button"/>  or <a onclick=" jQuery.unblockUI();return false;" id="wavecancel1" href="">cancel</a>   </div>
-	</form></div><span><a class="close" href="#"> [X] Close</a></span><div>
+	
+
+<div class="adcomment-outer">
+	<p><input type="radio" checked="checked" value="Pornography or obscenity" id="abuse_type" name="abuse_type"/>
+	Pornography or obscenity </p><p><input type="radio" value="radically or ethnically hateful content" id="abuse_type" name="abuse_type"/>
+	radically or ethnically hateful content  </p><p><input type="radio" value="Graphic Violence" id="abuse_type" name="abuse_type"/>
+	Graphic Violence </p><p><input type="radio" value="other content inappropirate for young Viewers" id="abuse_type" name="abuse_type"/>
+	other content inappropirate for young Viewers </p><p>
+	<input type="submit" value="Report Problem" class="waveButton" id="submitter" name="button"/>  or <a onclick=" jQuery.unblockUI();return false;" id="wavecancel1" href="">cancel</a>
+        </p>
+       
+	</div>
+         <div class="clr"></div>
+</form> </div>
+        <div class="clr"></div>
+</div>
         <!-- end popup-->
 <div id="mask"></div>
 

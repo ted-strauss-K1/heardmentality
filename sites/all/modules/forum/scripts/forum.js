@@ -65,14 +65,13 @@ function bind_clk(){
 
             e.preventDefault();
 
-            var log = $('#log_res').addClass('ajax-loading');
+            var log = jQuery('#log_res').addClass('ajax-loading');
 
-         jQuery.post("test.php", $("#testform").serialize(),
+         jQuery.post( jQuery("#flagform").attr('action'), jQuery("#flagform").serialize(),
    function(data){
      log.removeClass('ajax-loading');
-                    log.html(data);
-
-                    setTimeout("jQuery('#flagform').slideOut();", 2000);
+                      jQuery.unblockUI();
+                     jQuery.growlUI('', data);
    });
 
    jQuery(this).parents('form').submit(function() {
