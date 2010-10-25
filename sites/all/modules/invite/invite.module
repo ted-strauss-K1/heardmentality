@@ -177,7 +177,7 @@ Heardmentality Team. </td>
 </body>
 </html>';
   //echo $newmessage;
- //exit;
+  //exit;
 	return mail($to, $subject, $newmessage, $headers);
 }
 
@@ -363,9 +363,6 @@ function hm_mails($qid,$nid,$type)
             
         }
                     break;
-
-
-
 
                      case follower:
             $sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" .$nid. "'";
