@@ -44,12 +44,6 @@
              db_query($admin_qry);
                     
                 }
-             
-             
-             
-             
-                        
-
         }
 
 //////////////insert front end mail notification//////////////////////
@@ -824,6 +818,43 @@ function qlite_save() {
             db_query($vInsQuery);
 
 
+
+
+            $last_id = mysql_insert_id();
+            ///////////////possible answer vote  mail start here ///////////////
+            $qdetails = load_question($mid);
+
+        $sel_ulists = "SELECT * FROM users where uid='$qdetails[uid]'";
+         $user_namelistfs = ExecuteQuery($sel_ulists, "select");
+
+
+         $sel_poss = "SELECT * FROM possible_answer_vote where vote_pid='$last_id'";
+         $ans_exec = ExecuteQuery($sel_poss, "select");
+
+         $sel_ans = "SELECT * FROM possible_answer where paid='$ans_exec[panswer_id]'";
+         $panswer_exec = ExecuteQuery($sel_ans, "select");
+
+            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+            $rs_mgmt = db_query($sel_user_cmt);
+            $list_content = db_fetch_object($rs_mgmt);
+                $subject_proj = "Vote Notifications";
+                $contentm = str_replace("#uname#",$user_namelistfs[0][name], $list_content->content);
+                $contentm = str_replace("#anothername#",$user->name, $contentm);
+
+                $contentm = str_replace("#question#",$qdetails[question], $contentm);
+                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+                $contentm = str_replace("#content#", "vote for your question Answer is : ". $panswer_exec[answer]."", $contentm);
+            //echo $contentm;die;
+           $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$user->mail."','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
+           db_query($ins_qry);
+
+            //$mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject_proj, $contentm, '');
+///////////////possible answer vote mail end here ///////////////
+
+
+
+
+
             $notify_insqry = "insert into notification(uid,is_answer,node_id)values('".$user->uid."','1','".$mid."')";
             db_query($notify_insqry);
 
@@ -912,7 +943,7 @@ function qlite_save() {
 
 
 
-    ////////////question search vote added start here
+    ////////////question search vote added start here ****************
     if (($_REQUEST['answer_al'] != '')&&(isset($_REQUEST['save']))) {
         $arr = array_keys($_REQUEST['answer_al']);
          $a = $arr['0'];
@@ -931,6 +962,43 @@ function qlite_save() {
 
                  $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" .$poss_ans. "','" . date('Y-m-d h:i:s') . "')";
             db_query($vInsQuery);
+
+
+
+             $last_id = mysql_insert_id();
+            ///////////////possible answer vote  mail start here ///////////////
+            $qdetails = load_question($mid);
+
+        $sel_ulists = "SELECT * FROM users where uid='$qdetails[uid]'";
+         $user_namelistfs = ExecuteQuery($sel_ulists, "select");
+
+
+         $sel_poss = "SELECT * FROM possible_answer_vote where vote_pid='$last_id'";
+         $ans_exec = ExecuteQuery($sel_poss, "select");
+
+         $sel_ans = "SELECT * FROM possible_answer where paid='$ans_exec[panswer_id]'";
+         $panswer_exec = ExecuteQuery($sel_ans, "select");
+
+            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+            $rs_mgmt = db_query($sel_user_cmt);
+            $list_content = db_fetch_object($rs_mgmt);
+            $subject_proj = "Vote Notifications";
+                $contentm = str_replace("#uname#",$user_namelistfs[0][name], $list_content->content);
+                $contentm = str_replace("#anothername#",$user->name, $contentm);
+
+                $contentm = str_replace("#question#",$qdetails[question], $contentm);
+                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+                $contentm = str_replace("#content#", "vote for your question Answer is : ". $panswer_exec[answer]."", $contentm);
+            //echo $contentm;die;
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$user->mail."','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
+            db_query($ins_qry);
+
+           // $mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject_proj, $contentm, '');
+///////////////possible answer vote mail end here ///////////////
+
+
+
+
 
 
             $notify_insqry = "insert into notification(uid,is_answer,node_id)values('".$user->uid."','1','".$mid."')";
