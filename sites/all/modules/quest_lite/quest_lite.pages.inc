@@ -9,7 +9,7 @@
                 $u_res = db_query($u_qry);
                  $u_rows = db_fetch_object($u_res);
 
-                echo  $flag_qry = "select * from question_flags where fid='".$last_id."'";
+                 $flag_qry = "select * from question_flags where fid='".$last_id."'";
                 $flag_res = db_query($flag_qry);
                  $flag_rows = db_fetch_object($flag_res);
 
@@ -18,19 +18,17 @@
                 $rs_mgmt = db_query($sel_user_cmt);
                 $list_content = db_fetch_object($rs_mgmt);
                 $subject_proj = $list_content->subject;
-//                if($user){
-//                $name = '';
-//                $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
-//                $contentm = str_replace("#anothername#", $name, $contentm);
-//                $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-//                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-//                $contentm = str_replace("#content#",'some one flagged your question due to '.$flag_rows->abuse_type.'', $contentm);
-//
-//
-//                $mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-//            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','".$u_rows->mail."','".$subject_proj."','".$contentm."',0,1,now())";
-//             db_query($ins_qry);
-//                }
+                if($user){
+                $name = '';
+                $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
+                $contentm = str_replace("#anothername#", $name, $contentm);
+                $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+                $contentm = str_replace("#content#",'some one flagged your question due to '.$flag_rows->abuse_type.'', $contentm);
+                //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','".$u_rows->mail."','".$subject_proj."','".$contentm."',0,1,now())";
+             db_query($ins_qry);
+                }
                 if($admin)
                 {
 
@@ -40,7 +38,7 @@
                 $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
                 $contentm = str_replace("#content#",' flagged this question due to '.$flag_rows->abuse_type.'', $contentm);
 
-               $mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+               //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
               $admin_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','mgopi.php@gmail.com','".$subject_proj."','".$contentm."',0,1,now())";
              db_query($admin_qry);
                     
