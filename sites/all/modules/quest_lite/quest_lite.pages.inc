@@ -26,7 +26,7 @@
                 $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
                 $contentm = str_replace("#content#",'some one flagged your question due to '.$flag_rows->abuse_type.'', $contentm);
                 //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','".$u_rows->mail."','".$subject_proj."','".$contentm."',0,1,now())";
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','".$u_rows->mail."','".$subject_proj."','".$contentm."',0,0,now())";
              db_query($ins_qry);
                 }
                 if($admin)
@@ -39,7 +39,7 @@
                 $contentm = str_replace("#content#",' flagged this question due to '.$flag_rows->abuse_type.'', $contentm);
 
                //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-              $admin_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','mgopi.php@gmail.com','".$subject_proj."','".$contentm."',0,1,now())";
+              $admin_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','mgopi.php@gmail.com','".$subject_proj."','".$contentm."',0,0,now())";
              db_query($admin_qry);
                     
                 }
