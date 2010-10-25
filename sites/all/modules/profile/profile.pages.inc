@@ -349,7 +349,11 @@ function profile($uid = '') {
             //echo "insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['delm']."','1','1','".$user->uid."' ";
             $insert_notify = db_query("insert into notification (uid,new_followe,is_user,node_id) values('" . $_REQUEST['delm'] . "','1','1','" . $user->uid . "') ");
 
-            $sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $_REQUEST['delm'] . "'";
+
+
+            hm_mails('',$_REQUEST['delm'],'follower');
+
+            /*$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $_REQUEST['delm'] . "'";
             $user_namelistfs = ExecuteQuery($sel_ulists, "select");
             $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='1'";
             $rs_mgmt = db_query($sel_user_cmt);
@@ -359,15 +363,7 @@ function profile($uid = '') {
             $contentm = str_replace("#anothername#", $user_namelistfs[0]['name'], $contentm);
             //echo $contentm;die;
 
-            $mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, '');
-
-
-
-
-
-
-
-
+            $mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, '');*/
 
             drupal_set_message(t('Successfully Added as Follower'), $type = 'success');
         } else {
@@ -379,7 +375,7 @@ function profile($uid = '') {
         }
     }
     if ($uid != $user->uid && isset($getuser)) {
-        $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow  </a><span class="separate">|</span> ';
+        $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow</a><span class="separate">|</span> ';
     }
 
 
