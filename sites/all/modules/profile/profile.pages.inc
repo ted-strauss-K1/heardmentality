@@ -457,7 +457,7 @@ function profile($uid = '') {
       <div class="profile-left">
 <div class="profile-img">
 <div class="profile-imgs">
-'. UserPicture_small($uid).'
+'.UserPicture_small($uid).'
 </div>
 <div class="profile-con">
 

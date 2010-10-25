@@ -23,6 +23,8 @@ function forum_list($qid = '') {
               <script>jQuery.noConflict();
  </script>
  	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/forum.js"></script>
+
+             	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/jquery.blockUI.js"></script>
      <script src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/scripts/jbubble.js"></script>
 <link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />
 	<!--<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/wave.css" type="text/css" />-->';
@@ -121,7 +123,7 @@ function forum_list($qid = '') {
 <div class="pop-bt"></div>
 </div>
 <div class="clr"></div>
-<div  id="postreply" class="window dialog">
+<div  id="postreply" style="display:none;">
 <div class="d-header">
     <h3 class="">Post Reply</h3><span><a class="close" href="#"> [X] Close</a></span><hr width="96%" align="center">
 <div class="clr"></div>
@@ -146,6 +148,25 @@ function forum_list($qid = '') {
 </div>
 </div>
 </div>
+<!-- end popup-->
+<div class="clr"></div>
+<div class="" id="freport" style="display:none;"> 
+<div class="d-header">
+ <h3 class="">Report the post</h3><hr width="96%" align="center">
+<div class="clr"></div>
+<form  action="' . $gSitePath . 'qlite/flagreport" method="post" id="flagform">
+	<input type="hidden" value="" id="rwave" name="rwave"/>
+	<input type="hidden" value="" id="rwavelet" name="rwavelet"/>
+	<div class="cmt_list">  <p id="log_res"><span>Report the Post</span> </p></div>
+	<div class="txt_area">
+	<input type="radio" checked="checked" value="Pornography or obscenity" id="abuse_type" name="abuse_type"/>
+	Pornography or obscenity <br/><input type="radio" value="radically or ethnically hateful content" id="abuse_type" name="abuse_type"/>
+	radically or ethnically hateful content  <br/> <input type="radio" value="Graphic Violence" id="abuse_type" name="abuse_type"/>
+	Graphic Violence <br/><input type="radio" value="other content inappropirate for young Viewers" id="abuse_type" name="abuse_type"/>
+	other content inappropirate for young Viewers <br/>
+	<input type="submit" value="Report Problem" class="waveButton" id="submitter" name="button"/>  or <a onclick=" jQuery.unblockUI();return false;" id="wavecancel1" href="">cancel</a>   </div>
+	</form></div><span><a class="close" href="#"> [X] Close</a></span><div>
+        <!-- end popup-->
 <div id="mask"></div>
 
 </div>';

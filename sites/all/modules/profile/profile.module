@@ -190,7 +190,7 @@ function UserPicture($mid,$profile='') {
 
 function UserPicture_small($mid) {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+     $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
     $rs_image = db_query($selimage);
     
     $resultimage = db_fetch_object($rs_image);
@@ -201,7 +201,7 @@ function UserPicture_small($mid) {
             $selected_avatar = $resultimage->avatar;
             $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
-            if (file_check_location($ipath)) {
+            if (file_check_location($image_path.'/'.$selected_avatar)) {
                 $PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
             } else {
                 $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';

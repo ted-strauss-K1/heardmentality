@@ -231,8 +231,8 @@ function addSubmit(){
                 jQuery('#commentArea').slideUp('slow');
                 jQuery('#privt').attr('checked', false);
                 jQuery('#wavelet-list').css('height', 'auto');
-                jQuery('#mask').hide();
-                jQuery('.window').hide();
+                jQuery.unblockUI();
+                     jQuery.growlUI('', 'Have a nice day!');
             }
         });
 
@@ -253,11 +253,11 @@ function report_forum(typ, id){
     jQuery('#rwave').val();
     jQuery('#rwavelet').val();
     jQuery(typ).val(id);
-    el.css('display', 'block');
-    el.slideDown('slow');
+   /* el.css('display', 'block');
+    el.slideDown('slow');*/
     jQuery('#abuse_type').focus();
     
-    jQuery('#wavecancel1').bind('click', function() {cancelAdd(jQuery(this));});
+  //  jQuery('#wavecancel1').bind('click', function() {cancelAdd(jQuery(this));});
 
     
     
@@ -406,7 +406,7 @@ jQuery(document).ready(function() {
     });
 
     //if close button is clicked
-    jQuery('.window .close').click(function (e) {
+    jQuery('.close').click(function (e) {
         //Cancel the link behavior
         e.preventDefault();
          jQuery.unblockUI();
