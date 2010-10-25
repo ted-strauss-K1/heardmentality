@@ -1570,6 +1570,7 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['qaid'] . "','" . $user->uid . "','question','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
+                    $last_id = mysql_insert_id();
 					
 					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','". $_REQUEST['qaid'] ."',1)";
 					db_query($flagnotify);
@@ -1593,7 +1594,7 @@ function flag_report() {
                 $u_res = db_query($u_qry);
                  $u_rows = db_fetch_object($u_res);
 
-                 $flag_qry = "select * from question_flags where fid='".mysql_insert_id()."'";
+                 $flag_qry = "select * from question_flags where fid='".$last_id."'";
                 $flag_res = db_query($flag_qry);
                  $flag_rows = db_fetch_object($flag_res);
                 
@@ -1602,9 +1603,10 @@ function flag_report() {
                 $rs_mgmt = db_query($sel_user_cmt);
                 $list_content = db_fetch_object($rs_mgmt);
                 $subject_proj = $list_content->subject;
-                
+
+                $name = '';
                 $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
-              //  $contentm = str_replace("#anothername#", $user->name, $contentm);
+                $contentm = str_replace("#anothername#", $name, $contentm);
                 $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
                 $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
                 $contentm = str_replace("#content#",'some one flagged your question due to '.$flag_rows->abuse_type.'', $contentm);
