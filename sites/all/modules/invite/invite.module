@@ -176,8 +176,8 @@ Heardmentality Team. </td>
 </table>
 </body>
 </html>';
-  echo $newmessage;
-  exit;
+ // echo $newmessage;
+  //exit;
 	return mail($to, $subject, $newmessage, $headers);
 }
 
