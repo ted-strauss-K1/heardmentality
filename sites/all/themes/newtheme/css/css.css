@@ -679,17 +679,19 @@ margin-right:2px;
 .likelink-outer .likekink{ float:left; width:300px;}
 .likelink-outer .likekink ul{ margin:0; padding:0;}
 .likelink-outer .likekink ul li{ font: bold 10px Arial, Helvetica, sans-serif; color:#666; text-transform:uppercase; list-style:none; float:left; }
-.likelink-outer .likekink ul li a{ font: bold 10px Arial, Helvetica, sans-serif; color:#666; text-transform:uppercase; list-style:none; padding:0px 5px; text-decoration:none;}
+
+.likelink-outer .likekink ul li a{ font: bold 11px Arial, Helvetica, sans-serif; color:#34689c; text-transform:uppercase; list-style:none; padding:0px 5px; text-decoration:none;}
+.likelink-outer .likekink ul li a b{ color:#666;}
 .likelink-outer .likekink ul li a:hover{ color:#000; text-decoration:underline;}
 
 .likelink-outer .date{ float:left; float:right; font:normal 11px Arial, Helvetica, sans-serif; color:#666;}
-
-.wite-title{  padding:10px; margin:2px 5px; float:right; border:2px #ccc solid; -moz-border-radius:6px 6px 6px 6px; background:#fff; overflow:hidden;}
+.wite-title-outer{width:99%;}
+.wite-title{  padding:10px; margin:0px 5px; float:right;  background:#fff; overflow:hidden; display:inline-block; width:95%;  border-top:1px #bababa dashed;}
 .wite-title .white-left{ float:left; width:10%; text-align:center;}
 .wite-title .white-left img{ border:1px #999 solid;}
 .wite-title .white-right{ width:90%; float:left;}
 .wite-title .white-right p{ font:normal 12px Arial, Helvetica, sans-serif; color:#333; text-align:left;}
-.comment-area{  border:1px #e2d8bc solid; margin:0 auto; padding:10px 10px; text-align:left; margin-top:10px; margin-bottom:10px; background:#fff;}
+.comment-area{ width:540px; border:1px #e2d8bc solid; margin:0 auto; padding:10px 10px; text-align:left; margin-top:10px; margin-bottom:10px; background:#fff;}
 .comment-area .txtare{ border:1px #66aff9 solid; background-color:#fff; font: normal 11px Arial, Helvetica, sans-serif; text-align:left; width:300px; margin-bottom:10px;}
 .adcomment-outer{ width:540px; float:left;}
 .adcomment-outer span{ float:left; margin-right:10px;  font:normal 10px Arial, Helvetica, sans-serif; color:#8e8f8f; padding-top:5px;}
@@ -807,3 +809,51 @@ div.growlUI h1, div.growlUI h2 {
       
 }
 	
+
+/*for forum*/
+.content-popup-forum{ border-left:1px #666 solid; border-right:1px #666 solid; border-bottom:1px #666 solid; width:480px; overflow:scroll;}
+.post-title-forum{ background-color:#fff; padding:10px;}
+.post-title-forum .leftsideimg-forum{ width:60px; float:left;}
+.post-title-forum .leftsideimg-forum img{ border:1px #999 solid;}
+.post-title-forum .rightside-forum{ width:350px; float:left; text-align:left;}
+.post-title-forum .rightside-forum h4{ font: bold 12px Arial, Helvetica, sans-serif; color:#333; float:left;}
+.post-title-forum .rightside-forum p{ font:normal 12px Arial, Helvetica, sans-serif; color:#333;}
+.bott-bord-forum-forum{ border-bottom:1px #999 dashed; width:500px; margin:0 auto; }
+
+
+.listmenu2{ width:150px; margin-top:5px;}
+.listmenu2 .listbox2{ width:150px; font:normal 10px Arial, Helvetica, sans-serif; color:#000000; height:18px;}
+.but{ background-image:url(../images/but-bg.jpg);min-width:65px; height:24px; background-repeat:repeat-x; border:0px ; color:#986700; font-size:12px; cursor:pointer; float:left; text-align:left;}
+.ytex{color:#986700; font-size:12px;}
+.creat{ font-family:Arial, Helvetica, sans-serif;margin:0px; padding:px; float:left; padding-left:15px;}
+.creat ul{ margin:0px; padding:px;}
+.creat li{ padding-left:0px; line-height:18px;}
+.but-left{ background:url(../images/but-left.jpg) no-repeat ; width:19px; height:17px; float:left; padding:7px 0px 0px 1px; text-align:right;}
+.but-right{ width:7px; float:left;}
+
+.likelink-outer-forum{ width:400px; padding-bottom:20px;}
+.likelink-outer-forum .likekink-forum{ float:left; width:226px;}
+.likelink-outer-forum .likekink-forum ul{ margin:0; padding:0;}
+.likelink-outer-forum .likekink-forum ul li{ font: bold 10px Arial, Helvetica, sans-serif; color:#666;  list-style:none; float:left; padding-right:5px;}
+.likelink-outer-forum .likekink-forum ul li b{ color:#678ab2;}
+.likelink-outer-forum .likekink-forum ul li a{ font: bold 10px Arial, Helvetica, sans-serif; color:#666;  list-style:none; padding:0px 5px; text-decoration:none;}
+.likelink-outer-forum .likekink-forum ul li a:hover{ color:#000; text-decoration:underline;}
+
+.likelink-outer-forum .date{ float:right; font:normal 11px Arial, Helvetica, sans-serif; color:#666; padding-right:30px;}
+.handicon{ background:url(../images/hand-ico.jpg) no-repeat ;}
+.back-col{ background-color:#f0efef;}
+
+/* section page */
+.section-wrapper{ width:350px; margin:0 auto; border:1px #666 solid ; min-height:200px; height: auto !important; height:200px; margin-top:100px;}
+.section-wrapper .sec-title{ margin:0 auto; border-top:2px #000 solid; border-bottom:2px #000 solid; padding:5px 0px; margin-top:10px;}
+.section-wrapper .subtit{ background:#ddd2b2; padding:5px 0px; }
+.section-wrapper .subtit-left{ float:left; font:normal 17px "Times New Roman", Times, serif; color:#000; text-transform:uppercase; width:160px; padding-left:13px;}
+.section-wrapper .subtit-right{ float:left; font:normal 17px "Times New Roman", Times, serif; color:#000; text-transform: uppercase; width:160px; padding-left:13px;  color:#000; }
+.section-wrapper .categori{ float:left; width:173px; border-right:1px #000 solid; min-height:200px; height:auto !important; height:200px; margin-top:10px;}
+.section-wrapper .subcategori{ float:left; width:163px; margin-top:10px; padding-left:10px; color:#666;}
+
+.cate-out{ width:160px; padding-left:13px;}
+.cate-out-lef{ font: bold 12px Arial, Helvetica, sans-serif; border:none 0px; float:left; background:#fff; display:block; line-height:20px;}
+.cate-out-mid{ border:none; float:left; width:155px; background:url(../images/dot-cate.jpg) repeat-x 0px 10px;  }
+.cate-out-rite{ text-transform:uppercase; float:right; border:none;  background:#fff; display:block; font:bold 14PX Arial, Helvetica, sans-serif;}
+
