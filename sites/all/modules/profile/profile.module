@@ -280,7 +280,7 @@ function user_facts() {
     $total_users = db_result($userslist);
     
     $output .= '
-    <div><img src="'.$gSitePath.path_to_theme().'/images/map.gif" alt="map"/>
+    <div><img src="'.$gSitePath.path_to_theme().'/images/map.gif" alt="map" width="155"/>
 </div>
 <div>
          <div class="fa-item">
