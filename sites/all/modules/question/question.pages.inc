@@ -926,7 +926,8 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     }
     
     $output .= '</select></td>
-        <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+        <td width="25%" align="left"><div id="chg_scat">
+     <select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
     $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cid."')");
     $ecat2 = explode(",", $quest->scid);
     while ($list = db_fetch_object($client_select1)) {
