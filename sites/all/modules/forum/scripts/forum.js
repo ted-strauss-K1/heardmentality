@@ -155,7 +155,13 @@ function cancelAdd(id){
 function likethis(action, wid, like, ele){
 
     el = jQuery(ele);
-    
+    if(uid>0){
+     }else{
+
+          jQuery.growlUI('', 'Please Login to do this action!');
+            return false;
+        }
+
     el.empty();
     //var myVerticalSlide = new Fx.Slide('likelink');
     
@@ -353,14 +359,19 @@ function return_back(rid){
 }
 function toggle(){
 	
-    var mySlide = new Fx.Slide('newwavediv');
 
-	
-    //mySlide.toggle();
-	
-    $('newwavediv').fade('in');
-//$('newwavediv').fade('out');
+    if(uid>0){
 
+            var id = jQuery(this).attr('href');
+          jQuery.blockUI({ message: jQuery('#newwavediv'),css: {
+               left: (jQuery(window).width() - 500) /2 + 'px',
+               right:'20%',
+                width: 'auto',cursor:''
+            }  });
+        }else{
+
+            jQuery.growlUI('', 'Please Login to do this action!');
+        }
 }
 
 
@@ -371,15 +382,21 @@ jQuery(document).ready(function() {
     jQuery('a[name=modal]').live('click', function(e){
         //Cancel the link behavior
         e.preventDefault();
+        if(uid>0){
 
-        //Get the A tag
-        var id = jQuery(this).attr('href');
+            var id = jQuery(this).attr('href');
           jQuery.blockUI({ message: jQuery(id),css: {
                left: (jQuery(window).width() - 500) /2 + 'px',
                right:'20%',
                 width: 'auto',cursor:'pointer'
-            }
-  });
+            }  });
+        }else{
+
+            jQuery.growlUI('', 'Please Login to do this action!');
+        }
+        //Get the A tag
+       
+ 
         //Get the screen height and width
      /*   var maskHeight =jQuery(document).height();
         var maskWidth = jQuery(window).width();
