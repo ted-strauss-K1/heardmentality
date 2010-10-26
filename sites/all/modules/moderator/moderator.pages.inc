@@ -651,12 +651,15 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
         <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
    // $ecat1 = explode(",", $quest->cid);
-echo $quest->cat;
     while ($list = db_fetch_object($client_select)) {
 
         if($quest->cat==$list->cat_id)
         {
             $sel = 'SELECTED';
+        }
+        else
+        {
+            $sel = '';
         }
         /*if (in_array($list->cat_id, $ecat1)) {
             $sel = 'SELECTED="SELECTED"';
