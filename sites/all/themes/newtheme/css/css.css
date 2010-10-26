@@ -691,7 +691,7 @@ margin-right:2px;
 .wite-title .white-left img{ border:1px #999 solid;}
 .wite-title .white-right{ width:90%; float:left;}
 .wite-title .white-right p{ font:normal 12px Arial, Helvetica, sans-serif; color:#333; text-align:left;}
-.comment-area{ width:540px; border:1px #e2d8bc solid; margin:0 auto; padding:10px 10px; text-align:left; margin-top:10px; margin-bottom:10px; background:#fff;}
+.comment-area{border:1px #e2d8bc solid; margin:0 auto; padding:10px 10px; text-align:left; margin-top:10px; margin-bottom:10px; background:#fff;}
 .comment-area .txtare{ border:1px #66aff9 solid; background-color:#fff; font: normal 11px Arial, Helvetica, sans-serif; text-align:left; width:300px; margin-bottom:10px;}
 .adcomment-outer{ width:540px; float:left;}
 .adcomment-outer span{ float:left; margin-right:10px;  font:normal 10px Arial, Helvetica, sans-serif; color:#8e8f8f; padding-top:5px;}
