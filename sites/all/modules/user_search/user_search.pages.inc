@@ -1207,9 +1207,8 @@ exit;
         }
     
     $ret = '<div class="contributer">
-          <div class="commutop-profile">
+          <div class="facttop">
   CONTRIBUTOR
-
           </div>
           <div class="hm-cen">
 
