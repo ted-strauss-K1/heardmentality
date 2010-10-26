@@ -7,7 +7,7 @@ $q_city = $_REQUEST['q_city'];
 $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
     $result = geonames_query('countryinfo',NULL,$options);
 	//echo '<form name="thisform" action="' . $gSitePath . 'searchquestion" method="post">';
-    echo '<span class="black12">Location:</span>';
+    echo '<span class="black12" style="margin-left:10px">Location:</span>';
    echo '  <div class="padding10" >';
 $optionlist.=' <option value="0" >--Country--</option>';
     foreach ($result->results as $country) {
