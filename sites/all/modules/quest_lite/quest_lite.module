@@ -181,28 +181,78 @@ function list_wave($qid = '', $type = '') {
     $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select count(*) from {forum_wavelets} as wl where wl.wid=f.fid group by wl.wid ),0) as cntpost,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.fid AND is_wave='1' AND is_like='1' group by l.node_id),0) as cntlike from {forum_wave} as f join {user_profile} as u on u.uid=f.uid where f.qid_rid='$qid' AND type='$type' AND status='1' ORDER BY fid DESC ";
     
     $cnt = ExecuteQuery($query, "select");
+    $i=0;
     if (! empty($cnt)) {
+
+     
         foreach ($cnt as $forum) {
-            
+               $bg=$i%2;
+        if($bg)
+            $setbg='back-col';
+
+        $i++;
+             $account = user_load($forum['uid']);
             if ($type == 1) {
-               
-                
+                               
                 $click = 'loadwave('.$qid.','.$forum['fid'].')';
+
+                $wave.='<div class=" post-title-forum '.$setbg.'">
+<div class="leftsideimg-forum">'.UserPicture_small($account->uid).'</div>
+
+<div class="rightside-forum">
+<h4>'.myTruncate($forum['title'], '30', '', '..').'</h4><br>
+
+
+<p><a href="javascript:void(0);" onclick="'.$click.'"> '.myTruncate($forum['content'], '25', '', '..').'</a></p><br>
+
+
+
+        <div class="likelink-outer-forum">
+           <div class="likekink-forum">
+               <ul>
+               <li><a href="#"><b>'.$forum['cntpost'].' Comments</b></a></li>
+               <li>|</li>
+               <li><a href="#">'.$forum['cntlike'].' likes</a></li>
+
+
+               </ul>
+
+
+           </div>
+           <div class="date">'.$forum['date_added'].'</div>
+
+        <div class="clr"></div>
+        </div>
+
+
+</div>
+
+
+
+
+<div class="clr"></div>
+
+
+
+</div>
+
+
+<div class="clr"></div>';
+
             } else {
                
                 $click = 'rwavelet('.$qid.','.$forum['fid'].')';
-            }
 
-            
+
             $wave .= '
 	<div class="post-title back-col">
-<div class="leftsideimg"><img src="images/pimg3.jpg" width="30" height="25" /></div>
+<div class="leftsideimg">'.UserPicture_small($account->uid).'</div>
 
 <div class="rightside">
 <h4>Post Title</h4><br />
 
 <p><a href="javascript:void(0);" onclick="'.$click.'"> '.myTruncate($forum['title'], '25', '', '..').'</a></p><br>
-	
+
 <div class="likelink-outer">
            <div class="likekink">
               <ul>
@@ -226,6 +276,12 @@ function list_wave($qid = '', $type = '') {
 <div class="clr"></div>
 </div>
 <div class="bott-bord"></div>	';
+
+
+            }
+
+             
+
         
         }
     } else {

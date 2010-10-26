@@ -20,19 +20,35 @@ window.addEvent('domready', function() {
 	function wave_form(){
 		//Prevents the default submit event from loading a new page.
 		//e.stop();
-		var wt=jQuery('#newwavediv').find('.textArea');
-		var post=wt.val();
+                var wt=jQuery('#newwavediv').find('#wtitle');
+		var wc=jQuery('#newwavediv').find('#wcon');
+                var wtitle=wt.val();
+		var post=wc.val();
 		var formwave=jQuery('#newwaveform');
+
+           if(jQuery.trim(wtitle).length<2){
+
+			wt.css("border-color","red");
+		
+			return false;
+		}else{
+
+	wt.css("border-color","");
+		}
+
 		
 		if(jQuery.trim(post).length<8){
 		
-			wt.css("border-color","#EF2C2C");
-			wt.attr('id','wtitlerror');
+			wc.css("border-color","red");
+		wc.removeClass('txtare');
 			return false;
 		}else{
 			
-	wt.attr('id','wtitle');	
+	wc.addClass('txtare');
 		}
+                
+
+
 jQuery.post(formwave.attr('action'),formwave.serialize(),
    function(data){
     jQuery('#qwave').html(data);
@@ -61,7 +77,7 @@ jQuery('.textArea').focus();
 
 function loadwave(qid,wid){
 	url= gSitePath+'question/forum/?qid='+qid+'&wid='+wid;
-	jQuery.nyroModalSettings({ title:'Forum Posts'});
+	jQuery.nyroModalSettings({title:'Forum Posts'});
   var options = 'sameBox:true width:700 height:90% caption:' +
   '`Forum Posts`';
   parent.fb.start(url, options);
@@ -74,7 +90,7 @@ function loadwave(qid,wid){
 
 function loadrforum(url,title){
 	
-	jQuery.nyroModalSettings({ title:'Forum Posts'});
+	jQuery.nyroModalSettings({title:'Forum Posts'});
 
 	//jQuery.nyroModalManual({
   //  url: url,width:550,height:450,title:'Forum Posts'

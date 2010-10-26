@@ -72,7 +72,7 @@ function qlite_view() {
     drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/main.css');
     //drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     // drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
-    drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/wave.css');
+   // drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/wave.css');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/like.js');
     // drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
@@ -1459,7 +1459,7 @@ function panel_content() {
 
                 $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
                 extract($_POST);
-                $forum ="INSERT INTO {forum_wave} set qid_rid='" . $qid . "',type='1',uid='$user->uid',title='" . mysql_escape_string($wtitle) . "',private='$wprivate' ";
+                $forum ="INSERT INTO {forum_wave} set qid_rid='" . $qid . "',type='1',uid='$user->uid',title='" . mysql_escape_string($wtitle) . "',content='". mysql_escape_string($wcon)."',private='$wprivate' ";
 				
                 $nid = ExecuteQuery($forum,'insert');
                 echo list_wave($qid, 1);
@@ -1553,10 +1553,8 @@ function forum_wave($qid = '') {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $wave = '';
-    $wave .= '
+   	
 	
-	<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/wave.css" type="text/css" />';
-
     //print_r($cnt);
     $wave .= '<div class="">
 		<div class="qwavebut">
@@ -1569,7 +1567,10 @@ function forum_wave($qid = '') {
 	<div align="right"><a href="javascript:void(0);" onclick="toggle();">Close</a></div>
 	<form  id="newwaveform" class="newwave" action="' . url($_GET['q'], array('absolute' => true)) . '?type=Forum" method="post" accept-charset="utf-8">
 	<div ><b>Post New Wave</b></div>
-	<p><textarea row="7" class="textArea" cols="55" name="wtitle" id="wtitle" ></textarea></p>	
+        <p><b>Title</b></p>
+        	<p><input type="text" name="wtitle" id="wtitle" value=""/></p>
+                <p><b>Content</b></p>
+	<p><textarea row="7" class="txtare" cols="55" name="wcon" id="wcon" ></textarea></p>
 	<!--<div ><b>Private Reply :</b> [Only followers can do reply]</div>
 	<p><select name="wprivate" id="wprivate">
 	<option value="0"> Disabled</option>

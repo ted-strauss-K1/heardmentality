@@ -29,7 +29,8 @@ function forum_list($qid = '') {
 <link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />
 	<!--<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/wave.css" type="text/css" />-->';
 
-    $output .= '	<div class="pop-up-wrapper">
+    $output .= '<body style="background:none;">
+        <div class="pop-up-wrapper">
         <div class="pop-up" align="center">
 <div class="pop-tp"></div>
 <div class="pop-md" align="center">
@@ -89,8 +90,8 @@ function forum_list($qid = '') {
             <div class=" post-title">
 <div class="leftsideimg">' . UserPicture_small($account->uid) . '</div>
 <div class="rightside">
-<h4>Post Title</h4><br />
-<p> <a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . $name . '</a>:' . $forum['title'] . '</p><br/>
+<h4>'.$forum['title'].'</h4><br />
+<p> <a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . $name . '</a>:' . $forum['content'] . '</p><br/>
   <div class="likelink-outer">
            <div class="likekink">
                <ul>
