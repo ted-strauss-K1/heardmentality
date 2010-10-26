@@ -88,10 +88,10 @@ function forum_list($qid = '') {
         $bubble = load_bubble($account->uid);
         $output .= '
             <div class=" post-title">
-<div class="leftsideimg">' . UserPicture_small($account->uid) . '</div>
+<div class="leftsideimg"><a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
 <div class="rightside">
 <h4>'.$forum['title'].'</h4><br />
-<p> <a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . $name . '</a>:' . $forum['content'] . '</p><br/>
+<p> ' . $forum['content'] . '</p><br/>
   <div class="likelink-outer">
            <div class="likekink">
                <ul>

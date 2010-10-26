@@ -197,7 +197,7 @@ function list_wave($qid = '', $type = '') {
                 $click = 'loadwave('.$qid.','.$forum['fid'].')';
 
                 $wave.='<div class=" post-title-forum '.$setbg.'">
-<div class="leftsideimg-forum">'.UserPicture_small($account->uid).'</div>
+<div class="leftsideimg-forum"><a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">'.UserPicture_small($account->uid).'</a></div>
 
 <div class="rightside-forum">
 <h4>'.myTruncate($forum['title'], '30', '', '..').'</h4><br>
