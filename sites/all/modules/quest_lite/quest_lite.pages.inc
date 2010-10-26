@@ -1662,13 +1662,13 @@ function flag_report() {
 					db_query($flagnotify);
 					
                     increasepoints('4', $_REQUEST['uid'], '0');
-                    echo '<div class="messages success">You Have Flagged successfully ! </div>';
+                    echo '<div class="">You Have Flagged successfully ! </div>';
                 } else {
-                    echo '<div class="messages error">You Have Already Flagged !</div>';
+                    echo '<div class="red">You Have Already Flagged !</div>';
                 }
             } else {
 
-                echo '<div class="messages error">Select Report Type !</div>';
+                echo '<div class="red">Select Report Type !</div>';
             }
         } elseif ($_REQUEST['rwavelet'] && $_REQUEST['rwavelet'] > 0) {
 
@@ -1685,13 +1685,13 @@ function flag_report() {
 					db_query($flagnotify);
 					
                     increasepoints('4', $_REQUEST['uid'], '0');
-                    echo '<div class="messages success">You Have Flagged successfully ! </div>';
+                    echo '<div class="">You Have Flagged successfully ! </div>';
                 } else {
-                    echo '<div class="messages error">You Have Already Flagged !</div>';
+                    echo '<div class="red">You Have Already Flagged !</div>';
                 }
             } else {
 
-                echo '<div class="messages error">Select Report Type !</div>';
+                echo '<div class="red">Select Report Type !</div>';
             }
         } else {
 

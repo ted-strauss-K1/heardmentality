@@ -256,9 +256,7 @@ function report_forum(typ, id){
     el.slideDown('slow');*/
     jQuery('#abuse_type').focus();
     
-  //  jQuery('#wavecancel1').bind('click', function() {cancelAdd(jQuery(this));});
 
-    
     
 }
 
@@ -376,7 +374,12 @@ jQuery(document).ready(function() {
 
         //Get the A tag
         var id = jQuery(this).attr('href');
-          jQuery.blockUI({ message: jQuery(id) });
+          jQuery.blockUI({ message: jQuery(id),css: {
+               left: (jQuery(window).width() - 500) /2 + 'px',
+               right:'20%',
+                width: 'auto',cursor:'pointer'
+            }
+  });
         //Get the screen height and width
      /*   var maskHeight =jQuery(document).height();
         var maskWidth = jQuery(window).width();
