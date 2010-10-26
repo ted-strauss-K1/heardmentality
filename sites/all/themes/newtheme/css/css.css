@@ -58,7 +58,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .inner  h3{ font:12px/21px Georgia, "Times New Roman", Times, serif; color:#3F3F3F}
 .innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
 .innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
-.innerbox span{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#cf9f10;}
+.innerbox a{font-size:14px/21px; color:#996600;}
 /*cont-center*/
 .ques{ width:512px;float:left;padding:0px 0px 0px 10px;}
 .questop{ background-image:url(../images/c-top.gif); background-repeat:no-repeat; height:34px; font:17px/33px  normal Georgia, "Times New Roman", Times, serif; color:#000; padding-left:10px; border-bottom:1px #BDBDBD solid;}
