@@ -195,34 +195,44 @@ function list_wave($qid = '', $type = '') {
 
             
             $wave .= '
-	<div class="comment">
-		<div class="div1">
-			
-		</div>	
-		<div class="div2">
-			'.$forum['cntlike'].' likes
-		</div>
-		<div class="div3">
-			'.$forum['cntpost'].' post
-		</div>
-		<div class="div4">
-			<a href="javascript:void(0);" onclick="'.$click.'"> '.myTruncate($forum['title'], '25', '', '..').'</a>
-		</div>
-		<div class="div5">
-			'.$forum['date_added'].'
-		</div>
-		
-		</div>	
+	<div class="post-title back-col">
+<div class="leftsideimg"><img src="images/pimg3.jpg" width="30" height="25" /></div>
+
+<div class="rightside">
+<h4>Post Title</h4><br />
+
+<p><a href="javascript:void(0);" onclick="'.$click.'"> '.myTruncate($forum['title'], '25', '', '..').'</a></p><br>
 	
-	
-	';
+<div class="likelink-outer">
+           <div class="likekink">
+              <ul>
+               <li><a href="#"><b>'.$forum['cntpost'].' Comments</b></a></li>
+               <li>|</li>
+               <li><a href="#">'.$forum['cntlike'].' likes</a></li>
+
+
+               </ul>
+
+
+           </div>
+          <div class="date">'.$forum['date_added'].'</div>
+
+        <div class="clr"></div>
+        </div>
+
+
+</div>
+
+<div class="clr"></div>
+</div>
+<div class="bott-bord"></div>	';
         
         }
     } else {
         
         $wave .= '
-	<div class="comment">
-		<div class="div4">
+	<div class="post-title">
+		
 	<b>No Waves Posted Yet!!</b>
 		</div>	
 	
@@ -230,6 +240,7 @@ function list_wave($qid = '', $type = '') {
 	';
     
     }
+   
     return $wave;
 
 

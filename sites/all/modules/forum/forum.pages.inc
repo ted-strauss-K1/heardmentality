@@ -828,27 +828,72 @@ function resforum_list() {
 
 //print_r($cnt);
     $wave .= '
-	
+	<body style="background:none;">
+<div class="pop-up-wrapper">
+<div class="pop-up" align="center">
+<div class="pop-tp"></div>
+<div class="pop-md" align="center">
+<div class="tp-sandalbar">
+<span class="pimg"><img src="images/pimg1.jpg" width="30" height="25" alt="image1" /></span>
+<span class="pimg"><img src="images/pimg2.jpg" width="30" height="25" alt="image2" /></span>
+<span class="pimg"><img src="images/pimg3.jpg" width="30" height="25" alt="image3" /></span>
+<span class="pimg"><img src="images/pimg4.jpg" width="30" height="25" alt="image4" /></span>
+<span class="pimg"><img src="images/pimg5.jpg" width="30" height="25" alt="image5" /></span>
+<div class="ad-bt"><a href="#" title="Add"><img src="images/add-bt.jpg" width="37" height="22" alt="Add button" /></a></div>
+<div class="clr"></div>
+
+</div>
+
+<div class="clr"></div>
+
+
+<div class="popmenu">
+<ul>
+<li><a href="#"><span><img src="images/menu-b1.png" width="14" height="7" alt="Menu1" /></span>Next</a></li>
+<li><a href="#"><span><img src="images/menu-b2.png" width="11" height="11" alt="menu2" /></span>Reply</a></li>
+<li><a href="#"><span><img src="images/menu-b3.png" width="9" height="11" alt="menu3"/></span>Edit</a></li>
+<li><a href="#" class="selectpop"><span><img src="images/menu-b4.png" width="8" height="7" alt="menu4" /></span>Playback</a></li>
+<li><a href="#"><span><img src="images/menu-b5.png" width="10" height="10" alt="menu5" /></span>Unfollow</a></li>
+<li><a href="#"><span><img src="images/menu-b6.png" width="10" height="11" alt="menu6" /></span>Archive</a></li>
+<li><a href="#"><span><img src="images/menu-b7.png" width="8" height="9" alt="menu7" /></span>Spam</a></li>
+
+
+</ul>
+<div class="clr"></div>
+</div>
+
+<div class="clr"></div>
+<div class="content-popup">
 	<div id="ajaxpage_content">
-	<div class="facttop2">FORUM POSTS</div>
-		<div class="qwavebut">
-	<!--	<input type="button" onclick="newwave(\'' . $gSitePath . 'question/forum/' . $rid . '?action=new\',\'New Wave\')" value="New Wave" class="waveButtonMain"/> -->
-	<input type="button" id="newwavebut" value="New Wave" onclick="toggle();" class="waveButtonMain"/>
-		</div>
-		<div id="qwave" class="">
+	<div align="right"><a href="#" id="newwavebut" onclick="toggle();" >Post New Topic</a></div>
+	<div id="qwave" class="">
 		
 		';
     $wave.=list_wave($rid, 2);
 
 
-    $wave .= '</div>
+    $wave .= '</div></div><!--ajax content end-->
+        </div>
+
+<div class="clr"></div>
+</div>
+<div class="pop-bt"></div>
+</div>
+<div class="clr"></div>
+</div>
+
 	<div class="" id="newwavediv" style="display:none">';
     if (!empty($user->uid)) {
         $wave.='
-	<div align="right"><a href="javascript:void(0);" onclick="$(\'newwavediv\').fade(\'out\');">Close</a></div>
+	 <div class="d-header">
+    <h3 class="">POST A TOPIC<a href="#" class="close"> [X] Close</a></h3>
+<div class="clr"></div>
+<div class="comment-area">
 	<form  id="newwaveform" class="newwave" action="' . url($_GET['q'], array('absolute' => true)) . '" method="post" accept-charset="utf-8">
-	<div ><b>Post New Wave</b></div>
-	<p><textarea row="7" class="textArea" cols="55" name="wtitle" id="wtitle" ></textarea></p>	
+	<textarea row="7" class="textArea" cols="55" name="wtitle" id="wtitle" ></textarea>
+        <div class="clr"></div>
+
+<div class="adcomment-outer">
 	<!--<div ><b>Private Reply :</b> [Only followers can do reply]</div>
 	<p><select name="wprivate" id="wprivate">
 	<option value="0"> Disabled</option>
@@ -856,16 +901,17 @@ function resforum_list() {
 	</select></p>		-->			
 	<input type="hidden" name="type" value="2"/>
 	<input type="hidden" name="burl" value="' . $gSitePath . '" id="burl"/>
-	<p><input type="button" class="waveButtonMain" onclick="wave_form();" value="Post" /></p>
-</form>';
+	<div class="ad-bt"><input type="button" class="waveButton" onclick="wave_form();" value="Post" /></div>
+        </div>
+        <div class="clr"></div>
+
+</form> </div>';
+
     } else {
         $wave.='<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
     }
-    $wave.='</div>
-	<div>
-	</div>
-	<div class="clr"></div>
-	';
+    $wave.='</body>
+		';
 
     echo $wave;
 }

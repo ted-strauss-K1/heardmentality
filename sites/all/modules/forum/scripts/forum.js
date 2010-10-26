@@ -57,27 +57,29 @@ function bind_clk(){
 
     });
     //for submit
-   jQuery('#waveButton').live('click', function(){addSubmit(jQuery(this));});
+    jQuery('#waveButton').live('click', function(){
+        addSubmit(jQuery(this));
+    });
 
 
-      if (jQuery('#flagform') != null) {
+    if (jQuery('#flagform') != null) {
         jQuery('#flagform').bind('submit', function(e){
 
             e.preventDefault();
 
             var log = jQuery('#log_res').addClass('ajax-loading');
 
-         jQuery.post( jQuery("#flagform").attr('action'), jQuery("#flagform").serialize(),
-   function(data){
-     log.removeClass('ajax-loading');
-                      jQuery.unblockUI();
-                     jQuery.growlUI('', data);
-   });
+            jQuery.post( jQuery("#flagform").attr('action'), jQuery("#flagform").serialize(),
+                function(data){
+                    log.removeClass('ajax-loading');
+                    jQuery.unblockUI();
+                    jQuery.growlUI('', data);
+                });
 
-   jQuery(this).parents('form').submit(function() {
-  alert($(this).serialize());
-  return false;
-});
+        //   jQuery(this).parents('form').submit(function() {
+        //  alert($(this).serialize());
+        // return false;
+        //});
 
         
         });
@@ -88,42 +90,30 @@ function bind_clk(){
 function wave_form(){
     //Prevents the default submit event from loading a new page.
     //e.stop();
-    var wt=$('newwavediv').getElement('.textArea');
-    var formwave=$('newwaveform');
-    var post=wt.get('value');
-    if(post.trim().length<8){
+    var wt=$('#newwavediv .textArea');
+    var formwave=$('#newwaveform');
+    var post=wt.val();
+    if(post.trim().length<5){
 		
-        wt.setStyle('border-color','#EF2C2C');
-        wt.set('id','wtitlerror');
+        wt.css('border-color','#EF2C2C');
+        wt.attr('id','wtitlerror');
         return false;
     }else{
 			
-        wt.set('id','wtitle');
+        wt.attr('id','wtitle');
     }
-    //Empty the log and show the spinning indicator.
-    //var log = $('newwavediv').empty().addClass('ajax-loading');
-    //Set the options of the form's Request handler.
-    //("this" refers to the $('myForm') element).
-    formwave.set('send', {
-		
-			
-        onComplete: function(response) {
-            //log.removeClass('ajax-loading');
-            $('qwave').fade('out');
-            $('qwave').empty();
-            $('qwave').set('html', response);
-            $('qwave').fade('in');
-            wt.set('value','');
-							
-        },
-        onRequest: function() {
-            $('newwavediv').fade('out');
-        }
-		
-		
-    });
-    //Send the form.
-    $('newwaveform').send();
+ 
+
+    jQuery.post( jQuery("#newwaveform").attr('action'), jQuery("#newwaveform").serialize(),
+        function(data){
+            wt.val('');
+             $('#qwave').html(data);
+            jQuery.unblockUI();
+            jQuery.growlUI('', 'Have a nice day!');
+        });
+
+
+
 }
 
 function addComment(el){
@@ -156,11 +146,11 @@ function likethis(action, wid, like, ele){
 
     el = jQuery(ele);
     if(uid>0){
-     }else{
+    }else{
 
-          jQuery.growlUI('', 'Please Login to do this action!');
-            return false;
-        }
+        jQuery.growlUI('', 'Please Login to do this action!');
+        return false;
+    }
 
     el.empty();
     //var myVerticalSlide = new Fx.Slide('likelink');
@@ -176,27 +166,27 @@ function likethis(action, wid, like, ele){
     
     var url = spath + 'question/forum/savecmt';
 
-         jQuery('#waveerr').html('<b>Saving your like..!</b>');
-           jQuery('#waveerr').slideDown('slow');
-           jQuery.ajax({
-            type: "POST",
-             url: url,
+    jQuery('#waveerr').html('<b>Saving your like..!</b>');
+    jQuery('#waveerr').slideDown('slow');
+    jQuery.ajax({
+        type: "POST",
+        url: url,
         data: {
             'action': action,
             'like': like,
             'nodeid': wid
         },
-            success: function(msg){
+        success: function(msg){
 
             el.html(msg);
-             var finl = el.find('a');
+            var finl = el.find('a');
             //  el.fade('in');
 
             finl.unwrap();
            
-           jQuery('#waveerr').slideUp('slow');
-            }
-        });
+            jQuery('#waveerr').slideUp('slow');
+        }
+    });
     return false;
 //$('waveerr').set('html','<b>Thanks for your like!</b>');
 
@@ -223,7 +213,8 @@ function addSubmit(){
     if (cmt.length > 5) {
         jQuery.ajax({
             type: "POST",
-            url: url+'question/forum/savecmt',cache:false,
+            url: url+'question/forum/savecmt',
+            cache:false,
             data: {
                 'wid': wid,
                 'wlet': wlid,
@@ -237,7 +228,7 @@ function addSubmit(){
                 jQuery('#privt').attr('checked', false);
                 jQuery('#wavelet-list').css('height', 'auto');
                 jQuery.unblockUI();
-                     jQuery.growlUI('', 'Have a nice day!');
+                jQuery.growlUI('', 'Have a nice day!');
             }
         });
 
@@ -258,7 +249,7 @@ function report_forum(typ, id){
     jQuery('#rwave').val();
     jQuery('#rwavelet').val();
     jQuery(typ).val(id);
-   /* el.css('display', 'block');
+    /* el.css('display', 'block');
     el.slideDown('slow');*/
     jQuery('#abuse_type').focus();
     
@@ -269,92 +260,50 @@ function report_forum(typ, id){
 
 function rwavelet(rid, wid){
 
-    var url = 'question/forum/';
+    var url = spath+'question/forum/';
     
-    var myElement = new Element('div', {
-        //The 'styles' property passes the object to Element:setStyles.
-        'styles': {
-            'font': '12px Arial',
-            'color': 'blue',
-            'border': '1px solid #CCCCCC'
-        },
-        
-        //Any other property uses Element:setProperty.
-        'id': 'documentBody',
-        'align': 'right'
-    });
+
+    var myElement ='<div id="documentBody" align="right" ><a href="#" onClick="return_back('+rid+')" id="back" >Back</a></div>';
     
-    var back = new Element('a', {
-        //The 'events' property passes the object to Element:addEvents.
-        'events': {
-            'click': function(){
-                return_back(rid);
-            }
-        },
-        //Any other property uses Element:setProperty.
-        'id': 'back',
-        'href': '#'
-    });
-    
-    var req = new Request({
-        method: 'get',
+   //  $('#ajaxpage_content').slideUp('slow');
+    jQuery.growlUI('Loading forum...');
+        jQuery.ajax({
+        type: "POST",
         url: url,
         data: {
             'qid': rid,
             'wid': wid
-        
         },
-        onRequest: function(){
-            $('ajaxpage_content').set('html', '<b>Loading wavelets..!</b>');
-            $('ajaxpage_content').slide('hide').slide('in');
-        },
-        onComplete: function(response){
-        
-            $('ajaxpage_content').set('html', response);
-            
-            //   var myElementw = new Element('div', { 'id': 'documentBody'});
-            
-            var el = $('ajaxpage_content').getParent();
-            
-            // el.setStyle('height', 'auto');
-            // el.setAttribute('style','');
-            
-            $('ajaxpage_content').unwrap();
-            
-            myElement.inject($('ajaxpage_content'), 'top');
-            back.inject(myElement);
-            back.appendText('Back');
-            bind_clk();
+        success: function(msg){
+
+              $('body').html(msg);
+                $('.content-popup').prepend(myElement);
+           // jQuery('#ajaxpage_content').slideDown('slow');
+              bind_clk();
         }
-    }).send();
+    });
+
+
+
+
 }
 
 function return_back(rid){
 
-    var url = 'resource/forum/' + rid;
+    var url = spath+'resource/forum/' + rid;
     
-    var req = new Request({
-        method: 'get',
+  jQuery.growlUI('Loading forum...');
+      jQuery.ajax({
+        type: "POST",
         url: url,
         data: {},
-        onRequest: function(){
-            $('ajaxpage_content').set('html', '<b>Loading waves..!</b>');
-            $('ajaxpage_content').slide('hide').slide('in');
-        },
-        onComplete: function(response){
-        
-            $('ajaxpage_content').set('html', response);
-            
-            
-            
-            
-            
-            
-        }
-    }).send();
-    
-    
-    
+        success: function(msg){
+
+              $('body').html(msg);
+               
+                }
+    });
+
     
 }
 function toggle(){
@@ -362,16 +311,20 @@ function toggle(){
 
     if(uid>0){
 
-            var id = jQuery(this).attr('href');
-          jQuery.blockUI({ message: jQuery('#newwavediv'),css: {
-               left: (jQuery(window).width() - 500) /2 + 'px',
-               right:'20%',
-                width: 'auto',cursor:''
-            }  });
-        }else{
+        var id = jQuery(this).attr('href');
+        jQuery.blockUI({
+            message: jQuery('#newwavediv'),
+            css: {
+                left: (jQuery(window).width() - 500) /2 + 'px',
+                right:'20%',
+                width: 'auto',
+                cursor:''
+            }
+        });
+}else{
 
-            jQuery.growlUI('', 'Please Login to do this action!');
-        }
+    jQuery.growlUI('', 'Please Login to do this action!');
+}
 }
 
 
@@ -385,20 +338,24 @@ jQuery(document).ready(function() {
         if(uid>0){
 
             var id = jQuery(this).attr('href');
-          jQuery.blockUI({ message: jQuery(id),css: {
-               left: (jQuery(window).width() - 500) /2 + 'px',
-               right:'20%',
-                width: 'auto',cursor:'pointer'
-            }  });
-        }else{
+            jQuery.blockUI({
+                message: jQuery(id),
+                css: {
+                    left: (jQuery(window).width() - 500) /2 + 'px',
+                    right:'20%',
+                    width: 'auto',
+                    cursor:'pointer'
+                }
+            });
+    }else{
 
-            jQuery.growlUI('', 'Please Login to do this action!');
-        }
-        //Get the A tag
+        jQuery.growlUI('', 'Please Login to do this action!');
+    }
+    //Get the A tag
        
  
-        //Get the screen height and width
-     /*   var maskHeight =jQuery(document).height();
+    //Get the screen height and width
+    /*   var maskHeight =jQuery(document).height();
         var maskWidth = jQuery(window).width();
 
         //Set heigth and width to mask to fill up the whole screen
@@ -424,21 +381,21 @@ jQuery(document).ready(function() {
 */
     });
 
-    //if close button is clicked
-    jQuery('.close').click(function (e) {
-        //Cancel the link behavior
-        e.preventDefault();
-         jQuery.unblockUI();
-       // jQuery('#mask').hide();
-       // jQuery('.window').hide();
-    });
+//if close button is clicked
+jQuery('.close').click(function (e) {
+    //Cancel the link behavior
+    e.preventDefault();
+    jQuery.unblockUI();
+// jQuery('#mask').hide();
+// jQuery('.window').hide();
+});
 
-    //if mask is clicked
-    jQuery('#mask').click(function () {
-       jQuery.unblockUI();
+//if mask is clicked
+jQuery('#mask').click(function () {
+    jQuery.unblockUI();
 
-        //jQuery(this).hide();
-       // jQuery('.window').hide();
-    });
+//jQuery(this).hide();
+// jQuery('.window').hide();
+});
 
 });

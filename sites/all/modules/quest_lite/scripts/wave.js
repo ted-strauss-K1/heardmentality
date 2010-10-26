@@ -62,7 +62,7 @@ jQuery('.textArea').focus();
 function loadwave(qid,wid){
 	url= gSitePath+'question/forum/?qid='+qid+'&wid='+wid;
 	jQuery.nyroModalSettings({ title:'Forum Posts'});
-  var options = 'sameBox:true width:55% height:90% caption:' +
+  var options = 'sameBox:true width:700 height:90% caption:' +
   '`Forum Posts`';
   parent.fb.start(url, options);
             //jQuery.nyroModalManual({

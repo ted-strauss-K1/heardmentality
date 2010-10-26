@@ -1217,7 +1217,7 @@ function question_ajax() {
 		$arr = array();
 		for ($i=0;$i<count($aResults);$i++)
 		{
-			$arr[] = "{\"id\": \"".$aResults[$i]['id']."\", \"value\": \"".$aResults[$i]['value']."\", \"info\": \"".$aResults[$i]['info']."\"}";
+			$arr[] = "{\"id\": \"".$aResults[$i]['id']."\", \"value\": \"".mysql_real_escape_string($aResults[$i]['value'])."\", \"info\": \"".mysql_real_escape_string(myTruncate($aResults[$i]['info'],20,'...'))."\"}";
 		}
 		echo implode(", ", $arr);
 		echo "]}";
