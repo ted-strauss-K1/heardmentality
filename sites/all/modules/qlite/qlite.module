@@ -108,20 +108,52 @@ function top_list() {
    
     drupal_add_js(drupal_get_path('module', 'qlite').'/scripts/qmini.js');
     $output = '';
-    
-    $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
+
+$query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
+    $list = ExecuteQuery($query, "select");
+
+
+
+
+
+   /* $output .= '<div class="commutop">
+        <div class="inner">
+        <p style="color:white">COMMUNITY DISCUSSION</p>
+            <div>
+             <select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
+    foreach ($list as $cat) {
+
+        $output .= '
+          <option value='.$cat['cat_id'].'> '.$cat['cat_name'].' </option> ';
+    }
+            $output .='</select>
+              &nbsp;
+              <span id="res_scat"><select name="" disabled="disabled">
+                <option>selecct a sub-category</option>
+              </select>
+              </span>
+            </div>
+          </div>';*/
+
+
+   
+   $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     $list = ExecuteQuery($query, "select");
     $output .= ' <div> 
-            <div><select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
+            <div>
+            <select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
     foreach ($list as $cat) {
-        
+
         $output .= '    
           <option value='.$cat['cat_id'].'> '.$cat['cat_name'].' </option> ';
     }
     
     $output .= '</select> &nbsp;  <span id="res_scat"><select name="" disabled="disabled">
                 <option>selecct a sub-category</option>
-              </select> </span></div> </div></div>  <div class="inner"><div id="res_top">';
+              </select>
+              </span></div> </div>';
+             $output .= '</div>
+              <div class="inner"><div id="res_top">';
 
 
     //$output .= top_multimenu();
@@ -134,7 +166,7 @@ function top_list() {
     
    $output .= get_top_pundits();
     
-    echo "</div>";
+    echo "</div></div>";
 
     
     return $output;
@@ -216,6 +248,7 @@ function get_top_list($time='') {
     $cond = '';
       $cond = load_condition();
       $output .= '<div>
+         <h3><strong>Most active questions ever</strong></h3>
               <div class="innerbox" ><ul class="menu">';
    switch($time){
    case '1':
@@ -252,7 +285,7 @@ function get_top_list($time='') {
                 $bubble_question = '';
             }
 
-            $output .=  '<li  class="leaf"><a '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .=  '<li  class="leaf"><a class="share-link" '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
 
         }
@@ -301,6 +334,7 @@ function get_hot_list($time='') {
   // $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid   where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
+        <h3><strong>Most active questions in the last seven days</strong></h3>
               <div class="innerbox" ><ul class="menu">';
     if (! empty($list)) {
         foreach ($list as $quest) {
@@ -314,7 +348,7 @@ function get_hot_list($time='') {
                 $bubble_question = '';
             }
             
-            $output .= '<li class="leaf"><a '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .= '<li class="leaf"><a class="share-link" '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
         
         }
@@ -385,7 +419,7 @@ if(!empty($country['city'])){
    //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
-             
+             <h3><strong>Local questions</strong></h3>
               <div class="innerbox"><ul class="menu">';
     
     if (! empty($list)) {
@@ -401,7 +435,7 @@ if(!empty($country['city'])){
                 $bubble_question = '';
             }
 
-            $output .=  '<li  class="leaf"><a '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .=  '<li  class="leaf"><a class="share-link" '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
         
         }
     } else {
