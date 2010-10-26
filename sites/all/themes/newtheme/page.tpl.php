@@ -19,9 +19,10 @@
     
         
            <div class="ques">
-          <div class="questop">
-            <div class="questopl">  <?php if (!empty($title)): ?><?php print $title; ?><?php endif; ?></div>
-            <div class="questopr"><?php echo date("M d,Y") ?></div>
+		    <div class="commutop-profile">  <?php if (!empty($title)): ?><?php print $title; ?><?php endif; ?></div>
+			<!--class="questop"-->
+          <div class="" >
+            <!--<div class="questopr"><?php echo date("M d,Y") ?></div>-->
           </div>
           <div class="quesbg">
 
