@@ -111,7 +111,7 @@ function top_list() {
     
     $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     $list = ExecuteQuery($query, "select");
-    $output .= ' <div> <p>COMMUNITY DISCUSSION</p>
+    $output .= ' <div> 
             <div><select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
     foreach ($list as $cat) {
         
@@ -153,7 +153,7 @@ function get_top_pundits() {
 
     $output .= '
         
-     <div class="commutop-profile" align="center">PUNDITS</div>
+     <div class="facttop" align="center">PUNDITS</div>
       <div class="hm-cen-pun">';
    $output .= '<div>
        <div id="mycarousel" class="jcarousel-skin-tango">
