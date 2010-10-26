@@ -436,7 +436,8 @@ function edit_questions()
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
     
-    $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
+   // $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
+     $result = db_queryd("SELECT * FROM {question} as q join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."' ");
     $quest = db_fetch_object($result);
   //  drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
     $output .= '
@@ -642,21 +643,33 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     <td colspan="3" valign="top" align="left"><table width="65%" border="0">
 		<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
-        <td width="25%" align="left"><select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
+        <td width="25%" align="left">
+
+
+
+        <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
-    $ecat1 = explode(",", $quest->cid);
-    
+   // $ecat1 = explode(",", $quest->cid);
+
     while ($list = db_fetch_object($client_select)) {
-        if (in_array($list->cat_id, $ecat1)) {
+        if($quest->cat==$list->cat_id)
+        {
+            $sel = 'SELECTED';
+        }
+        /*if (in_array($list->cat_id, $ecat1)) {
             $sel = 'SELECTED="SELECTED"';
         } else {
             $sel = '';
-        }
+        }*/
         $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
-    
+
     }
+
+    $output .= '</select>
     
-    $output .= '</select></td>
+
+
+        </td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
     $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cid."')");
     $ecat2 = explode(",", $quest->scid);
