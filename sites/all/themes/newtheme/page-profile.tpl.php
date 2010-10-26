@@ -10,7 +10,7 @@
       </div>-->
       
       <div class="commu-profile">
-          <div class="commutop-profile">
+          <div class="facttop">
   CONTRIBUTOR
             
           </div>
