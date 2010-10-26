@@ -437,7 +437,7 @@ function edit_questions()
 
     
    // $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
-    echo $qry = "SELECT * FROM {question} as q join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."' ";
+    echo $qry = "SELECT * FROM {question} as q join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."' group by t.qid ";
     
      $result = db_query($qry);
     $quest = db_fetch_object($result);
