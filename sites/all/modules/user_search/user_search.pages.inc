@@ -1220,6 +1220,7 @@ exit;
 
 
 		<div class="profile-img">
+              
 <a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture_small($resulrnames->uid) . '</a>
 <div class="profile-con">
 <div>
