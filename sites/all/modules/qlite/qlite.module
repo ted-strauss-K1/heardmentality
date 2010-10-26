@@ -285,7 +285,7 @@ function get_top_list($time='') {
                 $bubble_question = '';
             }
 
-            $output .=  '<li  class="leaf"><a class="share-link" '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .=  '<li  class="leaf"><a  '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
 
         }
@@ -348,7 +348,7 @@ function get_hot_list($time='') {
                 $bubble_question = '';
             }
             
-            $output .= '<li class="leaf"><a class="share-link" '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .= '<li class="leaf"><a  '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
 
         
         }
@@ -435,7 +435,7 @@ if(!empty($country['city'])){
                 $bubble_question = '';
             }
 
-            $output .=  '<li  class="leaf"><a class="share-link" '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
+            $output .=  '<li  class="leaf"><a '.$bubble_question.' href="'.$gSitePath.$quest['url'].'" style="'.drupal_link_color($user->uid,$quest['qid']).'">'.htmlentities(myTruncate($quest['question'], '40', '', '..')).'</a></li>';
         
         }
     } else {
