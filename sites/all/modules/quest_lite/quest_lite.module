@@ -189,7 +189,8 @@ function list_wave($qid = '', $type = '') {
                $bg=$i%2;
         if($bg)
             $setbg='back-col';
-
+            else
+                $setbg='';
         $i++;
              $account = user_load($forum['uid']);
             if ($type == 1) {
@@ -200,10 +201,10 @@ function list_wave($qid = '', $type = '') {
 <div class="leftsideimg-forum"><a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">'.UserPicture_small($account->uid).'</a></div>
 
 <div class="rightside-forum">
-<h4>'.myTruncate($forum['title'], '30', '', '..').'</h4><br>
+<h4><a href="javascript:void(0);" onclick="'.$click.'">'.myTruncate($forum['title'], '30', '', '..').'</a></h4><br>
 
 
-<p><a href="javascript:void(0);" onclick="'.$click.'"> '.myTruncate($forum['content'], '25', '', '..').'</a></p><br>
+<p> '.myTruncate($forum['content'], '25', '', '..').'</p><br>
 
 
 
