@@ -828,8 +828,7 @@ div.growlUI h1, div.growlUI h2 {
 .creat{ font-family:Arial, Helvetica, sans-serif;margin:0px; padding:px; float:left; padding-left:15px;}
 .creat ul{ margin:0px; padding:px;}
 .creat li{ padding-left:0px; line-height:18px;}
-.but-left{ background:url(../images/but-left.jpg) no-repeat ; width:19px; height:17px; float:left; padding:7px 0px 0px 1px; text-align:right;}
-.but-right{ width:7px; float:left;}
+
 
 .likelink-outer-forum{ width:400px; padding-bottom:20px;}
 .likelink-outer-forum .likekink-forum{ float:left; width:226px;}
