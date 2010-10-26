@@ -153,7 +153,7 @@ function qlite_view() {
 		</script>';
     //echo $stringfunct;
     if (drupal_is_front_page ()) {
-        $qlink = 'QUESTION OF THE DAY';
+        $qlink = 'CONTRIBUTOR';
     } else {
         $qlink = substr($oListquest->question, 0, 160) . '<a onclick="showdetails(' . $qid . ');">...</a>';
         $qlink = "Question";
