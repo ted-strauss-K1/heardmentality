@@ -230,11 +230,29 @@ function UserPicture_small($mid) {
             } elseif ($resultimage->image_url != '') {
                 
                 $resultimage->image_url;
-                $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
+                if(file_exists($resultimage->image_url))
+                   {
+                     $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
+                   }
+                   else
+                   {
+                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+                   }
+               
             } else {
                 //echo $resultimage->image;
                 $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
-                $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
+
+                if(file_exists($img_path))
+                   {
+                      $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
+                   }
+                   else
+                   {
+                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+                   }
+
+               
             }
             break;
     }
