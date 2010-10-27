@@ -94,6 +94,7 @@ function search_results() {
         {
             $divider = '';
         }
+        
       $fetresult .=  ' <div class="prof-it-1">
         <div class="lefimg-it-c"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');" >' . UserPicture($user_result->uid) . '</a></div>
         <div class="ritecont-it-c">
@@ -107,6 +108,9 @@ function search_results() {
 </div>
 <div class="clr"></div>
    </div>';
+    }
+    if ($sel_count == 0) {
+        $fetresult .= '<div align="center"><b>No Search Results </b></div>';
     }
    $fetresult .=  '</div>
        </div>
@@ -149,9 +153,7 @@ function search_results() {
         $fetresult .= "</ul>
         </div>";
     }
-    if ($sel_count == 0) {
-        $fetresult .= '<b>No Search Results </b>';
-    }
+    
     $fetresult .= ' ';
 
     if (isset($_REQUEST['act']) == 'flag') {
