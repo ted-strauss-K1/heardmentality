@@ -42,8 +42,8 @@ var login_params=
         <div class="signout">
         <ul>
         <li> <p>Welcome <b><a href="<?php echo $gSitePath;?>profile" ><?php
-				 $user_prof = db_fetch_object(db_query("SELECT real_name from {user_profile} where  uid=".$user->uid." "));
-				if($user_prof->real_name=='')
+				 $user_prof = db_fetch_object(db_query("SELECT first_name from {user_profile} where  uid=".$user->uid." "));
+				if($user_prof->first_name=='')
 				{
 				 $unaprint= explode("@",$user->mail); 
 				 echo $unaprint[0];
@@ -51,7 +51,7 @@ var login_params=
                  }
                  else
                  {
-                echo $user_prof->real_name;
+                echo myTruncate($user_prof->first_name,7,'..','..');
 				
                  }
 				 ?>

@@ -34,6 +34,11 @@
 
       <?php if (!empty($right)): ?>
 	    <div class="fact">
+                <div id="block-sitetour">
+        <div class="sitetour">
+              <a href="<?php echo $gSitePath; ?>?tourId=MyTour"><img title="take the site tour" alt="take the site tour" src="<?php echo $gSitePath.path_to_theme();?>/images/take-tour.png"/></a>
+        </div>
+        </div>
         <div id="sidebar-right" class="column sidebar">
           <?php print $right; ?>
         </div> <!-- /sidebar-right -->

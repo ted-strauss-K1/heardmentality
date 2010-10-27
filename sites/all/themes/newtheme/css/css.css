@@ -86,7 +86,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .factmore a{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none;}
 .factmore a:hover{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#000; text-decoration:none;}
 .facttext2{ font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#666666; padding:5px; }
-
+.facttext .sitetour img{max-width: 155px;width:155px;overflow: hidden;}
 
 
 .welcome{ width:300px; float: right; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; text-align:right;}
@@ -320,7 +320,7 @@ z-index:1000; -moz-border-radius:5px;
 }
 .men a{ font:normal 14px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; margin-right:5px;}
 .men li{ background:url(../images/list_bullet.jpg) no-repeat left 9px; padding-left:10px; text-transform:uppercase; list-style:none; float:left;}
-
+.men a:hover{ font:normal 14px Georgia, "Times New Roman", Times, serif;color:#4C4C4C; text-decoration:none; margin-right:5px;}
 .messages{ width:100%; display:block; clear:both; border-color:#CC6600; overflow:hidden;}
 .error{
 	background: #fff6bf url(bioneural/exclamation.png) 15px center no-repeat;

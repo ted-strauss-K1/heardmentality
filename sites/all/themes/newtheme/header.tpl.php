@@ -44,23 +44,11 @@ $directory = $base_path . $directory;
 
                 <script type="text/javascript">
 var gSitePath='<?php echo $gSitePath; ?>';
-jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').livequery(function () {
+jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel-control').livequery(function () {
     jQuery(this).each(function () {
 
-        if (jQuery(this).attr("rel").length == 0) {
-            $title = jQuery(this).attr('title');
 
-            jQuery(this).attr('rel', $title).attr('title', '');
-        }
-
-        if (jQuery(this).attr("title").length > 0) {
-            jQuery(this).SetBubblePopup({
-                innerHtml: jQuery(this).attr("title"),
-                color: 'grey',
-                imageFolder: '<?php echo $directory; ?>/images/bp_images'
-
-            });
-        }
+      
         if (jQuery(this).attr("rel").length > 0) {
 
             jQuery(this).SetBubblePopup({
@@ -73,7 +61,7 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').livequery(funct
 
     });
 });
-    jQuery('.p-foll li a,#mfollowing a,#inbox a,.contarea a').each(function () {
+    jQuery('.p-foll li a,#mfollowing a,#inbox a,.contarea a').not('.jcarousel-control').each(function () {
         if (jQuery(this).attr("rel").length > 0) {
 
             jQuery(this).SetBubblePopup({
@@ -243,7 +231,7 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').livequery(funct
         $timezone = new DateTimeZone("America/New_York");
         $date = new DateTime();
         $date->setTimezone($timezone);
-        echo $date->format("F j,Y | g:i a Y T");
+        echo $date->format("F j,Y | g:i a T");
 ?>
                                         </div>
                                     </div>
