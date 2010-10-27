@@ -152,7 +152,7 @@ $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
                 <option>selecct a sub-category</option>
               </select>
               </span></div> </div>';
-             $output .= '</div>
+             $output .= '
               <div class="inner"><div id="res_top">';
 
 
@@ -164,9 +164,9 @@ $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     
   $output .= get_local_list();
     
-   $output .= get_top_pundits();
+  $output .= get_top_pundits();
     
-    echo "</div></div>";
+      $output .= "</div></div>";
 
     
     return $output;
@@ -221,12 +221,12 @@ function get_top_pundits() {
       $mul=1;
     for($i=1;$i<=$total;$i++){
              
-             $page .= '<a href="#" rel="'.$mul.'">'.$i.'</a>';
+             $page .= '<a href="#" title="'.$mul.'">'.$i.'</a>';
              $mul=$mul+$limit;
                   $mul--;
        }
        if($mod)
-           $page.='<a href="#" rel="'.$mul.'">'.$i.'</a>';
+           $page.='<a href="#" title="'.$mul.'">'.$i.'</a>';
     }
   $output_pager = '<span class="jcarousel-control">'.$page.'</span>';
 
@@ -278,7 +278,7 @@ function get_top_list($time='') {
 
             if(strlen($quest['question'])>40)
             {
-                $bubble_question = 'title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'"';
+                $bubble_question = 'rel="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'"';
             }
             else
             {
@@ -341,7 +341,7 @@ function get_hot_list($time='') {
 
             if(strlen($quest['question'])>40)
             {
-                $bubble_question = 'title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'"';
+                $bubble_question = 'rel="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'"';
             }
             else
             {
@@ -428,7 +428,7 @@ if(!empty($country['city'])){
 
             if(strlen($quest['question'])>40)
             {
-                $bubble_question = 'title="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'"';
+                $bubble_question = 'rel="'. htmlentities(wordwrap($quest['question'], 40,'<br/>')).'"';
             }
             else
             {
