@@ -198,7 +198,7 @@ function validate_question(){
     });
     if (jQuery.trim(err).length > 1) {
         jQuery('#err').html(err);
-
+        jQuery('#err').addClass('error');
         return false;
     }
 

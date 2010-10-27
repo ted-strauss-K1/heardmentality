@@ -123,7 +123,7 @@ function question_add() {
 <div class="do-in2">
         <div class="do-intop">ADD AN ISSUE</div>
         <div class="inside2">
-		<div id="err" style="border: 3px solid rgb(221, 151, 161); display: block; background-color: rgb(238, 238, 238); height: auto; color: red;">'.$list_err.'</div>
+		<div id="err" class="">'.$list_err.'</div>
 	       <div class="clr">&nbsp;</div>
 <div class="left"><strong>
 Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles</span> when creating a new issue</strong><br>
