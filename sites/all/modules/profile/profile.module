@@ -150,7 +150,7 @@ function UserPicture($mid,$profile='') {
 			
               $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
-            if (file_check_location($ipath)) {
+            if (file_check_location($image_path.'/'.$selected_avatar)) {
             	$PROFILE_IMAGE ='<img src="'.$ipath.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
               //  $PROFILE_IMAGE = theme('image',$ipath);
             } else {
@@ -163,9 +163,10 @@ function UserPicture($mid,$profile='') {
             if ($resultimage->image != 'noimage.jpg') {
                  $upload_dir=variable_get('user_picture_path','pictures');
 
-                $img_path =$resultimage->image;
+                 $img_path =$resultimage->image;
                 
                 if (file_exists($img_path)) {
+                   
                     $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
                 } else {
                     
@@ -173,7 +174,7 @@ function UserPicture($mid,$profile='') {
                 }
             } elseif ($resultimage->image_url != '') {
 
-                
+
                 $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" alt="photo" width="65"  height="56">';
 
             
@@ -237,8 +238,8 @@ function UserPicture_small($mid) {
             
             } elseif ($resultimage->image_url != '') {
                 
-                $resultimage->image_url;
-                if(file_exists($resultimage->image_url))
+               //echo $resultimage->image_url;
+                if($resultimage->image_url!='')
                    {
                      $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
                    }
