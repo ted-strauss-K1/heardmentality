@@ -510,7 +510,7 @@ echo "<p align=\"center\" >".' Twitter  updated successfully !'."</p>";
 
 function send_mail()
 {
-        $send_qry = "select * from hm_mails";
+        $send_qry = "select * from hm_mails mail_status='0'";
             $send_exec = ExecuteQuery($send_qry, "select");
             foreach ($send_exec as $sendeach) {
 
