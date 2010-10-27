@@ -287,6 +287,8 @@ img{ border:none;}
 .page-n2 li{ float:left; list-style:none; padding-left:10px; padding-bottom:10px; padding-top:10px;}
 .page-n2 li a{color:#cc9900; text-decoration:none;}
 .page-n2 li a:hover{color:#000;text-decoration:none;}
+.page-n2 a{color:#cc9900; text-decoration:none;}
+.page-n2 a:hover{color:#000;text-decoration:none;}
 .pun{ margin:0px; }
 
 .pun ul{ margin:0px; padding-bottom:10px;}
