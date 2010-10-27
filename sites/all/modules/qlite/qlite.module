@@ -192,9 +192,10 @@ function get_top_pundits() {
            <ul>';
     if($cat_id!='')
     {
-    $query = "select * from {follower} where cat_id='".$cat_id."'";
+    $query = "select * from {follower}  where cat_id='".$cat_id."'";
    
     $list = ExecuteQuery($query, "select");
+    if(count($list)){
     foreach ($list as $quest) {
          $udetails=load_user($quest['uid']);
          $bubble = load_bubble($udetails->uid);
@@ -209,7 +210,10 @@ function get_top_pundits() {
           }
 
         }
-        
+    }else{
+
+          $output .= '<li>No Pundit Found!</li>';
+    }
     }
     else
     {
@@ -233,14 +237,13 @@ function get_top_pundits() {
     $output .= '</ul>
             </div>
            </div>';
-    $output .= '</div>';
-    
+   
+    if(!empty($page)){
    $output .='<div class="jcarousel-scroll page-n2" align="center">
         <a href="#" id="mycarousel-prev">Previous &nbsp; <img alt="Previous" align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-l.jpg"></a>&nbsp;'.$output_pager.'<a href="#" id="mycarousel-next"><img alt="Next" align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-r.jpg"> &nbsp; Next</a>
-        </div>
-
-
-';
+        </div>';
+    }
+   $output .= '</div>';
     return $output;
 
 }
