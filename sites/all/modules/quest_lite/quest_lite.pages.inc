@@ -1141,7 +1141,7 @@ function add_resources() {
                 {
 		 if (docpath.trim().length < 1)
                  {
-        err += \'<li>Please Select Document ! dfgdfg</li>\';
+        err += \'<li>Please Select Document !</li>\';
                    }
                    else
                    {
