@@ -122,7 +122,9 @@ function search_results() {
         $fetresult .= "   <div class='page-n' align='center'>
             <ul><li>";
         if ($back >= 0) {
-            $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'>PREV</a>";
+           // $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'>PREV</a>";
+            $fetresult .= "<li><a href='$page_name?start=$back&code=$code&txt_search=$name'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-1.jpg'></a></li>";
+
         }
         $fetresult .= "</li><li>";
         $i = 0;
@@ -137,11 +139,12 @@ function search_results() {
         }
 
 
-        $fetresult .= "</li><li>";
+        $fetresult .= "</li>";
         if ($this1 < $sel_count) {
-            $fetresult .= "<a href='$page_name?start=$next&code=$code&txt_search=$name'>NEXT</a>";
+           // $fetresult .= "<a href='$page_name?start=$next&code=$code&txt_search=$name'>NEXT</a>";
+             $fetresult .= "<li><a href='$page_name?start=$next&code=$code&txt_search=$name'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a></li>";
         }
-        $fetresult .= "</li></ul>
+        $fetresult .= "</ul>
         </div>";
     }
     if ($sel_count == 0) {
