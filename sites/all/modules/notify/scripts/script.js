@@ -85,7 +85,7 @@ jQuery(document).ready(function(){
    
         jQuery(this).click(function () {
          
-          jQuery(".quesbg").load(jQuery(this).attr('href'), function(response, status, xhr) {
+          jQuery(".hm-cen").load(jQuery(this).attr('href'), function(response, status, xhr) {
 
         
   if (status == "success") {

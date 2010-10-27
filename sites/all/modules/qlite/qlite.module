@@ -235,9 +235,12 @@ function get_top_pundits() {
            </div>';
     $output .= '</div>';
     
-   $output .='<div class="jcarousel-scroll">
-        <a href="#" id="mycarousel-prev">&laquo; Prev</a>'.$output_pager.'<a href="#" id="mycarousel-next">Next &raquo;</a>
-        </div>';
+   $output .='<div class="jcarousel-scroll page-n2" align="center">
+        <a href="#" id="mycarousel-prev">Previous &nbsp; <img alt="Previous" align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-l.jpg"></a>&nbsp;'.$output_pager.'<a href="#" id="mycarousel-next"><img alt="Next" align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-r.jpg"> &nbsp; Next</a>
+        </div>
+
+
+';
     return $output;
 
 }
