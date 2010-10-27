@@ -276,6 +276,10 @@ function profile($uid = '') {
     }
     if (($userSettings['country'] == 1) || ($userSettings['country'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['country'] == 2 && $is_follow_follower == TRUE)) {
         $country1 .= $country;
+        if($country1=='')
+        {
+            $country1 = "-";
+        }
         if (!empty($state)) {
             $country1.='(' . $state . ',' . $city . ').';
         }
@@ -387,8 +391,8 @@ function profile($uid = '') {
         }
     }
     if ($uid != $user->uid && isset($getuser)) {///follow
-        $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow</a><span class="separate">|</span> ';
-       // $flink = '<li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;'.$flink.'</li>';
+        $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow</a><span class="separate"></span> ';
+        $flink = '<li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;'.$flink.'</li>';
     }
 
 
@@ -427,14 +431,14 @@ function profile($uid = '') {
 ">Report</a><span class="separate">|</span>';
         $flinkflw = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow </a><span class="separate">|</span> ';
 
-        $sendmsg = '<a onclick="profile_comment(' . $getuser->uid . ');" >Send Message </a><span class="separate">|</span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' . $uid . '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
+        $sendmsg = '<a onclick="profile_comment(' . $getuser->uid . ');" >Send Message </a><span class="separate"></span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' . $uid . '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
     } else {
 			$cavatar='<a href="'.$gSitePath.'user/getimage" >Change Picture</a>';
                         //' . $gSitePath . '?act=edit
         $edit.='<a href="javascript:void(0);" onclick="loadeditquestion(\'' . $gSitePath . '' .edit. '\',\'Report \');
-" >Edit My Profile </a><span class="separate">|</span> ';
-   $inc = '&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Followers</a>]';
-  //$inc =  '<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;'.$inc.'</li>';
+" >Edit My Profile </a><span class="separate"></span> ';
+   $inc = '&nbsp; <a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Followers</a>';
+   $inc =  '<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;'.$inc.'</li>';
    $inc_msg='  <li><a href="'.  check_plain(request_uri()).'?tag=msg">Message['.$cnt_msg.']</a></li>';
    }
 
@@ -499,7 +503,7 @@ function profile($uid = '') {
        $strReturn .= '
     <div class="bor_bot">
 	<div class="rht_link">
-       ' . $share . $flink . $history . $sendmsg . $edit . '
+       ' . $share . $history . $sendmsg . $edit . '
        </div>
         <br class="clr" />
       </div>';
@@ -562,12 +566,6 @@ function profile($uid = '') {
 </ul>
 </div>
 </div>
-
-
-
-
-
-
 
 
 
