@@ -388,7 +388,7 @@ function profile($uid = '') {
     }
     if ($uid != $user->uid && isset($getuser)) {///follow
         $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow</a><span class="separate">|</span> ';
-        $flink = '<li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;'.$flink.'</li>';
+       // $flink = '<li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;'.$flink.'</li>';
     }
 
 
@@ -434,7 +434,7 @@ function profile($uid = '') {
         $edit.='<a href="javascript:void(0);" onclick="loadeditquestion(\'' . $gSitePath . '' .edit. '\',\'Report \');
 " >Edit My Profile </a><span class="separate">|</span> ';
    $inc = '&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Followers</a>]';
-  $inc =  '<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;'.$inc.'</li>';
+  //$inc =  '<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;'.$inc.'</li>';
    $inc_msg='  <li><a href="'.  check_plain(request_uri()).'?tag=msg">Message['.$cnt_msg.']</a></li>';
    }
 
@@ -499,7 +499,7 @@ function profile($uid = '') {
        $strReturn .= '
     <div class="bor_bot">
 	<div class="rht_link">
-       ' . $share . $history . $sendmsg . $edit . '
+       ' . $share . $flink . $history . $sendmsg . $edit . '
        </div>
         <br class="clr" />
       </div>';
@@ -585,12 +585,7 @@ function profile($uid = '') {
         </ul>
         <div class="mytabs-container" id="tabs-container">
             Loading. Please Wait...        </div>
-    </div>
-    
-     
-      ';
-
-
+    </div>';
     return $strReturn;
 }
 
