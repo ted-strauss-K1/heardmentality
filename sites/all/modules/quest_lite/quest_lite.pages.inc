@@ -1832,8 +1832,8 @@ function suggest_answer_save() {
             //Suggest Answer badges
             db_query("insert into {user_badges} set bid='38',uid='$uid',qid='" . $_REQUEST['qaid'] . "'");
             $last_id = msyql_insert_id();
-             hm_mails('',$last_id,'user_badges');
-             badges_user($uid,$last_id);
+            // hm_mails('',$last_id,'user_badges');
+             //badges_user($uid,$last_id);
 
 
             echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
