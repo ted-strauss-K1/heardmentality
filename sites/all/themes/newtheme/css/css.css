@@ -42,7 +42,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 
 .men{ width:508px;background:url(../images/m-bg.gif) repeat-x;height:32px; margin:0px 8px 0px 8px;float:left; padding-top:1px; text-align:center}
 .edition{ width:164px;background:url(../images/m-bg.gif) repeat-x;height:32px;float:left; }
-.edition div{padding:5px 0px 4px 0px;font:12px/21px normal normal Arial,Helvetica,sans-serif;}
+.edition div{padding:5px 0px 4px 0px;font:12px/21px  normal Arial,Helvetica,sans-serif;}
 .edition select{ width:115px; margin-left:5px; font-size:11px; font-family:normal Arial,Helvetica,sans-serif; font-weight:normal;padding:2px;}
 .black11{ font-family:normal Arial,Helvetica,sans-serif; color:#000000; font-size:10px; text-decoration:none; }
 .btex{ margin-top:10px; text-align:center;}
@@ -53,24 +53,24 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 /*cont-left*/
 .page-searchquestion .commu{ width:478px;float:left; border:2px #cccccc solid;  min-height:544px}
 .commu{ width:336px;float:left; border:1px #cccccc solid;  min-height:544px}
-.commutop{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff;}
+.commutop{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px   normal Arial,Helvetica,sans-serif; color:#fff;}
 .commutop select{width:150px; font-size:11px; font-family:normal Arial,Helvetica,sans-serif; font-weight:normal; padding:2px;}
 .commu .inner{ width:325px; margin:auto; padding:0px;}
 
 .inner  h3{ font:12px/21px normal Arial,Helvetica,sans-serif; color:#3F3F3F}
-.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#996600;}
-.innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#996600;}
+.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px  normal Arial,Helvetica,sans-serif; color:#996600;}
+.innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px  normal Arial,Helvetica,sans-serif; color:#996600;}
 .innerbox a{font-size:14px/21px; color:#996600;}
 /*cont-center*/
 .ques{ width:502px;float:left;padding:0px 0px 0px 10px;}
-.questop{ background-image:url(../images/c-top.gif); background-repeat:no-repeat; height:34px; font:17px/33px  normal normal Arial,Helvetica,sans-serif; color:#000; padding-left:10px; border-bottom:1px #BDBDBD solid;}
+.questop{ background-image:url(../images/c-top.gif); background-repeat:no-repeat; height:34px; font:17px/33px   normal Arial,Helvetica,sans-serif; color:#000; padding-left:10px; border-bottom:1px #BDBDBD solid;}
 .questopl{ width:370px; float:left;}
 .questopr{ width:130px; float:left;}
 .quesbg{ background-image:url(../images/c-bg.gif); background-repeat:repeat-y; padding:10px;  min-height:485px; }
 .quesbott{ background-image:url(../images/c-bottom.gif); height:13px; background-repeat:no-repeat;}
-.ques h2{font:18px/25px  normal normal Arial,Helvetica,sans-serif; color:#4170a0; }
+.ques h2{font:18px/25px   normal Arial,Helvetica,sans-serif; color:#4170a0; }
 .quesinner{ border-right:0px #ccc solid; width:90px; float:left; margin-right:5px;}
-.quesinnerr{ width:400px;float:left; font:12px/21px normal normal Arial,Helvetica,sans-serif;}
+.quesinnerr{ width:400px;float:left; font:12px/21px  normal Arial,Helvetica,sans-serif;}
 .quesin{ padding:10px 0px 40px 0px; }
 .quesin ul{ margin:0px; padding:0px;}
 .quesin li{ list-style:none;float:left; padding-left:9px; font-family:normal Arial,Helvetica,sans-serif; color:#996600; font-size:9px; line-height:20px; }
@@ -82,14 +82,14 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .sitetour{ width:162px; margin-bottom:10px; border-bottom:1px #cccccc solid;}
 .sitetour img:hover{ opacity:0.7;}
 
-.facttop{font:16px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:left;}
-.facttop2{font:14px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
-.fact1{ width:65px; margin:7px; float:left;font:14px normal normal Arial,Helvetica,sans-serif; color:#996600; text-align:center; }
-.factblu{ width:65px; margin:7px; float:left;font:14px normal normal Arial,Helvetica,sans-serif; color:#336699; text-align:center;}
-.facttext{ font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#333333; padding-bottom:5px; }
-.factmore a{font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
-.factmore a:hover{font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#000; text-decoration:none;}
-.facttext2{ font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#666666; padding:5px; }
+.facttop{font:16px/25px   normal Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:left;}
+.facttop2{font:14px/25px   normal Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
+.fact1{ width:65px; margin:7px; float:left;font:14px  normal Arial,Helvetica,sans-serif; color:#996600; text-align:center; }
+.factblu{ width:65px; margin:7px; float:left;font:14px  normal Arial,Helvetica,sans-serif; color:#336699; text-align:center;}
+.facttext{ font:14px/21px  normal Arial,Helvetica,sans-serif; color:#333333; padding-bottom:5px; }
+.factmore a{font:14px/21px  normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
+.factmore a:hover{font:14px/21px  normal Arial,Helvetica,sans-serif; color:#000; text-decoration:none;}
+.facttext2{ font:14px/21px  normal Arial,Helvetica,sans-serif; color:#666666; padding:5px; }
 
 
 .welcome{ width:300px; float: right; font-family:normal Arial,Helvetica,sans-serif; font-size:11px; text-align:right;}
@@ -175,7 +175,7 @@ img{ border:none;}
 
 /*.inner-page-cont{border: 2px #666666 solid; min-height:600px; height:auto !important; height:600px; width:370px; float:left; margin-left:2px; margin-right:2px;}*/
 /*.minheight544{ min-height:544px; height:auto !important; height:544px;border: 2px #666666 solid;width:510px; float:left; margin-left:2px; margin-right:2px;}*/
-.inner-commutop{ height:29px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff;}
+.inner-commutop{ height:29px; background-color:#8f8f8f;padding:5px; font:16px/25px   normal Arial,Helvetica,sans-serif; color:#fff;}
 .black11{ font:normal 10px normal Arial,Helvetica,sans-serif; color:#000000; padding:5px;}
 .sharing-width{ width:260px; border:none; margin:5px;}
 .sharing-margin{ margin:5px;}
@@ -229,7 +229,7 @@ img{ border:none;}
 /*make a donation*/
 .do-in{ width:670px;border:3px #666666 solid;  min-height:335px; margin:0 auto;}
 .do-in span{ color:#996600;}
-.do-intop{ height:26px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff;}
+.do-intop{ height:26px; background-color:#8f8f8f;padding:5px; font:16px/25px   normal Arial,Helvetica,sans-serif; color:#fff;}
 .do-in .inside{ font: normal 11px normal Arial,Helvetica,sans-serif; color:#000000; padding:5px 10px;}
 .row1{ width:670px;}
 .lin1{width:50px; float:left; font-family:normal Arial,Helvetica,sans-serif;}
@@ -298,9 +298,9 @@ img{ border:none;}
 
 
 /*Edited for developer purposes*/
-a{ text-decoration:none; color:#996600; font: normal normal Arial,Helvetica,sans-serif;outline:none;}
+a{ text-decoration:none; color:#996600; font:  normal Arial,Helvetica,sans-serif;outline:none;}
 a:hover{ text-decoration:underline;}
-.cmt_list { border:1px #cccccc solid;  margin-bottom:10px; padding:2px;  display:block; line-height:20px; font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#996600;}
+.cmt_list { border:1px #cccccc solid;  margin-bottom:10px; padding:2px;  display:block; line-height:20px; font:14px/21px  normal Arial,Helvetica,sans-serif; color:#996600;}
 .innerbox ul li{ list-style:none;}
 #loading{ 
 -x-system-font:none; 
