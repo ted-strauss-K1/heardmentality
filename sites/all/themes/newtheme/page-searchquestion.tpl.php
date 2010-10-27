@@ -10,7 +10,7 @@
         <?php endif; ?>
     </div>
      <div class="issuesearch3">
-        <span class="padding10"><h3>SEARCH RESULTS</h3></span>
+        <span>SEARCH RESULTS</span>
         <?php print $content; ?>
     </div>
     <div class="contributer">
