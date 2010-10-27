@@ -9,6 +9,9 @@
         <br class="clr" />
       </div>-->
       
+	  
+	  
+	  
       <div class="commu-profile">
           <div class="facttop">
   CONTRIBUTOR
@@ -21,5 +24,7 @@
       <br class="clr" />
    
       <!--content area close-->
+	  </div>
+	 
 
   <?php include "footer.tpl.php"; ?>
