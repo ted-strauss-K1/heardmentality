@@ -203,7 +203,15 @@ function UserPicture_small($mid) {
             $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
             if (file_check_location($image_path.'/'.$selected_avatar)) {
-                $PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
+                 if(file_exists($image_path.'/'.$selected_avatar))
+                   {
+                    $PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
+                   }
+                   else
+                   {
+                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+                   }
+                
             } else {
                 $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
             }
