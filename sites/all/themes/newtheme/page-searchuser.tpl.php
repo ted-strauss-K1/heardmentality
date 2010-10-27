@@ -16,7 +16,7 @@
            
           
         </div>
-        <div class="inner-page-cont minheight544">
+        <div class="user_search_3">
      <span class="padding10">SEARCH RESULTS</span>
  
                  
