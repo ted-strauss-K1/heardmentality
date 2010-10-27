@@ -89,7 +89,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .factmore a{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none;}
 .factmore a:hover{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#000; text-decoration:none;}
 .facttext2{ font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#666666; padding:5px; }
-.facttext .sitetour img{max-width: 155px;width:155px;overflow: hidden;}
+
 
 
 .welcome{ width:300px; float: right; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; text-align:right;}
