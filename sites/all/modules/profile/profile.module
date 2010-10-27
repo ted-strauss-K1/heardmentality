@@ -203,7 +203,7 @@ function UserPicture_small($mid) {
             $selected_avatar = $resultimage->avatar;
             $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
-            if (file_check_location($image_path.'/'.$selected_avatar)) {
+            if (file_exists($image_path.'/'.$selected_avatar)) {
                  //$PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
                  $PROFILE_IMAGE =' <img src="'.$ipath.'" alt="photo" ALIGN=ABSMIDDLE width="30"  height="30" >';
             } else {
