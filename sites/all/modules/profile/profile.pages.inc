@@ -446,15 +446,15 @@ function profile($uid = '') {
 
    
 
-    $strReturn .= '
-      <div class="bor_bot">
-		<div class="rht_link">
-
-        ' . $share . $flink . $history . $sendmsg . $edit . '
-        </div>
-        <br class="clr" />
-      </div>
-      <div class="profile-left">
+//    $strReturn .= '
+//      <div class="bor_bot">
+//		<div class="rht_link">
+//
+//        ' . $share . $flink . $history . $sendmsg . $edit . '
+//        </div>
+//        <br class="clr" />
+//      </div>';
+      $strReturn .= '<div class="profile-left">
 <div class="profile-img">
 <div class="profile-imgs">
 '.UserPicture($uid).'
