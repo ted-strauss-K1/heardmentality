@@ -1135,7 +1135,12 @@ function add_resources() {
 		{
 		 
 		if (!tomatch.test(membed))
-		 err += \'<li>Please Enter YouTube Link </li>\';		
+		 err += \'<li>Please Enter YouTube Link </li>\';
+                 if (tomatch.test(membed))
+                 {
+                        var el = $(\'err\');
+                        el.setStyle(\'display\', \'none\');
+                  }
 		}
 		else
                 {
