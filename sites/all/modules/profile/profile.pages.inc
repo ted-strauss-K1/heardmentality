@@ -1418,7 +1418,7 @@ function google_map() {
         case 'google/map/users':
             $variable = "Users";
             //$geomap_qry = "SELECT count(country)as count,country from `user_profile` where country REGEXP '[^0-9]' group by country ";
-           echo $geomap_qry = "select count(u.uid) as count,up.country from users as u join user_profile as up on u.uid=up.uid where u.status=1 and up.country REGEXP '[^0-9]' group by up.country";
+            $geomap_qry = "select count(u.uid) as count,up.country from users as u join user_profile as up on u.uid=up.uid where u.status=1 and up.country REGEXP '[^0-9]' group by up.country";
             $geomap_exec = ExecuteQuery($geomap_qry, "select");
             $first = 0;
             foreach ($geomap_exec as $geomapeach) {
