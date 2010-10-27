@@ -189,6 +189,7 @@ function UserPicture($mid,$profile='') {
 }
 
 function UserPicture_small($mid) {
+    
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
      $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
     $rs_image = db_query($selimage);
@@ -211,10 +212,17 @@ function UserPicture_small($mid) {
         default:
             
             if ($resultimage->image != 'noimage.jpg') {
-                
                 $img_path =$resultimage->image;
                 if (file_check_location($img_path)) {
-                     $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" ALIGN=ABSMIDDLE alt="Photo" height="30" width="30" >';
+                  // echo $gSitePath.$img_path;
+                   if(file_exists($gSitePath.$img_path))
+                   {
+                    $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" ALIGN=ABSMIDDLE alt="Photo" height="30" width="30" >';
+                   }
+                   else
+                   {
+                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+                   }
                 } else {
                     $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
                 }
