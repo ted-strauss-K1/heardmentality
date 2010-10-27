@@ -1282,10 +1282,10 @@ exit;
             <div class="clr"></div>
             <div id="page">
        <ul class="mytabs" id="tabs">
-            <li class="current"><a href="'.  check_plain(request_uri()).'?tag=info&getuid='.$uid.'">Info</a></li>
-            <li><a href="'.  check_plain(request_uri()).'?tag=badge&getuid='.$uid.'">Badges</a></li>
-            <li><a href="'.  check_plain(request_uri()).'?tag=activity&getuid='.$uid.'">Activity</a></li>
-             <li><a href="'.  check_plain(request_uri()).'?tag=history&getuid='.$uid.'">History</a></li>
+            <li class="current"><a href="'.  check_plain(request_uri()).'?tag=info&getuid='.$resulrnames->uid.'">Info</a></li>
+            <li><a href="'.  check_plain(request_uri()).'?tag=badge&getuid='.$resulrnames->uid.'">Badges</a></li>
+            <li><a href="'.  check_plain(request_uri()).'?tag=activity&getuid='.$resulrnames->uid.'">Activity</a></li>
+             <li><a href="'.  check_plain(request_uri()).'?tag=history&getuid='.$resulrnames->uid.'">History</a></li>
         </ul>
         <div style="width:480px;" class="mytabs-container" id="tabs-container">
             Loading. Please Wait...

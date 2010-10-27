@@ -110,7 +110,7 @@ function question_add() {
     $result = geonames_query('countryinfo', NULL, $options);
     $optionlist .= ' <option value="0" >--Country--</option>';
     foreach ($result->results as $country) {
-        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
+        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countryname'], $country['countryname']);
     }
 
     
