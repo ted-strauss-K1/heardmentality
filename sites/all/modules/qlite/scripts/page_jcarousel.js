@@ -1,6 +1,6 @@
 function mycarousel_initCallback(carousel) {
    jQuery('.jcarousel-control a').bind('click', function() {
-        carousel.scroll(jQuery.jcarousel.intval(jQuery(this).attr('rel')));
+        carousel.scroll(jQuery.jcarousel.intval(jQuery(this).attr('title')));
         return false;
     });
 
