@@ -510,11 +510,13 @@ echo "<p align=\"center\" >".' Twitter  updated successfully !'."</p>";
 
 function send_mail()
 {
-        $send_qry = "select * from hm_mails mail_status='0'";
+    global $gSitePath,$user,$gDocPath,$base_root;
+         $send_qry = "select * from hm_mails where mail_status='0'";
             $send_exec = ExecuteQuery($send_qry, "select");
+        
             foreach ($send_exec as $sendeach) {
-                echo $sendeach;
-             //$mail_success = htmlmail_function($sendeach['user_to_id'], $sendeach['subject'], $sendeach['content'], '');
+               
+             $mail_success = htmlmail_function($sendeach['user_to_id'], $sendeach['subject'], $sendeach['content'], '');
              if($mail_success)
              {
                  db_query("update hm_mails set mail_status=1 where mail_id='".$sendeach['user_to_id']."'");
