@@ -47,7 +47,9 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .black11{ font-family:Georgia, "Times New Roman", Times, serif; color:#000000; font-size:10px; text-decoration:none; }
 .btex{ margin-top:10px; text-align:center;}
 /*content*/
-.contarea{ width:1024px; padding-top:20px;}
+.contarea{ width:1024px; padding-top:20px; padding-bottom:20px;}
+.contarea-make-donation{ width:1024px; padding-top:20px; padding-bottom:200px;}
+
 /*cont-left*/
 .page-searchquestion .commu{ width:478px;float:left; border:2px #cccccc solid;  min-height:544px}
 .commu{ width:336px;float:left; border:1px #cccccc solid;  min-height:544px}
@@ -60,7 +62,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
 .innerbox a{font-size:14px/21px; color:#996600;}
 /*cont-center*/
-.ques{ width:512px;float:left;padding:0px 0px 0px 10px;}
+.ques{ width:502px;float:left;padding:0px 0px 0px 10px;}
 .questop{ background-image:url(../images/c-top.gif); background-repeat:no-repeat; height:34px; font:17px/33px  normal Georgia, "Times New Roman", Times, serif; color:#000; padding-left:10px; border-bottom:1px #BDBDBD solid;}
 .questopl{ width:370px; float:left;}
 .questopr{ width:130px; float:left;}
@@ -75,7 +77,8 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .quesin li a{ color:#996600; text-decoration:none;}
 .quesin li a:hover{ color:#000; text-decoration:underline;}
 /*cont-right*/
-.fact{ width:162px;float:left;border:1px #cccccc solid }
+.fact{ width:162px;float:left;border:1px #cccccc solid; margin-left:7px;}
+
 .sitetour{ width:162px; margin-bottom:10px; border-bottom:1px #cccccc solid;}
 .sitetour img:hover{ opacity:0.7;}
 .facttop{font:16px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:left;}
@@ -136,7 +139,7 @@ img{ border:none;}
 .tag span{ color:#000;}
 
 /*Share flag section-top of the script*/
-.sharing-section{ width:480px; border-top:1px #cccccc solid; border-bottom:1px #cccccc solid; padding:0 0 5px 0; height:26px; font: normal 10px  Georgia, "Times New Roman", Times, serif; color:#996600; }
+.sharing-section{ width:484px; border-top:1px #cccccc solid; border-bottom:1px #cccccc solid; padding:0 0 5px 0; height:26px; font: normal 10px  Georgia, "Times New Roman", Times, serif; color:#996600; }
 .paddi40{padding-bottom:40px;}
 .sharing-section .share1{ background:url(../images/share1-bg.png)  no-repeat 0px center; height:24px; width:130px; float:left;padding-top:7px;}
 .sharing-section .share1 span{}
@@ -268,7 +271,6 @@ img{ border:none;}
 .tab-historyspan4 a:hover{ color:#000000; text-decoration:underline}
 .tab-historyspan5 a{ color:#996600;padding-left:30px;text-decoration:none}
 .tab-historyspan5 a:hover{ color:#996600;text-decoration:underline;}
-.hm-cen{ border:1px solid #ccc; padding:5px}
 
 .hm-left{ width:260px; float:left; padding-right:10px;}
 .hm{ width:480px; height:300px; overflow:scroll;}
@@ -413,7 +415,7 @@ margin-right:2px;
 	
 }
 /*VIJAY*/
-.commutop-profile{  background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
+
 .pun ul{ margin:0px; padding-bottom:78px;}
 .pun li{ float:left; list-style:none; border:1px #666666 solid; margin-left:1px;}
 .hm-cen-pun{ border:1px solid #ccc; padding:1px; padding-top:10px;}
@@ -503,6 +505,7 @@ margin-right:2px;
 
 .commu-profile{ width:1013px;float:left; border:1px #cccccc solid;  min-height:564px; height:auto !important ; height:564px;}
 .commutop-profile{  background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
+
 .profile-left{ width:177px; float:left;}
 .profile-right{ width:800px; float:left; padding-left:10px;}
 .profile-right ul{ margin:0px; padding:0px;}

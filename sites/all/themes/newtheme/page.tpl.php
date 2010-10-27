@@ -24,13 +24,12 @@
           <div class="" >
             <!--<div class="questopr"><?php echo date("M d,Y") ?></div>-->
           </div>
-          <div class="quesbg">
+          <div class="hm-cen">
 
            <?php print $content; ?>
   </div>
   
-     <div class="quesbott"></div>
-        </div>
+            </div>
 
       <?php if (!empty($right)): ?>
 	    <div class="fact">
