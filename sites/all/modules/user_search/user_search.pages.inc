@@ -1,7 +1,9 @@
 <?php
+
 function search_results() {
     ////vijay1
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    
 
     $flink = '';
     $fetresult = '';
@@ -274,6 +276,7 @@ function search_results_question() {
 ///vijay search
    // print_r($_REQUEST);
    // exit;
+    drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
     $start = '';
     $txt_search = '';
