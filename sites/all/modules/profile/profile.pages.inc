@@ -499,7 +499,7 @@ function profile($uid = '') {
        $strReturn .= '
     <div class="bor_bot">
 	<div class="rht_link">
-       ' . $share . $flink . $history . $sendmsg . $edit . '
+       ' . $share . $history . $sendmsg . $edit . '
        </div>
         <br class="clr" />
       </div>';
