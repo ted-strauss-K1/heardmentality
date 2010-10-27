@@ -20,7 +20,7 @@ function search_results() {
 
 
     $eu = ($start - 0);
-    $limit = 10; // No of records to be shown per page.
+    $limit = 14; // No of records to be shown per page.
     $this1 = $eu + $limit;
     $back = $eu - $limit;
     $next = $eu + $limit;
@@ -93,11 +93,11 @@ function search_results() {
             $divider = '';
         }
       $fetresult .=  ' <div class="prof-it-1">
-        <div class="lefimg-it-c"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');">' . UserPicture($user_result->uid) . '</a></div>
+        <div class="lefimg-it-c"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');" >' . UserPicture($user_result->uid) . '</a></div>
         <div class="ritecont-it-c">
 <div>
 <ul>
-<li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
+<li><a  onclick="get_profile_details(' . $user_result->uid . ');" style="cursor:pointer" > ' . $user_result->real_name . '</a></li><br />
 <!--<li>' . $gpoints . '</li><br />-->
 '.updateProfileBadge($user_result->uid).'
 </ul>
@@ -123,7 +123,7 @@ function search_results() {
             <ul><li>";
         if ($back >= 0) {
            // $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'>PREV</a>";
-            $fetresult .= "<li><a href='$page_name?start=$back&code=$code&txt_search=$name'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-1.jpg'></a></li>";
+            $fetresult .= "<li><a href='$page_name?start=$back&code=$code&txt_search=$name'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-l.jpg'></a></li>";
 
         }
         $fetresult .= "</li><li>";
@@ -133,7 +133,7 @@ function search_results() {
             if ($i <> $eu) {
                 $fetresult .= " <a href='$page_name?start=$i&code=$code&txt_search=$name'>$l</a> ";
             } else {
-                $fetresult .= "<font face='Verdana' size='4' color=red>$l</font>";
+                $fetresult .= "<font color=red>$l</font>";
             }
             $l = $l + 1;
         }
@@ -479,7 +479,7 @@ function search_results_question() {
         $l = 1;
         for ($i = 0; $i < $sel_count; $i = $i + $limit) {
             if ($i <> $eu) {
-                $fetresult .= " <a class='sidelinks' href='$page_name?start=$i&$lkr'><font  size='2'>$l</font></a> ";
+                $fetresult .= " <a class='sidelinks' href='$page_name?start=$i&$lkr'>$l</a> ";
             } else {
                 $fetresult .= "<font color='black' size='4' >$l</font>";
             } /// Current page is not displayed as link and given font color red
@@ -1210,7 +1210,7 @@ exit;
         for ($k = 0; $k < count($newlist2); $k++) {
             $follower .= '' . $newlist2[$k] . '';
         }
-    
+  // echo  request_uri();
     $ret = '<div class="contributer">
           <div class="facttop">
   CONTRIBUTOR
@@ -1252,8 +1252,7 @@ exit;
 <div class="profile-right-c">
 <div style="margin-left:8px;">
 <ul>
-<li><img src="'.$gSitePath.'sites/all/themes/newtheme/images/follow.jpg" alt="img" width="19" height="13" />&nbsp;Follow</li>
-<li>&nbsp;<img src="'.$gSitePath.'sites/all/themes/newtheme/images/mail.jpg" alt="img" width="19" height="11" /> &nbsp;Contact Contributor</li>
+<li><img src="'.$gSitePath.'sites/all/themes/newtheme/images/follow.jpg" alt="img" width="19" height="13" />&nbsp;<a class="linkfol" href="' . $gSitePath . 'profile/' .$resulrnames->name. '?delm=' .$resulrnames->uid. '">Follow</a></li>
 </ul>
 </div>
 <div class="clr"></div>
@@ -1280,10 +1279,10 @@ exit;
             <div class="clr"></div>
             <div id="page">
        <ul class="mytabs" id="tabs">
-            <li class="current"><a href="'.  check_plain(request_uri()).'?tag=info">Info</a></li>
-            <li><a href="'.  check_plain(request_uri()).'?tag=badge">Badges</a></li>
-            <li><a href="'.  check_plain(request_uri()).'?tag=activity">Activity</a></li>
-             <li><a href="'.  check_plain(request_uri()).'?tag=history">History</a></li>
+            <li class="current"><a href="'.  check_plain('/heardmentality/profile').'?tag=info">Info</a></li>
+            <li><a href="'.  check_plain('/heardmentality/profile').'?tag=badge">Badges</a></li>
+            <li><a href="'.  check_plain('/heardmentality/profile').'?tag=activity">Activity</a></li>
+             <li><a href="'.  check_plain('/heardmentality/profile').'?tag=history">History</a></li>
         </ul>
         <div style="width:480px;" class="mytabs-container" id="tabs-container">
             Loading. Please Wait...
@@ -1413,7 +1412,7 @@ if ($sel_count == 0) {
             if ($i <> $eu) {
                 $fetresult .= " <a href='$page_name?start=$i&code=$code&txt_search=$name'><font face='Verdana' size='2'>$l</font></a> ";
             } else {
-                $fetresult .= "<font face='Verdana' size='4' color=red>$l</font>";
+                $fetresult .= "$l";
             }
             $l = $l + 1;
         }
