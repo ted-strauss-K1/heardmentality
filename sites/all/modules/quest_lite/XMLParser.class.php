@@ -73,7 +73,8 @@ class XMLParser{
        if (!($fp = fopen($path, "r"))) {
            //die("Cannot open XML data file: $path"); vijay commented
            die("No records found");
-           return false;
+           //return false;
+           return true;
        }
       
        while ($data = fread($fp, 4096)) {
@@ -82,7 +83,7 @@ class XMLParser{
                xml_error_string(xml_get_error_code($this->xml_obj)),
                xml_get_current_line_number($this->xml_obj)));
                xml_parser_free($this->xml_obj);*/ // vijay comented
-               die("No records found");
+              // die("No records found");
            }
        }
       
