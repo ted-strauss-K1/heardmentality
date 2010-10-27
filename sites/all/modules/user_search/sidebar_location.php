@@ -63,10 +63,11 @@ $query = array('country'=>$q_country);
 else
 {
 echo'<div id="chg_state">
-    <select id="q_state" name="q_state" onchange="get_citysquestion(this.value);" style="width: 125px;" tabindex="18">
+    <div class="listmenu">
+    <select id="q_state" class="listbox" name="q_state" onchange="get_citysquestion(this.value);" style="width: 125px;" tabindex="18">
     <option value="0" >State/Province</option>
     </select>
-    </div>';
+    </div></div>';
 }
                
                 $query = array('geonameid'=>$q_state);

@@ -406,12 +406,12 @@ function search_results_question() {
         if ($numran != 0) {
         $query="select vote_pid from {possible_answer_vote} where qid='$user_result->qid' AND uid='".$user->uid."'";
         $voteid=db_result(db_query($query));
-     $fetresult .= ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="'.$voteid.'"/></p></form>';
+     $fetresult .= ' <p style="padding-left:8px"><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="'.$voteid.'"/></p></form>';
    //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
     }
     if ($numran == 0) {
 
-        $fetresult .= ' <p><input type="submit" name="save" id="save" value="Vote" /></p></form>';
+        $fetresult .= ' <p style="padding-left:8px"><input type="submit" name="save" id="save" value="Vote" /></p></form>';
     }
 
 
@@ -468,31 +468,31 @@ function search_results_question() {
     ///////////////////////////////
     if ($sel_count > $limit) { // Let us display bottom links if sufficient records are there for paging
         /////////////// Start the bottom links with Prev and next link with page numbers /////////////////
-        $fetresult .= " <div class='result-item factmore'><table align = 'center' width='98%'><tr><td  align='left' width='30%'>";
+        $fetresult .= " <div class='result-item factmore'><div class='page-n' align='center'><ul style='margin-left:50px'><li>";
         //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
         if ($back >= 0) {
-            $fetresult .= "<a class='' href='$page_name?start=$back&$lkr'><font  size='2'>PREV</font></a>";
+            $fetresult .= "<a class='' href='$page_name?start=$back&$lkr'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-l.jpg'></a>";
         }
         //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
-        $fetresult .= "</td><td align=center width='30%'>";
+        $fetresult .= "</li><li>";
         $i = 0;
         $l = 1;
         for ($i = 0; $i < $sel_count; $i = $i + $limit) {
             if ($i <> $eu) {
                 $fetresult .= " <a class='sidelinks' href='$page_name?start=$i&$lkr'>$l</a> ";
             } else {
-                $fetresult .= "<font color='black' size='4' >$l</font>";
+                $fetresult .= "<font color='black'>$l</font>";
             } /// Current page is not displayed as link and given font color red
             $l = $l + 1;
         }
 
 
-        $fetresult .= "</td><td  align='right' width='30%'>";
+        $fetresult .= "</li<li>";
         ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
         if ($this1 < $sel_count) {
-            $fetresult .= "<a class='sidelinks' href='$page_name?start=$next&$lkr'><font size='2'>NEXT</font></a>";
+            $fetresult .= "<a class='sidelinks' href='$page_name?start=$next&$lkr'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a>";
         }
-        $fetresult .= "</td></tr></table></div>";
+        $fetresult .= "</li></ul></div></div>";
     }
 
     if ($sel_count == 0) {
@@ -1347,7 +1347,7 @@ function search_results_user() {
 
 
     $fetresult = ' <div class="rleft">
-      <span class="padding10">SEARCH RESULTS</span><br />
+      <span>SEARCH RESULTS</span><br />
        <div class="clr"></div>
        <div class="result-item"></div>
        <div class="clr"></div>
