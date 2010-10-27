@@ -386,8 +386,9 @@ function profile($uid = '') {
             drupal_set_message(t('You are already following ' . $namelist->name . '.'), $type = 'error');
         }
     }
-    if ($uid != $user->uid && isset($getuser)) {
+    if ($uid != $user->uid && isset($getuser)) {///follow
         $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow</a><span class="separate">|</span> ';
+        $flink = '<li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;'.$flink.'</li>';
     }
 
 
@@ -433,6 +434,7 @@ function profile($uid = '') {
         $edit.='<a href="javascript:void(0);" onclick="loadeditquestion(\'' . $gSitePath . '' .edit. '\',\'Report \');
 " >Edit My Profile </a><span class="separate">|</span> ';
    $inc = '&nbsp; [<a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Followers</a>]';
+  $inc =  '<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;'.$inc.'</li>';
    $inc_msg='  <li><a href="'.  check_plain(request_uri()).'?tag=msg">Message['.$cnt_msg.']</a></li>';
    }
 
@@ -544,8 +546,8 @@ function profile($uid = '') {
 <div class="profile-right">
 <div>
 <ul>
-<li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;'.$flink.'</li>
-<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;'.$inc.'</li>
+'.$flink.'
+'.$inc.'
 </ul>
 </div>
 <div class="clr"></div>
