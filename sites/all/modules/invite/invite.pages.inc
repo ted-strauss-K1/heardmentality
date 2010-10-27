@@ -520,5 +520,6 @@ function send_mail()
                  db_query("update hm_mails set mail_status=1 where mail_id='".$sendeach['user_to_id']."'");
              }
           }
+          exit;
 }
 
