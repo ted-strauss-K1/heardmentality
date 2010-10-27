@@ -79,6 +79,8 @@ jQuery(document).ready(function(){
     if (destLang && destLang != 'English') {
     jQuery('.jq-translate-ui').val(destLang);
     translateTo( destLang );
+    }else{
+       jQuery('.jq-translate-ui').val('English');
     }
   });
   

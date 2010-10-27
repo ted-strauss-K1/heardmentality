@@ -118,7 +118,7 @@ function question_add() {
 
 	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
-    $output .= '<div class="contarea-make-donation">
+    $output .= '<body style="background:none;"><div class="" sytyle="">
 
 <div class="do-in2">
         <div class="do-intop">ADD AN ISSUE</div>
