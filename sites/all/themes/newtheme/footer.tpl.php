@@ -80,7 +80,7 @@ jQuery(document).ready(function(){
     jQuery('.jq-translate-ui').val(destLang);
     translateTo( destLang );
     }else{
-       jQuery('.jq-translate-ui').val('English');
+       jQuery('.jq-translate-ui').val('en');
     }
   });
   
