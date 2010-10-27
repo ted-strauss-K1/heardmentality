@@ -1137,12 +1137,12 @@ function add_resources() {
 		if (!tomatch.test(membed))
 		 err += \'<li>Please Enter YouTube Link </li>\';		
 		}
-		else
-		{
+		
+		
 		 if (docpath.trim().length < 1) 
         err += \'<li>Please Select Document !</li>\';
 		}
-		}
+		
 		 if (cat1==3) 
 		 {
 	
