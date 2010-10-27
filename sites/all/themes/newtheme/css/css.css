@@ -1,6 +1,6 @@
 @charset "utf-8";
 *{ margin:0px; padding:0px;font-family:Arial, Helvetica, sans-serif;}
-body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:normal 12px "Times New Roman", Times, serif;}
+body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:normal 12px normal Arial,Helvetica,sans-serif;}
 .main {width: 1050px; margin:auto; padding:0px; margin-top:30px; }
 .top{ background-image:url(../images/top.png); height:10px; background-repeat:no-repeat;}
 .mid{background-image:url(../images/cen-bg.png); background-repeat:repeat-y;}
@@ -13,16 +13,16 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .top-left-outer{ width:164px; float:left; margin-right:50px;}
 .loginvi-outer{ width:232px; float:right;}
 .text-logo{ background:url(../images/text-logo.png) no-repeat; width:162px; height:48px; border:1px #f0f0f0 solid;}
-.date-time{ width:232px; font:normal 10px Georgia, "Times New Roman", Times, serif; color:#000000;}
+.date-time{ width:232px; font:normal 10px normal Arial,Helvetica,sans-serif; color:#000000;}
 .loginvi{ width:162px; height:51px; float:right; border:1px #f0f0f0 solid;}
 .signin-name-outer{ width:232px; float:right;}
-.signin-name{ width: 100px; font:normal 8px Georgia, "Times New Roman", Times, serif; float:left;}
+.signin-name{ width: 100px; font:normal 8px normal Arial,Helvetica,sans-serif; float:left;}
 .signin-name p{ color:#999999; display:inline; margin:0; padding:0;}
 .signin-name b{color:#000000; margin:0; padding:0;}
 .signout{ float:left; width:auto; }
 .signout ul{ float:right; }
-.signout ul li{ list-style:none; font:normal 10px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; padding-right:5px; float:left; padding-left:5px;}
-.signout ul li a{ list-style:none; font:normal 10px  Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration: none;}
+.signout ul li{ list-style:none; font:normal 10px normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none; padding-right:5px; float:left; padding-left:5px;}
+.signout ul li a{ list-style:none; font:normal 10px  normal Arial,Helvetica,sans-serif; color:#996600; text-decoration: none;}
 .signout ul li a:hover{ color:#333333;}
 
 
@@ -32,9 +32,9 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .search{ width:336px;background:url(../images/m-bg.gif) repeat-x;height:32px;float:left; padding-top:4px;}
 .search div{ padding-top:1px;}
 .searchbox{ width:336px;}
-.searchtext{ width:130px; float:left; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; margin-top:2px;}
-.searchtext input{ width:130px; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px;}
-.searchr{float:left; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; margin-left:5px;}
+.searchtext{ width:130px; float:left; font-family:normal Arial,Helvetica,sans-serif; font-size:11px; margin-top:2px;}
+.searchtext input{ width:130px; font-family:normal Arial,Helvetica,sans-serif; font-size:11px;}
+.searchr{float:left; font-family:normal Arial,Helvetica,sans-serif; font-size:11px; margin-left:5px;}
 .slab{ float:left; padding-top:1px; margin-left:2px; line-height:15px; }
 .slab_ie{ float:left; padding-top:0px; margin-left:2px; line-height:0px; }
 .stext{ float:left;padding-top:1px;margin-left:2px; }
@@ -42,9 +42,9 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 
 .men{ width:508px;background:url(../images/m-bg.gif) repeat-x;height:32px; margin:0px 8px 0px 8px;float:left; padding-top:1px; text-align:center}
 .edition{ width:164px;background:url(../images/m-bg.gif) repeat-x;height:32px;float:left; }
-.edition div{padding:5px 0px 4px 0px;font:12px/21px normal Georgia, "Times New Roman", Times, serif;}
-.edition select{ width:115px; margin-left:5px; font-size:11px; font-family:Georgia, "Times New Roman", Times, serif; font-weight:normal;padding:2px;}
-.black11{ font-family:Georgia, "Times New Roman", Times, serif; color:#000000; font-size:10px; text-decoration:none; }
+.edition div{padding:5px 0px 4px 0px;font:12px/21px normal normal Arial,Helvetica,sans-serif;}
+.edition select{ width:115px; margin-left:5px; font-size:11px; font-family:normal Arial,Helvetica,sans-serif; font-weight:normal;padding:2px;}
+.black11{ font-family:normal Arial,Helvetica,sans-serif; color:#000000; font-size:10px; text-decoration:none; }
 .btex{ margin-top:10px; text-align:center;}
 /*content*/
 .contarea{ width:1024px; padding-top:20px; padding-bottom:20px;}
@@ -53,27 +53,27 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 /*cont-left*/
 .page-searchquestion .commu{ width:478px;float:left; border:2px #cccccc solid;  min-height:544px}
 .commu{ width:336px;float:left; border:1px #cccccc solid;  min-height:544px}
-.commutop{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff;}
-.commutop select{width:150px; font-size:11px; font-family:Georgia, "Times New Roman", Times, serif; font-weight:normal; padding:2px;}
+.commutop{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff;}
+.commutop select{width:150px; font-size:11px; font-family:normal Arial,Helvetica,sans-serif; font-weight:normal; padding:2px;}
 .commu .inner{ width:325px; margin:auto; padding:0px;}
 
-.inner  h3{ font:12px/21px Georgia, "Times New Roman", Times, serif; color:#3F3F3F}
-.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
-.innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
+.inner  h3{ font:12px/21px normal Arial,Helvetica,sans-serif; color:#3F3F3F}
+.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#996600;}
+.innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#996600;}
 .innerbox a{font-size:14px/21px; color:#996600;}
 /*cont-center*/
 .ques{ width:502px;float:left;padding:0px 0px 0px 10px;}
-.questop{ background-image:url(../images/c-top.gif); background-repeat:no-repeat; height:34px; font:17px/33px  normal Georgia, "Times New Roman", Times, serif; color:#000; padding-left:10px; border-bottom:1px #BDBDBD solid;}
+.questop{ background-image:url(../images/c-top.gif); background-repeat:no-repeat; height:34px; font:17px/33px  normal normal Arial,Helvetica,sans-serif; color:#000; padding-left:10px; border-bottom:1px #BDBDBD solid;}
 .questopl{ width:370px; float:left;}
 .questopr{ width:130px; float:left;}
 .quesbg{ background-image:url(../images/c-bg.gif); background-repeat:repeat-y; padding:10px;  min-height:485px; }
 .quesbott{ background-image:url(../images/c-bottom.gif); height:13px; background-repeat:no-repeat;}
-.ques h2{font:18px/25px  normal Georgia, "Times New Roman", Times, serif; color:#4170a0; }
+.ques h2{font:18px/25px  normal normal Arial,Helvetica,sans-serif; color:#4170a0; }
 .quesinner{ border-right:0px #ccc solid; width:90px; float:left; margin-right:5px;}
-.quesinnerr{ width:400px;float:left; font:12px/21px normal Georgia, "Times New Roman", Times, serif;}
+.quesinnerr{ width:400px;float:left; font:12px/21px normal normal Arial,Helvetica,sans-serif;}
 .quesin{ padding:10px 0px 40px 0px; }
 .quesin ul{ margin:0px; padding:0px;}
-.quesin li{ list-style:none;float:left; padding-left:9px; font-family:Georgia, "Times New Roman", Times, serif; color:#996600; font-size:9px; line-height:20px; }
+.quesin li{ list-style:none;float:left; padding-left:9px; font-family:normal Arial,Helvetica,sans-serif; color:#996600; font-size:9px; line-height:20px; }
 .quesin li a{ color:#996600; text-decoration:none;}
 .quesin li a:hover{ color:#000; text-decoration:underline;}
 /*cont-right*/
@@ -81,25 +81,25 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 
 .sitetour{ width:162px; margin-bottom:10px; border-bottom:1px #cccccc solid;}
 .sitetour img:hover{ opacity:0.7;}
-.facttop{font:16px/25px  normal Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:left;}
-.facttop2{font:14px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
-.fact1{ width:65px; margin:7px; float:left;font:14px normal Georgia, "Times New Roman", Times, serif; color:#996600; text-align:center; }
-.factblu{ width:65px; margin:7px; float:left;font:14px normal Georgia, "Times New Roman", Times, serif; color:#336699; text-align:center;}
-.facttext{ font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#333333; padding:5px; }
-.factmore a{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none;}
-.factmore a:hover{font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#000; text-decoration:none;}
-.facttext2{ font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#666666; padding:5px; }
+
+.facttop{font:16px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:left;}
+.facttop2{font:14px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
+.fact1{ width:65px; margin:7px; float:left;font:14px normal normal Arial,Helvetica,sans-serif; color:#996600; text-align:center; }
+.factblu{ width:65px; margin:7px; float:left;font:14px normal normal Arial,Helvetica,sans-serif; color:#336699; text-align:center;}
+.facttext{ font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#333333; padding-bottom:5px; }
+.factmore a{font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
+.factmore a:hover{font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#000; text-decoration:none;}
+.facttext2{ font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#666666; padding:5px; }
 
 
-
-.welcome{ width:300px; float: right; font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; text-align:right;}
-.welcome a{font-family:Georgia, "Times New Roman", Times, serif; font-size:11px; color:#CC6600; text-decoration:underline;}
+.welcome{ width:300px; float: right; font-family:normal Arial,Helvetica,sans-serif; font-size:11px; text-align:right;}
+.welcome a{font-family:normal Arial,Helvetica,sans-serif; font-size:11px; color:#CC6600; text-decoration:underline;}
 .welcome a:hover{ text-decoration:none;}
 
 /*profile part*/
-.profile_part{ width:1012px; border:1px solid #ededed; margin:0 auto; padding:5px; font:normal 12px Georgia, "Times New Roman", Times, serif; color:#000;overflow: hidden;}
-.rht_link{ float:right; font:normal 11px Georgia, "Times New Roman", Times, serif;}
-.rht_link a{ font:normal 12px Georgia, "Times New Roman", Times, serif; color:#727171; text-decoration:none;}
+.profile_part{ width:1012px; border:1px solid #ededed; margin:0 auto; padding:5px; font:normal 12px normal Arial,Helvetica,sans-serif; color:#000;overflow: hidden;}
+.rht_link{ float:right; font:normal 11px normal Arial,Helvetica,sans-serif;}
+.rht_link a{ font:normal 12px normal Arial,Helvetica,sans-serif; color:#727171; text-decoration:none;}
 .rht_link a:hover{ color:#000;}
 span.separate{ margin:0 10px; color:#727171;}
 .bor_bot{border-bottom:1px solid #000; margin-bottom:5px;}
@@ -107,17 +107,17 @@ span.separate{ margin:0 10px; color:#727171;}
 .profile_rht{ float:right; width:400px;}
 .pro_row{ border-bottom:1px solid #000; padding-bottom:5px;}
 .profile_pict{ float:left; width:135px; height:145px; border:1px solid #ededed; margin-right:15px; background:#EDEDED; text-align:center;}
-.profile_desc{ float:left; font:normal 11px Georgia, "Times New Roman", Times, serif; color:#000; line-height:25px; color:#000;}
-.profile_rht h4{ font:bold 14px Georgia, "Times New Roman", Times, serif; color:#535252;}
+.profile_desc{ float:left; font:normal 11px normal Arial,Helvetica,sans-serif; color:#000; line-height:25px; color:#000;}
+.profile_rht h4{ font:bold 14px normal Arial,Helvetica,sans-serif; color:#535252;}
 .profile_rht ul{ margin:0px 0 0 15px; padding:0px;}
 .profile_rht ul li{ list-style-type:none; margin:5px 0;}
-.profile_rht ul li a{ color:#000; text-decoration:none; font:normal 12px Georgia, "Times New Roman", Times, serif; color:#727171;}
+.profile_rht ul li a{ color:#000; text-decoration:none; font:normal 12px normal Arial,Helvetica,sans-serif; color:#727171;}
 .profile_rht ul li img{ margin-right:5px;}
-.profile_rht ul li a:hover{ text-decoration:none; font:normal 12px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:underline;}
+.profile_rht ul li a:hover{ text-decoration:none; font:normal 12px normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:underline;}
 
 .face_book{ width:277px; float:left; margin-top:20px;}
 .face_book h4{ margin-bottom:5px;}
-.face_book a{ font:bold 12px Georgia, "Times New Roman", Times, serif; color:#000; text-decoration:none; float:left; line-height:30px;}
+.face_book a{ font:bold 12px normal Arial,Helvetica,sans-serif; color:#000; text-decoration:none; float:left; line-height:30px;}
 .face_book a:hover{ color:#7f5500;}
 .face_book span{ float:left; color:#000; margin:5px 18px 0 18px;}
 .face_book a img{ margin-right:12px; text-decoration:none;}
@@ -131,15 +131,15 @@ img{ border:none;}
 
 .fa-item{ width:162px; padding:10px;}
 .fa-item ul{ padding:0px; margin:0px;}
-.fa-item ul li{ list-style:none; font:bold 14px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; background:none; padding-left:10px;}
-.fa-item ul li a{ font:normal 14px Georgia, "Times New Roman", Times, serif; color:#CC6600; text-decoration:none; padding-left:10px;}
-.fa-item ul li a:hover{ background: url(../images/bullet.png) no-repeat 0 0px; font:normal 14px Georgia, "Times New Roman", Times, serif; color:#4e7aa6; text-decoration:none;padding-left:10px;}
+.fa-item ul li{ list-style:none; font:bold 14px normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none; background:none; padding-left:10px;}
+.fa-item ul li a{ font:normal 14px normal Arial,Helvetica,sans-serif; color:#CC6600; text-decoration:none; padding-left:10px;}
+.fa-item ul li a:hover{ background: url(../images/bullet.png) no-repeat 0 0px; font:normal 14px normal Arial,Helvetica,sans-serif; color:#4e7aa6; text-decoration:none;padding-left:10px;}
 /*tag section*/
-.tag{ font:normal 9px Georgia, "Times New Roman", Times, serif; color:#996600; padding-left:9px;}
+.tag{ font:normal 9px normal Arial,Helvetica,sans-serif; color:#996600; padding-left:9px;}
 .tag span{ color:#000;}
 
 /*Share flag section-top of the script*/
-.sharing-section{ width:484px; border-top:1px #cccccc solid; border-bottom:1px #cccccc solid; padding:0 0 5px 0; height:26px; font: normal 10px  Georgia, "Times New Roman", Times, serif; color:#996600; }
+.sharing-section{ width:484px; border-top:1px #cccccc solid; border-bottom:1px #cccccc solid; padding:0 0 5px 0; height:26px; font: normal 10px  normal Arial,Helvetica,sans-serif; color:#996600; }
 .paddi40{padding-bottom:40px;}
 .sharing-section .share1{ background:url(../images/share1-bg.png)  no-repeat 0px center; height:24px; width:130px; float:left;padding-top:7px;}
 .sharing-section .share1 span{}
@@ -161,8 +161,8 @@ img{ border:none;}
 .footer-icon-outer{float:right; width:175px; margin-top:8px;}
 .footer-icon-outer img{ margin-right:4px; float:right;}
 /*hover*/
-.share-link{ font: normal 11px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none;}
-.share-link:hover{ color:#000000; }
+.share-link{ font: normal 11px normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
+.share-link:hover{ color:#000000;text-decoration: none; }
 /* blocks*/
 #block-sitetour{ padding:0; margin:0;}
 #block-1{}
@@ -175,67 +175,67 @@ img{ border:none;}
 
 /*.inner-page-cont{border: 2px #666666 solid; min-height:600px; height:auto !important; height:600px; width:370px; float:left; margin-left:2px; margin-right:2px;}*/
 /*.minheight544{ min-height:544px; height:auto !important; height:544px;border: 2px #666666 solid;width:510px; float:left; margin-left:2px; margin-right:2px;}*/
-.inner-commutop{ height:29px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff;}
-.black11{ font:normal 10px Georgia, "Times New Roman", Times, serif; color:#000000; padding:5px;}
+.inner-commutop{ height:29px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff;}
+.black11{ font:normal 10px normal Arial,Helvetica,sans-serif; color:#000000; padding:5px;}
 .sharing-width{ width:260px; border:none; margin:5px;}
 .sharing-margin{ margin:5px;}
-.sidelinks{ font:normal 11px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none;}
+.sidelinks{ font:normal 11px normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
 .sidelinks:hover{ color:#4a3202; text-decoration:underline;}
-.black12{ font:normal 12px Georgia, "Times New Roman", Times, serif; color:#000000;}
+.black12{ font:normal 12px normal Arial,Helvetica,sans-serif; color:#000000;}
 .padding10{ padding:10px;}
 .listmenu{ width:130px; margin-top:5px;}
-.listmenu .listbox{ width:130px; font:normal 10px Georgia, "Times New Roman", Times, serif; color:#000000; height:18px;}
+.listmenu .listbox{ width:130px; font:normal 10px normal Arial,Helvetica,sans-serif; color:#000000; height:18px;}
 .minheight{ min-height:495px; height:auto !important; height:495px;}
 
 .result-item{ width:370px; border-top:1px #dfdfdf solid;}
 .result-item .rleft{ float:left; display:block; height: 448px;}
-.result-item .titl a{ font:normal 14px Georgia, "Times New Roman", Times, serif; color:#996600; padding:10px 10px;}
-.result-item .rleft .item1{ font: normal 11px Georgia, "Times New Roman", Times, serif; color:#000000; padding:0 0 0 10px;}
-.result-item .rright{ font: normal 11px Georgia, "Times New Roman", Times, serif; color:#000000; float:right;}
+.result-item .titl a{ font:normal 14px normal Arial,Helvetica,sans-serif; color:#996600; padding:10px 10px;}
+.result-item .rleft .item1{ font: normal 11px normal Arial,Helvetica,sans-serif; color:#000000; padding:0 0 0 10px;}
+.result-item .rright{ font: normal 11px normal Arial,Helvetica,sans-serif; color:#000000; float:right;}
 .result-item .rright .vote-post-outer{ width:110px; float:right; margin:30px 0 0 100px;}
 .result-item .rright .vote-post-outer-top{ width:110px; }
 .result-item .rright .vote-post-outer-bottom{ width:110px ;}
 .result-item .rright .vote-post-outer-bottom .vot-t{ width:45px; float:left;padding:3px;}
-.result-item .rright .vote-post{ width:45px; height:24px; background-color:#000000; font: normal 16px "Times New Roman", Times, serif; color:#ffffff; float:left; margin:3px; text-decoration:none;}
-.result-item .rright .vote-post:hover{ width:45px; background:#996600; font: normal 16px "Times New Roman", Times, serif; color:#ffffff; text-decoration:none;}
+.result-item .rright .vote-post{ width:45px; height:24px; background-color:#000000; font: normal 16px normal Arial,Helvetica,sans-serif; color:#ffffff; float:left; margin:3px; text-decoration:none;}
+.result-item .rright .vote-post:hover{ width:45px; background:#996600; font: normal 16px normal Arial,Helvetica,sans-serif; color:#ffffff; text-decoration:none;}
 /*search result page2*/
 .result-item .first-col{ width:80px; float:left;}
 .result-item .photo{ background:#999999 ; width:70px; height:70px; margin:10px;}
 .result-item .second-col{ float:left; width:300px; padding-top:10px; padding-left:10px;}
 .result-item .second-col .textouter{ width:200px;}
-.result-item .second-col .grayt{ font:normal 11px Georgia, "Times New Roman", Times, serif; color:#666666; float:left;}
-.result-item .second-col .blakt{ font:normal 11px Georgia, "Times New Roman", Times, serif; color:#000000; float:left;}
+.result-item .second-col .grayt{ font:normal 11px normal Arial,Helvetica,sans-serif; color:#666666; float:left;}
+.result-item .second-col .blakt{ font:normal 11px normal Arial,Helvetica,sans-serif; color:#000000; float:left;}
 .width200{ width:400px; border:none;}
 
 /* search result step2*/
 .outer-foll{ width:336px; margin-left:10px;}
 .outer-foll .navig{ width:336px;}
 .outer-foll .navig ul{ float:left;}
-.outer-foll .navig ul li{ list-style:none; font: normal 11px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; padding-right:2px; float:left; padding-left:2px;}
-.outer-foll .navig ul li a { list-style:none; font: normal 11px Georgia, "Times New Roman", Times, serif; color:#996600; padding-right:2px; text-decoration:none;padding-left:2px;}
-.outer-foll .navig ul li a:hover{ list-style:none; font: normal 11px Georgia, "Times New Roman", Times, serif; color:#000000;padding-right:2px; text-decoration:none;padding-left:2px;}
+.outer-foll .navig ul li{ list-style:none; font: normal 11px normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none; padding-right:2px; float:left; padding-left:2px;}
+.outer-foll .navig ul li a { list-style:none; font: normal 11px normal Arial,Helvetica,sans-serif; color:#996600; padding-right:2px; text-decoration:none;padding-left:2px;}
+.outer-foll .navig ul li a:hover{ list-style:none; font: normal 11px normal Arial,Helvetica,sans-serif; color:#000000;padding-right:2px; text-decoration:none;padding-left:2px;}
 .outer-foll .left-contd{ float:left;}
-.outer-foll .left-contd .bio-box{ width:135px; border:1px #cccccc solid; background-color:#f8f5ed; font:normal 11px Georgia, "Times New Roman", Times, serif; color:#000000; margin:3px; padding:5px;}
-.outer-foll .left-contd  .followers{ width:165px; font: normal 11px Georgia, "Times New Roman", Times, serif; color:#000000;}
+.outer-foll .left-contd .bio-box{ width:135px; border:1px #cccccc solid; background-color:#f8f5ed; font:normal 11px normal Arial,Helvetica,sans-serif; color:#000000; margin:3px; padding:5px;}
+.outer-foll .left-contd  .followers{ width:165px; font: normal 11px normal Arial,Helvetica,sans-serif; color:#000000;}
 .outer-foll .left-contd  .followers .thumb{ width:20px; height:20px; background-color:#999999; margin:3px; float:left;}
 
 .outer-foll .right-contd{ float:left;}
-.outer-foll .right-contd .links-box{ width:135px; border:1px #cccccc solid; background-color:#f8f5ed; font:normal 10px Georgia, "Times New Roman", Times, serif; color:#996600; margin:3px; padding:5px; text-decoration:none;}
-.links{ font:normal 10px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none;}
-.links:hover{ font: normal 10px Georgia, "Times New Roman", Times, serif; color:#000000;}
-.outer-foll .right-contd  .following{ width:165px; font: normal 11px Georgia, "Times New Roman", Times, serif; color:#000000;}
+.outer-foll .right-contd .links-box{ width:135px; border:1px #cccccc solid; background-color:#f8f5ed; font:normal 10px normal Arial,Helvetica,sans-serif; color:#996600; margin:3px; padding:5px; text-decoration:none;}
+.links{ font:normal 10px normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
+.links:hover{ font: normal 10px normal Arial,Helvetica,sans-serif; color:#000000;}
+.outer-foll .right-contd  .following{ width:165px; font: normal 11px normal Arial,Helvetica,sans-serif; color:#000000;}
 .outer-foll .right-contd  .following .thumb2{ width:20px; height:20px; background-color:#999999; margin:3px; float:left;}
 
 /*make a donation*/
 .do-in{ width:670px;border:3px #666666 solid;  min-height:335px; margin:0 auto;}
 .do-in span{ color:#996600;}
-.do-intop{ height:26px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Georgia, "Times New Roman", Times, serif; color:#fff;}
-.do-in .inside{ font: normal 11px Georgia, "Times New Roman", Times, serif; color:#000000; padding:5px 10px;}
+.do-intop{ height:26px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal normal Arial,Helvetica,sans-serif; color:#fff;}
+.do-in .inside{ font: normal 11px normal Arial,Helvetica,sans-serif; color:#000000; padding:5px 10px;}
 .row1{ width:670px;}
-.lin1{width:50px; float:left; font-family:"Times New Roman", Times, serif;}
-.lin2{ width:70px; float:left; font-family:"Times New Roman", Times, serif; margin-left:5px;}
+.lin1{width:50px; float:left; font-family:normal Arial,Helvetica,sans-serif;}
+.lin2{ width:70px; float:left; font-family:normal Arial,Helvetica,sans-serif; margin-left:5px;}
 .lin2 .texwidth{ width:70px;}
-.textbox-lengthy{ width:500px; font: normal 11px Georgia, "Times New Roman", Times, serif; color:#000000; margin:3px 0px; }
+.textbox-lengthy{ width:500px; font: normal 11px normal Arial,Helvetica,sans-serif; color:#000000; margin:3px 0px; }
 .do-in .donate{ float:left; width:150px; margin:15px 0 15px 0;}
 
 /*profile page new*/
@@ -298,9 +298,9 @@ img{ border:none;}
 
 
 /*Edited for developer purposes*/
-a{ text-decoration:none; color:#996600; font: normal Georgia, "Times New Roman", Times, serif;outline:none;}
+a{ text-decoration:none; color:#996600; font: normal normal Arial,Helvetica,sans-serif;outline:none;}
 a:hover{ text-decoration:underline;}
-.cmt_list { border:1px #cccccc solid;  margin-bottom:10px; padding:2px;  display:block; line-height:20px; font:14px/21px normal Georgia, "Times New Roman", Times, serif; color:#996600;}
+.cmt_list { border:1px #cccccc solid;  margin-bottom:10px; padding:2px;  display:block; line-height:20px; font:14px/21px normal normal Arial,Helvetica,sans-serif; color:#996600;}
 .innerbox ul li{ list-style:none;}
 #loading{ 
 -x-system-font:none; 
@@ -322,22 +322,22 @@ top:0px; left:150px;
 width:65px; height:20px;
 z-index:1000; -moz-border-radius:5px;
 }
-.men a{ font:normal 14px Georgia, "Times New Roman", Times, serif; color:#996600; text-decoration:none; margin-right:5px;}
+.men a{ font:normal 14px normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none; margin-right:5px;}
 .men li{ background:url(../images/list_bullet.jpg) no-repeat left 9px; padding-left:10px; text-transform:uppercase; list-style:none; float:left;}
-.men a:hover{ font:normal 14px Georgia, "Times New Roman", Times, serif;color:#4C4C4C; text-decoration:none; margin-right:5px;}
+.men a:hover{ font:normal 14px normal Arial,Helvetica,sans-serif;color:#4C4C4C; text-decoration:none; margin-right:5px;}
 .messages{ width:100%; display:block; clear:both; border-color:#CC6600; overflow:hidden;}
 .error{
 	background: #fff6bf url(bioneural/exclamation.png) 15px center no-repeat;
 	text-align: left;
 	padding: 5px 20px 5px 45px;
 	border-top: 2px solid #ffd324;
-	border-bottom: 2px solid #ffd324; color:red; font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold;
+	border-bottom: 2px solid #ffd324; color:red; font-family:normal Arial,Helvetica,sans-serif; font-weight:bold;
 	}
 	
 .status
 {
 color:#529214;
-font-family:Verdana, Georgia, "Times New Roman", Times, serif;
+font-family:Verdana, normal Arial,Helvetica,sans-serif;
 font-weight:bold;
 padding: 5px 20px 5px 45px;
 	border-top: 2px solid #ffd324;
@@ -346,7 +346,7 @@ padding: 5px 20px 5px 45px;
 /*input[type=button],input[type=submit] {
 border:1px solid #D5D5D5; 
 color:#6B6D67;
-font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold;
+font-family:normal Arial,Helvetica,sans-serif; font-weight:bold;
 font-size:11px; cursor:pointer;
 padding:0px;}*/
 
@@ -357,7 +357,7 @@ background: #F8FFF0 url(bioneural/exclamation.png) 15px center no-repeat;
 	padding: 5px 20px 5px 45px;
 	border-top: 2px solid #A0DC11;
 	border-bottom: 2px solid #A0DC11;
-font-family:Georgia, "Times New Roman", Times, serif; font-weight:bold;
+font-family:normal Arial,Helvetica,sans-serif; font-weight:bold;
 }
 
 
@@ -416,6 +416,13 @@ margin-right:2px;
 	background-color:#CC6600;
 	
 }
+
+.factbottom{
+
+    margin: 0px;background-color:#8F8F8F;
+color:#FFFFFF; display: block;padding-bottom: 10px;
+}
+.factbottom select{width:150px; font-size:11px; font-family:normal Arial,Helvetica,sans-serif; font-weight:normal; padding:2px;}
 /*VIJAY*/
 
 .pun ul{ margin:0px; padding-bottom:78px;}
@@ -708,15 +715,15 @@ margin-right:2px;
 
 /*create profile - page*/
 .crete-profile-wrapper{ width:1024px; margin:0 auto; border:2px #ccc solid;}
-.top-abturself{ background:#8f8f8f; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px; margin-bottom:20px;}
+.top-abturself{ background:#8f8f8f; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px; margin-bottom:20px;}
 .create-inner-wrapper{ width:965px; margin:0 auto;}
 .creat-inner-title-outer{ width:965px; margin:0 auto;}
-.creat-inner-title-left{ width:316px; float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background:#8f8f8f; }
-.creat-inner-title-right{ width:599px; float:right; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background:#8f8f8f; }
+.creat-inner-title-left{ width:316px; float:left; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background:#8f8f8f; }
+.creat-inner-title-right{ width:599px; float:right; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background:#8f8f8f; }
 .creat-inner-gridpart{ width:965px; margin:0 auto; font:normal 12PX Arial, Helvetica, sans-serif; color:#333;}
 .creat-inner-gridpart .col-1{ width:624px; float:left;}
 .creat-inner-gridpart .col-2{ float:left; width:306px; border:2px #8f8f8f solid; margin-top:12px; padding:10px;}
-.creat-inner-gridpart h4{ font:bold 16px "Times New Roman", Times, serif;}
+.creat-inner-gridpart h4{ font:bold 16px normal Arial,Helvetica,sans-serif;}
 .creat-inner-gridpart .w-outer{ width:624px; float:left; margin:3px 0px;}
 .creat-inner-gridpart .w-outer .ti-1{ float:left; width:338px; background:#fff;}
 .creat-inner-gridpart .w-outer .txtbx{ width:86px;}
@@ -729,12 +736,12 @@ margin-right:2px;
 .bord-alin-rite{ float:left; width:492px; border-top:1px #ccc solid; margin-left:100px; height:0px;}
 .create-inner-bot{ width:965px; margin:0 auto; margin-top:10px;}
 .bio{ width:638px; float:left; border:1px #8f8f8f solid; font:normal 12px Arial, Helvetica, sans-serif; color:#333;}
-.bio-title{float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:618px;}
+.bio-title{float:left; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:618px;}
 .bio-left{ width:220px; float:left; padding:10px;}
 .bio-left span{ font:normal 10px Arial, Helvetica, sans-serif; color:#666666;}
 .bio-left textarea{ width:200px; text-align:left;}
 .bio-right{ float:left; width:367px;}
-.bio-right h4{ font:bold 16px "Times New Roman", Times, serif; color:#696969;}
+.bio-right h4{ font:bold 16px normal Arial,Helvetica,sans-serif; color:#696969;}
 .bio-right .imgupload-img{ float:left; font:bold 10px Arial, Helvetica, sans-serif; color:#666; width:118px; margin-right:5px;}
 .bio-right .imgupload-txt{ float:left; font:bold 10px Arial, Helvetica, sans-serif; color:#666; width:100px;}
 .bio ul{ margin:0; padding:0; padding-left:20px;}
@@ -744,7 +751,7 @@ margin-right:2px;
 
 
 .web-reference{ float:right; width:303px; border:1px #999 solid; padding-bottom:38px;}
-.web-reference-tit{float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:283px; margin-bottom:10px;}
+.web-reference-tit{float:left; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:283px; margin-bottom:10px;}
  .social-outer{ margin:2px 0px; width:270px; margin:0 auto; font:normal 11px Arial, Helvetica, sans-serif; color:#333;}
  .social-left{ float:left; margin-right:20px;}
  .social-rite{ float:left; padding-top:5px;}
@@ -755,7 +762,7 @@ margin-right:2px;
 .pop-up .pop-bt{ background:url(../images/pop-bgfdgdfgt.png) no-repeat; width:697px; height:14px;  margin:0 auto; padding:10px 10px;}
 
 .merge-social{ float:left; width:326px; border:1px #999 solid; padding-bottom:20px; margin-top:5px;}
-.merge-social-tit{float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:306px; margin-bottom:10px; text-transform:uppercase;}
+.merge-social-tit{float:left; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:306px; margin-bottom:10px; text-transform:uppercase;}
 
 .merge-social .merge-script-outer{ width:320px; margin:0 auto; text-align:center;}
 .creat-inner-gridpart .col-2-outer{ float:left; width:326px; }
@@ -808,7 +815,7 @@ margin-right:2px;
 .close{
     float:right; clear: both;
 }
-div.growlUI { background: url(check48.png) no-repeat 10px 10px;  width: auto; height:auto;font-family:"Times New Roman", Times, serif; font-style: normal; }
+div.growlUI { background: url(check48.png) no-repeat 10px 10px;  width: auto; height:auto;font-family:normal Arial,Helvetica,sans-serif; font-style: normal; }
 div.growlUI h1, div.growlUI h2 {
 	color: white; padding: 5px 5px 5px 75px; text-align: left;
       
@@ -851,8 +858,8 @@ div.growlUI h1, div.growlUI h2 {
 .section-wrapper{ width:350px; margin:0 auto; border:1px #666 solid ; min-height:200px; height: auto !important; height:200px; margin-top:100px;}
 .section-wrapper .sec-title{ margin:0 auto; border-top:2px #000 solid; border-bottom:2px #000 solid; padding:5px 0px; margin-top:10px;}
 .section-wrapper .subtit{ background:#ddd2b2; padding:5px 0px; }
-.section-wrapper .subtit-left{ float:left; font:normal 17px "Times New Roman", Times, serif; color:#000; text-transform:uppercase; width:160px; padding-left:13px;}
-.section-wrapper .subtit-right{ float:left; font:normal 17px "Times New Roman", Times, serif; color:#000; text-transform: uppercase; width:160px; padding-left:13px;  color:#000; }
+.section-wrapper .subtit-left{ float:left; font:normal 17px normal Arial,Helvetica,sans-serif; color:#000; text-transform:uppercase; width:160px; padding-left:13px;}
+.section-wrapper .subtit-right{ float:left; font:normal 17px normal Arial,Helvetica,sans-serif; color:#000; text-transform: uppercase; width:160px; padding-left:13px;  color:#000; }
 .section-wrapper .categori{ float:left; width:173px; border-right:1px #000 solid; min-height:200px; height:auto !important; height:200px; margin-top:10px;}
 .section-wrapper .subcategori{ float:left; width:163px; margin-top:10px; padding-left:10px; color:#666;}
 
