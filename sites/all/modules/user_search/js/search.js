@@ -240,7 +240,7 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container'];
 	jQuery(document).ready(function(){
 	 $('.issuesearch3 a').click(function() {
         //$('#box1').css("background","#9f9");
-        $(".issuesearch3 a").css('color', '#DD6600');
+        $(".issuesearch3 a").css('color', '#996600');
         $(this).css('color', '#4170A0');
         
         });
