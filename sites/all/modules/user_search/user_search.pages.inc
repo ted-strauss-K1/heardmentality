@@ -1368,7 +1368,7 @@ function search_results_user() {
                     <div class="ritecont-it-c">
             <div>
             <ul>
-            <li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->real_name . '</a></li><br />
+            <li><a  onclick="get_profile_details(' . $user_result->uid . ');" > ' . $user_result->name . '</a></li><br />
            <!--<li>' . $gpoints . '</li><br />-->
             '.updateProfileBadge($user_result->uid).'
             </ul>
