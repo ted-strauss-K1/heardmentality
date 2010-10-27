@@ -282,6 +282,10 @@ function profile($uid = '') {
     }
     if (($userSettings['religion'] == 1) || ($userSettings['religion'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['religion'] == 2 && $is_follow_follower == TRUE)) {
         $religion1 = $religion;
+        if($religion1=='')
+        {
+            $religion1 = "-";
+        }
     }
     if (($userSettings['image'] == 1) || ($userSettings['image'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['image'] == 2 && $is_follow_follower == TRUE)) {
         $img_path1 = $gSitePath . drupal_get_path('module', 'profile') . '/snap/' . $image;
@@ -292,11 +296,19 @@ function profile($uid = '') {
     }
     if (($userSettings['dob'] == 1) || ($userSettings['dob'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['dob'] == 2 && $is_follow_follower == TRUE)) {
         $dob1 = $age;
+        if($dob1==0)
+        {
+            $dob1 = "-";
+        }
     }
 
 
     if (($userSettings['gender'] == 1) || ($userSettings['gender'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['gender'] == 2 && $is_follow_follower == TRUE)) {
         $gender_name1 = $gender_name;
+        if($gender_name1=='')
+        {
+            $gender_name1 = "-";
+        }
     }
     if (($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['facebook'] == 2 && $is_follow_follower == TRUE)) {
         $facebook1 = $facebook;
@@ -507,13 +519,13 @@ function profile($uid = '') {
 </div>
 <div class="clr"></div>
 <div>
-<span class="profile-gray">Name </span>: ' . $real_name1 . '<br>
+<span class="profile-gray">Name </span>: ' .$real_name1 . '<br>
 
 <span class="profile-gray">Location </span>: ' . $country1 .'<br>
 <span class="profile-gray">Age </span>:  ' . $dob1 . '<br>
 <span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br>
 <span class="profile-gray">Religion</span> : ' . $religion1 . '<br>
-<span class="profile-gray">Ethnicity </span>: ' . $ethnicity . '<br>
+<span class="profile-gray">Ethnicity </span>: -<br>
 <span class="profile-gray">Slant </span>: ' . $slant . '<br>
 </div>
 </div>
@@ -533,7 +545,7 @@ function profile($uid = '') {
 <div>
 <ul>
 <li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;'.$flink.'</li>
-<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" /> '.$inc.'</li>
+<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;'.$inc.'</li>
 </ul>
 </div>
 <div class="clr"></div>
