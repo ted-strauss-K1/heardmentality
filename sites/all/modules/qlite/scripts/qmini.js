@@ -33,8 +33,8 @@ function get_toplist(sid,level){
    }
 	 });	
 	}else if(level==1&&sid==''){
-		
-		 jQuery('#res_scat').html('');	
+		var ins='<select name="" disabled="disabled"><option>selecct a sub-category</option></select>';
+		 jQuery('#res_scat').html(ins);
 	}
 	
  }

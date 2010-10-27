@@ -141,7 +141,7 @@ $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     $list = ExecuteQuery($query, "select");
     $output .= ' <div> 
             <div>
-            <select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >Select</option>';
+            <select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >select a category</option>';
     foreach ($list as $cat) {
 
         $output .= '    
