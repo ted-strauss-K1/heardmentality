@@ -4,7 +4,7 @@ var err='';
 //alert("llll");
     if (document.getElementById("fname").value=='')
 	{
-	document.getElementById("#errbox").focus();
+	
 	err=err+"<li>First Name must not blank!</li>";
 	
 	}
@@ -13,13 +13,13 @@ var err='';
 
 	if (document.getElementById("lname").value=='')
 	{
-	document.getElementById("#errbox").focus();
+	
 	err=err+"<li>Last Name must not blank!</li>";
 	
 	}
 	if (document.getElementById("rname").value=='')
 	{
-	document.getElementById("#errbox").focus();
+	
 	err=err+"<li>RealName must not blank!</li>";
 	
 	}
@@ -27,14 +27,14 @@ var err='';
     
 	if (document.getElementById("edit-mail").value=='')
 	{
-	document.getElementById("#errbox").focus();
+	
 	err=err+"<li>Email Id must not blank!</li>";
 	
 	}
 	
 	if (!(/^[a-z0-9\.\-\_]+\@[a-z0-9\.\-]+\.[a-z0-9]{2,4}$/.test(document.getElementById("edit-mail").value)))
 	{
-	document.getElementById("#errbox").focus();
+	
 	err=err+"<li>Please Enter the Valid Email Id!</li>";
 	
 	} 
@@ -44,15 +44,15 @@ var err='';
             
         if(!(/^[0-9]{4}$/.test(document.getElementById("dob").value)))
         {
-	document.getElementById("#errbox").focus();
+	
 	err=err+"<li>Date Of Birth must be valid format YYYY-[1986]!</li>";
 	
 	}}
             var pic=jQuery('input:radio[name=pic_avt]:checked').val();
-    if(pic==1&&jQuery('#edit-file-upload').val().length<2){
-       err=err+"<li>Please upload Image for your profile or pick an avatar below! </li>";
+   // if(pic==1&&jQuery('#edit-file-upload').val().length<2){
+     //  err=err+"<li>Please upload Image for your profile or pick an avatar below! </li>";
 
-    }
+   // }
 
     if(pic==2&&jQuery("input[name=select_avatar]:checked").length<1){
        err=err+"<li>Please pick any avatar or upload an image above </li>";
@@ -61,6 +61,7 @@ var err='';
 
 
         if(err.length>0){
+            window.scrollTo(0,0);
        // err=err.wrap('<ul></ul>');
         jQuery('#err_div').html(err);
           jQuery('#err_div').animate({backgroundcolor: "#fff568"}, "slow").animate({backgroundcolor: "#FF0000"}, "slow");

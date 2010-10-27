@@ -278,7 +278,7 @@ function load_ajax() {
             
            $query = "SELECT * from {category} where parent_id='$cid' ORDER BY cat_name ASC";
             $list = ExecuteQuery($query, "select");
-            $output .= '<select id="tscat" onchange="get_toplist(this.value,2)"><option value="" >Select</option>';
+            $output .= '<select id="tscat" onchange="get_toplist(this.value,2)"><option value="" >select a sub-category</option>';
             foreach ($list as $cat) {
                 
                 $output .= '<option value='.$cat['cat_id'].' > '.$cat['cat_name'].' </option>';

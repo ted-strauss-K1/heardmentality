@@ -682,7 +682,7 @@ function welcome_page() {
     }
 
 	//print_r($_REQUEST);
-    
+   // exit;
     if (isset($_REQUEST['update']) == 'Update') {
         extract($_REQUEST);
 
@@ -720,7 +720,7 @@ function welcome_page() {
         $update_user = db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
         $age='';
 		 $age=age($dob);
-      
+       $country=(!empty($country1))?$country1:$country; 
         $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',social='$socials',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
 
         
@@ -764,6 +764,7 @@ function welcome_page() {
     //geoname
     $options = array('sortby'=>'countryname', 'sortorder'=>'ASC');
     $result = geonames_query('countryinfo', NULL, $options);
+     $optionlist .='<option value="">Select Location</option>';
     foreach ($result->results as $countries) {
         $select = '';
        if (strtoupper($country) == strtoupper($countries['countryname'])) {
@@ -844,6 +845,14 @@ function welcome_page() {
     } elseif ($slant == 'Center') {
         $seleant3 = "selected='selected'";
     
+    }
+
+      if (! empty($state)) {
+
+        $statecity = ' <input type="hidden" name="country" value="'.$country.'">
+				<input type="hidden" name="state" value="'.$state.'">
+				<input type="hidden" name="city" value="'.$city.'">
+				';
     }
   
     $query = "select * from {privacy_settings} where uid='$user->uid'";

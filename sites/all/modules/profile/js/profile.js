@@ -117,19 +117,18 @@ function profile_comment(make){
 function get_zip_city(code){
 	
     var urr=spath+'qlite/ajax?action=zipcity';
-    var req = new Request({
-        method: 'post',
+	
+	 jQuery.ajax({
+        type: "POST",
         url: urr,
+       url: urr,
         data: {
             code: code
         },
-        onComplete: function(response){
-            $('edit-city-wrapper').set('html', response);
-				 	
+        success: function(msg){
+  jQuery('#edit-city-wrapper').html(msg);
         }
-    }).send();
-	
-	
+    });
 }
 
 function del_msg(ids,tr){
