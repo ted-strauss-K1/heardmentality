@@ -25,10 +25,17 @@
  * @see template_preprocess()
  * @see template_preprocess_block()
  */
+     // Determines if we have right or left blocks to build - if zero on either
+     // then we set our COLSPAN in our primary table layout to 2, instead of 3
+ if($block->region=='left')
+         $class='commutop-profile';
+ else
+     $class='facttop';
+ 
 ?>
 <div id="block-<?php print $block->module .'-'. $block->delta; ?>" class="block block-<?php print $block->module ?>">
 <?php if ($block->subject): ?>
-     <div class="facttop"><?php print $block->subject ?></div>
+     <div class="<?php echo $class?>"><?php print $block->subject ?></div>
 <?php endif;?>
 
  <div class="facttext">
