@@ -1139,8 +1139,14 @@ function add_resources() {
 		}
 		else
                 {
-		 if (docpath.trim().length < 1) 
+		 if (docpath.trim().length < 1)
+                 {
         err += \'<li>Please Select Document !</li>\';
+                   }
+                   else
+                   {
+                        err += \' \';
+                   }
 		}
 		}
 		 if (cat1==3) 
