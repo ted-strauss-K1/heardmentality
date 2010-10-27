@@ -151,10 +151,10 @@ function UserPicture($mid,$profile='') {
               $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
             if (file_check_location($ipath)) {
-            	$PROFILE_IMAGE ='<img src="'.$ipath.'" alt="photo" ALIGN=ABSMIDDLE width="70"  height="70" >';
+            	$PROFILE_IMAGE ='<img src="'.$ipath.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
               //  $PROFILE_IMAGE = theme('image',$ipath);
             } else {
-               $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE width="70"  height="70" >';
+               $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
             }
             
             break;
@@ -166,21 +166,21 @@ function UserPicture($mid,$profile='') {
                 $img_path =$resultimage->image;
                 
                 if (file_exists($img_path)) {
-                    $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" alt="photo" ALIGN=ABSMIDDLE width="70"  height="70" >';
+                    $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
                 } else {
                     
-                    $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE width="70"  height="70" >';
+                    $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
                 }
             } elseif ($resultimage->image_url != '') {
 
                 
-                $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" alt="photo" width="70"  height="70">';
+                $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" alt="photo" width="65"  height="56">';
 
             
             } else {
                 //echo $resultimage->image;
                 $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
-                $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" alt="photo" width="70" ALIGN=ABSMIDDLE  height="70" >';
+                $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" alt="photo" width="65" ALIGN=ABSMIDDLE  height="56" >';
             }
             break;
     }
