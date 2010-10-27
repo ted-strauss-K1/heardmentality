@@ -59,7 +59,7 @@ function search_results() {
 
     $incr = 0;
 
-     $fetresult = ' <div class="user_search_3">
+     $fetresult = ' <div class="rleft">
        <!--<span class="padding10">SEARCH RESULTS</span><br />-->
        <div class="clr"></div>
        <div class="result-item"></div>
@@ -119,16 +119,17 @@ function search_results() {
 
     if ($sel_count > $limit) {
 
-        $fetresult .= "   <div class='result-item factmore'><table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
+        $fetresult .= "   <div class='page-n' align='center'>
+            <ul><li>";
         if ($back >= 0) {
-            $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'><font face='Verdana' size='2'>PREV</font></a>";
+            $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'>PREV</a>";
         }
-        $fetresult .= "</td><td align=center width='30%'>";
+        $fetresult .= "</li><li>";
         $i = 0;
         $l = 1;
         for ($i = 0; $i < $sel_count; $i = $i + $limit) {
             if ($i <> $eu) {
-                $fetresult .= " <a href='$page_name?start=$i&code=$code&txt_search=$name'><font face='Verdana' size='2'>$l</font></a> ";
+                $fetresult .= " <a href='$page_name?start=$i&code=$code&txt_search=$name'>$l</a> ";
             } else {
                 $fetresult .= "<font face='Verdana' size='4' color=red>$l</font>";
             }
@@ -136,11 +137,12 @@ function search_results() {
         }
 
 
-        $fetresult .= "</td><td  align='right' width='30%'>";
+        $fetresult .= "</li><li>";
         if ($this1 < $sel_count) {
-            $fetresult .= "<a href='$page_name?start=$next&code=$code&txt_search=$name'><font face='Verdana' size='2'>NEXT</font></a>";
+            $fetresult .= "<a href='$page_name?start=$next&code=$code&txt_search=$name'>NEXT</a>";
         }
-        $fetresult .= "</td></tr></table></div>";
+        $fetresult .= "</li></ul>
+        </div>";
     }
     if ($sel_count == 0) {
         $fetresult .= '<b>No Search Results </b>';
@@ -1221,7 +1223,7 @@ exit;
 
 		<div class="profile-img">
               
-<a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture_small($resulrnames->uid) . '</a>
+<a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture($resulrnames->uid) . '</a>
 <div class="profile-con">
 <div>
 <ul>
@@ -1342,7 +1344,7 @@ function search_results_user() {
 
 
 
-    $fetresult = ' <div class="user_search_3">
+    $fetresult = ' <div class="rleft">
       <span class="padding10">SEARCH RESULTS</span><br />
        <div class="clr"></div>
        <div class="result-item"></div>
@@ -1381,9 +1383,8 @@ $fetresult .=  '</div>
        <div class="clr"></div>
        <div class="clr"></div>
        <div class="result-item">
-
-
        </div>
+       
        <div class="clr"></div>';
 
 if ($sel_count == 0) {
