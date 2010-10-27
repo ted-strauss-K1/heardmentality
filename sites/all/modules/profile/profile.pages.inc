@@ -454,7 +454,9 @@ function profile($uid = '') {
 //        </div>
 //        <br class="clr" />
 //      </div>';
-      $strReturn .= '<div class="profile-left">
+
+
+/*<div class="profile-left">
 <div class="profile-img">
 <div class="profile-imgs">
 '.UserPicture($uid).'
@@ -477,7 +479,48 @@ function profile($uid = '') {
 <span class="profile-gray">Ethnicity </span>: ' . $ethnicity . '<br />
 <span class="profile-gray">Slant </span>: ' . $slant . '<br />
 </div>
+</div>*/
+
+
+
+    
+      $strReturn .= '
+<div class="profile-left">
+<div class="profile-img">
+<div class="profile-imgs">
+'.UserPicture($uid).'
 </div>
+<div class="profile-con">'.updateProfileBadge($uid).'
+<div>
+
+</div>
+</div>
+
+</div>
+<div class="clr"></div>
+<div>
+<span class="profile-gray">Name </span>: ' . $real_name1 . '<br>
+
+<span class="profile-gray">Location </span>: ' . $country1 .'<br>
+<span class="profile-gray">Age </span>:  ' . $dob1 . '<br>
+<span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br>
+<span class="profile-gray">Religion</span> : ' . $religion1 . '<br>
+<span class="profile-gray">Ethnicity </span>: ' . $ethnicity . '<br>
+<span class="profile-gray">Slant </span>: ' . $slant . '<br>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="profile-right">
 <div>
 <ul>
@@ -497,6 +540,17 @@ function profile($uid = '') {
 </ul>
 </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
 <div class="clr"></div>
 <div class="profile-tab"></div>
 <div id="page">
