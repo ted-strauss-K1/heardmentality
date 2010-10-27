@@ -46,7 +46,10 @@ var login_params=
 				if($user_prof->first_name=='')
 				{
 				 $unaprint= explode("@",$user->mail); 
-				 echo $unaprint[0];
+                                 if(!empty($unaprint[0]))
+                                 echo $unaprint[0];
+                                 else
+                                    echo $user->name;
 				 
                  }
                  else

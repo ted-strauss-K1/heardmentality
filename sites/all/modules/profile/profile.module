@@ -204,15 +204,8 @@ function UserPicture_small($mid) {
             $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
             if (file_check_location($image_path.'/'.$selected_avatar)) {
-                 if(file_exists($image_path.'/'.$selected_avatar))
-                   {
-                    $PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
-                   }
-                   else
-                   {
-                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
-                   }
-                
+                 //$PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
+                 $PROFILE_IMAGE =' <img src="'.$ipath.'" alt="photo" ALIGN=ABSMIDDLE width="30"  height="30" >';
             } else {
                 $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
             }
@@ -222,16 +215,11 @@ function UserPicture_small($mid) {
             
             if ($resultimage->image != 'noimage.jpg') {
                 $img_path =$resultimage->image;
-                if (file_check_location($img_path)) {
+                if (file_exists($img_path)) {
                   // echo $gSitePath.$img_path;
-                   if(file_exists($gSitePath.$img_path))
-                   {
+                  
                     $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" ALIGN=ABSMIDDLE alt="Photo" height="30" width="30" >';
-                   }
-                   else
-                   {
-                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
-                   }
+                   
                 } else {
                     $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
                 }
