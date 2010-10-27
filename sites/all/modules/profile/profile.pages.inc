@@ -482,6 +482,14 @@ function profile($uid = '') {
 </div>*/
 
 
+       $strReturn .= '
+    <div class="bor_bot">
+	<div class="rht_link">
+       ' . $share . $flink . $history . $sendmsg . $edit . '
+       </div>
+        <br class="clr" />
+      </div>';
+
 
     
       $strReturn .= '
@@ -524,7 +532,7 @@ function profile($uid = '') {
 <div class="profile-right">
 <div>
 <ul>
-<li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;Follow</li>
+<li><img src="'.$gSitePath.path_to_theme().'/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;'.$flink.'</li>
 <li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" /> '.$inc.'</li>
 </ul>
 </div>
