@@ -1141,11 +1141,12 @@ function add_resources() {
                 {
 		 if (docpath.trim().length < 1)
                  {
-        err = \'<li>Please Select Document !</li>\';
+        err += \'<li>Please Select Document !</li>\';
                    }
                    if (docpath.trim().length > 1)
                    {
-                        err = \' \';
+                        var el = $(\'err\');
+                         el.setStyle(\'display\', \'none\');
                    }
 		}
 		}
