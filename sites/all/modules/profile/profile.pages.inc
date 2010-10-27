@@ -577,10 +577,10 @@ function profile($uid = '') {
 <div class="profile-tab"></div>
 <div id="page">
         <ul class="mytabs" id="tabs">
-            <li class="current"><a href="'.  check_plain(request_uri()).'?tag=info">Info</a></li>
-            <li><a href="'.  check_plain(request_uri()).'?tag=badge">Badges</a></li>
-            <li><a href="'.  check_plain(request_uri()).'?tag=activity">Activity</a></li>
-             <li><a href="'.  check_plain(request_uri()).'?tag=history">History</a></li>
+            <li class="current"><a href="'.$_GET["q"].'?tag=info">Info</a></li>
+            <li><a href="'. $_GET["q"].'?tag=badge">Badges</a></li>
+            <li><a href="'.  $_GET["q"].'?tag=activity">Activity</a></li>
+             <li><a href="'. $_GET["q"].'?tag=history">History</a></li>
                    '.$inc_msg.'
         </ul>
         <div class="mytabs-container" id="tabs-container">
