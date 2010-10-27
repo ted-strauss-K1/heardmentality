@@ -23,7 +23,7 @@ UL.mytabs LI { padding: 0 2px; }
 UL.mytabs LI A {
 	float: left;
 	text-decoration: none;
-	color: #af883c;
+	color: #996600;
 	height: 22px;
 	background-color:#efefef;
 	padding-top:5px; padding-left:8px; padding-right:8px;
@@ -107,9 +107,9 @@ UL.adtabs LI.current span {
 
 
 ul.subtabs {
-	position: relative;
-	z-index: 2;	background: #F0F0F0;clear: both;
-        border: 1px thin #CCCCCC;color: #333333;width:100%;
+	color:#333333;
+font-family:Verdana,Arial,Helvetica,sans-serif;
+font-size:11px;
 }
 ul.subtabs, ul.subtabs LI {
 	margin: 0;
@@ -134,9 +134,9 @@ UL.subtabs LI A:HOVER, UL.mytabs LI.current A {
 	background: #FFFFFF; text-decoration: underline;
 }
 UL.subtabs LI.current A {
-	font-weight: bold;
-	font-size: 10px;
-	border-top: 1px solid #F0F0F0;background: #FFFFFF;
+	color:#333333;
+font-family:Verdana,Arial,Helvetica,sans-serif;
+font-size:11px;
 }
 
 
