@@ -795,10 +795,12 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
         case 1:
 
             if (empty($user)) {
+
                 //drupal_set_message($message = 'Sorry Please login to post your answers!', $type = 'error');
-                echo "sorry";
+                echo "Sorry Please login to post your answers";
                 exit;
                 //drupal_goto();
+
             } else {
 
             }
@@ -830,7 +832,6 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
         default:
             break;
     }
-}
 
 function prompt_privacy_ajax($owner = '', $share = '') {
 
@@ -2330,14 +2331,18 @@ function qlite_percent() {
 						text: 'Percent Reporting'
 					},
 					xAxis: {
-						categories: " . json_encode($ans_array) . "
-					},
+						categories: " . json_encode($ans_array) . ",
+                                                  labels :{ style: {
+                  font: 'bold 12px Arial,Helvetica,sans-serif '
+               }}	},
 					yAxis: {
 						min: 0,
 						title: {
 							text: 'No Of Votes'
-						}
-					},
+						},
+                                                labels :{ style: {
+                   font: 'bold 12px Arial,Helvetica,sans-serif '
+               }}},
 					legend: {
 						backgroundColor: '#FFFFFF',
 						reversed: true
