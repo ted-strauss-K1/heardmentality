@@ -204,7 +204,6 @@ reset_tabs();
 });
             // var url = "http://stackoverflow.com";
            // $(location).attr('href',url);
-           alert("hi");
            return false;
         });
        
