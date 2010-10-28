@@ -41,12 +41,12 @@ class RSSParser extends XMLParser{
      * @param string $path the XML file path, or URL
      */
     function parse($path){
-
+           
         // parse the XML content      
         parent::parse($path);
-
-        if(empty($this->output))
-            return array();
+        //print_r($this->output);
+        if(empty($this->output)||$this->output[0]['name']=='HTML')
+           return ""; //return array();
 
         // detect the format        
         switch(strtoupper($this->output[0]['name'])) {

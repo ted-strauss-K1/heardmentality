@@ -44,7 +44,7 @@ function loadTab(tabObj,containerId){
         return;
     }
     jQuery("#loading").fadeIn();
-
+    $(containerId).html('Loading...');
     $(containerId).fadeOut('fast');
     
     $(containerId).load(tabObj.attr('href'), function(response){

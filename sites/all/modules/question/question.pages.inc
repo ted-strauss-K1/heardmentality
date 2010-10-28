@@ -1056,9 +1056,11 @@ function question_ajax() {
         switch ($action) {
             
             case 1: //get state
-                $query = array('country'=>$code);
-                $result = geonames_query('countryinfo', $query);
-                
+                  $query = array('query'=>$_REQUEST['code'],'maxRows'=>'1','featureclass'=>'S');
+                $result = geonames_query('search', $query);
+               // $cc=$result->results[0]['countrycode'];
+               // $result = geonames_query('countryinfo', $query);
+               echo $result->results[0][geonameid];
                 $query = array('geonameid'=>$result->results[0][geonameid]);
                 $result = geonames_query('children', $query);
                 //print_r($result);

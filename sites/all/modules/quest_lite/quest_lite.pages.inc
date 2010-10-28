@@ -1832,6 +1832,7 @@ function suggest_answer_save() {
 function question_news() {
     global $gSitePath, $user, $gDocPath, $base_root;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    set_time_limit(0);
     require ('RSSParser.class.php');
     $xml = & new RSSParser;
 
@@ -1840,15 +1841,18 @@ function question_news() {
     $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='" . $qid . "'"));
    
     while ($usernews = db_fetch_object($rlistnews)) {
-
+            $output=array();
         $output = $xml->parse($usernews->nlink);
+       
         $like_count = resource_Like_checkCount($usermedia->rid, 1);
+        $valuesresult=array();
         foreach ($output as $valuesresult) {
 
-            //print_r( $valuesresult);
+          // print_r( $valuesresult);
         }
-
+        $opkt=array();
         foreach ($valuesresult as $opkt) {
+            print_r($opkt);
             $like = '';
             $flag = '';
             $post = '';
@@ -1886,7 +1890,7 @@ function question_news() {
              <li>Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></li>     <li>|</li>
                </ul>
           </div>
-           <div class="date">' . $usernews->date_added . '</div>
+           <div class="date">' . $opkt["PUBDATE"] . '</div>
 
         <div class="clr"></div>
         </div></div>';
@@ -3095,7 +3099,7 @@ function qfull_ajax() {
             $str = substr($_REQUEST['date'], '0', '10');
             $date = date('d-m-Y', $str);
             $qid = $_REQUEST['qid'];
-            $query = "select * from {resource} where date(posted_date)<='$date' AND qid='$qid'";
+            $query = "select * from {resource} where date(posted_date)='$date' AND qid='$qid'";
             $set = ExecuteQuery($query, "select");
 
             $result.="<div> <b>Resources For Date :" . date('d M,Y', $str) . "</b></div><hr/><br/><ul>";
@@ -3108,7 +3112,12 @@ function qfull_ajax() {
                             $inc.="<li><a href=\"" . $list['ncontent'] . "\" target=\"_blank\">You Tube Video</a></li>";
                             break;
                         case '2':
+
+                            if(!empty($list['membed']))
                             $inc.="<li><a href=\"" . $list['membed'] . "\" target=\"_blank\">You Tube Video</a></li>";
+                            elseif(!empty($list['document']))
+                             $inc.="<li><a href=\"" . $list['document'] . "\" target=\"_blank\">Document</a></li>";
+
                             break;
                         case '3':
                             $inc.="<li><a href=\"" . $list['facts'] . "\">" . $list['facts'] . "</a></li>";
