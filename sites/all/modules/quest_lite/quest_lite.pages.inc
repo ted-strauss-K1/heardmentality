@@ -1244,7 +1244,9 @@ function add_resources() {
         el.set(\'html\', err);
         el.highlight("#EBCC22");
           return false;   
-    }		
+    }	else{ var el = $(\'err\'); el.fade(\'out\');
+el.setStyle(\'display\', \'none\');
+}
 	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
 	
 	this.set(\'send\', {onComplete: function(response) { 
@@ -1333,7 +1335,7 @@ function save_resources() {
 
         $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id) values ('" . $_REQUEST['rtype'] . "','" . addslashes($_REQUEST['nlink']) . "','" . addslashes($_REQUEST['ntitle']) . "','" . addslashes($_REQUEST['ncontent']) . "','" . $_REQUEST['mtype'] . "','" . addslashes($_REQUEST['membed']) . "','" . addslashes($_REQUEST['flink']) . "', '" . $user->uid . "','" . $_REQUEST['qaid'] . "','" . $_REQUEST['path'] . "','" . $_REQUEST['docpath'] . "','" . $ytvID . "')";
         db_query($resourceadd);
-        echo '<div class="messages success"> Resources Added Successfull </div>';
+        echo '<div class="messages success"> Resources Added Successfully! </div>';
     }
 }
 
