@@ -1451,7 +1451,8 @@ function google_map() {
             //$userslist = db_query('SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
             //echo $total_users = db_result($userslist);
 
-            $get_ans = db_query('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 AND up.country REGEXP \'[^0-9]\'  group BY up.country', time() - $time_period);
+            $get_ans = db_queryd('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 AND up.country REGEXP \'[^0-9]\'  group BY up.country', time() - $time_period);
+            exit;
             $first = 0;
             while ($geoans = db_fetch_object($get_ans)) {
                 $first = $first + 1;
