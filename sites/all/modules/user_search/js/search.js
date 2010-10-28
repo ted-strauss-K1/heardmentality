@@ -73,14 +73,29 @@ function get_statequestion(q_country,txt_search,cid){
 
  window.location = gSitePath+"searchquestion?q_country="+q_country+"&txt_search="+txt_search+"&cid="+cid;
 }
+function get_stateuser(q_country,txt_search){
+ //document.thisform.submit();
+
+window.location = gSitePath+"searchuser?q_country="+q_country+"&txt_search="+txt_search;
+}
 
 function get_cityquestion(q_state,txt_search,cid,q_country){
  //document.thisform.submit();
  window.location = gSitePath+"searchquestion?q_state="+q_state+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country;
 }
+function get_cityuser(q_state,txt_search,q_country){
+ //document.thisform.submit();
+ window.location = gSitePath+"searchuser?q_state="+q_state+"&txt_search="+txt_search+"&q_country="+q_country;
+}
+
+
 function get_question(q_city,txt_search,cid,q_country,q_state){
  //document.thisform.submit();
  window.location = gSitePath+"searchquestion?q_city="+q_city+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country+"&q_state="+q_state;
+}
+function get_user(q_city,txt_search,q_country,q_state){
+ //document.thisform.submit();
+ window.location = gSitePath+"searchuser?q_city="+q_city+"&txt_search="+txt_search+"&q_country="+q_country+"&q_state="+q_state;
 }
 
 
@@ -88,7 +103,7 @@ function get_question(q_city,txt_search,cid,q_country,q_state){
 
 
 
-function get_city(code){
+function get_city(ccode){
 
     var url = gSitePath + "question/ajax";
 	
@@ -98,13 +113,32 @@ function get_city(code){
         dataType: 'xhr',
         data: {
             action: '2',
-			code:code
+			code:ccode
         },
         success: function(msg){
             jQuery('#chg_city').html(msg);
             
         }
     });
+
+
+    var url = gSitePath + "userresults";
+	var t_search = $("#txt_search").val();
+	 jQuery.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'xhr',
+        data: {
+            action: '2',
+			ccode:ccode,
+			txt_search: t_search
+        },
+        success: function(msg){
+            jQuery('.inner-page-cont').html(msg);
+
+        }
+    });
+
     
 }
 

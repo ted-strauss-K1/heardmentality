@@ -1,10 +1,8 @@
 <?php
-
 function search_results() {
     ////vijay1
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     
-
     $flink = '';
     $fetresult = '';
     extract($_REQUEST);
@@ -31,17 +29,29 @@ function search_results() {
 
 
     $name = $_REQUEST['txt_search'];
+    $q_country = $_REQUEST['q_country'];
+    $q_state = $_REQUEST['q_state'];
+
     if ($_REQUEST['code']!='') {
         $code = $_REQUEST['code'];
     }
+     
     $qry = '';
-    if ($name!='')
+    if($name!='')
         $qry .= "(img.real_name LIKE '" . $name . "%') AND ";
-    if ($_REQUEST['code']!='')
+    if($_REQUEST['code']!='')
         $qry .= "(img.country ='" . $code . "') AND ";
 
+    if($_REQUEST['q_country']!='')
+        $qry .= "(img.country ='" . $q_country . "') AND ";
+    if($_REQUEST['q_state']!='')
+        $qry .= "(img.state ='" . $q_state . "') AND ";
+    if($_REQUEST['q_city']!='')
+        $qry .= "(img.city ='" . $q_city . "') AND ";
+     
+
     if ($user->uid != '')
-        $sel = "SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1' ";
+         $sel = "SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1' ";
     else
         $sel = "SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.status='1' and img.uid=reg.uid  ";
    
@@ -1335,6 +1345,8 @@ function search_results_user() {
         $qry .= "(img.real_name LIKE '%" . $name . "%') AND ";
     if ($code!='')
         $qry .= "(img.country LIKE '" . $code . "%') AND ";
+    if ($ccode!='')
+        $qry .= "(img.state LIKE '" . $ccode . "%') AND ";
 
     if ($user->uid != '')
         $sel = "SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1' ";
