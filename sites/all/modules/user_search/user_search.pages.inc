@@ -27,7 +27,7 @@ function search_results() {
     $fetresult = '';
     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
 
-
+   $txt_search =  $_REQUEST['txt_search'];
     $name = $_REQUEST['txt_search'];
     $q_country = $_REQUEST['q_country'];
     $q_state = $_REQUEST['q_state'];
