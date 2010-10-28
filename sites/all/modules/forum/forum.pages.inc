@@ -91,7 +91,7 @@ function forum_list($qid = '') {
 <div class="leftsideimg"><a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
 <div class="rightside">
 <h4>'.$forum['title'].'</h4><br />
-<p> ' . $forum['content'] . '</p><br/>
+<p> ' . make_clickable($forum['content']) . '</p><br/>
   <div class="likelink-outer">
            <div class="likekink">
                <ul>
