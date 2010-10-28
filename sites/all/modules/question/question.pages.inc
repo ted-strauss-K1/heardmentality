@@ -5,6 +5,8 @@
 function my_question() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
+    drupal_not_found();
+    return;
     $strReturn = '';
         $query = "SELECT *  FROM {question} where uid='".$user->uid."'";
     $list = ExecuteQuery($query, "select");
@@ -154,7 +156,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
        <div class="clr"></div>
        <ul >
          <li>
-         <div  style="width:80%;padding-left:20px;">
+         <div  style="width:100%;padding-left:20px;">
            <div id="del_ans" style="display:none;padding:2px;">
             <small><a href="javascript:void(0);" tabindex="88" onclick="del_ans();">[Remove]</a></small>
             </div>
@@ -176,8 +178,8 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
        <ul >
          <li><span>Categorize <b>*</b></span>:</li>
           <li>
-          <div class="listmenu2">
-           <select tabindex="14"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+          <div class="listmenu2" title="Select category">
+           <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
             <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     while ($list = db_fetch_object($client_select)) {
@@ -189,16 +191,16 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
         </div>
         </li>
         <li>
-              <div class="listmenu2"  id="chg_scat">
+              <div class="listmenu2" title="Select Sub Category"  id="chg_scat">
 
-               <select class="listbox2" tabindex="15"  name="q_scat[]" id="q_scat"  >
+               <select class="listbox2" tabindex="15" title="Select Sub Category"  name="q_scat[]" id="q_scat"  >
                <option value="">Select Sub Category</option>
               </select>
               </div>
        </li>
        <li>
-          <div class="listmenu2" id="chg_sscat">
-          <select tabindex="16"  name="q_sscat[]" id="q_sscat" class="listbox2"  >
+          <div class="listmenu2" title="Select Sub Sub Category" id="chg_sscat">
+          <select tabindex="16" title="Select Sub Sub Category"  name="q_sscat[]" id="q_sscat" class="listbox2"  >
           <option value="">Select Sub Sub Category</option>
           </select>
           </div>
@@ -531,7 +533,7 @@ $ccode=$country['cn'];
         $_SESSION['post'] = '';
         // drupal_goto("question");
         send_qnotify($ins_id);
-        echo '<script>window.parent.location.href="'.$gSitePath.'question/";</script>';
+        echo '<script>window.parent.location.href="'.$gSitePath.$dst.'";</script>';
     } else {
         drupal_get_messages($type = 'error', $clear = 'TRUE');
         $_SESSION['post'] = $_POST;
