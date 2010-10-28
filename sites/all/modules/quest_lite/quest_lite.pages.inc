@@ -795,8 +795,10 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
         case 1:
 
             if (empty($user)) {
-                drupal_set_message($message = 'Sorry Please login to post your answers!', $type = 'error');
-                drupal_goto();
+                //drupal_set_message($message = 'Sorry Please login to post your answers!', $type = 'error');
+                echo "sorry";
+                exit;
+                //drupal_goto();
             } else {
 
             }
@@ -811,8 +813,10 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
             if ($cnt[0][yea] || $cnt[1][yea]) {
 
             } else {
-                drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
-                drupal_goto();
+                 echo "sorry only follow and followers";
+                exit;
+               // drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
+                //drupal_goto();
             }
             //check followee
 
@@ -842,12 +846,14 @@ function prompt_privacy_ajax($owner = '', $share = '') {
 
             } else {
                 drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
-                drupal_goto();
+                exit;
+                //drupal_goto();
             }
             break;
         case 3:
             drupal_set_message($message = 'Sorry, Question is blocked for public by owner!', $type = 'error');
-            drupal_goto();
+            exit;
+            //drupal_goto();
             break;
         case 1:
         default:
