@@ -1875,7 +1875,7 @@ function question_news() {
             $newsresult .= '
 	
  <h4 ><a href="' . $opkt["LINK"] . '" target="new"> ' . $opkt["TITLE"] . ' </a> </h4>
-		<p>' . kljlj . ' </p>
+		<p>' . $opkt['DESCRIPTION'] . ' </p>
                     <div class="clr"></div>
 	 <div class="likelink-outer-forum">
            <div class="likekink-forum">

@@ -344,3 +344,4 @@ AND q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
     }
         return $qid;
 }
+
