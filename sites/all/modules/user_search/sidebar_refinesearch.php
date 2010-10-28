@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+//error_reporting(0);
 $txt_search = $_REQUEST['txt_search'];
 $q_country = $_REQUEST['q_country'];
 $q_state = $_REQUEST['q_state'];
