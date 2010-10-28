@@ -832,7 +832,7 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
         default:
             break;
     }
-
+}
 function prompt_privacy_ajax($owner = '', $share = '') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
