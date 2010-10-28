@@ -37,12 +37,23 @@ $q_country = $_GET['q_country'];
 
 if($q_country!='')
 {
-$query = array('country'=>$q_country);
-                $result = geonames_query('countryinfo', $query);
 
-                $query = array('geonameid'=>$result->results[0][geonameid]);
+$query = array('query'=>$_REQUEST['q_country'],'maxRows'=>'1','featureclass'=>'S');
+                $result = geonames_query('search', $query);
+               // $cc=$result->results[0]['countrycode'];
+               // $result = geonames_query('countryinfo', $query);
+               // $result->results[0][geonameid];
+                $query = array('country'=>$result->results[0]['countrycode']);
+                $result = geonames_query('countryinfo', $query);
+                 $query = array('geonameid'=>$result->results[0]['geonameid']);
                 $result = geonames_query('children', $query);
-                $q_country = $_GET['q_country'];
+                
+//                $query = array('country'=>$q_country);
+//                $result = geonames_query('countryinfo', $query);
+//
+//                $query = array('geonameid'=>$result->results[0][geonameid]);
+//                $result = geonames_query('children', $query);
+//                $q_country = $_GET['q_country'];
                 ?>
                <div class="listmenu">
                 <select tabindex="18" class="listbox" style="width: 125px;" onchange="get_cityquestion(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>','<?php echo $q_country ?>')"  id="q_state" name="q_state"> <option value="">--States--</option>
