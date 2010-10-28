@@ -955,6 +955,7 @@ function _make_email_clickable_cb($matches) {
 }
 
 function make_clickable($ret) {
+    $ret = ltrim($ret,'http://');
     $ret = ' ' . $ret;
 // in testing, using arrays here was found to be faster
     $ret = preg_replace_callback('#([\s>])([\w]+?://[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', '_make_url_clickable_cb', $ret);
