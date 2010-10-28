@@ -12,7 +12,8 @@ $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
    echo '  <div class="padding10" >';
 $optionlist.=' <option value="0" >Country</option>';
     foreach ($result->results as $country) {
-        if($country['countrycode']==$q_country)
+        //if($country['countrycode']==$q_country)
+        if($country['countryname']==$q_country)
         {
             $select = "'selected'";
         }
@@ -20,7 +21,7 @@ $optionlist.=' <option value="0" >Country</option>';
         {
             $select = '';
         }
-        $optionlist .= sprintf('<option value="%s" '.$select.'>%s</option>', $country['countrycode'], $country['countryname']);
+        $optionlist .= sprintf('<option value="%s" '.$select.'>%s</option>', $country['countryname'], $country['countryname']);
     }
    $txt_search =  $_GET['txt_search'];
    $cid =  $_GET['cid'];
