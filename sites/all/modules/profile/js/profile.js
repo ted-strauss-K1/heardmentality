@@ -55,12 +55,12 @@ function chk_all(typ){
         jQuery(this).attr('checked',typ);
 
     });
-       $("ul.subtabs li").last().contains('select').remove();
+       jQuery("ul.subtabs li").last().contains('select').remove();
 
 }
 
 function enable_form(typ,thi){
- var n = $("#frmsgform input:checked").length;
+ var n = jQuery("#frmsgform input:checked").length;
 
 if(n>0){
     jQuery("#frmsgbox").slideToggle("slow");

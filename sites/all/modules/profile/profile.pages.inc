@@ -212,7 +212,7 @@ function inbox_msg() {
         });
 
     </script>
-    <form action="' . $gSitePath . 'postmessage" method="post" id="proform"><div align="left" style="display: none;" id="showboxcmt"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="msgs"></textarea><input type="hidden" value="" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg"></div></form>
+
        <div class="facttop2">INBOX MESSAGE(S)</div>
        <div>
 
@@ -452,13 +452,13 @@ function profile($uid = '') {
 ">Report</a><span class="separate">|</span>';
         $flinkflw = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow </a><span class="separate">|</span> ';
 
-        $sendmsg = '<a onclick="profile_comment(' . $getuser->uid . ');" >Send Message </a><span class="separate"></span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' . $uid . '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
+        $sendmsg = '<a onclick="rel_msg(' . $getuser->uid . ');" >Send Message </a><span class="separate"></span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' . $uid . '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
     } else {
 			$cavatar='<a href="'.$gSitePath.'user/getimage" >Change Picture</a>';
                         //' . $gSitePath . '?act=edit
         $edit.='<a href="javascript:void(0);" onclick="loadeditquestion(\'' . $gSitePath . '' .edit. '\',\'Report \');
 " >Edit My Profile </a><span class="separate"></span> ';
-   $inc = '&nbsp; <a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Followers</a>';
+   $inc = '&nbsp; <a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Contributors</a>';
    $inc =  '<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;'.$inc.'</li>';
    $inc_msg='  <li><a href="'.  check_plain(request_uri()).'?tag=msg">Message['.$cnt_msg.']</a></li>';
    }
@@ -533,6 +533,7 @@ function profile($uid = '') {
     
       $strReturn .= '
 <div class="profile-left">
+    <form action="' . $gSitePath . 'postmessage" method="post" id="proform"><div align="left" style="display: none;" id="showboxcmt"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="msgs"></textarea><input type="hidden" value="" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg"></div></form>
 <div class="profile-img">
 <div class="profile-imgs">
 '.UserPicture($uid).'
