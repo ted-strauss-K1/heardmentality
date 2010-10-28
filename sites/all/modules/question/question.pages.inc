@@ -152,12 +152,9 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          <li>&nbsp;</li>
        </ul>
        <div class="clr"></div>
-       <ul style="float:right">
+       <ul style="padding-left:70px;">
          <li>
-        
-    
-             
-            <div id="del_ans" style="display:none;padding:2px;">
+           <div id="del_ans" style="display:none;padding:2px;">
             <small><a href="javascript:void(0);" tabindex="88" onclick="del_ans();">[Remove]</a></small>
             </div>
        <!--<a href="javascript:void(0);" id="Add" title="Add Answer " tabindex="13"><img src="'.$gSitePath.path_to_theme().'/images/addanswer.jpg" onclick="add_ans();"  alt="Add Answer" /></a>-->
@@ -165,7 +162,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
            <input type="button"  tabindex="13" name="Add" title="Add More Answer" class="but"  onclick="add_ans();" id="Add" value="Add Answer" />
            <div class="but-right">
            <img width="7" height="24" src="'.$gSitePath.path_to_theme().'/images/but-right.jpg"></div></div>
-<input type="hidden" name="ans_cnt" id="ans_cnt" value="2">
+            <input type="hidden" name="ans_cnt" id="ans_cnt" value="2">
             <input type="hidden" id="cat1" name="cat1" value="">
             <input type="hidden" id="cat2" name="cat2" value="">
             <input type="hidden"  id="cat3" name="cat3" value="">
@@ -1060,10 +1057,12 @@ function question_ajax() {
                 $result = geonames_query('search', $query);
                // $cc=$result->results[0]['countrycode'];
                // $result = geonames_query('countryinfo', $query);
-               echo $result->results[0][geonameid];
-                $query = array('geonameid'=>$result->results[0][geonameid]);
+               // $result->results[0][geonameid];
+                $query = array('country'=>$result->results[0]['countrycode']);
+                $result = geonames_query('countryinfo', $query);
+                 $query = array('geonameid'=>$result->results[0]['geonameid']);
                 $result = geonames_query('children', $query);
-                //print_r($result);
+              
                 $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
                 foreach ($result->results as $state) {
                     
