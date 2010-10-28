@@ -190,7 +190,8 @@ function get_quest_details(quid){
 }
 
 jQuery(document).ready(function(){
-
+alert("hi");
+return false;
     jQuery(".contarea a[href*='?ajax=1']").each(function(){
    
         jQuery(this).click(function () {
