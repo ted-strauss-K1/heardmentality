@@ -218,7 +218,7 @@ function add_ans(){
     //validate prev ans is empty
     if(jQuery('#q_ans'+ans_cnt).val().length>1){
         jQuery("#add_more input").each(function(){
-            jQuery(this).css('border','')
+            jQuery(this).css('border','1px solid #838381')
         });
         ans_cnts = ++ans_cnt;
 		 
@@ -253,7 +253,7 @@ function add_ans(){
    
         el.css('display', 'block');
         el.html('Some of the fields are still empty !');
-       
+        jQuery('#err').addClass('error');
         jQuery('#add_more input').each(function(){
             jQuery(this).css('border','1px solid #838381')
         });
@@ -274,9 +274,9 @@ function add_ans(){
 
 function del_ans(){
     jQuery('#Add').attr('disabled',false);
-    var ans_cnt = $('ans_cnt').value;
+    var ans_cnt = jQuery('#ans_cnt').val();
     if (ans_cnt > 2) {
-	
+
         if (ans_cnt == 3) {
 		
             jQuery('#del_ans').fadeOut('slow');

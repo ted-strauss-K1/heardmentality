@@ -152,8 +152,9 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          <li>&nbsp;</li>
        </ul>
        <div class="clr"></div>
-       <ul style="padding-left:70px;">
+       <ul >
          <li>
+         <div  style="width:80%;padding-left:20px;">
            <div id="del_ans" style="display:none;padding:2px;">
             <small><a href="javascript:void(0);" tabindex="88" onclick="del_ans();">[Remove]</a></small>
             </div>
@@ -166,7 +167,8 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
             <input type="hidden" id="cat1" name="cat1" value="">
             <input type="hidden" id="cat2" name="cat2" value="">
             <input type="hidden"  id="cat3" name="cat3" value="">
-      
+         
+            </div>
          </li>
        </ul>
        <div class="clr"></div>
