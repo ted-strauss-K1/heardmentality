@@ -845,13 +845,13 @@ function prompt_privacy_ajax($owner = '', $share = '') {
             if ($cnt[0][yea] || $cnt[1][yea]) {
 
             } else {
-                drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
+              //  drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
                 exit;
                 //drupal_goto();
             }
             break;
         case 3:
-            drupal_set_message($message = 'Sorry, Question is blocked for public by owner!', $type = 'error');
+            //drupal_set_message($message = 'Sorry, Question is blocked for public by owner!', $type = 'error');
             exit;
             //drupal_goto();
             break;
