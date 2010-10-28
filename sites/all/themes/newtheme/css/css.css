@@ -719,33 +719,35 @@ color:#FFFFFF; display: block;padding-bottom: 10px;
 
 /*create profile - page*/
 .crete-profile-wrapper{ width:1024px; margin:0 auto; border:2px #ccc solid;}
-.top-abturself{ background:#8f8f8f; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px; margin-bottom:20px;}
+.top-abturself{ background:#8f8f8f; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px; margin-bottom:20px;}
 .create-inner-wrapper{ width:965px; margin:0 auto;}
 .creat-inner-title-outer{ width:965px; margin:0 auto;}
-.creat-inner-title-left{ width:316px; float:left; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background:#8f8f8f; }
-.creat-inner-title-right{ width:599px; float:right; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background:#8f8f8f; }
+.creat-inner-title-left{ width:316px; float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background:#8f8f8f; }
+.creat-inner-title-right{ width:599px; float:right; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background:#8f8f8f; }
+.creat-inner-title-right span{ font: normal 12px Arial, Helvetica, sans-serif; color:#fff;}
 .creat-inner-gridpart{ width:965px; margin:0 auto; font:normal 12PX Arial, Helvetica, sans-serif; color:#333;}
 .creat-inner-gridpart .col-1{ width:624px; float:left;}
-.creat-inner-gridpart .col-2{ float:left; width:306px; border:2px #8f8f8f solid; margin-top:12px; padding:10px;}
-.creat-inner-gridpart h4{ font:bold 16px normal Arial,Helvetica,sans-serif;}
+.creat-inner-gridpart .col-2{ float:left; width:306px; border:2px #8f8f8f solid; margin-top:39px; padding:10px;}
+.creat-inner-gridpart h4{ font:bold 16px "Times New Roman", Times, serif;}
 .creat-inner-gridpart .w-outer{ width:624px; float:left; margin:3px 0px;}
-.creat-inner-gridpart .w-outer .ti-1{ float:left; width:338px; background:#fff;}
+.creat-inner-gridpart .w-outer .ti-1{ float:left; width:300px; background:#fff;}
 .creat-inner-gridpart .w-outer .txtbx{ width:86px;}
 .creat-inner-gridpart .w-outer .txtbx-1{ width:180px;}
-.creat-inner-gridpart .w-outer .w1{ width:111px; float:left;}
-.creat-inner-gridpart .w-outer .w2{ width:237px; float:left;}
-.creat-inner-gridpart .w-outer .w3{ width:85px; float:left; text-align:center;}
-.creat-inner-gridpart .w-outer .w4{ width:85px; float:left; text-align:center;}
-.creat-inner-gridpart .w-outer .w5{ width:85px; float:left; text-align:center;}
-.bord-alin-rite{ float:left; width:492px; border-top:1px #ccc solid; margin-left:100px; height:0px;}
+.creat-inner-gridpart .w-outer .w1{ width:100px; float:left;}
+.creat-inner-gridpart .w-outer .w2{ width:200px; float:left;}
+.creat-inner-gridpart .w-outer .w3{ width:80px; float:left; text-align:center;}
+.creat-inner-gridpart .w-outer .w4{ width:80px; float:left; text-align:center;}
+.creat-inner-gridpart .w-outer .w5{ width:80px; float:left; text-align:center;}
+.creat-inner-gridpart .w-outer .w6{ width:80px; float:left; text-align:center;}
+.bord-alin-rite{ float:left; width:510px; border-top:1px #ccc solid; margin-left:100px; height:0px;}
 .create-inner-bot{ width:965px; margin:0 auto; margin-top:10px;}
 .bio{ width:638px; float:left; border:1px #8f8f8f solid; font:normal 12px Arial, Helvetica, sans-serif; color:#333;}
-.bio-title{float:left; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:618px;}
+.bio-title{float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:618px;}
 .bio-left{ width:220px; float:left; padding:10px;}
 .bio-left span{ font:normal 10px Arial, Helvetica, sans-serif; color:#666666;}
 .bio-left textarea{ width:200px; text-align:left;}
 .bio-right{ float:left; width:367px;}
-.bio-right h4{ font:bold 16px normal Arial,Helvetica,sans-serif; color:#696969;}
+.bio-right h4{ font:bold 16px "Times New Roman", Times, serif; color:#696969;}
 .bio-right .imgupload-img{ float:left; font:bold 10px Arial, Helvetica, sans-serif; color:#666; width:118px; margin-right:5px;}
 .bio-right .imgupload-txt{ float:left; font:bold 10px Arial, Helvetica, sans-serif; color:#666; width:100px;}
 .bio ul{ margin:0; padding:0; padding-left:20px;}
@@ -755,7 +757,7 @@ color:#FFFFFF; display: block;padding-bottom: 10px;
 
 
 .web-reference{ float:right; width:303px; border:1px #999 solid; padding-bottom:38px;}
-.web-reference-tit{float:left; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:283px; margin-bottom:10px;}
+.web-reference-tit{float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:283px; margin-bottom:10px;}
  .social-outer{ margin:2px 0px; width:270px; margin:0 auto; font:normal 11px Arial, Helvetica, sans-serif; color:#333;}
  .social-left{ float:left; margin-right:20px;}
  .social-rite{ float:left; padding-top:5px;}
@@ -766,13 +768,13 @@ color:#FFFFFF; display: block;padding-bottom: 10px;
 .pop-up .pop-bt{ background:url(../images/pop-bgfdgdfgt.png) no-repeat; width:697px; height:14px;  margin:0 auto; padding:10px 10px;}
 
 .merge-social{ float:left; width:326px; border:1px #999 solid; padding-bottom:20px; margin-top:5px;}
-.merge-social-tit{float:left; font: normal 16px normal Arial,Helvetica,sans-serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:306px; margin-bottom:10px; text-transform:uppercase;}
+.merge-social-tit{float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:306px; margin-bottom:10px; text-transform:uppercase;}
 
 .merge-social .merge-script-outer{ width:320px; margin:0 auto; text-align:center;}
 .creat-inner-gridpart .col-2-outer{ float:left; width:326px; }
 
 .inside-wrapper{ margin:0 auto;}
-.save-changes-outer{ width:918px; margin:0 auto; text-align:right; padding-right:100px; padding-top:20PX; padding-bottom:10PX;}
+.save-changes-outer{ 918px; margin:0 auto; text-align:right; padding-right:100px; padding-top:20PX; padding-bottom:10PX;}
 
 
 /* light box */

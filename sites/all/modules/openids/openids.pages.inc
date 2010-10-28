@@ -913,6 +913,7 @@ jQuery.noConflict();
              </div>
 
           <div class="clr"></div>
+          <div class="bord-alin-rite"></div>
                        <div class=" w-outer">
                  <div class="w1">User Name:</div>
                  <div class="w2"> <input id="rname" name="rname" class="txtbx-1" value="' . $real_name . '" tabindex="4" type="text">
@@ -922,7 +923,7 @@ jQuery.noConflict();
                  <div class="w5"><input name="real_name_privacy" type="radio" value="3" /></div>
              </div>
              <div class="clr"></div>
-
+<div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">First Name:</div>
                  <div class="w2"><input id="fname" name="fname" class="txtbx" value="' . $first_name . '" size="8" tabindex="2" type="text"> <input id="lname" name="lname" class="txtbx" value="' . $last_name . '" size="12" tabindex="3" type="text">
@@ -932,6 +933,7 @@ jQuery.noConflict();
                  <div class="w5"><input name="name_privacy" type="radio" value="3" /></div>
              </div>
              <div class="clr"></div>
+             <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Email:</div>
                  <div class="w2"><input id="edit-mail" name="mail" class="txtbx-1" value="' . $mail . '" maxlength="255" tabindex="5" type="text">
@@ -941,6 +943,7 @@ jQuery.noConflict();
                  <div class="w5"><input name="email_privacy" type="radio" value="3" /></div>
              </div>
              <div class="clr"></div>
+             <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Year Of Birth:</div>
                  <div class="w2"> <input name="dob"  value="' . $dob . '"  id="dob" class="txtbx" maxlength="4"  tabindex="5" type="text"><small>[yyyy]</small></div>
@@ -949,6 +952,7 @@ jQuery.noConflict();
                  <div class="w5"><input name="dob_privacy" type="radio" value="3" /></div>
              </div>
              <div class="clr"></div>
+             <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Gender:</div>
                  <div class="w2"><span><input id="edit-gender-0" name="gender" value="1" ' . $check1 . ' type="radio"> Male</span>&nbsp;&nbsp;<span><input id="edit-gender-1" name="gender" value="2" class="form-radio" ' . $check2 . ' type="radio"> Female</span></div>
@@ -957,6 +961,7 @@ jQuery.noConflict();
                  <div class="w5"><input name="gender_privacy" type="radio" value="3" /></div>
              </div>
              <div class="clr"></div>
+             <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Country:</div>
                  <div class="w2"><select name="country1" class="txtbx-1" tabindex="16" id="edit-country">' . $optionlist . '</select></div>
@@ -965,6 +970,7 @@ jQuery.noConflict();
                  <div class="w5"><input name="country_privacy" type="radio" value="3" /></div>
              </div>
              <div class="clr"></div>
+             <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Postal / Zip Code:</div>
                  <div class="w2"> <input name="zip"  value="' . $zip . '" class="txtbx-1"  onkeyup="get_zip_city(this.value);" onblur="get_zip_city(this.value);" id="edit-zip"  type="text"><span style="display:none;" id="edit-city-wrapper">' . $statecity . ' </span></div>
@@ -973,7 +979,7 @@ jQuery.noConflict();
                  <div class="w5"><input name="zip_privacy" type="radio" value="3" /></div>
              </div>
                  <div class="clr"></div>
-               
+               <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Religion:</div>
                  <div class="w2"> <select  name="religion" id="edit-religion"  class="txtbx-1" ><option value="" >Select</option><option value="Christian" ' . $selr1 . ' >Christian (Cath or Prod)</option><option value="Muslim" ' . $selr2 . ' >Muslim (Suni Shiite)</option><option value="Jewish" ' . $selr3 . ' >Jewish</option><option value="Hindu" ' . $selr4 . ' > Hindu</option><option value="Buddhist" ' . $selr5 . ' >Buddhist</option><option value="Other" ' . $selr6 . '>Other</option></select> </div>
@@ -982,6 +988,7 @@ jQuery.noConflict();
                  <div class="w5"><input name="religion_privacy" type="radio" value="3" /></div>
              </div>
              <div class="clr"></div>
+             <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Ethnicity:</div>
                  <div class="w2"><select name="ethnic" id="edit-ethnic"  class="txtbx-1" ><option value="">Select </option><option value="Caucasian" ' . $sele1 . '>Caucasian</option><option value="Black" ' . $sele2 . '>Black</option><option value="Asian" ' . $sele3 . '>Asian</option> <option value="Indian" ' . $sele4 . '>Indian</option> <option value="Semetic" ' . $sele5 . '>Semetic</option><option value="Latin" ' . $sele6 . '>Latin</option> <option value="Aborigines" ' . $sele7 . '>Aborigines</option>  </select></div>
@@ -990,6 +997,7 @@ jQuery.noConflict();
                  <div class="w5"><input name="ethnic_privacy" type="radio" value="3" /></div>
              </div>
              <div class="clr"></div>
+             <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Income Bracket:</div>
                  <div class="w2"><select name="slant" id="edit-slant"  class="txtbx-1" ><option value="">Select</option><option value="Left" ' . $seleant1 . '>Left</option><option value="Right" ' . $seleant2 . '>Right </option> <option value="Center" ' . $seleant3 . '>Center </option>  </select>
@@ -998,7 +1006,8 @@ jQuery.noConflict();
                  <div class="w4"><input name="slant_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="slant_privacy" type="radio" value="3" /></div>
              </div>
-
+             <div class="bord-alin-rite"></div>
+              <div class="clr"></div>
           </div>
 
  <div class="col-2-outer">
