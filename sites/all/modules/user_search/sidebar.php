@@ -40,18 +40,19 @@ if (!empty($listcat)) {
         $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' . $cat['cntc'] . ']</a></span><br/>';
         //subcat list
         if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
-            $catlist.='<ul>';
+           // $catlist.='<ul>';
             $sel_scat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $cat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
             $listscat = ExecuteQuery($sel_scat, "select");
             foreach ($listscat as $scat) {
                   $style = '';
                 if ($scid == $scat['cat_id']) {
-                    $style = 'style="font-weight:bold"';
+                    $style = 'style="font-weight:bold"'; 
                 }
-                $catlist.='<li ' . $style . '><a href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $scat['cntc'] . ']</a></li>';
+                $style = 'class="sidelinks"';
+                $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $scat['cntc'] . ']</a></span><br/>';
                 //sub subcat list
                 if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
-                    $catlist.='<ul>';
+                    //$catlist.='<ul>';
                     $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
                     $listsscat = ExecuteQuery($sel_sscat, "select");
                     foreach ($listsscat as $sscat) {
@@ -59,12 +60,13 @@ if (!empty($listcat)) {
                         if ($sscid == $sscat['cat_id']) {
                             $style = 'style="font-weight:bold"';
                         }
-                        $catlist.='<li ' . $style . '><a href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $sscat['cntc'] . ']</a></li>';
+                        $style = 'class="sidelinks"';
+                        $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $sscat['cntc'] . ']</a></span><br/>';
                     }
-                    $catlist.='</ul>';
+                   // $catlist.='</ul>';
                 }
             }
-            $catlist.='</ul>';
+           // $catlist.='</ul>';
         }
     }
 } else {
