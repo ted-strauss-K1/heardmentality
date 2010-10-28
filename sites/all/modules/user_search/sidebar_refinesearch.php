@@ -12,7 +12,7 @@ $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
    echo '  <div class="padding10" >';
 $optionlist.=' <option value="0" >Country</option>';
     foreach ($result->results as $country) {
-        if($country['countrycode']==$q_country)
+        if($country['countryname']==$q_country)
         {
             $select = "'selected'";
         }
@@ -20,7 +20,7 @@ $optionlist.=' <option value="0" >Country</option>';
         {
             $select = '';
         }
-        $optionlist .= sprintf('<option value="%s" '.$select.'>%s</option>', $country['countrycode'], $country['countryname']);
+        $optionlist .= sprintf('<option value="%s" '.$select.'>%s</option>', $country['countryname'], $country['countryname']);
     }
    $txt_search =  $_GET['txt_search'];
    $cid =  $_GET['cid'];
@@ -36,11 +36,23 @@ $q_country = $_GET['q_country'];
 
 if($q_country!='')
 {
-$query = array('country'=>$q_country);
+
+    $query = array('query'=>$_REQUEST['q_country'],'maxRows'=>'1','featureclass'=>'S');
+                $result = geonames_query('search', $query);
+               // $cc=$result->results[0]['countrycode'];
+               // $result = geonames_query('countryinfo', $query);
+               // $result->results[0][geonameid];
+                $query = array('country'=>$result->results[0]['countrycode']);
+                $result = geonames_query('countryinfo', $query);
+                 $query = array('geonameid'=>$result->results[0]['geonameid']);
+                $result = geonames_query('children', $query);
+
+
+                /*$query = array('country'=>$q_country);
                 $result = geonames_query('countryinfo', $query);
 
                 $query = array('geonameid'=>$result->results[0][geonameid]);
-                $result = geonames_query('children', $query);
+                $result = geonames_query('children', $query);*/
                 $q_country = $_GET['q_country'];
                 ?>
                <div class="listmenu">
