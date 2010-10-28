@@ -393,7 +393,7 @@ function openid_login_save() {
 
     /////////////////////NEW USER//////////////////////////////
     $select_user_count = db_result(db_query("SELECT COUNT(*) from users where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
-
+     $formret .='<div><b>Login processing please wait..</b></div>';
     if ($select_user_count == 0) {
         $insert = "insert into users (pass,mail,provider,created,access,login,status,Identity)values('" . md5($pass) . "','" . $_GET['email'] . "','" . $_GET['provider'] . "','" . time() . "','" . time() . "','" . time() . "','1','" . $pass . "') ";
         $insersult = db_query($insert);
@@ -477,8 +477,8 @@ function openid_login_save() {
     }
 
 
-    //  echo $formret;
-    return $formret;
+   echo $formret;
+   // return $formret;
 }
 
 function openid_login3() {

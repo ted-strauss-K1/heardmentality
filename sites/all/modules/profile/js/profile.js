@@ -26,6 +26,27 @@ function validate_profile(){
     
 }
 
+function bio_tog(ele){
+    var cls=jQuery(ele).parent().attr('class');
+
+    jQuery('#l1 span').each(function(){ jQuery(this).attr('class',''); jQuery(this).attr('class','tab-historyspan5'); });
+if(cls=='tab-historyspan5'){
+          jQuery(ele).parent().attr('class','');
+       jQuery(ele).parent().attr('class','tab-historyspan4');
+    
+}
+ if(cls=='tab-historyspan4'){
+        jQuery(ele).parent().attr('class','');
+        jQuery(ele).parent().attr('class','tab-historyspan5');
+       
+}
+
+
+
+
+    jQuery('#bio').toggle();
+     jQuery('#link').toggle();
+}
 
 function chk_all(typ){
 

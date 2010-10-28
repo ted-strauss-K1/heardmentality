@@ -63,18 +63,34 @@ function profile_tab($tab='',$uid=''){
     $output='<div class="history-tab">';
 switch($tab){
     case 'info':
-           $getuser = user_load($uid);
-        $output.='<div>
-            <span class="tab-historyspan4"><a href="#" onclick="jQuery(\'#bio\').toggle();jQuery(\'#link\').toggle();">Bio</a> </span>
-            <span class="tab-historyspan5"><a href="#" onClick="jQuery(\'#link\').toggle();jQuery(\'#bio\').toggle();jQuery(this).addClass(\'tab-historyspan4\');" > Links</a></span>
+           $getuser = load_user($uid);
+        
+        $output.='<div id="l1">
+
+            <span  class="tab-historyspan4"><a href="javascript:void(0);" onclick="bio_tog(this);">Bio</a> </span>
+            <span  class="tab-historyspan5"><a href="javascript:void(0);" onClick="bio_tog(this);" > Links</a></span>
             </div><br>
 ';
-        $output.='<div id="bio">'.(!empty($getuser->bio)?$getuser->bio:"No Bio updated yet").'</div><div style="display:none;" id="link">
+
+          $psplit = explode('@', $getuser->urls);
+    $ptitle = explode(';', $psplit[0]);
+    $purl = explode('||', $psplit[1]);
+     $social = explode('||', $getuser->social);
+     $bio=trim($getuser->bio);
+
+        $output.='<div id="bio">'.(!empty($bio)?$getuser->bio:"No Bio updated yet").'</div><div style="display:none;" id="link">
             <div class="face_book">
             <h4>Follow me on</h4>
-                    <a title="FaceBook" target="_blank" href="' . $getuser->facebook . '"><img align="left" alt="" src="' . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
-                    <a title="Twitter" target="_blank" href="' . $getuser->twitter . '"><img align="left" alt="" src="' .  path_to_theme() . '/images/twitter.png"/>Twitter</a>
+                    <a title="FaceBook" target="_blank" href="' .((!empty($social[0]))?$social[0]:'#'). '"><img align="left" alt="" src="' . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
+                    <a title="Twitter" target="_blank" href="' .((!empty($social[1]))?$social[1]:'#'). '"><img align="left" alt="" src="' .  path_to_theme() . '/images/twitter.png"/>Twitter</a>
             </div>
+              <div class="face_book">
+              <span class="tab-historyspan4">'.$ptitle[0].'</span>
+               <span class="tab-historyspan4"><a href="'.$purl[0].'" target="_blank">'.$purl[0].'</a></span>
+                   <br/>
+                    <span class="tab-historyspan4">'.$ptitle[1].'</span>
+               <span class="tab-historyspan4"><a href="'.$purl[1].'" target="_blank">'.$purl[1].'</a></span>
+              </div>
 </div>';
         break;
     case 'badge':

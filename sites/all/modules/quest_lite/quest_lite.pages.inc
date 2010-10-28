@@ -1487,7 +1487,7 @@ function panel_content() {
             break;
         case "Resources":
 
-            $output = '<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/jquery.tab.js"></script>
+            $output = '
 			<div id="waveerr"></div>
                        <ul id="tabmenu" class="subtabs" >
                                        <li><a class="" href="javascript:tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabIn">In the News</a></li>
@@ -1878,6 +1878,7 @@ function question_news() {
             $like = '';
             $flag = '';
             $post = '';
+             $newsresult.='<div class=" post-title-forum " >';
             $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='" . $usernews->rid . "'";
             $fetch = ExecuteQuery($querylike, "select");
 
@@ -1907,7 +1908,9 @@ function question_news() {
 	<p id ="resource-fact">' . $like_count . '</p>Like
 	</div>-->' . $like . ' <span>' . $flag . '</span><span>' . $post . '</span>
 	</div>';
+        $newsresult .='</div>';
         }
+
     }
 
     if ($numnews == 0) {
