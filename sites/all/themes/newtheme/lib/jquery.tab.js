@@ -43,11 +43,12 @@ function loadTab(tabObj,containerId){
     if(!tabObj || !tabObj.length){
         return;
     }
-    $(containerId).addClass('loading');
+    jQuery("#loading").fadeIn();
+
     $(containerId).fadeOut('fast');
     
     $(containerId).load(tabObj.attr('href'), function(response){
-        $(containerId).removeClass('loading');
+      jQuery("#loading").fadeOut();
         $(containerId).fadeIn('fast');
   setTimeout("setbub()",3000) ;
     });
