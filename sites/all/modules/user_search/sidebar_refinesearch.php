@@ -1,6 +1,6 @@
 <?php
 //error_reporting(0);
-$txt_search = $_REQUEST['txt_search'];
+ $txt_search = $_REQUEST['txt_search'];
 $q_country = $_REQUEST['q_country'];
 $q_state = $_REQUEST['q_state'];
 $q_city = $_REQUEST['q_city'];
@@ -22,7 +22,7 @@ $optionlist.=' <option value="0" >Country</option>';
         }
         $optionlist .= sprintf('<option value="%s" '.$select.'>%s</option>', $country['countryname'], $country['countryname']);
     }
-   $txt_search =  $_GET['txt_search'];
+   //$txt_search =  $_GET['txt_search'];
    $cid =  $_GET['cid'];
 
     /*onchange="click_submit(this.value,<?php echo $_GET['permission']?>)"*/?>
