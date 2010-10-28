@@ -139,7 +139,12 @@ switch($tab){
 
     $inc_qns = ( empty($qns_list)) ? 'No Result' : $inc_qns;
     //question ends
-$output.=$ins_ans.$inc_qns;
+    $output.='<div id="l1">
+
+            <span  class="tab-historyspan4"><a href="javascript:void(0);" onclick="bio_tog(this);">Issue Added</a> </span>
+            <span  class="tab-historyspan5"><a href="javascript:void(0);" onClick="bio_tog(this);" > Issue Voted</a></span>
+            </div><br>';
+$output.='<div id="bio">'.$ins_ans.'</div><div id="link" style="display:none">'.$inc_qns.'</div>';
 
         break;
         case 'msg':

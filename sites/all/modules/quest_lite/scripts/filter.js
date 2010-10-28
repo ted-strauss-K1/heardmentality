@@ -11,7 +11,7 @@ function get_filter_option(type){
    type: "POST",
    url: url,
     data: {
-            type: type,
+            type: type
    
         },
    success: function(msg){
@@ -25,3 +25,5 @@ function get_filter_option(type){
 function MM_jumpMenuGo(){ 
 document.form1.submit();
 }
+
+

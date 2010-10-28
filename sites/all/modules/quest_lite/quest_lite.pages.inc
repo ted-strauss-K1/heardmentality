@@ -2222,14 +2222,11 @@ function qlite_percent() {
     $cnt = $result['cnt'];
 
     foreach ($ans as $key => $value) {
-        $ins_script .= "{	
-						name: '" . $ans[$key] . "',
-  				       data: " . $cnt[$key] . "
-					}";
+        $ins_script .= "{name: '" . $ans[$key] . "',data: " . $cnt[$key] . "},";
     }
 
     $per = json_encode($result);
-    $inc = rtrim($inc, ',');
+    $inc = rtrim($ins_script, ',');
     $output .= "
 		<script>
 		var spath='" . $gSitePath . "';
@@ -2267,7 +2264,7 @@ function qlite_percent() {
 							stacking: 'normal'
 						}
 					},
-				      series: [" . $ins_script . " ]
+				      series: [" . $inc . " ]
 				});
 				
 				
