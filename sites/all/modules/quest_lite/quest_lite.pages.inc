@@ -1485,12 +1485,22 @@ function panel_content() {
                 $pat = $gSitePath . drupal_get_path('module', 'profile');
                 foreach ($profileBadges as $profile) {
                     $medal = updateProfileBadge($profile['uid']);
-                    $output1 .= '<div class="img">
-					<p>' . UserPicture($profile['uid']) . $medal . '
-				 <a href="' . $gSitePath . 'profile/' . $profile['name'] . '">' . $profile['name'] . '  </a>
-			  
-			     </p>
-				</div>';
+                    $output1 .= '
+
+<div class="profile-img">
+<div class="profile-imgs">
+ <a title="' . $profile['name'] . '" href="' . $gSitePath . 'profile/' . $profile['name'] . '">' . UserPicture($profile['uid']).'</a>
+</div>
+<div class="profile-con">'. $medal . '
+<div>
+
+</div>
+</div>
+
+</div>
+
+
+<div class="clr"></div><br/>';
                 }
             } else {
                 $output1 = "No Users available";

@@ -202,8 +202,8 @@ function validate_question(){
         return false;
     }
 
-    jQuery('#qform').slideOut('slow');
-    jQuery('div.facttop').html('Please wait till processing...!');
+    jQuery('#question').slideUp('slow');
+    jQuery('div.do-intop').html('Please wait till processing...!');
     return true;
     
 }
