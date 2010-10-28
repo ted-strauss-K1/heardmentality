@@ -1294,7 +1294,7 @@ function add_resources() {
 	<p class="float_lft">YouTube Link </p><p class="float_lft"><input type="text"  name="membed" id="membed"  class="textfieldm" > </p> <br class="clr"/>
 	</div>
 	<div id="media_div">
-	<p class="float_lft_file"> File </p><p class="float_lft"> <input type="hidden" name="docpath" id="docpath"/><iframe src="' . $gSitePath . 'upload_document.php" width="100%" height="40"  frameborder="0" scrolling="no"></iframe></p><br class="clr"/>
+	<p class="float_lft_file"> File </p><p class="float_lft"> <input type="hidden" name="docpath" id="docpath"/><iframe src="' . $gSitePath . 'upload_document.php" width="70" height="30"  frameborder="0" scrolling="no"></iframe></p><br class="clr"/>
 	</div>
 	
 
