@@ -138,8 +138,8 @@ function search_results() {
         $fetresult .= "   <div class='page-n' align='center'>
             <ul><li>";
         if ($back >= 0) {
-           // $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'>PREV</a>";
-            $fetresult .= "<li><a href='$page_name?start=$back&code=$code&txt_search=$name'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-l.jpg'></a></li>";
+            $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'>Previous</a>";
+            $fetresult .= "&nbsp;&nbsp;<li><a href='$page_name?start=$back&code=$code&txt_search=$name'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-l.jpg'></a></li>";
 
         }
         $fetresult .= "</li><li>";
@@ -157,8 +157,9 @@ function search_results() {
 
         $fetresult .= "</li>";
         if ($this1 < $sel_count) {
-           // $fetresult .= "<a href='$page_name?start=$next&code=$code&txt_search=$name'>NEXT</a>";
+          
              $fetresult .= "<li><a href='$page_name?start=$next&code=$code&txt_search=$name'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a></li>";
+             $fetresult .= "&nbsp;&nbsp;<a href='$page_name?start=$next&code=$code&txt_search=$name'>Next</a>";
         }
         $fetresult .= "</ul>
         </div>";

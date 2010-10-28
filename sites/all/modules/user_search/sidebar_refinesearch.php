@@ -32,7 +32,7 @@ $optionlist.=' <option value="0" >Country</option>';
 <?php
 //echo '<input type="hidden" name="q_country" value='.$q_country.'/>';
 //echo $optionlist;
-//$q_country = $_GET['q_country'];
+$q_country = $_GET['q_country'];
 
 if($q_country!='')
 {
