@@ -202,8 +202,10 @@ var url = gSitePath;
 reset_tabs();
 }
 });
-           
-            return false;
+            // var url = "http://stackoverflow.com";
+            $(location).attr('href',url);
+
+            //return false;
             
         });
        
