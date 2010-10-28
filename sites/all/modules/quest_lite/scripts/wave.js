@@ -95,7 +95,7 @@ function loadrforum(url,title){
 	//jQuery.nyroModalManual({
   //  url: url,width:550,height:450,title:'Forum Posts'
  // });
-  var options = 'sameBox:true width:70% height:90% caption:' +
+  var options = 'sameBox:true width:700 height:90% caption:' +
   '`Forum Posts`';
   parent.fb.start(url, options);
 	

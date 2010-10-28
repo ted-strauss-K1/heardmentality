@@ -211,9 +211,9 @@ function list_wave($qid = '', $type = '') {
         <div class="likelink-outer-forum">
            <div class="likekink-forum">
                <ul>
-               <li><a href="#"><b>'.$forum['cntpost'].' Comments</b></a></li>
+               <li><span style="color:#678AB2;"><b>'.$forum['cntpost'].' Comments</b></span></li>
                <li>|</li>
-               <li><a href="#">'.$forum['cntlike'].' likes</a></li>
+               <li><span style="color:#666666;">'.$forum['cntlike'].' likes</span></li>
 
 
                </ul>
