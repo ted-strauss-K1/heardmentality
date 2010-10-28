@@ -1,50 +1,48 @@
 <?php
+
 //////////////insert front end mail notification//////////////////////
-        function hm_flag($qid,$last_id,$user,$admin)
-        {
-            global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey;
-                $qdetails = load_question($qid);
+function hm_flag($qid, $last_id, $user, $admin) {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey;
+    $qdetails = load_question($qid);
 
-                $u_qry = "select * from users where uid='".$qdetails['uid']."'";
-                $u_res = db_query($u_qry);
-                 $u_rows = db_fetch_object($u_res);
+    $u_qry = "select * from users where uid='" . $qdetails['uid'] . "'";
+    $u_res = db_query($u_qry);
+    $u_rows = db_fetch_object($u_res);
 
-                 $flag_qry = "select * from question_flags where fid='".$last_id."'";
-                $flag_res = db_query($flag_qry);
-                 $flag_rows = db_fetch_object($flag_res);
+    $flag_qry = "select * from question_flags where fid='" . $last_id . "'";
+    $flag_res = db_query($flag_qry);
+    $flag_rows = db_fetch_object($flag_res);
 
 
-                $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
-                $rs_mgmt = db_query($sel_user_cmt);
-                $list_content = db_fetch_object($rs_mgmt);
-               // $subject_proj = $list_content->subject;
-               $subject_proj =  "Heardmentality : Flag Actions";
-                if($user){
-                $name = '';
-                $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
-                $contentm = str_replace("#anothername#", $name, $contentm);
-                $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-                $contentm = str_replace("#content#",'some one flagged your question due to '.$flag_rows->abuse_type.'', $contentm);
-                //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','".$u_rows->mail."','".$subject_proj."','".$contentm."',0,0,now())";
-             db_query($ins_qry);
-                }
-                if($admin)
-                {
+    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+    $rs_mgmt = db_query($sel_user_cmt);
+    $list_content = db_fetch_object($rs_mgmt);
+    // $subject_proj = $list_content->subject;
+    $subject_proj = "Heardmentality : Flag Actions";
+    if ($user) {
+        $name = '';
+        $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
+        $contentm = str_replace("#anothername#", $name, $contentm);
+        $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+        $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+        $contentm = str_replace("#content#", 'some one flagged your question due to ' . $flag_rows->abuse_type . '', $contentm);
+        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','" . $u_rows->mail . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+        db_query($ins_qry);
+    }
+    if ($admin) {
 
-                $contentm = str_replace("#uname#", Admin, $list_content->content);
-                $contentm = str_replace("#anothername#", $user->name, $contentm);
-                $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-                $contentm = str_replace("#content#",' flagged this question due to '.$flag_rows->abuse_type.'', $contentm);
+        $contentm = str_replace("#uname#", Admin, $list_content->content);
+        $contentm = str_replace("#anothername#", $user->name, $contentm);
+        $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+        $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+        $contentm = str_replace("#content#", ' flagged this question due to ' . $flag_rows->abuse_type . '', $contentm);
 
-               //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-              $admin_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','mgopi.php@gmail.com','".$subject_proj."','".$contentm."',0,0,now())";
-             db_query($admin_qry);
-                    
-                }
-        }
+        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+        $admin_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','mgopi.php@gmail.com','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+        db_query($admin_qry);
+    }
+}
 
 //////////////insert front end mail notification//////////////////////
 function qlite_view() {
@@ -72,7 +70,7 @@ function qlite_view() {
     drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/main.css');
     //drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     // drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
-   // drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/wave.css');
+    // drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/wave.css');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/like.js');
     // drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
@@ -80,7 +78,7 @@ function qlite_view() {
     drupal_add_css(drupal_get_path('theme', 'newtheme') . '/rotate_files/ui.css');
     $qid = get_qid();
 
- 
+
     //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     /////////////qviews /////////////////////////
     popquest();
@@ -160,7 +158,6 @@ function qlite_view() {
     }
 
 /// vijay link color
-
 //    function link_color($userid,$quesid)
 //    {
 //
@@ -187,10 +184,10 @@ function qlite_view() {
         $linkj = '<a onclick="loaddetails(\'' . $gSitePath . 'qlite/Details/' . $qid . '\',\'Question Information\');">...</a>';
     }
     $shortdesc = substr($oListquest->context, 0, 250);
-   
+
 
     $voutput .= '	  <div>
-              <h2 style="'.drupal_link_color($user->uid,$oListquest->qid).'">' . rtrim($oListquest->question, "?") . '? </h2>
+              <h2 style="' . drupal_link_color($user->uid, $oListquest->qid) . '">' . rtrim($oListquest->question, "?") . '? </h2>
             </div>          <div class="quesin">
               <div class="quesinner">
                 <div class="quesinnerr">
@@ -483,10 +480,10 @@ function qlite_view() {
 
     $optio = '';
     if ($numran != 0) {
-        $query="select vote_pid from {possible_answer_vote} where qid='$qid' AND uid='".$user->uid."'";
-        $voteid=db_result(db_query($query));
-     $submitbutt = ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="'.$voteid.'"/></p>';
-   //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
+        $query = "select vote_pid from {possible_answer_vote} where qid='$qid' AND uid='" . $user->uid . "'";
+        $voteid = db_result(db_query($query));
+        $submitbutt = ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/></p>';
+        //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
     }
     if ($numran == 0) {
 
@@ -494,20 +491,20 @@ function qlite_view() {
     }
 
     //tags
-  /* $instags = '';
-    $query = " SELECT t.tag FROM {qtag} as qt left join {tagging} as t on t.tid=qt.tag_id WHERE qt.qid='" . $qid . "' ";
-    $gettag = ExecuteQuery($query, "select");
-    $gettag = array_filter($gettag);
-    // print_r($gettag);
-    if (!empty($gettag)) {
-        foreach ($gettag as $intag) {
-            $etag = '';
+    /* $instags = '';
+      $query = " SELECT t.tag FROM {qtag} as qt left join {tagging} as t on t.tid=qt.tag_id WHERE qt.qid='" . $qid . "' ";
+      $gettag = ExecuteQuery($query, "select");
+      $gettag = array_filter($gettag);
+      // print_r($gettag);
+      if (!empty($gettag)) {
+      foreach ($gettag as $intag) {
+      $etag = '';
 
-            $instags .= $intag['tag'] . "&nbsp;";
-        }
-    } else {
-        $instags .= "&nbsp;<b> - -</b>&nbsp;";
-    }*/
+      $instags .= $intag['tag'] . "&nbsp;";
+      }
+      } else {
+      $instags .= "&nbsp;<b> - -</b>&nbsp;";
+      } */
     //	$voutput .='<a href="'.$gSitePath.'invite/invite_friends">Share This Question </a>';
 
 
@@ -596,9 +593,9 @@ function qlite_view() {
             <div class="sharing-section">
              <div class="share1">
               <a title="Bookmark" class="share-link" onclick="showShareUI();" href="javascript:void(0);">
-             <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="'.$gSitePath.path_to_theme().'/images/sm3.jpg"/>&nbsp;
-              <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="'.$gSitePath.path_to_theme().'/images/sm4.jpg"/>&nbsp;
-                  <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="'.$gSitePath.path_to_theme().'/images/sm5.jpg"/>&nbsp;
+             <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="' . $gSitePath . path_to_theme() . '/images/sm3.jpg"/>&nbsp;
+              <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="' . $gSitePath . path_to_theme() . '/images/sm4.jpg"/>&nbsp;
+                  <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="' . $gSitePath . path_to_theme() . '/images/sm5.jpg"/>&nbsp;
                     Share</a>                 
              </div>
              
@@ -621,14 +618,14 @@ function qlite_view() {
 		';
 
 //////////////vijay multilevel menu
-     $voteqry = "SELECT * FROM possible_answer_vote where qid='" .$qid . "'";
+    $voteqry = "SELECT * FROM possible_answer_vote where qid='" . $qid . "'";
     $votelist = db_query($voteqry);
     $fetvote = db_fetch_object($votelist);
-   
-    if ($numran!= 0) {
-        
-    
-    $voutput .= '<div class="clr"></div>
+
+    if ($numran != 0) {
+
+
+        $voutput .= '<div class="clr"></div>
 	<div id="rotate">
         <br/>
               <ul id="maintabs" class="mytabs" >
@@ -643,10 +640,8 @@ function qlite_view() {
             Loading. Please Wait...
         </div>
            </div>';
-    }
-    else
-    {
-           
+    } else {
+
         $voutput .= '<div class="clr"></div>
 	<div id="rotate">
         <br/>
@@ -661,17 +656,15 @@ function qlite_view() {
             Loading. Please Wait...
         </div>
            </div>';
-
     }
-    
+
     // cron job in qlite module
-   // cal_active_rate();
-   if($_REQUEST['ajax']==1){
-         echo $voutput;
-   }
-   else{
-    return $voutput;
-   }
+    // cal_active_rate();
+    if ($_REQUEST['ajax'] == 1) {
+        echo $voutput;
+    } else {
+        return $voutput;
+    }
 }
 
 function qns_like() {
@@ -789,14 +782,14 @@ function qlite_save() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
     $mid = $_REQUEST['mid'];
-   // print_r($_REQUEST);
-   // exit;
+    // print_r($_REQUEST);
+    // exit;
     $voutput = '';
     $vquest = "select * from {possible_answer} where paid='" . $_REQUEST['answer'] . "'  ";
     $rquest = db_query($vquest);
     $olistquest = db_fetch_object($rquest);
 
-    if (($_REQUEST['answer'] != '')&&(isset($_REQUEST['save']))) {
+    if (($_REQUEST['answer'] != '') && (isset($_REQUEST['save']))) {
 
 
 
@@ -814,7 +807,7 @@ function qlite_save() {
                 $votepointp = $olistquest->vote + 1;
             }
 
-                 $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";   
+            $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";
             db_query($vInsQuery);
 
 
@@ -824,29 +817,29 @@ function qlite_save() {
             ///////////////possible answer vote  mail start here ///////////////
             $qdetails = load_question($mid);
 
-        $sel_ulists = "SELECT * FROM users where uid='$qdetails[uid]'";
-         $user_namelistfs = ExecuteQuery($sel_ulists, "select");
+            $sel_ulists = "SELECT * FROM users where uid='$qdetails[uid]'";
+            $user_namelistfs = ExecuteQuery($sel_ulists, "select");
 
 
-         $sel_poss = "SELECT * FROM possible_answer_vote where vote_pid='$last_id'";
-         $ans_exec = ExecuteQuery($sel_poss, "select");
+            $sel_poss = "SELECT * FROM possible_answer_vote where vote_pid='$last_id'";
+            $ans_exec = ExecuteQuery($sel_poss, "select");
 
-         $sel_ans = "SELECT * FROM possible_answer where paid='$ans_exec[panswer_id]'";
-         $panswer_exec = ExecuteQuery($sel_ans, "select");
+            $sel_ans = "SELECT * FROM possible_answer where paid='$ans_exec[panswer_id]'";
+            $panswer_exec = ExecuteQuery($sel_ans, "select");
 
             $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
             $rs_mgmt = db_query($sel_user_cmt);
             $list_content = db_fetch_object($rs_mgmt);
-                $subject_proj = "Vote Notifications";
-                $contentm = str_replace("#uname#",$user_namelistfs[0][name], $list_content->content);
-                $contentm = str_replace("#anothername#",$user->name, $contentm);
+            $subject_proj = "Vote Notifications";
+            $contentm = str_replace("#uname#", $user_namelistfs[0][name], $list_content->content);
+            $contentm = str_replace("#anothername#", $user->name, $contentm);
 
-                $contentm = str_replace("#question#",$qdetails[question], $contentm);
-                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-                $contentm = str_replace("#content#", "vote for your question Answer is : ". $panswer_exec[answer]."", $contentm);
+            $contentm = str_replace("#question#", $qdetails[question], $contentm);
+            $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+            $contentm = str_replace("#content#", "vote for your question Answer is : " . $panswer_exec[answer] . "", $contentm);
             //echo $contentm;die;
-           $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$user->mail."','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
-           db_query($ins_qry);
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $user->mail . "','" . $user_namelistfs[0]['mail'] . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+            db_query($ins_qry);
 
             //$mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject_proj, $contentm, '');
 ///////////////possible answer vote mail end here ///////////////
@@ -855,7 +848,7 @@ function qlite_save() {
 
 
 
-            $notify_insqry = "insert into notification(uid,is_answer,node_id)values('".$user->uid."','1','".$mid."')";
+            $notify_insqry = "insert into notification(uid,is_answer,node_id)values('" . $user->uid . "','1','" . $mid . "')";
             db_query($notify_insqry);
 
 
@@ -912,88 +905,82 @@ function qlite_save() {
             drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
             drupal_goto("qlite/view/$mid");
         }
-
-
-
-
-    }elseif (($_REQUEST['answer_al'] != '')&&(isset($_REQUEST['change']))) {
+    } elseif (($_REQUEST['answer_al'] != '') && (isset($_REQUEST['change']))) {
         $arr = array_keys($_REQUEST['answer_al']);
-         $a = $arr['0'];
+        $a = $arr['0'];
         $poss_ans = $_REQUEST['answer_al'][$a];
-     $vInsQuery = "update {possible_answer_vote} set qid='".$mid."',panswer_id='".$poss_ans."',vote_pdate=now() where vote_pid='".$_REQUEST['vote_id']."' AND uid='" . $user->uid . "'";
-     
-            db_query($vInsQuery);
-            drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
-            send_votenotify($mid);
+        $vInsQuery = "update {possible_answer_vote} set qid='" . $mid . "',panswer_id='" . $poss_ans . "',vote_pdate=now() where vote_pid='" . $_REQUEST['vote_id'] . "' AND uid='" . $user->uid . "'";
 
+        db_query($vInsQuery);
+        drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
+        send_votenotify($mid);
     }
 
-    if (($_REQUEST['answer_a2'] != '')&&(isset($_REQUEST['change']))) {
+    if (($_REQUEST['answer_a2'] != '') && (isset($_REQUEST['change']))) {
         //$arr = array_keys($_REQUEST['answer_al']);
-         //$a = $arr['0'];
+        //$a = $arr['0'];
         //$poss_ans = $_REQUEST['answer_al'][$a];
-     $vInsQuery = "update {possible_answer_vote} set qid='".$mid."',panswer_id='".$_REQUEST['answer_a2']."',vote_pdate=now() where vote_pid='".$_REQUEST['vote_id']."' AND uid='" . $user->uid . "'";
+        $vInsQuery = "update {possible_answer_vote} set qid='" . $mid . "',panswer_id='" . $_REQUEST['answer_a2'] . "',vote_pdate=now() where vote_pid='" . $_REQUEST['vote_id'] . "' AND uid='" . $user->uid . "'";
 
-            db_query($vInsQuery);
-            drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
-            send_votenotify($mid);
-
+        db_query($vInsQuery);
+        drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
+        send_votenotify($mid);
     }
 
 
 
 
     ////////////question search vote added start here ****************
-    if (($_REQUEST['answer_al'] != '')&&(isset($_REQUEST['save']))) {
+    if (($_REQUEST['answer_al'] != '') && (isset($_REQUEST['save']))) {
         $arr = array_keys($_REQUEST['answer_al']);
-         $a = $arr['0'];
+        $a = $arr['0'];
         $poss_ans = $_REQUEST['answer_al'][$a];
 
 
-     $numr = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $mid . "' and uid='" . $user->uid . "'"));
+        $numr = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $mid . "' and uid='" . $user->uid . "'"));
         if ($numr == 0) {
 
-            $calvotep = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where panswer_id='" .$poss_ans. "' "));
+            $calvotep = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where panswer_id='" . $poss_ans . "' "));
             if ($calvotep == 0) {
                 $votepointp = '1';
             } else {
                 $votepointp = $olistquest->vote + 1;
             }
 
-                 $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" .$poss_ans. "','" . date('Y-m-d h:i:s') . "')";
+            $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $poss_ans . "','" . date('Y-m-d h:i:s') . "')";
             db_query($vInsQuery);
 
 
 
-             $last_id = mysql_insert_id();
+            $last_id = mysql_insert_id();
             ///////////////possible answer vote  mail start here ///////////////
             $qdetails = load_question($mid);
 
-        $sel_ulists = "SELECT * FROM users where uid='$qdetails[uid]'";
-         $user_namelistfs = ExecuteQuery($sel_ulists, "select");
+            $sel_ulists = "SELECT * FROM users where uid='$qdetails[uid]'";
+            $user_namelistfs = ExecuteQuery($sel_ulists, "select");
 
 
-         $sel_poss = "SELECT * FROM possible_answer_vote where vote_pid='$last_id'";
-         $ans_exec = ExecuteQuery($sel_poss, "select");
+            $sel_poss = "SELECT * FROM possible_answer_vote where vote_pid='$last_id'";
+            $ans_exec = ExecuteQuery($sel_poss, "select");
 
-         $sel_ans = "SELECT * FROM possible_answer where paid='$ans_exec[panswer_id]'";
-         $panswer_exec = ExecuteQuery($sel_ans, "select");
+            $sel_ans = "SELECT * FROM possible_answer where paid='$ans_exec[panswer_id]'";
+            $panswer_exec = ExecuteQuery($sel_ans, "select");
 
             $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
             $rs_mgmt = db_query($sel_user_cmt);
             $list_content = db_fetch_object($rs_mgmt);
             $subject_proj = "Vote Notifications";
-                $contentm = str_replace("#uname#",$user_namelistfs[0][name], $list_content->content);
-                $contentm = str_replace("#anothername#",$user->name, $contentm);
+            $contentm = str_replace("#uname#", $user_namelistfs[0][name], $list_content->content);
+            $contentm = str_replace("#anothername#", $user->name, $contentm);
 
-                $contentm = str_replace("#question#",$qdetails[question], $contentm);
-                $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-                $contentm = str_replace("#content#", "vote for your question Answer is : ". $panswer_exec[answer]."", $contentm);
+            $contentm = str_replace("#question#", $qdetails[question], $contentm);
+            $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+            $contentm = str_replace("#content#", "vote for your question Answer is : " . $panswer_exec[answer] . "", $contentm);
             //echo $contentm;die;
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$user->mail."','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $user->mail . "','" . $user_namelistfs[0]['mail'] . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
             db_query($ins_qry);
 
-           // $mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject_proj, $contentm, '');
+            // $mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject_proj, $contentm, '');
 ///////////////possible answer vote mail end here ///////////////
 
 
@@ -1001,7 +988,7 @@ function qlite_save() {
 
 
 
-            $notify_insqry = "insert into notification(uid,is_answer,node_id)values('".$user->uid."','1','".$mid."')";
+            $notify_insqry = "insert into notification(uid,is_answer,node_id)values('" . $user->uid . "','1','" . $mid . "')";
             db_query($notify_insqry);
 
 
@@ -1022,7 +1009,7 @@ function qlite_save() {
             $totalvotesm = $fetvotd->possiblevote + $fetvotsugestbg->suggestv;
             $totalvotesm;
             $calc = $totalvotesm * $votepointp / 100;
-            $updatevoteposs = "update  possible_answer set vote='$votepointp' where paid='" .$poss_ans. "'";
+            $updatevoteposs = "update  possible_answer set vote='$votepointp' where paid='" . $poss_ans . "'";
             db_query($updatevoteposs);
 
 
@@ -1058,9 +1045,8 @@ function qlite_save() {
             drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
             drupal_goto("qlite/view/$mid");
         }
-
     }
-     ////////////question search vote added end here
+    ////////////question search vote added end here
 
 
     if ($_REQUEST['txt_act'] == 1) {
@@ -1082,12 +1068,6 @@ function qlite_save() {
 
     return $voutput;
 }
-
-
-
-
-
-
 
 function add_resources() {
     global $gSitePath, $user, $gDocPath, $base_root;
@@ -1180,11 +1160,7 @@ function add_resources() {
 	this.set(\'send\', {onComplete: function(response) { 
 	log.removeClass(\'ajax-loading\');
 	log.set(\'html\', response);
-	if(response!=\'\')
-	{
 	
-	MochaUI.closeAll();
-	}
 	}});
 	
 	this.send();
@@ -1432,7 +1408,7 @@ function tab_list() {
 }
 
 function panel_content() {
-	
+
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
@@ -1458,22 +1434,22 @@ function panel_content() {
         $x = $x + $fcnt['wcnt'];
     }
 
- 
+
     $numresource = db_result(db_query("SELECT COUNT(*) from {resource} where qid=$qid"));
     $query_user = "SELECT * FROM users where uid='$oListquest->uid' ";
     $query_userinfo = db_query($query_user);
     $fetuserlist = db_fetch_object($query_userinfo);
     switch ($type) {
         case "Forum":
-           
+
 
             if (isset($_POST['wtitle']) && !empty($user->uid)) {
 
                 $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
                 extract($_POST);
-                $forum ="INSERT INTO {forum_wave} set qid_rid='" . $qid . "',type='1',uid='$user->uid',title='" . mysql_escape_string($wtitle) . "',content='". mysql_escape_string($wcon)."',private='$wprivate' ";
-				
-                $nid = ExecuteQuery($forum,'insert');
+                $forum = "INSERT INTO {forum_wave} set qid_rid='" . $qid . "',type='1',uid='$user->uid',title='" . mysql_escape_string($wtitle) . "',content='" . mysql_escape_string($wcon) . "',private='$wprivate' ";
+
+                $nid = ExecuteQuery($forum, 'insert');
                 echo list_wave($qid, 1);
                 send_forumnotify($nid, $qid);
                 exit;
@@ -1523,14 +1499,14 @@ function panel_content() {
 
             break;
         case "Info":
-              $bubble =load_bubble($fetuserlist->uid);
-        
-            $output.= ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> <a  href="' . $gSitePath . 'profile/' . $fetuserlist->name . '" rel=\''.$bubble.'\'>' . $fetuserlist->name . '</a> <br/>
+            $bubble = load_bubble($fetuserlist->uid);
+
+            $output.= ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> <a  href="' . $gSitePath . 'profile/' . $fetuserlist->name . '" rel=\'' . $bubble . '\'>' . $fetuserlist->name . '</a> <br/>
 			<b>Date Created:</b> ' . date("D j M Y", strtotime($oListquest->date_added)) . ' <br/>
 			<b>Number of Votes:</b> ' . $totalvotesm . '<br/>
-			<b>Number of Forum Posts:</b>'.$x.' <br/>
+			<b>Number of Forum Posts:</b>' . $x . ' <br/>
 			<b>Number of Resources:</b> ' . $numresource . '<br/>
-                         <b>Context:</b> ' .$oListquest->context.'<br/>
+                         <b>Context:</b> ' . $oListquest->context . '<br/>
                        </p>
 		';
             break;
@@ -1565,8 +1541,8 @@ function forum_wave($qid = '') {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $wave = '';
-   	
-	
+
+
     //print_r($cnt);
     $wave .= '<div class="">
 		<div class="qwavebut">
@@ -1608,27 +1584,27 @@ function forum_wave($qid = '') {
 }
 
 function flag_report() {
-   
+
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $userPoints = checkUserPoints($user->uid);
     //&& $userPoints > 14
     if (isset($userPoints)) {
         if (isset($_REQUEST['uid'])) {
-            
+
             $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='" . $_REQUEST['uid'] . "' and uid='" . $user->uid . "' and  type='user' "));
-            
+
             if ($_REQUEST['abuse_type'] != '') {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['uid'] . "','" . $user->uid . "','user','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
 
-                     $last_id = mysql_insert_id();
-                      hm_flag($_REQUEST['uid'],$last_id,1,1);
-					
-					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['uid'] . "',1)";
-					db_query($flagnotify);
-					
+                    $last_id = mysql_insert_id();
+                    hm_flag($_REQUEST['uid'], $last_id, 1, 1);
+
+                    $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $_REQUEST['uid'] . "',1)";
+                    db_query($flagnotify);
+
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="messages success">You Have Flagged successfully ! </div>';
                 } else {
@@ -1645,12 +1621,12 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rid'] . "','" . $user->uid . "','resource','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
-                     $last_id = mysql_insert_id();
-                      hm_flag($_REQUEST['rid'],$last_id,1,1);
-					
-					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rid'] . "',1)";
-					db_query($flagnotify);
-					
+                    $last_id = mysql_insert_id();
+                    hm_flag($_REQUEST['rid'], $last_id, 1, 1);
+
+                    $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $_REQUEST['rid'] . "',1)";
+                    db_query($flagnotify);
+
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="messages success">You Have Flagged successfully ! </div>';
                 } else {
@@ -1668,12 +1644,12 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwave'] . "','" . $user->uid . "','wave','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
-                     $last_id = mysql_insert_id();
-                      hm_flag($_REQUEST['rwave'],$last_id,1,1);
-					
-					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwave'] ."',1)";
-					db_query($flagnotify);
-					
+                    $last_id = mysql_insert_id();
+                    hm_flag($_REQUEST['rwave'], $last_id, 1, 1);
+
+                    $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $_REQUEST['rwave'] . "',1)";
+                    db_query($flagnotify);
+
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="">You Have Flagged successfully ! </div>';
                 } else {
@@ -1691,12 +1667,12 @@ function flag_report() {
                 if ($numr == 0) {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwavelet'] . "','" . $user->uid . "','wavelet','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
-                     $last_id = mysql_insert_id();
-                       hm_flag($_REQUEST['rwavelet'],$last_id,1,1);
-					
-					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','" . $_REQUEST['rwavelet'] . "',1)";
-					db_query($flagnotify);
-					
+                    $last_id = mysql_insert_id();
+                    hm_flag($_REQUEST['rwavelet'], $last_id, 1, 1);
+
+                    $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $_REQUEST['rwavelet'] . "',1)";
+                    db_query($flagnotify);
+
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="">You Have Flagged successfully ! </div>';
                 } else {
@@ -1714,11 +1690,11 @@ function flag_report() {
                     $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['qaid'] . "','" . $user->uid . "','question','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                     $last_id = mysql_insert_id();
-                    hm_flag($_REQUEST['qaid'],$last_id,1,1);
-					
-					$flagnotify = "insert into notification(uid,node_id,is_flag) values ('".$user->uid."','". $_REQUEST['qaid'] ."',1)";
-					db_query($flagnotify);
-					
+                    hm_flag($_REQUEST['qaid'], $last_id, 1, 1);
+
+                    $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $_REQUEST['qaid'] . "',1)";
+                    db_query($flagnotify);
+
                     increasepoints('4', $_REQUEST['qaid'], '0');
                     echo '<div class="messages success">You Have Flagged successfully ! </div>';
                 } else {
@@ -1729,8 +1705,6 @@ function flag_report() {
                 echo '<div class="messages error">Select Report Type !</div>';
             }
         }
-
-
     } else {
 
         echo '<div class="messages error">Sorry You Not Have Sufficent User Points To Flag !</div>';
@@ -1845,7 +1819,7 @@ function suggest_answer_save() {
             db_query("insert into {user_badges} set bid='38',uid='$uid',qid='" . $_REQUEST['qaid'] . "'");
             $last_id = msyql_insert_id();
             // hm_mails('',$last_id,'user_badges');
-             //badges_user($uid,$last_id);
+            //badges_user($uid,$last_id);
 
 
             echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
@@ -1861,14 +1835,14 @@ function question_news() {
     require ('RSSParser.class.php');
     $xml = & new RSSParser;
 
-    $vSql = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='1' and r.qid='" . $qid . "' ";
+     $vSql = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added FROM resource as r where r.rtype='1' and r.qid='" . $qid . "' ";
     $rlistnews = db_query($vSql);
     $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='" . $qid . "'"));
-    $newsresult = '<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+   
     while ($usernews = db_fetch_object($rlistnews)) {
 
         $output = $xml->parse($usernews->nlink);
-
+        $like_count = resource_Like_checkCount($usermedia->rid, 1);
         foreach ($output as $valuesresult) {
 
             //print_r( $valuesresult);
@@ -1878,16 +1852,16 @@ function question_news() {
             $like = '';
             $flag = '';
             $post = '';
-             $newsresult.='<div class=" post-title-forum " >';
+            $newsresult.='<div class=" post-title-forum " >';
             $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='" . $usernews->rid . "'";
             $fetch = ExecuteQuery($querylike, "select");
 
             if (count($fetch) < 1 || $fetch[0]['is_like'] == '0') {
 
-               $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usernews->rid . ',1,this);">Like</a></span>';
+                $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usernews->rid . ',1,this);">Like (' . $like_count . ')</a></span>';
             } elseif ($fetch[0]['is_like'] == '1') {
 
-                $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usernews->rid . ',0,this);">Unlike</a></span>';
+                $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usernews->rid . ',0,this);">Unlike (' . $like_count . ')</a></span>';
             }
 
             //flag
@@ -1896,21 +1870,30 @@ function question_news() {
 
             //posts
             $post .= '[<a href="javascript:void(0);" onclick="loadrforum(\'' . $gSitePath . 'resource/forum/' . $usernews->rid . '\',\'Resource forum \');
-">' . $usernews->cntpost . ' Post</a>]';
+">' . $usernews->cntpost . ' Comments</a>]';
             $getuser = user_load(array('uid' => $usernews->uid));
-            $newsresult .= '<div class="cmt_list">
+            $newsresult .= '
 	
-	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="' . $opkt["LINK"] . '" target="new"> ' . $opkt["TITLE"] . ' </a> </h4>
+ <h4 ><a href="' . $opkt["LINK"] . '" target="new"> ' . $opkt["TITLE"] . ' </a> </h4>
 		<p>' . $opkt['DESCRIPTION'] . ' </p>
-	<p class="cmt_date"> ' . date("D j M Y", strtotime($opkt['PUBDATE'])) . '</p>
-		<p class="cmt_date"> Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></p></div>
-	<!--<div class="rght_view" onclick="resource_like(' . $usernews->rid . ',' . $user->uid . ',1);" >
-	<p id ="resource-fact">' . $like_count . '</p>Like
-	</div>-->' . $like . ' <span>' . $flag . '</span><span>' . $post . '</span>
-	</div>';
-        $newsresult .='</div>';
-        }
+                    <div class="clr"></div>
+	 <div class="likelink-outer-forum">
+           <div class="likekink-forum">
+               <ul>
+               <li>' . $like . ' </li>     <li>|</li>
+               <li>' . $flag . '</li>     <li>|</li>
+               <li>' . $post . '</li>   
+             <li>Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></li>     <li>|</li>
+               </ul>
+          </div>
+           <div class="date">' . $usernews->date_added . '</div>
 
+        <div class="clr"></div>
+        </div></div>';
+
+
+            $newsresult .='</div><div class="clr"></div>';
+        }
     }
 
     if ($numnews == 0) {
@@ -1924,12 +1907,13 @@ function question_media() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $vSqlmedia = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='2' and r.qid='" . $qid . "' ";
+    $vSqlmedia = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added FROM resource as r where r.rtype='2' and r.qid='" . $qid . "' ";
     $rlistmedia = db_query($vSqlmedia);
     $nummedia = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='2' and qid='" . $qid . "'"));
-    $mediaresult = '<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-    while ($usermedia = db_fetch_object($rlistmedia)) {
 
+
+    while ($usermedia = db_fetch_object($rlistmedia)) {
+        $mediaresult.= '<div class=" post-title-forum " >';
         //flag
         $flag = '';
         $post = '';
@@ -1938,24 +1922,26 @@ function question_media() {
         $like = '';
         $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='" . $usermedia->rid . "'";
         $fetch = ExecuteQuery($querylike, "select");
-
+        $like_count = resource_Like_checkCount($usermedia->rid, 2);
         if (count($fetch) < 1 || $fetch[0]['is_like'] == '0') {
 
-            $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usermedia->rid . ',1,this);">Like</a></span>';
+            $like .= '<span  id="likelink" ><a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usermedia->rid . ',1,this);">Like (' . $like_count . ')</a></span>';
         } elseif ($fetch[0]['is_like'] == '1') {
 
-            $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usermedia->rid . ',0,this);">Unlike</a></span>';
+            $like .= '<span id="likelink" > <a href="javascript:void(0);" class="href" onclick="likethis(\'is_resource\',' . $usermedia->rid . ',0,this);">Unlike (' . $like_count . ')</a></span>';
         }
 
         //posts
         $post .= '[<a href="javascript:void(0);" onclick="loadrforum(\'' . $gSitePath . 'resource/forum/' . $usermedia->rid . '\',\'Resource forum \');
-">' . $usermedia->cntpost . ' Post</a>]';
+">' . $usermedia->cntpost . ' Comments</a>]';
         $getuser = user_load(array('uid' => $usermedia->uid));
-        $like_count = resource_Like_checkCount($usermedia->rid, 2);
-        $mediaresult .= '<div class="cmt_list">
-	<div class="lft_view"> <h4 class="cmt_name"><a style="font: normal 14px Arial, Helvetica, sans-serif; color:#02a33c; text-decoration:none;"; href="' . $gSitePath . '' . $usermedia->document . '" target="new"> ' . $usermedia->document . ' </a> </h4>
+
+        $mediaresult .= '
+	 <h4 ><a href="' . $gSitePath . '' . $usermedia->document . '" target="_blank"> ' . $usermedia->document . ' </a> </h4>
 	<!--<p><img src="http://img.youtube.com/vi/' . $usermedia->video_id . '/default.jpg" ></p>
-	<br/> --> 
+	<br/> --> ';
+        if(!empty($usermedia->video_id )){
+        $mediaresult .= '
 	<p>  <object width="425" height="350">
        <param name="movie" value="http://www.youtube.com/v/' . $usermedia->video_id . '">
        </param>
@@ -1963,13 +1949,26 @@ function question_media() {
        </embed>
 </object>
 
- </p>
-	<p class="cmt_date"> ' . date("D j M Y", strtotime($usermedia->posted_date)) . '</p>
-		<p class="cmt_date"> Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></p></div>
-<!--	<div class="rght_view" onclick="resource_like(' . $usermedia->rid . ',' . $user->uid . ',2);" >
-	<p id ="resource-fact">' . $like_count . '</p>Like
-	</div>--><div>' . $like . ' <span>' . $flag . '</span><span>' . $post . '</span></div>
-	</div>';
+ </p>     ';
+        }
+        $mediaresult .= '
+ <div class="clr"></div>
+	 <div class="likelink-outer-forum">
+           <div class="likekink-forum">
+               <ul>
+               <li>' . $like . ' </li>     <li>|</li>
+               <li>' . $flag . '</li>     <li>|</li>
+               <li>' . $post . '</li>
+             <li>Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></li>     <li>|</li>
+               </ul>
+          </div>
+           <div class="date">' .$usermedia->date_added . '</div>
+
+        <div class="clr"></div>
+        </div></div>
+';
+
+        $mediaresult.='</div>';
     }
     if ($nummedia == 0) {
 
@@ -1982,12 +1981,12 @@ function question_facts() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $vSqlfact = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost FROM resource as r where r.rtype='3' and r.qid='" . $qid . "' ";
+    $vSqlfact = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added FROM resource as r where r.rtype='3' and r.qid='" . $qid . "' ";
     $rlistfacts = db_query($vSqlfact);
     $numfacts = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='" . $qid . "'"));
-    $factsesult = '<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
+  
     while ($userfacts = db_fetch_object($rlistfacts)) {
-
+                $factsesult.= '<div class=" post-title-forum " >';
         $like = '';
         $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='" . $userfacts->rid . "'";
         $fetch = ExecuteQuery($querylike, "select");
@@ -2013,15 +2012,29 @@ function question_facts() {
 
         $getuser = user_load(array('uid' => $userfacts->uid));
 
-        $factsesult .= '<div class="cmt_list">
-	<div class="lft_view"> <h4 class="cmt_name"><a href="' . $userfacts->facts . '" target="_blank" style="color:#02a33c;text-decoration:none;"> ' . $userfacts->facts . ' </a> </h4>
-	<p class="cmt_date"> ' . date("D j M Y", strtotime($userfacts->posted_date)) . '</p>
-	<p class="cmt_date"> Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></p></div>
-	<!--<div class="rght_view" onclick="resource_like(' . $userfacts->rid . ',' . $user->uid . ',3);" >
-	<p id ="resource-fact">' . $like_count . '</p>Like
-	</div>-->
-	<div>' . $like . ' <span>' . $flag . '</span><span>' . $post . '</span></div>
-	</div>';
+        $factsesult .= '<div class="">
+<h4 class=""><a href="' . $userfacts->facts . '" target="_blank" > ' . $userfacts->facts . ' </a> </h4>
+	';
+
+           $factsesult .= '
+ <div class="clr"></div>
+	 <div class="likelink-outer-forum">
+           <div class="likekink-forum">
+               <ul>
+               <li>' . $like . ' </li>     <li>|</li>
+               <li>' . $flag . '</li>     <li>|</li>
+               <li>' . $post . '</li>
+             <li>Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></li>     <li>|</li>
+               </ul>
+          </div>
+           <div class="date">' .$userfacts->date_added . '</div>
+
+        <div class="clr"></div>
+        </div></div>
+';
+
+        $factsesult.='</div>';
+
     }
     if ($numfacts == 0) {
 
@@ -2153,7 +2166,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                 $tcnt = ExecuteQuery($query, "norows");
                 $inc_cnt .= $tcnt . ',';
             }
-            $inc_cnt=rtrim($inc_cnt,",");
+            $inc_cnt = rtrim($inc_cnt, ",");
             $inc_cnt .= ']';
             $answer_cnt[] = $inc_cnt;
 
@@ -2317,20 +2330,20 @@ function qlite_graph() {
             $date = date('Y-m-d', mktime(0, 0, 0, $month + 1, $dat, $year));
 
             $inc_this = answer_details($qid, $vlist[$ab]['paid'], 'timeline', $date);
-            array_push($ans,$inc_this);
+            array_push($ans, $inc_this);
         }
-        $ins_sc='[' . implode(',', $ans) . ']';
+        $ins_sc = '[' . implode(',', $ans) . ']';
         array_push($grid, "'" . $vlist[$ab]['answer'] . "'");
-        $insdata.="{name :'".$vlist[$ab]['answer']."', data: ".$ins_sc."},";
+        $insdata.="{name :'" . $vlist[$ab]['answer'] . "', data: " . $ins_sc . "},";
     }
-   $sdate="Date.UTC(".$year.",".$month.",".(date("d")-6).", 0, 0, 0)";
-   // $script.=$ins_sc;
+    $sdate = "Date.UTC(" . $year . "," . $month . "," . (date("d") - 6) . ", 0, 0, 0)";
+    // $script.=$ins_sc;
 
-   
+
 
     echo $script .= "
 var chart;
-var gSitePath='".$gSitePath."';
+var gSitePath='" . $gSitePath . "';
 
 $(document).ready(function() {
    chart = new Highcharts.Chart({
@@ -2410,10 +2423,10 @@ $(document).ready(function() {
                }
             },
             pointInterval: 3600000*36, // one hour
-            pointStart:".$sdate."
+            pointStart:" . $sdate . "
          }
       },
-      series: [".$insdata."]
+      series: [" . $insdata . "]
    });
 
 
@@ -2429,7 +2442,7 @@ jQuery.ajax({
   data: {
             action: 'graph',
             date:dat,
-            qid:'".$qid."'
+            qid:'" . $qid . "'
         },
    success: function(msg){
 jQuery('#resource').html(msg);
@@ -2451,7 +2464,7 @@ jQuery('#resource').html(msg);
 
 function qlite_map() {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path,$googlekey;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $googlekey;
 
     $inc_script = '';
     $resulte = '';
@@ -2537,7 +2550,7 @@ function qlite_map() {
 
     $script .= "
 		<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
-				<script src='http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=".$googlekey."' type='text/javascript'></script>
+				<script src='http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=" . $googlekey . "' type='text/javascript'></script>
                                 <script src='http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/src/markerclusterer.js' type='text/javascript'></script>
                                   <script src=' http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/release/src/markermanager.js' type='text/javascript'></script>
 ";
@@ -2707,97 +2720,97 @@ function answer_vote() {
 
 function send_votenotify($qid='') {///vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root;
- $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $user->uid . "','1','1','1'," . $qid . "' ) ";
+    $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $user->uid . "','1','1','1'," . $qid . "' ) ";
 
-  //  $insert_notify = db_query($qry);
+    //  $insert_notify = db_query($qry);
     ////////////mail notication for user follwers to me//////////////////////////////////////
     ///vijay coment start here////////////
-  /*  $qdetails = load_question($qid);
+    /*  $qdetails = load_question($qid);
 
-    
-    $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
-    $rs_followerf = db_query($sel_listf);
-    while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
 
-        $sellist = "select * from users where uid='" . $follower_resultfuser->uid . "'";
-        $res_users = db_query($sellist);
-        $usert = db_fetch_object($res_users);
-        $to = $usert->mail;
-        
-        if ($usert->notify_itype == 1) {
+      $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
+      $rs_followerf = db_query($sel_listf);
+      while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
 
-            $insert_notify = db_query("insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ");
-        }
-        if ($usert->notify_etype == 1) {
+      $sellist = "select * from users where uid='" . $follower_resultfuser->uid . "'";
+      $res_users = db_query($sellist);
+      $usert = db_fetch_object($res_users);
+      $to = $usert->mail;
 
-            ///////////email for following ///////////////
+      if ($usert->notify_itype == 1) {
 
-            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
-            $rs_mgmt = db_query($sel_user_cmt);
-            $list_content = db_fetch_object($rs_mgmt);
-            $subject_proj = $list_content->subject;
-            $contentm = str_replace("#uname#", $usert->name, $list_content->content);
-            $contentm = str_replace("#anothername#", $user->name, $contentm);
+      $insert_notify = db_query("insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ");
+      }
+      if ($usert->notify_etype == 1) {
 
-          
-            $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-            $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-            $contentm = str_replace("#content#", "voted for the below question. Kindly have a review", $contentm);
+      ///////////email for following ///////////////
 
-           
-            
-            $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
-        }
-            
-    }*/
-     hm_mails($qid,'','vote_answer');
+      $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+      $rs_mgmt = db_query($sel_user_cmt);
+      $list_content = db_fetch_object($rs_mgmt);
+      $subject_proj = $list_content->subject;
+      $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+      $contentm = str_replace("#anothername#", $user->name, $contentm);
+
+
+      $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+      $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+      $contentm = str_replace("#content#", "voted for the below question. Kindly have a review", $contentm);
+
+
+
+      $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+      }
+
+      } */
+    hm_mails($qid, '', 'vote_answer');
 }
 
 function send_forumnotify($nid='', $qid='') { //vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
- $insert_notify = db_query("insert into notification (uid,follower_action,is_wave,node_id) values('" . $user->uid . "','1','1','" . $nid . "' ) ");
+    $insert_notify = db_query("insert into notification (uid,follower_action,is_wave,node_id) values('" . $user->uid . "','1','1','" . $nid . "' ) ");
 
 
-   /* $qdetails = load_question($qid);
-    $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
-    $rs_followerf = db_query($sel_listf);
+    /* $qdetails = load_question($qid);
+      $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
+      $rs_followerf = db_query($sel_listf);
 
-    $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
-	
-    while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
+      $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
 
-        $sellist = "select * from users where uid='" . $follower_resultfuser->uid . "'";
-        $res_users = db_query($sellist);
-        $usert = db_fetch_object($res_users);
-        $to = $usert->mail;
-        if ($usert->notify_itype == 1) {
+      while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
 
-            $insert_notify = db_query("insert into notification (uid,follower_action,is_wave,node_id) values('" . $follower_resultfuser->uid . "','1','1','" . $nid . "' ) ");
-        }
-        if ($usert->notify_etype == 1) {
+      $sellist = "select * from users where uid='" . $follower_resultfuser->uid . "'";
+      $res_users = db_query($sellist);
+      $usert = db_fetch_object($res_users);
+      $to = $usert->mail;
+      if ($usert->notify_itype == 1) {
 
-            ///////////email for following ///////////////
+      $insert_notify = db_query("insert into notification (uid,follower_action,is_wave,node_id) values('" . $follower_resultfuser->uid . "','1','1','" . $nid . "' ) ");
+      }
+      if ($usert->notify_etype == 1) {
 
-            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
-            $rs_mgmt = db_query($sel_user_cmt);
-            $list_content = db_fetch_object($rs_mgmt);
-            $subject_proj = $list_content->subject;
-            $contentm = str_replace("#uname#", $usert->name, $list_content->content);
-            $contentm = str_replace("#anothername#", $user->name, $contentm);
+      ///////////email for following ///////////////
 
-        // print_r($qdetails);
-            $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-            $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-            $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);         
-            $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+      $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+      $rs_mgmt = db_query($sel_user_cmt);
+      $list_content = db_fetch_object($rs_mgmt);
+      $subject_proj = $list_content->subject;
+      $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+      $contentm = str_replace("#anothername#", $user->name, $contentm);
 
-
+      // print_r($qdetails);
+      $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+      $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+      $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
+      $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
 
 
-        }
-    }*/
-    hm_mails($qid,$nid,'add_forum');
+
+
+      }
+      } */
+    hm_mails($qid, $nid, 'add_forum');
 }
 
 function qusetion_info() {
@@ -3078,37 +3091,35 @@ function qfull_ajax() {
 
             break;
         case 'graph':
-         
-          $str=substr($_REQUEST['date'],'0','10');
-             $date=date('d-m-Y',$str);
-             $qid=$_REQUEST['qid'];
-             $query="select * from {resource} where date(posted_date)<='$date' AND qid='$qid'";
-             $set = ExecuteQuery($query, "select");
-             
-              $result.="<div> <b>Resources For Date :".date('d M,Y',$str)."</b></div><hr/><br/><ul>";
-              if(!empty($set)){
-             foreach($set as $list){
 
-                switch($list['rtype']){
+            $str = substr($_REQUEST['date'], '0', '10');
+            $date = date('d-m-Y', $str);
+            $qid = $_REQUEST['qid'];
+            $query = "select * from {resource} where date(posted_date)<='$date' AND qid='$qid'";
+            $set = ExecuteQuery($query, "select");
 
-                 case '1':
-                    $inc.="<li><a href=\"".$list['ncontent']."\" target=\"_blank\">You Tube Video</a></li>";
-                     break;
-                 case '2':
-                    $inc.="<li><a href=\"".$list['membed']."\" target=\"_blank\">You Tube Video</a></li>";
-                     break;
-                 case '3':
-                   $inc.="<li><a href=\"".$list['facts']."\">".$list['facts']."</a></li>";
-                     break;
+            $result.="<div> <b>Resources For Date :" . date('d M,Y', $str) . "</b></div><hr/><br/><ul>";
+            if (!empty($set)) {
+                foreach ($set as $list) {
 
+                    switch ($list['rtype']) {
+
+                        case '1':
+                            $inc.="<li><a href=\"" . $list['ncontent'] . "\" target=\"_blank\">You Tube Video</a></li>";
+                            break;
+                        case '2':
+                            $inc.="<li><a href=\"" . $list['membed'] . "\" target=\"_blank\">You Tube Video</a></li>";
+                            break;
+                        case '3':
+                            $inc.="<li><a href=\"" . $list['facts'] . "\">" . $list['facts'] . "</a></li>";
+                            break;
+                    }
                 }
-                
-             }
-              }else{
+            } else {
 
-                  $inc="<b>No Resource for this Date</b>";
-              }
-          echo   $result=$result.$inc."</ul>";
+                $inc = "<b>No Resource for this Date</b>";
+            }
+            echo $result = $result . $inc . "</ul>";
 
             break;
         default:
