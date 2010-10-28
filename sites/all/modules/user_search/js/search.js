@@ -202,7 +202,7 @@ var url = gSitePath;
 reset_tabs();
 }
 });
-
+            alert("wait");
             return false;
             window.location.replace(url);
 
