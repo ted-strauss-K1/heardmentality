@@ -797,7 +797,8 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
             if (empty($user)) {
 
                 //drupal_set_message($message = 'Sorry Please login to post your answers!', $type = 'error');
-                echo "Sorry Please login to post your answers";
+             
+                   echo '<div class="warning">Sorry, Only authorized user can access this question!</div>';
                 exit;
                 //drupal_goto();
 
@@ -815,7 +816,8 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
             if ($cnt[0][yea] || $cnt[1][yea]) {
 
             } else {
-                 echo "sorry only follow and followers";
+              
+                   echo '<div class="warning">Sorry, Only Followers and Followees to access this question!</div>';
                 exit;
                // drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
                 //drupal_goto();
@@ -825,7 +827,7 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
 
             break;
         case 4:
-            prompt_privacy($owner, $share);
+            prompt_privacy_ajax($owner, $share);
 
             break;
         case 3:
@@ -847,12 +849,14 @@ function prompt_privacy_ajax($owner = '', $share = '') {
 
             } else {
               //  drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
+              echo '<div class="warning">Sorry, Only Followers and Followees to access answer!</div>';
                 exit;
                 //drupal_goto();
             }
             break;
         case 3:
             //drupal_set_message($message = 'Sorry, Question is blocked for public by owner!', $type = 'error');
+              echo '<div class="warning">Sorry, Question is blocked for public by owner!</div>';
             exit;
             //drupal_goto();
             break;
