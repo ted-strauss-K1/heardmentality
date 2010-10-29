@@ -22,7 +22,45 @@ function get_profile_details(urid){
 	
 }
 
+function bio_tog(ele){
+    var cls=jQuery(ele).parent().attr('class');
 
+    jQuery('#l1 span').each(function(){ jQuery(this).attr('class',''); jQuery(this).attr('class','tab-historyspan5'); });
+if(cls=='tab-historyspan5'){
+          jQuery(ele).parent().attr('class','');
+       jQuery(ele).parent().attr('class','tab-historyspan4');
+
+}
+ if(cls=='tab-historyspan4'){
+        jQuery(ele).parent().attr('class','');
+        jQuery(ele).parent().attr('class','tab-historyspan5');
+
+}
+
+
+
+
+    jQuery('#bio').toggle();
+     jQuery('#link').toggle();
+}
+function rel_msg(id){
+
+    jQuery('#actions').val(id);
+    jQuery('#showboxcmt').slideToggle('slow');
+    jQuery("#usmsg").unbind("click");
+
+    jQuery("#usmsg").click(function () {
+        var formmsg=jQuery('#proform');
+        jQuery.post(formmsg.attr('action'),formmsg.serialize(),
+            function(data){
+
+                jQuery('.profile_part').prepend(data);
+                jQuery('#showboxcmt').slideToggle("slow");
+                formmsg.get(0).reset();
+                setTimeout("jQuery('.profile_part > div.messages').hide();",1000);
+            });
+    });
+}
 
 
 function get_state(code){

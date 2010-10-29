@@ -124,7 +124,7 @@ switch($tab){
 
     $ins_ans .= $inc_list;
 
-    $ins_ans = ( empty($inc_list)) ? 'No Result' : $ins_ans;
+    $inc_ans = ( empty($inc_list)) ? 'No Result' : $ins_ans;
     //answers ends
     //question sposted
     $get_ans = db_query("select q.* from {question} as q where q.uid='" . $uid . "' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
@@ -144,7 +144,7 @@ switch($tab){
             <span  class="tab-historyspan4"><a href="javascript:void(0);" onclick="bio_tog(this);">Issue Added</a> </span>
             <span  class="tab-historyspan5"><a href="javascript:void(0);" onClick="bio_tog(this);" > Issue Voted</a></span>
             </div><br>';
-$output.='<div id="bio">'.$ins_qns.'</div><div id="link" style="display:none">'.$inc_ans.'</div>';
+$output.='<div id="bio">'.$inc_qns.'</div><div id="link" style="display:none">'.$inc_ans.'</div>';
 
         break;
         case 'msg':
@@ -452,7 +452,7 @@ function profile($uid = '') {
 ">Report</a><span class="separate">|</span>';
         $flinkflw = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow </a><span class="separate">|</span> ';
 
-        $sendmsg = '<a onclick="rel_msg(' . $getuser->uid . ');" >Send Message </a><span class="separate"></span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' . $uid . '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form>';
+        $inc = '<li><img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;<a href="javascript:void(0);" onclick="rel_msg(' . $getuser->uid . ');" > Contact Contributor</a><span class="separate"></span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' . $uid . '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form></li>';
     } else {
 			$cavatar='<a href="'.$gSitePath.'user/getimage" >Change Picture</a>';
                         //' . $gSitePath . '?act=edit
@@ -524,7 +524,7 @@ function profile($uid = '') {
        $strReturn .= '
     <div class="bor_bot">
 	<div class="rht_link">
-       ' . $share . $history . $sendmsg . $edit . '
+       ' . $share . $history . $edit . '
        </div>
         <br class="clr" />
       </div>';

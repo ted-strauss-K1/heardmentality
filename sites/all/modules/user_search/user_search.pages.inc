@@ -1115,17 +1115,32 @@ function get_user_details() {
 switch($tab){
     case 'info':
            $getuser = user_load($uid);
-        $output.='<div>
-            <span class="tab-historyspan4"><a href="#" onclick="jQuery(\'#bio\').toggle();jQuery(\'#link\').toggle();">Bio</a> </span>
-            <span class="tab-historyspan5"><a href="#" onClick="jQuery(\'#link\').toggle();jQuery(\'#bio\').toggle();jQuery(this).addClass(\'tab-historyspan4\');" > Links</a></span>
+          $output.='<div id="l1">
+
+            <span  class="tab-historyspan4"><a href="javascript:void(0);" onclick="bio_tog(this);">Bio</a> </span>
+            <span  class="tab-historyspan5"><a href="javascript:void(0);" onClick="bio_tog(this);" > Links</a></span>
             </div><br>
 ';
-        $output.='<div id="bio">'.(!empty($getuser->bio)?$getuser->bio:"No Bio updated yet").'</div><div style="display:none;" id="link">
+
+          $psplit = explode('@', $getuser->urls);
+    $ptitle = explode(';', $psplit[0]);
+    $purl = explode('||', $psplit[1]);
+     $social = explode('||', $getuser->social);
+     $bio=trim($getuser->bio);
+
+        $output.='<div id="bio">'.(!empty($bio)?$getuser->bio:"No Bio updated yet").'</div><div style="display:none;" id="link">
             <div class="face_book">
             <h4>Follow me on</h4>
-                    <a title="FaceBook" target="_blank" href="' . $getuser->facebook . '"><img align="left" alt="" src="' . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
-                    <a title="Twitter" target="_blank" href="' . $getuser->twitter . '"><img align="left" alt="" src="' .  path_to_theme() . '/images/twitter.png"/>Twitter</a>
+                    <a title="FaceBook" target="_blank" href="' .((!empty($social[0]))?$social[0]:'#'). '"><img align="left" alt="" src="' . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
+                    <a title="Twitter" target="_blank" href="' .((!empty($social[1]))?$social[1]:'#'). '"><img align="left" alt="" src="' .  path_to_theme() . '/images/twitter.png"/>Twitter</a>
             </div>
+              <div class="face_book">
+              <span class="tab-historyspan4">'.$ptitle[0].'</span>
+               <span class="tab-historyspan4"><a href="'.$purl[0].'" target="_blank">'.$purl[0].'</a></span>
+                   <br/>
+                    <span class="tab-historyspan4">'.$ptitle[1].'</span>
+               <span class="tab-historyspan4"><a href="'.$purl[1].'" target="_blank">'.$purl[1].'</a></span>
+              </div>
 </div>';
         break;
     case 'badge':
@@ -1146,7 +1161,7 @@ switch($tab){
     $output.=$badges;
         break;
     case 'history':
-            //answers posted
+             //answers posted
 
     $get_ans = db_query("select q.*,a.vote_pdate as vdate from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='" . $uid . "'");
 
@@ -1159,7 +1174,7 @@ switch($tab){
 
     $ins_ans .= $inc_list;
 
-    $ins_ans = ( empty($inc_list)) ? 'No Result' : $ins_ans;
+    $inc_ans = ( empty($inc_list)) ? 'No Result' : $ins_ans;
     //answers ends
     //question sposted
     $get_ans = db_query("select q.* from {question} as q where q.uid='" . $uid . "' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
@@ -1167,14 +1182,20 @@ switch($tab){
     while ($setans = db_fetch_object($get_ans)) {
 
        // $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
-$qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->date_added</span>  <span class='tab-historyspan2'>Issue Created</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' style='".drupal_link_color($user->uid,$setans->qid)."'>".htmlentities(substr($setans->question,0,40))."</a></div>
+ $qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->date_added</span>  <span class='tab-historyspan2'>Issue Created</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='".htmlentities(wordwrap($setans->question, 40,'<br/>'))."' style='".drupal_link_color($user->uid,$setans->qid)."'>".htmlentities(substr($setans->question,0,40))."</a></div>
 ";
     }
     $inc_qns .= $qns_list;
 
     $inc_qns = ( empty($qns_list)) ? 'No Result' : $inc_qns;
     //question ends
-$output.=$ins_ans.$inc_qns;
+    $output.='<div id="l1">
+
+            <span  class="tab-historyspan4"><a href="javascript:void(0);" onclick="bio_tog(this);">Issue Added</a> </span>
+            <span  class="tab-historyspan5"><a href="javascript:void(0);" onClick="bio_tog(this);" > Issue Voted</a></span>
+            </div><br>';
+$output.='<div id="bio">'.$inc_qns.'</div><div id="link" style="display:none">'.$inc_ans.'</div>';
+
 
         break;
     default:
@@ -1230,6 +1251,10 @@ exit;
         for ($k = 0; $k < count($newlist2); $k++) {
             $follower .= '' . $newlist2[$k] . '';
         }
+        if($user->uid>0&&$user->uid!=$resulrnames->uid)
+      $inc = '<li><img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;<a href="javascript:void(0);" onclick="rel_msg(' . $resulrnames->uid . ');" > Contact Contributor</a><span class="separate"></span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' .$resulrnames->uid. '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/></div></form></li>';
+        else
+            $inc='';
   // echo  request_uri();
     $ret = '<div class="contributer">
           <div class="facttop">
@@ -1273,6 +1298,7 @@ exit;
 <div style="margin-left:8px;">
 <ul>
 <li><img src="'.$gSitePath.'sites/all/themes/newtheme/images/follow.jpg" alt="img" width="19" height="13" />&nbsp;<a class="linkfol" href="' . $gSitePath . 'profile/' .$resulrnames->name. '?delm=' .$resulrnames->uid. '">Follow</a></li>
+'.$inc.'
 </ul>
 </div>
 <div class="clr"></div>
