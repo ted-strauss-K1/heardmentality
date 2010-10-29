@@ -17,7 +17,7 @@ $optionlist.=' <option value="0" >Country</option>';
         if($country['countryname']==$q_country)
         {
             //$select = "'selected'";
-           $select =  "selected='selected'";
+           $select =  "selected=selected";
         }
         else
         {

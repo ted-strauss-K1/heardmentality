@@ -1244,17 +1244,17 @@ exit;
 
 
 
-		<div class="profile-img">
-              
+
+
+<div class="profile-img">
+
+<div class="profile-imgs">
 <a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture($resulrnames->uid) . '</a>
-<div class="profile-con">
-<div>
-<ul>
-'.updateProfileBadge($resulrnames->uid).'
-</ul>
+</div>
+<div class="profile-con">'.updateProfileBadge($resulrnames->uid).'
 </div>
 </div>
-</div>
+
 
 
 <div class="clr"></div>
