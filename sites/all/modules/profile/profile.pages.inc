@@ -376,7 +376,7 @@ function profile($uid = '') {
 
     if (isset($_REQUEST['delm'])) {
 
-
+if($user->uid>0){
         $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='" . $_REQUEST['delm'] . "'  and  uid ='" . $user->uid . "'"));
 
         if ($res_num == 0) {
@@ -410,6 +410,9 @@ function profile($uid = '') {
 
             drupal_set_message(t('You are already following ' . $namelist->name . '.'), $type = 'error');
         }
+}else{
+    drupal_access_denied(); die;
+}
     }
     if ($uid != $user->uid && isset($getuser)) {///follow
         $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow</a><span class="separate"></span> ';

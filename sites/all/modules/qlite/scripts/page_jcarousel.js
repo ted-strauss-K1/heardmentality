@@ -148,7 +148,7 @@ function removehighlight(carousel, obejctli,liindex,listate){
 };
 
 function mycarousel_itemLastInCallback(carousel, item, idx, state) {
-jQuery(".jcarousel-control a[class*='factmore']").removeAttr("class");
-jQuery(".jcarousel-control a[title*='"+idx+"']").prev().attr("class","factmore");
+jQuery(".jcarousel-control a[class*='reputation-score']").removeAttr("class");
+jQuery(".jcarousel-control a[name*='"+idx+"']").prev().attr("class","reputation-score");
 
 };
