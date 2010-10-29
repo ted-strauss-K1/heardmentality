@@ -575,13 +575,13 @@ function qlite_view() {
         $x = $x + $fcnt['wcnt'];
     }
 
-
+//tab
     $voutput .= $submitbutt . '
                   <div >
                 <ul>
-                  <li><a href="#Forum" onclick=""  title="Bookmark">' . $x . ' comments</a></li>
+                  <li id="vmaintabs1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" id="com"   title="Bookmark">' . $x . ' comments</a></li>
                   <li>|</li>
-                  <li><a href="#Resources" onclick=""  title="Invite">' . $numres . ' Resources</a></li>
+                  <li id="vmaintabs2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" id="com2"   title="Invite">' . $numres . ' Resources</a></li>
                   </ul>
               </div>
                 </div>
@@ -643,15 +643,15 @@ function qlite_view() {
         </div>
            </div>';
     } else {
-
+////here
         $voutput .= '<div class="clr"></div>
 	<div id="rotate">
         <br/>
               <ul id="maintabs" class="mytabs" >
-              <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
+              <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
                <li><a id="AF" href=\'\' onClick="alert(\'Please vote the above question\');return false;"><span >Reporting</span></a></li>
-                <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
-                <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
+                <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
+                <li id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
 		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits</span></a></li>
               </ul>
               <div class="mytabs-container" id="tabcontent">
@@ -1537,7 +1537,6 @@ function panel_content() {
     $fetuserlist = db_fetch_object($query_userinfo);
     switch ($type) {
         case "Forum":
-
 
             if (isset($_POST['wtitle']) && !empty($user->uid)) {
 
