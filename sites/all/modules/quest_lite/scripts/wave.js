@@ -117,3 +117,25 @@ function loadflagquestion(url,title)
 	
 	
 }
+
+
+jQuery(document).ready(function(){
+	 $('#vmaintabs1 #com').click(function() {
+             $("#maintabs #in").removeClass("current");
+              $("#maintabs #par2").removeClass("current");
+            $('#maintabs #par1').addClass("current");
+        });
+
+        $('#vmaintabs2 #com2').click(function() {
+             $("#maintabs #in").removeClass("current");
+               $("#maintabs #par1").removeClass("current");
+            $('#maintabs #par2').addClass("current");
+        });
+        });
+
+
+
+//        $("li.y").click(function(){
+//    $("li.x").removeClass("xshown").addClass("xhidden");
+//    $(this).addClass("yshown");
+//});
