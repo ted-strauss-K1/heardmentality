@@ -14,7 +14,8 @@ $optionlist.=' <option value="0" >Country</option>';
     foreach ($result->results as $country) {
         if($country['countryname']==$q_country)
         {
-            $select = "'selected'";
+           // $select = "'selected'";
+            $select =  "selected=selected";
         }
         else
         {
@@ -62,7 +63,8 @@ if($q_country!='')
 
                     if($state['geonameid']==$q_state)
                     {
-                        $select = "'selected'";
+                       // $select = "'selected'";
+                        $select =  "selected=selected";
                     }
                     else
                     {
@@ -95,7 +97,8 @@ echo'<div id="chg_state">
 
                      if($state['geonameid']==$q_city)
                     {
-                        $select = "'selected'";
+                        //$select = "'selected'";
+                         $select =  "selected=selected";
                     }
                     else
                     {
