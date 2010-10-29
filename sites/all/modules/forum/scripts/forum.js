@@ -213,7 +213,7 @@ function addSubmit(){
     if (cmt.length > 5) {
         jQuery.ajax({
             type: "POST",
-            url: url+'question/forum/savecmt',
+            url: spath+'question/forum/savecmt',
             cache:false,
             data: {
                 'wid': wid,
@@ -338,6 +338,7 @@ jQuery(document).ready(function() {
         if(uid>0){
 
             var id = jQuery(this).attr('href');
+
             jQuery.blockUI({
                 message: jQuery(id),
                 css: {

@@ -2052,7 +2052,7 @@ function question_media() {
 	<br/> --> ';
         if(!empty($usermedia->video_id )){
         $mediaresult .= '<p>
-            <a href="http://www.youtube.com/v/' . $usermedia->video_id . '"  class="floatbox" data-fb-options="width:480 height:384">
+            <a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $usermedia->video_id . '"  class="floatbox" data-fb-options="width:480 height:384">
 <img width="125" height="100" src="http://img.youtube.com/vi/' . $usermedia->video_id . '/default.jpg" alt="Video " ></a></p>';
         }
         $mediaresult .= '
