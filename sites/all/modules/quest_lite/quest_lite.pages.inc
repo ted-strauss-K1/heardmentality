@@ -2051,15 +2051,9 @@ function question_media() {
 	<!--<p><img src="http://img.youtube.com/vi/' . $usermedia->video_id . '/default.jpg" ></p>
 	<br/> --> ';
         if(!empty($usermedia->video_id )){
-        $mediaresult .= '
-	<p>  <object width="425" height="350">
-       <param name="movie" value="http://www.youtube.com/v/' . $usermedia->video_id . '">
-       </param>
-       <embed src="http://www.youtube.com/v/' . $usermedia->video_id . '" type="application/x-shockwave-flash" width="320" height="220">
-       </embed>
-</object>
-
- </p>     ';
+        $mediaresult .= '<p>
+            <a src="http://www.youtube.com/v/' . $usermedia->video_id . '"  class="floatbox" data-fb-options="width:480 height:384">
+<img width="125" height="100" src="http://img.youtube.com/vi/' . $usermedia->video_id . '/default.jpg" alt="Video " ></a></p>';
         }
         $mediaresult .= '
  <div class="clr"></div>

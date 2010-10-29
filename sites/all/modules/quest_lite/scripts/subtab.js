@@ -4,7 +4,7 @@ function tabactive(pmID, pmPath,id)
 	jQuery('#tabIn').parent('li').removeClass('current');
 	jQuery('#tabM').parent('li').removeClass('current');
 	jQuery('#tabF').parent('li').removeClass('current');
-	
+	 jQuery("#loading").fadeIn();
 	jQuery('#tab'+pmID).parent('li').addClass('current');
 		if(pmID == 'In')
 		vPath=pmPath+"qlite/innews/"+id
@@ -12,17 +12,23 @@ function tabactive(pmID, pmPath,id)
 		vPath=pmPath+"qlite/media/"+id
 	else if(pmID == 'F')
 		vPath=pmPath+"qlite/facts/"+id
+                jQuery('#rcontents').html('Loading...');
 
 	jQuery.ajax({
   url: vPath,
   cache: false,
   success: function(response){
-	  
+	  jQuery("#loading").fadeOut();
   jQuery('#rcontents').html(response);
-  }
+   fb.activateElements();
+     }
 });
 }
 
+function loaded()
+{
+    swfobject.embedSWF("myContent.swf", "rcontents", "300", "120", "9.0.0");
+}
 
 
 function loadReport(pmID, pmPath,id)

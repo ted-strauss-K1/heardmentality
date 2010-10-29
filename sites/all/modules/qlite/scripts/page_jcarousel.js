@@ -1,6 +1,6 @@
 function mycarousel_initCallback(carousel) {
    jQuery('.jcarousel-control a').bind('click', function() {
-        carousel.scroll(jQuery.jcarousel.intval(jQuery(this).attr('title')));
+        carousel.scroll(jQuery.jcarousel.intval(jQuery(this).attr('name')));
         return false;
     });
 
@@ -123,6 +123,7 @@ jQuery(document).ready(function() {
     jQuery('#mycarousel').jcarousel({
         initCallback: mycarousel_initCallback,
       visible: 4,
+       itemLastInCallback:   mycarousel_itemLastInCallback,
        // Uncomment the following option if you want items
         // which are outside the visible range to be removed
         // from the DOM.
@@ -132,3 +133,22 @@ jQuery(document).ready(function() {
         itemLoadCallback: mycarousel_itemLoadCallback
     });
 });
+
+
+// it will append class="selected" into <a>
+// <a href="#">1</a> to <a href="#" class="selected">1</a>
+function highlight(carousel, obejctli,liindex,listate){
+ ii++;
+};
+// it will remove last selected slide from <a>
+// <a href="#" class="selected">1</a> to <a href="#">1</a>
+function removehighlight(carousel, obejctli,liindex,listate){
+   
+     jQuery('.jcarousel-control a:nth-child('+ liindex +')').removeAttr("class","selected");
+};
+
+function mycarousel_itemLastInCallback(carousel, item, idx, state) {
+jQuery(".jcarousel-control a[class*='factmore']").removeAttr("class");
+jQuery(".jcarousel-control a[title*='"+idx+"']").prev().attr("class","factmore");
+
+};

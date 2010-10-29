@@ -151,7 +151,7 @@ function UserPicture($mid,$profile='') {
               $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
             if (file_check_location($image_path.'/'.$selected_avatar)) {
-            	$PROFILE_IMAGE ='<img src="'.$ipath.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
+            	$PROFILE_IMAGE ='<img src="'.$ipath.'" alt="avatar" ALIGN=ABSMIDDLE width="65"  height="56" >';
               //  $PROFILE_IMAGE = theme('image',$ipath);
             } else {
                $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';

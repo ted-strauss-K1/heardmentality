@@ -225,12 +225,12 @@ function get_top_pundits() {
       $mul=1;
     for($i=1;$i<=$total;$i++){
              
-             $page .= '<a href="#" title="'.$mul.'">'.$i.'</a>';
+             $page .= '<a href="#" name="'.$mul.'">'.$i.'</a>';
              $mul=$mul+$limit;
                   $mul--;
        }
        if($mod)
-           $page.='<a href="#" title="'.$mul.'">'.$i.'</a>';
+           $page.='<a href="#" name="'.$mul.'">'.$i.'</a>';
     }
   $output_pager = '<span class="jcarousel-control">'.$page.'</span>';
 
