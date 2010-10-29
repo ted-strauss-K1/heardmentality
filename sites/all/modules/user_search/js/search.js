@@ -331,24 +331,4 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabc
         });
 						
 						
-							
-jQuery(document).ready(function(){
-	 $('#vmaintabs1 #com').click(function() {
 
-         alert("hi");
-         return false;
-
-            // $("#maintabs #in").removeClass("current");
-             // $("#maintabs #par2").removeClass("current");
-           // $('#maintabs #par1').addClass("current");
-
-        });
-
-//        $('#vmaintabs2 #com2').click(function() {
-//             $("#maintabs #in").removeClass("current");
-//               $("#maintabs #par1").removeClass("current");
-//            $('#maintabs #par2').addClass("current");
-//        });
-
-
-        });
