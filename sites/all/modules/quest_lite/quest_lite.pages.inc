@@ -623,7 +623,7 @@ function qlite_view() {
     $voteqry = "SELECT * FROM possible_answer_vote where qid='" . $qid . "'";
     $votelist = db_query($voteqry);
     $fetvote = db_fetch_object($votelist);
-
+    $pundit_cnt=count(getAnsweredUsers($qid));
     if ($numran != 0) {
 
 
@@ -634,7 +634,7 @@ function qlite_view() {
              <li class="current"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
-				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits</span></a></li>
+				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits ('.$pundit_cnt.')</span></a></li>
 				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
 				  
               </ul>
@@ -652,7 +652,7 @@ function qlite_view() {
                <li><a id="AF" href=\'\' onClick="alert(\'Please vote the above question\');return false;"><span >Reporting</span></a></li>
                 <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
-		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits</span></a></li>
+		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits ('.$pundit_cnt.')</span></a></li>
               </ul>
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
