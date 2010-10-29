@@ -1,5 +1,5 @@
 
-var tabarray=['#tabs,#tabs-container','#maintabs,#tabcontent','#tabmenu,#rcontents'];
+var tabarray=['#tabs,#tabs-container','#maintabs,#tabcontent','#vmaintabs1,#tabcontent','#vmaintabs2,#tabcontent','#tabmenu,#rcontents'];
 $(document).ready(function(){
     // Preload tab on page load
     jQuery.each(tabarray,function(e){
