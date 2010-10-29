@@ -1458,7 +1458,6 @@ function google_map() {
             //echo $total_users = db_result($userslist);
 
             $get_ans = db_query('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 AND up.country REGEXP \'[^0-9]\'  group BY up.country', time() - $time_period);
-            
             $first = 0;
             while ($geoans = db_fetch_object($get_ans)) {
                 $first = $first + 1;
@@ -1473,7 +1472,7 @@ function google_map() {
 //            //$assuser .=  'data.setValue(5, 1,'.$geomapeach['uid'].');';
 //             }
             break;
-        case 'google/map/questions':
+           case 'google/map/questions':
             $variable = "Questions";
             // $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
 
