@@ -63,7 +63,8 @@ $query = array('query'=>$_REQUEST['q_country'],'maxRows'=>'1','featureclass'=>'S
 
                     if($state['geonameid']==$q_state)
                     {
-                        $select = "'selected'";
+                        //$select = "'selected'";
+                        $select =  "selected='selected'";
                     }
                     else
                     {
@@ -96,7 +97,8 @@ echo'<div id="chg_state">
 
                      if($state['geonameid']==$q_city)
                     {
-                        $select = "'selected'";
+                       // $select = "'selected'";
+                        $select =  "selected='selected'";
                     }
                     else
                     {
