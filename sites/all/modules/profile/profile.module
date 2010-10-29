@@ -199,7 +199,9 @@ function UserPicture_small($mid) {
     $default = $gSitePath.drupal_get_path('module', 'profile').'/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
         case '2':
-            $image_path = file_create_path('avatar_selection');
+          $image_path = file_create_path('avatar_selection');
+         
+          //  $image_path=file_directory_path().'/avatar_selection';
             $selected_avatar = $resultimage->avatar;
             $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
