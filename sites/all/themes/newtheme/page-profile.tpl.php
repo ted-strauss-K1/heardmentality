@@ -13,9 +13,8 @@
 	  
 	  
       <div class="commu-profile">
-          <div class="facttop">
+          <div class="commutop-profile">
   CONTRIBUTOR
-            
           </div>
              <div class="inner2">
        <?php echo $content;?>
