@@ -534,6 +534,7 @@ function profile($uid = '') {
       $strReturn .= '
 <div class="profile-left">
     <form action="' . $gSitePath . 'postmessage" method="post" id="proform"><div align="left" style="display: none;" id="showboxcmt"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="msgs"></textarea><input type="hidden" value="" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg"></div></form>
+        
 <div class="profile-img">
 <div class="profile-imgs">
 '.UserPicture($uid).'
