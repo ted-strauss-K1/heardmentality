@@ -1,5 +1,6 @@
 <?php
 error_reporting(0);
+
 $txt_search = $_REQUEST['txt_search'];
 $q_country = $_REQUEST['q_country'];
 $q_state = $_REQUEST['q_state'];
@@ -15,7 +16,8 @@ $optionlist.=' <option value="0" >Country</option>';
         //if($country['countrycode']==$q_country)
         if($country['countryname']==$q_country)
         {
-            $select = "'selected'";
+            //$select = "'selected'";
+           $select =  "selected='selected'";
         }
         else
         {
