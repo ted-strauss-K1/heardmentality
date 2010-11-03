@@ -450,7 +450,6 @@ if($user->uid>0){
 
 	
     if ($uid != $user->uid) {
-    	
         $share = '<a href="javascript:void(0);" onclick="loadflagquestion(\'' . $gSitePath . 'qlite/flag/?uid=' . $uid . '\',\'Report \');
 ">Report</a><span class="separate">|</span>';
         $flinkflw = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow </a><span class="separate">|</span> ';
@@ -465,9 +464,6 @@ if($user->uid>0){
    $inc =  '<li>&nbsp;<img src="'.$gSitePath.path_to_theme().'/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;'.$inc.'</li>';
    $inc_msg='  <li><a href="'.  check_plain(request_uri()).'?tag=msg">Message['.$cnt_msg.']</a></li>';
    }
-
-
-
     drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
 ///content starts
  if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE)) {
@@ -523,6 +519,7 @@ if($user->uid>0){
 </div>
 </div>*/
 
+  
 
        $strReturn .= '
     <div class="bor_bot">
@@ -533,7 +530,9 @@ if($user->uid>0){
       </div>';
 
 
-    
+
+       echo $rem_value = $dob1%5;
+
       $strReturn .= '
 <div class="profile-left">
     <form action="' . $gSitePath . 'postmessage" method="post" id="proform"><div align="left" style="display: none;" id="showboxcmt"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="msgs"></textarea><input type="hidden" value="" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg"></div></form>
