@@ -11,3 +11,12 @@ function loadtab(url,title)
   parent.fb.start(url, options);
 		
 }
+
+jQuery(document).ready(function(){
+	 $('.fa-item a').click(function() {
+        //$('#box1').css("background","#9f9");
+        $(".fa-item a").css('color', '#996600');
+        $(this).css('color', '#4170A0');
+
+        });
+        });
