@@ -316,6 +316,10 @@ function profile($uid = '') {
         {
             $ethnic = "-";
         }
+         if($slant=='')
+        {
+            $slant = "-";
+        }
         
 
     
