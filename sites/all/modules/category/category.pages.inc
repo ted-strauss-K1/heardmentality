@@ -189,7 +189,8 @@ function cat_add_submit($form, &$form_state) {
     global $language,$gSitePath;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     //$result = db_query("INSERT INTO {category} set cat_name='".$form_state['values']['cname']."'");
-    $result = db_query("INSERT INTO {category} (cat_name,parent_id) VALUES ('%s', %d)", $form_state['values']['cname'], $nid);
+     $html_special =   addslashes($form_state['values']['cname']);
+    $result = db_query("INSERT INTO {category} (cat_name,parent_id) VALUES ('%s', %d)", $html_special, $nid);
     drupal_set_message(t('Category added successfully!'), 'success');
     
     $form_state['redirect'] = $gSitePath.'admin/category/';
