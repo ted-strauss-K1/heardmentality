@@ -48,7 +48,7 @@ function validMashup(frm)
 	}
 	else
 	{
-		return false;
+		return true;
 	}
-	return false;	
+	return false;
 }

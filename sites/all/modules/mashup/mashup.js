@@ -2,10 +2,11 @@
 
 function loadWidgetMootools(pmAPIKey,pmDivId)
 {
+    surl="http://216.139.157.254/openwave/hm/mashup/xml/"+pmAPIKey;
 	/* ajax alert */
 	var req = new Request({
 		method: 'post',
-		url: "http://59.144.131.196/heardmentality/mashup/xml/"+pmAPIKey,
+		url: surl,
 		data: { 'id' :  pmAPIKey},
 		headers: {'X-Request': 'XML'},
 		onComplete: function(response) { 
@@ -18,14 +19,16 @@ function loadWidgetMootools(pmAPIKey,pmDivId)
 }
 function loadWidgetJquery(pmAPIKey,pmDivId)
 {
-	vParam	= 'id='+pmAPIKey
+surl="http://216.139.157.254/openwave/hm/mashup/xml/"+pmAPIKey;
+	vParam	= 'id='+pmAPIKey;
 	/* ajax alert */
-	jQuery.ajax({
-		url: "http://59.144.131.196/heardmentality/mashup/xml/"+pmAPIKey,
+	jQuery.get({
+		url: surl,
 		data: vParam,
 		type: 'POST',
 		dataType: 'xml',
 		success:function( response ){
+                    alert(response);
 			vContent=contentWidjet(response)
 			jQuery("#"+pmDivId).html(vContent)
 		}
