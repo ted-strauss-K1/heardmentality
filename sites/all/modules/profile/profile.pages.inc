@@ -555,7 +555,7 @@ if($user->uid>0){
         $rem_value = $dob1%5;
         $rem_first = $dob1 - $rem_value;
         $rem_second = $rem_first + 5;
-        $dob1 = $rem_first.' - '. $rem_second;
+        $dob1 = 'Between '.$rem_first.' - '. $rem_second;
         }
         else
         {
