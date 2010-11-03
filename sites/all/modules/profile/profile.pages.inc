@@ -479,6 +479,7 @@ if($user->uid>0){
     drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
 ///content starts
  if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE)) {
+     echo "hi vijay";
         $following = '';
         $newlist = followinglist($uid);
         echo count($newlist);
