@@ -28,7 +28,9 @@ if (!empty($_REQUEST['sscid'])) {
     $sscid = $_REQUEST['sscid'];
 }
 $catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
+
 $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
+
 $listcat = ExecuteQuery($sel_cat, "select");
 if (!empty($listcat)) {
     foreach ($listcat as $cat) {
@@ -36,11 +38,13 @@ if (!empty($listcat)) {
         if ($cid == $cat['cat_id']) {
             $style = 'class="sidelinks"';
         }
-       $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' . $cat['cntc'] . ']</a></span><br/>';
+        $count_row3 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$cat[cat_id]) AND reg.status=1 and reg.uid<>1 and reg.uid=fol.uid group by fol.uid"));
+       $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' .$count_row3 . ']</a></span><br/>';
        
         //subcat list
         if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
            // $catlist.='<ul>';
+           
             $sel_scat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $cat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
             $listscat = ExecuteQuery($sel_scat, "select");
             foreach ($listscat as $scat) {
@@ -48,12 +52,14 @@ if (!empty($listcat)) {
                 if ($scid == $scat['cat_id']) {
                     $style = 'style="font-weight:bold"'; 
                 }
+                $count_row =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$scat[cat_id]) AND reg.status=1 and reg.uid<>1 and reg.uid=fol.uid group by fol.uid"));
                 $style = 'class="sidelinks"';
-               $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $scat['cntc'] . ']</a></span><br/>';
+               $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' .$count_row. ']</a></span><br/>';
        
                 //sub subcat list
                 if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
                     //$catlist.='<ul>';
+                   
                     $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
                     $listsscat = ExecuteQuery($sel_sscat, "select");
                     foreach ($listsscat as $sscat) {
@@ -61,8 +67,9 @@ if (!empty($listcat)) {
                         if ($sscid == $sscat['cat_id']) {
                             $style = 'style="font-weight:bold"';
                         }
+                       $count_row1 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$sscat[cat_id]) AND reg.status=1 and reg.uid<>1 and reg.uid=fol.uid group by fol.uid"));
                         $style = 'class="sidelinks"';
-                        $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $sscat['cntc'] . ']</a></span><br/>';
+                        $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' .$count_row1 . ']</a></span><br/>';
                         
                     }
                    // $catlist.='</ul>';
