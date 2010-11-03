@@ -481,6 +481,7 @@ if($user->uid>0){
  if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE)) {
         $following = '';
         $newlist = followinglist($uid);
+        echo count($newlist);
         if(count($newlist)>0)
         {
             for ($i = 0; $i < count($newlist); $i++) {
