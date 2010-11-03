@@ -121,7 +121,7 @@ function cat_add() {
 function cat_edit() {
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $iscat = treemenu_get($nid);
-    $form['cname'] = array('#type'=>'textfield', '#title'=>t('Category Name'), '#size'=>60, '#default_value'=>$iscat->cat_name, '#maxlength'=>50, '#required'=>TRUE, );
+    $form['cname'] = array('#type'=>'textfield', '#title'=>t('Category Name'), '#size'=>60, '#default_value'=>stripslashes($iscat->cat_name), '#maxlength'=>50, '#required'=>TRUE, );
     $form['submit'] = array('#type'=>'submit', '#value'=>t('Update'));
     $form['#validate'][] = 'cat_edit_validate';
     $form['cancel'] = array('#type'=>'button', '#attributes'=>array('onClick'=>'location.replace("'.referer_uri().'"); return false;'), '#value'=>t('Back'), );
