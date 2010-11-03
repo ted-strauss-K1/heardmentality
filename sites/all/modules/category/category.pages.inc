@@ -412,7 +412,7 @@ function admin_sub_menu($id = '', $level = '') {
 
                 
                 // $strReturn .= '<li><a href="'.$gSitePath.'searchquestion?cid='.$id.'&scid='.$client_key[$i].'">'.$client_array[$i].' </a>';
-                $strReturn .= '<li>'.$client_array[$i].'';
+                $strReturn .= '<li>'.stripslashes($client_array[$i]).'';
                 if (user_access("administer nodes")) {
                     // is admin
                     if ($level == 0) {
