@@ -312,6 +312,14 @@ function profile($uid = '') {
             $religion1 = "-";
         }
     }
+    if($ethnic=='')
+        {
+            $ethnic = "-";
+        }
+        
+
+    
+
     if (($userSettings['image'] == 1) || ($userSettings['image'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['image'] == 2 && $is_follow_follower == TRUE)) {
         $img_path1 = $gSitePath . drupal_get_path('module', 'profile') . '/snap/' . $image;
         $PROFILE_IMAGE = '<img src="' . $img_path1 . '" align="absmiddle" alt="Profile image" >';
@@ -558,7 +566,7 @@ if($user->uid>0){
 <span class="profile-gray">Age </span>:  ' . $rem_first.' - '. $rem_second . '<br>
 <span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br>
 <span class="profile-gray">Religion</span> : ' . $religion1 . '<br>
-<span class="profile-gray">Ethnicity </span>: -<br>
+<span class="profile-gray">Ethnicity </span>:'.$ethnic.'<br>
 <span class="profile-gray">Slant </span>: ' . $slant . '<br>
 </div>
 </div>
