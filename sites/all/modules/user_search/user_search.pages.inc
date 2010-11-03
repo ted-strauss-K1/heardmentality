@@ -31,7 +31,11 @@ function search_results() {
     $name = $_REQUEST['txt_search'];
     $q_country = $_REQUEST['q_country'];
     $q_state = $_REQUEST['q_state'];
+    
+    $cid = $_REQUEST['cid'];
+    $scid = $_REQUEST['scid'];
 
+    
     if ($_REQUEST['code']!='') {
         $code = $_REQUEST['code'];
     }
@@ -39,21 +43,53 @@ function search_results() {
     $qry = '';
     if($name!='')
         $qry .= "(img.real_name LIKE '" . $name . "%') AND ";
+    
     if($_REQUEST['code']!='')
         $qry .= "(img.country ='" . $code . "') AND ";
 
     if($_REQUEST['q_country']!='')
         $qry .= "(img.country ='" . $q_country . "') AND ";
+
     if($_REQUEST['q_state']!='')
         $qry .= "(img.state ='" . $q_state . "') AND ";
+    
     if($_REQUEST['q_city']!='')
         $qry .= "(img.city ='" . $q_city . "') AND ";
      
 
+   
+//SELECT * FROM users reg, user_profile img, follower fol WHERE (fol.cat_id ='1') AND reg.status='1' and reg.uid=fol.uid group by fol.uid
     if ($user->uid != '')
-         $sel = "SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1' ";
+    {
+            if($_REQUEST['cid']!=''){
+
+                if($scid!='')
+                    $c_qry .= "AND (fol.cat_id=$scid)";
+                
+                $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid<>$user->uid and reg.uid=fol.uid $c_qry group by fol.uid";
+            }
+            else{
+                $qry_form = "img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
+            }
+
+                
+          $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+    }
     else
-        $sel = "SELECT * FROM {users} reg,{user_profile} img WHERE $qry reg.status='1' and img.uid=reg.uid  ";
+    {
+            
+        if($_REQUEST['cid']!=''){
+                if($scid!='')
+                    $c_qry .= "AND (fol.cat_id=$scid)";
+                
+                $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
+            }
+            else{
+                $qry_form = "img WHERE $qry reg.status='1' and img.uid=reg.uid";
+            }
+
+       $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+    }
    
    
    //  echo $sel;

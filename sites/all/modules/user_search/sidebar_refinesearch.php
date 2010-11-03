@@ -4,6 +4,8 @@
 $q_country = $_REQUEST['q_country'];
 $q_state = $_REQUEST['q_state'];
 $q_city = $_REQUEST['q_city'];
+$cid = $_REQUEST['cid'];
+$scid = $_REQUEST['scid'];
 
 $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
     $result = geonames_query('countryinfo',NULL,$options);
@@ -28,7 +30,7 @@ $optionlist.=' <option value="0" >Country</option>';
 
     /*onchange="click_submit(this.value,<?php echo $_GET['permission']?>)"*/?>
  <div class="listmenu">
-<select name="q_country" class="listbox" style="width: 125px;" tabindex="16"  onchange="get_stateuser(this.value,'<?php echo $txt_search; ?>')" id="q_country"><?php echo  $optionlist ?></select>
+<select name="q_country" class="listbox" style="width: 125px;" tabindex="16"  onchange="get_stateuser(this.value,'<?php echo $txt_search; ?>','<?php echo $cid; ?>','<?php echo $scid; ?>')" id="q_country"><?php echo  $optionlist ?></select>
  </div>
 <?php
 //echo '<input type="hidden" name="q_country" value='.$q_country.'/>';
@@ -57,7 +59,7 @@ if($q_country!='')
                 $q_country = $_GET['q_country'];
                 ?>
                <div class="listmenu">
-                <select tabindex="18" class="listbox" style="width: 125px;" onchange="get_cityuser(this.value,'<?php echo $txt_search ?>','<?php echo $q_country ?>')"  id="q_state" name="q_state"> <option value="">--States--</option>
+                <select tabindex="18" class="listbox" style="width: 125px;" onchange="get_cityuser(this.value,'<?php echo $txt_search ?>','<?php echo $q_country ?>','<?php echo $cid ?>','<?php echo $scid ?>')"  id="q_state" name="q_state"> <option value="">--States--</option>
                     <?php
                 foreach ($result->results as $state) {
 
@@ -90,7 +92,7 @@ echo'<div id="chg_state">
                 //print_r($result);
                 ?>
                     <div class="listmenu">
-                <select class="listbox"  tabindex="19" onchange="get_user(this.value,'<?php echo $txt_search ?>','<?php echo $q_country ?>','<?php echo $q_state ?>')"  style="width: 125px;"  id="q_city" name="q_city">
+                <select class="listbox"  tabindex="19" onchange="get_user(this.value,'<?php echo $txt_search ?>','<?php echo $q_country ?>','<?php echo $q_state ?>','<?php echo $cid ?>','<?php echo $scid ?>')"  style="width: 125px;"  id="q_city" name="q_city">
                     <?php
                  $ret = '<option value="">Cities</option> ';
                 foreach ($result->results as $state) {
