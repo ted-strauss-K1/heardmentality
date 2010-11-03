@@ -555,7 +555,7 @@ if($user->uid>0){
 <span class="profile-gray">Name </span>: ' .$real_name1 . '<br>
 
 <span class="profile-gray">Location </span>: ' . $country1 .'<br>
-<span class="profile-gray">Age </span>:  ' . $rem_first - $rem_second . '<br>
+<span class="profile-gray">Age </span>:  ' . $rem_first.' - '. $rem_second . '<br>
 <span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br>
 <span class="profile-gray">Religion</span> : ' . $religion1 . '<br>
 <span class="profile-gray">Ethnicity </span>: -<br>
