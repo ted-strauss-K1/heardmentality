@@ -478,37 +478,29 @@ if($user->uid>0){
    }
     drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
 ///content starts
- if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE)) {
-     echo "hi vijay";
+ //if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE))
+   //      {
+     
         $following = '';
         $newlist = followinglist($uid);
-        echo count($newlist);
-        if(count($newlist)>0)
-        {
+      
+        
             for ($i = 0; $i < count($newlist); $i++) {
                 $following .= '' . $newlist[$i] . '';
             }
-        }
-        else
-        {
-            $following = 'No records found';
-        }
-    }
-        if (($userSettings['followers'] == 1) || ($userSettings['followers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['followers'] == 2 && $is_follow_follower == TRUE)) {
+       
+  //  }
+ //if (($userSettings['followers'] == 1) || ($userSettings['followers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['followers'] == 2 && $is_follow_follower == TRUE))
+   //     {
 
         $follower = '';
         $newlist2 = followerlist($uid);
-        if(count($newlist2)>0)
-        {
+        
         for ($k = 0; $k < count($newlist2); $k++) {
             $follower .= '' . $newlist2[$k] . '';
         }
-        }
-        else
-        {
-            $follower = 'No records found';
-        }
-    }
+        
+   // }
 
    
 
