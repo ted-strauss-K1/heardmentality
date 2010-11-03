@@ -579,9 +579,9 @@ function qlite_view() {
     $voutput .= $submitbutt . '
                   <div >
                 <ul>
-                  <li id="vmaintabs1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" id="com"   title="Bookmark">' . $x . ' comments</a></li>
+                  <li id="vmaintabs1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" id="com"   title="Comments">' . $x . ' comments</a></li>
                   <li>|</li>
-                  <li id="vmaintabs2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" id="com2"   title="Invite">' . $numres . ' Resources</a></li>
+                  <li id="vmaintabs2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" id="com2"   title="Resources">' . $numres . ' Resources</a></li>
                   </ul>
               </div>
                 </div>
