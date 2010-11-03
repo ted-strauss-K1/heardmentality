@@ -123,7 +123,7 @@ function wave_form(){
     jQuery.post( jQuery("#newwaveform").attr('action'), jQuery("#newwaveform").serialize(),
         function(data){
             wt.val('');
-          post.val('');
+          wc.val('');
              $('#qwave').html(data);
             jQuery.unblockUI();
             jQuery.growlUI('', 'Have a nice day!');

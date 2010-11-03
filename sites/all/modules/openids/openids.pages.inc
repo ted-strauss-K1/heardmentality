@@ -928,7 +928,7 @@ jQuery.noConflict();
                  <div class="w1">First Name:</div>
                  <div class="w2">
                  <input id="fname" name="fname" class="txtbx" value="' . $first_name . '" size="8" tabindex="2" type="text"> <input id="lname" name="lname" class="txtbx" value="' . $last_name . '" size="12" tabindex="3" type="text">
-  </
+  </div>
                  <div class="w3"><input name="name_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="name_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="name_privacy" type="radio" value="3" /></div>

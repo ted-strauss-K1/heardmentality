@@ -1957,7 +1957,7 @@ function question_news() {
         }
         $opkt=array();
         foreach ($valuesresult as $opkt) {
-            print_r($opkt);
+           // print_r($opkt);
             $like = '';
             $flag = '';
             $post = '';
