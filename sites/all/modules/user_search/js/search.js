@@ -111,19 +111,19 @@ function get_statequestion(q_country,txt_search,cid){
 
  window.location = gSitePath+"searchquestion?q_country="+q_country+"&txt_search="+txt_search+"&cid="+cid;
 }
-function get_stateuser(q_country,txt_search){
+function get_stateuser(q_country,txt_search,cid,scid){
  //document.thisform.submit();
 
-window.location = gSitePath+"searchuser?q_country="+q_country+"&txt_search="+txt_search;
+window.location = gSitePath+"searchuser?q_country="+q_country+"&txt_search="+txt_search+"&cid="+cid+"&scid="+scid;
 }
 
 function get_cityquestion(q_state,txt_search,cid,q_country){
  //document.thisform.submit();
  window.location = gSitePath+"searchquestion?q_state="+q_state+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country;
 }
-function get_cityuser(q_state,txt_search,q_country){
+function get_cityuser(q_state,txt_search,q_country,cid,scid){
  //document.thisform.submit();
- window.location = gSitePath+"searchuser?q_state="+q_state+"&txt_search="+txt_search+"&q_country="+q_country;
+ window.location = gSitePath+"searchuser?q_state="+q_state+"&txt_search="+txt_search+"&q_country="+q_country+"&cid="+cid+"&scid="+scid;
 }
 
 
@@ -131,9 +131,9 @@ function get_question(q_city,txt_search,cid,q_country,q_state){
  //document.thisform.submit();
  window.location = gSitePath+"searchquestion?q_city="+q_city+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country+"&q_state="+q_state;
 }
-function get_user(q_city,txt_search,q_country,q_state){
+function get_user(q_city,txt_search,q_country,q_state,cid,scid){
  //document.thisform.submit();
- window.location = gSitePath+"searchuser?q_city="+q_city+"&txt_search="+txt_search+"&q_country="+q_country+"&q_state="+q_state;
+ window.location = gSitePath+"searchuser?q_city="+q_city+"&txt_search="+txt_search+"&q_country="+q_country+"&q_state="+q_state+"&cid="+cid+"&scid="+scid;
 }
 
 
