@@ -199,7 +199,9 @@ function cat_add_submit($form, &$form_state) {
 function cat_edit_submit($form, &$form_state) {
     global $language,$gSitePath;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $result = db_query("UPDATE  {category} set cat_name='".$form_state['values']['cname']."' where cat_id='".$nid."'");
+ 
+ $html_special =   addslashes($form_state['values']['cname']);
+    $result = db_query("UPDATE  {category} set cat_name='".$html_special."' where cat_id='".$nid."'");
     //  $result =   db_query("INSERT INTO {category} (cat_name,parent_id) VALUES ('%s', %d)", $form_state['values']['cname'],$nid);
     drupal_set_message(t('Category Updated successfully!'), 'success');
     
