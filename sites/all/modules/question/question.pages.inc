@@ -67,7 +67,7 @@ function question_add() {
     $zicode = db_result(db_query("select zip from {user_profile} where uid='$user->uid'"));
     $ustate = db_result(db_query("select state from {user_profile} where uid='$user->uid'"));
     if (! empty($zicode)) {
-        
+        if(empty($ustate)){
         $query = array('postalcode'=>$zicode, 'maxrows'=>1);
         $result = geonames_query('postalcodesearch', $query);
         $state = $result->results;
@@ -80,6 +80,13 @@ function question_add() {
         $fstate = $result->results;
         //print_r($fstate);
         $setstate = $fstate['0']['geonameid'];
+        }else{
+            $udet=load_user($user->uid);
+            
+           $cncode=$udet->country;
+            $setstate=$udet->state;
+            $fcity=$udet->city;
+        }
     }
 
     
@@ -97,6 +104,7 @@ function question_add() {
                     var cncode=\''.$cncode.'\';
                     var ustate=\''.$ustate.'\';
                     var setstate=\''.$setstate.'\';
+                        var setcity=\''.$fcity.'\';
 		</script>
 
 		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
@@ -1066,11 +1074,21 @@ function question_ajax() {
                 $result = geonames_query('countryinfo', $query);
                  $query = array('geonameid'=>$result->results[0]['geonameid']);
                 $result = geonames_query('children', $query);
+
+                if($select&&$user->uid>0){
+                     $udet=load_user($user->uid);
+
+                   $setstate=$udet->state;
+                   $fcity=$udet->city;
+                }
               
                 $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
                 foreach ($result->results as $state) {
-                    
-                    $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
+                    $set='';
+                    if(strpos(strtolower($setstate),  strtolower($state['name']) )){
+                        $set='SELECTED=SELECTED';
+                    }
+                    $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'],$set,$state['name']);
                 }
                 $ret .= "</select>";
                 echo $ret;

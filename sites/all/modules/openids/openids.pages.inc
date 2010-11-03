@@ -720,7 +720,7 @@ function welcome_page() {
                 echo '<script>window.top.location.href="' . $gSitePath . 'user/cropimage";</script>';
             }
 
-            $message = '<div class="success">Profile Updated Successfully!</div><script>fb.end();</script>';
+            $message = '<div class="success">Profile Updated Successfully!</div>';
         }
     }
 

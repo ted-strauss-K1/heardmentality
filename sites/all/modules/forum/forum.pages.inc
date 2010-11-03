@@ -803,8 +803,10 @@ function resforum_list() {
 
         $rid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
         extract($_POST);
-        $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$rid',type='2',uid='$user->uid',title='" . mysql_escape_string($wtitle) . "',private='$wprivate' ");
+    $forum = "INSERT INTO {forum_wave} set qid_rid='$rid',type='2',uid='$user->uid',title='" . mysql_escape_string($wtitle) . "',content='" . mysql_escape_string($wcon) . "',private='$wprivate' ";
+     $nid = ExecuteQuery($forum, 'insert');
         echo list_wave($rid, 2);
+         send_forumnotify($nid, $rid);
         exit;
     } elseif (isset($_POST['wtitle'])) {
         echo '<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
@@ -895,7 +897,10 @@ function resforum_list() {
 <div class="clr"></div>
 <div class="comment-area">
 	<form  id="newwaveform" class="newwave" action="' . url($_GET['q'], array('absolute' => true)) . '" method="post" accept-charset="utf-8">
-	<textarea row="7" class="textArea" cols="55" name="wtitle" id="wtitle" ></textarea>
+            <p><b>Title</b></p>
+        	<p><input type="text" name="wtitle" id="wtitle" value=""/></p>
+                <p><b>Content</b></p>
+	<textarea row="7" class="textArea" cols="40" name="wcon" id="wcon" ></textarea>
         <div class="clr"></div>
 
 <div class="adcomment-outer">

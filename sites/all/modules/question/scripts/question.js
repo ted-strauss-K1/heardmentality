@@ -2,6 +2,8 @@
 jQuery(document).ready( function() {
     jQuery('#q_cat').multiSelect();
     setDefaultCountry(cncode);
+    get_state(cncode);
+                get_city(setstate);
 });
 /*
 		(function($) {
@@ -31,8 +33,7 @@ function setDefaultCountry(cn) {
             if (countrySelect[i].value == cn) {
                 // set the country selectionfield
                 countrySelect.selectedIndex = i;
-                get_state(cn);
-                get_city(setstate);
+                
             }
         }
 
@@ -41,6 +42,7 @@ function setDefaultCountry(cn) {
         var stateSelect = document.getElementById("q_state");
         for (i=0;i< stateSelect.length;i++) {
             if (stateSelect[i].value == ustate) {
+               
                 // set the country selectionfield
                 stateSelect.selectedIndex = i;
                 get_city(setstate);
@@ -63,10 +65,18 @@ function get_state(code){
         url: url,
         data: {
             'action': 1,
-            'code' :code
+            'code' :code,
+             'select':1
         },
         success: function(msg){
             jQuery('#chg_state').html(msg);
+            
+            if(setstate.length>1){
+             
+          //jQuery("#q_state option").each(function(){jQuery(this).text(escape(jQuery(this).text()));});
+                    //jQuery("#q_state option:contains('tamil nadu')").attr("selected","selected") ;
+                        //jQuery(this).text().toLowerCase()
+            }
         }
     });
 
@@ -84,7 +94,8 @@ function get_city(code){
         url: url,
         data: {
             'action': 2,
-            'code' :code
+            'code' :code,
+            'select':1
         },
         success: function(msg){
             jQuery('#chg_city').html(msg);

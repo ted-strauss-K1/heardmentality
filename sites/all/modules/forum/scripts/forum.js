@@ -90,23 +90,40 @@ function bind_clk(){
 function wave_form(){
     //Prevents the default submit event from loading a new page.
     //e.stop();
-    var wt=$('#newwavediv .textArea');
-    var formwave=$('#newwaveform');
-    var post=wt.val();
-    if(post.trim().length<5){
-		
-        wt.css('border-color','#EF2C2C');
-        wt.attr('id','wtitlerror');
-        return false;
-    }else{
-			
-        wt.attr('id','wtitle');
-    }
- 
+   var wt=jQuery('#newwaveform').find('#wtitle');
+		var wc=jQuery('#newwaveform').find('#wcon');
+                 var wt=jQuery('#newwaveform').find('#wtitle');
+
+                var wtitle=wt.val();
+		var post=wc.val();
+		var formwave=jQuery('#newwaveform');
+
+           if(jQuery.trim(wtitle).length<2){
+
+			wt.css("border-color","red");
+
+			return false;
+		}else{
+
+	wt.css("border-color","");
+		}
+
+
+		if(jQuery.trim(post).length<8){
+
+			wc.css("border-color","red");
+		wc.removeClass('txtare');
+			return false;
+		}else{
+
+	wc.addClass('txtare');
+		}
+
 
     jQuery.post( jQuery("#newwaveform").attr('action'), jQuery("#newwaveform").serialize(),
         function(data){
             wt.val('');
+          post.val('');
              $('#qwave').html(data);
             jQuery.unblockUI();
             jQuery.growlUI('', 'Have a nice day!');
