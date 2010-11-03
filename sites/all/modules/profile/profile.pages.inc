@@ -531,7 +531,9 @@ if($user->uid>0){
 
 
 
-       echo $rem_value = $dob1%5;
+        $rem_value = $dob1%5;
+        $rem_first = $dob1 - $rem_value;
+         $rem_second = $rem_first + 5;
 
       $strReturn .= '
 <div class="profile-left">
@@ -553,7 +555,7 @@ if($user->uid>0){
 <span class="profile-gray">Name </span>: ' .$real_name1 . '<br>
 
 <span class="profile-gray">Location </span>: ' . $country1 .'<br>
-<span class="profile-gray">Age </span>:  ' . $dob1 . '<br>
+<span class="profile-gray">Age </span>:  ' . $rem_first - $rem_second . '<br>
 <span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br>
 <span class="profile-gray">Religion</span> : ' . $religion1 . '<br>
 <span class="profile-gray">Ethnicity </span>: -<br>
