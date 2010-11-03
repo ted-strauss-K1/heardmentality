@@ -228,10 +228,8 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel
                                         <div class="date-time">
 
 <?php
-        $timezone = new DateTimeZone("America/New_York");
-        $date = new DateTime();
-        $date->setTimezone($timezone);
-        echo $date->format("F j,Y | g:i a T");
+       echo $changetime = zonechange(18, 0);
+            
 ?>
                                         </div>
                                     </div>

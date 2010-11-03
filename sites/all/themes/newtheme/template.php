@@ -24,6 +24,23 @@ function phptemplate_body_class($left, $right) {
   }
 }
 
+
+function zonechange ($current, $target) {
+
+    $timezone = new DateTimeZone("America/New_York");
+      $date = new DateTime();
+        $date->setTimezone($timezone);
+       return $date->format("F j,Y | g:i a T");
+ /*$utc_str = gmdate("M d Y H:i:s", time());
+ echo $utc = strtotime($utc_str);
+$current = -1 * $current;
+$zonedate = mktime(date('G'), date('i'), date('s'), date('n'),
+date('j'), date('Y'), 1) + (($current + $target) * 3600);
+  return date("F j,Y | g:i a T", $zonedate);
+ 
+
+  */
+}
 /**
  * Return a themed breadcrumb trail.
  *
