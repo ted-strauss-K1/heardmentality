@@ -487,13 +487,24 @@ if($user->uid>0){
                 $following .= '' . $newlist[$i] . '';
             }
         }
+        else
+        {
+            $following = 'No records found';
+        }
     }
         if (($userSettings['followers'] == 1) || ($userSettings['followers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['followers'] == 2 && $is_follow_follower == TRUE)) {
 
         $follower = '';
         $newlist2 = followerlist($uid);
+        if(count($newlist2)>0)
+        {
         for ($k = 0; $k < count($newlist2); $k++) {
             $follower .= '' . $newlist2[$k] . '';
+        }
+        }
+        else
+        {
+            $follower = 'No records found';
         }
     }
 
