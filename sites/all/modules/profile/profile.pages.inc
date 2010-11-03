@@ -481,8 +481,11 @@ if($user->uid>0){
  if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE)) {
         $following = '';
         $newlist = followinglist($uid);
-        for ($i = 0; $i < count($newlist); $i++) {
-            $following .= '' . $newlist[$i] . '';
+        if(count($newlist)>0)
+        {
+            for ($i = 0; $i < count($newlist); $i++) {
+                $following .= '' . $newlist[$i] . '';
+            }
         }
     }
         if (($userSettings['followers'] == 1) || ($userSettings['followers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['followers'] == 2 && $is_follow_follower == TRUE)) {
