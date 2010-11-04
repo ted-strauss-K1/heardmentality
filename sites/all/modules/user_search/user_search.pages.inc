@@ -69,7 +69,7 @@ function search_results() {
                 $qry_form = "img, follower fol where 1 $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
             }
             else{
-                $qry_form = "img WHERE 1 $qry  and img.uid=reg.uid AND reg.status='1'";
+                $qry_form = "img WHERE 1 $qry and img.uid=reg.uid AND reg.status='1'";
             }
 
 
@@ -89,7 +89,7 @@ function search_results() {
 
     
     }
-     $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+   echo  $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
    
    //  echo $sel;
    
