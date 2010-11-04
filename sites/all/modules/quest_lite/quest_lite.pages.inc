@@ -1167,108 +1167,18 @@ function add_resources() {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $resources = '<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/answer.css" type="text/css" />
+    $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite'). '/css/answer.css" type="text/css" />
+         <script src="' . $gSitePath . '/misc/jquery.js"></script>
+<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite'). '/css/fileuploader.css" type="text/css" />
+            <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/fileuploader.js"></script>
+            <script> var spath="'.$gSitePath.'";</script>
+                   	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/jquery.blockUI.js"></script>
 		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-more.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/add_resource.js"></script>
 	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 	';
-    $resources .= '<script type="text/javascript">
-	window.addEvent(\'domready\', function() {
-	
-	if (!window.demo_path) window.demo_path = \'\';
-	var demo_path = window.demo_path;
-	
-	$(\'myForm\').addEvent(\'submit\', function(e) {
-	
-	
-	e.stop();
-	 var cat1 = $(\'rtype\').value;
-		var nlink = $(\'nlink\').value;
-		var mtype = $(\'mtype\').value;
-		var membed = $(\'membed\').value;
-		var docpath = $(\'docpath\').value;
-		var flink = $(\'flink\').value;
-		var err = \'\';
-	    var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
-		 if (cat1==0) 
-        err += \'<li>Please Select Type !</li>\';
-		 if (cat1==1) 
-		 {
-		
-		if (!tomatch.test(nlink))
-		 err += \'<li>Please Enter Link </li>\';		
-	
-		 }
-		if (cat1==2) 
-		 {
-		  if (mtype==0) 
-        err += \'<li>Please Select Media Type !</li>\';
-		
-		if (mtype==1)
-		{
-		 
-		if (!tomatch.test(membed))
-		 err += \'<li>Please Enter YouTube Link </li>\';
-                 if (tomatch.test(membed))
-                 {
-                        var el = $(\'err\');
-                        el.setStyle(\'display\', \'none\');
-                  }
-		}
-		else
-                {
-		 if (docpath.trim().length < 1)
-                 {
-        err += \'<li>Please Select Document !</li>\';
-                   }
-                   if (docpath.trim().length > 1)
-                   {
-                        var el = $(\'err\');
-                         el.setStyle(\'display\', \'none\');
-                   }
-		}
-		}
-		 if (cat1==3) 
-		 {
-	
-		 if (!tomatch.test(flink))
-		 err += \'<li>Please Enter  Fact Link</li>\';		
-	
-		 }
-		 if (err.trim().length > 1) {
-        var el = $(\'err\');
-        el.setStyle(\'background-color\', \'#eeeeee\');
-        el.setStyle(\'height\', \'auto\');
-        el.setStyle(\'color\', \'red\');
-        el.setStyle(\'border\', \'3px solid #dd97a1\');
-        el.setStyle(\'list-style\', \'none\');
-        
-        el.setStyle(\'display\', \'block\');
-        el.set(\'html\', err);
-        el.highlight("#EBCC22");
-          return false;   
-    }	else{ var el = $(\'err\'); el.fade(\'out\');
-el.setStyle(\'display\', \'none\');
-}
-	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
-	
-	this.set(\'send\', {onComplete: function(response) { 
-	log.removeClass(\'ajax-loading\');
-	log.set(\'html\', response);
-	
-	}});
-	
-	this.send();
-	
-	});
-	});
-	
-	
-	
-	</script>
-	';
-
+  
     $resources .= '<div id="log">
 	<div class="facttop2">ADD RESOURCES</div>
 	<div id="log_res"><!-- spanner --></div>
@@ -1276,7 +1186,8 @@ el.setStyle(\'display\', \'none\');
 	<span class="clr"><!-- spanner --></span>';
     $resources .= '<form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'qlite/ajaxadd" enctype="multipart/form-data" ><input type="hidden" name="qaid" value="' . $qid . '"/>
 	
-	<br/><p class="float_lft"> Type	</p><p class="float_lft"> <select name="rtype" class="textfieldm" id="rtype" >
+	<br/><p class="float_lft"> Type	</p><p class="float_lft">
+        <select name="rtype" class="textfieldm" id="rtype" >
 	<option value="0">Select </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
@@ -1284,28 +1195,28 @@ el.setStyle(\'display\', \'none\');
 	</select>  
 	</p>
     <br class="clr"/>
-	<div id="div1">
+	<div id="div1" style="display:none;">
 	<p class="float_lft"> Link </p>
     <p class="float_lft"><input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
 	<br class="clr"/>
 	</div>
 	
-	<div  id="div2">
+	<div  id="div2" style="display:none;">
 	<br/><p class="float_lft"> Type </p><p class="float_lft"><select name="mtype" class="textfieldm" id="mtype"   >
 	<option value="0">Select </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
 	</select> </p>	<br class="clr"/></div>
-	<div id="media"> 
+	<div id="media" style="display:none;">
 	<p class="float_lft">YouTube Link </p><p class="float_lft"><input type="text"  name="membed" id="membed"  class="textfieldm" > </p> <br class="clr"/>
 	</div>
-	<div id="media_div">
-	<p class="float_lft_file"> File </p><p class="float_lft"> <input type="hidden" name="docpath" id="docpath"/><iframe src="' . $gSitePath . 'upload_document.php" width="70" height="30"  frameborder="0" scrolling="no"></iframe></p><br class="clr"/>
+	<div id="media_div" style="display:none;">
+	<p class="float_lft_file"> File </p><p class="float_lft" > <input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div></p><br class="clr"/>
 	</div>
 	
 
 	
-	<div  id="div3">
+	<div  id="div3" style="display:none;">
 	<p class="float_lft"> Link </p><p class="float_lft"><input type="text" name="flink" id="flink" class="textfieldm"/> </p><br class="clr"/>
 	</div>
 	<input type="submit" name="button" id="submitter"  value="Add Resource"  />
