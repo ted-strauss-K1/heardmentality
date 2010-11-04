@@ -28,8 +28,18 @@ if (!empty($_REQUEST['sscid'])) {
     $sscid = $_REQUEST['sscid'];
 }
 $catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
+if (!empty($txt_search)) {
+$sel_user = "select * from user_profile where real_name LIKE '%".$txt_search."%'";
+$listuser = ExecuteQuery($sel_user, "select");
+$user_id = $listuser[0]['uid'];
+}
 
-$sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
+if(!empty($user_id))
+{
+   $sel_cat = "select * from category as c join follower as f on f.cat_id=c.cat_id where f.uid=$user_id";
+}else{
+  $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
+}
 
 $listcat = ExecuteQuery($sel_cat, "select");
 if (!empty($listcat)) {
@@ -39,7 +49,10 @@ if (!empty($listcat)) {
             $style = 'class="sidelinks"';
         }
         $count_row3 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$cat[cat_id]) AND reg.status=1 and reg.uid<>1 and reg.uid=fol.uid group by fol.uid"));
-       $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' .$count_row3 . ']</a></span><br/>';
+        if($count_row3>0){ $count_row3 =  "[$count_row3]";}else{$count_row3='';}
+
+        
+       $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$_GET['q_country'].'&q_state='.$_GET['q_state'].'&q_city='.$_GET['q_city'].'">' . $cat['cat_name'] .$count_row3 . '</a></span><br/>';
        
         //subcat list
         if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
@@ -53,9 +66,11 @@ if (!empty($listcat)) {
                     $style = 'style="font-weight:bold"'; 
                 }
                 $count_row =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$scat[cat_id]) AND reg.status=1 and reg.uid<>1 and reg.uid=fol.uid group by fol.uid"));
+                 if($count_row>0){ $count_row =  "[$count_row]";}else{$count_row='';}
+                 
                 $style = 'class="sidelinks"';
-               $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' .$count_row. ']</a></span><br/>';
-       
+               $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$_GET['q_country'].'&q_state='.$_GET['q_state'].'&q_city'.$_GET['q_city'].'">' . $scat['cat_name'] .$count_row. '</a></span><br/>';
+
                 //sub subcat list
                 if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
                     //$catlist.='<ul>';
@@ -68,8 +83,11 @@ if (!empty($listcat)) {
                             $style = 'style="font-weight:bold"';
                         }
                        $count_row1 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$sscat[cat_id]) AND reg.status=1 and reg.uid<>1 and reg.uid=fol.uid group by fol.uid"));
+                       if($count_row1>0){ $count_row1 =  "[$count_row1]";}else{$count_row1='';}
+
                         $style = 'class="sidelinks"';
-                        $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' .$count_row1 . ']</a></span><br/>';
+      $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$_GET['q_country'].'&q_state='.$_GET['q_state'].'&q_city='.$_GET['q_city'].'">' . $scat['cat_name']  .$count_row1 . '</a></span><br/>';
+               // $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$_GET['q_country'].'&q_state='.$_GET['q_state'].'&q_city='.$_GET['q_city'].'">' . $scat['cat_name'] . '[' .$count_row . ']</a></span><br/>';
                         
                     }
                    // $catlist.='</ul>';

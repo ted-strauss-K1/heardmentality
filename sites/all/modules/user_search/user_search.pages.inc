@@ -73,7 +73,7 @@ function search_results() {
             }
 
                 
-          $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+           $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
     }
     else
     {
@@ -96,10 +96,27 @@ function search_results() {
    
     $user_qry = db_query($sel);
     if ($user->uid != '')
-            
-        $sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'"));
+    {
+             if($_REQUEST['cid']!=''){
+
+                if($scid!='')
+                    $c_qry .= "AND (fol.cat_id=$scid)";
+
+                $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid<>$user->uid and reg.uid=fol.uid $c_qry group by fol.uid";
+                $sel_count =  mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
+            }
+            else{
+                $qry_form = "img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
+                 $sel_count =  db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
+            }
+
+        
+      //$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'"));
+    }
     else
+    {
         $sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
+    }
     $sel .= " limit $eu, $limit";
    
    
@@ -170,6 +187,7 @@ function search_results() {
        </div>  ';
 
     if ($sel_count > $limit) {
+       
 
         $fetresult .= "   <div class='page-n' align='center'>
             <ul><li>";
