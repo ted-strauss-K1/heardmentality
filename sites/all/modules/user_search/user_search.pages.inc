@@ -88,7 +88,7 @@ function search_results() {
                 $qry_form = "img WHERE $qry reg.status='1' and img.uid=reg.uid";
             }
 
-       $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+       echo $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
     }
    
    
