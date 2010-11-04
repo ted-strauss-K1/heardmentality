@@ -109,8 +109,7 @@ if (carousel.prevFirst != null) {
 
 function mycarousel_getItemHTML(item)
 {
-   
-     if(item.url){
+     if(item){
       var html='';
     return '<a  href="' + item.url + '" title="' + item.title + '">'+item.image+'</a>';
      }else{
