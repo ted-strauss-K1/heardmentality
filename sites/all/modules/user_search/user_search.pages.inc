@@ -42,19 +42,19 @@ function search_results() {
      
     $qry = '';
     if($name!='')
-        $qry .= "(img.real_name LIKE '" . $name . "%') AND ";
+        $qry .= "AND (img.real_name LIKE '" . $name . "%')";
     
     if($_REQUEST['code']!='')
-        $qry .= "(img.country ='" . $code . "') AND ";
+        $qry .= "AND (img.country ='" . $code . "')";
 
     if($_REQUEST['q_country']!='')
-        $qry .= "(img.country ='" . $q_country . "') AND ";
+        $qry .= "AND (img.country ='" . $q_country . "')";
 
     if($_REQUEST['q_state']!='')
-        $qry .= "(img.state ='" . $q_state . "') AND ";
+        $qry .= "AND (img.state ='" . $q_state . "')";
     
     if($_REQUEST['q_city']!='')
-        $qry .= "(img.city ='" . $q_city . "') AND ";
+        $qry .= "AND (img.city ='" . $q_city . "')";
      
 
    
@@ -66,10 +66,10 @@ function search_results() {
                 if($scid!='')
                     $c_qry .= "AND (fol.cat_id=$scid)";
                 
-                $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid<>$user->uid and reg.uid=fol.uid $c_qry group by fol.uid";
+                $qry_form = "img, follower fol where 1 $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid<>$user->uid and reg.uid=fol.uid $c_qry group by fol.uid";
             }
             else{
-                $qry_form = "img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
+                $qry_form = "img WHERE 1 $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
             }
 
 
@@ -81,10 +81,10 @@ function search_results() {
                 if($scid!='')
                     $c_qry .= "AND (fol.cat_id=$scid)";
                 
-                $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
+                $qry_form = "img, follower fol where 1 $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
             }
             else{
-                $qry_form = "img WHERE $qry reg.status='1' and img.uid=reg.uid";
+                $qry_form = "img WHERE 1 $qry reg.status='1' and img.uid=reg.uid";
             }
 
     
