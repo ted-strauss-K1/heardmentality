@@ -106,11 +106,11 @@ function search_results() {
                 if($scid!='')
                     $c_qry .= "AND (fol.cat_id=$scid)";
 
-                $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid<>$user->uid and reg.uid=fol.uid $c_qry group by fol.uid";
+                $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
                 $sel_count =  mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
             }
             else{
-                $qry_form = "img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
+                $qry_form = "img WHERE $qry and img.uid=reg.uid AND reg.status='1'";
                  $sel_count =  db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
             }
 
@@ -130,7 +130,7 @@ function search_results() {
                 $sel_count =  mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
             }
             else{
-                 $qry_form = "img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
+                 $qry_form = "img WHERE $qry and img.uid=reg.uid AND reg.status='1'";
                  $sel_count =  db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
             }
 
