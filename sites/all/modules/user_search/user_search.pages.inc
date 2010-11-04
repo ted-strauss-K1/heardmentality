@@ -72,8 +72,7 @@ function search_results() {
                 $qry_form = "img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
             }
 
-                
-           $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+
     }
     else
     {
@@ -88,13 +87,18 @@ function search_results() {
                 $qry_form = "img WHERE $qry reg.status='1' and img.uid=reg.uid";
             }
 
-       $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+    
     }
-   
+     $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
    
    //  echo $sel;
    
     $user_qry = db_query($sel);
+
+
+    $sel_count=ExecuteQuery($sel, 'norows');
+    
+
     if ($user->uid != '')
     {
              if($_REQUEST['cid']!=''){
@@ -116,6 +120,7 @@ function search_results() {
     else
     {
         $sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
+
     }
     $sel .= " limit $eu, $limit";
    
