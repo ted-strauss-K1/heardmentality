@@ -89,7 +89,7 @@ function search_results() {
 
     
     }
-     $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+    echo  $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
    
    //  echo $sel;
    
