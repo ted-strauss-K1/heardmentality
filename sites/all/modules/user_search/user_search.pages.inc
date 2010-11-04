@@ -112,7 +112,7 @@ function search_results() {
             else{
                   
                 $qry_form = "img WHERE 1 $qry and img.uid=reg.uid AND reg.status='1'";
-                  $sel_count =  db_result(db_queryd("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
+                  $sel_count =  db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
             }
 
         
