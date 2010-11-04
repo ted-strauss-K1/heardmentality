@@ -10,6 +10,7 @@ function mycarousel_initCallback(carousel) {
     });
 
     jQuery('#mycarousel-next').bind('click', function() {
+        
         carousel.next();
         return false;
     });
@@ -36,12 +37,13 @@ jQuery(document).ready(function() {
 function mycarousel_itemLoadCallback(carousel, state)
 {
     // Check if the requested items already exist
-if (carousel.prevFirst != null) {
+if (carousel.prevFirst != null) {     
         // Remove the last visible items to keep the list small
         for (var i = carousel.prevFirst; i <= carousel.prevLast; i++) {
             // jCarousel takes care not to remove visible items
             carousel.remove(i);
         }
+        return false;
     }
 
 
@@ -79,7 +81,8 @@ if (carousel.prevFirst != null) {
             // mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, xml);
             var mycarousel_itemList = xml;
   carousel.unlock();
-  carousel.size(mycarousel_itemList[0].total);
+  carousel.size(mycarousel_itemList[0].total);//error occur
+   //alert(carousel.size(mycarousel_itemList[0].total));
 
  var per_page = carousel.last - carousel.first + 1;
             for (var i = carousel.first; i <= carousel.last; i++) {
@@ -97,13 +100,8 @@ if (carousel.prevFirst != null) {
 
                 carousel.add(i, item);
             }
-
-
         }
         );
-
-
-
 };
 
 
