@@ -66,10 +66,10 @@ function search_results() {
                 if($scid!='')
                     $c_qry .= "AND (fol.cat_id=$scid)";
                 
-                $qry_form = "img, follower fol where 1 $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid<>$user->uid and reg.uid=fol.uid $c_qry group by fol.uid";
+                $qry_form = "img, follower fol where 1 $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
             }
             else{
-                $qry_form = "img WHERE 1 $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
+                $qry_form = "img WHERE 1 $qry  and img.uid=reg.uid AND reg.status='1'";
             }
 
 
