@@ -73,7 +73,7 @@ if (!empty($listcat)) {
                  
 
                 $style = 'class="sidelinks"';
-               $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$_GET['q_country'].'&q_state='.$_GET['q_state'].'&q_city'.$_GET['q_city'].'">' . $scat['cat_name'] .$count_row. '</a></span><br/>';
+               $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchuser?cid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$_GET['q_country'].'&q_state='.$_GET['q_state'].'&q_city'.$_GET['q_city'].'">' . $scat['cat_name'] .$count_row. '</a></span><br/>';
 
                 //sub subcat list
                 if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
