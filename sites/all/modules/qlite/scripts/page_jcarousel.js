@@ -124,8 +124,6 @@ jQuery(document).ready(function() {
         initCallback: mycarousel_initCallback,
       visible: 4,
        itemLastInCallback:   mycarousel_itemLastInCallback,
-         buttonNextCallback:   mycarousel_buttonNextCallback,
-        buttonPrevCallback:   mycarousel_buttonPrevCallback,
        // Uncomment the following option if you want items
         // which are outside the visible range to be removed
         // from the DOM.
@@ -153,27 +151,4 @@ function mycarousel_itemLastInCallback(carousel, item, idx, state) {
 jQuery(".jcarousel-control a[class*='reputation-score']").removeAttr("class");
 jQuery(".jcarousel-control a[name*='"+idx+"']").prev().attr("class","reputation-score");
 
-};
-
-
-function mycarousel_buttonNextCallback(carousel, button, enabled) {
-    if(enabled){
-
-        jQuery('#mycarousel-next').show();
-    }else{
-         jQuery('#mycarousel-next').hide();
-    }
-};
-
-/**
- * This is the callback function which receives notification
- * about the state of the prev button.
- */
-function mycarousel_buttonPrevCallback(carousel, button, enabled) {
-    if(enabled){
-
-        jQuery('#mycarousel-prev').show();
-    }else{
-         jQuery('#mycarousel-prev').hide();
-    }
 };
