@@ -84,7 +84,7 @@ function search_results() {
                 $qry_form = "img, follower fol where 1 $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
             }
             else{
-                $qry_form = "img WHERE 1 $qry reg.status='1' and img.uid=reg.uid";
+                $qry_form = "img WHERE 1 $qry AND reg.status='1' and img.uid=reg.uid";
             }
 
     
