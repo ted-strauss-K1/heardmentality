@@ -48,7 +48,7 @@ if (!empty($listcat)) {
         if ($cid == $cat['cat_id']) {
             $style = 'class="sidelinks"';
         }
-        $count_row3 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$cat[cat_id]) AND reg.status=1 and reg.uid<>1 and reg.uid=fol.uid group by fol.uid"));
+        $count_row3 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$cat[cat_id]) AND reg.status=1 and reg.uid=fol.uid group by fol.uid"));
         if($count_row3>0){ $count_row3 =  "[$count_row3]";}else{$count_row3='';}
 
         
@@ -65,7 +65,7 @@ if (!empty($listcat)) {
                 if ($scid == $scat['cat_id']) {
                     $style = 'style="font-weight:bold"'; 
                 }
-                $count_row =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$scat[cat_id]) AND reg.status=1 and reg.uid<>1 and reg.uid=fol.uid group by fol.uid"));
+                $count_row =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$scat[cat_id]) AND reg.status=1 and reg.uid=fol.uid group by fol.uid"));
                  if($count_row>0){ $count_row =  "[$count_row]";}else{$count_row='';}
                  
                 $style = 'class="sidelinks"';
@@ -82,7 +82,7 @@ if (!empty($listcat)) {
                         if ($sscid == $sscat['cat_id']) {
                             $style = 'style="font-weight:bold"';
                         }
-                       $count_row1 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$sscat[cat_id]) AND reg.status=1 and reg.uid<>1 and reg.uid=fol.uid group by fol.uid"));
+                       $count_row1 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$sscat[cat_id]) AND reg.status=1 and reg.uid=fol.uid group by fol.uid"));
                        if($count_row1>0){ $count_row1 =  "[$count_row1]";}else{$count_row1='';}
 
                         $style = 'class="sidelinks"';
