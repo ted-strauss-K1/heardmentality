@@ -191,7 +191,7 @@ function search_results() {
    </div>';
     }
     if ($sel_count == 0) {
-        $fetresult .= '<div align="center"><b>No Search Results </b></div>';
+        $fetresult .= '<div align="center"><b>No Search Results  </b></div>';
     }
    $fetresult .=  '</div>
        </div>
