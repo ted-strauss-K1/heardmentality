@@ -155,10 +155,21 @@ function menu_delete_confirm_submit($form, &$form_state) {
 
 // category menu add validation
 function cat_add_validate($form, &$form_state) {
-    $cname = trim($form_state['values']['cname']);
+   // print_r($_REQUEST[q]);
+ $pos = substr($_REQUEST[q],strrpos($_REQUEST[q], "/"));
+$get_value =  ltrim($pos,"/");
 
-    
+
+    $cname = trim($form_state['values']['cname']);
+    if($get_value=='add')
+    {
     $iscat = treemenu_load(array('category'=>$cname, 'status'=>1, 'case'=>'add'));
+    }
+    else
+    {
+       
+         $iscat = treemenu_load(array('category'=>$cname,'id'=>$get_value, 'status'=>1, 'case'=>'exist'));
+    }
     
     if (!$iscat) {
         //	form_set_value(array('#parents' => array('account')), $account, $form_state);
@@ -261,6 +272,21 @@ function treemenu_load($array = array()) {
             }
             return $menu;
             
+            break;
+
+            case exist:
+            $result = db_queryd("SELECT * FROM {category} where cat_name='".$array['category']."' and parent_id='".$array['id']."'");
+                
+            if ($menu = db_fetch_object($result)) {
+                if ($menu != '') {
+                    $menu = $menu;
+
+                } else
+                    $menu = '';
+            } else {
+                $menu = '';
+            }
+            return $menu;
             break;
     
     }
