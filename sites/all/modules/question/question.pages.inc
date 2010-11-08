@@ -2036,7 +2036,8 @@ function question_deleted_mail_voters($qaid) {
             $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
             //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
             $contentm = str_replace("#content#", 'Question deleted By Headmentality admin', $contentm);
-
+            echo $contentm;
+            exit;
             //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
             $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$from."','" . $to. "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
             db_query($ins_qry);
