@@ -2385,7 +2385,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 
 
 function question_edit_save_admin($array) {
-    echo "hi";
+    echo "hi edit";
     exit;
     global $gSitePath,$user,$gDocPath,$base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
