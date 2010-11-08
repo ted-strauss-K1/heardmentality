@@ -324,9 +324,9 @@ top:0px; left:150px;
 width:65px; height:20px;
 z-index:1000; -moz-border-radius:5px;
 }
-.men a{ font:normal 14px Georgia, "Times New Roman", Times, serif; color:#A2761E; text-decoration:none; margin-right:5px;}
+.men a{ font:bold 14px Georgia, "Times New Roman", Times, serif; color:#A2761E; text-decoration:none; margin-right:5px;}
 .men li{ background:url(../images/list_bullet.jpg) no-repeat left 8px; padding-left:10px; text-transform:uppercase; list-style:none; float:left;}
-.men a:hover{ font:normal 14px Georgia, "Times New Roman", Times, serif;color:#4C4C4C; text-decoration:none; margin-right:5px;}
+.men a:hover{ font:bold 14px Georgia, "Times New Roman", Times, serif;color:#4C4C4C; text-decoration:none; margin-right:5px;}
 .messages{ width:100%; display:block; clear:both; border-color:#CC6600; overflow:hidden;}
 .error{
 	background: #fff6bf url(bioneural/exclamation.png) 15px center no-repeat;
