@@ -40,7 +40,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .stext{ float:left;padding-top:1px;margin-left:2px; }
 .searchbut{ cursor:pointer;}
 
-.men{ width:508px;background:url(../images/m-bg.gif) repeat-x;height:32px; margin:0px 8px 0px 8px;float:left; padding-top:1px; text-align:center}
+.men{ width:508px;background:url(../images/m-bg.gif) repeat-x;height:24px; margin:0px 8px 0px 8px;float:left; padding-top:8px; text-align:center}
 .edition{ width:164px;background:url(../images/m-bg.gif) repeat-x;height:32px;float:left; }
 .edition div{padding:5px 0px 4px 0px;font:12px/21px  normal Arial,Helvetica,sans-serif;}
 .edition select{ width:115px; margin-left:5px; font-size:11px; font-family:normal Arial,Helvetica,sans-serif; font-weight:normal;padding:2px;}
@@ -324,9 +324,9 @@ top:0px; left:150px;
 width:65px; height:20px;
 z-index:1000; -moz-border-radius:5px;
 }
-.men a{ font:normal 14px normal Arial,Helvetica,sans-serif; color:#996600; text-decoration:none; margin-right:5px;}
-.men li{ background:url(../images/list_bullet.jpg) no-repeat left 9px; padding-left:10px; text-transform:uppercase; list-style:none; float:left;}
-.men a:hover{ font:normal 14px normal Arial,Helvetica,sans-serif;color:#4C4C4C; text-decoration:none; margin-right:5px;}
+.men a{ font:bold 14px Georgia, "Times New Roman", Times, serif; color:#A2761E; text-decoration:none; margin-right:5px;}
+.men li{ background:url(../images/list_bullet.jpg) no-repeat left 8px; padding-left:10px; text-transform:uppercase; list-style:none; float:left;}
+.men a:hover{ font:bold 14px Georgia, "Times New Roman", Times, serif;color:#4C4C4C; text-decoration:none; margin-right:5px;}
 .messages{ width:100%; display:block; clear:both; border-color:#CC6600; overflow:hidden;}
 .error{
 	background: #fff6bf url(bioneural/exclamation.png) 15px center no-repeat;
