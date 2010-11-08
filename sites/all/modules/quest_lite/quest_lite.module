@@ -342,6 +342,12 @@ AND q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
 	}
        
     }
+    if($qid==''||!is_numeric($qid)){
+    $query = "SELECT qid from {question} where status='1' order by qid DESC limit 0,1 ";
+     $quest = db_query($query);
+            $qid = db_result($quest);
+    }
+ 
         return $qid;
 }
 

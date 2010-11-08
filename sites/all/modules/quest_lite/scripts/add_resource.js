@@ -156,7 +156,7 @@ function createUploader(){
         allowedExtensions: ["doc","docx","ppt","pdf"],
         // each file size limit in bytes
         // this option isn't supported in all browsers
-        sizeLimit: 10000000, // max size
+        sizeLimit: 100000, // max size
         minSizeLimit: 1, // min size
         multipleFileUpload:false,
         onSubmit: function(id, fileName){jQuery.growlUI('','File uploading please wait!');},
