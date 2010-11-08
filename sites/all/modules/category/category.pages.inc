@@ -275,7 +275,7 @@ function treemenu_load($array = array()) {
             break;
 
             case exist:
-            $result = db_queryd("SELECT * FROM {category} where cat_name='".$array['category']."' and parent_id='".$array['id']."'");
+            $result = db_query("SELECT * FROM {category} where cat_name='".$array['category']."' and parent_id='".$array['id']."'");
                 
             if ($menu = db_fetch_object($result)) {
                 if ($menu != '') {
