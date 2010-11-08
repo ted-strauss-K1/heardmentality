@@ -2422,9 +2422,9 @@ function question_edit_save_admin($array) {
         if ($result)
             drupal_set_message(t('Thank you, Question updated successfully!'), $type = 'success');
         //	print_r($result);
-       // question_edited_mail($nid);
+        question_edited_mail($nid);
         question_edited_mail_voters($nid);
-        //question_edited_mail_suggest($nid);
+        question_edited_mail_suggest($nid);
         //  drupal_goto("admin/moderatequestion");
     } else {
         
@@ -2764,7 +2764,7 @@ setDefaultCountry();
 
 }
         
-///////////// edit question send  mail /////////////////
+///////////// edit question send  mail vijay/////////////////
  function question_edited_mail($qaid) {
                 global $gSitePath,$user,$gDocPath,$base_root;
 
@@ -2800,9 +2800,92 @@ setDefaultCountry();
         }*/
         return true;
  }
- ////////////// edit question send mail end /////////////////
+ 
 
 
+ function question_edited_mail_voters($qaid) {
+
+    global $gSitePath,$user,$gDocPath,$base_root;
+
+    $from = variable_get('site_mail');
+    $subject_proj = 'Heardmentality Question Has Been Edited By admin ';
+    //$delmsg = 'Has been Edited By Headmentality admin';
+    $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='".$det->uid."'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+       // $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
+
+            $contentm = str_replace("#uname#",$usert->name, $list_content->content);
+            $contentm = str_replace("#anothername#",$user->name, $contentm);
+            $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+            $contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+            $contentm = str_replace("#content#", 'Question edited By Headmentality admin', $contentm);
+
+            //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$from."','" . $to. "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+            db_query($ins_qry);
+        /*if (! empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }*/
+    }
+    return true;
+}
+
+function question_edited_mail_suggest($qaid) {
+
+    global $gSitePath,$user,$gDocPath,$base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Question Has Been Edited By admin ';
+   // $delmsg = 'Has been Edited By Headmentality admin';
+
+    $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='".$det->uid."'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
+
+            $contentm = str_replace("#uname#",$usert->name, $list_content->content);
+            $contentm = str_replace("#anothername#",$user->name, $contentm);
+            $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+            $contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+            $contentm = str_replace("#content#", 'Question edited By Headmentality admin', $contentm);
+
+            //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$from."','" . $to. "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+            db_query($ins_qry);
+
+        /*if (! empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }*/
+
+    }
+    return true;
+}
+
+////////////// edit question send mail end  vijay/////////////////
 
 /*function question_edited_mail($qaid) {
     
@@ -2826,7 +2909,7 @@ setDefaultCountry();
     return true;
 }*/
 
-function question_edited_mail_voters($qaid) {
+/*function question_edited_mail_voters($qaid) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
@@ -2851,9 +2934,12 @@ function question_edited_mail_voters($qaid) {
     
     }
     return true;
-}
+}*/
 
-function question_edited_mail_suggest($qaid) {
+
+
+
+/*function question_edited_mail_suggest($qaid) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
@@ -2879,7 +2965,12 @@ function question_edited_mail_suggest($qaid) {
     
     }
     return true;
-}
+}*/
+
+
+
+
+
 function auto_suggest_quest() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
