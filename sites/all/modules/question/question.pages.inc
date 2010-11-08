@@ -2800,48 +2800,50 @@ setDefaultCountry();
 
         
 
-        /*function question_edited_mail($qaid) {
+        function question_edited_mail($qaid) {
             global $gSitePath,$user,$gDocPath,$base_root;
 
             $from = variable_get('site_mail');
-    $subject = 'Heardmentality Question Has Been Edited By admin ';
+    $subject_proj = 'Heardmentality Question Has Been Edited By admin ';
     $delmsg = 'Has been Edited By Headmentality admin';
-
-    $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    
+    $query = db_query("select u.mail,q.question,u.name  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
     $det = db_fetch_object($query);
 
-    $to = $det->mail;
-    $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+   // $to = $det->mail;
+    //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
 
 
     $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
     $rs_mgmt = db_query($sel_user_cmt);
     $list_content = db_fetch_object($rs_mgmt);
 
-    $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
-        $contentm = str_replace("#anothername#", $name, $contentm);
-        $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-        $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-        $contentm = str_replace("#content#", 'some one flagged your question due to ' . $flag_rows->abuse_type . '', $contentm);
+    $contentm = str_replace("#uname#",$det->name, $list_content->content);
+        $contentm = str_replace("#anothername#",$user->name, $contentm);
+        $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+        $contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+        $contentm = str_replace("#content#", 'Has been Edited By Headmentality admin', $contentm);
+        echo $contentm;
+        exit;
         //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
         $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','" . $u_rows->mail . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
         db_query($ins_qry);
 
         
-    if (! empty($to)) {
+    /*if (! empty($to)) {
 
         $mail_suc = htmlmail($to, $subject, $msg, $from, '');
-    }
+    }*/
 
 
     return true;
 
             
-        }*/
+        }
 
 
 
-function question_edited_mail($qaid) {
+/*function question_edited_mail($qaid) {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     
@@ -2861,7 +2863,7 @@ function question_edited_mail($qaid) {
 
     
     return true;
-}
+}*/
 
 function question_edited_mail_voters($qaid) {
     
