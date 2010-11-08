@@ -2020,8 +2020,7 @@ function question_deleted_mail_voters($qaid) {
 
     while ($det = db_fetch_object($query)) {
 
-       echo  $sellist = "select * from users where uid='".$det->uid."'";
-       exit;
+        $sellist = "select * from users where uid='".$det->uid."'";
         $res_users = db_query($sellist);
         $usert = db_fetch_object($res_users);
         $to = $usert->mail;
