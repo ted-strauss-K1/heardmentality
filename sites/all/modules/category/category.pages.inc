@@ -318,7 +318,7 @@ function sub_menu($id = '', $level = '') {
 
                 
                 // $strReturn .= '<li><a href="'.$gSitePath.'searchquestion?cid='.$id.'&scid='.$client_key[$i].'">'.$client_array[$i].' </a>';
-                $strReturn .= '<li><a href="'.$gSitePath.'searchquestion?'.$lnrk.''.$lnr.'">'.$client_array[$i].' </a>';
+                $strReturn .= '<li><a href="'.$gSitePath.'searchquestion?'.$lnrk.''.$lnr.'">'.stripslashes($client_array[$i]).' </a>';
                 if (user_access("administer nodes")) {
                     // is admin
                     if ($level == 0) {
