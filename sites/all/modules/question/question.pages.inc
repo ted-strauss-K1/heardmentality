@@ -2050,6 +2050,7 @@ function question_deleted_mail_suggest($qaid) {
 }
 
 function edit_questions() {
+    
     global $gSitePath,$user,$gDocPath,$base_root;
 
     
@@ -2384,7 +2385,8 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 
 
 function question_edit_save_admin($array) {
-    
+    echo "hi";
+    exit;
     global $gSitePath,$user,$gDocPath,$base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
