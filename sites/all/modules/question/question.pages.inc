@@ -1957,9 +1957,9 @@ function checkall(val){
     if (isset($_REQUEST['del'])) {
         
         //echo "lllll";
-        //question_deleted_mail($_REQUEST['del']);
+        question_deleted_mail($_REQUEST['del']);
         question_deleted_mail_voters($_REQUEST['del']);
-        //question_deleted_mail_suggest($_REQUEST['del']);
+        question_deleted_mail_suggest($_REQUEST['del']);
         
         $del_ques = db_query("Delete  FROM {question} where qid='".$_REQUEST['del']."'    ");
         $del_answ = db_query("Delete  FROM {possible_answer} where qid='".$_REQUEST['del']."'    ");
