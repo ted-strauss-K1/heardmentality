@@ -191,7 +191,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
             <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     while ($list = db_fetch_object($client_select)) {
-        $output .= '<option value="'.$list->cat_id.'">'.$list->cat_name.'</option>';
+        $output .= '<option value="'.$list->cat_id.'">'.stripslashes($list->cat_name).'</option>';
 
     }
 
@@ -1050,7 +1050,7 @@ function question_ajax() {
             
             for ($i = 0; $i < count($client_array); $i++) {
                 
-                $ret .= '<option value="'.$client_key[$i].'">'.$client_array[$i].'</option>';
+                $ret .= '<option value="'.$client_key[$i].'">'.stripslashes($client_array[$i]).'</option>';
             
             }
             $ret .= "</select>";
@@ -2421,7 +2421,8 @@ function edit_questions() {
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
     
-    $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
+    //$result = db_queryd("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
+    $result = db_queryd("SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."' ");
     $quest = db_fetch_object($result);
     
     $output .= '
@@ -2633,28 +2634,40 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     $ecat1 = explode(",", $quest->cid);
     
     while ($list = db_fetch_object($client_select)) {
-        if (in_array($list->cat_id, $ecat1)) {
+        if($list->cat_id==$quest->cat){
+          $sel = 'SELECTED';
+        }else{
+            $sel = '';
+        }
+       /* if (in_array($list->cat_id, $ecat1)) {
             $sel = 'SELECTED="SELECTED"';
         } else {
             $sel = '';
-        }
+        }*/
         $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
     
     }
     
     $output .= '</select></td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
-    $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cid."')");
+    $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cat."')");
     $ecat2 = explode(",", $quest->scid);
-    while ($list = db_fetch_object($client_select1)) {
-        if (in_array($list->cat_id, $ecat2)) {
+    while ($liste = db_fetch_object($client_select1)) {
+
+        /*if (in_array($list->cat_id, $ecat2)) {
             $sel = 'SELECTED="SELECTED"';
         } else {
             $sel = '';
+        }*/
+        if($liste->cat_id==$quest->scat){
+            
+         $sele = 'SELECTED';
+        }else{
+            $sele = '';
         }
 
         
-        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
+        $output .= '<option value="'.$liste->cat_id.'" '.$sele.'>'.$liste->cat_name.'</option>';
     
     }
     $output .= '</select></div></td>
@@ -3023,13 +3036,16 @@ setDefaultCountry();
         <td width="25%" align="left"><select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
-    
     while ($list = db_fetch_object($client_select)) {
+
         if (in_array($list->cat_id, $ecat1)) {
             $sel = 'SELECTED="SELECTED"';
         } else {
             $sel = '';
         }
+
+
+        
         $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
     
     }
