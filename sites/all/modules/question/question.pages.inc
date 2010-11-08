@@ -2422,9 +2422,9 @@ function question_edit_save_admin($array) {
         if ($result)
             drupal_set_message(t('Thank you, Question updated successfully!'), $type = 'success');
         //	print_r($result);
-        question_edited_mail($nid);
+       // question_edited_mail($nid);
         question_edited_mail_voters($nid);
-        question_edited_mail_suggest($nid);
+        //question_edited_mail_suggest($nid);
         //  drupal_goto("admin/moderatequestion");
     } else {
         
@@ -2763,83 +2763,44 @@ setDefaultCountry();
     return $output;
 
 }
-/////////////////////edit question//////////////////////////
-/*function hm_flag($qid, $last_id, $user, $admin) {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey;
-    $qdetails = load_question($qid);
-
-    $u_qry = "select * from users where uid='" . $qdetails['uid'] . "'";
-    $u_res = db_query($u_qry);
-    $u_rows = db_fetch_object($u_res);
-
-    $flag_qry = "select * from question_flags where fid='" . $last_id . "'";
-    $flag_res = db_query($flag_qry);
-    $flag_rows = db_fetch_object($flag_res);
-
-
-    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
-    $rs_mgmt = db_query($sel_user_cmt);
-    $list_content = db_fetch_object($rs_mgmt);
-    // $subject_proj = $list_content->subject;
-    $subject_proj = "Heardmentality : Flag Actions";
-    if ($user) {
-        $name = '';
-        $contentm = str_replace("#uname#", $u_rows->name, $list_content->content);
-        $contentm = str_replace("#anothername#", $name, $contentm);
-        $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-        $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-        $contentm = str_replace("#content#", 'some one flagged your question due to ' . $flag_rows->abuse_type . '', $contentm);
-        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','" . $u_rows->mail . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
-        db_query($ins_qry);
-    }
-
-}*/
-////////////////////edit question end//////////////////////////
-
-
         
+///////////// edit question send  mail /////////////////
+ function question_edited_mail($qaid) {
+                global $gSitePath,$user,$gDocPath,$base_root;
 
-        function question_edited_mail($qaid) {
-            global $gSitePath,$user,$gDocPath,$base_root;
+                $from = variable_get('site_mail');
+        $subject_proj = 'Heardmentality Question Has Been Edited By admin ';
+        //$delmsg = 'Has been Edited By Headmentality admin';
 
-            $from = variable_get('site_mail');
-    $subject_proj = 'Heardmentality Question Has Been Edited By admin ';
-    $delmsg = 'Has been Edited By Headmentality admin';
-    
-    $query = db_query("select u.mail,q.question,u.name  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
-    $det = db_fetch_object($query);
+        $query = db_query("select u.mail,q.question,u.name  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+        $det = db_fetch_object($query);
 
-   // $to = $det->mail;
-    //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
-
-
-    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
-    $rs_mgmt = db_query($sel_user_cmt);
-    $list_content = db_fetch_object($rs_mgmt);
-
-    $contentm = str_replace("#uname#",$det->name, $list_content->content);
-        $contentm = str_replace("#anothername#",$user->name, $contentm);
-        $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
-        $contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
-        $contentm = str_replace("#content#", 'Has been Edited By Headmentality admin', $contentm);
-        echo $contentm;
-        exit;
-        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','" . $u_rows->mail . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
-        db_query($ins_qry);
-
-        
-    /*if (! empty($to)) {
-
-        $mail_suc = htmlmail($to, $subject, $msg, $from, '');
-    }*/
+       // $to = $det->mail;
+        //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
 
 
-    return true;
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
 
+        $contentm = str_replace("#uname#",$det->name, $list_content->content);
+            $contentm = str_replace("#anothername#",$user->name, $contentm);
+            $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+            $contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+            $contentm = str_replace("#content#", 'Question edited By Headmentality admin', $contentm);
             
-        }
+            //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$from."','" . $to. "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+            db_query($ins_qry);
+
+
+        /*if (! empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }*/
+        return true;
+ }
+ ////////////// edit question send mail end /////////////////
 
 
 
