@@ -1802,8 +1802,6 @@ function quest_mail_warning($qids = '') {
     return true;
 }
 function moderate_quest() {
-    print_r($_REQUEST);
-    exit;
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     $start = '';
     $lkr = '';
