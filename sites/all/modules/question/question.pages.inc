@@ -1635,8 +1635,9 @@ function question_flagged_mail($qaid){
     $from = variable_get('site_mail');
     $subject_proj = "Heardmentality Question Has Been Ignore";
    // $delmsg = 'Has been Deleted By Headmentality admin';
-
-    $query = db_query("select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+   echo $qry = "select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ";
+   exit;
+    $query = db_query($qry);
     $det = db_fetch_object($query);
 
     $to = $det->mail;
