@@ -1972,7 +1972,7 @@ function checkall(val){
 
 }
 
-//////// delete send mail vijay/////////////
+//////// delete send mail vijay start here/////////////
 function question_deleted_mail($qaid){
       global $gSitePath,$user,$gDocPath,$base_root;
 
@@ -2089,6 +2089,7 @@ function question_deleted_mail_suggest($qaid) {
     }
     return true;
 }
+//////// delete send mail vijay end here/////////////
 
 
 
