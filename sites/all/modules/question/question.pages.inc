@@ -1972,6 +1972,7 @@ function checkall(val){
 
 }
 
+//////// delete send mail vijay/////////////
 function question_deleted_mail($qaid){
       global $gSitePath,$user,$gDocPath,$base_root;
 
@@ -1988,7 +1989,7 @@ function question_deleted_mail($qaid){
 
 
 
-    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
         $rs_mgmt = db_query($sel_user_cmt);
         $list_content = db_fetch_object($rs_mgmt);
 
