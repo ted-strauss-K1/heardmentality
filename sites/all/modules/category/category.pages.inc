@@ -358,7 +358,7 @@ function category_admin() {
     foreach ($list as $quest) {
       
         $strReturn .= '<tr><td>';
-        $strReturn .= '<a href="javascript:void(0);" onclick="toggle_sub('.$quest['cat_id'].');">'.$quest['cat_name'].'</a>';
+        $strReturn .= '<a href="javascript:void(0);" onclick="toggle_sub('.$quest['cat_id'].');">'.stripslashes($quest['cat_name']).'</a>';
         $strReturn .= '</td>';
         $strReturn .= '<td>#Questions : '.$quest['qcnt'].'</td><td>';
         
