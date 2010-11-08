@@ -1955,12 +1955,14 @@ function checkall(val){
     if (isset($_REQUEST['del'])) {
         
         //echo "lllll";
-        $del_ques = db_query("Delete  FROM {question} where qid='".$_REQUEST['del']."'    ");
-        $del_answ = db_query("Delete  FROM {possible_answer} where qid='".$_REQUEST['del']."'    ");
-        $del_sansw = db_query("Delete  FROM {suggest_answer} where qid='".$_REQUEST['del']."'    ");
         question_deleted_mail($_REQUEST['del']);
         //question_deleted_mail_voters($_REQUEST['del']);
         //question_deleted_mail_suggest($_REQUEST['del']);
+        
+        $del_ques = db_query("Delete  FROM {question} where qid='".$_REQUEST['del']."'    ");
+        $del_answ = db_query("Delete  FROM {possible_answer} where qid='".$_REQUEST['del']."'    ");
+        $del_sansw = db_query("Delete  FROM {suggest_answer} where qid='".$_REQUEST['del']."'    ");
+        
         
         drupal_goto('admin/question/list');
     }
@@ -1991,7 +1993,7 @@ function question_deleted_mail($qaid){
         $list_content = db_fetch_object($rs_mgmt);
 
         $contentm = str_replace("#uname#",$det->name, $list_content->content);
-            $contentm = str_replace("#anothername#",$user->name, $contentm);
+           // $contentm = str_replace("#anothername#",$user->name, $contentm);
             $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
             //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
             $contentm = str_replace("#content#", 'Question deleted By Headmentality admin', $contentm);
