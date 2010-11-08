@@ -1435,7 +1435,7 @@ function admin_panel_tab() {
 }
 function panel_content($type = '') {
   print_r($_REQUEST);
-  
+  exit;
     global $gSitePath,$user,$gDocPath,$base_root;
     
     $strReturn = '';
