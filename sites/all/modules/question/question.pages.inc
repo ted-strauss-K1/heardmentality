@@ -191,7 +191,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
             <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     while ($list = db_fetch_object($client_select)) {
-        $output .= '<option value="'.$list->cat_id.'">'.stripslashes($list->cat_name).'</option>';
+        $output .= '<option value="'.$list->cat_id.'">'.$list->cat_name.'</option>';
 
     }
 
@@ -1050,7 +1050,7 @@ function question_ajax() {
             
             for ($i = 0; $i < count($client_array); $i++) {
                 
-                $ret .= '<option value="'.$client_key[$i].'">'.stripslashes($client_array[$i]).'</option>';
+                $ret .= '<option value="'.$client_key[$i].'">'.$client_array[$i].'</option>';
             
             }
             $ret .= "</select>";
