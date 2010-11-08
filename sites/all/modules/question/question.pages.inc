@@ -1687,8 +1687,7 @@ function question_flagged_ignore_mail($qaid,$reporttext){
            // $contentm = str_replace("#anothername#",$user->name, $contentm);
             $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
             //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
-             $contentm = str_replace("#content#", $reporttext, $contentm);
-            $contentm = str_replace("#content#", 'Question Rejected By Headmentality admin', $contentm);
+            $contentm = str_replace("#content#", "$reporttext Question Rejected By Headmentality admin", $contentm);
             echo $contentm;
             exit;
             //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
