@@ -673,8 +673,9 @@ function welcome_page() {
         $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
         $chk1 = db_result($chk);
         if ($chk1) {
+           
             $result = db_query("UPDATE {privacy_settings} set real_name='$real_name_privacy',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
-			followers='$followers_privacy',following='$following_privacy',medal='$medal_privacy',questions='$questions_privacy',answers='$answers_privacy',dob='$dob_privacy'  where uid=$user->uid ");
+			followers='$followers_privacy',following='$following_privacy',medal='$medal_privacy',questions='$questions_privacy',answers='$answers_privacy',dob='$dob_privacy'  where uid='$user->uid' ");
         } else {
             $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
 			followers='$followers_privacy',following='$following_privacy',questions='$questions_privacy',answers='$answers_privacy' ,medal='$medal_privacy',dob='$dob_privacy'");
@@ -829,9 +830,9 @@ function welcome_page() {
         $meta = mysql_fetch_field($result, $i);
         $col = $meta->name;
         if ($fetch[0][$col] > 1)
-            $inc_script.='jQuery("input[name*=\'' . $meta->name . '_privacy\']").filter(\'[value="' . $fetch[0][$col] . '"]\').attr(\'checked\', true);';
+            $inc_script.='jQuery("input[name=\'' . $meta->name . '_privacy\']").filter(\'[value="' . $fetch[0][$col] . '"]\').attr(\'checked\', true);';
         else
-            $inc_script.='jQuery("input[name*=\'' . $meta->name . '_privacy\']").filter(\'[value="1"]\').attr(\'checked\', true);';
+            $inc_script.='jQuery("input[name=\'' . $meta->name . '_privacy\']").filter(\'[value="1"]\').attr(\'checked\', true);';
 
         $i++;
     }
