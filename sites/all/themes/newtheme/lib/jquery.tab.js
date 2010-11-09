@@ -43,7 +43,7 @@ function set_tab_active(id){
 
   loadTab(jQuery(id),'#tabcontent');
   $('#maintabs LI.current').removeClass('current');
-  jQuery(id).addClass('current');
+  jQuery(id).parent().addClass('current');
 }
 
 function loadTab(tabObj,containerId){
