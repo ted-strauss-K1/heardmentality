@@ -1769,7 +1769,7 @@ function moderate_user() {
   </tr>';
     while ($don = db_fetch_object($res_donar)) {
        // $sequest = "select * from question where qid='".$don->nodeid."'";
-      echo  $sequest = "select * from question as q join question_flags as f on q.qid=f.nodeid where q.qid='".$don->nodeid."'";
+        $sequest = "select * from question as q join question_flags as f on q.qid=f.nodeid where q.qid='".$don->nodeid."'";
         $res_quest = db_query($sequest);
         $qlist = db_fetch_object($res_quest);
         // $ss=$qlist->question;
