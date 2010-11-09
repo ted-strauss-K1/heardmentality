@@ -47,7 +47,7 @@ function treemenu_list() {
           }
 
 
-        $strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.stripslashes($client_array[$i]).'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid='.$client_key[$i].'">'.$follow.'</a></div>';
+        $strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.stripslashes($client_array[$i]).'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid/'.$client_key[$i].'">'.$follow.'</a></div>';
         if (user_access("administer nodes")) {
             // Do something.
             
@@ -369,7 +369,7 @@ function sub_menu($id = '', $level = '') {
                     $strReturn .= '&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="delete/'.$client_key[$i].'">Delete </a>';
                 }
       //$strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.stripslashes($client_array[$i]).'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid='.$client_key[$i].'">'.$follow.'</a></div>';
-                $strReturn .= '|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid='.stripslashes($client_key[$i]).'">'.$follow.'</a>';
+                $strReturn .= '|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid/'.stripslashes($client_key[$i]).'">'.$follow.'</a>';
                 $strReturn .= sub_menu($client_key[$i], $level + 1);
                 
                 $strReturn .= '</li>';
