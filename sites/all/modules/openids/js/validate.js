@@ -48,6 +48,15 @@ var err='';
 	err=err+"<li>Date Of Birth must be valid format YYYY-[1986]!</li>";
 	
 	}}
+
+        var zip=jQuery('#edit-zip').val();
+
+        if(zip.length>0){
+            var zstate=jQuery('input[name="state"]').val();;
+            if(jQuery.trim(zstate).length<1)
+                err=err+"<li>Please re-check the zip code you have entered check space if needed </li>";
+        }
+
             var pic=jQuery('input:radio[name=pic_avt]:checked').val();
    // if(pic==1&&jQuery('#edit-file-upload').val().length<2){
      //  err=err+"<li>Please upload Image for your profile or pick an avatar below! </li>";
@@ -96,11 +105,11 @@ setTimeout('chk_avatar()',1000);
 
  function onLoad() {
 	        // get user info
-	        gigya.services.socialize.getUserInfo(conf, { callback: renderUI });
+	        gigya.services.socialize.getUserInfo(conf, {callback: renderUI});
 
 	        // register for connect status changes
 	        gigya.services.socialize.addEventHandlers(conf,
-	                  { onConnectionAdded: renderUI, onConnectionRemoved: renderUI });
+	                  {onConnectionAdded: renderUI, onConnectionRemoved: renderUI});
 
 	    }
 
@@ -111,7 +120,7 @@ setTimeout('chk_avatar()',1000);
 
 	    // Get the user's friends
 	    function getFriends() {
-	        gigya.services.socialize.getFriendsInfo(conf, { callback: getFriends_callback });
+	        gigya.services.socialize.getFriendsInfo(conf, {callback: getFriends_callback});
 	        document.getElementById('btnGetFriends').disabled = true;
 	    }
 

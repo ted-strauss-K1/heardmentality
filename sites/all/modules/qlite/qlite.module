@@ -177,6 +177,7 @@ $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
 
 function get_top_pundits(){
       global $gSitePath,$user,$gDocPath,$base_root;
+      $page='';
        drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/pundits.js');
        create_guru_view();
            $query = "select count(*) from {gurulist} where tpoints !='NULL'";
@@ -185,6 +186,7 @@ function get_top_pundits(){
     $total=round($cnt/$limit);
       $mod=$cnt%$limit;
       $mul=1;
+      if($cnt>$limit){
       $page .= '<li  id="pundit-prev" style="cursor:pointer;"><img alt="Previous" align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-l.jpg"></li>';
     for($i=1;$i<=$total;$i++){
 
@@ -193,7 +195,7 @@ function get_top_pundits(){
                   $mul--;
        }
          $page .= '<li id="pundit-next" style="cursor:pointer;"> <img alt="Next"  align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-r.jpg"></li>';
-     
+      }
  $output .= '
  <div>
      <div class="commutop-profile">PUNDITS</div>  ';

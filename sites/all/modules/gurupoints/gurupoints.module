@@ -133,7 +133,10 @@ function ajax_pundits() {
     $list = ExecuteQuery($user_pt, "select");
 
    
-    $output.= '<ul>';
+    
+    if(count($list)>0){
+
+ $output.= '<ul>';
     foreach ($list as $quest) {
 
         $udetails = load_user($quest['uid']);
@@ -142,7 +145,11 @@ function ajax_pundits() {
         $output.= '<li><a rel=\'' . $bubble . '\'  href="' . $gSitePath . '/profile/' . $udetails->name . '">' . UserPicture($quest['uid']) . '</a></li>';
 
     }
-    $output.= '</ul>';
+     $output.= '</ul>';
+    }else{
+         $output.= '<center><small>No Pundit(s) Found </small></center>';
+    }
+   
 
     echo $output;
 }

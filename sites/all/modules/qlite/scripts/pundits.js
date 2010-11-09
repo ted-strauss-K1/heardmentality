@@ -51,9 +51,7 @@ function load_next(el){
 function load_list(first){
    
     var last=first+3;
-    if(first==current)
-      return false;
-
+    
     if(first>1)
         jQuery('#pundit-prev').show();
     else
