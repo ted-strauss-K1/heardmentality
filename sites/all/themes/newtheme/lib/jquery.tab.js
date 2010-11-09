@@ -1,5 +1,5 @@
 
-var tabarray=['#tabs,#tabs-container','#maintabs,#tabcontent','#vmaintabs1,#tabcontent','#vmaintabs2,#tabcontent','#tabmenu,#rcontents'];
+var tabarray=['#tabs,#tabs-container','#maintabs,#tabcontent','#tabmenu,#rcontents'];
 $(document).ready(function(){
     // Preload tab on page load
     jQuery.each(tabarray,function(e){
@@ -38,6 +38,14 @@ $(document).ready(function(){
 
 });
 
+
+function set_tab_active(id){
+
+  loadTab(jQuery('#maintabs li:nth-child('+id+') a'),'#tabcontent');
+  $('#maintabs LI.current').removeClass('current');
+  jQuery('#maintabs li:nth-child('+id+')').addClass('current');
+}
+
 function loadTab(tabObj,containerId){
 
     if(!tabObj || !tabObj.length){
@@ -69,4 +77,4 @@ function loadTab(tabObj,containerId){
                             }
 
 
-        }); }
+        });}

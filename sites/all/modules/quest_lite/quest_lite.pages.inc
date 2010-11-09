@@ -579,9 +579,9 @@ function qlite_view() {
     $voutput .= $submitbutt . '
                   <div >
                 <ul>
-                  <li id="vmaintabs1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" id="com"   title="Comments">' . $x . ' comments</a></li>
+                  <li ><a href="javascript:set_tab_active(2);" title="Comments">' . $x . ' comments</a></li>
                   <li>|</li>
-                  <li id="vmaintabs2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" id="com2"   title="Resources">' . $numres . ' Resources</a></li>
+                  <li ><a href="javascript:set_tab_active(3);" title="Resources">' . $numres . ' Resources</a></li>
                   </ul>
               </div>
                 </div>
@@ -640,7 +640,7 @@ function qlite_view() {
               </ul>
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
-        </div>
+        </div><div class="clr"></div>
            </div>';
     } else {
 ////here
@@ -656,7 +656,7 @@ function qlite_view() {
               </ul>
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
-        </div>
+        </div><div class="clr"></div>
            </div>';
     }
 
