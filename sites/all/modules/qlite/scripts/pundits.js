@@ -60,7 +60,7 @@ function load_list(first){
             jQuery("#pundit-next").hide();
         else
              jQuery("#pundit-next").show();
-    
+     jQuery('#pundits li').each(function(){jQuery(this).fadeOut('slow')});
     var url=gSitePath+'pundit/ajax';
         jQuery.ajax({
             type: "POST",
