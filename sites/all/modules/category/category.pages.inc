@@ -108,13 +108,13 @@ function treemenu_edit() {
 //category add core form build
 
 function cat_add() {
-
-    
+    //print_r()
     $form['cname'] = array('#type'=>'textfield', '#title'=>t('Category Name'), '#size'=>60, '#maxlength'=>50, '#required'=>TRUE, );
     $form['submit'] = array('#type'=>'submit', '#value'=>t('Add'));
     $form['#validate'][] = 'cat_add_validate';
-    $form['cancel'] = array('#type'=>'button', '#attributes'=>array('onClick'=>'location.replace("'.referer_uri().'"); return false;'), '#value'=>t('Cancel'), );
-    
+    $form['cancel'] = array('#type'=>'button','#button_type'=>'reset','#submit' => FALSE,'#attributes'=>array('onClick'=>'location.replace("'.referer_uri().'"); return false;'), '#value'=>t('Cancel'), );
+
+    //$form['cancel'] = array('#type'=>'button', '#value'=>t('Add'),'#submit' => FALSE);
     return $form;
 }
 // category edit form
@@ -332,6 +332,20 @@ function sub_menu($id = '', $level = '') {
             
             for ($i = 0; $i < count($client_array); $i++) {
 
+
+
+                $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='".$user->uid."'and cat_id='".$client_key[$i]."'");
+          $fol_list = db_fetch_object($fol_qry);
+
+          if($fol_list->count==1)
+          {
+                $follow = "UnFollow";
+          }
+          if($fol_list->count==0)
+          {
+              $follow = "Follow";
+          }
+
                 
                 //echo $level;
                 if ($level == 0) {
@@ -354,7 +368,8 @@ function sub_menu($id = '', $level = '') {
                     $strReturn .= '&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="edit/'.$client_key[$i].'">Edit </a>';
                     $strReturn .= '&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="delete/'.$client_key[$i].'">Delete </a>';
                 }
-                $strReturn .= '|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/follow/'.'catid='.stripslashes($client_key[$i]).'">Follow</a>';
+      //$strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.stripslashes($client_array[$i]).'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid='.$client_key[$i].'">'.$follow.'</a></div>';
+                $strReturn .= '|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid='.stripslashes($client_key[$i]).'">'.$follow.'</a>';
                 $strReturn .= sub_menu($client_key[$i], $level + 1);
                 
                 $strReturn .= '</li>';
