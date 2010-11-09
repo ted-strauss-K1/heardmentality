@@ -1789,6 +1789,13 @@ function moderate_user() {
     <td><input type="checkbox" class="check-user" name="us_id[]" value="'.$don->nodeid.'" /> </td>
   </tr>';
         }
+        else
+        {
+            $moduser .= '<tr>
+    <td colspan="5">Question </td>
+    <td>No records found</td>
+  </tr>';
+        }
     
     }
     $moduser .= ' </table><div id="showbox_user" align="left" style="width:100%;display:none"><label for="warn_msg"><b>Send Warning Message :</b></label><br/><textarea name="warn_msg" cols="55" row="17" id="warn_msg"></textarea></div><div><input type="hidden" id="action_value" name="action_value" value=""/> <input type="button" onclick="send_notify(1);"  value="Send warning message"/>&nbsp; <input onclick="send_suspend(0);" type="button" value="Suspend User"/></div>';
