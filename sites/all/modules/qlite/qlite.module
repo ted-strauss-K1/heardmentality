@@ -174,6 +174,46 @@ $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
 
 }
 
+
+function get_top_pundits(){
+      global $gSitePath,$user,$gDocPath,$base_root;
+       drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/pundits.js');
+       create_guru_view();
+           $query = "select count(*) from {gurulist} where tpoints !='NULL'";
+    $cnt=db_result(db_query($query));
+     $limit=4;
+    $total=round($cnt/$limit);
+      $mod=$cnt%$limit;
+      $mul=1;
+      $page .= '<li  id="pundit-prev" style="cursor:pointer;"><img alt="Previous" align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-l.jpg"></li>';
+    for($i=1;$i<=$total;$i++){
+
+             $page .= '<li class="page_link"><a href="#"  name="'.$mul.'" title="'.$i.'">'.$i.'</a></li>';
+             $mul=$mul+$limit;
+                  $mul--;
+       }
+         $page .= '<li id="pundit-next" style="cursor:pointer;"> <img alt="Next"  align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-r.jpg"></li>';
+     
+ $output .= '
+ <div>
+     <div class="commutop-profile">PUNDITS</div>  ';
+
+    $output.='<div class="hm-cen-pun">
+           <div class="pun" id="pundits">
+          Loading pundits ....
+           </div>
+           <div class="clr"></div>
+
+<div align="center" class="page-n2">
+              <ul>
+           '.$page.'
+              </ul>
+              </div>
+                   <div class="clr"></div></div></div>';
+        return $output;
+}
+
+/*
 function get_top_pundits() {
     global $gSitePath,$user,$gDocPath,$base_root;
     drupal_add_css(drupal_get_path('module', 'qlite') . '/css/skin.css');
@@ -247,7 +287,13 @@ function get_top_pundits() {
     return $output;
 
 }
-function get_top_list($time='') {
+
+ * */
+
+
+
+ function get_top_list($time='') {
+ 
   
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
