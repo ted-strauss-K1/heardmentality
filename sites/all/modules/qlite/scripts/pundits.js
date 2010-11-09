@@ -51,7 +51,7 @@ function load_next(el){
 function load_list(first){
    
     var last=first+3;
-    
+     jQuery("#loading").fadeIn('slow');
     if(first>1)
         jQuery('#pundit-prev').show();
     else
@@ -77,6 +77,7 @@ function load_list(first){
                 jQuery('#pundits').html(msg);
                 jQuery(".page-n2 li a[class*='reputation-score']").removeAttr("class");
 jQuery(".page-n2 li a[name='"+first+"']").attr("class","reputation-score");
+jQuery("#loading").fadeOut('slow');
             }
         });
 }

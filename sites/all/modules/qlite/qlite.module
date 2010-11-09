@@ -187,14 +187,14 @@ function get_top_pundits(){
       $mod=$cnt%$limit;
       $mul=1;
       if($cnt>$limit){
-      $page .= '<li  id="pundit-prev" style="cursor:pointer;"><img alt="Previous" align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-l.jpg"></li>';
+      $page .= '<li  id="pundit-prev" style="cursor:pointer;"><img title="Previous" alt="Previous" align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-l.jpg"></li>';
     for($i=1;$i<=$total;$i++){
 
              $page .= '<li class="page_link"><a href="#"  name="'.$mul.'" title="'.$i.'">'.$i.'</a></li>';
              $mul=$mul+$limit;
                   $mul--;
        }
-         $page .= '<li id="pundit-next" style="cursor:pointer;"> <img alt="Next"  align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-r.jpg"></li>';
+         $page .= '<li id="pundit-next" style="cursor:pointer;"> <img title="Next" alt="Next"  align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-r.jpg"></li>';
       }
  $output .= '
  <div>
