@@ -82,6 +82,8 @@ function admin_reject(make){
         }
         
     });
+	
+	
     
     var report = jQuery('#reporttext').val();
     
@@ -130,6 +132,68 @@ function admin_reject(make){
     }
     
 }
+
+
+function admin_sendwarning(make){
+
+    var vals = [];
+    jQuery('.check_user').each(function(){
+		var e=jQuery(this);
+        if (e.attr('checked')) {
+        
+            vals.push(e.value);
+        }
+        
+    });
+    var report = jQuery('#reporttext').val();
+    
+    
+    if (vals.length==0) {
+    
+        if (jQuery('#showbox').css('display') == 'none') {
+        
+            jQuery('#showbox').css('display', 'block');
+            jQuery('#showbox').slideDown('slow');
+           jQuery('#reporttext').focus();
+            return false;
+        }
+        if (jQuery.trim(report).length < 5) {
+            jQuery('reporttext').css('border-color', '#EF2C2C');
+            return false;
+        }
+        else {
+            jQuery('reporttext').css('border-color', '');
+            
+        }
+        
+        
+        
+        if (confirm('Are you sure to reject the selected Questions?')) {
+            jQuery('#actions').attr('value', make);
+     
+	 //send form       
+          var formwave=jQuery('#notify');
+		jQuery.post(formwave.attr('action'),formwave.serialize(),
+   function(data){
+   //jQuery('#qlist').empty().html(data);
+	// setTimeout('admin_approve();', 1000);
+   });
+		
+		    
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+    
+        alert('select atleast one question for action');
+        return false;
+    }
+    
+}
+
+
 
 
 function checkall(val){

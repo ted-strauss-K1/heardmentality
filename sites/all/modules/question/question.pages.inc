@@ -1492,7 +1492,7 @@ function panel_content($type = '') {
                  question_flagged_mail($qids);
                 $query = db_query("delete from {question_flags} where type='question' AND fid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
-                drupal_goto('admin/questions');
+              
 
 
                 
@@ -1753,6 +1753,7 @@ function moderate_user() {
     
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/moderate.js');
+     drupal_add_js(drupal_get_path('module', 'question').'/scripts/qadmin.js');
     
    // $seldonar = "select count(nodeid) as cnt ,f.nodeid from question_flags as f   where f.type='question'   group by nodeid";
      $seldonar = "select count(f.nodeid) as cnt ,f.nodeid from question_flags as f join question as q on f.nodeid=q.qid where f.type='question'   group by nodeid";
@@ -1792,23 +1793,33 @@ function moderate_user() {
         
     
     }
-    $moduser .= ' </table><div id="showbox_user" align="left" style="width:100%;display:none"><label for="warn_msg"><b>Send Warning Message :</b></label><br/><textarea name="warn_msg" cols="55" row="17" id="warn_msg"></textarea></div><div><input type="hidden" id="action_value" name="action_value" value=""/> <input type="button" onclick="send_notify(1);"  value="Send warning message"/>&nbsp; <input onclick="send_suspend(0);" type="button" value="Suspend User"/></div>';
+  $moduser .= '<tr><td><div id="showbox" align="left" style="width:100%;display:none">
+      <label for="reporttext"><b>Send Warning Message :</b></label>
+      <br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea>
+      </div></td></tr>';
+    $moduser .= ' </table><div id="showbox_user" align="left" style="width:100%;display:none"><label for="warn_msg"><b>Send Warning Message :</b></label><br/><textarea name="warn_msg" cols="55" row="17" id="warn_msg"></textarea></div><div><input type="hidden" id="action_value" name="action_value" value="warning_message"/> <input type="button" onclick="admin_sendwarning(1);"  value="Send warning message"/>&nbsp; <input onclick="send_suspend(0);" type="button" value="Suspend User"/></div>';
     
     return $moduser;
 
 
 }
 function moderate_user_mail() {
+    print_r($_REQUEST);
+    exit;
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     
     $us_id = implode(',', $_REQUEST['us_id']);
     $idr = $_REQUEST['us_id'];
-    if ($_REQUEST['action_value']) {
+    //if ($_REQUEST['action_value']) {
+   // echo count($_REQUEST['us_id']);
+    //exit;
+    if ($_REQUEST['action_value']=='warning_message') {
 
         
         foreach ($idr as $idd) {
             
-            $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$idd' ");
+            $query = db_queryd("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$idd' ");
+            exit;
             $det = db_fetch_object($query);
             
             quest_mail_warning($det->uid);
