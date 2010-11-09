@@ -18,6 +18,8 @@ function get_toplist(sid,level){
    data: { action:level,cid:cid,scid:scid},
    success: function(msg){
      jQuery('#res_top').html(msg);
+     load_list(1);
+init_pagecon();
    }
  });						
 									
