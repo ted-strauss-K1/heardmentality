@@ -579,9 +579,9 @@ function qlite_view() {
     $voutput .= $submitbutt . '
                   <div >
                 <ul>
-                  <li ><a href="javascript:set_tab_active(2);" title="Comments">' . $x . ' comments</a></li>
+                  <li ><a href="javascript:set_tab_active(\'#par1 a\');" title="Comments">' . $x . ' comments</a></li>
                   <li>|</li>
-                  <li ><a href="javascript:set_tab_active(3);" title="Resources">' . $numres . ' Resources</a></li>
+                  <li ><a href="javascript:set_tab_active(\'#par2 a\');" title="Resources">' . $numres . ' Resources</a></li>
                   </ul>
               </div>
                 </div>

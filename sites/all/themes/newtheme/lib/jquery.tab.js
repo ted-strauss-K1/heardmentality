@@ -41,9 +41,9 @@ $(document).ready(function(){
 
 function set_tab_active(id){
 
-  loadTab(jQuery('#maintabs li:nth-child('+id+') a'),'#tabcontent');
+  loadTab(jQuery(id),'#tabcontent');
   $('#maintabs LI.current').removeClass('current');
-  jQuery('#maintabs li:nth-child('+id+')').addClass('current');
+  jQuery(id).addClass('current');
 }
 
 function loadTab(tabObj,containerId){
