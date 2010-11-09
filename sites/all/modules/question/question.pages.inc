@@ -1332,6 +1332,7 @@ function admin_question() {
 }
 
 function admin_content() {
+   
     global $gSitePath,$user,$gDocPath,$base_root;
     $outputcontent = '';
     drupal_add_js(drupal_get_path('module', 'question').'/scripts/qadmin.js');
@@ -1491,6 +1492,7 @@ function panel_content($type = '') {
                  question_flagged_mail($qids);
                 $query = db_query("delete from {question_flags} where type='question' AND fid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
+                drupal_goto('admin/questions');
 
 
                 
@@ -1748,10 +1750,12 @@ function flag_user_mail($uids = '') {
     return true;
 }
 function moderate_user() {
+    
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
     drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/moderate.js');
     
-    $seldonar = "select count(nodeid) as cnt ,f.nodeid from question_flags as f   where f.type='question'   group by nodeid";
+   // $seldonar = "select count(nodeid) as cnt ,f.nodeid from question_flags as f   where f.type='question'   group by nodeid";
+     $seldonar = "select count(f.nodeid) as cnt ,f.nodeid from question_flags as f join question as q on f.nodeid=q.qid where f.type='question'   group by nodeid";
     
     $res_donar = db_query($seldonar);
     $moduser = '<div id="nlist"></div>
@@ -1764,7 +1768,8 @@ function moderate_user() {
     <td></td>
   </tr>';
     while ($don = db_fetch_object($res_donar)) {
-        $sequest = "select * from question where qid='".$don->nodeid."'";
+       // $sequest = "select * from question where qid='".$don->nodeid."'";
+        $sequest = "select * from question as q join question_flags as f on q.qid=f.nodeid where q.qid='".$don->nodeid."'";
         $res_quest = db_query($sequest);
         $qlist = db_fetch_object($res_quest);
         // $ss=$qlist->question;
