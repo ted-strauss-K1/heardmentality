@@ -2640,7 +2640,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
 
-     $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.cat";
+     echo $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.cat";
      $result_cat = db_query($qry_cat);
     while($quest_cat = db_fetch_object($result_cat))
     {
@@ -2700,7 +2700,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
    <td width="25%" align="left">
    <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
    <option value="">Select Sub Sub Category</option>';
-    if ($quest->scid != '') {
+    if ($quest->scid != '') {//now here
         $client_select2 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scid."')");
         $ecat3 = explode(",", $quest->sscid);
 
