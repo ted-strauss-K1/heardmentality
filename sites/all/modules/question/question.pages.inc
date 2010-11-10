@@ -2640,14 +2640,14 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
 
-   echo  $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.cat";
+     $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.cat";
      $result_cat = db_query($qry_cat);
     while($quest_cat = db_fetch_object($result_cat))
     {
        $cat[] =  $quest_cat->cat;
     }
-   //print_r($cat[1]);
-    $c=0;
+   print_r($cat[1]);
+    $c=1;
     while ($list = db_fetch_object($client_select)) {
         if($list->cat_id==$cat[$c]){//888
             echo "iam here";
