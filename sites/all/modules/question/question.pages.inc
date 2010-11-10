@@ -2646,7 +2646,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     {
        $cat[] =  $quest_cat->cat;
     }
-   print_r($cat);
+   print_r($cat[1]);
     $c=0;
     while ($list = db_fetch_object($client_select)) {
         if($list->cat_id==$cat[$c]){//888
@@ -2659,7 +2659,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
         } else {
             $sel = '';
         }*/
-      //  $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
+        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
 
         $c++;
     }
