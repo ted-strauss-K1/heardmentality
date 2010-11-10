@@ -2727,7 +2727,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
                 $sel = '';
             }*/
 
-            $output .= '<option value="'.$listing->cat_id.'" '.$sel.'>'.stripslashes($listing->cat_name).'</option>';
+            $output .= '<option value="'.$listing->cat_id.'" '.$selec.'>'.stripslashes($listing->cat_name).'</option>';
         }
     }
     $output .= '</select></div></td>
