@@ -2719,9 +2719,9 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 
             if($listing->cat_id==$ssubcat[$ssc]){
             echo "i am here";
-         $selec = 'SELECTED';
+         $select = 'SELECTED';
         }else{
-            $selec = '';
+            $select = '';
         }
 
            /* if (in_array($list->cat_id, $ecat3)) {
@@ -2730,7 +2730,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
                 $sel = '';
             }*/
 
-            $output .= '<option value="'.$listing->cat_id.'" '.$selec.'>'.stripslashes($listing->cat_name).'</option>';
+            $output .= '<option value="'.$listing->cat_id.'" '.$select.'>'.stripslashes($listing->cat_name).'</option>';
         }
    // }
     $output .= '</select></div></td>
