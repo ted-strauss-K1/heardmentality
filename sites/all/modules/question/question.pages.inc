@@ -2429,7 +2429,7 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
 
     
     //$result = db_queryd("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
-    echo $left_qry = "SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."'";
+     $left_qry = "SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."'";
     $result = db_query($left_qry);
     $quest = db_fetch_object($result);
     
@@ -2655,7 +2655,8 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     unset($cat[$key]);
   }
 }
-print_r(array_keys($cat[0]));
+$kk = array_keys($cat);
+echo $kk[0];
 $c=0;
 
     while ($list = db_fetch_object($client_select)) {
