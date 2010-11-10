@@ -2702,7 +2702,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
    <td width="25%" align="left">
    <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
    <option value="">Select Sub Sub Category</option>';
-    if ($quest->scid != '') {//now here
+   // if ($quest->scid != '') {//now here
         echo $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scat."')";
         $client_select2 = db_query($scat_qry);
         $ecat3 = explode(",", $quest->sscid);
@@ -2732,7 +2732,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 
             $output .= '<option value="'.$listing->cat_id.'" '.$selec.'>'.stripslashes($listing->cat_name).'</option>';
         }
-    }
+   // }
     $output .= '</select></div></td>
       </tr>
 	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
