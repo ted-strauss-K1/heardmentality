@@ -2737,8 +2737,15 @@ $kk1 = array_keys($subcat);
     {
        $ssubcat[] =  $quest_ssubcat->sscat;
     }
-    //print_r($ssubcat);
-    $ssc=0;
+
+    foreach($ssubcat as $subkey => $subvalue) {
+  if($subvalue==0) {
+    unset($ssubcat[$subkey]);
+  }
+}
+$kk2 = array_keys($ssubcat);
+      //print_r($ssubcat);
+    $ssc=$kk2[0];
         while ($listing = db_fetch_object($client_select2)) {
 
 
