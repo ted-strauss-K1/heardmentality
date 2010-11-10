@@ -2718,7 +2718,7 @@ $kk1 = array_keys($subcat);
         
         $output .= '<option value="'.$liste->cat_id.'" '.$sele.'>'.stripslashes($liste->cat_name).'</option>';
 
-        $subcate_id .= $cat[$sc].",";
+        $subcate_id .= $subcat[$sc].",";
     $sc++;
     }
      $psubcate_id =  trim($subcate_id,",");
