@@ -2659,7 +2659,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
         } else {
             $sel = '';
         }*/
-        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
+      //  $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
 
         $c++;
     }
