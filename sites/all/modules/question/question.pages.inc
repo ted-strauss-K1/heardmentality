@@ -2667,7 +2667,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     
     $output .= '</select></td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
-    $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cat."')";
+    echo $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cat."')";
     $client_select1 = db_query($cat_qry);
     $ecat2 = explode(",", $quest->scid);
 
@@ -2703,7 +2703,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
    <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
    <option value="">Select Sub Sub Category</option>';
    // if ($quest->scid != '') {//now here
-        echo $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scat."')";
+         $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scat."')";
         $client_select2 = db_query($scat_qry);
         $ecat3 = explode(",", $quest->sscid);
 
