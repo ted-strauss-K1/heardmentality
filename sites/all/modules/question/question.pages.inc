@@ -2682,7 +2682,7 @@ $c= $kk[0];
     $output .= '</select></td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
 
-    echo $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$pcate_id."')";
+     $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$pcate_id."')";
     $client_select1 = db_query($cat_qry);
     $ecat2 = explode(",", $quest->scid);
 
@@ -2692,7 +2692,14 @@ $c= $kk[0];
     {
        $subcat[] =  $quest_subcat->scat;
     }
-    $sc=1;
+
+    foreach($subcat as $keys => $values) {
+  if($values==0) {
+    unset($subcat[$keys]);
+  }
+}
+$kk1 = array_keys($subcat);
+    $sc=$kk1[0];
     //print_r($subcat);
     while ($liste = db_fetch_object($client_select1)) {
 
@@ -2711,14 +2718,17 @@ $c= $kk[0];
         
         $output .= '<option value="'.$liste->cat_id.'" '.$sele.'>'.stripslashes($liste->cat_name).'</option>';
 
+        $subcate_id .= $cat[$sc].",";
     $sc++;
     }
+     $psubcate_id =  trim($subcate_id,",");
+
     $output .= '</select></div></td>
    <td width="25%" align="left">
    <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
    <option value="">Select Sub Sub Category</option>';
    // if ($quest->scid != '') {//now here
-         $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scat."')";
+         echo $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$psubcate_id."')";
         $client_select2 = db_query($scat_qry);
         $ecat3 = explode(",", $quest->sscid);
 
