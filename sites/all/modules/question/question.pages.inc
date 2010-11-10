@@ -1512,10 +1512,7 @@ function panel_content($type = '') {
                  question_flagged_ignore_mail($qids,$reporttext);
                  
                 $query = db_query("delete from {question} where qid in ($qids)");
-
-
                 echo '<div class="success">Question updated successfully!</div>';
-            
             }
             
             panel_content('flagged');
@@ -1760,7 +1757,8 @@ function moderate_user() {
     
     $res_donar = db_query($seldonar);
     $moduser = '<div id="nlist"></div>
-	<form id="notify" method="post" action="'.$gSitePath.'admin/notifymail" ><table width="100%" border="1">
+	<form id="notify" method="post" action="'.$gSitePath.'admin/notifymail" >
+        <div id="list"><table width="100%" border="1">
   <tr>
     <td>Question </td>
     <td>Flagged </td>
@@ -1797,46 +1795,38 @@ function moderate_user() {
       <label for="reporttext"><b>Send Warning Message :</b></label>
       <br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea>
       </div></td></tr>';
-    $moduser .= ' </table><div id="showbox_user" align="left" style="width:100%;display:none"><label for="warn_msg"><b>Send Warning Message :</b></label><br/><textarea name="warn_msg" cols="55" row="17" id="warn_msg"></textarea></div><div><input type="hidden" id="action_value" name="action_value" value="warning_message"/> <input type="button" onclick="admin_sendwarning(1);"  value="Send warning message"/>&nbsp; <input onclick="send_suspend(0);" type="button" value="Suspend User"/></div>';
-    
+    $moduser .= ' </table></div>
+        <div id="showbox_user" align="left" style="width:100%;display:none"><label for="warn_msg"><b>Send Warning Message :</b></label><br/>
+        <textarea name="warn_msg" cols="55" row="17" id="warn_msg"></textarea></div>
+        <div><input type="hidden" id="action_value" name="action_value" value="warning_message"/>
+        <input type="button" onclick="admin_sendwarning(1);"  value="Send warning message"/>&nbsp; <input onclick="send_suspend(0);" type="button" value="Suspend User"/>
+        </div>';
     return $moduser;
-
-
 }
 function moderate_user_mail() {
-    print_r($_REQUEST);
-    exit;
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    
     $us_id = implode(',', $_REQUEST['us_id']);
     $idr = $_REQUEST['us_id'];
     //if ($_REQUEST['action_value']) {
    // echo count($_REQUEST['us_id']);
     //exit;
-    if ($_REQUEST['action_value']=='warning_message') {
-
-        
-        foreach ($idr as $idd) {
-            
-            $query = db_queryd("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$idd' ");
-            exit;
+    if ($_REQUEST['reporttext']!='') {
+        foreach ($idr as $idd) {   
+            $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$idd' ");
             $det = db_fetch_object($query);
-            
             quest_mail_warning($det->uid);
+            db_query("delete from question_flags where nodeid='$idd'");
+            
         }
-        echo '<div class="success">Warning Message Send!</div>';
+       // exit;
+       // echo '<div class="success">Warning Message Send!</div>';
     } else {
 
-        
         foreach ($idr as $idd) {
-
-            
             $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$us_id' ");
             $det = db_fetch_object($query);
             $query_block = db_query("update {users} set status='0' where uid='$det->uid'");
         }
-
-        
         echo '<div class="success">Suspended  successfully!</div>';
         quest_mail($_REQUEST['us_id']);
     }
@@ -2420,7 +2410,7 @@ function edit_questions() {
     $output = '';
 
     
-    drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
+drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
         type="text/javascript"></script>');
 
     
@@ -2439,7 +2429,7 @@ function edit_questions() {
 
     
     //$result = db_queryd("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
-    $result = db_queryd("SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."' ");
+    $result = db_query("SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."' ");
     $quest = db_fetch_object($result);
     
     $output .= '
@@ -2644,31 +2634,47 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 	
 	</td>
     <td colspan="3" valign="top" align="left"><table width="65%" border="0">
-		<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
+    <tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
         <td width="25%" align="left"><select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
-    
+
+     $result_cat = db_query("SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.cat");
+    while($quest_cat = db_fetch_object($result_cat))
+    {
+       $cat[] =  $quest_cat->cat;
+    }
+   //print_r($cat);
+    $c=0;
     while ($list = db_fetch_object($client_select)) {
-        if($list->cat_id==$quest->cat){
+        if($list->cat_id==$cat[$c]){//888
           $sel = 'SELECTED';
         }else{
             $sel = '';
         }
-       /* if (in_array($list->cat_id, $ecat1)) {
+       /*if (in_array($list->cat_id, $ecat1)) {
             $sel = 'SELECTED="SELECTED"';
         } else {
             $sel = '';
         }*/
         $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
-    
+
+        $c++;
     }
     
     $output .= '</select></td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
     $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cat."')");
     $ecat2 = explode(",", $quest->scid);
+
+
+     $result_subcat = db_query("SELECT t.scat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.scat");
+    while($quest_subcat = db_fetch_object($result_subcat))
+    {
+       $subcat[] =  $quest_subcat->scat;
+    }
+    $sc = 0;
     while ($liste = db_fetch_object($client_select1)) {
 
         /*if (in_array($list->cat_id, $ecat2)) {
@@ -2676,7 +2682,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
         } else {
             $sel = '';
         }*/
-        if($liste->cat_id==$quest->scat){
+        if($liste->cat_id==$subcat[$sc]){
             
          $sele = 'SELECTED';
         }else{
@@ -2685,7 +2691,8 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 
         
         $output .= '<option value="'.$liste->cat_id.'" '.$sele.'>'.$liste->cat_name.'</option>';
-    
+
+    $sc++;
     }
     $output .= '</select></div></td>
         <td width="25%" align="left"><div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
