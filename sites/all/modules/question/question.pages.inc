@@ -2648,9 +2648,13 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     }
 
     if($cat[0]==0)
+    {
     $c=1;
+    }
     else
+    {
     $c=0;
+    }
     while ($list = db_fetch_object($client_select)) {
         if($cat[$c]!=0)
         {
@@ -2683,9 +2687,13 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     }
     print_r($subcat);
     if($subcat[0]==0)
+    {
     $sc=1;
+    }
     else
+    {
     $sc=0;
+    }
     while ($liste = db_fetch_object($client_select1)) {
 
         /*if (in_array($list->cat_id, $ecat2)) {
