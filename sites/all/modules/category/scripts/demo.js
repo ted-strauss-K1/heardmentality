@@ -36,8 +36,3 @@ contentBgColor: '#000'
 }
 }
 
-$(function() {
-$("#cancel").click(function() {
-history.go(-1);
-});
-});
