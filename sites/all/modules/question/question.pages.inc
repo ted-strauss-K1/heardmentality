@@ -2703,7 +2703,8 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
    <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
    <option value="">Select Sub Sub Category</option>';
     if ($quest->scid != '') {//now here
-        $client_select2 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scat."')");
+        echo $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scat."')";
+        $client_select2 = db_query($scat_qry);
         $ecat3 = explode(",", $quest->sscid);
 
         $result_ssubcat = db_query("SELECT t.sscat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.scat");
