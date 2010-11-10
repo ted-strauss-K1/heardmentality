@@ -38,6 +38,6 @@ contentBgColor: '#000'
 
 $(function() {
 $("#cancel").click(function() {
-history.back(1);
+history.go(-1);
 });
 });
