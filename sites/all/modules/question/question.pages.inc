@@ -2675,7 +2675,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     {
        $subcat[] =  $quest_subcat->scat;
     }
-    $sc = 0;
+    $sc=1;
     while ($liste = db_fetch_object($client_select1)) {
 
         /*if (in_array($list->cat_id, $ecat2)) {
