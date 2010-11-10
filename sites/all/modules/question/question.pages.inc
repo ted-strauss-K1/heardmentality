@@ -2647,17 +2647,13 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
        $cat[] =  $quest_cat->cat;
     }
    print_r($cat);
-    
-    $c=0;
+    $c=1;
     while ($list = db_fetch_object($client_select)) {
-        if($cat[$c]!=0)
-        {
-            if($list->cat_id==$cat[$c]){//888
-              $sel = 'SELECTED';
-            }else{
-                $sel = '';
-            }
-        
+        if($list->cat_id==$cat[$c]){//888
+          $sel = 'SELECTED';
+        }else{
+            $sel = '';
+        }
        /*if (in_array($list->cat_id, $ecat1)) {
             $sel = 'SELECTED="SELECTED"';
         } else {
@@ -2679,9 +2675,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     {
        $subcat[] =  $quest_subcat->scat;
     }
-    print_r($subcat);
-     
-    $sc=0;
+    $sc=1;
     while ($liste = db_fetch_object($client_select1)) {
 
         /*if (in_array($list->cat_id, $ecat2)) {
