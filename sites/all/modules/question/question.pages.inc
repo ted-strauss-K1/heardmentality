@@ -2656,8 +2656,8 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
   }
 }
 $kk = array_keys($cat);
-echo $kk[0];
-$c=0;
+
+$c= $kk[0];
 
     while ($list = db_fetch_object($client_select)) {
         if($list->cat_id==$cat[$c]){//888
