@@ -2429,7 +2429,8 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
 
     
     //$result = db_queryd("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
-    $result = db_query("SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."' ");
+    echo $left_qry = "SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."'";
+    $result = db_query($left_qry);
     $quest = db_fetch_object($result);
     
     $output .= '
@@ -2640,7 +2641,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
 
-     echo $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.cat";
+     $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.cat";
      $result_cat = db_query($qry_cat);
     while($quest_cat = db_fetch_object($result_cat))
     {
