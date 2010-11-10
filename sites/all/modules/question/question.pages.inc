@@ -2655,8 +2655,9 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     unset($cat[$key]);
   }
 }
-$c=0;
 print_r($cat);
+$c=0;
+
     while ($list = db_fetch_object($client_select)) {
         if($list->cat_id==$cat[$c]){//888
           $sel = 'SELECTED';
