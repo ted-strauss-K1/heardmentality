@@ -2674,12 +2674,12 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
        
         
     }
-    
+   $pcate_id =  trim($cate_id,",");
    
     $output .= '</select></td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
 
-    echo $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".trim($cate_id,",")."')";
+    echo $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$pcate_id."')";
     $client_select1 = db_query($cat_qry);
     $ecat2 = explode(",", $quest->scid);
 
