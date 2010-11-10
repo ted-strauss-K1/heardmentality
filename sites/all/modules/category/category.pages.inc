@@ -88,7 +88,7 @@ function category_list() {
 
 function treemenu_add() {
 
-    drupal_add_js(drupal_get_path('module', 'category').'/scripts/demo.js');
+    drupal_add_js(drupal_get_path('module', 'category').'/scripts/redirect.js');
     global $gSitePath,$user,$gDocPath;
     return drupal_get_form('cat_add');
 
