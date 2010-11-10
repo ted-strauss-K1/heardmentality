@@ -88,7 +88,7 @@ function category_list() {
 
 function treemenu_add() {
 
-    
+    drupal_add_js(drupal_get_path('module', 'category').'/scripts/demo.js');
     global $gSitePath,$user,$gDocPath;
     return drupal_get_form('cat_add');
 
@@ -107,12 +107,16 @@ function treemenu_edit() {
 
 //category add core form build
 
+
 function cat_add() {
     //print_r()
     $form['cname'] = array('#type'=>'textfield', '#title'=>t('Category Name'), '#size'=>60, '#maxlength'=>50, '#required'=>TRUE, );
     $form['submit'] = array('#type'=>'submit', '#value'=>t('Add'));
     $form['#validate'][] = 'cat_add_validate';
-    $form['cancel'] = array('#type'=>'button','#button_type'=>'reset','#submit' => FALSE,'#attributes'=>array('onClick'=>'location.replace("'.referer_uri().'"); return false;'), '#value'=>t('Cancel'), );
+    //$form['cancel'] = array('#type'=>'button','#button_type'=>'reset','#submit' => FALSE,'#attributes'=>array('onClick'=>'location.replace("'.referer_uri().'"); return false;'), '#value'=>t('Cancel'), );
+    $form['cancel'] = array(
+'#value' => '<input type="button" value="Cancel" id="cancel">',
+); 
 
     //$form['cancel'] = array('#type'=>'button', '#value'=>t('Add'),'#submit' => FALSE);
     return $form;
