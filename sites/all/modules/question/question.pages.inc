@@ -2718,8 +2718,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 
 
             if($listing->cat_id==$ssubcat[$ssc]){
-            echo "i am here";
-         $select = 'SELECTED';
+         $select = "selected='SELECTED'";
         }else{
             $select = '';
         }
