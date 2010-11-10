@@ -2697,20 +2697,37 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     $sc++;
     }
     $output .= '</select></div></td>
-        <td width="25%" align="left"><div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
+   <td width="25%" align="left">
+   <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
+   <option value="">Select Sub Sub Category</option>';
     if ($quest->scid != '') {
         $client_select2 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->scid."')");
         $ecat3 = explode(",", $quest->sscid);
-        while ($list = db_fetch_object($client_select2)) {
-            if (in_array($list->cat_id, $ecat3)) {
+
+        $result_ssubcat = db_query("SELECT t.sscat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.scat");
+    while($quest_ssubcat = db_fetch_object($result_ssubcat))
+    {
+       $ssubcat[] =  $quest_ssubcat->sscat;
+    }
+    print_r($ssubcat);
+    $ssc=1;
+        while ($listing = db_fetch_object($client_select2)) {
+
+
+            if($listing->cat_id==$ssubcat[$ssc]){
+
+         $selec = 'SELECTED';
+        }else{
+            $selec = '';
+        }
+
+           /* if (in_array($list->cat_id, $ecat3)) {
                 $sel = 'SELECTED="SELECTED"';
             } else {
                 $sel = '';
-            }
+            }*/
 
-            
-            $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
-        
+            $output .= '<option value="'.$listing->cat_id.'" '.$sel.'>'.stripslashes($listing->cat_name).'</option>';
         }
     }
     $output .= '</select></div></td>
