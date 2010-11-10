@@ -3070,7 +3070,7 @@ setDefaultCountry();
 
 
         
-        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
+        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
     
     }
     
@@ -3086,7 +3086,7 @@ setDefaultCountry();
         }
 
         
-        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
+        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
     
     }
     $output .= '</select></div></td>
@@ -3102,7 +3102,7 @@ setDefaultCountry();
             }
 
             
-            $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
+            $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
         
         }
     }
