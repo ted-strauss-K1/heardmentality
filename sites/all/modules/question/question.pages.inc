@@ -930,7 +930,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
         } else {
             $sel = '';
         }
-        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
+        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
     
     }
     
@@ -947,7 +947,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
         }
 
         
-        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
+        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
     
     }
     $output .= '</select></div></td>
@@ -963,7 +963,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
             }
 
             
-            $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
+            $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
         
         }
     }
@@ -2658,7 +2658,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
         } else {
             $sel = '';
         }*/
-        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
+        $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
 
         $c++;
     }
@@ -2707,7 +2707,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
             }
 
             
-            $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.$list->cat_name.'</option>';
+            $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
         
         }
     }
