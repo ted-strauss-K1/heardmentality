@@ -2649,17 +2649,13 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     }
 
 //   print_r($cat);
-
     $c=0;
-
     foreach($cat as $key => $value) {
   if($value==0) {
     unset($cat[$key]);
   }
 }
-print_r($cat);
-
-
+//print_r($cat);
     while ($list = db_fetch_object($client_select)) {
         if($list->cat_id==$cat[$c]){//888
           $sel = 'SELECTED';
@@ -2672,12 +2668,13 @@ print_r($cat);
             $sel = '';
         }*/
         $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
+        
         $cate_id .= $cat[$c].",";
         $c++;
        
         
     }
-    echo $cate_id;
+    echo trim($cate_id,",");
    
     $output .= '</select></td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
