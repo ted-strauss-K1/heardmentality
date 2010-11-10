@@ -2655,7 +2655,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     unset($cat[$key]);
   }
 }
-print_r(array_keys($cat));
+print_r(array_keys($cat[0]));
 $c=0;
 
     while ($list = db_fetch_object($client_select)) {
