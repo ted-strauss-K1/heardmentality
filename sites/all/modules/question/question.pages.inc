@@ -2647,8 +2647,19 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     {
        $cat[] =  $quest_cat->cat;
     }
-   print_r($cat);
-    $c=1;
+
+//   print_r($cat);
+
+    $c=0;
+
+    foreach($cat as $key => $value) {
+  if($value==0) {
+    unset($cat[$key]);
+  }
+}
+print_r($cat);
+
+
     while ($list = db_fetch_object($client_select)) {
         if($list->cat_id==$cat[$c]){//888
           $sel = 'SELECTED';
@@ -2661,12 +2672,16 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
             $sel = '';
         }*/
         $output .= '<option value="'.$list->cat_id.'" '.$sel.'>'.stripslashes($list->cat_name).'</option>';
-
+        $cate_id .= $cat[$c].",";
         $c++;
+       
+        
     }
-    
+    echo $cate_id;
+   
     $output .= '</select></td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+
     echo $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cat."')";
     $client_select1 = db_query($cat_qry);
     $ecat2 = explode(",", $quest->scid);
@@ -2678,7 +2693,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
        $subcat[] =  $quest_subcat->scat;
     }
     $sc=1;
-    print_r($subcat);
+    //print_r($subcat);
     while ($liste = db_fetch_object($client_select1)) {
 
         /*if (in_array($list->cat_id, $ecat2)) {
@@ -2712,7 +2727,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     {
        $ssubcat[] =  $quest_ssubcat->sscat;
     }
-    print_r($ssubcat);
+    //print_r($ssubcat);
     $ssc=0;
         while ($listing = db_fetch_object($client_select2)) {
 
