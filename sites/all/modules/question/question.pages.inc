@@ -2647,7 +2647,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
        $cat[] =  $quest_cat->cat;
     }
 
-    if($cat[0]==0)
+    if($cat['0']==0)
     {
     $c=1;
     }
@@ -2686,7 +2686,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
        $subcat[] =  $quest_subcat->scat;
     }
     print_r($subcat);
-    if($subcat[0]==0)
+    if($subcat['0']==0)
     {
     $sc=1;
     }
