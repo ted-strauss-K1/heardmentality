@@ -347,7 +347,9 @@ AND q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
      $quest = db_query($query);
             $qid = db_result($quest);
     }
- 
+        if(!empty ($qid))
         return $qid;
+        else
+            drupal_not_found ();die;
 }
 

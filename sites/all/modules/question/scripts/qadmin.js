@@ -5,77 +5,53 @@
 jQuery(document).ready(function(){
 
 
-    setTimeout('admin_approve();', 5000);
+    // setTimeout('admin_approve();', 5000);
     
-});
+    });
 
 
-function admin_approve(make){
 
-    jQuery(document).ready(function(){
-        jQuery('#qadmin').submit(function(){
+
+jQuery(document).ready(function(){
+    jQuery('#qadmin').live('submit',function(){
         
-            var vals = [];
-            jQuery('.check-me').each(function(){
-				var e=jQuery(this);
-                if (e.getProperty('checked')) {
+        var vals = [];
+        jQuery('.check-me:checked').each(function(){
+            var e=jQuery(this);
+            vals.push(e.val());
                 
-                    vals.push(e.value);
-                }
-                
-                
-            });
+        });
             
-            if (vals.length > 0) {
-                //Prevents the default submit event from loading a new page.
-                
-                //Empty the log and show the spinning indicator.
-                
-                //Set the options of the form's Request handler. 
-                //("this" refers to the $('myForm') element).
-                
-             /*
-   this.set('send', {
-                    onComplete: function(response){
+        if (vals.length > 0) {
+      
+            var formwave=jQuery(this);
+            jQuery.post(formwave.attr('action'),formwave.serialize(),
+                function(data){
+                    jQuery('#qlist').empty().html(data);
                     
-                        var log = jQuery('#qlist').empty().addClass('ajax-loading');
-                        log.set('html', response);
-                        setTimeout('admin_approve();', 1000);
-                    }
                 });
-                //Send the form.
-                
-                this.send();
-*/
-               
-			      var formwave=jQuery(this);
-		jQuery.post(formwave.attr('action'),formwave.serialize(),
-   function(data){
-   jQuery('#qlist').empty().html(data);
-	 setTimeout('admin_approve();', 1000);
-   });
 			   
 			    
-            }
-            else {
+        }
+        else {
             
-                alert('select atleast one question for action!');
-                return false;
-            }
-            
-        });
-        
-        
-        
+            alert('select atleast one question for action!');
+           
+        }
+          return false;
     });
+        
     
-}
+        
+});
+    
+
 
 function admin_reject(make){
 
     var vals = [];
     jQuery('.check-me').each(function(){
-		var e=jQuery(this);
+        var e=jQuery(this);
         if (e.attr('checked')) {
         
             vals.push(e.value);
@@ -94,7 +70,7 @@ function admin_reject(make){
         
             jQuery('#showbox').css('display', 'block');
             jQuery('#showbox').slideDown('slow');
-           jQuery('#reporttext').focus();
+            jQuery('#reporttext').focus();
             return false;
         }
         if (jQuery.trim(report).length < 5) {
@@ -111,13 +87,13 @@ function admin_reject(make){
         if (confirm('Are you sure to reject the selected Questions?')) {
             jQuery('#actions').attr('value', make);
      
-	 //send form       
-          var formwave=jQuery('#qadmin');
-		jQuery.post(formwave.attr('action'),formwave.serialize(),
-   function(data){
-   jQuery('#qlist').empty().html(data);
-	 setTimeout('admin_approve();', 1000);
-   });
+            //send form
+            var formwave=jQuery('#qadmin');
+            jQuery.post(formwave.attr('action'),formwave.serialize(),
+                function(data){
+                    jQuery('#qlist').empty().html(data);
+                    setTimeout('admin_approve();', 1000);
+                });
 		
 		    
         }
@@ -138,7 +114,7 @@ function admin_sendwarning(make){
 
     var vals = [];
     jQuery('.check-user').each(function(){
-		var e=jQuery(this);
+        var e=jQuery(this);
         if (e.attr('checked')) {
         
             vals.push(e.value);
@@ -154,7 +130,7 @@ function admin_sendwarning(make){
         
             jQuery('#showbox').css('display', 'block');
             jQuery('#showbox').slideDown('slow');
-           jQuery('#reporttext').focus();
+            jQuery('#reporttext').focus();
             return false;
         }
         if (jQuery.trim(report).length < 5) {
@@ -171,13 +147,13 @@ function admin_sendwarning(make){
         if (confirm('Are you sure send warning message')) {
             jQuery('#actions').attr('value', make);
      
-	 //send form       
-          var formwave=jQuery('#notify');
-		jQuery.post(formwave.attr('action'),formwave.serialize(),
-   function(data){
-   jQuery('#list').empty().html(data);
-   setTimeout('admin_approve();', 1000);
-   });
+            //send form
+            var formwave=jQuery('#notify');
+            jQuery.post(formwave.attr('action'),formwave.serialize(),
+                function(data){
+                    jQuery('#list').empty().html(data);
+                    setTimeout('admin_approve();', 1000);
+                });
 		
 		    
         }
@@ -197,7 +173,7 @@ function send_suspend(make){
 
     var vals = [];
     jQuery('.check-user').each(function(){
-		var e=jQuery(this);
+        var e=jQuery(this);
         if (e.attr('checked')) {
         
             vals.push(e.value);
@@ -230,13 +206,13 @@ function send_suspend(make){
         if (confirm('Are you sure send warning message')) {
             jQuery('#actions').attr('value', make);
      
-	 //send form       
-          var formwave=jQuery('#notify');
-		jQuery.post(formwave.attr('action'),formwave.serialize(),
-   function(data){
-   jQuery('#list').empty().html(data);
-   setTimeout('admin_approve();', 1000);
-   });
+            //send form
+            var formwave=jQuery('#notify');
+            jQuery.post(formwave.attr('action'),formwave.serialize(),
+                function(data){
+                    jQuery('#list').empty().html(data);
+                    setTimeout('admin_approve();', 1000);
+                });
 		
 		    
         }
@@ -259,7 +235,7 @@ function checkall(val){
 
 
     jQuery('.check-me').each(function(){
-		    jQuery(this).attr('checked',val);
+        jQuery(this).attr('checked',val);
     });
     
 }
