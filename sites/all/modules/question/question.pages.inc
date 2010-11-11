@@ -2420,24 +2420,93 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
     }
     
     $result = geonames_query('countryinfo');
+     $optionlist .= '<option value="">Select country</option>';
     foreach ($result->results as $country) {
-        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
+
+                    $set='';
+                    if($quest->country==$country['countryname'])
+                    {
+                        $set='SELECTED';
+                    }
+
+        $optionlist .= sprintf('<option value="%s" %s>%s</option>', $country['countryname'],$set,$country['countryname']);
     }
 
-    
-    $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
-    
+     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+
     //$result = db_queryd("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
      $left_qry = "SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."'";
     $result = db_query($left_qry);
     $quest = db_fetch_object($result);
+
+
+
+    /////////////state list start here /////////////////////////////
+    $query = array('query'=>$quest->country,'maxRows'=>'1','featureclass'=>'S');
+                $result = geonames_query('search', $query);
+               // $cc=$result->results[0]['countrycode'];
+               // $result = geonames_query('countryinfo', $query);
+               // $result->results[0][geonameid];
+                $query = array('country'=>$result->results[0]['countrycode']);
+                $result = geonames_query('countryinfo', $query);
+                 $query = array('geonameid'=>$result->results[0]['geonameid']);
+                $result = geonames_query('children', $query);
+
+                /*if($select&&$user->uid>0){
+                     $udet=load_user($user->uid);
+
+                   $setstate=$udet->state;
+                   $fcity=$udet->city;
+                }*/
+
+                $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
+                foreach ($result->results as $state) {
+                    $set='';
+                    if($quest->state==$state['name'])
+                    {
+                        $set='SELECTED=SELECTED';
+                    }
+                   /* if(strpos(strtolower($setstate),  strtolower($state['name']) )){
+                        $set='SELECTED=SELECTED';
+                    }*/
+                    $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'],$set,$state['name']);
+                }
+                $ret .= "</select>";
+                $ret;
+    /////////////state list end here //////////////////////////////
+
+    /////////// city list start here/////////////////
+             
+                $query_city = array('geonameid'=>$quest->state);
+                $result_city = geonames_query('children', $query_city);
+                //print_r($result);
+                $ret_city = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city"> <option value="">--Cities--</option> ';
+                foreach ($result_city->results as $state_city) {
+
+                    $ret_city .= sprintf('<option value="%s">%s</option>', $state_city['geonameid'], $state_city['name']);
+                }
+                $ret_city .= "<option value='-1'>Others</option>";
+                $ret_city .= "</select>";
+                $ret_city;
+    //////////// city list end here //////////////
+
+
+
+
+
+
+
+    
+   
     
     $output .= '
 		<script type="text/javascript">
 		
 					
 			function get_subcat(sid,divid,level){
+                                                                
 			
 										var foo = [];
 										$(sid).getSelected().each(function(number,i){
@@ -2728,7 +2797,7 @@ $kk1 = array_keys($subcat);
    <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
    <option value="">Select Sub Sub Category</option>';
    // if ($quest->scid != '') {//now here
-         echo $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$psubcate_id."')";
+          $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$psubcate_id."')";
         $client_select2 = db_query($scat_qry);
         $ecat3 = explode(",", $quest->sscid);
 
@@ -2754,24 +2823,23 @@ $kk2 = array_keys($ssubcat);
         }else{
             $select = '';
         }
-
            /* if (in_array($list->cat_id, $ecat3)) {
                 $sel = 'SELECTED="SELECTED"';
             } else {
                 $sel = '';
             }*/
-
             $output .= '<option value="'.$listing->cat_id.'" '.$select.'>'.stripslashes($listing->cat_name).'</option>';
         }
    // }
+ //<td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
+        //<td width="43%">&nbsp;<!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td>
     $output .= '</select></div></td>
       </tr>
 	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
 	  <tr> <td width="13%">&nbsp;<!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
-	
-    <td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
-	
-    <td width="43%">&nbsp;<!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td></tr>
+	<td width="13%">&nbsp;'.$ret.'</td>
+        <td width="13%">&nbsp;'.$ret_city.'</td>
+            </tr>
 	
     </table></td>
   </tr>
@@ -2821,7 +2889,7 @@ $kk2 = array_keys($ssubcat);
 
 
 function question_edit_save_admin($array) {
-   
+  
     global $gSitePath,$user,$gDocPath,$base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
@@ -2886,7 +2954,6 @@ function view_questions() {
 
     
     $output = '';
-
     
     drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
         type="text/javascript"></script>');
