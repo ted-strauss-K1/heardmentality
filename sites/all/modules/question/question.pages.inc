@@ -2415,7 +2415,8 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
 
     
     if (isset($_POST['update'])) {
-        
+        echo "i am here";
+        exit;
         question_edit_save_admin($_POST);
     }
     
