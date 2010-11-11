@@ -1261,8 +1261,8 @@ function flag_question() {
     $falgq .= '	<script>
 	var spath="' . $gSitePath . '";
 	</script>
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-more.js"></script>
+		<script type="text/javascript" src="'.$gSitePath.'/misc/jquery.js"></script>
+<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/jquery.blockUI.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/forum.js"></script>
 	<link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />
 	';
@@ -1622,13 +1622,13 @@ function flag_report() {
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['uid'], '0');
-                    echo '<div class="messages success">You Have Flagged successfully ! </div>';
+                    echo 'You Have Flagged successfully ! ';
                 } else {
-                    echo '<div class="messages error">You Have Already Flagged !</div>';
+                    echo '<div class="red">You Have Already Flagged !</div>';
                 }
             } else {
 
-                echo '<div class="messages error">Select Report Type !</div>';
+                echo '<div class="red">Select Report Type !</div>';
             }
         } elseif (isset($_REQUEST['rid'])) {
 
@@ -1644,13 +1644,13 @@ function flag_report() {
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['uid'], '0');
-                    echo '<div class="messages success">You Have Flagged successfully ! </div>';
+                    echo '<div class="">You Have Flagged successfully ! </div>';
                 } else {
-                    echo '<div class="messages error">You Have Already Flagged !</div>';
+                    echo '<div class="red">You Have Already Flagged !</div>';
                 }
             } else {
 
-                echo '<div class="messages error">Select Report Type !</div>';
+                echo '<div class="red">Select Report Type !</div>';
             }
         } elseif ($_REQUEST['rwave'] && $_REQUEST['rwave'] > 0) {
 
@@ -1712,18 +1712,18 @@ function flag_report() {
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['qaid'], '0');
-                    echo '<div class="messages success">You Have Flagged successfully ! </div>';
+                    echo '<div class="">You Have Flagged successfully ! </div>';
                 } else {
-                    echo '<div class="messages error">You Have Already Flagged !</div>';
+                    echo '<div class="red">You Have Already Flagged !</div>';
                 }
             } else {
 
-                echo '<div class="messages error">Select Report Type !</div>';
+                echo '<div class="red">Select Report Type !</div>';
             }
         }
     } else {
 
-        echo '<div class="messages error">Sorry You Not Have Sufficent User Points To Flag !</div>';
+        echo '<div class="red">Sorry You Not Have Sufficent User Points To Flag !</div>';
     }
 }
 
@@ -1737,7 +1737,7 @@ function suggest_answer() {
 	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 	<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 
-    $answers = "SELECT *	FROM suggest_answer where qid='" . $qid . "'  ";
+    $answers = "SELECT * FROM suggest_answer where qid='" . $qid . "'  ";
     $anslist = db_query($answers);
     $count_row = db_result(db_query($answers));
     $numr = db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='" . $qid . "' and uid='" . $user->uid . "'"));

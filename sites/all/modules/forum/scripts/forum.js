@@ -74,6 +74,10 @@ function bind_clk(){
                     log.removeClass('ajax-loading');
                     jQuery.unblockUI();
                     jQuery.growlUI('', data);
+                 
+                    jQuery("#flagform input:checked").attr('checked',false);
+
+
                 });
 
         //   jQuery(this).parents('form').submit(function() {
@@ -90,41 +94,41 @@ function bind_clk(){
 function wave_form(){
     //Prevents the default submit event from loading a new page.
     //e.stop();
-   var wt=jQuery('#newwaveform').find('#wtitle');
-		var wc=jQuery('#newwaveform').find('#wcon');
-                 var wt=jQuery('#newwaveform').find('#wtitle');
+    var wt=jQuery('#newwaveform').find('#wtitle');
+    var wc=jQuery('#newwaveform').find('#wcon');
+    var wt=jQuery('#newwaveform').find('#wtitle');
 
-                var wtitle=wt.val();
-		var post=wc.val();
-		var formwave=jQuery('#newwaveform');
+    var wtitle=wt.val();
+    var post=wc.val();
+    var formwave=jQuery('#newwaveform');
 
-           if(jQuery.trim(wtitle).length<2){
+    if(jQuery.trim(wtitle).length<2){
 
-			wt.css("border-color","red");
+        wt.css("border-color","red");
 
-			return false;
-		}else{
+        return false;
+    }else{
 
-	wt.css("border-color","");
-		}
+        wt.css("border-color","");
+    }
 
 
-		if(jQuery.trim(post).length<8){
+    if(jQuery.trim(post).length<8){
 
-			wc.css("border-color","red");
-		wc.removeClass('txtare');
-			return false;
-		}else{
+        wc.css("border-color","red");
+        wc.removeClass('txtare');
+        return false;
+    }else{
 
-	wc.addClass('txtare');
-		}
+        wc.addClass('txtare');
+    }
 
 
     jQuery.post( jQuery("#newwaveform").attr('action'), jQuery("#newwaveform").serialize(),
         function(data){
             wt.val('');
-          wc.val('');
-             $('#qwave').html(data);
+            wc.val('');
+            $('#qwave').html(data);
             jQuery.unblockUI();
             jQuery.growlUI('', 'Have a nice day!');
         });
@@ -282,9 +286,9 @@ function rwavelet(rid, wid){
 
     var myElement ='<div id="documentBody" align="right" ><a href="#" onClick="return_back('+rid+')" id="back" >Back</a></div>';
     
-   //  $('#ajaxpage_content').slideUp('slow');
+    //  $('#ajaxpage_content').slideUp('slow');
     jQuery.growlUI('Loading forum...');
-        jQuery.ajax({
+    jQuery.ajax({
         type: "POST",
         url: url,
         data: {
@@ -293,10 +297,10 @@ function rwavelet(rid, wid){
         },
         success: function(msg){
 
-              $('body').html(msg);
-                $('.content-popup').prepend(myElement);
-           // jQuery('#ajaxpage_content').slideDown('slow');
-              bind_clk();
+            $('body').html(msg);
+            $('.content-popup').prepend(myElement);
+            // jQuery('#ajaxpage_content').slideDown('slow');
+            bind_clk();
         }
     });
 
@@ -309,16 +313,16 @@ function return_back(rid){
 
     var url = spath+'resource/forum/' + rid;
     
-  jQuery.growlUI('Loading forum...');
-      jQuery.ajax({
+    jQuery.growlUI('Loading forum...');
+    jQuery.ajax({
         type: "POST",
         url: url,
         data: {},
         success: function(msg){
 
-              $('body').html(msg);
+            $('body').html(msg);
                
-                }
+        }
     });
 
     
@@ -338,10 +342,10 @@ function toggle(){
                 cursor:''
             }
         });
-}else{
+    }else{
 
-    jQuery.growlUI('', 'Please Login to do this action!');
-}
+        jQuery.growlUI('', 'Please Login to do this action!');
+    }
 }
 
 
@@ -365,10 +369,10 @@ jQuery(document).ready(function() {
                     cursor:'pointer'
                 }
             });
-    }else{
+        }else{
 
-        jQuery.growlUI('', 'Please Login to do this action!');
-    }
+            jQuery.growlUI('', 'Please Login to do this action!');
+        }
     //Get the A tag
        
  
@@ -399,21 +403,21 @@ jQuery(document).ready(function() {
 */
     });
 
-//if close button is clicked
-jQuery('.close').click(function (e) {
-    //Cancel the link behavior
-    e.preventDefault();
-    jQuery.unblockUI();
-// jQuery('#mask').hide();
-// jQuery('.window').hide();
-});
+    //if close button is clicked
+    jQuery('.close').click(function (e) {
+        //Cancel the link behavior
+        e.preventDefault();
+        jQuery.unblockUI();
+    // jQuery('#mask').hide();
+    // jQuery('.window').hide();
+    });
 
-//if mask is clicked
-jQuery('#mask').click(function () {
-    jQuery.unblockUI();
+    //if mask is clicked
+    jQuery('#mask').click(function () {
+        jQuery.unblockUI();
 
-//jQuery(this).hide();
-// jQuery('.window').hide();
-});
+    //jQuery(this).hide();
+    // jQuery('.window').hide();
+    });
 
 });
