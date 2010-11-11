@@ -49,13 +49,15 @@ function setDefaultCountry(cn) {
 
             }
         }
+
+
+
     }
 }
 
 
 
 function get_state(code){
-    var spath="'.$gSitePath.'";
     var url = spath+"question/ajax";
  
     jQuery.ajax({
@@ -84,7 +86,6 @@ function get_state(code){
     jQuery('#chg_city').fadeOut('slow');
 }
 function get_city(code){
-    var spath="'.$gSitePath.'";
     jQuery('#chg_city').fadeIn('slow');
     var url = spath+"question/ajax";
 
@@ -131,7 +132,9 @@ jQuery("input[name='q_scat[]']").live("change", function(event) {
 
 
 function get_subcat(sid,divid,level,ids){
-  var spath="'.$gSitePath.'";
+
+   
+
     if(level==1){
         jQuery('#cat1').val(ids);
         jQuery('#chg_sscat').fadeOut('slow');
@@ -183,7 +186,6 @@ function get_subcat(sid,divid,level,ids){
 function validate_question(){
 
     var quest = jQuery('#q_quest').val();
-    
     var ans1 = jQuery('#q_ans1').val();
     var ans2 = jQuery('#q_ans2').val();
     
