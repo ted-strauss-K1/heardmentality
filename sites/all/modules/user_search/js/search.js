@@ -254,7 +254,8 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabc
 
       // Preload tab on page load
       
-    jQuery.each(tabarray,function(e){
+ jQuery.each(tabarray,function(){
+       // e.preventDefault();
         var arr=this.split(",");
 
         var tabsId = arr[0];
@@ -265,8 +266,15 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabc
             loadTab($(tabsId + ' LI.current A'),containerId);
         }
 
-        $(tabsId + ' A').click(function(){
+        $(tabsId + ' A').click(function(e){
+           
+                if($(this).attr('href')=='#') {
+                  e.preventDefault();
+                     e.stopPropagation();
+                     return false;
+                     }
             if($(this).parent().hasClass('current')){
+
                 return false;
             }
 
@@ -277,21 +285,12 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabc
             return false;
         });
 
-        $('#vmaintabs1 #com').click(function() {
-          $("#maintabs #in").removeClass("current");
-           $("#maintabs #par2").removeClass("current");
-           $('#maintabs #par1').addClass("current");
-        });
 
-        $('#vmaintabs2 #com2').click(function() {
-             $("#maintabs #in").removeClass("current");
-               $("#maintabs #par1").removeClass("current");
-            $('#maintabs #par2').addClass("current");
-        });
 
 
 
     });
+
 }
 
 

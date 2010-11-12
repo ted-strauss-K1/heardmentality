@@ -418,7 +418,7 @@ function search_results_question() {
     $sel['query'] .= " limit  $eu, $limit";
    
     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
-     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/sub.js');
+     //drupal_add_js(drupal_get_path('module', 'user_search') . '/js/sub.js');
     // echo $sel;
     // $sel_search = ExecuteQuery($sel, "select");
     // print_r($sel_search);

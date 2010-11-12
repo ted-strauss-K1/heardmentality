@@ -649,7 +649,7 @@ function qlite_view() {
         <br/>
               <ul id="maintabs" class="mytabs" >
               <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
-               <li><a id="AF" href=\'\' onClick="alert(\'Please vote the above question\');return false;"><span >Reporting</span></a></li>
+               <li><a id="AF" href=\'#\' onClick="alert(\'Please vote the above question\');jQuery(this).die(\'click\');jQuery(this).unbind(\'click\');return false;"><span >Reporting</span></a></li>
                 <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
 		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits ('.$pundit_cnt.')</span></a></li>
