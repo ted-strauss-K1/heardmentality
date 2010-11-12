@@ -190,29 +190,7 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel
                             Loading...
                         </marquee>
                     </div>
-                  <!-- Tour created with Amberjack wizard: http://amberjack.org -->
-<!-- Tour created with Amberjack wizard: http://amberjack.org -->
-<div class="ajTourDef" id="MyTour" style="display:none"
- title="http://216.139.157.254/openwave/hm/tour/home/donate">
-  <div title="http://216.139.157.254/openwave/hm/tour/home/home">
-    Login with any of your favourite social network
-  </div>
-  <div title="http://216.139.157.254/openwave/hm/tour/home/question">
-     Post your day by day issues
-  </div>
-  <div title="http://216.139.157.254/openwave/hm/tour/home/donate">
-     Make a donate
-  </div>
-  <div title="http://216.139.157.254/openwave/hm/"></div>
-</div>
-
-<script type="text/javascript" src="http://amberjack.org/src/stable/amberjack.pack.js">
-</script>
-
-<script type="text/javascript" defer="true">
-  Amberjack.open();
-</script>
-                    <!-- Tour created with Amberjack wizard: http://amberjack.org -->
+             
                     
                     <div class="main">
                         <div class="top"></div>

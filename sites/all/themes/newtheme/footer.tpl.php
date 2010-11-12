@@ -88,6 +88,28 @@ jQuery(document).ready(function(){
 });
 
 </script>
+     <!-- Tour created with Amberjack wizard: http://amberjack.org -->
+<!-- Tour created with Amberjack wizard: http://amberjack.org -->
+<div class="ajTourDef" id="MyTour" style="display:none"
+ title="http://216.139.157.254/openwave/hm/tour/home/donate">
+  <div title="http://216.139.157.254/openwave/hm/tour/home/home">
+    Login with any of your favourite social network
+  </div>
+  <div title="http://216.139.157.254/openwave/hm/tour/home/question">
+     Post your day by day issues
+  </div>
+  <div title="http://216.139.157.254/openwave/hm/tour/home/donate">
+     Make a donate
+  </div>
+  <div title="http://216.139.157.254/openwave/hm/"></div>
+</div>
 
+<script type="text/javascript" src="http://amberjack.org/src/stable/amberjack.pack.js">
+</script>
+
+<script type="text/javascript" defer="true">
+  Amberjack.open();
+</script>
+                    <!-- Tour created with Amberjack wizard: http://amberjack.org -->
 </body>
 </html>

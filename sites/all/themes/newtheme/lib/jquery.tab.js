@@ -2,7 +2,7 @@
 var tabarray=['#tabs,#tabs-container','#maintabs,#tabcontent','#tabmenu,#rcontents'];
 $(document).ready(function(){
     // Preload tab on page load
-    jQuery.each(tabarray,function(e){
+    jQuery.each(tabarray,function(){
        // e.preventDefault();
         var arr=this.split(",");
        
@@ -14,8 +14,10 @@ $(document).ready(function(){
             loadTab($(tabsId + ' LI.current A'),containerId);
         }
 
-        $(tabsId + ' A').click(function(){
-                if($(this).attr('href')=='') {
+        $(tabsId + ' A').click(function(e){
+                if($(this).attr('href')=='#') {
+                  e.preventDefault();
+                     e.stopPropagation();
                      return false;
                      }
             if($(this).parent().hasClass('current')){
