@@ -85,7 +85,7 @@ function admin_reject(make){
         
         
         if (confirm('Are you sure to reject the selected Questions?')) {
-            jQuery('#actions').attr('value', make);
+           // jQuery('#actions').attr('value', make);
      
             //send form
             var formwave=jQuery('#qadmin');
@@ -146,11 +146,11 @@ function admin_sendwarning(make){
         
         if (confirm('Are you sure send warning message')) {
             jQuery('#actions').attr('value', make);
-                 alert("hi vijay");
-                    return false;
+                 
             //send form
             var formwave=jQuery('#notify');
             jQuery.post(formwave.attr('action'),formwave.serialize(),
+          
                 function(data){
                    
                     jQuery('#list').empty().html(data);
