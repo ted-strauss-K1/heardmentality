@@ -145,6 +145,8 @@ function admin_sendwarning(make){
         
         
         if (confirm('Are you sure send warning message')) {
+            alert("hi sad");
+            return false;
             jQuery('#actions').attr('value', make);
      
             //send form
