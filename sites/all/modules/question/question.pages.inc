@@ -1821,8 +1821,11 @@ function moderate_user_mail() {
             db_query("delete from question_flags where nodeid='$idd'");
             
         }
-       // exit;
-       // echo '<div class="success">Warning Message Send!</div>';
+         //echo '<div class="success">Warning Message Send!</div>';
+        
+
+       
+      
     } else {
 
         foreach ($idr as $idd) {
