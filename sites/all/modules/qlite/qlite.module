@@ -124,7 +124,7 @@ $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     foreach ($list as $cat) {
 
         $output .= '
-          <option value='.$cat['cat_id'].'> '.$cat['cat_name'].' </option> ';
+          <option value='.$cat['cat_id'].'> '.stripslashes($cat['cat_name']).' </option> ';
     }
             $output .='</select>
               &nbsp;
