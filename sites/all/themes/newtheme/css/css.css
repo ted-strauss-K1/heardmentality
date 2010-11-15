@@ -565,7 +565,7 @@ color:#FFFFFF; display: block;padding-bottom: 10px;
 
 .pun ul{ margin:0px; padding-bottom:10px;}
 .pun li{ float:left; list-style:none; border:1px #666666 solid; margin-left:1px;}
-.hm-cen-pun{ border:1px solid #ccc; padding:1px; padding-top:10px;}
+.hm-cen-pun{ border:1px solid #ccc; padding:10px 10px 1px; padding-top:10px;}
 
 
 /*issue search3*/
