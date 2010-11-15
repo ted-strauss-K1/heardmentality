@@ -155,7 +155,7 @@ function admin_sendwarning(make){
                     setTimeout('admin_approve();', 1000);
                 });
 		
-		    
+		  return false;
         }
         else {
             return false;
