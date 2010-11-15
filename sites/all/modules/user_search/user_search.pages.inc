@@ -1588,7 +1588,7 @@ function get_question_details() {
 
                 $chk = "checked";
             }
-            $vresultm .= ' <input name="answer_al" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />&nbsp;<span class="black11">
+            $vresultm .= ' <input name="answer_al" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />&nbsp;&nbsp;<span class="black11">
 		' . $vlistquest->answer . ' </span> <br/>   ';
         }
         $chk = '';
