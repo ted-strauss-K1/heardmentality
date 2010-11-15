@@ -366,9 +366,6 @@ function check_select($gid,$quid){
        }
 
 function search_results_question() {
-///vijay search
-   // print_r($_REQUEST);
-   // exit;
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
     $start = '';
@@ -1591,7 +1588,7 @@ function get_question_details() {
 
                 $chk = "checked";
             }
-            $vresultm .= ' <input name="answer_al" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" /><span class="black11">
+            $vresultm .= ' <input name="answer_al" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />&nbsp;<span class="black11">
 		' . $vlistquest->answer . ' </span> <br/>   ';
         }
         $chk = '';
