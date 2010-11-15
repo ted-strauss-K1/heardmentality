@@ -281,7 +281,7 @@ function load_ajax() {
             $output .= '<select id="tscat" onchange="get_toplist(this.value,2)"><option value="" >select a sub-category</option>';
             foreach ($list as $cat) {
                 
-                $output .= '<option value='.$cat['cat_id'].' > '.$cat['cat_name'].' </option>';
+                $output .= '<option value='.$cat['cat_id'].' > '.stripslashes($cat['cat_name']).' </option>';
             }
             
             $output .= '</select>';
