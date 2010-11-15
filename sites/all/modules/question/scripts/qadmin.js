@@ -144,7 +144,7 @@ function admin_sendwarning(make){
         
         
         
-        if (confirm('Are you sure send warning message vijay')) {
+        if (confirm('Are you sure send warning message')) {
             jQuery('#actions').attr('value', make);
      
             //send form
@@ -154,6 +154,7 @@ function admin_sendwarning(make){
                     jQuery('#list').empty().html(data);
                     setTimeout('admin_approve();', 1000);
                 });
+				return false;
 		
 		    
         }
