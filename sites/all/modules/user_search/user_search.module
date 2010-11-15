@@ -27,21 +27,21 @@ function user_search_menu() {
         'file' => 'user_search.pages.inc',
     );
 	 
-	$search_result['searchquestion/Follow'] = array(
-        'title' => '  SEARCH RESULTS',
-        'page callback' => 'search_follow',
-        'access arguments' => array('Search User'),
-        'type' => MENU_SUGGESTED_ITEM,
-        'file' => 'user_search.pages.inc',
-    );
-
-        $search_result['searchquestion/UnFollow'] = array(
-        'title' => '  SEARCH RESULTS',
-        'page callback' => 'search_unfollow',
-        'access arguments' => array('Search User'),
-        'type' => MENU_SUGGESTED_ITEM,
-        'file' => 'user_search.pages.inc',
-    );
+//	$search_result['searchquestion/Follow'] = array(
+//        'title' => '  SEARCH RESULTS',
+//        'page callback' => 'search_follow',
+//        'access arguments' => array('Search User'),
+//        'type' => MENU_SUGGESTED_ITEM,
+//        'file' => 'user_search.pages.inc',
+//    );
+//
+//        $search_result['searchquestion/UnFollow'] = array(
+//        'title' => '  SEARCH RESULTS',
+//        'page callback' => 'search_unfollow',
+//        'access arguments' => array('Search User'),
+//        'type' => MENU_SUGGESTED_ITEM,
+//        'file' => 'user_search.pages.inc',
+//    );
 
 
 
