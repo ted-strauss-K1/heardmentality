@@ -920,7 +920,10 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     <td colspan="3" valign="top" align="left"><table width="65%" border="0">
 		<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
-        <td width="25%" align="left"><select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
+        <td width="25%" align="left">
+        <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',this.value);" >
+        <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',this.value);"  size="5">
+        <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
     
@@ -1515,9 +1518,9 @@ function panel_content($type = '') {
                 echo '<div class="success">Question updated successfully!</div>';
             }
             
-            panel_content('flagged');
-            exit;
-            break;
+            //panel_content('flagged');
+            //exit;
+           // break;
 
         
         case 'new':
@@ -2415,8 +2418,7 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
 
     
     if (isset($_POST['update'])) {
-        echo "i am here";
-        exit;
+        
         question_edit_save_admin($_POST);
     }
     
@@ -2707,10 +2709,11 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     <td colspan="3" valign="top" align="left"><table width="65%" border="0">
     <tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
-        <td width="25%" align="left"><select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
+        <td width="25%" align="left">
+        <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_adminsubcat(\'q_cat\',\'chg_scat\',this.value);"  size="5">
+        <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
-
      $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.cat";
      $result_cat = db_query($qry_cat);
     while($quest_cat = db_fetch_object($result_cat))
@@ -2748,8 +2751,22 @@ $c= $kk[0];
         
     }
    $pcate_id =  trim($cate_id,",");
+
+
+//   <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+//            <option value="">Select Category</option>';
+//    $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+//    while ($list = db_fetch_object($client_select)) {
+//        $output .= '<option value="'.$list->cat_id.'">'.stripslashes($list->cat_name).'</option>';
+//
+//    }
+//
+//    $output .= '</select>
+
+
    
-    $output .= '</select></td>
+    $output .= '</select>
+        </td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
 
      $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$pcate_id."')";
@@ -2890,7 +2907,8 @@ $kk2 = array_keys($ssubcat);
 
 
 function question_edit_save_admin($array) {
-  
+  //print_r($_REQUEST);
+  //exit;
     global $gSitePath,$user,$gDocPath,$base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
@@ -2898,9 +2916,11 @@ function question_edit_save_admin($array) {
     extract($array);
     $output = '';
     
-    if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($cat1)) {
+    if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($q_cat)) {
         $edate = $q_edate;
         $result = db_query("update {question} set question='$q_quest',context='$q_context',cid='$cat1',scid='$cat2',sscid='$cat3',	 global='$q_global',country='$q_country',state='$q_state',city='$q_city',enddate='$edate' where qid='".$nid."' ");
+        
+        
         
         $ins_id = db_last_insert_id('question', 'qid');
         for ($i = 1; $i <= $ans_cnt; $i++) {
@@ -2955,6 +2975,7 @@ function view_questions() {
 
     
     $output = '';
+
     
     drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
         type="text/javascript"></script>');
@@ -2982,6 +3003,7 @@ function view_questions() {
 		
 					
 			function get_subcat(sid,divid,level){
+                       
 			
 										var foo = [];
 										$(sid).getSelected().each(function(number,i){
@@ -3196,7 +3218,10 @@ setDefaultCountry();
     }
     
     $output .= '</select></td>
-        <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+        <td width="25%" align="left">
+        <div id="chg_scat">
+     <select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5">
+     <option value="">Select Sub Category</option>';
     
     $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$quest->cid."')");
     $ecat2 = explode(",", $quest->scid);
