@@ -1518,9 +1518,9 @@ function panel_content($type = '') {
                 echo '<div class="success">Question updated successfully!</div>';
             }
             
-            //panel_content('flagged');
-            //exit;
-           // break;
+           // panel_content('flagged');
+            exit;
+            break;
 
         
         case 'new':
