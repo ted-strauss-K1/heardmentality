@@ -146,13 +146,13 @@ function admin_sendwarning(make){
         
         if (confirm('Are you sure send warning message')) {
             jQuery('#actions').attr('value', make);
-     
+                 alert("hi vijay");
+                    return false;
             //send form
             var formwave=jQuery('#notify');
             jQuery.post(formwave.attr('action'),formwave.serialize(),
                 function(data){
-                    alert("hi vijay");
-                    return false;
+                   
                     jQuery('#list').empty().html(data);
                     setTimeout('admin_approve();', 1000);
                 });
