@@ -85,7 +85,7 @@ function admin_reject(make){
         
         
         if (confirm('Are you sure to reject the selected Questions?')) {
-           // jQuery('#actions').attr('value', make);
+            jQuery('#actions').attr('value', make);
      
             //send form
             var formwave=jQuery('#qadmin');
@@ -152,9 +152,9 @@ function admin_sendwarning(make){
             jQuery.post(formwave.attr('action'),formwave.serialize(),
           
                 function(data){
-                   
-                    jQuery('#list').empty().html(data);
-                    setTimeout('admin_approve();', 1000);
+                   location.reload();
+                    //jQuery('#list').empty().html(data);
+                    //setTimeout('admin_approve();', 1000);
                 });
 		 
         }
@@ -211,11 +211,10 @@ function send_suspend(make){
             var formwave=jQuery('#notify');
             jQuery.post(formwave.attr('action'),formwave.serialize(),
                 function(data){
-                    jQuery('#list').empty().html(data);
-                    setTimeout('admin_approve();', 1000);
+                   location.reload();
+                    //jQuery('#list').empty().html(data);
+                    //setTimeout('admin_approve();', 1000);
                 });
-		
-		    
         }
         else {
             return false;
