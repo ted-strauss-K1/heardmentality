@@ -151,12 +151,12 @@ function admin_sendwarning(make){
             var formwave=jQuery('#notify');
             jQuery.post(formwave.attr('action'),formwave.serialize(),
                 function(data){
+                    alert("hi vijay");
+                    return false;
                     jQuery('#list').empty().html(data);
                     setTimeout('admin_approve();', 1000);
                 });
-				return false;
-		
-		    
+		 
         }
         else {
             return false;
