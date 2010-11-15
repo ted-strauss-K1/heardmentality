@@ -47,7 +47,7 @@ function treemenu_list() {
           }
 
 
-        $strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.stripslashes($client_array[$i]).'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid/'.$client_key[$i].'">'.$follow.'</a></div>';
+        $strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.stripslashes($client_array[$i]).'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'category/'.$follow.'/'.'catid/'.$client_key[$i].'">'.$follow.'</a></div>';
         if (user_access("administer nodes")) {
             // Do something.
             
@@ -373,7 +373,7 @@ function sub_menu($id = '', $level = '') {
                     $strReturn .= '&nbsp;|&nbsp;<a id="ajaxpageLinkCheck" href="delete/'.$client_key[$i].'">Delete </a>';
                 }
       //$strReturn .= '<li> <div><a href="'.$gSitePath.'searchquestion?cid='.$client_key[$i].'" >'.stripslashes($client_array[$i]).'</a>&nbsp|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid='.$client_key[$i].'">'.$follow.'</a></div>';
-                $strReturn .= '|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'searchquestion/'.$follow.'/'.'catid/'.stripslashes($client_key[$i]).'">'.$follow.'</a>';
+                $strReturn .= '|&nbsp<a id="ajaxpageLinkCheck" href="'.$gSitePath.'category/'.$follow.'/'.'catid/'.stripslashes($client_key[$i]).'">'.$follow.'</a>';
                 $strReturn .= sub_menu($client_key[$i], $level + 1);
                 
                 $strReturn .= '</li>';
@@ -488,5 +488,51 @@ function admin_sub_menu($id = '', $level = '') {
 
 }
 
+function search_follow()
+{
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+      $qry_value = substr($_REQUEST[q],strrpos($_REQUEST[q],"/"));
+     $cat_id = ltrim($qry_value,"/");
+  // $cat =  explode("/",$_REQUEST['q']);
+    //    $catid = explode("=",$cat[2]);
+
+          $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  cat_id='" .$cat_id."'  and  uid ='" . $user->uid . "'"));
+
+        if(!$res_num){
+
+            //insert into notification
+
+             db_query("insert into notification(uid,is_cat,node_id)values('".$user->uid."',1,'".$cat_id."')");
+             db_query("insert into follower(uid,cat_id)values('".$user->uid."','".$cat_id."')");
+             $output = drupal_set_message(t('Category follows added successfully !'), $type = 'success');
+              echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
+        }
+        else
+        {
+             $output = drupal_set_message(t('Category follows already added !'), $type = 'success');
+             echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
+        }
+}
+function search_unfollow()
+{
+
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+      $qry_value = substr($_REQUEST[q],strrpos($_REQUEST[q],"/"));
+     $cat_id = ltrim($qry_value,"/");
+
+   //$cat =  explode("/",$_REQUEST['q']);
+     //   $catid = explode("=",$cat[2]);
+
+          $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  cat_id='" .$cat_id."'  and  uid ='" . $user->uid . "'"));
+
+
+        if($res_num){
+             db_query("delete from follower where uid='".$user->uid."' and cat_id='".$cat_id."'");
+             $output = drupal_set_message(t('Category Unfollows successfully !'), $type = 'success');
+              echo '<script>window.parent.location.href="'.$gSitePath.'category/";</script>';
+        }
+
+}
 
 

@@ -41,6 +41,19 @@ $items['category/delete'] = array(
     'type' => MENU_CALLBACK,
     'file' => 'category.pages.inc',
   );
+$items['category/follow'] = array(
+    'title' => 'follow Category',
+    'page callback' => 'search_follow',
+    'access arguments' => array('Category view'),
+    'file' => 'category.pages.inc',
+  );
+$items['category/unfollow'] = array(
+    'title' => 'unfollow Category',
+    'page callback' => 'search_unfollow',
+    'access arguments' => array('Category view'),
+    'type' => MENU_CALLBACK,
+    'file' => 'category.pages.inc',
+  );
 
 $items['category/list'] = array(
     'title' => 'List Category',
