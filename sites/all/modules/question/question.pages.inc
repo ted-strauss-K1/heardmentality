@@ -2877,8 +2877,8 @@ function question_edit_save_admin($array) {
                 {
                         if(!empty($subcate[$j]))
                         {
-                         db_queryd("insert into {question_cat} set qid='$nid',cat='$cate[$i]',scat='$subcate[$j]'");
-                         exit;
+                         db_query("insert into {question_cat} set qid='$nid',cat='$cate[$i]',scat='$subcate[$j]'");
+                        
                          
                         }
                 }
