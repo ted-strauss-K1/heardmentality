@@ -2518,39 +2518,7 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
                 $ret_city .= "</select>";
                 $ret_city;
     //////////// city list end here //////////////
-
-
-
-
-
-$output .= '
-	<script type="text/javascript" src="'.$gSitePath.'/misc/jquery.js"></script>
-
-	<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>
-	<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/question.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
-<!--<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/auto.js" type="text/javascript"></script>
--->
-        		<script type="text/javascript">
-                var mpath=\''.$gSitePath.'\';
-                    var spath=\''.$gSitePath.'\';
-                    var cncode=\''.$cncode.'\';
-                    var ustate=\''.$ustate.'\';
-                    var setstate=\''.$setstate.'\';
-                        var setcity=\''.$fcity.'\';
-		</script>
-
-		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
-		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.bgiframe.min.js"></script>
-                <script src="' . $gSitePath . drupal_get_path('module', 'question') .'/scripts/suggest_dynamic.js" type="text/javascript"></script>
-                <script src="' . $gSitePath . drupal_get_path('module', 'question') .'/scripts/post_list.js" type="text/javascript"></script>
-                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') .'/styles/auto.css" type="text/css" />
-                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') .'/styles/jquery.multiSelect.css" type="text/css" />
-';
-
-    
-   
-    
+ 
     $output .= '
 		<script type="text/javascript">
 		
@@ -2746,7 +2714,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
           ';
         $i++;
     }
-
+//<select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
     //<select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
     $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div><small><br/>
 	
@@ -2761,8 +2729,8 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
         <td width="25%" align="left">
 
 
-<select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
-        
+
+  <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
         <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
@@ -2805,8 +2773,6 @@ $c= $kk[0];
         
     }
    $pcate_id =  trim($cate_id,",");
-
-
   /*<select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
             <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
@@ -2816,9 +2782,6 @@ $c= $kk[0];
     }
 
     $output .= '</select>*/
-
-
-   
     $output .= '</select>
         </td>
         <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
