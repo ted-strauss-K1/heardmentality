@@ -1996,11 +1996,11 @@ function checkall(val){
             $uname = '';
         }
         $modquest .= '<tr>
-	<td><a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'">'.wordwrap($qid_result->question, "50", "<br/>\n").'</a></td>
+	<td><a href="'.$gSitePath.$qid_result->url.'" target="_blank">'.wordwrap($qid_result->question, "50", "<br/>\n").'</a></td>
 	
 	<td>'.$uname.' </td>
 	<td>'.$blockedst.' </td>
-	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a      onclick="loaddupe(\''.$gSitePath.'admin/dupe/questions/'.$qid_result->qid.'\',\'Dupe  Questions \'); ">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'" >Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'"> Delete</a>/<a href="'.$gSitePath.'admin/view/question/'.$qid_result->qid.'"> View </a>  </td>
+	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a      onclick="loaddupe(\''.$gSitePath.'admin/dupe/questions/'.$qid_result->qid.'\',\'Dupe  Questions \'); ">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'" >Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'"> Delete</a>/<a href="'.$gSitePath.$qid_result->url.'" target="_blank"> View </a>  </td>
 	</tr>';
 
     
@@ -2412,10 +2412,7 @@ function edit_questions() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
 
-    
-    $output = '';
-
-    
+ $output = '';
 drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
         type="text/javascript"></script>');
 
@@ -2502,7 +2499,30 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
 
 
 
+$output .= '
+	<script type="text/javascript" src="'.$gSitePath.'/misc/jquery.js"></script>
 
+	<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>
+	<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/question.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
+<!--<script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/auto.js" type="text/javascript"></script>
+-->
+        		<script type="text/javascript">
+                var mpath=\''.$gSitePath.'\';
+                    var spath=\''.$gSitePath.'\';
+                    var cncode=\''.$cncode.'\';
+                    var ustate=\''.$ustate.'\';
+                    var setstate=\''.$setstate.'\';
+                        var setcity=\''.$fcity.'\';
+		</script>
+
+		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
+		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.bgiframe.min.js"></script>
+                <script src="' . $gSitePath . drupal_get_path('module', 'question') .'/scripts/suggest_dynamic.js" type="text/javascript"></script>
+                <script src="' . $gSitePath . drupal_get_path('module', 'question') .'/scripts/post_list.js" type="text/javascript"></script>
+                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') .'/styles/auto.css" type="text/css" />
+                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') .'/styles/jquery.multiSelect.css" type="text/css" />
+';
 
     
    
@@ -2703,22 +2723,29 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
         $i++;
     }
 
-    
+    //<select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
     $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div><small><br/>
 	
 	<input type="button" name="Add"  tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'"><input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">&nbsp;<input type="hidden" id="cat2" name="cat2" value="'.$quest->scid.'">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="'.$quest->sscid.'"> 
 	
 	</td>
     <td colspan="3" valign="top" align="left"><table width="65%" border="0">
-    <tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
+    <tr>
+
+    <td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
         <td width="25%" align="left">
-        <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_adminsubcat(\'q_cat\',\'chg_scat\',this.value);"  size="5">
+
+
+<select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+        
         <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
      $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='".$nid."' group by t.cat";
      $result_cat = db_query($qry_cat);
+
+     
     while($quest_cat = db_fetch_object($result_cat))
     {
        $cat[] =  $quest_cat->cat;
@@ -2756,15 +2783,15 @@ $c= $kk[0];
    $pcate_id =  trim($cate_id,",");
 
 
-//   <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
-//            <option value="">Select Category</option>';
-//    $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
-//    while ($list = db_fetch_object($client_select)) {
-//        $output .= '<option value="'.$list->cat_id.'">'.stripslashes($list->cat_name).'</option>';
-//
-//    }
-//
-//    $output .= '</select>
+  /*<select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+            <option value="">Select Category</option>';
+    $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+    while ($list = db_fetch_object($client_select)) {
+        $output .= '<option value="'.$list->cat_id.'">'.stripslashes($list->cat_name).'</option>';
+
+    }
+
+    $output .= '</select>*/
 
 
    
