@@ -229,13 +229,3 @@ function send_suspend(make){
 }
 
 
-
-
-function checkall(val){
-
-
-    jQuery('.check-me').each(function(){
-        jQuery(this).attr('checked',val);
-    });
-    
-}
