@@ -2519,7 +2519,7 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
                     $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'],$set,$state['name']);
                 }
                 $ret .= "</select>";
-                $ret;
+              
     /////////////state list end here //////////////////////////////
 
     /////////// city list start here/////////////////
@@ -2537,7 +2537,14 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
                 $ret_city;
     //////////// city list end here //////////////
  
-    $output .= '
+    $output .= '<script type="text/javascript">
+                var mpath=\''.$gSitePath.'\';
+                    var spath=\''.$gSitePath.'\';
+                    var cncode=\''.$quest->country.'\';
+                    var ustate=\''.$quest->state.'\';
+                    var setstate=\''.$quest->state.'\';
+                        var setcity=\''.$quest->city.'\';
+		</script>
 		<script type="text/javascript">
 		
 					
@@ -2587,102 +2594,7 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
 							 $(divid).set(\'html\',\'No Subcategory\');
 							}
 							}	
-						
-						
-									function setDefaultCountry() {
-  var countrySelect = document.getElementById("q_country");
-
-  for (i=0;i< countrySelect.length;i++) {
-			// the javascript geonamesData.js contains the countrycode
-			// of the userIp in the variable \'geonamesUserIpCountryCode\'
-			if (countrySelect[i].value == \''.$quest->country.'\') {
-			  // set the country selectionfield
-				  countrySelect.selectedIndex = i;
-				 
-				get_state(\''.$quest->country.'\');
-				
-			}else if(countrySelect[i].value == geonamesUserIpCountryCode) {
-			 countrySelect.selectedIndex = i;
-			 get_state(geonamesUserIpCountryCode);
-			}
-	}
-
-}
-		function setState(){
-		
-							var stid=\''.$quest->state.'\';
-					if(stid!=""){
-								 var stateSelect = document.getElementById("q_state");
-								
-							  for (i=0;i< stateSelect.length;i++) {
-								// the javascript geonamesData.js contains the countrycode
-								// of the userIp in the variable \'geonamesUserIpCountryCode\'
-								if (stateSelect[i].value == \''.$quest->state.'\') {
-								  // set the country selectionfield
-									  stateSelect.selectedIndex = i;
-									 
-									get_city(stid);
-								}
-								
-					}
-				  }
-		}
-		
-		function setCity(){
-		
-							var cid=\''.$quest->city.'\';
-					if(cid!=""){
-								 var citySelect = document.getElementById("q_city");
-							
-							  for (i=0;i< citySelect.length;i++) {
-								// the javascript geonamesData.js contains the countrycode
-								// of the userIp in the variable \'geonamesUserIpCountryCode\'
-								if (citySelect[i].value == cid) {
-								  // set the country selectionfield
-									  citySelect.selectedIndex = i;
-									 
-								}
-								
-					}
-				  }
-		}
-		
-		
-window.setTimeout("setDefaultCountry()", 1000);
-window.setTimeout("setState()", 2000);
-window.setTimeout("setCity()", 3000);
-window.addEvent(\'domready\', function(){
-setDefaultCountry();
-});
-							function get_state(code){
-						
-						var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':1,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'chg_state\').set(\'html\', response);
-											}
-									}).send();
-						
-						 $(\'chg_city\').fade(\'out\');
-						}
-							function get_city(code){
-							 $(\'chg_city\').fade(\'in\');
-							var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':2,\'code\':code},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(\'chg_city\').set(\'html\', response);
-											}
-									}).send();
-							
-							}
+					
 							
 						</script>
 		
@@ -2889,9 +2801,9 @@ $kk2 = array_keys($ssubcat);
     $output .= '</select></div></td>
       </tr>
 	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
-	  <tr> <td width="13%">&nbsp;<!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
-	<td width="13%">&nbsp;'.$ret.'</td>
-        <td width="13%">&nbsp;'.$ret_city.'</td>
+	  <tr> <td width="13%"><!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
+	<td width="13%"><div id="chg_state">'.$ret.'</div></td>
+        <td width="13%"><div id="chg_city">'.$ret_city.'</div></td>
             </tr>
 	
     </table></td>
@@ -2917,7 +2829,7 @@ $kk2 = array_keys($ssubcat);
     $mysqlfet = db_query($selmlist);
 
     
-    $output .= '<tr><td colspan="6">'.get_tagging_edit($nid).'</td></tr>';
+    //$output .= '<tr><td colspan="6">'.get_tagging_edit($nid).'</td></tr>';
 
     
     $output .= ' </td></tr>
