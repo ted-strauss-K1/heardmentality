@@ -1755,6 +1755,7 @@ function moderate_user() {
     drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/moderate.js');
      drupal_add_js(drupal_get_path('module', 'question').'/scripts/qadmin.js');
     
+    
    // $seldonar = "select count(nodeid) as cnt ,f.nodeid from question_flags as f   where f.type='question'   group by nodeid";
      $seldonar = "select count(f.nodeid) as cnt ,f.nodeid from question_flags as f join question as q on f.nodeid=q.qid where f.type='question'   group by nodeid";
     
@@ -1890,8 +1891,20 @@ function quest_mail_warning($qids = '') {
     return true;
 }
 function moderate_quest() {
+
+
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
        drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/qadmin.js');
+        drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/subtab.js');
+       drupal_add_js( drupal_get_path('themes','newtheme') . '/floatbox/floatbox.js');
+      drupal_add_js( drupal_get_path('themes','newtheme') . '/floatbox/options.js');
+      drupal_add_css( drupal_get_path('themes','newtheme') . '/floatbox/floatbox.css');
+       drupal_add_js( drupal_get_path('themes','newtheme') . '/lib/jquery.tab.js');
+        drupal_add_js( drupal_get_path('themes','newtheme') . '/lib/jquery.watermarkinput.js');
+         drupal_add_css( drupal_get_path('themes','newtheme') . '/lib/jquery.tab.css');
+          drupal_add_js( drupal_get_path('themes','newtheme') . '/scripts/preload.js');
+        
+
     $start = '';
     $lkr = '';
     if (isset($_REQUEST['Inactive'])) {
@@ -1962,7 +1975,7 @@ function checkall(val){
 </script>
 <script type="text/javascript">
 function confirmation() {
-            if(confirm("Are U  sue want to delete?")){
+            if(confirm("Are you sure want to delete?")){
             return true;
 	}else
         {
@@ -2012,7 +2025,8 @@ function confirmation() {
 	
 	<td>'.$uname.' </td>
 	<td>'.$blockedst.' </td>
-	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a      onclick="loaddupe(\''.$gSitePath.'admin/dupe/questions/'.$qid_result->qid.'\',\'Dupe  Questions \'); ">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'" >Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'" onclick="return confirmation()"> Delete</a>/<a href="'.$gSitePath.$qid_result->url.'" target="_blank"> View </a>  </td>
+            
+	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a onclick="return loadtab(\''.$gSitePath.'admin/dupe/questions'.$qid_result->qid.'\',\'Dupe questions\')">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'" >Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'" onclick="return confirmation()"> Delete</a>/<a href="'.$gSitePath.$qid_result->url.'" target="_blank"> View </a>  </td>
 	</tr>';
 
     
