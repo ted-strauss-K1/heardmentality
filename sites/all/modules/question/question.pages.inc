@@ -2545,60 +2545,6 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
                     var setstate=\''.$quest->state.'\';
                         var setcity=\''.$quest->city.'\';
 		</script>
-		<script type="text/javascript">
-		
-					
-			function get_subcat(sid,divid,level){
-                                                                
-			
-										var foo = [];
-										$(sid).getSelected().each(function(number,i){
-										if(number.value!=\'\'){
-										  foo[i] =number.value;
-												}
-											});
-										var foo = foo.filter(function(item, index){
-    return item > 0;
-});
-			  						 var ids = foo.toString();
-			   					
-			  							if(level==1){
-									$(\'cat1\').set(\'value\',ids);
-									$(\'chg_sscat\').fade(\'out\');
-										}
-									
-									if(level==2){
-									
-									$(\'cat2\').set(\'value\',ids);
-									$(\'chg_sscat\').fade(\'in\');
-										}
-									
-									if(level==3)
-									$(\'cat3\').set(\'value\',ids);
-									
-									if(ids.length>0){
-									
-									if(level<3){
-									var url = "'.$gSitePath.'question/ajax";
-									var req = new Request({    
-											method: \'get\'
-											,url: url
-											,data: { \'action\':level,\'ids\':ids},
-											onRequest: function() { },
-											onComplete: function(response) {
-													 $(divid).set(\'html\', response);
-											}
-									}).send();
-							}
-							}else{
-							 $(divid).set(\'html\',\'No Subcategory\');
-							}
-							}	
-					
-							
-						</script>
-		
-			
 			';
     
     $output .= '
