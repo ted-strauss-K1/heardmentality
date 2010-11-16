@@ -2553,7 +2553,9 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
 		</script>
 			';
     
-    $output .= '
+    $output .= '<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+
         <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
 
                 <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') .'/styles/jquery.multiSelect.css" type="text/css" />
