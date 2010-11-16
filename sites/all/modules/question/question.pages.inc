@@ -1903,6 +1903,7 @@ function moderate_quest() {
         drupal_add_js( drupal_get_path('themes','newtheme') . '/lib/jquery.watermarkinput.js');
          drupal_add_css( drupal_get_path('themes','newtheme') . '/lib/jquery.tab.css');
           drupal_add_js( drupal_get_path('themes','newtheme') . '/scripts/preload.js');
+            drupal_add_js(drupal_get_path('module', 'profile').'/js/tab.js');
         
 
     $start = '';
@@ -2026,7 +2027,7 @@ function confirmation() {
 	<td>'.$uname.' </td>
 	<td>'.$blockedst.' </td>
             
-	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a onclick="return loadtab(\''.$gSitePath.'admin/dupe/questions'.$qid_result->qid.'\',\'Dupe questions\')">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'" >Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'" onclick="return confirmation()"> Delete</a>/<a href="'.$gSitePath.$qid_result->url.'" target="_blank"> View </a>  </td>
+	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a onclick="return loadtab(\''.$gSitePath.'admin/dupe/questions/'.$qid_result->qid.'\',\'Dupe questions\')">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'" >Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'" onclick="return confirmation()"> Delete</a>/<a href="'.$gSitePath.$qid_result->url.'" target="_blank"> View </a>  </td>
 	</tr>';
 
     
