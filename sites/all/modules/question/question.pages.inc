@@ -1896,13 +1896,13 @@ function moderate_quest() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
        drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/qadmin.js');
         drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/subtab.js');
-       drupal_add_js( drupal_get_path('themes','newtheme') . '/floatbox/floatbox.js');
-      drupal_add_js( drupal_get_path('themes','newtheme') . '/floatbox/options.js');
-      drupal_add_css( drupal_get_path('themes','newtheme') . '/floatbox/floatbox.css');
-       drupal_add_js( drupal_get_path('themes','newtheme') . '/lib/jquery.tab.js');
-        drupal_add_js( drupal_get_path('themes','newtheme') . '/lib/jquery.watermarkinput.js');
-         drupal_add_css( drupal_get_path('themes','newtheme') . '/lib/jquery.tab.css');
-          drupal_add_js( drupal_get_path('themes','newtheme') . '/scripts/preload.js');
+       drupal_add_js( drupal_get_path('theme','newtheme') . '/floatbox/floatbox.js');
+      drupal_add_js( drupal_get_path('theme','newtheme') . '/floatbox/options.js');
+      drupal_add_css( drupal_get_path('theme','newtheme') . '/floatbox/floatbox.css');
+       drupal_add_js( drupal_get_path('theme','newtheme') . '/lib/jquery.tab.js');
+        drupal_add_js( drupal_get_path('theme','newtheme') . '/lib/jquery.watermarkinput.js');
+         drupal_add_css( drupal_get_path('theme','newtheme') . '/lib/jquery.tab.css');
+          drupal_add_js( drupal_get_path('theme','newtheme') . '/scripts/preload.js');
             drupal_add_js(drupal_get_path('module', 'profile').'/js/tab.js');
         
 
