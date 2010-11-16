@@ -128,6 +128,7 @@ function question_add() {
 
 	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
+    
     $output .= '<body style="background:none;"><div class="" sytyle="">
 
 <div class="do-in2">
@@ -1894,18 +1895,11 @@ function moderate_quest() {
 
 
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-       drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/qadmin.js');
-        drupal_add_js(drupal_get_path('module', 'quest_lite').'/scripts/subtab.js');
+        drupal_add_js(drupal_get_path('module', 'question').'/scripts/qadmin.js');
        drupal_add_js( drupal_get_path('theme','newtheme') . '/floatbox/floatbox.js');
       drupal_add_js( drupal_get_path('theme','newtheme') . '/floatbox/options.js');
       drupal_add_css( drupal_get_path('theme','newtheme') . '/floatbox/floatbox.css');
-       drupal_add_js( drupal_get_path('theme','newtheme') . '/lib/jquery.tab.js');
-        drupal_add_js( drupal_get_path('theme','newtheme') . '/lib/jquery.watermarkinput.js');
-         drupal_add_css( drupal_get_path('theme','newtheme') . '/lib/jquery.tab.css');
-          drupal_add_js( drupal_get_path('theme','newtheme') . '/scripts/preload.js');
-            drupal_add_js(drupal_get_path('module', 'profile').'/js/tab.js');
-        
-
+      
     $start = '';
     $lkr = '';
     if (isset($_REQUEST['Inactive'])) {
@@ -1966,13 +1960,12 @@ function moderate_quest() {
     
     $modquest .= '<script type="text/javascript">
 function checkall(val){
+jQuery(\'.check-me\').each(function(){
+jQuery(this).attr(\'checked\',val);
+});
 
-
-   jQuery(\'.check-me\').each(function(el){
-        jQuery(this).checked = val;
-    });
-    
 }
+
 </script>
 <script type="text/javascript">
 function confirmation() {
@@ -1983,6 +1976,7 @@ function confirmation() {
             return false;
         }
 }
+
 </script>
 
 	<form id="notify" method="post" action="" ><table width="100%" border="1">
@@ -2034,7 +2028,7 @@ function confirmation() {
     }
 
     
-    $modquest .= '</table><div><input type="submit" name="Inactive" value="Inactive" />   <input type="submit" name="Active" value="Active" /><span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span>';
+    $modquest .= '</table><div><input type="submit" name="Inactive" value="Inactive" />   <input type="submit" name="Active" value="Active" /><a href="JavaScript:void(0);" onclick="return checkall(1)">Check All</a>&nbsp;<a href="JavaScript:void(0);" onclick="return checkall(0);">Uncheck All</span>';
     ///////////////////////////////
     if ($sel_count > $limit) { // Let us display bottom links if sufficient records are there for paging
         
@@ -3563,14 +3557,33 @@ function auto_suggest_quest() {
 }
 
 function dupe_question() {
+    
     global $gSitePath,$user,$gDocPath,$base_root;
+ drupal_add_css( drupal_get_path('theme','newtheme') . '/css/css.css');
     $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
     $query = db_query("select * from question  where qid='$qaid'  ");
     $detquest = db_fetch_object($query);
     $q = $detquest->question;
+
     
-    echo 'Dupe Search For '.$q.'<br/>';
+
+    //geoname api
+    $options = array('sortby'=>'countryname', 'sortorder'=>'ASC');
+    $result = geonames_query('countryinfo', NULL, $options);
+    $optionlist .= ' <option value="0" >--Country--</option>';
+    foreach ($result->results as $country) {
+        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countryname'], $country['countryname']);
+    }
+
+
+    $output .= '<link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
+
+	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
+<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
+    $output .='<div class="do-in2">';
+     $output .= '<div class="do-intop">ADD AN ISSUE</div>';
+    $output .='<div>Dupe Search For '.$q.'</div></div>';
     if (!$q)
         return;
     $taglist = array();
@@ -3598,6 +3611,7 @@ COLLATE latin1_swedish_ci and status='0'";
     $urldsi = array_unique($questionlm);
     
     // echo count($urldsi);
+    $output .= "<table>";
     if (count($urldsi) != 0) {
         foreach ($urldsi as $value) {
 
@@ -3605,15 +3619,16 @@ COLLATE latin1_swedish_ci and status='0'";
             $querysquest = db_query("select * from question  where qid='$value'  ");
             $detquestqes = db_fetch_object($querysquest);
             $mlist = $detquestqes->question;
-            echo '<a href="'.$detquestqes->url.'">'.$mlist.'</a><br>';
+            $output .= '<tr><td><a href="'.$detquestqes->url.'">'.$mlist.'</a></td></tr>';
         }
     } else {
         
-        echo "<b>No Dupe Questions</b>";
+        $output .= "<b>No Dupe Questions</b>";
     
     }
+    $output .= "</table>";
 
-
+    echo $output;
 }
 
 
