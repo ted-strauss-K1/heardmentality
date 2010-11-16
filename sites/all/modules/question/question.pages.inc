@@ -1891,6 +1891,7 @@ function quest_mail_warning($qids = '') {
 }
 function moderate_quest() {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+       drupal_add_js(drupal_get_path('module', 'moderator').'/scripts/qadmin.js');
     $start = '';
     $lkr = '';
     if (isset($_REQUEST['Inactive'])) {
@@ -1959,6 +1960,17 @@ function checkall(val){
     
 }
 </script>
+<script type="text/javascript">
+function confirmation() {
+            if(confirm("Are U  sue want to delete?")){
+            return true;
+	}else
+        {
+            return false;
+        }
+}
+</script>
+
 	<form id="notify" method="post" action="" ><table width="100%" border="1">
   <tr>
     <td>Question </td>
@@ -2000,7 +2012,7 @@ function checkall(val){
 	
 	<td>'.$uname.' </td>
 	<td>'.$blockedst.' </td>
-	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a      onclick="loaddupe(\''.$gSitePath.'admin/dupe/questions/'.$qid_result->qid.'\',\'Dupe  Questions \'); ">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'" >Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'"> Delete</a>/<a href="'.$gSitePath.$qid_result->url.'" target="_blank"> View </a>  </td>
+	<td><input type="checkbox" class="check-me" name="qidsl[]" value="'.$qid_result->qid.'" /> <a      onclick="loaddupe(\''.$gSitePath.'admin/dupe/questions/'.$qid_result->qid.'\',\'Dupe  Questions \'); ">Dupe </a> <a href="'.$gSitePath.'admin/edit/questions/'.$qid_result->qid.'" >Edit </a> / <a href="'.$gSitePath.'admin/question/list?del='.$qid_result->qid.'" onclick="return confirmation()"> Delete</a>/<a href="'.$gSitePath.$qid_result->url.'" target="_blank"> View </a>  </td>
 	</tr>';
 
     
