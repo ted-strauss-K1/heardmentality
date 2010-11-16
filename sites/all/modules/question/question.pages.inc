@@ -2812,22 +2812,90 @@ $kk2 = array_keys($ssubcat);
 
 
 function question_edit_save_admin($array) {
-  //print_r($_REQUEST);
-  //exit;
+ 
     global $gSitePath,$user,$gDocPath,$base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
     //  print_r($array);
+     extract($_REQUEST);
     extract($array);
     $output = '';
-    
+     
     if (! empty($q_quest) && ! empty($q_ans1) && ! empty($q_ans2) && ! empty($q_cat)) {
         $edate = $q_edate;
         $result = db_query("update {question} set question='$q_quest',context='$q_context',cid='$cat1',scid='$cat2',sscid='$cat3',	 global='$q_global',country='$q_country',state='$q_state',city='$q_city',enddate='$edate' where qid='".$nid."' ");
-        
-        
-        
+
         $ins_id = db_last_insert_id('question', 'qid');
+       
+        $del_result = db_query("delete from {question_cat} where qid='".$nid."'");
+        
+         ////vijay insert category subcategory start here
+         $cat1 = $_REQUEST['q_cat'];
+         $cat2 = $_REQUEST['q_scat'];
+         
+          //$cat_count=explode(',',$cat1);
+         
+
+         //  $subcat_count=explode(',',$cat2);
+         $cat_count  = $_REQUEST['q_cat'];
+         $subcat_count = $_REQUEST['q_scat'];
+
+          if(count($cat_count)>count($subcat_count))
+          {
+              $arr_count = count($cat_count);
+          }
+           if(count($cat_count)<count($subcat_count))
+          {
+              $arr_count = count($subcat_count);
+          }
+          if(count($cat_count)==count($subcat_count))
+          {
+              $arr_count = count($cat_count);
+          }
+
+        for($i=0;$i<$arr_count;$i++)
+        {
+
+
+             //$cate=$q_scat;
+           $cate = $q_cat;
+
+
+
+            // $subcate=$q_sscat;
+           $subcate=$q_scat;
+
+
+
+
+           $subcat_count = count($subcate);
+
+
+            if($subcat_count>0)
+            {
+                for($j=0;$j<$subcat_count;$j++)
+                {
+                        if(!empty($subcate[$j]))
+                        {
+                         db_queryd("insert into {question_cat} set qid='$nid',cat='$cate[$i]',scat='$subcate[$j]'");
+                         exit;
+                         
+                        }
+                }
+            }
+            if($subcat_count==0)
+            {
+                        if(!empty($cate[$i]))
+                        {
+                        db_query("insert into {question_cat} set qid='$nid',cat='$cate[$i]'");
+                        }
+            }
+        }
+
+
+
+        ////vijay insert category subcategory end here
+
         for ($i = 1; $i <= $ans_cnt; $i++) {
             $name = "q_ans".$i;
             $aid = "aid".$i;
