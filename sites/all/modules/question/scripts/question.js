@@ -1,11 +1,14 @@
 // JavaScript Document
 jQuery(document).ready( function() {
     jQuery('#q_cat').multiSelect();
-      jQuery('#q_scat').multiSelect();
-        jQuery('#q_sscat').multiSelect();
-    setDefaultCountry(cncode);
-    get_state(cncode);
-                get_city(setstate);
+    jQuery('#q_scat').multiSelect();
+    jQuery('#q_sscat').multiSelect();
+    if(!admin){
+        setDefaultCountry(cncode);
+        get_state(cncode);
+        get_city(setstate);
+    }
+   
 });
 /*
 		(function($) {
@@ -68,17 +71,17 @@ function get_state(code){
         data: {
             'action': 1,
             'code' :code,
-             'select':1
+            'select':1
         },
         success: function(msg){
             jQuery('#chg_state').html(msg);
             
             if(setstate.length>1){
              
-          //jQuery("#q_state option").each(function(){jQuery(this).text(escape(jQuery(this).text()));});
-                    //jQuery("#q_state option:contains('tamil nadu')").attr("selected","selected") ;
-                        //jQuery(this).text().toLowerCase()
-            }
+        //jQuery("#q_state option").each(function(){jQuery(this).text(escape(jQuery(this).text()));});
+        //jQuery("#q_state option:contains('tamil nadu')").attr("selected","selected") ;
+        //jQuery(this).text().toLowerCase()
+        }
         }
     });
 

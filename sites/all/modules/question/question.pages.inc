@@ -105,6 +105,7 @@ function question_add() {
                     var ustate=\''.$ustate.'\';
                     var setstate=\''.$setstate.'\';
                         var setcity=\''.$fcity.'\';
+                            var admin=0;
 		</script>
 
 		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
@@ -2548,6 +2549,7 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
                     var ustate=\''.$quest->state.'\';
                     var setstate=\''.$quest->state.'\';
                         var setcity=\''.$quest->city.'\';
+                            var admin=\'1\';
 		</script>
 			';
     
@@ -2599,7 +2601,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
     //<select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
     $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div><small><br/>
 	
-	<input type="button" name="Add"  tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'"><input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">&nbsp;<input type="hidden" id="cat2" name="cat2" value="'.$quest->scid.'">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="'.$quest->sscid.'"> 
+	<input type="button" name="Add"  tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="'.count($ans).'">
 	
 	</td>
     <td colspan="3" valign="top" align="left"><table width="65%" border="0">
@@ -2609,7 +2611,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
       <tr>
         <td width="25%" align="left">
 
-
+<input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">
 
   <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
         <option value="">Select Category</option>';
@@ -2637,6 +2639,7 @@ $c= $kk[0];
 
     while ($list = db_fetch_object($client_select)) {
         if($list->cat_id==$cat[$c]){//888
+
           $sel = 'SELECTED';
         }else{
             $sel = '';
@@ -2665,7 +2668,7 @@ $c= $kk[0];
     $output .= '</select>*/
     $output .= '</select>
         </td>
-        <td width="25%" align="left"><div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+        <td width="25%" align="left"><input type="hidden" id="cat2" name="cat2" value="'.$pcate_id.'">&nbsp;  <div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
 
      $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$pcate_id."')";
     $client_select1 = db_query($cat_qry);
@@ -2709,7 +2712,7 @@ $kk1 = array_keys($subcat);
      $psubcate_id =  trim($subcate_id,",");
 
     $output .= '</select></div></td>
-   <td width="25%" align="left">
+   <td width="25%" align="left"><input type="hidden"  id="cat3" name="cat3" value="'.$psubcate_id.'">
    <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
    <option value="">Select Sub Sub Category</option>';
    // if ($quest->scid != '') {//now here
