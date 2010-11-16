@@ -1,6 +1,7 @@
 // JavaScript Document
 jQuery(document).ready( function() {
     jQuery('#q_cat').multiSelect();
+
     jQuery('#q_scat').multiSelect();
     jQuery('#q_sscat').multiSelect();
     if(!admin){
@@ -8,7 +9,6 @@ jQuery(document).ready( function() {
         get_state(cncode);
         get_city(setstate);
     }
-   
 });
 /*
 		(function($) {
@@ -137,12 +137,12 @@ jQuery("input[name='q_scat[]']").live("change", function(event) {
 
 
 function get_subcat(sid,divid,level,ids){
-
-   
+ 
 
     if(level==1){
-        jQuery('#cat1').val(ids);
-        jQuery('#chg_sscat').fadeOut('slow');
+        jQuery('#q_cat').val(ids);
+       // jQuery('#chg_scat').fadeOut('slow');
+        //jQuery('#chg_sscat').fadeOut('slow');
     }
 
     if(level==2){
@@ -158,7 +158,6 @@ function get_subcat(sid,divid,level,ids){
         if(level<3){
 
             var url = spath+"question/ajax";
-
             jQuery.ajax({
                 type: "POST",
                 url: url,
@@ -184,17 +183,15 @@ function get_subcat(sid,divid,level,ids){
     }
 }
 
-
-
-
-
 function validate_question(){
 
     var quest = jQuery('#q_quest').val();
     var ans1 = jQuery('#q_ans1').val();
     var ans2 = jQuery('#q_ans2').val();
     
-    var cat1 = jQuery('#cat1').val();
+   // var cat1 = jQuery('#cat1').val();
+    var cat1 = jQuery('#q_cat').val();
+    
     var err = '';
  
     if (jQuery.trim(quest).length < 1)
