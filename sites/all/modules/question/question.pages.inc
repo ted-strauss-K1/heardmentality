@@ -2509,7 +2509,7 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
                 $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
                 foreach ($result->results as $state) {
                     $set='';
-                    if($quest->state==$state['name'])
+                    if($quest->state==$state['geonameid'])
                     {
                         $set='SELECTED=SELECTED';
                     }
@@ -2529,8 +2529,12 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
                 //print_r($result);
                 $ret_city = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city"> <option value="">--Cities--</option> ';
                 foreach ($result_city->results as $state_city) {
-
-                    $ret_city .= sprintf('<option value="%s">%s</option>', $state_city['geonameid'], $state_city['name']);
+                     $set='';
+                    if($quest->city==$state_city['geonameid'])
+                    {
+                        $set='SELECTED=SELECTED';
+                    }
+                    $ret_city .= sprintf('<option value="%s" %s>%s</option>', $state_city['geonameid'],$set, $state_city['name']);
                 }
                 $ret_city .= "<option value='-1'>Others</option>";
                 $ret_city .= "</select>";
