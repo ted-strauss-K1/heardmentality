@@ -1,6 +1,8 @@
 // JavaScript Document
 jQuery(document).ready( function() {
     jQuery('#q_cat').multiSelect();
+      jQuery('#q_scat').multiSelect();
+        jQuery('#q_sscat').multiSelect();
     setDefaultCountry(cncode);
     get_state(cncode);
                 get_city(setstate);

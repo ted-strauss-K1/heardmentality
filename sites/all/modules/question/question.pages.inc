@@ -2601,9 +2601,10 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
 			
 			';
     
-    $output .= '<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/content.css" type="text/css" />
-<link rel="stylesheet" href="'.$gSitePath.'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
-<link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />
+    $output .= '
+        <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
+
+                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') .'/styles/jquery.multiSelect.css" type="text/css" />
 <script src="'.$gSitePath.drupal_get_path('module', 'question').'/scripts/question.js" type="text/javascript"></script>';
     $output .= '<div id="err" class="clear"></div>
 <div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
