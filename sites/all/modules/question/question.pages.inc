@@ -1989,7 +1989,7 @@ function confirmation() {
   </tr>';
 
     
-    $sel = "SELECT * FROM {question}     ";
+    $sel = "SELECT * FROM {question} order by qid desc";
     
     $user_qry = db_query($sel);
     
@@ -3536,10 +3536,10 @@ COLLATE latin1_swedish_ci and status='0'";
         foreach ($urldsi as $value) {
 
             
-            $querysquest = db_query("select * from question  where qid='$value'  ");
+            $querysquest = db_query("select * from question as q  join users as u on q.uid=u.uid  where q.qid='$value'  ");
             $detquestqes = db_fetch_object($querysquest);
             $mlist = $detquestqes->question;
-            $output .= '<li><a href="'.$detquestqes->url.'">'.$mlist.'</a></li>';
+            $output .= '<li><a href="'.$detquestqes->url.'">'.$mlist.'</a></li><span style="padding-left:40px,padding-top:5px">Posted by:'.$detquestqes->name.'&nbsp;&nbsp;&nbsp;&nbsp;Posted on:'.date("d-m-Y",strtotime($detquestqes->date_added)).'</span>';
         }
     } else {
         
