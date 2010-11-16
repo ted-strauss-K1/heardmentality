@@ -2048,14 +2048,26 @@ function checkall(val){
     
     if (isset($_REQUEST['del'])) {
         
-        //echo "lllll";
+       
         question_deleted_mail($_REQUEST['del']);
         question_deleted_mail_voters($_REQUEST['del']);
         question_deleted_mail_suggest($_REQUEST['del']);
         
-        $del_ques = db_query("Delete  FROM {question} where qid='".$_REQUEST['del']."'    ");
-        $del_answ = db_query("Delete  FROM {possible_answer} where qid='".$_REQUEST['del']."'    ");
-        $del_sansw = db_query("Delete  FROM {suggest_answer} where qid='".$_REQUEST['del']."'    ");
+        $del_ques = db_query("Delete  FROM {question} where qid='".$_REQUEST['del']."'");
+        $del_answ = db_query("Delete  FROM {possible_answer} where qid='".$_REQUEST['del']."'");
+        $del_sansw = db_query("Delete  FROM {suggest_answer} where qid='".$_REQUEST['del']."'");
+
+        
+        $del_possvote = db_query("Delete  FROM {possible_answer_vote} where qid='".$_REQUEST['del']."'");
+        $del_quescat = db_query("Delete  FROM {question_cat} where qid='".$_REQUEST['del']."'");
+        $del_quesflag = db_query("Delete  FROM {question_flags} where qid='".$_REQUEST['del']."'");
+        $del_queslike = db_query("Delete  FROM {question_like} where qid='".$_REQUEST['del']."'");
+        $del_sugans = db_query("Delete  FROM {suggest_answer} where qid='".$_REQUEST['del']."'");
+        $del_sugansvote = db_query("Delete  FROM {suggest_answer_vote} where qid='".$_REQUEST['del']."'");
+        $del_tblpoints = db_query("Delete  FROM {tbl_user_points} where qid='".$_REQUEST['del']."'");
+        $del_userans = db_query("Delete  FROM {user_answers} where qid='".$_REQUEST['del']."'");
+        $del_userbadges = db_query("Delete  FROM {user_badges} where qid='".$_REQUEST['del']."'");
+        
         
         
         drupal_goto('admin/question/list');
