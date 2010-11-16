@@ -2611,7 +2611,7 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
       <tr>
         <td width="25%" align="left">
 
-<input type="hidden" id="cat1" name="cat1" value="'.$quest->cid.'">
+
 
   <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
         <option value="">Select Category</option>';
@@ -2668,7 +2668,7 @@ $c= $kk[0];
     $output .= '</select>*/
     $output .= '</select>
         </td>
-        <td width="25%" align="left"><input type="hidden" id="cat2" name="cat2" value="'.$pcate_id.'">&nbsp;  <div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+        <td width="25%" align="left"><input type="hidden" id="cat1" name="cat1" value="'.$pcate_id.'">&nbsp;  <div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
 
      $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('".$pcate_id."')";
     $client_select1 = db_query($cat_qry);
@@ -2712,7 +2712,7 @@ $kk1 = array_keys($subcat);
      $psubcate_id =  trim($subcate_id,",");
 
     $output .= '</select></div></td>
-   <td width="25%" align="left"><input type="hidden"  id="cat3" name="cat3" value="'.$psubcate_id.'">
+   <td width="25%" align="left"><input type="hidden"  id="cat2" name="cat2" value="'.$psubcate_id.'">
    <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
    <option value="">Select Sub Sub Category</option>';
    // if ($quest->scid != '') {//now here
@@ -2748,11 +2748,13 @@ $kk2 = array_keys($ssubcat);
                 $sel = '';
             }*/
             $output .= '<option value="'.$listing->cat_id.'" '.$select.'>'.stripslashes($listing->cat_name).'</option>';
+             $ssubcate_id .= $ssubcat[$ssc].",";
         }
+         $pssubcate_id =  trim($ssubcate_id,",");
    // }
  //<td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
         //<td width="43%">&nbsp;<!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td>
-    $output .= '</select></div></td>
+    $output .= '</select></div> <input type="hidden"  id="cat3" name="cat3" value="'.$pssubcate_id.'"></td>
       </tr>
 	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
 	  <tr> <td width="13%"><!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select></td>
