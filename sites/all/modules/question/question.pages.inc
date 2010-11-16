@@ -2454,20 +2454,16 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
         
         question_edit_save_admin($_POST);
     }
-    
+
+
+
+
+
     $result = geonames_query('countryinfo');
      $optionlist .= '<option value="">Select country</option>';
     foreach ($result->results as $country) {
 
-                    $set='';
-                    if($quest->country==$country['countryname'])
-                    {
-                        $set='SELECTED';
-                    }
-
-        $optionlist .= sprintf('<option value="%s" %s>%s</option>', $country['countryname'],$set,$country['countryname']);
-    }
-
+                  
 
      $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
@@ -2476,6 +2472,19 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
      $left_qry = "SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='".$nid."'";
     $result = db_query($left_qry);
     $quest = db_fetch_object($result);
+
+
+  
+    ///country list starts
+
+      $set='';
+                    if($quest->country==$country['countryname'])
+                    {
+                        $set='SELECTED';
+                    }
+
+        $optionlist .= sprintf('<option value="%s" %s>%s</option>', $country['countryname'],$set,$country['countryname']);
+    }
 
 
 
@@ -3559,7 +3568,7 @@ function auto_suggest_quest() {
 function dupe_question() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
- drupal_add_css( drupal_get_path('theme','newtheme') . '/css/css.css');
+
     $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
     $query = db_query("select * from question  where qid='$qaid'  ");
@@ -3579,11 +3588,10 @@ function dupe_question() {
 
     $output .= '<link rel="stylesheet" href="'.$gSitePath.'modules/system/system.css" type="text/css" />
 
-	<link rel="stylesheet" href="'.$gSitePath.path_to_theme().'/css/css.css" type="text/css" />
+	<link rel="stylesheet" href="'.$gSitePath.drupal_get_path('theme','newtheme').'/css/css.css" type="text/css" />
 <link rel="stylesheet" href="'.$gSitePath.'sites/all/modules/tagging/tagging.css" type="text/css" />';
-    $output .='<div class="do-in2">';
-     $output .= '<div class="do-intop">ADD AN ISSUE</div>';
-    $output .='<div>Dupe Search For '.$q.'</div></div>';
+  
+    $output .='<div class="do-in2"><div class="do-intop">Dupe Search For "'.$q.'"</div><div class="inside2">';
     if (!$q)
         return;
     $taglist = array();
@@ -3611,7 +3619,7 @@ COLLATE latin1_swedish_ci and status='0'";
     $urldsi = array_unique($questionlm);
     
     // echo count($urldsi);
-    $output .= "<table>";
+ $output .= '<ul>';
     if (count($urldsi) != 0) {
         foreach ($urldsi as $value) {
 
@@ -3619,15 +3627,14 @@ COLLATE latin1_swedish_ci and status='0'";
             $querysquest = db_query("select * from question  where qid='$value'  ");
             $detquestqes = db_fetch_object($querysquest);
             $mlist = $detquestqes->question;
-            $output .= '<tr><td><a href="'.$detquestqes->url.'">'.$mlist.'</a></td></tr>';
+            $output .= '<li><a href="'.$detquestqes->url.'">'.$mlist.'</a></li>';
         }
     } else {
         
-        $output .= "<b>No Dupe Questions</b>";
+        $output .= "<li><b>No Dupe Questions</b></li>";
     
     }
-    $output .= "</table>";
-
+   $output .= '</ul></div></div>';
     echo $output;
 }
 

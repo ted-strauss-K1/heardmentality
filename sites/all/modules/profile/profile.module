@@ -136,7 +136,7 @@ function get_state($code = '') {
 
 function UserPicture($mid,$profile='') {
     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    $selimage = "select * from {user_profile} where uid='$mid'";
+    $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
     $rs_image = db_query($selimage);
     $resultimage = db_fetch_object($rs_image);
 	$selected_avatar=$resultimage->avatar;
