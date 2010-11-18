@@ -2731,7 +2731,6 @@ $kk2 = array_keys($ssubcat);
     $ssc=$kk2[0];
         while ($listing = db_fetch_object($client_select2)) {
 
-print_r($ssubcat);
             if($listing->cat_id==$ssubcat[$ssc]){
 
             echo "sel";
@@ -2746,6 +2745,7 @@ print_r($ssubcat);
             }*/
             $output .= '<option value="'.$listing->cat_id.'" '.$sel_cat.'>'.stripslashes($listing->cat_name).'</option>';
              $ssubcate_id .= $ssubcat[$ssc].",";
+              $ssc++;
         }
          $pssubcate_id =  trim($ssubcate_id,",");
    // }
