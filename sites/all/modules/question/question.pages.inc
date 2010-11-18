@@ -3553,7 +3553,7 @@ function dupe_question() {
 //COLLATE latin1_swedish_ci and status='0'";
        // echo $query;
         $myql_qry = db_query($query);
-        while ($mylist = db_fetch_array($myql_qry)) {
+        while ($mylist = mysql_fetch_array($myql_qry)) {
           echo  $mylist['qid'];
             //if ($qaid != $mylist['qid']) {
                 array_push($questionlm, $mylist['qid']);
