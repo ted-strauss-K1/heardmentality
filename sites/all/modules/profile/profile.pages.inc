@@ -20,7 +20,11 @@ function profile_view() {
     }
     $strReturn = '';
 
-
+if($uid=='')
+{
+ drupal_not_found();
+ exit;
+}
     //activities
     $tag = '';
     if (isset($_REQUEST['tag'])) {
@@ -289,7 +293,7 @@ function profile($uid = '') {
 
     $gender_name = isset($gender) && ($gender == 1) ? 'Male' : 'Female';
     //Checking settings and displaying the field
-    if (($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['real_name'] == 2 && $is_follow_follower == TRUE)) {
+    if (($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['real_name'] == 2 && $is_follow_follower == TRUE)||($userSettings['real_name'] != 4)) {
         $real_name1 = $real_name;
     }
     if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 2 && $is_follow_follower == TRUE)) {
