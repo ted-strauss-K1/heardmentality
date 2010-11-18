@@ -1272,7 +1272,7 @@ exit;
 
 
 
-
+echo $getuser->uid;
 
 if (isset($getuser) && !empty($getuser)) {
 
