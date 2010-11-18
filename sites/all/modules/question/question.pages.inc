@@ -3551,7 +3551,7 @@ function dupe_question() {
     }
      // $query = " SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci AND context LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 )
 //COLLATE latin1_swedish_ci and status='0'";
-        echo $query;
+        //echo $query;
         $myql_qry = db_query($query);
         while ($mylist = db_fetch_array($myql_qry)) {
         
@@ -3562,7 +3562,7 @@ function dupe_question() {
         }
 
     
-print_r($questionlm);
+//print_r($questionlm);
     $urldsi = array_unique($questionlm);
     //print_r($urldsi);
     ////////// vija ended
