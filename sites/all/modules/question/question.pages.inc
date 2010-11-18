@@ -2812,7 +2812,9 @@ $kk2 = array_keys($ssubcat);
 
 
 function question_edit_save_admin($array) {
- 
+
+    print_r($_REQUEST);
+    exit;
     global $gSitePath,$user,$gDocPath,$base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
