@@ -2813,7 +2813,7 @@ $kk2 = array_keys($ssubcat);
 
 function question_edit_save_admin($array) {
 
-    print_r($_REQUEST);
+    print_r($q_sscat);
     exit;
     global $gSitePath,$user,$gDocPath,$base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
@@ -2834,6 +2834,8 @@ function question_edit_save_admin($array) {
          ////vijay insert category subcategory start here
          $cat1 = $_REQUEST['q_cat'];
          $cat2 = $_REQUEST['q_scat'];
+
+
          
           //$cat_count=explode(',',$cat1);
          
