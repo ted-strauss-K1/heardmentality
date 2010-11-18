@@ -911,6 +911,7 @@ jQuery.noConflict();
                  <div class="w3">Anyone</div>
                  <div class="w4">Logged in Users</div>
                  <div class="w5">Followers &amp; Followees</div>
+                 <div class="w5">No one</div>
              </div>
 
           <div class="clr"></div>
@@ -922,6 +923,8 @@ jQuery.noConflict();
                  <div class="w3"><input name="real_name_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="real_name_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="real_name_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="real_name_privacy" type="radio" value="4" /></div>
+                  
              </div>
              <div class="clr"></div>
 <div class="bord-alin-rite"></div>
@@ -933,6 +936,7 @@ jQuery.noConflict();
                  <div class="w3"><input name="name_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="name_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="name_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="name_privacy" type="radio" value="4" /></div>
              </div>
              <div class="clr"></div>
              <div class="bord-alin-rite"></div>
@@ -943,6 +947,7 @@ jQuery.noConflict();
                  <div class="w3"><input name="email_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="email_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="email_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="email_privacy" type="radio" value="4" /></div>
              </div>
              <div class="clr"></div>
              <div class="bord-alin-rite"></div>
@@ -952,6 +957,7 @@ jQuery.noConflict();
                  <div class="w3"><input name="dob_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="dob_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="dob_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="dob_privacy" type="radio" value="4" /></div>
              </div>
              <div class="clr"></div>
              <div class="bord-alin-rite"></div>
@@ -961,6 +967,7 @@ jQuery.noConflict();
                  <div class="w3"><input name="gender_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="gender_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="gender_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="gender_privacy" type="radio" value="4" /></div>
              </div>
              <div class="clr"></div>
              <div class="bord-alin-rite"></div>
@@ -970,6 +977,7 @@ jQuery.noConflict();
                  <div class="w3"><input name="country_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="country_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="country_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="country_privacy" type="radio" value="4" /></div>
              </div>
              <div class="clr"></div>
              <div class="bord-alin-rite"></div>
@@ -979,6 +987,7 @@ jQuery.noConflict();
                  <div class="w3"><input name="zip_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="zip_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="zip_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="zip_privacy" type="radio" value="4" /></div>
              </div>
                  <div class="clr"></div>
                <div class="bord-alin-rite"></div>
@@ -988,6 +997,8 @@ jQuery.noConflict();
                  <div class="w3"><input name="religion_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="religion_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="religion_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="religion_privacy" type="radio" value="4" /></div>
+                 
              </div>
              <div class="clr"></div>
              <div class="bord-alin-rite"></div>
@@ -997,6 +1008,7 @@ jQuery.noConflict();
                  <div class="w3"><input name="ethnic_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="ethnic_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="ethnic_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="ethnic_privacy" type="radio" value="4" /></div>
              </div>
              <div class="clr"></div>
              <div class="bord-alin-rite"></div>
@@ -1007,6 +1019,7 @@ jQuery.noConflict();
                  <div class="w3"><input name="slant_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="slant_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="slant_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="slant_privacy" type="radio" value="4" /></div>
              </div>
              <div class="bord-alin-rite"></div>
               <div class="clr"></div>
