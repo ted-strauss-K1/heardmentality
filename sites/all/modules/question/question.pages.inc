@@ -2733,7 +2733,6 @@ $kk2 = array_keys($ssubcat);
 
             if($listing->cat_id==$ssubcat[$ssc]){
 
-            echo "sel";
          $sel_cat = 'SELECTED';
         }else{
             $sel_cat = '';
