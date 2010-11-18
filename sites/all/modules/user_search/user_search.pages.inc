@@ -1284,7 +1284,7 @@ if (isset($getuser) && !empty($getuser)) {
     }
 
      $userSettings = checkPrivacySettings($uid);
-
+     echo $userSettings['real_name'];
      if (($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['real_name'] == 2 && $is_follow_follower == TRUE)||($userSettings['real_name'] != 4)) {
         $real_name1 = $resulrnames->real_name;
     }
