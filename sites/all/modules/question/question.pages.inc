@@ -3561,9 +3561,9 @@ function dupe_question() {
         }
 
     
-
+print_r($questionlm);
     $urldsi = array_unique($questionlm);
-    print_r($urldsi);
+    //print_r($urldsi);
     ////////// vija ended
    
 
