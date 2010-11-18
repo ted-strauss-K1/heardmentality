@@ -674,10 +674,10 @@ function welcome_page() {
         $chk1 = db_result($chk);
         if ($chk1) {
            
-           echo $qry = "UPDATE {privacy_settings} set real_name='$real_name_privacy',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
+            $set_qry = "UPDATE {privacy_settings} set real_name='$real_name_privacy',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
 			followers='$followers_privacy',following='$following_privacy',medal='$medal_privacy',questions='$questions_privacy',answers='$answers_privacy',dob='$dob_privacy'  where uid='$user->uid' ";
-           exit;
-            $result = db_query($qry);
+           
+            $result = db_query($set_qry);
         } else {
             $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
 			followers='$followers_privacy',following='$following_privacy',questions='$questions_privacy',answers='$answers_privacy' ,medal='$medal_privacy',dob='$dob_privacy'");
