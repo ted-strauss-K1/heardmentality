@@ -2456,10 +2456,6 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
         question_edit_save_admin($_POST);
     }
 
-
-
-
-
     $result = geonames_query('countryinfo');
      $optionlist .= '<option value="">Select country</option>';
     foreach ($result->results as $country) {
@@ -2486,9 +2482,6 @@ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js
 
         $optionlist .= sprintf('<option value="%s" %s>%s</option>', $country['countryname'],$set,$country['countryname']);
     }
-
-
-
     /////////////state list start here /////////////////////////////
     $query = array('query'=>$quest->country,'maxRows'=>'1','featureclass'=>'S');
                 $result = geonames_query('search', $query);
@@ -2740,16 +2733,16 @@ $kk2 = array_keys($ssubcat);
 
 
             if($listing->cat_id==$ssubcat[$ssc]){
-         $select = "selected='SELECTED'";
+         $sel_cat = 'SELECTED';
         }else{
-            $select = '';
+            $sel_cat = '';
         }
            /* if (in_array($list->cat_id, $ecat3)) {
                 $sel = 'SELECTED="SELECTED"';
             } else {
                 $sel = '';
             }*/
-            $output .= '<option value="'.$listing->cat_id.'" '.$select.'>'.stripslashes($listing->cat_name).'</option>';
+            $output .= '<option value="'.$listing->cat_id.'" '.$sel_cat.'>'.stripslashes($listing->cat_name).'</option>';
              $ssubcate_id .= $ssubcat[$ssc].",";
         }
          $pssubcate_id =  trim($ssubcate_id,",");
