@@ -3554,7 +3554,7 @@ function dupe_question() {
        // echo $query;
         $myql_qry = db_query($query);
         while ($mylist = db_fetch_array($myql_qry)) {
-            print_r($mylist);
+          echo  $mylist['qid'];
             //if ($qaid != $mylist['qid']) {
                 array_push($questionlm, $mylist['qid']);
             //}
