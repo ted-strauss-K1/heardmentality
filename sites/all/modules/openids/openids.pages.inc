@@ -673,7 +673,8 @@ function welcome_page() {
         $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
         $chk1 = db_result($chk);
         if ($chk1) {
-           
+           echo "hi";
+           exit;
             $result = db_query("UPDATE {privacy_settings} set real_name='$real_name_privacy',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
 			followers='$followers_privacy',following='$following_privacy',medal='$medal_privacy',questions='$questions_privacy',answers='$answers_privacy',dob='$dob_privacy'  where uid='$user->uid' ");
         } else {
@@ -702,7 +703,9 @@ function welcome_page() {
         $age = '';
         $age = age($dob);
         $country = (!empty($country1)) ? $country1 : $country;
+        
         $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',social='$socials',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
+        
 
 
         $sel_ulists = "select * from {user_profile} where uid='$user->uid'";
