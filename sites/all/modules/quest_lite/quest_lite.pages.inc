@@ -127,7 +127,7 @@ function qlite_view() {
         if ($user->uid != $oListquest->uid || $oListquest->uid != 1) {
 
             drupal_set_message('Sorry Question is inactive for user access!', 'error');
-            drupal_goto();
+            drupal_access_denied();die;
         }
     }
 
@@ -719,9 +719,9 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
     switch ($qp) {
         case 1:
 
-            if (empty($user)) {
+            if (empty($user->uid)) {
                 drupal_set_message($message = 'Sorry Please login to post your answers!', $type = 'error');
-                drupal_goto();
+                drupal_access_denied();die;
             } else {
 
             }
@@ -737,7 +737,7 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
 
             } else {
                 drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
-                drupal_goto();
+               drupal_access_denied();die;
             }
             //check followee
 
@@ -767,12 +767,12 @@ function prompt_privacy($owner = '', $share = '') {
 
             } else {
                 drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
-                drupal_goto();
+               drupal_access_denied();die;
             }
             break;
         case 3:
             drupal_set_message($message = 'Sorry, Question is blocked for public by owner!', $type = 'error');
-            drupal_goto();
+            drupal_access_denied();die;
             break;
         case 1:
         default:
