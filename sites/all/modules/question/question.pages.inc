@@ -2812,9 +2812,8 @@ $kk2 = array_keys($ssubcat);
 
 
 function question_edit_save_admin($array) {
+    
     $q_sscat = $_REQUEST['q_sscat'];
-    print_r($q_sscat);
-    exit;
     global $gSitePath,$user,$gDocPath,$base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
@@ -2869,7 +2868,7 @@ function question_edit_save_admin($array) {
             // $subcate=$q_sscat;
            $subcate=$q_scat;
 
-
+           $sub_subcate=$q_sscat;
 
 
            $subcat_count = count($subcate);
@@ -2881,7 +2880,7 @@ function question_edit_save_admin($array) {
                 {
                         if(!empty($subcate[$j]))
                         {
-                         db_query("insert into {question_cat} set qid='$nid',cat='$cate[$i]',scat='$subcate[$j]'");
+                         db_query("insert into {question_cat} set qid='$nid',cat='$cate[$i]',scat='$subcate[$j]',sscat='$sub_subcate[$j]'");
                         
                          
                         }
