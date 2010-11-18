@@ -318,7 +318,7 @@ function get_qid() {
        
         if (!empty($user->uid)) {
            echo "hi qid enable";
-                 exit;
+                 
             $query = "SELECT qid from {question} where uid='".$user->uid."' AND status='1' order by qid DESC limit 0,1 ";
             $quest = db_query($query);
             $qid = db_result($quest);
