@@ -3529,17 +3529,58 @@ function dupe_question() {
     $output .='<div class="do-in2"><div class="do-intop">Dupe Search For "'.$q.'"</div><div class="inside2">';
     if (!$q)
         return;
-    $taglist = array();
+
+
+
+/////////////vijay added
+       
+ $taglist = array();
     $urlm = array();
     $questionlm = array();
     $words = explode(" ", $q);
+
+
+    $query = "SELECT * FROM question WHERE 1";
+    for ($i = 0; $i < count($words); $i++) {
+        $samples = " ".$words[$i]."  ";
+        //echo $samples;
+        // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+        //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
+        $query .= " AND question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+
+    }
+     // $query = " SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci AND context LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 )
+//COLLATE latin1_swedish_ci and status='0'";
+   
+        $myql_qry = db_query($query);
+        while ($mylist = db_fetch_array($myql_qry)) {
+            if ($qaid != $mylist['qid']) {
+                array_push($questionlm, $mylist['qid']);
+            }
+            array_push($urlm, $mylist['url']);
+        }
+
+    
+
+    $urldsi = array_unique($questionlm);
+    ////////// vija ended
+   
+
+
+    
+
+   /* $taglist = array();
+    $urlm = array();
+    $questionlm = array();
+    $words = explode(" ", $q);
+    
     for ($i = 0; $i < count($words); $i++) {
         $samples = " ".$words[$i]."  ";
         //echo $samples;
         // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
 
         
-       echo  $query = " SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 )
+       $query = " SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 )
 COLLATE latin1_swedish_ci and status='0'";
         $myql_qry = db_query($query);
         while ($mylist = db_fetch_array($myql_qry)) {
@@ -3551,7 +3592,15 @@ COLLATE latin1_swedish_ci and status='0'";
     
     }
     
-    $urldsi = array_unique($questionlm);
+    $urldsi = array_unique($questionlm);*/
+
+
+
+    
+
+
+
+
     
     // echo count($urldsi);
  $output .= '<ul>';
