@@ -307,7 +307,7 @@ function get_qid() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = '';
-     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
+     echo $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
    
        if (is_numeric($qid)&&!empty($qid)) {
    	
