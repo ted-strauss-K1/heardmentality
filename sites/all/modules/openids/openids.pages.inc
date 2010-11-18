@@ -1034,11 +1034,11 @@ jQuery.noConflict();
           <div class="col-2">
           When i vote on issues or posting content to Heard Mentality I want the following privacy settings applied when other users view my profile<br /><br />
 
-<span><input type="radio" name="qrset"  class="qrset" value="1" ' . $selm . '/>&nbsp;Anyone can see what i do</span><br />
+<span><input type="radio" name="qrset"  class="qrset" value="1" ' . $selm . '/>&nbsp;No one can see what i do</span><br />
 
 <span> <input type="radio" name="qrset" class="qrset" value="2" ' . $selm2 . '/>&nbsp;Only my followers and followees can see</span><br />
 
-<span> <input type="radio" name="qrset" class="qrset"  value="3" ' . $selm3 . '/>&nbsp;No one can see what i do</span><br />
+<span> <input type="radio" name="qrset" class="qrset"  value="3" ' . $selm3 . '/>&nbsp;Anyone can see what i do</span><br />
 
 <span> <input type="radio" name="qrset" class="qrset"  value="4" ' . $selm4 . '/>&nbsp;I want to be asked each time</span><br />
 <br />
