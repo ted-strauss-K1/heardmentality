@@ -2812,7 +2812,7 @@ $kk2 = array_keys($ssubcat);
 
 
 function question_edit_save_admin($array) {
-
+    $q_sscat = $_REQUEST['q_sscat'];
     print_r($q_sscat);
     exit;
     global $gSitePath,$user,$gDocPath,$base_root;
