@@ -775,7 +775,7 @@ function prompt_privacy($owner = '', $share = '') {
             drupal_access_denied();die;
             break;
         case 1:
-        default:
+        default: 
             break;
     }
 }
