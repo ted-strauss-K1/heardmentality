@@ -710,7 +710,7 @@ function qns_like() {
 function privacy_chk($owner = '', $qp = '', $share = '') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
-    if ($owner == $user->uid) {
+    if (!empty($user->uid)&&$owner == $user->uid) {
 
         return true;
     }
@@ -718,7 +718,7 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
     switch ($qp) {
         case 1:
 
-            if ($owner == $user->uid) {
+            if (!empty($user->uid)&&$owner == $user->uid) {
                 return true;
             } else {
                 drupal_set_message($message = 'Sorry Access deined for Other users!', $type = 'error');
