@@ -299,8 +299,6 @@ function list_wave($qid = '', $type = '') {
     }
    
     return $wave;
-
-
 }
 
 function get_qid() {
@@ -313,9 +311,6 @@ function get_qid() {
    	
         return $qid;
     } else {
-
-
-       
         if (!empty($user->uid)) {
           
                  
@@ -323,8 +318,8 @@ function get_qid() {
             $quest = db_query($query);
             $qid = db_result($quest);
             if(!empty ($qid))
-        return $qid;
-        else
+            return $qid;
+            else
             drupal_not_found();die;
       
         }
@@ -344,24 +339,19 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
                 $query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1";
                 $quest = db_query($query);
              $qid = db_result($quest);
-            if(!empty ($qid))
-        return $qid;
-        else
+            if(!empty ($qid))   
+            return $qid;
+            else
             drupal_not_found();die;
 	}
        
     }
-    
     /*if($qid==''||!is_numeric($qid)){
         echo "numeric 3";
         
     $query = "SELECT qid from {question} where status='1' order by qid DESC limit 0,1 ";
      $quest = db_query($query);
             $qid = db_result($quest);
-    }*/
-
-
-
-        
+    }*/     
 }
 
