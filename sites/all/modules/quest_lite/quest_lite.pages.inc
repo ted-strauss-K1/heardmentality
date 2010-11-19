@@ -714,10 +714,10 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
 
         return true;
     }
-echo $owner.'dd'.$user->uid;die;
+
     switch ($qp) {
         case 1:
-
+        echo $owner.'dd'.$user->uid;die;
             if (!empty($user->uid)&&$owner == $user->uid) {
                 return true;
             } else {
