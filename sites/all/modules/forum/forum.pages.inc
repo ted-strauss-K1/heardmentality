@@ -44,7 +44,7 @@ function forum_list($qid = '') {
 <div class="clr"></div>
 </div>
 <div class="clr"></div>
-<!--<div class="popmenu">-->
+<div class="popmenu">
 <ul>
 <li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b1.png" width="14" height="7" alt="Menu1" /></span>Next</a></li>
 <li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b2.png" width="11" height="11" alt="menu2" /></span>Reply</a></li>
@@ -55,7 +55,7 @@ function forum_list($qid = '') {
 <li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b7.png" width="8" height="9" alt="menu7" /></span>Spam</a></li>
 </ul>
 <div class="clr"></div>
-<!--</div>-->
+</div>
 
 <div class="clr"></div>
 <div class="content-popup">
