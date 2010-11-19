@@ -309,7 +309,7 @@ function get_qid() {
     $qid = '';
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
    
-       if (is_numeric($qid)&&!empty($qid)) {
+       if (is_numeric($qid)==1&&!empty($qid)) {
         return $qid;
     } else {
 
@@ -333,9 +333,8 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
             $quest = db_query($query);
             $qid = db_result($quest);
         }*/
-        $str = "view";
-      echo is_numeric($str);
-	if($qid==''||!is_numeric($qid)){
+        
+	if($qid==''||is_numeric($qid)==''){
        
                 $query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1";
                 $quest = db_query($query);
