@@ -708,7 +708,7 @@ function qns_like() {
 }
 
 function privacy_chk($owner = '', $qp = '', $share = '') {
-
+echo $owner.'dd'.$user->uid;die;
     global $gSitePath, $user, $gDocPath, $base_root;
     if (!empty($user->uid)&&$owner == $user->uid) {
 
