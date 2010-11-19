@@ -117,7 +117,7 @@ function qlite_view() {
     //echo $percent;
     $tot = $percent * 100;
 
-     $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
+    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
 
@@ -127,14 +127,15 @@ function qlite_view() {
         if ($user->uid != $oListquest->uid || $oListquest->uid != 1) {
 
             drupal_set_message('Sorry Question is inactive for user access!', 'error');
-            drupal_access_denied();die;
+            drupal_access_denied();
+            die;
         }
     }
 
-    if($_REQUEST['ajax']==1)
+    if ($_REQUEST['ajax'] == 1)
         privacy_chk_ajax($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
-        else
-    privacy_chk($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
+    else
+        privacy_chk($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
     ////question privacy check ends
 
     $list_lengthan = db_query("select * from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'  ");
@@ -623,7 +624,7 @@ function qlite_view() {
     $voteqry = "SELECT * FROM possible_answer_vote where qid='" . $qid . "'";
     $votelist = db_query($voteqry);
     $fetvote = db_fetch_object($votelist);
-    $pundit_cnt=count(getAnsweredUsers($qid));
+    $pundit_cnt = count(getAnsweredUsers($qid));
     if ($numran != 0) {
 
 
@@ -634,7 +635,7 @@ function qlite_view() {
              <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
                 <li class="" id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
-				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits ('.$pundit_cnt.')</span></a></li>
+				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
 				  <li class="" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Info</span></a></li>
 				  
               </ul>
@@ -652,7 +653,7 @@ function qlite_view() {
                <li><a id="AF" href=\'#\' onClick="alert(\'Please vote the above question\');jQuery(this).die(\'click\');jQuery(this).unbind(\'click\');return false;"><span >Reporting</span></a></li>
                 <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum</span></a></li>
                 <li id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources</span></a></li>
-		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits ('.$pundit_cnt.')</span></a></li>
+		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
               </ul>
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
@@ -719,11 +720,12 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
     switch ($qp) {
         case 1:
 
-            if (empty($user->uid)) {
-                drupal_set_message($message = 'Sorry Please login to post your answers!', $type = 'error');
-                drupal_access_denied();die;
+            if ($owner == $user->uid) {
+                return true;
             } else {
-
+                drupal_set_message($message = 'Sorry Access deined for Other users!', $type = 'error');
+                drupal_access_denied();
+                die;
             }
 
             break;
@@ -737,7 +739,8 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
 
             } else {
                 drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
-               drupal_access_denied();die;
+                drupal_access_denied();
+                die;
             }
             //check followee
 
@@ -767,20 +770,22 @@ function prompt_privacy($owner = '', $share = '') {
 
             } else {
                 drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
-               drupal_access_denied();die;
+                drupal_access_denied();
+                die;
             }
             break;
         case 3:
             drupal_set_message($message = 'Sorry, Question is blocked for public by owner!', $type = 'error');
-            drupal_access_denied();die;
+            drupal_access_denied();
+            die;
             break;
         case 1:
-        default: 
+        default:
             break;
     }
 }
 
-        //ajax privacy
+//ajax privacy
 
 
 function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
@@ -794,16 +799,11 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
     switch ($qp) {
         case 1:
 
-            if (empty($user)) {
-
-                //drupal_set_message($message = 'Sorry Please login to post your answers!', $type = 'error');
-             
-                   echo '<div class="warning">Sorry, Only authorized user can access this question!</div>';
-                exit;
-                //drupal_goto();
-
+            if ($owner == $user->uid) {
+                return true;
             } else {
-
+                echo '<div class="warning">Sorry, Access denied for Other users for this question!</div>';
+                exit;
             }
 
             break;
@@ -814,12 +814,12 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
             $cnt = ExecuteQuery($query, "select");
 
             if ($cnt[0][yea] || $cnt[1][yea]) {
-
+                
             } else {
-              
-                   echo '<div class="warning">Sorry, Only Followers and Followees to access this question!</div>';
+
+                echo '<div class="warning">Sorry, Only Followers and Followees to access this question!</div>';
                 exit;
-               // drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
+                // drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
                 //drupal_goto();
             }
             //check followee
@@ -835,6 +835,7 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
             break;
     }
 }
+
 function prompt_privacy_ajax($owner = '', $share = '') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
@@ -848,15 +849,15 @@ function prompt_privacy_ajax($owner = '', $share = '') {
             if ($cnt[0][yea] || $cnt[1][yea]) {
 
             } else {
-              //  drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
-              echo '<div class="warning">Sorry, Only Followers and Followees to access answer!</div>';
+                //  drupal_set_message($message = 'Sorry, Only Followers and Followees to post answers!', $type = 'error');
+                echo '<div class="warning">Sorry, Only Followers and Followees to access answer!</div>';
                 exit;
                 //drupal_goto();
             }
             break;
         case 3:
             //drupal_set_message($message = 'Sorry, Question is blocked for public by owner!', $type = 'error');
-              echo '<div class="warning">Sorry, Question is blocked for public by owner!</div>';
+            echo '<div class="warning">Sorry, Question is blocked for public by owner!</div>';
             exit;
             //drupal_goto();
             break;
@@ -865,6 +866,7 @@ function prompt_privacy_ajax($owner = '', $share = '') {
             break;
     }
 }
+
 /// ajax privacy
 
 
@@ -1167,18 +1169,18 @@ function add_resources() {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite'). '/css/answer.css" type="text/css" />
+    $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/answer.css" type="text/css" />
          <script src="' . $gSitePath . '/misc/jquery.js"></script>
-<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite'). '/css/fileuploader.css" type="text/css" />
+<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/fileuploader.css" type="text/css" />
             <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/fileuploader.js"></script>
-            <script> var spath="'.$gSitePath.'";</script>
+            <script> var spath="' . $gSitePath . '";</script>
                    	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/jquery.blockUI.js"></script>
 		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-more.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/add_resource.js"></script>
 	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 	';
-  
+
     $resources .= '<div id="log">
 	<div class="facttop2">ADD RESOURCES</div>
 	<div id="log_res"><!-- spanner --></div>
@@ -1261,7 +1263,7 @@ function flag_question() {
     $falgq .= '	<script>
 	var spath="' . $gSitePath . '";
 	</script>
-		<script type="text/javascript" src="'.$gSitePath.'/misc/jquery.js"></script>
+		<script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
 <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/jquery.blockUI.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/forum.js"></script>
 	<link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />
@@ -1495,9 +1497,9 @@ function panel_content() {
 
 <div class="profile-img">
 <div class="profile-imgs">
- <a title="' . $profile['name'] . '" href="' . $gSitePath . 'profile/' . $profile['name'] . '">' . UserPicture($profile['uid']).'</a>
+ <a title="' . $profile['name'] . '" href="' . $gSitePath . 'profile/' . $profile['name'] . '">' . UserPicture($profile['uid']) . '</a>
 </div>
-<div class="profile-con">'. $medal . '
+<div class="profile-con">' . $medal . '
 <div>
 
 </div>
@@ -1852,23 +1854,23 @@ function question_news() {
     require ('RSSParser.class.php');
     $xml = & new RSSParser;
 
-     $vSql = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added FROM resource as r where r.rtype='1' and r.qid='" . $qid . "' ";
+    $vSql = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added FROM resource as r where r.rtype='1' and r.qid='" . $qid . "' ";
     $rlistnews = db_query($vSql);
     $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='" . $qid . "'"));
-   
+
     while ($usernews = db_fetch_object($rlistnews)) {
-            $output=array();
+        $output = array();
         $output = $xml->parse($usernews->nlink);
-       
+
         $like_count = resource_Like_checkCount($usermedia->rid, 1);
-        $valuesresult=array();
+        $valuesresult = array();
         foreach ($output as $valuesresult) {
 
-          // print_r( $valuesresult);
+            // print_r( $valuesresult);
         }
-        $opkt=array();
+        $opkt = array();
         foreach ($valuesresult as $opkt) {
-           // print_r($opkt);
+            // print_r($opkt);
             $like = '';
             $flag = '';
             $post = '';
@@ -1960,8 +1962,8 @@ function question_media() {
 	 <h4 ><a href="' . $gSitePath . '' . $usermedia->document . '" target="_blank"> ' . $usermedia->document . ' </a> </h4>
 	<!--<p><img src="http://img.youtube.com/vi/' . $usermedia->video_id . '/default.jpg" ></p>
 	<br/> --> ';
-        if(!empty($usermedia->video_id )){
-        $mediaresult .= '<p>
+        if (!empty($usermedia->video_id)) {
+            $mediaresult .= '<p>
             <a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $usermedia->video_id . '"  class="floatbox" data-fb-options="width:480 height:384">
 <img width="125" height="100" src="http://img.youtube.com/vi/' . $usermedia->video_id . '/default.jpg" alt="Video " ></a></p>';
         }
@@ -1976,7 +1978,7 @@ function question_media() {
              <li>Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></li>     <li>|</li>
                </ul>
           </div>
-           <div class="date">' .$usermedia->date_added . '</div>
+           <div class="date">' . $usermedia->date_added . '</div>
 
         <div class="clr"></div>
         </div></div>
@@ -1998,9 +2000,9 @@ function question_facts() {
     $vSqlfact = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added FROM resource as r where r.rtype='3' and r.qid='" . $qid . "' ";
     $rlistfacts = db_query($vSqlfact);
     $numfacts = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='3' and qid='" . $qid . "'"));
-  
+
     while ($userfacts = db_fetch_object($rlistfacts)) {
-                $factsesult.= '<div class=" post-title-forum " >';
+        $factsesult.= '<div class=" post-title-forum " >';
         $like = '';
         $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='" . $userfacts->rid . "'";
         $fetch = ExecuteQuery($querylike, "select");
@@ -2030,7 +2032,7 @@ function question_facts() {
 <h4 class=""><a href="' . $userfacts->facts . '" target="_blank" > ' . $userfacts->facts . ' </a> </h4>
 	';
 
-           $factsesult .= '
+        $factsesult .= '
  <div class="clr"></div>
 	 <div class="likelink-outer-forum">
            <div class="likekink-forum">
@@ -2041,14 +2043,13 @@ function question_facts() {
              <li>Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></li>     <li>|</li>
                </ul>
           </div>
-           <div class="date">' .$userfacts->date_added . '</div>
+           <div class="date">' . $userfacts->date_added . '</div>
 
         <div class="clr"></div>
         </div></div>
 ';
 
         $factsesult.='</div>';
-
     }
     if ($numfacts == 0) {
 
@@ -3124,10 +3125,10 @@ function qfull_ajax() {
                             break;
                         case '2':
 
-                            if(!empty($list['membed']))
-                            $inc.="<li><a href=\"" . $list['membed'] . "\" target=\"_blank\">You Tube Video</a></li>";
-                            elseif(!empty($list['document']))
-                             $inc.="<li><a href=\"" . $list['document'] . "\" target=\"_blank\">Document</a></li>";
+                            if (!empty($list['membed']))
+                                $inc.="<li><a href=\"" . $list['membed'] . "\" target=\"_blank\">You Tube Video</a></li>";
+                            elseif (!empty($list['document']))
+                                $inc.="<li><a href=\"" . $list['document'] . "\" target=\"_blank\">Document</a></li>";
 
                             break;
                         case '3':
