@@ -336,7 +336,8 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
         }
        
 	if($qid==''||!is_numeric($qid)){
-             
+                 echo "numeric 2";
+                 exit;
 		$query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE u.question_privacy = '4'
 AND q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
   $quest = db_query($query);
@@ -346,7 +347,7 @@ AND q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
        
     }
     if($qid==''||!is_numeric($qid)){
-        echo "hi";
+        echo "numeric 3";
         exit;
     $query = "SELECT qid from {question} where status='1' order by qid DESC limit 0,1 ";
      $quest = db_query($query);
