@@ -3175,7 +3175,7 @@ function popquest() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
-    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
+   echo $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
     //echo $oListquest->uid;
