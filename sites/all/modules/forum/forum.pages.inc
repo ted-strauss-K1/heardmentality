@@ -472,7 +472,7 @@ function wave_access($id = '', $pvt = '') {
 
 
     if ($pvt == 1) {
-        $query = "select *,f.uid as uid from {forum_wavelets} as f left join {user_profile} as u on u.uid=f.uid  where f.wlid='$id' ";
+        echo $query = "select *,f.uid as uid from {forum_wavelets} as f left join {user_profile} as u on u.uid=f.uid  where f.wlid='$id' ";
 
         $list = ExecuteQuery($query, "select");
 //print_r($list);
