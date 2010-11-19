@@ -307,8 +307,7 @@ function get_qid() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = '';
-    print_r($_GET);
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
+  echo $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
    
        if (is_numeric($qid)&&!empty($qid)) {
    	
@@ -345,7 +344,6 @@ AND q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
 	}
        
     }
-    echo $qid;
     if($qid==''||!is_numeric($qid)){
         echo "hi";
         exit;
