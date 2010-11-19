@@ -321,6 +321,7 @@ function get_qid() {
             $query = "SELECT qid from {question} where uid='".$user->uid."' AND status='1' order by qid DESC limit 0,1 ";
             $quest = db_query($query);
             $qid = db_result($quest);
+            return $qid;
       
         }
 
@@ -339,6 +340,7 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
                 $query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1";
                 $quest = db_query($query);
                 $qid = db_result($quest);
+                return $qid;
 	}
        
     }
@@ -353,9 +355,9 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
 
 
 
-        if(!empty ($qid))
+        /*if(!empty ($qid))
         return $qid;
         else
-            drupal_not_found();die;
+            drupal_not_found();die;*/
 }
 
