@@ -155,7 +155,7 @@ ini_set('url_rewriter.tags',        '');
 global $gSitePath ,$gDocPath,$apikey;
 $gSitePath="http://".$_SERVER['HTTP_HOST']."/heardmentality/";
 $gDocPath=$_SERVER['DOCUMENT_ROOT']."/heardmentality/";
-echo $_SERVER['HTTP_HOST'];
+
 if($_SERVER['HTTP_HOST']=='localhost')
 {
 $googlekey='ABQIAAAAk7qgEva0Ioa4Suru5Tb5eBQFLOarkQUzCA92TG3xPimqxCbarBQTnRVvbdF68v6R547r-Sy34P_yWA';
