@@ -76,7 +76,7 @@ function qlite_view() {
     // drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
     drupal_add_css(drupal_get_path('theme', 'newtheme') . '/rotate_files/ui.css');
-    $qid = get_qid();
+   echo $qid = get_qid();
 
 
     //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
