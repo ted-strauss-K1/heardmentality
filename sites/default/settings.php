@@ -165,7 +165,7 @@ elseif($_SERVER['HTTP_HOST']=='58.68.27.117')
 {
 
 $apikey='2_CRglU1d9wu0oGhNKWnLKevzuVwbWRVkprtQhUS1zsCmdoYjEa0SfwwwRL9QCeV5E';
-}elseif($_SERVER['HTTP_HOST']=='openwaveprojects'){
+}elseif($_SERVER['HTTP_HOST']=='openwaveprojects.com'){
 
 $apikey='2_b1lmxsCzCiZwBNC3AIsLDkMwP9tL6OkAIym6lXlPHKGcoukghPGvbt-xp1iSHvla';
 $googlekey='ABQIAAAA8-AXKtSZDYjcD0MTigFCmxSgEOPLDAS1yAhUXqvPQqKhRCTlchT7zLkyGACjmPOcVf90HTBds2HSOg';
