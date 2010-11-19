@@ -714,7 +714,7 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
 
         return true;
     }
- echo $owner.'dd'.$qp;die;
+
     switch ($qp) {
         case 1:
        
@@ -757,7 +757,7 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
 function prompt_privacy($owner = '', $share = '') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
-
+ echo $owner.'dd'.$share;die;
     switch ($share) {
 
         case 2:
