@@ -307,7 +307,7 @@ function get_qid() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = '';
-  echo $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
+   $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
    
        if (is_numeric($qid)&&!empty($qid)) {
    	
@@ -325,7 +325,7 @@ function get_qid() {
       
         }
 
-        if ($qid == ''||!is_numeric($qid)) {
+        /*if ($qid == ''||!is_numeric($qid)) {
             echo "hi numeric 1";
             //$query = "SELECT qid from {question} where status='1' order by qid DESC limit 0,1 ";
             $query = " SELECT q.qid AS qid FROM {question} AS q LEFT JOIN {user_profile} AS u ON q.uid = u.uid WHERE u.question_privacy = '3'
@@ -333,26 +333,26 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
            
             $quest = db_query($query);
             $qid = db_result($quest);
-        }
+        }*/
        
 	if($qid==''||!is_numeric($qid)){
-                 echo "numeric 2";
-                
-		$query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE u.question_privacy = '4'
-AND (q.share = '1' OR  q.share = '') ORDER BY q.qid DESC LIMIT 0 , 1 ";
-  $quest = db_query($query);
-            $qid = db_result($quest);
-
+                $query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
+                $quest = db_query($query);
+             $qid = db_result($quest);
 	}
        
     }
-    if($qid==''||!is_numeric($qid)){
+    
+    /*if($qid==''||!is_numeric($qid)){
         echo "numeric 3";
         
     $query = "SELECT qid from {question} where status='1' order by qid DESC limit 0,1 ";
      $quest = db_query($query);
             $qid = db_result($quest);
-    }
+    }*/
+
+
+
         if(!empty ($qid))
         return $qid;
         else
