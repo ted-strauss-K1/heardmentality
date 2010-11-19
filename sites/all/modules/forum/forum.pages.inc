@@ -393,7 +393,7 @@ function get_wavelets($wid = '', $pid = '') {
     if (!empty($wid)) {
 
 
-       echo $query = "select * from {forum_wavelets} as f  join {user_profile} as u on u.uid=f.uid  where f.wid='$wid' and f.status='1' and parentid='$pid'";
+        $query = "select * from {forum_wavelets} as f  join {user_profile} as u on u.uid=f.uid  where f.wid='$wid' and f.status='1' and parentid='$pid'";
 
         $list = ExecuteQuery($query, "select");
 
