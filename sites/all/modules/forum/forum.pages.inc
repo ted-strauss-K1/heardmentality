@@ -836,7 +836,7 @@ function resforum_list() {
 <div class="pop-up" align="center">
 <div class="pop-tp"></div>
 <div class="pop-md" align="center">
-<div class="tp-sandalbar">
+<!--<div class="tp-sandalbar">-->
 <span class="pimg"><img src="' . base_path() . path_to_theme() . '/images/pimg1.jpg" width="30" height="25" alt="image1" /></span>
 <span class="pimg"><img src="' . base_path() . path_to_theme() . '/images/pimg2.jpg" width="30" height="25" alt="image2" /></span>
 <span class="pimg"><img src="' . base_path() . path_to_theme() . '/images/pimg3.jpg" width="30" height="25" alt="image3" /></span>
@@ -844,13 +844,12 @@ function resforum_list() {
 <span class="pimg"><img src="' . base_path() . path_to_theme() . '/images/pimg5.jpg" width="30" height="25" alt="image5" /></span>
 <div class="ad-bt"><a href="#" title="Add"><img src="' . base_path() . path_to_theme() . '/images/add-bt.jpg" width="37" height="22" alt="Add button" /></a></div>
 <div class="clr"></div>
-
-</div>
+<!--</div>-->
 
 <div class="clr"></div>
 
 
-<div class="popmenu">
+<!--<div class="popmenu">-->
 <ul>
 <ul>
 <li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b1.png" width="14" height="7" alt="Menu1" /></span>Next</a></li>
@@ -860,14 +859,10 @@ function resforum_list() {
 <li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b5.png" width="10" height="10" alt="menu5" /></span>Unfollow</a></li>
 <li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b6.png" width="10" height="11" alt="menu6" /></span>Archive</a></li>
 <li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b7.png" width="8" height="9" alt="menu7" /></span>Spam</a></li>
-
-
 </ul>
-
-
 </ul>
 <div class="clr"></div>
-</div>
+<!--</div>-->
 
 <div class="clr"></div>
 <div class="content-popup">
