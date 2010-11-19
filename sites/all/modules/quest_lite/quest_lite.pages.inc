@@ -115,7 +115,7 @@ function qlite_view() {
     //echo $percent;
     $tot = $percent * 100;
 
-    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
+   echo $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
 
@@ -757,7 +757,7 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
 function prompt_privacy($owner = '', $share = '') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
- echo $owner.'dd'.$share;die;
+ 
     switch ($share) {
 
         case 2:
