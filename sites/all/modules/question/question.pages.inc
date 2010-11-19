@@ -427,7 +427,13 @@ $ccode=$country['cn'];
      $result = db_fetch_array($sel_qry);
      if($qrset=='')
      {
-         $qrset = $result['question_privacy'];
+        if($result['question_privacy']==1)
+         $qrset = 3;
+        if($result['question_privacy']==2)
+            $qrset = 2;
+        if($result['question_privacy']==3)
+            $qrset = 1;
+
      }
 //echo "INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'";
         //exit;
