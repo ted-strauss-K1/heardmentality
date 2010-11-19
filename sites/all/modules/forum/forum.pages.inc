@@ -484,7 +484,7 @@ function wave_access($id = '', $pvt = '') {
 
 //followers or following
 
-           echo $query = "(select count(*) as a from {follower} where uid='" . $list[0]['uid'] . "' AND follower_id='$user->uid') union (select count(*) as b from {follower} where uid='$user->uid' AND follower_id='" . $list[0]['uid'] . "')";
+           $query = "(select count(*) as a from {follower} where uid='" . $list[0]['uid'] . "' AND follower_id='$user->uid') union (select count(*) as b from {follower} where uid='$user->uid' AND follower_id='" . $list[0]['uid'] . "')";
 
             $fet = ExecuteQuery($query, "select");
 
