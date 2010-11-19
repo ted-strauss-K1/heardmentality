@@ -354,6 +354,6 @@ AND q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
         if(!empty ($qid))
         return $qid;
         else
-            drupal_not_found ();die;
+            drupal_not_found();die;
 }
 
