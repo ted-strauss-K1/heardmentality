@@ -314,12 +314,9 @@ function get_qid() {
         return $qid;
     } else {
         if (!empty($user->uid)) {
-          
-                 
             $query = "SELECT qid from {question} where uid='".$user->uid."' AND status='1' order by qid DESC limit 0,1 ";
             $quest = db_query($query);
             $qid = db_result($quest);
-      
         }
 
         /*if ($qid == ''||!is_numeric($qid)) {
@@ -347,9 +344,6 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
      $quest = db_query($query);
             $qid = db_result($quest);
     }*/
-
-
-
         if(!empty ($qid))
         return $qid;
         else
