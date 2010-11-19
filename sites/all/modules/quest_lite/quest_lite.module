@@ -307,14 +307,12 @@ function get_qid() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = '';
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
+   $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
    
        if (is_numeric($qid)&&!empty($qid)) {
+   	
         return $qid;
     } else {
-
-
-       
         if (!empty($user->uid)) {
           
                  
@@ -333,13 +331,11 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
             $quest = db_query($query);
             $qid = db_result($quest);
         }*/
-      
-      
-	if($qid==''||!is_numeric($qid)){
        
-                $query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1";
+	if($qid==''||!is_numeric($qid)){
+                $query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
                 $quest = db_query($query);
-                $qid = db_result($quest);
+             $qid = db_result($quest);
 	}
        
     }
