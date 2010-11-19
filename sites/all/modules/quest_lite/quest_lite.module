@@ -339,7 +339,7 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
                  echo "numeric 2";
                 
 		$query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE u.question_privacy = '4'
-AND q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
+AND (q.share = '1' OR  q.share = '') ORDER BY q.qid DESC LIMIT 0 , 1 ";
   $quest = db_query($query);
             $qid = db_result($quest);
 
