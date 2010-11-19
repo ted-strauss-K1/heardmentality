@@ -344,7 +344,7 @@ AND q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
 	}
        
     }
-    
+    echo $qid;
     if($qid==''||!is_numeric($qid)){
         echo "hi";
         exit;
