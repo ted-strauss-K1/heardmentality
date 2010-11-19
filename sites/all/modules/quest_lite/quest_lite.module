@@ -333,7 +333,6 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
         }*/
        
 	if($qid==''||!is_numeric($qid)){
-            echo "hi qid";
                 $query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
                 $quest = db_query($query);
              $qid = db_result($quest);
