@@ -836,7 +836,7 @@ function resforum_list() {
 <div class="pop-up" align="center">
 <div class="pop-tp"></div>
 <div class="pop-md" align="center">
-
+<div class="tp-sandalbar">
 <span class="pimg"><img src="' . base_path() . path_to_theme() . '/images/pimg1.jpg" width="30" height="25" alt="image1" /></span>
 <span class="pimg"><img src="' . base_path() . path_to_theme() . '/images/pimg2.jpg" width="30" height="25" alt="image2" /></span>
 <span class="pimg"><img src="' . base_path() . path_to_theme() . '/images/pimg3.jpg" width="30" height="25" alt="image3" /></span>
@@ -845,12 +845,12 @@ function resforum_list() {
 <div class="ad-bt"><a href="#" title="Add"><img src="' . base_path() . path_to_theme() . '/images/add-bt.jpg" width="37" height="22" alt="Add button" /></a></div>
 <div class="clr"></div>
 
-
+</div>
 
 <div class="clr"></div>
 
 
-
+<div class="popmenu">
 <ul>
 <ul>
 <li><a href="#"><span><img src="' . base_path() . path_to_theme() . '/images/menu-b1.png" width="14" height="7" alt="Menu1" /></span>Next</a></li>
@@ -867,7 +867,7 @@ function resforum_list() {
 
 </ul>
 <div class="clr"></div>
-
+</div>
 
 <div class="clr"></div>
 <div class="content-popup">
