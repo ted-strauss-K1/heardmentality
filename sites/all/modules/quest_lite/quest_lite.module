@@ -307,7 +307,7 @@ function get_qid() {
     
     global $gSitePath,$user,$gDocPath,$base_root;
     $qid = '';
-   echo $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
+   $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);// Return the NID
    
        if (is_numeric($qid)&&!empty($qid)) {
    	
@@ -322,6 +322,10 @@ function get_qid() {
             $query = "SELECT qid from {question} where uid='".$user->uid."' AND status='1' order by qid DESC limit 0,1 ";
             $quest = db_query($query);
             $qid = db_result($quest);
+            if(!empty ($qid))
+        return $qid;
+        else
+            drupal_not_found();die;
       
         }
 
@@ -336,11 +340,14 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
         }*/
        
 	if($qid==''||!is_numeric($qid)){
-       echo "hi viewer";
-        exit;
+       
                 $query="SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1";
                 $quest = db_query($query);
-            echo $qid = db_result($quest);
+             $qid = db_result($quest);
+            if(!empty ($qid))
+        return $qid;
+        else
+            drupal_not_found();die;
 	}
        
     }
@@ -355,9 +362,6 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
 
 
 
-        if(!empty ($qid))
-        return $qid;
-        else
-            drupal_not_found();die;
+        
 }
 
