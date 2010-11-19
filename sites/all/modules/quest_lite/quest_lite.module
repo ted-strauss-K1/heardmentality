@@ -333,7 +333,7 @@ ORDER BY q.qid DESC LIMIT 0 , 1  ";
             $quest = db_query($query);
             $qid = db_result($quest);
         }*/
-        $str = 123;
+        $str = "view";
       echo is_numeric($str);
 	if($qid==''||!is_numeric($qid)){
        
