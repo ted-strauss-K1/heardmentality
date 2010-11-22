@@ -505,28 +505,9 @@ if(!empty($country['city'])){
 
 function my_country(){
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-
-
-
-function get_data($url)
-{
-$ch = curl_init();
-$timeout = 5;
-curl_setopt($ch,CURLOPT_URL,$url);
-curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
-$data = curl_exec($ch);
-curl_close($ch);
-return $data;
-}
-$url = "http://ipinfodb.com/ip_locator.php?ip=58.68.27.117";
-echo get_data($url);
-exit;
-
-    echo $url= 'http://ipinfodb.com/ip_locator.php?ip='.get_real_ip_addr();
-     //echo $url= 'http://ipinfodb.com/ip_query_country.php?ip='.get_real_ip_addr();
-   
-       
+   // echo $url= 'http://ipinfodb.com/ip_locator.php?ip='.get_real_ip_addr();
+   $url= 'http://ipinfodb.com/ip_query_country.php?ip='.get_real_ip_addr();
+    
      $curl = curl_init();
      $list=array();
 // Setup the curl settings
@@ -542,13 +523,11 @@ curl_close($curl);
 // Setup the xml object
 $xml =(array)simplexml_load_string( $raw_xml );
 
-print_r($xml);
 if(!empty($user)){
 
   $details=load_user($user->uid);
 
 }
-
 $list['cc']=(!empty($details->country))?$details->country:$xml['CountryCode'];
 $list['cn']=(!empty($details->country))?$details->country:$xml['CountryName'];
 $list['state']=(!empty($details->state))?$details->state:$xml['RegionName'];
@@ -569,7 +548,6 @@ $list['city']=(!empty($details->city))?$details->city:$xml['City'];
     <Gmtoffset>0</Gmtoffset>
     <Dstoffset>0</Dstoffset> 
  */
-
 return $list;
 }
 
