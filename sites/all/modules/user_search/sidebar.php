@@ -55,7 +55,7 @@ if (!empty($listcat)) {
         $cat_res = db_query( $cat_qry);
         $total_count1 = mysql_num_rows($cat_res);
                  
-        $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
+        $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
         //subcat list
         if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
            // $catlist.='<ul>';
@@ -73,7 +73,7 @@ if (!empty($listcat)) {
                  $total_count2 = mysql_num_rows($scat_res);
                  
                 $style = 'class="sidelinks"';
-                $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' .$total_count2 . ']</a></span><br/>';
+                $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'">' . $scat['cat_name'] . '[' .$total_count2 . ']</a></span><br/>';
                 //sub subcat list
                 if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
                     //$catlist.='<ul>';
@@ -90,7 +90,7 @@ if (!empty($listcat)) {
                         $total_count3 = mysql_num_rows($sscat_res);
                  
                         $style = 'class="sidelinks"';
-                        $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $total_count3 . ']</a></span><br/>';
+                        $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'">' . $scat['cat_name'] . '[' . $total_count3 . ']</a></span><br/>';
                     }
                    // $catlist.='</ul>';
                 }
