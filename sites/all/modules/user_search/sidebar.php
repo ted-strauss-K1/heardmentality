@@ -38,10 +38,10 @@ if (!empty($listcat)) {
         if ($cid == $cat['cat_id']) {
             $style = 'class="sidelinks"';
         }
-       echo $cat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.cat ='".$cat['cat_id']."'group by cat.qid";
+        $cat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.cat ='".$cat['cat_id']."'group by cat.qid";
                  $cat_res = db_query( $cat_qry);
-                echo  $total_count1 = mysql_num_rows($cat_res);
-        $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' . $cat['cntc'] . ']</a></span><br/>';
+                 $total_count1 = mysql_num_rows($cat_res);
+        $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
         //subcat list
         if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
            // $catlist.='<ul>';
@@ -54,9 +54,12 @@ if (!empty($listcat)) {
                 if ($scid == $scat['cat_id']) {
                     $style = 'style="font-weight:bold"'; 
                 }
+                 $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.cat ='".$scat['cat_id']."'group by cat.qid";
+                 $scat_res = db_query( $scat_qry);
+                 $total_count2 = mysql_num_rows($scat_res);
                  
                 $style = 'class="sidelinks"';
-                $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $scat['cntc'] . ']</a></span><br/>';
+                $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' .$total_count2 . ']</a></span><br/>';
                 //sub subcat list
                 if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
                     //$catlist.='<ul>';
@@ -68,8 +71,12 @@ if (!empty($listcat)) {
                         if ($sscid == $sscat['cat_id']) {
                             $style = 'style="font-weight:bold"';
                         }
+                        $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.cat ='".$sscat['cat_id']."'group by cat.qid";
+                        $sscat_res = db_query( $sscat_qry);
+                        $total_count3 = mysql_num_rows($sscat_res);
+                 
                         $style = 'class="sidelinks"';
-                        $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $sscat['cntc'] . ']</a></span><br/>';
+                        $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $total_count3 . ']</a></span><br/>';
                     }
                    // $catlist.='</ul>';
                 }
