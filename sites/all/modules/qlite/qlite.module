@@ -506,7 +506,7 @@ $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid 
 function my_country(){
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
        echo $url= 'http://ipinfodb.com/ip_query_country.php?ip='.get_real_ip_addr();
-       exit;
+       
      $curl = curl_init();
      $list=array();
 // Setup the curl settings
@@ -528,7 +528,8 @@ if(!empty($user)){
 
 }
 $list['cc']=(!empty($details->country))?$details->country:$xml['CountryCode'];
-$list['cn']=(!empty($details->country))?$details->country:$xml['CountryName'];
+echo $list['cn']=(!empty($details->country))?$details->country:$xml['CountryName'];
+exit;
 $list['state']=(!empty($details->state))?$details->state:$xml['RegionName'];
 $list['city']=(!empty($details->city))?$details->city:$xml['City'];
 /*
