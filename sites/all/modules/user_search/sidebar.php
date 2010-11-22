@@ -30,7 +30,7 @@ if (!empty($_REQUEST['sscid'])) {
 $catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
  $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
 $listcat = ExecuteQuery($sel_cat, "select");
-echo $total_row1 = ExecuteQuery($sel_cat,'norows');
+
 
 if (!empty($listcat)) {
     foreach ($listcat as $cat) {
@@ -44,12 +44,16 @@ if (!empty($listcat)) {
            // $catlist.='<ul>';
             $sel_scat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $cat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
             $listscat = ExecuteQuery($sel_scat, "select");
-            echo $total_row2 = ExecuteQuery($sel_cat,'norows');
+           
+           
             foreach ($listscat as $scat) {
                   $style = '';
                 if ($scid == $scat['cat_id']) {
                     $style = 'style="font-weight:bold"'; 
                 }
+                 $cat_qry = "SELECT * FROM question_cat WHERE cat ='".$cat['cat_id']."'group by qid";
+                 $cat_res = db_query( $cat_qry);
+                echo  $total_count1 = mysql_num_rows($cat_res);
                 $style = 'class="sidelinks"';
                 $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' . $scat['cntc'] . ']</a></span><br/>';
                 //sub subcat list
@@ -57,7 +61,7 @@ if (!empty($listcat)) {
                     //$catlist.='<ul>';
                      $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
                     $listsscat = ExecuteQuery($sel_sscat, "select");
-                     echo $total_row3 = ExecuteQuery($sel_cat,'norows');
+                    
                     foreach ($listsscat as $sscat) {
                           $style = '';
                         if ($sscid == $sscat['cat_id']) {
