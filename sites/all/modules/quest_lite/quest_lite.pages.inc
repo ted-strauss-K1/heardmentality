@@ -598,7 +598,10 @@ function qlite_view() {
               <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="' . $gSitePath . path_to_theme() . '/images/sm4.jpg"/>&nbsp;
                   <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="' . $gSitePath . path_to_theme() . '/images/sm5.jpg"/>&nbsp;
                     Share</a>                 
-             </div>    
+             </div>
+              <!-- <div class="share2">
+            <a title="Invite" onclick="formsubmittype(2,' . $qid . ');" href="javascript:void(0);" class="share-link"> Invite</a>
+             </div>-->
              <div align="center" class="share1">
               <a title="Suggest a new answer" class="share-link"  onclick="formsubmittype(4,' . $qid . ');" href="javascript:void(0);">Suggest a new answer</a>
              </div>
