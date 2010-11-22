@@ -505,7 +505,8 @@ if(!empty($country['city'])){
 
 function my_country(){
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    echo $url= 'http://ipinfodb.com/ip_locator.php?ip='.get_real_ip_addr();
+    echo $url= 'http://ipinfodb.com/ip_query_country.php?ip='.get_real_ip_addr();
+    //ip_locator.php?ip=
        
      $curl = curl_init();
      $list=array();
@@ -528,7 +529,7 @@ if(!empty($user)){
   $details=load_user($user->uid);
 
 }
-echo $xml['CountryName'];
+
 $list['cc']=(!empty($details->country))?$details->country:$xml['CountryCode'];
 $list['cn']=(!empty($details->country))?$details->country:$xml['CountryName'];
 $list['state']=(!empty($details->state))?$details->state:$xml['RegionName'];
