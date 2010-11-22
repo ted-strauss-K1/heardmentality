@@ -30,7 +30,7 @@ if (!empty($_REQUEST['sscid'])) {
 $catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
  $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
 $listcat = ExecuteQuery($sel_cat, "select");
-echo $total_row = ExecuteQuery($sel_cat,'norows');
+echo $total_row1 = ExecuteQuery($sel_cat,'norows');
 
 if (!empty($listcat)) {
     foreach ($listcat as $cat) {
@@ -44,6 +44,7 @@ if (!empty($listcat)) {
            // $catlist.='<ul>';
             $sel_scat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $cat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
             $listscat = ExecuteQuery($sel_scat, "select");
+            echo $total_row2 = ExecuteQuery($sel_cat,'norows');
             foreach ($listscat as $scat) {
                   $style = '';
                 if ($scid == $scat['cat_id']) {
