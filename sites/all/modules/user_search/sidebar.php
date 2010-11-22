@@ -29,15 +29,15 @@ if (!empty($_REQUEST['sscid'])) {
 }
 if(!empty($_REQUEST['q_country'])) {
     $q_country = $_REQUEST['q_country'];
-    $cond .= " AND q.country=$q_country";
+    $cond .= " AND q.country='$q_country'";
     }
  if(!empty($_REQUEST['q_state'])) {
     $q_state = $_REQUEST['q_state'];
-    $cond .= " AND q.state=$q_state";
+    $cond .= " AND q.state='$q_state'";
     }
  if(!empty($_REQUEST['q_city'])) {
     $q_city = $_REQUEST['q_city'];
-    $cond .= " AND q.city=$q_city";
+    $cond .= " AND q.city='$q_city'";
 
     }
 $catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
