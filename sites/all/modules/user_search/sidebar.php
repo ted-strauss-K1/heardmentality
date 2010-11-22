@@ -54,7 +54,7 @@ if (!empty($listcat)) {
                 if ($scid == $scat['cat_id']) {
                     $style = 'style="font-weight:bold"'; 
                 }
-                echo $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.cat ='".$scat['cat_id']."'group by cat.qid";
+                echo $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.scat ='".$scat['cat_id']."'group by cat.qid";
                  $scat_res = db_query( $scat_qry);
                 echo  $total_count2 = mysql_num_rows($scat_res);
                  
@@ -71,7 +71,7 @@ if (!empty($listcat)) {
                         if ($sscid == $sscat['cat_id']) {
                             $style = 'style="font-weight:bold"';
                         }
-                        $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.cat ='".$sscat['cat_id']."'group by cat.qid";
+                        $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.sscat ='".$sscat['cat_id']."'group by cat.qid";
                         $sscat_res = db_query( $sscat_qry);
                         $total_count3 = mysql_num_rows($sscat_res);
                  
