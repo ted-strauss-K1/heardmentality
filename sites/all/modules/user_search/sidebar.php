@@ -27,6 +27,19 @@ if (!empty($_REQUEST['scid'])) {
 if (!empty($_REQUEST['sscid'])) {
     $sscid = $_REQUEST['sscid'];
 }
+if(!empty($_REQUEST['q_country'])) {
+    $q_country = $_REQUEST['q_country'];
+    $cond .= " AND q.country=$q_country";
+    }
+ if(!empty($_REQUEST['q_state'])) {
+    $q_state = $_REQUEST['q_state'];
+    $cond .= " AND q.state=$q_state";
+    }
+ if(!empty($_REQUEST['q_city'])) {
+    $q_city = $_REQUEST['q_city'];
+    $cond .= " AND q.city=$q_city";
+
+    }
 $catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
  $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
 $listcat = ExecuteQuery($sel_cat, "select");
@@ -38,9 +51,10 @@ if (!empty($listcat)) {
         if ($cid == $cat['cat_id']) {
             $style = 'class="sidelinks"';
         }
-        $cat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.cat ='".$cat['cat_id']."'group by cat.qid";
-                 $cat_res = db_query( $cat_qry);
-                 $total_count1 = mysql_num_rows($cat_res);
+        $cat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.cat ='".$cat['cat_id']."' $cond  group by cat.qid";
+        $cat_res = db_query( $cat_qry);
+        $total_count1 = mysql_num_rows($cat_res);
+                 
         $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
         //subcat list
         if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
@@ -54,7 +68,7 @@ if (!empty($listcat)) {
                 if ($scid == $scat['cat_id']) {
                     $style = 'style="font-weight:bold"'; 
                 }
-                 $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.scat ='".$scat['cat_id']."'group by cat.qid";
+                 $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.scat ='".$scat['cat_id']."' $cond  group by cat.qid";
                  $scat_res = db_query( $scat_qry);
                  $total_count2 = mysql_num_rows($scat_res);
                  
@@ -71,7 +85,7 @@ if (!empty($listcat)) {
                         if ($sscid == $sscat['cat_id']) {
                             $style = 'style="font-weight:bold"';
                         }
-                        $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.sscat ='".$sscat['cat_id']."'group by cat.qid";
+                        $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.sscat ='".$sscat['cat_id']."' $cond  group by cat.qid";
                         $sscat_res = db_query( $sscat_qry);
                         $total_count3 = mysql_num_rows($sscat_res);
                  
