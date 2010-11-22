@@ -38,7 +38,7 @@ if (!empty($listcat)) {
         if ($cid == $cat['cat_id']) {
             $style = 'class="sidelinks"';
         }
-        $cat_qry = "SELECT * FROM question_cat WHERE cat ='".$cat['cat_id']."'group by qid";
+       echo $cat_qry = "SELECT * FROM question_cat WHERE cat ='".$cat['cat_id']."'group by qid";
                  $cat_res = db_query( $cat_qry);
                 echo  $total_count1 = mysql_num_rows($cat_res);
         $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '">' . $cat['cat_name'] . '[' . $cat['cntc'] . ']</a></span><br/>';
