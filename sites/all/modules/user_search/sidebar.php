@@ -54,9 +54,9 @@ if (!empty($listcat)) {
                 if ($scid == $scat['cat_id']) {
                     $style = 'style="font-weight:bold"'; 
                 }
-                echo $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.scat ='".$scat['cat_id']."'group by cat.qid";
+                 $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE cat.scat ='".$scat['cat_id']."'group by cat.qid";
                  $scat_res = db_query( $scat_qry);
-                echo  $total_count2 = mysql_num_rows($scat_res);
+                 $total_count2 = mysql_num_rows($scat_res);
                  
                 $style = 'class="sidelinks"';
                 $catlist.='&nbsp;&nbsp;<span ' . $style . '><a '.$style.' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '">' . $scat['cat_name'] . '[' .$total_count2 . ']</a></span><br/>';
