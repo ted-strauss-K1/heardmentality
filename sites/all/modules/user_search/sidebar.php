@@ -28,7 +28,7 @@ if (!empty($_REQUEST['sscid'])) {
     $sscid = $_REQUEST['sscid'];
 }
 $catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
-echo $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
+echo $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
 $listcat = ExecuteQuery($sel_cat, "select");
 if (!empty($listcat)) {
     foreach ($listcat as $cat) {
@@ -52,7 +52,7 @@ if (!empty($listcat)) {
                 //sub subcat list
                 if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
                     //$catlist.='<ul>';
-                    $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
+                    $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
                     $listsscat = ExecuteQuery($sel_sscat, "select");
                     foreach ($listsscat as $sscat) {
                           $style = '';
