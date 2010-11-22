@@ -2594,7 +2594,7 @@ function qlite_map() {
                   
                   
 	 var markerCluster = new MarkerClusterer(map, markers);
-
+//map. disableInfoWindow ();
 }
 		
 		function get_color(type){
@@ -2611,8 +2611,9 @@ function qlite_map() {
 		}
 		function newMarker(markerLocation, markerId,icon) {
 
-	var markering=new GMarker(markerLocation, {title:'Zip['+markerId+']',icon:icon});
-	GEvent.addListener(markering, 'click', function() {
+	//var markering=new GMarker(markerLocation, {title:'Zip['+markerId+']',icon:icon});
+        var markering=new GMarker(markerLocation, {icon:icon});
+    GEvent.addListener(markering, 'click', function() {
 		markering.openInfoWindowHtml('<p>Zip['+markerId+']</p>');
 	});
 	return markering;
