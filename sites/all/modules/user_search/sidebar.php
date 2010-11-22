@@ -51,7 +51,7 @@ if (!empty($listcat)) {
                 if ($scid == $scat['cat_id']) {
                     $style = 'style="font-weight:bold"'; 
                 }
-                 $cat_qry = "SELECT * FROM question_cat WHERE cat ='".$cat['cat_id']."'group by qid";
+                 $cat_qry = "SELECT * FROM question_cat WHERE cat ='".$scat['cat_id']."'group by qid";
                  $cat_res = db_query( $cat_qry);
                 echo  $total_count1 = mysql_num_rows($cat_res);
                 $style = 'class="sidelinks"';
