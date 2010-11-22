@@ -2200,7 +2200,7 @@ function qlite_percent() {
 			<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>				
 			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
 
-			<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
+<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/css/css.css' type='text/css' />
 			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/filter.js'></script>
 	
 			";
@@ -2210,8 +2210,8 @@ function qlite_percent() {
         array_push($ans_array, $vlist[$ab]['answer']);
     }
     $result = percent_broken($qid, '', $_REQUEST);
-    //echo "<pre>";
-    //print_r($result);
+    echo "<pre>";
+    print_r($result);
     $ans = $result['divide'];
     $cnt = $result['cnt'];
 
@@ -2319,7 +2319,7 @@ function qlite_graph() {
         				<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>	
        			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
-<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
+<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/css/css.css' type='text/css' />
 <script type='text/javascript' language='javascript'>
 
 ";
