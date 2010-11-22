@@ -505,6 +505,24 @@ if(!empty($country['city'])){
 
 function my_country(){
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+
+
+function get_data($url)
+{
+$ch = curl_init();
+$timeout = 5;
+curl_setopt($ch,CURLOPT_URL,$url);
+curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+$data = curl_exec($ch);
+curl_close($ch);
+return $data;
+}
+$url = "http://ipinfodb.com/ip_locator.php?ip=58.68.27.117";
+echo get_data($url);
+exit;
+
     echo $url= 'http://ipinfodb.com/ip_locator.php?ip='.get_real_ip_addr();
      //echo $url= 'http://ipinfodb.com/ip_query_country.php?ip='.get_real_ip_addr();
    
