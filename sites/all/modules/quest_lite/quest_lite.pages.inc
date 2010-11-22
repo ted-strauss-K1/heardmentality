@@ -2080,7 +2080,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
     $vlist = ExecuteQuery($vans, "select");
     switch ($filter) {
         case 'gender':
-            $answer['divide'] = array('male','female');
+            $answer['divide'] = array('male','female','undefined');
 
 
         
@@ -2088,8 +2088,10 @@ function percent_broken($qid = '', $aid = '', $array = '') {
               foreach ($answer['divide'] as $list) {
                  if($list=='male')
                      $gen=1;
-                 else
+                 elseif($list=='female')
                      $gen=2;
+                 else
+                     $gen='';
 
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
@@ -2106,7 +2108,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
 
             break;
         case 'age':
-            $answer['divide'] = array('18-30', '30-50', '50 above');
+            $answer['divide'] = array('18-30', '30-50', '50 above','undefined');
 
             foreach ($answer['divide'] as $key => $value) {
                 if ($key == 0)
@@ -2115,6 +2117,10 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                     $query_ins = "AND u.age BETWEEN '30' AND '50'";
                 elseif ($key == 2)
                     $query_ins = "AND u.age>='50' ";
+                else
+                    $query_ins = "AND u.age='' "; 
+
+
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
                     $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' " . $query_ins;
@@ -2131,12 +2137,17 @@ function percent_broken($qid = '', $aid = '', $array = '') {
             //$answer_cnt;
             break;
         case 'religion':
-            $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other');
+            $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other','undefined');
 
             foreach ($answer['divide'] as $list) {
+                if($list=='undefined')
+                     $reg='';
+                    else
+                $reg=$list;
+
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
-                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND religion='" . $list . "'";
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND religion='" . $reg . "'";
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
@@ -2148,12 +2159,17 @@ function percent_broken($qid = '', $aid = '', $array = '') {
 
             break;
         case 'ethnicity':
-            $answer['divide'] = array('Caucasian', 'Black', 'Asian', 'Indian', 'Semetic', 'Latin', 'Aborigines');
+            $answer['divide'] = array('Caucasian', 'Black', 'Asian', 'Indian', 'Semetic', 'Latin', 'Aborigines','undefined');
 
             foreach ($answer['divide'] as $list) {
+                if($list=='undefined')
+                     $reg='';
+                    else
+                $reg=$list;
+
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
-                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND ethnic='" . $list . "'";
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND ethnic='" . $reg . "'";
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
@@ -2165,12 +2181,18 @@ function percent_broken($qid = '', $aid = '', $array = '') {
 
             break;
         case 'slant':
-            $answer['divide'] = array('Left', 'Right', 'Center');
+            $answer['divide'] = array('Left', 'Right', 'Center','undefined');
 
             foreach ($answer['divide'] as $list) {
+                if($list=='undefined')
+                     $reg='';
+                    else
+                $reg=$list;
+
+
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
-                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND slant='" . $list . "'";
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND slant='" . $reg . "'";
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
@@ -2214,7 +2236,7 @@ function qlite_percent() {
 			<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>				
 			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
 
-<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/css/css.css' type='text/css' />
+<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/filter.js'></script>
 	
 			";
@@ -2333,7 +2355,7 @@ function qlite_graph() {
         				<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
         <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>	
        			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
-<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/css/css.css' type='text/css' />
+<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 <script type='text/javascript' language='javascript'>
 
 ";
