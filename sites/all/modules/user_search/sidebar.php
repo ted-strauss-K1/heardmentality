@@ -51,7 +51,7 @@ if (!empty($listcat)) {
         if ($cid == $cat['cat_id']) {
             $style = 'class="sidelinks"';
         }
-        echo $cat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.cat ='".$cat['cat_id']."' $cond  group by cat.qid";
+        $cat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.cat ='".$cat['cat_id']."' $cond  group by cat.qid";
         $cat_res = db_query( $cat_qry);
         $total_count1 = mysql_num_rows($cat_res);
                  
