@@ -522,7 +522,7 @@ curl_close($curl);
 
 // Setup the xml object
 $xml =(array)simplexml_load_string( $raw_xml );
-
+print_r($xml);
 if(!empty($user)){
 
   $details=load_user($user->uid);
