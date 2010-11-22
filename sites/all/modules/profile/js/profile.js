@@ -140,7 +140,7 @@ function profile_comment(make){
 function get_zip_city(code){
 	
     var urr=spath+'qlite/ajax?action=zipcity';
-	
+	jquery.block.ui();
 	 jQuery.ajax({
         type: "POST",
         url: urr,
@@ -149,7 +149,10 @@ function get_zip_city(code){
             code: code
         },
         success: function(msg){
-  jQuery('#edit-city-wrapper').html(msg);
+		
+		jQuery('#edit-city-wrapper').html(msg);
+		jquery.unblock.ui();
+
         }
     });
 }
