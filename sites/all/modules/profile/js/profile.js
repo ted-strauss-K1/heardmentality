@@ -149,9 +149,10 @@ function get_zip_city(code){
             code: code
         },
         success: function(msg){
-		
-		jQuery('#edit-city-wrapper').html(msg);
 		jquery.unblock.ui();
+		setTimeout(jquery.unblockUI, 2000); 
+		jQuery('#edit-city-wrapper').html(msg);
+		
 
         }
     });
