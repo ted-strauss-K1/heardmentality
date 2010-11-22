@@ -505,7 +505,7 @@ if(!empty($country['city'])){
 
 function my_country(){
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    echo $url= 'http://ipinfodb.com/ip_query_country.php?ip='.get_real_ip_addr();
+    echo $url= 'http://ipinfodb.com/ip_locator.php?ip='.get_real_ip_addr();
        
      $curl = curl_init();
      $list=array();
