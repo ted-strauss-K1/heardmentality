@@ -505,7 +505,7 @@ if(!empty($country['city'])){
 
 function my_country(){
  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-    $url= 'http://ipinfodb.com/ip_query_country.php?ip='.get_real_ip_addr();
+    echo $url= 'http://ipinfodb.com/ip_query_country.php?ip='.get_real_ip_addr();
        
      $curl = curl_init();
      $list=array();
@@ -521,7 +521,7 @@ curl_close($curl);
 
 // Setup the xml object
 $xml =(array)simplexml_load_string( $raw_xml );
-print_r($xml);
+
 //print_r($xml);
 if(!empty($user)){
 
