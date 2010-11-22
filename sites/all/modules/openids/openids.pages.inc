@@ -865,6 +865,7 @@ function welcome_page() {
 <script type="text/javascript">
 var spath=\'' . $gSitePath . '\';
     </script><script src="' . $gSitePath . '/misc/jquery.js" type="text/javascript"></script>
+        <script src="' . $gSitePath . 'sites/all/modules/forum/scripts/jquery.blockUI.js" type="text/javascript"></script>
 <script src="' . $gSitePath . path_to_theme() . '/floatbox/floatbox.js" type="text/javascript"></script>
     	<SCRIPT type="text/javascript" lang="javascript"
 	   src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '">
