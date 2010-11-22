@@ -52,7 +52,7 @@ if (!empty($listcat)) {
                 //sub subcat list
                 if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
                     //$catlist.='<ul>';
-                    $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
+                    echo $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
                     $listsscat = ExecuteQuery($sel_sscat, "select");
                     foreach ($listsscat as $sscat) {
                           $style = '';
