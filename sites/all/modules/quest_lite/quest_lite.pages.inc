@@ -2080,20 +2080,29 @@ function percent_broken($qid = '', $aid = '', $array = '') {
     $vlist = ExecuteQuery($vans, "select");
     switch ($filter) {
         case 'gender':
-            $answer['divide'] = array('male', 'female');
+            $answer['divide'] = array('male','female');
 
 
-            for ($ab = 0; $ab < count($vlist); $ab++) {
+        
 
+              foreach ($answer['divide'] as $list) {
+                 if($list=='male')
+                     $gen=1;
+                 else
+                     $gen=2;
 
-                $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND u.gender='2' ";
-                $female = ExecuteQuery($query, "norows");
-                $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND u.gender='1' ";
-                $male = ExecuteQuery($query, "norows");
-                $answer_cnt[] = '[' . $male . ',' . $female . ']';
+                $inc_cnt = '[';
+                for ($ab = 0; $ab < count($vlist); $ab++) {
+                     $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND u.gender='". $gen."' ";
+                    $tcnt = ExecuteQuery($query, "norows");
+                    $inc_cnt .= $tcnt . ',';
+                }
+                 $inc_cnt = rtrim($inc_cnt, ",");
+                $inc_cnt .= ']';
+               
+                $answer_cnt[] = $inc_cnt;
             }//[1,0][1,1]
             // $answer_cnt=array_reverse($answer_cnt);//[1,1][1,0]
-
 
             break;
         case 'age':
@@ -2112,7 +2121,9 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
+                 $inc_cnt = rtrim($inc_cnt, ",");
                 $inc_cnt .= ']';
+                
                 $answer_cnt[] = $inc_cnt;
             }
 
@@ -2129,6 +2140,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
+                 $inc_cnt = rtrim($inc_cnt, ",");
                 $inc_cnt .= ']';
                 $answer_cnt[] = $inc_cnt;
             }
@@ -2145,6 +2157,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
+                 $inc_cnt = rtrim($inc_cnt, ",");
                 $inc_cnt .= ']';
                 $answer_cnt[] = $inc_cnt;
             }
@@ -2161,6 +2174,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
+                 $inc_cnt = rtrim($inc_cnt, ",");
                 $inc_cnt .= ']';
                 $answer_cnt[] = $inc_cnt;
             }
@@ -2210,8 +2224,8 @@ function qlite_percent() {
         array_push($ans_array, $vlist[$ab]['answer']);
     }
     $result = percent_broken($qid, '', $_REQUEST);
-    echo "<pre>";
-    print_r($result);
+    //echo "<pre>";
+    //print_r($result);
     $ans = $result['divide'];
     $cnt = $result['cnt'];
 
