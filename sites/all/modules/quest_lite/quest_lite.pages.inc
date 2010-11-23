@@ -871,7 +871,6 @@ function prompt_privacy_ajax($owner = '', $share = '') {
 
 
 function qlite_save() {
-
     global $gSitePath, $user, $gDocPath, $base_root;
     $mid = $_REQUEST['mid'];
     // print_r($_REQUEST);
@@ -899,7 +898,7 @@ function qlite_save() {
                 $votepointp = $olistquest->vote + 1;
             }
 
-            $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";
+           $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";
             db_query($vInsQuery);
 
 
