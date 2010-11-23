@@ -225,8 +225,8 @@ function get_quest_details(quid){
 jQuery(document).ready(function(){
 var url = gSitePath;
     jQuery(".contarea a[href*='?ajax=1']").each(function(){
-   
-        jQuery(this).click(function () {
+   //livequery('click', function(event)
+        jQuery(this).livequery('click',function () {
          
           jQuery("#quest_info").load(jQuery(this).attr('href'), function(response, status, xhr) {
 
