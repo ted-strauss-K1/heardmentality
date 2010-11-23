@@ -1143,8 +1143,6 @@ function question_ajax() {
 
         
         }
-
-    
     } elseif (isset($_REQUEST['tag'])) {
         
         extract($_REQUEST);
