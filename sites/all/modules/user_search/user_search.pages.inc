@@ -17,8 +17,6 @@ function search_results() {
         echo "Data Error";
         exit;
     }
-
-
     $eu = ($start - 0);
     $limit = 14; // No of records to be shown per page.
     $this1 = $eu + $limit;
@@ -320,8 +318,240 @@ function check_select($gid,$quid){
        return $check;
        }
 
+
+function search_results_ajax() {
+    drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
+    $start = '';
+    $txt_search = '';
+    $cid = '';
+    $scid = '';
+    $sscid = '';
+    $suid = '';
+    $lkr = '';
+    $tag = '';
+    $name = '';
+    $fetresult = '';
+    $totalvotes = 0;
+    $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    //echo $idb;
+    drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
+
+
+    $page_name = "searchquestion";
+    if (isset($_GET['start'])) {
+        $start = $_GET['start'];
+    }
+
+    if (strlen($start) > 0 and !is_numeric($start)) {
+        echo "Data Error";
+        exit;
+    }
+    if ($_GET['cid']!='') {
+        $cid = $_GET['cid'];
+    }
+    if ($_GET['scid']!='') {
+        $scid = $_GET['scid'];
+    }
+    if ($_GET['sscid']!='') {
+        $scid = $_GET['sscid'];
+    }
+
+
+    $eu = ($start - 0);
+    $limit = 10; // No of records to be shown per page.
+    $this1 = $eu + $limit;
+    $back = $eu - $limit;
+    $next = $eu + $limit;
+
+    $sel = facetad_refine();
+    $sel_count = $sel['qcnt'];
+    $sel['query'] .= " limit  $eu, $limit";
+
+    drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
+     //drupal_add_js(drupal_get_path('module', 'user_search') . '/js/sub.js');
+    // echo $sel;
+    // $sel_search = ExecuteQuery($sel, "select");
+    // print_r($sel_search);
+
+    $fetresult.='<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
+	<script>
+        var conf =
+        {
+           // APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
+		   APIKey: \'' . $apikey . '\'
+        };
+
+        function onLoad()
+        {
+            gigya.services.socialize.getUserInfo(conf,{callback:renderUI});
+
+
+            gigya.services.socialize.addEventHandlers(conf, { onConnect:renderUI, onDisconnect:renderUI}   );
+
+        }
+    </script>';
+    //echo $sel['query'];
+    $sel_search = db_query($sel['query']);
+    $i = 0;
+    while ($user_result = db_fetch_object($sel_search)) {
+
+        if ($user->uid != '') {
+            //$flink='<a class="linkfol" href="'.$gSitePath.''.$user_result->url.'">View More </a>';
+        }
+         $vans = "select * from {possible_answer} where  qid='$user_result->qid' order by vote desc";
+
+        $vlist = db_query($vans);
+
+        $query = "SELECT qid,SUM(vote) as possiblevote FROM possible_answer where qid='$user_result->qid' GROUP BY qid";
+        $query_list = db_query($query);
+        $fetvot = db_fetch_object($query_list);
+        if (!empty($fetvot)) {
+
+            $vot1 = $fetvot->possiblevote;
+        }
+        $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='$user_result->qid' GROUP BY qid";
+        $query_sugestlist = db_query($query_sugest);
+        $fetvotsugest = db_fetch_object($query_sugestlist);
+        if (!empty($fetvotsugest)) {
+            $vot2 = $fetvotsugest->suggestv;
+            $totalvotes = $vot1 + $vot2;
+        }
+        // alter for $totalvotes
+        $ques_count = db_fetch_object(db_query("SELECT count(qid) as qcount FROM `possible_answer_vote` where qid='".$user_result->qid."'"));
+
+        // alter for numresum
+        $for_count = db_fetch_object(db_query("SELECT count(qid_rid) as fcount FROM `forum_wave` where qid_rid='".$user_result->qid."'"));
+
+        $numresum = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$user_result->qid'"));
+
+        $fetresult .= ' <div class="result-item">
+	<div class="rleft">
+       <div class="titl">
+        <form id="answer_frm" name="answer_frm" method="post" action="'.$gSitePath.'qlite/save">
+        <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
+<a href="'.$gSitePath.$user_result->url.'?ajax=1" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(rtrim($user_result->question, "?")). '?</a>
+</div>';
+//<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
+
+        while ($vlistquest = db_fetch_object($vlist)) {
+           ///vijay implement
+        $sel_qry = db_query("select * from {possible_answer_vote} where qid='".$user_result->qid."' and uid='".$user->uid."'");
+        $get_value = db_fetch_object($sel_qry);
+
+
+       $sel_ans = db_query("select * from {possible_answer} where paid='".$get_value->panswer_id."'");
+       $get_ans = db_fetch_object($sel_ans);
+
+
+      //  name="answer_al['.$i.']"
+            $fetresult .= ' <div class="item1">
+                <input name="answer_al['.$i.']" id="answer" type="radio"  value="' . $vlistquest->paid . '" '.check_select($get_ans->paid,$vlistquest->paid).'  />&nbsp;&nbsp;'. $vlistquest->answer.'</div>';
+
+        }
+
+
+        $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" .$user_result->qid. "' and uid='" . $user->uid . "'"));
+        if ($numran != 0) {
+        $query="select vote_pid from {possible_answer_vote} where qid='$user_result->qid' AND uid='".$user->uid."'";
+        $voteid=db_result(db_query($query));
+     $fetresult .= ' <p style="padding-left:8px"><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="'.$voteid.'"/></p></form>';
+   //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
+    }
+    if ($numran == 0) {
+
+        $fetresult .= ' <p style="padding-left:8px"><input type="submit" name="save" id="save" value="Vote" /></p></form>';
+    }
+       // $fetresult .= ' <p><input type="submit" name="save" id="save" value="Vote" /></p></form>';
+        $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='".$user->uid."'and question_id='".$user_result->qid."'");
+          $fol_list = db_fetch_object($fol_qry);
+
+          if($fol_list->count==1)
+          {
+                $follow = "UnFollow";
+          }
+          if($fol_list->count==0)
+          {
+              $follow = "Follow";
+          }
+
+        $fetresult .= '</div><div class="rright">
+      <div class="vote-post-outer">
+      <div class="vote-post-outer-top">
+      </div>';
+        $fetresult .= '     <div class="vote-post-outer-bottom">
+      <div align="center" class="vot-t" style="border-right:1px solid black"><img src="'.$gSitePath.'sites/all/themes/newtheme/images/tick.jpg" alt="img" /> Votes | '.$ques_count->qcount.'</div>
+       <div align="center" class="vot-t"><img src="'.$gSitePath.'sites/all/themes/newtheme/images/post.jpg" alt="img" /> Posts | '.$for_count->fcount.'</div>
+
+      </div>
+
+      </div>
+
+      </div>  </div>
+       <div class="clr"></div>
+';
+        $i++;
+    }
+
+
+    if (isset($_REQUEST['cid']) || isset($_REQUEST['scid'])) {
+
+
+        $lkr = 'cid=' . $cid . '&scid=' . $scid . '&sscid=' . $sscid . '';
+    }
+
+    if ($tag != '') {
+        $lkr = 'cid=' . $cid . '&scid=' . $scid . '&sscid=' . $sscid . '&tag=' . $tag . '';
+    }
+
+
+    ///////////////////////////////
+    if ($sel_count > $limit) { // Let us display bottom links if sufficient records are there for paging
+        /////////////// Start the bottom links with Prev and next link with page numbers /////////////////
+        $fetresult .= " <div class='result-item factmore'><div class='page-n' align='center'><ul><li>";
+        //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
+        if ($back >= 0) {
+            $fetresult .= "<a class='' href='$page_name?start=$back&$lkr'>Previous</a>";
+            $fetresult .= "&nbsp;&nbsp;<a class='' href='$page_name?start=$back&$lkr'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-l.jpg'></a>";
+
+        }
+        //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
+        $fetresult .= "</li><li>";
+        $i = 0;
+        $l = 1;
+        for ($i = 0; $i < $sel_count; $i = $i + $limit) {
+            if ($i <> $eu) {
+                $fetresult .= " <a class='sidelinks' href='$page_name?start=$i&$lkr'>$l</a> ";
+            } else {
+                $fetresult .= "<font color='black'>$l</font>";
+            } /// Current page is not displayed as link and given font color red
+            $l = $l + 1;
+        }
+
+
+        $fetresult .= "</li<li>";
+        ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
+        if ($this1 < $sel_count) {
+
+            $fetresult .= "<a class='sidelinks' href='$page_name?start=$next&$lkr'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a>";
+            $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='$page_name?start=$next&$lkr'>Next</a>";
+        }
+        $fetresult .= "</li></ul></div></div>";
+    }
+
+    if ($sel_count == 0) {
+        $fetresult .= ' <div  align="center" class="result-item"><b>No Search Results </b></div>';
+    }
+
+    echo  $fetresult;
+}
+
 function search_results_question() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+    
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
     $start = '';
     $txt_search = '';
@@ -374,6 +604,7 @@ function search_results_question() {
     // echo $sel;
     // $sel_search = ExecuteQuery($sel, "select");
     // print_r($sel_search);
+    
     $fetresult.='<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
 	<script>
         var conf = 
@@ -390,7 +621,7 @@ function search_results_question() {
             gigya.services.socialize.addEventHandlers(conf, { onConnect:renderUI, onDisconnect:renderUI}   ); 
             
         }
-    </script>   ';
+    </script>';
     //echo $sel['query'];
     $sel_search = db_query($sel['query']);
     $i = 0;
@@ -424,19 +655,19 @@ function search_results_question() {
         $for_count = db_fetch_object(db_query("SELECT count(qid_rid) as fcount FROM `forum_wave` where qid_rid='".$user_result->qid."'"));
         
         $numresum = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$user_result->qid'"));
+        
         $fetresult .= ' <div class="result-item">
 	<div class="rleft">
        <div class="titl">
-        <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save"  >
-             <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
+        <form id="answer_frm" name="answer_frm" method="post" action="'.$gSitePath.'qlite/save">
+        <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
 <a href="'.$gSitePath.$user_result->url.'?ajax=1" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(rtrim($user_result->question, "?")). '?</a>
 </div>';
 //<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
         
         while ($vlistquest = db_fetch_object($vlist)) {
-
            ///vijay implement
-        $sel_qry = db_query("select * from {possible_answer_vote} where qid='".$user_result->qid."' and uid='".$user->uid."'  ");
+        $sel_qry = db_query("select * from {possible_answer_vote} where qid='".$user_result->qid."' and uid='".$user->uid."'");
         $get_value = db_fetch_object($sel_qry);
        
   
@@ -462,16 +693,7 @@ function search_results_question() {
 
         $fetresult .= ' <p style="padding-left:8px"><input type="submit" name="save" id="save" value="Vote" /></p></form>';
     }
-
-
-
-
-       
-
-
        // $fetresult .= ' <p><input type="submit" name="save" id="save" value="Vote" /></p></form>';
-
-
         $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='".$user->uid."'and question_id='".$user_result->qid."'");
           $fol_list = db_fetch_object($fol_qry);
 
@@ -553,6 +775,7 @@ function search_results_question() {
     }
 
     return $fetresult;
+    
 }
 
 function user_follower() {

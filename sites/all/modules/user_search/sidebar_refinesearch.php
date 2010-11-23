@@ -29,8 +29,9 @@ $optionlist.=' <option value="0" >Country</option>';
    $cid =  $_GET['cid'];
 
     /*onchange="click_submit(this.value,<?php echo $_GET['permission']?>)"*/?>
+<!--onchange="get_stateuser(this.value,'<?php echo $txt_search; ?>','<?php echo $cid; ?>','<?php echo $scid; ?>')"-->
  <div class="listmenu">
-<select name="q_country" class="listbox" style="width: 125px;" tabindex="16"  onchange="get_stateuser(this.value,'<?php echo $txt_search; ?>','<?php echo $cid; ?>','<?php echo $scid; ?>')" id="q_country"><?php echo  $optionlist ?></select>
+<select name="q_country" class="listbox" style="width: 125px;" tabindex="16" onchange="get_state(this.value);" id="q_country"><?php echo  $optionlist ?></select>
  </div>
 <?php
 //echo '<input type="hidden" name="q_country" value='.$q_country.'/>';
@@ -58,7 +59,7 @@ if($q_country!='')
                 $result = geonames_query('children', $query);*/
                 $q_country = $_GET['q_country'];
                 ?>
-               <div class="listmenu">
+               <div class="listmenu" id="listmenu">
                 <select tabindex="18" class="listbox" style="width: 125px;" onchange="get_cityuser(this.value,'<?php echo $txt_search ?>','<?php echo $q_country ?>','<?php echo $cid ?>','<?php echo $scid ?>')"  id="q_state" name="q_state"> <option value="">--States--</option>
                     <?php
                 foreach ($result->results as $state) {
@@ -80,7 +81,7 @@ if($q_country!='')
 else
 {
 echo'<div id="chg_state">
-    <div class="listmenu">
+    <div class="listmenu" id="chg_city">
     <select id="q_state" class="listbox" name="q_state" onchange="get_citysquestion(this.value);" style="width: 125px;" tabindex="18">
     <option value="0" >State/Province</option>
     </select>

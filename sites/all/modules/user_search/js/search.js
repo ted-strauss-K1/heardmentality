@@ -79,8 +79,6 @@ function get_state(code){
             
         }
     });
-	
-
 	var url = gSitePath + "userresults";
 	var t_search = $("#txt_search").val();
 	 jQuery.ajax({
@@ -205,11 +203,8 @@ function get_quest_details(quid){
 }
 
 			
-				function setDefaultCountry(cnt) {
-					
-					
-				
-      $(document).ready(function() {
+   function setDefaultCountry(cnt) {
+   $(document).ready(function() {
    var countrySelect = document.getElementById("q_country");
 
   for (i=0;i< countrySelect.length;i++) {
@@ -297,10 +292,11 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabc
 //temporarly disabled ajax post questions search
 /*jQuery(document).ready(function(){
  $("#save").click(function() {
-	var answer = $("#answer").val();
+     
+        var answer = $('input:radio[id=answer]:checked').val();
+	//var answer = $("#answer").val();
         var mid = $("#mid").val();
         var save = 1;
-
         var dataString = 'answer='+ answer + '&mid=' + mid + '&save=' + save;
 		//alert (dataString);return false;
 		var url = gSitePath + "qlite/save";
@@ -318,6 +314,24 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabc
     return false;
 	});			
 });*/
+//href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
+function search_question(cat_id,q_country,q_state,q_city){
+    var url = gSitePath+"searchquestion_ajax";
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'cid' :cat_id,
+            'q_country':q_country,
+            'q_state':q_state,
+            'q_city':q_city
+        },
+        success: function(msg){
+            jQuery('.issuesearch3').html(msg);
+        }
+    });
+
+}
 	
 
 	jQuery(document).ready(function(){
@@ -328,6 +342,7 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabc
         
         });
         });
-						
+
+        
 						
 

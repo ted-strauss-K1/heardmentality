@@ -29,8 +29,10 @@ $optionlist.=' <option value="0" >Country</option>';
    $cid =  $_GET['cid'];
 
     /*onchange="click_submit(this.value,<?php echo $_GET['permission']?>)"*/?>
+
+<!--onchange="get_statequestion(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>')"-->
  <div class="listmenu">
-<select name="q_country" class="listbox" style="width: 125px;" tabindex="16"  onchange="get_statequestion(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>')" id="q_country"><?php echo  $optionlist ?></select>
+<select name="q_country" id="q_country" class="listbox" style="width: 125px;" tabindex="16" onchange="get_state(this.value); search_question('',this.value)"  id="q_country"><?php echo  $optionlist ?></select>
  </div>
 <?php
 //echo '<input type="hidden" name="q_country" value='.$q_country.'/>';
@@ -56,8 +58,10 @@ $query = array('query'=>$_REQUEST['q_country'],'maxRows'=>'1','featureclass'=>'S
 //                $result = geonames_query('children', $query);
 //                $q_country = $_GET['q_country'];
                 ?>
-               <div class="listmenu">
-                <select tabindex="18" class="listbox" style="width: 125px;" onchange="get_cityquestion(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>','<?php echo $q_country ?>')"  id="q_state" name="q_state"> <option value="">--States--</option>
+
+<!--onchange="get_cityquestion(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>','<?php echo $q_country ?>')"-->
+               <div class="listmenu" id="listmenu">
+                <select tabindex="18" class="listbox" style="width: 125px;" onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>
                     <?php 
                 foreach ($result->results as $state) {
 
@@ -89,7 +93,7 @@ echo'<div id="chg_state">
                 $result = geonames_query('children', $query);
                 //print_r($result);
                 ?>
-                    <div class="listmenu">
+                    <div class="listmenu" id="chg_city">
                 <select class="listbox"  tabindex="19" onchange="get_question(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>','<?php echo $q_country ?>','<?php echo $q_state ?>')"  style="width: 125px;"  id="q_city" name="q_city">
                     <?php
                  $ret = '<option value="">Cities</option> ';
