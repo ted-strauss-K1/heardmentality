@@ -226,12 +226,10 @@ jQuery(document).ready(function(){
 var url = gSitePath;
     jQuery(".contarea a[href*='?ajax=1']").each(function(){
    //livequery('click', function(event)
-   jQuery(this).livequery('click',function(event) {
-       // jQuery(this).click(function () {
-         
+   //jQuery(this).livequery('click',function(event) {
+        jQuery(this).click(function () {
           jQuery("#quest_info").load(jQuery(this).attr('href'), function(response, status, xhr) {
 
-        
   if (status == "success") {
 reset_tabs();
 }
