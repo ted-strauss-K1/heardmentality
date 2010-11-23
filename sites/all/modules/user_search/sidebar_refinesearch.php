@@ -81,7 +81,7 @@ if($q_country!='')
 else
 {
 echo'<div id="chg_state">
-    <div class="listmenu" id="chg_city">
+    <div class="listmenu">
     <select id="q_state" class="listbox" name="q_state" onchange="get_citysquestion(this.value);" style="width: 125px;" tabindex="18">
     <option value="0" >State/Province</option>
     </select>
