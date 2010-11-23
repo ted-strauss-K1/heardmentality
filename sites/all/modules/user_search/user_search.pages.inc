@@ -550,7 +550,7 @@ function search_results_ajax() {
 
 function search_results_question() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
-    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+    //drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
     
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
     $start = '';
