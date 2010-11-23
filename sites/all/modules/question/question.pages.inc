@@ -1040,13 +1040,13 @@ width:775px; scroll;">'.$quest->context.'</textarea>  </td>
 function question_ajax() {
     //print_r($_REQUEST);
     $ret = '';
+  
     extract($_REQUEST);
     if (isset($_REQUEST['ids'])) {
         $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ($ids)");
         
         $client_array = array();
         $client_key = array();
-        
         while ($list = db_fetch_object($client_select)) {
             
             $client_array[] = $list->cat_name;
@@ -1084,6 +1084,7 @@ function question_ajax() {
             case 1: //get state
                   $query = array('query'=>$_REQUEST['code'],'maxRows'=>'1','featureclass'=>'S');
                 $result = geonames_query('search', $query);
+                print_r($result->results[0]['url']);
                // $cc=$result->results[0]['countrycode'];
                // $result = geonames_query('countryinfo', $query);
                // $result->results[0][geonameid];
@@ -1098,8 +1099,14 @@ function question_ajax() {
                    $setstate=$udet->state;
                    $fcity=$udet->city;
                 }
-              
-                $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
+                           $ret =  "<script>
+                $(document).ready(function() {
+	$('select').change(function(){
+		alert('ID: ' + $(this).attr('id') + ' Value: ' + $(this).attr('value'));
+	});
+                    </script>";
+                           
+                $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value); search_question(\'\',\'\',this.value,\'\');" id="q_state" name="q_state"> <option value="">--States--</option>';
                 foreach ($result->results as $state) {
                     $set='';
                     if(strpos(strtolower($setstate),  strtolower($state['name']) )){
@@ -1116,7 +1123,15 @@ function question_ajax() {
                 $query = array('geonameid'=>$code);
                 $result = geonames_query('children', $query);
                 //print_r($result);
-                $ret = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city"> <option value="">--Cities--</option> ';
+
+                $ret =  "<script>
+                $(document).ready(function() {
+	$('select').change(function(){
+		alert('ID: ' + $(this).attr('id') + ' Value: ' + $(this).attr('value'));
+	});
+                    </script>";
+
+                $ret = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city" onchange="search_question(\'\',\'\',\'\',this.value)"> <option value="">--Cities--</option> ';
                 foreach ($result->results as $state) {
                     
                     $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);

@@ -29,7 +29,6 @@ jQuery(document).ready( function() {
 
 function setDefaultCountry(cn) {
     if(cn.length>0){
-
         var countrySelect = document.getElementById("q_country");
 
         for (i=0;i< countrySelect.length;i++) {
@@ -41,9 +40,6 @@ function setDefaultCountry(cn) {
                 
             }
         }
-
-
-
         var stateSelect = document.getElementById("q_state");
         for (i=0;i< stateSelect.length;i++) {
             if (stateSelect[i].value == ustate) {
@@ -51,12 +47,8 @@ function setDefaultCountry(cn) {
                 // set the country selectionfield
                 stateSelect.selectedIndex = i;
                 get_city(setstate);
-
             }
         }
-
-
-
     }
 }
 
@@ -84,12 +76,10 @@ function get_state(code){
         }
         }
     });
-
-
-
     jQuery('#chg_city').html('');
     jQuery('#chg_city').fadeOut('slow');
 }
+
 function get_city(code){
     jQuery('#chg_city').fadeIn('slow');
     var url = spath+"question/ajax";
@@ -483,6 +473,7 @@ function tag_delq(val,el){
 				
     insert_tag();
 }
+
 
 
  /*
