@@ -319,7 +319,7 @@ jQuery("#hid_cat").val(cid);
 search_question();
 });
 
-  jQuery('.page-n a').click(function(){
+  jQuery('.page-n a').live("click", function(e) {
       alert("hi");
       return false;
      var page_id =  jQuery(this).attr('id');
