@@ -51,12 +51,14 @@ if (!empty($listcat)) {
         if ($cid == $cat['cat_id']) {
             $style = 'class="sidelinks"';
         }
-        $cat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.cat ='".$cat['cat_id']."' $cond  group by cat.qid";
+         $cat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.cat ='".$cat['cat_id']."' $cond $search  group by cat.qid";
         $cat_res = db_query( $cat_qry);
         $total_count1 = mysql_num_rows($cat_res);
+        
                  //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
         $catlist.='<span ' . $style . ' class="sidelinks">
-        <a class="sidelinks" href="JavaScript:void(0);" onclick="search_question('.$cat['cat_id'].');">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
+            
+        <a class="sidelinks" id="'.$cat['cat_id'].'" href="JavaScript:void(0);" onclick="search_question();">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
         //subcat list
         if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
            // $catlist.='<ul>';
@@ -104,6 +106,7 @@ if (!empty($listcat)) {
     $catlist.='<span><b>No Category Found</b></span>';
 }
 $catlist.='</div>';
+$catlist.='<input type="hidden" name="hid_cat" id="hid_cat" value="" />';
 echo $catlist;
 
 

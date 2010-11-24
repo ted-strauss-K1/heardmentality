@@ -238,7 +238,7 @@ function facetad_refine() {
     } else {
         //$sel = "SELECT * FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid ";
         ///chnaged vijay
-      $sel = "SELECT q.*,qc.cat,qc.scat,qc.sscat FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid desc ";
+    echo  $sel = "SELECT q.*,qc.cat,qc.scat,qc.sscat FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid desc ";
       
     }
 

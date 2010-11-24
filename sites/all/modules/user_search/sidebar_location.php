@@ -32,7 +32,7 @@ $optionlist.=' <option value="0" >Country</option>';
 
 <!--onchange="get_statequestion(this.value,'<?php echo $txt_search ?>','<?php echo $cid ?>')"-->
  <div class="listmenu">
-<select name="q_country" id="q_country" class="listbox" style="width: 125px;" tabindex="16" onchange="get_state(this.value); search_question('',this.value)"  id="q_country"><?php echo  $optionlist ?></select>
+<select name="q_country" id="q_country" class="listbox" style="width: 125px;" tabindex="16" onchange="get_state(this.value); search_question()"  id="q_country"><?php echo  $optionlist ?></select>
  </div>
 <?php
 //echo '<input type="hidden" name="q_country" value='.$q_country.'/>';

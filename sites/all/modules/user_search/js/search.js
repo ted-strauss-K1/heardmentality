@@ -274,13 +274,32 @@ jQuery(document).ready(function(){
 	});			
 });*/
 //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
-function search_question(cat_id,q_country,q_state,q_city){
+  jQuery(document).ready(function(){
+      jQuery('.sidelinks').click(function() {
+var cid =  jQuery(this).attr('id');
+jQuery("#hid_cat").val(cid);
+});
+});
+
+function search_question(){
     var url = gSitePath+"searchquestion_ajax";
+//    'q_country':jQuery('#q_country').val(),
+//'q_state':jQuery('#q_state').val(),
+//'q_city':jQuery('#q_city').val()
+  var  cid = jQuery('#hid_cat').val();
+  alert(cid);
+  var  q_country = jQuery('#q_country').val();
+  var  q_state = jQuery('#q_state').val();
+  var  q_city = jQuery('#q_city').val();
+  
+
+
+
     jQuery.ajax({
         type: "GET",
         url: url,
         data: {
-            'cid' :cat_id,
+            'cid':cid,
             'q_country':q_country,
             'q_state':q_state,
             'q_city':q_city
@@ -302,6 +321,7 @@ jQuery(document).ready(function(){
     });
 });
 
-        
+
+
 						
 
