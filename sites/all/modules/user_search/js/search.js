@@ -5,8 +5,8 @@
 function get_profile_details(urid){
     //alert(urid);
     var url = gSitePath + 'userinfo';
-     jQuery('#user_info').empty();
-    	jQuery.ajax({
+    jQuery('#user_info').empty();
+    jQuery.ajax({
         type: "POST",
         url: url,
         dataType: 'xhr',
@@ -15,8 +15,8 @@ function get_profile_details(urid){
         },
         success: function(msg){
               
-         jQuery('#user_info').html(msg);
-         reset_tabs();
+            jQuery('#user_info').html(msg);
+            reset_tabs();
         }
     });
 	
@@ -25,23 +25,26 @@ function get_profile_details(urid){
 function bio_tog(ele){
     var cls=jQuery(ele).parent().attr('class');
 
-    jQuery('#l1 span').each(function(){ jQuery(this).attr('class',''); jQuery(this).attr('class','tab-historyspan5'); });
-if(cls=='tab-historyspan5'){
-          jQuery(ele).parent().attr('class','');
-       jQuery(ele).parent().attr('class','tab-historyspan4');
+    jQuery('#l1 span').each(function(){
+        jQuery(this).attr('class','');
+        jQuery(this).attr('class','tab-historyspan5');
+    });
+    if(cls=='tab-historyspan5'){
+        jQuery(ele).parent().attr('class','');
+        jQuery(ele).parent().attr('class','tab-historyspan4');
 
-}
- if(cls=='tab-historyspan4'){
+    }
+    if(cls=='tab-historyspan4'){
         jQuery(ele).parent().attr('class','');
         jQuery(ele).parent().attr('class','tab-historyspan5');
 
-}
+    }
 
 
 
 
     jQuery('#bio').toggle();
-     jQuery('#link').toggle();
+    jQuery('#link').toggle();
 }
 function rel_msg(id){
 
@@ -64,74 +67,74 @@ function rel_msg(id){
 
 
 function get_state(code){
- $(document).ready(function() {
-    var url = gSitePath + 'question/ajax';
-	jQuery.ajax({
-        type: "POST",
-        url: url,
-        dataType: 'xhr',
-        data: {
-            action: '1',
-			code:code
-        },
-        success: function(msg){
-            jQuery('#chg_state').html(msg);
+    $(document).ready(function() {
+        var url = gSitePath + 'question/ajax';
+        jQuery.ajax({
+            type: "POST",
+            url: url,
+            dataType: 'xhr',
+            data: {
+                action: '1',
+                code:code
+            },
+            success: function(msg){
+                jQuery('#chg_state').html(msg);
             
-        }
-    });
-	var url = gSitePath + "userresults";
-	var t_search = $("#txt_search").val();
-	 jQuery.ajax({
-        type: "POST",
-        url: url,
-        dataType: 'xhr',
-        data: {
-            action: '1',
-			code:code,
-			txt_search: t_search
-        },
-        success: function(msg){
-            jQuery('.inner-page-cont').html(msg);
+            }
+        });
+        var url = gSitePath + "userresults";
+        var t_search = $("#txt_search").val();
+        jQuery.ajax({
+            type: "POST",
+            url: url,
+            dataType: 'xhr',
+            data: {
+                action: '1',
+                code:code,
+                txt_search: t_search
+            },
+            success: function(msg){
+                jQuery('.inner-page-cont').html(msg);
             
-        }
-    });
+            }
+        });
     
 		
 	
-   });
+    });
 	
 }
 
 
 
 function get_statequestion(q_country,txt_search,cid){
- //document.thisform.submit();
+    //document.thisform.submit();
 
- window.location = gSitePath+"searchquestion?q_country="+q_country+"&txt_search="+txt_search+"&cid="+cid;
+    window.location = gSitePath+"searchquestion?q_country="+q_country+"&txt_search="+txt_search+"&cid="+cid;
 }
 function get_stateuser(q_country,txt_search,cid,scid){
- //document.thisform.submit();
+    //document.thisform.submit();
 
-window.location = gSitePath+"searchuser?q_country="+q_country+"&txt_search="+txt_search+"&cid="+cid+"&scid="+scid;
+    window.location = gSitePath+"searchuser?q_country="+q_country+"&txt_search="+txt_search+"&cid="+cid+"&scid="+scid;
 }
 
 function get_cityquestion(q_state,txt_search,cid,q_country){
- //document.thisform.submit();
- window.location = gSitePath+"searchquestion?q_state="+q_state+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country;
+    //document.thisform.submit();
+    window.location = gSitePath+"searchquestion?q_state="+q_state+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country;
 }
 function get_cityuser(q_state,txt_search,q_country,cid,scid){
- //document.thisform.submit();
- window.location = gSitePath+"searchuser?q_state="+q_state+"&txt_search="+txt_search+"&q_country="+q_country+"&cid="+cid+"&scid="+scid;
+    //document.thisform.submit();
+    window.location = gSitePath+"searchuser?q_state="+q_state+"&txt_search="+txt_search+"&q_country="+q_country+"&cid="+cid+"&scid="+scid;
 }
 
 
 function get_question(q_city,txt_search,cid,q_country,q_state){
- //document.thisform.submit();
- window.location = gSitePath+"searchquestion?q_city="+q_city+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country+"&q_state="+q_state;
+    //document.thisform.submit();
+    window.location = gSitePath+"searchquestion?q_city="+q_city+"&txt_search="+txt_search+"&cid="+cid+"&q_country="+q_country+"&q_state="+q_state;
 }
 function get_user(q_city,txt_search,q_country,q_state,cid,scid){
- //document.thisform.submit();
- window.location = gSitePath+"searchuser?q_city="+q_city+"&txt_search="+txt_search+"&q_country="+q_country+"&q_state="+q_state+"&cid="+cid+"&scid="+scid;
+    //document.thisform.submit();
+    window.location = gSitePath+"searchuser?q_city="+q_city+"&txt_search="+txt_search+"&q_country="+q_country+"&q_state="+q_state+"&cid="+cid+"&scid="+scid;
 }
 
 
@@ -143,13 +146,13 @@ function get_city(ccode){
 
     var url = gSitePath + "question/ajax";
 	
-	 jQuery.ajax({
+    jQuery.ajax({
         type: "POST",
         url: url,
         dataType: 'xhr',
         data: {
             action: '2',
-			code:ccode
+            code:ccode
         },
         success: function(msg){
             jQuery('#chg_city').html(msg);
@@ -159,15 +162,15 @@ function get_city(ccode){
 
 
     var url = gSitePath + "userresults";
-	var t_search = $("#txt_search").val();
-	 jQuery.ajax({
+    var t_search = $("#txt_search").val();
+    jQuery.ajax({
         type: "POST",
         url: url,
         dataType: 'xhr',
         data: {
             action: '2',
-			ccode:ccode,
-			txt_search: t_search
+            ccode:ccode,
+            txt_search: t_search
         },
         success: function(msg){
             jQuery('.inner-page-cont').html(msg);
@@ -182,8 +185,8 @@ function get_city(ccode){
 
 function get_quest_details(quid){
     //alert(quid);
-	el=jQuery('#quest_info');
-	el.empty();
+    el=jQuery('#quest_info');
+    el.empty();
     var url = gSitePath + "questinfo";
 
     jQuery.ajax({
@@ -203,42 +206,40 @@ function get_quest_details(quid){
 }
 
 			
-   function setDefaultCountry(cnt) {
-   $(document).ready(function() {
-   var countrySelect = document.getElementById("q_country");
+function setDefaultCountry(cnt) {
+    $(document).ready(function() {
+        var countrySelect = document.getElementById("q_country");
 
-  for (i=0;i< countrySelect.length;i++) {
-    // the javascript geonamesData.js contains the countrycode
-    // of the userIp in the variable \'geonamesUserIpCountryCode\'
-    if (countrySelect[i].value == cnt) {
-      // set the country selectionfield
-	      countrySelect.selectedIndex = i;
-		get_state(cnt);
-    }
-  }
-      });
+        for (i=0;i< countrySelect.length;i++) {
+            // the javascript geonamesData.js contains the countrycode
+            // of the userIp in the variable \'geonamesUserIpCountryCode\'
+            if (countrySelect[i].value == cnt) {
+                // set the country selectionfield
+                countrySelect.selectedIndex = i;
+                get_state(cnt);
+            }
+        }
+    });
 
 
   
 }
 
 jQuery(document).ready(function(){
-var url = gSitePath;
-    jQuery(".contarea a[href*='?ajax=1']").each(function(){
+    var url = gSitePath;
+    jQuery(".contarea a[href*='?ajax=1']").live("click", function(e) {
    
-        jQuery(this).click(function () {
+       e.preventDefault();
          
-          jQuery("#quest_info").load(jQuery(this).attr('href'), function(response, status, xhr) {
-
-        
-  if (status == "success") {
-reset_tabs();
-}
-});
-            // var url = "http://stackoverflow.com";
-           // $(location).attr('href',url);
-           return false;
+        jQuery("#quest_info").load(jQuery(this).attr('href'), function(response, status, xhr) {
+            if (status == "success") {
+                reset_tabs();
+            }
         });
+        // var url = "http://stackoverflow.com";
+        // $(location).attr('href',url);
+        return false;
+       
        
     });
 
@@ -292,14 +293,14 @@ function search_question(cat_id,q_country,q_state,q_city){
 }
 	
 
-	jQuery(document).ready(function(){
-	 $('.issuesearch3 a').click(function() {
+jQuery(document).ready(function(){
+    $('.issuesearch3 a').click(function() {
         //$('#box1').css("background","#9f9");
         $(".issuesearch3 a").css('color', '#996600');
         $(this).css('color', '#4170A0');
         
-        });
-        });
+    });
+});
 
         
 						
