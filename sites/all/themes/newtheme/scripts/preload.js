@@ -99,3 +99,114 @@ function loadeditquestion(url,title)
 }
 
 
+function reset_tabs(){
+var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabcontent','#vmaintabs2,#tabcontent'];
+
+      // Preload tab on page load
+
+ jQuery.each(tabarray,function(){
+       // e.preventDefault();
+        var arr=this.split(",");
+
+        var tabsId = arr[0];
+        var containerId = arr[1];
+
+
+        if($(tabsId + ' LI.current A').length > 0){
+            loadTab($(tabsId + ' LI.current A'),containerId);
+        }
+
+        $(tabsId + ' A').click(function(e){
+
+                if($(this).attr('href')=='#') {
+                  e.preventDefault();
+                     e.stopPropagation();
+                     return false;
+                     }
+            if($(this).parent().hasClass('current')){
+
+                return false;
+            }
+
+            $(tabsId + ' LI.current').removeClass('current');
+            $(this).parent().addClass('current');
+
+            loadTab($(this),containerId);
+            return false;
+        });
+
+
+
+
+
+    });
+
+}
+
+function get_state(code){
+    var url = spath+"question/ajax";
+
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'action': 1,
+            'code' :code,
+            'select':1
+        },
+        success: function(msg){
+            jQuery('#chg_state').html(msg);
+
+            if(setstate.length>1){
+
+        //jQuery("#q_state option").each(function(){jQuery(this).text(escape(jQuery(this).text()));});
+        //jQuery("#q_state option:contains('tamil nadu')").attr("selected","selected") ;
+        //jQuery(this).text().toLowerCase()
+        }
+        }
+    });
+    jQuery('#chg_city').html('');
+    jQuery('#chg_city').fadeOut('slow');
+}
+
+function get_city(code){
+    jQuery('#chg_city').fadeIn('slow');
+    var url = spath+"question/ajax";
+
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'action': 2,
+            'code' :code,
+            'select':1
+        },
+        success: function(msg){
+            jQuery('#chg_city').html(msg);
+        }
+    });
+
+}
+
+
+
+
+ jQuery(document).ready(function () {
+   jQuery(".innerbox li a").live('click', function(e) {
+
+	  e.preventDefault();
+
+           $('#qajax').load($(this).attr('href'), function(response, status, xhr) {
+  if (status == "success") {
+        reset_tabs();
+    
+  }else{
+      var msg = "Sorry but there was an error: ";
+    $("#qajax").html(msg + xhr.status + " " + xhr.statusText);
+  }
+});
+
+return false;
+});
+    });
+
