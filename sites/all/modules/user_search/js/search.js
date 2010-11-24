@@ -317,6 +317,8 @@ jQuery(document).ready(function(){
 var cid =  jQuery(this).find('a').attr('id');
 jQuery("#hid_cat").val(cid);
 search_question();
+
+$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
 });
 
   jQuery('.page-n a').live("click", function(e) {
