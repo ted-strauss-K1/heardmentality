@@ -321,7 +321,7 @@ function check_select($gid,$quid){
 
 function search_results_ajax() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
-    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+   // drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
     $start = '';
