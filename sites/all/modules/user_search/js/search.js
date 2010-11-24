@@ -278,6 +278,7 @@ jQuery(document).ready(function(){
       jQuery('.sidelinks').click(function() {
 var cid =  jQuery(this).attr('id');
 jQuery("#hid_cat").val(cid);
+alert(jQuery("#hid_cat").val());
 });
 });
 
@@ -287,7 +288,7 @@ function search_question(){
 //'q_state':jQuery('#q_state').val(),
 //'q_city':jQuery('#q_city').val()
   var  cid = jQuery('#hid_cat').val();
-  alert(cid);
+ /// alert(cid);
   var  q_country = jQuery('#q_country').val();
   var  q_state = jQuery('#q_state').val();
   var  q_city = jQuery('#q_city').val();
