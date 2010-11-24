@@ -53,6 +53,50 @@ function setDefaultCountry(cn) {
 }
 
 
+function get_state(code){
+    var url = spath+"question/ajax";
+
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'action': 1,
+            'code' :code,
+            'select':1
+        },
+        success: function(msg){
+            jQuery('#chg_state').html(msg);
+
+            if(setstate.length>1){
+
+        //jQuery("#q_state option").each(function(){jQuery(this).text(escape(jQuery(this).text()));});
+        //jQuery("#q_state option:contains('tamil nadu')").attr("selected","selected") ;
+        //jQuery(this).text().toLowerCase()
+        }
+        }
+    });
+    jQuery('#chg_city').html('');
+    jQuery('#chg_city').fadeOut('slow');
+}
+
+function get_city(code){
+    jQuery('#chg_city').fadeIn('slow');
+    var url = spath+"question/ajax";
+
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'action': 2,
+            'code' :code,
+            'select':1
+        },
+        success: function(msg){
+            jQuery('#chg_city').html(msg);
+        }
+    });
+
+}
 
 
 
