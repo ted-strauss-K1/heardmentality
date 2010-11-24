@@ -225,11 +225,12 @@ function get_quest_details(quid){
 jQuery(document).ready(function(){
 var url = gSitePath;
     jQuery(".contarea a[href*='?ajax=1']").each(function(){
-   //livequery('click', function(event)
-   //jQuery(this).livequery('click',function(event) {
+   
         jQuery(this).click(function () {
+         
           jQuery("#quest_info").load(jQuery(this).attr('href'), function(response, status, xhr) {
 
+        
   if (status == "success") {
 reset_tabs();
 }
@@ -243,49 +244,7 @@ reset_tabs();
 
 });
 
-function reset_tabs(){
-var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabcontent','#vmaintabs2,#tabcontent'];
 
-      // Preload tab on page load
-      
- jQuery.each(tabarray,function(){
-       // e.preventDefault();
-        var arr=this.split(",");
-
-        var tabsId = arr[0];
-        var containerId = arr[1];
-
-
-        if($(tabsId + ' LI.current A').length > 0){
-            loadTab($(tabsId + ' LI.current A'),containerId);
-        }
-
-        $(tabsId + ' A').click(function(e){
-           
-                if($(this).attr('href')=='#') {
-                  e.preventDefault();
-                     e.stopPropagation();
-                     return false;
-                     }
-            if($(this).parent().hasClass('current')){
-
-                return false;
-            }
-
-            $(tabsId + ' LI.current').removeClass('current');
-            $(this).parent().addClass('current');
-
-            loadTab($(this),containerId);
-            return false;
-        });
-
-
-
-
-
-    });
-
-}
 
 
 //temporarly disabled ajax post questions search
