@@ -304,7 +304,9 @@ function search_question(){
 	
 
 jQuery(document).ready(function(){
-    $('.issuesearch3 a').click(function() {
+    $('.issuesearch3 a').live("click", function(e) {
+          e.preventDefault();
+e.stopPropagation();
         //$('#box1').css("background","#9f9");
         $(".issuesearch3 a").css('color', '#996600');
         $(this).css('color', '#4170A0');
@@ -313,7 +315,10 @@ jQuery(document).ready(function(){
 
 
     //set hidden id
-      jQuery('.sidelinks').click(function() {
+      jQuery('.sidelinks').live("click", function(e) {
+            e.preventDefault();
+e.stopPropagation();
+      
 var cid =  jQuery(this).find('a').attr('id');
 jQuery("#hid_cat").val(cid);
 search_question();
