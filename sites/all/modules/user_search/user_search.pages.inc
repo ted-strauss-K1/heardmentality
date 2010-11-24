@@ -513,8 +513,10 @@ function search_results_ajax() {
         $fetresult .= " <div class='result-item factmore'><div class='page-n' align='center'><ul><li>";
         //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
         if ($back >= 0) {
-            $fetresult .= "<a class='' href='$page_name?start=$back&$lkr'>Previous</a>";
-            $fetresult .= "&nbsp;&nbsp;<a class='' href='$page_name?start=$back&$lkr'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-l.jpg'></a>";
+            //href='$page_name?start=$back&$lkr'
+            $fetresult .= "<a class='' href='JavaScript:void(0);' id='$back'>Previous</a>";
+            //href='$page_name?start=$back&$lkr'
+            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-l.jpg'></a>";
 
         }
         //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
@@ -523,7 +525,8 @@ function search_results_ajax() {
         $l = 1;
         for ($i = 0; $i < $sel_count; $i = $i + $limit) {
             if ($i <> $eu) {
-                $fetresult .= " <a class='sidelinks' href='$page_name?start=$i&$lkr'>$l</a> ";
+                //href='$page_name?start=$i&$lkr'
+                $fetresult .= " <a class='sidelinks' href='JavaScript:void(0);' id='$i'>$l</a> ";
             } else {
                 $fetresult .= "<font color='black'>$l</font>";
             } /// Current page is not displayed as link and given font color red
@@ -534,9 +537,10 @@ function search_results_ajax() {
         $fetresult .= "</li<li>";
         ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
         if ($this1 < $sel_count) {
-
-            $fetresult .= "<a class='sidelinks' href='$page_name?start=$next&$lkr'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a>";
-            $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='$page_name?start=$next&$lkr'>Next</a>";
+            //href='$page_name?start=$next&$lkr'
+            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a>";
+            //href='$page_name?start=$next&$lkr'
+            $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0);' id='$next'>Next</a>";
         }
         $fetresult .= "</li></ul></div></div>";
     }
@@ -742,8 +746,10 @@ function search_results_question() {
         $fetresult .= " <div class='result-item factmore'><div class='page-n' align='center'><ul><li>";
         //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
         if ($back >= 0) {
-            $fetresult .= "<a class='' href='$page_name?start=$back&$lkr'>Previous</a>";
-            $fetresult .= "&nbsp;&nbsp;<a class='' href='$page_name?start=$back&$lkr'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-l.jpg'></a>";
+            //href='$page_name?start=$back&$lkr'
+            $fetresult .= "<a class='' href='JavaScript:void(0);' id='$back'>Previous</a>";
+            //href='$page_name?start=$back&$lkr'
+            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='".$gSitePath."sites/all/themes/newtheme/images/p-l.jpg'></a>";
             
         }
         //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
@@ -752,7 +758,8 @@ function search_results_question() {
         $l = 1;
         for ($i = 0; $i < $sel_count; $i = $i + $limit) {
             if ($i <> $eu) {
-                $fetresult .= " <a class='sidelinks' href='$page_name?start=$i&$lkr'>$l</a> ";
+                //href='$page_name?start=$i&$lkr'
+                $fetresult .= " <a class='sidelinks' href='JavaScript:void(0)' id='$i'>$l</a> ";
             } else {
                 $fetresult .= "<font color='black'>$l</font>";
             } /// Current page is not displayed as link and given font color red
@@ -763,11 +770,12 @@ function search_results_question() {
         $fetresult .= "</li<li>";
         ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
         if ($this1 < $sel_count) {
-            
-            $fetresult .= "<a class='sidelinks' href='$page_name?start=$next&$lkr'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a>";
-            $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='$page_name?start=$next&$lkr'>Next</a>";
+            //href='$page_name?start=$next&$lkr'
+            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a>";
+            //href='$page_name?start=$next&$lkr'
+            $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0)' id='$next'>Next</a>";
         }
-        $fetresult .= "</li></ul></div></div>";
+        $fetresult .= "</li></ul></div></div><input type='hidden' name='hid_page' id='hid_page' value=''/>";
     }
 
     if ($sel_count == 0) {

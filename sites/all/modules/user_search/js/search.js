@@ -278,11 +278,9 @@ jQuery(document).ready(function(){
 
 
 function search_question(){
-   
-    var url = gSitePath+"searchquestion_ajax";
-//    'q_country':jQuery('#q_country').val(),
-//'q_state':jQuery('#q_state').val(),
-//'q_city':jQuery('#q_city').val()
+  var url = gSitePath+"searchquestion_ajax";
+
+  var  page_id = jQuery('#hid_page').val();
   var  cid = jQuery('#hid_cat').val();
   var  q_country = jQuery('#q_country').val();
   var  q_state = jQuery('#q_state').val();
@@ -295,13 +293,13 @@ function search_question(){
             'cid':cid,
             'q_country':q_country,
             'q_state':q_state,
-            'q_city':q_city
+            'q_city':q_city,
+            'start':page_id
         },
         success: function(msg){
             jQuery('.issuesearch3').html(msg);
         }
     });
-
 }
 	
 
@@ -321,6 +319,13 @@ jQuery("#hid_cat").val(cid);
 search_question();
 });
 
+  jQuery('.page-n a').click(function(){
+      alert("hi");
+      return false;
+     var page_id =  jQuery(this).attr('id');
+     jQuery("#hid_page").val(page_id);
+     search_question();
+  });
 
 
 });
