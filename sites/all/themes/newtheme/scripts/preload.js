@@ -142,11 +142,6 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabc
     });
 
 }
-
-
-
-
-
  jQuery(document).ready(function () {
    jQuery(".innerbox li a").live('click', function(e) {
 
