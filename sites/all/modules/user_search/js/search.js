@@ -284,14 +284,10 @@ function search_question(){
 //'q_state':jQuery('#q_state').val(),
 //'q_city':jQuery('#q_city').val()
   var  cid = jQuery('#hid_cat').val();
- alert(cid);
   var  q_country = jQuery('#q_country').val();
   var  q_state = jQuery('#q_state').val();
   var  q_city = jQuery('#q_city').val();
   
-
-
-
     jQuery.ajax({
         type: "GET",
         url: url,

@@ -58,7 +58,7 @@ if (!empty($listcat)) {
                  //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
         $catlist.='<span ' . $style . ' class="sidelinks">
             
-        <a class="sidelinks" id="'.$cat['cat_id'].'" href="JavaScript:void(0);" onclick="search_question();">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
+        <a class="sidelinks" id="'.$cat['cat_id'].'" href="JavaScript:void(0);">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
         //subcat list
         if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
            // $catlist.='<ul>';
