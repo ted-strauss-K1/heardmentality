@@ -2672,7 +2672,7 @@ function qlite_map() {
 					";
 
 
-    echo '  <body onload="initialize()" onunload="GUnload()"><div style="width:100%;"><div  class=""><div id="map_div" style="width: 472px; height: 300px"></div><br/><div style="position: relative;" id="desc">' . $desc . '</div></div>';
+    echo '  <body onload="initialize()" onunload="GUnload()"><div style="width:100%;"><div  class=""><div style="position: relative;" id="desc">' . $desc . '</div><br/><div id="map_div" style="width: 472px; height: 300px"></div><br/></div>';
 }
 
 function qlite_get_zip($code = '', $ccode = '') {
