@@ -30,10 +30,7 @@ $directory = $base_path . $directory;
         <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
         <script src="<?php echo $directory; ?>/scripts/jquery.livequery.js"></script>
         <script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script>
-        <!-- Float box-->
-        <link type="text/css" rel="stylesheet" href="<?php echo $directory; ?>/floatbox/floatbox.css" />
-        <script type="text/javascript" src="<?php echo $directory; ?>/floatbox/floatbox.js"></script>
-        <script type="text/javascript" src="<?php echo $directory; ?>/floatbox/options.js"></script>
+ 
 
         <!-- Autosuggest module -->
      <script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.watermarkinput.js"></script>
@@ -45,10 +42,8 @@ $directory = $base_path . $directory;
                 <script type="text/javascript">
 var gSitePath='<?php echo $gSitePath; ?>';
 jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel-control').livequery(function () {
-    jQuery(this).each(function () {
 
 
-      
         if (jQuery(this).attr("rel").length > 0) {
 
             jQuery(this).SetBubblePopup({
@@ -59,7 +54,6 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel
             });
         }
 
-    });
 });
     jQuery('.p-foll li a,#mfollowing a,#inbox a,.contarea a').not('.jcarousel-control').each(function () {
         if (jQuery(this).attr("rel").length > 0) {
@@ -77,33 +71,17 @@ jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel
 
 
 
-    var height = jQuery(window).height();
-    var width = jQuery(window).width();
-
-    var autosizable = false;
-    var windowResize = true;
-    var resizeable = false;
-
-/*jQuery.nyroModalSettings({  galleryCounts: '', forceType: 'iframe',minWidth: 600, // Minimum width
-                            minHeight: 400, // Minimum height
-                            resizable: false, // Indicate if the content is resizable. Will be set to false for swf
-                            autoSizable: true, // Indicate if the content is auto sizable. If not, the min size will be used
-                            padding:30, // padding for the max modal size
-                            gallery: null, // Gallery name if provided
-                            galleryLinks: '', // Use .nyroModalPrev and .nyroModalNext to set the navigation link
-                            windowResize: windowResize,
-                            width: width/2,
-                            height: height
-
-                        });*/
+  jQuery(document).ready(function(){
     jQuery("#loading").ajaxStart(function () {
         jQuery(this).fadeIn();
     });
 
     jQuery("#loading").ajaxStop(function () {
+
         jQuery(this).fadeOut();
+         fb.activateElements();
     });
-                </script>
+  });        </script>
 
                 <script type="text/javascript">
                     function callfunction()

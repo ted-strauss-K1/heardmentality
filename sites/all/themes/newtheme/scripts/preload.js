@@ -100,7 +100,7 @@ function loadeditquestion(url,title)
 
 
 function reset_tabs(){
-var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabcontent','#vmaintabs2,#tabcontent'];
+  var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabcontent','#vmaintabs2,#tabcontent'];
 
       // Preload tab on page load
 
@@ -159,5 +159,22 @@ var tabarray=['#maintabs,#tabcontent','#tabs,#tabs-container','#vmaintabs1,#tabc
 
 return false;
 });
+
+//link the profile images to popup
+
+ jQuery(".contarea a[href*='/profile/'],.profile_part a[href*='/profile/']").live('click', function(e) {
+  e.preventDefault();
+e.stopPropagation();
+
+ parent.fb.start(jQuery(this).attr('href'), {
+     type:'ajax',
+    width: '80%',
+    height: '90%',
+    caption: 'Contributor',
+  afterItemStart:'reset_tabs()'
+  });
+  return false;
+ });
+
     });
 

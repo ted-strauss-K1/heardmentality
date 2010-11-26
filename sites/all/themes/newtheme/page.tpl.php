@@ -30,7 +30,7 @@
   </div>
   
             </div>
-
+     
       <?php if (!empty($right)): ?>
 	    <div class="fact">
                 <div id="block-sitetour">
