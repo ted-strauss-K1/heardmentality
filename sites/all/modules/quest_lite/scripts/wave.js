@@ -77,10 +77,11 @@ jQuery('.textArea').focus();
 
 function loadwave(qid,wid){
 	url= gSitePath+'question/forum/?qid='+qid+'&wid='+wid;
-	jQuery.nyroModalSettings({title:'Forum Posts'});
+	
   var options = 'sameBox:true width:700 height:90% caption:' +
   '`Forum Posts`';
   parent.fb.start(url, options);
+  //jQuery.nyroModalSettings({title:'Forum Posts'});
             //jQuery.nyroModalManual({
    // url: url,width:550,height:450,title:'Forum Posts'
  // });
@@ -90,7 +91,7 @@ function loadwave(qid,wid){
 
 function loadrforum(url,title){
 	
-	jQuery.nyroModalSettings({title:'Forum Posts'});
+	//jQuery.nyroModalSettings({title:'Forum Posts'});
 
 	//jQuery.nyroModalManual({
   //  url: url,width:550,height:450,title:'Forum Posts'

@@ -75,7 +75,7 @@ function qlite_view() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/like.js');
     // drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
-    drupal_add_css(drupal_get_path('theme', 'newtheme') . '/rotate_files/ui.css');
+
     $qid = get_qid();
 
 
@@ -115,7 +115,7 @@ function qlite_view() {
     //echo $percent;
     $tot = $percent * 100;
 
-     $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
+    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
 
@@ -130,7 +130,7 @@ function qlite_view() {
         }
     }
 
-    if ($_REQUEST['ajax'] == 1)
+    if (isAjax ())
         privacy_chk_ajax($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
     else
         privacy_chk($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
@@ -140,7 +140,10 @@ function qlite_view() {
     $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'"));
     $answer_id = db_fetch_object($list_lengthan);
     $stringfunct = strlen($oListquest->question);
-    $voutput = '<script type="text/javascript">
+    $voutput = '<div id="qajax">
+
+<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
+        <script type="text/javascript">
 		var qid="' . $qid . '";
 		var spath="' . $gSitePath . '";
 		function showdetails(ids)
@@ -638,7 +641,7 @@ function qlite_view() {
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
         </div><div class="clr"></div>
-           </div>';
+           </div> ';
     } else {
 ////here
         $voutput .= '<div class="clr"></div>
@@ -654,12 +657,12 @@ function qlite_view() {
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
         </div><div class="clr"></div>
-           </div>';
+           </div>  ';
     }
-
+    $voutput.='</div>'; // ajax div ends
     // cron job in qlite module
     // cal_active_rate();
-    if ($_REQUEST['ajax'] == 1) {
+    if (isAjax ()) {
         echo $voutput;
     } else {
         return $voutput;
@@ -708,15 +711,15 @@ function qns_like() {
 function privacy_chk($owner = '', $qp = '', $share = '') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
-    if (!empty($user->uid)&&$owner == $user->uid) {
+    if (!empty($user->uid) && $owner == $user->uid) {
 
         return true;
     }
 
     switch ($qp) {
         case 1:
-       
-            if (!empty($user->uid)&&$owner == $user->uid) {
+
+            if (!empty($user->uid) && $owner == $user->uid) {
                 return true;
             } else {
                 drupal_set_message($message = 'Sorry Access deined for Other users!', $type = 'error');
@@ -755,7 +758,7 @@ function privacy_chk($owner = '', $qp = '', $share = '') {
 function prompt_privacy($owner = '', $share = '') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
- 
+
     switch ($share) {
 
         case 2:
@@ -898,7 +901,7 @@ function qlite_save() {
                 $votepointp = $olistquest->vote + 1;
             }
 
-           $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";
+            $vInsQuery = "insert into possible_answer_vote(qid,uid,panswer_id,vote_pdate) values ('" . $mid . "', '" . $user->uid . "','" . $_REQUEST['answer'] . "','" . date('Y-m-d h:i:s') . "')";
             db_query($vInsQuery);
 
 
@@ -2082,35 +2085,35 @@ function percent_broken($qid = '', $aid = '', $array = '') {
     $vlist = ExecuteQuery($vans, "select");
     switch ($filter) {
         case 'gender':
-            $answer['divide'] = array('male','female','undefined');
+            $answer['divide'] = array('male', 'female', 'undefined');
 
 
-        
 
-              foreach ($answer['divide'] as $list) {
-                 if($list=='male')
-                     $gen=1;
-                 elseif($list=='female')
-                     $gen=2;
-                 else
-                     $gen='';
+
+            foreach ($answer['divide'] as $list) {
+                if ($list == 'male')
+                    $gen = 1;
+                elseif ($list == 'female')
+                    $gen = 2;
+                else
+                    $gen='';
 
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
-                     $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND u.gender='". $gen."' ";
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND u.gender='" . $gen . "' ";
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
-                 $inc_cnt = rtrim($inc_cnt, ",");
+                $inc_cnt = rtrim($inc_cnt, ",");
                 $inc_cnt .= ']';
-               
+
                 $answer_cnt[] = $inc_cnt;
             }//[1,0][1,1]
             // $answer_cnt=array_reverse($answer_cnt);//[1,1][1,0]
 
             break;
         case 'age':
-            $answer['divide'] = array('18-30', '30-50', '50 above','undefined');
+            $answer['divide'] = array('18-30', '30-50', '50 above', 'undefined');
 
             foreach ($answer['divide'] as $key => $value) {
                 if ($key == 0)
@@ -2120,7 +2123,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                 elseif ($key == 2)
                     $query_ins = "AND u.age>='50' ";
                 else
-                    $query_ins = "AND u.age='' "; 
+                    $query_ins = "AND u.age='' ";
 
 
                 $inc_cnt = '[';
@@ -2129,9 +2132,9 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
-                 $inc_cnt = rtrim($inc_cnt, ",");
+                $inc_cnt = rtrim($inc_cnt, ",");
                 $inc_cnt .= ']';
-                
+
                 $answer_cnt[] = $inc_cnt;
             }
 
@@ -2139,13 +2142,13 @@ function percent_broken($qid = '', $aid = '', $array = '') {
             //$answer_cnt;
             break;
         case 'religion':
-            $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other','undefined');
+            $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other', 'undefined');
 
             foreach ($answer['divide'] as $list) {
-                if($list=='undefined')
-                     $reg='';
-                    else
-                $reg=$list;
+                if ($list == 'undefined')
+                    $reg = '';
+                else
+                    $reg=$list;
 
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
@@ -2153,7 +2156,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
-                 $inc_cnt = rtrim($inc_cnt, ",");
+                $inc_cnt = rtrim($inc_cnt, ",");
                 $inc_cnt .= ']';
                 $answer_cnt[] = $inc_cnt;
             }
@@ -2161,13 +2164,13 @@ function percent_broken($qid = '', $aid = '', $array = '') {
 
             break;
         case 'ethnicity':
-            $answer['divide'] = array('Caucasian', 'Black', 'Asian', 'Indian', 'Semetic', 'Latin', 'Aborigines','undefined');
+            $answer['divide'] = array('Caucasian', 'Black', 'Asian', 'Indian', 'Semetic', 'Latin', 'Aborigines', 'undefined');
 
             foreach ($answer['divide'] as $list) {
-                if($list=='undefined')
-                     $reg='';
-                    else
-                $reg=$list;
+                if ($list == 'undefined')
+                    $reg = '';
+                else
+                    $reg=$list;
 
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
@@ -2175,7 +2178,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
-                 $inc_cnt = rtrim($inc_cnt, ",");
+                $inc_cnt = rtrim($inc_cnt, ",");
                 $inc_cnt .= ']';
                 $answer_cnt[] = $inc_cnt;
             }
@@ -2183,13 +2186,13 @@ function percent_broken($qid = '', $aid = '', $array = '') {
 
             break;
         case 'slant':
-            $answer['divide'] = array('Left', 'Right', 'Center','undefined');
+            $answer['divide'] = array('Left', 'Right', 'Center', 'undefined');
 
             foreach ($answer['divide'] as $list) {
-                if($list=='undefined')
-                     $reg='';
-                    else
-                $reg=$list;
+                if ($list == 'undefined')
+                    $reg = '';
+                else
+                    $reg=$list;
 
 
                 $inc_cnt = '[';
@@ -2198,7 +2201,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
-                 $inc_cnt = rtrim($inc_cnt, ",");
+                $inc_cnt = rtrim($inc_cnt, ",");
                 $inc_cnt .= ']';
                 $answer_cnt[] = $inc_cnt;
             }
@@ -2237,10 +2240,13 @@ function qlite_percent() {
     $output .= " 	
 			<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>				
 			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
-
+<script>var example = 'bar-stacked',
+	theme = 'skies';
+</script>
 <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/filter.js'></script>
-	
+	<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/skies.js'></script>
+
 			";
 
     $ans_array = array();
@@ -2260,7 +2266,8 @@ function qlite_percent() {
     $per = json_encode($result);
     $inc = rtrim($ins_script, ',');
     $output .= "
-		<script>
+		<script >
+
 		var spath='" . $gSitePath . "';
 		var chart;
 			$(document).ready(function() {
@@ -2276,8 +2283,9 @@ function qlite_percent() {
 						categories: " . json_encode($ans_array) . ",
                                                   labels :{ style: {
                   font: 'bold 12px Arial,Helvetica,sans-serif '
-               }}	},
-					yAxis: {
+               }}
+	},
+					yAxis: {tickInterval  :1,
 						min: 0,
 						title: {
 							text: 'No Of Votes'
@@ -2397,7 +2405,10 @@ $(document).ready(function() {
       chart: {
          renderTo: 'container',
          defaultSeriesType: 'spline',
-         ignoreHiddenSeries: false
+         ignoreHiddenSeries: false,
+         zoomType: 'x',
+	spacingRight: 20
+
       },
       title: {
          text: 'Overtime Graph'

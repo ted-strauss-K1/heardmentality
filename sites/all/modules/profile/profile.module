@@ -151,10 +151,10 @@ function UserPicture($mid,$profile='') {
               $ipath = $gSitePath.$image_path.'/'.$selected_avatar;
 	
             if (file_check_location($image_path.'/'.$selected_avatar)) {
-            	$PROFILE_IMAGE ='<img src="'.$ipath.'" alt="avatar" ALIGN=ABSMIDDLE width="65"  height="56" >';
+            	$PROFILE_IMAGE ='<img src="'.$ipath.'" alt="avatar" ALIGN=ABSMIDDLE width="65" class="uprofile"  height="56" >';
               //  $PROFILE_IMAGE = theme('image',$ipath);
             } else {
-               $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
+               $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE class="uprofile" width="65"  height="56" >';
             }
             
             break;
@@ -167,21 +167,21 @@ function UserPicture($mid,$profile='') {
                 
                 if (file_exists($img_path)) {
                    
-                    $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
+                    $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
                 } else {
                     
-                    $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
+                    $PROFILE_IMAGE = '<img src="'.$default.'" alt="photo" class="uprofile" ALIGN=ABSMIDDLE width="65"  height="56" >';
                 }
             } elseif ($resultimage->image_url != '') {
 
 
-                $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" alt="photo" width="65"  height="56">';
+                $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56">';
 
             
             } else {
                 //echo $resultimage->image;
                 $img_path = $gSitePath.drupal_get_path('module', 'profile').'/snap/'.$resultimage->image;
-                $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" alt="photo" width="65" ALIGN=ABSMIDDLE  height="56" >';
+                $PROFILE_IMAGE = '<img src="'.$img_path.'" class="uprofile" align="absmiddle" alt="photo" width="65" ALIGN=ABSMIDDLE  height="56" >';
             }
             break;
     }
@@ -207,9 +207,9 @@ function UserPicture_small($mid) {
 	
             if (file_exists($image_path.'/'.$selected_avatar)) {
                  //$PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
-                 $PROFILE_IMAGE =' <img src="'.$ipath.'" alt="photo" ALIGN=ABSMIDDLE width="30"  height="30" >';
+                 $PROFILE_IMAGE =' <img src="'.$ipath.'" alt="photo" ALIGN=ABSMIDDLE width="30" class="uprofile"  height="30" >';
             } else {
-                $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+                $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" class="uprofile" width="30" alt="Photo" >';
             }
             
             break;
@@ -220,10 +220,10 @@ function UserPicture_small($mid) {
                 if (file_exists($img_path)) {
                   // echo $gSitePath.$img_path;
                   
-                    $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" ALIGN=ABSMIDDLE alt="Photo" height="30" width="30" >';
+                    $PROFILE_IMAGE = '<img src="'.$gSitePath.$img_path.'" ALIGN=ABSMIDDLE class="uprofile" alt="Photo" height="30" width="30" >';
                    
                 } else {
-                    $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+                    $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
                 }
             
             } elseif ($resultimage->image_url != '') {
@@ -231,11 +231,11 @@ function UserPicture_small($mid) {
                //echo $resultimage->image_url;
                 if($resultimage->image_url!='')
                    {
-                     $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
+                     $PROFILE_IMAGE = '<img src="'.$resultimage->image_url.'" class="uprofile" align="absmiddle" height="30" width="30" alt="Profile image" >';
                    }
                    else
                    {
-                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
                    }
                
             } else {
@@ -244,11 +244,11 @@ function UserPicture_small($mid) {
 
                 if(file_exists($img_path))
                    {
-                      $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" height="30" width="30" alt="Profile image" >';
+                      $PROFILE_IMAGE = '<img src="'.$img_path.'" align="absmiddle" class="uprofile" height="30" width="30" alt="Profile image" >';
                    }
                    else
                    {
-                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" height="30" width="30" alt="Photo" >';
+                       $PROFILE_IMAGE = '<img src="'.$default.'" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
                    }
 
                

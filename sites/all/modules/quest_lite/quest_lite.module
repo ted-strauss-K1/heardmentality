@@ -154,7 +154,11 @@ function process_tags($qtag = '', $qid = '', $edit = '') {
     return true;
 }
 
-
+function isAjax() {
+   return (isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+              &&
+            ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'));
+}
 function popular_tag() {
     $randomtag = '';
     
