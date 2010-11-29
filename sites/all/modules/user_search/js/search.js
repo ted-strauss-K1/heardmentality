@@ -278,8 +278,10 @@ jQuery(document).ready(function(){
 
 
 function search_question(){
+    
   var url = gSitePath+"searchquestion_ajax";
 
+  var  txt_search = jQuery('#hid_txtsearch').val();
   var  page_id = jQuery('#hid_page').val();
   var  cid = jQuery('#hid_cat').val();
   var  q_country = jQuery('#q_country').val();
@@ -294,7 +296,8 @@ function search_question(){
             'q_country':q_country,
             'q_state':q_state,
             'q_city':q_city,
-            'start':page_id
+            'start':page_id,
+            'txt_search':txt_search
         },
         success: function(msg){
             jQuery('.issuesearch3').html(msg);
@@ -323,12 +326,31 @@ var cid =  jQuery(this).find('a').attr('id');
 jQuery("#hid_cat").val(cid);
 search_question();
 
-$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
+
+
+
+   jQuery(".sidelinks a").click(function(event){
+     
+   var id = this.id;
+   //alert(id);
+   //return false;
+
+//   var name = $("#name").val();
+          //$("#stage").after(load('result.php', {"id":id} ));
+//          $("#stage").after(load('result.php',{"id":id}));
+          //$(this).parents('ul').after($('<li id='+id+'>').load('result.php', { "id":id}));
+          jQuery(this).after(jQuery('<a id='+id+'>').load('sites/all/modules/user_search/sidebar.php', { "sel_id":id}));
+          jQuery(this).removeAttr('id');
+          event.preventDefault();
+   });
+
+        
+      
+//$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
 });
 
   jQuery('.page-n a').live("click", function(e) {
-      alert("hi");
-      return false;
+      
      var page_id =  jQuery(this).attr('id');
      jQuery("#hid_page").val(page_id);
      search_question();
