@@ -304,19 +304,19 @@ function search_user_ajax() {
 
     $qry = '';
     if($name!='')
-        $qry .= "AND (img.real_name LIKE '" . $name . "%')";
+        $qry .= " AND (img.real_name LIKE '" . $name . "%')";
 
     if($_REQUEST['code']!='')
-        $qry .= "AND (img.country ='" . $code . "')";
+        $qry .= " AND (img.country ='" . $code . "')";
 
     if($_REQUEST['q_country']!='')
-        $qry .= "AND (img.country ='" . $q_country . "')";
+        $qry .= " AND (img.country ='" . $q_country . "')";
 
-    if($_REQUEST['q_state']!='')
-        $qry .= "AND (img.state ='" . $q_state . "')";
+    if($_REQUEST['q_state']!='' && $_REQUEST['q_state']!=0)
+        $qry .= " AND (img.state ='" . $q_state . "')";
 
     if($_REQUEST['q_city']!='')
-        $qry .= "AND (img.city ='" . $q_city . "')";
+        $qry .= " AND (img.city ='" . $q_city . "')";
 
 
 
@@ -346,7 +346,7 @@ function search_user_ajax() {
                 $qry_form = "img, follower fol where 1 $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
             }
             else{
-                $qry_form = "img WHERE 1 $qry AND reg.status='1' and img.uid=reg.uid";
+                $qry_form = "img WHERE 1 $qry AND reg.status='1' AND img.uid=reg.uid";
             }
 
 
