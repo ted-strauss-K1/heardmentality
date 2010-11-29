@@ -50,8 +50,8 @@ $directory = $base_path . $directory;
                                 jQuery(this).CreateBubblePopup({
                                     position : 'top',
                                     align	 : 'center',
-
-                                  
+                                    dropShadow: false,
+                                   openingDelay:300,
                                     selectable: true,
                                     innerHtmlStyle: {
                                         'text-align':'center','background-color':'#FFFFFF'
@@ -62,6 +62,7 @@ $directory = $base_path . $directory;
                                     themePath: '<?php echo $directory; ?>/images/bp_images'
 
                                 });
+                              //  jQuery(this).ShowBubblePopup();
                             }
 
                         });
@@ -73,8 +74,8 @@ $directory = $base_path . $directory;
                                 jQuery(this).CreateBubblePopup({
                                     position : 'top',
                                     align	 : 'center',
-
-                                    
+                                      dropShadow: false,
+                                    openingDelay:100,
                                     selectable: true,
                                     innerHtmlStyle: {
                                         'text-align':'center','background-color':'#FFFFFF'
@@ -86,6 +87,7 @@ $directory = $base_path . $directory;
                                     themePath: '<?php echo $directory; ?>/images/bp_images'
 
                                 });
+                              //  jQuery(this).ShowBubblePopup();
                             }
 
 
