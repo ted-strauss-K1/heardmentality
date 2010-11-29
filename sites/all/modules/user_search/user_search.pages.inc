@@ -309,7 +309,7 @@ function search_user_ajax() {
     if($_REQUEST['code']!='')
         $qry .= " AND (img.country ='" . $code . "')";
 
-    if($_REQUEST['q_country']!='')
+    if($_REQUEST['q_country']!='' && $_REQUEST['q_country']!=0)
         $qry .= " AND (img.country ='" . $q_country . "')";
 
     if($_REQUEST['q_state']!='' && $_REQUEST['q_state']!=0)
