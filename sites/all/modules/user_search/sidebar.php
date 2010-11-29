@@ -40,6 +40,13 @@ if(!empty($_REQUEST['q_country'])) {
     $cond .= " AND q.city='$q_city'";
 
     }
+
+    if(!empty($_REQUEST['sub_cat'])) {
+
+
+        
+    }
+
 $catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
  $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
 $listcat = ExecuteQuery($sel_cat, "select");
@@ -106,7 +113,7 @@ if (!empty($listcat)) {
     $catlist.='<span><b>No Category Found</b></span>';
 }
 $catlist.='</div>';
-$catlist.='<input type="hidden" name="hid_cat" id="hid_cat" value="" />';
+$catlist.='<input type="hidden" name="hid_cat" id="hid_cat" value="" /><input type="hidden" name="hid_txtsearch" id="hid_txtsearch" value="'.$txt_search.'" />';
 echo $catlist;
 
 
