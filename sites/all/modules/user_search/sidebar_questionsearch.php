@@ -4,6 +4,7 @@ $link2 = '';
 $link3 = '';
 $cid = '';
 $scid = '';
+
 global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 $query = facetad_refine();
 $sel_search = mysql_query($query['query']);
@@ -162,4 +163,5 @@ if (!empty($rs_tags)) {
 
 $tagslist.='</div>';
 echo $tagslist;*/
+    
 ?>

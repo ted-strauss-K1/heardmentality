@@ -113,12 +113,8 @@ if (!empty($listcat)) {
     $catlist.='<span><b>No Category Found</b></span>';
 }
 $catlist.='</div>';
-$catlist.='<input type="hidden" name="hid_cat" id="hid_cat" value="" /><input type="hidden" name="hid_txtsearch" id="hid_txtsearch" value="'.$txt_search.'" />';
+$catlist.='<input type="hidden" name="hid_cat" id="hid_cat" value="" /><input type="hidden" name="hid_scat" id="hid_scat" value="" /><input type="hidden" name="hid_txtsearch" id="hid_txtsearch" value="'.$txt_search.'" />';
 echo $catlist;
-
-
-
-
 
 if (isset($_REQUEST['cid'])) {
     $link1 = '&cid=' . $_REQUEST['cid'] . '';

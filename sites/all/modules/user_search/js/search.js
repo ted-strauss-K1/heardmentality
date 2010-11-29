@@ -305,12 +305,12 @@ function search_user(){
             jQuery('.user_search_3').html(msg);
         }
     });
-}
 
-function search_question(){
-   // search_category();
-  var url = gSitePath+"searchquestion_ajax";
-  //var url = gSitePath+"sites/all/modules/user_search/sidebar.php";
+
+
+
+    //var url = gSitePath+"sidebar_questionsearch.php";
+  /*var url = gSitePath+"sites/all/modules/user_search/sidebar_questionsearch.php";
 
   var  txt_search = jQuery('#hid_txtsearch').val();
   var  page_id = jQuery('#hid_page').val();
@@ -318,7 +318,7 @@ function search_question(){
   var  q_country = jQuery('#q_country').val();
   var  q_state = jQuery('#q_state').val();
   var  q_city = jQuery('#q_city').val();
-  
+
     jQuery.ajax({
         type: "GET",
         url: url,
@@ -331,9 +331,73 @@ function search_question(){
             'txt_search':txt_search
         },
         success: function(msg){
+            jQuery('.padding10').html(msg);
+        }
+    });*/
+
+}
+
+function search_question(){
+   // search_category();
+  var url = gSitePath+"searchquestion_ajax";
+  //var url = gSitePath+"sites/all/modules/user_search/sidebar.php";
+
+  var  txt_search = jQuery('#hid_txtsearch').val();
+  var  page_id = jQuery('#hid_page').val();
+  var  cid = jQuery('#hid_cat').val();
+  var  scid = jQuery('#hid_scat').val();
+  var  q_country = jQuery('#q_country').val();
+  var  q_state = jQuery('#q_state').val();
+  var  q_city = jQuery('#q_city').val();
+  
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'cid':cid,
+             'scid':scid,
+            'q_country':q_country,
+            'q_state':q_state,
+            'q_city':q_city,
+            'start':page_id,
+            'txt_search':txt_search
+        },
+        success: function(msg){
             jQuery('.issuesearch3').html(msg);
         }
     });
+
+
+
+    //var url = gSitePath+"searchquestion_ajax";
+ /* var url = gSitePath+"sites/all/modules/user_search/sidebar.php";
+
+  var  txt_search = jQuery('#hid_txtsearch').val();
+  var  page_id = jQuery('#hid_page').val();
+  var  cid = jQuery('#hid_cat').val();
+  var  scid = jQuery('#hid_scat').val();
+  var  q_country = jQuery('#q_country').val();
+  var  q_state = jQuery('#q_state').val();
+  var  q_city = jQuery('#q_city').val();
+
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'cid':cid,
+             'scid':scid,
+            'q_country':q_country,
+            'q_state':q_state,
+            'q_city':q_city,
+            'start':page_id,
+            'txt_search':txt_search
+        },
+        success: function(msg){
+            jQuery('.padding10').html(msg);
+        }
+    });*/
+
+
 }
 
 	
@@ -357,8 +421,12 @@ e.stopPropagation();
             e.stopPropagation();
       
 var cid =  jQuery(this).find('a').attr('id');
-
 jQuery("#hid_cat").val(cid);
+
+var scid =  jQuery(this).find('.nike').attr('sid');
+
+jQuery("#hid_scat").val(scid);
+
 search_question();
 
    jQuery(".sidelinks a").click(function(event){
@@ -386,7 +454,6 @@ search_question();
             e.stopPropagation();
 
 var cid =  jQuery(this).find('a').attr('id');
-
 jQuery("#hid_cat").val(cid);
 search_user();
 
