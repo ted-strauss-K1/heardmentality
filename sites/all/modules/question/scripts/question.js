@@ -9,6 +9,7 @@ jQuery(document).ready( function() {
         get_state(cncode);
         get_city(setstate);
     }
+   jQuery('.selectAll').remove();
 });
 /*
 		(function($) {
@@ -111,6 +112,7 @@ jQuery("input[name='q_cat[]']").live("change", function(event) {
     var ids=values.join(',');
 
     get_subcat('q_cat','chg_scat',1,ids);
+    jQuery('#chg_sscat').empty().html('No Subcategory');
 });
 
 jQuery("input[name='q_scat[]']").live("change", function(event) {
@@ -159,9 +161,9 @@ function get_subcat(sid,divid,level,ids){
                 success: function(msg){
                     jQuery('#'+divid).html(msg);
                     if(sid=='q_cat')
-                        window.setTimeout("jQuery('#q_scat').multiSelect()", 500);
+                        window.setTimeout("jQuery('#q_scat').multiSelect(); jQuery('.selectAll').remove();", 500);
                     else if(sid=='q_scat')
-                        window.setTimeout("jQuery('#q_sscat').multiSelect()", 500);
+                        window.setTimeout("jQuery('#q_sscat').multiSelect(); jQuery('.selectAll').remove();", 500);
                 // jQuery('#'+divid+'input:select').multiSelect();
                 }
             });

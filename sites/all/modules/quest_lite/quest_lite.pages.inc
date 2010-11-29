@@ -1435,10 +1435,10 @@ function panel_content() {
 //////////vijay 2 load submenu
     $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid_rid = '$qid' ";
     $list = ExecuteQuery($query, "select");
-    $x = 0;
+    $debatecnt = 0;
     foreach ($list as $fcnt) {
 
-        $x = $x + $fcnt['wcnt'];
+       $debatecnt = $debatecnt + $fcnt['wcnt'];
     }
 
 
@@ -1516,14 +1516,45 @@ function panel_content() {
             break;
         case "Info":
             $bubble = load_bubble($fetuserlist->uid);
+            $medal = updateProfileBadge($fetuserlist->uid);
+            $section=load_qcat($qid);
+            $output.= ' 
+                       <div class="hm">
+<div class="hm-left"><strong>Issue Information</strong><br />
+  <br />
+ <span class="profile-gray">Context</span> :' . $oListquest->context . '
+     </div>
+<div>
+<div class="profile-lefthm">
+<span class="profile-gray">Byline: </span>
+<br />
+<div class="profile-img">
+<div class="profile-imgs">
+ <a title="' . $fetuserlist->name . '" href="' . $gSitePath . 'profile/' . $fetuserlist->name . '">' . UserPicture($fetuserlist->uid) . '</a>
+</div>
+<div class="profile-con">' . $medal . '
+<div>
 
-            $output.= ' <h1> Question Information </h1><p class="con"> <b>Question Author: </b> <a  href="' . $gSitePath . 'profile/' . $fetuserlist->name . '" rel=\'' . $bubble . '\'>' . $fetuserlist->name . '</a> <br/>
-			<b>Date Created:</b> ' . date("D j M Y", strtotime($oListquest->date_added)) . ' <br/>
-			<b>Number of Votes:</b> ' . $totalvotesm . '<br/>
-			<b>Number of Forum Posts:</b>' . $x . ' <br/>
-			<b>Number of Resources:</b> ' . $numresource . '<br/>
-                         <b>Context:</b> ' . $oListquest->context . '<br/>
-                       </p>
+</div>
+</div>
+
+</div>
+<div class="clr"></div>
+<div>
+
+<span class="profile-gray">Date Created </span>:' . date("D j M Y", strtotime($oListquest->date_added)) . '  <br />
+<span class="profile-gray">Number of Votes </span>:  ' . $totalvotesm . '<br />
+<span class="profile-gray">Number of Forum Posts</span> : ' . $debatecnt . '<br />
+<span class="profile-gray">Number of Resources </span> :  ' . $numresource . '<br />
+
+</div>
+</div>
+
+</div><div class="clr"></div><br />
+
+<div><span class="profile-gray">Section</span>:'.$section.'</div>
+
+</div>
 		';
             break;
         case "Politician":
