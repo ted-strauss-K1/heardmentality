@@ -51,10 +51,10 @@ $directory = $base_path . $directory;
                                     position : 'top',
                                     align	 : 'center',
 
-                                    alwaysVisible: true,
+                                  
                                     selectable: true,
                                     innerHtmlStyle: {
-                                        'text-align':'center'
+                                        'text-align':'center','background-color':'#FFFFFF'
                                     },
                                     themeName: 	'grey',
                                     alwaysVisible: false,
@@ -74,10 +74,10 @@ $directory = $base_path . $directory;
                                     position : 'top',
                                     align	 : 'center',
 
-                                    alwaysVisible: true,
+                                    
                                     selectable: true,
                                     innerHtmlStyle: {
-                                        'text-align':'center'
+                                        'text-align':'center','background-color':'#FFFFFF'
                                     },
                                     alwaysVisible: false,
                                     themeName: 	'grey',
