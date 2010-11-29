@@ -2669,7 +2669,7 @@ function qlite_map() {
                   }
 		//map.setCenter(new GLatLng(37.4419, -122.1419), 13);
 		  map.addControl(new GLargeMapControl());
-    map.addControl(new GMapTypeControl());
+    //map.addControl(new GMapTypeControl());
       	" . $inc_script . "
                   
                   
