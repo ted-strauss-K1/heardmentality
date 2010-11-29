@@ -320,6 +320,7 @@ function check_select($gid,$quid){
 
 
 function search_results_ajax() {
+    
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
    // drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
 
@@ -358,6 +359,7 @@ function search_results_ajax() {
     if ($_GET['sscid']!='') {
         $scid = $_GET['sscid'];
     }
+    
 
 
     $eu = ($start - 0);
@@ -542,7 +544,7 @@ function search_results_ajax() {
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0);' id='$next'>Next</a>";
         }
-        $fetresult .= "</li></ul></div></div>";
+        $fetresult .= "</li></ul></div></div><input type='hidden' name='hid_page' id='hid_page' value=''/>";
     }
 
     if ($sel_count == 0) {
