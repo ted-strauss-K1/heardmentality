@@ -24,10 +24,7 @@ if($_REQUEST['sel_id']!=''){
        echo "<br/><span style='padding-left:10px' id='results' class='sidelinks'><a href='JavaScript:void(0);' sid=".$left_rows->cat_id." class='sidelinks nike'>".$left_rows->cat_name."</a></span>";
     }
         exit;
-
     }
-
-
 ?>
 
 
