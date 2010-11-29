@@ -7,6 +7,7 @@ $scid = '';
 
 global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 $query = facetad_refine();
+
 $sel_search = mysql_query($query['query']);
 $txt_search = trim($query['txt_search']);
 $qids = array();

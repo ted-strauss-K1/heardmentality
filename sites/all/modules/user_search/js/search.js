@@ -286,6 +286,7 @@ function search_user(){
   var  txt_search = jQuery('#hid_txtsearch').val();
   var  page_id = jQuery('#hid_page').val();
   var  cid = jQuery('#hid_cat').val();
+  var  scid = jQuery('#hid_scat').val();
   var  q_country = jQuery('#q_country').val();
   var  q_state = jQuery('#q_state').val(); 
   var  q_city = jQuery('#q_city').val();
@@ -295,6 +296,7 @@ function search_user(){
         url: url,
         data: {
             'cid':cid,
+            //'scid':scid,
             'q_country':q_country,
             'q_state':q_state,
             'q_city':q_city,
@@ -310,7 +312,7 @@ function search_user(){
 
 
     //var url = gSitePath+"sidebar_questionsearch.php";
-  /*var url = gSitePath+"sites/all/modules/user_search/sidebar_questionsearch.php";
+  var url = gSitePath+"sites/all/modules/user_search/sidebar_questionsearch.php";
 
   var  txt_search = jQuery('#hid_txtsearch').val();
   var  page_id = jQuery('#hid_page').val();
@@ -333,7 +335,7 @@ function search_user(){
         success: function(msg){
             jQuery('.padding10').html(msg);
         }
-    });*/
+    });
 
 }
 
@@ -355,7 +357,7 @@ function search_question(){
         url: url,
         data: {
             'cid':cid,
-             'scid':scid,
+            // 'scid':scid,
             'q_country':q_country,
             'q_state':q_state,
             'q_city':q_city,
@@ -455,6 +457,10 @@ search_question();
 
 var cid =  jQuery(this).find('a').attr('id');
 jQuery("#hid_cat").val(cid);
+
+
+var sid =  jQuery(this).find('#results a:first').attr('sid');
+jQuery("#hid_scat").val(sid);
 search_user();
 
    jQuery(".sidelinks a").click(function(event){
