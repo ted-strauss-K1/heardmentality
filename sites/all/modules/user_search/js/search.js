@@ -67,6 +67,7 @@ function rel_msg(id){
 
 
 function get_state(code){
+   
     $(document).ready(function() {
         var url = gSitePath + 'question/ajax';
         jQuery.ajax({
@@ -143,7 +144,7 @@ function get_user(q_city,txt_search,q_country,q_state,cid,scid){
 
 
 function get_city(ccode){
-
+ 
     var url = gSitePath + "question/ajax";
 	
     jQuery.ajax({
@@ -286,7 +287,7 @@ function search_user(){
   var  page_id = jQuery('#hid_page').val();
   var  cid = jQuery('#hid_cat').val();
   var  q_country = jQuery('#q_country').val();
-  var  q_state = jQuery('#q_state').val();
+  var  q_state = jQuery('#q_state').val(); 
   var  q_city = jQuery('#q_city').val();
 
     jQuery.ajax({
