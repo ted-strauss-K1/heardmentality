@@ -1040,7 +1040,7 @@ function question_ajax() {
 	});
                     </script>";
 
-                $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value); search_question(\'\',\'\',this.value,\'\');" id="q_state" name="q_state"> <option value="">--States--</option>';
+                $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value); search_question(\'\',\'\',this.value,\'\'); search_user();" id="q_state" name="q_state"> <option value="">--States--</option>';
                 foreach ($result->results as $state) {
                     $set = '';
                     if (strpos(strtolower($setstate), strtolower($state['name']))) {
@@ -1065,7 +1065,7 @@ function question_ajax() {
 	});
                     </script>";
 
-                $ret = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city" onchange="search_question(\'\',\'\',\'\',this.value)"> <option value="">--Cities--</option> ';
+                $ret = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city" onchange="search_question(\'\',\'\',\'\',this.value); search_user();"> <option value="">--Cities--</option> ';
                 foreach ($result->results as $state) {
 
                     $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
