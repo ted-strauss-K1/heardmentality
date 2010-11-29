@@ -351,7 +351,7 @@ function search_user_ajax() {
 
 
     }
-     $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+    echo $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
     
 
    //  echo $sel;
