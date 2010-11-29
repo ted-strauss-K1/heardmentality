@@ -339,7 +339,7 @@ search_question();
           //$("#stage").after(load('result.php', {"id":id} ));
 //          $("#stage").after(load('result.php',{"id":id}));
           //$(this).parents('ul').after($('<li id='+id+'>').load('result.php', { "id":id}));
-          jQuery(this).after(jQuery('<a id='+id+'>').load('sites/all/modules/user_search/sidebar.php', { "sel_id":id}));
+          jQuery(this).after(jQuery('<a id='+id+'>').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
           jQuery(this).removeAttr('id');
           event.preventDefault();
    });
