@@ -18,6 +18,13 @@ function user_search_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
+     $search_result['searchuser_ajax'] = array(
+        'title' => '  SEARCH RESULTS',
+        'page callback' => 'search_user_ajax',
+        'access arguments' => array('Search User'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
 	
     $search_result['searchquestion'] = array(
         'title' => '  SEARCH RESULTS',
@@ -238,7 +245,7 @@ function facetad_refine() {
     } else {
         //$sel = "SELECT * FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid ";
         ///chnaged vijay
-    echo  $sel = "SELECT q.*,qc.cat,qc.scat,qc.sscat FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid desc ";
+      $sel = "SELECT q.*,qc.cat,qc.scat,qc.sscat FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid desc ";
       
     }
 

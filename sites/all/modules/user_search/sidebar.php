@@ -63,7 +63,7 @@ if (!empty($listcat)) {
         $total_count1 = mysql_num_rows($cat_res);
         
                  //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
-        $catlist.='<span ' . $style . ' class="sidelinks">
+        $catlist.='<span ' . $style . ' class="sidelinks" id="ques">
             
         <a class="sidelinks" id="'.$cat['cat_id'].'" href="JavaScript:void(0);">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
         //subcat list

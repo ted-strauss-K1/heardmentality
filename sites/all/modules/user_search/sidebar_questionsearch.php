@@ -52,8 +52,8 @@ if (!empty($listcat)) {
         $count_row3 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$cat[cat_id]) AND reg.status=1 and reg.uid=fol.uid group by fol.uid"));
         if($count_row3>0){ $count_row3 =  "[$count_row3]";}else{$count_row3='';}
 
-        
-       $catlist.='<span ' . $style . ' class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$_GET['q_country'].'&q_state='.$_GET['q_state'].'&q_city='.$_GET['q_city'].'">' . $cat['cat_name'] .$count_row3 . '</a></span><br/>';
+        //href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$_GET['q_country'].'&q_state='.$_GET['q_state'].'&q_city='.$_GET['q_city'].'"
+       $catlist.='<span ' . $style . ' class="sidelinks" id="user"><a class="sidelinks" id="'.$cat['cat_id'].'" href="JavaScript:void(0);" >' . $cat['cat_name'] .$count_row3 . '</a></span><br/>';
 
        
         //subcat list
@@ -106,7 +106,7 @@ if (!empty($listcat)) {
 
     $catlist.='<span><b>No Category Found</b></span>';
 }
-$catlist.='</div>';
+$catlist.='</div><input type="hidden" name="hid_cat" id="hid_cat" value="" /><input type="hidden" name="hid_txtsearch" id="hid_txtsearch" value="'.$txt_search.'" />';
 echo $catlist;
 
 

@@ -277,9 +277,39 @@ jQuery(document).ready(function(){
 
 
 
+function search_user(){
+   // search_category();
+  var url = gSitePath+"searchuser_ajax";
+  //var url = gSitePath+"sites/all/modules/user_search/sidebar.php";
+
+  var  txt_search = jQuery('#hid_txtsearch').val();
+  var  page_id = jQuery('#hid_page').val();
+  var  cid = jQuery('#hid_cat').val();
+  var  q_country = jQuery('#q_country').val();
+  var  q_state = jQuery('#q_state').val();
+  var  q_city = jQuery('#q_city').val();
+
+    jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: {
+            'cid':cid,
+            'q_country':q_country,
+            'q_state':q_state,
+            'q_city':q_city,
+            'start':page_id,
+            'txt_search':txt_search
+        },
+        success: function(msg){
+            jQuery('.user_search_3').html(msg);
+        }
+    });
+}
+
 function search_question(){
-    
+   // search_category();
   var url = gSitePath+"searchquestion_ajax";
+  //var url = gSitePath+"sites/all/modules/user_search/sidebar.php";
 
   var  txt_search = jQuery('#hid_txtsearch').val();
   var  page_id = jQuery('#hid_page').val();
@@ -304,6 +334,7 @@ function search_question(){
         }
     });
 }
+
 	
 
 jQuery(document).ready(function(){
@@ -318,34 +349,57 @@ e.stopPropagation();
 
 
     //set hidden id
-      jQuery('.sidelinks').live("click", function(e) {
+    ////for question search
+      jQuery('span[id=ques]').live("click", function(e) {
+          
             e.preventDefault();
-e.stopPropagation();
+            e.stopPropagation();
       
 var cid =  jQuery(this).find('a').attr('id');
+
 jQuery("#hid_cat").val(cid);
 search_question();
-
-
-
 
    jQuery(".sidelinks a").click(function(event){
      
    var id = this.id;
-   //alert(id);
-   //return false;
-
-//   var name = $("#name").val();
-          //$("#stage").after(load('result.php', {"id":id} ));
-//          $("#stage").after(load('result.php',{"id":id}));
-          //$(this).parents('ul').after($('<li id='+id+'>').load('result.php', { "id":id}));
+   
           jQuery(this).after(jQuery('<a id='+id+'>').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
-          jQuery(this).removeAttr('id');
+          //jQuery(this).removeAttr('id');
           event.preventDefault();
    });
 
         
       
+//$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
+});
+
+
+
+
+
+
+///for user search
+ jQuery('span[id=user]').live("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+var cid =  jQuery(this).find('a').attr('id');
+
+jQuery("#hid_cat").val(cid);
+search_user();
+
+   jQuery(".sidelinks a").click(function(event){
+
+   var id = this.id;
+
+          jQuery(this).after(jQuery('<a id='+id+'>').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
+          //jQuery(this).removeAttr('id');
+          event.preventDefault();
+   });
+
+
+
 //$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
 });
 
