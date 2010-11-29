@@ -43,12 +43,17 @@ $directory = $base_path . $directory;
                      
                         jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel-control').livequery(function () {
 
-
+                        
                             if (jQuery(this).attr("rel").length > 0) {
+                                // jQuery(this).CreateBubblePopup();
                                 var id=jQuery(this);
                                 jQuery(this).CreateBubblePopup({
+                                    position : 'top',
+                                    align	 : 'center',
+
+                                    alwaysVisible: true,
                                     selectable: true,
-                                       innerHtmlStyle: {
+                                    innerHtmlStyle: {
                                         'text-align':'center'
                                     },
                                     themeName: 	'grey',
@@ -63,9 +68,14 @@ $directory = $base_path . $directory;
                         jQuery('.p-foll li a,#mfollowing a,#inbox a,.contarea a').not('.jcarousel-control').each(function () {
 
                             if (jQuery(this).attr("rel").length > 0) {
+                                //  jQuery(this).CreateBubblePopup();
                                 var id=jQuery(this);
                                 jQuery(this).CreateBubblePopup({
-                                selectable: true,
+                                    position : 'top',
+                                    align	 : 'center',
+
+                                    alwaysVisible: true,
+                                    selectable: true,
                                     innerHtmlStyle: {
                                         'text-align':'center'
                                     },
@@ -258,10 +268,10 @@ $directory = $base_path . $directory;
                                                 <div class="searchr">
 
                                                     <div class="stext">    <input type="radio" name="stype[]" id="stype2" value="2" <?php
-                                                                        if (isset($_REQUEST['stype'])) {
-                                                                            if ($_REQUEST['stype'][0] == 2) {
+                                                                                if (isset($_REQUEST['stype'])) {
+                                                                                    if ($_REQUEST['stype'][0] == 2) {
                                     ?> checked="checked" <?php }
-                                                                          } ?>  /></div>
+                                                                                } ?>  /></div>
                                                     <label for="radio2" class="slab">Users</label>
                                                 </div>
                                                 <div>&nbsp;
@@ -270,27 +280,27 @@ $directory = $base_path . $directory;
                                             </form>     </div>
 
                                         <div class="men">
-<?php if (count($primary_links)) : ?>
+                                            <?php if (count($primary_links)) : ?>
 
                                             <?php $mb = 1;
-                                                                              foreach ($primary_links as $link): ?>
-                                                                                  <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'About US' || ($link['title'] == 'Add  Question') || ($link['title'] == 'Privacy')): ?> class="floatbox" data-fb-options="width:750 height:80%"  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
-<?php endforeach; ?>
+                                                                                    foreach ($primary_links as $link): ?>
+                                                                                        <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'About US' || ($link['title'] == 'Add  Question') || ($link['title'] == 'Privacy')): ?> class="floatbox" data-fb-options="width:750 height:80%"  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
+                                            <?php endforeach; ?>
 
-<?php endif; ?>
+                                            <?php endif; ?>
 
-                                                                                  </div>
+                                                                                        </div>
 
-                                                                                  <div class="edition">
-                                                                                      <div >Edition:<span id="lang"></span>
-                                                                                          <!-- Google Translate -->
+                                                                                        <div class="edition">
+                                                                                            <div >Edition:<span id="lang"></span>
+                                                                                                <!-- Google Translate -->
 
-                                                                                      </div>
-                                                                                  </div> <!-- /navigation -->
-                                                                              </div>
-                                                                              <!-- /header -->
-                                                                              <div class="clr"></div>
+                                                                                            </div>
+                                                                                        </div> <!-- /navigation -->
+                                                                                    </div>
+                                                                                    <!-- /header -->
+                                                                                    <div class="clr"></div>
                                     <?php if ($show_messages && $messages): print '<div class="messages">' . $messages . '</div>';
-                                                                                      endif; ?>
+                                                                                            endif; ?>
                                     <div class="clr"></div>
                                     <!--Header close-->
