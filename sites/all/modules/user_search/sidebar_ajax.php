@@ -1,5 +1,5 @@
 <?php
-mysql_connect("localhost","root","");
+mysql_connect("localhost","root","oPenWave#1220");
 mysql_select_db("heardmentality");
 $link1 = '';
 $link2 = '';
