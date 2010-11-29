@@ -312,7 +312,7 @@ function search_user(){
 
 
     //var url = gSitePath+"sidebar_questionsearch.php";
-  var url = gSitePath+"sites/all/modules/user_search/sidebar_questionsearch.php";
+  /*var url = gSitePath+"sites/all/modules/user_search/sidebar_questionsearch.php";
 
   var  txt_search = jQuery('#hid_txtsearch').val();
   var  page_id = jQuery('#hid_page').val();
@@ -335,7 +335,7 @@ function search_user(){
         success: function(msg){
             jQuery('.padding10').html(msg);
         }
-    });
+    });*/
 
 }
 
