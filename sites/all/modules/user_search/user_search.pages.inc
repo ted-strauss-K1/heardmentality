@@ -261,7 +261,43 @@ function search_results() {
     return $fetresult;
 }
 
+function category_ajax()
+{
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+     if($_REQUEST['q_country']!='' && $_REQUEST['q_country']!=0 )
+     {
+         $q_country = $_REQUEST['q_country'];
+         $cond .= " AND ques.country='$q_country'";
+     }
+     if($_REQUEST['q_state']!='' && $_REQUEST['q_state']!=0)
+     {
+         $q_state = $_REQUEST['q_state'];
+         $cond .= " AND ques.state='$q_state'";
+     }
+     if($_REQUEST['q_city']!='' && $_REQUEST['q_city']!=0)
+     {
+         $q_city = $_REQUEST['q_city'];
+         $cond .= " AND ques.city='$q_city'";
+     }
+     if($_REQUEST['txt_search']!='')
+     {
+         $txt_search = $_REQUEST['txt_search'];
+         $cond .= " AND ques.question LIKE'%$txt_search%'";
+     }
 
+       $qry = "select * from question_cat as cat join question as ques on cat.qid=ques.qid join category as c on c.cat_id=cat.cat  where 1 $cond group by cat.cat";
+     
+    // $qry = "select * from question_cat as cat join question as ques on ques.cat=cat.cat_id";
+      $cat_qry = db_query($qry);
+      while($cat_rows = db_fetch_object($cat_qry))
+      {
+
+              echo "<br/><span id='ques' class='sidelinks'><a href='JavaScript:void(0);' id=".$cat_rows->cat_id." class='sidelinks hilite'>".$cat_rows->cat_name."</a></span>";
+      }
+    exit;
+
+
+}
 function search_user_ajax() {
     ////vijay1
     
@@ -351,7 +387,7 @@ function search_user_ajax() {
 
 
     }
-    echo $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+    $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
     
 
    //  echo $sel;

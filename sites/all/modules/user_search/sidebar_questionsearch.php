@@ -29,7 +29,7 @@ if (!empty($_REQUEST['scid'])) {
 if (!empty($_REQUEST['sscid'])) {
     $sscid = $_REQUEST['sscid'];
 }
-$catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
+$catlist.='<div class="padding10" id="pad10"><span class="black12">Category :</span><br/>';
 if (!empty($txt_search)) {
 $sel_user = "select * from user_profile where real_name LIKE '%".$txt_search."%'";
 $listuser = ExecuteQuery($sel_user, "select");

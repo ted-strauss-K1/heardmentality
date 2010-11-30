@@ -311,12 +311,12 @@ function search_user(){
 
 
 
-    //var url = gSitePath+"sidebar_questionsearch.php";
-  /*var url = gSitePath+"sites/all/modules/user_search/sidebar_questionsearch.php";
+   var url = gSitePath+"searchquestion_category_ajax";
 
   var  txt_search = jQuery('#hid_txtsearch').val();
   var  page_id = jQuery('#hid_page').val();
   var  cid = jQuery('#hid_cat').val();
+  var  scid = jQuery('#hid_scat').val();
   var  q_country = jQuery('#q_country').val();
   var  q_state = jQuery('#q_state').val();
   var  q_city = jQuery('#q_city').val();
@@ -326,6 +326,7 @@ function search_user(){
         url: url,
         data: {
             'cid':cid,
+             'scid':scid,
             'q_country':q_country,
             'q_state':q_state,
             'q_city':q_city,
@@ -333,9 +334,9 @@ function search_user(){
             'txt_search':txt_search
         },
         success: function(msg){
-            jQuery('.padding10').html(msg);
+            jQuery('#pad10').html(msg);
         }
-    });*/
+    });
 
 }
 
@@ -371,9 +372,8 @@ function search_question(){
 
 
 
-    //var url = gSitePath+"searchquestion_ajax";
- /* var url = gSitePath+"sites/all/modules/user_search/sidebar.php";
-
+  var url = gSitePath+"searchquestion_category_ajax";
+  
   var  txt_search = jQuery('#hid_txtsearch').val();
   var  page_id = jQuery('#hid_page').val();
   var  cid = jQuery('#hid_cat').val();
@@ -395,9 +395,9 @@ function search_question(){
             'txt_search':txt_search
         },
         success: function(msg){
-            jQuery('.padding10').html(msg);
+            jQuery('#pad10').html(msg);
         }
-    });*/
+    });
 
 
 }
@@ -425,23 +425,28 @@ e.stopPropagation();
 var cid =  jQuery(this).find('a').attr('id');
 jQuery("#hid_cat").val(cid);
 
-var scid =  jQuery(this).find('.nike').attr('sid');
-
+var scid =  jQuery(this).parent(".sidelinks").find('a:first').attr('sid');
 jQuery("#hid_scat").val(scid);
-
 search_question();
-
+        //var $tabs = $('#ques').tabs();
+        //var selected = $tabs.tabs('option', 'selected');
+        
    jQuery(".sidelinks a").click(function(event){
-     
+      
+        if($(this).hasClass('sidelinks hilite').toString()=='true')
+         {
+             return false;
+         }
+
+         
    var id = this.id;
-   
-          jQuery(this).after(jQuery('<a id='+id+'>').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
+         // jQuery(this).after(jQuery('<a id='+id+'>').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
+          jQuery(this).after(jQuery('<span class="sidelinks">').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
+          $(this).addClass("hilite");
           //jQuery(this).removeAttr('id');
           event.preventDefault();
    });
 
-        
-      
 //$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
 });
 
@@ -465,9 +470,15 @@ search_user();
 
    jQuery(".sidelinks a").click(function(event){
 
+   if($(this).hasClass('sidelinks hilite').toString()=='true')
+         {
+             return false;
+         }
+
    var id = this.id;
 
-          jQuery(this).after(jQuery('<a id='+id+'>').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
+          jQuery(this).after(jQuery('<span class="sidelinks">').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
+           $(this).addClass("hilite");
           //jQuery(this).removeAttr('id');
           event.preventDefault();
    });

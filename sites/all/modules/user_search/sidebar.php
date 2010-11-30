@@ -47,7 +47,7 @@ if(!empty($_REQUEST['q_country'])) {
         
     }
 
-$catlist.='<div class="padding10"><span class="black12">Category :</span><br/>';
+$catlist.='<div class="padding10" id="pad10"><span class="black12">Category :</span><br/>';
  $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
 $listcat = ExecuteQuery($sel_cat, "select");
 
