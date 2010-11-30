@@ -264,7 +264,8 @@ function search_results() {
 function category_ajax()
 {
      global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-     if($_REQUEST['q_country']!='' && $_REQUEST['q_country']!=0 )
+     //print_r($_REQUEST);
+     if($_REQUEST['q_country']!='')
      {
          $q_country = $_REQUEST['q_country'];
          $cond .= " AND ques.country='$q_country'";
@@ -285,14 +286,16 @@ function category_ajax()
          $cond .= " AND ques.question LIKE'%$txt_search%'";
      }
 
-       $qry = "select * from question_cat as cat join question as ques on cat.qid=ques.qid join category as c on c.cat_id=cat.cat  where 1 $cond group by cat.cat";
+    $qry = "select * from question_cat as cat join question as ques on cat.qid=ques.qid join category as c on c.cat_id=cat.cat  where 1 $cond group by cat.cat";
      
     // $qry = "select * from question_cat as cat join question as ques on ques.cat=cat.cat_id";
       $cat_qry = db_query($qry);
       while($cat_rows = db_fetch_object($cat_qry))
       {
+    $count_row3 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$cat_rows->cat_id) AND reg.status=1 and reg.uid=fol.uid group by fol.uid"));
+        if($count_row3>0){ $count_row3 =  "[$count_row3]";}else{$count_row3='';}
 
-              echo "<br/><span id='ques' class='sidelinks'><a href='JavaScript:void(0);' id=".$cat_rows->cat_id." class='sidelinks hilite'>".$cat_rows->cat_name."</a></span>";
+              echo "<br/><span id='user' class='sidelinks'><a href='JavaScript:void(0);' id=".$cat_rows->cat_id." class='sidelinks subajax'>".$cat_rows->cat_name." $count_row3</a></span>";
       }
     exit;
 
@@ -300,7 +303,7 @@ function category_ajax()
 }
 function search_user_ajax() {
     ////vijay1
-    
+   // print_r($_REQUEST);
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
     $flink = '';

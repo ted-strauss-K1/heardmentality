@@ -296,7 +296,7 @@ function search_user(){
         url: url,
         data: {
             'cid':cid,
-            //'scid':scid,
+            'scid':scid,
             'q_country':q_country,
             'q_state':q_state,
             'q_city':q_city,
@@ -309,34 +309,36 @@ function search_user(){
     });
 
 
+ var qid =  jQuery('#q_country').val();
+   // alert(qid);
+    if(qid!=0)
+    {
+          var url = gSitePath+"searchquestion_category_ajax";
+          var  txt_search = jQuery('#hid_txtsearch').val();
+          var  page_id = jQuery('#hid_page').val();
+          var  cid = jQuery('#hid_cat').val();
+          var  scid = jQuery('#hid_scat').val();
+          var  q_country = jQuery('#q_country').val();
+          var  q_state = jQuery('#q_state').val();
+          var  q_city = jQuery('#q_city').val();
 
-
-   var url = gSitePath+"searchquestion_category_ajax";
-
-  var  txt_search = jQuery('#hid_txtsearch').val();
-  var  page_id = jQuery('#hid_page').val();
-  var  cid = jQuery('#hid_cat').val();
-  var  scid = jQuery('#hid_scat').val();
-  var  q_country = jQuery('#q_country').val();
-  var  q_state = jQuery('#q_state').val();
-  var  q_city = jQuery('#q_city').val();
-
-    jQuery.ajax({
-        type: "GET",
-        url: url,
-        data: {
-            'cid':cid,
-             'scid':scid,
-            'q_country':q_country,
-            'q_state':q_state,
-            'q_city':q_city,
-            'start':page_id,
-            'txt_search':txt_search
-        },
-        success: function(msg){
-            jQuery('#pad10').html(msg);
-        }
-    });
+            jQuery.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    'cid':cid,
+                     'scid':scid,
+                    'q_country':q_country,
+                    'q_state':q_state,
+                    'q_city':q_city,
+                    'start':page_id,
+                    'txt_search':txt_search
+                },
+                success: function(msg){
+                    jQuery('#pad10').html(msg);
+                }
+            });
+    }
 
 }
 
@@ -358,7 +360,7 @@ function search_question(){
         url: url,
         data: {
             'cid':cid,
-            // 'scid':scid,
+             'scid':scid,
             'q_country':q_country,
             'q_state':q_state,
             'q_city':q_city,
@@ -370,41 +372,44 @@ function search_question(){
         }
     });
 
+    
+    var qid =  jQuery('#q_country').val();
+   // alert(qid);
+    if(qid!=0)
+    {
+      var url = gSitePath+"searchquestion_category_ajax";
 
+      var  txt_search = jQuery('#hid_txtsearch').val();
+      var  page_id = jQuery('#hid_page').val();
+      var  cid = jQuery('#hid_cat').val();
+      var  scid = jQuery('#hid_scat').val();
+      var  q_country = jQuery('#q_country').val();
+      var  q_state = jQuery('#q_state').val();
+      var  q_city = jQuery('#q_city').val();
 
-  var url = gSitePath+"searchquestion_category_ajax";
-  
-  var  txt_search = jQuery('#hid_txtsearch').val();
-  var  page_id = jQuery('#hid_page').val();
-  var  cid = jQuery('#hid_cat').val();
-  var  scid = jQuery('#hid_scat').val();
-  var  q_country = jQuery('#q_country').val();
-  var  q_state = jQuery('#q_state').val();
-  var  q_city = jQuery('#q_city').val();
-
-    jQuery.ajax({
-        type: "GET",
-        url: url,
-        data: {
-            'cid':cid,
-             'scid':scid,
-            'q_country':q_country,
-            'q_state':q_state,
-            'q_city':q_city,
-            'start':page_id,
-            'txt_search':txt_search
-        },
-        success: function(msg){
-            jQuery('#pad10').html(msg);
-        }
-    });
-
+        jQuery.ajax({
+            type: "GET",
+            url: url,
+            data: {
+                'cid':cid,
+                 'scid':scid,
+                'q_country':q_country,
+                'q_state':q_state,
+                'q_city':q_city,
+                'start':page_id,
+                'txt_search':txt_search
+            },
+            success: function(msg){
+                jQuery('#pad10').html(msg);
+            }
+        });
+     }
 
 }
-
-	
-
 jQuery(document).ready(function(){
+
+
+
     $('.issuesearch3 a').live("click", function(e) {
           e.preventDefault();
 e.stopPropagation();
@@ -425,8 +430,11 @@ e.stopPropagation();
 var cid =  jQuery(this).find('a').attr('id');
 jQuery("#hid_cat").val(cid);
 
-var scid =  jQuery(this).parent(".sidelinks").find('a:first').attr('sid');
-jQuery("#hid_scat").val(scid);
+jQuery('a.sidelinks').live('click', function(){
+    var scid = jQuery(this).attr('sid');
+    jQuery("#hid_scat").val(scid);
+});
+
 search_question();
         //var $tabs = $('#ques').tabs();
         //var selected = $tabs.tabs('option', 'selected');
@@ -439,9 +447,11 @@ search_question();
          }
 
          
-   var id = this.id;
+          var id = this.id;
+          var  scid = jQuery('#hid_scat').val();
+         
          // jQuery(this).after(jQuery('<a id='+id+'>').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
-          jQuery(this).after(jQuery('<span class="sidelinks">').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
+          jQuery(this).after(jQuery('<span class="sidelinks">').load('sites/all/modules/user_search/sidebar_ajaxques.php', { "sel_id":id,"scid":scid}));
           $(this).addClass("hilite");
           //jQuery(this).removeAttr('id');
           event.preventDefault();
@@ -464,8 +474,11 @@ var cid =  jQuery(this).find('a').attr('id');
 jQuery("#hid_cat").val(cid);
 
 
-var sid =  jQuery(this).find('#results a:first').attr('sid');
-jQuery("#hid_scat").val(sid);
+jQuery('a.sidelinks').live('click', function(){
+    var scid = jQuery(this).attr('sid');
+    jQuery("#hid_scat").val(scid);
+});
+
 search_user();
 
    jQuery(".sidelinks a").click(function(event){
@@ -477,7 +490,7 @@ search_user();
 
    var id = this.id;
 
-          jQuery(this).after(jQuery('<span class="sidelinks">').load('sites/all/modules/user_search/sidebar_ajax.php', { "sel_id":id}));
+          jQuery(this).after(jQuery('<span class="sidelinks">').load('sites/all/modules/user_search/sidebar_ajaxuser.php', { "sel_id":id}));
            $(this).addClass("hilite");
           //jQuery(this).removeAttr('id');
           event.preventDefault();
