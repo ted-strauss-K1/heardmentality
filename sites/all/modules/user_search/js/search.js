@@ -518,7 +518,6 @@ search_user();
   jQuery('.page-n a').livequery("click", function(e) {
       
      var page_id =  jQuery(this).attr('id');
-     
      jQuery("#hid_page").val(page_id);
      search_question();
   });

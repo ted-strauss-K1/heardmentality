@@ -679,7 +679,7 @@ function search_results_ajax() {
 
     $sel = facetad_refine();
     $sel_count = $sel['qcnt'];
-    $sel['query'] .= " limit  $eu, $limit";
+   echo $sel['query'] .= " limit  $eu, $limit";
 
     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
      //drupal_add_js(drupal_get_path('module', 'user_search') . '/js/sub.js');
