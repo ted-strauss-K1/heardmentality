@@ -47,7 +47,7 @@ if(!empty($_REQUEST['q_country'])) {
         
     }
 
-$catlist.='<div class="padding10" id="pad10"><span class="black12">Category :</span><br/>';
+$catlist.='<div class="padding10" id="pad10"><span class="black12">Category  :</span><br/>';
  $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . " AND q.status='1' group by c.cat_id";
 $listcat = ExecuteQuery($sel_cat, "select");
 
@@ -63,7 +63,7 @@ if (!empty($listcat)) {
         $total_count1 = mysql_num_rows($cat_res);
         
                  //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
-        $catlist.='<span ' . $style . ' class="sidelinks" id="ques">
+        $catlist.='<span ' . $style . ' class="sidelinks">
             
         <a class="sidelinks" id="'.$cat['cat_id'].'" href="JavaScript:void(0);">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
         //subcat list

@@ -350,6 +350,7 @@ function search_question(){
   var  txt_search = jQuery('#hid_txtsearch').val();
   var  page_id = jQuery('#hid_page').val();
   var  cid = jQuery('#hid_cat').val();
+
   var  scid = jQuery('#hid_scat').val();
   var  q_country = jQuery('#q_country').val();
   var  q_state = jQuery('#q_state').val();
@@ -406,6 +407,10 @@ function search_question(){
      }
 
 }
+
+
+
+
 jQuery(document).ready(function(){
 
 
@@ -422,19 +427,32 @@ e.stopPropagation();
 
     //set hidden id
     ////for question search
-      jQuery('span[id=ques]').live("click", function(e) {
+   // jQuery('a.sidelinks').click(function(){
+     //   var alid = jQuery(this).attr('id');
+        //alert(alid);
+    
+     jQuery('a.sidelinks').livequery("click", function(e) {
+        
+    // jQuery("#"+alid).live("click", function(e) {
+          //alert("hi tree");
           
             e.preventDefault();
             e.stopPropagation();
       
-var cid =  jQuery(this).find('a').attr('id');
-jQuery("#hid_cat").val(cid);
+//var cid =  jQuery(this).find('a').attr('id');
 
-jQuery('a.sidelinks').live('click', function(){
+//jQuery("#hid_cat").val(cid);
+
+jQuery('a[class|=sidelinks]').livequery('click', function(){
+    var cid = jQuery(this).attr('id');
+    jQuery("#hid_cat").val(cid);
+});
+
+
+jQuery('a.sidelinks').livequery('click', function(){
     var scid = jQuery(this).attr('sid');
     jQuery("#hid_scat").val(scid);
 });
-
 search_question();
         //var $tabs = $('#ques').tabs();
         //var selected = $tabs.tabs('option', 'selected');
@@ -445,8 +463,6 @@ search_question();
          {
              return false;
          }
-
-         
           var id = this.id;
           var  scid = jQuery('#hid_scat').val();
          
@@ -459,6 +475,7 @@ search_question();
 
 //$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
 });
+//});
 
 
 

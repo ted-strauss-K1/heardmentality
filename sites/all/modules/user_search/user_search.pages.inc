@@ -290,12 +290,18 @@ function category_ajax()
      
     // $qry = "select * from question_cat as cat join question as ques on ques.cat=cat.cat_id";
       $cat_qry = db_query($qry);
+      
+      echo "<span class='black12'>Category:</span>";
       while($cat_rows = db_fetch_object($cat_qry))
       {
     $count_row3 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$cat_rows->cat_id) AND reg.status=1 and reg.uid=fol.uid group by fol.uid"));
         if($count_row3>0){ $count_row3 =  "[$count_row3]";}else{$count_row3='';}
 
-              echo "<br/><span id='user' class='sidelinks'><a href='JavaScript:void(0);' id=".$cat_rows->cat_id." class='sidelinks subajax'>".$cat_rows->cat_name." $count_row3</a></span>";
+              echo "<br/><span id='user' class='sidelinks'><a href='JavaScript:void(0);' id=".$cat_rows->cat_id." class='sidelinks'>".$cat_rows->cat_name." $count_row3</a></span>";
+      }
+      if(mysql_num_rows($cat_qry)==0)
+      {
+          echo "<br/>No categories found";
       }
     exit;
 
