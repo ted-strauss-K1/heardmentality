@@ -34,7 +34,7 @@ $items['invite/invite_friends'] = array(
   );
     $items['invite/sendmail'] = array(
     'title' => 'sendmail',
-    'page callback' => 'send_mail',
+    'page callback' => 'invite_cron',
     'access arguments' => array('Twitter Login'),
     'type' => MENU_CALLBACK,
     'file' => 'invite.pages.inc',

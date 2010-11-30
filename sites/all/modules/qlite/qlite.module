@@ -570,10 +570,10 @@ $ip=$_SERVER['REMOTE_ADDR'];
 
 return $ip;
 }
-function cal_active_rate() {
+function qlite_cron() {
 
-    
-    global $gSitePath,$user,$gDocPath,$base_root;
+
+   global $gSitePath,$user,$gDocPath,$base_root;
     $j = 5;
     $k = 5;
     $l = 5;
@@ -581,7 +581,7 @@ function cal_active_rate() {
     $gvote = array();
     $query = "SELECT * from {question}";
     $list = ExecuteQuery($query, "select");
-    
+   
     foreach ($list as $quest) {
 
         
@@ -593,8 +593,8 @@ function cal_active_rate() {
     $tvote = $m1 + $m2;
         
         $query2 = "select IFNULL((select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid),0) as wcnt,IFNULL((select count(*) from {resource} where qid='".$quest['qid']."' group by qid),0) as rcnt from {forum_wave} as f where f.qid_rid='".$quest['qid']."' ";
-       echo $fcnt = db_fetch_object(db_query($query2));
-        
+        $fcnt = db_fetch_object(db_query($query2));
+     
         //The value �active� will be calculated as follows (j,k,l are constant values that will be hard-coded):
         //Active =  (j * #_of_votes_for_question) + (k * #_of_forum_posts) + (l * #_of_posted_resources)
         if (! empty($fcnt)) {

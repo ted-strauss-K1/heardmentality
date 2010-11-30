@@ -507,8 +507,8 @@ echo "<p align=\"center\" >".' Twitter  updated successfully !'."</p>";
 } 
 
 }
-
-function send_mail()
+// drupal cron for sending mail frm hm_mail tables
+function invite_cron()
 {
     global $gSitePath,$user,$gDocPath,$base_root;
          $send_qry = "select * from hm_mails where mail_status='0'";

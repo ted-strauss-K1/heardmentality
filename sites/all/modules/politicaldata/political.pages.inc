@@ -98,7 +98,7 @@ function political_api() {
                             $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, 'Present');
                             $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, 'Not Voting');
                             //url alias
-                            
+                              db_query("insert into {question_cat} set qid='$ins_id',cat='1'");
                             $url = 'qlite/view/'.$ins_id;
                             
                             $urlins = db_query("insert INTO {url_alias} set src='".$url."',dst='".$dst."'");
