@@ -408,9 +408,6 @@ function search_question(){
 
 }
 
-
-
-
 jQuery(document).ready(function(){
 
 
@@ -518,9 +515,10 @@ search_user();
 //$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
 });
 
-  jQuery('.page-n a').live("click", function(e) {
+  jQuery('.page-n a').livequery("click", function(e) {
       
      var page_id =  jQuery(this).attr('id');
+     
      jQuery("#hid_page").val(page_id);
      search_question();
   });
