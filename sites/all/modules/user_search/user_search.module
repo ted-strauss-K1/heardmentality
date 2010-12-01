@@ -542,7 +542,7 @@ function _sidebar_location() {
     } else {
         $optionlist.='<div id="chg_state">
     <div class="listmenu">
-    <select id="q_state" class="listbox" name="q_state" onchange="get_citysquestion(this.value);" style="width: 125px;" tabindex="18">
+    <select id="q_state" class="listbox" name="q_state" disabled="disabled" onchange="get_citysquestion(this.value);" style="width: 125px;" tabindex="18">
     <option value="0" >State/Province</option>
     </select>
     </div></div>';
@@ -551,7 +551,7 @@ function _sidebar_location() {
     $query = array('geonameid' => $q_state);
     $result = geonames_query('children', $query);
     //print_r($result);
-    $optionlist.=' <div class="listmenu" id="chg_city"><select class="listbox"  tabindex="19" onchange="get_question(this.value,' . $txt_search . ',' . $cid . ',' . $q_country . ',' . $q_state . ')"  style="width: 125px;"  id="q_city" name="q_city">';
+    $optionlist.=' <div class="listmenu" id="chg_city"><select class="listbox" disabled="disabled" tabindex="19" onchange="get_question(this.value,' . $txt_search . ',' . $cid . ',' . $q_country . ',' . $q_state . ')"  style="width: 125px;"  id="q_city" name="q_city">';
 
     $optionlist.= '<option value="">Cities</option> ';
     foreach ($result->results as $state) {
