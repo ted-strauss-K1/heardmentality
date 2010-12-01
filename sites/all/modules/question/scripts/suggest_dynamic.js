@@ -152,10 +152,11 @@
 		if(!ajax_optionDiv){
 			ajax_optionDiv = document.createElement('DIV');
 			
-			ajax_optionDiv.id = 'ajax_listOfOptions';
+			//ajax_optionDiv.id = 'ajax_listOfOptions';
+			ajax_optionDiv.id = 'inside_content';
 			
-			document.body.appendChild(ajax_optionDiv);
-			
+			//document.body.appendChild(ajax_optionDiv);
+			jQuery('#inside_content').append(ajax_optionDiv);
 			
 			if(ajax_list_MSIE){
 				ajax_optionDiv_iframe = document.createElement('IFRAME');

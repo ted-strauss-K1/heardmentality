@@ -1,5 +1,6 @@
 // JavaScript Document
 jQuery(document).ready( function() {
+
     jQuery('#q_cat').multiSelect();
 
     jQuery('#q_scat').multiSelect();
@@ -10,6 +11,26 @@ jQuery(document).ready( function() {
         get_city(setstate);
     }
    jQuery('.selectAll').remove();
+
+//jQuery('#ajax_listOfOptions a')
+/*jQuery('a.sidelinks').livequery('click', function(){
+
+    var scid = jQuery(this).attr('sid');
+    jQuery("#hid_scat").val(scid);
+});*/
+    
+    jQuery('.optionDiv a').livequery('click', function(){
+    
+    //jQuery('.optionDiv').find('a').removeAttr('target');
+    alert("hi some");
+    return false;
+
+   // jQuery('.optionDiv a').removeAttr('target');
+    
+   //jQuery("#q_quest").val("hi value");
+   
+});
+
 });
 /*
 		(function($) {

@@ -107,6 +107,7 @@ function question_add() {
 		</script>
 
 		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
+                <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.livequery.js"></script>
 		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.bgiframe.min.js"></script>
                 <script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/suggest_dynamic.js" type="text/javascript"></script>
                 <script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/post_list.js" type="text/javascript"></script>
@@ -147,6 +148,8 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          <li>Unbiased</li>
          <li>Contain no names</li>
          </ul></div>
+         <div id="inside_content" style="width:165px;height:190px;overflow:auto;margin-top:20px;">
+         </div>
           </div>
        <div class="right" id="qform">
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="' . $gSitePath . 'question/save" >
