@@ -826,7 +826,7 @@ function search_results_ajax() {
 }
 
 function search_results_question() {
-    print_r($_REQUEST);
+   // print_r($_REQUEST);
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     //drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
     
