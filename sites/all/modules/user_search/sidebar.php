@@ -6,7 +6,7 @@ $cid = '';
 $scid = '';
 global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 $query = facetad_refine();
-$sel_search = mysql_query($query['query']);
+$sel_search = db_query($query['query']);
 $txt_search = trim($query['txt_search']);
 $qids = array();
 
@@ -65,7 +65,7 @@ if (!empty($listcat)) {
                  //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
         $catlist.='<span ' . $style . ' class="sidelinks">
             
-        <a class="speciallinks" id="'.$cat['cat_id'].'" href="JavaScript:void(0);">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
+        <a  id="c-'.$cat['cat_id'].'" href="JavaScript:void(0);">' . $cat['cat_name'] . '[' .$total_count1. ']</a></span><br/>';
         //subcat list
         if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
            // $catlist.='<ul>';

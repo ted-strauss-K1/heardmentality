@@ -264,45 +264,7 @@ function search_results() {
 function category_ajax()
 {
      global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-     //print_r($_REQUEST);
-     if($_REQUEST['q_country']!='')
-     {
-         $q_country = $_REQUEST['q_country'];
-         $cond .= " AND ques.country='$q_country'";
-     }
-     if($_REQUEST['q_state']!='' && $_REQUEST['q_state']!=0)
-     {
-         $q_state = $_REQUEST['q_state'];
-         $cond .= " AND ques.state='$q_state'";
-     }
-     if($_REQUEST['q_city']!='' && $_REQUEST['q_city']!=0)
-     {
-         $q_city = $_REQUEST['q_city'];
-         $cond .= " AND ques.city='$q_city'";
-     }
-     if($_REQUEST['txt_search']!='')
-     {
-         $txt_search = $_REQUEST['txt_search'];
-         $cond .= " AND ques.question LIKE'%$txt_search%'";
-     }
-
-    $qry = "select * from question_cat as cat join question as ques on cat.qid=ques.qid join category as c on c.cat_id=cat.cat  where 1 $cond group by cat.cat";
-     
-    // $qry = "select * from question_cat as cat join question as ques on ques.cat=cat.cat_id";
-      $cat_qry = db_query($qry);
-      
-      echo "<span class='black12'>Category:</span>";
-      while($cat_rows = db_fetch_object($cat_qry))
-      {
-    $count_row3 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$cat_rows->cat_id) AND reg.status=1 and reg.uid=fol.uid group by fol.uid"));
-        if($count_row3>0){ $count_row3 =  "[$count_row3]";}else{$count_row3='';}
-
-              echo "<br/><span id='user' class='sidelinks'><a href='JavaScript:void(0);' id=".$cat_rows->cat_id." class='sidelinks'>".$cat_rows->cat_name." $count_row3</a></span>";
-      }
-      if(mysql_num_rows($cat_qry)==0)
-      {
-          echo "<br/>No categories found";
-      }
+echo _sidebar_category();
     exit;
 
 
@@ -864,6 +826,7 @@ function search_results_ajax() {
 }
 
 function search_results_question() {
+    print_r($_REQUEST);
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     //drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
     
@@ -981,18 +944,18 @@ function search_results_question() {
 //<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
         
         while ($vlistquest = db_fetch_object($vlist)) {
-           ///vijay implement
+          
         $sel_qry = db_query("select * from {possible_answer_vote} where qid='".$user_result->qid."' and uid='".$user->uid."'");
         $get_value = db_fetch_object($sel_qry);
-       
-  
+       $check='';
+  if(!empty($get_value)){
        $sel_ans = db_query("select * from {possible_answer} where paid='".$get_value->panswer_id."'");
        $get_ans = db_fetch_object($sel_ans);
-
-       
+       $check=check_select($get_ans->paid,$vlistquest->paid);
+        }
       //  name="answer_al['.$i.']"
             $fetresult .= ' <div class="item1">
-                <input name="answer_al['.$i.']" id="answer" type="radio"  value="' . $vlistquest->paid . '" '.check_select($get_ans->paid,$vlistquest->paid).'  />&nbsp;&nbsp;'. $vlistquest->answer.'</div>';
+                <input name="answer_al['.$i.']" id="answer" type="radio"  value="' . $vlistquest->paid . '" '.$check.'  />&nbsp;&nbsp;'. $vlistquest->answer.'</div>';
             
         }
 

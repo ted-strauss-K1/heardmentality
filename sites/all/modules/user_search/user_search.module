@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Implementation of hook_perm().
  */
@@ -18,14 +19,14 @@ function user_search_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
-     $search_result['searchuser_ajax'] = array(
+    $search_result['searchuser_ajax'] = array(
         'title' => '  SEARCH RESULTS',
         'page callback' => 'search_user_ajax',
         'access arguments' => array('Search User'),
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
-	
+
     $search_result['searchquestion'] = array(
         'title' => '  SEARCH RESULTS',
         'page callback' => 'search_results_question',
@@ -33,21 +34,21 @@ function user_search_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
-     $search_result['searchquestion_ajax'] = array(
+    $search_result['searchquestion_ajax'] = array(
         'title' => '  SEARCH RESULTS',
         'page callback' => 'search_results_ajax',
         'access arguments' => array('Search User'),
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
-     $search_result['searchquestion_category_ajax'] = array(
+    $search_result['searchquestion_category_ajax'] = array(
         'title' => '  SEARCH RESULTS',
         'page callback' => 'category_ajax',
         'access arguments' => array('Search User'),
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
-	 
+
 //	$search_result['searchquestion/Follow'] = array(
 //        'title' => '  SEARCH RESULTS',
 //        'page callback' => 'search_follow',
@@ -66,7 +67,7 @@ function user_search_menu() {
 
 
 
-        $search_result['categoryquestion/Follow'] = array(
+    $search_result['categoryquestion/Follow'] = array(
         'title' => '  SEARCH RESULTS',
         'page callback' => 'question_follow',
         'access arguments' => array('Search User'),
@@ -74,14 +75,14 @@ function user_search_menu() {
         'file' => 'user_search.pages.inc',
     );
 
-        $search_result['categoryquestion/UnFollow'] = array(
+    $search_result['categoryquestion/UnFollow'] = array(
         'title' => '  SEARCH RESULTS',
         'page callback' => 'question_unfollow',
         'access arguments' => array('Search User'),
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'user_search.pages.inc',
     );
-	
+
     $search_result['follower'] = array(
         'title' => 'Follower',
         'page callback' => 'user_follower',
@@ -197,19 +198,16 @@ function facetad_refine() {
     if (isset($_REQUEST['txt_search'])) {
         $name = $_REQUEST['txt_search'];
     }
-   if($_REQUEST['q_country']!='')
-     {
-         $q_country = $_REQUEST['q_country'];
-     }
-     if($_REQUEST['q_state']!='')
-     {
-         $q_state = $_REQUEST['q_state'];
-     }
+    if ($_REQUEST['q_country'] != '') {
+        $q_country = $_REQUEST['q_country'];
+    }
+    if ($_REQUEST['q_state'] != '') {
+        $q_state = $_REQUEST['q_state'];
+    }
 
-     if($_REQUEST['q_city']!='')
-     {
-         $q_city = $_REQUEST['q_city'];
-     }
+    if ($_REQUEST['q_city'] != '') {
+        $q_city = $_REQUEST['q_city'];
+    }
     extract($_REQUEST);
     if (isset($_GET['scid'])) {
         $suid = $_GET['scid'];
@@ -230,30 +228,29 @@ function facetad_refine() {
     }
 
 
-    
-     
+
+
     if (!empty($sscid))
         $qry .= "qc.sscat=" . $sscid . "  AND ";
     if (!empty($scid))
         $qry .= "qc.scat=" . $scid . " AND ";
     if (!empty($cid))
         $qry .= "qc.cat=" . $cid . " AND ";
-        if (!empty($q_country))
+    if (!empty($q_country))
         $qry .= "q.country='" . $q_country . "' AND ";
-         if (!empty($q_state))
+    if (!empty($q_state))
         $qry .= "q.state='" . $q_state . "' AND ";
-        if (!empty($q_city))
+    if (!empty($q_city))
         $qry .= "q.city='" . $q_city . "' AND ";
 
-    
+
 
     if ($tag != '') {
         $sel = "SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
     } else {
         //$sel = "SELECT * FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid ";
         ///chnaged vijay
-      $sel = "SELECT q.*,qc.cat,qc.scat,qc.sscat FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid desc ";
-      
+        $sel = "SELECT q.*,qc.cat,qc.scat,qc.sscat FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid desc ";
     }
 
 
@@ -271,17 +268,16 @@ function facetad_refine() {
     return $ret;
 }
 
-function refine_search()
-{
-$options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
-    $result .= geonames_query('countryinfo',NULL,$options);
-   $result  .=  '  <div class="padding10 minheight" >';
-$optionlist .=' <option value="0" >--Country--</option>';
+function refine_search() {
+    $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
+    $result .= geonames_query('countryinfo', NULL, $options);
+    $result .= '  <div class="padding10 minheight" >';
+    $optionlist .=' <option value="0" >--Country--</option>';
     foreach ($result->results as $country) {
         $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
     }
 
-    $result .= '<select name="q_country" style="width: 125px;" tabindex="16"  onchange="get_state(this.value);" id="q_country">'.$optionlist.'</select>';
+    $result .= '<select name="q_country" style="width: 125px;" tabindex="16"  onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select>';
 //echo $optionlist;
 
     $result .= '<div id="chg_state"><select id="q_state" name="q_state" onchange="get_citys(this.value);" style="width: 125px;" tabindex="18"><option value="0" >--State--</option></select></div>';
@@ -291,6 +287,288 @@ $optionlist .=' <option value="0" >--Country--</option>';
     $result .= '</div>';
 
     return $result;
-
 }
 
+function user_search_block($op = 'list', $delta = 0, $edit = array()) {
+    switch ($op) {
+        case 'list':
+            $blocks[0] = array(
+                'info' => t('Question Refine Search'),
+            );
+
+            return $blocks;
+
+        case 'view':
+            switch ($delta) {
+                case 0:
+                    $block['subject'] = " Refine Search ";
+                    $block['content'] = _question_search();
+                    break;
+            }
+            return $block;
+    }
+}
+
+function _question_search() {
+
+    $content = '';
+
+    $content.= _sidebar_category();
+    $content.= _sidebar_location();
+
+
+    return $content;
+}
+
+function _sidebar_category() {
+    $link1 = '';
+    $link2 = '';
+    $link3 = '';
+    $cid = '';
+    $scid = '';
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $query = facetad_refine();
+    $sel_search = db_query($query['query']);
+    $txt_search = trim($query['txt_search']);
+    $qids = array();
+
+
+//keyword exist make count based on that
+    $search = '';
+    if (!empty($txt_search)) {
+
+        $search.= " AND q.question LIKE  '%" . $txt_search . "%'";
+    }
+    if (!empty($_REQUEST['cid'])) {
+        $cid = $_REQUEST['cid'];
+          $link1 = '&cid=' . $_REQUEST['cid'] . '';
+         $searchcat = " AND qc.cat='$cid' ";
+    }
+    if (!empty($_REQUEST['scid'])) {
+        $scid = $_REQUEST['scid'];
+         $link2 = '&scid=' . $_REQUEST['scid'] . '';
+         $searchcat = " AND qc.scat='$scid' ";
+    }
+    if (!empty($_REQUEST['sscid'])) {
+        $sscid = $_REQUEST['sscid'];
+           $link3 = '&sscid=' . $_REQUEST['sscid'] . '';
+    }
+    if (!empty($_REQUEST['q_country'])) {
+        $q_country = $_REQUEST['q_country'];
+        $cond .= " AND q.country='$q_country'";
+    }
+    if (!empty($_REQUEST['q_state'])) {
+        $q_state = $_REQUEST['q_state'];
+        $cond .= " AND q.state='$q_state'";
+    }
+    if (!empty($_REQUEST['q_city'])) {
+        $q_city = $_REQUEST['q_city'];
+        $cond .= " AND q.city='$q_city'";
+    }
+
+
+    $catlist.='<div class="padding10" id="pad10"><span class="black12">Category  :</span><br/>';
+   echo $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . $cond . " AND q.status='1' group by c.cat_id";
+    $listcat = ExecuteQuery($sel_cat, "select");
+
+
+    if (!empty($listcat)) {
+        foreach ($listcat as $cat) {
+            $style = '';
+            if ($cid == $cat['cat_id']) {
+                $style = 'class="sidelinks"';
+            }
+             $cat_qry = "SELECT count(distinct q.qid) FROM question_cat as cat join question as q on q.qid=cat.qid WHERE q.status='1' AND cat.cat ='" . $cat['cat_id'] . "' $cond $search  ";
+            $total_count1= db_result(db_query($cat_qry));
+           
+
+            //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
+            $catlist.='<span ' . $style . ' class="sidelinks">
+
+        <a  id="c-' . $cat['cat_id'] . '" href="JavaScript:void(0);">' . $cat['cat_name'] . '[' . $total_count1 . ']</a></span><br/>';
+            //subcat list
+            if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
+                // $catlist.='<ul>';
+                $sel_scat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $cat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
+                $listscat = ExecuteQuery($sel_scat, "select");
+
+
+                foreach ($listscat as $scat) {
+                    $style = '';
+                    if ($scid == $scat['cat_id']) {
+                        $style = 'style="font-weight:bold"';
+                    }
+                    $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.scat ='" . $scat['cat_id'] . "' $cond  group by cat.qid";
+                    $scat_res = db_query($scat_qry);
+                    $total_count2 = mysql_num_rows($scat_res);
+
+                    $style = 'class="sidelinks"';
+                    $catlist.='&nbsp;&nbsp;<span ' . $style . '><a ' . $style . ' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '&q_country=' . $q_country . '&q_state=' . $q_state . '&q_city=' . $q_city . '">' . $scat['cat_name'] . '[' . $total_count2 . ']</a></span><br/>';
+                    //sub subcat list
+                    if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
+                        //$catlist.='<ul>';
+                        $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
+                        $listsscat = ExecuteQuery($sel_sscat, "select");
+
+                        foreach ($listsscat as $sscat) {
+                            $style = '';
+                            if ($sscid == $sscat['cat_id']) {
+                                $style = 'style="font-weight:bold"';
+                            }
+                            $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.sscat ='" . $sscat['cat_id'] . "' $cond  group by cat.qid";
+                            $sscat_res = db_query($sscat_qry);
+                            $total_count3 = mysql_num_rows($sscat_res);
+
+                            $style = 'class="sidelinks"';
+                            $catlist.='&nbsp;&nbsp;<span ' . $style . '><a ' . $style . ' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '&q_country=' . $q_country . '&q_state=' . $q_state . '&q_city=' . $q_city . '">' . $scat['cat_name'] . '[' . $total_count3 . ']</a></span><br/>';
+                        }
+                        // $catlist.='</ul>';
+                    }
+                }
+                // $catlist.='</ul>';
+            }
+        }
+    } else {
+
+        $catlist.='<span><b>No Category Found</b></span>';
+    }
+    $catlist.='</div>';
+    $catlist.='<input type="hidden" name="hid_cat" id="hid_cat" value="" /><input type="hidden" name="hid_scat" id="hid_scat" value="" /><input type="hidden" name="hid_txtsearch" id="hid_txtsearch" value="' . $txt_search . '" />';
+
+
+   
+
+
+    return $catlist;
+    /* $tagslist = '<br/><br/><span class="black12">Tags :</span><br/>';
+
+      $tsearch = '';
+      if (!empty($txt_search)) {
+
+      $tsearch.= " AND q.question LIKE  '%" . $txt_search . "%'";
+
+      }
+      $ins_query='';
+      if(!empty ($txt_search)||!empty($_REQUEST['cid'])){
+      $ins_query="left join {question_cat} as qc on qc.qid=q.qid ";
+      }
+      $qry_tags = "select *,count(*) as cntc from {tagging} as t join {qtag} as qt on qt.tag_id=t.tid  join {question} as q on q.qid=qt.qid ".$ins_query." where  q.status='1' " .$searchcat . $tsearch . "  group by t.tid";
+      $rs_tags = ExecuteQuery($qry_tags, "select");
+      $tagslist.='<br/>';
+      if (!empty($rs_tags)) {
+
+      foreach ($rs_tags as $tag_result) {
+
+      $tagslist.='<span class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?tag=' . $tag_result['tag_id'] . '' . $link1 . '' . $link2 . '' . $link3 . '&txt_search=' . $txt_search . '">' . $tag_result['tag'] . '[' . $tag_result['cntc'] . '] </a> </span><br/>';
+      }
+      } else {
+
+      $tagslist.='<span><b>No Tags Found</b></span>';
+      }
+
+
+      $tagslist.='</div>';
+      echo $tagslist; */
+}
+
+function _sidebar_location() {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $txt_search = $_REQUEST['txt_search'];
+    $q_country = $_REQUEST['q_country'];
+    $q_state = $_REQUEST['q_state'];
+    $q_city = $_REQUEST['q_city'];
+
+    $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
+    $result = geonames_query('countryinfo', NULL, $options);
+    //echo '<form name="thisform" action="' . $gSitePath . 'searchquestion" method="post">';
+     $optionlist.='<span class="black12" style="margin-left:10px">Location:</span>';
+    $optionlist.='  <div class="padding10" >';
+    $list.=' <option value="0" >Country</option>';
+    foreach ($result->results as $country) {
+        //if($country['countrycode']==$q_country)
+        if ($country['countryname'] == $q_country) {
+            //$select = "'selected'";
+            $select = "selected=selected";
+        } else {
+            $select = '';
+        }
+        $list .= '<option value="' . $country['countryname'] . '" ' . $select . '>' . $country['countryname'] . '</option>';
+    }
+    $txt_search = $_GET['txt_search'];
+    $cid = $_GET['cid'];
+
+    $optionlist.='
+    <div class="listmenu">
+        <select name="q_country" id="q_country" class="listbox" style="width: 125px;" tabindex="16" onchange="get_state(this.value); search_question();"  id="q_country">' . $list . '</select>
+    </div>';
+
+    $q_country = $_GET['q_country'];
+
+    if ($q_country != '') {
+        $query = array('query' => $_REQUEST['q_country'], 'maxRows' => '1', 'featureclass' => 'S');
+        $result = geonames_query('search', $query);
+        // $cc=$result->results[0]['countrycode'];
+        // $result = geonames_query('countryinfo', $query);
+        // $result->results[0][geonameid];
+        $query = array('country' => $result->results[0]['countrycode']);
+        $result = geonames_query('countryinfo', $query);
+        $query = array('geonameid' => $result->results[0]['geonameid']);
+        $result = geonames_query('children', $query);
+
+//                $query = array('country'=>$q_country);
+//                $result = geonames_query('countryinfo', $query);
+//
+//                $query = array('geonameid'=>$result->results[0][geonameid]);
+//                $result = geonames_query('children', $query);
+//                $q_country = $_GET['q_country'];
+
+
+        $optionlist.=' <div class="listmenu" id="listmenu">
+            <select tabindex="18" class="listbox" style="width: 125px;" onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>
+';
+        foreach ($result->results as $state) {
+
+            if ($state['geonameid'] == $q_state) {
+                //$select = "'selected'";
+                $select = "selected='selected'";
+            } else {
+                $select = '';
+            }
+
+            $optionlist .='<option value="' . $state['geonameid'] . '"' . $select . '>' . $state['name'] . '</option>';
+        }
+        $optionlist .= "</select></div>";
+    } else {
+        $optionlist.='<div id="chg_state">
+    <div class="listmenu">
+    <select id="q_state" class="listbox" name="q_state" onchange="get_citysquestion(this.value);" style="width: 125px;" tabindex="18">
+    <option value="0" >State/Province</option>
+    </select>
+    </div></div>';
+    }
+
+    $query = array('geonameid' => $q_state);
+    $result = geonames_query('children', $query);
+    //print_r($result);
+    $optionlist.=' <div class="listmenu" id="chg_city"><select class="listbox"  tabindex="19" onchange="get_question(this.value,' . $txt_search . ',' . $cid . ',' . $q_country . ',' . $q_state . ')"  style="width: 125px;"  id="q_city" name="q_city">';
+
+    $optionlist.= '<option value="">Cities</option> ';
+    foreach ($result->results as $state) {
+
+        if ($state['geonameid'] == $q_city) {
+            // $select = "'selected'";
+            $select = "selected='selected'";
+        } else {
+            $select = '';
+        }
+
+        $optionlist .='<option value="' . $state['geonameid'] . '"' . $select . '>' . $state['name'] . '</option>';
+    }
+    $optionlist.="<option value='-1'>Others</option>";
+    $optionlist.="</select></div>";
+
+    $optionlist.='</div>';
+
+    return $optionlist;
+}

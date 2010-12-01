@@ -88,7 +88,7 @@ function political_api() {
                         
                         if (strlen($final['TITLE']) > 5) {
                             $dst = clean_url(myTruncate($final['TITLE'], 100, ' '));
-                            $result = db_query("INSERT INTO {question} set uid='1',question='".$final['TITLE']."',context='".$final['OFFICIAL-TITLE']."',is_political='1',billid='".$final['NUMBER']."',billtype='".$final['TYPE']."',congress='$congress',cid='1',year='".$final['TYPE']."',url='$dst',country='US' ");
+                            $result = db_query("INSERT INTO {question} set uid='1',question='".$final['TITLE']."',context='".$final['OFFICIAL-TITLE']."',is_political='1',billid='".$final['NUMBER']."',billtype='".$final['TYPE']."',congress='$congress',cid='1',year='".$final['TYPE']."',url='$dst',country='United States' ");
                             
                             $ins_id = db_last_insert_id('question', 'qid');
                             //values are + (aye), - (nay), 0 (absent), P (present), X (other)
