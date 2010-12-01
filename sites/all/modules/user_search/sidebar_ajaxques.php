@@ -33,7 +33,7 @@ if($_REQUEST['sel_id']!=''){
         $ct_res = mysql_query($ct_qry);
         $ct_rows = mysql_num_rows($ct_res);
 
-       echo "<br/><span style='padding-left:10px' class='sidelinks'><a href='JavaScript:void(0);' sid=".$left_rows->cat_id." class='sidelinks nike'>".$left_rows->cat_name."[$ct_rows]</a></span>";
+       echo "<br/><span style='padding-left:10px' class='sidelinks'><a href='JavaScript:void(0);' sid=".$left_rows->cat_id." class='speciallinks nike'>".$left_rows->cat_name."[$ct_rows]</a></span>";
     }
         exit;
     }
