@@ -1042,7 +1042,7 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 	});
                     </script>";
 
-                $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value); search_question(\'\',\'\',this.value,\'\'); search_user();" id="q_state" name="q_state"> <option value="">--States--</option>';
+                $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
                 foreach ($result->results as $state) {
                     $set = '';
                     if (strpos(strtolower($setstate), strtolower($state['name']))) {
@@ -1067,7 +1067,7 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 	});
                     </script>";
 
-                $ret = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city" onchange="search_question(\'\',\'\',\'\',this.value); search_user();"> <option value="">--Cities--</option> ';
+                $ret = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city" > <option value="">--Cities--</option> ';
                 foreach ($result->results as $state) {
 
                     $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
@@ -1221,7 +1221,7 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
                             if ($sscid == $sscat['cat_id']) {
                                 $style = 'style="font-weight:bold"';
                             }
-                            $sscat_qry = "SELECT count(*) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond  group by cat.qid";
+                            $sscat_qry = "SELECT count(distinct cat.scat) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond  group by cat.scat";
                            $total_count3= db_result(db_query($sscat_qry));
                       
 

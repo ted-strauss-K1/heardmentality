@@ -316,8 +316,11 @@ function search_user(){
 
 }
 
-function search_question(){
-    // search_category();
+
+
+
+function search_question(loadcat){
+    // question search starts
     var url = gSitePath+"searchquestion_ajax";
     //var url = gSitePath+"sites/all/modules/user_search/sidebar.php";
 
@@ -351,7 +354,7 @@ function search_question(){
     
     var qid =  jQuery('#q_country').val();
     // alert(qid);
-    if(qid!=0&&cid==0)
+    if(qid!=0&&loadcat==1)
     {
         var url = gSitePath+"searchquestion_category_ajax";
 
@@ -386,6 +389,29 @@ function search_question(){
 
 jQuery(document).ready(function(){
     var url = gSitePath;
+
+
+    jQuery('#q_country').change(function(e){
+
+
+        search_question(1);
+    });
+
+    jQuery('#q_state').live("change", function(e) {
+
+
+        search_question(1);
+    });
+    jQuery('#q_city').live("change", function(e) {
+
+
+        search_question(1);
+    });
+
+
+
+
+
     jQuery("#qfilter a[href*='?ajax=1']").live("click", function(e) {
 
         e.preventDefault();
@@ -399,7 +425,7 @@ jQuery(document).ready(function(){
 
         jQuery("#qfilter a").each(function(){
             jQuery(this).css('color', '#996600')
-            });
+        });
         jQuery(this).css('color', '#4170A0');
         // var url = "http://stackoverflow.com";
         // $(location).attr('href',url);
@@ -418,20 +444,23 @@ jQuery(document).ready(function(){
 
         var cid = jQuery(this).attr('id').split('-');
         jQuery("#hid_cat").val(cid[1]);
-
-        search_question();
+  jQuery("#hid_scat").val('');
+        search_question(0);
         var  scid = jQuery('#hid_scat').val();
-            jQuery('#sublinks').remove();
+         jQuery('.sidelinks a').each(function(){
+            jQuery(this).css("font-weight","normal");
+        });
+        jQuery('#sublinks').remove();
         jQuery(this).parent().after(jQuery('<span id="sublinks" class="sublinks">').load(url+'question/ajax', {
             "sel_id":cid[1],
             "scid":scid
         }));
-       jQuery(this).css("font-weight","bold");
+        jQuery(this).css("font-weight","bold");
         //jQuery(this).removeAttr('id');
-     return false;
+        return false;
     });
 
-jQuery("a.sublinks").live("click", function(e) {
+    jQuery("a.sublinks").live("click", function(e) {
 
 
         e.preventDefault();
@@ -439,14 +468,26 @@ jQuery("a.sublinks").live("click", function(e) {
 
         var cid = jQuery(this).attr('id').split('-');
         jQuery("#hid_scat").val(cid[1]);
- jQuery('a.sublinks').each(function(){jQuery(this).css("font-weight","normal");});
-        search_question();
+        jQuery('a.sublinks').each(function(){
+            jQuery(this).css("font-weight","normal");
+        });
+        search_question(0);
        
-       jQuery(this).css("font-weight","bold");
+        jQuery(this).css("font-weight","bold");
         //jQuery(this).removeAttr('id');
-     return false;
+        return false;
     });
 
+
+
+
+    jQuery('.page-n a').livequery("click", function(e) {
+      
+        var page_id =  jQuery(this).attr('id');
+        jQuery("#hid_page").val(page_id);
+        search_question(0);
+    });
+//question search ends
 
     ///for user search
     jQuery('span[id=user]').live("click", function(e) {
@@ -482,13 +523,6 @@ jQuery("a.sublinks").live("click", function(e) {
 
 
     //$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
-    });
-
-    jQuery('.page-n a').livequery("click", function(e) {
-      
-        var page_id =  jQuery(this).attr('id');
-        jQuery("#hid_page").val(page_id);
-        search_question();
     });
 
 
