@@ -3397,29 +3397,44 @@ function auto_suggest_quest() {
 
 
 function front_dupe() {
+    
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $question = $_REQUEST['question'];
 
-//    $query = db_query("select * from question  where question='$question'  ");
 
-  //  $detquest = db_fetch_object($query);
     $query = "select * from question  where question='$question'";
     $ans = ExecuteQuery($query, "norows");
-    if($ans>0)
-    {
-        echo "valid";
-        exit;
+
+    $words = explode(" ", $question);
+
+
+    $query = "SELECT * FROM question WHERE 1";
+    for ($i = 0; $i < count($words); $i++) {
+        $samples = " " . $words[$i] . "  ";
+        //echo $samples;
+        // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+        //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
+        $query .= " AND question LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
     }
-    else
+    
+$result = mysql_query($query);
+ $num_rows = mysql_num_rows($result);
+
+
+    if($num_rows>0)
     {
         echo "invalid";
         exit;
     }
+    else
+    {
+        echo "valid";
+        exit;
+    }
     
 }
-
 
 function dupe_question() {
 
