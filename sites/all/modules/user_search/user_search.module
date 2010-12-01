@@ -368,7 +368,7 @@ function _sidebar_category() {
 
 
     $catlist.='<div class="padding10" id="pad10"><span class="black12">Category  :</span><br/>';
-   echo $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . $cond . " AND q.status='1' group by c.cat_id";
+    $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . $cond . " AND q.status='1' group by c.cat_id";
     $listcat = ExecuteQuery($sel_cat, "select");
 
 
@@ -415,9 +415,9 @@ function _sidebar_category() {
                             if ($sscid == $sscat['cat_id']) {
                                 $style = 'style="font-weight:bold"';
                             }
-                            $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.sscat ='" . $sscat['cat_id'] . "' $cond  group by cat.qid";
-                            $sscat_res = db_query($sscat_qry);
-                            $total_count3 = mysql_num_rows($sscat_res);
+                            $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid join {category} as c on c.cat_id=cat.scat where q.status='1' AND cat.sscat ='" . $sscat['cat_id'] . "' $cond  group by cat.qid";
+                            $scat = db_query($sscat_qry);
+                            $total_count3 = db_affected_rows($sscat_res);
 
                             $style = 'class="sidelinks"';
                             $catlist.='&nbsp;&nbsp;<span ' . $style . '><a ' . $style . ' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '&q_country=' . $q_country . '&q_state=' . $q_state . '&q_city=' . $q_city . '">' . $scat['cat_name'] . '[' . $total_count3 . ']</a></span><br/>';

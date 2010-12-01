@@ -285,7 +285,7 @@ function search_user(){
 
     var qid =  jQuery('#q_country').val();
     // alert(qid);
-    if(qid!=0)
+    if(qid!=0&&cid=='')
     {
         var url = gSitePath+"searchquestion_category_ajax";
         var  txt_search = jQuery('#hid_txtsearch').val();
@@ -351,7 +351,7 @@ function search_question(){
     
     var qid =  jQuery('#q_country').val();
     // alert(qid);
-    if(qid!=0)
+    if(qid!=0&&cid==0)
     {
         var url = gSitePath+"searchquestion_category_ajax";
 
@@ -418,28 +418,34 @@ jQuery(document).ready(function(){
 
         var cid = jQuery(this).attr('id').split('-');
         jQuery("#hid_cat").val(cid[1]);
-        var scid = jQuery(this).attr('sid');
-        jQuery("#hid_scat").val(scid);
 
         search_question();
-
-        if(jQuery(this).hasClass('speciallinks hilite').toString()=='true')
-        {
-            return false;
-        }
         var  scid = jQuery('#hid_scat').val();
-
-      
-        jQuery(this).after(jQuery('<span class="sidelinks">').load(url+'question/ajax', {
+            jQuery('#sublinks').remove();
+        jQuery(this).parent().after(jQuery('<span id="sublinks" class="sublinks">').load(url+'question/ajax', {
             "sel_id":cid[1],
             "scid":scid
         }));
-       jQuery(this).addClass("hilite");
+       jQuery(this).css("font-weight","bold");
         //jQuery(this).removeAttr('id');
      return false;
     });
 
+jQuery("a.sublinks").live("click", function(e) {
 
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        var cid = jQuery(this).attr('id').split('-');
+        jQuery("#hid_scat").val(cid[1]);
+ jQuery('a.sublinks').each(function(){jQuery(this).css("font-weight","normal");});
+        search_question();
+       
+       jQuery(this).css("font-weight","bold");
+        //jQuery(this).removeAttr('id');
+     return false;
+    });
 
 
     ///for user search

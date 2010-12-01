@@ -1212,19 +1212,23 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
         //$cond =" AND cat.scat=$scid";
 
         if ($_REQUEST['sel_id'] != '') {
+        $cid=$_REQUEST['sel_id'];
+      $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='$cid' AND q.status='1' group by c.cat_id";
+       $listsscat = ExecuteQuery($sel_sscat, "select");
 
-            $selid = $_REQUEST['sel_id'];
-            $sel_cat = "select * from category as cat join question_cat as ques on ques.cat=cat.cat_id where cat.parent_id='$selid' group by cat.cat_id";
+                        foreach ($listsscat as $sscat) {
+                            $style = '';
+                            if ($sscid == $sscat['cat_id']) {
+                                $style = 'style="font-weight:bold"';
+                            }
+                            $sscat_qry = "SELECT count(*) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond  group by cat.qid";
+                           $total_count3= db_result(db_query($sscat_qry));
+                      
 
-            // echo $sel_cat = "select * from category as cat join question_cat as ques on ques.cat=cat.cat_id join question as q on q.qid=ques.qid  where cat.parent_id='" .$selid. "'";
-            $left_qry = db_query($sel_cat);
-
-            while ($left_rows = db_fetch_object($left_qry)) {
-                $ct_qry = "select * from question as q join question_cat as cat on q.qid=cat.qid where 1 AND cat.scat='$left_rows->cat_id' AND cat.cat='$selid' group by cat.qid";
-                $ct_rows = db_result(db_query($ct_qry));
-
-                echo "<br/><span style='padding-left:10px' class='sidelinks'><a href='JavaScript:void(0);' sid=" . $left_rows->cat_id . " class='speciallinks nike'>" . $left_rows->cat_name . "[$ct_rows]</a></span>";
-            }
+                            $style = 'class="sublinks scat" style="padding-left:10px"';
+                            $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
+                        }
+                        echo $catlist;
             exit;
         }
     }
