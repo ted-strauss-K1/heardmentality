@@ -11,7 +11,9 @@
     </div>
      <div class="issuesearch3">
         <span>SEARCH RESULTS</span>
+        <div id="qfilter">
         <?php print $content; ?>
+        </div>
     </div>
     <div class="contributer">
         <?php if (! empty($right)): ?>
