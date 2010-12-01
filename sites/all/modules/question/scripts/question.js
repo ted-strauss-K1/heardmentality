@@ -19,17 +19,7 @@ jQuery(document).ready( function() {
     jQuery("#hid_scat").val(scid);
 });*/
     
-    jQuery('.optionDiv a').livequery('click', function(){
     
-    //jQuery('.optionDiv').find('a').removeAttr('target');
-    alert("hi some");
-    return false;
-
-   // jQuery('.optionDiv a').removeAttr('target');
-    
-   //jQuery("#q_quest").val("hi value");
-   
-});
 
 });
 /*
@@ -257,11 +247,6 @@ success: function(msg){
 
     jQuery('#question').slideUp('slow');
     jQuery('div.do-intop').html('Please wait till processing...!');
-
-
-
-
-
 
     return true;
     
