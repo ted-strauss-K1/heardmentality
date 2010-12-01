@@ -352,6 +352,7 @@ function search_question(){
   var  cid = jQuery('#hid_cat').val();
 
   var  scid = jQuery('#hid_scat').val();
+
   var  q_country = jQuery('#q_country').val();
   var  q_state = jQuery('#q_state').val();
   var  q_city = jQuery('#q_city').val();
@@ -384,6 +385,7 @@ function search_question(){
       var  page_id = jQuery('#hid_page').val();
       var  cid = jQuery('#hid_cat').val();
       var  scid = jQuery('#hid_scat').val();
+      
       var  q_country = jQuery('#q_country').val();
       var  q_state = jQuery('#q_state').val();
       var  q_city = jQuery('#q_city').val();
@@ -428,7 +430,7 @@ e.stopPropagation();
      //   var alid = jQuery(this).attr('id');
         //alert(alid);
     
-     jQuery('a.sidelinks').livequery("click", function(e) {
+     jQuery('a.speciallinks').livequery("click", function(e) {
         
     // jQuery("#"+alid).live("click", function(e) {
           //alert("hi tree");
@@ -440,13 +442,15 @@ e.stopPropagation();
 
 //jQuery("#hid_cat").val(cid);
 
-jQuery('a[class|=sidelinks]').livequery('click', function(){
+jQuery('a.speciallinks').livequery('click', function(){
+    
     var cid = jQuery(this).attr('id');
     jQuery("#hid_cat").val(cid);
 });
 
 
 jQuery('a.sidelinks').livequery('click', function(){
+    
     var scid = jQuery(this).attr('sid');
     jQuery("#hid_scat").val(scid);
 });
@@ -455,8 +459,8 @@ search_question();
         //var selected = $tabs.tabs('option', 'selected');
         
    jQuery(".sidelinks a").click(function(event){
-      
-        if($(this).hasClass('sidelinks hilite').toString()=='true')
+     
+        if($(this).hasClass('speciallinks hilite').toString()=='true')
          {
              return false;
          }
