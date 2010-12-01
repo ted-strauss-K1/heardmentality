@@ -3390,6 +3390,33 @@ function auto_suggest_quest() {
     }
 }
 
+
+
+function front_dupe() {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $question = $_REQUEST['question'];
+
+//    $query = db_query("select * from question  where question='$question'  ");
+
+  //  $detquest = db_fetch_object($query);
+    $query = "select * from question  where question='$question'";
+    $ans = ExecuteQuery($query, "norows");
+    if($ans>0)
+    {
+        echo "valid";
+        exit;
+    }
+    else
+    {
+        echo "invalid";
+        exit;
+    }
+    
+}
+
+
 function dupe_question() {
 
     global $gSitePath, $user, $gDocPath, $base_root;

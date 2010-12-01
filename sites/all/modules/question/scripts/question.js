@@ -207,10 +207,30 @@ function validate_question(){
     var cat1 = jQuery('#q_cat').val();
     
     var err = '';
- 
+    var errmsg = '';
+
+
+   jQuery.ajax({
+type: "POST",
+url: "front_dupequestion",
+data: "question="+ quest,
+success: function(msg){
+    if(msg=='invalid')
+        {
+           var errmsg = 'invalid';
+        }
+}
+});
+
+
+    if(errmsg=='invalid')
+    {
+    alert(errmsg);
+     err += '<li>Question already exists</li>';
+    }
     if (jQuery.trim(quest).length < 1)
         err += '<li>Please Provide Proper Question!</li>';
-    
+
     if (jQuery.trim(ans1).length < 1||jQuery.trim(ans2).length < 1)
         err += '<li>Minimum 2 answers required</li>';
  
@@ -223,6 +243,8 @@ function validate_question(){
     jQuery('#add_more input:text[value=""]').each(function(){
         jQuery(this).css('border','1px solid red');
     });
+    
+    
     if (jQuery.trim(err).length > 1) {
         jQuery('#err').html(err);
         jQuery('#err').addClass('error');
