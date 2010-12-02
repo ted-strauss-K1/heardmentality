@@ -1105,7 +1105,8 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
             $qids = array();
             foreach ($exp as $scat) {
 
-                $query = " SELECT * FROM {question}  ";
+                 $query = " SELECT * FROM {question}  ";
+               
                 $result = ExecuteQuery($query, "select");
 
                 foreach ($result as $man) {
@@ -1172,7 +1173,10 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
         } else {
 
 
-            $query = "select qid as id,question as value,context as info from question where question like '%$input%' OR context like '%$input%' AND status='1' ORDER BY qid ASC ";
+           // $query = "select qid as id,question as value,context as info from question where question like '%$input%' OR context like '%$input%' AND status='1' ORDER BY qid ASC ";
+          $query = "select qid as id,question as value,context as info from question where question like '%$input%' AND status='1' ORDER BY qid ASC ";
+          
+           
             //$aResults = ExecuteQuery($query, "select");
             $Result = mysql_query($query);
         }
