@@ -413,7 +413,7 @@ function question_save() {
     $g_global = '';
     if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
         $edate = $q_edate;
-
+       
         $country = my_country();
         $ccode = $country['cn'];
 
@@ -2423,9 +2423,12 @@ function edit_questions() {
     // $cc=$result->results[0]['countrycode'];
     // $result = geonames_query('countryinfo', $query);
     // $result->results[0][geonameid];
+  //  echo $result->results[0]['countrycode'];
     $query = array('country' => $result->results[0]['countrycode']);
     $result = geonames_query('countryinfo', $query);
+    //print_r($result);
     $query = array('geonameid' => $result->results[0]['geonameid']);
+   // print_r($query);
     $result = geonames_query('children', $query);
 
     /* if($select&&$user->uid>0){
@@ -2747,8 +2750,53 @@ function question_edit_save_admin($array) {
 
         $del_result = db_query("delete from {question_cat} where qid='" . $nid . "'");
 
-        ////vijay insert category subcategory start here
-        $cat1 = $_REQUEST['q_cat'];
+
+
+        
+///  category  starts & 1st level
+        $fetch = array();
+        if (!empty($q_cat)) {
+            $cat1 = $q_cat;
+            foreach ($cat1 as $ins1) {
+
+                db_query("insert into {question_cat} set qid='$nid',cat='$ins1'");
+               
+            }
+        }
+
+        /// category 2nd level
+        if (!empty($q_scat)) {
+            $cat2 = $q_scat;
+            foreach ($cat2 as $ins2) {
+
+                $fetch = load_parent_cat($ins2, 2);
+                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='0' "));
+                if ($chk_exsit > 0) {
+                    db_query("update {question_cat} set scat='$ins2' where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "'");
+                } else {
+                    db_query("insert into {question_cat} set qid='$nid',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
+                }
+            }
+        }
+        ///category 3rd level
+        if (!empty($q_sscat)) {
+            $cat3 = $q_sscat;
+            foreach ($cat3 as $ins3) {
+                $fetch = load_parent_cat($ins3, 3);
+                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "' AND sscat='0'"));
+                if ($chk_exsit > 0) {
+                    db_query("update {question_cat} set sscat='$ins3'  where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
+                } else {
+                    db_query("insert into {question_cat} set qid='$nid',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
+                }
+            }
+        }
+/// cateogry ends
+
+
+
+////vijay insert category subcategory start here
+       /* $cat1 = $_REQUEST['q_cat'];
         $cat2 = $_REQUEST['q_scat'];
 
 
@@ -2797,11 +2845,15 @@ function question_edit_save_admin($array) {
                     db_query("insert into {question_cat} set qid='$nid',cat='$cate[$i]'");
                 }
             }
-        }
-
-
-
+        }*/
         ////vijay insert category subcategory end here
+
+
+
+
+
+
+        
 
         for ($i = 1; $i <= $ans_cnt; $i++) {
             $name = "q_ans" . $i;
