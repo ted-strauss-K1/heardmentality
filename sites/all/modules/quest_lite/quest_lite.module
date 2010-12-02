@@ -337,6 +337,8 @@ function get_qid() {
 
 function load_qcat($qid="") {
 
+ drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
+
     global $gSitePath, $user, $gDocPath, $base_root;
 
     if (is_numeric($qid)) {
@@ -356,6 +358,44 @@ WHERE qc.qid ='$qid'
 
             $output.='<p>' . $load_cat['lev1'] . ((!empty($load_cat['lev2'])) ? ' >> ' . $load_cat['lev2'] : '') . ((!empty($load_cat['lev3'])) ? ' >> ' . $load_cat['lev3'] : '') . '  </p>';
         }
+
+        $con_query = "select country,state,city from question where qid='$qid'";
+        $fet_con = db_query($con_query);
+        $fet_res = db_fetch_object($fet_con);
+
+
+
+
+
+        $query = array('query' => $fet_res->country, 'maxRows' => '1', 'featureclass' => 'S');
+    $result = geonames_query('search', $query);
+  
+    $query = array('country' => $result->results[0]['countrycode']);
+    $result = geonames_query('countryinfo', $query);
+  
+    $query = array('geonameid' => $result->results[0]['geonameid']);
+  
+    $result = geonames_query('children', $query);
+   
+    foreach ($result->results as $state) {
+        $output.= '';
+        if ($fet_res->state == $state['geonameid']) {
+            $state_name =$state['name'];
+        }
+    }
+
+
+    $query_city = array('geonameid' =>$fet_res->state);
+    $result_city = geonames_query('children', $query_city);
+    foreach ($result_city->results as $state_city) {
+        $set = '';
+        if ($fet_res->city == $state_city['geonameid']) {
+            $city_name = $state_city['name'];
+        }
+    }
+     $output .='<p>Location:</p>';
+     $output .='<p>'.$fet_res->country.' >> '.$state_name.' >> '.$city_name.'</p>';
+     
     }
 
     return $output;
