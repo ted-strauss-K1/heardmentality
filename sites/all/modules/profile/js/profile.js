@@ -28,26 +28,29 @@ function validate_profile(){
 
 function bio_tog(ele){
     var cls=jQuery(ele).parent().attr('class');
-if(cls=='tab-historyspan4')
-    return false;
+    if(cls=='tab-historyspan4')
+        return false;
 
 
-   jQuery('#l1 span').each(function(){ jQuery(this).attr('class',''); jQuery(this).attr('class','tab-historyspan5'); });
-if(cls=='tab-historyspan5'){
-          jQuery(ele).parent().attr('class','');
-       jQuery(ele).parent().attr('class','tab-historyspan4');
-     jQuery('#bio').toggle();
-}else if(cls!='tab-historyspan4'){
+    jQuery('#l1 span').each(function(){
+        jQuery(this).attr('class','');
+        jQuery(this).attr('class','tab-historyspan5');
+    });
+    if(cls=='tab-historyspan5'){
+        jQuery(ele).parent().attr('class','');
+        jQuery(ele).parent().attr('class','tab-historyspan4');
+        jQuery('#bio').toggle();
+    }else if(cls!='tab-historyspan4'){
         jQuery(ele).parent().attr('class','');
         jQuery(ele).parent().attr('class','tab-historyspan5');
        
-}
+    }
 
 
 
 
    
-     jQuery('#link').toggle();
+    jQuery('#link').toggle();
 }
 
 function chk_all(typ){
@@ -57,29 +60,29 @@ function chk_all(typ){
         jQuery(this).attr('checked',typ);
 
     });
-       jQuery("ul.subtabs li").last().contains('select').remove();
+    jQuery("ul.subtabs li").last().contains('select').remove();
 
 }
 
 function enable_form(typ,thi){
- var n = jQuery("#frmsgform input:checked").length;
+    var n = jQuery("#frmsgform input:checked").length;
 
-if(n>0){
-    jQuery("#frmsgbox").slideToggle("slow");
-     jQuery("#usmsg").unbind("click");
-    jQuery("#usmsg").click(function () {
-        var formmsg=jQuery('#frmsgform');
-        jQuery.post(formmsg.attr('action'),formmsg.serialize(),
-            function(data){
+    if(n>0){
+        jQuery("#frmsgbox").slideToggle("slow");
+        jQuery("#usmsg").unbind("click");
+        jQuery("#usmsg").click(function () {
+            var formmsg=jQuery('#frmsgform');
+            jQuery.post(formmsg.attr('action'),formmsg.serialize(),
+                function(data){
 
-                jQuery('div.following').prepend(data);
-              jQuery('#frmsgform').clearForm();
-                jQuery("#frmsgbox").slideToggle("slow");
-            });
-    });
-}else{
-    $("ul.subtabs li").last().append('<li>select atleast one</li>');
-}
+                    jQuery('div.following').prepend(data);
+                    jQuery('#frmsgform').clearForm();
+                    jQuery("#frmsgbox").slideToggle("slow");
+                });
+        });
+    }else{
+        $("ul.subtabs li").last().append('<li>select atleast one</li>');
+    }
     
     
 }
@@ -98,7 +101,7 @@ if(n>0){
    this.selectedIndex = -1;
   });
 };
-*/
+ */
 
 function profile_comment(make){
 
@@ -140,8 +143,10 @@ function profile_comment(make){
 function get_zip_city(code){
 	
     var urr=spath+'qlite/ajax?action=zipcity';
-	jQuery.blockUI({ message: '<h3> Just a moment validating your zip code...</h3>' });
-	 jQuery.ajax({
+    jQuery.blockUI({
+        message: '<h3> Just a moment validating your zip code...</h3>'
+    });
+    jQuery.ajax({
         type: "POST",
         url: urr,
         data: {
@@ -149,12 +154,61 @@ function get_zip_city(code){
         },
         success: function(msg){
 
-		jQuery('#edit-city-wrapper').html(msg);
-		jQuery.unblockUI();
+            jQuery('#edit-city-wrapper').html(msg);
+            jQuery.unblockUI();
 
         }
     });
 }
+
+function chk_uname(val){
+
+    var urr=spath+'qlite/ajax?action=uname';
+
+    var ck_uname = /^[A-Za-z0-9_]{3,20}$/;
+    if(!val.match(ck_uname)){
+
+        jQuery('#err_div').html("Username should be Alphabets, numbers and no special characters min 3 and max 20 allowed ");
+        jQuery('#err_div').animate({
+            backgroundcolor: "#fff568"
+        }, "slow").animate({
+            backgroundcolor: "#FF0000"
+        }, "slow");
+        jQuery('#err_div').addClass('error');
+        return false
+    }else if(val.length>0){
+        jQuery.blockUI({
+            message: '<h3> Just a moment validating your username...</h3>'
+        });
+
+        jQuery.getJSON(urr,
+        {
+            userid: val
+        },
+        function(data) {
+            var msg=data.messages;
+            jQuery.unblockUI();
+            if(data.error){
+                setTimeout(" jQuery.growlUI('','"+msg+"')",500);
+                jQuery('#rname').val('');
+                jQuery('#err_div').html("Username already taken please try any other combination");
+                jQuery('#err_div').animate({
+                    backgroundcolor: "#fff568"
+                }, "slow").animate({
+                    backgroundcolor: "#FF0000"
+                }, "slow");
+                jQuery('#err_div').addClass('error');
+            }else{
+                setTimeout(" jQuery.growlUI('','"+msg+"')",500);
+                  jQuery('#err_div').html("");
+            }
+      
+        });
+        return true;
+    }
+    return false;
+}
+
 
 function del_msg(ids,tr){
 
@@ -241,14 +295,14 @@ function blockandunblock(fid,divid,blk,show){
 function loadfollower(url,title)
 {
 
- var options = 'sameBox:true width:50% height:70% caption:' +title;
-  parent.fb.start(url, options);
+    var options = 'sameBox:true width:50% height:70% caption:' +title;
+    parent.fb.start(url, options);
 
 }
 function loadfollowing(url,title)
 {
- var options = 'sameBox:true width:50% height:50% caption:' +title;
-  parent.fb.start(url, options);
+    var options = 'sameBox:true width:50% height:50% caption:' +title;
+    parent.fb.start(url, options);
 
 
 }

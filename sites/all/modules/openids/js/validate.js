@@ -5,7 +5,7 @@ var err='';
     if (document.getElementById("fname").value=='')
 	{
 	
-	err=err+"<li>First Name must not blank!</li>";
+	err=err+"<li>First Name should not be blank!</li>";
 	
 	}
 
@@ -14,13 +14,13 @@ var err='';
 	if (document.getElementById("lname").value=='')
 	{
 	
-	err=err+"<li>Last Name must not blank!</li>";
+	err=err+"<li>Last Name should not be blank!</li>";
 	
 	}
 	if (document.getElementById("rname").value=='')
 	{
 	
-	err=err+"<li>RealName must not blank!</li>";
+	err=err+"<li>User name should not be  blank!</li>";
 	
 	}
 	

@@ -680,7 +680,7 @@ function welcome_page() {
            
             $result = db_query($set_qry);
         } else {
-            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
+            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
 			followers='$followers_privacy',following='$following_privacy',questions='$questions_privacy',answers='$answers_privacy' ,medal='$medal_privacy',dob='$dob_privacy'");
         }
 
@@ -694,19 +694,19 @@ function welcome_page() {
             $suc = $return['suc'];
         }
 
-        $chk = db_query("select * from {user_profile} where uid='$user->uid'");
+        $chk = db_query("select * from {user_profile}  where uid='$user->uid'");
         $chk1 = db_result($chk);
         $result_profile = db_fetch_object($chk);
 
         $socials = implode('||', $social);
         $urls = implode(';', $ptitle) . '@' . implode('||', $purl);
 
-        $update_user = db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
+        $update_user = db_query("update {users} set name='$rname',mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
         $age = '';
         $age = age($dob);
         $country = (!empty($country1)) ? $country1 : $country;
         
-        $result = db_query("UPDATE {user_profile} set uid='$user->uid',real_name='$rname',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',social='$socials',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
+        $result = db_query("UPDATE {user_profile} set uid='$user->uid',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',social='$socials',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
         
 
 
@@ -832,7 +832,7 @@ function welcome_page() {
     $i = 0;
     while ($i < mysql_num_fields($result)) {
 
-        $meta = mysql_fetch_field($result, $i);
+        $meta =  mysql_fetch_field($result, $i);
         $col = $meta->name;
         if ($fetch[0][$col] > 1)
             $inc_script.='jQuery("input[name=\'' . $meta->name . '_privacy\']").filter(\'[value="' . $fetch[0][$col] . '"]\').attr(\'checked\', true);';
@@ -924,7 +924,7 @@ jQuery.noConflict();
           <div class="bord-alin-rite"></div>
                        <div class=" w-outer">
                  <div class="w1">User Name:</div>
-                 <div class="w2"> <input id="rname" name="rname" onblur="chk_uname(this.value);" class="txtbx-1" value="' . $real_name . '" tabindex="4" type="text">
+                 <div class="w2"> <input id="rname" maxlength="20" name="rname" onblur="chk_uname(this.value);" class="txtbx-1" value="' . $user->name . '" tabindex="4" type="text">
    </div>
                  <div class="w3"><input name="real_name_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="real_name_privacy" type="radio" value="2" /></div>
