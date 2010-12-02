@@ -1552,11 +1552,8 @@ function panel_content() {
 
 </div><div class="clr"></div><br />
 
-<<<<<<< .mine
-<div><span class="profile-gray">Section</span>:' . $section . '</div>
-=======
+
 <div><span class="profile-gray">Section </span>:'.$section.'</div>
->>>>>>> .r3266
 
 </div>
 		';
