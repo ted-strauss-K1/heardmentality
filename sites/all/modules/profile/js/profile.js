@@ -140,19 +140,17 @@ function profile_comment(make){
 function get_zip_city(code){
 	
     var urr=spath+'qlite/ajax?action=zipcity';
-	jquery.block.ui();
+	jQuery.blockUI({ message: '<h3> Just a moment validating your zip code...</h3>' });
 	 jQuery.ajax({
         type: "POST",
         url: urr,
-       url: urr,
         data: {
             code: code
         },
         success: function(msg){
-		jquery.unblock.ui();
-		setTimeout(jquery.unblockUI, 2000); 
+
 		jQuery('#edit-city-wrapper').html(msg);
-		
+		jQuery.unblockUI();
 
         }
     });

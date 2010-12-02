@@ -23,7 +23,7 @@ function profile_view() {
 if($uid=='')
 {
  drupal_not_found();
- exit;
+ return;
 }
     //activities
     $tag = '';

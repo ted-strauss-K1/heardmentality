@@ -924,7 +924,7 @@ jQuery.noConflict();
           <div class="bord-alin-rite"></div>
                        <div class=" w-outer">
                  <div class="w1">User Name:</div>
-                 <div class="w2"> <input id="rname" name="rname" class="txtbx-1" value="' . $real_name . '" tabindex="4" type="text">
+                 <div class="w2"> <input id="rname" name="rname" onblur="chk_uname(this.value);" class="txtbx-1" value="' . $real_name . '" tabindex="4" type="text">
    </div>
                  <div class="w3"><input name="real_name_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="real_name_privacy" type="radio" value="2" /></div>
@@ -989,7 +989,7 @@ jQuery.noConflict();
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Postal / Zip Code:</div>
-                 <div class="w2"> <input name="zip"  value="' . $zip . '" class="txtbx-1"  onkeyup="get_zip_city(this.value);" onblur="get_zip_city(this.value);" id="edit-zip"  type="text"><span style="display:none;" id="edit-city-wrapper">' . $statecity . ' </span></div>
+                 <div class="w2"> <input name="zip"  value="' . $zip . '" class="txtbx-1" onblur="get_zip_city(this.value);" id="edit-zip"  type="text"><span style="display:none;" id="edit-city-wrapper">' . $statecity . ' </span></div>
                  <div class="w3"><input name="zip_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="zip_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="zip_privacy" type="radio" value="3" /></div>

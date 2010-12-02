@@ -1210,7 +1210,7 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
         $cid = '';
         $scid = '';
         $cond = '';
-
+                    //print_r($_REQUEST);
 
         $scid = $_REQUEST['scid'];
         //$cond =" AND cat.scat=$scid";
