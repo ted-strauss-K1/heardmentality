@@ -3462,8 +3462,8 @@ function exist_dupe() {
 
 $result = mysql_query($query);
  while ($mylist = mysql_fetch_array($result)) {
-
-        echo $mylist['question'];
+$validpath =  $gSitePath.$mylist['url'];
+        echo "<a href='".$validpath."' target='_blank'>".$mylist['question']."</a>";
     }
     exit;
 }
