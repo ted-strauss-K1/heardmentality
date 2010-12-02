@@ -701,7 +701,12 @@ function welcome_page() {
         $socials = implode('||', $social);
         $urls = implode(';', $ptitle) . '@' . implode('||', $purl);
 
-        $update_user = db_query("update {users} set name='$rname',mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
+         if (db_result(db_query("SELECT COUNT(*) FROM {user} WHERE name = '%s' AND uid!='%s';",$rname,$user->uid))||empty($rname)) {
+             drupal_set_message($message="Sorry Username already exists & not updated", $type="error");
+            }else{
+              db_query("update {users} set name='$rname' where uid='$user->uid'");
+            }
+        $update_user = db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
         $age = '';
         $age = age($dob);
         $country = (!empty($country1)) ? $country1 : $country;
