@@ -393,8 +393,16 @@ WHERE qc.qid ='$qid'
             $city_name = $state_city['name'];
         }
     }
+    if($state_name!='')
+    {
+        $state_name = " >> $state_name";
+    }
+    if($city_name!='')
+    {
+        $city_name = " >> $city_name";
+    }
      $output .='<p>Location:</p>';
-     $output .='<p>'.$fet_res->country.' >> '.$state_name.' >> '.$city_name.'</p>';
+     $output .='<p>'.$fet_res->country.$state_name.$city_name.'</p>';
      
     }
 
