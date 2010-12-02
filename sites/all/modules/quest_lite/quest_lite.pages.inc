@@ -2674,7 +2674,7 @@ function qlite_map() {
                   
                   
 	 var markerCluster = new MarkerClusterer(map, markers);
-map. disableInfoWindow ();
+//map. disableInfoWindow ();
 
 }
 
