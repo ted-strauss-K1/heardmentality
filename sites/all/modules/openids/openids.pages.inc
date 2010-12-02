@@ -929,7 +929,7 @@ jQuery.noConflict();
           <div class="bord-alin-rite"></div>
                        <div class=" w-outer">
                  <div class="w1">User Name:</div>
-                 <div class="w2"> <input id="rname" maxlength="20" name="rname" onblur="chk_uname(this.value);" class="txtbx-1" value="' . $user->name . '" tabindex="4" type="text">
+                 <div class="w2"> <input id="rname" maxlength="20" name="rname" onblur="chk_uname(this.value);" class="txtbx-1" value="' . $name . '" tabindex="4" type="text">
    </div>
                  <div class="w3"><input name="real_name_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="real_name_privacy" type="radio" value="2" /></div>
