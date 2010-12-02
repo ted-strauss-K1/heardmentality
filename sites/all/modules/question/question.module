@@ -150,6 +150,15 @@ $items['question/save'] = array(
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'question.pages.inc',
   );
+
+   $items['exist_question'] = array(
+    'title' => 'Dupe Question',
+    'page callback' => 'exist_dupe',
+    'access arguments' => array('Question add'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'question.pages.inc',
+  );
+
   return $items;
 }
 

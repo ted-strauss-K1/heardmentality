@@ -148,7 +148,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          <li>Unbiased</li>
          <li>Contain no names</li>
          </ul></div>
-         <div id="inside_content" style="width:165px;height:190px;overflow:auto;margin-top:20px;">
+         <div id="inside_content" style="width:165px;height:190px;overflow:auto;margin-top:20px;color:#986700;">
          </div>
           </div>
        <div class="right" id="qform">
@@ -3435,6 +3435,41 @@ $result = mysql_query($query);
     }
     
 }
+
+
+function exist_dupe() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $question = $_REQUEST['question'];
+
+
+    $query = "select * from question  where question='$question'";
+    $ans = ExecuteQuery($query, "norows");
+
+    $words = explode(" ", $question);
+
+
+    $query = "SELECT * FROM question WHERE 1";
+    for ($i = 0; $i < count($words); $i++) {
+        $samples = " " . $words[$i] . "  ";
+        //echo $samples;
+        // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+        //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
+        $query .= " AND question LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+    }
+
+$result = mysql_query($query);
+ while ($mylist = mysql_fetch_array($result)) {
+
+        echo $mylist['question'];
+    }
+    exit;
+}
+
+
+
 
 function dupe_question() {
 

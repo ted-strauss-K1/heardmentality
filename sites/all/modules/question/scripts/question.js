@@ -12,14 +12,24 @@ jQuery(document).ready( function() {
     }
    jQuery('.selectAll').remove();
 
-//jQuery('#ajax_listOfOptions a')
-/*jQuery('a.sidelinks').livequery('click', function(){
 
-    var scid = jQuery(this).attr('sid');
-    jQuery("#hid_scat").val(scid);
-});*/
-    
-    
+   $('#q_quest').keyup(function() {
+ var quest = jQuery('#q_quest').val();
+   var url = spath+"exist_question";
+ jQuery.ajax({
+type: "POST",
+url: url,
+data: "question="+ quest,
+success: function(msg){
+        jQuery("#inside_content").html(msg);
+}
+});
+
+
+
+
+})
+
 
 });
 /*
