@@ -1,5 +1,4 @@
 <?php
-
 //////////////insert front end mail notification//////////////////////
 function hm_flag($qid, $last_id, $user, $admin) {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey;
@@ -115,7 +114,7 @@ function qlite_view() {
     //echo $percent;
     $tot = $percent * 100;
 
-    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
+    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where 1 AND q.qid='".$qid."' AND q.status='1'";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
 
