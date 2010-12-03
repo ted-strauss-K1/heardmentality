@@ -2594,9 +2594,11 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
       $output .= '</select> */
     $output .= '</select>
         </td>
-        <td width="25%" align="left"><input type="hidden" id="cat1" name="cat1" value="' . $pcate_id . '">&nbsp;  <div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
-
-    $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('" . $pcate_id . "')";
+        <td width="25%" align="left">
+        <input type="hidden" id="cat1" name="cat1" value="' . $pcate_id . '">&nbsp;
+        <div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5">
+        <option value="">Select Sub Category</option>';
+    $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $pcate_id . ")";
     $client_select1 = db_query($cat_qry);
     $ecat2 = explode(",", $quest->scid);
 
@@ -2621,10 +2623,13 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
           } else {
           $sel = '';
           } */
-        if ($liste->cat_id == $subcat[$sc]) {
-
+        // echo $subcat[$sc].'-'.strlen($subcat[$sc]).'</br>';
+        //echo $liste->cat_id.'-'.strlen($liste->cat_id).'</br>';
+      //$subcat = trim($subcat[$sc]);
+        if ($liste->cat_id==$subcat[$sc]){
             $sele = 'SELECTED';
-        } else {
+        }
+        else {
             $sele = '';
         }
 
@@ -2641,7 +2646,7 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
    <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
    <option value="">Select Sub Sub Category</option>';
     // if ($quest->scid != '') {//now here
-    $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN ('" . $psubcate_id . "')";
+    $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $psubcate_id . ")";
     $client_select2 = db_query($scat_qry);
     $ecat3 = explode(",", $quest->sscid);
 
