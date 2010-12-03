@@ -348,7 +348,7 @@ from question_cat as qc
 left join category AS c ON qc.cat = c.cat_id
 left join category AS c1 ON qc.scat = c1.cat_id
 left join category AS c2 ON qc.sscat = c2.cat_id
-WHERE qc.qid ='$qid'
+WHERE qc.qid ='$qid' ORDER BY c.cat_id ASC
 ";
         $fetch = ExecuteQuery($query, "select");
 
@@ -373,7 +373,7 @@ $query = array('geonameid'=>$fet_res->city, 'style'=>'', 'lang'=>'en');
 $result = geonames_query('get', $query);
 $city_name=((!empty($result->results[0]['name'])) ? ' >> ' .$result->results[0]['name'] : '');
 }
-     $output .='<p>Location:</p>';
+     $output .='<p class="profile-gray">Location:</p>';
      $output .='<p>'.$fet_res->country.$state_name.$city_name.'</p>';
   
     }

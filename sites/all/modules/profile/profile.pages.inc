@@ -1549,6 +1549,10 @@ function google_map() {
             }
             break;
     }
+if($_REQUEST['width']=='155')
+    $vars=' geomap.draw(data,{width:155,height:100,showLegend:false});';
+   else
+      $vars=' geomap.draw(data,{width:670,height:350,showLegend:false});';
 
     echo $script .= "<script type='text/javascript' src='http://www.google.com/jsapi'></script>";
     echo $script.="<script type='text/javascript'>
@@ -1561,7 +1565,7 @@ function google_map() {
       data.addColumn('number', '".$variable."');" . $asscountry . "
       var geomap = new google.visualization.GeoMap(
           document.getElementById('visualization'));
-      geomap.draw(data,{width:650,height:375});
+     ".$vars."
     }
     google.setOnLoadCallback(drawVisualization);
   </script>";
