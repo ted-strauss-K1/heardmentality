@@ -362,48 +362,20 @@ WHERE qc.qid ='$qid'
         $con_query = "select country,state,city from question where qid='$qid'";
         $fet_con = db_query($con_query);
         $fet_res = db_fetch_object($fet_con);
+if(!empty($fet_res->state)){
+$query = array('geonameid'=>$fet_res->state, 'style'=>'', 'lang'=>'en');
+$result = geonames_query('get', $query);
 
-
-
-
-
-        $query = array('query' => $fet_res->country, 'maxRows' => '1', 'featureclass' => 'S');
-    $result = geonames_query('search', $query);
-  
-    $query = array('country' => $result->results[0]['countrycode']);
-    $result = geonames_query('countryinfo', $query);
-  
-    $query = array('geonameid' => $result->results[0]['geonameid']);
-  
-    $result = geonames_query('children', $query);
-   
-    foreach ($result->results as $state) {
-        $output.= '';
-        if ($fet_res->state == $state['geonameid']) {
-            $state_name =$state['name'];
-        }
-    }
-
-
-    $query_city = array('geonameid' =>$fet_res->state);
-    $result_city = geonames_query('children', $query_city);
-    foreach ($result_city->results as $state_city) {
-        $set = '';
-        if ($fet_res->city == $state_city['geonameid']) {
-            $city_name = $state_city['name'];
-        }
-    }
-    if($state_name!='')
-    {
-        $state_name = " >> $state_name";
-    }
-    if($city_name!='')
-    {
-        $city_name = " >> $city_name";
-    }
+$state_name=((!empty($result->results[0]['name'])) ? ' >> ' .$result->results[0]['name'] : '');
+}
+if(!empty($fet_res->city)){
+$query = array('geonameid'=>$fet_res->city, 'style'=>'', 'lang'=>'en');
+$result = geonames_query('get', $query);
+$city_name=((!empty($result->results[0]['name'])) ? ' >> ' .$result->results[0]['name'] : '');
+}
      $output .='<p>Location:</p>';
      $output .='<p>'.$fet_res->country.$state_name.$city_name.'</p>';
-     
+  
     }
 
     return $output;
