@@ -338,7 +338,7 @@ function user_facts() {
           </ul>
           </div>
           
-          </div>
+          
 <div class="clr"></div>
   ';
     return $output;
