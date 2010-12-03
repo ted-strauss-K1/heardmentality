@@ -2,6 +2,20 @@ function validate_reg()
 {
 var err='';
 //alert("llll");
+
+	if (document.getElementById("rname").value=='')
+	{
+
+	err=err+"<li>User name should not be  blank!</li>";
+
+	}
+
+         var ck_uname = /^[A-Za-z0-9_]{5,20}$/;
+    if(!jQuery('#rname').val().match(ck_uname)){
+
+       err=err+"Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed ";
+    }
+
     if (document.getElementById("fname").value=='')
 	{
 	
@@ -17,13 +31,7 @@ var err='';
 	err=err+"<li>Last Name should not be blank!</li>";
 	
 	}
-	if (document.getElementById("rname").value=='')
-	{
-	
-	err=err+"<li>User name should not be  blank!</li>";
-	
-	}
-	
+
     
 	if (document.getElementById("edit-mail").value=='')
 	{

@@ -165,10 +165,10 @@ function chk_uname(val){
 
     var urr=spath+'qlite/ajax?action=uname';
 
-    var ck_uname = /^[A-Za-z0-9_]{3,20}$/;
+    var ck_uname = /^[A-Za-z0-9_]{5,20}$/;
     if(!val.match(ck_uname)){
 
-        jQuery('#err_div').html("Username should be Alphabets, numbers and no special characters min 3 and max 20 allowed ");
+        jQuery('#err_div').html("Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed ");
         jQuery('#err_div').animate({
             backgroundcolor: "#fff568"
         }, "slow").animate({
