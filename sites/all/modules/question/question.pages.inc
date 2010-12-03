@@ -975,7 +975,32 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
 
     return $output;
 }
+function user_ajax(){
+    if ($_REQUEST['sel_id'] != '') {
+        $cid=$_REQUEST['sel_id'];
+         $sel_sscat = "select * from category as c join follower as f on c.cat_id=f.cat_id where c.parent_id='$cid'";
+     // $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='$cid' AND q.status='1' group by c.cat_id";
+       $listsscat = ExecuteQuery($sel_sscat, "select");
 
+                        foreach ($listsscat as $sscat) {
+                            $style = '';
+                            if ($sscid == $sscat['cat_id']) {
+                                $style = 'style="font-weight:bold"';
+                            }
+                            //$sscat_qry = "SELECT count(distinct cat.scat) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond  group by cat.scat";
+                            $sscat_qry = "select count(uid) from follower where cat_id='".$sscat['cat_id']."'";
+                           $total_count3= db_result(db_query($sscat_qry));
+
+
+                            $style = 'class="sublinks scat" style="padding-left:10px"';
+                            $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
+                        }
+                        echo $catlist;
+            exit;
+        }
+
+
+}
 function question_ajax() {
     //print_r($_REQUEST);
     $ret = '';
@@ -3470,16 +3495,14 @@ function front_dupe() {
 
     $words = explode(" ", $question);
 
-
-    $query = "SELECT * FROM question WHERE 1";
+    $query = "SELECT * FROM question WHERE 1 AND question='$question'";
+    /*$query = "SELECT * FROM question WHERE 1";
     for ($i = 0; $i < count($words); $i++) {
         $samples = " " . $words[$i] . "  ";
-        //echo $samples;
-        // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
-        //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
-        $query .= " AND question LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
-    }
-    
+        //$query .= " AND question LIKE CONVERT(_utf8 '$words[$i]' USING latin1 ) COLLATE latin1_swedish_ci";
+        $query .= " AND question='$words[$i]'";
+    }*/
+   
 $result = mysql_query($query);
  $num_rows = mysql_num_rows($result);
 
@@ -3522,6 +3545,8 @@ function exist_dupe() {
     }
 
 $result = mysql_query($query);
+
+echo "<span style='font-weight:bold;color:black'>Related question</span></br>";
  while ($mylist = mysql_fetch_array($result)) {
 $validpath =  $gSitePath.$mylist['url'];
         echo "<a href='".$validpath."' target='_blank'>".$mylist['question']."</a>";

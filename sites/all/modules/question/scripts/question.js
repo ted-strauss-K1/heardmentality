@@ -240,6 +240,7 @@ type: "POST",
 url: url,
 data: "question="+ quest,
 success: function(msg){
+       
         if(msg=='invalid')
         {
            jQuery('#err').append('<li>Question already exists</li>');
