@@ -325,7 +325,7 @@ function user_facts() {
      //$get_ans = db_queryd('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 AND up.country REGEXP \'[^0-9]\'', time() - $time_period);
      //exit;
     $total_users = db_result($userslist);
-    $output.="   <div id='heatmap' style='width: 155px; height: 100px;'><iframe id='cirmap' src ='".$gSitePath."google/map/users?width=155&height=100' width='155' frameborder='0' height='100' scrolling='no'></iframe></div>
+    $output.="   <div id='heatmap' style='width: 155px; height: 110px;'><iframe id='cirmap' src ='".$gSitePath."google/map/users?width=155&height=100' width='155' frameborder='0' height='110' scrolling='no'></iframe></div>
 ";
     $output .= '
          <div class="fa-item">

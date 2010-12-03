@@ -1552,7 +1552,7 @@ function google_map() {
 if($_REQUEST['width']=='155')
     $vars=' geomap.draw(data,{width:155,height:100,showLegend:false});';
    else
-      $vars=' geomap.draw(data,{width:670,height:350,showLegend:false});';
+      $vars=' geomap.draw(data,{width:640,height:350,showLegend:true});';
 
     echo $script .= "<script type='text/javascript' src='http://www.google.com/jsapi'></script>";
     echo $script.="<script type='text/javascript'>
