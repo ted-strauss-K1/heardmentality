@@ -3487,7 +3487,7 @@ function front_dupe() {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $question = $_REQUEST['question'];
+    $question = trim(strtolower($_REQUEST['question']));
 
 
     $query = "select * from question  where question='$question'";
