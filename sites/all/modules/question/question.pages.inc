@@ -148,6 +148,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          <li>Unbiased</li>
          <li>Contain no names</li>
          </ul></div>
+           <div class="clr">&nbsp;</div>
          <div style="font-weight:bold;color:black">Dupe questions:</div>
          <div id="inside_content" style="width:165px;height:190px;overflow:auto;margin-top:20px;color:#986700;">
          </div>
