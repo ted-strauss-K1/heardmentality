@@ -207,11 +207,29 @@ function validate_question(){
     var errmsg = '';
 
 
-    /*if(errmessaging=='invalid')
-    {
-    alert(errmessaging);
-     err += '<li>Question already exists</li>';
-    }*/
+    
+
+    if (jQuery.trim(quest).length > 1)
+     {
+ var url = spath+"front_dupequestion";
+ jQuery.ajax({
+type: "POST",
+url: url,
+data: "question="+ quest,
+success: function(msg){
+
+         
+        if(msg=='invalid')
+        {
+           jQuery('#err').append('<li>Question already exists</li>');
+           return false;
+        }
+}
+});
+     }
+
+
+
     if (jQuery.trim(quest).length < 1)
         err += '<li>Please Provide Proper Question!</li>';
 
@@ -229,25 +247,28 @@ function validate_question(){
     });
 
 
- if (jQuery.trim(quest).length > 1)
-     {
- var url = spath+"front_dupequestion";
+ 
+
+    if (jQuery.trim(err).length > 1) {
+
+
+       /*  var url = spath+"front_dupequestion";
  jQuery.ajax({
 type: "POST",
 url: url,
 data: "question="+ quest,
 success: function(msg){
-       
         if(msg=='invalid')
         {
-           jQuery('#err').append('<li>Question already exists</li>');
-           return false;
+           //jQuery('#err').append('<li>Question already exists</li>');
+          err += '<li>question already </li>';
+         // alert(err);
+          //return false;
         }
 }
-});
-     }
+});*/
 
-    if (jQuery.trim(err).length > 1) {
+     //   alert(err);
         jQuery('#err').html(err);
         jQuery('#err').addClass('error');
         return false;
