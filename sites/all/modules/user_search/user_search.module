@@ -364,7 +364,7 @@ function _sidebaruser_category() {
     ///print_r($_REQUEST);
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     //$query = facetad_refine();
-    
+
    // $sel_search = db_query($query['query']);
      //$sel_search = db_query($query);
     $txt_search = trim($query['txt_search']);
@@ -409,25 +409,27 @@ function _sidebaruser_category() {
  // echo $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . $cond . " AND q.status='1' group by c.cat_id";
   $sel_cat = "select distinct(c.cat_name),c.cat_id from category as c join follower as f on c.cat_id=f.cat_id join user_profile as up on up.uid=f.uid $cond";
 
- 
+
     $listcat = ExecuteQuery($sel_cat, "select");
 
     if (!empty($listcat)) {
         foreach ($listcat as $cat) {
             $style = '';
             if ($cid == $cat['cat_id']) {
-                $style = 'class="sidelinks"';
+                $style = 'class="userlinks"';
             }
-        
-       //$cat_qry = "SELECT count(up.uid) FROM category as c join follower as f on c.cat_id=f.cat_id join user_profile as up on up.uid=f.uid $cond";
-         
-        $cat_qry = "select * from users u,user_profile up,follower f where 1 and u.status=1 and u.uid=f.uid $cond group by fol.uid";
 
-            $total_count1 = db_result(db_query($cat_qry));
+       //$cat_qry = "SELECT count(up.uid) FROM category as c join follower as f on c.cat_id=f.cat_id join user_profile as up on up.uid=f.uid $cond";
+
+        $cat_qry = "select * from users u,user_profile up,follower f where 1 and u.status=1 and u.uid=f.uid and f.cat_id=".$cat['cat_id']." $cond group by f.uid";
+
+          //  $total_count1 = db_result(db_query($cat_qry));
+       $total_count1 = db_query($cat_qry);
+        $tcount =   mysql_num_rows($total_count1);
             //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
             $catlist.='<span ' . $style . ' class="userlinks">
 
-        <a  id="c-' . $cat['cat_id'] . '" href="JavaScript:void(0);">' . stripslashes($cat['cat_name']) . '[' . $total_count1 . ']</a></span><br/>';
+        <a  id="c-' . $cat['cat_id'] . '" href="JavaScript:void(0);">' . stripslashes($cat['cat_name']) . '[' .$tcount. ']</a></span><br/>';
             //subcat list
             if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
                 // $catlist.='<ul>';
@@ -475,36 +477,8 @@ function _sidebaruser_category() {
         $catlist.='<span><b>No Category Found</b></span>';
     }
 
-    return $catlist;
-    /* $tagslist = '<br/><br/><span class="black12">Tags :</span><br/>';
-
-      $tsearch = '';
-      if (!empty($txt_search)) {
-
-      $tsearch.= " AND q.question LIKE  '%" . $txt_search . "%'";
-
-      }
-      $ins_query='';
-      if(!empty ($txt_search)||!empty($_REQUEST['cid'])){
-      $ins_query="left join {question_cat} as qc on qc.qid=q.qid ";
-      }
-      $qry_tags = "select *,count(*) as cntc from {tagging} as t join {qtag} as qt on qt.tag_id=t.tid  join {question} as q on q.qid=qt.qid ".$ins_query." where  q.status='1' " .$searchcat . $tsearch . "  group by t.tid";
-      $rs_tags = ExecuteQuery($qry_tags, "select");
-      $tagslist.='<br/>';
-      if (!empty($rs_tags)) {
-
-      foreach ($rs_tags as $tag_result) {
-
-      $tagslist.='<span class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?tag=' . $tag_result['tag_id'] . '' . $link1 . '' . $link2 . '' . $link3 . '&txt_search=' . $txt_search . '">' . $tag_result['tag'] . '[' . $tag_result['cntc'] . '] </a> </span><br/>';
-      }
-      } else {
-
-      $tagslist.='<span><b>No Tags Found</b></span>';
-      }
-
-
-      $tagslist.='</div>';
-      echo $tagslist; */
+    echo  $catlist;
+    exit;
 }
 
 function _sidebar_category() {

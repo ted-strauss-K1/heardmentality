@@ -54,9 +54,9 @@ function search_results() {
     
     if($_REQUEST['q_city']!='')
         $qry .= "AND (img.city ='" . $q_city . "')";
-     
 
-   
+
+    
 //SELECT * FROM users reg, user_profile img, follower fol WHERE (fol.cat_id ='1') AND reg.status='1' and reg.uid=fol.uid group by fol.uid
     if ($user->uid != '')
     {
@@ -280,133 +280,8 @@ echo _sidebar_category();
 function categoryuser_ajax()
 {
      global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-    // echo _sidebaruser_category();
-    //exit;
-     $link1 = '';
-    $link2 = '';
-    $link3 = '';
-    $cid = '';
-    $scid = '';
-    ///print_r($_REQUEST);
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-    //$query = facetad_refine();
-
-   // $sel_search = db_query($query['query']);
-     //$sel_search = db_query($query);
-    $txt_search = trim($query['txt_search']);
-    $qids = array();
-//select *,count(*) as cntc from category as c join follower as f on c.cat_id=f.cat_id join user_profile as up on up.uid=f.uid and up.country='India'
-
-//keyword exist make count based on that
-    $cond .= '';
-    if (!empty($txt_search)) {
-
-        $cond .= " AND up.first_name LIKE  '%" . $txt_search . "%'";
-    }
-    if (!empty($_REQUEST['cid'])) {
-        $cid = $_REQUEST['cid'];
-        $link1 = '&cid=' . $_REQUEST['cid'] . '';
-        $cond .= " AND f.cat_id='$cid' ";
-    }
-    if (!empty($_REQUEST['scid'])) {
-        $scid = $_REQUEST['scid'];
-        $link2 = '&scid=' . $_REQUEST['scid'] . '';
-        $cond .= " AND f.cat_id='$scid' ";
-    }
-    if (!empty($_REQUEST['sscid'])) {
-        $sscid = $_REQUEST['sscid'];
-        $link3 = '&sscid=' . $_REQUEST['sscid'] . '';
-    }
-    if (!empty($_REQUEST['q_country'])) {
-        $q_country = $_REQUEST['q_country'];
-        $cond .= " AND up.country='$q_country'";
-    }
-    if (!empty($_REQUEST['q_state'])) {
-        $q_state = $_REQUEST['q_state'];
-        $cond .= " AND up.state='$q_state'";
-    }
-    if (!empty($_REQUEST['q_city'])) {
-        $q_city = $_REQUEST['q_city'];
-        $cond .= " AND up.city='$q_city'";
-    }
-
-
-    $catlist.='<span class="black12">Category  :</span><br/>';
- // echo $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . $cond . " AND q.status='1' group by c.cat_id";
-  $sel_cat = "select distinct(c.cat_name),c.cat_id from category as c join follower as f on c.cat_id=f.cat_id join user_profile as up on up.uid=f.uid $cond";
-
-
-    $listcat = ExecuteQuery($sel_cat, "select");
-
-    if (!empty($listcat)) {
-        foreach ($listcat as $cat) {
-            $style = '';
-            if ($cid == $cat['cat_id']) {
-                $style = 'class="userlinks"';
-            }
-
-       //$cat_qry = "SELECT count(up.uid) FROM category as c join follower as f on c.cat_id=f.cat_id join user_profile as up on up.uid=f.uid $cond";
-
-        $cat_qry = "select * from users u,user_profile up,follower f where 1 and u.status=1 and u.uid=f.uid and f.cat_id=".$cat['cat_id']." $cond group by f.uid";
-
-          //  $total_count1 = db_result(db_query($cat_qry));
-       $total_count1 = db_query($cat_qry);
-        $tcount =   mysql_num_rows($total_count1);
-            //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
-            $catlist.='<span ' . $style . ' class="userlinks">
-
-        <a  id="c-' . $cat['cat_id'] . '" href="JavaScript:void(0);">' . stripslashes($cat['cat_name']) . '[' .$tcount. ']</a></span><br/>';
-            //subcat list
-            if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
-                // $catlist.='<ul>';
-                $sel_scat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $cat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
-                $listscat = ExecuteQuery($sel_scat, "select");
-
-                /*
-                  foreach ($listscat as $scat) {
-                  $style = '';
-                  if ($scid == $scat['cat_id']) {
-                  $style = 'style="font-weight:bold"';
-                  }
-                  $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.scat ='" . $scat['cat_id'] . "' $cond  group by cat.qid";
-                  $scat_res = db_query($scat_qry);
-                  $total_count2 = mysql_num_rows($scat_res);
-
-                  $style = 'class="sidelinks"';
-                  $catlist.='&nbsp;&nbsp;<span ' . $style . '><a ' . $style . ' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '&q_country=' . $q_country . '&q_state=' . $q_state . '&q_city=' . $q_city . '">' . $scat['cat_name'] . '[' . $total_count2 . ']</a></span><br/>';
-                  //sub subcat list
-                  if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
-                  //$catlist.='<ul>';
-                  $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
-                  $listsscat = ExecuteQuery($sel_sscat, "select");
-
-                  foreach ($listsscat as $sscat) {
-                  $style = '';
-                  if ($sscid == $sscat['cat_id']) {
-                  $style = 'style="font-weight:bold"';
-                  }
-                  $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid join {category} as c on c.cat_id=cat.scat where q.status='1' AND cat.sscat ='" . $sscat['cat_id'] . "' $cond  group by cat.qid";
-                  $scat = db_query($sscat_qry);
-                  $total_count3 = db_affected_rows($sscat_res);
-
-                  $style = 'class="sidelinks"';
-                  $catlist.='&nbsp;&nbsp;<span ' . $style . '><a ' . $style . ' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '&q_country=' . $q_country . '&q_state=' . $q_state . '&q_city=' . $q_city . '">' . $scat['cat_name'] . '[' . $total_count3 . ']</a></span><br/>';
-                  }
-                  // $catlist.='</ul>';
-                  }
-                  } */
-                // $catlist.='</ul>';
-            }
-        }
-    } else {
-
-        $catlist.='<span><b>No Category Found</b></span>';
-    }
-
-    echo  $catlist;
-    exit;
-
-
+    echo _sidebaruser_category();
+   exit;
 }
 function search_user_ajax() {
     ////vijay1
