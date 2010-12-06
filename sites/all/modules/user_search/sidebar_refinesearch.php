@@ -11,8 +11,8 @@ $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
     $result = geonames_query('countryinfo',NULL,$options);
 	//echo '<form name="thisform" action="' . $gSitePath . 'searchquestion" method="post">';
     echo '<span class="black12" style="margin-left:10px">Location:</span>';
-   echo '<div class="padding10" >';
-$optionlist.=' <option value="0" >Country</option>';
+   echo '<div class="padding10" id="question" >';
+$optionlist.=' <option value="" >Country</option>';
     foreach ($result->results as $country) {
         if($country['countryname']==$q_country)
         {
@@ -31,7 +31,7 @@ $optionlist.=' <option value="0" >Country</option>';
     /*onchange="click_submit(this.value,<?php echo $_GET['permission']?>)"*/?>
 <!--onchange="get_stateuser(this.value,'<?php echo $txt_search; ?>','<?php echo $cid; ?>','<?php echo $scid; ?>')"-->
  <div class="listmenu">
-<select name="q_country" class="listbox" style="width: 125px;" tabindex="16" onchange="get_state(this.value); search_user();" id="q_country"><?php echo  $optionlist ?></select>
+<select name="q_country" class="listbox" style="width: 125px;" tabindex="16" onchange="get_state(this.value); search_user();" id="q_countryuser"><?php echo  $optionlist ?></select>
  </div>
 <?php
 //echo '<input type="hidden" name="q_country" value='.$q_country.'/>';

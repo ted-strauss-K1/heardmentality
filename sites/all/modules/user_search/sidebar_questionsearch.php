@@ -29,7 +29,8 @@ if (!empty($_REQUEST['scid'])) {
 if (!empty($_REQUEST['sscid'])) {
     $sscid = $_REQUEST['sscid'];
 }
-$catlist.='<div class="padding10" id="pad10"><span class="black12">Category :</span><br/>';
+$catlist.='<div class="padding10" id="pad10">
+ <span class="black12">Category :</span><br/>';
 if (!empty($txt_search)) {
 $sel_user = "select * from user_profile where real_name LIKE '%".$txt_search."%'";
 $listuser = ExecuteQuery($sel_user, "select");
@@ -48,14 +49,15 @@ if (!empty($listcat)) {
     foreach ($listcat as $cat) {
         $style = '';
         if ($cid == $cat['cat_id']) {
-            $style = 'class="sidelinks"';
+          //  $style = 'class="sidelinks"';
         }
 
         $count_row3 =  mysql_num_rows(db_query("SELECT count(*) FROM users reg, user_profile img, follower fol where (fol.cat_id=$cat[cat_id]) AND reg.status=1 and reg.uid=fol.uid group by fol.uid"));
         if($count_row3>0){ $count_row3 =  "[$count_row3]";}else{$count_row3='';}
 
         //href="' . $gSitePath . 'searchuser?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search . '&q_country='.$_GET['q_country'].'&q_state='.$_GET['q_state'].'&q_city='.$_GET['q_city'].'"
-       $catlist.='<span ' . $style . ' class="sidelinks" id="user"><a class="sidelinks" id="'.$cat['cat_id'].'" href="JavaScript:void(0);" >' . $cat['cat_name'] .$count_row3 . '</a></span><br/>';
+       $catlist.='<span ' . $style . ' class="userlinks">
+    <a  id="c-'.$cat['cat_id'].'" href="JavaScript:void(0);" >' . stripslashes($cat['cat_name']) .$count_row3 . '</a></span><br/>';
 
        
         //subcat list

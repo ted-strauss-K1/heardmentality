@@ -376,8 +376,6 @@ jQuery(document).ready(function(){
 
 
     jQuery('#q_country').change(function(e){
-
-
         search_question(1);
     });
 
@@ -453,6 +451,7 @@ jQuery(document).ready(function(){
 
     jQuery("a.sublinks").live("click", function(e) {
 
+   
 
         e.preventDefault();
         e.stopPropagation();
