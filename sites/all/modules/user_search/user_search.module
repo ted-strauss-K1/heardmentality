@@ -310,7 +310,9 @@ function user_search_block($op = 'list', $delta = 0, $edit = array()) {
             $blocks[0] = array(
                 'info' => t('Question Refine Search'),
             );
-
+              $blocks[1] = array(
+                'info' => t('User Refine Search'),
+            );
             return $blocks;
 
         case 'view':
@@ -318,6 +320,10 @@ function user_search_block($op = 'list', $delta = 0, $edit = array()) {
                 case 0:
                     $block['subject'] = " Refine Search ";
                     $block['content'] = _question_search();
+                    break;
+                case 1:
+                     $block['subject'] = " User Refine Search ";
+                    $block['content'] = _user_search();
                     break;
             }
             return $block;
@@ -336,7 +342,18 @@ function _question_search() {
     $content.= _sidebar_location();
     return $content;
 }
+function _user_search() {
 
+    $content = '<div class="padding10" id="pad10">';
+
+    $content.= _sidebaruser_category();
+    $content.='</div>';
+    $content.='<input type="hidden" name="hid_cat" id="hid_cat" value="" /><input type="hidden" name="hid_scat" id="hid_scat" value="" /><input type="hidden" name="hid_txtsearch" id="hid_txtsearch" value="' . $txt_search . '" />';
+
+
+    $content.= _sidebar_location();
+    return $content;
+}
 
 function _sidebaruser_category() {
     $link1 = '';
