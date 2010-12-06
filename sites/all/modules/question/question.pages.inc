@@ -155,7 +155,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="' . $gSitePath . 'question/save" >
        <ul id="add_more">
                <li><label><span class="span1">Issue <b>*</b></span><span>
-          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" size="100" >
+          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')"  onblur="question_check()" size="100" >
         </span></label>
         </li>
           <li><label><span class="span1">Context</span><span> <textarea name="q_context" id="q_context" tabindex="2">' . $q_context . '</textarea> </span></label></li>
@@ -180,6 +180,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
             <input type="hidden" id="cat1" name="cat1" value="">
             <input type="hidden" id="cat2" name="cat2" value="">
             <input type="hidden"  id="cat3" name="cat3" value="">
+            <input type="hidden" id="exist_check" name="exist_check" value="">
          
             </div>
          </li>
@@ -3549,7 +3550,7 @@ $result = mysql_query($query);
 echo "<span style='font-weight:bold;color:black'>Related question</span></br>";
  while ($mylist = mysql_fetch_array($result)) {
 $validpath =  $gSitePath.$mylist['url'];
-        echo "<a href='".$validpath."' target='_blank'>".$mylist['question']."</a>";
+        echo "<a href='".$validpath."' target='_blank'>".$mylist['question']."</a></br></br>";
     }
     exit;
 }
