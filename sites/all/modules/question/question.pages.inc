@@ -148,6 +148,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          <li>Unbiased</li>
          <li>Contain no names</li>
          </ul></div>
+         <div style="font-weight:bold;color:black">Dupe questions:</div>
          <div id="inside_content" style="width:165px;height:190px;overflow:auto;margin-top:20px;color:#986700;">
          </div>
           </div>
@@ -3547,11 +3548,16 @@ function exist_dupe() {
 
 $result = mysql_query($query);
 
-echo "<span style='font-weight:bold;color:black'>Related question</span></br>";
+
+ $rel_ques .= "<ul>";
  while ($mylist = mysql_fetch_array($result)) {
 $validpath =  $gSitePath.$mylist['url'];
-        echo "<a href='".$validpath."' target='_blank'>".$mylist['question']."</a></br></br>";
+        $rel_ques .= "<li>";
+        $rel_ques .= "<a href='".$validpath."' target='_blank'>".$mylist['question']."</a>";
+        $rel_ques .= "</li>";
     }
+    $rel_ques .= "</ul>";
+    echo $rel_ques;
     exit;
 }
 
