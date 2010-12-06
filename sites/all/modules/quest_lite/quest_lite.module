@@ -356,7 +356,7 @@ WHERE qc.qid ='$qid' ORDER BY c.cat_id ASC
         
         foreach ($fetch as $load_cat) {
 
-            $output.='<p>' . $load_cat['lev1'] . ((!empty($load_cat['lev2'])) ? ' >> ' . $load_cat['lev2'] : '') . ((!empty($load_cat['lev3'])) ? ' >> ' . $load_cat['lev3'] : '') . '  </p>';
+            $output.='<p>' . stripslashes($load_cat['lev1']) . ((!empty($load_cat['lev2'])) ? ' >> ' . stripslashes($load_cat['lev2']) : '') . ((!empty($load_cat['lev3'])) ? ' >> ' . stripslashes($load_cat['lev3']) : '') . '  </p>';
         }
 
         $con_query = "select country,state,city from question where qid='$qid'";
