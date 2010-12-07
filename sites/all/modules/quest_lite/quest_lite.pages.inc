@@ -2239,6 +2239,53 @@ function percent_broken($qid = '', $aid = '', $array = '') {
             }
 
             break;
+        case 'sorient':
+                  $answer['divide'] = array('Straight', 'Gay', 'Bisexual','Transgender','undefined');
+
+            foreach ($answer['divide'] as $list) {
+                if ($list == 'undefined')
+                    $reg = '';
+                else
+                    $reg=$list;
+
+
+                $inc_cnt = '[';
+                for ($ab = 0; $ab < count($vlist); $ab++) {
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND sorient='" . $reg . "'";
+                    $tcnt = ExecuteQuery($query, "norows");
+                    $inc_cnt .= $tcnt . ',';
+                }
+                $inc_cnt = rtrim($inc_cnt, ",");
+                $inc_cnt .= ']';
+                $answer_cnt[] = $inc_cnt;
+            }
+
+
+            break;
+          case 'edu':
+                   $answer['divide'] = array('No High School', 'High School', 'Technical College','Masters Degree','PhD','undefined');
+
+            foreach ($answer['divide'] as $list) {
+                if ($list == 'undefined')
+                    $reg = '';
+                else
+                    $reg=$list;
+
+
+                $inc_cnt = '[';
+                for ($ab = 0; $ab < count($vlist); $ab++) {
+                    $query = "select * from {possible_answer_vote} as p join {user_profile} as u on u.uid=p.uid where  p.qid='" . $qid . "' and p.panswer_id='" . $vlist[$ab]['paid'] . "' AND edu='" . $reg . "'";
+                    $tcnt = ExecuteQuery($query, "norows");
+                    $inc_cnt .= $tcnt . ',';
+                }
+                $inc_cnt = rtrim($inc_cnt, ",");
+                $inc_cnt .= ']';
+                $answer_cnt[] = $inc_cnt;
+            }
+
+
+            break;
+
         default:
             $answer['divide'] = array('Total No Of Votes');
             $inc_cnt = '[';
@@ -2351,18 +2398,17 @@ function qlite_percent() {
 
     if (!empty($filter)) {
 
-        $incflt = '<div ><b>Filter by :</b><i>' . ucwords($filter) . '';
-        $incflt .= '<input type="button" name="go_button" id= "go_button" value="Reset" onclick="MM_jumpMenuGo(this.value)" /></div>';
-    }
+        $incflt = '<script>jQuery(document).ready(function() {jQuery("#dochg").val(\''.$filter.'\');});</script>';
+           }
 
 
     echo $output .= '
 <div id="contentr1" class="clear">
 	' . $incflt . '
-     <div align="right" > <form id="form1" name="form1" method="post" action="">
+     <div align="right" style="padding-right:20px;" > <form id="form1" name="form1" method="post" action="">
 Filter by :
       
-  <select name="dochg"  id="dochg">
+  <select name="dochg" onchange="MM_jumpMenuGo(this.value);"  id="dochg">
 
   <option value="">Select</option>
   <option value="gender">Gender</option>
@@ -2370,10 +2416,10 @@ Filter by :
     <option value="religion">Religion</option>
     <option value="ethnicity">Ethnicity</option>
     <option value="slant">Slant</option>
-   
+     <option value="sorient">Sexual Orientation</option>
+     <option value="edu">Education Level</option>
   </select></label>
   <span id="fopt" ></span>
-  <input type="button" name="go_button" id= "go_button" value="Go" onclick="MM_jumpMenuGo(this.value)" />
   
     <br />
  </form></div>
