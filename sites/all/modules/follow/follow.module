@@ -612,10 +612,16 @@ function follow_follow_networks() {
     // Normally a switch is used because you may want to alter more than
     // one form and it is easy to add a new case for each form.
    // echo "<pre>";
-    switch ($form_id) {
+      #
+
+ $exploded = explode('/', $_REQUEST['q']);
+if ($exploded[0]=='admin') {
+    $bodyClass = 'admin';
+  } else {
+      switch ($form_id) {
       // This is our form ID.
       case 'follow_links_form':
-      
+
         //print_r($form);
             foreach (element_children($form['follow_links']) as $child) {
 // Set $default_value.
@@ -628,4 +634,8 @@ function follow_follow_networks() {
         // Our kickin' mods go here.
         break;
     }
+  }
+ 
+
+    
   }
