@@ -283,7 +283,7 @@ function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
     $clean = strtolower(trim($clean, '-'));
     $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
     if(!empty($qid)){
-    $clean=$clean.'-'.$qid;
+    $clean='issue/'.$qid.'/'.$clean;
     }
     return $clean;
 }
