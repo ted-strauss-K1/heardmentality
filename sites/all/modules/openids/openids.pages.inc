@@ -697,13 +697,13 @@ function welcome_page() {
         $chk1 = db_result($chk);
         if ($chk1) {
            
-             $set_qry = "UPDATE {privacy_settings} set real_name='$real_name_privacy',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
+             $set_qry = "UPDATE {privacy_settings} set real_name='$real_name_privacy',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',sorient='$sorient_privacy',edu='$edu_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
 		followers='$followers_privacy',following='$following_privacy',medal='$medal_privacy',questions='$questions_privacy',answers='$answers_privacy',dob='$dob_privacy'  where uid='$user->uid' ";
             
            
             $result = db_query($set_qry);
         } else {
-            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic',slant='$slant_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
+            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic',slant='$slant_privacy',sorient='$sorient_privacy',edu='$edu_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
 			followers='$followers_privacy',following='$following_privacy',questions='$questions_privacy',answers='$answers_privacy' ,medal='$medal_privacy',dob='$dob_privacy'");
         }
 
@@ -735,7 +735,7 @@ function welcome_page() {
         $age = age($dob);
         $country = (!empty($country1)) ? $country1 : $country;
     
-        $result = db_query("UPDATE {user_profile} set uid='$user->uid',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',social='$socials',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
+        $result = db_query("UPDATE {user_profile} set uid='$user->uid',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',sorient='$sorient',edu='$edu',social='$socials',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
         
 
 
@@ -1048,13 +1048,35 @@ jQuery.noConflict();
              <div class="clr"></div>
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
-                 <div class="w1">Income Bracket:</div>
+                 <div class="w1">Slant:</div>
                  <div class="w2"><select name="slant" id="edit-slant"  class="txtbx-1" ><option value="">Select</option><option value="Left" ' . $seleant1 . '>Left</option><option value="Right" ' . $seleant2 . '>Right </option> <option value="Center" ' . $seleant3 . '>Center </option>  </select>
 	       </div>
                  <div class="w3"><input name="slant_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="slant_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="slant_privacy" type="radio" value="3" /></div>
                  <div class="w6"><input name="slant_privacy" type="radio" value="4" /></div>
+             </div>
+             <div class="clr"></div>
+             <div class="bord-alin-rite"></div>
+             <div class=" w-outer">
+                 <div class="w1">Sex. Orientation:</div>
+                 <div class="w2"><select name="sorient" id="edit-sorient"  class="txtbx-1" ><option value="">Select</option><option value="Straight" ' . $seleant1 . '>Straight</option><option value="Gay" ' . $seleant2 . '>Gay </option> <option value="Bisexual" ' . $seleant3 . '>Bisexual </option><option value="Transgender" ' . $seleant3 . '>Transgender </option>  </select>
+	       </div>
+                 <div class="w3"><input name="sorient_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="sorient_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="sorient_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="sorient_privacy" type="radio" value="4" /></div>
+             </div>
+                  <div class="clr"></div>
+             <div class="bord-alin-rite"></div>
+             <div class=" w-outer">
+                 <div class="w1">Education Level:</div>
+                 <div class="w2"><select name="edu" id="edit-edu"  class="txtbx-1" ><option value="">Select</option><option value="No High School" ' . $seleant1 . '>No High School</option><option value="High School" ' . $seleant2 . '>High School </option> <option value="Technical College" ' . $seleant3 . '>Technical College </option><option value="University" ' . $seleant3 . '>University </option><option value="Masters Degree" ' . $seleant3 . '>Masters Degree </option><option value="PhD" ' . $seleant3 . '>PhD </option>  </select>
+	       </div>
+                 <div class="w3"><input name="edu_privacy" type="radio" value="1" /></div>
+                 <div class="w4"><input name="edu_privacy" type="radio" value="2" /></div>
+                 <div class="w5"><input name="edu_privacy" type="radio" value="3" /></div>
+                 <div class="w6"><input name="edu_privacy" type="radio" value="4" /></div>
              </div>
              <div class="bord-alin-rite"></div>
               <div class="clr"></div>
@@ -1199,6 +1221,12 @@ chk_avatar();
 			jQuery("div.bio-right input:radio[value="+avatchk+"]").attr("checked","checked");
 
 ' . $inc_script . '
+
+var sorient="'.$sorient.'";
+ var edu="'.$edu.'";
+
+jQuery("#edit-sorient option[value="+sorient+"]").attr("selected","selected") ;
+jQuery("#edit-edu option[value="+edu+"]").attr("selected","selected") ;
 });
 
 function chk_avatar(){

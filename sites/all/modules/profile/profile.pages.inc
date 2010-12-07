@@ -246,6 +246,8 @@ function profile($uid = '') {
     $slant = '';
     $religion = '';
     $ethnic = '';
+    $sorient='';
+    $edu='';
     $facebook = '';
     $twitter = '';
     $inc_list = '';
@@ -318,17 +320,7 @@ function profile($uid = '') {
             $religion1 = "-";
         }
     }
-    if($ethnic=='')
-        {
-            $ethnic = "-";
-        }
-         if($slant=='')
-        {
-            $slant = "-";
-        }
-        
-
-    
+  
 
     if (($userSettings['image'] == 1) || ($userSettings['image'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['image'] == 2 && $is_follow_follower == TRUE)||($userSettings['real_name'] != 4)) {
         $img_path1 = $gSitePath . drupal_get_path('module', 'profile') . '/snap/' . $image;
@@ -339,9 +331,44 @@ function profile($uid = '') {
     }
     if (($userSettings['dob'] == 1) || ($userSettings['dob'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['dob'] == 2 && $is_follow_follower == TRUE)||($userSettings['real_name'] != 4)) {
         $dob1 = $age;
+       
         if($dob1==0)
         {
             $dob1 = "-";
+        }else{
+                  $rem_value = $dob1%5;
+        $rem_first = $dob1 - $rem_value;
+        $rem_second = $rem_first + 5;
+        $dob1 = 'Between '.$rem_first.' - '. $rem_second;
+        }
+    }
+    if (($userSettings['sorient'] == 1) || ($userSettings['sorient'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['sorient'] == 2 && $is_follow_follower == TRUE)||($userSettings['sorient'] != 4)) {
+        $sorient1 = $sorient;
+        if(empty($sorient1))
+        {
+            $sorient1 = "-";
+        }
+    }
+   if (($userSettings['edu'] == 1) || ($userSettings['edu'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['edu'] == 2 && $is_follow_follower == TRUE)||($userSettings['edu'] != 4)) {
+        $edu1 = $edu;
+        if(empty($edu1))
+        {
+            $edu1 = "-";
+        }
+    }
+      if (($userSettings['ethnic'] == 1) || ($userSettings['ethnic'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['ethnic'] == 2 && $is_follow_follower == TRUE)||($userSettings['ethnic'] != 4)) {
+        $ethnic1 = $ethnic;
+        if(empty($ethnic1))
+        {
+           $ethnic1 = "-";
+        }
+    }
+
+  if (($userSettings['slant'] == 1) || ($userSettings['slant'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['slant'] == 2 && $is_follow_follower == TRUE)||($userSettings['slant'] != 4)) {
+        $slant1 = $slant;
+        if(empty($slant1))
+        {
+            $slant1 = "-";
         }
     }
 
@@ -561,18 +588,6 @@ if(isAjax ())
       </div>';
 
 
-        if($dob1!='')
-        {
-        $rem_value = $dob1%5;
-        $rem_first = $dob1 - $rem_value;
-        $rem_second = $rem_first + 5;
-        $dob1 = 'Between '.$rem_first.' - '. $rem_second;
-        }
-        else
-        {
-            $dob1 = '-';
-        }
-
       $strReturn .= '
 <div class="profile-left">
     <form action="' . $gSitePath . 'postmessage" method="post" id="proform"><div align="left" style="display: none;" id="showboxcmt"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="msgs"></textarea><input type="hidden" value="" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg">&nbsp; <input type="button" onclick="rel_msg(0);"  value="cancel"/></div></form>
@@ -596,8 +611,10 @@ if(isAjax ())
 <span class="profile-gray">Age </span>:  ' .$dob1. '<br>
 <span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br>
 <span class="profile-gray">Religion</span> : ' . $religion1 . '<br>
-<span class="profile-gray">Ethnicity </span>:'.$ethnic.'<br>
-<span class="profile-gray">Slant </span>: ' . $slant . '<br>
+<span class="profile-gray">Ethnicity </span>:'.$ethnic1.'<br>
+<span class="profile-gray">Slant </span>: ' . $slant1 . '<br>
+    <span class="profile-gray">Sexual Orientation </span>: ' . $sorient1 . '<br>
+   <span class="profile-gray">Educational Level </span>: ' . $edu1 . '<br> 
 </div>
 </div>
 
