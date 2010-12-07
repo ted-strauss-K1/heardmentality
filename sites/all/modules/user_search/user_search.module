@@ -477,8 +477,8 @@ function _sidebaruser_category() {
         $catlist.='<span><b>No Category Found</b></span>';
     }
 
-    echo  $catlist;
-    exit;
+    return  $catlist;
+    
 }
 
 function _sidebar_category() {
@@ -595,35 +595,7 @@ function _sidebar_category() {
     }
 
     return $catlist;
-    /* $tagslist = '<br/><br/><span class="black12">Tags :</span><br/>';
-
-      $tsearch = '';
-      if (!empty($txt_search)) {
-
-      $tsearch.= " AND q.question LIKE  '%" . $txt_search . "%'";
-
-      }
-      $ins_query='';
-      if(!empty ($txt_search)||!empty($_REQUEST['cid'])){
-      $ins_query="left join {question_cat} as qc on qc.qid=q.qid ";
-      }
-      $qry_tags = "select *,count(*) as cntc from {tagging} as t join {qtag} as qt on qt.tag_id=t.tid  join {question} as q on q.qid=qt.qid ".$ins_query." where  q.status='1' " .$searchcat . $tsearch . "  group by t.tid";
-      $rs_tags = ExecuteQuery($qry_tags, "select");
-      $tagslist.='<br/>';
-      if (!empty($rs_tags)) {
-
-      foreach ($rs_tags as $tag_result) {
-
-      $tagslist.='<span class="sidelinks"><a class="sidelinks" href="' . $gSitePath . 'searchquestion?tag=' . $tag_result['tag_id'] . '' . $link1 . '' . $link2 . '' . $link3 . '&txt_search=' . $txt_search . '">' . $tag_result['tag'] . '[' . $tag_result['cntc'] . '] </a> </span><br/>';
-      }
-      } else {
-
-      $tagslist.='<span><b>No Tags Found</b></span>';
-      }
-
-
-      $tagslist.='</div>';
-      echo $tagslist; */
+ 
 }
 
 function _sidebar_location() {

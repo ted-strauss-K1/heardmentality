@@ -77,7 +77,7 @@ function search_user(loadcat){
             'txt_search':txt_search
         },
         success: function(msg){
-            jQuery('.user_search_3').html(msg);
+            jQuery('#ufilter').html(msg);
         }
     });
 
