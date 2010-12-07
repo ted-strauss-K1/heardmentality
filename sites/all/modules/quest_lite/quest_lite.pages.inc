@@ -2151,9 +2151,9 @@ function percent_broken($qid = '', $aid = '', $array = '') {
                 if ($key == 0)
                     $query_ins = "AND u.age BETWEEN '18' AND '30' ";
                 elseif ($key == 1)
-                    $query_ins = "AND u.age BETWEEN '30' AND '50'";
+                    $query_ins = "AND u.age BETWEEN '31' AND '50'";
                 elseif ($key == 2)
-                    $query_ins = "AND u.age>='50' ";
+                    $query_ins = "AND u.age>='51' ";
                 else
                     $query_ins = "AND u.age='' ";
 

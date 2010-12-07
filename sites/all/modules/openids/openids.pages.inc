@@ -557,7 +557,8 @@ function welcome_page() {
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
     //print_r($_COOKIE);
     //echo $_COOKIE["faceidc"];
-    //print_r($_REQUEST);
+    //echo "<pre>";
+  //  print_r($_REQUEST);die;
     $uid = $user->uid;
     $bio = '';
     $real_name = '';
@@ -667,9 +668,29 @@ function welcome_page() {
     //print_r($_REQUEST);
     // exit;
     if (isset($_REQUEST['update']) == 'Update') {
-        extract($_REQUEST);
 
+         // follow links starts here
+        $links=$_REQUEST['follow_links'];
+        foreach($links as $name => $link) {
+    $link = (object) $link;
+    $link->url = trim($link->url);
 
+    // Check to see if there's actually a link
+    if (empty($link->url)) {
+      // If there's an lid, delete the link.
+      if (isset($link->lid)) {
+        follow_link_delete($link->lid);
+      }
+      // Continue to the next link.
+      continue;
+    }
+    // Otherwise save the link.
+    else {
+      $link->uid = $user->uid;
+      $link->name = $name;
+      follow_link_save($link);
+    }
+  }  // follow links ends here
         $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
         $chk1 = db_result($chk);
         if ($chk1) {
@@ -852,7 +873,7 @@ function welcome_page() {
         $avtchk2 = "checked='checked'";
     else
         $avtchk1= "checked='checked'";
-
+        $follow=drupal_get_form('follow_links_form',$uid);
     $avatarform = drupal_get_form('avatar_form');
     $avatarform = str_replace("</form>", "", $avatarform);
     $avatarform = str_replace('<form action="/heardmentality/edit"  accept-charset="UTF-8" method="post" id="avatar-form">', "", $avatarform);
@@ -1104,7 +1125,8 @@ get found through search engines such as Google and Yahoo.</span></div>
                      <div class="web-reference">
                      <div class="web-reference-tit">WEB REFERENCES</div>
                      <div class="clr"></div>
-                         <div class="social-outer">
+                     '.$follow.'
+                        <!-- <div class="social-outer">
                           <div class="social-left"><img src="' . $gSitePath . path_to_theme() . '/images/soc-face.jpg" width="26" height="27" alt="Facebook" /></div>
                           <div class="social-rite"><input maxlength="60" name="social[]"   value="' . $social[0] . '"  size="60"  type="text"> </div>
                          </div>
@@ -1147,7 +1169,7 @@ get found through search engines such as Google and Yahoo.</span></div>
                          <div class="social-outer">
 
                           <div class="social-rite">URL :&nbsp; &nbsp; &nbsp; &nbsp;<input name="purl[]" value="' . $purl[1] . '" type="text" maxlength="255"  /></div>
-                         </div>
+                         </div> -->
 
 
                      </div>

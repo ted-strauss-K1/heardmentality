@@ -81,9 +81,11 @@ switch($tab){
     $purl = explode('||', $psplit[1]);
      $social = explode('||', $getuser->social);
      $bio=trim($getuser->bio);
-
+     $block= module_invoke('follow', 'block', 'view', 'user');
+//$block= (object)module_invoke('follow', 'block', 'view', 'user');
+//print theme('block',$block);print $block['content'];
         $output.='<div id="bio">'.(!empty($bio)?$getuser->bio:"No Bio updated yet").'</div><div style="display:none;" id="link">
-            <div class="face_book">
+          <!--  <div class="face_book">
             <h4>Follow me on</h4>
                     <a title="FaceBook" target="_blank" href="' .((!empty($social[0]))?$social[0]:'#'). '"><img align="left" alt="" src="' . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
                     <a title="Twitter" target="_blank" href="' .((!empty($social[1]))?$social[1]:'#'). '"><img align="left" alt="" src="' .  path_to_theme() . '/images/twitter.png"/>Twitter</a>
@@ -94,7 +96,7 @@ switch($tab){
                    <br/>
                     <span class="tab-historyspan4">'.$ptitle[1].'</span>
                <span class="tab-historyspan4"><a href="'.$purl[1].'" target="_blank">'.$purl[1].'</a></span>
-              </div>
+              </div>--><div class=""> <h4>Follow me on</h4>'.$block['content'].'</div>
 </div>';
         break;
     case 'badge':
