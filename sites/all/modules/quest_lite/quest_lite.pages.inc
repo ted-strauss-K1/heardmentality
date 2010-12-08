@@ -146,6 +146,7 @@ function qlite_view() {
         <script type="text/javascript">
 		var qid="' . $qid . '";
 		var spath="' . $gSitePath . '";
+                    var curl="'.url($_GET['q'], array('absolute' => true)).'";
 		function showdetails(ids)
 		{	
 	

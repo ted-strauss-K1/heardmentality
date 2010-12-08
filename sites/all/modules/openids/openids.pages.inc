@@ -876,6 +876,8 @@ function welcome_page() {
     else
         $avtchk1= "checked='checked'";
         $follow=drupal_get_form('follow_links_form',$uid);
+            $follow = str_replace("</form>", "", $follow);
+    $follow = str_replace(' <form action="/heardmentality/edit"  accept-charset="UTF-8" method="post" id="follow-links-form">', "", $follow);
     $avatarform = drupal_get_form('avatar_form');
     $avatarform = str_replace("</form>", "", $avatarform);
     $avatarform = str_replace('<form action="/heardmentality/edit"  accept-charset="UTF-8" method="post" id="avatar-form">', "", $avatarform);

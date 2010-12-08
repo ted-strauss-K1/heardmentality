@@ -147,16 +147,7 @@ function reset_tabs(){
 
 	  e.preventDefault();
 
-           $('#qajax').load($(this).attr('href'), function(response, status, xhr) {
-  if (status == "success") {
-        reset_tabs();
-    
-  }else{
-      var msg = "Sorry but there was an error: ";
-    $("#qajax").html(msg + xhr.status + " " + xhr.statusText);
-  }
-});
-
+load_issue($(this).attr('href'));
 return false;
 });
 
@@ -176,5 +167,29 @@ e.stopPropagation();
   return false;
  });
 
+
+jQuery('#answer_frm').submit(function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+jQuery.post(jQuery(this).attr('action'),jQuery(this).serialize() );
+//relead the question
+load_issue(curl);
+  return false;
+});
+
+
     });
 
+function load_issue(url){
+
+        $('#qajax').load(curl, function(response, status, xhr) {
+  if (status == "success") {
+        reset_tabs();
+
+  }else{
+      var msg = "Sorry but there was an error: ";
+    $("#qajax").html(msg + xhr.status + " " + xhr.statusText);
+  }
+});
+
+}
