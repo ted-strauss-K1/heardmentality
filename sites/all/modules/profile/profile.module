@@ -49,30 +49,14 @@ function checkPrivacySettings($uid = null) {
     $list = ExecuteQuery($ques_query, "select");
     $userFields = array();
     $i = 0;
-    foreach ($list as $options) {
-        $userFields[$i]['id'] = $options['id'];
-        $userFields[$i]['email'] = $options['email'];
-        $userFields[$i]['real_name'] = $options['real_name'];
-        $userFields[$i]['image'] = $options['image'];
-        $userFields[$i]['bio'] = $options['bio'];
-        $userFields[$i]['gender'] = $options['gender'];
-        $userFields[$i]['zip'] = $options['zip'];
-        $userFields[$i]['country'] = $options['country'];
-        $userFields[$i]['religion'] = $options['religion'];
-        $userFields[$i]['ethnic'] = $options['ethnic'];
-        $userFields[$i]['slant'] = $options['slant'];
-        $userFields[$i]['facebook'] = $options['facebook'];
-        $userFields[$i]['twitter'] = $options['twitter'];
-        $userFields[$i]['following'] = $options['following'];
-        $userFields[$i]['followers'] = $options['followers'];
-        $userFields[$i]['medal'] = $options['medal'];
-        $userFields[$i]['answers'] = $options['answers'];
-        $userFields[$i]['questions'] = $options['questions'];
-        $userFields[$i]['dob'] = $options['dob'];
-        $i++;
-    }
-    if (isset($userFields[0]) && count($userFields[0]) > 0) {
-        return $userFields[0];
+
+$columns = db_query("SHOW COLUMNS FROM {privacy_settings}");
+
+while ($res = db_fetch_array($columns)) {
+$userFields[$res['Field']]=$list[$i][$res['Field']];
+ }
+    if (isset($userFields) && count($userFields) > 0) {
+        return $userFields;
     }
 
 }
