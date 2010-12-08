@@ -3288,7 +3288,7 @@ function qfull_ajax() {
         case 'uname':
             $out = new stdClass();
             $out->messages = '';
-           if (db_result(db_query("SELECT COUNT(*) FROM {user} WHERE name = '%s' AND uid!='%s';",$_REQUEST['userid'],$user->uid))||empty($_REQUEST['userid'])) {
+           if (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid!='%d'",$_REQUEST['userid'],$user->uid))||empty($_REQUEST['userid'])) {
                 $out->messages = t( 'Sorry, This username is already taken.');
                 $out->error=true;
             }else{
@@ -3296,8 +3296,8 @@ function qfull_ajax() {
                  $out->error=false;
             }
                drupal_get_messages(null, true); // this will clear drupal is message buffer
-                header("Content-type: application/json");
-                echo drupal_to_js($out);
+          
+                echo drupal_json($out);
                 break;
                 default:
                 break;
