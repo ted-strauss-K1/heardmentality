@@ -725,7 +725,7 @@ function welcome_page() {
         $urls = implode(';', $ptitle) . '@' . implode('||', $purl);
             if(!preg_match('/^[A-Za-z0-9_]{5,20}$/i',$rname)){
                   $message.="<div class='error red'>Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed</div>";
-                }  elseif (db_result(db_query("SELECT COUNT(*) FROM {user} WHERE name = '%s' AND uid!='%s';",$rname,$user->uid))) {
+                }  elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid!='%d'",$rname,$user->uid))) {
          $message.="<div class='error red'>Sorry Username already exists try any other combination</div>";
             }else{
               db_query("update {users} set name='$rname' where uid='$user->uid'");
