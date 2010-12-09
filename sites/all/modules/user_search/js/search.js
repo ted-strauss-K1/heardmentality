@@ -2,25 +2,7 @@
  * @author gobinath.m
  */
  
-function get_profile_details(urid){
-    //alert(urid);
-    var url = gSitePath + 'userinfo';
-    jQuery('#user_info').empty();
-    jQuery.ajax({
-        type: "POST",
-        url: url,
-        dataType: 'xhr',
-        data: {
-            getuid: urid
-        },
-        success: function(msg){
-              
-            jQuery('#user_info').html(msg);
-            reset_tabs();
-        }
-    });
-	
-}
+
 
 function bio_tog(ele){
     var cls=jQuery(ele).parent().attr('class');

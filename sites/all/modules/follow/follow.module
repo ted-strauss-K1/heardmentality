@@ -169,6 +169,8 @@ function follow_block($op = 'list', $delta = 'site', $edit = array()) {
         }
         break;
       case 'user':
+          $args = func_get_args();
+        print_r($_REQUEST['q']);
         $uid = $user->uid;
         if ( is_numeric($uid) && ($content = _follow_block_content($uid))) {
           return array(

@@ -1,10 +1,4 @@
-BODY {
-	margin: 20px;
-	padding: 20px;
-	font-family: "Lucida Grande", Arial, Helvetica, sans-serif;
-	font-size: 12px;
-	color: #333333;
-}
+
 #page {
 	margin: auto;
 
@@ -131,7 +125,7 @@ UL.subtabs LI A {
 }
 
 UL.subtabs LI A:HOVER, UL.mytabs LI.current A {
-	background: #FFFFFF; text-decoration: underline;
+	background: #FFFFFF; text-decoration: none;
 }
 UL.subtabs LI.current A {
 	color:#333333;
@@ -141,4 +135,5 @@ font-size:11px;
 
 
 
-#tabcontent .mytabs-container{max-height: 400px; overflow: scroll;}
+#tabcontent .mytabs-container{height:auto; overflow: scroll ; }
+.mytabs-container .mytabs-container{ border: 0px none;}

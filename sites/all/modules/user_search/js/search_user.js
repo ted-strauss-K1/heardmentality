@@ -46,7 +46,25 @@ jQuery(".userlinks a").live("click", function(e) {
         return false;
     });
 
+function get_profile_details(urid){
+    //alert(urid);
+    var url = gSitePath + 'userinfo';
+    jQuery('#user_info').empty();
+    jQuery.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'xhr',
+        data: {
+            getuid: urid
+        },
+        success: function(msg){
 
+            jQuery('#user_info').html(msg);
+            reset_tabs();
+        }
+    });
+
+}
 
 
 function search_user(loadcat){
