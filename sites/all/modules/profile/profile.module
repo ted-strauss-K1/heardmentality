@@ -338,11 +338,7 @@ function load_bubble($uid = '') {
 <div class="profile-imgs">
  <a href="http://58.68.27.117/heardmentality/profile/'.$details->name.'" title="">'.UserPicture($uid).'</a>
 </div>
-<div class="profile-con">'.$uname.'<br/>'.$medal.'</div>
-<div>
-
-</div>
-</div>
+<div class="profile-con">'.$details->name.'<br/>'.$medal.'</div>
 
 </div>
 

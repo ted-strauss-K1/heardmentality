@@ -356,7 +356,7 @@ WHERE qc.qid ='$qid' ORDER BY c.cat_id ASC
         
         foreach ($fetch as $load_cat) {
 
-            $output.='<p>' . stripslashes($load_cat['lev1']) . ((!empty($load_cat['lev2'])) ? ' >> ' . stripslashes($load_cat['lev2']) : '') . ((!empty($load_cat['lev3'])) ? ' >> ' . stripslashes($load_cat['lev3']) : '') . '  </p>';
+            $output.='<span>' . stripslashes($load_cat['lev1']) . ((!empty($load_cat['lev2'])) ? ' >> ' . stripslashes($load_cat['lev2']) : '') . ((!empty($load_cat['lev3'])) ? ' >> ' . stripslashes($load_cat['lev3']) : '') . '  </span><br/>';
         }
 
         $con_query = "select country,state,city from question where qid='$qid'";
@@ -373,8 +373,8 @@ $query = array('geonameid'=>$fet_res->city, 'style'=>'', 'lang'=>'en');
 $result = geonames_query('get', $query);
 $city_name=((!empty($result->results[0]['name'])) ? ' >> ' .$result->results[0]['name'] : '');
 }
-     $output .='<p class="profile-gray">Location:</p>';
-     $output .='<p>'.$fet_res->country.$state_name.$city_name.'</p>';
+     $output .='<span class="profile-gray">Location:</span>';
+     $output .='<span>'.$fet_res->country.$state_name.$city_name.'</span><br/>';
   
     }
 

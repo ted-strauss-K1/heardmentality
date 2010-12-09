@@ -1525,25 +1525,16 @@ function panel_content() {
             $section = load_qcat($qid);
             $output.= ' 
                        <div class="hm">
-<div class="hm-left"><strong>Issue Information</strong><br />
-  <br />
+<div style="float:left;padding:5px;width: 260px;">
  <span class="profile-gray">Context</span> :' . $oListquest->context . '
+     <br/>
+     <span class="profile-gray">Section </span>:'.$section.'
      </div>
-<div>
+<div style="float:left;">
 <div class="profile-lefthm">
 <span class="profile-gray">Byline: </span>
 <br />
-<div class="profile-img">
-<div class="profile-imgs">
- <a title="' . $fetuserlist->name . '" href="' . $gSitePath . 'profile/' . $fetuserlist->name . '">' . UserPicture($fetuserlist->uid) . '</a>
-</div>
-<div class="profile-con">' . $medal . '
-<div>
-
-</div>
-</div>
-
-</div>
+'.$bubble.'
 <div class="clr"></div>
 <div>
 
@@ -1558,7 +1549,6 @@ function panel_content() {
 </div><div class="clr"></div><br />
 
 
-<div><span class="profile-gray">Section </span>:'.$section.'</div>
 
 </div>
 		';
