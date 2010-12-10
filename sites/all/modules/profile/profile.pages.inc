@@ -961,11 +961,14 @@ $strReturn.='</div>';
 function google_map() {
     $page = $_REQUEST[q];
     switch ($page) {
-        case 'google/map/users':
+            
+            case 'google/map/users':
             $variable = "Users";
             //$geomap_qry = "SELECT count(country)as count,country from `user_profile` where country REGEXP '[^0-9]' group by country ";
             $geomap_qry = "select count(u.uid) as count,up.country from users as u join user_profile as up on u.uid=up.uid where u.status=1 and up.country REGEXP '[^0-9]' group by up.country";
             $geomap_exec = ExecuteQuery($geomap_qry, "select");
+             $cnt = db_result(db_query(" select count(u.uid) from users as u join user_profile as up on u.uid=up.uid where u.status=1 and up.country REGEXP '[^0-9]'"));
+
             $first = 0;
             foreach ($geomap_exec as $geomapeach) {
 
@@ -975,8 +978,9 @@ function google_map() {
             }
             break;
         case 'google/map/online':
-            $variable = "Online Users";
+            $variable = "Online";
             $time_period = variable_get('user_block_seconds_online', 900);
+             $cnt = db_query('SELECT count(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
 
             //$userslist = db_query('SELECT * FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 group BY up.country', time() - $time_period);
             //echo $total_users = db_result($userslist);
@@ -997,8 +1001,9 @@ function google_map() {
 //             }
             break;
            case 'google/map/questions':
-            $variable = "Questions";
+            $variable = "Issues";
             // $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
+            $cnt = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1' and q.country REGEXP '[^0-9]'"));
 
            // $geomap_qry = "select count(*) as count, country from question where country REGEXP '[^0-9]' group by country";
             $geomap_qry = "select count(*) as count, q.country from {question} as q join {users} as u on q.uid=u.uid where q.status='1' and q.country REGEXP '[^0-9]' group by country";
@@ -1012,9 +1017,10 @@ function google_map() {
             }
             break;
         case 'google/map/answer':
-            $variable = "Answers";
+            $variable = "Votes";
             $geomap_qry = "select count(*)as count,q.country from possible_answer_vote as a join question as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]' group by q.country";
             $geomap_exec = ExecuteQuery($geomap_qry, "select");
+ $cnt = db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]'"));
 
             $first = 0;
             foreach ($geomap_exec as $geomapeach) {
@@ -1045,9 +1051,14 @@ if($_REQUEST['width']=='155')
      ".$vars."
     }
     google.setOnLoadCallback(drawVisualization);
+  function loadtab(href,title){
+    	  var options = 'sameBox:true width:650px height:370px caption:'+title;
+
+ parent.fb.start(href, options);
+}
   </script>";
 
-    echo "<div id=visualization></div>";
+    echo "<div id=visualization style='cursor:pointer;' onclick=\"return loadtab('".url($_GET['q'], array('absolute' => true))."','`Facts And Figures : ".$variable." : ".$cnt."  `')\"></div>";
 }
 
 

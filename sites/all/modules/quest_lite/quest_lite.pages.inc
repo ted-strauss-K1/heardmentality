@@ -156,10 +156,10 @@ function qlite_view() {
 		</script>';
     //echo $stringfunct;
     if (drupal_is_front_page ()) {
-        $qlink = 'CONTRIBUTOR';
+        $qlink = 'ISSUE AT HAND';
     } else {
-        $qlink = substr($oListquest->question, 0, 160) . '<a onclick="showdetails(' . $qid . ');">...</a>';
-        $qlink = "Question";
+       // $qlink = substr($oListquest->question, 0, 160) . '<a onclick="showdetails(' . $qid . ');">...</a>';
+        $qlink = "ISSUE";
     }
 
 /// vijay link color
@@ -596,28 +596,26 @@ function qlite_view() {
             <!--<div class="tag">
              <span>Tags [<a href="#" onclick="loadtag(\'' . $gSitePath . 'qlite/addtag/' . $qid . '\',\'Edit Tags \'); ">Retag</a>]:</span>' . $instags . '</div>-->
             <div class="sharing-section">
-            <div  class=""><div class="but-left"><img src="http://localhost/heardmentality/sites/all/themes/newtheme/images/but-left.jpg"></div>
+            <div  class=""><div class="but-left"><img src="'.drupal_get_path('theme', 'newtheme').'/images/but-left.jpg"></div>
               <a title="Bookmark" class="but butnew share-link" onclick="showShareUI();" href="javascript:void(0);">
-             <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="' . $gSitePath . path_to_theme() . '/images/sm3.jpg"/>&nbsp;
-              <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="' . $gSitePath . path_to_theme() . '/images/sm4.jpg"/>&nbsp;
-                  <img ALIGN=ABSMIDDLE title="take the site tour" alt="take the site tour" src="' . $gSitePath . path_to_theme() . '/images/sm5.jpg"/>&nbsp;
+                 <img ALIGN=ABSMIDDLE title="Share" alt="Share" src="' . $gSitePath . path_to_theme() . '/images/face-ic.jpg"/>&nbsp;
                     Share</a>                 
              <div class="but-right">
-           <img width="7" height="24" src="http://localhost/heardmentality/sites/all/themes/newtheme/images/but-right.jpg"></div></div>
+           <img width="7" height="24" src="'.drupal_get_path('theme', 'newtheme').'/images/but-right.jpg"></div></div>
               <!-- <div class="share2">
             <a title="Invite" onclick="formsubmittype(2,' . $qid . ');" href="javascript:void(0);" class="share-link"> Invite</a>
              </div>-->
-            <div  class=""><div class="but-left"><img src="http://localhost/heardmentality/sites/all/themes/newtheme/images/but-left.jpg"></div>
+            <div  class=""><div class="but-left"><img src="'.drupal_get_path('theme', 'newtheme').'/images/but-left.jpg"></div>
               <a class="but butnew share-link" title="Suggest a new answer"   onclick="formsubmittype(4,' . $qid . ');" href="javascript:void(0);">Suggest a new answer</a>
 <div class="but-right">
-           <img width="7" height="24" src="http://localhost/heardmentality/sites/all/themes/newtheme/images/but-right.jpg"></div></div>
+           <img width="7" height="24" src="'.drupal_get_path('theme', 'newtheme').'/images/but-right.jpg"></div></div>
             <!-- <div class="share3">
         <a title="Create Mashup" class="share-link" onclick="formsubmittype(5,' . $qid . ');" href="javascript:void(0);">&lt;Embed&gt;</a>
              </div>-->
-  <div  class=""><div class="but-left"><img src="http://localhost/heardmentality/sites/all/themes/newtheme/images/but-left.jpg"></div>
+  <div  class=""><div class="but-left"><img src="'.drupal_get_path('theme', 'newtheme').'/images/but-left.jpg"></div>
              <a title="Flag" class="but butnew share-link"  onclick="formsubmittype(3,' . $qid . ');" href="javascript:void(0);"><img  src="' . $gSitePath . path_to_theme() . '/images/flag.png" alt="flag" align="middle" /></a>
               <div class="but-right">
-           <img width="7" height="24" src="http://localhost/heardmentality/sites/all/themes/newtheme/images/but-right.jpg"></div></div>
+           <img width="7" height="24" src="'.drupal_get_path('theme', 'newtheme').'/images/but-right.jpg"></div></div>
              
             </div>
              <div class="clr"></div>

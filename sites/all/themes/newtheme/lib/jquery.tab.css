@@ -1,98 +1,98 @@
 
 #page {
-	margin: auto;
+    margin: auto;
 
 }
 UL.mytabs {
-	position: relative;
-	z-index: 2;
+    position: relative;
+    z-index: 2;
 }
 UL.mytabs, UL.mytabs LI {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	float: left;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
 }
 UL.mytabs LI { padding: 0 2px; }
 UL.mytabs LI A {
-	float: left;
-	text-decoration: none;
-	color: #996600;
-	height: 22px;
-	background-color:#efefef;
-	padding-top:5px; padding-left:8px; padding-right:8px;
+    float: left;
+    text-decoration: none;
+    color: #996600;
+    height: 22px;
+    background-color:#efefef;
+    padding-top:5px; padding-left:8px; padding-right:8px;
 }
 UL.mytabs LI A:HOVER, UL.mytabs LI.current A {
-	background: #fff;
-	color: #af883c;
+    background: #fff;
+    color: #af883c;
 
 
 }
 UL.mytabs LI.current A {
 
-	font-size: 12px;
-	border-bottom: 1px solid #FFFFFF;
-	border-top:	1px solid #8f8f8f;
-	border-left:1px solid #8f8f8f;
-	border-right:1px solid #8f8f8f;
-	color: #000;
+    font-size: 12px;
+    border-bottom: 1px solid #FFFFFF;
+    border-top:	1px solid #8f8f8f;
+    border-left:1px solid #8f8f8f;
+    border-right:1px solid #8f8f8f;
+    color: #000;
 }
 .mytabs-container {
-	position: relative;
-	z-index: 1;
-	clear: both;
-	border-top: 1px solid #8f8f8f;
-	padding-top:10px;
-	top: -1px;
-	color:#333333;
- font-family:Verdana, Arial, Helvetica, sans-serif;
- font-size:11px; width:
+    position: relative;
+    z-index: 1;
+    clear: both;
+    border-top: 1px solid #8f8f8f;
+    padding-top:10px;
+    top: -1px;
+    color:#333333;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:11px; background-image:url(bg-y.jpg); background-position:bottom;background-repeat: repeat-x;
+
 
 }
 
 
-/*vijay admin tab start here*/
 UL.adtabs {
-	position: relative;
-	z-index: 2;
+    position: relative;
+    z-index: 2;
 }
 UL.adtabs, UL.adtabs LI {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	float: left;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
 }
 UL.adtabs LI { padding: 0 2px; }
 UL.adtabs LI span {
-	float: left;
-	padding: 7px;
-	border: 1px solid #CCCCCC;
-	border-bottom: 1px solid #E0E0E0;
-	background: #F0F0F0;
-	text-decoration: none;
-	color: #333333;
-	height: 15px;
+    float: left;
+    padding: 7px;
+    border: 1px solid #CCCCCC;
+    border-bottom: 1px solid #E0E0E0;
+    background: #F0F0F0;
+    text-decoration: none;
+    color: #333333;
+    height: 15px;
 }
 
 UL.adtabs LI A:HOVER, UL.adtabs LI.current span {
-	background: #FFFFFF;
+    background: #FFFFFF;
 }
 UL.adtabs LI.current span {
-	font-weight: bold;
-	font-size: 14px;
-	border-bottom: 1px solid #FFFFFF;
+    font-weight: bold;
+    font-size: 14px;
+    border-bottom: 1px solid #FFFFFF;
 }
 .adtabs-container {
-	position: relative;
-	z-index: 1;
-	clear: both;
-	border: 1px solid #E0E0E0;
-	padding: 10px;
-	top: -1px;
+    position: relative;
+    z-index: 1;
+    clear: both;
+    border: 1px solid #E0E0E0;
+    padding: 10px;
+    top: -1px;
 }
 
 
-/* vijay admin tab end here*/
+
 
 
 
@@ -101,36 +101,36 @@ UL.adtabs LI.current span {
 
 
 ul.subtabs {
-	color:#333333;
-font-family:Verdana,Arial,Helvetica,sans-serif;
-font-size:11px;
+    color:#333333;
+    font-family:Verdana,Arial,Helvetica,sans-serif;
+    font-size:11px;
 }
 ul.subtabs, ul.subtabs LI {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	float: left;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
 }
 
 
 ul.subtabs li {
 
-   padding: 0 7px;
+    padding: 0 7px;
 }
 
 UL.subtabs LI A {
-	float: left;
-	text-decoration: none;
-	height:20px;font-size: 11px;
+    float: left;
+    text-decoration: none;
+    height:20px;font-size: 11px;
 }
 
 UL.subtabs LI A:HOVER, UL.mytabs LI.current A {
-	background: #FFFFFF; text-decoration: none;
+    background: #FFFFFF; text-decoration: none;
 }
 UL.subtabs LI.current A {
-	color:#333333;
-font-family:Verdana,Arial,Helvetica,sans-serif;
-font-size:11px;
+    color:#333333;
+    font-family:Verdana,Arial,Helvetica,sans-serif;
+    font-size:11px;
 }
 
 
