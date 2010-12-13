@@ -93,9 +93,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors','On');
 //$db_url = 'mysql://root:@localhost/hm';
-//for loacl
-
-$db_url = 'mysql://root:oPenWave#1220@192.9.200.10/heardmentality';
+//for 10 server 
+$db_url = 'mysql://heardmentality:heard#2010@192.9.200.10/heardmentality';
 $db_prefix = '';
 
 /**
@@ -152,6 +151,7 @@ ini_set('session.use_cookies',      1);
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use_trans_sid',    0);
 ini_set('url_rewriter.tags',        '');
+ini_set('memory_limit', '32M'); 
 global $gSitePath ,$gDocPath,$apikey;
 $gSitePath="http://".$_SERVER['HTTP_HOST']."/heardmentality/";
 $gDocPath=$_SERVER['DOCUMENT_ROOT']."/heardmentality/";
