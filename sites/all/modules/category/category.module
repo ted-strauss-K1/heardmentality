@@ -13,28 +13,28 @@ function category_perm() {
  
 function category_menu() {	
   $items['category'] = array(
-    'title' => ' Category',
+    'title' => ' Sections',
     'page callback' => 'treemenu_list',
     'access arguments' => array('Category list'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'category.pages.inc',
   );
 $items['category/add'] = array(
-    'title' => ' Add Category',
+    'title' => ' Add Sections',
     'page callback' => 'treemenu_add',
     'access arguments' => array('Category add'),
     'type' => MENU_CALLBACK,
     'file' => 'category.pages.inc',
   );
 $items['category/edit'] = array(
-    'title' => ' Edit Category',
+    'title' => ' Edit Sections',
     'page callback' => 'treemenu_edit',
     'access arguments' => array('Category edit'),
     'type' => MENU_CALLBACK,
     'file' => 'category.pages.inc',
   );
 $items['category/delete'] = array(
-    'title' => 'Delete Category',
+    'title' => 'Delete Sections',
     'page callback' => 'drupal_get_form',
 	'page arguments' => array('menu_delete_confirm', 3),
     'access arguments' => array('Category delete'),
@@ -42,13 +42,13 @@ $items['category/delete'] = array(
     'file' => 'category.pages.inc',
   );
 $items['category/follow'] = array(
-    'title' => 'follow Category',
+    'title' => 'Follow Sections',
     'page callback' => 'search_follow',
     'access arguments' => array('Category view'),
     'file' => 'category.pages.inc',
   );
 $items['category/unfollow'] = array(
-    'title' => 'unfollow Category',
+    'title' => 'unfollow Sections',
     'page callback' => 'search_unfollow',
     'access arguments' => array('Category view'),
     'type' => MENU_CALLBACK,
@@ -56,35 +56,35 @@ $items['category/unfollow'] = array(
   );
 
 $items['category/list'] = array(
-    'title' => 'List Category',
+    'title' => 'List Sections',
     'page callback' => 'category_list',
 	'access arguments' => array('Category view'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'category.pages.inc',
   );
 $items['admin/category'] = array(
-    'title' => 'Admin Category',
+    'title' => 'Admin Sections',
     'page callback' => 'category_admin',
 	'access arguments' => array('Admin Category'),
     'type' => MENU_SUGGESTED_ITEM,
     'file' => 'category.pages.inc',
   );
 $items['admin/category/add'] = array(
-    'title' => ' Add Category',
+    'title' => ' Add Sections',
     'page callback' => 'treemenu_add',
     'access arguments' => array('Admin Category add'),
     'type' => MENU_CALLBACK,
     'file' => 'category.pages.inc',
   );
 $items['admin/category/edit'] = array(
-    'title' => ' Edit Category',
+    'title' => ' Edit Sections',
     'page callback' => 'treemenu_edit',
     'access arguments' => array('Admin Category edit'),
     'type' => MENU_CALLBACK,
     'file' => 'category.pages.inc',
   );
 $items['admin/category/delete'] = array(
-    'title' => 'Delete Category',
+    'title' => 'Delete Sections',
     'page callback' => 'drupal_get_form',
 	'page arguments' => array('menu_delete_confirm', 3),
     'access arguments' => array('Admin Category delete'),
@@ -92,7 +92,7 @@ $items['admin/category/delete'] = array(
     'file' => 'category.pages.inc',
   );
   $items['admin/category/add'] = array(
-    'title' => ' Admin Add Category',
+    'title' => ' Admin Add Sections',
     'page callback' => 'treemenu_add',
     'access arguments' => array('Admin Category add'),
     'type' => MENU_CALLBACK,

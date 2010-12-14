@@ -57,7 +57,9 @@ if($uid=='')
             break;
     }
      
-
+if(isAjax ())
+    echo $strReturn;
+else
     return $strReturn;
 }
 

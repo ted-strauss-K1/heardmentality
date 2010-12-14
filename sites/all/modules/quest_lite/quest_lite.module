@@ -356,12 +356,26 @@ WHERE qc.qid ='$qid' ORDER BY c.cat_id ASC
         
         foreach ($fetch as $load_cat) {
 
-            $output.='<span>' . stripslashes($load_cat['lev1']) . ((!empty($load_cat['lev2'])) ? ' >> ' . stripslashes($load_cat['lev2']) : '') . ((!empty($load_cat['lev3'])) ? ' >> ' . stripslashes($load_cat['lev3']) : '') . '  </span><br/>';
+            $output.='' . stripslashes('<div class="butb">
+<div class="butb-left"></div>
+<div class="butb-bg"><a href="#">'.$load_cat['lev1'].'</a></div>
+<div class="butb-right"></div>
+</div>') . ((!empty($load_cat['lev2'])) ? '  ' . stripslashes('<div class="butb">
+<div class="buty-left"></div>
+<div class="buty-bg"><a href="#">'.$load_cat['lev2'].'</a></div>
+<div class="buty-right"></div>
+</div>') : '') . ((!empty($load_cat['lev3'])) ? '  ' . stripslashes('<div class="butb">
+<div class="butg-left"></div>
+<div class="butg-bg"><a href="#">'.$load_cat['lev3'].'</a></div>
+<div class="butg-right"></div>
+</div>') : '') . '  <br class="clr"/><br class="clr"/> ';
         }
 
+         $output .='<span class="profile-gray">Location:</span>';
         $con_query = "select country,state,city from question where qid='$qid'";
         $fet_con = db_query($con_query);
         $fet_res = db_fetch_object($fet_con);
+        if(!empty($fet_res->country)){
 if(!empty($fet_res->state)){
 $query = array('geonameid'=>$fet_res->state, 'style'=>'', 'lang'=>'en');
 $result = geonames_query('get', $query);
@@ -373,13 +387,36 @@ $query = array('geonameid'=>$fet_res->city, 'style'=>'', 'lang'=>'en');
 $result = geonames_query('get', $query);
 $city_name=((!empty($result->results[0]['name'])) ? ' >> ' .$result->results[0]['name'] : '');
 }
-     $output .='<span class="profile-gray">Location:</span>';
-     $output .='<span>'.$fet_res->country.$state_name.$city_name.'</span><br/>';
-  
+
+ 
+$flagsrc=get_flag($fet_res->country);
+
+
+     $output .='<span> &nbsp;<img src="'.$gSitePath.$flagsrc.'" title="'.$fet_res->country.'" alt="" align="absmiddle"/> &nbsp; '.$fet_res->country.$state_name.$city_name.'</span><br/>';
+        }else{
+
+            $output.=' - ';
+        }
     }
 
     return $output;
 }
+
+function get_flag($country=''){
+     global $gSitePath, $user, $gDocPath, $base_root;
+
+     $flag='';
+     $query=array(query=>$country,maxrows=>'1');
+     $result = geonames_query('search', $query);
+       $flag=strtolower($result->results[0]['countrycode']);
+     $fsrc=drupal_get_path('theme','newtheme').'/images/flags/'.$flag.'.gif';
+      if (!file_check_location($fsrc)) {                                   // the second new "if"
+   $fsrc=drupal_get_path('theme','newtheme').'/images/flags/unknown.gif';
+  }
+  return $fsrc;
+//http://geotree.geonames.org/img/flags18/US.png
+}
+
 
 function load_parent_cat($cid='', $level='') {
     global $gSitePath, $user, $gDocPath, $base_root;
