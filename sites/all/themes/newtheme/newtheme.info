@@ -8,7 +8,9 @@ stylesheets[all][] = css/css.css
 stylesheets[all][] = floatbox/floatbox.css
 stylesheets[print][] = print.css
 
-
+scripts[] = scripts/cufon-yui.js
+scripts[] = scripts/cufon-replace.js
+scripts[] = scripts/Trajan_Pro_400.font.js
 scripts[] = scripts/preload.js
 scripts[] = floatbox/floatbox.js
 scripts[] = floatbox/options.js

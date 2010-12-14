@@ -203,8 +203,9 @@ $directory = $base_path . $directory;
 
                                     <div id="header">
                                         <div class="top-left-outer">
-                                            <div class="text-logo">
-                                            </div>
+                                             <div class="text-logo"><div  class="textspace">Be Heard Don't Be<br />
+Part Of The Herd</div>
+      </div>
                                             <div class="date-time">
 
                                                 <?php
@@ -212,13 +213,9 @@ $directory = $base_path . $directory;
                                                 ?>
                                             </div>
                                         </div>
-                                        <div id="logo-title" class="logo">
-
-                                            <a href="<?php print $front_page; ?>" rel="home" id="logo" title="<?php print t('Home'); ?>"></a>
-                                            <?php //$logo;  ?>
-
-
-                                            </div> <!-- /logo-title -->
+                                      
+                                          <div align="center" ><a href="<?php print $front_page; ?>" class="logo" title="<?php print t('Home'); ?>">HEARD  &nbsp;&nbsp;&nbsp;&nbsp;MENTALITY</a></div>
+                                        <!-- /logo-title -->
 
                                             <div class="loginvi-outer">
 

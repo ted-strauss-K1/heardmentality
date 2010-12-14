@@ -47,6 +47,7 @@ UL.mytabs LI.current A {
     color:#333333;
     font-family:Verdana, Arial, Helvetica, sans-serif;
     font-size:11px; background-image:url(bg-y.jpg); background-position:bottom;background-repeat: repeat-x;
+    min-height: 370px;
 
 
 }

@@ -4,7 +4,7 @@
   <div class="bott"></div>
   <div class="footer">
   <div class="copy"> <a href="http://creativecommons.org/licenses/by-sa/2.5/" title="creativecommons">
-  <img border="0" alt="cc" align="absmiddle"  hspace="2" src="<?php echo $directory;?>/images/cc.jpg"/></a> 2010 Heardmentality.org
+  <img border="0" alt="cc" align="absmiddle"  hspace="2" src="<?php echo $directory;?>/images/cc.png"/></a> &nbsp; 2010 Heardmentality.org
    </div>
  <div class="menu">
   <ul>
@@ -13,12 +13,12 @@
           <?php endforeach; ?>
           </ul>
                </div>
-           <div class="footer-icon-outer">
+       <!--    <div class="footer-icon-outer">
           <a href="http://www.opensource.org/" title="opensource"><img border="0" alt="opensource" src="<?php echo $directory;?>/images/icon1.png"/></a>
           <a href="http://drupal.org/" title="drupal"><img border="0" alt="drupal" src="<?php echo $directory;?>/images/icon2.png"/></a>
           <a href="http://www.govtrack.us/" title="govtrack"><img border="0" alt="govtrack" src="<?php echo $directory;?>/images/icon3.png"/></a>
      
-          </div>
+          </div> -->
   </div>
 <!--main div close-->
 
