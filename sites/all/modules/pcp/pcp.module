@@ -487,6 +487,7 @@ function pcp_theme() {
  *  ['nextname'] - str - The field name of the next field for field focus after linked to the profile field.
  */
 function theme_pcp_profile_percent_complete($complete_data) {
+     global $gSitePath, $user, $gDocPath, $base_root;
     $nextpath='javascript:void(0);';
     $output = '<style type="text/css">';
     $output .= '#pcp-percent-bar-wrapper {width: 100%; border: 1px solid #000; padding: 1px;}';
@@ -510,7 +511,7 @@ function theme_pcp_profile_percent_complete($complete_data) {
         }
 
       //  $output .= t('Filling out ') . '<i> ' . l($complete_data['nextfield'], $nextpath, array('query' => 'fieldname=' . $complete_data['nextname'],'attributes' => array('onclick' => 'loadeditquestion(\'http://localhost/heardmentality/edit\',\'Edit Profile \');'))) . '</i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent']));
-   $output .= t('Filling out ') . '<i> <a href="'.$nextpath.'" onclick="loadeditquestion(\'http://localhost/heardmentality/edit\',\'Edit Profile \');" >'.$complete_data['nextfield'].'</a></i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent']));
+   $output .= t('Filling out ') . '<i> <a href="'.$nextpath.'" onclick="loadeditquestion(\''.$gSitePath.'edit\',\'Edit Profile \');" >'.$complete_data['nextfield'].'</a></i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent']));
 
         }
 
