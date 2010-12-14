@@ -283,7 +283,7 @@ Part Of The Herd</div>
 
                                             <?php $mb = 1;
                                                                                     foreach ($primary_links as $link): ?>
-                                                                                        <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'About US' || ($link['title'] == 'Add  Question') || ($link['title'] == 'Privacy')): ?> class="floatbox" data-fb-options="width:750 height:80%"  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
+                                                                                        <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'About US' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" data-fb-options="width:750 height:80%"  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
                                             <?php endforeach; ?>
 
                                             <?php endif; ?>
