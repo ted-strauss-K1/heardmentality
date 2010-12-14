@@ -406,9 +406,11 @@ function get_flag($country=''){
      global $gSitePath, $user, $gDocPath, $base_root;
 
      $flag='';
-     $query=array(query=>$country,maxrows=>'1');
-     $result = geonames_query('search', $query);
-       $flag=strtolower($result->results[0]['countrycode']);
+     $query=array(query=>$country,maxrows=>'1',featureclass=>'p');
+    // $result = geonames_query('search', $query);
+      $result = db_fetch_array(db_query("SELECT * FROM {geonames_countryinfo} WHERE name = '%s' LIMIT 0,1",$country));
+
+         $flag=strtolower($result['fips_code']);
      $fsrc=drupal_get_path('theme','newtheme').'/images/flags/'.$flag.'.gif';
       if (!file_check_location($fsrc)) {                                   // the second new "if"
    $fsrc=drupal_get_path('theme','newtheme').'/images/flags/unknown.gif';
