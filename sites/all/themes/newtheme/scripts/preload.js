@@ -182,7 +182,7 @@ load_issue(curl);
 
 function load_issue(url){
 
-        $('#qajax').load(curl, function(response, status, xhr) {
+        $('#qajax').load(url, function(response, status, xhr) {
   if (status == "success") {
         reset_tabs();
 

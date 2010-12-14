@@ -25,8 +25,9 @@
             <!--<div class="questopr"><?php echo date("M d,Y") ?></div>-->
           </div>
           <div class="hm-cen">
-
+<div id="qajax">
            <?php print $content; ?>
+</div>
   </div>
   
             </div>

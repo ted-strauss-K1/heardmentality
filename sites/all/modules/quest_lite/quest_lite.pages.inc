@@ -141,7 +141,7 @@ function qlite_view() {
     $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'"));
     $answer_id = db_fetch_object($list_lengthan);
     $stringfunct = strlen($oListquest->question);
-    $voutput = '<div id="qajax">
+    $voutput = '
 
 <link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
         <script type="text/javascript">
@@ -623,7 +623,7 @@ function qlite_view() {
 		
 		';
 
-//////////////vijay multilevel menu
+
     $voteqry = "SELECT * FROM possible_answer_vote where qid='" . $qid . "'";
     $votelist = db_query($voteqry);
     $fetvote = db_fetch_object($votelist);
@@ -663,7 +663,7 @@ function qlite_view() {
         </div><div class="clr"></div>
            </div>  ';
     }
-    $voutput.='</div>'; // ajax div ends
+   // ajax div ends
     // cron job in qlite module
     // cal_active_rate();
     if (isAjax ()) {
