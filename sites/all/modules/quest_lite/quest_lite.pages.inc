@@ -2506,7 +2506,7 @@ function qlite_graph() {
             for ($mn = 6; $mn >= 0; $mn--) {
 
                 $year = date("Y");
-                $month = date("m") - 1;
+                $month = date("m");
                 $dat = date("d") - $mn;
                 $date = date('Y-m-d', mktime(0, 0, 0, $month, $dat, $year));
 
@@ -2517,7 +2517,7 @@ function qlite_graph() {
             array_push($grid, "'" . $vlist[$ab]['answer'] . "'");
             $insdata.="{name :'" . $vlist[$ab]['answer'] . "', data: " . $ins_sc . "},";
             
-     $sdate = "Date.UTC(" . $year . "," . $month . "," . (date("d") - 6) . ")";
+     $sdate = "Date.UTC(" . $year . "," . ($month-1) . "," . (date("d") - 6) . ")";
      $tickint="tickInterval: 24 * 3600 * 1000 // one day";
         }
     }
@@ -2838,7 +2838,7 @@ function answer_details($qid = '', $aid = '', $action = '', $date = '') {
             return $answer;
             break;
         case 'timeline':
-         echo   $query = "select count(*) as cnt from possible_answer_vote where qid='" . $qid . "' and panswer_id='" . $aid . "'AND date(vote_pdate)<='" . $date . "' ";
+            $query = "select count(*) as cnt from possible_answer_vote where qid='" . $qid . "' and panswer_id='" . $aid . "'AND date(vote_pdate)<='" . $date . "' ";
             $answer = ExecuteQuery($query, "select");
 
             return $answer ? $answer[0]['cnt'] : 'null';
