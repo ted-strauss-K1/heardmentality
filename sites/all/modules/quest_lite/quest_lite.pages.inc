@@ -2484,7 +2484,7 @@ function qlite_graph() {
         $i = $ab + 1;
         $ans = array();
 
-        if ($count['cnt'] > 4) {
+        if (count($drange) > 6) {
             for ($mn = $frange; $mn >= 0; $mn--) {
                 $date = $drange[$mn];
 
@@ -2500,7 +2500,7 @@ function qlite_graph() {
     $year = $dexp[0];
     $month = $dexp[1]-1;
     $dat = $dexp[2];
-    $sdate = "Date.UTC(" . $year . "," . $month . "," . ($dat - 1) . ", 0, 0, 0)";
+    $sdate = "Date.UTC(" . $year . "," . $month . "," . $dat . ", 0, 0, 0)";
  $tickint="";
         } else {
             for ($mn = 6; $mn >= 0; $mn--) {
