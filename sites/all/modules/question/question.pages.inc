@@ -2469,10 +2469,9 @@ function edit_questions() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
-    $output = '';
-    drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
-        type="text/javascript"></script>');
-
+    $output = '<script type="text/javascript" src="http://jqueryui.com/js/jquery.js"></script>';
+    drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
+	
 
     if (isset($_POST['update'])) {
 
@@ -2603,6 +2602,7 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
     $ans = ExecuteQuery($query, "select");
     $i = 1;
     $tab = 3;
+	$answer_count=1;
     foreach ($ans as $array) {
 
         $output .= ' <tr>
@@ -2612,7 +2612,34 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
         </tr>
         <tr><td>&nbsp;</td></tr>
           ';
-        $i++;
+		  $i++;
+		/*META TAG OPTION GENERATION*/
+		$radio_output .= '<tr>';	
+		$row_count=1;
+			$Spec_query1= db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+			while($Spec_result1=db_fetch_object($Spec_query1))
+			{
+				$answer_id=$array['paid'];
+				$option='';
+				for($spec_count=$Spec_result1->spec_min_range;$spec_count<=$Spec_result1->spec_max_range;$spec_count++)
+				{			
+					/*PRE SELECT OPTION VALUE*/
+				$fetch_exist = db_result(db_query("select value from {possible_answer_spectrum} where qid='$nid' and possible_ans_id='$answer_id' and
+					political_spec_id='$Spec_result1->political_spec_id'"));
+					/*PRE SELECT OPTION VALUE*/					
+					
+					$selected	=	'';
+					if($fetch_exist==$spec_count)
+						$selected	=	'selected="selected"';
+
+					$option.='<option ' . $selected . ' value='.$spec_count.'>'.$spec_count.'</option>';
+				}	
+				$radio_output .='<td><select style="width:50px" name="sel_'.$answer_id.'_'.$Spec_result1->political_spec_id.'_'.$row_count.'" id="sel_'.$answer_id.'_'.$row_count.'">'.$option.'</select></td>';
+				$row_count++;
+			}	
+		$radio_output .= '</tr>';				
+		/*META TAG OPTION GENERATION*/
+					
     }
 //<select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
     //<select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
@@ -2621,10 +2648,24 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
 	<input type="button" name="Add"  tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="' . count($ans) . '">
 	
 	</td>
-    <td colspan="3" valign="top" align="left"><table width="65%" border="0">
-    <tr>
-
-    <td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
+    <td colspan="3" valign="top" align="left">
+	<table width="65%" border="0">
+	<!--POSSIBLE META ANSWER-->
+	<tr><td colspan="3" valign="top" valign="top" align="left">
+		<table style="margin:0px;" cellspacing="0" cellpadding="0" border="0" width="100%">
+			<tr>';
+	$Spec_query = db_query("SELECT spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+	while($Spec_result=db_fetch_object($Spec_query))
+	{
+		$output .='<td style="width:75px;">'.$Spec_result->spec_name.'</td>';
+	}				
+	$output .= '</tr>';	
+	$output .= $radio_output.'
+		</table>
+	</td></tr>
+	<!--POSSIBLE META ANSWER-->
+	<tr>
+	<td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
       <tr>
         <td width="25%" align="left">
 
@@ -2829,7 +2870,34 @@ function question_edit_save_admin($array) {
     global $gSitePath, $user, $gDocPath, $base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
-    //  print_r($array);
+	/*SAVING META INFORMATION*/	
+	$query = "SELECT * FROM {possible_answer} where qid='" . $nid . "' ";
+    $ans = ExecuteQuery($query, "select");	
+	$chk_exsit = db_result(db_query("select count(*) from {possible_answer_spectrum} where qid='$nid'"));
+    if ($chk_exsit > 0) {
+		$Spec_query2= db_query("delete * from {possible_answer_spectrum} where qid='$nid'");
+	}
+    foreach ($ans as $ans_array) 
+	{	
+		$row_count=1;
+		$Spec_query2= db_query("SELECT political_spec_id FROM {political_spectrum}");
+		while($Spec_result2=db_fetch_object($Spec_query2))
+			{
+				$radio_output  	= "sel_".$ans_array['paid']."_".$Spec_result2->political_spec_id."_".$row_count;
+				$posted_rating 	= $array["$radio_output"];
+				$ans_id 	   	= $ans_array['paid'];
+				$political_id	= $Spec_result2->political_spec_id;
+				/*echo '<pre>';
+				echo $posted_rating.'-';
+				echo $Spec_result2->political_spec_id.'<br>';*/				
+				$insert_query = db_query("insert into possible_answer_spectrum set qid= '$nid' , possible_ans_id='$ans_id' , political_spec_id='$political_id',
+				value='$posted_rating'");
+				$row_count++;
+			}			
+	}
+	 /*SAVING META INFORMATION*/	 
+	 //print_r($array);
+	 //die;
     extract($_REQUEST);
     extract($array);
     $output = '';
