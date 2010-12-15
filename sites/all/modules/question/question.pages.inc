@@ -189,7 +189,8 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
             </div>
          </li>
        </ul>
-       <div class="clr"></div>
+	  
+       <div class="clr"></div>	   
        <div class="do-in2cat">
        <ul >
          <li><span>Categorize <b>*</b></span>:</li>
@@ -239,14 +240,17 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
     </div>
     </li>
        </ul>
-          </div>
-        <div class="clr"></div>
-        <div class="do-in2bor"></div>
-       </div>
-       <div class="clr"></div>
+          </div>		  
+        <div class="clr"></div>		 
+		<div class="do-in2bor"></div>
+		<div><span  title="Releted Questions"  id="releated_questions"></span></div>
+       </div> 
+	   <div class="clr"></div>
+		
        <div class="do-in2savetop">';
 
-// $output .= '<tr><td colspan="6">'.get_tagging().'</td></tr>';
+ //$output .= '<tr><td colspan="6">'.get_tagging().'</td></tr>';
+ 
 
     $result = load_user($user->uid);
     if ($result->question_privacy == '4') {
@@ -411,14 +415,13 @@ function question_save() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
-    $q_quest = '';
-    //print_r($_REQUEST);die;
+    $q_quest = '';		
     extract($_REQUEST);
     $output = '';
     $g_global = '';
     if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
         $edate = $q_edate;
-       
+        $releated_question =implode(",",$_REQUEST['chk_rel_issue']);
         $country = my_country();
         $ccode = $country['cn'];
 
@@ -435,7 +438,7 @@ function question_save() {
         }
 //echo "INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'";
         //exit;
-        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='" . addslashes($q_quest) . "',context='" . addslashes($q_context) . "',country='$ccode',state='$q_state',city='$q_city',share='$qrset'");
+        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='" . addslashes($q_quest) . "',context='" . addslashes($q_context) . "',country='$ccode',state='$q_state',city='$q_city',share='$qrset' , releated_question = '$releated_question'");
 
 
         $ins_id = db_last_insert_id('question', 'qid');
@@ -1007,9 +1010,10 @@ function user_ajax(){
 
 }
 function question_ajax() {
-    //print_r($_REQUEST);
-    $ret = '';
-global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    //print_r($_REQUEST['code']);
+    // print_r($action);
+	$ret = '';
+	global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     extract($_REQUEST);
     if (isset($_REQUEST['ids'])) {
         $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ($ids)");
@@ -1044,7 +1048,6 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
         echo $ret;
         exit;
     } elseif (isset($_REQUEST['code'])) {
-
         switch ($action) {
 
             case 1: //get state
@@ -1106,6 +1109,11 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
                 $ret .= "</select>";
                 echo $ret;
                 break;
+		/*RELEATED QUESTIONS AUTO POPULATE*/		
+			case 3: 
+				echo get_releated_questions($_POST['question'],$_POST['cat_id'],$_POST['context']);                
+                break;				
+		/*RELEATED QUESTIONS AUTO POPULATE*/				
         }
     } elseif (isset($_REQUEST['tag'])) {
 
@@ -1269,7 +1277,56 @@ global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 }
 
 //delete confirm
-
+function get_releated_questions($question,$cat_id,$context)
+{	
+	$where_condition = '';	
+	$words = explode(" ", $question);
+	 for ($i = 0; $i < count($words); $i++) {
+		$wheres2 	= array();
+			if($words[$i]!='')
+			{
+				$wheres2[]  = "  q.question  LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+				$wheres[] 	= implode( ' OR ', $wheres2 );
+			}	
+		}
+	$where_condition = '((' . implode( ($match == 'all' ? ') AND (' : ') OR ('), $wheres ) . '))';
+	
+	if($context!='')
+	{
+		$words = explode(" ", $context);
+		 for ($i = 0; $i < count($words); $i++) {
+			$wheres2 	= array();
+				if($words[$i]!='')
+				{
+					$wheres2[]  = "  q.context  LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+					$wheres1[] 	= implode( ' OR ', $wheres2 );
+				}	
+			}	
+		$where_condition .= ' and ((' . implode( ($match == 'all' ? ') AND (' : ') OR ('), $wheres1 ) . '))';
+	}
+	if($cat_id!=0)
+	{
+		$where_condition .= " and qc.cat in ($cat_id)";
+	}	
+	$count = db_result(db_query("SELECT count(q.qid) FROM {question} q left join question_cat qc on qc.qid=q.qid  WHERE  $where_condition group by q.qid " ));		
+	$rel_output.= '<div class="innerbox" style="width:auto;height:200px;overflow:-moz-scrollbars-vertical;"><ul>';	
+	if (($count!=0)&&($question!=''))
+	{
+		$rel_count = 1;
+		$rel_query = db_query ( "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid " );					
+		while ($rel_options = db_fetch_object($rel_query)) {		
+		  $rel_output.='<li><input style="width:15px;" type="checkbox" name="chk_rel_issue[]" id="chk_rel_issue[]" value="'.$rel_options->qid.'"> ';
+		  $rel_output .= substr($rel_options->question,0,50).'</li>';
+		  $rel_count ++;
+		}
+	} else {
+		$rel_output.= 'No Releated question available';
+	}		
+	$rel_output.= '</ul></div>';
+	echo  $rel_output;	
+//echo "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid ";	
+	
+}
 function question_delete_confirm(&$form_state, $question) {
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $form['nid'] = array('#type' => 'hidden', '#value' => $nid,);
@@ -3485,7 +3542,28 @@ function auto_suggest_quest() {
     }
 }
 
+function auto_suggest_releatedquest() {
 
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+
+    if (isset($_GET['getCountriesByLetters']) && isset($_GET['letters']) && isset($_GET['GetVal'])) {
+        $letters = $_GET['letters'];
+        //$letters = preg_replace("/[^a-z0-9 ]/si","",$letters);
+        $where_condition = "WHERE question LIKE CONVERT( _utf8 '%$letters%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '$letters' USING latin1 )
+	COLLATE latin1_swedish_ci and status='1'";
+
+        if ($_GET['GetVal'] == "C1") {
+            $sql = "SELECT * FROM question   $where_condition";
+            $res = mysql_query($sql);
+            $dir = mysql_num_rows($res);
+            if ($dir > 0) {
+                while ($inf = mysql_fetch_array($res))
+                    echo " <a href='" . $gSitePath . "" . $inf["url"] . "' target='_blank'>" . $inf["question"] . "</a>|";
+            }
+        }
+    }
+}
 
 function front_dupe() {
     

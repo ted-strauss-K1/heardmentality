@@ -1,7 +1,6 @@
 function suggest(inputString){
-	
-	var inputString=$('q_quest').get('value');
 
+	var inputString=$('q_quest').get('value');
 	if (inputString.length == 0) {
 		$('suggestions').fade('out');
 	}

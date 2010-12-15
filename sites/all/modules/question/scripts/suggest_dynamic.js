@@ -143,7 +143,8 @@
 	function ajax_showOptions(inputObj,paramToExternalFile,e,Val)
 	{
 		 
-		var Get=Val;
+		
+		var Get=Val;		
 		 //alert(Val);
 		if(e.keyCode==13 || e.keyCode==9)return;
 		if(ajax_list_currentLetters[inputObj.name]==inputObj.value)return;

@@ -14,6 +14,7 @@ jQuery(document).ready( function() {
 
 
    $('#q_quest').keyup(function() {
+   get_releted_issue(0);
  var quest = jQuery('#q_quest').val();
    var url = spath+"exist_question";
  jQuery.ajax({
@@ -24,28 +25,25 @@ success: function(msg){
         jQuery("#inside_content").html(msg);
 }
 });
-
 })
-
-
 });
-/*
-		(function($) {
-  $(document).ready(function() {
-    $(\'input.tagging-widget-input\').tagging();
-  });
-})(jQuery);
-*/
-//	window.setTimeout("setDefaultCountry()", 1000);
-/*	jQuery(function() {
-		jQuery("#q_edate").datepicker({
-			changeMonth: true,
-			changeYear: true,minDate: \'1d\', dateFormat: \'yy-mm-dd\'
-		});
-
-
-	});*/
-
+/*RELEATED QUESTIONS AUTOCOMPLETE*/		
+	function get_releted_issue(cat_id)
+	{	
+			var question = 	jQuery('#q_quest').val();		
+			var context	 = 	jQuery('#q_context').val();		
+			$.ajax({
+			   type: "POST",
+			   url: spath+"/question/ajax",
+			   data: "code=3&action=3&question="+question+"&cat_id="+cat_id+"&context="+context,
+			   success: function(msg)
+			   {						
+				$('#releated_questions').html(msg);	
+			   }
+			});			
+		
+	}
+/*RELEATED QUESTIONS AUTOCOMPLETE*/	
 function setDefaultCountry(cn) {
     if(cn.length>0){
         var countrySelect = document.getElementById("q_country");
@@ -128,7 +126,7 @@ jQuery("input[name='q_cat[]']").live("change", function(event) {
     // something like $(this).hide() (only something useful, probably) :P
     });
     var ids=values.join(',');
-
+	get_releted_issue(ids);
     get_subcat('q_cat','chg_scat',1,ids);
     jQuery('#chg_sscat').empty().html('No Subcategory');
 });
