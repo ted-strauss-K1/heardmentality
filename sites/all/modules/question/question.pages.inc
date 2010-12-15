@@ -1308,15 +1308,15 @@ function get_releated_questions($question,$cat_id,$context)
 	{
 		$where_condition .= " and qc.cat in ($cat_id)";
 	}	
-	$count = db_result(db_query("SELECT count(q.qid) FROM {question} q left join question_cat qc on qc.qid=q.qid  WHERE  $where_condition group by q.qid " ));		
+	$count = db_result(db_query("SELECT count(q.qid) FROM {question} q left join question_cat qc on qc.qid=q.qid  WHERE  $where_condition group by q.qid limit 10 " ));		
 	$rel_output.= '<div class="innerbox" style="width:auto;height:200px;overflow:-moz-scrollbars-vertical;"><ul>';	
 	if (($count!=0)&&($question!=''))
 	{
 		$rel_count = 1;
-		$rel_query = db_query ( "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid " );					
+		$rel_query = db_query ( "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid limit 10 " );					
 		while ($rel_options = db_fetch_object($rel_query)) {		
 		  $rel_output.='<li><input style="width:15px;" type="checkbox" name="chk_rel_issue[]" id="chk_rel_issue[]" value="'.$rel_options->qid.'"> ';
-		  $rel_output .= substr($rel_options->question,0,50).'</li>';
+		  $rel_output .= substr($rel_options->question,0,50).'...</li>';
 		  $rel_count ++;
 		}
 	} else {
