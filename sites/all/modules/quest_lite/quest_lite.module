@@ -337,7 +337,7 @@ function get_qid() {
 
 function load_qcat($qid="") {
 
- drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
+    drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
@@ -353,47 +353,47 @@ WHERE qc.qid ='$qid' ORDER BY c.cat_id ASC
         $fetch = ExecuteQuery($query, "select");
 
         $output = '';
-        
+
         foreach ($fetch as $load_cat) {
 
             $output.='' . stripslashes('<div class="butb">
 <div class="butb-left"></div>
-<div class="butb-bg"><a href="#">'.$load_cat['lev1'].'</a></div>
+<div class="butb-bg"><a href="#">' . $load_cat['lev1'] . '</a></div>
 <div class="butb-right"></div>
 </div>') . ((!empty($load_cat['lev2'])) ? '  ' . stripslashes('<div class="butb">
 <div class="buty-left"></div>
-<div class="buty-bg"><a href="#">'.$load_cat['lev2'].'</a></div>
+<div class="buty-bg"><a href="#">' . $load_cat['lev2'] . '</a></div>
 <div class="buty-right"></div>
 </div>') : '') . ((!empty($load_cat['lev3'])) ? '  ' . stripslashes('<div class="butb">
 <div class="butg-left"></div>
-<div class="butg-bg"><a href="#">'.$load_cat['lev3'].'</a></div>
+<div class="butg-bg"><a href="#">' . $load_cat['lev3'] . '</a></div>
 <div class="butg-right"></div>
 </div>') : '') . '  <br class="clr"/><br class="clr"/> ';
         }
 
-         $output .='<span class="profile-gray">Location:</span>';
+        $output .='<span class="profile-gray">Location:</span>';
         $con_query = "select country,state,city from question where qid='$qid'";
         $fet_con = db_query($con_query);
         $fet_res = db_fetch_object($fet_con);
-        if(!empty($fet_res->country)){
-if(!empty($fet_res->state)){
-$query = array('geonameid'=>$fet_res->state, 'style'=>'', 'lang'=>'en');
-$result = geonames_query('get', $query);
+        if (!empty($fet_res->country)) {
+            if (!empty($fet_res->state)) {
+                $query = array('geonameid' => $fet_res->state, 'style' => '', 'lang' => 'en');
+                $result = geonames_query('get', $query);
 
-$state_name=((!empty($result->results[0]['name'])) ? ' >> ' .$result->results[0]['name'] : '');
-}
-if(!empty($fet_res->city)){
-$query = array('geonameid'=>$fet_res->city, 'style'=>'', 'lang'=>'en');
-$result = geonames_query('get', $query);
-$city_name=((!empty($result->results[0]['name'])) ? ' >> ' .$result->results[0]['name'] : '');
-}
-
- 
-$flagsrc=get_flag($fet_res->country);
+                $state_name = ((!empty($result->results[0]['name'])) ? ' >> ' . $result->results[0]['name'] : '');
+            }
+            if (!empty($fet_res->city)) {
+                $query = array('geonameid' => $fet_res->city, 'style' => '', 'lang' => 'en');
+                $result = geonames_query('get', $query);
+                $city_name = ((!empty($result->results[0]['name'])) ? ' >> ' . $result->results[0]['name'] : '');
+            }
 
 
-     $output .='<span> &nbsp;<img src="'.$gSitePath.$flagsrc.'" title="'.$fet_res->country.'" alt="" align="absmiddle"/> &nbsp; '.$fet_res->country.$state_name.$city_name.'</span><br/>';
-        }else{
+            $flagsrc = get_flag($fet_res->country);
+
+
+            $output .='<span> &nbsp;<img src="' . $gSitePath . $flagsrc . '" title="' . $fet_res->country . '" alt="" align="absmiddle"/> &nbsp; ' . $fet_res->country . $state_name . $city_name . '</span><br/>';
+        } else {
 
             $output.=' - ';
         }
@@ -402,35 +402,36 @@ $flagsrc=get_flag($fet_res->country);
     return $output;
 }
 
-function get_flag($country=''){
-     global $gSitePath, $user, $gDocPath, $base_root;
+function get_flag($country='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
 
-     $flag='';
-     $query=array(query=>$country,maxrows=>'1',featureclass=>'p');
+    $flag = '';
+    $query = array(query => $country, maxrows => '1', featureclass => 'p');
     // $result = geonames_query('search', $query);
-      $result = db_fetch_array(db_query("SELECT * FROM {geonames_countryinfo} WHERE name = '%s' LIMIT 0,1",$country));
+    $result = db_fetch_array(db_query("SELECT * FROM {geonames_countryinfo} WHERE name = '%s' LIMIT 0,1", $country));
 
-         $flag=strtolower($result['fips_code']);
-     $fsrc=drupal_get_path('theme','newtheme').'/images/flags/'.$flag.'.gif';
-      if (!file_check_location($fsrc)) {                                   // the second new "if"
-   $fsrc=drupal_get_path('theme','newtheme').'/images/flags/unknown.gif';
-  }
-  return $fsrc;
+    $flag = strtolower($result['fips_code']);
+    $fsrc = drupal_get_path('theme', 'newtheme') . '/images/flags/' . $flag . '.gif';
+    if (!file_check_location($fsrc)) {                                   // the second new "if"
+        $fsrc = drupal_get_path('theme', 'newtheme') . '/images/flags/unknown.gif';
+    }
+    return $fsrc;
 //http://geotree.geonames.org/img/flags18/US.png
 }
 
-function dates_range($date1, $date2){
-  if ($date1<$date2){
-    $dates_range[]=$date1;
-    $date1=strtotime($date1);
-    $date2=strtotime($date2);
-    while ($date1!=$date2){
-      $date1=mktime(0, 0, 0, date("m", $date1), date("d", $date1)+1, date("Y", $date1));
-      $dates_range[]=date('Y-m-d', $date1);
+function dates_range($date1, $date2) {
+    if ($date1 < $date2) {
+        $dates_range[] = $date1;
+        $date1 = strtotime($date1);
+        $date2 = strtotime($date2);
+        while ($date1 != $date2) {
+            $date1 = mktime(0, 0, 0, date("m", $date1), date("d", $date1) + 1, date("Y", $date1));
+            $dates_range[] = date('Y-m-d', $date1);
+        }
     }
-  }
-  return $dates_range;
-} 
+    return $dates_range;
+}
+
 function load_parent_cat($cid='', $level='') {
     global $gSitePath, $user, $gDocPath, $base_root;
 
@@ -460,4 +461,76 @@ WHERE t1.cat_id='$cid'";
             break;
     }
     return $fetch;
+}
+
+function quest_lite_block($op = 'list', $delta = 0, $edit = array()) {
+    switch ($op) {
+        case 'list':
+            $blocks[0] = array(
+                'info' => t('RELATED ISSUES'),
+            );
+
+            return $blocks;
+
+        case 'view':
+            switch ($delta) {
+                case 0:
+                    $block['subject'] = " RELATED ISSUES ";
+                    $block['content'] = _related_issue();
+                    break;
+            }
+            return $block;
+    }
+}
+
+function _related_issue() {
+
+    global $gSitePath, $user;
+    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $query = "SELECT cid,releated_question FROM question where qid='$qid'";
+    $query_list = db_query($query);
+    $fetvot = db_fetch_object($query_list);
+    $content = '';
+    $bubble = '';
+    $content.='<div class="innerbox" ><ul  >';
+    if ($fetvot->releated_question != '') {
+        $query = "SELECT * FROM question q where q.qid in (" . $fetvot->releated_question . ") and  q.qid !='$qid' limit 5";
+        $query_sug = db_query($query);
+
+
+
+        $vCnt = 0;
+        while ($sug = db_fetch_object($query_sug)) {
+            $vCnt++;
+            $sample = $sug->question;
+
+            if (strlen($sample) > 20) {
+                $bubble = 'rel="' . htmlentities(wordwrap($sample, 40, '<br/>')) . '"';
+            }
+            $content.='<li class=""><a ' . $bubble . ' href="' . $gSitePath . $sug->url . '"  style="' . drupal_link_color($user->uid, $sug->qid) . '">' . htmlentities(myTruncate($sample, '20', '', '..')) . '</a></li>';
+        }
+    } else {
+        $query = "SELECT * FROM question where cid='" . $fetvot->cid . "' and  qid !='$qid' limit 5";
+        $query_sug = db_query($query);
+
+
+
+        $vCnt = 0;
+        while ($sug = db_fetch_object($query_sug)) {
+            $vCnt++;
+            $sample = $sug->question;
+            if (strlen($sample) > 20) {
+                $bubble = 'rel="' . htmlentities(wordwrap($sample, 40, '<br/>')) . '"';
+            }
+
+            $content.='<li class=""><a ' . $bubble . '  href="' . $gSitePath . $sug->url . '"  style="' . drupal_link_color($user->uid, $sug->qid) . '">' . htmlentities(myTruncate($sample, '20', '', '..')) . '</a></li>';
+        }
+    }
+    if ($vCnt == 0) {
+        $content.='<li class="">No suggest question</li>';
+    }
+
+    $content.='</ul></div>';
+
+    return $content;
 }
