@@ -1309,7 +1309,7 @@ function get_releated_questions($question,$cat_id,$context)
 		$where_condition .= " and qc.cat in ($cat_id)";
 	}	
 	$count = db_result(db_query("SELECT count(q.qid) FROM {question} q left join question_cat qc on qc.qid=q.qid  WHERE  $where_condition group by q.qid limit 10 " ));		
-	$rel_output.= '<div class="innerbox" style="width:auto;height:200px;overflow:-moz-scrollbars-vertical;"><ul>';	
+	$rel_output.= '<div class="innerbox" style="width:auto;height:200px;overflow:auto;"><ul>';	
 	if (($count!=0)&&($question!=''))
 	{
 		$rel_count = 1;
