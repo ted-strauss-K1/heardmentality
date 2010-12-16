@@ -2621,6 +2621,7 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
 			{
 				$answer_id=$array['paid'];
 				$option='';
+				$option.='<option  value="0">-</option>';
 				for($spec_count=$Spec_result1->spec_min_range;$spec_count<=$Spec_result1->spec_max_range;$spec_count++)
 				{			
 					/*PRE SELECT OPTION VALUE*/
@@ -2675,7 +2676,7 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
         <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
     $ecat1 = explode(",", $quest->cid);
-    $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $nid . "' group by t.cat";
+   $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $nid . "' group by t.cat";
     $result_cat = db_query($qry_cat);
 
 
@@ -2726,7 +2727,7 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
         <input type="hidden" id="cat1" name="cat1" value="' . $pcate_id . '">&nbsp;
         <div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5">
         <option value="">Select Sub Category</option>';
-    $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $pcate_id . ")";
+     $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $pcate_id . ")";
     $client_select1 = db_query($cat_qry);
     $ecat2 = explode(",", $quest->scid);
 
@@ -2753,7 +2754,7 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
           } */
         // echo $subcat[$sc].'-'.strlen($subcat[$sc]).'</br>';
         //echo $liste->cat_id.'-'.strlen($liste->cat_id).'</br>';
-      //$subcat = trim($subcat[$sc]);
+        $subcat = trim($subcat[$sc]);
         if ($liste->cat_id==$subcat[$sc]){
             $sele = 'SELECTED';
         }
@@ -3311,8 +3312,8 @@ setDefaultCountry();
         <div id="chg_scat">
      <select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5">
      <option value="">Select Sub Category</option>';
-
     $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('" . $quest->cid . "')");
+	
     $ecat2 = explode(",", $quest->scid);
     while ($list = db_fetch_object($client_select1)) {
         if (in_array($list->cat_id, $ecat2)) {
@@ -3327,6 +3328,7 @@ setDefaultCountry();
     $output .= '</select></div></td>
         <td width="25%" align="left"><div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
     if ($quest->scid != '') {
+	
         $client_select2 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('" . $quest->scid . "')");
         $ecat3 = explode(",", $quest->sscid);
         while ($list = db_fetch_object($client_select2)) {
