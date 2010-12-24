@@ -546,12 +546,28 @@ function question_save() {
 }
 
 function send_qnotify($qid='') { ///vijay important comented
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_url;
 
     //inline site notify
     $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('" . $user->uid . "','1','1','" . $qid . "' ) ");
 
-
+	/*RAM HEARTBEAT MODULE*/
+	$qid_url = db_query("select * from {question} where qid='$qid'");
+    $question_values = db_fetch_array($qid_url);
+			if (isset($question_values)) {
+				$question_urlff = $question_values['url'];
+				$qtion = $question_values['question'];
+				$ctxt = $question_values['context'];
+			}
+	
+    $message_id = 'Add_question';
+    $variables = array(
+      '@username' => l(user_load($user->uid)->name, 'user/' . $user->uid),
+      //'@node_type' => 'page',
+      '@question_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
+    );
+		heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+	/*RAM HEARTBEAT MODULE*/
     ////////////mail notication for user follwers to me//////////////////////////////////////
 
     hm_mails($qid, '', 'add_question');
