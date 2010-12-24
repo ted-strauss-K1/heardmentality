@@ -1,19 +1,15 @@
 <?php
 
 function search_results() {
-    ////vijay1
+    
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
     $flink = '';
     $fetresult = '';
     extract($_REQUEST);
     $page_name = "searchuser"; //  If you use this code with a different page ( or file ) name then change this
-    if (isset($_GET['start'])) {
-        $start = $_GET['start'];
-    } else {
-        $start = 0;
-    }
-    if (strlen($start) > 0 and !is_numeric($start)) {
+
+    if (strlen($start) > 0 && !is_numeric($start)) {
         echo "Data Error";
         exit;
     }
@@ -23,10 +19,11 @@ function search_results() {
     $back = $eu - $limit;
     $next = $eu + $limit;
     $fetresult = '';
-    
+    if(!isAjax ()){
     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search_user.js');
 drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
-    $txt_search = $_REQUEST['txt_search'];
+}
+
     $name = $_REQUEST['txt_search'];
     $q_country = $_REQUEST['q_country'];
     $q_state = $_REQUEST['q_state'];
@@ -40,37 +37,29 @@ drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
     }
 
     $qry = '';
-    if ($name != '')
-        $qry .= "AND (img.real_name LIKE '" . $name . "%')";
+    if (!empty($name))
+        $qry .= "AND (img.real_name LIKE '" . $name . "') ";
 
-    if ($_REQUEST['code'] != '')
-        $qry .= "AND (img.country ='" . $code . "')";
+   if (!empty($q_country))
+        $qry .= "AND (img.country ='" . $q_country . "') ";
 
-    if ($_REQUEST['q_country'] != '')
-        $qry .= "AND (img.country ='" . $q_country . "')";
+    if (!empty($q_state)&&$q_state>0){
+         $query = array('geonameid' => $q_state, 'style' => '', 'lang' => 'en');
+                $result = geonames_query('get', $query);
 
-    if ($_REQUEST['q_state'] != '')
-        $qry .= "AND (img.state ='" . $q_state . "')";
+                $state_name = ((!empty($result->results[0]['name'])) ? $result->results[0]['name'] : '');
 
-    if ($_REQUEST['q_city'] != '')
-        $qry .= "AND (img.city ='" . $q_city . "')";
-
+        $qry .= "AND (img.state ='%" . $state_name . "%') ";
+    }
+   if (!empty($q_city)&&$q_city>0){
+       $query = array('geonameid' => $q_city, 'style' => '', 'lang' => 'en');
+                $result = geonames_query('get', $query);
+                $city_name = ((!empty($result->results[0]['name'])) ? $result->results[0]['name'] : '');
+        $qry .= "AND (img.city ='%" . $city_name . "%') ";
+   }
 
 
 //SELECT * FROM users reg, user_profile img, follower fol WHERE (fol.cat_id ='1') AND reg.status='1' and reg.uid=fol.uid group by fol.uid
-    if ($user->uid != '') {
-        if ($_REQUEST['cid'] != '') {
-
-            if ($scid != '')
-                $c_qry .= "AND (fol.cat_id=$scid)";
-
-            $qry_form = "img, follower fol where 1 $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
-        }
-        else {
-            $qry_form = "img WHERE 1 $qry and img.uid=reg.uid AND reg.status='1'";
-        }
-    } else {
-
         if ($_REQUEST['cid'] != '') {
             if ($scid != '')
                 $c_qry .= "AND (fol.cat_id=$scid)";
@@ -78,10 +67,9 @@ drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
             $qry_form = "img, follower fol where 1 $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
         }
         else {
-            $qry_form = "img WHERE 1 $qry AND reg.status='1' and img.uid=reg.uid";
+            $qry_form = "img WHERE reg.status='1' $qry AND  img.uid=reg.uid";
         }
-    }
-    $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+  echo  $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
 
     //  echo $sel;
 
@@ -97,12 +85,12 @@ drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
             if ($scid != '')
                 $c_qry .= "AND (fol.cat_id=$scid)";
 
-            $qry_form = "img, follower fol where 1 $qry and (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
+            $qry_form = "img, follower fol where reg.status=1 $qry and (fol.cat_id=$cid) and reg.uid=fol.uid $c_qry group by fol.uid";
             $sel_count = mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
         }
         else {
 
-            $qry_form = "img WHERE 1 $qry and img.uid=reg.uid AND reg.status='1'";
+            $qry_form = "img WHERE reg.status='1' $qry and img.uid=reg.uid ";
             $sel_count = db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
         }
 
@@ -196,9 +184,11 @@ drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
 
         $fetresult .= "   <div class='page-n' align='center'>
             <ul><li>";
-        if ($back >= 0) {
-            $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'>Previous</a>";
-            $fetresult .= "&nbsp;&nbsp;<li><a href='$page_name?start=$back&code=$code&txt_search=$name'><img alt='Previous' src='" . $gSitePath . "sites/all/themes/newtheme/images/p-l.jpg'></a></li>";
+            if ($back >= 0) {
+            //href='$page_name?start=$back&$lkr'
+            $fetresult .= "<a class='' href='JavaScript:void(0);' id='$back'>Previous</a>";
+            //href='$page_name?start=$back&$lkr'
+            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath .  drupal_get_path('theme','newtheme') . "/images/p-l.jpg'></a>";
         }
         $fetresult .= "</li><li>";
         $i = 0;
@@ -221,7 +211,7 @@ drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
             //$fetresult .= "<li><a href='$page_name?start=$next&code=$code&txt_search=$name'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a></li>";
             //$fetresult .= "&nbsp;&nbsp;<li><a href='$page_name?start=$next&code=$code&txt_search=$name'>Next</a></li>";
             //href='$page_name?start=$next&$lkr'
-            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath . "sites/all/themes/newtheme/images/p-r.jpg'></a>";
+            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath.  drupal_get_path('theme','newtheme') . "/images/p-r.jpg'></a>";
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0)' id='$next'>Next</a>";
         }
@@ -264,9 +254,9 @@ function categoryuser_ajax() {
     echo _sidebaruser_category();
     exit;
 }
-
+/*
 function search_user_ajax() {
-    ////vijay1
+    
     // print_r($_REQUEST);
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
@@ -515,6 +505,21 @@ function search_user_ajax() {
 
     echo $fetresult;
 }
+*/
+
+
+function search_user_ajax(){
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+     $content='';
+
+     echo $content=search_results();
+
+
+     die;
+
+}
+
 
 function question_follow() {
 
@@ -759,7 +764,7 @@ function search_results_ajax() {
             //href='$page_name?start=$back&$lkr'
             $fetresult .= "<a class='' href='JavaScript:void(0);' id='$back'>Previous</a>";
             //href='$page_name?start=$back&$lkr'
-            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath . "sites/all/themes/newtheme/images/p-l.jpg'></a>";
+            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath .  drupal_get_path('theme','newtheme') . "/images/p-l.jpg'></a>";
         }
         //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
         $fetresult .= "</li><li>";
@@ -780,7 +785,7 @@ function search_results_ajax() {
         ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
         if ($this1 < $sel_count) {
             //href='$page_name?start=$next&$lkr'
-            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath . "sites/all/themes/newtheme/images/p-r.jpg'></a>";
+            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath .drupal_get_path('theme','newtheme') . "/images/p-r.jpg'></a>";
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0);' id='$next'>Next</a>";
         }
@@ -816,7 +821,7 @@ function search_results_question() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
 
 
-    $page_name = "searchquestion";
+  //  $page_name = "searchquestion";
     if (isset($_GET['start'])) {
         $start = $_GET['start'];
     }
@@ -1020,7 +1025,9 @@ function search_results_question() {
     if ($sel_count == 0) {
         $fetresult .= ' <div  align="center" class="result-item"><b>No Search Results </b></div>';
     }
-
+if(isAjax ())
+    echo $fetresult;
+else
     return $fetresult;
 }
 

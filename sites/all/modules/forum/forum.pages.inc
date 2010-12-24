@@ -24,7 +24,7 @@ function forum_list($qid = '') {
        
  	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/forum.js"></script>
 
-             	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/jquery.blockUI.js"></script>
+             	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
      <script src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/scripts/jbubble.js"></script>
 <link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />
 	<!--<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/wave.css" type="text/css" />-->';
@@ -823,7 +823,7 @@ function resforum_list() {
 
  	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/forum.js"></script>
 
-             	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/jquery.blockUI.js"></script>
+<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
      <script src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/scripts/jbubble.js"></script>
 <link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />';
 

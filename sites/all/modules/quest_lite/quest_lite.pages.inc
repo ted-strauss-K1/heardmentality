@@ -73,9 +73,13 @@ function qlite_view() {
     // drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/wave.css');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/like.js');
-    // drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
+   drupal_add_js(drupal_get_path('module', 'debate').'/scripts/debate.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
-
+          drupal_add_js( drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js');
+            drupal_add_js(  drupal_get_path('theme', 'newtheme') . '/scripts/jbubble.js');
+            drupal_set_html_head('<script>
+            var uid="' . $user->uid . '";
+	</script>');
     $qid = get_qid();
 
 
@@ -122,7 +126,7 @@ function qlite_view() {
     //question privacy check
     if (!$oListquest->status) {
         if ($user->uid == 1) {
-            
+
         } elseif ($user->uid != $oListquest->uid || $oListquest->uid != 1) {
 
             drupal_set_message('Sorry Question is inactive for user access!', 'error');
@@ -149,11 +153,11 @@ function qlite_view() {
 		var spath="' . $gSitePath . '";
                     var curl="' . url($_GET['q'], array('absolute' => true)) . '";
 		function showdetails(ids)
-		{	
-	
+		{
+
 		loaddetails(\'' . $gSitePath . 'qlite/Details/\'+ids,\'Question Information\');
 		}
-		
+
 		</script>';
     //echo $stringfunct;
     if (drupal_is_front_page ()) {
@@ -163,26 +167,6 @@ function qlite_view() {
         $qlink = "ISSUE";
     }
 
-/// vijay link color
-//    function link_color($userid,$quesid)
-//    {
-//
-//   if($userid)
-//    {
-//        $linkcolor = db_query("select count(*) as count from {possible_answer_vote} where qid='" . $quesid . "' and uid='" . $userid . "'  ");
-//         $get_linkcolor = db_fetch_object($linkcolor);
-//         if($get_linkcolor->count==0)
-//         {
-//             return "color:red";
-//         }
-//          if($get_linkcolor->count==1)
-//         {
-//            return "color:green";
-//         }
-//    }
-//            return "color:#4170A0";
-//
-//    }
 
     drupal_set_title($qlink);
     $len = strlen($oListquest->context);
@@ -201,7 +185,7 @@ function qlite_view() {
 		 <input type="hidden" name="txt_act" id="txt_act" value=""/>
 	 <input type="hidden" name="mid" value="' . $qid . '"/>
 		<!--<div class=""><div class="lft_view"> <h4 class="cmt_name"><a></a></h4>-->
-		
+
 		<!--<div>' . $shortdesc . ' ' . $linkj . '--><div>';
     //likes
 
@@ -429,18 +413,18 @@ function qlite_view() {
         $voutput .= '
 	<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
 	<script>
-        var conf = 
+        var conf =
         {
             APIKey: \'' . $apikey . '\'
         };
-        
+
         function onLoad()
         {
-            gigya.services.socialize.getUserInfo(conf,{callback:renderUI});	    
-            
-           
-            gigya.services.socialize.addEventHandlers(conf, { onConnect:renderUI, onDisconnect:renderUI}   ); 
-            
+            gigya.services.socialize.getUserInfo(conf,{callback:renderUI});
+
+
+            gigya.services.socialize.addEventHandlers(conf, { onConnect:renderUI, onDisconnect:renderUI}   );
+
         }
     </script> ';
     }
@@ -448,37 +432,37 @@ function qlite_view() {
 
     $voutput .= '
 	<script type="text/javascript">
-	        
-     
+
+
 
 			function formsubmittype(mtype,ids){
 		jQuery("#txt_act").val(mtype);
 		if(mtype==1)
 		{
-		
-		
+
+
 		document.getElementById(\'answer_frm\').submit();
 		}
 		if(mtype==2)
 		{
-		
+
 		load_invite(\'' . $gSitePath . 'invite/invite_friends?qid=' . $qid . '\',\'Profile \');
 		//onclick="load_invite(\'' . $gSitePath . 'c?qid=' . $qid . '\',\'Profile\');
 		}
 		if(mtype==3)
 		{
 		loadflagquestion(\'' . $gSitePath . 'qlite/flag/\'+ids,\'Report \');
-		
+
 		}
 		if(mtype==4)
 		{
 		loadsuggest(\'' . $gSitePath . 'qlite/suggest/\'+ids,\'Answers \');
-		
+
 		}
 		if(mtype==5)
 		{
 		window.location.href="' . $gSitePath . 'mashup/' . $qid . '";
-		
+
 		}
 		}
 		</script>
@@ -517,56 +501,56 @@ function qlite_view() {
     $voutput .= '
        <script type="text/javascript">
 
-        
+
         function showShareUI() {
 
-		   
+
 		    var act = new gigya.services.socialize.UserAction();
 
 		    act.setUserMessage("Your comment here...");
 
-		   
+
 		    act.setTitle("' . $oListquest->question . '");
 		    act.setDescription("' . $oListquest->context . '");
 
-           
+
 		    act.setLinkBack("' . $gSitePath . '' . $lji[1] . '");
 
-		  
+
 		    act.addActionLink("' . $oListquest->question . '",
 		        "' . $gSitePath . '' . $lji[1] . '");
 
-		   
-	       
 
-			
-			var params = 
+
+
+
+			var params =
 			{
-			    userAction: act,  	                                  
-			    onError: onError,  
-			    onSendDone: onSendDone, 
+			    userAction: act,
+			    onError: onError,
+			    onSendDone: onSendDone,
                showEmailButton:true,
                showMoreButton:true
 			};
 
-			
+
 			gigya.services.socialize.showShareUI(conf, params);
 
 		}
-		
-		
+
+
 		function onError(event) {
 		    alert(\'An error has occured\' + \': \' + event.status + \'; \' + event.statusMessage);
 		}
 
-		
+
 		function onSendDone(event)
 		{
 		    document.getElementById(\'status\').style.color = "green";
-		    document.getElementById(\'status\').innerHTML = 
-                            \'The newsfeed has been posted to: \' 
+		    document.getElementById(\'status\').innerHTML =
+                            \'The newsfeed has been posted to: \'
 		            + event.providers;
-		}    
+		}
 	</script>';
 
     $numres = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$qid'"));
@@ -600,7 +584,7 @@ function qlite_view() {
             <div  class=""><div class="but-left"><img src="' .$gSitePath.drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
               <a title="Bookmark" class="but butnew share-link" onclick="showShareUI();" href="javascript:void(0);">
                  <img ALIGN=ABSMIDDLE title="Share" alt="Share" src="' . $gSitePath . path_to_theme() . '/images/face-ic.jpg"/>&nbsp;
-                    Share</a>                 
+                    Share</a>
              <div class="but-right">
            <img width="7" height="24" src="' .$gSitePath. drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
               <!-- <div class="share2">
@@ -617,10 +601,10 @@ function qlite_view() {
              <a title="Flag" class="but butnew share-link"  onclick="formsubmittype(3,' . $qid . ');" href="javascript:void(0);"><img  src="' . $gSitePath . path_to_theme() . '/images/flag.png" alt="flag" align="middle" /></a>
               <div class="but-right">
            <img width="7" height="24" src="' . $gSitePath.drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
-             
+
             </div>
              <div class="clr"></div>
-		
+
 		';
 
 
@@ -633,14 +617,15 @@ function qlite_view() {
 
         $voutput .= '<div class="clr"></div>
 	<div id="rotate">
-  
+
               <ul id="maintabs" class="mytabs" >
              <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
                 <li class="" id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum (' . $debatecnt . ')</span></a></li>
                 <li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
+                     <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
 				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
 				  <li class="" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Details</span></a></li>
-				  
+
               </ul>
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
@@ -820,7 +805,7 @@ function privacy_chk_ajax($owner = '', $qp = '', $share = '') {
             $cnt = ExecuteQuery($query, "select");
 
             if ($cnt[0][yea] || $cnt[1][yea]) {
-                
+
             } else {
 
                 echo '<div class="warning">Sorry, Only Followers and Followees to access this question!</div>';
@@ -1179,7 +1164,7 @@ function add_resources() {
 <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/fileuploader.css" type="text/css" />
             <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/fileuploader.js"></script>
             <script> var spath="' . $gSitePath . '";</script>
-                   	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/jquery.blockUI.js"></script>
+                   	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
 		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-core.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-more.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/add_resource.js"></script>
@@ -1192,14 +1177,14 @@ function add_resources() {
 	</div><div id="err">' . $list_err . '</div><br/>
 	<span class="clr"><!-- spanner --></span>';
     $resources .= '<form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'qlite/ajaxadd" enctype="multipart/form-data" ><input type="hidden" name="qaid" value="' . $qid . '"/>
-	
+
 	<br/><p class="float_lft"> Type	</p><p class="float_lft">
         <select name="rtype" class="textfieldm" id="rtype" >
 	<option value="0">Select </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
 	<option value="3">Facts </option>
-	</select>  
+	</select>
 	</p>
     <br class="clr"/>
 	<div id="div1" style="display:none;">
@@ -1207,7 +1192,7 @@ function add_resources() {
     <p class="float_lft"><input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
 	<br class="clr"/>
 	</div>
-	
+
 	<div  id="div2" style="display:none;">
 	<br/><p class="float_lft"> Type </p><p class="float_lft"><select name="mtype" class="textfieldm" id="mtype"   >
 	<option value="0">Select </option>
@@ -1220,9 +1205,9 @@ function add_resources() {
 	<div id="media_div" style="display:none;">
 	<p class="float_lft_file"> File </p><p class="float_lft" > <input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div></p><br class="clr"/>
 	</div>
-	
 
-	
+
+
 	<div  id="div3" style="display:none;">
 	<p class="float_lft"> Link </p><p class="float_lft"><input type="text" name="flink" id="flink" class="textfieldm"/> </p><br class="clr"/>
 	</div>
@@ -1269,13 +1254,13 @@ function flag_question() {
 	var spath="' . $gSitePath . '";
 	</script>
 		<script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
-<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/jquery.blockUI.js"></script>
+<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/forum.js"></script>
 	<link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />
 	';
 
     $falgq .= '
-	
+
 	';
 
     if (isset($_REQUEST['uid'])) {
@@ -1354,72 +1339,7 @@ function flag_question() {
     echo $falgq;
 }
 
-function tab_list() {
-    global $gSitePath, $user, $gDocPath, $base_root;
 
-
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-
-    echo '<div class="toolbarTabs">
-	<ul id="panelTabs" class="tab-menu">
-	<li id="panelTabs1Link" class="selected"><a>Reporting</a></li>
-	<li id="panelTabs2Link"><a>Forum</a></li>
-	<li id="panelTabs3Link" ><a>Resources</a></li>
-	<li id="panelTabs4Link"><a>Pundits</a></li>
-	<li id="panelTabs5Link"><a>Info</a></li>
-	<li id="panelTabs6Link"><a>Politician</a></li>
-	</ul>
-	<div class="clear"></div>
-	</div>
-
-	<script type="text/javascript">
-	
-	MochaUI.initializeTabs("panelTabs");
-	
-	$("panelTabs1Link").addEvent("click", function(e){
-	MochaUI.updateContent({
-	"element":  $("help-panel"),
-	"url":       "' . $gSitePath . 'qlite/panel/' . $qid . '"
-	});
-	});
-	
-	$("panelTabs2Link").addEvent("click", function(e){
-	MochaUI.updateContent({
-	"element":  $("help-panel"),
-	"url":       "' . $gSitePath . 'qlite/panel/' . $qid . '?type=Forum"
-	});
-	});
-	
-	$("panelTabs3Link").addEvent("click", function(e){
-	MochaUI.updateContent({
-	"element":  $("help-panel"),
-	"url":       "' . $gSitePath . 'qlite/panel/' . $qid . '?type=Resources"
-	});
-	});
-	$("panelTabs4Link").addEvent("click", function(e){
-	MochaUI.updateContent({
-	"element":  $("help-panel"),
-	"url":       "' . $gSitePath . 'qlite/panel/' . $qid . '?type=Gurus"
-	});
-	});
-	
-	$("panelTabs5Link").addEvent("click", function(e){
-	MochaUI.updateContent({
-	"element":  $("help-panel"),
-	"url":       "' . $gSitePath . 'qlite/panel/' . $qid . '?type=Info"
-	});
-	});
-	
-	$("panelTabs6Link").addEvent("click", function(e){
-	MochaUI.updateContent({
-	"element":  $("help-panel"),
-	"url":       "' . $gSitePath . 'qlite/panel/' . $qid . '?type=Politician"
-	});
-	});
-	
-	
-	</script>';
-}
 
 function panel_content() {
 
@@ -1474,6 +1394,11 @@ function panel_content() {
 
             $output = forum_wave($qid);
             break;
+          case "debate":
+
+            $output = debate_wave($qid);
+
+              break;
         case "Resources":
 
             $output = '
@@ -1525,7 +1450,7 @@ function panel_content() {
             $bubble = load_bubble($fetuserlist->uid);
             $medal = updateProfileBadge($fetuserlist->uid);
             $section = load_qcat($qid);
-            $output.= ' 
+            $output.= '
                        <div class="">
 <div style="float:left;padding:5px;width: 260px;">
  <span class="profile-gray">Context</span> :' . $oListquest->context . '
@@ -1608,7 +1533,7 @@ function forum_wave($qid = '') {
 	<p><select name="wprivate" id="wprivate">
 	<option value="0"> Disabled</option>
 	<option value="1"> Enabled  </option>
-	</select></p>		-->			
+	</select></p>		-->
 	<p><input type="button" class="waveButtonMain" onclick="wave_form();" value="Post" /></p>
 </form>';
     } else {
@@ -1619,6 +1544,116 @@ function forum_wave($qid = '') {
 
 
     $wave .= list_wave($qid, 1);
+
+
+    $wave .= '</div>
+	';
+
+
+    return $wave;
+}
+
+function debate_wave($qid = '') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $inc_pans='';
+    $wave = '';
+    $ans=load_options($qid);
+    //answers
+    foreach($ans as $list){
+
+        $inc_pans.='<div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">'.$list['answer'].'</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="'.$list['paid'].'"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        </div>
+        <div class="clr"></div>
+    </div>';
+    }
+
+    //print_r($cnt);
+    $wave .= '
+
+     <div class=" debate-round-tab-outer">
+              	<div class="form-part-top">
+                    <div class="form-m1">Filter By:<br />
+<select name="" class="select-1"><option>Possible Answers</option></select></div>
+                    <div class="form-m2">&nbsp;<br />
+
+                    <select name="" class="select-2"><option>Support</option></select></div>
+                    <div class="form-m3">
+
+                    Sort By:
+                    <select name="" class="select-2"><option>Sort</option></select>
+
+                    </div>
+                    <div class="form-m4" align="right">&nbsp;<br />
+<a href="#newwavediv" title="New Debate" class="floatbox"><input name="" type="button"  class="submit-debate-btn"/></a></div>
+
+                </div>
+
+                	<div class="clr"></div><br />
+
+                    <hr />
+
+                    <br />
+
+
+                    <div class="clr"></div>
+           
+
+		<div class="comment" id="newwavediv" style="display:none">';
+    if (!empty($user->uid)) {
+        $wave .= '	<form  id="newwaveform" class="newwave" action="'.$gSitePath.'issues/debate/save" method="post" accept-charset="utf-8">
+	<input type="hidden" name="action" value="new"/><input type="hidden" name="qid" value="' . $qid . '"/>
+<div class="new-debate-wrapper">
+  	<div class="form-outer-debate">
+    	<div class="fm-1"> Please Follow the <a href="#">Principles and Guidelines.</a></div>
+        <div class="fm-2"><input name="wtitle" id="wtitle" type="text" value="Title" /> </div>
+    <div class="clr"></div>
+    </div>
+
+    <div class="form-outer-debate">
+    	<div class="fm-1"> All debates should be:<br />
+            <ul>
+            <li>Concise</li>
+            <li>Etc</li>
+            </ul>
+</div>
+        <div class="fm-2"><textarea name="wcon" id="wcon"   cols="10" rows="6">Enter text here</textarea></div>
+<!--<div ><b>Private Reply :</b> [Only followers can do reply]</div>
+	<p><select name="wprivate" id="wprivate">
+	<option value="0"> Disabled</option>
+	<option value="1"> Enabled  </option>
+	</select></p>		-->
+
+    <div class="clr"></div>
+    </div>
+'.$inc_pans.'
+    <div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">&nbsp</div>
+        <div class="fm-2-right" align="right"><input name="" type="button" onclick="wave_form(this);" class="submit-debate-btn"/></div>
+
+        </div>
+
+    <div class="clr"></div>
+    </div>
+
+
+  <div class="clr"></div>
+  </div>
+
+</form>';
+    } else {
+        $wave .= '<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
+    }
+    $wave .= '</div>
+	<div><div id="qwave" class="">';
+
+
+    $wave .= list_debate($qid, 1);
 
 
     $wave .= '</div>
@@ -1781,26 +1816,26 @@ function suggest_answer() {
 
     $ansoutput .= '<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
-	
+
 	if (!window.demo_path) window.demo_path = \'\';
 	var demo_path = window.demo_path;
-	
+
 	$(\'voteform\').addEvent(\'submit\', function(e) {
-	
+
 	e.stop();
-	
+
 	var log = $(\'log_res_ans\').empty().addClass(\'ajax-loadings\');
-	
-	this.set(\'send\', {onComplete: function(response) { 
+
+	this.set(\'send\', {onComplete: function(response) {
 	log.removeClass(\'ajax-loadings\');
 	log.set(\'html\', response);
 	}});
-	
+
 	this.send();
 	});
 	});
-	
-	
+
+
 	</script>
 	<form id="voteform"  method="post" action="' . $gSitePath . 'qlite/answervote"  enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="' . $qid . '"/>';
@@ -1821,21 +1856,21 @@ function suggest_answer() {
     if ($numr == 0) {
         $ansoutput .= '<script type="text/javascript">
 	window.addEvent(\'domready\', function() {
-	
+
 	if (!window.demo_path) window.demo_path = \'\';
 	var demo_path = window.demo_path;
-	
+
 	$(\'answerform\').addEvent(\'submit\', function(e) {
-	
+
 	e.stop();
-	
+
 	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
-	
-	this.set(\'send\', {onComplete: function(response) { 
+
+	this.set(\'send\', {onComplete: function(response) {
 	log.removeClass(\'ajax-loading\');
 	log.set(\'html\', response);
 	}});
-	
+
 	this.send();
 	});
 	});
@@ -1922,7 +1957,7 @@ function question_news() {
 ">' . $usernews->cntpost . ' Comments</a>]';
             $getuser = user_load(array('uid' => $usernews->uid));
             $newsresult .= '
-	
+
  <h4 ><a href="' . $opkt["LINK"] . '" target="new"> ' . $opkt["TITLE"] . ' </a> </h4>
 		<p>' . $opkt['DESCRIPTION'] . ' </p>
                     <div class="clr"></div>
@@ -1931,7 +1966,7 @@ function question_news() {
                <ul>
                <li>' . $like . ' </li>     <li>|</li>
                <li>' . $flag . '</li>     <li>|</li>
-               <li>' . $post . '</li>   
+               <li>' . $post . '</li>
              <li>Posted by <a href="' . $gSitePath . 'profile/' . $getuser->name . '">' . $getuser->name . '</a></li>     <li>|</li>
                </ul>
           </div>
@@ -2313,8 +2348,8 @@ function qlite_percent() {
     $vans = "select * from {possible_answer} where  qid='" . $qid . "'";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
-    $output .= " 	
-			<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>				
+    $output .= "
+			<script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>
 			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
 <script>var example = 'bar-stacked',
 	theme = 'skies';
@@ -2386,8 +2421,8 @@ function qlite_percent() {
 					},
 				      series: [" . $inc . " ]
 				});
-				
-				
+
+
 			});</script>";
 
 
@@ -2404,7 +2439,7 @@ function qlite_percent() {
 	' . $incflt . '
      <div align="right" style="padding-right:20px;" > <form id="form1" name="form1" method="post" action="">
 Filter by :
-      
+
   <select name="dochg" onchange="MM_jumpMenuGo(this.value);"  id="dochg">
 
   <option value="">Select</option>
@@ -2417,7 +2452,7 @@ Filter by :
      <option value="edu">Education Level</option>
   </select></label>
   <span id="fopt" ></span>
-  
+
     <br />
  </form></div>
     <div id="chart_div" style="width: 400px; height: 240px;">
@@ -2516,13 +2551,13 @@ function qlite_graph() {
             $ins_sc = '[' . implode(',', $ans) . ']';
             array_push($grid, "'" . $vlist[$ab]['answer'] . "'");
             $insdata.="{name :'" . $vlist[$ab]['answer'] . "', data: " . $ins_sc . "},";
-            
+
      $sdate = "Date.UTC(" . $year . "," . ($month-1) . "," . (date("d") - 6) . ")";
      $tickint="tickInterval: 24 * 3600 * 1000 // one day";
         }
     }
 
-  
+
     $year = date("Y");
     $month = date("m")-1;
     $dat = date("d");
@@ -2760,8 +2795,8 @@ function qlite_map() {
 		  map.addControl(new GLargeMapControl());
     //map.addControl(new GMapTypeControl());
       	" . $inc_script . "
-                  
-                  
+
+
 	 var markerCluster = new MarkerClusterer(map, markers);
 map. disableInfoWindow ();
 
@@ -2782,7 +2817,7 @@ map.setCenter(new GLatLng(Math.round(lat),Math.round(lng) ), 5);
     iconRed.shadowSize = new GSize(22, 20);
     iconRed.iconAnchor = new GPoint(6, 20);
     iconRed.infoWindowAnchor = new GPoint(5, 1);
-	
+
 	 iconRed.image = 'http://labs.google.com/ridefinder/images/mm_20_'+type+'.png';
 		return iconRed;
 		}
@@ -2962,52 +2997,7 @@ function send_votenotify($qid='') {///vijay important comented
     hm_mails($qid, '', 'vote_answer');
 }
 
-function send_forumnotify($nid='', $qid='') { //vijay important comented
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
-    $insert_notify = db_query("insert into notification (uid,follower_action,is_wave,node_id) values('" . $user->uid . "','1','1','" . $nid . "' ) ");
-
-
-    /* $qdetails = load_question($qid);
-      $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
-      $rs_followerf = db_query($sel_listf);
-
-      $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
-
-      while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
-
-      $sellist = "select * from users where uid='" . $follower_resultfuser->uid . "'";
-      $res_users = db_query($sellist);
-      $usert = db_fetch_object($res_users);
-      $to = $usert->mail;
-      if ($usert->notify_itype == 1) {
-
-      $insert_notify = db_query("insert into notification (uid,follower_action,is_wave,node_id) values('" . $follower_resultfuser->uid . "','1','1','" . $nid . "' ) ");
-      }
-      if ($usert->notify_etype == 1) {
-
-      ///////////email for following ///////////////
-
-      $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
-      $rs_mgmt = db_query($sel_user_cmt);
-      $list_content = db_fetch_object($rs_mgmt);
-      $subject_proj = $list_content->subject;
-      $contentm = str_replace("#uname#", $usert->name, $list_content->content);
-      $contentm = str_replace("#anothername#", $user->name, $contentm);
-
-      // print_r($qdetails);
-      $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-      $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-      $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
-      $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
-
-
-
-
-      }
-      } */
-    hm_mails($qid, $nid, 'add_forum');
-}
 
 function qusetion_info() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
@@ -3092,7 +3082,7 @@ function retag() {
 				<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/Autocompleter.css" type="text/css" media="screen" />
 			<script>
 			var mpath=\'' . $gSitePath . '\';
-		
+
 			</script>';
 
     $query = " SELECT t.tag FROM {qtag} as qt left join {tagging} as t on t.tid=qt.tag_id WHERE qt.qid='" . $qid . "' ";
@@ -3129,7 +3119,7 @@ function edit_tagging($tag = '') {
                 <legend>
                     Re Tag
                 </legend>
-				
+
                 <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
                     <label>
                         Assigned Tags:
@@ -3148,7 +3138,7 @@ function edit_tagging($tag = '') {
                                 <div class="suggestionList" id= "suggestionsList">
                                 </div>
 								</div>
-                           </div> 
+                           </div>
 						   </div>
                             <input  name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"/>
 							<input name="q_tag" type="hidden" id="q_tag" value="' . $tag . '"/>
@@ -3164,10 +3154,10 @@ function edit_tagging($tag = '') {
                             Suggestions:
                         </label>
                         ' . $randomtag . '
-                       
+
                     </div>
 					<div ><input type="submit" name="tagsubmit" value="Retag" /> &nbsp; <input type="button" value="Cancel" class="nyroModalClose" onclick="window.top.location.reload();" /></div>
-               
+
             </fieldset>
 			</form>
         </div>';

@@ -461,42 +461,6 @@ jQuery(document).ready(function(){
     });
 //question search ends
 
-    ///for user search
-    jQuery('span[id=user]').live("click", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        var cid =  jQuery(this).find('a').attr('id');
-        jQuery("#hid_cat").val(cid);
-
-
-        jQuery('a.sidelinks').live('click', function(){
-            var scid = jQuery(this).attr('sid');
-            jQuery("#hid_scat").val(scid);
-        });
-
-        jQuery(".sidelinks a").click(function(event){
-
-            if($(this).hasClass('sidelinks hilite').toString()=='true')
-            {
-                return false;
-            }
-
-            var id = this.id;
-
-            jQuery(this).after(jQuery('<span class="sidelinks">').load('sites/all/modules/user_search/sidebar_ajaxuser.php', {
-                "sel_id":id
-            }));
-            $(this).addClass("hilite");
-            //jQuery(this).removeAttr('id');
-            event.preventDefault();
-        });
-
-
-
-    //$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
-    });
-
 
 });
 

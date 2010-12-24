@@ -42,14 +42,6 @@ $items['question/save'] = array(
      'type' => MENU_CALLBACK,
     'file' => 'question.pages.inc',
   );
-  $items['user/ajax'] = array(
-    'title' => ' Ajax Function',
-    'page callback' => 'user_ajax',
-	 'access arguments' => array('Question ajax'),
-     'type' => MENU_CALLBACK,
-    'file' => 'question.pages.inc',
-  );
-
  $items['question/edit'] = array(
     'title' => 'Edit Question',
     'page callback' => 'edit_question',
@@ -315,6 +307,22 @@ function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
             }
             return $final;
         }
+
+function load_options($qid='',$poss=''){
+
+            if(!empty($qid) && is_numeric($qid)){
+
+                   $query="SELECT * FROM {possible_answer} where qid='$qid'";
+		$result=ExecuteQuery($query, "select");
+            }else{
+                return false;
+            }
+       
+            return $result;
+        }
+
+        
+
 
       function load_votes($qid=''){
 

@@ -1,50 +1,19 @@
-jQuery(".userlinks a").live("click", function(e) {
- 
-        var cid = jQuery(this).attr('id').split('-');
-        jQuery("#hid_cat").val(cid[1]);
-  jQuery("#hid_scat").val('');
-        search_user(0);
-        var  scid = jQuery('#hid_scat').val();
-         jQuery('.userlinks a').each(function(){
-            jQuery(this).css("font-weight","normal");
-        });
-        jQuery('#sublinks').remove();
-        jQuery(this).parent().after(jQuery('<span id="sublinks" class="sublinks"></span>'));
 
-        jQuery('#sublinks').load(gSitePath+'user/ajax', {
-            "sel_id":cid[1],
-            "scid":scid
-        }, function(response, status, xhr) {
+jQuery("a.sublinks").live("click", function(e) {
 
-  if (status == "error") {
-   alert('Sorry Subcategory loaing error');
-  }
+    e.preventDefault();
+    e.stopPropagation();
+
+    var cid = jQuery(this).attr('id').split('-');
+    jQuery("#hid_scat").val(cid[1]);
+    jQuery('a.sublinks').each(function(){
+        jQuery(this).css("font-weight","normal");
+    });
+    search_user(0);
+    jQuery(this).css("font-weight","bold");
+    //jQuery(this).removeAttr('id');
+    return false;
 });
-
-        jQuery(this).css("font-weight","bold");
-        //jQuery(this).removeAttr('id');
-              e.preventDefault();
-        e.stopPropagation();
-        return false;
-    });
-
-
-
-    jQuery("a.sublinks").live("click", function(e) {
-
-        e.preventDefault();
-        e.stopPropagation();
-
-        var cid = jQuery(this).attr('id').split('-');
-        jQuery("#hid_scat").val(cid[1]);
-        jQuery('a.sublinks').each(function(){
-            jQuery(this).css("font-weight","normal");
-        });
-        search_user(0);
-        jQuery(this).css("font-weight","bold");
-        //jQuery(this).removeAttr('id');
-        return false;
-    });
 
 function get_profile_details(urid){
     //alert(urid);
@@ -66,6 +35,69 @@ function get_profile_details(urid){
 
 }
 
+function get_state(code){
+
+
+    var url = gSitePath + 'question/ajax';
+    jQuery.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'xhr',
+        data: {
+            action: '1',
+            code:code
+        },
+        success: function(msg){
+            jQuery('#chg_state').html(msg);
+
+        }
+    });
+
+
+
+}
+
+
+function get_city(ccode){
+
+    var url = gSitePath + "question/ajax";
+
+    jQuery.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'xhr',
+        data: {
+            action: '2',
+            code:ccode
+        },
+        success: function(msg){
+            jQuery('#chg_city').html(msg);
+
+        }
+    });
+
+
+    var url = gSitePath + "userresults";
+    var t_search = $("#txt_search").val();
+    jQuery.ajax({
+        type: "POST",
+        url: url,
+        dataType: 'xhr',
+        data: {
+            action: '2',
+            ccode:ccode,
+            txt_search: t_search
+        },
+        success: function(msg){
+            jQuery('.inner-page-cont').html(msg);
+
+        }
+    });
+
+
+}
+
+
 
 function search_user(loadcat){
     // question search starts
@@ -78,7 +110,7 @@ function search_user(loadcat){
 
     var  scid = jQuery('#hid_scat').val();
 
-    var  q_country = jQuery('#q_countryuser').val();
+    var  q_country = jQuery('#q_country').val();
     var  q_state = jQuery('#q_state').val();
     var  q_city = jQuery('#q_city').val();
 
@@ -104,7 +136,7 @@ function search_user(loadcat){
     // alert(qid);
     if(loadcat==1)
     {
-         url = gSitePath+"searchuser_category_ajax";
+        url = gSitePath+"searchuser_category_ajax";
 
         jQuery.ajax({
             type: "GET",
@@ -128,72 +160,57 @@ function search_user(loadcat){
 
 
 jQuery(document).ready(function(){
-  //  var url = gSitePath;
-    jQuery('#q_countryuser').change(function(e){
+    //  var url = gSitePath;
+
+
+    jQuery('#q_country').change(function(e){
         search_user(1);
     });
 
     jQuery('#q_state').live("change", function(e) {
+
+
         search_user(1);
     });
     jQuery('#q_city').live("change", function(e) {
+
+
         search_user(1);
     });
 
 
-    jQuery("#qfilter a[href*='?ajax=1']").live("click", function(e) {
+jQuery(".sidelinks a").live("click", function(e) {
 
-        e.preventDefault();
-        e.stopPropagation();
+    var cid = jQuery(this).attr('id').split('-');
+    jQuery("#hid_cat").val(cid[1]);
+    jQuery("#hid_scat").val('');
+    search_user(0);
+    var  scid = jQuery('#hid_scat').val();
+    jQuery('.sidelinks a').each(function(){
+        jQuery(this).css("font-weight","normal");
+    });
+    jQuery('#sublinks').remove();
+    jQuery(this).parent().after(jQuery('<span id="sublinks" class="sublinks"></span>'));
 
-        jQuery("#quest_info").load(jQuery(this).attr('href'), function(response, status, xhr) {
-            if (status == "success") {
-                reset_tabs();
-            }
-        });
-        jQuery("#qfilter a").each(function(){
-            jQuery(this).css('color', '#996600')
-        });
-        jQuery(this).css('color', '#4170A0');
-        // var url = "http://stackoverflow.com";
-        // $(location).attr('href',url);
-        return false;
+    jQuery('#sublinks').load(gSitePath+'question/ajax', {
+        "user_scat":cid[1],
+        "scid":scid
+    }, function(response, status, xhr) {
+
+        if (status == "error") {
+            alert('Sorry Subcategory loaing error');
+        }
     });
 
-
-
-   /* jQuery(".sidelinks a").live("click", function(e) {
-
-
-        var cid = jQuery(this).attr('id').split('-');
-        jQuery("#hid_cat").val(cid[1]);
-  jQuery("#hid_scat").val('');
-        search_question(0);
-        var  scid = jQuery('#hid_scat').val();
-         jQuery('.sidelinks a').each(function(){
-            jQuery(this).css("font-weight","normal");
-        });
-        jQuery('#sublinks').remove();
-        jQuery(this).parent().after(jQuery('<span id="sublinks" class="sublinks"></span>'));
-
-        jQuery('#sublinks').load(gSitePath+'question/ajax', {
-            "sel_id":cid[1],
-            "scid":scid
-        }, function(response, status, xhr) {
-
-  if (status == "error") {
-   alert('Sorry Subcategory loaing error');
-  }
+    jQuery(this).css("font-weight","bold");
+    //jQuery(this).removeAttr('id');
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
 });
 
-        jQuery(this).css("font-weight","bold");
-        //jQuery(this).removeAttr('id');
-              e.preventDefault();
-        e.stopPropagation();
-        return false;
-    });*/
 
-   /* jQuery("a.sublinks").live("click", function(e) {
+    jQuery("a.sublinks").live("click", function(e) {
 
 
 
@@ -205,58 +222,23 @@ jQuery(document).ready(function(){
         jQuery('a.sublinks').each(function(){
             jQuery(this).css("font-weight","normal");
         });
-        search_question(0);
+        search_user(0);
 
         jQuery(this).css("font-weight","bold");
         //jQuery(this).removeAttr('id');
         return false;
-    });*/
+    });
 
 
 
 
     jQuery('.page-n a').livequery("click", function(e) {
+
         var page_id =  jQuery(this).attr('id');
         jQuery("#hid_page").val(page_id);
         search_user(0);
     });
 //question search ends
-
-    ///for user search
-    jQuery('span[id=user]').live("click", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        var cid =  jQuery(this).find('a').attr('id');
-        jQuery("#hid_cat").val(cid);
-
-
-        jQuery('a.userlinks').live('click', function(){
-            var scid = jQuery(this).attr('sid');
-            jQuery("#hid_scat").val(scid);
-        });
-
-        jQuery(".userlinks a").click(function(event){
-
-            if($(this).hasClass('userlinks hilite').toString()=='true')
-            {
-                return false;
-            }
-
-            var id = this.id;
-
-            jQuery(this).after(jQuery('<span class="sidelinks">').load('sites/all/modules/user_search/sidebar_ajaxuser.php', {
-                "sel_id":id
-            }));
-            $(this).addClass("hilite");
-            //jQuery(this).removeAttr('id');
-            event.preventDefault();
-        });
-
-
-
-    //$('<br/><span class="sidelinks"> <a href="JavaScript:void(0);" id="1" class="sidelinks">Politics[23]</a></span>').insertAfter(jQuery(this).parent('span'));
-    });
 
 
 });

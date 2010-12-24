@@ -54,8 +54,8 @@ function political_api() {
             break;
         case 'question':
             
-            // $output = $xml->parse('http://www.govtrack.us/data/us/111/bills.index.xml');
-            $output = $xml->parse('http://192.9.200.13/design/heardmentality/bills.index.xml');
+          $output = $xml->parse('http://www.govtrack.us/data/us/111/bills.index.xml');
+           // $output = $xml->parse('http://192.9.200.13/design/heardmentality/bills.index.xml');
             
             /*
              $ch = curl_init();

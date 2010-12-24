@@ -999,32 +999,7 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
 
     return $output;
 }
-function user_ajax(){
-    if ($_REQUEST['sel_id'] != '') {
-        $cid=$_REQUEST['sel_id'];
-         $sel_sscat = "select * from category as c join follower as f on c.cat_id=f.cat_id where c.parent_id='$cid'";
-     // $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='$cid' AND q.status='1' group by c.cat_id";
-       $listsscat = ExecuteQuery($sel_sscat, "select");
 
-                        foreach ($listsscat as $sscat) {
-                            $style = '';
-                            if ($sscid == $sscat['cat_id']) {
-                                $style = 'style="font-weight:bold"';
-                            }
-                            //$sscat_qry = "SELECT count(distinct cat.scat) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond  group by cat.scat";
-                            $sscat_qry = "select count(uid) from follower where cat_id='".$sscat['cat_id']."'";
-                           $total_count3= db_result(db_query($sscat_qry));
-
-
-                            $style = 'class="sublinks scat" style="padding-left:10px"';
-                            $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
-                        }
-                        echo $catlist;
-            exit;
-        }
-
-
-}
 function question_ajax() {
     //print_r($_REQUEST['code']);
     // print_r($action);
@@ -1211,7 +1186,7 @@ function question_ajax() {
         }
 
         echo $tag;
-        exit;
+      
     } elseif (isset($_REQUEST['ssearch'])) {
 
 
@@ -1287,9 +1262,38 @@ function question_ajax() {
                             $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
                         }
                         echo $catlist;
-            exit;
+            
         }
+    }else if(isset($_REQUEST['user_scat'])){
+
+         $cid=$_REQUEST['user_scat'];
+
+         $parent=load_parent_cat($cid,3);
+         $catid=(!empty($parent['lev1']))?$parent['lev1']:$parent['lev2'];
+         if(!empty($catid)){
+  echo $sel_sscat = "select * from category as c join follower as f on c.cat_id=f.cat_id where c.parent_id='$catid'";
+     // $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='$cid' AND q.status='1' group by c.cat_id";
+       $listsscat = ExecuteQuery($sel_sscat, "select");
+         
+                        foreach ($listsscat as $sscat) {
+                            $style = '';
+                            if ($sscid == $sscat['cat_id']) {
+                                $style = 'style="font-weight:bold"';
+                            }
+                      
+                            $sscat_qry = "select count(uid) from follower where cat_id='".$sscat['cat_id']."'";
+                           $total_count3= db_result(db_query($sscat_qry));
+
+
+                            $style = 'class="sublinks scat" style="padding-left:10px"';
+                            $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
+                        }
+                        echo $catlist;
+         }
+
     }
+
+     exit;
 }
 
 //delete confirm
