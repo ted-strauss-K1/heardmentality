@@ -1,0 +1,222 @@
+<?php
+
+/**
+ * Implementation of hook_perm().
+ */
+function debate_perm() {
+    return array('Debate List', 'Debate Save', 'Admin Debate', 'Resource Debate');
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function debate_menu() {
+    $items['issues/debate/%/%'] = array(
+        'title' => ' Debate',
+        'page callback' => 'debate_list',
+        'access arguments' => array('Debate List'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'page arguments' => array(2, 3),
+        'file' => 'debate.pages.inc',
+    );
+    $items['resource/debate/%/%'] = array(
+        'title' => 'Resource Debate',
+        'page callback' => 'resdebate_list',
+        'access arguments' => array('Resource Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'page arguments' => array(2, 3),
+        'file' => 'debate.pages.inc',
+    );
+    $items['issues/debate/save'] = array(
+        'title' => 'Debate',
+        'page callback' => 'debate_submit',
+        'access arguments' => array('Debate Save'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+    $items['admin/debate'] = array(
+        'title' => 'Admin Debate',
+        'page callback' => 'admin_debate',
+        'access arguments' => array('Admin Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+
+    $items['admin/debate/edit'] = array(
+        'title' => 'Admin Edit Debate',
+        'page callback' => 'admin_debate_edit',
+        'access arguments' => array('Admin Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+    $items['admin/wavelets'] = array(
+        'title' => 'Admin Debate Wavelets',
+        'page callback' => 'admin_debate_wlets',
+        'access arguments' => array('Admin Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+
+    $items['admin/wavelets/edit'] = array(
+        'title' => 'Admin Forum Wavelets',
+        'page callback' => 'admin_wlets_edit',
+        'access arguments' => array('Admin Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+    $items['debate/ajax'] = array(
+        'title' => 'Admin Forum Wavelets',
+        'page callback' => 'debate_ajax',
+        'access arguments' => array('Debate List'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+    return $items;
+}
+
+function debate_init() {
+  drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
+}
+
+
+
+function send_forumnotify($nid='', $qid='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+    $insert_notify = db_query("insert into notification (uid,follower_action,is_wave,node_id) values('" . $user->uid . "','1','1','" . $nid . "' ) ");
+
+    hm_mails($qid, $nid, 'add_forum');
+}
+
+function list_debate($qid='', $type='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $wave = '';
+    $click = '';
+    $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select date_added from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {debate} as f join {user_profile} as u on u.uid=f.uid where f.qid_rid='$qid' AND type='$type' AND status='1' ORDER BY did DESC ";
+
+    $cnt = ExecuteQuery($query, "select");
+    $i = 0;
+    if (!empty($cnt)) {
+
+
+        foreach ($cnt as $forum) {
+            $bg = $i % 2;
+            if ($bg)
+                $setbg = 'back-col';
+            else
+                $setbg='';
+            $i++;
+            $account = user_load($forum['uid']);
+            if ($type == 1) {
+
+                $wave.='         <div class="debate-summary-wrapper" >
+                    	<div class="deb-center">
+                                  <div class="leftpartside">
+                                     <div class="toppart"><p>'.$forum['cntagree'].'</p>
+
+                                    <p align="center"><img src="' .$gSitePath.drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+                                     <div class="toppart2"><p>'.$forum['cntdisagree'].'</p>
+                                      <p align="center"><img src="' .$gSitePath.drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+
+                                     </div>
+
+                                  </div>
+
+
+                                    <div class="centerpartside-out">
+                                    	<div class="centerpartside-top">
+                                           <div class="centerpartside">
+                                           <h4><a class="debate-links" href="' . $gSitePath . 'issues/debate/' . $qid . '/' . $forum['did'] . '" >' . myTruncate($forum['title'], '30', '', '..') . '</a></h4><br>
+                                           ' . myTruncate($forum['content'], '25', '', '..') . '
+                                               </div>
+                                               <div class="rightpartside">
+                                            <a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
+
+                                        </div>
+                                         <div class="clr"></div>
+
+                                        	<div class="centerpartside-bottom">
+                                                    '.$strength.'
+                                     <div class="clr"></div>
+                               
+                                            	<ul>
+
+
+                                                	<li>Posted : ' . $forum['date_added'] . ' </li>
+                                                    <div class="clr"></div>
+                                                    <li>Last Activity: '.$forum['rdate'].'</li>
+
+
+                                                </ul>
+
+
+                                            </div>
+
+
+                                    <div class="clr"></div>
+
+                                    </div>
+
+                                </div>
+                                	<div class="deb-bott">
+                                    </div>
+
+
+                        </div>
+
+                        <div class="clr"></div>
+';
+            } else {
+
+                $click = 'rwavelet(' . $qid . ',' . $forum['did'] . ')';
+
+
+                $wave .= '
+	<div class="post-title back-col">
+<div class="leftsideimg">' . UserPicture_small($account->uid) . '</div>
+
+<div class="rightside">
+<h4><a href="javascript:void(0);" onclick="' . $click . '">' . myTruncate($forum['title'], '30', '', '..') . '</a></h4><br>
+
+<p> ' . myTruncate($forum['content'], '25', '', '..') . '</p><br>
+
+<div class="likelink-outer">
+           <div class="likekink">
+              <ul>
+               <li><a href="#"><b>' . $forum['cntpost'] . ' Comments</b></a></li>
+               <li>|</li>
+               <li><a href="#">' . $forum['cntlike'] . ' likes</a></li>
+
+
+               </ul>
+
+
+           </div>
+          <div class="date">' . $forum['date_added'] . '</div>
+
+        <div class="clr"></div>
+        </div>
+
+
+</div>
+
+<div class="clr"></div>
+</div>
+<div class="bott-bord"></div>	';
+            }
+        }
+    } else {
+
+        $wave .= '
+	<div class="post-title">
+
+	<b>No Waves Posted Yet!!</b>
+		</div>
+
+
+	';
+    }
+
+    return $wave;
+}
