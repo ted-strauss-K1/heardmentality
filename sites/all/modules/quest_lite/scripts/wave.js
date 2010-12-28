@@ -148,7 +148,7 @@ jQuery(document).ready(function(){
         e.stopPropagation();
          parent.fb.start(jQuery(this).attr('href'), {
      type:'ajax',
-    width: '700',
+    width: '90%',
     height: '90%',
     caption:'DEBATE SUMMARY'
    // afterItemStart:'`fb$("fbCaption").append("DEBATE SUMMARY");fb.translate(\'eat a peach\', \'fr\', function(result) { alert(result.responseData.translatedText); }); `',

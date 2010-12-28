@@ -555,14 +555,10 @@ function qlite_view() {
 
     $numres = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$qid'"));
 
-    $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid_rid = '$qid' ";
+     $query = " SELECT IFNULL(count(did),0) as cnt FROM {debate} AS f WHERE f.qid_rid = '$qid' ";
     $list = ExecuteQuery($query, "select");
-    $debatecnt = 0;
-    foreach ($list as $fcnt) {
-
-        $debatecnt = $debatecnt + $fcnt['wcnt'];
-    }
-
+    $debatecnt = $list[0]['cnt'];
+   
 //tab
     $voutput .= $submitbutt . '
                  <div >
@@ -620,7 +616,7 @@ function qlite_view() {
 
               <ul id="maintabs" class="mytabs" >
              <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
-                <li class="" id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum (' . $debatecnt . ')</span></a></li>
+               
                 <li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
                      <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
 				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
@@ -639,7 +635,7 @@ function qlite_view() {
               <ul id="maintabs" class="mytabs" >
               <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Details</span></a></li>
                <li><a id="AF" href=\'#\' onClick="alert(\'Please vote the above question\');jQuery(this).die(\'click\');jQuery(this).unbind(\'click\');return false;"><span >Reporting</span></a></li>
-                <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Forum" title="Forum"><span>Forum (' . $debatecnt . ')</span></a></li>
+                     <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
                 <li id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
 		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
               </ul>
