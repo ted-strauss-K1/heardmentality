@@ -562,7 +562,7 @@ function send_qnotify($qid='') { ///vijay important comented
 	
     $message_id = 'Add_question';
     $variables = array(
-      '@username' => l(user_load($user->uid)->name, 'user/' . $user->uid),
+      '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
       //'@node_type' => 'page',
       '@question_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
     );
