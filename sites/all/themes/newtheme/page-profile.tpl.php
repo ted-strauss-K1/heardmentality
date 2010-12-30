@@ -11,15 +11,14 @@
       
 	  
 	  
-	  
-      <div class="commu-profile">
-          <div class="commutop-profile">
-  CONTRIBUTOR
-          </div>
-             <div class="inner2">
+	 
+      <div class="commu-profile2">
+          <div class="commutop-profile2">CONTRIBUTOR</div>		  
+		   <div class="inner-commutop">ACTIVITY STREAM</div>
+             <div class="inner5">
        <?php echo $content;?>
-             </div>
-        </div>
+        </div></div>		
+		<?php print $Beat ?>
       <br class="clr" />
    
       <!--content area close-->

@@ -252,6 +252,7 @@ img{ border:none;}
 
 .profile-left{ width:177px; float:left;}
 .profile-right{ width:800px; float:left; padding-left:10px;}
+.profile-right{ width:250px; float:left; padding-left:10px;}
 .profile-right ul{ margin:0px; padding:0px;}
 .profile-right li{ float:left;list-style:none;color:#996600; padding-top:0px;}
 .profile-lefthm{ width:169px; float:left; border:1px solid #b7b7b7; padding:10px;}
@@ -521,7 +522,7 @@ padding:0px;}*/
 .commutop-profile{  background-color:#8f8f8f;padding:5px; font:16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
 
 .profile-left{ width:177px; float:left;}
-.profile-right{ width:800px; float:left; padding-left:10px;}
+.profile-right{ width:250px; float:left; padding-left:10px;}
 .profile-right ul{ margin:0px; padding:0px;}
 .profile-right li{ float:left;list-style:none;color:#996600; padding-top:0px;}
 .profile-lefthm{ width:169px; float:left; border:1px solid #b7b7b7; padding:10px;}
@@ -1138,6 +1139,56 @@ background:#000;
 
 
 
+/*Ram on profile page*/
+.inner5{ padding:10px; width:520px;float:left}
+.profile-tab{ width:600px; margin-top:5px;}
+.profile-img{ width:156px;height:56px; background-repeat:no-repeat; background-color:#f8f5ee; border:1px solid #666666;}
+.profile-imgs{ float:left;}
+.profile-con{ width:87px; float:left; padding:3px;}
+.profile-con ul{ margin:0px; padding:0px;}
+.profile-con li{ list-style:none; float:left; padding-left:2px;}
+.profile-gray{ color:#666666; font-size:12px; }
+.p-foll{ width:180px; float:left;margin-right:10px; padding-top:10px;}
+.p-foll img{ border:1px #9e9ea1 solid; margin:1px}
+.history-tab{ height:300px; overflow:auto;}
+.tab-history{ border-bottom:1px #e5e5e5 solid; padding-bottom:5px; }
+.tab-historyspan1{ color:#666666;}
+.tab-historyspan2{ color:#000000;padding-left:20px;}
+.tab-historyspan3{ color:#996600;padding-left:30px;}
+.tab-historyspan4 a{ color:#000000; text-decoration:none}
+.tab-historyspan4 a:hover{ color:#000000; text-decoration:underline}
+.tab-historyspan5 a{ color:#996600;padding-left:30px;text-decoration:none}
+.tab-historyspan5 a:hover{ color:#996600;text-decoration:underline;}
+.hm-cen{ border:1px solid #ccc; padding:5px}
+
+.profile-right-inn3{ width:300px; float:left; padding-left:10px; font-size:11px;}
+.profielebox{ width:80px; border:1px solid #999999; padding:4px; font-size:12px;}
+.act-out{ width:330px; padding:3px; float:left; margin-top:5px;}
+.act-im{ width:42px; float:left;}
+.act-text{ width:265px; float:left; padding-left:10px; font-size:11px}
+.blue11{ font-family:Arial, Helvetica, sans-serif; color:#06F; font-size:11px;}
+
+.commu3{ width:360px;float:left; border:1px #cccccc solid;}
+.commuinn3{ height:500px; overflow:scroll; width:355px}
+.commutop3{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
+.commutop3 select{width:150px; font-size:11px; font-family:Arial, Helvetica, sans-serif; font-weight:normal; padding:2px;}
+.commu3 .inner{ width:355px; margin:auto; padding:0px;}
+
+.commu-profile2{ width:910px;float:left;}
+.commutop-profile2{width:548px;float:left; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
+.profile-img2{ width:156px;height:45px; background-repeat:no-repeat; background-color:#f8f5ee; border:1px solid #666666;}
+.profile-imgs{ float:left;}
+.gray11{ color:#666; font-size:11px;}
+.comme{  }
+.comme ul{ margin:0px; padding:0px}
+.comme li{ display:inline}
+.commentic{ background-image:url(../images/act2.jpg);  display:inline-block ; font-size:8px; background-repeat:no-repeat; padding:5px; padding-top:1px }
+
+.commentic a{ color:#000; text-decoration:none;}
+.com-wline{ border-top:1px solid #eaeaea }
+.comin{ padding:3px;}
+.cominimg{ float:left; width:40px;}
+.comin-text{ padding-left:10px; }
 
 
 

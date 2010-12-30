@@ -234,4 +234,46 @@ function onlineuser_count(){
     return $output;
 }
 
+/**
+ * Theme function for a list of heartbeat activity messages.
+ */
+function newtheme_heartbeat_list($messages, HeartbeatAccess $heartbeatAccess, $link = '') {
 
+  global $user, $language;
+	//echo '<pre>';
+	//echo 
+  $content = '';
+
+  drupal_add_css(drupal_get_path('module', 'heartbeat') . '/heartbeat.css');
+
+  $access_type = drupal_strtolower($heartbeatAccess->getAccess());
+  $stream = $heartbeatAccess->stream;
+
+  if ($stream->display_filters) {
+    $content .= theme('heartbeat_filters', $stream);
+  }
+
+  $class = $heartbeatAccess->isPage() ? 'page' : 'block';
+
+  $content .= '<div id="heartbeat-stream-' . $access_type . '" class="heartbeat-' . $class  . ' heartbeat-stream heartbeat-stream-' . $access_type . '">';
+  $content .= '<div class="heartbeat-messages-wrapper">';
+
+  if (empty($messages)) {
+    if ($heartbeatAccess->hasErrors()) {
+      $content .= '<p>'. implode('<br />', $heartbeatAccess->getErrors()) .'</p>';
+    }
+    else {
+      $content .= '<p>' . t('No activity yet.') . '</p>';
+    }
+  }
+  else {
+    $content .= theme('heartbeat_messages', $messages, $heartbeatAccess, $link);
+  }
+
+  $content .= '</div>';
+  $content .= '</div>';
+  
+  
+
+  return $content;
+}

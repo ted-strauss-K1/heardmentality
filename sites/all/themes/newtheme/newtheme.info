@@ -14,6 +14,12 @@ scripts[] = scripts/Trajan_Pro_400.font.js
 scripts[] = scripts/preload.js
 scripts[] = floatbox/floatbox.js
 scripts[] = floatbox/options.js
+regions[left] = Left sidebar
+regions[right] = Right sidebar
+regions[content] = Content
+regions[header] = Header
+regions[footer] = Footer
+regions[Beat] = Beat
 ; Information added by drupal.org packaging script on 2010-07-16
 version = "6.15"
 project = "drupal"
