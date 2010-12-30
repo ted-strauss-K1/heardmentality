@@ -1139,6 +1139,7 @@ background:#000;
 
 
 
+
 /*Ram on profile page*/
 .inner5{ padding:10px; width:520px;float:left}
 .profile-tab{ width:600px; margin-top:5px;}
@@ -1160,20 +1161,17 @@ background:#000;
 .tab-historyspan5 a{ color:#996600;padding-left:30px;text-decoration:none}
 .tab-historyspan5 a:hover{ color:#996600;text-decoration:underline;}
 .hm-cen{ border:1px solid #ccc; padding:5px}
-
 .profile-right-inn3{ width:300px; float:left; padding-left:10px; font-size:11px;}
 .profielebox{ width:80px; border:1px solid #999999; padding:4px; font-size:12px;}
 .act-out{ width:330px; padding:3px; float:left; margin-top:5px;}
 .act-im{ width:42px; float:left;}
 .act-text{ width:265px; float:left; padding-left:10px; font-size:11px}
 .blue11{ font-family:Arial, Helvetica, sans-serif; color:#06F; font-size:11px;}
-
 .commu3{ width:360px;float:left; border:1px #cccccc solid;}
 .commuinn3{ height:500px; overflow:scroll; width:355px}
 .commutop3{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
 .commutop3 select{width:150px; font-size:11px; font-family:Arial, Helvetica, sans-serif; font-weight:normal; padding:2px;}
 .commu3 .inner{ width:355px; margin:auto; padding:0px;}
-
 .commu-profile2{ width:910px;float:left;}
 .commutop-profile2{width:548px;float:left; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
 .profile-img2{ width:156px;height:45px; background-repeat:no-repeat; background-color:#f8f5ee; border:1px solid #666666;}
@@ -1191,4 +1189,17 @@ background:#000;
 .comin-text{ padding-left:10px; }
 
 
+/* Resource New */
 
+.new-resrce-wrapper{ width:600px; margin:0 auto; font:normal 12px Arial, Helvetica, sans-serif; color:#404040; padding-top:10px; background:#fff;}
+.new-resrce-wrapper a{ color:#658db1; text-decoration:none;}
+.new-resrce-wrapper a:hover{ color:#658db1; text-decoration:underline;}
+.new-resrce-wrapper .form-outer-debate{ width:590px; margin:0 auto;}
+.new-resrce-wrapper .form-outer-debate .fm-1{ width:190px; float:left;}
+.new-resrce-wrapper .form-outer-debate .fm-2{ width:400px; float:left; padding-bottom:10px;}
+.new-resrce-wrapper .form-outer-debate .fm-2 .fm-2-left{ width:200px; float:left;}
+.new-resrce-wrapper .form-outer-debate .fm-2 .fm-2-right{ width:200px; float:left;}
+.new-resrce-wrapper .form-outer-debate .fm-2 .fm-2-right select{ width:145px;}
+.new-resrce-wrapper .form-outer-debate .fm-1 ul li{ font:normal 12px Arial, Helvetica, sans-serif; color:#666; text-decoration:none; list-style:none; padding-bottom:5px;  background:url(../images/bullet-blue.jpg) no-repeat 0px 6px; padding-left:10px;}
+.new-resrce-wrapper .form-outer-debate .fm-2 input,textarea{ width:280px; font:normal 12px Arial, Helvetica, sans-serif; color:#666;}
+.submit-resrce-btn{ background:url(../images/submit-debate-btn.jpg); width:65px !important; height:20px; border:none; cursor:pointer;}
