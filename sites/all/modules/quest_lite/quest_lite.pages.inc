@@ -1403,7 +1403,7 @@ function panel_content() {
                                        <li><a class="" href="javascript:tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabIn">In the News</a></li>
                                        <li><a class="" href="javascript:tabactive(\'M\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabM">Multimedia</a></li>
                                        <li><a class="" href="javascript:tabactive(\'F\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabF">Facts</a></li>
-                                       <li><a class="" href="javascript:loadresource(\'' . $gSitePath . 'qlite/resource/' . $qid . '\',\'Add\')" id="tab4">Add Resource</a></li>
+                                       <li><a class="" href="javascript:loadresource(\'' . $gSitePath . 'debate/resource/new/' . $qid . '\',\'Add\')" id="tab4">Add Resource</a></li>
                                </ul>
                                <div id="rcontents" class="mytabs-container"></div>
                                <script type="text/javascript">tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';

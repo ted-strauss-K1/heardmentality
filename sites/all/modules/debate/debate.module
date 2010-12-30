@@ -19,6 +19,14 @@ function debate_menu() {
         'page arguments' => array(2, 3),
         'file' => 'debate.pages.inc',
     );
+    $items['debate/resource/new/%'] = array(
+        'title' => 'Debate Resources',
+        'page callback' => 'add_resources',
+        'access arguments' => array('Resource Debate'),
+        'page arguments' => array(3),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',);
+
     $items['resource/debate/%/%'] = array(
         'title' => 'Resource Debate',
         'page callback' => 'resdebate_list',
@@ -75,10 +83,8 @@ function debate_menu() {
 }
 
 function debate_init() {
-  drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
+    drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
 }
-
-
 
 function send_forumnotify($nid='', $qid='') {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
@@ -113,11 +119,11 @@ function list_debate($qid='', $type='') {
                 $wave.='         <div class="debate-summary-wrapper" >
                     	<div class="deb-center">
                                   <div class="leftpartside">
-                                     <div class="toppart"><p>'.$forum['cntagree'].'</p>
+                                     <div class="toppart"><p>' . $forum['cntagree'] . '</p>
 
-                                    <p align="center"><img src="' .$gSitePath.drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
-                                     <div class="toppart2"><p>'.$forum['cntdisagree'].'</p>
-                                      <p align="center"><img src="' .$gSitePath.drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+                                    <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+                                     <div class="toppart2"><p>' . $forum['cntdisagree'] . '</p>
+                                      <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
                                      </div>
 
@@ -137,7 +143,7 @@ function list_debate($qid='', $type='') {
                                          <div class="clr"></div>
 
                                         	<div class="centerpartside-bottom">
-                                                    '.$strength.'
+                                                    ' . $strength . '
                                      <div class="clr"></div>
                                
                                             	<ul>
@@ -145,7 +151,7 @@ function list_debate($qid='', $type='') {
 
                                                 	<li>Posted : ' . $forum['date_added'] . ' </li>
                                                     <div class="clr"></div>
-                                                    <li>Last Activity: '.$forum['rdate'].'</li>
+                                                    <li>Last Activity: ' . $forum['rdate'] . '</li>
 
 
                                                 </ul>

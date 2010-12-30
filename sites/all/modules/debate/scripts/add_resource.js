@@ -3,6 +3,34 @@
 
 jQuery(document).ready(function() {
 
+jQuery("#nlink").keyup(function()
+{
+var content=jQuery(this).val();
+var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+
+var url= content.match(urlRegex);
+var purl=spath+'debate/ajax';
+
+if(url.length>0)
+{
+
+$("#linkbox").slideDown('show');
+$("#linkbox").html("<img src="+spath+"link_loader.gif'>");
+$.get(purl+"?action=url&url="+url,function(response)
+{
+var title=(/<title>(.*?)<\/title>/m).exec(response)[1];
+var logo=(/<img src='(.*?)'/m).exec(response)[0];
+//var logo=(/<img (src=http:\S+)/).exec(response);
+//var logo='';
+jQuery("#linkbox").html("<img src='"+logo+"' class='img'/><div><b>"+title+"</b><br/>"+url)
+
+});
+
+}
+return false;
+});
+
+
     var selObj = jQuery('#rtype');
     jQuery('#div1,#div2,#div3,#media,#media_div').hide();
     selObj.bind('change', function(e) {
@@ -56,7 +84,7 @@ jQuery(document).ready(function() {
 
 
     jQuery('#myForm').submit(function() {
- 
+        
         var cat1 = jQuery('#rtype').val();
         var nlink = jQuery('#nlink').val();
         var mtype =jQuery('#mtype').val();

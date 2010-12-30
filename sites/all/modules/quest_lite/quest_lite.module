@@ -16,9 +16,7 @@ function quest_lite_menu() {
 
     $quest['qlite/like'] = array('title' => 'Question Like', 'page callback' => 'qns_like', 'access arguments' => array('Question Like'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'quest_lite.pages.inc',);
 
-    $quest['qlite/resource'] = array('title' => 'Resources', 'page callback' => 'add_resources', 'access arguments' => array('Add Resource'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'quest_lite.pages.inc',);
-
-
+  
     $quest['qlite/ajaxadd'] = array('title' => 'Resources', 'page callback' => 'save_resources', 'access arguments' => array('Save Resource'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'quest_lite.pages.inc',);
 
     $quest['qlite/flag'] = array('title' => 'Flag Question', 'page callback' => 'flag_question', 'access arguments' => array('Flag Question'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'quest_lite.pages.inc',);

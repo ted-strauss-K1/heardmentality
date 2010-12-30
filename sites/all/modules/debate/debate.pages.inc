@@ -53,17 +53,17 @@ function debate_list($qid = '', $did='') {
         $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='0' AND node_id='" . $forum['did'] . "'"));
         if (count($fetch) < 1) {
 
-            $like= '<li><span name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
+            $like = '<li><span name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
         } elseif ($fetch[0]['is_debate'] == '1') {
 
-            $like= '<li><em>You <strong>agree</strong> with this comment</em></li>';
+            $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
         } else {
-            $like= '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+            $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
         }
 //flag
         $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'rwave\',' . $did . ');"></a>';
         $bubble = load_bubble($account->uid);
-           $medal = updateProfileBadge($account->uid);
+        $medal = updateProfileBadge($account->uid);
         $output .= '
 
 <div class="debate-inn-item">
@@ -75,12 +75,12 @@ function debate_list($qid = '', $did='') {
 
                                	  <div class="itemto-left">
 
-                               	<div class="toppart"><p>'.$agreecnt.'</p>
+                               	<div class="toppart"><p>' . $agreecnt . '</p>
 
-                                    <p align="center"><img height="15" width="18" alt="Agree" src="'.$gSitePath. drupal_get_path('theme','newtheme').'/images/aggree-hand.jpg"></p></div>
+                                    <p align="center"><img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg"></p></div>
                                     
-<div class="toppart2"><p>'.$disagreecnt.'</p>
-                                      <p align="center"><img height="15" width="18" alt="Dis Agree" src="'.$gSitePath. drupal_get_path('theme','newtheme').'/images/disaggree-hand.jpg"></p>
+<div class="toppart2"><p>' . $disagreecnt . '</p>
+                                      <p align="center"><img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg"></p>
   <div class="clr"></div>
                                      </div>
                                      <div class="clr"></div>
@@ -103,7 +103,7 @@ function debate_list($qid = '', $did='') {
                                     <div class="itemthird">
 <div class="profile-img">
 <div class="profile-imgs">
- <a title="' . $account->name . '" href="' . $gSitePath . 'profile/' .$account->name . '">' . UserPicture($account->uid) . '</a>
+ <a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
 </div>
 <div class="profile-con">' . $medal . '
 <div>
@@ -197,7 +197,6 @@ function debate_list($qid = '', $did='') {
     }
 }
 
-
 function post_notification($did='', $rid='') { ///vijay important comented
     global $gSitePath, $user, $gDocPath, $base_root;
     db_query("insert into {notification} set follower_action='1',is_wavelets='1',uid='$user->uid',node_id='$nid' ");
@@ -254,7 +253,7 @@ function like_notification($nid='', $set='') { //vijay important comented
 }
 
 function get_debate($did = '', $pid = '') {
-  
+
     global $gSitePath, $user, $gDocPath, $base_root;
     $output = '';
     $bg = '';
@@ -278,20 +277,20 @@ function get_debate($did = '', $pid = '') {
 
                 $image = empty($forum['image']) ? 'noimage.jpg' : $forum['image'];
                 $name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
-                  $querylike = "select * from {user_likes} where is_debate_reply='1' AND uid='$user->uid' AND node_id='" . $forum['rid'] . "'";
-        $fetch = ExecuteQuery($querylike, "select");
-        $cntagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
-        $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
+                $querylike = "select * from {user_likes} where is_debate_reply='1' AND uid='$user->uid' AND node_id='" . $forum['rid'] . "'";
+                $fetch = ExecuteQuery($querylike, "select");
+                $cntagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
+                $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
 
-        if (count($fetch) < 1) {
+                if (count($fetch) < 1) {
 
-            $like= '<li><span name="' . $forum['rid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' .  $forum['rid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' .  $forum['rid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
-        } elseif ($fetch[0]['is_debate'] == '1') {
+                    $like = '<li><span name="' . $forum['rid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['rid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['rid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
+                } elseif ($fetch[0]['is_debate'] == '1') {
 
-            $like= '<li><em>You <strong>agree</strong> with this comment</em></li>';
-        } else {
-            $like= '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
-        }
+                    $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
+                } else {
+                    $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+                }
 //flag
                 $flag = '';
                 $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rwavelet\',' . $forum['rid'] . ');"></a>';
@@ -324,12 +323,12 @@ function get_debate($did = '', $pid = '') {
                                  </div>
                                 <div class="itemto-left">
 
-                               	<div class="toppart"><p>'.$cntagree.'</p>
+                               	<div class="toppart"><p>' . $cntagree . '</p>
 
-                                    <p align="center"><img height="15" width="18" alt="Agree" src="'.$gSitePath. drupal_get_path('theme','newtheme').'/images/aggree-hand.jpg"></p></div>
+                                    <p align="center"><img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg"></p></div>
 
-<div class="toppart2"><p>'.$cntdisagree.'</p>
-                                      <p align="center"><img height="15" width="18" alt="Dis Agree" src="'.$gSitePath. drupal_get_path('theme','newtheme').'/images/disaggree-hand.jpg"></p>
+<div class="toppart2"><p>' . $cntdisagree . '</p>
+                                      <p align="center"><img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg"></p>
   <div class="clr"></div>
                                      </div>
                                      <div class="clr"></div>
@@ -353,7 +352,7 @@ function get_debate($did = '', $pid = '') {
                                            <div class="itemthird">
 <div class="profile-img">
 <div class="profile-imgs">
- <a title="' . $account->name . '" href="' . $gSitePath . 'profile/' .$account->name . '">' . UserPicture($account->uid) . '</a>
+ <a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
 </div>
 <div class="profile-con">' . $medal . '
 <div>
@@ -389,7 +388,7 @@ function get_debate($did = '', $pid = '') {
                     </div> </div><div class="clr"></div>	';
             }
         }
-      
+
         return $output;
     } else {
 
@@ -724,6 +723,105 @@ function admin_wlets_edit() {
     return $strReturn;
 }
 
+function add_resources($qid='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $ans = load_options($qid);
+
+    //answers
+    foreach ($ans as $list) {
+
+        $inc_pans.='<li>
+    	<label>
+        <span class="span1">' . $list['answer'] . ' </span><span>
+            <input type="hidden" name="ans_id[]" value="' . $list['paid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
+            </span></label>
+                </li>';
+    }
+
+    $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'debate') . '/css/answer.css" type="text/css" />
+         <script src="' . $gSitePath . '/misc/jquery.js"></script>
+<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'debate') . '/css/fileuploader.css" type="text/css" />
+            <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/fileuploader.js"></script>
+            <script> var spath="' . $gSitePath . '";</script>
+                   	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/add_resource.js"></script>
+	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
+	';
+
+    $resources .= '<body style="background:none;">
+
+        <div class="do-in2">
+        <form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'debate/ajax" enctype="multipart/form-data" >
+            <input type="hidden" name="qaid" value="' . $qid . '"/>
+             <input type="hidden" name="action" value="resource_new"/>
+      <div class="inside2">
+      <div class="" id="err">' . $list_err . '</div>
+          <span class="clr"><!-- spanner --></span>
+      <div class="clr">&nbsp;</div>
+      <div class="left"><strong>
+Please follow Heard<br>Mentality\'s,<span class="ytex">Guidelines &amp; Principles</span> when creating a new debate</strong><br>
+         <strong><br>
+         All debates should be :   </strong>
+         <div class="creat"><ul>
+         <li>Concise</li>
+         <li>Clean</li>
+         <li>Original</li>
+         <li>Important</li>
+         <li>Unbiased</li>
+         <li>Contain no names</li>
+         </ul></div>
+
+
+          </div>
+<div id="rform" class="right">
+  <ul id="add_more">
+               <li><label><span class="span1">Type <b>*</b></span><span>
+           <select name="rtype" class="textfieldm" id="rtype" >
+	<option value="0">Select </option>
+	<option value="1">News </option>
+	<option value="2">Multimedia </option>
+	<option value="3">Facts </option>
+	</select>
+        </span></label>
+        </li>
+         <li  id="div1" style="display:none;"><label><span class="span1">URL <b>*</b></span><span>
+<input type="text" class=""  name="nlink" id="nlink"/>
+<span>
+        </span></label></li>
+        <li  id="div2" style="display:none;"><label><span class="span1">Choose <b>*</b></span><span>
+	<select name="mtype" class="" id="mtype"   >
+	<option value="0">Select </option>
+	<option value="1">Web Video </option>
+	<option value="2">Podcast,PDF, DOC, PPT. </option>
+	</select>
+<span>
+        </span></label></li>
+           <li  id="media" style="display:none;"><label><span class="span1">Youtube Link <b>*</b></span><span>
+<input type="text"  name="membed" id="membed"  class="" >
+<span>
+        </span></label></li>
+         <li  id="media_div" style="display:none;"><label><span class="span1">Upload  <b>*</b></span><span>
+<input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div>
+<span>
+        </span></label></li>
+  <li  id="div3" style="display:none;"><label><span class="span1">Upload  <b>*</b></span><span>
+<input type="text" name="flink" id="flink"  class="" />
+<span>
+        </span></label></li>
+    <li id="uscrap" >
+<div id="linkbox" style="display:none;">
+</div> </li>
+       ' . $inc_pans . '
+               <li><input name="submit" value="" type="submit" id="submitter" class="submit-debate-btn"/></li>
+        </ul>
+</div>
+
+</div>
+</form></div>
+';
+    echo $resources;
+}
+
 function resdebate_list() {
     global $gSitePath, $user, $gDocPath, $base_root;
     $rid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
@@ -857,8 +955,51 @@ function resdebate_list() {
 function debate_ajax() {
     global $gSitePath, $user, $gDocPath, $base_root;
 
+    extract($_REQUEST);
 
-    return $content;
+    switch ($action) {
+
+        case 'url':
+            if ($_GET['url']) {
+                $url = $_GET['url'];
+                echo file_get_contents($url);
+            }
+            break;
+         case 'resource_new':
+
+                 global $gSitePath, $user, $gDocPath, $base_root;
+    if ($_REQUEST['rtype'] != 0) {
+        if ($_REQUEST['membed'] != '') {
+            $ytURL = $_REQUEST['membed'];
+            $ytvIDlen = 11; // This is the length of YouTube's video IDs
+
+            $idStarts = strpos($ytURL, "?v=");
+
+
+            if ($idStarts === FALSE)
+                $idStarts = strpos($ytURL, "&v=");
+
+            if ($idStarts === FALSE)
+                die("YouTube video ID not found. Please double-check your URL.");
+
+            $idStarts += 3;
+
+            $ytvID = substr($ytURL, $idStarts, $ytvIDlen);
+
+            $ytvID;
+        }
+
+        $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id) values ('" . $_REQUEST['rtype'] . "','" . addslashes($_REQUEST['nlink']) . "','" . addslashes($_REQUEST['ntitle']) . "','" . addslashes($_REQUEST['ncontent']) . "','" . $_REQUEST['mtype'] . "','" . addslashes($_REQUEST['membed']) . "','" . addslashes($_REQUEST['flink']) . "', '" . $user->uid . "','" . $_REQUEST['qaid'] . "','" . $_REQUEST['path'] . "','" . $_REQUEST['docpath'] . "','" . $ytvID . "')";
+        db_query($resourceadd);
+        echo '<div class="messages success"> Resources Added Successfully! </div>';
+    }
+             break;
+        default:
+            echo "No Action found";
+            break;
+    }
+
+    exit;
 }
 
 ////url to hyperlink converting 
@@ -872,7 +1013,7 @@ function _make_url_clickable_cb($matches) {
         $ret = substr($url, -1);
         $url = substr($url, 0, strlen($url) - 1);
     }
-    return $matches[1] . "<a href=\"$url\" rel=\"nofollow\">".myTruncate($url, '30','','...')."</a>" . $ret;
+    return $matches[1] . "<a href=\"$url\" rel=\"nofollow\">" . myTruncate($url, '30', '', '...') . "</a>" . $ret;
 }
 
 function _make_web_ftp_clickable_cb($matches) {
@@ -895,8 +1036,8 @@ function _make_email_clickable_cb($matches) {
 }
 
 function make_clickable($ret) {
-  //  $ret = ltrim($ret, 'http://');
-  //  $ret = ' ' . $ret;
+    //  $ret = ltrim($ret, 'http://');
+    //  $ret = ' ' . $ret;
 // in testing, using arrays here was found to be faster
     $ret = preg_replace_callback('#([\s>])([\w]+?://[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', '_make_url_clickable_cb', $ret);
     $ret = preg_replace_callback('#([\s>])((www|ftp)\.[\w\\x80-\\xff\#$%&~/.\-;:=,?@\[\]+]*)#is', '_make_web_ftp_clickable_cb', $ret);
@@ -921,10 +1062,10 @@ function debate_submit() {
 
         case 'new':
             if (!empty($wtitle) && !empty($user->uid)) {
-           
+
                 $forum = "INSERT INTO {debate} set qid_rid='%d',type='1',uid='%d',title='%s',content='%s',private='%d' ";
-               $result = db_query($forum, $qid, $user->uid, $wtitle, $wcon,$wprivate);
-        
+                $result = db_query($forum, $qid, $user->uid, $wtitle, $wcon, $wprivate);
+
                 $nid = db_last_insert_id('debate', 'did');
                 ;
                 $i = 0;
@@ -955,12 +1096,12 @@ function debate_submit() {
         case 'is_debate_reply':
             $cond = " AND " . $action . "='1'";
             $set = " " . $action . "='1'";
-           
+
             $query = "select * from {user_likes} where node_id='$nodeid' $cond AND uid='$user->uid'";
 
             $chk = db_result(db_query($query));
 
-            if (!$chk&&$user->uid>0) {
+            if (!$chk && $user->uid > 0) {
 
                 $query = "insert into {user_likes} set $set ,node_id='$nodeid',uid='$user->uid',is_agree='$agree'";
 
@@ -968,18 +1109,17 @@ function debate_submit() {
 //guru points
                 insertpoints($action, $nodeid);
 //notification
-                    like_notification($nodeid, $set);
+                like_notification($nodeid, $set);
 
                 $msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
-                if($agree)
-                $msg['msg']='<em>You <strong>agree</strong> with this comment</em>';
+                if ($agree)
+                    $msg['msg'] = '<em>You <strong>agree</strong> with this comment</em>';
                 else
-                                   $msg['msg']='<em>You <strong>Disagree</strong> with this comment</em>';
-                  $msg['error']='0';
-                
-            }else{
-                $msg['error']='1';
-                $msg['msg']='<em>Sorry <strong>Error</strong> occurs while updating</em>';
+                    $msg['msg'] = '<em>You <strong>Disagree</strong> with this comment</em>';
+                $msg['error'] = '0';
+            }else {
+                $msg['error'] = '1';
+                $msg['msg'] = '<em>Sorry <strong>Error</strong> occurs while updating</em>';
             }
             echo json_encode($msg);
             break;
@@ -987,5 +1127,5 @@ function debate_submit() {
 
             break;
     }
-  return;
+    return;
 }
