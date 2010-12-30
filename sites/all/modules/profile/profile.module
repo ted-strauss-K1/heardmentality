@@ -409,7 +409,7 @@ function profile($uid = '') {
         extract($result);
     $userSettings = checkPrivacySettings($uid);
     $is_follow_follower = checkFollowStatus($user->uid, $uid);
-   // drupal_add_css(drupal_get_path('module', 'profile') . '/styles/profile.css');
+    drupal_add_css(drupal_get_path('module', 'profile') . '/styles/profile.css');
     $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
     $real_name1 = NULL;
@@ -695,30 +695,6 @@ if(isAjax ())
 //      </div>';
 
 
-/*<div class="profile-left">
-<div class="profile-img">
-<div class="profile-imgs">
-'.UserPicture($uid).'
-</div>
-<div class="profile-con">
-
-'.updateProfileBadge($uid).'
-  </div>
-</div>
-
-</div>
-<div class="clr"></div>
-<div>
-<span class="profile-gray">Name </span>: ' . $real_name1 . '<br />
-
-<span class="profile-gray">Location </span>: ' . $country1 .'<br />
-<span class="profile-gray">Age </span>: ' . $dob1 . '<br />
-<span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br />
-<span class="profile-gray">Religion</span> : ' . $religion1 . '<br />
-<span class="profile-gray">Ethnicity </span>: ' . $ethnicity . '<br />
-<span class="profile-gray">Slant </span>: ' . $slant . '<br />
-</div>
-</div>*/
 
 
        $strReturn .= '
@@ -762,15 +738,6 @@ if(isAjax ())
 
 
 
-
-
-
-
-
-
-
-
-
 <div class="profile-right">
 <div>
 <ul>
@@ -792,9 +759,6 @@ if(isAjax ())
 </div>
 
 
-
-
-
 <div class="clr"></div>
 <div class="profile-tab"></div>
 <div id="page">
@@ -806,10 +770,9 @@ if(isAjax ())
                    '.$inc_msg.'
         </ul>
         <div class="mytabs-container" id="tabs-container">
-            Loading. Please Wait...        </div>
-    </div>';
-
-     
+            Loading. Please Wait...        
+		</div>
+	';
       return $strReturn;
     
 }
