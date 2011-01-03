@@ -29,7 +29,7 @@
      // then we set our COLSPAN in our primary table layout to 2, instead of 3
  if($block->region=='left')
          $class='commutop-profile';
- else if($block->region=='beat')
+ else if($block->region=='Beat')
          $class='facttop_beat';		 
  else
      $class='facttop';
