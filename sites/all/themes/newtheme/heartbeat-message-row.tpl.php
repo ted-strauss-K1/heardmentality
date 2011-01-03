@@ -65,7 +65,7 @@
                <div style="background-color: rgb(204, 204, 204);">
                <div style="padding: 3px;">
 			    <?php if (!empty($message->content['buttons'])) :?>
-				<?php print $message->content['buttons']; ?>Butt
+				<?php print $message->content['buttons']; ?>
 			       <?php endif; ?>
 			   <br>
 				<div class="com-wline"></div>
