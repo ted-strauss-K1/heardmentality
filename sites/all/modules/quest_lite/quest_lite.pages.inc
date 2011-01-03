@@ -1774,7 +1774,7 @@ function flag_report() {
                     increasepoints('4', $_REQUEST['qaid'], '0');
                     echo '<div class="">You Have Flagged successfully ! </div>';
 					/*RAM HEARTBEAT MODULE FLAGGED A QUESTION*/
-					$QID = $_REQUEST['qaid']
+					$QID = $_REQUEST['qaid'];
 					$qid_url = db_query("select * from {question} where qid='$QID'");
 					$question_values = db_fetch_array($qid_url);
 					if (isset($question_values)) {
@@ -2950,7 +2950,7 @@ function answer_vote() {
                 send_votenotify($_REQUEST['qaid']);
                 echo '<div class="messages success">Thanks For Voting ! </div>';
 					/*RAM HEARTBEAT MODULE VOTING A QUESTION*/
-					$QID = $_REQUEST['qaid']
+					$QID = $_REQUEST['qaid'];
 					$qid_url = db_query("select * from {question} where qid='$QID'");
 					$question_values = db_fetch_array($qid_url);
 					if (isset($question_values)) {
