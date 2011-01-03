@@ -241,7 +241,7 @@ function newtheme_heartbeat_list($messages, HeartbeatAccess $heartbeatAccess, $l
 
   global $user, $language;
 	//echo '<pre>';
-	//print_r($messages);
+	//print_r($heartbeatAccess);
   $content = '';
 
   drupal_add_css(drupal_get_path('module', 'heartbeat') . '/heartbeat.css');
