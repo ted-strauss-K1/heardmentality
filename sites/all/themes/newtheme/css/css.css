@@ -1203,3 +1203,4 @@ background:#000;
 .new-resrce-wrapper .form-outer-debate .fm-1 ul li{ font:normal 12px Arial, Helvetica, sans-serif; color:#666; text-decoration:none; list-style:none; padding-bottom:5px;  background:url(../images/bullet-blue.jpg) no-repeat 0px 6px; padding-left:10px;}
 .new-resrce-wrapper .form-outer-debate .fm-2 input,textarea{ width:280px; font:normal 12px Arial, Helvetica, sans-serif; color:#666;}
 .submit-resrce-btn{ background:url(../images/submit-debate-btn.jpg); width:65px !important; height:20px; border:none; cursor:pointer;}
+.facttop_beat{display:none;}
