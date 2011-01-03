@@ -1050,7 +1050,7 @@ function make_clickable($ret) {
 
 function debate_submit() {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_url;
     extract($_REQUEST);
 
     if (empty($user->uid)) {
@@ -1077,6 +1077,22 @@ function debate_submit() {
                     $i++;
                 }
                 echo list_debate($qid, 1);
+				/*RAM HEARTBEAT MODULE INSERT DEBATE*/
+				$qid_url = db_query("select * from {question} where qid='$qid'");
+				$question_values = db_fetch_array($qid_url);
+				if (isset($question_values)) {
+					$question_urlff = $question_values['url'].'/'.$nid;
+					$qtion = $question_values['question'];
+					$ctxt = $question_values['context'];
+				}
+				$message_id = 'debate_add';
+				$variables = array(
+				'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+				//'@node_type' => 'page',
+				'@debate_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
+				);				
+				heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+				/*RAM HEARTBEAT MODULE INSERT DEBATE*/
                 send_forumnotify($nid, $qid);
             } elseif (isset($wtitle)) {
                 echo '<div align="center"><b>Sorry Only Logged in user can post New Debate</b></div>';
@@ -1087,10 +1103,23 @@ function debate_submit() {
             $query = "insert into {debate_reply} set did='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
             $result = db_query($query, $fdid, $user->uid, $frid, $str_wk, check_plain($waveletcmt), $pvt);
             $rid = db_last_insert_id('debate_reply', 'rid');
-
             echo $output = get_debate($fdid, 0);
-
             post_notification($fdid, $rid);
+			/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
+			$qid_url = db_query("select * from {question} where qid='$frid'");
+			$question_values = db_fetch_array($qid_url);
+			if (isset($question_values)) {
+				$question_urlff = $question_values['url'].'/'.$fdid;
+				$qtion = $question_values['question'];
+				$ctxt = $question_values['context'];
+			}
+			$message_id = 'debate_reply';
+			$variables = array(
+			'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
+			'@debate_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
+			);				
+			heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+			/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
             break;
         case 'is_debate':
         case 'is_debate_reply':
@@ -1113,9 +1142,44 @@ function debate_submit() {
 
                 $msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
                 if ($agree)
+				{
                     $msg['msg'] = '<em>You <strong>agree</strong> with this comment</em>';
+					/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
+					$qid_url = db_query("select * from {question} where qid='$nodeid'");
+					$question_values = db_fetch_array($qid_url);
+					if (isset($question_values)) {
+						$question_urlff = $question_values['url'].'/'.$frid;
+						$qtion = $question_values['question'];
+						$ctxt = $question_values['context'];
+					}
+					$message_id = 'debate_agree';
+					$variables = array(
+					'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
+					'@debate_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
+					);				
+					heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+					/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
+				}	
                 else
+				{
                     $msg['msg'] = '<em>You <strong>Disagree</strong> with this comment</em>';
+					/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
+					$qid_url = db_query("select * from {question} where qid='$nodeid'");
+					$question_values = db_fetch_array($qid_url);
+					if (isset($question_values)) {
+						$question_urlff = $question_values['url'].'/'.$nodeid;
+						$qtion = $question_values['question'];
+						$ctxt = $question_values['context'];
+					}
+					$message_id = 'debate_disagree';
+					$variables = array(
+					'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
+					'@debate_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
+					);				
+					heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+					/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
+
+				}	
                 $msg['error'] = '0';
             }else {
                 $msg['error'] = '1';

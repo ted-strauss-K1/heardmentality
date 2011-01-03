@@ -1773,6 +1773,22 @@ function flag_report() {
 
                     increasepoints('4', $_REQUEST['qaid'], '0');
                     echo '<div class="">You Have Flagged successfully ! </div>';
+					/*RAM HEARTBEAT MODULE FLAGGED A QUESTION*/
+					$QID = $_REQUEST['qaid']
+					$qid_url = db_query("select * from {question} where qid='$QID'");
+					$question_values = db_fetch_array($qid_url);
+					if (isset($question_values)) {
+						$question_urlff = $question_values['url'];
+						$qtion = $question_values['question'];
+						$ctxt = $question_values['context'];
+					}
+					$message_id = 'question_flag';
+					$variables = array(
+					'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
+					'@q_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
+					);				
+					heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+					/*RAM HEARTBEAT MODULE FLAGGED A QUESTION*/
                 } else {
                     echo '<div class="red">You Have Already Flagged !</div>';
                 }
@@ -2933,6 +2949,22 @@ function answer_vote() {
                 db_query($updatevotesug);
                 send_votenotify($_REQUEST['qaid']);
                 echo '<div class="messages success">Thanks For Voting ! </div>';
+					/*RAM HEARTBEAT MODULE VOTING A QUESTION*/
+					$QID = $_REQUEST['qaid']
+					$qid_url = db_query("select * from {question} where qid='$QID'");
+					$question_values = db_fetch_array($qid_url);
+					if (isset($question_values)) {
+						$question_urlff = $question_values['url'];
+						$qtion = $question_values['question'];
+						$ctxt = $question_values['context'];
+					}
+					$message_id = 'question_vote';
+					$variables = array(
+					'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
+					'@q_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
+					);				
+					heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+					/*RAM HEARTBEAT MODULE VOTING A QUESTION*/	
             } else {
                 echo '<div class="messages error"> You Have Already Voted This Answer ! </div>';
             }
