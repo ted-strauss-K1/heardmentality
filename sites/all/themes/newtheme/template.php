@@ -241,7 +241,7 @@ function newtheme_heartbeat_list($messages, HeartbeatAccess $heartbeatAccess, $l
 
   global $user, $language;
 	//echo '<pre>';
-	//echo 
+	//print_r($messages);
   $content = '';
 
   drupal_add_css(drupal_get_path('module', 'heartbeat') . '/heartbeat.css');
@@ -255,8 +255,11 @@ function newtheme_heartbeat_list($messages, HeartbeatAccess $heartbeatAccess, $l
 
   $class = $heartbeatAccess->isPage() ? 'page' : 'block';
 
-  $content .= '<div id="heartbeat-stream-' . $access_type . '" class="heartbeat-' . $class  . ' heartbeat-stream heartbeat-stream-' . $access_type . '">';
-  $content .= '<div class="heartbeat-messages-wrapper">';
+  //$content .= '<div id="heartbeat-stream-' . $access_type . '" class="heartbeat-' . $class  . ' heartbeat-stream heartbeat-stream-' . $access_type . '">';
+  //$content .= '<div class="heartbeat-messages-wrapper">';
+  
+  $content .= '<div style="float: left;" class="commu3"><div class="inner">';  
+   $content .= '<div class="clr"></div>';
 
   if (empty($messages)) {
     if ($heartbeatAccess->hasErrors()) {

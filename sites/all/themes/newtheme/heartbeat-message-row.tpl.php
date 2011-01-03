@@ -21,7 +21,7 @@
 <!--
 <div class="heartbeat-message-block <?php print $message->message_id . ' ' . $zebra; ?>">
 
-  <div class="beat-item <?php print $message->classes ?>" id="beat-item-<?php print $message->uaid ?>">
+  <div class="beat-item <?php print $message->classes ?>" id="beat-item-<?php print $message->uaid ?>">123123
 
     <?php print $message->content['message']; ?>
     <?php if (!empty($message->content['time_info'])): ?>
@@ -46,11 +46,6 @@
 
   </div>
 -->
-<div style="float: left;" class="commu3">          
-          <div class="inner">
-            <div class="clr"></div>
-            <div class="clr"></div>
-            <div class="commuinn3">
              <div class="act-out">
               <div class="act-im" style="overflow:hidden;"><?php echo userPicture($message->uaid); ?></div>
                <div class="act-text"><span class="blue11"><?php print $message->content['message'] ?></span><br>
@@ -73,11 +68,10 @@
 				<?php print $message->content['buttons']; ?>
 			       <?php endif; ?>
 			   <br>
-
-<div class="com-wline"></div>
-<div class="comin"><div class="cominimg"><img height="28" align="absmiddle" width="32" src="images/img2.jpg"></div><div><strong>Mickey Mousecomment</strong> 1 day ago</div></div>
-<div class="clr"></div>
-</div>
+				<div class="com-wline"></div>
+				<div class="comin"><div class="cominimg"><img height="28" align="absmiddle" width="32" src="images/img2.jpg"></div><div><strong>Mickey Mousecomment</strong> 1 day ago</div></div>
+				<div class="clr"></div>
+				</div>
                </div>
-        </div></div>
-</div>
+				</div>
+				</div>
