@@ -919,12 +919,12 @@ div.growlUI h1, div.growlUI h2 {
 
 
 /* New Debate */
-.new-debate-wrapper{ width:516px; margin:0 auto; font:normal 12px Arial, Helvetica, sans-serif; color:#404040; padding-top:10px; background:#fff;}
+.new-debate-wrapper{ width:616px; margin:0 auto; font:normal 12px Arial, Helvetica, sans-serif; color:#404040; padding-top:10px; background:#fff;}
 .new-debate-wrapper a{ color:#658db1; text-decoration:none;}
 .new-debate-wrapper a:hover{ color:#658db1; text-decoration:underline;}
-.new-debate-wrapper .form-outer-debate{ width:469px; margin:0 auto;}
+.new-debate-wrapper .form-outer-debate{ width:569px; margin:0 auto;}
 .new-debate-wrapper .form-outer-debate .fm-1{ width:161px; float:left;}
-.new-debate-wrapper .form-outer-debate .fm-2{ width:306px; float:left; padding-bottom:10px;}
+.new-debate-wrapper .form-outer-debate .fm-2{ width:406px; float:left; padding-bottom:10px;}
 .new-debate-wrapper .form-outer-debate .fm-2 .fm-2-left{ width:140px; float:left;}
 .new-debate-wrapper .form-outer-debate .fm-2 .fm-2-right{ width:150px; float:left;}
 
@@ -932,6 +932,7 @@ div.growlUI h1, div.growlUI h2 {
 .new-debate-wrapper .form-outer-debate .fm-1 ul li{ font:normal 12px Arial, Helvetica, sans-serif; color:#666; text-decoration:none; list-style:none; padding-bottom:5px;  background:url(../images/bullet-blue.jpg) no-repeat 0px 6px; padding-left:10px;}
 .new-debate-wrapper .form-outer-debate .fm-2 input,textarea{ width:280px; font:normal 12px Arial, Helvetica, sans-serif; color:#666;}
 .submit-debate-btn{ background:url(../images/submit-debate-btn.jpg); width:65px !important; height:20px; border:none; cursor:pointer;}
+
 
 /* Reply */
 .reply-wrapper{ width:323px; margin:0 auto; background:#fff; padding:10px; font:normal 12px Arial, Helvetica, sans-serif; color:#404040;}
@@ -1145,7 +1146,6 @@ background:#000;
 .profile-tab{ width:600px; margin-top:5px;}
 .profile-img{ width:156px;height:56px; background-repeat:no-repeat; background-color:#f8f5ee; border:1px solid #666666;}
 .profile-imgs{ float:left;}
-.profile-con{ width:87px; float:left; padding:3px;}
 .profile-con ul{ margin:0px; padding:0px;}
 .profile-con li{ list-style:none; float:left; padding-left:2px;}
 .profile-gray{ color:#666666; font-size:12px; }
@@ -1203,4 +1203,30 @@ background:#000;
 .new-resrce-wrapper .form-outer-debate .fm-1 ul li{ font:normal 12px Arial, Helvetica, sans-serif; color:#666; text-decoration:none; list-style:none; padding-bottom:5px;  background:url(../images/bullet-blue.jpg) no-repeat 0px 6px; padding-left:10px;}
 .new-resrce-wrapper .form-outer-debate .fm-2 input,textarea{ width:280px; font:normal 12px Arial, Helvetica, sans-serif; color:#666;}
 .submit-resrce-btn{ background:url(../images/submit-debate-btn.jpg); width:65px !important; height:20px; border:none; cursor:pointer;}
+
+
+/* Jan-3-2011*/
+.form-outer-debate .fm-2 .leftfm{ width:120px; float:left; padding-right:10px;}
+.form-outer-debate .fm-2 .leftfm img{ border:1px #BBB solid;}
+.form-outer-debate .fm-2 .rightfm{ width:270px; float:left;}
+.form-outer-debate .fm-2 a{ font:normal 11px Arial, Helvetica, sans-serif; color:#6C6C6C;}
+.form-outer-debate .fm-2 a:hover{color:#000;}
+
+.form-outer-debate .fm-4 .leftfm{ width:22%; float:left; padding-right:10px;}
+.form-outer-debate .fm-4 .leftfm img{ border:1px #BBB solid;}
+.form-outer-debate .fm-4 .rightfm{ width:70%; float:left;}
+.form-outer-debate .fm-4 a{ font:normal 11px Arial, Helvetica, sans-serif; color:#6C6C6C;}
+.form-outer-debate .fm-4 a:hover{color:#000;}
+.left-right-outer{ width:50px; float:left;}
+.left-right-text{ font:normal 11px Arial, Helvetica, sans-serif; color:#969696; float:left; padding-left:10px; padding-top:3px;}
+.left-face{ width:25px; height:22px; float:left;}
+.left-face a{ background:url(../images/left-right.png) 0px 0px; width:25px; height:22px; display:block;}
+.left-face a:hover{ background:url(../images/left-right.png) 0px -22px; width:25px; height:22px; }
+
+.right-face{ width:25px; height:22px; float:left;}
+.right-face a{ background:url(../images/left-right.png) -25px 0px; width:25px; height:22px; display:block;}
+.rightleft-face a:hover{ background:url(../images/left-right.png) -25px -22px; width:25px; height:22px; }
+.listbox1{ width:250px;}
+.hm-debate-cont-outer h3{ font:bold 17px Arial, Helvetica, sans-serif; color:#666; padding-left:40px;}
+
 .facttop_beat{display:none;}
