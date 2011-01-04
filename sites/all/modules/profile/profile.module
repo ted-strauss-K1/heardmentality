@@ -409,8 +409,7 @@ function profile($uid = '') {
         extract($result);
     $userSettings = checkPrivacySettings($uid);
     $is_follow_follower = checkFollowStatus($user->uid, $uid);
-    drupal_add_css(drupal_get_path('module', 'profile') . '/styles/profile.css');
-    $get_cn = db_query("select * from {user_profile} where uid='$uid'");
+      $get_cn = db_query("select * from {user_profile} where uid='$uid'");
     $result = db_fetch_array($get_cn);
     $real_name1 = NULL;
     $PROFILE_IMAGE = NULL;

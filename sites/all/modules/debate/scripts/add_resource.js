@@ -3,11 +3,11 @@
 
 jQuery(document).ready(function() {
 
-jQuery("#nlink").keyup(function()
+jQuery("#lattach").click(function()
 {
-var content=jQuery(this).val();
+var content=jQuery('#nlink').val();
 var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-
+jQuery(this).attr('disabled',true);
 var url= content.match(urlRegex);
 var purl=spath+'debate/ajax';
 
@@ -15,15 +15,11 @@ if(url.length>0)
 {
 
 $("#linkbox").slideDown('show');
-$("#linkbox").html("<img src="+spath+"link_loader.gif'>");
+$("#linkbox").html("Loading.....");
 $.get(purl+"?action=url&url="+url,function(response)
 {
-var title=(/<title>(.*?)<\/title>/m).exec(response)[1];
-var logo=(/<img src='(.*?)'/m).exec(response)[0];
-//var logo=(/<img (src=http:\S+)/).exec(response);
-//var logo='';
-jQuery("#linkbox").html("<img src='"+logo+"' class='img'/><div><b>"+title+"</b><br/>"+url)
-
+jQuery("#linkbox").html(response);
+jQuery(this).attr('disabled',false);
 });
 
 }
@@ -56,7 +52,7 @@ return false;
         }
         if(value==3)
         {
-            vDiv3.slideDown();
+            vDiv1.slideDown();
         }
               
     });
@@ -66,9 +62,9 @@ return false;
     var medDiv2 = jQuery('#media_div');
     jQuery('#media,#media_div').hide();
     selObjmed.bind('change', function(emed) {
-        
+         jQuery('#media,#media_div').hide();
         var valuemed = selObjmed.val();
-        jQuery(medDiv1,medDiv2).hide();
+      //  jQuery(medDiv1,medDiv2).hide();
         //alert(valuemed);
         if(valuemed==1)
         {
@@ -90,7 +86,6 @@ return false;
         var mtype =jQuery('#mtype').val();
         var membed = jQuery('#membed').val();
         var docpath = jQuery('#docpath').val();
-        var flink = jQuery('#flink').val();
         var err = '';
         var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
         if (cat1==0)
@@ -133,7 +128,7 @@ return false;
         if (cat1==3)
         {
 
-            if (!tomatch.test(flink))
+            if (!tomatch.test(nlink))
                 err += '<li>Please Enter  Fact Link</li>';
 
         }
@@ -154,6 +149,8 @@ return false;
             function(data){
                 el.removeClass('error');
                 jQuery( "form" )[ 0 ].reset();
+                jQuery('#uscrap').empty();
+                jQuery("#linkbox").html('');
              //jQuery( "form" )[ 0 ].clearForm();
             // clearForm(jQuery(this));
             el.slideDown().fadeOut(4000);
@@ -184,7 +181,7 @@ function createUploader(){
         allowedExtensions: ["doc","docx","ppt","pdf"],
         // each file size limit in bytes
         // this option isn't supported in all browsers
-        sizeLimit: 100000, // max size
+        sizeLimit: 1000000, // max size
         minSizeLimit: 1, // min size
         multipleFileUpload:false,
         onSubmit: function(id, fileName){jQuery.growlUI('','File uploading please wait!');},

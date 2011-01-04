@@ -730,12 +730,27 @@ function add_resources($qid='') {
     //answers
     foreach ($ans as $list) {
 
-        $inc_pans.='<li>
-    	<label>
-        <span class="span1">' . $list['answer'] . ' </span><span>
+        $inc_pans.='
+	<div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">' . $list['answer'] . ' </div>
+<div class="fm-2-right">
+
             <input type="hidden" name="ans_id[]" value="' . $list['paid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
-            </span></label>
-                </li>';
+              </div>
+
+
+
+
+        </div>
+
+
+
+
+    <div class="clr"></div>
+    </div>
+    		';
     }
 
     $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'debate') . '/css/answer.css" type="text/css" />
@@ -748,76 +763,86 @@ function add_resources($qid='') {
 	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 	';
 
-    $resources .= '<body style="background:none;">
-
-        <div class="do-in2">
+    $resources .= '<body style="background:none;background:#666;">
+          <div class="" id="err">' . $list_err . '</div>
+    <div class="new-debate-wrapper">
         <form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'debate/ajax" enctype="multipart/form-data" >
             <input type="hidden" name="qaid" value="' . $qid . '"/>
              <input type="hidden" name="action" value="resource_new"/>
-      <div class="inside2">
-      <div class="" id="err">' . $list_err . '</div>
-          <span class="clr"><!-- spanner --></span>
-      <div class="clr">&nbsp;</div>
-      <div class="left"><strong>
-Please follow Heard<br>Mentality\'s,<span class="ytex">Guidelines &amp; Principles</span> when creating a new debate</strong><br>
-         <strong><br>
-         All debates should be :   </strong>
-         <div class="creat"><ul>
-         <li>Concise</li>
-         <li>Clean</li>
-         <li>Original</li>
-         <li>Important</li>
-         <li>Unbiased</li>
-         <li>Contain no names</li>
-         </ul></div>
-
-
-          </div>
-<div id="rform" class="right">
-  <ul id="add_more">
-               <li><label><span class="span1">Type <b>*</b></span><span>
-           <select name="rtype" class="textfieldm" id="rtype" >
-	<option value="0">Select </option>
+  <div class="form-outer-debate">
+    	<div class="fm-1">Please Follow the <a href="#">Principles and Guidelines.</a></div>
+        <div class="fm-2">   <select name="rtype" class="listbox1" id="rtype" >
+	<option value="0">Resource Type </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
 	<option value="3">Facts </option>
-	</select>
-        </span></label>
-        </li>
-         <li  id="div1" style="display:none;"><label><span class="span1">URL <b>*</b></span><span>
-<input type="text" class=""  name="nlink" id="nlink"/>
-<span>
-        </span></label></li>
-        <li  id="div2" style="display:none;"><label><span class="span1">Choose <b>*</b></span><span>
-	<select name="mtype" class="" id="mtype"   >
-	<option value="0">Select </option>
+	</select></div>
+
+
+    <div class="clr"></div>
+    </div>
+    <div class="form-outer-debate">
+    	<div class="fm-1">All debates should be:<br />
+            <ul>
+            <li>Concise</li>
+            <li>Etc</li>
+            </ul></div>
+        <div id="div1" style="display:none;"  class="fm-2"><input type="text" class="" style="float:left; padding:3px;"  name="nlink" value="http://" id="nlink"/> <div><input id="lattach" name="name" type="button" value="Attach"  style="float:left; width:50px; padding:1px;"/></div></div>
+<div id="div2" style="display:none;"  class="fm-2"><select name="mtype" class="listbox1" id="mtype"   >
+	<option value="0">Choose Format </option>
 	<option value="1">Web Video </option>
 	<option value="2">Podcast,PDF, DOC, PPT. </option>
-	</select>
-<span>
-        </span></label></li>
-           <li  id="media" style="display:none;"><label><span class="span1">Youtube Link <b>*</b></span><span>
-<input type="text"  name="membed" id="membed"  class="" >
-<span>
-        </span></label></li>
-         <li  id="media_div" style="display:none;"><label><span class="span1">Upload  <b>*</b></span><span>
+	</select> 
+            </div>
+
+    <div class="clr"></div>
+    </div>
+ <div class="form-outer-debate">
+ <div class="fm-1"> &nbsp;</div>
+<div id="media" style="display:none;"  class="fm-2"> <input type="text"  name="membed" id="membed" value="http://"  class="" ></div>
+<div id="media_div" style="display:none;"  class="fm-2">
 <input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div>
-<span>
-        </span></label></li>
-  <li  id="div3" style="display:none;"><label><span class="span1">Upload  <b>*</b></span><span>
-<input type="text" name="flink" id="flink"  class="" />
-<span>
-        </span></label></li>
-    <li id="uscrap" >
-<div id="linkbox" style="display:none;">
-</div> </li>
-       ' . $inc_pans . '
-               <li><input name="submit" value="" type="submit" id="submitter" class="submit-debate-btn"/></li>
-        </ul>
 </div>
 
+    <div class="clr"></div>
+    </div>
+
+        <div class="form-outer-debate">
+    	<div class="fm-1"> &nbsp;
 </div>
-</form></div>
+        <div class="fm-2" id="linkbox">
+        	
+
+
+
+      </div>
+
+
+    <div class="clr"></div>
+    </div>
+
+ ' . $inc_pans . '
+     	<div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">&nbsp</div>
+        <div class="fm-2-right" align="right"><input name="submit" value="" type="submit" id="submitter" class="submit-debate-btn"/></div>
+
+        </div>
+
+    <div class="clr"></div>
+    </div>
+
+
+</form>
+      <div class="clr"></div>
+  </div>
+
+
+</body>
+
+
+      
 ';
     echo $resources;
 }
@@ -961,45 +986,108 @@ function debate_ajax() {
 
         case 'url':
             if ($_GET['url']) {
+
+                require_once('simple_html_dom.php');
+                require_once('thumbnail.php');
+                require_once('url_to_absolute.php');
                 $url = $_GET['url'];
-                echo file_get_contents($url);
+                $html = file_get_html($url);
+                $tags = get_meta_tags($url);
+                $domain = parse_url($url, PHP_URL_HOST);
+                $images = array();
+                foreach ($html->find('img') as $element) {
+                    $images[$element->src] = true;
+                }
+                $inc.='<em>' . $html->find('title', 0)->innertext . '</em><br/>';
+                $inc.='<strong>' . $domain . '</strong><br/>';
+                $inc.='<span>' . $tags['description'] . '</span>';
+
+                foreach ($html->find('img') as $element) {
+                    $imgs[] = url_to_absolute($url, $element->src);
+                }
+                echo '<div class="leftfm"><img src="' . $imgs[0] . '" width="118" height="73"  /></div><div class="rightfm">' . $inc . '</div>
+                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" name="uimg" value="' . $imgs[0] . '"/>
+                        ';
+
+                /*
+                  $tg = new thumbnailGenerator;
+                  foreach($images as $url => $void) {
+                  $tg->generate($url, 100, 100, 'thumbnails/' . md5($url) . '.jpg');
+                  } */
             }
             break;
-         case 'resource_new':
+        case 'resource_new':
 
-                 global $gSitePath, $user, $gDocPath, $base_root;
-    if ($_REQUEST['rtype'] != 0) {
-        if ($_REQUEST['membed'] != '') {
-            $ytURL = $_REQUEST['membed'];
-            $ytvIDlen = 11; // This is the length of YouTube's video IDs
+            global $gSitePath, $user, $gDocPath, $base_root;
+            if ($rtype!= 0) {
+                if (!empty($membed)&&$rtype==2&&$mtype==1) {
+                    $ytURL = $membed;
+                    $ytvIDlen = 11; // This is the length of YouTube's video IDs
 
-            $idStarts = strpos($ytURL, "?v=");
+                    $idStarts = strpos($ytURL, "?v=");
 
 
-            if ($idStarts === FALSE)
-                $idStarts = strpos($ytURL, "&v=");
+                    if ($idStarts === FALSE)
+                        $idStarts = strpos($ytURL, "&v=");
 
-            if ($idStarts === FALSE)
-                die("YouTube video ID not found. Please double-check your URL.");
+                    if ($idStarts === FALSE)
+                        die("<div class='messages success'>YouTube video ID not found. Please double-check your URL.</div>");
 
-            $idStarts += 3;
+                    $idStarts += 3;
 
-            $ytvID = substr($ytURL, $idStarts, $ytvIDlen);
+                    $ytvID = substr($ytURL, $idStarts, $ytvIDlen);
 
-            $ytvID;
-        }
+                    $ytvID;
+                }
+                $files = resource_save_ext_imgs($uimg);
 
-        $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id) values ('" . $_REQUEST['rtype'] . "','" . addslashes($_REQUEST['nlink']) . "','" . addslashes($_REQUEST['ntitle']) . "','" . addslashes($_REQUEST['ncontent']) . "','" . $_REQUEST['mtype'] . "','" . addslashes($_REQUEST['membed']) . "','" . addslashes($_REQUEST['flink']) . "', '" . $user->uid . "','" . $_REQUEST['qaid'] . "','" . $_REQUEST['path'] . "','" . $_REQUEST['docpath'] . "','" . $ytvID . "')";
-        db_query($resourceadd);
-        echo '<div class="messages success"> Resources Added Successfully! </div>';
-    }
-             break;
+                $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('$rtype','" . addslashes($nlink) . "','" . addslashes($ntitle) . "','" . addslashes($ncontent) . "','" . $mtype . "','" . addslashes($membed) . "','" . addslashes($flink) . "', '" . $user->uid . "','" . $qaid . "','" . $path . "','" . $docpath . "','" . $ytvID . "','" . $udesc . "','" . $files . "')";
+                db_query($resourceadd);
+                $nid = db_last_insert_id('resource', 'rid');
+                foreach ($ans_id as $list) {
+
+                    $forum = "INSERT INTO {resource_options} set rid='%d',paid='%d',ans_val='%d' ";
+                    $result = db_query($forum, $nid, $list, $sup_opp[$i]);
+                    $i++;
+                }
+                echo '<div class="messages success"> Resources Added Successfully! </div>';
+            }
+            break;
         default:
-            echo "No Action found";
+            echo "<div class='messages success'>No Action found</div>";
             break;
     }
 
     exit;
+}
+
+function resource_save_ext_imgs($url='') {
+
+
+    $result = drupal_http_request($url);
+
+    $dir = file_create_path() . '/resources';
+
+    if (!file_check_directory($dir)) {
+
+        mkdir($dir, 0775, true);
+    }
+    $code = floor($result->code / 100) * 100;
+    $ext = '.' . 'jpg';
+    $types = array('image/jpeg', 'image/png', 'image/gif');
+    $src = file_create_path() . '/resources/' . md5($url) . $ext;
+    if ($result->data && $code != 400 && $code != 500 && in_array($result->Content - Type, $types)) {
+
+        $return = file_save_data($result->data, $src);
+
+        return $return;
+    } else {
+
+        //if we are unsuccessful then log a message in the watchdog
+
+        watchdog('resource', 'The image ' . $url . ' could not be retrieved');
+        return false;
+    }
 }
 
 ////url to hyperlink converting 
@@ -1077,22 +1165,22 @@ function debate_submit() {
                     $i++;
                 }
                 echo list_debate($qid, 1);
-				/*RAM HEARTBEAT MODULE INSERT DEBATE*/
-				$qid_url = db_query("select * from {question} where qid='$qid'");
-				$question_values = db_fetch_array($qid_url);
-				if (isset($question_values)) {
-					$question_urlff = $question_values['url'].'/'.$nid;
-					$qtion = $question_values['question'];
-					$ctxt = $question_values['context'];
-				}
-				$message_id = 'debate_add';
-				$variables = array(
-				'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
-				//'@node_type' => 'page',
-				'@debate_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
-				);				
-				heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
-				/*RAM HEARTBEAT MODULE INSERT DEBATE*/
+                /* RAM HEARTBEAT MODULE INSERT DEBATE */
+                $qid_url = db_query("select * from {question} where qid='$qid'");
+                $question_values = db_fetch_array($qid_url);
+                if (isset($question_values)) {
+                    $question_urlff = $question_values['url'] . '/' . $nid;
+                    $qtion = $question_values['question'];
+                    $ctxt = $question_values['context'];
+                }
+                $message_id = 'debate_add';
+                $variables = array(
+                    '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                    //'@node_type' => 'page',
+                    '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+                );
+                heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                /* RAM HEARTBEAT MODULE INSERT DEBATE */
                 send_forumnotify($nid, $qid);
             } elseif (isset($wtitle)) {
                 echo '<div align="center"><b>Sorry Only Logged in user can post New Debate</b></div>';
@@ -1105,21 +1193,21 @@ function debate_submit() {
             $rid = db_last_insert_id('debate_reply', 'rid');
             echo $output = get_debate($fdid, 0);
             post_notification($fdid, $rid);
-			/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
-			$qid_url = db_query("select * from {question} where qid='$frid'");
-			$question_values = db_fetch_array($qid_url);
-			if (isset($question_values)) {
-				$question_urlff = $question_values['url'].'/'.$fdid;
-				$qtion = $question_values['question'];
-				$ctxt = $question_values['context'];
-			}
-			$message_id = 'debate_reply';
-			$variables = array(
-			'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
-			'@debate_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
-			);				
-			heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
-			/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
+            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+            $qid_url = db_query("select * from {question} where qid='$frid'");
+            $question_values = db_fetch_array($qid_url);
+            if (isset($question_values)) {
+                $question_urlff = $question_values['url'] . '/' . $fdid;
+                $qtion = $question_values['question'];
+                $ctxt = $question_values['context'];
+            }
+            $message_id = 'debate_reply';
+            $variables = array(
+                '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+            );
+            heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
             break;
         case 'is_debate':
         case 'is_debate_reply':
@@ -1141,47 +1229,43 @@ function debate_submit() {
                 like_notification($nodeid, $set);
 
                 $msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
-                if ($agree)
-				{
+                if ($agree) {
                     $msg['msg'] = '<em>You <strong>agree</strong> with this comment</em>';
-					/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
-					$qid_url = db_query("select * from {question} where qid='$nodeid'");
-					$question_values = db_fetch_array($qid_url);
-					if (isset($question_values)) {
-						$question_urlff = $question_values['url'].'/'.$frid;
-						$qtion = $question_values['question'];
-						$ctxt = $question_values['context'];
-					}
-					$message_id = 'debate_agree';
-					$variables = array(
-					'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
-					'@debate_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
-					);				
-					heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
-					/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
-				}	
-                else
-				{
+                    /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+                    $qid_url = db_query("select * from {question} where qid='$nodeid'");
+                    $question_values = db_fetch_array($qid_url);
+                    if (isset($question_values)) {
+                        $question_urlff = $question_values['url'] . '/' . $frid;
+                        $qtion = $question_values['question'];
+                        $ctxt = $question_values['context'];
+                    }
+                    $message_id = 'debate_agree';
+                    $variables = array(
+                        '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                        '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+                    );
+                    heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                    /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+                } else {
                     $msg['msg'] = '<em>You <strong>Disagree</strong> with this comment</em>';
-					/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
-					$qid_url = db_query("select * from {question} where qid='$nodeid'");
-					$question_values = db_fetch_array($qid_url);
-					if (isset($question_values)) {
-						$question_urlff = $question_values['url'].'/'.$nodeid;
-						$qtion = $question_values['question'];
-						$ctxt = $question_values['context'];
-					}
-					$message_id = 'debate_disagree';
-					$variables = array(
-					'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
-					'@debate_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
-					);				
-					heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
-					/*RAM HEARTBEAT MODULE DEBATE REPLY UPDATE*/
-
-				}	
+                    /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+                    $qid_url = db_query("select * from {question} where qid='$nodeid'");
+                    $question_values = db_fetch_array($qid_url);
+                    if (isset($question_values)) {
+                        $question_urlff = $question_values['url'] . '/' . $nodeid;
+                        $qtion = $question_values['question'];
+                        $ctxt = $question_values['context'];
+                    }
+                    $message_id = 'debate_disagree';
+                    $variables = array(
+                        '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                        '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+                    );
+                    heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                    /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+                }
                 $msg['error'] = '0';
-            }else {
+            } else {
                 $msg['error'] = '1';
                 $msg['msg'] = '<em>Sorry <strong>Error</strong> occurs while updating</em>';
             }

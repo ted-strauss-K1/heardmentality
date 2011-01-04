@@ -1643,7 +1643,7 @@ function debate_wave($qid = '') {
 
 </form>';
     } else {
-        $wave .= '<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
+        $wave .= '<div align="center"><b>Sorry Only Logged in user can post debate</b></div>';
     }
     $wave .= '</div>
 	<div><div id="qwave" class="">';
@@ -1909,7 +1909,7 @@ function suggest_answer_save() {
             db_query($answerquery);
             //Suggest Answer badges
             db_query("insert into {user_badges} set bid='38',uid='$uid',qid='" . $_REQUEST['qaid'] . "'");
-            $last_id = msyql_insert_id();
+            $last_id = db_last_insert_id('user_badges','badge');
             // hm_mails('',$last_id,'user_badges');
             //badges_user($uid,$last_id);
 
