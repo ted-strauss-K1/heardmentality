@@ -99,9 +99,10 @@ function list_debate($qid='', $type='') {
 
     $wave = '';
     $click = '';
-    $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select date_added from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {debate} as f join {user_profile} as u on u.uid=f.uid where f.qid_rid='$qid' AND type='$type' AND status='1' ORDER BY did DESC ";
+    $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {debate} as f join {user_profile} as u on u.uid=f.uid where f.qid_rid='$qid' AND type='$type' AND status='1' ORDER BY did DESC ";
 
     $cnt = ExecuteQuery($query, "select");
+
     $i = 0;
     if (!empty($cnt)) {
 
@@ -114,6 +115,39 @@ function list_debate($qid='', $type='') {
                 $setbg='';
             $i++;
             $account = user_load($forum['uid']);
+
+                $query="select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.did='".$forum['did']."'";
+                 $strnth = ExecuteQuery($query, "select");
+                   $strength='';
+                 foreach($strnth as $list){
+                     $ans=$list['answer'];
+                   
+                    switch($list['ans_val']){
+                        case 0:
+                            $strength.='<div class="bottpart">
+                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+                                <div class="green-box">'.$ans.'</div>
+                                     <div class="clr"></div>
+                                     </div>';
+                            break;
+                        case 1:
+                            $strength.='<div class="bottpart">
+                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+                                <div class="green-box">'.$ans.'</div>
+                                     <div class="clr"></div>
+                                     </div>';
+                            break;
+                        case 2:
+                                $strength.='<div class="bottpart">
+                                <div class="pink"><em>&nbsp;&nbsp;-</em></div>
+                                <div class="pink-box">'.$ans.'</div>
+                                     <div class="clr"></div>
+                                     </div>';
+                            break;
+                    }
+                     
+                 }
+
             if ($type == 1) {
 
                 $wave.='         <div class="debate-summary-wrapper" >
@@ -144,8 +178,7 @@ function list_debate($qid='', $type='') {
 
                                         	<div class="centerpartside-bottom">
                                                     ' . $strength . '
-                                     <div class="clr"></div>
-                               
+
                                             	<ul>
 
 
@@ -167,7 +200,7 @@ function list_debate($qid='', $type='') {
                                 </div>
                                 	<div class="deb-bott">
                                     </div>
-
+ <div class="clr"></div>
 
                         </div>
 

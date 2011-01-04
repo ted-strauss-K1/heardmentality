@@ -17,24 +17,31 @@ function debate_list($qid = '', $did='') {
 
 
     $output .= '
-      <div class="hm-debate2-wrapper">
+       <div class="hm-debate2-wrapper">
     	<div class="titlebg">
         	<div class="menudebate">
             	<ul>
+
                 	<li><a href="#">Previous Debate</a></li>
                     <li><a href="#">Next Debate</a></li>
                 </ul>
             </div>
+
+            	<div class="backbtn"><a href="#"></a></div>
+                	<h2>TITLE OF THE DEBATE</h2>
         <div class="clr"></div>
         </div>
 
+
         <div class="clr"></div>
-            <div class=" hm-debate-cont-outer">
-                    <div class="to">
-                    </div>
-                        <div class="ce">
+            <div class="hm-debate-cont-outer backping">
+
+           <h3> Debate Title Coming here...</h3>
+
+                        <div>
 
                         <hr class="hr-silver"/>
+
 <div align="center" id="waveerr"></div>
 ';
     foreach ($list as $forum) {
@@ -67,56 +74,57 @@ function debate_list($qid = '', $did='') {
         $output .= '
 
 <div class="debate-inn-item">
-                            	<div class=" itemto">
-                                <div class="itemto-right">
-                                        	<h5>' . $forum['title'] . '</h5>
-                                        ' . make_clickable($forum['content']) . '
+<div class=" itemto">
+<div class="itemto-right">
+<h5>' . $forum['title'] . '</h5>
+' . make_clickable($forum['content']) . '
 </div>
 
-                               	  <div class="itemto-left">
+<div class="itemto-left">
 
-                               	<div class="toppart"><p>' . $agreecnt . '</p>
+<div class="toppart"><p>' . $agreecnt . '</p>
 
-                                    <p align="center"><img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg"></p></div>
-                                    
+<p align="center"><img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg"></p></div>
+
 <div class="toppart2"><p>' . $disagreecnt . '</p>
-                                      <p align="center"><img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg"></p>
-  <div class="clr"></div>
-                                     </div>
-                                     <div class="clr"></div>
-                                </div>
-                                <div class="clr"></div>
-                                 <div class="itembott">
-                                <div class="itemfirst">
-                                	<ul>
-                                    	' . $like . '
-                                      </ul>
-                                    <div class="clr"></div>
-                                </div>
+<p align="center"><img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg"></p>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+<div class="itembott">
+<div class="itemfirst">
+<ul>
+' . $like . '
+</ul>
+<div class="clr"></div>
+</div>
 
-                                	<div class="itemsecond">
-                                    	<ul>
-                                        	<li><a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a></li>
-                                            <li>' . $flag . '</li>
-                                        </ul>
-                                    </div>
-                                    <div class="itemthird">
+<div class="itemsecond">
+<ul>
+<li><a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a></li>
+<li>' . $flag . '</li>
+</ul>
+</div>
+<div class="itemthird">
 <div class="profile-img">
 <div class="profile-imgs">
- <a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
+<a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
 </div>
 <div class="profile-con">' . $medal . '
 <div>
 </div>
 </div>
 
-                                     </div>
-                                <div class="clr"></div>
-                            </div>
- </div>
-                                <div class="clr"></div>
-                                </div>
-                            	<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
 <div id="wavelet-list">
 	';
     }
@@ -124,18 +132,17 @@ function debate_list($qid = '', $did='') {
 
 
     $output.='
-        </div>
-         <div class="clr"></div>
-                        </div>
-                         <div class="clr"></div>
-                                    </div>
-                            <div class="bo">
-                            </div>
-    <div class="clr"></div>
-    </div>
+       </div>
+      
+       </div>
 
 <div class="clr"></div>
-
+</div>
+ <div class="clr"></div>
+</div>
+<div class="clr"></div>
+</div>
+<div class="clr"></div>
 <div class="reply-wrapper" id="postreply" style="display:none;">
 <form id="postreply" name="freply" action="' . $gSitePath . 'issues/debate/save">
   	<h2>REPLY</h2>
@@ -297,95 +304,95 @@ function get_debate($did = '', $pid = '') {
 
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_bubble($account->uid);
-                $output .= '
-                     <div  class="inner-round-cor com-' . $forum['rid'] . '">
-                                    	<div class="top-sid">
-                                        	<div class=" toprightsid">
-                                            	<div class="topleftsid"></div>
+                if($forum['str_wk'])
+                $plus='<a href="#"><img width="23" height="23" alt="Strengthen" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/plus-img.jpg"></a>';
+                else
+                 $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/minus-img.jpg"></a>';
 
-                                                <div class="topmidsid"> </div>
-
-                                            </div>
-
-                                        </div>
-
-                                         	<div class="mid-sid">
-                                            <a href="#"><img src="images/plus-img.jpg" width="23" height="23" alt="Plus" /></a>
+                $output .= '<div class="clr"></div>
+<div class="hm-debate-cont-outer backash com-' . $forum['rid'] . '"">
+'.$plus.'
+<div>
 
 
-                                            <hr class="hr-silver-2"/>
+<!-- <h3> Debate Title Coming here...</h3>--!>
+<hr class="hr-silver-2">
 
-                                            <div class="debate-inn-item">
-                            	<div class=" itemto">
-                                <div class="itemto-right">
-                                <h5>Title of the Debate</h5>
-                                 ' . make_clickable($forum['reply']) . '
-                                 </div>
-                                <div class="itemto-left">
+<div class="debate-inn-item">
+<div class=" itemto">
+<div class="itemto-right">
+<div class="form-outer-debate">
+<div class="fm-1">&nbsp;</div>
+<div class="fm-4">
+' . make_clickable($forum['reply']) . '
+</div>
 
-                               	<div class="toppart"><p>' . $cntagree . '</p>
 
-                                    <p align="center"><img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg"></p></div>
 
-<div class="toppart2"><p>' . $cntdisagree . '</p>
-                                      <p align="center"><img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg"></p>
-  <div class="clr"></div>
-                                     </div>
-                                     <div class="clr"></div>
-                                </div>
-                                    </div>
-                                <div class="clr"></div>
-                                <div class="itembott">
-                                <div class="itemfirst">
-                                	<ul>
-                                    	' . $like . '
-                                    </ul>
-                                    <div class="clr"></div>
-                                </div>
+</div>
 
-                                	<div class="itemsecond">
-                                    	<ul>
-                                        	<li><a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['rid'] . '"  href="#postreply"></a></li>
-                                            <li>' . $flag . '</li><li>' . $date . '</li>
-                                        </ul>
-                                    </div>
-                                           <div class="itemthird">
+
+<div class="clr"></div>
+</div>
+
+<div class="itemto-left">
+
+<div class="toppart">
+<p>' . $cntagree . '</p>
+
+<p align="center">
+<img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg">
+</p></div>
+
+<div class="toppart2">
+<p>' . $cntdisagree . '</p>
+<p align="center">
+<img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg">
+</p>
+<div class="clr"></div>
+</div>
+</div>
+
+<div class="clr"></div>
+</div>
+
+<div class="clr"></div>
+<div class="itembott">
+<div class="itemfirst">
+<ul>
+' . $like . '
+</ul>
+<div class="clr"></div>
+</div>
+
+<div class="itemsecond">
+<ul>
+<li><a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['rid'] . '"  href="#postreply"></a></li>
+<li>' . $flag . '</li><li>' . $date . '</li>
+</ul>
+</div>
+
+<div class="itemthird">
 <div class="profile-img">
 <div class="profile-imgs">
- <a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
+<a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
 </div>
 <div class="profile-con">' . $medal . '
 <div>
 
 </div>
-
-                                        </div>
- </div>
-                                <div class="clr"></div>
-                            </div>
-
-                </div>
-              
-
-                                    <div class="clr"></div>
-                                    </div>
-                                    <div class="clr"></div>
-
+</div></div>
+</div>
+<div class="clr"></div>
 ';
-                $output .= get_debate($did, $forum['rid']);
+$output .= get_debate($did, $forum['rid']);
 
-                $output .= '  <div class="clr"></div>
-                      </div>
-
-                                            	<div class="bott-sid">
-                                        	<div class="bottrightsid">
-                                            	<div class="bottleftsid"></div>
-
-                                                <div class="bottmidsid"> </div>
-
-                                            </div>
-
-                    </div> </div><div class="clr"></div>	';
+$output .= '    </div>
+<div class="clr"></div>
+</div>
+</div>
+<div class="clr"></div>
+</div>	';
             }
         }
 
@@ -1031,7 +1038,7 @@ function debate_ajax() {
                         $idStarts = strpos($ytURL, "&v=");
 
                     if ($idStarts === FALSE)
-                        die("<div class='messages success'>YouTube video ID not found. Please double-check your URL.</div>");
+                        die("<div class='messages error'>YouTube video ID not found. Please double-check your URL.</div>");
 
                     $idStarts += 3;
 
@@ -1054,7 +1061,7 @@ function debate_ajax() {
             }
             break;
         default:
-            echo "<div class='messages success'>No Action found</div>";
+            echo "<div class='messages error'>No Action found</div>";
             break;
     }
 
