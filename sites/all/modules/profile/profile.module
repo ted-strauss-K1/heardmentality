@@ -571,8 +571,23 @@ if($user->uid>0){
             //echo "insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['delm']."','1','1','".$user->uid."' ";
             $insert_notify = db_query("insert into notification (uid,new_followe,is_user,node_id) values('" . $_REQUEST['delm'] . "','1','1','" . $user->uid . "') ");
 
+			/*HEART BEAT TO ADD FRIEND*/
+			$message_id = 'heartbeat_become_friends';
+			$friend	= user_load($_REQUEST['delm']);
+			$variables = array(
+				'@user1' => l($user->name, 'profile/' . $user->uid),
+				'@relation_type' => 'friend',
+				'@user2' => l($friend->name, 'profile/' . $friend->uid),
+				'duplicate'=> 1,
+			);
+			heartbeat_api_log($message_id, $user->uid, $friend->uid, 0, 0, $variables);
 
-
+			$variables_reversed = $variables;
+			$variables_reversed['@user1'] = $variables['@user2'];
+			$variables_reversed['@user2'] = $variables['@user1'];
+			heartbeat_api_log($message_id, $friend->uid, $user->uid, 0, 0, $variables_reversed);
+			/*HEART BEAT TO ADD FRIEND*/
+			
             hm_mails('',$_REQUEST['delm'],'follower');
 
             /*$sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $_REQUEST['delm'] . "'";
