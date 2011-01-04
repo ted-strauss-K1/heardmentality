@@ -62,16 +62,16 @@
               </ul>
               </div> 
                <img height="6" width="33" src="images/comment-top.png">
-               <div style="background-color: rgb(204, 204, 204);">
+               <!--div style="background-color: rgb(204, 204, 204);">
                <div style="padding: 3px;">
 			    <?php if (!empty($message->content['buttons'])) :?>
 				<?php print $message->content['buttons']; ?>
 			       <?php endif; ?>
 			   <br>
 				<div class="com-wline"></div>
-				<!--div class="comin"><div class="cominimg"><img height="28" align="absmiddle" width="32" src="images/img2.jpg"></div><div><strong>Mickey Mousecomment</strong> 1 day ago</div></div>
-				<div class="clr"></div-->
+				<div class="comin"><div class="cominimg"><img height="28" align="absmiddle" width="32" src="images/img2.jpg"></div><div><strong>Mickey Mousecomment</strong> 1 day ago</div></div>
+				<div class="clr"></div>
 				</div>
-               </div>
-				</div>
+               </div-->
+				</div>				
 				</div>

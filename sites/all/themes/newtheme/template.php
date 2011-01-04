@@ -259,7 +259,7 @@ function newtheme_heartbeat_list($messages, HeartbeatAccess $heartbeatAccess, $l
   //$content .= '<div class="heartbeat-messages-wrapper">';
   
   $content .= '<div style="float: left;" class="commu3"><div class="inner">';  
-   $content .= '<div class="clr"></div>';
+   //$content .= '<div class="clr"></div>';    
 
   if (empty($messages)) {
     if ($heartbeatAccess->hasErrors()) {

@@ -12,7 +12,7 @@
         <div id="sidebar-left" class="column sidebar">
           <?php print $left; ?>
         </div> <!-- /sidebar-left -->
-      <div class="clr"></div>
+      <!-- RAM COMMENTED div class="clr"></div-->
           </div>
        </div>
 	  <?php endif; ?>
