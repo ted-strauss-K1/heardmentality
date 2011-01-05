@@ -167,6 +167,13 @@ function friendlist_activity_get_friends($uid) {
 
     $uids = array_keys(flag_friend_get_friends($uid));
 
+  }else{
+  $sql = " select distinct follower_id as 'uid' from follower where follower_status=1 and uid<>0 and follower_id<>0 and uid=$uid";
+	$result = db_query($sql);
+    while ($row = db_fetch_object($result)) {
+      $uids[] = $row->uid;
+    }
+  
   }
 
   return $uids;
