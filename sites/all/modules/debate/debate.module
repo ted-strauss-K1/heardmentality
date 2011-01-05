@@ -29,14 +29,14 @@ function debate_menu() {
 
     $items['resource/debate/%/%'] = array(
         'title' => 'Resource Debate',
-        'page callback' => '',
+        'page callback' => 'resdebate_list',
         'access arguments' => array('Resource Debate'),
         'type' => MENU_SUGGESTED_ITEM,
         'page arguments' => array(2, 3),
         'file' => 'debate.pages.inc',
     );
-     $items['resource/list/%/%'] = array(
-        'title' => 'Resource Debate',
+     $items['issues/resource/%/%'] = array(
+        'title' => 'Resource Debate List',
         'page callback' => 'resource_list',
         'access arguments' => array('Resource Debate'),
         'type' => MENU_SUGGESTED_ITEM,

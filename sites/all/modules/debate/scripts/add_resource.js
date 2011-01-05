@@ -19,7 +19,7 @@ $("#linkbox").html("Loading.....");
 $.get(purl+"?action=url&url="+url,function(response)
 {
 jQuery("#linkbox").html(response);
-jQuery(this).attr('disabled',false);
+jQuery(this).removeAttr('disabled');
 });
 
 }

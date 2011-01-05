@@ -7,11 +7,11 @@ function tabactive(pmID, pmPath,id)
     jQuery("#loading").fadeIn();
     jQuery('#tab'+pmID).parent('li').addClass('current');
     if(pmID == 'In')
-        vPath=pmPath+"qlite/innews/"+id
+        vPath=pmPath+"issues/resource/innews/"+id
     else if(pmID == 'M')
-        vPath=pmPath+"qlite/media/"+id
+        vPath=pmPath+"issues/resource/media/"+id
     else if(pmID == 'F')
-        vPath=pmPath+"qlite/facts/"+id
+        vPath=pmPath+"issues/resource/facts/"+id
     jQuery('#rcontents').html('Loading...');
 
     jQuery.ajax({
