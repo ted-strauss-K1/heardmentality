@@ -19,7 +19,7 @@ $("#linkbox").html("Loading.....");
 $.get(purl+"?action=url&url="+url,function(response)
 {
 jQuery("#linkbox").html(response);
-jQuery(this).removeAttr('disabled');
+jQuery("#lattach").removeAttr('disabled');
 });
 
 }
@@ -36,14 +36,14 @@ return false;
         var vDiv3 = jQuery('#div3');
         var medDiv1 =jQuery('#media');
         var medDiv2 = jQuery('#media_div');
-        jQuery('#div1,#div2,#div3,#media,#media_div').hide();
+        jQuery('#div1,#div2,#div3,#media,#media_div,#linkbox').hide();
         var selIndex = selObj.selectedIndex;
         var value = selObj.val();
               
         if(value==1)
         {
             vDiv1.slideDown();
-					   
+		jQuery('#linkbox').show();
         }
         if(value==2)
         {
@@ -53,6 +53,7 @@ return false;
         if(value==3)
         {
             vDiv1.slideDown();
+            jQuery('#linkbox').show();
         }
               
     });

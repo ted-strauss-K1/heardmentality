@@ -903,6 +903,7 @@ function resource_innews($qid='',$rtype='') {
             $query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.did='" . $forum['did'] . "'";
             $strnth = ExecuteQuery($query, "select");
             $strength = '';
+            $image=!empty($forum['uimg'])?$forum['uimg']:'sites/default/files/resources/noimage.jpg';
             foreach ($strnth as $list) {
                 $ans = $list['answer'];
 
@@ -951,7 +952,7 @@ function resource_innews($qid='',$rtype='') {
 <div class="form-outer-debate">
 <div class="fm-1">&nbsp;</div>
 <div class="fm-5">
-<div class="leftfm">' . theme('image', $forum['uimg'], t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
+<div class="leftfm">' . theme('image',$image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
 <div class="rightfm">
 <a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum['rid'] . '" >' . myTruncate($forum['udesc'], '50', '', '..') . '</a><br>
 <a target="_blank" href="' . $forum['nlink'] . '">' . myTruncate($forum['nlink'], '25', '', '..') . '</a><br>
@@ -1019,7 +1020,7 @@ function resource_media($qid='') {
     $click = '';
      $query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.reid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='2' AND status='1' ORDER BY rid DESC ";
     $cnt = ExecuteQuery($query, "select");
-    if (!empty($qid)) {
+    if (count($cnt)) {
 
 
         foreach ($cnt as $forum) {
@@ -1142,6 +1143,8 @@ function resource_media($qid='') {
 <div class="clr"></div>
 ';
         }
+    }  else{
+        $wave.='No Record Found!';
     }
     return $wave;
 }
@@ -1429,8 +1432,9 @@ function debate_ajax() {
                 }
                 $files = resource_save_ext_imgs($uimg);
 
-                $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('$rtype','" . addslashes($nlink) . "','" . addslashes($ntitle) . "','" . addslashes($ncontent) . "','" . $mtype . "','" . addslashes($membed) . "','" . addslashes($flink) . "', '" . $user->uid . "','" . $qaid . "','" . $path . "','" . $docpath . "','" . $ytvID . "','" . $udesc . "','" . $files . "')";
-                db_query($resourceadd);
+              //  $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('$rtype','" . addslashes($nlink) . "','" . addslashes($ntitle) . "','" . addslashes($ncontent) . "','" . $mtype . "','" . addslashes($membed) . "','" . addslashes($flink) . "', '" . $user->uid . "','" . $qaid . "','" . $path . "','" . $docpath . "','" . $ytvID . "','" . $udesc . "','" . $files . "')";
+                 $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('%d','%s','%s','%s','%d','%s','%s', '%d','%d','%s','%s','%s','%s','%s')";
+                db_query($resourceadd,$rtype,$nlink,$ntitle,$ncontent,$mtype,$membed,$flink, $user->uid,$qaid,$path,$docpath,$ytvID,$udesc,$files);
                 $nid = db_last_insert_id('resource', 'rid');
                 foreach ($ans_id as $list) {
 
