@@ -61,7 +61,7 @@ function debate_list($qid = '', $did='') {
         if (count($fetch) < 1) {
 
             $like = '<li><span name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
-        } elseif ($fetch[0]['is_debate'] == '1') {
+        } elseif ($fetch[0]['is_debate'] == '1' && $fetch[0]['is_agree']) {
 
             $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
         } else {
@@ -292,7 +292,7 @@ function get_debate($did = '', $pid = '') {
                 if (count($fetch) < 1) {
 
                     $like = '<li><span name="' . $forum['rid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['rid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['rid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
-                } elseif ($fetch[0]['is_debate'] == '1') {
+                } elseif ($fetch[0]['is_agree']) {
 
                     $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
                 } else {
@@ -304,14 +304,14 @@ function get_debate($did = '', $pid = '') {
 
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_bubble($account->uid);
-                if($forum['str_wk'])
-                $plus='<a href="#"><img width="23" height="23" alt="Strengthen" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/plus-img.jpg"></a>';
+                if ($forum['str_wk'])
+                    $plus = '<a href="#"><img width="23" height="23" alt="Strengthen" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/plus-img.jpg"></a>';
                 else
-                 $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/minus-img.jpg"></a>';
+                    $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/minus-img.jpg"></a>';
 
                 $output .= '<div class="clr"></div>
 <div class="hm-debate-cont-outer backash com-' . $forum['rid'] . '"">
-'.$plus.'
+' . $plus . '
 <div>
 
 
@@ -385,9 +385,9 @@ function get_debate($did = '', $pid = '') {
 </div>
 <div class="clr"></div>
 ';
-$output .= get_debate($did, $forum['rid']);
+                $output .= get_debate($did, $forum['rid']);
 
-$output .= '    </div>
+                $output .= '    </div>
 <div class="clr"></div>
 </div>
 </div>
@@ -854,6 +854,35 @@ function add_resources($qid='') {
     echo $resources;
 }
 
+function resource_list($type, $qid) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $output = '';
+    switch ($type) {
+        case 'innews':
+
+            $output = 'innews';
+            break;
+        case 'media':
+
+            $output = 'media';
+            break;
+        case 'facts':
+
+
+            $output = 'ffacts';
+            break;
+        default:
+            $output = 'No Action Found!';
+            break;
+    }
+
+
+    if (isAjax ())
+        echo $output;
+    else
+        return $output;
+}
+
 function resdebate_list() {
     global $gSitePath, $user, $gDocPath, $base_root;
     $rid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
@@ -1026,8 +1055,8 @@ function debate_ajax() {
         case 'resource_new':
 
             global $gSitePath, $user, $gDocPath, $base_root;
-            if ($rtype!= 0) {
-                if (!empty($membed)&&$rtype==2&&$mtype==1) {
+            if ($rtype != 0) {
+                if (!empty($membed) && $rtype == 2 && $mtype == 1) {
                     $ytURL = $membed;
                     $ytvIDlen = 11; // This is the length of YouTube's video IDs
 
