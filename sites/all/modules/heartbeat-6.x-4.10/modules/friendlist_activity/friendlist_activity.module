@@ -129,10 +129,14 @@ function friendlist_activity_get_friends($uid) {
 
   if ($api == 'friendlist_api') {
 
-    $sql = "SELECT fr.requestee_id as 'uid' FROM {friendlist_relations} as fr
+    /* COMMENTED BY RAM ON HEARTBEAT FRNDS
+	$sql = "SELECT fr.requestee_id as 'uid' FROM {friendlist_relations} as fr
     INNER JOIN {friendlist_statuses} fs ON fs.rid = fr.rid
     WHERE fr.requester_id = %d AND fs.status = '%s' ORDER BY fs.last_update_time DESC, fr.rid DESC";
-    $result = db_query($sql, $uid, 'TW_BOTH');
+    $result = db_query($sql, $uid, 'TW_BOTH');*/
+	
+	$sql = " select distinct follower_id as 'uid' from follower where follower_status=1 and uid<>0 and follower_id<>0 and uid=$uid";
+	$result = db_query($sql);
     while ($row = db_fetch_object($result)) {
       $uids[] = $row->uid;
     }
