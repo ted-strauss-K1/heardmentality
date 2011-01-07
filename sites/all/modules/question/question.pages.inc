@@ -1723,7 +1723,7 @@ foreach($qids as $qid){
     $users = ExecuteQuery($sql,'select');
     foreach($users as $user){
         $uid = $user['uid'];
-       // scruitneer($uid,$qid);
+        scrutineer($uid,$qid);
     }
 }
 
