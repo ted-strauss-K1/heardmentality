@@ -17,19 +17,19 @@ function bind_clk(){
     });
     //agree
     jQuery('a.dagree').live('click', function(e){
-        jQuery(this).agree(e,'is_debate','1');
+        jQuery(this).agree(e,'1');
     });
     //diagree
     jQuery('a.ddisagree').live('click', function(e){
-        jQuery(this).agree(e,'is_debate','0');
+        jQuery(this).agree(e,'0');
     });
 //reply agree dis agree
    jQuery('a.ragree').live('click', function(e){
-        jQuery(this).agree(e,'is_debate_reply','1');
+        jQuery(this).agree(e,'1');
     });
     //diagree
     jQuery('a.rdisagree').live('click', function(e){
-        jQuery(this).agree(e,'is_debate_reply','0');
+        jQuery(this).agree(e,'0');
     });
 
 
@@ -64,7 +64,7 @@ function bind_clk(){
 
 (function($){
     $.fn.extend({
-        agree: function(e,action,type) {
+        agree: function(e,type) {
 
             e.preventDefault();
             el = jQuery(this);
@@ -79,6 +79,7 @@ function bind_clk(){
 
             el.slideDown('slow');
             var wid=el.parent('span').attr('name');
+            var action=el.parent('span').attr('type');
             // $('likelink').empty();
 
             var url = spath + 'issues/debate/save';

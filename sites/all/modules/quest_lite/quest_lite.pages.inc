@@ -616,9 +616,9 @@ function qlite_view() {
 
               <ul id="maintabs" class="mytabs" >
              <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
-               
-                <li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
                      <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
+                <li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
+               
 				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
 				  <li class="" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Details</span></a></li>
 
@@ -1153,7 +1153,9 @@ function qlite_save() {
 
 function add_resources() {
     global $gSitePath, $user, $gDocPath, $base_root;
-
+        if($user->uid<1){
+            echo 'Sorry you have to login to post New Resource!'; die;
+        }
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/answer.css" type="text/css" />
          <script src="' . $gSitePath . '/misc/jquery.js"></script>
@@ -1555,8 +1557,9 @@ function debate_wave($qid = '') {
     $wave = '';
     $ans=load_options($qid);
     //answers
+    $filter_list.='<select name="" class="select-1"><option>Possible Answers</option>';
     foreach($ans as $list){
-
+        $filter_list.='<option value="'.$list['paid'].'">'.$list['answer'].'</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
@@ -1566,21 +1569,22 @@ function debate_wave($qid = '') {
         <div class="clr"></div>
     </div>';
     }
-
+$filter_list.='</select>';
     //print_r($cnt);
     $wave .= '
 
      <div class=" debate-round-tab-outer">
               	<div class="form-part-top">
-                    <div class="form-m1">Filter By:<br />
-<select name="" class="select-1"><option>Possible Answers</option></select></div>
-                    <div class="form-m2">&nbsp;<br />
-
-                    <select name="" class="select-2"><option>Support</option></select></div>
-                    <div class="form-m3">
-
-                    Sort By:
-                    <select name="" class="select-2"><option>Sort</option></select>
+                    <div class="form-m1">Filter By :
+<select name="" class="select-2"><option>+/-</option><option value="support">+</option><option value="oppose">-</option></select></div>
+                    <div class="form-m2"><br/>
+                    '.$filter_list.'
+                    </div>
+                    <div class="form-m3"><br/>
+                    <select name="" class="select-2"><option>Sort By :</option>
+                    <option>Strength</option>
+                     <option>Weaken</option>
+                    </select>
 
                     </div>
                     <div class="form-m4" align="right">&nbsp;<br />

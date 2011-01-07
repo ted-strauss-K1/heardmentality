@@ -1589,7 +1589,8 @@ function panel_content($type = '') {
                 foreach ($ids as $value) {
                     $target = $value;
                 }
-
+                // badges award "scruitneer"
+                update_flag_badges($_REQUEST['qids']);
                 $target = array_unique($target);
 
                 $qids = implode(',', $target);
@@ -1711,7 +1712,13 @@ function panel_content($type = '') {
 
     echo $strReturn;
 }
+function update_flag_badges($qids){
 
+
+
+scruitneer($uid,$qid);
+
+}
 function question_flagged_mail($qaid) {
     global $gSitePath, $user, $gDocPath, $base_root;
 

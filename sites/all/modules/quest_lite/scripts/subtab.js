@@ -72,7 +72,7 @@ function loadresource(url,title)
     //jQuery.nyroModalManual({
     //  url: url,width:550,height:450,title:'Add Resources'
     // });
-    var options = 'sameBox:true width:60% height:40% caption:' +
+    var options = 'sameBox:true width:60% height:60% caption:' +
     '`Add Resources`';
     parent.fb.start(url, options);
 		

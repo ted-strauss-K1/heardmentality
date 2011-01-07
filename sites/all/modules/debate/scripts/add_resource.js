@@ -144,8 +144,9 @@ return false;
             el.hide();
         }
 
+jQuery('input[type="submit"]').attr('disabled',true);
        // e.preventDefault();
-      
+     jQuery.blockUI('Please wait to process...');
         jQuery.post( jQuery(this).attr('action'), jQuery(this).serialize(),
             function(data){
                 el.removeClass('error');
@@ -156,8 +157,9 @@ return false;
             // clearForm(jQuery(this));
             el.slideDown().fadeOut(4000);
                  el.html(data);
-                //  jQuery.unblockUI();
+                  jQuery.unblockUI();
                // jQuery.growlUI('', data);
+               jQuery('input[type="submit"]').removeAttr('disabled');
             });
 
         return false;

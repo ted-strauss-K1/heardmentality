@@ -60,7 +60,7 @@ function debate_list($qid = '', $did='') {
         $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='0' AND node_id='" . $forum['did'] . "'"));
         if (count($fetch) < 1) {
 
-            $like = '<li><span name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
+            $like = '<li><span type="is_debate" name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
         } elseif ($fetch[0]['is_debate'] == '1' && $fetch[0]['is_agree']) {
 
             $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
@@ -68,7 +68,7 @@ function debate_list($qid = '', $did='') {
             $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
         }
 //flag
-        $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'rwave\',' . $did . ');"></a>';
+        $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',' . $did . ');"></a>';
         $bubble = load_bubble($account->uid);
         $medal = updateProfileBadge($account->uid);
         $output .= '
@@ -151,6 +151,7 @@ function debate_list($qid = '', $did='') {
         <textarea rows="10" cols="" name="waveletcmt" id="waveletcmt">Enter text here</textarea>
 <!--<input type="checkbox" name="privt" value="1" id="privt"/> Private Reply-->
 <input type="hidden" name="fdid" id="fdid" value="' . $did . '"/>
+    <input type="hidden" name="qid" id="qid" value="' . $qid . '"/>
 		<input type="hidden" name="frid" id="frid" value=""/>
 			<input type="hidden" name="action" value="reply" />
         </div>
@@ -291,7 +292,7 @@ function get_debate($did = '', $pid = '') {
 
                 if (count($fetch) < 1) {
 
-                    $like = '<li><span name="' . $forum['rid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['rid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['rid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
+                    $like = '<li><span name="' . $forum['rid'] . '" type="is_debate_reply" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['rid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['rid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
                 } elseif ($fetch[0]['is_agree']) {
 
                     $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
@@ -300,7 +301,7 @@ function get_debate($did = '', $pid = '') {
                 }
 //flag
                 $flag = '';
-                $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rwavelet\',' . $forum['rid'] . ');"></a>';
+                $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rdebate\',' . $forum['rid'] . ');"></a>';
 
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_bubble($account->uid);
@@ -386,6 +387,151 @@ function get_debate($did = '', $pid = '') {
 <div class="clr"></div>
 ';
                 $output .= get_debate($did, $forum['rid']);
+
+                $output .= '    </div>
+<div class="clr"></div>
+</div>
+</div>
+<div class="clr"></div>
+</div>	';
+            }
+        }
+
+        return $output;
+    } else {
+
+
+        return 'Error Occurs ';
+    }
+}
+
+function get_res_debate($rid = '', $pid = '') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $output = '';
+    $bg = '';
+    if (!empty($rid)) {
+
+
+        $query = "select * from {resource_reply} as f  join {user_profile} as u on u.uid=f.uid  where f.rid='$rid' and f.status='1' and parentid='$pid'";
+
+        $list = ExecuteQuery($query, "select");
+
+//print_r($set);
+
+        foreach ($list as $forum) {
+
+// $date = cdatetime($forum['date_added']).$forum['date_added'];
+            $date = format_date_class($forum['date_added'], date());
+            $account = user_load($forum['uid']);
+
+
+            if (wave_access($forum['reid'], $forum['private'])) {
+
+                $image = empty($forum['image']) ? 'noimage.jpg' : $forum['image'];
+                $name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
+                $querylike = "select * from {user_likes} where is_resource_reply='1' AND uid='$user->uid' AND node_id='" . $forum['reid'] . "'";
+                $fetch = ExecuteQuery($querylike, "select");
+                $cntagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='1' AND node_id='" . $forum['reid'] . "'"));
+                $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='0' AND node_id='" . $forum['reid'] . "'"));
+
+                if (count($fetch) < 1) {
+
+                    $like = '<li><span type="is_resource_reply" name="' . $forum['reid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['reid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['reid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
+                } elseif ($fetch[0]['is_agree']) {
+
+                    $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
+                } else {
+                    $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+                }
+//flag
+                $flag = '';
+                $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',' . $forum['reid'] . ');"></a>';
+
+                $medal = updateProfileBadge($account->uid);
+                $bubble = load_bubble($account->uid);
+                if ($forum['str_wk'])
+                    $plus = '<a href="#"><img width="23" height="23" alt="Strengthen" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/plus-img.jpg"></a>';
+                else
+                    $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/minus-img.jpg"></a>';
+
+                $output .= '<div class="clr"></div>
+<div class="hm-debate-cont-outer backash com-' . $forum['reid'] . '"">
+' . $plus . '
+<div>
+
+
+<!-- <h3> Debate Title Coming here...</h3>--!>
+<hr class="hr-silver-2">
+
+<div class="debate-inn-item">
+<div class=" itemto">
+<div class="itemto-right">
+<div class="form-outer-debate">
+<div class="fm-1">&nbsp;</div>
+<div class="fm-4">
+' . make_clickable($forum['reply']) . '
+</div>
+
+
+
+</div>
+
+
+<div class="clr"></div>
+</div>
+
+<div class="itemto-left">
+
+<div class="toppart">
+<p>' . $cntagree . '</p>
+
+<p align="center">
+<img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg">
+</p></div>
+
+<div class="toppart2">
+<p>' . $cntdisagree . '</p>
+<p align="center">
+<img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg">
+</p>
+<div class="clr"></div>
+</div>
+</div>
+
+<div class="clr"></div>
+</div>
+
+<div class="clr"></div>
+<div class="itembott">
+<div class="itemfirst">
+<ul>
+' . $like . '
+</ul>
+<div class="clr"></div>
+</div>
+
+<div class="itemsecond">
+<ul>
+<li><a class="floatbox reply-menu" onclick="addComment(this);" id="' . $rid . '-' . $forum['reid'] . '"  href="#postreply"></a></li>
+<li>' . $flag . '</li><li>' . $date . '</li>
+</ul>
+</div>
+
+<div class="itemthird">
+<div class="profile-img">
+<div class="profile-imgs">
+<a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
+</div>
+<div class="profile-con">' . $medal . '
+<div>
+
+</div>
+</div></div>
+</div>
+<div class="clr"></div>
+';
+                $output .= get_res_debate($rid, $forum['reid']);
 
                 $output .= '    </div>
 <div class="clr"></div>
@@ -734,7 +880,20 @@ function add_resources($qid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $ans = load_options($qid);
 
-    //answers
+    $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'debate') . '/css/answer.css" type="text/css" />
+         <script src="' . $gSitePath . '/misc/jquery.js"></script>
+<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'debate') . '/css/fileuploader.css" type="text/css" />
+            <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/fileuploader.js"></script>
+            <script> var spath="' . $gSitePath . '";</script>
+                   	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
+	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/add_resource.js"></script>
+	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
+	';
+  if($user->uid<1){
+           echo $resources.='<div class="messages error">Sorry you have to login to post New Resource!</div>'; die;
+        }
+
+         //answers
     foreach ($ans as $list) {
 
         $inc_pans.='
@@ -759,16 +918,6 @@ function add_resources($qid='') {
     </div>
     		';
     }
-
-    $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'debate') . '/css/answer.css" type="text/css" />
-         <script src="' . $gSitePath . '/misc/jquery.js"></script>
-<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'debate') . '/css/fileuploader.css" type="text/css" />
-            <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/fileuploader.js"></script>
-            <script> var spath="' . $gSitePath . '";</script>
-                   	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/add_resource.js"></script>
-	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
-	';
 
     $resources .= '<body style="background:none;background:#666;">
           <div class="" id="err">' . $list_err . '</div>
@@ -859,7 +1008,7 @@ function resource_list($type, $qid) {
     $output = '';
     switch ($type) {
         case 'innews':
-            $output = resource_innews($qid,1);
+            $output = resource_innews($qid, 1);
             break;
         case 'media':
 
@@ -868,7 +1017,7 @@ function resource_list($type, $qid) {
         case 'facts':
 
 
-            $output = resource_innews($qid,3);
+            $output = resource_innews($qid, 3);
             break;
         default:
             $output = 'No Action Found!';
@@ -882,11 +1031,11 @@ function resource_list($type, $qid) {
         return $output;
 }
 
-function resource_innews($qid='',$rtype='') {
+function resource_innews($qid='', $rtype='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';
-     $query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.reid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' ORDER BY rid DESC ";
+    $query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' ORDER BY rid DESC ";
     $cnt = ExecuteQuery($query, "select");
     if (count($cnt)) {
 
@@ -903,7 +1052,7 @@ function resource_innews($qid='',$rtype='') {
             $query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.did='" . $forum['did'] . "'";
             $strnth = ExecuteQuery($query, "select");
             $strength = '';
-            $image=!empty($forum['uimg'])?$forum['uimg']:'sites/default/files/resources/noimage.jpg';
+            $image = !empty($forum['uimg']) ? $forum['uimg'] : file_directory_path() . '/noimage.jpg';
             foreach ($strnth as $list) {
                 $ans = $list['answer'];
 
@@ -952,7 +1101,7 @@ function resource_innews($qid='',$rtype='') {
 <div class="form-outer-debate">
 <div class="fm-1">&nbsp;</div>
 <div class="fm-5">
-<div class="leftfm">' . theme('image',$image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
+<div class="leftfm">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
 <div class="rightfm">
 <a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum['rid'] . '" >' . myTruncate($forum['udesc'], '50', '', '..') . '</a><br>
 <a target="_blank" href="' . $forum['nlink'] . '">' . myTruncate($forum['nlink'], '25', '', '..') . '</a><br>
@@ -1007,18 +1156,17 @@ function resource_innews($qid='',$rtype='') {
 <div class="clr"></div>
 ';
         }
-    }else{
+    } else {
         $wave.='No Record Found!';
     }
     return $wave;
 }
 
-
 function resource_media($qid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';
-     $query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.reid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='2' AND status='1' ORDER BY rid DESC ";
+    $query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='2' AND status='1' ORDER BY rid DESC ";
     $cnt = ExecuteQuery($query, "select");
     if (count($cnt)) {
 
@@ -1035,17 +1183,16 @@ function resource_media($qid='') {
             $query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.did='" . $forum['did'] . "'";
             $strnth = ExecuteQuery($query, "select");
             $strength = '';
-            $content='';
-       if($forum['video_id']!=''){
-        $content.='<div class="form-outer-debate">
+            $content = '';
+            if ($forum['video_id'] != '') {
+                $content.='<div class="form-outer-debate">
 <div class="fm-1">&nbsp;</div>
 <div class="fm-5">
-<div class="leftfm"><img width="125" height="100" src="http://img.youtube.com/vi/' .$forum['video_id'] . '/default.jpg" alt="Video " ></div>
+<div class="leftfm"><a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $forum['video_id'] . '"  class="floatbox" data-fb-options="width:480 height:384"><img width="125" height="100" src="http://img.youtube.com/vi/' . $forum['video_id'] . '/default.jpg" alt="Video " ></a></div>
 <div class="rightfm">
 <a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum['rid'] . '" >' . myTruncate($forum['membed'], '50', '', '..') . '</a><br>
 <br>
 </div>
-
 
 
 </div>
@@ -1053,12 +1200,10 @@ function resource_media($qid='') {
 
 <div class="clr"></div>
 </div>';
-
-       }elseif($forum['document']!=''){
-           $url=explode('/',$forum['document']);
-           $content.='<a href="' . $gSitePath . '' . $forum['document'] . '" target="_blank"> ' .$url[2]. ' </a> ';
-
-       }
+            } elseif ($forum['document'] != '') {
+                $url = explode('/', $forum['document']);
+                $content.='<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum['rid'] . '" > ' . $url[2] . ' </a> ';
+            }
             foreach ($strnth as $list) {
                 $ans = $list['answer'];
 
@@ -1104,7 +1249,7 @@ function resource_media($qid='') {
 <div class="centerpartside-out">
 <div class="centerpartside-top">
 <div class="centerpartside">
-'.$content.'
+' . $content . '
 </div>
 <div class="rightpartside">
 <a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
@@ -1143,20 +1288,18 @@ function resource_media($qid='') {
 <div class="clr"></div>
 ';
         }
-    }  else{
+    } else {
         $wave.='No Record Found!';
     }
     return $wave;
 }
 
-
-function resdebate_list($qid='',$rid='') {
-      global $gSitePath, $user, $gDocPath, $base_root;
+function resdebate_list($qid='', $rid='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
     if (empty($qid) || !is_numeric($qid) || empty($rid) || !is_numeric($rid)) {
         return FALSE;
     }
-
-    global $gSitePath, $user, $gDocPath, $base_root;
+ 
     $output = '';
     $like = '';
     $flag = '';
@@ -1200,48 +1343,68 @@ function resdebate_list($qid='',$rid='') {
 
         $date = format_date_class($forum['date_added'], date());
         $account = user_load($forum['uid']);
-        $image = empty($forum['image']) ? 'noimage.jpg' : $forum['image'];
+
+        $image = empty($forum['uimg']) ? file_directory_path() . '/noimage.jpg' : $forum['uimg'];
         $name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
 //likes or not
-        $querylike = "select * from {user_likes} where is_debate='1' AND uid='$user->uid' AND node_id='" . $forum['did'] . "'";
+        $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='" . $forum['rid'] . "'";
         $fetch = ExecuteQuery($querylike, "select");
-        $agreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='1' AND node_id='" . $forum['did'] . "'"));
-        $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='0' AND node_id='" . $forum['did'] . "'"));
+        $agreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
+        $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
         if (count($fetch) < 1) {
 
-            $like = '<li><span name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
-        } elseif ($fetch[0]['is_debate'] == '1' && $fetch[0]['is_agree']) {
+            $like = '<li><span name="' . $rid . '" id="dagree" type="is_resource" ><a href="javascript:void(0);" name="a-' . $rid . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $rid . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
+        } elseif ($fetch[0]['is_agree']) {
 
             $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
         } else {
             $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
         }
 //flag
-        $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'rwave\',' . $did . ');"></a>';
+        $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'resource\',' . $rid . ');"></a>';
         $bubble = load_bubble($account->uid);
         $medal = updateProfileBadge($account->uid);
+
+        if ($forum['rtype'] == '2') {
+            if ($forum['mtype']== '1') {
+                $content.='<div class="form-outer-debate">
+<div class="fm-1">&nbsp;</div>
+<div class="fm-5">
+<div class="leftfm"><a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $forum['video_id'] . '"  class="floatbox" data-fb-options="width:480 height:384"><img width="125" height="100" src="http://img.youtube.com/vi/' . $forum['video_id'] . '/default.jpg" alt="Video " ></a></div>
+<div class="rightfm">
+<a href="'.$forum['membed'].'" target="_blank" >' . myTruncate($forum['membed'], '50', '', '..') . '</a><br>
+<br>
+</div>
+</div>
+<div class="clr"></div>
+</div>';
+            }  else{
+                $url = explode('/', $forum['document']);
+                $content.='<a href="' . $gSitePath . '' . $forum['document'] . '" target="_blank"> ' . $url[2] . ' </a> ';
+            }
+        } else {
+
+            $content.='<div class="form-outer-debate">
+                <div class="fm-1">&nbsp;</div>
+        <div class="fm-4">
+        	<div class="leftfm">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
+            <div class="rightfm">
+<h5>' . $forum['title'] . '</h5>
+' . make_clickable($forum['udesc']) . '
+            </div>
+      </div>
+    <div class="clr"></div>
+    </div>
+';
+        }
+
+
         $output .= '
 
 <div class="debate-inn-item">
 <div class=" itemto">
 <div class="itemto-right">
-<div class="form-outer-debate">
-    	<div class="fm-1">&nbsp;</div>
-        <div class="fm-4">
-        	<div class="leftfm">'.theme('image', $forum['uimg'], t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE).'</div>
-            <div class="rightfm">
-<h5>' . $forum['title'] . '</h5>
-' . make_clickable($forum['udesc']) . '
-
-            </div>
-
-
-
-      </div>
-
-
-    <div class="clr"></div>
-    </div>
+ ' . $content . '
 </div>
 
 <div class="itemto-left">
@@ -1267,7 +1430,7 @@ function resdebate_list($qid='',$rid='') {
 
 <div class="itemsecond">
 <ul>
-<li><a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a></li>
+<li><a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $rid . '-0" href="#postreply"></a></li>
 <li>' . $flag . '</li>
 </ul>
 </div>
@@ -1292,7 +1455,7 @@ function resdebate_list($qid='',$rid='') {
 <div id="wavelet-list">
 	';
     }
-   // $output .= get_debate($did, 0);
+    $output .= get_res_debate($rid, 0);
 
 
     $output.='
@@ -1314,9 +1477,10 @@ function resdebate_list($qid='',$rid='') {
     	<div>
         <textarea rows="10" cols="" name="waveletcmt" id="waveletcmt">Enter text here</textarea>
 <!--<input type="checkbox" name="privt" value="1" id="privt"/> Private Reply-->
-<input type="hidden" name="fdid" id="fdid" value="' . $did . '"/>
+<input type="hidden" name="fdid" id="fdid" value="' . $rid . '"/>
 		<input type="hidden" name="frid" id="frid" value=""/>
-			<input type="hidden" name="action" value="reply" />
+                 <input type="hidden" name="qid" id="qid" value="' . $qid . '"/>
+			<input type="hidden" name="action" value="resreply" />
         </div>
 
         <div class="clr"></div>
@@ -1384,7 +1548,7 @@ function debate_ajax() {
                 $url = $_GET['url'];
                 $html = file_get_html($url);
                 $tags = get_meta_tags($url);
-                $domain = parse_url($url, PHP_URL_HOST);
+                 $domain = parse_url($url, PHP_URL_HOST);
                 $images = array();
                 foreach ($html->find('img') as $element) {
                     $images[$element->src] = true;
@@ -1431,10 +1595,18 @@ function debate_ajax() {
                     $ytvID;
                 }
                 $files = resource_save_ext_imgs($uimg);
+                if (!empty($nlink) && empty($udesc)) {
 
-              //  $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('$rtype','" . addslashes($nlink) . "','" . addslashes($ntitle) . "','" . addslashes($ncontent) . "','" . $mtype . "','" . addslashes($membed) . "','" . addslashes($flink) . "', '" . $user->uid . "','" . $qaid . "','" . $path . "','" . $docpath . "','" . $ytvID . "','" . $udesc . "','" . $files . "')";
-                 $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('%d','%s','%s','%s','%d','%s','%s', '%d','%d','%s','%s','%s','%s','%s')";
-                db_query($resourceadd,$rtype,$nlink,$ntitle,$ncontent,$mtype,$membed,$flink, $user->uid,$qaid,$path,$docpath,$ytvID,$udesc,$files);
+                    require_once('simple_html_dom.php');
+                    require_once('thumbnail.php');
+                    require_once('url_to_absolute.php');
+                    $html = file_get_html($nlink);
+
+                    $udesc = $html->find('title', 0)->innertext;
+                }
+                //  $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('$rtype','" . addslashes($nlink) . "','" . addslashes($ntitle) . "','" . addslashes($ncontent) . "','" . $mtype . "','" . addslashes($membed) . "','" . addslashes($flink) . "', '" . $user->uid . "','" . $qaid . "','" . $path . "','" . $docpath . "','" . $ytvID . "','" . $udesc . "','" . $files . "')";
+                $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('%d','%s','%s','%s','%d','%s','%s', '%d','%d','%s','%s','%s','%s','%s')";
+                db_query($resourceadd, $rtype, $nlink, $ntitle, $ncontent, $mtype, $membed, $flink, $user->uid, $qaid, $path, $docpath, $ytvID, $udesc, $files);
                 $nid = db_last_insert_id('resource', 'rid');
                 foreach ($ans_id as $list) {
 
@@ -1586,7 +1758,7 @@ function debate_submit() {
             echo $output = get_debate($fdid, 0);
             post_notification($fdid, $rid);
             /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-            $qid_url = db_query("select * from {question} where qid='$frid'");
+            $qid_url = db_query("select * from {question} where qid='$qid'");
             $question_values = db_fetch_array($qid_url);
             if (isset($question_values)) {
                 $question_urlff = $question_values['url'] . '/' . $fdid;
@@ -1601,8 +1773,33 @@ function debate_submit() {
             heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
             /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
             break;
+        case 'resreply':
+            $query = "insert into {resource_reply} set rid='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
+            $result = db_query($query, $fdid, $user->uid, $frid, $str_wk, check_plain($waveletcmt), $pvt);
+            $rid = db_last_insert_id('resource_reply', 'rid');
+            echo $output = get_res_debate($fdid, 0);
+            post_notification($fdid, $rid);
+            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+            $qid_url = db_query("select * from {question} where qid='$qid'");
+            $question_values = db_fetch_array($qid_url);
+            if (isset($question_values)) {
+                $question_urlff = $question_values['url'] . '/' . $fdid;
+                $qtion = $question_values['question'];
+                $ctxt = $question_values['context'];
+            }
+            $message_id = 'debate_reply';
+            $variables = array(
+                '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+            );
+            heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+
+            break;
         case 'is_debate':
         case 'is_debate_reply':
+        case 'is_resource':
+        case 'is_resource_reply':
             $cond = " AND " . $action . "='1'";
             $set = " " . $action . "='1'";
 
