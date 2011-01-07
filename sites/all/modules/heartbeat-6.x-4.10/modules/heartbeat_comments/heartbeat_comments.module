@@ -151,7 +151,7 @@ function heartbeat_comments_form_alter(&$form, $form_state, $form_id) {
  * Implementation of hook_heartbeat_load().
  */
 function heartbeat_comments_heartbeat_load(&$messages, HeartbeatAccess $stream) {
-
+echo "ddddddd";
   drupal_add_js(drupal_get_path('module', 'heartbeat_comments') . '/heartbeat_comments.js', 'module');
   $comments_order = variable_get('heartbeat_comments_order', 'recent_on_top');
   drupal_add_js(array('heartbeat_comments_order' => $comments_order), "setting");
