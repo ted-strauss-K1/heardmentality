@@ -1739,7 +1739,7 @@ function debate_submit() {
                 }
                 $message_id = 'debate_add';
                 $variables = array(
-                    '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                    '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
                     //'@node_type' => 'page',
                     '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
                 );
@@ -1767,7 +1767,7 @@ function debate_submit() {
             }
             $message_id = 'debate_reply';
             $variables = array(
-                '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
                 '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
             );
             heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
@@ -1830,7 +1830,7 @@ function debate_submit() {
                     }
                     $message_id = 'debate_agree';
                     $variables = array(
-                        '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                        '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
                         '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
                     );
                     heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
@@ -1847,7 +1847,7 @@ function debate_submit() {
                     }
                     $message_id = 'debate_disagree';
                     $variables = array(
-                        '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                        '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
                         '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
                     );
                     heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);

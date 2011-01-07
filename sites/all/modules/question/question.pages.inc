@@ -562,11 +562,13 @@ function send_qnotify($qid='') { ///vijay important comented
 	
     $message_id = 'Add_question';
     $variables = array(
-      '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+      '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
       //'@node_type' => 'page',
       '@question_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
     );
 		heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+		//echo 'test';
+		//die;
 	/*RAM HEARTBEAT MODULE*/
     ////////////mail notication for user follwers to me//////////////////////////////////////
 
