@@ -52,16 +52,16 @@
                <div class="comme"> 
               <ul>
               <li><?php print $message->content['time_info']; ?></li>
-              <li><img height="11" width="12" src="images/act1.jpg"></li>
+              <li><!--img height="11" width="12" src="images/act1.jpg"--></li>
               <li class="commentic"><a href="#">2</a></li>
-              <li><img height="14" width="12" src="images/act3.jpg"></li>
+              <!--li><img height="14" width="12" src="images/act3.jpg"></li-->
               <li> <?php if (!empty($message->content['widgets'])) : ?>    
 					<?php print $message->content['widgets']; ?>    
 					<?php endif; ?>
 			</li>              
               </ul>
               </div> 
-               <img height="6" width="33" src="images/comment-top.png">
+               <!--img height="6" width="33" src="images/comment-top.png"-->
                <!--div style="background-color: rgb(204, 204, 204);">
                <div style="padding: 3px;">
 			    <?php if (!empty($message->content['buttons'])) :?>

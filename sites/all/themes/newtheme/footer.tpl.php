@@ -1,7 +1,7 @@
   </div>
   </div>
   <div class="clr"></div>
-  <div class="bott"></div>
+  <div class="bott"></div> 	
   <div class="footer">
   <div class="copy"> <a href="http://creativecommons.org/licenses/by-sa/2.5/" title="creativecommons">
   <img border="0" alt="cc" align="absmiddle"  hspace="2" src="<?php echo $directory;?>/images/cc.png"/></a> &nbsp; 2010 Heardmentality.org
