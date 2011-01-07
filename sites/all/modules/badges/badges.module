@@ -670,6 +670,18 @@ function fanatic($uid = '') {
 
 
 }
+// add scrutineer badge 
+function scrutineer($uid,$qid){
+   // get scrutineer badge id
+    $sql = "SELECT bid FROM (badges) WHERE name = 'Scrutineer'";
+    
+    $badges = ExecuteQuery($sql,"select");
+    foreach($badges as $badge){
+        $bid = $badge['bid'];
+    }
+    db_query("INSERT INTO {user_badges} (uid, bid, qid) VALUES(%d,%d,%d)",$uid,$bid,$qid);
+    $last_id = mysql_insert_id();
+}
 
 
 
