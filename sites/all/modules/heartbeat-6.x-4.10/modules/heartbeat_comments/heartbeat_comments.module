@@ -195,11 +195,11 @@ echo "ddddddd";
         // HeartbeatActivity.additions.comment_count is cached in the message itself.
         // Node comment reactions follow core. Here an extra query is needed to
         // the node comment statistics table.
-        if (isset($node) && $message->template->attachments['comment_comments'] && variable_get('comment_' . $node->type, 2) > 0) {
+      //  if (isset($node) && $message->template->attachments['comment_comments'] && variable_get('comment_' . $node->type, 2) > 0) {
           $messages[$key]->additions->node_comment = 1;
           $messages[$key]->additions->object_type = $node->type;
           $messages[$key]->additions->comment_count = db_result(db_query('SELECT comment_count FROM {node_comment_statistics} WHERE nid = %d', $node->nid));
-        }
+       // }
 
         // Fetch the comments if needed.
         $messages[$key]->additions->reactions = array();
