@@ -1541,6 +1541,7 @@ function panel_content($type = '') {
         case 'flagged':
             drupal_set_title("Admin Flagged Questions");
             $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY f.flag_date DESC LIMIT 0,15";
+            
             $list = ExecuteQuery($query, "select");
 
             $strReturn .= '
@@ -1574,14 +1575,15 @@ function panel_content($type = '') {
             break;
         case 'flagsave':
 
-            $qids = implode(',', $_REQUEST['qids']);
+           $qids = implode(',', $_REQUEST['qids']);
+                        
             if ($_REQUEST['actions']) {
-
 
                 question_flagged_mail($qids);
                 $query = db_query("delete from {question_flags} where type='question' AND fid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
             } else {
+               
                 $query = "select nodeid from {question_flags} where fid in ($qids)";
                 $ids = ExecuteQuery($query, "select");
                 $target = array();
@@ -1596,7 +1598,7 @@ function panel_content($type = '') {
                 $qids = implode(',', $target);
                 $reporttext = $_REQUEST['reporttext'];
                 question_flagged_ignore_mail($qids, $reporttext);
-
+               
                 $query = db_query("delete from {question} where qid in ($qids)");
                 echo '<div class="success">Question updated successfully!</div>';
             }
@@ -1714,9 +1716,14 @@ function panel_content($type = '') {
 }
 function update_flag_badges($qids){
 
-
-
-scruitneer($uid,$qid);
+foreach($qids as $qid){
+    $sql = "SELECT uid FROM (question_flags) WHERE fid = '$qid'";
+    $users = ExecuteQuery($sql,'select');
+    foreach($users as $user){
+        $uid = $user['uid'];
+       // scruitneer($uid,$qid);
+    }
+}
 
 }
 function question_flagged_mail($qaid) {
