@@ -12,7 +12,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .logo:hover{ color:#000; text-decoration:none;}
 .logob{ background-image:url(../images/logoimg.png); width:80px; height:72px; display:inline-block;}
 .top-left-outer{ width:164px; float:left; margin-right:50px;}
-.loginvi-outer{ width:232px; float:right;}
+.loginvi-outer{  width:232px; float:right;  font:normal 9px Arial, Helvetica, sans-serif; color:#333;}
 .text-logo{ width:162px; height:48px; border:1px #f0f0f0 solid; color:#666666; font-size:14px; font-family:"Trajan Pro", Geneva, sans-serif; font-weight:bold; }
 .textspace{padding-top: 10px;}
 .date-time{ width:232px; font:normal 10px Arial,Helvetica,sans-serif; color:#000000;}
@@ -971,11 +971,11 @@ div.growlUI h1, div.growlUI h2 {
 .debate-round-tab-outer{ width:470px; margin:0 auto;}
 .debate-round-tab-outer hr{ color:#999; width:470px; margin:0 auto;}
 .debate-round-tab-outer .form-part-top{ width:470px; margin:0 auto;}
-.debate-round-tab-outer .form-part-top .form-m1{ width:182px; float:left;}
+.debate-round-tab-outer .form-part-top .form-m1{ width:102px; float:left;}
 .select-1{ width:180px;}
 .select-2{ width:100px;}
 
-.debate-round-tab-outer .form-part-top .form-m2{ width:102px; float:left;}
+.debate-round-tab-outer .form-part-top .form-m2{ width:182px; float:left;}
 .debate-round-tab-outer .form-part-top .form-m3{ width:102px; float:left;}
 .debate-round-tab-outer .form-part-top .form-m4{ width:70px; float:left;}
 .submit-debate-btn{ background:url(../images/new-debate-btn.jpg); width:65px !important; height:20px; border:none; cursor:pointer;}
@@ -1222,6 +1222,11 @@ div.growlUI h1, div.growlUI h2 {
 .form-outer-debate .fm-2 .rightfm{ width:270px; float:left;}
 .form-outer-debate .fm-2 a{ font:normal 11px Arial, Helvetica, sans-serif; color:#6C6C6C;}
 .form-outer-debate .fm-2 a:hover{color:#000;}
+.form-outer-debate .fm-5 .leftfm{ width:120px; float:left; padding-right:10px;}
+.form-outer-debate .fm-5 .leftfm img{ border:1px #BBB solid;}
+.form-outer-debate .fm-5 .rightfm{ width:230px; float:left; font:normal 12px Arial, Helvetica, sans-serif; color:#666;}
+.form-outer-debate .fm-5 a{ font:normal 11px Arial, Helvetica, sans-serif; color:#6C6C6C;}
+.form-outer-debate .fm-5 a:hover{color:#000;}
 
 .form-outer-debate .fm-4 .leftfm{ width:22%; float:left; padding-right:10px;}
 .form-outer-debate .fm-4 .leftfm img{ border:1px #BBB solid;}

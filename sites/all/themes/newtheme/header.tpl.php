@@ -221,7 +221,7 @@ Part Of The Herd</div>
 
                                             <?php include "login.tpl.php"; ?>
                                             </div>
-                                        </div>
+                                       <div class="clr"></div>
 
                                     <?php if (!empty($search_box)): ?>
                                                     <div id="search-box"><?php print $search_box; ?></div>
@@ -297,6 +297,7 @@ Part Of The Herd</div>
                                                                                             </div>
                                                                                         </div> <!-- /navigation -->
                                                                                     </div>
+                                    </div>
                                                                                     <!-- /header -->
                                                                                     <div class="clr"></div>
                                     <?php if ($show_messages && $messages): print '<div class="messages">' . $messages . '</div>';
