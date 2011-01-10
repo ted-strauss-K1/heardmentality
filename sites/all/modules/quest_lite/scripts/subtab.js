@@ -12,8 +12,13 @@ function tabactive(pmID, pmPath,id)
         vPath=pmPath+"issues/resource/media/"+id
     else if(pmID == 'F')
         vPath=pmPath+"issues/resource/facts/"+id
+    else if(pmID=='dargs')
+        vPath=pmPath+"debate/ajax/"+id+"?action=debatelist";
+    else if(pmID=='dreport')
+        vPath=pmPath+"debate/ajax/"+id+"?action=dreport";
+ else if(pmID=='resreport')
+        vPath=pmPath+"debate/ajax/"+id+"?action=resreport";
     jQuery('#rcontents').html('Loading...');
-
     jQuery.ajax({
         url: vPath,
         cache: false,
@@ -25,7 +30,7 @@ function tabactive(pmID, pmPath,id)
         },
         error: function( response, strError,errorThrown ){
             $( "#rcontents" ).text("Error! Type: " +strError);
-             jQuery("#loading").fadeOut();
+            jQuery("#loading").fadeOut();
         }
     });
 

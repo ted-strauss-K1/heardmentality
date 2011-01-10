@@ -143,7 +143,7 @@ function debate_list($qid = '', $did='') {
 </div>
 <div class="clr"></div>
 <div class="reply-wrapper" id="postreply" style="display:none;">
-<form id="postreply" name="freply" action="' . $gSitePath . 'issues/debate/save">
+<form id="postreplyform" name="freply" action="' . $gSitePath . 'issues/debate/save">
   	<h2>REPLY</h2>
 
     	<div>
@@ -159,7 +159,7 @@ function debate_list($qid = '', $did='') {
         	<div class="m-out">
             	<div class="m1"><input type="radio" value="1" CHECKED name="str_wk"/> Strengthen</div>
                 <div class="m2"><input type="radio" value="0" name="str_wk"/> Weaken</div>
-                 <div align="right" class="m3"><input type="button" id="waveButton" class="submit-debate-btn"  name="dreply"></div>
+                 <div align="right" class="m3"><input type="submit" id="waveButton" value="" class="submit-debate-btn"  name="dreply"></div>
 
             	<div class="clr"></div>
             </div>
@@ -315,8 +315,8 @@ function get_debate($did = '', $pid = '') {
 <div>
 
 
-<!-- <h3> Debate Title Coming here...</h3>--!>
-<hr class="hr-silver-2">
+
+<hr class="hr-silver-2"></hr>
 
 <div class="debate-inn-item">
 <div class=" itemto">
@@ -460,8 +460,8 @@ function get_res_debate($rid = '', $pid = '') {
 <div>
 
 
-<!-- <h3> Debate Title Coming here...</h3>--!>
-<hr class="hr-silver-2">
+
+<hr class="hr-silver-2"></hr>
 
 <div class="debate-inn-item">
 <div class=" itemto">
@@ -888,11 +888,12 @@ function add_resources($qid='') {
 	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/add_resource.js"></script>
 	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 	';
-  if($user->uid<1){
-           echo $resources.='<div class="messages error">Sorry you have to login to post New Resource!</div>'; die;
-        }
+    if ($user->uid < 1) {
+        echo $resources.='<div class="messages error">Sorry you have to login to post New Resource!</div>';
+        die;
+    }
 
-         //answers
+    //answers
     foreach ($ans as $list) {
 
         $inc_pans.='
@@ -918,7 +919,7 @@ function add_resources($qid='') {
     		';
     }
 
-    $resources .= '<body style="background:none;background:#666;">
+    $resources .= '<body style="background:none;background:#FFF;">
           <div class="" id="err">' . $list_err . '</div>
     <div class="new-debate-wrapper">
         <form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'debate/ajax" enctype="multipart/form-data" >
@@ -1298,11 +1299,12 @@ function resdebate_list($qid='', $rid='') {
     if (empty($qid) || !is_numeric($qid) || empty($rid) || !is_numeric($rid)) {
         return FALSE;
     }
- 
+
     $output = '';
     $like = '';
     $flag = '';
-
+    // resource round up
+    resource_roundup($rid);
     $query = "SELECT *,u.uid as uid  FROM {resource} as r  join {user_profile} as u on u.uid=r.uid   where r.qid='$qid' AND r.rid='$rid' AND r.status='1'";
     $list = ExecuteQuery($query, "select");
 
@@ -1365,19 +1367,19 @@ function resdebate_list($qid='', $rid='') {
         $medal = updateProfileBadge($account->uid);
 
         if ($forum['rtype'] == '2') {
-            if ($forum['mtype']== '1') {
+            if ($forum['mtype'] == '1') {
                 $content.='<div class="form-outer-debate">
 <div class="fm-1">&nbsp;</div>
 <div class="fm-5">
 <div class="leftfm"><a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $forum['video_id'] . '"  class="floatbox" data-fb-options="width:480 height:384"><img width="125" height="100" src="http://img.youtube.com/vi/' . $forum['video_id'] . '/default.jpg" alt="Video " ></a></div>
 <div class="rightfm">
-<a href="'.$forum['membed'].'" target="_blank" >' . myTruncate($forum['membed'], '50', '', '..') . '</a><br>
+<a href="' . $forum['membed'] . '" target="_blank" >' . myTruncate($forum['membed'], '50', '', '..') . '</a><br>
 <br>
 </div>
 </div>
 <div class="clr"></div>
 </div>';
-            }  else{
+            } else {
                 $url = explode('/', $forum['document']);
                 $content.='<a href="' . $gSitePath . '' . $forum['document'] . '" target="_blank"> ' . $url[2] . ' </a> ';
             }
@@ -1470,7 +1472,7 @@ function resdebate_list($qid='', $rid='') {
 </div>
 <div class="clr"></div>
 <div class="reply-wrapper" id="postreply" style="display:none;">
-<form id="postreply" name="freply" action="' . $gSitePath . 'issues/debate/save">
+<form id="postreplyform" name="freply" action="' . $gSitePath . 'issues/debate/save">
   	<h2>REPLY</h2>
 
     	<div>
@@ -1486,7 +1488,7 @@ function resdebate_list($qid='', $rid='') {
         	<div class="m-out">
             	<div class="m1"><input type="radio" value="1" CHECKED name="str_wk"/> Strengthen</div>
                 <div class="m2"><input type="radio" value="0" name="str_wk"/> Weaken</div>
-                 <div align="right" class="m3"><input type="button" id="waveButton" class="submit-debate-btn"  name="dreply"></div>
+                   <div align="right" class="m3"><input type="submit" id="waveButton" value="" class="submit-debate-btn"  name="dreply"></div>
 
             	<div class="clr"></div>
             </div>
@@ -1519,7 +1521,7 @@ function resdebate_list($qid='', $rid='') {
 
 	</div>
          <div class="clr"></div>
-</form> </div>
+ </div></form>
         <div class="clr"></div>
 </div></div>
 </div>';
@@ -1547,7 +1549,7 @@ function debate_ajax() {
                 $url = $_GET['url'];
                 $html = file_get_html($url);
                 $tags = get_meta_tags($url);
-                 $domain = parse_url($url, PHP_URL_HOST);
+                $domain = parse_url($url, PHP_URL_HOST);
                 $images = array();
                 foreach ($html->find('img') as $element) {
                     $images[$element->src] = true;
@@ -1615,43 +1617,42 @@ function debate_ajax() {
                 echo '<div class="messages success"> Resources Added Successfully! </div>';
             }
             break;
-         case 'analysis':
-         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $vans = "select * from {possible_answer} where  qid=$qid ";
-    $vlist = ExecuteQuery($vans, "select");
-     $cnt_ans = count($vlist);
-             $output.="<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
-        <script type='text/javascript' src='".$gSitePath."misc/jquery.js'></script>
+        case 'analysis':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            $vans = "select * from {possible_answer} where  qid=$qid ";
+            $vlist = ExecuteQuery($vans, "select");
+            $cnt_ans = count($vlist);
+            $output.="<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
+        <script type='text/javascript' src='" . $gSitePath . "misc/jquery.js'></script>
        			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
 <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 <script type='text/javascript' language='javascript'>
 
 ";
-             $insdata.="[";
-             $data.="[";
+            $insdata.="[";
+            $data.="[";
 
-       for ($ab = 0; $ab < $cnt_ans; $ab++) {
-     
-            $insdata.="'".$vlist[$ab]['answer']."',";
+            for ($ab = 0; $ab < $cnt_ans; $ab++) {
 
-        $sel="select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='".$vlist[$ab]['paid']."' AND o.ans_val IN (1,2) group by o.did";
-              $tmplist = ExecuteQuery($sel, "select");
-              foreach($tmplist as $list){
-                $cnt_opt=db_result(db_query("select count(paid) from {debate_options} where did=".$list['did']." AND ans_val IN (1,2) group by paid"));
-      $tmp=($list['ans_val']==1)?'1':'-1';
-  $final=$final+(($tmp*$list['strength'])/$cnt_opt);
-              }
-              
-              $final=(!empty($final))?$final:'0';
-            $data.=$final.',';
+                $insdata.="'" . $vlist[$ab]['answer'] . "',";
 
-    }
-        $insdata=rtrim($insdata,',');
-        $insdata=$insdata.']';
-        $data=rtrim($data,',');
-        $data=$data.']';
+                $sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN (1,2) group by o.did";
+                $tmplist = ExecuteQuery($sel, "select");
+                foreach ($tmplist as $list) {
+                    $cnt_opt = db_result(db_query("select count(paid) from {debate_options} where did=" . $list['did'] . " AND ans_val IN (1,2) group by paid"));
+                    $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
+                    $final = $final + (($tmp * $list['strength']) / $cnt_opt);
+                }
 
-               $output.= "
+                $final = (!empty($final)) ? $final : '0';
+                $data.=$final . ',';
+            }
+            $insdata = rtrim($insdata, ',');
+            $insdata = $insdata . ']';
+            $data = rtrim($data, ',');
+            $data = $data . ']';
+
+            $output.= "
 var chart;
 var gSitePath='" . $gSitePath . "';
 $(document).ready(function() {
@@ -1661,10 +1662,10 @@ $(document).ready(function() {
          defaultSeriesType: 'column'
       },
       title: {
-         text: 'Column chart with negative values'
+         text: 'Debate Report Analysis'
       },
       xAxis: {
-         categories:".$insdata."
+         categories:" . $insdata . "
       },
       yAxis:{ tickInterval  :1
     },
@@ -1679,7 +1680,7 @@ $(document).ready(function() {
       },
       series: [{
          name: 'Strength',
-         data: ".$data."
+         data: " . $data . "
       }]
    });
 
@@ -1687,11 +1688,100 @@ $(document).ready(function() {
 });
 
  </script>";
-    echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+            echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
         <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
 
 ';
-             break;
+            break;
+        case 'resanalysis':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            $vans = "select * from {possible_answer} where  qid=$qid ";
+            $vlist = ExecuteQuery($vans, "select");
+            $cnt_ans = count($vlist);
+            $output.="<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
+        <script type='text/javascript' src='" . $gSitePath . "misc/jquery.js'></script>
+       			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
+<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
+<script type='text/javascript' language='javascript'>
+
+";
+            $insdata.="[";
+            $data.="[";
+
+            for ($ab = 0; $ab < $cnt_ans; $ab++) {
+
+                $insdata.="'" . $vlist[$ab]['answer'] . "',";
+
+                $sel = "select * from {resource_options} as o join {resource} as d on d.rid=o.rid  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN (1,2) group by o.rid";
+                $tmplist = ExecuteQuery($sel, "select");
+                foreach ($tmplist as $list) {
+                    $cnt_opt = db_result(db_query("select count(paid) from {resource_options} where rid=" . $list['rid'] . " AND ans_val IN (1,2) group by paid"));
+                    $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
+                    $final = $final + (($tmp * $list['strength']) / $cnt_opt);
+                }
+
+                $final = (!empty($final)) ? $final : '0';
+                $data.=$final . ',';
+            }
+            $insdata = rtrim($insdata, ',');
+            $insdata = $insdata . ']';
+            $data = rtrim($data, ',');
+            $data = $data . ']';
+
+            $output.= "
+var chart;
+var gSitePath='" . $gSitePath . "';
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         defaultSeriesType: 'column'
+      },
+      title: {
+         text: 'Resource Report Analysis'
+      },
+      xAxis: {
+         categories:" . $insdata . "
+      },
+      yAxis:{ tickInterval  :1
+    },
+      tooltip: {
+         formatter: function() {
+            return ''+
+                this.series.name +': '+ this.y +'';
+         }
+      },
+      credits: {
+         enabled: false
+      },
+      series: [{
+         name: 'Strength',
+         data: " . $data . "
+      }]
+   });
+
+
+});
+
+ </script>";
+            echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+        <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+
+';
+
+            break;
+      case 'debatelist':
+          $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+          echo $output = debate_wave($qid);
+          break;
+      case 'dreport':
+         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo '<iframe style="min-height:320px;" id="frmGoogle" src="' . $gSitePath . '/debate/ajax/'.$qid.'?action=analysis" border="0" frameborder="0" width="100%"></iframe>';
+          break;
+      case 'resreport':
+         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo '<iframe style="min-height:320px;" id="frmGoogle" src="' . $gSitePath . '/debate/ajax/'.$qid.'?action=resanalysis" border="0" frameborder="0" width="100%"></iframe>';
+          break;
         default:
             echo "<div class='messages error'>No Action found</div>";
             break;

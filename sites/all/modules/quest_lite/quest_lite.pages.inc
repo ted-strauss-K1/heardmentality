@@ -1372,30 +1372,17 @@ function panel_content() {
     $query_userinfo = db_query($query_user);
     $fetuserlist = db_fetch_object($query_userinfo);
     switch ($type) {
-        case "Forum":
-
-            if (isset($_POST['wtitle']) && !empty($user->uid)) {
-
-                $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-                extract($_POST);
-                $forum = "INSERT INTO {forum_wave} set qid_rid='" . $qid . "',type='1',uid='$user->uid',title='" . mysql_escape_string($wtitle) . "',content='" . mysql_escape_string($wcon) . "',private='$wprivate' ";
-
-                $nid = ExecuteQuery($forum, 'insert');
-                echo list_wave($qid, 1);
-                send_forumnotify($nid, $qid);
-                exit;
-            } elseif (isset($_POST['wtitle'])) {
-                echo '<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
-                echo list_wave($qid, 1);
-                exit;
-            }
-
-            $output = forum_wave($qid);
-            break;
+       
           case "debate":
+                $output = '
+			<div id="waveerr"></div>
+                       <ul id="tabmenu" class="subtabs" >
+                                       <li><a class="" href="javascript:tabactive(\'dargs\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabdargs">Arguments</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'dreport\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabdreport">Analysis</a></li>
 
-            $output = debate_wave($qid);
-
+                               </ul>
+                               <div id="rcontents" class="mytabs-container"></div>
+                               <script type="text/javascript">tabactive(\'dargs\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';
               break;
         case "Resources":
 
@@ -1405,7 +1392,8 @@ function panel_content() {
                                        <li><a class="" href="javascript:tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabIn">In the News</a></li>
                                        <li><a class="" href="javascript:tabactive(\'M\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabM">Multimedia</a></li>
                                        <li><a class="" href="javascript:tabactive(\'F\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabF">Facts</a></li>
-                                       <li><a class="" href="javascript:loadresource(\'' . $gSitePath . 'debate/resource/new/' . $qid . '\',\'Add\')" id="tab4">Add Resource</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'resreport\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabresreport">Analysis</a></li>
+<li><a class="" href="javascript:loadresource(\'' . $gSitePath . 'debate/resource/new/' . $qid . '\',\'Add\')" id="tab4">Add Resource</a></li>
                                </ul>
                                <div id="rcontents" class="mytabs-container"></div>
                                <script type="text/javascript">tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';
@@ -1551,117 +1539,7 @@ function forum_wave($qid = '') {
     return $wave;
 }
 
-function debate_wave($qid = '') {
-    global $gSitePath, $user, $gDocPath, $base_root;
-    $inc_pans='';
-    $wave = '';
-    $ans=load_options($qid);
-    //answers
-    $filter_list.='<select name="" class="select-1"><option>Possible Answers</option>';
-    foreach($ans as $list){
-        $filter_list.='<option value="'.$list['paid'].'">'.$list['answer'].'</option>';
-        $inc_pans.='<div class="form-outer-debate">
-    	<div class="fm-1">&nbsp;</div>
-        <div class="fm-2">
-        <div class="fm-2-left">'.$list['answer'].'</div>
-        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="'.$list['paid'].'"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
-        </div>
-        <div class="clr"></div>
-    </div>';
-    }
-$filter_list.='</select>';
-    //print_r($cnt);
-    $wave .= '
 
-     <div class=" debate-round-tab-outer">
-              	<div class="form-part-top">
-                    <div class="form-m1">Filter By :
-<select name="" class="select-2"><option>+/-</option><option value="support">+</option><option value="oppose">-</option></select></div>
-                    <div class="form-m2"><br/>
-                    '.$filter_list.'
-                    </div>
-                    <div class="form-m3"><br/>
-                    <select name="" class="select-2"><option>Sort By :</option>
-                    <option>Strength</option>
-                     <option>Weaken</option>
-                    </select>
-
-                    </div>
-                    <div class="form-m4" align="right">&nbsp;<br />
-<a href="#newwavediv" title="New Debate" class="floatbox"><input name="" type="button"  class="submit-debate-btn"/></a></div>
-
-                </div>
-
-                	<div class="clr"></div><br />
-
-                    <hr />
-
-                    <br />
-
-
-                    <div class="clr"></div>
-           
-
-		<div class="comment" id="newwavediv" style="display:none">';
-    if (!empty($user->uid)) {
-        $wave .= '	<form  id="newwaveform" class="newwave" action="'.$gSitePath.'issues/debate/save" method="post" accept-charset="utf-8">
-	<input type="hidden" name="action" value="new"/><input type="hidden" name="qid" value="' . $qid . '"/>
-<div class="new-debate-wrapper">
-  	<div class="form-outer-debate">
-    	<div class="fm-1"> Please Follow the <a href="#">Principles and Guidelines.</a></div>
-        <div class="fm-2"><input name="wtitle" id="wtitle" type="text" value="Title" /> </div>
-    <div class="clr"></div>
-    </div>
-
-    <div class="form-outer-debate">
-    	<div class="fm-1"> All debates should be:<br />
-            <ul>
-            <li>Concise</li>
-            <li>Etc</li>
-            </ul>
-</div>
-        <div class="fm-2"><textarea name="wcon" id="wcon"   cols="10" rows="6">Enter text here</textarea></div>
-<!--<div ><b>Private Reply :</b> [Only followers can do reply]</div>
-	<p><select name="wprivate" id="wprivate">
-	<option value="0"> Disabled</option>
-	<option value="1"> Enabled  </option>
-	</select></p>		-->
-
-    <div class="clr"></div>
-    </div>
-'.$inc_pans.'
-    <div class="form-outer-debate">
-    	<div class="fm-1">&nbsp;</div>
-        <div class="fm-2">
-        <div class="fm-2-left">&nbsp</div>
-        <div class="fm-2-right" align="right"><input name="" type="button" onclick="wave_form(this);" class="submit-debate-btn"/></div>
-
-        </div>
-
-    <div class="clr"></div>
-    </div>
-
-
-  <div class="clr"></div>
-  </div>
-
-</form>';
-    } else {
-        $wave .= '<div align="center"><b>Sorry Only Logged in user can post debate</b></div>';
-    }
-    $wave .= '</div>
-	<div><div id="qwave" class="">';
-
-
-    $wave .= list_debate($qid, 1);
-
-
-    $wave .= '</div>
-	';
-
-
-    return $wave;
-}
 
 function flag_report() {
 

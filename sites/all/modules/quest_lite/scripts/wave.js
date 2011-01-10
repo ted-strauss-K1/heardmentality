@@ -48,11 +48,11 @@ function wave_form(ths){
        wt.css("border-color","");
     }
     
-   var lent = formwave.find('select option:selected[value="0"]').length;
+   var lent = formwave.find('select option:selected[value="1"],select option:selected[value="2"]').length;
  
   if(lent<1)
       {
-          alert('atleast one option should be netural!!');
+          alert('atleast one option should be oppose or support!!');
           return false;
       }else{
            jQuery.post(formwave.attr('action'),formwave.serialize(),

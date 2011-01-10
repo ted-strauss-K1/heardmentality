@@ -11,10 +11,7 @@ function bind_clk(){
         addComment(jQuery(this));
 
     });
-    //for submit
-    jQuery('#waveButton').live('click', function(){
-        addSubmit(jQuery(this));
-    });
+ 
     //agree
     jQuery('a.dagree').live('click', function(e){
         jQuery(this).agree(e,'1');
@@ -23,8 +20,8 @@ function bind_clk(){
     jQuery('a.ddisagree').live('click', function(e){
         jQuery(this).agree(e,'0');
     });
-//reply agree dis agree
-   jQuery('a.ragree').live('click', function(e){
+    //reply agree dis agree
+    jQuery('a.ragree').live('click', function(e){
         jQuery(this).agree(e,'1');
     });
     //diagree
@@ -224,36 +221,7 @@ function likethis(action, wid, like, ele){
 
 
 
-function addSubmit(){
 
-    var pvt = 0;
- 
-    if (jQuery('#privt').is(':checked')) {
-        pvt = 1;
-    }
-  
-    var dat=jQuery('#postreply').serialize();
-    var cmt=jQuery('#waveletcmt').val();
-
-    if (cmt.length > 5) {
-        jQuery.post(jQuery('form#postreply').attr('action'),jQuery('form#postreply').serialize(),function(msg){
-            jQuery('#wavelet-list').html(msg);
-            //myVerticalSlide.slideIn();
-            fb.end();
-            jQuery('form#postreply').clearForm();
-            jQuery('#wavelet-list').css('height', 'auto');
-            jQuery.growlUI('', 'Have a nice day!');
-        });
-
-
-    }
-    else {
-    
-        jQuery('#waveletcmt').css('border-color', '#EF2C2C');
-        return false;
-    }
-    
-}
 
 
 function report_forum(typ, id){
@@ -344,5 +312,41 @@ function toggle(){
 jQuery(document).ready(function() {
     //bind event for reply link
     bind_clk();
+
+
+    //for submit
+    jQuery('#waveButton').live('click',function(e) {
+
+       e.preventDefault();
+   
+        var el=jQuery('#postreplyform');
+     
+
+        var cmt=jQuery('#waveletcmt').val();
+         if (cmt.length > 5) {
+              fb.end();
+            // el.find('input[type="submit"]').attr('disabled',true);
+            jQuery.post(el.attr('action'),el.serialize(),function(msg){
+                jQuery('#wavelet-list').html(msg);
+               
+                //myVerticalSlide.slideIn();
+               
+                el.clearForm();
+                jQuery('#wavelet-list').css('height', 'auto');
+                jQuery.growlUI('', 'Have a nice day!');
+            //  el.find('input[type="submit"]').removeAttr('disabled');
+            });
+            return false;
+
+        }
+        else {
+
+            jQuery('#waveletcmt').css('border-color', '#EF2C2C');
+            return false;
+        }
+
+    return false;
+    });
+
 
 });

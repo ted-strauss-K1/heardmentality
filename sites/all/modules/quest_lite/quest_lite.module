@@ -532,3 +532,115 @@ function _related_issue() {
 
     return $content;
 }
+
+function debate_wave($qid = '') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $inc_pans='';
+    $wave = '';
+    $ans=load_options($qid);
+    //answers
+    $filter_list.='<select name="" class="select-1"><option>Possible Answers</option>';
+    foreach($ans as $list){
+        $filter_list.='<option value="'.$list['paid'].'">'.$list['answer'].'</option>';
+        $inc_pans.='<div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">'.$list['answer'].'</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="'.$list['paid'].'"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        </div>
+        <div class="clr"></div>
+    </div>';
+    }
+$filter_list.='</select>';
+    //print_r($cnt);
+    $wave .= '
+
+     <div class=" debate-round-tab-outer">
+              	<div class="form-part-top">
+                    <div class="form-m1">Filter By :
+<select name="" class="select-2"><option>+/-</option><option value="support">+</option><option value="oppose">-</option></select></div>
+                    <div class="form-m2"><br/>
+                    '.$filter_list.'
+                    </div>
+                    <div class="form-m3"><br/>
+                    <select name="" class="select-2"><option>Sort By :</option>
+                    <option>Strength</option>
+                     <option>Weaken</option>
+                    </select>
+
+                    </div>
+                    <div class="form-m4" align="right">&nbsp;<br />
+<a href="#newwavediv" title="New Debate" class="floatbox"><input name="" type="button"  class="submit-debate-btn"/></a></div>
+
+                </div>
+
+                	<div class="clr"></div><br />
+
+                    <hr />
+
+                    <br />
+
+
+                    <div class="clr"></div>
+
+
+		<div class="comment" id="newwavediv" style="display:none">';
+    if (!empty($user->uid)) {
+        $wave .= '	<form  id="newwaveform" class="newwave" action="'.$gSitePath.'issues/debate/save" method="post" accept-charset="utf-8">
+	<input type="hidden" name="action" value="new"/><input type="hidden" name="qid" value="' . $qid . '"/>
+<div class="new-debate-wrapper">
+  	<div class="form-outer-debate">
+    	<div class="fm-1"> Please Follow the <a href="#">Principles and Guidelines.</a></div>
+        <div class="fm-2"><input name="wtitle" id="wtitle" type="text" value="Title" /> </div>
+    <div class="clr"></div>
+    </div>
+
+    <div class="form-outer-debate">
+    	<div class="fm-1"> All debates should be:<br />
+            <ul>
+            <li>Concise</li>
+            <li>Etc</li>
+            </ul>
+</div>
+        <div class="fm-2"><textarea name="wcon" id="wcon"   cols="10" rows="6">Enter text here</textarea></div>
+<!--<div ><b>Private Reply :</b> [Only followers can do reply]</div>
+	<p><select name="wprivate" id="wprivate">
+	<option value="0"> Disabled</option>
+	<option value="1"> Enabled  </option>
+	</select></p>		-->
+
+    <div class="clr"></div>
+    </div>
+'.$inc_pans.'
+    <div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">&nbsp</div>
+        <div class="fm-2-right" align="right"><input name="" type="button" onclick="wave_form(this);" class="submit-debate-btn"/></div>
+
+        </div>
+
+    <div class="clr"></div>
+    </div>
+
+
+  <div class="clr"></div>
+  </div>
+
+</form>';
+    } else {
+        $wave .= '<div align="center"><b>Sorry Only Logged in user can post debate</b></div>';
+    }
+    $wave .= '</div>
+	<div><div id="qwave" class="">';
+
+
+    $wave .= list_debate($qid, 1);
+
+
+    $wave .= '</div>
+	';
+
+
+    return $wave;
+}

@@ -322,3 +322,55 @@ WHERE f.did = '$did'";
 }
 
 
+function resource_roundup($rid=''){
+ global $gSitePath, $user, $gDocPath, $base_root;
+//main debate
+   $query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {resource} as f  join {user_profile} as u on u.uid=f.uid   where f.rid='$rid'";
+   $main = ExecuteQuery($query, "select");
+//sub debate
+$query="SELECT IFNULL( (
+
+SELECT count( * )
+FROM {user_likes} AS l
+WHERE l.node_id = f.reid
+AND is_resource_reply = '1'
+AND is_agree = '1'
+GROUP BY l.node_id ) , 0
+) AS cntagree, IFNULL( (
+
+SELECT count( * )
+FROM {user_likes} AS l
+WHERE l.node_id = f.reid
+AND is_resource_reply = '1'
+AND is_agree = '0'
+GROUP BY l.node_id ) , 0
+) AS cntdisagree,f.str_wk
+FROM {resource_reply} AS f
+JOIN user_profile AS u ON u.uid = f.uid
+WHERE f.rid = '$rid'";
+ $sub = ExecuteQuery($query, "select");
+
+ foreach($sub as $list){
+    $list['str_wk'];
+    $str_wk=($list['str_wk']==0)?'-1':'1';
+     $agree=$agree+$list['cntagree'];
+     $dagree=$dagree+$list['cntdisagree'];
+     $strength=$list['cntagree']-$list['cntdisagree'];
+     $activity=$list['cntagree']+$list['cntdisagree'];
+
+     $rollup=$strength*$str_wk;
+
+     //Activity
+     $sum_act=$sum_act+$activity;
+     //For Rollup Strenght
+    $sum_rollup=$sum_rollup+$rollup;
+ }
+    $agree=$main['0']['cntagree']+$agree;
+    $dagree=$main['0']['cntdisagree']+$dagree;
+    $sum_act=$agree+$dagree;
+    $sum_rollup=$main['0']['cntagree']+$sum_rollup;
+    $query = "update {resource} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup' where rid='$rid'";
+    $main = ExecuteQuery($query, "select");
+
+
+}
