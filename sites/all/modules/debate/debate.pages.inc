@@ -1629,10 +1629,21 @@ function debate_ajax() {
 ";
              $insdata.="[";
              $data.="[";
+
        for ($ab = 0; $ab < $cnt_ans; $ab++) {
-       
+     
             $insdata.="'".$vlist[$ab]['answer']."',";
-            $data.='21'.',';
+
+        $sel="select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='".$vlist[$ab]['paid']."' AND o.ans_val IN (1,2) group by o.did";
+              $tmplist = ExecuteQuery($sel, "select");
+              foreach($tmplist as $list){
+                $cnt_opt=db_result(db_query("select count(paid) from {debate_options} where did=".$list['did']." AND ans_val IN (1,2) group by paid"));
+      $tmp=($list['ans_val']==1)?'1':'-1';
+  $final=$final+(($tmp*$list['strength'])/$cnt_opt);
+              }
+              
+              $final=(!empty($final))?$final:'0';
+            $data.=$final.',';
 
     }
         $insdata=rtrim($insdata,',');
@@ -1655,6 +1666,8 @@ $(document).ready(function() {
       xAxis: {
          categories:".$insdata."
       },
+      yAxis:{ tickInterval  :1
+    },
       tooltip: {
          formatter: function() {
             return ''+
