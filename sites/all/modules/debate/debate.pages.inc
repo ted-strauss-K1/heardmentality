@@ -6,12 +6,11 @@ function debate_list($qid = '', $did='') {
     if (empty($qid) || !is_numeric($qid) || empty($did) || !is_numeric($did)) {
         return FALSE;
     }
-
-    global $gSitePath, $user, $gDocPath, $base_root;
     $output = '';
     $like = '';
     $flag = '';
-
+    // update points
+    debate_roundup($did);
     $query = "SELECT *,u.uid as uid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid_rid='$qid' AND f.did='$did' AND f.status='1'";
     $list = ExecuteQuery($query, "select");
 
@@ -1573,7 +1572,6 @@ function debate_ajax() {
             break;
         case 'resource_new':
 
-            global $gSitePath, $user, $gDocPath, $base_root;
             if ($rtype != 0) {
                 if (!empty($membed) && $rtype == 2 && $mtype == 1) {
                     $ytURL = $membed;
@@ -1617,6 +1615,70 @@ function debate_ajax() {
                 echo '<div class="messages success"> Resources Added Successfully! </div>';
             }
             break;
+         case 'analysis':
+         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $vans = "select * from {possible_answer} where  qid=$qid ";
+    $vlist = ExecuteQuery($vans, "select");
+     $cnt_ans = count($vlist);
+             $output.="<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
+        <script type='text/javascript' src='".$gSitePath."misc/jquery.js'></script>
+       			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
+<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
+<script type='text/javascript' language='javascript'>
+
+";
+             $insdata.="[";
+             $data.="[";
+       for ($ab = 0; $ab < $cnt_ans; $ab++) {
+       
+            $insdata.="'".$vlist[$ab]['answer']."',";
+            $data.='21'.',';
+
+    }
+        $insdata=rtrim($insdata,',');
+        $insdata=$insdata.']';
+        $data=rtrim($data,',');
+        $data=$data.']';
+
+               $output.= "
+var chart;
+var gSitePath='" . $gSitePath . "';
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         defaultSeriesType: 'column'
+      },
+      title: {
+         text: 'Column chart with negative values'
+      },
+      xAxis: {
+         categories:".$insdata."
+      },
+      tooltip: {
+         formatter: function() {
+            return ''+
+                this.series.name +': '+ this.y +'';
+         }
+      },
+      credits: {
+         enabled: false
+      },
+      series: [{
+         name: 'Strength',
+         data: ".$data."
+      }]
+   });
+
+
+});
+
+ </script>";
+    echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+        <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+
+';
+             break;
         default:
             echo "<div class='messages error'>No Action found</div>";
             break;
