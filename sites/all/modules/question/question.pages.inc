@@ -1578,7 +1578,7 @@ function panel_content($type = '') {
         case 'flagsave':
 
            $qids = implode(',', $_REQUEST['qids']);
-                        
+              
             if ($_REQUEST['actions']) {
 
                 question_flagged_mail($qids);
@@ -1593,11 +1593,13 @@ function panel_content($type = '') {
                 foreach ($ids as $value) {
                     $target = $value;
                 }
-                // badges award "scruitneer"
-                update_flag_badges($_REQUEST['qids']);
+               
                 $target = array_unique($target);
-
                 $qids = implode(',', $target);
+                
+              // badges award "scruitneer"
+              update_flag_badges($_REQUEST['qids']);
+                
                 $reporttext = $_REQUEST['reporttext'];
                 question_flagged_ignore_mail($qids, $reporttext);
                
@@ -1716,13 +1718,14 @@ function panel_content($type = '') {
 
     echo $strReturn;
 }
-function update_flag_badges($qids){
-
-foreach($qids as $qid){
-    $sql = "SELECT uid FROM (question_flags) WHERE fid = '$qid'";
+function update_flag_badges($fids){
+foreach($fids as $fid){
+    $sql = "SELECT uid,nodeid FROM (question_flags) WHERE fid = '$fid' AND type = 'question'";
     $users = ExecuteQuery($sql,'select');
+    
     foreach($users as $user){
-        $uid = $user['uid'];
+       $uid = $user['uid'];
+       $qid = $user['nodeid'];
         scrutineer($uid,$qid);
     }
 }
@@ -2906,7 +2909,7 @@ function question_edit_save_admin($array) {
     $q_sscat = $_REQUEST['q_sscat'];
     global $gSitePath, $user, $gDocPath, $base_root;
     $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-
+    
 	/*SAVING META INFORMATION*/	
 	$query = "SELECT * FROM {possible_answer} where qid='" . $nid . "' ";
     $ans = ExecuteQuery($query, "select");	
@@ -2947,9 +2950,14 @@ function question_edit_save_admin($array) {
 
         $del_result = db_query("delete from {question_cat} where qid='" . $nid . "'");
 
-
-
-        
+        // add scrutineer badge
+        $sql = "SELECT fid FROM {question_flags} WHERE nodeid = '$nid'";
+        $flagids = ExecuteQuery($sql,"select");
+        foreach($flagids as $flagid){
+            $fids[] = $flagid['fid'];
+        }
+        update_flag_badges($fids);
+         //update_flag_badges($qids);
 ///  category  starts & 1st level
         $fetch = array();
         if (!empty($q_cat)) {
