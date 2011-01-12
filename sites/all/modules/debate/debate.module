@@ -297,7 +297,7 @@ WHERE f.did = '$did'";
     $query = "update {debate} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup',score='$debate_str' where did='$did'";
     $main = ExecuteQuery($query, "select");
 }
-
+ 
 function resource_roundup($rid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
 //main debate
