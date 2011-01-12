@@ -1931,7 +1931,7 @@ function debate_submit() {
         case 'new':
             if (!empty($wtitle) && !empty($user->uid)) {
 
-                $forum = "INSERT INTO {debate} set qid_rid='%d',type='1',uid='%d',title='%s',content='%s',private='%d' ";
+                $forum = "INSERT INTO {debate} set qid='%d',type='1',uid='%d',title='%s',content='%s',private='%d' ";
                 $result = db_query($forum, $qid, $user->uid, $wtitle, $wcon, $wprivate);
 
                 $nid = db_last_insert_id('debate', 'did');
