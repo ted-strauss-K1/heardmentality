@@ -539,7 +539,7 @@ function debate_wave($qid = '') {
     $wave = '';
     $ans=load_options($qid);
     //answers
-    $filter_list.='<select name="" class="select-1"><option>Possible Answers</option>';
+    $filter_list.='<select name="dfilt-ans" id="dfilt-ans" class="select-1"><option value="">Possible Answers</option>';
     foreach($ans as $list){
         $filter_list.='<option value="'.$list['paid'].'">'.$list['answer'].'</option>';
         $inc_pans.='<div class="form-outer-debate">
@@ -558,14 +558,14 @@ $filter_list.='</select>';
      <div class=" debate-round-tab-outer">
               	<div class="form-part-top">
                     <div class="form-m1">Filter By :
-<select name="" class="select-2"><option>+/-</option><option value="support">+</option><option value="oppose">-</option></select></div>
+<select name="dfilt-sup" id="dfilt-sup" class="select-2"><option value="0">+/-</option><option value="1">+</option><option value="2">-</option></select></div>
                     <div class="form-m2"><br/>
                     '.$filter_list.'
                     </div>
                     <div class="form-m3"><br/>
-                    <select name="" class="select-2"><option>Sort By :</option>
-                    <option>Strength</option>
-                     <option>Weaken</option>
+                    <select name="dfilt-sort" id="dfilt-sort" class="select-2"><option value="0">Sort By :</option>
+                    <option value="1">Most Recent</option>
+                     <option value="2">Most Support</option>
                     </select>
 
                     </div>

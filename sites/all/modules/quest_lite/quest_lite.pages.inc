@@ -555,7 +555,7 @@ function qlite_view() {
 
     $numres = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$qid'"));
 
-     $query = " SELECT IFNULL(count(did),0) as cnt FROM {debate} AS f WHERE f.qid_rid = '$qid' ";
+     $query = " SELECT IFNULL(count(did),0) as cnt FROM {debate} AS f WHERE f.qid = '$qid' ";
     $list = ExecuteQuery($query, "select");
     $debatecnt = $list[0]['cnt'];
    
@@ -1364,7 +1364,7 @@ function panel_content() {
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
 //////////vijay 2 load submenu
-    $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid_rid = '$qid' ";
+    $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid = '$qid' ";
     $list = ExecuteQuery($query, "select");
     $debatecnt = 0;
     foreach ($list as $fcnt) {
@@ -1399,7 +1399,7 @@ function panel_content() {
                                        <li><a class="" href="javascript:tabactive(\'M\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabM">Multimedia</a></li>
                                        <li><a class="" href="javascript:tabactive(\'F\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabF">Facts</a></li>
                                        <li><a class="" href="javascript:tabactive(\'resreport\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabresreport">Analysis</a></li>
-<li><a class="" href="javascript:loadresource(\'' . $gSitePath . 'debate/resource/new/' . $qid . '\',\'Add\')" id="tab4">Add Resource</a></li>
+
                                </ul>
                                <div id="rcontents" class="mytabs-container"></div>
                                <script type="text/javascript">tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';
@@ -1815,7 +1815,7 @@ function question_news() {
     require ('RSSParser.class.php');
     $xml = & new RSSParser;
 
-    $vSql = "SELECT *,IFNULL((select count(*) from {forum_wave} as w where w.qid_rid=r.rid AND type='2' group by w.qid_rid ),0) as cntpost,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added FROM resource as r where r.rtype='1' and r.qid='" . $qid . "' ";
+    $vSql = "SELECT *,IFNULL((select count(*) from {debate} as w where w.qid=r.rid AND type='2' group by w.qid ),0) as cntpost,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added FROM resource as r where r.rtype='1' and r.qid='" . $qid . "' ";
     $rlistnews = db_query($vSql);
     $numnews = db_result(db_query("SELECT COUNT(*) FROM resource where rtype='1' and qid='" . $qid . "'"));
 

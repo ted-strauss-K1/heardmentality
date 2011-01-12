@@ -35,7 +35,7 @@ function debate_menu() {
         'page arguments' => array(2, 3),
         'file' => 'debate.pages.inc',
     );
-     $items['issues/resource/%/%'] = array(
+    $items['issues/resource/%/%'] = array(
         'title' => 'Resource Debate List',
         'page callback' => 'resource_list',
         'access arguments' => array('Resource Debate'),
@@ -104,11 +104,24 @@ function send_forumnotify($nid='', $qid='') {
 
 function list_debate($qid='', $type='') {
     global $gSitePath, $user, $gDocPath, $base_root;
-
-    $wave = '';
+        $wave = '';
     $click = '';
-    $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {debate} as f join {user_profile} as u on u.uid=f.uid where f.qid_rid='$qid' AND type='$type' AND status='1' ORDER BY did DESC ";
+    $sort='ORDER BY did DESC';
+    $cond='';
+extract($_REQUEST);
+        if(isset($sort)&&$sort==1)
+            $sortin=' ORDER BY f.date_added DESC';
+        elseif(isset($sort)&&$sort==2)
+             $sortin=' ORDER BY f.strength DESC';
+        if(isset($ans))
+            $cond.=" AND do.paid='$ans'";
+        if(isset($sup)&&$sup>0)
+             $cond.=" AND do.ans_val='$sup'";
 
+             if(empty($cond))
+    $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(f.agree,0) as cntagree,IFNULL(f.disagree,0) as cntdisagree from {debate} as f join {user_profile} as u on u.uid=f.uid where f.qid='$qid' AND type='$type' AND status='1' $sortin ";
+    else
+    $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(f.agree,0) as cntagree,IFNULL(f.disagree,0) as cntdisagree from {debate_options} as do join {debate} as f on do.did=f.did join {user_profile} as u on u.uid=f.uid where f.qid='$qid' AND type='$type' AND status='1' $cond  $sortin ";
     $cnt = ExecuteQuery($query, "select");
 
     $i = 0;
@@ -124,141 +137,102 @@ function list_debate($qid='', $type='') {
             $i++;
             $account = user_load($forum['uid']);
 
-                $query="select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.did='".$forum['did']."'";
-                 $strnth = ExecuteQuery($query, "select");
-                   $strength='';
-                 foreach($strnth as $list){
-                     $ans=$list['answer'];
-                   
-                    switch($list['ans_val']){
-                        case 0:
-                            $strength.='<div class="bottpart">
+            $query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.did='" . $forum['did'] . "'";
+            $strnth = ExecuteQuery($query, "select");
+            $strength = '';
+            foreach ($strnth as $list) {
+                $ans = $list['answer'];
+
+                switch ($list['ans_val']) {
+                    case 0:
+                        $strength.='<div class="bottpart">
                                 <div class="green"><em>&nbsp;&nbsp;+</em></div>
-                                <div class="green-box">'.$ans.'</div>
+                                <div class="green-box">' . $ans . '</div>
                                      <div class="clr"></div>
                                      </div>';
-                            break;
-                        case 1:
-                            $strength.='<div class="bottpart">
+                        break;
+                    case 1:
+                        $strength.='<div class="bottpart">
                                 <div class="green"><em>&nbsp;&nbsp;+</em></div>
-                                <div class="green-box">'.$ans.'</div>
+                                <div class="green-box">' . $ans . '</div>
                                      <div class="clr"></div>
                                      </div>';
-                            break;
-                        case 2:
-                                $strength.='<div class="bottpart">
+                        break;
+                    case 2:
+                        $strength.='<div class="bottpart">
                                 <div class="pink"><em>&nbsp;&nbsp;-</em></div>
-                                <div class="pink-box">'.$ans.'</div>
+                                <div class="pink-box">' . $ans . '</div>
                                      <div class="clr"></div>
                                      </div>';
-                            break;
-                    }
-                     
-                 }
-
-            if ($type == 1) {
-
-                $wave.='         <div class="debate-summary-wrapper" >
-                    	<div class="deb-center">
-                                  <div class="leftpartside">
-                                     <div class="toppart"><p>' . $forum['cntagree'] . '</p>
-
-                                    <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
-                                     <div class="toppart2"><p>' . $forum['cntdisagree'] . '</p>
-                                      <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
-
-                                     </div>
-
-                                  </div>
+                        break;
+                }
+            }
 
 
-                                    <div class="centerpartside-out">
-                                    	<div class="centerpartside-top">
-                                           <div class="centerpartside">
-                                           <h4><a class="debate-links" href="' . $gSitePath . 'issues/debate/' . $qid . '/' . $forum['did'] . '" >' . myTruncate($forum['title'], '30', '', '..') . '</a></h4><br>
-                                           ' . myTruncate($forum['content'], '25', '', '..') . '
-                                               </div>
-                                               <div class="rightpartside">
-                                            <a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
 
-                                        </div>
-                                         <div class="clr"></div>
+            $wave.='         <div class="debate-summary-wrapper" >
+<div class="deb-center">
+<div class="leftpartside">
+<div class="toppart"><p>' . $forum['cntagree'] . '</p>
 
-                                        	<div class="centerpartside-bottom">
-                                                    ' . $strength . '
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+<div class="toppart2"><p>' . $forum['cntdisagree'] . '</p>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
-                                            	<ul>
+</div>
+
+</div>
 
 
-                                                	<li>Posted : ' . $forum['date_added'] . ' </li>
-                                                    <div class="clr"></div>
-                                                    <li>Last Activity: ' . $forum['rdate'] . '</li>
+<div class="centerpartside-out">
+<div class="centerpartside-top">
+<div class="centerpartside">
+<h4><a class="debate-links" href="' . $gSitePath . 'issues/debate/' . $qid . '/' . $forum['did'] . '" >' . myTruncate($forum['title'], '30', '', '..') . '</a></h4><br>
+' . myTruncate($forum['content'], '25', '', '..') . '
+</div>
+<div class="rightpartside">
+<a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
+
+</div>
+<div class="clr"></div>
+
+<div class="centerpartside-bottom">
+' . $strength . '
+
+<ul>
 
 
-                                                </ul>
+<li>Posted : ' . $forum['date_added'] . ' </li>
+<div class="clr"></div>
+<li>Last Activity: ' . $forum['rdate'] . '</li>
 
 
-                                            </div>
+</ul>
 
 
-                                    <div class="clr"></div>
-
-                                    </div>
-
-                                </div>
-                                	<div class="deb-bott">
-                                    </div>
- <div class="clr"></div>
-
-                        </div>
-
-                        <div class="clr"></div>
-';
-            } else {
-
-                $click = 'rwavelet(' . $qid . ',' . $forum['did'] . ')';
+</div>
 
 
-                $wave .= '
-	<div class="post-title back-col">
-<div class="leftsideimg">' . UserPicture_small($account->uid) . '</div>
+<div class="clr"></div>
 
-<div class="rightside">
-<h4><a href="javascript:void(0);" onclick="' . $click . '">' . myTruncate($forum['title'], '30', '', '..') . '</a></h4><br>
+</div>
 
-<p> ' . myTruncate($forum['content'], '25', '', '..') . '</p><br>
-
-<div class="likelink-outer">
-           <div class="likekink">
-              <ul>
-               <li><a href="#"><b>' . $forum['cntpost'] . ' Comments</b></a></li>
-               <li>|</li>
-               <li><a href="#">' . $forum['cntlike'] . ' likes</a></li>
-
-
-               </ul>
-
-
-           </div>
-          <div class="date">' . $forum['date_added'] . '</div>
-
-        <div class="clr"></div>
-        </div>
-
+</div>
+<div class="deb-bott">
+</div>
+<div class="clr"></div>
 
 </div>
 
 <div class="clr"></div>
-</div>
-<div class="bott-bord"></div>	';
-            }
+';
         }
     } else {
 
         $wave .= '
-	<div class="post-title">
+	<div class="messages warning">
 
-	<b>No Waves Posted Yet!!</b>
+	No Debate Posted Yet!!
 		</div>
 
 
@@ -268,13 +242,13 @@ function list_debate($qid='', $type='') {
     return $wave;
 }
 
-
-function debate_roundup($did=''){
- global $gSitePath, $user, $gDocPath, $base_root;
+function debate_roundup($did='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
 //main debate
-   $query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.did='$did'";    $main = ExecuteQuery($query, "select");
+    $query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.did='$did'";
+    $main = ExecuteQuery($query, "select");
 //sub debate
-$query="SELECT IFNULL( (
+    $query = "SELECT IFNULL( (
 
 SELECT count( * )
 FROM {user_likes} AS l
@@ -290,45 +264,47 @@ WHERE l.node_id = f.rid
 AND is_debate_reply = '1'
 AND is_agree = '0'
 GROUP BY l.node_id ) , 0
-) AS cntdisagree,f.str_wk
+) AS cntdisagree,f.str_wk,f.rid
 FROM {debate_reply} AS f
 JOIN user_profile AS u ON u.uid = f.uid
 WHERE f.did = '$did'";
- $sub = ExecuteQuery($query, "select");
+    $sub = ExecuteQuery($query, "select");
 
- foreach($sub as $list){
-    $list['str_wk'];
-    $str_wk=($list['str_wk']==0)?'-1':'1';
-     $agree=$agree+$list['cntagree'];
-     $dagree=$dagree+$list['cntdisagree'];
-     $strength=$list['cntagree']-$list['cntdisagree'];
-     $activity=$list['cntagree']+$list['cntdisagree'];
+    foreach ($sub as $list) {
+        $list['str_wk'];
+        $str_wk = ($list['str_wk'] == 0) ? '-1' : '1';
+        $agree = $agree + $list['cntagree'];
+        $dagree = $dagree + $list['cntdisagree'];
+        $strength = $list['cntagree'] - $list['cntdisagree'];
+        $activity = $list['cntagree'] + $list['cntdisagree'];
 
-     $rollup=$strength*$str_wk;
+        $rollup = $strength * $str_wk;
+        //pundit score
 
-     //Activity
-     $sum_act=$sum_act+$activity;
-     //For Rollup Strenght
-    $sum_rollup=$sum_rollup+$rollup;
- }
-    $agree=$main['0']['cntagree']+$agree;
-    $dagree=$main['0']['cntdisagree']+$dagree;
-    $sum_act=$agree+$dagree;
-    $sum_rollup=$main['0']['cntagree']+$sum_rollup;
-    $query = "update {debate} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup' where did='$did'";
+        db_query("update {debate_reply} set score='$strength' where rid='" . $list['rid'] . "'");
+        //Activity
+        $sum_act = $sum_act + $activity;
+        //For Rollup Strenght
+        $sum_rollup = $sum_rollup + $rollup;
+    }
+    $agree = $main['0']['cntagree'] + $agree;
+    //pundit score
+    $debate_str = $main['0']['cntagree'] + $main['0']['cntdisagree'];
+    $dagree = $main['0']['cntdisagree'] + $dagree;
+    $sum_act = $agree + $dagree;
+
+    $sum_rollup = $main['0']['cntagree'] + $sum_rollup;
+    $query = "update {debate} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup',score='$debate_str' where did='$did'";
     $main = ExecuteQuery($query, "select");
- 
-
 }
 
-
-function resource_roundup($rid=''){
- global $gSitePath, $user, $gDocPath, $base_root;
+function resource_roundup($rid='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
 //main debate
-   $query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {resource} as f  join {user_profile} as u on u.uid=f.uid   where f.rid='$rid'";
-   $main = ExecuteQuery($query, "select");
+    $query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {resource} as f  join {user_profile} as u on u.uid=f.uid   where f.rid='$rid'";
+    $main = ExecuteQuery($query, "select");
 //sub debate
-$query="SELECT IFNULL( (
+    $query = "SELECT IFNULL( (
 
 SELECT count( * )
 FROM {user_likes} AS l
@@ -344,33 +320,35 @@ WHERE l.node_id = f.reid
 AND is_resource_reply = '1'
 AND is_agree = '0'
 GROUP BY l.node_id ) , 0
-) AS cntdisagree,f.str_wk
+) AS cntdisagree,f.str_wk,f.reid
 FROM {resource_reply} AS f
 JOIN user_profile AS u ON u.uid = f.uid
 WHERE f.rid = '$rid'";
- $sub = ExecuteQuery($query, "select");
+    $sub = ExecuteQuery($query, "select");
 
- foreach($sub as $list){
-    $list['str_wk'];
-    $str_wk=($list['str_wk']==0)?'-1':'1';
-     $agree=$agree+$list['cntagree'];
-     $dagree=$dagree+$list['cntdisagree'];
-     $strength=$list['cntagree']-$list['cntdisagree'];
-     $activity=$list['cntagree']+$list['cntdisagree'];
+    foreach ($sub as $list) {
+        $list['str_wk'];
+        $str_wk = ($list['str_wk'] == 0) ? '-1' : '1';
+        $agree = $agree + $list['cntagree'];
+        $dagree = $dagree + $list['cntdisagree'];
+        $strength = $list['cntagree'] - $list['cntdisagree'];
+        $activity = $list['cntagree'] + $list['cntdisagree'];
 
-     $rollup=$strength*$str_wk;
+        $rollup = $strength * $str_wk;
+        //pundit score
+        db_query("update {resource_reply} set score='$strength' where did='" . $list['reid'] . "'");
+        //Activity
+        $sum_act = $sum_act + $activity;
+        //For Rollup Strenght
+        $sum_rollup = $sum_rollup + $rollup;
+    }
+    $agree = $main['0']['cntagree'] + $agree;
+    $dagree = $main['0']['cntdisagree'] + $dagree;
+    $sum_act = $agree + $dagree;
+    $sum_rollup = $main['0']['cntagree'] + $sum_rollup;
+    $debate_str = $main['0']['cntagree'] + $main['0']['cntdisagree'];
+    //pundit score
 
-     //Activity
-     $sum_act=$sum_act+$activity;
-     //For Rollup Strenght
-    $sum_rollup=$sum_rollup+$rollup;
- }
-    $agree=$main['0']['cntagree']+$agree;
-    $dagree=$main['0']['cntdisagree']+$dagree;
-    $sum_act=$agree+$dagree;
-    $sum_rollup=$main['0']['cntagree']+$sum_rollup;
-    $query = "update {resource} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup' where rid='$rid'";
+    $query = "update {resource} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup',score='$debate_str' where rid='$rid'";
     $main = ExecuteQuery($query, "select");
-
-
 }

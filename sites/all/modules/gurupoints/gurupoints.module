@@ -231,3 +231,20 @@ function guru_points($switch = '', $uid = '') {
     return $outputppt;
 }
 
+function gurupoints_cron(){
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+  	$user_pt = "SELECT uid FROM users where status='1'  ";
+
+	 $point_list = ExecuteQuery($user_pt, "select");
+
+         foreach($point_list as $list){
+
+         $sel="(select sum(score),qid,1 as type,did as nid  from {debate} where uid='".$list['uid']."' group by did) union (select sum(dr.score),d.qid,2 as type,rid as nid from {debate_reply} as dr join {debate} as d on d.did=dr.did where dr.uid='".$list['uid']."' group by dr.reid) ";
+             $point_list = ExecuteQuery($sel, "select");
+             echo '<pre>';
+             print_r($point_list);
+         }
+         die;
+
+}

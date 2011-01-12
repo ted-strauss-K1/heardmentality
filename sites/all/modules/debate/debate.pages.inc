@@ -1006,24 +1006,71 @@ function add_resources($qid='') {
 function resource_list($type, $qid) {
     global $gSitePath, $user, $gDocPath, $base_root;
     $output = '';
+        $ans=load_options($qid);
+    //answers
+    $filter_list.='<select name="rfilt-ans" id="rfilt-ans" class="select-1"><option value="">Possible Answers</option>';
+    foreach($ans as $list){
+        $filter_list.='<option value="'.$list['paid'].'">'.$list['answer'].'</option>';
+        $inc_pans.='<div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">'.$list['answer'].'</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="'.$list['paid'].'"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        </div>
+        <div class="clr"></div>
+    </div>';
+    }
+$filter_list.='</select>';
+    //print_r($cnt);
+    $output .= '
+
+     <div class=" debate-round-tab-outer">
+              	<div class="form-part-top">
+                    <div class="form-m1">Filter By :
+<select name="rfilt-sup" id="rfilt-sup" class="select-2"><option value="0">+/-</option><option value="1">+</option><option value="2">-</option></select></div>
+                    <div class="form-m2"><br/>
+                    '.$filter_list.'
+                    </div>
+                    <div class="form-m3"><br/><input type="hidden" name="rtype" id="rtype" value="'.$type.'" />
+                    <select name="rfilt-sort" id="rfilt-sort" class="select-2"><option value="0">Sort By :</option>
+                    <option value="1">Most Recent</option>
+                     <option value="2">Most Support</option>
+                    </select>
+
+                    </div>
+                    <div class="form-m4" align="right">&nbsp;<br />
+<a href="javascript:void(0);" onclick="javascript:loadresource(\'' . $gSitePath . 'debate/resource/new/' . $qid . '\',\'Add\');" title="New Debate"><input name="" type="button"   class="submit-debate-btn"/></a></div>
+
+                </div>
+
+                	<div class="clr"></div><br />
+
+                    <hr />
+
+                    <br />
+
+
+                    <div class="clr"></div> <div id="resfilter">';
+
     switch ($type) {
         case 'innews':
-            $output = resource_innews($qid, 1);
+            $output.= resource_innews($qid, 1);
             break;
         case 'media':
 
-            $output = resource_media($qid);
+            $output.= resource_media($qid);
             break;
         case 'facts':
 
 
-            $output = resource_innews($qid, 3);
+            $output.= resource_innews($qid, 3);
             break;
         default:
-            $output = 'No Action Found!';
+            $output = '<div class="messages warning">No Action Found!</div>';
             break;
     }
 
+    $output.='</div></div>';
 
     if (isAjax ())
         echo $output;
@@ -1157,7 +1204,7 @@ function resource_innews($qid='', $rtype='') {
 ';
         }
     } else {
-        $wave.='No Record Found!';
+        $wave.='<div class="messages warning">No Resources Found!</div>';
     }
     return $wave;
 }
@@ -1289,7 +1336,7 @@ function resource_media($qid='') {
 ';
         }
     } else {
-        $wave.='No Record Found!';
+       $wave.='<div class="messages warning">No Resources Found!</div>';
     }
     return $wave;
 }
@@ -1781,6 +1828,10 @@ $(document).ready(function() {
       case 'resreport':
          $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
             echo '<iframe style="min-height:320px;" id="frmGoogle" src="' . $gSitePath . '/debate/ajax/'.$qid.'?action=resanalysis" border="0" frameborder="0" width="100%"></iframe>';
+          break;
+      case 'filter':
+              $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+           echo list_debate($qid, 1);
           break;
         default:
             echo "<div class='messages error'>No Action found</div>";

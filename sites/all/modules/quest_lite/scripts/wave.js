@@ -162,6 +162,52 @@ $.getScript("test.js", function(){
     });
 
 
+jQuery('#dfilt-sup,#dfilt-ans,#dfilt-sort').live('change',function(){
+var qid=jQuery('input[name="mid"]').val();
+var gurl=spath+'debate/ajax/'+qid;
+var sup=jQuery('#dfilt-sup').val();
+var ans=jQuery('#dfilt-ans').val();
+var sort=jQuery('#dfilt-sort').val();
+ jQuery.ajax({
+                type: "GET",
+                url: gurl,
+                data: {
+                    'action': 'filter',
+                    'sup': sup,
+                    'ans': ans,
+                    'sort':sort
+                },
+                success: function(msg){
+                 jQuery('#qwave').html(msg);
+                }
+            });
+
+});
+
+jQuery('#rfilt-sup,#rfilt-ans,#rfilt-sort').live('change',function(){
+var qid=jQuery('input[name="mid"]').val();
+var gurl=spath+'debate/ajax/'+qid;
+var sup=jQuery('#rfilt-sup').val();
+var ans=jQuery('#rfilt-ans').val();
+var sort=jQuery('#rfilt-sort').val();
+var type=jQuery('#rtype').val();
+ jQuery.ajax({
+                type: "GET",
+                url: gurl,
+                data: {
+                    'action': 'resfilter',
+                    'sup': sup,
+                    'ans': ans,
+                    'sort':sort,
+                    'type':type
+                },
+                success: function(msg){
+                 jQuery('#resfilter').html(msg);
+                }
+            });
+
+});
+
 
 
 });
