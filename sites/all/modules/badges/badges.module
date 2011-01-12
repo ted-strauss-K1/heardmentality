@@ -859,11 +859,11 @@ function debate_badges(){
     {
         if($agree['total'] > 0){
             $did = $agree['node_id'];
-            echo $sql = "SELECT uid FROM {debate} WHERE did = '$did'"; exit;
+           $sql = "SELECT uid FROM {debate} WHERE did = '$did'";
             $debates = ExecuteQuery($sql, 'select');
             foreach($debates as $debate)
             {
-                $uid = $debate['uid'];
+                echo $uid = $debate['uid']; exit;
             }
             // nice post, bronze
             // Debate Posted by user gets 5 agrees
