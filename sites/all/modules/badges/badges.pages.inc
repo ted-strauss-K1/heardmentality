@@ -29,7 +29,7 @@ function badges_list() {
     
     }
     
-    set_badges();
+    //set_badges();
 	//yearling();
 	//Tumbleweed();
 	//Taxonomist();
