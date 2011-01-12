@@ -929,7 +929,7 @@ function question_res_deb_post_reply(){
         }
     }
 
-    // debate
+    // debate 
     $sql = "SELECT COUNT(*) as total, qid, uid FROM debate GROUP BY qid";
     $debs = ExecuteQuery($sql,'select');
     foreach($debs as $deb){
