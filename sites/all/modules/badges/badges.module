@@ -863,8 +863,9 @@ function debate_badges(){
             $debates = ExecuteQuery($sql, 'select');
             foreach($debates as $debate)
             {
-                echo $uid = $debate['uid']; exit;
+                $uid = $debate['uid'];
             }
+            echo $uid."dd"; exit;
             // nice post, bronze
             // Debate Posted by user gets 5 agrees
             
