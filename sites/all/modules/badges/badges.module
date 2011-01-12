@@ -940,13 +940,13 @@ function question_res_deb_post_reply(){
                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],58,$deb['qid']);
            }
         }
-        if($debate_total > 2 && $debate_total < 100){
+        if($debate_total > 49 && $debate_total < 100){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='59' AND qid = '".$deb['qid']."'"));
            if($badgecnt == 0){
                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],59,$deb['qid']);
            }
         }
-        if($debate_total > 99){
+        if($debate_total > 2){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='60' AND qid = '".$deb['qid']."'"));
            if($badgecnt == 0){
                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],60,$deb['qid']);
