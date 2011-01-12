@@ -11,7 +11,7 @@ function debate_list($qid = '', $did='') {
     $flag = '';
     // update points
     debate_roundup($did);
-    $query = "SELECT *,u.uid as uid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid_rid='$qid' AND f.did='$did' AND f.status='1'";
+    $query = "SELECT *,u.uid as uid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
     $list = ExecuteQuery($query, "select");
 
 
@@ -223,8 +223,8 @@ function like_notification($nid='', $set='') { //vijay important comented
     $sel_forum = "select * from debate_reply as f join debate as w on f.rid=w.fid where f.rid='" . $nid . "'";
     $forum_fet = db_query($sel_forum);
     $forum_row = db_fetch_object($forum_fet);
-    $qid_rid = $forum_row->qid_rid;
-    hm_mails($qid_rid, $nid, 'add_like');
+    $qid_rid = $forum_row->qid;
+    hm_mails($qid, $nid, 'add_like');
 //////vijay///
 // db_query("insert into {notification} set is_like='1',$set,uid='$user->uid',node_id='$nid' ");
 //hm_mails($nid);
