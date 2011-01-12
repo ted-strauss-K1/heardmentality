@@ -257,7 +257,7 @@ function senator($uid = ''){
     $count = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='47'"));
    
-    if ($count >= 5 && $badgecnt == 0) {
+    if ($count >= 500 && $badgecnt == 0) {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 47, $uid);
         $last_id = db_last_insert_id('user_badges','badge');
     }    
@@ -585,7 +585,7 @@ function seer($uid = ''){
     $count = $count1 + $count2;
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='49'"));
     
-    if ($count >= 50 && $badgecnt == 0) {
+    if ($count >= 5 && $badgecnt == 0) {
 
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 49, $uid);
         $last_id =  db_last_insert_id('user_badges','badge');
@@ -604,7 +604,7 @@ function oracle($uid = ''){
     $count = $count1 + $count2;
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='50'"));
     
-    if ($count >= 100 && $badgecnt == 0) {
+    if ($count >= 6 && $badgecnt == 0) {
 
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 50, $uid);
         $last_id =  db_last_insert_id('user_badges','badge');
