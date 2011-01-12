@@ -565,7 +565,7 @@ function supporter($uid = '') {
     $count = $count1 + $count2;
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='39'"));
     
-    if ($count > 1 && $badgecnt == 0) {
+    if ($count > 10 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 39, $uid);
         $last_id =  mysql_insert_id();
@@ -585,7 +585,7 @@ function seer($uid = ''){
     $count = $count1 + $count2;
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='49'"));
     
-    if ($count >= 5 && $badgecnt == 0) {
+    if ($count >= 50 && $badgecnt == 0) {
 
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 49, $uid);
         $last_id =  db_last_insert_id('user_badges','badge');
@@ -604,7 +604,7 @@ function oracle($uid = ''){
     $count = $count1 + $count2;
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='50'"));
     
-    if ($count >= 6 && $badgecnt == 0) {
+    if ($count >= 100 && $badgecnt == 0) {
 
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 50, $uid);
         $last_id =  db_last_insert_id('user_badges','badge');
@@ -801,13 +801,7 @@ function scrutineer($uid,$qid){
    $count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} WHERE uid = '$uid' AND bid = '44' AND qid = '$qid'"));
    if($count == 0)
    {
-    $sql = "SELECT bid FROM (badges) WHERE name = 'Scrutineer'";
-    
-    $badges = ExecuteQuery($sql,"select");
-    foreach($badges as $badge){
-        $bid = $badge['bid'];
-    }
-    db_query("INSERT INTO {user_badges} (uid, bid, qid) VALUES(%d,%d,%d)",$uid,$bid,$qid);
+    db_query("INSERT INTO {user_badges} (uid, bid, qid) VALUES(%d,%d,%d)",$uid,44,$qid);
     $last_id = db_last_insert_id('user_badges','badge');
    }
 }
@@ -903,11 +897,11 @@ function question_res_deb_post_reply(){
     $ress = ExecuteQuery($sql,'select');
     foreach($ress as $res){
         $resource_post = $res['total'];
-        $resource_reply_post = db_result(db_query("select sum(total_res) AS total_resource_post FROM
-                                                    (select count(rid) AS total_res, qid from
+        $resource_reply_post = db_result(db_query("SELECT SUM(total_res) AS total_resource_post FROM
+                                                    (SELECT COUNT(rid) AS total_res, qid FROM
                                                     (SELECT r.rid, r.qid FROM resource_reply p LEFT JOIN
-                                                    resource r on p.rid = r.rid WHERE r.qid = '".$res['qid']."')
-                                                     as test group by rid) AS summation group by qid"));
+                                                    resource r ON p.rid = r.rid WHERE r.qid = '".$res['qid']."')
+                                                     AS test GROUP BY rid) AS summation GROUP BY qid"));
         $resource_total = $resource_post + $resource_reply_post;
         if($resource_total > 19 && $resource_total < 50){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='58' AND qid = '".$res['qid']."'"));
@@ -934,11 +928,11 @@ function question_res_deb_post_reply(){
     $debs = ExecuteQuery($sql,'select');
     foreach($debs as $deb){
         $debate_post = $deb['total'];
-        $debate_reply_post = db_result(db_query("select sum(total_res) AS total_resource_post FROM
-                                                 (select count(did) AS total_res, qid from
+        $debate_reply_post = db_result(db_query("SELECT SUM(total_res) AS total_resource_post FROM
+                                                 (SELECT COUNT(did) AS total_res, qid FROM
                                                  (SELECT r.did, r.qid FROM debate_reply p LEFT JOIN
-                                                 debate r on p.did = r.did WHERE r.qid = '".$deb['qid']."')
-                                                  as test group by did) AS summation group by qid"));
+                                                 debate r ON p.did = r.did WHERE r.qid = '".$deb['qid']."')
+                                                  AS test GROUP BY did) AS summation GROUP BY qid"));
         $debate_total = $debate_post + $debate_reply_post;
         if($debate_total > 19 && $debate_total < 50){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='58' AND qid = '".$deb['qid']."'"));
