@@ -616,7 +616,13 @@ function qlite_view() {
 
               <ul id="maintabs" class="mytabs" >
              <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
+<<<<<<< .mine
                      <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
+                <li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
+               
+=======
+                     <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
+>>>>>>> .r3389
                 <li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
                
 				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
@@ -1538,7 +1544,6 @@ function forum_wave($qid = '') {
 
     return $wave;
 }
-
 
 
 function flag_report() {
@@ -3279,13 +3284,15 @@ function popquest() {
     //echo "SELECT COUNT(*) FROM {qviews} where qid='".$qid."' ";
     $popcnt = db_result(db_query("SELECT COUNT(*) FROM {qviews} where qid='" . $qid . "' "));
     //  echo  $popcnt;
-    if ($popcnt == 1) {
-        $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='30'"));
-        if ($stucntr == 0) {
-            db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('30','" . $oListquest->uid . "','" . $qid . "') ");
-        }
-    }
-    ////////////////////notable question//////////////
+    ///////////////// popular question ///////////////
+//    if ($popcnt == 1) {
+//        $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='30'"));
+//        if ($stucntr == 0) {
+//            db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('30','" . $oListquest->uid . "','" . $qid . "') ");
+//        }
+//    }
+
+    ////////////////////notable Issue//////////////
     if ($popcnt == 3) {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='27'"));
         if ($stucntr == 0) {
@@ -3293,7 +3300,7 @@ function popquest() {
         }
     }
 
-    /////////////////famous question ////////////////
+    /////////////////famous Issue ////////////////
 
 
     if ($popcnt == 5) {
@@ -3302,6 +3309,18 @@ function popquest() {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','" . $oListquest->uid . "','" . $qid . "') ");
         }
     }
+
+
+    ///////////////// provocative Issue //////////////
+
+    if($popcnt == 10000) {
+        $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='48'"));
+        if ($stucntr == 0) {
+            db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('48','" . $oListquest->uid . "','" . $qid . "') ");
+        }
+    }
+
+    
 }
 
 ?>
