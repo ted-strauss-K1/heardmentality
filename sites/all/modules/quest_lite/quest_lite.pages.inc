@@ -614,20 +614,12 @@ function qlite_view() {
         $voutput .= '<div class="clr"></div>
 	<div id="rotate">
 
-              <ul id="maintabs" class="mytabs" >
-             <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
-<<<<<<< .mine
-                     <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
-                <li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
-               
-=======
-                     <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
->>>>>>> .r3389
-                <li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
-               
-				  <li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
-				  <li class="" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Details</span></a></li>
-
+<ul id="maintabs" class="mytabs" >
+<li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '" title="Report"><span>Reporting</span></a></li>
+<li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
+<li class="" id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
+<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
+<li class="" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Details</span></a></li>
               </ul>
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
