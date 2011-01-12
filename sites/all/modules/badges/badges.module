@@ -184,7 +184,7 @@ function patriotic_citizen($uid = '') {
         $count2 = db_result(db_query("SELECT COUNT(*) FROM (suggest_answer_vote) WHERE uid = '$uid' GROUP BY uid"));
         $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} WHERE uid='$uid' AND bid='45'"));
         $count  = $count1+$count2;
-        if($count >= 20 && $badgecnt == 0) {
+        if($count >= 1000 && $badgecnt == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid) VALUES(%d,%d)",45,$uid);
             $last_id = mysql_insert_id();
         }
@@ -257,7 +257,7 @@ function senator($uid = ''){
     $count = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='47'"));
    
-    if ($count >= 500 && $badgecnt == 0) {
+    if ($count >= 5 && $badgecnt == 0) {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 47, $uid);
         $last_id = db_last_insert_id('user_badges','badge');
     }    
