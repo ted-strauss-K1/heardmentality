@@ -19,7 +19,7 @@ function badges_menu() {
     return $items;
 }
 
-function set_badges() {
+function badges_cron() {
     $query = "select uid from {users} where status='1'";
     $fetch = ExecuteQuery($query, "select");
     
@@ -30,12 +30,23 @@ function set_badges() {
         biographer($uid);
         citizen_patrol($uid);
         civic_duty($uid);
+        patriotic_citizen($uid);
         cleanup($uid);
         commentator($uid);
+        pamphleteer($uid);
+        senator($uid);
         supporter($uid);
+        seer($uid);
+        oracle($uid);
         pundit($uid);
         generalist($uid);
         legendary($uid);
+        good_question($uid);
+        popular_question($uid);
+        provocative_question($uid);
+        resource_badges();
+        debate_badges();
+        question_res_deb_post_reply();
     }
 }
 ///////////////won badges mail to user ///////////////
@@ -164,7 +175,20 @@ function civic_duty($uid = '') {
 
 
 }
-
+function patriotic_citizen($uid = '') {
+        global $gSitePath,$user,$gDocPath,$base_root;
+        if( empty($uid)) {
+            $uid = $user->uid;
+        }
+        $count1 = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} WHERE uid = '$uid' GROUP BY uid"));
+        $count2 = db_result(db_query("SELECT COUNT(*) FROM (suggest_answer_vote) WHERE uid = '$uid' GROUP BY uid"));
+        $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} WHERE uid='$uid' AND bid='45'"));
+        $count  = $count1+$count2;
+        if($count >= 1000 && $badgecnt == 0) {
+            db_query("INSERT INTO {user_badges} (bid, uid) VALUES(%d,%d)",45,$uid);
+            $last_id = mysql_insert_id();
+        }
+}
 function cleanup($uid = '') {
     
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -202,7 +226,7 @@ function commentator($uid = '') {
     $count = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='5'"));
     
-    if ($count >= 10 && $badgecnt == 0) {
+    if ($count >= 100 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 5, $uid);
          $last_id =  mysql_insert_id();
@@ -212,7 +236,32 @@ function commentator($uid = '') {
 
 
 }
+function pamphleteer($uid = ''){
+    global $gSitePath,$user,$gDocPath,$base_root;
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+    $count = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='46'"));
+    if ($count >= 10 && $badgecnt == 0) {
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 46, $uid);
+        $last_id =  mysql_insert_id();
+    }
+}
 
+function senator($uid = ''){
+    global $gSitePath,$user,$gDocPath,$base_root;
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+    $count = db_result(db_query("SELECT COUNT(uid) FROM {forum_wavelets} where uid='$uid'"));
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='47'"));
+   
+    if ($count >= 500 && $badgecnt == 0) {
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 47, $uid);
+        $last_id = db_last_insert_id('user_badges','badge');
+    }    
+}
 function critic($uid = '') {
 
 
@@ -526,6 +575,43 @@ function supporter($uid = '') {
 
 
 }
+function seer($uid = ''){
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+
+    $count1 = db_result(db_query("SELECT COUNT(*) FROM {user_likes} where is_wave='1' AND is_like='1' AND uid='$uid'"));
+    $count2 = db_result(db_query("SELECT COUNT(*) FROM {user_likes} where is_wavelets='1' AND is_like='1' AND  uid='$uid'"));
+    $count = $count1 + $count2;
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='49'"));
+    
+    if ($count >= 50 && $badgecnt == 0) {
+
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 49, $uid);
+        $last_id =  db_last_insert_id('user_badges','badge');
+       // hm_mails('',$last_id,'user_badges');
+       // badges_user($uid,$last_id);
+    }
+}
+
+function oracle($uid = ''){
+    if ( empty($uid)) {
+        $uid = $user->uid;
+    }
+
+    $count1 = db_result(db_query("SELECT COUNT(*) FROM {user_likes} where is_wave='1' AND is_like='1' AND uid='$uid'"));
+    $count2 = db_result(db_query("SELECT COUNT(*) FROM {user_likes} where is_wavelets='1' AND is_like='1' AND  uid='$uid'"));
+    $count = $count1 + $count2;
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='50'"));
+    
+    if ($count >= 100 && $badgecnt == 0) {
+
+        db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 50, $uid);
+        $last_id =  db_last_insert_id('user_badges','badge');
+       // hm_mails('',$last_id,'user_badges');
+       // badges_user($uid,$last_id);
+    }
+}
 
 function pundit($uid = '') {
     //Left 10 comments with score of 10 or more
@@ -670,10 +756,49 @@ function fanatic($uid = '') {
 
 
 }
+// good question
+function good_question($uid){
+    $sql = "SELECT * FROM question WHERE uid = '$uid'";
+    $quests = ExecuteQuery($sql,'select');
+    foreach($quests as $quest){
+        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} WHERE uid = '$uid' AND qid = '".$quest['qid']."'"));
+        $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='18' AND qid = '".$quest['qid']."'"));
+        if($count >= 50 && $badgecnt == 0){
+            db_query("INSERT INTO {user_badges} (uid,bid,qid) VALUES(%d,%d,%d)",$uid,18,$quest['qid']);
+            $last_id = db_last_insert_id('user_badges','badge');
+        }
+    }
+}
+// popular question
+function popular_question($uid){
+    $sql = "SELECT * FROM question WHERE uid = '$uid'";
+    $quests = ExecuteQuery($sql,'select');
+    foreach($quests as $quest){
+        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} WHERE uid = '$uid' AND qid = '".$quest['qid']."'"));
+        $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='30' AND qid = '".$quest['qid']."'"));
+        if($count >= 200 && $badgecnt == 0){
+            db_query("INSERT INTO {user_badges} (uid,bid,qid) VALUES(%d,%d,%d)",$uid,30,$quest['qid']);
+            $last_id = db_last_insert_id('user_badges','badge');
+        }
+    }
+}
+// propocative question
+function provocative_question($uid){
+    $sql = "SELECT * FROM question WHERE uid = '$uid'";
+    $quests = ExecuteQuery($sql,'select');
+    foreach($quests as $quest){
+        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} WHERE uid = '$uid' AND qid = '".$quest['qid']."'"));
+        $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='51' AND qid = '".$quest['qid']."'"));
+        if($count >= 1000 && $badgecnt == 0){
+            db_query("INSERT INTO {user_badges} (uid,bid,qid) VALUES(%d,%d,%d)",$uid,51,$quest['qid']);
+            $last_id = db_last_insert_id('user_badges','badge');
+        }
+    }
+}
 // add scrutineer badge 
 function scrutineer($uid,$qid){
    // get scrutineer badge id
-   $count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} WHERE uid = '$uid' AND qid = '$qid'"));
+   $count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} WHERE uid = '$uid' AND bid = '44' AND qid = '$qid'"));
    if($count == 0)
    {
     $sql = "SELECT bid FROM (badges) WHERE name = 'Scrutineer'";
@@ -683,9 +808,160 @@ function scrutineer($uid,$qid){
         $bid = $badge['bid'];
     }
     db_query("INSERT INTO {user_badges} (uid, bid, qid) VALUES(%d,%d,%d)",$uid,$bid,$qid);
-    $last_id = mysql_insert_id();
+    $last_id = db_last_insert_id('user_badges','badge');
    }
 }
+/////// paper boy, newsstand, librarian ///////////////////
+
+function resource_badges(){
+
+    $sql = "SELECT count(*) AS total, node_id FROM {user_likes} WHERE is_resource  ='1' OR is_resource_reply = '1' GROUP BY node_id";
+    $agrees = ExecuteQuery($sql,'select');
+    $rtype = 'resource';
+    foreach($agrees as $agree)
+    {
+        if($agree['total'] > 0){
+            $rid = $agree['node_id'];
+            $sql = "SELECT uid FROM {resource} WHERE rid = '$rid'";
+            $resources = ExecuteQuery($sql, 'select');
+            foreach($resources as $resource)
+            {
+                $uid = $resource['uid'];
+            }
+            // paper boy, bronze
+            // Resource Posted by user gets 5 agrees
+            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='52' AND rid = '$rid' AND rtype = '$rtype'"));
+            if($agree['total'] > 4 && $agree['total'] < 20 && $badgecnt == 0){
+                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,52,$rid,$rtype);
+                $last_id = db_last_insert_id('user_badges','badge');
+            }
+            // newsstand, silver
+            // Resource Posted by user gets 20 agrees
+            
+            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='53' AND rid = '$rid' AND rtype = '$rtype'"));
+            if($agree['total'] > 19 && $agree['total'] < 50 && $badgecnt == 0){
+                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,53,$rid,$rtype);
+                $last_id = db_last_insert_id('user_badges','badge');
+            }
+            // librarian, gold
+            // Resource Posted by user gets 50 agrees
+            
+            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='54' AND rid = '$rid' AND rtype = '$rtype'"));
+            if($agree['total'] > 49 && $badgecnt == 0){
+                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,54,$rid,$rtype);
+                $last_id = db_last_insert_id('user_badges','badge');
+            }
+           
+        }
+      }
+}
+/////// nice post, well put, consensus builder //////////
+function debate_badges(){
+
+    $sql = "SELECT count(*) AS total, node_id FROM {user_likes} WHERE is_debate  ='1' OR is_debate_reply = '1' GROUP BY node_id";
+    $agrees = ExecuteQuery($sql,'select');
+    $rtype = 'debate';
+    foreach($agrees as $agree)
+    {
+        if($agree['total'] > 0){
+            $did = $agree['node_id'];
+            $sql = "SELECT uid FROM {debate} WHERE did = '$did'";
+            $debates = ExecuteQuery($sql, 'select');
+            foreach($debates as $debate)
+            {
+                $uid = $debate['uid'];
+            }
+            // nice post, bronze
+            // Debate Posted by user gets 5 agrees
+            
+            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='55' AND rid = '$did' AND rtype = '$rtype'"));
+            if($agree['total'] > 4 && $agree['total'] < 20 && $badgecnt == 0){
+                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,55,$did,$rtype);
+                $last_id = db_last_insert_id('user_badges','badge');
+            }
+            // well put, silver
+            // Debate Posted by user gets 20 agrees
+            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='56' AND rid = '$did' AND rtype = '$rtype'"));
+            if($agree['total'] > 19 && $agree['total'] < 50 && $badgecnt == 0){
+                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,56,$did,$rtype);
+                $last_id = db_last_insert_id('user_badges','badge');
+            }
+            // consensus builder, gold
+            // Debate Posted by user gets 50 agrees
+            
+            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='57' AND rid = '$did' AND rtype = '$rtype'"));
+            if($agree['total'] > 49 && $badgecnt == 0){
+                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,57,$did,$rtype);
+                $last_id = db_last_insert_id('user_badges','badge');
+            }
+        }
+      }
+}
+function question_res_deb_post_reply(){
+    // resource
+    $sql = "SELECT COUNT(*) as total, qid, uid FROM resource GROUP BY qid";
+    $ress = ExecuteQuery($sql,'select');
+    foreach($ress as $res){
+        $resource_post = $res['total'];
+        $resource_reply_post = db_result(db_query("select sum(total_res) AS total_resource_post FROM
+                                                    (select count(rid) AS total_res, qid from
+                                                    (SELECT r.rid, r.qid FROM resource_reply p LEFT JOIN
+                                                    resource r on p.rid = r.rid WHERE r.qid = '".$res['qid']."')
+                                                     as test group by rid) AS summation group by qid"));
+        $resource_total = $resource_post + $resource_reply_post;
+        if($resource_total > 19 && $resource_total < 50){
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='58' AND qid = '".$res['qid']."'"));
+           if($badgecnt == 0){
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$res['uid'],58,$res['qid']);
+           }
+        }
+         if($resource_total > 49 && $resource_total < 100){
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='59' AND qid = '".$res['qid']."'"));
+           if($badgecnt == 0){
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$res['uid'],59,$res['qid']);
+           }
+        }
+         if($resource_total > 99){
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='60' AND qid = '".$res['qid']."'"));
+           if($badgecnt == 0){
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$res['uid'],60,$res['qid']);
+           }
+        }
+    }
+
+    // debate
+    $sql = "SELECT COUNT(*) as total, qid, uid FROM debate GROUP BY qid";
+    $debs = ExecuteQuery($sql,'select');
+    foreach($debs as $deb){
+        $debate_post = $deb['total'];
+        $debate_reply_post = db_result(db_query("select sum(total_res) AS total_resource_post FROM
+                                                 (select count(did) AS total_res, qid from
+                                                 (SELECT r.did, r.qid FROM debate_reply p LEFT JOIN
+                                                 debate r on p.did = r.did WHERE r.qid = '".$deb['qid']."')
+                                                  as test group by did) AS summation group by qid"));
+        $debate_total = $debate_post + $debate_reply_post;
+        if($debate_total > 19 && $debate_total < 50){
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='58' AND qid = '".$deb['qid']."'"));
+           if($badgecnt == 0){
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],58,$deb['qid']);
+           }
+        }
+        if($debate_total > 49 && $debate_total < 100){
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='59' AND qid = '".$deb['qid']."'"));
+           if($badgecnt == 0){
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],59,$deb['qid']);
+           }
+        }
+        if($debate_total > 99){
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='60' AND qid = '".$deb['qid']."'"));
+           if($badgecnt == 0){
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],60,$deb['qid']);
+           }
+        }
+    }
+
+}
+
 
 
 
