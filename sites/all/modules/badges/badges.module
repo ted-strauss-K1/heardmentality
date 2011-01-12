@@ -825,7 +825,7 @@ function resource_badges(){
             // paper boy, bronze
             // Resource Posted by user gets 5 agrees
             $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='52' AND rid = '$rid' AND rtype = '$rtype'"));
-            if($agree['total'] > 2 && $agree['total'] < 20 && $badgecnt == 0){
+            if($agree['total'] > 4 && $agree['total'] < 20 && $badgecnt == 0){
                  db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,52,$rid,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
             }
@@ -833,7 +833,7 @@ function resource_badges(){
             // Resource Posted by user gets 20 agrees
             
             $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='53' AND rid = '$rid' AND rtype = '$rtype'"));
-            if($agree['total'] > 19 && $agree['total'] < 50 && $badgecnt == 0){
+            if($agree['total'] > 2 && $agree['total'] < 50 && $badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,53,$rid,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
             }
