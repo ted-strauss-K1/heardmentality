@@ -841,7 +841,7 @@ function resource_badges(){
             // Resource Posted by user gets 50 agrees
             
             $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='54' AND rid = '$rid' AND rtype = '$rtype'"));
-            if($agree['total'] > 2 && $badgecnt == 0){
+            if($agree['total'] > 49 && $badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,54,$rid,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
             }
@@ -869,7 +869,7 @@ function debate_badges(){
             // Debate Posted by user gets 5 agrees
             
             $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='55' AND rid = '$did' AND rtype = '$rtype'"));
-            if($agree['total'] > 4 && $agree['total'] < 20 && $badgecnt == 0){
+            if($agree['total'] > 3 && $agree['total'] < 20 && $badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,55,$did,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
             }
