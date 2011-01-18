@@ -243,13 +243,20 @@ function gurupoints_cron(){
 	 $point_list = ExecuteQuery($user_pt, "select");
 
          foreach($point_list as $list){
-
-         $sel="(select sum(score),qid,1 as type,did as nid  from {debate} where uid='".$list['uid']."' group by did) union (select sum(dr.score),d.qid,2 as type,rid as nid from {debate_reply} as dr join {debate} as d on d.did=dr.did where dr.uid='".$list['uid']."' group by dr.reid) ";
+              db_query("DROP VIEW IF EXISTS {temp_scores}");
+            $sel="CREATE VIEW {temp_scores} AS (select sum(score) as score,qid,1 as type,did as nid  from {debate} where uid='".$list['uid']."' group by did) union (select sum(dr.score)  as score,d.qid,2 as type,d.did as nid from {debate_reply} as dr join {debate} as d on d.did=dr.did where dr.uid='".$list['uid']."'  group by dr.rid) ";
              $point_list = ExecuteQuery($sel, "select");
-             echo '<pre>';
-             print_r($point_list);
+
+             $query="select *,sum(score) as tscore from {temp_scores} group by qid";
+               $tscore = ExecuteQuery($query, "select");
+               foreach($tscore as $final){
+               db_query("insert into {pundit_scores} set qid='".$final['qid']."',uid='".$list['uid']."',score='".$final['tscore']."' ");
+               }
+            
              update_ranking($list['uid']);
          }
+
+   
     die;
 }
 function update_ranking($uid = ''){
