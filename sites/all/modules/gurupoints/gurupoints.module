@@ -244,7 +244,7 @@ function gurupoints_cron(){
 
          foreach($point_list as $list){
               db_query("DROP VIEW IF EXISTS {temp_scores}");
-         echo   $sel="CREATE VIEW {temp_scores} AS (select sum(score) as score,qid,1 as type,did as nid  from {debate} where uid='".$list['uid']."' group by did) union (select sum(dr.score)  as score,d.qid,2 as type,d.did as nid from {debate_reply} as dr join {debate} as d on d.did=dr.did where dr.uid='".$list['uid']."'  group by dr.rid) ";
+            $sel="CREATE VIEW {temp_scores} AS (select sum(score) as score,qid,1 as type,did as nid  from {debate} where uid='".$list['uid']."' group by did) union (select sum(dr.score)  as score,d.qid,2 as type,d.did as nid from {debate_reply} as dr join {debate} as d on d.did=dr.did where dr.uid='".$list['uid']."'  group by dr.rid) ";
              $point_list = ExecuteQuery($sel, "select");
 
             echo $query="select *,sum(score) as tscore from {temp_scores} group by qid";
@@ -258,7 +258,6 @@ function gurupoints_cron(){
             
              update_ranking($list['uid']);
          }
-die;
 }
 function update_ranking($uid = ''){
     $total_points = db_result(db_query("SELECT SUM(points) as total_points FROM {tbl_user_points} WHERE uid = '$uid'"));
