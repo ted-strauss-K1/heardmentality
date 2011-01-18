@@ -930,7 +930,6 @@ function profile_cron(){
         $uid = $result->uid;
         if($uid){
             $rank_id = $result->rank_id;
-            $rank = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '".$result->rank_id."'"));
             if($rank_id == '1'){
                 $coins = 5;
             }
