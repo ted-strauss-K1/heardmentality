@@ -346,9 +346,9 @@ function load_bubble($uid = '') {
                     <div class="debate-cor-inner-right">
                         <ul style="list-style-type:none">
                         <li style="width:30px">'.$ranking.'<br><span>'.$points.'</span></li>
-                        <li><img width="10" height="10" alt="Gold" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-gold.jpg"><br><span>'.$badges['gold'].'</span></li>
-                        <li><img width="10" height="10" alt="Silver" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-silver.jpg"><br><span>'.$badges['silver'].'</span></li>
-                        <li><img width="10" height="10" alt="Gray" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-gray.jpg"><br><span>'.$badges['bronze'].'</span></li>
+                        <li><img width="10" height="10" alt="Gold" title="'.$badges['gold'].' Golds" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-gold.jpg"><br><span>'.$badges['gold'].'</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="'.$badges['silver'].' Silvers" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-silver.jpg"><br><span>'.$badges['silver'].'</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="'.$badges['bronze'].' Bronzes" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-gray.jpg"><br><span>'.$badges['bronze'].'</span></li>
                         </ul>
                     </div>
                 </div>
