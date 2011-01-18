@@ -925,9 +925,29 @@ function load_badges($uid = ''){
     return $badges;
 }
 function profile_cron(){
-    $sql = db_query("SELECT uid,daily_todays_date as lost_login FROM user_profile WHERE DATE_SUB(NOW(), INTERVAL 1 WEEK) <= daily_todays_date");
+    $sql = db_query("SELECT p.uid,p.daily_todays_date as lost_login, u.rank_id FROM user_profile p JOIN users u ON p.uid = u.uid  WHERE DATE_SUB(NOW(), INTERVAL 1 WEEK) <= p.daily_todays_date");
     while($result = db_fetch_object($sql)){
-    echo $result->uid;
+        $uid = $result->uid;
+        if($uid){
+            $rank_id = $result->rank_id;
+            $rank = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '".$result->rank_id."'"));
+            if($rank_id == '1'){
+                $coins = 5;
+            }
+            if($rank_id == '2'){
+                $coins = 10;
+            }
+            if($rank_id == '3'){
+                $coins = 15;
+            }
+            if($rank_id == '4'){
+                $coins = 20;
+            }
+            $user = load_user($uid);
+            db_query("INSERT INTO {user_coins} (coin_key, coin_type, coin_count) VALUES('%d','%d','%d')",'rank','earn',$coins);
+            $total_coins = $coins + $user->total_coins;
+            db_query("UPDATE {users} SET total_coins = '$total_coins' WHERE uid = '$uid'");
+        }
     }
-    exit;
+    
 }
