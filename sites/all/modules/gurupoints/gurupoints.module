@@ -4,7 +4,7 @@
  * Implementation of hook_perm().
  */
 function gurupoints_perm() {
-    return array('Add Points', 'list Points', 'Home List');
+    return array('Add Points', 'list Points', 'Home List', 'Add Coins','List Coins');
 }
 
 /**
@@ -18,6 +18,9 @@ function gurupoints_menu() {
 
     $search_result['admin/userpoints'] = array('title' => 'User Points', 'page callback' => 'user_points', 'access arguments' => array('list Points'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'gurupoints.pages.inc',);
     $search_result['pundit/ajax'] = array('title' => 'Ajax Listing', 'page callback' => 'ajax_pundits', 'access arguments' => array('Home List'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'gurupoints.pages.inc',);
+    $search_result['admin/addcoins'] = array('title' => ' Add Coins', 'page callback' => 'add_coins', 'access arguments' => array('Add Coins'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'gurupoints.pages.inc',);
+    $search_result['admin/coin/save'] = array('title' => ' Add Coins', 'page callback' => 'save_coins', 'access arguments' => array('Add Coins'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'gurupoints.pages.inc',);
+    $search_result['admin/user/coins'] = array('title' => 'User Coin List', 'page callback' => 'user_coins','access arguments' => array('List Coins'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'gurupoints.pages.inc',);
 
     return $search_result;
 }
@@ -232,6 +235,7 @@ function guru_points($switch = '', $uid = '') {
 }
 
 function gurupoints_cron(){
+
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
   	$user_pt = "SELECT uid FROM users where status='1'  ";
@@ -244,7 +248,29 @@ function gurupoints_cron(){
              $point_list = ExecuteQuery($sel, "select");
              echo '<pre>';
              print_r($point_list);
+             update_ranking($list['uid']);
          }
-         die;
-
+    die;
+}
+function update_ranking($uid = ''){
+    $total_points = db_result(db_query("SELECT SUM(points) as total_points FROM {tbl_user_points} WHERE uid = '$uid'"));
+    $sql = "SELECT rank_id, ranking, points FROM tbl_ranking";
+    $ranking[] = ExecuteQuery($sql,'select');
+    // Citizen
+    if($total_points < 200){
+        $rank_id = '1';
+    }
+    // Active Citizen
+    if($total_points >= 200 && $total_points < 499){
+        $rank_id = '2';
+    }
+    // Judge
+    if($total_points >= 500 && $total_points < 999){
+        $rank_id = '3';
+    }
+    // Senator
+    if($total_points >= 1000){
+        $rank_id = '4';
+    }
+    db_query("UPDATE {users} SET rank_id = '$rank_id' WHERE uid = '$uid'" );
 }
