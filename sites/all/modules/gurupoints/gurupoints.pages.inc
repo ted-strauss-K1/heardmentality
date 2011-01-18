@@ -33,9 +33,9 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
       Points
    </td>
   </tr>';
-  $query = "SELECT * FROM tbl_points limit 0, 6 "; 
+  $query = "SELECT * FROM tbl_points limit 0, 11 ";
 	 $vlist = ExecuteQuery($query, "select");
-  for($k=0;$k<6;$k++)
+  for($k=0;$k<11;$k++)
 	{
 	$pid=$vlist[$k]['id'];
  $addoutput.=' <tr>
@@ -136,7 +136,7 @@ function save_points()
 		
 		
 	
-		for($m=1;$m<7;$m++)
+		for($m=1;$m<12;$m++)
 		{
 		$valm="qusetion_points".$m;
 		$qpt=$_REQUEST[$valm];
@@ -294,7 +294,89 @@ $outputppt.='</table></form>';
    
    
    }
+function add_coins(){
+    global $gSitePath,$user, $gDocPath,$base_root,$base_path;
+    $sql = "SELECT * FROM tbl_coins LIMIT 0,8";
+    $coins = ExecuteQuery($sql,'select');
+    $form = '<SCRIPT language=Javascript>
 
+      function isNumberKey(evt)
+      {
+         var charCode = (evt.which) ? evt.which : event.keyCode
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+            return false;
 
+         return true;
+      }
 
+   </SCRIPT>';
+    $form .= '<form method="post" action="'.$gSitePath.'admin/coin/save">
+            <table align="center" width="40%">
+            <tr>
+            <td width="46%" height="37"> <b style="color:red">*Only Numbers are allowed in  boxes </b> </td>
+            <td width="54%"></td></tr>';
+    foreach($coins as $coin){
+    $lose = $coin['type']=='lose'?'(lose)':'';
+    $form .='<tr><td width="30%">'.$coin['coin_type'].'&nbsp'.$lose.'</td><td><input type="text" width="70%" name="coin'.$coin['id'].'" value="'.$coin['coin_count'].'" onkeypress="return isNumberKey(event)" size="5"></td></tr>';
+    }
+    $form .= '<tr><td colspan="2" align="center"><input type="submit" name="save_coin" value="Save" /></td></tr>';
+    $form .=' </table>
+            </form>';
+    return $form;
+}
+function save_coins(){
+    global $gSitePath,$user, $gDocPath,$base_root;
+    user_coins_update(1,'','c_debate');
+    for($c=1;$c<=8;$c++){
+        $coin = 'coin'.$c;
+        $coin_value = $_REQUEST[$coin];
+        $sql = "UPDATE {tbl_coins} SET coin_count = '$coin_value' WHERE id = '$c'";
+        db_query($sql);
+    }
+    drupal_goto('admin/addcoins');
+    $msg = "updated";
+    return $msg;
+}
+function user_coins(){
+    $sql = "SELECT uid,name,total_coins FROM {users} ORDER BY uid";
+    $users = ExecuteQuery($sql, 'select');
+    $sno = 1;
+    $count = 0;
+    $earned=0;
+    $lost=0;
+    $strOutput = '<table border=1>
+                   <tr>
+                   <td><b>Sno</b></td>
+                   <td><b>User</b></td>
+                   <td><b>Earned</b></td>
+                   <td><b>Lost</b></td>
+                   <td><b>Total Coins</b></td>
+                   </tr>';
+    foreach($users as $user) {
+        $user_coins = $user['total_coins'];
+        $coin_sql = "SELECT * FROM user_coins WHERE uid = '".$user['uid']."'";
+        $strOutput .= '<tr><td>'.$sno.'</td>';
+        $coin_lists = ExecuteQuery($coin_sql, 'select');
+        foreach($coin_lists as $coin_list){
+            if($coin_list['coin_type'] == 'earn'){
+                //$count = $count + $coin_list['coin_count'];
+                $earned += $coin_list['coin_count'];
+            }
+            if($coin_list['coin_type'] == 'lose'){
+                //$count = $count - $coin_list['coin_count'];
+                $lost += $coin_list['coin_count'];
+            }
+        }
+        $total_coins = $user_coins+$earned-$lost;
+        //$total_coins = $user_coins+$count;
+        $strOutput .= '<td>'.$user['name'].'</td><td><span style="color:#A2C257">'.$earned.'<span></td><td><span style="color:#FF0000">'.$lost.'</span></td><td><span>'.$user_coins.'</span></td></tr>';
+        $sno++;
+        $count = 0;
+        $earned=0;
+        $lost=0;
+        }
+        
+    $strOutput .= '</table>';
+    return $strOutput;
+}
 ?>
