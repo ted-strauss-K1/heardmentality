@@ -34,7 +34,6 @@ var login_params=
   
  <?php
 			 else:
-			
 			?>
  		    
        	  <div class="debate-outer">
@@ -73,14 +72,24 @@ var login_params=
          	<div class="debate-cor-inner">
             	<div>
                         <div class="debate-cor-inner-left">
-                        <img width="33" height="28" alt="Goat-thumb" src="<?php echo $directory; ?>/images/cor-goat.jpg">
+<!--                        <img width="33" height="28" alt="Goat-thumb" src="<?php //echo $directory; ?>/images/cor-goat.jpg">-->
+                            <?php echo UserPicture_small($user->uid);?>
                         </div>
+                    <?php
+                    // get rank
+                    $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$user->rank_id'"));
+                    $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '".$user->uid."'"));
+                    // get coins
+                    $coins = $user->total_coins;
+                    // badges
+                    $badges = load_badges($user->uid);
+                    ?>
                         	<div class="debate-cor-inner-right">
                             	<ul>
-                                	<li>Citizen <br><span>51,730</span></li>
-                                    <li><img width="10" height="10" alt="Gold" src="<?php echo $directory; ?>/images/cor-gold.jpg"><br><span>20</span></li>
-                                    <li><img width="10" height="10" alt="Silver" src="<?php echo $directory; ?>/images/cor-silver.jpg"><br><span>5</span></li>
-                                    <li><img width="10" height="10" alt="Gray" src="<?php echo $directory; ?>/images/cor-gray.jpg"><br><span>18</span></li>
+                                    <li style="width:30px"><?php echo $ranking;?><br><span><?php echo $points;?></span></li>
+                                    <li><img width="10" height="10" alt="Gold" src="<?php echo $directory; ?>/images/cor-gold.jpg"><br><span><?php echo $badges['gold'];?></span></li>
+                                    <li><img width="10" height="10" alt="Silver" src="<?php echo $directory; ?>/images/cor-silver.jpg"><br><span><?php echo $badges['silver'];?></span></li>
+                                    <li><img width="10" height="10" alt="Gray" src="<?php echo $directory; ?>/images/cor-gray.jpg"><br><span><?php echo $badges['bronze'];?></span></li>
                                 </ul>
 
                             </div>
@@ -100,7 +109,7 @@ var login_params=
             <div class="debate-second-2">
               <ul>
                <li><img width="16" height="16" alt="Ctegory" src="<?php echo $directory; ?>/images/category.png"> <span>X 32</span></li>
-              	<li><img width="16" height="16" alt="Coins" src="<?php echo $directory; ?>/images/coins.png"> <span>X 32</span></li>
+              	<li><img width="16" height="16" alt="Coins" src="<?php echo $directory; ?>/images/coins.png"> <span>X <?php echo $coins;?></span></li>
                 <li>Some text</li>
 
               </ul>
