@@ -123,6 +123,7 @@ function biographer($uid = '') {
     if ($i == 11&&$badgecnt==0) {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 1, $uid);
       $last_id =  mysql_insert_id();
+      user_coins_update($uid,1,'');
     //  hm_mails('',$last_id,'user_badges');
      // badges_user($uid,$last_id);
       
@@ -140,11 +141,11 @@ function citizen_patrol($uid = '') {
     
     $count = db_result(db_query("SELECT COUNT(uid) FROM {question_flags} where uid='$uid'"));
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='2'"));
-    
     if ($count == 1 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",2, $uid);
          $last_id =  mysql_insert_id();
+         user_coins_update($uid,2,'');
        // hm_mails('',$last_id,'user_badges');
         //badges_user($uid,$last_id);
     }
@@ -169,6 +170,7 @@ function civic_duty($uid = '') {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 3, $uid);
          $last_id =  mysql_insert_id();
+         user_coins_update($uid,3,'');
          //hm_mails('',$last_id,'user_badges');
          //badges_user($uid,$last_id);
     }
@@ -188,6 +190,7 @@ function patriotic_citizen($uid = '') {
         if($count >= 5 && $badgecnt == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid) VALUES(%d,%d)",45,$uid);
             $last_id = mysql_insert_id();
+            user_coins_update($uid,45,'');
         }
 }
 function cleanup($uid = '') {
@@ -201,12 +204,12 @@ function cleanup($uid = '') {
     
     $count = db_fetch_object(db_query("SELECT * FROM {answer_withdraw} where uid='$uid' AND status='0' LIMIT 0,1"));
 
-    
     if (! empty($count)) {
         
         db_query("update {answer_withdraw} set status='1' where uid='$uid' AND pid_sid='$count->pid_sid' ");
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 4, $uid);
         $last_id =  mysql_insert_id();
+        user_coins_update($uid,4,'');
        // hm_mails('',$last_id,'user_badges');
        // badges_user($uid,$last_id);
     }
@@ -231,6 +234,7 @@ function commentator($uid = '') {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 5, $uid);
          $last_id =  mysql_insert_id();
+         user_coins_update($uid,5,'');
        //  hm_mails('',$last_id,'user_badges');
         // badges_user($uid,$last_id);
     }
@@ -248,6 +252,7 @@ function pamphleteer($uid = ''){
     if ($count >= 1 && $badgecnt == 0) {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 46, $uid);
         $last_id =  mysql_insert_id();
+        user_coins_update($uid,46,'');
     }
 }
 
@@ -262,6 +267,7 @@ function senator($uid = ''){
     if ($count >= 5 && $badgecnt == 0) {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 47, $uid);
         $last_id = db_last_insert_id('user_badges','badge');
+        user_coins_update($uid,47,'');
     }    
 }
 function critic($uid = '') {
@@ -285,6 +291,7 @@ function discipline($uid = '', $qid = '') {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 7, $uid);
          $last_id =  mysql_insert_id();
+         user_coins_update($uid,7,'');
        //  hm_mails('',$last_id,'user_badges');
         // badges_user($uid,$last_id);
     }
@@ -314,6 +321,7 @@ function electorate($uid = '', $qid = '') {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 9, $uid);
          $last_id =  mysql_insert_id();
+         user_coins_update($uid,9,'');
         // hm_mails('',$last_id,'user_badges');
         // badges_user($uid,$last_id);
     }
@@ -351,6 +359,7 @@ function enthusiast($uid = '') {
                      $last_id =  mysql_insert_id();
                    // hm_mails('',$last_id,'user_badges');
                    // badges_user($uid,$last_id);
+                     user_coins_update($uid,11,'');
                     $query = "update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,NOW()) where uid='$uid'";
                     db_query($query);
                 }
@@ -426,6 +435,7 @@ function yearling() {
                     if ($countret == 0) {
                         db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)", 43, $userlist->uid, $rep);
                          $last_id =  mysql_insert_id();
+                         user_coins_update($uid,43,'');
                         // hm_mails('',$last_id,'user_badges');
                         // badges_user($uid,$last_id);
                     }
@@ -465,6 +475,7 @@ function Tumbleweed() {
             if ($viewbad == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('42', '$qklisy->uid','$qklisy->qid') ");
                  $last_id =  mysql_insert_id();
+                 user_coins_update($uid,42,'');
                 // hm_mails('',$last_id,'user_badges');
                 // badges_user($uid,$last_id);
             }
@@ -486,6 +497,7 @@ function Taxonomist() {
             if ($tagcntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,tid) VALUES ('40','$qtag->uid','$qtag->tid') ");
                  $last_id =  mysql_insert_id();
+                 user_coins_update($uid,40,'');
                 // hm_mails('',$last_id,'user_badges');
                 // badges_user($uid,$last_id);
             }
@@ -520,6 +532,7 @@ function Student() {
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('38','$qstude->uid','$qstude->qid') ");
                  $last_id =  mysql_insert_id();
+                 user_coins_update($uid,38,'');
                 // hm_mails('',$last_id,'user_badges');
                 // badges_user($uid,$last_id);
             }
@@ -571,6 +584,7 @@ function supporter($uid = '') {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 39, $uid);
         $last_id =  mysql_insert_id();
+        user_coins_update($uid,39,'');
        // hm_mails('',$last_id,'user_badges');
        // badges_user($uid,$last_id);
     }
@@ -591,6 +605,7 @@ function seer($uid = ''){
 
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 49, $uid);
         $last_id =  db_last_insert_id('user_badges','badge');
+        user_coins_update($uid,49,'');
        // hm_mails('',$last_id,'user_badges');
        // badges_user($uid,$last_id);
     }
@@ -610,6 +625,7 @@ function oracle($uid = ''){
 
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 50, $uid);
         $last_id =  db_last_insert_id('user_badges','badge');
+        user_coins_update($uid,50,'');
        // hm_mails('',$last_id,'user_badges');
        // badges_user($uid,$last_id);
     }
@@ -641,6 +657,7 @@ AND l.is_like = '1' AND f.uid = '$uid'"));
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 32, $uid);
         $last_id =  mysql_insert_id();
+        user_coins_update($uid,32,'');
        // hm_mails('',$last_id,'user_badges');
        // badges_user($uid,$last_id);
     }
@@ -661,6 +678,7 @@ function generalist($uid = '') {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 16, $uid);
         $last_id =  mysql_insert_id();
+        user_coins_update($uid,16,'');
        // hm_mails('',$last_id,'user_badges');
        // badges_user($uid,$last_id);
     
@@ -691,6 +709,7 @@ function legendary($uid = '') {
             
             db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 22, $uid);
             $last_id =  mysql_insert_id();
+            user_coins_update($uid,22,'');
            // hm_mails('',$last_id,'user_badges');
            // badges_user($uid,$last_id);
         }
@@ -730,6 +749,7 @@ function fanatic($uid = '') {
                     
                     db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
                      $last_id =  mysql_insert_id();
+                      user_coins_update($uid,11,'');
                     // hm_mails('',$last_id,'user_badges');
                     // badges_user($uid,$last_id);
                     $query = "update {user_profile} set fanatic_start_date=now(),fanatic_todays_date=now(),fanatic_end_date=TIMESTAMPADD(DAY,50,NOW()) where uid='$uid'";
@@ -769,6 +789,7 @@ function good_question($uid){
         if($count >= 1 && $badgecnt == 0){
             db_query("INSERT INTO {user_badges} (uid,bid,qid) VALUES(%d,%d,%d)",$uid,18,$quest['qid']);
             $last_id = db_last_insert_id('user_badges','badge');
+             user_coins_update($uid,18,'');
         }
     }
 }
@@ -783,6 +804,7 @@ function popular_question($uid){
         if($count >= 2 && $badgecnt == 0){
             db_query("INSERT INTO {user_badges} (uid,bid,qid) VALUES(%d,%d,%d)",$uid,30,$quest['qid']);
             $last_id = db_last_insert_id('user_badges','badge');
+             user_coins_update($uid,30,'');
         }
     }
 }
@@ -797,6 +819,7 @@ function provocative_question($uid){
         if($count >= 3 && $badgecnt == 0){
             db_query("INSERT INTO {user_badges} (uid,bid,qid) VALUES(%d,%d,%d)",$uid,51,$quest['qid']);
             $last_id = db_last_insert_id('user_badges','badge');
+             user_coins_update($uid,51,'');
         }
     }
 }
@@ -807,7 +830,9 @@ function scrutineer($uid,$qid){
    if($count == 0)
    {
     db_query("INSERT INTO {user_badges} (uid, bid, qid) VALUES(%d,%d,%d)",$uid,44,$qid);
+    add_coins($uid,44,'');
     $last_id = db_last_insert_id('user_badges','badge');
+     user_coins_update($uid,44,'');
    }
 }
 /////// paper boy, newsstand, librarian ///////////////////
@@ -833,6 +858,7 @@ function resource_badges(){
             if($agree['total'] > 1 && $agree['total'] < 3 && $badgecnt == 0){
                  db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,52,$rid,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
+                 user_coins_update($uid,52,'');
             }
             // newsstand, silver
             // Resource Posted by user gets 20 agrees >19 <50
@@ -841,6 +867,7 @@ function resource_badges(){
             if($agree['total'] > 2 && $agree['total'] < 5 && $badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,53,$rid,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
+                 user_coins_update($uid,53,'');
             }
             // librarian, gold
             // Resource Posted by user gets 50 agrees >49
@@ -849,6 +876,7 @@ function resource_badges(){
             if($agree['total'] > 4 && $badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,54,$rid,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
+                 user_coins_update($uid,54,'');
             }
            
         }
@@ -877,6 +905,7 @@ function debate_badges(){
             if($agree['total'] > 1 && $agree['total'] < 3 && $badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,55,$did,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
+                 user_coins_update($uid,55,'');
             }
             // well put, silver
             // Debate Posted by user gets 20 agrees >19 <50
@@ -884,6 +913,7 @@ function debate_badges(){
             if($agree['total'] > 2 && $agree['total'] < 5 && $badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,56,$did,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
+                 user_coins_update($uid,56,'');
             }
             // consensus builder, gold
             // Debate Posted by user gets 50 agrees >49
@@ -892,6 +922,7 @@ function debate_badges(){
             if($agree['total'] > 4 && $badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', rid = '%d', rtype = '%s'",$uid,57,$did,$rtype);
                 $last_id = db_last_insert_id('user_badges','badge');
+                 user_coins_update($uid,57,'');
             }
         }
       }
@@ -913,6 +944,8 @@ function question_res_deb_post_reply(){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='58' AND qid = '".$res['qid']."'"));
            if($badgecnt == 0){
                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$res['uid'],58,$res['qid']);
+               $last_id = db_last_insert_id('user_badges','badge');
+                user_coins_update($uid,58,'');
            }
         }
         // >49 <100
@@ -920,6 +953,8 @@ function question_res_deb_post_reply(){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='59' AND qid = '".$res['qid']."'"));
            if($badgecnt == 0){
                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$res['uid'],59,$res['qid']);
+               $last_id = db_last_insert_id('user_badges','badge');
+                user_coins_update($uid,59,'');
            }
         }
         // >99
@@ -927,6 +962,8 @@ function question_res_deb_post_reply(){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='60' AND qid = '".$res['qid']."'"));
            if($badgecnt == 0){
                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$res['uid'],60,$res['qid']);
+               $last_id = db_last_insert_id('user_badges','badge');
+                user_coins_update($uid,60,'');
            }
         }
     }
@@ -947,6 +984,8 @@ function question_res_deb_post_reply(){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='58' AND qid = '".$deb['qid']."'"));
            if($badgecnt == 0){
                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],58,$deb['qid']);
+               $last_id = db_last_insert_id('user_badges','badge');
+                user_coins_update($uid,58,'');
            }
         }
         // >49 <100
@@ -954,6 +993,8 @@ function question_res_deb_post_reply(){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='59' AND qid = '".$deb['qid']."'"));
            if($badgecnt == 0){
                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],59,$deb['qid']);
+               $last_id = db_last_insert_id('user_badges','badge');
+                user_coins_update($uid,59,'');
            }
         }
         // >99
@@ -961,6 +1002,8 @@ function question_res_deb_post_reply(){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='60' AND qid = '".$deb['qid']."'"));
            if($badgecnt == 0){
                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],60,$deb['qid']);
+               $last_id = db_last_insert_id('user_badges','badge');
+                user_coins_update($uid,60,'');
            }
         }
     }
@@ -968,5 +1011,26 @@ function question_res_deb_post_reply(){
 }
 
 
-
+function user_coins_update($uid = '',$bid,$keyname){
+    if($bid!=''){
+    $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
+    }
+    $sql = "SELECT * FROM {tbl_coins} WHERE key_name = '$keyname'";
+    $coins = ExecuteQuery($sql,'select');
+    foreach($coins as $coin){
+        $coin_count = $coin['coin_count'];
+        $coin_type = $coin['type'];
+    }
+    $insert = "INSERT INTO {user_coins} SET coin_key = '%s', coin_type = '%s', coin_count = '%d', uid = '%d'";
+    db_query($insert,$keyname,$coin_type,$coin_count,$uid);
+    // update total coins
+    $user_coins  = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
+    if($coin_type == 'earn'){
+        $total_coins = $user_coins + $coin_count;
+    }
+    if($coin_type == 'lose'){
+         $total_coins = $user_coins - $coin_count;
+    }
+    db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'",$total_coins);
+}
 
