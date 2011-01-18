@@ -250,14 +250,15 @@ function gurupoints_cron(){
              $query="select *,sum(score) as tscore from {temp_scores} group by qid";
                $tscore = ExecuteQuery($query, "select");
                foreach($tscore as $final){
+               if(db_result(db_query("select count(*) from  {pundit_scores} where qid='".$final['qid']."'  and uid='".$list['uid']."'")))
+                   db_query("update {pundit_scores} set score='".$final['tscore']."' where qid='".$final['qid']."' AND uid='".$list['uid']."'");
+                   else
                db_query("insert into {pundit_scores} set qid='".$final['qid']."',uid='".$list['uid']."',score='".$final['tscore']."' ");
                }
             
              update_ranking($list['uid']);
          }
 
-   
-    die;
 }
 function update_ranking($uid = ''){
     $total_points = db_result(db_query("SELECT SUM(points) as total_points FROM {tbl_user_points} WHERE uid = '$uid'"));
