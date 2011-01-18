@@ -106,14 +106,14 @@ function list_debate($qid='', $type='') {
     global $gSitePath, $user, $gDocPath, $base_root;
         $wave = '';
     $click = '';
-    $sort='ORDER BY did DESC';
+    $sortin='ORDER BY did DESC';
     $cond='';
 extract($_REQUEST);
         if(isset($sort)&&$sort==1)
             $sortin=' ORDER BY f.date_added DESC';
         elseif(isset($sort)&&$sort==2)
              $sortin=' ORDER BY f.strength DESC';
-        if(isset($ans))
+        if(isset($ans)&&!empty($ans))
             $cond.=" AND do.paid='$ans'";
         if(isset($sup)&&$sup>0)
              $cond.=" AND do.ans_val='$sup'";

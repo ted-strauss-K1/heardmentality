@@ -1082,8 +1082,25 @@ function resource_innews($qid='', $rtype='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';
-    $query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' ORDER BY rid DESC ";
-    $cnt = ExecuteQuery($query, "select");
+    $sortin='ORDER BY rid DESC';
+    $cond='';
+    extract($_REQUEST);
+        if(isset($sort)&&$sort==1)
+            $sortin=' ORDER BY r.posted_date DESC';
+        elseif(isset($sort)&&$sort==2)
+             $sortin=' ORDER BY r.strength DESC';
+        if(isset($ans)&&!empty($ans))
+            $cond.=" AND ro.paid='$ans'";
+        if(isset($sup)&&$sup>0)
+             $cond.=" AND ro.ans_val='$sup'";
+
+             if(empty($cond))
+   $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(r.agree,0) as cntagree,IFNULL(r.disagree,0) as cntdisagree from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $sortin ";
+   else
+   $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(r.agree,0) as cntagree,IFNULL(r.disagree,0) as cntdisagree from {resource_options} as ro join {resource} as r on ro.rid=r.rid join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $cond  group by r.rid $sortin ";
+
+   $cnt = ExecuteQuery($query, "select");
+    
     if (count($cnt)) {
 
 
@@ -1655,6 +1672,7 @@ function debate_ajax() {
                 $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('%d','%s','%s','%s','%d','%s','%s', '%d','%d','%s','%s','%s','%s','%s')";
                 db_query($resourceadd, $rtype, $nlink, $ntitle, $ncontent, $mtype, $membed, $flink, $user->uid, $qaid, $path, $docpath, $ytvID, $udesc, $files);
                 $nid = db_last_insert_id('resource', 'rid');
+                   $i = 0;
                 foreach ($ans_id as $list) {
 
                     $forum = "INSERT INTO {resource_options} set rid='%d',paid='%d',ans_val='%d' ";
@@ -1832,6 +1850,29 @@ $(document).ready(function() {
       case 'filter':
               $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
            echo list_debate($qid, 1);
+          break;
+      case 'resfilter':
+           $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+          extract($_REQUEST);
+          switch($type){
+            case 'innews':
+            $output.= resource_innews($qid, 1);
+            break;
+        case 'media':
+
+            $output.= resource_media($qid);
+            break;
+        case 'facts':
+
+
+            $output.= resource_innews($qid, 3);
+            break;
+        default:
+            $output = '<div class="messages warning">No Action Found!</div>';
+            break;
+
+          }
+          echo $output;
           break;
         default:
             echo "<div class='messages error'>No Action found</div>";

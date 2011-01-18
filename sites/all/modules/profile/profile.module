@@ -333,11 +333,12 @@ function load_bubble($uid = '') {
     //<img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40
     $medal = updateProfileBadge($uid);
     $details = load_user($uid);
+    
     $uname = $details->first_name.' '.$details->last_name;
     $output = '
 <div class="profile-img">
 <div class="profile-imgs">
- <a href="'.$gSitePath.'profile/'.$details->name.'" title="">'.UserPicture($uid).'</a>
+ <a href="'.$gSitePath.'profile/'.$details->name.'" title="">'.UserPicture_small($uid).'</a>
 </div>
 <div class="profile-con">'.$details->name.'<br/>'.$medal.'</div>
 

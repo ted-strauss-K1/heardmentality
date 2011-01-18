@@ -238,7 +238,7 @@ function gurupoints_cron(){
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
-  	$user_pt = "SELECT uid FROM users where status='1'  ";
+  	$user_pt = "SELECT uid FROM {users} where status='1'  ";
 
 	 $point_list = ExecuteQuery($user_pt, "select");
 
