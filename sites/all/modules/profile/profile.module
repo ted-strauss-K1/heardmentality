@@ -926,10 +926,8 @@ function load_badges($uid = ''){
 }
 function profile_cron(){
     $sql = db_query("SELECT uid,daily_todays_date as lost_login FROM user_profile WHERE DATE_SUB(NOW(), INTERVAL 1 WEEK) <= daily_todays_date");
-    $result = db_fetch_object($sql);
-    echo "dd";
-    foreach($result as $users){
-        echo $users->uid;
+    while($result = db_fetch_object($sql)){
+    echo $result->uid;
     }
     exit;
 }
