@@ -341,7 +341,8 @@ function load_bubble($uid = '') {
      $points = $points!=''?$points:0;
      $coins = $user->total_coins!=''?$user->total_coins:0;
      $badges = load_badges($uid);
-     $output = '<div>
+     $output = '<div class="debate-cor-inner">
+                <div>
                 <div class="debate-cor-inner-left">'.UserPicture_small($details->uid).'</div>
                     <div class="debate-cor-inner-right">
                         <ul style="list-style-type:none">
@@ -351,6 +352,7 @@ function load_bubble($uid = '') {
                         <li><img width="10" height="10" alt="Gray" title="'.$badges['bronze'].' Bronzes" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-gray.jpg"><br><span>'.$badges['bronze'].'</span></li>
                         </ul>
                     </div>
+                 </div>
                 </div>
                 ';
 
