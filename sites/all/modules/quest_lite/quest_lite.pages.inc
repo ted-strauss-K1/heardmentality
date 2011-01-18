@@ -964,6 +964,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='25'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','" . $ansrem->uid . "') ");
+                     user_coins_update($uid,25,'');
                 }
             }
             //////////////Good Answer///////////////////////
@@ -971,6 +972,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='17'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','" . $ansrem->uid . "') ");
+                     user_coins_update($uid,17,'');
                 }
             }
             //////////////great answers///////////////////////
@@ -978,6 +980,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='19'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','" . $ansrem->uid . "') ");
+                     user_coins_update($uid,19,'');
                 }
             }
             drupal_goto("qlite/view/$mid");
@@ -1104,6 +1107,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='25'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','" . $ansrem->uid . "') ");
+                     user_coins_update($uid,25,'');
                 }
             }
             //////////////Good Answer///////////////////////
@@ -1111,6 +1115,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='17'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','" . $ansrem->uid . "') ");
+                     user_coins_update($uid,17,'');
                 }
             }
             //////////////great answers///////////////////////
@@ -1118,6 +1123,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='19'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','" . $ansrem->uid . "') ");
+                     user_coins_update($uid,19,'');
                 }
             }
             drupal_goto("qlite/view/$mid");
@@ -1789,6 +1795,7 @@ function suggest_answer_save() {
             //Suggest Answer badges
             db_query("insert into {user_badges} set bid='38',uid='$uid',qid='" . $_REQUEST['qaid'] . "'");
             $last_id = db_last_insert_id('user_badges','badge');
+             user_coins_update($uid,38,'');
             // hm_mails('',$last_id,'user_badges');
             //badges_user($uid,$last_id);
 
@@ -3285,30 +3292,34 @@ function popquest() {
 //    }
 
     ////////////////////notable Issue//////////////
+    // count 1000
     if ($popcnt == 3) {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='27'"));
         if ($stucntr == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('27','" . $oListquest->uid . "','" . $qid . "') ");
+             user_coins_update($uid,27,'');
         }
     }
 
     /////////////////famous Issue ////////////////
 
-
+    // count 50000
     if ($popcnt == 5) {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='13'"));
         if ($stucntr == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','" . $oListquest->uid . "','" . $qid . "') ");
+             user_coins_update($uid,13,'');
         }
     }
 
 
     ///////////////// provocative Issue //////////////
-
-    if($popcnt == 10000) {
+    // count 10000
+    if($popcnt == 4) {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='48'"));
         if ($stucntr == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('48','" . $oListquest->uid . "','" . $qid . "') ");
+             user_coins_update($uid,48,'');
         }
     }
 
