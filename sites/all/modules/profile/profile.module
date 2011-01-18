@@ -943,9 +943,9 @@ function profile_cron(){
                 $coins = 20;
             }
             $user = load_user($uid);
-            db_query("INSERT INTO {user_coins} (coin_key, coin_type, coin_count) VALUES('%d','%d','%d')",'rank','earn',$coins);
+            db_query("INSERT INTO {user_coins} (coin_key, coin_type, coin_count) VALUES('%s','%s','%d')",'rank','earn',$coins);
             $total_coins = $coins + $user->total_coins;
-            db_query("UPDATE {users} SET total_coins = '$total_coins' WHERE uid = '$uid'");
+            db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'",$total_coins);
         }
     }
     
