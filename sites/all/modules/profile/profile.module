@@ -353,6 +353,8 @@ function load_bubble($uid = '') {
                         </ul>
                     </div>
                  </div>
+                 <div class="clr"></div>
+                 <div class="clr"></div>
                 </div>
                 ';
 
