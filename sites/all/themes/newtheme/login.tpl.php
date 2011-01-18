@@ -87,9 +87,9 @@ var login_params=
                         	<div class="debate-cor-inner-right">
                             	<ul>
                                     <li style="width:30px"><?php echo $ranking;?><br><span><?php echo $points;?></span></li>
-                                    <li><img width="10" height="10" alt="Gold" src="<?php echo $directory; ?>/images/cor-gold.jpg"><br><span><?php echo $badges['gold'];?></span></li>
-                                    <li><img width="10" height="10" alt="Silver" src="<?php echo $directory; ?>/images/cor-silver.jpg"><br><span><?php echo $badges['silver'];?></span></li>
-                                    <li><img width="10" height="10" alt="Gray" src="<?php echo $directory; ?>/images/cor-gray.jpg"><br><span><?php echo $badges['bronze'];?></span></li>
+                                    <li><img width="10" height="10" alt="Gold" title="<?php echo $badges['gold'];?> Golds" src="<?php echo $directory; ?>/images/cor-gold.jpg"><br><span><?php echo $badges['gold'];?></span></li>
+                                    <li><img width="10" height="10" alt="Silver" title="<?php echo $badges['silver'];?> Silvers" src="<?php echo $directory; ?>/images/cor-silver.jpg"><br><span><?php echo $badges['silver'];?></span></li>
+                                    <li><img width="10" height="10" alt="Gray" title="<?php echo $badges['bronze'];?> Bronzes" src="<?php echo $directory; ?>/images/cor-gray.jpg"><br><span><?php echo $badges['bronze'];?></span></li>
                                 </ul>
 
                             </div>
