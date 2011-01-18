@@ -923,4 +923,12 @@ function load_badges($uid = ''){
     }
     $badges = array("bronze"=>$bcnt,"silver"=>$scnt,"gold"=>$gcnt);
     return $badges;
-} 
+}
+function profile_cron(){
+    $sql = db_query("SELECT uid,daily_todays_date as lost_login FROM user_profile WHERE DATE_SUB(NOW(), INTERVAL 1 WEEK) <= daily_todays_date");
+    $result = db_fetch_object($sql);
+    foreach($result as $users){
+        echo $users->uid;
+    }
+    exit;
+}
