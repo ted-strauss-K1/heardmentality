@@ -258,7 +258,7 @@ function gurupoints_cron(){
             
              update_ranking($list['uid']);
          }
-
+die;
 }
 function update_ranking($uid = ''){
     $total_points = db_result(db_query("SELECT SUM(points) as total_points FROM {tbl_user_points} WHERE uid = '$uid'"));
