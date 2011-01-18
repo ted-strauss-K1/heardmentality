@@ -1937,7 +1937,10 @@ function debate_submit() {
                 $nid = db_last_insert_id('debate', 'did');
                 ;
                 $i = 0;
-
+// add coin for Create new debates
+                $coin_type = 'c_debate';
+                users_coins_update($user->uid,'',$coin_type);
+                
                 foreach ($ans_id as $list) {
 
                     $forum = "INSERT INTO {debate_options} set did='%d',paid='%d',ans_val='%d' ";
@@ -1973,6 +1976,11 @@ function debate_submit() {
             $rid = db_last_insert_id('debate_reply', 'rid');
             echo $output = get_debate($fdid, 0);
             post_notification($fdid, $rid);
+
+// add coin for participate in debate debates
+                $coin_type = 'p_debate';
+                users_coins_update($user->uid,'',$coin_type);
+
             /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
             $qid_url = db_query("select * from {question} where qid='$qid'");
             $question_values = db_fetch_array($qid_url);
@@ -2028,6 +2036,9 @@ function debate_submit() {
                 $query = "insert into {user_likes} set $set ,node_id='$nodeid',uid='$user->uid',is_agree='$agree'";
 
                 $chk = db_query($query);
+// add coin for agree and disagree
+                $coin_type = $agree=='1'?'agree':'disagree';
+                users_coins_update($user->uid,'',$coin_type);
 //guru points
                 insertpoints($action, $nodeid);
 //notification
@@ -2081,4 +2092,27 @@ function debate_submit() {
             break;
     }
     return;
+}
+function users_coins_update($uid = '',$bid,$keyname){
+    if($bid!=''){
+    $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
+    }
+    $sql = "SELECT * FROM {tbl_coins} WHERE key_name = '$keyname'";
+    $coins = ExecuteQuery($sql,'select');
+    foreach($coins as $coin){
+        $coin_count = $coin['coin_count'];
+        $coin_type = $coin['type'];
+    }
+    $insert = "INSERT INTO {user_coins} SET coin_key = '%s', coin_type = '%s', coin_count = '%d', uid = '%d'";
+    db_query($insert,$keyname,$coin_type,$coin_count,$uid);
+
+    // update total coins
+    $user_coins  = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
+    if($coin_type == 'earn'){
+        $total_coins = $user_coins + $coin_count;
+    }
+    if($coin_type == 'lose'){
+         $total_coins = $user_coins - $coin_count;
+    }
+    db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'",$total_coins);
 }
