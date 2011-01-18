@@ -1,17 +1,17 @@
 /**
  * @author gobinath.m
- 
+
 */
 
 function bind_clk(){
 
-  
+
     jQuery('a[name="rep"]').live('click', function(){
-       
+
         addComment(jQuery(this));
 
     });
- 
+
     //agree
     jQuery('a.dagree').live('click', function(e){
         jQuery(this).agree(e,'1');
@@ -42,7 +42,7 @@ function bind_clk(){
                     log.removeClass('ajax-loading');
                     jQuery.unblockUI();
                     jQuery.growlUI('', data);
-                 
+
                     jQuery("#flagform input:checked").attr('checked',false);
 
 
@@ -53,7 +53,7 @@ function bind_clk(){
         // return false;
         //});
 
-        
+
         });
     }
 
@@ -69,7 +69,7 @@ function bind_clk(){
             }else{
 
                 jQuery.growlUI('', 'Please Login to do this action!');
-     
+
             }
 
             el.empty();
@@ -98,7 +98,7 @@ function bind_clk(){
                     el.parent('span').html(msg.msg);
                 }
             });
-        }      
+        }
     });
 })(jQuery);
 
@@ -106,7 +106,7 @@ function bind_clk(){
 function wave_form(){
     //Prevents the default submit event from loading a new page.
     //e.stop();
- 
+
     var wc=jQuery('#newwaveform').find('#wcon');
     var wt=jQuery('#newwaveform').find('#wtitle');
 
@@ -157,19 +157,19 @@ function addComment(ele){
     jQuery('#waveletcmt').css('border-color', '');
     jQuery('#waveletcmt').val('');
     jQuery('#frid').val(gid[1]);
-   
+
 // jQuery('#wavecancel').live('click', function(){cancelAdd(jQuery(this));});
-    
+
 }
 
 
 function cancelAdd(id){
 
-   
+
     if ($('freport').getStyle('display') == 'block') {
         $('freport').slide('out');
         $('freport').setStyle('display', 'none');
-            
+
     }
 
 }
@@ -187,9 +187,9 @@ function likethis(action, wid, like, ele){
     el.empty();
 
     el.slideDown('slow');
-    
+
     // $('likelink').empty();
-    
+
     var url = spath + 'question/forum/savecmt';
 
     jQuery('#waveerr').html('<b>Saving your like..!</b>');
@@ -209,7 +209,7 @@ function likethis(action, wid, like, ele){
             //  el.fade('in');
 
             finl.unwrap();
-           
+
             jQuery('#waveerr').slideUp('slow');
         }
     });
@@ -225,7 +225,7 @@ function likethis(action, wid, like, ele){
 
 
 function report_forum(typ, id){
-   
+
     el = jQuery('#freport');
     jQuery('#rwave').val();
     jQuery('#rwavelet').val();
@@ -233,19 +233,19 @@ function report_forum(typ, id){
     /* el.css('display', 'block');
     el.slideDown('slow');*/
     jQuery('#abuse_type').focus();
-    
 
-    
+
+
 }
 
 
 function rwavelet(rid, wid){
 
     var url = spath+'question/forum/';
-    
+
 
     var myElement ='<div id="documentBody" align="right" ><a href="#" onClick="return_back('+rid+')" id="back" >Back</a></div>';
-    
+
     //  $('#ajaxpage_content').slideUp('slow');
     jQuery.growlUI('Loading forum...');
     jQuery.ajax({
@@ -272,7 +272,7 @@ function rwavelet(rid, wid){
 function return_back(rid){
 
     var url = spath+'resource/forum/' + rid;
-    
+
     jQuery.growlUI('Loading forum...');
     jQuery.ajax({
         type: "POST",
@@ -281,14 +281,14 @@ function return_back(rid){
         success: function(msg){
 
             $('body').html(msg);
-               
+
         }
     });
 
-    
+
 }
 function toggle(){
-	
+
 
     if(uid>0){
 
@@ -318,9 +318,9 @@ jQuery(document).ready(function() {
     jQuery('#waveButton').live('click',function(e) {
 
        e.preventDefault();
-   
+
         var el=jQuery('#postreplyform');
-     
+
 
         var cmt=jQuery('#waveletcmt').val();
          if (cmt.length > 5) {
@@ -328,9 +328,9 @@ jQuery(document).ready(function() {
             // el.find('input[type="submit"]').attr('disabled',true);
             jQuery.post(el.attr('action'),el.serialize(),function(msg){
                 jQuery('#wavelet-list').html(msg);
-               
+
                 //myVerticalSlide.slideIn();
-               
+
                 el.clearForm();
                 jQuery('#wavelet-list').css('height', 'auto');
                 jQuery.growlUI('', 'Have a nice day!');
