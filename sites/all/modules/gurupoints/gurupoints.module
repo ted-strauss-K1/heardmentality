@@ -244,10 +244,10 @@ function gurupoints_cron(){
 
          foreach($point_list as $list){
               db_query("DROP VIEW IF EXISTS {temp_scores}");
-            $sel="CREATE VIEW {temp_scores} AS (select sum(score) as score,qid,1 as type,did as nid  from {debate} where uid='".$list['uid']."' group by did) union (select sum(dr.score)  as score,d.qid,2 as type,d.did as nid from {debate_reply} as dr join {debate} as d on d.did=dr.did where dr.uid='".$list['uid']."'  group by dr.rid) ";
+         echo   $sel="CREATE VIEW {temp_scores} AS (select sum(score) as score,qid,1 as type,did as nid  from {debate} where uid='".$list['uid']."' group by did) union (select sum(dr.score)  as score,d.qid,2 as type,d.did as nid from {debate_reply} as dr join {debate} as d on d.did=dr.did where dr.uid='".$list['uid']."'  group by dr.rid) ";
              $point_list = ExecuteQuery($sel, "select");
 
-             $query="select *,sum(score) as tscore from {temp_scores} group by qid";
+            echo $query="select *,sum(score) as tscore from {temp_scores} group by qid";
                $tscore = ExecuteQuery($query, "select");
                foreach($tscore as $final){
                if(db_result(db_query("select count(*) from  {pundit_scores} where qid='".$final['qid']."'  and uid='".$list['uid']."'")))
