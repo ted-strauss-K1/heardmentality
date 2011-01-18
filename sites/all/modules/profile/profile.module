@@ -335,16 +335,25 @@ function load_bubble($uid = '') {
     $details = load_user($uid);
     
     $uname = $details->first_name.' '.$details->last_name;
-    $output = '
-<div class="profile-img">
-<div class="profile-imgs">
- <a href="'.$gSitePath.'profile/'.$details->name.'" title="">'.UserPicture_small($uid).'</a>
-</div>
-<div class="profile-con">'.$details->name.'<br/>'.$medal.'</div>
 
-</div>
+     $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
+     $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '".$details->uid."'"));
+     $points = $points!=''?$points:0;
+     $coins = $user->total_coins!=''?$user->total_coins:0;
+     $badges = load_badges($uid);
+     $output = '<div>
+                <div class="debate-cor-inner-left">'.UserPicture_small($details->uid).'</div>
+                    <div class="debate-cor-inner-right">
+                        <ul style="list-style-type:none">
+                        <li style="width:30px">'.$ranking.'<br><span>'.$points.'</span></li>
+                        <li><img width="10" height="10" alt="Gold" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-gold.jpg"><br><span>'.$badges['gold'].'</span></li>
+                        <li><img width="10" height="10" alt="Silver" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-silver.jpg"><br><span>'.$badges['silver'].'</span></li>
+                        <li><img width="10" height="10" alt="Gray" src="'.$gSitePath.drupal_get_path('theme','newtheme').'/images/cor-gray.jpg"><br><span>'.$badges['bronze'].'</span></li>
+                        </ul>
+                    </div>
+                </div>
+                ';
 
-';
     
     return $output;
 
@@ -895,3 +904,23 @@ $output.='</div>';
 echo $output;
 exit;
 }
+function load_badges($uid = ''){
+    $sql = "SELECT bid FROM {user_badges} WHERE uid = '".$uid."'";
+    $badgeids = ExecuteQuery($sql,'select');
+    $bcnt = 0;$scnt = 0;$gcnt = 0;
+    foreach($badgeids as $badgeid){
+        $bid =  $badgeid['bid'];
+        $btype = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
+        if($btype == 'bronze'){
+            $bcnt++;
+        }
+        if($btype == 'silver'){
+            $scnt++;
+        }
+        if($btype == 'gold'){
+            $gcnt++;
+        }
+    }
+    $badges = array("bronze"=>$bcnt,"silver"=>$scnt,"gold"=>$gcnt);
+    return $badges;
+} 
