@@ -72,6 +72,7 @@ var login_params=
          	<?php 
                 echo load_bubble($user->uid);
                 $coins = $user->total_coins!=''?$user->total_coins:0;
+                $notification = db_result(db_query("SELECT COUNT(nid) FROM {notification} WHERE uid = '".$user->uid."'"));
                 ?>
 
 
@@ -80,7 +81,7 @@ var login_params=
 
             <div class="debate-second-2">
               <ul>
-               <li><img width="16" height="16" alt="Ctegory" src="<?php echo $directory; ?>/images/category.png"> <span>X 32</span></li>
+               <li><img width="16" height="16" alt="Ctegory" src="<?php echo $directory; ?>/images/category.png"> <span>X <?php echo $notification;?></span></li>
               	<li><img width="16" height="16" alt="Coins" src="<?php echo $directory; ?>/images/coins.png"> <span>X <?php echo $coins;?></span></li>
                 <li>Some text</li>
 
