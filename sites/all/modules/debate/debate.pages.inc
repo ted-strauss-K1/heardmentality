@@ -1967,11 +1967,14 @@ function debate_submit() {
         echo "<small>Sorry, Please login to do this action!</small>";
         exit;
     }
+    $user_coins  = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
     switch ($action) {
 
         case 'new':
             if (!empty($wtitle) && !empty($user->uid)) {
-
+                $lose_coins = get_coins('c_debate');
+                if($user_coins >= $lose_coins)
+                {
                 $forum = "INSERT INTO {debate} set qid='%d',type='1',uid='%d',title='%s',content='%s',private='%d' ";
                 $result = db_query($forum, $qid, $user->uid, $wtitle, $wcon, $wprivate);
 
@@ -2006,12 +2009,18 @@ function debate_submit() {
                 heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
                 /* RAM HEARTBEAT MODULE INSERT DEBATE */
                 send_forumnotify($nid, $qid);
+                }else{
+                    echo '<div align="center"><b>Sorry you do not have enough coins to post New Debate</b></div>';
+                }
             } elseif (isset($wtitle)) {
                 echo '<div align="center"><b>Sorry Only Logged in user can post New Debate</b></div>';
                 echo list_debate($qid, 1);
             }
             break;
         case 'reply':
+            $lose_coins = get_coins('p_debate');
+            if($user_coins >= $lose_coins)
+            {
             $query = "insert into {debate_reply} set did='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
             $result = db_query($query, $fdid, $user->uid, $frid, $str_wk, check_plain($waveletcmt), $pvt);
             $rid = db_last_insert_id('debate_reply', 'rid');
@@ -2037,6 +2046,9 @@ function debate_submit() {
             );
             heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
             /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+            }else{
+              echo '<div align="center"><b>Sorry you do not have enough coins to reply for this post</b></div>';
+            }
             break;
         case 'resreply':
             $query = "insert into {resource_reply} set rid='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
@@ -2073,7 +2085,9 @@ function debate_submit() {
             $chk = db_result(db_query($query));
 
             if (!$chk && $user->uid > 0) {
-
+                $lose_coins = $agree==1?get_coins('agree'):get_coins('disagree');
+                if($user_coins >= $lose_coins)
+                {
                 $query = "insert into {user_likes} set $set ,node_id='$nodeid',uid='$user->uid',is_agree='$agree'";
 
                 $chk = db_query($query);
@@ -2122,6 +2136,9 @@ function debate_submit() {
                     /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                 }
                 $msg['error'] = '0';
+                }else {
+                    $msg['msg'] = '<em>Sorry <strong>Error, You do not have enough coins.</strong></em>';
+                }
             } else {
                 $msg['error'] = '1';
                 $msg['msg'] = '<em>Sorry <strong>Error</strong> occurs while updating</em>';
@@ -2156,4 +2173,9 @@ function users_coins_update($uid = '',$bid,$keyname){
          $total_coins = $user_coins - $coin_count;
     }
     db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'",$total_coins);
+}
+function get_coins($key)
+{
+    $coins = db_result(db_query("SELECT coin_count FROM {tbl_coins} WHERE key_name = '$key'"));
+    return $coins;
 }
