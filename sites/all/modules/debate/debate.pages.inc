@@ -173,7 +173,7 @@ function debate_list($qid = '', $did='') {
 <div class="clr"></div>
 <div class="" id="freport" style="display:none;">
 <div class="d-header">
- <h3 class="">Report the post<a class="close" href="#"> [X] Close</a></h3>
+ <h3 class="">Report the post</h3>
 <div class="clr"></div><form  action="' . $gSitePath . 'qlite/flagreport" method="post" id="flagform">
 <div class="comment-area">
 
@@ -1566,7 +1566,7 @@ function resdebate_list($qid='', $rid='') {
 <div class="clr"></div>
 <div class="" id="freport" style="display:none;">
 <div class="d-header">
- <h3 class="">Report the post<a class="close" href="#"> [X] Close</a></h3>
+ <h3 class="">Report the post</h3>
 <div class="clr"></div><form  action="' . $gSitePath . 'qlite/flagreport" method="post" id="flagform">
 <div class="comment-area">
 
