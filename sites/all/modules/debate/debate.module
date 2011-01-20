@@ -226,6 +226,8 @@ extract($_REQUEST);
 
 <div class="clr"></div>
 ';
+             // update points
+    debate_roundup($forum['did']);
         }
     } else {
 

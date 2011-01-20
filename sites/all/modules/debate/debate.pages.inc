@@ -9,8 +9,7 @@ function debate_list($qid = '', $did='') {
     $output = '';
     $like = '';
     $flag = '';
-    // update points
-    debate_roundup($did);
+   
     $query = "SELECT *,u.uid as uid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
     $list = ExecuteQuery($query, "select");
 
@@ -1095,9 +1094,9 @@ function resource_innews($qid='', $rtype='') {
              $cond.=" AND ro.ans_val='$sup'";
 
              if(empty($cond))
-   $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(r.agree,0) as cntagree,IFNULL(r.disagree,0) as cntdisagree from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $sortin ";
+   $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $sortin ";
    else
-   $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(r.agree,0) as cntagree,IFNULL(r.disagree,0) as cntdisagree from {resource_options} as ro join {resource} as r on ro.rid=r.rid join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $cond  group by r.rid $sortin ";
+   $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource_options} as ro join {resource} as r on ro.rid=r.rid join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $cond  group by r.rid $sortin ";
 
    $cnt = ExecuteQuery($query, "select");
     
@@ -1148,10 +1147,10 @@ function resource_innews($qid='', $rtype='') {
             $wave.='         <div class="debate-summary-wrapper" >
 <div class="deb-center">
 <div class="leftpartside">
-<div class="toppart"><p>' . $forum['cntagree'] . '</p>
+<div class="toppart"><p>' . $forum['agree'] . '</p>
 
 <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
-<div class="toppart2"><p>' . $forum['cntdisagree'] . '</p>
+<div class="toppart2"><p>' . $forum['disagree'] . '</p>
 <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
 </div>
@@ -1219,6 +1218,8 @@ function resource_innews($qid='', $rtype='') {
 
 <div class="clr"></div>
 ';
+             // resource round up
+    resource_roundup($forum['rid']);
         }
     } else {
         $wave.='<div class="messages warning">No Resources Found!</div>';
@@ -1230,7 +1231,7 @@ function resource_media($qid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';
-    $query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=r.rid AND is_resource='1' AND is_agree='0' group by l.node_id),0) as cntdisagree from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='2' AND status='1' ORDER BY rid DESC ";
+    $query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='2' AND status='1' ORDER BY rid DESC ";
     $cnt = ExecuteQuery($query, "select");
     if (count($cnt)) {
 
@@ -1299,10 +1300,10 @@ function resource_media($qid='') {
             $wave.='         <div class="debate-summary-wrapper" >
 <div class="deb-center">
 <div class="leftpartside">
-<div class="toppart"><p>' . $forum['cntagree'] . '</p>
+<div class="toppart"><p>' . $forum['agree'] . '</p>
 
 <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
-<div class="toppart2"><p>' . $forum['cntdisagree'] . '</p>
+<div class="toppart2"><p>' . $forum['disagree'] . '</p>
 <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
 </div>
@@ -1351,6 +1352,8 @@ function resource_media($qid='') {
 
 <div class="clr"></div>
 ';
+               // resource round up
+    resource_roundup($forum['rid']);
         }
     } else {
        $wave.='<div class="messages warning">No Resources Found!</div>';
@@ -1367,8 +1370,7 @@ function resdebate_list($qid='', $rid='') {
     $output = '';
     $like = '';
     $flag = '';
-    // resource round up
-    resource_roundup($rid);
+   
     $query = "SELECT *,u.uid as uid  FROM {resource} as r  join {user_profile} as u on u.uid=r.uid   where r.qid='$qid' AND r.rid='$rid' AND r.status='1'";
     $list = ExecuteQuery($query, "select");
 
