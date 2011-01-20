@@ -123,13 +123,6 @@ function qlite_view() {
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
     
-    // ADD POINTS FOR EACH VIEW
-    $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE qid = '$qid' AND uid = '".$user->uid."' AND point_id = '9' AND DATE(date_added) = CURDATE()"));
-    if($pexist == 0){
-        $points = get_points(9);
-        db_query("INSERT INTO {tbl_user_points} SET qid = '%d', uid = '%d', point_id = '%d', points = '%d'", $qid, $user->uid, 9, $points);
-    }
-    // ADD POINTS FOR EACH VIEW ends
      // 
     // print_r($oListquest);
     //question privacy check
@@ -150,6 +143,14 @@ function qlite_view() {
         privacy_chk($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
     ////question privacy check ends
 
+    // ADD POINTS FOR EACH VIEW
+    $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE qid = '$qid' AND uid = '".$user->uid."' AND point_id = '9' AND DATE(date_added) = CURDATE()"));
+    if($pexist == 0){
+        $points = get_points(9);
+        db_query("INSERT INTO {tbl_user_points} SET qid = '%d', uid = '%d', point_id = '%d', points = '%d'", $qid, $user->uid, 9, $points);
+    }
+    // ADD POINTS FOR EACH VIEW ends
+    
     $list_lengthan = db_query("select * from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'  ");
     $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'"));
     $answer_id = db_fetch_object($list_lengthan);
