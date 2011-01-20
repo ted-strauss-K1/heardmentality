@@ -125,15 +125,20 @@ global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
 function ajax_pundits() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-
+    $cond='';
     extract($_REQUEST);
     $first = (!empty($first)) ? (($first == 1) ? '0' : $first) : '0';
     $last = (!empty($last)) ? $last - 1 : '4';
+    if(!empty($cid))
+        $cond=" AND cat_id='$cid' ";
 
-    create_guru_view();
-
-    $user_pt = "select * from {gurulist} where tpoints !='NULL' order by tpoints desc limit $first,4 ";
-    $list = ExecuteQuery($user_pt, "select");
+ //   print_r($_REQUEST);
+  //  create_guru_view();
+  if(!empty($cond))
+     $user_pt = "select * from {pundit_section} where score !='NULL' $cond  order by score desc limit $first,4  ";
+   else
+        $user_pt = "select * from {pundit_section} where score !='NULL'  group by uid order by score desc limit $first,4  ";
+  $list = ExecuteQuery($user_pt, "select");
 
    
     

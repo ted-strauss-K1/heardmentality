@@ -179,8 +179,8 @@ function get_top_pundits(){
       global $gSitePath,$user,$gDocPath,$base_root;
       $page='';
        drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/pundits.js');
-       create_guru_view();
-           $query = "select count(*) from {gurulist} where tpoints !='NULL'";
+      // create_guru_view();
+           $query = "select count(*) from {pundit_section} where score !='NULL' group by uid order by score desc ";
     $cnt=db_result(db_query($query));
      $limit=4;
     $total=round($cnt/$limit);
