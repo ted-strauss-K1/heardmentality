@@ -644,3 +644,7 @@ $filter_list.='</select>';
 
     return $wave;
 }
+function get_points($pid = ''){
+    $points = db_result(db_query("SELECT points FROM {tbl_points} WHERE id = '$pid'"));
+    return $points;
+}
