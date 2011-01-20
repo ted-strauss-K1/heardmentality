@@ -387,7 +387,8 @@ function qlite_view() {
 
         $insert_dumm = "insert into possible_answer_vote (qid,uid,panswer_id,vote_pdate) values ('" . $tmp_rec->qid . "','" . $tmp_rec->uid . "','" . $tmp_rec->answer_id . "','" . $tmp_rec->vote_date . "')";
         $dumy_rec = db_query($insert_dumm);
-
+        //provocateur badge
+        provocateur($tmp_rec->qid,$tmp_rec->answer_id);
         ///////////////////////mail notification for who voted answers ///////////////////////////////
         $vusers = "select * from {users} where  uid='" . $tmp_rec->uid . "' ";
         $usernames = db_query($vusers);
