@@ -38,7 +38,7 @@ function badges_cron() {
         supporter($uid);
         seer($uid);
         oracle($uid);
-        pundit($uid);
+        //pundit($uid);
         generalist($uid);
         legendary($uid);
         good_question($uid);
@@ -48,6 +48,8 @@ function badges_cron() {
         debate_badges();
         question_res_deb_post_reply();
     }
+    pundit();
+    philosopher();
 }
 ///////////////won badges mail to user ///////////////
       function badges_user($uid,$last_id)
@@ -631,7 +633,7 @@ function oracle($uid = ''){
     }
 }
 
-function pundit($uid = '') {
+function pundit_old($uid = '') {
     //Left 10 comments with score of 10 or more
     
     global $gSitePath,$user,$gDocPath,$base_root;
@@ -1010,7 +1012,54 @@ function question_res_deb_post_reply(){
 
 }
 
+// pundit
+function pundit(){
+    $sql = "SELECT cat_id,uid FROM {pundit_section} LIMIT 0,5";
+    $pundits = ExecuteQuery($sql, 'select');
+   // check second level category
+   $sql = "SELECT cat_id FROM {category} WHERE parent_id = '0'";
+   $cats = ExecuteQuery($sql,'select');
+   foreach($cats as $cat){
+       $catids[] = $cat['cat_id'];
+   }
+   $values = implode(",",$catids);
 
+   foreach($pundits as $pundit){
+   $sub = db_result(db_query("SELECT COUNT(cat_id) FROM {category} WHERE parent_id IN ($values) AND cat_id = '".$pundit['cat_id']."'"));
+       if($sub == 1){
+            // set pundit badge
+            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$pundit['uid']."' AND bid='32' AND cat_id = '".$pundit['cat_id']."'"));
+            if($badgecnt == 0){
+                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', cat_id = '%d'", $pundit['uid'],32,$pundit['cat_id']);
+            }
+       }
+   }
+
+}
+//philosopher
+function philosopher(){
+    $sql = "SELECT cat_id,uid FROM {pundit_section} LIMIT 0,5";
+    $pundits = ExecuteQuery($sql, 'select');
+    foreach($pundits as $pundit){
+        $count = db_result(db_query("SELECT COUNT(cat_id) FROM category WHERE cat_id = '".$pundit['cat_id']."' AND parent_id = 0"));
+        if($count == 1){
+            // set philosopher badge
+            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$pundit['uid']."' AND bid='61' AND cat_id = '".$pundit['cat_id']."'"));
+            if($badgecnt == 0){
+                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', cat_id = '%d'", $pundit['uid'],61,$pundit['cat_id']);
+            }
+        }
+    }
+}
+//provocateur
+function provocateur($qid,$said){
+    $userid = db_result(db_query("SELECT uid FROM {suggest_answer} WHERE said = '$said' AND qid = '$qid'"));
+    $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$userid."' AND bid='62' AND qid = '$qid'"));
+    if($badgecnt == 0){
+        db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'", $userid,62,$qid);
+    }
+}
+// user coin updates
 function user_coins_update($uid = '',$bid,$keyname){
     if($bid!=''){
     $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
@@ -1033,4 +1082,6 @@ function user_coins_update($uid = '',$bid,$keyname){
     }
     db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'",$total_coins);
 }
+
+
 
