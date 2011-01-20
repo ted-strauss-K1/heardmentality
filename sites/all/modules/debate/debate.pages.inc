@@ -1703,11 +1703,14 @@ function debate_ajax() {
 
                 $sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
                 $tmplist = ExecuteQuery($sel, "select");
+
+                $final='';
                 foreach ($tmplist as $list) {
                  
                     $cnt_opt = db_result(db_query("select count(paid) from {debate_options} where did=" . $list['did'] . " AND ans_val IN ('1','2')"));
              
-                     $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
+                   $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
+                  
                     $final = $final + (($tmp * $list['strength']) / $cnt_opt);
                 }
 
