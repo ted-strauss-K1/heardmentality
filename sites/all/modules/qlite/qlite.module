@@ -178,10 +178,18 @@ $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
 function get_top_pundits(){
       global $gSitePath,$user,$gDocPath,$base_root;
       $page='';
+      $cond='';
        drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/pundits.js');
       // create_guru_view();
-           $query = "select count(*) from {pundit_section} where score !='NULL' group by uid order by score desc ";
-    $cnt=db_result(db_query($query));
+      // print_r($_REQUEST);
+       extract($_REQUEST);
+        $catid=(!empty($scid))?$scid:$cid;
+    if(!empty($catid))
+        $cond=" AND cat_id='$catid' ";
+
+            $query = "select * from {pundit_section} where score !='NULL' $cond group by uid limit 0,1 ";
+             $list = ExecuteQuery($query, "select");
+    $cnt=count($list);
      $limit=4;
     $total=round($cnt/$limit);
       $mod=$cnt%$limit;

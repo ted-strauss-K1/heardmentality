@@ -331,7 +331,7 @@ function enthusiast($uid = '') {
     global $gSitePath,$user,$gDocPath,$base_root;
     if ( empty($uid)) {
         $uid = $user->uid;
-    }
+   
     
     $query = "SELECT date(daily_start_date) as sdate,date(now()) as nowdate,date(daily_todays_date) as tdate,date(daily_end_date) as edate  from {user_profile} where uid='$uid'";
     $list = ExecuteQuery($query, "select");
@@ -383,7 +383,7 @@ function enthusiast($uid = '') {
 
     
     }
-
+ }
 
 }
 

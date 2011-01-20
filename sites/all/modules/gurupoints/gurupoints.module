@@ -129,8 +129,9 @@ function ajax_pundits() {
     extract($_REQUEST);
     $first = (!empty($first)) ? (($first == 1) ? '0' : $first) : '0';
     $last = (!empty($last)) ? $last - 1 : '4';
-    if(!empty($cid))
-        $cond=" AND cat_id='$cid' ";
+    $catid=(!empty($scid))?$scid:$cid;
+    if(!empty($catid))
+        $cond=" AND cat_id='$catid' ";
 
  //   print_r($_REQUEST);
   //  create_guru_view();

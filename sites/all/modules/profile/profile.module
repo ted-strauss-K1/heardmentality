@@ -929,6 +929,8 @@ function load_badges($uid = ''){
     return $badges;
 }
 function profile_cron(){
+
+    // weekly coin update for all users
     $sql = db_query("SELECT p.uid,p.daily_todays_date as lost_login, u.rank_id FROM user_profile p JOIN users u ON p.uid = u.uid  WHERE DATE_SUB(NOW(), INTERVAL 1 WEEK) <= p.daily_todays_date");
     while($result = db_fetch_object($sql)){
         $uid = $result->uid;
