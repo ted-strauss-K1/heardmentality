@@ -398,7 +398,8 @@ function openid_login_save() {
         $insert = "insert into users (pass,mail,provider,created,access,login,status,Identity)values('" . md5($pass) . "','" . $_GET['email'] . "','" . $_GET['provider'] . "','" . time() . "','" . time() . "','" . time() . "','1','" . $pass . "') ";
         $insersult = db_query($insert);
         $lid = mysql_insert_id();
-
+        // add visit points
+        add_visit_points($lid);
 ///////////////welcome mail start here ///////////////
         $sel_ulists = "SELECT * FROM users where uid='$lid'";
         $user_namelistfs = ExecuteQuery($sel_ulists, "select");
@@ -459,7 +460,7 @@ function openid_login_save() {
         $select_user_list = db_fetch_object(db_query("SELECT * from users where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
         $unamelog = $select_user_list->name;
         $passlog = $_GET['UID'];
-
+        add_visit_points($select_user_list->uid);
 
         $formret .= '<form action="' . $gSitePath . 'user/login" method="post" id="user-login">
 			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value=' . $unamelog . ' class="form-text required"/>
