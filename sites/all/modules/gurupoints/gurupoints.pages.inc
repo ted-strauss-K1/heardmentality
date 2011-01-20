@@ -33,9 +33,9 @@ global $gSitePath,$user, $gDocPath,$base_root,$base_path;
       Points
    </td>
   </tr>';
-  $query = "SELECT * FROM tbl_points limit 0, 11 ";
+  $query = "SELECT * FROM tbl_points limit 0, 10 ";
 	 $vlist = ExecuteQuery($query, "select");
-  for($k=0;$k<11;$k++)
+  for($k=0;$k<10;$k++)
 	{
 	$pid=$vlist[$k]['id'];
  $addoutput.=' <tr>
@@ -136,7 +136,7 @@ function save_points()
 		
 		
 	
-		for($m=1;$m<12;$m++)
+		for($m=1;$m<11;$m++)
 		{
 		$valm="qusetion_points".$m;
 		$qpt=$_REQUEST[$valm];
