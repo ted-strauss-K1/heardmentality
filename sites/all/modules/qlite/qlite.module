@@ -141,7 +141,7 @@ $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     $list = ExecuteQuery($query, "select");
     $output .= ' 
             <div class="factbottom" align="center">
-            <select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >select a category</option>';
+            <select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >select a section</option>';
     foreach ($list as $cat) {
 
         $output .= '    
@@ -149,7 +149,7 @@ $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     }
     
     $output .= '</select> &nbsp;  <span id="res_scat"><select name="" disabled="disabled">
-                <option>select a sub-category</option>
+                <option>select a sub-section</option>
               </select>
               </span></div> ';
              $output .= '
@@ -323,7 +323,7 @@ function get_top_pundits() {
 
    }
 
-       $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,10";
+       $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20";
 
     $list = ExecuteQuery($query, "select");
 
@@ -384,7 +384,7 @@ function get_hot_list($time='') {
    }
 
 
-   $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' AND date(q.date_added) >= '$date' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,10 ";
+   $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' AND date(q.date_added) >= '$date' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20 ";
   // $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid   where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
@@ -468,7 +468,7 @@ if(!empty($country['city'])){
 // $homepage = file_get_contents('http://api.hostip.info/country.php');
   //  echo get_real_ip_addr();
 
- $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,10 ";
+ $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,20 ";
 
    //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
