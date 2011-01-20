@@ -104,3 +104,31 @@ $items['admin/category/delete'] = array(
 }
 
 
+function category_cron() {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+
+    $pundit = "SELECT * FROM {category} where parent_id='0'  ";
+
+    $cat = ExecuteQuery($pundit, "select");
+
+    foreach ($cat as $list) {
+
+        $query = "SELECT sum(score) as score,p.uid
+FROM {question_cat} AS q
+LEFT
+JOIN {pundit_scores} AS p ON p.qid = q.qid
+WHERE q.cat ='" . $list['cat_id'] . "' group by p.uid";
+        $pundit_final = ExecuteQuery($query, "select");
+    
+        foreach($pundit_final as $ins){
+      
+        if(!empty($ins['uid'])&&!empty($ins['score']))
+    db_query("insert into {pundit_section} set cat_id='".$list['cat_id']."',uid='".$ins['uid']."',score='".$ins['score']."' ");
+        
+        }
+
+    }
+   
+}
