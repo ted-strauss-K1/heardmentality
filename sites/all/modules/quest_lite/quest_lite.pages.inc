@@ -122,6 +122,15 @@ function qlite_view() {
     $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where 1 AND q.qid='" . $qid . "' ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
+    
+    // ADD POINTS FOR EACH VIEW
+    $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE qid = '$qid' AND uid = '".$user->uid."' AND point_id = '9' AND DATE(date_added) = CURDATE()"));
+    if($pexist == 0){
+        $points = get_points(9);
+        db_query("INSERT INTO {tbl_user_points} SET qid = '%d', uid = '%d', point_id = '%d', points = '%d'", $qid, $user->uid, 9, $points);
+    }
+    // ADD POINTS FOR EACH VIEW ends
+     // 
     // print_r($oListquest);
     //question privacy check
     if (!$oListquest->status) {
