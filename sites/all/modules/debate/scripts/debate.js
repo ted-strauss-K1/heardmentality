@@ -162,6 +162,14 @@ function addComment(ele){
 
 }
 
+function switchdebate(url){
+    
+
+var newCaption = '`DEBATE SUMMARY <a href="" onclick="fb.instances[fb.ownerInstance(this)].goBack(); return false;"><b>Go back...</b></a>`';
+	var options = 'type:ajax sameBox:true width:70% height:90% caption: ' + newCaption;
+	parent.fb.start(url, options);
+
+}
 
 function cancelAdd(id){
 

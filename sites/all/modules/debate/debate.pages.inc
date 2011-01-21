@@ -10,21 +10,26 @@ function debate_list($qid = '', $did='') {
     $like = '';
     $flag = '';
    
-    $query = "SELECT *,u.uid as uid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
+     $query = "SELECT *,u.uid as uid,IFNULL((select did  FROM {debate} where did > f.did AND qid='$qid' ORDER BY did DESC limit 0,1 ),0) as pdid,IFNULL((select did FROM {debate} where did < f.did AND qid='$qid' ORDER BY did DESC limit 0,1 ),0) as ndid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
     $list = ExecuteQuery($query, "select");
-
-
-
+    $dlink=$gSitePath.'issues/debate/';
+   
     foreach ($list as $forum) {
+
+       if($forum['pdid']>0){
+    $prev=$dlink.$qid.'/'.$forum['pdid'];
+      $set_p_link='<li><a  href="'.$prev.'"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
+    }
+     if($forum['ndid']>0){
+    $next=$dlink.$qid.'/'.$forum['ndid'];
+    $set_n_link='   <li><a   href="'.$next.'"  onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
+     }
     $output .= '
        <div class="hm-debate2-wrapper">
     	<div class="titlebg">
         	<div class="menudebate">
-            	<ul>
-
-                	<li><a href="#">Previous Debate</a></li>
-                    <li><a href="#">Next Debate</a></li>
-                </ul>
+            	<ul>'.$set_p_link.$set_n_link.'
+    </ul>
             </div>
 
             	<div class="backbtn"><a href="javascript:void(0);" onclick="fb.end();"></a></div>
@@ -56,6 +61,7 @@ function debate_list($qid = '', $did='') {
         $fetch = ExecuteQuery($querylike, "select");
         $agreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='1' AND node_id='" . $forum['did'] . "'"));
         $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='0' AND node_id='" . $forum['did'] . "'"));
+        if($user->uid!=$forum['uid']){
         if (count($fetch) < 1) {
 
             $like = '<li><span type="is_debate" name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
@@ -64,6 +70,7 @@ function debate_list($qid = '', $did='') {
             $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
         } else {
             $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+        }
         }
 //flag
         $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',' . $did . ');"></a>';
@@ -287,7 +294,7 @@ function get_debate($did = '', $pid = '') {
                 $fetch = ExecuteQuery($querylike, "select");
                 $cntagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
                 $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
-
+                 if($user->uid!=$forum['uid']){
                 if (count($fetch) < 1) {
 
                     $like = '<li><span name="' . $forum['rid'] . '" type="is_debate_reply" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['rid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['rid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
@@ -297,6 +304,7 @@ function get_debate($did = '', $pid = '') {
                 } else {
                     $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
                 }
+                 }
 //flag
                 $flag = '';
                 $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rdebate\',' . $forum['rid'] . ');"></a>';
@@ -432,7 +440,7 @@ function get_res_debate($rid = '', $pid = '') {
                 $fetch = ExecuteQuery($querylike, "select");
                 $cntagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='1' AND node_id='" . $forum['reid'] . "'"));
                 $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='0' AND node_id='" . $forum['reid'] . "'"));
-
+                 if($user->uid!=$forum['uid']){
                 if (count($fetch) < 1) {
 
                     $like = '<li><span type="is_resource_reply" name="' . $forum['reid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['reid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['reid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
@@ -442,6 +450,7 @@ function get_res_debate($rid = '', $pid = '') {
                 } else {
                     $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
                 }
+                 }
 //flag
                 $flag = '';
                 $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',' . $forum['reid'] . ');"></a>';
@@ -1371,23 +1380,34 @@ function resdebate_list($qid='', $rid='') {
     $like = '';
     $flag = '';
    
-    $query = "SELECT *,u.uid as uid  FROM {resource} as r  join {user_profile} as u on u.uid=r.uid   where r.qid='$qid' AND r.rid='$rid' AND r.status='1'";
+    $query = "SELECT *,u.uid as uid,IFNULL((select rid  FROM {resource} where rid > r.rid AND qid='$qid' ORDER BY rid DESC limit 0,1 ),0) as prid,IFNULL((select rid FROM {resource} where rid < r.rid AND qid='$qid' ORDER BY rid DESC limit 0,1 ),0) as nrid   FROM {resource} as r  join {user_profile} as u on u.uid=r.uid   where r.qid='$qid' AND r.rid='$rid' AND r.status='1'";
     $list = ExecuteQuery($query, "select");
+        $dlink=$gSitePath.'resource/debate/';
 
 
+    foreach ($list as $forum) {
+
+    //Agree Disagree
+   if($forum['prid']>0){
+    $prev=$dlink.$qid.'/'.$forum['prid'];
+      $set_p_link='<li><a  href="'.$prev.'"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
+    }
+     if($forum['nrid']>0){
+    $next=$dlink.$qid.'/'.$forum['nrid'];
+    $set_n_link='   <li><a   href="'.$next.'"  onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
+     }
+     //Agree Disagree ends
     $output .= '
        <div class="hm-debate2-wrapper">
     	<div class="titlebg">
         	<div class="menudebate">
             	<ul>
-
-                	<li><a href="#">Previous Debate</a></li>
-                    <li><a href="#">Next Debate</a></li>
-                </ul>
+                '.$set_p_link.$set_n_link.'
+                	</ul>
             </div>
 
-            	<div class="backbtn"><a href="#"></a></div>
-                	<h2>TITLE OF THE DEBATE</h2>
+            	<div class="backbtn"><a href="javascript:void(0);" onclick="fb.end();"></a></div>
+                	<h2>Resource Summary</h2>
         <div class="clr"></div>
         </div>
 
@@ -1403,9 +1423,6 @@ function resdebate_list($qid='', $rid='') {
 
 <div align="center" id="waveerr"></div>
 ';
-    foreach ($list as $forum) {
-
-
 //$date = cdatetime($forum['date_added']).$forum['date_added'];
 
         $date = format_date_class($forum['date_added'], date());
@@ -1418,6 +1435,7 @@ function resdebate_list($qid='', $rid='') {
         $fetch = ExecuteQuery($querylike, "select");
         $agreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
         $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
+        if($user->uid!=$forum['uid']){
         if (count($fetch) < 1) {
 
             $like = '<li><span name="' . $rid . '" id="dagree" type="is_resource" ><a href="javascript:void(0);" name="a-' . $rid . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $rid . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
@@ -1426,6 +1444,7 @@ function resdebate_list($qid='', $rid='') {
             $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
         } else {
             $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+        }
         }
 //flag
         $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'resource\',' . $rid . ');"></a>';
