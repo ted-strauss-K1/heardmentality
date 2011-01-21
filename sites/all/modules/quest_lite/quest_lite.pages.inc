@@ -1424,7 +1424,6 @@ function panel_content() {
             //	$output='sample content Gurus';
             $profileBadges = getAnsweredUsers($qid);
 
-
             $output1 = '';
             if (count($profileBadges) > 0) {
                 $pat = $gSitePath . drupal_get_path('module', 'profile');

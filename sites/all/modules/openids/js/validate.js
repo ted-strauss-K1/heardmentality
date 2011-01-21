@@ -76,6 +76,25 @@ var err='';
 
     }
 
+jQuery('div.social-rite input').each( function(){
+
+var uid=jQuery(this).attr('id');
+var url=jQuery(this).val();
+var patt= /^http:\/\/(www.)*([a-zA-Z0-9]*)*(.)*/;
+if(url.length>0){
+          //edit-follow-links-facebook-url
+    var npt=uid.split('-');
+    var host1=npt[3];
+
+url.match(patt);
+var host2=RegExp.$2;
+    if(!patt.test(url)){
+        err=err+"<li>Please provide proper url format Ex: http://www."+host1+".com/username </li>";
+    }else if(host1!=host2)
+   err=err+"<li>Please provide "+host1+" link for "+host1+" field </li>";
+    }
+
+} );
 
         if(err.length>0){
             window.scrollTo(0,0);
@@ -110,7 +129,46 @@ setTimeout('chk_avatar()',1000);
 
 });
 
+function UriParser(uri){
+//define class (for use with prototype.js) to do URI parsing
+//modified from FlogUriParser found at http://www.flog.co.nz/index.php/journal/prototype-uri-parser-class/
+this._regExp = /^((\w+):\/\/\/?)?((\w+):?(\w+)?@)?([^\/\?:]+):?(\d+)?(\/?[^\?#;\|]+)?([;\|])?([^\?#]+)?\??([^#]+)?#?(\w*)/;
+this.username = "";
+this.password = "";
+this.port = "";
+this.protocol = "";
+this.host = "";
+this.pathname = "";
+this.url = "";
+this.urlparamseparator = "";
+this.urlparam = "";
+this.querystring = {};
+this.fragment = "";
+this.results = null;
 
+this._getVal = function(r, i) {
+if(!r) return null;
+return (typeof(r[i]) == 'undefined' ? "" : r[i]);
+};
+
+this.parse = function(uri) {
+var r = this._regExp.exec(uri);
+this.results = r;
+this.url = this._getVal(r,0);
+this.protocol = this._getVal(r,2);
+this.username = this._getVal(r,4);
+this.password = this._getVal(r,5);
+this.host = this._getVal(r,6);
+this.port = this._getVal(r,7);
+this.pathname = this._getVal(r,8);
+this.urlparamseparator = this._getVal(r,9);
+this.urlparam = this._getVal(r,10);
+this.querystring = this._getVal(r,11);
+this.fragment = this._getVal(r,12);
+return r;
+}
+if(uri) this.parse(uri);
+}
  function onLoad() {
 	        // get user info
 	        gigya.services.socialize.getUserInfo(conf, {callback: renderUI});

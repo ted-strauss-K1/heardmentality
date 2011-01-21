@@ -63,10 +63,10 @@ function getAnsweredUsers($question_id = NULL) {
       where 1=1 AND pav.qid = '".$question_id."' OR  sav.qid = '".$question_id."'
       order by  pav.uid"; */
     $query = "SELECT  sav.uid from suggest_answer_vote sav
-			where 1=1 AND sav.qid ='" . $question_id . "' UNION
+			where  sav.qid ='" . $question_id . "' UNION
 			SELECT pav.uid
 			from possible_answer_vote pav
-			where 1=1 AND pav.qid ='" . $question_id . "'";
+			where  pav.qid ='" . $question_id . "'";
 
     $userids = ExecuteQuery($query, "select");
     if (count($userids) <= 0) {
@@ -78,16 +78,18 @@ function getAnsweredUsers($question_id = NULL) {
         }
         $separated = implode(",", $Ids);
         $separated = '( ' . $separated . ')';
+
         /*   $query = "SELECT bt.name as badgename, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
           from profile_badges pb
           INNER JOIN users u on pb.uid=u.uid
           LEFT JOIN badge_types bt on  bt.id = pb.badge_type_id
-          WHERE 1=1 AND u.uid  IN".$separated; */
+          WHERE 1=1 AND u.uid  IN".$separated; 
         $query = "SELECT up.image, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
 			from profile_badges pb
 			INNER JOIN users u on pb.uid=u.uid
 			LEFT JOIN user_profile up on  up.uid = u.uid
-			WHERE 1=1 AND u.uid  IN" . $separated;
+			WHERE 1=1 AND u.uid  IN" . $separated;*/
+        $query="(select ps.uid from {question_cat} as qc join  {pundit_section} as ps on ps.cat_id=qc.cat join {users} as u on u.uid=ps.uid where u.status=1 AND qc.qid=$question_id AND ps.uid IN $separated group by ps.uid) union (select ps.uid from {question_cat} as qc join  {pundit_section} as ps on ps.cat_id=qc.scat join {users} as u on u.uid=ps.uid where u.status=1 AND qc.qid=$question_id AND ps.uid IN $separated group by ps.uid) ";
         $profileBadges = ExecuteQuery($query, "select");
     }
     return $profileBadges;

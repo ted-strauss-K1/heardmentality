@@ -14,6 +14,8 @@ function debate_list($qid = '', $did='') {
     $list = ExecuteQuery($query, "select");
 
 
+
+    foreach ($list as $forum) {
     $output .= '
        <div class="hm-debate2-wrapper">
     	<div class="titlebg">
@@ -25,8 +27,8 @@ function debate_list($qid = '', $did='') {
                 </ul>
             </div>
 
-            	<div class="backbtn"><a href="#"></a></div>
-                	<h2>TITLE OF THE DEBATE</h2>
+            	<div class="backbtn"><a href="javascript:void(0);" onclick="fb.end();"></a></div>
+                	<h2>' . $forum['title'] . '</h2>
         <div class="clr"></div>
         </div>
 
@@ -42,8 +44,6 @@ function debate_list($qid = '', $did='') {
 
 <div align="center" id="waveerr"></div>
 ';
-    foreach ($list as $forum) {
-
 
 //$date = cdatetime($forum['date_added']).$forum['date_added'];
 
@@ -1112,7 +1112,7 @@ function resource_innews($qid='', $rtype='') {
             $i++;
             $account = user_load($forum['uid']);
 
-            $query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.did='" . $forum['did'] . "'";
+            $query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum['rid'] . "'";
             $strnth = ExecuteQuery($query, "select");
             $strength = '';
             $image = !empty($forum['uimg']) ? $forum['uimg'] : file_directory_path() . '/noimage.jpg';
@@ -1245,7 +1245,7 @@ function resource_media($qid='') {
             $i++;
             $account = user_load($forum['uid']);
 
-            $query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.did='" . $forum['did'] . "'";
+            $query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum['rid'] . "'";
             $strnth = ExecuteQuery($query, "select");
             $strength = '';
             $content = '';
