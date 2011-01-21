@@ -514,7 +514,7 @@ function qlite_view() {
       } */
     //	$voutput .='<a href="'.$gSitePath.'invite/invite_friends">Share This Question </a>';
 
-
+    $url = db_result(db_query("SELECT url FROM {question} WHERE qid = '$qid'"));
     $voutput .= '
        <script type="text/javascript">
 
@@ -531,11 +531,11 @@ function qlite_view() {
 		    act.setDescription("' . $oListquest->context . '");
 
 
-		    act.setLinkBack("' . $gSitePath . '' . $lji[1] . '");
+		    act.setLinkBack("' . $gSitePath . '' . $url . '");
 
 
 		    act.addActionLink("' . $oListquest->question . '",
-		        "' . $gSitePath . '' . $lji[1] . '");
+		        "' . $gSitePath . '' . $url . '");
 
 
 
