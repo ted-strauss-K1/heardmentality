@@ -271,20 +271,20 @@ function update_ranking($uid = ''){
     $total_points = db_result(db_query("SELECT SUM(points) as total_points FROM {tbl_user_points} WHERE uid = '$uid'"));
     $sql = "SELECT rank_id, ranking, points FROM tbl_ranking";
     $ranking[] = ExecuteQuery($sql,'select');
-    // Citizen
-    if($total_points < 200){
+    // Citizen 200
+    if($total_points < 5){
         $rank_id = '1';
     }
-    // Active Citizen
-    if($total_points >= 200 && $total_points < 499){
+    // Active Citizen 200 499
+    if($total_points >= 5 && $total_points < 10){
         $rank_id = '2';
     }
-    // Judge
-    if($total_points >= 500 && $total_points < 999){
+    // Judge 500 999
+    if($total_points >= 10 && $total_points < 15){
         $rank_id = '3';
     }
-    // Senator
-    if($total_points >= 1000){
+    // Senator 1000
+    if($total_points >= 15){
         $rank_id = '4';
     }
     db_query("UPDATE {users} SET rank_id = '$rank_id' WHERE uid = '$uid'" );
