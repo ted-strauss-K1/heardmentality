@@ -112,17 +112,12 @@ function biographer($uid = '') {
     if (! empty($data->slant))
         $i++;
     
-    if (! empty($data->facebook))
-        $i++;
-    
-    if (! empty($data->twitter))
-        $i++;
     
     if (! empty($data->dob))
         $i++;
     
 	$badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='1'"));
-    if ($i == 11&&$badgecnt==0) {
+    if ($i == 9&&$badgecnt==0) {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 1, $uid);
       $last_id =  mysql_insert_id();
       user_coins_update($uid,1,'');
