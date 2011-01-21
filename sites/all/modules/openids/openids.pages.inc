@@ -669,19 +669,22 @@ function welcome_page() {
     //print_r($_REQUEST);
     // exit;
     if (isset($_REQUEST['update']) == 'Update') {
-
+    $error_flag = 0;
          // follow links starts here
         $links=$_REQUEST['follow_links'];
-        foreach($links as $name => $link) {
+    foreach($links as $name => $link) {
     $link = (object) $link;
     $link->url = trim($link->url);
 
     // Check to see if there's actually a link
-    if (empty($link->url)) {
+    if (!preg_match("/^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\\.+[A-Za-z0-9\.\/%&=\?\-_]+$/i", $link->url)) {
       // If there's an lid, delete the link.
       if (isset($link->lid)) {
         follow_link_delete($link->lid);
+        
       }
+      if(!empty($link->url))
+      $error_flag = 1;
       // Continue to the next link.
       continue;
     }
@@ -755,8 +758,10 @@ function welcome_page() {
             if (isset($_SESSION['filepath'])) {
                 echo '<script>window.top.location.href="' . $gSitePath . 'user/cropimage";</script>';
             }
-
             $message.= '<div class="success">Profile Updated Successfully!</div>';
+            if($error_flag > 0){
+             $message.= '<div class="error">Invalid web reference URL(s)</div>';
+            }
         }
     }
 
