@@ -632,13 +632,14 @@ function supporter_seer_oracle(){
         $node_id = $agree['node_id'];
         $count_resource = db_result(db_query("SELECT COUNT(lid) FROM {user_likes} WHERE is_resource = '1' AND is_agree = '1' AND node_id = '".$node_id."'"));
 
-        if($count_resource >= 10 && $count_resource< 100){
+        // count >=10 <50
+        if($count_resource >= 1 && $count_resource< 3){
             supporter($uid, $node_id, 'resource_agree');
         }
-        if($count_resource >= 100 && $count_resource< 500){
+        if($count_resource >= 3 && $count_resource< 5){
             seer($uid, $node_id, 'resource_agree');
         }
-        if($count_resource >= 500){
+        if($count_resource >= 5){
             oracle($uid, $node_id, 'resource_agree');
         }
     }
@@ -649,14 +650,14 @@ function supporter_seer_oracle(){
         $uid = $agree['uid'];
         $node_id = $agree['node_id'];
         $count_resource_reply = db_result(db_query("SELECT COUNT(lid) FROM {user_likes} WHERE is_resource_reply = '1' AND is_agree = '1' AND node_id = '".$node_id."'"));
-        
-        if($count_resource_reply >= 10 && $count_resource_reply< 100){
+        // count >=10 <50
+        if($count_resource_reply >= 1 && $count_resource_reply < 3){
             supporter($uid, $node_id, 'r_resource_agree');
         }
-        if($count_resource_reply >= 100 && $count_resource_reply< 500){
+        if($count_resource_reply >= 3 && $count_resource_reply < 5){
             seer($uid, $node_id, 'r_resource_agree');
         }
-        if($count_resource_reply >= 500){
+        if($count_resource_reply >= 5){
             oracle($uid, $node_id, 'r_resource_agree');
         }
     }
@@ -667,14 +668,14 @@ function supporter_seer_oracle(){
         $uid = $agree['uid'];
         $node_id = $agree['node_id'];
         $count_debate = db_result(db_query("SELECT COUNT(lid) FROM {user_likes} WHERE is_debate = '1' AND is_agree = '1' AND node_id = '".$node_id."'"));
-        
-        if($count_debate >= 10 && $count_debate< 100){
+        // count >=10 <50
+        if($count_debate >= 1 && $count_debate< 3){
             supporter($uid, $node_id, 'debate_agree');
         }
-        if($count_debate >= 100 && $count_debate< 500){
+        if($count_debate >= 3 && $count_debate< 5){
             seer($uid, $node_id, 'debate_agree');
         }
-        if($count_debate >= 500){
+        if($count_debate >= 5){
             oracle($uid, $node_id, 'debate_agree');
         }
     }
@@ -685,14 +686,14 @@ function supporter_seer_oracle(){
         $uid = $agree['uid'];
         $node_id = $agree['node_id'];
         $count_debate_reply = db_result(db_query("SELECT COUNT(lid) FROM {user_likes} WHERE is_debate_reply = '1' AND is_agree = '1' AND node_id = '".$node_id."'"));
-        
-        if($count_debate_reply >= 10 && $count_debate_reply< 100){
+        // count >=10 <50
+        if($count_debate_reply >= 1 && $count_debate_reply < 3){
             supporter($uid, $node_id, 'r_debate_agree');
         }
-        if($count_debate_reply >= 100 && $count_debate_reply< 500){
+        if($count_debate_reply >= 3 && $count_debate_reply < 5){
             seer($uid, $node_id, 'r_debate_agree');
         }
-        if($count_debate_reply >= 500){
+        if($count_debate_reply >= 5){
             oracle($uid, $node_id, 'r_debate_agree');
         }
     }
