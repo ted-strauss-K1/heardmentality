@@ -395,7 +395,8 @@ function openid_login_save() {
     $select_user_count = db_result(db_query("SELECT COUNT(*) from users where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
      $formret .='<div><b>Login processing please wait..</b></div>';
     if ($select_user_count == 0) {
-        $insert = "insert into users (pass,mail,provider,created,access,login,status,Identity)values('" . md5($pass) . "','" . $_GET['email'] . "','" . $_GET['provider'] . "','" . time() . "','" . time() . "','" . time() . "','1','" . $pass . "') ";
+        $ini_coins = initial_coins();
+        $insert = "insert into users (pass,mail,provider,created,access,login,status,Identity,total_coins)values('" . md5($pass) . "','" . $_GET['email'] . "','" . $_GET['provider'] . "','" . time() . "','" . time() . "','" . time() . "','1','" . $pass . "', '" . $ini_coins . "') ";
         $insersult = db_query($insert);
         $lid = mysql_insert_id();
         // add visit points
