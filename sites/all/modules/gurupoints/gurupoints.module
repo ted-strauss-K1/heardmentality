@@ -289,3 +289,7 @@ function update_ranking($uid = ''){
     }
     db_query("UPDATE {users} SET rank_id = '$rank_id' WHERE uid = '$uid'" );
 }
+function initial_coins(){
+    $coins = db_result(db_query("SELECT coin_count FROM {tbl_coins} WHERE key_name = 'initial'"));
+    return $coins;
+}
