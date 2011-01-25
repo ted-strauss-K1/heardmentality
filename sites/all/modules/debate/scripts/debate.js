@@ -40,9 +40,8 @@ function bind_clk(){
             jQuery.post( jQuery("#flagform").attr('action'), jQuery("#flagform").serialize(),
                 function(data){
                     log.removeClass('ajax-loading');
-                    jQuery.unblockUI();
-                    jQuery.growlUI('', data);
-
+                    jQuery('#twitMsg',top.document).html(data);
+                jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
                     jQuery("#flagform input:checked").attr('checked',false);
 
 
@@ -315,7 +314,7 @@ jQuery(document).ready(function() {
                 function(data){
                     log.removeClass('ajax-loading');
 
-              fb.end();
+              parent.fb.end();
               fl.clearForm();
               jQuery('#twitMsg').html(data);
               jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
@@ -339,9 +338,14 @@ jQuery(document).ready(function() {
 });
 
 
+function report_forum(typ,el){
 
+    var wid = el.attr('name');
+alert(typ);
+    var gid = wid.split('-');
+    jQuery('#rtype').val(typ);
+    jQuery('#rwave').val(gid[0]);
+    jQuery('#rwavelet').val(gid[1]);
 
-
-
-
+}
 
