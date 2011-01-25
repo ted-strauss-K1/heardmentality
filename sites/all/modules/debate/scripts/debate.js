@@ -302,4 +302,33 @@ jQuery(document).ready(function() {
     });
 
 
+//flag debate
+
+
+        jQuery('#flagform').live('submit', function(e){
+
+            e.preventDefault();
+
+            var log = jQuery('#log_res').addClass('ajax-loading');
+
+            jQuery.post( jQuery("#flagform").attr('action'), jQuery("#flagform").serialize(),
+                function(data){
+                    log.removeClass('ajax-loading');
+              
+                    jQuery.growlUI('', data);
+
+                    jQuery("#flagform input:checked").attr('checked',false);
+
+
+                });
+
+        //   jQuery(this).parents('form').submit(function() {
+        //  alert($(this).serialize());
+        // return false;
+        //});
+
+
+        });
+
+
 });
