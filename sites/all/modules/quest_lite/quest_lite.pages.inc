@@ -1709,8 +1709,8 @@ function suggest_answer() {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $ansoutput = '	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-core.js"></script>
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/scripts/mootools-1.2-more.js"></script>
+    $ansoutput = '	
+        <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/misc/jquery.js"></script>
 	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 	<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 
@@ -1727,31 +1727,61 @@ function suggest_answer() {
     $ansoutput .= '<div id="log_res_ans"><!-- spanner --></div>
 	<span class="clr"><!-- spanner --></span>';
 
-    $ansoutput .= '<script type="text/javascript">
-	window.addEvent(\'domready\', function() {
+//    $ansoutput .= '<script type="text/javascript">
+//	window.addEvent(\'domready\', function() {
+//
+//	if (!window.demo_path) window.demo_path = \'\';
+//	var demo_path = window.demo_path;
+//
+//	$(\'voteform\').addEvent(\'submit\', function(e) {
+//
+//	e.stop();
+//
+//	var log = $(\'log_res_ans\').empty().addClass(\'ajax-loadings\');
+//
+//	this.set(\'send\', {onComplete: function(response) {
+//	log.removeClass(\'ajax-loadings\');
+//	log.set(\'html\', response);
+//	}});
+//
+//	this.send();
+//	});
+//	});
+//
+//
+//	</script>
+//	<form id="voteform"  method="post" action="' . $gSitePath . 'qlite/answervote"  enctype="multipart/form-data">
+//	<input type="hidden" name="qaid" value="' . $qid . '"/>';
 
-	if (!window.demo_path) window.demo_path = \'\';
-	var demo_path = window.demo_path;
 
-	$(\'voteform\').addEvent(\'submit\', function(e) {
+        $ansoutput .= '<script type="text/javascript">
+	jQuery(document).ready(function() {
 
-	e.stop();
 
-	var log = $(\'log_res_ans\').empty().addClass(\'ajax-loadings\');
+	jQuery(\'#voteform\').live(\'submit\', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-	this.set(\'send\', {onComplete: function(response) {
-	log.removeClass(\'ajax-loadings\');
-	log.set(\'html\', response);
-	}});
+	var log = jQuery(\'#log_res_ans\').addClass(\'ajax-loading\');
 
-	this.send();
+        jQuery.post(jQuery(\'#voteform\').attr(\'action\'), jQuery(\'#voteform\').serialize(),
+        function(response){
+        log.removeClass(\'ajax-loading\');
+        fb.end();
+        jQuery(\'#voteform\').clearForm();
+	jQuery(\'#twitMsg\').html(response);
+        jQuery(\'#twitMsg\').delay(400).slideDown(400).delay(3000).slideUp(400);
 	});
 	});
+        return false;
+        });
 
 
 	</script>
 	<form id="voteform"  method="post" action="' . $gSitePath . 'qlite/answervote"  enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="' . $qid . '"/>';
+
+
     if (isset($count_row) && $count_row > 0) {
         $ansoutput .= '<h3>The Following Answers have been suggested by other users for this question:</h3>
 	 <br/>
@@ -1767,31 +1797,59 @@ function suggest_answer() {
 
 
     if ($numr == 0) {
+//        $ansoutput .= '<script type="text/javascript">
+//	window.addEvent(\'domready\', function() {
+//
+//	if (!window.demo_path) window.demo_path = \'\';
+//	var demo_path = window.demo_path;
+//
+//	$(\'answerform\').addEvent(\'submit\', function(e) {
+//
+//	e.stop();
+//
+//	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
+//
+//	this.set(\'send\', {onComplete: function(response) {
+//	log.removeClass(\'ajax-loading\');
+//	log.set(\'html\', response);
+//	}});
+//
+//	this.send();
+//	});
+//	});
+//	</script>	<form id="answerform"  method="post" action="' . $gSitePath . 'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="' . $qid . '"/>
+//	<br/>
+//	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
+//	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
+//	</div></form>';
+
         $ansoutput .= '<script type="text/javascript">
-	window.addEvent(\'domready\', function() {
+	jQuery(document).ready(function() {
 
-	if (!window.demo_path) window.demo_path = \'\';
-	var demo_path = window.demo_path;
 
-	$(\'answerform\').addEvent(\'submit\', function(e) {
+	jQuery(\'#answerform\').live(\'submit\', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var log = jQuery(\'#log_res\').addClass(\'ajax-loading\');
 
-	e.stop();
-
-	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
-
-	this.set(\'send\', {onComplete: function(response) {
-	log.removeClass(\'ajax-loading\');
-	log.set(\'html\', response);
-	}});
-
-	this.send();
+        jQuery.post(jQuery(\'#answerform\').attr(\'action\'), jQuery(\'#answerform\').serialize(),
+        function(response){
+        log.removeClass(\'ajax-loading\');
+        fb.end();
+        jQuery(\'#answerform\').clearForm();
+	jQuery(\'#twitMsg\').html(response);
+        jQuery(\'#twitMsg\').delay(400).slideDown(400).delay(3000).slideUp(400);
 	});
 	});
+        return false;
+        });
+        
 	</script>	<form id="answerform"  method="post" action="' . $gSitePath . 'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="' . $qid . '"/>
 	<br/>
 	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
 	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
 	</div></form>';
+
     }
     if ($user->uid < 1) {
         $ansoutput = '<div class="messages error"> Sorry Only Registered User Can Suggest Answer! </div>';
