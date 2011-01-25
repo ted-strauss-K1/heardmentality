@@ -308,14 +308,19 @@ jQuery(document).ready(function() {
         jQuery('#flagform').live('submit', function(e){
 
             e.preventDefault();
-
+            var fl = jQuery('#flagform');
             var log = jQuery('#log_res').addClass('ajax-loading');
 
             jQuery.post( jQuery("#flagform").attr('action'), jQuery("#flagform").serialize(),
                 function(data){
                     log.removeClass('ajax-loading');
+
+              fb.end();
+              fl.clearForm();
+              jQuery('#twitMsg').html(data);
+              jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
               
-                    jQuery.growlUI('', data);
+                    
 
                     jQuery("#flagform input:checked").attr('checked',false);
 
