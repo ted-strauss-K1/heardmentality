@@ -73,7 +73,7 @@ function debate_list($qid = '', $did='') {
         }
         }
 //flag
-        $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',' . $did . ');"></a>';
+        $flag.='<a name="' . $did . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',this);"></a>';
         $bubble = load_bubble($account->uid);
         $medal = updateProfileBadge($account->uid);
         $output .= '
@@ -183,8 +183,8 @@ function debate_list($qid = '', $did='') {
 <div class="clr"></div><form  action="' . $gSitePath . 'qlite/flagreport" method="post" id="flagform">
 <div class="comment-area">
 
-	<input type="hidden" value="" id="rwave" name="rwave"/>
-	<input type="hidden" value="" id="rwavelet" name="rwavelet"/>
+	<input type="hidden" value="" id="rwave" name="did"/>
+	<input type="hidden" value="" id="rwavelet" name="rdid"/>
 	
 
 <div class="adcomment-outer">
@@ -193,7 +193,7 @@ function debate_list($qid = '', $did='') {
 	radically or ethnically hateful content  </p><p><input type="radio" value="Graphic Violence" id="abuse_type" name="abuse_type"/>
 	Graphic Violence </p><p><input type="radio" value="other content inappropirate for young Viewers" id="abuse_type" name="abuse_type"/>
 	other content inappropirate for young Viewers </p><p>
-	<input type="submit" value="Report Problem" class="waveButton" id="submitter" name="button"/>  or <a onclick=" jQuery.unblockUI();return false;" id="wavecancel1" href="">cancel</a>
+	<input type="submit" value="Report Problem" class="waveButton" id="submitter" name="button"/>  or <a onclick="parent.fb.end();" id="wavecancel1" href="">cancel</a>
         </p>
        
 	</div>
@@ -307,7 +307,7 @@ function get_debate($did = '', $pid = '') {
                  }
 //flag
                 $flag = '';
-                $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rdebate\',' . $forum['rid'] . ');"></a>';
+                $flag.='<a name="' . $did . '-' . $forum['rid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
 
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_bubble($account->uid);
@@ -1120,7 +1120,9 @@ function resource_innews($qid='', $rtype='') {
                 $setbg='';
             $i++;
             $account = user_load($forum['uid']);
-
+              // resource round up
+    resource_roundup($forum['rid']);
+    
             $query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum['rid'] . "'";
             $strnth = ExecuteQuery($query, "select");
             $strength = '';
@@ -1227,8 +1229,7 @@ function resource_innews($qid='', $rtype='') {
 
 <div class="clr"></div>
 ';
-             // resource round up
-    resource_roundup($forum['rid']);
+           
         }
     } else {
         $wave.='<div class="messages warning">No Resources Found!</div>';
@@ -1590,9 +1591,9 @@ function resdebate_list($qid='', $rid='') {
  <h3 class="">Report the post</h3>
 <div class="clr"></div><form  action="' . $gSitePath . 'qlite/flagreport" method="post" id="flagform">
 <div class="comment-area">
-
-	<input type="hidden" value="" id="rwave" name="rwave"/>
-	<input type="hidden" value="" id="rwavelet" name="rwavelet"/>
+    <input type="hidden" value="" id="rtype" name="rtype"/>
+	<input type="hidden" value="" id="rwave" name="did"/>
+	<input type="hidden" value="" id="rwavelet" name="rdid"/>
 
 
 <div class="adcomment-outer">

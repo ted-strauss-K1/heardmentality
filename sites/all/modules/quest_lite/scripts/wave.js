@@ -20,7 +20,8 @@ window.addEvent('domready', function() {
 function wave_form(ths){
     //Prevents the default submit event from loading a new page.
     //e.stop();
-    
+    var err= jQuery('#twitMsg');
+      
     var wt=jQuery('#newwavediv').find('#wtitle');
     var wc=jQuery('#newwavediv').find('#wcon');
     var wtitle=wt.val();
@@ -52,7 +53,9 @@ function wave_form(ths){
  
   if(lent<1)
       {
-          alert('atleast one option should be oppose or support!!');
+        
+           err.html('Atleast one option should be either oppose or support!!');
+                err.delay(400).slideDown(400).delay(3000).slideUp(400);
           return false;
       }else{
            jQuery.post(formwave.attr('action'),formwave.serialize(),
@@ -64,6 +67,8 @@ function wave_form(ths){
               wt.val('Title');
               wc.val('Enter text here');
               jQuery('form#newwaveform select').val('0');
+               err.html('Thank you, New Debate posted successfully!');
+                err.delay(400).slideDown(400).delay(3000).slideUp(400);
 	fb.end();
 
         });

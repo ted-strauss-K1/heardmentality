@@ -1273,14 +1273,12 @@ function flag_question() {
 	var spath="' . $gSitePath . '";
 	</script>
 		<script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
-<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'forum') . '/scripts/forum.js"></script>
+
+	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/debate.js"></script>
 	<link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />
 	';
 
-    $falgq .= '
-
-	';
+    $falgq .= '';
 
     if (isset($_REQUEST['uid'])) {
 
@@ -1613,18 +1611,18 @@ function flag_report() {
 
                 echo '<div class="red">Select Report Type !</div>';
             }
-        } elseif ($_REQUEST['rwave'] && $_REQUEST['rwave'] > 0) {
+        } elseif ($_REQUEST['did'] && $_REQUEST['did'] > 0) {
 
 
-            $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='" . $_REQUEST['rwave'] . "' and uid='" . $user->uid . "' and  type='wave' "));
+            $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='" . $_REQUEST['did'] . "' and uid='" . $user->uid . "' and  type='debate' "));
             if ($_REQUEST['abuse_type'] != '') {
                 if ($numr == 0) {
-                    $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwave'] . "','" . $user->uid . "','wave','" . $_REQUEST['abuse_type'] . "')";
+                    $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['did'] . "','" . $user->uid . "','wave','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                     $last_id = mysql_insert_id();
                     hm_flag($_REQUEST['rwave'], $last_id, 1, 1);
 
-                    $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $_REQUEST['rwave'] . "',1)";
+                    $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $_REQUEST['did'] . "',1)";
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['uid'], '0');
@@ -1636,18 +1634,18 @@ function flag_report() {
 
                 echo '<div class="red">Select Report Type !</div>';
             }
-        } elseif ($_REQUEST['rwavelet'] && $_REQUEST['rwavelet'] > 0) {
+        } elseif ($_REQUEST['rdid'] && $_REQUEST['rdid'] > 0) {
 
 
-            $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='" . $_REQUEST['rwavelet'] . "' and uid='" . $user->uid . "' and  type='wavelet' "));
+            $numr = db_result(db_query("SELECT COUNT(*) from {question_flags} where nodeid='" . $_REQUEST['rdid'] . "' and uid='" . $user->uid . "' and  type='debate_reply' "));
             if ($_REQUEST['abuse_type'] != '') {
                 if ($numr == 0) {
-                    $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rwavelet'] . "','" . $user->uid . "','wavelet','" . $_REQUEST['abuse_type'] . "')";
+                    $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $_REQUEST['rdid'] . "','" . $user->uid . "','wavelet','" . $_REQUEST['abuse_type'] . "')";
                     db_query($flagquery);
                     $last_id = mysql_insert_id();
                     hm_flag($_REQUEST['rwavelet'], $last_id, 1, 1);
 
-                    $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $_REQUEST['rwavelet'] . "',1)";
+                    $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $_REQUEST['rdid'] . "',1)";
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['uid'], '0');
@@ -1657,7 +1655,7 @@ function flag_report() {
                 }
             } else {
 
-                echo '<div class="red">Select Report Type !</div>';
+                echo '<div class="error">Select Report Type !</div>';
             }
         } else {
 
@@ -1710,7 +1708,7 @@ function suggest_answer() {
 
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $ansoutput = '	
-        <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'heardmentality') . '/misc/jquery.js"></script>
+        <script type="text/javascript" src="' .$gSitePath. '/misc/jquery.js"></script>
 	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 	<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 
@@ -1757,23 +1755,23 @@ function suggest_answer() {
         $ansoutput .= '<script type="text/javascript">
 	jQuery(document).ready(function() {
 
-
+  jQuery(\'#twitMsg\',top.document).slideUp();
 	jQuery(\'#voteform\').live(\'submit\', function(e) {
         e.preventDefault();
         e.stopPropagation();
 
-	var log = jQuery(\'#log_res_ans\').addClass(\'ajax-loading\');
-
-        jQuery.post(jQuery(\'#voteform\').attr(\'action\'), jQuery(\'#voteform\').serialize(),
+         jQuery(this).find(\'input[type="submit"]\').attr(\'disabled\',true);
+        jQuery.post(jQuery(this).attr(\'action\'), jQuery(this).serialize(),
         function(response){
-        log.removeClass(\'ajax-loading\');
-        fb.end();
-        jQuery(\'#voteform\').clearForm();
-	jQuery(\'#twitMsg\').html(response);
-        jQuery(\'#twitMsg\').delay(400).slideDown(400).delay(3000).slideUp(400);
+       
+       
+	jQuery(\'#twitMsg\',top.document).html(response);
+        jQuery(\'#twitMsg\',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+         //parent.fb.reload();
+                 return false;
 	});
 	});
-        return false;
+
         });
 
 
@@ -1825,23 +1823,25 @@ function suggest_answer() {
 
         $ansoutput .= '<script type="text/javascript">
 	jQuery(document).ready(function() {
-
+        jQuery(\'#twitMsg\',top.document).slideUp();
 
 	jQuery(\'#answerform\').live(\'submit\', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var log = jQuery(\'#log_res\').addClass(\'ajax-loading\');
+      jQuery(this).find(\'input[type="submit"]\').attr(\'disabled\',true);
 
-        jQuery.post(jQuery(\'#answerform\').attr(\'action\'), jQuery(\'#answerform\').serialize(),
+        jQuery.post(jQuery(this).attr(\'action\'), jQuery(this).serialize(),
         function(response){
-        log.removeClass(\'ajax-loading\');
-        fb.end();
-        jQuery(\'#answerform\').clearForm();
-	jQuery(\'#twitMsg\').html(response);
-        jQuery(\'#twitMsg\').delay(400).slideDown(400).delay(3000).slideUp(400);
+
+      
+	jQuery(\'#twitMsg\',top.document).html(response);
+        jQuery(\'#twitMsg\',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+        setTimeout("parent.fb.reload()",3000);
+        //parent.fb.reload();
+          return false;
 	});
 	});
-        return false;
+      
         });
         
 	</script>	<form id="answerform"  method="post" action="' . $gSitePath . 'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="' . $qid . '"/>

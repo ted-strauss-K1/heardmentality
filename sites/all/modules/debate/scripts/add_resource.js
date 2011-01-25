@@ -120,10 +120,7 @@ return false;
                 {
                     err += '<li>Please Select Document !</li>';
                 }
-                if (jQuery.trim(docpath).length > 1)
-                {
-                    var el = jQuery('err').hide();
-                }
+               
             }
         }
         if (cat1==3)
@@ -133,12 +130,12 @@ return false;
                 err += '<li>Please Enter  Fact Link</li>';
 
         }
-        var el =jQuery('#err');
+        var el =  jQuery('#twitMsg', top.document);
         
         if (jQuery.trim(err).length > 1) {
-          el.html(err);
+           el.html(err);
           el.addClass('error');
-            el.show();
+                 jQuery('#twitMsg', top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
             return false;
         }	else{
             el.hide();
@@ -146,7 +143,7 @@ return false;
 
 jQuery('input[type="submit"]').attr('disabled',true);
        // e.preventDefault();
-     jQuery.blockUI('Please wait to process...');
+   
         jQuery.post( jQuery(this).attr('action'), jQuery(this).serialize(),
             function(data){
                 el.removeClass('error');
@@ -155,9 +152,8 @@ jQuery('input[type="submit"]').attr('disabled',true);
                 jQuery("#linkbox").html('');
              //jQuery( "form" )[ 0 ].clearForm();
             // clearForm(jQuery(this));
-            el.slideDown().fadeOut(4000);
-                 el.html(data);
-                  jQuery.unblockUI();
+                el.html(data);
+                 el.delay(400).slideDown(400).delay(3000).slideUp(400);
                // jQuery.growlUI('', data);
                jQuery('input[type="submit"]').removeAttr('disabled');
             });
@@ -191,6 +187,7 @@ function createUploader(){
         onProgress: function(id, fileName, loaded, total){jQuery.growlUI('','File uploading please wait!');},
         onComplete: function(id, fileName, responseJSON){jQuery('#docpath').val(responseJSON.filename);jQuery.growlUI('','File uploaded successfully!');},
         showMessage: function(message){
+
             jQuery.growlUI('',message);
         }
 

@@ -306,7 +306,7 @@ function resource_roundup($rid='') {
     $query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {resource} as f  join {user_profile} as u on u.uid=f.uid   where f.rid='$rid'";
     $main = ExecuteQuery($query, "select");
 //sub debate
-    $query = "SELECT IFNULL( (
+$query = "SELECT IFNULL( (
 
 SELECT count( * )
 FROM {user_likes} AS l
@@ -351,6 +351,6 @@ WHERE f.rid = '$rid'";
     $debate_str = $main['0']['cntagree'] + $main['0']['cntdisagree'];
     //pundit score
 
-    $query = "update {resource} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup',score='$debate_str' where rid='$rid'";
+$query = "update {resource} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup',score='$debate_str' where rid='$rid'";
     $main = ExecuteQuery($query, "select");
 }

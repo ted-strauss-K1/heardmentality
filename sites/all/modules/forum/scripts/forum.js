@@ -264,18 +264,15 @@ function addSubmit(){
 }
 
 
-function report_forum(typ, id){
+function report_forum(typ,el){
    
-    el = jQuery('#freport');
-    jQuery('#rwave').val();
-    jQuery('#rwavelet').val();
-    jQuery(typ).val(id);
-    /* el.css('display', 'block');
-    el.slideDown('slow');*/
-    jQuery('#abuse_type').focus();
-    
+    var wid = el.attr('name');
+alert(typ);
+    var gid = wid.split('-');
+    jQuery('#rtype').val(typ);
+    jQuery('#rwave').val(gid[0]);
+    jQuery('#rwavelet').val(gid[1]);
 
-    
 }
 
 
