@@ -10,7 +10,7 @@
 var conf=
 {
 	APIKey: '<?php echo $apikey; ?>'
-	,enabledProviders: 'facebook,twitter,myspace,yahoo,google,linkedin,liveid,aol'
+	,enabledProviders: 'facebook,twitter,yahoo,messenger,google,linkedin,myspace,aol,orkut,wordpress,typepad,verisign,openid,netlog,bloglines,signon,mixi,livedoor'
 }
 </script>
 <script type="text/javascript">

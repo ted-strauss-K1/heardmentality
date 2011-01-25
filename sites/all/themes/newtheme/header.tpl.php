@@ -300,7 +300,8 @@ Part Of The Herd</div>
                                     </div>
                                                                                     <!-- /header -->
                                                                                     <div class="clr"></div>
-                                    <?php if ($show_messages && $messages): print '<div class="messages">' . $messages . '</div>';
-                                                                                            endif; ?>
+                       
+
+                                                                                    <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;   endif; ?></div>
                                     <div class="clr"></div>
                                     <!--Header close-->

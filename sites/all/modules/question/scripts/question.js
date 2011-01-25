@@ -13,7 +13,7 @@ jQuery(document).ready( function() {
    jQuery('.selectAll').remove();
 
 
-   $('#q_quest').keyup(function() {
+   $('#q_quest').blur(function() {
    get_releted_issue(0);
  var quest = jQuery('#q_quest').val();
    var url = spath+"exist_question";
@@ -29,16 +29,16 @@ success: function(msg){
 });
 /*RELEATED QUESTIONS AUTOCOMPLETE*/		
 	function get_releted_issue(cat_id)
-	{	
+	{	jQuery('#releated_questions').html('Loading.....');
 			var question = 	jQuery('#q_quest').val();		
 			var context	 = 	jQuery('#q_context').val();		
-			$.ajax({
+			jQuery.ajax({
 			   type: "POST",
 			   url: spath+"/question/ajax",
 			   data: "code=3&action=3&question="+question+"&cat_id="+cat_id+"&context="+context,
 			   success: function(msg)
 			   {						
-				$('#releated_questions').html(msg);	
+				jQuery('#releated_questions').html(msg);
 			   }
 			});			
 		

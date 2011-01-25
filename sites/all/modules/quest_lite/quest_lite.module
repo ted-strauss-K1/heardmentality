@@ -510,7 +510,15 @@ function _related_issue() {
             $content.='<li class=""><a ' . $bubble . ' href="' . $gSitePath . $sug->url . '"  style="' . drupal_link_color($user->uid, $sug->qid) . '">' . htmlentities(myTruncate($sample, '20', '', '..')) . '</a></li>';
         }
     } else {
-        $query = "SELECT * FROM question where cid='" . $fetvot->cid . "' and  qid !='$qid' limit 5";
+        $cat="SELECT * FROM question_cat where qid='$qid'";
+        $list = ExecuteQuery($cat, "select");
+        $catary=array();
+        foreach($list as $catl){
+       
+            array_push($catary,'\''.$catl['cat'].'\'');
+        }
+        $catary=implode(',',$catary);
+        $query = "SELECT * FROM question as q join question_cat as qc on qc.qid=q.qid where qc.cat in ($catary) and  q.qid !='$qid' limit 5";
         $query_sug = db_query($query);
 
 

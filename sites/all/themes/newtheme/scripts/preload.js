@@ -143,6 +143,14 @@ function reset_tabs(){
 
 }
  jQuery(document).ready(function () {
+
+     //twitter like alert
+     if(jQuery('#twitMsg').text().length>2){
+         jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+     }
+     
+
+
    jQuery(".innerbox li a").live('click', function(e) {
 
 	  e.preventDefault();
@@ -167,7 +175,7 @@ e.stopPropagation();
   return false;
  });
 
-
+/*
 jQuery('#answer_frm').submit(function(e) {
   e.preventDefault();
   e.stopPropagation();
@@ -176,7 +184,7 @@ jQuery.post(jQuery(this).attr('action'),jQuery(this).serialize() );
 load_issue(curl);
   return false;
 });
-
+*/
 
     });
 

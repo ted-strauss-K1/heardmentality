@@ -159,7 +159,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="' . $gSitePath . 'question/save" >
        <ul id="add_more">
                <li><label><span class="span1">Issue <b>*</b></span><span>
-          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" onkeyup="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')" onKeyDown="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\')"  onblur="question_check()" size="100" >
+          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest"  onblur="question_check();ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\');" size="100" >
         </span></label>
         </li>
           <li><label><span class="span1">Context</span><span> <textarea name="q_context" id="q_context" tabindex="2">' . $q_context . '</textarea> </span></label></li>

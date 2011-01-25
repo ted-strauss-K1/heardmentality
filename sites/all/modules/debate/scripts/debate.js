@@ -65,11 +65,11 @@ function bind_clk(){
 
             e.preventDefault();
             el = jQuery(this);
-            if(uid>0){
-            }else{
-
-                jQuery.growlUI('', 'Please Login to do this action!');
-
+            if(uid<1){
+                jQuery('#twitMsg').html("Please Login to do this action!");
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+               // jQuery.growlUI('', 'Please Login to do this action!');
+               return false;
             }
 
             el.empty();
@@ -80,9 +80,9 @@ function bind_clk(){
             // $('likelink').empty();
 
             var url = spath + 'issues/debate/save';
-
-            jQuery('#waveerr').html('<b>Saving your hit..!</b>');
-            jQuery('#waveerr').slideDown('slow');
+             jQuery('#twitMsg').html("Please wait while saving your post....!");
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+           
             jQuery.ajax({
                 type: "POST",
                 dataType: 'json',
@@ -93,9 +93,8 @@ function bind_clk(){
                     'nodeid': wid
                 },
                 success: function(msg){
-                    jQuery('#waveerr').html(msg.msg);
-                    jQuery('#waveerr').slideUp('10000');
-                    el.parent('span').html(msg.msg);
+                    jQuery('#twitMsg').html(msg.msg);
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
                 }
             });
         }
@@ -232,69 +231,9 @@ function likethis(action, wid, like, ele){
 
 
 
-function report_forum(typ, id){
-
-    el = jQuery('#freport');
-    jQuery('#rwave').val();
-    jQuery('#rwavelet').val();
-    jQuery(typ).val(id);
-    /* el.css('display', 'block');
-    el.slideDown('slow');*/
-    jQuery('#abuse_type').focus();
 
 
 
-}
-
-
-function rwavelet(rid, wid){
-
-    var url = spath+'question/forum/';
-
-
-    var myElement ='<div id="documentBody" align="right" ><a href="#" onClick="return_back('+rid+')" id="back" >Back</a></div>';
-
-    //  $('#ajaxpage_content').slideUp('slow');
-    jQuery.growlUI('Loading forum...');
-    jQuery.ajax({
-        type: "POST",
-        url: url,
-        data: {
-            'qid': rid,
-            'wid': wid
-        },
-        success: function(msg){
-
-            $('body').html(msg);
-            $('.content-popup').prepend(myElement);
-            // jQuery('#ajaxpage_content').slideDown('slow');
-            bind_clk();
-        }
-    });
-
-
-
-
-}
-
-function return_back(rid){
-
-    var url = spath+'resource/forum/' + rid;
-
-    jQuery.growlUI('Loading forum...');
-    jQuery.ajax({
-        type: "POST",
-        url: url,
-        data: {},
-        success: function(msg){
-
-            $('body').html(msg);
-
-        }
-    });
-
-
-}
 function toggle(){
 
 
@@ -312,7 +251,8 @@ function toggle(){
         });
     }else{
 
-        jQuery.growlUI('', 'Please Login to do this action!');
+        jQuery('#twitMsg').html("Please Login to do this action!");
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
     }
 }
 
@@ -324,7 +264,7 @@ jQuery(document).ready(function() {
 
     //for submit
     jQuery('#waveButton').live('click',function(e) {
-
+ if(uid>0){
        e.preventDefault();
 
         var el=jQuery('#postreplyform');
@@ -341,7 +281,8 @@ jQuery(document).ready(function() {
 
                 el.clearForm();
                 jQuery('#wavelet-list').css('height', 'auto');
-                jQuery.growlUI('', 'Have a nice day!');
+               jQuery('#twitMsg').html("Thank you, Have a nice day!");
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
             //  el.find('input[type="submit"]').removeAttr('disabled');
             });
             return false;
@@ -352,7 +293,11 @@ jQuery(document).ready(function() {
             jQuery('#waveletcmt').css('border-color', '#EF2C2C');
             return false;
         }
+ }else{
 
+        jQuery('#twitMsg').html("Please Login to do this action!");
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+    }
     return false;
     });
 

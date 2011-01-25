@@ -331,11 +331,11 @@ a.vote{color: #5a5a5a;}
 .mennon{ font:bold 14px Georgia, "Times New Roman", Times, serif; color:#EFE0B3; text-decoration:none; }
 .messages{ width:100%; display:block; clear:both; border-color:#CC6600; overflow:hidden;}
 .error{
-    background: #fff6bf url(bioneural/exclamation.png) 15px center no-repeat;
+     /*  background: #fff6bf url(bioneural/exclamation.png) 15px center no-repeat;
     text-align: left;
-    padding: 5px 20px 5px 45px;
+    padding: 5px 20px 5px 45px;font-weight:bold; */
     border-top: 2px solid #ffd324;
-    border-bottom: 2px solid #ffd324; color:red; font-family: Arial,Helvetica,sans-serif; font-weight:bold;
+    border-bottom: 2px solid #ffd324; color:red; font-family: Arial,Helvetica,sans-serif; 
 }
 
 .status
@@ -356,9 +356,8 @@ padding:0px;}*/
 
 .notice,.success{
 
-    background: #F8FFF0 url(bioneural/exclamation.png) 15px center no-repeat;
-    text-align: left; color:#A0DC11;
-    padding: 5px 20px 5px 45px;
+   /* background: #F8FFF0 url(bioneural/exclamation.png) 15px center no-repeat;  text-align: left; padding: 5px 20px 5px 45px;*/
+    color:#A0DC11;
     border-top: 2px solid #A0DC11;
     border-bottom: 2px solid #A0DC11;
     font-family: Arial,Helvetica,sans-serif; font-weight:bold;
@@ -1050,12 +1049,15 @@ div.growlUI h1, div.growlUI h2 {
 .hm-debate2-wrapper .titlebg .backbtn{ background:url(../images/back-btn.png) ; width:93px; height:27px; float:left;}
 .hm-debate2-wrapper .titlebg .backbtn a{ display:block; width:93px; height:27px;}
 .hm-debate2-wrapper .titlebg h2{ font:normal 17px "Times New Roman", Times, serif; color:#fff; float:left; width:500px; text-align:center;}
-
-.hm-debate2-wrapper .titlebg .menudebate{ background:url(../images/hmdebate-menu.jpg) no-repeat; width:212px; height:27px; float:right;}
+.hm-debate2-wrapper .titlebg .menudebate{ width:233px; height:27px; float:right;}
 .hm-debate2-wrapper .titlebg .menudebate ul{ margin:0; padding:0; font:normal 14px "Times New Roman", Times, serif; color:#fff; padding:3px 0px 0px 20px;}
-.hm-debate2-wrapper .titlebg .menudebate ul li{ margin:0; padding:0; font:normal 14px "Times New Roman", Times, serif; color:#fff; list-style:none; float:left;}
+.hm-debate2-wrapper .titlebg .menudebate ul li{  margin:0; padding:0; font:normal 14px "Times New Roman", Times, serif; color:#fff; list-style:none; float:left;}
+.hm-debate2-wrapper .titlebg .menudebate ul li .previous{ background:url(../images/previous-debate.jpg) no-repeat; width:119px; height:27px; margin:0; padding:0; font:normal 14px "Times New Roman", Times, serif; color:#fff; list-style:none; float:left; text-align:center; padding-top:3px;}
+.hm-debate2-wrapper .titlebg .menudebate ul li .next{ background:url(../images/next-debate.jpg) no-repeat; width:93px; height:27px; margin:0; padding:0; font:normal 14px "Times New Roman", Times, serif; color:#fff; list-style:none; float:left; text-align:center;padding-top:3px;}
+
 .hm-debate2-wrapper .titlebg .menudebate ul li a{ margin:0; padding:0; font:normal 14px "Times New Roman", Times, serif; color:#fff; padding-right:15px; text-decoration:none;}
 .hm-debate2-wrapper .titlebg .menudebate ul li a:hover{ color:#ceb688;}
+
 .hm-debate-cont-outer{ width:94%; margin:0 auto; padding:20px 0px; -moz-border-radius:10px; border:2px #ccc solid; padding:5px; margin-top:10px;float:right;}
 .backping{background:#fdfcfa; }
 .backwhite{background:#ffffff; }
@@ -1246,3 +1248,25 @@ div.growlUI h1, div.growlUI h2 {
 .hm-debate-cont-outer h3{ font:bold 17px Arial, Helvetica, sans-serif; color:#666; padding-left:40px;}
 
 .facttop_beat{display:none;}
+
+
+/* Twitter like msg alert */
+
+#twitMsg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  font: normal 1.4em arial;
+  line-height: 70px;
+  text-align: center;
+  color: #000;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  filter:alpha(opacity=92);
+  -moz-opacity: 0.92;
+  opacity: 1;
+  display: none;
+  z-index: 900036;/* LEAVE THIS IN*/
+}

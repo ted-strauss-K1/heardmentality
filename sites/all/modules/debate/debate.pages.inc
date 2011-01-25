@@ -18,11 +18,11 @@ function debate_list($qid = '', $did='') {
 
        if($forum['pdid']>0){
     $prev=$dlink.$qid.'/'.$forum['pdid'];
-      $set_p_link='<li><a  href="'.$prev.'"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
+      $set_p_link='<li><a  href="'.$prev.'" class="previous"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
     }
      if($forum['ndid']>0){
     $next=$dlink.$qid.'/'.$forum['ndid'];
-    $set_n_link='   <li><a   href="'.$next.'"  onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
+    $set_n_link='   <li><a   href="'.$next.'" class="next"  onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
      }
     $output .= '
        <div class="hm-debate2-wrapper">
@@ -1390,11 +1390,11 @@ function resdebate_list($qid='', $rid='') {
     //Agree Disagree
    if($forum['prid']>0){
     $prev=$dlink.$qid.'/'.$forum['prid'];
-      $set_p_link='<li><a  href="'.$prev.'"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
+      $set_p_link='<li><a  href="'.$prev.'" class="previous"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
     }
      if($forum['nrid']>0){
     $next=$dlink.$qid.'/'.$forum['nrid'];
-    $set_n_link='   <li><a   href="'.$next.'"  onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
+    $set_n_link='   <li><a   href="'.$next.'" class="next" onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
      }
      //Agree Disagree ends
     $output .= '
