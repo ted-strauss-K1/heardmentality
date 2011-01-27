@@ -118,10 +118,10 @@ function question_add() {
     //geoname api
     $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
     $result = geonames_query('countryinfo', NULL, $options);
-    $optionlist .= ' <option value="0" >--Country--</option>';
-    foreach ($result->results as $country) {
-        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countryname'], $country['countryname']);
-    }
+//    $optionlist .= ' <option value="0" >--Country--</option>';
+//    foreach ($result->results as $country) {
+//        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countryname'], $country['countryname']);
+//    }
 
 
     $output .= '<link rel="stylesheet" href="' . $gSitePath . 'modules/system/system.css" type="text/css" />
