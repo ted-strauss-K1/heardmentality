@@ -151,9 +151,8 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
 
 
          <div class="clr" style="font-weight:bold;color:black">Dupe questions:</div>
-
-         <div id="inside_content" style="width:165px;height:190px;overflow:auto;margin-top:20px;color:#986700;">
-         </div>
+         
+         <div id="inside_content"></div>
           </div>
        <div class="right" id="qform">
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="' . $gSitePath . 'question/save" >
@@ -192,18 +191,18 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
 	  
        <div class="clr"></div>	   
        <div class="do-in2cat">
-       <ul >
+       <!--<ul >
          <li><span>Categorize <b>*</b></span>:</li>
           <li>
           <div class="listmenu2" title="Select category">
            <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
-            <option value="">Select Category</option>';
-    $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
-    while ($list = db_fetch_object($client_select)) {
-        $output .= '<option value="' . $list->cat_id . '">' . stripslashes($list->cat_name) . '</option>';
-    }
+            <option value="">Select Category</option>-->';
+  //  $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+  //  while ($list = db_fetch_object($client_select)) {
+   //     $output .= '<option value="' . $list->cat_id . '">' . stripslashes($list->cat_name) . '</option>';
+   // }
 
-    $output .= '</select>
+    $output .= '<!--</select>
         </div>
         </li>
         <li>
@@ -239,7 +238,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
         <select name="q_city" class="listbox2" id="q_city" style="width: 125px;" tabindex="19"> <option value="0" >--Cities--</option></select>
     </div>
     </li>
-       </ul>
+       </ul>-->
           </div>		  
         <div class="clr"></div>		 
 		<div class="do-in2bor"></div>
@@ -419,7 +418,8 @@ function question_save() {
     extract($_REQUEST);
     $output = '';
     $g_global = '';
-    if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
+   // if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
+        if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2)) {
         $edate = $q_edate;
         $releated_question =implode(",",$_REQUEST['chk_rel_issue']);
         $country = my_country();
@@ -534,8 +534,8 @@ function question_save() {
         if (empty($q_ans1) || empty($q_ans2))
             drupal_set_message($message = '<li>Minimum 2 answers should be needed!</li>', $type = 'error');
 
-        if (empty($cat1))
-            drupal_set_message($message = '<li>Main Category should not be Empty!</li>', $type = 'error');
+//        if (empty($cat1))
+//            drupal_set_message($message = '<li>Main Category should not be Empty!</li>', $type = 'error');
 
 
         drupal_goto("question/add");
@@ -1331,7 +1331,7 @@ function get_releated_questions($question,$cat_id,$context)
 		$where_condition .= " and qc.cat in ($cat_id)";
 	}	
 	$count = db_result(db_query("SELECT count(q.qid) FROM {question} q left join question_cat qc on qc.qid=q.qid  WHERE  $where_condition group by q.qid limit 10 " ));		
-	$rel_output.= '<div class="innerbox" style="width:auto;height:200px;overflow:auto;"><ul>';	
+	$rel_output.= '<div class="innerbox" style="width:auto;height:auto; overflow:auto; min-height:150px;"><ul>';
 	if (($count!=0)&&($question!=''))
 	{
 		$rel_count = 1;
@@ -2957,7 +2957,6 @@ function question_edit_save_admin($array) {
             $fids[] = $flagid['fid'];
         }
         update_flag_badges($fids);
-         //update_flag_badges($qids);
 ///  category  starts & 1st level
         $fetch = array();
         if (!empty($q_cat)) {
@@ -3742,16 +3741,23 @@ function exist_dupe() {
     }
 
 $result = mysql_query($query);
+$dupecount = mysql_num_rows($result);
 
-
+ $rel_ques .= '<div class="innerbox" style="width:155px; height:150px; overflow:auto; margin-top:7px; color:#986700; ">';
  $rel_ques .= "<ul>";
+ if($dupecount != 0)
+ {
  while ($mylist = mysql_fetch_array($result)) {
 $validpath =  $gSitePath.$mylist['url'];
         $rel_ques .= "<li>";
         $rel_ques .= "<a href='".$validpath."' target='_blank'>".$mylist['question']."</a>";
         $rel_ques .= "</li>";
     }
+ }else{
+     $rel_ques .= "<li>No Dupe Questions</li>";
+ }
     $rel_ques .= "</ul>";
+    $rel_ques .= '</div>';
     echo $rel_ques;
     exit;
 }
