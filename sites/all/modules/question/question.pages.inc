@@ -425,7 +425,7 @@ function question_save() {
         $country = my_country();
         $ccode = $country['cn'];
 
-        $ccode = (!empty($q_country)) ? $q_country : $ccode;
+        echo $ccode = (!empty($q_country)) ? $q_country : $ccode; exit;
         $sel_qry = db_query("select question_privacy from user_profile where uid='$user->uid'");
         $result = db_fetch_array($sel_qry);
         if ($qrset == '') {
@@ -438,8 +438,6 @@ function question_save() {
         }
 //echo "INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'";
         //exit;
-        echo "INSERT INTO {question} set uid='$user->uid',question='" . addslashes($q_quest) . "',context='" . addslashes($q_context) . "',country='$ccode',state='$q_state',city='$q_city',share='$qrset' , releated_question = '$releated_question'";
-        exit;
         $result = db_query("INSERT INTO {question} set uid='$user->uid',question='" . addslashes($q_quest) . "',context='" . addslashes($q_context) . "',country='$ccode',state='$q_state',city='$q_city',share='$qrset' , releated_question = '$releated_question'");
 
 
