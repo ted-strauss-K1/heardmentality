@@ -422,10 +422,12 @@ function question_save() {
         if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2)) {
         $edate = $q_edate;
         $releated_question =implode(",",$_REQUEST['chk_rel_issue']);
-        $country = my_country();
-        $ccode = $country['cn'];
-
-        echo $ccode = (!empty($q_country)) ? $q_country : $ccode; exit;
+        //***** country disabled here ****//
+        
+//        $country = my_country();
+//        $ccode = $country['cn'];
+//        $ccode = (!empty($q_country)) ? $q_country : $ccode;
+        
         $sel_qry = db_query("select question_privacy from user_profile where uid='$user->uid'");
         $result = db_fetch_array($sel_qry);
         if ($qrset == '') {
