@@ -201,6 +201,7 @@ function question_check(){
         url: url,
         data: "question="+ quest,
         success: function(msg){
+
                     jQuery("#exist_check").val(msg);
         }
         });
