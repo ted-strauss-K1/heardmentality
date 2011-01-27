@@ -195,15 +195,13 @@ function get_subcat(sid,divid,level,ids){
 function question_check(){
          var quest = jQuery('#q_quest').val();
         var url = spath+"front_dupequestion";
+        
          jQuery.ajax({
         type: "POST",
         url: url,
         data: "question="+ quest,
         success: function(msg){
-                if(msg=='invalid')
-                {
-                    jQuery("#exist_check").val("invalid");
-                }
+                    jQuery("#exist_check").val(msg);
         }
         });
 }
@@ -215,7 +213,7 @@ function validate_question(){
     var ans2 = jQuery('#q_ans2').val();
 
    // var cat1 = jQuery('#cat1').val();
-    var cat1 = jQuery('#q_cat').val();
+   // var cat1 = jQuery('#q_cat').val();
      var check = jQuery('#exist_check').val();
 
     var err = '';
@@ -245,8 +243,8 @@ function validate_question(){
     if (jQuery.trim(ans1).length < 1||jQuery.trim(ans2).length < 1)
         err += '<li>Minimum 2 answers required</li>';
 
-    if (jQuery.trim(cat1).length < 1)
-        err += '<li>Please Provide Main Cateogry of the Question!</li>';
+    //if (jQuery.trim(cat1).length < 1)
+       // err += '<li>Please Provide Main Cateogry of the Question!</li>';
 
      if (check=='invalid')
         err += '<li>Question already exist</li>';
