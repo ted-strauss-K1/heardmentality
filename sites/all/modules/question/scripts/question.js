@@ -1,17 +1,17 @@
 // JavaScript Document
 jQuery(document).ready( function() {
-
+ /* 
     jQuery('#q_cat').multiSelect();
 
     jQuery('#q_scat').multiSelect();
     jQuery('#q_sscat').multiSelect();
-    if(!admin){
+  if(!admin){
         setDefaultCountry(cncode);
         get_state(cncode);
         get_city(setstate);
     }
    jQuery('.selectAll').remove();
-
+*/
 
    $('#q_quest').blur(function() {
    get_releted_issue(0);
@@ -29,7 +29,9 @@ success: function(msg){
 });
 /*RELEATED QUESTIONS AUTOCOMPLETE*/		
 	function get_releted_issue(cat_id)
-	{	jQuery('#releated_questions').html('Loading.....');
+	{	
+           
+            jQuery('#releated_questions').html('Loading.....');
 			var question = 	jQuery('#q_quest').val();		
 			var context	 = 	jQuery('#q_context').val();		
 			jQuery.ajax({
