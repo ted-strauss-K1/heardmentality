@@ -74,14 +74,15 @@ function enable_form(typ,thi){
             var formmsg=jQuery('#frmsgform');
             jQuery.post(formmsg.attr('action'),formmsg.serialize(),
                 function(data){
-
-                    jQuery('div.following').prepend(data);
+                    show_inotify(data);
+                
                     jQuery('#frmsgform').clearForm();
-                    jQuery("#frmsgbox").slideToggle("slow");
+                   
                 });
         });
     }else{
-        $("ul.subtabs li").last().append('<li>select atleast one</li>');
+
+        show_inotify("Please select atleast one user!");
     }
     
     
@@ -112,12 +113,9 @@ function profile_comment(make){
             var formmsg=jQuery('#proform');
             jQuery.post(formmsg.attr('action'),formmsg.serialize(),
                 function(data){
-                    jQuery('.rht_link').css('width','auto');
-                    jQuery('.rht_link').css('overflow','hidden');
-                    jQuery('div.profile_part').prepend(data);
-                    jQuery('#showboxcmt').slideToggle("slow");
+                    load_inotify(data);
                     formmsg.clearForm();
-                    setTimeout("jQuery('.rht_link > div.messages').hide();",1000);
+                   
                 });
         });
     });
@@ -279,6 +277,7 @@ function blockandunblock(fid,divid,blk,show){
         },
         success: function(msg){
             jQuery(abcm).html(msg);
+            show_inotify("Selected Action Done Successfully!");
         }
     });
 
@@ -299,3 +298,9 @@ function loadfollowing(url,title)
 
 }
 
+function show_inotify(data){
+
+    jQuery('#twitMsg',top.document).html(data);
+    jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+
+}
