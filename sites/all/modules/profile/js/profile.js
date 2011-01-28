@@ -214,10 +214,10 @@ function del_msg(ids,tr){
             id: ids,
             action:'delete'
         },
-        success: function(msg){
-            jQuery('.profile_part').prepend(msg);
-            jQuery(tr).parents('tr').fadeOut('slow');
-            setTimeout("window.location.reload();",3000);
+        success: function(data){
+            jQuery('#twitMsg').html(data);
+            jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+           
         }
     });
 
