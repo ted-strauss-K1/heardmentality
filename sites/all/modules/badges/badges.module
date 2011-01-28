@@ -51,6 +51,7 @@ function badges_cron() {
     generalist();
     wellread();
     scholer();
+    yearling();
 }
 ///////////////won badges mail to user ///////////////
       function badges_user($uid,$last_id)
@@ -446,10 +447,10 @@ function enthusiast($uid = '') {
 }
 
 
-function yearling() {
+function yearling_old() {
 
     
-    $selusers = "SELECT * FROM users as a ,user_profile as b where a.status='1' and a.uid=b.uid";
+    $selusers = "SELECT * FROM users as a ,user_profile as b where a.status='1' and a.uid=b.uid and a.uid > rank_id";
     $listmuser = db_query($selusers);
     while ($userlist = db_fetch_object($listmuser)) {
         //echo "<br>";
@@ -465,8 +466,8 @@ function yearling() {
         $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
         //echo "<br>";
         //echo $months;
-      //  $b = "12";
-         $b = "1";
+       $b = "12";
+        // $b = "1";
 		//  if ($months >= 12) 
         /////////////////check for month////////////////////////////////
         if ($months >= 1) {
@@ -505,7 +506,34 @@ function yearling() {
     }
 }
 
-
+function yearling(){
+    $selusers = "SELECT * FROM users as a ,user_profile as b where a.status='1' and a.uid=b.uid and a.rank_id > 1";
+    $listmuser = db_query($selusers);
+    while ($userlist = db_fetch_object($listmuser)) {
+        $dtint = date("Y-m-d h:i:s", $userlist->created);
+        $date1 = $dtint;
+        $date2 = date("Y-m-d h:i:s");
+        
+        $months = month_differece($date2,$date1);
+        $b = "12";
+        if($months >= 12){
+            $monthdiff = $months % $b;
+        }
+        if($months >= 1){
+            $date = db_result(db_query("SELECT date_added FROM {user_badges} WHERE uid = '".$userlist->uid."' AND bid = '43' ORDER BY date_added DESC LIMIT 0,1"));
+            $badgecreated = $date!=''?$date:0;
+            $interval = month_differece($date2,$badgecreated);
+            if($interval>=1){
+             db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d'", $userlist->uid, 43);
+            }
+        }
+    }
+}
+function month_differece($month1, $month2){
+    $diff = abs(strtotime($month2) - strtotime($month1));
+    $months = floor(($diff) / (30 * 60 * 60 * 24));
+    return $months;
+}
 function Tumbleweed() {
     $selquestion = "select * from question where status='1'";
     $listquestm = db_query($selquestion);
