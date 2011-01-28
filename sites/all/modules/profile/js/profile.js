@@ -168,14 +168,10 @@ function chk_uname(val){
     var ck_uname = /^[A-Za-z0-9_]{5,20}$/;
     if(!val.match(ck_uname)){
 
-        jQuery('#err_div').html("Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed ");
-        jQuery('#err_div').animate({
-            backgroundcolor: "#fff568"
-        }, "slow").animate({
-            backgroundcolor: "#FF0000"
-        }, "slow");
-        jQuery('#err_div').addClass('error');
-        return false
+        err="Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed ";
+        load_notify(err);
+        return false;
+
     }else if(val.length>0){
         jQuery.blockUI({
             message: '<h3> Just a moment validating your username...</h3>'
@@ -189,18 +185,14 @@ function chk_uname(val){
             var msg=data.messages;
             jQuery.unblockUI();
             if(data.error){
-                setTimeout(" jQuery.growlUI('','"+msg+"')",500);
+               
                 jQuery('#rname').val('');
-                jQuery('#err_div').html("Username already taken please try any other combination");
-                jQuery('#err_div').animate({
-                    backgroundcolor: "#fff568"
-                }, "slow").animate({
-                    backgroundcolor: "#FF0000"
-                }, "slow");
-                jQuery('#err_div').addClass('error');
+                err="Username already taken please try any other combination";
+                load_notify(err+''+msg);
+                return false;
+
             }else{
-                setTimeout(" jQuery.growlUI('','"+msg+"')",500);
-                  jQuery('#err_div').html("");
+                load_notify(msg);
             }
       
         });
@@ -241,11 +233,11 @@ function rel_msg(id){
         var formmsg=jQuery('#proform');
         jQuery.post(formmsg.attr('action'),formmsg.serialize(),
             function(data){
-     
-                jQuery('.profile_part').prepend(data);
+                jQuery('#twitMsg').html(data);
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+
                 jQuery('#showboxcmt').slideToggle("slow");
                 formmsg.get(0).reset();
-                setTimeout("jQuery('.profile_part > div.messages').hide();",1000);
             });
     });
 }

@@ -938,7 +938,7 @@ jQuery.noConflict();
     </div>
 <div class="info">
 	 <input type="input" class="" style="display:none;"  readonly="true" border="0" width="1" size="1" name="errbox" id="errbox">
-         <div id="err_div" class="">' . $emsg . ' ' . $message . '</div>
+         <div id="err_div" style="display:none;" class="">' . $emsg . ' ' . $message . '</div>
     </div>
     <div class="clr"></div>
     <div class="creat-inner-title-outer">
@@ -962,7 +962,7 @@ jQuery.noConflict();
           <div class="bord-alin-rite"></div>
                        <div class=" w-outer">
                  <div class="w1">User Name:</div>
-                 <div class="w2"> <input id="rname" maxlength="20" name="rname" onblur="chk_uname(this.value);" class="txtbx-1" value="' . $name . '" tabindex="4" type="text">
+                 <div class="w2"> <input id="rname" maxlength="20" name="rname" onblur="chk_uname(this.value);" class="txtbx-1" value="' . $name . '" tabindex="1" type="text">
    </div>
                  <div class="w3"><input name="real_name_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="real_name_privacy" type="radio" value="2" /></div>
@@ -986,7 +986,7 @@ jQuery.noConflict();
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Email:</div>
-                 <div class="w2"><input id="edit-mail" name="mail" class="txtbx-1" value="' . $mail . '" maxlength="255" tabindex="5" type="text">
+                 <div class="w2"><input id="edit-mail" name="mail" class="txtbx-1" value="' . $mail . '" maxlength="255" tabindex="4" type="text">
 	</div>
                  <div class="w3"><input name="email_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="email_privacy" type="radio" value="2" /></div>
@@ -1007,7 +1007,7 @@ jQuery.noConflict();
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Gender:</div>
-                 <div class="w2"><span><input id="edit-gender-0" name="gender" value="1" ' . $check1 . ' type="radio"> Male</span>&nbsp;&nbsp;<span><input id="edit-gender-1" name="gender" value="2" class="form-radio" ' . $check2 . ' type="radio"> Female</span></div>
+                 <div class="w2"><span><input id="edit-gender-0" tabindex="6" name="gender" value="1" ' . $check1 . ' type="radio"> Male</span>&nbsp;&nbsp;<span><input id="edit-gender-1" name="gender" value="2" class="form-radio" ' . $check2 . ' type="radio"> Female</span></div>
                  <div class="w3"><input name="gender_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="gender_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="gender_privacy" type="radio" value="3" /></div>
@@ -1017,7 +1017,7 @@ jQuery.noConflict();
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Country:</div>
-                 <div class="w2"><select name="country1" class="txtbx-1" tabindex="16" id="edit-country">' . $optionlist . '</select></div>
+                 <div class="w2"><select name="country1" class="txtbx-1" tabindex="7" id="edit-country">' . $optionlist . '</select></div>
                  <div class="w3"><input name="country_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="country_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="country_privacy" type="radio" value="3" /></div>
@@ -1027,7 +1027,7 @@ jQuery.noConflict();
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Postal / Zip Code:</div>
-                 <div class="w2"> <input name="zip"  value="' . $zip . '" class="txtbx-1" onblur="get_zip_city(this.value);" id="edit-zip"  type="text"><span style="display:none;" id="edit-city-wrapper">' . $statecity . ' </span></div>
+                 <div class="w2"> <input name="zip"  value="' . $zip . '" class="txtbx-1" tabindex="8" onblur="get_zip_city(this.value);" id="edit-zip"  type="text"><span style="display:none;" id="edit-city-wrapper">' . $statecity . ' </span></div>
                  <div class="w3"><input name="zip_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="zip_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="zip_privacy" type="radio" value="3" /></div>
@@ -1037,7 +1037,7 @@ jQuery.noConflict();
                <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Religion:</div>
-                 <div class="w2"> <select  name="religion" id="edit-religion"  class="txtbx-1" ><option value="" >Select</option><option value="Christian" ' . $selr1 . ' >Christian (Cath or Prod)</option><option value="Muslim" ' . $selr2 . ' >Muslim (Suni Shiite)</option><option value="Jewish" ' . $selr3 . ' >Jewish</option><option value="Hindu" ' . $selr4 . ' > Hindu</option><option value="Buddhist" ' . $selr5 . ' >Buddhist</option><option value="Other" ' . $selr6 . '>Other</option></select> </div>
+                 <div class="w2"> <select  name="religion" id="edit-religion"  tabindex="9" class="txtbx-1" ><option value="" >Select</option><option value="Christian" ' . $selr1 . ' >Christian (Cath or Prod)</option><option value="Muslim" ' . $selr2 . ' >Muslim (Suni Shiite)</option><option value="Jewish" ' . $selr3 . ' >Jewish</option><option value="Hindu" ' . $selr4 . ' > Hindu</option><option value="Buddhist" ' . $selr5 . ' >Buddhist</option><option value="Other" ' . $selr6 . '>Other</option></select> </div>
                  <div class="w3"><input name="religion_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="religion_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="religion_privacy" type="radio" value="3" /></div>
@@ -1048,7 +1048,7 @@ jQuery.noConflict();
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Ethnicity:</div>
-                 <div class="w2"><select name="ethnic" id="edit-ethnic"  class="txtbx-1" ><option value="">Select </option><option value="Caucasian" ' . $sele1 . '>Caucasian</option><option value="Black" ' . $sele2 . '>Black</option><option value="Asian" ' . $sele3 . '>Asian</option> <option value="Indian" ' . $sele4 . '>Indian</option> <option value="Semetic" ' . $sele5 . '>Semetic</option><option value="Latin" ' . $sele6 . '>Latin</option> <option value="Aborigines" ' . $sele7 . '>Aborigines</option>  </select></div>
+                 <div class="w2"><select name="ethnic" id="edit-ethnic" tabindex="10" class="txtbx-1" ><option value="">Select </option><option value="Caucasian" ' . $sele1 . '>Caucasian</option><option value="Black" ' . $sele2 . '>Black</option><option value="Asian" ' . $sele3 . '>Asian</option> <option value="Indian" ' . $sele4 . '>Indian</option> <option value="Semetic" ' . $sele5 . '>Semetic</option><option value="Latin" ' . $sele6 . '>Latin</option> <option value="Aborigines" ' . $sele7 . '>Aborigines</option>  </select></div>
                  <div class="w3"><input name="ethnic_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="ethnic_privacy" type="radio" value="2" /></div>
                  <div class="w5"><input name="ethnic_privacy" type="radio" value="3" /></div>
@@ -1069,7 +1069,7 @@ jQuery.noConflict();
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Sex. Orientation:</div>
-                 <div class="w2"><select name="sorient" id="edit-sorient"  class="txtbx-1" ><option value="">Select</option><option value="Straight" ' . $seleant1 . '>Straight</option><option value="Gay" ' . $seleant2 . '>Gay </option> <option value="Bisexual" ' . $seleant3 . '>Bisexual </option><option value="Transgender" ' . $seleant3 . '>Transgender </option>  </select>
+                 <div class="w2"><select name="sorient" id="edit-sorient"  tabindex="11" class="txtbx-1" ><option value="">Select</option><option value="Straight" ' . $seleant1 . '>Straight</option><option value="Gay" ' . $seleant2 . '>Gay </option> <option value="Bisexual" ' . $seleant3 . '>Bisexual </option><option value="Transgender" ' . $seleant3 . '>Transgender </option>  </select>
 	       </div>
                  <div class="w3"><input name="sorient_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="sorient_privacy" type="radio" value="2" /></div>
@@ -1080,7 +1080,7 @@ jQuery.noConflict();
              <div class="bord-alin-rite"></div>
              <div class=" w-outer">
                  <div class="w1">Education Level:</div>
-                 <div class="w2"><select name="edu" id="edit-edu"  class="txtbx-1" ><option value="">Select</option><option value="No High School" ' . $seleant1 . '>No High School</option><option value="High School" ' . $seleant2 . '>High School </option> <option value="Technical College" ' . $seleant3 . '>Technical College </option><option value="University" ' . $seleant3 . '>University </option><option value="Masters Degree" ' . $seleant3 . '>Masters Degree </option><option value="PhD" ' . $seleant3 . '>PhD </option>  </select>
+                 <div class="w2"><select name="edu" id="edit-edu" tabindex="12"  class="txtbx-1" ><option value="">Select</option><option value="No High School" ' . $seleant1 . '>No High School</option><option value="High School" ' . $seleant2 . '>High School </option> <option value="Technical College" ' . $seleant3 . '>Technical College </option><option value="University" ' . $seleant3 . '>University </option><option value="Masters Degree" ' . $seleant3 . '>Masters Degree </option><option value="PhD" ' . $seleant3 . '>PhD </option>  </select>
 	       </div>
                  <div class="w3"><input name="edu_privacy" type="radio" value="1" /></div>
                  <div class="w4"><input name="edu_privacy" type="radio" value="2" /></div>
