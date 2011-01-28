@@ -514,7 +514,7 @@ function yearling(){
         $date1 = $dtint;
         $date2 = date("Y-m-d h:i:s");
 
-       echo '<br>'.$userlist->uid;
+       
         $months = month_differece($date2,$date1);
         $b = "12";
         if($months >= 12){
@@ -524,13 +524,13 @@ function yearling(){
         if($months >= 1){
             $date = db_result(db_query("SELECT date_added FROM {user_badges} WHERE uid = '".$userlist->uid."' AND bid = '43' ORDER BY date_added DESC LIMIT 0,1"));
             $badgecreated = $date!=''?$date:0;
-            echo '<br>'.$interval = month_differece($date2,$badgecreated);
+            $interval = month_differece($date2,$badgecreated);
             if($interval >= 1){
              db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d'", $userlist->uid, 43);
             }
         }
     }
-    exit;
+   
 }
 function month_differece($month1, $month2){
     $diff = abs(strtotime($month2) - strtotime($month1));
