@@ -905,7 +905,7 @@ function provocative_question($uid){
     $sql = "SELECT * FROM question WHERE uid = '$uid'";
     $quests = ExecuteQuery($sql,'select');
     foreach($quests as $quest){
-        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} AND qid = '".$quest['qid']."'"));
+        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} WHERE qid = '".$quest['qid']."'"));
         $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='51' AND qid = '".$quest['qid']."'"));
        // count 1000
         if($count >= 3 && $badgecnt == 0){
