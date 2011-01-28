@@ -507,7 +507,7 @@ function yearling_old() {
 }
 
 function yearling(){
-    $selusers = "SELECT * FROM users as a ,user_profile as b where a.status='1' and a.uid=b.uid and a.rank_id > 1";
+    $selusers = "SELECT * FROM users where status='1' and rank_id > 1";
     $listmuser = db_query($selusers);
     while ($userlist = db_fetch_object($listmuser)) {
         $dtint = date("Y-m-d h:i:s", $userlist->created);
