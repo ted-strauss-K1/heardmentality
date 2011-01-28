@@ -279,7 +279,7 @@ function commentator($uid = '') {
     }
    $agreecount = $dagreecount + $ragreecount;
    //agreecount >=100 <500
-        if($agreecount >= 3){
+        if($agreecount >= 3 && $agreecount < 5){
             $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='5'"));
             // count 10
             if ($badgecnt == 0) {
@@ -875,7 +875,7 @@ function good_question($uid){
     $sql = "SELECT * FROM question WHERE uid = '$uid'";
     $quests = ExecuteQuery($sql,'select');
     foreach($quests as $quest){
-        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} WHERE uid = '$uid' AND qid = '".$quest['qid']."'"));
+        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} AND qid = '".$quest['qid']."'"));
         $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='18' AND qid = '".$quest['qid']."'"));
         // count 50
         if($count >= 1 && $badgecnt == 0){
@@ -890,7 +890,7 @@ function popular_question($uid){
     $sql = "SELECT * FROM question WHERE uid = '$uid'";
     $quests = ExecuteQuery($sql,'select');
     foreach($quests as $quest){
-        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} WHERE uid = '$uid' AND qid = '".$quest['qid']."'"));
+        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} WHERE qid = '".$quest['qid']."'"));
         $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='30' AND qid = '".$quest['qid']."'"));
        // count 200
         if($count >= 2 && $badgecnt == 0){
@@ -905,7 +905,7 @@ function provocative_question($uid){
     $sql = "SELECT * FROM question WHERE uid = '$uid'";
     $quests = ExecuteQuery($sql,'select');
     foreach($quests as $quest){
-        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} WHERE uid = '$uid' AND qid = '".$quest['qid']."'"));
+        $count = db_result(db_query("SELECT COUNT(*) FROM {possible_answer_vote} AND qid = '".$quest['qid']."'"));
         $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='51' AND qid = '".$quest['qid']."'"));
        // count 1000
         if($count >= 3 && $badgecnt == 0){
