@@ -1249,7 +1249,7 @@ function scholer(){
                 $quest_count = $quest_count+1;
                }
            }
-           if($quest_count >= 20){
+           if($quest_count >= 13){
            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$user['uid']."' AND bid='64'"));
            if($badgecnt == 0){
             db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d'", $user['uid'],64);
