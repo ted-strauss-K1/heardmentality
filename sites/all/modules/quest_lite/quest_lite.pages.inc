@@ -73,11 +73,11 @@ function qlite_view() {
     // drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/wave.css');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/like.js');
-   drupal_add_js(drupal_get_path('module', 'debate').'/scripts/debate.js');
+    drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
-          drupal_add_js( drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js');
-            drupal_add_js(  drupal_get_path('theme', 'newtheme') . '/scripts/jbubble.js');
-            drupal_set_html_head('<script>
+    drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js');
+    drupal_add_js(drupal_get_path('theme', 'newtheme') . '/scripts/jbubble.js');
+    drupal_set_html_head('<script>
             var uid="' . $user->uid . '";
 	</script>');
     $qid = get_qid();
@@ -122,7 +122,7 @@ function qlite_view() {
     $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where 1 AND q.qid='" . $qid . "' ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
- 
+
     // print_r($oListquest);
     //question privacy check
     if (!$oListquest->status) {
@@ -141,22 +141,21 @@ function qlite_view() {
     else
         privacy_chk($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
     ////question privacy check ends
-  // ADD POINTS FOR EACH VIEW
-    $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE qid = '$qid' AND uid = '".$user->uid."' AND point_id = '9' AND DATE(date_added) = CURDATE()"));
-    if($pexist == 0){
+    // ADD POINTS FOR EACH VIEW
+    $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE qid = '$qid' AND uid = '" . $user->uid . "' AND point_id = '9' AND DATE(date_added) = CURDATE()"));
+    if ($pexist == 0) {
+        $points = get_points(9);
+        db_query("INSERT INTO {tbl_user_points} SET qid = '%d', uid = '%d', point_id = '%d', points = '%d'", $qid, $user->uid, 9, $points);
+    }
+    // ADD POINTS FOR EACH VIEW ends
+    // ADD POINTS FOR EACH VIEW
+    $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE qid = '$qid' AND uid = '" . $user->uid . "' AND point_id = '9' AND DATE(date_added) = CURDATE()"));
+    if ($pexist == 0) {
         $points = get_points(9);
         db_query("INSERT INTO {tbl_user_points} SET qid = '%d', uid = '%d', point_id = '%d', points = '%d'", $qid, $user->uid, 9, $points);
     }
     // ADD POINTS FOR EACH VIEW ends
 
-    // ADD POINTS FOR EACH VIEW
-    $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE qid = '$qid' AND uid = '".$user->uid."' AND point_id = '9' AND DATE(date_added) = CURDATE()"));
-    if($pexist == 0){
-        $points = get_points(9);
-        db_query("INSERT INTO {tbl_user_points} SET qid = '%d', uid = '%d', point_id = '%d', points = '%d'", $qid, $user->uid, 9, $points);
-    }
-    // ADD POINTS FOR EACH VIEW ends
-    
     $list_lengthan = db_query("select * from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'  ");
     $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'"));
     $answer_id = db_fetch_object($list_lengthan);
@@ -388,7 +387,7 @@ function qlite_view() {
         $insert_dumm = "insert into possible_answer_vote (qid,uid,panswer_id,vote_pdate) values ('" . $tmp_rec->qid . "','" . $tmp_rec->uid . "','" . $tmp_rec->answer_id . "','" . $tmp_rec->vote_date . "')";
         $dumy_rec = db_query($insert_dumm);
         //provocateur badge
-        provocateur($tmp_rec->qid,$tmp_rec->answer_id);
+        provocateur($tmp_rec->qid, $tmp_rec->answer_id);
         ///////////////////////mail notification for who voted answers ///////////////////////////////
         $vusers = "select * from {users} where  uid='" . $tmp_rec->uid . "' ";
         $usernames = db_query($vusers);
@@ -486,13 +485,17 @@ function qlite_view() {
 		';
 
     $optio = '';
-    if ($numran != 0) {
-        $query = "select vote_pid from {possible_answer_vote} where qid='$qid' AND uid='" . $user->uid . "'";
-        $voteid = db_result(db_query($query));
+    $query = "select vote_pid from {possible_answer_vote} where qid='$qid' AND uid='" . $user->uid . "'";
+    $voteid = db_result(db_query($query));
+    $sitevotecnt = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where uid='" . $user->uid . "'"));
+    if ($sitevotecnt == 1&&empty($voteid)) {
+        echo $user->prompt;
+        $submitbutt = ' <p><input type="button" name="save" id="save" value="Vote" onclick="alert(2);" /></p>';
+
+    } elseif ($numran > 0 && !empty($voteid)) {
         $submitbutt = ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/></p>';
         //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
-    }
-    if ($numran == 0) {
+    } elseif ($numran == 0) {
 
         $submitbutt = ' <p><input type="submit" name="save" id="save" value="Vote" /></p>';
     }
@@ -572,10 +575,10 @@ function qlite_view() {
 
     $numres = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$qid'"));
 
-     $query = " SELECT IFNULL(count(did),0) as cnt FROM {debate} AS f WHERE f.qid = '$qid' ";
+    $query = " SELECT IFNULL(count(did),0) as cnt FROM {debate} AS f WHERE f.qid = '$qid' ";
     $list = ExecuteQuery($query, "select");
     $debatecnt = $list[0]['cnt'];
-   
+
 //tab
     $voutput .= $submitbutt . '
                  <div >
@@ -594,26 +597,26 @@ function qlite_view() {
             <!--<div class="tag">
              <span>Tags [<a href="#" onclick="loadtag(\'' . $gSitePath . 'qlite/addtag/' . $qid . '\',\'Edit Tags \'); ">Retag</a>]:</span>' . $instags . '</div>-->
             <div class="sharing-section">
-            <div  class=""><div class="but-left"><img src="' .$gSitePath.drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
+            <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
               <a title="Bookmark" class="but butnew share-link" onclick="showShareUI();" href="javascript:void(0);">
                  <img ALIGN=ABSMIDDLE title="Share" alt="Share" src="' . $gSitePath . path_to_theme() . '/images/face-ic.jpg"/>&nbsp;
                     Share</a>
              <div class="but-right">
-           <img width="7" height="24" src="' .$gSitePath. drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
+           <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
               <!-- <div class="share2">
             <a title="Invite" onclick="formsubmittype(2,' . $qid . ');" href="javascript:void(0);" class="share-link"> Invite</a>
              </div>-->
-            <div  class=""><div class="but-left"><img src="' .$gSitePath. drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
+            <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
               <a class="but butnew share-link" title="Suggest a new answer"   onclick="formsubmittype(4,' . $qid . ');" href="javascript:void(0);">Suggest a new answer</a>
 <div class="but-right">
-           <img width="7" height="24" src="' .$gSitePath.drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
+           <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
             <!-- <div class="share3">
         <a title="Create Mashup" class="share-link" onclick="formsubmittype(5,' . $qid . ');" href="javascript:void(0);">&lt;Embed&gt;</a>
              </div>-->
-  <div  class=""><div class="but-left"><img src="' .$gSitePath.drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
+  <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
              <a title="Flag" class="but butnew share-link"  onclick="formsubmittype(3,' . $qid . ');" href="javascript:void(0);"><img  src="' . $gSitePath . path_to_theme() . '/images/flag.png" alt="flag" align="middle" /></a>
               <div class="but-right">
-           <img width="7" height="24" src="' . $gSitePath.drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
+           <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
 
             </div>
              <div class="clr"></div>
@@ -981,7 +984,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='25'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','" . $ansrem->uid . "') ");
-                     user_coins_update($uid,25,'');
+                    user_coins_update($uid, 25, '');
                 }
             }
             //////////////Good Answer///////////////////////
@@ -989,7 +992,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='17'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','" . $ansrem->uid . "') ");
-                     user_coins_update($uid,17,'');
+                    user_coins_update($uid, 17, '');
                 }
             }
             //////////////great answers///////////////////////
@@ -997,7 +1000,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='19'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','" . $ansrem->uid . "') ");
-                     user_coins_update($uid,19,'');
+                    user_coins_update($uid, 19, '');
                 }
             }
             drupal_goto("qlite/view/$mid");
@@ -1124,7 +1127,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='25'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','" . $ansrem->uid . "') ");
-                     user_coins_update($uid,25,'');
+                    user_coins_update($uid, 25, '');
                 }
             }
             //////////////Good Answer///////////////////////
@@ -1132,7 +1135,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='17'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','" . $ansrem->uid . "') ");
-                     user_coins_update($uid,17,'');
+                    user_coins_update($uid, 17, '');
                 }
             }
             //////////////great answers///////////////////////
@@ -1140,7 +1143,7 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='19'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','" . $ansrem->uid . "') ");
-                     user_coins_update($uid,19,'');
+                    user_coins_update($uid, 19, '');
                 }
             }
             drupal_goto("qlite/view/$mid");
@@ -1174,9 +1177,10 @@ function qlite_save() {
 
 function add_resources() {
     global $gSitePath, $user, $gDocPath, $base_root;
-        if($user->uid<1){
-            echo 'Sorry you have to login to post New Resource!'; die;
-        }
+    if ($user->uid < 1) {
+        echo 'Sorry you have to login to post New Resource!';
+        die;
+    }
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/css/answer.css" type="text/css" />
          <script src="' . $gSitePath . '/misc/jquery.js"></script>
@@ -1356,8 +1360,6 @@ function flag_question() {
     echo $falgq;
 }
 
-
-
 function panel_content() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
@@ -1391,9 +1393,9 @@ function panel_content() {
     $query_userinfo = db_query($query_user);
     $fetuserlist = db_fetch_object($query_userinfo);
     switch ($type) {
-       
-          case "debate":
-                $output = '
+
+        case "debate":
+            $output = '
 			<div id="waveerr"></div>
                        <ul id="tabmenu" class="subtabs" >
                                        <li><a class="" href="javascript:tabactive(\'dargs\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabdargs">Arguments</a></li>
@@ -1402,7 +1404,7 @@ function panel_content() {
                                </ul>
                                <div id="rcontents" class="mytabs-container"></div>
                                <script type="text/javascript">tabactive(\'dargs\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';
-              break;
+            break;
         case "Resources":
 
             $output = '
@@ -1557,7 +1559,6 @@ function forum_wave($qid = '') {
     return $wave;
 }
 
-
 function flag_report() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
@@ -1672,22 +1673,22 @@ function flag_report() {
 
                     increasepoints('4', $_REQUEST['qaid'], '0');
                     echo '<div class="">You Have Flagged successfully ! </div>';
-					/*RAM HEARTBEAT MODULE FLAGGED A QUESTION*/
-					$QID = $_REQUEST['qaid'];
-					$qid_url = db_query("select * from {question} where qid='$QID'");
-					$question_values = db_fetch_array($qid_url);
-					if (isset($question_values)) {
-						$question_urlff = $question_values['url'];
-						$qtion = $question_values['question'];
-						$ctxt = $question_values['context'];
-					}
-					$message_id = 'question_flag';
-					$variables = array(
-					'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
-					'@q_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
-					);				
-					heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
-					/*RAM HEARTBEAT MODULE FLAGGED A QUESTION*/
+                    /* RAM HEARTBEAT MODULE FLAGGED A QUESTION */
+                    $QID = $_REQUEST['qaid'];
+                    $qid_url = db_query("select * from {question} where qid='$QID'");
+                    $question_values = db_fetch_array($qid_url);
+                    if (isset($question_values)) {
+                        $question_urlff = $question_values['url'];
+                        $qtion = $question_values['question'];
+                        $ctxt = $question_values['context'];
+                    }
+                    $message_id = 'question_flag';
+                    $variables = array(
+                        '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                        '@q_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+                    );
+                    heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                    /* RAM HEARTBEAT MODULE FLAGGED A QUESTION */
                 } else {
                     echo '<div class="red">You Have Already Flagged !</div>';
                 }
@@ -1708,7 +1709,7 @@ function suggest_answer() {
 
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $ansoutput = '	
-        <script type="text/javascript" src="' .$gSitePath. '/misc/jquery.js"></script>
+        <script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
 	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 	<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
 
@@ -1752,7 +1753,7 @@ function suggest_answer() {
 //	<input type="hidden" name="qaid" value="' . $qid . '"/>';
 
 
-        $ansoutput .= '<script type="text/javascript">
+    $ansoutput .= '<script type="text/javascript">
 	jQuery(document).ready(function() {
 
   jQuery(\'#twitMsg\',top.document).slideUp();
@@ -1849,7 +1850,6 @@ function suggest_answer() {
 	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
 	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
 	</div></form>';
-
     }
     if ($user->uid < 1) {
         $ansoutput = '<div class="messages error"> Sorry Only Registered User Can Suggest Answer! </div>';
@@ -1868,8 +1868,8 @@ function suggest_answer_save() {
             db_query($answerquery);
             //Suggest Answer badges
             db_query("insert into {user_badges} set bid='38',uid='$uid',qid='" . $_REQUEST['qaid'] . "'");
-            $last_id = db_last_insert_id('user_badges','badge');
-             user_coins_update($uid,38,'');
+            $last_id = db_last_insert_id('user_badges', 'badge');
+            user_coins_update($uid, 38, '');
             // hm_mails('',$last_id,'user_badges');
             //badges_user($uid,$last_id);
 
@@ -2464,7 +2464,7 @@ function qlite_graph() {
 
     $script .= "
         				<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
-        <script type='text/javascript' src='".$gSitePath."misc/jquery.js'></script>
+        <script type='text/javascript' src='" . $gSitePath . "misc/jquery.js'></script>
        			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
 <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 <script type='text/javascript' language='javascript'>
@@ -2502,13 +2502,13 @@ function qlite_graph() {
             array_push($grid, "'" . $vlist[$ab]['answer'] . "'");
             $insdata.="{name :'" . $vlist[$ab]['answer'] . "', data: " . $ins_sc . "},";
 
-              $dexp = explode('-', $srange['dat']);
+            $dexp = explode('-', $srange['dat']);
 
-    $year = $dexp[0];
-    $month = $dexp[1]-1;
-    $dat = $dexp[2];
-    $sdate = "Date.UTC(" . $year . "," . $month . "," . $dat . ", 0, 0, 0)";
- $tickint="";
+            $year = $dexp[0];
+            $month = $dexp[1] - 1;
+            $dat = $dexp[2];
+            $sdate = "Date.UTC(" . $year . "," . $month . "," . $dat . ", 0, 0, 0)";
+            $tickint = "";
         } else {
             for ($mn = 6; $mn >= 0; $mn--) {
 
@@ -2524,14 +2524,14 @@ function qlite_graph() {
             array_push($grid, "'" . $vlist[$ab]['answer'] . "'");
             $insdata.="{name :'" . $vlist[$ab]['answer'] . "', data: " . $ins_sc . "},";
 
-     $sdate = "Date.UTC(" . $year . "," . ($month-1) . "," . (date("d") - 6) . ")";
-     $tickint="tickInterval: 24 * 3600 * 1000 // one day";
+            $sdate = "Date.UTC(" . $year . "," . ($month - 1) . "," . (date("d") - 6) . ")";
+            $tickint = "tickInterval: 24 * 3600 * 1000 // one day";
         }
     }
 
 
     $year = date("Y");
-    $month = date("m")-1;
+    $month = date("m") - 1;
     $dat = date("d");
     $edate = "Date.UTC(" . $year . "," . $month . "," . $dat . ")";
     // $script.=$ins_sc;
@@ -2558,9 +2558,9 @@ $(document).ready(function() {
       xAxis: {
          type: 'datetime',
        plotBands: [{ // mark the weekend
-            from: ".$sdate.",
-            to: ".$edate."
-        }], ".$tickint."
+            from: " . $sdate . ",
+            to: " . $edate . "
+        }], " . $tickint . "
       },
       yAxis: {
          title: {
@@ -2909,22 +2909,22 @@ function answer_vote() {
                 db_query($updatevotesug);
                 send_votenotify($_REQUEST['qaid']);
                 echo '<div class="messages success">Thanks For Voting ! </div>';
-					/*RAM HEARTBEAT MODULE VOTING A QUESTION*/
-					$QID = $_REQUEST['qaid'];
-					$qid_url = db_query("select * from {question} where qid='$QID'");
-					$question_values = db_fetch_array($qid_url);
-					if (isset($question_values)) {
-						$question_urlff = $question_values['url'];
-						$qtion = $question_values['question'];
-						$ctxt = $question_values['context'];
-					}
-					$message_id = 'question_vote';
-					$variables = array(
-					'@username' => l(user_load($user->uid)->name, 'user/' . $user->name),			
-					'@q_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
-					);				
-					heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
-					/*RAM HEARTBEAT MODULE VOTING A QUESTION*/	
+                /* RAM HEARTBEAT MODULE VOTING A QUESTION */
+                $QID = $_REQUEST['qaid'];
+                $qid_url = db_query("select * from {question} where qid='$QID'");
+                $question_values = db_fetch_array($qid_url);
+                if (isset($question_values)) {
+                    $question_urlff = $question_values['url'];
+                    $qtion = $question_values['question'];
+                    $ctxt = $question_values['context'];
+                }
+                $message_id = 'question_vote';
+                $variables = array(
+                    '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
+                    '@q_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+                );
+                heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                /* RAM HEARTBEAT MODULE VOTING A QUESTION */
             } else {
                 echo '<div class="messages error"> You Have Already Voted This Answer ! </div>';
             }
@@ -2984,8 +2984,6 @@ function send_votenotify($qid='') {///vijay important comented
       } */
     hm_mails($qid, '', 'vote_answer');
 }
-
-
 
 function qusetion_info() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
@@ -3364,40 +3362,36 @@ function popquest() {
 //            db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('30','" . $oListquest->uid . "','" . $qid . "') ");
 //        }
 //    }
-
     ////////////////////notable Issue//////////////
     // count 1000
     if ($popcnt == 3) {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='27'"));
         if ($stucntr == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('27','" . $oListquest->uid . "','" . $qid . "') ");
-             user_coins_update($uid,27,'');
+            user_coins_update($uid, 27, '');
         }
     }
 
     /////////////////famous Issue ////////////////
-
     // count 50000
     if ($popcnt == 5) {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='13'"));
         if ($stucntr == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','" . $oListquest->uid . "','" . $qid . "') ");
-             user_coins_update($uid,13,'');
+            user_coins_update($uid, 13, '');
         }
     }
 
 
     ///////////////// provocative Issue //////////////
     // count 10000
-    if($popcnt == 4) {
+    if ($popcnt == 4) {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='48'"));
         if ($stucntr == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('48','" . $oListquest->uid . "','" . $qid . "') ");
-             user_coins_update($uid,48,'');
+            user_coins_update($uid, 48, '');
         }
     }
-
-    
 }
 
 ?>

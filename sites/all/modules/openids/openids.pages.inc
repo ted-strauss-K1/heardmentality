@@ -396,7 +396,7 @@ function openid_login_save() {
      $formret .='<div><b>Login processing please wait..</b></div>';
     if ($select_user_count == 0) {
         $ini_coins = initial_coins();
-        $insert = "insert into users (pass,mail,provider,created,access,login,status,Identity,total_coins)values('" . md5($pass) . "','" . $_GET['email'] . "','" . $_GET['provider'] . "','" . time() . "','" . time() . "','" . time() . "','1','" . $pass . "', '" . $ini_coins . "') ";
+        $insert = "insert into {users} (pass,mail,provider,created,access,login,status,Identity,total_coins)values('" . md5($pass) . "','" . $_GET['email'] . "','" . $_GET['provider'] . "','" . time() . "','" . time() . "','" . time() . "','1','" . $pass . "', '" . $ini_coins . "') ";
         $insersult = db_query($insert);
         $lid = mysql_insert_id();
         // add visit points
@@ -405,7 +405,7 @@ function openid_login_save() {
         $sel_ulists = "SELECT * FROM users where uid='$lid'";
         $user_namelistfs = ExecuteQuery($sel_ulists, "select");
 
-        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='6'";
+        $sel_user_cmt = "SELECT * FROM {notification_mail_format} Where id='6'";
         $rs_mgmt = db_query($sel_user_cmt);
         $list_content = db_fetch_object($rs_mgmt);
         $subject_proj = $list_content->subject;
@@ -430,7 +430,7 @@ function openid_login_save() {
 
         /////////////////update user name/////////////////////////
 
-        $updates = "update users set name='$uname' where uid=$lid";
+        $updates = "update {users} set name='$uname',prompt='1' where uid=$lid";
         $up = db_query($updates);
 
         $age = '';
@@ -439,50 +439,55 @@ function openid_login_save() {
 
         $social = $prolink . '||' . $prolink2;
 
-        $insert_profile = "insert into user_profile (uid,real_name,first_name,last_name,gender,zip,country,social,dob,age,image_url,provider)values('" . $lid . "','" . $_GET['nickname'] . "','" . $_GET['firstName'] . "' ,'" . $_GET['lastName'] . "' ,'" . $gender . "','" . $_GET['zip'] . "','" . $_GET['country'] . "','" . $social . "','" . $dob . "','" . $age . "','" . $_GET['photoURL'] . "','" . $_GET['provider'] . "'  ) ";
+        $insert_profile = "insert into {user_profile} (uid,real_name,first_name,last_name,gender,zip,country,social,dob,age,image_url,provider,date_update)values('" . $lid . "','" . $_GET['nickname'] . "','" . $_GET['firstName'] . "' ,'" . $_GET['lastName'] . "' ,'" . $gender . "','" . $_GET['zip'] . "','" . $_GET['country'] . "','" . $social . "','" . $dob . "','" . $age . "','" . $_GET['photoURL'] . "','" . $_GET['provider'] . "',now()  ) ";
 
         $insersult = db_query($insert_profile);
+  $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='$pass' and provider='" . $_GET['provider'] . "' AND uid='$lid'"));
 
-        $formret .= '<form action="' . $gSitePath . 'user/login" method="post" id="user-login">
-			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value=' . $uname . ' class="form-text required"/>
-			<input type="password" name="pass" id="edit-pass" value=' . $pass . '  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
-			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
-			<input type="hidden" name="newuser" value="1" />
-			</form>
-			<script language="JavaScript" type="text/javascript">
-			
-			document.getElementById(\'user-login\').submit();
-			
-			
-			</script>
-			';
+      
     } else {
-        $result_profile_edit_promt = db_query("UPDATE {users} set prompt='1' where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "' ");
-        $select_user_list = db_fetch_object(db_query("SELECT * from users where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
-        $unamelog = $select_user_list->name;
-        $passlog = $_GET['UID'];
-        add_visit_points($select_user_list->uid);
 
-        $formret .= '<form action="' . $gSitePath . 'user/login" method="post" id="user-login">
-			<input type="hidden" maxlength="60" name="name" id="edit-name" size="60" value=' . $unamelog . ' class="form-text required"/>
-			<input type="password" name="pass" id="edit-pass" value=' . $passlog . '  maxlength="128"  size="60" style="display:none";  class="form-text required"/>
-			<input type="hidden" name="form_id" id="edit-user-login" value="user_login"/>
-			<input type="hidden" name="newuser" value="0" />
-			</form>
-			<script language="JavaScript" type="text/javascript">
-			
-			document.getElementById(\'user-login\').submit();
-			
-			
-			</script>
-			';
+        $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
     }
-
-
-   echo $formret;
-   // return $formret;
+$user=make_login($select_user,$_GET['UID']);
+if ($user){
+       add_visit_points($select_user->uid);
+    drupal_goto();
 }
 
+  return $formret;
+}
+function make_login($result='',$pwd){
+
+
+    if($result && function_exists("user_load"))
+    {
+           if ($account = user_load(array('uid'=>$result->uid, 'status' => 1)))
+               {
+                 $user = $account;
+                 watchdog('user', 'Session opened for %name.', array('%name' => $user->name));
+                 $user->login = time();
+                 db_query("UPDATE {users} SET login = %d WHERE uid = %d", $user->login, $user->uid);
+                sess_regenerate();
+                $params = array(
+  'mail'   => $user->email,
+  'name'   => $user->name,
+  'pass'   => $pwd, // No need to hash the password
+  'status' => 1, // Otherwise the user is blocked on creation
+);
+                  $users=user_authenticate($params);
+       // print_r($users);
+               // print_r($user);
+              // drupal_set_message(t("<h1>You have been logged in success...</h1>"),$type="success");
+                }
+    }
+    else
+    {
+        drupal_set_message(t("Could not log you in. Please try again later..."),$type="error");
+    }
+
+return $users;
+}
 function openid_login3() {
     global $gSitePath, $user, $gDocPath, $base_root;
     $select_fet = db_query("SELECT * from users order by uid desc limit 0,1");

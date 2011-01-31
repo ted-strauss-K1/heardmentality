@@ -464,6 +464,7 @@ WHERE t1.cat_id='$cid'";
 }
 
 function quest_lite_block($op = 'list', $delta = 0, $edit = array()) {
+  
     switch ($op) {
         case 'list':
             $blocks[0] = array(
@@ -487,6 +488,9 @@ function _related_issue() {
 
     global $gSitePath, $user;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    if(empty($qid))
+        $qid=get_qid();
+    
     $query = "SELECT cid,releated_question FROM question where qid='$qid'";
     $query_list = db_query($query);
     $fetvot = db_fetch_object($query_list);
@@ -518,7 +522,7 @@ function _related_issue() {
             array_push($catary,'\''.$catl['cat'].'\'');
         }
         $catary=implode(',',$catary);
-        $query = "SELECT * FROM question as q join question_cat as qc on qc.qid=q.qid where qc.cat in ($catary) and  q.qid !='$qid' limit 5";
+        $query = "SELECT * FROM question as q join question_cat as qc on qc.qid=q.qid where qc.cat in ($catary) and  q.qid !='$qid' group by q.qid limit 5";
         $query_sug = db_query($query);
 
 
@@ -530,7 +534,7 @@ function _related_issue() {
             if (strlen($sample) > 20) {
                 $bubble = 'rel="' . htmlentities(wordwrap($sample, 40, '<br/>')) . '"';
             }
-
+            
             $content.='<li class=""><a ' . $bubble . '  href="' . $gSitePath . $sug->url . '"  style="' . drupal_link_color($user->uid, $sug->qid) . '">' . htmlentities(myTruncate($sample, '20', '', '..')) . '</a></li>';
         }
     }

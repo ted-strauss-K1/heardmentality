@@ -51,7 +51,7 @@ $directory = $base_path . $directory;
                                     position : 'top',
                                     align	 : 'center',
                                     dropShadow: false,
-                                   openingDelay:300,
+                                    openingDelay:300,
                                     selectable: true,
                                     innerHtmlStyle: {
                                         'text-align':'center','background-color':'#FFFFFF'
@@ -62,7 +62,7 @@ $directory = $base_path . $directory;
                                     themePath: '<?php echo $directory; ?>/images/bp_images'
 
                                 });
-                              //  jQuery(this).ShowBubblePopup();
+                                //  jQuery(this).ShowBubblePopup();
                             }
 
                         });
@@ -74,7 +74,7 @@ $directory = $base_path . $directory;
                                 jQuery(this).CreateBubblePopup({
                                     position : 'top',
                                     align	 : 'center',
-                                      dropShadow: false,
+                                    dropShadow: false,
                                     openingDelay:100,
                                     selectable: true,
                                     innerHtmlStyle: {
@@ -87,7 +87,7 @@ $directory = $base_path . $directory;
                                     themePath: '<?php echo $directory; ?>/images/bp_images'
 
                                 });
-                              //  jQuery(this).ShowBubblePopup();
+                                //  jQuery(this).ShowBubblePopup();
                             }
 
 
@@ -203,9 +203,9 @@ $directory = $base_path . $directory;
 
                                     <div id="header">
                                         <div class="top-left-outer">
-                                             <div class="text-logo"><div  class="textspace">Be Heard Don't Be<br />
-Part Of The Herd</div>
-      </div>
+                                            <div class="text-logo"><div  class="textspace">Be Heard Don't Be<br />
+                                                    Part Of The Herd</div>
+                                            </div>
                                             <div class="date-time">
 
                                                 <?php
@@ -213,26 +213,26 @@ Part Of The Herd</div>
                                                 ?>
                                             </div>
                                         </div>
-                                      
-                                          <div align="center" ><a href="<?php print $front_page; ?>" class="logo" title="<?php print t('Home'); ?>">HEARD  &nbsp;&nbsp;&nbsp;&nbsp;MENTALITY</a></div>
+
+                                        <div align="center" ><a href="<?php print $front_page; ?>" class="logo" title="<?php print t('Home'); ?>">HEARD  &nbsp;&nbsp;&nbsp;&nbsp;MENTALITY</a></div>
                                         <!-- /logo-title -->
 
-                                            <div class="loginvi-outer">
+                                        <div class="loginvi-outer">
 
                                             <?php include "login.tpl.php"; ?>
                                             </div>
-                                       <div class="clr"></div>
+                                            <div class="clr"></div>
 
-                                    <?php if (!empty($search_box)): ?>
+                                        <?php if (!empty($search_box)): ?>
                                                     <div id="search-box"><?php print $search_box; ?></div>
-                                    <?php endif; ?>
+                                        <?php endif; ?>
 
-                                    <?php if (!empty($header)): ?>
+                                        <?php if (!empty($header)): ?>
                                                         <div id="header-region">
-                                        <?php print $header; ?>
+                                            <?php print $header; ?>
                                                     </div>
-                                    <?php endif; ?>
-                                    <?php
+                                        <?php endif; ?>
+                                        <?php
                                                         if (isset($_REQUEST['stype'])) {
 
 
@@ -245,7 +245,7 @@ Part Of The Herd</div>
                                                         } else {
                                                             $skey = 'Search';
                                                         }
-                                    ?>
+                                        ?>
                                                         <div class="clr"></div>
 
                                                         <div id="menu">
@@ -258,50 +258,51 @@ Part Of The Herd</div>
                                                                         <div class="stext">  <input type="radio" name="stype[]" id="stype1" value="1" <?php
                                                         if (isset($_REQUEST['stype'])) {
                                                             if ($_REQUEST['stype'][0] == 1) {
-                                    ?> checked="checked" <?php
-                                                                            }
-                                                                        } else {
-                                    ?> checked="checked" <?php } ?>   /></div>
-                                                    <label for="radio" class="slab">Questions</label>
-                                                </div>
-                                                <div class="searchr">
+                                        ?> checked="checked" <?php
+                                                                                }
+                                                                            } else {
+                                        ?> checked="checked" <?php } ?>   /></div>
+                                                        <label for="radio" class="slab">Questions</label>
+                                                    </div>
+                                                    <div class="searchr">
 
-                                                    <div class="stext">    <input type="radio" name="stype[]" id="stype2" value="2" <?php
-                                                                                if (isset($_REQUEST['stype'])) {
-                                                                                    if ($_REQUEST['stype'][0] == 2) {
-                                    ?> checked="checked" <?php }
-                                                                                } ?>  /></div>
-                                                    <label for="radio2" class="slab">Users</label>
-                                                </div>
-                                                <div>&nbsp;
-                                                    <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
-                                                </div>
-                                            </form>     </div>
+                                                        <div class="stext">    <input type="radio" name="stype[]" id="stype2" value="2" <?php
+                                                                                    if (isset($_REQUEST['stype'])) {
+                                                                                        if ($_REQUEST['stype'][0] == 2) {
+                                        ?> checked="checked" <?php }
+                                                                                    } ?>  /></div>
+                                                        <label for="radio2" class="slab">Users</label>
+                                                    </div>
+                                                    <div>&nbsp;
+                                                        <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
+                                                    </div>
+                                                </form>     </div>
 
-                                        <div class="men">
-                                            <?php if (count($primary_links)) : ?>
+                                            <div class="men">
+                                                <?php if (count($primary_links)) : ?>
 
-                                            <?php $mb = 1;
-                                                                                    foreach ($primary_links as $link): ?>
-                                                                                        <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'About US' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" data-fb-options="width:750 height:80%"  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
-                                            <?php endforeach; ?>
+                                                <?php $mb = 1;
+                                                                                        foreach ($primary_links as $link): ?>
+                                                                                            <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'About US' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" data-fb-options="width:750 height:80%"  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
+                                                <?php endforeach; ?>
 
-                                            <?php endif; ?>
-
-                                                                                        </div>
-
-                                                                                        <div class="edition">
-                                                                                            <div >Edition:<span id="lang"></span>
-                                                                                                <!-- Google Translate -->
+                                                <?php endif; ?>
 
                                                                                             </div>
-                                                                                        </div> <!-- /navigation -->
+
+                                                                                            <div class="edition">
+                                                                                                <div >Edition:<span id="lang"></span>
+                                                                                                    <!-- Google Translate -->
+
+                                                                                                </div>
+                                                                                            </div> <!-- /navigation -->
+                                                                                        </div>
                                                                                     </div>
-                                    </div>
                                                                                     <!-- /header -->
                                                                                     <div class="clr"></div>
-                       
 
-                                                                                    <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;   endif; ?></div>
+
+                                                                                    <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;
+                                                                                                endif; ?></div>
                                     <div class="clr"></div>
                                     <!--Header close-->
