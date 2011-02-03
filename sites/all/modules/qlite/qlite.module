@@ -205,7 +205,7 @@ function get_top_pundits(){
          $page .= '<li id="pundit-next" style="cursor:pointer;"> <img title="Next" alt="Next"  align="absmiddle" src="'.$gSitePath.  path_to_theme().'/images/p-r.jpg"></li>';
       }
  $output .= '
- <div>
+ <div class="pundit-con">
      <div class="commutop-profile">PUNDITS</div>  ';
 
     $output.='<div class="hm-cen-pun">
@@ -220,6 +220,7 @@ function get_top_pundits(){
               </ul>
               </div>
                    <div class="clr"></div></div></div>';
+
         return $output;
 }
 
