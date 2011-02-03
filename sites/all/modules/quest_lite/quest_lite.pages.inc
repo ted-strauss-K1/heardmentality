@@ -225,7 +225,7 @@ function qlite_view() {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
             $valu = $answprc * 100;
             $voutput .= '
-		 <div class="clr-right"><input name="answer" type="radio" value="' . $vlistquest->paid . '" /></div>
+		 <div class="clr-right"><input name="answer" type="radio" value="' . $vlistquest->paid . '" />
 		' . $vlistquest->answer . '  ';
         } else {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
@@ -2455,6 +2455,7 @@ function get_ans_range($qid='', $range='') {
 function qlite_graph() {
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
     $script = '';
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
@@ -2569,6 +2570,7 @@ $(document).ready(function() {
          },
          min: 0,
          minorGridLineWidth: 0,
+
          gridLineWidth: 0,
          alternateGridColor: null,
          tickInterval  :1
@@ -3338,6 +3340,7 @@ function insertviews($qid = '') {
     }
     //echo  $countret;
     if ($countret == 0) {
+
 
         db_query("INSERT INTO {qviews} (ip,uid,qid,view_date) VALUES ('$ipid',$ulid,$qid,'" . date("Y-m-d") . "')");
     }
