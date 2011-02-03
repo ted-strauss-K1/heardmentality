@@ -235,7 +235,8 @@ function get_top_pundits() {
 
     $output .= '
         
-     <div class="commutop-profile">PUNDITS</div>
+     <div class="pundit-con">
+	 <div class="commutop-profile">PUNDITS</div>
       <div class="hm-cen-pun">';
    $output .= '<div>
        <div id="mycarousel" class="jcarousel-skin-tango">
@@ -286,6 +287,7 @@ function get_top_pundits() {
 
     $output .= '</ul>
             </div>
+			</div>
            </div>';
    
     if(!empty($page)){
