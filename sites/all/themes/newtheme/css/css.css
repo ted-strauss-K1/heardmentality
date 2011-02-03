@@ -430,8 +430,8 @@ padding:0px;}*/
 .factbottom select{width:150px; font-size:11px; font-family: Arial,Helvetica,sans-serif; font-weight:normal; padding:2px;}
 /*VIJAY*/
 
-.pun ul{ margin:0px; padding-bottom:78px;}
-.pun li{ float:left; list-style:none; border:1px #666666 solid; margin-left:1px;}
+/*.pun ul{ margin:0px; padding-bottom:78px;}
+.pun li{ float:left; list-style:none; border:1px #666666 solid; margin-left:1px;}*/
 .hm-cen-pun{ border:1px solid #ccc; padding:10px 10px 1px; padding-top:10px;}
 .pun{margin: 0}
 .notify_cat1{width:280px;padding:1px;min-height:100px;margin-top:8px; }
@@ -568,8 +568,8 @@ padding:0px;}*/
 .pun{ margin:0px; }
 
 .pundit-con{ margin-top:5px;}
-.pun ul{ margin:0px; padding-bottom:10px;}
-.pun li{ float:left; list-style:none; border:1px #666666 solid; margin-left:1px; margin-right:1px;}
+.pun ul{ margin:0px; padding-bottom:0px;}
+.pun li{ float:left; list-style:none; border:1px #666666 solid; margin-left:1px; margin-right:1px; margin-bottom:5px;}
 .hm-cen-pun{ border:1px solid #ccc; padding:10px 10px 1px; padding-top:10px;}
 
 
