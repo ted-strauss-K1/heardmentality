@@ -236,7 +236,7 @@ function qlite_view() {
                 $chk = "checked";
             }
             $voutput .= ' <input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
-		<label>' . $vlistquest->answer . '  </label> ';
+		<label>' . $vlistquest->answer . '  </label> <br/>';
         }
         $chk = '';
     }
@@ -2570,7 +2570,6 @@ $(document).ready(function() {
          min: 0,
          minorGridLineWidth: 0,
          gridLineWidth: 0,
-
          alternateGridColor: null,
          tickInterval  :1
       },
