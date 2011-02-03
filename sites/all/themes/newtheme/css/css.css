@@ -59,10 +59,12 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .commutop select{width:150px; font-size:11px; font-family: Arial,Helvetica,sans-serif; font-weight:normal; padding:2px;}
 .commu .inner{ width:325px; margin:auto; padding:0px;}
 
-.inner  h3{ font:12px/21px Arial,Helvetica,sans-serif; color:#3F3F3F}
-.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:10px; padding:2px; overflow:auto; font:13px/21px Arial,Helvetica,sans-serif; color:#996600; background-color: #f8f5ed}
-.innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/21px Arial,Helvetica,sans-serif; color:#996600;}
+.inner h3{ font:12px/21px Arial,Helvetica,sans-serif; color:#000;}
+.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:3px; padding:2px; overflow:auto; font:13px/20px Arial,Helvetica,sans-serif; color:#996600; background-color: #f8f5ed}
+.innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/20px Arial,Helvetica,sans-serif; color:#996600;}
 .innerbox a{font-size:14px/21px; color:#aa7e29;}
+#sidebar-left .innerbox a{ font-size:12px; color:#996600;}
+#sidebar-left .innerbox a:hover{ color:#cc9900;}
 /*cont-center*/
 .ques{ width:502px;float:left;padding:0px 0px 0px 10px;}
 .questop{ background-image:url(../images/c-top.gif); background-repeat:no-repeat; height:34px; font:17px/33px  Arial,Helvetica,sans-serif; color:#000; padding-left:10px; border-bottom:1px #BDBDBD solid;}
@@ -565,8 +567,9 @@ padding:0px;}*/
 .page-n2 li a:hover{color:#000;text-decoration:none;}
 .pun{ margin:0px; }
 
+.pundit-con{ margin-top:5px;}
 .pun ul{ margin:0px; padding-bottom:10px;}
-.pun li{ float:left; list-style:none; border:1px #666666 solid; margin-left:1px;}
+.pun li{ float:left; list-style:none; border:1px #666666 solid; margin-left:1px; margin-right:1px;}
 .hm-cen-pun{ border:1px solid #ccc; padding:10px 10px 1px; padding-top:10px;}
 
 
