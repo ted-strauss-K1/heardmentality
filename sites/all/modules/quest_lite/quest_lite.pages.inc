@@ -235,7 +235,7 @@ function qlite_view() {
 
                 $chk = "checked";
             }
-            $voutput .= '<div><input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
+            $voutput .= '<div class="clr-right"><input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
 		<label>' . $vlistquest->answer . '  </label></div> ';
         }
         $chk = '';
@@ -1213,7 +1213,6 @@ function add_resources() {
 	<div id="div1" style="display:none;">
 	<p class="float_lft"> Link </p>
     <p class="float_lft"><input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
-
 	<br class="clr"/>
 	</div>
 
@@ -2456,6 +2455,7 @@ function get_ans_range($qid='', $range='') {
 function qlite_graph() {
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
     $script = '';
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
@@ -2570,6 +2570,7 @@ $(document).ready(function() {
          },
          min: 0,
          minorGridLineWidth: 0,
+
          gridLineWidth: 0,
          alternateGridColor: null,
          tickInterval  :1
@@ -3339,6 +3340,7 @@ function insertviews($qid = '') {
     }
     //echo  $countret;
     if ($countret == 0) {
+
 
         db_query("INSERT INTO {qviews} (ip,uid,qid,view_date) VALUES ('$ipid',$ulid,$qid,'" . date("Y-m-d") . "')");
     }
