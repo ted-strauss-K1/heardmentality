@@ -225,7 +225,7 @@ function qlite_view() {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
             $valu = $answprc * 100;
             $voutput .= '
-		 <input name="answer" type="radio" value="' . $vlistquest->paid . '" /><br/>
+		 <input name="answer" type="radio" value="' . $vlistquest->paid . '" />
 		' . $vlistquest->answer . '  ';
         } else {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
@@ -1213,7 +1213,6 @@ function add_resources() {
 	<div id="div1" style="display:none;">
 	<p class="float_lft"> Link </p>
     <p class="float_lft"><input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
-
 	<br class="clr"/>
 	</div>
 
