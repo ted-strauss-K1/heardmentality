@@ -236,7 +236,7 @@ function qlite_view() {
                 $chk = "checked";
             }
             $voutput .= ' <input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
-		<label>' . $vlistquest->answer . '  </label> <br/>';
+		<label>' . $vlistquest->answer . '  </label><br/> ';
         }
         $chk = '';
     }
