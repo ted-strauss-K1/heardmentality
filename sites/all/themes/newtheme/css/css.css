@@ -520,7 +520,7 @@ padding:0px;}*/
 
 
 .commu-profile{ width:100%;float:left; border:1px #cccccc solid;  min-height:564px; height:auto !important ; height:564px;}
-.commutop-profile{  background-color:#8f8f8f;padding:5px; font:16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
+.commutop-profile{  background-color:#8f8f8f;padding:5px; font:bold 16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
 
 .profile-left{ width:177px; float:left;}
 .profile-right{ width:250px; float:left; padding-left:10px;}
@@ -1274,4 +1274,5 @@ div.growlUI h1, div.growlUI h2 {
   z-index: 900036;/* LEAVE THIS IN*/
 }
 
-.sidebar .block-avatar_blocks{ margin-top:5px;}
+.sidebar .block-avatar_blocks{ margin:5px;}
+.sidebar .block-avatar_blocks .facttext{ border:1px solid #ccc;}
