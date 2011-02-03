@@ -235,8 +235,8 @@ function qlite_view() {
 
                 $chk = "checked";
             }
-            $voutput .= ' <input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" /><br/>
-		<label>' . $vlistquest->answer . '  </label> ';
+            $voutput .= '<div><input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
+		<label>' . $vlistquest->answer . '  </label></div> ';
         }
         $chk = '';
     }
@@ -1213,6 +1213,7 @@ function add_resources() {
 	<div id="div1" style="display:none;">
 	<p class="float_lft"> Link </p>
     <p class="float_lft"><input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
+
 	<br class="clr"/>
 	</div>
 
