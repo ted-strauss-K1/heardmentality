@@ -1273,3 +1273,5 @@ div.growlUI h1, div.growlUI h2 {
   display: none;
   z-index: 900036;/* LEAVE THIS IN*/
 }
+
+.sidebar .block-avatar{ margin-top:5px;}
