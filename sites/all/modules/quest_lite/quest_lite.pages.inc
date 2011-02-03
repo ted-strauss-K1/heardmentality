@@ -1214,6 +1214,7 @@ function add_resources() {
 	<p class="float_lft"> Link </p>
     <p class="float_lft"><input type="text" class="textfieldm"  name="nlink" id="nlink"/> </p>
 
+
 	<br class="clr"/>
 	</div>
 
