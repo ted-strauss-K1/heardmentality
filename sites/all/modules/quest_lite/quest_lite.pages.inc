@@ -235,7 +235,7 @@ function qlite_view() {
 
                 $chk = "checked";
             }
-            $voutput .= ' <br/><input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
+            $voutput .= ' <input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
 		<label>' . $vlistquest->answer . '  </label> ';
         }
         $chk = '';
@@ -614,7 +614,7 @@ function qlite_view() {
         <a title="Create Mashup" class="share-link" onclick="formsubmittype(5,' . $qid . ');" href="javascript:void(0);">&lt;Embed&gt;</a>
              </div>-->
   <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
-             <a title="Flag" class="but butnew share-link"  onclick="formsubmittype(3,' . $qid . ');" href="javascript:void(0);"><img  src="' . $gSitePath . path_to_theme() . '/images/flag.png" alt="flag" align="middle" /></a>
+             <a title="Flag" class="but butnew share-link"  onclick="formsubmittype(3,' . $qid . ');" href="javascript:void(0);"><img  src="' . $gSitePath . path_to_theme() . '/images/flag.png" alt="flag" /></a>
               <div class="but-right">
            <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
 
@@ -1838,6 +1838,7 @@ function suggest_answer() {
 	jQuery(\'#twitMsg\',top.document).html(response);
         jQuery(\'#twitMsg\',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
         setTimeout("parent.fb.reload()",3000);
+
         //parent.fb.reload();
           return false;
 	});
