@@ -225,7 +225,7 @@ function qlite_view() {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
             $valu = $answprc * 100;
             $voutput .= '
-		 <div class="clr-right"><input name="answer" type="radio" value="' . $vlistquest->paid . '" />
+		 <input name="answer" type="radio" value="' . $vlistquest->paid . '" />
 		' . $vlistquest->answer . '  ';
         } else {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
@@ -235,8 +235,8 @@ function qlite_view() {
 
                 $chk = "checked";
             }
-            $voutput .= '<input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" /></div>
-		<label>' . $vlistquest->answer . '  </label> ';
+            $voutput .= '<div class="clr-right"><input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
+		<label>' . $vlistquest->answer . '  </label></div> ';
         }
         $chk = '';
     }
