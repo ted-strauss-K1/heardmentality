@@ -141,20 +141,26 @@ function profile_comment(make){
 function get_zip_city(code){
 	
     var urr=spath+'qlite/ajax?action=zipcity';
-    jQuery.blockUI({
-        message: '<h3> Just a moment validating your zip code...</h3>'
-    });
+    //jQuery.blockUI({
+     //   message: '<h3> Just a moment validating your zip code...</h3>'
+   // });
+   jQuery("body").css({'opacity': 0.5});
+  jQuery("#avatar-selection-loading").show();
+
     jQuery.ajax({
         type: "POST",
         url: urr,
+         dataType: "json",
         data: {
             code: code
         },
         success: function(msg){
-
-            jQuery('#edit-city-wrapper').html(msg);
-            jQuery.unblockUI();
-
+        //alert(msg);
+            jQuery('#country').val(msg.country);
+            jQuery('#state').val(msg.state);
+            jQuery('#city').val(msg.city);
+           // jQuery.unblockUI();
+            jQuery("body").css({'opacity':''});
         }
     });
 }
