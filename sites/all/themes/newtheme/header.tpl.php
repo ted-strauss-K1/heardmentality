@@ -93,19 +93,7 @@ $directory = $base_path . $directory;
 
                         });
 
-
-
-                        jQuery(document).ready(function(){
-                            jQuery("#loading").ajaxStart(function () {
-                                jQuery(this).fadeIn();
-                            });
-
-                            jQuery("#loading").ajaxStop(function () {
-
-                                jQuery(this).fadeOut();
-                                fb.activateElements();
-                            });
-                        });        </script>
+     </script>
 
                     <script type="text/javascript">
                         function callfunction()

@@ -148,9 +148,16 @@ function reset_tabs(){
      if(jQuery('#twitMsg').text().length>2){
          jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
      }
-     
+     //loading status for ajax
+	  jQuery("#loading").ajaxStart(function () {alert(22);
+                                jQuery(this).fadeIn();
+                            }).ajaxStop(function() {
 
+                                jQuery(this).fadeOut();
+                                fb.activateElements();
+});
 
+                         
    jQuery(".innerbox li a").live('click', function(e) {
 
 	  e.preventDefault();

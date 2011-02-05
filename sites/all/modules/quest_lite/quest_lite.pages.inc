@@ -488,13 +488,12 @@ function qlite_view() {
     $query = "select vote_pid from {possible_answer_vote} where qid='$qid' AND uid='" . $user->uid . "'";
     $voteid = db_result(db_query($query));
     $sitevotecnt = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where uid='" . $user->uid . "'"));
-    if ($sitevotecnt == 1&&empty($voteid)) {
-        echo $user->prompt;
-        $submitbutt = ' <p><input type="button" name="save" id="save" value="Vote" onclick="alert(2);" /></p>';
+    if ($sitevotecnt == 1 && empty($voteid) && $user->prompt) {
 
+        $submitbutt = ' <p><input type="button" name="save" id="save" value="Vote" onclick="loadeditquestion(\'' . $gSitePath . 'profile/edit/1\',\'Edit Profile \');" /></p>';
     } elseif ($numran > 0 && !empty($voteid)) {
         $submitbutt = ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/></p>';
-        //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
+        $submitbutt.= ' <p><input type="button" name="save" id="save" value="Vote" onclick="loadeditquestion(\'' . $gSitePath . 'profile/edit/1\',\'Edit Profile \');" /></p>';
     } elseif ($numran == 0) {
 
         $submitbutt = ' <p><input type="submit" name="save" id="save" value="Vote" /></p>';
@@ -3230,15 +3229,17 @@ function qfull_ajax() {
             $query = array('country' => $city[0]['countrycode'], 'maxrows' => 1);
             $result1 = geonames_query('countryinfo', $query);
             $cnt = $result1->results;
+            $array = array('country' => $cnt[0]['countryname'], 'state' => $city[0]['adminname1'], 'city' => $city[0]['adminname2']);
+            echo json_encode($array);
             //   print_r($cnt);
             //print_r($city);
-            echo '<b>Country :</b>' . $cnt[0]['countryname'];
-            echo '<br/><b>Province/State :</b>' . $city[0]['adminname1'];
-            echo '<br/><b>City :</b>' . $city[0]['adminname2'];
-            echo '<input type="hidden" name="country" value="' . $cnt[0]['countryname'] . '">
-                    <input type="hidden" name="state" value="' . $city[0]['adminname1'] . '">
-				<input type="hidden" name="city" value="' . $city[0]['adminname2'] . '">
-				';
+            /*      echo '<b>Country :</b>' . $cnt[0]['countryname'];
+              echo '<br/><b>Province/State :</b>' . $city[0]['adminname1'];
+              echo '<br/><b>City :</b>' . $city[0]['adminname2'];
+              //     echo '<input type="hidden" name="country" value="' . $cnt[0]['countryname'] . '">
+              <input type="hidden" name="state" value="' . $city[0]['adminname1'] . '">
+              <input type="hidden" name="city" value="' . $city[0]['adminname2'] . '">
+              '; */
             break;
         case 'filter':
             $type = $_REQUEST['type'];

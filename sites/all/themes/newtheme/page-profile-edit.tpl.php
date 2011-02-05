@@ -34,10 +34,7 @@ $directory = $base_path . $directory;
 
 
         <?php print $scripts; ?>
-        <script src="<?php echo $directory; ?>/scripts/jquery.translate-1.4.0.min.js"></script>
-        <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
-        <script src="<?php echo $directory; ?>/scripts/jquery.livequery.js"></script>
-        <script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script>
+
 
 
 </head>

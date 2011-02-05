@@ -769,7 +769,7 @@ function welcome_page() {
     $purl = explode('||', $psplit[1]);
     $social = explode('||', $social);
     drupal_add_js(drupal_get_path('module', 'profile') . '/js/en.js');
-    drupal_add_js(drupal_get_path('module', 'profile') . '/js/formcheck.js');
+    drupal_add_js(drupal_get_path('module', 'profiles') . '/js/formcheck.js');
     drupal_add_css(drupal_get_path('module', 'profile') . '/theme/classic/formcheck.css');
     //geoname
     $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
@@ -906,7 +906,7 @@ var spath=\'' . $gSitePath . '\';
         {
             APIKey: \'' . $apikey . '\'
         };
-</script><script src="' . $gSitePath . 'sites/all/modules/profile/js/profile.js" type="text/javascript">
+</script><script src="' . $gSitePath . 'sites/all/modules/profiles/js/profile.js" type="text/javascript">
 </script><script src="' . $gSitePath . 'sites/all/modules/openids/js/validate.js" type="text/javascript"></script>
 <link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 

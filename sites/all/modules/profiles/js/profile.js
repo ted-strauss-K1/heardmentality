@@ -141,6 +141,7 @@ function profile_comment(make){
 function get_zip_city(code){
 	
     var urr=spath+'qlite/ajax?action=zipcity';
+    show_inotify('Please wait your zip code is validating...');
     //jQuery.blockUI({
      //   message: '<h3> Just a moment validating your zip code...</h3>'
    // });
@@ -159,6 +160,11 @@ function get_zip_city(code){
             jQuery('#country').val(msg.country);
             jQuery('#state').val(msg.state);
             jQuery('#city').val(msg.city);
+            if(msg.state==null){
+               show_inotify('Please Provide the proper Zip code ');
+               jQuery('zip').val('');
+            }
+
            // jQuery.unblockUI();
             jQuery("body").css({'opacity':''});
         }
@@ -334,6 +340,14 @@ function chk_avatar(){
 }
 
 jQuery(document).ready(function(){
+            	  jQuery("#loading").ajaxStart(function () {
+                                jQuery(this).fadeIn();
+                            }).ajaxStop(function() {
+
+                                jQuery(this).fadeOut();
+                                fb.activateElements();
+});
+
     chk_avatar();
     jQuery('div.avatar-selection-pager-nav a').live('click', function() {
         setTimeout('chk_avatar()',1000);
@@ -345,4 +359,6 @@ jQuery('#edit-file-upload').val('');
     jQuery('input:hidden[name=img_avt]').val('2');
 });
 jQuery('#edit-file-upload').blur(function(){    jQuery('input:hidden[name=img_avt]').val('1'); });
+
+
 });

@@ -1112,7 +1112,7 @@ to or who is subscribing to me</b></h2>
       <div class="form-outer">
     ';
             $form .= drupal_get_form('profiles_form', $step);
-        
+
             break;
         case '4':
             $form.='  <div id="pro-nav">
@@ -1230,11 +1230,11 @@ Don’t be part of the Herd</strong></p>
 
 function profiles_form($form_state, $step) {
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
-            $data = '
+    $data = '
 
-var spath=\''.$gSitePath.'\';
+var spath=\'' . $gSitePath . '\';
 ';
-            drupal_add_js($data, 'inline');
+    drupal_add_js($data, 'inline');
     switch ($step) {
         case '2':
             $query = "select * from {user_profile} where uid='$user->uid'";
@@ -1273,7 +1273,7 @@ var spath=\''.$gSitePath.'\';
                         }
                         break;
                     case 'zip':
-                        $list = $fetch[0]['city'] . '' . $fetch[0]['state'] . '' . $fetch[0]['country'];
+                        $list = $fetch[0]['city'] . ',' . $fetch[0]['state'] . ',' . $fetch[0]['country'];
                         break;
                     case 'gender':
                         if ($list == 1)
@@ -1315,11 +1315,11 @@ var spath=\''.$gSitePath.'\';
   </div>
   <div class="clr"></div><div id="pro-footer">
     <div class=" pro-prenext">');
-            $form['previous'] = array('#type' => 'button',
-                '#value' => t(''),
+            $form['previous'] = array('#type' => 'submit',
+                '#value' => t('Back'),
                 '#attributes' => array('class' => 'previous'),
                 '#prefix' => ' <div class="previous">',
-                '#suffix' => '</div>'
+                '#suffix' => '</div>',
             );
             $form['step'] = array('#type' => 'value', '#value' => '2', '#suffix' => '  <div class="clr"></div>');
             $form['submit'] = array(
@@ -1340,13 +1340,13 @@ var spath=\''.$gSitePath.'\';
             drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
             drupal_set_html_head('<script src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '" type="text/javascript"></script>');
             drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js';
-            $account=load_user($user->uid);
+            $account = load_user($user->uid);
             $data = '
 	    var conf =
         {
             APIKey: \'' . $apikey . '\'
         };
-var avtar=\''.$account->avatar.'\';
+var avtar=\'' . $account->avatar . '\';
 ';
             drupal_add_js($data, 'inline');
 
@@ -1366,7 +1366,7 @@ var avtar=\''.$account->avatar.'\';
             <div></div>
             <div class="clr"></div>',
                 '#suffix' => '</div>
-        	<div class="avatar-left">'. UserPicture($user->uid,0).'</div>
+        	<div class="avatar-left">' . UserPicture($user->uid, 0) . '</div>
 
         <div class="clr"></div>
         </div>'
@@ -1374,7 +1374,7 @@ var avtar=\''.$account->avatar.'\';
             $form['notify'] = array(
                 '#type' => 'radios',
                 '#prefix' => '',
-                '#default_value' => variable_get('notify',$account->notify_etype),
+                '#default_value' => variable_get('notify', $account->notify_etype),
                 '#options' => $options,
                 '#suffix' => ' <div class="clr"></div>',
                 '#title' => t('Send me a summary of my subscriptions to my email'),);
@@ -1401,14 +1401,14 @@ var avtar=\''.$account->avatar.'\';
           <div class="clr"></div>
         </div><div class="form-bg-face-outer">
     ');
-            
-            $social=explode('||', $account->social);
+
+            $social = explode('||', $account->social);
             $form['facebook'] = array(
                 '#type' => 'textfield',
                 '#title' => t(''),
                 '#prefix' => '<div class="form-bg-face-img"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-face.jpg"></div><div class="form-bg-face">',
                 '#description' => t(''),
-                '#default_value' => variable_get('facebook',$social[0]),
+                '#default_value' => variable_get('facebook', $social[0]),
                 '#id' => 'face',
                 '#suffix' => '</div>',
             );
@@ -1419,7 +1419,7 @@ var avtar=\''.$account->avatar.'\';
                 '#title' => t(''),
                 '#prefix' => '<div class="form-bg-face-img"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-twit.jpg"></div><div class="form-bg-face">',
                 '#description' => t(' '),
-                '#default_value' => variable_get('twitter',$social[1]),
+                '#default_value' => variable_get('twitter', $social[1]),
                 '#id' => 'face',
                 '#suffix' => '</div>',
             );
@@ -1429,7 +1429,7 @@ var avtar=\''.$account->avatar.'\';
                 '#type' => 'textfield',
                 '#title' => t(''),
                 '#description' => t(''),
-                '#default_value' => variable_get('myweb',$account->urls),
+                '#default_value' => variable_get('myweb', $account->urls),
                 '#id' => 'username',
                 '#required' => 1,
             );
@@ -1443,13 +1443,13 @@ var avtar=\''.$account->avatar.'\';
     <div class=" pro-prenext">');
 
             $form['previous'] = array('#type' => 'submit',
-                '#value' => t(''),
+                '#value' => t('Back'),
                 '#attributes' => array('class' => 'previous'),
                 '#prefix' => ' <div class="previous">',
-                '#suffix' => '</div>'
+                '#suffix' => '</div>',
             );
-              $form['img_avt'] = array('#type' => 'hidden','#default_value' =>variable_get('img_avt',$account->image_avatar));
-                $form['image'] = array('#type' => 'hidden','#default_value' =>variable_get('image',$account->image));
+            $form['img_avt'] = array('#type' => 'hidden', '#default_value' => variable_get('img_avt', $account->image_avatar));
+            $form['image'] = array('#type' => 'hidden', '#default_value' => variable_get('image', $account->image));
             $form['step'] = array('#type' => 'value', '#value' => '3', '#suffix' => '  <div class="clr"></div>');
             $form['submit'] = array(
                 '#type' => 'submit',
@@ -1461,15 +1461,15 @@ var avtar=\''.$account->avatar.'\';
             $form['foot_div'] = array('#type' => 'markup', '#value' => ' <div class="clr"></div>
     </div>  <div class="clr"></div><div class="clr"></div>
   </div>');
-$form['hiddentop']=array('#type'=>'markup','#value'=>'<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
-   $form=$form+inc_avatar_form();
-   $form['hiddenbot']=array('#type'=>'markup','#value'=>'</div>');
+            $form['hiddentop'] = array('#type' => 'markup', '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
+            $form = $form + inc_avatar_form();
+            $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
             break;
         case '4':
             break;
         case '1':
         default:
-   
+
             $form['username'] = array(
                 '#type' => 'textfield',
                 '#title' => t(''),
@@ -1520,24 +1520,24 @@ $form['hiddentop']=array('#type'=>'markup','#value'=>'<div id="avatar-profile-el
                 '#description' => t(''),
                 '#default_value' => variable_get('zip', ''),
                 '#id' => 'location',
-                '#attributes'=>array('onblur'=>'get_zip_city(this.value);')
+                '#attributes' => array('onblur' => 'get_zip_city(this.value);')
             );
-             $form['country'] = array(
+            $form['country'] = array(
                 '#type' => 'hidden',
-                '#default_value' => variable_get('country',$account->country),
+                '#default_value' => variable_get('country', $details->country),
                 '#id' => 'country',
-              );
-              $form['state'] = array(
+            );
+            $form['state'] = array(
                 '#type' => 'hidden',
-                '#default_value' => variable_get('state',$account->state),
+                '#default_value' => variable_get('state', $details->state),
                 '#id' => 'state',
-              );
-                $form['city'] = array(
+            );
+            $form['city'] = array(
                 '#type' => 'hidden',
-                '#default_value' => variable_get('city',$account->state),
+                '#default_value' => variable_get('city', $details->state),
                 '#id' => 'city',
-              );
-              
+            );
+
             $form['religion'] = array(
                 '#type' => 'select',
                 '#title' => t(''),
@@ -1631,21 +1631,19 @@ function profiles_form_validate($form, &$form_state) {
     $step = $form_state['values']['step'];
     switch ($step) {
         case '2':
-                 if($form_state['values']['op'])
-                  $form_state['redirect'] = "profile/edit/1";
+
             break;
         case '3':
- print_r($form_state);
-               if($form_state['values']['op']){ print_r($form_state);
-                  $form_state['redirect'] = "profile/edit/2";}
+
             break;
         case '4':
-          if($form_state['values']['op'])
-                  $form_state['redirect'] = "profile/edit/3";
+            if ($form_state['values']['op'])
+                $form_state['redirect'] = "profile/edit/3";
             break;
         case '1':
             $dob = $form_state['values']['dob'];
             $zip = $form_state['values']['zip'];
+            $state = $form_state['values']['state'];
             $uname = $form_state['values']['username'];
             if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $uname)) {
                 form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
@@ -1664,6 +1662,9 @@ function profiles_form_validate($form, &$form_state) {
             if (!empty($zip)) {
                 if (!preg_match('/^[0-9A-Za-z ]+?$/i', $zip)) {
                     form_set_error('zip', t('Zip Code should be Proper One & Proper Format Ex : 11010'));
+                    $form_state['rebuild'] = TRUE;
+                } elseif (empty($state)) {
+                    form_set_error('zip', t('Kindly Recheck your Zip Code, We find its invalid one! '));
                     $form_state['rebuild'] = TRUE;
                 }
             }
@@ -1684,43 +1685,53 @@ function profiles_form_submit($form, &$form_state) {
     }
     switch ($step) {
         case '2':
-            $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
-            $chk1 = db_result($chk);
-            if ($chk1) {
-
-                $query = "UPDATE {privacy_settings} set real_name='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d'  where uid='%d' ";
+            if ($form_state['clicked_button']['#value'] == 'Back') {
+                $form_state['redirect'] = "profile/edit/1";
             } else {
-                $query = "INSERT INTO {privacy_settings} set real_name='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d',uid='%d'";
+                $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
+                $chk1 = db_result($chk);
+                if ($chk1) {
+
+                    $query = "UPDATE {privacy_settings} set real_name='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d'  where uid='%d' ";
+                } else {
+                    $query = "INSERT INTO {privacy_settings} set real_name='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d',uid='%d'";
+                }
+                db_query($query, $real_name_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $email_privacy, $dob_privacy, $user->uid);
+                db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
+                drupal_set_message(t('Your form has been saved.', 'success'));
+                $form_state['redirect'] = "profile/edit/3";
             }
-            db_query($query, $real_name_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $email_privacy, $dob_privacy, $user->uid);
-            db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
-            drupal_set_message(t('Your form has been saved.', 'success'));
-            $form_state['redirect'] = "profile/edit/3";
             break;
         case '3':
-           //echo '<pre>';
-        // print_r($form_state);
-            //file handler
-            $return = event_photo_profile();
-            //print_r($return);
-            $insimage = $return['image'];
-            $flag = $return['flag'];
-            $suc = $return['suc'];
-            //file handler ends
+            if ($form_state['clicked_button']['#value'] == 'Back') {
+                $form_state['redirect'] = "profile/edit/2";
+            } else {
+                //echo '<pre>';
+                // print_r($form_state);
+                //file handler
+                $return = event_photo_profile();
+                //print_r($return);
+                $insimage = $return['image'];
+                $flag = $return['flag'];
+                $suc = $return['suc'];
+                //file handler ends
 
-            if(!empty($_SESSION['filepath'])){
-                $img_avt='1';
-            }else{$insimage=$form_state['values']['image'];}
+                if (!empty($_SESSION['filepath'])) {
+                    $img_avt = '1';
+                } else {
+                    $insimage = $form_state['values']['image'];
+                }
 
-            if(!empty($form_state['values']['facebook'])||!empty($form_state['values']['twitter']))
-                $social= $form_state['values']['facebook'].'||'. $form_state['values']['twitter'];
-    
-            $query = "UPDATE {user_profile} set image_avatar='%s',image='%s',avatar='%s',social='%s',urls='%s'  where uid='%d' ";
-            $result = db_query($query,$form_state['values']['img_avt'],$insimage,$form_state['values']['select_avatar'],$social, $form_state['values']['myweb'], $user->uid);
-            //notify type
-            db_query("update {users} set notify_etype='%d' where uid='%d'", $form_state['values']['notify'], $user->uid);
-            drupal_set_message(t('Your form has been saved.', 'success'));
-            $form_state['redirect'] = "profile/edit/4";
+                if (!empty($form_state['values']['facebook']) || !empty($form_state['values']['twitter']))
+                    $social = $form_state['values']['facebook'] . '||' . $form_state['values']['twitter'];
+
+                $query = "UPDATE {user_profile} set image_avatar='%s',image='%s',avatar='%s',social='%s',urls='%s'  where uid='%d' ";
+                $result = db_query($query, $form_state['values']['img_avt'], $insimage, $form_state['values']['select_avatar'], $social, $form_state['values']['myweb'], $user->uid);
+                //notify type
+                db_query("update {users} set notify_etype='%d' where uid='%d'", $form_state['values']['notify'], $user->uid);
+                drupal_set_message(t('Your form has been saved.', 'success'));
+                $form_state['redirect'] = "profile/edit/4";
+            }
             break;
         case '4':
 
@@ -1834,7 +1845,7 @@ function event_photo_profile() {
         $flag = 0;
         $insimage = "noimage.jpg";
     }//file up ends
-   
+
 
     $return['image'] = $insimage;
     $return['flag'] = $flag;
