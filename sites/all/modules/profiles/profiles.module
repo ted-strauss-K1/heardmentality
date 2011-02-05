@@ -1692,11 +1692,11 @@ function profiles_form_submit($form, &$form_state) {
                 $chk1 = db_result($chk);
                 if ($chk1) {
 
-                    $query = "UPDATE {privacy_settings} set real_name='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d'  where uid='%d' ";
+                    $query = "UPDATE {privacy_settings} set real_name='%d',email='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d'  where uid='%d' ";
                 } else {
-                    $query = "INSERT INTO {privacy_settings} set real_name='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d',uid='%d'";
+                    $query = "INSERT INTO {privacy_settings} set real_name='%d',email='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d',uid='%d'";
                 }
-                db_query($query, $real_name_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $email_privacy, $dob_privacy, $user->uid);
+                db_query($query, $real_name_privacy,$mail_privacy,$gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $email_privacy, $dob_privacy, $user->uid);
                 db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
                 drupal_set_message(t('Your form has been saved.', 'success'));
                 $form_state['redirect'] = "profile/edit/3";
