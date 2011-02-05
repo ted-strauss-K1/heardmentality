@@ -69,4 +69,4 @@ function add_visit_points($uid = ''){
         db_query("INSERT INTO {tbl_user_points} SET uid = '%d', point_id = '%d', points = '%d'", $uid, 8, $points);
     }
 }
-	
+

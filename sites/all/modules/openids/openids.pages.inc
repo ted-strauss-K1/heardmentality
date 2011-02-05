@@ -393,7 +393,7 @@ function openid_login_save() {
 
     /////////////////////NEW USER//////////////////////////////
     $select_user_count = db_result(db_query("SELECT COUNT(*) from users where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
-     $formret .='<div><b>Login processing please wait..</b></div>';
+    $formret .='<div><b>Login processing please wait..</b></div>';
     if ($select_user_count == 0) {
         $ini_coins = initial_coins();
         $insert = "insert into {users} (pass,mail,provider,created,access,login,status,Identity,total_coins)values('" . md5($pass) . "','" . $_GET['email'] . "','" . $_GET['provider'] . "','" . time() . "','" . time() . "','" . time() . "','1','" . $pass . "', '" . $ini_coins . "') ";
@@ -442,52 +442,47 @@ function openid_login_save() {
         $insert_profile = "insert into {user_profile} (uid,real_name,first_name,last_name,gender,zip,country,social,dob,age,image_url,provider,date_update)values('" . $lid . "','" . $_GET['nickname'] . "','" . $_GET['firstName'] . "' ,'" . $_GET['lastName'] . "' ,'" . $gender . "','" . $_GET['zip'] . "','" . $_GET['country'] . "','" . $social . "','" . $dob . "','" . $age . "','" . $_GET['photoURL'] . "','" . $_GET['provider'] . "',now()  ) ";
 
         $insersult = db_query($insert_profile);
-  $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='$pass' and provider='" . $_GET['provider'] . "' AND uid='$lid'"));
-
-      
+        $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='$pass' and provider='" . $_GET['provider'] . "' AND uid='$lid'"));
     } else {
 
         $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
     }
-$user=make_login($select_user,$_GET['UID']);
-if ($user){
-       add_visit_points($select_user->uid);
-    drupal_goto();
-}
-
-  return $formret;
-}
-function make_login($result='',$pwd){
-
-
-    if($result && function_exists("user_load"))
-    {
-           if ($account = user_load(array('uid'=>$result->uid, 'status' => 1)))
-               {
-                 $user = $account;
-                 watchdog('user', 'Session opened for %name.', array('%name' => $user->name));
-                 $user->login = time();
-                 db_query("UPDATE {users} SET login = %d WHERE uid = %d", $user->login, $user->uid);
-                sess_regenerate();
-                $params = array(
-  'mail'   => $user->email,
-  'name'   => $user->name,
-  'pass'   => $pwd, // No need to hash the password
-  'status' => 1, // Otherwise the user is blocked on creation
-);
-                  $users=user_authenticate($params);
-       // print_r($users);
-               // print_r($user);
-              // drupal_set_message(t("<h1>You have been logged in success...</h1>"),$type="success");
-                }
-    }
-    else
-    {
-        drupal_set_message(t("Could not log you in. Please try again later..."),$type="error");
+    $user = make_login($select_user, $_GET['UID']);
+    if ($user) {
+        add_visit_points($select_user->uid);
+        drupal_goto($gSitePath . '?act=edit');
     }
 
-return $users;
+    return $formret;
 }
+
+function make_login($result='', $pwd='') {
+
+
+    if ($result && function_exists("user_load")) {
+        if ($account = user_load(array('uid' => $result->uid, 'status' => 1))) {
+            $user = $account;
+            watchdog('user', 'Session opened for %name.', array('%name' => $user->name));
+            $user->login = time();
+            db_query("UPDATE {users} SET login = %d WHERE uid = %d", $user->login, $user->uid);
+            sess_regenerate();
+            $params = array(
+                'mail' => $user->email,
+                'name' => $user->name,
+                'pass' => $pwd, // No need to hash the password
+                'status' => 1, // Otherwise the user is blocked on creation
+            );
+            $users = user_authenticate($params);
+            // print_r($users);
+            drupal_set_message(t("You have been logged in success..."), $type = "success");
+        }
+    } else {
+        drupal_set_message(t("Could not log you in. Please try again later..."), $type = "error");
+    }
+
+    return $users;
+}
+
 function openid_login3() {
     global $gSitePath, $user, $gDocPath, $base_root;
     $select_fet = db_query("SELECT * from users order by uid desc limit 0,1");
@@ -541,31 +536,24 @@ function friends_answers() {
     return $listans;
 }
 
-function age($date) {
 
-    $year_diff = '';
-    if (!empty($date)) {
-        //list($day,$month,$year)=explode("/",$date);
 
-        $year_diff = date("Y") - $date;
-        //$month_diff = date("m")-$month;
-        //$day_diff = date("d")- $day;
-        //if ($day_diff < 0 || $month_diff < 0) $year_diff–;
 
-        return $year_diff;
-    } else {
 
-        return '';
-    }
-}
+
 
 function welcome_page() {
 //ob_start();
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+   // $new_item_node = array('type' => 'item');
+
+//module_load_include('inc', 'content', 'includes/content.node_form');
+//print drupal_get_form('profile_node_form');
+//return true;
     //print_r($_COOKIE);
     //echo $_COOKIE["faceidc"];
     //echo "<pre>";
-  //  print_r($_REQUEST);die;
+    //  print_r($_REQUEST);die;
     $uid = $user->uid;
     $bio = '';
     $real_name = '';
@@ -618,8 +606,9 @@ function welcome_page() {
     $following = '';
     echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">';
-    if (!$user->uid > 0){
-        drupal_not_found();        return;
+    if (!$user->uid > 0) {
+        drupal_not_found();
+        return;
     }
     //   print_r(avatar_selection_form_user_profile_form_alter());
     if ($_COOKIE["faceidc"] != '') {
@@ -675,42 +664,41 @@ function welcome_page() {
     //print_r($_REQUEST);
     // exit;
     if (isset($_REQUEST['update']) == 'Update') {
-    $error_flag = 0;
-         // follow links starts here
-        $links=$_REQUEST['follow_links'];
-    foreach($links as $name => $link) {
-    $link = (object) $link;
-    $link->url = trim($link->url);
+        $error_flag = 0;
+        // follow links starts here
+        $links = $_REQUEST['follow_links'];
+        foreach ($links as $name => $link) {
+            $link = (object) $link;
+            $link->url = trim($link->url);
 
-    // Check to see if there's actually a link
-    if (!preg_match("/^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\\.+[A-Za-z0-9\.\/%&=\?\-_]+$/i", $link->url)) {
-      // If there's an lid, delete the link.
-      if (isset($link->lid)) {
-        follow_link_delete($link->lid);
-        
-      }
-      if(!empty($link->url))
-      $error_flag = 1;
-      // Continue to the next link.
-      continue;
-    }
-    // Otherwise save the link.
-    else {
-      $link->uid = $user->uid;
-      $link->name = $name;
-      follow_link_save($link);
-    }
-  }  // follow links ends here
+            // Check to see if there's actually a link
+            if (!preg_match("/^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\\.+[A-Za-z0-9\.\/%&=\?\-_]+$/i", $link->url)) {
+                // If there's an lid, delete the link.
+                if (isset($link->lid)) {
+                    follow_link_delete($link->lid);
+                }
+                if (!empty($link->url))
+                    $error_flag = 1;
+                // Continue to the next link.
+                continue;
+            }
+            // Otherwise save the link.
+            else {
+                $link->uid = $user->uid;
+                $link->name = $name;
+                follow_link_save($link);
+            }
+        }  // follow links ends here
 
-    extract($_REQUEST);
+        extract($_REQUEST);
         $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
         $chk1 = db_result($chk);
         if ($chk1) {
-           
-             $set_qry = "UPDATE {privacy_settings} set real_name='$real_name_privacy',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',sorient='$sorient_privacy',edu='$edu_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
+
+            $set_qry = "UPDATE {privacy_settings} set real_name='$real_name_privacy',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic_privacy',slant='$slant_privacy',sorient='$sorient_privacy',edu='$edu_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
 		followers='$followers_privacy',following='$following_privacy',medal='$medal_privacy',questions='$questions_privacy',answers='$answers_privacy',dob='$dob_privacy'  where uid='$user->uid' ";
-            
-           
+
+
             $result = db_query($set_qry);
         } else {
             $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',name='$name_privacy',gender='$gender_privacy',image='$image_privacy',bio=' $bio_privacy',zip='$zip_privacy',country='$country_privacy',religion='$religion_privacy',ethnic='$ethnic',slant='$slant_privacy',sorient='$sorient_privacy',edu='$edu_privacy',facebook='$facebook_privacy',twitter='$twitter_privacy',email='$email_privacy',
@@ -733,20 +721,20 @@ function welcome_page() {
 
         $socials = implode('||', $social);
         $urls = implode(';', $ptitle) . '@' . implode('||', $purl);
-            if(!preg_match('/^[A-Za-z0-9_]{5,20}$/i',$rname)){
-                  $message.="<div class='error red'>Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed</div>";
-                }  elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid!='%d'",$rname,$user->uid))) {
-         $message.="<div class='error red'>Sorry Username already exists try any other combination</div>";
-            }else{
-              db_query("update {users} set name='$rname' where uid='$user->uid'");
-            }
+        if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $rname)) {
+            $message.="<div class='error red'>Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed</div>";
+        } elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid!='%d'", $rname, $user->uid))) {
+            $message.="<div class='error red'>Sorry Username already exists try any other combination</div>";
+        } else {
+            db_query("update {users} set name='$rname' where uid='$user->uid'");
+        }
         $update_user = db_query("update {users} set mail='$mail' ,notify_etype='$ntype',notify_itype='$nitype' where uid='$user->uid' ");
         $age = '';
         $age = age($dob);
         $country = (!empty($country1)) ? $country1 : $country;
-    
-        $result = db_query("UPDATE {user_profile} set uid='$user->uid',gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',sorient='$sorient',edu='$edu',social='$socials',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
-        
+
+        $result = db_query("UPDATE {user_profile} set gender='$gender',image_avatar='$pic_avt',image='$insimage',avatar='$select_avatar',bio=' $bio',zip='$zip',country='$country',state='$state',city='$city',religion='$religion',ethnic='$ethnic',dob='$dob',age='$age',slant='$slant',sorient='$sorient',edu='$edu',social='$socials',question_privacy='$qrset',first_name='$fname',last_name='$lname',urls='$urls' where uid='$user->uid' ");
+
 
 
         $sel_ulists = "select * from {user_profile} where uid='$user->uid'";
@@ -765,8 +753,8 @@ function welcome_page() {
                 echo '<script>window.top.location.href="' . $gSitePath . 'user/cropimage";</script>';
             }
             $message.= '<div class="success">Profile Updated Successfully!</div>';
-            if($error_flag > 0){
-             $message.= '<div class="error">Invalid web reference URL(s)</div>';
+            if ($error_flag > 0) {
+                $message.= '<div class="error">Invalid web reference URL(s)</div>';
             }
         }
     }
@@ -873,7 +861,7 @@ function welcome_page() {
     $i = 0;
     while ($i < mysql_num_fields($result)) {
 
-        $meta =  mysql_fetch_field($result, $i);
+        $meta = mysql_fetch_field($result, $i);
         $col = $meta->name;
         if ($fetch[0][$col] > 1)
             $inc_script.='jQuery("input[name=\'' . $meta->name . '_privacy\']").filter(\'[value="' . $fetch[0][$col] . '"]\').attr(\'checked\', true);';
@@ -887,8 +875,8 @@ function welcome_page() {
         $avtchk2 = "checked='checked'";
     else
         $avtchk1= "checked='checked'";
-        $follow=drupal_get_form('follow_links_form',$uid);
-            $follow = str_replace("</form>", "", $follow);
+    $follow = drupal_get_form('follow_links_form', $uid);
+    $follow = str_replace("</form>", "", $follow);
     $follow = str_replace(' <form action="/heardmentality/edit"  accept-charset="UTF-8" method="post" id="follow-links-form">', "", $follow);
     $avatarform = drupal_get_form('avatar_form');
     $avatarform = str_replace("</form>", "", $avatarform);
@@ -1163,7 +1151,7 @@ get found through search engines such as Google and Yahoo.</span></div>
                      <div class="web-reference">
                      <div class="web-reference-tit">WEB REFERENCES</div>
                      <div class="clr"></div>
-                     '.$follow.'
+                     ' . $follow . '
                         <!-- <div class="social-outer">
                           <div class="social-left"><img src="' . $gSitePath . path_to_theme() . '/images/soc-face.jpg" width="26" height="27" alt="Facebook" /></div>
                           <div class="social-rite"><input maxlength="60" name="social[]"   value="' . $social[0] . '"  size="60"  type="text"> </div>
@@ -1236,8 +1224,8 @@ chk_avatar();
 
 ' . $inc_script . '
 
-var sorient="'.$sorient.'";
- var edu="'.$edu.'";
+var sorient="' . $sorient . '";
+ var edu="' . $edu . '";
 
 jQuery("#edit-sorient option[value="+sorient+"]").attr("selected","selected") ;
 jQuery("#edit-edu option[value="+edu+"]").attr("selected","selected") ;
@@ -1339,110 +1327,6 @@ function avatar_form($form, &$form_state) {
 
     //avatar
     return $form;
-}
-
-function event_photo_profile() {
-    global $gSitePath, $user, $gDocPath, $base_root;
-    $suc = '';
-    $return = array();
-
-    $validators = array(
-        'file_validate_is_image' => array(),
-        'file_validate_image_resolution' => array('500x500'),
-        'file_validate_size' => array(500 * 1024),
-    );
-    $upload_dir = variable_get('user_picture_path', 'pictures');
-    $filepath = file_directory_path();
-    $dest = $filepath . '/' . $upload_dir;
-    $file = file_save_upload('file_upload', $validators, $dest);
-    global $user;
-    $owner = $user->uid;
-    $filetype;
-    $filetype = $file->filemime;
-    $extension = '';
-    switch ($filetype) {
-        case 'image/jpeg':
-            $extension = 'jpg';
-            break;
-        case 'image/png':
-            $extension = 'png';
-            break;
-        case 'image/gif':
-            $extension = 'gif';
-            break;
-    }
-    $dest = variable_get('user_picture_path', 'pictures') . '/picture-' . $owner . '.' . $extension;
-
-    if ($file != 0) {
-        //$dest_path = 'files/upload_directory';
-        $result = file_move($file, $dest, FILE_EXISTS_RENAME);
-        $flag = 0;
-    }
-
-    if ($result == 1) {
-        $insimage = $file->filepath;
-        $_SESSION['filepath'] = $file->filepath;
-        $_SESSION['fid'] = $file->fid;
-        $_SESSION['filetype'] = $file->filemime;
-        $flag = 0;
-    } elseif (isset($_REQUEST['oldimg'])) {
-        $insimage = $_REQUEST['oldimg'];
-        $flag = 0;
-    } else {
-        $flag = 0;
-        $insimage = "noimage.jpg";
-    }//file up ends
-
-    $return['image'] = $insimage;
-    $return['flag'] = $flag;
-    $return['suc'] = $suc;
-    return $return;
-    /*
-      $filename = $_FILES['image']['name'];// file up starts
-      $tmp_image = $_FILES['image']['tmp_name'];
-      if ($filename != '') {
-      include drupal_get_path('module', 'profile')."/img_resize.php";
-      $ext = strtolower(substr($filename, strpos($filename, '.'), strlen($filename) - 1));
-
-      if ($ext == '.jpg' || $ext == '.gif' || $ext == '.jpeg') {
-      $imagefun = new SimpleImage();
-
-      $image = time().$filename;
-
-      $path = drupal_get_path('module', 'profile')."/snap/";
-      copy($tmp_image, $path.$image);
-      //img resize
-      $sz = getimagesize($path.$image);
-
-      $x = $sz[0]; // org image width
-      $y = $sz[1]; // org image height
-      if ($x > 100) {
-      $imagefun->load($path.$image);
-
-      $imagefun->resizeToWidth(100);
-
-      $imagefun->save($path.$image);
-
-      }
-
-
-      if ($image != "") {
-      $insimage = $image;
-      //include('round_corner.php');
-      }
-      } else {
-      $flag = 1;
-      $suc = ' Sorry Image Cant Uploaded It Should be gif or Jpeg format!';
-      }
-      } elseif (isset($_REQUEST['oldimg'])) {
-      $insimage = $_REQUEST['oldimg'];
-      $flag = 0;
-      } else {
-      $flag = 0;
-      $insimage = "noimage.jpg";
-      }//file up ends
-
-     */
 }
 
 
