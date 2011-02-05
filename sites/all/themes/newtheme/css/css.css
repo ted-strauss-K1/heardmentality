@@ -1324,17 +1324,17 @@ input[type="text"]{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; bor
 select{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none; padding:5px; width: 340px; padding-left:20px;}
 textarea{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none; padding:5px; width: 310px; padding-left:20px; }
 select option{ padding-left:20px; background:none;}
-input#username{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
-input#name{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
-input#email{ background:url(../images/icons-wizard.png) no-repeat -2px -28px;}
-input#year{ background:url(../images/icons-wizard.png) no-repeat -2px -50px;}
-select#gender{ background:url(../images/icons-wizard.png) no-repeat -2px -5px; }
-select#location{ background:url(../images/icons-wizard.png) no-repeat -2px -75px;}
-select#religion{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
-select#ethnicity{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
-select#education{ background:url(../images/icons-wizard.png) no-repeat -2px -100px; }
-select#sex{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
-select#income{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
+#profiles-form input#username{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
+#profiles-form input#name{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
+#profiles-form input#email{ background:url(../images/icons-wizard.png) no-repeat -2px -28px;}
+#profiles-form input#year{ background:url(../images/icons-wizard.png) no-repeat -2px -50px;}
+#profiles-form select#gender{ background:url(../images/icons-wizard.png) no-repeat -2px -5px; }
+#profiles-form select#location{ background:url(../images/icons-wizard.png) no-repeat -2px -75px;}
+#profiles-form select#religion{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
+#profiles-form select#ethnicity{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
+#profiles-form select#education{ background:url(../images/icons-wizard.png) no-repeat -2px -100px; }
+#profiles-form select#sex{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
+#profiles-form select#income{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
 textarea#bio{ background:url(../images/icons-wizard.png) no-repeat 0px -5px; height:22px; }
 .pro-radio-outer{ width:340px; clear:both; font:normal 12px Tahoma, Geneva, sans-serif; color:#666; padding:7px;*padding:3px;}
 .pro-radio-outer .t1 { width:130px; float:left; }

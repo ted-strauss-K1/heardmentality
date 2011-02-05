@@ -42,7 +42,13 @@ $directory = $base_path . $directory;
 
 </head>
 	  
-	  <body>
+   <body class="<?php print $body_classes; ?>" >
+                        <!--main div-->
+                        <div id="loading">
+                            <marquee  >
+                                Loading...
+                            </marquee>
+                        </div>
 <div class="profile-wizard-outer">
   <div class=" pro-header">
     <div class="pro-header-top">
