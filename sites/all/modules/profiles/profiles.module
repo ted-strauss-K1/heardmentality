@@ -1469,7 +1469,8 @@ var avtar=\'' . $account->avatar . '\';
             break;
         case '1':
         default:
-
+         //set default values
+            $details = load_user($user->uid);
             $form['username'] = array(
                 '#type' => 'textfield',
                 '#title' => t(''),
@@ -1606,8 +1607,7 @@ var avtar=\'' . $account->avatar . '\';
       <div class="clr"></div>
     </div>  <div class="clr"></div>'
             );
-            //set default values
-            $details = load_user($user->uid);
+           
             $form['bio']['#default_value'] = empty($details->bio) ? 'Bio' : $details->bio;
             $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
             $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
