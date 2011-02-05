@@ -1276,6 +1276,10 @@ div.growlUI h1, div.growlUI h2 {
 
 
 
+
+
+
+
 /* NEw Edit Profile 2011 feb 2nd */
 
 /* CSS Document */
@@ -1378,3 +1382,40 @@ textarea#bio{ background:url(../images/icons-wizard.png) no-repeat 0px -5px; hei
 
 .sidebar .block-avatar_blocks{ margin:0 5px 5px;}
 .sidebar .block-avatar_blocks .facttext{ border:1px solid #ccc;}
+
+
+
+/* new style for edit profile  feb 05*/
+.newcretae-profile-wrapper{ width:985px; background:#fff; margin:0 auto; padding:10px 10px 0px 10px; height:auto !important; min-height:630px; height:630px; }
+.newcretae-profile-leftside{ float:left; width:646px;}
+.newcretae-profile-leftside-forms{ float:left; width:323px;}
+.newcretae-profile-leftside-forms h3{ background:#8f8f8f; font:normal 16px Arial, Helvetica, sans-serif; color:#fff; text-transform:uppercase; padding:7px 0px; text-align:center; width:315px;}
+.newcretae-profile-leftside-privacy{ width:323px; margin-top:-75px; margin-left:324px; float:left; position:absolute; background:#ffffcc; height:auto !important; min-height:630px;}
+.newcretae-profile-leftside-privacy h3{ background:#8f8f8f; font:normal 16px Arial, Helvetica, sans-serif; color:#fff; text-transform:uppercase; padding:7px 0px; text-align:center;}
+.form-wra{ width:323px; border-top:1px #cccccc solid; font:normal 12px Arial, Helvetica, sans-serif; color:#333333; padding:7px 0px;  height:27px;}
+.form-wra-la{ width:323px; border-top:1px #cccccc solid; font:normal 12px Arial, Helvetica, sans-serif; color:#333333; padding:7px 0px; height:53px;}
+
+.form-wra-1{ width:114px; float:left;  padding:6px 0px;}
+.form-wra-2{ width:209px; float:left;}
+.form-wra-2 .input-nor{ width:192px !important; padding:2px;}
+.form-wra-2 .input-sma{ width:95px !important; padding:2px;}
+.form-wra-4{ float:left; padding:6px 0px; width:80px; text-align:center;}
+.newcretae-profile-rightside{ float:right; width:323px; font:normal 12px Arial, Helvetica, sans-serif; color:#333333;}
+.newcretae-profile-rightside h3{ background:#8f8f8f; font:normal 16px Arial, Helvetica, sans-serif; color:#fff; text-transform:uppercase; padding:7px 0px; text-align:center; width:323px;}
+.newcretae-profile-rightside b{font:normal 10px Arial, Helvetica, sans-serif; color:#333333;}
+.new-image-sheep{ width:100px; float:left; padding-top:32px; font:normal 12px Arial, Helvetica, sans-serif; color:#333333; }
+.new-image-sheep-text{ float:left; width:210px; padding-top:20px;}
+.newimage-upload{ border-bottom:1px #ccc solid;}
+.summarymail{font:normal 12px Arial, Helvetica, sans-serif; color:#333333; padding:10px 0px;}
+.bortopnone{ border:none;}
+.merge-social-new{ float:left; width:320px; border:1px #999 solid; padding-bottom:10px; margin-top:5px; padding-top:10px;}
+
+.merge-social .merge-script-outer-new{ width:320px; margin:0 auto; text-align:center;}
+.creat-inner-gridpart .col-2-outer{ float:left; width:326px; }
+.web-reference-new{ float:right; width:322px; border:1px #999 solid; padding-bottom:20px; margin-top:20px; margin-bottom:70px;}
+.web-reference-tit-new{float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:303px; margin-bottom:10px;}
+ .social-outer-new{ margin:2px 0px; width:300px; margin:0 auto; font:normal 11px Arial, Helvetica, sans-serif; color:#333;}
+ .social-left-new{ float:left; margin-right:20px;}
+ .social-rite-new{ float:left; padding-top:5px;}
+ .social-rite-new input{ width:180px;}
+ .border4web-new{ border-top:1px #8f8f8f solid; margin:10px 0px;}
