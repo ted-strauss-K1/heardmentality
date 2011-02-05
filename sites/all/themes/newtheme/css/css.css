@@ -1335,7 +1335,7 @@ select option{ padding-left:20px; background:none;}
 #profiles-form select#education{ background:url(../images/icons-wizard.png) no-repeat -2px -100px; }
 #profiles-form select#sex{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
 #profiles-form select#income{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
-textarea#bio{ background:url(../images/icons-wizard.png) no-repeat 0px -5px; height:22px; }
+#profiles-form textarea#bio{ background:url(../images/icons-wizard.png) no-repeat 0px -5px; height:22px; }
 .pro-radio-outer{ width:340px; clear:both; font:normal 12px Tahoma, Geneva, sans-serif; color:#666; padding:7px;*padding:3px;}
 .pro-radio-outer .t1 { width:130px; float:left; }
 .pro-radio-outer .t2 { width:50px; float:left; text-align:center; }
