@@ -129,9 +129,6 @@ function inbox_msg() {
     return $content;
 }
 
-
-
-
 function event_photo() {
     global $objSmarty, $config;
     $return = array();
@@ -813,4 +810,519 @@ function amber_tour() {
     }
 
     return $output;
+}
+
+// update profile
+function update_profile() {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    $update = '';
+    $update .= drupal_get_form('user_details');
+    return $update;
+}
+
+function user_details() {
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    $details = load_user($user->uid);
+    $form['main_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-wrapper">');
+    $form['right_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-rightside"><h3>SOCIAL  NETWORK SETTINGS</h3>');
+    $form = $form + get_avatar_form();
+    $form['right_div_close'] = array('#type' => 'markup', '#value' => '</div>');
+
+    $form['left_div_top'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-leftside">');
+    $form['left_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-leftside-forms">
+                          <h3>PERSONAL INFO AND DEMOGRAPHICS</h3>
+                          <div class="form-wra">
+                          &nbsp;<br />&nbsp;&nbsp;
+                          <div class="clr"></div>');
+    $form['username'] = array(
+        '#type' => 'textfield',
+        '#title' => t(''),
+        '#maxlength' => 20,
+        '#description' => t(''),
+        '#default_value' => variable_get('username', ''),
+        '#id' => 'username',
+        '#required' => 1,
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">User Name</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-nor'),
+    );
+    $form['fname'] = array(
+        '#type' => 'textfield',
+        '#title' => t(''),
+        '#maxlength' => 20,
+        '#description' => t(' '),
+        '#default_value' => variable_get('fname', ''),
+        '#id' => 'name',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Name</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-nor'),
+    );
+    $form['email'] = array(
+        '#type' => 'textfield',
+        '#title' => t(''),
+        '#maxlength' => 50,
+        '#description' => t(' '),
+        '#default_value' => variable_get('email', ''),
+        '#id' => 'email',
+        '#required' => 1,
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Email</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-nor'),
+    );
+    $form['dob'] = array(
+        '#type' => 'textfield',
+        '#title' => t(''),
+        '#maxlength' => 4,
+        '#description' => t(' '),
+        '#default_value' => variable_get('dob', ''),
+        '#id' => 'year',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Year of Birth</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
+
+    $form['gender'] = array(
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => array('0' => 'Gender', 1 => 'Male', 2 => 'Female'),
+        '#description' => t(' '),
+        '#default_value' => variable_get('gender', ''),
+        '#id' => 'gender',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Gender</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
+    $form['zip'] = array(
+        '#type' => 'textfield',
+        '#title' => t(''),
+        '#maxlength' => 10,
+        '#description' => t(''),
+        '#default_value' => variable_get('zip', ''),
+        '#id' => 'location',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Zip</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-nor'),
+    );
+    $form['country'] = array(
+        '#type' => 'hidden',
+        '#default_value' => variable_get('country', $details->country),
+        '#id' => 'country',
+    );
+    $form['state'] = array(
+        '#type' => 'hidden',
+        '#default_value' => variable_get('state', $details->state),
+        '#id' => 'state',
+    );
+    $form['city'] = array(
+        '#type' => 'hidden',
+        '#default_value' => variable_get('city', $details->state),
+        '#id' => 'city',
+    );
+    $form['religion'] = array(
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => array('0' => 'Religion', 'Hindu' => 'Hindu', 'Muslim' => 'Muslim'),
+        '#description' => t(' '),
+        '#default_value' => variable_get('religion', ''),
+        '#id' => 'religion',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Religion</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
+    $form['ethnic'] = array(
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => array('0' => 'Ethnicity', 'Indian' => 'Indian', 'Asian' => 'Asian'),
+        '#description' => t(' '),
+        '#default_value' => variable_get('ethinicity', ''),
+        '#id' => 'ethnicity',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Ethnic</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
+    $form['education'] = array(
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => array('0' => 'Education Level', 'Technical College' => 'Technical College', 'University' => 'University'),
+        '#description' => t(' '),
+        '#default_value' => variable_get('education', ''),
+        '#id' => 'education',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Education</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
+    $form['sorient'] = array(
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => array('0' => 'Sexual Orientation', 'Straight' => 'Straight', 'Gay' => 'Gay'),
+        '#default_value' => variable_get('sorient', ''),
+        '#description' => t(' '),
+        '#id' => 'sex',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Sorient</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
+    $form['slant'] = array(
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => array('0' => 'Slant', 'Left' => 'Left', 'Right' => 'Right'),
+        '#description' => t(' '),
+        '#default_value' => variable_get('slant', ''),
+        '#id' => 'slant',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Slant</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
+    $form['bio'] = array(
+        '#type' => 'textarea',
+        '#title' => t(''),
+        '#default_value' => variable_get('description', ''),
+        '#cols' => '',
+        '#rows' => 3,
+        '#description' => t(''),
+        '#default_value' => variable_get('bio', ''),
+        '#id' => 'bio',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Bio</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-nor'),
+    );
+    $form['text'] = array('#type' => 'markup', '#value' => '<div class="form-wra">
+           	           When I vote on issues or post content to Heard
+Mentality I want the following privacy settings applied
+when other users view my profile
+           <div class="clr"></div>
+           </div>');
+    $form['left_div_close'] = array('#type' => 'markup', '#value' => '</div>');
+    $form['left_privacy'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-leftside-privacy">');
+    $form = $form + get_privacy_form();
+    $form['left_privacy_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div></div>');
+    $form['left_div_bottom'] = array('#type' => 'markup', '#value' => '<div class="clr"></div></div>');
+
+    $form['main_div_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div></div>');
+
+    // set default values
+    $form['bio']['#default_value'] = empty($details->bio) ? 'Bio' : $details->bio;
+    $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
+    $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
+    $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
+    $form['education']['#default_value'] = empty($details->edu) ? '0' : $details->edu;
+    $form['ethnic']['#default_value'] = empty($details->ethnic) ? '0' : $details->ethnic;
+    $form['religion']['#default_value'] = empty($details->religion) ? '0' : $details->religion;
+    $form['zip']['#default_value'] = empty($details->zip) ? 'Zip code' : $details->zip;
+    $form['gender']['#default_value'] = empty($details->gender) ? '0' : $details->gender;
+    $form['dob']['#default_value'] = empty($details->dob) ? 'Year OF Birth' : $details->dob;
+    $form['email']['#default_value'] = empty($details->mail) ? 'Email' : $details->mail;
+    $form['fname']['#default_value'] = empty($details->real_name) ? 'Name' : $details->real_name;
+    $form['username']['#default_value'] = empty($details->name) ? 'Username' : $details->name;
+    return $form;
+}
+
+function get_privacy_form() {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    $query = "select * from {user_profile} where uid='$user->uid'";
+    $fetch = ExecuteQuery($query, "select");
+    $options = array('1' => t(''), '2' => t(''), '3' => t(''), '4' => t(''));
+    $query = "select * from {profile_fields}";
+    $result = db_query($query);
+    $form['privacy_setting'] = array('#type' => 'markup', '#value' => '<h3>PRIVACY SETTINGS</h3>
+              <div class="form-wra">
+           	    <div class="form-wra-4">Anyone</div>
+                <div class="form-wra-4">Logged in Users</div>
+                <div class="form-wra-4">Followers & Followees</div>
+                <div class="form-wra-4">No one</div>
+           <div class="clr"></div>
+           </div>');
+    $form['username_privacy'] = array(
+        '#type' => 'markup',
+        '#value' => '<div class="form-wra">&nbsp;
+                     <div class="clr"></div>
+                     </div>',
+    );
+    while ($meta = db_fetch_object($result)) {
+        $col = $fields[] = $meta->name;
+        $list = trim($fetch[0][$col]);
+
+
+        $form[$col . '_privacy'] = array(
+            '#type' => 'radios',
+            '#default_value' => variable_get($list, 1),
+            '#options' => $options,
+            '#suffix' => '<div class="clr"></div><br/>'
+        );
+        $form['div_down'] = array('#type' => 'markup', '#value' => '
+          <div class="clr"></div>
+       ');
+    }
+    $form['activity_privacy'] = array(
+        '#type' => 'radios',
+        '#default_value' => variable_get($list, 1),
+        '#options' => $options,
+        '#suffix' => '<div class="clr"></div>'
+    );
+    $form['mid_div'] = array('#type' => 'markup', '#value' => '
+          <div class="clr"></div>
+       ');
+    return $form;
+}
+
+function get_avatar_form() {
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    $form = array();
+    drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js');
+    drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
+    drupal_add_css(drupal_get_path('module', 'avatar_selection') . '/avatar_selection.css');
+    drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
+    drupal_set_html_head('<script src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '" type="text/javascript"></script>');
+    drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js';
+    $account = load_user($user->uid);
+    $data = '
+	    var conf =
+        {
+            APIKey: \'' . $apikey . '\'
+        };
+var avtar=\'' . $account->avatar . '\';
+';
+    drupal_add_js($data, 'inline');
+
+    // set the form encoding type
+    $form['avatar_div'] = array('#type' => 'markup', '#value' => '<div class="newimage-upload">');
+    $form['#attributes']['enctype'] = "multipart/form-data";
+    $options = array('1' => t('weekly'), '2' => t('monthly'), '0' => t('never'));
+    // add a file upload file
+    $form['file_upload'] = array(
+        '#type' => 'file',
+        '#size' => '10',
+        '#description' => t('Select an image file on your computer. (2MB max) '),
+        '#prefix' => '<div class="avatar">
+            <div class="avatar-right">
+            <div class="pick-avatar" onClick="jQuery(\'#avatar-profile-ele\').slideToggle();"></div>
+- Or -
+            <div class="clr"></div>
+            <div></div>
+            <div class="clr"></div>',
+        '#suffix' => '</div>
+        	<div class="avatar-left">' . UserPicture($user->uid, 0) . '</div>
+
+        <div class="clr"></div>
+        </div>'
+    );
+    $form['avatar_div_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>
+    </div><div class="clr"></div>');
+
+
+    $form['notify'] = array(
+        '#type' => 'radios',
+        '#prefix' => '<div class="summarymail"><p>Send me a summary of my subscriptions to my email</p>
+                    <div class="form-wra bortopnone">',
+        '#default_value' => variable_get('notify', $account->notify_etype),
+        '#options' => $options,
+        '#suffix' => '<div class="clr"></div>
+                            </div>
+                            </div>');
+    $form['merge'] = array('#type' => 'markup', '#value' => '
+                <div class="clr"></div>
+        <div class="merge-social-new">
+          <div align="center">Select the Social networks you want to share you Heard Mentality opinions add posts with.</div>
+          <div class="clr"></div>
+          <div align="center" class="merge-script-outer-new">
+          <div id="divConnect"></div>
+    <script type="text/javascript">
+        // show Add Connections Plugin in "divConnect"
+        gigya.services.socialize.showAddConnectionsUI(conf, {
+			height:65
+			,width:175
+			,showTermsLink:false //remove trems link
+			,hideGigyaLink:true // remove Gigya link
+			,useHTML:true  // Use the HTML implementation of the Plugin (rather then Flash implementation)
+			,containerID: "divConnect" // The component will embed itself inside the divConnect Div
+		});
+    </script>
+         </div>
+    </div>
+          <div class="clr"></div>');
+
+    //$form['personal_links'] = array('#type' => 'markup', '#value' => '<div class="web-reference-new">');
+
+
+    $form['fb_outer'] = array('#type' => 'markup',
+        '#value' => '<div class="web-reference-new">
+                     <div class="web-reference-tit-new">PERSONAL LINKS</div>
+                     <div class="clr"></div>');
+
+    $social = explode('||', $account->social);
+    $form['facebook'] = array(
+        '#type' => 'textfield',
+        '#prefix' => '<div class="social-outer-new">
+                          <div class="social-left-new">
+                          <img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-face.jpg"></div>
+                          <div class="social-rite-new">',
+        '#description' => t(''),
+        '#default_value' => variable_get('facebook', $social[0]),
+        '#id' => 'face',
+        '#suffix' => '</div>
+                         </div><div class="clr"></div>',
+    );
+    $form['twitter'] = array(
+        '#type' => 'textfield',
+        '#prefix' => '<div class="social-outer-new">
+                          <div class="social-left-new"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-twit.jpg"></div>
+                          <div class="social-rite-new">',
+        '#description' => t(' '),
+        '#default_value' => variable_get('twitter', $social[1]),
+        '#id' => 'face',
+        '#suffix' => '</div>
+                         </div>
+
+                         <div class="clr"></div>
+
+                         <div class="clr"></div>',
+    );
+    // avatar hidden values
+    $form['img_avt'] = array('#type' => 'hidden', '#default_value' => variable_get('img_avt', $account->image_avatar));
+    $form['image'] = array('#type' => 'hidden', '#default_value' => variable_get('image', $account->image));
+
+    $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
+      </div>');
+
+    $form['hiddentop'] = array('#type' => 'markup', '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
+    $form = $form + inc_avatar_form();
+    $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
+
+    $form['submit'] = array('#type' => 'submit', '#value' => 'Submit');
+    return $form;
+}
+
+function user_details_validate($form, &$form_state) {
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    $step = $form_state['values']['step'];
+    $dob = $form_state['values']['dob'];
+    $zip = $form_state['values']['zip'];
+    $state = $form_state['values']['state'];
+    $uname = $form_state['values']['username'];
+
+    if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $uname)) {
+        form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
+        $form_state['rebuild'] = TRUE;
+    } elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid!='%d'", $uname, $user->uid))) {
+        form_set_error('username', t('Sorry Username already exists try any other combination'));
+        $form_state['rebuild'] = TRUE;
+    }
+    if (!empty($dob)) {
+
+        if (!is_numeric($dob) || strlen($dob) != '4') {
+            form_set_error('dob', t('Year Of Birth should be Numeric & Proper Format Ex : 1986'));
+            $form_state['rebuild'] = TRUE;
+        }
+    }
+    if (!empty($zip)) {
+        if (!preg_match('/^[0-9A-Za-z ]+?$/i', $zip)) {
+            form_set_error('zip', t('Zip Code should be Proper One & Proper Format Ex : 11010'));
+            $form_state['rebuild'] = TRUE;
+        } elseif (empty($state)) {
+            form_set_error('zip', t('Kindly Recheck your Zip Code, We find its invalid one! '));
+            $form_state['rebuild'] = TRUE;
+        }
+    }
+}
+
+function user_details_submit($form, &$form_state) {
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    $step = $form_state['values']['step'];
+    //prepopulate the settings
+    foreach (element_children($form) as $child) {
+        if ($form[$child]['#type'] == 'radios') {
+            $$child = $form_state['values'][$child];
+        }
+    }
+
+
+
+    // user profile details
+    $age = age($form_state['values']['dob']);
+
+    $query = "UPDATE {user_profile} set gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
+    $result = db_query($query, $form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['edu'], $user->uid);
+    //update username
+    db_query("update {users} set name='%s' where uid='%d'", $form_state['username']['values'], $user->uid);
+   
+    
+    // privacy values
+
+    $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
+    $chk1 = db_result($chk);
+    if ($chk1) {
+
+        $query = "UPDATE {privacy_settings} set real_name='%d',email='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d'  where uid='%d' ";
+    } else {
+        $query = "INSERT INTO {privacy_settings} set real_name='%d',email='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d',uid='%d'";
+    }
+    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $email_privacy, $dob_privacy, $user->uid);
+    db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
+
+
+
+    // avatar image
+    //echo '<pre>';
+    // print_r($form_state);
+    //file handler
+    $return = event_photo_profile();
+    //print_r($return);
+    $insimage = $return['image'];
+    $flag = $return['flag'];
+    $suc = $return['suc'];
+    //file handler ends
+
+    if (!empty($_SESSION['filepath'])) {
+        $img_avt = '1';
+    } else {
+        $insimage = $form_state['values']['image'];
+    }
+
+    if (!empty($form_state['values']['facebook']) || !empty($form_state['values']['twitter']))
+        $social = $form_state['values']['facebook'] . '||' . $form_state['values']['twitter'];
+
+    $query = "UPDATE {user_profile} set image_avatar='%s',image='%s',avatar='%s',social='%s',urls='%s'  where uid='%d' ";
+    $result = db_query($query, $form_state['values']['img_avt'], $insimage, $form_state['values']['select_avatar'], $social, $form_state['values']['myweb'], $user->uid);
+    //notify type
+    db_query("update {users} set notify_etype='%d' where uid='%d'", $form_state['values']['notify'], $user->uid);
+
+     drupal_set_message(t('Your form has been saved.', 'success'));
 }
