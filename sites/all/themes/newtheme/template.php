@@ -58,7 +58,6 @@ function phptemplate_breadcrumb($breadcrumb) {
  * Override or insert PHPTemplate variables into the templates.
  */
 function phptemplate_preprocess_page(&$vars) {
-
 	 if ((arg(1) == 'block')) {
         $vars['template_files'][0] = 'page-test';
       }
@@ -85,7 +84,9 @@ function garland_preprocess_comment_wrapper(&$vars) {
 }
 
 function newtheme_preprocess_page(&$vars){
-	
+	//print_r($vars);
+	//print $vars['content'];
+	//die;
 	/*
 if ($vars['content'] && $vars['node']->type != 'forum') {
     $vars['content'] = '<h2 class="comments">'. t('Comments') .'</h2>'.  $vars['content'];
@@ -280,3 +281,25 @@ function newtheme_heartbeat_list($messages, HeartbeatAccess $heartbeatAccess, $l
 
   return $content;
 }
+
+
+function newtheme_user_profile($account) {
+	$output = '<div class="profile">';
+	$output.='Hi '.$account->name.'<br />';
+        $output .= '</div>';
+ 	$output .= '<p>Your 10 most recent posts</p>';
+
+ 	$uid = $account->uid;
+  	$result = db_query_range(db_rewrite_sql("SELECT n.nid, n.title FROM {node} n WHERE n.uid = %d and n.status=1 ORDER BY n.changed DESC"), $uid, 0, 10);
+
+  	$output .= '<ul>' ;
+	while ($data = db_fetch_object($result)) {
+		$edit="/node/".$data->nid."/edit";
+
+	  	$output .= '<li>'.l(check_plain($data->title),"node/$data->nid") . ' <a href="'.$edit.'">edit</a></li>';
+  	}
+	$output .= '</ul>';
+
+  return $output;
+}
+
