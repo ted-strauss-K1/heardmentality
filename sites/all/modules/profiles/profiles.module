@@ -1230,6 +1230,11 @@ Don’t be part of the Herd</strong></p>
 
 function profiles_form($form_state, $step) {
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+            $data = '
+
+var spath=\''.$gSitePath.'\';
+';
+            drupal_add_js($data, 'inline');
     switch ($step) {
         case '2':
             $query = "select * from {user_profile} where uid='$user->uid'";
@@ -1464,7 +1469,7 @@ $form['hiddentop']=array('#type'=>'markup','#value'=>'<div id="avatar-profile-el
             break;
         case '1':
         default:
-
+   
             $form['username'] = array(
                 '#type' => 'textfield',
                 '#title' => t(''),
@@ -1515,7 +1520,24 @@ $form['hiddentop']=array('#type'=>'markup','#value'=>'<div id="avatar-profile-el
                 '#description' => t(''),
                 '#default_value' => variable_get('zip', ''),
                 '#id' => 'location',
+                '#attributes'=>array('onblur'=>'get_zip_city(this.value);')
             );
+             $form['country'] = array(
+                '#type' => 'hidden',
+                '#default_value' => variable_get('country',$account->country),
+                '#id' => 'country',
+              );
+              $form['state'] = array(
+                '#type' => 'hidden',
+                '#default_value' => variable_get('state',$account->state),
+                '#id' => 'state',
+              );
+                $form['city'] = array(
+                '#type' => 'hidden',
+                '#default_value' => variable_get('city',$account->state),
+                '#id' => 'city',
+              );
+              
             $form['religion'] = array(
                 '#type' => 'select',
                 '#title' => t(''),
