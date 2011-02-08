@@ -135,7 +135,7 @@ img{ border:none;}
 
 .fa-item{ width:162px; padding:10px;}
 .fa-item ul{ padding:0px; margin:0px;}
-.fa-item ul li{ background-image:url(../images/menu-collapsed.png); list-style-type:none; font:bold 14px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;padding-left:0px;}
+.fa-item ul li{ background:url(../images/menu-collapsed.png)  no-repeat 0px center; list-style-type:none; font:bold 14px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;padding-left:0px;}
 .fa-item ul li a{ font:normal 12px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none; padding-left:10px;}
 .fa-item ul li a span {    display: inline-block;    width: 20px;}
 
