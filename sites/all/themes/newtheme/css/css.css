@@ -1419,3 +1419,8 @@ select option{ padding-left:20px; background:none;}
  .social-rite-new{ float:left; padding-top:5px;}
  .social-rite-new input{ width:180px;}
  .border4web-new{ border-top:1px #8f8f8f solid; margin:10px 0px;}
+ 
+#scrollingContent{ font-size:12px; line-height:18px;}
+#scrollingContent ul{ padding:5px;}
+#scrollingContent ul li a{ font-size:12px;}
+
