@@ -214,7 +214,7 @@ function qlite_view() {
       <img onclick="qns_like(1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/up.jpg" id="vote-up" alt="Up" title="This Question is good"/>
       <span  class="vote-cnt"><h2  id="vote-cnt">&nbsp;'.$set_cnt.'</h2></span>
       <img onclick="qns_like(-1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/down.jpg" id="vote-down" alt="Down" title="This Question is not useful"/><br/>
-      </div>';
+      ';
      */
     $vans = "select * from {possible_answer} where  qid=$qid order by vote desc";
 
@@ -2454,6 +2454,7 @@ function get_ans_range($qid='', $range='') {
 function qlite_graph() {
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
     $script = '';
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
@@ -2568,6 +2569,7 @@ $(document).ready(function() {
          },
          min: 0,
          minorGridLineWidth: 0,
+
          gridLineWidth: 0,
          alternateGridColor: null,
          tickInterval  :1
@@ -3334,6 +3336,8 @@ function insertviews($qid = '') {
 
         $ulid = 0;
         $ipid = $_SERVER['REMOTE_ADDR'];
+
+
 
         $countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where ip='$ipid'  and qid='" . $qid . "' and view_date='" . date("Y-m-d") . "'"));
     }
