@@ -49,7 +49,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .black11{ font-family: Arial,Helvetica,sans-serif; color:#000000; font-size:10px; text-decoration:none; }
 .btex{ margin-top:0px; text-align:center;}
 /*content*/
-.contarea{ width:1024px; padding-top:20px; padding-bottom:2px;}
+.contarea{ width:1024px; padding-top:10px; padding-bottom:2px;}
 .contarea-make-donation{ width:1024px; padding-top:20px; padding-bottom:200px;}
 
 /*cont-left*/
@@ -136,7 +136,7 @@ img{ border:none;}
 .fa-item{ width:162px; padding:10px;}
 .fa-item ul{ padding:0px; margin:0px;}
 .fa-item ul li{ background:url(../images/menu-collapsed.png)  no-repeat 0px center; list-style-type:none; font:bold 14px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;padding-left:0px;}
-.fa-item ul li a{ font:normal 12px/20px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none; padding-left:10px;}
+.fa-item ul li a{ font:normal 12px/20px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none; padding-left:13px;}
 .fa-item ul li a span {    display: inline-block;    width: 20px;}
 .fa-item ul li a:hover{ color:#CC9900; text-decoration:none;}
 /*tag section*/
@@ -1317,6 +1317,7 @@ img{ border:none; outline:none;}
 .pro-content-right .form-outer .form-radios .form-item{ width:50px;float:left;text-align:center;border:none;}
 .pro-content-right .form-outer .form-bg-none{  width: 340px;  font:normal 12px Tahoma, Geneva, sans-serif; color:#666; margin-bottom:5px;}
 input[type="text"]{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none; padding:5px; width: 320px; padding-left:20px;}
+.searchtext input[type="text"]{ width: 105px;}
 #profiles-form  .form-radios{ float:left;}
 #profiles-form .form-item label { width:130px; float:left;}
 #profiles-form .form-item  .form-radios label{width:50px; float:none;}
