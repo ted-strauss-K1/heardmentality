@@ -72,7 +72,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .questopr{ width:130px; float:left;}
 .quesbg{ background-image:url(../images/c-bg.gif); background-repeat:repeat-y; padding:10px;  min-height:485px; }
 .quesbott{ background-image:url(../images/c-bottom.gif); height:13px; background-repeat:no-repeat;}
-.ques h2{font:12px/25px  Arial,Helvetica,sans-serif; color:#4170a0;  }
+.ques h2{font:12px/18px  Arial,Helvetica,sans-serif; color:#4170a0; padding:5px 0;}
 .quesinner{ border-right:0px #ccc solid; width:90px; float:left; margin-right:5px;}
 .quesinnerr{ width:400px;float:left; font:12px/21px Arial,Helvetica,sans-serif;}
 .quesin{ padding:2px 0px 2px 0px; }
@@ -520,7 +520,7 @@ padding:0px;}*/
 
 
 .commu-profile{ width:100%;float:left; border:1px #cccccc solid;  min-height:564px; height:auto !important ; height:564px;}
-.commutop-profile{  background-color:#8f8f8f;padding:5px; font:normal 16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
+.commutop-profile{  background-color:#8f8f8f;padding:5px; font:bold 16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
 
 .profile-left{ width:177px; float:left;}
 .profile-right{ width:250px; float:left; padding-left:10px;}
