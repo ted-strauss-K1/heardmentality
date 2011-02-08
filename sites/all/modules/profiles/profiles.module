@@ -337,7 +337,6 @@ function load_bubble($uid = '') {
                     </div>
                  </div>
                  <div class="clr"></div>
-                 <div class="clr"></div>
                 </div>
                 ';
 
@@ -1342,6 +1341,7 @@ var spath=\'' . $gSitePath . '\';
             drupal_set_html_head('<script src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '" type="text/javascript"></script>');
             drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js';
             $account = load_user($user->uid);
+
             $data = '
 	    var conf =
         {
@@ -1426,7 +1426,6 @@ var avtar=\'' . $account->avatar . '\';
             );
             $form['fb_bot'] = array('#type' => 'markup',
                 '#value' => '<div class="clr"></div></div> <div class="clr"></div>');
-
             $form['myweb'] = array(
                 '#type' => 'textfield',
                 '#title' => t(''),
