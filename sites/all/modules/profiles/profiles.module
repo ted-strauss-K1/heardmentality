@@ -153,19 +153,19 @@ function UserPicture($mid, $profile='') {
 
                 if (file_exists($img_path)) {
 
-                    $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" >';
+                    $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" />';
                 } else {
 
-                    $PROFILE_IMAGE = '<img src="' . $default . '" alt="photo" class="uprofile" ALIGN=ABSMIDDLE width="65"  height="56" >';
+                    $PROFILE_IMAGE = '<img src="' . $default . '" alt="photo" class="uprofile" ALIGN=ABSMIDDLE width="65"  height="56" />';
                 }
             } elseif ($resultimage->image_url != '') {
 
 
-                $PROFILE_IMAGE = '<img src="' . $resultimage->image_url . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56">';
+                $PROFILE_IMAGE = '<img src="' . $resultimage->image_url . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
             } else {
                 //echo $resultimage->image;
                 $img_path = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
-                $PROFILE_IMAGE = '<img src="' . $img_path . '" class="uprofile" align="absmiddle" alt="photo" width="65" ALIGN=ABSMIDDLE  height="56" >';
+                $PROFILE_IMAGE = '<img src="' . $img_path . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
             }
             break;
     }
@@ -298,9 +298,9 @@ function user_facts() {
          <div class="fa-item">
           <ul>
         
-          <li><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $usercnt . '\')"><span ">' . $usercnt . '</span> Users</a></li>
-          <li><a href="' . $gSitePath . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"><span ">' . $total_users . '</span> Online</a></li>
-          <li><a href="' . $gSitePath . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"><span >' . $quest . '</span> Issues</a></li>
+          <li><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $usercnt . '\')"><span>' . $usercnt . '</span> Users</a></li>
+          <li><a href="' . $gSitePath . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"><span >' . $total_users . '</span> Online</a></li>
+          <li><a href="' . $gSitePath . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"><span>' . $quest . '</span> Issues</a></li>
           <li><a href="' . $gSitePath . 'google/map/answer" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/answer\',\'Facts And Figures : Toatal Votes ' . $ans . '\')"><span >' . $ans . '</span> Votes</a></li>
           </ul>
           </div>
@@ -329,10 +329,10 @@ function load_bubble($uid = '') {
                 <div class="debate-cor-inner-left">' . UserPicture_small($details->uid) . '</div>
                     <div class="debate-cor-inner-right">
                         <ul style="list-style-type:none">
-                        <li style="width:30px">' . $ranking . '<br><span>' . $points . '</span></li>
-                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg"><br><span>' . $badges['gold'] . '</span></li>
-                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg"><br><span>' . $badges['silver'] . '</span></li>
-                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg"><br><span>' . $badges['bronze'] . '</span></li>
+                        <li style="width:30px">' . $ranking . '<br /><span>' . $points . '</span></li>
+                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><br><span>' . $badges['gold'] . '</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><br /><span>' . $badges['silver'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><br /><span>' . $badges['bronze'] . '</span></li>
                         </ul>
                     </div>
                  </div>
@@ -1426,6 +1426,7 @@ var avtar=\'' . $account->avatar . '\';
             );
             $form['fb_bot'] = array('#type' => 'markup',
                 '#value' => '<div class="clr"></div></div> <div class="clr"></div>');
+
             $form['myweb'] = array(
                 '#type' => 'textfield',
                 '#title' => t(''),
