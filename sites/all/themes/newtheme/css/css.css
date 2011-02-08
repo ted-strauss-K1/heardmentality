@@ -34,7 +34,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .search{ width:336px;background:url(../images/m-bg.gif) repeat-x;height:32px;float:left; padding-top:4px;}
 .search div{ padding-top:1px;}
 .searchbox{ width:336px;}
-.searchtext{ width:130px; float:left; font-family: Arial,Helvetica,sans-serif; font-size:11px; margin-top:2px;}
+.searchtext{ width:130px; float:left; font-family: Arial,Helvetica,sans-serif; font-size:11px; margin-top:0px;}
 .searchtext input{ width:130px; font-family: Arial,Helvetica,sans-serif; font-size:11px;}
 .searchr{float:left; font-family: Arial,Helvetica,sans-serif; font-size:11px; margin-left:5px;}
 .slab{ float:left; padding-top:1px; margin-left:2px; line-height:15px; }
@@ -1316,7 +1316,7 @@ img{ border:none; outline:none;}
 .pro-content-right .form-outer .form-item .form-radios .form-item{ width:50px;float:left;text-align:center;border:none;}
 .pro-content-right .form-outer .form-radios .form-item{ width:50px;float:left;text-align:center;border:none;}
 .pro-content-right .form-outer .form-bg-none{  width: 340px;  font:normal 12px Tahoma, Geneva, sans-serif; color:#666; margin-bottom:5px;}
-input[type="text"]{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none; padding:5px; width: 320px; padding-left:20px;}
+input[type="text"]{ font:normal 12px Tahoma, Geneva, sans-serif; color:#555; border:none; padding:5px; width: 320px; padding-left:20px;}
 .searchtext input[type="text"]{ width: 105px; padding:3px 5px;}
 #profiles-form  .form-radios{ float:left;}
 #profiles-form .form-item label { width:130px; float:left;}
