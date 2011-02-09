@@ -331,8 +331,8 @@ function pcp_get_complete_percentage_data($user) {
     if ($user->uid) {
         $query = "select * from {user_profile} where uid='$user->uid'";
         $fetch = ExecuteQuery($query, "select");
-        $query = "select * from {profile_fields}";
-        $result = db_query($query);
+        $query = "select * from {profile_fields} WHERE category = '%s'";
+        $result = db_query($query, "Profile");
 
         $complete = 0;
         while ($meta = db_fetch_object($result)) {
