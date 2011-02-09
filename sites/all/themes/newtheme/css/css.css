@@ -609,7 +609,7 @@ padding:0px;}*/
 /*hm creatissue*/
 .do-in2{ width:670px;border:1px #666666 solid;  min-height:335px; margin:0 auto;}
 
-.do-intop{ height:26px; background-color:#8f8f8f;padding:5px; font:16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
+.do-intop{ height:26px; background-color:#8f8f8f;padding:5px; font:bold 16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
 .do-in2 .inside2{ font: normal 12px Arial, Helvetica, sans-serif; color:#000000; padding:5px 10px;}
 .do-in2 .left{ width:160px; float:left;}
 .do-in2 .right{ width:480px; float:left; padding-left:10px;}
@@ -1326,7 +1326,7 @@ input[type="text"]{ font:normal 12px Tahoma, Geneva, sans-serif; color:#555; bor
 #profiles-form .form-item label { width:130px; float:left;}
 #profiles-form .form-item  .form-radios label{width:50px; float:none;}
 #profiles-form .form-item  .form-radios  .form-item{ width:50px; float:left; text-align:center; }
-select{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none; padding:5px; width: 340px; padding-left:20px;}
+select{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666;/* border:none;*/ padding:5px; width: 340px; padding-left:20px;}
 textarea{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none; padding:5px; width: 310px; padding-left:20px; }
 select option{ padding-left:20px; background:none;}
 #profiles-form input#username{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
