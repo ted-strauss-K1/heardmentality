@@ -54,7 +54,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 
 /*cont-left*/
 .page-searchquestion .commu{ width:478px;float:left; border:2px #cccccc solid;  min-height:544px}
-.commu{ width:336px;float:left; border:1px #cccccc solid;  min-height:544px}
+.commu{ width:326px;float:left; border:1px #cccccc solid;  min-height:544px}
 .commutop{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  Arial,Helvetica,sans-serif; color:#fff;}
 .commutop select{width:150px; font-size:11px; font-family: Arial,Helvetica,sans-serif; font-weight:normal; padding:2px;}
 .commu .inner{ width:325px; margin:auto; padding:0px;}
@@ -1323,8 +1323,9 @@ img{ border:none; outline:none;}
 .pro-content-right .form-outer .form-item .form-radios .form-item{ width:50px;float:left;text-align:center;border:none;}
 .pro-content-right .form-outer .form-radios .form-item{ width:50px;float:left;text-align:center;border:none;}
 .pro-content-right .form-outer .form-bg-none{  width: 340px;  font:normal 12px Tahoma, Geneva, sans-serif; color:#666; margin-bottom:5px;}
-input[type="text"]{ font:normal 12px Tahoma, Geneva, sans-serif; color:#555; /*border:none;*/ border:1px solid #B7B7B7; padding:5px; width: 320px; padding-left:20px;}
-.searchtext input[type="text"]{ width: 110px; padding:2px 5px;}
+
+.pro-content-right input[type="text"]{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none; padding:5px; width: 320px; padding-left:20px;}
+
 #profiles-form  .form-radios{ float:left;}
 #profiles-form .form-item label { width:130px; float:left;}
 #profiles-form .form-item  .form-radios label{width:50px; float:none;}
@@ -1427,8 +1428,38 @@ select option{ padding-left:20px; background:none;}
  .social-rite-new{ float:left; padding-top:5px;}
  .social-rite-new input{ width:180px;}
  .border4web-new{ border-top:1px #8f8f8f solid; margin:10px 0px;}
+
+
+
+/* for Moderate flagged page */
+.mod-leftside-inner{ margin-bottom:10px; padding:2px; overflow:auto; font:12px/21px normal Arial, Helvetica, sans-serif; color:#010101; height:374px; width:100%;}
+.mod-leftside-inner .m-odd{ background:#fafafa;font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101; padding:5px; clear:both; margin-bottom:2px; width:96%;}
+.mod-leftside-inner .m-even{ background:#ffffcc;font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101; padding:5px; clear:both;  width:96%;}
+.mod-midside-inner{ float:left; margin:0 0 0 10px; width:672px; height:450px; border:2px #CCC solid; padding-left:10px; padding-top:20px;}
+
+.mod-t-outer{ width: 672px; font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101; padding:3px 0px;}
+.mod-t1{ width:140px; float:left; font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
+.mod-t2{ width:500px; float:left; font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
+.mod-select{ width:450px; border:1px #CCC solid; background:#fafafa; padding:2px; font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
+.mod-select2{ width:135px;border:1px #CCC solid; background:#fafafa; padding:2px; font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
+.mod-select3{ width:110px;border:1px #CCC solid; background:#fafafa; padding:2px; font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
+.mod-txtarea{ width:110px;border:1px #CCC solid; background:#fafafa; padding:2px; height:100px; font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
+
+.mod-t3{ width:300px; float:left;font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101; }
+.mod-t4{ width:300px; float:left; margin-bottom:5px; font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
+.mod-t5{ width:120px; float:left;font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
+.mod-btn-outer{ float:right; width:200px; padding:5px;}
+.mod-btn{ background:#9c7e32; font:normal 14px Arial, Helvetica, sans-serif; border:1px #c6ad6d solid; cursor:pointer; color:#fff; padding:3px; float:right; margin-right:10px;}
+.mod-btn:hover{ background:#634b0f; font:normal 14px Arial, Helvetica, sans-serif; border:1px #c6ad6d solid;}
+
+/* for Moderate flagged page-inner-2nd page */
+.mod-midside-inner-p-outer{ float:left; margin:0 0 0 10px; width:686px; height:455px; }
+.mod-midside-inner-p{ float:left; margin:0 0 0 0px; width:100%;}
+.mod-midside-inner-leftpart{ float:left; width:47%; border:1px #ccc solid;}
+.mod-midside-inner-rightpart{ float:left; width:50%; border:1px #ccc solid; margin-left:10px; overflow:auto;}
  
 #scrollingContent{ font-size:12px; line-height:18px; padding:5px;}
 #scrollingContent ul{ list-style-type:none;}
 #scrollingContent ul li a{ font-size:12px;}
+
 
