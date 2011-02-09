@@ -54,13 +54,13 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 
 /*cont-left*/
 .page-searchquestion .commu{ width:478px;float:left; border:2px #cccccc solid;  min-height:544px}
-.commu{ width:326px;float:left; border:1px #cccccc solid;  min-height:544px}
+.commu{ width:336px;float:left; border:1px #cccccc solid;  min-height:544px}
 .commutop{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  Arial,Helvetica,sans-serif; color:#fff;}
 .commutop select{width:150px; font-size:11px; font-family: Arial,Helvetica,sans-serif; font-weight:normal; padding:2px;}
 .commu .inner{ width:325px; margin:auto; padding:0px;}
 
 .inner h3{ font:12px/21px Arial,Helvetica,sans-serif; color:#000;}
-.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:3px; padding:2px; overflow:auto; font:13px/20px Arial,Helvetica,sans-serif; color:#996600; background-color: #f8f5ed}
+.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:3px; padding:2px; overflow:auto; font:13px/20px Arial,Helvetica,sans-serif; color:#f9f6ef; background-color: #f8f5ed}
 .innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/20px Arial,Helvetica,sans-serif; color:#996600;}
 .innerbox a{font-size:14px/21px; color:#aa7e29;}
 #sidebar-left .innerbox a{ font-size:12px; color:#996600;}
@@ -85,7 +85,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 
 .sitetour{ width:162px;  border-bottom:1px #cccccc solid;}
 .sitetour img:hover{ opacity:0.7;}
-.facttop{font:bold 16px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
+.facttop{font:bold 16px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#666666; padding:3px;text-align:center;}
 .facttop2{font:14px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
 .fact1{ width:65px; margin:7px; float:left;font:14px  Arial,Helvetica,sans-serif; color:#996600; text-align:center; }
 .factblu{ width:65px; margin:7px; float:left;font:14px Arial,Helvetica,sans-serif; color:#336699; text-align:center;}
@@ -523,7 +523,7 @@ padding:0px;}*/
 
 
 .commu-profile{ width:100%;float:left; border:1px #cccccc solid;  min-height:564px; height:auto !important ; height:564px;}
-.commutop-profile{  background-color:#8f8f8f;padding:5px; font:bold 16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
+.commutop-profile{  background-color:#666666;padding:5px; font:bold 16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
 
 .profile-left{ width:177px; float:left;}
 .profile-right{ width:250px; float:left; padding-left:10px;}
