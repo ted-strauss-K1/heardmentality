@@ -1320,7 +1320,7 @@ img{ border:none; outline:none;}
 .pro-content-right .form-outer .form-item .form-radios .form-item{ width:50px;float:left;text-align:center;border:none;}
 .pro-content-right .form-outer .form-radios .form-item{ width:50px;float:left;text-align:center;border:none;}
 .pro-content-right .form-outer .form-bg-none{  width: 340px;  font:normal 12px Tahoma, Geneva, sans-serif; color:#666; margin-bottom:5px;}
-input[type="text"]{ font:normal 12px Tahoma, Geneva, sans-serif; color:#555; border:none; padding:5px; width: 320px; padding-left:20px;}
+input[type="text"]{ font:normal 12px Tahoma, Geneva, sans-serif; color:#555; /*border:none;*/ border:1px solid #B7B7B7; padding:5px; width: 320px; padding-left:20px;}
 .searchtext input[type="text"]{ width: 110px; padding:2px 5px;}
 #profiles-form  .form-radios{ float:left;}
 #profiles-form .form-item label { width:130px; float:left;}
