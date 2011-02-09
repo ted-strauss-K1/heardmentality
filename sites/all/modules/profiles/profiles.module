@@ -1434,6 +1434,7 @@ var avtar=\'' . $account->avatar . '\';
                 '#id' => 'username',
                 '#required' => 1,
             );
+            $form = $form + follow_links_form($form_state, $user->uid);
             $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
       </div>
       <div class="clr"></div>
@@ -1459,6 +1460,7 @@ var avtar=\'' . $account->avatar . '\';
                 '#prefix' => ' <div class="next">',
                 '#suffix' => '</div>'
             );
+
             $form['foot_div'] = array('#type' => 'markup', '#value' => ' <div class="clr"></div>
     </div>  <div class="clr"></div><div class="clr"></div>
   </div>');
@@ -1470,7 +1472,7 @@ var avtar=\'' . $account->avatar . '\';
             break;
         case '1':
         default:
-         //set default values
+            //set default values
             $details = load_user($user->uid);
             $form['username'] = array(
                 '#type' => 'textfield',
@@ -1608,7 +1610,7 @@ var avtar=\'' . $account->avatar . '\';
       <div class="clr"></div>
     </div>  <div class="clr"></div>'
             );
-           
+
             $form['bio']['#default_value'] = empty($details->bio) ? 'Bio' : $details->bio;
             $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
             $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
@@ -1635,6 +1637,28 @@ function profiles_form_validate($form, &$form_state) {
 
             break;
         case '3':
+            // follow links starts here
+            // echo '<pre>';
+            // print_r($form_state);
+            $links = $form_state['values']['follow_links'];
+           //  print_r($links);die;
+            foreach ($links as $name => $link) {
+                $link = (object) $link;
+                $link->url = trim($link->url);
+
+                // Check to see if there's actually a link
+                if (!preg_match("/^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\\.+[A-Za-z0-9\.\/%&=\?\-_]+$/i", $link->url)) {
+                    // If there's an lid, delete the link.
+                    if (isset($link->lid)) {
+                        follow_link_delete($link->lid);
+                    }
+                    if (!empty($link->url))
+                        form_set_error($ink->name, 'Invalid web reference URL(s)');
+                    // Continue to the next link.
+                    continue;
+                }
+            }  // follow links ends here
+
 
             break;
         case '4':
@@ -1697,7 +1721,7 @@ function profiles_form_submit($form, &$form_state) {
                 } else {
                     $query = "INSERT INTO {privacy_settings} set real_name='%d',email='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d',uid='%d'";
                 }
-                db_query($query, $real_name_privacy,$mail_privacy,$gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $email_privacy, $dob_privacy, $user->uid);
+                db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $email_privacy, $dob_privacy, $user->uid);
                 db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
                 drupal_set_message(t('Your form has been saved.', 'success'));
                 $form_state['redirect'] = "profile/edit/3";
@@ -1722,6 +1746,20 @@ function profiles_form_submit($form, &$form_state) {
                 } else {
                     $insimage = $form_state['values']['image'];
                 }
+
+                // follow links starts here
+                $links = (object) $form_state['values']['follow_links'];
+               //print_r($links);echo $user->uid;
+                foreach ($links as $name => $link) {
+                    // print_r($link);
+                    $link = (object) $link;
+                    $link->url = trim($link->url);
+
+                    $link->uid = $user->uid;
+                    $link->name = $name;
+
+                    follow_link_save($link);
+                }  // follow links ends here
 
                 if (!empty($form_state['values']['facebook']) || !empty($form_state['values']['twitter']))
                     $social = $form_state['values']['facebook'] . '||' . $form_state['values']['twitter'];

@@ -344,22 +344,29 @@ function follow_links_form(&$form_state, $uid = 0) {
     $links = follow_links_load($uid);
     $networks = follow_networks_load(TRUE);
 
+
     // Put all our existing links at the top, sorted by weight.
     if (is_array($links)) {
         foreach ($links as $name => $link) {
             $title = $networks[$name];
-            $form['follow_links'][$name] = _follow_links_form_link($link, $title);
+
+            $form['follow_links'][$name] = _follow_links_form_link($networks,$link, $title);
             // Unset this specific network so we don't add the same one again below.
             unset($networks[$name]);
         }
     }
     // Now add all the empty ones.
+    $limit=0;
     foreach ($networks as $name => $title) {
         $link = new stdClass();
-        $form['follow_links'][$name] = _follow_links_form_link($link, $title);
+        $form['follow_links'][$name] = _follow_links_form_link($networks,$link, $title);
+         unset($networks[$name]);
+        $limit++;
+        if($limit==2)
+            break;
     }
 
-    $form['submit'] = array('#type' => 'submit', '#value' => t('Submit'));
+    // $form['submit'] = array('#type' => 'submit', '#value' => t('Submit'));
 
     return $form;
 }
@@ -367,30 +374,42 @@ function follow_links_form(&$form_state, $uid = 0) {
 /**
  * Helper function to create an individual link form element.
  */
-function _follow_links_form_link($link, $title) {
+function _follow_links_form_link($networks,$link, $title) {
     $elements = array();
 
+    /*   $elements['name'] = array(
+      '#type' => 'markup',
+      '#prefix' => '<div class="social-left">',
+      '#sufix' => '</div>',
+      '#value' => $title,
+      );
+     * *
+     */
+    //$networks = follow_networks_load(TRUE);
+
+    //echo $title;
     $elements['name'] = array(
-        '#type' => 'markup',
-        '#prefix' => '<div class="social-left">',
-        '#sufix' => '</div>',
-        '#value' => $title,
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => $networks,
+        '#description' => t(''),
+        '#default_value' => array_search(variable_get('name', $title)),
     );
     if (isset($link->lid)) {
         $elements['lid'] = array(
             '#type' => 'hidden',
             '#value' => $link->lid,
         );
-        $elements['weight'] = array(
-            '#type' => 'weight',
-            '#default_value' => $links->weight,
-        );
+        //  $elements['weight'] = array(
+        //     '#type' => 'weight',
+        //    '#default_value' => $links->weight,
+        // );
     }
     $elements['url'] = array(
         '#type' => 'textfield',
-        '#size' => '15',
-        '#prefix' => '<div class="social-rite">',
-        '#sufix' => '</div>',
+        // '#size' => '15',
+        // '#prefix' => '<div class="social-rite">',
+        //  '#sufix' => '</div>',
         '#default_value' => isset($link->url) ? $link->url : '',
         '#element_validate' => array('follow_url_validate'),
     );
@@ -458,9 +477,8 @@ function theme_follow_links_form($form) {
             $row[] = drupal_render($form['follow_links'][$key]['url']);
 
             // Now, render the weight row.
-            $form['follow_links'][$key]['weight']['#attributes']['class'] = 'follow-links-weight';
-            $row[] = drupal_render($form['follow_links'][$key]['weight']);
-
+            // $form['follow_links'][$key]['weight']['#attributes']['class'] = 'follow-links-weight';
+            //  $row[] = drupal_render($form['follow_links'][$key]['weight']);
             // Add the new row to our collection of rows, and give it the 'draggable' class.
             $rows[] = array(
                 'data' => $row,
@@ -588,10 +606,10 @@ function follow_networks_load($reset = FALSE) {
  */
 function follow_follow_networks() {
     return array(
-        'facebook' => t('Facebook'),
+      //  'facebook' => t('Facebook'),
         'virb' => t('Virb'),
         'myspace' => t('MySpace'),
-        'twitter' => t('Twitter'),
+      //  'twitter' => t('Twitter'),
         'picasa' => t('Picasa'),
         'flickr' => t('Flickr'),
         'youtube' => t('YouTube'),

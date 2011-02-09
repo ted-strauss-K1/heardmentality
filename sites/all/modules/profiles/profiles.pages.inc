@@ -816,6 +816,12 @@ function amber_tour() {
 function update_profile() {
 
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+        $data = '
+
+var spath=\'' . $gSitePath . '\';
+';
+    drupal_add_js($data, 'inline');
+        drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
     $update = '';
     $update .= drupal_get_form('user_details');
     return $update;
@@ -920,7 +926,7 @@ function user_details() {
         '#suffix' => '</div>
            <div class="clr"></div>
            </div>',
-        '#attributes' => array('class' => 'input-nor'),
+        '#attributes' => array('class' => 'input-nor','onblur' => 'get_zip_city(this.value);')
     );
     $form['country'] = array(
         '#type' => 'hidden',
@@ -1079,12 +1085,12 @@ function get_privacy_form() {
     while ($meta = db_fetch_object($result)) {
         $col = $fields[] = $meta->name;
         $list = trim($fetch[0][$col]);
-        
-        $sel = db_result(db_query("SELECT $col FROM {privacy_settings} WHERE uid = '%d'",$user->uid));
 
-        $form[$col.'_privacy'] = array(
+        $sel = db_result(db_query("SELECT $col FROM {privacy_settings} WHERE uid = '%d'", $user->uid));
+
+        $form[$col . '_privacy'] = array(
             '#type' => 'radios',
-            '#default_value' => variable_get($sel, 1),
+            '#default_value' => variable_get($col . '_privacy', $sel),
             '#options' => $options,
             '#suffix' => '<div class="clr"></div><br/>'
         );
@@ -1092,9 +1098,10 @@ function get_privacy_form() {
           <div class="clr"></div>
        ');
     }
+
     $form['activity_privacy'] = array(
         '#type' => 'radios',
-        '#default_value' => variable_get($list, 1),
+        '#default_value' => variable_get('activity_privacy', $fetch[0]['question_privacy']),
         '#options' => $options,
         '#suffix' => '<div class="clr"></div>'
     );
@@ -1216,6 +1223,7 @@ var avtar=\'' . $account->avatar . '\';
 
                          <div class="clr"></div>',
     );
+    $form = $form + follow_links_form($form_state, $user->uid);
     // avatar hidden values
     $form['img_avt'] = array('#type' => 'hidden', '#default_value' => variable_get('img_avt', $account->image_avatar));
     $form['image'] = array('#type' => 'hidden', '#default_value' => variable_get('image', $account->image));
@@ -1253,15 +1261,15 @@ function user_details_validate($form, &$form_state) {
             $form_state['rebuild'] = TRUE;
         }
     }
-//    if (!empty($zip)) {
-//        if (!preg_match('/^[0-9A-Za-z ]+?$/i', $zip)) {
-//            form_set_error('zip', t('Zip Code should be Proper One & Proper Format Ex : 11010'));
-//            $form_state['rebuild'] = TRUE;
-//        } elseif (empty($state)) {
-//            form_set_error('zip', t('Kindly Recheck your Zip Code, We find its invalid one! '));
-//            $form_state['rebuild'] = TRUE;
-//        }
-//    }
+    if (!empty($zip)) {
+                if (!preg_match('/^[0-9A-Za-z ]+?$/i', $zip)) {
+                    form_set_error('zip', t('Zip Code should be Proper One & Proper Format Ex : 11010'));
+                    $form_state['rebuild'] = TRUE;
+                } elseif (empty($state)) {
+                    form_set_error('zip', t('Kindly Recheck your Zip Code, We find its invalid one! '));
+                    $form_state['rebuild'] = TRUE;
+                }
+            }
 }
 
 function user_details_submit($form, &$form_state) {
@@ -1273,18 +1281,18 @@ function user_details_submit($form, &$form_state) {
             $child = $form_state['values'][$child];
         }
     }
-$real_name_privacy = $form_state['values']['real_name_privacy'];
-$mail_privacy = $form_state['values']['mail_privacy'];
-$dob_privacy = $form_state['values']['dob_privacy'];
-$gender_privacy = $form_state['values']['gender_privacy'];
-$location_privacy = $form_state['values']['zip_privacy'];
-$religion_privacy = $form_state['values']['religion_privacy'];
-$ethnic_privacy = $form_state['values']['ethnic_privacy'];
-$slant_privacy = $form_state['values']['slant_privacy'];
-$sorient_privacy = $form_state['values']['sorient_privacy'];
-$edu_privacy = $form_state['values']['edu_privacy'];
-$bio_privacy = $form_state['values']['bio_privacy'];
-$activity_privacy = $form_state['values']['activity_privacy'];
+    $real_name_privacy = $form_state['values']['real_name_privacy'];
+    $mail_privacy = $form_state['values']['mail_privacy'];
+    $dob_privacy = $form_state['values']['dob_privacy'];
+    $gender_privacy = $form_state['values']['gender_privacy'];
+    $location_privacy = $form_state['values']['zip_privacy'];
+    $religion_privacy = $form_state['values']['religion_privacy'];
+    $ethnic_privacy = $form_state['values']['ethnic_privacy'];
+    $slant_privacy = $form_state['values']['slant_privacy'];
+    $sorient_privacy = $form_state['values']['sorient_privacy'];
+    $edu_privacy = $form_state['values']['edu_privacy'];
+    $bio_privacy = $form_state['values']['bio_privacy'];
+    $activity_privacy = $form_state['values']['activity_privacy'];
 
 
     // user profile details ///
@@ -1294,8 +1302,8 @@ $activity_privacy = $form_state['values']['activity_privacy'];
     $result = db_query($query, $form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['edu'], $user->uid);
     //update username
     db_query("update {users} set name='%s' where uid='%d'", $form_state['values']['username'], $user->uid);
-   
-    
+
+
     // privacy values ///
     $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
     $chk1 = db_result($chk);
@@ -1308,6 +1316,19 @@ $activity_privacy = $form_state['values']['activity_privacy'];
     db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $dob_privacy, $user->uid);
     db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
 
+    // follow links starts here
+                $links = (object) $form_state['values']['follow_links'];
+                //  print_r($links);echo $user->uid;
+                foreach ($links as $name => $link) {
+                    // print_r($link);
+                    $link = (object) $link;
+                    $link->url = trim($link->url);
+
+                    $link->uid = $user->uid;
+                    $link->name = $name;
+
+                    follow_link_save($link);
+                }  // follow links ends here
 
 
     // avatar image
@@ -1335,5 +1356,5 @@ $activity_privacy = $form_state['values']['activity_privacy'];
     //notify type
     db_query("update {users} set notify_etype='%d' where uid='%d'", $form_state['values']['notify'], $user->uid);
 
-     drupal_set_message(t('Your form has been saved.', 'success'));
+    drupal_set_message(t('Your form has been saved.', 'success'));
 }
