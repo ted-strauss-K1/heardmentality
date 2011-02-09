@@ -149,15 +149,17 @@ function reset_tabs(){
          jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
      }
      //loading status for ajax
-	  jQuery("#loading").ajaxStart(function () {alert(22);
+	  jQuery("#loading").ajaxStart(function () {
                                 jQuery(this).fadeIn();
-                            }).ajaxStop(function() {
+                            });
+
+                            jQuery("#loading").ajaxStop(function () {
 
                                 jQuery(this).fadeOut();
                                 fb.activateElements();
-});
+                            });
 
-                         
+
    jQuery(".innerbox li a").live('click', function(e) {
 
 	  e.preventDefault();
