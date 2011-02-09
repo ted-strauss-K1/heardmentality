@@ -1330,9 +1330,9 @@ img{ border:none; outline:none;}
 #profiles-form .form-item label { width:130px; float:left;}
 #profiles-form .form-item  .form-radios label{width:50px; float:none;}
 #profiles-form .form-item  .form-radios  .form-item{ width:50px; float:left; text-align:center; }
-select{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666;/* border:none;*/ padding:5px; width: 340px; padding-left:20px;}
-textarea{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none; padding:5px; width: 310px; padding-left:20px; }
-select option{ padding-left:20px; background:none;}
+#profiles-form select{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none;padding:5px; width: 340px; padding-left:20px;}
+#profiles-form textarea{ font:normal 12px Tahoma, Geneva, sans-serif; color:#666; border:none; padding:5px; width: 310px; padding-left:20px; }
+#profiles-form select option{ padding-left:20px; background:none;}
 #profiles-form input#username{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
 #profiles-form input#name{ background:url(../images/icons-wizard.png) no-repeat -2px -5px;}
 #profiles-form input#email{ background:url(../images/icons-wizard.png) no-repeat -2px -28px;}
