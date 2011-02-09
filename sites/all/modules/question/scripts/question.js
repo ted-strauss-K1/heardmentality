@@ -1,14 +1,18 @@
 // JavaScript Document
 jQuery(document).ready( function() {
 
-    jQuery('#q_cat').multiSelect();
 
-    jQuery('#q_scat').multiSelect();
-    jQuery('#q_sscat').multiSelect();
   if(admin){
-        setDefaultCountry(cncode);
-        get_state(cncode);
-        get_city(setstate);
+         jQuery('#q_cat').multiSelect();
+
+   jQuery('#q_scat').multiSelect();
+   jQuery('#q_sscat').multiSelect();
+   jQuery('#q_country').multiSelect();
+    jQuery('#q_state').multiSelect();
+    jQuery('#q_city').multiSelect();
+       // setDefaultCountry(cncode);
+    //    get_state(cncode);
+    //    get_city(setstate);
     }
    jQuery('.selectAll').remove();
 
@@ -122,13 +126,17 @@ function get_city(code){
 jQuery("input[name='q_cat[]']").live("change", function(event) {
 
     var values = new Array();
-    jQuery.each(jQuery("input[name='q_cat[]']:checked"), function() {
+    jQuery.each(jQuery("input[name='q_cat']:checked"), function() {
         values.push(jQuery(this).val());
     // or you can do something to the actual checked checkboxes by working directly with  'this'
     // something like $(this).hide() (only something useful, probably) :P
     });
     var ids=values.join(',');
-	get_releted_issue(ids);
+    if(!admin){
+        	get_releted_issue(ids);
+    }
+
+    
     get_subcat('q_cat','chg_scat',1,ids);
     jQuery('#chg_sscat').empty().html('No Subcategory');
 });
@@ -294,6 +302,9 @@ function add_ans(){
         if (ans_cnt < 11) {
             jQuery('#ans_cnt').val(ans_cnts);
             //	$('add_more').set('html','  <p>&nbsp;</p>');
+            if(admin)
+                           var firstElem='<div class="mod-t4"><div class="mod-t1">Answer</div><div class="mod-t1"><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" class="mod-select2" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></div>  </div><div class="clr"></div>';
+                else
             var firstElem='<li><label><span class="span1">Answer</span></label><span><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></span></li>';
 
             jQuery("#add_more").append(firstElem);

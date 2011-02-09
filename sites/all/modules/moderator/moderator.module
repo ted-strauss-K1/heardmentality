@@ -1,56 +1,521 @@
 <?php
+
 /**
  * Implementation of hook_perm().
  */
 function moderator_perm() {
-  return array('Moderate User','Moderate Question','Edit Question','View Question');
+    return array('Moderate User', 'Moderate Question', 'Edit Question', 'View Question');
 }
-
 
 /**
  * Implementation of hook_menu().
  */
- 
-function moderator_menu() {	
+function moderator_menu() {
 
-$mdtrest['admin/moderateuser'] = array(
-    'title' => 'Moderate User',
-    'page callback' => 'moderate_user',
-    'access arguments' => array('Moderate User'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'moderator.pages.inc',
-  );
+    $mdtrest['admin/moderateuser'] = array(
+        'title' => 'Moderate User',
+        'page callback' => 'moderate_user',
+        'access arguments' => array('Moderate User'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
 
-  $mdtrest['admin/moderatequestion'] = array(
-    'title' => 'Moderate Question',
-    'page callback' => 'moderate_quest',
-    'access arguments' => array('Moderate Question'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'moderator.pages.inc',
-  );
- $mdtrest['admin/notifymail'] = array(
-    'title' => 'Moderate Question',
-    'page callback' => 'moderate_user_mail',
-    'access arguments' => array('Moderate User'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'moderator.pages.inc',
-  );
- $mdtrest['admin/editquestions'] = array(
-    'title' => 'Edit Question',
-    'page callback' => 'edit_questions',
-    'access arguments' => array('Edit Question'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'moderator.pages.inc',
-  );
-  $mdtrest['admin/viewquestion'] = array(
-    'title' => 'View Question',
-    'page callback' => 'view_questions',
-    'access arguments' => array('View Question'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'moderator.pages.inc',
-  );
-  
-  
-  return $mdtrest;
+    $mdtrest['admin/moderatequestion'] = array(
+        'title' => 'Moderate Question',
+        'page callback' => 'moderate_quest',
+        'access arguments' => array('Moderate Question'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+    $mdtrest['admin/notifymail'] = array(
+        'title' => 'Moderate Question',
+        'page callback' => 'moderate_user_mail',
+        'access arguments' => array('Moderate User'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+    $mdtrest['admin/editquestions'] = array(
+        'title' => 'Edit Question',
+        'page callback' => 'edit_questions',
+        'access arguments' => array('Edit Question'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+    $mdtrest['admin/viewquestion'] = array(
+        'title' => 'View Question',
+        'page callback' => 'view_questions',
+        'access arguments' => array('View Question'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+    $mdtrest['moderator/issues'] = array(
+        'title' => 'Moderator Issues',
+        'page callback' => 'moderator_issues',
+        'access arguments' => array('Moderate Question'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+    $mdtrest['moderator/issues/list/%'] = array(
+        'title' => 'Moderator Issues',
+        'page callback' => 'moderator_issues_list',
+        'access arguments' => array('Moderate Question'),
+        'page arguments' => array(3),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+    $mdtrest['moderator/issues/edit/%'] = array(
+        'title' => 'Moderator Issues ',
+        'page callback' => 'moderator_edit_issues',
+        'access arguments' => array('Moderate Question'),
+        'page arguments' => array(3),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+
+    return $mdtrest;
 }
 
+function moderator_issues() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+    // drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
+    $inline = "      var admin='1';";
+
+    drupal_add_js($inline, $type = 'inline');
+    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
+
+    $output = _moderator_left();
+    $output.=' <div class="mod-midside-inner">
+            <div class="warning" >No Issue Selected !</div>
+          <div class="clr"></div>
+        </div>';
+    return $output;
+}
+
+function _moderator_left() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $output = '        <div class="commu">
+          <div id="rotate">
+            <ul id="maintabs" class="mytabs">
+              <li class="current"><a href="' . $gSitePath . 'moderator/issues/list/new" title="Reporting"><span>News (59)</span></a></li>
+              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/issues/list/flag" title="Forum"><span>Flagged (14)</span></a></li>
+                     </ul>
+
+            <div style="" id="tabcontent" class="mytabs-container">
+             
+              <div class="clr"></div>
+            </div>
+
+          </div>
+
+
+          <div class="mod-btn-outer">
+
+          <div><input name="" type="button"  class="mod-btn" value="Ignore"/></div>
+          <div><input name="" type="button"  class="mod-btn" value="Reject"/></div>
+          <div class="clr"></div>
+          </div>
+
+
+        </div>';
+
+    return $output;
+}
+
+function moderator_issues_list($type='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    //This is numbers per page
+    $num_per_page = 12;
+
+    $output = '';
+
+    //actual query
+    $query = "SELECT * from {question} ORDER BY qid DESC";
+
+    //pager_query function
+    $rs = pager_query($query, $num_per_page);
+    $alt = 'm-even';
+    $output = '  <div class="mod-leftside-inner">';
+    while ($data = db_fetch_object($rs)) {
+
+        $nd = ('<div class="' . $alt . '" > ');
+        $nd .= l($data->question, $gSitePath . 'moderator/issues/edit/' . $data->qid, array('attributes' => array('class' => 'issue-links')));
+        $nd .= ( '</div>');
+        $output .= ( $nd);
+        if ($alt == 'm-even')
+            $alt = 'm-odd';
+        else
+            $alt='m-even';
+    }
+    $output .= theme('pager', array(), $num_per_page);
+    $output.='  <div class="clr"></div></div>';
+    echo $output;
+}
+
+function moderator_edit_issues($qid='') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    if (!is_numeric($qid)) {
+        return false;
+    }
+
+
+
+    $left_qry = "SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='" . $qid . "'";
+    $result = db_query($left_qry);
+    $quest = db_fetch_object($result);
+    //country
+    $result = geonames_query('countryinfo');
+    $optionlist .= '<option value="">Select country</option>';
+    foreach ($result->results as $country) {
+
+
+
+
+        ///country list starts
+
+        $set = '';
+        if ($quest->country == $country['countryname']) {
+            $set = 'SELECTED';
+        }
+
+        $optionlist .= sprintf('<option value="%s" %s>%s</option>', $country['countryname'], $set, $country['countryname']);
+    }
+    /////////////state list start here /////////////////////////////
+    $query = array('query' => $quest->country, 'maxRows' => '1', 'featureclass' => 'S');
+    $result = geonames_query('search', $query);
+    // $cc=$result->results[0]['countrycode'];
+    // $result = geonames_query('countryinfo', $query);
+    // $result->results[0][geonameid];
+    //  echo $result->results[0]['countrycode'];
+    $query = array('country' => $result->results[0]['countrycode']);
+    $result = geonames_query('countryinfo', $query);
+    //print_r($result);
+    $query = array('geonameid' => $result->results[0]['geonameid']);
+    // print_r($query);
+    $result = geonames_query('children', $query);
+
+    /* if($select&&$user->uid>0){
+      $udet=load_user($user->uid);
+
+      $setstate=$udet->state;
+      $fcity=$udet->city;
+      } */
+
+    $ret = '<select tabindex="18" class="mod-txtarea"   onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
+    foreach ($result->results as $state) {
+        $set = '';
+        if ($quest->state == $state['geonameid']) {
+            $set = 'SELECTED=SELECTED';
+        }
+        /* if(strpos(strtolower($setstate),  strtolower($state['name']) )){
+          $set='SELECTED=SELECTED';
+          } */
+        $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'], $set, $state['name']);
+    }
+    $ret .= "</select>";
+
+    /////////////state list end here //////////////////////////////
+    /////////// city list start here/////////////////
+
+    $query_city = array('geonameid' => $quest->state);
+    $result_city = geonames_query('children', $query_city);
+    //print_r($result);
+    $ret_city = '<select class="mod-txtarea" tabindex="19"    id="q_city" name="q_city"> <option value="">--Cities--</option> ';
+    foreach ($result_city->results as $state_city) {
+        $set = '';
+        if ($quest->city == $state_city['geonameid']) {
+            $set = 'SELECTED=SELECTED';
+        }
+        $ret_city .= sprintf('<option value="%s" %s>%s</option>', $state_city['geonameid'], $set, $state_city['name']);
+    }
+    $ret_city .= "<option value='-1'>Others</option>";
+    $ret_city .= "</select>";
+    $ret_city;
+    //////////// city list end here //////////////
+
+    $output .= '<script type="text/javascript">
+                var mpath=\'' . $gSitePath . '\';
+                    var spath=\'' . $gSitePath . '\';
+                    var cncode=\'' . $quest->country . '\';
+                    var ustate=\'' . $quest->state . '\';
+                    var setstate=\'' . $quest->state . '\';
+                        var setcity=\'' . $quest->city . '\';
+                            var admin=\'1\';
+		</script>
+			';
+
+    $output .= '<script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/question.js" type="text/javascript"></script>
+        <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
+
+                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') . '/styles/jquery.multiSelect.css" type="text/css" />
+                    
+        <div id="err" class="clear"></div>
+<div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
+				<form id="question" name="question" method="post"   onsubmit="return validate_question();" >
+                                <div class="mod-t-outer">
+            <div class="mod-t1">Question<span title="This field is required." class="form-required">*</span></div>
+            <div class="mod-t2">
+               <input type="text" name="q_quest" class="mod-select" tabindex="1" id="q_quest" value="' . $quest->question . '" />
+            </div>
+            <div class="clr"></div>
+          </div>
+          <div class="mod-t-outer">
+            <div class="mod-t1">Context</div>
+            <div class="mod-t2">
+             <textarea   tabindex="2" class="mod-select" name="q_context" id="q_context" >' . $quest->context . '</textarea>
+            </div>
+            <div class="clr"></div>
+          </div>
+          <div class="mod-t-outer">
+            <div class="mod-t3">
+           
+
+';
+
+
+    $query = "SELECT * FROM {possible_answer} where qid='" . $qid . "' ";
+    $ans = ExecuteQuery($query, "select");
+    $i = 1;
+    $tab = 3;
+    $answer_count = 1;
+    foreach ($ans as $array) {
+
+        $output .= '
+               <div class="mod-t4">
+                <div class="mod-t1">Answer</div>
+             <div class="mod-t1">
+                  <input  tabindex="' . $tab++ . '" name="q_ans' . $i . '" type="text" id="q_ans' . $i . '" class="mod-select2" value="' . $array['answer'] . '" />&nbsp;<input type="hidden" name="aid' . $i . '" value="' . $array['paid'] . '">
+                </div>
+              </div>
+
+          ';
+        $i++;
+        /* META TAG OPTION GENERATION */
+
+        $row_count = 1;
+        $Spec_query1 = db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+        while ($Spec_result1 = db_fetch_object($Spec_query1)) {
+            $answer_id = $array['paid'];
+            $option = '';
+            $option.='<option  value="0">-</option>';
+            for ($spec_count = $Spec_result1->spec_min_range; $spec_count <= $Spec_result1->spec_max_range; $spec_count++) {
+                /* PRE SELECT OPTION VALUE */
+                $fetch_exist = db_result(db_query("select value from {possible_answer_spectrum} where qid='$qid' and possible_ans_id='$answer_id' and
+					political_spec_id='$Spec_result1->political_spec_id'"));
+                /* PRE SELECT OPTION VALUE */
+
+                $selected = '';
+                if ($fetch_exist == $spec_count)
+                    $selected = 'selected="selected"';
+
+                $option.='<option ' . $selected . ' value=' . $spec_count . '>' . $spec_count . '</option>';
+            }
+            $radio_output .=' <div class="mod-t5"><select style="width:50px" name="sel_' . $answer_id . '_' . $Spec_result1->political_spec_id . '_' . $row_count . '" id="sel_' . $answer_id . '_' . $row_count . '">' . $option . '</select>    </div>';
+            $row_count++;
+        }
+        $radio_output .= '     ';
+        /* META TAG OPTION GENERATION */
+    }
+    $output.=' <div class="clr"></div>
+          </div><div class="clr"></div>';
+    $output .= '<div class="mod-t-outer" id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div></small><br/>
+        </div>
+<div class="mod-t-outer">
+            <div class="mod-t1">&nbsp;</div>
+            <div class="mod-t5">
+	<input type="button" name="Add" class="mod-btn" tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="' . count($ans) . '">
+ </div>
+            <div class="clr"></div>
+          </div>
+
+';
+    $Spec_query = db_query("SELECT spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+    while ($Spec_result = db_fetch_object($Spec_query)) {
+        $output .='<td style="width:75px;">' . $Spec_result->spec_name . '</td>';
+    }
+    $output .= '</tr>';
+   // $output .= $radio_output . '
+	//	</table>
+	//</td></tr>
+	//<!--POSSIBLE META ANSWER-->';
+	$output.='<div class="mod-t-outer">
+            <div class="mod-t1">Categories</div>
+            <div class="mod-t5">
+  <select  tabindex="14" name="q_cat[]" id="q_cat"   class="mod-txtarea" onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
+        <option value="">Select Category</option>';
+    $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+    $ecat1 = explode(",", $quest->cid);
+    $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $qid . "' group by t.cat";
+    $result_cat = db_query($qry_cat);
+
+
+    while ($quest_cat = db_fetch_object($result_cat)) {
+        $cat[] = $quest_cat->cat;
+    }
+
+//   print_r($cat);
+
+    foreach ($cat as $key => $value) {
+        if ($value == 0) {
+            unset($cat[$key]);
+        }
+    }
+    $kk = array_keys($cat);
+
+    $c = $kk[0];
+
+    while ($list = db_fetch_object($client_select)) {
+        if ($list->cat_id == $cat[$c]) {//888
+            $sel = 'SELECTED';
+        } else {
+            $sel = '';
+        }
+        /* if (in_array($list->cat_id, $ecat1)) {
+          $sel = 'SELECTED="SELECTED"';
+          } else {
+          $sel = '';
+          } */
+        $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+
+        $cate_id .= $cat[$c] . ",";
+        $c++;
+    }
+    $pcate_id = trim($cate_id, ",");
+    /* <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2"   onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+      <option value="">Select Category</option>';
+      $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+      while ($list = db_fetch_object($client_select)) {
+      $output .= '<option value="'.$list->cat_id.'">'.stripslashes($list->cat_name).'</option>';
+
+      }
+
+      $output .= '</select> */
+    $output .= '</select>
+         </div>        <input type="hidden" id="cat1" name="cat1" value="' . $pcate_id . '">&nbsp;
+            <div class="mod-t5">
+
+        <div id="chg_scat"><select class="mod-txtarea"  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat"   size="5">
+        <option value="">Select Sub Category</option>';
+    $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $pcate_id . ")";
+    $client_select1 = db_query($cat_qry);
+    $ecat2 = explode(",", $quest->scid);
+
+
+    $result_subcat = db_query("SELECT t.scat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $qid . "' group by t.scat");
+    while ($quest_subcat = db_fetch_object($result_subcat)) {
+        $subcat[] = $quest_subcat->scat;
+    }
+
+    foreach ($subcat as $keys => $values) {
+        if ($values == 0) {
+            unset($subcat[$keys]);
+        }
+    }
+    $kk1 = array_keys($subcat);
+    $sc = $kk1[0];
+    //print_r($subcat);
+    while ($liste = db_fetch_object($client_select1)) {
+
+        /* if (in_array($list->cat_id, $ecat2)) {
+          $sel = 'SELECTED="SELECTED"';
+          } else {
+          $sel = '';
+          } */
+        // echo $subcat[$sc].'-'.strlen($subcat[$sc]).'</br>';
+        //echo $liste->cat_id.'-'.strlen($liste->cat_id).'</br>';
+        $subcat = trim($subcat[$sc]);
+        if ($liste->cat_id == $subcat[$sc]) {
+            $sele = 'SELECTED';
+        } else {
+            $sele = '';
+        }
+
+
+        $output .= '<option value="' . $liste->cat_id . '" ' . $sele . '>' . stripslashes($liste->cat_name) . '</option>';
+
+        $subcate_id .= $subcat[$sc] . ",";
+        $sc++;
+    }
+    $psubcate_id = trim($subcate_id, ",");
+
+    $output .= '</select></div></div>
+   <div class="mod-t5"><input type="hidden"  id="cat2" name="cat2" value="' . $psubcate_id . '">
+   <div id="chg_sscat"><select class="mod-txtarea"  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat"   size="5">
+   <option value="">Select Sub Sub Category</option>';
+    // if ($quest->scid != '') {//now here
+    $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $psubcate_id . ")";
+    $client_select2 = db_query($scat_qry);
+    $ecat3 = explode(",", $quest->sscid);
+
+    $result_ssubcat = db_query("SELECT t.sscat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $qid . "' group by t.scat");
+    while ($quest_ssubcat = db_fetch_object($result_ssubcat)) {
+        $ssubcat[] = $quest_ssubcat->sscat;
+    }
+
+    foreach ($ssubcat as $subkey => $subvalue) {
+        if ($subvalue == 0) {
+            unset($ssubcat[$subkey]);
+        }
+    }
+    $kk2 = array_keys($ssubcat);
+    //print_r($ssubcat);
+    $ssc = $kk2[0];
+    while ($listing = db_fetch_object($client_select2)) {
+
+        if ($listing->cat_id == $ssubcat[$ssc]) {
+
+            $sel_cat = 'SELECTED';
+        } else {
+            $sel_cat = '';
+        }
+        /* if (in_array($list->cat_id, $ecat3)) {
+          $sel = 'SELECTED="SELECTED"';
+          } else {
+          $sel = '';
+          } */
+        $output .= '<option value="' . $listing->cat_id . '" ' . $sel_cat . '>' . stripslashes($listing->cat_name) . '</option>';
+        $ssubcate_id .= $ssubcat[$ssc] . ",";
+        $ssc++;
+    }
+    $pssubcate_id = trim($ssubcate_id, ",");
+    // }
+    //<td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
+    //<td width="43%">&nbsp;<!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td>
+    $output .= '</select></div> </div><input type="hidden"  id="cat3" name="cat3" value="' . $pssubcate_id . '">
+        <div class="clr"></div>
+          </div>
+	 <div class="mod-t-outer">
+            <div class="mod-t1">Location</div>
+            <div class="mod-t5">
+<select name="q_country"  class="mod-txtarea" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select>
+    </div>
+	 <div class="mod-t5"><div id="chg_state">' . $ret . '</div>  </div>
+     <div class="mod-t5"><div id="chg_city">' . $ret_city . '</div> </div>
+                  <div class="clr"></div>
+          </div>
+';
+    $selmlist = "select * from qtag as a, tagging as b where a.qid='$qid' and a.tag_id=b.tid ";
+    $mysqlfet = db_query($selmlist);
+
+
+    //$output .= '<tr><td colspan="6">'.get_tagging_edit($qid).'</td></tr>';
+
+
+    $output .= ' <div class="mod-t3">
+            <div class="mod-t4">
+              <div class="mod-t1">&nbsp;</div>
+              <div class="mod-t5">
+    <input type="submit" name="update" class="mod-btn" tabindex="21" id="save" value="Update" />
+      </div>
+            </div>
+          </div><div class="clr"></div></div>
+</form>
+
+';
+    if (isAjax ())
+        echo $output;
+    else
+        return $output;
+}
