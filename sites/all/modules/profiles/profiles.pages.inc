@@ -879,6 +879,20 @@ function user_details() {
            </div>',
         '#attributes' => array('class' => 'input-nor'),
     );
+    $form['gender'] = array(
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => array('0' => 'Gender', 1 => 'Male', 2 => 'Female'),
+        '#description' => t(' '),
+        '#default_value' => variable_get('gender', ''),
+        '#id' => 'gender',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Gender</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
     $form['dob'] = array(
         '#type' => 'textfield',
         '#title' => t(''),
@@ -894,20 +908,6 @@ function user_details() {
         '#attributes' => array('class' => 'input-sma'),
     );
 
-    $form['gender'] = array(
-        '#type' => 'select',
-        '#title' => t(''),
-        '#options' => array('0' => 'Gender', 1 => 'Male', 2 => 'Female'),
-        '#description' => t(' '),
-        '#default_value' => variable_get('gender', ''),
-        '#id' => 'gender',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Gender</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
-    );
     $form['zip'] = array(
         '#type' => 'textfield',
         '#title' => t(''),
@@ -1079,11 +1079,12 @@ function get_privacy_form() {
     while ($meta = db_fetch_object($result)) {
         $col = $fields[] = $meta->name;
         $list = trim($fetch[0][$col]);
+        
+        $sel = db_result(db_query("SELECT $col FROM {privacy_settings} WHERE uid = '%d'",$user->uid));
 
-
-        $form[$col . '_privacy'] = array(
+        $form[$col.'_privacy'] = array(
             '#type' => 'radios',
-            '#default_value' => variable_get($list, 1),
+            '#default_value' => variable_get($sel, 1),
             '#options' => $options,
             '#suffix' => '<div class="clr"></div><br/>'
         );
@@ -1252,15 +1253,15 @@ function user_details_validate($form, &$form_state) {
             $form_state['rebuild'] = TRUE;
         }
     }
-    if (!empty($zip)) {
-        if (!preg_match('/^[0-9A-Za-z ]+?$/i', $zip)) {
-            form_set_error('zip', t('Zip Code should be Proper One & Proper Format Ex : 11010'));
-            $form_state['rebuild'] = TRUE;
-        } elseif (empty($state)) {
-            form_set_error('zip', t('Kindly Recheck your Zip Code, We find its invalid one! '));
-            $form_state['rebuild'] = TRUE;
-        }
-    }
+//    if (!empty($zip)) {
+//        if (!preg_match('/^[0-9A-Za-z ]+?$/i', $zip)) {
+//            form_set_error('zip', t('Zip Code should be Proper One & Proper Format Ex : 11010'));
+//            $form_state['rebuild'] = TRUE;
+//        } elseif (empty($state)) {
+//            form_set_error('zip', t('Kindly Recheck your Zip Code, We find its invalid one! '));
+//            $form_state['rebuild'] = TRUE;
+//        }
+//    }
 }
 
 function user_details_submit($form, &$form_state) {
@@ -1269,32 +1270,42 @@ function user_details_submit($form, &$form_state) {
     //prepopulate the settings
     foreach (element_children($form) as $child) {
         if ($form[$child]['#type'] == 'radios') {
-            $$child = $form_state['values'][$child];
+            $child = $form_state['values'][$child];
         }
     }
+$real_name_privacy = $form_state['values']['real_name_privacy'];
+$mail_privacy = $form_state['values']['mail_privacy'];
+$dob_privacy = $form_state['values']['dob_privacy'];
+$gender_privacy = $form_state['values']['gender_privacy'];
+$location_privacy = $form_state['values']['zip_privacy'];
+$religion_privacy = $form_state['values']['religion_privacy'];
+$ethnic_privacy = $form_state['values']['ethnic_privacy'];
+$slant_privacy = $form_state['values']['slant_privacy'];
+$sorient_privacy = $form_state['values']['sorient_privacy'];
+$edu_privacy = $form_state['values']['edu_privacy'];
+$bio_privacy = $form_state['values']['bio_privacy'];
+$activity_privacy = $form_state['values']['activity_privacy'];
 
 
-
-    // user profile details
+    // user profile details ///
     $age = age($form_state['values']['dob']);
 
     $query = "UPDATE {user_profile} set gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
     $result = db_query($query, $form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['edu'], $user->uid);
     //update username
-    db_query("update {users} set name='%s' where uid='%d'", $form_state['username']['values'], $user->uid);
+    db_query("update {users} set name='%s' where uid='%d'", $form_state['values']['username'], $user->uid);
    
     
-    // privacy values
-
+    // privacy values ///
     $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
     $chk1 = db_result($chk);
     if ($chk1) {
 
-        $query = "UPDATE {privacy_settings} set real_name='%d',email='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d'  where uid='%d' ";
+        $query = "UPDATE {privacy_settings} set real_name='%d',email='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d'  where uid='%d' ";
     } else {
-        $query = "INSERT INTO {privacy_settings} set real_name='%d',email='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d',uid='%d'";
+        $query = "INSERT INTO {privacy_settings} set real_name='%d',email='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d',uid='%d'";
     }
-    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $email_privacy, $dob_privacy, $user->uid);
+    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $dob_privacy, $user->uid);
     db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
 
 
