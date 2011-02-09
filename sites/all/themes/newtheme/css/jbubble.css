@@ -33,7 +33,7 @@
 	.jquerybubblepopup td{margin:0px;padding:0px;background-color:transparent;}
 	.jquerybubblepopup-top-left,    .jquerybubblepopup-top-right,
 	.jquerybubblepopup-bottom-left, .jquerybubblepopup-bottom-right{width:21px;height:21px;overflow:hidden;background-repeat:no-repeat;}
-	.jquerybubblepopup-top-left,    .jquerybubblepopup-top-right{height:21px;}
+	.jquerybubblepopup-top-left,    .jquerybubblepopup-top-right{height:18px;}
 	.jquerybubblepopup-top-middle,  .jquerybubblepopup-bottom-middle{overflow:hidden;background-repeat:repeat-x;}
 	.jquerybubblepopup-middle-left, .jquerybubblepopup-middle-right{overflow:hidden;background-repeat:repeat-y;}
 	.jquerybubblepopup-tail{border:0px;margin:0px;padding:0px;display:inline;}
@@ -81,6 +81,6 @@
 	.jquerybubblepopup-all-blue   .jquerybubblepopup-innerHtml{background-color:#0066CC;}
 	.jquerybubblepopup-all-green  .jquerybubblepopup-innerHtml{background-color:#66FF00;} 
 	.jquerybubblepopup-all-grey   .jquerybubblepopup-innerHtml{background-color:#666666;}
-	.jquerybubblepopup-all-orange .jquerybubblepopup-innerHtml{background-color:#FF9933;}
+	.jquerybubblepopup-all-orange .jquerybubblepopup-innerHtml{background-color:#FFFFFF;}
 	.jquerybubblepopup-all-violet .jquerybubblepopup-innerHtml{background-color:#FF33FF;} 
 	.jquerybubblepopup-all-yellow .jquerybubblepopup-innerHtml{background-color:#FFCC00;}
