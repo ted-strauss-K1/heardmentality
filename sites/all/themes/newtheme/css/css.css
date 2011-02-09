@@ -511,7 +511,8 @@ padding:0px;}*/
 .do-intop{ height:26px; background-color:#8f8f8f;padding:5px; font:16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
 .do-in .inside{ font: normal 12px/18px Arial, Helvetica, sans-serif; color:#000000; padding:5px 10px;}
 .do-in .inside select{ padding:2px; border:1px solid #8f8f8f;}
-.do-in .inside .link{ font-size:12px;}
+.do-in .inside .links{ font-size:12px;}
+.do-in .inside .row1{ width:auto;}
 .row1{ width:670px;}
 .lin1{width:50px; float:left; font-family:Arial, Helvetica, sans-serif;}
 .lin2{ width:70px; float:left; font-family:Arial, Helvetica, sans-serif; margin-left:5px;}
