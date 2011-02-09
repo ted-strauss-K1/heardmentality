@@ -24,7 +24,7 @@ function profiles_menu() {
 
     $items['google/map'] = array('title' => 'Facts', 'page callback' => 'google_map', 'access arguments' => array('Profile View'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc',);
     $items['tour/home'] = array('title' => 'Take a tour', 'page callback' => 'amber_tour', 'access arguments' => array('Profile View'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc',);
-    $items['update/profile'] = array('title' => 'Update Profile', 'page callback' => 'update_profile', 'access arguments' => array('Update Profile'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc');
+    $items['edit'] = array('title' => 'Update Profile', 'page callback' => 'update_profile', 'access arguments' => array('Update Profile'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc');
 
     return $items;
 }
@@ -947,12 +947,24 @@ function profiles_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
 
 function profiles_form_alter(&$form, $form_state, $form_id) {
     // Check for a particular content type's node form.
-
+    //echo $form_id;
     if ($form_id == 'profile_node_form') {
         // Add an after_build function to process when everything's complete.
         drupal_set_title(t('Editing your Profile in 3 steps!'));
 
         leghist_cck_alter($form);
+    }
+      if ($form_id == 'user_details') {
+        $output = '';
+          foreach (element_children($form) as $child) {
+        if ($form[$child]['#type'] == 'radios') {
+      //  print_r($form[$child]['#options']);
+          foreach(element_children($form[$child]) as $sub){
+             $form[$sub]['#options']['#attributes']=array('class'=>'form-wra-4');
+          }
+        }
+    }
+
     }
 }
 
@@ -1421,7 +1433,7 @@ var avtar=\'' . $account->avatar . '\';
                 '#prefix' => '<div class="form-bg-face-img"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-twit.jpg"></div><div class="form-bg-face">',
                 '#description' => t(' '),
                 '#default_value' => variable_get('twitter', $social[1]),
-                '#id' => 'face',
+                 '#id' => 'twitter',
                 '#suffix' => '</div>',
             );
             $form['fb_bot'] = array('#type' => 'markup',
@@ -1431,8 +1443,7 @@ var avtar=\'' . $account->avatar . '\';
                 '#title' => t(''),
                 '#description' => t(''),
                 '#default_value' => variable_get('myweb', $account->urls),
-                '#id' => 'username',
-                '#required' => 1,
+                '#id' => 'username'
             );
             $form = $form + follow_links_form($form_state, $user->uid);
             $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
@@ -1638,7 +1649,7 @@ function profiles_form_validate($form, &$form_state) {
             break;
         case '3':
             // follow links starts here
-            // echo '<pre>';
+           // echo '<pre>';
             // print_r($form_state);
             $links = $form_state['values']['follow_links'];
            //  print_r($links);die;
@@ -1719,7 +1730,7 @@ function profiles_form_submit($form, &$form_state) {
 
                     $query = "UPDATE {privacy_settings} set real_name='%d',email='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d'  where uid='%d' ";
                 } else {
-                    $query = "INSERT INTO {privacy_settings} set real_name='%d',email='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d',uid='%d'";
+                    $query = "INSERT INTO {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',email='%d',dob='%d',uid='%d'";
                 }
                 db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $email_privacy, $dob_privacy, $user->uid);
                 db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
@@ -1748,15 +1759,14 @@ function profiles_form_submit($form, &$form_state) {
                 }
 
                 // follow links starts here
-                $links = (object) $form_state['values']['follow_links'];
+                $links =$form_state['values']['follow_links'];
                //print_r($links);echo $user->uid;
                 foreach ($links as $name => $link) {
-                    // print_r($link);
+                  //  print_r($link);
                     $link = (object) $link;
                     $link->url = trim($link->url);
 
                     $link->uid = $user->uid;
-                    $link->name = $name;
 
                     follow_link_save($link);
                 }  // follow links ends here

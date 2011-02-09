@@ -386,15 +386,18 @@ function _follow_links_form_link($networks,$link, $title) {
      * *
      */
     //$networks = follow_networks_load(TRUE);
-
+//print_r($networks);
     //echo $title;
+
     $elements['name'] = array(
         '#type' => 'select',
         '#title' => t(''),
         '#options' => $networks,
         '#description' => t(''),
-        '#default_value' => array_search(variable_get('name', $title)),
+        '#default_value' => variable_get('name',''),
+        '#attributes'=>array('class'=>'socials-name')
     );
+    $elements['name']['#default_value']=array_search($title,$networks);
     if (isset($link->lid)) {
         $elements['lid'] = array(
             '#type' => 'hidden',
@@ -407,11 +410,12 @@ function _follow_links_form_link($networks,$link, $title) {
     }
     $elements['url'] = array(
         '#type' => 'textfield',
-        // '#size' => '15',
+         '#size' => '',
         // '#prefix' => '<div class="social-rite">',
         //  '#sufix' => '</div>',
         '#default_value' => isset($link->url) ? $link->url : '',
         '#element_validate' => array('follow_url_validate'),
+         '#attributes'=>array('class'=>'socials-val')
     );
 
     return $elements;
@@ -642,6 +646,7 @@ function follow_form_alter(&$form, $form_state, $form_id) {
 //print_r($form[$child]);
 // This, for other fields, is working:
                     $form[$child]['#size'] = '15';
+                    
                 }
 
                 unset($form['submit']); //die;

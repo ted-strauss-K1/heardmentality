@@ -821,7 +821,8 @@ function update_profile() {
 var spath=\'' . $gSitePath . '\';
 ';
     drupal_add_js($data, 'inline');
-        drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
+        drupal_add_js(drupal_get_path('module', 'profiles') . '/js/validate.js');
+                drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
     $update = '';
     $update .= drupal_get_form('user_details');
     return $update;
@@ -830,6 +831,7 @@ var spath=\'' . $gSitePath . '\';
 function user_details() {
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
     $details = load_user($user->uid);
+      $form['#attributes']['onsubmit'] = "return validate_reg();";
     $form['main_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-wrapper">');
     $form['right_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-rightside"><h3>SOCIAL  NETWORK SETTINGS</h3>');
     $form = $form + get_avatar_form();
@@ -1092,6 +1094,7 @@ function get_privacy_form() {
             '#type' => 'radios',
             '#default_value' => variable_get($col . '_privacy', $sel),
             '#options' => $options,
+          //  '#attributes'=>array('class'=>'form-wra'),
             '#suffix' => '<div class="clr"></div><br/>'
         );
         $form['div_down'] = array('#type' => 'markup', '#value' => '
@@ -1215,7 +1218,7 @@ var avtar=\'' . $account->avatar . '\';
                           <div class="social-rite-new">',
         '#description' => t(' '),
         '#default_value' => variable_get('twitter', $social[1]),
-        '#id' => 'face',
+        '#id' => 'twitter',
         '#suffix' => '</div>
                          </div>
 
@@ -1309,7 +1312,7 @@ function user_details_submit($form, &$form_state) {
     $chk1 = db_result($chk);
     if ($chk1) {
 
-        $query = "UPDATE {privacy_settings} set real_name='%d',email='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d'  where uid='%d' ";
+        $query = "UPDATE {privacy_settings} set real_name='%d',mail='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d'  where uid='%d' ";
     } else {
         $query = "INSERT INTO {privacy_settings} set real_name='%d',email='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d',uid='%d'";
     }
@@ -1317,7 +1320,7 @@ function user_details_submit($form, &$form_state) {
     db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
 
     // follow links starts here
-                $links = (object) $form_state['values']['follow_links'];
+                $links =$form_state['values']['follow_links'];
                 //  print_r($links);echo $user->uid;
                 foreach ($links as $name => $link) {
                     // print_r($link);
@@ -1325,8 +1328,8 @@ function user_details_submit($form, &$form_state) {
                     $link->url = trim($link->url);
 
                     $link->uid = $user->uid;
-                    $link->name = $name;
-
+                   // $link->name = $name;
+                   if(!empty($link->name)&&!empty($link->url))
                     follow_link_save($link);
                 }  // follow links ends here
 
@@ -1345,6 +1348,7 @@ function user_details_submit($form, &$form_state) {
     if (!empty($_SESSION['filepath'])) {
         $img_avt = '1';
     } else {
+          $img_avt = '2';
         $insimage = $form_state['values']['image'];
     }
 

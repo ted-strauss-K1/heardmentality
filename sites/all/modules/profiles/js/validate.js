@@ -3,7 +3,7 @@ function validate_reg()
     var err='';
     //alert("llll");
 
-    if (document.getElementById("rname").value=='')
+    if (jQuery('#username').val()=='')
     {
 
         err=err+"User name should not be  blank! ";
@@ -11,39 +11,29 @@ function validate_reg()
     }
 
     var ck_uname = /^[A-Za-z0-9_]{5,20}$/;
-    if(!jQuery('#rname').val().match(ck_uname)){
+    if(!jQuery('#username').val().match(ck_uname)){
 
         err=err+" Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed ";
         load_notify(err);
         return false;
     }
 
-    if (document.getElementById("fname").value=='')
+    if (jQuery('#name').val()=='')
     {
 	
-        err=err+"First Name should not be blank! ";
+        err=err+" Name should not be blank! ";
 	
-    }
-
-
-
-    if (document.getElementById("lname").value=='')
-    {
-	
-        err=err+" Last Name should not be blank!";
-        load_notify(err);
-        return false;
     }
 
     
-    if (document.getElementById("edit-mail").value=='')
+    if (jQuery('#email').val()=='')
     {
 	
         err=err+" Email Id must not blank! ";
 	
     }
 	
-    if (!(/^[a-z0-9\.\-\_]+\@[a-z0-9\.\-]+\.[a-z0-9]{2,4}$/.test(document.getElementById("edit-mail").value)))
+    if (!(/^[a-z0-9\.\-\_]+\@[a-z0-9\.\-]+\.[a-z0-9]{2,4}$/.test(jQuery('#email').val())))
     {
 	
         err=err+" Please Enter the Valid Email Id!";
@@ -51,10 +41,10 @@ function validate_reg()
         return false;
     }
 	
-    if (document.getElementById("dob").value!='')
+    if (jQuery('#year').val()!='')
     {
             
-        if(!(/^[0-9]{4}$/.test(document.getElementById("dob").value)))
+        if(!(/^[0-9]{4}$/.test(jQuery('#year').val())))
         {
 	
             err=err+" Date Of Birth must be valid format YYYY-[1986]! ";
@@ -63,19 +53,19 @@ function validate_reg()
         }
     }
 
-var zip=jQuery('#edit-zip').val();
+    var zip=jQuery('#location').val();
 
-if(zip.length>0){
-    var zstate=jQuery('input[name="state"]').val();
+    if(zip.length>0){
+        var zstate=jQuery('input[name="state"]').val();
   
-    if(jQuery.trim(zstate).length<1){
-       err=err+" Please re-check the zip code you have entered check space if needed  ";
-    load_notify(err);
-    return false;
-    }
+        if(jQuery.trim(zstate).length<1){
+            err=err+" Please re-check the zip code you have entered check space if needed  ";
+            load_notify(err);
+            return false;
+        }
        
-}
-
+    }
+    /*
 var pic=jQuery('input:radio[name=pic_avt]:checked').val();
 // if(pic==1&&jQuery('#edit-file-upload').val().length<2){
 //  err=err+"<li>Please upload Image for your profile or pick an avatar below! </li>";
@@ -87,40 +77,72 @@ if(pic==2&&jQuery("input[name=select_avatar]:checked").length<1){
 load_notify(err);
     return false;
 }
+    */
+    //social networks
 
-jQuery('div.social-rite input').each( function(){
-
-    var uid=jQuery(this).attr('id');
-    var url=jQuery(this).val();
     var patt= /^http:\/\/(www.)*([a-zA-Z0-9]*)*(.)*/;
-    if(url.length>0){
-        //edit-follow-links-facebook-url
-        var npt=uid.split('-');
-        var host1=npt[3];
+    var fb=jQuery('#face').val();
 
-        url.match(patt);
+    if(fb.length>0){
+        var host1='facebook';
+        fb.match(patt);
         var host2=RegExp.$2;
-        if(!patt.test(url)){
+        if(!patt.test(fb)){
             err=err+"<small> Please provide proper url format Ex: http://www."+host1+".com/username,  </small>";
         }else if(host1!=host2){
-             err=err+" <small> Please provide "+host1+" link for "+host1+" field,<small>  ";
-           
+            err=err+" <small> Please provide "+host1+" link for "+host1+" field,<small>  ";
+
         }
-           
     }
 
-} );
+    var twit=jQuery('#twitter').val();
 
-if(err.length>0){
-   // window.scrollTo(0,0);
-    // err=err.wrap('<ul></ul>');
-   // jQuery('#twitMsg',top.document).html(err);
-  //  jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-   load_notify(err);
-    return false;
-}
+    if(twit.length>0){
+        var host1='twitter';
+        twit.match(patt);
+        var host2=RegExp.$2;
+        if(!patt.test(twit)){
+            err=err+"<small> Please provide proper url format Ex: http://www."+host1+".com/username,  </small>";
+        }else if(host1!=host2){
+            err=err+" <small> Please provide "+host1+" link for "+host1+" field,<small>  ";
+
+        }
+    }
+
+    jQuery('select.socials-name').each( function(ind,el){
+
+       
+        var host1=jQuery(this).val();
+        //var ele=jQuery(this).nextAll('input:eq(0)');
+        var url=jQuery('.socials-val:eq('+ind+')').val();
+
+    
+        if(url.length>0){
+            //edit-follow-links-facebook-url
+
+            url.match(patt);
+            var host2=RegExp.$2;
+            if(!patt.test(url)){
+                err=err+"<small> Please provide proper url format Ex: http://www."+host1+".com/username,  </small>";
+            }else if(host1!=host2){
+                err=err+" <small> Please provide "+host1+" link for "+host1+" field,<small>  ";
+
+            }
+
+        } 
+
+    } );
+
+    if(err.length>0){
+        // window.scrollTo(0,0);
+        // err=err.wrap('<ul></ul>');
+        // jQuery('#twitMsg',top.document).html(err);
+        //  jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+        load_notify(err);
+        return false;
+    }
 	
-return true;
+    return true;
 }
 
 
@@ -201,11 +223,11 @@ function getFriends_callback(response) {
 
 }
 
- jQuery(document).ready(function(){
+jQuery(document).ready(function(){
 
-        if(jQuery('#err_div').html().length>2){
-            jQuery('#twitMsg',top.document).html(jQuery('#err_div').html());
-         jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-     }
+    if(jQuery('.messages').html().length>2){
+        jQuery('#twitMsg',top.document).html(jQuery('.messages').html());
+        jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+    }
 
-    });
+});
