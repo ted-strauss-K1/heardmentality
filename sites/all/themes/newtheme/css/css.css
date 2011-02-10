@@ -1186,6 +1186,7 @@ div.growlUI h1, div.growlUI h2 {
 .tab-historyspan5 a{ color:#996600;padding-left:30px;text-decoration:none}
 .tab-historyspan5 a:hover{ color:#996600;text-decoration:underline;}
 .hm-cen{ border:1px solid #ccc; padding:0px}
+.ques .hm-cen{ padding:5px;}
 .profile-right-inn3{ width:300px; float:left; padding-left:10px; font-size:11px;}
 .profielebox{ width:80px; border:1px solid #999999; padding:4px; font-size:12px;}
 .act-out{ width:330px; padding:3px; float:left; margin-top:5px;}
