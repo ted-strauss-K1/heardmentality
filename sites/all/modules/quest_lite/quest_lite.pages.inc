@@ -951,7 +951,7 @@ function qlite_save() {
             db_query($notify_insqry);
 
 
-            drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
+            drupal_set_message(t('Your vote has been registered'), $type = 'success');
             send_votenotify($mid);
 
             increasepoints('2', $mid, '0');
@@ -1014,7 +1014,7 @@ function qlite_save() {
         $vInsQuery = "update {possible_answer_vote} set qid='" . $mid . "',panswer_id='" . $poss_ans . "',vote_pdate=now() where vote_pid='" . $_REQUEST['vote_id'] . "' AND uid='" . $user->uid . "'";
 
         db_query($vInsQuery);
-        drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
+        drupal_set_message(t('Your vote has been updated'), $type = 'success');
         send_votenotify($mid);
     }
 
@@ -1025,7 +1025,7 @@ function qlite_save() {
         $vInsQuery = "update {possible_answer_vote} set qid='" . $mid . "',panswer_id='" . $_REQUEST['answer_a2'] . "',vote_pdate=now() where vote_pid='" . $_REQUEST['vote_id'] . "' AND uid='" . $user->uid . "'";
 
         db_query($vInsQuery);
-        drupal_set_message(t('Thank you,Your Answer has been changed successfully!'), $type = 'success');
+        drupal_set_message(t('Your vote has been updated'), $type = 'success');
         send_votenotify($mid);
     }
 
@@ -1094,7 +1094,7 @@ function qlite_save() {
             db_query($notify_insqry);
 
 
-            drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
+            drupal_set_message(t('Your vote has been registered'), $type = 'success');
             send_votenotify($mid);
 
             increasepoints('2', $mid, '0');
@@ -1581,9 +1581,9 @@ function flag_report() {
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['uid'], '0');
-                    echo 'You Have Flagged successfully ! ';
+                    echo 'Flagged';
                 } else {
-                    echo '<div class="red">You Have Already Flagged !</div>';
+                    echo '<div class="red">You have already Flagged this issue</div>';
                 }
             } else {
 
@@ -1603,9 +1603,9 @@ function flag_report() {
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['uid'], '0');
-                    echo '<div class="">You Have Flagged successfully ! </div>';
+                    echo '<div class="">Flagged </div>';
                 } else {
-                    echo '<div class="red">You Have Already Flagged !</div>';
+                    echo '<div class="red">You have already Flagged this issue</div>';
                 }
             } else {
 
@@ -1626,9 +1626,9 @@ function flag_report() {
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['uid'], '0');
-                    echo '<div class="">You Have Flagged successfully ! </div>';
+                    echo '<div class="">Flagged</div>';
                 } else {
-                    echo '<div class="red">You Have Already Flagged !</div>';
+                    echo '<div class="red">You have already Flagged this issue</div>';
                 }
             } else {
 
@@ -1649,9 +1649,9 @@ function flag_report() {
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['uid'], '0');
-                    echo '<div class="">You Have Flagged successfully ! </div>';
+                    echo '<div class="">Flagged</div>';
                 } else {
-                    echo '<div class="red">You Have Already Flagged !</div>';
+                    echo '<div class="red">You have already Flagged this issue</div>';
                 }
             } else {
 
@@ -1671,7 +1671,7 @@ function flag_report() {
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['qaid'], '0');
-                    echo '<div class="">You Have Flagged successfully ! </div>';
+                    echo '<div class="">Flagged</div>';
                     /* RAM HEARTBEAT MODULE FLAGGED A QUESTION */
                     $QID = $_REQUEST['qaid'];
                     $qid_url = db_query("select * from {question} where qid='$QID'");
@@ -1689,7 +1689,7 @@ function flag_report() {
                     heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
                     /* RAM HEARTBEAT MODULE FLAGGED A QUESTION */
                 } else {
-                    echo '<div class="red">You Have Already Flagged !</div>';
+                    echo '<div class="red">You have already Flagged this issue</div>';
                 }
             } else {
 
@@ -1852,7 +1852,7 @@ function suggest_answer() {
 	</div></form>';
     }
     if ($user->uid < 1) {
-        $ansoutput = '<div class="messages error"> Sorry Only Registered User Can Suggest Answer! </div>';
+        $ansoutput = '<div class="messages error"> Please log in to suggest an option </div>';
     }
 
     echo $ansoutput;
@@ -1874,7 +1874,7 @@ function suggest_answer_save() {
             //badges_user($uid,$last_id);
 
 
-            echo '<div class="messages success">Your Answer Posted Successfully ! </div>';
+            echo '<div class="messages success">Your option has been added</div>';
         }
     } else {
         echo '<div class="messages error">Sorry Error Occurs while voting! </div>';
@@ -2932,7 +2932,7 @@ function answer_vote() {
             }
         } else {
 
-            echo '<div class="messages error"> You Cannot Vote Your Answer! </div>';
+            echo '<div class="messages error"> Your vote for this option has already been noted </div>';
         }
     } else {
         echo '<div class="messages error"> Select Suggest Answer! </div>';

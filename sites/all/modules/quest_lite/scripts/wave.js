@@ -67,7 +67,7 @@ function wave_form(ths){
               wt.val('Title');
               wc.val('Enter text here');
               jQuery('form#newwaveform select').val('0');
-               err.html('Thank you, New Debate posted successfully!');
+               err.html('Your argument has been added');
                 err.delay(400).slideDown(400).delay(3000).slideUp(400);
 	fb.end();
 

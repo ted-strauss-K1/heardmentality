@@ -643,7 +643,7 @@ $filter_list.='</select>';
 
 </form>';
     } else {
-        $wave .= '<div align="center"><b>Sorry Only Logged in user can post debate</b></div>';
+        $wave .= '<div align="center"><b>Please log in to participate in the debate</b></div>';
     }
     $wave .= '</div>
 	<div><div id="qwave" class="">';
