@@ -519,7 +519,7 @@ function question_save() {
         }
 
         if ($result)
-            $output = drupal_set_message(t('Thank you, Question added successfully!'), $type = 'success');
+            $output = drupal_set_message(t('Your issue has been added to Heard Mentality'), $type = 'success');
         unset($_SESSION['post']);
         $_SESSION['post'] = '';
         // drupal_goto("question");
