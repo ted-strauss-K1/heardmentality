@@ -287,11 +287,11 @@ img{ border:none;}
 .black12{ font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#858585;}
 .black12 a{ font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#858585; text-decoration:none;}
 .black12 a:hover{ font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#858585; text-decoration:underline;}
-.page-n{ color:#cc9900; font-size:12px; font-family:Arial, Helvetica, sans-serif; text-align:center; border-top:1px solid #000; padding-top:10px;}
+/*.page-n{ color:#cc9900; font-size:12px; font-family:Arial, Helvetica, sans-serif; text-align:center; border-top:1px solid #000; padding-top:10px;}
 .page-n ul{ width:400px; padding-left:150px;}
 .page-n li{ float:left; list-style:none; padding-left:10px; padding-bottom:10px;}
 .page-n li a{color:#cc9900; text-decoration:none;}
-.page-n li a:hover{color:#000;text-decoration:none;}
+.page-n li a:hover{color:#000;text-decoration:none;}*/
 
 
 
@@ -558,11 +558,11 @@ padding:0px;}*/
 .black12{ font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#000;}
 .black12 a{ font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#858585; text-decoration:none;}
 .black12 a:hover{ font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#858585; text-decoration:underline;}
-.page-n{ color:#cc9900; font-size:12px; font-family:Arial, Helvetica, sans-serif; text-align:center; border-top:1px solid #000; padding-top:10px;}
+/*.page-n{ color:#cc9900; font-size:12px; font-family:Arial, Helvetica, sans-serif; text-align:center; border-top:1px solid #000; padding-top:10px;}
 .page-n ul{ width:400px; padding-left:150px;}
 .page-n li{ float:left; list-style:none; padding-left:10px; padding-bottom:10px;}
 .page-n li a{color:#cc9900; text-decoration:none;}
-.page-n li a:hover{color:#000;text-decoration:none;}
+.page-n li a:hover{color:#000;text-decoration:none;}*/
 
 .page-n2 {}
 .page-n2 ul{margin: auto; padding: 0px; width: 150px;}
@@ -581,7 +581,7 @@ padding:0px;}*/
 #qfilter{ height: 700px; overflow:auto; }
 .issuesearch3{border: 2px #888 solid; min-height:600px; height:auto !important; height:600px; width:337px; float:left; margin-left:10px; margin-right:10px;}
 .page-searchuser .result-item .rleft{height: 448px}
-.result-item{ width:100%; border-top:1px #000000 solid;}
+.result-item{ width:100%; border-top:1px #000000 solid; overflow:hidden;}
 /*.result-item :hover{ background-color:#ccc; }*/
 .result-item .rleft{ /*float:left; width:350px;*/}
 .result-item .rleft .titl{ font:normal 14px Arial, Helvetica, sans-serif; color:#996600; padding:5px 10px;}
