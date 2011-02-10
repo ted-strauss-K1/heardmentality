@@ -1701,7 +1701,7 @@ function debate_ajax() {
                     $result = db_query($forum, $nid, $list, $sup_opp[$i]);
                     $i++;
                 }
-                echo '<div class="messages success"> Resources Added Successfully! </div>';
+                echo '<div class="messages success"> Your reference has been added </div>';
             }
             break;
         case 'analysis':

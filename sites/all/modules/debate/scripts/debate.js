@@ -280,7 +280,7 @@ jQuery(document).ready(function() {
 
                 el.clearForm();
                 jQuery('#wavelet-list').css('height', 'auto');
-               jQuery('#twitMsg').html("Thank you, Have a nice day!");
+               jQuery('#twitMsg').html("Your reply has been noted");
                 jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
             //  el.find('input[type="submit"]').removeAttr('disabled');
             });
