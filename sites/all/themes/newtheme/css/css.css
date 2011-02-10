@@ -13,7 +13,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .logob{ background-image:url(../images/logoimg.png); width:80px; height:72px; display:inline-block;}
 .top-left-outer{ width:164px; float:left; margin-right:50px;}
 .loginvi-outer{  width:232px; float:right;  font:normal 9px Arial, Helvetica, sans-serif; color:#333;}
-.text-logo{ width:162px; height:48px; border:1px #f0f0f0 solid; color:#666666; font-size:14px; font-family:"Trajan Pro", Geneva, sans-serif; font-weight:bold; }
+.text-logo{ width:162px; height:48px; border:1px #f0f0f0 solid; color:#666666; font-size:14px; font-family:"Trajan Pro", Geneva, sans-serif; font-weight:bold;}
 .textspace{padding-top: 10px;}
 .date-time{ width:232px; font:normal 10px Arial,Helvetica,sans-serif; color:#000000;}
 .loginvi{ width:162px; height:auto; float:right; border:1px #f0f0f0 solid;}
@@ -63,7 +63,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:3px; padding:2px; overflow:auto; font:13px/20px Arial,Helvetica,sans-serif; color:#f9f6ef; background-color: #f9f6ef;}
 .innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/20px Arial,Helvetica,sans-serif; color:#996600;}
 .innerbox a{font-size:14px/21px; color:#aa7e29;}
-#sidebar-left .innerbox a{ font-size:13px; color:#996600;}
+#sidebar-left .innerbox a{ font-size:14px; color:#996600;}
 #sidebar-left .innerbox a:hover{ color:#cc9900;}
 /*cont-center*/
 .ques{ width:502px;float:left;padding:0px 0px 0px 10px;}
@@ -85,7 +85,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 
 .sitetour{ width:162px;  border-bottom:1px #cccccc solid;}
 .sitetour img:hover{ opacity:0.7;}
-.facttop{font:bold 16px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#666666; padding:3px;text-align:center;}
+.facttop{font:bold 16px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#777; padding:3px;text-align:center;}
 .facttop2{font:14px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
 .fact1{ width:65px; margin:7px; float:left;font:14px  Arial,Helvetica,sans-serif; color:#996600; text-align:center; }
 .factblu{ width:65px; margin:7px; float:left;font:14px Arial,Helvetica,sans-serif; color:#336699; text-align:center;}
@@ -94,7 +94,6 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .factmore a{font:14px/21px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
 .factmore a:hover{font:14px/21px Arial,Helvetica,sans-serif; color:#000; text-decoration:none;}
 .facttext2{ font:14px/21px Arial,Helvetica,sans-serif; color:#666666; padding:5px; }
-
 
 .welcome{ width:300px; float: right; font-family: Arial,Helvetica,sans-serif; font-size:11px; text-align:right;}
 .welcome a{font-family: Arial,Helvetica,sans-serif; font-size:11px; color:#CC6600; text-decoration:underline;}
@@ -135,9 +134,9 @@ img{ border:none;}
 
 .fa-item{ width:162px; padding:10px;}
 .fa-item ul{ padding:0px; margin:0px;}
-.fa-item ul li{ background:url(../images/menu-collapsed.png)  no-repeat 0px center; list-style-type:none; font:bold 14px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;padding-left:0px;}
-.fa-item ul li a{ font:normal 12px/20px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none; padding-left:13px;}
-.fa-item ul li a span {    display: inline-block;    width: 20px;}
+.fa-item ul li{ list-style-type:none; font:bold 14px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;padding-left:0px; text-align:right;}
+.fa-item ul li a{ font:normal 12px/20px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
+.fa-item ul li a span {    display: inline-block;    width: 20px; float:left; padding-left:50px;}
 .fa-item ul li a:hover{ color:#CC9900; text-decoration:none;}
 /*tag section*/
 .tag{ font:normal 9px Arial,Helvetica,sans-serif; color:#996600; padding-left:9px;}
@@ -523,7 +522,7 @@ padding:0px;}*/
 
 
 .commu-profile{ width:100%;float:left; border:1px #cccccc solid;  min-height:564px; height:auto !important ; height:564px;}
-.commutop-profile{  background-color:#666666;padding:5px; font:bold 16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
+.commutop-profile{  background-color:#777;padding:5px; font:bold 16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
 
 .profile-left{ width:177px; float:left;}
 .profile-right{ width:250px; float:left; padding-left:10px;}
