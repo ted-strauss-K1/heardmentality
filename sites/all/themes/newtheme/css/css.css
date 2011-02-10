@@ -579,9 +579,9 @@ padding:0px;}*/
 
 /*issue search3*/
 #qfilter{ height: 700px; overflow:auto; }
-.issuesearch3{border: 2px #888 solid; min-height:600px; height:auto !important; height:600px; width:337px; float:left; margin-left:10px; margin-right:10px;}
+.issuesearch3{border: 2px #888 solid; min-height:600px; height:auto !important; height:600px; width:317px; float:left; margin-left:10px; margin-right:10px; padding:0 10px;}
 .page-searchuser .result-item .rleft{height: 448px}
-.result-item{ width:100%; border-top:1px #000000 solid; overflow:hidden;}
+.result-item{ width:100%; border-bottom:1px #000000 solid; overflow:hidden;}
 /*.result-item :hover{ background-color:#ccc; }*/
 .result-item .rleft{ /*float:left; width:350px;*/}
 .result-item .rleft .titl{ font:normal 14px Arial, Helvetica, sans-serif; color:#996600; padding:5px 10px;}
