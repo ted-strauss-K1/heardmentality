@@ -1281,21 +1281,10 @@ function user_details_submit($form, &$form_state) {
     //prepopulate the settings
     foreach (element_children($form) as $child) {
         if ($form[$child]['#type'] == 'radios') {
-            $child = $form_state['values'][$child];
+            $$child = $form_state['values'][$child];
         }
     }
-    $real_name_privacy = $form_state['values']['real_name_privacy'];
-    $mail_privacy = $form_state['values']['mail_privacy'];
-    $dob_privacy = $form_state['values']['dob_privacy'];
-    $gender_privacy = $form_state['values']['gender_privacy'];
-    $location_privacy = $form_state['values']['zip_privacy'];
-    $religion_privacy = $form_state['values']['religion_privacy'];
-    $ethnic_privacy = $form_state['values']['ethnic_privacy'];
-    $slant_privacy = $form_state['values']['slant_privacy'];
-    $sorient_privacy = $form_state['values']['sorient_privacy'];
-    $edu_privacy = $form_state['values']['edu_privacy'];
-    $bio_privacy = $form_state['values']['bio_privacy'];
-    $activity_privacy = $form_state['values']['activity_privacy'];
+
 
 
     // user profile details ///
