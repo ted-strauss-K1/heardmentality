@@ -752,7 +752,7 @@ function welcome_page() {
             if (isset($_SESSION['filepath'])) {
                 echo '<script>window.top.location.href="' . $gSitePath . 'user/cropimage";</script>';
             }
-            $message.= '<div class="success">Profile Updated Successfully!</div>';
+            $message.= '<div class="success">Your profile has been updated</div>';
             if ($error_flag > 0) {
                 $message.= '<div class="error">Invalid web reference URL(s)</div>';
             }
