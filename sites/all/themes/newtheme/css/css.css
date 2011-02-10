@@ -578,8 +578,8 @@ padding:0px;}*/
 
 
 /*issue search3*/
-#qfilter{ height: 700px; overflow-y:scroll }
-.issuesearch3{border: 2px #666666 solid; min-height:600px; height:auto !important; height:600px; width:350px; float:left; margin-left:4px; margin-right:4px;}
+#qfilter{ height: 700px; overflow:auto; }
+.issuesearch3{border: 2px #888 solid; min-height:600px; height:auto !important; height:600px; width:350px; float:left; margin-left:4px; margin-right:4px;}
 .page-searchuser .result-item .rleft{height: 448px}
 .result-item{ width:100%; border-top:1px #000000 solid;}
 /*.result-item :hover{ background-color:#ccc; }*/
