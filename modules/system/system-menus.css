@@ -39,6 +39,9 @@ ul.links {
 ul.links.inline {
   display: inline;
 }
+ul.links.inline a{
+	font-size:12px;
+}
 ul.links li {
   display: inline;
   list-style-type: none;
