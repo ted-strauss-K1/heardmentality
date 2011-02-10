@@ -1464,6 +1464,7 @@ img{ border:none; outline:none;}
 #scrollingContent ul{ list-style-type:none;}
 #scrollingContent ul li a{ font-size:12px;}
 
+.following ul{padding-left:0.5em;}
 .following li {
   list-style-type: square;
   list-style-image: url(../images/menu-leaf.png);
