@@ -473,7 +473,7 @@ function search_follow() {
 
         db_query("insert into notification(uid,is_cat,node_id)values('" . $user->uid . "',1,'" . $cat_id . "')");
         db_query("insert into follower(uid,cat_id)values('" . $user->uid . "','" . $cat_id . "')");
-        $output = drupal_set_message(t('Category follows added successfully !'), $type = 'success');
+        $output = drupal_set_message(t('You are now following this sections'), $type = 'success');
         echo '<script>window.parent.location.href="' . $gSitePath . 'category/";</script>';
     } else {
         $output = drupal_set_message(t('Category follows already added !'), $type = 'success');
