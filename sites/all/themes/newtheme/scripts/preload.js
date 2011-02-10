@@ -42,11 +42,14 @@ jQuery(function() {
 		}
 	};
 
-	// Init autosuggest
+      if(typeof bsn != "undefined") {
+      // Init autosuggest
 	var as_json = new bsn.AutoSuggest('txt_search', options);
-
-	// Display a little watermak
+      // Display a little watermak
 	jQuery("#txt_search").Watermark("");
+      }
+
+	
 
 
 });
@@ -155,6 +158,12 @@ function reset_tabs(){
 
                             jQuery("#loading").ajaxStop(function () {
 
+                            //pcp var sets on pcp theme module
+                         if(typeof pcp!="undefined" && typeof prompt!='undefined' )
+                             {if(pcp<90&&prompt==1){
+                              loadeditquestion(gSitePath+'profile/edit/1','Edit Profile ');
+
+                             }   }
                                 jQuery(this).fadeOut();
                                 fb.activateElements();
                             });

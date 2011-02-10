@@ -329,7 +329,7 @@ function update_avatar(){
 
 function chk_avatar(){
 
-    if(avtar.length>2){
+    if(typeof avatar!="undefined" && avtar.length>2){
 
                 
         jQuery("#avatar-profile-ele img[src*='"+avtar+"']").addClass("avatar-select").prev("input radio").attr("checked",true);

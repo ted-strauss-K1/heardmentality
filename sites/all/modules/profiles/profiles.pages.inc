@@ -816,13 +816,13 @@ function amber_tour() {
 function update_profile() {
 
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
-        $data = '
+    $data = '
 
 var spath=\'' . $gSitePath . '\';
 ';
     drupal_add_js($data, 'inline');
-        drupal_add_js(drupal_get_path('module', 'profiles') . '/js/validate.js');
-                drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
+    drupal_add_js(drupal_get_path('module', 'profiles') . '/js/validate.js');
+    drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
     $update = '';
     $update .= drupal_get_form('user_details');
     return $update;
@@ -831,7 +831,7 @@ var spath=\'' . $gSitePath . '\';
 function user_details() {
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
     $details = load_user($user->uid);
-      $form['#attributes']['onsubmit'] = "return validate_reg();";
+    $form['#attributes']['onsubmit'] = "return validate_reg();";
     $form['main_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-wrapper">');
     $form['right_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-rightside"><h3>SOCIAL  NETWORK SETTINGS</h3>');
     $form = $form + get_avatar_form();
@@ -841,8 +841,8 @@ function user_details() {
     $form['left_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-leftside-forms">
                           <h3>PERSONAL INFO AND DEMOGRAPHICS</h3>
                           <div class="form-wra">
-                          &nbsp;<br />&nbsp;&nbsp;
-                          <div class="clr"></div>');
+                          &nbsp;
+                          <div class="clr"></div> </div>');
     $form['username'] = array(
         '#type' => 'textfield',
         '#title' => t(''),
@@ -928,7 +928,7 @@ function user_details() {
         '#suffix' => '</div>
            <div class="clr"></div>
            </div>',
-        '#attributes' => array('class' => 'input-nor','onblur' => 'get_zip_city(this.value);')
+        '#attributes' => array('class' => 'input-nor', 'onblur' => 'get_zip_city(this.value);')
     );
     $form['country'] = array(
         '#type' => 'hidden',
@@ -1094,8 +1094,9 @@ function get_privacy_form() {
             '#type' => 'radios',
             '#default_value' => variable_get($col . '_privacy', $sel),
             '#options' => $options,
-          //  '#attributes'=>array('class'=>'form-wra'),
-            '#suffix' => '<div class="clr"></div><br/>'
+            // '#attributes'=>array('class'=>'form-wra'),
+            '#prefix' => '<div class="form-wra">',
+            '#suffix' => '<div class="clr"></div></div>'
         );
         $form['div_down'] = array('#type' => 'markup', '#value' => '
           <div class="clr"></div>
@@ -1106,6 +1107,8 @@ function get_privacy_form() {
         '#type' => 'radios',
         '#default_value' => variable_get('activity_privacy', $fetch[0]['question_privacy']),
         '#options' => $options,
+        '#prefix' => '<div class="form-wra">',
+        '#suffix' => '<div class="clr"></div></div>',
         '#suffix' => '<div class="clr"></div>'
     );
     $form['mid_div'] = array('#type' => 'markup', '#value' => '
@@ -1265,89 +1268,24 @@ function user_details_validate($form, &$form_state) {
         }
     }
     if (!empty($zip)) {
-                if (!preg_match('/^[0-9A-Za-z ]+?$/i', $zip)) {
-                    form_set_error('zip', t('Zip Code should be Proper One & Proper Format Ex : 11010'));
-                    $form_state['rebuild'] = TRUE;
-                } elseif (empty($state)) {
-                    form_set_error('zip', t('Kindly Recheck your Zip Code, We find its invalid one! '));
-                    $form_state['rebuild'] = TRUE;
-                }
-            }
+        if (!preg_match('/^[0-9A-Za-z ]+?$/i', $zip)) {
+            form_set_error('zip', t('Zip Code should be Proper One & Proper Format Ex : 11010'));
+            $form_state['rebuild'] = TRUE;
+        } elseif (empty($state)) {
+            form_set_error('zip', t('Kindly Recheck your Zip Code, We find its invalid one! '));
+            $form_state['rebuild'] = TRUE;
+        }
+    }
 }
 
 function user_details_submit($form, &$form_state) {
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
-    $step = $form_state['values']['step'];
-    //prepopulate the settings
-    foreach (element_children($form) as $child) {
-        if ($form[$child]['#type'] == 'radios') {
-            $$child = $form_state['values'][$child];
-        }
-    }
 
-
-
-    // user profile details ///
-    $age = age($form_state['values']['dob']);
-
-    $query = "UPDATE {user_profile} set gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
-    $result = db_query($query, $form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['edu'], $user->uid);
-    //update username
-    db_query("update {users} set name='%s' where uid='%d'", $form_state['values']['username'], $user->uid);
-
-
-    // privacy values ///
-    $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
-    $chk1 = db_result($chk);
-    if ($chk1) {
-
-        $query = "UPDATE {privacy_settings} set real_name='%d',mail='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d'  where uid='%d' ";
-    } else {
-        $query = "INSERT INTO {privacy_settings} set real_name='%d',email='%d',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d',uid='%d'";
-    }
-    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $location_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $dob_privacy, $user->uid);
-    db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
-
-    // follow links starts here
-                $links =$form_state['values']['follow_links'];
-                //  print_r($links);echo $user->uid;
-                foreach ($links as $name => $link) {
-                    // print_r($link);
-                    $link = (object) $link;
-                    $link->url = trim($link->url);
-
-                    $link->uid = $user->uid;
-                   // $link->name = $name;
-                   if(!empty($link->name)&&!empty($link->url))
-                    follow_link_save($link);
-                }  // follow links ends here
-
-
-    // avatar image
-    //echo '<pre>';
-    // print_r($form_state);
-    //file handler
-    $return = event_photo_profile();
-    //print_r($return);
-    $insimage = $return['image'];
-    $flag = $return['flag'];
-    $suc = $return['suc'];
-    //file handler ends
-
-    if (!empty($_SESSION['filepath'])) {
-        $img_avt = '1';
-    } else {
-          $img_avt = '2';
-        $insimage = $form_state['values']['image'];
-    }
-
-    if (!empty($form_state['values']['facebook']) || !empty($form_state['values']['twitter']))
-        $social = $form_state['values']['facebook'] . '||' . $form_state['values']['twitter'];
-
-    $query = "UPDATE {user_profile} set image_avatar='%s',image='%s',avatar='%s',social='%s',urls='%s'  where uid='%d' ";
-    $result = db_query($query, $form_state['values']['img_avt'], $insimage, $form_state['values']['select_avatar'], $social, $form_state['values']['myweb'], $user->uid);
-    //notify type
-    db_query("update {users} set notify_etype='%d' where uid='%d'", $form_state['values']['notify'], $user->uid);
-
+    //profile fields update
+    _basic_submit($form, $form_state);
+    //privacy update
+    _privacy_submit($form, $form_state);
+    //avatar update
+    _avatar_submit($form, $form_state);
     drupal_set_message(t('Your form has been saved.', 'success'));
 }

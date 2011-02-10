@@ -493,10 +493,10 @@ function pcp_theme() {
 function theme_pcp_profile_percent_complete($complete_data) {
      global $gSitePath, $user, $gDocPath, $base_root;
     $nextpath='javascript:void(0);';
-    
+    $account=load_user($user->uid);
     $output .= '
         <div class="debate-cor-inner-percent">
-                        	<div class="debate-cor-inner-percent-left">
+                        	<div class="debate-cor-inner-percent-left"><script>var pcp=\''. $complete_data['percent'].'\';var prompt=\''.$account->prompt.'\';</script>
                             	'.t('!complete% Complete', array('!complete' => $complete_data['percent'])).'
                             </div>
 

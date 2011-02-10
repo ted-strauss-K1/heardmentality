@@ -1292,21 +1292,22 @@ var spath=\'' . $gSitePath . '\';
                         elseif ($list == 2)
                             $list = 'Female';
                         break;
-                        case 'edu':
-                            if(empty($list))
-                    $list=$meta->title;
-                            
-                            break;
+                    case 'edu':
+                        if (empty($list))
+                            $list = $meta->title;
+
+                        break;
                 }
-                  
+
                 if (!empty($list)) {
-                       $sel = db_result(db_query("SELECT $col FROM {privacy_settings} WHERE uid = '%d'", $user->uid));
+                    $sel = db_result(db_query("SELECT $col FROM {privacy_settings} WHERE uid = '%d'", $user->uid));
                     $form[$col . '_privacy'] = array(
                         '#type' => 'radios',
                         '#title' => t($list),
-                        '#default_value' => variable_get($col . '_privacy',$sel ),
+                        '#default_value' => variable_get($col . '_privacy', $sel),
                         '#options' => $options,
-                        '#suffix' => '<div class="clr"></div><br/>'
+                        '#prefix' => '<div class="form-bg"><div class="pro-radio-outer">',
+                        '#suffix' => ' <div class="clr"></div></div><div class="clr"></div> </div>',
                     );
                     $form['div_down'] = array('#type' => 'markup', '#value' => '
           <div class="clr"></div>
@@ -1318,7 +1319,8 @@ var spath=\'' . $gSitePath . '\';
                 '#title' => t('My User Activity'),
                 '#default_value' => variable_get('activity_privacy', $fetch[0]['question_privacy']),
                 '#options' => $options,
-                '#suffix' => '<div class="clr"></div>'
+                '#prefix' => '<div class="form-bg"><div class="pro-radio-outer">',
+                '#suffix' => ' <div class="clr"></div></div><div class="clr"></div> </div>',
             );
             $form['mid_div'] = array('#type' => 'markup', '#value' => '
           <div class="clr"></div>
@@ -1447,7 +1449,9 @@ var avtar=\'' . $account->avatar . '\';
                 '#title' => t(''),
                 '#description' => t(''),
                 '#default_value' => variable_get('myweb', $account->urls),
-                '#id' => 'username'
+                '#id' => 'username',
+                  '#prefix' => '<div class="form-bg"><div class="pro-radio-outer">',
+                        '#suffix' => ' <div class="clr"></div></div><div class="clr"></div> </div>',
             );
             $form = $form + follow_links_form($form_state, $user->uid);
             $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
@@ -1497,6 +1501,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#default_value' => variable_get('username', ''),
                 '#id' => 'username',
                 '#required' => 1,
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['fname'] = array(
                 '#type' => 'textfield',
@@ -1505,6 +1511,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(' '),
                 '#default_value' => variable_get('fname', ''),
                 '#id' => 'name',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['email'] = array(
                 '#type' => 'textfield',
@@ -1514,6 +1522,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#default_value' => variable_get('email', ''),
                 '#id' => 'email',
                 '#required' => 1,
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['dob'] = array(
                 '#type' => 'textfield',
@@ -1522,6 +1532,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(' '),
                 '#default_value' => variable_get('dob', ''),
                 '#id' => 'year',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
 
             $form['gender'] = array(
@@ -1531,6 +1543,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(' '),
                 '#default_value' => variable_get('gender', ''),
                 '#id' => 'gender',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['zip'] = array(
                 '#type' => 'textfield',
@@ -1539,6 +1553,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(''),
                 '#default_value' => variable_get('zip', ''),
                 '#id' => 'location',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>',
                 '#attributes' => array('onblur' => 'get_zip_city(this.value);')
             );
             $form['country'] = array(
@@ -1564,6 +1580,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(' '),
                 '#default_value' => variable_get('religion', ''),
                 '#id' => 'religion',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['ethnic'] = array(
                 '#type' => 'select',
@@ -1572,6 +1590,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(' '),
                 '#default_value' => variable_get('ethinicity', ''),
                 '#id' => 'ethnicity',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['education'] = array(
                 '#type' => 'select',
@@ -1580,6 +1600,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(' '),
                 '#default_value' => variable_get('education', ''),
                 '#id' => 'education',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['sorient'] = array(
                 '#type' => 'select',
@@ -1588,6 +1610,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#default_value' => variable_get('sorient', ''),
                 '#description' => t(' '),
                 '#id' => 'sex',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['slant'] = array(
                 '#type' => 'select',
@@ -1596,6 +1620,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(' '),
                 '#default_value' => variable_get('slant', ''),
                 '#id' => 'slant',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['bio'] = array(
                 '#type' => 'textarea',
@@ -1606,6 +1632,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(''),
                 '#default_value' => variable_get('bio', ''),
                 '#id' => 'bio',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
             );
             $form['top_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
       </div>
@@ -1915,7 +1943,7 @@ function age($date) {
 
 function _avatar_submit($form, &$form_state) {
 
- global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root;
     //echo '<pre>';
     // print_r($form_state);
     //file handler
@@ -1960,7 +1988,7 @@ function _avatar_submit($form, &$form_state) {
 
 function _privacy_submit($form, &$form_state) {
 
- global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root;
     //prepopulate the settings
     foreach (element_children($form) as $child) {
         if ($form[$child]['#type'] == 'radios') {
@@ -1976,22 +2004,21 @@ function _privacy_submit($form, &$form_state) {
         $query = "INSERT INTO {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d',uid='%d'";
     }
 
-    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy,$dob_privacy, $user->uid);
+    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $dob_privacy, $user->uid);
     db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
     drupal_set_message(t('Your form has been saved.', 'success'));
     return true;
 }
 
-
 function _basic_submit($form, &$form_state) {
 
- global $gSitePath, $user, $gDocPath, $base_root;
-             $age = age($form_state['values']['dob']);
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $age = age($form_state['values']['dob']);
 
-            $query = "UPDATE {user_profile} set gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
-            $result = db_query($query, $form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['edu'], $user->uid);
-            //update username
-            db_query("update {users} set name='%s' where uid='%d'", $form_state['username']['values'], $user->uid);
-            drupal_set_message(t('Your form has been saved.', 'success'));
+    $query = "UPDATE {user_profile} set gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
+    $result = db_query($query, $form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['edu'], $user->uid);
+    //update username
+    db_query("update {users} set name='%s' where uid='%d'", $form_state['values']['username'], $user->uid);
+    drupal_set_message(t('Your form has been saved.', 'success'));
     return true;
 }

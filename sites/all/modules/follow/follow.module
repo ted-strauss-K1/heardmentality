@@ -350,19 +350,19 @@ function follow_links_form(&$form_state, $uid = 0) {
         foreach ($links as $name => $link) {
             $title = $networks[$name];
 
-            $form['follow_links'][$name] = _follow_links_form_link($networks,$link, $title);
+            $form['follow_links'][$name] = _follow_links_form_link($networks, $link, $title);
             // Unset this specific network so we don't add the same one again below.
             unset($networks[$name]);
         }
     }
     // Now add all the empty ones.
-    $limit=0;
+    $limit = 0;
     foreach ($networks as $name => $title) {
         $link = new stdClass();
-        $form['follow_links'][$name] = _follow_links_form_link($networks,$link, $title);
-         unset($networks[$name]);
+        $form['follow_links'][$name] = _follow_links_form_link($networks, $link, $title);
+        unset($networks[$name]);
         $limit++;
-        if($limit==2)
+        if ($limit == 2)
             break;
     }
 
@@ -374,7 +374,7 @@ function follow_links_form(&$form_state, $uid = 0) {
 /**
  * Helper function to create an individual link form element.
  */
-function _follow_links_form_link($networks,$link, $title) {
+function _follow_links_form_link($networks, $link, $title) {
     $elements = array();
 
     /*   $elements['name'] = array(
@@ -394,10 +394,12 @@ function _follow_links_form_link($networks,$link, $title) {
         '#title' => t(''),
         '#options' => $networks,
         '#description' => t(''),
-        '#default_value' => variable_get('name',''),
-        '#attributes'=>array('class'=>'socials-name')
+        '#default_value' => variable_get('name', ''),
+        '#attributes' => array('class' => 'socials-name'),
+        '#prefix' => '<div class="form-bg">',
+        '#suffix' => ' <div class="clr"></div> </div>',
     );
-    $elements['name']['#default_value']=array_search($title,$networks);
+    $elements['name']['#default_value'] = array_search($title, $networks);
     if (isset($link->lid)) {
         $elements['lid'] = array(
             '#type' => 'hidden',
@@ -410,12 +412,14 @@ function _follow_links_form_link($networks,$link, $title) {
     }
     $elements['url'] = array(
         '#type' => 'textfield',
-         '#size' => '',
+        '#size' => '',
         // '#prefix' => '<div class="social-rite">',
         //  '#sufix' => '</div>',
         '#default_value' => isset($link->url) ? $link->url : '',
         '#element_validate' => array('follow_url_validate'),
-         '#attributes'=>array('class'=>'socials-val')
+        '#attributes' => array('class' => 'socials-val'),
+        '#prefix' => '<div class="form-bg">',
+        '#suffix' => '<div class="clr"></div> </div>',
     );
 
     return $elements;
@@ -610,10 +614,10 @@ function follow_networks_load($reset = FALSE) {
  */
 function follow_follow_networks() {
     return array(
-      //  'facebook' => t('Facebook'),
+        //  'facebook' => t('Facebook'),
         'virb' => t('Virb'),
         'myspace' => t('MySpace'),
-      //  'twitter' => t('Twitter'),
+        //  'twitter' => t('Twitter'),
         'picasa' => t('Picasa'),
         'flickr' => t('Flickr'),
         'youtube' => t('YouTube'),
@@ -646,7 +650,6 @@ function follow_form_alter(&$form, $form_state, $form_id) {
 //print_r($form[$child]);
 // This, for other fields, is working:
                     $form[$child]['#size'] = '15';
-                    
                 }
 
                 unset($form['submit']); //die;
