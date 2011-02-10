@@ -1193,6 +1193,7 @@ div.growlUI h1, div.growlUI h2 {
 .act-text{ width:265px; float:left; padding-left:10px; font-size:11px}
 .blue11{ font-family:Arial, Helvetica, sans-serif; color:#06F; font-size:11px;}
 .commu3{ width:360px;float:left; border:1px #cccccc solid;}
+#sidebar-left .commu3{ border:0; width:335px;}
 .commuinn3{ height:500px; overflow:scroll; width:355px}
 .commutop3{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
 .commutop3 select{width:150px; font-size:11px; font-family:Arial, Helvetica, sans-serif; font-weight:normal; padding:2px;}
@@ -1466,6 +1467,7 @@ img{ border:none; outline:none;}
 .following li {
   list-style-type: square;
   list-style-image: url(../images/menu-leaf.png);
-  padding: 0.2em 0.5em 0 0.5em; /* LTR */
+  padding:0.2em 0.5em 0 0.5em; /* LTR */
   margin: 0;
 }
+
