@@ -643,7 +643,7 @@ padding:0px;}*/
 
 /* for user search page */
 
-.user_search_3{border: 2px #888 solid; min-height:509px; height:auto !important; height:545px; width:350px; float:left; margin-left:4px; margin-right:4px;}
+.user_search_3{border: 2px #888 solid; min-height:509px; height:auto !important; height:545px; width:337px; float:left; margin-left:10px; margin-right:10px;}
 
 .prof-item1{ background:#f8f5ed; padding:10px 10px;}
 .prof-item1 .lefimg{ float: left; width:58px;}
@@ -1463,4 +1463,9 @@ img{ border:none; outline:none;}
 #scrollingContent ul{ list-style-type:none;}
 #scrollingContent ul li a{ font-size:12px;}
 
-
+.following li {
+  list-style-type: square;
+  list-style-image: url(../images/menu-leaf.png);
+  padding: 0.2em 0.5em 0 0; /* LTR */
+  margin: 0;
+}
