@@ -582,6 +582,7 @@ padding:0px;}*/
 .issuesearch3{border: 2px #777 solid; min-height:600px; height:auto !important; height:600px; width:327px; float:left; margin-left:10px; margin-right:10px; padding-left:10px;}
 .page-searchuser .result-item .rleft{height: 448px}
 .result-item{ width:300px; border-bottom:1px #777 solid; overflow:hidden;}
+#ufilter .result-item{ width:317px;}
 /*.result-item :hover{ background-color:#ccc; }*/
 .result-item .rleft{ /*float:left; width:350px;*/}
 .result-item .rleft .titl{ font:normal 14px Arial, Helvetica, sans-serif; color:#996600; padding:5px 10px;}
@@ -674,10 +675,10 @@ padding:0px;}*/
 .p-foll-c{ width:152px; float:left;margin-right:0px; padding-top:0px; margin-left:10px;}
 .p-foll-c img{ border:1px #9e9ea1 solid; margin:0px}
 
-.prof-it-1{ border:1px #666666 solid; width:170px; margin-left:1px; float: left; margin:3px 1px 3px 1px;}
+.prof-it-1{ border:1px #666666 solid; width:153px; margin-left:1px; float: left; margin:3px 1px 3px 1px;}
 .prof-it-1 .lefimg-it-c{ float: left; width:58px;}
 .prof-it-1 .lefimg-it-c img{ float:left;}
-.prof-it-1 .ritecont-it-c{ float:left; width:98px; margin-left:10px; height:52px;}
+.prof-it-1 .ritecont-it-c{ float:left; width:85px; margin-left:10px; height:52px;}
 .prof-it-1 .ritecont-it-c ul{}
 .prof-it-1 .ritecont-it-c li{ float:left; list-style:none; font: normal 12px Arial, Helvetica, sans-serif; color:#666666; text-decoration:none;}
 .prof-it-1 .ritecont-it-c li span{ font:normal 12px Arial, Helvetica, sans-serif; color:#000;}
