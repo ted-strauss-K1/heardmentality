@@ -587,7 +587,7 @@ padding:0px;}*/
 .result-item .rleft .titl{ font:normal 14px Arial, Helvetica, sans-serif; color:#996600; padding:5px 10px;}
 .result-item .rleft .titl a{ font:normal 14px/28px Arial, Helvetica, sans-serif; color:#996600; text-decoration:none;}
 .result-item .rleft .titl a:hover{ color:#336699;text-decoration:none;}
-.result-item .rleft .item1{ font: normal 12px Arial, Helvetica, sans-serif; color:#000000; padding:0 0 5px 10px;}
+.result-item .rleft .item1{ font: normal 12px Arial, Helvetica, sans-serif; color:#000000; padding:0 0 0 10px;}
 .result-item .rright{ font: normal 11px Arial, Helvetica, sans-serif; color:#000000; float:right;}
 .result-item .rright .vote-post-outer{ width:200px; float:right; margin:5px 0 5px 0;}
 .result-item .rright .vote-post-outer-top{ width:200px; }
