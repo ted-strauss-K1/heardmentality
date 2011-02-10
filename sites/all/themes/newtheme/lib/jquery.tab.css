@@ -25,8 +25,6 @@ UL.mytabs LI A {
 UL.mytabs LI A:HOVER, UL.mytabs LI.current A {
     background: #fff;
     color: #af883c;
-
-
 }
 UL.mytabs LI.current A {
 
@@ -47,9 +45,6 @@ UL.mytabs LI.current A {
     color:#333333;
     font-family: Arial, Helvetica, sans-serif;
     font-size:12px; background-image:url(bg-y.jpg); background-position:bottom;background-repeat: repeat-x;
-    min-height: 370px;
-
-
 }
 
 
@@ -136,5 +131,5 @@ UL.subtabs LI.current A {
 
 
 
-#tabcontent .mytabs-container{height:auto; overflow: auto; }
+#tabcontent .mytabs-container{height:262px; overflow: auto; }
 .mytabs-container .mytabs-container{ border: 0px none;}
