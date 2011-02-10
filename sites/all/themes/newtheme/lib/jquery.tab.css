@@ -131,4 +131,5 @@ UL.subtabs LI.current A {
 
 
 
-.mytabs-container .mytabs-container{ border: 0px none;}
+
+.mytabs-container .mytabs-container{ border: 0px none; height:auto;}
