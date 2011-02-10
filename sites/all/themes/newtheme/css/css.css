@@ -1015,7 +1015,7 @@ div.growlUI h1, div.growlUI h2 {
 
 /* Debate -summary*/
 
-.debate-summary-wrapper{ width:470px; margin:0 auto; margin-bottom:7px; border:1px #858584 solid; background:#fefbf8; min-height:100px; height:auto !important; height:100px; padding:5px;}
+.debate-summary-wrapper{ width:458px; margin:0 auto; margin-bottom:7px; border:1px #858584 solid; background:#fefbf8; min-height:100px; height:auto !important; height:100px; padding:5px;}
 
 
 .debate-summary-wrapper .leftpartside{ min-width:50px; float:left; margin-right:5px;}

@@ -136,5 +136,5 @@ UL.subtabs LI.current A {
 
 
 
-#tabcontent .mytabs-container{height:auto; overflow: scroll ; }
+#tabcontent .mytabs-container{height:auto; overflow: auto; }
 .mytabs-container .mytabs-container{ border: 0px none;}
