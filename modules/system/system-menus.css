@@ -41,11 +41,11 @@ ul.links.inline {
 }
 ul.links.inline a{
 	font-size:12px;
+	font-weight:bold;
 }
 ul.links li {
   display: inline;
   list-style-type: none;
-  padding: 0 0.5em;
 }
 .block ul {
   margin: 0;
