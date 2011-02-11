@@ -225,8 +225,8 @@ function qlite_view() {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
             $valu = $answprc * 100;
             $voutput .= '
-		 <input name="answer" type="radio" value="' . $vlistquest->paid . '" />
-		' . $vlistquest->answer . '  ';
+		<p> <input name="answer" type="radio" value="' . $vlistquest->paid . '" />
+		' . $vlistquest->answer . ' </p> ';
         } else {
             $answprc = $vlistquest->vote / 100 * $totalvotes;
             $valu = $answprc * 100;
@@ -235,8 +235,8 @@ function qlite_view() {
 
                 $chk = "checked";
             }
-            $voutput .= '<input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
-		<label>' . $vlistquest->answer . '  </label> ';
+            $voutput .= '<p><input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
+		<label>' . $vlistquest->answer . '  </label></p> ';
         }
         $chk = '';
     }
@@ -493,7 +493,7 @@ function qlite_view() {
         $submitbutt = ' <p><input type="button" name="save" id="save" value="Vote" onclick="loadeditquestion(\'' . $gSitePath . 'profile/edit/1\',\'Edit Profile \');" /></p>';
     } elseif ($numran > 0 && !empty($voteid)) {
         $submitbutt = ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/></p>';
-        $submitbutt.= ' <p><input type="button" name="save" id="save" value="Vote" onclick="loadeditquestion(\'' . $gSitePath . 'profile/edit/1\',\'Edit Profile \');" /></p>';
+       
     } elseif ($numran == 0) {
 
         $submitbutt = ' <p><input type="submit" name="save" id="save" value="Vote" /></p>';

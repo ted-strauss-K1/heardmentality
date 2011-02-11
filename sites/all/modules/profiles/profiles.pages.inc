@@ -948,7 +948,7 @@ function user_details() {
     $form['religion'] = array(
         '#type' => 'select',
         '#title' => t(''),
-        '#options' => array('0' => 'Religion', 'Hindu' => 'Hindu', 'Muslim' => 'Muslim'),
+                        '#options' => array('0' => 'Religion','Christian'=>'Christian (Cath or Prod)','Muslim' => 'Muslim (Suni Shiite)','Hindu' => 'Hindu','Jewish'=>'Jewish','Buddhist'=>'Buddhist','Other'=>'Other'),
         '#description' => t(' '),
         '#default_value' => variable_get('religion', ''),
         '#id' => 'religion',
@@ -962,7 +962,7 @@ function user_details() {
     $form['ethnic'] = array(
         '#type' => 'select',
         '#title' => t(''),
-        '#options' => array('0' => 'Ethnicity', 'Indian' => 'Indian', 'Asian' => 'Asian'),
+        '#options' => array('0' => 'Ethnicity','Caucasian'=>'Caucasian','Black'=>'Black','Asian' => 'Asian','Indian' => 'Indian','Semetic'=>'Semetic','Latin'=>'Latin','Aborigines'=>'Aborigines' ),
         '#description' => t(' '),
         '#default_value' => variable_get('ethinicity', ''),
         '#id' => 'ethnicity',
@@ -976,7 +976,7 @@ function user_details() {
     $form['education'] = array(
         '#type' => 'select',
         '#title' => t(''),
-        '#options' => array('0' => 'Education Level', 'Technical College' => 'Technical College', 'University' => 'University'),
+        '#options' => array('0' => 'Education Level', 'No High School' => 'No High School', 'High School' => 'High School', 'Technical College' => 'Technical College', 'University' => 'University', 'Masters Degree' => 'Masters Degree'),
         '#description' => t(' '),
         '#default_value' => variable_get('education', ''),
         '#id' => 'education',
@@ -990,7 +990,7 @@ function user_details() {
     $form['sorient'] = array(
         '#type' => 'select',
         '#title' => t(''),
-        '#options' => array('0' => 'Sexual Orientation', 'Straight' => 'Straight', 'Gay' => 'Gay'),
+         '#options' => array('0' => 'Sexual Orientation', 'Straight' => 'Straight', 'Gay' => 'Gay','Bisexual'=>'Bisexual','Transgender'=>'Transgender'),
         '#default_value' => variable_get('sorient', ''),
         '#description' => t(' '),
         '#id' => 'sex',

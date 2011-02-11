@@ -369,7 +369,7 @@ function openid_login_save() {
     //print_r($_COOKIE);
     //echo $_COOKIE["faceidc"];
     $pass = $_GET['UID'];
-    //print_r($_REQUEST);
+  //print_r($_REQUEST);
 
     if ($_GET['gender'] == 'm')
         $gender = '1';
@@ -396,9 +396,22 @@ function openid_login_save() {
     $formret .='<div><b>Login processing please wait..</b></div>';
     if ($select_user_count == 0) {
         $ini_coins = initial_coins();
-        $insert = "insert into {users} (pass,mail,provider,created,access,login,status,Identity,total_coins)values('" . md5($pass) . "','" . $_GET['email'] . "','" . $_GET['provider'] . "','" . time() . "','" . time() . "','" . time() . "','1','" . $pass . "', '" . $ini_coins . "') ";
-        $insersult = db_query($insert);
-        $lid = mysql_insert_id();
+        $details = array(
+        'name' => md5(),
+        'pass' => $pass,
+        'mail' =>  $_GET['email'],
+           'provider'=>$_GET['provider'],
+            'Identity'=>$pass,
+            'total_coins'=>$ini_coins,
+        'status' => 1
+      );
+
+      $user = user_save(null, $details);
+        $lid=$user->uid;
+        if(empty($lid)){
+            drupal_set_message(t('Login Error,We Find Duplicate in Email Please Try Login with Other Social Networks '), $type='error');
+return '<div class="warning">Login Error,We Find Duplicate in Email Please Try Login with Other Social Networks</div>';
+        }
         // add visit points
         add_visit_points($lid);
 ///////////////welcome mail start here ///////////////
@@ -447,13 +460,13 @@ function openid_login_save() {
 
         $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
     }
-    $user = make_login($select_user, $_GET['UID']);
+    $user = make_login($select_user, $_GET['UID']); 
     if ($user) {
         add_visit_points($select_user->uid);
-        drupal_goto($gSitePath . '?act=edit');
+        drupal_goto();
     }
 
-    return $formret;
+ return $formret;
 }
 
 function make_login($result='', $pwd='') {

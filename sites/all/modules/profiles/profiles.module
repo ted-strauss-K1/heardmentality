@@ -24,7 +24,7 @@ function profiles_menu() {
 
     $items['google/map'] = array('title' => 'Facts', 'page callback' => 'google_map', 'access arguments' => array('Profile View'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc',);
     $items['tour/home'] = array('title' => 'Take a tour', 'page callback' => 'amber_tour', 'access arguments' => array('Profile View'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc',);
-    $items['update/profile'] = array('title' => 'Update Profile', 'page callback' => 'update_profile', 'access arguments' => array('Update Profile'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc');
+    $items['account/edit'] = array('title' => 'Update Profile', 'page callback' => 'update_profile', 'access arguments' => array('Update Profile'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc');
 
     return $items;
 }
@@ -1253,8 +1253,15 @@ var spath=\'' . $gSitePath . '\';
             $options = array('1' => t(''), '2' => t(''), '3' => t(''), '4' => t(''));
             $query = "select * from {profile_fields}";
             $result = db_query($query);
+            $complete_data = pcp_get_complete_percentage_data($user);
+            $pcp = $complete_data['percent'];
+            if ($pcp == 100)
+                $prompt = 0;
+            else
+                $prompt=1;
+
             $form['top_div'] = array('#type' => 'markup', '#value' => '<div class="form-bg-none">
-          <div class="pro-radio-outer">
+          <div class="pro-radio-outer"><script>parent.pcp=\'' . $pcp . '\';parent.prompt=\'' . $prompt . '\';</script>
         	<div class="t1">&nbsp;</div>
             <div class="t2 step-2icon-1"></div>
             <div class="t3 step-2icon-2"></div>
@@ -1450,8 +1457,8 @@ var avtar=\'' . $account->avatar . '\';
                 '#description' => t(''),
                 '#default_value' => variable_get('myweb', $account->urls),
                 '#id' => 'username',
-                  '#prefix' => '<div class="form-bg"><div class="pro-radio-outer">',
-                        '#suffix' => ' <div class="clr"></div></div><div class="clr"></div> </div>',
+                '#prefix' => '<div class="form-bg"><div class="pro-radio-outer">',
+                '#suffix' => ' <div class="clr"></div></div><div class="clr"></div> </div>',
             );
             $form = $form + follow_links_form($form_state, $user->uid);
             $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
@@ -1576,7 +1583,7 @@ var avtar=\'' . $account->avatar . '\';
             $form['religion'] = array(
                 '#type' => 'select',
                 '#title' => t(''),
-                '#options' => array('0' => 'Religion', 'Hindu' => 'Hindu', 'Muslim' => 'Muslim'),
+                '#options' => array('0' => 'Religion','Christian'=>'Christian (Cath or Prod)','Muslim' => 'Muslim (Suni Shiite)','Hindu' => 'Hindu','Jewish'=>'Jewish','Buddhist'=>'Buddhist','Other'=>'Other'),
                 '#description' => t(' '),
                 '#default_value' => variable_get('religion', ''),
                 '#id' => 'religion',
@@ -1586,7 +1593,7 @@ var avtar=\'' . $account->avatar . '\';
             $form['ethnic'] = array(
                 '#type' => 'select',
                 '#title' => t(''),
-                '#options' => array('0' => 'Ethnicity', 'Indian' => 'Indian', 'Asian' => 'Asian'),
+                '#options' => array('0' => 'Ethnicity', 'Caucasian' => 'Caucasian', 'Black' => 'Black', 'Asian' => 'Asian', 'Indian' => 'Indian', 'Semetic' => 'Semetic', 'Latin' => 'Latin', 'Aborigines' => 'Aborigines'),
                 '#description' => t(' '),
                 '#default_value' => variable_get('ethinicity', ''),
                 '#id' => 'ethnicity',
@@ -1596,7 +1603,7 @@ var avtar=\'' . $account->avatar . '\';
             $form['education'] = array(
                 '#type' => 'select',
                 '#title' => t(''),
-                '#options' => array('0' => 'Education Level', 'Technical College' => 'Technical College', 'University' => 'University'),
+                '#options' => array('0' => 'Education Level', 'No High School' => 'No High School', 'High School' => 'High School', 'Technical College' => 'Technical College', 'University' => 'University', 'Masters Degree' => 'Masters Degree'),
                 '#description' => t(' '),
                 '#default_value' => variable_get('education', ''),
                 '#id' => 'education',
@@ -1606,7 +1613,7 @@ var avtar=\'' . $account->avatar . '\';
             $form['sorient'] = array(
                 '#type' => 'select',
                 '#title' => t(''),
-                '#options' => array('0' => 'Sexual Orientation', 'Straight' => 'Straight', 'Gay' => 'Gay'),
+                '#options' => array('0' => 'Sexual Orientation', 'Straight' => 'Straight', 'Gay' => 'Gay', 'Bisexual' => 'Bisexual', 'Transgender' => 'Transgender'),
                 '#default_value' => variable_get('sorient', ''),
                 '#description' => t(' '),
                 '#id' => 'sex',
@@ -1969,8 +1976,8 @@ function _avatar_submit($form, &$form_state) {
         $link->url = trim($link->url);
 
         $link->uid = $user->uid;
-
-        follow_link_save($link);
+        if (!empty($link->name) && !empty($link->url))
+            follow_link_save($link);
     }  // follow links ends here
 
     if (!empty($form_state['values']['facebook']) || !empty($form_state['values']['twitter']))
@@ -2015,8 +2022,8 @@ function _basic_submit($form, &$form_state) {
     global $gSitePath, $user, $gDocPath, $base_root;
     $age = age($form_state['values']['dob']);
 
-    $query = "UPDATE {user_profile} set gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
-    $result = db_query($query, $form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['edu'], $user->uid);
+    $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
+    $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['education'], $user->uid);
     //update username
     db_query("update {users} set name='%s' where uid='%d'", $form_state['values']['username'], $user->uid);
     drupal_set_message(t('Your form has been saved.', 'success'));

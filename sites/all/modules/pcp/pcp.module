@@ -52,7 +52,7 @@ function pcp_block($op = 'list', $delta = 0, $edit = array()) {
                     global $user;
                     $complete_data = pcp_get_complete_percentage_data($user);
                     $doHide = variable_get('pcp_hide_block_on_complete', 0);
-                    if($complete_data['percent']>=50){
+                    if($complete_data['percent']==100){
                                 $result_profile_edit_promt = db_query("UPDATE {users} set prompt='0' where uid='$user->uid' ");
                     }
                     if ($doHide && $complete_data['percent'] == 100) {
@@ -494,9 +494,11 @@ function theme_pcp_profile_percent_complete($complete_data) {
      global $gSitePath, $user, $gDocPath, $base_root;
     $nextpath='javascript:void(0);';
     $account=load_user($user->uid);
+
+    $votecnt=db_result(db_query("select count(*) from {possible_answer_vote} where uid='$user->uid'"));
     $output .= '
         <div class="debate-cor-inner-percent">
-                        	<div class="debate-cor-inner-percent-left"><script>var pcp=\''. $complete_data['percent'].'\';var prompt=\''.$account->prompt.'\';</script>
+                        	<div class="debate-cor-inner-percent-left"><script>var pcp=\''. $complete_data['percent'].'\';var prompt=\''.$account->prompt.'\';var vcnt=\''.$votecnt.'\';</script>
                             	'.t('!complete% Complete', array('!complete' => $complete_data['percent'])).'
                             </div>
 
@@ -523,7 +525,7 @@ function theme_pcp_profile_percent_complete($complete_data) {
         }
 
       //  $output .= t('Filling out ') . '<i> ' . l($complete_data['nextfield'], $nextpath, array('query' => 'fieldname=' . $complete_data['nextname'],'attributes' => array('onclick' => 'loadeditquestion(\'http://localhost/heardmentality/edit\',\'Edit Profile \');'))) . '</i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent']));
-   $output .= '<span>'.t('Filling out ') . '<i> <a href="'.$nextpath.'" onclick="loadeditquestion(\''.$gSitePath.'edit\',\'Edit Profile \');" >'.$complete_data['nextfield'].'</a></i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent'])).'</span>';
+   $output .= '<span>'.t('Filling out ') . '<i> <a href="'.$nextpath.'" onclick="loadeditquestion(\''.$gSitePath.'account\\edit\',\'Edit Profile \');" >'.$complete_data['nextfield'].'</a></i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent'])).'</span>';
 
         }
 

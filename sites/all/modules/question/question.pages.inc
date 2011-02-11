@@ -150,15 +150,15 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          </ul></div>
 
 
-         <div class="clr" style="font-weight:bold;color:black">Dupe questions:</div>
+        <!-- <div class="clr" style="font-weight:bold;color:black">Dupe questions:</div> 
          
-         <div id="inside_content"></div>
+         <div id="inside_content"></div>-->
           </div>
        <div class="right" id="qform">
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="' . $gSitePath . 'question/save" >
        <ul id="add_more">
                <li><label><span class="span1">Issue <b>*</b></span><span>
-          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest"  onblur="question_check();ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\');" size="100" >
+          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest"  onblur="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\');" size="100" >
         </span></label>
         </li>
           <li><label><span class="span1">Context</span><span> <textarea name="q_context" id="q_context" tabindex="2">' . $q_context . '</textarea> </span></label></li>
@@ -241,7 +241,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
        </ul>-->
           </div>		  
         <div class="clr"></div>		 
-		<div class="do-in2bor"></div>
+		<div class="do-in2bor"><strong>Related Issue(s):</strong></div>
 		<div><span  title="Releted Questions"  id="releated_questions"></span></div>
        </div> 
 	   <div class="clr"></div>
