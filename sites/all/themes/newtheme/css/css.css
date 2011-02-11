@@ -96,6 +96,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .factmore a:hover{font:14px/21px Arial,Helvetica,sans-serif; color:#000; text-decoration:none;}
 .facttext2{ font:14px/21px Arial,Helvetica,sans-serif; color:#666666; padding:5px; }
 .facttext h5{ padding-left:5px;}
+.facttext span{ font-size:12px;}
 
 .welcome{ width:300px; float: right; font-family: Arial,Helvetica,sans-serif; font-size:11px; text-align:right;}
 .welcome a{font-family: Arial,Helvetica,sans-serif; font-size:11px; color:#CC6600; text-decoration:underline;}
