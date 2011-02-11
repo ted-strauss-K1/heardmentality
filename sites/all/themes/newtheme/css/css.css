@@ -452,7 +452,7 @@ padding:0px;}*/
 
 /*.inner-page-cont{border: 2px #666666 solid; min-height:600px; height:auto !important; height:600px; width:510px; float:left; margin-left:2px; margin-right:2px;}*/
 .minheight544{ min-height:544px; height:auto !important; height:544px;border: 2px #666666 solid;width:359px; float:left; margin-left:2px; margin-right:2px;}
-.inner-commutop{ height:29px; background-color:#8f8f8f;padding:5px; font:16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
+.inner-commutop{ height:29px; background-color:#777;padding:5px; font:bold 15px/25px  Arial, Helvetica, sans-serif; color:#fff;text-transform:uppercase; text-align:left;}
 .black11{ font:normal 10px Arial, Helvetica, sans-serif; color:#000000; padding:5px;}
 .sharing-width{ width:260px; border:none; margin:5px;}
 .sharing-margin{ margin:5px;}
@@ -581,7 +581,7 @@ padding:0px;}*/
 
 
 /*issue search3*/
-#qfilter{ height: 700px; overflow:auto; padding-right:10px; border-top:1px #ccc solid;}
+#qfilter{ height: 570px; overflow:auto; padding-right:10px; border-top:1px #ccc solid;}
 .issuesearch3{border: 2px #777 solid; height:auto !important; width:327px; float:left; margin-left:10px; margin-right:10px; padding-left:10px;}
 .page-searchuser .result-item .rleft{height: 448px}
 .result-item{ width:300px; border-bottom:1px #ccc solid; overflow:hidden;}
@@ -646,7 +646,7 @@ padding:0px;}*/
 
 /* for user search page */
 
-.user_search_3{border: 2px #888 solid; min-height:509px; height:auto !important; height:545px; width:337px; float:left; margin-left:10px; margin-right:10px;}
+.user_search_3{border: 2px #888 solid; height:auto !important; width:337px; float:left; margin-left:10px; margin-right:10px;}
 
 .prof-item1{ background:#f8f5ed; padding:10px 10px;}
 .prof-item1 .lefimg{ float: left; width:58px;}
