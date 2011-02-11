@@ -648,6 +648,7 @@ padding:0px;}*/
 /* for user search page */
 
 .user_search_3{border: 2px #888 solid; height:auto !important; width:337px; float:left; margin-left:10px; margin-right:10px;}
+.user_search_3 h1{ font:bold 14px/25px Georgia, "Times New Roman", Times, serif, leadville; padding-bottom:5px; border-bottom:1px solid #ccc;}
 
 .prof-item1{ background:#f8f5ed; padding:10px 10px;}
 .prof-item1 .lefimg{ float: left; width:58px;}
