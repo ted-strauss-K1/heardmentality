@@ -82,11 +82,12 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .quesin li a:hover{ color:#000; text-decoration:underline;}
 /*cont-right*/
 .fact{ width:162px;float:left;border:1px #cccccc solid; margin-left:9px;}
+.refine-search{ width:171px;float:left;border:1px #cccccc solid;}
 
 .sitetour{ width:162px;  border-bottom:1px #cccccc solid;}
 .sitetour img:hover{ opacity:0.7;}
-.facttop{font:bold 16px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#777; padding:3px;text-align:center;}
-.facttop2{font:14px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#8f8f8f; padding:3px;text-align:center;}
+.facttop{font:bold 16px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#777; padding:3px;text-align:center; text-transform:uppercase; text-align:left;}
+.facttop2{font:14px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#777; padding:3px;text-align:center; text-transform:uppercase; text-align:left;}
 .fact1{ width:65px; margin:7px; float:left;font:14px  Arial,Helvetica,sans-serif; color:#996600; text-align:center; }
 .factblu{ width:65px; margin:7px; float:left;font:14px Arial,Helvetica,sans-serif; color:#336699; text-align:center;}
 .facttext{ font:14px/21px Arial,Helvetica,sans-serif; color:#333333; padding-bottom:5px; }
@@ -94,6 +95,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .factmore a{font:14px/21px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
 .factmore a:hover{font:14px/21px Arial,Helvetica,sans-serif; color:#000; text-decoration:none;}
 .facttext2{ font:14px/21px Arial,Helvetica,sans-serif; color:#666666; padding:5px; }
+.facttext h5{ padding-left:5px;}
 
 .welcome{ width:300px; float: right; font-family: Arial,Helvetica,sans-serif; font-size:11px; text-align:right;}
 .welcome a{font-family: Arial,Helvetica,sans-serif; font-size:11px; color:#CC6600; text-decoration:underline;}
@@ -522,7 +524,7 @@ padding:0px;}*/
 
 
 
-.commu-profile{ width:100%;float:left; border:1px #cccccc solid;  min-height:564px; height:auto !important ; height:564px;}
+.commu-profile{ width:100%;float:left; border:1px #cccccc solid;  min-height:564px; height:auto !important ; height:564px; text-transform:uppercase; text-align:left;}
 .commutop-profile{  background-color:#777;padding:5px; font:bold 16px/25px  Arial, Helvetica, sans-serif; color:#fff;}
 
 .profile-left{ width:177px; float:left;}
@@ -575,6 +577,7 @@ padding:0px;}*/
 .pun ul{ margin:0px; padding-bottom:0px;}
 .pun li{ float:left; list-style:none; border:1px #666666 solid; margin-left:1px; margin-right:1px; margin-bottom:5px;}
 .hm-cen-pun{ border:1px solid #ccc; padding:10px 10px 1px; padding-top:10px;}
+.pun small{ font-size:12px; font-weight:bold;}
 
 
 /*issue search3*/
