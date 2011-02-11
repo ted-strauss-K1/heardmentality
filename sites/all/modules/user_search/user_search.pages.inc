@@ -1638,7 +1638,7 @@ function search_results_user() {
 
 
     $fetresult = ' <div class="rleft">
-      <span>SEARCH RESULTS</span><br />
+      <h1>SEARCH RESULTS</h1>
        <div class="clr"></div>
        <div class="result-item"></div>
        <div class="clr"></div>
@@ -1804,6 +1804,7 @@ function get_question_details() {
 
 		   
 		    act.setTitle("' . $oListquest->question . '");
+
 		    act.setDescription("' . $oListquest->context . '");
 
            
