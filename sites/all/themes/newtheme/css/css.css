@@ -582,7 +582,7 @@ padding:0px;}*/
 
 /*issue search3*/
 #qfilter{ height: 700px; overflow:auto; padding-right:10px; border-top:1px #ccc solid;}
-.issuesearch3{border: 2px #777 solid; min-height:600px; height:auto !important; height:600px; width:327px; float:left; margin-left:10px; margin-right:10px; padding-left:10px;}
+.issuesearch3{border: 2px #777 solid; height:auto !important; width:327px; float:left; margin-left:10px; margin-right:10px; padding-left:10px;}
 .page-searchuser .result-item .rleft{height: 448px}
 .result-item{ width:300px; border-bottom:1px #ccc solid; overflow:hidden;}
 #ufilter .result-item{ width:317px;}
