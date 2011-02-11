@@ -596,7 +596,7 @@ function qlite_view() {
             <!--<div class="tag">
              <span>Tags [<a href="#" onclick="loadtag(\'' . $gSitePath . 'qlite/addtag/' . $qid . '\',\'Edit Tags \'); ">Retag</a>]:</span>' . $instags . '</div>-->
             <div class="sharing-section">
-            <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
+            <div  class="but-cont"><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
               <a title="Bookmark" class="but butnew share-link" onclick="showShareUI();" href="javascript:void(0);">
                  <img ALIGN=ABSMIDDLE title="Share" alt="Share" src="' . $gSitePath . path_to_theme() . '/images/face-ic.jpg"/>&nbsp;
                     Share</a>
@@ -1457,7 +1457,7 @@ function panel_content() {
             $section = load_qcat($qid);
             $output.= '
                        <div class="">
-<div style="float:left;padding:5px;width: 260px;">
+<div  class="details-left">
  <span class="profile-gray">Context</span> :' . $oListquest->context . '
      <br/>
      <span class="profile-gray">Section </span>:' . $section . '

@@ -1,7 +1,7 @@
 <?php include "header.tpl.php"; ?>
 <!--content area-->
 <div class="contarea">
-    <div class="fact">
+    <div class="refine-search">
 
         <?php if (!empty($left)): ?>
             <div id="sidebar-left" class="column sidebar">
@@ -17,7 +17,7 @@
 
         </div>    
         <div class="user_search_3">
-            <span class="padding10">SEARCH RESULTS</span>
+            <h1>SEARCH RESULTS</h1>
             <div id="ufilter">
             <?php print $content; ?>
         </div>

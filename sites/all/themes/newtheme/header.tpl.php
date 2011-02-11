@@ -56,7 +56,7 @@ $directory = $base_path . $directory;
                                     innerHtmlStyle: {
                                         'text-align':'center','background-color':'#FFFFFF'
                                     },
-                                    themeName: 	'orange',
+                                    themeName: 	'blue',
                                     alwaysVisible: false,
                                     innerHtml: jQuery(this).attr("rel"),
                                     themePath: '<?php echo $directory; ?>/images/bp_images'
@@ -81,7 +81,7 @@ $directory = $base_path . $directory;
                                         'text-align':'center','background-color':'#FFFFFF'
                                     },
                                     alwaysVisible: false,
-                                    themeName: 	'orange',
+                                    themeName: 	'blue',
 
                                     innerHtml: jQuery(this).attr("rel"),
                                     themePath: '<?php echo $directory; ?>/images/bp_images'

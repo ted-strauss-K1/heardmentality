@@ -252,7 +252,10 @@ function moderator_edit_issues($qid='') {
                 <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') . '/styles/jquery.multiSelect.css" type="text/css" />
                     
         <div id="err" class="clear"></div>
-<div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
+<div class="mod-t-outer" align="right">
+           <b>* Required fields &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+            <div class="clr"></div>
+          </div>
 				<form id="question" name="question" method="post"   onsubmit="return validate_question();" >
                                 <div class="mod-t-outer">
             <div class="mod-t1">Question<span title="This field is required." class="form-required">*</span></div>
@@ -268,9 +271,22 @@ function moderator_edit_issues($qid='') {
             </div>
             <div class="clr"></div>
           </div>
-          <div class="mod-t-outer">
-            <div class="mod-t3">
-           
+            <div class="clr"></div>
+            <div class="mod-t-outer">
+            <div class="mod-t1">&nbsp;</div>
+            <div class="mod-t5">
+              &nbsp;
+            </div>';
+        $Spec_query = db_query("SELECT spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+    while ($Spec_result = db_fetch_object($Spec_query)) {
+        $output .='<div class="mod-t6">' . $Spec_result->spec_name . '  </div>';
+    }
+
+    $output.='
+            <div class="clr"></div>
+          </div>
+          <div class="clr"></div>
+        <div class="clr"></div>
 
 ';
 
@@ -282,20 +298,18 @@ function moderator_edit_issues($qid='') {
     $answer_count = 1;
     foreach ($ans as $array) {
 
-        $output .= '
-               <div class="mod-t4">
-                <div class="mod-t1">Answer</div>
-             <div class="mod-t1">
-                  <input  tabindex="' . $tab++ . '" name="q_ans' . $i . '" type="text" id="q_ans' . $i . '" class="mod-select2" value="' . $array['answer'] . '" />&nbsp;<input type="hidden" name="aid' . $i . '" value="' . $array['paid'] . '">
+        $output .= '<div class="mod-t-outer">
+            <div class="mod-t1">Answer <b>*</b></div>
+            <div class="mod-t5">
+                  <input  tabindex="' . $tab++ . '" name="q_ans' . $i . '" type="text" id="q_ans' . $i . '" class="mod-select3" value="' . $array['answer'] . '" />&nbsp;<input type="hidden" name="aid' . $i . '" value="' . $array['paid'] . '">
                 </div>
-              </div>
-
           ';
         $i++;
         /* META TAG OPTION GENERATION */
 
         $row_count = 1;
         $Spec_query1 = db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+       $radio_output='';
         while ($Spec_result1 = db_fetch_object($Spec_query1)) {
             $answer_id = $array['paid'];
             $option = '';
@@ -312,14 +326,16 @@ function moderator_edit_issues($qid='') {
 
                 $option.='<option ' . $selected . ' value=' . $spec_count . '>' . $spec_count . '</option>';
             }
-            $radio_output .=' <div class="mod-t5"><select style="width:50px" name="sel_' . $answer_id . '_' . $Spec_result1->political_spec_id . '_' . $row_count . '" id="sel_' . $answer_id . '_' . $row_count . '">' . $option . '</select>    </div>';
+            $radio_output .='  <div class="mod-t6"><select style="width:50px" name="sel_' . $answer_id . '_' . $Spec_result1->political_spec_id . '_' . $row_count . '" id="sel_' . $answer_id . '_' . $row_count . '">' . $option . '</select>    </div>';
             $row_count++;
         }
-        $radio_output .= '     ';
+        $output .=$radio_output;
         /* META TAG OPTION GENERATION */
+        $output.='            <div class="clr"></div>
+          </div>
+          <div class="clr"></div>';
     }
-    $output.=' <div class="clr"></div>
-          </div><div class="clr"></div>';
+    $output.='';
     $output .= '<div class="mod-t-outer" id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div></small><br/>
         </div>
 <div class="mod-t-outer">
@@ -331,11 +347,7 @@ function moderator_edit_issues($qid='') {
           </div>
 
 ';
-    $Spec_query = db_query("SELECT spec_name,spec_min_range,spec_max_range FROM political_spectrum");
-    while ($Spec_result = db_fetch_object($Spec_query)) {
-        $output .='<td style="width:75px;">' . $Spec_result->spec_name . '</td>';
-    }
-    $output .= '</tr>';
+
    // $output .= $radio_output . '
 	//	</table>
 	//</td></tr>

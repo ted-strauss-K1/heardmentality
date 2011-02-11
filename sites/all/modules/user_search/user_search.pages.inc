@@ -69,7 +69,7 @@ drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
         else {
             $qry_form = "img WHERE reg.status='1' $qry AND  img.uid=reg.uid";
         }
-  echo  $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+    $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
 
     //  echo $sel;
 
@@ -123,9 +123,7 @@ drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
     $fetresult = ' <div class="rleft">
        <!--<span class="padding10">SEARCH RESULTS</span><br />-->
        <div class="clr"></div>
-       <div class="result-item"></div>
-       <div class="clr"></div>
-       <div class="clr"></div>
+     
        <div class="result-item">
        <div class="rleft">';
 
@@ -170,12 +168,7 @@ drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
     }
     $fetresult .= '</div>
        </div>
-       <div class="clr"></div>
-       <div class="clr"></div>
-       <div class="result-item">
-
-
-       </div>
+     
        <div class="clr"></div>
        </div>  ';
 /////////////new sigma
@@ -1640,10 +1633,10 @@ function search_results_user() {
     $fetresult = ' <div class="rleft">
       <h1>SEARCH RESULTS</h1>
        <div class="clr"></div>
-       <div class="result-item"></div>
+      
        <div class="clr"></div>
        <div class="clr"></div>
-       <div class="result-item">
+      
        <div class="rleft">';
 
     while ($user_result = db_fetch_object($sel_search)) {
@@ -1673,10 +1666,8 @@ function search_results_user() {
 
     $fetresult .= '</div>
        </div>
-       <div class="clr"></div>
-       <div class="clr"></div>
-       <div class="result-item">
-       </div>
+      
+       
        
        <div class="clr"></div>';
 

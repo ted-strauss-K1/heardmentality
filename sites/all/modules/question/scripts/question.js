@@ -302,9 +302,10 @@ function add_ans(){
 
         if (ans_cnt < 11) {
             jQuery('#ans_cnt').val(ans_cnts);
+           
             //	$('add_more').set('html','  <p>&nbsp;</p>');
             if(admin)
-                           var firstElem='<div class="mod-t4"><div class="mod-t1">Answer</div><div class="mod-t1"><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" class="mod-select2" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></div>  </div><div class="clr"></div>';
+                           var firstElem='<div class="mod-t-outer"><div class="mod-t1">Answer</div><div class="mod-t5"><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" class="mod-select3" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></div> <div class="clr"></div> </div><div class="clr"></div>';
                 else
             var firstElem='<li><label><span class="span1">Answer</span></label><span><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></span></li>';
 

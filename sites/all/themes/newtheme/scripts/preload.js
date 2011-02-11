@@ -159,8 +159,8 @@ function reset_tabs(){
                             jQuery("#loading").ajaxStop(function () {
 
                             //pcp var sets on pcp theme module
-                         if(typeof pcp!="undefined" && typeof prompt!='undefined' )
-                             {if(pcp<90&&prompt==1){
+                         if(typeof pcp!="undefined" && typeof prompt!='undefined' &&typeof vcnt!='undefined' )
+                             {if(pcp<90&&prompt==1&&vcnt<2&&vcnt>0){
                               loadeditquestion(gSitePath+'profile/edit/1','Edit Profile ');
 
                              }   }
