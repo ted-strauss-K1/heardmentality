@@ -584,6 +584,7 @@ padding:0px;}*/
 /*issue search3*/
 #qfilter{ height: 570px; overflow:auto; padding-right:10px; border-top:1px #ccc solid;}
 .issuesearch3{border: 2px #777 solid; height:auto !important; width:327px; float:left; margin-left:10px; margin-right:10px; padding-left:10px;}
+.issuesearch3 h1{ font:bold 14px/30px Georgia, "Times New Roman", Times, serif, leadville; border-bottom:1px solid #ccc; margin:0 5px 5px;}
 /*.page-searchuser .result-item .rleft{height: 448px}*/
 .result-item{ width:300px; border-bottom:1px #ccc solid; overflow:hidden;}
 #ufilter .result-item{ width:317px; height: 561px; overflow:auto;}
