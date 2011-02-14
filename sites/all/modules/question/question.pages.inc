@@ -250,7 +250,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
 
  //$output .= '<tr><td colspan="6">'.get_tagging().'</td></tr>';
  
-
+/*
     $result = load_user($user->uid);
     if ($result->question_privacy == '4') {
 
@@ -275,7 +275,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
 
         </fieldset>	</div>';
     }
-
+*/
 
 
     $output.=' <div class="clr">&nbsp;</div>

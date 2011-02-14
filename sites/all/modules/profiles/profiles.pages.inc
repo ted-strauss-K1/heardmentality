@@ -831,6 +831,7 @@ var spath=\'' . $gSitePath . '\';
 function user_details() {
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
     $details = load_user($user->uid);
+       $form['#attributes']['enctype'] = "multipart/form-data";
     $form['#attributes']['onsubmit'] = "return validate_reg();";
     $form['main_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-wrapper">');
     $form['right_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-rightside"><h3>SOCIAL  NETWORK SETTINGS</h3>');
@@ -1158,6 +1159,11 @@ var avtar=\'' . $account->avatar . '\';
         <div class="clr"></div>
         </div>'
     );
+       $form['oldimg'] = array(
+                '#type' => 'hidden',
+                '#default_value' => variable_get('oldimg', $details->image),
+                '#id' => 'oldimg',
+            );
     $form['avatar_div_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>
     </div><div class="clr"></div>');
 
@@ -1217,18 +1223,28 @@ var avtar=\'' . $account->avatar . '\';
     $form['twitter'] = array(
         '#type' => 'textfield',
         '#prefix' => '<div class="social-outer-new">
-                          <div class="social-left-new"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-twit.jpg"></div>
+                          <div class="social-left-new"><img width="26" height="27" alt="Twitter" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-twit.jpg"></div>
                           <div class="social-rite-new">',
         '#description' => t(' '),
         '#default_value' => variable_get('twitter', $social[1]),
         '#id' => 'twitter',
         '#suffix' => '</div>
                          </div>
-
-                         <div class="clr"></div>
-
                          <div class="clr"></div>',
     );
+     $form['myweb'] = array(
+                '#type' => 'textfield',
+                '#title' => t(''),
+                '#description' => t(''),
+                '#default_value' => variable_get('myweb', $account->urls),
+                '#id' => 'myweb',
+                 '#prefix' => '<div class="social-outer-new">
+                         
+                          <div class="social-rite-new">My Website :',
+                '#suffix' => '</div>
+                         </div>
+                         <div class="clr"></div>',
+            );
     $form = $form + follow_links_form($form_state, $user->uid);
     // avatar hidden values
     $form['img_avt'] = array('#type' => 'hidden', '#default_value' => variable_get('img_avt', $account->image_avatar));

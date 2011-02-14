@@ -394,7 +394,6 @@ function _avatar_selection_image_list($user = "", $set_type = "", $set_id = 0, $
   $dir = file_create_path('avatar_selection');
   $url = file_create_url($dir);
   $total = 0;
-
   // If we're searching on a particular role.
   if ($set_type =='role') {
     if ($set_id) {

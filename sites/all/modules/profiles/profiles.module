@@ -120,13 +120,16 @@ function get_state($code = '') {
     return $reuslt;
 }
 
+
 function UserPicture($mid, $profile='') {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $userslist=user_load(array('uid'=>$mid));
     $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
     $rs_image = db_query($selimage);
     $resultimage = db_fetch_object($rs_image);
     $selected_avatar = $resultimage->avatar;
-    $default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+    //$default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+     $default = $gSitePath.avatar_selection_get_random_image($userslist);
     if ($profile)
         $resultimage->image_avatar = 1;
 
@@ -165,7 +168,7 @@ function UserPicture($mid, $profile='') {
             } else {
                 //echo $resultimage->image;
                 $img_path = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
-                $PROFILE_IMAGE = '<img src="' . $img_path . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
+                $PROFILE_IMAGE = '<img src="' . $default . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
             }
             break;
     }
@@ -178,9 +181,10 @@ function UserPicture_small($mid) {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
     $rs_image = db_query($selimage);
-
+$userslist=user_load(array('uid'=>$mid));
+ $default = $gSitePath.avatar_selection_get_random_image($userslist);
     $resultimage = db_fetch_object($rs_image);
-    $default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+   // $default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
         case '2':
             $image_path = file_create_path('avatar_selection');
@@ -328,8 +332,10 @@ function load_bubble($uid = '') {
                 <div>
                 <div class="debate-cor-inner-left">' . UserPicture_small($details->uid) . '</div>
                     <div class="debate-cor-inner-right">
+                    <div style="padding-left:10px;text-align:left;"><strong>'.myTruncate($details->name,'10','..').' </strong></div>
                         <ul style="list-style-type:none">
-                        <li style="width:30px">' . $ranking . '<br /><span>' . $points . '</span></li>
+                      
+                        <li style="width:30px">' . $ranking . '<br /><span title="' . $points . ' Points">' . $points . '</span></li>
                         <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><br><span>' . $badges['gold'] . '</span></li>
                         <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><br /><span>' . $badges['silver'] . '</span></li>
                         <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><br /><span>' . $badges['bronze'] . '</span></li>
@@ -1397,6 +1403,11 @@ var avtar=\'' . $account->avatar . '\';
         <div class="clr"></div>
         </div>'
             );
+              $form['oldimg'] = array(
+                '#type' => 'hidden',
+                '#default_value' => variable_get('oldimg', $account->image),
+                '#id' => 'oldimg',
+            );
             $form['notify'] = array(
                 '#type' => 'radios',
                 '#prefix' => '',
@@ -1825,7 +1836,7 @@ function inc_avatar_form($form, &$form_state) {
     return $form;
 }
 
-function event_photo_profile() {
+function event_photo_profile(&$form, &$form_state) {
     global $gSitePath, $user, $gDocPath, $base_root;
     $suc = '';
     $return = array();
@@ -1839,9 +1850,8 @@ function event_photo_profile() {
     $filepath = file_directory_path();
     $dest = $filepath . '/' . $upload_dir;
     $file = file_save_upload('file_upload', $validators, $dest);
-    global $user;
+
     $owner = $user->uid;
-    $filetype;
     $filetype = $file->filemime;
     $extension = '';
     switch ($filetype) {
@@ -1869,12 +1879,12 @@ function event_photo_profile() {
         $_SESSION['fid'] = $file->fid;
         $_SESSION['filetype'] = $file->filemime;
         $flag = 0;
-    } elseif (isset($_REQUEST['oldimg'])) {
-        $insimage = $_REQUEST['oldimg'];
+    } elseif (!empty($form_state['values']['oldimg'])) {
+        $insimage = $form_state['values']['oldimg'];
         $flag = 0;
     } else {
         $flag = 0;
-        $insimage = "noimage.jpg";
+        $insimage = avatar_selection_get_random_image($user);
     }//file up ends
 
 
@@ -1951,20 +1961,21 @@ function age($date) {
 function _avatar_submit($form, &$form_state) {
 
     global $gSitePath, $user, $gDocPath, $base_root;
-    //echo '<pre>';
-    // print_r($form_state);
+ // echo '<pre>';
+  //print_r($form_state);
     //file handler
-    $return = event_photo_profile();
-    //print_r($return);
+    $return = event_photo_profile($form,$form_state);
+ //print_r($return); die;
     $insimage = $return['image'];
     $flag = $return['flag'];
     $suc = $return['suc'];
     //file handler ends
 
-    if (!empty($_SESSION['filepath'])) {
+    if (!empty($_SESSION['filepath'])||!empty($form_state['values']['oldimg'])) {
         $img_avt = '1';
     } else {
-        $insimage = $form_state['values']['image'];
+         $img_avt = '2';
+      //  $insimage = $form_state['values']['image'];
     }
 
     // follow links starts here

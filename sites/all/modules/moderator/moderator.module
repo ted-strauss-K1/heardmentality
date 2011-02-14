@@ -83,7 +83,9 @@ function moderator_issues() {
 
     drupal_add_js($inline, $type = 'inline');
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
-
+    drupal_add_js(drupal_get_path('module','question')).'/scripts/question.js';
+      drupal_add_js(drupal_get_path('module','question')).'/scripts/jquery.multiSelect.js';
+       drupal_add_css(drupal_get_path('module','question')).'/styles/jquery.multiSelect.css';
     $output = _moderator_left();
     $output.=' <div class="mod-midside-inner">
             <div class="warning" >No Issue Selected !</div>
@@ -246,11 +248,7 @@ function moderator_edit_issues($qid='') {
 		</script>
 			';
 
-    $output .= '<script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/question.js" type="text/javascript"></script>
-        <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
-
-                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') . '/styles/jquery.multiSelect.css" type="text/css" />
-                    
+    $output .= '        
         <div id="err" class="clear"></div>
 <div class="mod-t-outer" align="right">
            <b>* Required fields &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
@@ -338,22 +336,36 @@ function moderator_edit_issues($qid='') {
     $output.='';
     $output .= '<div class="mod-t-outer" id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div></small><br/>
         </div>
-<div class="mod-t-outer">
+
+            <div class="clr"></div>
+          <div class="mod-t-outer">
             <div class="mod-t1">&nbsp;</div>
             <div class="mod-t5">
-	<input type="button" name="Add" class="mod-btn" tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="' . count($ans) . '">
- </div>
+              &nbsp;
+            </div>
+            <div class="mod-t5">
+             <strong> Categories</strong>
+            </div>
+            <div class="mod-t5">
+             &nbsp;
+            </div>
+            <div class="mod-t5">
+            &nbsp;
+            </div>
             <div class="clr"></div>
           </div>
-
+          <div class="clr"></div>
 ';
 
    // $output .= $radio_output . '
 	//	</table>
 	//</td></tr>
 	//<!--POSSIBLE META ANSWER-->';
-	$output.='<div class="mod-t-outer">
-            <div class="mod-t1">Categories</div>
+	$output.='   <div class="mod-t-outer">
+            <div class="mod-t1">&nbsp;</div>
+            <div class="mod-t5">
+        <input type="button" name="Add" class="mod-btn" tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="' . count($ans) . '">
+            </div>
             <div class="mod-t5">
   <select  tabindex="14" name="q_cat[]" id="q_cat"   class="mod-txtarea" onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
         <option value="">Select Category</option>';
@@ -498,8 +510,29 @@ function moderator_edit_issues($qid='') {
     $output .= '</select></div> </div><input type="hidden"  id="cat3" name="cat3" value="' . $pssubcate_id . '">
         <div class="clr"></div>
           </div>
+               <div class="clr"></div>
+          <div class="mod-t-outer">
+            <div class="mod-t1">&nbsp;</div>
+            <div class="mod-t5">
+              &nbsp;
+            </div>
+            <div class="mod-t5">
+             <strong> Location</strong>
+            </div>
+            <div class="mod-t5">
+             &nbsp;
+            </div>
+            <div class="mod-t5">
+            &nbsp;
+            </div>
+            <div class="clr"></div>
+          </div>
+                <div class="clr"></div>
 	 <div class="mod-t-outer">
-            <div class="mod-t1">Location</div>
+           <div class="mod-t1">&nbsp;</div>
+            <div class="mod-t5">
+    <input type="submit" name="update" class="mod-btn" tabindex="21" id="save" value="Update" />
+      </div>
             <div class="mod-t5">
 <select name="q_country"  class="mod-txtarea" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select>
     </div>
@@ -515,14 +548,9 @@ function moderator_edit_issues($qid='') {
     //$output .= '<tr><td colspan="6">'.get_tagging_edit($qid).'</td></tr>';
 
 
-    $output .= ' <div class="mod-t3">
-            <div class="mod-t4">
-              <div class="mod-t1">&nbsp;</div>
-              <div class="mod-t5">
-    <input type="submit" name="update" class="mod-btn" tabindex="21" id="save" value="Update" />
-      </div>
-            </div>
-          </div><div class="clr"></div></div>
+    $output .= '
+          <div class="clr"></div></div>
+        <div class="clr"></div>
 </form>
 
 ';
