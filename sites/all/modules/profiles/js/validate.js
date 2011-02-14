@@ -109,6 +109,19 @@ load_notify(err);
         }
     }
 
+// my website url checking
+    var myweb=jQuery('#myweb').val();
+
+    if(myweb.length>0){
+        var host1='example';
+        myweb.match(patt);
+        
+        if(!patt.test(myweb)){
+            err=err+"<small> Please provide proper url format im My website Ex: http://www."+host1+".com,  </small>";
+        }
+    }
+
+
     jQuery('select.socials-name').each( function(ind,el){
 
        
@@ -123,9 +136,9 @@ load_notify(err);
             url.match(patt);
             var host2=RegExp.$2;
             if(!patt.test(url)){
-                err=err+"<small> Please provide proper url format Ex: http://www."+host1+".com/username,  </small>";
+                err=err+"Please provide proper url format Ex: http://www."+host1+".com/username,";
             }else if(host1!=host2){
-                err=err+" <small> Please provide "+host1+" link for "+host1+" field,<small>  ";
+                err=err+" <small> Please provide "+host1+" link for "+host1+" field <small>,  ";
 
             }
 
