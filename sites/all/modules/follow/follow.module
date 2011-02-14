@@ -362,7 +362,7 @@ function follow_links_form(&$form_state, $uid = 0) {
         $form['follow_links'][$name] = _follow_links_form_link($networks, $link, $title);
         unset($networks[$name]);
         $limit++;
-        if ($limit == 1)
+        if ($limit == 2)
             break;
     }
 
