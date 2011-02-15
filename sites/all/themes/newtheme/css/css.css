@@ -1502,3 +1502,6 @@ img{ border:none; outline:none;}
 .form-item .description ul{ list-style-type:none; padding-left:10px; font-size:12px; line-height:18px;}
 .content legend{ font-weight:bold;}
 .content p{ padding:5px 0;}
+.fb_white .mytabs-container{ height:auto !important;}
+#quest_info{ text-align:left;}
+#quest_info h2{ font-size:14px; font-weight:bold; color:#4170A0;}
