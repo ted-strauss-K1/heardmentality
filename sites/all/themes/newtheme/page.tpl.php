@@ -7,13 +7,11 @@
  
 			
       <?php if (!empty($left)): ?>
-	  <div class="commu">
-          <div class="">
+	  <div class="home-lay3-1">
         <div id="sidebar-left" class="column sidebar">
           <?php print $left; ?>
         </div> <!-- /sidebar-left -->
       <!-- RAM COMMENTED div class="clr"></div-->
-          </div>
        </div>
 	  <?php endif; ?>
     
