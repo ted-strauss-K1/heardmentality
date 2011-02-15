@@ -28,7 +28,7 @@
                 <p>CONTRIBUTOR</p>
 
             </div>
-            <div class="inner" align="center" style="padding-top:10px">No User Selected!</div>
+            <div class="commu-profile" align="center" style="padding-top:10px">No User Selected!</div>
 
             <div class="clr"></div>
 
