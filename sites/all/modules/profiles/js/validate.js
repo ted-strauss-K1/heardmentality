@@ -138,7 +138,7 @@ load_notify(err);
             if(!patt.test(url)){
                 err=err+"Please provide proper url format Ex: http://www."+host1+".com/username,";
             }else if(host1!=host2){
-                err=err+" <small> Please provide "+host1+" link for "+host1+" field <small>,  ";
+                err=err+"  Please provide "+host1+" link for "+host1+" field ,  ";
 
             }
 
@@ -243,4 +243,11 @@ jQuery(document).ready(function(){
         jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
     }
 
+});
+
+// disable submit button when entering zipcode
+jQuery(document).ready(function(){
+    $('#location').keypress(function() {
+      $("#update_submit").attr('disabled', 'disabled');
+    });
 });

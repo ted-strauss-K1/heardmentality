@@ -169,6 +169,9 @@ function get_zip_city(code){
             jQuery("body").css({'opacity':''});
         }
     });
+
+    // enable submit button
+    $("#update_submit").attr('disabled', false);
 }
 
 function chk_uname(val){

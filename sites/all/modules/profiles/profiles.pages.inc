@@ -929,7 +929,7 @@ function user_details() {
         '#suffix' => '</div>
            <div class="clr"></div>
            </div>',
-        '#attributes' => array('class' => 'input-nor', 'onblur' => 'get_zip_city(this.value);')
+        '#attributes' => array('class' => 'input-nor', 'onblur' => 'get_zip_city(this.value);', 'onkeypress' => 'dis_submit()')
     );
     $form['country'] = array(
         '#type' => 'hidden',
@@ -1257,7 +1257,7 @@ var avtar=\'' . $account->avatar . '\';
     $form = $form + inc_avatar_form();
     $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
 
-    $form['submit'] = array('#type' => 'submit', '#value' => 'Submit');
+    $form['submit'] = array('#type' => 'submit', '#value' => 'Submit', '#id' => 'update_submit');
     return $form;
 }
 
