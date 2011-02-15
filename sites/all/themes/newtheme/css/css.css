@@ -1507,4 +1507,6 @@ img{ border:none; outline:none;}
 .home-lay3-1 .block{ border:1px solid #ccc; margin-bottom:5px;}
 .home-lay3-2{}
 .home-lay3-3{ border:0;}
-.home-lay3-3 .block{ border:1px solid #ccc;}
+.home-lay3-3 .block{ border:1px solid #ccc; margin-bottom:5px;}
+.home-lay3-3 .facttext{ padding-bottom:0;}
+.home-lay3-3 .innerbox{ border:0;}
