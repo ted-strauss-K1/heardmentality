@@ -587,7 +587,7 @@ padding:0px;}*/
 .issuesearch3 h1{ font:bold 14px/30px Georgia, "Times New Roman", Times, serif, leadville; border-bottom:1px solid #ccc; margin:0 5px 5px;}
 /*.page-searchuser .result-item .rleft{height: 448px}*/
 .result-item{ width:300px; border-bottom:1px #ccc solid; overflow:hidden;}
-#ufilter .result-item{ width:317px; height: 561px; overflow:auto;}
+#ufilter .result-item{ width:317px; height: 361px; overflow:auto;}
 /*.result-item :hover{ background-color:#ccc; }*/
 .result-item .rleft{ /*float:left; width:350px;*/}
 .result-item .rleft .titl{ font:normal 14px Arial, Helvetica, sans-serif; color:#996600; padding:5px 10px;}
