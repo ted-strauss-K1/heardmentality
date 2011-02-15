@@ -1505,10 +1505,15 @@ img{ border:none; outline:none;}
 .home-lay1-1{ width:336px;float:left;}
 .home-lay1-1 .inner{ width:325px; margin:auto; padding:0px;}
 .home-lay1-1 .block{ border:1px solid #ccc; margin-bottom:5px;}
-.home-lay1-2{}
+/*.home-lay1-2{}*/
 .home-lay1-3{ border:0;}
 .home-lay1-3 .block{ border:1px solid #ccc; margin-bottom:5px;}
 .home-lay1-3 .facttext{ padding-bottom:0;}
 .home-lay1-3 .innerbox{ border:0;}
 .home-lay1-3 .sitetour{ border:1px solid #ccc; width:160px; margin-bottom:5px;}
 .home-lay1-3 .sitetour img{ width:160px;}
+
+.search-lay1-1{ }
+.search-lay1-2{ }
+.search-lay1-3,.search-lay1-3 .hm-cen,.search-lay1-3 .innerbox{border:0;}
+.search-lay1-3 .block{ border:1px solid #ccc; margin-bottom:5px;}
