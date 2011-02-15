@@ -337,7 +337,7 @@ function _follow_block_config_links($uid) {
  */
 function follow_links_form(&$form_state, $uid = 0) {
     $form = array();
-
+    $limit = 0;
     $form['uid'] = array('#type' => 'hidden', '#value' => $uid);
     $form['follow_links']['#tree'] = TRUE;
 
@@ -353,16 +353,17 @@ function follow_links_form(&$form_state, $uid = 0) {
             $form['follow_links'][$name] = _follow_links_form_link($networks, $link, $title);
             // Unset this specific network so we don't add the same one again below.
             unset($networks[$name]);
+            $limit++;
         }
     }
     // Now add all the empty ones.
-    $limit = 0;
+    
     foreach ($networks as $name => $title) {
         $link = new stdClass();
         $form['follow_links'][$name] = _follow_links_form_link($networks, $link, $title);
         unset($networks[$name]);
         $limit++;
-        if ($limit == 2)
+        if ($limit >= 2)
             break;
     }
 
