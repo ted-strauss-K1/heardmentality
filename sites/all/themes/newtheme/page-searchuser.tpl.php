@@ -22,7 +22,7 @@
             <?php print $content; ?>
         </div>
     </div>
-    <div class="contributer">
+    <div class="contributer search-lay1-3">
        	<div id="user_info">
             <div class="inner-commutop">
                 <p>CONTRIBUTOR</p>

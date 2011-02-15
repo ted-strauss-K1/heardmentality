@@ -15,7 +15,7 @@
         <?php print $content; ?>
         </div>
     </div>
-    <div class="contributer">
+    <div class="contributer search-lay1-3">
         <?php if (! empty($right)): ?>
         <div id="sidebar-right" class="column sidebar">
             <div class="hm-cen">
