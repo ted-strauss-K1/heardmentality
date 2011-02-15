@@ -1500,3 +1500,5 @@ img{ border:none; outline:none;}
 .but-cont .but-left{ padding-left:0;}
 #fbContent{ padding:0 10px !important;}
 .form-item .description ul{ list-style-type:none; padding-left:10px; font-size:12px; line-height:18px;}
+.content legend{ font-weight:bold;}
+.content p{ padding:5px 0;}
