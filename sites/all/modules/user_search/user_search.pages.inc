@@ -21,7 +21,7 @@ function search_results() {
     $fetresult = '';
     if(!isAjax ()){
     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search_user.js');
-drupal_add_js(drupal_get_path('module', 'profile') . '/js/profile.js');
+drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
 }
 
     $name = $_REQUEST['txt_search'];
