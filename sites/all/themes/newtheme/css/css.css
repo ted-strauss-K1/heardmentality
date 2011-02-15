@@ -911,7 +911,7 @@ div.growlUI h1, div.growlUI h2 {
 }
 
 .butb-left{ background-image:url(../images/nsb-l.png); width:11px; height:20px; float:left}
-.butb-right{ background-image:url(../images/nsb-r.png); width:11px; height:20px; float:left;padding-right: 10px; background-repeat: no-repeat;}
+.butb-right{ background-image:url(../images/nsb-r.png); width:11px; height:20px; float:left;padding-right: 5px; background-repeat: no-repeat;}
 
 .buty-bg a {
     background-image: url(../images/nsy-bg.png);
@@ -921,7 +921,7 @@ div.growlUI h1, div.growlUI h2 {
 }
 
 .buty-left{ background-image:url(../images/nsy-l.png); width:9px; height:20px; float:left}
-.buty-right{ background-image:url(../images/nsy-r.png); width:9px; height:20px; float:left;padding-right: 10px; background-repeat: no-repeat;}
+.buty-right{ background-image:url(../images/nsy-r.png); width:9px; height:20px; float:left;padding-right: 5px; background-repeat: no-repeat;}
 
 
 .butg-bg a {
@@ -932,7 +932,7 @@ div.growlUI h1, div.growlUI h2 {
 }
 
 .butg-left{ background-image:url(../images/nsg-l.png); width:9px; height:20px; float:left}
-.butg-right{ background-image:url(../images/nsg-r.png); width:9px; height:20px; float:left;padding-right: 10px; background-repeat: no-repeat;}
+.butg-right{ background-image:url(../images/nsg-r.png); width:9px; height:20px; float:left;padding-right: 5px; background-repeat: no-repeat;}
 
 
 
