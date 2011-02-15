@@ -91,7 +91,6 @@ function question_add() {
     $output .= '
 	<script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
 
-	<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>
 	<script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/question.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/tagging/tagging.css" type="text/css" />
 <!--<script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/auto.js" type="text/javascript"></script>
@@ -622,59 +621,7 @@ function chk_dupe($quest='', $qid='') {
     }
 }
 
-function question_edit_save($array) {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
-    $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-
-    //  print_r($array);
-    extract($array);
-    $output = '';
-
-    if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($cat1)) {
-        $edate = $q_edate;
-        $result = db_query("update {question} set question='$q_quest',context='$q_context',cid='$cat1',scid='$cat2',sscid='$cat3',	 global='$q_global',country='$q_country',state='$q_state',city='$q_city',enddate='$edate' where qid='" . $nid . "' AND uid='" . $user->uid . "'");
-
-        $ins_id = db_last_insert_id('question', 'qid');
-        for ($i = 1; $i <= $ans_cnt; $i++) {
-            $name = "q_ans" . $i;
-            $aid = "aid" . $i;
-            if (!empty($$name)) {
-
-                if (!empty($$aid)) {
-                    $result = db_query("UPDATE {possible_answer} set answer='" . $$name . "' where paid='" . $$aid . "' AND qid='" . $nid . "'");
-                } else {
-
-                    $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, $$name);
-                }
-            }
-        }
-
-        if (db_query("select * from {qtag} where qid='" . $nid . "'")) {
-
-            db_query("update {qtag} set tag='" . $q_tag . "' where qid='" . $nid . "'");
-        }
-
-        if ($result)
-            drupal_set_message(t('Thank you, Question updated successfully!'), $type = 'success');
-        drupal_goto("question/");
-    } else {
-
-        $_SESSION['post'] = $_POST;
-        drupal_set_message($message = 'Sorry, Following required fields are Empty!', $type = 'error');
-
-        if (empty($q_quest))
-            drupal_set_message($message = 'Question should not be Empty!', $type = 'error');
-
-        if (empty($q_ans1) || empty($q_ans2))
-            drupal_set_message($message = 'Minimum 2 answers should be needed!', $type = 'error');
-
-        if (empty($cat1))
-            drupal_set_message($message = 'Main Category should not be Empty!', $type = 'error');
-    }
-
-    return $output;
-}
 
 function edit_question() {
 
@@ -1720,19 +1667,7 @@ function panel_content($type = '') {
 
     echo $strReturn;
 }
-function update_flag_badges($fids){
-foreach($fids as $fid){
-    $sql = "SELECT uid,nodeid FROM (question_flags) WHERE fid = '$fid' AND type = 'question'";
-    $users = ExecuteQuery($sql,'select');
-    
-    foreach($users as $user){
-       $uid = $user['uid'];
-       $qid = $user['nodeid'];
-        scrutineer($uid,$qid);
-    }
-}
 
-}
 function question_flagged_mail($qaid) {
     global $gSitePath, $user, $gDocPath, $base_root;
 
@@ -2685,7 +2620,7 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
     }
 //<select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
     //<select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
-    $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div><small><br/>
+    $output .= '</table><div id="add_more"></div><div id="del_ans" style="display:none;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a><small><br/></div>
 	
 	<input type="button" name="Add"  tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="' . count($ans) . '">
 	
@@ -2906,205 +2841,7 @@ width:775px; scroll;">' . $quest->context . '</textarea>  </td>
     return $output;
 }
 
-function question_edit_save_admin($array) {
 
-    $q_sscat = $_REQUEST['q_sscat'];
-    global $gSitePath, $user, $gDocPath, $base_root;
-    $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    
-	/*SAVING META INFORMATION*/	
-	$query = "SELECT * FROM {possible_answer} where qid='" . $nid . "' ";
-    $ans = ExecuteQuery($query, "select");	
-	$chk_exsit = db_result(db_query("select count(*) from {possible_answer_spectrum} where qid='$nid'"));
-    if ($chk_exsit > 0) {
-		$Spec_query2= db_query("delete * from {possible_answer_spectrum} where qid='$nid'");
-	}
-    foreach ($ans as $ans_array) 
-	{	
-		$row_count=1;
-		$Spec_query2= db_query("SELECT political_spec_id FROM {political_spectrum}");
-		while($Spec_result2=db_fetch_object($Spec_query2))
-			{
-				$radio_output  	= "sel_".$ans_array['paid']."_".$Spec_result2->political_spec_id."_".$row_count;
-				$posted_rating 	= $array["$radio_output"];
-				$ans_id 	   	= $ans_array['paid'];
-				$political_id	= $Spec_result2->political_spec_id;
-				/*echo '<pre>';
-				echo $posted_rating.'-';
-				echo $Spec_result2->political_spec_id.'<br>';*/				
-				$insert_query = db_query("insert into possible_answer_spectrum set qid= '$nid' , possible_ans_id='$ans_id' , political_spec_id='$political_id',
-				value='$posted_rating'");
-				$row_count++;
-			}			
-	}
-	 /*SAVING META INFORMATION*/	 
-	 //print_r($array);
-	 //die;
-    extract($_REQUEST);
-    extract($array);
-    $output = '';
-
-    if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
-        $edate = $q_edate;
-        $result = db_query("update {question} set question='$q_quest',context='$q_context',cid='$cat1',scid='$cat2',sscid='$cat3',	 global='$q_global',country='$q_country',state='$q_state',city='$q_city',enddate='$edate' where qid='" . $nid . "' ");
-
-        $ins_id = db_last_insert_id('question', 'qid');
-
-        $del_result = db_query("delete from {question_cat} where qid='" . $nid . "'");
-
-        // add scrutineer badge
-        $sql = "SELECT fid FROM {question_flags} WHERE nodeid = '$nid'";
-        $flagids = ExecuteQuery($sql,"select");
-        foreach($flagids as $flagid){
-            $fids[] = $flagid['fid'];
-        }
-        update_flag_badges($fids);
-///  category  starts & 1st level
-        $fetch = array();
-        if (!empty($q_cat)) {
-            $cat1 = $q_cat;
-            foreach ($cat1 as $ins1) {
-
-                db_query("insert into {question_cat} set qid='$nid',cat='$ins1'");
-               
-            }
-        }
-
-        /// category 2nd level
-        if (!empty($q_scat)) {
-            $cat2 = $q_scat;
-            foreach ($cat2 as $ins2) {
-
-                $fetch = load_parent_cat($ins2, 2);
-                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='0' "));
-                if ($chk_exsit > 0) {
-                    db_query("update {question_cat} set scat='$ins2' where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "'");
-                } else {
-                    db_query("insert into {question_cat} set qid='$nid',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
-                }
-            }
-        }
-        ///category 3rd level
-        if (!empty($q_sscat)) {
-            $cat3 = $q_sscat;
-            foreach ($cat3 as $ins3) {
-                $fetch = load_parent_cat($ins3, 3);
-                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "' AND sscat='0'"));
-                if ($chk_exsit > 0) {
-                    db_query("update {question_cat} set sscat='$ins3'  where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
-                } else {
-                    db_query("insert into {question_cat} set qid='$nid',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
-                }
-            }
-        }
-/// cateogry ends
-
-
-
-////vijay insert category subcategory start here
-       /* $cat1 = $_REQUEST['q_cat'];
-        $cat2 = $_REQUEST['q_scat'];
-
-
-
-        //$cat_count=explode(',',$cat1);
-        //  $subcat_count=explode(',',$cat2);
-        $cat_count = $_REQUEST['q_cat'];
-        $subcat_count = $_REQUEST['q_scat'];
-
-        if (count($cat_count) > count($subcat_count)) {
-            $arr_count = count($cat_count);
-        }
-        if (count($cat_count) < count($subcat_count)) {
-            $arr_count = count($subcat_count);
-        }
-        if (count($cat_count) == count($subcat_count)) {
-            $arr_count = count($cat_count);
-        }
-
-        for ($i = 0; $i < $arr_count; $i++) {
-
-
-            //$cate=$q_scat;
-            $cate = $q_cat;
-
-
-
-            // $subcate=$q_sscat;
-            $subcate = $q_scat;
-
-            $sub_subcate = $q_sscat;
-
-
-            $subcat_count = count($subcate);
-
-
-            if ($subcat_count > 0) {
-                for ($j = 0; $j < $subcat_count; $j++) {
-                    if (!empty($subcate[$j])) {
-                        db_query("insert into {question_cat} set qid='$nid',cat='$cate[$i]',scat='$subcate[$j]',sscat='$sub_subcate[$j]'");
-                    }
-                }
-            }
-            if ($subcat_count == 0) {
-                if (!empty($cate[$i])) {
-                    db_query("insert into {question_cat} set qid='$nid',cat='$cate[$i]'");
-                }
-            }
-        }*/
-        ////vijay insert category subcategory end here
-
-
-
-
-
-
-        
-
-        for ($i = 1; $i <= $ans_cnt; $i++) {
-            $name = "q_ans" . $i;
-            $aid = "aid" . $i;
-            if (!empty($$name)) {
-
-                if (!empty($$aid)) {
-                    $result = db_query("UPDATE {possible_answer} set answer='" . $$name . "' where paid='" . $$aid . "' AND qid='" . $nid . "'");
-                } else {
-                    // echo kkkkkkkkkk;
-                    //	echo "INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $nid, $$name;
-                    $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $nid, $$name);
-                }
-            }
-        }
-
-        if (db_query("select * from {qtag} where qid='" . $nid . "'")) {
-
-            // db_query("update {qtag} set tag='".$q_tag."' where qid='".$nid."'");
-        }
-
-        if ($result)
-            drupal_set_message(t('Thank you, Question updated successfully!'), $type = 'success');
-        //	print_r($result);
-        question_edited_mail($nid);
-        question_edited_mail_voters($nid);
-        question_edited_mail_suggest($nid);
-        //  drupal_goto("admin/moderatequestion");
-    } else {
-
-        $_SESSION['post'] = $_POST;
-        drupal_set_message($message = 'Sorry, Following required fields are Empty!', $type = 'error');
-
-        if (empty($q_quest))
-            drupal_set_message($message = 'Question should not be Empty!', $type = 'error');
-
-        if (empty($q_ans1) || empty($q_ans2))
-            drupal_set_message($message = 'Minimum 2 answers should be needed!', $type = 'error');
-
-        if (empty($cat1))
-            drupal_set_message($message = 'Main Category should not be Empty!', $type = 'error');
-    }
-
-    return $output;
-}
 
 function view_questions() {
     global $gSitePath, $user, $gDocPath, $base_root;

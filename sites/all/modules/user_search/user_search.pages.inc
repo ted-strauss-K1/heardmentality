@@ -751,7 +751,7 @@ function search_results_ajax() {
     ///////////////////////////////
     if ($sel_count > $limit) { // Let us display bottom links if sufficient records are there for paging
         /////////////// Start the bottom links with Prev and next link with page numbers /////////////////
-        $fetresult .= " <div class='result-item factmore'><div class='page-n' align='center'><ul><li>";
+        $fetresult .= "</div> <div class='result-item factmore'><div class='page-n' align='center'><ul><li>";
         //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
         if ($back >= 0) {
             //href='$page_name?start=$back&$lkr'
@@ -782,7 +782,7 @@ function search_results_ajax() {
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0);' id='$next'>Next</a>";
         }
-        $fetresult .= "</li></ul></div></div><input type='hidden' name='hid_page' id='hid_page' value=''/>";
+        $fetresult .= "</li></ul></div><input type='hidden' name='hid_page' id='hid_page' value=''/>";
     }
 
     if ($sel_count == 0) {
@@ -981,7 +981,7 @@ function search_results_question() {
     /////////////////////////////// sigma pagination
     if ($sel_count > $limit) { // Let us display bottom links if sufficient records are there for paging
         /////////////// Start the bottom links with Prev and next link with page numbers /////////////////
-        $fetresult .= " <div class='result-item factmore'><div class='page-n' align='center'><ul><li>";
+        $fetresult .= " </div><div class='result-item factmore'><div class='page-n' align='center'><ul><li>";
         //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
         if ($back >= 0) {
             //href='$page_name?start=$back&$lkr'
@@ -1012,7 +1012,7 @@ function search_results_question() {
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0)' id='$next'>Next</a>";
         }
-        $fetresult .= "</li></ul></div></div><input type='hidden' name='hid_page' id='hid_page' value=''/>";
+        $fetresult .= "</li></ul></div><input type='hidden' name='hid_page' id='hid_page' value=''/>";
     }
 
     if ($sel_count == 0) {

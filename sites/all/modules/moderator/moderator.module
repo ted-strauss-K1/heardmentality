@@ -71,7 +71,14 @@ function moderator_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'moderator.pages.inc',
     );
-
+    $mdtrest['moderator/ajax/%'] = array(
+        'title' => 'Moderator ajax ',
+        'page callback' => 'moderator_ajax',
+        'access arguments' => array('Moderate Question'),
+        'page arguments' => array(2),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
     return $mdtrest;
 }
 
@@ -83,9 +90,9 @@ function moderator_issues() {
 
     drupal_add_js($inline, $type = 'inline');
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
-    drupal_add_js(drupal_get_path('module','question')).'/scripts/question.js';
-      drupal_add_js(drupal_get_path('module','question')).'/scripts/jquery.multiSelect.js';
-       drupal_add_css(drupal_get_path('module','question')).'/styles/jquery.multiSelect.css';
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.js');
+    drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.css');
     $output = _moderator_left();
     $output.=' <div class="mod-midside-inner">
             <div class="warning" >No Issue Selected !</div>
@@ -205,7 +212,7 @@ function moderator_edit_issues($qid='') {
       $fcity=$udet->city;
       } */
 
-    $ret = '<select tabindex="18" class="mod-txtarea"   onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
+    $ret = '<select tabindex="18" multiple="multiple" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state[]"> <option value="">--States--</option>';
     foreach ($result->results as $state) {
         $set = '';
         if ($quest->state == $state['geonameid']) {
@@ -224,7 +231,7 @@ function moderator_edit_issues($qid='') {
     $query_city = array('geonameid' => $quest->state);
     $result_city = geonames_query('children', $query_city);
     //print_r($result);
-    $ret_city = '<select class="mod-txtarea" tabindex="19"    id="q_city" name="q_city"> <option value="">--Cities--</option> ';
+    $ret_city = '<select multiple="multiple" tabindex="19"   style="width: 125px;" id="q_city" name="q_city[]"> <option value="">--Cities--</option> ';
     foreach ($result_city->results as $state_city) {
         $set = '';
         if ($quest->city == $state_city['geonameid']) {
@@ -254,8 +261,9 @@ function moderator_edit_issues($qid='') {
            <b>* Required fields &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
             <div class="clr"></div>
           </div>
-				<form id="question" name="question" method="post"   onsubmit="return validate_question();" >
-                                <div class="mod-t-outer">
+				<form id="mod-question" name="mod-question" action="' . $gSitePath . 'moderator/ajax/saveissue" method="post"    >
+                               <input type="hidden" name="qid" value="' . $qid . '"/>
+<div class="mod-t-outer">
             <div class="mod-t1">Question<span title="This field is required." class="form-required">*</span></div>
             <div class="mod-t2">
                <input type="text" name="q_quest" class="mod-select" tabindex="1" id="q_quest" value="' . $quest->question . '" />
@@ -275,7 +283,7 @@ function moderator_edit_issues($qid='') {
             <div class="mod-t5">
               &nbsp;
             </div>';
-        $Spec_query = db_query("SELECT spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+    $Spec_query = db_query("SELECT spec_name,spec_min_range,spec_max_range FROM political_spectrum");
     while ($Spec_result = db_fetch_object($Spec_query)) {
         $output .='<div class="mod-t6">' . $Spec_result->spec_name . '  </div>';
     }
@@ -307,7 +315,7 @@ function moderator_edit_issues($qid='') {
 
         $row_count = 1;
         $Spec_query1 = db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
-       $radio_output='';
+        $radio_output = '';
         while ($Spec_result1 = db_fetch_object($Spec_query1)) {
             $answer_id = $array['paid'];
             $option = '';
@@ -334,8 +342,8 @@ function moderator_edit_issues($qid='') {
           <div class="clr"></div>';
     }
     $output.='';
-    $output .= '<div class="mod-t-outer" id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div></small><br/>
-        </div>
+    $output .= '<div class="mod-t-outer" id="add_more"></div><div align="center" id="del_ans" style="display:none;"><small><a href="javascript:void(0);" class="mod-t-outer"  tabindex="88" onclick="del_ans();">[Remove]</a></small><br/></div>
+   
 
             <div class="clr"></div>
           <div class="mod-t-outer">
@@ -357,11 +365,11 @@ function moderator_edit_issues($qid='') {
           <div class="clr"></div>
 ';
 
-   // $output .= $radio_output . '
-	//	</table>
-	//</td></tr>
-	//<!--POSSIBLE META ANSWER-->';
-	$output.='   <div class="mod-t-outer">
+    // $output .= $radio_output . '
+    //	</table>
+    //</td></tr>
+    //<!--POSSIBLE META ANSWER-->';
+    $output.='   <div class="mod-t-outer">
             <div class="mod-t1">&nbsp;</div>
             <div class="mod-t5">
         <input type="button" name="Add" class="mod-btn" tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="' . count($ans) . '">
@@ -534,7 +542,7 @@ function moderator_edit_issues($qid='') {
     <input type="submit" name="update" class="mod-btn" tabindex="21" id="save" value="Update" />
       </div>
             <div class="mod-t5">
-<select name="q_country"  class="mod-txtarea" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select>
+<select name="q_country[]"  style="width: 125px;" multiple="multiple" tabindex="17" onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select>
     </div>
 	 <div class="mod-t5"><div id="chg_state">' . $ret . '</div>  </div>
      <div class="mod-t5"><div id="chg_city">' . $ret_city . '</div> </div>
@@ -548,14 +556,230 @@ function moderator_edit_issues($qid='') {
     //$output .= '<tr><td colspan="6">'.get_tagging_edit($qid).'</td></tr>';
 
 
-    $output .= '
+    $output .= '</form>
           <div class="clr"></div></div>
         <div class="clr"></div>
-</form>
+
 
 ';
     if (isAjax ())
         echo $output;
     else
         return $output;
+}
+
+//Moderator ajax works goes here
+
+function moderator_ajax($action='') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    switch ($action) {
+        case 'saveissue':
+
+            $content = moderator_save_issue($_REQUEST);
+
+            break;
+        case 'state':
+            $explode = explode(',', $_REQUEST['ids']);
+            $ret = '<select tabindex="18"  style="width: 125px;" multiple="multiple" id="q_state" name="q_state[]"> <option value="">--States--</option>';
+            $results = array();
+            if (count($explode) > 0) {
+                foreach ($explode as $country) {
+
+                    $geoid = db_result(db_query("SELECT geonameid FROM {geonames_countryinfo} where name LIKE '%" . $country . "%' limit 0,1"));
+
+                    $query = array('geonameid' => $geoid);
+                    $results = geonames_query('children', $query);
+                    foreach ($results->results as $state) {
+                        $set = '';
+                        if (strpos(strtolower($setstate), strtolower($state['name']))) {
+                            $set = 'SELECTED=SELECTED';
+                        }
+                        $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'], $set, $state['name']);
+                    }
+                }
+
+                $ret .= "</select>";
+                $err = false;
+                $msg = 'No action found!';
+                $output = $ret;
+            } else {
+               $ret .= "</select>";
+                 $err = true;
+                $msg = 'No State found!';
+                $output = $ret;
+            }
+            break;
+          case 'city':
+            $explode = explode(',', $_REQUEST['ids']);
+           $ret = '<select  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
+            $results = array();
+            if (count($explode) > 0) {
+                foreach ($explode as $code) {
+
+                $query = array('geonameid' => $code);
+                $result = geonames_query('children', $query);
+             foreach ($result->results as $state) {
+
+                    $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
+                }
+                }
+                $ret .= "<option value='-1'>Others</option>";
+                $ret .= "</select>";
+                $err = false;
+                $msg = 'No action found!';
+                $output = $ret;
+            } else {
+               $ret .= "</select>";
+                 $err = true;
+                $msg = 'No City found!';
+                $output = $ret;
+            }
+            break;
+        default:
+            $err = true;
+            $msg = 'No action found!';
+            $output = '';
+            break;
+    }
+    if (isAjax ())
+        print json_encode(array('err' => $err, 'msg' => $msg, 'content' => $output));
+    else
+        return 'No Action Found!';
+}
+
+function moderator_save_issue($array) {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    extract($array);
+    $output = '';
+    $nid = $qid;
+    /* SAVING META INFORMATION */
+    $query = "SELECT * FROM {possible_answer} where qid='" . $nid . "' ";
+    $ans = ExecuteQuery($query, "select");
+    $chk_exsit = db_result(db_query("select count(*) from {possible_answer_spectrum} where qid='$nid'"));
+    if ($chk_exsit > 0) {
+        $Spec_query2 = db_query("delete * from {possible_answer_spectrum} where qid='$nid'");
+    }
+    foreach ($ans as $ans_array) {
+        $row_count = 1;
+        $Spec_query2 = db_query("SELECT political_spec_id FROM {political_spectrum}");
+        while ($Spec_result2 = db_fetch_object($Spec_query2)) {
+            $radio_output = "sel_" . $ans_array['paid'] . "_" . $Spec_result2->political_spec_id . "_" . $row_count;
+            $posted_rating = $array["$radio_output"];
+            $ans_id = $ans_array['paid'];
+            $political_id = $Spec_result2->political_spec_id;
+            /* echo '<pre>';
+              echo $posted_rating.'-';
+              echo $Spec_result2->political_spec_id.'<br>'; */
+            $insert_query = db_query("insert into possible_answer_spectrum set qid= '$nid' , possible_ans_id='$ans_id' , political_spec_id='$political_id',
+				value='$posted_rating'");
+            $row_count++;
+        }
+    }
+    /* SAVING META INFORMATION */
+
+
+
+    if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
+
+
+        $del_result = db_query("delete from {question_cat} where qid='" . $nid . "'");
+
+        // add scrutineer badge
+        $sql = "SELECT fid FROM {question_flags} WHERE nodeid = '$nid'";
+        $flagids = ExecuteQuery($sql, "select");
+        foreach ($flagids as $flagid) {
+            $fids[] = $flagid['fid'];
+        }
+        update_flag_badges($fids);
+///  category  starts & 1st level
+        $fetch = array();
+        if (!empty($q_cat)) {
+            $cat1 = $q_cat;
+            foreach ($cat1 as $ins1) {
+
+                db_query("insert into {question_cat} set qid='$nid',cat='$ins1'");
+            }
+        }
+
+        /// category 2nd level
+        if (!empty($q_scat)) {
+            $cat2 = $q_scat;
+            foreach ($cat2 as $ins2) {
+
+                $fetch = load_parent_cat($ins2, 2);
+                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='0' "));
+                if ($chk_exsit > 0) {
+                    db_query("update {question_cat} set scat='$ins2' where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "'");
+                } else {
+                    db_query("insert into {question_cat} set qid='$nid',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
+                }
+            }
+        }
+        ///category 3rd level
+        if (!empty($q_sscat)) {
+            $cat3 = $q_sscat;
+            foreach ($cat3 as $ins3) {
+                $fetch = load_parent_cat($ins3, 3);
+                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "' AND sscat='0'"));
+                if ($chk_exsit > 0) {
+                    db_query("update {question_cat} set sscat='$ins3'  where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
+                } else {
+                    db_query("insert into {question_cat} set qid='$nid',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
+                }
+            }
+        }
+
+        for ($i = 1; $i <= $ans_cnt; $i++) {
+            $name = "q_ans" . $i;
+            $aid = "aid" . $i;
+            if (!empty($$name)) {
+
+                if (!empty($$aid)) {
+                    $result = db_query("UPDATE {possible_answer} set answer='%s' where paid='%d' AND qid='%d'", check_plain($$name), $$aid, $nid);
+                } else {
+                    // echo kkkkkkkkkk;
+                    //	echo "INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $nid, $$name;
+                    $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $nid, check_plain($$name));
+                }
+            }
+        }
+
+        //multi location
+        //location
+
+        if ($result) {
+
+            $output['msg'] = 'Thank you, Question updated successfully!';
+            $output['err'] = false;
+        }
+        //	print_r($result);
+        question_edited_mail($nid);
+        question_edited_mail_voters($nid);
+        question_edited_mail_suggest($nid);
+        //  drupal_goto("admin/moderatequestion");
+    } else {
+
+
+        $output['msg'] = 'Sorry, Following required fields are Empty!';
+        $output['err'] = true;
+    }
+
+    return $output;
+}
+
+//Badges call back
+function update_flag_badges($fids) {
+    foreach ($fids as $fid) {
+        $sql = "SELECT uid,nodeid FROM (question_flags) WHERE fid = '$fid' AND type = 'question'";
+        $users = ExecuteQuery($sql, 'select');
+
+        foreach ($users as $user) {
+            $uid = $user['uid'];
+            $qid = $user['nodeid'];
+            scrutineer($uid, $qid);
+        }
+    }
 }
