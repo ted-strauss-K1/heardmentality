@@ -7,7 +7,7 @@
  
 			
       <?php if (!empty($left)): ?>
-	  <div class="home-lay3-1">
+	  <div class="home-lay1-1">
         <div id="sidebar-left" class="column sidebar">
           <?php print $left; ?>
         </div> <!-- /sidebar-left -->
@@ -31,7 +31,7 @@
             </div>
      
       <?php if (!empty($right)): ?>
-	    <div class="fact home-lay3-3">
+	    <div class="fact home-lay1-3">
                 <div id="block-sitetour">
         <div class="sitetour">
               <a href="<?php echo $gSitePath; ?>?tourId=MyTour"><img title="take the site tour" alt="take the site tour" src="<?php echo $gSitePath.path_to_theme();?>/images/take-tour.png"/></a>
