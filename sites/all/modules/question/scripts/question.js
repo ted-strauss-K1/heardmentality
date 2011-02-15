@@ -1,22 +1,6 @@
 // JavaScript Document
 jQuery(document).ready( function() {
 
-
-  if(admin){
-         jQuery('#q_cat').multiSelect();
-
-   jQuery('#q_scat').multiSelect();
-   jQuery('#q_sscat').multiSelect();
-   jQuery('#q_country').multiSelect();
-    jQuery('#q_state').multiSelect();
-    jQuery('#q_city').multiSelect();
-       // setDefaultCountry(cncode);
-    //    get_state(cncode);
-    //    get_city(setstate);
-    }
-   jQuery('.selectAll').remove();
-
-
    $('#q_quest').blur(function() {
    get_releted_issue(0);
    /*
@@ -51,157 +35,6 @@ success: function(msg){
 		
 	}
 /*RELEATED QUESTIONS AUTOCOMPLETE*/	
-function setDefaultCountry(cn) {
-    if(cn.length>0){
-        var countrySelect = document.getElementById("q_country");
-
-        for (i=0;i< countrySelect.length;i++) {
-            // the javascript geonamesData.js contains the countrycode
-            // of the userIp in the variable \'geonamesUserIpCountryCode\'
-            if (countrySelect[i].value == cn) {
-                // set the country selectionfield
-                countrySelect.selectedIndex = i;
-
-            }
-        }
-        var stateSelect = document.getElementById("q_state");
-        for (i=0;i< stateSelect.length;i++) {
-            if (stateSelect[i].value == ustate) {
-
-                // set the country selectionfield
-                stateSelect.selectedIndex = i;
-                get_city(setstate);
-            }
-        }
-    }
-}
-
-
-function get_state(code){
-    var url = spath+"question/ajax";
-
-    jQuery.ajax({
-        type: "GET",
-        url: url,
-        data: {
-            'action': 1,
-            'code' :code,
-            'select':1
-        },
-        success: function(msg){
-            jQuery('#chg_state').html(msg);
-
-            if(setstate.length>1){
-
-        //jQuery("#q_state option").each(function(){jQuery(this).text(escape(jQuery(this).text()));});
-        //jQuery("#q_state option:contains('tamil nadu')").attr("selected","selected") ;
-        //jQuery(this).text().toLowerCase()
-        }
-        }
-    });
-    jQuery('#chg_city').html('');
-    jQuery('#chg_city').fadeOut('slow');
-}
-
-function get_city(code){
-    jQuery('#chg_city').fadeIn('slow');
-    var url = spath+"question/ajax";
-
-    jQuery.ajax({
-        type: "GET",
-        url: url,
-        data: {
-            'action': 2,
-            'code' :code,
-            'select':1
-        },
-        success: function(msg){
-            jQuery('#chg_city').html(msg);
-        }
-    });
-
-}
-
-
-
-jQuery("input[name='q_cat[]']").live("change", function(event) {
-
-    var values = new Array();
-    jQuery.each(jQuery("input[name='q_cat']:checked"), function() {
-        values.push(jQuery(this).val());
-    // or you can do something to the actual checked checkboxes by working directly with  'this'
-    // something like $(this).hide() (only something useful, probably) :P
-    });
-    var ids=values.join(',');
-    if(!admin){
-        	get_releted_issue(ids);
-    }
-
-    
-    get_subcat('q_cat','chg_scat',1,ids);
-    jQuery('#chg_sscat').empty().html('No Subcategory');
-});
-
-jQuery("input[name='q_scat[]']").live("change", function(event) {
-
-    var values = new Array();
-    jQuery.each(jQuery("input[name='q_scat[]']:checked"), function() {
-        values.push(jQuery(this).val());
-    // or you can do something to the actual checked checkboxes by working directly with  'this'
-    // something like $(this).hide() (only something useful, probably) :P
-    });
-    var ids=values.join(',');
-
-    get_subcat('q_scat','chg_sscat',2,ids);
-});
-
-
-function get_subcat(sid,divid,level,ids){
-
-
-    if(level==1){
-        jQuery('#q_cat').val(ids);
-       // jQuery('#chg_scat').fadeOut('slow');
-        //jQuery('#chg_sscat').fadeOut('slow');
-    }
-
-    if(level==2){
-
-        jQuery('#cat2').val(ids);
-        jQuery('#chg_sscat').fadeIn('slow');
-    }
-    if(level==3)
-        jQuery('#cat3').val(ids);
-
-    if(ids.length>0){
-
-        if(level<3){
-
-            var url = spath+"question/ajax";
-            jQuery.ajax({
-                type: "POST",
-                url: url,
-                data: {
-                    'action': level,
-                    'ids' :ids
-                },
-                success: function(msg){
-                    jQuery('#'+divid).html(msg);
-                    if(sid=='q_cat')
-                        window.setTimeout("jQuery('#q_scat').multiSelect(); jQuery('.selectAll').remove();", 500);
-                    else if(sid=='q_scat')
-                        window.setTimeout("jQuery('#q_sscat').multiSelect(); jQuery('.selectAll').remove();", 500);
-                // jQuery('#'+divid+'input:select').multiSelect();
-                }
-            });
-
-
-        //get_tag_cat(ids,level);
-        }
-    }else{
-        jQuery('#'+divid).html('No Subcategory');
-    }
-}
 
 function question_check(){
          var quest = jQuery('#q_quest').val();
@@ -294,7 +127,6 @@ function add_ans(){
             jQuery(this).css('border','1px solid #838381')
         });
         ans_cnts = ++ans_cnt;
-
         if(ans_cnt>=3){
 
             jQuery('#del_ans').fadeIn('slow');
@@ -364,11 +196,15 @@ function del_ans(){
             jQuery('#Add').attr('disabled',false);
         }
 
+if(admin){
+ jQuery('#q_ans' + ans_cnt).closest('div.mod-t-outer').fadeOut('slow').remove();
 
-        jQuery('#q_ans' + ans_cnt).fadeOut('slow');
+} else{
+        jQuery('#q_ans' + ans_cnt).fadeOut('slow').remove();
 
-        jQuery('#q_ans' + ans_cnt).remove();
         jQuery('#add_more li:last').remove();
+    }
+        
         jQuery('#ans_cnt').val(ans_cnt - 1);
 
     }
