@@ -9,7 +9,7 @@
         <!-- /sidebar-left -->
         <?php endif; ?>
     </div>
-     <div class="issuesearch3">
+     <div class="issuesearch3 search-lay1-2">
         <h1>SEARCH RESULTS</h1>
         <div id="qfilter">
         <?php print $content; ?>

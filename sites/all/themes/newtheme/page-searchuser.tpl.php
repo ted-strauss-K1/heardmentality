@@ -16,7 +16,7 @@
 
 
         </div>    
-        <div class="user_search_3">
+        <div class="user_search_3 search-lay1-2">
             <h1>SEARCH RESULTS</h1>
             <div id="ufilter">
             <?php print $content; ?>
