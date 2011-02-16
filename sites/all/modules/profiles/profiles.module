@@ -1745,6 +1745,7 @@ function profiles_form_validate($form, &$form_state) {
             $zip = $form_state['values']['zip'];
             $state = $form_state['values']['state'];
             $uname = $form_state['values']['username'];
+            $email = $form_state['values']['email'];
             if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $uname)) {
                 form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
                 $form_state['rebuild'] = TRUE;
