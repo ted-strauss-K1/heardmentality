@@ -14,7 +14,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .top-left-outer{ width:164px; float:left; margin-right:50px;}
 .loginvi-outer{  width:232px; float:right;  font:normal 9px Arial, Helvetica, sans-serif; color:#333;}
 .text-logo{ width:162px; height:48px; border:1px #f0f0f0 solid; color:#666666; font-size:14px; font-family:"Trajan Pro", Geneva, sans-serif; font-weight:bold;}
-.text-logo .textspace{font-family:"Trajan Pro", Geneva, sans-serif; }
+/*.text-logo .textspace{font-family:"Trajan Pro", Geneva, sans-serif; }*/
 .textspace{padding-top: 10px;}
 .date-time{ width:232px; font:normal 10px Arial,Helvetica,sans-serif; color:#000000;}
 .loginvi{ width:162px; height:auto; float:right; border:1px #f0f0f0 solid;}
@@ -583,7 +583,7 @@ padding:0px;}*/
 
 
 /*issue search3*/
-#qfilter{ height: 335px; overflow:auto; padding-right:10px;}
+#qfilter{ height: 362px; overflow:auto; padding-right:10px;}
 .issuesearch3{border: 2px #777 solid; height:auto !important; width:327px; float:left; margin-left:10px; margin-right:10px; padding-left:10px;}
 .issuesearch3 h1{ font:bold 14px/30px Georgia, "Times New Roman", Times, serif, leadville; border-bottom:1px solid #ccc; margin:0 5px 5px;}
 /*.page-searchuser .result-item .rleft{height: 448px}*/
