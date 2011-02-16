@@ -60,7 +60,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .commu .inner{ width:325px; margin:auto; padding:0px;}
 
 .inner h3{ font:12px/21px Arial,Helvetica,sans-serif; color:#000;}
-.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:3px; padding:2px; overflow:auto; font:13px/20px Arial,Helvetica,sans-serif; color:#f9f6ef; background-color: #f9f6ef;}
+.innerbox{ border:1px #cccccc solid; height:103px; margin-bottom:3px; padding:2px; overflow:auto; font:13px/20px Arial,Helvetica,sans-serif; background-color: #f9f6ef;}
 .innerbox_notify{ border:1px #cccccc solid; height:250px; margin-bottom:10px; padding:2px; overflow:auto; font:14px/20px Arial,Helvetica,sans-serif; color:#996600;}
 .innerbox a{font-size:14px/21px; color:#aa7e29;}
 #sidebar-left .innerbox a{ font-size:14px; color:#996600;}
@@ -582,7 +582,7 @@ padding:0px;}*/
 
 
 /*issue search3*/
-#qfilter{ height: 361px; overflow:auto; padding-right:10px;}
+#qfilter{ height: 335px; overflow:auto; padding-right:10px;}
 .issuesearch3{border: 2px #777 solid; height:auto !important; width:327px; float:left; margin-left:10px; margin-right:10px; padding-left:10px;}
 .issuesearch3 h1{ font:bold 14px/30px Georgia, "Times New Roman", Times, serif, leadville; border-bottom:1px solid #ccc; margin:0 5px 5px;}
 /*.page-searchuser .result-item .rleft{height: 448px}*/
@@ -1520,4 +1520,5 @@ img{ border:none; outline:none;}
 .search-lay1-3 .facttext{ padding-bottom:0;}
 .search-lay1-3 .block{ border:1px solid #ccc; margin-bottom:5px;}
 
+.search-lay1-1 .black12{ font-weight:bold;}
 .search-lay1-3 .commu-profile{ min-height:351px;}

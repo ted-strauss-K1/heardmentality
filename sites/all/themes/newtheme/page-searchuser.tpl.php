@@ -1,7 +1,7 @@
 <?php include "header.tpl.php"; ?>
 <!--content area-->
 <div class="contarea">
-    <div class="refine-search">
+    <div class="refine-search search-lay1-1">
 
         <?php if (!empty($left)): ?>
             <div id="sidebar-left" class="column sidebar">
