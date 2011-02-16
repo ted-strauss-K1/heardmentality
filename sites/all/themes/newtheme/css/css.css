@@ -88,7 +88,7 @@ body{ background-image:url(../images/bg.gif); background-repeat:repeat; font:nor
 .sitetour{ width:162px;  border-bottom:1px #cccccc solid;}
 .sitetour img:hover{ opacity:0.7;}
 .facttop{font:bold 14px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#777; padding:3px 0 3px 5px;text-align:center; text-transform:uppercase; text-align:left;}
-.facttop2{font:14px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#777; padding:3px;text-align:center; text-transform:uppercase; text-align:left;}
+.facttop2{font:bold 14px/25px  Arial,Helvetica,sans-serif; color:#fff; background-color:#777; padding:3px;text-align:center; text-transform:uppercase; text-align:left;}
 .fact1{ width:65px; margin:7px; float:left;font:14px  Arial,Helvetica,sans-serif; color:#996600; text-align:center; }
 .factblu{ width:65px; margin:7px; float:left;font:14px Arial,Helvetica,sans-serif; color:#336699; text-align:center;}
 .facttext{ font:14px/21px Arial,Helvetica,sans-serif; color:#333333; padding-bottom:5px; }
@@ -1152,7 +1152,7 @@ div.growlUI h1, div.growlUI h2 {
     text-decoration:none;
     padding:5px 0px;
 
-    background:#000;
+    background:#777;
     padding-left:5px;
 }
 .submenu a{
@@ -1192,7 +1192,7 @@ div.growlUI h1, div.growlUI h2 {
 .tab-historyspan3{ color:#996600;padding-left:30px;}
 .tab-historyspan4 a{ color:#000000; text-decoration:none}
 .tab-historyspan4 a:hover{ color:#000000; text-decoration:underline}
-.tab-historyspan5 a{ color:#996600;padding-left:30px;text-decoration:none}
+.tab-historyspan5 a{ color:#996600; text-decoration:none;}
 .tab-historyspan5 a:hover{ color:#996600;text-decoration:underline;}
 .hm-cen{ border:1px solid #ccc; padding:0px}
 .ques .hm-cen{ padding:5px;}
@@ -1495,7 +1495,7 @@ img{ border:none; outline:none;}
 .details-left{float:left;padding:5px;width: 280px;}
 .but-cont{ float:left; clear:right;}
 .but-cont .but-left{ padding-left:0;}
-#fbContent{ padding:0 10px !important;}
+/*#fbContent{ padding:0 10px !important;}*/
 .form-item .description ul{ list-style-type:none; padding-left:10px; font-size:12px; line-height:18px;}
 .content legend{ font-weight:bold;}
 .content p{ padding:5px 0;}
