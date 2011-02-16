@@ -443,7 +443,7 @@ function profile($uid = '') {
     if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
         $bio1 = $bio;
     }
-    if (($userSettings['country'] == 1) || ($userSettings['country'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['country'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['zip'] == 1) || ($userSettings['zip'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['zip'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
         $country1 .= $country;
 
         if (!empty($state)) {
@@ -458,6 +458,8 @@ function profile($uid = '') {
     if ($religion1 == '') {
         $religion1 = "-";
     }
+
+    
 
     if (($userSettings['image'] == 1) || ($userSettings['image'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['image'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
         $img_path1 = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $image;
@@ -774,6 +776,10 @@ function profile($uid = '') {
 
 function profile_tab($tab='', $uid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
+
+    //bio privacy settings
+    $userSettings = checkPrivacySettings($uid);
+    $is_follow_follower = checkFollowStatus($user->uid, $uid);
     $output = '<div class="history-tab">';
     switch ($tab) {
         case 'info':
@@ -790,11 +796,19 @@ function profile_tab($tab='', $uid='') {
             $ptitle = explode(';', $psplit[0]);
             $purl = explode('||', $psplit[1]);
             $social = explode('||', $getuser->social);
-            $bio = trim($getuser->bio);
+            
+            if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+               $bio = trim($getuser->bio);
+            }
+            if (empty($bio)) {
+               $bio = '';
+            }
+           
+            
             $block = module_invoke('follow', 'block', 'view', 'user');
 //$block= (object)module_invoke('follow', 'block', 'view', 'user');
 //print theme('block',$block);print $block['content'];
-            $output.='<div id="bio">' . (!empty($bio) ? $getuser->bio : "No Bio updated yet") . '</div><div style="display:none;" id="link">
+            $output.='<div id="bio">' . (!empty($bio) ? $getuser->bio : "-") . '</div><div style="display:none;" id="link">
           <!--  <div class="face_book">
             <h4>Follow me on</h4>
                     <a title="FaceBook" target="_blank" href="' . ((!empty($social[0])) ? $social[0] : '#') . '"><img align="left" alt="" src="' . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
@@ -2039,4 +2053,24 @@ function _basic_submit($form, &$form_state) {
     db_query("update {users} set name='%s' where uid='%d'", $form_state['values']['username'], $user->uid);
     drupal_set_message(t('Your form has been saved.', 'success'));
     return true;
+}
+
+function privacy($uid = ''){
+    $sql= db_query("SELECT * FROM {privacy_settings} WHERE uid = '%d'", $uid);
+    while($settings = db_fetch_object($sql)){
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['name '] = $settings->name;
+       $privacy['email '] = $settings->email;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+    }
 }
