@@ -1524,3 +1524,5 @@ img{ border:none; outline:none;}
 .search-lay1-1 .black12{ font-weight:bold;}
 .search-lay1-3 .commu-profile{ min-height:351px;}
 .search-lay1-3 #scrollingContent li{ margin-top:0px;}
+.search-lay1-3 .debate-round-tab-outer .form-part-top .form-m1,.search-lay1-3 .debate-round-tab-outer .form-part-top .form-m2,.search-lay1-3 .debate-round-tab-outer .form-part-top .form-m3,.search-lay1-3 .debate-round-tab-outer .form-part-top .form-m4{ width:auto; margin-right:5px;}
+.search-lay1-3 .contributer select{ width:110px;}
