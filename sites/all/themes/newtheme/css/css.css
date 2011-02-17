@@ -1520,7 +1520,7 @@ img{ border:none; outline:none;}
 .search-lay1-3 .innerbox{border:0; margin-bottom: 0;}
 .search-lay1-3 .facttext{ padding-bottom:0;}
 .search-lay1-3 .block{ border:1px solid #ccc; margin-bottom:5px;}
-.search-lay1-3 .profile-left { width:190px;}
+
 
 .search-lay1-1 .black12{ font-weight:bold;}
 .search-lay1-3 .commu-profile{ min-height:351px;}
@@ -1538,7 +1538,6 @@ img{ border:none; outline:none;}
 .popup-debate-new .fm-1{ color:#000; font-weight:bold;}
 .popup-issue-flag .cmt_list,.popup-user-flag .cmt_list{ border:0; padding-left:10px;}
 .popup-issue-flag .txt_area,.popup-user-flag .txt_area{ padding:10px;}
-.popup-profile .profile-left{ width:200px;}
 .popup-profile .profile-left,.popup-profile #page{ margin-left:10px;}
 .popup-profile .history-tab{ line-height:22px; padding-left:10px;}
 .popup-profile .history-tab li{color:#333; border-bottom:1px solid #E5E5E5;}
