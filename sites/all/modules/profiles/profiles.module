@@ -434,16 +434,16 @@ function profile($uid = '') {
 
     $gender_name = isset($gender) && ($gender == 1) ? 'Male' : 'Female';
     //Checking settings and displaying the field
-    if (($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['real_name'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['real_name'] == 3 && $is_follow_follower == TRUE) && ($userSettings['real_name'] != 4)) {
         $real_name1 = $first_name . '' . $last_name;
     }
     if (empty($real_naem1)) {
         $real_name1 = '-';
     }
-    if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 3 && $is_follow_follower == TRUE) && ($userSettings['bio'] != 4)) {
         $bio1 = $bio;
     }
-    if (($userSettings['zip'] == 1) || ($userSettings['zip'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['zip'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['zip'] == 1) || ($userSettings['zip'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['zip'] == 3 && $is_follow_follower == TRUE) && ($userSettings['zip'] != 4)) {
         $country1 .= $country;
 
         if (!empty($state)) {
@@ -452,7 +452,7 @@ function profile($uid = '') {
     }if ($country1 == '') {
         $country1 = "-";
     }
-    if (($userSettings['religion'] == 1) || ($userSettings['religion'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['religion'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['religion'] == 1) || ($userSettings['religion'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['religion'] == 3 && $is_follow_follower == TRUE) && ($userSettings['religion'] != 4)) {
         $religion1 = $religion;
     }
     if ($religion1 == '') {
@@ -461,12 +461,12 @@ function profile($uid = '') {
 
     
 
-    if (($userSettings['image'] == 1) || ($userSettings['image'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['image'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['image'] == 1) || ($userSettings['image'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['image'] == 3 && $is_follow_follower == TRUE) && ($userSettings['image'] != 4)) {
         $img_path1 = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $image;
         $PROFILE_IMAGE = '<img src="' . $img_path1 . '" align="absmiddle" alt="Profile image" >';
     }
 
-    if (($userSettings['dob'] == 1) || ($userSettings['dob'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['dob'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['dob'] == 1) || ($userSettings['dob'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['dob'] == 3 && $is_follow_follower == TRUE) && ($userSettings['dob'] != 4)) {
         $dob1 = $age;
     }if ($dob1 == 0) {
         $dob1 = "-";
@@ -476,48 +476,48 @@ function profile($uid = '') {
         $rem_second = $rem_first + 5;
         $dob1 = 'Between ' . $rem_first . ' - ' . $rem_second;
     }
-    if (($userSettings['sorient'] == 1) || ($userSettings['sorient'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['sorient'] == 2 && $is_follow_follower == TRUE) || ($userSettings['sorient'] != 4)) {
+    if (($userSettings['sorient'] == 1) || ($userSettings['sorient'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['sorient'] == 3 && $is_follow_follower == TRUE) && ($userSettings['sorient'] != 4)) {
         $sorient1 = $sorient;
     }if (empty($sorient1)) {
         $sorient1 = "-";
     }
-    if (($userSettings['edu'] == 1) || ($userSettings['edu'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['edu'] == 2 && $is_follow_follower == TRUE) || ($userSettings['edu'] != 4)) {
+    if (($userSettings['edu'] == 1) || ($userSettings['edu'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['edu'] == 3 && $is_follow_follower == TRUE) && ($userSettings['edu'] != 4)) {
         $edu1 = $edu;
     } if (empty($edu1)) {
         $edu1 = "-";
     }
-    if (($userSettings['ethnic'] == 1) || ($userSettings['ethnic'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['ethnic'] == 2 && $is_follow_follower == TRUE) || ($userSettings['ethnic'] != 4)) {
+    if (($userSettings['ethnic'] == 1) || ($userSettings['ethnic'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['ethnic'] == 3 && $is_follow_follower == TRUE) && ($userSettings['ethnic'] != 4)) {
         $ethnic1 = $ethnic;
     }
     if (empty($ethnic1)) {
         $ethnic1 = "-";
     }
 
-    if (($userSettings['slant'] == 1) || ($userSettings['slant'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['slant'] == 2 && $is_follow_follower == TRUE) || ($userSettings['slant'] != 4)) {
+    if (($userSettings['slant'] == 1) || ($userSettings['slant'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['slant'] == 3 && $is_follow_follower == TRUE) && ($userSettings['slant'] != 4)) {
         $slant1 = $slant;
     }
     if (empty($slant1)) {
         $slant1 = "-";
     }
 
-    if (($userSettings['gender'] == 1) || ($userSettings['gender'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['gender'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['gender'] == 1) || ($userSettings['gender'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['gender'] == 3 && $is_follow_follower == TRUE) && ($userSettings['gender'] != 4)) {
         $gender_name1 = $gender_name;
     }
     if ($gender_name1 == '') {
         $gender_name1 = "-";
     }
-    if (($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['facebook'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['facebook'] == 3 && $is_follow_follower == TRUE) && ($userSettings['facebook'] != 4)) {
         $facebook1 = $facebook;
     }
-    if (($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['twitter'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['twitter'] == 3 && $is_follow_follower == TRUE) && ($userSettings['twitter'] != 4)) {
         $twitter1 = $twitter;
     }
 
 
-    if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 3 && $is_follow_follower == TRUE) && ($userSettings['answers'] != 4)) {
         $answer1 = $ins_ans;
     }
-    if (($userSettings['questions'] == 1) || ($userSettings['questions'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['questions'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+    if (($userSettings['questions'] == 1) || ($userSettings['questions'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['questions'] == 3 && $is_follow_follower == TRUE) && ($userSettings['questions'] != 4)) {
         $question1 = $inc_qns;
     }
 
@@ -797,7 +797,7 @@ function profile_tab($tab='', $uid='') {
             $purl = explode('||', $psplit[1]);
             $social = explode('||', $getuser->social);
             
-            if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 2 && $is_follow_follower == TRUE) || ($userSettings['bio'] != 4)) {
+            if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 3 && $is_follow_follower == TRUE) && ($userSettings['bio'] != 4)) {
                $bio = trim($getuser->bio);
             }
             if (empty($bio)) {
