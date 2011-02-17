@@ -1293,7 +1293,7 @@ function flag_question() {
         $PROFILE_IMAGE = '<img src="' . $img_path1 . '" align="absmiddle" alt="Profile image" >';
         $falgq .= '<div class="popup-user-flag" id="log">
 	<div class="facttop2">FLAG USERS</div>
-	<div id=""><b>Report this user!</b></div>
+	<div class="flag-report"><b>Report this user!</b></div>
 	<div id="log_res"></div>
 	<span class="clr"><!-- spanner --></span>';
         $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">
@@ -1318,7 +1318,7 @@ function flag_question() {
         $date = format_date_class($oListquest->posted_date, date('Y-m-d h:i:s'));
         $falgq .= '<div class="popup-resource-flag" id="log">
 	<div class="facttop2">FLAG RESOURCES</div>
-	<div id=""><b>Report this Resource!</b></div>
+	<div class="flag-report"><b>Report this Resource!</b></div>
 	<div id="log_res"></div>
 	<span class="clr"><!-- spanner --></span>';
         $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">

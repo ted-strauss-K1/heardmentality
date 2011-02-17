@@ -94,7 +94,7 @@ function loadeditquestion(url,title)
    // url: url,width:550,height:450,title:'Flag Posts'
 //  });
 
-	  var options = 'sameBox:true width:90% height:90% caption:' +
+	  var options = 'sameBox:true width:78% height:90% caption:' +
   '`Edit Profile`';
   parent.fb.start(url, options);
 	

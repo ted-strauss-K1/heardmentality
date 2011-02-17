@@ -99,7 +99,11 @@ jQuery(document).ready(function(){
         });
     });
 
-
+jQuery('#tabcontent .pager a').live('click',function(e){
+     e.preventDefault();
+        e.stopPropagation();
+   jQuery('#tabcontent').load(jQuery(this).attr('href'));
+});
 
 
 });

@@ -77,7 +77,7 @@ function loadresource(url,title)
     //jQuery.nyroModalManual({
     //  url: url,width:550,height:450,title:'Add Resources'
     // });
-    var options = 'sameBox:true width:60% height:60% caption:' +
+    var options = 'sameBox:true width:50% height:60% caption:' +
     '`Add Resources`';
     parent.fb.start(url, options);
 		
@@ -90,7 +90,7 @@ function loadsuggest(url,title){
     //jQuery.nyroModalManual({
     // url: url,width:550,height:450, padding:40,title:'Suggest an Answer'
     // });
-    var options = 'sameBox:true width:50% height:70% caption:' +
+    var options = 'sameBox:true width:50% height:60% caption:' +
     '`Suggest an Answer`';
     parent.fb.start(url, options);
 }

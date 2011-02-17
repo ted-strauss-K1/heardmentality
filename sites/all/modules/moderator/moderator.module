@@ -91,6 +91,7 @@ function moderator_issues() {
     drupal_add_js($inline, $type = 'inline');
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
     drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.js');
     drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.css');
     $output = _moderator_left();
@@ -110,7 +111,7 @@ function _moderator_left() {
               <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/issues/list/flag" title="Forum"><span>Flagged (14)</span></a></li>
                      </ul>
 
-            <div style="" id="tabcontent" class="mytabs-container">
+            <div id="tabcontent" class="mytabs-container" style="height:auto;" >
              
               <div class="clr"></div>
             </div>
@@ -141,15 +142,15 @@ switch($type){
     case 'new':
 
             //actual query
-    $query = "SELECT * from {question} as q  where new='1' ORDER BY q.qid DESC";
- $count = "SELECT count(*) from {question} as q  where new='1' group by q.qid";
+    $query = "SELECT * from {question} as q  where new='0' ORDER BY q.qid DESC";
+ $count = "SELECT count(*) from {question} as q  where new='0' ";
  $sqlcnt=db_result(db_query($count));
         break;
     case 'flag':
                     //actual query
     $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY f.flag_date DESC";
-echo $count = "SELECT count(*)  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY f.flag_date group by q.qid DESC ";
-echo $sqlcnt=db_result(db_query($count));
+  $count = "SELECT count(*) from {question_flags} as f  join {question} as q  on f.nodeid=q.qid  where f.type='question'  ";
+ $sqlcnt=db_result(db_query($count));
         break;
     default:
 
@@ -161,14 +162,18 @@ echo $sqlcnt=db_result(db_query($count));
 }
 
     //pager_query function
-    $rs = pager_query($query, $num_per_page,$count);
+    $rs = pager_query($query, $num_per_page);
     $alt = 'm-even';
     $output.= '  <div class="mod-leftside-inner">';
     if($sqlcnt){
     while ($data = db_fetch_object($rs)) {
-
+       
+        if($type=='flag')
+         $flag= (''.$data->fcnt.'<img src="'.$gSitePath.path_to_theme().'/images/flag.png" align="absmiddle"/>');
+         $chk=('<div align="right"><input type="checkbox" class="check-me" name="qids[]" value="' . $data->qid . '" />&nbsp; '.$flag.'</div> ');
         $nd = ('<div class="' . $alt . '" > ');
         $nd .= l($data->question, $gSitePath . 'moderator/issues/edit/' . $data->qid, array('attributes' => array('class' => 'issue-links')));
+        $nd.=$chk;
         $nd .= ( '</div>');
         $output .= ( $nd);
         if ($alt == 'm-even')
@@ -176,7 +181,7 @@ echo $sqlcnt=db_result(db_query($count));
         else
             $alt='m-even';
     }
-    $output .= theme('pager', array(), $num_per_page,0);
+    $output .= theme('pager',array(), $num_per_page,0);
     }else{
        echo '<div class="warning">No Issue(s) Found!</div>';
     }

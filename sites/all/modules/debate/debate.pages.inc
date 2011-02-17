@@ -9,26 +9,26 @@ function debate_list($qid = '', $did='') {
     $output = '';
     $like = '';
     $flag = '';
-   
-     $query = "SELECT *,u.uid as uid,IFNULL((select did  FROM {debate} where did > f.did AND qid='$qid'  limit 0,1 ),0) as pdid,IFNULL((select did FROM {debate} where did < f.did AND qid='$qid' order by did DESC limit 0,1 ),0) as ndid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
+
+    $query = "SELECT *,u.uid as uid,IFNULL((select did  FROM {debate} where did > f.did AND qid='$qid'  limit 0,1 ),0) as pdid,IFNULL((select did FROM {debate} where did < f.did AND qid='$qid' order by did DESC limit 0,1 ),0) as ndid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
     $list = ExecuteQuery($query, "select");
-    $dlink=$gSitePath.'issues/debate/';
-   
+    $dlink = $gSitePath . 'issues/debate/';
+
     foreach ($list as $forum) {
 
-       if($forum['pdid']>0){
-    $prev=$dlink.$qid.'/'.$forum['pdid'];
-      $set_p_link='<li><a  href="'.$prev.'" class="previous"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
-    }
-     if($forum['ndid']>0){
-    $next=$dlink.$qid.'/'.$forum['ndid'];
-    $set_n_link='   <li><a   href="'.$next.'" class="next"  onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
-     }
-    $output .= '<div class="popup-debate">
+        if ($forum['pdid'] > 0) {
+            $prev = $dlink . $qid . '/' . $forum['pdid'];
+            $set_p_link = '<li><a  href="' . $prev . '" class="previous"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
+        }
+        if ($forum['ndid'] > 0) {
+            $next = $dlink . $qid . '/' . $forum['ndid'];
+            $set_n_link = '   <li><a   href="' . $next . '" class="next"  onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
+        }
+        $output .= '<div class="popup-debate">
        <div class="hm-debate2-wrapper">
     	<div class="titlebg">
         	<div class="menudebate">
-            	<ul>'.$set_p_link.$set_n_link.'
+            	<ul>' . $set_p_link . $set_n_link . '
     </ul>
             </div>
 
@@ -61,16 +61,16 @@ function debate_list($qid = '', $did='') {
         $fetch = ExecuteQuery($querylike, "select");
         $agreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='1' AND node_id='" . $forum['did'] . "'"));
         $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='0' AND node_id='" . $forum['did'] . "'"));
-        if($user->uid!=$forum['uid']){
-        if (count($fetch) < 1) {
+        if ($user->uid != $forum['uid']) {
+            if (count($fetch) < 1) {
 
-            $like = '<li><span type="is_debate" name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
-        } elseif ($fetch[0]['is_debate'] == '1' && $fetch[0]['is_agree']) {
+                $like = '<li><span type="is_debate" name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
+            } elseif ($fetch[0]['is_debate'] == '1' && $fetch[0]['is_agree']) {
 
-            $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
-        } else {
-            $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
-        }
+                $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
+            } else {
+                $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+            }
         }
 //flag
         $flag.='<a name="' . $did . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',this);"></a>';
@@ -294,17 +294,17 @@ function get_debate($did = '', $pid = '') {
                 $fetch = ExecuteQuery($querylike, "select");
                 $cntagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
                 $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
-                 if($user->uid!=$forum['uid']){
-                if (count($fetch) < 1) {
+                if ($user->uid != $forum['uid']) {
+                    if (count($fetch) < 1) {
 
-                    $like = '<li><span name="' . $forum['rid'] . '" type="is_debate_reply" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['rid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['rid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
-                } elseif ($fetch[0]['is_agree']) {
+                        $like = '<li><span name="' . $forum['rid'] . '" type="is_debate_reply" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['rid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['rid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
+                    } elseif ($fetch[0]['is_agree']) {
 
-                    $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
-                } else {
-                    $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+                        $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
+                    } else {
+                        $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+                    }
                 }
-                 }
 //flag
                 $flag = '';
                 $flag.='<a name="' . $did . '-' . $forum['rid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
@@ -440,17 +440,17 @@ function get_res_debate($rid = '', $pid = '') {
                 $fetch = ExecuteQuery($querylike, "select");
                 $cntagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='1' AND node_id='" . $forum['reid'] . "'"));
                 $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='0' AND node_id='" . $forum['reid'] . "'"));
-                 if($user->uid!=$forum['uid']){
-                if (count($fetch) < 1) {
+                if ($user->uid != $forum['uid']) {
+                    if (count($fetch) < 1) {
 
-                    $like = '<li><span type="is_resource_reply" name="' . $forum['reid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['reid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['reid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
-                } elseif ($fetch[0]['is_agree']) {
+                        $like = '<li><span type="is_resource_reply" name="' . $forum['reid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['reid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['reid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
+                    } elseif ($fetch[0]['is_agree']) {
 
-                    $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
-                } else {
-                    $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+                        $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
+                    } else {
+                        $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+                    }
                 }
-                 }
 //flag
                 $flag = '';
                 $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',' . $forum['reid'] . ');"></a>';
@@ -905,18 +905,13 @@ function add_resources($qid='') {
     foreach ($ans as $list) {
 
         $inc_pans.='
-	<div class="form-outer-debate">
-    	<div class="fm-1">&nbsp;</div>
+	<div class="debate-r-row">
         <div class="fm-2">
         <div class="fm-2-left">' . $list['answer'] . ' </div>
 <div class="fm-2-right">
 
             <input type="hidden" name="ans_id[]" value="' . $list['paid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
               </div>
-
-
-
-
         </div>
 
 
@@ -934,70 +929,50 @@ function add_resources($qid='') {
         <form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'debate/ajax" enctype="multipart/form-data" >
             <input type="hidden" name="qaid" value="' . $qid . '"/>
              <input type="hidden" name="action" value="resource_new"/>
-  <div class="form-outer-debate">
-    	<div class="fm-1">Please Follow the <a href="#">Principles and Guidelines.</a></div>
+
+<div class="debate-l">
+    <div class="fm-1">Please Follow the <a href="#">Principles and Guidelines.</a></div>
+    <div class="fm-1">All debates should be:<br />
+            <ul>
+            <li>Concise</li>
+            <li>Etc</li>
+            </ul>
+    </div>
+</div>
+<div class="debate-r">
+    <div class="debate-r-row">
         <div class="fm-2">   <select name="rtype" class="listbox1" id="rtype" >
 	<option value="0">Resource Type </option>
 	<option value="1">News </option>
 	<option value="2">Multimedia </option>
 	<option value="3">Facts </option>
 	</select></div>
-
-
-    <div class="clr"></div>
-    </div>
-    <div class="form-outer-debate">
-    	<div class="fm-1">All debates should be:<br />
-            <ul>
-            <li>Concise</li>
-            <li>Etc</li>
-            </ul></div>
-        <div id="div1" style="display:none;"  class="fm-2"><input type="text" class="" style="float:left; padding:3px;"  name="nlink" value="http://" id="nlink"/> <div><input id="lattach" name="name" type="button" value="Attach"  style="float:left; width:50px; padding:1px;"/></div></div>
-<div id="div2" style="display:none;"  class="fm-2"><select name="mtype" class="listbox1" id="mtype"   >
-	<option value="0">Choose Format </option>
-	<option value="1">Web Video </option>
-	<option value="2">Podcast,PDF, DOC, PPT. </option>
-	</select> 
-            </div>
-
-    <div class="clr"></div>
-    </div>
- <div class="form-outer-debate">
- <div class="fm-1"> &nbsp;</div>
-<div id="media" style="display:none;"  class="fm-2"> <input type="text"  name="membed" id="membed" value="http://"  class="" ></div>
-<div id="media_div" style="display:none;"  class="fm-2">
-<input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div>
-</div>
-
-    <div class="clr"></div>
     </div>
 
-        <div class="form-outer-debate">
-    	<div class="fm-1"> &nbsp;
-</div>
-        <div class="fm-2" id="linkbox">
-        	
-
-
-
-      </div>
-
-
-    <div class="clr"></div>
+    <div id="div1" style="display:none;"  class="debate-r-row"><input type="text" class="" style="float:left; padding:3px;"  name="nlink" value="http://" id="nlink"/> <div><input id="lattach" name="name" type="button" value="Attach"  style="float:left; width:50px; padding:1px;"/></div></div>
+    <div id="div2" style="display:none;"  class="debate-r-row"><select name="mtype" class="listbox1" id="mtype"   >
+    <option value="0">Choose Format </option>
+    <option value="1">Web Video </option>
+    <option value="2">Podcast,PDF, DOC, PPT. </option>
+    </select>
     </div>
+    
+    <div id="media" style="display:none;"  class="debate-r-row"> <input type="text"  name="membed" id="membed" value="http://"  class="" ></div>
+    <div id="media_div" style="display:none;"  class="debate-r-row">
+    <input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div>
+    </div>
+    <div class="debate-r-row" id="linkbox"></div>
+
+
 
  ' . $inc_pans . '
-     	<div class="form-outer-debate">
-    	<div class="fm-1">&nbsp;</div>
-        <div class="fm-2">
-        <div class="fm-2-left">&nbsp</div>
+     	<div class="debate-r-row">
+          <div class="fm-2">
         <div class="fm-2-right" align="right"><input name="submit" value="" type="submit" id="submitter" class="submit-debate-btn"/></div>
-
         </div>
-
     <div class="clr"></div>
     </div>
-
+</div>
 
 </form>
       <div class="clr"></div>
@@ -1015,21 +990,21 @@ function add_resources($qid='') {
 function resource_list($type, $qid) {
     global $gSitePath, $user, $gDocPath, $base_root;
     $output = '';
-        $ans=load_options($qid);
+    $ans = load_options($qid);
     //answers
     $filter_list.='<select name="rfilt-ans" id="rfilt-ans" class="select-1"><option value="">Possible Answers</option>';
-    foreach($ans as $list){
-        $filter_list.='<option value="'.$list['paid'].'">'.$list['answer'].'</option>';
+    foreach ($ans as $list) {
+        $filter_list.='<option value="' . $list['paid'] . '">' . $list['answer'] . '</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
-        <div class="fm-2-left">'.$list['answer'].'</div>
-        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="'.$list['paid'].'"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        <div class="fm-2-left">' . $list['answer'] . '</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['paid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
         </div>
         <div class="clr"></div>
     </div>';
     }
-$filter_list.='</select>';
+    $filter_list.='</select>';
     //print_r($cnt);
     $output .= '
 
@@ -1037,10 +1012,10 @@ $filter_list.='</select>';
               	<div class="form-part-top">
                     <div class="form-m1">Filter By :
 <select name="rfilt-sup" id="rfilt-sup" class="select-2"><option value="0">+/-</option><option value="1">+</option><option value="2">-</option></select></div>
-                    <div class="form-m2"><br/>
-                    '.$filter_list.'
+                    <div class="form-m2">
+                    ' . $filter_list . '
                     </div>
-                    <div class="form-m3"><br/><input type="hidden" name="rtype" id="rtype" value="'.$type.'" />
+                    <div class="form-m3"><br/><input type="hidden" name="rtype" id="rtype" value="' . $type . '" />
                     <select name="rfilt-sort" id="rfilt-sort" class="select-2"><option value="0">Sort By :</option>
                     <option value="1">Most Recent</option>
                      <option value="2">Most Support</option>
@@ -1053,13 +1028,7 @@ $filter_list.='</select>';
                 </div>
 
                 	<div class="clr"></div><br />
-
-                    <hr />
-
-                    <br />
-
-
-                    <div class="clr"></div> <div id="resfilter">';
+                                    <div class="clr"></div> <div id="resfilter">';
 
     switch ($type) {
         case 'innews':
@@ -1091,25 +1060,25 @@ function resource_innews($qid='', $rtype='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';
-    $sortin='ORDER BY rid DESC';
-    $cond='';
+    $sortin = 'ORDER BY rid DESC';
+    $cond = '';
     extract($_REQUEST);
-        if(isset($sort)&&$sort==1)
-            $sortin=' ORDER BY r.posted_date DESC';
-        elseif(isset($sort)&&$sort==2)
-             $sortin=' ORDER BY r.strength DESC';
-        if(isset($ans)&&!empty($ans))
-            $cond.=" AND ro.paid='$ans'";
-        if(isset($sup)&&$sup>0)
-             $cond.=" AND ro.ans_val='$sup'";
+    if (isset($sort) && $sort == 1)
+        $sortin = ' ORDER BY r.posted_date DESC';
+    elseif (isset($sort) && $sort == 2)
+        $sortin = ' ORDER BY r.strength DESC';
+    if (isset($ans) && !empty($ans))
+        $cond.=" AND ro.paid='$ans'";
+    if (isset($sup) && $sup > 0)
+        $cond.=" AND ro.ans_val='$sup'";
 
-             if(empty($cond))
-   $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $sortin ";
-   else
-   $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource_options} as ro join {resource} as r on ro.rid=r.rid join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $cond  group by r.rid $sortin ";
+    if (empty($cond))
+        $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $sortin ";
+    else
+        $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource_options} as ro join {resource} as r on ro.rid=r.rid join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $cond  group by r.rid $sortin ";
 
-   $cnt = ExecuteQuery($query, "select");
-    
+    $cnt = ExecuteQuery($query, "select");
+
     if (count($cnt)) {
 
 
@@ -1121,9 +1090,9 @@ function resource_innews($qid='', $rtype='') {
                 $setbg='';
             $i++;
             $account = user_load($forum['uid']);
-              // resource round up
-    resource_roundup($forum['rid']);
-    
+            // resource round up
+            resource_roundup($forum['rid']);
+
             $query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum['rid'] . "'";
             $strnth = ExecuteQuery($query, "select");
             $strength = '';
@@ -1230,7 +1199,6 @@ function resource_innews($qid='', $rtype='') {
 
 <div class="clr"></div>
 ';
-           
         }
     } else {
         $wave.='<div class="messages warning">No Resources Found!</div>';
@@ -1363,11 +1331,11 @@ function resource_media($qid='') {
 
 <div class="clr"></div>
 ';
-               // resource round up
-    resource_roundup($forum['rid']);
+            // resource round up
+            resource_roundup($forum['rid']);
         }
     } else {
-       $wave.='<div class="messages warning">No Resources Found!</div>';
+        $wave.='<div class="messages warning">No Resources Found!</div>';
     }
     return $wave;
 }
@@ -1381,30 +1349,30 @@ function resdebate_list($qid='', $rid='') {
     $output = '';
     $like = '';
     $flag = '';
-   
+
     $query = "SELECT *,u.uid as uid,IFNULL((select rid  FROM {resource} where rid > r.rid AND qid='$qid' limit 0,1 ),0) as prid,IFNULL((select rid FROM {resource} where rid < r.rid AND qid='$qid' limit 0,1 ),0) as nrid   FROM {resource} as r  join {user_profile} as u on u.uid=r.uid   where r.qid='$qid' AND r.rid='$rid' AND r.status='1'";
     $list = ExecuteQuery($query, "select");
-        $dlink=$gSitePath.'resource/debate/';
+    $dlink = $gSitePath . 'resource/debate/';
 
 
     foreach ($list as $forum) {
 
-    //Agree Disagree
-   if($forum['prid']>0){
-    $prev=$dlink.$qid.'/'.$forum['prid'];
-      $set_p_link='<li><a  href="'.$prev.'" class="previous"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
-    }
-     if($forum['nrid']>0){
-    $next=$dlink.$qid.'/'.$forum['nrid'];
-    $set_n_link='   <li><a   href="'.$next.'" class="next" onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
-     }
-     //Agree Disagree ends
-    $output .= '
+        //Agree Disagree
+        if ($forum['prid'] > 0) {
+            $prev = $dlink . $qid . '/' . $forum['prid'];
+            $set_p_link = '<li><a  href="' . $prev . '" class="previous"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
+        }
+        if ($forum['nrid'] > 0) {
+            $next = $dlink . $qid . '/' . $forum['nrid'];
+            $set_n_link = '   <li><a   href="' . $next . '" class="next" onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
+        }
+        //Agree Disagree ends
+        $output .= '
        <div class="hm-debate2-wrapper">
     	<div class="titlebg">
         	<div class="menudebate">
             	<ul>
-                '.$set_p_link.$set_n_link.'
+                ' . $set_p_link . $set_n_link . '
                 	</ul>
             </div>
 
@@ -1437,16 +1405,16 @@ function resdebate_list($qid='', $rid='') {
         $fetch = ExecuteQuery($querylike, "select");
         $agreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
         $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
-        if($user->uid!=$forum['uid']){
-        if (count($fetch) < 1) {
+        if ($user->uid != $forum['uid']) {
+            if (count($fetch) < 1) {
 
-            $like = '<li><span name="' . $rid . '" id="dagree" type="is_resource" ><a href="javascript:void(0);" name="a-' . $rid . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $rid . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
-        } elseif ($fetch[0]['is_agree']) {
+                $like = '<li><span name="' . $rid . '" id="dagree" type="is_resource" ><a href="javascript:void(0);" name="a-' . $rid . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $rid . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
+            } elseif ($fetch[0]['is_agree']) {
 
-            $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
-        } else {
-            $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
-        }
+                $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
+            } else {
+                $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
+            }
         }
 //flag
         $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'resource\',' . $rid . ');"></a>';
@@ -1695,7 +1663,7 @@ function debate_ajax() {
                 $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('%d','%s','%s','%s','%d','%s','%s', '%d','%d','%s','%s','%s','%s','%s')";
                 db_query($resourceadd, $rtype, $nlink, $ntitle, $ncontent, $mtype, $membed, $flink, $user->uid, $qaid, $path, $docpath, $ytvID, $udesc, $files);
                 $nid = db_last_insert_id('resource', 'rid');
-                   $i = 0;
+                $i = 0;
                 foreach ($ans_id as $list) {
 
                     $forum = "INSERT INTO {resource_options} set rid='%d',paid='%d',ans_val='%d' ";
@@ -1727,13 +1695,13 @@ function debate_ajax() {
                 $sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
                 $tmplist = ExecuteQuery($sel, "select");
 
-                $final='';
+                $final = '';
                 foreach ($tmplist as $list) {
-                 
+
                     $cnt_opt = db_result(db_query("select count(paid) from {debate_options} where did=" . $list['did'] . " AND ans_val IN ('1','2')"));
-             
-                   $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
-                  
+
+                    $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
+
                     $final = $final + (($tmp * $list['strength']) / $cnt_opt);
                 }
 
@@ -1863,45 +1831,44 @@ $(document).ready(function() {
 ';
 
             break;
-      case 'debatelist':
-          $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-          echo $output = debate_wave($qid);
-          break;
-      case 'dreport':
-         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-            echo '<iframe style="height: 205px;" id="frmGoogle" src="' . $gSitePath . '/debate/ajax/'.$qid.'?action=analysis" border="0" frameborder="0" width="100%"></iframe>';
-          break;
-      case 'resreport':
-         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-            echo '<iframe style="height: 205px;" id="frmGoogle" src="' . $gSitePath . '/debate/ajax/'.$qid.'?action=resanalysis" border="0" frameborder="0" width="100%"></iframe>';
-          break;
-      case 'filter':
-              $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-           echo list_debate($qid, 1);
-          break;
-      case 'resfilter':
-           $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-          extract($_REQUEST);
-          switch($type){
-            case 'innews':
-            $output.= resource_innews($qid, 1);
+        case 'debatelist':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo $output = debate_wave($qid);
             break;
-        case 'media':
-
-            $output.= resource_media($qid);
+        case 'dreport':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo '<iframe style="height: 205px;" id="frmGoogle" src="' . $gSitePath . '/debate/ajax/' . $qid . '?action=analysis" border="0" frameborder="0" width="100%"></iframe>';
             break;
-        case 'facts':
-
-
-            $output.= resource_innews($qid, 3);
+        case 'resreport':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo '<iframe style="height: 205px;" id="frmGoogle" src="' . $gSitePath . '/debate/ajax/' . $qid . '?action=resanalysis" border="0" frameborder="0" width="100%"></iframe>';
             break;
-        default:
-            $output = '<div class="messages warning">No Action Found!</div>';
+        case 'filter':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo list_debate($qid, 1);
             break;
+        case 'resfilter':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            extract($_REQUEST);
+            switch ($type) {
+                case 'innews':
+                    $output.= resource_innews($qid, 1);
+                    break;
+                case 'media':
 
-          }
-          echo $output;
-          break;
+                    $output.= resource_media($qid);
+                    break;
+                case 'facts':
+
+
+                    $output.= resource_innews($qid, 3);
+                    break;
+                default:
+                    $output = '<div class="messages warning">No Action Found!</div>';
+                    break;
+            }
+            echo $output;
+            break;
         default:
             echo "<div class='messages error'>No Action found</div>";
             break;
@@ -1995,49 +1962,48 @@ function debate_submit() {
         echo "<small>Sorry, Please login to do this action!</small>";
         exit;
     }
-    $user_coins  = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
+    $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
     switch ($action) {
 
         case 'new':
             if (!empty($wtitle) && !empty($user->uid)) {
                 $lose_coins = get_coins('c_debate');
-                if($user_coins >= $lose_coins)
-                {
-                $forum = "INSERT INTO {debate} set qid='%d',type='1',uid='%d',title='%s',content='%s',private='%d' ";
-                $result = db_query($forum, $qid, $user->uid, $wtitle, $wcon, $wprivate);
+                if ($user_coins >= $lose_coins) {
+                    $forum = "INSERT INTO {debate} set qid='%d',type='1',uid='%d',title='%s',content='%s',private='%d' ";
+                    $result = db_query($forum, $qid, $user->uid, $wtitle, $wcon, $wprivate);
 
-                $nid = db_last_insert_id('debate', 'did');
-                ;
-                $i = 0;
+                    $nid = db_last_insert_id('debate', 'did');
+                    ;
+                    $i = 0;
 // add coin for Create new debates
-                $coin_type = 'c_debate';
-                users_coins_update($user->uid,'',$coin_type);
-                
-                foreach ($ans_id as $list) {
+                    $coin_type = 'c_debate';
+                    users_coins_update($user->uid, '', $coin_type);
 
-                    $forum = "INSERT INTO {debate_options} set did='%d',paid='%d',ans_val='%d' ";
-                    $result = db_query($forum, $nid, $list, $sup_opp[$i]);
-                    $i++;
-                }
-                echo list_debate($qid, 1);
-                /* RAM HEARTBEAT MODULE INSERT DEBATE */
-                $qid_url = db_query("select * from {question} where qid='$qid'");
-                $question_values = db_fetch_array($qid_url);
-                if (isset($question_values)) {
-                    $question_urlff = $question_values['url'] . '/' . $nid;
-                    $qtion = $question_values['question'];
-                    $ctxt = $question_values['context'];
-                }
-                $message_id = 'debate_add';
-                $variables = array(
-                    '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
-                    //'@node_type' => 'page',
-                    '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
-                );
-                heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
-                /* RAM HEARTBEAT MODULE INSERT DEBATE */
-                send_forumnotify($nid, $qid);
-                }else{
+                    foreach ($ans_id as $list) {
+
+                        $forum = "INSERT INTO {debate_options} set did='%d',paid='%d',ans_val='%d' ";
+                        $result = db_query($forum, $nid, $list, $sup_opp[$i]);
+                        $i++;
+                    }
+                    echo list_debate($qid, 1);
+                    /* RAM HEARTBEAT MODULE INSERT DEBATE */
+                    $qid_url = db_query("select * from {question} where qid='$qid'");
+                    $question_values = db_fetch_array($qid_url);
+                    if (isset($question_values)) {
+                        $question_urlff = $question_values['url'] . '/' . $nid;
+                        $qtion = $question_values['question'];
+                        $ctxt = $question_values['context'];
+                    }
+                    $message_id = 'debate_add';
+                    $variables = array(
+                        '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
+                        //'@node_type' => 'page',
+                        '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+                    );
+                    heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                    /* RAM HEARTBEAT MODULE INSERT DEBATE */
+                    send_forumnotify($nid, $qid);
+                } else {
                     echo '<div align="center"><b>Sorry you do not have enough coins to post New Debate</b></div>';
                 }
             } elseif (isset($wtitle)) {
@@ -2047,35 +2013,34 @@ function debate_submit() {
             break;
         case 'reply':
             $lose_coins = get_coins('p_debate');
-            if($user_coins >= $lose_coins)
-            {
-            $query = "insert into {debate_reply} set did='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
-            $result = db_query($query, $fdid, $user->uid, $frid, $str_wk, check_plain($waveletcmt), $pvt);
-            $rid = db_last_insert_id('debate_reply', 'rid');
-            echo $output = get_debate($fdid, 0);
-            post_notification($fdid, $rid);
+            if ($user_coins >= $lose_coins) {
+                $query = "insert into {debate_reply} set did='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
+                $result = db_query($query, $fdid, $user->uid, $frid, $str_wk, check_plain($waveletcmt), $pvt);
+                $rid = db_last_insert_id('debate_reply', 'rid');
+                echo $output = get_debate($fdid, 0);
+                post_notification($fdid, $rid);
 
 // add coin for participate in debate debates
                 $coin_type = 'p_debate';
-                users_coins_update($user->uid,'',$coin_type);
+                users_coins_update($user->uid, '', $coin_type);
 
-            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-            $qid_url = db_query("select * from {question} where qid='$qid'");
-            $question_values = db_fetch_array($qid_url);
-            if (isset($question_values)) {
-                $question_urlff = $question_values['url'] . '/' . $fdid;
-                $qtion = $question_values['question'];
-                $ctxt = $question_values['context'];
-            }
-            $message_id = 'debate_reply';
-            $variables = array(
-                '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
-                '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
-            );
-            heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
-            /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-            }else{
-              echo '<div align="center"><b>Sorry you do not have enough coins to reply for this post</b></div>';
+                /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+                $qid_url = db_query("select * from {question} where qid='$qid'");
+                $question_values = db_fetch_array($qid_url);
+                if (isset($question_values)) {
+                    $question_urlff = $question_values['url'] . '/' . $fdid;
+                    $qtion = $question_values['question'];
+                    $ctxt = $question_values['context'];
+                }
+                $message_id = 'debate_reply';
+                $variables = array(
+                    '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
+                    '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+                );
+                heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+            } else {
+                echo '<div align="center"><b>Sorry you do not have enough coins to reply for this post</b></div>';
             }
             break;
         case 'resreply':
@@ -2113,58 +2078,57 @@ function debate_submit() {
             $chk = db_result(db_query($query));
 
             if (!$chk && $user->uid > 0) {
-                $lose_coins = $agree==1?get_coins('agree'):get_coins('disagree');
-                if($user_coins >= $lose_coins)
-                {
-                $query = "insert into {user_likes} set $set ,node_id='$nodeid',uid='$user->uid',is_agree='$agree'";
+                $lose_coins = $agree == 1 ? get_coins('agree') : get_coins('disagree');
+                if ($user_coins >= $lose_coins) {
+                    $query = "insert into {user_likes} set $set ,node_id='$nodeid',uid='$user->uid',is_agree='$agree'";
 
-                $chk = db_query($query);
+                    $chk = db_query($query);
 // add coin for agree and disagree
-                $coin_type = $agree=='1'?'agree':'disagree';
-                users_coins_update($user->uid,'',$coin_type);
+                    $coin_type = $agree == '1' ? 'agree' : 'disagree';
+                    users_coins_update($user->uid, '', $coin_type);
 //guru points
-                insertpoints($action, $nodeid);
+                    insertpoints($action, $nodeid);
 //notification
-                like_notification($nodeid, $set);
+                    like_notification($nodeid, $set);
 
-                $msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
-                if ($agree) {
-                    $msg['msg'] = '<em>You <strong>agree</strong> with this comment</em>';
-                    /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-                    $qid_url = db_query("select * from {question} where qid='$nodeid'");
-                    $question_values = db_fetch_array($qid_url);
-                    if (isset($question_values)) {
-                        $question_urlff = $question_values['url'] . '/' . $frid;
-                        $qtion = $question_values['question'];
-                        $ctxt = $question_values['context'];
+                    $msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
+                    if ($agree) {
+                        $msg['msg'] = '<em>You <strong>agree</strong> with this comment</em>';
+                        /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+                        $qid_url = db_query("select * from {question} where qid='$nodeid'");
+                        $question_values = db_fetch_array($qid_url);
+                        if (isset($question_values)) {
+                            $question_urlff = $question_values['url'] . '/' . $frid;
+                            $qtion = $question_values['question'];
+                            $ctxt = $question_values['context'];
+                        }
+                        $message_id = 'debate_agree';
+                        $variables = array(
+                            '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
+                            '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+                        );
+                        heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                        /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+                    } else {
+                        $msg['msg'] = '<em>You <strong>Disagree</strong> with this comment</em>';
+                        /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+                        $qid_url = db_query("select * from {question} where qid='$nodeid'");
+                        $question_values = db_fetch_array($qid_url);
+                        if (isset($question_values)) {
+                            $question_urlff = $question_values['url'] . '/' . $nodeid;
+                            $qtion = $question_values['question'];
+                            $ctxt = $question_values['context'];
+                        }
+                        $message_id = 'debate_disagree';
+                        $variables = array(
+                            '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
+                            '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
+                        );
+                        heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                        /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                     }
-                    $message_id = 'debate_agree';
-                    $variables = array(
-                        '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
-                        '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
-                    );
-                    heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
-                    /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+                    $msg['error'] = '0';
                 } else {
-                    $msg['msg'] = '<em>You <strong>Disagree</strong> with this comment</em>';
-                    /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-                    $qid_url = db_query("select * from {question} where qid='$nodeid'");
-                    $question_values = db_fetch_array($qid_url);
-                    if (isset($question_values)) {
-                        $question_urlff = $question_values['url'] . '/' . $nodeid;
-                        $qtion = $question_values['question'];
-                        $ctxt = $question_values['context'];
-                    }
-                    $message_id = 'debate_disagree';
-                    $variables = array(
-                        '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
-                        '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
-                    );
-                    heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
-                    /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-                }
-                $msg['error'] = '0';
-                }else {
                     $msg['msg'] = '<em>Sorry <strong>Error, You do not have enough coins.</strong></em>';
                 }
             } else {
@@ -2179,31 +2143,32 @@ function debate_submit() {
     }
     return;
 }
-function users_coins_update($uid = '',$bid,$keyname){
-    if($bid!=''){
-    $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
+
+function users_coins_update($uid = '', $bid, $keyname) {
+    if ($bid != '') {
+        $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
     }
     $sql = "SELECT * FROM {tbl_coins} WHERE key_name = '$keyname'";
-    $coins = ExecuteQuery($sql,'select');
-    foreach($coins as $coin){
+    $coins = ExecuteQuery($sql, 'select');
+    foreach ($coins as $coin) {
         $coin_count = $coin['coin_count'];
         $coin_type = $coin['type'];
     }
     $insert = "INSERT INTO {user_coins} SET coin_key = '%s', coin_type = '%s', coin_count = '%d', uid = '%d'";
-    db_query($insert,$keyname,$coin_type,$coin_count,$uid);
+    db_query($insert, $keyname, $coin_type, $coin_count, $uid);
 
     // update total coins
-    $user_coins  = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
-    if($coin_type == 'earn'){
+    $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
+    if ($coin_type == 'earn') {
         $total_coins = $user_coins + $coin_count;
     }
-    if($coin_type == 'lose'){
-         $total_coins = $user_coins - $coin_count;
+    if ($coin_type == 'lose') {
+        $total_coins = $user_coins - $coin_count;
     }
-    db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'",$total_coins);
+    db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
 }
-function get_coins($key)
-{
+
+function get_coins($key) {
     $coins = db_result(db_query("SELECT coin_count FROM {tbl_coins} WHERE key_name = '$key'"));
     return $coins;
 }
