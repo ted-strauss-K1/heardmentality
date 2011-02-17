@@ -769,7 +769,7 @@ function profile($uid = '') {
         </ul>
         <div class="mytabs-container" id="tabs-container">
             Loading. Please Wait...        
-		</div> </div>
+		</div> </div></div>
 	';
     return $strReturn;
 }

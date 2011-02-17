@@ -13,14 +13,27 @@
 	  
 	 
       <div class="commu-profile2">
-          <div class="commutop-profile2">CONTRIBUTOR</div>		  
-		   <div class="inner-commutop">ACTIVITY STREAM</div>
-             <div class="inner5">
+
+       <div style="float: left;" class="inner5">
        <?php echo $content;?>
-        </div></div>		
-		<?php print $Beat ?>
-      <br class="clr" />
-   
+        </div>
+      <div style="float: left;" class="commu3">
+          <div class="inner-commutop">
+            <p>ACTIVITY STREAM</p>
+          </div>
+          <div class="inner">
+              <div class="clr"></div>
+            <div class="clr"></div>
+            <div class="commuinn3">
+       <?php print $Beat ?>
+            </div>
+          </div>
+           
+      </div>
+
+      </div>
+		
+       <div class="clr"></div>
       <!--content area close-->
 	  </div>
 	 

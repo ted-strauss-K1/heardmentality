@@ -1035,7 +1035,7 @@ function user_follower() {
         var gSitePath="' . $gSitePath . '";
 </script>
         	<script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
-      	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'profile') . '/js/profile.js"></script>
+      	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'profiles') . '/js/profile.js"></script>
   <link rel="stylesheet" href="' . $gSitePath . 'modules/system/system.css" type="text/css" />
 		<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
                     <link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/lib/jquery.tab.css" type="text/css" />
