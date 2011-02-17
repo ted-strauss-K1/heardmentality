@@ -137,14 +137,34 @@ function moderator_issues_list($type='') {
     $num_per_page = 12;
 
     $output = '';
+switch($type){
+    case 'new':
 
-    //actual query
-  echo  $query = "SELECT *,(select count(uid) from {question_cat} as qc where qc.qid=q.qid AND qc.uid >0 group by qc.uid) as cnt from {question} as q  having cnt<=3 ORDER BY q.qid DESC";
-$count = "SELECT count(*),(select count(uid) from {question_cat} as qc where qc.qid=q.qid AND qc.uid >0 group by qc.uid) as cnt from {question} as q  having cnt<=3 group by q.qid ORDER BY q.qid DESC";
+            //actual query
+    $query = "SELECT * from {question} as q  where new='1' ORDER BY q.qid DESC";
+ $count = "SELECT count(*) from {question} as q  where new='1' group by q.qid";
+ $sqlcnt=db_result(db_query($count));
+        break;
+    case 'flag':
+                    //actual query
+    $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY f.flag_date DESC";
+echo $count = "SELECT count(*)  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY f.flag_date group by q.qid DESC ";
+echo $sqlcnt=db_result(db_query($count));
+        break;
+    default:
+
+    echo '<div class="warning">No Action(s) Found!</div>';exit;
+        break;
+
+
+
+}
+
     //pager_query function
     $rs = pager_query($query, $num_per_page,$count);
     $alt = 'm-even';
-    $output = '  <div class="mod-leftside-inner">';
+    $output.= '  <div class="mod-leftside-inner">';
+    if($sqlcnt){
     while ($data = db_fetch_object($rs)) {
 
         $nd = ('<div class="' . $alt . '" > ');
@@ -157,8 +177,11 @@ $count = "SELECT count(*),(select count(uid) from {question_cat} as qc where qc.
             $alt='m-even';
     }
     $output .= theme('pager', array(), $num_per_page,0);
+    }else{
+       echo '<div class="warning">No Issue(s) Found!</div>';
+    }
     $output.='  <div class="clr"></div></div>';
-    echo $output;
+    echo $output;exit;
 }
 
 function moderator_edit_issues($qid='') {

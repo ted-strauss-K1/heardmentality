@@ -695,7 +695,7 @@ function profile($uid = '') {
 
 
 
-    $strReturn .= '
+    $strReturn .= '<div class="popup-profile">
     <div class="bor_bot">
 	<div class="rht_link">
        ' . $share . $history . $edit . '
@@ -769,7 +769,7 @@ function profile($uid = '') {
         </ul>
         <div class="mytabs-container" id="tabs-container">
             Loading. Please Wait...        
-		</div>
+		</div> </div>
 	';
     return $strReturn;
 }

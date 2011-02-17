@@ -78,7 +78,7 @@ function loadflagquestion(url,title)
    // url: url,width:550,height:450,title:'Flag Posts'
 //  });
 
-	  var options = 'sameBox:true width:70% height:90% caption:' +
+	  var options = 'sameBox:true width:50% height:60% caption:' +
   '`Flag Posts`';
   parent.fb.start(url, options);
 	

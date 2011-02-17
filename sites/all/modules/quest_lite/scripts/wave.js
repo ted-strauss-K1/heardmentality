@@ -117,22 +117,7 @@ function loadrforum(url,title){
 	
 }
 
-function loadflagquestion(url,title)
-{
-	
-	
-    //jQuery.nyroModalSettings({ title:'Flag Posts'});
 
-    //jQuery.nyroModalManual({
-    // url: url,width:550,height:450,title:'Flag Posts'
-    //  });
-
-    var options = 'sameBox:true width:50% height:40% caption:' +
-    '`Flag Posts`';
-    parent.fb.start(url, options);
-	
-	
-}
 
 
 jQuery(document).ready(function(){

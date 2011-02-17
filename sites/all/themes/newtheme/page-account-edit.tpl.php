@@ -32,9 +32,10 @@ $directory = $base_path . $directory;
 	  <body>
               <div class="messages"><?php if ($show_messages && $messages): print $messages; endif; ?></div>
     <div class="clr"></div>
+    <div class="popup-update-profile">
               <div class="newcretae-profile-wrapper">
                   <?php print $content; ?>
                   <div class="clr"></div>
-              </div>
+              </div></div>
           </body>
 </html>
