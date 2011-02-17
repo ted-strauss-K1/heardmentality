@@ -573,10 +573,10 @@ $filter_list.='</select>';
               	<div class="form-part-top">
                     <div class="form-m1">Filter By :
 <select name="dfilt-sup" id="dfilt-sup" class="select-2"><option value="0">+/-</option><option value="1">+</option><option value="2">-</option></select></div>
-                    <div class="form-m2"><br/>
+                    <div class="form-m2">
                     '.$filter_list.'
                     </div>
-                    <div class="form-m3"><br/>
+                    <div class="form-m3">
                     <select name="dfilt-sort" id="dfilt-sort" class="select-2"><option value="0">Sort By :</option>
                     <option value="1">Most Recent</option>
                      <option value="2">Most Support</option>
@@ -589,11 +589,6 @@ $filter_list.='</select>';
                 </div>
 
                 	<div class="clr"></div><br />
-
-                    <hr />
-
-                    <br />
-
 
                     <div class="clr"></div>
 
