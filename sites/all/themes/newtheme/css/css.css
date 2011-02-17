@@ -1542,5 +1542,5 @@ img{ border:none; outline:none;}
 
 .debate-l{ float:left; width:200px; margin-right:10px;}
 .debate-r{ float:left; width:480px;}
-.debate-r-row{ margin-top:5px; text-align:left;}
+.debate-r-row{ margin-top:5px; text-align:left; clear:both; float:left; width:100%;}
 .flag-report{ padding-left:10px;}
