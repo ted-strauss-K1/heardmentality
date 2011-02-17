@@ -1291,7 +1291,7 @@ function flag_question() {
         $oListquest = db_fetch_object($rlist);
         $img_path1 = $gSitePath . drupal_get_path('module', 'profile') . '/snap/' . $oListquest->image;
         $PROFILE_IMAGE = '<img src="' . $img_path1 . '" align="absmiddle" alt="Profile image" >';
-        $falgq .= '<div id="log">
+        $falgq .= '<div class="popup-user-flag" id="log">
 	<div class="facttop2">FLAG USERS</div>
 	<div id=""><b>Report this user!</b></div>
 	<div id="log_res"></div>
@@ -1316,7 +1316,7 @@ function flag_question() {
         $content = (!empty($oListquest->nlink)) ? $oListquest->nlink : (!empty($oListquest->membed)) ? $oListquest->membed : (!empty($oListquest->facts)) ? $oListquest->facts : 'No Resource';
         $date = '';
         $date = format_date_class($oListquest->posted_date, date('Y-m-d h:i:s'));
-        $falgq .= '<div id="log">
+        $falgq .= '<div class="popup-resource-flag" id="log">
 	<div class="facttop2">FLAG RESOURCES</div>
 	<div id=""><b>Report this Resource!</b></div>
 	<div id="log_res"></div>
@@ -1338,7 +1338,7 @@ function flag_question() {
         $rlist = db_query($vSql);
         $oListquest = db_fetch_object($rlist);
         $falgq .= '
-	<div id="log">
+	<div class="popup-issue-flag" id="log">
 	<div class="facttop2">FLAG QUESTIONS</div>
 	<div id="log_res"><!-- spanner --></div>
 	</div>
