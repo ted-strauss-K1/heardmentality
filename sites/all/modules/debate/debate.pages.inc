@@ -24,7 +24,7 @@ function debate_list($qid = '', $did='') {
     $next=$dlink.$qid.'/'.$forum['ndid'];
     $set_n_link='   <li><a   href="'.$next.'" class="next"  onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
      }
-    $output .= '
+    $output .= '<div class="popup-debate">
        <div class="hm-debate2-wrapper">
     	<div class="titlebg">
         	<div class="menudebate">
@@ -201,7 +201,7 @@ function debate_list($qid = '', $did='') {
 </form> </div>
         <div class="clr"></div>
 </div></div>
-</div>';
+</div> </div>';
     if (isAjax ()) {
         echo $output;
     } else {
@@ -928,7 +928,8 @@ function add_resources($qid='') {
     }
 
     $resources .= '<body style="background:none;background:#FFF;">
-          <div class="" id="err">' . $list_err . '</div>
+
+              <div class="popup-resource-new">         <div class="" id="err">' . $list_err . '</div>
     <div class="new-debate-wrapper">
         <form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'debate/ajax" enctype="multipart/form-data" >
             <input type="hidden" name="qaid" value="' . $qid . '"/>
@@ -1001,7 +1002,7 @@ function add_resources($qid='') {
 </form>
       <div class="clr"></div>
   </div>
-
+</div>
 
 </body>
 

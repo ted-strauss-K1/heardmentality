@@ -598,7 +598,7 @@ $filter_list.='</select>';
                     <div class="clr"></div>
 
 
-		<div class="comment" id="newwavediv" style="display:none">';
+		<div class="comment" id="newwavediv" style="display:none"><div class="popup-debate-new">';
     if (!empty($user->uid)) {
         $wave .= '	<form  id="newwaveform" class="newwave" action="'.$gSitePath.'issues/debate/save" method="post" accept-charset="utf-8">
 	<input type="hidden" name="action" value="new"/><input type="hidden" name="qid" value="' . $qid . '"/>
@@ -645,7 +645,7 @@ $filter_list.='</select>';
     } else {
         $wave .= '<div align="center"><b>Please log in to participate in the debate</b></div>';
     }
-    $wave .= '</div>
+    $wave .= ' </div></div>
 	<div><div id="qwave" class="">';
 
 

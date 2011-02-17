@@ -1524,7 +1524,7 @@ function forum_wave($qid = '') {
 	<!--	<input type="button" onclick="newwave(\'' . $gSitePath . 'question/forum/' . $qid . '?action=new\',\'New Wave\')" value="New Wave" class="waveButtonMain"/> -->
 	<input type="button" id="newwavebut" value="New Wave" onclick="toggle();" class="waveButtonMain"/>
 		</div>
-		<div class="comment" id="newwavediv" style="display:none">';
+		<div class="comment" id="newwavediv" style="display:none"><div class="popup-debate-new">';
     if (!empty($user->uid)) {
         $wave .= '
 	<div align="right"><a href="javascript:void(0);" onclick="toggle();">Close</a></div>
@@ -1544,7 +1544,7 @@ function forum_wave($qid = '') {
     } else {
         $wave .= '<div align="center"><b>Sorry Only Logged in user can post wave</b></div>';
     }
-    $wave .= '</div>
+    $wave .= '</div> </div>
 	<div><div id="qwave" class="">';
 
 
