@@ -16,7 +16,7 @@
 	  <?php endif; ?>
     
         
-           <div class="ques">
+           <div class="ques home-lay1-2">
 		    <div class="commutop-profile">  <?php if (!empty($title)): ?><?php print $title; ?><?php endif; ?></div>
 			<!--class="questop"-->
           <div class="" >
