@@ -221,6 +221,8 @@ function get_top_pundits(){
               </div>
                    <div class="clr"></div></div></div>';
 
+
+
         return $output;
 }
 
@@ -356,7 +358,7 @@ function get_top_pundits() {
         }
     } else {
 
-        $output .= '<div><b>No Top List Found</b></div>';
+        $output .= '<div align="center"><b>No Top List Found</b></div>';
 
     }
     $output .= '</ul></div> </div><div class="clr"></div>';
@@ -419,7 +421,7 @@ function get_hot_list($time='') {
         }
     } else {
         
-        $output .= '<div><b>No Hot List Found</b></div>';
+        $output .= '<div align="center"><b>No Hot List Found</b></div>';
     
     }
       $output .= '</ul></div> </div><div class="clr"></div>';
@@ -505,7 +507,7 @@ if(!empty($country['city'])){
         }
     } else {
         
-        $output .= '<div><b>No Local List Found</b></div>';
+        $output .= '<div align="center"><b>No Local List Found</b></div>';
     
     }
 	   $output .= '</ul></div> </div><div class="clr"></div>';
