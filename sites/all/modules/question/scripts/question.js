@@ -106,7 +106,6 @@ function validate_question(){
         jQuery('#err').addClass('error');
         return false;
     }
-
     jQuery('#question').slideUp('slow');
     jQuery('div.do-intop').html('Please wait till processing...!');
 

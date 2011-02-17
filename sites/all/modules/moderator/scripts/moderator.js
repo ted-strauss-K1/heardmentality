@@ -26,7 +26,8 @@ jQuery(document).ready(function(){
             });
             return true;
         }else{
-            return false;
+            jQuery('#twitMsg').html('Some Of The Required fields are Empty!');
+            jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
         }
 
 
@@ -51,37 +52,44 @@ jQuery(document).ready(function(){
             complete: function(){
              
                 jQuery('#q_cat').multiSelect({
-                    oneOrMoreSelected: '*'
+                    selectAll: false
+                },function(){
+
+                    trigger_get_scat();
+
                 });
 
                 jQuery('#q_scat').multiSelect({
-                    oneOrMoreSelected: '*'
-                });
-                jQuery('#q_sscat').multiSelect({
-                    oneOrMoreSelected: '*'
-                });
-                jQuery('#q_country').multiSelect({
-                    oneOrMoreSelected: '*'
-                },function() {
-                    var values = new Array();
-                    jQuery.each(jQuery("input[name='q_country[]']:checked"), function() {
-                        values.push(jQuery(this).val());
-                    // or you can do something to the actual checked checkboxes by working directly with  'this'
-                    // something like $(this).hide() (only something useful, probably) :P
-                    });
-                    var ids=values.join(',');
-                    get_mod_state(ids);
-                });
-                jQuery('#q_state').multiSelect({
-                    oneOrMoreSelected: '*'
-                });
-                jQuery('#q_city').multiSelect({
-                    oneOrMoreSelected: '*'
-                },function() {
-                    alert('Something was checked!');
+                    selectAll: false
+                },
+                function(){
+
+                    trigger_get_sscat();
+
                 });
 
-                jQuery('.selectAll').remove();
+                jQuery('#q_sscat').multiSelect({
+                    selectAll: false
+                });
+                jQuery('#q_country').multiSelect({
+                    selectAll: false
+                  
+                },function() {
+                    trigger_get_state();
+                });
+                jQuery('#q_state').multiSelect({
+                    selectAll: false
+                   
+                },function() {
+                    trigger_get_city();
+                });
+                jQuery('#q_city').multiSelect({
+                    selectAll: false
+                  
+                });
+
+                trigger_get_state();
+                trigger_get_scat();
             },
 
             success: function(msg){
@@ -95,6 +103,65 @@ jQuery(document).ready(function(){
 
 
 });
+
+function trigger_get_scat(){
+
+    var values = new Array();
+    jQuery.each(jQuery("input[name='q_cat[]']:checked"), function() {
+        values.push(jQuery(this).val());
+    // or you can do something to the actual checked checkboxes by working directly with  'this'
+    // something like $(this).hide() (only something useful, probably) :P
+    });
+    var ids=values.join(',');
+
+
+    get_subcat('q_cat','chg_scat',1,ids);
+    jQuery('#chg_sscat').empty().html('No Subcategory');
+}
+function trigger_get_sscat()
+{
+
+    var values = new Array();
+    jQuery.each(jQuery("input[name='q_scat[]']:checked"), function() {
+        values.push(jQuery(this).val());
+    // or you can do something to the actual checked checkboxes by working directly with  'this'
+    // something like $(this).hide() (only something useful, probably) :P
+    });
+    var ids=values.join(',');
+
+
+    get_subcat('q_scat','chg_sscat',2,ids);
+    jQuery('#chg_sscat').empty().html('No Subcategory');
+
+
+
+}
+function trigger_get_state(){
+
+
+    var values = new Array();
+    jQuery.each(jQuery("input[name='q_country[]']:checked"), function() {
+        values.push(jQuery(this).val());
+    // or you can do something to the actual checked checkboxes by working directly with  'this'
+    // something like $(this).hide() (only something useful, probably) :P
+    });
+    var ids=values.join(',');
+    get_mod_state(ids);
+}
+
+function trigger_get_city(){
+
+    var values = new Array();
+    jQuery.each(jQuery("input[name='q_state[]']:checked"), function() {
+        values.push(jQuery(this).val());
+    // or you can do something to the actual checked checkboxes by working directly with  'this'
+    // something like $(this).hide() (only something useful, probably) :P
+    });
+    var ids=values.join(',');
+
+    get_mod_city(ids);
+
+}
 
 function setDefaultCountry(cn) {
     if(cn.length>0){
@@ -133,73 +200,53 @@ function get_mod_state(ids){
             'ids' :ids
         },
         success: function(data){
-             jQuery('#chg_state').html(data.content);
+            jQuery('#chg_state').html(data.content);
         },
-         complete: function(){ jQuery('#q_state').multiSelect({
-                    oneOrMoreSelected: '*'
-                });
-         }
+        complete: function(){
+
+            var statearray=setstate.split(',');
+            jQuery('#q_state').val(statearray);
+            jQuery('#q_state').multiSelect({
+                selectAll: false
+            },
+            function() {
+                trigger_get_city();
+            });
+            trigger_get_city();
+        }
     });
     
 
-jQuery('#chg_city').html('');
-    jQuery('#chg_city').fadeOut('slow');
+    jQuery('#chg_city').html('');
+
 
 }
 
-function get_city(code){
-    jQuery('#chg_city').fadeIn('slow');
-    var url = spath+"question/ajax";
-
+function get_mod_city(ids){
+    var url = spath+"moderator/ajax/city";
+    jQuery('#chg_city').html('Loading City...');
     jQuery.ajax({
-        type: "GET",
-        url: url,
+        type: "POST",
         dataType: 'json',
+        url: url,
         data: {
-            'action': 2,
-            'code' :code,
-            'select':1
+            'ids' :ids
         },
-        success: function(msg){
-            jQuery('#chg_city').html(msg.content);
+        success: function(data){
+            jQuery('#chg_city').html(data.content);
+        },
+        complete: function(){
+            var cityarray=setcity.split(',');
+            jQuery('#q_city').val(cityarray);
+            jQuery('#q_city').multiSelect({
+                selectAll: false
+            });
+            return true;
         }
     });
 
+
 }
-
-
-
-jQuery("input[name='q_cat[]']").live("change", function(event) {
-
-    var values = new Array();
-    jQuery.each(jQuery("input[name='q_cat']:checked"), function() {
-        values.push(jQuery(this).val());
-    // or you can do something to the actual checked checkboxes by working directly with  'this'
-    // something like $(this).hide() (only something useful, probably) :P
-    });
-    var ids=values.join(',');
-    if(!admin){
-        get_releted_issue(ids);
-    }
-
-
-    get_subcat('q_cat','chg_scat',1,ids);
-    jQuery('#chg_sscat').empty().html('No Subcategory');
-});
-
-jQuery("input[name='q_scat[]']").live("change", function(event) {
-
-    var values = new Array();
-    jQuery.each(jQuery("input[name='q_scat[]']:checked"), function() {
-        values.push(jQuery(this).val());
-    // or you can do something to the actual checked checkboxes by working directly with  'this'
-    // something like $(this).hide() (only something useful, probably) :P
-    });
-    var ids=values.join(',');
-
-    get_subcat('q_scat','chg_sscat',2,ids);
-});
-
 
 function get_subcat(sid,divid,level,ids){
 
@@ -232,11 +279,32 @@ function get_subcat(sid,divid,level,ids){
                 },
                 success: function(msg){
                     jQuery('#'+divid).html(msg);
-                    if(sid=='q_cat')
-                        window.setTimeout("jQuery('#q_scat').multiSelect(); jQuery('.selectAll').remove();", 500);
-                    else if(sid=='q_scat')
-                        window.setTimeout("jQuery('#q_sscat').multiSelect(); jQuery('.selectAll').remove();", 500);
-                // jQuery('#'+divid+'input:select').multiSelect();
+                   
+                },
+                complete:function(){
+                    if(sid=='q_cat') {
+                        // for sub category initiate multi select
+                        var scatarray=setscat.split(',');
+                        jQuery('#q_scat').val(scatarray);
+                        jQuery('#q_scat').multiSelect({
+                            selectAll: false
+                          
+                        },
+                        function(){
+
+                            trigger_get_sscat();
+
+                        });
+                        trigger_get_sscat();
+                    }else if(sid=='q_scat'){
+                        //initiate multi select for sub sub category
+                          var sscatarray=setsscat.split(',');
+                        jQuery('#q_sscat').val(sscatarray);
+                        jQuery('#q_sscat').multiSelect({
+                            selectAll: false
+                          
+                        });
+                    }
                 }
             });
 

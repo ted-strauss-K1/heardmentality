@@ -92,10 +92,7 @@ function question_add() {
 	<script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
 
 	<script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/question.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/tagging/tagging.css" type="text/css" />
-<!--<script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/auto.js" type="text/javascript"></script>
--->	
-        		<script type="text/javascript">
+		<script type="text/javascript">
                 var mpath=\'' . $gSitePath . '\';
                     var spath=\'' . $gSitePath . '\';
                     var cncode=\'' . $cncode . '\';
@@ -105,13 +102,9 @@ function question_add() {
                             var admin=0;
 		</script>
 
-		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
-                <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.livequery.js"></script>
-		<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.bgiframe.min.js"></script>
-                <script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/suggest_dynamic.js" type="text/javascript"></script>
+
                 <script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/post_list.js" type="text/javascript"></script>
-                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') . '/styles/auto.css" type="text/css" />
-                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') . '/styles/jquery.multiSelect.css" type="text/css" />
+              
 ';
 
     //geoname api
@@ -128,7 +121,7 @@ function question_add() {
 	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
 <link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/tagging/tagging.css" type="text/css" />';
 
-    $output .= '<body style="background:none;"><div class="" sytyle="">
+    $output .= '<body style="background:none;"><div class="popup-add-issue" sytyle="">
 
 <div class="do-in2">
         <div class="do-intop">ADD AN ISSUE</div>

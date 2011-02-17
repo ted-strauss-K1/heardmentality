@@ -139,10 +139,10 @@ function moderator_issues_list($type='') {
     $output = '';
 
     //actual query
-    $query = "SELECT * from {question} ORDER BY qid DESC";
-
+  echo  $query = "SELECT *,(select count(uid) from {question_cat} as qc where qc.qid=q.qid AND qc.uid >0 group by qc.uid) as cnt from {question} as q  having cnt<=3 ORDER BY q.qid DESC";
+$count = "SELECT count(*),(select count(uid) from {question_cat} as qc where qc.qid=q.qid AND qc.uid >0 group by qc.uid) as cnt from {question} as q  having cnt<=3 group by q.qid ORDER BY q.qid DESC";
     //pager_query function
-    $rs = pager_query($query, $num_per_page);
+    $rs = pager_query($query, $num_per_page,$count);
     $alt = 'm-even';
     $output = '  <div class="mod-leftside-inner">';
     while ($data = db_fetch_object($rs)) {
@@ -156,7 +156,7 @@ function moderator_issues_list($type='') {
         else
             $alt='m-even';
     }
-    $output .= theme('pager', array(), $num_per_page);
+    $output .= theme('pager', array(), $num_per_page,0);
     $output.='  <div class="clr"></div></div>';
     echo $output;
 }
@@ -175,82 +175,74 @@ function moderator_edit_issues($qid='') {
     $result = db_query($left_qry);
     $quest = db_fetch_object($result);
     //country
+    $result = db_query("select country from {question_location} where qid='$qid'}");
+    $cont_array = array();
+    while ($cont = db_fetch_array($result)) {
+        array_push($cont_array, $cont['country']);
+    }
+
     $result = geonames_query('countryinfo');
     $optionlist .= '<option value="">Select country</option>';
     foreach ($result->results as $country) {
 
-
-
-
-        ///country list starts
-
         $set = '';
-        if ($quest->country == $country['countryname']) {
+        if (in_array($country['countryname'], $cont_array)) {
             $set = 'SELECTED';
         }
 
         $optionlist .= sprintf('<option value="%s" %s>%s</option>', $country['countryname'], $set, $country['countryname']);
     }
-    /////////////state list start here /////////////////////////////
-    $query = array('query' => $quest->country, 'maxRows' => '1', 'featureclass' => 'S');
-    $result = geonames_query('search', $query);
-    // $cc=$result->results[0]['countrycode'];
-    // $result = geonames_query('countryinfo', $query);
-    // $result->results[0][geonameid];
-    //  echo $result->results[0]['countrycode'];
-    $query = array('country' => $result->results[0]['countrycode']);
-    $result = geonames_query('countryinfo', $query);
-    //print_r($result);
-    $query = array('geonameid' => $result->results[0]['geonameid']);
-    // print_r($query);
-    $result = geonames_query('children', $query);
-
-    /* if($select&&$user->uid>0){
-      $udet=load_user($user->uid);
-
-      $setstate=$udet->state;
-      $fcity=$udet->city;
-      } */
-
-    $ret = '<select tabindex="18" multiple="multiple" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state[]"> <option value="">--States--</option>';
-    foreach ($result->results as $state) {
-        $set = '';
-        if ($quest->state == $state['geonameid']) {
-            $set = 'SELECTED=SELECTED';
-        }
-        /* if(strpos(strtolower($setstate),  strtolower($state['name']) )){
-          $set='SELECTED=SELECTED';
-          } */
-        $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'], $set, $state['name']);
+    ///country ends state starts
+    $result = db_query("select state from {question_location} where qid='$qid'}");
+    $state_array = array();
+    while ($cont = db_fetch_array($result)) {
+        array_push($state_array, $cont['state']);
     }
+    $setstate = implode(',', array_filter($state_array));
+    $ret = '<select tabindex="18" multiple="multiple" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state[]"> <option value="">--States--</option>';
     $ret .= "</select>";
 
     /////////////state list end here //////////////////////////////
     /////////// city list start here/////////////////
-
-    $query_city = array('geonameid' => $quest->state);
-    $result_city = geonames_query('children', $query_city);
-    //print_r($result);
-    $ret_city = '<select multiple="multiple" tabindex="19"   style="width: 125px;" id="q_city" name="q_city[]"> <option value="">--Cities--</option> ';
-    foreach ($result_city->results as $state_city) {
-        $set = '';
-        if ($quest->city == $state_city['geonameid']) {
-            $set = 'SELECTED=SELECTED';
-        }
-        $ret_city .= sprintf('<option value="%s" %s>%s</option>', $state_city['geonameid'], $set, $state_city['name']);
+    $result = db_query("select city from {question_location} where qid='$qid'}");
+    $city_array = array();
+    while ($cont = db_fetch_array($result)) {
+        array_push($city_array, $cont['city']);
     }
+    $setcity = implode(',', array_filter($city_array));
+
+    $ret_city = '<select multiple="multiple" tabindex="19"   style="width: 125px;" id="q_city" name="q_city[]"> <option value="">--Cities--</option> ';
     $ret_city .= "<option value='-1'>Others</option>";
     $ret_city .= "</select>";
-    $ret_city;
     //////////// city list end here //////////////
+    ///////// Sub category values///////////////////////
+   $qry_scat = "SELECT qc.scat from {question_cat} as qc where qc.qid='" . $qid . "' group by qc.scat";
+    $result_scat = db_query($qry_scat);
+    $scat = array();
+
+    while ($quest_scat = db_fetch_object($result_scat)) {
+              array_push($scat, $quest_scat->scat);
+    }
+
+  $escat1 = implode(",", array_filter($scat));
+     ///////// Sub category values ends///////////////////////
+      /////////load sub Sub category values///////////////////////
+    $qry_sscat = "SELECT qc.sscat from {question_cat} as qc where qc.qid='" . $qid . "' group by qc.sscat";
+    $result_sscat = db_query($qry_sscat);
+    $sscat = array();
+
+    while ($quest_sscat = db_fetch_object($result_sscat)) {
+          array_push($sscat, $quest_sscat->sscat);
+    }
+    $esscat1 = implode(",", array_filter($sscat));
+     ///////// load sub Sub category values ends///////////////////////
 
     $output .= '<script type="text/javascript">
-                var mpath=\'' . $gSitePath . '\';
-                    var spath=\'' . $gSitePath . '\';
-                    var cncode=\'' . $quest->country . '\';
-                    var ustate=\'' . $quest->state . '\';
-                    var setstate=\'' . $quest->state . '\';
-                        var setcity=\'' . $quest->city . '\';
+                        var spath=\'' . $gSitePath . '\';
+                    var setstate=\'' . $setstate . '\';
+                        var setcity=\'' . $setcity . '\';
+                            var setscat=\'' . $escat1 . '\';
+                                var setsscat=\'' . $esscat1 . '\';
                             var admin=\'1\';
 		</script>
 			';
@@ -375,147 +367,39 @@ function moderator_edit_issues($qid='') {
         <input type="button" name="Add" class="mod-btn" tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="' . count($ans) . '">
             </div>
             <div class="mod-t5">
-  <select  tabindex="14" name="q_cat[]" id="q_cat"   class="mod-txtarea" onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
+  <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"   class="mod-txtarea" onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);" >
         <option value="">Select Category</option>';
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
-    $ecat1 = explode(",", $quest->cid);
-    $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $qid . "' group by t.cat";
-    $result_cat = db_query($qry_cat);
 
+    $qry_cat = "SELECT qc.cat from {question_cat} as qc where qc.qid='" . $qid . "' group by qc.cat";
+    $result_cat = db_query($qry_cat);
+    $cat = array();
 
     while ($quest_cat = db_fetch_object($result_cat)) {
         $cat[] = $quest_cat->cat;
     }
-
-//   print_r($cat);
-
-    foreach ($cat as $key => $value) {
-        if ($value == 0) {
-            unset($cat[$key]);
-        }
-    }
-    $kk = array_keys($cat);
-
-    $c = $kk[0];
-
+    $ecat1 = explode(",", $cat);
     while ($list = db_fetch_object($client_select)) {
-        if ($list->cat_id == $cat[$c]) {//888
-            $sel = 'SELECTED';
+
+        if (in_array($list->cat_id, $cat)) {
+            $sel = 'SELECTED="SELECTED"';
         } else {
             $sel = '';
         }
-        /* if (in_array($list->cat_id, $ecat1)) {
-          $sel = 'SELECTED="SELECTED"';
-          } else {
-          $sel = '';
-          } */
         $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
-
-        $cate_id .= $cat[$c] . ",";
-        $c++;
     }
-    $pcate_id = trim($cate_id, ",");
-    /* <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2"   onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
-      <option value="">Select Category</option>';
-      $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
-      while ($list = db_fetch_object($client_select)) {
-      $output .= '<option value="'.$list->cat_id.'">'.stripslashes($list->cat_name).'</option>';
 
-      }
-
-      $output .= '</select> */
     $output .= '</select>
-         </div>        <input type="hidden" id="cat1" name="cat1" value="' . $pcate_id . '">&nbsp;
+         </div>        <input type="hidden" id="cat1" name="cat1" value="' . $ecat1 . '">&nbsp;
             <div class="mod-t5">
 
         <div id="chg_scat"><select class="mod-txtarea"  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat"   size="5">
         <option value="">Select Sub Category</option>';
-    $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $pcate_id . ")";
-    $client_select1 = db_query($cat_qry);
-    $ecat2 = explode(",", $quest->scid);
-
-
-    $result_subcat = db_query("SELECT t.scat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $qid . "' group by t.scat");
-    while ($quest_subcat = db_fetch_object($result_subcat)) {
-        $subcat[] = $quest_subcat->scat;
-    }
-
-    foreach ($subcat as $keys => $values) {
-        if ($values == 0) {
-            unset($subcat[$keys]);
-        }
-    }
-    $kk1 = array_keys($subcat);
-    $sc = $kk1[0];
-    //print_r($subcat);
-    while ($liste = db_fetch_object($client_select1)) {
-
-        /* if (in_array($list->cat_id, $ecat2)) {
-          $sel = 'SELECTED="SELECTED"';
-          } else {
-          $sel = '';
-          } */
-        // echo $subcat[$sc].'-'.strlen($subcat[$sc]).'</br>';
-        //echo $liste->cat_id.'-'.strlen($liste->cat_id).'</br>';
-        $subcat = trim($subcat[$sc]);
-        if ($liste->cat_id == $subcat[$sc]) {
-            $sele = 'SELECTED';
-        } else {
-            $sele = '';
-        }
-
-
-        $output .= '<option value="' . $liste->cat_id . '" ' . $sele . '>' . stripslashes($liste->cat_name) . '</option>';
-
-        $subcate_id .= $subcat[$sc] . ",";
-        $sc++;
-    }
-    $psubcate_id = trim($subcate_id, ",");
-
     $output .= '</select></div></div>
-   <div class="mod-t5"><input type="hidden"  id="cat2" name="cat2" value="' . $psubcate_id . '">
+   <div class="mod-t5"><input type="hidden"  id="cat2" name="cat2" value="' .$escat1. '">
    <div id="chg_sscat"><select class="mod-txtarea"  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat"   size="5">
    <option value="">Select Sub Sub Category</option>';
-    // if ($quest->scid != '') {//now here
-    $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $psubcate_id . ")";
-    $client_select2 = db_query($scat_qry);
-    $ecat3 = explode(",", $quest->sscid);
-
-    $result_ssubcat = db_query("SELECT t.sscat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $qid . "' group by t.scat");
-    while ($quest_ssubcat = db_fetch_object($result_ssubcat)) {
-        $ssubcat[] = $quest_ssubcat->sscat;
-    }
-
-    foreach ($ssubcat as $subkey => $subvalue) {
-        if ($subvalue == 0) {
-            unset($ssubcat[$subkey]);
-        }
-    }
-    $kk2 = array_keys($ssubcat);
-    //print_r($ssubcat);
-    $ssc = $kk2[0];
-    while ($listing = db_fetch_object($client_select2)) {
-
-        if ($listing->cat_id == $ssubcat[$ssc]) {
-
-            $sel_cat = 'SELECTED';
-        } else {
-            $sel_cat = '';
-        }
-        /* if (in_array($list->cat_id, $ecat3)) {
-          $sel = 'SELECTED="SELECTED"';
-          } else {
-          $sel = '';
-          } */
-        $output .= '<option value="' . $listing->cat_id . '" ' . $sel_cat . '>' . stripslashes($listing->cat_name) . '</option>';
-        $ssubcate_id .= $ssubcat[$ssc] . ",";
-        $ssc++;
-    }
-    $pssubcate_id = trim($ssubcate_id, ",");
-    // }
-    //<td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
-    //<td width="43%">&nbsp;<!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td>
-    $output .= '</select></div> </div><input type="hidden"  id="cat3" name="cat3" value="' . $pssubcate_id . '">
+    $output .= '</select></div> </div><input type="hidden"  id="cat3" name="cat3" value="' .$esscat1. '">
         <div class="clr"></div>
           </div>
                <div class="clr"></div>
@@ -578,7 +462,7 @@ function moderator_ajax($action='') {
         case 'saveissue':
 
             $content = moderator_save_issue($_REQUEST);
-
+            extract($content);
             break;
         case 'state':
             $explode = explode(',', $_REQUEST['ids']);
@@ -605,25 +489,25 @@ function moderator_ajax($action='') {
                 $msg = 'No action found!';
                 $output = $ret;
             } else {
-               $ret .= "</select>";
-                 $err = true;
+                $ret .= "</select>";
+                $err = true;
                 $msg = 'No State found!';
                 $output = $ret;
             }
             break;
-          case 'city':
+        case 'city':
             $explode = explode(',', $_REQUEST['ids']);
-           $ret = '<select  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
+            $ret = '<select  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
             $results = array();
             if (count($explode) > 0) {
                 foreach ($explode as $code) {
 
-                $query = array('geonameid' => $code);
-                $result = geonames_query('children', $query);
-             foreach ($result->results as $state) {
+                    $query = array('geonameid' => $code);
+                    $result = geonames_query('children', $query);
+                    foreach ($result->results as $state) {
 
-                    $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
-                }
+                        $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
+                    }
                 }
                 $ret .= "<option value='-1'>Others</option>";
                 $ret .= "</select>";
@@ -631,8 +515,8 @@ function moderator_ajax($action='') {
                 $msg = 'No action found!';
                 $output = $ret;
             } else {
-               $ret .= "</select>";
-                 $err = true;
+                $ret .= "</select>";
+                $err = true;
                 $msg = 'No City found!';
                 $output = $ret;
             }
@@ -700,7 +584,7 @@ function moderator_save_issue($array) {
             $cat1 = $q_cat;
             foreach ($cat1 as $ins1) {
 
-                db_query("insert into {question_cat} set qid='$nid',cat='$ins1'");
+                db_query("insert into {question_cat} set qid='$nid',uid='$user->uid',cat='$ins1'");
             }
         }
 
@@ -712,9 +596,9 @@ function moderator_save_issue($array) {
                 $fetch = load_parent_cat($ins2, 2);
                 $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='0' "));
                 if ($chk_exsit > 0) {
-                    db_query("update {question_cat} set scat='$ins2' where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "'");
+                    db_query("update {question_cat} set scat='$ins2',uid='$user->uid' where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "'");
                 } else {
-                    db_query("insert into {question_cat} set qid='$nid',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
+                    db_query("insert into {question_cat} set qid='$nid',uid='$user->uid',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
                 }
             }
         }
@@ -725,9 +609,9 @@ function moderator_save_issue($array) {
                 $fetch = load_parent_cat($ins3, 3);
                 $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "' AND sscat='0'"));
                 if ($chk_exsit > 0) {
-                    db_query("update {question_cat} set sscat='$ins3'  where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
+                    db_query("update {question_cat} set sscat='$ins3',uid='$user->uid'  where qid='$nid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
                 } else {
-                    db_query("insert into {question_cat} set qid='$nid',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
+                    db_query("insert into {question_cat} set qid='$nid',uid='$user->uid',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
                 }
             }
         }
@@ -748,22 +632,35 @@ function moderator_save_issue($array) {
         }
 
         //multi location
+
+        foreach ($q_country as $country) {
+
+            db_query("insert into {question_location} set uid='%d',qid='%d',country='%s'", $user->uid, $qid, $country);
+        }
+        foreach ($q_state as $state) {
+
+            db_query("insert into {question_location} set uid='%d',qid='%d',state='%s'", $user->uid, $qid, $state);
+        }
+        foreach ($q_city as $city) {
+
+            db_query("insert into {question_location} set uid='%d',qid='%d',city='%s'", $user->uid, $qid, $city);
+        }
+
+
         //location
 
-        if ($result) {
+        $output['msg'] = 'Thank you, Question updated successfully!';
+        $output['err'] = false;
 
-            $output['msg'] = 'Thank you, Question updated successfully!';
-            $output['err'] = false;
-        }
         //	print_r($result);
-        question_edited_mail($nid);
+         question_edited_mail($nid);
         question_edited_mail_voters($nid);
         question_edited_mail_suggest($nid);
         //  drupal_goto("admin/moderatequestion");
     } else {
 
 
-        $output['msg'] = 'Sorry, Following required fields are Empty!';
+        $output['msg'] = 'Sorry, Some of the (*) required fields are Empty!';
         $output['err'] = true;
     }
 
