@@ -1538,5 +1538,7 @@ img{ border:none; outline:none;}
 .popup-issue-flag .txt_area{ padding:10px;}
 .popup-profile .profile-left{ width:200px;}
 .popup-profile .profile-left,.popup-profile #page{ margin-left:10px;}
-.popup-profile .history-tab{ line-height:22px;}
-.popup-profile .history-tab li{color:#333;}
+.popup-profile .history-tab{ line-height:22px; padding-left:10px;}
+.popup-profile .history-tab li{color:#333; border-bottom:1px solid #E5E5E5;}
+.popup-profile .tab-history{ padding-bottom:0;}
+
