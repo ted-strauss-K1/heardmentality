@@ -1012,7 +1012,7 @@ function resource_list($type, $qid) {
               	<div class="form-part-top">
                     <div class="form-m1">Filter By :
 <select name="rfilt-sup" id="rfilt-sup" class="select-2"><option value="0">+/-</option><option value="1">+</option><option value="2">-</option></select></div>
-                    <div class="form-m2">
+                    <div class="form-m2"><br/>
                     ' . $filter_list . '
                     </div>
                     <div class="form-m3"><br/><input type="hidden" name="rtype" id="rtype" value="' . $type . '" />
