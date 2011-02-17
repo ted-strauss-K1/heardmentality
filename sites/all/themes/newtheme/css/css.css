@@ -1163,8 +1163,6 @@ div.growlUI h1, div.growlUI h2 {
     line-height:20px;
     text-decoration:none;
     padding:5px 0px;
-
-    background:#000;
 }
 .submenu a:hover{ color:#e8bf6c;}
 .debate-second-2{ border:1px #f0f0f0 solid; background:#FFF; width:54px; height:58px; float:left; padding:2px; margin-left:1px; float:left;}
