@@ -1529,6 +1529,7 @@ img{ border:none; outline:none;}
 .search-lay1-3 .select-2{width:80px;}
 .search-lay1-3 .debate-round-tab-outer,.search-lay1-3 hr{ width:450px;}
 
+.popup-user-flag{ height:100px; overflow:hidden;}
 .popup-add-issue .new-debate-wrapper{ width:auto; padding:10px;}
 .popup-add-issue .do-in2{ width:100%; border:0;}
 .popup-resource-new .new-debate-wrapper { width:auto; padding:10px;}
