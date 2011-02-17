@@ -797,7 +797,7 @@ function profile_tab($tab='', $uid='') {
             $purl = explode('||', $psplit[1]);
             $social = explode('||', $getuser->social);
             
-            if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 2 && $is_follow_follower == TRUE) || ($userSettings['real_name'] != 4)) {
+            if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 2 && $is_follow_follower == TRUE) || ($userSettings['bio'] != 4)) {
                $bio = trim($getuser->bio);
             }
             if (empty($bio)) {
