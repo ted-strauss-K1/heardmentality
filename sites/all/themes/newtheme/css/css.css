@@ -1534,8 +1534,8 @@ img{ border:none; outline:none;}
 .popup-resource-new .new-debate-wrapper { width:auto; padding:10px;}
 .popup-resource-new .form-outer-debate{ width:100%;}
 .popup-resource-new .form-outer-debate .fm-1{ color:#000; font-weight:bold; width:300px;}
-.popup-issue-flag .cmt_list{ border:0;}
-.popup-issue-flag .txt_area{ padding:10px;}
+.popup-issue-flag .cmt_list,.popup-user-flag .cmt_list{ border:0;}
+.popup-issue-flag .txt_area,.popup-user-flag .txt_area{ padding:10px;}
 .popup-profile .profile-left{ width:200px;}
 .popup-profile .profile-left,.popup-profile #page{ margin-left:10px;}
 .popup-profile .history-tab{ line-height:22px; padding-left:10px;}
