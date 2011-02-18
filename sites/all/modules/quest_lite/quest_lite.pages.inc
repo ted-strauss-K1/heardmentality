@@ -1505,7 +1505,7 @@ function panel_content() {
 				<li ><a href="javascript:loadReport(2,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab2">Overtime</a></li>
 				<li ><a href="javascript:loadReport(3,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab3">By Area</a></li>
 			</ul>
-			   <div class="mytabs-container" id="tabs-container"><iframe style="height: 100%" id="frmGoogle" src="' . $gSitePath . '/qlite/percent/' . $qid . '" border="0" frameborder="0" width="100%"></iframe></div>
+			   <div id="tabs-container"><iframe id="frmGoogle" src="' . $gSitePath . '/qlite/percent/' . $qid . '" border="0" frameborder="0" width="100%"></iframe></div>
 			<script type="text/javascript">loadReport(1,\'' . $gSitePath . '\',' . $qid . ')</script>';
             break;
     }
