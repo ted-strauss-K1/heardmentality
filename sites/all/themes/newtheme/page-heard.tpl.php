@@ -18,9 +18,7 @@ $directory = $base_path . $directory;
                         var gSitePath='<?php echo $gSitePath; ?>';
                         jQuery('.table-bor-form-item-1 ul li a,#Concise').each(function () { 
 
-                            if (jQuery(this).attr("rel").length > 0) {
-                                //  jQuery(this).CreateBubblePopup();
-                                var id=jQuery(this);
+                                                           var id=jQuery(this);
                                 jQuery(this).CreateBubblePopup({
                                     position : 'top',
                                     align	 : 'center',
@@ -38,7 +36,7 @@ $directory = $base_path . $directory;
 
                                 });
                                   jQuery(this).ShowBubblePopup();
-                            }
+                         
 
 
                         });
