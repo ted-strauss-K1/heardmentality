@@ -1182,7 +1182,7 @@ div.growlUI h1, div.growlUI h2 {
 .profile-gray{ color:#666666; font-size:12px; }
 .p-foll{ width:180px; float:left;margin-right:10px; padding-top:10px;}
 .p-foll img{ border:1px #9e9ea1 solid; margin:1px}
-.history-tab{ height:300px; overflow:auto;}
+.history-tab{ height:auto;}
 .tab-history{ border-bottom:1px #e5e5e5 solid; padding-bottom:5px; }
 .tab-historyspan1{ color:#666666;}
 .tab-historyspan2{ color:#000000;padding-left:20px;}
