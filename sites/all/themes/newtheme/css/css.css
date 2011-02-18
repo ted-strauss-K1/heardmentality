@@ -1547,7 +1547,7 @@ img{ border:none; outline:none;}
 .popup-update-profile .form-wra-4{ padding:0; line-height:14px;}
 .popup-update-profile .form-wra { height:auto; min-height:30px; padding:5px 0;}
 .popup-update-profile .form-bg{ float:left; margin-right:5px;}
-.popup-update-profile .form-bg select{ width:70px;}
+.popup-update-profile .form-bg select{ width:100px;}
 
 .debate-l{ float:left; width:200px; margin-right:10px;}
 .debate-r{ float:left; width:300px;}
