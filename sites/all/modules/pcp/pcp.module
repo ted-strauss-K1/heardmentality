@@ -500,7 +500,7 @@ function theme_pcp_profile_percent_complete($complete_data) {
     $votecnt=db_result(db_query("select count(*) from {possible_answer_vote} where uid='$user->uid'"));
     $output .= '
         <div class="debate-cor-inner-percent">
-                        	<div class="debate-cor-inner-percent-left"><script>var pcp=\''. $complete_data['percent'].'\';var prompt=\''.$account->prompt.'\';var vcnt=\''.$votecnt.'\';</script>
+                        	<div class="debate-cor-inner-percent-left"><script>var prompt=\''.$account->prompt.'\';</script>
                             	'.t('!complete% Complete', array('!complete' => $complete_data['percent'])).'
                             </div>
 
@@ -527,7 +527,7 @@ function theme_pcp_profile_percent_complete($complete_data) {
         }
 
       //  $output .= t('Filling out ') . '<i> ' . l($complete_data['nextfield'], $nextpath, array('query' => 'fieldname=' . $complete_data['nextname'],'attributes' => array('onclick' => 'loadeditquestion(\'http://localhost/heardmentality/edit\',\'Edit Profile \');'))) . '</i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent']));
-   $output .= '<span>'.t('Filling out ') . '<i> <a href="'.$nextpath.'" onclick="loadeditquestion(\''.$gSitePath.'account\\edit\',\'Edit Profile \');" >'.$complete_data['nextfield'].'</a></i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent'])).'</span>';
+   $output .= '<span>'.t('Filling out ') . '<i> <a href="'.$nextpath.'" onclick="loadeditquestion(\''.$gSitePath.'account/edit\',\'Edit Profile \');" >'.$complete_data['nextfield'].'</a></i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent'])).'</span>';
 
         }
 

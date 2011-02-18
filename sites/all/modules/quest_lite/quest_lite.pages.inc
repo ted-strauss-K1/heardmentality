@@ -1341,7 +1341,7 @@ function flag_question() {
 	<div class="popup-issue-flag" id="log">
 	<div class="facttop2">FLAG QUESTIONS</div>
 	<div id="log_res"><!-- spanner --></div>
-	</div>
+	
 	<span class="clr"><!-- spanner --></span>';
         $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="' . $qid . '"/>
@@ -1352,7 +1352,7 @@ function flag_question() {
 	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
 	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
 	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
-	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form>';
+	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form></div>';
     }
 
 
