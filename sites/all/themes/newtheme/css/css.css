@@ -1371,9 +1371,9 @@ img{ border:none; outline:none;}
 .step-2-item-img2{ background:url(../images/step-2-icon.png) no-repeat -53px 0px; width:34px; height:76px; float:left; padding-right:20px;}
 .step-2-item-img3{ background:url(../images/step-2-icon.png) no-repeat -115px 0px; width:34px; height:76px; float:left; padding-right:20px;}
 .step-2-item-img4{ background:url(../images/step-2-icon.png) no-repeat -175px 0px; width:34px; height:76px; float:left; padding-right:20px;}
-.avatar{ width:350px; margin:0 auto; padding-top:5px;}
+.avatar{ width:320px; margin:0 auto; padding-top:5px;}
 .avatar-left{  width:84px; height:82px; float:left; border:2px #fff solid; text-align:center;}
-.avatar-right{ padding-left:5px; float:right; text-align:center; width:250px;}
+.avatar-right{ padding-left:5px; float:right; text-align:center; width:225px;}
 .avatar-right .pick-avatar{ background:url(../images/pick-avatar.png) no-repeat; width:159px; height:25px; margin:0 auto;}
 
 .step-3-item-outer{ margin-bottom:5px; display:inline-block; width:480px; }
