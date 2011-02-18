@@ -571,7 +571,7 @@ $filter_list.='</select>';
 
      <div class=" debate-round-tab-outer">
               	<div class="form-part-top">
-                    <div class="form-m1">Filter By :
+                    <div class="form-m1">Filter By :<br />
 <select name="dfilt-sup" id="dfilt-sup" class="select-2"><option value="0">+/-</option><option value="1">+</option><option value="2">-</option></select></div>
                     <div class="form-m2"><br/>
                     '.$filter_list.'
