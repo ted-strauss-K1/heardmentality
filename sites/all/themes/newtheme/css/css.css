@@ -1497,7 +1497,7 @@ img{ border:none; outline:none;}
 .content legend{ font-weight:bold;}
 .content p{ padding:5px 0;}
 .fb_white .mytabs-container{ height:auto !important;}
-#sidebar-right #quest_info { padding:10px; text-align:left; font-weight:normal;}
+#sidebar-right #quest_info { padding:5px; text-align:left; font-weight:normal;}
 #quest_info h2{ font-size:14px; font-weight:bold; color:#4170A0;}
 
 .home-lay1-1{ width:336px;float:left;}
