@@ -1021,7 +1021,7 @@ function user_details() {
         '#title' => t(''),
         '#default_value' => variable_get('description', ''),
         '#cols' => '',
-        '#rows' => 3,
+        '#rows' => 1,
         '#description' => t(''),
         '#default_value' => variable_get('bio', ''),
         '#id' => 'bio',
