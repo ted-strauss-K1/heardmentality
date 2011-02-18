@@ -1514,7 +1514,7 @@ img{ border:none; outline:none;}
 .search-lay1-1{ }
 .search-lay1-2{ }
 .search-lay1-3,.search-lay1-3 .hm-cen{border:0;}
-.search-lay1-3 .innerbox{border:0; margin-bottom: 0;}
+.search-lay1-3 .innerbox{border:0; margin-bottom: 0; min-height:396px;}
 .search-lay1-3 .facttext{ padding-bottom:0;}
 .search-lay1-3 .block{ border:1px solid #ccc; margin-bottom:5px;}
 
