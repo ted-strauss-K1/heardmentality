@@ -16,9 +16,13 @@ $directory = $base_path . $directory;
 <link href="<?php echo $directory; ?>/css/slider_css.css" rel="stylesheet" type="text/css">	
 <script type="text/javascript">
                         var gSitePath='<?php echo $gSitePath; ?>';
+						$(document).ready(function(){
+
                         jQuery('.table-bor-form-item-1 ul li a,#Concise').each(function () { 
 
-                                                           var id=jQuery(this);
+                            if (jQuery(this).attr("rel").length > 0) {
+                                //  jQuery(this).CreateBubblePopup();
+                                var id=jQuery(this);
                                 jQuery(this).CreateBubblePopup({
                                     position : 'top',
                                     align	 : 'center',
@@ -36,10 +40,11 @@ $directory = $base_path . $directory;
 
                                 });
                                   jQuery(this).ShowBubblePopup();
-                         
+                            }
 
 
                         });
+						});
 
      </script>
 
