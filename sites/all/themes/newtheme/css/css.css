@@ -1207,7 +1207,7 @@ div.growlUI h1, div.growlUI h2 {
 .commutop3{ height:59px; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
 .commutop3 select{width:150px; font-size:11px; font-family:Arial, Helvetica, sans-serif; font-weight:normal; padding:2px;}
 .commu3 .inner{ width:355px; margin:auto; padding:0px;}
-.commu-profile2{ width:910px;float:left;}
+.commu-profile2{float:left;}
 .commutop-profile2{width:548px;float:left; background-color:#8f8f8f;padding:5px; font:16px/25px  normal Arial, Helvetica, sans-serif; color:#fff;}
 .profile-img2{ width:156px;height:45px; background-repeat:no-repeat; background-color:#f8f5ee; border:1px solid #666666;}
 .profile-imgs{ float:left;}
