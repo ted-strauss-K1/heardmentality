@@ -81,6 +81,7 @@ div.warning, tr.warning {
   background: #ffd;
   color: #220;
   padding: 2px;
+  text-align:center;
 }
 .ok {
   color: #008000;
