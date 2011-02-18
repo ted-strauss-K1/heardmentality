@@ -173,6 +173,7 @@ $directory = $base_path . $directory;
                         // }
                     </script>
                     </head>
+					<?php print $closure; ?>
                     <body class="<?php print $body_classes; ?>" >
                         <!--main div-->
                         <div id="loading">
@@ -270,8 +271,8 @@ $directory = $base_path . $directory;
                                                 <?php if (count($primary_links)) : ?>
 
                                                 <?php $mb = 1;
-                                                                                        foreach ($primary_links as $link): ?>
-                                                                                            <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'About US' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" data-fb-options="width:700 height:58%"  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
+                                                  foreach ($primary_links as $link): ?>
+                                 <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'About US' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" <?php if ($link['title']== 'About US') { ?> data-fb-options="width:769 height:78%" <?php } else { ?> data-fb-options="width:700 height:58%" <?php } ?>  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
                                                 <?php endforeach; ?>
 
                                                 <?php endif; ?>
