@@ -185,8 +185,8 @@ e.stopPropagation();
 
  parent.fb.start(jQuery(this).attr('href'), {
      type:'ajax',
-    width: '80%',
-    height: '90%',
+    width: '50%',
+    height: '70%',
     caption: 'Contributor',
   afterItemStart:'reset_tabs()'
   });

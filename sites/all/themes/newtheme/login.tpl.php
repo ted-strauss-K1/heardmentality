@@ -90,7 +90,7 @@ var login_params=
               </ul>
 
             </div>
-            <div class="clr"></div>
+            <div class="clr"></div> <br/>
 <?php   $block= module_invoke('pcp', 'block', 'view', 'user'); print $block['content']; ?>
 
 
