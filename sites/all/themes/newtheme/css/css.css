@@ -1431,7 +1431,7 @@ img{ border:none; outline:none;}
 
 .merge-social .merge-script-outer-new{ width:320px; margin:0 auto; text-align:center;}
 .creat-inner-gridpart .col-2-outer{ float:left; width:326px; }
-.web-reference-new{ float:right; width:322px; border:1px #999 solid; padding-bottom:20px; margin-top:20px; margin-bottom:70px;}
+.web-reference-new{ float:right; width:322px; border:1px #999 solid; padding-bottom:20px; margin-top:20px; margin-bottom:20px;}
 .web-reference-tit-new{float:left; font: normal 16px "Times New Roman", Times, serif; color:#fff; padding:7px 10px;  background-color:#8f8f8f; width:303px; margin-bottom:10px;}
  .social-outer-new{ margin:2px 0px; width:300px; margin:0 auto; font:normal 11px Arial, Helvetica, sans-serif; color:#333;}
  .social-left-new{ float:left; margin-right:20px;}
