@@ -5,24 +5,25 @@ global $user, $gSitePath, $apikey;
 $directory = $base_path . $directory;
 ?>
 <?php print $styles; ?>
-<?php print $scripts; ?>
-<script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
-<script src="<?php echo $directory; ?>/scripts/jquery.js"></script>
+<?php //print $scripts; ?>
+
+<script src="<?php echo $directory; ?>/scripts/jquery1.4.2.js"></script>
+<script src="<?php echo $directory; ?>/scripts/jquery.scroll.js"></script>
 <script src="<?php echo $directory; ?>/scripts/localscroll.js"></script>
 <script src="<?php echo $directory; ?>/scripts/init.js"></script>
+<script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
 
 <link rel="stylesheet" href="<?php echo $directory; ?>/css/jbubble.css" type="text/css" media="screen" charset="utf-8">
 <link href="<?php echo $directory; ?>/css/slider_css.css" rel="stylesheet" type="text/css">	
 <script type="text/javascript">
                         var gSitePath='<?php echo $gSitePath; ?>';
-						$(document).ready(function(){
-
-                        jQuery('.table-bor-form-item-1 ul li a,#Concise').each(function () { 
-
-                            if (jQuery(this).attr("rel").length > 0) {
-                                //  jQuery(this).CreateBubblePopup();
-                                var id=jQuery(this);
-                                jQuery(this).CreateBubblePopup({
+						  jQuery(document).ready(function(){
+                        $('#Concise').each(function () { 
+							
+                            if ($(this).attr("rel").length > 0) {
+                                //  $(this).CreateBubblePopup();
+                                var id=$(this);
+                                $(this).CreateBubblePopup({
                                     position : 'top',
                                     align	 : 'center',
                                     dropShadow: false,
@@ -34,11 +35,11 @@ $directory = $base_path . $directory;
                                     alwaysVisible: false,
                                     themeName: 	'blue',
 
-                                    innerHtml: jQuery(this).attr("rel"),
+                                    innerHtml: $(this).attr("rel"),
                                     themePath: '<?php echo $directory; ?>/images/bp_images'
 
                                 });
-                                  jQuery(this).ShowBubblePopup();
+                                  $(this).ShowBubblePopup();
                             }
 
 
@@ -48,7 +49,7 @@ $directory = $base_path . $directory;
      </script>
 
        
-   <body style="background: none repeat scroll 0% 0% transparent;">
+   <body id="header" style="background: none repeat scroll 0% 0% transparent;">
    <?php print $content; ?>
 			
 </body> 

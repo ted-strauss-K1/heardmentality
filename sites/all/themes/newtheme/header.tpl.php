@@ -40,7 +40,7 @@ $directory = $base_path . $directory;
                 <link rel="stylesheet" href="<?php echo $directory; ?>/css/jbubble.css" type="text/css" media="screen" charset="utf-8">
                     <script type="text/javascript">
                         var gSitePath='<?php echo $gSitePath; ?>';
-                     $(document).ready(function(){
+             
 
                         jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel-control').livequery(function () {
 
@@ -93,7 +93,7 @@ $directory = $base_path . $directory;
 
 
                         });
-						});
+					
 
      </script>
 
