@@ -1544,8 +1544,8 @@ img{ border:none; outline:none;}
 .popup-profile .tab-history{ padding-bottom:0;}
 .popup-update-profile .form-bg{ padding-left:10px;}
 .popup-update-profile .newcretae-profile-wrapper .newcretae-profile-wrapper{ padding:0; width:auto;}
-.popup-update-profile .form-wra-4{ padding:0;}
-.popup-update-profile .form-wra { height:auto; min-height:27px; padding:5px 0;}
+.popup-update-profile .form-wra-4{ padding:0; line-height:14px;}
+.popup-update-profile .form-wra { height:auto; min-height:30px; padding:5px 0;}
 
 .debate-l{ float:left; width:200px; margin-right:10px;}
 .debate-r{ float:left; width:300px;}
