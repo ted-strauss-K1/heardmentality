@@ -824,7 +824,7 @@ function profile_tab($tab='', $uid='') {
 </div>';
             break;
         case 'badge':
-            $badges.='';
+            $badges.='<ul>';
 
             //$imageresult=UserPicture($uid);
             $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid";
@@ -838,6 +838,7 @@ function profile_tab($tab='', $uid='') {
 
                 $badges.='<li><h3>No Badges Yet !</h3></li>';
             }
+              $badges.='</ul>';
             $output.=$badges;
             break;
         case 'history':
