@@ -1076,9 +1076,9 @@ function user_follower() {
                 }
             }
             if ($follower_resultfuser->follower_status == 0) {
-                $followeru = '<div  id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
+                $followeru = '<div class="contact-user-list"  id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
             } else {
-                $followeru = '<div  id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
+                $followeru = '<div  class="contact-user-list"   id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
             }
 
             $follow .= '' . $followeru . '';
