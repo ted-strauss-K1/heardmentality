@@ -35,7 +35,7 @@ $(document).ready(function(){
 			$(".nav3 a").removeClass('ab-select');			
 		}
 	});
-	    
+
 });
 
 jQuery(function( $ ){

@@ -6,13 +6,48 @@ $directory = $base_path . $directory;
 ?>
 <?php print $styles; ?>
 <?php print $scripts; ?>
+ <script src="<?php echo $directory; ?>/scripts/jquery.translate-1.4.0.min.js"></script>
 <script src="<?php echo $directory; ?>/scripts/jquery_1.js"></script>
 <script src="<?php echo $directory; ?>/scripts/jquery.js"></script>
-<script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
-<script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
+<script src="<?php echo $directory; ?>/scripts/jquery.livequery.js"></script>
+<script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script>
 <script src="<?php echo $directory; ?>/scripts/localscroll.js"></script>
 <script src="<?php echo $directory; ?>/scripts/init.js"></script>
+<script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
+<script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.tab.js"></script>
+<link rel="stylesheet" href="<?php echo $directory; ?>/lib/jquery.tab.css" type="text/css" media="screen" charset="utf-8">
+<link rel="stylesheet" href="<?php echo $directory; ?>/css/jbubble.css" type="text/css" media="screen" charset="utf-8">
 <link href="<?php echo $directory; ?>/css/slider_css.css" rel="stylesheet" type="text/css">	
+<script type="text/javascript">
+                        var gSitePath='<?php echo $gSitePath; ?>';
+                        jQuery('.table-bor-form-item-1 ul li a,#Concise').each(function () { 
+
+                            if (jQuery(this).attr("rel").length > 0) {
+                                //  jQuery(this).CreateBubblePopup();
+                                var id=jQuery(this);
+                                jQuery(this).CreateBubblePopup({
+                                    position : 'top',
+                                    align	 : 'center',
+                                    dropShadow: false,
+                                    openingDelay:100,
+                                    selectable: true,
+                                    innerHtmlStyle: {
+                                        'text-align':'center','background-color':'#FFFFFF'
+                                    },
+                                    alwaysVisible: false,
+                                    themeName: 	'blue',
+
+                                    innerHtml: jQuery(this).attr("rel"),
+                                    themePath: '<?php echo $directory; ?>/images/bp_images'
+
+                                });
+                                  jQuery(this).ShowBubblePopup();
+                            }
+
+
+                        });
+
+     </script>
 
        
    <body style="background: none repeat scroll 0% 0% transparent;">
