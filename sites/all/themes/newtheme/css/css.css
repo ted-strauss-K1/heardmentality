@@ -1549,4 +1549,4 @@ img{ border:none; outline:none;}
 .popup-update-profile .newcretae-profile-wrapper{ width:980px;}
 .fb_white .profile-left,.fb_white #page{ margin-left:10px;}
 .following{ padding:10px;}
-.following .clear{ height:25px; width:100%;}
+.following .subtabs{ height:25px; width:100%; display:block;}
