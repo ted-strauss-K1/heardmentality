@@ -4,7 +4,7 @@
  * Implementation of hook_perm().
  * @return array
  */
-function job_invitation_perm() {
+function hmnewsletter_perm() {
   return array('Send Newsletters');
 }
 
@@ -272,5 +272,14 @@ function week_date_month($current_date)
 	}
 	return $week_date_array;
 }
+
+/*
+	Implement hook_cron()
+*/
+function hmnewsletter_cron()
+{
+	getFollowers();
+}
+
 
 ?>
