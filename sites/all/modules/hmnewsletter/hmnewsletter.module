@@ -49,8 +49,9 @@ function getFollowers()
 			$allfollwers[] = $follwer['uid'];
 		}
 	}	
-	echo '<pre>';	
+		
 	/*		
+		echo '<pre>';
 		print_r($follwers);	
 		print_r($allfollwers);				
 		print_r($follower_activites);	
@@ -65,7 +66,7 @@ function getFollowers()
 		$subject = $conf['site_name'].': Weekly update';
 	}
 	
-	//$follower_activites = getfolloweractivites($allfollwers);	
+	$follower_activites = getfolloweractivites($allfollwers);	
 	
 	foreach($follwers as $key => $value)
 	{		
@@ -83,7 +84,7 @@ function getFollowers()
 		
 		//Save mails
 		if($sender_id != '')
-		{
+		{			
 			$sender = user_load($sender_id);
 			db_query("
 						INSERT INTO {hm_mails} 
@@ -200,17 +201,27 @@ function getfolloweractivites($allfollwers)
 		//Recent 5 activites
 		if(findtask() <= 3)
 		{
+			$month_dates	= week_date_month(strtotime(date('d-m-Y')));
+			$start_date		= $month_dates[0];					
+			
 			$recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target` FROM heartbeat_activity
 											WHERE `uid` = $value
+											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
+											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 10
 										");		
 		}
 		else
 		{
+			$month_dates	= week_date(strtotime(date('d-m-Y')));
+			$start_date		= $month_dates[0];
+			
 			$recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target` FROM heartbeat_activity
 											WHERE `uid` = $value
+											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
+											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 5
 										");
 		}
