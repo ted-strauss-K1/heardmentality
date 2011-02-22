@@ -1,0 +1,265 @@
+<?php
+
+/**
+ * Implementation of hook_perm().
+ * @return array
+ */
+function job_invitation_perm() {
+  return array('Send Newsletters');
+}
+
+
+/**
+ * Implementation of hook_menu().
+ */
+function hmnewsletter_menu() 
+{	
+	$items['content/hmnewsletter'] = array(
+		'title' => 'HMNewsLetter',
+		'page callback' => 'getFollowers',		
+		'access arguments' => array('Send Newsletters'),
+		'type' => MENU_NORMAL_ITEM,	
+	);
+	
+	return $items;
+}
+
+/**
+ * To get the follower and followers.
+ */
+function getFollowers()
+{
+	global $conf;
+	$follwerQ = db_query("
+							SELECT `uid`, `follower_id` FROM {follower}
+							ORDER BY `uid`
+					");
+	
+	$follwers = array();
+	$allfollwers = array();
+	while($follwer = db_fetch_array($follwerQ))
+	{
+		if(!in_array($follwer['uid'], $follwers[$follwer['follower_id']]) && $follwer['uid'] != $follwer['follower_id'])
+		{
+			$follwers[$follwer['follower_id']][] = $follwer['uid'];
+		}
+		
+		if(!in_array($follwer['uid'], $allfollwers))
+		{
+			$allfollwers[] = $follwer['uid'];
+		}
+	}	
+	echo '<pre>';	
+	/*		
+		print_r($follwers);	
+		print_r($allfollwers);				
+		print_r($follower_activites);	
+	*/
+	
+	if(findtask() <= 3)
+	{
+		$subject = $conf['site_name'].': Monthly update';
+	}
+	else
+	{
+		$subject = $conf['site_name'].': Weekly update';
+	}
+	
+	//$follower_activites = getfolloweractivites($allfollwers);	
+	
+	foreach($follwers as $key => $value)
+	{		
+		$sender_id = '';
+		$mail = '<table>';
+		foreach($value as $val)
+		{
+			if(is_array($follower_activites[$val]))
+			{		
+				$sender_id = $key;
+				$mail .= preparemail($follower_activites[$val]);
+			}
+		}
+		$mail .= '</table>';
+		
+		//Save mails
+		if($sender_id != '')
+		{
+			$sender = user_load($sender_id);
+			db_query("
+						INSERT INTO {hm_mails} 
+						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
+						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$sender->mail', '$subject', '$mail', now(), 'html')
+					");
+		}		
+	}	
+	return '';
+}
+
+/*
+	Prepare mail
+*/
+function preparemail($follower_activites)
+{
+	$mail = '';
+	foreach($follower_activites as $activites)
+	{
+		switch($activites['message_id'])
+		{
+			CASE 'heartbeat_become_friends':
+				$mail .= '						
+					<tr>
+					<td>'.UserPicture($activites['uid']).'</td>
+					<td>'.$activites['message_id'].'</td>
+					<td>'.$activites['message'].'</td>
+					<td>'.UserPicture($activites['uid_target']).'</td>
+					</tr>
+			';
+			break;
+			CASE 'Add_question':
+				$mail .= '						
+					<tr>
+					<td>'.UserPicture($activites['uid']).'</td>
+					<td>'.$activites['message_id'].'</td>
+					<td>'.$activites['message'].'</td>
+					<td>'.UserPicture($activites['uid_target']).'</td>
+					</tr>
+			';
+			break;
+			CASE 'question_flag':
+				$mail .= '						
+					<tr>
+					<td>'.UserPicture($activites['uid']).'</td>
+					<td>'.$activites['message_id'].'</td>
+					<td>'.$activites['message'].'</td>
+					<td>'.UserPicture($activites['uid_target']).'</td>
+					</tr>
+			';
+			break;
+			CASE 'debate_add':
+				$mail .= '						
+					<tr>
+					<td>'.UserPicture($activites['uid']).'</td>
+					<td>'.$activites['message_id'].'</td>
+					<td>'.$activites['message'].'</td>
+					<td>'.UserPicture($activites['uid_target']).'</td>
+					</tr>
+			';
+			break;
+			CASE 'debate_agree':
+				$mail .= '						
+					<tr>
+					<td>'.UserPicture($activites['uid']).'</td>
+					<td>'.$activites['message_id'].'</td>
+					<td>'.$activites['message'].'</td>
+					<td>'.UserPicture($activites['uid_target']).'</td>
+					</tr>
+			';
+			break;
+			CASE 'debate_disagree':
+				$mail .= '						
+					<tr>
+					<td>'.UserPicture($activites['uid']).'</td>
+					<td>'.$activites['message_id'].'</td>
+					<td>'.$activites['message'].'</td>
+					<td>'.UserPicture($activites['uid_target']).'</td>
+					</tr>
+			';
+			CASE 'debate_reply':
+				$mail .= '						
+					<tr>
+					<td>'.UserPicture($activites['uid']).'</td>
+					<td>'.$activites['message_id'].'</td>
+					<td>'.$activites['message'].'</td>
+					<td>'.UserPicture($activites['uid_target']).'</td>
+					</tr>
+			';
+			break;
+			default:
+				$mail .= '						
+					<tr>
+					<td>'.UserPicture($activites['uid']).'</td>
+					<td>'.$activites['message_id'].'</td>
+					<td>'.$activites['message'].'</td>
+					<td>'.UserPicture($activites['uid_target']).'</td>
+					</tr>
+			';
+			break;
+		}		
+	}
+	return $mail;
+}
+
+/*
+	Get Followers activites
+*/
+function getfolloweractivites($allfollwers)
+{
+	$follower_activites = array();
+	foreach($allfollwers as $key => $value)
+	{
+		//Recent 5 activites
+		if(findtask() <= 3)
+		{
+			$recent_activitiesQ = db_query("
+											SELECT `uid`, `message_id`, `message`, `uid_target` FROM heartbeat_activity
+											WHERE `uid` = $value
+											ORDER BY `timestamp` DESC LIMIT 10
+										");		
+		}
+		else
+		{
+			$recent_activitiesQ = db_query("
+											SELECT `uid`, `message_id`, `message`, `uid_target` FROM heartbeat_activity
+											WHERE `uid` = $value
+											ORDER BY `timestamp` DESC LIMIT 5
+										");
+		}
+		//create mail templates for each users
+		while($recent_activities = db_fetch_array($recent_activitiesQ))
+		{
+			$follower_activites[$value][] =  $recent_activities;
+		}
+	}
+	return $follower_activites;
+}
+
+/*
+	Getgate and find week end or month end
+*/
+function findtask()
+{
+	$mdates = week_date_month(strtotime(date('d-m-Y')));
+	$dayno	= array_keys($mdates, date('Y-m-d'));	
+	return $remaining_days = count($mdates) - $dayno[0];	
+}
+
+function week_date($current_date)
+{
+	$ts 	= $current_date;
+	$year 	= date('Y', $ts);
+	$week 	= date('W', $ts);
+	
+	for($i=1; $i<=7; $i++) 
+	{	
+		$ts = strtotime($year.'W'.$week.$i);
+		$week_date_array[] = date("Y-m-d", $ts);		
+	}
+	return $week_date_array;
+}
+
+function week_date_month($current_date)
+{
+	$ts = $current_date;
+	$year = date('Y', $ts);
+	$week = date('W', $ts);
+	$month = date('m', $ts);
+	$number_of_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+	for($i=1; $i<=$number_of_days; $i++) {	
+	if($i < 10){ $i = "0".$i; }
+		$ts = strtotime($year.$month.$i);
+		$week_date_array[] = date("Y-m-d", $ts);		
+	}
+	return $week_date_array;
+}
+
+?>
