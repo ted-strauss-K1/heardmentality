@@ -71,21 +71,21 @@ function getFollowers()
 	foreach($follwers as $key => $value)
 	{		
 		$sender_id = '';
-		$mail = '<table>';
+		$mailcontent = '';
 		foreach($value as $val)
 		{
 			if(is_array($follower_activites[$val]))
 			{		
 				$sender_id = $key;
-				$mail .= preparemail($follower_activites[$val]);
+				$mailcontent .= preparemailcontent($follower_activites[$val], $sender_id);
 			}
-		}
-		$mail .= '</table>';
-		
+		}		
 		//Save mails
 		if($sender_id != '')
-		{			
+		{	
 			$sender = user_load($sender_id);
+			echo $mail = preparemail($mailcontent, $sender);
+			exit;
 			db_query("
 						INSERT INTO {hm_mails} 
 						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
@@ -99,9 +99,105 @@ function getFollowers()
 /*
 	Prepare mail
 */
-function preparemail($follower_activites)
+function preparemail($mailcontent, $sender)
 {
+	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+	
+	$path	= drupal_get_path('theme', 'newtheme');
+
 	$mail = '';
+	
+	$imgw	= $gSitePath.$path."/images/logo_mail.gif";
+	
+	$imag	= $config['file_path'].$img;
+	
+	// To send HTML mail, the Content-type header must be set
+	$headers  = 'MIME-Version: 1.0' . "\r\n";
+	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+	$headers .= 'From: '.$conf['site_name'].' <'.$conf['site_mail'].'>' . "\r\n";
+
+	$mail 	.= '
+			   <html>
+				<head>
+				 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				 <title>'.$conf['site_name'].'</title>
+				 <style type="text/css">
+				  <!--
+				   *{ margin:0px; padding:0px;}
+					body{ margin:0px; padding:0px;}
+					img{ border:none; outline:none;}
+					a{ color:#b28b17; text-decoration:none;}
+					a:hover{ text-decoration:underline;}
+					.clr{ clear:both;}
+						
+					#email-main{ width:622px; margin:0 auto; min-height:200px; height:auto !important; height:200px; border:1px #e8e1cc solid;}
+					#email-main #header{ background:#e8e1cc; padding:7px 0px; padding-left:10px;}
+					#email-main #header .email-logo{ background:url('.$gSitePath.$path.'/images/email-logo.jpg) no-repeat; width:229px; height:27px;}
+					#email-main #content{ margin:0px; padding:10px;}
+					#email-main #content h1{ font:normal 22px Arial, Helvetica, sans-serif; color:#000; text-decoration:none;}
+					#email-main #content h3{ font:normal 16px Arial, Helvetica, sans-serif; color:#666; text-decoration: underline;}
+					#email-main #content p{ font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;}
+					#email-main #content p strong{ font:normal 12px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;}
+					#email-main #content h2 a{ font:bold 13px Arial, Helvetica, sans-serif; color:#b28b17; padding-bottom:10px;}
+					#email-main #content p a{ color:#b28b17}
+					#email-main #content p a:hover{ text-decoration:underline;}
+					#email-main #content b{ font:normal 11px Arial, Helvetica, sans-serif; color:#666666;}
+					#email-main #content .avatar-box{ width:590px; background:#fafafa; padding:5px; margin-top:10px;}
+					#email-main #content .avatar-box .avatar-box-left{ float:left; width:102px;}
+					#email-main #content .avatar-box .avatar-box-left img{ border:1px #ccc solid;}
+					#email-main #content .avatar-box .avatar-box-right{ float:left; width:478px; padding-left:10px;}
+					.email-btn{ background:url('.$gSitePath.$path.'/images/email-btn-bg.jpg) repeat-x; padding:4px 10px; border:none; cursor:pointer; font:normal 17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none;}
+					.email-btn:hover{ background:url('.$gSitePath.$path.'/images/email-btn-bg-h.jpg) repeat-x; padding:4px 10px; border:none; cursor:pointer; font:normal 17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none;}
+				  -->
+				 </style>
+				</head>
+				<body>
+				<div id="email-main">
+				 <div id="header">
+				  <div class="email-logo"></div>
+				  <div class="clr"></div>
+				 </div>       
+				<div class="clr"></div>
+				<div id="content">
+				 <p>Hi '.$sender->name.'!</p>';
+				 
+				 $mess = '';
+				 if(findtask() <= 3)
+				 {
+					$month_dates	= week_date_month(strtotime(date('d-m-Y')));
+					$start_date		= $month_dates[0];
+					$end_date		= end($month_dates);
+					$mess 			= '<p>Here is your montly summary of Friend activity in <a href="'.$base_path.'">'.$conf['site_name'].' Marketplace</a></p>';
+				 }
+				 else
+				 {
+					$month_dates	= week_date(strtotime(date('d-m-Y')));
+					$start_date		= $month_dates[0];
+					$end_date		= end($month_dates);
+					$mess 			= '<p>Here is your weekly summary of Friend activity in <a href="'.$base_path.'">'.$conf['site_name'].' Marketplace</a></p>';
+				 }	
+	
+	$mail 	.= 	'<h1>Network Updates, '.$start_date.' - '.$end_date.'</h1>'. $mess;
+	
+	$mail	.=	 '<table>'.$mailcontent.'</table>';
+	
+	$mail 	.= 	'   
+				 <div class="clr"></div>
+                 <div align="center"><input name="" type="button" value="View All Updates" class="email-btn"/></div>
+				 <div class="clr"></div>
+				 </div>
+				</div>
+				</body>
+			   </html>
+			';
+	return $mail;
+}
+
+/*
+	Prepare mail content
+*/
+function preparemailcontent($follower_activites, $sender_id)
+{
 	foreach($follower_activites as $activites)
 	{
 		switch($activites['message_id'])
@@ -186,7 +282,7 @@ function preparemail($follower_activites)
 			';
 			break;
 		}		
-	}
+	}	
 	return $mail;
 }
 
