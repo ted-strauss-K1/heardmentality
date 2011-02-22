@@ -84,8 +84,7 @@ function getFollowers()
 		if($sender_id != '')
 		{	
 			$sender = user_load($sender_id);
-			echo $mail = preparemail($mailcontent, $sender);
-			exit;
+			$mail = preparemail($mailcontent, $sender);			
 			db_query("
 						INSERT INTO {hm_mails} 
 						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
