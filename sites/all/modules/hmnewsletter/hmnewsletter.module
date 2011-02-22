@@ -260,13 +260,19 @@ function week_date($current_date)
 
 function week_date_month($current_date)
 {
-	$ts = $current_date;
-	$year = date('Y', $ts);
-	$week = date('W', $ts);
-	$month = date('m', $ts);
+	$ts 	= $current_date;
+	$year 	= date('Y', $ts);
+	$week 	= date('W', $ts);
+	$month 	= date('m', $ts);
+	
 	$number_of_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-	for($i=1; $i<=$number_of_days; $i++) {	
-	if($i < 10){ $i = "0".$i; }
+	
+	for($i=1; $i<=$number_of_days; $i++) 
+	{	
+		if($i < 10)
+		{ 
+			$i = "0".$i; 
+		}
 		$ts = strtotime($year.$month.$i);
 		$week_date_array[] = date("Y-m-d", $ts);		
 	}
