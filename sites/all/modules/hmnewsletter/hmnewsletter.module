@@ -249,7 +249,7 @@ function preparemailcontent($follower_activites, $receiver_id)
 	foreach($follower_activites as $activites)
 	{
 		print_r($activites);
-	exit;
+	
 		switch($activites['message_id'])
 		{
 			CASE 'heartbeat_become_friends':
@@ -332,7 +332,7 @@ function preparemailcontent($follower_activites, $receiver_id)
 			';
 			break;
 		}		
-	}	
+	}	exit;
 	return $mail;
 }
 
