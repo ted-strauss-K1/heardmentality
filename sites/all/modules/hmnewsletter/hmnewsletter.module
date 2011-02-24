@@ -213,7 +213,7 @@ function preparemail($mailcontent, $receiver)
 					$mess 			= 'Here is your weekly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
 				 }	
 	
-				$mail 	.= 	'<h1>Network Updates, '.date_format($start_date, 'custom', 'i, d').' - '.date_format($end_date, 'custom', 'i, d').'</h1> <br /><div class="clr"></div><h3>'. $mess.'</h3>';
+				$mail 	.= 	'<h1>Network Updates, '.$start_date.' - '.$end_date.'</h1> <br /><div class="clr"></div><h3>'. $mess.'</h3>';
 				
 				$tweets 	= db_result(db_query("SELECT count(distinct `nid`) AS 'tweets' FROM node WHERE `uid` = $receiver->uid"));
 
