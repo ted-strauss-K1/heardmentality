@@ -246,10 +246,10 @@ function preparemail($mailcontent, $receiver)
 */
 function preparemailcontent($follower_activites, $receiver_id)
 {
-	print_r($follower_activites);
-	exit;
 	foreach($follower_activites as $activites)
 	{
+		print_r($activites);
+	exit;
 		switch($activites['message_id'])
 		{
 			CASE 'heartbeat_become_friends':
