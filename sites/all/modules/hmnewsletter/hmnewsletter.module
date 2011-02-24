@@ -102,7 +102,12 @@ function getFollowers()
 		if($receiver_id != '')
 		{	
 			$receiver = load_user($receiver_id);
-			echo $mail = preparemail($mailcontent, $receiver);			
+			$mail = preparemail($mailcontent, $receiver);	
+			echo "
+						INSERT INTO {hm_mails} 
+						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
+						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
+					";
 			db_query("
 						INSERT INTO {hm_mails} 
 						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
