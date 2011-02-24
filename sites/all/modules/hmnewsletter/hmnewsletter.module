@@ -104,7 +104,7 @@ function getFollowers()
 									</div>
 								';
 			}
-		}print_r($mailcontent);exit;
+		}
 		//Save mails
 		if($receiver_id != '')
 		{	
@@ -297,7 +297,7 @@ function preparemailcontent($follower_activites, $receiver_id)
 				$mail .= '	
 						</a>
 					</h2>
-					<b>'.$d.'</b>					
+					<b>'.ago($activites['timestamp']).'</b>					
 				';				
 			break;
 			
