@@ -84,7 +84,7 @@ function getFollowers()
 				$receiver_id = $key;
 				$mailcontent .= '
 									<div class="avatar-box">
-										<div class="avatar-box-left"><a href="'.$base_path.'/profile/'.$follower_details->name.'">';										
+										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';										
 										if(empty($follower_details->image_url))
 										{
 											$mailcontent .= '<img src="'.$gSitePath.$path.'/images/avatar.jpg" width="97" height="111" alt="'.$follower_details->real_name.'" />';
@@ -238,7 +238,7 @@ function preparemail($mailcontent, $receiver)
 								</div>
 								 <div class="avatar-intro-right">
 								  <h2>'.$receiver->real_name.'</h2>
-								  <p><a href="'.$base_path.'/profile/'.$receiver->name.'">Profile</a></p>
+								  <p><a href="'.$base_path.'profile/'.$receiver->name.'">Profile</a></p>
 								  <b>'.$receiver->bio.'</b>
 								 </div>
 								 <div class="clr"></div>								
@@ -276,16 +276,15 @@ function preparemailcontent($follower_activites, $receiver_id)
 	
 	$uid_details = load_user($follower_activites[0]['uid']);
 	$uid_target_details = load_user($follower_activites[0]['uid_target']);
-	print_r($uid_details);
+	
 	foreach($follower_activites as $activites)
 	{		
 		switch($activites['message_id'])
 		{
-			CASE 'heartbeat_become_friends':
-				
+			CASE 'heartbeat_become_friends':				
 				$mail .= '	
-					<h2><a href="'.$base_path.'/profile/'.$uid_details->name.'">'.$uid_details->real_name.'</a> is following  
-						<a href="'.'.$base_path.'/profile/'.$uid_target_details->name.'.'">';
+					<h2><a href="'.$base_path.'profile/'.$uid_details->name.'">'.$uid_details->real_name.'</a> is following  
+						<a href="'.'.$base_path.'profile/'.$uid_target_details->name.'.'">';
 							if(empty($uid_target_details->image_url))
 							{
 								$mail 	.= 	'<img src="'.$gSitePath.$path.'/images/avatar-3.jpg" width="34" height="40" alt="'.$uid_target_details->real_name.'" />';
@@ -297,78 +296,36 @@ function preparemailcontent($follower_activites, $receiver_id)
 				$mail .= '	
 						</a>
 					</h2>
-					<b></b>					
+					<b>12 hours ago, Feb 15.</b>					
 				';				
 			break;
 			
-			CASE 'Add_question':
-				$mail .= '						
-					<tr>
-					<td>'.UserPicture($activites['uid']).'</td>
-					<td>'.$activites['message_id'].'</td>
-					<td>'.$activites['message'].'</td>
-					<td>'.UserPicture($activites['uid_target']).'</td>
-					</tr>
-			';
+			CASE 'Add_question':				
+				$mail .= '<p>'.$activites['message'].'</p>';			
 			break;
+			
 			CASE 'question_flag':
-				$mail .= '						
-					<tr>
-					<td>'.UserPicture($activites['uid']).'</td>
-					<td>'.$activites['message_id'].'</td>
-					<td>'.$activites['message'].'</td>
-					<td>'.UserPicture($activites['uid_target']).'</td>
-					</tr>
-			';
+				$mail .= '<p>'.$activites['message'].'</p>';
 			break;
-			CASE 'debate_add':
-				$mail .= '						
-					<tr>
-					<td>'.UserPicture($activites['uid']).'</td>
-					<td>'.$activites['message_id'].'</td>
-					<td>'.$activites['message'].'</td>
-					<td>'.UserPicture($activites['uid_target']).'</td>
-					</tr>
-			';
+			
+			CASE 'debate_add':				
+				$mail .= '<p>'.$activites['message'].'</p>';
 			break;
+			
 			CASE 'debate_agree':
-				$mail .= '						
-					<tr>
-					<td>'.UserPicture($activites['uid']).'</td>
-					<td>'.$activites['message_id'].'</td>
-					<td>'.$activites['message'].'</td>
-					<td>'.UserPicture($activites['uid_target']).'</td>
-					</tr>
-			';
+				$mail .= '<p>'.$activites['message'].'</p>';
 			break;
+			
 			CASE 'debate_disagree':
-				$mail .= '						
-					<tr>
-					<td>'.UserPicture($activites['uid']).'</td>
-					<td>'.$activites['message_id'].'</td>
-					<td>'.$activites['message'].'</td>
-					<td>'.UserPicture($activites['uid_target']).'</td>
-					</tr>
-			';
-			CASE 'debate_reply':
-				$mail .= '						
-					<tr>
-					<td>'.UserPicture($activites['uid']).'</td>
-					<td>'.$activites['message_id'].'</td>
-					<td>'.$activites['message'].'</td>
-					<td>'.UserPicture($activites['uid_target']).'</td>
-					</tr>
-			';
+				$mail .= '<p>'.$activites['message'].'</p>';
 			break;
+			
+			CASE 'debate_reply':
+				$mail .= '<p>'.$activites['message'].'</p>';
+			break;
+			
 			default:
-				$mail .= '						
-					<tr>
-					<td>'.UserPicture($activites['uid']).'</td>
-					<td>'.$activites['message_id'].'</td>
-					<td>'.$activites['message'].'</td>
-					<td>'.UserPicture($activites['uid_target']).'</td>
-					</tr>
-			';
+				$mail .= '<p>'.$activites['message'].'</p>';
 			break;
 		}		
 	}	
