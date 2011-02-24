@@ -83,14 +83,15 @@ function getFollowers()
 				$receiver_id = $key;
 				$mailcontent .= '
 									<div class="avatar-box">
-										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';										
-										if(empty($follower_details->image_url))
+										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
+										$img = UserPicture_small($follower_details->uid);
+										if(empty($img))
 										{
 											$mailcontent .= '<img src="'.$gSitePath.$path.'/images/avatar.jpg" width="97" height="111" alt="'.$follower_details->real_name.'" />';
 										}
 										else
 										{
-											$mail 	.= 	'<img src="'.$follower_details->image_url.'" width="97" height="111" alt="'.$follower_details->real_name.'" />';
+											$mail 	.= 	$img;
 										}
 				$mailcontent .= '
 											</a><p align="center">'.$follower_details->real_name.'</p>
@@ -224,13 +225,14 @@ function preparemail($mailcontent, $receiver)
 				$mail 	.= 	'
 								<div class="avatar-intro">
 								 <div class="avatar-intro-left">';
-								if(empty($receiver->image_url))
+								$img = UserPicture_small($receiver->uid);
+								if(empty($img))
 								{
 									$mail 	.= 	'<img src="'.$gSitePath.$path.'/images/avatar-2.jpg" width="66" height="76" alt="'.$receiver->real_name.'" />';
 								}
 								else
 								{
-									$mail 	.= 	'<img src="'.$receiver->image_url.'" width="66" height="76" alt="'.$receiver->real_name.'" />';
+									$mail 	.= 	$img;
 								}
 				$mail 	.= 	'
 								</div>
@@ -283,13 +285,14 @@ function preparemailcontent($follower_activites, $receiver_id)
 				$mail .= '	
 					<h2><a href="'.$base_path.'profile/'.$uid_details->name.'">'.$uid_details->real_name.'</a> is following  
 						<a href="'.$base_path.'profile/'.$uid_target_details->name.'">';
-							if(empty($uid_target_details->image_url))
+							$img = UserPicture_small($activites['uid_target']);
+							if(empty($img))
 							{
 								$mail 	.= 	'<img src="'.$gSitePath.$path.'/images/avatar-3.jpg" width="34" height="40" alt="'.$uid_target_details->real_name.'" />';
 							}
 							else
 							{
-								$mail 	.= UserPicture($activites['uid_target']);
+								$mail 	.= $img;
 							}
 				$mail .= '	
 						</a>
@@ -299,31 +302,31 @@ function preparemailcontent($follower_activites, $receiver_id)
 			break;
 			
 			CASE 'Add_question':				
-				$mail .= '<p>'.$activites['message'].'</p>';			
+				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';			
 			break;
 			
 			CASE 'question_flag':
-				$mail .= '<p>'.$activites['message'].'</p>';
+				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
 			break;
 			
 			CASE 'debate_add':				
-				$mail .= '<p>'.$activites['message'].'</p>';
+				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
 			break;
 			
 			CASE 'debate_agree':
-				$mail .= '<p>'.$activites['message'].'</p>';
+				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
 			break;
 			
 			CASE 'debate_disagree':
-				$mail .= '<p>'.$activites['message'].'</p>';
+				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
 			break;
 			
 			CASE 'debate_reply':
-				$mail .= '<p>'.$activites['message'].'</p>';
+				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
 			break;
 			
 			default:
-				$mail .= '<p>'.$activites['message'].'</p>';
+				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
 			break;
 		}		
 	}	
