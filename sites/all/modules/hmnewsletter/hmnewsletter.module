@@ -97,22 +97,12 @@ function getFollowers()
 											</a><p align="center">'.$follower_details->real_name.'</p>
 										</div>                    
 										<div class="avatar-box-right">';	
-										//$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);
-				$mailcontent .= '
-										<h2><a href="#">User name</a> is following  <a href="#"><img src="images/avatar-3.jpg" width="34" height="40" alt="User" /></a></h2>
-											<b>12 hours ago, Feb 15.</b>
-											<h2><a href="#">User name</a> is following  <a href="#"><img src="images/avatar-3.jpg" width="34" height="40" alt="User" /></a></h2>
-											<b>12 hours ago, Feb 15.</b>
-											<p>Posted a question <a href="#">dummy link</a></p>
-											<p>Posted a question <a href="#">Created a debate</a></p>
-											<p><strong>Amply insulated with a lofty 700 fill goose down, this new thermal down vest features a sleek, slim fit silhouette without sacrificing warmth. Slanted, feminine quilting ke...Amply insulated with a lofty 700 fill goose down, this new thermal down vest features a sleek, slim fit silhouette without sacrificing warmth. Slanted, feminine quilting ke...  </strong></p>';
+										$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);				
 				$mailcontent .= '
 										</div> 
 										<div class="clr"></div>
 									</div>
 								';
-				
-				
 			}
 		}
 		//Save mails
@@ -262,17 +252,16 @@ function preparemail($mailcontent, $receiver)
 								 <div class="clr"></div>
 								</div>
 				';				
-				$mail	.=	 '<table>'.$mailcontent.'</table>';
-	
-	$mail 	.= 	'   
-				 <div class="clr"></div>
-                 <div align="center"><input name="" type="button" value="View All Updates" class="email-btn"/></div>
-				 <div class="clr"></div>
-				 </div>
-				</div>
-				</body>
-			   </html>
-			';
+				$mail	.=	 $mailcontent;
+				$mail 	.= 	'   
+							 <div class="clr"></div>
+							 <div align="center"><input name="" type="button" value="View All Updates" class="email-btn"/></div>
+							 <div class="clr"></div>
+							 </div>
+							</div>
+							</body>
+						   </html>
+						';
 	return $mail;
 }
 
@@ -281,20 +270,35 @@ function preparemail($mailcontent, $receiver)
 */
 function preparemailcontent($follower_activites, $receiver_id)
 {
+	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+	
+	$path	= drupal_get_path('theme', 'newtheme');
+	
 	foreach($follower_activites as $activites)
 	{
+		$uid_details = load_user($activites['uid']);
+		$uid_target_details = load_user($activites['uid_target']);
 		switch($activites['message_id'])
 		{
 			CASE 'heartbeat_become_friends':
-				$mail .= '						
-					<tr>
-					<td>'.UserPicture($activites['uid']).'</td>
-					<td>'.$activites['message_id'].'</td>
-					<td>'.$activites['message'].'</td>
-					<td>'.UserPicture($activites['uid_target']).'</td>
-					</tr>
-			';
+				
+				$mail .= '	
+					<h2><a href="'.$base_path.'/profile/'.$uid_details->name.'">'.$uid_details->real_name.'</a> is following  
+						<a href="'.'.$base_path.'/profile/'.$uid_target_details->name.'.'">
+							if(empty($uid_target_details->image_url))
+							{
+								$mail 	.= 	'<img src="'.$gSitePath.$path.'/images/avatar-3.jpg" width="34" height="40" alt="'.$uid_target_details->real_name.'" />';
+							}
+							else
+							{
+								$mail 	.= UserPicture($activites['uid_target']);
+							}
+						</a>
+					</h2>
+					<b>'.ago($activites['timestamp']).'</b>					
+				';				
 			break;
+			
 			CASE 'Add_question':
 				$mail .= '						
 					<tr>
@@ -384,7 +388,7 @@ function getfolloweractivites($allfollwers)
 			$start_date		= $month_dates[0];					
 			
 			$recent_activitiesQ = db_query("
-											SELECT `uid`, `message_id`, `message`, `uid_target` FROM {heartbeat_activity}
+											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM {heartbeat_activity}
 											WHERE `uid` = $value
 											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
@@ -397,7 +401,7 @@ function getfolloweractivites($allfollwers)
 			$start_date		= $month_dates[0];
 			
 			$recent_activitiesQ = db_query("
-											SELECT `uid`, `message_id`, `message`, `uid_target` FROM heartbeat_activity
+											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM heartbeat_activity
 											WHERE `uid` = $value
 											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '2011-01-01' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
