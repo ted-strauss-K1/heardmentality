@@ -84,14 +84,15 @@ function getFollowers()
 		if($receiver_id != '')
 		{	
 			$receiver = load_user($receiver_id);
-			$mail = preparemail($mailcontent, $receiver);			
+			echo $mail = preparemail($mailcontent, $receiver);			
 			db_query("
 						INSERT INTO {hm_mails} 
 						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
 						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
 					");
 		}		
-	}	
+	}
+exit;	
 	return '';
 }
 
@@ -100,8 +101,6 @@ function getFollowers()
 */
 function preparemail($mailcontent, $receiver)
 {
-	print_r($receiver);
-	exit;
 	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
 	
 	$path	= drupal_get_path('theme', 'newtheme');
@@ -173,7 +172,7 @@ function preparemail($mailcontent, $receiver)
 				 </div>       
 				<div class="clr"></div>
 				<div id="content">
-				 <p>Hi '.$receiver->name.'!</p>';
+				 <p>Hi '.$receiver->real_name.'!</p>';
 				 
 				 $mess = '';
 				 if(findtask() <= 3)
@@ -201,11 +200,11 @@ function preparemail($mailcontent, $receiver)
 				
 				$mail 	.= 	'
 								<div class="avatar-intro">
-								 <div class="avatar-intro-left"><img src="images/avatar-2.jpg" width="66" height="76" alt="Avatar-2" /></div>
+								 <div class="avatar-intro-left"><img src="'.$receiver->image_url.'" width="66" height="76" alt="Avatar-2" /></div>
 								 <div class="avatar-intro-right">
-								  <h2>Lorem ipsum name</h2>
-								  <p><a href="#">@ dummylink</a></p>
-								  <b>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b>
+								  <h2>'.$receiver->real_name.'</h2>
+								  <p><a href="'.$base_path.'/profile/'.$receiver->name.'">Profile</a></p>
+								  <b>'.$receiver->bio.'</b>
 								 </div>
 								 <div class="clr"></div>								
 								 <div>
