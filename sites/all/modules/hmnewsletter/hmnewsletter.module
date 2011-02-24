@@ -195,9 +195,9 @@ function preparemail($mailcontent, $receiver)
 				
 				$tweets 	= db_result(db_query("SELECT count(distinct `nid`) AS 'tweets' FROM node WHERE `uid` = $receiver->uid"));
 
-				$following 	= db_result(db_query("SELECT count(distinct `uid`) AS 'following' FROM follower WHERE `follower_id` = $receiver->uid));
+				$following 	= db_result(db_query("SELECT count(distinct `uid`) AS 'following' FROM follower WHERE `follower_id` = $receiver->uid"));
 
-				$followers 	= db_result(db_query("SELECT count(distinct `follower_id`) AS 'followers' FROM follower WHERE `uid` = $receiver->uid));
+				$followers 	= db_result(db_query("SELECT count(distinct `follower_id`) AS 'followers' FROM follower WHERE `uid` = $receiver->uid"));
 				
 				$mail 	.= 	'
 								<div class="avatar-intro">
