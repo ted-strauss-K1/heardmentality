@@ -170,17 +170,17 @@ function preparemail($mailcontent, $receiver)
 					#email-main #content p a{ color:#000; text-decoration:underline; font:bold 12px Arial, Helvetica, sans-serif; color: #960;}
 					#email-main #content p a:hover{ text-decoration:none;}	
 					#email-main #content b{ font:normal 11px Arial, Helvetica, sans-serif; color:#666666;}
-					#email-main #content .avatar-intro{ width:360px; min-height:100px; height: auto !important; height:100px; padding:10px; background:#fafafa; border:1px #ccc solid; margin-top:10px; margin-bottom:10px;}
+					#email-main #content .avatar-intro{ width:290px; min-height:100px; height: auto !important; height:100px; padding:10px; background:#fafafa; border:1px #ccc solid; margin-top:10px; margin-bottom:10px;}
 					#email-main #content .avatar-intro ul{ padding:10px;}
 					#email-main #content .avatar-intro ul li{ float:left; list-style:none; font:bold 12px Verdana, Geneva, sans-serif; color:#000; padding:5px 10px; border-right:1px #ccc solid;}
 					#email-main #content .avatar-intro ul .border-none{ border:none;}
 					#email-main #content .avatar-intro ul li strong{ont:bold 12px Verdana, Geneva, sans-serif; color:#999;}
 					#email-main #content .avatar-intro ul li a{ float:left; list-style:none; font:bold 12px Verdana, Geneva, sans-serif; color:#000;}
 					#email-main #content .avatar-intro ul li a:hover{ float:left; list-style:none; font:bold 12px Verdana, Geneva, sans-serif; color:#000; text-decoration:underline;}
-					#email-main #content .avatar-intro-left{ float:left; width:85px;}
-					#email-main #content .avatar-intro-right{ float:left; width:256px;}
+					#email-main #content .avatar-intro-left{ float:left; width:70px;}
+					#email-main #content .avatar-intro-right{ float:left; width:200px;}
 					#email-main #content .avatar-box{ width:590px; background:#f0f0f0; padding:7px; margin-top:10px; border-bottom:1px #999 dotted; border-top:1px #999 dotted; margin-bottom:5px;}
-					#email-main #content .avatar-box .avatar-box-left{ float:left; width:102px;}
+					#email-main #content .avatar-box .avatar-box-left{ float:left; width:70px;}
 					#email-main #content .avatar-box .avatar-box-left img{ border:1px #ccc solid;}
 					#email-main #content .avatar-box .avatar-box-right{ float:left; width:478px; padding-left:10px;}
 					.email-btn{ background:url('.$gSitePath.$path.'/images/email-btn-bg.jpg) repeat-x; padding:4px 10px; border:none; cursor:pointer; font:normal 17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none;}
@@ -244,7 +244,7 @@ function preparemail($mailcontent, $receiver)
 								 <div class="clr"></div>								
 								 <div>
 								  <ul>
-								   <li>'.number_format($tweets).'<br /><strong>Tweets</strong></li>
+								   <li>'.number_format($tweets).'<br /><strong>Post</strong></li>
 								   <li>'.number_format($following).'<br /><strong>Following</strong></li>
 								   <li class="border-none">'.number_format($followers).'<br /><strong>Followers</strong></li>								
 								  </ul>
