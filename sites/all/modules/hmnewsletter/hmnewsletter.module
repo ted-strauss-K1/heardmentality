@@ -84,7 +84,7 @@ function getFollowers()
 				$mailcontent .= '
 									<div class="avatar-box">
 										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
-										$img = UserPicture_small($follower_details->uid);
+										$img = UserPicture($follower_details->uid);
 										if(empty($img))
 										{
 											$mailcontent .= '<img src="'.$gSitePath.$path.'/images/avatar.jpg" width="97" height="111" alt="'.$follower_details->real_name.'" />';
@@ -225,7 +225,7 @@ function preparemail($mailcontent, $receiver)
 				$mail 	.= 	'
 								<div class="avatar-intro">
 								 <div class="avatar-intro-left">';
-								$img = UserPicture_small($receiver->uid);
+								$img = UserPicture($receiver->uid);
 								if(empty($img))
 								{
 									$mail 	.= 	'<img src="'.$gSitePath.$path.'/images/avatar-2.jpg" width="66" height="76" alt="'.$receiver->real_name.'" />';
