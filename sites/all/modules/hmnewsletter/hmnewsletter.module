@@ -70,7 +70,7 @@ function getFollowers()
 	}
 	
 	$follower_activites = getfolloweractivites($allfollwers);	
-	
+	print_r($follower_activites);exit;
 	foreach($follwers as $key => $value)
 	{		
 		$receiver_id = '';
