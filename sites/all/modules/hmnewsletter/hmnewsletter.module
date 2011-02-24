@@ -274,8 +274,8 @@ function preparemailcontent($follower_activites, $receiver_id)
 	
 	$path	= drupal_get_path('theme', 'newtheme');
 	
-	//$uid_details = load_user($follower_activites[0]['uid']);
-	//$uid_target_details = load_user($follower_activites[0]['uid_target']);
+	$uid_details = load_user($follower_activites[0]['uid']);
+	$uid_target_details = load_user($follower_activites[0]['uid_target']);
 	
 	foreach($follower_activites as $activites)
 	{
