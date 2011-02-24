@@ -98,13 +98,14 @@ function getFollowers()
 										</div>                    
 										<div class="avatar-box-right">';	
 										//$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);
+				$mailcontent .= '
 										<h2><a href="#">User name</a> is following  <a href="#"><img src="images/avatar-3.jpg" width="34" height="40" alt="User" /></a></h2>
 											<b>12 hours ago, Feb 15.</b>
 											<h2><a href="#">User name</a> is following  <a href="#"><img src="images/avatar-3.jpg" width="34" height="40" alt="User" /></a></h2>
 											<b>12 hours ago, Feb 15.</b>
 											<p>Posted a question <a href="#">dummy link</a></p>
 											<p>Posted a question <a href="#">Created a debate</a></p>
-											<p><strong>Amply insulated with a lofty 700 fill goose down, this new thermal down vest features a sleek, slim fit silhouette without sacrificing warmth. Slanted, feminine quilting ke...Amply insulated with a lofty 700 fill goose down, this new thermal down vest features a sleek, slim fit silhouette without sacrificing warmth. Slanted, feminine quilting ke...  </strong></p>
+											<p><strong>Amply insulated with a lofty 700 fill goose down, this new thermal down vest features a sleek, slim fit silhouette without sacrificing warmth. Slanted, feminine quilting ke...Amply insulated with a lofty 700 fill goose down, this new thermal down vest features a sleek, slim fit silhouette without sacrificing warmth. Slanted, feminine quilting ke...  </strong></p>';
 				$mailcontent .= '
 										</div> 
 										<div class="clr"></div>
