@@ -253,7 +253,7 @@ function preparemail($mailcontent, $receiver)
 				$mail	.=	 $mailcontent;
 				$mail 	.= 	'   
 							 <div class="clr"></div>
-							 <div align="center"><input name="" type="button" value="View All Updates" class="email-btn"/></div>
+							 <div align="center"><a href="'.$base_path.'"><input name="" type="button" value="View All Updates" class="email-btn"/></a></div>
 							 <div class="clr"></div>
 							 </div>
 							</div>
@@ -294,7 +294,7 @@ function preparemailcontent($follower_activites, $receiver_id)
 				$mail .= '	
 						</a>
 					</h2>
-					<b>'.hmnews_ago($activites['timestamp']).'</b>					
+					<b>'.hmnews_ago($activites['timestamp']).'.</b>					
 				';				
 			break;
 			
