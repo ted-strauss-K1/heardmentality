@@ -76,8 +76,8 @@ function getFollowers()
 		{
 			if(is_array($follower_activites[$val]))
 			{	
-				print_r($follower_activites[$val][0]);
 				$follower_details = load_user($follower_activites[$val][0]['uid']);
+				print_r($follower_details);
 				$receiver_id = $key;
 				$mailcontent .= '
 									<div class="avatar-box">
