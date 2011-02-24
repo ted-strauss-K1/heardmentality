@@ -108,8 +108,7 @@ function getFollowers()
 						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
 						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
 					";
-			db_query("
-						INSERT INTO {hm_mails} 
+			db_query("INSERT INTO {hm_mails} 
 						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
 						VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')
 					",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
@@ -345,7 +344,7 @@ function getfolloweractivites($allfollwers)
 			$recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM heartbeat_activity
 											WHERE `uid` = $value
-											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '2011-01-01' 
+											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 5
 										");
