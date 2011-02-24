@@ -3,7 +3,7 @@ $(document).ready(function(){
 		hash:true;
 	
   		var scrollTopPosition = ($(window).scrollTop() + 300);		
-		var headerSpace = ($("#header").offset().top + $("#header").height());
+		var headerSpace = ($("#header_about").offset().top + $("#header_about").height());
 		var aboutSpace = ($("#about").offset().top + $("#about").height());
   		var associatesSpace = ($("#associates").offset().top + $("#associates").height());
   		var organizationSpace = ($("#organization").offset().top + $("#organization").height());
