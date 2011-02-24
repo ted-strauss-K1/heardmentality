@@ -1140,9 +1140,10 @@ function question_ajax() {
         if ($stype == '2') {
 
 
-            $query = "select uid as id,real_name as value,first_name as info from user_profile where (real_name like '%$input%' OR first_name like '%$input%')  ORDER BY uid ASC ";
+            $query = "select u.uid as id,u.name as value,up.first_name as info from user_profile as up,users as u where u.uid=up.uid AND (u.name like '%%%s%%' OR up.real_name like '%%%s%%')  ORDER BY u.uid ASC ";
             //  $aResults = ExecuteQuery($query, "select");
-            $Result = mysql_query($query);
+          //  printf($query,$input,$input);die;
+            $Result = db_query($query,$input,$input);
         } else {
 
 
@@ -1198,9 +1199,9 @@ function question_ajax() {
                             if ($sscid == $sscat['cat_id']) {
                                 $style = 'style="font-weight:bold"';
                             }
-                            $sscat_qry = "SELECT count(distinct cat.scat) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond  group by cat.scat";
-                           $total_count3= db_result(db_query($sscat_qry));
-                      
+                            $sscat_qry = "SELECT count(distinct cat.scat) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond   group by q.qid";
+                          // $total_count3= db_result(db_query($sscat_qry));
+                            $total_count3= ExecuteQuery($sscat_qry, 'norows');
 
                             $style = 'class="sublinks scat" style="padding-left:10px"';
                             $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
@@ -1499,7 +1500,7 @@ function panel_content($type = '') {
                 $strReturn .= '</td><td>' . $quest['abuse_type'] . '</td><td># Flag :' . $quest['fcnt'] . '</td>';
                 $strReturn .= '</td><td>' . $date . '</td><td>';
 
-                $strReturn .= '<!--<b>/</b>&nbsp;<a href="' . $gSitePath . 'question/edit/' . $quest['qid'] . '">Edit</a>&nbsp;<b>/</b><a href="' . $gSitePath . 'question/delete/' . $list[$i]['qid'] . '">Delete</a>-->&nbsp;<input type="checkbox" class="check-me" name="qids[]" value="' . $quest['fid'] . '" /> ';
+                $strReturn .= '<!--<b>/</b>&nbsp;<a href="' . $gSitePath . 'question/edit/' . $quest['qid'] . '">Edit</a>&nbsp;<b>/</b><a href="' . $gSitePath . 'question/delete/' . $list[$i]['qid'] . '">Delete</a>-->&nbsp;<input type="checkbox" class="check-me" name="qids[]" value="' . $quest['qid'] . '" /> ';
 
                 $strReturn .= '</td></tr>';
             }
@@ -1519,35 +1520,7 @@ function panel_content($type = '') {
             break;
         case 'flagsave':
 
-           $qids = implode(',', $_REQUEST['qids']);
-              
-            if ($_REQUEST['actions']) {
-
-                question_flagged_mail($qids);
-                $query = db_query("delete from {question_flags} where type='question' AND fid in ($qids)");
-                echo '<div class="success">Question updated successfully!</div>';
-            } else {
-               
-                $query = "select nodeid from {question_flags} where fid in ($qids)";
-                $ids = ExecuteQuery($query, "select");
-                $target = array();
-
-                foreach ($ids as $value) {
-                    $target = $value;
-                }
-               
-                $target = array_unique($target);
-                $qids = implode(',', $target);
-                
-              // badges award "scruitneer"
-              update_flag_badges($_REQUEST['qids']);
-                
-                $reporttext = $_REQUEST['reporttext'];
-                question_flagged_ignore_mail($qids, $reporttext);
-               
-                $query = db_query("delete from {question} where qid in ($qids)");
-                echo '<div class="success">Question updated successfully!</div>';
-            }
+            echo $msg=moderator_flag_save();
 
             panel_content('flagged');
             exit;
@@ -1583,22 +1556,13 @@ function panel_content($type = '') {
                 $strReturn .= '</table>
 				<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
 	<br/><div align="left" style="width:100%" ><input type="hidden" id="actions" name="actions" value="1"/><input type="submit"  value="Approve"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
-	</div></form><script>admin_approve();</script></div>';
+	</div></form></div>';
             }
             break;
         case 'save':
 
 
-            $qids = implode(',', $_REQUEST['qids']);
-            if ($_REQUEST['actions']) {
-
-                $query = db_query("update {question} set status='" . $_REQUEST['actions'] . "' where qid in ($qids)");
-                echo '<div class="success">Question updated successfully!</div>';
-            } else {
-                $query = db_query("delete from {question} where qid in ($qids)");
-                echo '<div class="success">Question updated successfully!</div>';
-                flag_quest_mail($_REQUEST['qids']);
-            }
+           echo $msg=moderator_new_save($_REQUEST['qids']);
 
             panel_content('new');
             exit;
@@ -1661,92 +1625,9 @@ function panel_content($type = '') {
     echo $strReturn;
 }
 
-function question_flagged_mail($qaid) {
-    global $gSitePath, $user, $gDocPath, $base_root;
-
-    $from = variable_get('site_mail');
-    $subject_proj = "Heardmentality Question Has Been Ignore";
-    // $delmsg = 'Has been Deleted By Headmentality admin';
-    $qry = "select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ";
-
-    $query = db_query($qry);
-    $det = db_fetch_object($query);
-
-    $to = $det->mail;
-    //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
-
-    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
-    $rs_mgmt = db_query($sel_user_cmt);
-    $list_content = db_fetch_object($rs_mgmt);
-
-    $contentm = str_replace("#uname#", $det->name, $list_content->content);
-    // $contentm = str_replace("#anothername#",$user->name, $contentm);
-    $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
-    //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
-    $contentm = str_replace("#content#", 'Question Ignore By Headmentality admin', $contentm);
-    //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-    $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
-    db_query($ins_qry);
-    /*  if (! empty($to)) {
-      $mail_suc = htmlmail($to, $subject, $msg, $from, '');
-      } */
-    return true;
-}
-
-function question_flagged_ignore_mail($qaid, $reporttext) {
-    global $gSitePath, $user, $gDocPath, $base_root;
-
-    $from = variable_get('site_mail');
-    $subject_proj = "Heardmentality Question Has Been Rejected";
-    // $delmsg = 'Has been Deleted By Headmentality admin';
-    $qry = "select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ";
-
-    $query = db_query($qry);
-    $det = db_fetch_object($query);
-
-    $to = $det->mail;
-    //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
-
-    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
-    $rs_mgmt = db_query($sel_user_cmt);
-    $list_content = db_fetch_object($rs_mgmt);
-
-    $contentm = str_replace("#uname#", $det->name, $list_content->content);
-    // $contentm = str_replace("#anothername#",$user->name, $contentm);
-    $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
-    //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
-    $contentm = str_replace("#content#", "$reporttext Question Rejected By Headmentality admin", $contentm);
-    //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-    $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
-    db_query($ins_qry);
-    /*  if (! empty($to)) {
-      $mail_suc = htmlmail($to, $subject, $msg, $from, '');
-      } */
-    return true;
-}
-
-function flag_quest_mail($qids = '') {
-
-    global $gSitePath, $user, $gDocPath, $base_root;
-
-    $from = variable_get('site_mail');
-    $subject = 'Heardmentality Question Removal';
-    $msg = $_REQUEST['reporttext'];
-    foreach ($qids as $id) {
 
 
-        $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
-        $det = db_fetch_object($query);
 
-        $to = $det->mail;
-        $msg .= '<br/>Question : ' . $det->question . '<br/>';
-        if (!empty($to)) {
-
-            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
-        }
-    }
-    return true;
-}
 
 function flag_user_mail($uids = '') {
 
@@ -3171,8 +3052,8 @@ function question_edited_mail($qaid) {
     $query = db_query("select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
     $det = db_fetch_object($query);
 
-    // $to = $det->mail;
-    //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+    $to = $det->mail;
+    $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
 
 
     $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
@@ -3186,9 +3067,8 @@ function question_edited_mail($qaid) {
     $contentm = str_replace("#content#", 'Question edited By Headmentality admin', $contentm);
 
     //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-    $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
-    db_query($ins_qry);
-
+   $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
+    db_query($ins_qry, $from, $from, $to, $subject_proj, $contentm);
 
     /* if (! empty($to)) {
 
@@ -3227,8 +3107,8 @@ function question_edited_mail_voters($qaid) {
         $contentm = str_replace("#content#", 'Question edited By Headmentality admin', $contentm);
 
         //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
-        db_query($ins_qry);
+     $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
+    db_query($ins_qry, $from, $from, $to, $subject_proj, $contentm);
         /* if (! empty($to)) {
 
           $mail_suc = htmlmail($to, $subject, $msg, $from, '');
@@ -3242,7 +3122,7 @@ function question_edited_mail_suggest($qaid) {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $from = variable_get('site_mail');
-    $subject = 'Heardmentality Question Has Been Edited By admin ';
+    $subject = 'Heardmentality Issues Has Been Updated By Moderator ';
     // $delmsg = 'Has been Edited By Headmentality admin';
 
     $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
@@ -3267,8 +3147,8 @@ function question_edited_mail_suggest($qaid) {
         $contentm = str_replace("#content#", 'Question edited By Headmentality admin', $contentm);
 
         //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
-        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
-        db_query($ins_qry);
+     $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
+    db_query($ins_qry, $from, $from, $to, $subject_proj, $contentm);
 
         /* if (! empty($to)) {
 

@@ -36,9 +36,9 @@ drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
         $code = $_REQUEST['code'];
     }
 
-    $qry = '';
+    $qry = 'where reg.uid=img.uid ';
     if (!empty($name))
-        $qry .= "AND (img.real_name LIKE '" . $name . "') ";
+        $qry .= "AND (img.real_name LIKE '%" . $name . "%' OR reg.name LIKE '%" . $name . "%' ) ";
 
    if (!empty($q_country))
         $qry .= "AND (img.country ='" . $q_country . "') ";
@@ -64,12 +64,12 @@ drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
             if ($scid != '')
                 $c_qry .= "AND (fol.cat_id=$scid)";
 
-            $qry_form = "img, follower fol where 1 $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
+            $qry_form = " ,follower fol  $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
         }
         else {
-            $qry_form = "img WHERE reg.status='1' $qry AND  img.uid=reg.uid";
+            $qry_form =$qry;
         }
-    $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+    $sel = "SELECT * FROM {users} reg,{user_profile} img  $qry_form";
 
     //  echo $sel;
 
@@ -78,41 +78,7 @@ drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
 
     $sel_count = ExecuteQuery($sel, 'norows');
 
-
-    if ($user->uid != '') {
-        if ($_REQUEST['cid'] != '') {
-
-            if ($scid != '')
-                $c_qry .= "AND (fol.cat_id=$scid)";
-
-            $qry_form = "img, follower fol where reg.status=1 $qry and (fol.cat_id=$cid) and reg.uid=fol.uid $c_qry group by fol.uid";
-            $sel_count = mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
-        }
-        else {
-
-            $qry_form = "img WHERE reg.status='1' $qry and img.uid=reg.uid ";
-            $sel_count = db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
-        }
-
-
-        //$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'"));
-    } else {
-        //  $sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
-
-        if ($_REQUEST['cid'] != '') {
-
-            if ($scid != '')
-                $c_qry .= "AND (fol.cat_id=$scid)";
-
-            $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid<>$user->uid and reg.uid=fol.uid $c_qry group by fol.uid";
-            $sel_count = mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
-        }
-        else {
-
-            $qry_form = "img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
-            $sel_count = db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
-        }
-    }
+   
     $sel .= " limit $eu, $limit";
 
 
@@ -981,7 +947,7 @@ function search_results_question() {
     /////////////////////////////// sigma pagination
     if ($sel_count > $limit) { // Let us display bottom links if sufficient records are there for paging
         /////////////// Start the bottom links with Prev and next link with page numbers /////////////////
-        $fetresult .= " </div><div class='result-item factmore'><div class='page-n' align='center'><ul><li>";
+        $fetresult .= " <div class='result-item factmore'><div class='page-n' align='center'><ul><li>";
         //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
         if ($back >= 0) {
             //href='$page_name?start=$back&$lkr'
@@ -1012,7 +978,7 @@ function search_results_question() {
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0)' id='$next'>Next</a>";
         }
-        $fetresult .= "</li></ul></div><input type='hidden' name='hid_page' id='hid_page' value=''/>";
+        $fetresult .= "</li></ul></div></div><input type='hidden' name='hid_page' id='hid_page' value=''/>";
     }
 
     if ($sel_count == 0) {
@@ -1609,7 +1575,7 @@ function search_results_user() {
     $name = $_REQUEST['txt_search'];
 
     if ($name != '')
-        $qry .= "(img.real_name LIKE '%" . $name . "%') AND ";
+        $qry .= "(img.real_name LIKE '%" . $name . "%' OR reg.name LIKE '%" . $name . "%' ) AND ";
     if ($code != '')
         $qry .= "(img.country LIKE '" . $code . "%') AND ";
     if ($ccode != '')

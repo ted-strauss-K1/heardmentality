@@ -435,9 +435,9 @@ function profile($uid = '') {
     $gender_name = isset($gender) && ($gender == 1) ? 'Male' : 'Female';
     //Checking settings and displaying the field
     if (($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['real_name'] == 3 && $is_follow_follower == TRUE) && ($userSettings['real_name'] != 4)) {
-        $real_name1 = $first_name . '' . $last_name;
+        $real_name1 = $real_name;
     }
-    if (empty($real_naem1)) {
+    if (empty($real_name1)) {
         $real_name1 = '-';
     }
     if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 3 && $is_follow_follower == TRUE) && ($userSettings['bio'] != 4)) {

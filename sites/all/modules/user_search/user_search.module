@@ -336,7 +336,7 @@ function _question_search() {
 
     $content.= _sidebar_category();
     $content.='</div>';
-    $content.='<input type="hidden" name="hid_cat" id="hid_cat" value="" /><input type="hidden" name="hid_scat" id="hid_scat" value="" /><input type="hidden" name="hid_txtsearch" id="hid_txtsearch" value="' . $txt_search . '" />';
+    $content.='<input type="hidden" name="hid_cat" id="hid_cat" value="'.$_REQUEST['cid'].'" /><input type="hidden" name="hid_scat" id="hid_scat" value="'.$_REQUEST['scid'].'" /><input type="hidden" name="hid_txtsearch" id="hid_txtsearch" value="' . $txt_search . '" />';
 
 
     $content.= _sidebar_location();
@@ -424,10 +424,10 @@ function _sidebaruser_category() {
          $cid=(!empty($parent['lev1']))?$parent['lev1']:$parent['lev2'];
        //$cat_qry = "SELECT count(up.uid) FROM category as c join follower as f on c.cat_id=f.cat_id join user_profile as up on up.uid=f.uid $cond";
 
-        $cat_qry = "select * from users u,user_profile up,follower f where 1 and u.status=1 and u.uid=f.uid and f.cat_id=".$cat['cat_id']." $cond group by f.uid";
+        $cat_qry = "select u.uid from users u,user_profile up,follower f where 1 and u.status=1 and u.uid=f.uid and f.cat_id=".$cat['cat_id']." $cond group by u.uid,f.cat_id";
 
           //  $total_count1 = db_result(db_query($cat_qry));
-       $total_count1 = db_query($cat_qry);
+       $tcount = ExecuteQuery($cat_qry,'norows');
             //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
             $catlist.='<span ' . $style . ' class="sidelinks">
 

@@ -343,7 +343,7 @@ function load_qcat($qid="") {
 
     if (is_numeric($qid)) {
         db_query("drop view listcat");
-        $query = "select c.cat_name as lev1,c1.cat_name as lev2,c2.cat_name as lev3
+        $query = "select c.cat_name as lev1,c.cat_id as lev1id,c1.cat_name as lev2,c1.cat_id as lev2id,c2.cat_name as lev3,c2.cat_id as lev3id
 from question_cat as qc
 left join category AS c ON qc.cat = c.cat_id
 left join category AS c1 ON qc.scat = c1.cat_id
@@ -358,15 +358,15 @@ WHERE qc.qid ='$qid' ORDER BY c.cat_id ASC
 
             $output.='' . stripslashes('<div class="butb">
 <div class="butb-left"></div>
-<div class="butb-bg"><a href="#">' . $load_cat['lev1'] . '</a></div>
+<div class="butb-bg"><a href="'.$gSitePath. 'searchquestion?txt_search=&cid='.$load_cat['lev1id'].'">' . $load_cat['lev1'] . '</a></div>
 <div class="butb-right"></div>
 </div>') . ((!empty($load_cat['lev2'])) ? '  ' . stripslashes('<div class="butb">
 <div class="buty-left"></div>
-<div class="buty-bg"><a href="#">' . $load_cat['lev2'] . '</a></div>
+<div class="buty-bg"><a href="'.$gSitePath. 'searchquestion?txt_search=&cid='.$load_cat['lev1id'].'&scid='.$load_cat['lev2id'].'">' . $load_cat['lev2'] . '</a></div>
 <div class="buty-right"></div>
 </div>') : '') . ((!empty($load_cat['lev3'])) ? '  ' . stripslashes('<div class="butb">
 <div class="butg-left"></div>
-<div class="butg-bg"><a href="#">' . $load_cat['lev3'] . '</a></div>
+<div class="butg-bg"><a href="'.$gSitePath. 'searchquestion?txt_search=&cid='.$load_cat['lev1id'].'&scid='.$load_cat['lev2id'].'&sscid='.$load_cat['lev3id'].'">' . $load_cat['lev3'] . '</a></div>
 <div class="butg-right"></div>
 </div>') : '') . '  <br class="clr"/><br class="clr"/> ';
         }

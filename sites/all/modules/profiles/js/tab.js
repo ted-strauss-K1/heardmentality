@@ -1,14 +1,6 @@
 
 
-function loadtab(url,title)
-{
-var params="?width=650&height=350";
-    // jQuery(".fa-item a").css('color', '#996600');
-    //  jQuery(this).css('color', '#4170A0');
-    var options = 'sameBox:true width:50% height:70% caption:' +'`'+title+'`';
-    parent.fb.start(url+params, options);
 
-}
 
  jQuery(document).ready(function () {
     jQuery('.fa-item a').click(function(e) {

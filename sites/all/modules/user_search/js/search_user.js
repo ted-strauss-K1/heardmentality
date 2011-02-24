@@ -104,7 +104,7 @@ function search_user(loadcat){
     var url = gSitePath+"searchuser_ajax";
     //var url = gSitePath+"sites/all/modules/user_search/sidebar.php";
 
-    var  txt_search = jQuery('#hid_txtsearch').val();
+    var  txt_search = jQuery('#txt_search').val();
     var  page_id = jQuery('#hid_page').val();
     var  cid = jQuery('#hid_cat').val();
 
