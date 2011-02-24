@@ -87,6 +87,7 @@ function getFollowers()
 										$img = UserPicture($follower_details->uid);
 										if(!strstr($img, '<img'))
 										{
+											exit;
 											$mailcontent .= '<img src="'.$gSitePath.$path.'/images/avatar.jpg" width="97" height="111" alt="'.$follower_details->real_name.'" />';
 										}
 										else
