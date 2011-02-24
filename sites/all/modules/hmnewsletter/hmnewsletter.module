@@ -84,14 +84,14 @@ function getFollowers()
 				$mailcontent .= '
 									<div class="avatar-box">
 										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
-										echo 'hi '.$img = UserPicture($follower_details->uid);
+										$img = UserPicture($follower_details->uid);
 										if(!strstr($img, '<img'))
 										{
 											$mailcontent .= '<img src="'.$gSitePath.$path.'/images/avatar.jpg" width="97" height="111" alt="'.$follower_details->real_name.'" />';
 										}
 										else
 										{
-											$mail 	.= 	$img;
+											//$mail 	.= 	$img;
 										}
 				$mailcontent .= '
 											</a><p align="center">'.$follower_details->real_name.'</p>
