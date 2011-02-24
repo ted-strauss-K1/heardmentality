@@ -83,7 +83,7 @@ function getFollowers()
 		//Save mails
 		if($receiver_id != '')
 		{	
-			$receiver = user_load($receiver_id);
+			$receiver = load_user($receiver_id);
 			$mail = preparemail($mailcontent, $receiver);			
 			db_query("
 						INSERT INTO {hm_mails} 
