@@ -75,11 +75,13 @@ function getFollowers()
 		foreach($value as $val)
 		{
 			if(is_array($follower_activites[$val]))
-			{		
+			{	
+				print_r($follower_activites[$val]);
+				
 				$receiver_id = $key;
 				$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);
 			}
-		}		
+		}		exit;
 		//Save mails
 		if($receiver_id != '')
 		{	
@@ -248,8 +250,6 @@ function preparemailcontent($follower_activites, $receiver_id)
 {
 	foreach($follower_activites as $activites)
 	{
-		print_r($activites);
-	
 		switch($activites['message_id'])
 		{
 			CASE 'heartbeat_become_friends':
@@ -332,7 +332,7 @@ function preparemailcontent($follower_activites, $receiver_id)
 			';
 			break;
 		}		
-	}	exit;
+	}	
 	return $mail;
 }
 
