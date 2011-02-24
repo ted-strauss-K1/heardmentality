@@ -202,14 +202,14 @@ function preparemail($mailcontent, $receiver)
 				 {
 					$month_dates	= week_date_month(strtotime(date('d-m-Y')));
 					$start_date		= strtotime($month_dates[0]);
-					//$end_date		= end($month_dates);
+					
 					$mess 			= 'Here is your montly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
 				 }
 				 else
 				 {
 					$month_dates	= week_date(strtotime(date('d-m-Y')));
 					$start_date		= strtotime($month_dates[0]);
-					//$end_date		= end($month_dates);
+					
 					$mess 			= 'Here is your weekly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
 				 }	
 	
