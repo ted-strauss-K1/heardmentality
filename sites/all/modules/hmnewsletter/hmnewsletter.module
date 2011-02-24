@@ -91,8 +91,8 @@ function getFollowers()
 						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
 					");
 		}		
-	}
-exit;	
+		exit;
+	}	
 	return '';
 }
 
@@ -180,14 +180,14 @@ function preparemail($mailcontent, $receiver)
 					$month_dates	= week_date_month(strtotime(date('d-m-Y')));
 					$start_date		= $month_dates[0];
 					$end_date		= end($month_dates);
-					$mess 			= 'Here is your montly summary of Followers activity in <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
+					$mess 			= 'Here is your montly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
 				 }
 				 else
 				 {
 					$month_dates	= week_date(strtotime(date('d-m-Y')));
 					$start_date		= $month_dates[0];
 					$end_date		= end($month_dates);
-					$mess 			= 'Here is your weekly summary of Followers activity in <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
+					$mess 			= 'Here is your weekly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
 				 }	
 	
 				$mail 	.= 	'<h1>Network Updates, '.$start_date.' - '.$end_date.'</h1> <br /><div class="clr"></div><h3>'. $mess.'</h3>';
@@ -200,7 +200,17 @@ function preparemail($mailcontent, $receiver)
 				
 				$mail 	.= 	'
 								<div class="avatar-intro">
-								 <div class="avatar-intro-left"><img src="'.$receiver->image_url.'" width="66" height="76" alt="Avatar-2" /></div>
+								 <div class="avatar-intro-left">';
+								if(empty($receiver->image_url))
+								{
+									$mail 	.= 	'<img src="'.$gSitePath.$path.'/images/avatar-2.jpg" width="66" height="76" alt="'.$receiver->real_name.'" />';
+								}
+								else
+								{
+									$mail 	.= 	'<img src="'.$receiver->image_url.'" width="66" height="76" alt="'.$receiver->real_name.'" />';
+								}
+				$mail 	.= 	'
+								</div>
 								 <div class="avatar-intro-right">
 								  <h2>'.$receiver->real_name.'</h2>
 								  <p><a href="'.$base_path.'/profile/'.$receiver->name.'">Profile</a></p>
@@ -216,8 +226,7 @@ function preparemail($mailcontent, $receiver)
 								 </div>
 								 <div class="clr"></div>
 								</div>
-				';
-				
+				';				
 				$mail	.=	 '<table>'.$mailcontent.'</table>';
 	
 	$mail 	.= 	'   
@@ -237,6 +246,8 @@ function preparemail($mailcontent, $receiver)
 */
 function preparemailcontent($follower_activites, $receiver_id)
 {
+	print_r($follower_activites);
+	exit;
 	foreach($follower_activites as $activites)
 	{
 		switch($activites['message_id'])
