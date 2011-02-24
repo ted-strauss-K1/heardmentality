@@ -91,7 +91,7 @@ function getFollowers()
 										}
 										else
 										{
-											$mail 	.= 	$img;
+											$mail 	.= 	'hi '.$img;
 										}
 				$mailcontent .= '
 											</a><p align="center">'.$follower_details->real_name.'</p>
