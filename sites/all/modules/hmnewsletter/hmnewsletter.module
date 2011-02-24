@@ -284,7 +284,7 @@ function preparemailcontent($follower_activites, $receiver_id)
 				
 				$mail .= '	
 					<h2><a href="'.$base_path.'/profile/'.$uid_details->name.'">'.$uid_details->real_name.'</a> is following  
-						<a href="'.'.$base_path.'/profile/'.$uid_target_details->name.'.'">
+						<a href="'.'.$base_path.'/profile/'.$uid_target_details->name.'.'">';
 							if(empty($uid_target_details->image_url))
 							{
 								$mail 	.= 	'<img src="'.$gSitePath.$path.'/images/avatar-3.jpg" width="34" height="40" alt="'.$uid_target_details->real_name.'" />';
@@ -293,6 +293,7 @@ function preparemailcontent($follower_activites, $receiver_id)
 							{
 								$mail 	.= UserPicture($activites['uid_target']);
 							}
+				$mail .= '	
 						</a>
 					</h2>
 					<b>'.ago($activites['timestamp']).'</b>					
