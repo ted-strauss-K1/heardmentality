@@ -111,8 +111,8 @@ function getFollowers()
 			db_query("
 						INSERT INTO {hm_mails} 
 						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
-						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
-					");
+						VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')
+					",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
 		}		
 	}	
 	return '';
