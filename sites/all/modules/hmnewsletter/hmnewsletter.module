@@ -85,7 +85,7 @@ function getFollowers()
 									<div class="avatar-box">
 										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
 										$img = UserPicture($follower_details->uid);
-										if(empty($img))
+										if(!strstr($img, '<img'))
 										{
 											$mailcontent .= '<img src="'.$gSitePath.$path.'/images/avatar.jpg" width="97" height="111" alt="'.$follower_details->real_name.'" />';
 										}
@@ -226,7 +226,7 @@ function preparemail($mailcontent, $receiver)
 								<div class="avatar-intro">
 								 <div class="avatar-intro-left">';
 								$img = UserPicture($receiver->uid);
-								if(empty($img))
+								if(!strstr($img, '<img'))
 								{
 									$mail 	.= 	'<img src="'.$gSitePath.$path.'/images/avatar-2.jpg" width="66" height="76" alt="'.$receiver->real_name.'" />';
 								}
@@ -286,7 +286,7 @@ function preparemailcontent($follower_activites, $receiver_id)
 					<h2><a href="'.$base_path.'profile/'.$uid_details->name.'">'.$uid_details->real_name.'</a> is following  
 						<a href="'.$base_path.'profile/'.$uid_target_details->name.'">';
 							$img = UserPicture_small($activites['uid_target']);
-							if(empty($img))
+							if(!strstr($img, '<img'))
 							{
 								$mail 	.= 	'<img src="'.$gSitePath.$path.'/images/avatar-3.jpg" width="34" height="40" alt="'.$uid_target_details->real_name.'" />';
 							}
