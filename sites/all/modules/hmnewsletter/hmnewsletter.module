@@ -102,7 +102,7 @@ function getFollowers()
 				
 				
 			}
-		}		exit;
+		}
 		//Save mails
 		if($receiver_id != '')
 		{	
