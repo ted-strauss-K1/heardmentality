@@ -247,7 +247,7 @@ function preparemail($mailcontent, $receiver)
 function preparemailcontent($follower_activites, $receiver_id)
 {
 	print_r($follower_activites);
-	
+	exit;
 	foreach($follower_activites as $activites)
 	{
 		switch($activites['message_id'])
