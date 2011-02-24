@@ -28,8 +28,11 @@ function hmnewsletter_menu()
  * To get the follower and followers.
  */
 function getFollowers()
-{
-	global $conf;
+{	
+	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+	
+	$path	= drupal_get_path('theme', 'newtheme');
+	
 	$follwerQ = db_query("
 							SELECT `uid`, `follower_id` FROM {follower}
 							ORDER BY `uid`
