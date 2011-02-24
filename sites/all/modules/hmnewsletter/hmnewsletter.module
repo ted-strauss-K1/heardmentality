@@ -71,15 +71,36 @@ function getFollowers()
 	foreach($follwers as $key => $value)
 	{		
 		$receiver_id = '';
-		$mailcontent = '';
+		$mailcontent = '';		
 		foreach($value as $val)
 		{
 			if(is_array($follower_activites[$val]))
 			{	
-				print_r($follower_activites[$val]);
-				
+				$follower_details = load_user($follower_activites[$val][0]['uid']);
 				$receiver_id = $key;
-				$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);
+				$mailcontent .= '
+									<div class="avatar-box">
+										<div class="avatar-box-left"><a href="'.$base_path.'/profile/'.$follower_details->name.'">';										
+										if(empty($follower_details->image_url))
+										{
+											$mailcontent .= '<img src="'.$gSitePath.$path.'/images/avatar.jpg" width="97" height="111" alt="'.$follower_details->real_name.'" />';
+										}
+										else
+										{
+											$mail 	.= 	'<img src="'.$follower_details->image_url.'" width="97" height="111" alt="'.$follower_details->real_name.'" />';
+										}
+				$mailcontent .= '
+											</a><p align="center">'.$follower_details->real_name.'</p>
+										</div>                    
+										<div class="avatar-box-right">';	
+										$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);
+				$mailcontent .= '
+										</div> 
+										<div class="clr"></div>
+									</div>
+								';
+				
+				
 			}
 		}		exit;
 		//Save mails
