@@ -201,19 +201,19 @@ function preparemail($mailcontent, $receiver)
 				 if(findtask() <= 3)
 				 {
 					$month_dates	= week_date_month(strtotime(date('d-m-Y')));
-					$start_date		= $month_dates[0];
-					$end_date		= end($month_dates);
+					$start_date		= strtotime($month_dates[0]);
+					//$end_date		= end($month_dates);
 					$mess 			= 'Here is your montly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
 				 }
 				 else
 				 {
 					$month_dates	= week_date(strtotime(date('d-m-Y')));
-					$start_date		= $month_dates[0];
-					$end_date		= end($month_dates);
+					$start_date		= strtotime($month_dates[0]);
+					//$end_date		= end($month_dates);
 					$mess 			= 'Here is your weekly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
 				 }	
 	
-				$mail 	.= 	'<h1>Network Updates, '.date($start_date, 'M d').' - '.date($end_date, 'M d').'</h1> <br /><div class="clr"></div><h3>'. $mess.'</h3>';
+				$mail 	.= 	'<h1>Network Updates, '.date($start_date, 'M d').' - '.date('M d').'</h1> <br /><div class="clr"></div><h3>'. $mess.'</h3>';
 				
 				$tweets 	= db_result(db_query("SELECT count(distinct `nid`) AS 'tweets' FROM node WHERE `uid` = $receiver->uid"));
 
