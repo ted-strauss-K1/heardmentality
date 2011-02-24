@@ -87,11 +87,11 @@ function getFollowers()
 										$img = UserPicture($follower_details->uid);
 										if(!strstr($img, '<img'))
 										{
-											$mailcontent .= '<img src="'.$gSitePath.$path.'/images/avatar.jpg" width="97" height="111" alt="'.$follower_details->real_name.'" />';
+											$mailcontent .= 'suresh '.'<img src="'.$gSitePath.$path.'/images/avatar.jpg" width="97" height="111" alt="'.$follower_details->real_name.'" />';
 										}
 										else
 										{
-											$mail 	.= 	'hi '.$img;
+											$mail 	.= 	'suresh sad'.$img;
 										}
 				$mailcontent .= '
 											</a><p align="center">'.$follower_details->real_name.'</p>
