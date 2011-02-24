@@ -104,11 +104,18 @@ function moderator_issues() {
 
 function _moderator_left() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE uid = '$user->uid' and qid=q.qid) as tcnt FROM {question} AS q  having tcnt<1 ORDER BY q.qid DESC";
+    $new = ExecuteQuery($query, 'norows');
+
+    $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' group by q.qid ORDER BY f.flag_date DESC";
+
+    $flag = ExecuteQuery($query, 'norows');
     $output = '        <div class="commu">
+        <form id="mod-issue" name="mod-issue" method="POST" action="' . $gSitePath . 'moderator/ajax/issue" >
           <div id="rotate">
             <ul id="maintabs" class="mytabs">
-              <li class="current"><a href="' . $gSitePath . 'moderator/issues/list/new" title="Reporting"><span>News (59)</span></a></li>
-              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/issues/list/flag" title="Forum"><span>Flagged (14)</span></a></li>
+              <li class="current"><a href="' . $gSitePath . 'moderator/issues/list/new" title="Reporting"><span>New (' . $new . ')</span></a></li>
+              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/issues/list/flag" title="Forum"><span>Flagged (' . $flag . ')</span></a></li>
                      </ul>
 
             <div id="tabcontent" class="mytabs-container" style="height:auto;" >
@@ -118,15 +125,17 @@ function _moderator_left() {
 
           </div>
 
-
+  <div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
           <div class="mod-btn-outer">
-
-          <div><input name="" type="button"  class="mod-btn" value="Ignore"/></div>
-          <div><input name="" type="button"  class="mod-btn" value="Reject"/></div>
+      <input type="hidden" id="actions" name="actions" value="1"/>
+    
+          <div><input name="" type="submit"  class="mod-btn" value="Ignore"/></div>
+          <div><input name="" type="button" onclick="moderator_reject(0);" class="mod-btn" value="Reject"/></div>
+           <div> <small onclick="checkall(1);">Check All</small>&nbsp;<small onclick="checkall(0);">Uncheck All</small></div>
           <div class="clr"></div>
           </div>
 
-
+</form>
         </div>';
 
     return $output;
@@ -138,55 +147,56 @@ function moderator_issues_list($type='') {
     $num_per_page = 12;
 
     $output = '';
-switch($type){
-    case 'new':
+    switch ($type) {
+        case 'new':
 
             //actual query
-    $query = "SELECT * from {question} as q  where new='0' ORDER BY q.qid DESC";
- $count = "SELECT count(*) from {question} as q  where new='0' ";
- $sqlcnt=db_result(db_query($count));
-        break;
-    case 'flag':
-                    //actual query
-    $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY f.flag_date DESC";
-  $count = "SELECT count(*) from {question_flags} as f  join {question} as q  on f.nodeid=q.qid  where f.type='question'  ";
- $sqlcnt=db_result(db_query($count));
-        break;
-    default:
+            $query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE uid = '$user->uid' and qid=q.qid) as tcnt FROM {question} AS q  HAVING tcnt<1 ORDER BY q.qid DESC";
+            //  $query="SELECT * FROM {question} ";
+            $sqlcnt = ExecuteQuery($query, 'norows');
+            break;
+        case 'flag':
+            //actual query
+            $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' group by q.qid ORDER BY f.flag_date DESC";
 
-    echo '<div class="warning">No Action(s) Found!</div>';exit;
-        break;
+            $sqlcnt = ExecuteQuery($query, 'norows');
+            break;
+        default:
 
-
-
-}
+            echo '<div class="warning">No Action(s) Found!</div>';
+            exit;
+            break;
+    }
 
     //pager_query function
-    $rs = pager_query($query, $num_per_page);
+    $rs = pager_query_new($query, $num_per_page, 0, $sqlcnt);
     $alt = 'm-even';
     $output.= '  <div class="mod-leftside-inner">';
-    if($sqlcnt){
-    while ($data = db_fetch_object($rs)) {
-       
-        if($type=='flag')
-         $flag= (''.$data->fcnt.'<img src="'.$gSitePath.path_to_theme().'/images/flag.png" align="absmiddle"/>');
-         $chk=('<div align="right"><input type="checkbox" class="check-me" name="qids[]" value="' . $data->qid . '" />&nbsp; '.$flag.'</div> ');
-        $nd = ('<div class="' . $alt . '" > ');
-        $nd .= l($data->question, $gSitePath . 'moderator/issues/edit/' . $data->qid, array('attributes' => array('class' => 'issue-links')));
-        $nd.=$chk;
-        $nd .= ( '</div>');
-        $output .= ( $nd);
-        if ($alt == 'm-even')
-            $alt = 'm-odd';
-        else
-            $alt='m-even';
+    if ($sqlcnt) {
+        while ($data = db_fetch_object($rs)) {
+
+            if ($type == 'flag')
+                $flag = ('' . $data->fcnt . '<a href="' . $gSitePath . 'moderator/ajax/flaglist/' . $data->qid . '" class="floatbox" title="Flag List" data-fb-options="type:ajax width:640 height:385" ><img src="' . $gSitePath . path_to_theme() . '/images/flag.png" align="absmiddle"/></a>');
+            $chk = ('<div align="right"><input type="checkbox" class="check-me" name="qids[]" value="' . $data->qid . '" />&nbsp; ' . $flag . '</div> ');
+            $nd = ('<div class="' . $alt . '" > ');
+            $nd .= l($data->question, $gSitePath . 'moderator/issues/edit/' . $data->qid, array('attributes' => array('class' => 'issue-links')));
+            $nd.=$chk;
+            $nd .= ( '</div>');
+            $output .= ( $nd);
+            if ($alt == 'm-even')
+                $alt = 'm-odd';
+            else
+                $alt='m-even';
+        }
+        $output .= theme('pager', array(), $num_per_page, 0);
+    }else {
+        echo '<div class="warning">No Issue(s) Found!</div>';
     }
-    $output .= theme('pager',array(), $num_per_page,0);
-    }else{
-       echo '<div class="warning">No Issue(s) Found!</div>';
-    }
-    $output.='  <div class="clr"></div></div>';
-    echo $output;exit;
+    // print url($_GET['q'], array('absolute' => true));
+    $uri = $base_root . request_uri();
+    $output.=' <input name="mod-url" type="hidden" id="mod-url" value="' . $uri . '"/><input name="mod-type" type="hidden" id="mod-type" value="' . $type . '"/> <div class="clr"></div></div>';
+    echo $output;
+    exit;
 }
 
 function moderator_edit_issues($qid='') {
@@ -227,7 +237,7 @@ function moderator_edit_issues($qid='') {
         array_push($state_array, $cont['state']);
     }
     $setstate = implode(',', array_filter($state_array));
-    $ret = '<select tabindex="18" multiple="multiple" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state[]"> <option value="">--States--</option>';
+    $ret = '<select tabindex="18" multiple="multiple" style="width: 100px;"  onchange="get_city(this.value);" id="q_state" name="q_state[]"> <option value="">--States--</option>';
     $ret .= "</select>";
 
     /////////////state list end here //////////////////////////////
@@ -239,31 +249,31 @@ function moderator_edit_issues($qid='') {
     }
     $setcity = implode(',', array_filter($city_array));
 
-    $ret_city = '<select multiple="multiple" tabindex="19"   style="width: 125px;" id="q_city" name="q_city[]"> <option value="">--Cities--</option> ';
+    $ret_city = '<select multiple="multiple" tabindex="19"   style="width: 100px;" id="q_city" name="q_city[]"> <option value="">--Cities--</option> ';
     $ret_city .= "<option value='-1'>Others</option>";
     $ret_city .= "</select>";
     //////////// city list end here //////////////
     ///////// Sub category values///////////////////////
-   $qry_scat = "SELECT qc.scat from {question_cat} as qc where qc.qid='" . $qid . "' group by qc.scat";
+    $qry_scat = "SELECT qc.scat from {question_cat} as qc where qc.qid='" . $qid . "' group by qc.scat";
     $result_scat = db_query($qry_scat);
     $scat = array();
 
     while ($quest_scat = db_fetch_object($result_scat)) {
-              array_push($scat, $quest_scat->scat);
+        array_push($scat, $quest_scat->scat);
     }
 
-  $escat1 = implode(",", array_filter($scat));
-     ///////// Sub category values ends///////////////////////
-      /////////load sub Sub category values///////////////////////
+    $escat1 = implode(",", array_filter($scat));
+    ///////// Sub category values ends///////////////////////
+    /////////load sub Sub category values///////////////////////
     $qry_sscat = "SELECT qc.sscat from {question_cat} as qc where qc.qid='" . $qid . "' group by qc.sscat";
     $result_sscat = db_query($qry_sscat);
     $sscat = array();
 
     while ($quest_sscat = db_fetch_object($result_sscat)) {
-          array_push($sscat, $quest_sscat->sscat);
+        array_push($sscat, $quest_sscat->sscat);
     }
     $esscat1 = implode(",", array_filter($sscat));
-     ///////// load sub Sub category values ends///////////////////////
+    ///////// load sub Sub category values ends///////////////////////
 
     $output .= '<script type="text/javascript">
                         var spath=\'' . $gSitePath . '\';
@@ -424,10 +434,10 @@ function moderator_edit_issues($qid='') {
         <div id="chg_scat"><select class="mod-txtarea"  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat"   size="5">
         <option value="">Select Sub Category</option>';
     $output .= '</select></div></div>
-   <div class="mod-t5"><input type="hidden"  id="cat2" name="cat2" value="' .$escat1. '">
+   <div class="mod-t5"><input type="hidden"  id="cat2" name="cat2" value="' . $escat1 . '">
    <div id="chg_sscat"><select class="mod-txtarea"  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat"   size="5">
    <option value="">Select Sub Sub Category</option>';
-    $output .= '</select></div> </div><input type="hidden"  id="cat3" name="cat3" value="' .$esscat1. '">
+    $output .= '</select></div> </div><input type="hidden"  id="cat3" name="cat3" value="' . $esscat1 . '">
         <div class="clr"></div>
           </div>
                <div class="clr"></div>
@@ -454,17 +464,41 @@ function moderator_edit_issues($qid='') {
     <input type="submit" name="update" class="mod-btn" tabindex="21" id="save" value="Update" />
       </div>
             <div class="mod-t5">
-<select name="q_country[]"  style="width: 125px;" multiple="multiple" tabindex="17" onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select>
+<select name="q_country[]"  style="width: 100px;" multiple="multiple" tabindex="17" onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select>
     </div>
 	 <div class="mod-t5"><div id="chg_state">' . $ret . '</div>  </div>
      <div class="mod-t5"><div id="chg_city">' . $ret_city . '</div> </div>
                   <div class="clr"></div>
           </div>
+
 ';
-    $selmlist = "select * from qtag as a, tagging as b where a.qid='$qid' and a.tag_id=b.tid ";
-    $mysqlfet = db_query($selmlist);
 
-
+    //Moderator Revision
+    $result = db_query("select u.uid,u.name,qr.updated from {question_cat_revision} as qr join {users} as u on u.uid=qr.uid where qid='$qid'");
+    $output.='<div class="mod-t-outer">
+        <strong><a data-fb-options="type:ajax width:640 height:385" title="Dupe List" href="' . $gSitePath . 'moderator/ajax/dupelist/' . $qid . '" class="floatbox">Duped Issues </a></strong>
+           </div>';
+    $output.='<div class="mod-t-outer">
+        <strong>Previous Updated Moderators</strong>
+           </div>';
+    while ($coupon = db_fetch_object($result)) {
+        $rows[] = array(
+            array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+            array('data' => ago($coupon->updated))
+        );
+    }
+    $head = array(
+        array('data' => t('Moderator')),
+        array('data' => t('Updated On ')),
+    );
+    //print drupal_render( );
+    $output .= theme_table($head, $rows, array('style' => 'width: 100%'));
+    if (empty($rows))
+        $output.='<div class="mod-t-outer">
+        <strong>No One Updated Yet !</strong>
+           </div>';
+    // $selmlist = "select * from qtag as a, tagging as b where a.qid='$qid' and a.tag_id=b.tid ";
+    // $mysqlfet = db_query($selmlist);
     //$output .= '<tr><td colspan="6">'.get_tagging_edit($qid).'</td></tr>';
 
 
@@ -494,7 +528,7 @@ function moderator_ajax($action='') {
             break;
         case 'state':
             $explode = explode(',', $_REQUEST['ids']);
-            $ret = '<select tabindex="18"  style="width: 125px;" multiple="multiple" id="q_state" name="q_state[]"> <option value="">--States--</option>';
+            $ret = '<select tabindex="18"  style="width: 100px;" multiple="multiple" id="q_state" name="q_state[]"> <option value="">--States--</option>';
             $results = array();
             if (count($explode) > 0) {
                 foreach ($explode as $country) {
@@ -525,7 +559,7 @@ function moderator_ajax($action='') {
             break;
         case 'city':
             $explode = explode(',', $_REQUEST['ids']);
-            $ret = '<select  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
+            $ret = '<select  tabindex="19"  style="width: 100px;"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
             $results = array();
             if (count($explode) > 0) {
                 foreach ($explode as $code) {
@@ -549,16 +583,228 @@ function moderator_ajax($action='') {
                 $output = $ret;
             }
             break;
+        case 'issue':
+
+            $modtype = check_plain($_REQUEST['mod-type']);
+
+            switch ($modtype) {
+                case 'new':
+                    $msg = moderator_new_save($_REQUEST['qids']);
+                    $err = false;
+                    $output = '';
+                    break;
+                case 'flag':
+                    $msg = moderator_flag_save();
+                    $err = false;
+                    $output = '';
+
+                    break;
+                default:
+                    $err = true;
+                    $msg = 'No action found!';
+                    $output = '';
+                    break;
+            }
+
+            break;
+        case 'flaglist':
+
+            $head = array(
+                array('data' => t('Flag Type')),
+                array('data' => t('User Flagged')),
+                array('data' => t('Date ')),
+            );
+
+            $sql = "SELECT f.abuse_type,u.name,f.flag_date FROM {question_flags} as f,{users} as u where f.uid=u.uid AND nodeid='" . arg(3) . "' AND type='question' ";
+
+            $result = db_query($sql);
+
+            while ($coupon = db_fetch_object($result)) {
+                $rows[] = array(
+                    array('data' => $coupon->abuse_type),
+                    array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+                    array('data' => ago($coupon->flag_date))
+                );
+            }
+
+            //print drupal_render( );
+            $html = theme_table($head, $rows, array('style' => 'width: 100%'));
+            if (isAjax ())
+                print $html;
+            exit;
+            break;
+        case 'dupelist':
+
+            $query = "select * from question  where qid='" . arg(3) . "'";
+            $ans = ExecuteQuery($query, "select");
+
+            $words = explode(" ", $ans[0]['question']);
+
+            $words = array_filter($words, 'word_array_filter');
+            $words = array_filter($words);
+            $query = "SELECT q.question,q.context,u.name,q.date_added,q.url,q.qid FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . arg(3) . "' ";
+            for ($i = 0; $i < count($words); $i++) {
+                $samples = " " . $words[$i] . "  ";
+                //echo $samples;
+                // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+                //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
+                if (!empty($words[$i]))
+                    $query .= " AND q.question LIKE CONVERT(_utf8 '%%%s%%' USING latin1 ) COLLATE latin1_swedish_ci";
+            }
+
+
+            $result = db_query($query, $words);
+
+            while ($coupon = db_fetch_object($result)) {
+                $rows[] = array(
+                    array('data' => l($coupon->question, $gSitePath . $coupon->url, array('attributes' => array('title' => t($coupon->context), 'class' => 'floatbox')))),
+                    array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+                    array('data' => ago($coupon->date_added)),
+                    array('data' => '<input type="radio" checked="checked" name="dupeq[]" value="' . $coupon->qid . '"/>'),
+                );
+            }
+            $head = array(
+                array('data' => t('Issues')),
+                array('data' => t('User Posted ')),
+                array('data' => t(' Posted Date')),
+                array('data' => t('Set as dupe')),
+            );
+            //print drupal_render( );
+            $html.='<form name="qdupeform" id="qdupeform" method="post" action="">';
+            $html.= theme_table($head, $rows, array('style' => 'width: 100%'));
+            $html.='<input type="submit" value="Duplicate" /><input type="hidden" name="issue" value="' . arg(3) . '"/></form>';
+
+            if (empty($rows))
+                $html = '<div class="warning">No Dupe Issues Found!</div>';
+
+            if (isAjax ())
+                print $html;
+            exit;
+            break;
+
+        case 'mergeissue':
+
+            if (is_numeric(arg(3)) && is_numeric(arg(4))) {
+
+
+                $html = drupal_get_form('merge_dupeform', arg(3), arg(4));
+            } else {
+
+                $html = '<div class="warning">Sorry Required Data Missing Kindly reload the page !</div>';
+            }
+            //if (isAjax ())
+            print $html;
+            exit;
+            case 'mergesave':
+
+                $merge=dupe_merging_process($_REQUEST);
+                $err = $merge['err'];
+            $msg =  $merge['msg'];
+            $output = $merge['output'];
+
+                break;
+
         default:
             $err = true;
             $msg = 'No action found!';
             $output = '';
             break;
     }
+
+    if (empty($msg))
+        $msg = 'No Action Found!';
     if (isAjax ())
         print json_encode(array('err' => $err, 'msg' => $msg, 'content' => $output));
     else
         return 'No Action Found!';
+}
+
+function word_array_filter($word='') {
+
+    $ret = true;
+    if (empty($word)) {
+        $ret = false;
+    } elseif (strlen($word) < 3) {
+        $ret = false;
+    }
+    return $ret;
+}
+
+function merge_dupeform($form_state, $qid, $dupeid) {
+    // Access log settings:
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $options = array('1' => t('Enabled'), '0' => t('Disabled'));
+    $form['merge'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Merge the Dupe Issue'),
+        '#tree' => TRUE,
+    );
+    $query = "select * from {possible_answer} where qid='$qid'";
+    $loop = ExecuteQuery($query, 'select');
+    $dupe = "select * from {possible_answer} where qid='$dupeid'";
+    $dupelist = db_query($dupe);
+    $row = array();
+    $row['new'] = 'Mark as new';
+    while ($gen = db_fetch_object($dupelist)) {
+        $row[$gen->paid] = $gen->answer;
+    }
+    
+
+    foreach ($loop as $main) {
+        $period =
+                $form['merge'][$main['paid']] = array(
+            '#type' => 'select',
+            '#title' => t($main['answer']),
+            '#default_value' => variable_get('timer', 259200),
+            '#options' => $row,
+            '#description' => t('Possible answers'),
+        );
+    }
+
+    $form['qid'] = array('#type' => 'hidden', '#value' => $qid);
+    $form['dupeid'] = array('#type' => 'hidden', '#value' => $dupeid);
+    //$form['#action'] =$gSitePath.'moderator/ajax/mergesave';
+    $form['submit'] = array('#type' => 'submit', '#value' => t('Merge'));
+    return $form;
+}
+
+function merge_dupeform_validate(&$form, $form_state, $form_id){
+ global $gSitePath, $user, $gDocPath, $base_root;
+//validate form heere
+
+}
+
+function merge_dupeform_submit(&$form, $form_state, $form_id){
+ global $gSitePath, $user, $gDocPath, $base_root;
+ echo '<pre>';
+ print_r($form);
+    $qid=$form['#post']['qid'];
+    $dupeid=$form['#post']['dupeid'];
+    
+  // possible answers
+   foreach($form['#post']['merge'] as $key =>$value){
+    echo "Key: $key; Value: $value<br />\n";
+   // $query="update ";
+   }
+   echo
+   
+
+    exit;
+
+}
+
+
+function ago($timestamp) {
+    $difference = time() - strtotime($timestamp);
+    $periods = array("second", "minute", "hour", "day", "week", "month", "years", "decade");
+    $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
+    for ($j = 0; $difference >= $lengths[$j]; $j++)
+        $difference /= $lengths[$j];
+    $difference = round($difference);
+    if ($difference != 1)
+        $periods[$j].= "s";
+    $text = "$difference $periods[$j] ago";
+    return $text;
 }
 
 function moderator_save_issue($array) {
@@ -614,6 +860,7 @@ function moderator_save_issue($array) {
 
                 db_query("insert into {question_cat} set qid='$nid',uid='$user->uid',cat='$ins1'");
             }
+            db_query("insert into {question_cat_revision} set qid='$nid',uid='$user->uid',cat='" . $ins1[0] . "'");
         }
 
         /// category 2nd level
@@ -660,7 +907,7 @@ function moderator_save_issue($array) {
         }
 
         //multi location
-
+        $del_result = db_query("delete from {question_location} where qid='" . $qid . "'");
         foreach ($q_country as $country) {
 
             db_query("insert into {question_location} set uid='%d',qid='%d',country='%s'", $user->uid, $qid, $country);
@@ -681,8 +928,8 @@ function moderator_save_issue($array) {
         $output['err'] = false;
 
         //	print_r($result);
-         question_edited_mail($nid);
-        question_edited_mail_voters($nid);
+        // question_edited_mail($nid);
+        //   question_edited_mail_voters($nid);
         question_edited_mail_suggest($nid);
         //  drupal_goto("admin/moderatequestion");
     } else {
@@ -696,9 +943,9 @@ function moderator_save_issue($array) {
 }
 
 //Badges call back
-function update_flag_badges($fids) {
-    foreach ($fids as $fid) {
-        $sql = "SELECT uid,nodeid FROM (question_flags) WHERE fid = '$fid' AND type = 'question'";
+function update_flag_badges($qids) {
+    foreach ($qids as $qid) {
+        $sql = "SELECT uid,nodeid FROM (question_flags) WHERE nodeid = '$qid' AND type = 'question'";
         $users = ExecuteQuery($sql, 'select');
 
         foreach ($users as $user) {
@@ -707,4 +954,178 @@ function update_flag_badges($fids) {
             scrutineer($uid, $qid);
         }
     }
+}
+
+function moderator_flag_save() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+
+    if ($_REQUEST['actions']) {
+        $qids = implode(',', $_REQUEST['qids']);
+        question_flagged_mail($qids);
+        $query = db_query("delete from {question_flags} where type='question' AND nodeid in ($qids)");
+        $msg = '<div class="success">Question updated successfully!</div>';
+    } else {
+        /*
+          $query = "select nodeid from {question_flags} where fid in ($qids)";
+          $ids = ExecuteQuery($query, "select");
+          $target = array();
+
+          foreach ($ids as $value) {
+          $target = $value;
+          }
+
+          $target = array_unique($target);
+          $qids = implode(',', $target);
+
+         */
+        $qids = $_REQUEST['qids'];
+        $reporttext = check_plain($_REQUEST['reporttext']);
+        foreach ($qids as $id) {
+            question_flagged_ignore_mail($id, $reporttext);
+        }
+
+        // badges award "scruitneer"
+        update_flag_badges($_REQUEST['qids']);
+
+        //delete from db
+        $qids = implode(',', $_REQUEST['qids']);
+        delete_issues($qids);
+
+
+        $msg = '<div class="success">Question updated successfully!</div>';
+    }
+    return $msg;
+}
+
+function question_flagged_ignore_mail($qaid, $reporttext) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject_proj = "Heardmentality Question Has Been Rejected";
+    // $delmsg = 'Has been Deleted By Headmentality admin';
+    $qry = "select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ";
+
+    $query = db_query($qry);
+    $det = db_fetch_object($query);
+
+    $to = $det->mail;
+    //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
+    $rs_mgmt = db_query($sel_user_cmt);
+    $list_content = db_fetch_object($rs_mgmt);
+
+    $contentm = str_replace("#uname#", $det->name, $list_content->content);
+    // $contentm = str_replace("#anothername#",$user->name, $contentm);
+    $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+    //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+    $contentm = str_replace("#content#", "$reporttext Question Rejected By Headmentality admin", $contentm);
+    //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+    $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
+    db_query($ins_qry, $from, $from, $to, $subject_proj, $contentm);
+
+    /*  if (! empty($to)) {
+      $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+      } */
+    return true;
+}
+
+function question_flagged_mail($qaid) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject_proj = "Heardmentality Question Has Been Ignore";
+    // $delmsg = 'Has been Deleted By Headmentality admin';
+    $qry = "select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ";
+
+    $query = db_query($qry);
+    $det = db_fetch_object($query);
+
+    $to = $det->mail;
+    //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
+    $rs_mgmt = db_query($sel_user_cmt);
+    $list_content = db_fetch_object($rs_mgmt);
+
+    $contentm = str_replace("#uname#", $det->name, $list_content->content);
+    // $contentm = str_replace("#anothername#",$user->name, $contentm);
+    $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+    //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+    $contentm = str_replace("#content#", 'Question Ignore By Headmentality admin', $contentm);
+    //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+    $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
+    db_query($ins_qry, $from, $from, $to, $subject, $contentm);
+    /*  if (! empty($to)) {
+      $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+      } */
+    return true;
+}
+
+function moderator_new_save($qids='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $qids = implode(',', $qids);
+    if ($_REQUEST['actions']) {
+
+        // $query = db_query("update {question} set status='" . $_REQUEST['actions'] . "' where qid in ($qids)");
+        //   $msg='<div class="success">Question updated successfully!</div>';
+    } else {
+
+        //send flag mails
+        flag_quest_mail($qids);
+
+        // delete from db
+        delete_issues($qids);
+        $msg = '<div class="success">Question updated successfully!</div>';
+    }
+    return $msg;
+}
+
+function delete_issues($qids='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    //Delete Issues
+    $query = db_query("delete from {question} where qid in ($qids)");
+    //Delete Flags
+    $query = db_query("delete from {question_flags} where type='question' AND nodeid in ($qids)");
+}
+
+function flag_quest_mail($qids = '') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Question Removal';
+    $msg = $_REQUEST['reporttext'];
+    $qids = explode(',', $qids);
+
+    foreach ($qids as $id) {
+
+
+        $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
+        $det = db_fetch_object($query);
+
+        $to = $det->mail;
+        $msg .= '<br/>Question : ' . $det->question . '<br/>';
+        if (!empty($to)) {
+
+            // $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+
+            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
+            $rs_mgmt = db_query($sel_user_cmt);
+            $list_content = db_fetch_object($rs_mgmt);
+
+            $contentm = str_replace("#uname#", $det->name, $list_content->content);
+            // $contentm = str_replace("#anothername#",$user->name, $contentm);
+            $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+            //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+            $contentm = str_replace("#content#", "$reporttext & Question has been Rejected By Headmentality Moderator", $contentm);
+            //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+            $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
+            db_query($ins_qry, $from, $from, $to, $subject, $contentm);
+        }
+    }
+    return true;
 }

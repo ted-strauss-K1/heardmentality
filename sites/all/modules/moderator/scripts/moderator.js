@@ -7,7 +7,41 @@
 
 jQuery(document).ready(function(){
 
+    jQuery('#tabcontent').ajaxStart(function(){
+       //   jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+      
+    });
 
+    jQuery('#qdupeform').live('submit',function(e){
+        e.preventDefault();
+         var dupeid=$("#qdupeform input[type='radio']:checked").val();
+         var qid=$("#qdupeform input[type='hidden']").val();
+         if(typeof(dupeid)!="undefined"){
+  var url=gSitePath+'moderator/ajax/mergeissue/'+qid+'/'+dupeid;
+           var options = 'type:ajax sameBox:true width:40% height:50% caption:' +
+  '`Merge Dupe Issues`';
+  parent.fb.start(url, options);
+         }else{
+
+            jQuery('#twitMsg').html('Please check one issue from the form to merge!');
+                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+         }
+    });
+
+jQuery('#merge-dupeform').live('submit',function(e){
+        e.preventDefault();
+           var data=jQuery(this).serialize();
+            jQuery.ajax({
+                type: "POST",
+                dataType: 'json',
+                url: jQuery(this).attr('action'),
+                data:data,
+                success: function(msg){
+                    jQuery('#twitMsg').html(msg.msg);
+                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                }
+            });
+    });
 
     jQuery('#mod-question').live('submit',function(e){
         e.preventDefault();
@@ -32,6 +66,57 @@ jQuery(document).ready(function(){
 
 
     });
+
+    //button action ignore n reject
+
+    jQuery('#mod-issue').live('submit',function(){
+
+        jQuery('#actions').val('1');
+        jQuery('#reporttext').val('');
+        jQuery('#showbox').slideUp('slow');
+        var formwave=jQuery(this);
+        var vals = [];
+        jQuery('.check-me:checked').each(function(){
+            var e=jQuery(this);
+            vals.push(e.val());
+
+        });
+
+        if (vals.length > 0) {
+
+            if(confirm('Are you sure to Ignore this Issues?')){
+                jQuery.ajax({
+                    url:formwave.attr('action'),
+                    global: false,
+                    type: "POST",
+                    data: formwave.serialize(),
+                    dataType: "json",
+                    async:false,
+                    success: function(data){
+                        jQuery('#twitMsg').empty().html(data.msg);
+                        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                    },
+                    complete:function(){
+                        jQuery('#tabcontent').load(jQuery('#mod-url').val());
+                            jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+                    }
+                }
+                );
+
+            }
+            
+
+
+        }
+        else {
+
+            alert('select atleast one question for action!');
+
+        }
+        return false;
+    });
+
+
 
     jQuery('a.issue-links').live('click',function(e){
         e.preventDefault();
@@ -99,11 +184,11 @@ jQuery(document).ready(function(){
         });
     });
 
-jQuery('#tabcontent .pager a').live('click',function(e){
-     e.preventDefault();
+    jQuery('#tabcontent .pager a').live('click',function(e){
+        e.preventDefault();
         e.stopPropagation();
-   jQuery('#tabcontent').load(jQuery(this).attr('href'));
-});
+        jQuery('#tabcontent').load(jQuery(this).attr('href'));
+    });
 
 
 });
@@ -302,7 +387,7 @@ function get_subcat(sid,divid,level,ids){
                         trigger_get_sscat();
                     }else if(sid=='q_scat'){
                         //initiate multi select for sub sub category
-                          var sscatarray=setsscat.split(',');
+                        var sscatarray=setsscat.split(',');
                         jQuery('#q_sscat').val(sscatarray);
                         jQuery('#q_sscat').multiSelect({
                             selectAll: false
@@ -318,4 +403,92 @@ function get_subcat(sid,divid,level,ids){
     }else{
         jQuery('#'+divid).html('No Subcategory');
     }
+}
+
+
+function checkall(val){
+    jQuery('.check-me').each(function(){
+        jQuery(this).attr('checked',val);
+    });
+
+}
+
+function moderator_reject(make){
+
+    var vals = [];
+    jQuery('.check-me').each(function(){
+        var e=jQuery(this);
+        if (e.attr('checked')) {
+
+            vals.push(e.value);
+        }
+
+    });
+
+
+
+    var report = jQuery('#reporttext').val();
+
+
+    if (vals.length > 0) {
+
+        if (jQuery('#showbox').css('display') == 'none') {
+
+            jQuery('#showbox').css('display', 'block');
+            jQuery('#showbox').slideDown('slow');
+            jQuery('#reporttext').focus();
+            return false;
+        }
+        if (jQuery.trim(report).length < 5) {
+            jQuery('#reporttext').css('border-color', 'red');
+            jQuery('#twitMsg').empty().html("Please provide a report message of atleast 5 words! ");
+            jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+            return false;
+        }
+        else {
+            jQuery('#reporttext').css('border-color', '');
+
+        }
+
+
+
+        if (confirm('Are you sure to reject the selected Issues?')) {
+            jQuery('#actions').attr('value', make);
+
+            //send form
+            var formwave=jQuery('#mod-issue');
+            jQuery('#tabcontent').css('opacity','0.75');
+        
+            jQuery.ajax({
+                type: "POST",
+                url: formwave.attr('action'),
+                data: formwave.serialize(),
+                dataType:"json",
+                success: function(data){
+                    jQuery('#reporttext').val('');
+                    jQuery('#showbox').slideUp('slow');
+
+                    jQuery('#tabcontent').css('opacity','1');
+                    jQuery('#twitMsg').empty().html(data.msg);
+                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                },
+                complete:function(){
+                    jQuery('#tabcontent').load(jQuery('#mod-url').val());
+                    jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+                }
+            });
+
+
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        jQuery('#twitMsg').empty().html('select atleast one Issue for action!');
+        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+       
+        return false;
+    }
+
 }
