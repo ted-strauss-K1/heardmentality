@@ -49,7 +49,7 @@ $directory = $base_path . $directory;
      </script>
 
        
-   <body id="header" style="background: none repeat scroll 0% 0% transparent;">
+   <body style="background: none repeat scroll 0% 0% transparent;">
    <?php print $content; ?>
 			
 </body> 
