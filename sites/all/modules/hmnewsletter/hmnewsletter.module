@@ -297,7 +297,7 @@ function preparemailcontent($follower_activites, $receiver_id)
 				$mail .= '	
 						</a>
 					</h2>
-					<b>'.ago($activites['timestamp']).'</b>					
+					<b></b>					
 				';				
 			break;
 			
