@@ -106,6 +106,7 @@ function getFollowers()
 		{	
 			$receiver = load_user($receiver_id);
 			$mail = preparemail($mailcontent, $receiver);	
+
 			
 			if(!empty($receiver->mail))
 			{	
