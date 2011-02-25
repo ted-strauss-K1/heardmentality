@@ -37,7 +37,7 @@ function getFollowers()
 							SELECT f.`uid`, f.`follower_id`
 							FROM {follower} AS f
 							LEFT JOIN {users} AS u ON u.`uid` = f.`uid`
-							ORDER BY `uid`
+							ORDER BY f.`uid`
 					");
 	
 	$follwers = array();
