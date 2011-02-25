@@ -34,11 +34,9 @@ function getFollowers()
 	$path	= drupal_get_path('theme', 'newtheme');
 	
 	$follwerQ = db_query("
-							SELECT f.`uid`, f.`follower_id`
-							FROM {follower} AS f							
-							ORDER BY f.`uid`
+							SELECT `uid`, `follower_id` FROM {follower}
+							ORDER BY `uid`
 					");
-	
 	
 	$follwers = array();
 	$allfollwers = array();
@@ -55,12 +53,11 @@ function getFollowers()
 		}
 	}	
 		
-	/*
+	/*		
 		echo '<pre>';
 		print_r($follwers);	
 		print_r($allfollwers);				
 		print_r($follower_activites);	
-		exit;
 	*/
 	
 	if(findtask() <= 3)
@@ -106,23 +103,19 @@ function getFollowers()
 		{	
 			$receiver = load_user($receiver_id);
 			$mail = preparemail($mailcontent, $receiver);	
+//			echo "
+//						INSERT INTO {hm_mails}
+//						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`)
+//						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
+//					";
 
-			
 			if(!empty($receiver->mail))
-			{	
-				/*
-				echo "
-						INSERT INTO {hm_mails} 
+			{
+			db_query("INSERT INTO {hm_mails} 
 						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
-						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), '0')
-					";
-				*/
-				db_query("INSERT INTO {hm_mails} 
-							(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
-							VALUES('%s', '%s', '%s', '%s', '%s', now(), '%d')
-						", $conf['site_mail'], $conf['site_mail'], $receiver->mail, $subject, $mail, 0);
-					
-			}
+						VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')
+					",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
+					}
 		}		
 	}	
 	return '';
@@ -342,7 +335,7 @@ function getfolloweractivites($allfollwers)
 			$recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM {heartbeat_activity}
 											WHERE `uid` = $value
-											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$sart_date' 
+											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 10
 										");		
@@ -355,7 +348,7 @@ function getfolloweractivites($allfollwers)
 			$recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM heartbeat_activity
 											WHERE `uid` = $value
-											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$sart_date' 
+											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 5
 										");
