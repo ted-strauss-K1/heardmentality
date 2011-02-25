@@ -53,12 +53,13 @@ function getFollowers()
 		}
 	}	
 		
-	/*		
+	
 		echo '<pre>';
 		print_r($follwers);	
 		print_r($allfollwers);				
 		print_r($follower_activites);	
-	*/
+		exit;
+	
 	
 	if(findtask() <= 3)
 	{
@@ -71,9 +72,6 @@ function getFollowers()
 	
 	$follower_activites = getfolloweractivites($allfollwers);	
 	
-	echo '<pre>';
-	print_r($follower_activites);
-	exit;
 	foreach($follwers as $key => $value)
 	{		
 		$receiver_id = '';
@@ -115,12 +113,12 @@ function getFollowers()
 						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
 						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), '0')
 					";
-				
+				*/
 				db_query("INSERT INTO {hm_mails} 
 							(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
 							VALUES('%s', '%s', '%s', '%s', '%s', now(), '%d')
 						", $conf['site_mail'], $conf['site_mail'], $receiver->mail, $subject, $mail, 0);
-				*/	
+					
 			}
 		}		
 	}	
@@ -341,7 +339,7 @@ function getfolloweractivites($allfollwers)
 			$recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM {heartbeat_activity}
 											WHERE `uid` = $value
-											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '2011-01-01' 
+											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$sart_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 10
 										");		
@@ -354,7 +352,7 @@ function getfolloweractivites($allfollwers)
 			$recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM heartbeat_activity
 											WHERE `uid` = $value
-											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '2011-01-01' 
+											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$sart_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 5
 										");
