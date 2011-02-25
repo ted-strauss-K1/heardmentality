@@ -336,7 +336,7 @@ function getfolloweractivites($allfollwers)
 			$recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM {heartbeat_activity}
 											WHERE `uid` = $value
-											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '2011-02-24' 
+											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '2011-01-01' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 10
 										");		
@@ -349,7 +349,7 @@ function getfolloweractivites($allfollwers)
 			$recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM heartbeat_activity
 											WHERE `uid` = $value
-											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '2011-02-24' 
+											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '2011-01-01' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 5
 										");
