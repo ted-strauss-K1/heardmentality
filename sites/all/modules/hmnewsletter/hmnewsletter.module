@@ -35,10 +35,10 @@ function getFollowers()
 	
 	$follwerQ = db_query("
 							SELECT f.`uid`, f.`follower_id`
-							FROM {follower} AS f
-							LEFT JOIN {users} AS u ON u.`uid` = f.`uid`
+							FROM {follower} AS f							
 							ORDER BY f.`uid`
 					");
+	
 	
 	$follwers = array();
 	$allfollwers = array();
@@ -55,13 +55,13 @@ function getFollowers()
 		}
 	}	
 		
-	
+	/*
 		echo '<pre>';
 		print_r($follwers);	
 		print_r($allfollwers);				
 		print_r($follower_activites);	
 		exit;
-	
+	*/
 	
 	if(findtask() <= 3)
 	{
