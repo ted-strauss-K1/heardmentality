@@ -70,14 +70,14 @@ function getFollowers()
 	}
 	
 	$follower_activites = getfolloweractivites(array_filter(array_unique($allfollwers)));	
-	echo '<pre>';
-	print_r($follower_activites);	
+	
 	foreach($follwers as $key => $value)
 	{		
 		$receiver_id = '';
 		$mailcontent = '';		
 		foreach($value as $val)
-		{
+		{	
+			echo $val;
 			if(is_array($follower_activites[$val]))
 			{	
 				$follower_details = load_user($follower_activites[$val][0]['uid']);
