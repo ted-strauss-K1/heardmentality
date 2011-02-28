@@ -60,7 +60,7 @@ function getFollowers()
 		print_r($allfollwers);				
 		print_r($follower_activites);	exit;	
 	*/	
-echo '<pre>';
+		echo '<pre>';
 		print_r($follwers);	
 	if(findtask() <= 3)
 	{
@@ -82,7 +82,7 @@ echo '<pre>';
 			if(is_array($follower_activites[$val]))
 			{	
 				$follower_details = load_user($follower_activites[$val][0]['uid']);
-				$receiver_id = $key;
+				echo $receiver_id = $key;
 				$mailcontent .= '
 									<div class="avatar-box">
 										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
