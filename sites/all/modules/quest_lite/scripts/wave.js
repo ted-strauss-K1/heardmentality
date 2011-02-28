@@ -146,9 +146,9 @@ jQuery(document).ready(function(){
 	//afterItemEnd:'`fb$("boxSelect").selectedIndex = 0;`'
   });
 
-$.getScript("test.js", function(){
-   alert("Script loaded and executed.");
- });
+//$.getScript("test.js", function(){
+ //  alert("Script loaded and executed.");
+// });
     });
 
 

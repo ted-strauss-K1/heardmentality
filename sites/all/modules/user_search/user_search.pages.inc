@@ -633,10 +633,10 @@ function search_results_ajax() {
         $ques_count = db_fetch_object(db_query("SELECT count(qid) as qcount FROM `possible_answer_vote` where qid='" . $user_result->qid . "'"));
 
         // alter for numresum
-        $for_count = db_fetch_object(db_query("SELECT count(qid_rid) as fcount FROM `forum_wave` where qid_rid='" . $user_result->qid . "'"));
+        $for_count = db_result(db_query("SELECT count(qid) as fcount FROM `debate` where qid='" . $user_result->qid . "'"));
 
-        $numresum = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$user_result->qid'"));
-
+        $numresum = db_result(db_query("SELECT COUNT(qid) FROM resource where  qid='$user_result->qid'"));
+        $posts=$for_count+$numresum;
         $fetresult .= ' <div class="result-item">
 	<div class="rleft">
        <div class="titl">
@@ -689,8 +689,8 @@ function search_results_ajax() {
       <div class="vote-post-outer-top">
       </div>';
         $fetresult .= '     <div class="vote-post-outer-bottom">
-      <div align="center" class="vot-t" style="border-right:1px solid black"><img src="' . $gSitePath . 'sites/all/themes/newtheme/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
-       <div align="center" class="vot-t"><img src="' . $gSitePath . 'sites/all/themes/newtheme/images/post.jpg" alt="img" /> Posts | ' . $for_count->fcount . '</div>
+      <div align="center" class="vot-t" style="border-right:1px solid black"><img src="' . $gSitePath.path_to_theme().'/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
+       <div align="center" class="vot-t"><img src="' . $gSitePath.path_to_theme(). '/images/post.jpg" alt="img" /> Posts | ' .$posts . '</div>
 
       </div>
 
@@ -863,10 +863,10 @@ function search_results_question() {
         $ques_count = db_fetch_object(db_query("SELECT count(qid) as qcount FROM `possible_answer_vote` where qid='" . $user_result->qid . "'"));
 
         // alter for numresum
-        $for_count = db_fetch_object(db_query("SELECT count(qid_rid) as fcount FROM `forum_wave` where qid_rid='" . $user_result->qid . "'"));
+      $for_count = db_result(db_query("SELECT count(qid) as fcount FROM `debate` where qid='" . $user_result->qid . "'"));
 
-        $numresum = db_result(db_query("SELECT COUNT(*) FROM resource where  qid='$user_result->qid'"));
-
+     $numresum = db_result(db_query("SELECT COUNT(qid) FROM resource where  qid='$user_result->qid'"));
+        $posts=$for_count+$numresum;
         $fetresult .= ' <div class="result-item">
 	<div class="rleft">
        <div class="titl">
@@ -919,8 +919,8 @@ function search_results_question() {
       <div class="vote-post-outer-top"> 
       </div>';
         $fetresult .= '     <div class="vote-post-outer-bottom">
-      <div align="center" class="vot-t" style="border-right:1px solid black"><img src="' . $gSitePath . 'sites/all/themes/newtheme/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
-       <div align="center" class="vot-t"><img src="' . $gSitePath . 'sites/all/themes/newtheme/images/post.jpg" alt="img" /> Posts | ' . $for_count->fcount . '</div>
+      <div align="center" class="vot-t" style="border-right:1px solid black"><img src="' . $gSitePath. path_to_theme() . '/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
+       <div align="center" class="vot-t"><img src="' . $gSitePath.  path_to_theme(). '/images/post.jpg" alt="img" /> Posts | ' . $posts . '</div>
       
       </div>
       

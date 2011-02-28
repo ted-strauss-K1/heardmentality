@@ -55,9 +55,25 @@ function moderator_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'moderator.pages.inc',
     );
+    $mdtrest['moderator/user'] = array(
+        'title' => 'Moderator User',
+        'page callback' => 'moderator_user',
+        'access arguments' => array('Moderate Question'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+
     $mdtrest['moderator/issues/list/%'] = array(
         'title' => 'Moderator Issues',
         'page callback' => 'moderator_issues_list',
+        'access arguments' => array('Moderate Question'),
+        'page arguments' => array(3),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+    $mdtrest['moderator/user/list/%'] = array(
+        'title' => 'Moderator Issues',
+        'page callback' => 'moderator_user_list',
         'access arguments' => array('Moderate Question'),
         'page arguments' => array(3),
         'type' => MENU_SUGGESTED_ITEM,
@@ -95,11 +111,88 @@ function moderator_issues() {
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.js');
     drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.css');
     $output = _moderator_left();
-    $output.=' <div class="mod-midside-inner">
+    $output.=' <div class="mod-midside-inner" id="mod-edit-issue">
             <div class="warning" >No Issue Selected !</div>
           <div class="clr"></div>
         </div>';
     return $output;
+}
+
+function moderator_user() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+    // drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
+    $inline = "      var admin='1';";
+
+    drupal_add_js($inline, $type = 'inline');
+    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
+    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.js');
+    drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.css');
+    $output = _moderator_user_left();
+    $output.=' <div class="mod-midside-inner-p-outer">
+        <div class="mod-midside-inner-p">
+        <div class="mod-midside-inner-leftpart">
+         <div class="warning" >No User Selected !</div>
+        <div class="clr"></div>
+        </div>
+           <div class="mod-midside-inner-rightpart" id="mod-edit-issue">
+ <div class="mod-midside-inner-p-outer">
+          <div class="mod-t-outer">
+               <div class="clr"></div>
+        </div>
+
+          </div>
+          <div class="clr"></div>
+        </div>
+        </div>
+          <div class="clr"></div>
+</div>';
+    return $output;
+}
+
+function _moderator_user_left(){
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+   
+    $new = db_result(db_query("SELECT count(*) FROM {users} "));
+
+    $query = "SELECT nodeid from {question_flags} where type='user'";
+
+    $flag = ExecuteQuery($query, 'norows');
+    $output = '        <div class="commu">
+        <form id="mod-user" name="mod-issue" method="POST" action="' . $gSitePath . 'moderator/ajax/user" >
+          <div id="rotate">
+            <ul id="tabmenu" class="mytabs">
+              <li class="current"><a href="' . $gSitePath . 'moderator/user/list/new" title="User"><span>New (' . $new . ')</span></a></li>
+              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/user/list/flag" title="Flagged User"><span>Flagged (' . $flag . ')</span></a></li>
+                     </ul>
+
+            <div id="rcontents" class="mytabs-container" style="height:auto;" >
+
+              <div class="clr"></div>
+            </div>
+
+          </div>
+
+  <div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
+          <div class="mod-btn-outer">
+      <input type="hidden" id="actions" name="actions" value="1"/>
+
+          <div><input name="" type="submit"  class="mod-btn" value="Ignore"/></div>
+          <div><input name="" type="button" onclick="moderator_reject_user(0);" class="mod-btn" value="Reject"/></div>
+           <div> <small onclick="checkall(1);">Check All</small>&nbsp;<small onclick="checkall(0);">Uncheck All</small></div>
+          <div class="clr"></div>
+          </div>
+
+</form>
+        </div>';
+
+    return $output;
+
+
+
+
 }
 
 function _moderator_left() {
@@ -114,8 +207,8 @@ function _moderator_left() {
         <form id="mod-issue" name="mod-issue" method="POST" action="' . $gSitePath . 'moderator/ajax/issue" >
           <div id="rotate">
             <ul id="maintabs" class="mytabs">
-              <li class="current"><a href="' . $gSitePath . 'moderator/issues/list/new" title="Reporting"><span>New (' . $new . ')</span></a></li>
-              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/issues/list/flag" title="Forum"><span>Flagged (' . $flag . ')</span></a></li>
+              <li class="current"><a href="' . $gSitePath . 'moderator/issues/list/new" title="New Issues"><span>New (' . $new . ')</span></a></li>
+              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/issues/list/flag" title="Flagged Issues"><span>Flagged (' . $flag . ')</span></a></li>
                      </ul>
 
             <div id="tabcontent" class="mytabs-container" style="height:auto;" >
@@ -161,6 +254,15 @@ function moderator_issues_list($type='') {
 
             $sqlcnt = ExecuteQuery($query, 'norows');
             break;
+        case 'user':
+            $uid=arg(4);
+            if(is_numeric($uid)){
+             $query = "select * from {question} q,{users} u where q.uid=u.uid AND u.uid='$uid' ";
+
+            $sqlcnt = ExecuteQuery($query, 'norows');
+            
+            }
+            break;
         default:
 
             echo '<div class="warning">No Action(s) Found!</div>';
@@ -199,6 +301,63 @@ function moderator_issues_list($type='') {
     exit;
 }
 
+function moderator_user_list($type='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    //This is numbers per page
+    $num_per_page = 12;
+
+    $output = '';
+    switch ($type) {
+        case 'new':
+
+            //actual query
+            $query = "SELECT u.uid,u.name,up.real_name from {users} as u,{user_profile} as up where u.uid=up.uid  ";
+              $sqlcnt=db_result(db_query("SELECT count(*) FROM {users} "));
+          //  $sqlcnt = ExecuteQuery($query, 'norows');
+            break;
+        case 'flag':
+            //actual query
+           $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' group by f.nodeid";
+
+            $sqlcnt = ExecuteQuery($query, 'norows');
+            break;
+        default:
+
+            echo '<div class="warning">No Action(s) Found!</div>';
+            exit;
+            break;
+    }
+
+    //pager_query function
+    $rs = pager_query_new($query, $num_per_page, 0, $sqlcnt);
+    $alt = 'm-even';
+    $output.= '  <div class="mod-leftside-inner">';
+  
+        while ($data = db_fetch_object($rs)) {
+            if ($type == 'flag')
+                $flag = ('' . $data->fcnt . '<a href="' . $gSitePath . 'moderator/ajax/uflaglist/' . $data->uid . '" class="floatbox" title="Flag List" data-fb-options="type:ajax width:640 height:385" ><img src="' . $gSitePath . path_to_theme() . '/images/flag.png" align="absmiddle"/></a>');
+            $chk = ('<div align="right"><input type="checkbox" class="check-me" name="qids[]" value="' . $data->uid . '" />&nbsp; ' . $flag . '</div> ');
+            $nd = ('<div class="' . $alt . '" > ');
+            $nd .= l($data->name, $gSitePath . 'moderator/issues/list/user/' . $data->uid, array('attributes' => array('class' => 'user-links','title'=>$data->real_name)));
+            $nd.=$chk;
+            $nd .= ( '</div>');
+            $output .= ( $nd);
+            if ($alt == 'm-even')
+                $alt = 'm-odd';
+            else
+                $alt='m-even';
+        }
+        $output .= theme('pager', array(), $num_per_page, 0);
+
+   if (is_null($sqlcnt)) {
+        echo '<div class="warning">No User(s) Found!</div>';
+    }
+    // print url($_GET['q'], array('absolute' => true));
+    $uri = $base_root . request_uri();
+    $output.=' <input name="mod-url" type="hidden" id="mod-url" value="' . $uri . '"/><input name="mod-type" type="hidden" id="mod-type" value="' . $type . '"/> <div class="clr"></div></div>';
+    echo $output;
+    exit;
+}
 function moderator_edit_issues($qid='') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
@@ -559,7 +718,7 @@ function moderator_ajax($action='') {
             break;
         case 'city':
             $explode = explode(',', $_REQUEST['ids']);
-            $ret = '<select  tabindex="19"  style="width: 100px;"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
+            $ret = '<select  tabindex="19"  style="width: 100px;" multiple="multiple"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
             $results = array();
             if (count($explode) > 0) {
                 foreach ($explode as $code) {
@@ -633,6 +792,31 @@ function moderator_ajax($action='') {
                 print $html;
             exit;
             break;
+         case 'uflaglist':
+              $head = array(
+                array('data' => t('Flag Type')),
+                array('data' => t('User Flagged')),
+                array('data' => t('Date ')),
+            );
+
+            $sql = "SELECT f.abuse_type,u.name,f.flag_date FROM {question_flags} as f,{users} as u where f.uid=u.uid AND nodeid='" . arg(3) . "' AND type='user' ";
+
+            $result = db_query($sql);
+
+            while ($coupon = db_fetch_object($result)) {
+                $rows[] = array(
+                    array('data' => $coupon->abuse_type),
+                    array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+                    array('data' => ago($coupon->flag_date))
+                );
+            }
+
+            //print drupal_render( );
+            $html = theme_table($head, $rows, array('style' => 'width: 100%'));
+            if (isAjax ())
+                print $html;
+            exit;
+             break;
         case 'dupelist':
 
             $query = "select * from question  where qid='" . arg(3) . "'";
@@ -695,15 +879,51 @@ function moderator_ajax($action='') {
             //if (isAjax ())
             print $html;
             exit;
-            case 'mergesave':
+        case 'mergesave':
 
-                $merge=dupe_merging_process($_REQUEST);
-                $err = $merge['err'];
-            $msg =  $merge['msg'];
+            $merge = dupe_merging_process($_REQUEST);
+            $err = $merge['err'];
+            $msg = $merge['msg'];
             $output = $merge['output'];
 
-                break;
+            break;
+        case 'user':
+            $modtype = check_plain($_REQUEST['mod-type']);
 
+            switch ($modtype) {
+                case 'new':
+                    $msg = moderator_new_save($_REQUEST['qids']);
+                    $err = false;
+                    $output = '';
+                    break;
+                case 'flag':
+                    $qids = implode(',', $_REQUEST['qids']);
+            if ($_REQUEST['actions']) {
+
+                $query = db_query("delete  from {question_flags} where type='user' AND fid in ($qids)");
+                $msg= '<div class="success">User(s) updated successfully!</div>';
+            } else {
+                $query = db_query("update  {user} set status='0' where uid in ($qids)");
+                flag_user_mail($_REQUEST['qids']);
+                $msg= '<div class="success">User(s) updated successfully!</div>';
+            }
+
+                    $err = false;
+                    $output = '';
+
+                    break;
+                default:
+                    $err = true;
+                    $msg = 'No action found!';
+                    $output = '';
+                    break;
+            }
+             $err = $merge['err'];
+            $msg = $merge['msg'];
+            $output ='';
+
+
+            break;
         default:
             $err = true;
             $msg = 'No action found!';
@@ -748,7 +968,7 @@ function merge_dupeform($form_state, $qid, $dupeid) {
     while ($gen = db_fetch_object($dupelist)) {
         $row[$gen->paid] = $gen->answer;
     }
-    
+
 
     foreach ($loop as $main) {
         $period =
@@ -768,31 +988,142 @@ function merge_dupeform($form_state, $qid, $dupeid) {
     return $form;
 }
 
-function merge_dupeform_validate(&$form, $form_state, $form_id){
- global $gSitePath, $user, $gDocPath, $base_root;
+function merge_dupeform_validate(&$form, $form_state, $form_id) {
+    global $gSitePath, $user, $gDocPath, $base_root;
 //validate form heere
-
 }
 
-function merge_dupeform_submit(&$form, $form_state, $form_id){
- global $gSitePath, $user, $gDocPath, $base_root;
- echo '<pre>';
- print_r($form);
-    $qid=$form['#post']['qid'];
-    $dupeid=$form['#post']['dupeid'];
-    
-  // possible answers
-   foreach($form['#post']['merge'] as $key =>$value){
-    echo "Key: $key; Value: $value<br />\n";
-   // $query="update ";
-   }
-   
-   
+function merge_dupeform_submit(&$form, $form_state, $form_id) {
+    global $gSitePath, $user, $gDocPath, $base_root;
 
-    exit;
+    //print_r($form);
+    // possible answers merging process
+  //  foreach ($form['#post']['merge'] as $key => $value) {
+      //  echo "Key: $key; Value: $value<br />\n";
+        // $query="update ";
+    //}
+    $qid = $form['#post']['qid'];
+     $dupeid = $form['#post']['dupeid'];
+    if(is_numeric($qid)&&  is_numeric($dupeid)&&!is_null($qid)&&!is_null($dupeid)){
+    $sel_dupe_answers = "select * from {possible_answer} where qid='$qid' ";
+    $result = ExecuteQuery($sel_dupe_answers, 'select');
+    //send notification mail before update the vote table
+    question_merge_mail($qid,$dupeid);
 
+    foreach ($result as $dalist) {
+
+     $paid = $form['#post']['merge'][$dalist['paid']];
+
+
+        if (is_numeric($paid)) {
+            db_query("update {possible_answer_vote} set qid='$qid',panswer_id='" . $dalist['paid'] . "' where qid='$dupeid' AND panswer_id='$paid'");
+            db_query("delete from {possible_answer} where qid='$dupeid' AND paid='$paid'");
+         //   db_query("update {possible_answer_spectrum} set qid='$qid',possible_ans_id='" . $dalist['paid'] . "' where qid='$dupeid' AND possible_ans_id='$paid' ");
+            //debate options merging
+        //    db_query("update {debate_options} set paid='" . $dalist['paid'] . "' where paid='$paid'");
+           // db_query("update {resource_options} set paid='" . $dalist['paid'] . "' where paid='$paid'");
+        }
+    }
+
+    //merge remaining answers in answer table
+    db_query("update {possible_answer} set qid='$qid' where qid='$dupeid'");
+    db_query("update {possible_answer_vote} set qid='$qid' where qid='$dupeid'");
+    db_query("update {possible_answer_spectrum} set qid='$qid' where qid='$dupeid'");
+    //merge suggest answers
+    db_query("update {suggest_answer} set qid='$qid' where qid='$dupeid'");
+    db_query("update {suggest_answer_vote} set qid='$qid' where qid='$dupeid'");
+
+    //Sections Merging process
+    $sections = "select * from {question_cat} where qid IN ($qid,$dupeid)";
+    $sresult = ExecuteQuery($sections, 'select');
+    $cat = array();
+    $scat = array();
+    $sscat = array();
+    foreach ($sresult as $slist) {
+        array_push($cat, $slist['cat']);
+        array_push($scat, $slist['scat']);
+        array_push($sscat, $slist['sscat']);
+    }
+    $q_cat = array_unique(array_filter($cat));
+    $q_scat = array_unique(array_filter($scat));
+    $q_sscat = array_unique(array_filter($sscat));
+
+    //clear all sections for 2 issues
+    db_query("delete from {question_cat} where qid IN ($qid,$dupeid)");
+
+    // insert new filtered sections
+    if (!empty($q_cat)) {
+        $cat1 = $q_cat;
+        foreach ($cat1 as $ins1) {
+
+            db_query("insert into {question_cat} set qid='$qid',uid='$user->uid',cat='$ins1'");
+        }
+        db_query("insert into {question_cat_revision} set qid='$qid',uid='$user->uid',cat='" . $ins1[0] . "'");
+    }
+
+    /// category 2nd level
+    if (!empty($q_scat)) {
+        $cat2 = $q_scat;
+        foreach ($cat2 as $ins2) {
+
+            $fetch = load_parent_cat($ins2, 2);
+            $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$qid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='0' "));
+            if ($chk_exsit > 0) {
+                db_query("update {question_cat} set scat='$ins2',uid='$user->uid' where qid='$qid' AND cat='" . $fetch[0]['lev1'] . "'");
+            } else {
+                db_query("insert into {question_cat} set qid='$qid',uid='$user->uid',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
+            }
+        }
+    }
+    ///category 3rd level
+    if (!empty($q_sscat)) {
+        $cat3 = $q_sscat;
+        foreach ($cat3 as $ins3) {
+            $fetch = load_parent_cat($ins3, 3);
+            $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$qid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "' AND sscat='0'"));
+            if ($chk_exsit > 0) {
+                db_query("update {question_cat} set sscat='$ins3',uid='$user->uid'  where qid='$qid' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
+            } else {
+                db_query("insert into {question_cat} set qid='$qid',uid='$user->uid',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
+            }
+        }
+    }
+    /// Sections merges over
+    db_query("delete from {question_cat_revision} where qid='$dupeid'");
+    // merge url alias
+    $details = load_question($qid);
+    $url = 'qlite/view/' . $dupeid;
+    $dst = $details['url'];
+    db_query("update {url_alias} set dst='" . $dst . "' where src='" . $url . "'");
+
+    //Loaction Merge
+    db_query("update {question_location} set qid='$qid' where qid='$dupeid'");
+
+    //debate resource and their neutral, answers options
+    db_query("update {debate} set qid='$qid' where qid='$dupeid'");
+    db_query("update {resource} set qid='$qid' where qid='$dupeid'");
+
+
+    //Guru points table
+    db_query("update {tbl_user_points} set qid='$qid' where qid='$dupeid'");
+
+    //badges table
+    db_query("update {user_badges} set qid='$qid' where qid='$dupeid'");
+    $dupe = load_question($dupeid);
+    //delete the dupe Question
+    db_query("delete from  {question} where qid='$dupeid'");
+    watchdog('Dupe Issue Merged', 'Dupe Issue [@dupe] merged to [ @issue] By Moderator', array('@dupe' => $dupe['question'], '@issue' => $details['question'], '@username' => $user->name));
+
+    print drupal_json(array('err' => false, 'msg' => 'Successfully Merged the Issues', 'content' => '','qid'=>$qid));
+   // send mail status as edited for final issue
+    question_edited_mail($qid);
+    }else{
+
+          watchdog('Dupe Issue Merged Error ', 'Dupe Issue @dupe merged to  @issue By Moderator ', array('@dupe' => $dupe['question'], '@issue' => $details['question'], '@username' => $user->name), WATCHDOG_ERROR);
+
+    print drupal_json(array('err' => true, 'msg' => 'Sorry Merge Process Error Please Redo the Process Again', 'content' => ''));
+    }
 }
-
 
 function ago($timestamp) {
     $difference = time() - strtotime($timestamp);
@@ -917,7 +1248,7 @@ function moderator_save_issue($array) {
             db_query("insert into {question_location} set uid='%d',qid='%d',state='%s'", $user->uid, $qid, $state);
         }
         foreach ($q_city as $city) {
-
+          
             db_query("insert into {question_location} set uid='%d',qid='%d',city='%s'", $user->uid, $qid, $city);
         }
 
@@ -928,8 +1259,8 @@ function moderator_save_issue($array) {
         $output['err'] = false;
 
         //	print_r($result);
-        // question_edited_mail($nid);
-        //   question_edited_mail_voters($nid);
+        question_edited_mail($nid);
+           question_edited_mail_voters($nid);
         question_edited_mail_suggest($nid);
         //  drupal_goto("admin/moderatequestion");
     } else {

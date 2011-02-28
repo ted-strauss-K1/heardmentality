@@ -52,11 +52,7 @@ function pcp_block($op = 'list', $delta = 0, $edit = array()) {
                     global $user;
                     $complete_data = pcp_get_complete_percentage_data($user);
                     $doHide = variable_get('pcp_hide_block_on_complete', 0);
-                    if($complete_data['percent']==100){
-                                $result_profile_edit_promt = db_query("UPDATE {users} set prompt='0' where uid='$user->uid' ");
-                    }  else {
-                         $result_profile_edit_promt = db_query("UPDATE {users} set prompt='1' where uid='$user->uid' ");
-                    }
+                
                     if ($doHide && $complete_data['percent'] == 100) {
                         $subject = '';
                         $content = '';

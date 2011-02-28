@@ -44,72 +44,14 @@ $items['invite/invite_friends'] = array(
   return $items;
 }
 
-function htmlmail($to, $subject, $message, $headers = NULL)
+function htmlmail($to, $subject, $message,$from='',$headers = NULL)
 {
 	 global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+           $from = variable_get('site_mail');
 
-$imgw=$gSitePath."/sites/all/modules/heardmentality/images/logo_mail.gif";
-	$imag=$config['file_path'].$img;
-// To send HTML mail, the Content-type header must be set
-$headers  = 'MIME-Version: 1.0' . "\r\n";
-$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-
-
-
-
-$headers .= 'From: HeardMentality <support@heardmenatlity.com>' . "\r\n";
-
-
-	 $newmessage .='<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Heard Mentality</title>
-<style type="text/css">
-<!--
-body,td,th {
-	font-family: Arial, Helvetica, sans-serif; font-size:14px; line-height:25px;
-}
-.y18{font-family: Arial, Helvetica, sans-serif; font-size:18px; color:#cc9900; text-decoration:none;}
--->
-</style></head>
-
-<body>
-<table width="831px" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td height="591" valign="top" background="'.$gSitePath.$path.'/images/email.jpg" style="background-repeat:no-repeat"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td height="187">&nbsp;</td>
-        <td>&nbsp;</td>
-      </tr>
-      <tr>
-        <td width="36%">&nbsp;</td>
-        <td width="64%"><table style="border:1px solid #cc9900" width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="left" bgcolor="#FFFFFF" style="padding:5px;">';
-        $newmessage .= $message;
-	 $newmessage .='</td>
-          </tr>
-          <tr>
-            <td align="left" bgcolor="#FFFFFF" style="padding:5px;"><br />
-              Visit our website <a title="Heardmentality.com" href="'.$gSitePath.'" target="_blank" class="y18">Heardmentality.com</a> <br />
-              <br />
-Thanks, <br />
-Heardmentality Team. </td>
-          </tr>
-        </table></td>
-      </tr>
-
-      <tr>
-        <td>&nbsp;</td>
-        <td align="right"><img src="'.$gSitePath.$path.'/images/email-bot.jpg" alt="img" width="152" height="47" /></td>
-      </tr>
-    </table></td>
-  </tr>
-</table>
-</body>
-</html>';
-return mail($to, $subject, $newmessage, $headers);
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('$from','$from','$to','".$subject."','".$message."',0,now())";
+             db_query($ins_qry);
+return true;
 }
 
 
@@ -117,6 +59,7 @@ function htmlmail_function($to, $subject, $message, $headers = NULL)
 { 
 	 global $gSitePath,$user,$gDocPath,$base_root,$base_path,$theme_path,$theme;
 $path = drupal_get_path('theme', 'newtheme');
+  $from = variable_get('site_mail');
 
 $newmessage = '';
 $imgw=$gSitePath.$path."/images/logo_mail.gif";
@@ -125,7 +68,7 @@ $imgw=$gSitePath.$path."/images/logo_mail.gif";
 $headers  = 'MIME-Version: 1.0' . "\r\n";
 $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
-$headers .= 'From: HeardMentality <support@heardmenatlity.com>' . "\r\n";
+$headers .= 'From: HeardMentality <'.$from.'>' . "\r\n";
 
  $newmessage .='<html>
 <head>
@@ -194,7 +137,7 @@ function hm_mails($qid,$nid,$type)
         $sel_follow="select f.*,u.mail,u.notify_etype,u.name from follower as f join users as u on f.uid=u.uid where f.follower_id='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
 
         $get_follow = db_query($sel_follow);
-
+        $from = variable_get('site_mail');
 
 
      switch($type)
@@ -217,7 +160,7 @@ function hm_mails($qid,$nid,$type)
                 $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
                 $contentm = str_replace("#content#",'voted for the below question. Kindly have a review', $contentm);
                 
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('$from','$from','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
              db_query($ins_qry);
              }
         }
@@ -242,7 +185,7 @@ function hm_mails($qid,$nid,$type)
                 $contentm = str_replace("#content#", 'post a question', $contentm);
 
 
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('$from','$from','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
              db_query($ins_qry);
              }
         }
@@ -271,7 +214,7 @@ function hm_mails($qid,$nid,$type)
                 $contentm = str_replace("#content#",'like new forum', $contentm);
 
 
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('$from','$from','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
              db_query($ins_qry);
              }
         }
@@ -298,7 +241,7 @@ function hm_mails($qid,$nid,$type)
                $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);  
 
 
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('$from','$from','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
              db_query($ins_qry);
              }
         }
@@ -332,7 +275,7 @@ function hm_mails($qid,$nid,$type)
                 $contentm = str_replace("#content#", "posted a reply[".$sel_wavelet->wavelet."] under Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
 
 
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('$from','$from','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
              db_query($ins_qry);
              }
         }
@@ -358,8 +301,9 @@ function hm_mails($qid,$nid,$type)
                 $contentm = str_replace("#uname#", $fet_follow->name, $list_content->content);
                 $contentm = str_replace("#anothername#", $user->name, $contentm);
                 $contentm = str_replace("#content#", "earn ".$sel_wave->bid." badges ", $contentm);
-                $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('mgopi.php@gmail.com','".$fet_mail->mail."','".$fet_follow->mail."','".$subject_proj."','".$contentm."',0,now())";
-                 db_query($ins_qry);
+                  $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('$from','$from','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
+
+                db_query($ins_qry);
             
         }
                     break;
@@ -375,7 +319,7 @@ function hm_mails($qid,$nid,$type)
             $contentm = str_replace("#uname#",$user_namelistfs[0]['name'], $list_content->content);
             $contentm = str_replace("#anothername#",$user->name, $contentm);
             //echo $contentm;die;
-            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','".$user->mail."','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
+            $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('$from','$from','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
             db_query($ins_qry);
 
             //$mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, '');

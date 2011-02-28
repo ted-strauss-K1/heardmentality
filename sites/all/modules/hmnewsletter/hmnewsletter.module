@@ -412,7 +412,7 @@ function week_date_month($current_date)
 */
 function hmnewsletter_cron()
 {
-	getFollowers();
+	//getFollowers();
 }
 
 /*

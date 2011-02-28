@@ -39,6 +39,14 @@ jQuery('#merge-dupeform').live('submit',function(e){
                 success: function(msg){
                     jQuery('#twitMsg').html(msg.msg);
                     jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                    var qid=msg.qid;
+                },
+                complete:function(){
+                jQuery('div.mod-midside-inner').load(jQuery('a[name="icurrent"]').attr('href'),function() {
+  load_issue_data();
+});
+                    fb.end();
+                    
                 }
             });
     });
@@ -99,6 +107,7 @@ jQuery('#merge-dupeform').live('submit',function(e){
                     complete:function(){
                         jQuery('#tabcontent').load(jQuery('#mod-url').val());
                             jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+                         
                     }
                 }
                 );
@@ -110,8 +119,9 @@ jQuery('#merge-dupeform').live('submit',function(e){
         }
         else {
 
-            alert('select atleast one question for action!');
-
+        
+  jQuery('#twitMsg').empty().html('select atleast one Issue for action!');
+                        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
         }
         return false;
     });
@@ -119,6 +129,7 @@ jQuery('#merge-dupeform').live('submit',function(e){
 
 
     jQuery('a.issue-links').live('click',function(e){
+        jQuery(this).attr('name','icurrent');
         e.preventDefault();
         e.stopPropagation();
         //     parent.fb.start(jQuery(this).attr('href'), {
@@ -136,58 +147,49 @@ jQuery('#merge-dupeform').live('submit',function(e){
             url: jQuery(this).attr('href'),
             complete: function(){
              
-                jQuery('#q_cat').multiSelect({
-                    selectAll: false
-                },function(){
-
-                    trigger_get_scat();
-
-                });
-
-                jQuery('#q_scat').multiSelect({
-                    selectAll: false
-                },
-                function(){
-
-                    trigger_get_sscat();
-
-                });
-
-                jQuery('#q_sscat').multiSelect({
-                    selectAll: false
-                });
-                jQuery('#q_country').multiSelect({
-                    selectAll: false
-                  
-                },function() {
-                    trigger_get_state();
-                });
-                jQuery('#q_state').multiSelect({
-                    selectAll: false
-                   
-                },function() {
-                    trigger_get_city();
-                });
-                jQuery('#q_city').multiSelect({
-                    selectAll: false
-                  
-                });
-
-                trigger_get_state();
-                trigger_get_scat();
+            load_issue_data();
             },
 
             success: function(msg){
-                jQuery('.mod-midside-inner').html(msg);
+                jQuery('#mod-edit-issue').html(msg);
                 
             }
         });
     });
-
-    jQuery('#tabcontent .pager a').live('click',function(e){
+    jQuery('a.user-links').live('click',function(e){
+        jQuery(this).attr('name','icurrent');
         e.preventDefault();
         e.stopPropagation();
-        jQuery('#tabcontent').load(jQuery(this).attr('href'));
+        //     parent.fb.start(jQuery(this).attr('href'), {
+        //   type:'ajax',
+        //  width: '70%',
+        //   height: '90%',
+        //  caption:'DEBATE SUMMARY'
+        // afterItemStart:'`fb$("fbCaption").append("DEBATE SUMMARY");fb.translate(\'eat a peach\', \'fr\', function(result) { alert(result.responseData.translatedText); }); `',
+        //controlsPos:'tr', captionPos:'tc',caption:'#boxSelect',
+        //afterItemEnd:'`fb$("boxSelect").selectedIndex = 0;`'
+        // });
+
+        jQuery.ajax({
+            type: "GET",
+          //  dataType: 'json',
+            url: jQuery(this).attr('href'),
+            complete: function(){
+
+          reset_tabs();
+
+            },
+
+            success: function(msg){
+                jQuery('.mod-midside-inner-leftpart').html(msg);
+
+            }
+        });
+    });
+    jQuery('.pager a').live('click',function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        jQuery(this).parents('div.mytabs-container').load(jQuery(this).attr('href'));
     });
 
 
@@ -279,7 +281,7 @@ function setDefaultCountry(cn) {
 
 
 function get_mod_state(ids){
-    var url = spath+"moderator/ajax/state";
+    var url = gSitePath+"moderator/ajax/state";
     jQuery('#chg_state').html('Loading State...');
     jQuery.ajax({
         type: "POST",
@@ -312,7 +314,7 @@ function get_mod_state(ids){
 }
 
 function get_mod_city(ids){
-    var url = spath+"moderator/ajax/city";
+    var url = gSitePath+"moderator/ajax/city";
     jQuery('#chg_city').html('Loading City...');
     jQuery.ajax({
         type: "POST",
@@ -327,6 +329,7 @@ function get_mod_city(ids){
         complete: function(){
             var cityarray=setcity.split(',');
             jQuery('#q_city').val(cityarray);
+            
             jQuery('#q_city').multiSelect({
                 selectAll: false
             });
@@ -358,7 +361,7 @@ function get_subcat(sid,divid,level,ids){
 
         if(level<3){
 
-            var url = spath+"question/ajax";
+            var url = gSitePath+"question/ajax";
             jQuery.ajax({
                 type: "POST",
                 url: url,
@@ -488,6 +491,190 @@ function moderator_reject(make){
         jQuery('#twitMsg').empty().html('select atleast one Issue for action!');
         jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
        
+        return false;
+    }
+
+}
+
+
+
+function load_issue_data(){
+
+
+
+           jQuery('#q_cat').multiSelect({
+                    selectAll: false
+                },function(){
+
+                    trigger_get_scat();
+
+                });
+
+                jQuery('#q_scat').multiSelect({
+                    selectAll: false
+                },
+                function(){
+
+                    trigger_get_sscat();
+
+                });
+
+                jQuery('#q_sscat').multiSelect({
+                    selectAll: false
+                });
+                jQuery('#q_country').multiSelect({
+                    selectAll: false
+
+                },function() {
+                    trigger_get_state();
+                });
+                jQuery('#q_state').multiSelect({
+                    selectAll: false
+
+                },function() {
+                    trigger_get_city();
+                });
+                jQuery('#q_city').multiSelect({
+                    selectAll: false
+
+                });
+
+                trigger_get_state();
+                trigger_get_scat();
+
+}
+
+
+
+
+    jQuery('#mod-user').live('submit',function(){
+
+        jQuery('#actions').val('1');
+        jQuery('#reporttext').val('');
+        jQuery('#showbox').slideUp('slow');
+        var formwave=jQuery(this);
+        var vals = [];
+        jQuery('.check-me:checked').each(function(){
+            var e=jQuery(this);
+            vals.push(e.val());
+
+        });
+
+        if (vals.length > 0) {
+            if(jQuery('#mod-type').val()=='flag'){
+            if(confirm('Are you sure to Ignore this Issues?')){
+                jQuery.ajax({
+                    url:formwave.attr('action'),
+                    global: false,
+                    type: "POST",
+                    data: formwave.serialize(),
+                    dataType: "json",
+                    async:false,
+                    success: function(data){
+                        jQuery('#twitMsg').empty().html(data.msg);
+                        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                    },
+                    complete:function(){
+                        jQuery('#tabcontent').load(jQuery('#mod-url').val());
+                            jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+
+                    }
+                }
+                );
+
+            }
+            }else{
+
+
+            }
+
+
+        }
+        else {
+
+  jQuery('#twitMsg').empty().html('select atleast one user for action!');
+                        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+        }
+        return false;
+    });
+
+
+
+function moderator_reject_user(make){
+
+    var vals = [];
+    jQuery('.check-me').each(function(){
+        var e=jQuery(this);
+        if (e.attr('checked')) {
+
+            vals.push(e.value);
+        }
+
+    });
+
+
+
+    var report = jQuery('#reporttext').val();
+
+
+    if (vals.length > 0) {
+
+        if (jQuery('#showbox').css('display') == 'none') {
+
+            jQuery('#showbox').css('display', 'block');
+            jQuery('#showbox').slideDown('slow');
+            jQuery('#reporttext').focus();
+            return false;
+        }
+        if (jQuery.trim(report).length < 5) {
+            jQuery('#reporttext').css('border-color', 'red');
+            jQuery('#twitMsg').empty().html("Please provide a report message of atleast 5 words! ");
+            jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+            return false;
+        }
+        else {
+            jQuery('#reporttext').css('border-color', '');
+
+        }
+
+
+
+        if (confirm('Are you sure to reject the selected Users?')) {
+            jQuery('#actions').attr('value', make);
+
+            //send form
+            var formwave=jQuery('#mod-issue');
+            jQuery('#tabcontent').css('opacity','0.75');
+
+            jQuery.ajax({
+                type: "POST",
+                url: formwave.attr('action'),
+                data: formwave.serialize(),
+                dataType:"json",
+                success: function(data){
+                    jQuery('#reporttext').val('');
+                    jQuery('#showbox').slideUp('slow');
+
+                    jQuery('#tabcontent').css('opacity','1');
+                    jQuery('#twitMsg').empty().html(data.msg);
+                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                },
+                complete:function(){
+                    jQuery('#tabcontent').load(jQuery('#mod-url').val());
+                    jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+                }
+            });
+
+
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        jQuery('#twitMsg').empty().html('select atleast one User for action!');
+        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+
         return false;
     }
 

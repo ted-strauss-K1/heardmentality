@@ -150,7 +150,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="' . $gSitePath . 'question/save" >
        <ul id="add_more">
                <li><label><span class="span1">Issue <b>*</b></span><span>
-          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest"  onblur="ajax_showOptions(this,\'getCountriesByLetters\',event,\'C1\');" size="100" >
+          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest"   size="100" >
         </span></label>
         </li>
           <li><label><span class="span1">Context</span><span> <textarea name="q_context" id="q_context" tabindex="2">' . $q_context . '</textarea> </span></label></li>
@@ -1246,6 +1246,8 @@ function get_releated_questions($question,$cat_id,$context)
 {	
 	$where_condition = '';	
 	$words = explode(" ", $question);
+           $words = array_filter($words, 'word_array_filter');
+            $words = array_filter($words);
 	 for ($i = 0; $i < count($words); $i++) {
 		$wheres2 	= array();
 			if($words[$i]!='')
