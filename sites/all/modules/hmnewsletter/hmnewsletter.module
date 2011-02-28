@@ -90,7 +90,7 @@ function getFollowers()
 											</a><p align="center">'.$follower_details->real_name.'</p>
 										</div>                    
 										<div class="avatar-box-right">';	
-										//$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);				
+										$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);				
 				$mailcontent .= '
 										</div> 
 										<div class="clr"></div>
