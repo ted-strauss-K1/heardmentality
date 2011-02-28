@@ -54,14 +54,13 @@ function getFollowers()
 	}	
 		
 	/*		
-		
-		print_r($allfollwers);				
-		print_r($follower_activites);	
-	*/
-	echo '<pre>';
+		echo '<pre>';
 		print_r($follwers);	
+		print_r($allfollwers);		
 		print_r($allfollwers);				
-	exit;
+		print_r($follower_activites);	exit;	
+	*/	
+
 	if(findtask() <= 3)
 	{
 		$subject = $conf['site_name'].': Monthly update';
@@ -100,6 +99,8 @@ function getFollowers()
 								';
 			}
 		}
+		echo $mailcontent;		
+		
 		//Save mails
 		if($receiver_id != '')
 		{	
@@ -119,7 +120,7 @@ function getFollowers()
 					",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
 					}
 		}		
-	}	
+	}	exit;
 	return '';
 }
 
