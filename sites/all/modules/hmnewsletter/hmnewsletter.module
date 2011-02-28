@@ -78,6 +78,7 @@ function getFollowers()
 		$mailcontent = '';		
 		foreach($value as $val)
 		{				
+			echo 'hi '.$val;
 			$follower_details = load_user($val);
 			$receiver_id = $key;
 			$mailcontent .= '
@@ -270,7 +271,6 @@ function preparemail($mailcontent, $receiver)
 */
 function preparemailcontent($follower_activites, $receiver_id)
 {
-	echo 'hi '.$follower_activites[0]['uid'];
 	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
 	
 	$path	= drupal_get_path('theme', 'newtheme');
