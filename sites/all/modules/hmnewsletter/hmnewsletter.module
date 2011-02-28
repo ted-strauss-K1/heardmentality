@@ -34,8 +34,9 @@ function getFollowers()
 	$path	= drupal_get_path('theme', 'newtheme');
 	
 	$follwerQ = db_query("
-							SELECT `uid`, `follower_id` FROM {follower}
-							ORDER BY `uid`
+							SELECT f.`uid`, f.`follower_id` FROM {follower} AS f
+							INNER JOIN {users} AS u ON u.uid = f.uid
+							ORDER BY f.`uid`
 					");
 	
 	$follwers = array();
