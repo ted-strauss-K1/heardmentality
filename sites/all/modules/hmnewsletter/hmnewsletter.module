@@ -356,11 +356,10 @@ function getfolloweractivites($allfollwers)
 											ORDER BY `timestamp` DESC LIMIT 5
 										");
 		}
-		//create mail templates for each users
-		$i = 1;
+		//create mail templates for each users		
 		while($recent_activities = db_fetch_array($recent_activitiesQ))
 		{
-			echo 'hi'.$i++;
+			echo 'hi'.$value;
 			$follower_activites[$value][] =  $recent_activities;
 		}
 	}
