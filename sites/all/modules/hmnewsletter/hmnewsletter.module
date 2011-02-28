@@ -329,7 +329,7 @@ function getfolloweractivites($allfollwers)
 	$follower_activites = array();
 	foreach($allfollwers as $key => $value)
 	{
-		//$follower_activites[] = $value;
+		$follower_activites[] = $value;
 		//Recent 5 activites
 		if(findtask() <= 3)
 		{
