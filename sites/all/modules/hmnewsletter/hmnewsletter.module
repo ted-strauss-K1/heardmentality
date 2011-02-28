@@ -357,9 +357,10 @@ function getfolloweractivites($allfollwers)
 										");
 		}
 		//create mail templates for each users
+		$i = 1;
 		while($recent_activities = db_fetch_array($recent_activitiesQ))
 		{
-			print_r($recent_activities);
+			echo 'hi'.$i++;
 			$follower_activites[$value][] =  $recent_activities;
 		}
 	}
