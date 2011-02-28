@@ -364,6 +364,8 @@ function getfolloweractivites($allfollwers)
 			$follower_activites[$value][] =  $recent_activities;
 		}
 	}
+	print_r($follower_activites);
+	exit;
 	return $follower_activites;
 }
 
