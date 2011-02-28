@@ -77,33 +77,34 @@ function getFollowers()
 		$receiver_id = '';
 		$mailcontent = '';		
 		foreach($value as $val)
-		{				
-			echo 'hi '.$val;
+		{	
 			$follower_details = load_user($val);
-			$receiver_id = $key;
-			$mailcontent .= '
-								<div class="avatar-box">
-									<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
-									$mailcontent 	.= 	UserPicture($follower_details->uid);
-									
-			$mailcontent .= '
-										</a><p align="center">'.$follower_details->real_name.'</p>
-									</div>                    
-									<div class="avatar-box-right">';	
-								if(!empty($follower_activites[$val]))
-								{
-									$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);				
-								}
-								else
-								{
-									$mailcontent .= '<p>No activities are found!!</p>';
-								}
-			$mailcontent .= '
-									</div> 
-									<div class="clr"></div>
-								</div>
-							';
-			
+			if(!empty($follower_details))
+			{
+				$receiver_id = $key;
+				$mailcontent .= '
+									<div class="avatar-box">
+										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
+										$mailcontent 	.= 	UserPicture($follower_details->uid);
+										
+				$mailcontent .= '
+											</a><p align="center">'.$follower_details->real_name.'</p>
+										</div>                    
+										<div class="avatar-box-right">';	
+									if(!empty($follower_activites[$val]))
+									{
+										$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);				
+									}
+									else
+									{
+										$mailcontent .= '<p>No activities are found!!</p>';
+									}
+				$mailcontent .= '
+										</div> 
+										<div class="clr"></div>
+									</div>
+								';
+			}
 		}
 		
 		//Save mails
