@@ -130,7 +130,7 @@ function getFollowers()
 	}	
 	return '';
 }
-getnonfollowers();
+//getnonfollowers();
 /*
 	To get users who followa none and send the questions
 */
