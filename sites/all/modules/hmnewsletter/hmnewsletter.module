@@ -127,8 +127,7 @@ function getFollowers()
 						",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
 			}
 		}		
-	}	
-	getnonfollowers();
+	}		
 	return '';
 }
 /*
@@ -188,7 +187,7 @@ function getnonfollowers()
 		if($receiver_id != '')
 		{	
 			$receiver = load_user($receiver_id);
-			echo $mail = preparemail($mailcontent, $receiver, 'nonfollower');	
+			$mail = preparemail($mailcontent, $receiver, 'nonfollower');	
 			if(!empty($receiver->mail))
 			{
 				db_query("INSERT INTO {hm_mails} 
@@ -197,8 +196,7 @@ function getnonfollowers()
 						",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
 			}
 		}		
-	}	
-	exit;
+	}
 	return '';
 	
 }
@@ -527,6 +525,7 @@ function week_date_month($current_date)
 function hmnewsletter_cron()
 {
 	//getFollowers();
+	getnonfollowers();
 }
 
 /*
