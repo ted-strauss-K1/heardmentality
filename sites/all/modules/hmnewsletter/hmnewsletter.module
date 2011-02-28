@@ -49,7 +49,7 @@ function getFollowers()
 		
 		if(!in_array($follwer['uid'], $allfollwers))
 		{
-			$allfollwers[] = $follwer['uid'];
+			$allfollwers[] = $follwer['follower_id'];
 		}
 	}	
 		
@@ -60,6 +60,7 @@ function getFollowers()
 	*/
 	echo '<pre>';
 		print_r($follwers);	
+		print_r($allfollwers);				
 	exit;
 	if(findtask() <= 3)
 	{
