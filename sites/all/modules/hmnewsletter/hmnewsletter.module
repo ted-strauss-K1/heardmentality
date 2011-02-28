@@ -359,6 +359,7 @@ function getfolloweractivites($allfollwers)
 		//create mail templates for each users
 		while($recent_activities = db_fetch_array($recent_activitiesQ))
 		{
+			print_r($recent_activities);
 			$follower_activites[$value][] =  $recent_activities;
 		}
 	}
