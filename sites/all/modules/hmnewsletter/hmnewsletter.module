@@ -128,9 +128,9 @@ function getFollowers()
 			}
 		}		
 	}	
+	getnonfollowers();
 	return '';
 }
-//getnonfollowers();
 /*
 	To get users who followa none and send the questions
 */
@@ -151,10 +151,6 @@ function getnonfollowers()
 	{
 		$nonfollwers[] = $nonfollwer['uid'];
 	}
-		
-	echo '<pre>';
-	print_r($nonfollwers);	
-	exit;
 	
 	if(findtask() <= 3)
 	{
@@ -165,42 +161,28 @@ function getnonfollowers()
 		$subject = $conf['site_name'].': Weekly update';
 	}
 	
-	$follower_activites = getfolloweractivites(array_filter(array_unique($allfollwers)));	
+	$nonfollower_question = getnonfollowerquestion();	
 	
-	foreach($follwers as $key => $value)
+	foreach($nonfollwers as $key => $value)
 	{		
-		$receiver_id = '';
-		$mailcontent = '';		
-		foreach($value as $val)
-		{	
-			$follower_details = load_user($val);
-			if(!empty($follower_details))
-			{
-				$receiver_id = $key;
-				$mailcontent .= '
-									<div class="avatar-box">
-										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
-										$mailcontent 	.= 	UserPicture($follower_details->uid);
-										
-				$mailcontent .= '
-											</a><p align="center">'.$follower_details->real_name.'</p>
-										</div>                    
-										<div class="avatar-box-right">';	
-									if(!empty($follower_activites[$val]))
-									{
-										$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);				
-									}
-									else
-									{
-										$mailcontent .= '<p>No activities are found!!</p>';
-									}
-				$mailcontent .= '
-										</div> 
-										<div class="clr"></div>
-									</div>
-								';
-			}
-		}
+		$receiver_id = $value;
+		$mailcontent = '';				
+		$nonfollower_details = load_user($value);
+		$mailcontent .= '
+							<div class="avatar-box">
+								<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$nonfollower_details->name.'">';
+								$mailcontent 	.= 	UserPicture($nonfollower_details->uid);
+								
+		$mailcontent .= '
+									</a><p align="center">'.$nonfollower_details->real_name.'</p>
+								</div>                    
+								<div class="avatar-box-right">';
+		$mailcontent .= 		$nonfollower_question;
+		$mailcontent .= '
+								</div> 
+								<div class="clr"></div>
+							</div>
+						';
 		
 		//Save mails
 		if($receiver_id != '')
@@ -222,10 +204,28 @@ function getnonfollowers()
 			}
 		}		
 	}	
+	exit;
 	return '';
 	
 }
 
+/*
+	Question content for non followers
+*/
+function getnonfollowerquestion()
+{
+	global $base_path;
+	$mailcontent = '';
+	$questionsQ = db_query('
+							SELECT `question`, `url` FROM {question} 
+							ORDER BY active_rate LIMIT 0, 5
+						');
+	while($question = db_fetch_array($questionsQ))
+	{
+		$mailcontent .= '<p><a href="'.$base_path.$question['url'].'">'.$question['question'].'</a></p>
+	}	
+	return $mailcontent;
+}
 
 /*
 	Prepare mail
