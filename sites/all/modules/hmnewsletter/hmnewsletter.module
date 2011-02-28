@@ -188,13 +188,7 @@ function getnonfollowers()
 		if($receiver_id != '')
 		{	
 			$receiver = load_user($receiver_id);
-			echo $mail = preparemail($mailcontent, $receiver);	
-//			echo "
-//						INSERT INTO {hm_mails}
-//						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`)
-//						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
-//					";
-
+			echo $mail = preparemail($mailcontent, $receiver, 'nonfollower');	
 			if(!empty($receiver->mail))
 			{
 				db_query("INSERT INTO {hm_mails} 
@@ -230,7 +224,7 @@ function getnonfollowerquestion()
 /*
 	Prepare mail
 */
-function preparemail($mailcontent, $receiver)
+function preparemail($mailcontent, $receiver, $task = 'follower')
 {
 	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
 	
@@ -310,15 +304,28 @@ function preparemail($mailcontent, $receiver)
 				 {
 					$month_dates	= week_date_month(strtotime(date('d-m-Y')));
 					$start_date		= strtotime($month_dates[0]);
-					
-					$mess 			= 'Here is your montly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
+					if($task == 'nonfollower')
+					{
+						$mess	= 'Here is your montly summary of recent quiestions from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
+					}
+					else
+					{
+						$mess	= 'Here is your montly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
+					}
 				 }
 				 else
 				 {
 					$month_dates	= week_date(strtotime(date('d-m-Y')));
 					$start_date		= strtotime($month_dates[0]);
+					if($task == 'nonfollower')
+					{
+						$mess	= 'Here is your weekly summary of recent quiestions from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
+					}
+					else
+					{
+						$mess	= 'Here is your weekly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
+					}
 					
-					$mess 			= 'Here is your weekly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
 				 }	
 	
 				$mail 	.= 	'<h1>Network Updates, '.date('M d', $start_date).' - '.date('M d').'</h1> <br /><div class="clr"></div><h3>'. $mess.'</h3>';
