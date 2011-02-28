@@ -329,6 +329,7 @@ function getfolloweractivites($allfollwers)
 	$follower_activites = array();
 	foreach($allfollwers as $key => $value)
 	{
+		//$follower_activites[] = $value;
 		//Recent 5 activites
 		if(findtask() <= 3)
 		{
@@ -357,17 +358,10 @@ function getfolloweractivites($allfollwers)
 										");
 		}
 		//create mail templates for each users		
-		if(!empty(db_fetch_array($recent_activitiesQ)))
+		while($recent_activities = db_fetch_array($recent_activitiesQ))
 		{
-			while($recent_activities = db_fetch_array($recent_activitiesQ))
-			{
-				echo 'hi'.$value;
-				$follower_activites[$value][] =  $recent_activities;
-			}
-		}
-		else
-		{
-			echo 'biii'.$value;
+			echo 'hi'.$value;
+			$follower_activites[$value][] =  $recent_activities;
 		}
 	}
 	print_r($follower_activites);
