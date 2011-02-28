@@ -77,7 +77,7 @@ function getFollowers()
 		$mailcontent = '';		
 		foreach($value as $val)
 		{
-			if(is_array($follower_activites[$val]))
+			if(!empty($follower_activites[$val]))
 			{	
 				$follower_details = load_user($follower_activites[$val][0]['uid']);
 				$receiver_id = $key;
