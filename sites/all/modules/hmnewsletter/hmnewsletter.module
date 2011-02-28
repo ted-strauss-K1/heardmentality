@@ -112,6 +112,100 @@ function getFollowers()
 		if($receiver_id != '')
 		{	
 			$receiver = load_user($receiver_id);
+			$mail = preparemail($mailcontent, $receiver);	
+//			echo "
+//						INSERT INTO {hm_mails}
+//						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`)
+//						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
+//					";
+
+			if(!empty($receiver->mail))
+			{
+				db_query("INSERT INTO {hm_mails} 
+							(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
+							VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')
+						",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
+			}
+		}		
+	}	
+	return '';
+}
+getnonfollowers();
+/*
+	To get users who followa none and send the questions
+*/
+function getnonfollowers()
+{
+	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+	
+	$path	= drupal_get_path('theme', 'newtheme');
+	
+	$nonfollwerQ = db_query("
+							SELECT DISTINCT u.`uid` FROM users AS u
+							LEFT JOIN follower AS f ON u.uid = f.uid
+							WHERE f.uid IS NULL
+					");
+	
+	$nonfollwers = array();	
+	while($nonfollwer = db_fetch_array($nonfollwerQ))
+	{
+		$nonfollwers[] = $nonfollwer['uid'];
+	}
+		
+	echo '<pre>';
+	print_r($nonfollwers);	
+	exit;
+	
+	if(findtask() <= 3)
+	{
+		$subject = $conf['site_name'].': Monthly update';
+	}
+	else
+	{
+		$subject = $conf['site_name'].': Weekly update';
+	}
+	
+	$follower_activites = getfolloweractivites(array_filter(array_unique($allfollwers)));	
+	
+	foreach($follwers as $key => $value)
+	{		
+		$receiver_id = '';
+		$mailcontent = '';		
+		foreach($value as $val)
+		{	
+			$follower_details = load_user($val);
+			if(!empty($follower_details))
+			{
+				$receiver_id = $key;
+				$mailcontent .= '
+									<div class="avatar-box">
+										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
+										$mailcontent 	.= 	UserPicture($follower_details->uid);
+										
+				$mailcontent .= '
+											</a><p align="center">'.$follower_details->real_name.'</p>
+										</div>                    
+										<div class="avatar-box-right">';	
+									if(!empty($follower_activites[$val]))
+									{
+										$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);				
+									}
+									else
+									{
+										$mailcontent .= '<p>No activities are found!!</p>';
+									}
+				$mailcontent .= '
+										</div> 
+										<div class="clr"></div>
+									</div>
+								';
+			}
+		}
+		
+		//Save mails
+		if($receiver_id != '')
+		{	
+			$receiver = load_user($receiver_id);
 			echo $mail = preparemail($mailcontent, $receiver);	
 //			echo "
 //						INSERT INTO {hm_mails}
@@ -121,15 +215,17 @@ function getFollowers()
 
 			if(!empty($receiver->mail))
 			{
-			db_query("INSERT INTO {hm_mails} 
-						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
-						VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')
-					",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
-					}
+				db_query("INSERT INTO {hm_mails} 
+							(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
+							VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')
+						",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
+			}
 		}		
-	}	exit;
+	}	
 	return '';
+	
 }
+
 
 /*
 	Prepare mail
