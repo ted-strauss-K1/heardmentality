@@ -60,8 +60,6 @@ function getFollowers()
 		print_r($allfollwers);				
 		print_r($follower_activites);	exit;	
 	*/	
-		echo '<pre>';
-		print_r($follwers);	
 	if(findtask() <= 3)
 	{
 		$subject = $conf['site_name'].': Monthly update';
@@ -72,7 +70,7 @@ function getFollowers()
 	}
 	
 	$follower_activites = getfolloweractivites(array_filter(array_unique($allfollwers)));	
-	print_r($follower_activites);	
+	//print_r($follower_activites);	
 	foreach($follwers as $key => $value)
 	{		
 		$receiver_id = '';
