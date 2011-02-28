@@ -71,7 +71,7 @@ function getFollowers()
 		$subject = $conf['site_name'].': Weekly update';
 	}
 	
-	$follower_activites = getfolloweractivites(array_filter(array_unique$allfollwers)));	
+	$follower_activites = getfolloweractivites(array_filter(array_unique($allfollwers)));	
 	
 	foreach($follwers as $key => $value)
 	{		
