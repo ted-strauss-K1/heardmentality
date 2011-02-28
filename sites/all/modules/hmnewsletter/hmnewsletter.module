@@ -44,7 +44,7 @@ function getFollowers()
 	{
 		if(!in_array($follwer['uid'], $follwers[$follwer['follower_id']]) && $follwer['uid'] != $follwer['follower_id'])
 		{
-			$follwers[$follwer['follower_id']][] = $follwer['uid'];
+			$follwers[$follwer['uid']][] = $follwer['follower_id'];
 		}
 		
 		if(!in_array($follwer['uid'], $allfollwers))
