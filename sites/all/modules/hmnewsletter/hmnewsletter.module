@@ -60,7 +60,8 @@ function getFollowers()
 		print_r($allfollwers);				
 		print_r($follower_activites);	exit;	
 	*/	
-
+echo '<pre>';
+		print_r($follwers);	
 	if(findtask() <= 3)
 	{
 		$subject = $conf['site_name'].': Monthly update';
