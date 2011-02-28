@@ -222,7 +222,7 @@ function getnonfollowerquestion()
 						');
 	while($question = db_fetch_array($questionsQ))
 	{
-		$mailcontent .= '<p><a href="'.$base_path.$question['url'].'">'.$question['question'].'</a></p>
+		$mailcontent .= '<p><a href="'.$base_path.$question['url'].'">'.$question['question'].'</a></p>';
 	}	
 	return $mailcontent;
 }
