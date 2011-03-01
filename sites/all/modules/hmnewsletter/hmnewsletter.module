@@ -25,16 +25,30 @@ function hmnewsletter_menu() {
 /**
  * To get the follower and followers.
  */
-function getFollowers() {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
-
-    $path = drupal_get_path('theme', 'newtheme');
-
-    $follwerQ = db_query("
-							SELECT f.`uid`, f.`follower_id` FROM {follower} AS f
-							INNER JOIN {users} AS u ON u.uid = f.uid
-							ORDER BY f.`uid`
-					");
+function getFollowers()
+{	
+	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+	
+	$path	= drupal_get_path('theme', 'newtheme');
+	
+	if(findtask() <= 3)
+	{
+		$follwerQ = db_query("
+								SELECT f.`uid`, f.`follower_id` FROM {follower} AS f
+								INNER JOIN {users} AS u ON u.uid = f.uid
+								WHERE u.`notify_etype` = 2
+								ORDER BY f.`uid`
+						");
+	}
+	else
+	{
+		$follwerQ = db_query("
+								SELECT f.`uid`, f.`follower_id` FROM {follower} AS f
+								INNER JOIN {users} AS u ON u.uid = f.uid
+								WHERE u.`notify_etype` = 1
+								ORDER BY f.`uid`
+						");
+	}
 
     $follwers = array();
     $allfollwers = array();
@@ -113,34 +127,53 @@ function getFollowers() {
 }
 
 /*
-  To get users who followa none and send the questions
- */
-
-function getnonfollowers() {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
-
-    $path = drupal_get_path('theme', 'newtheme');
-
-    $nonfollwerQ = db_query("SELECT DISTINCT u.`uid` FROM users AS u LEFT JOIN follower AS f ON u.uid = f.uid WHERE f.uid IS NULL");
-
-    $nonfollwers = array();
-    while ($nonfollwer = db_fetch_array($nonfollwerQ)) {
-        $nonfollwers[] = $nonfollwer['uid'];
-    }
-
-    if (findtask() <= 3) {
-        $subject = $conf['site_name'] . ': Monthly update';
-    } else {
-        $subject = $conf['site_name'] . ': Weekly update';
-    }
-
-    $nonfollower_question = getnonfollowerquestion();
-
-    foreach ($nonfollwers as $key => $value) {
-        $receiver_id = $value;
-        $mailcontent = '';
-        $nonfollower_details = load_user($value);
-        $mailcontent .= '
+	To get users who followa none and send the questions
+*/
+function getnonfollowers()
+{
+	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+	
+	$path	= drupal_get_path('theme', 'newtheme');
+	if(findtask() <= 3)
+	{
+		$nonfollwerQ = db_query("
+								SELECT DISTINCT u.`uid` FROM {users} AS u
+								LEFT JOIN {follower} AS f ON u.uid = f.uid
+								WHERE f.uid IS NULL AND u.notify_etype = 2
+						");
+	}
+	else
+	{
+		$nonfollwerQ = db_query("
+								SELECT DISTINCT u.`uid` FROM {users} AS u
+								LEFT JOIN {follower} AS f ON u.uid = f.uid
+								WHERE f.uid IS NULL AND u.notify_etype = 1
+						");
+	}
+	
+	$nonfollwers = array();	
+	while($nonfollwer = db_fetch_array($nonfollwerQ))
+	{
+		$nonfollwers[] = $nonfollwer['uid'];
+	}
+	
+	if(findtask() <= 3)
+	{
+		$subject = $conf['site_name'].': Monthly update';
+	}
+	else
+	{
+		$subject = $conf['site_name'].': Weekly update';
+	}
+	
+	$nonfollower_question = getnonfollowerquestion();	
+	
+	foreach($nonfollwers as $key => $value)
+	{		
+		$receiver_id = $value;
+		$mailcontent = '';				
+		$nonfollower_details = load_user($value);
+		$mailcontent .= '
 							<div class="avatar-box">
 								<div class="avatar-box-left"><a href="' . $base_path . 'profile/' . $nonfollower_details->name . '">';
         $mailcontent .= UserPicture($nonfollower_details->uid);
@@ -177,6 +210,7 @@ function getnonfollowerquestion() {
     $mailcontent = '';
     $questionsQ = db_query('
 							SELECT `question`, `url` FROM {question} 
+							WHERE `status` = '1'
 							ORDER BY active_rate LIMIT 0, 5
 						');
     while ($question = db_fetch_array($questionsQ)) {
@@ -397,7 +431,8 @@ function getfolloweractivites($allfollwers) {
             $start_date = $month_dates[0];
 
             $recent_activitiesQ = db_query("
-											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM {heartbeat_activity}
+											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` 
+											FROM {heartbeat_activity}
 											WHERE `uid` = $value
 											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
@@ -408,7 +443,8 @@ function getfolloweractivites($allfollwers) {
             $start_date = $month_dates[0];
 
             $recent_activitiesQ = db_query("
-											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM heartbeat_activity
+											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM 
+											{heartbeat_activity}
 											WHERE `uid` = $value
 											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
