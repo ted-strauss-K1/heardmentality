@@ -80,6 +80,12 @@ function qlite_view() {
     drupal_set_html_head('<script>
             var uid="' . $user->uid . '";
 	</script>');
+  
+    if(variable_get('initpop')==1&&$user->uid>1){
+        drupal_add_js('jQuery(document).ready(function () { loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");});','inline');
+        variable_del('initpop');
+        
+    }
     $qid = get_qid();
 
 
@@ -488,14 +494,13 @@ function qlite_view() {
     $query = "select vote_pid from {possible_answer_vote} where qid='$qid' AND uid='" . $user->uid . "'";
     $voteid = db_result(db_query($query));
     $sitevotecnt = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where uid='" . $user->uid . "'"));
-    if ($sitevotecnt == 1 && empty($voteid) && $user->prompt) {
-
-        $submitbutt = ' <p><input type="button" name="save" id="save" value="Vote" onclick="loadeditquestion(\'' . $gSitePath . 'profile/edit/1\',\'Edit Profile \');" /></p>';
-    } elseif ($numran > 0 && !empty($voteid)) {
-        $submitbutt = ' <p><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/></p>';
-       
-    } elseif ($numran == 0) {
-
+    if ($numran>0) {
+        $query = "select vote_pid from {possible_answer_vote} where qid='$qid' AND uid='" . $user->uid . "'";
+        $voteid = db_result(db_query($query));
+        $submitbutt = ' <p><input type="submit" name="change" id="change" value="Change" />
+            <input type="hidden" name="vote_id" value="' . $voteid . '"/></p>';
+        //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
+    }else{
         $submitbutt = ' <p><input type="submit" name="save" id="save" value="Vote" /></p>';
     }
 
@@ -1152,7 +1157,10 @@ function qlite_save() {
         }
     }
     ////////////question search vote added end here
-
+    //first time vote shows profile update popup
+    $ccnt=user_load(array('uid'=>$user->uid));
+    if($ccnt->prompt==1)
+    variable_set('initpop',1);
 
     if ($_REQUEST['txt_act'] == 1) {
 
