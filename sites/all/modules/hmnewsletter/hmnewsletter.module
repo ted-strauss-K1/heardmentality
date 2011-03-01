@@ -5,245 +5,211 @@
  * @return array
  */
 function hmnewsletter_perm() {
-  return array('Send Newsletters');
+    return array('Send Newsletters');
 }
-
 
 /**
  * Implementation of hook_menu().
  */
-function hmnewsletter_menu() 
-{	
-	$items['content/hmnewsletter'] = array(
-		'title' => 'HMNewsLetter',
-		'page callback' => 'getFollowers',		
-		'access arguments' => array('Send Newsletters'),
-		'type' => MENU_NORMAL_ITEM,	
-	);
-	
-	return $items;
+function hmnewsletter_menu() {
+    $items['content/hmnewsletter'] = array(
+        'title' => 'HMNewsLetter',
+        'page callback' => 'getFollowers',
+        'access arguments' => array('Send Newsletters'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+
+    return $items;
 }
 
 /**
  * To get the follower and followers.
  */
-function getFollowers()
-{	
-	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
-	
-	$path	= drupal_get_path('theme', 'newtheme');
-	
-	$follwerQ = db_query("
+function getFollowers() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+
+    $path = drupal_get_path('theme', 'newtheme');
+
+    $follwerQ = db_query("
 							SELECT f.`uid`, f.`follower_id` FROM {follower} AS f
 							INNER JOIN {users} AS u ON u.uid = f.uid
 							ORDER BY f.`uid`
 					");
-	
-	$follwers = array();
-	$allfollwers = array();
-	while($follwer = db_fetch_array($follwerQ))
-	{
-		if(!in_array($follwer['uid'], $follwers[$follwer['follower_id']]) && $follwer['uid'] != $follwer['follower_id'])
-		{
-			$follwers[$follwer['uid']][] = $follwer['follower_id'];
-		}
-		
-		if(!in_array($follwer['uid'], $allfollwers))
-		{
-			$allfollwers[] = $follwer['follower_id'];
-		}
-	}	
-		
-	/*		
-		echo '<pre>';
-		print_r($follwers);	
-		print_r($allfollwers);		
-		print_r($allfollwers);				
-		print_r($follower_activites);	exit;	
-	*/	
-	
-	if(findtask() <= 3)
-	{
-		$subject = $conf['site_name'].': Monthly update';
-	}
-	else
-	{
-		$subject = $conf['site_name'].': Weekly update';
-	}
-	
-	$follower_activites = getfolloweractivites(array_filter(array_unique($allfollwers)));	
-	
-	foreach($follwers as $key => $value)
-	{		
-		$receiver_id = '';
-		$mailcontent = '';		
-		foreach($value as $val)
-		{	
-			$follower_details = load_user($val);
-			if(!empty($follower_details))
-			{
-				$receiver_id = $key;
-				$mailcontent .= '
+
+    $follwers = array();
+    $allfollwers = array();
+    while ($follwer = db_fetch_array($follwerQ)) {
+        if (!in_array($follwer['uid'], $follwers[$follwer['follower_id']]) && $follwer['uid'] != $follwer['follower_id']) {
+            $follwers[$follwer['uid']][] = $follwer['follower_id'];
+        }
+
+        if (!in_array($follwer['uid'], $allfollwers)) {
+            $allfollwers[] = $follwer['follower_id'];
+        }
+    }
+
+    /*
+      echo '<pre>';
+      print_r($follwers);
+      print_r($allfollwers);
+      print_r($allfollwers);
+      print_r($follower_activites);	exit;
+     */
+
+
+    if (findtask() <= 3) {
+        $subject = $conf['site_name'] . ': Monthly update';
+    } else {
+        $subject = $conf['site_name'] . ': Weekly update';
+    }
+
+    $follower_activites = getfolloweractivites(array_filter(array_unique($allfollwers)));
+
+    foreach ($follwers as $key => $value) {
+        $receiver_id = '';
+        $mailcontent = '';
+        foreach ($value as $val) {
+            $follower_details = load_user($val);
+            if (!empty($follower_details)) {
+                $receiver_id = $key;
+                $mailcontent .= '
 									<div class="avatar-box">
-										<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$follower_details->name.'">';
-										$mailcontent 	.= 	UserPicture($follower_details->uid);
-										
-				$mailcontent .= '
-											</a><p align="center">'.$follower_details->real_name.'</p>
+										<div class="avatar-box-left"><a href="' . $base_path . 'profile/' . $follower_details->name . '">';
+                $mailcontent .= UserPicture($follower_details->uid);
+
+                $mailcontent .= '
+											</a><p align="center">' . $follower_details->real_name . '</p>
 										</div>                    
-										<div class="avatar-box-right">';	
-									if(!empty($follower_activites[$val]))
-									{
-										$mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);				
-									}
-									else
-									{
-										$mailcontent .= '<p>No activities are found!!</p>';
-									}
-				$mailcontent .= '
+										<div class="avatar-box-right">';
+                if (!empty($follower_activites[$val])) {
+                    $mailcontent .= preparemailcontent($follower_activites[$val], $receiver_id);
+                } else {
+                    $mailcontent .= '<p>No activities are found!!</p>';
+                }
+                $mailcontent .= '
 										</div> 
 										<div class="clr"></div>
 									</div>
 								';
-			}
-		}
-		
-		//Save mails
-		if($receiver_id != '')
-		{	
-			$receiver = load_user($receiver_id);
-			$mail = preparemail($mailcontent, $receiver);	
+            }
+        }
+
+        //Save mails
+        if ($receiver_id != '') {
+            $receiver = load_user($receiver_id);
+            $mail = preparemail($mailcontent, $receiver);
 //			echo "
 //						INSERT INTO {hm_mails}
 //						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`)
 //						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
 //					";
 
-			if(!empty($receiver->mail))
-			{
-				db_query("INSERT INTO {hm_mails} 
-							(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
-							VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')
-						",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
-			}
-		}		
-	}		
-	return '';
+            if (!empty($receiver->mail)) {
+                db_query("INSERT INTO {hm_mails} (`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')", $conf['site_mail'], $conf['site_mail'], $receiver->mail, $subject, $mail, '2');
+            }
+        }
+    }
+    return '';
 }
+
 /*
-	To get users who followa none and send the questions
-*/
-function getnonfollowers()
-{
-	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
-	
-	$path	= drupal_get_path('theme', 'newtheme');
-	
-	$nonfollwerQ = db_query("
-							SELECT DISTINCT u.`uid` FROM users AS u
-							LEFT JOIN follower AS f ON u.uid = f.uid
-							WHERE f.uid IS NULL
-					");
-	
-	$nonfollwers = array();	
-	while($nonfollwer = db_fetch_array($nonfollwerQ))
-	{
-		$nonfollwers[] = $nonfollwer['uid'];
-	}
-	
-	if(findtask() <= 3)
-	{
-		$subject = $conf['site_name'].': Monthly update';
-	}
-	else
-	{
-		$subject = $conf['site_name'].': Weekly update';
-	}
-	
-	$nonfollower_question = getnonfollowerquestion();	
-	
-	foreach($nonfollwers as $key => $value)
-	{		
-		$receiver_id = $value;
-		$mailcontent = '';				
-		$nonfollower_details = load_user($value);
-		$mailcontent .= '
+  To get users who followa none and send the questions
+ */
+
+function getnonfollowers() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+
+    $path = drupal_get_path('theme', 'newtheme');
+
+    $nonfollwerQ = db_query("SELECT DISTINCT u.`uid` FROM users AS u LEFT JOIN follower AS f ON u.uid = f.uid WHERE f.uid IS NULL");
+
+    $nonfollwers = array();
+    while ($nonfollwer = db_fetch_array($nonfollwerQ)) {
+        $nonfollwers[] = $nonfollwer['uid'];
+    }
+
+    if (findtask() <= 3) {
+        $subject = $conf['site_name'] . ': Monthly update';
+    } else {
+        $subject = $conf['site_name'] . ': Weekly update';
+    }
+
+    $nonfollower_question = getnonfollowerquestion();
+
+    foreach ($nonfollwers as $key => $value) {
+        $receiver_id = $value;
+        $mailcontent = '';
+        $nonfollower_details = load_user($value);
+        $mailcontent .= '
 							<div class="avatar-box">
-								<div class="avatar-box-left"><a href="'.$base_path.'profile/'.$nonfollower_details->name.'">';
-								$mailcontent 	.= 	UserPicture($nonfollower_details->uid);
-								
-		$mailcontent .= '
-									</a><p align="center">'.$nonfollower_details->real_name.'</p>
+								<div class="avatar-box-left"><a href="' . $base_path . 'profile/' . $nonfollower_details->name . '">';
+        $mailcontent .= UserPicture($nonfollower_details->uid);
+
+        $mailcontent .= '
+									</a><p align="center">' . $nonfollower_details->real_name . '</p>
 								</div>                    
 								<div class="avatar-box-right">';
-		$mailcontent .= 		$nonfollower_question;
-		$mailcontent .= '
+        $mailcontent .= $nonfollower_question;
+        $mailcontent .= '
 								</div> 
 								<div class="clr"></div>
 							</div>
 						';
-		
-		//Save mails
-		if($receiver_id != '')
-		{	
-			$receiver = load_user($receiver_id);
-			$mail = preparemail($mailcontent, $receiver, 'nonfollower');	
-			if(!empty($receiver->mail))
-			{
-				db_query("INSERT INTO {hm_mails} 
-							(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) 
-							VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')
-						",$conf['site_mail'],$conf['site_mail'],$receiver->mail,$subject,$mail,'html');
-			}
-		}		
-	}
-	return '';
-	
+
+        //Save mails
+        if ($receiver_id != '') {
+            $receiver = load_user($receiver_id);
+            $mail = preparemail($mailcontent, $receiver, 'nonfollower');
+            if (!empty($receiver->mail)) {
+                db_query("INSERT INTO {hm_mails} (`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')", $conf['site_mail'], $conf['site_mail'], $receiver->mail, $subject, $mail, '2');
+            }
+        }
+    }
+    return '';
 }
 
 /*
-	Question content for non followers
-*/
-function getnonfollowerquestion()
-{
-	global $base_path;
-	$mailcontent = '';
-	$questionsQ = db_query('
+  Question content for non followers
+ */
+
+function getnonfollowerquestion() {
+    global $base_path;
+    $mailcontent = '';
+    $questionsQ = db_query('
 							SELECT `question`, `url` FROM {question} 
 							ORDER BY active_rate LIMIT 0, 5
 						');
-	while($question = db_fetch_array($questionsQ))
-	{
-		$mailcontent .= '<p><a href="'.$base_path.$question['url'].'">'.$question['question'].'</a></p>';
-	}	
-	return $mailcontent;
+    while ($question = db_fetch_array($questionsQ)) {
+        $mailcontent .= '<p><a href="' . $base_path . $question['url'] . '">' . $question['question'] . '</a></p>';
+    }
+    return $mailcontent;
 }
 
 /*
-	Prepare mail
-*/
-function preparemail($mailcontent, $receiver, $task = 'follower')
-{
-	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
-	
-	$path	= drupal_get_path('theme', 'newtheme');
+  Prepare mail
+ */
 
-	$mail = '';
-	
-	$imgw	= $gSitePath.$path."/images/logo_mail.gif";
-	
-	$imag	= $config['file_path'].$img;
-	
-	// To send HTML mail, the Content-type header must be set
-	$headers  = 'MIME-Version: 1.0' . "\r\n";
-	$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-	$headers .= 'From: '.$conf['site_name'].' <'.$conf['site_mail'].'>' . "\r\n";
+function preparemail($mailcontent, $receiver, $task = 'follower') {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
 
-	$mail 	.= '
+    $path = drupal_get_path('theme', 'newtheme');
+
+    $mail = '';
+
+    $imgw = $gSitePath . $path . "/images/logo_mail.gif";
+
+    $imag = $config['file_path'] . $img;
+
+    // To send HTML mail, the Content-type header must be set
+    $headers = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $headers .= 'From: ' . $conf['site_name'] . ' <' . $conf['site_mail'] . '>' . "\r\n";
+
+    $mail .= '
 			   <html>
 				<head>
 				 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				 <title>'.$conf['site_name'].'</title>
+				 <title>' . $conf['site_name'] . '</title>
 				 <style type="text/css">
 				  <!--
 				   *{ margin:0px; padding:0px;}
@@ -255,7 +221,7 @@ function preparemail($mailcontent, $receiver, $task = 'follower')
 						
 					#email-main{ width:622px; margin:0 auto; min-height:200px; height:auto !important; height:200px; border:2px #8f8c8c solid;}
 					#email-main #header{ background:#8f8c8c; padding:7px 0px; padding-left:10px;}
-					#email-main #header .email-logo{ background:url('.$gSitePath.$path.'/images/email-logo.jpg) no-repeat; width:229px; height:27px;}
+					#email-main #header .email-logo{ background:url(' . $gSitePath . $path . '/images/email-logo.jpg) no-repeat; width:229px; height:27px;}
 					#email-main #content{ margin:0px; padding:10px;}
 					#email-main #content h1{ font:normal 22px Arial, Helvetica, sans-serif; color:#000; text-decoration:none;}
 					#email-main #content h1 a{ font:normal 22px Arial, Helvetica, sans-serif; color:#000; text-decoration:none;}
@@ -282,8 +248,8 @@ function preparemail($mailcontent, $receiver, $task = 'follower')
 					#email-main #content .avatar-box .avatar-box-left{ float:left; width:70px;}
 					#email-main #content .avatar-box .avatar-box-left img{ border:1px #ccc solid;}
 					#email-main #content .avatar-box .avatar-box-right{ float:left; width:478px; padding-left:10px;}
-					.email-btn{ background:url('.$gSitePath.$path.'/images/email-btn-bg.jpg) repeat-x; padding:4px 10px; border:none; cursor:pointer; font:normal 17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none;}
-					.email-btn:hover{ background:url('.$gSitePath.$path.'/images/email-btn-bg-h.jpg) repeat-x; padding:4px 10px; border:none; cursor:pointer; font:normal 17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none;}
+					.email-btn{ background:url(' . $gSitePath . $path . '/images/email-btn-bg.jpg) repeat-x; padding:4px 10px; border:none; cursor:pointer; font:normal 17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none;}
+					.email-btn:hover{ background:url(' . $gSitePath . $path . '/images/email-btn-bg-h.jpg) repeat-x; padding:4px 10px; border:none; cursor:pointer; font:normal 17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none;}
 				  -->
 				 </style>
 				</head>
@@ -295,244 +261,222 @@ function preparemail($mailcontent, $receiver, $task = 'follower')
 				 </div>       
 				<div class="clr"></div>
 				<div id="content">
-				 <p>Hi '.$receiver->real_name.'!</p>';
-				 
-				 $mess = '';
-				 if(findtask() <= 3)
-				 {
-					$month_dates	= week_date_month(strtotime(date('d-m-Y')));
-					$start_date		= strtotime($month_dates[0]);
-					if($task == 'nonfollower')
-					{
-						$mess	= 'Here is your montly summary of recent quiestions from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
-					}
-					else
-					{
-						$mess	= 'Here is your montly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
-					}
-				 }
-				 else
-				 {
-					$month_dates	= week_date(strtotime(date('d-m-Y')));
-					$start_date		= strtotime($month_dates[0]);
-					if($task == 'nonfollower')
-					{
-						$mess	= 'Here is your weekly summary of recent quiestions from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
-					}
-					else
-					{
-						$mess	= 'Here is your weekly summary of Followers activity from <a href="'.$base_path.'">'.$conf['site_name'].'</a>';
-					}
-					
-				 }	
-	
-				$mail 	.= 	'<h1>Network Updates, '.date('M d', $start_date).' - '.date('M d').'</h1> <br /><div class="clr"></div><h3>'. $mess.'</h3>';
-				
-				$tweets 	= db_result(db_query("SELECT count(distinct `nid`) AS 'tweets' FROM node WHERE `uid` = $receiver->uid"));
+				 <p>Hi ' . $receiver->real_name . '!</p>';
 
-				$following 	= db_result(db_query("SELECT count(distinct `uid`) AS 'following' FROM follower WHERE `follower_id` = $receiver->uid"));
+    $mess = '';
+    if (findtask() <= 3) {
+        $month_dates = week_date_month(strtotime(date('d-m-Y')));
+        $start_date = strtotime($month_dates[0]);
+        if ($task == 'nonfollower') {
+            $mess = 'Here is your montly summary of recent quiestions from <a href="' . $base_path . '">' . $conf['site_name'] . '</a>';
+        } else {
+            $mess = 'Here is your montly summary of Followers activity from <a href="' . $base_path . '">' . $conf['site_name'] . '</a>';
+        }
+    } else {
+        $month_dates = week_date(strtotime(date('d-m-Y')));
+        $start_date = strtotime($month_dates[0]);
+        if ($task == 'nonfollower') {
+            $mess = 'Here is your weekly summary of recent quiestions from <a href="' . $base_path . '">' . $conf['site_name'] . '</a>';
+        } else {
+            $mess = 'Here is your weekly summary of Followers activity from <a href="' . $base_path . '">' . $conf['site_name'] . '</a>';
+        }
+    }
 
-				$followers 	= db_result(db_query("SELECT count(distinct `follower_id`) AS 'followers' FROM follower WHERE `uid` = $receiver->uid"));
-				
-				$mail 	.= 	'
+    $mail .= '<h1>Network Updates, ' . date('M d', $start_date) . ' - ' . date('M d') . '</h1> <br /><div class="clr"></div><h3>' . $mess . '</h3>';
+
+    $tweets = db_result(db_query("SELECT count(distinct `nid`) AS 'tweets' FROM node WHERE `uid` = $receiver->uid"));
+
+    $following = db_result(db_query("SELECT count(distinct `uid`) AS 'following' FROM follower WHERE `follower_id` = $receiver->uid"));
+
+    $followers = db_result(db_query("SELECT count(distinct `follower_id`) AS 'followers' FROM follower WHERE `uid` = $receiver->uid"));
+
+    $mail .= '
 								<div class="avatar-intro">
-								 <div class="avatar-intro-left">';								
-				$mail 	.= 	UserPicture($receiver->uid);								
-				$mail 	.= 	'
+								 <div class="avatar-intro-left">';
+    $mail .= UserPicture($receiver->uid);
+    $mail .= '
 								</div>
 								 <div class="avatar-intro-right">
-								  <h2>'.$receiver->real_name.'</h2>
-								  <p><a href="'.$base_path.'profile/'.$receiver->name.'">Profile</a></p>
-								  <b>'.$receiver->bio.'</b>
+								  <h2>' . $receiver->real_name . '</h2>
+								  <p><a href="' . $base_path . 'profile/' . $receiver->name . '">Profile</a></p>
+								  <b>' . $receiver->bio . '</b>
 								 </div>
 								 <div class="clr"></div>								
 								 <div>
 								  <ul>
-								   <li>'.number_format($tweets).'<br /><strong>Post</strong></li>
-								   <li>'.number_format($following).'<br /><strong>Following</strong></li>
-								   <li class="border-none">'.number_format($followers).'<br /><strong>Followers</strong></li>								
+								   <li>' . number_format($tweets) . '<br /><strong>Post</strong></li>
+								   <li>' . number_format($following) . '<br /><strong>Following</strong></li>
+								   <li class="border-none">' . number_format($followers) . '<br /><strong>Followers</strong></li>
 								  </ul>
 								 </div>
 								 <div class="clr"></div>
 								</div>
-				';				
-				$mail	.=	 $mailcontent;
-				$mail 	.= 	'   
+				';
+    $mail .= $mailcontent;
+    $mail .= '
 							 <div class="clr"></div>
-							 <div align="center"><a href="'.$base_path.'"><input name="" type="button" value="View All Updates" class="email-btn"/></a></div>
+							 <div align="center"><a href="' . $base_path . '"><input name="" type="button" value="View All Updates" class="email-btn"/></a></div>
 							 <div class="clr"></div>
 							 </div>
 							</div>
 							</body>
 						   </html>
 						';
-	return $mail;
+    return $mail;
 }
 
 /*
-	Prepare mail content
-*/
-function preparemailcontent($follower_activites, $receiver_id)
-{
-	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
-	
-	$path	= drupal_get_path('theme', 'newtheme');
-	
-	$uid_details = load_user($follower_activites[0]['uid']);
-	$uid_target_details = load_user($follower_activites[0]['uid_target']);
-	
-	foreach($follower_activites as $activites)
-	{		
-		switch($activites['message_id'])
-		{
-			CASE 'heartbeat_become_friends':				
-				$mail .= '	
-					<h2><a href="'.$base_path.'profile/'.$uid_details->name.'">'.$uid_details->real_name.'</a> is following  
-						<a href="'.$base_path.'profile/'.$uid_target_details->name.'">';							
-							$mail 	.= UserPicture_small($activites['uid_target']);							
-				$mail .= '	
+  Prepare mail content
+ */
+
+function preparemailcontent($follower_activites, $receiver_id) {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+
+    $path = drupal_get_path('theme', 'newtheme');
+
+    $uid_details = load_user($follower_activites[0]['uid']);
+    $uid_target_details = load_user($follower_activites[0]['uid_target']);
+
+    foreach ($follower_activites as $activites) {
+        switch ($activites['message_id']) {
+            CASE 'heartbeat_become_friends':
+                $mail .= '
+					<h2><a href="' . $base_path . 'profile/' . $uid_details->name . '">' . $uid_details->real_name . '</a> is following
+						<a href="' . $base_path . 'profile/' . $uid_target_details->name . '">';
+                $mail .= UserPicture_small($activites['uid_target']);
+                $mail .= '
 						</a>
 					</h2>
-					<b>'.hmnews_ago($activites['timestamp']).'.</b>					
-				';				
-			break;
-			
-			CASE 'Add_question':				
-				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';			
-			break;
-			
-			CASE 'question_flag':
-				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
-			break;
-			
-			CASE 'debate_add':				
-				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
-			break;
-			
-			CASE 'debate_agree':
-				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
-			break;
-			
-			CASE 'debate_disagree':
-				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
-			break;
-			
-			CASE 'debate_reply':
-				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
-			break;
-			
-			default:
-				$mail .= '<p>'.$activites['message'].'</p><b>'.hmnews_ago($activites['timestamp']).'.</b>';
-			break;
-		}		
-	}	
-	return $mail;
+					<b>' . hmnews_ago($activites['timestamp']) . '.</b>
+				';
+                break;
+
+            CASE 'Add_question':
+                $mail .= '<p>' . $activites['message'] . '</p><b>' . hmnews_ago($activites['timestamp']) . '.</b>';
+                break;
+
+            CASE 'question_flag':
+                $mail .= '<p>' . $activites['message'] . '</p><b>' . hmnews_ago($activites['timestamp']) . '.</b>';
+                break;
+
+            CASE 'debate_add':
+                $mail .= '<p>' . $activites['message'] . '</p><b>' . hmnews_ago($activites['timestamp']) . '.</b>';
+                break;
+
+            CASE 'debate_agree':
+                $mail .= '<p>' . $activites['message'] . '</p><b>' . hmnews_ago($activites['timestamp']) . '.</b>';
+                break;
+
+            CASE 'debate_disagree':
+                $mail .= '<p>' . $activites['message'] . '</p><b>' . hmnews_ago($activites['timestamp']) . '.</b>';
+                break;
+
+            CASE 'debate_reply':
+                $mail .= '<p>' . $activites['message'] . '</p><b>' . hmnews_ago($activites['timestamp']) . '.</b>';
+                break;
+
+            default:
+                $mail .= '<p>' . $activites['message'] . '</p><b>' . hmnews_ago($activites['timestamp']) . '.</b>';
+                break;
+        }
+    }
+    return $mail;
 }
 
 /*
-	Get Followers activites
-*/
-function getfolloweractivites($allfollwers)
-{
-	$follower_activites = array();
-	foreach($allfollwers as $key => $value)
-	{
-		$follower_activites[$value] = array();
-		//Recent 5 activites
-		if(findtask() <= 3)
-		{
-			$month_dates	= week_date_month(strtotime(date('d-m-Y')));
-			$start_date		= $month_dates[0];					
-			
-			$recent_activitiesQ = db_query("
+  Get Followers activites
+ */
+
+function getfolloweractivites($allfollwers) {
+    $follower_activites = array();
+    foreach ($allfollwers as $key => $value) {
+        $follower_activites[$value] = array();
+        //Recent 5 activites
+        if (findtask() <= 3) {
+            $month_dates = week_date_month(strtotime(date('d-m-Y')));
+            $start_date = $month_dates[0];
+
+            $recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM {heartbeat_activity}
 											WHERE `uid` = $value
 											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 10
-										");		
-		}
-		else
-		{
-			$month_dates	= week_date(strtotime(date('d-m-Y')));
-			$start_date		= $month_dates[0];
-			
-			$recent_activitiesQ = db_query("
+										");
+        } else {
+            $month_dates = week_date(strtotime(date('d-m-Y')));
+            $start_date = $month_dates[0];
+
+            $recent_activitiesQ = db_query("
 											SELECT `uid`, `message_id`, `message`, `uid_target`, `timestamp` FROM heartbeat_activity
 											WHERE `uid` = $value
 											AND DATE(FROM_UNIXTIME(`timestamp`)) >= '$start_date' 
 											AND DATE(FROM_UNIXTIME(`timestamp`)) <= CURDATE()
 											ORDER BY `timestamp` DESC LIMIT 5
 										");
-		}
-		//create mail templates for each users		
-		while($recent_activities = db_fetch_array($recent_activitiesQ))
-		{			
-			$follower_activites[$value][] =  $recent_activities;
-		}
-	}	
-	return $follower_activites;
+        }
+        //create mail templates for each users
+        while ($recent_activities = db_fetch_array($recent_activitiesQ)) {
+            $follower_activites[$value][] = $recent_activities;
+        }
+    }
+    return $follower_activites;
 }
 
 /*
-	Getgate and find week end or month end
-*/
-function findtask()
-{
-	$mdates = week_date_month(strtotime(date('d-m-Y')));
-	$dayno	= array_keys($mdates, date('Y-m-d'));	
-	return $remaining_days = count($mdates) - $dayno[0];	
+  Getgate and find week end or month end
+ */
+
+function findtask() {
+    $mdates = week_date_month(strtotime(date('d-m-Y')));
+    $dayno = array_keys($mdates, date('Y-m-d'));
+    return $remaining_days = count($mdates) - $dayno[0];
 }
 
-function week_date($current_date)
-{
-	$ts 	= $current_date;
-	$year 	= date('Y', $ts);
-	$week 	= date('W', $ts);
-	
-	for($i=1; $i<=7; $i++) 
-	{	
-		$ts = strtotime($year.'W'.$week.$i);
-		$week_date_array[] = date("Y-m-d", $ts);		
-	}
-	return $week_date_array;
+function week_date($current_date) {
+    $ts = $current_date;
+    $year = date('Y', $ts);
+    $week = date('W', $ts);
+
+    for ($i = 1; $i <= 7; $i++) {
+        $ts = strtotime($year . 'W' . $week . $i);
+        $week_date_array[] = date("Y-m-d", $ts);
+    }
+    return $week_date_array;
 }
 
-function week_date_month($current_date)
-{
-	$ts 	= $current_date;
-	$year 	= date('Y', $ts);
-	$week 	= date('W', $ts);
-	$month 	= date('m', $ts);
-	
-	$number_of_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-	
-	for($i=1; $i<=$number_of_days; $i++) 
-	{	
-		if($i < 10)
-		{ 
-			$i = "0".$i; 
-		}
-		$ts = strtotime($year.$month.$i);
-		$week_date_array[] = date("Y-m-d", $ts);		
-	}
-	return $week_date_array;
+function week_date_month($current_date) {
+    $ts = $current_date;
+    $year = date('Y', $ts);
+    $week = date('W', $ts);
+    $month = date('m', $ts);
+
+    $number_of_days = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
+    for ($i = 1; $i <= $number_of_days; $i++) {
+        if ($i < 10) {
+            $i = "0" . $i;
+        }
+        $ts = strtotime($year . $month . $i);
+        $week_date_array[] = date("Y-m-d", $ts);
+    }
+    return $week_date_array;
 }
 
 /*
-	Implement hook_cron()
-*/
-function hmnewsletter_cron()
-{
-	//getFollowers();
-	getnonfollowers();
+  Implement hook_cron()
+ */
+
+function hmnewsletter_cron() {
+    getFollowers();
+    getnonfollowers();
 }
 
 /*
-	Get date time
-*/
-function hmnews_ago($timestamp) 
-{
+  Get date time
+ */
+
+function hmnews_ago($timestamp) {
     $difference = time() - $timestamp;
     $periods = array("second", "minute", "hour", "day", "week", "month", "years", "decade");
     $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
