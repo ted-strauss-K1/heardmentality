@@ -12,9 +12,9 @@ function hmnewsletter_perm() {
  * Implementation of hook_menu().
  */
 function hmnewsletter_menu() {
-    $items['content/hmnewsletter'] = array(
+    $items['hmnewsletter'] = array(
         'title' => 'HMNewsLetter',
-        'page callback' => 'getFollowers',
+        'page callback' => 'send_newsletter',
         'access arguments' => array('Send Newsletters'),
         'type' => MENU_NORMAL_ITEM,
     );
@@ -113,8 +113,8 @@ function getFollowers()
             $receiver = load_user($receiver_id);
             $mail = preparemail($mailcontent, $receiver);
 //			echo "
-//						INSERT INTO {hm_mails}
-//						(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`)
+//					INSERT INTO {hm_mails}
+//					(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`)
 //						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
 //					";
 
@@ -194,6 +194,11 @@ function getnonfollowers()
             $receiver = load_user($receiver_id);
             $mail = preparemail($mailcontent, $receiver, 'nonfollower');
             if (!empty($receiver->mail)) {
+//                echo "
+//					INSERT INTO {hm_mails}
+//					(`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`)
+//						VALUES('".$conf['site_mail']."', '".$conf['site_mail']."', '$receiver->mail', '$subject', '$mail', now(), 'html')
+//					";
                 db_query("INSERT INTO {hm_mails} (`from_mail_id`, `user_from_id`, `user_to_id`, `subject`, `content`, `posted_date`, `mail_type`) VALUES('%s', '%s', '%s', '%s', '%s', now(), '%s')", $conf['site_mail'], $conf['site_mail'], $receiver->mail, $subject, $mail, '2');
             }
         }
@@ -503,9 +508,19 @@ function week_date_month($current_date) {
   Implement hook_cron()
  */
 
-function hmnewsletter_cron() {
+//function hmnewsletter_cron() {
+ //   getFollowers();
+ //   getnonfollowers();
+//}
+
+function send_newsletter(){
+    // send for users having followers
+    
     getFollowers();
-    getnonfollowers();
+    //send mail for users having no followers
+ getnonfollowers();
+
+return true;
 }
 
 /*

@@ -7,11 +7,31 @@
 
 jQuery(document).ready(function(){
 
-    jQuery('#tabcontent').ajaxStart(function(){
-        //   jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
-      
-        });
+    
+     jQuery('#tabcontent').ajaxComplete(function(event, xhr, settings) {
+     var curl=settings.url;
+     if(curl.search('list/new') != -1){
+ jQuery('#mod-edit-issue').html('<div class="warning">No Issue Selected !</div>');
+}
+     if(curl.search('list/flag') != -1){
+ jQuery('#mod-edit-issue').html('<div class="warning">No Issue Selected !</div>');
+}
 
+                  
+});
+  jQuery('#rcontents').ajaxComplete(function(event, xhr, settings) {
+     var curl=settings.url;
+     if(curl.search('list/new') != -1){
+ jQuery('#mod-edit-issue').html('<div class="warning">No Issue Selected !</div>');
+ jQuery('.mod-midside-inner-leftpart').html('<div class="warning">No User Selected !</div>');
+}
+     if(curl.search('list/flag') != -1){
+ jQuery('#mod-edit-issue').html('<div class="warning">No Issue Selected !</div>');
+  jQuery('.mod-midside-inner-leftpart').html('<div class="warning">No User Selected !</div>');
+}
+
+
+});
     jQuery('#qdupeform').live('submit',function(e){
         e.preventDefault();
         var dupeid=$("#qdupeform input[type='radio']:checked").val();

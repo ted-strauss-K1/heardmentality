@@ -86,7 +86,7 @@ function qlite_view() {
     //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     /////////////qviews /////////////////////////
     popquest();
-
+  
     insertviews($qid);
     //popquest();
     //////////////////////////////
