@@ -208,11 +208,11 @@ function getnonfollowers()
 function getnonfollowerquestion() {
     global $base_path;
     $mailcontent = '';
-    $questionsQ = db_query('
+    $questionsQ = db_query("
 							SELECT `question`, `url` FROM {question} 
 							WHERE `status` = '1'
 							ORDER BY active_rate LIMIT 0, 5
-						');
+						");
     while ($question = db_fetch_array($questionsQ)) {
         $mailcontent .= '<p><a href="' . $base_path . $question['url'] . '">' . $question['question'] . '</a></p>';
     }
