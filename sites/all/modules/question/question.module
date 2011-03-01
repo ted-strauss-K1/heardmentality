@@ -351,3 +351,26 @@ function load_options($qid='',$poss=''){
 
     return $output;
 }
+
+function flag_user_mail($uids = '',$days='') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Account Blocked';
+    $msg = $_REQUEST['reporttext'];
+    $msg.="<br/> <div >Account has been blocked for $days days </div>";
+    foreach ($uids as $id) {
+   
+        $query = db_query("select mail  from {users} where uid='$id' ");
+        $det = db_fetch_object($query);
+
+      echo  $to = $det->mail;
+
+        if (!empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+    }
+    return true;
+}

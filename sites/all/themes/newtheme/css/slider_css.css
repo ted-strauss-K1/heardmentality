@@ -1,6 +1,6 @@
 
 /*About Us pop-up pages*/
-.about-wrapper{ width:713px; margin:0 auto; padding:18px; background:#fff;}
+.about-wrapper{ width:713px;  padding:18px; background:#fff;}
 .ab-left-outer{ float: left; width:179px;}
 .ab-leftpart{ float:left; width:172px; background:#f8f5ed; min-height:600px; height:auto !important; height:600px;}
 .ab-rightpart{ float:right; width:536px; border:1px #8f8f8f solid; min-height:600px; height:auto !important; height:600px;}

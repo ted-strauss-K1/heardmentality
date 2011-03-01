@@ -8,47 +8,47 @@
 jQuery(document).ready(function(){
 
     jQuery('#tabcontent').ajaxStart(function(){
-       //   jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+        //   jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
       
-    });
+        });
 
     jQuery('#qdupeform').live('submit',function(e){
         e.preventDefault();
-         var dupeid=$("#qdupeform input[type='radio']:checked").val();
-         var qid=$("#qdupeform input[type='hidden']").val();
-         if(typeof(dupeid)!="undefined"){
-  var url=gSitePath+'moderator/ajax/mergeissue/'+qid+'/'+dupeid;
-           var options = 'type:ajax sameBox:true width:40% height:50% caption:' +
-  '`Merge Dupe Issues`';
-  parent.fb.start(url, options);
-         }else{
+        var dupeid=$("#qdupeform input[type='radio']:checked").val();
+        var qid=$("#qdupeform input[type='hidden']").val();
+        if(typeof(dupeid)!="undefined"){
+            var url=gSitePath+'moderator/ajax/mergeissue/'+qid+'/'+dupeid;
+            var options = 'type:ajax sameBox:true width:40% height:50% caption:' +
+            '`Merge Dupe Issues`';
+            parent.fb.start(url, options);
+        }else{
 
             jQuery('#twitMsg').html('Please check one issue from the form to merge!');
-                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
-         }
+            jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+        }
     });
 
-jQuery('#merge-dupeform').live('submit',function(e){
+    jQuery('#merge-dupeform').live('submit',function(e){
         e.preventDefault();
-           var data=jQuery(this).serialize();
-            jQuery.ajax({
-                type: "POST",
-                dataType: 'json',
-                url: jQuery(this).attr('action'),
-                data:data,
-                success: function(msg){
-                    jQuery('#twitMsg').html(msg.msg);
-                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
-                    var qid=msg.qid;
-                },
-                complete:function(){
+        var data=jQuery(this).serialize();
+        jQuery.ajax({
+            type: "POST",
+            dataType: 'json',
+            url: jQuery(this).attr('action'),
+            data:data,
+            success: function(msg){
+                jQuery('#twitMsg').html(msg.msg);
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                var qid=msg.qid;
+            },
+            complete:function(){
                 jQuery('div.mod-midside-inner').load(jQuery('a[name="icurrent"]').attr('href'),function() {
-  load_issue_data();
-});
-                    fb.end();
+                    load_issue_data();
+                });
+                fb.end();
                     
-                }
-            });
+            }
+        });
     });
 
     jQuery('#mod-question').live('submit',function(e){
@@ -106,7 +106,7 @@ jQuery('#merge-dupeform').live('submit',function(e){
                     },
                     complete:function(){
                         jQuery('#tabcontent').load(jQuery('#mod-url').val());
-                            jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+                        jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
                          
                     }
                 }
@@ -120,8 +120,8 @@ jQuery('#merge-dupeform').live('submit',function(e){
         else {
 
         
-  jQuery('#twitMsg').empty().html('select atleast one Issue for action!');
-                        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+            jQuery('#twitMsg').empty().html('select atleast one Issue for action!');
+            jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
         }
         return false;
     });
@@ -147,7 +147,7 @@ jQuery('#merge-dupeform').live('submit',function(e){
             url: jQuery(this).attr('href'),
             complete: function(){
              
-            load_issue_data();
+                load_issue_data();
             },
 
             success: function(msg){
@@ -172,11 +172,11 @@ jQuery('#merge-dupeform').live('submit',function(e){
 
         jQuery.ajax({
             type: "GET",
-          //  dataType: 'json',
+            //  dataType: 'json',
             url: jQuery(this).attr('href'),
             complete: function(){
 
-          reset_tabs();
+                reset_tabs();
 
             },
 
@@ -502,66 +502,66 @@ function load_issue_data(){
 
 
 
-           jQuery('#q_cat').multiSelect({
-                    selectAll: false
-                },function(){
+    jQuery('#q_cat').multiSelect({
+        selectAll: false
+    },function(){
 
-                    trigger_get_scat();
+        trigger_get_scat();
 
-                });
+    });
 
-                jQuery('#q_scat').multiSelect({
-                    selectAll: false
-                },
-                function(){
+    jQuery('#q_scat').multiSelect({
+        selectAll: false
+    },
+    function(){
 
-                    trigger_get_sscat();
+        trigger_get_sscat();
 
-                });
+    });
 
-                jQuery('#q_sscat').multiSelect({
-                    selectAll: false
-                });
-                jQuery('#q_country').multiSelect({
-                    selectAll: false
+    jQuery('#q_sscat').multiSelect({
+        selectAll: false
+    });
+    jQuery('#q_country').multiSelect({
+        selectAll: false
 
-                },function() {
-                    trigger_get_state();
-                });
-                jQuery('#q_state').multiSelect({
-                    selectAll: false
+    },function() {
+        trigger_get_state();
+    });
+    jQuery('#q_state').multiSelect({
+        selectAll: false
 
-                },function() {
-                    trigger_get_city();
-                });
-                jQuery('#q_city').multiSelect({
-                    selectAll: false
+    },function() {
+        trigger_get_city();
+    });
+    jQuery('#q_city').multiSelect({
+        selectAll: false
 
-                });
+    });
 
-                trigger_get_state();
-                trigger_get_scat();
+    trigger_get_state();
+    trigger_get_scat();
 
 }
 
 
 
 
-    jQuery('#mod-user').live('submit',function(){
+jQuery('#mod-user').live('submit',function(){
 
-        jQuery('#actions').val('1');
-        jQuery('#reporttext').val('');
-        jQuery('#showbox').slideUp('slow');
-        var formwave=jQuery(this);
-        var vals = [];
-        jQuery('.check-me:checked').each(function(){
-            var e=jQuery(this);
-            vals.push(e.val());
+    jQuery('#actions').val('1');
+    jQuery('#reporttext').val('');
+    jQuery('#showbox').slideUp('slow');
+    var formwave=jQuery(this);
+    var vals = [];
+    jQuery('.check-me:checked').each(function(){
+        var e=jQuery(this);
+        vals.push(e.val());
 
-        });
+    });
 
-        if (vals.length > 0) {
-            if(jQuery('#mod-type').val()=='flag'){
+    if (vals.length > 0) {
+        if(jQuery('#mod-type').val()=='flag'){
             if(confirm('Are you sure to Ignore this Issues?')){
                 jQuery.ajax({
                     url:formwave.attr('action'),
@@ -575,28 +575,29 @@ function load_issue_data(){
                         jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
                     },
                     complete:function(){
-                        jQuery('#tabcontent').load(jQuery('#mod-url').val());
-                            jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+                        jQuery('#rcontent').load(jQuery('#mod-url').val());
+                        jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+                        jQuery('div.mod-leftside-inner').html('<div class="warning">No USer Selected !</div>');
 
                     }
                 }
                 );
 
             }
-            }else{
+        }else{
 
 
-            }
+    }
 
 
-        }
-        else {
+    }
+    else {
 
-  jQuery('#twitMsg').empty().html('select atleast one user for action!');
-                        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
-        }
-        return false;
-    });
+        jQuery('#twitMsg').empty().html('select atleast one user for action!');
+        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+    }
+    return false;
+});
 
 
 
@@ -643,7 +644,7 @@ function moderator_reject_user(make){
             jQuery('#actions').attr('value', make);
 
             //send form
-            var formwave=jQuery('#mod-issue');
+            var formwave=jQuery('#mod-user');
             jQuery('#tabcontent').css('opacity','0.75');
 
             jQuery.ajax({
@@ -660,8 +661,10 @@ function moderator_reject_user(make){
                     jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
                 },
                 complete:function(){
-                    jQuery('#tabcontent').load(jQuery('#mod-url').val());
+                    jQuery('#rcontents').load(jQuery('#mod-url').val());
                     jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+                    jQuery('div.mod-leftside-inner').html('<div class="warning">No USer Selected !</div>');
+                        
                 }
             });
 
@@ -677,5 +680,94 @@ function moderator_reject_user(make){
 
         return false;
     }
+
+}
+
+function moderator_warn_user(make){
+
+    var vals = [];
+    jQuery('.check-me').each(function(){
+        var e=jQuery(this);
+        if (e.attr('checked')) {
+
+            vals.push(e.value);
+
+        }
+
+    });
+
+
+
+    var report = jQuery('#reporttext').val();
+
+
+    if (vals.length > 0) {
+
+        if (jQuery('#showbox').css('display') == 'none') {
+
+            jQuery('#showbox').css('display', 'block');
+            jQuery('#showbox').slideDown('slow');
+            jQuery('#reporttext').focus();
+            return false;
+        }
+        if (jQuery.trim(report).length < 5) {
+            jQuery('#reporttext').css('border-color', 'red');
+            jQuery('#twitMsg').empty().html("Please provide a report message of atleast 5 words! ");
+            jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+            return false;
+        }
+        else {
+            jQuery('#reporttext').css('border-color', '');
+
+        }
+
+
+
+        if (confirm('Are you sure to warn the selected Users?')) {
+            jQuery('#actions').attr('value', make);
+
+            //send form
+            var formwave=jQuery('#mod-user');
+
+            jQuery.ajax({
+                url:formwave.attr('action'),
+                global: false,
+                type: "POST",
+                data: formwave.serialize(),
+                dataType: "json",
+                async:false,
+                success: function(data){
+                    jQuery('#twitMsg').empty().html(data.msg);
+                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                },
+                complete:function(){
+                    jQuery('#rcontents').load(jQuery('#mod-url').val());
+                    jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+                 
+                }
+            }
+            );
+
+
+
+
+
+
+
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        jQuery('#twitMsg').empty().html('select atleast one User for action!');
+        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+
+        return false;
+    }
+
+
+
+
 
 }

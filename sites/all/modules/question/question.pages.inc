@@ -1378,17 +1378,18 @@ function admin_content() {
     drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
 
 
-    $outputcontent = '	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.tabs.css" />
-	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.theme.css" />
-	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.base.css" />
-	<link type="text/css" rel="stylesheet" href="http://jqueryui.com/themes/base/jquery.ui.core.css" />
+    $outputcontent = '	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery.ui.tabs.css" />
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery.ui.theme.css" />
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery.ui.base.css" />
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery.ui.core.css" />
 	
     <script type="text/javascript"
-        src="http://jqueryui.com/js/jquery.js"></script>
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
         
-          <script src="http://jqueryui.com/ui/jquery.ui.widget.js"></script>
-     <script src="http://jqueryui.com/ui/jquery.ui.accordion.js"></script>
-        <script src="http://jqueryui.com/ui/jquery.ui.tabs.js"></script>
+          <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+
+     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery.ui.accordion.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery.ui.tabs.js"></script>
   
   <script type="text/javascript">
   jQuery(function() {
@@ -1631,28 +1632,7 @@ function panel_content($type = '') {
 
 
 
-function flag_user_mail($uids = '') {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
-
-    $from = variable_get('site_mail');
-    $subject = 'Heardmentality Account Blocked';
-    $msg = $_REQUEST['reporttext'];
-    foreach ($qids as $id) {
-
-
-        $query = db_query("select u.mail  from {users} where uid='$id' ");
-        $det = db_fetch_object($query);
-
-        $to = $det->mail;
-
-        if (!empty($to)) {
-
-            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
-        }
-    }
-    return true;
-}
 
 function moderate_user() {
 

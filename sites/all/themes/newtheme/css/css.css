@@ -1467,7 +1467,7 @@ img{ border:none; outline:none;}
 .mod-btn:hover{ background:#634b0f; font:normal 14px Arial, Helvetica, sans-serif; border:1px #c6ad6d solid;}
 
 /* for Moderate flagged page-inner-2nd page */
-.mod-midside-inner-p-outer{ float:left; margin:0 0 0 10px; width:686px; min-height:455px; height:auto !important; height:455px; }
+.mod-midside-inner-p-outer{ float:left; margin:0 0 0 10px; width:675px; min-height:455px; height:auto !important; height:455px; }
 .mod-midside-inner-p{ float:left; margin:0 0 0 0px; width:100%;}
 .mod-midside-inner-leftpart{ float:left; width:47%; border:1px #ccc solid;}
 .mod-midside-inner-rightpart{ float:left; width:50%; border:1px #ccc solid; margin-left:10px; overflow:auto;}

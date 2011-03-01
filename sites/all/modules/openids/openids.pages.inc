@@ -369,7 +369,7 @@ function openid_login_save() {
     //print_r($_COOKIE);
     //echo $_COOKIE["faceidc"];
     $pass = $_GET['UID'];
-  //print_r($_REQUEST);
+    //print_r($_REQUEST);
 
     if ($_GET['gender'] == 'm')
         $gender = '1';
@@ -397,20 +397,20 @@ function openid_login_save() {
     if ($select_user_count == 0) {
         $ini_coins = initial_coins();
         $details = array(
-        'name' => md5(),
-        'pass' => $pass,
-        'mail' =>  $_GET['email'],
-           'provider'=>$_GET['provider'],
-            'Identity'=>$pass,
-            'total_coins'=>$ini_coins,
-        'status' => 1
-      );
+            'name' => md5(),
+            'pass' => $pass,
+            'mail' => $_GET['email'],
+            'provider' => $_GET['provider'],
+            'Identity' => $pass,
+            'total_coins' => $ini_coins,
+            'status' => 1
+        );
 
-      $user = user_save(null, $details);
-        $lid=$user->uid;
-        if(empty($lid)){
-            drupal_set_message(t('Login Error,We Find Duplicate in Email Please Try Login with Other Social Networks '), $type='error');
-return '<div class="warning">Login Error,We Find Duplicate in Email Please Try Login with Other Social Networks</div>';
+        $user = user_save(null, $details);
+        $lid = $user->uid;
+        if (empty($lid)) {
+            drupal_set_message(t('Login Error,We Find Duplicate in Email Please Try Login with Other Social Networks '), $type = 'error');
+            return '<div class="warning">Login Error,We Find Duplicate in Email Please Try Login with Other Social Networks</div>';
         }
         // add visit points
         add_visit_points($lid);
@@ -460,16 +460,29 @@ return '<div class="warning">Login Error,We Find Duplicate in Email Please Try L
 
         $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
     }
-    $user = make_login($select_user, $_GET['UID']); 
+    //date difference disable for x days
+    $d1 = time();
+    $d2 = $select_user->blocktime;
+
+    $dateDiff = $d2 - $d1;
+
+    $indays = floor($dateDiff / (60 * 60 * 24));
+
+    if($indays<1&&$select_user->status==0){
+      user_save($select_user,array('status'=>1));
+    }
+     $msg="<div class='warning'>Login Error Occurs....</div>";
+    $user = make_login($select_user, $_GET['UID'],$indays);
     if ($user) {
+         drupal_set_message(t("You have been logged in success..."), $type = "success");
         add_visit_points($select_user->uid);
         drupal_goto();
     }
 
- return $formret;
+    return '<div class="warning">Login Error Occurs....</div>';
 }
 
-function make_login($result='', $pwd='') {
+function make_login($result='', $pwd='',$blockdays='') {
 
 
     if ($result && function_exists("user_load")) {
@@ -487,7 +500,12 @@ function make_login($result='', $pwd='') {
             );
             $users = user_authenticate($params);
             // print_r($users);
-            drupal_set_message(t("You have been logged in success..."), $type = "success");
+           
+        } else {
+        
+            drupal_set_message(t("Could not log you in due to disabled by Moderator for $blockdays more days!"), $type = "error");
+            //  echo "Could not log you in due to disabled by Moderator for X days";
+            //  drupal_goto();
         }
     } else {
         drupal_set_message(t("Could not log you in. Please try again later..."), $type = "error");
@@ -549,17 +567,10 @@ function friends_answers() {
     return $listans;
 }
 
-
-
-
-
-
-
 function welcome_page() {
 //ob_start();
     global $gSitePath, $user, $gDocPath, $base_root, $apikey;
-   // $new_item_node = array('type' => 'item');
-
+    // $new_item_node = array('type' => 'item');
 //module_load_include('inc', 'content', 'includes/content.node_form');
 //print drupal_get_form('profile_node_form');
 //return true;
@@ -1341,5 +1352,4 @@ function avatar_form($form, &$form_state) {
     //avatar
     return $form;
 }
-
 
