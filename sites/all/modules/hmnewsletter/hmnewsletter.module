@@ -25,30 +25,26 @@ function hmnewsletter_menu() {
 /**
  * To get the follower and followers.
  */
-function getFollowers()
-{	
-	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
-	
-	$path	= drupal_get_path('theme', 'newtheme');
-	
-	if(findtask() <= 3)
-	{
-		$follwerQ = db_query("
+function getFollowers() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path,$base_url, $theme_path, $theme, $conf;
+
+    $path = drupal_get_path('theme', 'newtheme');
+
+    if (findtask() <= 3) {
+        $follwerQ = db_query("
 								SELECT f.`uid`, f.`follower_id` FROM {follower} AS f
 								INNER JOIN {users} AS u ON u.uid = f.uid
 								WHERE u.`notify_etype` = 2
 								ORDER BY f.`uid`
 						");
-	}
-	else
-	{
-		$follwerQ = db_query("
+    } else {
+        $follwerQ = db_query("
 								SELECT f.`uid`, f.`follower_id` FROM {follower} AS f
 								INNER JOIN {users} AS u ON u.uid = f.uid
 								WHERE u.`notify_etype` = 1
 								ORDER BY f.`uid`
 						");
-	}
+    }
 
     $follwers = array();
     $allfollwers = array();
@@ -64,7 +60,7 @@ function getFollowers()
 
     /*
       echo '<pre>';
-      print_r($follwers);
+      print_r($follwers); 
       print_r($allfollwers);
       print_r($allfollwers);
       print_r($follower_activites);	exit;
@@ -88,7 +84,7 @@ function getFollowers()
                 $receiver_id = $key;
                 $mailcontent .= '
 									<div class="avatar-box">
-										<div class="avatar-box-left"><a href="' . $base_path . 'profile/' . $follower_details->name . '">';
+										<div class="avatar-box-left"><a href="' . $base_url . '/profile/' . $follower_details->name . '">';
                 $mailcontent .= UserPicture($follower_details->uid);
 
                 $mailcontent .= '
@@ -127,55 +123,47 @@ function getFollowers()
 }
 
 /*
-	To get users who followa none and send the questions
-*/
-function getnonfollowers()
-{
-	global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
-	
-	$path	= drupal_get_path('theme', 'newtheme');
-	if(findtask() <= 3)
-	{
-		$nonfollwerQ = db_query("
+  To get users who followa none and send the questions
+ */
+
+function getnonfollowers() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+
+    $path = drupal_get_path('theme', 'newtheme');
+    if (findtask() <= 3) {
+        $nonfollwerQ = db_query("
 								SELECT DISTINCT u.`uid` FROM {users} AS u
 								LEFT JOIN {follower} AS f ON u.uid = f.uid
 								WHERE f.uid IS NULL AND u.notify_etype = 2
 						");
-	}
-	else
-	{
-		$nonfollwerQ = db_query("
+    } else {
+        $nonfollwerQ = db_query("
 								SELECT DISTINCT u.`uid` FROM {users} AS u
 								LEFT JOIN {follower} AS f ON u.uid = f.uid
 								WHERE f.uid IS NULL AND u.notify_etype = 1
 						");
-	}
-	
-	$nonfollwers = array();	
-	while($nonfollwer = db_fetch_array($nonfollwerQ))
-	{
-		$nonfollwers[] = $nonfollwer['uid'];
-	}
-	
-	if(findtask() <= 3)
-	{
-		$subject = $conf['site_name'].': Monthly update';
-	}
-	else
-	{
-		$subject = $conf['site_name'].': Weekly update';
-	}
-	
-	$nonfollower_question = getnonfollowerquestion();	
-	
-	foreach($nonfollwers as $key => $value)
-	{		
-		$receiver_id = $value;
-		$mailcontent = '';				
-		$nonfollower_details = load_user($value);
-		$mailcontent .= '
+    }
+
+    $nonfollwers = array();
+    while ($nonfollwer = db_fetch_array($nonfollwerQ)) {
+        $nonfollwers[] = $nonfollwer['uid'];
+    }
+
+    if (findtask() <= 3) {
+        $subject = $conf['site_name'] . ': Monthly update';
+    } else {
+        $subject = $conf['site_name'] . ': Weekly update';
+    }
+
+    $nonfollower_question = getnonfollowerquestion();
+
+    foreach ($nonfollwers as $key => $value) {
+        $receiver_id = $value;
+        $mailcontent = '';
+        $nonfollower_details = load_user($value);
+        $mailcontent .= '
 							<div class="avatar-box">
-								<div class="avatar-box-left"><a href="' . $base_path . 'profile/' . $nonfollower_details->name . '">';
+								<div class="avatar-box-left"><a href="' . $base_url . '/profile/' . $nonfollower_details->name . '">';
         $mailcontent .= UserPicture($nonfollower_details->uid);
 
         $mailcontent .= '
@@ -211,7 +199,7 @@ function getnonfollowers()
  */
 
 function getnonfollowerquestion() {
-    global $base_path;
+     global $gSitePath, $user, $gDocPath, $base_root, $base_path,$base_url, $theme_path, $theme, $conf;
     $mailcontent = '';
     $questionsQ = db_query("
 							SELECT `question`, `url` FROM {question} 
@@ -219,7 +207,7 @@ function getnonfollowerquestion() {
 							ORDER BY active_rate LIMIT 0, 5
 						");
     while ($question = db_fetch_array($questionsQ)) {
-        $mailcontent .= '<p><a href="' . $base_path . $question['url'] . '">' . $question['question'] . '</a></p>';
+        $mailcontent .= '<p><a href="' . $base_url.'/'.$question['url'] . '">' . $question['question'] . '</a></p>';
     }
     return $mailcontent;
 }
@@ -229,95 +217,31 @@ function getnonfollowerquestion() {
  */
 
 function preparemail($mailcontent, $receiver, $task = 'follower') {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
-
-    $path = drupal_get_path('theme', 'newtheme');
+   global $gSitePath, $user, $gDocPath, $base_root, $base_path,$base_url, $theme_path, $theme, $conf;
+   
+       $path = drupal_get_path('theme', 'newtheme');
 
     $mail = '';
 
-    $imgw = $gSitePath . $path . "/images/logo_mail.gif";
 
-    $imag = $config['file_path'] . $img;
-
-    // To send HTML mail, the Content-type header must be set
-    $headers = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-    $headers .= 'From: ' . $conf['site_name'] . ' <' . $conf['site_mail'] . '>' . "\r\n";
-
-    $mail .= '
-			   <html>
-				<head>
-				 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				 <title>' . $conf['site_name'] . '</title>
-				 <style type="text/css">
-				  <!--
-				   *{ margin:0px; padding:0px;}
-					body{ margin:0px; padding:0px;}
-					img{ border:none; outline:none;}
-					a{ color:#000; text-decoration:none;}
-					a:hover{ text-decoration:underline;}
-					.clr{ clear:both;}
-						
-					#email-main{ width:622px; margin:0 auto; min-height:200px; height:auto !important; height:200px; border:2px #8f8c8c solid;}
-					#email-main #header{ background:#8f8c8c; padding:7px 0px; padding-left:10px;}
-					#email-main #header .email-logo{ background:url(' . $gSitePath . $path . '/images/email-logo.jpg) no-repeat; width:229px; height:27px;}
-					#email-main #content{ margin:0px; padding:10px;}
-					#email-main #content h1{ font:normal 22px Arial, Helvetica, sans-serif; color:#000; text-decoration:none;}
-					#email-main #content h1 a{ font:normal 22px Arial, Helvetica, sans-serif; color:#000; text-decoration:none;}
-					#email-main #content h1 a:hover{ font:normal 22px Arial, Helvetica, sans-serif; color:#000; text-decoration: underline;}
-					#email-main #content h3{ font:normal 16px Arial, Helvetica, sans-serif; color:#666; text-decoration: underline;}
-					#email-main #content p{ font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;}
-					#email-main #content p strong{ font:normal 12px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;}
-					#email-main #content h2 { font:bold 13px Arial, Helvetica, sans-serif; color:#000; padding-bottom:10px; text-decoration:none;}
-					#email-main #content h2 a{ font:bold 13px Arial, Helvetica, sans-serif; color:#000; padding-bottom:10px; text-decoration:underline;}
-					#email-main #content h2 a:hover{ text-decoration:none;}
-					#email-main #content p a{ color:#000; text-decoration:underline; font:bold 12px Arial, Helvetica, sans-serif; color: #960;}
-					#email-main #content p a:hover{ text-decoration:none;}	
-					#email-main #content b{ font:normal 11px Arial, Helvetica, sans-serif; color:#666666;}
-					#email-main #content .avatar-intro{ width:290px; min-height:100px; height: auto !important; height:100px; padding:10px; background:#fafafa; border:1px #ccc solid; margin-top:10px; margin-bottom:10px;}
-					#email-main #content .avatar-intro ul{ padding:10px;}
-					#email-main #content .avatar-intro ul li{ float:left; list-style:none; font:bold 12px Verdana, Geneva, sans-serif; color:#000; padding:5px 10px; border-right:1px #ccc solid;}
-					#email-main #content .avatar-intro ul .border-none{ border:none;}
-					#email-main #content .avatar-intro ul li strong{ont:bold 12px Verdana, Geneva, sans-serif; color:#999;}
-					#email-main #content .avatar-intro ul li a{ float:left; list-style:none; font:bold 12px Verdana, Geneva, sans-serif; color:#000;}
-					#email-main #content .avatar-intro ul li a:hover{ float:left; list-style:none; font:bold 12px Verdana, Geneva, sans-serif; color:#000; text-decoration:underline;}
-					#email-main #content .avatar-intro-left{ float:left; width:70px;}
-					#email-main #content .avatar-intro-right{ float:left; width:200px;}
-					#email-main #content .avatar-box{ width:590px; background:#f0f0f0; padding:7px; margin-top:10px; border-bottom:1px #999 dotted; border-top:1px #999 dotted; margin-bottom:5px;}
-					#email-main #content .avatar-box .avatar-box-left{ float:left; width:70px;}
-					#email-main #content .avatar-box .avatar-box-left img{ border:1px #ccc solid;}
-					#email-main #content .avatar-box .avatar-box-right{ float:left; width:478px; padding-left:10px;}
-					.email-btn{ background:url(' . $gSitePath . $path . '/images/email-btn-bg.jpg) repeat-x; padding:4px 10px; border:none; cursor:pointer; font:normal 17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none;}
-					.email-btn:hover{ background:url(' . $gSitePath . $path . '/images/email-btn-bg-h.jpg) repeat-x; padding:4px 10px; border:none; cursor:pointer; font:normal 17px Arial, Helvetica, sans-serif; color:#fff; text-decoration:none;}
-				  -->
-				 </style>
-				</head>
-				<body>
-				<div id="email-main">
-				 <div id="header">
-				  <div class="email-logo"></div>
-				  <div class="clr"></div>
-				 </div>       
-				<div class="clr"></div>
-				<div id="content">
-				 <p>Hi ' . $receiver->real_name . '!</p>';
+    $mail .= ' <p>Hi ' . $receiver->real_name . '!</p>';
 
     $mess = '';
     if (findtask() <= 3) {
         $month_dates = week_date_month(strtotime(date('d-m-Y')));
         $start_date = strtotime($month_dates[0]);
         if ($task == 'nonfollower') {
-            $mess = 'Here is your montly summary of recent quiestions from <a href="' . $base_path . '">' . $conf['site_name'] . '</a>';
+            $mess = 'Here is your montly summary of recent quiestions from <a href="' . $base_url. '">' . $conf['site_name'] . '</a>';
         } else {
-            $mess = 'Here is your montly summary of Followers activity from <a href="' . $base_path . '">' . $conf['site_name'] . '</a>';
+            $mess = 'Here is your montly summary of Followers activity from <a href="' . $base_url . '">' . $conf['site_name'] . '</a>';
         }
     } else {
         $month_dates = week_date(strtotime(date('d-m-Y')));
         $start_date = strtotime($month_dates[0]);
         if ($task == 'nonfollower') {
-            $mess = 'Here is your weekly summary of recent quiestions from <a href="' . $base_path . '">' . $conf['site_name'] . '</a>';
+            $mess = 'Here is your weekly summary of recent quiestions from <a href="' . $base_url . '">' . $conf['site_name'] . '</a>';
         } else {
-            $mess = 'Here is your weekly summary of Followers activity from <a href="' . $base_path . '">' . $conf['site_name'] . '</a>';
+            $mess = 'Here is your weekly summary of Followers activity from <a href="' . $base_url . '">' . $conf['site_name'] . '</a>';
         }
     }
 
@@ -337,7 +261,7 @@ function preparemail($mailcontent, $receiver, $task = 'follower') {
 								</div>
 								 <div class="avatar-intro-right">
 								  <h2>' . $receiver->real_name . '</h2>
-								  <p><a href="' . $base_path . 'profile/' . $receiver->name . '">Profile</a></p>
+								  <p><a href="' . $base_url . '/profile/' . $receiver->name . '">Profile</a></p>
 								  <b>' . $receiver->bio . '</b>
 								 </div>
 								 <div class="clr"></div>								
@@ -352,15 +276,7 @@ function preparemail($mailcontent, $receiver, $task = 'follower') {
 								</div>
 				';
     $mail .= $mailcontent;
-    $mail .= '
-							 <div class="clr"></div>
-							 <div align="center"><a href="' . $base_path . '"><input name="" type="button" value="View All Updates" class="email-btn"/></a></div>
-							 <div class="clr"></div>
-							 </div>
-							</div>
-							</body>
-						   </html>
-						';
+
     return $mail;
 }
 
@@ -369,7 +285,7 @@ function preparemail($mailcontent, $receiver, $task = 'follower') {
  */
 
 function preparemailcontent($follower_activites, $receiver_id) {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path,$base_url, $theme_path, $theme, $conf;
 
     $path = drupal_get_path('theme', 'newtheme');
 
@@ -380,11 +296,10 @@ function preparemailcontent($follower_activites, $receiver_id) {
         switch ($activites['message_id']) {
             CASE 'heartbeat_become_friends':
                 $mail .= '
-					<h2><a href="' . $base_path . 'profile/' . $uid_details->name . '">' . $uid_details->real_name . '</a> is following
-						<a href="' . $base_path . 'profile/' . $uid_target_details->name . '">';
+					<h2><a href="' . $base_url . '/profile/' . $uid_details->name . '">' . $uid_details->real_name . '</a> is following
+						<a href="' . $base_url . '/profile/' . $uid_target_details->name . '">';
                 $mail .= UserPicture_small($activites['uid_target']);
-                $mail .= '
-						</a>
+                $mail .= '	</a>
 					</h2>
 					<b>' . hmnews_ago($activites['timestamp']) . '.</b>
 				';
@@ -509,18 +424,18 @@ function week_date_month($current_date) {
  */
 
 //function hmnewsletter_cron() {
- //   getFollowers();
- //   getnonfollowers();
+//   getFollowers();
+//   getnonfollowers();
 //}
 
-function send_newsletter(){
+function send_newsletter() {
     // send for users having followers
-    
+
     getFollowers();
     //send mail for users having no followers
- getnonfollowers();
+    getnonfollowers();
 
-return true;
+    return true;
 }
 
 /*

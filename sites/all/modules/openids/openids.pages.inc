@@ -475,7 +475,8 @@ function openid_login_save() {
     $user = make_login($select_user, $_GET['UID'],$indays);
     if ($user) {
          drupal_set_message(t("You have been logged in success..."), $type = "success");
-         variable_set('initpop', 1);
+           $user_data = array('initpop' =>NULL);
+        user_save( $user , $user_data);
         add_visit_points($select_user->uid);
         drupal_goto();
     }

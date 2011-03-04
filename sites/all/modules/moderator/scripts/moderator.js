@@ -270,7 +270,7 @@ function trigger_get_city(){
     });
     var ids=values.join(',');
 
-    get_mod_city(ids);
+    get_mod_city(values);
 
 }
 
@@ -315,8 +315,8 @@ function get_mod_state(ids){
         },
         complete: function(){
 
-            var statearray=setstate.split(',');
-            jQuery('#q_state').val(statearray);
+           // var statearray=setstate.split(',');
+            jQuery('#q_state').val(setstate);
             jQuery('#q_state').multiSelect({
                 selectAll: false
             },
@@ -341,14 +341,14 @@ function get_mod_city(ids){
         dataType: 'json',
         url: url,
         data: {
-            'ids' :ids
+            'ids[]' :ids
         },
         success: function(data){
             jQuery('#chg_city').html(data.content);
         },
         complete: function(){
-            var cityarray=setcity.split(',');
-            jQuery('#q_city').val(cityarray);
+           // var cityarray=setcity.split(',');
+            jQuery('#q_city').val(setcity);
             
             jQuery('#q_city').multiSelect({
                 selectAll: false
@@ -681,6 +681,8 @@ function moderator_reject_user(make){
                     jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
                 },
                 complete:function(){
+                     jQuery('#reporttext').val('');
+                    jQuery('#showbox').slideUp('slow');
                     jQuery('#rcontents').load(jQuery('#mod-url').val());
                     jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
                     jQuery('div.mod-leftside-inner').html('<div class="warning">No USer Selected !</div>');
@@ -761,6 +763,8 @@ function moderator_warn_user(make){
                     jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
                 },
                 complete:function(){
+                     jQuery('#reporttext').val('');
+                    jQuery('#showbox').slideUp('slow');
                     jQuery('#rcontents').load(jQuery('#mod-url').val());
                     jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
                  

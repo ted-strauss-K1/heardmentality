@@ -44,8 +44,7 @@ $directory = $base_path . $directory;
       <div class="pro-header-left">It is as easy as 1, 2, 3..</div>
       <div class="clr"></div>
     </div>
-	
-          <div class="messages"><?php if ($show_messages && $messages): print $messages; endif; ?></div>
+    <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;    endif; ?></div>
     <div class="clr"></div>
   <?php print $content; ?>
   <div class="clr"></div>

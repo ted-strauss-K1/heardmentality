@@ -602,9 +602,33 @@ function chk_dupe($quest='', $qid='') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
-    $query = db_result(db_query("select count(*) from {question} where question like '%" . $quest . "%'"));
+            $words = explode(" ", $quest);
 
-    if ($query > 0) {
+            $words = array_filter($words, 'word_array_filter');
+            $words = array_filter($words);
+            $query = "SELECT q.question,q.context,u.name,q.date_added,q.url,q.qid FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
+            for ($i = 0; $i < count($words); $i++) {
+                $samples = " " . $words[$i] . "  ";
+                //echo $samples;
+                // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+                //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
+                if (!empty($words[$i]))
+                    $query .= " AND q.question LIKE CONVERT(_utf8 '%%%s%%' USING latin1 ) COLLATE latin1_swedish_ci";
+            }
+
+
+            $result = db_query($query, $words);
+
+            while ($coupon = db_fetch_object($result)) {
+                $rows[] = array(
+                    array('data' => l($coupon->question, $gSitePath . $coupon->url, array('attributes' => array('title' => t($coupon->context), 'class' => 'floatbox')))),
+                    array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+                    array('data' => ago($coupon->date_added)),
+                    array('data' => '<input type="radio" checked="checked" name="dupeq[]" value="' . $coupon->qid . '"/>'),
+                );
+            }
+
+    if (count($rows) > 0) {
 
         $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $qid . "','" . $user->uid . "','question','Duped Question')";
         db_query($flagquery);

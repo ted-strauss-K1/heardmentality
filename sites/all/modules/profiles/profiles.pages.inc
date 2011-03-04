@@ -557,9 +557,12 @@ function activities($uid = '') {
     drupal_set_title('Recent Activities');
     global $gSitePath, $user, $gDocPath, $base_root;
     //$uid = $user->uid;
-
-
+  $is_follow_follower = checkFollowStatus($user->uid, $uid);
+  $userSettings = (array)load_user($uid);
     $strReturn = '<div class="history-tab">';
+    //privacy settings
+      if (($userSettings['question_privacy'] == 1) || ($userSettings['question_privacy'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['question_privacy'] == 3 && $is_follow_follower == TRUE) && ($userSettings['question_privacy'] != 4)) {
+
     //Questions
     $selQ = "(select 1 as tbl,qid,date_added as dat,0 as vars  from {question} where uid='$uid' ORDER BY qid DESC) union
 	(select 2 as tbl,qid,vote_pdate as dat,0 as vars  from {possible_answer_vote} where uid='$uid') union 
@@ -572,7 +575,7 @@ function activities($uid = '') {
 	(select 9 as tbl,badge as qid,date_added as dat,badge as vars from {user_badges} where uid='$uid') 
 	ORDER BY dat DESC LIMIT 0,50 ";
     $fetch = ExecuteQuery($selQ, "select");
-
+      }
 
     $strReturn.='';
 
@@ -672,13 +675,14 @@ function activities($uid = '') {
 
                     break;
                 default:
-                    drupal_set_message($message = 'Oops, No Recent Activities !', $type = 'error');
+                    //drupal_set_message($message = 'Oops, No Recent Activities !', $type = 'error');
+                      $strReturn .='<div class="warning">No Activity Found!</div>';
                     break;
             }//switch ends
         }//foreach ends
     } else {
-
-        drupal_set_message($message = 'Oops, No Recent Activities !', $type = 'error');
+          $strReturn .='<div class="warning">No Activity Found!</div>';
+       // drupal_set_message($message = 'Oops, No Recent Activities !', $type = 'error');
     }
     $strReturn.='</div>';
     // return $uid;
@@ -823,6 +827,7 @@ var spath=\'' . $gSitePath . '\';
     drupal_add_js($data, 'inline');
     drupal_add_js(drupal_get_path('module', 'profiles') . '/js/validate.js');
     drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
+    
     $update = '';
     $update .= drupal_get_form('user_details');
     return $update;
@@ -1276,6 +1281,7 @@ function user_details_validate($form, &$form_state) {
         form_set_error('username', t('Sorry Username already exists try any other combination'));
         $form_state['rebuild'] = TRUE;
     }
+    
     if (!empty($dob)) {
 
         if (!is_numeric($dob) || strlen($dob) != '4') {

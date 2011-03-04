@@ -3,6 +3,7 @@
 
 function moderater_user_mail($array='',$type='',$action='') {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+  
  $days_from_now = 10; //10 days from now
     $us_id = implode(',', $array['qids']);
       $msg=$_REQUEST['reporttext'];
@@ -13,6 +14,7 @@ switch($type){
 
 
         foreach ($array as $idd) {
+           
             quest_mail_warning($idd,$msg);
         }
         return '<div class="success">Warning Message Send!</div>';
@@ -37,7 +39,7 @@ switch($type){
        
     }
     break;
-    case 'ignore':
+    case 'reject':
          if ($action) {
          $qids = implode(',', $array);
         $query = db_query("delete  from {question_flags} where type='user' AND fid in ($qids)");
@@ -45,7 +47,7 @@ switch($type){
 
          }else{
           flag_user_mail($array,$days_from_now);
-        foreach ($idr as $idd) {
+        foreach ($array as $idd) {
 
 
 
@@ -56,7 +58,7 @@ switch($type){
             $current_timestamp = date("U");
 
             $target_timestamp = $current_timestamp + $conv_secs;
-
+         
            db_query("update {users} set status='%d',blocktime='%d' where uid='%d'",'0',$target_timestamp,$idd);
         }
         return  '<div class="success">Users has been suspended  successfully for '.$days_from_now.' days!</div>';
@@ -102,13 +104,12 @@ function quest_mail_warning($uid = '',$msg='') {
 
     $from = variable_get('site_mail');
     $subject = 'Heardmentality Warning Mail   ';
-    $warn = ' This is warning message from Heardmentality .If this continues we will block Your account';
-   
+    
         $query = db_query("select mail from {users} where uid='$uid' ");
         $det = db_fetch_object($query);
 
         $to = $det->mail;
-        $msg = '<br/> '. $warn . '<br/>'.$msg;
+        $msg = ' This is warning message from Moderator due to, <br/> <b>"'.$msg.'"</b><br/>If this continues we will block Your account';
         if (!empty($to)) {
 
             $mail_suc = htmlmail($to, $subject, $msg, $from, '');
@@ -282,10 +283,10 @@ function question_merge_mail($qid='', $dupe='') {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $from = variable_get('site_mail');
-    $subject = 'Heardmentality Issue has be Merged ';
+    $subject = 'Heardmentality Issue you voted has been Merged ';
     // for voters who voted the dupe issues
     $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qid' ");
-
+    $det=db_fetch_object($query);
     $dq = load_question($dupe);
     $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='9'";
     $rs_mgmt = db_query($sel_user_cmt);
@@ -311,6 +312,7 @@ function question_merge_mail($qid='', $dupe='') {
 
 
     // for the user who posted the mail
+    $subject = 'Heardmentality Issue you posted has been Merged ';
     $usert = user_load(array('uid' => $dq['uid']));
     $contentm = str_replace("#uname#", $usert->name, $list_content->content);
     $contentm = str_replace("#content#", $msg, $contentm);

@@ -122,15 +122,14 @@ function _moderator_user_left() {
 
     $new = db_result(db_query("SELECT count(*) FROM {users} "));
 
-    $query = "SELECT nodeid from {question_flags} where type='user'";
-
+     $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
     $flag = ExecuteQuery($query, 'norows');
     $output = '        <div class="commu">
         <form id="mod-user" name="mod-issue" method="POST" action="' . $gSitePath . 'moderator/ajax/user" >
           <div id="rotate">
             <ul id="tabmenu" class="mytabs">
-              <li class="current"><a href="' . $gSitePath . 'moderator/user/list/new" title="User"><span>New (' . $new . ')</span></a></li>
-              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/user/list/flag" title="Flagged User"><span>Flagged (' . $flag . ')</span></a></li>
+              <li class="current"><a href="' . $gSitePath . 'moderator/user/list/new" title="User"><span>All Users (' . (!empty ($new)?$new:'0') . ')</span></a></li>
+              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/user/list/flag" title="Flagged User"><span>Flagged (' .(!empty ($flag)?$flag:'0'). ')</span></a></li>
                      </ul>
 
             <div id="rcontents" class="mytabs-container" style="height:auto;" >
@@ -277,7 +276,7 @@ function moderator_user_list($type='') {
             break;
         case 'flag':
             //actual query
-            $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' group by f.nodeid";
+           $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
 
             $sqlcnt = ExecuteQuery($query, 'norows');
             break;
@@ -309,7 +308,7 @@ function moderator_user_list($type='') {
     }
     $output .= theme('pager', array(), $num_per_page, 0);
 
-    if (is_null($sqlcnt)) {
+    if (!$sqlcnt) {
         echo '<div class="warning">No User(s) Found!</div>';
     }
     // print url($_GET['q'], array('absolute' => true));
@@ -351,10 +350,10 @@ function moderator_edit_issues($qid='') {
         $optionlist .= sprintf('<option value="%s" %s>%s</option>', $country['countryname'], $set, $country['countryname']);
     }
     ///country ends state starts
-    $result = db_query("select state from {question_location} where qid='$qid'}");
+    $result = db_query("select state,country from {question_location} where qid='$qid' AND state!=''");
     $state_array = array();
     while ($cont = db_fetch_array($result)) {
-        array_push($state_array, $cont['state']);
+        array_push($state_array,'\''.$cont['state'].','.$cont['country'].'\'');
     }
     $setstate = implode(',', array_filter($state_array));
     $ret = '<select tabindex="18" multiple="multiple" style="width: 100px;"  onchange="get_city(this.value);" id="q_state" name="q_state[]"> <option value="">--States--</option>';
@@ -365,7 +364,7 @@ function moderator_edit_issues($qid='') {
     $result = db_query("select city from {question_location} where qid='$qid'}");
     $city_array = array();
     while ($cont = db_fetch_array($result)) {
-        array_push($city_array, $cont['city']);
+        array_push($city_array, '\''.$cont['city'].','.$cont['state'].','.$cont['country'].'\'');
     }
     $setcity = implode(',', array_filter($city_array));
 
@@ -397,8 +396,8 @@ function moderator_edit_issues($qid='') {
 
     $output .= '<script type="text/javascript">
                         var spath=\'' . $gSitePath . '\';
-                    var setstate=\'' . $setstate . '\';
-                        var setcity=\'' . $setcity . '\';
+                    var setstate=[' . $setstate .'] ;
+                        var setcity=[' . $setcity . '];
                             var setscat=\'' . $escat1 . '\';
                                 var setsscat=\'' . $esscat1 . '\';
                             var admin=\'1\';
@@ -659,10 +658,11 @@ function moderator_ajax($action='') {
                     $results = geonames_query('children', $query);
                     foreach ($results->results as $state) {
                         $set = '';
+                       
                         if (strpos(strtolower($setstate), strtolower($state['name']))) {
                             $set = 'SELECTED=SELECTED';
                         }
-                        $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'], $set, $state['name']);
+                        $ret .= sprintf('<option value="%s,%s" %s >%s</option>', $state['geonameid'],$state['countrycode'],$set, $state['name']);
                     }
                 }
 
@@ -678,17 +678,17 @@ function moderator_ajax($action='') {
             }
             break;
         case 'city':
-            $explode = explode(',', $_REQUEST['ids']);
+           
             $ret = '<select  tabindex="19"  style="width: 100px;" multiple="multiple"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
             $results = array();
-            if (count($explode) > 0) {
-                foreach ($explode as $code) {
-
-                    $query = array('geonameid' => $code);
+            if (count($_REQUEST['ids']) > 0) {
+                foreach ($_REQUEST['ids'] as $code) {
+                 $explode = explode(',', $code);
+                    $query = array('geonameid' => $explode[0]);
                     $result = geonames_query('children', $query);
                     foreach ($result->results as $state) {
 
-                        $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
+                        $ret .= sprintf('<option value="%s,%s,%s">%s</option>', $state['geonameid'],$explode[0],$explode[1], $state['name']);
                     }
                 }
                 $ret .= "<option value='-1'>Others</option>";
@@ -780,7 +780,7 @@ function moderator_ajax($action='') {
             break;
         case 'dupelist':
 
-            $query = "select * from question  where qid='" . arg(3) . "'";
+            $query = "select * from {question}  where qid='" . arg(3) . "'";
             $ans = ExecuteQuery($query, "select");
 
             $words = explode(" ", $ans[0]['question']);
@@ -858,7 +858,7 @@ function moderator_ajax($action='') {
                     $output = '';
                     break;
                 case 'flag':
-                    $msg = moderater_user_mail($_REQUEST['qids'], 'ignore',$_REQUEST['actions']);
+                    $msg = moderater_user_mail($_REQUEST['qids'], 'reject',$_REQUEST['actions']);
                     $err = false;
                     $output = '';
 
@@ -1112,8 +1112,7 @@ function moderator_save_issue($array) {
             /* echo '<pre>';
               echo $posted_rating.'-';
               echo $Spec_result2->political_spec_id.'<br>'; */
-            $insert_query = db_query("insert into possible_answer_spectrum set qid= '$nid' , possible_ans_id='$ans_id' , political_spec_id='$political_id',
-				value='$posted_rating'");
+            $insert_query = db_query("insert into possible_answer_spectrum set qid= '$nid' , possible_ans_id='$ans_id' , political_spec_id='$political_id',value='$posted_rating'");
             $row_count++;
         }
     }
@@ -1123,6 +1122,7 @@ function moderator_save_issue($array) {
 
     if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
 
+          $result = db_query("update {question} set question='".check_plain($q_quest)."',context='".check_plain($q_context)."' where qid='" . $nid . "' ");
 
         $del_result = db_query("delete from {question_cat} where qid='" . $nid . "'");
 
@@ -1138,7 +1138,7 @@ function moderator_save_issue($array) {
         if (!empty($q_cat)) {
             $cat1 = $q_cat;
             foreach ($cat1 as $ins1) {
-
+                
                 db_query("insert into {question_cat} set qid='$nid',uid='$user->uid',cat='$ins1'");
             }
             db_query("insert into {question_cat_revision} set qid='$nid',uid='$user->uid',cat='" . $ins1[0] . "'");
@@ -1194,12 +1194,12 @@ function moderator_save_issue($array) {
             db_query("insert into {question_location} set uid='%d',qid='%d',country='%s'", $user->uid, $qid, $country);
         }
         foreach ($q_state as $state) {
-
-            db_query("insert into {question_location} set uid='%d',qid='%d',state='%s'", $user->uid, $qid, $state);
+            $stat_cont=explode(',',$state);
+            db_query("insert into {question_location} set uid='%d',qid='%d',state='%s',country='%s'", $user->uid, $qid, $stat_cont[0],$stat_cont[1]);
         }
         foreach ($q_city as $city) {
-
-            db_query("insert into {question_location} set uid='%d',qid='%d',city='%s'", $user->uid, $qid, $city);
+              $city_stat_cont=explode(',',$city);
+            db_query("insert into {question_location} set uid='%d',qid='%d',city='%s',state='%s',country='%s'", $user->uid, $qid, $city_stat_cont[0],$city_stat_cont[1],$city_stat_cont[2]);
         }
 
 
@@ -1284,7 +1284,7 @@ function question_flagged_ignore_mail($qaid, $reporttext) {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $from = variable_get('site_mail');
-    $subject_proj = "Heardmentality Question Has Been Rejected";
+    $subject_proj = "Heardmentality Issue Has Been Rejected";
     // $delmsg = 'Has been Deleted By Headmentality admin';
     $qry = "select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ";
 
@@ -1302,7 +1302,7 @@ function question_flagged_ignore_mail($qaid, $reporttext) {
     // $contentm = str_replace("#anothername#",$user->name, $contentm);
     $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
     //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
-    $contentm = str_replace("#content#", "$reporttext Question Rejected By Headmentality admin", $contentm);
+    $contentm = str_replace("#content#", " Question Rejected By Moderator due to <br/><b>$reporttext</b>", $contentm);
     //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
     $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
     db_query($ins_qry, $from, $from, $to, $subject_proj, $contentm);
@@ -1335,7 +1335,7 @@ function question_flagged_mail($qaid) {
     // $contentm = str_replace("#anothername#",$user->name, $contentm);
     $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
     //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
-    $contentm = str_replace("#content#", 'Question Ignore By Headmentality admin', $contentm);
+    $contentm = str_replace("#content#", 'Issue Ignore By Moderator which are flagged by site users', $contentm);
     //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
     $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
     db_query($ins_qry, $from, $from, $to, $subject, $contentm);
@@ -1378,7 +1378,7 @@ function flag_quest_mail($qids = '') {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $from = variable_get('site_mail');
-    $subject = 'Heardmentality Question Removal';
+    $subject = 'Heardmentality Flag  Question Removal';
     $msg = $_REQUEST['reporttext'];
     $qids = explode(',', $qids);
 

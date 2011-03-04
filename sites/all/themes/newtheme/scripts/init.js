@@ -5,8 +5,8 @@ $(document).ready(function(){
   		var scrollTopPosition = ($(window).scrollTop() + 300);		
 		var headerSpace = ($("#header_about").offset().top + $("#header_about").height());
 		var aboutSpace = ($("#about").offset().top + $("#about").height());
-  		var associatesSpace = ($("#associates").offset().top + $("#associates").height());
-  		var organizationSpace = ($("#organization").offset().top + $("#organization").height());
+  		var associatesSpace = ($("#thanks").offset().top + $("#thanks").height());
+  		var organizationSpace = ($("#hmworks").offset().top + $("#hmworks").height());
   		var guideSpace = ($("#guide").offset().top + $("#guide").height());  	
 		
 		// div#navigation and div.subnav
@@ -33,6 +33,11 @@ $(document).ready(function(){
 			$(".nav3 a").addClass('ab-select');			
 		} else {
 			$(".nav3 a").removeClass('ab-select');			
+		}
+                if ((guideSpace < scrollTopPosition) && (scrollTopPosition <= headerSpace)) {
+			$(".nav4 a").addClass('ab-select');
+		} else {
+			$(".nav4 a").removeClass('ab-select');
 		}
 	});
 

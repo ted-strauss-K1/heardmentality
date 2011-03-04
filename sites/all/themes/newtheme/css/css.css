@@ -1331,7 +1331,7 @@ img{ border:none; outline:none;}
 .pro-content-right{ float:right; width:365px;}
 .pro-content-right .form-outer{ background:#ececec; border:1px #cccbcb solid; 	-webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; padding:5px 10px; min-height:400px; height:auto !important; height:400px;}
 .pro-content-right .form-outer .form-bg{background:#fff url(../images/txtbox-bg.jpg) repeat-x; width: 340px;  font:normal 12px Tahoma, Geneva, sans-serif; color:#666;border:1px #c0c0c0 solid; margin-bottom:5px;}
-.pro-content-right .form-outer .form-bg .form-item{margin:0px;}
+.pro-content-right .form-outer .form-bg .form-item{margin:0px;position:relative;}
 .pro-content-right .form-outer .form-bg .pro-radio-outer{width:340px; clear:both; font:normal 12px Tahoma, Geneva, sans-serif; color:#666;}
 .pro-content-right .form-outer .form-bg .pro-radio-outer .form-radios .form-item{ width:50px;float:left;text-align:center;border:none;}
 .pro-content-right .form-outer .form-bg-none{  width: 340px;  font:normal 12px Tahoma, Geneva, sans-serif; color:#666; margin-bottom:5px;}
@@ -1491,7 +1491,7 @@ img{ border:none; outline:none;}
 #answerform{ padding:10px;}
 .comment_but{ padding-top:10px;}
 #quest_info{ text-align:center; font-weight:bold; line-height:20px; font-size:12px;}
-.details-left{float:left;padding:5px;width: 280px;}
+.details-left{float:left;padding:5px;width: 265px;}
 .but-cont{ float:left; clear:right;}
 .but-cont .but-left{ padding-left:0;}
 /*#fbContent{ padding:0 10px !important;}*/

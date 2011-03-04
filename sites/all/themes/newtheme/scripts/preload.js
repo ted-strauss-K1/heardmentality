@@ -179,19 +179,19 @@ jQuery(document).ready(function () {
 
     //link the profile images to popup
 
-    jQuery(".contarea a[href*='/profile/'],.profile_part a[href*='/profile/']").live('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        parent.fb.start(jQuery(this).attr('href'), {
-            type:'ajax',
-            width: '50%',
-            height: '70%',
-            caption: 'Contributor',
-            afterItemStart:'reset_tabs()'
-        });
-        return false;
-    });
+//    jQuery(".contarea a[href*='/profile/'],.profile_part a[href*='/profile/']").live('click', function(e) {
+//        e.preventDefault();
+//        e.stopPropagation();
+//
+//        parent.fb.start(jQuery(this).attr('href'), {
+//            type:'ajax',
+//            width: '50%',
+//            height: '70%',
+//            caption: 'Contributor',
+//            afterItemStart:'reset_tabs()'
+//        });
+//        return false;
+//    });
 
 /*
 jQuery('#answer_frm').submit(function(e) {

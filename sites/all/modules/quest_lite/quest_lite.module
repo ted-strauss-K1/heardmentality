@@ -16,7 +16,7 @@ function quest_lite_menu() {
 
     $quest['qlite/like'] = array('title' => 'Question Like', 'page callback' => 'qns_like', 'access arguments' => array('Question Like'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'quest_lite.pages.inc',);
 
-  
+
     $quest['qlite/ajaxadd'] = array('title' => 'Resources', 'page callback' => 'save_resources', 'access arguments' => array('Save Resource'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'quest_lite.pages.inc',);
 
     $quest['qlite/flag'] = array('title' => 'Flag Question', 'page callback' => 'flag_question', 'access arguments' => array('Flag Question'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'quest_lite.pages.inc',);
@@ -83,13 +83,13 @@ function getAnsweredUsers($question_id = NULL) {
           from profile_badges pb
           INNER JOIN users u on pb.uid=u.uid
           LEFT JOIN badge_types bt on  bt.id = pb.badge_type_id
-          WHERE 1=1 AND u.uid  IN".$separated; 
-        $query = "SELECT up.image, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
-			from profile_badges pb
-			INNER JOIN users u on pb.uid=u.uid
-			LEFT JOIN user_profile up on  up.uid = u.uid
-			WHERE 1=1 AND u.uid  IN" . $separated;*/
-        $query="(select ps.uid from {question_cat} as qc join  {pundit_section} as ps on ps.cat_id=qc.cat join {users} as u on u.uid=ps.uid where u.status=1 AND qc.qid=$question_id AND ps.uid IN $separated group by ps.uid) union (select ps.uid from {question_cat} as qc join  {pundit_section} as ps on ps.cat_id=qc.scat join {users} as u on u.uid=ps.uid where u.status=1 AND qc.qid=$question_id AND ps.uid IN $separated group by ps.uid) ";
+          WHERE 1=1 AND u.uid  IN".$separated;
+          $query = "SELECT up.image, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
+          from profile_badges pb
+          INNER JOIN users u on pb.uid=u.uid
+          LEFT JOIN user_profile up on  up.uid = u.uid
+          WHERE 1=1 AND u.uid  IN" . $separated; */
+        $query = "(select ps.uid from {question_cat} as qc join  {pundit_section} as ps on ps.cat_id=qc.cat join {users} as u on u.uid=ps.uid where u.status=1 AND qc.qid=$question_id AND ps.uid IN $separated group by ps.uid) union (select ps.uid from {question_cat} as qc join  {pundit_section} as ps on ps.cat_id=qc.scat join {users} as u on u.uid=ps.uid where u.status=1 AND qc.qid=$question_id AND ps.uid IN $separated group by ps.uid) ";
         $profileBadges = ExecuteQuery($query, "select");
     }
     return $profileBadges;
@@ -358,44 +358,32 @@ WHERE qc.qid ='$qid' ORDER BY c.cat_id ASC
 
             $output.='' . stripslashes('<div class="butb">
 <div class="butb-left"></div>
-<div class="butb-bg"><a href="'.$gSitePath. 'searchquestion?txt_search=&cid='.$load_cat['lev1id'].'">' . $load_cat['lev1'] . '</a></div>
+<div class="butb-bg"><a href="' . $gSitePath . 'searchquestion?txt_search=&cid=' . $load_cat['lev1id'] . '">' . $load_cat['lev1'] . '</a></div>
 <div class="butb-right"></div>
 </div>') . ((!empty($load_cat['lev2'])) ? '  ' . stripslashes('<div class="butb">
 <div class="buty-left"></div>
-<div class="buty-bg"><a href="'.$gSitePath. 'searchquestion?txt_search=&cid='.$load_cat['lev1id'].'&scid='.$load_cat['lev2id'].'">' . $load_cat['lev2'] . '</a></div>
+<div class="buty-bg"><a href="' . $gSitePath . 'searchquestion?txt_search=&cid=' . $load_cat['lev1id'] . '&scid=' . $load_cat['lev2id'] . '">' . $load_cat['lev2'] . '</a></div>
 <div class="buty-right"></div>
 </div>') : '') . ((!empty($load_cat['lev3'])) ? '  ' . stripslashes('<div class="butb">
 <div class="butg-left"></div>
-<div class="butg-bg"><a href="'.$gSitePath. 'searchquestion?txt_search=&cid='.$load_cat['lev1id'].'&scid='.$load_cat['lev2id'].'&sscid='.$load_cat['lev3id'].'">' . $load_cat['lev3'] . '</a></div>
+<div class="butg-bg"><a href="' . $gSitePath . 'searchquestion?txt_search=&cid=' . $load_cat['lev1id'] . '&scid=' . $load_cat['lev2id'] . '&sscid=' . $load_cat['lev3id'] . '">' . $load_cat['lev3'] . '</a></div>
 <div class="butg-right"></div>
 </div>') : '') . '  <br class="clr"/><br class="clr"/> ';
         }
 
         $output .='<span class="profile-gray">Location:</span>';
-        $con_query = "select country,state,city from question where qid='$qid'";
+        $con_query = "select * from {question_location} where qid='$qid' AND state=''";
         $fet_con = db_query($con_query);
-        $fet_res = db_fetch_object($fet_con);
-        if (!empty($fet_res->country)) {
-            if (!empty($fet_res->state)) {
-                $query = array('geonameid' => $fet_res->state, 'style' => '', 'lang' => 'en');
-                $result = geonames_query('get', $query);
+        while ($fet_res = db_fetch_object($fet_con)) {
+            $location='';
+            if (!empty($fet_res->country)) {
 
-                $state_name = ((!empty($result->results[0]['name'])) ? ' >> ' . $result->results[0]['name'] : '');
+                $flagsrc=array();
+                $flagsrc = get_flag($fet_res->country);
+             $output .='<span> &nbsp;<img src="' . $gSitePath . $flagsrc['image'] . '" title="' . $fet_res->country . '" alt="" align="absmiddle"/> &nbsp; ' . $fet_res->country. '</span><br/>';
+             $location=load_parent_location(strtoupper($flagsrc['id']),2,$qid);
+             $output.=$location;
             }
-            if (!empty($fet_res->city)) {
-                $query = array('geonameid' => $fet_res->city, 'style' => '', 'lang' => 'en');
-                $result = geonames_query('get', $query);
-                $city_name = ((!empty($result->results[0]['name'])) ? ' >> ' . $result->results[0]['name'] : '');
-            }
-
-
-            $flagsrc = get_flag($fet_res->country);
-
-
-            $output .='<span> &nbsp;<img src="' . $gSitePath . $flagsrc . '" title="' . $fet_res->country . '" alt="" align="absmiddle"/> &nbsp; ' . $fet_res->country . $state_name . $city_name . '</span><br/>';
-        } else {
-
-            $output.=' - ';
         }
     }
 
@@ -404,7 +392,7 @@ WHERE qc.qid ='$qid' ORDER BY c.cat_id ASC
 
 function get_flag($country='') {
     global $gSitePath, $user, $gDocPath, $base_root;
-
+ 
     $flag = '';
     $query = array(query => $country, maxrows => '1', featureclass => 'p');
     // $result = geonames_query('search', $query);
@@ -415,7 +403,8 @@ function get_flag($country='') {
     if (!file_check_location($fsrc)) {                                   // the second new "if"
         $fsrc = drupal_get_path('theme', 'newtheme') . '/images/flags/unknown.gif';
     }
-    return $fsrc;
+       
+    return array('image'=>$fsrc,'id'=>$flag);
 //http://geotree.geonames.org/img/flags18/US.png
 }
 
@@ -464,7 +453,7 @@ WHERE t1.cat_id='$cid'";
 }
 
 function quest_lite_block($op = 'list', $delta = 0, $edit = array()) {
-  
+
     switch ($op) {
         case 'list':
             $blocks[0] = array(
@@ -488,9 +477,9 @@ function _related_issue() {
 
     global $gSitePath, $user;
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    if(empty($qid))
-        $qid=get_qid();
-    
+    if (empty($qid))
+        $qid = get_qid();
+
     $query = "SELECT cid,releated_question FROM question where qid='$qid'";
     $query_list = db_query($query);
     $fetvot = db_fetch_object($query_list);
@@ -514,14 +503,14 @@ function _related_issue() {
             $content.='<li class=""><a ' . $bubble . ' href="' . $gSitePath . $sug->url . '"  style="' . drupal_link_color($user->uid, $sug->qid) . '">' . htmlentities(myTruncate($sample, '20', '', '..')) . '</a></li>';
         }
     } else {
-        $cat="SELECT * FROM question_cat where qid='$qid'";
+        $cat = "SELECT * FROM question_cat where qid='$qid'";
         $list = ExecuteQuery($cat, "select");
-        $catary=array();
-        foreach($list as $catl){
-       
-            array_push($catary,'\''.$catl['cat'].'\'');
+        $catary = array();
+        foreach ($list as $catl) {
+
+            array_push($catary, '\'' . $catl['cat'] . '\'');
         }
-        $catary=implode(',',$catary);
+        $catary = implode(',', $catary);
         $query = "SELECT * FROM question as q join question_cat as qc on qc.qid=q.qid where qc.cat in ($catary) and  q.qid !='$qid' group by q.qid limit 5";
         $query_sug = db_query($query);
 
@@ -534,7 +523,7 @@ function _related_issue() {
             if (strlen($sample) > 20) {
                 $bubble = 'rel="' . htmlentities(wordwrap($sample, 40, '<br/>')) . '"';
             }
-            
+
             $content.='<li class=""><a ' . $bubble . '  href="' . $gSitePath . $sug->url . '"  style="' . drupal_link_color($user->uid, $sug->qid) . '">' . htmlentities(myTruncate($sample, '20', '', '..')) . '</a></li>';
         }
     }
@@ -549,23 +538,23 @@ function _related_issue() {
 
 function debate_wave($qid = '') {
     global $gSitePath, $user, $gDocPath, $base_root;
-    $inc_pans='';
+    $inc_pans = '';
     $wave = '';
-    $ans=load_options($qid);
+    $ans = load_options($qid);
     //answers
     $filter_list.='<select name="dfilt-ans" id="dfilt-ans" class="select-1"><option value="">Possible Answers</option>';
-    foreach($ans as $list){
-        $filter_list.='<option value="'.$list['paid'].'">'.$list['answer'].'</option>';
+    foreach ($ans as $list) {
+        $filter_list.='<option value="' . $list['paid'] . '">' . $list['answer'] . '</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
-        <div class="fm-2-left">'.$list['answer'].'</div>
-        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="'.$list['paid'].'"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        <div class="fm-2-left">' . $list['answer'] . '</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['paid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
         </div>
         <div class="clr"></div>
     </div>';
     }
-$filter_list.='</select>';
+    $filter_list.='</select>';
     //print_r($cnt);
     $wave .= '
 
@@ -574,7 +563,7 @@ $filter_list.='</select>';
                     <div class="form-m1">Filter By :<br />
 <select name="dfilt-sup" id="dfilt-sup" class="select-2"><option value="0">+/-</option><option value="1">+</option><option value="2">-</option></select></div>
                     <div class="form-m2"><br/>
-                    '.$filter_list.'
+                    ' . $filter_list . '
                     </div>
                     <div class="form-m3"><br/>
                     <select name="dfilt-sort" id="dfilt-sort" class="select-2"><option value="0">Sort By :</option>
@@ -595,7 +584,7 @@ $filter_list.='</select>';
 
 		<div class="comment" id="newwavediv" style="display:none"><div class="popup-debate-new">';
     if (!empty($user->uid)) {
-        $wave .= '	<form  id="newwaveform" class="newwave" action="'.$gSitePath.'issues/debate/save" method="post" accept-charset="utf-8">
+        $wave .= '	<form  id="newwaveform" class="newwave" action="' . $gSitePath . 'issues/debate/save" method="post" accept-charset="utf-8">
 	<input type="hidden" name="action" value="new"/><input type="hidden" name="qid" value="' . $qid . '"/>
 <div class="new-debate-wrapper">
   	<div class="form-outer-debate">
@@ -620,7 +609,7 @@ $filter_list.='</select>';
 
     <div class="clr"></div>
     </div>
-'.$inc_pans.'
+' . $inc_pans . '
     <div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
@@ -653,7 +642,59 @@ $filter_list.='</select>';
 
     return $wave;
 }
-function get_points($pid = ''){
+
+function get_points($pid = '') {
     $points = db_result(db_query("SELECT points FROM {tbl_points} WHERE id = '$pid'"));
     return $points;
+}
+
+function load_parent_location($id='', $level='',$qid='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+
+    switch ($level) {
+        case '3':
+             $getcatids = "SELECT * from {question_location} where qid='$qid' AND state='$id'";
+
+            $fetch = ExecuteQuery($getcatids, "select");
+            foreach($fetch as $fet_res){
+                 if (!empty($fet_res['city'])) {
+                $query = array('geonameid' => $fet_res['city'], 'style' => '', 'lang' => 'en');
+                $result = geonames_query('get', $query);
+                $city_name = ((!empty($result->results[0]['name'])) ? ' >> ' . $result->results[0]['name'] : '');
+
+                $output .='<span> &nbsp;&nbsp; &nbsp;<b>City</b> &nbsp; &nbsp;'. $city_name . '</span><br/>';
+            }
+
+            }
+            break;
+        case '2':
+            $getcatids = "SELECT * from {question_location} where qid='$qid' AND country='$id' AND state!='' AND city=''";
+
+            $fetch = ExecuteQuery($getcatids, "select");
+            foreach($fetch as $fet_res){
+            $location='';
+              if (!empty($fet_res['state'])) {
+                $query = array('geonameid' => $fet_res['state'], 'style' => '', 'lang' => 'en');
+                $result = geonames_query('get', $query);
+
+                $state_name = ((!empty($result->results[0]['name'])) ? ' >> ' . $result->results[0]['name'] : '');
+          $output.='<span> &nbsp; &nbsp;<b>State</b> &nbsp; &nbsp; '. $state_name.'</span><br/>';
+          $location=load_parent_location($fet_res['state'],3,$qid);
+          $output.=$location;
+            }  
+
+            }
+
+
+            break;
+        case '1':
+            $getcatids = "SELECT t3.cat_id AS lev1 FROM category AS t1 WHERE t1.cat_id='$cid'";
+
+            $fetch = ExecuteQuery($getcatids, "select");
+        default:
+            $fetch = '';
+            break;
+    }
+    return $output;
 }

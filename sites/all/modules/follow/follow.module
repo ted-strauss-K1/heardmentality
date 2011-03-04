@@ -167,8 +167,8 @@ function follow_block($op = 'list', $delta = 'site', $edit = array()) {
                 break;
             case 'user':
                 $args = func_get_args();
-                $uname = explode('/', $_REQUEST['q']);
-                $uname = array('name' => $uname[1]);
+                $uname = arg(2);
+                $uname = array('name' => $uname);
                 $uget = user_load($uname);
                 if (is_numeric($uget->uid))
                     $uid = $uget->uid;
@@ -206,11 +206,11 @@ function follow_link_title($uid = 0) {
     if ($uid) {
         $setting = variable_get('follow_user_block_title', FOLLOW_NAME);
         // Special handling for usernames.
-        if ($setting == FOLLOW_NAME) {
-            $account = user_load($uid);
+      //  if ($setting == FOLLOW_NAME) {
+       //     $account = user_load($uid);
             // Set plain to TRUE for realname module support.
-            return t('Follow !name on', array('!name' => theme('username', $account, array('plain' => TRUE))));
-        }
+         //   return t('Follow !name on', array('!name' => theme('username', $account, array('plain' => TRUE))));
+      //  }
         return t('Follow me on');
     }
 

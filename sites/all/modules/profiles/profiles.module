@@ -396,21 +396,16 @@ function profile($uid = '') {
     $upcount = null;
     $downcount = null;
     $strReturn = '';
-    $get_cn = db_query("select * from {user_profile} where uid='$uid'");
-    $result = db_fetch_array($get_cn);
 
     // $vot_counts = checkUpAndDownVotes($uid);
     $userPoints = checkUserPoints($user->uid);
     //$upcount = $vot_counts['upcount'];
-    // $downcount = $vot_counts['downcount'];
-    $getuser = user_load(array('uid' => $result['uid']));
+    // $downcount = $vot_counts['downcount'];$getuser
+    
 
-    if (is_array($result))
-        extract($result);
     $userSettings = checkPrivacySettings($uid);
     $is_follow_follower = checkFollowStatus($user->uid, $uid);
-    $get_cn = db_query("select * from {user_profile} where uid='$uid'");
-    $result = db_fetch_array($get_cn);
+    
     $real_name1 = NULL;
     $PROFILE_IMAGE = NULL;
     $bio1 = NULL;
@@ -429,6 +424,11 @@ function profile($uid = '') {
     $answer1 = NULL;
     $question1 = NULL;
     $flink = '';
+
+    $get_cn = db_query("select * from {user_profile} where uid='$uid'");
+    $result = db_fetch_array($get_cn);
+    $getuser = user_load(array('uid' => $result['uid']));
+
     if (is_array($result))
         extract($result);
 
@@ -439,6 +439,12 @@ function profile($uid = '') {
     }
     if (empty($real_name1)) {
         $real_name1 = '-';
+    }
+     if (($userSettings['mail'] == 1) || ($userSettings['mail'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['mail'] == 3 && $is_follow_follower == TRUE) && ($userSettings['real_name'] != 4)) {
+        $email1 = $getuser->mail;
+    }
+    if (empty($email1)) {
+        $email1 = '-';
     }
     if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 3 && $is_follow_follower == TRUE) && ($userSettings['bio'] != 4)) {
         $bio1 = $bio;
@@ -708,21 +714,11 @@ function profile($uid = '') {
 <div class="profile-left">
     <form action="' . $gSitePath . 'postmessage" method="post" id="proform"><div align="left" style="display: none;" id="showboxcmt"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="msgs"></textarea><input type="hidden" value="" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg">&nbsp; <input type="button" onclick="rel_msg(0);"  value="cancel"/></div></form>
 
-<div class="profile-img">
-<div class="profile-imgs">
-' . UserPicture($uid) . '
-</div>
-<div class="profile-con">' . updateProfileBadge($uid) . '
-<div>
-
-</div>
-</div>
-
-</div>
+'.  load_bubble($uid).'
 <div class="clr"></div>
 <div>
 <span class="profile-gray">Name </span>: ' . $real_name1 . '<br>
-
+<span class="profile-gray">Email </span>: ' . $email1 . '<br>
 <span class="profile-gray">Location </span>: ' . $country1 . '<br>
 <span class="profile-gray">Age </span>:  ' . $dob1 . '<br>
 <span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br>
@@ -793,8 +789,6 @@ function profile_tab($tab='', $uid='') {
 ';
 
             $psplit = explode('@', $getuser->urls);
-            $ptitle = explode(';', $psplit[0]);
-            $purl = explode('||', $psplit[1]);
             $social = explode('||', $getuser->social);
             
             if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 3 && $is_follow_follower == TRUE) && ($userSettings['bio'] != 4)) {
@@ -821,7 +815,24 @@ function profile_tab($tab='', $uid='') {
                     <span class="tab-historyspan4">' . $ptitle[1] . '</span>
                <span class="tab-historyspan4"><a href="' . $purl[1] . '" target="_blank">' . $purl[1] . '</a></span>
               </div>--><div class=""> <h4>Follow me on</h4>' . $block['content'] . '</div>
-</div>';
+        ';
+            $theme_default = variable_get('theme_default', '');
+$path_to_theme = $gSitePath.drupal_get_path('theme', $theme_default);
+            if(!empty($social))
+            {
+               $output.='  <div class="face_book">
+                   <a title="FaceBook"  '.((!empty($social[0])) ? 'target="_blank"' : '').' href="' . ((!empty($social[0])) ? $social[0] : '#') . '"><img align="left" alt="" src="' . $path_to_theme . '/images/face_icon.png"/>Face Book</a> <span>|</span>
+                    <a title="Twitter" '.((!empty($social[1])) ? 'target="_blank"' : '').' href="' . ((!empty($social[1])) ? $social[1] : '#') . '"><img align="left" alt="" src="' .$path_to_theme . '/images/twitter.png"/>Twitter</a>
+            </div>';
+            }
+            if(!empty($psplit)&& valid_url($psplit[0])){
+               $output.='  <div class="face_book">
+                
+                    <a title="My Website" target="_blank" href="' . ((!empty($psplit[0])) ? $psplit[0] : '#') . '">My Website</a>
+            </div>';
+
+            }
+            $output.='</div>';
             break;
         case 'badge':
             $badges.='<ul>';
@@ -843,20 +854,23 @@ function profile_tab($tab='', $uid='') {
             break;
         case 'history':
             //answers posted
-
+                $userSettings = (array)load_user($uid);
+                $is_follow_follower = checkFollowStatus($user->uid, $uid);
             $get_ans = db_query("select q.*,a.vote_pdate as vdate from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='" . $uid . "'");
+             if (($userSettings['question_privacy'] == 1) || ($userSettings['question_privacy'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['question_privacy'] == 3 && $is_follow_follower == TRUE) && ($userSettings['question_privacy'] != 4)) {
 
             while ($setans = db_fetch_object($get_ans)) {
 
                 $inc_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->vdate</span>  <span class='tab-historyspan2'>answered</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->question, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->qid) . "'>" . htmlentities(substr($setans->question, 0, 40)) . "</a></div>
 ";
             }
+             
 
 
 
             $ins_ans .= $inc_list;
 
-            $inc_ans = ( empty($inc_list)) ? 'No Result' : $ins_ans;
+           
             //answers ends
             //question sposted
             $get_ans = db_query("select q.* from {question} as q where q.uid='" . $uid . "' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
@@ -867,9 +881,11 @@ function profile_tab($tab='', $uid='') {
                 $qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->date_added</span>  <span class='tab-historyspan2'>Issue Created</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->question, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->qid) . "'>" . htmlentities(substr($setans->question, 0, 40)) . "</a></div>
 ";
             }
+            }
             $inc_qns .= $qns_list;
 
-            $inc_qns = ( empty($qns_list)) ? 'No Result' : $inc_qns;
+            $inc_qns = ( empty($qns_list)) ? '<div class="warning">No Activity Found!</div>' : $inc_qns;
+             $inc_ans = ( empty($inc_list)) ? '<div class="warning">No Activity Found!</div>' : $ins_ans;
             //question ends
             $output.='<div id="l1">
 
@@ -1019,7 +1035,7 @@ function profile_edit($step='') {
         <li class="arr">&nbsp;</li>
         <li><b>3</b>Social</li>
         <li class="arr">&nbsp;</li>
-        <li><b>4</b>Finished</li>
+        <li>Finished</li>
       </ul>
       <div class="clr"></div>
     </div>
@@ -1083,7 +1099,7 @@ to or who is subscribing to me</b></h2>
         <li class="arr">&nbsp;</li>
         <li class="selected"><b>3</b>Social</li>
         <li class="arr">&nbsp;</li>
-        <li><b>4</b>Finished</li>
+        <li>Finished</li>
       </ul>
       <div class="clr"></div>
     </div>
@@ -1155,7 +1171,7 @@ to or who is subscribing to me</b></h2>
         <li class="arr">&nbsp;</li>
         <li><b>3</b>Social</li>
         <li class="arr">&nbsp;</li>
-        <li class="selected"><b>4</b>Finished</li>
+        <li class="selected">Finished</li>
       </ul>
       <div class="clr"></div>
     </div>
@@ -1217,7 +1233,7 @@ Don’t be part of the Herd</strong></p>
         <li class="arr">&nbsp;</li>
         <li><b>3</b>Social</li>
         <li class="arr">&nbsp;</li>
-        <li><b>4</b>Finished</li>
+        <li>Finished</li>
       </ul>
       <div class="clr"></div>
     </div>
@@ -1524,11 +1540,15 @@ var avtar=\'' . $account->avatar . '\';
             break;
         case '1':
         default:
+            drupal_add_js('jQuery(function(){ jQuery("label").inFieldLabels(); });','inline');
+            drupal_add_js(drupal_get_path('module','profiles').'/js/jquery.infieldlabel.min.js');
+            drupal_set_html_head('<style>label  { position:absolute; top:0; left:0;margin:5px 6px 5px 19px;color:grey;opacity:0.8;}</style>');
+
             //set default values
             $details = load_user($user->uid);
             $form['username'] = array(
                 '#type' => 'textfield',
-                '#title' => t(''),
+                '#title' => t('Username'),
                 '#maxlength' => 20,
                 '#description' => t(''),
                 '#default_value' => variable_get('username', ''),
@@ -1539,7 +1559,7 @@ var avtar=\'' . $account->avatar . '\';
             );
             $form['fname'] = array(
                 '#type' => 'textfield',
-                '#title' => t(''),
+                '#title' => t('Name'),
                 '#maxlength' => 20,
                 '#description' => t(' '),
                 '#default_value' => variable_get('fname', ''),
@@ -1549,7 +1569,7 @@ var avtar=\'' . $account->avatar . '\';
             );
             $form['email'] = array(
                 '#type' => 'textfield',
-                '#title' => t(''),
+                '#title' => t('Email'),
                 '#maxlength' => 50,
                 '#description' => t(' '),
                 '#default_value' => variable_get('email', ''),
@@ -1560,7 +1580,7 @@ var avtar=\'' . $account->avatar . '\';
             );
             $form['dob'] = array(
                 '#type' => 'textfield',
-                '#title' => t(''),
+                '#title' => t('Year Of Birth'),
                 '#maxlength' => 4,
                 '#description' => t(' '),
                 '#default_value' => variable_get('dob', ''),
@@ -1581,7 +1601,7 @@ var avtar=\'' . $account->avatar . '\';
             );
             $form['zip'] = array(
                 '#type' => 'textfield',
-                '#title' => t(''),
+                '#title' => t('Zip Code'),
                 '#maxlength' => 10,
                 '#description' => t(''),
                 '#default_value' => variable_get('zip', ''),
@@ -1658,7 +1678,7 @@ var avtar=\'' . $account->avatar . '\';
             );
             $form['bio'] = array(
                 '#type' => 'textarea',
-                '#title' => t(''),
+                '#title' => t('Bio'),
                 '#default_value' => variable_get('description', ''),
                 '#cols' => '',
                 '#rows' => 3,
@@ -1687,19 +1707,19 @@ var avtar=\'' . $account->avatar . '\';
     </div>  <div class="clr"></div>'
             );
 
-            $form['bio']['#default_value'] = empty($details->bio) ? 'Bio' : $details->bio;
+            $form['bio']['#default_value'] = empty($details->bio) ? '' : $details->bio;
             $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
             $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
             $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
             $form['education']['#default_value'] = empty($details->edu) ? '0' : $details->edu;
             $form['ethnic']['#default_value'] = empty($details->ethnic) ? '0' : $details->ethnic;
             $form['religion']['#default_value'] = empty($details->religion) ? '0' : $details->religion;
-            $form['zip']['#default_value'] = empty($details->zip) ? 'Zip code' : $details->zip;
+            $form['zip']['#default_value'] = empty($details->zip) ? '' : $details->zip;
             $form['gender']['#default_value'] = empty($details->gender) ? '0' : $details->gender;
-            $form['dob']['#default_value'] = empty($details->dob) ? 'Year OF Birth' : $details->dob;
-            $form['email']['#default_value'] = empty($details->mail) ? 'Email' : $details->mail;
-            $form['fname']['#default_value'] = empty($details->real_name) ? 'Name' : $details->real_name;
-            $form['username']['#default_value'] = empty($details->name) ? 'Username' : $details->name;
+            $form['dob']['#default_value'] = empty($details->dob) ? '' : $details->dob;
+            $form['email']['#default_value'] = empty($details->mail) ? '' : $details->mail;
+            $form['fname']['#default_value'] = empty($details->real_name) ? '' : $details->real_name;
+            $form['username']['#default_value'] = empty($details->name) ? '' : $details->name;
             break;
     }
     return $form;
@@ -1747,6 +1767,7 @@ function profiles_form_validate($form, &$form_state) {
             $state = $form_state['values']['state'];
             $uname = $form_state['values']['username'];
             $email = $form_state['values']['email'];
+              $valid_email = $form_state['values']['email'];
             if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $uname)) {
                 form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
                 $form_state['rebuild'] = TRUE;
@@ -1754,6 +1775,14 @@ function profiles_form_validate($form, &$form_state) {
                 form_set_error('username', t('Sorry Username already exists try any other combination'));
                 $form_state['rebuild'] = TRUE;
             }
+
+  if (!valid_email_address($valid_email)) {
+  form_set_error('email', 'Your email address -- ' . $valid_email . ' -- appears malformed');
+  } elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE mail = '%s' AND uid!='%d'", $valid_email, $user->uid))) {
+                form_set_error('username', t('Sorry Email already taken by other user'));
+                $form_state['rebuild'] = TRUE;
+            }
+
             if (!empty($dob)) {
 
                 if (!is_numeric($dob) || strlen($dob) != '4') {
@@ -2052,7 +2081,7 @@ function _basic_submit($form, &$form_state) {
     $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
     $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['education'], $user->uid);
     //update username
-    db_query("update {users} set name='%s',prompt='%d' where uid='%d'", $form_state['values']['username'],'0',$user->uid);
+    db_query("update {users} set name='%s',mail='%s',prompt='%d' where uid='%d'", $form_state['values']['username'], $form_state['values']['email'],'0',$user->uid);
     drupal_set_message(t('Your form has been saved.', 'success'));
     return true;
 }

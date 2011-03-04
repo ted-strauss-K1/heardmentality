@@ -80,10 +80,10 @@ function qlite_view() {
     drupal_set_html_head('<script>
             var uid="' . $user->uid . '";
 	</script>');
-  
-    if(variable_get('initpop')==1&&$user->uid>1){
+    if($user->initpop==1&&$user->uid>1){
         drupal_add_js('jQuery(document).ready(function () { loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");});','inline');
-        variable_del('initpop');
+            $user_data = array('initpop' => 2);
+        user_save( $user , $user_data);
         
     }
     $qid = get_qid();
@@ -1007,10 +1007,10 @@ function qlite_save() {
                     user_coins_update($uid, 19, '');
                 }
             }
-            drupal_goto("qlite/view/$mid");
+           
         } else {
             drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
-            drupal_goto("qlite/view/$mid");
+           
         }
     } elseif (($_REQUEST['answer_al'] != '') && (isset($_REQUEST['change']))) {
         $arr = array_keys($_REQUEST['answer_al']);
@@ -1150,18 +1150,20 @@ function qlite_save() {
                     user_coins_update($uid, 19, '');
                 }
             }
-            drupal_goto("qlite/view/$mid");
+           
         } else {
             drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
-            drupal_goto("qlite/view/$mid");
+           
         }
     }
     ////////////question search vote added end here
     //first time vote shows profile update popup
     $ccnt=user_load(array('uid'=>$user->uid));
-    if($ccnt->prompt==1)
-    variable_set('initpop',1);
 
+    if($ccnt->prompt==1 &&  is_null($user->initpop)){
+        $user_data = array('initpop' => 1);
+        user_save( $user , $user_data);  
+    }
     if ($_REQUEST['txt_act'] == 1) {
 
 

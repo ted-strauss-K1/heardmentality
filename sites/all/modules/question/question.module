@@ -365,7 +365,7 @@ function flag_user_mail($uids = '',$days='') {
         $query = db_query("select mail  from {users} where uid='$id' ");
         $det = db_fetch_object($query);
 
-      echo  $to = $det->mail;
+        $to = $det->mail;
 
         if (!empty($to)) {
 
