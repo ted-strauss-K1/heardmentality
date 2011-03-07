@@ -115,19 +115,7 @@ drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
             $divider = '';
         }
 
-        $fetresult .= ' <div class="prof-it-1">
-        <div class="lefimg-it-c"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');" >' . UserPicture($user_result->uid) . '</a></div>
-        <div class="ritecont-it-c">
-<div>
-<ul>
-<li><a  onclick="get_profile_details(' . $user_result->uid . ');" style="cursor:pointer" > ' . $user_result->real_name . '</a></li><br />
-<!--<li>' . $gpoints . '</li><br />-->
-' . updateProfileBadge($user_result->uid) . '
-</ul>
-</div>
-</div>
-<div class="clr"></div>
-   </div>';
+        $fetresult .= load_user_badge($user_result->uid,1);
     }
     if ($sel_count == 0) {
         $fetresult .= '<div align="center"><b>No Search Results  </b></div>';

@@ -15,10 +15,12 @@ jQuery("a.sublinks").live("click", function(e) {
     return false;
 });
 
-function get_profile_details(urid){
+function get_profile_details(urid,ele){
     //alert(urid);
     var url = gSitePath + 'userinfo';
     jQuery('#user_info').empty();
+    jQuery(ele).parents('div.rleft').find('div.profInfo-active').removeClass('profInfo-active');
+    jQuery(ele).parents('div.profInfo').addClass('profInfo-active');
     jQuery.ajax({
         type: "POST",
         url: url,

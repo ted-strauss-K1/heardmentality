@@ -917,7 +917,7 @@ function add_resources($qid='') {
     $resources .= '
 
               <div class="popup-resource-new">         <div class="" id="err">' . $list_err . '</div>
-    <div class="new-debate-wrapper">
+    <div class="">
         <form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'debate/ajax" enctype="multipart/form-data" >
             <input type="hidden" name="qaid" value="' . $qid . '"/>
              <input type="hidden" name="action" value="resource_new"/>

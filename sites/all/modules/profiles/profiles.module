@@ -335,7 +335,7 @@ function load_bubble($uid = '') {
                     <div style="padding-left:10px;text-align:left;"><strong>'.myTruncate($details->name,'10','..').' </strong></div>
                         <ul style="list-style-type:none">
                       
-                        <li style="width:30px">' . $ranking . '<br /><span title="' . $points . ' Points">' . $points . '</span></li>
+                        <li style="width:30px">' . $ranking . '<br /><span class="profInfo-value" title="' . $points . ' Points">' . $points . '</span></li>
                         <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><br><span>' . $badges['gold'] . '</span></li>
                         <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><br /><span>' . $badges['silver'] . '</span></li>
                         <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><br /><span>' . $badges['bronze'] . '</span></li>
@@ -350,7 +350,7 @@ function load_bubble($uid = '') {
     return $output;
 }
 
-function load_user_badge($uid=''){
+function load_user_badge($uid='',$search=''){
 
      global $gSitePath, $user, $gDocPath, $base_root;
     //<img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40
@@ -359,22 +359,28 @@ function load_user_badge($uid=''){
 
     $uname = $details->first_name . ' ' . $details->last_name;
 
+
     $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
     $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
     $points = $points != '' ? $points : 0;
     $coins = $user->total_coins != '' ? $user->total_coins : 0;
     $badges = load_badges($uid);
+    if($search)
+    $link='<a  onclick="get_profile_details(' . $details->uid . ',this);" style="cursor:pointer" > ' .myTruncate($details->name,'10','..'). '</a>';
+    else
+        $link='<a href="'.$gSitePath.'profile/'.$details->name.'">'.myTruncate($details->name,'10','..').'</a>';
+    
     $output = '<div class="profInfo">
-                <div>
+
                 <div class="profInfo-img">' . UserPicture($details->uid) . '</div>
                     <div class="profInfo-txt">
-                    <span title="' . $points . ' Points">' . $points . '</span>
-                        <div class="profInfo-name"><a href="'.$gSitePath.'profile/'.$details->name.'">'.myTruncate($details->name,'10','..').'</a></div>
+                    <span class="profInfo-value" title="' . $points . ' Points">' . $points . '</span>
+                        <div class="profInfo-name">'.$link.'</div>
                             <div class="profInfo-name2">' . $ranking . '</div>
                         <ul >
-                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><br><span>' . $badges['gold'] . '</span></li>
-                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><br /><span>' . $badges['silver'] . '</span></li>
-                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><br /><span>' . $badges['bronze'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><span>' . $badges['gold'] . '</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><span>' . $badges['silver'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><span>' . $badges['bronze'] . '</span></li>
                         </ul>
                     </div>
                  </div>

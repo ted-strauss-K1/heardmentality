@@ -2151,7 +2151,7 @@ function percent_broken($qid = '', $aid = '', $array = '') {
             break;
 
         default:
-            $answer['divide'] = array('Total No Of Votes');
+            $answer['divide'] = array('Total Votes');
             $inc_cnt = '[';
             for ($ab = 0; $ab < count($vlist); $ab++) {
                 $query = "select * from {possible_answer_vote} where qid='" . $qid . "' and panswer_id='" . $vlist[$ab]['paid'] . "' ";
@@ -2411,7 +2411,7 @@ $(document).ready(function() {
          zoomType: 'x'
       },
       title: {
-         text: 'Overtime Graph'
+         text: ''
       },
       subtitle: {
          text: ''
