@@ -1282,16 +1282,7 @@ function flag_question() {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $falgq = '';
-    $falgq .= '	<script>
-	var spath="' . $gSitePath . '";
-	</script>
-		<script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
-
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/debate.js"></script>
-	<link rel="stylesheet" href="' . base_path() . path_to_theme() . '/css/css.css" type="text/css" />
-	';
-
-    $falgq .= '';
+    drupal_add_js( drupal_get_path('module', 'debate') . '/scripts/debate.js');
 
     if (isset($_REQUEST['uid'])) {
 
@@ -1366,7 +1357,7 @@ function flag_question() {
     }
 
 
-    echo $falgq;
+   return $falgq;
 }
 
 function panel_content() {
@@ -1719,79 +1710,16 @@ function suggest_answer() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $ansoutput = '	
-        <script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
-	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
-	<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/quest_lite/css/answer.css" type="text/css" />';
-
+     $qid = arg(2);
+  
     $answers = "SELECT * FROM suggest_answer where qid='" . $qid . "'  ";
     $anslist = db_query($answers);
     $count_row = db_result(db_query($answers));
     $numr = db_result(db_query("SELECT COUNT(*)  from {suggest_answer} where qid='" . $qid . "' and uid='" . $user->uid . "'"));
-    $ansoutput .= '<div class="popup-add-suggest" id="log">
-	<div class="facttop">SUGGEST A NEW ANSWER</div>
-	<div id="log_res"><!-- spanner --></div>
-	</div>
-	<span class="clr"><!-- spanner --></span>';
 
-    $ansoutput .= '<div id="log_res_ans"><!-- spanner --></div>
-	<span class="clr"><!-- spanner --></span>';
-
-//    $ansoutput .= '<script type="text/javascript">
-//	window.addEvent(\'domready\', function() {
-//
-//	if (!window.demo_path) window.demo_path = \'\';
-//	var demo_path = window.demo_path;
-//
-//	$(\'voteform\').addEvent(\'submit\', function(e) {
-//
-//	e.stop();
-//
-//	var log = $(\'log_res_ans\').empty().addClass(\'ajax-loadings\');
-//
-//	this.set(\'send\', {onComplete: function(response) {
-//	log.removeClass(\'ajax-loadings\');
-//	log.set(\'html\', response);
-//	}});
-//
-//	this.send();
-//	});
-//	});
-//
-//
-//	</script>
-//	<form id="voteform"  method="post" action="' . $gSitePath . 'qlite/answervote"  enctype="multipart/form-data">
-//	<input type="hidden" name="qaid" value="' . $qid . '"/>';
-
-
-    $ansoutput .= '<script type="text/javascript">
-	jQuery(document).ready(function() {
-
-  jQuery(\'#twitMsg\',top.document).slideUp();
-	jQuery(\'#voteform\').live(\'submit\', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-         jQuery(this).find(\'input[type="submit"]\').attr(\'disabled\',true);
-        jQuery.post(jQuery(this).attr(\'action\'), jQuery(this).serialize(),
-        function(response){
-       
-       
-	jQuery(\'#twitMsg\',top.document).html(response);
-        jQuery(\'#twitMsg\',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-         //parent.fb.reload();
-                 return false;
-	});
-	});
-
-        });
-
-
-	</script>';
      if (user_is_logged_in()) {
 
-	$ansoutput.='<form id="voteform"  method="post" action="' . $gSitePath . 'qlite/answervote"  enctype="multipart/form-data">
+	$ansoutput.='<form id="voteform"  method="post" action="' . $gSitePath . 'qlite/answervote" >
 	<input type="hidden" name="qaid" value="' . $qid . '"/>';
 
 
@@ -1814,60 +1742,10 @@ function suggest_answer() {
      }
 
     if ($numr == 0) {
-//        $ansoutput .= '<script type="text/javascript">
-//	window.addEvent(\'domready\', function() {
-//
-//	if (!window.demo_path) window.demo_path = \'\';
-//	var demo_path = window.demo_path;
-//
-//	$(\'answerform\').addEvent(\'submit\', function(e) {
-//
-//	e.stop();
-//
-//	var log = $(\'log_res\').empty().addClass(\'ajax-loading\');
-//
-//	this.set(\'send\', {onComplete: function(response) {
-//	log.removeClass(\'ajax-loading\');
-//	log.set(\'html\', response);
-//	}});
-//
-//	this.send();
-//	});
-//	});
-//	</script>	<form id="answerform"  method="post" action="' . $gSitePath . 'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="' . $qid . '"/>
-//	<br/>
-//	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
-//	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
-//	</div></form>';
-
-        $ansoutput .= '<script type="text/javascript">
-	jQuery(document).ready(function() {
-        jQuery(\'#twitMsg\',top.document).slideUp();
-
-	jQuery(\'#answerform\').live(\'submit\', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-      jQuery(this).find(\'input[type="submit"]\').attr(\'disabled\',true);
-
-        jQuery.post(jQuery(this).attr(\'action\'), jQuery(this).serialize(),
-        function(response){
-
-      
-	jQuery(\'#twitMsg\',top.document).html(response);
-        jQuery(\'#twitMsg\',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-        setTimeout("parent.fb.reload()",3000);
-
-        //parent.fb.reload();
-          return false;
-	});
-	});
-      
-        });
-        
-	</script>	';
+        $ansoutput .= '	';
     }
      if (user_is_logged_in()) {
-        $ansoutput.='<form id="answerform"  method="post" action="' . $gSitePath . 'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="' . $qid . '"/>
+        $ansoutput.='<form id="answerform"  method="post" action="' . $gSitePath . 'qlite/answersubmit"  ><input type="hidden" name="qaid" value="' . $qid . '"/>
 	<br/>
 	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
 	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
@@ -1878,7 +1756,7 @@ function suggest_answer() {
  $ansoutput.= '<div class="messages warning"> Please log in to suggest an option </div>';
     }
 
-    echo $ansoutput;
+    return $ansoutput;
 }
 
 function suggest_answer_save() {

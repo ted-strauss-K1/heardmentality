@@ -274,7 +274,7 @@ $directory = $base_path . $directory;
 
                                                 <?php $mb = 1;
                                                   foreach ($primary_links as $link): ?>
-                                 <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'Read Me' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" <?php if ($link['title']== 'Read Me') { ?> data-fb-options="width:769 height:78%" <?php } else { ?> data-fb-options="width:700 height:58%" <?php } ?>  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
+                                 <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'Readme' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" <?php if ($link['title']== 'Readme') { ?> data-fb-options="width:769 height:78%" <?php } else { ?> data-fb-options="width:700 height:58%" <?php } ?>  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
                                                 <?php endforeach; ?>
 
                                                 <?php endif; ?>

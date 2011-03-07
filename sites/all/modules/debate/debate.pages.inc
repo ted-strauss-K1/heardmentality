@@ -886,22 +886,14 @@ function admin_wlets_edit() {
 function add_resources($qid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $ans = load_options($qid);
+    drupal_add_js('var spath="'. $gSitePath . '";','inline');
+    drupal_add_css( drupal_get_path('module', 'debate') . '/css/fileuploader.css');
+    drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/fileuploader.js');
+    drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js');
+    drupal_add_js( drupal_get_path('module', 'debate') . '/scripts/add_resource.js');
 
-    $resources = '<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'debate') . '/css/answer.css" type="text/css" />
-         <script src="' . $gSitePath . '/misc/jquery.js"></script>
-<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'debate') . '/css/fileuploader.css" type="text/css" />
-            <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/fileuploader.js"></script>
-            <script> var spath="' . $gSitePath . '";</script>
-                   	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js"></script>
-	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'debate') . '/scripts/add_resource.js"></script>
-	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
-	';
-    if ($user->uid < 1) {
-        echo $resources.='<div class="messages error">Sorry you have to login to post New Resource!</div>';
-        die;
-    }
-
-    //answers
+ 
+       //answers
     foreach ($ans as $list) {
 
         $inc_pans.='
@@ -922,7 +914,7 @@ function add_resources($qid='') {
     		';
     }
 
-    $resources .= '<body style="background:none;background:#FFF;">
+    $resources .= '
 
               <div class="popup-resource-new">         <div class="" id="err">' . $list_err . '</div>
     <div class="new-debate-wrapper">
@@ -984,7 +976,13 @@ function add_resources($qid='') {
 
       
 ';
-    echo $resources;
+
+      if (!user_is_logged_in()) {
+          $resources='<div class="warning">Please log in to post a reference!</div><script>jQuery(document).ready(function() {jQuery(\'#twitMsg\',top.document).html("Please log in to post a reference!");
+        jQuery(\'#twitMsg\',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); }); </script>';
+      }
+
+    return $resources;
 }
 
 function resource_list($type, $qid) {
