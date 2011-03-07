@@ -204,7 +204,7 @@ function moderator_issues_list($type='') {
         case 'new':
 
             //actual query
-            $query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE uid = '$user->uid' and qid=q.qid) as tcnt FROM {question} AS q  HAVING tcnt<1 ORDER BY q.qid DESC";
+            $query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE uid = '$user->uid' and qid=q.qid) as tcnt FROM {question} AS q  HAVING tcnt<1 ORDER BY q.qid ASC";
             //  $query="SELECT * FROM {question} ";
             $sqlcnt = ExecuteQuery($query, 'norows');
             break;
@@ -361,7 +361,7 @@ function moderator_edit_issues($qid='') {
 
     /////////////state list end here //////////////////////////////
     /////////// city list start here/////////////////
-    $result = db_query("select city from {question_location} where qid='$qid'}");
+    $result = db_query("select * from {question_location} where qid='$qid' AND city!=''}");
     $city_array = array();
     while ($cont = db_fetch_array($result)) {
         array_push($city_array, '\''.$cont['city'].','.$cont['state'].','.$cont['country'].'\'');

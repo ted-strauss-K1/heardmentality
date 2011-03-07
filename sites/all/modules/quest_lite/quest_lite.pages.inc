@@ -1435,23 +1435,26 @@ function panel_content() {
 
             $output1 = '';
             if (count($profileBadges) > 0) {
+
                 $pat = $gSitePath . drupal_get_path('module', 'profile');
                 foreach ($profileBadges as $profile) {
+                  $details=load_user($profile['uid']);
                     $medal = updateProfileBadge($profile['uid']);
                     $output1 .= '
 
-<div class="profile-img">
-<div class="profile-imgs">
- <a title="' . $profile['name'] . '" href="' . $gSitePath . 'profile/' . $profile['name'] . '">' . UserPicture($profile['uid']) . '</a>
+<div class="prof-it-1">
+        <div class="lefimg-it-c"><a title="' . $details->real_name . '" href="' . $gSitePath . 'profile/' . $details->name . '">' . UserPicture($profile['uid']) . '</a>
 </div>
-<div class="profile-con">' . $medal . '
+        <div class="ritecont-it-c">
 <div>
-
+<ul>
+<li><a title="' . $details->real_name . '" href="' . $gSitePath . 'profile/' . $details->name . '">'.$details->name.'</a>
+</li><br>
+'.$medal.'
 </div>
 </div>
-
-</div>
-
+<div class="clr"></div>
+   </div>
 
 <div class="clr"></div><br/>';
                 }
@@ -1464,7 +1467,7 @@ function panel_content() {
         case "Info":
             $bubble = load_bubble($fetuserlist->uid);
             $medal = updateProfileBadge($fetuserlist->uid);
-            $section = load_qcat($qid);
+            $section = load_qcat($qid,1);
             $output.= '
                        <div class="">
 <div  class="details-left">
@@ -1785,8 +1788,10 @@ function suggest_answer() {
         });
 
 
-	</script>
-	<form id="voteform"  method="post" action="' . $gSitePath . 'qlite/answervote"  enctype="multipart/form-data">
+	</script>';
+     if (user_is_logged_in()) {
+
+	$ansoutput.='<form id="voteform"  method="post" action="' . $gSitePath . 'qlite/answervote"  enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="' . $qid . '"/>';
 
 
@@ -1802,7 +1807,11 @@ function suggest_answer() {
         $ansoutput .= '</p> <input type="submit" name="buttonvote" id="voteid"  value="Vote "/>';
     }
     $ansoutput .= '</form> ';
+     }else{
 
+        $ansoutput.='<script>jQuery(document).ready(function() {jQuery(\'#twitMsg\',top.document).html("Please log in to suggest an option");
+        jQuery(\'#twitMsg\',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); }); </script>' ;
+     }
 
     if ($numr == 0) {
 //        $ansoutput .= '<script type="text/javascript">
@@ -1855,14 +1864,18 @@ function suggest_answer() {
       
         });
         
-	</script>	<form id="answerform"  method="post" action="' . $gSitePath . 'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="' . $qid . '"/>
+	</script>	';
+    }
+     if (user_is_logged_in()) {
+        $ansoutput.='<form id="answerform"  method="post" action="' . $gSitePath . 'qlite/answersubmit"  enctype="multipart/form-data"><input type="hidden" name="qaid" value="' . $qid . '"/>
 	<br/>
 	<div class="txt_area">	Suggest Answer <input type="text" class="textfieldm"  name="txt_answer" id="txt_answer"/><br />
 	<div class="comment_but"><input type="submit" name="button" id="submitter"  value="Suggest Answer"/></div>
 	</div></form>';
-    }
-    if ($user->uid < 1) {
-        $ansoutput = '<div class="messages error"> Please log in to suggest an option </div>';
+    }else{
+
+       
+ $ansoutput.= '<div class="messages warning"> Please log in to suggest an option </div>';
     }
 
     echo $ansoutput;
@@ -2370,7 +2383,7 @@ function qlite_percent() {
 						defaultSeriesType:'bar'
 					},
 					title: {
-						text: 'Percent Reporting'
+						text: ''
 					},
 					xAxis: {
 						categories: " . json_encode($ans_array) . ",

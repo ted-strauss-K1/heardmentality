@@ -334,7 +334,7 @@ function get_qid() {
     else
         drupal_not_found();die;
 }
-
+/*
 function load_qcat($qid="") {
 
     drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
@@ -389,7 +389,70 @@ WHERE qc.qid ='$qid' ORDER BY c.cat_id ASC
 
     return $output;
 }
+*/
+function load_qcat($qid="",$level='',$cid='') {
 
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    switch($level){
+        case '1':
+  $query = "select c.cat_id as cid,c.cat_name from {question_cat} as qc left join {category} AS c ON qc.cat = c.cat_id WHERE qc.qid ='$qid' AND c.cat_id IS NOT NULL group by c.cat_id ORDER BY c.cat_id ASC";
+
+        $fetch = ExecuteQuery($query, "select");
+
+        $output = '';
+
+        foreach ($fetch as $load_cat) {
+        $output.='' . stripslashes('<div class="butb">
+<div class="butb-left"></div>
+<div class="butb-bg"><a href="' . $gSitePath . 'searchquestion?txt_search=&cid=' . $load_cat['cid'] . '">' . $load_cat['cat_name'] . '</a></div>
+<div class="butb-right"></div>
+</div>');
+        $load_sub=load_qcat($qid,2,$load_cat['cid']);
+        $output.=$load_sub;
+        }
+            break;
+        case '2':
+
+$query = "select c.cat_id as cid,c.cat_name  from {question_cat} as qc left join {category} AS c ON qc.scat = c.cat_id WHERE qc.qid ='$qid' AND qc.cat='$cid' AND c.cat_id IS NOT NULL group by c.cat_id ORDER BY c.cat_id ASC";
+
+        $fetch = ExecuteQuery($query, "select");
+
+        $output = '';
+
+        foreach ($fetch as $load_cat) {
+        $output.='' . stripslashes('<div class="butb">
+<div class="buty-left"></div>
+<div class="buty-bg"><a href="' . $gSitePath . 'searchquestion?txt_search=&cid=' . $cid. '&scid=' . $load_cat['cid'] . '">' . $load_cat['cat_name'] . '</a></div>
+<div class="buty-right"></div>
+</div>');
+        $load_sub=load_qcat($qid,3,$load_cat['cid']);
+        $output.=$load_sub;
+        }
+            break;
+        case '3':
+  $query = "select c.cat_id as cid,c.cat_name  from {question_cat} as qc left join {category} AS c ON qc.sscat = c.cat_id WHERE qc.qid ='$qid' AND qc.scat='$cid' AND c.cat_id IS NOT NULL group by c.cat_id ORDER BY c.cat_id ASC";
+        $fetch = ExecuteQuery($query, "select");
+
+        $output = '';
+
+        foreach ($fetch as $load_cat) {
+        $output.='' . stripslashes('<div class="butb">
+<div class="butg-left"></div>
+<div class="butg-bg"><a href="' . $gSitePath . 'searchquestion?txt_search=&cid=' . $load_cat['cid'] . '&scid=' . $cid . '&sscid=' . $load_cat['cid'] . '">' . $load_cat['cat_name'] . '</a></div>
+<div class="butg-right"></div>
+</div>');
+
+        }
+            break;
+        default:
+
+            break;
+        
+    }
+$output.='<br class="clr"/><br class="clr"/> ';
+    return $output;
+}
 function get_flag($country='') {
     global $gSitePath, $user, $gDocPath, $base_root;
  

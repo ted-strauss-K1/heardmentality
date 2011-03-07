@@ -638,9 +638,10 @@ function search_results_ajax() {
         $numresum = db_result(db_query("SELECT COUNT(qid) FROM resource where  qid='$user_result->qid'"));
         $posts=$for_count+$numresum;
         $fetresult .= ' <div class="result-item">
+               <form id="answer_frm-'.$user_result->qid.'" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save">
 	<div class="rleft">
        <div class="titl">
-        <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save">
+     
         <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
 <a href="' . $gSitePath . $user_result->url . '?ajax=1" style="' . drupal_link_color($user->uid, $user_result->qid) . '">' . htmlentities(rtrim($user_result->question, "?")) . '?</a>
 </div>';
@@ -696,7 +697,7 @@ function search_results_ajax() {
 
       </div>
 
-      </div>  </div>
+      </div> </form> </div>
        <div class="clr"></div>
 ';
         $i++;

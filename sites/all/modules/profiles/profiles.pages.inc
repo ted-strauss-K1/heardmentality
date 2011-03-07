@@ -1245,7 +1245,7 @@ var avtar=\'' . $account->avatar . '\';
                 '#id' => 'myweb',
                  '#prefix' => '<div class="social-outer-new">
                          
-                          <div class="social-rite-new">My Website :',
+                          <div class="social-left-new">My Website :</div><div class="social-rite-new">',
                 '#suffix' => '</div>
                          </div>
                          <div class="clr"></div>',
