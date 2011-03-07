@@ -302,7 +302,7 @@ function user_facts() {
          <div class="fa-item">
           <ul>
         
-          <li><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $usercnt . '\')"><span>' . $usercnt . '</span> Users</a></li>
+          <li><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $usercnt . '\')"><span>' . $usercnt . '</span> Contributors</a></li>
           <li><a href="' . $gSitePath . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"><span >' . $total_users . '</span> Online</a></li>
           <li><a href="' . $gSitePath . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"><span>' . $quest . '</span> Issues</a></li>
           <li><a href="' . $gSitePath . 'google/map/answer" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/answer\',\'Facts And Figures : Toatal Votes ' . $ans . '\')"><span >' . $ans . '</span> Votes</a></li>

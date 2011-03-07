@@ -658,11 +658,25 @@ function search_results_ajax() {
 
 
             //  name="answer_al['.$i.']"
+
             $fetresult .= ' <div class="item1">
                 <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->paid . '" ' . check_select($get_ans->paid, $vlistquest->paid) . '  />&nbsp;&nbsp;' . $vlistquest->answer . '</div>';
         }
 
+ $fetresult .= '  <div class="rright">
+      <div class="vote-post-outer">
+      <div class="vote-post-outer-top">
+      </div>   <div class="vote-post-outer-bottom">
+      <div align="center" class="vot-t" style="border-right:1px solid black">
+      <img src="' . $gSitePath.path_to_theme().'/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
+       <div align="center" class="vot-t">
+       <img src="' . $gSitePath.path_to_theme(). '/images/post.jpg" alt="img" /> Posts | ' .$posts . '</div>
 
+      </div>
+
+      </div>
+
+      </div> ';
         $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $user_result->qid . "' and uid='" . $user->uid . "'"));
         if ($numran != 0) {
             $query = "select vote_pid from {possible_answer_vote} where qid='$user_result->qid' AND uid='" . $user->uid . "'";
@@ -685,19 +699,8 @@ function search_results_ajax() {
             $follow = "Follow";
         }
 
-        $fetresult .= '</div><div class="rright">
-      <div class="vote-post-outer">
-      <div class="vote-post-outer-top">
-      </div>';
-        $fetresult .= '     <div class="vote-post-outer-bottom">
-      <div align="center" class="vot-t" style="border-right:1px solid black"><img src="' . $gSitePath.path_to_theme().'/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
-       <div align="center" class="vot-t"><img src="' . $gSitePath.path_to_theme(). '/images/post.jpg" alt="img" /> Posts | ' .$posts . '</div>
-
-      </div>
-
-      </div>
-
-      </div> </form> </div>
+        $fetresult .= '</div>
+       </form> </div>
        <div class="clr"></div>
 ';
         $i++;
@@ -891,7 +894,20 @@ function search_results_question() {
             $fetresult .= ' <div class="item1">
                 <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->paid . '" ' . $check . '  />&nbsp;&nbsp;' . $vlistquest->answer . '</div>';
         }
+ $fetresult .= '  <div class="rright">
+      <div class="vote-post-outer">
+      <div class="vote-post-outer-top">
+      </div>   <div class="vote-post-outer-bottom">
+      <div align="center" class="vot-t" style="border-right:1px solid black">
+      <img src="' . $gSitePath.path_to_theme().'/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
+       <div align="center" class="vot-t">
+       <img src="' . $gSitePath.path_to_theme(). '/images/post.jpg" alt="img" /> Posts | ' .$posts . '</div>
 
+      </div>
+
+      </div>
+
+      </div> ';
 
         $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $user_result->qid . "' and uid='" . $user->uid . "'"));
         if ($numran != 0) {
@@ -915,19 +931,7 @@ function search_results_question() {
             $follow = "Follow";
         }
 
-        $fetresult .= '<div class="rright">
-      <div class="vote-post-outer">
-      <div class="vote-post-outer-top"> 
-      </div>';
-        $fetresult .= '     <div class="vote-post-outer-bottom">
-      <div align="center" class="vot-t" style="border-right:1px solid black"><img src="' . $gSitePath. path_to_theme() . '/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
-       <div align="center" class="vot-t"><img src="' . $gSitePath.  path_to_theme(). '/images/post.jpg" alt="img" /> Posts | ' . $posts . '</div>
-      
-      </div>
-      
-      </div>
-      
-      </div>  </div></div>
+        $fetresult .= '  </div></div>
        <div class="clr"></div>
 ';
         $i++;
