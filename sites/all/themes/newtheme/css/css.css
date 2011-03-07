@@ -140,7 +140,7 @@ img{ border:none;}
 .fa-item ul{ padding:0px; margin:0px;}
 .fa-item ul li{ list-style-type:none; font:bold 14px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;padding-left:0px; text-align:right;}
 .fa-item ul li a{ font:normal 12px/20px Arial,Helvetica,sans-serif; color:#996600; text-decoration:none;}
-.fa-item ul li a span {    display: inline-block;    width: 20px; float:left; padding-left:80px;}
+.fa-item ul li a span {    display: inline-block;    width: 20px; float:left; padding-left:60px;}
 .fa-item ul li a:hover{ color:#CC9900; text-decoration:none;}
 .facttext .fa-item ul{ width:155px;}
 /*tag section*/
