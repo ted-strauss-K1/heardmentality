@@ -179,9 +179,11 @@ function file_check_path(&$path) {
  * @return 0 for invalid path or the real path of the source.
  */
 function file_check_location($source, $directory = '') {
-  $check = realpath($source);
-  if ($check) {
-    $source = $check;
+ // $check = realpath($source);
+  if (file_exists($source)) {
+ $source = realpath($source);
+
+  // $source = $check;
   }
   else {
     // This file does not yet exist
@@ -899,7 +901,7 @@ function file_scan_directory($dir, $mask, $nomask = array('.', '..', 'CVS'), $ca
           // Give priority to files in this folder by merging them in after any subdirectory files.
           $files = array_merge(file_scan_directory("$dir/$file", $mask, $nomask, $callback, $recurse, $key, $min_depth, $depth + 1), $files);
         }
-        elseif ($depth >= $min_depth && ereg($mask, $file)) {
+        elseif ($depth >= $min_depth && mb_ereg($mask, $file)) { 
           // Always use this match over anything already set in $files with the same $$key.
           $filename = "$dir/$file";
           $basename = basename($file);
