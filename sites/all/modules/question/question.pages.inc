@@ -153,9 +153,9 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
           <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest"   size="100" >
         </span></label>
         </li>
-          <li><label><span class="span1">Context</span><span> <textarea name="q_context" id="q_context" tabindex="2">' . $q_context . '</textarea> </span></label></li>
-         <li><label><span class="span1">Answer<b>*</b></span><span> <input tabindex="3" name="q_ans1" type="text" id="q_ans1"  value="' . $q_ans1 . '" size="40" /></span></label></li>
-         <li><label><span class="span1">Answer <b>*</b></span><span> <input name="q_ans2" tabindex="4" type="text" id="q_ans2"   value="' . $q_ans2 . '" size="40" />
+          <li><label><span class="span1">Details</span><span> <textarea name="q_context" id="q_context" tabindex="2">' . $q_context . '</textarea> </span></label></li>
+         <li><label><span class="span1">Option<b>*</b></span><span> <input tabindex="3" name="q_ans1" type="text" id="q_ans1"  value="' . $q_ans1 . '" size="40" /></span></label></li>
+         <li><label><span class="span1">Option <b>*</b></span><span> <input name="q_ans2" tabindex="4" type="text" id="q_ans2"   value="' . $q_ans2 . '" size="40" />
          </span></label></li>
          <li>&nbsp;</li>
        </ul>

@@ -136,9 +136,9 @@ function add_ans(){
            
             //	$('add_more').set('html','  <p>&nbsp;</p>');
             if(admin)
-                           var firstElem='<div class="mod-t-outer"><div class="mod-t1">Answer</div><div class="mod-t5"><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" class="mod-select3" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></div> <div class="clr"></div> </div><div class="clr"></div>';
+                           var firstElem='<div class="mod-t-outer"><div class="mod-t1">Option</div><div class="mod-t5"><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" class="mod-select3" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></div> <div class="clr"></div> </div><div class="clr"></div>';
                 else
-            var firstElem='<li><label><span class="span1">Answer</span></label><span><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></span></li>';
+            var firstElem='<li><label><span class="span1">Option</span></label><span><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></span></li>';
 
             jQuery("#add_more").append(firstElem);
             // $('add_more').getLast('input').highlight('#F1F1F1', '#6DB6DB');
