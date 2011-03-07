@@ -23,14 +23,18 @@ $directory = $base_path . $directory;
 
         <?php print $styles; ?>
  <script type="text/javascript">
-     var spath='<?php print $gSitePath;?>';</script>
+     var spath='<?php print $gSitePath;?>';  var gSitePath='<?php echo $gSitePath; ?>';</script>
 
         <?php print $scripts; ?>
 
 
     
 </head>
-<body>
+<body><?php
+if ($title == 'Access denied') {
+print " <script>jQuery(document).ready(function() {jQuery('#twitMsg',top.document).html('Please log in first before you can flag');
+        jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); }); </script>";
+} ?>
     <div class="popup-add-suggest" id="log">
 	<div class="facttop"> <?php print $title; ?></div>
 	<div id="log_res"><!-- spanner --></div>
@@ -46,6 +50,6 @@ $directory = $base_path . $directory;
 
 
       <!--content area close-->
-	  </div>
+	
 	 </body>
 	 </html>

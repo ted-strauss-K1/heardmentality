@@ -474,7 +474,8 @@ function question_save() {
         }
 
         if ($result)
-            $output = drupal_set_message(t('Your issue has been added to Heard Mentality'), $type = 'success');
+            $output = drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
+'), $type = 'success');
         unset($_SESSION['post']);
         $_SESSION['post'] = '';
         // drupal_goto("question");
@@ -486,10 +487,10 @@ function question_save() {
         drupal_set_message($message = '<li>Sorry, Following required fields are Empty!</li>', $type = 'error');
 
         if (empty($q_quest))
-            drupal_set_message($message = '<li>Question should not be Empty!</li>', $type = 'error');
+            drupal_set_message($message = '<li>Issue should not be empty!</li>', $type = 'error');
 
         if (empty($q_ans1) || empty($q_ans2))
-            drupal_set_message($message = '<li>Minimum 2 answers should be needed!</li>', $type = 'error');
+            drupal_set_message($message = '<li>Minimum 2 options are required!</li>', $type = 'error');
 
 //        if (empty($cat1))
 //            drupal_set_message($message = '<li>Main Category should not be Empty!</li>', $type = 'error');
