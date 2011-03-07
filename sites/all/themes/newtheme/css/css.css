@@ -1180,7 +1180,7 @@ div.growlUI h1, div.growlUI h2 {
 .profile-con ul{ margin:0px; padding:0px;}
 .profile-con li{ list-style:none; float:left; padding-left:2px;}
 .profile-gray{ color:#666666; font-size:12px; }
-.profile-lefthm .profile-gray{ display:inline-block; padding-bottom:3px;}
+/*.profile-lefthm .profile-gray{ display:inline-block; padding-bottom:3px;}*/
 .p-foll{ width:180px; float:left;margin-right:10px; padding-top:10px;}
 .p-foll img{ border:1px #9e9ea1 solid; margin:1px}
 .history-tab{ height:auto;}
