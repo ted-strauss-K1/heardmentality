@@ -1292,21 +1292,11 @@ function flag_question() {
         $oListquest = db_fetch_object($rlist);
         $img_path1 = $gSitePath . drupal_get_path('module', 'profile') . '/snap/' . $oListquest->image;
         $PROFILE_IMAGE = '<img src="' . $img_path1 . '" align="absmiddle" alt="Profile image" >';
-        $falgq .= '<div class="popup-user-flag" id="log">
-	<div class="facttop2">FLAG USERS</div>
-	<div class="flag-report"><b>Report this user!</b></div>
-	<div id="log_res"></div>
-	<span class="clr"><!-- spanner --></span>';
+     drupal_set_title('Flag Contributor');
         $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">
 	<input type="hidden" name="uid" value="' . $uid . '"/>
 	<div class="cmt_list"><div class="lft_view">  <p><span>' . $PROFILE_IMAGE . '</span><span>  </span><span>' . $oListquest->real_name . '</span> </p>
-	 <p class="cmt_date">  ' . $oListquest->context . ' </p></div></div>
-	<div class="txt_area">
-	<input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
-	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
-	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
-	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
-	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form>';
+	 <p class="cmt_date">  ' . $oListquest->context . ' </p></div></div>';
     } elseif (isset($_REQUEST['rid'])) {
 
         $rid = $_REQUEST['rid'];
@@ -1317,45 +1307,30 @@ function flag_question() {
         $content = (!empty($oListquest->nlink)) ? $oListquest->nlink : (!empty($oListquest->membed)) ? $oListquest->membed : (!empty($oListquest->facts)) ? $oListquest->facts : 'No Resource';
         $date = '';
         $date = format_date_class($oListquest->posted_date, date('Y-m-d h:i:s'));
-        $falgq .= '<div class="popup-resource-flag" id="log">
-	<div class="facttop2">FLAG RESOURCES</div>
-	<div class="flag-report"><b>Report this Resource!</b></div>
-	<div id="log_res"></div>
-	<span class="clr"><!-- spanner --></span>';
+        drupal_set_title('Flag Resource');
         $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">
 	<input type="hidden" name="rid" value="' . $rid . '"/>
 	<div class="cmt_list"><div class="lft_view">  <p><span>Posted by ' . $oListquest->real_name . ' on ' . $date . '</span> </p>
-	 <p class="cmt_date">  ' . $content . ' </p></div></div>
-	<div class="txt_area">
-	<input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
-	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
-	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
-	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
-	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form>';
+	 <p class="cmt_date">  ' . $content . ' </p></div></div>';
     } else {
 
         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
         $vSql = "select * from {question} where status='1' and qid=$qid ";
         $rlist = db_query($vSql);
         $oListquest = db_fetch_object($rlist);
-        $falgq .= '
-	<div class="popup-issue-flag" id="log">
-	<div class="facttop2">FLAG QUESTIONS</div>
-	<div id="log_res"><!-- spanner --></div>
-	
-	<span class="clr"><!-- spanner --></span>';
+         drupal_set_title('Flag Issue');
         $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="' . $qid . '"/>
 	<div class="cmt_list"><div class="lft_view">  <p><b>Question :</b>' . $oListquest->question . ' </p>
- <p class="cmt_date"> <b>Context :</b> ' . $oListquest->context . ' </p></div></div>
-<div class="txt_area">
+ <p class="cmt_date"> <b>Context :</b> ' . $oListquest->context . ' </p></div></div>';
+
+    }
+$falgq.='<div class="txt_area">
 	<input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
 	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
 	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
 	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
 	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form></div>';
-    }
-
 
    return $falgq;
 }

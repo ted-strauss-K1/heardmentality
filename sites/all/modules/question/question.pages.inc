@@ -86,26 +86,18 @@ function question_add() {
             $fcity = $udet->city;
         }
     }
-
-
-    $output .= '
-	<script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
-
-	<script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/question.js" type="text/javascript"></script>
-		<script type="text/javascript">
-                var mpath=\'' . $gSitePath . '\';
+    $data=' var mpath=\'' . $gSitePath . '\';
                     var spath=\'' . $gSitePath . '\';
                     var cncode=\'' . $cncode . '\';
                     var ustate=\'' . $ustate . '\';
                     var setstate=\'' . $setstate . '\';
                         var setcity=\'' . $fcity . '\';
-                            var admin=0;
-		</script>
+                            var admin=0;';
+    drupal_add_js($data,'inline');
+drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+drupal_add_js( drupal_get_path('module', 'question') . '/scripts/post_list.js');
 
 
-                <script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/post_list.js" type="text/javascript"></script>
-              
-';
 
     //geoname api
     $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
@@ -116,41 +108,12 @@ function question_add() {
 //    }
 
 
-    $output .= '<link rel="stylesheet" href="' . $gSitePath . 'modules/system/system.css" type="text/css" />
 
-	<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
-<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/tagging/tagging.css" type="text/css" />';
-
-    $output .= '<body style="background:none;"><div class="popup-add-issue" sytyle="">
-
-<div class="do-in2">
-        <div class="do-intop">ADD AN ISSUE</div>
-        <div class="inside2">
-		<div id="err" class="">' . $list_err . '</div>
-	       <div class="clr">&nbsp;</div>
-<div class="left"><strong>
-Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles</span> when creating a new issue</strong><br>
-         <strong><br>
-         All issues should be :   </strong>
-         <div class="creat"><ul>
-         <li>Concise</li>
-         <li>Clean</li>
-         <li>Original</li>
-         <li>Important</li>
-         <li>Unbiased</li>
-       
-         </ul></div>
-
-
-        <!-- <div class="clr" style="font-weight:bold;color:black">Dupe questions:</div> 
-         
-         <div id="inside_content"></div>-->
-          </div>
-       <div class="right" id="qform">
+    $output .= '
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="' . $gSitePath . 'question/save" >
        <ul id="add_more">
                <li><label><span class="span1">Issue <b>*</b></span><span>
-          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest"   size="100" ><br>
+          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" maxlength="140"   size="100" ><br>
         
         </span></label>
         <span class="span1">&nbsp;</span><small> 140 Characters Max.</small>
@@ -284,14 +247,11 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          <div class="clr"></div>
         </div>
 </form>
-        </div>
-       </div>
-        </div>
-        </div>
+       
         ';
 
 
-    echo $output;
+    return $output;
 }
 
 function get_tagging($tag = '') {

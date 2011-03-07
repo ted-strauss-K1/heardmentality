@@ -872,7 +872,7 @@ div.growlUI h1, div.growlUI h2 {
 .ytex{color:#986700; font-size:12px;}
 .creat{ font-family:Arial, Helvetica, sans-serif;margin:0px; padding:0px; float:left; padding-left:15px;}
 .creat ul{ margin:0px; padding:0px;}
-.creat li{ padding-left:0px; line-height:18px;}
+.creat li{ padding-left:0px; line-height:18px;color:#4E7AA7;cursor: help;}
 
 
 .likelink-outer-forum{ width:400px; padding-bottom:20px;}
