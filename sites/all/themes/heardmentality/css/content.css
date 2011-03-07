@@ -16,7 +16,7 @@ Note:
 
 /* Reset */
 
-ul,ol,dl,li,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,object,iframe { margin: 0; padding: 0; font-family: Georgia, "Times New Roman", Times, serif;}
+ul,ol,dl,li,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,object,iframe { margin: 0; padding: 0;  font-family: arial;}
 a img,:link img,:visited img { border: none; }
 table { /*border-collapse: collapse;*/ border-spacing: 0; }
 :focus { outline: none; }
@@ -25,10 +25,10 @@ table { /*border-collapse: collapse;*/ border-spacing: 0; }
 select {width: 125px;}
 body {
 	text-align: left;
-	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 12px;
 	line-height: 18px;
-	color: #3f3f3f;	
+	color: #3f3f3f;
+        font-family: arial;
 }
 
 /* Typography */
@@ -95,7 +95,6 @@ dd {
 /* Forms */
 
 textarea, input {
-	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 12px;		
 }	
 
@@ -105,7 +104,6 @@ pre {
 	background-color: #f6f6f6;
 	color: #060;
 	display: block;
-	font-family: Georgia, "Times New Roman", Times, serif;
 	font-size: 11px;
 	max-height: 250px;
 	overflow: auto;

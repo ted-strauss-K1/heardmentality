@@ -138,7 +138,7 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
          <li>Original</li>
          <li>Important</li>
          <li>Unbiased</li>
-         <li>Contain no names</li>
+       
          </ul></div>
 
 
@@ -150,11 +150,14 @@ Please follow Heard<br/>Mentality\'s,<span class="ytex">Guidelines & Principles<
        <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="' . $gSitePath . 'question/save" >
        <ul id="add_more">
                <li><label><span class="span1">Issue <b>*</b></span><span>
-          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest"   size="100" >
+          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest"   size="100" ><br>
+        
         </span></label>
+        <span class="span1">&nbsp;</span><small> 140 Characters Max.</small>
         </li>
-          <li><label><span class="span1">Details</span><span> <textarea name="q_context" id="q_context" tabindex="2">' . $q_context . '</textarea> </span></label></li>
-         <li><label><span class="span1">Option<b>*</b></span><span> <input tabindex="3" name="q_ans1" type="text" id="q_ans1"  value="' . $q_ans1 . '" size="40" /></span></label></li>
+
+          <li><label><span class="span1">Details</span><span> <textarea name="q_context" rows="4" id="q_context" tabindex="2">' . $q_context . '</textarea> </span></label></li>
+         <li><label><span class="span1">Option <b>*</b></span><span> <input tabindex="3" name="q_ans1" type="text" id="q_ans1"  value="' . $q_ans1 . '" size="40" /></span></label></li>
          <li><label><span class="span1">Option <b>*</b></span><span> <input name="q_ans2" tabindex="4" type="text" id="q_ans2"   value="' . $q_ans2 . '" size="40" />
          </span></label></li>
          <li>&nbsp;</li>

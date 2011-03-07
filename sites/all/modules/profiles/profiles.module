@@ -140,10 +140,10 @@ function UserPicture($mid, $profile='') {
             $ipath = $gSitePath . $image_path . '/' . $selected_avatar;
 
             if (file_check_location($image_path . '/' . $selected_avatar)) {
-                $PROFILE_IMAGE = '<img src="' . $ipath . '" alt="avatar" ALIGN=ABSMIDDLE width="56" class="uprofile"  height="56" >';
+                $PROFILE_IMAGE = '<img src="' . $ipath . '" alt="avatar" ALIGN=ABSMIDDLE width="54" class="uprofile"  height="54" >';
                 //  $PROFILE_IMAGE = theme('image',$ipath);
             } else {
-                $PROFILE_IMAGE = '<img src="' . $default . '" alt="photo" ALIGN=ABSMIDDLE class="uprofile" width="56"  height="56" >';
+                $PROFILE_IMAGE = '<img src="' . $default . '" alt="photo" ALIGN=ABSMIDDLE class="uprofile" width="54"  height="54" >';
             }
 
             break;
