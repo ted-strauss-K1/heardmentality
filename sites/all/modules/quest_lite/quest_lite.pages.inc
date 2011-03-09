@@ -2323,10 +2323,12 @@ function qlite_graph() {
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
 
-    $script .= "
+    $script .= "<html><head>
         				<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
         <script type='text/javascript' src='" . $gSitePath . "misc/jquery.js'></script>
-       			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
+
+<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
+	<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/skies.js'></script>
 <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 <script type='text/javascript' language='javascript'>
 
@@ -2386,7 +2388,7 @@ function qlite_graph() {
             $insdata.="{name :'" . $vlist[$ab]['answer'] . "', data: " . $ins_sc . "},";
 
             $sdate = "Date.UTC(" . $year . "," . ($month - 1) . "," . (date("d") - 6) . ")";
-            $tickint = "tickInterval: 24 * 3600 * 1000 // one day";
+            $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";
         }
     }
 
@@ -2402,8 +2404,13 @@ function qlite_graph() {
     echo $script .= "
 var chart;
 var gSitePath='" . $gSitePath . "';
+var example = 'area-basic',
+	theme = 'skies';
+        Highcharts.theme = { colors: ['#4572A7'] };// prevent errors in default theme
+	var highchartsOptions = Highcharts.getOptions();
 
-$(document).ready(function() {
+
+jQuery(document).ready(function() {
    chart = new Highcharts.Chart({
       chart: {
          renderTo: 'container',
@@ -2421,11 +2428,11 @@ $(document).ready(function() {
        plotBands: [{ // mark the weekend
             from: " . $sdate . ",
             to: " . $edate . "
-        }], " . $tickint . "
+        }] " . $tickint . "
       },
       yAxis: {
          title: {
-            text: 'No Of Votes (Per Day)',
+            text: 'No Of Votes (Per Day)'
          },
          min: 0,
          minorGridLineWidth: 0,
@@ -2471,7 +2478,7 @@ $(document).ready(function() {
                }
             },
             pointInterval: 24 * 3600 * 1000, // one day
-            pointStart:" . $sdate . ",
+            pointStart:" . $sdate . "
             }
       },
       series: [" . $insdata . "]
@@ -2500,13 +2507,14 @@ jQuery('#resource').html(msg);
 }
 
 
-</script>
+</script> </head><body>
 ";
 
 
     echo '<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
-        <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
-
+        <div id="resource" style="height:auto; width: 450px; margin: 0 auto; clear:both"></div>
+</body>
+</html>
 ';
 }
 
@@ -2677,7 +2685,7 @@ map.setCenter(new GLatLng(Math.round(lat),Math.round(lng) ), 5);
     <div style="width:450px;"><div  class="">
         ' . $zoom . '<span style=" float: right; padding-right:10px ">' . $filter . '</span></div>
             </br>
-        <div id="map_div" style="width: 100%; height: 300px"></div><br/>
+        <div id="map_div" style="width: 450px; height: 300px"></div><br/>
         <div style="position: relative;" id="desc">' . $desc . '</div>
 </body>';
 }

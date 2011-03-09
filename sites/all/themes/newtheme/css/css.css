@@ -364,8 +364,8 @@ padding:0px;}*/
 
    /* background: #F8FFF0 url(bioneural/exclamation.png) 15px center no-repeat;  text-align: left; padding: 5px 20px 5px 45px;*/
     color:#1C1896;
-    border-top: 2px solid #A0DC11;
-    border-bottom: 2px solid #A0DC11;
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
     font-family: Arial,Helvetica,sans-serif; font-weight:bold;
 }
 
@@ -973,7 +973,7 @@ div.growlUI h1, div.growlUI h2 {
 .debate-outer ul li a{ font:normal 10px Arial, Helvetica, sans-serif; color:#996600; float:left; text-decoration:none;}
 .debate-outer ul li span{ font:normal 10px Arial, Helvetica, sans-serif; color:#666666; }
 .debate-outer ul li a:hover{ font:normal 10px Arial, Helvetica, sans-serif; color:#996600; text-decoration: underline;}
-.debate-cor-inner{ background:#f8f5ed; padding:3px;}
+.debate-cor-inner{ background:#f8f5ed; padding:3px;position:relative;}
 .debate-cor-inner-left{ float:left;}
 .debate-cor-inner-right{ float:left;}
 .debate-cor-inner-right{ float:left;}
@@ -1536,6 +1536,10 @@ img{ border:none; outline:none;}
 .popup-resource-new .new-debate-wrapper { width:auto; padding:10px;}
 .popup-resource-new .form-outer-debate{ width:100%;}
 .popup-resource-new .form-outer-debate .fm-1{ color:#000; font-weight:bold;}
+.popup-resource-new ul{ list-style-position:inside;}
+.popup-resource-new .fm-2-left{ float:left; width:140px;}
+.popup-resource-new .fm-2-right select{ float:left; width:110px;}
+.popup-resource-new .leftfm{ float:left; margin-right:10px;}
 .popup-debate-new .fm-1{ color:#000; font-weight:bold;}
 .popup-issue-flag .cmt_list,.popup-user-flag .cmt_list{ border:0; padding-left:10px;}
 .popup-issue-flag .txt_area,.popup-user-flag .txt_area{ padding:10px;}
@@ -1570,8 +1574,8 @@ img{ border:none; outline:none;}
 .profInfo-txt a{ color:#996600; font:normal 12px/16px Arial, Helvetica, sans-serif; font-weight:bold; text-decoration:none;}
 .profInfo-txt a:hover{ color:#000;}
 .profInfo-txt ul{ list-style-type:none;}
-.profInfo-txt li,.profInfo-txt li img{ float:left; margin-right:3px;}
-.profInfo-txt li img{ margin-top:2px;}
+.profInfo-txt li,.profInfo-txt li img{ float:left; margin-right:5px;}
+.profInfo-txt li img{ margin-top:3px;}
 .profInfo-value{ position:absolute; top:1px; right:4px;}
 .profInfo-name{ clear:both; font-weight:bold;}
 .profInfo-name2{ clear:both;}
