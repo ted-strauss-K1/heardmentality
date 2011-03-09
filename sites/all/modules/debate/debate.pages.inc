@@ -75,7 +75,7 @@ function debate_list($qid = '', $did='') {
 //flag
         $flag.='<a name="' . $did . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',this);"></a>';
         $bubble = load_bubble($account->uid);
-        $medal = updateProfileBadge($account->uid);
+       
         $output .= '
 
 <div class="debate-inn-item">
@@ -113,15 +113,7 @@ function debate_list($qid = '', $did='') {
 </ul>
 </div>
 <div class="itemthird">
-<div class="profile-img">
-<div class="profile-imgs">
-<a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
-</div>
-<div class="profile-con">' . $medal . '
-<div>
-</div>
-</div>
-
+'.  load_user_badge($account->uid).'
 </div>
 <div class="clr"></div>
 </div>
@@ -1955,9 +1947,9 @@ function debate_submit() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_url;
     extract($_REQUEST);
 
-    if (empty($user->uid)) {
+    if (!user_is_logged_in()) {
 
-        echo "<small>Sorry, Please login to do this action!</small>";
+        echo "<small>Sorry, Please log in first before you can join this debate!</small>";
         exit;
     }
     $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));

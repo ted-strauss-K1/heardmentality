@@ -45,7 +45,7 @@ print " <script>jQuery(document).ready(function() {jQuery('#twitMsg',top.documen
 	<span class="clr"><!-- spanner --></span>
 
              <div class="inner5">
-       <?php echo $content;?>
+       <?php print $content;?>
         </div>
 
 

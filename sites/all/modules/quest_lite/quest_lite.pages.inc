@@ -1282,10 +1282,10 @@ function flag_question() {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     $falgq = '';
-    drupal_add_js( drupal_get_path('module', 'debate') . '/scripts/debate.js');
+   // drupal_add_js( drupal_get_path('module', 'debate') . '/scripts/debate.js');
 
     if (isset($_REQUEST['uid'])) {
-
+        drupal_set_title("Flag Contributor");
         $uid = $_REQUEST['uid'];
         $vSql = "select * from {user_profile} where  uid='$uid' ";
         $rlist = db_query($vSql);
@@ -1298,7 +1298,7 @@ function flag_question() {
 	<div class="cmt_list"><div class="lft_view">  <p><span>' . $PROFILE_IMAGE . '</span><span>  </span><span>' . $oListquest->real_name . '</span> </p>
 	 <p class="cmt_date">  ' . $oListquest->context . ' </p></div></div>';
     } elseif (isset($_REQUEST['rid'])) {
-
+ drupal_set_title("Flag Reference");
         $rid = $_REQUEST['rid'];
         $vSql = "select * from {resource} as r  join {user_profile} as u on u.uid=r.uid where  r.rid='$rid' ";
         $rlist = db_query($vSql);
@@ -1313,7 +1313,7 @@ function flag_question() {
 	<div class="cmt_list"><div class="lft_view">  <p><span>Posted by ' . $oListquest->real_name . ' on ' . $date . '</span> </p>
 	 <p class="cmt_date">  ' . $content . ' </p></div></div>';
     } else {
-
+ drupal_set_title("Flag Issue");
         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
         $vSql = "select * from {question} where status='1' and qid=$qid ";
         $rlist = db_query($vSql);
@@ -1546,7 +1546,7 @@ function flag_report() {
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo 'Flagged';
                 } else {
-                    echo '<div class="red">You have already Flagged this issue</div>';
+                    echo '<div class="red">You have already Flagged this contributor!</div>';
                 }
             } else {
 
@@ -1568,7 +1568,7 @@ function flag_report() {
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="">Flagged </div>';
                 } else {
-                    echo '<div class="red">You have already Flagged this issue</div>';
+                    echo '<div class="red">You have already Flagged this reference!</div>';
                 }
             } else {
 
@@ -1591,7 +1591,7 @@ function flag_report() {
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="">Flagged</div>';
                 } else {
-                    echo '<div class="red">You have already Flagged this issue</div>';
+                    echo '<div class="red">You have already Flagged this debate!</div>';
                 }
             } else {
 
@@ -1614,7 +1614,7 @@ function flag_report() {
                     increasepoints('4', $_REQUEST['uid'], '0');
                     echo '<div class="">Flagged</div>';
                 } else {
-                    echo '<div class="red">You have already Flagged this issue</div>';
+                    echo '<div class="red">You have already Flagged this discussion!</div>';
                 }
             } else {
 
@@ -1656,12 +1656,12 @@ function flag_report() {
                 }
             } else {
 
-                echo '<div class="red">Select Report Type !</div>';
+                echo '<div class="red">Please indicate why you’ve flagged this !</div>';
             }
         }
     } else {
 
-        echo '<div class="red">Sorry You Not Have Sufficent User Points To Flag !</div>';
+        echo '<div class="red">Sorry, You have insufficent User Points to Flag !</div>';
     }
 }
 

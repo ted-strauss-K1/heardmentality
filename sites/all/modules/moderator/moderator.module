@@ -1066,7 +1066,7 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
 
         print drupal_json(array('err' => false, 'msg' => 'Successfully Merged the Issues', 'content' => '', 'qid' => $qid));
         // send mail status as edited for final issue
-        question_edited_mail($qid);
+       // question_edited_mail($qid);
     } else {
 
         watchdog('Dupe Issue Merged Error ', 'Dupe Issue @dupe merged to  @issue By Moderator ', array('@dupe' => $dupe['question'], '@issue' => $details['question'], '@username' => $user->name), WATCHDOG_ERROR);
@@ -1359,7 +1359,7 @@ function moderator_new_save($qids='') {
 
         // delete from db
         delete_issues($qids);
-        $msg = '<div class="success">Question updated successfully!</div>';
+        $msg = '<div class="success">Selected Issue(s) has been rejected successfully!</div>';
     }
     return $msg;
 }
@@ -1379,7 +1379,7 @@ function flag_quest_mail($qids = '') {
 
     $from = variable_get('site_mail');
     $subject = 'Heardmentality Flag  Question Removal';
-    $msg = $_REQUEST['reporttext'];
+    $reporttext = $_REQUEST['reporttext'];
     $qids = explode(',', $qids);
 
     foreach ($qids as $id) {
@@ -1402,7 +1402,7 @@ function flag_quest_mail($qids = '') {
             // $contentm = str_replace("#anothername#",$user->name, $contentm);
             $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
             //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
-            $contentm = str_replace("#content#", "$reporttext & Question has been Rejected By Headmentality Moderator", $contentm);
+            $contentm = str_replace("#content#", " Your Issue has been Rejected By Headmentality Moderator due to <br/><b>$reporttext</b>", $contentm);
             //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
             $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
             db_query($ins_qry, $from, $from, $to, $subject, $contentm);

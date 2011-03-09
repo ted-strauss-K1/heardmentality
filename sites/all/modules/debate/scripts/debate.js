@@ -30,31 +30,7 @@ function bind_clk(){
     });
 
 
-    if (jQuery('#flagform') != null) {
-        jQuery('#flagform').bind('submit', function(e){
-
-            e.preventDefault();
-
-            var log = jQuery('#log_res').addClass('ajax-loading');
-
-            jQuery.post( jQuery("#flagform").attr('action'), jQuery("#flagform").serialize(),
-                function(data){
-                    log.removeClass('ajax-loading');
-                    jQuery('#twitMsg',top.document).html(data);
-                jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-                    jQuery("#flagform input:checked").attr('checked',false);
-
-
-                });
-
-        //   jQuery(this).parents('form').submit(function() {
-        //  alert($(this).serialize());
-        // return false;
-        //});
-
-
-        });
-    }
+   
 
 }
 
@@ -65,7 +41,7 @@ function bind_clk(){
             e.preventDefault();
             el = jQuery(this);
             if(uid<1){
-                jQuery('#twitMsg').html("Please Login to do this action!");
+                jQuery('#twitMsg').html("Please log in first before you can Agree or Disagree!");
                 jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
                // jQuery.growlUI('', 'Please Login to do this action!');
                return false;
@@ -250,7 +226,7 @@ function toggle(){
         });
     }else{
 
-        jQuery('#twitMsg').html("Please Login to do this action!");
+        jQuery('#twitMsg').html("Please log in first before you can join this debate!");
                 jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
     }
 }
@@ -294,7 +270,7 @@ jQuery(document).ready(function() {
         }
  }else{
 
-        jQuery('#twitMsg').html("Please Login to do this action!");
+        jQuery('#twitMsg').html("Please log in first before you can join this debate or discussion!");
                 jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
     }
     return false;

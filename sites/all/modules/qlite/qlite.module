@@ -101,7 +101,7 @@ function tophot() {
 
 function top_list() {
 
-    drupal_add_js(drupal_get_path('module', 'qlite') . '/scripts/qmini.js');
+
     $output = '';
 
     $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";

@@ -251,7 +251,7 @@ function report_content() {
 
 
 function load_ajax() {
-    drupal_add_js(drupal_get_path('module', 'qlite').'/scripts/qmini.js');
+   
     global $gSitePath,$user,$gDocPath,$base_root;
     $output = '';
     $action = $_REQUEST['action'];
