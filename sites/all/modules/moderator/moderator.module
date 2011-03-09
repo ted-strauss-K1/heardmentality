@@ -142,8 +142,8 @@ function _moderator_user_left() {
   <div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b> Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
           <div class="mod-btn-outer">
       <input type="hidden" id="actions" name="actions" value="1"/>
-
-          <div><input name="" type="button"  onclick="moderator_warn_user(1);" class="mod-btn" value="Warning/Ignore"/></div>
+            <div><input name="" type="button"  onclick="moderator_ignore_user(2);" class="mod-btn" value="Ignore"/></div>
+          <div><input name="" type="button"  onclick="moderator_warn_user(1);" class="mod-btn" value="Warning"/></div>
           <div><input name="" type="button" onclick="moderator_reject_user(0);" class="mod-btn" value="Reject"/></div>
            <div> <small onclick="checkall(1);">Check All</small>&nbsp;<small onclick="checkall(0);">Uncheck All</small></div>
           <div class="clr"></div>

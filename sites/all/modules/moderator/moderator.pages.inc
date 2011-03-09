@@ -6,7 +6,7 @@ function moderater_user_mail($array='',$type='',$action='') {
   
  $days_from_now = 10; //10 days from now
     $us_id = implode(',', $array['qids']);
-      $msg=$_REQUEST['reporttext'];
+      $msg=check_plain($_REQUEST['reporttext']);
 switch($type){
     case 'warning':
 
@@ -40,12 +40,21 @@ switch($type){
     }
     break;
     case 'reject':
-         if ($action) {
-         $qids = implode(',', $array);
-        $query = db_query("delete  from {question_flags} where type='user' AND fid in ($qids)");
-                      return '<div class="success">User(s) has been unflagged successfully!</div>';
+        switch($action){
+        case '2':
+             $qids = implode(',', $array);
+        $query = db_query("delete  from {question_flags} where type='user' AND nodeid in ($qids)");
+                      return '<div class="success">User(s) has been ignored from flaglist successfully!</div>';
+            break;
+        case '1':
 
-         }else{
+             foreach ($array as $idd) {
+
+            quest_mail_warning($idd,$msg);
+        }
+        return '<div class="success">Warning Message Send!</div>';
+            break;
+        case '0':
           flag_user_mail($array,$days_from_now);
         foreach ($array as $idd) {
 
@@ -58,14 +67,18 @@ switch($type){
             $current_timestamp = date("U");
 
             $target_timestamp = $current_timestamp + $conv_secs;
-         
+
            db_query("update {users} set status='%d',blocktime='%d' where uid='%d'",'0',$target_timestamp,$idd);
         }
         return  '<div class="success">Users has been suspended  successfully for '.$days_from_now.' days!</div>';
 
+            break;
+        default:
+            return "No Action Found!";
+            break;
 
-         }
-        
+        }
+      
         
         break;
     default:

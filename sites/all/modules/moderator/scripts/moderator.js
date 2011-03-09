@@ -704,7 +704,77 @@ function moderator_reject_user(make){
     }
 
 }
+function moderator_ignore_user(make){
 
+    if(jQuery('#mod-type').val()=='new')
+    {
+         jQuery('#twitMsg').empty().html('No Ignore Action for All Users, kindly try ignore activity on flagged user list!');
+        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+        return false;
+    }
+
+
+        var vals = [];
+    jQuery('.check-me').each(function(){
+        var e=jQuery(this);
+        if (e.attr('checked')) {
+
+            vals.push(e.value);
+
+        }
+
+    });
+
+
+
+    var report = jQuery('#reporttext').val();
+
+
+    if (vals.length > 0) {
+
+         if (confirm('Are you sure to ignore the selected Users?')) {
+            jQuery('#actions').attr('value', make);
+
+            //send form
+            var formwave=jQuery('#mod-user');
+
+            jQuery.ajax({
+                url:formwave.attr('action'),
+                global: false,
+                type: "POST",
+                data: formwave.serialize(),
+                dataType: "json",
+                async:false,
+                success: function(data){
+                    jQuery('#twitMsg').empty().html(data.msg);
+                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                },
+                complete:function(){
+                     jQuery('#reporttext').val('');
+                    jQuery('#showbox').slideUp('slow');
+                    jQuery('#rcontents').load(jQuery('#mod-url').val());
+                    jQuery('div.mod-midside-inner').html('<div class="warning">No Issue Selected !</div>');
+
+                }
+            }
+            );
+
+
+        }
+        else {
+            return false;
+        }
+    }
+    else {
+        jQuery('#twitMsg').empty().html('select atleast one User for action!');
+        jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+
+        return false;
+    }
+
+
+
+}
 function moderator_warn_user(make){
 
     var vals = [];

@@ -973,7 +973,7 @@ div.growlUI h1, div.growlUI h2 {
 .debate-outer ul li a{ font:normal 10px Arial, Helvetica, sans-serif; color:#996600; float:left; text-decoration:none;}
 .debate-outer ul li span{ font:normal 10px Arial, Helvetica, sans-serif; color:#666666; }
 .debate-outer ul li a:hover{ font:normal 10px Arial, Helvetica, sans-serif; color:#996600; text-decoration: underline;}
-.debate-cor-inner{ background:#f8f5ed; padding:3px;position:relative;}
+.debate-cor-inner{ background:#f8f5ed; padding:3px;position:relative;z-index: 333;}
 .debate-cor-inner-left{ float:left;}
 .debate-cor-inner-right{ float:left;}
 .debate-cor-inner-right{ float:left;}
@@ -1127,7 +1127,7 @@ div.growlUI h1, div.growlUI h2 {
 
 
 /* for drop down*/
-#masterdiv{ position:relative; height:20px;}
+#masterdiv{ position:relative; height:20px;z-index: 444;}
 .menutitle{
     position:absolute;
     z-index:500px;
@@ -1463,7 +1463,7 @@ img{ border:none; outline:none;}
 .mod-t4{ width:300px; float:left; margin-bottom:5px; font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
 .mod-t5{ width:120px; float:left;font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101;}
 .mod-t6{ width:100px; float:left;font:normal 12px/21px normal Arial, Helvetica, sans-serif; color:#010101; font:bold 11px Tahoma, Geneva, sans-serif; color:#666;}
-.mod-btn-outer{ float:right; width:200px; padding:5px;}
+.mod-btn-outer{ float:right; width:210px; padding:5px;}
 .mod-btn{ background:#9c7e32; font:normal 14px Arial, Helvetica, sans-serif; border:1px #c6ad6d solid; cursor:pointer; color:#fff; padding:3px; float:left; margin-right:10px;}
 .mod-btn:hover{ background:#634b0f; font:normal 14px Arial, Helvetica, sans-serif; border:1px #c6ad6d solid;}
 
