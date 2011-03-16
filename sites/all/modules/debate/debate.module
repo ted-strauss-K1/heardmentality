@@ -91,7 +91,7 @@ function debate_menu() {
 }
 
 function debate_init() {
-    drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
+  //  drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
 }
 
 function send_forumnotify($nid='', $qid='') {
@@ -354,3 +354,419 @@ WHERE f.rid = '$rid'";
 $query = "update {resource} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup',score='$debate_str' where rid='$rid'";
     $main = ExecuteQuery($query, "select");
 }
+
+
+
+function converttimestamp($indate){
+
+	list($year, $month, $day) = explode('-', $indate);
+
+	$timestamp = mktime(0, 0, 0, $month, $day, $year);
+
+	return $timestamp;
+
+}
+
+function cdatetime($timestamp)
+{
+	if(!$timestamp){
+		return 'N/A';
+	}
+
+	 $timestamp = (int)strtotime($timestamp);
+	$difference = time() - $timestamp;
+	$periods = array("sec", "min", "hour", "day", "week","month", "year", "decade");
+	$lengths = array("60","60","24","7","4.35","12","10");
+	$total_lengths = count($lengths);
+
+	if ($difference > 0) { // this was in the past
+		$ending = "ago";
+	} else { // this was in the future
+		$difference = -$difference;
+		$ending = " from now";
+	}
+	//return;
+
+	for($j = 0; $difference > $lengths[$j] && $total_lengths > $j; $j++) {
+		$difference /= $lengths[$j];
+	}
+
+	$difference = round($difference);
+	if($difference != 1) {
+		$periods[$j].= "s";
+	}
+
+	$text = "$difference $periods[$j] $ending";
+
+	return $text;
+}
+
+
+
+
+  function format_date_class($date,$date2) {
+    // this function gives a fuzzy description of the date relative to today
+	// NOTE: this will only work properly if the date is given for time: 00:00 AM
+    // (i.e. Tomorrow, in 3 days, in a week, etc.)
+
+
+	//$date=$params['sdate'];
+	//$date2=$params['edate'];
+	 $twodiff=datediff('y',$date,date("Y-m-d H:i:s"),'');
+		 $date = strToTime($date);
+		  $date2= strToTime($date2);
+		$time=date('h:i ',$date);
+		$default=date('M j,y h:i ',$date);
+	 $difference = $date - strToTime(date("Y-m-d"));
+  //  $diff_days = round($difference / (24*3600));
+ $diff_days    = floor($difference/(60*60*24));
+    if($date) {
+        // handle negatives
+        if($difference >= 0) {
+            if($diff_days < 13) {
+                // days to a week
+                switch($twodiff) {
+                    case 0:
+
+						if($twodiff==0){
+						  $fuzz = "Today ".$time;
+						}else{
+						 $fuzz =$default;
+						}
+                        break;
+                    case 1:
+
+						  $fuzz = "Tomorrow ".$time;
+
+                        break;
+                    case 8:
+                      $fuzz .= "In a week ";
+					    // $fuzz.= "[$default]";
+                        break;
+                    default:
+
+                     $fuzz .= "In ".$diff_days." days ";
+					  // $fuzz.= "[$default]";
+                }
+            }
+            elseif($diff_days < 25) {
+                // weeks
+                $diff_weeks = round($diff_days / 7);
+               $fuzz.= "In about ".$diff_weeks." weeks ";
+			   $fuzz.= "[$default]";
+            }
+            elseif($diff_days < 340) {
+                // months
+                $diff_months = round($diff_days / 30.4); // this gives good approximation to average month duration (365/12 = 30.416...), (365.25/12 = 30.4375)
+                if($diff_months == 1) {
+                   $fuzz.= "In about a month";
+				     $fuzz.= "[$default]";
+                }
+                else {
+                    $fuzz.= "in about ".$diff_months." months ";
+				      $fuzz.= "[$default]";
+                }
+            }
+            else {
+                // years
+                $diff_years = round($diff_days / 365.25);
+                if($diff_years == 1) {
+                   // $fuzz = "In about a year";
+				    $fuzz = $default;
+                }
+                else {
+                 //   $fuzz = "In about ".$diff_years." years";
+				  $fuzz = $default;
+                }
+            }
+        }
+        else {
+            $diff_days = -$diff_days;
+
+            if($diff_days < 13) {
+                // days to a week
+                switch($diff_days) {
+                    case 0:
+
+						  $fuzz = "Today ".$time;
+
+                    case 1:
+
+						  $fuzz = "Yesterday ".$time;
+
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        $fuzz = $diff_days." days ago";
+						//$fuzz.= "[$default]";
+                         break;
+                    case 6:
+                    case 7:
+                    case 8:
+                        $fuzz = "Around last week";
+					//	$fuzz.= "[$default]";
+                    default:
+                        $fuzz = "Over a week ago";
+						// $fuzz.= "[$default]";
+                }
+            }
+            elseif($diff_days < 25) {
+                // weeks
+                $diff_weeks = round($diff_days / 7);
+                $fuzz = "Around ".$diff_weeks." weeks ago";
+				// $fuzz.= "[$default]";
+            }
+            elseif($diff_days < 340) {
+                // months
+                $diff_months = round($diff_days / 30.4); // this gives good approximation to average month duration (365/12 = 30.416...), (365.25/12 = 30.4375)
+                if($diff_months == 1) {
+                    $fuzz = "Around last month";
+					// $fuzz.= "[$default]";
+                }
+                else {
+                    $fuzz = "Around ".$diff_months." months ago";
+					// $fuzz.= "[$default]";
+                }
+            }
+            else {
+                // years
+                $diff_years = round($diff_days / 365.25);
+                if($diff_years = 39) {
+                    // for epoch fail
+                    $fuzz = "Forever ago";
+                }
+                else if($diff_years == 1) {
+                    $fuzz = "Around last year";
+                }
+                else {
+                    $fuzz = "Around ".$diff_years." years ago";
+                }
+            }
+        }
+    }
+    else {
+        $fuzz = "unknown time";
+    }
+
+
+    return $fuzz;
+}
+
+
+
+function datediff($interval, $datefrom, $dateto, $using_timestamps = false) {
+
+/*
+
+$interval can be:
+
+yyyy - Number of full years
+
+q - Number of full quarters
+
+m - Number of full months
+
+y - Difference between day numbers
+
+(eg 1st Jan 2004 is "1", the first day. 2nd Feb 2003 is "33". The datediff is "-32".)
+
+d - Number of full days
+
+w - Number of full weekdays
+
+ww - Number of full weeks
+
+h - Number of full hours
+
+n - Number of full minutes
+
+s - Number of full seconds (default)
+
+*/
+
+
+
+if (!$using_timestamps) {
+
+$datefrom = strtotime($datefrom, 0);
+
+$dateto = strtotime($dateto, 0);
+
+}
+
+$difference = $dateto - $datefrom; // Difference in seconds
+
+
+
+switch($interval) {
+
+
+
+case 'yyyy': // Number of full years
+
+
+
+$years_difference = floor($difference / 31536000);
+
+if (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom), date("j", $datefrom), date("Y", $datefrom)+$years_difference) > $dateto) {
+
+$years_difference--;
+
+}
+
+if (mktime(date("H", $dateto), date("i", $dateto), date("s", $dateto), date("n", $dateto), date("j", $dateto), date("Y", $dateto)-($years_difference+1)) > $datefrom) {
+
+$years_difference++;
+
+}
+
+$datediff = $years_difference;
+
+break;
+
+
+
+case "q": // Number of full quarters
+
+
+
+$quarters_difference = floor($difference / 8035200);
+
+while (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom)+($quarters_difference*3), date("j", $dateto), date("Y", $datefrom)) < $dateto) {
+
+$months_difference++;
+
+}
+
+$quarters_difference--;
+
+$datediff = $quarters_difference;
+
+break;
+
+
+
+case "m": // Number of full months
+
+
+
+$months_difference = floor($difference / 2678400);
+
+while (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom)+($months_difference), date("j", $dateto), date("Y", $datefrom)) < $dateto) {
+
+$months_difference++;
+
+}
+
+$months_difference--;
+
+$datediff = $months_difference;
+
+break;
+
+
+
+case 'y': // Difference between day numbers
+
+
+
+$datediff = date("z", $dateto) - date("z", $datefrom);
+
+break;
+
+
+
+case "d": // Number of full days
+
+
+
+$datediff = floor($difference / 86400);
+
+break;
+
+
+
+case "w": // Number of full weekdays
+
+
+
+$days_difference = floor($difference / 86400);
+
+$weeks_difference = floor($days_difference / 7); // Complete weeks
+
+$first_day = date("w", $datefrom);
+
+$days_remainder = floor($days_difference % 7);
+
+$odd_days = $first_day + $days_remainder; // Do we have a Saturday or Sunday in the remainder?
+
+if ($odd_days > 7) { // Sunday
+
+$days_remainder--;
+
+}
+
+if ($odd_days > 6) { // Saturday
+
+$days_remainder--;
+
+}
+
+$datediff = ($weeks_difference * 5) + $days_remainder;
+
+break;
+
+
+
+case "ww": // Number of full weeks
+
+
+
+$datediff = floor($difference / 604800);
+
+break;
+
+
+
+case "h": // Number of full hours
+
+
+
+$datediff = floor($difference / 3600);
+
+break;
+
+
+
+case "n": // Number of full minutes
+
+
+
+$datediff = floor($difference / 60);
+
+break;
+
+
+
+default: // Number of full seconds (default)
+
+
+
+$datediff = $difference;
+
+break;
+
+}
+
+
+
+return $datediff;
+
+
+
+}
+
+
+
