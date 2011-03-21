@@ -163,7 +163,12 @@ $items['question/save'] = array(
   return $items;
 }
 
+function question_init() {
+      global $gSitePath,$user,$gDocPath,$base_root;
+  drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
 
+ drupal_add_js('var spath="'. $gSitePath . '";','inline');
+}
 
 //function to update profileabadge by post
  function updateProfileBadge($uid = null){

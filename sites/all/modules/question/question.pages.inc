@@ -394,8 +394,10 @@ function question_save() {
                 $qrset = 1;
         }
 //echo "INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'";
-        //exit;
-        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='" . addslashes($q_quest) . "',context='" . addslashes($q_context) . "',country='$ccode',state='$q_state',city='$q_city',share='$qrset' , releated_question = '$releated_question'");
+      //drupal node
+        issue_save($_REQUEST);
+      
+        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='" . check_plain($q_quest) . "',context='" . check_plain($q_context) . "',releated_question = '$releated_question'");
 
 
         $ins_id = db_last_insert_id('question', 'qid');

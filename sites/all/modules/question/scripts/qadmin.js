@@ -6,13 +6,66 @@ jQuery(document).ready(function(){
 
 
     // setTimeout('admin_approve();', 5000);
+//     jQuery('#edit-field-issue-country-value').live('change',function(){
+//     var ids=jQuery(this).val();
+//       var url = spath+"moderator/ajax/state/cck";
+//       if(ids.length>1){
+//
+//    jQuery.ajax({
+//        type: "POST",
+//        dataType: 'json',
+//        url: url,
+//        data: {
+//            'ids' :ids
+//        },
+//        success: function(data){
+//            jQuery('#edit-field-issue-state').html(data.content);
+//        },
+//        complete: function(){
+//
+//           // var statearray=setstate.split(',');
+//           // jQuery('#q_state').val(setstate);
+//
+//        }
+//    });
+ //      }
     
+
+   //  });
+          jQuery('#edit-field-issue-state-value').live('change',function(){
+     var ids=jQuery(this).val();
+       var url = spath+"moderator/ajax/city/cck";
+       if(ids.length>1){
+          
+    jQuery.ajax({
+        type: "POST",
+        dataType: 'json',
+        url: url,
+        data: {
+            'ids' :ids
+        },
+        success: function(data){
+            jQuery('#edit-field-issue-city-value').html(data.content);
+        },
+        complete: function(){
+
+           // var statearray=setstate.split(',');
+           // jQuery('#q_state').val(setstate);
+
+        }
+    });
+       }
+
+
+     });
     });
 
 
 
 
 jQuery(document).ready(function(){
+
+    
     jQuery('#qadmin').live('submit',function(){
         
         var vals = [];
