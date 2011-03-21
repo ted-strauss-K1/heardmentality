@@ -89,6 +89,6 @@ jQuery(document).ready(function(){
 });
 
 </script>
-
+<?php print $closure; ?>
 </body>
 </html>
