@@ -20,6 +20,7 @@ regions[content] = Content
 regions[header] = Header
 regions[footer] = Footer
 regions[Beat] = Beat
+regions[content_bottom]=Content Bottom
 ; Information added by drupal.org packaging script on 2010-07-16
 version = "6.15"
 project = "drupal"
