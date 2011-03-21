@@ -29,8 +29,14 @@ $directory = $base_path . $directory;
 
 </head>
 
-	  <body>
-              <div class="messages"><?php if ($show_messages && $messages): print $messages; endif; ?></div>
+	 <body class="<?php print $body_classes; ?>" >
+               <div id="loading">
+                            <marquee  >
+                                Loading...
+                            </marquee>
+                        </div>
+               <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): //print $messages;
+                                                                                                endif; ?></div>
     <div class="clr"></div>
     <div class="popup-update-profile">
               <div class="newcretae-profile-wrapper">
