@@ -25,6 +25,7 @@
           <div class="hm-cen">
 <div id="qajax">
            <?php print $content; ?>
+    <?php print $content_bottom; ?>
 </div>
   </div>
   
