@@ -110,7 +110,11 @@ if ($vars['content'] && $vars['node']->type != 'forum') {
 
   $vars['scripts'] = drupal_get_js('header', $js); //create script tags and set them to $scripts
 
+  
+
 }
+
+
 /**
  * Returns the rendered local tasks. The default implementation renders
  * them as tabs. Overridden to split the secondary tasks.
