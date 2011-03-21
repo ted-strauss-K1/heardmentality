@@ -175,7 +175,7 @@ $directory = $base_path . $directory;
                         // }
                     </script>
                     </head>
-					<?php print $closure; ?>
+					
                     <body class="<?php print $body_classes; ?>" >
                         <!--main div-->
                         <div id="loading">
