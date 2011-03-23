@@ -35,7 +35,7 @@ $directory = $base_path . $directory;
                                 Loading...
                             </marquee>
                         </div>
-               <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): //print $messages;
+               <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;
                                                                                                 endif; ?></div>
     <div class="clr"></div>
     <div class="popup-update-profile">

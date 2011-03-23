@@ -90,25 +90,26 @@ function newtheme_preprocess_page(&$vars) {
 // there's also a $theme_path global
 
     global $theme_path;
+ drupal_add_js($path . "/scripts/jquery1.4.js", 'core'); //where you store your jquery
+    //drupal_add_js("js/more_javascripts.js", 'theme'); //any other js files you may have
 
-    //print_r($vars);
-    //print $vars['content'];
-    //die;
+    $js = drupal_add_js(NULL, NULL, 'header'); //get header js files in an array
+   
+    unset($js['core']['misc/jquery.js']); //unset default drupal jquery js
+    $js['core'] = array_reverse($js['core'], 1); //make our own jquery file first (see note)
+
+
+    if($vars['template_files'][1]=='page-account-edit'){
+ unset($js['theme']['sites/all/themes/newtheme/scripts/preload.js']); //unset default drupal jquery js
+    }
     /*
       if ($vars['content'] && $vars['node']->type != 'forum') {
       $vars['content'] = '<h2 class="comments">'. t('Comments') .'</h2>'.  $vars['content'];
       }
 
      */
-
-    drupal_add_js($path . "/scripts/jquery1.4.js", 'core'); //where you store your jquery
-    drupal_add_js("js/more_javascripts.js", 'theme'); //any other js files you may have
-
-    $js = drupal_add_js(NULL, NULL, 'header'); //get header js files in an array
-    unset($js['core']['misc/jquery.js']); //unset default drupal jquery js
-    $js['core'] = array_reverse($js['core'], 1); //make our own jquery file first (see note)
-
-    $vars['scripts'] = drupal_get_js('header', $js); //create script tags and set them to $scripts
+ $vars['scripts'] = drupal_get_js('header', $js); //create script tags and set them to $scripts
+   
 }
 
 /**
