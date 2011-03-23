@@ -2075,7 +2075,7 @@ function debate_submit() {
                     $chk = db_query($query);
 // add coin for agree and disagree
                     $coin_type = $agree == '1' ? 'agree' : 'disagree';
-                    users_coins_update($user->uid, '', $coin_type);
+                    $coins=users_coins_update($user->uid, '', $coin_type);
 //guru points
                     insertpoints($action, $nodeid);
 //notification
@@ -2083,7 +2083,7 @@ function debate_submit() {
 
                     $msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
                     if ($agree) {
-                        $msg['msg'] = '<em>You <strong>agree</strong> with this comment</em>';
+                        $msg['msg'] = "<em><strong>Agreed!</strong>You have $coins left</em> ";
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                         $qid_url = db_query("select * from {question} where qid='$nodeid'");
                         $question_values = db_fetch_array($qid_url);
@@ -2100,7 +2100,7 @@ function debate_submit() {
                         heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                     } else {
-                        $msg['msg'] = '<em>You <strong>Disagree</strong> with this comment</em>';
+                        $msg['msg'] = "<em><strong>Disagreed!</strong>You have $coins left</em> ";
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                         $qid_url = db_query("select * from {question} where qid='$nodeid'");
                         $question_values = db_fetch_array($qid_url);
@@ -2156,6 +2156,8 @@ function users_coins_update($uid = '', $bid, $keyname) {
         $total_coins = $user_coins - $coin_count;
     }
     db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
+    $details=user_load(array('uid'=>$uid));
+    return $details->total_coins;
 }
 
 function get_coins($key) {
