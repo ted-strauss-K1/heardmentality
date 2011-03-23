@@ -34,9 +34,13 @@ $directory = $base_path . $directory;
                             <marquee  >
                                 Loading...
                             </marquee>
-                        </div>
-               <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;
-                                                                                                endif; ?></div>
+                        </div> <div style="display:none;" id="profilemsg"><?php print $messages; ?></div>
+                          <?php if ($show_messages && $messages): //print $messages;
+               echo "<script> jQuery('#twitMsg',top.document).empty().html(jQuery('#profilemsg').html());
+
+        //jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);</script>";
+                                                                                                endif; ?>
+               <div style="display:none;"  class="messages"></div>
     <div class="clr"></div>
     <div class="popup-update-profile">
               <div class="newcretae-profile-wrapper">
@@ -44,4 +48,5 @@ $directory = $base_path . $directory;
                   <div class="clr"></div>
               </div></div>
           </body>
+ 
 </html>
