@@ -186,28 +186,30 @@ function chk_uname(val){
         return false;
 
     }else if(val.length>0){
-        jQuery.blockUI({
-            message: '<h3> Just a moment validating your username...</h3>'
-        });
+       // jQuery.blockUI({
+        //    message: '<h3> Just a moment validating your username...</h3>'
+       // });
+show_inotify('Please wait your username is validating...');
 
+   jQuery("body").css({'opacity': 0.5});
         jQuery.getJSON(urr,
         {
             userid: val
         },
         function(data) {
             var msg=data.messages;
-            jQuery.unblockUI();
+           // jQuery.unblockUI();
             if(data.error){
                
                 jQuery('#rname').val('');
                 err="Username already taken please try any other combination";
                 load_notify(err+''+msg);
-                return false;
+              
 
             }else{
                 load_notify(msg);
             }
-      
+        jQuery("body").css({'opacity':''});
         });
         return true;
     }

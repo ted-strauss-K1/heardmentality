@@ -239,7 +239,7 @@ function facetad_refine() {
         $scid = $_GET['scid'];
     }
     if ($name) {
-        $qry .= " question LIKE '%" . $name . "%' AND ";
+        $qry .= " q.question LIKE CONVERT(_utf8 '%%$name%%' USING latin1 ) COLLATE latin1_swedish_ci AND ";
     }
 
 
@@ -269,7 +269,7 @@ function facetad_refine() {
     }
 
 
-    $user_qry = db_query($sel);
+    $user_qry = db_query($sel,$name);
     if ($tag != '') {
         $sel_count = mysql_num_rows(db_query("SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid  and q.status='1'   "));
     } else {

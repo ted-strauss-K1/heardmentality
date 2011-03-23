@@ -862,7 +862,7 @@ function user_details() {
         '#suffix' => '</div>
            <div class="clr"></div>
            </div>',
-        '#attributes' => array('class' => 'input-nor'),
+        '#attributes' => array('class' => 'input-nor','onblur'=>'chk_uname(this.value);'),
     );
     $form['fname'] = array(
         '#type' => 'textfield',
@@ -1309,5 +1309,5 @@ function user_details_submit($form, &$form_state) {
     _privacy_submit($form, $form_state);
     //avatar update
     _avatar_submit($form, $form_state);
-    drupal_set_message(t('Your form has been saved.', 'success'));
+    drupal_set_message(t('Your profile has been updated'), 'success');
 }

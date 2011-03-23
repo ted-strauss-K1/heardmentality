@@ -800,7 +800,7 @@ function search_results_question() {
 
     $sel = facetad_refine();
     $sel_count = $sel['qcnt'];
-    $sel['query'] .= " limit  $eu, $limit";
+     $sel['query'] .= " limit  $eu, $limit";
 
     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
     //drupal_add_js(drupal_get_path('module', 'user_search') . '/js/sub.js');
@@ -808,23 +808,7 @@ function search_results_question() {
     // $sel_search = ExecuteQuery($sel, "select");
     // print_r($sel_search);
 
-    $fetresult.='<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
-	<script>
-        var conf = 
-        {
-           // APIKey: \'2_Zfr6Di925xeUYK-BRe1kNOYYclMYDUbGsgb_kF4NqlZaJ4owUytfdi2cnRePUJ_j\'
-		   APIKey: \'' . $apikey . '\'
-        };
-        
-        function onLoad()
-        {
-            gigya.services.socialize.getUserInfo(conf,{callback:renderUI});	    
-            
-           
-            gigya.services.socialize.addEventHandlers(conf, { onConnect:renderUI, onDisconnect:renderUI}   ); 
-            
-        }
-    </script>';
+  
     //echo $sel['query'];
     $sel_search = db_query($sel['query']);
     $i = 0;

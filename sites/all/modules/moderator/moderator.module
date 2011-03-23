@@ -22,7 +22,7 @@ function moderator_menu() {
     );
     $mdtrest['moderator/user'] = array(
         'title' => 'Moderator User',
-        'page callback' => 'moderator_user',
+        'page callback' => 'moderator_users',
         'access arguments' => array('Moderate Question'),
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'moderator.pages.inc',
@@ -83,7 +83,7 @@ function moderator_issues() {
     return $output;
 }
 
-function moderator_user() {
+function moderator_users() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
     // drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
@@ -647,8 +647,12 @@ function moderator_ajax($action='') {
             break;
         case 'state':
             $explode = explode(',', $_REQUEST['ids']);
+           
+             
+           if(arg(3)!='cck')
             $ret = '<select tabindex="18"  style="width: 100px;" multiple="multiple" id="q_state" name="q_state[]"> <option value="">--States--</option>';
-            $results = array();
+
+           $results = array();
             if (count($explode) > 0) {
                 foreach ($explode as $country) {
 
@@ -662,11 +666,12 @@ function moderator_ajax($action='') {
                         if (strpos(strtolower($setstate), strtolower($state['name']))) {
                             $set = 'SELECTED=SELECTED';
                         }
-                        $ret .= sprintf('<option value="%s,%s" %s >%s</option>', $state['geonameid'],$state['countrycode'],$set, $state['name']);
+                        $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'],$set, $state['name']);
                     }
                 }
-
+                 if(arg(3)!='cck')
                 $ret .= "</select>";
+                 
                 $err = false;
                 $msg = 'No action found!';
                 $output = $ret;
@@ -677,8 +682,35 @@ function moderator_ajax($action='') {
                 $output = $ret;
             }
             break;
+         case 'statecck':
+
+               include_once 'modules/node/node.pages.inc';
+  $form_state = array('storage' => NULL, 'submitted' => FALSE);
+  $form_build_id = $_POST['form_build_id'];
+  // Get the form from the cache.
+  $form = form_get_cache($form_build_id, $form_state);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  // We will run some of the submit handlers so we need to disable redirecting.
+  $form['#redirect'] = FALSE;
+  // We need to process the form, prepare for that by setting a few internals
+  // variables.
+  $form['#post'] = $_POST;
+  $form['#programmed'] = FALSE;
+  $form_state['post'] = $_POST;
+  // Build, validate and if possible, submit the form.
+  drupal_process_form($form_id, $form, $form_state);
+  // This call recreates the form relying solely on the form_state that the
+  // drupal_process_form set up.
+  $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
+  // Render the new output.
+  $choice_form = $form['choice_wrapper']['choice'];
+  unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
+  $output = theme('status_messages') . drupal_render($choice_form);
+
+             break;
         case 'city':
-           
+            if(arg(3)!='cck')
             $ret = '<select  tabindex="19"  style="width: 100px;" multiple="multiple"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
             $results = array();
             if (count($_REQUEST['ids']) > 0) {
@@ -692,16 +724,19 @@ function moderator_ajax($action='') {
                     }
                 }
                 $ret .= "<option value='-1'>Others</option>";
-                $ret .= "</select>";
+               
                 $err = false;
                 $msg = 'No action found!';
                 $output = $ret;
             } else {
-                $ret .= "</select>";
+                $ret .= "<option value='-1'>Others</option>";
                 $err = true;
                 $msg = 'No City found!';
-                $output = $ret;
+                
             }
+              if(arg(3)!='cck')
+                $ret .= "</select>";
+              $output = $ret;
             break;
         case 'issue':
 

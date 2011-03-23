@@ -592,7 +592,7 @@ function profile($uid = '') {
     }
 
     if (isset($_REQUEST['delm'])) {
-
+    $namelist =user_load(array('uid'=>$_REQUEST['delm']));
         if ($user->uid > 0) {
             $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='" . $_REQUEST['delm'] . "'  and  uid ='" . $user->uid . "'"));
 
@@ -633,12 +633,12 @@ function profile($uid = '') {
                   //echo $contentm;die;
 
                   $mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, ''); */
+                
 
-                drupal_set_message(t('Successfully Added as Follower'), $type = 'success');
+                drupal_set_message(t('You are now subscribing to ' . $namelist->name . ' '), $type = 'success');
             } else {
-                $sel_usermdet = "select * from users  where uid='" . $_REQUEST['delm'] . "' ";
-                $rs_usernam = db_query($sel_usermdet);
-                $namelist = db_fetch_object($rs_usernam);
+               
+                
 
                 drupal_set_message(t('You are already following ' . $namelist->name . '.'), $type = 'error');
             }
@@ -2091,7 +2091,7 @@ function _avatar_submit($form, &$form_state) {
     $result = db_query($query, $form_state['values']['img_avt'], $insimage, $form_state['values']['select_avatar'], $social, $form_state['values']['myweb'], $user->uid);
     //notify type
     db_query("update {users} set notify_etype='%d' where uid='%d'", $form_state['values']['notify'], $user->uid);
-    drupal_set_message(t('Your form has been saved.', 'success'));
+    //drupal_set_message(t('Your form has been saved.', 'success'));
 
 
     return true;
@@ -2117,7 +2117,7 @@ function _privacy_submit($form, &$form_state) {
 
     db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $dob_privacy, $user->uid);
     db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
-    drupal_set_message(t('Your form has been saved.', 'success'));
+    //drupal_set_message(t('Your form has been saved.', 'success'));
     return true;
 }
 
@@ -2130,7 +2130,7 @@ function _basic_submit($form, &$form_state) {
     $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['education'], $user->uid);
     //update username
     db_query("update {users} set name='%s',mail='%s',prompt='%d' where uid='%d'", $form_state['values']['username'], $form_state['values']['email'],'0',$user->uid);
-    drupal_set_message(t('Your form has been saved.', 'success'));
+    //drupal_set_message(t('Your profile has been updated', 'success'));
     return true;
 }
 

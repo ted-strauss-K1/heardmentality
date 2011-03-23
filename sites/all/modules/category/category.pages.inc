@@ -8,8 +8,25 @@ function treemenu_list() {
     drupal_add_css(drupal_get_path('module', 'category') . '/styles/screen.css');
     drupal_add_js(drupal_get_path('module', 'category') . '/scripts/jquery.cookie.js');
     drupal_add_js(drupal_get_path('module', 'category') . '/scripts/jquery.treeview.js');
-    drupal_add_js(drupal_get_path('module', 'category') . '/scripts/demo.js');
-    drupal_add_js(drupal_get_path('module', 'category') . '/scripts/demo.js');
+
+    $ijs='$(document).ready(function(){
+
+	// first example
+
+	$("#navigation").treeview({
+		animated: "slow",
+		collapsed: true,
+		unique: true,
+		persist: "cookie",
+		toggle: function() {
+			window.console && console.log("%o was toggled", this);
+		}
+	});
+
+
+
+});';
+    drupal_add_js($ijs,$type = 'inline');
     $strReturn = '';
 
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");

@@ -1,5 +1,5 @@
 
- //  var jQuery= jQuery.noConflict();
+
 
 
 jQuery(document).ready(function(){
@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
 });
 
 function loadAddCategory(pmUrl){
-	alert('sss');
+	
 MochaUI.slideshareWindow = function(){
 new MochaUI.Window({
 id: 'slideshare',

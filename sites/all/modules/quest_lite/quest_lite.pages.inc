@@ -656,7 +656,7 @@ function qlite_view() {
         <br/>
               <ul id="maintabs" class="mytabs" >
               <li class="current" id="in"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Info" title="Info"><span>Details</span></a></li>
-               <li><a id="AF" href=\'#\' onClick="jQuery(\'#twitMsg\').html(\'Please vote this Issue to access this tab!\');jQuery(\'#twitMsg\').delay(400).slideDown(400).delay(3000).slideUp(400);jQuery(this).die(\'click\');jQuery(this).unbind(\'click\');return false;"><span >Reporting</span></a></li>
+               <li><a id="AF" href=\'#\' onClick="jQuery(\'#twitMsg\').html(\'You must vote on the issue before you can see the results!\');jQuery(\'#twitMsg\').delay(400).slideDown(400).delay(3000).slideUp(400);jQuery(this).die(\'click\');jQuery(this).unbind(\'click\');return false;"><span >Reporting</span></a></li>
                      <li id="par1"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=debate" title="Debate"><span>Debate (' . $debatecnt . ')</span></a></li>
                 <li id="par2"><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Resources" title="Resources"><span>Resources (' . $numres . ')</span></a></li>
 		<li class=""><a href="' . $gSitePath . '/qlite/panel/' . $qid . '?type=Gurus" title="Gurus"><span>Pundits (' . $pundit_cnt . ')</span></a></li>
@@ -2797,7 +2797,7 @@ function answer_vote() {
                 heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
                 /* RAM HEARTBEAT MODULE VOTING A QUESTION */
             } else {
-                echo '<div class="messages error"> You Have Already Voted This Answer ! </div>';
+                echo '<div class="messages error"> You have already voted this option ! </div>';
             }
         } else {
 
