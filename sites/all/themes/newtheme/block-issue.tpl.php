@@ -3,9 +3,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-global $gSitePath;
+global $gSitePath,$apikey,$nid;
 ?>
+
 <div class="clr"></div>
-	<div class="facttext">
+	<div class="issue-block">
     <?php print $block->content ?>
   </div>
