@@ -65,7 +65,7 @@ function bind_clk(){
                 data: {
                     'action': action,
                     'agree': type,
-                    'nodeid': wid
+                    'content_id': wid
                 },
                 success: function(msg){
                     jQuery('#twitMsg').html(msg.msg);
@@ -131,7 +131,7 @@ function addComment(ele){
     jQuery('#waveletcmt').css('border-color', '');
     jQuery('#waveletcmt').val('');
     jQuery('#frid').val(gid[1]);
-
+    jQuery('#comid').val(gid[1]);
 // jQuery('#wavecancel').live('click', function(){cancelAdd(jQuery(this));});
 
 }
@@ -325,3 +325,10 @@ alert(typ);
 
 }
 
+function debate_popup_login(){
+    jQuery(document).ready(function() {
+
+        jQuery('#twitMsg').html("Please log in to participate in the debate!");
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+    });
+}
