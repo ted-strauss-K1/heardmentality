@@ -619,6 +619,7 @@ function debate_wave($qid = '') {
     }
     $filter_list.='</select>';
     //print_r($cnt);
+    $chkuserOnclick = user_is_logged_in()==''?'onclick="debate_popup_login()"':'';
     $wave .= '
 
      <div class=" debate-round-tab-outer">
@@ -636,7 +637,7 @@ function debate_wave($qid = '') {
 
                     </div>
                     <div class="form-m4" align="right">&nbsp;<br />
-<a href="#newwavediv" title="New Debate" class="floatbox"><input name="" type="button"  class="submit-debate-btn"/></a></div>
+<a href="#newwavediv" title="New Debate" class="floatbox"><input name="" type="button" '.$chkuserOnclick.'  class="submit-debate-btn"/></a></div>
 
                 </div>
 
