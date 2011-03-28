@@ -227,6 +227,10 @@ function issue_after_build($form, &$form_state) {
 
 function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
 
+ global $user;
+
+
+
     if ($node->type == 'poll') {
 
         switch ($op) {
@@ -239,7 +243,30 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                 break;
             case 'view':
                 $output = '';
+                drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
+
+                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js','theme');
+
+                 drupal_set_html_head('<script>
+                        var uid="' . $user->uid . '";
+                    </script>');
+                if($user->initpop==1&&$user->uid>1){
+                    drupal_add_js('jQuery(document).ready(function () { loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");});','inline');
+                        $user_data = array('initpop' => 2);
+                    user_save( $user , $user_data);
+
+                }
+
+                 $output .= drupal_get_form('issue_edit_vote');
+  $node->content['body'] = array
+  (
+    '#value' => $output,
+  );
+               // echo '<pre>';
+               // print_r($node);
+              //  unset($node->content['body']);
+
                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
                 if ($node->allowvotes) {
                     
@@ -252,6 +279,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                     );
                 }
                
+
 
                 break;
         }
