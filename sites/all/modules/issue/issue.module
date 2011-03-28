@@ -255,18 +255,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                     drupal_add_js('jQuery(document).ready(function () { loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");});','inline');
                         $user_data = array('initpop' => 2);
                     user_save( $user , $user_data);
-
                 }
-
-                 $output .= drupal_get_form('issue_edit_vote');
-  $node->content['body'] = array
-  (
-    '#value' => $output,
-  );
-               // echo '<pre>';
-               // print_r($node);
-              //  unset($node->content['body']);
-
                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
                 if ($node->allowvotes) {
                     
