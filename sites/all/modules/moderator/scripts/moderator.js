@@ -84,8 +84,14 @@ jQuery(document).ready(function(){
                 success: function(msg){
                     jQuery('#twitMsg').html(msg.msg);
                     jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                },
+                complete:function(){
+                jQuery('div.mod-midside-inner').load(jQuery('a[name="icurrent"]').attr('href'),function() {
+                    load_issue_data();
+                });
                 }
             });
+
             return true;
         }else{
             jQuery('#twitMsg').html('Some Of The Required fields are Empty!');
@@ -149,6 +155,7 @@ jQuery(document).ready(function(){
 
 
     jQuery('a.issue-links').live('click',function(e){
+        jQuery('a.issue-links').removeAttr('name');
         jQuery(this).attr('name','icurrent');
         e.preventDefault();
         e.stopPropagation();

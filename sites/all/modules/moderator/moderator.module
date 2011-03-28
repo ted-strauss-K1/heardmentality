@@ -122,14 +122,14 @@ function _moderator_user_left() {
 
     $new = db_result(db_query("SELECT count(*) FROM {users} "));
 
-     $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
+    $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
     $flag = ExecuteQuery($query, 'norows');
     $output = '        <div class="commu">
         <form id="mod-user" name="mod-issue" method="POST" action="' . $gSitePath . 'moderator/ajax/user" >
           <div id="rotate">
             <ul id="tabmenu" class="mytabs">
-              <li class="current"><a href="' . $gSitePath . 'moderator/user/list/new" title="User"><span>All Users (' . (!empty ($new)?$new:'0') . ')</span></a></li>
-              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/user/list/flag" title="Flagged User"><span>Flagged (' .(!empty ($flag)?$flag:'0'). ')</span></a></li>
+              <li class="current"><a href="' . $gSitePath . 'moderator/user/list/new" title="User"><span>All Users (' . (!empty($new) ? $new : '0') . ')</span></a></li>
+              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/user/list/flag" title="Flagged User"><span>Flagged (' . (!empty($flag) ? $flag : '0') . ')</span></a></li>
                      </ul>
 
             <div id="rcontents" class="mytabs-container" style="height:auto;" >
@@ -204,8 +204,12 @@ function moderator_issues_list($type='') {
         case 'new':
 
             //actual query
-            $query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE uid = '$user->uid' and qid=q.qid) as tcnt FROM {question} AS q  HAVING tcnt<1 ORDER BY q.qid ASC";
+            // echo  $query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE  qid=q.qid) as tcnt FROM {question} AS q where HAVING tcnt<3 AND q.qid not in (select q.qid from  {question_cat_revision} as qr where qr.uid=$user->uid ) ORDER BY q.qid ASC";
             //  $query="SELECT * FROM {question} ";
+            $query = "SELECT * FROM
+(SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM question_cat_revision WHERE qid=q.qid) AS tcnt FROM question AS q
+WHERE q.qid NOT IN (SELECT qr.qid FROM question_cat_revision AS qr WHERE qr.uid=$user->uid ) ORDER BY q.qid ASC
+) AS issue WHERE issue.tcnt<3";
             $sqlcnt = ExecuteQuery($query, 'norows');
             break;
         case 'flag':
@@ -276,7 +280,7 @@ function moderator_user_list($type='') {
             break;
         case 'flag':
             //actual query
-           $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
+            $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
 
             $sqlcnt = ExecuteQuery($query, 'norows');
             break;
@@ -353,7 +357,7 @@ function moderator_edit_issues($qid='') {
     $result = db_query("select state,country from {question_location} where qid='$qid' AND state!=''");
     $state_array = array();
     while ($cont = db_fetch_array($result)) {
-        array_push($state_array,'\''.$cont['state'].','.$cont['country'].'\'');
+        array_push($state_array, '\'' . $cont['state'] . ',' . $cont['country'] . '\'');
     }
     $setstate = implode(',', array_filter($state_array));
     $ret = '<select tabindex="18" multiple="multiple" style="width: 100px;"  onchange="get_city(this.value);" id="q_state" name="q_state[]"> <option value="">--States--</option>';
@@ -364,7 +368,7 @@ function moderator_edit_issues($qid='') {
     $result = db_query("select * from {question_location} where qid='$qid' AND city!=''}");
     $city_array = array();
     while ($cont = db_fetch_array($result)) {
-        array_push($city_array, '\''.$cont['city'].','.$cont['state'].','.$cont['country'].'\'');
+        array_push($city_array, '\'' . $cont['city'] . ',' . $cont['state'] . ',' . $cont['country'] . '\'');
     }
     $setcity = implode(',', array_filter($city_array));
 
@@ -396,7 +400,7 @@ function moderator_edit_issues($qid='') {
 
     $output .= '<script type="text/javascript">
                         var spath=\'' . $gSitePath . '\';
-                    var setstate=[' . $setstate .'] ;
+                    var setstate=[' . $setstate . '] ;
                         var setcity=[' . $setcity . '];
                             var setscat=\'' . $escat1 . '\';
                                 var setsscat=\'' . $esscat1 . '\';
@@ -594,8 +598,10 @@ function moderator_edit_issues($qid='') {
 
     //Moderator Revision
     $result = db_query("select u.uid,u.name,qr.updated from {question_cat_revision} as qr join {users} as u on u.uid=qr.uid where qid='$qid'");
+   $dupecnt=get_dupe_query($qid); 
+   $dcnt=!empty($dupecnt['count'])?$dupecnt['count']:'0';
     $output.='<div class="mod-t-outer">
-        <strong><a data-fb-options="type:ajax width:640 height:385" title="Dupe List" href="' . $gSitePath . 'moderator/ajax/dupelist/' . $qid . '" class="floatbox">Duped Issues </a></strong>
+        <strong><a data-fb-options="type:ajax width:640 height:385" title="Dupe List" href="' . $gSitePath . 'moderator/ajax/dupelist/' . $qid . '" class="floatbox">Duped Issues </a>('.$dcnt.')</strong>
            </div>';
     $output.='<div class="mod-t-outer">
         <strong>Previous Updated Moderators</strong>
@@ -647,12 +653,12 @@ function moderator_ajax($action='') {
             break;
         case 'state':
             $explode = explode(',', $_REQUEST['ids']);
-           
-             
-           if(arg(3)!='cck')
-            $ret = '<select tabindex="18"  style="width: 100px;" multiple="multiple" id="q_state" name="q_state[]"> <option value="">--States--</option>';
 
-           $results = array();
+
+            if (arg(3) != 'cck')
+                $ret = '<select tabindex="18"  style="width: 100px;" multiple="multiple" id="q_state" name="q_state[]"> <option value="">--States--</option>';
+
+            $results = array();
             if (count($explode) > 0) {
                 foreach ($explode as $country) {
 
@@ -662,16 +668,16 @@ function moderator_ajax($action='') {
                     $results = geonames_query('children', $query);
                     foreach ($results->results as $state) {
                         $set = '';
-                       
+
                         if (strpos(strtolower($setstate), strtolower($state['name']))) {
                             $set = 'SELECTED=SELECTED';
                         }
-                        $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'],$set, $state['name']);
+                        $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'], $set, $state['name']);
                     }
                 }
-                 if(arg(3)!='cck')
-                $ret .= "</select>";
-                 
+                if (arg(3) != 'cck')
+                    $ret .= "</select>";
+
                 $err = false;
                 $msg = 'No action found!';
                 $output = $ret;
@@ -682,49 +688,49 @@ function moderator_ajax($action='') {
                 $output = $ret;
             }
             break;
-         case 'statecck':
+        case 'statecck':
 
-               include_once 'modules/node/node.pages.inc';
-  $form_state = array('storage' => NULL, 'submitted' => FALSE);
-  $form_build_id = $_POST['form_build_id'];
-  // Get the form from the cache.
-  $form = form_get_cache($form_build_id, $form_state);
-  $args = $form['#parameters'];
-  $form_id = array_shift($args);
-  // We will run some of the submit handlers so we need to disable redirecting.
-  $form['#redirect'] = FALSE;
-  // We need to process the form, prepare for that by setting a few internals
-  // variables.
-  $form['#post'] = $_POST;
-  $form['#programmed'] = FALSE;
-  $form_state['post'] = $_POST;
-  // Build, validate and if possible, submit the form.
-  drupal_process_form($form_id, $form, $form_state);
-  // This call recreates the form relying solely on the form_state that the
-  // drupal_process_form set up.
-  $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
-  // Render the new output.
-  $choice_form = $form['choice_wrapper']['choice'];
-  unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
-  $output = theme('status_messages') . drupal_render($choice_form);
+            include_once 'modules/node/node.pages.inc';
+            $form_state = array('storage' => NULL, 'submitted' => FALSE);
+            $form_build_id = $_POST['form_build_id'];
+            // Get the form from the cache.
+            $form = form_get_cache($form_build_id, $form_state);
+            $args = $form['#parameters'];
+            $form_id = array_shift($args);
+            // We will run some of the submit handlers so we need to disable redirecting.
+            $form['#redirect'] = FALSE;
+            // We need to process the form, prepare for that by setting a few internals
+            // variables.
+            $form['#post'] = $_POST;
+            $form['#programmed'] = FALSE;
+            $form_state['post'] = $_POST;
+            // Build, validate and if possible, submit the form.
+            drupal_process_form($form_id, $form, $form_state);
+            // This call recreates the form relying solely on the form_state that the
+            // drupal_process_form set up.
+            $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
+            // Render the new output.
+            $choice_form = $form['choice_wrapper']['choice'];
+            unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
+            $output = theme('status_messages') . drupal_render($choice_form);
 
-             break;
+            break;
         case 'city':
-            if(arg(3)!='cck')
-            $ret = '<select  tabindex="19"  style="width: 100px;" multiple="multiple"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
+            if (arg(3) != 'cck')
+                $ret = '<select  tabindex="19"  style="width: 100px;" multiple="multiple"  id="q_city" name="q_city[]" > <option value="">--Cities--</option> ';
             $results = array();
             if (count($_REQUEST['ids']) > 0) {
                 foreach ($_REQUEST['ids'] as $code) {
-                 $explode = explode(',', $code);
+                    $explode = explode(',', $code);
                     $query = array('geonameid' => $explode[0]);
                     $result = geonames_query('children', $query);
                     foreach ($result->results as $state) {
 
-                        $ret .= sprintf('<option value="%s,%s,%s">%s</option>', $state['geonameid'],$explode[0],$explode[1], $state['name']);
+                        $ret .= sprintf('<option value="%s,%s,%s">%s</option>', $state['geonameid'], $explode[0], $explode[1], $state['name']);
                     }
                 }
                 $ret .= "<option value='-1'>Others</option>";
-               
+
                 $err = false;
                 $msg = 'No action found!';
                 $output = $ret;
@@ -732,11 +738,10 @@ function moderator_ajax($action='') {
                 $ret .= "<option value='-1'>Others</option>";
                 $err = true;
                 $msg = 'No City found!';
-                
             }
-              if(arg(3)!='cck')
+            if (arg(3) != 'cck')
                 $ret .= "</select>";
-              $output = $ret;
+            $output = $ret;
             break;
         case 'issue':
 
@@ -815,28 +820,10 @@ function moderator_ajax($action='') {
             break;
         case 'dupelist':
 
-            $query = "select * from {question}  where qid='" . arg(3) . "'";
-            $ans = ExecuteQuery($query, "select");
-
-            $words = explode(" ", $ans[0]['question']);
-
-            $words = array_filter($words, 'word_array_filter');
-            $words = array_filter($words);
-            $query = "SELECT q.question,q.context,u.name,q.date_added,q.url,q.qid FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . arg(3) . "' ";
-            for ($i = 0; $i < count($words); $i++) {
-                $samples = " " . $words[$i] . "  ";
-                //echo $samples;
-                // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
-                //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
-                if (!empty($words[$i]))
-                    $query .= " AND q.question LIKE CONVERT(_utf8 '%%%s%%' USING latin1 ) COLLATE latin1_swedish_ci";
-            }
-
-
-            $result = db_query($query, $words);
-
+            $final=get_dupe_query(arg(3));
+            $result =db_query($final['query']);
             while ($coupon = db_fetch_object($result)) {
-                $rows[] = array(
+              $rows[] = array(
                     array('data' => l($coupon->question, $gSitePath . $coupon->url, array('attributes' => array('title' => t($coupon->context), 'class' => 'floatbox')))),
                     array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
                     array('data' => ago($coupon->date_added)),
@@ -859,7 +846,9 @@ function moderator_ajax($action='') {
 
             if (isAjax ())
                 print $html;
-            exit;
+            else
+                return $html;
+          exit;
             break;
 
         case 'mergeissue':
@@ -888,12 +877,12 @@ function moderator_ajax($action='') {
 
             switch ($modtype) {
                 case 'new':
-                    $msg = moderater_user_mail($_REQUEST['qids'], 'warning',$_REQUEST['actions']);
+                    $msg = moderater_user_mail($_REQUEST['qids'], 'warning', $_REQUEST['actions']);
                     $err = false;
                     $output = '';
                     break;
                 case 'flag':
-                    $msg = moderater_user_mail($_REQUEST['qids'], 'reject',$_REQUEST['actions']);
+                    $msg = moderater_user_mail($_REQUEST['qids'], 'reject', $_REQUEST['actions']);
                     $err = false;
                     $output = '';
 
@@ -923,7 +912,46 @@ function moderator_ajax($action='') {
     else
         return 'No Action Found!';
 }
+function get_dupe_query($qid=''){
+if(is_numeric($qid)){
+    $query = "select * from {question}  where qid='" . $qid . "'";
+            $ans = ExecuteQuery($query, "select");
 
+            $words = explode(" ", $ans[0]['question']);
+
+            $words = array_filter($words, 'word_array_filter');
+
+            $words = array_filter($words);
+
+            $query = "SELECT q.question,q.context,u.name,q.date_added,q.url,q.qid FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
+            $querycnt="SELECT ifnull(count(*),0) FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
+            $querysub.='AND (';
+            for ($i = 0; $i < count($words); $i++) {
+                if ($i)
+                    $querysub.=" OR ";
+
+                $querysub .= " q.question LIKE CONVERT(_utf8 '%%%s%%' USING latin1 ) COLLATE latin1_swedish_ci ";
+
+                $flag = true;
+            }
+            $querysub.=')';
+
+            if ($flag){
+                $query = $query . $querysub;
+                $querycnt = $querycnt . $querysub;
+
+                }
+     
+             $final = call_user_func_array('sprintf', array_merge((array) $query, $words));
+               $querycnt=call_user_func_array('sprintf', array_merge((array) $querycnt, $words));
+            $final=preg_replace('/%/', '%%', $final);
+            $querycnt=preg_replace('/%/', '%%', $querycnt);
+             $count=db_result(db_query($querycnt));
+
+            }
+    return array('query'=>$final,'count'=>$count);
+
+}
 function word_array_filter($word='') {
 
     $ret = true;
@@ -1101,7 +1129,7 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
 
         print drupal_json(array('err' => false, 'msg' => 'Successfully Merged the Issues', 'content' => '', 'qid' => $qid));
         // send mail status as edited for final issue
-       // question_edited_mail($qid);
+        // question_edited_mail($qid);
     } else {
 
         watchdog('Dupe Issue Merged Error ', 'Dupe Issue @dupe merged to  @issue By Moderator ', array('@dupe' => $dupe['question'], '@issue' => $details['question'], '@username' => $user->name), WATCHDOG_ERROR);
@@ -1132,9 +1160,11 @@ function moderator_save_issue($array) {
     /* SAVING META INFORMATION */
     $query = "SELECT * FROM {possible_answer} where qid='" . $nid . "' ";
     $ans = ExecuteQuery($query, "select");
-    $chk_exsit = db_result(db_query("select count(*) from {possible_answer_spectrum} where qid='$nid'"));
-    if ($chk_exsit > 0) {
-        $Spec_query2 = db_query("delete * from {possible_answer_spectrum} where qid='$nid'");
+    
+     $chk_exsit = db_result(db_query("select count(*) from {possible_answer_spectrum} where qid='$nid'"));
+    if ($chk_exsit) {
+     
+        $Spec_query2 = db_query("delete from {possible_answer_spectrum} where qid=%d",$nid);
     }
     foreach ($ans as $ans_array) {
         $row_count = 1;
@@ -1157,7 +1187,7 @@ function moderator_save_issue($array) {
 
     if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
 
-          $result = db_query("update {question} set question='".check_plain($q_quest)."',context='".check_plain($q_context)."' where qid='" . $nid . "' ");
+        $result = db_query("update {question} set question='" . check_plain($q_quest) . "',context='" . check_plain($q_context) . "' where qid='" . $nid . "' ");
 
         $del_result = db_query("delete from {question_cat} where qid='" . $nid . "'");
 
@@ -1173,7 +1203,7 @@ function moderator_save_issue($array) {
         if (!empty($q_cat)) {
             $cat1 = $q_cat;
             foreach ($cat1 as $ins1) {
-                
+
                 db_query("insert into {question_cat} set qid='$nid',uid='$user->uid',cat='$ins1'");
             }
             db_query("insert into {question_cat_revision} set qid='$nid',uid='$user->uid',cat='" . $ins1[0] . "'");
@@ -1229,12 +1259,12 @@ function moderator_save_issue($array) {
             db_query("insert into {question_location} set uid='%d',qid='%d',country='%s'", $user->uid, $qid, $country);
         }
         foreach ($q_state as $state) {
-            $stat_cont=explode(',',$state);
-            db_query("insert into {question_location} set uid='%d',qid='%d',state='%s',country='%s'", $user->uid, $qid, $stat_cont[0],$stat_cont[1]);
+            $stat_cont = explode(',', $state);
+            db_query("insert into {question_location} set uid='%d',qid='%d',state='%s',country='%s'", $user->uid, $qid, $stat_cont[0], $stat_cont[1]);
         }
         foreach ($q_city as $city) {
-              $city_stat_cont=explode(',',$city);
-            db_query("insert into {question_location} set uid='%d',qid='%d',city='%s',state='%s',country='%s'", $user->uid, $qid, $city_stat_cont[0],$city_stat_cont[1],$city_stat_cont[2]);
+            $city_stat_cont = explode(',', $city);
+            db_query("insert into {question_location} set uid='%d',qid='%d',city='%s',state='%s',country='%s'", $user->uid, $qid, $city_stat_cont[0], $city_stat_cont[1], $city_stat_cont[2]);
         }
 
 

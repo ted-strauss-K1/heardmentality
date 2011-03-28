@@ -264,7 +264,7 @@ function facetad_refine() {
         $sel = "SELECT * FROM question as q, qtag as tg    WHERE tg.tag_id=$tag and tg.qid=q.qid   and q.status='1'  ";
     } else {
         //$sel = "SELECT * FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid ";
-        ///chnaged vijay
+    
         $sel = "SELECT q.*,qc.cat,qc.scat,qc.sscat FROM question as q left join {question_cat} as qc on qc.qid=q.qid WHERE $qry status='1' group by q.qid desc ";
     }
 

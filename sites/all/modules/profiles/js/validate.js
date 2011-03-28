@@ -81,12 +81,15 @@ load_notify(err);
     //social networks
 
     var patt= /^http:\/\/(www.)*([a-zA-Z0-9]*)*(.)*/;
+       var re = new RegExp("http:\/\/(www.)([a-zA-Z0-9]+)(.)","ig");
     var fb=jQuery('#face').val();
 
     if(fb.length>0){
         var host1='facebook';
-        fb.match(patt);
+       // fb.match(patt);
+        var arr = re.exec(fb);
         var host2=RegExp.$2;
+
         if(!patt.test(fb)){
             err=err+"<small> Please provide proper url format Ex: http://www."+host1+".com/username,  </small>";
         }else if(host1!=host2){
@@ -99,8 +102,10 @@ load_notify(err);
 
     if(twit.length>0){
         var host1='twitter';
-        twit.match(patt);
+         var arr = re.exec(twit);
+     //   twit.match(patt);
         var host2=RegExp.$2;
+       
         if(!patt.test(twit)){
             err=err+"<small> Please provide proper url format Ex: http://www."+host1+".com/username,  </small>";
         }else if(host1!=host2){
@@ -114,8 +119,8 @@ load_notify(err);
 
     if(myweb.length>0){
         var host1='example';
-        myweb.match(patt);
-        
+       // myweb.match(patt);
+        var arr = re.exec(myweb);
         if(!patt.test(myweb)){
             err=err+"<small> Please provide proper url format im My website Ex: http://www."+host1+".com,  </small>";
         }
@@ -132,9 +137,11 @@ load_notify(err);
     
         if(url.length>0){
             //edit-follow-links-facebook-url
-
-            url.match(patt);
+             var re = new RegExp("http:\/\/(www.)([a-zA-Z0-9]+)(.)","ig");
+             var arr = re.exec(url);
+            //url.match(patt);
             var host2=RegExp.$2;
+         
             if(!patt.test(url)){
                 err=err+"Please provide proper url format Ex: http://www."+host1+".com/username,";
             }else if(host1!=host2){
@@ -236,14 +243,14 @@ function getFriends_callback(response) {
 
 }
 
-jQuery(document).ready(function(){
-
-    if(jQuery('.messages').html().length>2){
-        jQuery('#twitMsg',top.document).html(jQuery('.messages').html());
-        jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-    }
-
-});
+//jQuery(document).ready(function(){
+//
+//    if(jQuery('.messages').html().length>2){
+//        jQuery('#twitMsg',top.document).html(jQuery('.messages').html());
+//        jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+//    }
+//
+//});
 
 // disable submit button when entering zipcode
 jQuery(document).ready(function(){
