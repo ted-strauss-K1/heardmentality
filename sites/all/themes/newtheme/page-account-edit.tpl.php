@@ -24,29 +24,31 @@ $directory = $base_path . $directory;
         <?php print $styles; ?>
         <?php print $scripts; ?>
         <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
-        
+        <?php if ($show_messages && $messages): //print $messages;
+            echo "<script> jQuery(document).ready(function(){ jQuery('#twitMsg',top.document).empty().html(jQuery('#profilemsg').html());
+           
+        jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); 
+        });</script>";
+        endif; ?>
 
 
-</head>
+    </head>
 
-	 <body class="<?php print $body_classes; ?>" >
-               <div id="loading">
-                            <marquee  >
-                                Loading...
-                            </marquee>
-                        </div> <div style="display:none;" id="profilemsg"><?php print $messages; ?></div>
-                          <?php if ($show_messages && $messages): //print $messages;
-               echo "<script> jQuery('#twitMsg',top.document).empty().html(jQuery('#profilemsg').html());
+    <body class="<?php print $body_classes; ?>" >
+        <div id="loading">
+            <marquee  >
+                Loading...
+            </marquee>
+        </div> <div style="display:none;" id="profilemsg"><?php if ($show_messages && $messages): print $messages;
+        endif; ?></div>
 
-        //jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);</script>";
-                                                                                                endif; ?>
-               <div style="display:none;"  class="messages"></div>
-    <div class="clr"></div>
-    <div class="popup-update-profile">
-              <div class="newcretae-profile-wrapper">
-                  <?php print $content; ?>
-                  <div class="clr"></div>
-              </div></div>
-          </body>
- 
+        <div style="display:none;"  class="messages"></div>
+        <div class="clr"></div>
+        <div class="popup-update-profile">
+            <div class="newcretae-profile-wrapper">
+<?php print $content; ?>
+                <div class="clr"></div>
+            </div></div>
+    </body>
+
 </html>

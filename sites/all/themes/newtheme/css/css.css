@@ -1408,7 +1408,7 @@ img{ border:none; outline:none;}
 .newcretae-profile-leftside{ float:left; width:646px;}
 .newcretae-profile-leftside-forms{ float:left; width:323px;}
 .newcretae-profile-leftside-forms h3{ background:#8f8f8f; font:normal 16px Arial, Helvetica, sans-serif; color:#fff; text-transform:uppercase; padding:7px 0px; text-align:center; width:315px;}
-.newcretae-profile-leftside-privacy{ width:323px;  margin-left:324px; float:left; position:absolute; background:#ffffcc; height:auto !important; min-height:630px;}
+.newcretae-profile-leftside-privacy{ width:323px; float:right;  background:#ffffcc; height:auto !important; min-height:630px;}
 .newcretae-profile-leftside-privacy h3{ background:#8f8f8f; font:normal 16px Arial, Helvetica, sans-serif; color:#fff; text-transform:uppercase; padding:7px 0px; text-align:center;}
 .form-wra{ width:323px; border-top:1px #cccccc solid; font:normal 12px Arial, Helvetica, sans-serif; color:#333333; padding:7px 0px;  height:27px;}
 .form-wra-la{ width:323px; border-top:1px #cccccc solid; font:normal 12px Arial, Helvetica, sans-serif; color:#333333; padding:7px 0px; height:53px;}

@@ -225,3 +225,11 @@ function load_issue(url){
     });
 
 }
+
+function check_popup_login(){
+    jQuery(document).ready(function() {
+
+        jQuery('#twitMsg').html("Please Login to do this!");
+                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+    });
+}
