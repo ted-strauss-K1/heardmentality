@@ -276,7 +276,26 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
             return $block;
     }
 }
+function report_theme(){
 
+   drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
+
+    $form='<div class="txt_area">
+        <p>Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing?</p>
+	        <ul class="creat">
+                                    <li rel="Take pity on the reader – information<br/> should be presented in a non verbose manner. <br/>Pride should be taken from wording things concisely.<br/> This will ensure users can consume and retain<br/> a larger amount of information as well as making technical <br/>features like the translations and search more effective. <br/>Studies also show that more people will stop to read a shorter comment and more likely to pass over longer ones."><input type="radio" name="abuse_type" id="abuse_type" value="Concise" />Concise</li>
+                                    <li rel="No profanity please. Consider all users when choosing your language. <br/>People take the posting more seriously when <br/>it refrains from using harsh and negative words.<br/> Also, abbreviations should be avoided as other users <br/>or the translation feature may not understand."><input type="radio" name="abuse_type" id="abuse_type" value="Clean" />Clean</li>
+                                    <li rel="Pleased do not repeat anything that has been already posted.<br/> Any duplicate content dilutes the overall accuracy of the compiled information.<br/> Any new issue or posting added to Heard Mentality should be<br/> significantly different than existing content. Good practice would be to “agree” <br/>with the posting you may want to reiterate or <br/>voting on the issue that already exists - <br/>this will ultimately draw more attention to it."><input type="radio" name="abuse_type" id="abuse_type" value="Original" />Original</li>
+                                    <li rel="This is the fundamental rule to make any social community work. <br/>Please treat others like you would like to be treated yourself <br/>and you in return will get the same."><input type="radio" name="abuse_type" id="abuse_type" value="Golden Rules" />Golden Rules</li>
+                                    <li rel="Issues should be classifiable into the provided high level sections.<br/> Please do not post issues that could be considered <br/>unimportant, for example: The hairdo of a certain<br/> celebrity or which restaurant or movie is best.<br/> While these may be important questions, these are not the types of issues to be discussed here."><input type="radio" name="abuse_type" id="abuse_type" value="On Point" />On Point</li>
+                                    <li rel="Never post any false information.<br/>Strive to post only what can be backed up by facts.<br/> References and links should always be provided when available."><input type="radio" name="abuse_type" id="abuse_type" value="Truthful" />Truthful</li>
+                                     <li rel="Discussions within the debate are about<br/> issues and questions surrounding those issues.<br/> Postings should never be directed<br/> to other users directly, nor should they<br/> treat any other user disrespectfully.<br/> Please keep personal emotion out of discussion<br/> and consider each person’s<br/> right to their own view."><input type="radio" name="abuse_type" id="abuse_type" value="Considerate" />Considerate</li>
+                                </ul>  <div class="clr"></div>
+
+                               <p>  <input type="submit" name="button" id="submitter"  value="Submit"/></p>
+</div>';
+return $form;
+}
 function user_facts() {
     global $gSitePath, $user, $gDocPath, $base_root;
     $time_period = variable_get('user_block_seconds_online', 900);

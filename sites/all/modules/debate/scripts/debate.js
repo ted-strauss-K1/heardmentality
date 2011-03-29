@@ -282,26 +282,24 @@ jQuery(document).ready(function() {
 
         jQuery('#flagform').live('submit', function(e){
 
-            e.preventDefault();
-            var fl = jQuery('#flagform');
-            var log = jQuery('#log_res').addClass('ajax-loading');
+           
+          e.preventDefault();
+        var data=jQuery(this).serialize();
+        jQuery.ajax({
+            type: "POST",
+            url: jQuery(this).attr('action'),
+            data:data,
+            success: function(data){
+                 jQuery('#twitMsg',top.document).html(data);
+                jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+               
+            },
+            complete:function(data){
+            
+            parent.fb.end();
 
-            jQuery.post( jQuery("#flagform").attr('action'), jQuery("#flagform").serialize(),
-                function(data){
-                    log.removeClass('ajax-loading');
-
-              parent.fb.end();
-              fl.clearForm();
-              jQuery('#twitMsg').html(data);
-              jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
-              
-                    
-
-                    jQuery("#flagform input:checked").attr('checked',false);
-
-
-                });
-
+            }
+        });
         //   jQuery(this).parents('form').submit(function() {
         //  alert($(this).serialize());
         // return false;

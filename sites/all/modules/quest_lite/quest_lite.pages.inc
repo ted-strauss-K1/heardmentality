@@ -1328,13 +1328,9 @@ function flag_question() {
  <p class="cmt_date"> <b>Context :</b> ' . $oListquest->context . ' </p></div></div>';
 
     }
-$falgq.='<div class="txt_area">
-	<input type="radio" name="abuse_type" id="abuse_type" value="Pornography or obscenity" />
-	Pornography or obscenity <br/><input type="radio" name="abuse_type" id="abuse_type" value="radically or ethnically hateful content" />
-	radically or ethnically hateful content  <br/> <input type="radio" name="abuse_type" id="abuse_type" value="Graphic Violence" />
-	Graphic Violence <br/><input type="radio" name="abuse_type" id="abuse_type" value="other content inappropirate for young Viewers" />
-	other content inappropirate for young Viewers <br/><input type="submit" name="button" id="submitter"  value="Report Problem"/></div></form></div>';
+$falgq.=report_theme();
 
+$flagg.='</form></div>';
    return $falgq;
 }
 
