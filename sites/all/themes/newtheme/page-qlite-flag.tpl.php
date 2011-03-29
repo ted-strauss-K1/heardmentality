@@ -26,8 +26,40 @@ $directory = $base_path . $directory;
      var spath='<?php print $gSitePath;?>';  var gSitePath='<?php echo $gSitePath; ?>';</script>
 
         <?php print $scripts; ?>
+   <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
+  <script src="<?php echo $directory; ?>/scripts/jquery.livequery.js"></script>
+<script type="text/javascript">
+            jQuery(document).ready(function(){
+
+                jQuery('.creat li').livequery(function () {
 
 
+                        if (jQuery(this).attr("rel").length > 0) {
+                            // jQuery(this).CreateBubblePopup();
+                            var id=jQuery(this);
+                            jQuery(this).CreateBubblePopup({
+                                position : 'right',
+                                align	 : 'left',
+                                dropShadow: false,
+                                openingDelay:300,
+                                selectable: true,
+                                innerHtmlStyle: {
+                                    'text-align':'justified','background-color':'#FFFFFF'
+                                },
+                                themeName: 	'blue',
+                                alwaysVisible: false,
+                                innerHtml: jQuery(this).attr("rel"),
+                                themePath: '<?php echo $directory; ?>/images/bp_images'
+
+                            });
+                            //  jQuery(this).ShowBubblePopup();
+                        }
+
+                });
+
+            });
+
+        </script>
     
 </head>
 <body><?php
@@ -38,7 +70,7 @@ print " <script>jQuery(document).ready(function() {jQuery('#twitMsg',top.documen
     <div class="popup-add-suggest" id="log">
 	<div class="facttop"> <?php print $title; ?></div>
 	<div id="log_res"><!-- spanner --></div>
-	</div>
+	
 	<span class="clr"><!-- spanner --></span>
 
    <div id="log_res_ans"><!-- spanner --></div>
@@ -48,7 +80,7 @@ print " <script>jQuery(document).ready(function() {jQuery('#twitMsg',top.documen
        <?php print $content;?>
         </div>
 
-
+</div>
       <!--content area close-->
 	
 	 </body>
