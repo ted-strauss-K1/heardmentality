@@ -584,6 +584,9 @@ function qlite_view() {
     $debatecnt = $list[0]['cnt'];
 
 //tab
+    // user login suggest button
+    $suggestButton = user_is_logged_in()!=''? '<a class="but butnew share-link" title="Suggest a new answer"   onclick="formsubmittype(4,' . $qid . ');" href="javascript:void(0);">Suggest a new answer</a>':'<a class="but butnew share-link" title="Suggest a new answer" onclick="check_popup_login()">Suggest a new answer</a>';
+    $flagButton = user_is_logged_in()!=''?'<a title="Flag" class="but butnew share-link"  onclick="formsubmittype(3,' . $qid . ');" href="javascript:void(0);"><img  src="' . $gSitePath . path_to_theme() . '/images/flag.png" alt="flag" /></a>':'<a title="Flag" class="but butnew share-link" onclick="check_popup_login()"  href="javascript:void(0);"><img  src="' . $gSitePath . path_to_theme() . '/images/flag.png" alt="flag" /></a>';
     $voutput .= $submitbutt . '
                  <div >
                <!--  <ul>
@@ -611,14 +614,14 @@ function qlite_view() {
             <a title="Invite" onclick="formsubmittype(2,' . $qid . ');" href="javascript:void(0);" class="share-link"> Invite</a>
              </div>-->
             <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
-              <a class="but butnew share-link" title="Suggest a new answer"   onclick="formsubmittype(4,' . $qid . ');" href="javascript:void(0);">Suggest a new answer</a>
+              '.$suggestButton.'
 <div class="but-right">
            <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
             <!-- <div class="share3">
         <a title="Create Mashup" class="share-link" onclick="formsubmittype(5,' . $qid . ');" href="javascript:void(0);">&lt;Embed&gt;</a>
              </div>-->
   <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
-             <a title="Flag" class="but butnew share-link"  onclick="formsubmittype(3,' . $qid . ');" href="javascript:void(0);"><img  src="' . $gSitePath . path_to_theme() . '/images/flag.png" alt="flag" /></a>
+             '.$flagButton.'
               <div class="but-right">
            <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
 
@@ -1696,7 +1699,7 @@ function suggest_answer() {
     $ansoutput .= '</form> ';
      }else{
 
-        $ansoutput.='<script>jQuery(document).ready(function() {jQuery(\'#twitMsg\',top.document).html("Please log in to suggest an option");
+        $ansoutput.='<script>jQuery(document).ready(function() {jQuery(\'#twitMsg\',top.document).html("Please Login to do this");
         jQuery(\'#twitMsg\',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); }); </script>' ;
      }
 
@@ -1712,7 +1715,7 @@ function suggest_answer() {
     }else{
 
        
- $ansoutput.= '<div class="messages warning"> Please log in to suggest an option </div>';
+ $ansoutput.= '<div class="messages warning"> Please Login to do this </div>';
     }
 
     return $ansoutput;
@@ -1977,7 +1980,8 @@ function percent_broken($qid = '', $aid = '', $array = '') {
 
     $filter = '';
     $filter = (!empty($array['dochg'])) ? $array['dochg'] : '';
-    $vans = "select * from {possible_answer} where  qid='" . $qid . "'";
+    //$vans = "select * from {possible_answer} where  qid='" . $qid . "'";
+    $vans = "select * from {poll_choices} where  nid='" . $qid . "'";
     $vlist = ExecuteQuery($vans, "select");
     switch ($filter) {
         case 'gender':
@@ -2177,7 +2181,8 @@ function qlite_percent() {
     $opt = '';
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
-    $vans = "select * from {possible_answer} where  qid='" . $qid . "'";
+    //$vans = "select * from {possible_answer} where  qid='" . $qid . "'";
+    $vans = "select * from {poll_choices} where  nid='" . $qid . "'";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
     $output .= "
@@ -2194,7 +2199,7 @@ function qlite_percent() {
 
     $ans_array = array();
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
-        array_push($ans_array, $vlist[$ab]['answer']);
+        array_push($ans_array, $vlist[$ab]['chtext']);
     }
     $result = percent_broken($qid, '', $_REQUEST);
     //echo "<pre>";

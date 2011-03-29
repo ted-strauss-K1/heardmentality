@@ -607,19 +607,20 @@ function debate_wave($qid = '') {
     //answers
     $filter_list.='<select name="dfilt-ans" id="dfilt-ans" class="select-1"><option value="">Possible Answers</option>';
     foreach ($ans as $list) {
-        $filter_list.='<option value="' . $list['paid'] . '">' . $list['answer'] . '</option>';
+        $filter_list.='<option value="' . $list['chid'] . '">' . $list['chtext'] . '</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
-        <div class="fm-2-left">' . $list['answer'] . '</div>
-        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['paid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        <div class="fm-2-left">' . $list['chtext'] . '</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
         </div>
         <div class="clr"></div>
     </div>';
     }
     $filter_list.='</select>';
     //print_r($cnt);
-    $chkuserOnclick = user_is_logged_in()==''?'onclick="debate_popup_login()"':'';
+    $userCheckDebate = user_is_logged_in()!=''?'<a href="#newwavediv" onclick="" title="New Debate" class="floatbox"><input name="" type="button" class="submit-debate-btn"/></a>':'<a href="#"  title="New Debate" onclick="check_popup_login()"><input name="" type="button" class="submit-debate-btn"/></a>';
+    //$chkuserOnclick = user_is_logged_in()==''?'onclick="check_popup_login()"':'';
     $wave .= '
 
      <div class=" debate-round-tab-outer">
@@ -637,7 +638,7 @@ function debate_wave($qid = '') {
 
                     </div>
                     <div class="form-m4" align="right">&nbsp;<br />
-<a href="#newwavediv" title="New Debate" class="floatbox"><input name="" type="button" '.$chkuserOnclick.'  class="submit-debate-btn"/></a></div>
+'.$userCheckDebate.'
 
                 </div>
 
