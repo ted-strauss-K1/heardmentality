@@ -41,7 +41,7 @@ function bind_clk(){
             e.preventDefault();
             el = jQuery(this);
             if(uid<1){
-                jQuery('#twitMsg').html("Please log in first before you can Agree or Disagree!");
+                jQuery('#twitMsg').html("Please Login to do this!");
                 jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
                // jQuery.growlUI('', 'Please Login to do this action!');
                return false;
@@ -162,7 +162,7 @@ function likethis(action, wid, like, ele){
     if(uid>0){
     }else{
 
-        jQuery.growlUI('', 'Please Login to do this action!');
+        jQuery.growlUI('', 'Please Login to do this!');
         return false;
     }
 
@@ -226,7 +226,7 @@ function toggle(){
         });
     }else{
 
-        jQuery('#twitMsg').html("Please log in first before you can join this debate!");
+        jQuery('#twitMsg').html("Please Login to do this!");
                 jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
     }
 }
@@ -270,7 +270,7 @@ jQuery(document).ready(function() {
         }
  }else{
 
-        jQuery('#twitMsg').html("Please log in first before you can join this debate or discussion!");
+        jQuery('#twitMsg').html("Please Login to do this!");
                 jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
     }
     return false;
@@ -325,10 +325,10 @@ alert(typ);
 
 }
 
-function debate_popup_login(){
+function check_popup_login(){
     jQuery(document).ready(function() {
 
-        jQuery('#twitMsg').html("Please log in to participate in the debate!");
+        jQuery('#twitMsg').html("Please Login to do this!");
                 jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
     });
 }
