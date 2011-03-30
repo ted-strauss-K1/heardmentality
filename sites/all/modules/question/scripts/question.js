@@ -2,9 +2,11 @@
 jQuery(document).ready( function() {
 
    $('#q_quest').blur(function() {
-   get_releted_issue(0);
+ 
    
  var quest = jQuery('#q_quest').val();
+ if(jQuery.trim(quest).length){
+      get_releted_issue(0);
    var url = spath+"exist_question";
  jQuery.ajax({
 type: "POST",
@@ -12,8 +14,13 @@ url: url,
 data: "question="+ quest,
 success: function(msg){
         jQuery("#inside_content").html(msg);
-} 
+},
+complete:function(){question_check()}
 });
+ }else{
+ jQuery('#err').html('<li>Please provide proper Issue!</li>');
+ }
+
 })
 });
 /*RELEATED QUESTIONS AUTOCOMPLETE*/		
@@ -64,36 +71,17 @@ function validate_question(){
     var err = '';
     var errmsg = '';
 
-
-   /* if (jQuery.trim(quest).length > 1)
+ jQuery('#err').html('');
+    if (jQuery.trim(quest).length)
      {
-        var url = spath+"front_dupequestion";
-         jQuery.ajax({
-        type: "POST",
-        url: url,
-        data: "question="+ quest,
-        success: function(msg){
-                if(msg=='invalid')
-                {
-                   jQuery('#err').append('<li>Question already exists</li>');
-                   return false;
-                }
-        }
-        });
-     }*/
-   
-    if (jQuery.trim(quest).length < 1)
-        err += '<li>Please Provide Proper Question!</li>';
-
-    if (jQuery.trim(ans1).length < 1||jQuery.trim(ans2).length < 1)
+         
+         if (jQuery('#inside_content').length&&check=='invalid')
+        err += '<li>Please re-check your Issue from our Dupe List, We consider this as Duplicate Issue</li>';
+    
+         if (jQuery.trim(ans1).length < 1||jQuery.trim(ans2).length < 1)
         err += '<li>Minimum 2 answers required</li>';
-
     //if (jQuery.trim(cat1).length < 1)
        // err += '<li>Please Provide Main Cateogry of the Question!</li>';
-
-     if (check=='invalid')
-        err += '<li>Question already exist</li>';
-
     jQuery("#add_more input").each(function(){
         jQuery(this).css('border','1px solid #838381');
     });
@@ -101,16 +89,19 @@ function validate_question(){
         jQuery(this).css('border','1px solid red');
     });
 
-    if (jQuery.trim(err).length > 1) {
+     }else{
+  err += '<li>Please Provide Proper Issue!</li>';
+     }
+     
+      
+  if (jQuery.trim(err).length > 1) {
         jQuery('#err').html(err);
         jQuery('#err').addClass('error');
         return false;
-    }
-    jQuery('#question').slideUp('slow');
-    jQuery('div.do-intop').html('Please wait till processing...!');
-
+    }else{
     return true;
-
+    }
+return false;
 }
 
 function add_ans(){
