@@ -89,10 +89,14 @@ $directory = $base_path . $directory;
 
                                 </ul></div>
 
+                             <?php
+                             global $user;
+                             if (is_array($user->roles) && in_array('administrator', $user->roles)){
+                             ?>
+                             <div class="clr" style="font-weight:bold;color:black">Dupe questions:</div>
 
-                            <!-- <div class="clr" style="font-weight:bold;color:black">Dupe questions:</div>
-
-                             <div id="inside_content"></div>-->
+                             <div id="inside_content"></div>
+                             <?php }?>
                     </div>
                     <div class="right" id="qform">
                         <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;
