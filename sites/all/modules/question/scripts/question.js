@@ -3,7 +3,7 @@ jQuery(document).ready( function() {
 
    $('#q_quest').blur(function() {
    get_releted_issue(0);
-   /*
+   
  var quest = jQuery('#q_quest').val();
    var url = spath+"exist_question";
  jQuery.ajax({
@@ -13,7 +13,7 @@ data: "question="+ quest,
 success: function(msg){
         jQuery("#inside_content").html(msg);
 } 
-});*/
+});
 })
 });
 /*RELEATED QUESTIONS AUTOCOMPLETE*/		
