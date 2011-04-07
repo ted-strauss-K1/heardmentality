@@ -1,0 +1,607 @@
+/* $Id: design.css,v 1.1 2009/07/22 18:24:01 proxiss Exp $ */
+
+/**
+* @file
+* Layouting of content in all regions.
+*
+* Layouting of content in all regions, do not customize here, customize in custom.css.
+*/
+/* ***********************
+    generic classes     */
+    
+.cl {
+	clear: left;
+}
+
+.cr {
+	clear: right;
+}
+
+/* ***********************
+    plain tag selectors */
+    
+body {
+	background: #101010;
+	color: #777777;
+	font: normal 0.88em/130% Verdana,Arial, sans;
+}
+
+table {
+	margin-top: 0.5em;
+	background: transparent;
+}
+
+thead {
+	border-bottom: 2px solid #101010;
+}
+
+th, td {
+	padding: 2px 0.5em;
+}
+
+label {
+	display: block;
+	margin-top: 8px;
+}
+
+a {
+	color: #787a00;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #787a00;
+}
+
+a:hover {
+	color: gold;
+}
+
+h1, h2, fieldset legend {
+	font: normal 24px/100% "Lucida Sans Unicode", "Lucida Sans", Verdana,Arial, sans;
+	margin-bottom: 12px;
+}
+
+h3, h4, fieldset legend {
+  font: normal 18px/100% "Lucida Sans Unicode", "Lucida Sans", Verdana,Arial, sans;
+}
+
+fieldset {
+	margin-bottom: 8px;
+}
+
+strong, b {
+  font-weight: bold;
+}
+
+i, em {
+  font-style: italic;
+}
+
+/* ***********************************************************
+    drupal core overwrites and theming of standard features */
+
+.block ul {
+	padding: 0;
+}
+
+.clear-block {
+	margin-top: 4px;
+}
+
+html.js fieldset.collapsible {
+  border: 1px dotted #787a00;
+  margin: 1em 0;
+}
+
+html.js fieldset.collapsed {
+	border: 0;
+	border-top: 1px dotted #787a00;
+}
+
+li a.active {
+	color: #787a00;
+}
+
+tr.even, tr.odd {
+  background-color: transparent;
+  border-bottom: 1px solid #777777;
+}
+
+div.ok, tr.ok {
+  color: #00B200;
+}
+
+div.error, tr.error {
+  color: #a22a00;
+}
+
+div.warning, tr.warning {
+  color: #824a00;
+}
+    
+div.messages {
+	margin: 0 5% 2em 5%;
+	padding: 8px;
+	background: #2c1e1e;
+	border: 1px solid #3c1e1e;
+	color: #555555;
+}
+
+li.collapsed {
+  list-style-image: url(parts/menu-collapsed.png);
+}
+
+html.js fieldset.collapsed legend a {
+	background: transparent url(parts/menu-collapsed.png) no-repeat scroll 5px 75%;
+}
+
+li.expanded {
+  list-style-image: url(parts/menu-expanded.png);
+}
+
+html.js fieldset.collapsible legend a {
+  background: transparent url(parts/menu-collapsed.png) no-repeat scroll 5px 75%;
+}
+.resizable-textarea .grippie {
+  background-color: #606060;
+  border-color: #404040;
+}
+
+div.fieldset-wrapper {
+	margin: 0 16px;
+}
+
+.poll .vote-form .choices {
+  margin: 0 0;
+}
+
+.poll .vote-form {
+  text-align: left;
+}
+
+.poll .title {
+  margin-bottom: 0.5em;
+}
+.poll .vote-form .choices .title {
+  font-weight: normal;
+}
+.poll .vote-form input.form-submit {
+	margin-bottom: 0.5em;
+}
+
+.poll .bar .foreground {
+	background: transparent url(parts/poll-filled.png) repeat-x;
+}
+
+.poll .bar {
+  background: transparent url(parts/poll-empty.png) repeat-x;
+  border-left: 2px solid #444444;
+  height: 14px;
+}
+
+.poll .bar .foreground {
+  height: 15px;
+}
+
+thead th {
+  border-bottom:3px solid #606060;
+}
+
+tbody {
+	border-top: 0;
+}
+
+.preview .node {
+  background-color:#302020;
+  padding: 1em;
+}
+
+input, select, textarea {
+	background: #191d1d;
+	border: #333333;
+}
+input.form-text, input.form-submit, textarea.form-textarea, select.form-select, textarea.form-textarea {
+  color: #777777;
+  border:2px solid #333333;
+  padding: 2px;
+}
+
+input.form-submit {
+  margin-top: 1em;
+  padding: 4px 2px;
+}
+input.form-submit:hover {
+	background: #292d12;
+}
+
+input.form-radio {
+	border: 0px !important;
+	background-color: #808080 !important;
+}
+	
+.profile h3 {
+	font-weight: bold;
+	border-bottom: 0;
+}
+
+#user-login-form {
+  text-align: left;
+}
+
+#user-login-form .form-item label {
+  font-weight: normal;
+}
+
+#user-login-form .item-list {
+	margin-top: 6px;
+	font-size: 12px;
+}
+	
+/* ***********************
+    main areas settings */
+
+div.mainContent {
+	padding: 8px;
+}
+
+div.mainContent h2 {
+	font-size: 22px;
+	margin: 0.8em 0 0.6em 0;
+}
+
+div.mainContent h3 {
+  font-size: 18px;
+  margin: 0.2em 0 0.6em 0;
+}
+
+div.mainContent p {
+  margin: 0 0 1em 0;
+  line-height: 170%;
+}
+
+div.mainContent img {
+	padding: 2px;
+	background: #202020;
+	border: 1px solid #292d12;
+}
+
+div.mainContent img.noborder {
+  padding: 0px;
+  border: 0px;
+}
+
+div.mainContent #forum table img {
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+}
+
+div.mainContent div.node div.picture {
+	float: right;
+	margin: 0em 0 1em 1em;
+}
+
+div.mainContent div.poll {
+	width: 75%;
+}
+
+
+/* ***************************
+    left sidebar (mainmenu) */
+
+#mainmenu div.primary-links h2 {
+  padding: 4px 0 4px 24px;
+	font: normal 16px/100% "Lucida Sans Unicode", "Lucida Sans", Verdana,Arial, sans;
+  background: transparent url(parts/lm-li.png) repeat-y;
+  margin: 0;
+}
+
+#mainmenu div.d-content div.primary-links {
+	background: #1e1402 url(parts/lm-top.png) no-repeat;
+	padding: 17px 0 0px 0;
+	margin-bottom: 2em;
+  width: 148px;
+}
+
+#mainmenu div.d-content div.primary-links .content {
+	background: transparent url(parts/lm-li.png) repeat-y;
+	padding: 0 0 4px 0;
+	width: 148px;
+}
+
+#mainmenu ul.primary-links {
+	font: normal 18px/100% "Lucida Sans Unicode", "Lucida Sans", Verdana,Arial, sans;
+	letter-spacing:1px;
+}
+
+#mainmenu ul.primary-links li {
+	padding: 4px 0 4px 24px;
+	margin: 0 0 8px 0;
+	display: block;
+}
+
+#mainmenu ul.primary-links li.active-trail {
+	background: #2f1f17 url(parts/lm-liactive.png) no-repeat scroll 0 50%;
+}
+
+#mainmenu h2 {
+  padding: 4px 0 4px 0;
+  font: normal 16px/100% "Lucida Sans Unicode", "Lucida Sans", Verdana,Arial, sans;
+}
+/* ****************
+    right header and breadcrumbs */
+
+#help {
+	font-size: 10px;
+	background: #101010 url(parts/bseps.jpg) repeat-x scroll 0 100%;
+}
+#help .sizeframe {
+	position: relative;
+	top: -2px;
+	padding-left:16px;
+}
+#perms h2, #perms h3 {
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#perms {
+	font-size: 12px;
+}
+
+#perms #search-block-form > div {
+	position: relative;
+	right: -256px;
+	text-align: left;
+}
+
+#perms #search-block-form label {
+  display: none;
+}
+#perms #search-block-form input.form-submit {
+	padding: 1px;
+}
+/* ****************
+    footers */
+
+#copyright {
+	background: #101010 url(parts/bseps.jpg) repeat-x scroll 0 20px;
+  font-size: 12px;
+}
+
+#copyright h2, #copyright h3 {
+	font-size: 14px;
+}
+
+#copyright .copydisclaimer {
+  font-size: 10px;
+	min-height: 50px;
+	background: #101010 url(parts/copy.png) no-repeat;
+	padding: 10px 28px 10px 64px;
+	line-height: 120%;
+	float: left;
+	border-right: 6px dotted #333030;
+	width: 250px;
+}
+
+#copyright .d-foot {
+	margin-left: 368px;
+	padding-top: 12px;
+}
+
+#copyright .d-foot .block {
+	margin: 0 0 16px 0;
+}
+
+div.themeauthor a {
+	color: #777777;
+}
+	
+ /*
+  * Header
+  */
+  
+#header {
+	background-color: #000000;
+}
+
+#header span.homename {
+	font: bold 58px/130% Georgia,Times,serif;
+}
+#header span.homeslogan {
+  font: normal 16px/200% Verdana,Arial,sans;
+}
+#header .sizeframe {
+	background: transparent url(parts/topback.jpg) no-repeat scroll 0 50%;
+	xxheight: 102px;
+}
+
+/* 
+ * Middle content
+ */
+
+#middle {
+  background: #101010 url(parts/bseps.jpg) repeat-x scroll 0 0;
+  padding-top: 20px;
+}
+ 
+#primcontent {
+	background: transparent url(parts/cntback.png) repeat-x scroll 0 0;
+	min-height: 400px;
+}
+
+ul.mtab a {
+	font-size: 12px;
+}
+
+ul.primtabs {
+	position: relative;
+	bottom: -3px;
+	padding-left: 4px;
+}
+
+ul.primtabs li {
+	display: block;
+	float: left;
+  background: transparent url(parts/tm-left.png) no-repeat scroll 0 0;
+  height: 21px;
+  margin: 0 0px;
+}
+ul.primtabs li.active {
+  background: transparent url(parts/tm-leftactive.png) no-repeat scroll 0 0;
+}
+ul.primtabs li a {
+	display: block;
+	padding-left: 16px;
+}
+
+ul.primtabs li span {
+	background: transparent url(parts/tm-right.png) no-repeat scroll 100% 0;
+	padding-right: 16px;
+	display: block;
+}
+
+ul.primtabs li.active span {
+	background: transparent url(parts/tm-rightactive.png) no-repeat scroll 100% 0;
+}
+
+ul.sectabs {
+	text-align: right;
+	padding: 2px 0 0 0;
+	border-bottom: 2px solid #2c2c2c;
+}
+ul.sectabs li {
+	display: inline;
+  padding: 0 18px 2px 16px;
+}
+ul.sectabs li.active {
+  background: #333333;
+}
+ul.sectabs a {
+  color: #8a7500;
+}
+ul.sectabs a:HOVER {
+  color: gold;
+}
+
+#rightbar h2 {
+	font-size: 14px;
+}
+#rightbar div.d-content .block {
+	background: transparent url(parts/cntback.png) repeat-x;
+	padding: 8px 10px 8px 10px;
+	border: 1px solid #2c2c2c;
+	margin-bottom: 12px;
+	width: 184px;
+}
+
+div.breadcrumb {
+  display: inline;
+}
+
+img.logo {
+  margin-left: 40px;
+}
+/* the mission */
+#rightbar div.d-content div.mission {
+	position: relative;
+	top: -38px;
+	background: #2c1e1e;
+	color: #666666;
+}
+#rightbar div.d-content div.mission {
+  border-top: 1px solid #3c2010; 
+}
+	
+/* link lists */
+ul.links {
+   background: #191d1d;
+   border-bottom: 1px solid #292d2d;
+   border-left: 1px solid #292d2d;
+   border-top: 1px solid #242424;
+   border-right: 1px solid #222222;
+   display: block;
+   padding: 2px 0;
+   margin: 4px 0;
+}
+
+ul.links:hover {
+   background: #292d2d;
+}
+
+ul.links li.first {
+   background: transparent url(parts/lightbull.png) no-repeat scroll 0 50%;
+   padding-left: 2em;
+}
+
+div.terms ul.links li.first {
+	background-image: none;
+	padding-left: 0;
+}
+
+div.terms ul.links li.last {
+  background-image: none;
+  padding-right: 0;
+}
+
+ul.links li a {
+  color: #555555;
+}
+
+ul.links li a:hover {
+  color: #888888;
+}
+
+/* book navigation */
+div.page-links a.page-previous {
+	padding: 18px 0 0 0;
+	background: transparent url(parts/goleft.png) no-repeat scroll 0 0;
+}
+
+div.page-links a.page-next {
+  padding: 18px 0 0 0;
+  background: transparent url(parts/goright.png) no-repeat scroll 100% 0;
+}
+
+div.page-links a.page-up {
+  padding: 18px 0 0 0;
+  background: transparent url(parts/goup.png) no-repeat scroll 50% 0;
+}
+
+/* blog, poll and forum content */
+.nt-blog .meta,
+.nt-poll .meta,
+.nt-forum .meta {
+	text-align: right;
+  font-size: 12px;
+  padding: 0 0 2px 0;
+  border-bottom: 1px dotted #404040;
+  margin: 0 0 8px 0;
+}
+
+div#forum td.created, div#forum td.last-reply {
+	font-size: 10px;
+}
+
+/* comments */
+#comments > div.comment {
+	border-top: 6px dotted #404040;
+	margin-top: 24px;
+	padding-top: 16px;
+}
+
+div.comment {
+	margin-top: 1.5em;
+}
+
+div.comment .submitted, div.comment .cid {
+	font-size: 12px;
+	padding-right: 2em;
+} 
+div.comment div.meta {
+  float:left;
+}
+div.comment div.content {
+  margin-left: 108px;
+}

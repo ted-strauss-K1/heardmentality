@@ -1,0 +1,81 @@
+Index: commands/simpletest/simpletest.drush.inc
+===================================================================
+RCS file: /cvs/drupal-contrib/contributions/modules/drush/commands/simpletest/simpletest.drush.inc,v
+retrieving revision 1.4
+diff -u -r1.4 simpletest.drush.inc
+--- commands/simpletest/simpletest.drush.inc	6 Dec 2009 12:53:38 -0000	1.4
++++ commands/simpletest/simpletest.drush.inc	7 Dec 2009 20:30:31 -0000
+@@ -14,6 +14,8 @@
+       return dt("Run tests and email the results. See the docs for run-tests.sh to understand --extra.");
+   case 'drush:test clean':
+     return dt("Clean leftover tables and file directories from prior test runs.");
++  case 'drush:test patch':
++    return dt("If necessary, patch Drupal with simpletest patch.");
+   }
+ }
+ 
+@@ -49,6 +51,16 @@
+     'description' => 'Run drush-specific tests',
+     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
+   );
++  $items['test patch'] = array(
++    'callback' => 'drush_test_patch',
++    'description' => 'If necessary, patch Drupal 6 with simpletest patch.',
++    'arguments' => array(
++      'path' => 'Path to the simpletest module from the base directory.  Do not include preceding or trailing slashes.'
++    ),
++    'bootstrap' => DRUSH_BOOTSTRAP_DRUPAL_ROOT,
++    'drupal dependencies' => array('simpletest'),
++    'core' => array('6'),
++  );
+   return $items;
+ }
+ 
+@@ -104,4 +116,46 @@
+ function drush_test_drush() {
+   drush_log(dt("Invoking %drush help in a subprocess", array('%drush' => DRUSH_COMMAND)));
+   drush_backend_invoke('help', array(), 'GET', FALSE);
++}
++
++/**
++ * If necessary, Run Drupal 6 simpletest patch.
++ */
++function drush_test_patch() {
++  drush_bootstrap_max();
++  // This check is not complete due to the fact that you can run the patch prior to the database being bootstrapable.
++  if (!isset($GLOBALS['simpletest_installed'])) {
++    // Set simpletests path.
++    $path = 'sites/all/modules/simpletest';
++    $command = drush_get_command();
++    // Use argument supplied path.
++    if (count($command['arguments']) > 0) {
++      $path = $command['arguments'][0];
++    }
++    // If no argument is set, try using the drupal_get_path function.
++    else if (function_exists('drupal_get_path')) {
++      $path = drupal_get_path('module', 'simpletest');
++    }
++
++    // Remove preceding slash.
++    if(substr($path, 0, 1) == '/') {
++      $path = substr($path, 1);
++    }
++
++    // Check that the path works.
++    if (!is_dir(drush_get_context('DRUSH_DRUPAL_ROOT') .'/'. $path)) {
++      drush_die(dt('The path %path to the simpletest module seems to be wrong. Please specify the path from the base directory as an argument.',array('%path' => $path)));
++    }
++
++    // Run patch
++    if (drush_shell_exec('patch -p0 < '. drush_get_context('DRUSH_DRUPAL_ROOT') .'/'. $path .'/D6-core-simpletest.patch')) {
++      drush_log(dt("Drupal 6 Simpletest patch applied."), 'success');
++    }
++    else {
++      drush_log(dt("Drupal 6 Simpletest patch failed."), 'error');
++    }
++  }
++  else {
++    drush_log(dt("Drupal 6 Simpletest patch has already been applied."), 'ok');
++  }
+ }
+\ No newline at end of file
