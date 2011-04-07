@@ -1,0 +1,2175 @@
+<?php
+
+/**
+ * Implementation of hook_perm().
+ */
+function profiles_perm() {
+    return array('Profile Edit', 'Profile View', 'Profile Privacy', 'User Sign In', 'Update Profile');
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function profiles_menu() {
+    $items['profile'] = array('title' => 'Profile', 'page callback' => 'profile_view', 'access arguments' => array('Profile View'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc',);
+    $items['profile/edit/%'] = array('title' => ' Edit Profile', 'page callback' => 'profile_edit', 'access arguments' => array('Profile Edit'), 'type' => MENU_CALLBACK, 'page arguments' => array(2), 'file' => 'profiles.pages.inc',);
+
+    $items['profile/privacy_settings'] = array('title' => ' Privacy Profile', 'page callback' => 'privacy_settings', 'access arguments' => array('Profile Privacy'), 'type' => MENU_CALLBACK, 'file' => 'profiles.pages.inc',);
+
+    $items['profile/deletefollow'] = array('title' => ' Profile', 'page callback' => 'save_follow_profile', 'access arguments' => array('Profile View'), 'type' => MENU_CALLBACK, 'file' => 'profiles.pages.inc',);
+
+    $items['profile/savefollowerlink'] = array('title' => ' Profile', 'page callback' => 'save_follower_profile', 'access arguments' => array('Profile View'), 'type' => MENU_CALLBACK, 'file' => 'profiles.pages.inc',);
+    $items['postmessage'] = array('title' => ' Profile', 'page callback' => 'save_message', 'access arguments' => array('Profile View'), 'type' => MENU_CALLBACK, 'file' => 'profiles.pages.inc',);
+    $items['profile/inbox'] = array('title' => ' Profile', 'page callback' => 'inbox_flex', 'access arguments' => array('Profile Edit'), 'type' => MENU_CALLBACK, 'file' => 'profiles.pages.inc',);
+
+    $items['google/map'] = array('title' => 'Facts', 'page callback' => 'google_map', 'access arguments' => array('Profile View'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc',);
+    $items['tour/home'] = array('title' => 'Take a tour', 'page callback' => 'amber_tour', 'access arguments' => array('Profile View'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc',);
+    $items['account/edit'] = array('title' => 'Update Profile', 'page callback' => 'update_profile', 'access arguments' => array('Update Profile'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc');
+
+    return $items;
+}
+
+function userTypes() {
+    $ques_query = "SELECT * FROM {user_types}";
+    $list = ExecuteQuery($ques_query, "select");
+    $usertypes = array();
+    $i = 0;
+    foreach ($list as $options) {
+        $usertypes[$i] = $options['id'];
+        $usertypes[$i] = $options['name'];
+        $i++;
+    }
+    return $usertypes;
+}
+
+function load_user($uid = '') {
+
+    $query = "select * from {users} as u join {user_profile} as up on u.uid=up.uid  where u.uid='$uid'";
+    $result = db_fetch_object(db_query($query));
+    return $result;
+}
+
+function checkPrivacySettings($uid = null) {
+    $ques_query = "SELECT * FROM {privacy_settings} where uid='" . $uid . "'";
+    $list = ExecuteQuery($ques_query, "select");
+    $userFields = array();
+    $i = 0;
+
+    $columns = db_query("SHOW COLUMNS FROM {privacy_settings}");
+
+    while ($res = db_fetch_array($columns)) {
+        $userFields[$res['Field']] = $list[$i][$res['Field']];
+    }
+    if (isset($userFields) && count($userFields) > 0) {
+        return $userFields;
+    }
+}
+
+// to check only follower or followee will see the profile
+function checkFollowStatus($login_user_id = null, $profile_user_id = null) {
+
+    $ques_query = "SELECT *  from {follower}  where uid='" . $login_user_id . "'  AND follower_status='1' AND  follower_id='" . $profile_user_id . "' UNION
+	SELECT *  from {follower}  where uid='" . $profile_user_id . "'  AND follower_status='1' AND  follower_id='" . $login_user_id . "'
+	";
+    $list = ExecuteQuery($ques_query, "select");
+    $isfollow = FALSE;
+    if (isset($list) && count($list) > 0) {
+        $isfollow = TRUE;
+        return $isfollow;
+    }
+    return $isfollow;
+}
+
+// To check user points for user privacy settings
+function checkUserPoints($uid = null) {
+    $ques_query = "SELECT points FROM {user_profile} where  uid='" . $uid . "'";
+    $list = ExecuteQuery($ques_query, "select");
+    if (isset($list[0]['points'])) {
+        return $list[0]['points'];
+    }
+    return 0;
+}
+
+// To check user votes to display in profile
+function checkUpAndDownVotes($uid = null) {
+    $ques_query = "(SELECT count(*) as upcount,(SELECT count(*) FROM {question_like} where  uid='" . $uid . "' AND like_yes= '-1') as downcount FROM {question_like} where  uid='" . $uid . "' AND like_yes= '1' )";
+    $list = ExecuteQuery($ques_query, "select");
+    if (isset($list[0])) {
+        return $list[0];
+    }
+    return 0;
+}
+
+function get_question($qid = '') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $sel_userms = "SELECT * FROM {question} where qid='$qid' ";
+    $rs_userms = db_query($sel_userms);
+    return $resulrnames = db_fetch_object($rs_userms);
+}
+
+function get_state($code = '') {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+    $query = array('postalcode' => $code, 'maxrows' => 1);
+    $result = geonames_query('postalcodesearch', $query);
+
+    print_r($result);
+
+    return $reuslt;
+}
+
+
+function UserPicture($mid, $profile='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $userslist=user_load(array('uid'=>$mid));
+    $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+    $rs_image = db_query($selimage);
+    $resultimage = db_fetch_object($rs_image);
+    $selected_avatar = $resultimage->avatar;
+    //$default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+     $default = $gSitePath.avatar_selection_get_random_image($userslist);
+    if ($profile)
+        $resultimage->image_avatar = 1;
+
+    switch ($resultimage->image_avatar) {
+        case '2':
+            $image_path = file_create_path('avatar_selection');
+
+            $ipath = $gSitePath . $image_path . '/' . $selected_avatar;
+
+            if (file_check_location($image_path . '/' . $selected_avatar)) {
+                $PROFILE_IMAGE = '<img src="' . $ipath . '" alt="avatar" ALIGN=ABSMIDDLE width="54" class="uprofile"  height="54" >';
+                //  $PROFILE_IMAGE = theme('image',$ipath);
+            } else {
+                $PROFILE_IMAGE = '<img src="' . $default . '" alt="photo" ALIGN=ABSMIDDLE class="uprofile" width="54"  height="54" >';
+            }
+
+            break;
+        default:
+
+            if ($resultimage->image != 'noimage.jpg') {
+                $upload_dir = variable_get('user_picture_path', 'pictures');
+
+                $img_path = $resultimage->image;
+
+                if (file_exists($img_path)) {
+
+                    $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" />';
+                } else {
+
+                    $PROFILE_IMAGE = '<img src="' . $default . '" alt="photo" class="uprofile" ALIGN=ABSMIDDLE width="65"  height="56" />';
+                }
+            } elseif ($resultimage->image_url != '') {
+
+
+                $PROFILE_IMAGE = '<img src="' . $resultimage->image_url . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
+            } else {
+                //echo $resultimage->image;
+                $img_path = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
+                $PROFILE_IMAGE = '<img src="' . $default . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
+            }
+            break;
+    }
+
+    return $PROFILE_IMAGE;
+}
+
+function UserPicture_small($mid) {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+    $rs_image = db_query($selimage);
+$userslist=user_load(array('uid'=>$mid));
+ $default = $gSitePath.avatar_selection_get_random_image($userslist);
+    $resultimage = db_fetch_object($rs_image);
+   // $default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+    switch ($resultimage->image_avatar) {
+        case '2':
+            $image_path = file_create_path('avatar_selection');
+
+            //  $image_path=file_directory_path().'/avatar_selection';
+            $selected_avatar = $resultimage->avatar;
+            $ipath = $gSitePath . $image_path . '/' . $selected_avatar;
+
+            if (file_exists($image_path . '/' . $selected_avatar)) {
+                //$PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
+                $PROFILE_IMAGE = ' <img src="' . $ipath . '" alt="photo" ALIGN=ABSMIDDLE width="30" class="uprofile"  height="30" >';
+            } else {
+                $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" height="30" class="uprofile" width="30" alt="Photo" >';
+            }
+
+            break;
+        default:
+
+            if ($resultimage->image != 'noimage.jpg') {
+                $img_path = $resultimage->image;
+                if (file_exists($img_path)) {
+                    // echo $gSitePath.$img_path;
+
+                    $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" ALIGN=ABSMIDDLE class="uprofile" alt="Photo" height="30" width="30" >';
+                } else {
+                    $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
+                }
+            } elseif ($resultimage->image_url != '') {
+
+                //echo $resultimage->image_url;
+                if ($resultimage->image_url != '') {
+                    $PROFILE_IMAGE = '<img src="' . $resultimage->image_url . '" class="uprofile" align="absmiddle" height="30" width="30" alt="Profile image" >';
+                } else {
+                    $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
+                }
+            } else {
+                //echo $resultimage->image;
+                $img_path = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
+
+                if (file_exists($img_path)) {
+                    $PROFILE_IMAGE = '<img src="' . $img_path . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Profile image" >';
+                } else {
+                    $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
+                }
+            }
+            break;
+    }
+
+    return $PROFILE_IMAGE;
+}
+
+function save_message() {
+    //print_r($_REQUEST);
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $uid = $_REQUEST['actions'];
+    if (!empty($uid) && !empty($_REQUEST['msgs']) && !empty($user->uid)) {
+        db_query("insert into messages (from_id,to_id,message) values('" . $user->uid . "','" . $uid . "','" . $_REQUEST['msgs'] . "')");
+
+        echo '<div class="messages success">Message sent successfully!</div>';
+    } elseif (!empty($_REQUEST['muid']) && !empty($_REQUEST['frmsgs'])) {
+
+        foreach ($_REQUEST['muid'] as $uids) {
+
+            db_query("insert into messages (from_id,to_id,message) values('" . $user->uid . "','" . $uids . "','" . $_REQUEST['frmsgs'] . "')");
+        }
+        echo '<div class="messages success">Message sent successfully!</div>';
+    } else {
+        echo '<div class="messages error">Sorry Error Occurs!</div>';
+    }
+    exit;
+}
+
+function profiles_block($op = 'list', $delta = 0, $edit = array()) {
+    switch ($op) {
+        case 'list':
+            $blocks[0] = array(
+                'info' => t('FACTS & FIGURES'),
+            );
+
+            return $blocks;
+
+        case 'view':
+            switch ($delta) {
+                case 0:
+                    $block['subject'] = " FACTS & FIGURES";
+                    $block['content'] = user_facts();
+                    break;
+            }
+            return $block;
+    }
+}
+function report_theme(){
+
+   drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
+
+    $form='<div class="txt_area">
+        <p>Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing?</p>
+	        <ul class="creat">
+                                    <li rel="Take pity on the reader – information<br/> should be presented in a non verbose manner. <br/>Pride should be taken from wording things concisely.<br/> This will ensure users can consume and retain<br/> a larger amount of information as well as making technical <br/>features like the translations and search more effective. <br/>Studies also show that more people will stop to read a shorter comment and more likely to pass over longer ones."><input type="radio" name="abuse_type" id="abuse_type" value="Concise" />Concise</li>
+                                    <li rel="No profanity please. Consider all users when choosing your language. <br/>People take the posting more seriously when <br/>it refrains from using harsh and negative words.<br/> Also, abbreviations should be avoided as other users <br/>or the translation feature may not understand."><input type="radio" name="abuse_type" id="abuse_type" value="Clean" />Clean</li>
+                                    <li rel="Pleased do not repeat anything that has been already posted.<br/> Any duplicate content dilutes the overall accuracy of the compiled information.<br/> Any new issue or posting added to Heard Mentality should be<br/> significantly different than existing content. Good practice would be to “agree” <br/>with the posting you may want to reiterate or <br/>voting on the issue that already exists - <br/>this will ultimately draw more attention to it."><input type="radio" name="abuse_type" id="abuse_type" value="Original" />Original</li>
+                                    <li rel="This is the fundamental rule to make any social community work. <br/>Please treat others like you would like to be treated yourself <br/>and you in return will get the same."><input type="radio" name="abuse_type" id="abuse_type" value="Golden Rules" />Golden Rules</li>
+                                    <li rel="Issues should be classifiable into the provided high level sections.<br/> Please do not post issues that could be considered <br/>unimportant, for example: The hairdo of a certain<br/> celebrity or which restaurant or movie is best.<br/> While these may be important questions, these are not the types of issues to be discussed here."><input type="radio" name="abuse_type" id="abuse_type" value="On Point" />On Point</li>
+                                    <li rel="Never post any false information.<br/>Strive to post only what can be backed up by facts.<br/> References and links should always be provided when available."><input type="radio" name="abuse_type" id="abuse_type" value="Truthful" />Truthful</li>
+                                     <li rel="Discussions within the debate are about<br/> issues and questions surrounding those issues.<br/> Postings should never be directed<br/> to other users directly, nor should they<br/> treat any other user disrespectfully.<br/> Please keep personal emotion out of discussion<br/> and consider each person’s<br/> right to their own view."><input type="radio" name="abuse_type" id="abuse_type" value="Considerate" />Considerate</li>
+                                </ul>  <div class="clr"></div>
+
+                               <p>  <input type="submit" name="button" id="submitter"  value="Submit"/></p>
+</div>';
+return $form;
+}
+function user_facts() {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $time_period = variable_get('user_block_seconds_online', 900);
+    // drupal_set_html_head('  <script type="text/javascript" src="http://www.google.com/jsapi"></script>');
+    drupal_add_js(drupal_get_path('module', 'profiles') . '/js/tab.js');
+    $output = '';
+    $usercnt = '';
+    $quest = '';
+    $ans = '';
+    //$usercnt = db_result(db_query("select count(uid) from {users} where status='1' and country REGEXP '[^0-9]'"));
+
+    $usercnt = db_result(db_query(" select count(u.uid) from users as u join user_profile as up on u.uid=up.uid where u.status=1 and up.country REGEXP '[^0-9]'"));
+    // $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1'"));
+    $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1' and q.country REGEXP '[^0-9]'"));
+    $ans = db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]'"));
+    $userslist = db_query('SELECT count(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
+    //$get_ans = db_queryd('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 AND up.country REGEXP \'[^0-9]\'', time() - $time_period);
+    //exit;
+    $total_users = db_result($userslist);
+    $output.="   <div id='heatmap' style='width: 155px; height: 110px;'><iframe id='cirmap' src ='" . $gSitePath . "google/map/users?width=155&height=100' width='155' frameborder='0' height='110' scrolling='no'></iframe></div>
+";
+    $output .= '
+         <div class="fa-item">
+          <ul>
+        
+          <li><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $usercnt . '\')"><span>' . $usercnt . '</span> Contributors</a></li>
+          <li><a href="' . $gSitePath . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"><span >' . $total_users . '</span> Online</a></li>
+          <li><a href="' . $gSitePath . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"><span>' . $quest . '</span> Issues</a></li>
+          <li><a href="' . $gSitePath . 'google/map/answer" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/answer\',\'Facts And Figures : Toatal Votes ' . $ans . '\')"><span >' . $ans . '</span> Votes</a></li>
+          </ul>
+          </div>
+          
+          
+<div class="clr"></div>
+  ';
+    return $output;
+}
+
+function load_bubble($uid = '') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    //<img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40
+    $medal = updateProfileBadge($uid);
+    $details = load_user($uid);
+
+    $uname = $details->first_name . ' ' . $details->last_name;
+
+    $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
+    $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
+    $points = $points != '' ? $points : 0;
+    $coins = $user->total_coins != '' ? $user->total_coins : 0;
+    $badges = load_badges($uid);
+    $output = '<div class="debate-cor-inner">
+                <div>
+                <div class="debate-cor-inner-left">' . UserPicture_small($details->uid) . '</div>
+                    <div class="debate-cor-inner-right">
+                    <div style="padding-left:10px;text-align:left;"><strong>'.myTruncate($details->name,'10','..').' </strong></div>
+                        <ul style="list-style-type:none">
+                      
+                        <li style="width:30px">' . $ranking . '<br /><span class="profInfo-value" title="' . $points . ' Points">' . $points . '</span></li>
+                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><br><span>' . $badges['gold'] . '</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><br /><span>' . $badges['silver'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><br /><span>' . $badges['bronze'] . '</span></li>
+                        </ul>
+                    </div>
+                 </div>
+                 <div class="clr"></div>
+                </div>
+                ';
+
+
+    return $output;
+}
+
+function load_user_badge($uid='',$search=''){
+
+     global $gSitePath, $user, $gDocPath, $base_root;
+    //<img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40
+    $medal = updateProfileBadge($uid);
+    $details = load_user($uid);
+
+    $uname = $details->first_name . ' ' . $details->last_name;
+
+
+    $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$details->rank_id'"));
+    $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $details->uid . "'"));
+    $points = $points != '' ? $points : 0;
+    $coins = $user->total_coins != '' ? $user->total_coins : 0;
+    $badges = load_badges($uid);
+    if($search)
+    $link='<a  onclick="get_profile_details(' . $details->uid . ',this);" style="cursor:pointer" > ' .myTruncate($details->name,'10','..'). '</a>';
+    else
+        $link='<a href="'.$gSitePath.'profile/'.$details->name.'">'.myTruncate($details->name,'10','..').'</a>';
+    
+    $output = '<div class="profInfo">
+
+                <div class="profInfo-img">' . UserPicture($details->uid) . '</div>
+                    <div class="profInfo-txt">
+                    <span class="profInfo-value" title="' . $points . ' Points">' . $points . '</span>
+                        <div class="profInfo-name">'.$link.'</div>
+                            <div class="profInfo-name2">' . $ranking . '</div>
+                        <ul >
+                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><span>' . $badges['gold'] . '</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><span>' . $badges['silver'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><span>' . $badges['bronze'] . '</span></li>
+                        </ul>
+                    </div>
+                 </div>
+                           ';
+
+
+    return $output;
+
+
+}
+
+function drupal_link_color($userid, $quesid) {
+
+    if ($userid) {
+        $linkcolor = db_query("select count(*) as count from {possible_answer_vote} where qid='" . $quesid . "' and uid='" . $userid . "'  ");
+        $get_linkcolor = db_fetch_object($linkcolor);
+        //         if($get_linkcolor->count==0)
+        //         {
+        //            // return "color:red";
+        //         }
+        if ($get_linkcolor->count == 1) {
+            // return "color:green";
+            return "font-weight:bold";
+        }
+    }
+    // return "color:#CC6600";
+}
+
+function profile($uid = '') {
+    global $gSitePath, $user, $gDocPath, $base_root, $theme, $directory;
+
+    $image = 'noimage.jpg';
+    $bio = '';
+    $real_name = '';
+    $gender = '';
+    $optionlist = '';
+    $image = 'noimage.jpg';
+    $zip = '';
+    $dob = '';
+    $country = '';
+    $slant = '';
+    $religion = '';
+    $ethnic = '';
+    $sorient = '';
+    $edu = '';
+    $facebook = '';
+    $twitter = '';
+    $inc_list = '';
+    $ins_ans = '';
+    $inc_qns = '';
+    $qns_list = '';
+    $qns_list = '';
+    $upcount = null;
+    $downcount = null;
+    $strReturn = '';
+
+    // $vot_counts = checkUpAndDownVotes($uid);
+    $userPoints = checkUserPoints($user->uid);
+    //$upcount = $vot_counts['upcount'];
+    // $downcount = $vot_counts['downcount'];$getuser
+    
+
+    $userSettings = checkPrivacySettings($uid);
+    $is_follow_follower = checkFollowStatus($user->uid, $uid);
+    
+    $real_name1 = NULL;
+    $PROFILE_IMAGE = NULL;
+    $bio1 = NULL;
+    $zip1 = null;
+    $country1 = NULL;
+    $religion1 = NULL;
+    $img_path1 = NULL;
+    $gender_name1 = NULL;
+    $facebook1 = NULL;
+    $twitter1 = NULL;
+    $medal = NULL;
+    $questions = NULL;
+    $ansers = NULL;
+    $updownvote_display = NULL;
+    $dob1 = NULL;
+    $answer1 = NULL;
+    $question1 = NULL;
+    $flink = '';
+
+    $get_cn = db_query("select * from {user_profile} where uid='$uid'");
+    $result = db_fetch_array($get_cn);
+    $getuser = user_load(array('uid' => $result['uid']));
+
+    if (is_array($result))
+        extract($result);
+
+    $gender_name = isset($gender) && ($gender == 1) ? 'Male' : 'Female';
+    //Checking settings and displaying the field
+    if (($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['real_name'] == 3 && $is_follow_follower == TRUE) && ($userSettings['real_name'] != 4)) {
+        $real_name1 = $real_name;
+    }
+    if (empty($real_name1)) {
+        $real_name1 = '-';
+    }
+     if (($userSettings['mail'] == 1) || ($userSettings['mail'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['mail'] == 3 && $is_follow_follower == TRUE) && ($userSettings['real_name'] != 4)) {
+        $email1 = $getuser->mail;
+    }
+    if (empty($email1)) {
+        $email1 = '-';
+    }
+    if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 3 && $is_follow_follower == TRUE) && ($userSettings['bio'] != 4)) {
+        $bio1 = $bio;
+    }
+    if (($userSettings['zip'] == 1) || ($userSettings['zip'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['zip'] == 3 && $is_follow_follower == TRUE) && ($userSettings['zip'] != 4)) {
+        $country1 .= $country;
+
+        if (!empty($state)) {
+            $country1.='(' . $state . ',' . $city . ').';
+        }
+    }if ($country1 == '') {
+        $country1 = "-";
+    }
+    if (($userSettings['religion'] == 1) || ($userSettings['religion'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['religion'] == 3 && $is_follow_follower == TRUE) && ($userSettings['religion'] != 4)) {
+        $religion1 = $religion;
+    }
+    if ($religion1 == '') {
+        $religion1 = "-";
+    }
+
+    
+
+    if (($userSettings['image'] == 1) || ($userSettings['image'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['image'] == 3 && $is_follow_follower == TRUE) && ($userSettings['image'] != 4)) {
+        $img_path1 = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $image;
+        $PROFILE_IMAGE = '<img src="' . $img_path1 . '" align="absmiddle" alt="Profile image" >';
+    }
+
+    if (($userSettings['dob'] == 1) || ($userSettings['dob'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['dob'] == 3 && $is_follow_follower == TRUE) && ($userSettings['dob'] != 4)) {
+        $dob1 = $age;
+    }if ($dob1 == 0) {
+        $dob1 = "-";
+    } else {
+        $rem_value = $dob1 % 5;
+        $rem_first = $dob1 - $rem_value;
+        $rem_second = $rem_first + 5;
+        $dob1 = 'Between ' . $rem_first . ' - ' . $rem_second;
+    }
+    if (($userSettings['sorient'] == 1) || ($userSettings['sorient'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['sorient'] == 3 && $is_follow_follower == TRUE) && ($userSettings['sorient'] != 4)) {
+        $sorient1 = $sorient;
+    }if (empty($sorient1)) {
+        $sorient1 = "-";
+    }
+    if (($userSettings['edu'] == 1) || ($userSettings['edu'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['edu'] == 3 && $is_follow_follower == TRUE) && ($userSettings['edu'] != 4)) {
+        $edu1 = $edu;
+    } if (empty($edu1)) {
+        $edu1 = "-";
+    }
+    if (($userSettings['ethnic'] == 1) || ($userSettings['ethnic'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['ethnic'] == 3 && $is_follow_follower == TRUE) && ($userSettings['ethnic'] != 4)) {
+        $ethnic1 = $ethnic;
+    }
+    if (empty($ethnic1)) {
+        $ethnic1 = "-";
+    }
+
+    if (($userSettings['slant'] == 1) || ($userSettings['slant'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['slant'] == 3 && $is_follow_follower == TRUE) && ($userSettings['slant'] != 4)) {
+        $slant1 = $slant;
+    }
+    if (empty($slant1)) {
+        $slant1 = "-";
+    }
+
+    if (($userSettings['gender'] == 1) || ($userSettings['gender'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['gender'] == 3 && $is_follow_follower == TRUE) && ($userSettings['gender'] != 4)) {
+        $gender_name1 = $gender_name;
+    }
+    if ($gender_name1 == '') {
+        $gender_name1 = "-";
+    }
+    if (($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['facebook'] == 3 && $is_follow_follower == TRUE) && ($userSettings['facebook'] != 4)) {
+        $facebook1 = $facebook;
+    }
+    if (($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['twitter'] == 3 && $is_follow_follower == TRUE) && ($userSettings['twitter'] != 4)) {
+        $twitter1 = $twitter;
+    }
+
+
+    if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 3 && $is_follow_follower == TRUE) && ($userSettings['answers'] != 4)) {
+        $answer1 = $ins_ans;
+    }
+    if (($userSettings['questions'] == 1) || ($userSettings['questions'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['questions'] == 3 && $is_follow_follower == TRUE) && ($userSettings['questions'] != 4)) {
+        $question1 = $inc_qns;
+    }
+
+    if ((isset($userPoints) && $userPoints > 999) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['vote_graph'] == 1) || ($userSettings['vote_graph'] == 3 && $user->uid != 0)) {
+        /* $updownvote_display = '<p><b>Votes</b></p>
+          <table>
+          <tbody>
+          <tr>
+          <td style="width: 80px;">
+          <div class="vote">
+          <img width="40" height="25" alt="up" style="cursor: default;" src="'.$gSitePath.drupal_get_path('module', 'profiles').'/images/vote-arrow-up-on.png"   http://sstatic.net/so/img/vote-arrow-up-on.png"/>
+          <span class="vote-count-post" title="total number of up votes this user has given">'.$downcount.'</span>
+          <img width="40" height="25" alt="down" style="cursor: default;" src="http://sstatic.net/so/img/vote-arrow-down.png"/>
+          </div>
+          </td>
+          <td style="width: 80px;">
+          <div class="vote">
+          <img width="40" height="25" alt="up" style="cursor: default;" src="http://sstatic.net/so/img/vote-arrow-up.png"/>
+          <span class="vote-count-post" title="total number of down votes this user has given">'.$upcount.'</span>
+          <img width="40" height="25" alt="down" style="cursor: default;" src="http://sstatic.net/so/img/vote-arrow-down-on.png"/>
+          </div>
+          </td>
+          </tr>
+          </tbody>
+          </table>'; */
+    }
+
+    if (isset($_REQUEST['delm'])) {
+    $namelist =user_load(array('uid'=>$_REQUEST['delm']));
+        if ($user->uid > 0) {
+            $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='" . $_REQUEST['delm'] . "'  and  uid ='" . $user->uid . "'"));
+
+            if ($res_num == 0) {
+                $ins_commg = "insert into   follower (uid,follower_id,follower_status,joindate) values('" . $user->uid . "','" . $_REQUEST['delm'] . "','1','" . date('Y-m-d') . "') ";
+                $rs_commg = db_query($ins_commg);
+
+                //echo "insert into notification (uid,new_followe,is_user,node_id) values('".$_REQUEST['delm']."','1','1','".$user->uid."' ";
+                $insert_notify = db_query("insert into notification (uid,new_followe,is_user,node_id) values('" . $_REQUEST['delm'] . "','1','1','" . $user->uid . "') ");
+
+                /* HEART BEAT TO ADD FRIEND */
+                $message_id = 'heartbeat_become_friends';
+                $friend = user_load($_REQUEST['delm']);
+                $variables = array(
+                    '@user1' => l($user->name, 'profile/' . $user->uid),
+                    '@relation_type' => 'friend',
+                    '@user2' => l($friend->name, 'profile/' . $friend->uid),
+                    'duplicate' => 1,
+                );
+                heartbeat_api_log($message_id, $user->uid, $friend->uid, 0, 0, $variables);
+
+                $variables_reversed = $variables;
+                $variables_reversed['@user1'] = $variables['@user2'];
+                $variables_reversed['@user2'] = $variables['@user1'];
+                heartbeat_api_log($message_id, $friend->uid, $user->uid, 0, 0, $variables_reversed);
+                /* HEART BEAT TO ADD FRIEND */
+
+                hm_mails('', $_REQUEST['delm'], 'follower');
+
+                /* $sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $_REQUEST['delm'] . "'";
+                  $user_namelistfs = ExecuteQuery($sel_ulists, "select");
+                  $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='1'";
+                  $rs_mgmt = db_query($sel_user_cmt);
+                  $list_content = db_fetch_object($rs_mgmt);
+                  $subject = $list_content->subject;
+                  $contentm = str_replace("#uname#", $user->name, $list_content->content);
+                  $contentm = str_replace("#anothername#", $user_namelistfs[0]['name'], $contentm);
+                  //echo $contentm;die;
+
+                  $mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, ''); */
+                
+
+                drupal_set_message(t('You are now subscribing to ' . $namelist->name . ' '), $type = 'success');
+            } else {
+               
+                
+
+                drupal_set_message(t('You are already following ' . $namelist->name . '.'), $type = 'error');
+            }
+        } else {
+            drupal_access_denied();
+            die;
+        }
+    }
+    if ($uid != $user->uid && isset($getuser)) {///follow
+        $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow</a><span class="separate"></span> ';
+        $flink = '<li><img src="' . $gSitePath . path_to_theme() . '/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;' . $flink . '</li>';
+    }
+
+
+    $share = '';
+
+    if ($uid != $user->uid) {
+        $share = '<a href="javascript:void(0);" onclick="loadflagquestion(\'' . $gSitePath . 'qlite/flag/?uid=' . $uid . '\',\'Report \');
+">Report</a><span class="separate">|</span> ';
+    }
+
+
+
+    $history = '';
+
+    // $history = '<a href="' . url($_GET['q'], array('absolute' => true)) . '?tag=activity" >History</a><span class="separate">|</span> ';
+
+
+    $cnt_msg = 0;
+    $cnt_msg = db_result(db_query("select count(*) from {messages}  where to_id='$user->uid'"));
+
+
+    $share = '';
+    $shareme = '';
+    $shareme = '<a href="javascript:void(0);" onclick="load_invite(\'' . $gSitePath . 'invite/invite_friends?uid=' . $uid . '\',\'Profile\');">Share Me </a><span class="separate">|</span> ';
+    $edit = '';
+    $flinkflw = '';
+    $sendmsg = '';
+    $badges = '';
+    $inc = '';
+    $cavatar = '';
+    $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    if (isAjax ())
+        $clink = $gSitePath . 'profile/' . $getuser->name;
+    // $clink=url($_GET['q'], array('absolute' => true));
+    else
+        $clink=$_GET["q"];
+
+    if ($uid != $user->uid) {
+        $logChkReport = user_is_logged_in()!=''?'onclick="loadflagquestion(\'' . $gSitePath . 'qlite/flag/?uid=' . $uid . '\',\'Report \');"':'onclick="check_popup_login()"';
+        $share = '<a href="javascript:void(0);" '.$logChkReport.'>Report</a><span class="separate">|</span>';
+        $flinkflw = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow </a><span class="separate">|</span> ';
+
+        $inc = '<li><img src="' . $gSitePath . path_to_theme() . '/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;<a href="javascript:void(0);" onclick="rel_msg(' . $getuser->uid . ');" > Contact Contributor</a><span class="separate"></span> <br/><form id="proform" method="post" action="' . $gSitePath . 'postmessage" ><div id="showboxcmt" align="left" style="display:none"><div class="facttop2" >SEND MESSAGE</div><br/><textarea name="msgs" cols="55" row="17" id="msgs"></textarea><input type="hidden" id="actions" name="actions" value="' . $uid . '"/><br/><br/><input type="button" id="usmsg"  value="sendmessage"/>&nbsp; <input type="button" onclick="rel_msg(0);"  value="cancel"/></div></form></li>';
+    } else {
+        $cavatar = '<a href="' . $gSitePath . 'user/getimage" >Change Picture</a>';
+        //' . $gSitePath . '?act=edit
+        $edit.='<a href="javascript:void(0);" onclick="loadeditquestion(\'' . $gSitePath . 'account/' . edit . '\',\'Report \');
+" >Edit My Profile </a><span class="separate"></span> ';
+
+        $inc = '&nbsp; <a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Contributors</a>';
+
+        $inc = '<li>&nbsp;<img src="' . $gSitePath . path_to_theme() . '/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;' . $inc . '</li>';
+        $inc_msg = '  <li><a href="' . $clink . '?tag=msg">Message[' . $cnt_msg . ']</a></li>';
+    }
+    drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
+///content starts
+    //if (($userSettings['following'] == 1) || ($userSettings['following'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['following'] == 2 && $is_follow_follower == TRUE))
+    //      {
+
+    $following = '';
+    $newlist = followinglist($uid);
+
+
+    for ($i = 0; $i < count($newlist); $i++) {
+        $following .= '' . $newlist[$i] . '';
+    }
+
+    //  }
+    //if (($userSettings['followers'] == 1) || ($userSettings['followers'] == 3 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['followers'] == 2 && $is_follow_follower == TRUE))
+    //     {
+
+    $follower = '';
+    $newlist2 = followerlist($uid);
+
+    for ($k = 0; $k < count($newlist2); $k++) {
+        $follower .= '' . $newlist2[$k] . '';
+    }
+
+    // }
+//    $strReturn .= '
+//      <div class="bor_bot">
+//		<div class="rht_link">
+//
+//        ' . $share . $flink . $history . $sendmsg . $edit . '
+//        </div>
+//        <br class="clr" />
+//      </div>';
+
+
+
+
+    $strReturn .= '<div class="popup-profile">
+    <div class="bor_bot">
+	<div class="rht_link">
+       ' . $share . $history . $edit . '
+       </div>
+        <br class="clr" />
+      </div>';
+
+
+    $strReturn .= '
+<div class="profile-left">
+    <form action="' . $gSitePath . 'postmessage" method="post" id="proform"><div align="left" style="display: none;" id="showboxcmt"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="msgs"></textarea><input type="hidden" value="" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg">&nbsp; <input type="button" onclick="rel_msg(0);"  value="cancel"/></div></form>
+
+'.  load_bubble($uid).'
+<div class="clr"></div>
+<div>
+<span class="profile-gray">Name </span>: ' . $real_name1 . '<br>
+<span class="profile-gray">Email </span>: ' . $email1 . '<br>
+<span class="profile-gray">Location </span>: ' . $country1 . '<br>
+<span class="profile-gray">Age </span>:  ' . $dob1 . '<br>
+<span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br>
+<span class="profile-gray">Religion</span> : ' . $religion1 . '<br>
+<span class="profile-gray">Ethnicity </span>:' . $ethnic1 . '<br>
+<span class="profile-gray">Slant </span>: ' . $slant1 . '<br>
+    <span class="profile-gray">Sexual Orientation </span>: ' . $sorient1 . '<br>
+   <span class="profile-gray">Educational Level </span>: ' . $edu1 . '<br>
+</div>
+</div>
+
+
+
+<div class="profile-right">
+<div>
+<ul>
+' . $flink . '
+' . $inc . '
+</ul>
+</div>
+<div class="clr"></div>
+<div class="p-foll">Following<br />
+<ul>
+	' . $following . '
+</ul>
+</div>
+<div class="p-foll">Followed by<br />
+<ul>
+	' . $follower . '
+</ul>
+</div>
+</div>
+
+
+<div class="clr"></div>
+<div class="profile-tab"></div>
+<div id="page">
+        <ul class="mytabs" id="tabs">
+            <li class="current"><a href="' . $clink . '?tag=info">Info</a></li>
+            <li><a href="' . $clink . '?tag=badge">Badges</a></li>
+            <li><a href="' . $clink . '?tag=activity">Activity</a></li>
+             <li><a href="' . $clink . '?tag=history">History</a></li>
+                   ' . $inc_msg . '
+        </ul>
+        <div class="mytabs-container" id="tabs-container">
+            Loading. Please Wait...        
+		</div> </div></div>
+	';
+    return $strReturn;
+}
+
+function profile_tab($tab='', $uid='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    //bio privacy settings
+    $userSettings = checkPrivacySettings($uid);
+    $is_follow_follower = checkFollowStatus($user->uid, $uid);
+    $output = '<div class="history-tab">';
+    switch ($tab) {
+        case 'info':
+            $getuser = load_user($uid);
+
+            $output.='<div id="l1">
+
+            <span  class="tab-historyspan4"><a href="javascript:void(0);" onclick="bio_tog(this);">Bio</a> </span>
+            <span  class="tab-historyspan5"><a href="javascript:void(0);" onClick="bio_tog(this);" > Links</a></span>
+            </div><br>
+';
+
+            $psplit = explode('@', $getuser->urls);
+            $social = explode('||', $getuser->social);
+            
+            if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 3 && $is_follow_follower == TRUE) && ($userSettings['bio'] != 4)) {
+               $bio = trim($getuser->bio);
+            }
+            if (empty($bio)) {
+               $bio = '';
+            }
+           
+            
+            $block = module_invoke('follow', 'block', 'view', 'user');
+//$block= (object)module_invoke('follow', 'block', 'view', 'user');
+//print theme('block',$block);print $block['content'];
+            $output.='<div id="bio">' . (!empty($bio) ? $getuser->bio : "-") . '</div><div style="display:none;" id="link">
+          <!--  <div class="face_book">
+            <h4>Follow me on</h4>
+                    <a title="FaceBook" target="_blank" href="' . ((!empty($social[0])) ? $social[0] : '#') . '"><img align="left" alt="" src="' . path_to_theme() . '/images/face_icon.png"/>Face Book</a> <span>|</span>
+                    <a title="Twitter" target="_blank" href="' . ((!empty($social[1])) ? $social[1] : '#') . '"><img align="left" alt="" src="' . path_to_theme() . '/images/twitter.png"/>Twitter</a>
+            </div>
+              <div class="face_book">
+              <span class="tab-historyspan4">' . $ptitle[0] . '</span>
+               <span class="tab-historyspan4"><a href="' . $purl[0] . '" target="_blank">' . $purl[0] . '</a></span>
+                   <br/>
+                    <span class="tab-historyspan4">' . $ptitle[1] . '</span>
+               <span class="tab-historyspan4"><a href="' . $purl[1] . '" target="_blank">' . $purl[1] . '</a></span>
+              </div>--><div class=""> <h4>Follow me on</h4>' . $block['content'] . '</div>
+        ';
+            $theme_default = variable_get('theme_default', '');
+$path_to_theme = $gSitePath.drupal_get_path('theme', $theme_default);
+            if(!empty($social))
+            {
+               $output.='  <div class="face_book">
+                   <a title="FaceBook"  '.((!empty($social[0])) ? 'target="_blank"' : '').' href="' . ((!empty($social[0])) ? $social[0] : '#') . '"><img align="left" alt="" src="' . $path_to_theme . '/images/face_icon.png"/>Face Book</a> <span>|</span>
+                    <a title="Twitter" '.((!empty($social[1])) ? 'target="_blank"' : '').' href="' . ((!empty($social[1])) ? $social[1] : '#') . '"><img align="left" alt="" src="' .$path_to_theme . '/images/twitter.png"/>Twitter</a>
+            </div>';
+            }
+            if(!empty($psplit)&& valid_url($psplit[0])){
+               $output.='  <div class="face_book">
+                
+                    <a title="My Website" target="_blank" href="' . ((!empty($psplit[0])) ? $psplit[0] : '#') . '">My Website</a>
+            </div>';
+
+            }
+            $output.='</div>';
+            break;
+        case 'badge':
+            $badges.='<ul>';
+
+            //$imageresult=UserPicture($uid);
+            $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid";
+            $badgelist = ExecuteQuery($getbadges, "select");
+
+            foreach ($badgelist as $badgeach) {
+
+                $badges.='<li>' . $badgeach['name'] . '</b>[' . $badgeach['bcnt'] . ']</li>';
+            }
+            if (empty($badgelist)) {
+
+                $badges.='<li><h3>No Badges Yet !</h3></li>';
+            }
+              $badges.='</ul>';
+            $output.=$badges;
+            break;
+        case 'history':
+            //answers posted
+                $userSettings = (array)load_user($uid);
+                $is_follow_follower = checkFollowStatus($user->uid, $uid);
+            $get_ans = db_query("select q.*,a.vote_pdate as vdate from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='" . $uid . "'");
+             if (($userSettings['question_privacy'] == 1) || ($userSettings['question_privacy'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['question_privacy'] == 3 && $is_follow_follower == TRUE) && ($userSettings['question_privacy'] != 4)) {
+
+            while ($setans = db_fetch_object($get_ans)) {
+
+                $inc_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->vdate</span>  <span class='tab-historyspan2'>answered</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->question, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->qid) . "'>" . htmlentities(substr($setans->question, 0, 40)) . "</a></div>
+";
+            }
+             
+
+
+
+            $ins_ans .= $inc_list;
+
+           
+            //answers ends
+            //question sposted
+            $get_ans = db_query("select q.* from {question} as q where q.uid='" . $uid . "' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
+
+            while ($setans = db_fetch_object($get_ans)) {
+
+                // $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
+                $qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->date_added</span>  <span class='tab-historyspan2'>Issue Created</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->question, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->qid) . "'>" . htmlentities(substr($setans->question, 0, 40)) . "</a></div>
+";
+            }
+            }
+            $inc_qns .= $qns_list;
+
+            $inc_qns = ( empty($qns_list)) ? '<div class="warning">No Activity Found!</div>' : $inc_qns;
+             $inc_ans = ( empty($inc_list)) ? '<div class="warning">No Activity Found!</div>' : $ins_ans;
+            //question ends
+            $output.='<div id="l1">
+
+            <span  class="tab-historyspan4"><a href="javascript:void(0);" onclick="bio_tog(this);">Issue Added</a> </span>
+            <span  class="tab-historyspan5"><a href="javascript:void(0);" onClick="bio_tog(this);" > Issue Voted</a></span>
+            </div><br>';
+            $output.='<div id="bio">' . $inc_qns . '</div><div id="link" style="display:none">' . $inc_ans . '</div>';
+
+            break;
+        case 'msg':
+            $output = inbox_msg();
+            break;
+        default:
+            $output = 'No Results';
+            break;
+    }
+    $output.='</div>';
+    echo $output;
+    exit;
+}
+
+function load_badges($uid = '') {
+    $sql = "SELECT bid FROM {user_badges} WHERE uid = '" . $uid . "'";
+    $badgeids = ExecuteQuery($sql, 'select');
+    $bcnt = 0;
+    $scnt = 0;
+    $gcnt = 0;
+    foreach ($badgeids as $badgeid) {
+        $bid = $badgeid['bid'];
+        $btype = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
+        if ($btype == 'bronze') {
+            $bcnt++;
+        }
+        if ($btype == 'silver') {
+            $scnt++;
+        }
+        if ($btype == 'gold') {
+            $gcnt++;
+        }
+    }
+    $badges = array("bronze" => $bcnt, "silver" => $scnt, "gold" => $gcnt);
+    return $badges;
+}
+
+function profile_cron() {
+
+    // weekly coin update for all users
+    $sql = db_query("SELECT p.uid,p.daily_todays_date as lost_login, u.rank_id FROM user_profile p JOIN users u ON p.uid = u.uid  WHERE DATE_SUB(NOW(), INTERVAL 1 WEEK) <= p.daily_todays_date");
+    while ($result = db_fetch_object($sql)) {
+        $uid = $result->uid;
+        if ($uid) {
+            $rank_id = $result->rank_id;
+            if ($rank_id == '1') {
+                $coins = 5;
+            }
+            if ($rank_id == '2') {
+                $coins = 10;
+            }
+            if ($rank_id == '3') {
+                $coins = 15;
+            }
+            if ($rank_id == '4') {
+                $coins = 20;
+            }
+            $user = load_user($uid);
+            db_query("INSERT INTO {user_coins} (coin_key, coin_type, coin_count) VALUES('%s','%s','%d')", 'rank', 'earn', $coins);
+            $total_coins = $coins + $user->total_coins;
+            db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
+        }
+    }
+}
+
+function profiles_user($op, $edit, &$account, $category = NULL) {
+    // print_r($op);
+    switch ($op) {
+
+        case 'insert':
+
+            $_REQUEST['destination'] = 'Your path here';
+
+            break;
+        case 'categories':
+
+            break;
+    }
+}
+
+function profiles_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+
+
+    if ($op == 'load' && $node->type == 'profile') {
+        //  echo "<pre>";
+//print_r($node);
+    }
+}
+
+function profiles_form_alter(&$form, $form_state, $form_id) {
+    // Check for a particular content type's node form.
+    //echo $form_id;
+    if ($form_id == 'profile_node_form') {
+        // Add an after_build function to process when everything's complete.
+        drupal_set_title(t('Editing your Profile in 3 steps!'));
+
+        leghist_cck_alter($form);
+    }
+    if ($form_id == 'user_details') {
+        $output = '';
+        foreach (element_children($form) as $child) {
+            if ($form[$child]['#type'] == 'radios') {
+                //  print_r($form[$child]['#options']);
+                foreach (element_children($form[$child]) as $sub) {
+                    $form[$sub]['#options']['#attributes'] = array('class' => 'form-wra-4');
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Adds Element to $form
+ */
+function leghist_cck_alter(&$form) {
+
+    foreach (element_children($form) as $child) {
+
+        if ($form[$child]['#type'] == 'textfield' && $form[$child]['#title'] == 'Title') {
+
+            $form[$child]['#title'] = t('Bio');
+        }
+    }
+}
+
+// Edit Profile
+function profile_edit($step='') {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
+
+
+    switch ($step) {
+        case '2':
+            $form.='  <div id="pro-nav">
+      <ul>
+        <li ><b>1</b>Profile</li>
+        <li class="arr">&nbsp;</li>
+        <li class="selected"><b>2</b>Privacy</li>
+        <li class="arr">&nbsp;</li>
+        <li><b>3</b>Social</li>
+        <li class="arr">&nbsp;</li>
+        <li>Finished</li>
+      </ul>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+  <div class="pro-content">
+    <div class="pro-content-left">
+       <h2>Customize what personal information
+can be seen by whom</h2><br />
+
+      <div class="step-2-item"><div class="step-2-item-img1"></div><h2>Anyone<br />
+
+<b>Anyone in the world</b></h2>
+<div class="clr"></div>
+
+
+</div>
+
+<div class="step-2-item"><div class="step-2-item-img2"></div><h2>Heard Mentality User<br />
+
+<b>Anyone logged into Heard
+Mentality</b></h2>
+<div class="clr"></div>
+
+
+</div>
+
+
+<div class="step-2-item"><div class="step-2-item-img3"></div><h2>Subscribers<br />
+<b>
+Anyone who I am subscribing
+to or who is subscribing to me</b></h2>
+<div class="clr"></div>
+
+
+</div>
+
+<div class="step-2-item"><div class="step-2-item-img4"></div><h2>No one<br />
+
+<b>No one can ever see this.</b></h2>
+<div class="clr"></div>
+
+
+</div>
+</div>
+    <div class="pro-content-right">
+      <div class="form-outer">
+    ';
+            $form .= drupal_get_form('profiles_form', $step);
+            $form.='
+    <div class="clr"></div>
+  </div>';
+            break;
+        case '3':
+            $form.='  <div id="pro-nav">
+      <ul>
+        <li ><b>1</b>Profile</li>
+        <li class="arr">&nbsp;</li>
+        <li><b>2</b>Privacy</li>
+        <li class="arr">&nbsp;</li>
+        <li class="selected"><b>3</b>Social</li>
+        <li class="arr">&nbsp;</li>
+        <li>Finished</li>
+      </ul>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+  <div class="pro-content">
+    <div class="pro-content-left">
+
+      <div class="step-3-item-outer">
+      <div class="step-3-item-left"><h2>Avatar<br />
+
+<b>Pick the image you want to represent your profile.</b></h2></div>
+
+<div class="step-3-item-right"></div>
+<div class="clr"></div>
+
+
+</div><br /><br /><br />
+
+
+
+
+<div class="step-3-item-outer">
+      <div class="step-3-item-left"><h2>Email Subscriptions<br />
+
+<b>Set the frequency you want subscription activity notifications delivered to your email</b></h2></div>
+
+<div class="step-3-item-right"></div>
+<div class="clr"></div>
+
+
+</div>
+
+
+<div class="step-3-item-outer">
+      <div class="step-3-item-left"><h2>Account Linking<br />
+
+<b>Link all your social networks to your Heard Mentality Profile making it easier to share across your entire network</b></h2></div>
+
+<div class="step-3-item-right"></div>
+<div class="clr"></div>
+
+
+</div>
+
+<div class="step-3-item-outer">
+      <div class="step-3-item-left"><h2>Personal Links<br />
+
+<b>Where can other users find more information about you.</b></h2></div>
+
+<div class="step-3-item-right"></div>
+<div class="clr"></div>
+
+
+</div> </div>
+    <div class="pro-content-right">
+      <div class="form-outer">
+    ';
+            $form .= drupal_get_form('profiles_form', $step);
+
+            break;
+        case '4':
+            $form.='  <div id="pro-nav">
+      <ul>
+        <li ><b>1</b>Profile</li>
+        <li class="arr">&nbsp;</li>
+        <li><b>2</b>Privacy</li>
+        <li class="arr">&nbsp;</li>
+        <li><b>3</b>Social</li>
+        <li class="arr">&nbsp;</li>
+        <li class="selected">Finished</li>
+      </ul>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+  <div class="pro-content">
+  <div class="stick">&nbsp;</div>
+  <div class="thanku-outer"> <div class="thanku">Thank You !</div><br />
+
+
+    <div class="pro-text"><p>You can edit your profile and change any of the information and privacy settings at anytime.</p><br />
+
+
+
+    <p>We hope you enjoy using Heard Mentality</p><br />
+
+
+<p class="thanku2"><strong>Be Heard !<br />
+Don’t be part of the Herd</strong></p>
+
+
+
+    </div>
+
+    <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+
+    <div align="center"><br />
+
+    <p class="pro-text2">To learn more about Heard Mentality see this short tour of the features available to youTake</p><br />
+<p><a href="#"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/site-tour.png" width="264" height="45" alt="Take the site tour" /></a></p>
+
+    </div>
+
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+  <div id="pro-footer">
+    <div class=" pro-prenext">
+      <div class="previous">
+        <input name="" type="button" onclick="history.go(-1);" class="previous-select" />
+      </div>
+      <div class="finished">
+        <input name="" type="button" class="finished" onclick="fb.end();" />
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>';
+            break;
+        default:
+            $form.='  <div id="pro-nav">
+      <ul>
+        <li class="selected"><b>1</b>Profile</li>
+        <li class="arr">&nbsp;</li>
+        <li><b>2</b>Privacy</li>
+        <li class="arr">&nbsp;</li>
+        <li><b>3</b>Social</li>
+        <li class="arr">&nbsp;</li>
+        <li>Finished</li>
+      </ul>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>
+  <div class="pro-content">
+    <div class="pro-content-left">
+      <h2>&nbsp;Welcome to Heard Mentality -
+ <b> The
+        global community for public opinion.</b></h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing
+        elit. Donec aliquam, nulla convallis ultrices varius,
+        mauris neque consectetur odio, in dictum turpis
+        nunc sed felis.<br />
+        <br />
+        Cum sociis natoque penatibus et
+        magnis dis parturient montes, nascetur ridiculus
+        mus. Nullam et turpis in mauris porta varius a in
+        purus. Ut sem justo, commodo sed placerat
+        tempor, euismod in lorem. Fusce non sodales nisi.
+        Praesent sagittis imperdiet sollicitudin. Aenean
+        suscipit ornare libero et tempus. <br />
+        <br />
+        Nullam gravida
+        ligula accumsan ante rutrum at eleifend elit
+        bibendum. Suspendisse lobortis sollicitudin ultrices.
+        Sed tincidunt convallis</p>
+      <p><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/map-step1.jpg" width="369" height="184" alt="Map" /></p>
+    </div>
+    <div class="pro-content-right">
+      <div class="form-outer">
+    ';
+            $form .= drupal_get_form('profiles_form', $step);
+            $form.='
+    <div class="clr"></div>
+  </div>';
+            break;
+    }
+    return $form;
+}
+
+function profiles_form($form_state, $step) {
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    $data = '
+
+var spath=\'' . $gSitePath . '\';
+';
+    drupal_add_js($data, 'inline');
+    switch ($step) {
+        case '2':
+            $query = "select * from {user_profile} where uid='$user->uid'";
+            $fetch = ExecuteQuery($query, "select");
+            $options = array('1' => t(''), '2' => t(''), '3' => t(''), '4' => t(''));
+            $query = "select * from {profile_fields}";
+            $result = db_query($query);
+            $complete_data = pcp_get_complete_percentage_data($user);
+            $pcp = $complete_data['percent'];
+            if ($pcp == 100)
+                $prompt = 0;
+            else
+                $prompt=1;
+
+            $form['top_div'] = array('#type' => 'markup', '#value' => '<div class="form-bg-none">
+          <div class="pro-radio-outer"><script>parent.prompt=\'' . $prompt . '\';</script>
+        	<div class="t1">&nbsp;</div>
+            <div class="t2 step-2icon-1"></div>
+            <div class="t3 step-2icon-2"></div>
+            <div class="t4 step-2icon-3"></div>
+            <div class="t4 step-2icon-4"></div>
+            <div class="clr"></div>
+        </div>
+          <div class="clr"></div>
+        </div>');
+            while ($meta = db_fetch_object($result)) {
+                $col = $fields[] = $meta->name;
+                $list = trim($fetch[0][$col]);
+                switch ($col) {
+                    case 'bio':
+                        $list = 'My Bio';
+                        break;
+                    case 'dob':
+                        $dob1 = $fetch[0]['age'];
+                        if ($dob1 == 0) {
+                            $dob1 = "-";
+                            $list = '';
+                        } else {
+                            $rem_value = $dob1 % 5;
+                            $rem_first = $dob1 - $rem_value;
+                            $rem_second = $rem_first + 5;
+                            $list = $rem_first . ' - ' . $rem_second . ' Years Old';
+                        }
+                        break;
+                    case 'zip':
+                        $list = $fetch[0]['city'] . ',' . $fetch[0]['state'] . ',' . $fetch[0]['country'];
+                        break;
+                    case 'gender':
+                        if ($list == 1)
+                            $list = 'Male';
+                        elseif ($list == 2)
+                            $list = 'Female';
+                        break;
+                    case 'edu':
+                        if (empty($list))
+                            $list = $meta->title;
+
+                        break;
+                }
+
+                if (!empty($list)) {
+                    $sel = db_result(db_query("SELECT $col FROM {privacy_settings} WHERE uid = '%d'", $user->uid));
+                    $form[$col . '_privacy'] = array(
+                        '#type' => 'radios',
+                        '#title' => t($list),
+                        '#default_value' => variable_get($col . '_privacy', $sel),
+                        '#options' => $options,
+                        '#prefix' => '<div class="form-bg"><div class="pro-radio-outer">',
+                        '#suffix' => ' <div class="clr"></div></div><div class="clr"></div> </div>',
+                    );
+                    $form['div_down'] = array('#type' => 'markup', '#value' => '
+          <div class="clr"></div>
+       ');
+                }
+            }
+            $form['activity_privacy'] = array(
+                '#type' => 'radios',
+                '#title' => t('My User Activity'),
+                '#default_value' => variable_get('activity_privacy', $fetch[0]['question_privacy']),
+                '#options' => $options,
+                '#prefix' => '<div class="form-bg"><div class="pro-radio-outer">',
+                '#suffix' => ' <div class="clr"></div></div><div class="clr"></div> </div>',
+            );
+            $form['mid_div'] = array('#type' => 'markup', '#value' => '
+          <div class="clr"></div>
+       ');
+            $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div><div id="pro-footer">
+    <div class=" pro-prenext">');
+            $form['previous'] = array('#type' => 'submit',
+                '#value' => t('Back'),
+                '#attributes' => array('class' => 'previous'),
+                '#prefix' => ' <div class="previous">',
+                '#suffix' => '</div>',
+            );
+            $form['step'] = array('#type' => 'value', '#value' => '2', '#suffix' => '  <div class="clr"></div>');
+            $form['submit'] = array(
+                '#type' => 'submit',
+                '#value' => t(''),
+                '#attributes' => array('class' => 'next'),
+                '#prefix' => ' <div class="next">',
+                '#suffix' => '</div>'
+            );
+            $form['foot_div'] = array('#type' => 'markup', '#value' => ' <div class="clr"></div>
+    </div>  <div class="clr"></div>');
+            break;
+        case '3':
+            $form = array();
+            drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js');
+            drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
+            drupal_add_css(drupal_get_path('module', 'avatar_selection') . '/avatar_selection.css');
+            drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
+            drupal_set_html_head('<script src="http://cdn.gigya.com/JS/socialize.js?apikey=' . $apikey . '" type="text/javascript"></script>');
+            drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js';
+            $account = load_user($user->uid);
+
+            $data = '
+	    var conf =
+        {
+            APIKey: \'' . $apikey . '\'
+        };
+var avtar=\'' . $account->avatar . '\';
+';
+            drupal_add_js($data, 'inline');
+
+            // set the form encoding type
+            $form['#attributes']['enctype'] = "multipart/form-data";
+            $options = array('1' => t('weekly'), '2' => t('monthly'), '0' => t('never'));
+            // add a file upload file
+            $form['file_upload'] = array(
+                '#type' => 'file',
+                '#size' => '10',
+                '#description' => t('Select an image file on your computer. (2MB max) '),
+                '#prefix' => '<div class="avatar">
+            <div class="avatar-right">
+            <div class="pick-avatar" onClick="jQuery(\'#avatar-profile-ele\').slideToggle();"></div>
+- Or -
+            <div class="clr"></div>
+            <div></div>
+            <div class="clr"></div>',
+                '#suffix' => '</div>
+        	<div class="avatar-left">' . UserPicture($user->uid, 0) . '</div>
+
+        <div class="clr"></div>
+        </div>'
+            );
+              $form['oldimg'] = array(
+                '#type' => 'hidden',
+                '#default_value' => variable_get('oldimg', $account->image),
+                '#id' => 'oldimg',
+            );
+            $form['notify'] = array(
+                '#type' => 'radios',
+                '#prefix' => '',
+                '#default_value' => variable_get('notify', $account->notify_etype),
+                '#options' => $options,
+                '#suffix' => ' <div class="clr"></div>',
+                '#title' => t('Send me a summary of my subscriptions to my email'),);
+            $form['merge'] = array('#type' => 'markup', '#value' => '<div class="merge-social-new">
+          <div align="center">Select the Social networks you want to share you Heard Mentality opinions add posts with.</div>
+          <div class="clr"></div>
+          <div id="divConnect"></div>
+    <script type="text/javascript">
+        // show Add Connections Plugin in "divConnect"
+        gigya.services.socialize.showAddConnectionsUI(conf, {
+			height:65
+			,width:175
+			,showTermsLink:false //remove trems link
+			,hideGigyaLink:true // remove Gigya link
+			,useHTML:true  // Use the HTML implementation of the Plugin (rather then Flash implementation)
+			,containerID: "divConnect" // The component will embed itself inside the divConnect Div
+		});
+    </script> 
+         </div>
+          
+    </div>');
+            $form['fb_outer'] = array('#type' => 'markup',
+                '#value' => '<div class="form-bg-face-outer"><b>PERSONAL LINKS</b>
+          <div class="clr"></div>
+        </div><div class="form-bg-face-outer">
+    ');
+
+            $social = explode('||', $account->social);
+            $form['facebook'] = array(
+                '#type' => 'textfield',
+                '#title' => t(''),
+                '#prefix' => '<div class="form-bg-face-img"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-face.jpg"></div><div class="form-bg-face">',
+                '#description' => t(''),
+                '#default_value' => variable_get('facebook', $social[0]),
+                '#id' => 'face',
+                '#suffix' => '</div>',
+            );
+            $form['fb_top'] = array('#type' => 'markup',
+                '#value' => '<div class="clr"></div></div> <div class="clr"></div><div class="form-bg-face-outer"> ');
+            $form['twitter'] = array(
+                '#type' => 'textfield',
+                '#title' => t(''),
+                '#prefix' => '<div class="form-bg-face-img"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-twit.jpg"></div><div class="form-bg-face">',
+                '#description' => t(' '),
+                '#default_value' => variable_get('twitter', $social[1]),
+                '#id' => 'twitter',
+                '#suffix' => '</div>',
+            );
+            $form['fb_bot'] = array('#type' => 'markup',
+                '#value' => '<div class="clr"></div></div> <div class="clr"></div>');
+            $form['myweb'] = array(
+                '#type' => 'textfield',
+                '#title' => t(''),
+                '#description' => t(''),
+                '#default_value' => variable_get('myweb', $account->urls),
+                '#id' => 'username',
+                '#prefix' => '<div class="form-bg"><div class="pro-radio-outer">',
+                '#suffix' => ' <div class="clr"></div></div><div class="clr"></div> </div>',
+            );
+            $form = $form + follow_links_form($form_state, $user->uid);
+            $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div><div id="pro-footer">
+    <div class=" pro-prenext">');
+
+            $form['previous'] = array('#type' => 'submit',
+                '#value' => t('Back'),
+                '#attributes' => array('class' => 'previous'),
+                '#prefix' => ' <div class="previous">',
+                '#suffix' => '</div>',
+            );
+            $form['img_avt'] = array('#type' => 'hidden', '#default_value' => variable_get('img_avt', $account->image_avatar));
+            $form['image'] = array('#type' => 'hidden', '#default_value' => variable_get('image', $account->image));
+            $form['step'] = array('#type' => 'value', '#value' => '3', '#suffix' => '  <div class="clr"></div>');
+            $form['submit'] = array(
+                '#type' => 'submit',
+                '#value' => t(''),
+                '#attributes' => array('class' => 'next'),
+                '#prefix' => ' <div class="next">',
+                '#suffix' => '</div>'
+            );
+
+            $form['foot_div'] = array('#type' => 'markup', '#value' => ' <div class="clr"></div>
+    </div>  <div class="clr"></div><div class="clr"></div>
+  </div>');
+            $form['hiddentop'] = array('#type' => 'markup', '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
+            $form = $form + inc_avatar_form();
+            $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
+            break;
+        case '4':
+            break;
+        case '1':
+        default:
+            drupal_add_js('jQuery(function(){ jQuery("label").inFieldLabels(); });','inline');
+            drupal_add_js(drupal_get_path('module','profiles').'/js/jquery.infieldlabel.min.js');
+            drupal_set_html_head('<style>label  { position:absolute; top:0; left:0;margin:5px 6px 5px 19px;color:grey;opacity:0.8;}</style>');
+
+            //set default values
+            $details = load_user($user->uid);
+            $form['username'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Username'),
+                '#maxlength' => 20,
+                '#description' => t(''),
+                '#default_value' => variable_get('username', ''),
+                '#id' => 'username',
+                '#required' => 1,
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['fname'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Name'),
+                '#maxlength' => 20,
+                '#description' => t(' '),
+                '#default_value' => variable_get('fname', ''),
+                '#id' => 'name',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['email'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Email'),
+                '#maxlength' => 50,
+                '#description' => t(' '),
+                '#default_value' => variable_get('email', ''),
+                '#id' => 'email',
+                '#required' => 1,
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['dob'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Year Of Birth'),
+                '#maxlength' => 4,
+                '#description' => t(' '),
+                '#default_value' => variable_get('dob', ''),
+                '#id' => 'year',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+
+            $form['gender'] = array(
+                '#type' => 'select',
+                '#title' => t(''),
+                '#options' => array('0' => 'Gender', 1 => 'Male', 2 => 'Female'),
+                '#description' => t(' '),
+                '#default_value' => variable_get('gender', ''),
+                '#id' => 'gender',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['zip'] = array(
+                '#type' => 'textfield',
+                '#title' => t('Zip Code'),
+                '#maxlength' => 10,
+                '#description' => t(''),
+                '#default_value' => variable_get('zip', ''),
+                '#id' => 'location',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>',
+                '#attributes' => array('onblur' => 'get_zip_city(this.value);')
+            );
+            $form['country'] = array(
+                '#type' => 'hidden',
+                '#default_value' => variable_get('country', $details->country),
+                '#id' => 'country',
+            );
+            $form['state'] = array(
+                '#type' => 'hidden',
+                '#default_value' => variable_get('state', $details->state),
+                '#id' => 'state',
+            );
+            $form['city'] = array(
+                '#type' => 'hidden',
+                '#default_value' => variable_get('city', $details->state),
+                '#id' => 'city',
+            );
+
+            $form['religion'] = array(
+                '#type' => 'select',
+                '#title' => t(''),
+                '#options' => array('0' => 'Religion','Christian'=>'Christian (Cath or Prod)','Muslim' => 'Muslim (Suni Shiite)','Hindu' => 'Hindu','Jewish'=>'Jewish','Buddhist'=>'Buddhist','Other'=>'Other'),
+                '#description' => t(' '),
+                '#default_value' => variable_get('religion', ''),
+                '#id' => 'religion',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['ethnic'] = array(
+                '#type' => 'select',
+                '#title' => t(''),
+                '#options' => array('0' => 'Ethnicity', 'Caucasian' => 'Caucasian', 'Black' => 'Black', 'Asian' => 'Asian', 'Indian' => 'Indian', 'Semetic' => 'Semetic', 'Latin' => 'Latin', 'Aborigines' => 'Aborigines'),
+                '#description' => t(' '),
+                '#default_value' => variable_get('ethinicity', ''),
+                '#id' => 'ethnicity',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['education'] = array(
+                '#type' => 'select',
+                '#title' => t(''),
+                '#options' => array('0' => 'Education Level', 'No High School' => 'No High School', 'High School' => 'High School', 'Technical College' => 'Technical College', 'University' => 'University', 'Masters Degree' => 'Masters Degree'),
+                '#description' => t(' '),
+                '#default_value' => variable_get('education', ''),
+                '#id' => 'education',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['sorient'] = array(
+                '#type' => 'select',
+                '#title' => t(''),
+                '#options' => array('0' => 'Sexual Orientation', 'Straight' => 'Straight', 'Gay' => 'Gay', 'Bisexual' => 'Bisexual', 'Transgender' => 'Transgender'),
+                '#default_value' => variable_get('sorient', ''),
+                '#description' => t(' '),
+                '#id' => 'sex',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['slant'] = array(
+                '#type' => 'select',
+                '#title' => t(''),
+                '#options' => array('0' => 'Slant', 'Left' => 'Left', 'Right' => 'Right'),
+                '#description' => t(' '),
+                '#default_value' => variable_get('slant', ''),
+                '#id' => 'slant',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['bio'] = array(
+                '#type' => 'textarea',
+                '#title' => t('Bio'),
+                '#default_value' => variable_get('description', ''),
+                '#cols' => '',
+                '#rows' => 3,
+                '#description' => t(''),
+                '#default_value' => variable_get('bio', ''),
+                '#id' => 'bio',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+            $form['top_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="clr"></div>');
+            $form['step'] = array('#type' => 'value', '#value' => '1', '#suffix' => '  <div class="clr"></div>');
+            $form['submit'] = array(
+                '#type' => 'submit',
+                '#value' => t(''),
+                '#attributes' => array('class' => 'next'),
+                '#prefix' => '<div id="pro-footer">
+    <div class=" pro-prenext"> <div class="next">',
+                '#suffix' => '</div>
+      <div class="clr"></div>
+    </div>  <div class="clr"></div>'
+            );
+
+            $form['bio']['#default_value'] = empty($details->bio) ? '' : $details->bio;
+            $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
+            $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
+            $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
+            $form['education']['#default_value'] = empty($details->edu) ? '0' : $details->edu;
+            $form['ethnic']['#default_value'] = empty($details->ethnic) ? '0' : $details->ethnic;
+            $form['religion']['#default_value'] = empty($details->religion) ? '0' : $details->religion;
+            $form['zip']['#default_value'] = empty($details->zip) ? '' : $details->zip;
+            $form['gender']['#default_value'] = empty($details->gender) ? '0' : $details->gender;
+            $form['dob']['#default_value'] = empty($details->dob) ? '' : $details->dob;
+            $form['email']['#default_value'] = empty($details->mail) ? '' : $details->mail;
+            $form['fname']['#default_value'] = empty($details->real_name) ? '' : $details->real_name;
+            $form['username']['#default_value'] = empty($details->name) ? '' : $details->name;
+            break;
+    }
+    return $form;
+}
+
+function profiles_form_validate($form, &$form_state) {
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    $step = $form_state['values']['step'];
+    switch ($step) {
+        case '2':
+
+            break;
+        case '3':
+            // follow links starts here
+            // echo '<pre>';
+            // print_r($form_state);
+            $links = $form_state['values']['follow_links'];
+            //  print_r($links);die;
+            foreach ($links as $name => $link) {
+                $link = (object) $link;
+                $link->url = trim($link->url);
+
+                // Check to see if there's actually a link
+                if (!preg_match("/^[a-zA-Z]+[:\/\/]+[A-Za-z0-9\-_]+\\.+[A-Za-z0-9\.\/%&=\?\-_]+$/i", $link->url)) {
+                    // If there's an lid, delete the link.
+                    if (isset($link->lid)) {
+                        follow_link_delete($link->lid);
+                    }
+                    if (!empty($link->url))
+                        form_set_error($ink->name, 'Invalid web reference URL(s)');
+                    // Continue to the next link.
+                    continue;
+                }
+            }  // follow links ends here
+
+
+            break;
+        case '4':
+            if ($form_state['values']['op'])
+                $form_state['redirect'] = "profile/edit/3";
+            break;
+        case '1':
+            $dob = $form_state['values']['dob'];
+            $zip = $form_state['values']['zip'];
+            $state = $form_state['values']['state'];
+            $uname = $form_state['values']['username'];
+            $email = $form_state['values']['email'];
+            $fname=$form_state['values']['fname'];
+              $valid_email = $form_state['values']['email'];
+            if (!preg_match('/^[A-Za-z0-9_]{5,20}$/i', $uname)) {
+                form_set_error('username', t('Username should be Alphabets, numbers and no special characters min 5 and max 20 allowed'));
+                $form_state['rebuild'] = TRUE;
+            } elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE name = '%s' AND uid!='%d'", $uname, $user->uid))) {
+                form_set_error('username', t('Sorry Username already exists try any other combination'));
+                $form_state['rebuild'] = TRUE;
+            }
+
+  if (!valid_email_address($valid_email)) {
+  form_set_error('email', 'Your email address -- ' . $valid_email . ' -- appears malformed');
+  } elseif (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE mail = '%s' AND uid!='%d'", $valid_email, $user->uid))) {
+                form_set_error('username', t('Sorry Email already taken by other user'));
+                $form_state['rebuild'] = TRUE;
+            }
+            if(!empty($fname)){
+           if(!preg_match('/^([a-zA-Z]+ ){1,2}[a-zA-Z]+$/i',$fname)) {
+            form_set_error('fname', t('Full Name should be Alpha Ex : Kevin kumar'));
+                $form_state['rebuild'] = TRUE;
+
+            }
+
+            }
+            if (!empty($dob)) {
+
+                if (!is_numeric($dob) || strlen($dob) != '4') {
+                    form_set_error('dob', t('Year Of Birth should be Numeric & Proper Format Ex : 1986'));
+                    $form_state['rebuild'] = TRUE;
+                }
+            }
+            if (!empty($zip)) {
+                if (!preg_match('/^[0-9A-Za-z ]+?$/i', $zip)) {
+                    form_set_error('zip', t('Zip Code should be Proper One & Proper Format Ex : 11010'));
+                    $form_state['rebuild'] = TRUE;
+                } elseif (empty($state)) {
+                    form_set_error('zip', t('Kindly Recheck your Zip Code, We find its invalid one! '));
+                    $form_state['rebuild'] = TRUE;
+                }
+            }
+
+        default:
+            break;
+    }
+}
+
+function profiles_form_submit($form, &$form_state) {
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    $step = $form_state['values']['step'];
+
+    switch ($step) {
+        case '2':
+            if ($form_state['clicked_button']['#value'] == 'Back') {
+                $form_state['redirect'] = "profile/edit/1";
+            } else {
+                _privacy_submit($form, $form_state);
+                $form_state['redirect'] = "profile/edit/3";
+            }
+            break;
+        case '3':
+            if ($form_state['clicked_button']['#value'] == 'Back') {
+                $form_state['redirect'] = "profile/edit/2";
+            } else {
+                _avatar_submit($form, $form_state);
+                $form_state['redirect'] = "profile/edit/4";
+            }
+            break;
+        case '4':
+
+
+
+            break;
+        case '1':
+        default:
+
+            _basic_submit($form, $form_state);
+            //  drupal_goto('profile/edit/2');
+            $form_state['redirect'] = "profile/edit/2";
+            break;
+    }
+}
+
+function inc_avatar_form($form, &$form_state) {
+
+
+    global $gSitePath, $user, $gDocPath, $base_root, $_GET;
+    //avatar
+    $form = array();
+    // We find out the current page number.
+    $page = 0;
+    if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+        $page = $_GET['page'];
+    }
+    $anon_user = drupal_anonymous_user();
+    $force_choose = variable_get('avatar_selection_force_user_avatar_reg', 0);
+    $avatars_per_page = variable_get('avatar_selection_avatar_per_page', 30);
+    $selects = _avatar_selection_image_list($anon_user, "", 0, $page * $avatars_per_page, $avatars_per_page);
+
+    $udetails = load_user($user->uid);
+
+    $avatar = (!empty($udetails->avatar)) ? $udetails->avatar : '';
+
+    if (count($selects['avatars'])) {
+
+        $form['picture']['select_avatar'] = array(
+            '#type' => 'radios',
+            '#title' => ($upload == 0 ? t('Select an avatar') : t('Or simply select an icon')),
+            '#description' => $upload ? '' : t('Your virtual face or picture.'),
+            '#options' => $selects['avatars'],
+            '#required' => $force_choose ? TRUE : FALSE,
+            '#default_value' => $avatar,
+            '#attributes' => array('class' => 'user-avatar-select'),
+            '#prefix' => '<div id="avatar-selection-loading"></div>',
+            '#suffix' => theme('avatar_selection_pager', 'form#user-register', 'div.user-avatar-select', $selects['total'], $avatars_per_page, '/' . $js_file),
+        );
+    }
+
+
+    //avatar
+    return $form;
+}
+
+function event_photo_profile(&$form, &$form_state) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $suc = '';
+    $return = array();
+
+    $validators = array(
+        'file_validate_is_image' => array(),
+        'file_validate_image_resolution' => array('500x500'),
+        'file_validate_size' => array(500 * 1024),
+    );
+    $upload_dir = variable_get('user_picture_path', 'pictures');
+    $filepath = file_directory_path();
+    $dest = $filepath . '/' . $upload_dir;
+    $file = file_save_upload('file_upload', $validators, $dest);
+
+    $owner = $user->uid;
+    $filetype = $file->filemime;
+    $extension = '';
+    switch ($filetype) {
+        case 'image/jpeg':
+            $extension = 'jpg';
+            break;
+        case 'image/png':
+            $extension = 'png';
+            break;
+        case 'image/gif':
+            $extension = 'gif';
+            break;
+    }
+    $dest = variable_get('user_picture_path', 'pictures') . '/picture-' . $owner . '.' . $extension;
+
+    if ($file != 0) {
+        //$dest_path = 'files/upload_directory';
+        $result = file_move($file, $dest, FILE_EXISTS_RENAME);
+        $flag = 0;
+    }
+
+    if ($result == 1) {
+        $insimage = $file->filepath;
+        $_SESSION['filepath'] = $file->filepath;
+        $_SESSION['fid'] = $file->fid;
+        $_SESSION['filetype'] = $file->filemime;
+        $flag = 0;
+    } elseif (!empty($form_state['values']['oldimg'])) {
+        $insimage = $form_state['values']['oldimg'];
+        $flag = 0;
+    } else {
+        $flag = 0;
+        $insimage = avatar_selection_get_random_image($user);
+    }//file up ends
+
+
+    $return['image'] = $insimage;
+    $return['flag'] = $flag;
+    $return['suc'] = $suc;
+    return $return;
+    /*
+      $filename = $_FILES['image']['name'];// file up starts
+      $tmp_image = $_FILES['image']['tmp_name'];
+      if ($filename != '') {
+      include drupal_get_path('module', 'profile')."/img_resize.php";
+      $ext = strtolower(substr($filename, strpos($filename, '.'), strlen($filename) - 1));
+
+      if ($ext == '.jpg' || $ext == '.gif' || $ext == '.jpeg') {
+      $imagefun = new SimpleImage();
+
+      $image = time().$filename;
+
+      $path = drupal_get_path('module', 'profile')."/snap/";
+      copy($tmp_image, $path.$image);
+      //img resize
+      $sz = getimagesize($path.$image);
+
+      $x = $sz[0]; // org image width
+      $y = $sz[1]; // org image height
+      if ($x > 100) {
+      $imagefun->load($path.$image);
+
+      $imagefun->resizeToWidth(100);
+
+      $imagefun->save($path.$image);
+
+      }
+
+
+      if ($image != "") {
+      $insimage = $image;
+      //include('round_corner.php');
+      }
+      } else {
+      $flag = 1;
+      $suc = ' Sorry Image Cant Uploaded It Should be gif or Jpeg format!';
+      }
+      } elseif (isset($_REQUEST['oldimg'])) {
+      $insimage = $_REQUEST['oldimg'];
+      $flag = 0;
+      } else {
+      $flag = 0;
+      $insimage = "noimage.jpg";
+      }//file up ends
+
+     */
+}
+
+function age($date) {
+
+    $year_diff = '';
+    if (!empty($date)) {
+        //list($day,$month,$year)=explode("/",$date);
+
+        $year_diff = date("Y") - $date;
+        //$month_diff = date("m")-$month;
+        //$day_diff = date("d")- $day;
+        //if ($day_diff < 0 || $month_diff < 0) $year_diff–;
+
+        return $year_diff;
+    } else {
+
+        return '';
+    }
+}
+
+function _avatar_submit($form, &$form_state) {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+ // echo '<pre>';
+  //print_r($form_state);
+    //file handler
+    $return = event_photo_profile($form,$form_state);
+ //print_r($return); die;
+    $insimage = $return['image'];
+    $flag = $return['flag'];
+    $suc = $return['suc'];
+    //file handler ends
+
+    if (!empty($_SESSION['filepath'])||!empty($form_state['values']['oldimg'])) {
+        $img_avt = '1';
+    } else {
+         $img_avt = '2';
+      //  $insimage = $form_state['values']['image'];
+    }
+
+    // follow links starts here
+    $links = $form_state['values']['follow_links'];
+    //print_r($links);echo $user->uid;
+    foreach ($links as $name => $link) {
+        //  print_r($link);
+        $link = (object) $link;
+        $link->url = trim($link->url);
+
+        $link->uid = $user->uid;
+        if (!empty($link->name) && !empty($link->url))
+            follow_link_save($link);
+    }  // follow links ends here
+
+    if (!empty($form_state['values']['facebook']) || !empty($form_state['values']['twitter']))
+        $social = $form_state['values']['facebook'] . '||' . $form_state['values']['twitter'];
+
+    $query = "UPDATE {user_profile} set image_avatar='%s',image='%s',avatar='%s',social='%s',urls='%s'  where uid='%d' ";
+    $result = db_query($query, $form_state['values']['img_avt'], $insimage, $form_state['values']['select_avatar'], $social, $form_state['values']['myweb'], $user->uid);
+    //notify type
+    db_query("update {users} set notify_etype='%d' where uid='%d'", $form_state['values']['notify'], $user->uid);
+    //drupal_set_message(t('Your form has been saved.', 'success'));
+
+
+    return true;
+}
+
+function _privacy_submit($form, &$form_state) {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    //prepopulate the settings
+    foreach (element_children($form) as $child) {
+        if ($form[$child]['#type'] == 'radios') {
+            $$child = $form_state['values'][$child];
+        }
+    }
+    $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
+    $chk1 = db_result($chk);
+    if ($chk1) {
+
+        $query = "UPDATE {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d'  where uid='%d' ";
+    } else {
+        $query = "INSERT INTO {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d',uid='%d'";
+    }
+
+    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $dob_privacy, $user->uid);
+    db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
+    //drupal_set_message(t('Your form has been saved.', 'success'));
+    return true;
+}
+
+function _basic_submit($form, &$form_state) {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $age = age($form_state['values']['dob']);
+
+    $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
+    $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['education'], $user->uid);
+    //update username
+    db_query("update {users} set name='%s',mail='%s',prompt='%d' where uid='%d'", $form_state['values']['username'], $form_state['values']['email'],'0',$user->uid);
+    //drupal_set_message(t('Your profile has been updated', 'success'));
+    return true;
+}
+
+function privacy($uid = ''){
+    $sql= db_query("SELECT * FROM {privacy_settings} WHERE uid = '%d'", $uid);
+    while($settings = db_fetch_object($sql)){
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['name '] = $settings->name;
+       $privacy['email '] = $settings->email;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+       $privacy['real_name '] = $settings->real_name;
+    }
+}
+

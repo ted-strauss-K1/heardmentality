@@ -1,0 +1,210 @@
+<?php
+// $Id: openid_ax.install,v 1.4 2008/06/28 19:57:38 anshuprateek Exp $
+
+
+function openid_ax_install() {
+  // Create tables.
+  drupal_install_schema('openid_ax');
+  // Insert values into table openid_ax_attributes
+  _openid_ax_attributes_fill();
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function openid_ax_uninstall() {
+  // Remove tables.
+  drupal_uninstall_schema('openid_ax');
+}
+
+/**
+ * Implementation of hook_schema().
+ */
+function openid_ax_schema() {
+  $schema['openid_ax_attributes'] = array(
+    'description' => t('A list of attributes served by the Attribute Exchange'),
+    'fields' => array(
+      'ax_id' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => t('Id number for the attribute identifier.')
+      ),
+      'identifier' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => t('URI placeholder of the attribute identifier.')
+      ),
+    ),
+       'indexes' => array('ax_id' => array('ax_id')),
+       'primary key' => array('identifier')
+  );
+
+  $schema['openid_ax_persona'] = array(
+    'description' => t('A list of personas saved by the Attribute Exchange User'),
+    'fields' => array(
+      'uid' => array(
+        'type' => 'int',
+        'size'=>'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => t('{users}.uid')
+      ),
+      'persona_id' => array(
+        'type' => 'int',
+        'size'=>'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default'=>0,
+        'description' => t('Id of the persona')
+      ),
+      'persona_name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => 'Default',
+        'description' => t('Name of the persona.')
+      ),
+    ),
+       'indexes' => array('uid' => array('uid'))
+  );
+
+  $schema['openid_ax_values'] = array(
+    'description' => t('Stores values of the attributes associated with users.'),
+    'fields' => array(
+        'vid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => t('Primary key: Unique value id')
+      ),
+		'ax_id' => array(
+        'type' => 'int',
+        'size'=>'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => t('ax_id from {openid_ax_attributes}.ax_id')
+      ),
+      'uid' => array(
+        'type' => 'int',
+        'size'=>'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => t('uid from {users}.uid')
+      ),
+      'persona_id' => array(
+        'type' => 'int',
+        'size'=>'normal',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default'=>0,
+        'description' => t('persona_id from {openid_ax_persona}.persona_id')
+      ),
+      'ax_values' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => ''
+      ),
+      'server' => array(
+        'type' => 'int',
+        'size'=>'tiny',
+        'length'=>1,
+        'not null' => TRUE,
+        'default' => 1
+      )
+    ),
+    'indexes' => array('uid' => array('uid')),
+    'primary key' => array('vid')
+  );
+
+  return $schema;
+}
+ /**
+  * Insert values into table openid_ax_attributes
+  */
+function _openid_ax_attributes_fill() {
+  $identifiers = _openid_ax_attributes_identifiers();
+  $identifiers_string = implode("'),('",$identifiers);
+  $query = "INSERT INTO {openid_ax_attributes} (identifier) VALUES ('$identifiers_string') ";
+  db_query($query);
+  return;
+}
+
+/**
+ * Create an array containing the identifiers as listed in
+ * http://openid.net/specs/openid-attribute-properties-list-1_0-01.html
+ * @return array
+ *   Array containing the identifiers
+ */
+function _openid_ax_attributes_identifiers() {
+  $identifiers = array(
+	'http://openid.net/schema/namePerson/prefix',
+	'http://openid.net/schema/namePerson/first',
+	'http://openid.net/schema/namePerson/last',
+	'http://openid.net/schema/namePerson/middle',
+	'http://openid.net/schema/namePerson/suffix',
+	'http://openid.net/schema/namePerson/friendly',
+	'http://openid.net/schema/person/guid',
+	'http://openid.net/schema/birthDate/birthYear',
+	'http://openid.net/schema/birthDate/birthMonth',
+	'http://openid.net/schema/birthDate/birthday',
+	'http://openid.net/schema/gender',
+	'http://openid.net/schema/language/pref',
+	'http://openid.net/schema/contact/phone/default',
+	'http://openid.net/schema/contact/phone/home',
+	'http://openid.net/schema/contact/phone/business',
+	'http://openid.net/schema/contact/phone/cell',
+	'http://openid.net/schema/contact/phone/fax',
+	'http://openid.net/schema/contact/postaladdress/home',
+	'http://openid.net/schema/contact/postaladdressadditional/home',
+	'http://openid.net/schema/contact/city/home',
+	'http://openid.net/schema/contact/state/home',
+	'http://openid.net/schema/contact/country/home',
+	'http://openid.net/schema/contact/postalcode/home',
+	'http://openid.net/schema/contact/postaladdress/business',
+	'http://openid.net/schema/contact/postaladdressadditional/business',
+	'http://openid.net/schema/contact/city/business',
+	'http://openid.net/schema/contact/state/business',
+	'http://openid.net/schema/contact/country/business',
+	'http://openid.net/schema/contact/postalcode/business',
+	'http://openid.net/schema/contact/IM/default',
+	'http://openid.net/schema/contact/IM/AIM',
+	'http://openid.net/schema/contact/IM/ICQ',
+	'http://openid.net/schema/contact/IM/MSN',
+	'http://openid.net/schema/contact/IM/Yahoo',
+	'http://openid.net/schema/contact/IM/Jabber',
+	'http://openid.net/schema/contact/IM/Skype',
+	'http://openid.net/schema/contact/internet/email',
+	'http://openid.net/schema/contact/web/default',
+	'http://openid.net/schema/contact/web/blog',
+	'http://openid.net/schema/contact/web/Linkedin',
+	'http://openid.net/schema/contact/web/Amazon',
+	'http://openid.net/schema/contact/web/Flickr',
+	'http://openid.net/schema/contact/web/Delicious',
+	'http://openid.net/schema/company/name',
+	'http://openid.net/schema/company/title',
+	'http://openid.net/schema/media/spokenname',
+	'http://openid.net/schema/media/greeting/audio',
+	'http://openid.net/schema/media/greeting/video',
+	'http://openid.net/schema/media/biography',
+	'http://openid.net/schema/media/image',
+	'http://openid.net/schema/media/image/16x16',
+	'http://openid.net/schema/media/image/32x32',
+	'http://openid.net/schema/media/image/48x48',
+	'http://openid.net/schema/media/image/64x64',
+	'http://openid.net/schema/media/image/80x80',
+	'http://openid.net/schema/media/image/128x128',
+	'http://openid.net/schema/media/image/160x120',
+	'http://openid.net/schema/media/image/320x240',
+	'http://openid.net/schema/media/image/640x480',
+	'http://openid.net/schema/media/image/120x160',
+	'http://openid.net/schema/media/image/240x320',
+	'http://openid.net/schema/media/image/480x640',
+	'http://openid.net/schema/media/image/favicon',
+	'http://openid.net/schema/timezone'
+  );
+  return $identifiers;
+}

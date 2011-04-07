@@ -1,0 +1,3473 @@
+<?php
+
+//my question
+
+
+function my_question() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    drupal_not_found();
+    return;
+    $strReturn = '';
+    $query = "SELECT *  FROM {question} where uid='" . $user->uid . "'";
+    $list = ExecuteQuery($query, "select");
+
+    $strReturn .= '<div class="clear-block">';
+    $strReturn .= '<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+    for ($i = 0; $i < count($list); $i++) {
+
+        $strReturn .= '<tr><td>';
+        $strReturn .= $list[$i]['question'];
+        $strReturn .= '</td><td>' . $list[$i]['date_added'] . '</td><td>';
+
+        $strReturn .= '<a href="' . $gSitePath . $list[$i]['url'] . '">View</a>&nbsp;<!--<b>/</b>&nbsp;<a href="' . $gSitePath . 'question/edit/' . $list[$i]['qid'] . '">Edit</a>&nbsp;--><b>/</b>&nbsp;<a href="' . $gSitePath . 'question/delete/' . $list[$i]['qid'] . '">Delete</a> ';
+
+        $strReturn .= '</td></tr>';
+    }
+
+    $strReturn .= '</table></div>';
+    if (count($list) < 1) {
+        drupal_set_message($message = 'No Questions Found!', $type = 'error');
+    }
+
+    return $strReturn;
+}
+
+function question_reply() {
+    print_r($_REQUEST[usids]);
+    exit;
+}
+
+// question add
+function question_add() {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    //get error msgs
+    $error = drupal_get_messages();
+    $list_err = '';
+    if (!empty($error)) {
+        $list_err = implode("<br/>", $error['error']);
+    }
+
+
+    //print_r($_SESSION['post']);
+    $q_quest = '';
+    $optionlist = '';
+    $q_context = '';
+    $q_ans1 = '';
+    $q_ans2 = '';
+    if (isset($_SESSION['post']) && !empty($_SESSION['post'])) {
+        extract($_SESSION['post']);
+    }
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $output = '';
+
+    $cncode = '';
+    $zicode = db_result(db_query("select zip from {user_profile} where uid='$user->uid'"));
+    $ustate = db_result(db_query("select state from {user_profile} where uid='$user->uid'"));
+    if (!empty($zicode)) {
+        if (empty($ustate)) {
+            $query = array('postalcode' => $zicode, 'maxrows' => 1);
+            $result = geonames_query('postalcodesearch', $query);
+            $state = $result->results;
+
+            // print_r($state);
+            $cncode = $state['0']['countrycode'];
+            $options = array('columns' => array('geonameid', 'countrycode'));
+            $query = array('query' => $state['0']['adminname1'], 'maxrows' => 1);
+            $result = geonames_query('search', $query, $options);
+            $fstate = $result->results;
+            //print_r($fstate);
+            $setstate = $fstate['0']['geonameid'];
+        } else {
+            $udet = load_user($user->uid);
+
+            $cncode = $udet->country;
+            $setstate = $udet->state;
+            $fcity = $udet->city;
+        }
+    }
+    $data=' var mpath=\'' . $gSitePath . '\';
+                    var spath=\'' . $gSitePath . '\';
+                    var cncode=\'' . $cncode . '\';
+                    var ustate=\'' . $ustate . '\';
+                    var setstate=\'' . $setstate . '\';
+                        var setcity=\'' . $fcity . '\';
+                            var admin=0;';
+    drupal_add_js($data,'inline');
+drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+drupal_add_js( drupal_get_path('module', 'question') . '/scripts/post_list.js');
+
+
+
+    //geoname api
+    $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
+    $result = geonames_query('countryinfo', NULL, $options);
+//    $optionlist .= ' <option value="0" >--Country--</option>';
+//    foreach ($result->results as $country) {
+//        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countryname'], $country['countryname']);
+//    }
+
+
+
+    $output .= '
+       <form id="question" name="question" onsubmit="return validate_question();"  method="post" action="' . $gSitePath . 'question/save" >
+       <ul id="add_more">
+               <li><label><span class="span1">Issue <b>*</b></span><span>
+          <input name="q_quest" autocomplete="off" type="text" tabindex="1" id="q_quest" maxlength="140"   size="100" ><br>
+        
+        </span></label>
+        <span class="span1">&nbsp;</span><small> 140 Characters Max.</small>
+        </li>
+
+          <li><label><span class="span1">Details</span><span> <textarea name="q_context" rows="4" id="q_context" tabindex="2">' . $q_context . '</textarea> </span></label></li>
+         <li><label><span class="span1">Option <b>*</b></span><span> <input tabindex="3" name="q_ans1" type="text" id="q_ans1"  value="' . $q_ans1 . '" size="40" /></span></label></li>
+         <li><label><span class="span1">Option <b>*</b></span><span> <input name="q_ans2" tabindex="4" type="text" id="q_ans2"   value="' . $q_ans2 . '" size="40" />
+         </span></label></li>
+         <li>&nbsp;</li>
+       </ul>
+       <div class="clr"></div>
+       <ul >
+         <li>
+         <div  style="width:100%;padding-left:20px;">
+           <div id="del_ans" style="display:none;padding:2px;">
+            <small><a href="javascript:void(0);" tabindex="88" onclick="del_ans();">[Remove]</a></small>
+            </div>
+       <!--<a href="javascript:void(0);" id="Add" title="Add Answer " tabindex="13"><img src="' . $gSitePath . path_to_theme() . '/images/addanswer.jpg" onclick="add_ans();"  alt="Add Answer" /></a>-->
+            <div><div class="but-left"><img src="' . $gSitePath . path_to_theme() . '/images/but-left.jpg"></div>
+           <input type="button"  tabindex="13" name="Add" title="Add More Answer" class="but"  onclick="add_ans();" id="Add" value="Add Answer" />
+           <div class="but-right">
+           <img width="7" height="24" src="' . $gSitePath . path_to_theme() . '/images/but-right.jpg"></div></div>
+            <input type="hidden" name="ans_cnt" id="ans_cnt" value="2">
+            <input type="hidden" id="cat1" name="cat1" value="">
+            <input type="hidden" id="cat2" name="cat2" value="">
+            <input type="hidden"  id="cat3" name="cat3" value="">
+            <input type="hidden" id="exist_check" name="exist_check" value="">
+         
+            </div>
+         </li>
+       </ul>
+	  
+       <div class="clr"></div>	   
+       <div class="do-in2cat">
+       <!--<ul >
+         <li><span>Categorize <b>*</b></span>:</li>
+          <li>
+          <div class="listmenu2" title="Select category">
+           <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+            <option value="">Select Category</option>-->';
+  //  $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+  //  while ($list = db_fetch_object($client_select)) {
+   //     $output .= '<option value="' . $list->cat_id . '">' . stripslashes($list->cat_name) . '</option>';
+   // }
+
+    $output .= '<!--</select>
+        </div>
+        </li>
+        <li>
+              <div class="listmenu2" title="Select Sub Category"  id="chg_scat">
+
+               <select class="listbox2" tabindex="15" title="Select Sub Category"  name="q_scat[]" id="q_scat"  >
+               <option value="">Select Sub Category</option>
+              </select>
+              </div>
+       </li>
+       <li>
+          <div class="listmenu2" title="Select Sub Sub Category" id="chg_sscat">
+          <select tabindex="16" title="Select Sub Sub Category"  name="q_sscat[]" id="q_sscat" class="listbox2"  >
+          <option value="">Select Sub Sub Category</option>
+          </select>
+          </div>
+       </li>
+      </ul>
+       <ul >
+       <li>Localize:</li>
+        <li>
+        <div class="listmenu2">
+         <select name="q_country" class="listbox2" style="width: 125px;" tabindex="16"  onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select>
+	</div>
+        </li>
+        <li>
+        <div class="listmenu2" id="chg_state">
+        <select id="q_state" name="q_state" class="listbox2" onchange="get_city(this.value);" style="width: 125px;" tabindex="18"><option value="0" >--State--</option></select>
+    </div>
+    </li>
+        <li>
+        <div class="listmenu2" id="chg_city" >
+        <select name="q_city" class="listbox2" id="q_city" style="width: 125px;" tabindex="19"> <option value="0" >--Cities--</option></select>
+    </div>
+    </li>
+       </ul>-->
+          </div>		  
+        <div class="clr"></div>		 
+		<div class="do-in2bor"><strong>Related Issue(s):</strong></div>
+		<div><span  title="Releted Questions"  id="releated_questions"></span></div>
+       </div> 
+	   <div class="clr"></div>
+		
+       <div class="do-in2savetop">';
+
+ //$output .= '<tr><td colspan="6">'.get_tagging().'</td></tr>';
+ 
+/*
+    $result = load_user($user->uid);
+    if ($result->question_privacy == '4') {
+
+        $output .= '<div> <fieldset>
+		<legend><b><i>Share With</i></b> </legend>
+
+		<div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset"  class="qrset" value="1">&nbsp;Everyone
+            <div class="description"></div>
+        </div>
+        <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset" value="2">&nbsp;Only Followers & Followees
+            <div class="description"></div>
+        </div>
+         <div class="form-item" id="edit-name-wrapper">
+            <label for="edit-"></label>
+             <input type="radio" name="qrset" class="qrset"  value="3">&nbsp;Not at all
+            <div class="description"></div>
+        </div>
+
+        </fieldset>	</div>';
+    }
+*/
+
+
+    $output.=' <div class="clr">&nbsp;</div>
+    <span>Required <b>*</b></span><div class="do-in2save" >
+      <div><div class="but-left"><img src="' . $gSitePath . path_to_theme() . '/images/but-left.jpg"></div>
+         <input type="submit"  class="but" name="save" tabindex="21" title="Submit an Issue" id="save" value="Save" class="question-save"/>
+           <div class="but-right">
+           <img width="7" height="24" src="' . $gSitePath . path_to_theme() . '/images/but-right.jpg"></div></div>
+       </div>
+              </div>
+         <div class="clr"></div>
+        </div>
+</form>
+       
+        ';
+
+
+    return $output;
+}
+
+function get_tagging($tag = '') {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $randomtag = '';
+    $content = '';
+    $tagged = '';
+
+    $randomtag = popular_tag();
+    if ($tag != '') {
+
+        $exp = explode(",", $tag);
+
+
+        foreach ($exp as $list) {
+
+            $tagged .= '<div id="tagset" class="tagging-tag" onclick="tag_delq(this);return false;">' . $list . '</div>';
+        }
+    }
+    $content .= '<div id="tagging-widget-container">
+        <fieldset>
+            <legend>
+            <b><i>    Tag Question for Searching </i></b>
+            </legend>
+            <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
+                <label>
+                    Assigned Tags:
+                </label>
+				' . $tagged . '
+            </div>
+            <div class="form-item" id="tagging-widget-input-1-wrapper">
+			
+                <span class="field-prefix">
+                    <div class="taggin-widget-input-wrapper">
+                        <input maxlength="20" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"></span></a>
+						
+						<input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"></span>
+						
+						<input name="q_tag" type="hidden" id="q_tag" value="' . $tag . '"  >
+                    </div>
+                </span>
+                <div class="description">
+                   Add New Tag
+                </div>
+            </div>
+            <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value="http://localhost/heardmentalitylocal/taxonomy/autocomplete/1" disabled="disabled" type="hidden">
+          
+		    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
+               <label>Suggestions:</label>
+               ' . $randomtag . '
+            </div>
+        </fieldset></div>';
+
+
+    return $content;
+}
+
+function get_tagging_edit($midr) {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $randomtag = '';
+    $content = '';
+    $tagged = '';
+
+    $randomtag = popular_tag();
+    if ($midr != '') {
+
+        // $exp = explode(",", $tag);
+
+
+        $selmlist = "select * from qtag as a, tagging as b where a.qid='$midr' and a.tag_id=b.tid ";
+        $mysqlfet = db_query($selmlist);
+        while ($rewdisp = db_fetch_object($mysqlfet)) {
+            $tagged .= '<div id="tagset" class="tagging-tag" >' . $rewdisp->tag . '</div>';
+        }
+    }
+    $content .= '<div id="tagging-widget-container">
+        <fieldset>
+            <legend>
+            <b><i>    Tag Question for Searching </i></b>
+            </legend>
+            <div id="tagdiv" class="tagging-curtags-wrapper tagging-curtags-wrapper-1">
+                <label>
+                    Assigned Tags:
+                </label>
+				' . $tagged . '
+            </div>
+            <div class="form-item" id="tagging-widget-input-1-wrapper">
+			
+                <span class="field-prefix">
+                    <div class="taggin-widget-input-wrapper">
+                        <input maxlength="20" tabindex="20" name="taxonomy[tags][1]" id="tagging-widget-input-1" value="" class="form-text form-autocomplete tagging-widget-input tagging-widget-input-1" type="text"><span class="field-suffix"><a class="tagging-button-container" href="#" title="Add"><span class="tagging-button tagging-button-1"></span></a>
+						
+						<input name="taxonomy[tags][1]" id="edit-taxonomy-tags-1" value="" class="tagging-widget-target-1" type="hidden"></span>
+						
+						<input name="q_tag" type="hidden" id="q_tag" value="' . $tag . '"  >
+                    </div>
+                </span>
+                <div class="description">
+                   Add New Tag
+                </div>
+            </div>
+            <input class="autocomplete" id="tagging-widget-input-1-autocomplete" value="http://localhost/heardmentalitylocal/taxonomy/autocomplete/1" disabled="disabled" type="hidden">
+          
+		    <div id="sug_div" class="tagging-suggestions-wrapper tagging-suggestions-wrapper-1">
+               <label>Suggestions:</label>
+               ' . $randomtag . '
+            </div>
+        </fieldset></div>';
+
+
+    return $content;
+}
+
+function question_save() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $q_quest = '';		
+    extract($_REQUEST);
+    $output = '';
+    $g_global = '';
+   // if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
+        if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2)) {
+        $edate = $q_edate;
+        $releated_question =implode(",",$_REQUEST['chk_rel_issue']);
+        //***** country disabled here ****//
+        
+//        $country = my_country();
+//        $ccode = $country['cn'];
+//        $ccode = (!empty($q_country)) ? $q_country : $ccode;
+        
+        $sel_qry = db_query("select question_privacy from user_profile where uid='$user->uid'");
+        $result = db_fetch_array($sel_qry);
+        if ($qrset == '') {
+            if ($result['question_privacy'] == 1)
+                $qrset = 3;
+            if ($result['question_privacy'] == 2)
+                $qrset = 2;
+            if ($result['question_privacy'] == 3)
+                $qrset = 1;
+        }
+//echo "INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'";
+      //drupal node
+        issue_save($_REQUEST);
+      
+        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='" . check_plain($q_quest) . "',context='" . check_plain($q_context) . "',releated_question = '$releated_question'");
+
+
+        $ins_id = db_last_insert_id('question', 'qid');
+
+
+
+
+///  category  starts & 1st level
+        $fetch = array();
+        if (!empty($q_cat)) {
+            $cat1 = $q_cat;
+            foreach ($cat1 as $ins1) {
+
+                db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
+            }
+        }
+
+        /// category 2nd level
+        if (!empty($q_scat)) {
+            $cat2 = $q_scat;
+            foreach ($cat2 as $ins2) {
+
+                $fetch = load_parent_cat($ins2, 2);
+                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='0' "));
+                if ($chk_exsit > 0) {
+                    db_query("update {question_cat} set scat='$ins2' where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "'");
+                } else {
+                    db_query("insert into {question_cat} set qid='$ins_id',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
+                }
+            }
+        }
+        ///category 3rd level
+        if (!empty($q_sscat)) {
+            $cat3 = $q_sscat;
+            foreach ($cat3 as $ins3) {
+                $fetch = load_parent_cat($ins3, 3);
+                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "' AND sscat='0'"));
+                if ($chk_exsit > 0) {
+                    db_query("update {question_cat} set sscat='$ins3'  where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
+                } else {
+                    db_query("insert into {question_cat} set qid='$ins_id',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
+                }
+            }
+        }
+/// cateogry ends
+        //check dupe if so flag it
+        chk_dupe($q_quest, $ins_id);
+        //url alias
+        $dst = clean_url(myTruncate($q_quest, 100, ''), '', '-', $ins_id);
+
+
+        //forum
+
+        $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$ins_id',type='1',uid='$user->uid',title='Discuss about this question',private='0' ");
+
+
+        increasepoints('1', $ins_id, '0');
+        //for url alias
+        $url = 'qlite/view/' . $ins_id;
+        $update = db_query("update {question} set url='" . $dst . "' where qid='" . $ins_id . "'");
+        $urlins = db_query("insert INTO {url_alias} set src='" . $url . "',dst='" . $dst . "'");
+
+        for ($i = 1; $i <= $ans_cnt; $i++) {
+            $name = "q_ans" . $i;
+            if (!empty($$name)) {
+                $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, $$name);
+            }
+        }
+
+        if ($q_tag != '') {
+
+            $q_tag = explode(',', $q_tag);
+
+            //its in quset_lite.module
+            process_tags($q_tag, $ins_id, 0);
+        }
+
+        if ($result)
+            $output = drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
+'), $type = 'success');
+        unset($_SESSION['post']);
+        $_SESSION['post'] = '';
+        // drupal_goto("question");
+        send_qnotify($ins_id);
+        echo '<script>window.parent.location.href="' . $gSitePath . $dst . '";</script>';
+    } else {
+        drupal_get_messages($type = 'error', $clear = 'TRUE');
+        $_SESSION['post'] = $_POST;
+        drupal_set_message($message = '<li>Sorry, Following required fields are Empty!</li>', $type = 'error');
+
+        if (empty($q_quest))
+            drupal_set_message($message = '<li>Issue should not be empty!</li>', $type = 'error');
+
+        if (empty($q_ans1) || empty($q_ans2))
+            drupal_set_message($message = '<li>Minimum 2 options are required!</li>', $type = 'error');
+
+//        if (empty($cat1))
+//            drupal_set_message($message = '<li>Main Category should not be Empty!</li>', $type = 'error');
+
+
+        drupal_goto("question/add");
+    }
+    if (!empty($output['error'])) {
+        echo implode(" ", $output['error']);
+    }
+}
+
+function send_qnotify($qid='') { ///vijay important comented
+    global $gSitePath, $user, $gDocPath, $base_root, $base_url;
+
+    //inline site notify
+    $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('" . $user->uid . "','1','1','" . $qid . "' ) ");
+
+	/*RAM HEARTBEAT MODULE*/
+	$qid_url = db_query("select * from {question} where qid='$qid'");
+    $question_values = db_fetch_array($qid_url);
+			if (isset($question_values)) {
+				$question_urlff = $question_values['url'];
+				$qtion = $question_values['question'];
+				$ctxt = $question_values['context'];
+			}
+	
+    $message_id = 'Add_question';
+    $variables = array(
+      '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
+      //'@node_type' => 'page',
+      '@question_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
+    );
+		heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+		//echo 'test';
+		//die;
+	/*RAM HEARTBEAT MODULE*/
+    ////////////mail notication for user follwers to me//////////////////////////////////////
+
+    hm_mails($qid, '', 'add_question');
+    /* $sel_listf = "select * from follower  where follower_id='".$user->uid."'   ";
+      $rs_followerf = db_query($sel_listf);
+      while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
+
+      $sellist = "select * from users where uid='".$follower_resultfuser->uid."'";
+      $res_users = db_query($sellist);
+      $usert = db_fetch_object($res_users);
+      $to = $usert->mail;
+
+      if ($usert->notify_etype == 1) {
+
+      ///////////email for following ///////////////
+
+
+      $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='4'";
+      $rs_mgmt = db_query($sel_user_cmt);
+      $list_content = db_fetch_object($rs_mgmt);
+      $subject_proj = $list_content->subject;
+      $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+      $contentm = str_replace("#anothername#", $user->name, $contentm);
+      $qdetails=load_question($qid);
+      // print_r($qdetails);
+      $contentm= str_replace("#question#",rtrim($qdetails['question'],'?').'?', $contentm);
+      $contentm= str_replace("#link#",$gSitePath.$qdetails['url'], $contentm);
+      //echo  $contentm;
+      $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+      }
+
+      } */
+}
+
+function chk_dupe($quest='', $qid='') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+            $words = explode(" ", $quest);
+
+            $words = array_filter($words, 'word_array_filter');
+            $words = array_filter($words);
+            $query = "SELECT q.question,q.context,u.name,q.date_added,q.url,q.qid FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
+            for ($i = 0; $i < count($words); $i++) {
+                $samples = " " . $words[$i] . "  ";
+                //echo $samples;
+                // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+                //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
+                if (!empty($words[$i]))
+                    $query .= " AND q.question LIKE CONVERT(_utf8 '%%%s%%' USING latin1 ) COLLATE latin1_swedish_ci";
+            }
+
+
+            $result = db_query($query, $words);
+
+            while ($coupon = db_fetch_object($result)) {
+                $rows[] = array(
+                    array('data' => l($coupon->question, $gSitePath . $coupon->url, array('attributes' => array('title' => t($coupon->context), 'class' => 'floatbox')))),
+                    array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+                    array('data' => ago($coupon->date_added)),
+                    array('data' => '<input type="radio" checked="checked" name="dupeq[]" value="' . $coupon->qid . '"/>'),
+                );
+            }
+
+    if (count($rows) > 0) {
+
+        $flagquery = "insert into question_flags(nodeid,uid,type,abuse_type) values ('" . $qid . "','" . $user->uid . "','question','Duped Question')";
+        db_query($flagquery);
+
+        $flagnotify = "insert into notification(uid,node_id,is_flag) values ('" . $user->uid . "','" . $qid . "',1)";
+        db_query($flagnotify);
+    }
+}
+
+
+
+function edit_question() {
+
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $output = '';
+
+
+    drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
+        type="text/javascript"></script>');
+
+
+    if (isset($_POST['update'])) {
+
+        question_edit_save($_POST);
+    }
+
+    $result = geonames_query('countryinfo');
+    foreach ($result->results as $country) {
+        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
+    }
+
+
+    $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+
+    $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='" . $nid . "' AND q.uid='" . $user->uid . "'");
+    $quest = db_fetch_object($result);
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+    $output .= '
+		<script type="text/javascript">
+		
+					
+			function get_subcat(sid,divid,level){
+			
+										var foo = [];
+										$(sid).getSelected().each(function(number,i){
+										if(number.value!=\'\'){
+										  foo[i] =number.value;
+												}
+											});
+										var foo = foo.filter(function(item, index){
+    return item > 0;
+});
+			  						 var ids = foo.toString();
+			   					
+			  							if(level==1){
+									$(\'cat1\').set(\'value\',ids);
+									$(\'chg_sscat\').fade(\'out\');
+										}
+									
+									if(level==2){
+									
+									$(\'cat2\').set(\'value\',ids);
+									$(\'chg_sscat\').fade(\'in\');
+										}
+									
+									if(level==3)
+									$(\'cat3\').set(\'value\',ids);
+									
+									if(ids.length>0){
+									
+									if(level<3){
+									var url = "' . $gSitePath . 'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':level,\'ids\':ids},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(divid).set(\'html\', response);
+											}
+									}).send();
+							}
+							}else{
+							 $(divid).set(\'html\',\'No Subcategory\');
+							}
+							}	
+						
+						
+									function setDefaultCountry() {
+  var countrySelect = document.getElementById("q_country");
+
+  for (i=0;i< countrySelect.length;i++) {
+			// the javascript geonamesData.js contains the countrycode
+			// of the userIp in the variable \'geonamesUserIpCountryCode\'
+			if (countrySelect[i].value == \'' . $quest->country . '\') {
+			  // set the country selectionfield
+				  countrySelect.selectedIndex = i;
+				 
+				get_state(\'' . $quest->country . '\');
+				
+			}else if(countrySelect[i].value == geonamesUserIpCountryCode) {
+			 countrySelect.selectedIndex = i;
+			 get_state(geonamesUserIpCountryCode);
+			}
+	}
+
+}
+		function setState(){
+		
+							var stid=\'' . $quest->state . '\';
+					if(stid!=""){
+								 var stateSelect = document.getElementById("q_state");
+								
+							  for (i=0;i< stateSelect.length;i++) {
+								// the javascript geonamesData.js contains the countrycode
+								// of the userIp in the variable \'geonamesUserIpCountryCode\'
+								if (stateSelect[i].value == \'' . $quest->state . '\') {
+								  // set the country selectionfield
+									  stateSelect.selectedIndex = i;
+									 
+									get_city(stid);
+								}
+								
+					}
+				  }
+		}
+		
+		function setCity(){
+		
+							var cid=\'' . $quest->city . '\';
+					if(cid!=""){
+								 var citySelect = document.getElementById("q_city");
+							
+							  for (i=0;i< citySelect.length;i++) {
+								// the javascript geonamesData.js contains the countrycode
+								// of the userIp in the variable \'geonamesUserIpCountryCode\'
+								if (citySelect[i].value == cid) {
+								  // set the country selectionfield
+									  citySelect.selectedIndex = i;
+									 
+								}
+								
+					}
+				  }
+		}
+		
+		
+window.setTimeout("setDefaultCountry()", 1000);
+window.setTimeout("setState()", 2000);
+window.setTimeout("setCity()", 3000);
+window.addEvent(\'domready\', function(){
+setDefaultCountry();
+});
+							function get_state(code){
+						
+						var url = "' . $gSitePath . 'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':1,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_state\').set(\'html\', response);
+											}
+									}).send();
+						
+						 $(\'chg_city\').fade(\'out\');
+						}
+							function get_city(code){
+							 $(\'chg_city\').fade(\'in\');
+							var url = "' . $gSitePath . 'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':2,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_city\').set(\'html\', response);
+											}
+									}).send();
+							
+							}
+							
+						</script>
+		
+			
+			';
+
+    $output .= '<link rel="stylesheet" href="' . $gSitePath . 'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+<link rel="stylesheet" href="' . $gSitePath . 'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/tagging/tagging.css" type="text/css" />';
+    $output .= '<div id="err" class="clear"></div>
+<div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
+				<form id="question" name="question" method="post"   onsubmit="return validate_question();" ><table width="100%" border="0" align="center" style="border:0px;">
+  <tr>
+    <td width="0%" height="94">&nbsp;</td>
+    <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
+    <td colspan="4">
+        <input type="text" name="q_quest"  tabindex="1" id="q_quest" value="' . $quest->question . '"  size="150"/>    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="top">Context</td>
+    <td colspan="4">
+      <textarea   tabindex="2" name="q_context" id="q_context" cols="150" rows="2" style="border:1px solid #BBBBBB;
+
+width:775px; scroll;">' . $quest->context . '</textarea>  </td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+    <tr>
+    <td>&nbsp;</td>
+    <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
+    <td width="26%" valign="top"><table width="100%" border="0">';
+
+
+    $query = "SELECT * FROM {possible_answer} where qid='" . $nid . "' ";
+    $ans = ExecuteQuery($query, "select");
+    $i = 1;
+    $tab = 3;
+    foreach ($ans as $array) {
+
+        $output .= ' <tr>
+          <td>
+            <input  tabindex="' . $tab++ . '" name="q_ans' . $i . '" type="text" id="q_ans' . $i . '" size="40" value="' . $array['answer'] . '" />&nbsp;<input type="hidden" name="aid' . $i . '" value="' . $array['paid'] . '">
+          </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+          ';
+        $i++;
+    }
+
+
+    $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div></small><br/>
+	
+	<input type="button" name="Add"  tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="' . count($ans) . '"><input type="hidden" id="cat1" name="cat1" value="' . $quest->cid . '">&nbsp;<input type="hidden" id="cat2" name="cat2" value="' . $quest->scid . '">&nbsp; <input type="hidden"  id="cat3" name="cat3" value="' . $quest->sscid . '">
+	
+	</td>
+    <td colspan="3" valign="top" align="left"><table width="65%" border="0">
+		<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
+      <tr>
+        <td width="25%" align="left">
+        <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',this.value);" >
+        <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',this.value);"  size="5">
+        <option value="">Select Category</option>';
+    $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+    $ecat1 = explode(",", $quest->cid);
+
+    while ($list = db_fetch_object($client_select)) {
+        if (in_array($list->cat_id, $ecat1)) {
+            $sel = 'SELECTED="SELECTED"';
+        } else {
+            $sel = '';
+        }
+        $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+    }
+
+    $output .= '</select></td>
+        <td width="25%" align="left"><div id="chg_scat">
+     <select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5"><option value="">Select Sub Category</option>';
+    $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('" . $quest->cid . "')");
+    $ecat2 = explode(",", $quest->scid);
+    while ($list = db_fetch_object($client_select1)) {
+        if (in_array($list->cat_id, $ecat2)) {
+            $sel = 'SELECTED="SELECTED"';
+        } else {
+            $sel = '';
+        }
+
+
+        $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+    }
+    $output .= '</select></div></td>
+        <td width="25%" align="left"><div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
+    if ($quest->scid != '') {
+        $client_select2 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('" . $quest->scid . "')");
+        $ecat3 = explode(",", $quest->sscid);
+        while ($list = db_fetch_object($client_select2)) {
+            if (in_array($list->cat_id, $ecat3)) {
+                $sel = 'SELECTED="SELECTED"';
+            } else {
+                $sel = '';
+            }
+
+
+            $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+        }
+    }
+    $output .= '</select></div></td>
+      </tr>
+	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
+	  <tr> <td width="13%">&nbsp;<!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select></td>
+	
+    <td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
+	
+    <td width="43%">&nbsp;<!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td></tr>
+	
+    </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ <td width="13%" align="left" colspan="4">
+       </td>
+ 
+  </tr>
+  
+  <!--<tr>
+    <td>&nbsp;</td>
+    <td nowrap="nowrap">End Date<span title="This field is required." class="form-required">*</span></td>
+    <td><input type="text" name="q_edate" autocomplete="off" id="q_edate" value="' . $quest->enddate . '"  /> <small>Eg: yyyy-mm-dd</small></td>
+    <td><input name="invite_count" type="hidden" id="invite_count" value="1" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>-->
+  <tr><td colspan="6">';
+
+    $output .= '<tr><td colspan="6">' . get_tagging($quest->tag) . '</td></tr>';
+
+
+    $output .= ' </td></tr>
+  
+  <tr>
+    <td height="42">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="update" tabindex="21" id="save" value="Update" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="right"></td>
+  </tr>
+</table>
+</form>
+
+';
+
+    return $output;
+}
+
+function question_ajax() {
+    //print_r($_REQUEST['code']);
+    // print_r($action);
+	$ret = '';
+	global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    extract($_REQUEST);
+    if (isset($_REQUEST['ids'])) {
+        $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ($ids)");
+
+        $client_array = array();
+        $client_key = array();
+        while ($list = db_fetch_object($client_select)) {
+
+            $client_array[] = $list->cat_name;
+            $client_key[] = $list->cat_id;
+        }
+        if (!empty($client_array)) {
+
+            if ($action == 1) {
+                $qscat = "q_scat";
+                $tab = 15;
+            }
+            if ($action == 2) {
+                $qscat = "q_sscat";
+                $tab = 16; //	get_subcat(\'q_cat\',\'chg_scat\',1);
+            }
+            $ret = '<select class="listbox2" tabindex="' . $tab . '"  size="5" multiple="multiple" onchange="get_subcat(' . $qscat . ',\'chg_sscat\',' . ++$action . ');" id="' . $qscat . '" name="q_scat[]"> ';
+
+            for ($i = 0; $i < count($client_array); $i++) {
+
+                $ret .= '<option value="' . $client_key[$i] . '">' . stripslashes($client_array[$i]) . '</option>';
+            }
+            $ret .= "</select>";
+        } else {
+            $ret .= 'No Subcategory';
+        }
+        echo $ret;
+        exit;
+    } elseif (isset($_REQUEST['code'])) {
+        switch ($action) {
+
+            case 1: //get state
+                $query = array('query' => $_REQUEST['code'], 'maxRows' => '1', 'featureclass' => 'S');
+                $result = geonames_query('search', $query);
+                print_r($result->results[0]['url']);
+                // $cc=$result->results[0]['countrycode'];
+                // $result = geonames_query('countryinfo', $query);
+                // $result->results[0][geonameid];
+                $query = array('country' => $result->results[0]['countrycode']);
+                $result = geonames_query('countryinfo', $query);
+                $query = array('geonameid' => $result->results[0]['geonameid']);
+                $result = geonames_query('children', $query);
+
+                if ($select && $user->uid > 0) {
+                    $udet = load_user($user->uid);
+
+                    $setstate = $udet->state;
+                    $fcity = $udet->city;
+                }
+                $ret = "<script>
+                $(document).ready(function() {
+	$('select').change(function(){
+		alert('ID: ' + $(this).attr('id') + ' Value: ' + $(this).attr('value'));
+	});
+                    </script>";
+
+                $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
+                foreach ($result->results as $state) {
+                    $set = '';
+                    if (strpos(strtolower($setstate), strtolower($state['name']))) {
+                        $set = 'SELECTED=SELECTED';
+                    }
+                    $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'], $set, $state['name']);
+                }
+                $ret .= "</select>";
+                echo $ret;
+                break;
+                exit;
+            case 2: //get city
+
+                $query = array('geonameid' => $code);
+                $result = geonames_query('children', $query);
+                //print_r($result);
+
+                $ret = "<script>
+                $(document).ready(function() {
+	$('select').change(function(){
+		alert('ID: ' + $(this).attr('id') + ' Value: ' + $(this).attr('value'));
+	});
+                    </script>";
+
+                $ret = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city" > <option value="">--Cities--</option> ';
+                foreach ($result->results as $state) {
+
+                    $ret .= sprintf('<option value="%s">%s</option>', $state['geonameid'], $state['name']);
+                }
+                $ret .= "<option value='-1'>Others</option>";
+                $ret .= "</select>";
+                echo $ret;
+                break;
+		/*RELEATED QUESTIONS AUTO POPULATE*/		
+			case 3: 
+				echo get_releated_questions($_POST['question'],$_POST['cat_id'],$_POST['context']);                
+                break;				
+		/*RELEATED QUESTIONS AUTO POPULATE*/				
+        }
+    } elseif (isset($_REQUEST['tag'])) {
+
+        extract($_REQUEST);
+
+        $tarr = explode(' ', $tag);
+        $qns = explode(' ', $qns);
+        $tarr = array_merge($tarr, $qns);
+        $tarr = array_filter($tarr);
+        $tarr = array_unique($tarr);
+
+        $taglist = array();
+
+        foreach ($tarr as $list) {
+
+            $query = " SELECT * FROM {tagging} WHERE `tag` LIKE  '%$list%' LIMIT 0 , 15 ";
+            $result = ExecuteQuery($query, "select");
+            foreach ($result as $single) {
+                array_push($taglist, $single['tag']);
+            }
+        }
+        //for category taglist
+        if (!empty($cat1)) {
+
+            $exp = explode(',', $cat1);
+
+            $qids = array();
+            foreach ($exp as $scat) {
+
+                 $query = " SELECT * FROM {question}  ";
+               
+                $result = ExecuteQuery($query, "select");
+
+                foreach ($result as $man) {
+
+                    $getcat = explode(',', $man['cid']);
+
+                    if (in_array($scat, $getcat)) {
+
+                        array_push($qids, $man['qid']);
+                    }
+                }
+
+
+
+
+                $qids = array_unique($qids);
+                $qids = implode(',', $qids);
+
+                $query = " SELECT * FROM {tagging} WHERE `qid` IN ($qids) ";
+                $result = ExecuteQuery($query, "select");
+                foreach ($result as $single) {
+                    array_push($taglist, $single['tag']);
+                }
+            }
+        }
+
+
+        $taglist = array_filter($taglist);
+
+        $taglist = array_unique($taglist);
+        $taglist = implode(',', $taglist);
+        $taglist = explode(',', $taglist);
+        $taglist = array_filter($taglist);
+        $taglist = array_unique($taglist);
+
+        $tag = ' <label>
+            	                    Suggestions:
+            	                </label>';
+        if (!empty($taglist)) {
+            foreach ($taglist as $ins) {
+                $tag .= '	
+            	                    <div id="tagging-1" class="tagging-suggest-tag processed">
+            	                        ' . $ins . '</div>';
+            }
+        } else {
+
+            $tag .= '<b>No Suggestions</b>';
+        }
+
+        echo $tag;
+      
+    } elseif (isset($_REQUEST['ssearch'])) {
+
+
+        $input = trim(strtolower($_REQUEST['input']));
+        $stype = $_REQUEST['stype'];
+        $aResults = array();
+        if ($stype == '2') {
+
+
+            $query = "select u.uid as id,u.name as value,up.first_name as info from user_profile as up,users as u where u.uid=up.uid AND (u.name like '%%%s%%' OR up.real_name like '%%%s%%')  ORDER BY u.uid ASC ";
+            //  $aResults = ExecuteQuery($query, "select");
+          //  printf($query,$input,$input);die;
+            $Result = db_query($query,$input,$input);
+        } else {
+
+
+           // $query = "select qid as id,question as value,context as info from question where question like '%$input%' OR context like '%$input%' AND status='1' ORDER BY qid ASC ";
+          $query = "select qid as id,question as value,context as info from question where question like '%$input%' AND status='1' ORDER BY qid ASC ";
+          
+           
+            //$aResults = ExecuteQuery($query, "select");
+            $Result = mysql_query($query);
+        }
+        while ($ResultSet1 = mysql_fetch_array($Result)) {
+            $aResults[] = $ResultSet1;
+        }
+        //print_r($aResults);
+        // $aResults[]=array('id'=>'question_1','value'=>'Question vs','info'=>'currency','currency'=>'hello');
+        // $aResults[]=array('id'=>'question_2','value'=>'Question info','info'=>'currency','currency'=>'hello');
+        //print_r($aResults);
+        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+        header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+        header("Pragma: no-cache"); // HTTP/1.0
+
+        header("Content-Type: application/json");
+
+        echo "{\"results\": [";
+        $arr = array();
+        for ($i = 0; $i < count($aResults); $i++) {
+            $arr[] = "{\"id\": \"" . $aResults[$i]['id'] . "\", \"value\": \"" . mysql_real_escape_string($aResults[$i]['value']) . "\", \"info\": \"" . mysql_real_escape_string(myTruncate($aResults[$i]['info'], 20, '...')) . "\"}";
+        }
+        echo implode(", ", $arr);
+        echo "]}";
+    } elseif (isset($_REQUEST['sel_id'])) {
+
+
+        $link1 = '';
+        $link2 = '';
+        $link3 = '';
+        $cid = '';
+        $scid = '';
+        $cond = '';
+                    //print_r($_REQUEST);
+
+        $scid = $_REQUEST['scid'];
+        //$cond =" AND cat.scat=$scid";
+
+        if ($_REQUEST['sel_id'] != '') {
+        $cid=$_REQUEST['sel_id'];
+      $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='$cid' AND q.status='1' group by c.cat_id";
+       $listsscat = ExecuteQuery($sel_sscat, "select");
+
+                        foreach ($listsscat as $sscat) {
+                            $style = '';
+                            if ($sscid == $sscat['cat_id']) {
+                                $style = 'style="font-weight:bold"';
+                            }
+                            $sscat_qry = "SELECT count(distinct cat.scat) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond   group by q.qid";
+                          // $total_count3= db_result(db_query($sscat_qry));
+                            $total_count3= ExecuteQuery($sscat_qry, 'norows');
+
+                            $style = 'class="sublinks scat" style="padding-left:10px"';
+                            $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
+                        }
+                        echo $catlist;
+            
+        }
+    }else if(isset($_REQUEST['user_scat'])){
+
+         $cid=$_REQUEST['user_scat'];
+
+         $parent=load_parent_cat($cid,3);
+         $catid=(!empty($parent['lev1']))?$parent['lev1']:$parent['lev2'];
+         if(!empty($catid)){
+  echo $sel_sscat = "select * from category as c join follower as f on c.cat_id=f.cat_id where c.parent_id='$catid'";
+     // $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='$cid' AND q.status='1' group by c.cat_id";
+       $listsscat = ExecuteQuery($sel_sscat, "select");
+         
+                        foreach ($listsscat as $sscat) {
+                            $style = '';
+                            if ($sscid == $sscat['cat_id']) {
+                                $style = 'style="font-weight:bold"';
+                            }
+                      
+                            $sscat_qry = "select count(uid) from follower where cat_id='".$sscat['cat_id']."'";
+                           $total_count3= db_result(db_query($sscat_qry));
+
+
+                            $style = 'class="sublinks scat" style="padding-left:10px"';
+                            $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
+                        }
+                        echo $catlist;
+         }
+
+    }
+
+     exit;
+}
+
+//delete confirm
+function get_releated_questions($question,$cat_id,$context)
+{	
+	$where_condition = '';	
+	$words = explode(" ", $question);
+           $words = array_filter($words, 'word_array_filter');
+            $words = array_filter($words);
+	 for ($i = 0; $i < count($words); $i++) {
+		$wheres2 	= array();
+			if($words[$i]!='')
+			{
+				$wheres2[]  = "  q.question  LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+				$wheres[] 	= implode( ' OR ', $wheres2 );
+			}	
+		}
+	$where_condition = '((' . implode( ($match == 'all' ? ') AND (' : ') OR ('), $wheres ) . '))';
+	
+	if($context!='')
+	{
+		$words = explode(" ", $context);
+		 for ($i = 0; $i < count($words); $i++) {
+			$wheres2 	= array();
+				if($words[$i]!='')
+				{
+					$wheres2[]  = "  q.context  LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+					$wheres1[] 	= implode( ' OR ', $wheres2 );
+				}	
+			}	
+		$where_condition .= ' and ((' . implode( ($match == 'all' ? ') AND (' : ') OR ('), $wheres1 ) . '))';
+	}
+	if($cat_id!=0)
+	{
+		$where_condition .= " and qc.cat in ($cat_id)";
+	}	
+	$count = db_result(db_query("SELECT count(q.qid) FROM {question} q left join question_cat qc on qc.qid=q.qid  WHERE  $where_condition group by q.qid limit 10 " ));		
+	$rel_output.= '<div class="innerbox" style="width:auto;height:auto; overflow:auto; min-height:150px;"><ul>';
+	if (($count!=0)&&($question!=''))
+	{
+		$rel_count = 1;
+		$rel_query = db_query ( "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid limit 10 " );					
+		while ($rel_options = db_fetch_object($rel_query)) {		
+		  $rel_output.='<li><input style="width:15px;" type="checkbox" name="chk_rel_issue[]" id="chk_rel_issue[]" value="'.$rel_options->qid.'"> ';
+		  $rel_output .= substr($rel_options->question,0,50).'...</li>';
+		  $rel_count ++;
+		}
+	} else {
+		$rel_output.= 'No Releated question available';
+	}		
+	$rel_output.= '</ul></div>';
+	echo  $rel_output;	
+//echo "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid ";	
+	
+}
+function question_delete_confirm(&$form_state, $question) {
+    $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $form['nid'] = array('#type' => 'hidden', '#value' => $nid,);
+
+    $form['qid'] = array('#type' => 'hidden', '#value' => $question,);
+
+    return confirm_form($form, t('Are you sure you want to delete this question?'), isset($_GET['destination']) ? $_GET['destination'] : "question/", t('This action cannot be undone.'), t('Delete'), t('Cancel'));
+}
+
+// delete category
+function question_delete_confirm_submit($form, &$form_state) {
+
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $form_values = $form_state['values'];
+
+    if ($form_state['values']['confirm']) {
+        $qid = $form_state['values']['nid'];
+        discipline($uid, $qid);
+        $result = db_query("delete from {question} where qid='" . $qid . "' AND uid='" . $user->uid . "'");
+        db_query("delete from {possible_answer} where qid='" . $qid . "'");
+        if ($result)
+            drupal_set_message(t('Question has been deleted successfully.'), $type = 'success');
+        else
+            drupal_set_message(t('sorry error Occurs, Try Again! .'), $type = 'error');
+    }
+
+    drupal_goto("question/");
+}
+
+function admin_question() {
+
+    $strReturn = '';
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+
+    $type = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    switch ($type) {
+
+        case 'flagged':
+            drupal_set_title("Admin Flagged Questions");
+            $query = "SELECT *  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY q.date_added DESC LIMIT 0,15";
+            $list = ExecuteQuery($query, "select");
+
+
+            break;
+        case 'new':
+
+            $query = "SELECT *  FROM {question} ORDER BY date_added DESC LIMIT 0,15";
+            $list = ExecuteQuery($query, "select");
+
+
+            break;
+    }
+
+    $strReturn .= '<div class="clear-block">';
+    $strReturn .= '<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+    for ($i = 0; $i < count($list); $i++) {
+        $date = format_date_class($list[$i]['date_added'], date('Y-m-d H:i:s'));
+        $strReturn .= '<tr><td>';
+        $strReturn .= '<a href="' . $gSitePath . $list[$i]['url'] . '">' . $list[$i]['question'] . '</a>';
+        $strReturn .= '</td><td>' . $date . '</td><td>';
+
+        $strReturn .= '<!--<b>/</b>&nbsp;<a href="' . $gSitePath . 'question/edit/' . $list[$i]['qid'] . '">Edit</a>&nbsp;<b>/</b>-->&nbsp;<a href="' . $gSitePath . 'question/delete/' . $list[$i]['qid'] . '">Delete</a> ';
+
+        $strReturn .= '</td></tr>';
+    }
+
+    $strReturn .= '</table></div>';
+    if (count($list) < 1) {
+        drupal_set_message($message = 'No Questions Found!', $type = 'error');
+    }
+
+
+    echo $strReturn;
+}
+
+function admin_content() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $outputcontent = '';
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
+
+
+    $outputcontent = '	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery.ui.tabs.css" />
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery.ui.theme.css" />
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery.ui.base.css" />
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery.ui.core.css" />
+	
+    <script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        
+          <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+
+     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery.ui.accordion.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery.ui.tabs.js"></script>
+  
+  <script type="text/javascript">
+  jQuery(function() {
+    jQuery("#accordion").accordion();
+  });
+  </script>
+  <script type="text/javascript">
+  
+
+  jQuery(function() {
+  	var prevTab = 0;
+   jQuery("#tabs").tabs({ fx: { opacity: "toggle" }, cache: false,
+   show: function(event, ui) {
+  
+              prevTab = ui.index;
+	   jQuery("#ui-tabs-"+prevTab).empty();  //set the new previous tab index to the current index
+   }
+
+ });
+  });
+  </script>
+
+
+
+<div class="demo">
+
+<div id="tabs">
+  <ul>
+    <li><a href= "' . $gSitePath . 'admin/panelc/new">New Questions</a></li>
+    <li><a href= "' . $gSitePath . 'admin/panelc/flagged">Flagged Questions</a></li>
+    <li><a href= "' . $gSitePath . 'admin/panelc/user">Flagged Users</a></li>
+  </ul>
+
+</div>
+
+</div><!-- End demo -->
+
+  ';
+    return $outputcontent;
+}
+
+function admin_panel_tab() {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+    echo $output = '<div class="toolbarTabs">
+	<ul id="qTabs" class="tab-menu">
+	<li id="qTabs1Link" class="selected"><a>New</a></li>
+	<li id="qTabs2Link"><a>Flagged</a></li>
+	<li id="qTabs3Link" ><a>User</a></li>
+	</ul>
+	<div class="clear"></div>
+	</div>
+
+	<script type="text/javascript">
+	
+	MochaUI.initializeTabs("qTabs");
+	
+	$("qTabs1Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("admin-id"),
+	"url":       "' . $gSitePath . 'admin/panelc/new"
+	});
+	});
+	
+	$("qTabs2Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("admin-id"),
+	"url":       "' . $gSitePath . 'admin/panelc/flagged"
+	});
+	});
+	
+	$("qTabs3Link").addEvent("click", function(e){
+	MochaUI.updateContent({
+	"element":  $("admin-id"),
+	"url":       "' . $gSitePath . 'admin/panelc/user"
+	});
+	});
+	
+	</script>';
+}
+
+function panel_content($type = '') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $strReturn = '';
+    $strReturn .= '<div class="clear-block">';
+
+    if (empty($type)) {
+
+        $type = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    }
+
+    switch ($type) {
+
+        case 'flagged':
+            drupal_set_title("Admin Flagged Questions");
+            $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' ORDER BY f.flag_date DESC LIMIT 0,15";
+            
+            $list = ExecuteQuery($query, "select");
+
+            $strReturn .= '
+	<div id="qlist">
+	<form id="qadmin" method="post" action="' . $gSitePath . 'admin/panelc/flagsave" >
+	<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+            foreach ($list as $quest) {
+                $date = format_date_class($quest['flag_date'], date('Y-m-d H:i:s'));
+                $strReturn .= '<tr><td>';
+                $strReturn .= '<a href="' . $gSitePath . $quest['url'] . '">' . wordwrap($quest['question'], 80, '<br/>') . '</a>';
+                $strReturn .= '</td><td>' . $quest['abuse_type'] . '</td><td># Flag :' . $quest['fcnt'] . '</td>';
+                $strReturn .= '</td><td>' . $date . '</td><td>';
+
+                $strReturn .= '<!--<b>/</b>&nbsp;<a href="' . $gSitePath . 'question/edit/' . $quest['qid'] . '">Edit</a>&nbsp;<b>/</b><a href="' . $gSitePath . 'question/delete/' . $list[$i]['qid'] . '">Delete</a>-->&nbsp;<input type="checkbox" class="check-me" name="qids[]" value="' . $quest['qid'] . '" /> ';
+
+                $strReturn .= '</td></tr>';
+            }
+
+
+            if (count($list) < 1) {
+                //  drupal_set_message($message = 'No Questions Found!', $type = 'error');
+                $strReturn .= ' <div class="error" align="left" >No Questions Found!</div> ';
+            } else {
+
+                $strReturn .= '</table>
+					<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
+	<br/>
+	<div align="left" style="width:100%" ><input type="hidden" id="actions" name="actions" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
+	</div></form></div>';
+            }
+            break;
+        case 'flagsave':
+
+            echo $msg=moderator_flag_save();
+
+            panel_content('flagged');
+            exit;
+            break;
+
+
+        case 'new':
+
+            $query = "SELECT *  FROM {question} where status='0' ORDER BY date_added DESC LIMIT 0,15";
+            $list = ExecuteQuery($query, "select");
+
+            $strReturn .= '
+	<div id="qlist">
+	<form id="qadmin" method="post" action="' . $gSitePath . 'admin/panelc/save" >
+	<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+            for ($i = 0; $i < count($list); $i++) {
+                $date = format_date_class($list[$i]['date_added'], date('Y-m-d H:i:s'));
+                $strReturn .= '<tr><td>';
+                $strReturn .= '<a href="' . $gSitePath . $list[$i]['url'] . '">' . wordwrap($list[$i]['question'], 80, '<br/>') . '</a>';
+                $strReturn .= '</td><td>' . $date . '</td><td>';
+
+                $strReturn .= '<!--<b>/</b>&nbsp;<a href="' . $gSitePath . 'question/edit/' . $list[$i]['qid'] . '">Edit</a>&nbsp;<b>/</b><a href="' . $gSitePath . 'question/delete/' . $list[$i]['qid'] . '">Delete</a>-->&nbsp;<input type="checkbox" class="check-me" name="qids[]" value="' . $list[$i]['qid'] . '" /> ';
+
+                $strReturn .= '</td></tr>';
+            }
+
+
+            if (count($list) < 1) {
+                //  drupal_set_message($message = 'No Questions Found!', $type = 'error');
+                $strReturn .= ' <div class="error" align="left" >No Questions Found!</div> ';
+            } else {
+
+                $strReturn .= '</table>
+				<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
+	<br/><div align="left" style="width:100%" ><input type="hidden" id="actions" name="actions" value="1"/><input type="submit"  value="Approve"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
+	</div></form></div>';
+            }
+            break;
+        case 'save':
+
+
+           echo $msg=moderator_new_save($_REQUEST['qids']);
+
+            panel_content('new');
+            exit;
+            break;
+        case 'user':
+            $query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=u.uid AND type='user' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {user_profile} as u  on f.nodeid=u.uid where f.type='user' ORDER BY f.flag_date DESC LIMIT 0,15";
+            $list = ExecuteQuery($query, "select");
+
+            $strReturn .= '
+	<div id="qlist">
+	<form id="qadmin" method="post" action="' . $gSitePath . 'admin/panelc/ufsave" >
+	<table width="98%" border="1" cellspacing="5" cellpadding="5">';
+            foreach ($list as $quest) {
+                $date = format_date_class($quest['flag_date'], date('Y-m-d H:i:s'));
+                $strReturn .= '<tr><td>';
+                $strReturn .= '<a href="#">' . wordwrap($quest['real_name'], 80, '<br/>') . '</a>';
+                $strReturn .= '</td><td>' . $quest['abuse_type'] . '</td><td># Flag :' . $quest['fcnt'] . '</td>';
+                $strReturn .= '<td>' . $date . '</td><td>';
+
+                $strReturn .= '<!--<b>/</b>&nbsp;<a href="' . $gSitePath . 'question/edit/' . $quest['qid'] . '">Edit</a>&nbsp;<b>/</b><a href="' . $gSitePath . 'question/delete/' . $list[$i]['qid'] . '">Delete</a>-->&nbsp;<input type="checkbox" class="check-me" name="qids[]" value="' . $quest['fid'] . '" /> ';
+
+                $strReturn .= '</td></tr>';
+            }
+
+
+            if (count($list) < 1) {
+                //  drupal_set_message($message = 'No Questions Found!', $type = 'error');
+                $strReturn .= ' <div class="error" align="left" >No Flagged User(s) Found!</div> ';
+            } else {
+
+                $strReturn .= '</table>
+					<br/><div id="showbox" align="left" style="width:100%;display:none"><label for="reporttext"><b>Send Report Message :</b></label><br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea></div>
+	<br/>
+	<div align="left" style="width:100%" ><input type="hidden" id="actions" name="actions" value="1"/><input type="submit"  value="Ignore"/>&nbsp; <input onclick="admin_reject(0);" type="button" value="Reject"/>&nbsp; <span onclick="checkall(1);">Check All</span>&nbsp;<span onclick="checkall(0);">Uncheck All</span></div>
+	</div></form></div>';
+            }
+
+            break;
+        case 'ufsave':
+
+            $qids = implode(',', $_REQUEST['qids']);
+            if ($_REQUEST['actions']) {
+
+                $query = db_query("delete  from {question_flags} where type='user' AND fid in ($qids)");
+                echo '<div class="success">User(s) updated successfully!</div>';
+            } else {
+                $query = db_query("update  {user} set status='0' where uid in ($qids)");
+                flag_user_mail($_REQUEST['qids']);
+                echo '<div class="success">User(s) updated successfully!</div>';
+            }
+
+            panel_content('user');
+            exit;
+
+
+            break;
+    }
+
+
+    echo $strReturn;
+}
+
+
+
+
+
+
+
+function moderate_user() {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderate.js');
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
+
+
+    // $seldonar = "select count(nodeid) as cnt ,f.nodeid from question_flags as f   where f.type='question'   group by nodeid";
+    $seldonar = "select count(f.nodeid) as cnt ,f.nodeid from question_flags as f join question as q on f.nodeid=q.qid where f.type='question'   group by nodeid";
+
+    $res_donar = db_query($seldonar);
+    $moduser = '<div id="nlist"></div>
+	<form id="notify" method="post" action="' . $gSitePath . 'admin/notifymail" >
+        <div id="list"><table width="100%" border="1">
+  <tr>
+    <td>Question </td>
+    <td>Flagged </td>
+    <td>Question Author </td>
+	 <td>Status</td>
+    <td></td>
+  </tr>';
+    while ($don = db_fetch_object($res_donar)) {
+        // $sequest = "select * from question where qid='".$don->nodeid."'";
+        $sequest = "select * from question as q join question_flags as f on q.qid=f.nodeid where q.qid='" . $don->nodeid . "'";
+        $res_quest = db_query($sequest);
+        $qlist = db_fetch_object($res_quest);
+        // $ss=$qlist->question;
+        $sellist = "select * from users where uid='" . $qlist->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $uname = $usert->name;
+        if ($user->uid != $qlist->uid) {
+            if ($usert->status == '0') {
+                $blockedst = "Blocked";
+            }
+            $moduser .= '<tr>
+    <td>' . $qlist->question . '</td>
+    <td>' . $don->cnt . '</td>
+    <td>' . $uname . ' </td>
+	 <td>' . $blockedst . ' </td>
+    <td><input type="checkbox" class="check-user" name="us_id[]" value="' . $don->nodeid . '" /> </td>
+  </tr>';
+        }
+    }
+    $moduser .= '<tr><td><div id="showbox" align="left" style="width:100%;display:none">
+      <label for="reporttext"><b>Send Warning Message :</b></label>
+      <br/><textarea name="reporttext" cols="55" row="17" id="reporttext"></textarea>
+      </div></td></tr>';
+    $moduser .= ' </table></div>
+        <div id="showbox_user" align="left" style="width:100%;display:none"><label for="warn_msg"><b>Send Warning Message :</b></label><br/>
+        <textarea name="warn_msg" cols="55" row="17" id="warn_msg"></textarea></div>
+        <div><input type="hidden" id="action_value" name="action_value" value="warning_message"/>
+        <input type="button" onclick="admin_sendwarning(1);"  value="Send warning message"/>&nbsp; <input onclick="send_suspend(0);" type="button" value="Suspend User"/>
+        </div>';
+    return $moduser;
+}
+
+function moderate_user_mail() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $us_id = implode(',', $_REQUEST['us_id']);
+    $idr = $_REQUEST['us_id'];
+    //if ($_REQUEST['action_value']) {
+    // echo count($_REQUEST['us_id']);
+    //exit;
+    if ($_REQUEST['reporttext'] != '') {
+        foreach ($idr as $idd) {
+            $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$idd' ");
+            $det = db_fetch_object($query);
+            quest_mail_warning($det->uid);
+            db_query("delete from question_flags where nodeid='$idd'");
+        }
+        //echo '<div class="success">Warning Message Send!</div>';
+    } else {
+
+        foreach ($idr as $idd) {
+            $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$us_id' ");
+            $det = db_fetch_object($query);
+            $query_block = db_query("update {users} set status='0' where uid='$det->uid'");
+        }
+        echo '<div class="success">Suspended  successfully!</div>';
+        quest_mail($_REQUEST['us_id']);
+    }
+}
+
+function quest_mail($qids = '') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality suspended Your account  ';
+    $warn = $_REQUEST['warn_msg'];
+    foreach ($qids as $id) {
+
+
+        $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
+        $det = db_fetch_object($query);
+
+        $to = $det->mail;
+        $msg = '<br/>Question : ' . $det->question . ' ' . $warn . '<br/>';
+        if (!empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+    }
+    return true;
+}
+
+function quest_mail_warning($qids = '') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Warning Mail for Flagged question of yours  ';
+    $warn = 'Has been Flagged Many times, This is warning message from Heardmentality .If this continues we will block Your account';
+    foreach ($qids as $id) {
+
+
+        $query = db_query("select u.mail,u.uid,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
+        $det = db_fetch_object($query);
+
+        $to = $det->mail;
+        $insert_notify = db_query("insert into notification (uid,admin_warning,is_user,node_id) values('" . $det->uid . "','1','1','" . $det->uid . "' ");
+        $msg = '<br/>Question : ' . $det->question . ' ' . $warn . '<br/>';
+        if (!empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+    }
+    return true;
+}
+
+function moderate_quest() {
+
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
+    drupal_add_js(drupal_get_path('theme', 'newtheme') . '/floatbox/floatbox.js');
+    drupal_add_js(drupal_get_path('theme', 'newtheme') . '/floatbox/options.js');
+    drupal_add_css(drupal_get_path('theme', 'newtheme') . '/floatbox/floatbox.css');
+
+    $start = '';
+    $lkr = '';
+    if (isset($_REQUEST['Inactive'])) {
+
+        $ids = implode(',', $_REQUEST['qidsl']);
+        if (!empty($ids)) {
+            db_query("update {question} set status='0' where qid in ($ids)");
+
+            drupal_set_message($message = 'Question InActivated  successfully!', $type = 'success');
+            question_status_mail($ids, 'inactive');
+            question_status_mail_voters($ids, 'inactive');
+            question_status_mail_suggest($ids, 'inactive');
+        } else {
+
+            drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');
+        }
+    }
+
+
+    if (isset($_REQUEST['Active'])) {
+
+        $ids = implode(',', $_REQUEST['qidsl']);
+        if (!empty($ids)) {
+            db_query("update {question} set status='1' where qid in ($ids)");
+
+            drupal_set_message($message = 'Question Activated  successfully!', $type = 'success');
+            question_status_mail($ids, 'active');
+            question_status_mail_voters($ids, 'active');
+            question_status_mail_suggest($ids, 'active');
+        } else {
+
+            drupal_set_message($message = 'Sorry no Waves Selected', $type = 'error');
+        }
+    }
+
+
+    $page_name = "list";
+    if (isset($_GET['start'])) {
+        $start = $_GET['start'];
+    }
+
+    /* if(strlen($start) > 0 and !is_numeric($start)){
+      echo "Data Error";
+      exit;
+      }
+     */
+
+    $eu = ($start - 0);
+    $limit = 10;
+    $this1 = $eu + $limit;
+    $back = $eu - $limit;
+    $next = $eu + $limit;
+
+    $modquest .= '<script type="text/javascript">
+function checkall(val){
+jQuery(\'.check-me\').each(function(){
+jQuery(this).attr(\'checked\',val);
+});
+
+}
+
+</script>
+<script type="text/javascript">
+function confirmation() {
+            if(confirm("Are you sure want to delete?")){
+            return true;
+	}else
+        {
+            return false;
+        }
+}
+
+</script>
+
+	<form id="notify" method="post" action="" ><table width="100%" border="1">
+  <tr>
+    <td>Question </td>
+ 
+    <td>Question Author </td>
+	 <td>Status</td>
+    <td></td>
+  </tr>';
+
+
+    $sel = "SELECT * FROM {question} order by qid desc";
+
+    $user_qry = db_query($sel);
+
+    $sel_count = db_result(db_query("SELECT COUNT(*) FROM {question}    "));
+    $sel .= " limit  $eu, $limit";
+
+    $sel_search = db_query($sel);
+
+    while ($qid_result = db_fetch_object($sel_search)) {
+        if ($qid_result->status == '1') {
+            $blockedst = 'Active';
+        } else {
+
+            $blockedst = 'Inactive';
+        }
+        $sellist = "select * from users where uid='" . $qid_result->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        if ($usert != '') {
+            $uname = $usert->name;
+        } else {
+            $uname = '';
+        }
+        $modquest .= '<tr>
+	<td><a href="' . $gSitePath . $qid_result->url . '" target="_blank">' . wordwrap($qid_result->question, "50", "<br/>\n") . '</a></td>
+	
+	<td>' . $uname . ' </td>
+	<td>' . $blockedst . ' </td>
+            
+	<td><input type="checkbox" class="check-me" name="qidsl[]" value="' . $qid_result->qid . '" /> <a onclick="return loadtab(\'' . $gSitePath . 'admin/dupe/questions/' . $qid_result->qid . '\',\'Dupe questions\')">Dupe </a> <a href="' . $gSitePath . 'admin/edit/questions/' . $qid_result->qid . '" >Edit </a> / <a href="' . $gSitePath . 'admin/question/list?del=' . $qid_result->qid . '" onclick="return confirmation()"> Delete</a>/<a href="' . $gSitePath . $qid_result->url . '" target="_blank"> View </a>  </td>
+	</tr>';
+    }
+
+
+    $modquest .= '</table><div><input type="submit" name="Inactive" value="Inactive" />   <input type="submit" name="Active" value="Active" /><a href="JavaScript:void(0);" onclick="return checkall(1)">Check All</a>&nbsp;<a href="JavaScript:void(0);" onclick="return checkall(0);">Uncheck All</span>';
+    ///////////////////////////////
+    if ($sel_count > $limit) { // Let us display bottom links if sufficient records are there for paging
+        /////////////// Start the bottom links with Prev and next link with page numbers /////////////////
+        $modquest .= "<table align = 'center' width='100%'><tr><td  align='left' width='30%'>";
+        //// if our variable $back is equal to 0 or more then only we will display the link to move back ////////
+        if ($back >= 0) {
+            $modquest .= "<a href='$page_name?start=$back&$lkr'><font face='Verdana' size='2'>PREV</font></a>";
+        }
+        //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
+        $modquest .= "</td><td align=center width='30%'>";
+        $i = 0;
+        $l = 1;
+        for ($i = 0; $i < $sel_count; $i = $i + $limit) {
+            if ($i <> $eu) {
+                $modquest .= " <a href='$page_name?start=$i&$lkr'><font face='Verdana' size='2'>$l</font></a> ";
+            } else {
+                $modquest .= "<font face='Verdana' size='4' color=red>$l</font>";
+            } /// Current page is not displayed as link and given font color red
+            $l = $l + 1;
+        }
+
+
+        $modquest .= "</td><td  align='right' width='30%'>";
+        ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
+        if ($this1 < $sel_count) {
+            $modquest .= "<a href='$page_name?start=$next&$lkr'><font face='Verdana' size='2'>NEXT</font></a>";
+        }
+        $modquest .= "</td></tr></table>";
+    }
+
+    if ($sel_count == 0) {
+        $modquest .= '<b>No Search Results </b>';
+    }
+
+
+    if (isset($_REQUEST['del'])) {
+
+
+        question_deleted_mail($_REQUEST['del']);
+        question_deleted_mail_voters($_REQUEST['del']);
+        question_deleted_mail_suggest($_REQUEST['del']);
+
+        $del_ques = db_query("Delete  FROM {question} where qid='" . $_REQUEST['del'] . "'");
+        $del_answ = db_query("Delete  FROM {possible_answer} where qid='" . $_REQUEST['del'] . "'");
+        $del_sansw = db_query("Delete  FROM {suggest_answer} where qid='" . $_REQUEST['del'] . "'");
+
+
+        $del_possvote = db_query("Delete  FROM {possible_answer_vote} where qid='" . $_REQUEST['del'] . "'");
+        $del_quescat = db_query("Delete  FROM {question_cat} where qid='" . $_REQUEST['del'] . "'");
+        $del_quesflag = db_query("Delete  FROM {question_flags} where qid='" . $_REQUEST['del'] . "'");
+        $del_queslike = db_query("Delete  FROM {question_like} where qid='" . $_REQUEST['del'] . "'");
+        $del_sugans = db_query("Delete  FROM {suggest_answer} where qid='" . $_REQUEST['del'] . "'");
+        $del_sugansvote = db_query("Delete  FROM {suggest_answer_vote} where qid='" . $_REQUEST['del'] . "'");
+        $del_tblpoints = db_query("Delete  FROM {tbl_user_points} where qid='" . $_REQUEST['del'] . "'");
+        $del_userans = db_query("Delete  FROM {user_answers} where qid='" . $_REQUEST['del'] . "'");
+        $del_userbadges = db_query("Delete  FROM {user_badges} where qid='" . $_REQUEST['del'] . "'");
+
+
+
+        drupal_goto('admin/question/list');
+    }
+
+    return $modquest;
+}
+
+////////////// active and inactive send mail vijay start here///////////
+
+function question_status_mail($qaid, $status) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    if ($status == 'active')
+        $status = 'Activated';
+    if ($status == 'inactive')
+        $status = 'Deactivated';
+    $from = variable_get('site_mail');
+    $subject_proj = "Heardmentality Question Has Been $status ";
+    // $delmsg = 'Has been Deleted By Headmentality admin';
+
+    $query = db_query("select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    $det = db_fetch_object($query);
+
+    $to = $det->mail;
+    //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
+    $rs_mgmt = db_query($sel_user_cmt);
+    $list_content = db_fetch_object($rs_mgmt);
+
+    $contentm = str_replace("#uname#", $det->name, $list_content->content);
+    // $contentm = str_replace("#anothername#",$user->name, $contentm);
+    $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+    //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+    $contentm = str_replace("#content#", 'Question ' . $status . ' By Headmentality admin', $contentm);
+    //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+    $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+    db_query($ins_qry);
+    /*  if (! empty($to)) {
+      $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+      } */
+    return true;
+}
+
+function question_status_mail_voters($qaid, $status) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    if ($status == 'active')
+        $status = 'Activated';
+    if ($status == 'inactive')
+        $status = 'Deactivated';
+
+    $from = variable_get('site_mail');
+    $subject_proj = "Heardmentality question  Has Been $status which You have  answered";
+    // $delmsg = 'Has been Deleted By Headmentality admin';
+
+    $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
+
+        $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+        // $contentm = str_replace("#anothername#",$user->name, $contentm);
+        $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+        //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+        $contentm = str_replace("#content#", 'Question ' . $status . ' By Headmentality admin', $contentm);
+        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+        db_query($ins_qry);
+
+
+        /* if (! empty($to)) {
+
+          $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+          } */
+    }
+    return true;
+}
+
+function question_status_mail_suggest($qaid, $status) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    if ($status == 'active')
+        $status = 'Activated';
+    if ($status == 'inactive')
+        $status = 'Deactivated';
+
+    $from = variable_get('site_mail');
+    $subject_proj = "Heardmentality question  Has Been $status which You have  answered";
+    // $delmsg = 'Has been Deleted By Headmentality admin';
+
+    $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        // $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
+
+        $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+        // $contentm = str_replace("#anothername#",$user->name, $contentm);
+        $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+        //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+        $contentm = str_replace("#content#", 'Question ' . $status . ' By Headmentality admin', $contentm);
+
+        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+        db_query($ins_qry);
+        /* if (! empty($to)) {
+
+          $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+          } */
+    }
+    return true;
+}
+
+////////////// active and inactive send mail vijay end here////////////
+//////// delete send mail vijay start here/////////////
+function question_deleted_mail($qaid) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject_proj = 'Heardmentality Question Has Been Deleted ';
+    // $delmsg = 'Has been Deleted By Headmentality admin';
+
+    $query = db_query("select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    $det = db_fetch_object($query);
+
+    $to = $det->mail;
+    //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+
+
+    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
+    $rs_mgmt = db_query($sel_user_cmt);
+    $list_content = db_fetch_object($rs_mgmt);
+
+    $contentm = str_replace("#uname#", $det->name, $list_content->content);
+    // $contentm = str_replace("#anothername#",$user->name, $contentm);
+    $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+    //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+    $contentm = str_replace("#content#", 'Question deleted By Headmentality admin', $contentm);
+
+    //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+    $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+    db_query($ins_qry);
+    /*  if (! empty($to)) {
+      $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+      } */
+    return true;
+}
+
+function question_deleted_mail_voters($qaid) {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject_proj = 'Heardmentality question  Has Been Deleted which You have  answered  ';
+    // $delmsg = 'Has been Deleted By Headmentality admin';
+
+    $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        //$msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
+
+        $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+        // $contentm = str_replace("#anothername#",$user->name, $contentm);
+        $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+        //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+        $contentm = str_replace("#content#", 'Question deleted By Headmentality admin', $contentm);
+        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+        db_query($ins_qry);
+
+
+        /* if (! empty($to)) {
+
+          $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+          } */
+    }
+    return true;
+}
+
+function question_deleted_mail_suggest($qaid) {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject_proj = 'Heardmentality question  Has Been Deleted which You have  answered  ';
+    // $delmsg = 'Has been Deleted By Headmentality admin';
+
+    $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        // $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='8'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
+
+        $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+        // $contentm = str_replace("#anothername#",$user->name, $contentm);
+        $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+        //$contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+        $contentm = str_replace("#content#", 'Question deleted By Headmentality admin', $contentm);
+
+        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','" . $from . "','" . $to . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+        db_query($ins_qry);
+        /* if (! empty($to)) {
+
+          $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+          } */
+    }
+    return true;
+}
+
+//////// delete send mail vijay end here/////////////
+
+
+
+/* function question_deleted_mail($qaid) {
+
+  global $gSitePath,$user,$gDocPath,$base_root;
+
+  $from = variable_get('site_mail');
+  $subject = 'Heardmentality Question Has Been Deleted ';
+  $delmsg = 'Has been Deleted By Headmentality admin';
+
+  $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+  $det = db_fetch_object($query);
+
+  $to = $det->mail;
+  $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+  if (! empty($to)) {
+
+  $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+  }
+
+
+  return true;
+  } */
+
+
+
+
+
+
+
+
+/* function question_deleted_mail_voters($qaid) {
+
+  global $gSitePath,$user,$gDocPath,$base_root;
+
+  $from = variable_get('site_mail');
+  $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
+  $delmsg = 'Has been Deleted By Headmentality admin';
+
+  $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+  while ($det = db_fetch_object($query)) {
+
+  $sellist = "select * from users where uid='".$det->uid."'";
+  $res_users = db_query($sellist);
+  $usert = db_fetch_object($res_users);
+  $to = $usert->mail;
+  $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+  if (! empty($to)) {
+
+  $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+  }
+
+  }
+  return true;
+  } */
+
+
+
+
+
+
+/* function question_deleted_mail_suggest($qaid) {
+
+  global $gSitePath,$user,$gDocPath,$base_root;
+
+  $from = variable_get('site_mail');
+  $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
+  $delmsg = 'Has been Deleted By Headmentality admin';
+
+  $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+  while ($det = db_fetch_object($query)) {
+
+  $sellist = "select * from users where uid='".$det->uid."'";
+  $res_users = db_query($sellist);
+  $usert = db_fetch_object($res_users);
+  $to = $usert->mail;
+  $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+  if (! empty($to)) {
+
+  $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+  }
+
+  }
+  return true;
+  } */
+
+
+
+
+
+function edit_questions() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $output = '<script type="text/javascript" src="http://jqueryui.com/js/jquery.js"></script>';
+    drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
+	
+
+    if (isset($_POST['update'])) {
+
+        question_edit_save_admin($_POST);
+    }
+
+    $result = geonames_query('countryinfo');
+    $optionlist .= '<option value="">Select country</option>';
+    foreach ($result->results as $country) {
+
+
+
+        $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+
+        //$result = db_queryd("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='".$nid."' ");
+        $left_qry = "SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='" . $nid . "'";
+        $result = db_query($left_qry);
+        $quest = db_fetch_object($result);
+
+
+
+        ///country list starts
+
+        $set = '';
+        if ($quest->country == $country['countryname']) {
+            $set = 'SELECTED';
+        }
+
+        $optionlist .= sprintf('<option value="%s" %s>%s</option>', $country['countryname'], $set, $country['countryname']);
+    }
+    /////////////state list start here /////////////////////////////
+    $query = array('query' => $quest->country, 'maxRows' => '1', 'featureclass' => 'S');
+    $result = geonames_query('search', $query);
+    // $cc=$result->results[0]['countrycode'];
+    // $result = geonames_query('countryinfo', $query);
+    // $result->results[0][geonameid];
+  //  echo $result->results[0]['countrycode'];
+    $query = array('country' => $result->results[0]['countrycode']);
+    $result = geonames_query('countryinfo', $query);
+    //print_r($result);
+    $query = array('geonameid' => $result->results[0]['geonameid']);
+   // print_r($query);
+    $result = geonames_query('children', $query);
+
+    /* if($select&&$user->uid>0){
+      $udet=load_user($user->uid);
+
+      $setstate=$udet->state;
+      $fcity=$udet->city;
+      } */
+
+    $ret = '<select tabindex="18" class="listbox2" style="width: 125px;"  onchange="get_city(this.value);" id="q_state" name="q_state"> <option value="">--States--</option>';
+    foreach ($result->results as $state) {
+        $set = '';
+        if ($quest->state == $state['geonameid']) {
+            $set = 'SELECTED=SELECTED';
+        }
+        /* if(strpos(strtolower($setstate),  strtolower($state['name']) )){
+          $set='SELECTED=SELECTED';
+          } */
+        $ret .= sprintf('<option value="%s" %s >%s</option>', $state['geonameid'], $set, $state['name']);
+    }
+    $ret .= "</select>";
+
+    /////////////state list end here //////////////////////////////
+    /////////// city list start here/////////////////
+
+    $query_city = array('geonameid' => $quest->state);
+    $result_city = geonames_query('children', $query_city);
+    //print_r($result);
+    $ret_city = '<select class="listbox2"  tabindex="19"  style="width: 125px;"  id="q_city" name="q_city"> <option value="">--Cities--</option> ';
+    foreach ($result_city->results as $state_city) {
+        $set = '';
+        if ($quest->city == $state_city['geonameid']) {
+            $set = 'SELECTED=SELECTED';
+        }
+        $ret_city .= sprintf('<option value="%s" %s>%s</option>', $state_city['geonameid'], $set, $state_city['name']);
+    }
+    $ret_city .= "<option value='-1'>Others</option>";
+    $ret_city .= "</select>";
+    $ret_city;
+    //////////// city list end here //////////////
+
+    $output .= '<script type="text/javascript">
+                var mpath=\'' . $gSitePath . '\';
+                    var spath=\'' . $gSitePath . '\';
+                    var cncode=\'' . $quest->country . '\';
+                    var ustate=\'' . $quest->state . '\';
+                    var setstate=\'' . $quest->state . '\';
+                        var setcity=\'' . $quest->city . '\';
+                            var admin=\'1\';
+		</script>
+			';
+
+    $output .= '<link rel="stylesheet" href="' . $gSitePath . 'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+<link rel="stylesheet" href="' . $gSitePath . 'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+
+        <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/jquery.multiSelect.js"></script>
+
+                <link rel="stylesheet" href="' . $gSitePath . drupal_get_path('module', 'question') . '/styles/jquery.multiSelect.css" type="text/css" />
+<script src="' . $gSitePath . drupal_get_path('module', 'question') . '/scripts/question.js" type="text/javascript"></script>';
+    $output .= '<div id="err" class="clear"></div>
+<div align="right"><span title="This field is required." class="form-required">*</span> Required Fields</div>
+				<form id="question" name="question" method="post"   onsubmit="return validate_question();" ><table width="100%" border="0" align="center" style="border:0px;">
+  <tr>
+    <td width="0%" height="94">&nbsp;</td>
+    <td width="14%">Question<span title="This field is required." class="form-required">*</span></td>
+    <td colspan="4">
+        <input type="text" name="q_quest"  tabindex="1" id="q_quest" value="' . $quest->question . '"  size="150"/>    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="top">Context</td>
+    <td colspan="4">
+      <textarea   tabindex="2" name="q_context" id="q_context" cols="150" rows="2" style="border:1px solid #BBBBBB;
+
+width:775px; scroll;">' . $quest->context . '</textarea>  </td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+    <tr>
+    <td>&nbsp;</td>
+    <td valign="top">Answer<span title="This field is required." class="form-required">*</span></td>
+    <td width="26%" valign="top"><table width="100%" border="0">';
+
+
+    $query = "SELECT * FROM {possible_answer} where qid='" . $nid . "' ";
+    $ans = ExecuteQuery($query, "select");
+    $i = 1;
+    $tab = 3;
+	$answer_count=1;
+    foreach ($ans as $array) {
+
+        $output .= ' <tr>
+          <td>
+            <input  tabindex="' . $tab++ . '" name="q_ans' . $i . '" type="text" id="q_ans' . $i . '" size="40" value="' . $array['answer'] . '" />&nbsp;<input type="hidden" name="aid' . $i . '" value="' . $array['paid'] . '">
+          </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+          ';
+		  $i++;
+		/*META TAG OPTION GENERATION*/
+		$radio_output .= '<tr>';	
+		$row_count=1;
+			$Spec_query1= db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+			while($Spec_result1=db_fetch_object($Spec_query1))
+			{
+				$answer_id=$array['paid'];
+				$option='';
+				$option.='<option  value="0">-</option>';
+				for($spec_count=$Spec_result1->spec_min_range;$spec_count<=$Spec_result1->spec_max_range;$spec_count++)
+				{			
+					/*PRE SELECT OPTION VALUE*/
+				$fetch_exist = db_result(db_query("select value from {possible_answer_spectrum} where qid='$nid' and possible_ans_id='$answer_id' and
+					political_spec_id='$Spec_result1->political_spec_id'"));
+					/*PRE SELECT OPTION VALUE*/					
+					
+					$selected	=	'';
+					if($fetch_exist==$spec_count)
+						$selected	=	'selected="selected"';
+
+					$option.='<option ' . $selected . ' value='.$spec_count.'>'.$spec_count.'</option>';
+				}	
+				$radio_output .='<td><select style="width:50px" name="sel_'.$answer_id.'_'.$Spec_result1->political_spec_id.'_'.$row_count.'" id="sel_'.$answer_id.'_'.$row_count.'">'.$option.'</select></td>';
+				$row_count++;
+			}	
+		$radio_output .= '</tr>';				
+		/*META TAG OPTION GENERATION*/
+					
+    }
+//<select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+    //<select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
+    $output .= '</table><div id="add_more"></div><div id="del_ans" style="display:none;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a><small><br/></div>
+	
+	<input type="button" name="Add"  tabindex="13" id="Add" onclick="add_ans();" value="Add Answer" /> <input type="hidden" name="ans_cnt" id="ans_cnt" value="' . count($ans) . '">
+	
+	</td>
+    <td colspan="3" valign="top" align="left">
+	<table width="65%" border="0">
+	<!--POSSIBLE META ANSWER-->
+	<tr><td colspan="3" valign="top" valign="top" align="left">
+		<table style="margin:0px;" cellspacing="0" cellpadding="0" border="0" width="100%">
+			<tr>';
+	$Spec_query = db_query("SELECT spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+	while($Spec_result=db_fetch_object($Spec_query))
+	{
+		$output .='<td style="width:75px;">'.$Spec_result->spec_name.'</td>';
+	}				
+	$output .= '</tr>';	
+	$output .= $radio_output.'
+		</table>
+	</td></tr>
+	<!--POSSIBLE META ANSWER-->
+	<tr>
+	<td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
+      <tr>
+        <td width="25%" align="left">
+
+
+
+  <select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1,this.value);"  size="5">
+        <option value="">Select Category</option>';
+    $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+    $ecat1 = explode(",", $quest->cid);
+   $qry_cat = "SELECT t.cat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $nid . "' group by t.cat";
+    $result_cat = db_query($qry_cat);
+
+
+    while ($quest_cat = db_fetch_object($result_cat)) {
+        $cat[] = $quest_cat->cat;
+    }
+
+//   print_r($cat);
+
+    foreach ($cat as $key => $value) {
+        if ($value == 0) {
+            unset($cat[$key]);
+        }
+    }
+    $kk = array_keys($cat);
+
+    $c = $kk[0];
+
+    while ($list = db_fetch_object($client_select)) {
+        if ($list->cat_id == $cat[$c]) {//888
+            $sel = 'SELECTED';
+        } else {
+            $sel = '';
+        }
+        /* if (in_array($list->cat_id, $ecat1)) {
+          $sel = 'SELECTED="SELECTED"';
+          } else {
+          $sel = '';
+          } */
+        $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+
+        $cate_id .= $cat[$c] . ",";
+        $c++;
+    }
+    $pcate_id = trim($cate_id, ",");
+    /* <select tabindex="14" title="Select sub category"  name="q_cat[]" id="q_cat" class="listbox2" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);" >
+      <option value="">Select Category</option>';
+      $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+      while ($list = db_fetch_object($client_select)) {
+      $output .= '<option value="'.$list->cat_id.'">'.stripslashes($list->cat_name).'</option>';
+
+      }
+
+      $output .= '</select> */
+    $output .= '</select>
+        </td>
+        <td width="25%" align="left">
+        <input type="hidden" id="cat1" name="cat1" value="' . $pcate_id . '">&nbsp;
+        <div id="chg_scat"><select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5">
+        <option value="">Select Sub Category</option>';
+     $cat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $pcate_id . ")";
+    $client_select1 = db_query($cat_qry);
+    $ecat2 = explode(",", $quest->scid);
+
+
+    $result_subcat = db_query("SELECT t.scat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $nid . "' group by t.scat");
+    while ($quest_subcat = db_fetch_object($result_subcat)) {
+        $subcat[] = $quest_subcat->scat;
+    }
+
+    foreach ($subcat as $keys => $values) {
+        if ($values == 0) {
+            unset($subcat[$keys]);
+        }
+    }
+    $kk1 = array_keys($subcat);
+    $sc = $kk1[0];
+    //print_r($subcat);
+    while ($liste = db_fetch_object($client_select1)) {
+
+        /* if (in_array($list->cat_id, $ecat2)) {
+          $sel = 'SELECTED="SELECTED"';
+          } else {
+          $sel = '';
+          } */
+        // echo $subcat[$sc].'-'.strlen($subcat[$sc]).'</br>';
+        //echo $liste->cat_id.'-'.strlen($liste->cat_id).'</br>';
+        $subcat = trim($subcat[$sc]);
+        if ($liste->cat_id==$subcat[$sc]){
+            $sele = 'SELECTED';
+        }
+        else {
+            $sele = '';
+        }
+
+
+        $output .= '<option value="' . $liste->cat_id . '" ' . $sele . '>' . stripslashes($liste->cat_name) . '</option>';
+
+        $subcate_id .= $subcat[$sc] . ",";
+        $sc++;
+    }
+    $psubcate_id = trim($subcate_id, ",");
+
+    $output .= '</select></div></td>
+   <td width="25%" align="left"><input type="hidden"  id="cat2" name="cat2" value="' . $psubcate_id . '">
+   <div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5">
+   <option value="">Select Sub Sub Category</option>';
+    // if ($quest->scid != '') {//now here
+    $scat_qry = "SELECT cat_id,cat_name FROM {category} where parent_id IN (" . $psubcate_id . ")";
+    $client_select2 = db_query($scat_qry);
+    $ecat3 = explode(",", $quest->sscid);
+
+    $result_ssubcat = db_query("SELECT t.sscat FROM {question} as q left join {question_cat} as t on q.qid=t.qid  where q.qid='" . $nid . "' group by t.scat");
+    while ($quest_ssubcat = db_fetch_object($result_ssubcat)) {
+        $ssubcat[] = $quest_ssubcat->sscat;
+    }
+
+    foreach ($ssubcat as $subkey => $subvalue) {
+        if ($subvalue == 0) {
+            unset($ssubcat[$subkey]);
+        }
+    }
+    $kk2 = array_keys($ssubcat);
+    //print_r($ssubcat);
+    $ssc = $kk2[0];
+    while ($listing = db_fetch_object($client_select2)) {
+
+        if ($listing->cat_id == $ssubcat[$ssc]) {
+
+            $sel_cat = 'SELECTED';
+        } else {
+            $sel_cat = '';
+        }
+        /* if (in_array($list->cat_id, $ecat3)) {
+          $sel = 'SELECTED="SELECTED"';
+          } else {
+          $sel = '';
+          } */
+        $output .= '<option value="' . $listing->cat_id . '" ' . $sel_cat . '>' . stripslashes($listing->cat_name) . '</option>';
+        $ssubcate_id .= $ssubcat[$ssc] . ",";
+        $ssc++;
+    }
+    $pssubcate_id = trim($ssubcate_id, ",");
+    // }
+    //<td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
+    //<td width="43%">&nbsp;<!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td>
+    $output .= '</select></div> <input type="hidden"  id="cat3" name="cat3" value="' . $pssubcate_id . '"></td>
+      </tr>
+	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
+	  <tr> <td width="13%"><!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select></td>
+	<td width="13%"><div id="chg_state">' . $ret . '</div></td>
+        <td width="13%"><div id="chg_city">' . $ret_city . '</div></td>
+            </tr>
+	
+    </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ <td width="13%" align="left" colspan="4">
+       </td>
+ 
+  </tr>
+  
+  <!--<tr>
+    <td>&nbsp;</td>
+    <td nowrap="nowrap">End Date<span title="This field is required." class="form-required">*</span></td>
+    <td><input type="text" name="q_edate" autocomplete="off" id="q_edate" value="' . $quest->enddate . '"  /> <small>Eg: yyyy-mm-dd</small></td>
+    <td><input name="invite_count" type="hidden" id="invite_count" value="1" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>-->
+  <tr><td colspan="6">';
+    $selmlist = "select * from qtag as a, tagging as b where a.qid='$nid' and a.tag_id=b.tid ";
+    $mysqlfet = db_query($selmlist);
+
+
+    //$output .= '<tr><td colspan="6">'.get_tagging_edit($nid).'</td></tr>';
+
+
+    $output .= ' </td></tr>
+  
+  <tr>
+    <td height="42">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="update" tabindex="21" id="save" value="Update" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="right"></td>
+  </tr>
+</table>
+</form>
+
+';
+
+    return $output;
+}
+
+
+
+function view_questions() {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+
+    $output = '';
+
+
+    drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js"
+        type="text/javascript"></script>');
+
+
+    if (isset($_POST['update'])) {
+
+        question_edit_save_admin($_POST);
+    }
+
+    $result = geonames_query('countryinfo');
+    foreach ($result->results as $country) {
+        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countrycode'], $country['countryname']);
+    }
+
+
+    $nid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+
+    $result = db_query("SELECT * FROM {question} as q left join {qtag} as t on q.qid=t.qid where q.qid='" . $nid . "' ");
+    $quest = db_fetch_object($result);
+    //  drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
+    $output .= '
+		<script type="text/javascript">
+		
+					
+			function get_subcat(sid,divid,level){
+                       
+			
+										var foo = [];
+										$(sid).getSelected().each(function(number,i){
+										if(number.value!=\'\'){
+										  foo[i] =number.value;
+												}
+											});
+										var foo = foo.filter(function(item, index){
+    return item > 0;
+});
+			  						 var ids = foo.toString();
+			   					
+			  							if(level==1){
+									$(\'cat1\').set(\'value\',ids);
+									$(\'chg_sscat\').fade(\'out\');
+										}
+									
+									if(level==2){
+									
+									$(\'cat2\').set(\'value\',ids);
+									$(\'chg_sscat\').fade(\'in\');
+										}
+									
+									if(level==3)
+									$(\'cat3\').set(\'value\',ids);
+									
+									if(ids.length>0){
+									
+									if(level<3){
+									var url = "' . $gSitePath . 'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':level,\'ids\':ids},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(divid).set(\'html\', response);
+											}
+									}).send();
+							}
+							}else{
+							 $(divid).set(\'html\',\'No Subcategory\');
+							}
+							}	
+						
+						
+									function setDefaultCountry() {
+  var countrySelect = document.getElementById("q_country");
+
+  for (i=0;i< countrySelect.length;i++) {
+			// the javascript geonamesData.js contains the countrycode
+			// of the userIp in the variable \'geonamesUserIpCountryCode\'
+			if (countrySelect[i].value == \'' . $quest->country . '\') {
+			  // set the country selectionfield
+				  countrySelect.selectedIndex = i;
+				 
+				get_state(\'' . $quest->country . '\');
+				
+			}else if(countrySelect[i].value == geonamesUserIpCountryCode) {
+			 countrySelect.selectedIndex = i;
+			 get_state(geonamesUserIpCountryCode);
+			}
+	}
+
+}
+		function setState(){
+		
+							var stid=\'' . $quest->state . '\';
+					if(stid!=""){
+								 var stateSelect = document.getElementById("q_state");
+								
+							  for (i=0;i< stateSelect.length;i++) {
+								// the javascript geonamesData.js contains the countrycode
+								// of the userIp in the variable \'geonamesUserIpCountryCode\'
+								if (stateSelect[i].value == \'' . $quest->state . '\') {
+								  // set the country selectionfield
+									  stateSelect.selectedIndex = i;
+									 
+									get_city(stid);
+								}
+								
+					}
+				  }
+		}
+		
+		function setCity(){
+		
+							var cid=\'' . $quest->city . '\';
+					if(cid!=""){
+								 var citySelect = document.getElementById("q_city");
+							
+							  for (i=0;i< citySelect.length;i++) {
+								// the javascript geonamesData.js contains the countrycode
+								// of the userIp in the variable \'geonamesUserIpCountryCode\'
+								if (citySelect[i].value == cid) {
+								  // set the country selectionfield
+									  citySelect.selectedIndex = i;
+									 
+								}
+								
+					}
+				  }
+		}
+		
+		
+window.setTimeout("setDefaultCountry()", 1000);
+window.setTimeout("setState()", 2000);
+window.setTimeout("setCity()", 3000);
+window.addEvent(\'domready\', function(){
+setDefaultCountry();
+});
+							function get_state(code){
+						
+						var url = "' . $gSitePath . 'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':1,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_state\').set(\'html\', response);
+											}
+									}).send();
+						
+						 $(\'chg_city\').fade(\'out\');
+						}
+							function get_city(code){
+							 $(\'chg_city\').fade(\'in\');
+							var url = "' . $gSitePath . 'question/ajax";
+									var req = new Request({    
+											method: \'get\'
+											,url: url
+											,data: { \'action\':2,\'code\':code},
+											onRequest: function() { },
+											onComplete: function(response) {
+													 $(\'chg_city\').set(\'html\', response);
+											}
+									}).send();
+							
+							}
+							
+						</script>
+		
+			
+			';
+
+    $output .= '<link rel="stylesheet" href="' . $gSitePath . 'sites/all/themes/heardmentality/css/content.css" type="text/css" />
+<link rel="stylesheet" href="' . $gSitePath . 'sites/all/themes/heardmentality/css/ui.css" type="text/css" />
+<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/tagging/tagging.css" type="text/css" />';
+    $output .= '<div id="err" class="clear"></div>
+
+				<form id="question_view" name="question_view" method="post" action="' . $gSitePath . 'admin/moderatequestion"><table width="100%" border="0" align="center" style="border:0px;">
+  <tr>
+    <td width="0%" height="94">&nbsp;</td>
+    <td width="14%">Question</td>
+    <td colspan="4">
+       ' . $quest->question . '    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td valign="top">Context</td>
+    <td colspan="4">
+    ' . $quest->context . ' </td>
+  </tr>
+  <tr><td>&nbsp;</td></tr>
+    <tr>
+    <td>&nbsp;</td>
+    <td valign="top">Answer</td>
+    <td width="26%" valign="top"><table width="100%" border="0">';
+
+
+    $query = "SELECT * FROM {possible_answer} where qid='" . $nid . "' ";
+    $ans = ExecuteQuery($query, "select");
+    $i = 1;
+    $tab = 3;
+    foreach ($ans as $array) {
+
+        $output .= ' <tr>
+          <td>
+           ' . $array['answer'] . '
+          </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+          ';
+        $i++;
+    }
+
+
+    $output .= '</table><div id="add_more"></div><div id="del_ans" style="visibility:hidden;"><small><a href="javascript:void(0);"  tabindex="88" onclick="del_ans();">[Remove]</a></div><small><br/>
+	
+
+	
+	</td>
+    <td colspan="3" valign="top" align="left"><table width="65%" border="0">
+		<tr><td colspan="3" height="40"  valign="middle" ><b>Categories</b></td></tr>
+      <tr>
+        <td width="25%" align="left"><select  tabindex="14" name="q_cat[]" id="q_cat" multiple="multiple"  onchange="get_subcat(\'q_cat\',\'chg_scat\',1);"  size="5"><option value="">Select Category</option>';
+    $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
+    $ecat1 = explode(",", $quest->cid);
+    while ($list = db_fetch_object($client_select)) {
+
+        if (in_array($list->cat_id, $ecat1)) {
+            $sel = 'SELECTED="SELECTED"';
+        } else {
+            $sel = '';
+        }
+
+
+
+        $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+    }
+
+    $output .= '</select></td>
+        <td width="25%" align="left">
+        <div id="chg_scat">
+     <select  tabindex="15" name="q_scat[]" onchange="get_subcat(q_scat,\'chg_sscat\',2);" id="q_scat" multiple="multiple"  size="5">
+     <option value="">Select Sub Category</option>';
+    $client_select1 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('" . $quest->cid . "')");
+	
+    $ecat2 = explode(",", $quest->scid);
+    while ($list = db_fetch_object($client_select1)) {
+        if (in_array($list->cat_id, $ecat2)) {
+            $sel = 'SELECTED="SELECTED"';
+        } else {
+            $sel = '';
+        }
+
+
+        $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+    }
+    $output .= '</select></div></td>
+        <td width="25%" align="left"><div id="chg_sscat"><select  tabindex="16" name="q_sscat[]" onchange="get_subcat(q_sscat,\'chg_sscat\',3);" id="q_sscat" multiple="multiple"  size="5"><option value="">Select Sub Sub Category</option>';
+    if ($quest->scid != '') {
+	
+        $client_select2 = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ('" . $quest->scid . "')");
+        $ecat3 = explode(",", $quest->sscid);
+        while ($list = db_fetch_object($client_select2)) {
+            if (in_array($list->cat_id, $ecat3)) {
+                $sel = 'SELECTED="SELECTED"';
+            } else {
+                $sel = '';
+            }
+
+
+            $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+        }
+    }
+    $output .= '</select></div></td>
+      </tr>
+	  <tr><td colspan="3" height="40"  valign="middle">&nbsp;<strong>Location</strong></td></tr>
+	  <tr> <td width="13%">&nbsp;<!--<input type="text" name="q_country" id="q_country" value="Country" onblur="javascript: if(this.value == \'\') this.value=\'Country\';" onfocus="javascript: if(this.value == \'Country\') this.value=\'\';" size="30" />--><select name="q_country" style="width: 125px;" tabindex="17" onchange="get_state(this.value);" id="q_country">' . $optionlist . '</select></td>
+	
+    <td width="13%">&nbsp;<!--<input type="text" name="q_state" id="q_state" value="State"  onblur="javascript: if(this.value == \'\') this.value=\'State\';" onfocus="javascript: if(this.value == \'State\') this.value=\'\';"   size="30"/>--> <div id="chg_state"></div></td>
+	
+    <td width="43%">&nbsp;<!--<input type="text" name="q_city" id="q_city" value="City" onblur="javascript: if(this.value == \'\') this.value=\'City\';" onfocus="javascript: if(this.value == \'City\') this.value=\'\';"    size="30"/>--><div id="chg_city"></div></td></tr>
+	
+    </table></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+ <td width="13%" align="left" colspan="4">
+       </td>
+ 
+  </tr>
+  
+ 
+  <tr><td colspan="6">';
+
+    $output .= '<tr><td colspan="6"></td></tr>';
+
+
+    $output .= ' </td></tr>
+  
+  <tr>
+    <td height="42">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td><input type="submit" name="update" tabindex="21" id="save" value="Cancel" /></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="right"></td>
+  </tr>
+</table>
+</form>
+
+';
+
+    return $output;
+}
+
+///////////// edit question send  mail vijay/////////////////
+function question_edited_mail($qaid) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject_proj = 'Heardmentality Question Has Been Edited By admin ';
+    //$delmsg = 'Has been Edited By Headmentality admin';
+
+    $query = db_query("select u.mail,q.question,u.name,q.url  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    $det = db_fetch_object($query);
+
+    $to = $det->mail;
+    $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+    $rs_mgmt = db_query($sel_user_cmt);
+    $list_content = db_fetch_object($rs_mgmt);
+
+    $contentm = str_replace("#uname#", $det->name, $list_content->content);
+    $contentm = str_replace("#anothername#", $user->name, $contentm);
+    $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+    $contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+    $contentm = str_replace("#content#", 'Question edited By Headmentality admin', $contentm);
+
+    //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+   $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
+    db_query($ins_qry, $from, $from, $to, $subject_proj, $contentm);
+
+    /* if (! empty($to)) {
+
+      $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+      } */
+    return true;
+}
+
+function question_edited_mail_voters($qaid) {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject_proj = 'Heardmentality Question Has Been Edited By admin ';
+    //$delmsg = 'Has been Edited By Headmentality admin';
+    $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        // $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
+
+        $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+        $contentm = str_replace("#anothername#", $user->name, $contentm);
+        $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+        $contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+        $contentm = str_replace("#content#", 'Question edited By Headmentality admin', $contentm);
+
+        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+     $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
+    db_query($ins_qry, $from, $from, $to, $subject_proj, $contentm);
+        /* if (! empty($to)) {
+
+          $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+          } */
+    }
+    return true;
+}
+
+function question_edited_mail_suggest($qaid) {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Issues Has Been Updated By Moderator ';
+    // $delmsg = 'Has been Edited By Headmentality admin';
+
+    $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : ' . $det->question . ' ' . $delmsg . '<br/>';
+
+
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
+
+        $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+        $contentm = str_replace("#anothername#", $user->name, $contentm);
+        $contentm = str_replace("#question#", rtrim($det->question, '?') . '?', $contentm);
+        $contentm = str_replace("#link#", $gSitePath . $det->url, $contentm);
+        $contentm = str_replace("#content#", 'Question edited By Headmentality admin', $contentm);
+
+        //$mail_success = htmlmail_function($u_rows->email, $subject_proj, $contentm, '');
+     $ins_qry = "insert into {hm_mails} (from_mail_id,user_from_id,user_to_id,subject,content,posted_date) values ('%s','%s','%s','%s','%s',now())";
+    db_query($ins_qry, $from, $from, $to, $subject_proj, $contentm);
+
+        /* if (! empty($to)) {
+
+          $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+          } */
+    }
+    return true;
+}
+
+////////////// edit question send mail end  vijay/////////////////
+
+/* function question_edited_mail($qaid) {
+
+  global $gSitePath,$user,$gDocPath,$base_root;
+
+  $from = variable_get('site_mail');
+  $subject = 'Heardmentality Question Has Been Edited By admin ';
+  $delmsg = 'Has been Edited By Headmentality admin';
+
+  $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+  $det = db_fetch_object($query);
+
+  $to = $det->mail;
+  $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+  if (! empty($to)) {
+
+  $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+  }
+
+
+  return true;
+  } */
+
+/* function question_edited_mail_voters($qaid) {
+
+  global $gSitePath,$user,$gDocPath,$base_root;
+
+  $from = variable_get('site_mail');
+  $subject = 'Heardmentality Question Has Been Edited By admin ';
+  $delmsg = 'Has been Edited By Headmentality admin';
+  $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+  while ($det = db_fetch_object($query)) {
+
+  $sellist = "select * from users where uid='".$det->uid."'";
+  $res_users = db_query($sellist);
+  $usert = db_fetch_object($res_users);
+  $to = $usert->mail;
+  $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+  if (! empty($to)) {
+
+  $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+  }
+
+  }
+  return true;
+  } */
+
+
+
+
+/* function question_edited_mail_suggest($qaid) {
+
+  global $gSitePath,$user,$gDocPath,$base_root;
+
+  $from = variable_get('site_mail');
+  $subject = 'Heardmentality Question Has Been Edited By admin ';
+  $delmsg = 'Has been Edited By Headmentality admin';
+
+  $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+
+  while ($det = db_fetch_object($query)) {
+
+  $sellist = "select * from users where uid='".$det->uid."'";
+  $res_users = db_query($sellist);
+  $usert = db_fetch_object($res_users);
+  $to = $usert->mail;
+  $msg = '<br/>Question : '.$det->question.' '.$delmsg.'<br/>';
+
+
+  if (! empty($to)) {
+
+  $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+  }
+
+  }
+  return true;
+  } */
+
+
+
+
+
+function auto_suggest_quest() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+
+    if (isset($_GET['getCountriesByLetters']) && isset($_GET['letters']) && isset($_GET['GetVal'])) {
+        $letters = $_GET['letters'];
+        //$letters = preg_replace("/[^a-z0-9 ]/si","",$letters);
+        $where_condition = "WHERE question LIKE CONVERT( _utf8 '%$letters%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '$letters' USING latin1 )
+	COLLATE latin1_swedish_ci and status='1'";
+
+        if ($_GET['GetVal'] == "C1") {
+            $sql = "SELECT * FROM question   $where_condition";
+            $res = mysql_query($sql);
+            $dir = mysql_num_rows($res);
+            if ($dir > 0) {
+                while ($inf = mysql_fetch_array($res))
+                    echo " <a href='" . $gSitePath . "" . $inf["url"] . "' target='_blank'>" . $inf["question"] . "</a>|";
+            }
+        }
+    }
+}
+
+function auto_suggest_releatedquest() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+
+    if (isset($_GET['getCountriesByLetters']) && isset($_GET['letters']) && isset($_GET['GetVal'])) {
+        $letters = $_GET['letters'];
+        //$letters = preg_replace("/[^a-z0-9 ]/si","",$letters);
+        $where_condition = "WHERE question LIKE CONVERT( _utf8 '%$letters%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '$letters' USING latin1 )
+	COLLATE latin1_swedish_ci and status='1'";
+
+        if ($_GET['GetVal'] == "C1") {
+            $sql = "SELECT * FROM question   $where_condition";
+            $res = mysql_query($sql);
+            $dir = mysql_num_rows($res);
+            if ($dir > 0) {
+                while ($inf = mysql_fetch_array($res))
+                    echo " <a href='" . $gSitePath . "" . $inf["url"] . "' target='_blank'>" . $inf["question"] . "</a>|";
+            }
+        }
+    }
+}
+
+function front_dupe() {
+    
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $question = trim(strtolower($_REQUEST['question']));
+
+
+    $query = "select * from question  where question='$question'";
+    $ans = ExecuteQuery($query, "norows");
+
+    $words = explode(" ", $question);
+
+    $query = "SELECT * FROM question WHERE 1 AND question='$question'";
+    /*$query = "SELECT * FROM question WHERE 1";
+    for ($i = 0; $i < count($words); $i++) {
+        $samples = " " . $words[$i] . "  ";
+        //$query .= " AND question LIKE CONVERT(_utf8 '$words[$i]' USING latin1 ) COLLATE latin1_swedish_ci";
+        $query .= " AND question='$words[$i]'";
+    }*/
+   
+$result = mysql_query($query);
+ $num_rows = mysql_num_rows($result);
+
+
+    if($num_rows>0)
+    {
+        echo "invalid";
+        exit;
+    }
+    else
+    {
+        echo "valid";
+        exit;
+    }
+    
+}
+
+
+function exist_dupe() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $question = $_REQUEST['question'];
+
+
+    $query = "select * from question  where question='$question'";
+    $ans = ExecuteQuery($query, "norows");
+
+    $words = explode(" ", $question);
+
+
+    $query = "SELECT * FROM question WHERE 1";
+    for ($i = 0; $i < count($words); $i++) {
+        $samples = " " . $words[$i] . "  ";
+        //echo $samples;
+        // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+        //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
+        $query .= " AND question LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+    }
+
+$result = mysql_query($query);
+$dupecount = mysql_num_rows($result);
+
+ $rel_ques .= '<div class="innerbox" style="width:155px; height:150px; overflow:auto; margin-top:7px; color:#986700; ">';
+ $rel_ques .= "<ul>";
+ if($dupecount != 0)
+ {
+ while ($mylist = mysql_fetch_array($result)) {
+$validpath =  $gSitePath.$mylist['url'];
+        $rel_ques .= "<li>";
+        $rel_ques .= "<a href='".$validpath."' target='_blank'>".$mylist['question']."</a>";
+        $rel_ques .= "</li>";
+    }
+ }else{
+     $rel_ques .= "<li>No Dupe Questions</li>";
+ }
+    $rel_ques .= "</ul>";
+    $rel_ques .= '</div>';
+    echo $rel_ques;
+    exit;
+}
+
+
+
+
+function dupe_question() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+    $query = db_query("select * from question  where qid='$qaid'  ");
+    $detquest = db_fetch_object($query);
+    $q = $detquest->question;
+
+
+
+    //geoname api
+    $options = array('sortby' => 'countryname', 'sortorder' => 'ASC');
+    $result = geonames_query('countryinfo', NULL, $options);
+    $optionlist .= ' <option value="0" >--Country--</option>';
+    foreach ($result->results as $country) {
+        $optionlist .= sprintf('<option value="%s">%s</option>', $country['countryname'], $country['countryname']);
+    }
+
+
+    $output .= '<link rel="stylesheet" href="' . $gSitePath . 'modules/system/system.css" type="text/css" />
+
+	<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/css/css.css" type="text/css" />
+<link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/tagging/tagging.css" type="text/css" />';
+
+    $output .='<div class="do-in2"><div class="do-intop">Dupe Search For "' . $q . '"</div><div class="inside2">';
+    if (!$q)
+        return;
+
+
+
+/////////////vijay added
+
+    $taglist = array();
+    $urlm = array();
+    $questionlm = array();
+    $words = explode(" ", $q);
+
+
+    $query = "SELECT * FROM question WHERE 1";
+    for ($i = 0; $i < count($words); $i++) {
+        $samples = " " . $words[$i] . "  ";
+        //echo $samples;
+        // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+        //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
+        $query .= " AND question LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+    }
+    // $query = " SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci AND context LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 )
+//COLLATE latin1_swedish_ci and status='0'";
+    //echo $query;
+    $myql_qry = mysql_query($query);
+    while ($mylist = mysql_fetch_array($myql_qry)) {
+
+        if ($qaid != $mylist['qid']) {
+            array_push($questionlm, $mylist['qid']);
+        }
+        array_push($urlm, $mylist['url']);
+    }
+
+
+//print_r($questionlm);
+    $urldsi = array_unique($questionlm);
+    //print_r($urldsi);
+    ////////// vija ended
+
+
+
+
+
+    /* $taglist = array();
+      $urlm = array();
+      $questionlm = array();
+      $words = explode(" ", $q);
+
+      for ($i = 0; $i < count($words); $i++) {
+      $samples = " ".$words[$i]."  ";
+      //echo $samples;
+      // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
+
+
+      $query = " SELECT * FROM question WHERE question LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci OR context LIKE CONVERT( _utf8 '%$words[$i]%' USING latin1 )
+      COLLATE latin1_swedish_ci and status='0'";
+      $myql_qry = db_query($query);
+      while ($mylist = db_fetch_array($myql_qry)) {
+      if ($qaid != $mylist['qid']) {
+      array_push($questionlm, $mylist['qid']);
+      }
+      array_push($urlm, $mylist['url']);
+      }
+
+      }
+
+      $urldsi = array_unique($questionlm); */
+
+
+
+
+
+
+
+
+
+    // echo count($urldsi);
+    $output .= '<ul>';
+    if (count($urldsi) != 0) {
+        foreach ($urldsi as $value) {
+
+
+            $querysquest = db_query("select * from question as q  join users as u on q.uid=u.uid  where q.qid='$value'  ");
+            $detquestqes = db_fetch_object($querysquest);
+            $mlist = $detquestqes->question;
+            $output .= '<li><a href="' . $detquestqes->url . '">' . $mlist . '</a></li><span style="padding-left:40px,padding-top:5px">Posted by:' . $detquestqes->name . '&nbsp;&nbsp;&nbsp;&nbsp;Posted on:' . date("d-m-Y", strtotime($detquestqes->date_added)) . '</span>';
+        }
+    } else {
+
+        $output .= "<li><b>No Dupe Questions</b></li>";
+    }
+    $output .= '</ul></div></div>';
+    echo $output;
+}
+

@@ -1,0 +1,76 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*  idTabs ~ Sean Catchpole  */
+
+
+/* Style for Usual tabs */
+.hidden{display:none;}
+.hiddens{display:none;}
+.usual {
+  background:#181818;
+  color:#111;
+   width:900px;
+  border:1px solid #222;
+  margin:8px auto;
+}
+.usual li { list-style:none; float:left; }
+.usual ul a {
+  display:block;
+  padding:6px 10px;
+  text-decoration:none!important;
+  margin:1px;
+  margin-left:0;
+  font:10px Verdana;
+  color:#FFF;
+  background:#444;
+}
+.usual ul a:hover {
+  color:#FFF;
+  background:#111;
+  }
+.usual ul a.selected {
+  margin-bottom:0;
+  color:#000;
+  background:snow;
+  border-bottom:1px solid snow;
+  cursor:default;
+  }
+.usual div {
+  padding:10px 10px 8px 10px;
+
+
+  clear:left;
+  background:snow;
+  /*font:10pt Georgia;  margin-top:-15px;*/
+}
+.usual div a { color:#000; font-weight:bold; }
+
+#usual2 { background:#0A0A0A; border:1px solid #1A1A1A; }
+#usual2 a { background:#222; }
+#usual2 a:hover { background:#000; }
+#usual2 a.selected { background:snow; }
+#tabs3 { background:#FF9; }
+
+/* Style for various uses of tabs */
+.con{text-align:left; color:#000; font:10px Verdana;  background:none; }
+
+
+.linktab{text-decoration:none!important;
+  margin:1px;
+  margin-left:0;
+  font:10px Verdana;
+  color:#FFF;
+ }
+#newsd{background:#fff; color:#000000;}
+
+#newsd a { background:#fff; color:#000000; }
+
+#newsd a:hover { background:#fff; }
+
+#vote img{
+	
+	 cursor:pointer;
+	 width:20px;
+	 height:20px;
+}

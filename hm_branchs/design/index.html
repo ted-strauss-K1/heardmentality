@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Heard Mentality &trade;</title>
+<link href="css/core-hm.css" type="text/css" rel="stylesheet" />
+
+<!--Tab Star-->
+<link href="css/tab.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	//Default Action
+	$(".tab_content").hide(); //Hide all content
+	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+	
+	//On Click Event
+	$("ul.tabs li").click(function() {
+		$("ul.tabs li").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab_content").hide(); //Hide all tab content
+		var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active content
+		return false;
+	});
+
+});
+</script>
+<!--Tab End-->
+
+</head>
+
+<body>
+<div class="wrapper">
+	<!-- HEADER STARTS -->
+    <div class="header">
+    	<div class="headerRow1">
+        	<div class="logoHolder"><a href="index.html"><img src="images/logo.jpg" height="71" width="244" alt="Heard Mentality" /></a></div>
+            <div class="naviHolder">
+            	<div class="naviBg">
+                	<ul>
+                    	<li class="current"><a href="#" class="linkOne">Home</a></li>
+                        <li><a href="#" class="linkOne">Categories</a></li>
+                        <li><a href="#" class="linkOne">Add a Question</a></li>
+                        <li><a href="#" class="linkOne">Cloud</a></li>
+                        <li><a href="#" class="linkOne">Guru</a></li>
+                        <li><a href="#" class="linkOne">About</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="communityHolder">
+            	<ul>
+                	<li><a href="#"><img src="images/iconFacebuk.jpg" width="30" height="30" alt="Facebook" /></a></li>
+                    <li><a href="#"><img src="images/iconMySpace.jpg" width="30" height="30" alt="My Space" /></a></li>
+                    <li><a href="#"><img src="images/iconTwitter.jpg" width="30" height="30" alt="Twitter" /></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="headerRow2">
+       	   <form id="search" action="" method="post" >
+        	<div class="searchBg">
+            	<label><input type="text" id="searchTxt" value="" class="search" /></label>
+                <label><input type="submit" id="searchBtn" value="Search" class="btnOne" /></label>
+                <label for="questions"><input type="checkbox" id="questions" class="chkBox" /> Questions</label>
+                <label for="users"><input type="checkbox" id="users"  class="chkBox" /> Users</label>
+            </div>
+           </form>
+        </div>
+    </div>
+    <!-- HEADER ENDS -->
+    
+    <!-- BODY STARTS -->
+    <div class="bodyHolder">
+    	<div class="leftPanel">
+        	<div class="lPanel1">
+                <div class="head1">Navigation</div>
+                <div class="base1">
+                	<ul>
+                    	<li><a href="#" class="linkTwo">Geonames Docs</a></li>
+                        <li class="divider1">&nbsp;</li>
+                        <li><a href="#" class="linkTwo">Google wave</a></li>
+                        <li class="divider1">&nbsp;</li>
+                        <li><a href="#" class="linkTwo">Link Three</a></li>
+                        <li class="divider1">&nbsp;</li>
+                        <li><a href="#" class="linkTwo">Link Four</a></li>
+                        <li class="divider1">&nbsp;</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    	<div class="centerPanel">
+        	<div class="cpanel1">
+                <div class="head1">
+                	<div class="headLeft">
+                        Your question goes here.. <a href="#" class="linkTwo">View More</a>
+                    </div>
+                    <div class="headRight"><a href="#"><img src="images/dropBtn.png" height="17" width="17" alt="Expand/ Collapse" /></a></div>
+                </div>
+                <div class="base1">
+                	<div class="questions">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, 
+                    totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt 
+                    explicabo?</div>
+                    <div class="answers">
+                    	<ul>
+                    		<li><label><input type="radio" name="answers" class="radBut" /> Your option one goes here</label></li>
+                        	<li><label><input type="radio" name="answers" class="radBut" /> Option two goes here</label></li>
+                        	<li><label><input type="radio" name="answers" class="radBut" /> Third option goes here</label></li>
+                        </ul>
+                    </div>
+                    <!--<div class="spacer"></div>-->
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="cpanel1">
+                <div class="head1">
+                	<div class="headLeft">
+                        <ul class="tabs">
+                            <li class="active"><a href="#tab1">Tab 1 </a></li>
+                            <li class=""><a href="#tab2">Tab 2</a></li>
+                            <li class=""><a href="#tab3">Tab 3</a></li>
+                        </ul>
+                    </div>
+                    <div class="headRight"><a href="#"><img src="images/dropBtn.png" height="17" width="17" alt="Expand/ Collapse" /></a></div>
+                </div>
+                <div class="body-tab">	
+                    
+                    <div class="tab_container">
+                        <div style="display: block;" id="tab1" class="tab_content">
+                            <h2>Tab 1</h2>                            
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. </p>
+                            
+                           
+                        </div>
+                        <div style="display: block;" id="tab2" class="tab_content">
+                            <h2>Tab 2</h2>                            
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. </p>
+                            
+                           
+                        </div>
+                        <div style="display: block;" id="tab3" class="tab_content">
+                            <h2>Tab 3</h2>                            
+                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. </p>
+                            
+                           
+                        </div>                        
+                    </div>
+                </div>
+            	<div class="clr"></div>
+            </div>
+            
+            
+        </div>
+        <div class="rightPanel">
+        	<div class="lPanel1">
+                <div class="head1">News</div>
+                <div class="base1">
+                	<marquee behavior="scroll" direction="up" scrolldelay="2" scrollamount="2" onmouseover="this.stop();" onmouseout="this.start();">
+                        <div class="newsHead"><a href="#" class="linkThree">Title of news goes here</a></div>
+                        <div class="newsText">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium..</div>
+                        
+                        <div class="newsHead"><a href="#" class="linkThree">Title of news goes here</a></div>
+                        <div class="newsText">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium..</div>
+                        
+                        <div class="newsHead"><a href="#" class="linkThree">Title of news goes here</a></div>
+                        <div class="newsText">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium..</div>
+                    </marquee>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clr"></div>
+    <!-- BODY ENDS -->
+    
+     <!-- FOOTER STARTS -->
+    <div class="footer">
+    	<div class="footLeft">Copyright © 2010 by Heard Mentality. All Rights Reserved. </div>
+        <div class="footRight">Design Courtesy: <a href="http://www.openwavecomputing.com" target="_blank" class="linkFour">Openwave Computing</a></div>
+    </div>
+     <!-- FOOTER ENDS -->
+</div>
+</body>
+</html>

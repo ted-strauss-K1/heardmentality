@@ -1,0 +1,93 @@
+
+<?php
+
+function qlite_view()
+{
+global $gSitePath,$user;
+	
+
+
+		
+	drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');	
+ $qid = substr($_GET['q'],strrpos($_GET['q'],"/")+1);
+	$vSql="select * from {question} where status='1' and qid=$qid ";
+		$rlist=db_query($vSql);
+		$oListquest=db_fetch_object($rlist);
+	$output.='<ul id="navigation">
+
+		<li><a href="#c1">Content Block 1</a></li>
+		<li><a href="#c2">Content Block 2</a></li>
+		<li><a href="#c3">Content Block 3</a></li>
+		<li><a href="#c4">Content Block 4</a></li>
+	</ul>
+	
+	<div id="container">
+	
+		<div class="content">
+			<a name="c1" id="c1"></a>
+
+			<h1>Heading 1</h1>
+			<p>Here is some content, I hope that you like it!</p>
+		</div>
+		
+		<div class="content">
+			<a name="c2" id="c2"></a>
+			<h2>Heading 2</h2>
+			<p>Now that you have read content block 1, you can learn more in this block</p>
+
+		</div>
+		
+		<div class="content">
+			<a name="c3" id="c3"></a>
+			<h3>Heading 3</h3>
+			<p>In conclusion, content blocks are fun</p>
+		</div>
+		<div class="content">
+			<a name="c4" id="c4"></a>
+			<h3>Heading 66</h3>
+			<p>In conclusion, content blocks are fun</p>
+		</div>
+	 
+	</div> <!-- end container -->
+';
+    return $output;
+}
+
+
+function qlite_save()
+{
+
+	global $gSitePath,$user;
+$mid=$_REQUEST['mid'];
+	$voutput='';
+		$vquest="select * from {possible_answer} where paid='".$_REQUEST['answer']."'  ";
+		$rquest=db_query($vquest);
+		$olistquest=db_fetch_object($rquest);
+		  if (!empty($_REQUEST['answer'])) {
+		
+		 $list_length = db_query("select * from {user_answers} where qid='".$olistquest->qid."' and uid='".$user->uid."' ");
+		 $numr=mysql_num_rows($list_length);
+		 echo $numr;
+		 if($numr==0)
+		 {
+		$vInsQuery="insert into user_answers(qid, ans_id,uid,answered_date) values ('".$olistquest->qid."', '".$_REQUEST['answer']."','".$user->uid."','".date('Y-m-d h:i:s')."')";
+		db_query($vInsQuery);
+		
+		 drupal_set_message(t('Thank you,Your Answer has been saved successfully!'), $type = 'success');
+	    drupal_goto("qlite/view/$mid");
+		}
+		else
+		{
+		drupal_set_message($message = 'You Have already answered This Question!', $type = 'error');
+				drupal_goto("qlite/view/$mid");
+		
+		}
+	    }
+		else {
+		   
+				drupal_set_message($message = 'You Have Not Choosed Your answer!', $type = 'error');
+				drupal_goto("qlite/view/$mid");
+		  }
+	   return $voutput;
+
+}
