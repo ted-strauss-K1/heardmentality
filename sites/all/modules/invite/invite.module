@@ -104,7 +104,7 @@ function htmlmail_function($to, $subject, $message, $headers = NULL) {
 					#email-main #content .avatar-intro ul{ padding:10px;}
 					#email-main #content .avatar-intro ul li{ float:left; list-style:none; font:bold 12px Verdana, Geneva, sans-serif; color:#000; padding:5px 10px; border-right:1px #ccc solid;}
 					#email-main #content .avatar-intro ul .border-none{ border:none;}
-					#email-main #content .avatar-intro ul li strong{ont:bold 12px Verdana, Geneva, sans-serif; color:#999;}
+					#email-main #content .avatar-intro ul li strong{font:bold 12px Verdana, Geneva, sans-serif; color:#999;}
 					#email-main #content .avatar-intro ul li a{ float:left; list-style:none; font:bold 12px Verdana, Geneva, sans-serif; color:#000;}
 					#email-main #content .avatar-intro ul li a:hover{ float:left; list-style:none; font:bold 12px Verdana, Geneva, sans-serif; color:#000; text-decoration:underline;}
 					#email-main #content .avatar-intro-left{ float:left; width:70px;}
@@ -119,19 +119,19 @@ function htmlmail_function($to, $subject, $message, $headers = NULL) {
 				 </style>
 				</head>
 				<body>
-				<div id="email-main">
-				 <div id="header">
-				  <div class="email-logo"></div>
-				  <div class="clr"></div>
+				<div id="email-main" style="width:622px; margin:0 auto; min-height:200px; height:auto !important; height:200px; border:2px #8f8c8c solid;">
+				 <div id="header" style="background:#8f8c8c; padding:7px 0px; padding-left:10px;">
+				  <div class="email-logo" style="width:229px; height:27px;"><img src="'.$path . '/images/email-logo.jpg" width="229" height="27" border="0"/></div>
+				  <div class="clr" style="clear:both;"></div>
 				 </div>
-				<div class="clr"></div>
-				<div id="content">';
+				<div class="clr" style="clear:both;"></div>
+				<div id="content" style="margin:0px; padding:10px;">';
     $newmessage .= $message;
     $newmessage .='<div class="clr"></div><div align="left">
               Visit our website <a title="Heardmentality.org" href="'.$base_url.'" target="_blank">Heardmentality.com</a> <br />
               <br />Thanks, <br />Heardmentality Team. </div>
 							 <div align="center"><a href="' . $base_url . '"><input name="" type="button" value="View All Updates" class="email-btn"/></a></div>
-							 <div class="clr"></div>
+							 <div class="clr"  style="clear:both;"></div>
 							 </div>
 							</div>
 							</body>

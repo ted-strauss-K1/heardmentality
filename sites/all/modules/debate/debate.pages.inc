@@ -73,7 +73,15 @@ function debate_list($qid = '', $did='') {
             }
         }
 //flag
-        $flag.='<a name="' . $did . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',this);"></a>';
+            if(user_is_logged_in ())
+        {
+            $replybutton='<a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a>';
+             $flag.='<a name="' . $did . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',this);"></a>';
+        }else{
+         $replybutton='<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a>';
+             $flag.='<a name="' . $did . '-0" href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
+        }
+      
         $bubble = load_bubble($account->uid);
        
         $output .= '
@@ -108,7 +116,7 @@ function debate_list($qid = '', $did='') {
 
 <div class="itemsecond">
 <ul>
-<li><a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a></li>
+<li>'.$replybutton.'</li>
 <li>' . $flag . '</li>
 </ul>
 </div>
@@ -180,12 +188,8 @@ function debate_list($qid = '', $did='') {
 	
 
 <div class="adcomment-outer">
-	<p><input type="radio" checked="checked" value="Pornography or obscenity" id="abuse_type" name="abuse_type"/>
-	Pornography or obscenity </p><p><input type="radio" value="radically or ethnically hateful content" id="abuse_type" name="abuse_type"/>
-	radically or ethnically hateful content  </p><p><input type="radio" value="Graphic Violence" id="abuse_type" name="abuse_type"/>
-	Graphic Violence </p><p><input type="radio" value="other content inappropirate for young Viewers" id="abuse_type" name="abuse_type"/>
-	other content inappropirate for young Viewers </p><p>
-	<input type="submit" value="Report Problem" class="waveButton" id="submitter" name="button"/>  or <a onclick="parent.fb.end();" id="wavecancel1" href="">cancel</a>
+	'.report_theme().'<p>
+	  or <a href="javascript:void(0);" onclick="parent.fb.end();" id="wavecancel1" href="">cancel</a>
         </p>
        
 	</div>
@@ -299,7 +303,15 @@ function get_debate($did = '', $pid = '') {
                 }
 //flag
                 $flag = '';
-                $flag.='<a name="' . $did . '-' . $forum['rid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
+                 if(user_is_logged_in ())
+        {
+            $replybutton='<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['rid'] . '"  href="#postreply"></a>';
+             $flag.='<a name="' . $did . '-' . $forum['rid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
+        }else{
+         $replybutton='<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a>';
+             $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
+        }
+                
 
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_bubble($account->uid);
@@ -366,7 +378,7 @@ function get_debate($did = '', $pid = '') {
 
 <div class="itemsecond">
 <ul>
-<li><a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['rid'] . '"  href="#postreply"></a></li>
+<li>'.$replybutton.'</li>
 <li>' . $flag . '</li><li>' . $date . '</li>
 </ul>
 </div>
@@ -445,7 +457,15 @@ function get_res_debate($rid = '', $pid = '') {
                 }
 //flag
                 $flag = '';
-                $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',' . $forum['reid'] . ');"></a>';
+                       if(user_is_logged_in ())
+        {
+            $replybutton='<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $rid . '-' . $forum['reid'] . '"  href="#postreply"></a>';
+             $flag.='<a name="' . $rid . '-' . $forum['reid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',this);"></a>';
+        }else{
+         $replybutton='<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $rid . '-' . $forum['reid'] . '" href="#postreply"></a>';
+             $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
+        }
+               
 
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_bubble($account->uid);
@@ -512,7 +532,7 @@ function get_res_debate($rid = '', $pid = '') {
 
 <div class="itemsecond">
 <ul>
-<li><a class="floatbox reply-menu" onclick="addComment(this);" id="' . $rid . '-' . $forum['reid'] . '"  href="#postreply"></a></li>
+<li>'.$replybutton.'</li>
 <li>' . $flag . '</li><li>' . $date . '</li>
 </ul>
 </div>
@@ -996,6 +1016,11 @@ function resource_list($type, $qid) {
     }
     $filter_list.='</select>';
     //print_r($cnt);
+    if(user_is_logged_in ())
+        $rbutton='<a href="javascript:void(0);" onclick="javascript:loadresource(\'' . $gSitePath . 'debate/resource/new/' . $qid . '\',\'Add\');" title="New Debate"><input name="" type="button"   class="submit-debate-btn"/></a>';
+    else
+        $rbutton='<a href="javascript:void(0);" onclick="javascript:check_popup_login();" title="New Debate"><input name="" type="button"   class="submit-debate-btn"/></a>';
+
     $output .= '
 
      <div class=" debate-round-tab-outer">
@@ -1012,8 +1037,7 @@ function resource_list($type, $qid) {
                     </select>
 
                     </div>
-                    <div class="form-m4" align="right">&nbsp;<br />
-<a href="javascript:void(0);" onclick="javascript:loadresource(\'' . $gSitePath . 'debate/resource/new/' . $qid . '\',\'Add\');" title="New Debate"><input name="" type="button"   class="submit-debate-btn"/></a></div>
+                    <div class="form-m4" align="right">&nbsp;<br />'.$rbutton.'</div>
 
                 </div>
 
@@ -1407,7 +1431,17 @@ function resdebate_list($qid='', $rid='') {
             }
         }
 //flag
-        $flag.='<a href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'resource\',' . $rid . ');"></a>';
+       
+
+               if(user_is_logged_in ())
+        {
+            $replybutton='<a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $rid . '-0" href="#postreply"></a>';
+            $flag.='<a name="' . $rid . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'resource\',this);"></a>';
+        }else{
+         $replybutton='<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $rid . '-' . $forum['reid'] . '" href="#postreply"></a>';
+             $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
+        }
+
         $bubble = load_bubble($account->uid);
         $medal = updateProfileBadge($account->uid);
 
@@ -1476,7 +1510,7 @@ function resdebate_list($qid='', $rid='') {
 
 <div class="itemsecond">
 <ul>
-<li><a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $rid . '-0" href="#postreply"></a></li>
+<li>'.$replybutton.'</li>
 <li>' . $flag . '</li>
 </ul>
 </div>
@@ -1556,12 +1590,8 @@ function resdebate_list($qid='', $rid='') {
 
 
 <div class="adcomment-outer">
-	<p><input type="radio" checked="checked" value="Pornography or obscenity" id="abuse_type" name="abuse_type"/>
-	Pornography or obscenity </p><p><input type="radio" value="radically or ethnically hateful content" id="abuse_type" name="abuse_type"/>
-	radically or ethnically hateful content  </p><p><input type="radio" value="Graphic Violence" id="abuse_type" name="abuse_type"/>
-	Graphic Violence </p><p><input type="radio" value="other content inappropirate for young Viewers" id="abuse_type" name="abuse_type"/>
-	other content inappropirate for young Viewers </p><p>
-	<input type="submit" value="Report Problem" class="waveButton" id="submitter" name="button"/>  or <a onclick=" jQuery.unblockUI();return false;" id="wavecancel1" href="">cancel</a>
+	'.report_theme().'<p>
+	 or <a onclick=" jQuery.unblockUI();return false;" id="wavecancel1" href="">cancel</a>
         </p>
 
 	</div>

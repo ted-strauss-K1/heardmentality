@@ -1331,6 +1331,7 @@ function flag_question() {
 $falgq.=report_theme();
 
 $flagg.='</form></div>';
+return abuse_report('node',16);
    return $falgq;
 }
 
@@ -1352,7 +1353,7 @@ function panel_content() {
     $vSql = "select * from {question} where status='1' and qid=$qid ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
-//////////vijay 2 load submenu
+
     $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid = '$qid' ";
     $list = ExecuteQuery($query, "select");
     $debatecnt = 0;
@@ -1976,8 +1977,8 @@ function percent_broken($qid = '', $aid = '', $array = '') {
 
     $filter = '';
     $filter = (!empty($array['dochg'])) ? $array['dochg'] : '';
-    //$vans = "select * from {possible_answer} where  qid='" . $qid . "'";
-    $vans = "select * from {poll_choices} where  nid='" . $qid . "'";
+   $vans = "select * from {possible_answer} where  qid='" . $qid . "'";
+    // $vans = "select * from {poll_choices} where  nid='" . $qid . "'";
     $vlist = ExecuteQuery($vans, "select");
     switch ($filter) {
         case 'gender':
@@ -2175,10 +2176,10 @@ function qlite_percent() {
     $filter = '';
     $incflt = '';
     $opt = '';
-    $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $qid = arg(2);
 
-    //$vans = "select * from {possible_answer} where  qid='" . $qid . "'";
-    $vans = "select * from {poll_choices} where  nid='" . $qid . "'";
+   $vans = "select * from {possible_answer} where  qid='" . $qid . "'";
+   //  $vans = "select * from {poll_choices} where  nid='" . $qid . "'";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
     $output .= "
@@ -2195,7 +2196,8 @@ function qlite_percent() {
 
     $ans_array = array();
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
-        array_push($ans_array, $vlist[$ab]['chtext']);
+        //array_push($ans_array, $vlist[$ab]['chtext']);
+        array_push($ans_array, $vlist[$ab]['answer']);
     }
     $result = percent_broken($qid, '', $_REQUEST);
     //echo "<pre>";

@@ -282,7 +282,7 @@ jQuery(document).ready(function() {
 
         jQuery('#flagform').live('submit', function(e){
 
-           
+             var fl = jQuery(this);
           e.preventDefault();
         var data=jQuery(this).serialize();
         jQuery.ajax({
@@ -290,15 +290,15 @@ jQuery(document).ready(function() {
             url: jQuery(this).attr('action'),
             data:data,
             success: function(data){
+                
                  jQuery('#twitMsg',top.document).html(data);
-                jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
-               
+               jQuery('#twitMsg',top.document).slideDown().delay(2000).slideUp(400);
+                 fl.clearForm();
+                  fl.find("input:checked").attr('checked',false);
             },
             complete:function(data){
-            
-            parent.fb.end();
-
-            }
+                setTimeout("parent.fb.end();", 3000);
+                       }
         });
         //   jQuery(this).parents('form').submit(function() {
         //  alert($(this).serialize());
@@ -314,8 +314,8 @@ jQuery(document).ready(function() {
 
 function report_forum(typ,el){
 
-    var wid = el.attr('name');
-alert(typ);
+    var wid = jQuery(el).attr('name');
+
     var gid = wid.split('-');
     jQuery('#rtype').val(typ);
     jQuery('#rwave').val(gid[0]);

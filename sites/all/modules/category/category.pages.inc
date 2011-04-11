@@ -493,7 +493,7 @@ function search_follow() {
         $output = drupal_set_message(t('You are now following this section'), $type = 'success');
         echo '<script>window.parent.location.href="' . $gSitePath . 'category/";</script>';
     } else {
-        $output = drupal_set_message(t('Category follows already added !'), $type = 'success');
+        $output = drupal_set_message(t('Section follows already added !'), $type = 'success');
         echo '<script>window.parent.location.href="' . $gSitePath . 'category/";</script>';
     }
 }
@@ -513,7 +513,7 @@ function search_unfollow() {
 
     if ($res_num) {
         db_query("delete from follower where uid='" . $user->uid . "' and cat_id='" . $cat_id . "'");
-        $output = drupal_set_message(t('Category Unfollows successfully !'), $type = 'success');
+        $output = drupal_set_message(t('You are now un-following this section'), $type = 'success');
         echo '<script>window.parent.location.href="' . $gSitePath . 'category/";</script>';
     }
 }

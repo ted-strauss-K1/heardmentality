@@ -7,7 +7,7 @@ global $gSitePath,$theme,$apikey;
  $path=$gSitePath.  drupal_get_path('theme',$theme);
  $node=node_load(array('nid'=>$nid));
 ?>
-<SCRIPT type="text/javascript" lang="javascript" src="http://cdn.gigya.com/JS/socialize.js"></SCRIPT>
+
 <script>
     var conf =
         {
@@ -32,7 +32,7 @@ global $gSitePath,$theme,$apikey;
 
 
         act.setTitle("<?php print t($node->title); ?>");
-        act.setDescription("<?php print t($node->body); ?>");
+        act.setDescription("<?php print t(trim(strip_tags($node->body))); ?>");
 
 
         act.setLinkBack("<?php print $gSitePath.request_uri(); ?>");
@@ -128,11 +128,11 @@ global $gSitePath,$theme,$apikey;
 <div class="clr"></div>
 	<div id="rotate">
 <ul id="maintabs" class="mytabs" >
-<li class="current" id="in"><a href="<?php print $gSitePath; ?>/qlite/panel/<?php print $nid; ?>" title="Report"><span>Reporting</span></a></li>
-<li id="par1"><a href="<?php print $gSitePath; ?>/qlite/panel/<?php print $nid; ?>?type=debate" title="Debate"><span>Debate(<?php print $votes; ?>)</span></a></li>
-<li class="" id="par2"><a href="<?php print $gSitePath; ?>/qlite/panel/<?php print $nid; ?>?type=Resources" title="Resources"><span>Resources(<?php print $votes; ?>)</span></a></li>
-<li class=""><a href="<?php print $gSitePath; ?>/qlite/panel/<?php print $nid; ?>?type=Gurus" title="Gurus"><span>Pundits (<?php print $votes; ?>)</span></a></li>
-<li class="" id="in"><a href="<?php print $gSitePath; ?>/qlite/panel/<?php print $nid; ?>?type=Info" title="Info"><span>Details</span></a></li>
+<li class="current" id="in"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/report" title="Report"><span>Reporting</span></a></li>
+<li id="par1"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/debate" title="Debate"><span>Debate(<?php print $votes; ?>)</span></a></li>
+<li class="" id="par2"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/resource" title="Resources"><span>Resources(<?php print $votes; ?>)</span></a></li>
+<li class=""><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/guru" title="Gurus"><span>Pundits (<?php print $votes; ?>)</span></a></li>
+<li class="" id="in"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/details" title="Info"><span>Details</span></a></li>
               </ul>
               <div class="mytabs-container" id="tabcontent">
             Loading. Please Wait...
