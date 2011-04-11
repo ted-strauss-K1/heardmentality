@@ -9,19 +9,21 @@ function debate_list($qid = '', $did='') {
     $output = '';
     $like = '';
     $flag = '';
-
-    $query = "SELECT *,u.uid as uid,IFNULL((select did  FROM {debate} where did > f.did AND qid='$qid'  limit 0,1 ),0) as pdid,IFNULL((select did FROM {debate} where did < f.did AND qid='$qid' order by did DESC limit 0,1 ),0) as ndid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
-    $list = ExecuteQuery($query, "select");
+// get nid for respective did
+    $nodeid = db_result(db_query("SELECT nid FROM {debate} WHERE did = '%d'", $did));
+    //$query = "SELECT *,u.uid as uid,IFNULL((select did  FROM {debate} where did > f.did AND qid='$qid'  limit 0,1 ),0) as pdid,IFNULL((select did FROM {debate} where did < f.did AND qid='$qid' order by did DESC limit 0,1 ),0) as ndid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
+    //$list = ExecuteQuery($query, "select");
+    $forum =  node_load($did);
     $dlink = $gSitePath . 'issues/debate/';
 
-    foreach ($list as $forum) {
+//    foreach ($list as $forum) {
 
-        if ($forum['pdid'] > 0) {
-            $prev = $dlink . $qid . '/' . $forum['pdid'];
+        if ($forum->pdid > 0) {
+            $prev = $dlink . $qid . '/' . $forum->pdid;
             $set_p_link = '<li><a  href="' . $prev . '" class="previous"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
         }
-        if ($forum['ndid'] > 0) {
-            $next = $dlink . $qid . '/' . $forum['ndid'];
+        if ($forum->ndid > 0) {
+            $next = $dlink . $qid . '/' . $forum->ndid;
             $set_n_link = '   <li><a   href="' . $next . '" class="next"  onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
         }
         $output .= '<div class="popup-debate">
@@ -33,7 +35,7 @@ function debate_list($qid = '', $did='') {
             </div>
 
             	<div class="backbtn"><a href="javascript:void(0);" onclick="fb.end();"></a></div>
-                	<h2>' . $forum['title'] . '</h2>
+                	<h2>' . $forum->title . '</h2>
         <div class="clr"></div>
         </div>
 
@@ -51,17 +53,34 @@ function debate_list($qid = '', $did='') {
 ';
 
 //$date = cdatetime($forum['date_added']).$forum['date_added'];
-
-        $date = format_date_class($forum['date_added'], date());
-        $account = user_load($forum['uid']);
-        $image = empty($forum['image']) ? 'noimage.jpg' : $forum['image'];
-        $name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
-//likes or not
-        $querylike = "select * from {user_likes} where is_debate='1' AND uid='$user->uid' AND node_id='" . $forum['did'] . "'";
+        $posted = date("Y-m-d H:i:s", $forum->created);
+        $date = format_date_class($posted, date());
+        $account = user_load($forum->uid);
+        //$image = empty($forum['image']) ? 'noimage.jpg' : $forum['image'];
+        //$name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
+//likes or not       
+        $querylike = "SELECT * FROM {votingapi_vote} WHERE content_type = 'node' AND uid = '$user->uid' AND content_id = '$forum->nid'";
         $fetch = ExecuteQuery($querylike, "select");
-        $agreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='1' AND node_id='" . $forum['did'] . "'"));
-        $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='0' AND node_id='" . $forum['did'] . "'"));
-        if ($user->uid != $forum['uid']) {
+        //$querylike = "select * from {user_likes} where is_debate='1' AND uid='$user->uid' AND node_id='" . $forum['did'] . "'";
+        //$fetch = ExecuteQuery($querylike, "select");
+
+        $criteriaUpNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+        $criteriaDownNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+        $agreecnt = vote_up_down_count($criteriaUpNode);
+        $disagreecnt = vote_up_down_count($criteriaDownNode);
+
+        //$agreecnt = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d' AND value = '%d'", 'node', $forum->nid,  '1'));
+        //$disagreecnt = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d' AND value = '%d'", 'node', $forum->nid, '-1'));
+        //$agreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='1' AND node_id='" . $forum['did'] . "'"));
+        //$disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_debate='1' AND is_agree='0' AND node_id='" . $forum['did'] . "'"));
+        if ($user->uid != $forum->uid) {
+            
             if (count($fetch) < 1) {
 
                 $like = '<li><span type="is_debate" name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
@@ -71,6 +90,8 @@ function debate_list($qid = '', $did='') {
             } else {
                 $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
             }
+        }else{
+            $like = '<li></li>';
         }
 //flag
             if(user_is_logged_in ())
@@ -89,8 +110,8 @@ function debate_list($qid = '', $did='') {
 <div class="debate-inn-item">
 <div class=" itemto">
 <div class="itemto-right">
-<h5>' . $forum['title'] . '</h5>
-' . make_clickable($forum['content']) . '
+<h5>' . $forum->title . '</h5>
+' . make_clickable($forum->body) . '
 </div>
 
 <div class="itemto-left">
@@ -132,7 +153,7 @@ function debate_list($qid = '', $did='') {
 </div>
 <div id="wavelet-list">
 	';
-    }
+//    }
     $output .= get_debate($did, 0);
 
 
@@ -156,16 +177,18 @@ function debate_list($qid = '', $did='') {
         <textarea rows="10" cols="" name="waveletcmt" id="waveletcmt">Enter text here</textarea>
 <!--<input type="checkbox" name="privt" value="1" id="privt"/> Private Reply-->
 <input type="hidden" name="fdid" id="fdid" value="' . $did . '"/>
-    <input type="hidden" name="qid" id="qid" value="' . $qid . '"/>
-		<input type="hidden" name="frid" id="frid" value=""/>
-			<input type="hidden" name="action" value="reply" />
+    <input type="hidden" name="qid" id="qid" value="' . $qid . '" />
+		<input type="text" name="frid" id="frid" value="" />
+		<input type="hidden" name="action" value="reply" />
+                <input type="hidden" name="nodeid" value="' .$did. '" />
+                <input type="text" name="comid" id="comid" value=""/>
         </div>
 
         <div class="clr"></div>
         	<div class="m-out">
             	<div class="m1"><input type="radio" value="1" CHECKED name="str_wk"/> Strengthen</div>
                 <div class="m2"><input type="radio" value="0" name="str_wk"/> Weaken</div>
-                 <div align="right" class="m3"><input type="submit" id="waveButton" value="" class="submit-debate-btn"  name="dreply"></div>
+                 <div align="right" class="m3"><input type="submit" id="waveButton" value="" class="submit-debate-btn" '.$chkuser.'  name="dreply"></div>
 
             	<div class="clr"></div>
             </div>
@@ -262,47 +285,66 @@ function like_notification($nid='', $set='') { //vijay important comented
 }
 
 function get_debate($did = '', $pid = '') {
-
     global $gSitePath, $user, $gDocPath, $base_root;
     $output = '';
     $bg = '';
     if (!empty($did)) {
 
-
-        $query = "select * from {debate_reply} as f  join {user_profile} as u on u.uid=f.uid  where f.did='$did' and f.status='1' and parentid='$pid'";
-
+        //$query = "select * from {debate_reply} as f  join {user_profile} as u on u.uid=f.uid  where f.did='$did' and f.status='1' and parentid='$pid'";
+        $query = "SELECT * FROM {comments} as c where c.nid='$did' and c.status='1' and c.pid='$pid' ";
         $list = ExecuteQuery($query, "select");
 
 //print_r($set);
 
         foreach ($list as $forum) {
-
+        $cid = $forum['cid'];
 // $date = cdatetime($forum['date_added']).$forum['date_added'];
-            $date = format_date_class($forum['date_added'], date());
+            //$date = format_date_class($forum['date_added'], date());
+            $posted = date("Y-m-d H:i:s", $forum['timestamp']);
+            $date = format_date_class($posted, date());
             $account = user_load($forum['uid']);
 
 
-            if (wave_access($forum['rid'], $forum['private'])) {
+            if (wave_access($forum['cid'], $forum['private'])) {
 
-                $image = empty($forum['image']) ? 'noimage.jpg' : $forum['image'];
-                $name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
-                $querylike = "select * from {user_likes} where is_debate_reply='1' AND uid='$user->uid' AND node_id='" . $forum['rid'] . "'";
+                //$image = empty($forum['image']) ? 'noimage.jpg' : $forum['image'];
+                //$name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
+                
+                $querylike = "SELECT * FROM {votingapi_vote} WHERE content_type = 'comment' AND uid = '$user->uid' AND content_id = '".$forum['cid']."'";
                 $fetch = ExecuteQuery($querylike, "select");
-                $cntagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
-                $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
-                if ($user->uid != $forum['uid']) {
-                    if (count($fetch) < 1) {
 
-                        $like = '<li><span name="' . $forum['rid'] . '" type="is_debate_reply" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['rid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['rid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
-                    } elseif ($fetch[0]['is_agree']) {
+                 $criteriaUp = array('content_type' => 'comment',
+                                   'content_id' => $forum['cid'],
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+                $criteriaDown = array('content_type' => 'comment',
+                                   'content_id' => $forum['cid'],
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+                $cntagree = vote_up_down_count($criteriaUp);
+                $cntdisagree = vote_up_down_count($criteriaDown);
+
+                //$cntagree = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d' AND value = '%d'", 'comment', $forum['cid'], '1'));
+                //$cntdisagree = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d' AND value = '%d'", 'comment', $forum['cid'], '-1'));
+                //$cntagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
+                //$cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
+                if ($user->uid != $forum['uid']) {
+                    if(count($fetch) < 1) {
+                        $like = '<li><span name="' . $forum['cid'] . '" type="is_debate_reply" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['cid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['cid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
+                    } elseif ($fetch[0]['value'] == '1') {
 
                         $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
                     } else {
                         $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
                     }
+                }else{
+                    $like = '<li></li>';
                 }
 //flag
                 $flag = '';
+<<<<<<< .mine
+                $flag.='<a name="' . $did . '-' . $forum['cid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
+=======
                  if(user_is_logged_in ())
         {
             $replybutton='<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['rid'] . '"  href="#postreply"></a>';
@@ -312,6 +354,7 @@ function get_debate($did = '', $pid = '') {
              $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
         }
                 
+>>>>>>> .r4061
 
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_bubble($account->uid);
@@ -321,7 +364,7 @@ function get_debate($did = '', $pid = '') {
                     $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/minus-img.jpg"></a>';
 
                 $output .= '<div class="clr"></div>
-<div class="hm-debate-cont-outer backash com-' . $forum['rid'] . '"">
+<div class="hm-debate-cont-outer backash com-' . $forum['cid'] . '"">
 ' . $plus . '
 <div>
 
@@ -335,7 +378,7 @@ function get_debate($did = '', $pid = '') {
 <div class="form-outer-debate">
 <div class="fm-1">&nbsp;</div>
 <div class="fm-4">
-' . make_clickable($forum['reply']) . '
+' . make_clickable($forum['comment']) .'--'.$forum['cid']. '
 </div>
 
 
@@ -378,25 +421,24 @@ function get_debate($did = '', $pid = '') {
 
 <div class="itemsecond">
 <ul>
+<<<<<<< .mine
+<li><a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['cid'] .'"  href="#postreply"></a></li>
+=======
 <li>'.$replybutton.'</li>
+>>>>>>> .r4061
 <li>' . $flag . '</li><li>' . $date . '</li>
 </ul>
 </div>
 
 <div class="itemthird">
-<div class="profile-img">
-<div class="profile-imgs">
-<a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
-</div>
-<div class="profile-con">' . $medal . '
-<div>
 
-</div>
-</div></div>
+' . load_user_badge($account->uid) . '
+
+
 </div>
 <div class="clr"></div>
 ';
-                $output .= get_debate($did, $forum['rid']);
+                $output .= get_debate($did, $forum['cid']);
 
                 $output .= '    </div>
 <div class="clr"></div>
@@ -423,40 +465,61 @@ function get_res_debate($rid = '', $pid = '') {
     if (!empty($rid)) {
 
 
-        $query = "select * from {resource_reply} as f  join {user_profile} as u on u.uid=f.uid  where f.rid='$rid' and f.status='1' and parentid='$pid'";
-
+        //$query = "select * from {resource_reply} as f  join {user_profile} as u on u.uid=f.uid  where f.rid='$rid' and f.status='1' and parentid='$pid'";
+        $query = "SELECT * FROM {comments} as c where c.nid='$rid' and c.status='1' and c.pid='$pid' ";
         $list = ExecuteQuery($query, "select");
 
 //print_r($set);
 
         foreach ($list as $forum) {
-
+        $cid = $forum['cid'];
 // $date = cdatetime($forum['date_added']).$forum['date_added'];
-            $date = format_date_class($forum['date_added'], date());
+            $posted = date("Y-m-d H:i:s", $forum['timestamp']);
+            $date = format_date_class($posted, date());
             $account = user_load($forum['uid']);
 
 
-            if (wave_access($forum['reid'], $forum['private'])) {
+            if (wave_access($forum['cid'], $forum['private'])) {
 
-                $image = empty($forum['image']) ? 'noimage.jpg' : $forum['image'];
-                $name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
-                $querylike = "select * from {user_likes} where is_resource_reply='1' AND uid='$user->uid' AND node_id='" . $forum['reid'] . "'";
+                //$image = empty($forum['image']) ? 'noimage.jpg' : $forum['image'];
+                //$name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
+//                $querylike = "select * from {user_likes} where is_resource_reply='1' AND uid='$user->uid' AND node_id='" . $forum['reid'] . "'";
+//                $fetch = ExecuteQuery($querylike, "select");
+//                $cntagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='1' AND node_id='" . $forum['reid'] . "'"));
+//                $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='0' AND node_id='" . $forum['reid'] . "'"));
+
+                $querylike = "SELECT * FROM {votingapi_vote} WHERE content_type = 'comment' AND uid = '$user->uid' AND content_id = '".$forum['cid']."'";
                 $fetch = ExecuteQuery($querylike, "select");
-                $cntagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='1' AND node_id='" . $forum['reid'] . "'"));
-                $cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_resource_reply='1' AND is_agree='0' AND node_id='" . $forum['reid'] . "'"));
+
+                 $criteriaUp = array('content_type' => 'comment',
+                                   'content_id' => $forum['cid'],
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+                $criteriaDown = array('content_type' => 'comment',
+                                   'content_id' => $forum['cid'],
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+                $cntagree = vote_up_down_count($criteriaUp);
+                $cntdisagree = vote_up_down_count($criteriaDown);
+               
                 if ($user->uid != $forum['uid']) {
                     if (count($fetch) < 1) {
 
-                        $like = '<li><span type="is_resource_reply" name="' . $forum['reid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['reid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['reid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
-                    } elseif ($fetch[0]['is_agree']) {
+                        $like = '<li><span type="is_resource_reply" name="' . $forum['cid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['cid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['cid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
+                    } elseif ($fetch[0]['value'] == '-1') {
 
                         $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
                     } else {
                         $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
                     }
+                }else{
+                    $like = '<li></li>';
                 }
 //flag
                 $flag = '';
+<<<<<<< .mine
+                $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',' . $forum['cid'] . ');"></a>';
+=======
                        if(user_is_logged_in ())
         {
             $replybutton='<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $rid . '-' . $forum['reid'] . '"  href="#postreply"></a>';
@@ -466,16 +529,17 @@ function get_res_debate($rid = '', $pid = '') {
              $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
         }
                
+>>>>>>> .r4061
 
                 $medal = updateProfileBadge($account->uid);
-                $bubble = load_bubble($account->uid);
+                $bubble =  load_user_badge($account->uid);
                 if ($forum['str_wk'])
                     $plus = '<a href="#"><img width="23" height="23" alt="Strengthen" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/plus-img.jpg"></a>';
                 else
                     $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/minus-img.jpg"></a>';
 
                 $output .= '<div class="clr"></div>
-<div class="hm-debate-cont-outer backash com-' . $forum['reid'] . '"">
+<div class="hm-debate-cont-outer backash com-' . $forum['cid'] . '"">
 ' . $plus . '
 <div>
 
@@ -489,7 +553,7 @@ function get_res_debate($rid = '', $pid = '') {
 <div class="form-outer-debate">
 <div class="fm-1">&nbsp;</div>
 <div class="fm-4">
-' . make_clickable($forum['reply']) . '
+' . make_clickable($forum['comment']) . '
 </div>
 
 
@@ -532,25 +596,25 @@ function get_res_debate($rid = '', $pid = '') {
 
 <div class="itemsecond">
 <ul>
+<<<<<<< .mine
+<li><a class="floatbox reply-menu" onclick="addComment(this);" id="' . $rid . '-' . $forum['cid'] . '"  href="#postreply"></a></li>
+=======
 <li>'.$replybutton.'</li>
+>>>>>>> .r4061
 <li>' . $flag . '</li><li>' . $date . '</li>
 </ul>
 </div>
 
 <div class="itemthird">
-<div class="profile-img">
-<div class="profile-imgs">
-<a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
-</div>
-<div class="profile-con">' . $medal . '
-<div>
 
-</div>
-</div></div>
+
+' . $bubble . '
+
+
 </div>
 <div class="clr"></div>
 ';
-                $output .= get_res_debate($rid, $forum['reid']);
+                $output .= get_res_debate($rid, $forum['cid']);
 
                 $output .= '    </div>
 <div class="clr"></div>
@@ -911,10 +975,10 @@ function add_resources($qid='') {
         $inc_pans.='
 	<div class="debate-r-row">
         <div class="fm-2">
-        <div class="fm-2-left">' . $list['answer'] . ' </div>
+        <div class="fm-2-left">' . $list['chtext'] . ' </div>
 <div class="fm-2-right">
 
-            <input type="hidden" name="ans_id[]" value="' . $list['paid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
+            <input type="hidden" name="ans_id[]" value="' . $list['chid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
               </div>
         </div>
 
@@ -1004,12 +1068,12 @@ function resource_list($type, $qid) {
     //answers
     $filter_list.='<select name="rfilt-ans" id="rfilt-ans" class="select-1"><option value="">Possible Answers</option>';
     foreach ($ans as $list) {
-        $filter_list.='<option value="' . $list['paid'] . '">' . $list['answer'] . '</option>';
+        $filter_list.='<option value="' . $list['chid'] . '">' . $list['chtext'] . '</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
-        <div class="fm-2-left">' . $list['answer'] . '</div>
-        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['paid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        <div class="fm-2-left">' . $list['chtext'] . '</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
         </div>
         <div class="clr"></div>
     </div>';
@@ -1092,27 +1156,70 @@ function resource_innews($qid='', $rtype='') {
         $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource_options} as ro join {resource} as r on ro.rid=r.rid join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $cond  group by r.rid $sortin ";
 
     $cnt = ExecuteQuery($query, "select");
+    // load Resource
+    $resType = $rtype==1?'news':'facts';
+    $tid = get_taxonomy_id('forum', 'Resource');
+    $sql = "SELECT f.nid FROM {forum} as f RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' ORDER BY f.nid DESC";
+    $nodes = db_query($sql, $tid, $qid, $resType);
+    $count = db_result(db_query($sql, $tid, $qid, $resType));
+    
+    if ($count>0) {
+    $i=0;
 
-    if (count($cnt)) {
-
-
-        foreach ($cnt as $forum) {
+         while ($node = db_fetch_object($nodes)) {
+            $forum = node_load( array('nid' => $node->nid, 'status' => '1'));
+            
             $bg = $i % 2;
             if ($bg)
                 $setbg = 'back-col';
             else
                 $setbg='';
             $i++;
-            $account = user_load($forum['uid']);
+            $account = user_load($forum->uid);
             // resource round up
-            resource_roundup($forum['rid']);
+            resource_roundup($forum->nid);
 
-            $query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum['rid'] . "'";
-            $strnth = ExecuteQuery($query, "select");
+
+            // vote agree, disagree calculation
+            $voteUp = 0;
+            $voteDown = 0;
+            $criteriaUpNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+            $criteriaDownNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+            $voteUp = vote_up_down_count($criteriaUpNode);
+            $voteDown = vote_up_down_count($criteriaDownNode);
+            $sql = db_query("SELECT cid FROM {comments} WHERE nid = '%d'", $forum->nid);
+            while($row = db_fetch_object($sql)){
+                $criteriaUp = array('content_type' => 'comment',
+                                   'content_id' => $row->cid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+                $criteriaDown = array('content_type' => 'comment',
+                                   'content_id' => $row->cid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+                $voteUp += vote_up_down_count($criteriaUp);
+                $voteDown += vote_up_down_count($criteriaDown);
+            }
+            // date posted, last activity
+            $last_timestamp = db_result(db_query("SELECT timestamp FROM {comments} WHERE nid = '%d' ORDER BY cid DESC LIMIT 0,1", $forum->nid));
+
+            $posted = date("F d Y H:i:s", $forum->created);
+            $last_activity = $last_timestamp!=''?date("F d Y H:i:s", $last_timestamp):$posted;
+
             $strength = '';
-            $image = !empty($forum['uimg']) ? $forum['uimg'] : file_directory_path() . '/noimage.jpg';
+            $image = !empty($forum->field_filepath[0]['value']) ? $forum->field_filepath[0]['value'] : file_directory_path() . '/noimage.jpg';
+
+            //$query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum->nid . "'";
+            $query = "select * from {resource_options} a,{poll_choices} b where a.chid=b.chid AND a.nid='" . $forum->nid . "'";
+            $strnth = ExecuteQuery($query, "select");
             foreach ($strnth as $list) {
-                $ans = $list['answer'];
+                $ans = $list['chtext'];
 
                 switch ($list['ans_val']) {
                     case 0:
@@ -1142,10 +1249,10 @@ function resource_innews($qid='', $rtype='') {
             $wave.='         <div class="debate-summary-wrapper" >
 <div class="deb-center">
 <div class="leftpartside">
-<div class="toppart"><p>' . $forum['agree'] . '</p>
+<div class="toppart"><p>' . $voteUp . '</p>
 
 <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
-<div class="toppart2"><p>' . $forum['disagree'] . '</p>
+<div class="toppart2"><p>' . $voteDown . '</p>
 <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
 </div>
@@ -1161,12 +1268,12 @@ function resource_innews($qid='', $rtype='') {
 <div class="fm-5">
 <div class="leftfm">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
 <div class="rightfm">
-<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum['rid'] . '" >' . myTruncate($forum['udesc'], '50', '', '..') . '</a><br>
-<a target="_blank" href="' . $forum['nlink'] . '">' . myTruncate($forum['nlink'], '25', '', '..') . '</a><br>
+<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum->nid . '" >' . myTruncate($forum->body, '50', '', '..') . '</a><br>
+<a target="_blank" href="' . $forum->title . '">' . myTruncate($forum->title, '25', '', '..') . '</a><br>
 <br>
 
 
-' . myTruncate($forum['udesc'], '125', '', '..') . '
+' . myTruncate($forum->body, '125', '', '..') . '
 </div>
 
 
@@ -1189,9 +1296,9 @@ function resource_innews($qid='', $rtype='') {
 <ul>
 
 
-<li>Posted : ' . $forum['date_added'] . ' </li>
+<li>Posted : ' . $posted . ' </li>
 <div class="clr"></div>
-<li>Last Activity: ' . $forum['rdate'] . '</li>
+<li>Last Activity: ' . $last_activity . '</li>
 
 
 </ul>
@@ -1214,9 +1321,135 @@ function resource_innews($qid='', $rtype='') {
 <div class="clr"></div>
 ';
         }
-    } else {
+    }
+else {
         $wave.='<div class="messages warning">No Resources Found!</div>';
     }
+
+
+//    if (count($cnt)) {
+//
+//
+//        foreach ($cnt as $forum) {
+//            $bg = $i % 2;
+//            if ($bg)
+//                $setbg = 'back-col';
+//            else
+//                $setbg='';
+//            $i++;
+//            $account = user_load($forum['uid']);
+//            // resource round up
+//            resource_roundup($forum['rid']);
+//
+//            $query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum['rid'] . "'";
+//            $strnth = ExecuteQuery($query, "select");
+//            $strength = '';
+//            $image = !empty($forum['uimg']) ? $forum['uimg'] : file_directory_path() . '/noimage.jpg';
+//            foreach ($strnth as $list) {
+//                $ans = $list['answer'];
+//
+//                switch ($list['ans_val']) {
+//                    case 0:
+//                        $strength.='<div class="bottpart">
+//                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+//                                <div class="green-box">' . $ans . '</div>
+//                                     <div class="clr"></div>
+//                                     </div>';
+//                        break;
+//                    case 1:
+//                        $strength.='<div class="bottpart">
+//                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+//                                <div class="green-box">' . $ans . '</div>
+//                                     <div class="clr"></div>
+//                                     </div>';
+//                        break;
+//                    case 2:
+//                        $strength.='<div class="bottpart">
+//                                <div class="pink"><em>&nbsp;&nbsp;-</em></div>
+//                                <div class="pink-box">' . $ans . '</div>
+//                                     <div class="clr"></div>
+//                                     </div>';
+//                        break;
+//                }
+//            }
+//
+//            $wave.='         <div class="debate-summary-wrapper" >
+//<div class="deb-center">
+//<div class="leftpartside">
+//<div class="toppart"><p>' . $forum['agree'] . '</p>
+//
+//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+//<div class="toppart2"><p>' . $forum['disagree'] . '</p>
+//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+//
+//</div>
+//
+//</div>
+//
+//
+//<div class="centerpartside-out">
+//<div class="centerpartside-top">
+//<div class="centerpartside">
+//<div class="form-outer-debate">
+//<div class="fm-1">&nbsp;</div>
+//<div class="fm-5">
+//<div class="leftfm">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
+//<div class="rightfm">
+//<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum['rid'] . '" >' . myTruncate($forum['udesc'], '50', '', '..') . '</a><br>
+//<a target="_blank" href="' . $forum['nlink'] . '">' . myTruncate($forum['nlink'], '25', '', '..') . '</a><br>
+//<br>
+//
+//
+//' . myTruncate($forum['udesc'], '125', '', '..') . '
+//</div>
+//
+//
+//
+//</div>
+//
+//
+//<div class="clr"></div>
+//</div>
+//</div>
+//<div class="rightpartside">
+//<a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
+//
+//</div>
+//<div class="clr"></div>
+//
+//<div class="centerpartside-bottom">
+//' . $strength . '
+//
+//<ul>
+//
+//
+//<li>Posted : ' . $forum['date_added'] . ' </li>
+//<div class="clr"></div>
+//<li>Last Activity: ' . $forum['rdate'] . '</li>
+//
+//
+//</ul>
+//
+//
+//</div>
+//
+//
+//<div class="clr"></div>
+//
+//</div>
+//
+//</div>
+//<div class="deb-bott">
+//</div>
+//<div class="clr"></div>
+//
+//</div>
+//
+//<div class="clr"></div>
+//';
+//        }
+//    }
+    
     return $wave;
 }
 
@@ -1224,31 +1457,38 @@ function resource_media($qid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';
-    $query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='2' AND status='1' ORDER BY rid DESC ";
-    $cnt = ExecuteQuery($query, "select");
-    if (count($cnt)) {
+    //$query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='2' AND status='1' ORDER BY rid DESC ";
+    //$cnt = ExecuteQuery($query, "select");
+    $tid = get_taxonomy_id('forum', 'Resource');
+    $sql = "SELECT f.nid FROM {forum} as f RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' ORDER BY f.nid DESC";
+    $nodes = db_query($sql, $tid, $qid, 'multimedia');
+    $count = db_result(db_query($sql, $tid, $qid, 'multimedia'));
+    if ($count>0) {
 
-
-        foreach ($cnt as $forum) {
+          
+           
+       while ($node = db_fetch_object($nodes)) {
+           $forum = node_load( array('nid' => $node->nid, 'status' => '1'));
+//           echo '<pre>';
+//           print_r($forum);
             $bg = $i % 2;
             if ($bg)
                 $setbg = 'back-col';
             else
                 $setbg='';
             $i++;
-            $account = user_load($forum['uid']);
+            $account = user_load($forum->uid);
 
-            $query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum['rid'] . "'";
-            $strnth = ExecuteQuery($query, "select");
+            
             $strength = '';
             $content = '';
-            if ($forum['video_id'] != '') {
+            if ($forum->field_videoid[0]['value'] != '') {
                 $content.='<div class="form-outer-debate">
 <div class="fm-1">&nbsp;</div>
 <div class="fm-5">
-<div class="leftfm"><a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $forum['video_id'] . '"  class="floatbox" data-fb-options="width:480 height:384"><img width="125" height="100" src="http://img.youtube.com/vi/' . $forum['video_id'] . '/default.jpg" alt="Video " ></a></div>
+<div class="leftfm"><a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $forum->field_videoid[0]['value'] . '"  class="floatbox" data-fb-options="width:480 height:384"><img width="125" height="100" src="http://img.youtube.com/vi/' . $forum->field_videoid[0]['value'] . '/default.jpg" alt="Video " ></a></div>
 <div class="rightfm">
-<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum['rid'] . '" >' . myTruncate($forum['membed'], '50', '', '..') . '</a><br>
+<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum->nid . '" >' . myTruncate($forum->field_nlink[0]['value'], '50', '', '..') . '</a><br>
 <br>
 </div>
 
@@ -1258,12 +1498,15 @@ function resource_media($qid='') {
 
 <div class="clr"></div>
 </div>';
-            } elseif ($forum['document'] != '') {
-                $url = explode('/', $forum['document']);
-                $content.='<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum['rid'] . '" > ' . $url[2] . ' </a> ';
+            } elseif ($forum->field_filepath[0]['value'] != '') {
+                $url = explode('/', $forum->field_filepath[0]['value']);
+                $content.='<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum->nid . '" > ' . $url[2] . ' </a> ';
             }
+            //$query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum->nid . "'";
+            $query = "select * from {resource_options} a,{poll_choices} b where a.chid=b.chid AND a.nid='" . $forum->nid . "'";
+            $strnth = ExecuteQuery($query, "select");
             foreach ($strnth as $list) {
-                $ans = $list['answer'];
+                $ans = $list['chtext'];
 
                 switch ($list['ans_val']) {
                     case 0:
@@ -1289,14 +1532,45 @@ function resource_media($qid='') {
                         break;
                 }
             }
+             // vote agree, disagree calculation
+            $voteUp = 0;
+            $voteDown = 0;
+            $criteriaUpNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+            $criteriaDownNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+            $voteUp = vote_up_down_count($criteriaUpNode);
+            $voteDown = vote_up_down_count($criteriaDownNode);
+            $sql = db_query("SELECT cid FROM {comments} WHERE nid = '%d'", $forum->nid);
+            while($row = db_fetch_object($sql)){
+                $criteriaUp = array('content_type' => 'comment',
+                                   'content_id' => $row->cid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+                $criteriaDown = array('content_type' => 'comment',
+                                   'content_id' => $row->cid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+                $voteUp += vote_up_down_count($criteriaUp);
+                $voteDown += vote_up_down_count($criteriaDown);
+            }
+            // date posted, last activity
+            $last_timestamp = db_result(db_query("SELECT timestamp FROM {comments} WHERE nid = '%d' ORDER BY cid DESC LIMIT 0,1", $forum->nid));
 
+            $posted = date("F d Y H:i:s", $forum->created);
+            $last_activity = $last_timestamp!=''?date("F d Y H:i:s", $last_timestamp):$posted;
+            
             $wave.='         <div class="debate-summary-wrapper" >
 <div class="deb-center">
 <div class="leftpartside">
-<div class="toppart"><p>' . $forum['agree'] . '</p>
+<div class="toppart"><p>' . $voteUp . '</p>
 
 <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
-<div class="toppart2"><p>' . $forum['disagree'] . '</p>
+<div class="toppart2"><p>' . $voteDown . '</p>
 <p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
 </div>
@@ -1321,9 +1595,9 @@ function resource_media($qid='') {
 <ul>
 
 
-<li>Posted : ' . $forum['date_added'] . ' </li>
+<li>Posted : ' . $posted . ' </li>
 <div class="clr"></div>
-<li>Last Activity: ' . $forum['rdate'] . '</li>
+<li>Last Activity: ' . $last_activity . '</li>
 
 
 </ul>
@@ -1346,7 +1620,7 @@ function resource_media($qid='') {
 <div class="clr"></div>
 ';
             // resource round up
-            resource_roundup($forum['rid']);
+            resource_roundup($forum->nid);
         }
     } else {
         $wave.='<div class="messages warning">No Resources Found!</div>';
@@ -1363,20 +1637,22 @@ function resdebate_list($qid='', $rid='') {
     $output = '';
     $like = '';
     $flag = '';
-
-    $query = "SELECT *,u.uid as uid,IFNULL((select rid  FROM {resource} where rid > r.rid AND qid='$qid' limit 0,1 ),0) as prid,IFNULL((select rid FROM {resource} where rid < r.rid AND qid='$qid' limit 0,1 ),0) as nrid   FROM {resource} as r  join {user_profile} as u on u.uid=r.uid   where r.qid='$qid' AND r.rid='$rid' AND r.status='1'";
-    $list = ExecuteQuery($query, "select");
+    // get nid for respective did
+    //$nodeid = db_result(db_query("SELECT nid FROM {resource} WHERE rid = '%d'", $rid));
+    //$query = "SELECT *,u.uid as uid,IFNULL((select rid  FROM {resource} where rid > r.rid AND qid='$qid' limit 0,1 ),0) as prid,IFNULL((select rid FROM {resource} where rid < r.rid AND qid='$qid' limit 0,1 ),0) as nrid   FROM {resource} as r  join {user_profile} as u on u.uid=r.uid   where r.qid='$qid' AND r.rid='$rid' AND r.status='1'";
+    //$list = ExecuteQuery($query, "select");
+    $forum =  node_load($rid);
     $dlink = $gSitePath . 'resource/debate/';
 
 
-    foreach ($list as $forum) {
+//    foreach ($list as $forum) {
 
         //Agree Disagree
-        if ($forum['prid'] > 0) {
+        if ($forum->prid > 0) {
             $prev = $dlink . $qid . '/' . $forum['prid'];
             $set_p_link = '<li><a  href="' . $prev . '" class="previous"  onclick="switchdebate(this.href);return false;" >Previous Debate</a></li>';
         }
-        if ($forum['nrid'] > 0) {
+        if ($forum->nrid > 0) {
             $next = $dlink . $qid . '/' . $forum['nrid'];
             $set_n_link = '   <li><a   href="' . $next . '" class="next" onclick="switchdebate(this.href);return false;" >Next Debate</a></li>';
         }
@@ -1408,22 +1684,36 @@ function resdebate_list($qid='', $rid='') {
 <div align="center" id="waveerr"></div>
 ';
 //$date = cdatetime($forum['date_added']).$forum['date_added'];
+        $posted = date("Y-m-d H:i:s", $forum->created);
+        $date = format_date_class($posted, date());
+        $account = user_load($forum->uid);
 
-        $date = format_date_class($forum['date_added'], date());
-        $account = user_load($forum['uid']);
-
-        $image = empty($forum['uimg']) ? file_directory_path() . '/noimage.jpg' : $forum['uimg'];
-        $name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
+        $image = empty($forum->field_filepath[0]['value']) ? file_directory_path() . '/noimage.jpg' : $forum->field_filepath[0]['value'];
+        //$name = empty($forum['real_name']) ? $forum['first_name'] : $forum['real_name'];
 //likes or not
-        $querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='" . $forum['rid'] . "'";
+        //$querylike = "select * from {user_likes} where is_resource='1' AND uid='$user->uid' AND node_id='" . $forum['rid'] . "'";
+        //$fetch = ExecuteQuery($querylike, "select");
+        //$agreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
+        //$disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
+        $agreecnt=0;
+        $disagreecnt=0;
+        $querylike = "SELECT * FROM {votingapi_vote} WHERE content_type = 'node' AND uid = '$user->uid' AND content_id = '$forum->nid'";
         $fetch = ExecuteQuery($querylike, "select");
-        $agreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='1' AND node_id='" . $forum['rid'] . "'"));
-        $disagreecnt = db_result(db_query("select count(*) from {user_likes} where is_resource='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
-        if ($user->uid != $forum['uid']) {
+        $criteriaUpNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+        $criteriaDownNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+        $agreecnt = vote_up_down_count($criteriaUpNode);
+        $disagreecnt = vote_up_down_count($criteriaDownNode);
+        if ($user->uid != $forum->uid) {
             if (count($fetch) < 1) {
 
                 $like = '<li><span name="' . $rid . '" id="dagree" type="is_resource" ><a href="javascript:void(0);" name="a-' . $rid . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $rid . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
-            } elseif ($fetch[0]['is_agree']) {
+            } elseif ($fetch[0]['value'] == '1') {
 
                 $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
             } else {
@@ -1442,25 +1732,25 @@ function resdebate_list($qid='', $rid='') {
              $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
         }
 
-        $bubble = load_bubble($account->uid);
+        $bubble =  load_user_badge($account->uid);
         $medal = updateProfileBadge($account->uid);
 
-        if ($forum['rtype'] == '2') {
-            if ($forum['mtype'] == '1') {
+        if ($forum->field_rtype[0]['value'] == 'multimedia') {
+            if ($forum->field_mtype[0]['value'] == 'video') {
                 $content.='<div class="form-outer-debate">
 <div class="fm-1">&nbsp;</div>
 <div class="fm-5">
-<div class="leftfm"><a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $forum['video_id'] . '"  class="floatbox" data-fb-options="width:480 height:384"><img width="125" height="100" src="http://img.youtube.com/vi/' . $forum['video_id'] . '/default.jpg" alt="Video " ></a></div>
+<div class="leftfm"><a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $forum->field_videoid[0]['value'] . '"  class="floatbox" data-fb-options="width:480 height:384"><img width="125" height="100" src="http://img.youtube.com/vi/' . $forum->field_videoid[0]['value'] . '/default.jpg" alt="Video " ></a></div>
 <div class="rightfm">
-<a href="' . $forum['membed'] . '" target="_blank" >' . myTruncate($forum['membed'], '50', '', '..') . '</a><br>
+<a href="' . $forum->field_nlink[0]['value'] . '" target="_blank" >' . myTruncate($forum->field_nlink[0]['value'], '50', '', '..') . '</a><br>
 <br>
 </div>
 </div>
 <div class="clr"></div>
 </div>';
             } else {
-                $url = explode('/', $forum['document']);
-                $content.='<a href="' . $gSitePath . '' . $forum['document'] . '" target="_blank"> ' . $url[2] . ' </a> ';
+                $url = explode('/', $forum->field_filepath[0]['value']);
+                $content.='<a href="' . $gSitePath . '' . $forum->field_filepath[0]['value'] . '" target="_blank"> ' . $url[2] . ' </a> ';
             }
         } else {
 
@@ -1469,8 +1759,8 @@ function resdebate_list($qid='', $rid='') {
         <div class="fm-4">
         	<div class="leftfm">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
             <div class="rightfm">
-<h5>' . $forum['title'] . '</h5>
-' . make_clickable($forum['udesc']) . '
+<h5>' . $forum->title . '</h5>
+' . make_clickable($forum->body) . '
             </div>
       </div>
     <div class="clr"></div>
@@ -1515,14 +1805,8 @@ function resdebate_list($qid='', $rid='') {
 </ul>
 </div>
 <div class="itemthird">
-<div class="profile-img">
-<div class="profile-imgs">
-<a title="' . $account->name . '" href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture($account->uid) . '</a>
-</div>
-<div class="profile-con">' . $medal . '
-<div>
-</div>
-</div>
+
+' . $bubble . '
 
 </div>
 <div class="clr"></div>
@@ -1534,7 +1818,7 @@ function resdebate_list($qid='', $rid='') {
 </div>
 <div id="wavelet-list">
 	';
-    }
+    // }
     $output .= get_res_debate($rid, 0);
 
 
@@ -1558,9 +1842,11 @@ function resdebate_list($qid='', $rid='') {
         <textarea rows="10" cols="" name="waveletcmt" id="waveletcmt">Enter text here</textarea>
 <!--<input type="checkbox" name="privt" value="1" id="privt"/> Private Reply-->
 <input type="hidden" name="fdid" id="fdid" value="' . $rid . '"/>
-		<input type="hidden" name="frid" id="frid" value=""/>
+		<input type="text" name="frid" id="frid" value=""/>
                  <input type="hidden" name="qid" id="qid" value="' . $qid . '"/>
 			<input type="hidden" name="action" value="resreply" />
+                        <input type="hidden" name="nodeid" value="' .$rid. '" />
+                        <input type="text" name="comid" id="comid" value=""/>
         </div>
 
         <div class="clr"></div>
@@ -1679,15 +1965,72 @@ function debate_ajax() {
 
                     $udesc = $html->find('title', 0)->innertext;
                 }
-                //  $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('$rtype','" . addslashes($nlink) . "','" . addslashes($ntitle) . "','" . addslashes($ncontent) . "','" . $mtype . "','" . addslashes($membed) . "','" . addslashes($flink) . "', '" . $user->uid . "','" . $qaid . "','" . $path . "','" . $docpath . "','" . $ytvID . "','" . $udesc . "','" . $files . "')";
-                $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('%d','%s','%s','%s','%d','%s','%s', '%d','%d','%s','%s','%s','%s','%s')";
-                db_query($resourceadd, $rtype, $nlink, $ntitle, $ncontent, $mtype, $membed, $flink, $user->uid, $qaid, $path, $docpath, $ytvID, $udesc, $files);
-                $nid = db_last_insert_id('resource', 'rid');
+
+                 // save values as node
+
+                    $res = new stdClass();
+                //  identify resource type and insert datas
+                    switch($rtype){
+                        case '1':
+                            $res->field_rtype[0]['value'] = 'news';
+                            $res->title = $nlink;
+                            $res->body = $udesc;
+                            $res->field_filepath[0]['value'] = $files;
+                            $res->field_nlink[0]['value'] = $nlink;
+                            break;
+                        case '2':
+                            $res->field_rtype[0]['value'] = 'multimedia';
+                            if($mtype == 1){
+                            $res->title = $membed;
+                            $res->field_mtype[0]['value'] = 'video';
+                            $res->field_videoid[0]['value'] = $ytvID;                            
+                            $res->field_nlink[0]['value'] = $membed;
+                            }
+                            else if($mtype == 2){
+                            $res->title = $docpath;
+                            $res->field_mtype[0]['value'] = 'doc';                            
+                            $res->field_filepath[0]['value'] = $docpath;
+                            }
+                            break;
+                        case '3':
+                            $res->field_rtype[0]['value'] = 'facts';
+                            $res->title = $nlink;
+                            $res->body = $udesc;
+                            $res->field_filepath[0]['value'] = $files;                            
+                            break;
+                    }
+                    $res->type = 'forum';
+                    $res->uid = $user->uid;
+                    $res->status = 1;
+                    // get tid (debate or resource)
+                    // get_taxonomy_id('module name','term data name')
+                    $tid = get_taxonomy_id('forum','Resource');
+                    $res->taxonomy = array($tid);
+                    // content type values
+                    $res->field_ref_qid[0]['nid'] = $qaid;
+                    $res->field_type[0]['value'] = '2';
+                    
+                    $save = node_save($res);
+
+                    $nodeid = $res->nid;
+                    $vid = $res->vid;
+                    
+                    // insert debate as forum in database programmatically
+                    //db_query("INSERT INTO {forum} SET nid = '%d', vid = '%d', tid = '%d'", $nodeid, $vid, $tid);
+                    //db_query("INSERT INTO {term_node} SET nid = '%d', vid = '%d', tid = '%d'", $nodeid, $vid, $tid);
+
+
+
+
+               //  $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('$rtype','" . addslashes($nlink) . "','" . addslashes($ntitle) . "','" . addslashes($ncontent) . "','" . $mtype . "','" . addslashes($membed) . "','" . addslashes($flink) . "', '" . $user->uid . "','" . $qaid . "','" . $path . "','" . $docpath . "','" . $ytvID . "','" . $udesc . "','" . $files . "')";
+                //$resourceadd = "insert into resource(rtype,nid,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('%d','%d','%s','%s','%s','%d','%s','%s', '%d','%d','%s','%s','%s','%s','%s')";
+                //db_query($resourceadd, $rtype,$nodeid, $nlink, $ntitle, $ncontent, $mtype, $membed, $flink, $user->uid, $qaid, $path, $docpath, $ytvID, $udesc, $files);
+                //$nid = db_last_insert_id('resource', 'rid');
                 $i = 0;
                 foreach ($ans_id as $list) {
-
-                    $forum = "INSERT INTO {resource_options} set rid='%d',paid='%d',ans_val='%d' ";
-                    $result = db_query($forum, $nid, $list, $sup_opp[$i]);
+                    $forum = "INSERT INTO {resource_options} set nid='%d',chid='%d',ans_val='%d' ";
+                    //$forum = "INSERT INTO {resource_options} set rid='%d',paid='%d',ans_val='%d' ";
+                    $result = db_query($forum, $nodeid, $list, $sup_opp[$i]);
                     $i++;
                 }
                 echo '<div class="messages success"> Your reference has been added </div>';
@@ -1695,7 +2038,8 @@ function debate_ajax() {
             break;
         case 'analysis':
             $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-            $vans = "select * from {possible_answer} where  qid=$qid ";
+            //$vans = "select * from {possible_answer} where  qid=$qid ";
+            $vans = "select * from {poll_choices} where  nid=$qid ";
             $vlist = ExecuteQuery($vans, "select");
             $cnt_ans = count($vlist);
             $output.="<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
@@ -1710,19 +2054,21 @@ function debate_ajax() {
 
             for ($ab = 0; $ab < $cnt_ans; $ab++) {
 
-                $insdata.="'" . $vlist[$ab]['answer'] . "',";
+                $insdata.="'" . $vlist[$ab]['chtext'] . "',";
 
-                $sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
+                //$sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
+                $sel = "select * from {debate_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chid='" . $vlist[$ab]['chid'] . "' AND o.ans_val IN ('1','2') group by o.nid";
                 $tmplist = ExecuteQuery($sel, "select");
 
                 $final = '';
                 foreach ($tmplist as $list) {
 
-                    $cnt_opt = db_result(db_query("select count(paid) from {debate_options} where did=" . $list['did'] . " AND ans_val IN ('1','2')"));
+                    //$cnt_opt = db_result(db_query("select count(paid) from {debate_options} where did=" . $list['did'] . " AND ans_val IN ('1','2')"));
+                    $cnt_opt = db_result(db_query("select count(chid) from {debate_options} where nid=" . $list['nid'] . " AND ans_val IN ('1','2')"));
 
                     $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
 
-                    $final = $final + (($tmp * $list['strength']) / $cnt_opt);
+                    $final = $final + (($tmp * $list['field_strength_value']) / $cnt_opt);
                 }
 
                 $final = (!empty($final)) ? $final : '0';
@@ -1776,7 +2122,8 @@ $(document).ready(function() {
             break;
         case 'resanalysis':
             $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-            $vans = "select * from {possible_answer} where  qid=$qid ";
+            //$vans = "select * from {possible_answer} where  qid=$qid ";
+            $vans = "select * from {poll_choices} where  nid=$qid ";
             $vlist = ExecuteQuery($vans, "select");
             $cnt_ans = count($vlist);
             $output.="<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
@@ -1791,14 +2138,16 @@ $(document).ready(function() {
 
             for ($ab = 0; $ab < $cnt_ans; $ab++) {
 
-                $insdata.="'" . $vlist[$ab]['answer'] . "',";
+                $insdata.="'" . $vlist[$ab]['chtext'] . "',";
 
-                $sel = "select * from {resource_options} as o join {resource} as d on d.rid=o.rid  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN (1,2) group by o.rid";
+                //$sel = "select * from {resource_options} as o join {resource} as d on d.rid=o.rid  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN (1,2) group by o.rid";
+                $sel = "select * from {resource_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chid='" . $vlist[$ab]['chid'] . "' AND o.ans_val IN (1,2) group by o.nid";
                 $tmplist = ExecuteQuery($sel, "select");
                 foreach ($tmplist as $list) {
-                    $cnt_opt = db_result(db_query("select count(paid) from {resource_options} where rid=" . $list['rid'] . " AND ans_val IN (1,2) group by paid"));
+                    //$cnt_opt = db_result(db_query("select count(paid) from {resource_options} where rid=" . $list['rid'] . " AND ans_val IN (1,2) group by paid"));
+                    $cnt_opt = db_result(db_query("select count(chid) from {resource_options} where nid=" . $list['nid'] . " AND ans_val IN (1,2) group by chid"));
                     $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
-                    $final = $final + (($tmp * $list['strength']) / $cnt_opt);
+                    $final = $final + (($tmp * $list['field_strength_value']) / $cnt_opt);
                 }
 
                 $final = (!empty($final)) ? $final : '0';
@@ -1989,10 +2338,42 @@ function debate_submit() {
             if (!empty($wtitle) && !empty($user->uid)) {
                 $lose_coins = get_coins('c_debate');
                 if ($user_coins >= $lose_coins) {
-                    $forum = "INSERT INTO {debate} set qid='%d',type='1',uid='%d',title='%s',content='%s',private='%d' ";
-                    $result = db_query($forum, $qid, $user->uid, $wtitle, $wcon, $wprivate);
 
-                    $nid = db_last_insert_id('debate', 'did');
+                     // save values as node
+                    $deb = new stdClass();
+                    $deb->field_private[0]['value'] = $wprivate;
+                    $deb->field_ref_qid[0]['nid'] = $qid;
+                    $deb->field_type[0]['value'] = '1';
+
+                    $deb->type = 'forum';
+                    $deb->title = $wtitle;
+                    $deb->uid = $user->uid;
+                    $deb->body = $wcon;
+                    $deb->status = 1;
+                    // get tid for debate
+                    // get_taxonomy_id('module name','term data name')
+                    $tid = get_taxonomy_id('forum','Debate');
+                    $deb->taxonomy = array($tid);
+                    
+                    //node_validate($deb);
+                    //$node = node_submit($deb);
+                    $save = node_save($deb);
+
+                    $nodeid = $deb->nid;
+                    $vid = $deb->vid;
+                    
+                    
+                    
+                    
+                    // insert debate as forum in database programmatically
+                    //db_query("INSERT INTO {forum} SET nid = '%d', vid = '%d', tid = '%d'", $nodeid, $vid, $tid);
+                    //db_query("INSERT INTO {term_node} SET nid = '%d', vid = '%d', tid = '%d'", $nodeid, $vid, $tid);
+                    
+                    //$forum = "INSERT INTO {debate} set qid='%d',type='1',uid='%d',title='%s',content='%s',private='%d', nid='%d' ";
+                    //$result = db_query($forum, $qid, $user->uid, $wtitle, $wcon, $wprivate, $nodeid);
+                    //$nid = db_last_insert_id('debate', 'did');
+                    
+                    
                     ;
                     $i = 0;
 // add coin for Create new debates
@@ -2000,9 +2381,9 @@ function debate_submit() {
                     users_coins_update($user->uid, '', $coin_type);
 
                     foreach ($ans_id as $list) {
-
-                        $forum = "INSERT INTO {debate_options} set did='%d',paid='%d',ans_val='%d' ";
-                        $result = db_query($forum, $nid, $list, $sup_opp[$i]);
+                        //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
+                        $forum = "INSERT INTO {debate_options} set nid = '%d',chid='%d',ans_val='%d' ";
+                        $result = db_query($forum, $nodeid, $list, $sup_opp[$i]);
                         $i++;
                     }
                     echo list_debate($qid, 1);
@@ -2034,12 +2415,44 @@ function debate_submit() {
         case 'reply':
             $lose_coins = get_coins('p_debate');
             if ($user_coins >= $lose_coins) {
-                $query = "insert into {debate_reply} set did='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
-                $result = db_query($query, $fdid, $user->uid, $frid, $str_wk, check_plain($waveletcmt), $pvt);
-                $rid = db_last_insert_id('debate_reply', 'rid');
-                echo $output = get_debate($fdid, 0);
-                post_notification($fdid, $rid);
+                //$query = "insert into {debate_reply} set did='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
+                ///$result = db_query($query, $fdid, $user->uid, $frid, $str_wk, check_plain($waveletcmt), $pvt);
+                //$rid = db_last_insert_id('debate_reply', 'rid');
+               
+                
+                //insert debate reply to comments table
+                $values = array();
+                $values['did'] = $fdid;
+                $values['pid'] = $comid;
+                $values['nid'] = $nodeid;
+                $values['uid'] = $user->uid;
+                $values['name'] = $user->name;
+                $values['subject'] = 'Debate';
+                $values['comment'] = check_plain($waveletcmt);
+                $values['str_wk'] = $str_wk;
+                //drupal_execute('postreplyform', $values, NULL);
+                //custom comment submission (debate reply as comments)
+                custom_comment_submission($values);
 
+
+//                $getcomments = array();
+//
+//                $getcomments['values']['subject'] = 'Debate';
+//                $getcomments['values']['comment'] = check_plain($waveletcmt);
+//
+//                $getcomments['values']['nid'] = $nodeid;
+//                $getcomments['values']['uid'] = $user->uid;
+//                $getcomments['values']['name'] = $user->name;
+//                $getcomments['values']['pid'] = $comid;
+//
+//                $getcomments['values']['timestamp'] = time();
+//                $getcomments['values']['status'] = COMMENT_PUBLISHED;
+//
+//                comment_form_submit("comment_form", $getcomments);
+
+                $cid = db_last_insert_id('comments', 'cid');
+                post_notification($nodeid, $cid);
+                echo $output = get_debate($nodeid, 0);
 // add coin for participate in debate debates
                 $coin_type = 'p_debate';
                 users_coins_update($user->uid, '', $coin_type);
@@ -2064,11 +2477,27 @@ function debate_submit() {
             }
             break;
         case 'resreply':
-            $query = "insert into {resource_reply} set rid='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
-            $result = db_query($query, $fdid, $user->uid, $frid, $str_wk, check_plain($waveletcmt), $pvt);
-            $rid = db_last_insert_id('resource_reply', 'rid');
-            echo $output = get_res_debate($fdid, 0);
-            post_notification($fdid, $rid);
+            //$query = "insert into {resource_reply} set rid='%d',uid='%d',parentid='%d',str_wk='%d',reply='%s',private='%s'";
+            //$result = db_query($query, $fdid, $user->uid, $frid, $str_wk, check_plain($waveletcmt), $pvt);
+            //$rid = db_last_insert_id('resource_reply', 'rid');
+            //echo $output = get_res_debate($fdid, 0);
+           // post_notification($fdid, $rid);
+
+            $values = array();
+                $values['did'] = $frid;
+                $values['pid'] = $comid;
+                $values['nid'] = $nodeid;
+                $values['uid'] = $user->uid;
+                $values['name'] = $user->name;
+                $values['subject'] = 'Resource';
+                $values['comment'] = check_plain($waveletcmt);
+                $values['str_wk'] = $str_wk;
+                //drupal_execute('postreplyform', $values, NULL);
+                //custom comment submission (debate reply as comments)
+                custom_comment_submission($values);
+                $cid = db_last_insert_id('comments', 'cid');
+                post_notification($nodeid, $cid);
+                echo $output = get_res_debate($nodeid, 0);
             /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
             $qid_url = db_query("select * from {question} where qid='$qid'");
             $question_values = db_fetch_array($qid_url);
@@ -2090,32 +2519,51 @@ function debate_submit() {
         case 'is_debate_reply':
         case 'is_resource':
         case 'is_resource_reply':
-            $cond = " AND " . $action . "='1'";
-            $set = " " . $action . "='1'";
 
-            $query = "select * from {user_likes} where node_id='$nodeid' $cond AND uid='$user->uid'";
+            if($action == 'is_debate' || $action == 'is_resource'){
+                $type = 'node';
+            }else if($action == 'is_debate_reply' || $action == 'is_resource_reply'){
+                $type = 'comment';
+            }
+            
+            $cond = " AND type = '".$type."'";
+            //$cond = " AND " . $action . "='1'";
+            //$set = " " . $action . "='1'";
+
+            //$query = "select * from {user_likes} where node_id='$content_id' $cond AND uid='$user->uid'";
+            $query = "select * from {votingapi_vote} where content_id ='$content_id' $cond AND uid='$user->uid'";
 
             $chk = db_result(db_query($query));
 
             if (!$chk && $user->uid > 0) {
                 $lose_coins = $agree == 1 ? get_coins('agree') : get_coins('disagree');
                 if ($user_coins >= $lose_coins) {
-                    $query = "insert into {user_likes} set $set ,node_id='$nodeid',uid='$user->uid',is_agree='$agree'";
+                    //$query = "insert into {user_likes} set $set ,node_id='$content_id',uid='$user->uid',is_agree='$agree'";
+                   
+                    //$chk = db_query($query);
+                     // add values into votingapi_vote
+                    $voteValue = $agree == 1? '1':'-1';
+                    if($action == 'is_debate' || $action == 'is_resource'){
+                        $content_type = 'node';
+                    }else if($action == 'is_debate_reply' || $action == 'is_resource_reply'){
+                        $content_type = 'comment';
+                    }
+                     db_query("INSERT INTO {votingapi_vote} SET content_type = '%s', content_id = '%d', value = '%s', value_type = '%s', tag = '%s', uid = '%d', timestamp = '%d'",
+                              $content_type,$content_id,$voteValue,'points', 'vote', $user->uid, time());
 
-                    $chk = db_query($query);
 // add coin for agree and disagree
                     $coin_type = $agree == '1' ? 'agree' : 'disagree';
                     $coins=users_coins_update($user->uid, '', $coin_type);
 //guru points
-                    insertpoints($action, $nodeid);
+                    insertpoints($action, $content_id);
 //notification
-                    like_notification($nodeid, $set);
+                    like_notification($content_id, $set);
 
                     $msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
                     if ($agree) {
                         $msg['msg'] = "<em><strong>Agreed!</strong>You have $coins coins left</em> ";
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-                        $qid_url = db_query("select * from {question} where qid='$nodeid'");
+                        $qid_url = db_query("select * from {question} where qid='$content_id'");
                         $question_values = db_fetch_array($qid_url);
                         if (isset($question_values)) {
                             $question_urlff = $question_values['url'] . '/' . $frid;
@@ -2132,10 +2580,10 @@ function debate_submit() {
                     } else {
                         $msg['msg'] = "<em><strong>Disagreed!</strong>You have $coins coins left</em> ";
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
-                        $qid_url = db_query("select * from {question} where qid='$nodeid'");
+                        $qid_url = db_query("select * from {question} where qid='$content_id'");
                         $question_values = db_fetch_array($qid_url);
                         if (isset($question_values)) {
-                            $question_urlff = $question_values['url'] . '/' . $nodeid;
+                            $question_urlff = $question_values['url'] . '/' . $content_id;
                             $qtion = $question_values['question'];
                             $ctxt = $question_values['context'];
                         }
@@ -2193,4 +2641,16 @@ function users_coins_update($uid = '', $bid, $keyname) {
 function get_coins($key) {
     $coins = db_result(db_query("SELECT coin_count FROM {tbl_coins} WHERE key_name = '$key'"));
     return $coins;
+}
+
+// reply as comments
+function custom_comment_submission($comm = ''){
+    db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d'",$comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk']);
+}
+
+// get taxonomy id
+function get_taxonomy_id($module = '', $name = ''){
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE module = '%s'", $module));
+    $tid = db_result(db_query("SELECT tid FROM {term_data} WHERE vid = '%d' AND name = '%s'", $vid, $name));
+    return $tid;
 }
