@@ -379,6 +379,19 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
                     $block['content'] = $tab;
 
                     break;
+                    case 'issue-1':
+
+                         $block['subject'] = "Details Tab";
+                   // if (arg(0) == 'node' && is_numeric(arg(1))) {
+                        $nid = arg(2);
+
+                        //$node=node_load(array('nid'=>20));
+                        $tab = issue_debate_tab($nid);
+                   // }
+
+
+                    $block['content'] = $tab;
+                        break;
                  case 'issue-4':
                       $block['subject'] = "Details Tab";
                    // if (arg(0) == 'node' && is_numeric(arg(1))) {
@@ -422,6 +435,14 @@ function issue_tab_content($nid='',$type=''){
          break;
      }
 exit;
+}
+
+function issue_debate_tab(){
+     global $gSitePath, $user, $gDocPath, $base_root;
+    $node=node_load($nid);
+
+
+    
 }
 
 function issue_details_tab($nid=''){
