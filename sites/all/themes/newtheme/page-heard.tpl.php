@@ -4,8 +4,17 @@
 global $user, $gSitePath, $apikey;
 $directory = $base_path . $directory;
 ?>
-<?php print $styles; ?>
-<?php //print $scripts; ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>">
+
+    <head>
+        <?php print $head; ?>
+        <title><?php print $title; ?></title>
+        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $directory; ?>/images/favico.ico"/>
+
+        <?php print $styles; ?>
+
+
+        <?php //print $scripts; ?>
 
 <script src="<?php echo $directory; ?>/scripts/jquery1.4.2.js"></script>
 <script src="<?php echo $directory; ?>/scripts/jquery.scroll.js"></script>
@@ -50,6 +59,7 @@ $directory = $base_path . $directory;
 
        
    <body style="background: none repeat scroll 0% 0% transparent;">
+     
    <?php print $content; ?>
 			
 </body> 

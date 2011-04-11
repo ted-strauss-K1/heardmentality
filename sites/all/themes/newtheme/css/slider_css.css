@@ -3,7 +3,7 @@
 .about-wrapper{ width:713px;  padding:18px; background:#fff;}
 .ab-left-outer{ float: left; width:179px;}
 .ab-leftpart{ float:left; width:172px; background:#f8f5ed; min-height:600px; height:auto !important; height:600px;}
-.ab-rightpart{ float:right; width:536px; border:1px #8f8f8f solid; min-height:600px; height:auto !important; height:600px;}
+.ab-rightpart{ float:right; width:536px; border-left:1px #8f8f8f solid; border-right:1px #8f8f8f solid;border-bottom:1px #8f8f8f solid; min-height:600px; height:auto !important; height:600px;}
 .ab-rightpart h2{ font:normal 18px "Times New Roman", Times, serif; color:#fff; padding:7px 0px 7px 20px; background:#8f8f8f; text-transform:uppercase;}
 .ab-rightpart .innn{ padding:20px; font:normal 12px Arial, Helvetica, sans-serif; color:#000; line-height:18px;}
 .ab-rightpart .innn p{font:normal 12px Arial, Helvetica, sans-serif; color:#000;}
@@ -145,7 +145,11 @@
 .listbox1{ width:250px;}
 .hm-debate-cont-outer h3{ font:bold 17px Arial, Helvetica, sans-serif; color:#666; padding-left:40px;}
 
-
+div.section {
+    background-color: #FFFFFF;
+    margin-bottom: 3px;
+    padding-top:  28px ;
+}
 
 
 
