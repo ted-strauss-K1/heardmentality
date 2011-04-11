@@ -2,8 +2,8 @@
 jQuery(document).ready( function() {
 
    $('#q_quest').blur(function() {
- 
-   
+
+
  var quest = jQuery('#q_quest').val();
  if(jQuery.trim(quest).length){
       get_releted_issue(0);
@@ -23,30 +23,30 @@ complete:function(){question_check()}
 
 })
 });
-/*RELEATED QUESTIONS AUTOCOMPLETE*/		
+/*RELEATED QUESTIONS AUTOCOMPLETE*/
 	function get_releted_issue(cat_id)
-	{	
-           
+	{
+
             jQuery('#releated_questions').html('Loading.....');
-			var question = 	jQuery('#q_quest').val();		
-			var context	 = 	jQuery('#q_context').val();		
+			var question = 	jQuery('#q_quest').val();
+			var context	 = 	jQuery('#q_context').val();
 			jQuery.ajax({
 			   type: "POST",
 			   url: spath+"/question/ajax",
 			   data: "code=3&action=3&question="+question+"&cat_id="+cat_id+"&context="+context,
 			   success: function(msg)
-			   {						
+			   {
 				jQuery('#releated_questions').html(msg);
 			   }
-			});			
-		
+			});
+
 	}
-/*RELEATED QUESTIONS AUTOCOMPLETE*/	
+/*RELEATED QUESTIONS AUTOCOMPLETE*/
 
 function question_check(){
          var quest = jQuery('#q_quest').val();
         var url = spath+"front_dupequestion";
-        
+
          jQuery.ajax({
         type: "POST",
         url: url,
@@ -74,10 +74,10 @@ function validate_question(){
  jQuery('#err').html('');
     if (jQuery.trim(quest).length)
      {
-         
+
          if (jQuery('#inside_content').length&&check=='invalid')
         err += '<li>Please re-check your Issue from our Dupe List, We consider this as Duplicate Issue</li>';
-    
+
          if (jQuery.trim(ans1).length < 1||jQuery.trim(ans2).length < 1)
         err += '<li>Minimum 2 answers required</li>';
     //if (jQuery.trim(cat1).length < 1)
@@ -92,8 +92,8 @@ function validate_question(){
      }else{
   err += '<li>Please Provide Proper Issue!</li>';
      }
-     
-      
+
+
   if (jQuery.trim(err).length > 1) {
         jQuery('#err').html(err);
         jQuery('#err').addClass('error');
@@ -124,7 +124,7 @@ function add_ans(){
 
         if (ans_cnt < 11) {
             jQuery('#ans_cnt').val(ans_cnts);
-           
+
             //	$('add_more').set('html','  <p>&nbsp;</p>');
             if(admin)
                            var firstElem='<div class="mod-t-outer"><div class="mod-t1">Option</div><div class="mod-t5"><input name="q_ans'+ans_cnt+'" id="q_ans'+ans_cnts+'" class="mod-select3" onkeyup="jQuery(\'#Add\').attr(\'disabled\',false);" /></div> <div class="clr"></div> </div><div class="clr"></div>';
@@ -194,7 +194,7 @@ if(admin){
 
         jQuery('#add_more li:last').remove();
     }
-        
+
         jQuery('#ans_cnt').val(ans_cnt - 1);
 
     }

@@ -342,9 +342,9 @@ function get_debate($did = '', $pid = '') {
                 }
 //flag
                 $flag = '';
-<<<<<<< .mine
+
                 $flag.='<a name="' . $did . '-' . $forum['cid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
-=======
+
                  if(user_is_logged_in ())
         {
             $replybutton='<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['rid'] . '"  href="#postreply"></a>';
@@ -353,8 +353,6 @@ function get_debate($did = '', $pid = '') {
          $replybutton='<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a>';
              $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
         }
-                
->>>>>>> .r4061
 
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_bubble($account->uid);
@@ -517,9 +515,9 @@ function get_res_debate($rid = '', $pid = '') {
                 }
 //flag
                 $flag = '';
-<<<<<<< .mine
+
                 $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',' . $forum['cid'] . ');"></a>';
-=======
+
                        if(user_is_logged_in ())
         {
             $replybutton='<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $rid . '-' . $forum['reid'] . '"  href="#postreply"></a>';
@@ -529,7 +527,7 @@ function get_res_debate($rid = '', $pid = '') {
              $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
         }
                
->>>>>>> .r4061
+
 
                 $medal = updateProfileBadge($account->uid);
                 $bubble =  load_user_badge($account->uid);
@@ -1134,7 +1132,7 @@ function resource_list($type, $qid) {
         return $output;
 }
 
-function resource_innews($qid='', $rtype='') {
+function resource_innews_old($qid='', $rtype='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';

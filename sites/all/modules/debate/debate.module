@@ -102,7 +102,7 @@ function send_forumnotify($nid='', $qid='') {
     hm_mails($qid, $nid, 'add_forum');
 }
 
-function list_debate($qid='', $type='') {
+function list_debate_old($qid='', $type='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';

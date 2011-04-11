@@ -520,13 +520,14 @@ function yearling(){
         if($months >= 12){
             $monthdiff = $months % $b;
         }
-        // Active member for a year, earning at least 200 points
+        // Active member for a year, earning at least 200 points (Active citizen, judge, senator)
         if($months >= 1){
             $date = db_result(db_query("SELECT date_added FROM {user_badges} WHERE uid = '".$userlist->uid."' AND bid = '43' ORDER BY date_added DESC LIMIT 0,1"));
             $badgecreated = $date!=''?$date:0;
             $interval = month_differece($date2,$badgecreated);
             if($interval >= 1){
              db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d'", $userlist->uid, 43);
+             user_coins_update($userlist->uid,43,'');
             }
         }
     }
@@ -1293,7 +1294,7 @@ function scholer(){
 }
 
 // user coin updates
-function user_coins_update($uid = '',$bid,$keyname){
+function user_coins_update($uid = '',$bid = '',$keyname = ''){
     if($bid!=''){
     $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
     }
