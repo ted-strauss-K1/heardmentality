@@ -181,41 +181,61 @@ function event_photo() {
     return $return;
 }
 
-////following users/////////////////////////
+////followers/////////////////////////
 
 
-function followinglist($uids) {
+function followerlist($uids) {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+  //using user relation module api
+$relationships = user_relationships_load($param = array("approved" => 1, "requestee_id" => $uids,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'10'), $reset = FALSE);
+//echo "<pre>";
+//print_r($relationships);die;
+$requestcount = count($relationships);
 
-
-    $sel_list = "select * from follower  where uid='" . $uids . "'  and follower_status='1' limit 0,5";
-    $rs_foll_list = db_query($sel_list);
-    $numfolls = db_result(db_query("SELECT COUNT(*)  from follower  where uid='" . $uids . "'  and follower_status='1'  "));
-    $following = array();
-
-    while ($following_list = db_fetch_object($rs_foll_list)) {
-
-        if ($uids == $user->uid) {
-            $flinks = '<a onclick="deletefollowing(' . $following_list->id . ')" style="color:#F37321;" >Unfollow</a>';
-        }
-        //	 $sel_userm="select * from users  where uid='".$following_list->follower_id."' ";
-        $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $following_list->follower_id . "'";
-        $rs_userm = db_query($sel_userm);
-        $user_namelist = db_fetch_object($rs_userm);
-
-        $bubble = load_bubble($following_list->follower_id);
-
-        //$following[] = '<div  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . $user_namelist->real_name . '  </a>' . $flinks . '</div>';
-        $following[] = '<li  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . '</a></li>';
+if ($relationships) {
+  $the_other_uid =$uids;
+  $showing_all_types = $settings->rtid == 1;
+  $rows = array();
+  foreach ($relationships as $rtid => $relationship) {
+    //echo '<pre>';
+      //print_r($relationship);
+      
+    $tt_rel_name = ur_tt("user_relationships:rtid:$rtid:name", $relationship->name);
+    $tt_rel_plural_name = ur_tt("user_relationships:rtid:$rtid:plural_name", $relationship->plural_name);
+    if ($the_other_uid == $relationship->requester_id) {
+         $bubble = load_bubble($relationship->requestee_id);
+  $output[]='<a rel=\''.$bubble.'\' href="'.$gSitePath.'profile/'.$relationship->requestee->name.'">'.userPicture_small($relationship->requestee_id).'</a>';
+      $rtype_heading = $relationship->is_oneway ?
+        t("@rel_name of", array('@rel_name' => $tt_rel_name, '@rel_plural_name' => $tt_rel_plural_name)) :
+        t("@rel_plural_name", array('@rel_name' => $tt_rel_name, '@rel_plural_name' => $tt_rel_plural_name));
+      $relatee = $relationship->requestee;
     }
-    if ($numfolls > 5) {
-        $following[] .= '<a style="color:#F37321;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
+    else {
+      $rtype_heading = t("@rel_plural_name", array('@rel_name' => $tt_rel_name, '@rel_plural_name' => $tt_rel_plural_name));
+      $relatee = $relationship->requester;
+     
+        $bubble = load_bubble($relationship->requester_id);
+  $output[]='<a title="'.$relationship->requester->real_name.'" rel=\''.$bubble.'\' href="'.$gSitePath.'profile/'.$relationship->requester->name.'">'.userPicture_small($relationship->requester_id).'</a>';
     }
-    if ($numfolls == 0) {
-        $following[] .= '<span style="padding-left:17px;">Please Follow People</span>';
+
+    $title = $rtype_heading;
+
+    $username = theme('username', $relatee);
+    $rows[$title][] = $username;
+  }
+
+}
+
+
+    if ($requestcount > 5) {
+        $output[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
     }
-    return $following;
+    if ($requestcount == 0) {
+        $output[] .= '<span style="padding-left:17px;">Please follow people!</span>';
+    }
+
+//$output is new one using user relationship
+    return $output;
 }
 
 function save_follow_profile() {
@@ -227,56 +247,59 @@ function save_follow_profile() {
     }
 }
 
-//////////follower //////////////////////////
+//////////following //////////////////////////
 
 
-function followerlist($umid) {
+function followinglist($umid) {
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
-    $sel_listf = "select * from follower  where follower_id='" . $umid . "' AND uid>0  limit 0,5  ";
-    $rs_followerf = db_query($sel_listf);
+  //using user relation module api
+$relationships = user_relationships_load($param = array("approved" => 1, "requester_id" => $umid,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'10'), $reset = FALSE);
+//echo "<pre>";
+$requestcount = count($relationships);
 
-    $numfoll = db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='" . $umid . "' AND uid>0  "));
-
-    $followeru = array();
-    while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
-
-        // $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
-        $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $follower_resultfuser->uid . "'";
-        $rs_umlog = db_query($sel_ulist);
-        $user_namelistf = db_fetch_object($rs_umlog);
-
-
-        $user_namelistf->name;
-
-        if ($umid == $user->uid) {
-            $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',1,0)" >UnBlock</a>';
-            $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',0,0)" >Block</a>';
-        }
-
-        $bubble = load_bubble($user_namelistf->uid);
-        if ($follower_resultfuser->follower_status == 0) {
-            // $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
-            $followeru[] = '<li  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . '</a></li>';
-        } else {
-            //  $followeru[] = '<div  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
-
-            $followeru[] = '<li  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . '</a></li>';
-        }
-
-        //$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
+if ($relationships) {
+  $the_other_uid =$umid;
+  $showing_all_types = $settings->rtid == 1;
+  $rows = array();
+  foreach ($relationships as $rtid => $relationship) {
+    //echo '<pre>';
+      //print_r($relationship);
+       $bubble = load_bubble($relationship->requestee_id);
+  $output[]='<a rel=\''.$bubble.'\' href="'.$gSitePath.'profile/'.$relationship->requestee->name.'">'.userPicture_small($relationship->requestee_id).'</a>';
+    $tt_rel_name = ur_tt("user_relationships:rtid:$rtid:name", $relationship->name);
+    $tt_rel_plural_name = ur_tt("user_relationships:rtid:$rtid:plural_name", $relationship->plural_name);
+    if ($the_other_uid == $relationship->requester_id) {
+      $rtype_heading = $relationship->is_oneway ?
+        t("@rel_name of", array('@rel_name' => $tt_rel_name, '@rel_plural_name' => $tt_rel_plural_name)) :
+        t("@rel_plural_name", array('@rel_name' => $tt_rel_name, '@rel_plural_name' => $tt_rel_plural_name));
+      $relatee = $relationship->requestee;
+    }
+    else {
+      $rtype_heading = t("@rel_plural_name", array('@rel_name' => $tt_rel_name, '@rel_plural_name' => $tt_rel_plural_name));
+      $relatee = $relationship->requester;
     }
 
-    if ($numfoll > 5) {
-        $followeru[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
-    }
-    if ($numfoll == 0) {
-        $followeru[] .= '<span style="padding-left:17px;">No Followers Yet</span>';
-    }
+    $title = $rtype_heading;
+
+    $username = theme('username', $relatee);
+    $rows[$title][] = $username;
+  }
+
+}
 
 
-    return $followeru;
+
+    if ($requestcount > 5) {
+        $output[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
+    }
+    if ($requestcount == 0) {
+        $output[] .= '<span style="padding-left:17px;">No Followers Yet</span>';
+    }
+
+//$output is new one using user relationship
+    return $output;
 }
 
 function save_follower_profile() {

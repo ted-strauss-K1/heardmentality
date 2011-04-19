@@ -198,7 +198,7 @@ function issue_edit_vote_submit($form, &$form_state) {
  * Implementation of hook_form_alter().
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
-
+if($form_id=='user_relationships_ui_request'){}
     if ($form_id == 'poll_node_form') {
 
 
@@ -698,6 +698,8 @@ function issue_details_tab($nid=''){
 
 
 </div>';
+             
+
 return $output;
   // return theme('issue_details', $nid);
 }
