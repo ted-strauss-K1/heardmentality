@@ -954,4 +954,4 @@ function vote_up_down_count($criteria = ''){
     return $count;
 }
 
-// date format from timestmp
+

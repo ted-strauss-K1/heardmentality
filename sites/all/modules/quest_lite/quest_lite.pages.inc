@@ -1335,7 +1335,7 @@ return abuse_report('node',16);
    return $falgq;
 }
 
-function panel_content() {
+function panel_content_old() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
@@ -2178,8 +2178,8 @@ function qlite_percent() {
     $opt = '';
     $qid = arg(2);
 
-   $vans = "select * from {possible_answer} where  qid='" . $qid . "'";
-   //  $vans = "select * from {poll_choices} where  nid='" . $qid . "'";
+   //$vans = "select * from {possible_answer} where  qid='" . $qid . "'";
+     $vans = "select * from {poll_choices} where  nid='" . $qid . "'";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
     $output .= "
@@ -2197,7 +2197,7 @@ function qlite_percent() {
     $ans_array = array();
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
         //array_push($ans_array, $vlist[$ab]['chtext']);
-        array_push($ans_array, $vlist[$ab]['answer']);
+        array_push($ans_array, $vlist[$ab]['chtext']);
     }
     $result = percent_broken($qid, '', $_REQUEST);
     //echo "<pre>";

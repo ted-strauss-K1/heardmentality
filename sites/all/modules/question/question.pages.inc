@@ -526,10 +526,17 @@ function send_qnotify($qid='') { ///vijay important comented
       //'@node_type' => 'page',
       '@question_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
     );
-		heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+		//heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
 		//echo 'test';
 		//die;
 	/*RAM HEARTBEAT MODULE*/
+     /*New SET NOTIFY LOG*/
+            //set_notify_log($uid , $message_id, $nid, $variable)
+            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'uid' => $user->uid);
+            set_notify_log($user->uid, $qid, 'add_question', $variable);
+     /*New SET NOTIFY LOG*/
+
     ////////////mail notication for user follwers to me//////////////////////////////////////
 
     hm_mails($qid, '', 'add_question');
@@ -1462,7 +1469,7 @@ function admin_panel_tab() {
 	</script>';
 }
 
-function panel_content($type = '') {
+function panel_content_old($type = '') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 

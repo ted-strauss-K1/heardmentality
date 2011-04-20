@@ -1186,3 +1186,14 @@ function notify_leftpanel()
     }
 
 }
+
+
+/*BOF SET NOTIFY LOG apr 19 2011*/
+function set_notify_log($uid = '', $nid ='', $message_id = '', $variables = ''){
+    $uname = db_result(db_query("SELECT name FROM {users} WHERE uid = '%d'", $uid));
+    $message = db_result(db_query("SELECT message FROM {notify_messages} WHERE message_id = '%s'", $message_id));
+    $variables = serialize($variables);
+    $sql = "INSERT INTO {notify_activity} SET uid = '%d', nid = '%d', message_id = '%s', timestamp = '%d', variables = '%s'";
+    db_query($sql, $uid, $nid, $message_id, time(), $variables);
+}
+/*EOF SET NOTIFY LOG apr 19 2011*/

@@ -343,7 +343,7 @@ function get_debate($did = '', $pid = '') {
 //flag
                 $flag = '';
 
-                $flag.='<a name="' . $did . '-' . $forum['cid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
+               // $flag.='<a name="' . $did . '-' . $forum['cid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
 
                  if(user_is_logged_in ())
         {
@@ -419,11 +419,9 @@ function get_debate($did = '', $pid = '') {
 
 <div class="itemsecond">
 <ul>
-<<<<<<< .mine
+
 <li><a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['cid'] .'"  href="#postreply"></a></li>
-=======
-<li>'.$replybutton.'</li>
->>>>>>> .r4061
+
 <li>' . $flag . '</li><li>' . $date . '</li>
 </ul>
 </div>
@@ -516,7 +514,7 @@ function get_res_debate($rid = '', $pid = '') {
 //flag
                 $flag = '';
 
-                $flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',' . $forum['cid'] . ');"></a>';
+                //$flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',' . $forum['cid'] . ');"></a>';
 
                        if(user_is_logged_in ())
         {
@@ -594,11 +592,9 @@ function get_res_debate($rid = '', $pid = '') {
 
 <div class="itemsecond">
 <ul>
-<<<<<<< .mine
+
 <li><a class="floatbox reply-menu" onclick="addComment(this);" id="' . $rid . '-' . $forum['cid'] . '"  href="#postreply"></a></li>
-=======
-<li>'.$replybutton.'</li>
->>>>>>> .r4061
+
 <li>' . $flag . '</li><li>' . $date . '</li>
 </ul>
 </div>
@@ -1451,7 +1447,7 @@ else {
     return $wave;
 }
 
-function resource_media($qid='') {
+function resource_media_old($qid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';
@@ -1975,6 +1971,7 @@ function debate_ajax() {
                             $res->body = $udesc;
                             $res->field_filepath[0]['value'] = $files;
                             $res->field_nlink[0]['value'] = $nlink;
+                            $rtitle = $nlink;
                             break;
                         case '2':
                             $res->field_rtype[0]['value'] = 'multimedia';
@@ -1983,18 +1980,21 @@ function debate_ajax() {
                             $res->field_mtype[0]['value'] = 'video';
                             $res->field_videoid[0]['value'] = $ytvID;                            
                             $res->field_nlink[0]['value'] = $membed;
+                            $rtitle = $membed;
                             }
                             else if($mtype == 2){
                             $res->title = $docpath;
                             $res->field_mtype[0]['value'] = 'doc';                            
                             $res->field_filepath[0]['value'] = $docpath;
+                            $rtitle = $docpath;
                             }
                             break;
                         case '3':
                             $res->field_rtype[0]['value'] = 'facts';
                             $res->title = $nlink;
                             $res->body = $udesc;
-                            $res->field_filepath[0]['value'] = $files;                            
+                            $res->field_filepath[0]['value'] = $files;
+                            $rtitle = $nlink;
                             break;
                     }
                     $res->type = 'forum';
@@ -2031,6 +2031,11 @@ function debate_ajax() {
                     $result = db_query($forum, $nodeid, $list, $sup_opp[$i]);
                     $i++;
                 }
+                /*New SET NOTIFY LOG*/
+                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qaid));
+                    $variable = array('rid' => $nodeid, 'r_title' => $rtitle, 'uid' => $user->uid, 'qid' => $qaid, 'q_title' => $qtitle);
+                    set_notify_log($user->uid, $nodeid, 'add_resource', $variable);
+                /*New SET NOTIFY LOG*/
                 echo '<div class="messages success"> Your reference has been added </div>';
             }
             break;
@@ -2399,9 +2404,16 @@ function debate_submit() {
                         //'@node_type' => 'page',
                         '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
                     );
-                    heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                    //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
                     /* RAM HEARTBEAT MODULE INSERT DEBATE */
                     send_forumnotify($nid, $qid);
+
+                    /*New SET NOTIFY LOG*/
+                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                    $variable = array('did' => $nodeid, 'd_title' => $wtitle, 'uid' => $user->uid, 'qid' => $qid, 'q_title' => $qtitle);
+                    set_notify_log($user->uid, $nodeid, 'add_debate', $variable);
+                    /*New SET NOTIFY LOG*/
+                    
                 } else {
                     echo '<div align="center"><b>Sorry you do not have enough coins to post New Debate</b></div>';
                 }
@@ -2468,8 +2480,15 @@ function debate_submit() {
                     '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
                     '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
                 );
-                heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
                 /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+
+                /*New SET NOTIFY LOG*/
+                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                    $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nodeid));
+                    $variable = array('did' => $nodeid, 'd_title' => $dtitle, 'uid' => $user->uid, 'qid' => $qid, 'q_title' => $qtitle);
+                    set_notify_log($user->uid, $nodeid, 'debate_reply', $variable);
+                /*New SET NOTIFY LOG*/
             } else {
                 echo '<div align="center"><b>Sorry you do not have enough coins to reply for this post</b></div>';
             }
@@ -2509,8 +2528,15 @@ function debate_submit() {
                 '@username' => l(user_load($user->uid)->name, 'user/' . $user->name),
                 '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
             );
-            heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+            //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
             /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
+
+            /*New SET NOTIFY LOG*/
+                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                    $rtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nodeid));
+                    $variable = array('rid' => $nodeid, 'r_title' => $rtitle, 'uid' => $user->uid, 'qid' => $qid, 'q_title' => $qtitle);
+                    set_notify_log($user->uid, $nodeid, 'resource_reply', $variable);
+            /*New SET NOTIFY LOG*/
 
             break;
         case 'is_debate':
@@ -2523,7 +2549,8 @@ function debate_submit() {
             }else if($action == 'is_debate_reply' || $action == 'is_resource_reply'){
                 $type = 'comment';
             }
-            
+           
+
             $cond = " AND type = '".$type."'";
             //$cond = " AND " . $action . "='1'";
             //$set = " " . $action . "='1'";
@@ -2552,10 +2579,36 @@ function debate_submit() {
 // add coin for agree and disagree
                     $coin_type = $agree == '1' ? 'agree' : 'disagree';
                     $coins=users_coins_update($user->uid, '', $coin_type);
+                   
 //guru points
                     insertpoints($action, $content_id);
 //notification
                     like_notification($content_id, $set);
+
+                    /*New SET NOTIFY LOG*/
+                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                    if($agree == 1){
+                        if($action == 'is_debate' || $action == 'is_debate_reply'){
+                            $message_id = 'deb_agree';
+                            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'did' => $nodeid);
+                        }else if($action == 'is_resource' || $action == 'is_resource_reply'){
+                            $message_id = 'res_agree';
+                            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'rid' => $nodeid);
+                        }
+                    }else if($agree == 0){
+                        if($action == 'is_debate' || $action == 'is_debate_reply'){
+                            $message_id = 'deb_disagree';
+                            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'did' => $nodeid);
+                        }else if($action == 'is_resource' || $action == 'is_resource_reply'){
+                            $message_id = 'res_disagree';
+                            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'rid' => $nodeid);
+                        }
+                    }
+                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nodeid));
+                    
+                    set_notify_log($user->uid, $nodeid, $message_id, $variable);
+                    /*New SET NOTIFY LOG*/
+
 
                     $msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
                     if ($agree) {
@@ -2644,11 +2697,4 @@ function get_coins($key) {
 // reply as comments
 function custom_comment_submission($comm = ''){
     db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d'",$comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk']);
-}
-
-// get taxonomy id
-function get_taxonomy_id($module = '', $name = ''){
-    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE module = '%s'", $module));
-    $tid = db_result(db_query("SELECT tid FROM {term_data} WHERE vid = '%d' AND name = '%s'", $vid, $name));
-    return $tid;
 }
