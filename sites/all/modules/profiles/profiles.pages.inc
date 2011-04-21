@@ -1332,5 +1332,13 @@ function user_details_submit($form, &$form_state) {
     _privacy_submit($form, $form_state);
     //avatar update
     _avatar_submit($form, $form_state);
+
+    
+    /*New SET NOTIFY LOG*/
+    $variable = array();
+    set_notify_log($user->uid, '', 'update_profile', $variable);
+    /*New SET NOTIFY LOG*/
+
+
     drupal_set_message(t('Your profile has been updated'), 'success');
 }

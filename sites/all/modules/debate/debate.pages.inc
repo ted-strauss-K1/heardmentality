@@ -2543,7 +2543,7 @@ function debate_submit() {
         case 'is_debate_reply':
         case 'is_resource':
         case 'is_resource_reply':
-
+           
             if($action == 'is_debate' || $action == 'is_resource'){
                 $type = 'node';
             }else if($action == 'is_debate_reply' || $action == 'is_resource_reply'){
@@ -2573,6 +2573,7 @@ function debate_submit() {
                     }else if($action == 'is_debate_reply' || $action == 'is_resource_reply'){
                         $content_type = 'comment';
                     }
+                     
                      db_query("INSERT INTO {votingapi_vote} SET content_type = '%s', content_id = '%d', value = '%s', value_type = '%s', tag = '%s', uid = '%d', timestamp = '%d'",
                               $content_type,$content_id,$voteValue,'points', 'vote', $user->uid, time());
 
@@ -2586,26 +2587,53 @@ function debate_submit() {
                     like_notification($content_id, $set);
 
                     /*New SET NOTIFY LOG*/
-                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                    $nodeid = 0;
                     if($agree == 1){
-                        if($action == 'is_debate' || $action == 'is_debate_reply'){
+                        if($action == 'is_debate'){
                             $message_id = 'deb_agree';
-                            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'did' => $nodeid);
-                        }else if($action == 'is_resource' || $action == 'is_resource_reply'){
+                            $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
+                            $variable = array('did' => $content_id, 'd_title' => $dtitle);
+                            $nodeid = $content_id;
+                        }else if($action == 'is_debate_reply'){
+                            $message_id = 'deb_reply_agree';
+                            $did = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
+                            $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
+                            $variable = array('did' => $did, 'cid' => $content_id, 'c_title' => $ctitle);  
+                        }else if($action == 'is_resource'){
                             $message_id = 'res_agree';
-                            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'rid' => $nodeid);
+                            $rtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
+                            $variable = array('rid' => $content_id, 'r_title' => $rtitle);
+                            $nodeid = $content_id;
+                        }else if( $action == 'is_resource_reply'){
+                            $message_id = 'res_reply_agree';
+                            $rid = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
+                            $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
+                            $variable = array('rid' => $rid, 'cid' => $content_id, 'c_title' => $ctitle);
                         }
                     }else if($agree == 0){
-                        if($action == 'is_debate' || $action == 'is_debate_reply'){
+                        if($action == 'is_debate'){
                             $message_id = 'deb_disagree';
-                            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'did' => $nodeid);
-                        }else if($action == 'is_resource' || $action == 'is_resource_reply'){
+                            $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
+                            $variable = array('did' => $content_id, 'd_title' => $dtitle);
+                            $nodeid = $content_id;
+                        }else if($action == 'is_debate_reply'){
+                            $message_id = 'deb_reply_disagree';
+                            $did = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
+                            $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
+                            $variable = array('did' => $did, 'cid' => $content_id, 'c_title' => $ctitle); 
+                        }else if($action == 'is_resource'){
                             $message_id = 'res_disagree';
-                            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'rid' => $nodeid);
+                            $rtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
+                            $variable = array('rid' => $content_id, 'r_title' => $rtitle);
+                            $nodeid = $content_id;
+                        }else if( $action == 'is_resource_reply'){
+                            $message_id = 'res_reply_disagree';
+                            $rid = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
+                            $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
+                            $variable = array('rid' => $rid, 'cid' => $content_id, 'c_title' => $ctitle);
                         }
                     }
-                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nodeid));
-                    
+                   // print_r($variable); exit;
                     set_notify_log($user->uid, $nodeid, $message_id, $variable);
                     /*New SET NOTIFY LOG*/
 
@@ -2626,7 +2654,7 @@ function debate_submit() {
                             '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
                             '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
                         );
-                        heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                        //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                     } else {
                         $msg['msg'] = "<em><strong>Disagreed!</strong>You have $coins coins left</em> ";
@@ -2643,7 +2671,7 @@ function debate_submit() {
                             '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
                             '@debate_title' => "<a href='$base_url/$question_urlff' >" . $qtion . "</a>",
                         );
-                        heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
+                        //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                     }
                     $msg['error'] = '0';

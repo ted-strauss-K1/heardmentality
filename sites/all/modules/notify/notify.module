@@ -1197,3 +1197,4 @@ function set_notify_log($uid = '', $nid ='', $message_id = '', $variables = ''){
     db_query($sql, $uid, $nid, $message_id, time(), $variables);
 }
 /*EOF SET NOTIFY LOG apr 19 2011*/
+

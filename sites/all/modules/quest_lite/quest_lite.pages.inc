@@ -2196,8 +2196,8 @@ function qlite_percent() {
 
     $ans_array = array();
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
-        //array_push($ans_array, $vlist[$ab]['chtext']);
         array_push($ans_array, $vlist[$ab]['chtext']);
+        //array_push($ans_array, $vlist[$ab]['answer']);
     }
     $result = percent_broken($qid, '', $_REQUEST);
     //echo "<pre>";

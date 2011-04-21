@@ -183,6 +183,12 @@ function issue_edit_vote_submit($form, &$form_state) {
 
     if ($user->uid) {
         db_query('update {poll_votes} set chorder=%d where nid=%d and uid=%d', $choice, $nid, $user->uid);
+        
+        /*New SET NOTIFY LOG*/
+        $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+        $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $choice);
+        set_notify_log($user->uid, $nid, 'change_answer', $variable);
+        /*New SET NOTIFY LOG*/
     }
 
     // Add one to the votes.
@@ -199,16 +205,22 @@ function issue_edit_vote_submit($form, &$form_state) {
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
 if($form_id=='user_relationships_ui_request'){}
+
+if($form_id=='poll_view_voting'){
+    $form['vote']['#submit'][] = 'add_vote_notify';
+ // echo $form_id."<pre>";  print_r($form);exit;
+}
+
     if ($form_id == 'poll_node_form') {
-
-
         //$form['#after_build'][] = 'issue_after_build';
 
 
         $form['field_issue_state']['#access'] = false;
         $form['field_issue_city']['#access'] = false;
-        //   echo "<pre>";
-        //print_r($form);
+       
+           //echo "<pre>";
+        //print_r($form); exit;
+      // echo $form['#node']->nid; exit;
     }
      if ($form_id == 'abuse_report_form') {
     //  echo "<pre>";
@@ -1763,4 +1775,16 @@ function issue_report_tab($qid = ''){
 			   <div class="mytabs-container" id="tabs-container"><iframe style="height: 350px;" id="frmGoogle" scrolling="no" src="' . $gSitePath . '/qlite/percent/' . $qid . '" border="0" frameborder="0" width="100%"></iframe></div>
 			<script type="text/javascript">loadReport(1,\'' . $gSitePath . '\',' . $qid . ')</script>';
     return $output;
+}
+
+function add_vote_notify($form, &$form_state){
+    global $user;
+    /*New SET NOTIFY LOG*/
+    //echo '<pre>'; print_r($form);
+    $nid = $form['#node']->nid;
+    $choice = $form['vote']['#post']['choice'];
+    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+    $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $choice);
+    set_notify_log($user->uid, $nid, 'add_vote', $variable);
+    /*New SET NOTIFY LOG*/
 }
