@@ -1198,3 +1198,116 @@ function set_notify_log($uid = '', $nid ='', $message_id = '', $variables = ''){
 }
 /*EOF SET NOTIFY LOG apr 19 2011*/
 
+
+function notify_block($op = 'list', $delta = 0, $edit = array()) {
+ global $gSitePath,$user,$gDocPath,$base_root;
+    switch ($op) {
+        case 'list':
+            $blocks[0] = array(
+                'info' => t('Heart Beat Messages'),
+            );
+
+            return $blocks;
+
+        case 'view':
+            switch ($delta) {
+                case '0':
+
+                    $block['subject'] = "Heart Beat Messages";
+                    $block['content'] = _notify_content($uid);
+
+                    break;
+
+                   
+            }
+            return $block;
+    }
+    
+
+
+}
+
+
+
+function _notify_content($uid=''){
+     global $gSitePath,$user,$gDocPath,$base_root;
+     
+print_r(_activity_heartbeat_related_uid_info($user->uid));
+
+
+
+}
+
+
+function _activity_heartbeat_related_uid_info($uid) {
+  static $uids = array();
+
+  if (!isset($uids[$uid])) {
+    $uids[$uid] = _activity_get_friends($uid);
+  }
+
+  return $uids[$uid];
+}
+
+
+/**
+ * Generate the view of people that a user is following
+ */
+function _activity_get_friends($uid) {
+
+  $uids = array();
+
+  $api = variable_get('heartbeat_relations_api', 'none');
+
+  if ($api == 'friendlist_api') {
+
+    /* COMMENTED BY RAM ON HEARTBEAT FRNDS
+	$sql = "SELECT fr.requestee_id as 'uid' FROM {friendlist_relations} as fr
+    INNER JOIN {friendlist_statuses} fs ON fs.rid = fr.rid
+    WHERE fr.requester_id = %d AND fs.status = '%s' ORDER BY fs.last_update_time DESC, fr.rid DESC";
+    $result = db_query($sql, $uid, 'TW_BOTH');*/
+
+	$sql = " select distinct follower_id as 'uid' from follower where follower_status=1 and uid<>0 and follower_id<>0 and uid=$uid";
+	$result = db_query($sql);
+    while ($row = db_fetch_object($result)) {
+      $uids[] = $row->uid;
+    }
+
+  }
+  elseif ($api == 'user_relationships_api') {
+
+    // If the current user is fan, following, ..., has a one way relation
+    // to the other user, or if he has a two way relation to the user ...
+    // fetch them
+    $sql = "SELECT DISTINCT ur.requestee_id FROM {user_relationships} ur
+    INNER JOIN {user_relationship_types} urt ON ur.rtid = urt.rtid
+    WHERE
+    (
+      ur.requester_id = %d AND urt.is_oneway = 0
+    OR
+      ur.requester_id = %d AND ur.approved = 1 AND urt.is_oneway <> 0
+    )";
+    $result = db_query($sql, $uid, $uid);
+    if (!empty($result)) {
+      while ($row = db_fetch_object($result)) {
+        $uids[] = $row->requestee_id;
+      }
+    }
+
+  }
+  elseif ($api == 'flag_friend_api') {
+
+    $uids = array_keys(flag_friend_get_friends($uid));
+
+  }else{
+  $sql = " select distinct follower_id as 'uid' from follower where follower_status=1 and uid<>0 and follower_id<>0 and uid=$uid";
+	$result = db_query($sql);
+    while ($row = db_fetch_object($result)) {
+      $uids[] = $row->uid;
+    }
+
+  }
+
+  return $uids;
+
+}
