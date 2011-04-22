@@ -1128,7 +1128,7 @@ function resource_list($type, $qid) {
         return $output;
 }
 
-function resource_innews_old($qid='', $rtype='') {
+function resource_innews($qid='', $rtype='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';
@@ -1156,13 +1156,13 @@ function resource_innews_old($qid='', $rtype='') {
     $sql = "SELECT f.nid FROM {forum} as f RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' ORDER BY f.nid DESC";
     $nodes = db_query($sql, $tid, $qid, $resType);
     $count = db_result(db_query($sql, $tid, $qid, $resType));
-    
+
     if ($count>0) {
     $i=0;
 
          while ($node = db_fetch_object($nodes)) {
             $forum = node_load( array('nid' => $node->nid, 'status' => '1'));
-            
+
             $bg = $i % 2;
             if ($bg)
                 $setbg = 'back-col';
@@ -1443,11 +1443,12 @@ else {
 //';
 //        }
 //    }
-    
+
     return $wave;
 }
 
-function resource_media_old($qid='') {
+
+function resource_media($qid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $wave = '';
     $click = '';
@@ -1459,8 +1460,8 @@ function resource_media_old($qid='') {
     $count = db_result(db_query($sql, $tid, $qid, 'multimedia'));
     if ($count>0) {
 
-          
-           
+
+
        while ($node = db_fetch_object($nodes)) {
            $forum = node_load( array('nid' => $node->nid, 'status' => '1'));
 //           echo '<pre>';
@@ -1473,7 +1474,7 @@ function resource_media_old($qid='') {
             $i++;
             $account = user_load($forum->uid);
 
-            
+
             $strength = '';
             $content = '';
             if ($forum->field_videoid[0]['value'] != '') {
@@ -1557,7 +1558,7 @@ function resource_media_old($qid='') {
 
             $posted = date("F d Y H:i:s", $forum->created);
             $last_activity = $last_timestamp!=''?date("F d Y H:i:s", $last_timestamp):$posted;
-            
+
             $wave.='         <div class="debate-summary-wrapper" >
 <div class="deb-center">
 <div class="leftpartside">
@@ -1621,6 +1622,7 @@ function resource_media_old($qid='') {
     }
     return $wave;
 }
+
 
 function resdebate_list($qid='', $rid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
@@ -2691,7 +2693,7 @@ function debate_submit() {
     return;
 }
 
-function users_coins_update($uid = '', $bid, $keyname) {
+function users_coins_update($uid = '', $bid = '', $keyname = '') {
     if ($bid != '') {
         $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
     }
@@ -2708,13 +2710,21 @@ function users_coins_update($uid = '', $bid, $keyname) {
     $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
     if ($coin_type == 'earn') {
         $total_coins = $user_coins + $coin_count;
+        $message_id = 'add_coins';
     }
     if ($coin_type == 'lose') {
         $total_coins = $user_coins - $coin_count;
+        $message_id = 'lose_coins';
     }
+
+    /*New SET NOTIFY LOG*/
+    $variable = array('coin_count' =>$coin_count, 'coint_type' => $coin_type);
+     set_notify_log($uid, '', $message_id, $variable);
+     /*New SET NOTIFY LOG*/
+     
     db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
     $details=user_load(array('uid'=>$uid));
-    return $details->total_coins;
+    //return $details->total_coins;
 }
 
 function get_coins($key) {
