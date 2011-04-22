@@ -177,12 +177,12 @@ function issue_report_data($type='',$nid=''){
 
 switch($type){
 
-
+    
 
     case 'percent':
     default:
 
-
+$content=report_percent($nid);
         
         break;
 }
