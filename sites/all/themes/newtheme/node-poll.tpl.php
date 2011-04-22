@@ -59,16 +59,23 @@ global $apikey, $gSitePath;
     <?php print $picture ?>
 
 <?php if (!$page): ?>
-        <h2><a href="<?php print $node_url ?>" title="<?php print $title ?>"><?php print $title ?></a></h2>
+        <h2><a href="<?php print $node_url ?>" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></h2>
 <?php endif; ?>
+<?php if($page): ?>
+<div>
+              <h2 style="font-weight: bold;"><?php print rtrim($title, "?"); ?>? </h2>
+            </div>          <div class="quesin">
+              <div class="quesinner">
+                <div class="quesinnerr">
 
+<?php endif; ?>
     <div class="meta">
         <?php if ($submitted): ?>
-            <span class="submitted"><?php print $submitted ?></span>
+            <span class="submitted"><?php //print $submitted ?></span>
         <?php endif; ?>
 
 <?php if ($terms): ?>
-                <div class="terms terms-inline"><?php print $terms ?></div>
+                <div class="terms terms-inline"><?php //print $terms ?></div>
         <?php endif; ?>
             </div>
 
@@ -76,7 +83,7 @@ global $apikey, $gSitePath;
 <?php print $content ?>
                 </div>
 
-<?php print $links; ?>
+<?php //print $links; ?>
+</div></div>
 
-
-</div>
+</div> </div>

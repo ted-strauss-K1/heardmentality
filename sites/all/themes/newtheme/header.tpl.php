@@ -9,6 +9,9 @@
  * Available variables:
  *
  */
+error_reporting(E_ALL);
+ini_set('display_errors','On');
+
 global $user, $gSitePath, $apikey;
 $directory = $base_path . $directory;
 ?>
