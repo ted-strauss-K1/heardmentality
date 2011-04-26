@@ -1238,6 +1238,12 @@ function notify_theme(){
 'notify_add_debate' =>  array(
 'arguments' => array('result' => NULL),
 ),
+'notify_add_resource' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_deb_agree' =>  array(
+'arguments' => array('result' => NULL),
+),
 );
 
 }
@@ -1252,7 +1258,7 @@ $data=unserialize($result->variables);
 //print_r($data);
 //$node=node_load($result->nid);
 $output = t($udetails->name).'<div id="notify-text">'. t($result->message)
-.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>';
+.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 return $output;
     
 }
@@ -1265,7 +1271,48 @@ drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
 $output = t($udetails->name).'<div id="notify-text">'. t($result->message)
-.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>';
+.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+return $output;
+}
+
+
+function theme_notify_add_debate($result = ''){
+
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+    <div id="notify-text">"'.$data['d_title'].'"</div><hr>';
+return $output;
+}
+
+function theme_notify_add_resource($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+    <div id="notify-text-quote">"'.$data['r_title'].'"</div><hr>';
+
+return $output;
+}
+
+
+function theme_notify_deb_agree($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">' . t($data['d_title']) . '</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
 return $output;
 }
 
