@@ -1351,16 +1351,17 @@ return $output;
 function _notify_content($uid=''){
      global $gSitePath,$user,$gDocPath,$base_root;
      $uarray=array();
+     $limit=2;
      $uarray=_activity_heartbeat_related_uid_info($user->uid);
      if(!empty($uarray)){
      $uids=implode(',',$uarray);
-    $query=db_query("SELECT distinct b.naid,b.*,a.message
+    $query=db_query_range("SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) ORDER BY b.naid DESC ",$uids,$uids);
+     WHERE b.`uid`IN (%d) ORDER BY b.naid DESC ",$uids,$uids,0,$limit);
 
     while($result=  db_fetch_object($query)){
 
