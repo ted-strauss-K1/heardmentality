@@ -1296,9 +1296,39 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
-.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
-    <div id="notify-text-quote">"'.$data['r_title'].'"</div><hr>';
+
+$rtype = $data['rtype'];
+switch($rtype){
+    case '1':
+      $image = $data['file']!=''?$data['file']:file_directory_path() . '/noimage.jpg';
+      $output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+    <div>
+        <div style="float:left">'.theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE).'</div>
+        <div id="notify-text-quote">"'.$data['r_title'].'"</div>
+        <div id="notify-desc">'.$data['description'].'</div>
+    </div>
+        <hr>';
+      case '2':
+          $image = '<img width="125" height="100" src="http://img.youtube.com/vi/' . $data['videoid'] . '/default.jpg" alt="Video " >';
+          $output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+    <div>
+        <div style="float:left">'.$image.'</div>
+        <div id="notify-text-quote">"'.$data['r_title'].'"</div>
+    </div>
+        <hr>';
+      case '3':
+      $output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+    <div>
+        <div style="float:left">'.theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE).'</div>
+        <div id="notify-text-quote">"'.$data['r_title'].'"</div>
+        <div id="notify-desc">'.$data['description'].'</div>
+    </div>
+        <hr>';
+}
+
 
 return $output;
 }
