@@ -380,7 +380,7 @@ function issue_save($array='') {
      /*New SET NOTIFY LOG*/
             //set_notify_log($uid , $message_id, $nid, $variable)
             $qid = $node->nid;
-            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+            $qtitle = $node->title;
             $variable = array('qid' => $qid, 'q_title' => $qtitle, 'uid' => $user->uid);
             set_notify_log($user->uid, $qid, 'add_question', $variable);
      /*New SET NOTIFY LOG*/
