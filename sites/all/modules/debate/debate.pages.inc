@@ -2724,7 +2724,7 @@ function users_coins_update($uid = '', $bid = '', $keyname = '') {
      
     db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
     $details=user_load(array('uid'=>$uid));
-    //return $details->total_coins;
+    return $details->total_coins;
 }
 
 function get_coins($key) {

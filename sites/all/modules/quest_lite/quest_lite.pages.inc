@@ -1318,20 +1318,21 @@ function flag_question() {
     } else {
  drupal_set_title("Flag Issue");
         $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-        $vSql = "select * from {question} where status='1' and qid=$qid ";
+        //$vSql = "select * from {question} where status='1' and qid=$qid ";
+        $vSql = "select * from {node} n JOIN {node_revisions} r ON n.nid = r.nid where n.status='1' and n.nid=$qid ";
         $rlist = db_query($vSql);
         $oListquest = db_fetch_object($rlist);
          drupal_set_title('Flag Issue');
         $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">
 	<input type="hidden" name="qaid" value="' . $qid . '"/>
-	<div class="cmt_list"><div class="lft_view">  <p><b>Question :</b>' . $oListquest->question . ' </p>
- <p class="cmt_date"> <b>Context :</b> ' . $oListquest->context . ' </p></div></div>';
+	<div class="cmt_list"><div class="lft_view">  <p><b>Question :</b>' . $oListquest->title . ' </p>
+ <p class="cmt_date"> <b>Context :</b> ' . $oListquest->body . ' </p></div></div>';
 
     }
 $falgq.=report_theme();
 
 $flagg.='</form></div>';
-return abuse_report('node',16);
+return abuse_report('node',$qid);
    return $falgq;
 }
 
@@ -1727,12 +1728,18 @@ function suggest_answer_save() {
             $answerquery = "insert into suggest_answer(qid,uid,answer,date_added) values ('" . $_REQUEST['qaid'] . "','" . $user->uid . "','" . $_REQUEST['txt_answer'] . "','" . date('Y-m-d') . "')";
             db_query($answerquery);
             //Suggest Answer badges
-            db_query("insert into {user_badges} set bid='38',uid='$uid',qid='" . $_REQUEST['qaid'] . "'");
-            $last_id = db_last_insert_id('user_badges', 'badge');
-            user_coins_update($uid, 38, '');
+            //db_query("insert into {user_badges} set bid='38',uid='$uid',qid='" . $_REQUEST['qaid'] . "'");
+            //$last_id = db_last_insert_id('user_badges', 'badge');
+            
+            //user_coins_update($uid, 38, '');
             // hm_mails('',$last_id,'user_badges');
             //badges_user($uid,$last_id);
-
+            
+            /*New SET NOTIFY LOG*/
+             $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $_REQUEST['qaid']));
+             $variable = array('qid' => $_REQUEST['qaid'], 'q_title' => $qtitle);
+             set_notify_log($user->uid, $_REQUEST['qaid'], 'suggest_answer', $variable);
+             /*New SET NOTIFY LOG*/
 
             echo '<div class="messages success">Your option has been added</div>';
         }

@@ -478,6 +478,12 @@ function openid_login_save() {
            $user_data = array('initpop' =>NULL);
         user_save( $user , $user_data);
         add_visit_points($select_user->uid);
+
+        /*New SET NOTIFY LOG*/
+         $variable = array();
+         set_notify_log($select_user->uid, '', 'user_login', $variable);
+         /*New SET NOTIFY LOG*/
+
         drupal_goto();
     }
 

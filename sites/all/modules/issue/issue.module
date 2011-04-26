@@ -266,8 +266,10 @@ $form['op']=false;
     'method' => 'replace',
     'effect' => 'fade',
   ),);
-           //echo "<pre>";
-       // print_r($form);exit;
+
+ $form['#submit'][] = 'add_flag_notify';
+          // echo "<pre>";
+        //print_r($form);exit;
     }
 }
 
@@ -1316,5 +1318,16 @@ function add_vote_notify($form, &$form_state){
     $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
     $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $choice);
     set_notify_log($user->uid, $nid, 'add_vote', $variable);
+    /*New SET NOTIFY LOG*/
+}
+
+function add_flag_notify($form, &$form_state){
+    global $user;
+    /*New SET NOTIFY LOG*/
+    //echo '<pre>'; print_r($form); exit;
+    $nid = $form['#parameters'][2]->oid;
+    $qtitle = $form['#parameters'][2]->title;
+    $variable = array('qid' => $nid, 'q_title' => $qtitle);
+    set_notify_log($user->uid, $nid, 'question_flag', $variable);
     /*New SET NOTIFY LOG*/
 }

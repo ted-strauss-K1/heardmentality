@@ -145,6 +145,13 @@ function citizen_patrol($uid = '') {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",2, $uid);
          $last_id =  mysql_insert_id();
          user_coins_update($uid,2,'');
+
+         /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 2));
+         $variable = array('bid' => '2', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+         
        // hm_mails('',$last_id,'user_badges');
         //badges_user($uid,$last_id);
     }
@@ -169,6 +176,13 @@ function civic_duty($uid = '') {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 3, $uid);
          $last_id =  mysql_insert_id();
+
+         /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 3));
+         $variable = array('bid' => '3', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
          user_coins_update($uid,3,'');
          //hm_mails('',$last_id,'user_badges');
          //badges_user($uid,$last_id);
@@ -190,6 +204,13 @@ function patriotic_citizen($uid = '') {
         if($count >= 5 && $badgecnt == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid) VALUES(%d,%d)",45,$uid);
             $last_id = mysql_insert_id();
+
+             /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 454));
+             $variable = array('bid' => '45', 'badge' => $badgeName);
+             set_notify_log($uid, '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
+
             user_coins_update($uid,45,'');
         }
 }
@@ -209,6 +230,13 @@ function cleanup($uid = '') {
         db_query("update {answer_withdraw} set status='1' where uid='$uid' AND pid_sid='$count->pid_sid' ");
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 4, $uid);
         $last_id =  mysql_insert_id();
+
+         /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 4));
+         $variable = array('bid' => '4', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
         user_coins_update($uid,4,'');
        // hm_mails('',$last_id,'user_badges');
        // badges_user($uid,$last_id);
@@ -253,6 +281,13 @@ function pamphleteer($uid = ''){
             if ($badgecnt == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 46, $uid);
                 $last_id =  mysql_insert_id();
+
+                 /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 46));
+                 $variable = array('bid' => '46', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
                 user_coins_update($uid,46,'');
             }
         }
@@ -295,6 +330,13 @@ function commentator($uid = '') {
             if ($badgecnt == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 5, $uid);
                 $last_id =  mysql_insert_id();
+
+                /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 5));
+                 $variable = array('bid' => '5', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
                 user_coins_update($uid,5,'');
             }
         }
@@ -338,6 +380,13 @@ function senator($uid = ''){
             if ($badgecnt == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 47, $uid);
                 $last_id =  mysql_insert_id();
+
+                /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 47));
+                 $variable = array('bid' => '47', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
                 user_coins_update($uid,47,'');
             }
         }
@@ -363,6 +412,13 @@ function discipline($uid = '', $qid = '') {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 7, $uid);
          $last_id =  mysql_insert_id();
+
+         /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 7));
+         $variable = array('bid' => '7', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
          user_coins_update($uid,7,'');
        //  hm_mails('',$last_id,'user_badges');
         // badges_user($uid,$last_id);
@@ -393,6 +449,13 @@ function electorate($uid = '', $qid = '') {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 9, $uid);
          $last_id =  mysql_insert_id();
+
+         /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 9));
+         $variable = array('bid' => '9', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
          user_coins_update($uid,9,'');
         // hm_mails('',$last_id,'user_badges');
         // badges_user($uid,$last_id);
@@ -431,6 +494,13 @@ function enthusiast($uid = '') {
                      $last_id =  mysql_insert_id();
                    // hm_mails('',$last_id,'user_badges');
                    // badges_user($uid,$last_id);
+
+                     /*New SET NOTIFY LOG*/
+                     $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 11));
+                     $variable = array('bid' => '11', 'badge' => $badgeName);
+                     set_notify_log($uid, '', 'add_badge', $variable);
+                     /*New SET NOTIFY LOG*/
+
                      user_coins_update($uid,11,'');
                     $query = "update {user_profile} set daily_start_date=now(),daily_todays_date=now(),daily_end_date=TIMESTAMPADD(DAY,30,NOW()) where uid='$uid'";
                     db_query($query);
@@ -540,6 +610,13 @@ function yearling(){
             $interval = month_differece($date2,$badgecreated);
             if($interval >= 1){
              db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d'", $userlist->uid, 43);
+
+             /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 43));
+             $variable = array('bid' => '43', 'badge' => $badgeName);
+             set_notify_log($userlist->uid, '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
+
              user_coins_update($userlist->uid,43,'');
             }
         }
@@ -579,7 +656,15 @@ function Tumbleweed() {
             if ($viewbad == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('42', '$qklisy->uid','$qklisy->nid') ");
                  $last_id =  mysql_insert_id();
-                 user_coins_update($uid,42,'');
+
+                 /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 42));
+                 $variable = array('bid' => '42', 'badge' => $badgeName);
+                 set_notify_log($qklisy->uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
+                 user_coins_update($qklisy->uid,42,'');
+                 
                 // hm_mails('',$last_id,'user_badges');
                 // badges_user($uid,$last_id);
             }
@@ -601,7 +686,15 @@ function Taxonomist() {
             if ($tagcntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,tid) VALUES ('40','$qtag->uid','$qtag->tid') ");
                  $last_id =  mysql_insert_id();
-                 user_coins_update($uid,40,'');
+
+                  /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 40));
+                 $variable = array('bid' => '40', 'badge' => $badgeName);
+                 set_notify_log($qtag->uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
+                 user_coins_update($qtag->uid,40,'');
+                 
                 // hm_mails('',$last_id,'user_badges');
                 // badges_user($uid,$last_id);
             }
@@ -636,7 +729,14 @@ function Student() {
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('38','$qstude->uid','$qstude->nid') ");
                  $last_id =  mysql_insert_id();
-                 user_coins_update($uid,38,'');
+
+                  /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 38));
+                 $variable = array('bid' => '38', 'badge' => $badgeName);
+                 set_notify_log($qstude->uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
+                 user_coins_update($qstude->uid,38,'');
                 // hm_mails('',$last_id,'user_badges');
                 // badges_user($uid,$last_id);
             }
@@ -770,6 +870,13 @@ function supporter($uid, $nodeid, $rtype){
     if($badgecnt == 0){
      db_query("INSERT INTO {user_badges} (bid, uid, node_id, type) VALUES (%d, %d, %d, '%s')", 39, $uid, $nodeid, $rtype);
      $last_id =  mysql_insert_id();
+
+     /*New SET NOTIFY LOG*/
+     $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 39));
+     $variable = array('bid' => '39', 'badge' => $badgeName);
+     set_notify_log($uid, '', 'add_badge', $variable);
+     /*New SET NOTIFY LOG*/
+
      user_coins_update($uid,39,'');
     }
 }
@@ -778,6 +885,13 @@ function seer($uid, $nodeid, $rtype){
     if($badgecnt == 0){
      db_query("INSERT INTO {user_badges} (bid, uid, node_id, type) VALUES (%d, %d, %d, '%s')", 49, $uid, $nodeid, $rtype);
      $last_id =  mysql_insert_id();
+
+     /*New SET NOTIFY LOG*/
+     $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 49));
+     $variable = array('bid' => '49', 'badge' => $badgeName);
+     set_notify_log($uid, '', 'add_badge', $variable);
+     /*New SET NOTIFY LOG*/
+
      user_coins_update($uid,49,'');
     }
 }
@@ -786,6 +900,13 @@ function oracle($uid, $nodeid, $rtype){
     if($badgecnt == 0){
      db_query("INSERT INTO {user_badges} (bid, uid, node_id, type) VALUES (%d, %d, %d, '%s')", 50, $uid, $nodeid, $rtype);
      $last_id =  mysql_insert_id();
+
+     /*New SET NOTIFY LOG*/
+     $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 50));
+     $variable = array('bid' => '50', 'badge' => $badgeName);
+     set_notify_log($uid, '', 'add_badge', $variable);
+     /*New SET NOTIFY LOG*/
+
      user_coins_update($uid,50,'');
     }
 }
@@ -868,6 +989,13 @@ function legendary($uid = '') {
             
             db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 22, $uid);
             $last_id =  mysql_insert_id();
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 22));
+             $variable = array('bid' => '22', 'badge' => $badgeName);
+             set_notify_log($uid, '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
+
             user_coins_update($uid,22,'');
            // hm_mails('',$last_id,'user_badges');
            // badges_user($uid,$last_id);
@@ -908,6 +1036,13 @@ function fanatic($uid = '') {
                     
                     db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
                      $last_id =  mysql_insert_id();
+
+                     /*New SET NOTIFY LOG*/
+                     $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 11));
+                     $variable = array('bid' => '11', 'badge' => $badgeName);
+                     set_notify_log($uid, '', 'add_badge', $variable);
+                     /*New SET NOTIFY LOG*/
+
                       user_coins_update($uid,11,'');
                     // hm_mails('',$last_id,'user_badges');
                     // badges_user($uid,$last_id);
@@ -938,7 +1073,7 @@ function fanatic($uid = '') {
 
 }
 // good question
-function good_question($uid){
+function good_question($uid=''){
     //$sql = "SELECT * FROM question WHERE uid = '$uid'";
     $sql = "SELECT * FROM node WHERE uid = '$uid'";
     $quests = ExecuteQuery($sql,'select');
@@ -950,12 +1085,19 @@ function good_question($uid){
         if($count >= 1 && $badgecnt == 0){
             db_query("INSERT INTO {user_badges} (uid,bid,qid) VALUES(%d,%d,%d)",$uid,18,$quest['nid']);
             $last_id = db_last_insert_id('user_badges','badge');
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 18));
+             $variable = array('bid' => '18', 'badge' => $badgeName);
+             set_notify_log($uid, '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
+
              user_coins_update($uid,18,'');
         }
     }
 }
 // popular question
-function popular_question($uid){
+function popular_question($uid = ''){
     //$sql = "SELECT * FROM question WHERE uid = '$uid'";
     $sql = "SELECT * FROM node WHERE uid = '$uid'";
     $quests = ExecuteQuery($sql,'select');
@@ -967,12 +1109,19 @@ function popular_question($uid){
         if($count >= 2 && $badgecnt == 0){
             db_query("INSERT INTO {user_badges} (uid,bid,qid) VALUES(%d,%d,%d)",$uid,30,$quest['nid']);
             $last_id = db_last_insert_id('user_badges','badge');
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 30));
+             $variable = array('bid' => '30', 'badge' => $badgeName);
+             set_notify_log($uid, '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
+
              user_coins_update($uid,30,'');
         }
     }
 }
 // propocative question
-function provocative_question($uid){
+function provocative_question($uid = ''){
     //$sql = "SELECT * FROM question WHERE uid = '$uid'";
     $sql = "SELECT * FROM node WHERE uid = '$uid'";
     $quests = ExecuteQuery($sql,'select');
@@ -984,12 +1133,19 @@ function provocative_question($uid){
         if($count >= 3 && $badgecnt == 0){
             db_query("INSERT INTO {user_badges} (uid,bid,qid) VALUES(%d,%d,%d)",$uid,51,$quest['nid']);
             $last_id = db_last_insert_id('user_badges','badge');
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 51));
+             $variable = array('bid' => '51', 'badge' => $badgeName);
+             set_notify_log($uid, '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
+
              user_coins_update($uid,51,'');
         }
     }
 }
 // add scrutineer badge 
-function scrutineer($uid,$qid){
+function scrutineer($uid = '',$qid = ''){
    // get scrutineer badge id
    $count = db_result(db_query("SELECT COUNT(*) FROM {user_badges} WHERE uid = '$uid' AND bid = '44' AND qid = '$qid'"));
    if($count == 0)
@@ -997,6 +1153,13 @@ function scrutineer($uid,$qid){
     db_query("INSERT INTO {user_badges} (uid, bid, qid) VALUES(%d,%d,%d)",$uid,44,$qid);
 
     $last_id = db_last_insert_id('user_badges','badge');
+
+    /*New SET NOTIFY LOG*/
+     $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 44));
+     $variable = array('bid' => '44', 'badge' => $badgeName);
+     set_notify_log($uid, '', 'add_badge', $variable);
+     /*New SET NOTIFY LOG*/
+
      user_coins_update($uid,44,'');
    }
 }
@@ -1025,6 +1188,13 @@ while($resource = db_fetch_object($resources)){
     if($total > 1 && $total < 3 && $badgecnt == 0){
          db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', node_id = '%d', type = '%s'",$uid,52,$rid,$rtype);
         $last_id = db_last_insert_id('user_badges','badge');
+
+        /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 52));
+         $variable = array('bid' => '52', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
          user_coins_update($uid,52,'');
     }
     // newsstand, silver
@@ -1034,6 +1204,13 @@ while($resource = db_fetch_object($resources)){
     if($total > 2 && $total < 5 && $badgecnt == 0){
         db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', node_id = '%d', type = '%s'",$uid,53,$rid,$rtype);
         $last_id = db_last_insert_id('user_badges','badge');
+
+        /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 53));
+         $variable = array('bid' => '53', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
          user_coins_update($uid,53,'');
     }
     // librarian, gold
@@ -1043,6 +1220,14 @@ while($resource = db_fetch_object($resources)){
     if($total > 4 && $badgecnt == 0){
         db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', node_id = '%d', type = '%s'",$uid,54,$rid,$rtype);
         $last_id = db_last_insert_id('user_badges','badge');
+
+        /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 54));
+         $variable = array('bid' => '54', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
+
          user_coins_update($uid,54,'');
     }
 }
@@ -1073,6 +1258,13 @@ while($debate = db_fetch_object($debates)){
     if($agree['total'] > 1 && $agree['total'] < 3 && $badgecnt == 0){
         db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', node_id = '%d', type = '%s'",$uid,55,$did,$rtype);
         $last_id = db_last_insert_id('user_badges','badge');
+
+        /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 55));
+         $variable = array('bid' => '55', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
          user_coins_update($uid,55,'');
     }
     // well put, silver
@@ -1081,6 +1273,13 @@ while($debate = db_fetch_object($debates)){
     if($agree['total'] > 2 && $agree['total'] < 5 && $badgecnt == 0){
         db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', node_id = '%d', type = '%s'",$uid,56,$did,$rtype);
         $last_id = db_last_insert_id('user_badges','badge');
+
+        /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 56));
+         $variable = array('bid' => '56', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
          user_coins_update($uid,56,'');
     }
     // consensus builder, gold
@@ -1090,6 +1289,13 @@ while($debate = db_fetch_object($debates)){
     if($agree['total'] > 4 && $badgecnt == 0){
         db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', node_id = '%d', type = '%s'",$uid,57,$did,$rtype);
         $last_id = db_last_insert_id('user_badges','badge');
+
+        /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 57));
+         $variable = array('bid' => '57', 'badge' => $badgeName);
+         set_notify_log($uid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
          user_coins_update($uid,57,'');
     }
 
@@ -1098,81 +1304,137 @@ while($debate = db_fetch_object($debates)){
 //Conversation Piece, Cocktail Party, Healthy Debate
 function question_res_deb_post_reply(){
     // resource
-    $sql = "SELECT COUNT(*) as total, qid, uid FROM resource GROUP BY qid";
+    $res_tax_tid = get_taxonomy_id('forum', 'Resource');
+    $sql = "SELECT COUNT(*) as total, c.nid AS resid, c.field_ref_qid_nid AS qid FROM {content_type_forum} c LEFT JOIN {term_node} t ON c.nid = t.nid WHERE t.tid = '$res_tax_tid' GROUP BY c.field_ref_qid_nid";
+    //$sql = "SELECT COUNT(*) as total, qid, uid FROM resource GROUP BY qid";
     $ress = ExecuteQuery($sql,'select');
     foreach($ress as $res){
         $resource_post = $res['total'];
-        $resource_reply_post = db_result(db_query("SELECT SUM(total_res) AS total_resource_post FROM
-                                                    (SELECT COUNT(rid) AS total_res, qid FROM
-                                                    (SELECT r.rid, r.qid FROM resource_reply p LEFT JOIN
-                                                    resource r ON p.rid = r.rid WHERE r.qid = '".$res['qid']."')
-                                                     AS test GROUP BY rid) AS summation GROUP BY qid"));
+        $uid = db_result(db_query("SELECT uid FROM {node} WHERE nid = '%d'", $res['qid']));
+
+        $resource_reply_post = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '%d'", $res['resid']));
+        
+//        $resource_reply_post = db_result(db_query("SELECT SUM(total_res) AS total_resource_post FROM
+//                                                    (SELECT COUNT(rid) AS total_res, qid FROM
+//                                                    (SELECT r.rid, r.qid FROM resource_reply p LEFT JOIN
+//                                                    resource r ON p.rid = r.rid WHERE r.qid = '".$res['qid']."')
+//                                                     AS test GROUP BY rid) AS summation GROUP BY qid"));
+        
         $resource_total = $resource_post + $resource_reply_post;
-        // >19 <50
+        // >19 <50 Conversation Piece
         if($resource_total > 1 && $resource_total < 3){
-           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='58' AND qid = '".$res['qid']."'"));
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$uid."' AND bid='58' AND qid = '".$res['qid']."'"));
            if($badgecnt == 0){
-               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$res['uid'],58,$res['qid']);
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$uid,58,$res['qid']);
                $last_id = db_last_insert_id('user_badges','badge');
-                user_coins_update($res['uid'],58,'');
+
+               /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 58));
+                 $variable = array('bid' => '58', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
+                user_coins_update($uid,58,'');
            }
         }
-        // >49 <100
+        // >49 <100 Cocktail Party
          if($resource_total > 2 && $resource_total < 5){
-           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='59' AND qid = '".$res['qid']."'"));
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$uid."' AND bid='59' AND qid = '".$res['qid']."'"));
            if($badgecnt == 0){
-               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$res['uid'],59,$res['qid']);
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$uid,59,$res['qid']);
                $last_id = db_last_insert_id('user_badges','badge');
-                user_coins_update($res['uid'],59,'');
+
+               /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 59));
+                 $variable = array('bid' => '59', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
+                user_coins_update($uid,59,'');
            }
         }
-        // >99
+        // >99 Healthy Debate
          if($resource_total > 4){
-           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$res['uid']."' AND bid='60' AND qid = '".$res['qid']."'"));
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$uid."' AND bid='60' AND qid = '".$res['qid']."'"));
            if($badgecnt == 0){
-               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$res['uid'],60,$res['qid']);
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$uid,60,$res['qid']);
                $last_id = db_last_insert_id('user_badges','badge');
-                user_coins_update($res['uid'],60,'');
+
+               /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 60));
+                 $variable = array('bid' => '60', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
+                user_coins_update($uid,60,'');
            }
         }
     }
 
-    // debate 
-    $sql = "SELECT COUNT(*) as total, qid, uid FROM debate GROUP BY qid";
+    // debate
+    $deb_tax_tid = get_taxonomy_id('forum', 'Debate');
+    $sql = "SELECT COUNT(*) as total, c.nid AS debid, c.field_ref_qid_nid AS qid FROM {content_type_forum} c LEFT JOIN {term_node} t ON c.nid = t.nid WHERE t.tid = '$deb_tax_tid' GROUP BY c.field_ref_qid_nid";
+    //$sql = "SELECT COUNT(*) as total, qid, uid FROM debate GROUP BY qid";
     $debs = ExecuteQuery($sql,'select');
     foreach($debs as $deb){
         $debate_post = $deb['total'];
-        $debate_reply_post = db_result(db_query("SELECT SUM(total_res) AS total_resource_post FROM
-                                                 (SELECT COUNT(did) AS total_res, qid FROM
-                                                 (SELECT r.did, r.qid FROM debate_reply p LEFT JOIN
-                                                 debate r ON p.did = r.did WHERE r.qid = '".$deb['qid']."')
-                                                  AS test GROUP BY did) AS summation GROUP BY qid"));
+
+         $uid = db_result(db_query("SELECT uid FROM {node} WHERE nid = '%d'", $deb['qid']));
+
+        $debate_reply_post = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '%d'", $deb['debid']));
+
+//        $debate_reply_post = db_result(db_query("SELECT SUM(total_res) AS total_resource_post FROM
+//                                                 (SELECT COUNT(did) AS total_res, qid FROM
+//                                                 (SELECT r.did, r.qid FROM debate_reply p LEFT JOIN
+//                                                 debate r ON p.did = r.did WHERE r.qid = '".$deb['qid']."')
+//                                                  AS test GROUP BY did) AS summation GROUP BY qid"));
         $debate_total = $debate_post + $debate_reply_post;
-        // >19 <50
+        // >19 <50 Conversation Piece
         if($debate_total > 1 && $debate_total < 3){
-           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='58' AND qid = '".$deb['qid']."'"));
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$uid."' AND bid='58' AND qid = '".$deb['qid']."'"));
            if($badgecnt == 0){
-               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],58,$deb['qid']);
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$uid,58,$deb['qid']);
                $last_id = db_last_insert_id('user_badges','badge');
-                user_coins_update($deb['uid'],58,'');
+
+               /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 58));
+                 $variable = array('bid' => '58', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
+                user_coins_update($uid,58,'');
            }
         }
-        // >49 <100
+        // >49 <100 Cocktail Party
         if($debate_total > 2 && $debate_total < 5){
-           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='59' AND qid = '".$deb['qid']."'"));
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$uid."' AND bid='59' AND qid = '".$deb['qid']."'"));
            if($badgecnt == 0){
-               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],59,$deb['qid']);
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$uid,59,$deb['qid']);
                $last_id = db_last_insert_id('user_badges','badge');
-                user_coins_update($deb['uid'],59,'');
+
+               /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 59));
+                 $variable = array('bid' => '59', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
+                user_coins_update($uid,59,'');
            }
         }
-        // >99
+        // >99 Healthy Debate
         if($debate_total > 4){
-           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$deb['uid']."' AND bid='60' AND qid = '".$deb['qid']."'"));
+           $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$uid."' AND bid='60' AND qid = '".$deb['qid']."'"));
            if($badgecnt == 0){
-               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$deb['uid'],60,$deb['qid']);
+               db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'",$uid,60,$deb['qid']);
                $last_id = db_last_insert_id('user_badges','badge');
-                user_coins_update($deb['uid'],60,'');
+
+               /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 60));
+                 $variable = array('bid' => '60', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
+                user_coins_update($uid,60,'');
            }
         }
     }
@@ -1229,10 +1491,18 @@ function provocateur($qid,$said){
     if($badgecnt == 0){
         db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', qid = '%d'", $userid,62,$qid);
         $last_id =  db_last_insert_id('user_badges','badge');
+
+        /*New SET NOTIFY LOG*/
+         $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 62));
+         $variable = array('bid' => '62', 'badge' => $badgeName);
+         set_notify_log($userid, '', 'add_badge', $variable);
+         /*New SET NOTIFY LOG*/
+
         user_coins_update($userid,62,'');
     }
 }
 // generalist
+// User has voted on at least 5 questions is 10 bottom level categories (i.e categories without children subcategories)
 function generalist(){
     $sql = "SELECT DISTINCT(scat) FROM {question_cat} WHERE scat!='0' LIMIT 0,10";
     $scats = ExecuteQuery($sql, 'select');
@@ -1240,17 +1510,19 @@ function generalist(){
         $arr[]=$scat['scat'];
     }
    $subcategories = implode(",",$arr);
-   $sql = "SELECT COUNT(uid) AS ucount, uid FROM {possible_answer_vote} GROUP BY uid";
+   //$sql = "SELECT COUNT(uid) AS ucount, uid FROM {possible_answer_vote} GROUP BY uid";
+   $sql = "SELECT COUNT(uid) AS ucount, uid FROM {poll_votes} GROUP BY uid";
    $users = ExecuteQuery($sql,'select');
    foreach($users as $user){
        if($user['ucount'] >= 5)
        {
            $quest_count = 0;
-           $sql = "SELECT qid FROM {possible_answer_vote} WHERE uid = '".$user['uid']."'";
+           //$sql = "SELECT qid FROM {possible_answer_vote} WHERE uid = '".$user['uid']."'";
+           $sql = "SELECT nid FROM {poll_votes} WHERE uid = '".$user['uid']."'";
            $quests = ExecuteQuery($sql, 'select');
            foreach($quests as $quest)
            {
-               $count = db_result(db_query("SELECT COUNT(qid) FROM {question_cat} WHERE scat IN ($subcategories) AND qid = '".$quest['qid']."'"));
+               $count = db_result(db_query("SELECT COUNT(qid) FROM {question_cat} WHERE scat IN ($subcategories) AND qid = '".$quest['nid']."'"));
                if($count > 0){
                 $quest_count = $quest_count+1;
                }
@@ -1268,6 +1540,7 @@ function generalist(){
 }
 
 // Well Read
+// User has voted on at least 10 questions is 20 bottom level categories (i.e categories without children subcategories)
 function wellread(){
     $sql = "SELECT DISTINCT(scat) FROM {question_cat} WHERE scat!='0' LIMIT 0,20";
     $scats = ExecuteQuery($sql, 'select');
@@ -1303,6 +1576,7 @@ function wellread(){
 }
 
 // scholer
+// User has voted on at least 20 questions is 30 bottom level categories (i.e categories without children subcategories)
 function scholer(){
     $sql = "SELECT DISTINCT(scat) FROM {question_cat} WHERE scat!='0' LIMIT 0,30";
     $scats = ExecuteQuery($sql, 'select');
@@ -1354,10 +1628,18 @@ function user_coins_update($uid = '',$bid = '',$keyname = ''){
     $user_coins  = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
     if($coin_type == 'earn'){
         $total_coins = $user_coins + $coin_count;
+        $message_id = 'add_coins';
     }
     if($coin_type == 'lose'){
          $total_coins = $user_coins - $coin_count;
+         $message_id = 'lose_coins';
     }
+
+    /*New SET NOTIFY LOG*/
+    $variable = array('coin_count' =>$coin_count, 'coint_type' => $coin_type);
+     set_notify_log($uid, '', $message_id, $variable);
+     /*New SET NOTIFY LOG*/
+
     db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'",$total_coins);
 }
 
