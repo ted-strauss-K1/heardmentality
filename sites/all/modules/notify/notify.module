@@ -1215,7 +1215,7 @@ function notify_block($op = 'list', $delta = 0, $edit = array()) {
 
                     $block['subject'] = "Heart Beat Messages";
                     $block['content'] = _notify_content($uid);
-
+                   
                     break;
 
                    
@@ -1227,15 +1227,64 @@ function notify_block($op = 'list', $delta = 0, $edit = array()) {
 
 }
 
+function notify_theme(){
+   return array(
+'notify_add_question'  => array(
+'arguments' => array('result' => NULL),
+),
+'notify_add_vote' => array(
+'arguments' => array('result' => NULL),
+),
+'notify_add_debate' =>  array(
+'arguments' => array('result' => NULL),
+),
+);
+
+}
+
+function theme_notify_add_question($result=''){
+   // print_r($result);
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+print_r($data);
+//$node=node_load($result->nid);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>';
+return $output;
+    
+}
 
 
 function _notify_content($uid=''){
      global $gSitePath,$user,$gDocPath,$base_root;
+     $uarray=array();
+     $uarray=_activity_heartbeat_related_uid_info($user->uid);
+     if(!empty($uarray)){
+    echo $uids=implode(',',$uarray);
+    $query=db_query("SELECT distinct b.naid,b.*,a.message
+      FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` IN (%d)
+     WHERE b.`uid`IN (%d) ",$uids,$uids);
+
+    while($result=  db_fetch_object($query)){
+
+        $output.= theme('notify_'.$result->message_id,$result);
+    }
+
+     }else{
+         $output='No User Activity Found!';
+     }
+
      
-print_r(_activity_heartbeat_related_uid_info($user->uid));
 
 
-
+return $output;
 }
 
 
@@ -1256,8 +1305,7 @@ function _activity_heartbeat_related_uid_info($uid) {
 function _activity_get_friends($uid) {
 
   $uids = array();
-
-  $api = variable_get('heartbeat_relations_api', 'none');
+  $api = variable_get('heartbeat_relations_api', 'user_relationships_api');
 
   if ($api == 'friendlist_api') {
 

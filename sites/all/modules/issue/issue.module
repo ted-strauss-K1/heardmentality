@@ -176,9 +176,12 @@ function issue_edit_vote() {
 function issue_report_data($type='',$nid=''){
 
 switch($type){
-
-    
-
+case 'map':
+      $content=report_map($nid);
+    break;
+    case 'graph':
+        $content=report_graph($nid);
+        break;
     case 'percent':
     default:
 
