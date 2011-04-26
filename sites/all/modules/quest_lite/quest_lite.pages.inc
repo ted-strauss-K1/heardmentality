@@ -991,7 +991,14 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='25'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('25','" . $ansrem->uid . "') ");
-                    user_coins_update($uid, 25, '');
+
+                    /*New SET NOTIFY LOG*/
+                     $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 25));
+                     $variable = array('bid' => '25', 'badge' => $badgeName);
+                     set_notify_log($ansrem->uid, '', 'add_badge', $variable);
+                     /*New SET NOTIFY LOG*/
+
+                    user_coins_update($ansrem->uid, 25, '');
                 }
             }
             //////////////Good Answer///////////////////////
@@ -999,7 +1006,14 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='17'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('17','" . $ansrem->uid . "') ");
-                    user_coins_update($uid, 17, '');
+
+                    /*New SET NOTIFY LOG*/
+                     $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 17));
+                     $variable = array('bid' => '17', 'badge' => $badgeName);
+                     set_notify_log($ansrem->uid, '', 'add_badge', $variable);
+                     /*New SET NOTIFY LOG*/
+
+                    user_coins_update($ansrem->uid, 17, '');
                 }
             }
             //////////////great answers///////////////////////
@@ -1007,7 +1021,14 @@ function qlite_save() {
                 $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $ansrem->uid . "'  and bid='19'"));
                 if ($stucntr == 0) {
                     db_query("INSERT INTO {user_badges} (bid,uid) VALUES ('19','" . $ansrem->uid . "') ");
-                    user_coins_update($uid, 19, '');
+
+                    /*New SET NOTIFY LOG*/
+                     $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 19));
+                     $variable = array('bid' => '19', 'badge' => $badgeName);
+                     set_notify_log($ansrem->uid, '', 'add_badge', $variable);
+                     /*New SET NOTIFY LOG*/
+
+                    user_coins_update($ansrem->uid, 19, '');
                 }
             }
            
@@ -1635,7 +1656,16 @@ function flag_report() {
                     db_query($flagnotify);
 
                     increasepoints('4', $_REQUEST['qaid'], '0');
+
                     echo '<div class="">Flagged</div>';
+
+                    /*New SET NOTIFY LOG*/
+                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $_REQUEST['qaid']));
+                     $variable = array('qid' => $_REQUEST['qaid'], 'q_title' => $qtitle);
+                     set_notify_log($user->uid, '', 'question_flag', $variable);
+                     /*New SET NOTIFY LOG*/
+
+
                     /* RAM HEARTBEAT MODULE FLAGGED A QUESTION */
                     $QID = $_REQUEST['qaid'];
                     $qid_url = db_query("select * from {question} where qid='$QID'");
@@ -2931,7 +2961,13 @@ function retag() {
             if ($chkbadge < 1) {
 
                 db_query("insert into {user_badges} set bid='28',uid='$uid',qid='" . $qid . "'");
-            }
+
+                /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 28));
+                 $variable = array('bid' => '28', 'badge' => $badgeName);
+                 set_notify_log($uid, '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+                    }
 
             drupal_set_message($message = 'Thank you Tags are updated', $type = 'success');
             echo '<div class="success">Thank you Tags are updated</div>';
@@ -3253,7 +3289,13 @@ function popquest() {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='27'"));
         if ($stucntr == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('27','" . $oListquest->uid . "','" . $qid . "') ");
-            user_coins_update($uid, 27, '');
+            user_coins_update($oListquest->uid, 27, '');
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 27));
+             $variable = array('bid' => '27', 'badge' => $badgeName);
+             set_notify_log($oListquest->uid, '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
         }
     }
 
@@ -3263,7 +3305,13 @@ function popquest() {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='13'"));
         if ($stucntr == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('13','" . $oListquest->uid . "','" . $qid . "') ");
-            user_coins_update($uid, 13, '');
+            user_coins_update($oListquest->uid, 13, '');
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 13));
+             $variable = array('bid' => '13', 'badge' => $badgeName);
+             set_notify_log($oListquest->uid, '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
         }
     }
 
@@ -3274,7 +3322,13 @@ function popquest() {
         $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='" . $oListquest->uid . "' and qid='" . $qid . "'  and bid='48'"));
         if ($stucntr == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('48','" . $oListquest->uid . "','" . $qid . "') ");
-            user_coins_update($uid, 48, '');
+            user_coins_update($oListquest->uid, 48, '');
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 48));
+             $variable = array('bid' => '48', 'badge' => $badgeName);
+             set_notify_log($oListquest->uid, '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
         }
     }
 }

@@ -376,6 +376,15 @@ function issue_save($array='') {
             db_query("INSERT INTO {poll_choices} (nid, chtext, chvotes, chorder) VALUES (%d, '%s', %d, %d)", $node->nid, $array[$name], '0', $j++);
         }
     }
+
+     /*New SET NOTIFY LOG*/
+            //set_notify_log($uid , $message_id, $nid, $variable)
+            $qid = $node->nid;
+            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'uid' => $user->uid);
+            set_notify_log($user->uid, $qid, 'add_question', $variable);
+     /*New SET NOTIFY LOG*/
+            
 //url alias
     $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
     $url = 'qlite/view/' . $node->nid;

@@ -530,12 +530,7 @@ function send_qnotify($qid='') { ///vijay important comented
 		//echo 'test';
 		//die;
 	/*RAM HEARTBEAT MODULE*/
-     /*New SET NOTIFY LOG*/
-            //set_notify_log($uid , $message_id, $nid, $variable)
-            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
-            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'uid' => $user->uid);
-            set_notify_log($user->uid, $qid, 'add_question', $variable);
-     /*New SET NOTIFY LOG*/
+    
 
     ////////////mail notication for user follwers to me//////////////////////////////////////
 
