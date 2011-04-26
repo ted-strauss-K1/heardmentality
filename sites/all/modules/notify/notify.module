@@ -1259,6 +1259,7 @@ $data=unserialize($result->variables);
 //$node=node_load($result->nid);
 $output = t($udetails->name).'<div id="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
 return $output;
     
 }
@@ -1322,14 +1323,14 @@ function _notify_content($uid=''){
      $uarray=array();
      $uarray=_activity_heartbeat_related_uid_info($user->uid);
      if(!empty($uarray)){
-    echo $uids=implode(',',$uarray);
+     $uids=implode(',',$uarray);
     $query=db_query("SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) ",$uids,$uids);
+     WHERE b.`uid`IN (%d) ORDER BY b.naid DESC ",$uids,$uids);
 
     while($result=  db_fetch_object($query)){
 
