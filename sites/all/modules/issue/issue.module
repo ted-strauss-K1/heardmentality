@@ -526,6 +526,7 @@ function issue_debate_tab($qid = ''){
     
     $inc_pans = '';
     $wave = '';
+    $wave .= '<input type="hidden" name="mqid" value="'.$qid.'">';
     //$wave .= panel_content();
     $wave .= '<div id="waveerr"></div>
                        <ul id="tabmenu" class="subtabs" >
@@ -653,6 +654,7 @@ function issue_resource_tab($qid = ''){
     $node=node_load($qid);
     $type = 'innews';
     $ans = load_options($qid);
+    $output .= '<input type="hidden" name="mqid" value="'.$qid.'">';
     $output .= '<div id="waveerr"></div>
                        <ul id="tabmenu" class="subtabs" >
                                        <li><a class="" href="javascript:tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabIn">In the News</a></li>
@@ -990,12 +992,21 @@ function list_debate($qid='', $type='') {
 
     // load debate
     $sorting = 'ORDER BY f.nid DESC';
+    $cond = '';
     extract($_REQUEST);
     if (isset($sort) && $sort == 1){
         $sorting = 'ORDER BY n.created DESC';
+    }elseif (isset($sort) && $sort == 2){
+        $sorting = ' ORDER BY c.field_strength_value DESC';
+    }
+    if (isset($ans) && !empty($ans)){
+        $cond.=" AND do.chid='$ans'";
+    }
+    if (isset($sup) && $sup > 0){
+        $cond.=" AND do.ans_val='$sup'";
     }
     $tid = get_taxonomy_id('forum', 'Debate');
-    $sql = "SELECT f.nid FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+   $sql = "SELECT f.nid FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid JOIN {debate_options} as do ON n.nid = do.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
     $nodes = db_query($sql, $tid, $qid);
     $count = db_result(db_query($sql, $tid, $qid));
 

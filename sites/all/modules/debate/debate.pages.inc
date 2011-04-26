@@ -1135,25 +1135,43 @@ function resource_innews($qid='', $rtype='') {
     $sortin = 'ORDER BY rid DESC';
     $cond = '';
     extract($_REQUEST);
-    if (isset($sort) && $sort == 1)
-        $sortin = ' ORDER BY r.posted_date DESC';
-    elseif (isset($sort) && $sort == 2)
-        $sortin = ' ORDER BY r.strength DESC';
-    if (isset($ans) && !empty($ans))
-        $cond.=" AND ro.paid='$ans'";
-    if (isset($sup) && $sup > 0)
-        $cond.=" AND ro.ans_val='$sup'";
+//    if (isset($sort) && $sort == 1)
+//        $sortin = ' ORDER BY r.posted_date DESC';
+//    elseif (isset($sort) && $sort == 2)
+//        $sortin = ' ORDER BY r.strength DESC';
+//    if (isset($ans) && !empty($ans))
+//        $cond.=" AND ro.paid='$ans'";
+//    if (isset($sup) && $sup > 0)
+//        $cond.=" AND ro.ans_val='$sup'";
+//
+//    if (empty($cond))
+//        $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $sortin ";
+//    else
+//        $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource_options} as ro join {resource} as r on ro.rid=r.rid join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $cond  group by r.rid $sortin ";
+//
+//    $cnt = ExecuteQuery($query, "select");
 
-    if (empty($cond))
-        $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $sortin ";
-    else
-        $query = "select r.*,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource_options} as ro join {resource} as r on ro.rid=r.rid join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='$rtype' AND status='1' $cond  group by r.rid $sortin ";
-
-    $cnt = ExecuteQuery($query, "select");
+    
     // load Resource
+
+    $sorting = 'ORDER BY f.nid DESC';
+    $cond = '';
+    extract($_REQUEST);
+    if (isset($sort) && $sort == 1){
+        $sorting = 'ORDER BY n.created DESC';
+    }elseif (isset($sort) && $sort == 2){
+        $sorting = ' ORDER BY c.field_strength_value DESC';
+    }
+    if (isset($ans) && !empty($ans)){
+        $cond.=" AND do.chid='$ans'";
+    }
+    if (isset($sup) && $sup > 0){
+        $cond.=" AND do.ans_val='$sup'";
+    }
+    
     $resType = $rtype==1?'news':'facts';
     $tid = get_taxonomy_id('forum', 'Resource');
-    $sql = "SELECT f.nid FROM {forum} as f RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' ORDER BY f.nid DESC";
+    $sql = "SELECT f.nid FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $sorting";
     $nodes = db_query($sql, $tid, $qid, $resType);
     $count = db_result(db_query($sql, $tid, $qid, $resType));
 
