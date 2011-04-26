@@ -178,6 +178,10 @@ function insertpoints($action = '', $nodeid = '') {
         if ($rcnt == 0) {
 
             db_query("insert into {tbl_user_points} set point_id='$fetuserpts->id',points='$fetuserpts->points',uid='$user->uid',$set,nodeid='$nodeid'");
+            /*New SET NOTIFY LOG*/
+            $variable = array('points' => $fetuserpts->points, 'uid' => $user->uid, 'nid' => $nodeid);
+            set_notify_log($user->uid, $nodeid, 'add_points', $variable);
+            /*New SET NOTIFY LOG*/
         }
     }
 }

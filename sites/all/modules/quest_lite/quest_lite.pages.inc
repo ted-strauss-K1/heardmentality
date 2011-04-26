@@ -152,6 +152,11 @@ function qlite_view() {
     if ($pexist == 0) {
         $points = get_points(9);
         db_query("INSERT INTO {tbl_user_points} SET qid = '%d', uid = '%d', point_id = '%d', points = '%d'", $qid, $user->uid, 9, $points);
+
+        /*New SET NOTIFY LOG*/
+        $variable = array('points' => $points, 'uid' => $user->uid );
+        set_notify_log($user->uid, '', 'add_points', $variable);
+        /*New SET NOTIFY LOG*/
     }
     // ADD POINTS FOR EACH VIEW ends
     // ADD POINTS FOR EACH VIEW
@@ -159,6 +164,11 @@ function qlite_view() {
     if ($pexist == 0) {
         $points = get_points(9);
         db_query("INSERT INTO {tbl_user_points} SET qid = '%d', uid = '%d', point_id = '%d', points = '%d'", $qid, $user->uid, 9, $points);
+
+        /*New SET NOTIFY LOG*/
+        $variable = array('points' => $points, 'uid' => $user->uid );
+        set_notify_log($user->uid, '', 'add_points', $variable);
+        /*New SET NOTIFY LOG*/
     }
     // ADD POINTS FOR EACH VIEW ends
 
