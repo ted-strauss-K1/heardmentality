@@ -1618,29 +1618,14 @@ function _notify_content($uid = ''){
      $uarray=_activity_heartbeat_related_uid_info($user->uid);
      $filterPath = '?filter=';
      if(!empty($uarray)){
-      // filteration
+      // filteration url html
       $output .= '<a href="'.$filterPath.'all">All</a>&nbsp;|&nbsp;<a href="'.$filterPath.'votes">Votes</a>&nbsp;|&nbsp;
           <a href="'.$filterPath.'issues">New Issues</a>&nbsp;|&nbsp;<a href="'.$filterPath.'debates">Debates</a>
           &nbsp;|&nbsp;<a href="'.$filterPath.'resources">Resource</a>&nbsp;|&nbsp;<a href="'.$filterPath.'agrees">Agree</a>
           &nbsp;|&nbsp;<a href="'.$filterPath.'badges">Badges</a><br>';
-      $where = '';
-      if($filter == 'votes'){
-          $where .= "AND (a.message_id = 'add_vote' OR a.message_id = 'change_answer')";
-      }else if($filter == 'issues'){
-          $where .= "AND (a.message_id = 'add_question' OR a.message_id = 'question_flag')";
-      }else if($filter == 'debates'){
-          $where .= "AND (a.message_id = 'add_debate' OR a.message_id = 'debate_reply' OR a.message_id = 'flag_debate')";
-      }else if($filter == 'resources'){
-          $where .= "AND (a.message_id = 'add_resource' OR a.message_id = 'resource_reply' OR a.message_id = 'flag_resource')";
-      }else if($filter == 'agrees'){
-          $where .= "AND (a.message_id = 'deb_agree' OR a.message_id = 'deb_disagree' OR a.message_id = 'res_agree'
-                    OR a.message_id = 'res_disagree' OR a.message_id = 'deb_reply_agree'
-                    OR a.message_id = 'deb_reply_disagree' OR a.message_id = 'res_reply_agree'
-                    OR a.message_id = 'res_reply_disagree')";
-      }else if($filter == 'badges'){
-          $where .= "AND (a.message_id = 'add_badge')";
-      }
-      // filteration
+      //filter where conditions
+ $where=notify_filter_where($filter);
+ //users whom u r following
      $uids=implode(',',$uarray);
      //data query
      $sql="SELECT distinct b.naid,b.*,a.message
@@ -1669,23 +1654,27 @@ $output.='<div class="uactivity" id="uactivity">';
     }
 
 if(!$i){
-     $output='No User Activity Found!';
+     $output.='No User Activity Found!';
 }
      }else{
-         $output='No User Activity Found!';
+         $output.='No User Activity Found!';
      }
 $output.='</div>';
   if($count>$limit){
-    $output.='<div class="more-link"><a id="'.($start+$limit).'" href="'.$gSitePath.'notify/stream/">More Activity</a>';
+   $style='style="display:block"';
+}else{
+   $style='style="display:none"';
 }
 
-
+ $output.='<div '.$style.' class="more-link"><a id="'.($start+$limit).'" href="'.$gSitePath.'notify/stream/">More Activity</a>';
 return $output;
 }
 
 function notify_stream($start=''){
 
  global $gSitePath,$user,$gDocPath,$base_root;
+ $filter=$_GET['filter'];
+  $where=notify_filter_where($filter);
         $json=array();
      $uarray=array();
      $json['error']=false;
@@ -1703,14 +1692,14 @@ INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) ORDER BY b.naid DESC ";
+     WHERE b.`uid`IN (%d) $where ORDER BY b.naid DESC ";
      //count query
      $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+     WHERE b.`uid`IN (%d) $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
 $query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
 
 $i=0;
@@ -1747,14 +1736,14 @@ INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) AND b.naid>$firstid ORDER BY b.naid DESC ";
+     WHERE b.`uid`IN (%d) AND b.naid>$firstid $where ORDER BY b.naid DESC ";
      //count query
      $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d)  ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+     WHERE b.`uid`IN (%d)  $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
 $query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
 
 $i=0;
@@ -1792,7 +1781,30 @@ function _activity_heartbeat_related_uid_info($uid) {
   return $uids[$uid];
 }
 
+function notify_filter_where($filter=''){
 
+         $where = '';
+      if($filter == 'votes'){
+          $where .= "AND (a.message_id = 'add_vote' OR a.message_id = 'change_answer')";
+      }else if($filter == 'issues'){
+          $where .= "AND (a.message_id = 'add_question' OR a.message_id = 'question_flag')";
+      }else if($filter == 'debates'){
+          $where .= "AND (a.message_id = 'add_debate' OR a.message_id = 'debate_reply' OR a.message_id = 'flag_debate')";
+      }else if($filter == 'resources'){
+          $where .= "AND (a.message_id = 'add_resource' OR a.message_id = 'resource_reply' OR a.message_id = 'flag_resource')";
+      }else if($filter == 'agrees'){
+          $where .= "AND (a.message_id = 'deb_agree' OR a.message_id = 'deb_disagree' OR a.message_id = 'res_agree'
+                    OR a.message_id = 'res_disagree' OR a.message_id = 'deb_reply_agree'
+                    OR a.message_id = 'deb_reply_disagree' OR a.message_id = 'res_reply_agree'
+                    OR a.message_id = 'res_reply_disagree')";
+      }else if($filter == 'badges'){
+          $where .= "AND (a.message_id = 'add_badge')";
+      }
+      // filteration
+
+
+    return $where;
+}
 /**
  * Generate the view of people that a user is following
  */

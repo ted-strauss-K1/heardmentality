@@ -120,7 +120,9 @@ function load_stream(more,action){
             var firstid=jQuery('#uactivity div:first').attr('id');
            var firstmid=firstid.split('-');
             var timestamp = Number(new Date());
-        var urr=more.attr('href')+more.attr('id');
+            var url = window.location.toString();
+            var query_string = url.split("?");
+        var urr=more.attr('href')+more.attr('id')+'?'+query_string[1];
  jQuery.getJSON(urr,
         {
             'time': timestamp,'action':action,'firstid':firstmid[1]
