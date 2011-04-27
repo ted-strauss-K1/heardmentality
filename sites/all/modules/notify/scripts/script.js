@@ -122,6 +122,7 @@ function load_stream(more,action){
             var timestamp = Number(new Date());
             var url = window.location.toString();
             var query_string = url.split("?");
+            //pass filter value along with url
         var urr=more.attr('href')+more.attr('id')+'?'+query_string[1];
  jQuery.getJSON(urr,
         {
