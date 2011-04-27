@@ -1777,7 +1777,7 @@ function suggest_answer_save() {
             
             /*New SET NOTIFY LOG*/
              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $_REQUEST['qaid']));
-             $variable = array('qid' => $_REQUEST['qaid'], 'q_title' => $qtitle);
+             $variable = array('qid' => $_REQUEST['qaid'], 'q_title' => $qtitle, 'answer' => $_REQUEST['txt_answer']);
              set_notify_log($user->uid, $_REQUEST['qaid'], 'suggest_answer', $variable);
              /*New SET NOTIFY LOG*/
 

@@ -577,7 +577,7 @@ function yearling_old() {
                     if ($countret == 0) {
                         db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)", 43, $userlist->uid, $rep);
                          $last_id =  mysql_insert_id();
-                         user_coins_update($uid,43,'');
+                         user_coins_update($userlist->uid,43,'');
                         // hm_mails('',$last_id,'user_badges');
                         // badges_user($uid,$last_id);
                     }

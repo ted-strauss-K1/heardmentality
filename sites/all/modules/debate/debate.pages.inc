@@ -2052,8 +2052,10 @@ function debate_ajax() {
                     $i++;
                 }
                 /*New SET NOTIFY LOG*/
+                    $description = $udesc;
+                    $file = $files;
                     $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qaid));
-                    $variable = array('rid' => $nodeid, 'r_title' => $rtitle, 'uid' => $user->uid, 'qid' => $qaid, 'q_title' => $qtitle);
+                    $variable = array('rid' => $nodeid, 'r_title' => $rtitle, 'uid' => $user->uid, 'qid' => $qaid, 'q_title' => $qtitle, 'description' => $description, 'file' => $file, 'rtype' => $rtype, 'videoid' => $ytvID);
                     set_notify_log($user->uid, $nodeid, 'add_resource', $variable);
                 /*New SET NOTIFY LOG*/
                 echo '<div class="messages success"> Your reference has been added </div>';
@@ -2610,47 +2612,79 @@ function debate_submit() {
                     $nodeid = 0;
                     if($agree == 1){
                         if($action == 'is_debate'){
+                            
                             $message_id = 'deb_agree';
                             $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
-                            $variable = array('did' => $content_id, 'd_title' => $dtitle);
+
+                            $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $content_id));
+                            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+
+                            $variable = array('did' => $content_id, 'd_title' => $dtitle, 'qid' => $qid, 'q_title' => $qtitle);
                             $nodeid = $content_id;
                         }else if($action == 'is_debate_reply'){
+                            
                             $message_id = 'deb_reply_agree';
                             $did = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
                             $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
-                            $variable = array('did' => $did, 'cid' => $content_id, 'c_title' => $ctitle);  
+
+                            $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $did));
+                            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                            
+                            $variable = array('did' => $did, 'cid' => $content_id, 'c_title' => $ctitle, 'qid' => $qid, 'q_title' => $qtitle);
                         }else if($action == 'is_resource'){
+                            
                             $message_id = 'res_agree';
                             $rtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
-                            $variable = array('rid' => $content_id, 'r_title' => $rtitle);
+                            $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $content_id));
+                            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                            
+                            $variable = array('rid' => $content_id, 'r_title' => $rtitle, 'qid' => $qid, 'q_title' => $qtitle);
                             $nodeid = $content_id;
                         }else if( $action == 'is_resource_reply'){
+                            
                             $message_id = 'res_reply_agree';
                             $rid = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
+                            $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $rid));
+                            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                            
                             $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
-                            $variable = array('rid' => $rid, 'cid' => $content_id, 'c_title' => $ctitle);
+                            $variable = array('rid' => $rid, 'cid' => $content_id, 'c_title' => $ctitle, 'qid' => $qid, 'q_title' => $qtitle);
                         }
                     }else if($agree == 0){
                         if($action == 'is_debate'){
+                            
                             $message_id = 'deb_disagree';
                             $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
-                            $variable = array('did' => $content_id, 'd_title' => $dtitle);
+                            $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $content_id));
+                            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                            
+                            $variable = array('did' => $content_id, 'd_title' => $dtitle, 'qid' => $qid, 'q_title' => $qtitle);
                             $nodeid = $content_id;
                         }else if($action == 'is_debate_reply'){
+                            
                             $message_id = 'deb_reply_disagree';
                             $did = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
                             $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
-                            $variable = array('did' => $did, 'cid' => $content_id, 'c_title' => $ctitle); 
+                            $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $did));
+                            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                            
+                            $variable = array('did' => $did, 'cid' => $content_id, 'c_title' => $ctitle, 'qid' => $qid, 'q_title' => $qtitle);
                         }else if($action == 'is_resource'){
+                            $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $content_id));
+                            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
                             $message_id = 'res_disagree';
                             $rtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $content_id));
-                            $variable = array('rid' => $content_id, 'r_title' => $rtitle);
+                            $variable = array('rid' => $content_id, 'r_title' => $rtitle, 'qid' => $qid, 'q_title' => $qtitle);
                             $nodeid = $content_id;
                         }else if( $action == 'is_resource_reply'){
+                            
                             $message_id = 'res_reply_disagree';
                             $rid = db_result(db_query("SELECT nid FROM {comments} WHERE cid = '%d'", $content_id));
                             $ctitle = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '%d'", $content_id));
-                            $variable = array('rid' => $rid, 'cid' => $content_id, 'c_title' => $ctitle);
+                            $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '%d'", $rid));
+                            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $qid));
+                            
+                            $variable = array('rid' => $rid, 'cid' => $content_id, 'c_title' => $ctitle, 'qid' => $qid, 'q_title' => $qtitle);
                         }
                     }
                    // print_r($variable); exit;
