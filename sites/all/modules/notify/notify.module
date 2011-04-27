@@ -1309,7 +1309,8 @@ $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
 //print_r($data);
 //$node=node_load($result->nid);
-$output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
 return $output;
@@ -1323,7 +1324,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 return $output;
 }
@@ -1336,7 +1338,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
     <div id="msg-'.$result->naid.'" class="notify-text">"'.$data['d_title'].'"</div><hr>';
 return $output;
@@ -1348,12 +1351,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-
 $rtype = $data['rtype'];
 switch($rtype){
     case '1':
-      $image = $data['file']!=''?$data['file']:file_directory_path() . '/noimage.jpg';
-      $output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
+     $image = !empty($data['file'])?$data['file']:file_directory_path() . '/noimage.jpg';
+      $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+          <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
     <div>
         <div style="float:left">'.theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE).'</div>
@@ -1361,17 +1364,21 @@ switch($rtype){
         <div id="notify-desc">'.$data['description'].'</div>
     </div>
         <hr>';
+      break;
       case '2':
           $image = '<img width="125" height="100" src="http://img.youtube.com/vi/' . $data['videoid'] . '/default.jpg" alt="Video " >';
-          $output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
+          $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+              <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
     <div>
         <div style="float:left">'.$image.'</div>
         <div id="notify-text-quote">"'.$data['r_title'].'"</div>
     </div>
         <hr>';
+          break;
       case '3':
-      $output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
+      $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+          <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
     <div>
         <div style="float:left">'.theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE).'</div>
@@ -1379,6 +1386,7 @@ switch($rtype){
         <div id="notify-desc">'.$data['description'].'</div>
     </div>
         <hr>';
+          break;
 }
 
 
@@ -1392,7 +1400,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1405,7 +1414,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1418,7 +1428,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1431,7 +1442,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1444,7 +1456,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1456,7 +1469,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1468,7 +1482,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1480,7 +1495,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1493,7 +1509,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['answer']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1506,7 +1523,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['answer']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1519,7 +1537,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div>
     <hr>';
 
@@ -1532,7 +1551,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div>
     <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1545,7 +1565,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'</div>
     <hr>';
 
@@ -1558,7 +1579,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['badge'].'</strong></div>
     <hr>';
 
@@ -1571,7 +1593,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
     <hr>';
 
@@ -1584,7 +1607,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
     <hr>';
 
@@ -1597,7 +1621,8 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['points'].' points</strong></div>
     <hr>';
 
@@ -1614,7 +1639,7 @@ function _notify_content($uid = ''){
      //drupal_set_html_head('<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>');
      $uarray=array();
      $start=variable_get(arg(1),'0');
-     $limit=3;
+     $limit=15;
      $uarray=_activity_heartbeat_related_uid_info($user->uid);
      $filterPath = '?filter=';
      if(!empty($uarray)){
@@ -1634,21 +1659,22 @@ INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) $where ORDER BY b.naid DESC ";
+     WHERE b.`uid`IN (%d) AND a.status = 1 $where ORDER BY b.naid DESC ";
      //count query
      $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) $where ORDER BY b.naid DESC ",$uids,$uids));
+     WHERE b.`uid`IN (%d) AND a.status = 1 $where ORDER BY b.naid DESC ",$uids,$uids));
 $query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
 
 $i=0;
 $output.='<div class="uactivity" id="uactivity">';
     while($result=  db_fetch_object($query)){
-
+        $output.= '<div id="msg-'.$result->naid.'">';
         $output.= theme('notify_'.$result->message_id,$result);
+        $output.= '</div>';
         $i++;
        
     }
@@ -1678,7 +1704,7 @@ function notify_stream($start=''){
         $json=array();
      $uarray=array();
      $json['error']=false;
-       $limit=3;
+       $limit=15;
      $uarray=_activity_heartbeat_related_uid_info($user->uid);
     // $start=variable_get(arg(1),'0');
      if($_GET['action']=='more'){
@@ -1692,21 +1718,22 @@ INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) $where ORDER BY b.naid DESC ";
+     WHERE b.`uid`IN (%d) AND a.status = 1 $where ORDER BY b.naid DESC ";
      //count query
      $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+     WHERE b.`uid`IN (%d) AND a.status = 1 $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
 $query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
 
 $i=0;
 
     while($result=  db_fetch_object($query)){
-
+        $output.= '<div id="msg-'.$result->naid.'">';
         $output.= theme('notify_'.$result->message_id,$result);
+        $output.= '</div>';
         $i++;
 
     }
@@ -1730,32 +1757,34 @@ print json_encode($json);
      if(!empty($uarray)){
      $uids=implode(',',$uarray);
      //data query
-     $sql="SELECT distinct b.naid,b.*,a.message
+      $sql="SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) AND b.naid>$firstid $where ORDER BY b.naid DESC ";
+     WHERE b.`uid`IN (%d) AND a.status = 1 AND b.naid>$firstid $where ORDER BY b.naid DESC ";
      //count query
      $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d)  $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+     WHERE b.`uid`IN (%d) AND a.status = 1  $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
 $query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+
 
 $i=0;
 
-    while($result=  db_fetch_object($query)){
-
+      while($result=  db_fetch_object($query)){
+        $output.= '<div id="msg-'.$result->naid.'">';
         $output.= theme('notify_'.$result->message_id,$result);
+        $output.= '</div>';
         $i++;
 
     }
 
-if(!$i){
+if($i==0){
     $json['error']=true;
      $output='No User Activity Found!';
 }
