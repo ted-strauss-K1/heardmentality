@@ -1660,7 +1660,7 @@ INNER JOIN `users` u
 $query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
 
 $i=0;
-$output='<div class="uactivity" id="uactivity">';
+$output.='<div class="uactivity" id="uactivity">';
     while($result=  db_fetch_object($query)){
 
         $output.= theme('notify_'.$result->message_id,$result);
