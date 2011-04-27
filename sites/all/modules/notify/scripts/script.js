@@ -102,9 +102,55 @@ reset_tabs();
         alert('clicked');
         return false;
     });
+
+    //heartbeat function
+
+    jQuery('div.more-link a').live('click',function(e){
+         jQuery("body").css({'opacity': 0.5});
+         var more=jQuery(this);
+        e.preventDefault();
+        load_stream(more,'more');
+    });
+
+
 });
 
+function load_stream(more,action){
 
+            var firstid=jQuery('#uactivity div:first').attr('id');
+           var firstmid=firstid.split('-');
+            var timestamp = Number(new Date());
+        var urr=more.attr('href')+more.attr('id');
+ jQuery.getJSON(urr,
+        {
+            'time': timestamp,'action':action,'firstid':firstmid[1]
+        },
+        function(data) {
+
+            var cnt=data.count;
+           // jQuery.unblockUI();
+            if(data.error){
+            if(action=='more'){
+                 jQuery('#uactivity').append('<div class="warning">No More User Activity!</div>');
+                 jQuery('div.more-link').fadeOut('slow');
+            }
+             // alert('error occurs please try to reload!!')
+            }else{
+                if(action=='more'){
+                      more.attr('id',data.start);
+              jQuery('#uactivity').append(data.content);
+                }
+              if(action=='new'){
+                more.attr('id',data.start);
+              jQuery('#uactivity').prepend(data.content);
+                }
+            }
+        jQuery("body").css({'opacity':''});
+        });
+
+
+
+}
 function reset_tabs(){
 var tabarray=['#maintabs,#tabcontent'];
 

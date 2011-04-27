@@ -68,11 +68,14 @@ $items['mynotify'] = array(
     'file' => 'notify.pages.inc',
   );
 
-
-
-
-
-
+$items['notify/stream/%'] = array(
+    'title' => 'Notification',
+    'page callback' => 'notify_stream',
+	   'type' => MENU_CALLBACK,
+           'page arguments' => array(2),
+	   'access arguments' => array('notify'),
+    'file' => 'notify.pages.inc',
+  );
 
   return $items;
 }
@@ -1257,7 +1260,7 @@ $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
 //print_r($data);
 //$node=node_load($result->nid);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
 return $output;
@@ -1271,7 +1274,7 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 return $output;
 }
@@ -1284,9 +1287,9 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
-    <div id="notify-text">"'.$data['d_title'].'"</div><hr>';
+    <div id="msg-'.$result->naid.'" class="notify-text">"'.$data['d_title'].'"</div><hr>';
 return $output;
 }
 
@@ -1301,7 +1304,7 @@ $rtype = $data['rtype'];
 switch($rtype){
     case '1':
       $image = $data['file']!=''?$data['file']:file_directory_path() . '/noimage.jpg';
-      $output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+      $output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
     <div>
         <div style="float:left">'.theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE).'</div>
@@ -1311,7 +1314,7 @@ switch($rtype){
         <hr>';
       case '2':
           $image = '<img width="125" height="100" src="http://img.youtube.com/vi/' . $data['videoid'] . '/default.jpg" alt="Video " >';
-          $output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+          $output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
     <div>
         <div style="float:left">'.$image.'</div>
@@ -1319,7 +1322,7 @@ switch($rtype){
     </div>
         <hr>';
       case '3':
-      $output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+      $output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
     <div>
         <div style="float:left">'.theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE).'</div>
@@ -1340,7 +1343,7 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
-$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+$output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">' . t($data['d_title']) . '</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
@@ -1350,11 +1353,19 @@ return $output;
 
 function _notify_content($uid=''){
      global $gSitePath,$user,$gDocPath,$base_root;
+     drupal_add_js(drupal_get_path('module', 'notify') . '/scripts/script.js');
+     $data='setInterval(function() {
+      load_stream(jQuery("div.more-link a"),"new");
+}, 10000);';
+     drupal_add_js($data, $type='inline');
+     //drupal_set_html_head('<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>');
      $uarray=array();
+     $start=variable_get(arg(1),'0');
      $limit=3;
      $uarray=_activity_heartbeat_related_uid_info($user->uid);
      if(!empty($uarray)){
      $uids=implode(',',$uarray);
+     //data query
      $sql="SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
@@ -1362,23 +1373,138 @@ INNER JOIN `notify_messages` a
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
      WHERE b.`uid`IN (%d) ORDER BY b.naid DESC ";
-$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, 0,$limit);
+     //count query
+     $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` IN (%d)
+     WHERE b.`uid`IN (%d) ORDER BY b.naid DESC ",$uids,$uids));
+$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+
+$i=0;
+$output='<div class="uactivity" id="uactivity">';
     while($result=  db_fetch_object($query)){
 
         $output.= theme('notify_'.$result->message_id,$result);
+        $i++;
+       
     }
 
+if(!$i){
+     $output='No User Activity Found!';
+}
      }else{
          $output='No User Activity Found!';
      }
-
-     
+$output.='</div>';
+  if($count>$limit){
+    $output.='<div class="more-link"><a id="'.($start+$limit).'" href="'.$gSitePath.'notify/stream/">More Activity</a>';
+}
 
 
 return $output;
 }
 
+function notify_stream($start=''){
 
+ global $gSitePath,$user,$gDocPath,$base_root;
+        $json=array();
+     $uarray=array();
+     $json['error']=false;
+       $limit=3;
+     $uarray=_activity_heartbeat_related_uid_info($user->uid);
+    // $start=variable_get(arg(1),'0');
+     if($_GET['action']=='more'){
+   
+     if(!empty($uarray)){
+     $uids=implode(',',$uarray);
+     //data query
+     $sql="SELECT distinct b.naid,b.*,a.message
+      FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` IN (%d)
+     WHERE b.`uid`IN (%d) ORDER BY b.naid DESC ";
+     //count query
+     $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` IN (%d)
+     WHERE b.`uid`IN (%d) ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+
+$i=0;
+
+    while($result=  db_fetch_object($query)){
+
+        $output.= theme('notify_'.$result->message_id,$result);
+        $i++;
+
+    }
+
+if(!$i){
+    $json['error']=true;
+     $output='No User Activity Found!';
+}
+     }else{
+         $output='No User Activity Found!';
+     }
+$json['status']=true;
+$json['content']=$output;
+$json['count']=$count;
+
+$json['start']=$start+$limit;
+print json_encode($json);
+     }
+     if($_GET['action']=='new'){
+     $firstid=$_GET['firstid'];
+     if(!empty($uarray)){
+     $uids=implode(',',$uarray);
+     //data query
+     $sql="SELECT distinct b.naid,b.*,a.message
+      FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` IN (%d)
+     WHERE b.`uid`IN (%d) AND b.naid>$firstid ORDER BY b.naid DESC ";
+     //count query
+     $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` IN (%d)
+     WHERE b.`uid`IN (%d)  ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+
+$i=0;
+
+    while($result=  db_fetch_object($query)){
+
+        $output.= theme('notify_'.$result->message_id,$result);
+        $i++;
+
+    }
+
+if(!$i){
+    $json['error']=true;
+     $output='No User Activity Found!';
+}
+     }else{
+         $output='No User Activity Found!';
+     }
+$json['status']=true;
+$json['content']=$output;
+$json['count']=$count;
+
+$json['start']=$start+$limit;
+print json_encode($json);
+     }
+
+}
 function _activity_heartbeat_related_uid_info($uid) {
   static $uids = array();
 
