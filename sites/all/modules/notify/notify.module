@@ -77,6 +77,7 @@ $items['notify/stream/%'] = array(
     'file' => 'notify.pages.inc',
   );
 
+
   return $items;
 }
 
@@ -1247,6 +1248,54 @@ function notify_theme(){
 'notify_deb_agree' =>  array(
 'arguments' => array('result' => NULL),
 ),
+'notify_deb_disagree' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_res_agree' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_res_disagree' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_deb_reply_agree' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_deb_reply_disagree' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_res_reply_agree' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_res_reply_disagree' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_suggest_answer' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_change_answer' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_update_profile' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_question_flag' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_user_login' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_add_badge' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_add_coins' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_lose_coins' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_add_points' =>  array(
+'arguments' => array('result' => NULL),
+),
 );
 
 }
@@ -1344,14 +1393,218 @@ drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
 $output = t($udetails->name).'<div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">' . t($data['d_title']) . '</div>
+.'</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
 return $output;
 }
 
+function theme_notify_deb_disagree($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
 
-function _notify_content($uid=''){
+return $output;
+}
+
+function theme_notify_deb_reply_agree($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
+return $output;
+}
+
+function theme_notify_deb_reply_disagree($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
+return $output;
+}
+
+function theme_notify_res_agree($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
+return $output;
+}
+function theme_notify_res_disagree($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
+return $output;
+}
+function theme_notify_res_reply_agree($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
+return $output;
+}
+function theme_notify_res_reply_disagree($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
+return $output;
+}
+
+function theme_notify_suggest_answer($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">"' . t($data['answer']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
+return $output;
+}
+
+function theme_notify_change_answer($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div><div id="notify-text-quote">"' . t($data['answer']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
+return $output;
+}
+
+function theme_notify_update_profile($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div>
+    <hr>';
+
+return $output;
+}
+
+function theme_notify_question_flag($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div>
+    <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+
+return $output;
+}
+
+function theme_notify_user_login($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'</div>
+    <hr>';
+
+return $output;
+}
+
+function theme_notify_add_badge($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'&nbsp<strong>'.$data['badge'].'</strong></div>
+    <hr>';
+
+return $output;
+}
+
+function theme_notify_add_coins($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
+    <hr>';
+
+return $output;
+}
+
+function theme_notify_lose_coins($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
+    <hr>';
+
+return $output;
+}
+
+function theme_notify_add_points($result = ''){
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$output = t($udetails->name).'<div id="notify-text">'. t($result->message)
+.'&nbsp<strong>'.$data['points'].' points</strong></div>
+    <hr>';
+
+return $output;
+}
+function _notify_content($uid = ''){
+     $filter = $_GET['filter'];
      global $gSitePath,$user,$gDocPath,$base_root;
      drupal_add_js(drupal_get_path('module', 'notify') . '/scripts/script.js');
      $data='setInterval(function() {
@@ -1363,7 +1616,31 @@ function _notify_content($uid=''){
      $start=variable_get(arg(1),'0');
      $limit=3;
      $uarray=_activity_heartbeat_related_uid_info($user->uid);
+     $filterPath = '?filter=';
      if(!empty($uarray)){
+      // filteration
+      $output .= '<a href="'.$filterPath.'all">All</a>&nbsp;|&nbsp;<a href="'.$filterPath.'votes">Votes</a>&nbsp;|&nbsp;
+          <a href="'.$filterPath.'issues">New Issues</a>&nbsp;|&nbsp;<a href="'.$filterPath.'debates">Debates</a>
+          &nbsp;|&nbsp;<a href="'.$filterPath.'resources">Resource</a>&nbsp;|&nbsp;<a href="'.$filterPath.'agrees">Agree</a>
+          &nbsp;|&nbsp;<a href="'.$filterPath.'badges">Badges</a><br>';
+      $where = '';
+      if($filter == 'votes'){
+          $where .= "AND (a.message_id = 'add_vote' OR a.message_id = 'change_answer')";
+      }else if($filter == 'issues'){
+          $where .= "AND (a.message_id = 'add_question' OR a.message_id = 'question_flag')";
+      }else if($filter == 'debates'){
+          $where .= "AND (a.message_id = 'add_debate' OR a.message_id = 'debate_reply' OR a.message_id = 'flag_debate')";
+      }else if($filter == 'resources'){
+          $where .= "AND (a.message_id = 'add_resource' OR a.message_id = 'resource_reply' OR a.message_id = 'flag_resource')";
+      }else if($filter == 'agrees'){
+          $where .= "AND (a.message_id = 'deb_agree' OR a.message_id = 'deb_disagree' OR a.message_id = 'res_agree'
+                    OR a.message_id = 'res_disagree' OR a.message_id = 'deb_reply_agree'
+                    OR a.message_id = 'deb_reply_disagree' OR a.message_id = 'res_reply_agree'
+                    OR a.message_id = 'res_reply_disagree')";
+      }else if($filter == 'badges'){
+          $where .= "AND (a.message_id = 'add_badge')";
+      }
+      // filteration
      $uids=implode(',',$uarray);
      //data query
      $sql="SELECT distinct b.naid,b.*,a.message
@@ -1372,14 +1649,14 @@ INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) ORDER BY b.naid DESC ";
+     WHERE b.`uid`IN (%d) $where ORDER BY b.naid DESC ";
      //count query
      $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) ORDER BY b.naid DESC ",$uids,$uids));
+     WHERE b.`uid`IN (%d) $where ORDER BY b.naid DESC ",$uids,$uids));
 $query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
 
 $i=0;
