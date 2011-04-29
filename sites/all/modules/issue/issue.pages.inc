@@ -418,11 +418,12 @@ function report_graph($nid='') {
     $count = report_get_ans_range($nid);
    //   echo $srange['dat'];
    //   echo $erange['dat'];
-   //  echo $count['cnt'];exit;
+ //  echo $count['cnt'];exit;
     $query = "select DATEDIFF(date(now()),'" . $srange['dat'] . "') as diff,date(now()) as today";
     $overall_range = ExecuteQuery($query, "select");
-    $frange = $overall_range[0]['diff'];
+     $frange = $overall_range[0]['diff'];
     $drange = dates_range($srange['dat'], $overall_range[0]['today']);
+//print_r($drange);
     $drange = array_reverse($drange);
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
         $i = $ab + 1;
@@ -465,7 +466,6 @@ function report_graph($nid='') {
             $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";
         }
     }
-
 
     $year = date("Y");
     $month = date("m") - 1;
@@ -614,7 +614,7 @@ function report_map($nid='') {
     $ziparyall = '';
     for ($i = 0; $i < $cnt_ans; $i++) {
 
-        $pans = db_query("select * from {poll_votes} as pav left join {user_profile} as u on u.uid=pav.uid where pav.chorder='" . $vlist[$i]['chorder'] . "' ");
+         $pans = db_query("select * from {poll_votes} as pav left join {user_profile} as u on u.uid=pav.uid where pav.chorder='" . $vlist[$i]['chorder'] . "' AND pav.nid='$nid'");
         //$pans = db_query("select * from {users}  LIMIT 0,3");
         $ans_cnt = $i + 1;
         $getresult = array();

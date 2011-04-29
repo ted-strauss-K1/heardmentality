@@ -303,7 +303,7 @@ function get_qid() {
         return $qid;
     } else {
         if (!empty($user->uid)) {
-            $query = "SELECT qid from {question} where uid='" . $user->uid . "' AND status='1' order by qid DESC limit 0,1 ";
+            $query = "SELECT nid from {node} where uid='" . $user->uid . "' AND status='1' and type='poll' order by nid DESC limit 0,1 ";
             $quest = db_query($query);
             $qid = db_result($quest);
         }
@@ -316,23 +316,24 @@ function get_qid() {
           $quest = db_query($query);
           $qid = db_result($quest);
           } */
-        if ($qid == '' || !is_numeric($qid)) {
-            $query = "SELECT q.qid AS qid FROM question AS q LEFT JOIN user_profile AS u ON q.uid = u.uid WHERE q.share = '1' ORDER BY q.qid DESC LIMIT 0 , 1 ";
-            $quest = db_query($query);
-            $qid = db_result($quest);
-        }
+    //    if ($qid == '' || !is_numeric($qid)) {
+       //     $query = "SELECT n.nid AS nid FROM node AS n LEFT JOIN user_profile AS u ON n.uid = u.uid ORDER BY n.nid DESC LIMIT 0 , 1 ";
+     //       $quest = db_query($query);
+       //     $qid = db_result($quest);
+      //  }
     }
-    /* if($qid==''||!is_numeric($qid)){
-      echo "numeric 3";
+   if($qid==''||!is_numeric($qid)){
+      //echo "numeric 3";
 
-      $query = "SELECT qid from {question} where status='1' order by qid DESC limit 0,1 ";
+      $query = "SELECT nid from {node} where status='1' and type='poll' order by nid DESC limit 0,1 ";
       $quest = db_query($query);
       $qid = db_result($quest);
-      } */
+      } 
     if (!empty($qid))
         return $qid;
     else
         drupal_not_found();die;
+        
 }
 /*
 function load_qcat($qid="") {
@@ -471,18 +472,7 @@ function get_flag($country='') {
 //http://geotree.geonames.org/img/flags18/US.png
 }
 
-function dates_range($date1, $date2) {
-    if ($date1 < $date2) {
-        $dates_range[] = $date1;
-        $date1 = strtotime($date1);
-        $date2 = strtotime($date2);
-        while ($date1 != $date2) {
-            $date1 = mktime(0, 0, 0, date("m", $date1), date("d", $date1) + 1, date("Y", $date1));
-            $dates_range[] = date('Y-m-d', $date1);
-        }
-    }
-    return $dates_range;
-}
+
 
 function load_parent_cat($cid='', $level='') {
     global $gSitePath, $user, $gDocPath, $base_root;

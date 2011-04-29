@@ -96,7 +96,7 @@ function qlite_view() {
     insertviews($qid);
     //popquest();
     //////////////////////////////
-    $query = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='" . $qid . "' GROUP BY qid";
+    $query = "SELECT nid, SUM(nid) as possiblevote FROM poll_votes where nid='" . $qid . "' GROUP BY nid";
     $query_list = db_query($query);
     $fetvot = db_fetch_object($query_list);
     $vot1 = $fetvot->possiblevote;
@@ -125,11 +125,13 @@ function qlite_view() {
     //echo $percent;
     $tot = $percent * 100;
 
-    $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where 1 AND q.qid='" . $qid . "' ";
+    $vSql = "select *,n.uid as uid from {node} as n left join {user_profile} as u on n.uid=u.uid where 1 AND n.nid='" . $qid . "' ";
     $rlist = db_query($vSql);
-    $oListquest = db_fetch_object($rlist);
+   // $oListquest = db_fetch_object($rlist);
+   $oListquest=node_load($qid);
+  
 
-    // print_r($oListquest);
+    //print_r($oListquest);
     //question privacy check
     if (!$oListquest->status) {
         if ($user->uid == 1) {
@@ -142,10 +144,10 @@ function qlite_view() {
         }
     }
 
-    if (isAjax ())
-        privacy_chk_ajax($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
-    else
-        privacy_chk($oListquest->uid, $oListquest->question_privacy, $oListquest->share);
+   // if (isAjax ())
+ //       privacy_chk_ajax($oListquest->uid, $oListquest->title_privacy, $oListquest->share);
+   // else
+   //     privacy_chk($oListquest->uid, $oListquest->title_privacy, $oListquest->share);
     ////question privacy check ends
     // ADD POINTS FOR EACH VIEW
     $pexist = db_result(db_query("SELECT COUNT(pid) FROM {tbl_user_points} WHERE qid = '$qid' AND uid = '" . $user->uid . "' AND point_id = '9' AND DATE(date_added) = CURDATE()"));
@@ -172,13 +174,11 @@ function qlite_view() {
     }
     // ADD POINTS FOR EACH VIEW ends
 
-    $list_lengthan = db_query("select * from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'  ");
-    $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $qid . "' and uid='" . $user->uid . "'"));
+    $list_lengthan = db_query("select * from {poll_votes} where nid='" . $qid . "' and uid='" . $user->uid . "'  ");
+    $numran = db_result(db_query("SELECT COUNT(*) from {poll_votes} where nid='" . $qid . "' and uid='" . $user->uid . "' "));
     $answer_id = db_fetch_object($list_lengthan);
-    $stringfunct = strlen($oListquest->question);
+    $stringfunct = strlen($oListquest->title);
     $voutput = '
-
-<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
         <script type="text/javascript">
 		var qid="' . $qid . '";
 		var spath="' . $gSitePath . '";
@@ -194,21 +194,21 @@ function qlite_view() {
     if (drupal_is_front_page ()) {
         $qlink = 'ISSUE AT HAND';
     } else {
-        // $qlink = substr($oListquest->question, 0, 160) . '<a onclick="showdetails(' . $qid . ');">...</a>';
+        // $qlink = substr($oListquest->title, 0, 160) . '<a onclick="showdetails(' . $qid . ');">...</a>';
         $qlink = "ISSUE";
     }
 
 
     drupal_set_title($qlink);
-    $len = strlen($oListquest->context);
-    if ($oListquest->context != "") {
+    $len = strlen($oListquest->body);
+    if ($oListquest->body != "") {
         $linkj = '<a onclick="loaddetails(\'' . $gSitePath . 'qlite/Details/' . $qid . '\',\'Question Information\');">...</a>';
     }
     $shortdesc = substr($oListquest->context, 0, 250);
 
-
+/*
     $voutput .= '	  <div>
-              <h2 style="' . drupal_link_color($user->uid, $oListquest->qid) . '">' . rtrim($oListquest->question, "?") . '? </h2>
+              <h2 style="' . drupal_link_color($user->uid, $oListquest->nid) . '">' . rtrim($oListquest->title, "?") . '? </h2>
             </div>          <div class="quesin">
               <div class="quesinner">
                 <div class="quesinnerr">
@@ -218,13 +218,18 @@ function qlite_view() {
 		<!--<div class=""><div class="lft_view"> <h4 class="cmt_name"><a></a></h4>-->
 
 		<!--<div>' . $shortdesc . ' ' . $linkj . '--><div>';
+ *
+ */
     //likes
-
-    $query = "select sum(like_yes) as res from {question_like} where qid='" . $qid . "' group by qid ";
+    $voutput.=node_view($oListquest, FALSE, true, true);
+    $block=issue_view_results($qid, false, false, true);
+    $voutput.='  <div class="clr"></div>';
+    $voutput.=$block;
+    /*  $query = "select sum(like_yes) as res from {question_like} where qid='" . $qid . "' group by qid ";
     $set = ExecuteQuery($query, "select");
 
     $set_cnt = ( empty($set[0]['res']) ? '0' : $set[0]['res']);
-    /*
+  
 
       $voutput .= '<div id="vote" class="vote">
       <img onclick="qns_like(1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/up.jpg" id="vote-up" alt="Up" title="This Question is good"/>
@@ -232,27 +237,27 @@ function qlite_view() {
       <img onclick="qns_like(-1,'.$qid.');" src="'.$gSitePath.drupal_get_path('module', 'quest_lite').'/images/down.jpg" id="vote-down" alt="Down" title="This Question is not useful"/><br/>
       ';
      */
-    $vans = "select * from {possible_answer} where  qid=$qid order by vote desc";
+    $vans = "select * from {poll_choices} where  nid='$qid' order by chorder desc";
 
     $vlist = db_query($vans);
     $chk = '';
     while ($vlistquest = db_fetch_object($vlist)) {
         if ($numran == 0) {
-            $answprc = $vlistquest->vote / 100 * $totalvotes;
+            $answprc = $vlistquest->chvotes / 100 * $totalvotes;
             $valu = $answprc * 100;
-            $voutput .= '
-		<p> <input name="answer" type="radio" value="' . $vlistquest->paid . '" />
-		' . $vlistquest->answer . ' </p> ';
+          //  $voutput .= '
+	//	<p> <input name="answer" type="radio" value="' . $vlistquest->chorder . '" />
+	//	' . $vlistquest->chtext . ' </p> ';
         } else {
-            $answprc = $vlistquest->vote / 100 * $totalvotes;
+            $answprc = $vlistquest->chvotes / 100 * $totalvotes;
             $valu = $answprc * 100;
             $chk = '';
-            if ($answer_id->panswer_id == $vlistquest->paid) {
+        //    if ($answer_id->chorder == $vlistquest->chorder) {
 
-                $chk = "checked";
-            }
-            $voutput .= '<p><input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->paid . '" />
-		<label>' . $vlistquest->answer . '  </label></p> ';
+         //       $chk = "checked";
+         //   }
+         //   $voutput .= '<p><input name="answer_a2" type="radio" ' . $chk . '  value="' . $vlistquest->chorder . '" />
+	//	<label>' . $vlistquest->chtext . '  </label></p> ';
         }
         $chk = '';
     }
@@ -352,7 +357,7 @@ function qlite_view() {
 
 
             $contentm = str_replace("#uname#", $ufet_qwn->name, $list_content->content);
-            $contentm = str_replace("#quest#", $oListquest->question, $contentm);
+            $contentm = str_replace("#quest#", $oListquest->title, $contentm);
             //echo  $contentm;
 
             $mail_success = htmlmail_function($ufet_qwn->mail, $subject_proj, $contentm, '');
@@ -379,7 +384,7 @@ function qlite_view() {
 
 
             $contentmown = str_replace("#uname#", $ufet->name, $list_content->content);
-            $contentmown .= str_replace("#quest#", $oListquest->question, $contentmown);
+            $contentmown .= str_replace("#quest#", $oListquest->title, $contentmown);
             //	echo  $contentmown;
 
             $mail_success = htmlmail_function($ufet->mail, $subject_projm, $contentmown, $from, '');
@@ -417,7 +422,7 @@ function qlite_view() {
             $rs_mgmt = db_query($sel_user_cmt);
             $list_content = db_fetch_object($rs_mgmt);
             $contentmlist = str_replace("#uname#", $ufets->name, $list_content->content);
-            $contentmlist = str_replace("#quest#", $oListquest->question, $contentmlist);
+            $contentmlist = str_replace("#quest#", $oListquest->title, $contentmlist);
             // $contentm;
 
             $mail_success = htmlmail_function($ufets->mail, $subject_projlist, $contentmlist, '');
@@ -499,7 +504,8 @@ function qlite_view() {
 		}
 		</script>
 		';
-
+//tags
+    /* 
     $optio = '';
     $query = "select vote_pid from {possible_answer_vote} where qid='$qid' AND uid='" . $user->uid . "'";
     $voteid = db_result(db_query($query));
@@ -514,8 +520,7 @@ function qlite_view() {
         $submitbutt = ' <p><input type="submit" name="save" id="save" value="Vote" /></p>';
     }
 
-    //tags
-    /* $instags = '';
+    $instags = '';
       $query = " SELECT t.tag FROM {qtag} as qt left join {tagging} as t on t.tid=qt.tag_id WHERE qt.qid='" . $qid . "' ";
       $gettag = ExecuteQuery($query, "select");
       $gettag = array_filter($gettag);
@@ -528,7 +533,7 @@ function qlite_view() {
       }
       } else {
       $instags .= "&nbsp;<b> - -</b>&nbsp;";
-      } */
+      } 
     //	$voutput .='<a href="'.$gSitePath.'invite/invite_friends">Share This Question </a>';
 
     $url = db_result(db_query("SELECT url FROM {question} WHERE qid = '$qid'"));
@@ -544,14 +549,14 @@ function qlite_view() {
 		    act.setUserMessage("Your comment here...");
 
 
-		    act.setTitle("' . $oListquest->question . '");
+		    act.setTitle("' . $oListquest->title . '");
 		    act.setDescription("' . $oListquest->context . '");
 
 
 		    act.setLinkBack("' . $gSitePath . '' . $url . '");
 
 
-		    act.addActionLink("' . $oListquest->question . '",
+		    act.addActionLink("' . $oListquest->title . '",
 		        "' . $gSitePath . '' . $url . '");
 
 
@@ -679,9 +684,12 @@ function qlite_view() {
         </div><div class="clr"></div>
            </div>  ';
     }
+     *
+     */
     // ajax div ends
     // cron job in qlite module
     // cal_active_rate();
+    $voutput.='<div class="clr"></div> ';
     if (isAjax ()) {
         echo $voutput;
     } else {
@@ -2912,7 +2920,7 @@ function qusetion_info() {
     $vSql = "select * from {question} where status='1' and qid=$qid ";
     $rlist = db_query($vSql);
     $oListquest = db_fetch_object($rlist);
-    $infooutput = '<strong>' . $oListquest->question . '</strong>';
+    $infooutput = '<strong>' . $oListquest->title . '</strong>';
     $infooutput .= '<p>' . $oListquest->context . '</p>';
 
 

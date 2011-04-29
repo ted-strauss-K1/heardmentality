@@ -144,10 +144,12 @@ function issue_form(&$node, $form_state) {
     return $form;
 }
 
-function issue_edit_vote() {
+function issue_edit_vote($dummy='',$nid='') {
 
     $form = array();
+    if(empty($nid))
     $nid = arg(1);
+    
     $node = node_load($nid);
 
     if ($node->choice) {
@@ -328,12 +330,13 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                     user_save($user, $user_data);
                 }
                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
-
+                $node->style=drupal_link_color($user->uid, $node->nid);
                 if ($node->allowvotes) {
                     
                 } else {
+                    //print_r($node);
                     unset($node->content['body']);
-                    $output .= drupal_get_form('issue_edit_vote');
+                    $output .= drupal_get_form('issue_edit_vote',$node->nid);
                     $node->content['body'] = array
                         (
                         '#value' => $output,
@@ -391,14 +394,18 @@ function issue_save($array='') {
             
 //url alias
     $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
-    $url = 'qlite/view/' . $node->nid;
+    $url = 'node/' . $node->nid;
     db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, 'en');
     //Related Issues
+    if(!empty($array['chk_rel_issue'])){
+    $cont_type=array('content_types'=>array('poll'=>'poll'));
     $relatedissues = array_combine($array['chk_rel_issue'], $array['chk_rel_issue']);
     $arrayid = array('nids' => $relatedissues);
     $manual = array('enable' => 1, 'nodes' => array('poll' => $arrayid));
-    $related = array('nid' => $node->nid, 'content_types' => $cont_type, 'taxonomy' => '', 'manual' => $manual, 'sort' => array('criteria' => 'none'));
+    $related = array('nid' => $node->nid, 'content_types' => $cont_type, 'taxonomy' =>array(''), 'manual' => $manual, 'sort' => array('criteria' => 'none'));
     db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $node->nid, serialize($related));
+    }
+    return $node;
 }
 
 function issue_block($op = 'list', $delta = 0, $edit = array()) {
@@ -1355,4 +1362,22 @@ function add_flag_notify($form, &$form_state){
     $variable = array('qid' => $nid, 'q_title' => $qtitle);
     set_notify_log($user->uid, $nid, 'question_flag', $variable);
     /*New SET NOTIFY LOG*/
+}
+
+function dates_range($date1, $date2) {
+if(empty($date1))
+    $date1=format_date(time(), 'custom', 'Y-m-d');
+if(empty($date2))
+      $date1=format_date(time(), 'custom', 'Y-m-d');
+
+    if ($date1 < $date2) {
+        $dates_range[] = $date1;
+        $date1 = strtotime($date1);
+        $date2 = strtotime($date2);
+        while ($date1 != $date2) {
+            $date1 = mktime(0, 0, 0, date("m", $date1), date("d", $date1) + 1, date("Y", $date1));
+            $dates_range[] = date('Y-m-d', $date1);
+        }
+    }
+    return $dates_range;
 }

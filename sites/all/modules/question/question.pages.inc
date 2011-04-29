@@ -393,96 +393,98 @@ function question_save() {
             if ($result['question_privacy'] == 3)
                 $qrset = 1;
         }
-//echo "INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'";
-      //drupal node
-        issue_save($_REQUEST);
-      
-        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='" . check_plain($q_quest) . "',context='" . check_plain($q_context) . "',releated_question = '$releated_question'");
 
+       $result=issue_save($_REQUEST);
+        
+      //echo "INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'";
+//        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='" . check_plain($q_quest) . "',context='" . check_plain($q_context) . "',releated_question = '$releated_question'");
+//
+//
+//        $ins_id = db_last_insert_id('question', 'qid');
+//
+//
+//
+//
+/////  category  starts & 1st level
+//        $fetch = array();
+//        if (!empty($q_cat)) {
+//            $cat1 = $q_cat;
+//            foreach ($cat1 as $ins1) {
+//
+//                db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
+//            }
+//        }
+//
+//        /// category 2nd level
+//        if (!empty($q_scat)) {
+//            $cat2 = $q_scat;
+//            foreach ($cat2 as $ins2) {
+//
+//                $fetch = load_parent_cat($ins2, 2);
+//                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='0' "));
+//                if ($chk_exsit > 0) {
+//                    db_query("update {question_cat} set scat='$ins2' where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "'");
+//                } else {
+//                    db_query("insert into {question_cat} set qid='$ins_id',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
+//                }
+//            }
+//        }
+//        ///category 3rd level
+//        if (!empty($q_sscat)) {
+//            $cat3 = $q_sscat;
+//            foreach ($cat3 as $ins3) {
+//                $fetch = load_parent_cat($ins3, 3);
+//                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "' AND sscat='0'"));
+//                if ($chk_exsit > 0) {
+//                    db_query("update {question_cat} set sscat='$ins3'  where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
+//                } else {
+//                    db_query("insert into {question_cat} set qid='$ins_id',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
+//                }
+//            }
+//        }
+///// cateogry ends
+//        //check dupe if so flag it
+//        chk_dupe($q_quest, $ins_id);
+//        //url alias
+//        $dst = clean_url(myTruncate($q_quest, 100, ''), '', '-', $ins_id);
+//
+//
+//        //forum
+//
+//        $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$ins_id',type='1',uid='$user->uid',title='Discuss about this question',private='0' ");
+//
+//
+//        increasepoints('1', $ins_id, '0');
+//        //for url alias
+//        $url = 'qlite/view/' . $ins_id;
+//        $update = db_query("update {question} set url='" . $dst . "' where qid='" . $ins_id . "'");
+//        $urlins = db_query("insert INTO {url_alias} set src='" . $url . "',dst='" . $dst . "'");
+//
+//        for ($i = 1; $i <= $ans_cnt; $i++) {
+//            $name = "q_ans" . $i;
+//            if (!empty($$name)) {
+//                $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, $$name);
+//            }
+//        }
+//
+//        if ($q_tag != '') {
+//
+//            $q_tag = explode(',', $q_tag);
+//
+//            //its in quset_lite.module
+//            process_tags($q_tag, $ins_id, 0);
+//        }
 
-        $ins_id = db_last_insert_id('question', 'qid');
-
-
-
-
-///  category  starts & 1st level
-        $fetch = array();
-        if (!empty($q_cat)) {
-            $cat1 = $q_cat;
-            foreach ($cat1 as $ins1) {
-
-                db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
-            }
-        }
-
-        /// category 2nd level
-        if (!empty($q_scat)) {
-            $cat2 = $q_scat;
-            foreach ($cat2 as $ins2) {
-
-                $fetch = load_parent_cat($ins2, 2);
-                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='0' "));
-                if ($chk_exsit > 0) {
-                    db_query("update {question_cat} set scat='$ins2' where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "'");
-                } else {
-                    db_query("insert into {question_cat} set qid='$ins_id',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
-                }
-            }
-        }
-        ///category 3rd level
-        if (!empty($q_sscat)) {
-            $cat3 = $q_sscat;
-            foreach ($cat3 as $ins3) {
-                $fetch = load_parent_cat($ins3, 3);
-                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "' AND sscat='0'"));
-                if ($chk_exsit > 0) {
-                    db_query("update {question_cat} set sscat='$ins3'  where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
-                } else {
-                    db_query("insert into {question_cat} set qid='$ins_id',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
-                }
-            }
-        }
-/// cateogry ends
-        //check dupe if so flag it
-        chk_dupe($q_quest, $ins_id);
-        //url alias
-        $dst = clean_url(myTruncate($q_quest, 100, ''), '', '-', $ins_id);
-
-
-        //forum
-
-        $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$ins_id',type='1',uid='$user->uid',title='Discuss about this question',private='0' ");
-
-
-        increasepoints('1', $ins_id, '0');
-        //for url alias
-        $url = 'qlite/view/' . $ins_id;
-        $update = db_query("update {question} set url='" . $dst . "' where qid='" . $ins_id . "'");
-        $urlins = db_query("insert INTO {url_alias} set src='" . $url . "',dst='" . $dst . "'");
-
-        for ($i = 1; $i <= $ans_cnt; $i++) {
-            $name = "q_ans" . $i;
-            if (!empty($$name)) {
-                $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, $$name);
-            }
-        }
-
-        if ($q_tag != '') {
-
-            $q_tag = explode(',', $q_tag);
-
-            //its in quset_lite.module
-            process_tags($q_tag, $ins_id, 0);
-        }
-
-        if ($result)
+        if ($result->nid)
             $output = drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
 '), $type = 'success');
         unset($_SESSION['post']);
         $_SESSION['post'] = '';
-        // drupal_goto("question");
+        $path=drupal_get_path_alias('node/'.$result->nid);
         send_qnotify($ins_id);
-        echo '<script>window.parent.location.href="' . $gSitePath . $dst . '";</script>';
+         //drupal_goto($path);
+        
+        echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';
     } else {
         drupal_get_messages($type = 'error', $clear = 'TRUE');
         $_SESSION['post'] = $_POST;
@@ -511,20 +513,13 @@ function send_qnotify($qid='') { ///vijay important comented
     //inline site notify
     $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('" . $user->uid . "','1','1','" . $qid . "' ) ");
 
-	/*RAM HEARTBEAT MODULE*/
-	$qid_url = db_query("select * from {question} where qid='$qid'");
-    $question_values = db_fetch_array($qid_url);
-			if (isset($question_values)) {
-				$question_urlff = $question_values['url'];
-				$qtion = $question_values['question'];
-				$ctxt = $question_values['context'];
-			}
-	
+	$node=node_load($qid);
+	$question_urlff=drupal_get_path_alias('node/'.$qid);
     $message_id = 'Add_question';
     $variables = array(
       '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
       //'@node_type' => 'page',
-      '@question_title' => "<a href='$base_url/$question_urlff' >".$qtion."</a>",
+      '@question_title' => "<a href='$base_url/$question_urlff' >".$node->title."</a>",
     );
 		//heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
 		//echo 'test';
@@ -1244,7 +1239,7 @@ function get_releated_questions($question,$cat_id,$context)
 		$wheres2 	= array();
 			if($words[$i]!='')
 			{
-				$wheres2[]  = "  q.question  LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+				$wheres2[]  = "  q.title  LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
 				$wheres[] 	= implode( ' OR ', $wheres2 );
 			}	
 		}
@@ -1266,16 +1261,18 @@ function get_releated_questions($question,$cat_id,$context)
 	if($cat_id!=0)
 	{
 		$where_condition .= " and qc.cat in ($cat_id)";
-	}	
-	$count = db_result(db_query("SELECT count(q.qid) FROM {question} q left join question_cat qc on qc.qid=q.qid  WHERE  $where_condition group by q.qid limit 10 " ));		
+	}
+         $text="$question $context";
+
+	$count = db_result(db_query("SELECT count(MATCH(r.body, r.title) AGAINST ('%s')) FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,0));
 	$rel_output.= '<div class="innerbox" style="width:auto;height:auto; overflow:auto; min-height:150px;"><ul>';
 	if (($count!=0)&&($question!=''))
 	{
 		$rel_count = 1;
-		$rel_query = db_query ( "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid limit 10 " );					
+		$rel_query = db_query("SELECT r.nid,r.title, MATCH(r.body, r.title) AGAINST ('%s') AS score FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,0);
 		while ($rel_options = db_fetch_object($rel_query)) {		
-		  $rel_output.='<li><input style="width:15px;" type="checkbox" name="chk_rel_issue[]" id="chk_rel_issue[]" value="'.$rel_options->qid.'"> ';
-		  $rel_output .= substr($rel_options->question,0,50).'...</li>';
+		  $rel_output.='<li><input style="width:15px;" type="checkbox" name="chk_rel_issue[]" id="chk_rel_issue[]" value="'.$rel_options->nid.'"> ';
+		  $rel_output .= substr($rel_options->title,0,50).'...</li>';
 		  $rel_count ++;
 		}
 	} else {

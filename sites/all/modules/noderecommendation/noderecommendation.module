@@ -324,8 +324,8 @@ function _noderecommendation_get($nid) {
 if(empty( $recommendation['manual'])) {
  $node = node_load($nid);
  $nids=array();
- $text="$node->title $node->body";
-   $result = db_query("SELECT r.nid,r.title, MATCH(r.body, r.title) AGAINST ('%s') AS score FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND r.nid <> %d AND n.type='$node->type' GROUP BY n.nid HAVING score > 0 ORDER BY score DESC, r.vid DESC",$text,$node->nid,0);
+  $text="$node->title $node->body";
+   $result = db_query("SELECT r.nid,r.title, MATCH(r.body, r.title) AGAINST ('%s') AS score FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND r.nid <> %d AND n.type='$node->type' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,$node->nid,0);
     $options = array();
     while ($row = db_fetch_object($result)) {
       $nids[]=$row->nid;
@@ -728,13 +728,17 @@ function theme_noderecommendation_defaults($info) {
  * @return string
  */
 function theme_noderecommendation_block($list) {
+    $output.='<div class="innerbox">';
   if (count($list)) {
     foreach ($list as $nid) {
       $items[] = theme('noderecommendation_block_node', $nid);
     }
-    $output = theme('item_list', $items);
-  }
+    $output.= theme('item_list', $items);
+  }else{
 
+      $output.='No Related Issue(s)!';
+  }
+$output.='</div>';
   return $output;
 }
 

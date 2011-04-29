@@ -49,11 +49,11 @@ function loadReport(pmID, pmPath,id)
     jQuery('#tab3').parent('li').removeClass('current');
     jQuery('#tab'+pmID).parent('li').addClass('current');
     if(pmID == 1)
-        vPath=pmPath+"qlite/percent/"+id
+        vPath=pmPath+"issue/report/percent/"+id
     else if(pmID == 2)
-        vPath=pmPath+"qlite/graph/"+id
+        vPath=pmPath+"issue/report/graph/"+id
     else if(pmID == 3)
-        vPath=pmPath+"qlite/map/"+id
+        vPath=pmPath+"issue/report/map/"+id
 	
     jQuery('#frmGoogle').attr('src',vPath);
 
