@@ -239,8 +239,10 @@ function issue_form_alter(&$form, $form_state, $form_id) {
 if($form_id=='user_relationships_ui_request'){}
 
 if($form_id=='poll_view_voting'){
+
     $form['vote']['#submit'][] = 'add_vote_notify';
- // echo $form_id."<pre>";  print_r($form);exit;
+    $form['#validate'][]='check_user_anonymous';
+  //echo $form_id."<pre>";  print_r($form);exit;
 }
 
     if ($form_id == 'poll_node_form') {
@@ -284,7 +286,12 @@ function _test_helper_story_node_form_validate($form, &$form_state) {
         form_set_error('title', t('No testing allowed!'));
     }
 }
+function check_user_anonymous($form, &$form_state){
 
+if(user_is_anonymous ())
+    form_set_error ('', t('Please login and cast your vote to see the reports of this issue ! '));
+   
+}
 function issue_after_build($form, &$form_state) {
     // allter the form values: Stuff!
 
@@ -331,6 +338,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                 }
                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
                 $node->style=drupal_link_color($user->uid, $node->nid);
+                if(user_is_logged_in()){
                 if ($node->allowvotes) {
                     
                 } else {
@@ -342,7 +350,15 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                         '#value' => $output,
                     );
                 }
+                }else{
 
+                    unset($node->content['body']);
+                    $output .= drupal_get_form('poll_view_voting',$node,'');
+                    $node->content['body'] = array
+                        (
+                        '#value' => $output,
+                    );
+                }
 
 
                 break;
@@ -497,7 +513,7 @@ function issue_theme($existing, $type, $theme, $path) {
     return array(
         'issue_results' => array(
             'template' => 'issue_results',
-            'arguments' => array('nid' => NULL, 'votes' => NULL),
+            'arguments' => array('nid' => NULL, 'votes' => NULL,'allowvotes'=>NULL),
         ), 'issue_details' => array(
             'template' => 'issue_details_tab',
             'arguments' => array('nid' => NULL, 'votes' => NULL),
@@ -830,7 +846,7 @@ if (module_exists('taxonomy')) {
 function issue_view_results(&$nid, $teaser, $page, $block) {
     global $gSitePath, $user, $gDocPath, $base_root;
     // Count the votes and find the maximum
-    //  $node=node_load(array('nid'=>$nid));
+  $node=node_load($nid);
     // $total_votes = 0;
     // $max_votes = 0;
     // foreach ($node->choice as $choice) {
@@ -840,8 +856,8 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
 //    }
 //  }
 //  $poll_results = '';
-
-    return theme('issue_results', $nid, t('12'));
+//echo $node->allowvotes; exit;
+    return theme('issue_results', $nid, t('12'),$node->allowvotes);
 }
 
 //function theme_issue_results($title='',$votes=''){
@@ -1351,6 +1367,8 @@ function add_vote_notify($form, &$form_state){
     $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $choice);
     set_notify_log($user->uid, $nid, 'add_vote', $variable);
     /*New SET NOTIFY LOG*/
+     _send_votenotify($nid);
+    increasepoints('2', $nid, '0');
 }
 
 function add_flag_notify($form, &$form_state){
@@ -1380,4 +1398,52 @@ if(empty($date2))
         }
     }
     return $dates_range;
+}
+
+function _send_votenotify($qid='') {///vijay important comented
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $user->uid . "','1','1','1'," . $qid . "' ) ";
+
+    //  $insert_notify = db_query($qry);
+    ////////////mail notication for user follwers to me//////////////////////////////////////
+    ///vijay coment start here////////////
+    /*  $qdetails = load_question($qid);
+
+
+      $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
+      $rs_followerf = db_query($sel_listf);
+      while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
+
+      $sellist = "select * from users where uid='" . $follower_resultfuser->uid . "'";
+      $res_users = db_query($sellist);
+      $usert = db_fetch_object($res_users);
+      $to = $usert->mail;
+
+      if ($usert->notify_itype == 1) {
+
+      $insert_notify = db_query("insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ");
+      }
+      if ($usert->notify_etype == 1) {
+
+      ///////////email for following ///////////////
+
+      $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
+      $rs_mgmt = db_query($sel_user_cmt);
+      $list_content = db_fetch_object($rs_mgmt);
+      $subject_proj = $list_content->subject;
+      $contentm = str_replace("#uname#", $usert->name, $list_content->content);
+      $contentm = str_replace("#anothername#", $user->name, $contentm);
+
+
+      $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
+      $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+      $contentm = str_replace("#content#", "voted for the below question. Kindly have a review", $contentm);
+
+
+
+      $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
+      }
+
+      } */
+    hm_mails($qid, '', 'vote_answer');
 }

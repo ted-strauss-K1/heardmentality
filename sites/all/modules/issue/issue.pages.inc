@@ -148,7 +148,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
     $filter = '';
     $filter = (!empty($array['dochg'])) ? $array['dochg'] : '';
-   $vans = "select * from {poll_choices} where  nid='" . $nid . "'";
+   $vans = "select * from {poll_choices} where  nid='" . $nid . "'  order by chorder";
     // $vans = "select * from {poll_choices} where  nid='" . $nid . "'";
     $vlist = ExecuteQuery($vans, "select");
     switch ($filter) {
@@ -393,7 +393,7 @@ function report_graph($nid='') {
 
     $output = '';
 
-    $vans = "select * from {poll_choices} where  nid=$nid ";
+    $vans = "select * from {poll_choices} where  nid=$nid order by chorder";
     $vlist = ExecuteQuery($vans, "select");
      $cnt_ans = count($vlist);
 
@@ -605,7 +605,7 @@ function report_map($nid='') {
 
     $marker = array('blue', 'green', 'red', 'black', 'brown', ' purple', 'yellow', 'gray', 'orange', 'white');
 
-    $vans = "select * from {poll_choices} where  nid=$nid ";
+    $vans = "select * from {poll_choices} where  nid=$nid  order by chorder";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
 
