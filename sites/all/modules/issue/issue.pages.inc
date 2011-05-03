@@ -25,7 +25,9 @@ function report_percent($nid='') {
         return 'No Data Found';
 
    //$vans = "select * from {possible_answer} where  qid='" . $nid . "'";
+
      $vans = "select * from {poll_choices} where  nid='" . $nid . "' ORDER BY chorder";
+
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
     $output .= "
