@@ -1228,7 +1228,7 @@ function resource_innews($qid='', $rtype='') {
             $image = !empty($forum->field_filepath[0]['value']) ? $forum->field_filepath[0]['value'] : file_directory_path() . '/noimage.jpg';
 
             //$query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum->nid . "'";
-            $query = "select * from {resource_options} a,{poll_choices} b where a.chorder=b.chorder AND a.nid='" . $forum->nid . "'";
+            $query = "select * from {resource_options} a join {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' AND b.nid='$qid'";
             $strnth = ExecuteQuery($query, "select");
             foreach ($strnth as $list) {
                 $ans = $list['chtext'];
