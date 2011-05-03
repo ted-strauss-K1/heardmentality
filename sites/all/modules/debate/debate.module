@@ -178,7 +178,7 @@ function list_debate_old($qid='', $type='') {
             }
 
             //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
-            $query = "select * from {debate_options} a,{poll_choices} b where a.chid=b.chid AND a.nid='" . $forum->nid . "'";
+            $query = "select * from {debate_options} a,{poll_choices} b where a.chorder=b.chorder AND a.nid='" . $forum->nid . "'";
             $strnth = ExecuteQuery($query, "select");
             $strength = '';
             foreach ($strnth as $list) {

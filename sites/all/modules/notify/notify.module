@@ -58,7 +58,20 @@ $items['mynotify'] = array(
     'file' => 'notify.pages.inc',
   );
 
-
+    $items['admin/notify/settings'] = array(
+    'title' => 'Notification Settings',
+    'page callback' => 'notify_settings',
+	   'type' => MENU_SUGGESTED_ITEM,
+	   'access arguments' => array('Admin Notification'),
+    'file' => 'notify.pages.inc',
+  );
+   $items['admin/notify/messages'] = array(
+    'title' => 'Notification Messages',
+    'page callback' => 'notify_messages',
+	   'type' => MENU_SUGGESTED_ITEM,
+	   'access arguments' => array('Admin Notification'),
+    'file' => 'notify.pages.inc',
+  );
 
   $items['admin/save_notify'] = array(
     'title' => 'Notification',

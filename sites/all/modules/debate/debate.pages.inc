@@ -972,7 +972,7 @@ function add_resources($qid='') {
         <div class="fm-2-left">' . $list['chtext'] . ' </div>
 <div class="fm-2-right">
 
-            <input type="hidden" name="ans_id[]" value="' . $list['chid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
+            <input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
               </div>
         </div>
 
@@ -1062,12 +1062,12 @@ function resource_list($type, $qid) {
     //answers
     $filter_list.='<select name="rfilt-ans" id="rfilt-ans" class="select-1"><option value="">Possible Answers</option>';
     foreach ($ans as $list) {
-        $filter_list.='<option value="' . $list['chid'] . '">' . $list['chtext'] . '</option>';
+        $filter_list.='<option value="' . $list['chorder'] . '">' . $list['chtext'] . '</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
         <div class="fm-2-left">' . $list['chtext'] . '</div>
-        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chid'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
         </div>
         <div class="clr"></div>
     </div>';
@@ -1163,7 +1163,7 @@ function resource_innews($qid='', $rtype='') {
         $sorting = ' ORDER BY c.field_strength_value DESC';
     }
     if (isset($ans) && !empty($ans)){
-        $cond.=" AND do.chid='$ans'";
+        $cond.=" AND do.chorder='$ans'";
     }
     if (isset($sup) && $sup > 0){
         $cond.=" AND do.ans_val='$sup'";
@@ -1228,7 +1228,7 @@ function resource_innews($qid='', $rtype='') {
             $image = !empty($forum->field_filepath[0]['value']) ? $forum->field_filepath[0]['value'] : file_directory_path() . '/noimage.jpg';
 
             //$query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum->nid . "'";
-            $query = "select * from {resource_options} a,{poll_choices} b where a.chid=b.chid AND a.nid='" . $forum->nid . "'";
+            $query = "select * from {resource_options} a,{poll_choices} b where a.chorder=b.chorder AND a.nid='" . $forum->nid . "'";
             $strnth = ExecuteQuery($query, "select");
             foreach ($strnth as $list) {
                 $ans = $list['chtext'];
@@ -1516,7 +1516,7 @@ function resource_media($qid='') {
                 $content.='<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum->nid . '" > ' . $url[2] . ' </a> ';
             }
             //$query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum->nid . "'";
-            $query = "select * from {resource_options} a,{poll_choices} b where a.chid=b.chid AND a.nid='" . $forum->nid . "'";
+            $query = "select * from {resource_options} a,{poll_choices} b where a.chorder=b.chorder AND a.nid='" . $forum->nid . "'";
             $strnth = ExecuteQuery($query, "select");
             foreach ($strnth as $list) {
                 $ans = $list['chtext'];
@@ -2046,7 +2046,7 @@ function debate_ajax() {
                 //$nid = db_last_insert_id('resource', 'rid');
                 $i = 0;
                 foreach ($ans_id as $list) {
-                    $forum = "INSERT INTO {resource_options} set nid='%d',chid='%d',ans_val='%d' ";
+                    $forum = "INSERT INTO {resource_options} set nid='%d',chorder='%d',ans_val='%d' ";
                     //$forum = "INSERT INTO {resource_options} set rid='%d',paid='%d',ans_val='%d' ";
                     $result = db_query($forum, $nodeid, $list, $sup_opp[$i]);
                     $i++;
@@ -2082,14 +2082,14 @@ function debate_ajax() {
                 $insdata.="'" . $vlist[$ab]['chtext'] . "',";
 
                 //$sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
-                $sel = "select * from {debate_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chid='" . $vlist[$ab]['chid'] . "' AND o.ans_val IN ('1','2') group by o.nid";
+                $sel = "select * from {debate_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND o.ans_val IN ('1','2') group by o.nid";
                 $tmplist = ExecuteQuery($sel, "select");
 
                 $final = '';
                 foreach ($tmplist as $list) {
 
                     //$cnt_opt = db_result(db_query("select count(paid) from {debate_options} where did=" . $list['did'] . " AND ans_val IN ('1','2')"));
-                    $cnt_opt = db_result(db_query("select count(chid) from {debate_options} where nid=" . $list['nid'] . " AND ans_val IN ('1','2')"));
+                    $cnt_opt = db_result(db_query("select count(chorder) from {debate_options} where nid=" . $list['nid'] . " AND ans_val IN ('1','2')"));
 
                     $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
 
@@ -2166,11 +2166,11 @@ $(document).ready(function() {
                 $insdata.="'" . $vlist[$ab]['chtext'] . "',";
 
                 //$sel = "select * from {resource_options} as o join {resource} as d on d.rid=o.rid  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN (1,2) group by o.rid";
-                $sel = "select * from {resource_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chid='" . $vlist[$ab]['chid'] . "' AND o.ans_val IN (1,2) group by o.nid";
+                $sel = "select * from {resource_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND o.ans_val IN (1,2) group by o.nid";
                 $tmplist = ExecuteQuery($sel, "select");
                 foreach ($tmplist as $list) {
                     //$cnt_opt = db_result(db_query("select count(paid) from {resource_options} where rid=" . $list['rid'] . " AND ans_val IN (1,2) group by paid"));
-                    $cnt_opt = db_result(db_query("select count(chid) from {resource_options} where nid=" . $list['nid'] . " AND ans_val IN (1,2) group by chid"));
+                    $cnt_opt = db_result(db_query("select count(chorder) from {resource_options} where nid=" . $list['nid'] . " AND ans_val IN (1,2) group by chorder"));
                     $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
                     $final = $final + (($tmp * $list['field_strength_value']) / $cnt_opt);
                 }
@@ -2407,7 +2407,7 @@ function debate_submit() {
 
                     foreach ($ans_id as $list) {
                         //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
-                        $forum = "INSERT INTO {debate_options} set nid = '%d',chid='%d',ans_val='%d' ";
+                        $forum = "INSERT INTO {debate_options} set nid = '%d',chorder='%d',ans_val='%d' ";
                         $result = db_query($forum, $nodeid, $list, $sup_opp[$i]);
                         $i++;
                     }
