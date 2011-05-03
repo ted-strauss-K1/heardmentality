@@ -375,116 +375,51 @@ function question_save() {
     $g_global = '';
    // if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2) && !empty($q_cat)) {
         if (!empty($q_quest) && !empty($q_ans1) && !empty($q_ans2)) {
-        $edate = $q_edate;
-        $releated_question =implode(",",$_REQUEST['chk_rel_issue']);
-        //***** country disabled here ****//
-        
-//        $country = my_country();
-//        $ccode = $country['cn'];
-//        $ccode = (!empty($q_country)) ? $q_country : $ccode;
-        
-        $sel_qry = db_query("select question_privacy from user_profile where uid='$user->uid'");
-        $result = db_fetch_array($sel_qry);
-        if ($qrset == '') {
-            if ($result['question_privacy'] == 1)
-                $qrset = 3;
-            if ($result['question_privacy'] == 2)
-                $qrset = 2;
-            if ($result['question_privacy'] == 3)
-                $qrset = 1;
-        }
 
        $result=issue_save($_REQUEST);
         
-      //echo "INSERT INTO {question} set uid='$user->uid',question='".addslashes($q_quest)."',context='".addslashes($q_context)."',country='$ccode',state='$q_state',city='$q_city',share='$qrset'";
-//        $result = db_query("INSERT INTO {question} set uid='$user->uid',question='" . check_plain($q_quest) . "',context='" . check_plain($q_context) . "',releated_question = '$releated_question'");
-//
-//
-//        $ins_id = db_last_insert_id('question', 'qid');
-//
-//
-//
-//
-/////  category  starts & 1st level
-//        $fetch = array();
-//        if (!empty($q_cat)) {
-//            $cat1 = $q_cat;
-//            foreach ($cat1 as $ins1) {
-//
-//                db_query("insert into {question_cat} set qid='$ins_id',cat='$ins1'");
-//            }
-//        }
-//
-//        /// category 2nd level
-//        if (!empty($q_scat)) {
-//            $cat2 = $q_scat;
-//            foreach ($cat2 as $ins2) {
-//
-//                $fetch = load_parent_cat($ins2, 2);
-//                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='0' "));
-//                if ($chk_exsit > 0) {
-//                    db_query("update {question_cat} set scat='$ins2' where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "'");
-//                } else {
-//                    db_query("insert into {question_cat} set qid='$ins_id',cat='" . $fetch[0]['lev1'] . "',scat='$ins2'");
-//                }
-//            }
-//        }
-//        ///category 3rd level
-//        if (!empty($q_sscat)) {
-//            $cat3 = $q_sscat;
-//            foreach ($cat3 as $ins3) {
-//                $fetch = load_parent_cat($ins3, 3);
-//                $chk_exsit = db_result(db_query("select count(*) from {question_cat} where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "' AND sscat='0'"));
-//                if ($chk_exsit > 0) {
-//                    db_query("update {question_cat} set sscat='$ins3'  where qid='$ins_id' AND cat='" . $fetch[0]['lev1'] . "' AND scat='" . $fetch[0]['lev2'] . "'");
-//                } else {
-//                    db_query("insert into {question_cat} set qid='$ins_id',cat='" . $fetch[0]['lev1'] . "',scat='" . $fetch[0]['lev2'] . "',sscat='$ins3'");
-//                }
-//            }
-//        }
-///// cateogry ends
-//        //check dupe if so flag it
-//        chk_dupe($q_quest, $ins_id);
-//        //url alias
-//        $dst = clean_url(myTruncate($q_quest, 100, ''), '', '-', $ins_id);
-//
-//
+
+        if ($result->nid){
+
 //        //forum
 //
 //        $forum = db_query("INSERT INTO {forum_wave} set qid_rid='$ins_id',type='1',uid='$user->uid',title='Discuss about this question',private='0' ");
 //
-//
-//        increasepoints('1', $ins_id, '0');
-//        //for url alias
-//        $url = 'qlite/view/' . $ins_id;
-//        $update = db_query("update {question} set url='" . $dst . "' where qid='" . $ins_id . "'");
-//        $urlins = db_query("insert INTO {url_alias} set src='" . $url . "',dst='" . $dst . "'");
-//
-//        for ($i = 1; $i <= $ans_cnt; $i++) {
-//            $name = "q_ans" . $i;
-//            if (!empty($$name)) {
-//                $result = db_query("INSERT INTO {possible_answer} (qid,answer) VALUES (%d,'%s')", $ins_id, $$name);
-//            }
-//        }
-//
-//        if ($q_tag != '') {
-//
-//            $q_tag = explode(',', $q_tag);
-//
-//            //its in quset_lite.module
-//            process_tags($q_tag, $ins_id, 0);
-//        }
+            //create a default debate
 
-        if ($result->nid)
+               // save values as node
+                    $deb = new stdClass();
+                    $deb->field_private[0]['value'] ='';
+                    $deb->field_ref_qid[0]['nid'] = $result->nid;
+                    $deb->field_type[0]['value'] = '1';
+
+                    $deb->type = 'forum';
+                    $deb->title = 'What you think about this issue!';
+                    $deb->uid = $user->uid;
+                  $deb->body = "Let's have a debate";
+                    $deb->status = 1;
+                    // get tid for debate
+                    // get_taxonomy_id('module name','term data name')
+                    $tid = get_taxonomy_id('forum','Debate');
+                    $deb->taxonomy = array($tid);
+
+                    //node_validate($deb);
+                    //$node = node_submit($deb);
+                    $save = node_save($deb);
+
+            //create a default ends
+
+
             $output = drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
 '), $type = 'success');
         unset($_SESSION['post']);
         $_SESSION['post'] = '';
         $path=drupal_get_path_alias('node/'.$result->nid);
-        send_qnotify($ins_id);
+         increasepoints('1', $ins_id, '0');
+        _send_qnotify($result->nid);
          //drupal_goto($path);
-        
-        echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';
+              echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';
+        }
     } else {
         drupal_get_messages($type = 'error', $clear = 'TRUE');
         $_SESSION['post'] = $_POST;
@@ -505,6 +440,33 @@ function question_save() {
     if (!empty($output['error'])) {
         echo implode(" ", $output['error']);
     }
+}
+
+
+function _send_qnotify($qid='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_url;
+
+    //inline site notify
+    $insert_notify = db_query("insert into notification (uid,follower_action,is_question,node_id) values('" . $user->uid . "','1','1','" . $qid . "' ) ");
+
+	$node=node_load($qid);
+	$question_urlff=drupal_get_path_alias('node/'.$qid);
+    $message_id = 'Add_question';
+    $variables = array(
+      '@username' => l(user_load($user->uid)->name, 'profile/' . $user->name),
+      //'@node_type' => 'page',
+      '@question_title' => "<a href='$base_url/$question_urlff' >".$node->title."</a>",
+    );
+		//heartbeat_api_log($message_id, $user->uid, $question_urlff , $qid, $question_urlff, $variables);
+		//echo 'test';
+		//die;
+	/*RAM HEARTBEAT MODULE*/
+
+
+    ////////////mail notication for user follwers to me//////////////////////////////////////
+
+    hm_mails($qid, '', 'add_question');
+
 }
 
 function send_qnotify($qid='') { ///vijay important comented
@@ -1203,10 +1165,6 @@ function question_ajax() {
          $parent=load_parent_cat($cid,3);
          $catid=(!empty($parent['lev1']))?$parent['lev1']:$parent['lev2'];
          if(!empty($catid)){
-  echo $sel_sscat = "select * from category as c join follower as f on c.cat_id=f.cat_id where c.parent_id='$catid'";
-     // $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='$cid' AND q.status='1' group by c.cat_id";
-       $listsscat = ExecuteQuery($sel_sscat, "select");
-         
                         foreach ($listsscat as $sscat) {
                             $style = '';
                             if ($sscid == $sscat['cat_id']) {

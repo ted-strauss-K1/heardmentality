@@ -142,47 +142,67 @@ function htmlmail_function($to, $subject, $message, $headers = NULL) {
     return mail($to, $subject, $newmessage, $headers);
 }
 
-function hm_mails($qid, $nid, $type) {
+function arrayToObject($array) {
+	if(!is_array($array)) {
+		return $array;
+	}
+
+	$object = new stdClass();
+	if (is_array($array) && count($array) > 0) {
+	  foreach ($array as $name=>$value) {
+	     $name = strtolower(trim($name));
+	     if (!empty($name)) {
+	        $object->$name = arrayToObject($value);
+	     }
+	  }
+      return $object;
+	}
+    else {
+      return FALSE;
+    }
+}
+
+function hm_mails($qid='', $nid='', $type='') {
     global $gSitePath, $user, $gDocPath, $base_root;
 
-    $qdetails = load_question($qid);
+    $qdetails = node_load($qid);
+      
     $mail_row = db_query("select mail from users where uid='" . $user->uid . "'");
     $fet_mail = db_fetch_object($mail_row);
 
-    $sel_follow = "select f.*,u.mail,u.notify_etype,u.name from follower as f join users as u on f.uid=u.uid where f.follower_id='" . $user->uid . "' and follower_id!=0 and cat_id=0 and question_id=0";
-
+    //$sel_follow = "select f.*,u.mail,u.notify_etype,u.name from follower as f join users as u on f.uid=u.uid where f.follower_id='" . $user->uid . "' and follower_id!=0 and cat_id=0 and question_id=0";
+    $follower=_activity_heartbeat_related_uid_info($user->uid);
+  
     $get_follow = db_query($sel_follow);
     $from = variable_get('site_mail');
 
 
     switch ($type) {
-        case vote_answer:
-
-            while ($fet_follow = db_fetch_object($get_follow)) {
-                if ($fet_follow->notify_etype == 1) {
-
+        case 'vote_answer':
+            foreach($follower as $fuser){
+                      $fet_follow=(object)load_user($fuser);
+                      
                     $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
                     $rs_mgmt = db_query($sel_user_cmt);
                     $list_content = db_fetch_object($rs_mgmt);
                     $subject_proj = $list_content->subject;
                     $contentm = str_replace("#uname#", $fet_follow->name, $list_content->content);
                     $contentm = str_replace("#anothername#", $user->name, $contentm);
-
-                    $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-                    $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-                    $contentm = str_replace("#content#", 'voted for the below question. Kindly have a review', $contentm);
+                        $path=drupal_get_path_alias('node/'.$qid);
+                    $contentm = str_replace("#question#", rtrim($qdetails->title, '?') . '?', $contentm);
+                    $contentm = str_replace("#link#", $gSitePath . $path, $contentm);
+                    $contentm = str_replace("#content#", ' has voted for the below issue. Kindly have a review', $contentm);
 
                     $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('$from','$from','" . $fet_follow->mail . "','" . $subject_proj . "','" . $contentm . "',0,now())";
                     db_query($ins_qry);
-                }
+                
             }
             break;
-        case add_question:
+        case 'add_question':
 
-            while ($fet_follow = db_fetch_object($get_follow)) {
-                if ($fet_follow->notify_etype == 1) {
-
-                    //id=4 for add question
+            foreach($follower as $fuser){
+                      $fet_follow=(object)load_user($fuser);
+                   //id=4 for add question
                     $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='4'";
                     $rs_mgmt = db_query($sel_user_cmt);
                     $list_content = db_fetch_object($rs_mgmt);
@@ -190,15 +210,17 @@ function hm_mails($qid, $nid, $type) {
                     $contentm = str_replace("#uname#", $fet_follow->name, $list_content->content);
                     $contentm = str_replace("#anothername#", $user->name, $contentm);
 
-                    $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-                    $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-                    $contentm = str_replace("#content#", 'post a question', $contentm);
+                      $path=drupal_get_path_alias('node/'.$qid);
+                    $contentm = str_replace("#question#", rtrim($qdetails->title, '?') . '?', $contentm);
+                    $contentm = str_replace("#link#", $gSitePath . $path, $contentm);
+                    $contentm = str_replace("#content#", 'post a new Issue', $contentm);
 
 
                     $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,posted_date)values('$from','$from','" . $fet_follow->mail . "','" . $subject_proj . "','" . $contentm . "',0,now())";
                     db_query($ins_qry);
-                }
+           
             }
+           
             break;
         case add_like:
 

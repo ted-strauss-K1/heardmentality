@@ -1400,50 +1400,9 @@ if(empty($date2))
     return $dates_range;
 }
 
-function _send_votenotify($qid='') {///vijay important comented
+function _send_votenotify($qid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
     $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $user->uid . "','1','1','1'," . $qid . "' ) ";
 
-    //  $insert_notify = db_query($qry);
-    ////////////mail notication for user follwers to me//////////////////////////////////////
-    ///vijay coment start here////////////
-    /*  $qdetails = load_question($qid);
-
-
-      $sel_listf = "select * from follower  where follower_id='" . $user->uid . "'   ";
-      $rs_followerf = db_query($sel_listf);
-      while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
-
-      $sellist = "select * from users where uid='" . $follower_resultfuser->uid . "'";
-      $res_users = db_query($sellist);
-      $usert = db_fetch_object($res_users);
-      $to = $usert->mail;
-
-      if ($usert->notify_itype == 1) {
-
-      $insert_notify = db_query("insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $follower_resultfuser->uid . "','1','1','1'," . $qid . "' ) ");
-      }
-      if ($usert->notify_etype == 1) {
-
-      ///////////email for following ///////////////
-
-      $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='5'";
-      $rs_mgmt = db_query($sel_user_cmt);
-      $list_content = db_fetch_object($rs_mgmt);
-      $subject_proj = $list_content->subject;
-      $contentm = str_replace("#uname#", $usert->name, $list_content->content);
-      $contentm = str_replace("#anothername#", $user->name, $contentm);
-
-
-      $contentm = str_replace("#question#", rtrim($qdetails['question'], '?') . '?', $contentm);
-      $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
-      $contentm = str_replace("#content#", "voted for the below question. Kindly have a review", $contentm);
-
-
-
-      $mail_success = htmlmail_function($to, $subject_proj, $contentm, '');
-      }
-
-      } */
     hm_mails($qid, '', 'vote_answer');
 }
