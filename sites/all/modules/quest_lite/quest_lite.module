@@ -597,11 +597,15 @@ function debate_wave($qid = '') {
     //answers
     $filter_list.='<select name="dfilt-ans" id="dfilt-ans" class="select-1"><option value="">Possible Answers</option>';
     foreach ($ans as $list) {
-        $filter_list.='<option value="' . $list['chorder'] . '">' . $list['chtext'] . '</option>';
+
+        $short_answer = get_short_answer($qid, $list['chorder']);
+        $answer = $short_answer!=''?$short_answer:$list['chtext'];
+
+        $filter_list.='<option value="' . $list['chorder'] . '">' . $answer . '</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
-        <div class="fm-2-left">' . $list['chtext'] . '</div>
+        <div class="fm-2-left">' . $answer . '</div>
         <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
         </div>
         <div class="clr"></div>

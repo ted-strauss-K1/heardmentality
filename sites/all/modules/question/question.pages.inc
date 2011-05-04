@@ -900,8 +900,11 @@ function question_ajax() {
 	global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     extract($_REQUEST);
     if (isset($_REQUEST['ids'])) {
-        $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ($ids)");
-
+        //$client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id IN ($ids)");
+        /********Node Conversion********/
+        $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+        $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid WHERE parent IN ($ids) AND t.vid = '$vid'");
+        /********Node Conversion********/
         $client_array = array();
         $client_key = array();
         while ($list = db_fetch_object($client_select)) {

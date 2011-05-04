@@ -962,11 +962,13 @@ function add_resources($qid='') {
 
     //answers
     foreach ($ans as $list) {
+        $short_answer = get_short_answer($qid, $list['chorder']);
+        $answer = $short_answer!=''?$short_answer:$list['chtext'];
 
         $inc_pans.='
 	<div class="debate-r-row">
         <div class="fm-2">
-        <div class="fm-2-left">' . $list['chtext'] . ' </div>
+        <div class="fm-2-left">' . $answer . ' </div>
 <div class="fm-2-right">
 
             <input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
@@ -1059,11 +1061,15 @@ function resource_list($type, $qid) {
     //answers
     $filter_list.='<select name="rfilt-ans" id="rfilt-ans" class="select-1"><option value="">Possible Answers</option>';
     foreach ($ans as $list) {
-        $filter_list.='<option value="' . $list['chorder'] . '">' . $list['chtext'] . '</option>';
+
+        $short_answer = get_short_answer($qid, $list['chorder']);
+        $answer = $short_answer!=''?$short_answer:$list['chtext'];
+
+        $filter_list.='<option value="' . $list['chorder'] . '">' . $answer . '</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
-        <div class="fm-2-left">' . $list['chtext'] . '</div>
+        <div class="fm-2-left">' . $answer . '</div>
         <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
         </div>
         <div class="clr"></div>
@@ -2088,8 +2094,11 @@ function debate_ajax() {
             $data.="[";
 
             for ($ab = 0; $ab < $cnt_ans; $ab++) {
+                // short answers
+                $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
+                $answer = $short_answer!=''?$short_answer:$vlist[$ab]['chtext'];
 
-                $insdata.="'" . $vlist[$ab]['chtext'] . "',";
+                $insdata.="'" . $answer . "',";
 
                 //$sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
                 $sel = "select * from {debate_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND o.ans_val IN ('1','2') group by o.nid";
@@ -2173,7 +2182,11 @@ $(document).ready(function() {
 
             for ($ab = 0; $ab < $cnt_ans; $ab++) {
 
-                $insdata.="'" . $vlist[$ab]['chtext'] . "',";
+                // short answers
+                $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
+                $answer = $short_answer!=''?$short_answer:$vlist[$ab]['chtext'];
+                
+                $insdata.="'" . $answer . "',";
 
                 //$sel = "select * from {resource_options} as o join {resource} as d on d.rid=o.rid  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN (1,2) group by o.rid";
                 $sel = "select * from {resource_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND o.ans_val IN (1,2) group by o.nid";

@@ -577,11 +577,14 @@ function issue_debate_tab($qid = ''){
     //answers
     $filter_list.='<select name="dfilt-ans" id="dfilt-ans" class="select-1"><option value="">Possible Answers</option>';
     foreach ($ans as $list) {
-        $filter_list.='<option value="' . $list['chorder'] . '">' . $list['chtext'] . '</option>';
+         $short_answer = get_short_answer($qid, $list['chorder']);
+         $answer = $short_answer!=''?$short_answer:$list['chtext'];
+         
+        $filter_list.='<option value="' . $list['chorder'] . '">' . $answer . '</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
-        <div class="fm-2-left">' . $list['chtext'] . '</div>
+        <div class="fm-2-left">' . $answer . '</div>
         <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
         </div>
         <div class="clr"></div>
@@ -705,11 +708,15 @@ function issue_resource_tab($qid = ''){
     //answers
     $filter_list.='<select name="rfilt-ans" id="rfilt-ans" class="select-1"><option value="">Possible Answers</option>';
     foreach ($ans as $list) {
-        $filter_list.='<option value="' . $list['chorder'] . '">' . $list['chtext'] . '</option>';
+
+        $short_answer = get_short_answer($qid, $list['chorder']);
+        $answer = $short_answer!=''?$short_answer:$list['chtext'];
+
+        $filter_list.='<option value="' . $list['chorder'] . '">' . $answer . '</option>';
         $inc_pans.='<div class="form-outer-debate">
     	<div class="fm-1">&nbsp;</div>
         <div class="fm-2">
-        <div class="fm-2-left">' . $list['chtext'] . '</div>
+        <div class="fm-2-left">' . $answer . '</div>
         <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
         </div>
         <div class="clr"></div>
@@ -1045,7 +1052,7 @@ function list_debate($qid='', $type='') {
     //$sql = "SELECT f.nid FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
    
    if (empty($cond))
-    $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid JOIN {debate_options} as do ON n.nid = do.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+  $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid JOIN {debate_options} as do ON n.nid = do.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
    else
    $sql = "SELECT DISTINCT(f.nid) FROM  {debate_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
 
@@ -1095,11 +1102,12 @@ function list_debate($qid='', $type='') {
             }
 
             //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
-            $query = "select * from {debate_options} a join  {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' and b.nid='$qid'";
+            $query = "select * from {debate_options} a join  {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' and b.nid='$qid' ORDER BY b.chorder";
             $strnth = ExecuteQuery($query, "select");
             $strength = '';
             foreach ($strnth as $list) {
-                $ans = $list['chtext'];
+                $short_answer = get_short_answer($qid, $list['chorder']);
+                $ans = $short_answer!=''?$short_answer:$list['chtext'];
 
                 switch ($list['ans_val']) {
                     case 0:
@@ -1410,4 +1418,14 @@ function _send_votenotify($qid='') {
     $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $user->uid . "','1','1','1'," . $qid . "' ) ";
 
     hm_mails($qid, '', 'vote_answer');
+}
+
+// short answer for issue
+function get_short_answer($nid = '', $chorder = ''){
+
+    $sql = db_query("SELECT short_answer FROM {short_answers} WHERE qid= '%d' AND chorder = '%d'", $nid, $chorder);
+    $short = db_fetch_object($sql);
+    $answers = $short->short_answer;
+    
+    return $answers;
 }

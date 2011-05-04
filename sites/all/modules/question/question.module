@@ -263,7 +263,7 @@ function load_options($qid='',$poss=''){
             if(!empty($qid) && is_numeric($qid)){
 
                    //$query="SELECT * FROM {possible_answer} where qid='$qid'";
-                $query="SELECT * FROM {poll_choices} where nid='$qid'";
+                $query="SELECT * FROM {poll_choices} where nid='$qid' ORDER BY chorder";
 		$result=ExecuteQuery($query, "select");
             }else{
                 return false;

@@ -1446,43 +1446,95 @@ function pundit(){
     $sql = "SELECT cat_id,uid FROM {pundit_section} LIMIT 0,5";
     $pundits = ExecuteQuery($sql, 'select');
    // check second level category
-   $sql = "SELECT cat_id FROM {category} WHERE parent_id = '0'";
+//   $sql = "SELECT cat_id FROM {category} WHERE parent_id = '0'";
+//   $cats = ExecuteQuery($sql,'select');
+//   foreach($cats as $cat){
+//       $catids[] = $cat['cat_id'];
+//   }
+//   $values = implode(",",$catids);
+//
+//   foreach($pundits as $pundit){
+//   $sub = db_result(db_query("SELECT COUNT(cat_id) FROM {category} WHERE parent_id IN ($values) AND cat_id = '".$pundit['cat_id']."'"));
+//       if($sub == 1){
+//            // set pundit badge
+//            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$pundit['uid']."' AND bid='32' AND cat_id = '".$pundit['cat_id']."'"));
+//            if($badgecnt == 0){
+//                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', cat_id = '%d'", $pundit['uid'],32,$pundit['cat_id']);
+//                $last_id =  db_last_insert_id('user_badges','badge');
+//                user_coins_update($pundit['uid'],32,'');
+//            }
+//       }
+//   }
+
+
+    /* Node conversion*/
+   $sql = "SELECT tid FROM {term_hierarchy} WHERE parent = '0'";
    $cats = ExecuteQuery($sql,'select');
    foreach($cats as $cat){
-       $catids[] = $cat['cat_id'];
+       $catids[] = $cat['tid'];
    }
    $values = implode(",",$catids);
 
    foreach($pundits as $pundit){
-   $sub = db_result(db_query("SELECT COUNT(cat_id) FROM {category} WHERE parent_id IN ($values) AND cat_id = '".$pundit['cat_id']."'"));
+   $sub = db_result(db_query("SELECT COUNT(tid) FROM {term_hierarchy} WHERE parent IN ($values) AND tid = '".$pundit['cat_id']."'"));
        if($sub == 1){
             // set pundit badge
             $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$pundit['uid']."' AND bid='32' AND cat_id = '".$pundit['cat_id']."'"));
             if($badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', cat_id = '%d'", $pundit['uid'],32,$pundit['cat_id']);
                 $last_id =  db_last_insert_id('user_badges','badge');
+
+                /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 32));
+                 $variable = array('bid' => '32', 'badge' => $badgeName);
+                 set_notify_log($pundit['uid'], '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
                 user_coins_update($pundit['uid'],32,'');
             }
        }
    }
+
 
 }
 //philosopher
 function philosopher(){
     $sql = "SELECT cat_id,uid FROM {pundit_section} LIMIT 0,5";
     $pundits = ExecuteQuery($sql, 'select');
+//    foreach($pundits as $pundit){
+//        $count = db_result(db_query("SELECT COUNT(cat_id) FROM category WHERE cat_id = '".$pundit['cat_id']."' AND parent_id = 0"));
+//        if($count == 1){
+//            // set philosopher badge
+//            $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$pundit['uid']."' AND bid='61' AND cat_id = '".$pundit['cat_id']."'"));
+//            if($badgecnt == 0){
+//                db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', cat_id = '%d'", $pundit['uid'],61,$pundit['cat_id']);
+//                $last_id =  db_last_insert_id('user_badges','badge');
+//                user_coins_update($pundit['uid'],61,'');
+//            }
+//        }
+//    }
+
+    /*Node conversion*/
     foreach($pundits as $pundit){
-        $count = db_result(db_query("SELECT COUNT(cat_id) FROM category WHERE cat_id = '".$pundit['cat_id']."' AND parent_id = 0"));
+        $count = db_result(db_query("SELECT COUNT(tid) FROM term_hierarchy WHERE tid = '".$pundit['cat_id']."' AND parent = 0"));
         if($count == 1){
             // set philosopher badge
             $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='".$pundit['uid']."' AND bid='61' AND cat_id = '".$pundit['cat_id']."'"));
             if($badgecnt == 0){
                 db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d', cat_id = '%d'", $pundit['uid'],61,$pundit['cat_id']);
                 $last_id =  db_last_insert_id('user_badges','badge');
+
+                /*New SET NOTIFY LOG*/
+                 $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 61));
+                 $variable = array('bid' => '61', 'badge' => $badgeName);
+                 set_notify_log($pundit['uid'], '', 'add_badge', $variable);
+                 /*New SET NOTIFY LOG*/
+
                 user_coins_update($pundit['uid'],61,'');
             }
         }
     }
+
 }
 //provocateur
 function provocateur($qid,$said){
@@ -1504,11 +1556,22 @@ function provocateur($qid,$said){
 // generalist
 // User has voted on at least 5 questions is 10 bottom level categories (i.e categories without children subcategories)
 function generalist(){
-    $sql = "SELECT DISTINCT(scat) FROM {question_cat} WHERE scat!='0' LIMIT 0,10";
-    $scats = ExecuteQuery($sql, 'select');
-    foreach($scats as $scat){
-        $arr[]=$scat['scat'];
+    //$sql = "SELECT DISTINCT(scat) FROM {question_cat} WHERE scat!='0' LIMIT 0,10";
+//    $scats = ExecuteQuery($sql, 'select');
+//    foreach($scats as $scat){
+//        $arr[]=$scat['scat'];
+//    }
+    
+    $vid = _get_vid('Sections');
+    $sql = "SELECT tid FROM {term_data} WHERE vid = '$vid' ORDER BY tid";
+    $cats = ExecuteQuery($sql, 'select');
+    foreach($cats as $cat){
+        $cat_count = db_result(db_query("SELECT COUNT(tid) FROM {term_hierarchy} WHERE parent = '".$cat['tid']."'"));
+        if($cat_count == 0){
+        $arr[] = $cat['tid'];
+        }
     }
+   $arr = array_slice($arr, 0, 10);
    $subcategories = implode(",",$arr);
    //$sql = "SELECT COUNT(uid) AS ucount, uid FROM {possible_answer_vote} GROUP BY uid";
    $sql = "SELECT COUNT(uid) AS ucount, uid FROM {poll_votes} GROUP BY uid";
@@ -1522,7 +1585,7 @@ function generalist(){
            $quests = ExecuteQuery($sql, 'select');
            foreach($quests as $quest)
            {
-               $count = db_result(db_query("SELECT COUNT(qid) FROM {question_cat} WHERE scat IN ($subcategories) AND qid = '".$quest['nid']."'"));
+               $count = db_result(db_query("SELECT COUNT(nid) FROM {term_node} WHERE tid IN ($subcategories) AND nid = '".$quest['nid']."'"));
                if($count > 0){
                 $quest_count = $quest_count+1;
                }
@@ -1532,6 +1595,13 @@ function generalist(){
            if($badgecnt == 0){
             db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d'", $user['uid'],16);
             $last_id =  db_last_insert_id('user_badges','badge');
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 16));
+             $variable = array('bid' => '16', 'badge' => $badgeName);
+             set_notify_log($user['uid'], '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
+
             user_coins_update($user['uid'],16,'');
            }
            }
@@ -1542,11 +1612,23 @@ function generalist(){
 // Well Read
 // User has voted on at least 10 questions is 20 bottom level categories (i.e categories without children subcategories)
 function wellread(){
-    $sql = "SELECT DISTINCT(scat) FROM {question_cat} WHERE scat!='0' LIMIT 0,20";
-    $scats = ExecuteQuery($sql, 'select');
-    foreach($scats as $scat){
-        $arr[]=$scat['scat'];
+//    $sql = "SELECT DISTINCT(scat) FROM {question_cat} WHERE scat!='0' LIMIT 0,20";
+//    $scats = ExecuteQuery($sql, 'select');
+//    foreach($scats as $scat){
+//        $arr[]=$scat['scat'];
+//    }
+
+    $vid = _get_vid('Sections');
+    $sql = "SELECT tid FROM {term_data} WHERE vid = '$vid' ORDER BY tid";
+    $cats = ExecuteQuery($sql, 'select');
+    foreach($cats as $cat){
+        $cat_count = db_result(db_query("SELECT COUNT(tid) FROM {term_hierarchy} WHERE parent = '".$cat['tid']."'"));
+        if($cat_count == 0){
+        $arr[] = $cat['tid'];
+        }
     }
+   $arr = array_slice($arr, 0, 20);
+   
    $subcategories = implode(",",$arr);
    $sql = "SELECT COUNT(uid) AS ucount, uid FROM {possible_answer_vote} GROUP BY uid";
    $users = ExecuteQuery($sql,'select');
@@ -1554,11 +1636,11 @@ function wellread(){
        if($user['ucount'] >= 10)
        {
            $quest_count = 0;
-           $sql = "SELECT qid FROM {possible_answer_vote} WHERE uid = '".$user['uid']."'";
+           $sql = "SELECT nid FROM {poll_votes} WHERE uid = '".$user['uid']."'";
            $quests = ExecuteQuery($sql, 'select');
            foreach($quests as $quest)
            {
-               $count = db_result(db_query("SELECT COUNT(qid) FROM {question_cat} WHERE scat IN ($subcategories) AND qid = '".$quest['qid']."'"));
+               $count = db_result(db_query("SELECT COUNT(tid) FROM {term_node} WHERE tid IN ($subcategories) AND nid = '".$quest['nid']."'"));
                if($count > 0){
                 $quest_count = $quest_count+1;
                }
@@ -1568,6 +1650,14 @@ function wellread(){
            if($badgecnt == 0){
             db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d'", $user['uid'],63);
             $last_id =  db_last_insert_id('user_badges','badge');
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 63));
+             $variable = array('bid' => '63', 'badge' => $badgeName);
+             set_notify_log($user['uid'], '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
+
+
             user_coins_update($user['uid'],63,'');
            }
            }
@@ -1578,11 +1668,23 @@ function wellread(){
 // scholer
 // User has voted on at least 20 questions is 30 bottom level categories (i.e categories without children subcategories)
 function scholer(){
-    $sql = "SELECT DISTINCT(scat) FROM {question_cat} WHERE scat!='0' LIMIT 0,30";
-    $scats = ExecuteQuery($sql, 'select');
-    foreach($scats as $scat){
-        $arr[]=$scat['scat'];
+//    $sql = "SELECT DISTINCT(scat) FROM {question_cat} WHERE scat!='0' LIMIT 0,30";
+//    $scats = ExecuteQuery($sql, 'select');
+//    foreach($scats as $scat){
+//        $arr[]=$scat['scat'];
+//    }
+
+    $vid = _get_vid('Sections');
+    $sql = "SELECT tid FROM {term_data} WHERE vid = '$vid' ORDER BY tid";
+    $cats = ExecuteQuery($sql, 'select');
+    foreach($cats as $cat){
+        $cat_count = db_result(db_query("SELECT COUNT(tid) FROM {term_hierarchy} WHERE parent = '".$cat['tid']."'"));
+        if($cat_count == 0){
+        $arr[] = $cat['tid'];
+        }
     }
+   $arr = array_slice($arr, 0, 30);
+
    $subcategories = implode(",",$arr);
    $sql = "SELECT COUNT(uid) AS ucount, uid FROM {possible_answer_vote} GROUP BY uid";
    $users = ExecuteQuery($sql,'select');
@@ -1590,11 +1692,11 @@ function scholer(){
        if($user['ucount'] >= 20)
        {
            $quest_count = 0;
-           $sql = "SELECT qid FROM {possible_answer_vote} WHERE uid = '".$user['uid']."'";
+           $sql = "SELECT nid FROM {poll_votes} WHERE uid = '".$user['uid']."'";
            $quests = ExecuteQuery($sql, 'select');
            foreach($quests as $quest)
            {
-               $count = db_result(db_query("SELECT COUNT(qid) FROM {question_cat} WHERE scat IN ($subcategories) AND qid = '".$quest['qid']."'"));
+               $count = db_result(db_query("SELECT COUNT(tid) FROM {term_node} WHERE tid IN ($subcategories) AND nid = '".$quest['nid']."'"));
                if($count > 0){
                 $quest_count = $quest_count+1;
                }
@@ -1604,6 +1706,14 @@ function scholer(){
            if($badgecnt == 0){
             db_query("INSERT INTO {user_badges} SET uid = '%d', bid = '%d'", $user['uid'],64);
             $last_id =  db_last_insert_id('user_badges','badge');
+
+            /*New SET NOTIFY LOG*/
+             $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 64));
+             $variable = array('bid' => '64', 'badge' => $badgeName);
+             set_notify_log($user['uid'], '', 'add_badge', $variable);
+             /*New SET NOTIFY LOG*/
+
+
             user_coins_update($user['uid'],64,'');
            }
            }
@@ -1653,3 +1763,19 @@ function comment_load($cid = ''){
     return $comDet;
 }
 
+// get vocabulary id
+function _get_vid($vocabulary_name) {
+// replace dashes with spaces
+$vocabulary_name = str_replace('-', ' ', $vocabulary_name);
+
+// find the vid
+$result = db_query("SELECT vid FROM {vocabulary} WHERE name = '%s'", $vocabulary_name);
+$vid = db_fetch_object($result)->vid;
+
+if($vid) {
+return $vid;
+}
+else {
+return FALSE;
+}
+}

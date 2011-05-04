@@ -43,7 +43,11 @@ function report_percent($nid='') {
 
     $ans_array = array();
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
-        array_push($ans_array, $vlist[$ab]['chtext']);
+
+        $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
+        $answer = $short_answer!=''?$short_answer:$vlist[$ab]['chtext'];
+
+        array_push($ans_array, $answer);
         //array_push($ans_array, $vlist[$ab]['answer']);
     }
     $result = report_percent_broken($nid, '', $_REQUEST);
@@ -428,6 +432,11 @@ function report_graph($nid='') {
 //print_r($drange);
     $drange = array_reverse($drange);
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
+
+        // short answers
+        $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
+        $answer = $short_answer!=''?$short_answer:$vlist[$ab]['chtext'];
+
         $i = $ab + 1;
         $ans = array();
 
@@ -439,8 +448,8 @@ function report_graph($nid='') {
                 array_push($ans, $inc_this);
             }
             $ins_sc = '[' . implode(',', $ans) . ']';
-            array_push($grid, "'" . $vlist[$ab]['chtext'] . "'");
-            $insdata.="{name :'" . $vlist[$ab]['chtext'] . "', data: " . $ins_sc . "},";
+            array_push($grid, "'" . $answer . "'");
+            $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
 
             $dexp = explode('-', $srange['dat']);
 
@@ -461,8 +470,8 @@ function report_graph($nid='') {
                 array_push($ans, $inc_this);
             }
             $ins_sc = '[' . implode(',', $ans) . ']';
-            array_push($grid, "'" . $vlist[$ab]['chtext'] . "'");
-            $insdata.="{name :'" . $vlist[$ab]['chtext'] . "', data: " . $ins_sc . "},";
+            array_push($grid, "'" . $answer . "'");
+            $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
 
             $sdate = "Date.UTC(" . $year . "," . ($month - 1) . "," . (date("d") - 6) . ")";
             $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";

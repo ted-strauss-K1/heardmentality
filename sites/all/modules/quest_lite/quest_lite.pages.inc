@@ -2251,7 +2251,11 @@ function qlite_percent() {
 
     $ans_array = array();
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
-        array_push($ans_array, $vlist[$ab]['chtext']);
+
+        $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
+        $answer = $short_answer!=''?$short_answer:$vlist[$ab]['chtext'];
+        
+        array_push($ans_array, $answer);
         //array_push($ans_array, $vlist[$ab]['answer']);
     }
     $result = percent_broken($qid, '', $_REQUEST);
