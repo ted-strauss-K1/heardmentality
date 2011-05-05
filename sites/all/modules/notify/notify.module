@@ -2019,9 +2019,9 @@ INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%s)
-     WHERE b.`uid`IN (%s) AND a.status = 1  $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+     WHERE b.`uid`IN (%s) AND a.status = 1  $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,0,$limit));
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
-$query=db_query($sql, $uids, $uids, $start,$limit);
+$query=db_query($sql, $uids, $uids, 0,$limit);
 
             $i = 0;
 
