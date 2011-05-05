@@ -1,190 +1,169 @@
 <?php
+
 /**
  * Implementation of hook_perm().
  */
 function notify_perm() {
-  return array('notify','Notify Report','Notify Report Content','Notify Report Content2','Notify Report Content3','Admin Notification');
+    return array('notify', 'Notify Report', 'Notify Report Content', 'Notify Report Content2', 'Notify Report Content3', 'Admin Notification');
 }
-
 
 /**
  * Implementation of hook_menu().
  */
-
 function notify_menu() {
 
-$items['mynotify'] = array(
-    'title' => 'Notification',
-    'page callback' => 'my_notify_list',
-    'access arguments' => array('notify'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'notify.pages.inc',
-  );
+    $items['mynotify'] = array(
+        'title' => 'Notification',
+        'page callback' => 'my_notify_list',
+        'access arguments' => array('notify'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'notify.pages.inc',
+    );
 
- $items['notify/report'] = array(
-    'title' => 'Notification',
-    'page callback' => 'notify_report',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Notify Report'),
-    'file' => 'notify.pages.inc',
-  );
-  $items['notify/repcontent'] = array(
-    'title' => 'Notification',
-    'page callback' => 'notify_content',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Notify Report Content'),
-    'file' => 'notify.pages.inc',
-  );
- $items['message'] = array(
-    'title' => 'Notification',
-    'page callback' => 'mail_sent_reply',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Notify Report Content2'),
-    'file' => 'notify.pages.inc',
-  );
-  $items['reply'] = array(
-    'title' => 'Notification',
-    'page callback' => 'reply_box',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Notify Report Content3'),
-    'file' => 'notify.pages.inc',
-  );
+    $items['notify/report'] = array(
+        'title' => 'Notification',
+        'page callback' => 'notify_report',
+        'type' => MENU_CALLBACK,
+        'access arguments' => array('Notify Report'),
+        'file' => 'notify.pages.inc',
+    );
+    $items['notify/repcontent'] = array(
+        'title' => 'Notification',
+        'page callback' => 'notify_content',
+        'type' => MENU_CALLBACK,
+        'access arguments' => array('Notify Report Content'),
+        'file' => 'notify.pages.inc',
+    );
+    $items['message'] = array(
+        'title' => 'Notification',
+        'page callback' => 'mail_sent_reply',
+        'type' => MENU_CALLBACK,
+        'access arguments' => array('Notify Report Content2'),
+        'file' => 'notify.pages.inc',
+    );
+    $items['reply'] = array(
+        'title' => 'Notification',
+        'page callback' => 'reply_box',
+        'type' => MENU_CALLBACK,
+        'access arguments' => array('Notify Report Content3'),
+        'file' => 'notify.pages.inc',
+    );
 
     $items['admin/notification'] = array(
-    'title' => 'Change Notification Mail',
-    'page callback' => 'admin_notify',
-	   'type' => MENU_SUGGESTED_ITEM,
-	   'access arguments' => array('Admin Notification'),
-    'file' => 'notify.pages.inc',
-  );
+        'title' => 'Change Notification Mail',
+        'page callback' => 'admin_notify',
+        'type' => MENU_SUGGESTED_ITEM,
+        'access arguments' => array('Admin Notification'),
+        'file' => 'notify.pages.inc',
+    );
 
     $items['admin/notify/settings'] = array(
-    'title' => 'Notification Settings',
-    'page callback' => 'notify_settings',
-	   'type' => MENU_SUGGESTED_ITEM,
-	   'access arguments' => array('Admin Notification'),
-    'file' => 'notify.pages.inc',
-  );
-   $items['admin/notify/messages'] = array(
-    'title' => 'Notification Messages',
-    'page callback' => 'notify_messages',
-	   'type' => MENU_SUGGESTED_ITEM,
-	   'access arguments' => array('Admin Notification'),
-    'file' => 'notify.pages.inc',
-  );
+        'title' => 'Notification Settings',
+        'page callback' => 'notify_settings',
+        'type' => MENU_SUGGESTED_ITEM,
+        'access arguments' => array('Admin Notification'),
+        'file' => 'notify.pages.inc',
+    );
+    $items['admin/notify/messages'] = array(
+        'title' => 'Notification Messages',
+        'page callback' => 'notify_messages',
+        'type' => MENU_SUGGESTED_ITEM,
+        'access arguments' => array('Admin Notification'),
+        'file' => 'notify.pages.inc',
+    );
 
-  $items['admin/save_notify'] = array(
-    'title' => 'Notification',
-    'page callback' => 'admin_notify_save',
-	   'type' => MENU_CALLBACK,
-	   'access arguments' => array('Admin Notification'),
-    'file' => 'notify.pages.inc',
-  );
+    $items['admin/save_notify'] = array(
+        'title' => 'Notification',
+        'page callback' => 'admin_notify_save',
+        'type' => MENU_CALLBACK,
+        'access arguments' => array('Admin Notification'),
+        'file' => 'notify.pages.inc',
+    );
 
-$items['notify/stream/%'] = array(
-    'title' => 'Notification',
-    'page callback' => 'notify_stream',
-	   'type' => MENU_CALLBACK,
-           'page arguments' => array(2),
-	   'access arguments' => array('notify'),
-    'file' => 'notify.pages.inc',
-  );
+    $items['notify/stream/%'] = array(
+        'title' => 'Notification',
+        'page callback' => 'notify_stream',
+        'type' => MENU_CALLBACK,
+        'page arguments' => array(2),
+        'access arguments' => array('notify'),
+        'file' => 'notify.pages.inc',
+    );
 
 
-  return $items;
+    return $items;
 }
 
-
-
-
-
-
-
 function forum_post() {
-    global $gSitePath,$user;
+    global $gSitePath, $user;
 
-	$output = '';
-         $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!='' order by id desc limit 0,5";
+    $output = '';
+    $sel_follow = "select * from follower where uid='" . $user->uid . "' and follower_id!='' order by id desc limit 0,5";
 
-         $get_follow = db_query($sel_follow);
-		  $output .= '<div id="">';
-  while($fet_follow = db_fetch_object($get_follow))
-  {
-         $test_forum = "select * from forum_wave where uid='$fet_follow->follower_id' group by qid_rid order by fid desc limit 0,5";
-         $test_follow = db_query($test_forum);
-         $output.='<ul><li>';
-         while($test_fet = db_fetch_object($test_follow))
-         {
-             if(strlen($ques_fet->question)>40)
-                    {
-                        $bubble_question = 'title="'. htmlentities(wordwrap($ques_fet->question, 40,'<br/>')).'"';
-                    }
-                    else
-                    {
-                        $bubble_question = '';
-                    }
+    $get_follow = db_query($sel_follow);
+    $output .= '<div id="">';
+    while ($fet_follow = db_fetch_object($get_follow)) {
+        $test_forum = "select * from forum_wave where uid='$fet_follow->follower_id' group by qid_rid order by fid desc limit 0,5";
+        $test_follow = db_query($test_forum);
+        $output.='<ul><li>';
+        while ($test_fet = db_fetch_object($test_follow)) {
+            if (strlen($ques_fet->question) > 40) {
+                $bubble_question = 'title="' . htmlentities(wordwrap($ques_fet->question, 40, '<br/>')) . '"';
+            } else {
+                $bubble_question = '';
+            }
 
-             $ques_qry = "select * from question where qid='$test_fet->qid_rid'";
-              $ques_row = db_query($ques_qry);
-              $ques_fet = db_fetch_object($ques_row);
-          
-             $output .='<div><a href="'.$gSitePath.$ques_fet->url.'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$ques_fet->qid).'">'. substr($ques_fet->question,0,20).'...'.'</a></div>';
+            $ques_qry = "select * from question where qid='$test_fet->qid_rid'";
+            $ques_row = db_query($ques_qry);
+            $ques_fet = db_fetch_object($ques_row);
 
-             $forum_query = "select * from forum_wave where qid_rid='$ques_fet->qid' order by fid desc limit 0,5";
+            $output .='<div><a href="' . $gSitePath . $ques_fet->url . '?ajax=1" ' . $bubble_question . ' style="' . drupal_link_color($user->uid, $ques_fet->qid) . '">' . substr($ques_fet->question, 0, 20) . '...' . '</a></div>';
+
+            $forum_query = "select * from forum_wave where qid_rid='$ques_fet->qid' order by fid desc limit 0,5";
 
             $forum_list = ExecuteQuery($forum_query, "select");
 
-             foreach ($forum_list as $list) {
-                 $click = 'loadwave('.$list['qid_rid'].','.$list['fid'].')';
+            foreach ($forum_list as $list) {
+                $click = 'loadwave(' . $list['qid_rid'] . ',' . $list['fid'] . ')';
 
-                  $output.='
-                    <div><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$list['title'].'</a><div>';
-             }
-
-
-
-         }
-         $output.='</li></ul>';
+                $output.='
+                    <div><a href="javascript:void(0);" onclick="' . $click . '" style="color: black">' . $list['title'] . '</a><div>';
+            }
+        }
+        $output.='</li></ul>';
 
 
 
-      /*$output.='<li>';
+        /* $output.='<li>';
 
-        $test_forum = "select * from forum_wave where uid='$fet_follow->follower_id' order by fid desc";
-         $test_follow = db_query($test_forum);
+          $test_forum = "select * from forum_wave where uid='$fet_follow->follower_id' order by fid desc";
+          $test_follow = db_query($test_forum);
           $test_fet = db_fetch_object($test_follow);
-        $vSql = "select * from question where uid='".$test_fet->qid_rid."' order by qid desc limit 0,5";
-     // $vSql = "select * from question where uid='".$fet_follow->follower_id."' order by qid desc limit 0,5";
+          $vSql = "select * from question where uid='".$test_fet->qid_rid."' order by qid desc limit 0,5";
+          // $vSql = "select * from question where uid='".$fet_follow->follower_id."' order by qid desc limit 0,5";
 
           $sql_follow = db_query($vSql);
           while($sql_fet = db_fetch_object($sql_follow))
           {
-            $output .='<div><a href="'.$gSitePath.$sql_fet->url.'?ajax=1" title="'.htmlentities(wordwrap($sql_fet->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$sql_fet->qid).'">'. substr($sql_fet->question,0,20).'...'.'</a></div>';
+          $output .='<div><a href="'.$gSitePath.$sql_fet->url.'?ajax=1" title="'.htmlentities(wordwrap($sql_fet->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$sql_fet->qid).'">'. substr($sql_fet->question,0,20).'...'.'</a></div>';
 
-            $forum_query = "select * from forum_wave where qid_rid='$sql_fet->qid' order by fid desc limit 0,5";
+          $forum_query = "select * from forum_wave where qid_rid='$sql_fet->qid' order by fid desc limit 0,5";
 
-            $forum_list = ExecuteQuery($forum_query, "select");
+          $forum_list = ExecuteQuery($forum_query, "select");
 
-             foreach ($forum_list as $list) {
-                 $click = 'loadwave('.$list['qid_rid'].','.$list['fid'].')';
+          foreach ($forum_list as $list) {
+          $click = 'loadwave('.$list['qid_rid'].','.$list['fid'].')';
 
-                  $output.='
-                    <div><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$list['title'].'</a><div>';
-             }
+          $output.='
+          <div><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$list['title'].'</a><div>';
+          }
 
           }
-           $output.='</li>';*/
-
-
-
-
-
-  }
-        $output.='</div>';
-        if($forum_list<1)
-      {
-          $output = "No records";
-      }
+          $output.='</li>'; */
+    }
+    $output.='</div>';
+    if ($forum_list < 1) {
+        $output = "No records";
+    }
 
 //	 $vSql = "select *,q.uid as uid from {question} as q left join {user_profile} as u on q.uid=u.uid where  q.qid='" . $qid . "'  ";
 //	    $rlist = db_query($vSql);
@@ -226,471 +205,696 @@ function forum_post() {
     return $output;
 }
 
+function notify_messages() {
 
-
-function notify_category()
-{
-
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-
-
- //select * from category as c join follower as f on f.cat_id=c.
-
-
- $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0";
-   $get_follow = db_query($sel_follow);
-
-
-  while($fet_follow = db_fetch_object($get_follow))
-  {
-        $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
-	$rs_folwin=db_query($sel_flow);
-         $count =  mysql_num_rows($rs_folwin);
-	$questlist='<div class="">
-		<ul>';
-       $chk = '';
-	while($flwing_result=db_fetch_object($rs_folwin))
-	{
-	$sel_suge="select * from category   where cat_id=".$flwing_result->cat_id."";
-	$mm=db_query($sel_suge);
-
-	$ans_result=db_fetch_object($mm);
-        $questlist .='<li><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'" >'.$ans_result->cat_name.'</a></li>';
-	}
-  }
-
-
-$questlist.='</ul></div>';
-     if($count==0)
-      {
-          $questlist = "No records";
-      }
-
-	return $questlist;
+        return drupal_get_form('notify_messages_form');
 }
 
-function notify_badges()
-{
-     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-     $badges.='';
+function notify_messages_form(&$form_state) {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $limit = 3;
+    // Our form array
+    $form = array();
+    $status = array();
+
+    $query = "SELECT * from {notify_activity} as n left join {notify_messages} as m on n.message_id=m.message_id  order by n.naid ASC";
+    //$rs = db_query($query);
+
+    $count = db_result(db_query("SELECT count(*) from {notify_activity} as n left join {notify_messages} as m on n.message_id=m.message_id"));
+    $result = pager_query(db_rewrite_sql($query), $limit);
+
+    while ($note = db_fetch_object($result)) {
+        // Store the nid for our checkboxes 'options'
+        $msgids[$note->naid] = '';
+        // We're just going to grab a few fields for now to make things simple
+        // but this data could be anything from any database table
+        // The important thing to note is that we're just putting this data
+        // in the form as markup
+        $form['message'][$note->naid] = array(
+            '#type' => 'markup',
+            '#value' => $note->message,
+        );
+        $form['desc'][$note->naid] = array(
+            '#type' => 'markup',
+            '#value' => theme('notify_' . $note->message_id, $note),
+        );
+        $userdet = user_load($note->uid);
+        $form['muser'][$note->naid] = array(
+            '#type' => 'markup',
+            '#value' => l($userdet->name, $userpath),
+        );
+        if ($note->status)
+            $status[] = '';
+    }
+    // This is the checkboxes form element.
+    // We're passing in the $nodes array which is just an array of the
+    // Node nids that we looped through above. This will produce a checkbox
+    // for each node
+    $form['status'] = array(
+        '#type' => 'checkboxes',
+        '#options' => $msgids,
+        '#default_value' => $status
+    );
+
+    // The update button
+    $form['update'] = array(
+        '#type' => 'submit',
+        '#value' => t('Delete'),
+    );
+    $form['pager'] = array('#value' => theme('pager', NULL, $limit, 0));
+    $form['#theme'] = 'notify_message_form';
+    //   echo '<pre>';print_r($form);
+    return $form;
+}
+
+function theme_notify_message_form($form) {
+    // Our header information
+    $header = array(
+        // This is the magic that creates the 'select all' box
+        theme('table_select_header_cell'),
+        array('data' => t('Message ')),
+        array('data' => t('Description')),
+        array('data' => t(' Done by ')),
+    );
+
+    // A variable to hold the row information for each table row
+    $rows = array();
+    $form['pager']['#value'] = !empty($form['pager']['#value']) ? $form['pager']['#value'] : '';
+
+    // element_children filters out any form properties from an array
+    // (i.e. items whose keys have a '#' before them) and leaves us
+    // with an array of the leftover keys
+    // So, this next bit will loop through the available nids that we're
+    // using to numerate our form data and create render out the data
+    // to our table. To get an idea of what your form data looks like
+    // uncomment the following lines (make sure you have the devel module on!)
+    // dpm($form);
+    // dpm($form['title']);
+    // dpm(element_children($form['title']));
+    foreach (element_children($form['message']) as $key) {
+        $rows[] = array(//row
+            'data' => array(//row data
+                array(//Cell1
+                    // $form['nodes'] now contains individual checkbox form elements!
+                    'data' => drupal_render($form['status'][$key]),
+                    'class' => '',
+                ),
+                array(//Cell2
+                    'data' => drupal_render($form['message'][$key]),
+                    'class' => '',
+                ),
+                array(//Cell3
+                    'data' => drupal_render($form['desc'][$key]),
+                    'class' => '',
+                ),
+                array(//Cell4
+                    'data' => drupal_render($form['muser'][$key]),
+                    'class' => '',
+                ),
+            ), //endrow
+            'class' => '', //row class
+        ); //endrow
+    }
+
+    // With our data all formatted nicely, we can just use theme_table
+    // To produce our table
+    $output = theme('table', $header, $rows, array('class' => 'delete_nodes'));
+
+    // The function drupal_render() Keeps track of all rendered elements
+    // And makes sure it doesn't render the same item twice. Running
+    // drupal_render on the form at the end just renders what's left:
+    // the delete button
+    $output .= drupal_render($form);
+    if ($form['pager']['#value']) {
+        $output .= drupal_render($form['pager']);
+    }
+
+    // And we return the output
+    return $output;
+}
+
+function notify_messages_form_submit($form, &$form_state) {
+    // array_filter will remove any array items that evaluate to FALSE
+    $form_values = $form['values'];
+    $featured = $form_values['status'];
+    $nodes = $form_state['values']['status'];
+
+    foreach ($nodes as $key => $value) {
+
+        if ($value) {
+            db_query("delete from {notify_activity} where naid='$key' ");
+        
+    }
+}
+    drupal_set_message(t('Selected Messages has been deleted successfully!'));
+
+}
+
+function notify_settings() {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+    return drupal_get_form('notify_activity_form');
+}
+
+function notify_activity_form(&$form_state) {
+    global $user;
+
+    // Our form array
+    $form = array();
+    $status = array();
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $query = "SELECT * from {notify_messages} order by mid ASC";
+    $rs = db_query($query);
+
+
+    while ($note = db_fetch_object($rs)) {
+        // Store the nid for our checkboxes 'options'
+        $msgids[$note->mid] = '';
+        // We're just going to grab a few fields for now to make things simple
+        // but this data could be anything from any database table
+        // The important thing to note is that we're just putting this data
+        // in the form as markup
+        $form['message'][$note->mid] = array(
+            '#type' => 'markup',
+            '#value' => $note->message,
+        );
+        $form['desc'][$note->mid] = array(
+            '#type' => 'markup',
+            '#value' => $note->description,
+        );
+        if ($note->status)
+            $status[] = $note->mid;
+    }
+    // This is the checkboxes form element.
+    // We're passing in the $nodes array which is just an array of the
+    // Node nids that we looped through above. This will produce a checkbox
+    // for each node
+    $form['status'] = array(
+        '#type' => 'checkboxes',
+        '#options' => $msgids,
+        '#default_value' => $status
+    );
+
+    // The update button
+    $form['update'] = array(
+        '#type' => 'submit',
+        '#value' => t('Update Message Status'),
+    );
+
+    $form['#theme'] = 'notify_settings_form';
+    return $form;
+}
+function notify_activity_form_confirm(&$form_state, $ids) {
+
+    $form['status'] = array('#type' => 'hidden', '#value' => $ids,);
+
+    return confirm_form($form, t('Are you sure you want to delete this messages?'), isset($_GET['destination']) ? $_GET['destination'] : "admin/notify/messages", t('This action cannot be undone.'), t('Delete'), t('Cancel'));
+}
+function notify_activity_form_submit($form, &$form_state) {
+    // array_filter will remove any array items that evaluate to FALSE
+    $form_values = $form['values'];
+    $featured = $form_values['status'];
+if ($form_state['values']['confirm']) {
+
+    $nodes = $form_state['values']['status'];
+
+    foreach ($nodes as $key => $value) {
+
+        if ($value) {
+            db_query("update {notify_messages} set status='1' where mid='$key' ");
+        } else {
+            db_query("update {notify_messages} set status='0' where mid='$key' ");
+        }
+    }
+
+    drupal_set_message(t('Notification status has been updated!'));
+}
+drupal_goto('admin/notify/messages');
+}
+
+function theme_notify_settings_form($form) {
+    // Our header information
+    $header = array(
+        // This is the magic that creates the 'select all' box
+        theme('table_select_header_cell'),
+        array('data' => t('Message ')),
+        array('data' => t('Description')),
+    );
+
+    // A variable to hold the row information for each table row
+    $rows = array();
+    // element_children filters out any form properties from an array
+    // (i.e. items whose keys have a '#' before them) and leaves us
+    // with an array of the leftover keys
+    // So, this next bit will loop through the available nids that we're
+    // using to numerate our form data and create render out the data
+    // to our table. To get an idea of what your form data looks like
+    // uncomment the following lines (make sure you have the devel module on!)
+    // dpm($form);
+    // dpm($form['title']);
+    // dpm(element_children($form['title']));
+    foreach (element_children($form['message']) as $key) {
+        $rows[] = array(//row
+            'data' => array(//row data
+                array(//Cell1
+                    // $form['nodes'] now contains individual checkbox form elements!
+                    'data' => drupal_render($form['status'][$key]),
+                    'class' => '',
+                ),
+                array(//Cell2
+                    'data' => drupal_render($form['message'][$key]),
+                    'class' => '',
+                ),
+                array(//Cell3
+                    'data' => drupal_render($form['desc'][$key]),
+                    'class' => '',
+                ),
+            ), //endrow
+            'class' => '', //row class
+        ); //endrow
+    }
+
+    // With our data all formatted nicely, we can just use theme_table
+    // To produce our table
+    $output = theme('table', $header, $rows, array('class' => 'delete_nodes'));
+
+    // The function drupal_render() Keeps track of all rendered elements
+    // And makes sure it doesn't render the same item twice. Running
+    // drupal_render on the form at the end just renders what's left:
+    // the delete button
+    $output .= drupal_render($form);
+
+    // And we return the output
+    return $output;
+}
+
+function notify_category() {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+
+    //select * from category as c join follower as f on f.cat_id=c.
+
+
+    $sel_follow = "select * from follower where uid='" . $user->uid . "' and follower_id!=0 and cat_id=0";
+    $get_follow = db_query($sel_follow);
+
+
+    while ($fet_follow = db_fetch_object($get_follow)) {
+        $sel_flow = "select * from follower where uid='" . $fet_follow->follower_id . "' and  cat_id!=''";
+        $rs_folwin = db_query($sel_flow);
+        $count = mysql_num_rows($rs_folwin);
+        $questlist = '<div class="">
+		<ul>';
+        $chk = '';
+        while ($flwing_result = db_fetch_object($rs_folwin)) {
+            $sel_suge = "select * from category   where cat_id=" . $flwing_result->cat_id . "";
+            $mm = db_query($sel_suge);
+
+            $ans_result = db_fetch_object($mm);
+            $questlist .='<li><a href="' . $gSitePath . 'searchquestion?cid=' . $ans_result->cat_id . '" >' . $ans_result->cat_name . '</a></li>';
+        }
+    }
+
+
+    $questlist.='</ul></div>';
+    if ($count == 0) {
+        $questlist = "No records";
+    }
+
+    return $questlist;
+}
+
+function notify_badges() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $badges.='';
 
     //$imageresult=UserPicture($uid);
-     //SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid
+    //SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid
 
-   $sel_follow="select * from follower where uid='".$user->uid."' and cat_id=0 and question_id=0 and follower_status=1 order by id desc limit 0,5";
-   $get_follow = db_query($sel_follow);
-   while($fet_follow = db_fetch_object($get_follow))
-  {
+    $sel_follow = "select * from follower where uid='" . $user->uid . "' and cat_id=0 and question_id=0 and follower_status=1 order by id desc limit 0,5";
+    $get_follow = db_query($sel_follow);
+    while ($fet_follow = db_fetch_object($get_follow)) {
 
 
-     $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='".$fet_follow->follower_id."' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='".$fet_follow->follower_id."' and ub.status='1' group by ub.bid order by ub.date_added desc limit 0,5";
-     $badgelist = ExecuteQuery($getbadges, "select");
-    
-      $badges .='<div class="">
+        $getbadges = "SELECT *,(select count(*) from {user_badges} where uid='" . $fet_follow->follower_id . "' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='" . $fet_follow->follower_id . "' and ub.status='1' group by ub.bid order by ub.date_added desc limit 0,5";
+        $badgelist = ExecuteQuery($getbadges, "select");
+
+        $badges .='<div class="">
 		<ul>';
         foreach ($badgelist as $badgeach) {
 
             $badges .='<li>' . $badgeach['name'] . '</b>[' . $badgeach['bcnt'] . ']</li>';
-            $badges .='<div>On '.date("j M Y", strtotime($badgeach['date_added'])).'</div>';
+            $badges .='<div>On ' . date("j M Y", strtotime($badgeach['date_added'])) . '</div>';
         }
+    }
 
-  }
 
 
-   
     if (empty($badgelist)) {
 
         $badges .='<li><h3>No Badges Yet !</h3></li>';
     }
-     $badges .='</ul></div>';
+    $badges .='</ul></div>';
 
-     return $badges;
-
+    return $badges;
 }
 
-/*function notify_category()
-{
-   global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-   $sel_follow="select * from follower where cat_id!=0 and ";
-   $get_follow = db_query($sel_follow);
+/* function notify_category()
+  {
+  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+  $sel_follow="select * from follower where cat_id!=0 and ";
+  $get_follow = db_query($sel_follow);
 
-$questlist='<div class="">
-		<ul>';
+  $questlist='<div class="">
+  <ul>';
   while($fet_follow = db_fetch_object($get_follow))
   {
 
-      $cat_qry = "select * from question_cat where cat='".$fet_follow->cat_id."'";
-      $cat_res = db_query($cat_qry);
-       while($cat_rows = db_fetch_object($cat_res))
-       {
-           $ques_qry = "select * from question where qid='".$cat_rows->qid."'";
-           $ques_res = db_query($ques_qry);
-           $ques_rows = db_fetch_object($ques_res);
+  $cat_qry = "select * from question_cat where cat='".$fet_follow->cat_id."'";
+  $cat_res = db_query($cat_qry);
+  while($cat_rows = db_fetch_object($cat_res))
+  {
+  $ques_qry = "select * from question where qid='".$cat_rows->qid."'";
+  $ques_res = db_query($ques_qry);
+  $ques_rows = db_fetch_object($ques_res);
 
-       $questlist .='<li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li>';
-       }
+  $questlist .='<li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li>';
   }
-$questlist.='</ul></div>';
-if(count($cat_rows)<1)
-      {
-          $questlist = "No records";
-      }
+  }
+  $questlist.='</ul></div>';
+  if(count($cat_rows)<1)
+  {
+  $questlist = "No records";
+  }
 
-	return $questlist;
-}*/
-
-
-
+  return $questlist;
+  } */
 
 
 
 
-/*function notify_questions()
-{
 
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
 
- $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
+
+/* function notify_questions()
+  {
+
+  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+  $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
 
   $get_follow = db_query($sel_follow);
- while($fet_follow = db_fetch_object($get_follow))
+  while($fet_follow = db_fetch_object($get_follow))
   // $fet_follow->follower_id;
- {
-        $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
+  {
+  $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and question_id!=''";
 
 
-	$rs_folwin=db_query($sel_flow);
-	$questlist='
-		<div id="">
+  $rs_folwin=db_query($sel_flow);
+  $questlist='
+  <div id="">
 
-		<ul>';
-       $chk = '';
-	while($flwing_result=db_fetch_object($rs_folwin))
-	{
+  <ul>';
+  $chk = '';
+  while($flwing_result=db_fetch_object($rs_folwin))
+  {
 
-        $questlist.='<li>';
-              $sel_count="select count(*) as count from possible_answer_vote  where qid=".$flwing_result->question_id."";
-              $ss = db_query($sel_count);
-              $sel_result=db_fetch_object($ss);
-              if($sel_result->count!='')
-              {
+  $questlist.='<li>';
+  $sel_count="select count(*) as count from possible_answer_vote  where qid=".$flwing_result->question_id."";
+  $ss = db_query($sel_count);
+  $sel_result=db_fetch_object($ss);
+  if($sel_result->count!='')
+  {
 
-	 $sel_suge="select * from question  where qid=".$flwing_result->question_id."  ";
-
-
-	$mm=db_query($sel_suge);
-
-	$ans_result=db_fetch_object($mm);
-              }
-        $questlist .='<div><a href="'.$gSitePath.$ans_result->url.'">'.$ans_result->question.'</a></div>';
-         $questlist.='</li>';
-	}
- }
-
-$questlist.='</ul></div>';
-//        if($rs_folfet->count==0)
-//        {
-//            $questlist = "No records";
-//        }
-
-	return $questlist;
-}*/
+  $sel_suge="select * from question  where qid=".$flwing_result->question_id."  ";
 
 
-function notify_based_category()
-{
-   global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+  $mm=db_query($sel_suge);
 
-   
-   $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 order by joindate desc limit 0,5";
-   $get_follow = db_query($sel_follow);
+  $ans_result=db_fetch_object($mm);
+  }
+  $questlist .='<div><a href="'.$gSitePath.$ans_result->url.'">'.$ans_result->question.'</a></div>';
+  $questlist.='</li>';
+  }
+  }
 
-   // for scroll box innerbox_notify
-   $questlist  .= '<div><b>Notify based category</b></div>';
+  $questlist.='</ul></div>';
+  //        if($rs_folfet->count==0)
+  //        {
+  //            $questlist = "No records";
+  //        }
+
+  return $questlist;
+  } */
+
+function notify_based_category() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+
+    $sel_follow = "select * from follower where uid='" . $user->uid . "' and follower_id!=0 and cat_id=0 order by joindate desc limit 0,5";
+    $get_follow = db_query($sel_follow);
+
+    // for scroll box innerbox_notify
+    $questlist .= '<div><b>Notify based category</b></div>';
     $questlist .='<div style="border-bottom:1px solid black">
 		<ul class="menu">';
 
-  while($fet_follow = db_fetch_object($get_follow))
-  {
+    while ($fet_follow = db_fetch_object($get_follow)) {
 
-         $wer_qry = "select * from follower where uid='".$fet_follow->follower_id."' and follower_id=0 and cat_id!=0 order by joindate desc limit 0,5";
-        
+        $wer_qry = "select * from follower where uid='" . $fet_follow->follower_id . "' and follower_id=0 and cat_id!=0 order by joindate desc limit 0,5";
+
         $db_res = db_query($wer_qry);
-         while($db_rows = db_fetch_object($db_res))
-        {
+        while ($db_rows = db_fetch_object($db_res)) {
 
 
 
-              $cat_qry = "select * from question_cat where cat='".$db_rows->cat_id."'";
-              $cat_res = db_query($cat_qry);
-              if(mysql_affected_rows()>=1)
-              {
-              $category_qry = "select * from category where cat_id='".$db_rows->cat_id."' order by cat_id desc limit 0,5 ";
-              $category_res = db_query($category_qry);
-              $category_rows = db_fetch_object($category_res);
-             // $questlist .='<div><a href="'.$gSitePath.'" style="color:black">'.$category_rows->cat_name.'</a></div>';
-              }
+            $cat_qry = "select * from question_cat where cat='" . $db_rows->cat_id . "'";
+            $cat_res = db_query($cat_qry);
+            if (mysql_affected_rows() >= 1) {
+                $category_qry = "select * from category where cat_id='" . $db_rows->cat_id . "' order by cat_id desc limit 0,5 ";
+                $category_res = db_query($category_qry);
+                $category_rows = db_fetch_object($category_res);
+                // $questlist .='<div><a href="'.$gSitePath.'" style="color:black">'.$category_rows->cat_name.'</a></div>';
+            }
 
-               while($cat_rows = db_fetch_object($cat_res))
-               {
-                    $ques_qry = "select * from question where qid='".$cat_rows->qid."' order by qid desc limit 0,5";
-                   $ques_res = db_query($ques_qry);
-                   $ques_rows = db_fetch_object($ques_res);
+            while ($cat_rows = db_fetch_object($cat_res)) {
+                $ques_qry = "select * from question where qid='" . $cat_rows->qid . "' order by qid desc limit 0,5";
+                $ques_res = db_query($ques_qry);
+                $ques_rows = db_fetch_object($ques_res);
 
-              // $questlist .='<span>'.UserPicture_small($ques_rows->uid).'</span><li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li>';
-
+                // $questlist .='<span>'.UserPicture_small($ques_rows->uid).'</span><li><a href="'.$gSitePath.$ques_rows->url.'">'.$ques_rows->question.'</a></li>';
                 // $vote=load_votes($ques_rows->qid);
-
-                 //$questlist .= '<div>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</div>';
-
-
-                  if(strlen($ques_rows->question)>40)
-                    {
-                        $bubble_question = 'title="'. htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'"';
-                    }
-                    else
-                    {
-                        $bubble_question = '';
-                    }
+                //$questlist .= '<div>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</div>';
 
 
-                   $udetails=load_user($ques_rows->uid);
-                   $bubble = load_bubble($udetails->uid);
-                    $vote=load_votes($ques_rows->qid);
-                    
+                if (strlen($ques_rows->question) > 40) {
+                    $bubble_question = 'title="' . htmlentities(wordwrap($ques_rows->question, 40, '<br/>')) . '"';
+                } else {
+                    $bubble_question = '';
+                }
+
+
+                $udetails = load_user($ques_rows->uid);
+                $bubble = load_bubble($udetails->uid);
+                $vote = load_votes($ques_rows->qid);
 
 
 
-                   if($ques_rows->question!='')
-                   {
-                   $questlist .= '<div class="notify_cat1">
+
+                if ($ques_rows->question != '') {
+                    $questlist .= '<div class="notify_cat1">
                        
-                       <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($ques_rows->uid).'</a></div>
+                       <div class="notify_cat2"><a rel=\'' . $bubble . '\' href="' . $gSitePath . '/profile/' . $udetails->name . '">' . UserPicture_small($ques_rows->uid) . '</a></div>
                            
-                       <div class="notify_cat3"><p><li><a href="'.$gSitePath.$ques_rows->url.'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$ques_rows->qid).'">'.substr($ques_rows->question,0,70).'</a></li></p><p>'.$vote['qns'].' Votes  '.$vote['forum'].' Posts</p></div>
+                       <div class="notify_cat3"><p><li><a href="' . $gSitePath . $ques_rows->url . '?ajax=1" ' . $bubble_question . ' style="' . drupal_link_color($user->uid, $ques_rows->qid) . '">' . substr($ques_rows->question, 0, 70) . '</a></li></p><p>' . $vote['qns'] . ' Votes  ' . $vote['forum'] . ' Posts</p></div>
                    </div>';
-                   }
+                }
 
 
-                 /*$questlist .= '<div style="width:280px;padding:1px;margin-top:2px;">
-                       <div style="width:64px; height:63px; float:left"><img src="'.$gSitePath.'sites/all/modules/profile/snap/noimage.jpg" width="63" height="53"></div>
-                       <div style="float:right;width:200px"><p>dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since</p><p>9 Votes  9 Posts</p></div>
-                   </div>';*/
-
-               }
-         }
-
-
-
-
-
-  }
+                /* $questlist .= '<div style="width:280px;padding:1px;margin-top:2px;">
+                  <div style="width:64px; height:63px; float:left"><img src="'.$gSitePath.'sites/all/modules/profile/snap/noimage.jpg" width="63" height="53"></div>
+                  <div style="float:right;width:200px"><p>dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since</p><p>9 Votes  9 Posts</p></div>
+                  </div>'; */
+            }
+        }
+    }
 
 
 
 
-$questlist.='</ul></div>';
-if(count($cat_rows)<1)
-      {
-          $questlist = "No records";
-      }
+    $questlist.='</ul></div>';
+    if (count($cat_rows) < 1) {
+        $questlist = "No records";
+    }
 
-	return $questlist;
+    return $questlist;
 }
 
+function notify_questionstop() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
-function notify_questionstop(){
-     global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    $numrancntss = db_result(db_query("SELECT COUNT(*)  from notification as a, question as b  where a.uid=" . $user->uid . " and a.follower_action='1'  and a.is_question='1' and a.node_id=b.qid  and b.status='1'  order by a.nid desc  "));
 
-$numrancntss = db_result(db_query("SELECT COUNT(*)  from notification as a, question as b  where a.uid=".$user->uid." and a.follower_action='1'  and a.is_question='1' and a.node_id=b.qid  and b.status='1'  order by a.nid desc  "));
+    $numrancntss;
 
- $numrancntss;
+    $sel_flow = "select * from notification as a, question as b  where a.uid=" . $user->uid . " and a.follower_action='1'  and a.is_question='1' and a.node_id=b.qid  and b.status='1'  order by a.nid desc ";
 
-	 $sel_flow="select * from notification as a, question as b  where a.uid=".$user->uid." and a.follower_action='1'  and a.is_question='1' and a.node_id=b.qid  and b.status='1'  order by a.nid desc ";
-
-	$rs_folwin=db_query($sel_flow);
-	$questlist='
-		<form id="cmtform" name="cmtform" method="post" action="'.$gSitePath.'question/reply" ><div id="container">
+    $rs_folwin = db_query($sel_flow);
+    $questlist = '
+		<form id="cmtform" name="cmtform" method="post" action="' . $gSitePath . 'question/reply" ><div id="container">
 		<div class="feature">
 		<div class="l col">
 		<ul>';
-       $chk = '';
-       $i=0;
-	while($flwing_result=db_fetch_object($rs_folwin))
-	{
+    $chk = '';
+    $i = 0;
+    while ($flwing_result = db_fetch_object($rs_folwin)) {
 
-	$sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='".$flwing_result->uid."'";
-	$rs_umlog=db_query($sel_ulist);
-	$user_namelistf=db_fetch_object($rs_umlog);
+        $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $flwing_result->uid . "'";
+        $rs_umlog = db_query($sel_ulist);
+        $user_namelistf = db_fetch_object($rs_umlog);
 
-	$sel_suge="select * from possible_answer  where qid=".$flwing_result->qid."  ";
-	$mm=db_query($sel_suge);
+        $sel_suge = "select * from possible_answer  where qid=" . $flwing_result->qid . "  ";
+        $mm = db_query($sel_suge);
 
 
-		$questlist.='<li>
-	<h3><input type="checkbox" class="check-me" name="usids['.$i.']" value="'.$flwing_result->uid.'" /> <a href="'.$gSitePath.'profile/'.$user_namelistf->name.'" style="'.drupal_link_color($user->uid,$flwing_result->qid).'"> '.$user_namelistf->name.' </a> <br><a href="'.$gSitePath.'notify/'.$flwing_result->url.'">'.substr($flwing_result->question,0,10).'</a>      </h3><div>'.$flwing_result->context.'</div>
+        $questlist.='<li>
+	<h3><input type="checkbox" class="check-me" name="usids[' . $i . ']" value="' . $flwing_result->uid . '" /> <a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" style="' . drupal_link_color($user->uid, $flwing_result->qid) . '"> ' . $user_namelistf->name . ' </a> <br><a href="' . $gSitePath . 'notify/' . $flwing_result->url . '">' . substr($flwing_result->question, 0, 10) . '</a>      </h3><div>' . $flwing_result->context . '</div>
 	';
 
-	   $numrand = db_fetch_object(db_query("SELECT * from {possible_answer_vote} where qid=".$flwing_result->qid." and uid=".$user->uid." "));
+        $numrand = db_fetch_object(db_query("SELECT * from {possible_answer_vote} where qid=" . $flwing_result->qid . " and uid=" . $user->uid . " "));
 
-  $seltd = '';
-	while($ans_result=db_fetch_object($mm))
-	{
-	 $seltd = '';
-   if ($numrand->panswer_id ==$ans_result->paid)
-     {
-	 $seltd='checked="checked"';
-     }
-	$questlist.=' <input name="'.$flwing_result->qid.'" type="radio" value="'.$ans_result->paid.'" '.$seltd.' />'.$ans_result->answer.'<br>';
-
-	}
+        $seltd = '';
+        while ($ans_result = db_fetch_object($mm)) {
+            $seltd = '';
+            if ($numrand->panswer_id == $ans_result->paid) {
+                $seltd = 'checked="checked"';
+            }
+            $questlist.=' <input name="' . $flwing_result->qid . '" type="radio" value="' . $ans_result->paid . '" ' . $seltd . ' />' . $ans_result->answer . '<br>';
+        }
         $i++;
-	}
+    }
 
-$questlist.='</ul></div>
+    $questlist.='</ul></div>
 	</div>
 
 	</div>
 	';
-	if($numrancntss==0)
-	{
-	$questlist='No Notifications';
-	}
-	else
-	{
-	$questlist.='<div><div id="clist"></div><div id="showbox_cmt" align="left" style="width:100%;display:none"><label for="cmt_txt"><b> Message :</b></label><br/><textarea name="cmt_txt" cols="55" row="17" id="cmt_txt"></textarea><input type="hidden" id="action" name="action" value="1"/> </div><input type="button" name="Votes" value="Votes" onclick="get_votes(1);"/>
+    if ($numrancntss == 0) {
+        $questlist = 'No Notifications';
+    } else {
+        $questlist.='<div><div id="clist"></div><div id="showbox_cmt" align="left" style="width:100%;display:none"><label for="cmt_txt"><b> Message :</b></label><br/><textarea name="cmt_txt" cols="55" row="17" id="cmt_txt"></textarea><input type="hidden" id="action" name="action" value="1"/> </div><input type="button" name="Votes" value="Votes" onclick="get_votes(1);"/>
 	<input type="button" name="Reply" value="Reply" onclick="get_Reply();"/>
 	</div>';
         $questlist.=' </form>';
-	}
+    }
 
-	//echo $questlist
-        return $questlist;
+    //echo $questlist
+    return $questlist;
 }
 
+function notify_suggest_follow() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $sel_flow = "select * from follower  where uid='" . $user->uid . "'  and follower_status='1' ";
+    $rs_folwin = db_query($sel_flow);
+    $array2 = array();
+    $array1 = array();
+    while ($flwing_result = db_fetch_object($rs_folwin)) {
 
-function notify_suggest_follow()
-{
-    global $gSitePath,$user, $gDocPath,$base_root,$base_path;
-	$sel_flow="select * from follower  where uid='".$user->uid."'  and follower_status='1' ";
-	$rs_folwin=db_query($sel_flow);
-	$array2=array();
-	$array1=array();
-	while($flwing_result=db_fetch_object($rs_folwin))
-	{
+        array_push($array2, $flwing_result->follower_id);
 
-	array_push($array2,$flwing_result->follower_id);
+        $sel_suge = "select * from follower  where uid='" . $flwing_result->follower_id . "' and follower_id!='" . $user->uid . "' and follower_status=1 limit 0,5";
 
-	$sel_suge="select * from follower  where uid='".$flwing_result->follower_id."' and follower_id!='".$user->uid."' and follower_status=1 limit 0,5";
+        $rs_suges = db_query($sel_suge);
 
-	$rs_suges=db_query($sel_suge);
-
-	while($suggest_list=db_fetch_object($rs_suges))
-	{
+        while ($suggest_list = db_fetch_object($rs_suges)) {
 
 
-	array_push($array1,$suggest_list->follower_id);
-
-	}
-	}
-
-
-	$reult = array_diff($array1, $array2);
+            array_push($array1, $suggest_list->follower_id);
+        }
+    }
 
 
-		$result_array=array_values($reult);
-		if(count($result_array)!=0)
-		{
-		$suggest_follow='
+    $reult = array_diff($array1, $array2);
+
+
+    $result_array = array_values($reult);
+    if (count($result_array) != 0) {
+        $suggest_follow = '
 		<div class="">
 		<ul>';
 
-		for($m=0;$m<count($result_array);$m++)
-		{
-		$user_listsm="select * from {users} where status='1' and uid='$result_array[$m]'";
-		$user_qrylist=db_query($user_listsm);
-                $count = mysql_num_rows($user_qrylist);
-		$user_resultry=db_fetch_object($user_qrylist);
+        for ($m = 0; $m < count($result_array); $m++) {
+            $user_listsm = "select * from {users} where status='1' and uid='$result_array[$m]'";
+            $user_qrylist = db_query($user_listsm);
+            $count = mysql_num_rows($user_qrylist);
+            $user_resultry = db_fetch_object($user_qrylist);
 
-              if($count!='')
-              {
-		$suggest_follow.='<li>
-                <a href="'.$gSitePath.'profile/'.$user_resultry->name.'">'.$user_resultry->name.'</a></li>';
-              }
+            if ($count != '') {
+                $suggest_follow.='<li>
+                <a href="' . $gSitePath . 'profile/' . $user_resultry->name . '">' . $user_resultry->name . '</a></li>';
+            }
+        }
 
-
-
-
-
-	}
-
-	$suggest_follow.='</ul></div>
+        $suggest_follow.='</ul></div>
 
 	';
-	}
-	else
-	{
-	$suggest_follow='No Records';
+    } else {
+        $suggest_follow = 'No Records';
+    }
 
-
-	}
-
-	return $suggest_follow;
+    return $suggest_follow;
 }
 
-function notify_pundits()
-{
+function notify_pundits() {
 
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
- $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=''";
+    $sel_follow = "select * from follower where uid='" . $user->uid . "' and follower_id!=''";
 
 
-  $get_follow = db_query($sel_follow);
-  while($fet_follow = db_fetch_object($get_follow))
-  {
+    $get_follow = db_query($sel_follow);
+    while ($fet_follow = db_fetch_object($get_follow)) {
 
 
 
 
 
-	//$sel_flow="select * from follower where uid='".$user->uid."' and  cat_id!=''";
-   /* $sel_flowcount="select count(*) as count from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
-    $rs_folquery = db_query($sel_flowcount);
-    $rs_folfet=db_fetch_object($rs_folquery);*/
+        //$sel_flow="select * from follower where uid='".$user->uid."' and  cat_id!=''";
+        /* $sel_flowcount="select count(*) as count from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+          $rs_folquery = db_query($sel_flowcount);
+          $rs_folfet=db_fetch_object($rs_folquery); */
 
 
-        $sel_flow="select * from follower where uid='".$fet_follow->follower_id."' and  cat_id!=''";
+        $sel_flow = "select * from follower where uid='" . $fet_follow->follower_id . "' and  cat_id!=''";
 
 
 
-	$rs_folwin=db_query($sel_flow);
-	$questlist='
+        $rs_folwin = db_query($sel_flow);
+        $questlist = '
 		<div id="container">
 		<div class="feature">
 		<div class="l col">
 		<ul>';
-       $chk = '';
-	while($flwing_result=db_fetch_object($rs_folwin))
-	{
+        $chk = '';
+        while ($flwing_result = db_fetch_object($rs_folwin)) {
 
-	//$questlist.=' '.$flwing_result->cat_name.'';
+            //$questlist.=' '.$flwing_result->cat_name.'';
 
-	$sel_suge="select * from category  where cat_id=".$flwing_result->cat_id."  ";
-	$mm=db_query($sel_suge);
+            $sel_suge = "select * from category  where cat_id=" . $flwing_result->cat_id . "  ";
+            $mm = db_query($sel_suge);
 
-	$ans_result=db_fetch_object($mm);
-	//$questlist.=' '.$ans_result->cat_name.'<br/>';
-
- //$queslist .='<div><a href="'.$gSitePath.'/searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
-        $questlist .='<div><a href="'.$gSitePath.'searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
-        //echo $ans_result->cat_name;
-
-	}
-  }
+            $ans_result = db_fetch_object($mm);
+            //$questlist.=' '.$ans_result->cat_name.'<br/>';
+            //$queslist .='<div><a href="'.$gSitePath.'/searchquestion?cid='.$ans_result->cat_id.'">'.$ans_result->cat_name.'</a></div>';
+            $questlist .='<div><a href="' . $gSitePath . 'searchquestion?cid=' . $ans_result->cat_id . '">' . $ans_result->cat_name . '</a></div>';
+            //echo $ans_result->cat_name;
+        }
+    }
 
 
-$questlist.='</ul></div>
+    $questlist.='</ul></div>
 	</div>
 	</div>
 	';
@@ -699,263 +903,239 @@ $questlist.='</ul></div>
 //            $questlist = "No records";
 //        }
 
-	return $questlist;
+    return $questlist;
 }
-
-
 
 ////follower action
 
-function notify_followerquestions()
-{
+function notify_followerquestions() {
 
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-$followlist = '';
- $sel_follow="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $followlist = '';
+    $sel_follow = "select * from follower where follower_id='" . $user->uid . "' and cat_id=0 and question_id=0 order by id desc";
 
-  $get_follow = db_query($sel_follow);
-  $followlist='<div class=""><ul>
+    $get_follow = db_query($sel_follow);
+    $followlist = '<div class=""><ul>
 		';
-  while($fet_follow = db_fetch_object($get_follow))
-  {
+    while ($fet_follow = db_fetch_object($get_follow)) {
 
-        $sel_ques="select * from question  where uid='".$fet_follow->uid."' order by qid desc ";
-	$rs_ques=db_query($sel_ques);
-
-
-	while($fet_ques=db_fetch_object($rs_ques))
-	{
+        $sel_ques = "select * from question  where uid='" . $fet_follow->uid . "' order by qid desc ";
+        $rs_ques = db_query($sel_ques);
 
 
-           $loadques = load_question($fet_ques->qid);
+        while ($fet_ques = db_fetch_object($rs_ques)) {
+
+
+            $loadques = load_question($fet_ques->qid);
 
             //$followlist .=  $loadques[2];
 
 
-          $followlist .='<li><a href="'.$gSitePath.$loadques[url].'?ajax=1" title="'.wordwrap($loadques[2],40, "<br/>").'">'.htmlentities(substr($loadques[2],0,40)).'....'.'</a></li>';
-	}
-
-  }
-   $followlist.='</ul></div>';
-
+            $followlist .='<li><a href="' . $gSitePath . $loadques[url] . '?ajax=1" title="' . wordwrap($loadques[2], 40, "<br/>") . '">' . htmlentities(substr($loadques[2], 0, 40)) . '....' . '</a></li>';
+        }
+    }
+    $followlist.='</ul></div>';
 
 
-     if(count($fet_ques)<1)
-      {
-          $followlist = "No records";
-      }
 
-	return $followlist;
+    if (count($fet_ques) < 1) {
+        $followlist = "No records";
+    }
+
+    return $followlist;
 }
-
-
-
 
 /////////follower follower action answer
 
-function notify_followeranswer()
-{ 
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+function notify_followeranswer() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
 
-  $followans="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
+    $followans = "select * from follower where uid='" . $user->uid . "' and follower_id!=0 and cat_id=0 and question_id=0";
 
-  $get_followans = db_query($followans);
+    $get_followans = db_query($followans);
 
-  $anslist = '<div style="border-bottom:1px solid black">';
-  $anslist .='<div><b>Notify follower answer</b></div>';
-  $anslist .='<div>
+    $anslist = '<div style="border-bottom:1px solid black">';
+    $anslist .='<div><b>Notify follower answer</b></div>';
+    $anslist .='<div>
 		<ul class="menu">';
-  while($fet_followans = db_fetch_object($get_followans))
-  {
+    while ($fet_followans = db_fetch_object($get_followans)) {
 
-         $sel_ans="select * from possible_answer_vote where uid='".$fet_followans->follower_id."' group by qid order by vote_pid desc";
-         
-	$rs_ans=db_query($sel_ans);
-        $count =  mysql_num_rows($rs_ans);
-	while($fet_ans=db_fetch_object($rs_ans))
-	{
-             $qdet=load_question($fet_ans->qid);
-             
-            $vote=load_votes($fet_ans->qid);
+        $sel_ans = "select * from possible_answer_vote where uid='" . $fet_followans->follower_id . "' group by qid order by vote_pid desc";
+
+        $rs_ans = db_query($sel_ans);
+        $count = mysql_num_rows($rs_ans);
+        while ($fet_ans = db_fetch_object($rs_ans)) {
+            $qdet = load_question($fet_ans->qid);
+
+            $vote = load_votes($fet_ans->qid);
             userPicture_small($fet_ans->uid);
 
-             $udetails=load_user($fet_ans->uid);
-             $bubble = load_bubble($udetails->uid);
-             
-             
-             if(strlen($qdet['question'])>40)
-                    {
-                        $bubble_question = 'title="'. htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'"';
-                    }
-                    else
-                    {
-                        $bubble_question = '';
-                    }
+            $udetails = load_user($fet_ans->uid);
+            $bubble = load_bubble($udetails->uid);
 
 
-
-
-            if($qdet['question']!='')
-            {
-
-           
-            
-            $anslist .= '<div class="notify_cat1">
-
-                       <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($fet_ans->uid).'</a></div>
-
-                       <div class="notify_cat3 "><p><li><a href="'.$gSitePath.$qdet['url'].'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$qdet['qid']).'">'.truncate_utf8($qdet['question'], '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Votes   <span style="color:black">'.$vote['forum'].'</span> Posts / Recently Voted on <span style="color:black">'.date("D j M Y", strtotime($fet_ans->vote_pdate)).'</span></p></div>
-                   </div>';
+            if (strlen($qdet['question']) > 40) {
+                $bubble_question = 'title="' . htmlentities(wordwrap($qdet['question'], 40, '<br/>')) . '"';
+            } else {
+                $bubble_question = '';
             }
 
-	}
-  }
+
+
+
+            if ($qdet['question'] != '') {
+
+
+
+                $anslist .= '<div class="notify_cat1">
+
+                       <div class="notify_cat2"><a rel=\'' . $bubble . '\' href="' . $gSitePath . '/profile/' . $udetails->name . '">' . UserPicture_small($fet_ans->uid) . '</a></div>
+
+                       <div class="notify_cat3 "><p><li><a href="' . $gSitePath . $qdet['url'] . '?ajax=1" ' . $bubble_question . ' style="' . drupal_link_color($user->uid, $qdet['qid']) . '">' . truncate_utf8($qdet['question'], '50') . '</a></li></p><p><span style="color:black">' . $vote['qns'] . '</span> Votes   <span style="color:black">' . $vote['forum'] . '</span> Posts / Recently Voted on <span style="color:black">' . date("D j M Y", strtotime($fet_ans->vote_pdate)) . '</span></p></div>
+                   </div>';
+            }
+        }
+    }
     $anslist.='</ul></div></div>';
 
 
-     /*if($count==0)
+    /* if($count==0)
       {
-            
-          $anslist = "No records";
-      }*/
-    
 
-	return $anslist;
+      $anslist = "No records";
+      } */
+
+
+    return $anslist;
 }
 
 ///// follower like forum
 
 
-function notify_followerlike()
-{
+function notify_followerlike() {
 
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-
- 
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
 
-    
-
- //$followlike="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
-    $followlike="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
-
-  $get_followlike = db_query($followlike);
-
-  $likelist .= '<div style="border-bottom:1px solid black">';
-  $likelist .= '<div><b>Notify like</b></div>';
-  $likelist .= '<div><ul class="menu">';
-  while($fet_followlike = db_fetch_object($get_followlike))
-  {
-
-        $sel_like="select * from user_likes where uid='".$fet_followlike->follower_id."' and is_wave='1' and is_like='1'";
-
-	$rs_like=db_query($sel_like);
 
 
-	while($fet_like=db_fetch_object($rs_like))
-	{
-
-                    if(strlen($ques_rows->question)>40)
-                    {
-                        $bubble_question = 'title="'. htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'"';
-                    }
-                    else
-                    {
-                        $bubble_question = '';
-                    }
-
-          // $loadques = load_question($fet_ques->qid);
 
 
-             $forum_qry = "select * from forum_wave where fid='".$fet_like->node_id."' order by fid desc";
+    //$followlike="select * from follower where follower_id='".$user->uid."' and cat_id=0 and question_id=0 order by id desc";
+    $followlike = "select * from follower where uid='" . $user->uid . "' and follower_id!=0 and cat_id=0 and question_id=0";
+
+    $get_followlike = db_query($followlike);
+
+    $likelist .= '<div style="border-bottom:1px solid black">';
+    $likelist .= '<div><b>Notify like</b></div>';
+    $likelist .= '<div><ul class="menu">';
+    while ($fet_followlike = db_fetch_object($get_followlike)) {
+
+        $sel_like = "select * from user_likes where uid='" . $fet_followlike->follower_id . "' and is_wave='1' and is_like='1'";
+
+        $rs_like = db_query($sel_like);
+
+
+        while ($fet_like = db_fetch_object($rs_like)) {
+
+            if (strlen($ques_rows->question) > 40) {
+                $bubble_question = 'title="' . htmlentities(wordwrap($ques_rows->question, 40, '<br/>')) . '"';
+            } else {
+                $bubble_question = '';
+            }
+
+            // $loadques = load_question($fet_ques->qid);
+
+
+            $forum_qry = "select * from forum_wave where fid='" . $fet_like->node_id . "' order by fid desc";
             $forumrs = db_query($forum_qry);
-             $count =  mysql_num_rows($forumrs);
-           $forumfet =  db_fetch_object($forumrs);
+            $count = mysql_num_rows($forumrs);
+            $forumfet = db_fetch_object($forumrs);
 
 
-           $ques_qry = "select * from question where qid='".$forumfet->qid_rid."'";
-            $ques_res = db_query($ques_qry);
-           $ques_rows =  db_fetch_object($ques_res);
-
-            $click = 'loadwave('.$forumfet->qid_rid.','.$forumfet->fid.')';
-            
-       $likelist.='<div><a href="'.$gSitePath.$ques_rows->url.'?ajax=1" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'" '.$bubble_question.'>'.substr($ques_rows->question,0,60).'</a></div>';
-       
-       $likelist.='<li><a href="javascript:void(0);" onclick="'.$click.'" style="color: black">'.$forumfet->title.'</a></li>';
-        //$likelist .='<li><a title="'.wordwrap($forumfet->title,40, "<br/>").'">'.htmlentities(substr($forumfet->title,0,40)).'</a></li>';
-	}
-  }
-
-
-$likelist.='</ul></div></div>';
-     /*if($count==0)
-      {
-          $likelist = "No records";
-      }*/
-
-	return $likelist;
-}
-///////////////////  notify New answer approved on previously answered question
-
-
-/*function notify_answeredques()
-{
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-
-
-
-
-
-
- $possible_qry = "select * from possible_answer_vote where uid!='".$user->uid."' group by qid";
- $possible_res = db_query($possible_qry);
-
- $answeredlist='<div class=""><ul>';
-
-  while($possible_rows = db_fetch_object($possible_res))
-  {
-            $possible_rows->qid;
-            $possible_rows->uid;
-            $possible_rows->panswer_id;
-
-            $ques_qry = "select * from question where qid='".$possible_rows->qid."'";
+            $ques_qry = "select * from question where qid='" . $forumfet->qid_rid . "'";
             $ques_res = db_query($ques_qry);
             $ques_rows = db_fetch_object($ques_res);
 
-            $ques_rows->question;
+            $click = 'loadwave(' . $forumfet->qid_rid . ',' . $forumfet->fid . ')';
 
-            $poss_qry = "select * from possible_answer where paid='".$possible_rows->panswer_id."'";
-            $poss_res = db_query($poss_qry);
-            $poss_rows = db_fetch_object($poss_res);
+            $likelist.='<div><a href="' . $gSitePath . $ques_rows->url . '?ajax=1" title="' . htmlentities(wordwrap($ques_rows->question, 40, '<br/>')) . '" ' . $bubble_question . '>' . substr($ques_rows->question, 0, 60) . '</a></div>';
 
-            $poss_rows->answer;
-
-
-             $answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'">'. substr($ques_rows->question,0,20).'...'.'</a></div>';
+            $likelist.='<li><a href="javascript:void(0);" onclick="' . $click . '" style="color: black">' . $forumfet->title . '</a></li>';
+            //$likelist .='<li><a title="'.wordwrap($forumfet->title,40, "<br/>").'">'.htmlentities(substr($forumfet->title,0,40)).'</a></li>';
+        }
+    }
 
 
-             $answeredlist .='<div style="color:black">'. substr($poss_rows->answer,0,20).'...'.'</div>';
+    $likelist.='</ul></div></div>';
+    /* if($count==0)
+      {
+      $likelist = "No records";
+      } */
+
+    return $likelist;
+}
+
+///////////////////  notify New answer approved on previously answered question
+
+
+/* function notify_answeredques()
+  {
+  global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+
+
+
+
+
+
+  $possible_qry = "select * from possible_answer_vote where uid!='".$user->uid."' group by qid";
+  $possible_res = db_query($possible_qry);
+
+  $answeredlist='<div class=""><ul>';
+
+  while($possible_rows = db_fetch_object($possible_res))
+  {
+  $possible_rows->qid;
+  $possible_rows->uid;
+  $possible_rows->panswer_id;
+
+  $ques_qry = "select * from question where qid='".$possible_rows->qid."'";
+  $ques_res = db_query($ques_qry);
+  $ques_rows = db_fetch_object($ques_res);
+
+  $ques_rows->question;
+
+  $poss_qry = "select * from possible_answer where paid='".$possible_rows->panswer_id."'";
+  $poss_res = db_query($poss_qry);
+  $poss_rows = db_fetch_object($poss_res);
+
+  $poss_rows->answer;
+
+
+  $answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'">'. substr($ques_rows->question,0,20).'...'.'</a></div>';
+
+
+  $answeredlist .='<div style="color:black">'. substr($poss_rows->answer,0,20).'...'.'</div>';
   }
 
-$answeredlist.='</ul></div>';
+  $answeredlist.='</ul></div>';
 
 
 
 
-     if(count($possible_rows)<1)
-      {
-          $answeredlist = "No records";
-      }
+  if(count($possible_rows)<1)
+  {
+  $answeredlist = "No records";
+  }
 
-	return $answeredlist;
-}*/
+  return $answeredlist;
+  } */
 
-function notify_answeredques()
-{
-    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
+function notify_answeredques() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
-    $possible_qry = "select * from possible_answer_vote where uid='".$user->uid."'";
+    $possible_qry = "select * from possible_answer_vote where uid='" . $user->uid . "'";
 
     $possible_res = db_query($possible_qry);
 
@@ -963,135 +1143,113 @@ function notify_answeredques()
     $answeredlist .= '<div><b>Notify Previously answered questions</b></div>';
     $answeredlist .= '<div><ul class="menu">';
 
-  while($possible_rows = db_fetch_object($possible_res))
-  {
+    while ($possible_rows = db_fetch_object($possible_res)) {
 
-       $q_qry = "select * from possible_answer_vote where qid = '".$possible_rows->qid."' and  uid !='".$user->uid."' group by qid order by vote_pid desc limit 0,5";
-           $q_res = db_query($q_qry);
-         while($q_rows = db_fetch_object($q_res))
-         {
+        $q_qry = "select * from possible_answer_vote where qid = '" . $possible_rows->qid . "' and  uid !='" . $user->uid . "' group by qid order by vote_pid desc limit 0,5";
+        $q_res = db_query($q_qry);
+        while ($q_rows = db_fetch_object($q_res)) {
 
 
-            $ques_qry = "select * from question where qid='".$q_rows->qid."'";
+            $ques_qry = "select * from question where qid='" . $q_rows->qid . "'";
             $ques_res = db_query($ques_qry);
-             $count =  mysql_num_rows($ques_res);
+            $count = mysql_num_rows($ques_res);
             $ques_rows = db_fetch_object($ques_res);
 
-            $udetails=load_user($q_rows->uid);
+            $udetails = load_user($q_rows->uid);
             $bubble = load_bubble($udetails->uid);
-             $vote=load_votes($ques_rows->qid);
+            $vote = load_votes($ques_rows->qid);
 
 
-                     if(strlen($ques_rows->question)>40)
-                    {
-                        $bubble_question = 'title="'. htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'"';
-                    }
-                    else
-                    {
-                        $bubble_question = '';
-                    }
-             
-            if($ques_rows->question!='')
-            {
-             //$answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'. substr($ques_rows->question,0,40).'...'.'</a></div>';
-
-              //$answeredlist .= '<p>'.$vote['qns'].' Votes / '.date("D j M Y", strtotime($q_rows->vote_pdate)).'</p>';
-                
-        $answeredlist .= '<div class="notify_cat1">
-        <div class="notify_cat2"><a rel=\''.$bubble.'\' href="'.$gSitePath.'/profile/'.$udetails->name.'">'.UserPicture_small($q_rows->uid).'</a></div>
-        <div class="notify_cat3"><p><li><a  href="'.$gSitePath.$ques_rows->url.'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$ques_rows->qid).'">'.truncate_utf8($ques_rows->question, '50').'</a></li></p><p><span style="color:black">'.$vote['qns'].'</span> Posts / Recently posted on <span style="color:black">'.date("D j M Y", strtotime($q_rows->vote_pdate)).'</span></p></div>
-        </div>';
-            }
-         }
-
-  }
-  $answeredlist.='</ul></div></div>';
-
-  if($count==0)
-      {
-          $answeredlist = "No records";
-      }
-
-	return $answeredlist;
-
-
-}
-////////////////notify flagged question
-function notify_flagged()
-{
-    global $gSitePath,$user,$gDocPath,$base_root,$base_path;
-
-    $sel_follow="select * from follower where uid='".$user->uid."' and follower_id!=0 and cat_id=0 and question_id=0";
-   
-    $get_follow = db_query($sel_follow);
-
-      $flaggedlist .='<div style="border-bottom:1px solid black">';
-     $flaggedlist .='<div><b>Flaged Question</b></div>';
-    while($fet_follow = db_fetch_object($get_follow))
-  {
-
-
-   $flag_qry = "select qf.*,q.question,q.url,q.qid from question_flags as qf join question as q on qf.nodeid=q.qid and qf.uid='".$fet_follow->follower_id."' group by qf.nodeid desc limit 0,5";
-   
-    $flag_res = db_query($flag_qry);
-     $count =  mysql_num_rows($flag_res);
-    
-    
-    $flaggedlist .='<div><ul class="menu">';
-
-  while($flag_rows = db_fetch_object($flag_res))
-  {
-
-             if(strlen($flag_rows->question)>40)
-            {
-                $bubble_question = 'title="'. htmlentities(wordwrap($flag_rows->question, 40,'<br/>')).'"';
-            }
-            else
-            {
+            if (strlen($ques_rows->question) > 40) {
+                $bubble_question = 'title="' . htmlentities(wordwrap($ques_rows->question, 40, '<br/>')) . '"';
+            } else {
                 $bubble_question = '';
             }
-            
-$flaggedlist .='<div align="left"><a href="'.$gSitePath.$flag_rows->url.'?ajax=1" '.$bubble_question.' style="'.drupal_link_color($user->uid,$flag_rows->qid).'">'.substr($flag_rows->question,0,70).'...'.'</a></div>';
- $flaggedlist .='<div align="left"><span style="color:#F7B63A">Flagged for :</span>  '.$flag_rows->abuse_type.'</div>';
 
-  }
+            if ($ques_rows->question != '') {
+                //$answeredlist .='<div align="left"><a href="'.$gSitePath.$ques_rows->url.'" title="'.htmlentities(wordwrap($ques_rows->question, 40,'<br/>')).'">'. substr($ques_rows->question,0,40).'...'.'</a></div>';
+                //$answeredlist .= '<p>'.$vote['qns'].' Votes / '.date("D j M Y", strtotime($q_rows->vote_pdate)).'</p>';
 
-  $flaggedlist.='</ul></div>';
-
-  /*if($count==0)
-      {
-          $flaggedlist .= "No records";
-      }*/
-  }
-   $flaggedlist .='</div>';
- 
-
-	return $flaggedlist;
-
-
-}
-
-
-function load_following_notify($type=''){
- global $gSitePath,$user,$gDocPath,$base_root,$base_path;
- $result='';
-        $list=array();
-     $sel_pro = "select * from follower  where uid='" .$user->uid. "'  and follower_status='1' ";
-    $rs_following =ExecuteQuery($sel_pro,'select');
-    $countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid. "'  and follower_status='1'"));
-    foreach($rs_following as $items){
-            if(!empty($items['follower_id']))
-        array_push($list,$items['follower_id']);
-
+                $answeredlist .= '<div class="notify_cat1">
+        <div class="notify_cat2"><a rel=\'' . $bubble . '\' href="' . $gSitePath . '/profile/' . $udetails->name . '">' . UserPicture_small($q_rows->uid) . '</a></div>
+        <div class="notify_cat3"><p><li><a  href="' . $gSitePath . $ques_rows->url . '?ajax=1" ' . $bubble_question . ' style="' . drupal_link_color($user->uid, $ques_rows->qid) . '">' . truncate_utf8($ques_rows->question, '50') . '</a></li></p><p><span style="color:black">' . $vote['qns'] . '</span> Posts / Recently posted on <span style="color:black">' . date("D j M Y", strtotime($q_rows->vote_pdate)) . '</span></p></div>
+        </div>';
+            }
+        }
     }
-    $list=implode(',',$list);
-if(!empty($list)){
-    $query="select * from notification where ".$type."='1' AND uid in (".$list.")";
-    $result =ExecuteQuery($query,'select');
+    $answeredlist.='</ul></div></div>';
+
+    if ($count == 0) {
+        $answeredlist = "No records";
+    }
+
+    return $answeredlist;
 }
+
+////////////////notify flagged question
+function notify_flagged() {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+    $sel_follow = "select * from follower where uid='" . $user->uid . "' and follower_id!=0 and cat_id=0 and question_id=0";
+
+    $get_follow = db_query($sel_follow);
+
+    $flaggedlist .='<div style="border-bottom:1px solid black">';
+    $flaggedlist .='<div><b>Flaged Question</b></div>';
+    while ($fet_follow = db_fetch_object($get_follow)) {
+
+
+        $flag_qry = "select qf.*,q.question,q.url,q.qid from question_flags as qf join question as q on qf.nodeid=q.qid and qf.uid='" . $fet_follow->follower_id . "' group by qf.nodeid desc limit 0,5";
+
+        $flag_res = db_query($flag_qry);
+        $count = mysql_num_rows($flag_res);
+
+
+        $flaggedlist .='<div><ul class="menu">';
+
+        while ($flag_rows = db_fetch_object($flag_res)) {
+
+            if (strlen($flag_rows->question) > 40) {
+                $bubble_question = 'title="' . htmlentities(wordwrap($flag_rows->question, 40, '<br/>')) . '"';
+            } else {
+                $bubble_question = '';
+            }
+
+            $flaggedlist .='<div align="left"><a href="' . $gSitePath . $flag_rows->url . '?ajax=1" ' . $bubble_question . ' style="' . drupal_link_color($user->uid, $flag_rows->qid) . '">' . substr($flag_rows->question, 0, 70) . '...' . '</a></div>';
+            $flaggedlist .='<div align="left"><span style="color:#F7B63A">Flagged for :</span>  ' . $flag_rows->abuse_type . '</div>';
+        }
+
+        $flaggedlist.='</ul></div>';
+
+        /* if($count==0)
+          {
+          $flaggedlist .= "No records";
+          } */
+    }
+    $flaggedlist .='</div>';
+
+
+    return $flaggedlist;
+}
+
+function load_following_notify($type='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $result = '';
+    $list = array();
+    $sel_pro = "select * from follower  where uid='" . $user->uid . "'  and follower_status='1' ";
+    $rs_following = ExecuteQuery($sel_pro, 'select');
+    $countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='" . $user->uid . "'  and follower_status='1'"));
+    foreach ($rs_following as $items) {
+        if (!empty($items['follower_id']))
+            array_push($list, $items['follower_id']);
+    }
+    $list = implode(',', $list);
+    if (!empty($list)) {
+        $query = "select * from notification where " . $type . "='1' AND uid in (" . $list . ")";
+        $result = ExecuteQuery($query, 'select');
+    }
     return $result;
 }
-
 
 function notify_follow_question() {
 
@@ -1111,19 +1269,16 @@ function notify_follow_question() {
         $vote = load_votes($list['node_id']);
         // print_r($qdet);
 
-        if(strlen($qdet['question'])>40)
-                    {
-                        $bubble_question = 'title="'. htmlentities(wordwrap($qdet['question'], 40,'<br/>')).'"';
-                    }
-                    else
-                    {
-                        $bubble_question = '';
-                    }
+        if (strlen($qdet['question']) > 40) {
+            $bubble_question = 'title="' . htmlentities(wordwrap($qdet['question'], 40, '<br/>')) . '"';
+        } else {
+            $bubble_question = '';
+        }
 
         if ($qdet['question'] != '') {
-            $output.='<li><div><a href="'.$gSitePath.$qdet['url'].'?ajax=1" style="'.drupal_link_color($user->uid,$qdet['qid']).'" '.$bubble_question.' >' . truncate_utf8($qdet['question'], '50') . '</a><div>
+            $output.='<li><div><a href="' . $gSitePath . $qdet['url'] . '?ajax=1" style="' . drupal_link_color($user->uid, $qdet['qid']) . '" ' . $bubble_question . ' >' . truncate_utf8($qdet['question'], '50') . '</a><div>
                 <div>' . $vote['qns'] . ' Votes &nbsp; ' . $vote['forum'] . ' Posts</div></li>';
-          }
+        }
     }
     $output.=' </ul></div></div>';
 
@@ -1135,89 +1290,73 @@ function notify_follow_question() {
     return $output;
 }
 
-
-
-
 ////////////////////notify left panel start here////////////////////////
-function notify_leftpanel()
-{
-      
-      global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-      $flag_access=1;
-      $cat_access=1;
-      $answer_access=1;
-      $question_access=1;
-      $like_access=1;
-       $output = '';
-     //select * from follower as f join notification as n on f.follower_id=n.uid where f.uid='1'  and f.follower_status='1' and f.cat_id=0 and f.question_id=0  group by n.is_question,n.is_cat,n.is_answer,n.is_like,n.is_flag order by n.nid desc
-       //group by n.is_question,n.is_cat,n.is_answer,n.is_like,n.is_flag
-     $sel_pro = "select * from follower as f join notification as n on f.follower_id=n.uid where f.uid='".$user->uid."'  and f.follower_status='1' and f.cat_id=0 and f.question_id=0 order by n.nid desc";
-    $rs_following =ExecuteQuery($sel_pro,'select');
+function notify_leftpanel() {
+
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $flag_access = 1;
+    $cat_access = 1;
+    $answer_access = 1;
+    $question_access = 1;
+    $like_access = 1;
+    $output = '';
+    //select * from follower as f join notification as n on f.follower_id=n.uid where f.uid='1'  and f.follower_status='1' and f.cat_id=0 and f.question_id=0  group by n.is_question,n.is_cat,n.is_answer,n.is_like,n.is_flag order by n.nid desc
+    //group by n.is_question,n.is_cat,n.is_answer,n.is_like,n.is_flag
+    $sel_pro = "select * from follower as f join notification as n on f.follower_id=n.uid where f.uid='" . $user->uid . "'  and f.follower_status='1' and f.cat_id=0 and f.question_id=0 order by n.nid desc";
+    $rs_following = ExecuteQuery($sel_pro, 'select');
     //$countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='".$user->uid. "'  and follower_status='1'"));
-    foreach($rs_following as $items)
-     {
-        if($items['is_flag']==1&&$flag_access==1)
-        {
-                //echo "1";
-                $output .= notify_flagged();
-                $flag_access = 0;
+    foreach ($rs_following as $items) {
+        if ($items['is_flag'] == 1 && $flag_access == 1) {
+            //echo "1";
+            $output .= notify_flagged();
+            $flag_access = 0;
         }
-        if($items['is_cat']==1&&$cat_access==1)
-        {
-                //echo "2";
-                $output .= notify_based_category();
-                $cat_access = 0;
+        if ($items['is_cat'] == 1 && $cat_access == 1) {
+            //echo "2";
+            $output .= notify_based_category();
+            $cat_access = 0;
         }
-        if($items['is_answer']==1&&$answer_access==1)
-        {
-                //echo "3";
-                 $output .=  notify_followeranswer();
-                 $output .=   notify_answeredques();
-                 $answer_access = 0;
+        if ($items['is_answer'] == 1 && $answer_access == 1) {
+            //echo "3";
+            $output .= notify_followeranswer();
+            $output .= notify_answeredques();
+            $answer_access = 0;
         }
-       
-        if($items['is_question']==1&&$question_access==1)
-        {
-               // echo "4";
-                $output .= notify_follow_question();
-                $question_access = 0;
+
+        if ($items['is_question'] == 1 && $question_access == 1) {
+            // echo "4";
+            $output .= notify_follow_question();
+            $question_access = 0;
         }
-        if($items['is_like']==1&&$like_access==1)
-        {
-               // echo "5";
-                $output .= notify_followerlike();
-                $like_access = 0;
+        if ($items['is_like'] == 1 && $like_access == 1) {
+            // echo "5";
+            $output .= notify_followerlike();
+            $like_access = 0;
         }
-       
-        
     }
 
     //return $output;
-    if($output=='')
-    {
-       return $output="No records found";
-    }
-    else
-    {
+    if ($output == '') {
+        return $output = "No records found";
+    } else {
         return $output;
     }
-
 }
 
+/* BOF SET NOTIFY LOG apr 19 2011 */
 
-/*BOF SET NOTIFY LOG apr 19 2011*/
-function set_notify_log($uid = '', $nid ='', $message_id = '', $variables = ''){
+function set_notify_log($uid = '', $nid ='', $message_id = '', $variables = '') {
     $uname = db_result(db_query("SELECT name FROM {users} WHERE uid = '%d'", $uid));
     $message = db_result(db_query("SELECT message FROM {notify_messages} WHERE message_id = '%s'", $message_id));
     $variables = serialize($variables);
     $sql = "INSERT INTO {notify_activity} SET uid = '%d', nid = '%d', message_id = '%s', timestamp = '%d', variables = '%s'";
     db_query($sql, $uid, $nid, $message_id, time(), $variables);
 }
-/*EOF SET NOTIFY LOG apr 19 2011*/
 
+/* EOF SET NOTIFY LOG apr 19 2011 */
 
 function notify_block($op = 'list', $delta = 0, $edit = array()) {
- global $gSitePath,$user,$gDocPath,$base_root;
+    global $gSitePath, $user, $gDocPath, $base_root;
     switch ($op) {
         case 'list':
             $blocks[0] = array(
@@ -1232,20 +1371,18 @@ function notify_block($op = 'list', $delta = 0, $edit = array()) {
 
                     $block['subject'] = "Heart Beat Messages";
                     $block['content'] = _notify_content($uid);
-                   
-                    break;
 
-                   
+                    break;
             }
             return $block;
     }
-    
-
-
 }
+
 
 function notify_theme(){
    return array(
+       'notify_settings_form' => array('arguments' => array('form' => NULL),),
+        'notify_message_form' => array('arguments' => array('form' => NULL),),
 'notify_add_question'  => array(
 'arguments' => array('result' => NULL),
 ),
@@ -1316,24 +1453,26 @@ function notify_theme(){
 
 }
 
-function theme_notify_add_question($result=''){
-   // print_r($result);
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_add_question($result='') {
+    // print_r($result);
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 //print_r($data);
 //$node=node_load($result->nid);
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
     <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
-    
+
+    return $output;
 }
+
 
 function theme_notify_add_vote($result = ''){
     
@@ -1365,7 +1504,9 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     <div id="msg-'.$result->naid.'" class="notify-text">"'.$data['d_title'].'"</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 return $output;
+
 }
+
 
 function theme_notify_add_resource($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1381,39 +1522,40 @@ switch($rtype){
       $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
           <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+
     <div>
-        <div style="float:left">'.theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE).'</div>
-        <div id="notify-text-quote">"'.$data['r_title'].'"</div>
-        <div id="notify-desc">'.$data['description'].'</div>
+        <div style="float:left">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE) . '</div>
+        <div id="notify-text-quote">"' . $data['r_title'] . '"</div>
+        <div id="notify-desc">' . $data['description'] . '</div>
     </div>
         <div align="right">'.ago($submitted).'</div><hr>';
-      break;
-      case '2':
-          $image = '<img width="125" height="100" src="http://img.youtube.com/vi/' . $data['videoid'] . '/default.jpg" alt="Video " >';
-          $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-              <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+            break;
+        case '2':
+            $image = '<img width="125" height="100" src="http://img.youtube.com/vi/' . $data['videoid'] . '/default.jpg" alt="Video " >';
+            $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+              <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
+                    . ' On </div><div id="notify-link">' . l($data['q_title'], 'node/' . $data['qid']) . '</div>
     <div>
-        <div style="float:left">'.$image.'</div>
-        <div id="notify-text-quote">"'.$data['r_title'].'"</div>
+        <div style="float:left">' . $image . '</div>
+        <div id="notify-text-quote">"' . $data['r_title'] . '"</div>
     </div>
         <div align="right">'.ago($submitted).'</div><hr>';
-          break;
-      case '3':
-      $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-          <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.' On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+            break;
+        case '3':
+            $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+          <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
+                    . ' On </div><div id="notify-link">' . l($data['q_title'], 'node/' . $data['qid']) . '</div>
     <div>
-        <div style="float:left">'.theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE).'</div>
-        <div id="notify-text-quote">"'.$data['r_title'].'"</div>
-        <div id="notify-desc">'.$data['description'].'</div>
+        <div style="float:left">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE) . '</div>
+        <div id="notify-text-quote">"' . $data['r_title'] . '"</div>
+        <div id="notify-desc">' . $data['description'] . '</div>
     </div>
         <div align="right">'.ago($submitted).'</div><hr>';
-          break;
-}
+            break;
+    }
 
 
-return $output;
+    return $output;
 }
 
 
@@ -1431,7 +1573,9 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
         <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
+
 }
+
 
 function theme_notify_deb_disagree($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1446,8 +1590,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 
 function theme_notify_deb_reply_agree($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1462,8 +1608,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 
 function theme_notify_deb_reply_disagree($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1478,8 +1626,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 
 function theme_notify_res_agree($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1494,8 +1644,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 function theme_notify_res_disagree($result = ''){
 $module_path = drupal_get_path('module', 'notify');
 $full_path = $module_path .'/notify.css';
@@ -1509,8 +1661,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 function theme_notify_res_reply_agree($result = ''){
 $module_path = drupal_get_path('module', 'notify');
 $full_path = $module_path .'/notify.css';
@@ -1524,8 +1678,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 function theme_notify_res_reply_disagree($result = ''){
 $module_path = drupal_get_path('module', 'notify');
 $full_path = $module_path .'/notify.css';
@@ -1539,8 +1695,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 
 function theme_notify_suggest_answer($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1555,8 +1713,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 
 function theme_notify_change_answer($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1571,8 +1731,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 
 function theme_notify_update_profile($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1584,10 +1746,12 @@ $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div>
+
     <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+    return $output;
 }
+
 
 function theme_notify_question_flag($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1602,8 +1766,10 @@ $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($ud
     <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+
+    return $output;
 }
+
 
 function theme_notify_user_login($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1615,10 +1781,12 @@ $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div>
+
     <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+    return $output;
 }
+
 
 function theme_notify_add_badge($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1630,10 +1798,12 @@ $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['badge'].'</strong></div>
+
     <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+    return $output;
 }
+
 
 function theme_notify_add_coins($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1645,10 +1815,12 @@ $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
+
     <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+    return $output;
 }
+
 
 function theme_notify_lose_coins($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1660,10 +1832,12 @@ $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
+
     <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+    return $output;
 }
+
 
 function theme_notify_add_points($result = ''){
 $module_path = drupal_get_path('module', 'notify');
@@ -1675,10 +1849,12 @@ $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['points'].' points</strong></div>
+
     <div align="right">'.ago($submitted).'</div><hr>';
 
-return $output;
+    return $output;
 }
+
 
 function theme_notify_follow_message($result = ''){
     global $user;
@@ -1734,8 +1910,8 @@ INNER JOIN `notify_messages` a
 INNER JOIN `users` u
         ON `u`.`uid` IN (%s)
      WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.naid DESC LIMIT %d, %d";
-     //count query
-     $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+        //count query
+        $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
@@ -1751,50 +1927,50 @@ $output.='<div class="uactivity" id="uactivity">';
         $output.= theme('notify_'.$result->message_id,$result);
         $output.= '</div>';
         $i++; 
+
+    }
+    if (!$i) {
+            $output.='No User Activity Found!';
+        }
+    } else {
+        $output.='No User Activity Found!';
+    }
+    $output.='</div>';
+    if ($count > $limit) {
+        $style = 'style="display:block"';
+    } else {
+        $style = 'style="display:none"';
     }
 
-if(!$i){
-     $output.='No User Activity Found!';
-}
-     }else{
-         $output.='No User Activity Found!';
-     }
-$output.='</div>';
-  if($count>$limit){
-   $style='style="display:block"';
-}else{
-   $style='style="display:none"';
+    $output.='<div ' . $style . ' class="more-link"><a id="' . ($start + $limit) . '" href="' . $gSitePath . 'notify/stream/">More Activity</a>';
+    return $output;
 }
 
- $output.='<div '.$style.' class="more-link"><a id="'.($start+$limit).'" href="'.$gSitePath.'notify/stream/">More Activity</a>';
-return $output;
-}
+function notify_stream($start='') {
 
-function notify_stream($start=''){
-
- global $gSitePath,$user,$gDocPath,$base_root;
- $filter=$_GET['filter'];
-  $where=notify_filter_where($filter);
-        $json=array();
-     $uarray=array();
-     $json['error']=false;
-       $limit=15;
-     $uarray=_activity_heartbeat_related_uid_info($user->uid);
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $filter = $_GET['filter'];
+    $where = notify_filter_where($filter);
+    $json = array();
+    $uarray = array();
+    $json['error'] = false;
+    $limit = 15;
+    $uarray = _activity_heartbeat_related_uid_info($user->uid);
     // $start=variable_get(arg(1),'0');
-     if($_GET['action']=='more'){
-   
-     if(!empty($uarray)){
-     $uids=implode(',',$uarray);
-     //data query
-     $sql="SELECT distinct b.naid,b.*,a.message
+    if ($_GET['action'] == 'more') {
+
+        if (!empty($uarray)) {
+            $uids = implode(',', $uarray);
+            //data query
+            $sql = "SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%s)
      WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.naid DESC LIMIT %d, %d";
-     //count query
-     $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+            //count query
+            $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
@@ -1802,44 +1978,43 @@ INNER JOIN `users` u
      WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
 $query=db_query($sql, $uids, $uids, $start,$limit);
-$i=0;
+            $i = 0;
 
-    while($result=  db_fetch_object($query)){
-        $output.= '<div id="msg-'.$result->naid.'">';
-        $output.= theme('notify_'.$result->message_id,$result);
-        $output.= '</div>';
-        $i++;
+            while ($result = db_fetch_object($query)) {
+                $output.= '<div id="msg-' . $result->naid . '">';
+                $output.= theme('notify_' . $result->message_id, $result);
+                $output.= '</div>';
+                $i++;
+            }
 
+            if (!$i) {
+                $json['error'] = true;
+                $output = 'No User Activity Found!';
+            }
+        } else {
+            $output = 'No User Activity Found!';
+        }
+        $json['status'] = true;
+        $json['content'] = $output;
+        $json['count'] = $count;
+
+        $json['start'] = $start + $limit;
+        print json_encode($json);
     }
-
-if(!$i){
-    $json['error']=true;
-     $output='No User Activity Found!';
-}
-     }else{
-         $output='No User Activity Found!';
-     }
-$json['status']=true;
-$json['content']=$output;
-$json['count']=$count;
-
-$json['start']=$start+$limit;
-print json_encode($json);
-     }
-     if($_GET['action']=='new'){
-     $firstid=$_GET['firstid'];
-     if(!empty($uarray)){
-     $uids=implode(',',$uarray);
-     //data query
-      $sql="SELECT distinct b.naid,b.*,a.message
+    if ($_GET['action'] == 'new') {
+        $firstid = $_GET['firstid'];
+        if (!empty($uarray)) {
+            $uids = implode(',', $uarray);
+            //data query
+            $sql = "SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%s)
      WHERE b.`uid`IN (%s) AND a.status = 1 AND b.naid>$firstid $where ORDER BY b.naid DESC LIMIT %d, %d";
-     //count query
-     $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+            //count query
+            $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
@@ -1848,96 +2023,94 @@ INNER JOIN `users` u
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
 $query=db_query($sql, $uids, $uids, $start,$limit);
 
-$i=0;
+            $i = 0;
 
-      while($result=  db_fetch_object($query)){
-        $output.= '<div id="msg-'.$result->naid.'">';
-        $output.= theme('notify_'.$result->message_id,$result);
-        $output.= '</div>';
-        $i++;
+            while ($result = db_fetch_object($query)) {
+                $output.= '<div id="msg-' . $result->naid . '">';
+                $output.= theme('notify_' . $result->message_id, $result);
+                $output.= '</div>';
+                $i++;
+            }
 
+            if ($i == 0) {
+                $json['error'] = true;
+                $output = 'No User Activity Found!';
+            }
+        } else {
+            $output = 'No User Activity Found!';
+        }
+        $json['status'] = true;
+        $json['content'] = $output;
+        $json['count'] = $count;
+
+        $json['start'] = $start + $limit;
+        print json_encode($json);
+    }
+}
+
+function _activity_heartbeat_related_uid_info($uid) {
+    static $uids = array();
+
+    if (!isset($uids[$uid])) {
+        $uids[$uid] = _activity_get_friends($uid);
     }
 
-if($i==0){
-    $json['error']=true;
-     $output='No User Activity Found!';
-}
-     }else{
-         $output='No User Activity Found!';
-     }
-$json['status']=true;
-$json['content']=$output;
-$json['count']=$count;
-
-$json['start']=$start+$limit;
-print json_encode($json);
-     }
-
-}
-function _activity_heartbeat_related_uid_info($uid) {
-  static $uids = array();
-
-  if (!isset($uids[$uid])) {
-    $uids[$uid] = _activity_get_friends($uid);
-  }
-
-  return $uids[$uid];
+    return $uids[$uid];
 }
 
-function notify_filter_where($filter=''){
+function notify_filter_where($filter='') {
 
-         $where = '';
-      if($filter == 'votes'){
-          $where .= "AND (a.message_id = 'add_vote' OR a.message_id = 'change_answer')";
-      }else if($filter == 'issues'){
-          $where .= "AND (a.message_id = 'add_question' OR a.message_id = 'question_flag')";
-      }else if($filter == 'debates'){
-          $where .= "AND (a.message_id = 'add_debate' OR a.message_id = 'debate_reply' OR a.message_id = 'flag_debate')";
-      }else if($filter == 'resources'){
-          $where .= "AND (a.message_id = 'add_resource' OR a.message_id = 'resource_reply' OR a.message_id = 'flag_resource')";
-      }else if($filter == 'agrees'){
-          $where .= "AND (a.message_id = 'deb_agree' OR a.message_id = 'deb_disagree' OR a.message_id = 'res_agree'
+    $where = '';
+    if ($filter == 'votes') {
+        $where .= "AND (a.message_id = 'add_vote' OR a.message_id = 'change_answer')";
+    } else if ($filter == 'issues') {
+        $where .= "AND (a.message_id = 'add_question' OR a.message_id = 'question_flag')";
+    } else if ($filter == 'debates') {
+        $where .= "AND (a.message_id = 'add_debate' OR a.message_id = 'debate_reply' OR a.message_id = 'flag_debate')";
+    } else if ($filter == 'resources') {
+        $where .= "AND (a.message_id = 'add_resource' OR a.message_id = 'resource_reply' OR a.message_id = 'flag_resource')";
+    } else if ($filter == 'agrees') {
+        $where .= "AND (a.message_id = 'deb_agree' OR a.message_id = 'deb_disagree' OR a.message_id = 'res_agree'
                     OR a.message_id = 'res_disagree' OR a.message_id = 'deb_reply_agree'
                     OR a.message_id = 'deb_reply_disagree' OR a.message_id = 'res_reply_agree'
                     OR a.message_id = 'res_reply_disagree')";
-      }else if($filter == 'badges'){
-          $where .= "AND (a.message_id = 'add_badge')";
-      }
-      // filteration
+    } else if ($filter == 'badges') {
+        $where .= "AND (a.message_id = 'add_badge')";
+    }
+    // filteration
 
 
     return $where;
 }
+
 /**
  * Generate the view of people that a user is following
  */
 function _activity_get_friends($uid) {
 
-  $uids = array();
-  //$api = variable_get('heartbeat_relations_api', 'user_relationships_api');
-  $api = 'user_relationships_api';
+    $uids = array();
+    //$api = variable_get('heartbeat_relations_api', 'user_relationships_api');
+    $api = 'user_relationships_api';
 
-  if ($api == 'friendlist_api') {
+    if ($api == 'friendlist_api') {
 
-    /* COMMENTED BY RAM ON HEARTBEAT FRNDS
-	$sql = "SELECT fr.requestee_id as 'uid' FROM {friendlist_relations} as fr
-    INNER JOIN {friendlist_statuses} fs ON fs.rid = fr.rid
-    WHERE fr.requester_id = %d AND fs.status = '%s' ORDER BY fs.last_update_time DESC, fr.rid DESC";
-    $result = db_query($sql, $uid, 'TW_BOTH');*/
+        /* COMMENTED BY RAM ON HEARTBEAT FRNDS
+          $sql = "SELECT fr.requestee_id as 'uid' FROM {friendlist_relations} as fr
+          INNER JOIN {friendlist_statuses} fs ON fs.rid = fr.rid
+          WHERE fr.requester_id = %d AND fs.status = '%s' ORDER BY fs.last_update_time DESC, fr.rid DESC";
+          $result = db_query($sql, $uid, 'TW_BOTH'); */
 
-	$sql = " select distinct follower_id as 'uid' from follower where follower_status=1 and uid<>0 and follower_id<>0 and uid=$uid";
-	$result = db_query($sql);
-    while ($row = db_fetch_object($result)) {
-      $uids[] = $row->uid;
-    }
+        $sql = " select distinct follower_id as 'uid' from follower where follower_status=1 and uid<>0 and follower_id<>0 and uid=$uid";
+        $result = db_query($sql);
+        while ($row = db_fetch_object($result)) {
+            $uids[] = $row->uid;
+        }
+    } elseif ($api == 'user_relationships_api') {
 
-  }
-  elseif ($api == 'user_relationships_api') {
-
-    // If the current user is fan, following, ..., has a one way relation
-    // to the other user, or if he has a two way relation to the user ...
-    // fetch them
-    $sql = "SELECT DISTINCT ur.requestee_id FROM {user_relationships} ur
+        // If the current user is fan, following, ..., has a one way relation
+        // to the other user, or if he has a two way relation to the user ...
+        // fetch them
+        $sql = "SELECT DISTINCT ur.requestee_id FROM {user_relationships} ur
     INNER JOIN {user_relationship_types} urt ON ur.rtid = urt.rtid
     WHERE
     (
@@ -1945,27 +2118,22 @@ function _activity_get_friends($uid) {
     OR
       ur.requester_id = %d AND ur.approved = 1 AND urt.is_oneway <> 0
     )";
-    $result = db_query($sql, $uid, $uid);
-    if (!empty($result)) {
-      while ($row = db_fetch_object($result)) {
-        $uids[] = $row->requestee_id;
-      }
+        $result = db_query($sql, $uid, $uid);
+        if (!empty($result)) {
+            while ($row = db_fetch_object($result)) {
+                $uids[] = $row->requestee_id;
+            }
+        }
+    } elseif ($api == 'flag_friend_api') {
+
+        $uids = array_keys(flag_friend_get_friends($uid));
+    } else {
+        $sql = " select distinct follower_id as 'uid' from follower where follower_status=1 and uid<>0 and follower_id<>0 and uid=$uid";
+        $result = db_query($sql);
+        while ($row = db_fetch_object($result)) {
+            $uids[] = $row->uid;
+        }
     }
 
-  }
-  elseif ($api == 'flag_friend_api') {
-
-    $uids = array_keys(flag_friend_get_friends($uid));
-
-  }else{
-  $sql = " select distinct follower_id as 'uid' from follower where follower_status=1 and uid<>0 and follower_id<>0 and uid=$uid";
-	$result = db_query($sql);
-    while ($row = db_fetch_object($result)) {
-      $uids[] = $row->uid;
-    }
-
-  }
-
-  return $uids;
-
+    return $uids;
 }
