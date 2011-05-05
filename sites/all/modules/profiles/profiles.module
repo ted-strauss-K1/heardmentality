@@ -236,26 +236,48 @@ $userslist=user_load(array('uid'=>$mid));
     return $PROFILE_IMAGE;
 }
 
+//function save_message() {
+//    //print_r($_REQUEST);
+//    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+//    $uid = $_REQUEST['actions'];
+//    if (!empty($uid) && !empty($_REQUEST['msgs']) && !empty($user->uid)) {
+//        db_query("insert into messages (from_id,to_id,message) values('" . $user->uid . "','" . $uid . "','" . $_REQUEST['msgs'] . "')");
+//
+//        echo '<div class="messages success">Message sent successfully!</div>';
+//    } elseif (!empty($_REQUEST['muid']) && !empty($_REQUEST['frmsgs'])) {
+//
+//        foreach ($_REQUEST['muid'] as $uids) {
+//
+//            db_query("insert into messages (from_id,to_id,message) values('" . $user->uid . "','" . $uids . "','" . $_REQUEST['frmsgs'] . "')");
+//        }
+//        echo '<div class="messages success">Message sent successfully!</div>';
+//    } else {
+//        echo '<div class="messages error">Sorry Error Occurs!</div>';
+//    }
+//    exit;
+//}
+
+
 function save_message() {
     //print_r($_REQUEST);
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-    $uid = $_REQUEST['actions'];
-    if (!empty($uid) && !empty($_REQUEST['msgs']) && !empty($user->uid)) {
-        db_query("insert into messages (from_id,to_id,message) values('" . $user->uid . "','" . $uid . "','" . $_REQUEST['msgs'] . "')");
+    $to_uid = $_REQUEST['muid'];
+    $message = $_REQUEST['frmsgs'];
+    $countUser = count($to_uid);
 
+    if(!empty($message) && !empty($to_uid)){
+        /*New SET NOTIFY LOG*/
+        $variable = array('from_uid' => $user->uid, 'to_uid' => $to_uid, 'message' => $message);
+        set_notify_log($user->uid, '', 'follow_message', $variable);
+        /*New SET NOTIFY LOG*/
         echo '<div class="messages success">Message sent successfully!</div>';
-    } elseif (!empty($_REQUEST['muid']) && !empty($_REQUEST['frmsgs'])) {
-
-        foreach ($_REQUEST['muid'] as $uids) {
-
-            db_query("insert into messages (from_id,to_id,message) values('" . $user->uid . "','" . $uids . "','" . $_REQUEST['frmsgs'] . "')");
-        }
-        echo '<div class="messages success">Message sent successfully!</div>';
-    } else {
+    }else{
         echo '<div class="messages error">Sorry Error Occurs!</div>';
     }
     exit;
 }
+
+
 
 function profiles_block($op = 'list', $delta = 0, $edit = array()) {
     switch ($op) {
@@ -723,7 +745,7 @@ function profile($uid = '') {
         $inc = '&nbsp; <a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Contributors</a>';
 
         $inc = '<li>&nbsp;<img src="' . $gSitePath . path_to_theme() . '/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;' . $inc . '</li>';
-        $inc_msg = '  <li><a href="' . $clink . '?tag=msg">Message[' . $cnt_msg . ']</a></li>';
+        //$inc_msg = '  <li><a href="' . $clink . '?tag=msg">Message[' . $cnt_msg . ']</a></li>';
     }
     drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
 ///content starts

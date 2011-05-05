@@ -1,7 +1,7 @@
 <?php
 
 function search_results() {
-    
+
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
     $flink = '';
@@ -19,10 +19,10 @@ function search_results() {
     $back = $eu - $limit;
     $next = $eu + $limit;
     $fetresult = '';
-    if(!isAjax ()){
-    drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search_user.js');
-drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
-}
+    if (!isAjax ()) {
+        drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search_user.js');
+        drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
+    }
 
     $name = $_REQUEST['txt_search'];
     $q_country = $_REQUEST['q_country'];
@@ -40,35 +40,35 @@ drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
     if (!empty($name))
         $qry .= "AND (img.real_name LIKE '%" . $name . "%' OR reg.name LIKE '%" . $name . "%' ) ";
 
-   if (!empty($q_country))
+    if (!empty($q_country))
         $qry .= "AND (img.country ='" . $q_country . "') ";
 
-    if (!empty($q_state)&&$q_state>0){
-         $query = array('geonameid' => $q_state, 'style' => '', 'lang' => 'en');
-                $result = geonames_query('get', $query);
+    if (!empty($q_state) && $q_state > 0) {
+        $query = array('geonameid' => $q_state, 'style' => '', 'lang' => 'en');
+        $result = geonames_query('get', $query);
 
-                $state_name = ((!empty($result->results[0]['name'])) ? $result->results[0]['name'] : '');
+        $state_name = ((!empty($result->results[0]['name'])) ? $result->results[0]['name'] : '');
 
         $qry .= "AND (img.state ='%" . $state_name . "%') ";
     }
-   if (!empty($q_city)&&$q_city>0){
-       $query = array('geonameid' => $q_city, 'style' => '', 'lang' => 'en');
-                $result = geonames_query('get', $query);
-                $city_name = ((!empty($result->results[0]['name'])) ? $result->results[0]['name'] : '');
+    if (!empty($q_city) && $q_city > 0) {
+        $query = array('geonameid' => $q_city, 'style' => '', 'lang' => 'en');
+        $result = geonames_query('get', $query);
+        $city_name = ((!empty($result->results[0]['name'])) ? $result->results[0]['name'] : '');
         $qry .= "AND (img.city ='%" . $city_name . "%') ";
-   }
+    }
 
 
 //SELECT * FROM users reg, user_profile img, follower fol WHERE (fol.cat_id ='1') AND reg.status='1' and reg.uid=fol.uid group by fol.uid
-        if ($_REQUEST['cid'] != '') {
-            if ($scid != '')
-                $c_qry .= "AND (fol.cat_id=$scid)";
+    if ($_REQUEST['cid'] != '') {
+        if ($scid != '')
+            $c_qry .= "AND (fol.cat_id=$scid)";
 
-            $qry_form = " ,follower fol  $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
-        }
-        else {
-            $qry_form =$qry;
-        }
+        $qry_form = " ,follower fol  $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
+    }
+    else {
+        $qry_form = $qry;
+    }
     $sel = "SELECT * FROM {users} reg,{user_profile} img  $qry_form";
 
     //  echo $sel;
@@ -78,7 +78,7 @@ drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
 
     $sel_count = ExecuteQuery($sel, 'norows');
 
-   
+
     $sel .= " limit $eu, $limit";
 
 
@@ -115,7 +115,7 @@ drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
             $divider = '';
         }
 
-        $fetresult .= load_user_badge($user_result->uid,1);
+        $fetresult .= load_user_badge($user_result->uid, 1);
     }
     if ($sel_count == 0) {
         $fetresult .= '<div align="center"><b>No Search Results  </b></div>';
@@ -131,11 +131,11 @@ drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
 
         $fetresult .= "   <div class='page-n' align='center'>
             <ul><li>";
-            if ($back >= 0) {
+        if ($back >= 0) {
             //href='$page_name?start=$back&$lkr'
             $fetresult .= "<a class='' href='JavaScript:void(0);' id='$back'>Previous</a>";
             //href='$page_name?start=$back&$lkr'
-            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath .  drupal_get_path('theme','newtheme') . "/images/p-l.jpg'></a>";
+            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/images/p-l.jpg'></a>";
         }
         $fetresult .= "</li><li>";
         $i = 0;
@@ -158,7 +158,7 @@ drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
             //$fetresult .= "<li><a href='$page_name?start=$next&code=$code&txt_search=$name'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a></li>";
             //$fetresult .= "&nbsp;&nbsp;<li><a href='$page_name?start=$next&code=$code&txt_search=$name'>Next</a></li>";
             //href='$page_name?start=$next&$lkr'
-            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath.  drupal_get_path('theme','newtheme') . "/images/p-r.jpg'></a>";
+            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/images/p-r.jpg'></a>";
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0)' id='$next'>Next</a>";
         }
@@ -201,272 +201,270 @@ function categoryuser_ajax() {
     echo _sidebaruser_category();
     exit;
 }
+
 /*
+  function search_user_ajax() {
+
+  // print_r($_REQUEST);
+  global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+  $flink = '';
+  $fetresult = '';
+  extract($_REQUEST);
+  $page_name = "searchuser"; //  If you use this code with a different page ( or file ) name then change this
+  if (isset($_GET['start'])) {
+  $start = $_GET['start'];
+  } else {
+  $start = 0;
+  }
+  if (strlen($start) > 0 and !is_numeric($start)) {
+  echo "Data Error";
+  exit;
+  }
+  $eu = ($start - 0);
+  $limit = 14; // No of records to be shown per page.
+  $this1 = $eu + $limit;
+  $back = $eu - $limit;
+  $next = $eu + $limit;
+  $fetresult = '';
+  //drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
+  drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search_user.js');
+
+  $txt_search = $_REQUEST['txt_search'];
+  $name = $_REQUEST['txt_search'];
+  $q_country = $_REQUEST['q_country'];
+  $q_state = $_REQUEST['q_state'];
+
+  $cid = $_REQUEST['cid'];
+  $scid = $_REQUEST['scid'];
+
+
+
+  if ($_REQUEST['code'] != '') {
+  $code = $_REQUEST['code'];
+  }
+
+  $qry = '';
+  if ($name != '')
+  $qry .= " AND (img.real_name LIKE '" . $name . "%')";
+
+  if ($_REQUEST['code'] != '')
+  $qry .= " AND (img.country ='" . $code . "')";
+
+  if ($_REQUEST['q_country'] != '')
+  $qry .= " AND (img.country ='" . $q_country . "')";
+
+
+  if ($_REQUEST['q_state'] != '' && $_REQUEST['q_state'] != 0)
+  $qry .= " AND (img.state ='" . $q_state . "')";
+
+  if ($_REQUEST['q_city'] != '')
+  $qry .= " AND (img.city ='" . $q_city . "')";
+
+
+
+  //SELECT * FROM users reg, user_profile img, follower fol WHERE (fol.cat_id ='1') AND reg.status='1' and reg.uid=fol.uid group by fol.uid
+  if ($user->uid != '') {
+  if ($_REQUEST['cid'] != '') {
+
+  if ($scid != '')
+  $c_qry .= "OR (fol.cat_id=$scid)";
+
+  $qry_form = "img, follower fol where 1 $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
+  }
+  else {
+  $qry_form = "img WHERE 1 $qry and img.uid=reg.uid AND reg.status='1'";
+  }
+  } else {
+
+  if ($_REQUEST['cid'] != '') {
+  if ($scid != '')
+  $c_qry .= "OR (fol.cat_id=$scid)";
+
+  $qry_form = "img, follower fol where 1 $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
+  }
+  else {
+  $qry_form = "img WHERE 1 $qry AND reg.status='1' AND img.uid=reg.uid";
+  }
+  }
+  $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
+
+
+  //echo $sel;
+
+  $user_qry = db_query($sel);
+
+
+  $sel_count = ExecuteQuery($sel, 'norows');
+
+
+  if ($user->uid != '') {
+  if ($_REQUEST['cid'] != '') {
+
+  if ($scid != '')
+  $c_qry .= "OR (fol.cat_id=$scid)";
+
+  $qry_form = "img, follower fol where 1 $qry and (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
+  $sel_count = mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
+  }
+  else {
+
+  $qry_form = "img WHERE 1 $qry and img.uid=reg.uid AND reg.status='1'";
+  $sel_count = db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
+  }
+
+
+  //$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'"));
+  } else {
+  //  $sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
+
+  if ($_REQUEST['cid'] != '') {
+
+  if ($scid != '')
+  $c_qry .= "OR (fol.cat_id=$scid)";
+
+  $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid<>$user->uid and reg.uid=fol.uid $c_qry group by fol.uid";
+  $sel_count = mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
+  }
+  else {
+
+  $qry_form = "img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
+  $sel_count = db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
+  }
+  }
+  $sel .= " limit $eu, $limit";
+
+  //echo $sel;
+  $sel_search = db_query($sel);
+
+  $incr = 0;
+
+  $fetresult = ' <div class="rleft">
+  <!--<span class="padding10">SEARCH RESULTS</span><br />-->
+  <div class="clr"></div>
+  <div class="result-item"></div>
+  <div class="clr"></div>
+  <div class="clr"></div>
+  <div class="result-item">
+  <div class="rleft">';
+
+  while ($user_result = db_fetch_object($sel_search)) {
+  $incr = $incr + 1;
+  if ($user->uid != '') {
+  //$flink='<a class="linkfol" href="user/'.$user_result->uid.'?act=flag">Follow </a>';
+  //$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
+  }
+  $gquery = "select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid='" . $user_result->uid . "'";
+  $gpoints = db_result(db_query($gquery));
+  if ($user_result->gender == 1) {
+  $usetype = 'Male';
+  } elseif ($user_result->gender == 2) {
+
+  $usetype = 'Female';
+  } else {
+  $usetype = '<b>--</b>';
+  }
+  if ($incr == 2) {
+  $divider = '<div class="clr"></div>';
+  } else {
+  $divider = '';
+  }
+
+  $fetresult .= ' <div class="prof-it-1">
+  <div class="lefimg-it-c"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');" >' . UserPicture($user_result->uid) . '</a></div>
+  <div class="ritecont-it-c">
+  <div>
+  <ul>
+  <li><a  onclick="get_profile_details(' . $user_result->uid . ');" style="cursor:pointer" > ' . $user_result->real_name . '</a></li><br />
+  <!--<li>' . $gpoints . '</li><br />-->
+  ' . updateProfileBadge($user_result->uid) . '
+  </ul>
+  </div>
+  </div>
+  <div class="clr"></div>
+  </div>';
+  }
+  if ($sel_count == 0) {
+  $fetresult .= '<div align="center"><b>No Search Results  </b></div>';
+  }
+  $fetresult .= '</div>
+  </div>
+  <div class="clr"></div>
+  <div class="clr"></div>
+  <div class="result-item">
+
+
+  </div>
+  <div class="clr"></div>
+  </div>  ';
+
+  if ($sel_count > $limit) {
+
+
+  $fetresult .= "   <div class='page-n' align='center'>
+  <ul><li>";
+  if ($back >= 0) {
+  $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'>Previous</a>";
+  $fetresult .= "&nbsp;&nbsp;<li><a href='$page_name?start=$back&code=$code&txt_search=$name'><img alt='Previous' src='" . $gSitePath . "sites/all/themes/newtheme/images/p-l.jpg'></a></li>";
+  }
+  $fetresult .= "</li><li>";
+  $i = 0;
+  $l = 1;
+  for ($i = 0; $i < $sel_count; $i = $i + $limit) {
+  if ($i <> $eu) {
+  $fetresult .= " <a href='$page_name?start=$i&code=$code&txt_search=$name'>$l</a> ";
+  } else {
+  $fetresult .= "<font color=red>$l</font>";
+  }
+  $l = $l + 1;
+  }
+
+
+  $fetresult .= "</li>";
+  if ($this1 < $sel_count) {
+
+  $fetresult .= "<li><a href='$page_name?start=$next&code=$code&txt_search=$name'><img alt='Next' src='" . $gSitePath . "sites/all/themes/newtheme/images/p-r.jpg'></a></li>";
+  $fetresult .= "&nbsp;&nbsp;<li><a href='$page_name?start=$next&code=$code&txt_search=$name'>Next</a></li>";
+  }
+  $fetresult .= "</ul>
+  </div>";
+  }
+
+  $fetresult .= ' ';
+
+  if (isset($_REQUEST['act']) == 'flag') {
+  $mem_id = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+
+  $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='" . $mem_id . "'  and  uid ='" . $user->uid . "'"));
+  if ($res_num == 0) {
+  $ins_commg = "insert into   follower (uid,follower_id,follower_status,joindate) values('" . $user->uid . "','" . $mem_id . "','1','" . date('Y-m-d') . "') ";
+  $rs_commg = db_query($ins_commg);
+
+  drupal_set_message(t('Successfully Added as Follower'), $type = 'success');
+  } else {
+  $sel_usermdet = "select * from users  where uid='" . $mem_id . "' ";
+  $rs_usernam = db_query($sel_usermdet);
+  $namelist = db_fetch_object($rs_usernam);
+
+  drupal_set_message(t('You are already following ' . $namelist->name . '.'), $type = 'error');
+  }
+  }
+
+  echo $fetresult;
+  }
+ */
+
 function search_user_ajax() {
-    
-    // print_r($_REQUEST);
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
-    $flink = '';
-    $fetresult = '';
-    extract($_REQUEST);
-    $page_name = "searchuser"; //  If you use this code with a different page ( or file ) name then change this
-    if (isset($_GET['start'])) {
-        $start = $_GET['start'];
-    } else {
-        $start = 0;
-    }
-    if (strlen($start) > 0 and !is_numeric($start)) {
-        echo "Data Error";
-        exit;
-    }
-    $eu = ($start - 0);
-    $limit = 14; // No of records to be shown per page.
-    $this1 = $eu + $limit;
-    $back = $eu - $limit;
-    $next = $eu + $limit;
-    $fetresult = '';
-    //drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
-    drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search_user.js');
+    $content = '';
 
-    $txt_search = $_REQUEST['txt_search'];
-    $name = $_REQUEST['txt_search'];
-    $q_country = $_REQUEST['q_country'];
-    $q_state = $_REQUEST['q_state'];
-
-    $cid = $_REQUEST['cid'];
-    $scid = $_REQUEST['scid'];
+    echo $content = search_results();
 
 
-
-    if ($_REQUEST['code'] != '') {
-        $code = $_REQUEST['code'];
-    }
-
-    $qry = '';
-    if ($name != '')
-        $qry .= " AND (img.real_name LIKE '" . $name . "%')";
-
-    if ($_REQUEST['code'] != '')
-        $qry .= " AND (img.country ='" . $code . "')";
-
-    if ($_REQUEST['q_country'] != '')
-        $qry .= " AND (img.country ='" . $q_country . "')";
-
-
-    if ($_REQUEST['q_state'] != '' && $_REQUEST['q_state'] != 0)
-        $qry .= " AND (img.state ='" . $q_state . "')";
-
-    if ($_REQUEST['q_city'] != '')
-        $qry .= " AND (img.city ='" . $q_city . "')";
-
-
-
-//SELECT * FROM users reg, user_profile img, follower fol WHERE (fol.cat_id ='1') AND reg.status='1' and reg.uid=fol.uid group by fol.uid
-    if ($user->uid != '') {
-        if ($_REQUEST['cid'] != '') {
-
-            if ($scid != '')
-                $c_qry .= "OR (fol.cat_id=$scid)";
-
-            $qry_form = "img, follower fol where 1 $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
-        }
-        else {
-            $qry_form = "img WHERE 1 $qry and img.uid=reg.uid AND reg.status='1'";
-        }
-    } else {
-
-        if ($_REQUEST['cid'] != '') {
-            if ($scid != '')
-                $c_qry .= "OR (fol.cat_id=$scid)";
-
-            $qry_form = "img, follower fol where 1 $qry AND (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
-        }
-        else {
-            $qry_form = "img WHERE 1 $qry AND reg.status='1' AND img.uid=reg.uid";
-        }
-    }
-    $sel = "SELECT * FROM {users} reg,{user_profile} $qry_form";
-
-
-    //echo $sel;
-
-    $user_qry = db_query($sel);
-
-
-    $sel_count = ExecuteQuery($sel, 'norows');
-
-
-    if ($user->uid != '') {
-        if ($_REQUEST['cid'] != '') {
-
-            if ($scid != '')
-                $c_qry .= "OR (fol.cat_id=$scid)";
-
-            $qry_form = "img, follower fol where 1 $qry and (fol.cat_id=$cid) AND reg.status=1 and reg.uid=fol.uid $c_qry group by fol.uid";
-            $sel_count = mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
-        }
-        else {
-
-            $qry_form = "img WHERE 1 $qry and img.uid=reg.uid AND reg.status='1'";
-            $sel_count = db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
-        }
-
-
-        //$sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'"));
-    } else {
-        //  $sel_count = db_result(db_query("SELECT COUNT(*) FROM {users} reg,{user_profile} img WHERE $qry status='1' and img.uid=reg.uid "));
-
-        if ($_REQUEST['cid'] != '') {
-
-            if ($scid != '')
-                $c_qry .= "OR (fol.cat_id=$scid)";
-
-            $qry_form = "img, follower fol where $qry (fol.cat_id=$cid) AND reg.status=1 and reg.uid<>$user->uid and reg.uid=fol.uid $c_qry group by fol.uid";
-            $sel_count = mysql_num_rows(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
-        }
-        else {
-
-            $qry_form = "img WHERE $qry reg.uid<>$user->uid and img.uid=reg.uid AND reg.status='1'";
-            $sel_count = db_result(db_query("SELECT count(*) FROM {users} reg,{user_profile} $qry_form"));
-        }
-    }
-    $sel .= " limit $eu, $limit";
-
-    //echo $sel;
-    $sel_search = db_query($sel);
-
-    $incr = 0;
-
-    $fetresult = ' <div class="rleft">
-       <!--<span class="padding10">SEARCH RESULTS</span><br />-->
-       <div class="clr"></div>
-       <div class="result-item"></div>
-       <div class="clr"></div>
-       <div class="clr"></div>
-       <div class="result-item">
-       <div class="rleft">';
-
-    while ($user_result = db_fetch_object($sel_search)) {
-        $incr = $incr + 1;
-        if ($user->uid != '') {
-            //$flink='<a class="linkfol" href="user/'.$user_result->uid.'?act=flag">Follow </a>';
-            //$flink='<a class="linkfol" href="'.$gSitePath.'profile/'.$user_result->uid.'">View </a>';
-        }
-        $gquery = "select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid='" . $user_result->uid . "'";
-        $gpoints = db_result(db_query($gquery));
-        if ($user_result->gender == 1) {
-            $usetype = 'Male';
-        } elseif ($user_result->gender == 2) {
-
-            $usetype = 'Female';
-        } else {
-            $usetype = '<b>--</b>';
-        }
-        if ($incr == 2) {
-            $divider = '<div class="clr"></div>';
-        } else {
-            $divider = '';
-        }
-
-        $fetresult .= ' <div class="prof-it-1">
-        <div class="lefimg-it-c"><a href="#" onclick="get_profile_details(' . $user_result->uid . ');" >' . UserPicture($user_result->uid) . '</a></div>
-        <div class="ritecont-it-c">
-<div>
-<ul>
-<li><a  onclick="get_profile_details(' . $user_result->uid . ');" style="cursor:pointer" > ' . $user_result->real_name . '</a></li><br />
-<!--<li>' . $gpoints . '</li><br />-->
-' . updateProfileBadge($user_result->uid) . '
-</ul>
-</div>
-</div>
-<div class="clr"></div>
-   </div>';
-    }
-    if ($sel_count == 0) {
-        $fetresult .= '<div align="center"><b>No Search Results  </b></div>';
-    }
-    $fetresult .= '</div>
-       </div>
-       <div class="clr"></div>
-       <div class="clr"></div>
-       <div class="result-item">
-
-
-       </div>
-       <div class="clr"></div>
-       </div>  ';
-
-    if ($sel_count > $limit) {
-
-
-        $fetresult .= "   <div class='page-n' align='center'>
-            <ul><li>";
-        if ($back >= 0) {
-            $fetresult .= "<a href='$page_name?start=$back&code=$code&txt_search=$name'>Previous</a>";
-            $fetresult .= "&nbsp;&nbsp;<li><a href='$page_name?start=$back&code=$code&txt_search=$name'><img alt='Previous' src='" . $gSitePath . "sites/all/themes/newtheme/images/p-l.jpg'></a></li>";
-        }
-        $fetresult .= "</li><li>";
-        $i = 0;
-        $l = 1;
-        for ($i = 0; $i < $sel_count; $i = $i + $limit) {
-            if ($i <> $eu) {
-                $fetresult .= " <a href='$page_name?start=$i&code=$code&txt_search=$name'>$l</a> ";
-            } else {
-                $fetresult .= "<font color=red>$l</font>";
-            }
-            $l = $l + 1;
-        }
-
-
-        $fetresult .= "</li>";
-        if ($this1 < $sel_count) {
-
-            $fetresult .= "<li><a href='$page_name?start=$next&code=$code&txt_search=$name'><img alt='Next' src='" . $gSitePath . "sites/all/themes/newtheme/images/p-r.jpg'></a></li>";
-            $fetresult .= "&nbsp;&nbsp;<li><a href='$page_name?start=$next&code=$code&txt_search=$name'>Next</a></li>";
-        }
-        $fetresult .= "</ul>
-        </div>";
-    }
-
-    $fetresult .= ' ';
-
-    if (isset($_REQUEST['act']) == 'flag') {
-        $mem_id = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-
-
-        $res_num = db_result(db_query("SELECT COUNT(*) from follower  where  follower_id='" . $mem_id . "'  and  uid ='" . $user->uid . "'"));
-        if ($res_num == 0) {
-            $ins_commg = "insert into   follower (uid,follower_id,follower_status,joindate) values('" . $user->uid . "','" . $mem_id . "','1','" . date('Y-m-d') . "') ";
-            $rs_commg = db_query($ins_commg);
-
-            drupal_set_message(t('Successfully Added as Follower'), $type = 'success');
-        } else {
-            $sel_usermdet = "select * from users  where uid='" . $mem_id . "' ";
-            $rs_usernam = db_query($sel_usermdet);
-            $namelist = db_fetch_object($rs_usernam);
-
-            drupal_set_message(t('You are already following ' . $namelist->name . '.'), $type = 'error');
-        }
-    }
-
-    echo $fetresult;
+    die;
 }
-*/
-
-
-function search_user_ajax(){
-     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-
-     $content='';
-
-     echo $content=search_results();
-
-
-     die;
-
-}
-
 
 function question_follow() {
 
@@ -624,9 +622,9 @@ function search_results_ajax() {
         $for_count = db_result(db_query("SELECT count(qid) as fcount FROM `debate` where qid='" . $user_result->qid . "'"));
 
         $numresum = db_result(db_query("SELECT COUNT(qid) FROM resource where  qid='$user_result->qid'"));
-        $posts=$for_count+$numresum;
+        $posts = $for_count + $numresum;
         $fetresult .= ' <div class="result-item">
-               <form id="answer_frm-'.$user_result->qid.'" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save">
+               <form id="answer_frm-' . $user_result->qid . '" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save">
 	<div class="rleft">
        <div class="titl">
      
@@ -651,14 +649,14 @@ function search_results_ajax() {
                 <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->paid . '" ' . check_select($get_ans->paid, $vlistquest->paid) . '  />&nbsp;&nbsp;' . $vlistquest->answer . '</div>';
         }
 
- $fetresult .= '  <div class="rright">
+        $fetresult .= '  <div class="rright">
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
       </div>   <div class="vote-post-outer-bottom">
       <div align="center" class="vot-t" style="border-right:1px solid black">
-      <img src="' . $gSitePath.path_to_theme().'/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
+      <img src="' . $gSitePath . path_to_theme() . '/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
        <div align="center" class="vot-t">
-       <img src="' . $gSitePath.path_to_theme(). '/images/post.jpg" alt="img" /> Posts | ' .$posts . '</div>
+       <img src="' . $gSitePath . path_to_theme() . '/images/post.jpg" alt="img" /> Posts | ' . $posts . '</div>
 
       </div>
 
@@ -715,7 +713,7 @@ function search_results_ajax() {
             //href='$page_name?start=$back&$lkr'
             $fetresult .= "<a class='' href='JavaScript:void(0);' id='$back'>Previous</a>";
             //href='$page_name?start=$back&$lkr'
-            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath .  drupal_get_path('theme','newtheme') . "/images/p-l.jpg'></a>";
+            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/images/p-l.jpg'></a>";
         }
         //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
         $fetresult .= "</li><li>";
@@ -736,7 +734,7 @@ function search_results_ajax() {
         ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
         if ($this1 < $sel_count) {
             //href='$page_name?start=$next&$lkr'
-            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath .drupal_get_path('theme','newtheme') . "/images/p-r.jpg'></a>";
+            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/images/p-r.jpg'></a>";
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0);' id='$next'>Next</a>";
         }
@@ -772,7 +770,7 @@ function search_results_question() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
 
 
-  //  $page_name = "searchquestion";
+    //  $page_name = "searchquestion";
     if (isset($_GET['start'])) {
         $start = $_GET['start'];
     }
@@ -800,15 +798,13 @@ function search_results_question() {
 
     $sel = facetad_refine();
     $sel_count = $sel['qcnt'];
-     $sel['query'] .= " limit  $eu, $limit";
+    $sel['query'] .= " limit  $eu, $limit";
 
     drupal_add_js(drupal_get_path('module', 'user_search') . '/js/search.js');
     //drupal_add_js(drupal_get_path('module', 'user_search') . '/js/sub.js');
     // echo $sel;
     // $sel_search = ExecuteQuery($sel, "select");
     // print_r($sel_search);
-
-  
     //echo $sel['query'];
     $sel_search = db_query($sel['query']);
     $i = 0;
@@ -839,10 +835,10 @@ function search_results_question() {
         $ques_count = db_fetch_object(db_query("SELECT count(qid) as qcount FROM `possible_answer_vote` where qid='" . $user_result->qid . "'"));
 
         // alter for numresum
-      $for_count = db_result(db_query("SELECT count(qid) as fcount FROM `debate` where qid='" . $user_result->qid . "'"));
+        $for_count = db_result(db_query("SELECT count(qid) as fcount FROM `debate` where qid='" . $user_result->qid . "'"));
 
-     $numresum = db_result(db_query("SELECT COUNT(qid) FROM resource where  qid='$user_result->qid'"));
-        $posts=$for_count+$numresum;
+        $numresum = db_result(db_query("SELECT COUNT(qid) FROM resource where  qid='$user_result->qid'"));
+        $posts = $for_count + $numresum;
         $fetresult .= ' <div class="result-item">
 	<div class="rleft">
        <div class="titl">
@@ -866,14 +862,14 @@ function search_results_question() {
             $fetresult .= ' <div class="item1">
                 <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->paid . '" ' . $check . '  />&nbsp;&nbsp;' . $vlistquest->answer . '</div>';
         }
- $fetresult .= '  <div class="rright">
+        $fetresult .= '  <div class="rright">
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
       </div>   <div class="vote-post-outer-bottom">
       <div align="center" class="vot-t" style="border-right:1px solid black">
-      <img src="' . $gSitePath.path_to_theme().'/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
+      <img src="' . $gSitePath . path_to_theme() . '/images/tick.jpg" alt="img" /> Votes | ' . $ques_count->qcount . '</div>
        <div align="center" class="vot-t">
-       <img src="' . $gSitePath.path_to_theme(). '/images/post.jpg" alt="img" /> Posts | ' .$posts . '</div>
+       <img src="' . $gSitePath . path_to_theme() . '/images/post.jpg" alt="img" /> Posts | ' . $posts . '</div>
 
       </div>
 
@@ -961,10 +957,10 @@ function search_results_question() {
     if ($sel_count == 0) {
         $fetresult .= ' <div  align="center" class="result-item"><b>No Search Results </b></div>';
     }
-if(isAjax ())
-    echo $fetresult;
-else
-    return $fetresult;
+    if (isAjax ())
+        echo $fetresult;
+    else
+        return $fetresult;
 }
 
 function user_follower() {
@@ -973,11 +969,11 @@ function user_follower() {
 
     $follid = (int) substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
-    $follower = '
+    $follower .= '
         <script>
         var gSitePath="' . $gSitePath . '";
 </script>
-        	<script type="text/javascript" src="' . $gSitePath . '/misc/jquery.js"></script>
+        	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') .'/scripts/jquery1.4.js"></script>
       	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'profiles') . '/js/profile.js"></script>
   <link rel="stylesheet" href="' . $gSitePath . 'modules/system/system.css" type="text/css" />
 		<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
@@ -993,40 +989,44 @@ function user_follower() {
         drupal_set_message(t('Updated Successfully '), $type = 'success');
         drupal_goto("follower/");
     }
-    if (!empty($follid)) {
-        $follower .= '<div class="following">';
-        $sel_pro = "select * from follower  where follower_id='" . $follid . "'  ";
-        $rs_follower = db_query($sel_pro);
-        $countrowsm = db_result(db_query("SELECT COUNT(*) from follower  where follower_id='" . $follid . "' "));
-        $followeru = '';
-        while ($follower_resultfuser = db_fetch_object($rs_follower)) {
+    // get followers for this user
+//        $followers = _activity_heartbeat_related_uid_info($user->uid);
+//        $countrowsm = count($followers);
 
-            // $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
-            $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $follower_resultfuser->uid . "'";
-            $rs_umlog = db_query($sel_ulist);
-            $user_namelistf = db_fetch_object($rs_umlog);
+
+    if (!empty($follid)) {
+    $followers = user_relationships_load($param = array("approved" => 1, "requestee_id" => $follid, 'rtid' => 1), $options = array('include_user_info' => 1, 'order' => 1, 'limit' => '10'), $reset = FALSE);
+    $countrowsm = count($followers);
+        //echo '<pre>';
+        //print_r($followers);
+        $follower.= '<div class="following">';
+        $i = 0;
+        foreach ($followers as $rtid => $relationship) {
+            //echo '<pre>';
+            //print_r($relationship);
+            $user_namelistf = load_user($relationship->requester_id);
 
 
             $user_namelistf->name;
 
             if ($follid == $user->uid) {
-                $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',1,1)" >UnBlock</a>';
-                $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',0,1)" >Block</a>';
-                if ($follower_resultfuser->follower_status == 0) {
+                $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $relationship->rid . ',' . $relationship->requester_id . ',1,1)" >UnBlock</a>';
+                $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $relationship->rid . ',' . $relationship->requester_id . ',0,1)" >Block</a>';
+                if ($relationship->flags == 0) {
                     $input = '<span style="padding-left:17px;">&nbsp;</span>';
                 } else {
-                    $input = '<input type="checkbox" name="muid"  value="' . $follower_resultfuser->id . '"/> &nbsp;';
+                    $input = '<input type="checkbox" name="muid[]"  value="' . $relationship->requester_id . '"/> &nbsp;';
                 }
             }
-            if ($follower_resultfuser->follower_status == 0) {
-                $followeru = '<div class="contact-user-list"  id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
+            if ($relationship->flags == 0) {
+                $followeru = '<div class="contact-user-list"  id="list-' . $relationship->rid . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($relationship->requester_id) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
             } else {
-                $followeru = '<div  class="contact-user-list"   id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
+                $followeru = '<div class="contact-user-list"  id="list-' . $relationship->rid . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($relationship->requester_id) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
             }
 
             $follow .= '' . $followeru . '';
-            //$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
         }
+
 
         if ($countrowsm == 0) {
 
@@ -1040,9 +1040,60 @@ function user_follower() {
 ';
         }
     } else {
-
         $follower = ' No Records';
     }
+
+//    if (!empty($follid)) {
+//        $follower .= '<div class="following">';
+//        $sel_pro = "select * from follower  where follower_id='" . $follid . "'  ";
+//        $rs_follower = db_query($sel_pro);
+//        $countrowsm = db_result(db_query("SELECT COUNT(*) from follower  where follower_id='" . $follid . "' "));
+//        $followeru = '';
+//
+//        while ($follower_resultfuser = db_fetch_object($rs_follower)) {
+//
+//            // $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
+//            $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $follower_resultfuser->uid . "'";
+//            $rs_umlog = db_query($sel_ulist);
+//            $user_namelistf = db_fetch_object($rs_umlog);
+//
+//
+//            $user_namelistf->name;
+//
+//            if ($follid == $user->uid) {
+//                $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',1,1)" >UnBlock</a>';
+//                $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',0,1)" >Block</a>';
+//                if ($follower_resultfuser->follower_status == 0) {
+//                    $input = '<span style="padding-left:17px;">&nbsp;</span>';
+//                } else {
+//                    $input = '<input type="checkbox" name="muid"  value="' . $follower_resultfuser->id . '"/> &nbsp;';
+//                }
+//            }
+//            if ($follower_resultfuser->follower_status == 0) {
+//                $followeru = '<div class="contact-user-list"  id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink1 . '</div>';
+//            } else {
+//                $followeru = '<div  class="contact-user-list"   id="list-' . $follower_resultfuser->id . '">' . $input . '<a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '">' . UserPicture_small($follower_resultfuser->uid) . $user_namelistf->name . ' </a> ' . $flink2 . '</div>';
+//            }
+//
+//            $follow .= '' . $followeru . '';
+//            //$followeru[]='<a href="'.$gSitePath.'profile/'.$user_namelistf->name.'">'.$user_namelistf->name.' </a><br>';
+//        }
+//
+//        if ($countrowsm == 0) {
+//
+//            $follower .= '<span style="padding-left:17px;">No Followers Found</span> ';
+//        } elseif ($user->uid == $follid) {
+//            $follower.='  <div class="clear"><ul class="subtabs"><li>Select</li> <li><a href="#" onclick="chk_all(1);";>All</a> </li><li><a href="#" onclick="chk_all(0);";>None</a></li><li><a href="#" onclick="enable_form(1,this);";>Send Message</a><li><li></li></ul></div>
+//<form name="frmsgform" id="frmsgform" action="' . $gSitePath . 'postmessage" method="POST">' . $follow . '
+//     <div align="left" style="display:none;" id="frmsgbox"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="frmsgs"></textarea><input type="hidden" value="37" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg">&nbsp; <input type="button" onclick="rel_msg(0);"  value="cancel"/></div>
+//
+//</form>
+//';
+//        }
+//    } else {
+//
+//        $follower = ' No Records';
+//    }
 
 
 
@@ -1245,7 +1296,8 @@ function save_follower() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $follid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     if (isset($_GET['action'])) {
-        $del_blog = "update  follower  set follower_status='" . $_REQUEST['blk'] . "' where  id='" . $_GET['action'] . "' ";
+        //$del_blog = "update  follower  set follower_status='" . $_REQUEST['blk'] . "' where  id='" . $_GET['action'] . "' ";
+        $del_blog = "update  user_relationships  set flags='" . $_REQUEST['blk'] . "' where  rid='" . $_GET['action'] . "' ";
         $rs_blog_del = db_query($del_blog);
 
 
@@ -1273,7 +1325,7 @@ function save_follower() {
         } else {
             $valss = 'Block';
             $blkid = '0';
-            $input = ($_REQUEST['show']) ? '<input type="checkbox" name="muid"  value="' . $follower_resultfuser->id . '"/> &nbsp;' : '';
+            $input = ($_REQUEST['show']) ? '<input type="checkbox" name="muid"  value="' . $_REQUEST['usid'] . '"/> &nbsp;' : '';
         }
         echo '<div id="' . $_REQUEST['ids'] . '" > ' . $input . '<a href="' . $gSitePath . 'profile/' . $resulrnames->name . '">' . UserPicture_small($resulrnames->uid) . $resulrnames->name . '</a>&nbsp; <a onclick="blockandunblock(' . $_GET['action'] . ',' . $_GET['usid'] . ',' . $blkid . ',' . $_REQUEST['show'] . ')" >' . $valss . '</a>
 
@@ -1500,26 +1552,23 @@ function get_user_details() {
     $resulrnames = db_fetch_object($rs_userms);
     $gquery = "select ifnull(sum(points),0) as qpt from {tbl_user_points} where uid='" . $getuid . "' group by uid";
     $gpoints = db_result(db_query($gquery));
-if(is_numeric($getuid))
-    $get_details= profile($getuid);
-else
-       $get_details='Sorry Error Occurs';
+    if (is_numeric($getuid))
+        $get_details = profile($getuid);
+    else
+        $get_details='Sorry Error Occurs';
 
-echo $content.=' <div class="commu-profile">
+    echo $content.=' <div class="commu-profile">
           <div class="commutop-profile">
   CONTRIBUTOR
           </div>
              <div class="inner2">
-      '.$get_details.'
+      ' . $get_details . '
              </div>
         </div>
             ';
 
-exit;
-
+    exit;
 }
-
-
 
 function search_results_user() {
 

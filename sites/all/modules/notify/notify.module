@@ -1309,6 +1309,9 @@ function notify_theme(){
 'notify_add_points' =>  array(
 'arguments' => array('result' => NULL),
 ),
+'notify_follow_message' =>  array(
+'arguments' => array('result' => NULL),
+),
 );
 
 }
@@ -1322,9 +1325,11 @@ $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
 //print_r($data);
 //$node=node_load($result->nid);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+    <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
     
@@ -1337,9 +1342,11 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+.'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+    <div align="right">'.ago($submitted).'</div><hr>';
 return $output;
 }
 
@@ -1351,10 +1358,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
-    <div id="msg-'.$result->naid.'" class="notify-text">"'.$data['d_title'].'"</div><hr>';
+    <div id="msg-'.$result->naid.'" class="notify-text">"'.$data['d_title'].'"</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 return $output;
 }
 
@@ -1364,6 +1373,7 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $rtype = $data['rtype'];
 switch($rtype){
     case '1':
@@ -1376,7 +1386,7 @@ switch($rtype){
         <div id="notify-text-quote">"'.$data['r_title'].'"</div>
         <div id="notify-desc">'.$data['description'].'</div>
     </div>
-        <hr>';
+        <div align="right">'.ago($submitted).'</div><hr>';
       break;
       case '2':
           $image = '<img width="125" height="100" src="http://img.youtube.com/vi/' . $data['videoid'] . '/default.jpg" alt="Video " >';
@@ -1387,7 +1397,7 @@ switch($rtype){
         <div style="float:left">'.$image.'</div>
         <div id="notify-text-quote">"'.$data['r_title'].'"</div>
     </div>
-        <hr>';
+        <div align="right">'.ago($submitted).'</div><hr>';
           break;
       case '3':
       $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1398,7 +1408,7 @@ switch($rtype){
         <div id="notify-text-quote">"'.$data['r_title'].'"</div>
         <div id="notify-desc">'.$data['description'].'</div>
     </div>
-        <hr>';
+        <div align="right">'.ago($submitted).'</div><hr>';
           break;
 }
 
@@ -1413,10 +1423,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1427,10 +1439,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1441,10 +1455,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1455,10 +1471,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1469,10 +1487,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1482,10 +1502,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1495,10 +1517,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1508,10 +1532,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1522,10 +1548,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['answer']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1536,10 +1564,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div><div id="notify-text-quote">"' . t($data['answer']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    On <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1550,10 +1580,11 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div>
-    <hr>';
+    <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1564,10 +1595,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div>
-    <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div><hr>';
+    <div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+        <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1578,10 +1611,11 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'</div>
-    <hr>';
+    <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1592,10 +1626,11 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['badge'].'</strong></div>
-    <hr>';
+    <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1606,10 +1641,11 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
-    <hr>';
+    <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1620,10 +1656,11 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
-    <hr>';
+    <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
@@ -1634,13 +1671,37 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
 .'&nbsp<strong>'.$data['points'].' points</strong></div>
-    <hr>';
+    <div align="right">'.ago($submitted).'</div><hr>';
 
 return $output;
 }
+
+function theme_notify_follow_message($result = ''){
+    global $user;
+
+$module_path = drupal_get_path('module', 'notify');
+$full_path = $module_path .'/notify.css';
+drupal_add_css($full_path);
+$udetails=user_load($result->uid);
+$data=unserialize($result->variables);
+$submitted = date("Y-m-d H:i:s",$result->timestamp);
+
+$uids = $data['to_uid'];
+if(in_array($user->uid, $uids)){
+$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
+.'&nbsp<strong>'.$data['message'].'</strong></div>
+    <div align="right">'.ago($submitted).'</div><hr>';
+}else{
+$output = '';
+}
+return $output;
+}
+
 function _notify_content($uid = ''){
      $filter = $_GET['filter'];
      global $gSitePath,$user,$gDocPath,$base_root;
@@ -1664,23 +1725,24 @@ function _notify_content($uid = ''){
       //filter where conditions
  $where=notify_filter_where($filter);
  //users whom u r following
-     $uids=implode(',',$uarray);
+    $uids=implode(',',$uarray);
      //data query
      $sql="SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
-        ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) AND a.status = 1 $where ORDER BY b.naid DESC ";
+        ON `u`.`uid` IN (%s)
+     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.naid DESC LIMIT %d, %d";
      //count query
      $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
-        ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) AND a.status = 1 $where ORDER BY b.naid DESC ",$uids,$uids));
-$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+        ON `u`.`uid` IN (%s)
+     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.naid DESC ",$uids,$uids));
+//$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+     $query=db_query($sql, $uids, $uids, $start,$limit);
 
 $i=0;
 $output.='<div class="uactivity" id="uactivity">';
@@ -1688,8 +1750,7 @@ $output.='<div class="uactivity" id="uactivity">';
         $output.= '<div id="msg-'.$result->naid.'">';
         $output.= theme('notify_'.$result->message_id,$result);
         $output.= '</div>';
-        $i++;
-       
+        $i++; 
     }
 
 if(!$i){
@@ -1730,17 +1791,17 @@ function notify_stream($start=''){
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
-        ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) AND a.status = 1 $where ORDER BY b.naid DESC ";
+        ON `u`.`uid` IN (%s)
+     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.naid DESC LIMIT %d, %d";
      //count query
      $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
-        ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) AND a.status = 1 $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
-$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
-
+        ON `u`.`uid` IN (%s)
+     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+//$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+$query=db_query($sql, $uids, $uids, $start,$limit);
 $i=0;
 
     while($result=  db_fetch_object($query)){
@@ -1775,17 +1836,17 @@ print json_encode($json);
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
-        ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) AND a.status = 1 AND b.naid>$firstid $where ORDER BY b.naid DESC ";
+        ON `u`.`uid` IN (%s)
+     WHERE b.`uid`IN (%s) AND a.status = 1 AND b.naid>$firstid $where ORDER BY b.naid DESC LIMIT %d, %d";
      //count query
      $count=db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
-        ON `u`.`uid` IN (%d)
-     WHERE b.`uid`IN (%d) AND a.status = 1  $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
-$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
-
+        ON `u`.`uid` IN (%s)
+     WHERE b.`uid`IN (%s) AND a.status = 1  $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+//$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+$query=db_query($sql, $uids, $uids, $start,$limit);
 
 $i=0;
 
