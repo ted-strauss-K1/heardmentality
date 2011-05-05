@@ -4,7 +4,7 @@
  * Implementation of hook_perm().
  */
 function moderator_perm() {
-    return array('Moderate User', 'Moderate Question', 'Edit Question', 'View Question');
+    return array('Moderate User', 'Moderate Question', 'Edit Question', 'View Question', 'Moderate Message');
 }
 
 /**
@@ -60,6 +60,23 @@ function moderator_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'moderator.pages.inc',
     );
+    $mdtrest['moderator/msg/%'] = array(
+        'title' => 'Moderator User Message ',
+        'page callback' => 'moderator_send_message',
+        'access arguments' => array('Moderate Message'),
+        'page arguments' => array(2),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+    $mdtrest['moderator/msg/delete/%/%'] = array(
+        'title' => 'Moderator User Message ',
+        'page callback' => 'moderator_delete_message',
+        'access arguments' => array('Moderate Message'),
+        'page arguments' => array(3,4),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'moderator.pages.inc',
+    );
+
     return $mdtrest;
 }
 
@@ -122,7 +139,10 @@ function _moderator_user_left() {
 
     $new = db_result(db_query("SELECT count(*) FROM {users} "));
 
-    $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
+    //$query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
+    
+    $query = "SELECT u.uid,u.name,up.real_name from {abuse} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.oid AND f.type='user' AND u.status='1' group by f.oid ORDER BY u.name ASC";
+
     $flag = ExecuteQuery($query, 'norows');
     $output = '        <div class="commu">
         <form id="mod-user" name="mod-issue" method="POST" action="' . $gSitePath . 'moderator/ajax/user" >
@@ -227,8 +247,8 @@ WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->
         case 'user':
             $uid = arg(4);
             if (is_numeric($uid)) {
-                $query = "select * from {question} q,{users} u where q.uid=u.uid AND u.uid='$uid' ";
-
+                //$query = "select * from {question} q,{users} u where q.uid=u.uid AND u.uid='$uid' ";
+                $query = "select n.nid AS qid, n.title AS question from {node} n,{users} u where n.uid=u.uid AND u.uid='$uid' AND n.type = 'poll' ";
                 $sqlcnt = ExecuteQuery($query, 'norows');
             }
             break;
@@ -275,6 +295,8 @@ function moderator_user_list($type='') {
     //This is numbers per page
     $num_per_page = 12;
 
+    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
+
     $output = '';
     switch ($type) {
         case 'new':
@@ -286,8 +308,8 @@ function moderator_user_list($type='') {
             break;
         case 'flag':
             //actual query
-            $query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
-
+            //$query = "SELECT u.uid,u.name,up.real_name from {question_flags} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.nodeid AND f.type='user' AND u.status='1' group by f.nodeid ORDER BY u.name ASC";
+            $query = "SELECT u.uid,u.name,up.real_name from {abuse} as f,{users} as u,{user_profile} as up  where u.uid=up.uid AND u.uid=f.oid AND f.type='user' AND u.status='1' group by f.oid ORDER BY u.name ASC";
             $sqlcnt = ExecuteQuery($query, 'norows');
             break;
         default:
@@ -305,7 +327,7 @@ function moderator_user_list($type='') {
     while ($data = db_fetch_object($rs)) {
         if ($type == 'flag')
             $flag = ('' . $data->fcnt . '<a href="' . $gSitePath . 'moderator/ajax/uflaglist/' . $data->uid . '" class="floatbox" title="Flag List" data-fb-options="type:ajax width:640 height:385" ><img src="' . $gSitePath . path_to_theme() . '/images/flag.png" align="absmiddle"/></a>');
-        $chk = ('<div align="right"><input type="checkbox" class="check-me" name="qids[]" value="' . $data->uid . '" />&nbsp; ' . $flag . '</div> ');
+        $chk = ('<div align="right"><input type="checkbox" class="check-me" name="qids[]" value="' . $data->uid . '" />&nbsp; ' . $flag . '&nbsp;|&nbsp;<a href="javascript:void(0);" onclick="loadusermessage(\'' . $gSitePath . 'moderator/msg/' . $data->uid . '\',\'Message to User\')">Message</a>'.'</div> ');
         $nd = ('<div class="' . $alt . '" > ');
         $nd .= l($data->name, $gSitePath . 'moderator/issues/list/user/' . $data->uid, array('attributes' => array('class' => 'user-links', 'title' => $data->real_name)));
         $nd.=$chk;
@@ -959,6 +981,7 @@ if(is_numeric($qid)){
             $words = array_filter($words);
 
             $query = "SELECT q.question,q.context,u.name,q.date_added,q.url,q.qid FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
+           //$query = "SELECT n.title AS question,nr.body AS context,u.name, n.nid AS qid FROM {node} as n JOIN {node_revisions} as nr ON n.nid = nr.nid, {users} as u WHERE n.uid=u.uid AND n.nid!='$qid' and n.type = 'poll'";
             $querycnt="SELECT ifnull(count(*),0) FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
             $querysub.='AND (';
             for ($i = 0; $i < count($words); $i++) {

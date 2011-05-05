@@ -332,4 +332,74 @@ function question_merge_mail($toissue='', $dupeissue='') {
     return true;
 }
 
+
+function moderator_send_message($uid = ''){
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $messages;
+
+    $users = user_load($uid);
+    $output = '';
+    $output .= '<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
+                <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') .'/scripts/jquery1.4.js"></script>
+                <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'moderator') . '/scripts/moderator.js"></script>';
+    $output .= '<div class="facttop">Send Message to '.$users->name.'</div><br />
+                <div style="padding:15px"><p><strong>Enetr your message here</strong></p><br />';
+    $output .= drupal_get_form('user_message', $uid, $user->uid);
+    $output .= '<div class="mod-msg-box">';
+    $output .= moderator_message_list($uid);
+    $output .= '</div></div>';
+    echo $output;
+}
+
+function user_message($form_state, $touid = '', $fromid = ''){
+    $form['message'] = array('#type' => 'textarea', '#id' => 'message');
+    $form['fromid'] = array('#type' => 'hidden', '#value' => $fromid);
+    $form['touid'] = array('#type' => 'hidden', '#value' => $touid);
+    $form['send_message'] = array('#type' => 'submit', '#value' => 'Send', '#id' => 'msg-sub');
+    return $form;
+}
+
+function user_message_submit($form, &$form_state){
+   $message = $form_state['values']['message'];
+   $touid = $form_state['values']['touid'];
+   $fromid = $form_state['values']['fromid'];
+
+   $sql = db_query("INSERT INTO {moderator_messages} SET moderator_id = '%d', message = '%s', to_uid = '%d'", $fromid, $message,$touid);
+   if($sql){
+      //drupal_set_message('Message Sent Successfully', 'success');
+        '<script>show_inotify("Message Sent Successfully")</script>';
+   }else{
+       //drupal_set_message('Sorry error occured', 'error');
+        '<script>show_inotify("Sorry error occured")</script>';
+   }
+}
+
+function moderator_message_list($uid = ''){
+    global $gSitePath, $base_path, $user;
+    // admin check
+    $where = $user->uid!='1'?'AND moderator_id = '.$user->uid.'':'';
+
+    $count = db_result(db_query("SELECT COUNT(*) AS counts FROM {moderator_messages} WHERE to_uid = '$uid' $where ORDER BY id DESC"));
+    $sql = "SELECT * FROM {moderator_messages} WHERE to_uid = '%d' $where ORDER BY id DESC";
+    $query = db_query($sql, $uid);
+    $output = '';
+    $output .= '<table class="mod-message-table" width="100%">
+                <tr class="head"><td>Moderator</td><td>Message</td><td>Status</td><td>Action</td></tr>';
+    if(($count)>0){
+    while($msg = db_fetch_object($query)){
+     $moderator = user_load($msg->moderator_id);
+     $status = $msg->status=='1'?'<span class="green">viewed</span>':'<span class="yell">pending</span>';
+     $output .= '<tr><td>'.$moderator->name.'</td><td width="40%">'.$msg->message.'</td><td>'.$status.'</td><td><a href="'.$gSitePath.'moderator/msg/delete/'.$uid.'/'.$msg->id.'">remove</a></td></tr>';
+    }
+    }else{
+     $output .= '<tr><td colspan="4" align="center">No messages</td></tr>';
+    }
+    $output .= '</table>';
+    return $output;
+}
+
+function moderator_delete_message($uid = '', $mid = ''){
+    global $gSitePath, $base_path, $user;
+    db_query("DELETE FROM {moderator_messages} WHERE id = '%d' AND to_uid = '%d'", $mid, $uid);
+    drupal_goto($gSitePath.'moderator/msg/'.$uid);
+}
 ?>

@@ -872,3 +872,24 @@ function moderator_warn_user(make){
 
 
 }
+
+
+function loadusermessage(url,title)
+{
+
+    var options = 'sameBox:true width:50% height:70% caption:' +title;
+    parent.fb.start(url, options);
+
+}
+
+jQuery(document).ready(function(){
+    jQuery("#msg-sub").click(function() {
+        var message = jQuery("#message").val();
+        if(message == ''){
+            jQuery('#twitMsg',top.document).html("Enter your message to send");
+            jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+            return false;
+        }
+    });
+});
+
