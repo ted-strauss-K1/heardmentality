@@ -325,20 +325,20 @@ function get_top_list($time='') {
             break;
     }
 
-    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20";
-
+   // $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20";
+ $query="select * from {node} where type='poll' order by nid DESC";
     $list = ExecuteQuery($query, "select");
 
     if (!empty($list)) {
-        foreach ($list as $quest) {
+       foreach ($list as $quest) {
 
-            if (strlen($quest['question']) > 40) {
-                $bubble_question = 'rel="' . htmlentities(wordwrap($quest['question'], 40, '<br/>')) . '"';
+            if (strlen($quest['title']) > 40) {
+                $bubble_question = 'rel="' . htmlentities(wordwrap($quest['title'], 40, '<br/>')) . '"';
             } else {
                 $bubble_question = '';
             }
-
-            $output .= '<li  class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $quest['url'] . '" style="' . drupal_link_color($user->uid, $quest['qid']) . '">' . htmlentities(myTruncate($quest['question'], '40', '', '..')) . '</a></li>';
+            $qpath=drupal_get_path_alias('node/'.$quest['nid']);
+            $output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['qid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
         }
     } else {
 
@@ -379,7 +379,8 @@ function get_hot_list($time='') {
     }
 
 
-    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' AND date(q.date_added) >= '$date' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20 ";
+    //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' AND date(q.date_added) >= '$date' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20 ";
+    $query="select * from {node} where type='poll' order by nid DESC";
     // $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid   where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
@@ -388,13 +389,13 @@ function get_hot_list($time='') {
     if (!empty($list)) {
         foreach ($list as $quest) {
 
-            if (strlen($quest['question']) > 40) {
-                $bubble_question = 'rel="' . htmlentities(wordwrap($quest['question'], 40, '<br/>')) . '"';
+            if (strlen($quest['title']) > 40) {
+                $bubble_question = 'rel="' . htmlentities(wordwrap($quest['title'], 40, '<br/>')) . '"';
             } else {
                 $bubble_question = '';
             }
-
-            $output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $quest['url'] . '" style="' . drupal_link_color($user->uid, $quest['qid']) . '">' . htmlentities(myTruncate($quest['question'], '40', '', '..')) . '</a></li>';
+            $qpath=drupal_get_path_alias('node/'.$quest['nid']);
+            $output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['qid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
         }
     } else {
 
