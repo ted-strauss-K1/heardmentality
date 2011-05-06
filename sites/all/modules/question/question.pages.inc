@@ -1184,6 +1184,14 @@ function question_ajax() {
                         echo $catlist;
          }
 
+    }else if(isset($_REQUEST['notupdate'])){
+        // update user message status, sent from moderator
+            $mid = $_REQUEST['mid'];
+            $uid = $_REQUEST['uid'];
+            $sql = db_query("UPDATE {moderator_messages} SET status= '1' WHERE id = '%d' AND to_uid = '%d'", $mid, $uid);
+            if($sql){
+                echo "success";
+            }
     }
 
      exit;

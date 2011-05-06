@@ -71,7 +71,7 @@ function qlite_view() {
     //drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
     // drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/tabs.css');
     // drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/wave.css');
-    drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
+    //drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/like.js');
     drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
