@@ -177,10 +177,10 @@ function debate_list($qid = '', $did='') {
 <!--<input type="checkbox" name="privt" value="1" id="privt"/> Private Reply-->
 <input type="hidden" name="fdid" id="fdid" value="' . $did . '"/>
     <input type="hidden" name="qid" id="qid" value="' . $qid . '" />
-		<input type="text" name="frid" id="frid" value="" />
+		<input type="hidden" name="frid" id="frid" value="" />
 		<input type="hidden" name="action" value="reply" />
                 <input type="hidden" name="nodeid" value="' . $did . '" />
-                <input type="text" name="comid" id="comid" value=""/>
+                <input type="hidden" name="comid" id="comid" value=""/>
         </div>
 
         <div class="clr"></div>
@@ -374,7 +374,7 @@ function get_debate($did = '', $pid = '') {
 <div class="form-outer-debate">
 <div class="fm-1">&nbsp;</div>
 <div class="fm-4">
-' . make_clickable($forum['comment']) . '--' . $forum['cid'] . '
+' . make_clickable($forum['comment']) . '
 </div>
 
 
@@ -1877,11 +1877,11 @@ function resdebate_list($qid='', $rid='') {
         <textarea rows="10" cols="" name="waveletcmt" id="waveletcmt">Enter text here</textarea>
 <!--<input type="checkbox" name="privt" value="1" id="privt"/> Private Reply-->
 <input type="hidden" name="fdid" id="fdid" value="' . $rid . '"/>
-		<input type="text" name="frid" id="frid" value=""/>
+		<input type="hidden" name="frid" id="frid" value=""/>
                  <input type="hidden" name="qid" id="qid" value="' . $qid . '"/>
 			<input type="hidden" name="action" value="resreply" />
                         <input type="hidden" name="nodeid" value="' . $rid . '" />
-                        <input type="text" name="comid" id="comid" value=""/>
+                        <input type="hidden" name="comid" id="comid" value=""/>
         </div>
 
         <div class="clr"></div>

@@ -217,10 +217,10 @@ function notify_messages_form(&$form_state) {
     $form = array();
     $status = array();
 
-    $query = "SELECT * from {notify_activity} as n left join {notify_messages} as m on n.message_id=m.message_id  order by n.naid ASC";
+    $query = "SELECT * FROM {notify_activity} AS n LEFT JOIN {notify_messages} AS m ON n.message_id=m.message_id  ORDER BY n.naid ASC";
     //$rs = db_query($query);
 
-    $count = db_result(db_query("SELECT count(*) from {notify_activity} as n left join {notify_messages} as m on n.message_id=m.message_id"));
+    $count = db_result(db_query("SELECT count(*) FROM {notify_activity} as n left join {notify_messages} as m on n.message_id=m.message_id"));
     $result = pager_query(db_rewrite_sql($query), $limit);
 
     while ($note = db_fetch_object($result)) {
@@ -1390,6 +1390,12 @@ function notify_theme(){
 'notify_add_resource' =>  array(
 'arguments' => array('result' => NULL),
 ),
+'notify_resource_reply' =>  array(
+'arguments' => array('result' => NULL),
+),
+'notify_debate_reply' =>  array(
+'arguments' => array('result' => NULL),
+),
 'notify_deb_agree' =>  array(
 'arguments' => array('result' => NULL),
 ),
@@ -1553,6 +1559,35 @@ switch($rtype){
     return $output;
 }
 
+
+function theme_notify_resource_reply($result = ''){
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path .'/notify.css';
+    drupal_add_css($full_path);
+    $udetails=user_load($result->uid);
+    $data=unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s",$result->timestamp);
+    $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+        <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
+.'<div>'.$data['r_title'].'</div> On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+    <div align="right">'.ago($submitted).'</div><hr>';
+    return $output;
+}
+
+
+function theme_notify_debate_reply($result = ''){
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path .'/notify.css';
+    drupal_add_css($full_path);
+    $udetails=user_load($result->uid);
+    $data=unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s",$result->timestamp);
+    $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+        <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
+.'<div>'.$data['d_title'].'</div> On </div><div id="notify-link">' . l($data['q_title'],'node/'.$data['qid']) . '</div>
+    <div align="right">'.ago($submitted).'</div><hr>';
+    return $output;
+}
 
 function theme_notify_deb_agree($result = ''){
 $module_path = drupal_get_path('module', 'notify');
