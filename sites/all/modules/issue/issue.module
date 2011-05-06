@@ -1429,4 +1429,3 @@ function get_short_answer($nid = '', $chorder = ''){
     
     return $answers;
 }
-

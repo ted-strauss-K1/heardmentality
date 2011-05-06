@@ -76,7 +76,7 @@ function moderator_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'moderator.pages.inc',
     );
-   
+
     return $mdtrest;
 }
 
