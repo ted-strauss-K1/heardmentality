@@ -973,7 +973,9 @@ div.growlUI h1, div.growlUI h2 {
 .debate-outer ul li a{ font:normal 10px Arial, Helvetica, sans-serif; color:#996600; float:left; text-decoration:none;}
 .debate-outer ul li span{ font:normal 10px Arial, Helvetica, sans-serif; color:#666666; }
 .debate-outer ul li a:hover{ font:normal 10px Arial, Helvetica, sans-serif; color:#996600; text-decoration: underline;}
-.debate-cor-inner{ background:#f8f5ed; padding:3px;position:relative;z-index: 333;}
+.debate-cor-inner{ background:#f8f5ed; padding:3px;position:relative;
+/*                  z-index: 333;*/
+                  z-index: 0;}
 .debate-cor-inner-left{ float:left;}
 .debate-cor-inner-right{ float:left;}
 .debate-cor-inner-right{ float:left;}
@@ -1627,4 +1629,7 @@ img{ border:none; outline:none;}
 }
 #notify-container span.notify-close a {
     text-decoration: none;
+}
+#notify-container .notify-text span{
+    color: #028cd2;
 }
