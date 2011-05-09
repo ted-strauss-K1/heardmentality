@@ -1974,18 +1974,13 @@ INNER JOIN `users` u
      $query=db_query($sql, $uids, $uids, $start,$limit);
      //printf($sql, $uids, $uids, $start,$limit);
 $i=0;
-$fcount = db_result(db_query("SELECT COUNT(naid) FROM {notify_activity} WHERE uid IN ($uids) GROUP BY uid"));
+
 $output.='<div class="uactivity" id="uactivity">';
     while($result=  db_fetch_object($query)){
         $output.= '<div id="msg-'.$result->naid.'">';
-        if($result->message_id == 'user_follow'){
-         $follow[] = $result->variables;
-         if($i){
-             $output.= theme('notify_'.$result->message_id,$follow);
-         }
-        }else{
+        
          $output.= theme('notify_'.$result->message_id,$result);
-        }
+        
         $output.= '</div>';
         $i++; 
 
