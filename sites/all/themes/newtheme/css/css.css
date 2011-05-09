@@ -1100,7 +1100,7 @@ div.growlUI h1, div.growlUI h2 {
 .itembott .itemfirst ul li .dis-agree{ background:url(../images/agree-menu1.jpg) no-repeat -85px 0px; width:39px; height:26px; float:left; list-style:none;}
 .itembott .itemfirst ul li a{ float:left; list-style:none; }
 
-.itembott .itemsecond{ float:left; width:162px; padding-top:30px;}
+.itembott .itemsecond{ float:left; width:162px; padding-top:30px; padding-left: 256px; position: relative;}
 .itembott .itemsecond ul{ float:left;}
 .itembott .itemsecond ul li {float:left; list-style:none; padding-right:5px;}
 .itembott .itemsecond ul li .reply-menu{ background:url(../images/reply-menu.jpg) no-repeat; width:75px; height:25px;}
@@ -1580,3 +1580,51 @@ img{ border:none; outline:none;}
 .profInfo-name{ clear:both; font-weight:bold;}
 .profInfo-name2{ clear:both;}
 
+/* May 5 2011*/
+.mod-message-table{
+    font-size: 12px;
+}
+.mod-message-table .head{
+    font-weight: bold;
+}
+.mod-message-table .yell{
+    color:#cc9900;
+}
+.mod-message-table .green{
+    color:#529214;
+}
+.mod-msg-box{
+    height: 200px;
+    overflow:scroll;
+    overflow-x:hidden;
+    margin-top: 20px;
+}
+
+/* May 6 2011*/
+#notify-container #not-div {
+    background-color: #F4A83D;
+    border-bottom: 1px solid #D6800C;
+    padding: 7px 0;
+    font-family:Arial,Liberation Sans,DejaVu Sans,sans-serif;
+    padding: 12px 14px;
+    font-size:14px;
+    font-weight:bold;
+}
+#notify-container a {
+    color: #735005;
+    text-decoration: underline;
+}
+#notify-container span.notify-close {
+    background-color: #FAD163;
+    border: 2px solid #735005;
+    cursor: pointer;
+    display: block;
+    float: right;
+    margin-right: 20px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-decoration: none;
+}
+#notify-container span.notify-close a {
+    text-decoration: none;
+}

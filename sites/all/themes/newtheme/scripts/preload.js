@@ -170,11 +170,11 @@ jQuery(document).ready(function () {
     });
 
     jQuery(".innerbox li a").live('click', function(e) {
-
-        e.preventDefault();
-
-        load_issue($(this).attr('href'));
-        return false;
+//
+//        e.preventDefault();
+//
+//        load_issue($(this).attr('href'));
+//        return false;
     });
 
     //link the profile images to popup
@@ -232,4 +232,27 @@ function check_popup_login(){
         jQuery('#twitMsg').html("Please Login to do this!");
                 jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
     });
+}
+
+function close_notify_message(dcount, mid, uid){
+
+    jQuery(document).ready(function() {
+
+        var divid = 'not-id-'+dcount;
+        var url = gSitePath+'question/ajax';
+        jQuery.ajax({
+        type: "GET",
+        url: url,
+        data: 'mid='+mid+'&uid='+uid+'&notupdate=1',
+        success: function(msg)
+        {
+            if(msg){
+                jQuery('#'+divid+'').hide();
+            }else{
+                return false;
+            }
+        }
+        });
+    });
+    
 }

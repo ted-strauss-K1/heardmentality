@@ -186,7 +186,32 @@ $directory = $base_path . $directory;
                                 Loading...
                             </marquee>
                         </div>
-
+                        <?php
+                        // display moderator messages
+                        $variable = get_defined_vars();
+                        $notifies = $variable['notify'];
+                        if(count($notifies)>0){
+                            $i=1;
+                         ?>
+                        <div id="notify-container">
+                            <?php
+                            foreach($notifies as $notify){
+                            $moderator = db_result(db_query("SELECT name FROM {users} WHERE uid = '$notify->moderator_id'"));
+                            $message = $notify->message;
+                            ?>
+                                <div id="not-id-<?php echo $i; ?>">
+                                <div id="not-div">
+                               
+                                <span class="notify-close"><a href="javascript:void(0);" onclick="close_notify_message(<?php echo $i; ?>, <?php echo $notify->id?>, <?php echo $user->uid;?>)" title="dismiss this notification">×</a></span>
+                                <span class="notify-text"><div align="center">Moderator sent a message '<?php echo $message; ?>'</div></span>
+                                </div>
+                                </div>
+                            <?php
+                            $i++;
+                            }
+                            ?>
+                        </div>
+                        <?php }?>
 
                         <div class="main">
                             <div class="top"></div>

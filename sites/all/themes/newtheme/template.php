@@ -58,7 +58,8 @@ function phptemplate_breadcrumb($breadcrumb) {
  * Override or insert PHPTemplate variables into the templates.
  */
 function phptemplate_preprocess_page(&$vars) {
- // print_r($vars);exit;
+    global $user;
+// print_r($vars);exit;
     if ((arg(1) == 'block')) {
         $vars['template_files'][0] = 'page-test';
     }
@@ -73,6 +74,12 @@ function phptemplate_preprocess_page(&$vars) {
     if (module_exists('color')) {
         _color_page_alter($vars);
     }
+
+    $query = db_query("SELECT * FROM {moderator_messages} WHERE to_uid = '$user->uid' AND status = '0'");
+    while($res = db_fetch_object($query)){
+        $notify[] = $res;
+    }
+    $vars['notify'] = $notify;
 }
 
 /**
@@ -89,7 +96,7 @@ function newtheme_preprocess_page(&$vars) {
     $path = drupal_get_path('theme', $theme);
 
 // there's also a $theme_path global
-
+   
     global $theme_path;
  drupal_add_js($path . "/scripts/jquery1.4.js", 'core'); //where you store your jquery
     //drupal_add_js("js/more_javascripts.js", 'theme'); //any other js files you may have
@@ -101,7 +108,8 @@ function newtheme_preprocess_page(&$vars) {
 
 
     if($vars['template_files'][1]=='page-account-edit'){
- unset($js['theme']['sites/all/themes/newtheme/scripts/preload.js']); //unset default drupal jquery js
+    unset($js['theme']['sites/all/themes/newtheme/scripts/preload.js']); //unset default drupal jquery js
+    //print_r($js);
     }
     /*
       if ($vars['content'] && $vars['node']->type != 'forum') {
