@@ -1450,6 +1450,9 @@ function notify_theme(){
 'notify_follow_message' =>  array(
 'arguments' => array('result' => NULL),
 ),
+'notify_user_follow' =>  array(
+'arguments' => array('result' => NULL),
+),
 );
 
 }
@@ -1908,6 +1911,26 @@ $output = '';
 return $output;
 }
 
+
+function theme_notify_user_follow($result = ''){
+    global $user, $gSitePath;
+
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path .'/notify.css';
+    drupal_add_css($full_path);
+    $udetails=user_load($result->uid);
+    $data=unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s",$result->timestamp);
+    $target = user_load($data['target_id']);
+    $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
+.'&nbsp<strong><a href="'.$gSitePath.'profile/'.t($target->name).'" title="'.t($target->name).'">'.$target->name.'</a></strong></div>
+    <div align="right">'.ago($submitted).'</div><hr>';
+    return $output;
+    
+}
+
+
 function _notify_content($uid = ''){
      $filter = $_GET['filter'];
      global $gSitePath,$user,$gDocPath,$base_root;
@@ -1949,12 +1972,20 @@ INNER JOIN `users` u
      WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.naid DESC ",$uids,$uids));
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
      $query=db_query($sql, $uids, $uids, $start,$limit);
-
+     //printf($sql, $uids, $uids, $start,$limit);
 $i=0;
+$fcount = db_result(db_query("SELECT COUNT(naid) FROM {notify_activity} WHERE uid IN ($uids) GROUP BY uid"));
 $output.='<div class="uactivity" id="uactivity">';
     while($result=  db_fetch_object($query)){
         $output.= '<div id="msg-'.$result->naid.'">';
-        $output.= theme('notify_'.$result->message_id,$result);
+        if($result->message_id == 'user_follow'){
+         $follow[] = $result->variables;
+         if($i){
+             $output.= theme('notify_'.$result->message_id,$follow);
+         }
+        }else{
+         $output.= theme('notify_'.$result->message_id,$result);
+        }
         $output.= '</div>';
         $i++; 
 

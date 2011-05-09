@@ -891,5 +891,18 @@ jQuery(document).ready(function(){
             return false;
         }
     });
+
+    jQuery('#message').keyup(function() {
+                var len = this.value.length;
+                var totalchar = 100;
+                if (len >= totalchar) {
+                    this.value = this.value.substring(0, totalchar);
+                }
+                if(len <= totalchar){
+                jQuery('#charLeft').text(totalchar - len);
+                }
+                
+            });
+
 });
 

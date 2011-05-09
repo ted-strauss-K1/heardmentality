@@ -236,7 +236,13 @@ function issue_edit_vote_submit($form, &$form_state) {
  * Implementation of hook_form_alter().
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
-if($form_id=='user_relationships_ui_request'){}
+   // print $form_id;
+   // echo '<pre>';
+   // print_r($form);
+if($form_id=='user_relationships_ui_request'){
+    
+      $form['#submit'][] = 'add_follow_notify';
+}
 
 if($form_id=='poll_view_voting'){
 
@@ -1428,4 +1434,16 @@ function get_short_answer($nid = '', $chorder = ''){
     $answers = $short->short_answer;
     
     return $answers;
+}
+
+// foloow notify
+function add_follow_notify($form, &$form_state){
+    global $user;
+    /*New SET NOTIFY LOG*/
+    //echo '<pre>'; print_r($form); exit;
+    $target = $form['#parameters'][2]->uid;
+    $uid = $user->uid;
+    $variable = array('target_id' => $target);
+    set_notify_log($uid, '', 'user_follow', $variable);
+    /*New SET NOTIFY LOG*/
 }

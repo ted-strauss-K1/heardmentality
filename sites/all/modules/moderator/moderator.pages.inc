@@ -342,7 +342,7 @@ function moderator_send_message($uid = ''){
                 <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') .'/scripts/jquery1.4.js"></script>
                 <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'moderator') . '/scripts/moderator.js"></script>';
     $output .= '<div class="facttop">Send Message to '.$users->name.'</div><br />
-                <div style="padding:15px"><p><strong>Enetr your message here</strong></p><br />';
+                <div style="padding:15px"><p><strong>Enter your message here</strong></p><br />';
     $output .= drupal_get_form('user_message', $uid, $user->uid);
     $output .= '<div class="mod-msg-box">';
     $output .= moderator_message_list($uid);
@@ -351,7 +351,7 @@ function moderator_send_message($uid = ''){
 }
 
 function user_message($form_state, $touid = '', $fromid = ''){
-    $form['message'] = array('#type' => 'textarea', '#id' => 'message');
+    $form['message'] = array('#type' => 'textarea', '#id' => 'message', '#suffix' => '(100 characters only)<br /><span id="charLeft"></span>&nbsp;Characters left<br />');
     $form['fromid'] = array('#type' => 'hidden', '#value' => $fromid);
     $form['touid'] = array('#type' => 'hidden', '#value' => $touid);
     $form['send_message'] = array('#type' => 'submit', '#value' => 'Send', '#id' => 'msg-sub');
@@ -387,7 +387,7 @@ function moderator_message_list($uid = ''){
     if(($count)>0){
     while($msg = db_fetch_object($query)){
      $moderator = user_load($msg->moderator_id);
-     $status = $msg->status=='1'?'<span class="green">viewed</span>':'<span class="yell">pending</span>';
+     $status = $msg->status=='1'?'<span class="green">viewed</span>':'<span class="yell">not viewed</span>';
      $output .= '<tr><td>'.$moderator->name.'</td><td width="40%">'.$msg->message.'</td><td>'.$status.'</td><td><a href="'.$gSitePath.'moderator/msg/delete/'.$uid.'/'.$msg->id.'">remove</a></td></tr>';
     }
     }else{
