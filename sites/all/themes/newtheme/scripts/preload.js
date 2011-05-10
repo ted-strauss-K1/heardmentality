@@ -170,6 +170,7 @@ jQuery(document).ready(function () {
     });
 
     jQuery(".innerbox li a").live('click', function(e) {
+
 //
 //        e.preventDefault();
 //
