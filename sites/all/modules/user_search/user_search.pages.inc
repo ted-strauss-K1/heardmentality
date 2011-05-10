@@ -506,7 +506,8 @@ function question_unfollow() {
 function check_select($gid, $quid) {
     if ($gid == $quid) {
 
-        $check = "checked='" . checked . "'";
+        //$check = "checked='" . checked . "'";
+        $check = "checked";
     } else {
         $check = " ";
     }
@@ -597,11 +598,11 @@ function search_results_ajax() {
         if ($user->uid != '') {
             //$flink='<a class="linkfol" href="'.$gSitePath.''.$user_result->url.'">View More </a>';
         }
-        $vans = "select * from {possible_answer} where  qid='$user_result->qid' order by vote desc";
+        $vans = "select * from {poll_choices} where  nid ='$user_result->qid' order by chvotes desc";
 
         $vlist = db_query($vans);
 
-        $query = "SELECT qid,SUM(vote) as possiblevote FROM possible_answer where qid='$user_result->qid' GROUP BY qid";
+        $query = "SELECT nid,SUM(chvotes) as possiblevote FROM poll_choices where nid='$user_result->qid' GROUP BY nid";
         $query_list = db_query($query);
         $fetvot = db_fetch_object($query_list);
         if (!empty($fetvot)) {
@@ -616,39 +617,38 @@ function search_results_ajax() {
             $totalvotes = $vot1 + $vot2;
         }
         // alter for $totalvotes
-        $ques_count = db_fetch_object(db_query("SELECT count(qid) as qcount FROM `possible_answer_vote` where qid='" . $user_result->qid . "'"));
+        $ques_count = db_fetch_object(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $user_result->qid . "'"));
 
         // alter for numresum
-        $for_count = db_result(db_query("SELECT count(qid) as fcount FROM `debate` where qid='" . $user_result->qid . "'"));
+        $for_count = db_result(db_query("SELECT count(nid) as fcount FROM `content_type_forum` where field_ref_qid_nid='" . $user_result->qid . "' AND field_type_value = '1'"));
 
-        $numresum = db_result(db_query("SELECT COUNT(qid) FROM resource where  qid='$user_result->qid'"));
+        $numresum = db_result(db_query("SELECT COUNT(nid) FROM content_type_forum where  field_ref_qid_nid='$user_result->qid' AND field_type_value = '2'"));
         $posts = $for_count + $numresum;
         $fetresult .= ' <div class="result-item">
-               <form id="answer_frm-' . $user_result->qid . '" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save">
 	<div class="rleft">
        <div class="titl">
-     
+        <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save">
         <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
 <a href="' . $gSitePath . $user_result->url . '?ajax=1" style="' . drupal_link_color($user->uid, $user_result->qid) . '">' . htmlentities(rtrim($user_result->question, "?")) . '?</a>
 </div>';
 //<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
 
         while ($vlistquest = db_fetch_object($vlist)) {
-            ///vijay implement
-            $sel_qry = db_query("select * from {possible_answer_vote} where qid='" . $user_result->qid . "' and uid='" . $user->uid . "'");
+
+            $sel_qry = db_query("select * from {poll_votes} where nid='" . $user_result->qid . "' and uid='" . $user->uid . "'");
             $get_value = db_fetch_object($sel_qry);
+            $check = '';
 
-
-            $sel_ans = db_query("select * from {possible_answer} where paid='" . $get_value->panswer_id . "'");
-            $get_ans = db_fetch_object($sel_ans);
-
+            if (!empty($get_value)) {
+                $sel_ans = db_query("select * from {poll_choices} where chorder='" . $get_value->chorder . "'");
+                $get_ans = db_fetch_object($sel_ans);
+                $check = check_select($get_ans->chorder, $vlistquest->chorder);
+            }
 
             //  name="answer_al['.$i.']"
-
             $fetresult .= ' <div class="item1">
-                <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->paid . '" ' . check_select($get_ans->paid, $vlistquest->paid) . '  />&nbsp;&nbsp;' . $vlistquest->answer . '</div>';
+                <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->chorder . '" ' . $check . '  />&nbsp;&nbsp;' . $vlistquest->chtext . '</div>';
         }
-
         $fetresult .= '  <div class="rright">
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
@@ -663,30 +663,30 @@ function search_results_ajax() {
       </div>
 
       </div> ';
-        $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $user_result->qid . "' and uid='" . $user->uid . "'"));
+
+        $numran = db_result(db_query("SELECT COUNT(*) from {poll_votes} where nid='" . $user_result->qid . "' and uid='" . $user->uid . "'"));
         if ($numran != 0) {
-            $query = "select vote_pid from {possible_answer_vote} where qid='$user_result->qid' AND uid='" . $user->uid . "'";
+            $query = "select chorder from {poll_votes} where nid='$user_result->qid' AND uid='" . $user->uid . "'";
             $voteid = db_result(db_query($query));
-            $fetresult .= ' <p style="padding-left:8px"><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/></p></form>';
+            $fetresult .= ' <div class="item1"><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/> </div></form>';
             //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
         }
         if ($numran == 0) {
 
-            $fetresult .= ' <p style="padding-left:8px"><input type="submit" name="save" id="save" value="Vote" /></p></form>';
+            $fetresult .= ' <div class="item1"><input type="submit" name="save" id="save" value="Vote" /> </div></form>';
         }
         // $fetresult .= ' <p><input type="submit" name="save" id="save" value="Vote" /></p></form>';
-        $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='" . $user->uid . "'and question_id='" . $user_result->qid . "'");
-        $fol_list = db_fetch_object($fol_qry);
+//        $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='" . $user->uid . "'and question_id='" . $user_result->qid . "'");
+//        $fol_list = db_fetch_object($fol_qry);
+//
+//        if ($fol_list->count == 1) {
+//            $follow = "UnFollow";
+//        }
+//        if ($fol_list->count == 0) {
+//            $follow = "Follow";
+//        }
 
-        if ($fol_list->count == 1) {
-            $follow = "UnFollow";
-        }
-        if ($fol_list->count == 0) {
-            $follow = "Follow";
-        }
-
-        $fetresult .= '</div>
-       </form> </div>
+        $fetresult .= '  </div></div>
        <div class="clr"></div>
 ';
         $i++;
@@ -813,11 +813,11 @@ function search_results_question() {
         if ($user->uid != '') {
             //$flink='<a class="linkfol" href="'.$gSitePath.''.$user_result->url.'">View More </a>';
         }
-        $vans = "select * from {possible_answer} where  qid='$user_result->qid' order by vote desc";
+        $vans = "select * from {poll_choices} where  nid ='$user_result->qid' order by chvotes desc";
 
         $vlist = db_query($vans);
 
-        $query = "SELECT qid,SUM(vote) as possiblevote FROM possible_answer where qid='$user_result->qid' GROUP BY qid";
+        $query = "SELECT nid,SUM(chvotes) as possiblevote FROM poll_choices where nid='$user_result->qid' GROUP BY nid";
         $query_list = db_query($query);
         $fetvot = db_fetch_object($query_list);
         if (!empty($fetvot)) {
@@ -832,12 +832,12 @@ function search_results_question() {
             $totalvotes = $vot1 + $vot2;
         }
         // alter for $totalvotes
-        $ques_count = db_fetch_object(db_query("SELECT count(qid) as qcount FROM `possible_answer_vote` where qid='" . $user_result->qid . "'"));
+        $ques_count = db_fetch_object(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $user_result->qid . "'"));
 
         // alter for numresum
-        $for_count = db_result(db_query("SELECT count(qid) as fcount FROM `debate` where qid='" . $user_result->qid . "'"));
+        $for_count = db_result(db_query("SELECT count(nid) as fcount FROM `content_type_forum` where field_ref_qid_nid='" . $user_result->qid . "' AND field_type_value = '1'"));
 
-        $numresum = db_result(db_query("SELECT COUNT(qid) FROM resource where  qid='$user_result->qid'"));
+        $numresum = db_result(db_query("SELECT COUNT(nid) FROM content_type_forum where  field_ref_qid_nid='$user_result->qid' AND field_type_value = '2'"));
         $posts = $for_count + $numresum;
         $fetresult .= ' <div class="result-item">
 	<div class="rleft">
@@ -850,17 +850,19 @@ function search_results_question() {
 
         while ($vlistquest = db_fetch_object($vlist)) {
 
-            $sel_qry = db_query("select * from {possible_answer_vote} where qid='" . $user_result->qid . "' and uid='" . $user->uid . "'");
+            $sel_qry = db_query("select * from {poll_votes} where nid='" . $user_result->qid . "' and uid='" . $user->uid . "'");
             $get_value = db_fetch_object($sel_qry);
             $check = '';
+            
             if (!empty($get_value)) {
-                $sel_ans = db_query("select * from {possible_answer} where paid='" . $get_value->panswer_id . "'");
+                $sel_ans = db_query("select * from {poll_choices} where chorder='" . $get_value->chorder . "'");
                 $get_ans = db_fetch_object($sel_ans);
-                $check = check_select($get_ans->paid, $vlistquest->paid);
+                $check = check_select($get_ans->chorder, $vlistquest->chorder);
             }
+            
             //  name="answer_al['.$i.']"
             $fetresult .= ' <div class="item1">
-                <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->paid . '" ' . $check . '  />&nbsp;&nbsp;' . $vlistquest->answer . '</div>';
+                <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->chorder . '" ' . $check . '  />&nbsp;&nbsp;' . $vlistquest->chtext . '</div>';
         }
         $fetresult .= '  <div class="rright">
       <div class="vote-post-outer">
@@ -877,9 +879,9 @@ function search_results_question() {
 
       </div> ';
 
-        $numran = db_result(db_query("SELECT COUNT(*) from {possible_answer_vote} where qid='" . $user_result->qid . "' and uid='" . $user->uid . "'"));
+        $numran = db_result(db_query("SELECT COUNT(*) from {poll_votes} where nid='" . $user_result->qid . "' and uid='" . $user->uid . "'"));
         if ($numran != 0) {
-            $query = "select vote_pid from {possible_answer_vote} where qid='$user_result->qid' AND uid='" . $user->uid . "'";
+            $query = "select chorder from {poll_votes} where nid='$user_result->qid' AND uid='" . $user->uid . "'";
             $voteid = db_result(db_query($query));
             $fetresult .= ' <div class="item1"><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/> </div></form>';
             //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
@@ -889,15 +891,15 @@ function search_results_question() {
             $fetresult .= ' <div class="item1"><input type="submit" name="save" id="save" value="Vote" /> </div></form>';
         }
         // $fetresult .= ' <p><input type="submit" name="save" id="save" value="Vote" /></p></form>';
-        $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='" . $user->uid . "'and question_id='" . $user_result->qid . "'");
-        $fol_list = db_fetch_object($fol_qry);
-
-        if ($fol_list->count == 1) {
-            $follow = "UnFollow";
-        }
-        if ($fol_list->count == 0) {
-            $follow = "Follow";
-        }
+//        $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='" . $user->uid . "'and question_id='" . $user_result->qid . "'");
+//        $fol_list = db_fetch_object($fol_qry);
+//
+//        if ($fol_list->count == 1) {
+//            $follow = "UnFollow";
+//        }
+//        if ($fol_list->count == 0) {
+//            $follow = "Follow";
+//        }
 
         $fetresult .= '  </div></div>
        <div class="clr"></div>

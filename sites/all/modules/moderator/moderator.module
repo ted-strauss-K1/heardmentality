@@ -365,11 +365,19 @@ function moderator_edit_issues($qid='') {
     $result = db_query($left_qry);
     $quest = db_fetch_object($result);
     //country
-    $result = db_query("select country from {question_location} where qid='$qid'}");
+//    $result = db_query("select country from {question_location} where qid='$qid'}");
+//    $cont_array = array();
+//    while ($cont = db_fetch_array($result)) {
+//        array_push($cont_array, $cont['country']);
+//    }
+    
+    /* Node conversion display country from cck field */
+    $result = db_query("select field_issue_country_value from {content_field_issue_country} where nid='$qid'");
     $cont_array = array();
     while ($cont = db_fetch_array($result)) {
-        array_push($cont_array, $cont['country']);
+        array_push($cont_array, $cont['field_issue_country_value']);
     }
+     /* Node conversion display country from cck field */
 
     $result = geonames_query('countryinfo');
     $optionlist .= '<option value="">Select country</option>';
@@ -391,6 +399,8 @@ function moderator_edit_issues($qid='') {
     $setstate = implode(',', array_filter($state_array));
     $ret = '<select tabindex="18" multiple="multiple" style="width: 100px;"  onchange="get_city(this.value);" id="q_state" name="q_state[]"> <option value="">--States--</option>';
     $ret .= "</select>";
+
+
 
     /////////////state list end here //////////////////////////////
     /////////// city list start here/////////////////
@@ -1232,7 +1242,7 @@ function moderator_save_issue($array) {
 //        }
 //        update_flag_badges($fids);
 
-
+/* Node conversion */
         $sql = "SELECT aid FROM {abuse} WHERE oid = '$nid'";
         $flagids = ExecuteQuery($sql, "select");
         foreach ($flagids as $flagid) {
@@ -1254,8 +1264,23 @@ function moderator_save_issue($array) {
              $node->choice[$$aid]['chvotes'] = $node->choice[$$aid]['chvotes']!=''?$node->choice[$$aid]['chvotes']:0;
 
          }
-         //$node->field_issue_country[0]['value'] = $q_country;
-         //print_r($node); exit;
+        for($i = 0; $i <= count($q_country); $i++){
+         $node->field_issue_country[$i]['value'] = $q_country[$i];
+        }
+        
+        for($i = 0; $i <= count($q_state); $i++){
+         $state = explode(",", $q_state[$i]);
+         $node->field_issue_state[$i]['value'] = $state[0];
+         //$node->field_scountry_value[$i]['value'] = $state[1];
+        }
+        for($i = 0; $i <= count($q_city); $i++){
+         $city = explode(",", $q_city[$i]);
+         $node->field_issue_city[$i]['value'] = $city[0];
+         //$node->field_cstate_value[$i]['value'] = $city[1];
+         //$node->field_ccountry_value[$i]['value'] = $city[2];
+        }
+         
+        // print_r($node); exit;
         $nodeVal = node_save($node);
         
         // taxonomy (categories here)
@@ -1360,19 +1385,19 @@ function moderator_save_issue($array) {
 //        }
 
         //multi location
-        $del_result = db_query("delete from {question_location} where qid='" . $qid . "'");
-        foreach ($q_country as $country) {
-
-            db_query("insert into {question_location} set uid='%d',qid='%d',country='%s'", $user->uid, $qid, $country);
-        }
-        foreach ($q_state as $state) {
-            $stat_cont = explode(',', $state);
-            db_query("insert into {question_location} set uid='%d',qid='%d',state='%s',country='%s'", $user->uid, $qid, $stat_cont[0], $stat_cont[1]);
-        }
-        foreach ($q_city as $city) {
-            $city_stat_cont = explode(',', $city);
-            db_query("insert into {question_location} set uid='%d',qid='%d',city='%s',state='%s',country='%s'", $user->uid, $qid, $city_stat_cont[0], $city_stat_cont[1], $city_stat_cont[2]);
-        }
+//        $del_result = db_query("delete from {question_location} where qid='" . $qid . "'");
+//        foreach ($q_country as $country) {
+//
+//            db_query("insert into {question_location} set uid='%d',qid='%d',country='%s'", $user->uid, $qid, $country);
+//        }
+//        foreach ($q_state as $state) {
+//            $stat_cont = explode(',', $state);
+//            db_query("insert into {question_location} set uid='%d',qid='%d',state='%s',country='%s'", $user->uid, $qid, $stat_cont[0], $stat_cont[1]);
+//        }
+//        foreach ($q_city as $city) {
+//            $city_stat_cont = explode(',', $city);
+//            db_query("insert into {question_location} set uid='%d',qid='%d',city='%s',state='%s',country='%s'", $user->uid, $qid, $city_stat_cont[0], $city_stat_cont[1], $city_stat_cont[2]);
+//        }
 
 
         //location
