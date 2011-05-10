@@ -134,7 +134,7 @@ function load_stream(more,action){
            // jQuery.unblockUI();
             if(data.error){
             if(action=='more'){
-                 jQuery('#uactivity').append('<div class="warning">No More User Activity!</div>');
+                 jQuery('#uactivity').append('<div class="warning"><small>No More User Activity!</small></div>');
                  jQuery('div.more-link').fadeOut('slow');
             }
              // alert('error occurs please try to reload!!')
@@ -142,6 +142,11 @@ function load_stream(more,action){
                 if(action=='more'){
                       more.attr('id',data.start);
               jQuery('#uactivity').append(data.content);
+              if(!data.more){
+                   jQuery('div.more-link').fadeOut('slow');
+                   jQuery('#uactivity').append('<div class="warning"><small>There are no more posts to show right now.!</small></div>');
+              }
+                 
                 }
               if(action=='new'){
                 more.attr('id',data.start);

@@ -2005,12 +2005,21 @@ $output.='<div class="uactivity" id="uactivity">';
 function notify_stream($start='') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
+    $max=50;
+    $limit=15;
+
+    
     $filter = $_GET['filter'];
     $where = notify_filter_where($filter);
     $json = array();
     $uarray = array();
+     $json['more'] = true;
     $json['error'] = false;
-    $limit = 15;
+    if(($start+$limit)>$max){
+         $limit = max(0, $max-$start);
+         $json['more'] = false; 
+    }
+
     $uarray = _activity_heartbeat_related_uid_info($user->uid);
     // $start=variable_get(arg(1),'0');
     if ($_GET['action'] == 'more') {
@@ -2045,12 +2054,14 @@ $query=db_query($sql, $uids, $uids, $start,$limit);
 
             if (!$i) {
                 $json['error'] = true;
+                $json['more'] = false;
                 $output = 'No User Activity Found!';
             }
         } else {
             $output = 'No User Activity Found!';
         }
         $json['status'] = true;
+       
         $json['content'] = $output;
         $json['count'] = $count;
 
