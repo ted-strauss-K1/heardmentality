@@ -698,7 +698,21 @@ function profile($uid = '') {
   drupal_add_css(USER_RELATIONSHIPS_UI_PATH .'/user_relationships_ui.css');
     if ($uid != $user->uid && isset($getuser)) {///follow
       //  $flink = '<a class="linkfol" href="' . $gSitePath . 'profile/' . $getuser->name . '?delm=' . $uid . '">Follow</a><span class="separate"></span> ';
-        $flink='<a class="user_relationships_popup_link linkfol" href="' . $gSitePath . 'relationship/'.$getuser->uid.'/request/'.$user->uid.'?destination=profile/'.$getuser->name.'">Follow</a><span class="separate"></span> ';
+//        $followingids = user_relationships_load($param = array("approved" => 1, "requester_id" => $user->uid, 'rtid' => 1), $options = array('include_user_info' => 1, 'order' => 1), $reset = FALSE);
+//        foreach($followingids as $key=>$following){
+//            $follids[] = $following->requestee_id.'<br>';
+//        }
+
+        // check follow , unfollow
+        $followingid = check_follow_unfollow($user->uid, $getuser->uid);
+        if($followingid){
+            // unfollow
+            $flink='<a class="user_relationships_popup_link linkfol" href="' . $gSitePath . 'user/'.$user->uid.'/relationships/'.$followingid.'/remove/?destination=profile/'.$getuser->name.'">Unfollow</a><span class="separate"></span> ';
+        }else{
+            // follow
+            $flink='<a class="user_relationships_popup_link linkfol" href="' . $gSitePath . 'relationship/'.$getuser->uid.'/request/'.$user->uid.'?destination=profile/'.$getuser->name.'">Follow</a><span class="separate"></span> ';
+        }
+        
         $flink = '<li><img src="' . $gSitePath . path_to_theme() . '/images/follow.jpg" alt="follow" width="19" height="13" />&nbsp;' . $flink . '</li>';
     }
 
@@ -2213,3 +2227,9 @@ function privacy($uid = ''){
     }
 }
 
+
+function check_follow_unfollow($requester, $requestee){
+    
+    $fid = db_result(db_query("SELECT rid FROM {user_relationships} WHERE requester_id = '%d' AND requestee_id = '%d'", $requester, $requestee));
+    return $fid;
+}

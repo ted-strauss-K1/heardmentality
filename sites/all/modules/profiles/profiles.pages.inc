@@ -185,7 +185,7 @@ function event_photo() {
 
 
 function followerlist($uids) {
-
+global $user,$gSitePath;
   //using user relation module api
 $relationships = user_relationships_load($param = array("approved" => 1, "requestee_id" => $uids,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'10'), $reset = FALSE);
 //echo "<pre>";
@@ -228,7 +228,7 @@ if ($relationships) {
 
 
     if ($requestcount > 5) {
-        $output[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
+        $output[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uids . '\',\'Follower\');">More</a>';
     }
     if ($requestcount == 0) {
         $output[] .= '<span style="padding-left:17px;">Please follow people!</span>';
@@ -291,7 +291,7 @@ if ($relationships) {
 
 
 
-    if ($requestcount > 0) {
+    if ($requestcount > 5) {
         $output[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'following/' . $umid . '\',\'Follower\');">More</a>';
     }
     if ($requestcount == 0) {

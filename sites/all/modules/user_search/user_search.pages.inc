@@ -1033,7 +1033,7 @@ function user_follower() {
         if ($countrowsm == 0) {
 
             $follower .= '<span style="padding-left:17px;">No Followers Found</span> ';
-        } elseif ($user->uid == $follid) {
+        } else{
             $follower.='  <div class="clear"><ul class="subtabs"><li>Select</li> <li><a href="#" onclick="chk_all(1);";>All</a> </li><li><a href="#" onclick="chk_all(0);";>None</a></li><li><a href="#" onclick="enable_form(1,this);";>Send Message</a><li><li></li></ul></div>
 <form name="frmsgform" id="frmsgform" action="' . $gSitePath . 'postmessage" method="POST">' . $follow . '
      <div align="left" style="display:none;" id="frmsgbox"><div class="facttop2">SEND MESSAGE</div><br><textarea id="msgs" row="17" cols="55" name="frmsgs"></textarea><input type="hidden" value="37" name="actions" id="actions"><br><br><input type="button" value="sendmessage" id="usmsg">&nbsp; <input type="button" onclick="rel_msg(0);"  value="cancel"/></div>
@@ -1147,7 +1147,7 @@ function user_following() {
 //
 //	</script>
 //	';
-
+    $following .= '<div class="facttop">FOLLOWING USERS</div>';
     $following .= '<div class="following">';
     $sel_pro = "select * from user_relationships  where requester_id='" . $follid . "'  and approved='1' ";
     $rs_following = db_query($sel_pro);
@@ -1350,16 +1350,16 @@ function followerlist($umid) {
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
-    $sel_listf = "select * from follower  where follower_id='" . $umid . "' AND uid>0  limit 0,5  ";
+    $sel_listf = "select * from user_relationships  where requestee_id='" . $umid . "' AND requester_id>0  limit 0,5  ";
     $rs_followerf = db_query($sel_listf);
 
-    $numfoll = db_result(db_query("SELECT COUNT(*)  from follower  where follower_id='" . $umid . "' AND uid>0  "));
+    $numfoll = db_result(db_query("SELECT COUNT(*)  from user_relationships  where requestee_id='" . $umid . "' AND requester_id>0  "));
 
     $followeru = array();
     while ($follower_resultfuser = db_fetch_object($rs_followerf)) {
 
         // $sel_ulist="select * from users  where uid='".$follower_resultfuser->uid."' ";
-        $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $follower_resultfuser->uid . "'";
+        $sel_ulist = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $follower_resultfuser->requester_id . "'";
         $rs_umlog = db_query($sel_ulist);
         $user_namelistf = db_fetch_object($rs_umlog);
 
@@ -1367,20 +1367,20 @@ function followerlist($umid) {
         $user_namelistf->name;
 
         if ($umid == $user->uid) {
-            $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',1,0)" >UnBlock</a>';
-            $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->id . ',' . $follower_resultfuser->uid . ',0,0)" >Block</a>';
+            $flink1 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->rid . ',' . $follower_resultfuser->requester_id . ',1,0)" >UnBlock</a>';
+            $flink2 = '<a style="color:#F37321;" onclick="blockandunblock(' . $follower_resultfuser->rid . ',' . $follower_resultfuser->requester_id . ',0,0)" >Block</a>';
         }
 
         $bubble = load_bubble($user_namelistf->uid);
-        if ($follower_resultfuser->follower_status == 0) {
-            $followeru[] = '<li  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . '</a></li>';
+        if ($follower_resultfuser->approved == 0) {
+            $followeru[] = '<li  id="list-' . $follower_resultfuser->rid . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->requester_id) . '</a></li>';
         } else {
 
-            $followeru[] = '<li  id="list-' . $follower_resultfuser->id . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->uid) . '</a></li>';
+            $followeru[] = '<li  id="list-' . $follower_resultfuser->rid . '"><a href="' . $gSitePath . 'profile/' . $user_namelistf->name . '" rel=\'' . $bubble . '\'>' . UserPicture_small($follower_resultfuser->requester_id) . '</a></li>';
         }
     }
 
-    if ($numfoll > 0) {
+    if ($numfoll > 5) {
         $followeru[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
     }
     if ($numfoll == 0) {
@@ -1404,18 +1404,18 @@ function followinglist($uids) {
     while ($following_list = db_fetch_object($rs_foll_list)) {
 
         if ($uids == $user->uid) {
-            $flinks = '<a onclick="deletefollowing(' . $following_list->id . ')" style="color:#F37321;" >Unfollow</a>';
+            $flinks = '<a onclick="deletefollowing(' . $following_list->rid . ')" style="color:#F37321;" >Unfollow</a>';
         }
         //	 $sel_userm="select * from users  where uid='".$following_list->follower_id."' ";
-        $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $following_list->follower_id . "'";
+        $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $following_list->requestee_id . "'";
         $rs_userm = db_query($sel_userm);
         $user_namelist = db_fetch_object($rs_userm);
 
-        $bubble = load_bubble($following_list->follower_id);
+        $bubble = load_bubble($following_list->requestee_id);
 
-        $following[] = '<li  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . '</a></li>';
+        $following[] = '<li  id="show-' . $following_list->rid . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->requestee_id) . '</a></li>';
     }
-    if ($numfolls > 0) {
+    if ($numfolls > 5) {
         $following[] .= '<a style="color:#F37321;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
     }
     if ($numfolls == 0) {
