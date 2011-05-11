@@ -367,3 +367,29 @@ jQuery('#edit-file-upload').blur(function(){    jQuery('input:hidden[name=img_av
 
 
 });
+
+
+
+// delete following users
+
+function delete_following(fid){
+
+jQuery(document).ready(function(){
+    var urls = gSitePath+'savefollowing';
+    var divid = '#record-'+fid;
+    var follid = '#followname-'+fid;
+    var followname = jQuery(follid).val();
+    jQuery.ajax({
+        type: "GET",
+        url: urls,
+        data: {
+           'delete':  fid
+        },
+        success: function(msg){
+            jQuery(divid).remove();
+            show_inotify("You now unfollowed from "+followname+"!");
+        }
+    });
+})
+
+}

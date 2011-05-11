@@ -1105,59 +1105,70 @@ function user_follower() {
 function user_following() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $follid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $following = '<script type="text/javascript">
-	window.addEvent(\'domready\',function() {
-	$$(\'a.delete\').each(function(el) {
-		el.addEvent(\'click\',function(e) {
-			e.stop();
-			var parent = el.getParent(\'div\');
-			var request = new Request({
-				url: \'' . $gSitePath . 'savefollowing\',
-				link: \'chain\',
-				method: \'get\',
-				data: {
-					\'delete\': parent.get(\'id\').replace(\'record-\',\'\'),
-					ajax: 1
-				},
-				onRequest: function() {
-					new Fx.Tween(parent,{
-						duration:300
-					}).start(\'background-color\', \'#fb6c6c\');
-				},
-				onSuccess: function() {
-					new Fx.Slide(parent,{
-						duration:300,
-						onComplete: function() {
-							parent.dispose();
-						}
-					}).slideOut();
-				}
-			}).send();
-		});
-	});
-});
-	
-	</script>
-	';
+    
+    $following .= '<script>
+        var gSitePath="' . $gSitePath . '";
+</script>
+        <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') .'/scripts/jquery1.4.js"></script>
+      	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'profiles') . '/js/profile.js"></script>
+  <link rel="stylesheet" href="' . $gSitePath . 'modules/system/system.css" type="text/css" />
+		<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />';
+//    $following .= '<script type="text/javascript">
+//	window.addEvent(\'domready\',function() {
+//	$$(\'a.delete\').each(function(el) {
+//		el.addEvent(\'click\',function(e) {
+//			e.stop();
+//			var parent = el.getParent(\'div\');
+//			var request = new Request({
+//				url: \'' . $gSitePath . 'savefollowing\',
+//				link: \'chain\',
+//				method: \'get\',
+//				data: {
+//					\'delete\': parent.get(\'id\').replace(\'record-\',\'\'),
+//					ajax: 1
+//				},
+//				onRequest: function() {
+//					new Fx.Tween(parent,{
+//						duration:300
+//					}).start(\'background-color\', \'#fb6c6c\');
+//				},
+//				onSuccess: function() {
+//					new Fx.Slide(parent,{
+//						duration:300,
+//						onComplete: function() {
+//							parent.dispose();
+//						}
+//					}).slideOut();
+//				}
+//			}).send();
+//		});
+//	});
+//});
+//
+//	</script>
+//	';
 
     $following .= '<div class="following">';
-    $sel_pro = "select * from follower  where uid='" . $follid . "'  and follower_status='1' ";
+    $sel_pro = "select * from user_relationships  where requester_id='" . $follid . "'  and approved='1' ";
     $rs_following = db_query($sel_pro);
-    $countrows = db_result(db_query("SELECT COUNT(*) from follower  where uid='" . $follid . "'  and follower_status='1'"));
+    $countrows = db_result(db_query("SELECT COUNT(*) from user_relationships  where requester_id='" . $follid . "'  and approved='1'"));
     while ($following_result = db_fetch_object($rs_following)) {
         // $sel_userm="select * from users  where uid='".$following_result->follower_id."' ";
-        $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $following_result->follower_id . "'";
+        $sel_userm = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $following_result->requestee_id . "'";
         $rs_userm = db_query($sel_userm);
         $user_namelist = db_fetch_object($rs_userm);
         if ($follid == $user->uid) {
-            $linkj = '<a href="?delete=' . $following_result->id . '" class="delete">Unfollow</a>';
+            //$linkj = '<a href="?delete=' . $following_result->rid . '" class="delete">Unfollow</a>';
+            $linkj = '<a href="javascript:void(0);" onclick="delete_following('.$following_result->rid.')" class="delete" title="Unfollow">Unfollow</a>';
         }
-        $following .= '<div class="record" id="record-' . $following_result->id . '"><strong>' . $user_namelist->real_name . '</strong> ' . $linkj . ' </div>';
+        $following .= '<div class="record" id="record-' . $following_result->rid . '">'.  UserPicture_small($following_result->requestee_id).'<strong>' . $user_namelist->real_name . '</strong> ' . $linkj . ' </div>
+                        <input type="hidden" id="followname-'.$following_result->rid.'" value="'.$user_namelist->real_name.'" /><br />';
     }
     if ($countrows == 0) {
 
         $following .= ' No Records';
     }
+    $following .= '</div>';
     echo $following;
 }
 
@@ -1289,7 +1300,7 @@ function save_follow() {
 
     $follid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     if (isset($_GET['delete'])) {
-        $query = 'DELETE FROM follower WHERE id = ' . (int) $_GET['delete'];
+        $query = 'DELETE FROM user_relationships WHERE rid = ' . (int) $_GET['delete'];
         $result = db_query($query);
     }
 }
@@ -1369,7 +1380,7 @@ function followerlist($umid) {
         }
     }
 
-    if ($numfoll > 5) {
+    if ($numfoll > 0) {
         $followeru[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $umid . '\',\'Follower\');">More</a>';
     }
     if ($numfoll == 0) {
@@ -1385,9 +1396,9 @@ function followinglist($uids) {
     global $gSitePath, $user, $gDocPath, $base_root;
 
 
-    $sel_list = "select * from follower  where uid='" . $uids . "'  and follower_status='1' limit 0,5";
+    $sel_list = "select * from user_relationships  where requester_id='" . $uids . "'  and approved='1' limit 0,5";
     $rs_foll_list = db_query($sel_list);
-    $numfolls = db_result(db_query("SELECT COUNT(*)  from follower  where uid='" . $uids . "'  and follower_status='1'  "));
+    $numfolls = db_result(db_query("SELECT COUNT(*)  from user_relationships  where requester_id='" . $uids . "'  and approved='1'  "));
     $following = array();
 
     while ($following_list = db_fetch_object($rs_foll_list)) {
@@ -1404,7 +1415,7 @@ function followinglist($uids) {
 
         $following[] = '<li  id="show-' . $following_list->id . '"><a rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $user_namelist->name . '">' . UserPicture_small($following_list->follower_id) . '</a></li>';
     }
-    if ($numfolls > 5) {
+    if ($numfolls > 0) {
         $following[] .= '<a style="color:#F37321;" onclick="loadfollowing(\'' . $gSitePath . 'following/' . $uids . '\',\'Following\');">More</a>';
     }
     if ($numfolls == 0) {
