@@ -75,7 +75,7 @@ function phptemplate_preprocess_page(&$vars) {
         _color_page_alter($vars);
     }
 
-    $query = db_query("SELECT * FROM {moderator_messages} WHERE to_uid = '$user->uid' AND status = '0'");
+    $query = db_query("SELECT * FROM {moderator_messages} WHERE to_uid = '$user->uid' AND status = '0' ORDER BY id DESC");
     while($res = db_fetch_object($query)){
         $notify[] = $res;
     }

@@ -203,7 +203,7 @@ $directory = $base_path . $directory;
                                 <div id="not-div">
                                
                                 <span class="notify-close"><a href="javascript:void(0);" onclick="close_notify_message(<?php echo $i; ?>, <?php echo $notify->id?>, <?php echo $user->uid;?>)" title="dismiss this notification">×</a></span>
-                                <span class="notify-text"><div align="center">Moderator sent a message <span>'<?php echo nl2br($message); ?>'</span></div></span>
+                                <span class="notify-text"><div align="center">Moderator sent a message <span>'<?php echo t($message); ?>'</span></div></span>
                                 </div>
                                 </div>
                             <?php
