@@ -236,7 +236,8 @@ function issue_edit_vote_submit($form, &$form_state) {
  * Implementation of hook_form_alter().
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
-   // print $form_id;
+   global $gSitePath;
+// print $form_id;
    // echo '<pre>';
    // print_r($form);
 if($form_id=='user_relationships_ui_request'){
@@ -250,7 +251,9 @@ if($form_id=='poll_view_voting'){
     $form['#validate'][]='check_user_anonymous';
   //echo $form_id."<pre>";  print_r($form);exit;
 }
-
+if($form_id=='issue_edit_vote'){
+    $form['#action'] = 'qlite/view/'.$form['#nid'];
+}
     if ($form_id == 'poll_node_form') {
         //$form['#after_build'][] = 'issue_after_build';
 

@@ -552,63 +552,81 @@ function _sidebar_category() {
     $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . $cond . " AND q.status='1' group by c.cat_id";
     $listcat = ExecuteQuery($sel_cat, "select");
 
+   $vocabName = 'Sections';
+   $vocabs = taxonomy_get_vocabularies(NULL);
+   foreach($vocabs as $vocab){
+       if($vocab->name == $vocabName){
+          $vid = $vocab->vid;
+       }
+   }
+   $listcat = taxonomy_get_tree($vid);
+   if(!empty($listcat)){
+       foreach($listcat as $cat){
+          $parent = taxonomy_get_parents($cat->tid);
+          if(empty($parent)){
+          $childrens = taxonomy_get_children($cat->tid);
+          $catlist.= '<span ' . $style . ' class="sidelinks">
+             <a  id="c-' . $cat->tid . '" href="JavaScript:void(0);">' . stripslashes($cat->name) . '</a></span><br/>';
+          }
+       }
 
-    if (!empty($listcat)) {
-        foreach ($listcat as $cat) {
-            $style = '';
-            if ($cid == $cat['cat_id']) {
-                $style = 'class="sidelinks"';
-            }
-            $cat_qry = "SELECT count(distinct q.qid) FROM question_cat as cat join question as q on q.qid=cat.qid WHERE q.status='1' AND cat.cat ='" . $cat['cat_id'] . "' $cond $search  ";
-            $total_count1 = db_result(db_query($cat_qry));
-
-
-            //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
-            $catlist.='<span ' . $style . ' class="sidelinks">
-
-        <a  id="c-' . $cat['cat_id'] . '" href="JavaScript:void(0);">' . stripslashes($cat['cat_name']) . '[' . $total_count1 . ']</a></span><br/>';
-            //subcat list
-            if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
-                // $catlist.='<ul>';
-                $sel_scat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $cat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
-                $listscat = ExecuteQuery($sel_scat, "select");
-
-                /*
-                  foreach ($listscat as $scat) {
-                  $style = '';
-                  if ($scid == $scat['cat_id']) {
-                  $style = 'style="font-weight:bold"';
-                  }
-                  $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.scat ='" . $scat['cat_id'] . "' $cond  group by cat.qid";
-                  $scat_res = db_query($scat_qry);
-                  $total_count2 = mysql_num_rows($scat_res);
-
-                  $style = 'class="sidelinks"';
-                  $catlist.='&nbsp;&nbsp;<span ' . $style . '><a ' . $style . ' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '&q_country=' . $q_country . '&q_state=' . $q_state . '&q_city=' . $q_city . '">' . $scat['cat_name'] . '[' . $total_count2 . ']</a></span><br/>';
-                  //sub subcat list
-                  if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
-                  //$catlist.='<ul>';
-                  $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
-                  $listsscat = ExecuteQuery($sel_sscat, "select");
-
-                  foreach ($listsscat as $sscat) {
-                  $style = '';
-                  if ($sscid == $sscat['cat_id']) {
-                  $style = 'style="font-weight:bold"';
-                  }
-                  $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid join {category} as c on c.cat_id=cat.scat where q.status='1' AND cat.sscat ='" . $sscat['cat_id'] . "' $cond  group by cat.qid";
-                  $scat = db_query($sscat_qry);
-                  $total_count3 = db_affected_rows($sscat_res);
-
-                  $style = 'class="sidelinks"';
-                  $catlist.='&nbsp;&nbsp;<span ' . $style . '><a ' . $style . ' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '&q_country=' . $q_country . '&q_state=' . $q_state . '&q_city=' . $q_city . '">' . $scat['cat_name'] . '[' . $total_count3 . ']</a></span><br/>';
-                  }
-                  // $catlist.='</ul>';
-                  }
-                  } */
-                // $catlist.='</ul>';
-            }
-        }
+//    if (!empty($listcat)) {
+//        foreach ($listcat as $cats) {
+//            $style = '';
+//
+//            if ($cid == $cat['cat_id']) {
+//                $style = 'class="sidelinks"';
+//            }
+//            $cat_qry = "SELECT count(distinct q.qid) FROM question_cat as cat join question as q on q.qid=cat.qid WHERE q.status='1' AND cat.cat ='" . $cat['cat_id'] . "' $cond $search  ";
+//            $total_count1 = db_result(db_query($cat_qry));
+//
+//
+//            //href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&txt_search=' . $txt_search .'&q_country='.$q_country.'&q_state='.$q_state.'&q_city='.$q_city.'"
+//            $catlist.='<span ' . $style . ' class="sidelinks">
+//
+//        <a  id="c-' . $cat['cat_id'] . '" href="JavaScript:void(0);">' . stripslashes($cat['cat_name']) . '[' . $total_count1 . ']</a></span><br/>';
+//            //subcat list
+//            if ((!empty($cid)) && ($cid == $cat['cat_id'])) {
+//                // $catlist.='<ul>';
+//                $sel_scat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id left join {question} as q on q.qid=qc.qid  where c.parent_id='" . $cat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
+//                $listscat = ExecuteQuery($sel_scat, "select");
+//
+//                /*
+//                  foreach ($listscat as $scat) {
+//                  $style = '';
+//                  if ($scid == $scat['cat_id']) {
+//                  $style = 'style="font-weight:bold"';
+//                  }
+//                  $scat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid WHERE 1 AND cat.scat ='" . $scat['cat_id'] . "' $cond  group by cat.qid";
+//                  $scat_res = db_query($scat_qry);
+//                  $total_count2 = mysql_num_rows($scat_res);
+//
+//                  $style = 'class="sidelinks"';
+//                  $catlist.='&nbsp;&nbsp;<span ' . $style . '><a ' . $style . ' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&txt_search=' . $txt_search . '&q_country=' . $q_country . '&q_state=' . $q_state . '&q_city=' . $q_city . '">' . $scat['cat_name'] . '[' . $total_count2 . ']</a></span><br/>';
+//                  //sub subcat list
+//                  if ((!empty($scid)) && ($scid == $scat['cat_id'])) {
+//                  //$catlist.='<ul>';
+//                  $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.sscat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='" . $scat['cat_id'] . "' " . $search . " AND q.status='1' group by c.cat_id";
+//                  $listsscat = ExecuteQuery($sel_sscat, "select");
+//
+//                  foreach ($listsscat as $sscat) {
+//                  $style = '';
+//                  if ($sscid == $sscat['cat_id']) {
+//                  $style = 'style="font-weight:bold"';
+//                  }
+//                  $sscat_qry = "SELECT * FROM question_cat as cat join question as q on q.qid=cat.qid join {category} as c on c.cat_id=cat.scat where q.status='1' AND cat.sscat ='" . $sscat['cat_id'] . "' $cond  group by cat.qid";
+//                  $scat = db_query($sscat_qry);
+//                  $total_count3 = db_affected_rows($sscat_res);
+//
+//                  $style = 'class="sidelinks"';
+//                  $catlist.='&nbsp;&nbsp;<span ' . $style . '><a ' . $style . ' href="' . $gSitePath . 'searchquestion?cid=' . $cat['cat_id'] . '&scid=' . $scat['cat_id'] . '&sscid=' . $sscat['cat_id'] . '&txt_search=' . $txt_search . '&q_country=' . $q_country . '&q_state=' . $q_state . '&q_city=' . $q_city . '">' . $scat['cat_name'] . '[' . $total_count3 . ']</a></span><br/>';
+//                  }
+//                  // $catlist.='</ul>';
+//                  }
+//                  } */
+//                // $catlist.='</ul>';
+//            }
+//        }
     } else {
 
         $catlist.='<span><b>No Category Found</b></span>';

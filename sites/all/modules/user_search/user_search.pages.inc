@@ -624,31 +624,34 @@ function search_results_ajax() {
 
         $numresum = db_result(db_query("SELECT COUNT(nid) FROM content_type_forum where  field_ref_qid_nid='$user_result->qid' AND field_type_value = '2'"));
         $posts = $for_count + $numresum;
-        $fetresult .= ' <div class="result-item">
-	<div class="rleft">
-       <div class="titl">
-        <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save">
-        <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
-<a href="' . $gSitePath . 'qlite/view/'.$user_result->qid . '?ajax=1" style="' . drupal_link_color($user->uid, $user_result->qid) . '">' . htmlentities(rtrim($user_result->question, "?")) . '?</a>
-</div>';
-//<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
-
-        while ($vlistquest = db_fetch_object($vlist)) {
-
-            $sel_qry = db_query("select * from {poll_votes} where nid='" . $user_result->qid . "' and uid='" . $user->uid . "'");
-            $get_value = db_fetch_object($sel_qry);
-            $check = '';
-
-            if (!empty($get_value)) {
-                $sel_ans = db_query("select * from {poll_choices} where chorder='" . $get_value->chorder . "'");
-                $get_ans = db_fetch_object($sel_ans);
-                $check = check_select($get_ans->chorder, $vlistquest->chorder);
-            }
-
-            //  name="answer_al['.$i.']"
-            $fetresult .= ' <div class="item1">
-                <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->chorder . '" ' . $check . '  />&nbsp;&nbsp;' . $vlistquest->chtext . '</div>';
-        }
+//        $fetresult .= ' <div class="result-item">
+//	<div class="rleft">
+//       <div class="titl">
+//        <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save">
+//        <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
+//<a href="' . $gSitePath . 'qlite/view/'.$user_result->qid. '?ajax=1" style="' . drupal_link_color($user->uid, $user_result->qid) . '">' . htmlentities(rtrim($user_result->question, "?")) . '?</a>
+//</div>';
+////<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
+//
+//        while ($vlistquest = db_fetch_object($vlist)) {
+//
+//            $sel_qry = db_query("select * from {poll_votes} where nid='" . $user_result->qid . "' and uid='" . $user->uid . "'");
+//            $get_value = db_fetch_object($sel_qry);
+//            $check = '';
+//
+//            if (!empty($get_value)) {
+//                $sel_ans = db_query("select * from {poll_choices} where chorder='" . $get_value->chorder . "'");
+//                $get_ans = db_fetch_object($sel_ans);
+//                $check = check_select($get_ans->chorder, $vlistquest->chorder);
+//            }
+//
+//            //  name="answer_al['.$i.']"
+//            $fetresult .= ' <div class="item1">
+//                <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->chorder . '" ' . $check . '  />&nbsp;&nbsp;' . $vlistquest->chtext . '</div>';
+//        }
+        $fetresult .= '<div class="result-item">
+	<div class="rleft">';
+        $fetresult .= node_view(node_load($user_result->qid), 1);
         $fetresult .= '  <div class="rright">
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
@@ -668,12 +671,12 @@ function search_results_ajax() {
         if ($numran != 0) {
             $query = "select chorder from {poll_votes} where nid='$user_result->qid' AND uid='" . $user->uid . "'";
             $voteid = db_result(db_query($query));
-            $fetresult .= ' <div class="item1"><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/> </div></form>';
+            //$fetresult .= ' <div class="item1"><input type="submit" name="change" id="change" value="Change" /><input type="hidden" name="vote_id" value="' . $voteid . '"/> </div></form>';
             //     $optio = '<div align="center" class="share2"><a title="Withdraw Your Answer" class="share-link" onclick="formsubmittype(1,' . $qid . ');" href="javascript:void(0);">Withdraw</a></div>';
         }
         if ($numran == 0) {
 
-            $fetresult .= ' <div class="item1"><input type="submit" name="save" id="save" value="Vote" /> </div></form>';
+            //$fetresult .= ' <div class="item1"><input type="submit" name="save" id="save" value="Vote" /> </div></form>';
         }
         // $fetresult .= ' <p><input type="submit" name="save" id="save" value="Vote" /></p></form>';
 //        $fol_qry = db_query("SELECT count(*) as count FROM {follower} where uid='" . $user->uid . "'and question_id='" . $user_result->qid . "'");
@@ -839,15 +842,12 @@ function search_results_question() {
 
         $numresum = db_result(db_query("SELECT COUNT(nid) FROM content_type_forum where  field_ref_qid_nid='$user_result->qid' AND field_type_value = '2'"));
         $posts = $for_count + $numresum;
-        // alias url
-        $qpath=drupal_get_path_alias('node/'.$user_result->qid);
-         // alias url
 //        $fetresult .= ' <div class="result-item">
 //	<div class="rleft">
 //       <div class="titl">
 //        <form id="answer_frm" name="answer_frm" method="post" action="' . $gSitePath . 'qlite/save">
 //        <input type="hidden" name="mid" id="mid" value="' . $user_result->qid . '"/>
-//<a href="' . $gSitePath . 'qlite/view/'.$user_result->qid . '?ajax=1" style="' . drupal_link_color($user->uid, $user_result->qid) . '">' . htmlentities(rtrim($user_result->question, "?")) . '?</a>
+//<a href="' . $gSitePath . 'qlite/view/'.$user_result->qid. '?ajax=1" style="' . drupal_link_color($user->uid, $user_result->qid) . '">' . htmlentities(rtrim($user_result->question, "?")) . '?</a>
 //</div>';
 ////<a href="javascript:void(0);" onclick="get_quest_details(' . $user_result->qid . ',this);" title="'. htmlentities(wordwrap($user_result->question, 40,'<br/>')).'" style="'.drupal_link_color($user->uid,$user_result->qid).'">' . htmlentities(substr(rtrim($user_result->question, "?"),0,70)). '?</a>
 //
@@ -867,9 +867,9 @@ function search_results_question() {
 //            $fetresult .= ' <div class="item1">
 //                <input name="answer_al[' . $i . ']" id="answer" type="radio"  value="' . $vlistquest->chorder . '" ' . $check . '  />&nbsp;&nbsp;' . $vlistquest->chtext . '</div>';
 //        }
-$fetresult .= ' <div class="result-item">
+        $fetresult .= '<div class="result-item">
 	<div class="rleft">';
-        $fetresult .= node_view(node_load($user_result->qid));
+        $fetresult .= node_view(node_load($user_result->qid), 1);
         $fetresult .= '  <div class="rright">
       <div class="vote-post-outer">
       <div class="vote-post-outer-top">
