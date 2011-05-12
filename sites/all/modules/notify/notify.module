@@ -2035,12 +2035,12 @@ INNER JOIN `users` u
         ON `u`.`uid` IN (%s)
      WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.naid DESC LIMIT %d, %d";
             //count query
-            $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
-INNER JOIN `notify_messages` a
-        ON `b`.`message_id` = `a`.`message_id`
-INNER JOIN `users` u
-        ON `u`.`uid` IN (%s)
-     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+//            $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+//INNER JOIN `notify_messages` a
+//        ON `b`.`message_id` = `a`.`message_id`
+//INNER JOIN `users` u
+//        ON `u`.`uid` IN (%s)
+//     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
 $query=db_query($sql, $uids, $uids, $start,$limit);
             $i = 0;
@@ -2052,21 +2052,22 @@ $query=db_query($sql, $uids, $uids, $start,$limit);
                 $i++;
             }
 
-            if (!$i) {
+          
+           if($i<$limit){
+              $json['more'] = false;
+            }
+              if (!$i) {
                 $json['error'] = true;
                 $json['more'] = false;
                 $output = 'No User Activity Found!';
             }
-//            if($count<$limit){
-//                 $json['more'] = false;
-//            }
         } else {
             $output = 'No User Activity Found!';
         }
         $json['status'] = true;
        
         $json['content'] = $output;
-        $json['count'] = $count;
+        $json['count'] = $i;
 
         $json['start'] = $start + $limit;
         print json_encode($json);
