@@ -59,7 +59,7 @@ global $apikey, $gSitePath;
     <?php print $picture ?>
 
 <?php if (!$page): ?>
-        <h2 style="<?php print $style; ?>"><a href="<?php print $node_url ?>" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></h2>
+      <div class="titl"> <a style="<?php print $style; ?>" href="<?php print $node_url ?>" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></div>
 <?php endif; ?>
 <?php if($page): ?>
 <div>
@@ -84,6 +84,8 @@ global $apikey, $gSitePath;
                 </div>
 
 <?php //print $links; ?>
+                    <?php if($page): ?>
 </div></div>
 
-</div> </div>
+</div>
+     <?php endif; ?> </div>
