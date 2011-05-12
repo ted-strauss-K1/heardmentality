@@ -2057,6 +2057,9 @@ $query=db_query($sql, $uids, $uids, $start,$limit);
                 $json['more'] = false;
                 $output = 'No User Activity Found!';
             }
+//            if($count<$limit){
+//                 $json['more'] = false;
+//            }
         } else {
             $output = 'No User Activity Found!';
         }
