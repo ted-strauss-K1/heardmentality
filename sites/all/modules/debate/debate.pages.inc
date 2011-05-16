@@ -2851,6 +2851,7 @@ function like_dislike_bar($cntagree = '', $cntdisagree = ''){
     $totalCount = $cntagree + $cntdisagree;
     $up_percent = ($cntagree*100)/$totalCount;
     $down_percent = ($cntdisagree*100)/$totalCount;
-    $bar = '<div><b>Rating </b>('.$totalCount.' total)</div><div id="likebar"><span id="like-percent-area" class="like-per" style="width:'.$up_percent.'%;"></span><span id="dislike-percent-area" class="dislike-per" style="width:'.$down_percent.'%;"></span></div>';
+    $bar = '<div><b>Rating </b>('.$totalCount.' total)</div><div id="likebar"><span id="like-percent-area" class="like-per" style="width:'.$up_percent.'%;"></span><span id="dislike-percent-area" class="dislike-per" style="width:'.$down_percent.'%;"></span></div>
+            '.$cntagree.'&nbsp;likes'.$cntdisagree.'&nbsp;dislikes';
     return $bar;
 }
