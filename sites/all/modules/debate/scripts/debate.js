@@ -68,8 +68,14 @@ function bind_clk(){
                     'content_id': wid
                 },
                 success: function(msg){
+                    
+                    var ntype = msg.type;
+                    var barid = '#bar-area-'+ntype+'-'+wid;
+                    var btnid = '#lik-btns-'+ntype+'-'+wid;
                     jQuery('#twitMsg').html(msg.msg);
-                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                    jQuery(btnid).remove();
+                    jQuery(barid).html(msg.likebar);
+                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
                 }
             });
         }

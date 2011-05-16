@@ -82,8 +82,10 @@ function debate_list($qid = '', $did='') {
     if ($user->uid != $forum->uid) {
 
         if (count($fetch) < 1) {
-
-            $like = '<li><span type="is_debate" name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
+            $imgpath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+            $likeImg = '<img src="'.$imgpath.'likebig.png" title="like" />';
+            $dislikeImg = '<img src="'.$imgpath.'dislike.png" title="dislike" />';
+            $like = '<li id="lik-btns-node-'.$forum->nid.'"><span type="is_debate" name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">'.$likeImg.'</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">'.$dislikeImg.'</a></span></li>';
         } elseif ($fetch[0]['is_debate'] == '1' && $fetch[0]['is_agree']) {
 
             $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
@@ -93,6 +95,11 @@ function debate_list($qid = '', $did='') {
     } else {
         $like = '<li></li>';
     }
+
+    // like bar percent calculation
+                
+                $like.= '<li id="bar-area-node-'.$forum->nid.'">'.like_dislike_bar($agreecnt, $disagreecnt).'</li>';
+
 //flag
     if (user_is_logged_in ()) {
         $replybutton = '<a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a>';
@@ -329,16 +336,23 @@ function get_debate($did = '', $pid = '') {
                 //$cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
                 if ($user->uid != $forum['uid']) {
                     if (count($fetch) < 1) {
-                        $like = '<li><span name="' . $forum['cid'] . '" type="is_debate_reply" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['cid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['cid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
+                        $imgpath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+                        $likeImg = '<img src="'.$imgpath.'likebig.png" title="like" />';
+                        $dislikeImg = '<img src="'.$imgpath.'dislike.png" title="dislike" />';
+                        $like = '<li id="lik-btns-comment-'.$forum['cid'].'"><span name="' . $forum['cid'] . '" type="is_debate_reply" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['cid'] . '" class="ragree"">'.$likeImg.'</a>&nbsp;<a name="da-' . $forum['cid'] . '" href="javascript:void(0);" class="rdisagree">'.$dislikeImg.'</a></span></li>';
                     } elseif ($fetch[0]['value'] == '1') {
 
                         $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
                     } else {
                         $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
                     }
+                        
                 } else {
                     $like = '<li></li>';
                 }
+                // like bar percent calculation
+                
+                $like.= '<li id="bar-area-comment-'.$forum['cid'].'">'.like_dislike_bar($cntagree, $cntdisagree).'</li>';
 //flag
                 $flag = '';
 
@@ -498,9 +512,11 @@ function get_res_debate($rid = '', $pid = '') {
 
                 if ($user->uid != $forum['uid']) {
                     if (count($fetch) < 1) {
-
-                        $like = '<li><span type="is_resource_reply" name="' . $forum['cid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['cid'] . '" class="ragree"">Agree</a>&nbsp;<a name="da-' . $forum['cid'] . '" href="javascript:void(0);" class="rdisagree">Disagree</a></span></li>';
-                    } elseif ($fetch[0]['value'] == '-1') {
+                        $imgpath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+                        $likeImg = '<img src="'.$imgpath.'likebig.png" title="like" />';
+                        $dislikeImg = '<img src="'.$imgpath.'dislike.png" title="dislike" />';
+                        $like = '<li id="lik-btns-comment-'.$forum['cid'].'"><span type="is_resource_reply" name="' . $forum['cid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['cid'] . '" class="ragree"">'.$likeImg.'</a>&nbsp;<a name="da-' . $forum['cid'] . '" href="javascript:void(0);" class="rdisagree">'.$dislikeImg.'</a></span></li>';
+                    } elseif ($fetch[0]['value'] == '1') {
 
                         $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
                     } else {
@@ -509,6 +525,9 @@ function get_res_debate($rid = '', $pid = '') {
                 } else {
                     $like = '<li></li>';
                 }
+                // like bar percent calculation
+                
+                $like.= '<li id="bar-area-comment-'.$forum['cid'].'">'.like_dislike_bar($cntagree, $cntdisagree).'</li>';
 //flag
                 $flag = '';
 
@@ -1747,8 +1766,10 @@ function resdebate_list($qid='', $rid='') {
     $disagreecnt = vote_up_down_count($criteriaDownNode);
     if ($user->uid != $forum->uid) {
         if (count($fetch) < 1) {
-
-            $like = '<li><span name="' . $rid . '" id="dagree" type="is_resource" ><a href="javascript:void(0);" name="a-' . $rid . '" class="dagree">Agree</a>&nbsp;<a name="da-' . $rid . '" href="javascript:void(0);" class="ddisagree">Disagree</a></span></li>';
+            $imgpath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+            $likeImg = '<img src="'.$imgpath.'likebig.png" title="like" />';
+            $dislikeImg = '<img src="'.$imgpath.'dislike.png" title="dislike" />';
+            $like = '<li id="lik-btns-node-'.$forum->nid.'"><span name="' . $rid . '" id="dagree" type="is_resource" ><a href="javascript:void(0);" name="a-' . $rid . '" class="dagree">'.$likeImg.'</a>&nbsp;<a name="da-' . $rid . '" href="javascript:void(0);" class="ddisagree">'.$dislikeImg.'</a></span></li>';
         } elseif ($fetch[0]['value'] == '1') {
 
             $like = '<li><em>You <strong>agree</strong> with this comment</em></li>';
@@ -1756,6 +1777,10 @@ function resdebate_list($qid='', $rid='') {
             $like = '<li><em>You <strong>Disagree</strong> with this comment</em></li>';
         }
     }
+
+    // like bar percent calculation
+                
+                $like.= '<li id="bar-area-node-'.$forum->nid.'">'.like_dislike_bar($agreecnt, $disagreecnt).'</li>';
 //flag
 
 
@@ -2616,6 +2641,19 @@ function debate_submit() {
                     db_query("INSERT INTO {votingapi_vote} SET content_type = '%s', content_id = '%d', value = '%s', value_type = '%s', tag = '%s', uid = '%d', timestamp = '%d'",
                             $content_type, $content_id, $voteValue, 'points', 'vote', $user->uid, time());
 
+                    // get like dislike counts
+
+                    $criteriaUpNode = array('content_type' => $type,
+                    'content_id' => $content_id,
+                    'tag' => 'vote',
+                    'vote_type' => 'up');
+                    $criteriaDownNode = array('content_type' => $type,
+                    'content_id' => $content_id,
+                    'tag' => 'vote',
+                    'vote_type' => 'down');
+                    $agreecnt = vote_up_down_count($criteriaUpNode);
+                    $disagreecnt = vote_up_down_count($criteriaDownNode);
+
 // add coin for agree and disagree
                     $coin_type = $agree == '1' ? 'agree' : 'disagree';
                     $coins = users_coins_update($user->uid, '', $coin_type);
@@ -2746,6 +2784,8 @@ function debate_submit() {
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                     }
                     $msg['error'] = '0';
+                    $msg['type'] = $type;
+                    $msg['likebar'] = like_dislike_bar($agreecnt, $disagreecnt);
                 } else {
                     $msg['msg'] = '<em>Sorry <strong>Error, You do not have enough coins.</strong></em>';
                 }
@@ -2804,4 +2844,13 @@ function get_coins($key) {
 // reply as comments
 function custom_comment_submission($comm = '') {
     db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d'", $comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk']);
+}
+
+
+function like_dislike_bar($cntagree = '', $cntdisagree = ''){
+    $totalCount = $cntagree + $cntdisagree;
+    $up_percent = ($cntagree*100)/$totalCount;
+    $down_percent = ($cntdisagree*100)/$totalCount;
+    $bar = '<div><b>Rating </b>('.$totalCount.' total)</div><div id="likebar"><span id="like-percent-area" class="like-per" style="width:'.$up_percent.'%;"></span><span id="dislike-percent-area" class="dislike-per" style="width:'.$down_percent.'%;"></span></div>';
+    return $bar;
 }
