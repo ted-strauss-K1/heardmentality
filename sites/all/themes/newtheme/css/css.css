@@ -1633,3 +1633,21 @@ img{ border:none; outline:none;}
 #notify-container .notify-text span{
     color: #028cd2;
 }
+
+/*May 16th*/
+#likebar{
+    width: 210px;
+    height: 9px;
+    border: 1px solid #cccccc;
+    -moz-border-radius: 4px 4px 4px 4px;
+}
+ .like-per{
+    background-color: #007700;
+    height:100%;
+    float:left;
+}
+ .dislike-per{
+    background-color: #CC0000;
+    height:100%;
+    float:left;
+}
