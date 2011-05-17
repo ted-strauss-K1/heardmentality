@@ -12,8 +12,8 @@ function treemenu_list() {
     $ijs='$(document).ready(function(){
 
 	// first example
-
-	$("#navigation").treeview({
+        jQuery("div.item-list").removeAttr("class");
+	jQuery("#navigation").treeview({
 		animated: "slow",
 		collapsed: true,
 		unique: true,
@@ -27,8 +27,42 @@ function treemenu_list() {
 
 });';
     drupal_add_js($ijs,$type = 'inline');
-    $strReturn = '';
+     $path = drupal_get_path('module', 'vocabindex');
+  //drupal_add_css($path . '/vocabindex.css', 'module', 'screen', FALSE);
+  // Only add the JavaScript file if this is a tree view.
+   // drupal_add_js($path . '/vocabindex.js');
 
+    $strReturn = '';
+   $vocabs=section_get_vocabulary_by_name("Sections");
+
+
+
+ // module_load_include('inc', 'vocabindex', 'vocabindex.view');
+  // $vi = vocabindex_vi_load(VOCABINDEX_VI_BLOCK, $vocabs->vid);
+    $pid = $type == VOCABINDEX_TERM ? $vocabs->tid : 0;
+    $tree = taxonomy_get_tree($vocabs->vid, $pid, -1, $vi->depth);
+
+    // Display an error message if there are no terms.
+    if (count($tree) == 0) {
+      return  t('There are currently no terms in this vocabulary.');
+    }
+    // We do have terms, so render them.
+    else {
+      // Calculate node counts.
+    //  foreach ($tree as $term) {
+   //     $term->node_count = $vi->node_count ? taxonomy_term_count_nodes($term->tid) : 0;
+    //  }
+
+    //  $children = vocabindex_get_children($tree);
+
+      // Render the list-items.
+    //  $view = vocabindex_convert_view($vi->view);
+    //  $output = call_user_func('section_list_render_tree', $tree, $children, $vi);
+      // Render the list.
+    // $strReturn = theme('item_list', $output['list_items'], NULL, 'ul', array('class' => 'treeview ','id'=>'navigation'));
+   $vid =$vocabs->vid;  // Set the vid to the vocabulary id of the vocabulary you wish to list the terms from
+    return _get_taxonomy_tree2($vid);
+    }
     $client_select = db_query("SELECT cat_id,cat_name FROM {category} where parent_id='0'");
 
     $client_array = array();
@@ -82,6 +116,82 @@ function treemenu_list() {
     }
 
     return $strReturn;
+}
+
+function _get_taxonomy_tree2($vid) {
+  $pole = array();
+  $items = array();
+  $terms = taxonomy_get_tree($vid);
+  //$output = '<li>' . taxonomy_vocabulary_load($vid)->name;
+  foreach ($terms as $term) {
+    $count = db_result(db_query("SELECT COUNT(nid) FROM {term_node} WHERE tid = %d", $term->tid));
+    $pole[] = Array(
+      l($term->name, "taxonomy/term/$term->tid") . " ($count)", $term->depth, $count, $term->tid
+    );
+  }
+  $depth = -1;
+  foreach ($pole as $list) {
+    if ($list[1] > $depth) $output .= "<ul id='navigation'>";
+    if ($list[1] < $depth) {
+      for ($i=$list[1]; $i<$depth; $i++)
+        $output .= "</li></ul></li>";
+    }
+    if ($list[1] == $depth) $output .= "</li>";
+    $output .= "<li>$list[0]";
+
+    $depth = $list[1];
+  }
+  for ($i=0; $i<=$depth; $i++)
+    $output .= "</li></ul>";;
+  return $output;
+} 
+function section_list_render_tree($tree, $children, $vi) {
+  //Prepare the tree; use the TIDs as keys for easy access to the terms.
+  $tree_buffer = array();
+  for ($i = 0, $len_i = count($tree); $i < $len_i; $i++) {
+    $term = $tree[$i];
+    $tree_buffer[$term->tid] = $term;
+  }
+  $tree = $tree_buffer;
+
+  return array('list_items' => _section_list_render_tree($tree, $children, $vi));
+}
+function _section_list_render_tree($tree, $children, $vi, $pid = 0, &$zebra_i = 0) {
+  $items = array();
+
+  for ($i = 0, $len_i = count($children[$pid]); $i < $len_i; $i++) {
+    $zebra_i++;
+    $zebra = ($zebra_i % 2 == 0 ? 'even' : 'odd');
+    $term = $tree[$children[$pid][$i]];
+
+    $term_children = NULL;
+    $parent = NULL;
+    if (array_key_exists($term->tid, $children)) {
+      $term_children = _section_list_render_tree($tree, $children, $vi, $term->tid, $zebra_i);
+    }
+
+    // Render the current term.
+    $items[] = array(
+      'data' => vocabindex_term_link($term, $vi),
+      'children' => $term_children,
+   //   'class' => $zebra . (!is_null($term_children) ? ' parent expanded' : NULL),
+        'class'=>'expandable',
+    );
+  }
+
+  return $items;
+}
+
+function section_get_vocabulary_by_name($vocabulary_name) {
+  $vocabs = taxonomy_get_vocabularies(NULL);
+
+  foreach ($vocabs as $vocab_object) {
+    if ($vocab_object->name == $vocabulary_name) {
+ 
+      return $vocab_object;
+    }
+  }
+  return NULL;
 }
 
 //list categories
