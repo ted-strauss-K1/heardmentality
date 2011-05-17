@@ -253,9 +253,9 @@ if($form_id=='poll_view_voting'){
     $form['#validate'][]='check_user_anonymous';
   //echo $form_id."<pre>";  print_r($form);exit;
 }
-if($form_id=='issue_edit_vote'){
-    $form['#action'] = 'qlite/view/'.$form['#nid'];
-}
+//if($form_id=='issue_edit_vote'){
+//    $form['#action'] = 'qlite/view/'.$form['#nid'];
+//}
     if ($form_id == 'poll_node_form') {
         //$form['#after_build'][] = 'issue_after_build';
 
