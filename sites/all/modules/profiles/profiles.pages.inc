@@ -1137,7 +1137,7 @@ function get_privacy_form() {
 
         $form[$col . '_privacy'] = array(
             '#type' => 'radios',
-            '#default_value' => variable_get($col . '_privacy', $sel),
+            '#default_value' => empty(variable_get($col . '_privacy', $sel)) ? '1' : variable_get($col . '_privacy', $sel),
             '#options' => $options,
             // '#attributes'=>array('class'=>'form-wra'),
             '#prefix' => '<div class="form-wra">',
