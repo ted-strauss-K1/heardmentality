@@ -1779,13 +1779,23 @@ var avtar=\'' . $account->avatar . '\';
                 '#prefix' => ' <div class="form-bg">',
                 '#suffix' => '</div>'
             );
-            $form['slant'] = array(
+            $form['income'] = array(
                 '#type' => 'select',
                 '#title' => t(''),
-                '#options' => array('0' => 'Slant', 'Left' => 'Left', 'Right' => 'Right'),
+                 '#options' => array('0' => 'Income [USD]', '1' => '$0-$9,999', '2' => '$10,000 - $19,999','3'=>'$20,000 - $39,999','4'=>'$40,000 - $69,999','5'=>'$70,000 - $99,999','6'=>'$100,000 - $149,999','7'=>'$150,000 - $299,999','8'=>'>$300,000'),
+                 '#description' => t(''),
+                '#default_value' => variable_get('income', ''),
+                '#id' => 'income',
+                '#prefix' => ' <div class="form-bg">',
+                '#suffix' => '</div>'
+            );
+                $form['marital'] = array(
+                '#type' => 'select',
+                '#title' => t(''),
+                '#options' => array('0' => 'Marital Status', '1' => 'Single', '2' => 'Married','3'=>'Divorced','4'=>'Widow'),
                 '#description' => t(' '),
-                '#default_value' => variable_get('slant', ''),
-                '#id' => 'slant',
+                '#default_value' => variable_get('marital', ''),
+                '#id' => 'marital',
                 '#prefix' => ' <div class="form-bg">',
                 '#suffix' => '</div>'
             );
@@ -1821,9 +1831,10 @@ var avtar=\'' . $account->avatar . '\';
             );
 
             $form['bio']['#default_value'] = empty($details->bio) ? '' : $details->bio;
-            $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
+          
             $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
-            $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
+            $form['income']['#default_value'] = empty($details->income) ? '0' : $details->income;
+              $form['marital']['#default_value'] = empty($details->marital) ? '0' : $details->marital;
             $form['education']['#default_value'] = empty($details->edu) ? '0' : $details->edu;
             $form['ethnic']['#default_value'] = empty($details->ethnic) ? '0' : $details->ethnic;
             $form['religion']['#default_value'] = empty($details->religion) ? '0' : $details->religion;
@@ -2199,8 +2210,8 @@ function _basic_submit($form, &$form_state) {
     global $gSitePath, $user, $gDocPath, $base_root;
     $age = age($form_state['values']['dob']);
 
-    $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',slant='%s',sorient='%s',edu='%s' where uid='%d' ";
-    $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['slant'], $form_state['values']['sorient'], $form_state['values']['education'], $user->uid);
+    $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s' where uid='%d' ";
+    $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['income'],$form_state['values']['marital'],$form_state['values']['sorient'], $form_state['values']['education'], $user->uid);
     //update username
     db_query("update {users} set name='%s',mail='%s',prompt='%d' where uid='%d'", $form_state['values']['username'], $form_state['values']['email'],'0',$user->uid);
     //drupal_set_message(t('Your profile has been updated', 'success'));

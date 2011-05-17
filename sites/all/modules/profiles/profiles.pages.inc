@@ -1030,16 +1030,30 @@ function user_details() {
            </div>',
         '#attributes' => array('class' => 'input-sma'),
     );
-    $form['slant'] = array(
+    $form['income'] = array(
         '#type' => 'select',
         '#title' => t(''),
-        '#options' => array('0' => 'Slant', 'Left' => 'Left', 'Right' => 'Right'),
+        '#options' => array('0' => 'Select', '1' => '$0-$9,999', '2' => '$10,000 - $19,999','3'=>'$20,000 - $39,999','4'=>'$40,000 - $69,999','5'=>'$70,000 - $99,999','6'=>'$100,000 - $149,999','7'=>'$150,000 - $299,999','8'=>'>$300,000'),
         '#description' => t(' '),
-        '#default_value' => variable_get('slant', ''),
-        '#id' => 'slant',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Slant</div>
+        '#default_value' => variable_get('income', ''),
+        '#id' => 'income',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Income [USD]</div>
                 <div class="form-wra-2">',
-        '#suffix' => '</div>
+        '#suffix' => '  </div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
+    $form['marital'] = array(
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => array('0' => 'Select', '1' => 'Single', '2' => 'Married','3'=>'Divorced','4'=>'Widow'),
+        '#description' => t(' '),
+        '#default_value' => variable_get('marital', ''),
+        '#id' => 'marital',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Marital Status</div>
+                <div class="form-wra-2">',
+        '#suffix' => ' </div>
            <div class="clr"></div>
            </div>',
         '#attributes' => array('class' => 'input-sma'),
@@ -1078,7 +1092,8 @@ when other users view my profile
     $form['bio']['#default_value'] = empty($details->bio) ? 'Bio' : $details->bio;
     $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
     $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
-    $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
+    $form['income']['#default_value'] = empty($details->income) ? '0' : $details->income;
+     $form['marital']['#default_value'] = empty($details->marital) ? '0' : $details->marital;
     $form['education']['#default_value'] = empty($details->edu) ? '0' : $details->edu;
     $form['ethnic']['#default_value'] = empty($details->ethnic) ? '0' : $details->ethnic;
     $form['religion']['#default_value'] = empty($details->religion) ? '0' : $details->religion;
