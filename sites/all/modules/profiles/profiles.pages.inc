@@ -350,10 +350,10 @@ function privacy_settings() {
         $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
         $chk1 = db_result($chk);
         if ($chk1) {
-            $result = db_query("UPDATE {privacy_settings} set real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
+            $result = db_query("UPDATE {privacy_settings} set real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',income='$income',marital='$marital',facebook='$facebook',twitter='$twitter',email='$email',
 			followers='$followers',following='$following',medal='$medal',questions='$questions',answers='$answers'  where uid=$user->uid ");
         } else {
-            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',slant='$slant',facebook='$facebook',twitter='$twitter',email='$email',
+            $result = db_query("INSERT INTO {privacy_settings} set uid='$user->uid',real_name='$real_name',gender='$gender',image='$image',bio=' $bio',zip='$zip',country='$country',religion='$religion',ethnic='$ethnic',income='$income',marital='$marital',facebook='$facebook',twitter='$twitter',email='$email',
 			followers='$followers',following='$following',questions='$questions',answers='$answers' ,medal='$medal'");
         }
         if ($result) {
@@ -1002,20 +1002,7 @@ function user_details() {
            </div>',
         '#attributes' => array('class' => 'input-sma'),
     );
-    $form['education'] = array(
-        '#type' => 'select',
-        '#title' => t(''),
-        '#options' => array('0' => 'Education Level', 'No High School' => 'No High School', 'High School' => 'High School', 'Technical College' => 'Technical College', 'University' => 'University', 'Masters Degree' => 'Masters Degree'),
-        '#description' => t(' '),
-        '#default_value' => variable_get('education', ''),
-        '#id' => 'education',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Education</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
-    );
+
     $form['sorient'] = array(
         '#type' => 'select',
         '#title' => t(''),
@@ -1030,14 +1017,28 @@ function user_details() {
            </div>',
         '#attributes' => array('class' => 'input-sma'),
     );
+        $form['education'] = array(
+        '#type' => 'select',
+        '#title' => t(''),
+        '#options' => array('0' => 'Education Level', 'No High School' => 'No High School', 'High School' => 'High School', 'Technical College' => 'Technical College', 'University' => 'University', 'Masters Degree' => 'Masters Degree'),
+        '#description' => t(' '),
+        '#default_value' => variable_get('education', ''),
+        '#id' => 'education',
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Education</div>
+                <div class="form-wra-2">',
+        '#suffix' => '</div>
+           <div class="clr"></div>
+           </div>',
+        '#attributes' => array('class' => 'input-sma'),
+    );
     $form['income'] = array(
         '#type' => 'select',
         '#title' => t(''),
-        '#options' => array('0' => 'Select', '1' => '$0-$9,999', '2' => '$10,000 - $19,999','3'=>'$20,000 - $39,999','4'=>'$40,000 - $69,999','5'=>'$70,000 - $99,999','6'=>'$100,000 - $149,999','7'=>'$150,000 - $299,999','8'=>'>$300,000'),
+        '#options' => array('0' => 'Select', '$0-$9,999' => '$0-$9,999', '$10,000 - $19,999' => '$10,000 - $19,999','$20,000 - $39,999'=>'$20,000 - $39,999','$40,000 - $69,999'=>'$40,000 - $69,999','$70,000 - $99,999'=>'$70,000 - $99,999','$100,000 - $149,999'=>'$100,000 - $149,999','$150,000 - $299,999'=>'$150,000 - $299,999','>$300,000'=>'>$300,000'),
         '#description' => t(' '),
         '#default_value' => variable_get('income', ''),
         '#id' => 'income',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Income [USD]</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Income Range[USD]</div>
                 <div class="form-wra-2">',
         '#suffix' => '  </div>
            <div class="clr"></div>
@@ -1047,7 +1048,7 @@ function user_details() {
     $form['marital'] = array(
         '#type' => 'select',
         '#title' => t(''),
-        '#options' => array('0' => 'Select', '1' => 'Single', '2' => 'Married','3'=>'Divorced','4'=>'Widow'),
+        '#options' => array('Select' => 'Select', 'Single' => 'Single', 'Married' => 'Married','Divorced'=>'Divorced','Widow'=>'Widow'),
         '#description' => t(' '),
         '#default_value' => variable_get('marital', ''),
         '#id' => 'marital',
@@ -1090,7 +1091,7 @@ when other users view my profile
 
     // set default values
     $form['bio']['#default_value'] = empty($details->bio) ? 'Bio' : $details->bio;
-    $form['slant']['#default_value'] = empty($details->slant) ? '0' : $details->slant;
+    
     $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
     $form['income']['#default_value'] = empty($details->income) ? '0' : $details->income;
      $form['marital']['#default_value'] = empty($details->marital) ? '0' : $details->marital;
@@ -1112,7 +1113,7 @@ function get_privacy_form() {
     $query = "select * from {user_profile} where uid='$user->uid'";
     $fetch = ExecuteQuery($query, "select");
     $options = array('1' => t(''), '2' => t(''), '3' => t(''), '4' => t(''));
-    $query = "select * from {profile_fields}";
+    $query = "select * from {profile_fields} ORDER BY `profile_fields`.`fid` ASC";
     $result = db_query($query);
     $form['privacy_setting'] = array('#type' => 'markup', '#value' => '<h3>PRIVACY SETTINGS</h3>
               <div class="form-wra">
@@ -1142,6 +1143,8 @@ function get_privacy_form() {
             '#prefix' => '<div class="form-wra">',
             '#suffix' => '<div class="clr"></div></div>'
         );
+   
+       
         $form['div_down'] = array('#type' => 'markup', '#value' => '
           <div class="clr"></div>
        ');
@@ -1151,7 +1154,7 @@ function get_privacy_form() {
         '#type' => 'radios',
         '#default_value' => variable_get('activity_privacy', $fetch[0]['question_privacy']),
         '#options' => $options,
-        '#prefix' => '<div class="form-wra">',
+        '#prefix' => '<br/><br/><br/><div class="form-wra">',
         '#suffix' => '<div class="clr"></div></div>',
         '#suffix' => '<div class="clr"></div>'
     );

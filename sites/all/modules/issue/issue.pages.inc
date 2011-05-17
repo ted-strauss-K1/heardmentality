@@ -133,7 +133,8 @@ Filter by :
    <option value="age">Age</option>
     <option value="religion">Religion</option>
     <option value="ethnicity">Ethnicity</option>
-    <option value="slant">Slant</option>
+    <option value="income">Income</option>
+    <option value="marital">Marital</option>
      <option value="sorient">Sexual Orientation</option>
      <option value="edu">Education Level</option>
   </select></label>
@@ -259,8 +260,8 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
 
             break;
-        case 'slant':
-            $answer['divide'] = array('Left', 'Right', 'Center', 'undefined');
+        case 'income':
+            $answer['divide'] =  array( '$0-$9,999', '$10,000 - $19,999','$20,000 - $39,999','$40,000 - $69,999','$70,000 - $99,999','$100,000 - $149,999','$150,000 - $299,999','>$300,000','undefined');
 
             foreach ($answer['divide'] as $list) {
                 if ($list == 'undefined')
@@ -271,7 +272,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
-                    $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND slant='" . $reg . "'";
+                    $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND income='" . $reg . "'";
                     $tcnt = ExecuteQuery($query, "norows");
                     $inc_cnt .= $tcnt . ',';
                 }
@@ -279,7 +280,29 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
                 $inc_cnt .= ']';
                 $answer_cnt[] = $inc_cnt;
             }
+            $answer['divide']= array('0' => 'undefined', '1' => '$0-$9,999', '2' => '$10,000 - $19,999','3'=>'$20,000 - $39,999','4'=>'$40,000 - $69,999','5'=>'$70,000 - $99,999','6'=>'$100,000 - $149,999','7'=>'$150,000 - $299,999','8'=>'>$300,000');
+            break;
+            case 'marital':
+            $answer['divide'] =  array( 'Single', 'Married','Divorced','Widow', 'undefined');
 
+            foreach ($answer['divide'] as $list) {
+                if ($list == 'undefined')
+                    $reg = '';
+                else
+                    $reg=$list;
+
+
+                $inc_cnt = '[';
+                for ($ab = 0; $ab < count($vlist); $ab++) {
+                    $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND marital='" . $reg . "'";
+                    $tcnt = ExecuteQuery($query, "norows");
+                    $inc_cnt .= $tcnt . ',';
+                }
+                $inc_cnt = rtrim($inc_cnt, ",");
+                $inc_cnt .= ']';
+                $answer_cnt[] = $inc_cnt;
+            }
+           
             break;
         case 'sorient':
             $answer['divide'] = array('Straight', 'Gay', 'Bisexual', 'Transgender', 'undefined');

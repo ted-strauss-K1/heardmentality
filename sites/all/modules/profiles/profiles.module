@@ -468,7 +468,8 @@ function profile($uid = '') {
     $zip = '';
     $dob = '';
     $country = '';
-    $slant = '';
+    $income = '';
+    $marital='';
     $religion = '';
     $ethnic = '';
     $sorient = '';
@@ -586,11 +587,17 @@ function profile($uid = '') {
         $ethnic1 = "-";
     }
 
-    if (($userSettings['slant'] == 1) || ($userSettings['slant'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['slant'] == 3 && $is_follow_follower == TRUE) && ($userSettings['slant'] != 4)) {
-        $slant1 = $slant;
+    if (($userSettings['income'] == 1) || ($userSettings['income'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['income'] == 3 && $is_follow_follower == TRUE) && ($userSettings['income'] != 4)) {
+        $income1 = $income;
     }
-    if (empty($slant1)) {
-        $slant1 = "-";
+    if (empty($income1)) {
+        $income1 = "-";
+    }
+if (($userSettings['marital'] == 1) || ($userSettings['marital'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['marital'] == 3 && $is_follow_follower == TRUE) && ($userSettings['marital'] != 4)) {
+        $marital = $marital;
+    }
+    if (empty($marital1)) {
+        $marital1 = "-";
     }
 
     if (($userSettings['gender'] == 1) || ($userSettings['gender'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['gender'] == 3 && $is_follow_follower == TRUE) && ($userSettings['gender'] != 4)) {
@@ -837,7 +844,8 @@ function profile($uid = '') {
 <span class="profile-gray">Sex</span> : ' . $gender_name1 . '<br>
 <span class="profile-gray">Religion</span> : ' . $religion1 . '<br>
 <span class="profile-gray">Ethnicity </span>:' . $ethnic1 . '<br>
-<span class="profile-gray">Slant </span>: ' . $slant1 . '<br>
+<span class="profile-gray">Income [USD]</span>: ' . $income1 . '<br>
+    <span class="profile-gray">Marital Status </span>: ' . $marital1 . '<br>
     <span class="profile-gray">Sexual Orientation </span>: ' . $sorient1 . '<br>
    <span class="profile-gray">Educational Level </span>: ' . $edu1 . '<br>
 </div>
@@ -1428,6 +1436,13 @@ var spath=\'' . $gSitePath . '\';
                     case 'bio':
                         $list = 'My Bio';
                         break;
+                         case 'income':
+                        $list = 'Income Range';
+                             break;
+                          case 'marital':
+                            $list = 'Marital Status';
+                            break;
+                        break;
                     case 'dob':
                         $dob1 = $fetch[0]['age'];
                         if ($dob1 == 0) {
@@ -1782,7 +1797,7 @@ var avtar=\'' . $account->avatar . '\';
             $form['income'] = array(
                 '#type' => 'select',
                 '#title' => t(''),
-                 '#options' => array('0' => 'Income [USD]', '1' => '$0-$9,999', '2' => '$10,000 - $19,999','3'=>'$20,000 - $39,999','4'=>'$40,000 - $69,999','5'=>'$70,000 - $99,999','6'=>'$100,000 - $149,999','7'=>'$150,000 - $299,999','8'=>'>$300,000'),
+                   '#options' => array('0' => 'Income Range [USD]', '$0-$9,999' => '$0-$9,999', '$10,000 - $19,999' => '$10,000 - $19,999','$20,000 - $39,999'=>'$20,000 - $39,999','$40,000 - $69,999'=>'$40,000 - $69,999','$70,000 - $99,999'=>'$70,000 - $99,999','$100,000 - $149,999'=>'$100,000 - $149,999','$150,000 - $299,999'=>'$150,000 - $299,999','>$300,000'=>'>$300,000'),
                  '#description' => t(''),
                 '#default_value' => variable_get('income', ''),
                 '#id' => 'income',
@@ -1792,7 +1807,7 @@ var avtar=\'' . $account->avatar . '\';
                 $form['marital'] = array(
                 '#type' => 'select',
                 '#title' => t(''),
-                '#options' => array('0' => 'Marital Status', '1' => 'Single', '2' => 'Married','3'=>'Divorced','4'=>'Widow'),
+                '#options' => array('0' => 'Marital Status', 'Single' => 'Single', 'Married' => 'Married','Divorced'=>'Divorced','Widow'=>'Widow'),
                 '#description' => t(' '),
                 '#default_value' => variable_get('marital', ''),
                 '#id' => 'marital',
@@ -2194,12 +2209,12 @@ function _privacy_submit($form, &$form_state) {
     $chk1 = db_result($chk);
     if ($chk1) {
 
-        $query = "UPDATE {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d'  where uid='%d' ";
+        $query = "UPDATE {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d'  where uid='%d' ";
     } else {
-        $query = "INSERT INTO {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',slant='%d',sorient='%d',edu='%d',dob='%d',uid='%d'";
+        $query = "INSERT INTO {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d',uid='%d'";
     }
 
-    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $slant_privacy, $sorient_privacy, $edu_privacy, $dob_privacy, $user->uid);
+    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $income_privacy,$marital_privacy,$sorient_privacy, $edu_privacy, $dob_privacy, $user->uid);
     db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
     //drupal_set_message(t('Your form has been saved.', 'success'));
     return true;
