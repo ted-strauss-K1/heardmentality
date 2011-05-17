@@ -1134,10 +1134,10 @@ function get_privacy_form() {
         $list = trim($fetch[0][$col]);
 
         $sel = db_result(db_query("SELECT $col FROM {privacy_settings} WHERE uid = '%d'", $user->uid));
-
+        $sel=empty($sel) ? '1' : $sel;
         $form[$col . '_privacy'] = array(
             '#type' => 'radios',
-            '#default_value' => empty(variable_get($col . '_privacy', $sel)) ? '1' : variable_get($col . '_privacy', $sel),
+            '#default_value' => variable_get($col . '_privacy', $sel),
             '#options' => $options,
             // '#attributes'=>array('class'=>'form-wra'),
             '#prefix' => '<div class="form-wra">',
