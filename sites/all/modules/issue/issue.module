@@ -238,13 +238,15 @@ function issue_edit_vote_submit($form, &$form_state) {
 function issue_form_alter(&$form, $form_state, $form_id) {
    global $gSitePath;
 // print $form_id;
-   // echo '<pre>';
+//    echo '<pre>';
    // print_r($form);
 if($form_id=='user_relationships_ui_request'){
     
       $form['#submit'][] = 'add_follow_notify';
 }
-
+if($form_id == 'subscriptions_add_form'){
+      $form['#submit'][] = 'add_subscription_notify';
+}
 if($form_id=='poll_view_voting'){
 
     $form['vote']['#submit'][] = 'add_vote_notify';
@@ -1448,5 +1450,18 @@ function add_follow_notify($form, &$form_state){
     $uid = $user->uid;
     $variable = array('target_id' => $target);
     set_notify_log($uid, '', 'user_follow', $variable);
+    /*New SET NOTIFY LOG*/
+}
+
+
+function add_subscription_notify($form, &$form_state){
+    global $user;
+    /*New SET NOTIFY LOG*/
+    //echo '<pre>'; print_r($form); exit;
+    $tid = $form['sid']['#value'];
+    $category = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '%d'", $tid));
+    $uid = $user->uid;
+    $variable = array('tid' => $tid, 'category' => $category);
+    set_notify_log($uid, '', 'category_follow', $variable);
     /*New SET NOTIFY LOG*/
 }

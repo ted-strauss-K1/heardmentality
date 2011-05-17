@@ -303,22 +303,23 @@ function facetad_refine() {
 
     if (!empty($sscid))
         $qry .= "tn.tid=" . $sscid . "  AND ";
-    if (!empty($scid))
+    else if (!empty($scid))
         $qry .= "tn.tid=" . $scid . " AND ";
-    if (!empty($cid))
+    else if (!empty($cid))
         $qry .= "tn.tid=" . $cid . " AND ";
-//    if (!empty($q_country))
-//        $qry .= "q.country='" . $q_country . "' AND ";
-//    if (!empty($q_state))
-//        $qry .= "q.state='" . $q_state . "' AND ";
-//    if (!empty($q_city))
-//        $qry .= "q.city='" . $q_city . "' AND ";
+    if (!empty($q_country))
+        $qry .= "lc.field_issue_country_value='" . $q_country . "' AND ";
+    if (!empty($q_state))
+        $qry .= "ls.field_issue_state_value='" . $q_state . "' AND ";
+    if (!empty($q_city))
+        $qry .= "lt.field_issue_city_value='" . $q_city . "' AND ";
 
 
 
   
         
-    $sel = "SELECT n.nid as qid, n.title as question,tn.tid FROM node as n left join {term_node} as tn on n.nid=tn.nid WHERE $qry n.status='1' AND n.type = 'poll' group by n.nid desc ";
+  //$sel = "SELECT n.nid as qid, n.title as question,tn.tid FROM node as n left join {term_node} as tn on n.nid=tn.nid WHERE $qry n.status='1' AND n.type = 'poll' group by n.nid desc ";
+    $sel = "SELECT n.nid as qid, n.title as question,tn.tid FROM node as n left join {term_node} as tn on n.nid=tn.nid JOIN content_field_issue_country lc ON n.nid = lc.nid JOIN content_field_issue_state ls ON n.nid = ls.nid JOIN content_field_issue_city lt ON n.nid = lt.nid WHERE $qry n.status='1' AND n.type = 'poll' group by n.nid desc ";
    
 
 
@@ -507,6 +508,7 @@ function _sidebar_category() {
     $link3 = '';
     $cid = '';
     $scid = '';
+    $pid = '';
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $query = facetad_refine();
     $sel_search = db_query($query['query']);
@@ -524,11 +526,13 @@ function _sidebar_category() {
         $cid = $_REQUEST['cid'];
         $link1 = '&cid=' . $_REQUEST['cid'] . '';
         $searchcat = " AND qc.cat='$cid' ";
+        $pid = $cid;
     }
     if (!empty($_REQUEST['scid'])) {
         $scid = $_REQUEST['scid'];
         $link2 = '&scid=' . $_REQUEST['scid'] . '';
         $searchcat = " AND qc.scat='$scid' ";
+        $pid = $scid;
     }
     if (!empty($_REQUEST['sscid'])) {
         $sscid = $_REQUEST['sscid'];
@@ -549,8 +553,7 @@ function _sidebar_category() {
 
 
     $catlist.='<span class="black12">Category  :</span><br/>';
-    $sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . $cond . " AND q.status='1' group by c.cat_id";
-    $listcat = ExecuteQuery($sel_cat, "select");
+    
 
    $vocabName = 'Sections';
    $vocabs = taxonomy_get_vocabularies(NULL);
@@ -562,16 +565,22 @@ function _sidebar_category() {
    $listcat = taxonomy_get_tree($vid);
    if(!empty($listcat)){
        foreach($listcat as $cat){
+          $style = '';
+          if(!empty($cid) && $cid == $cat->tid){
+             $style = 'class="sidelinks"';
+          }
           $parent = taxonomy_get_parents($cat->tid);
-          if(empty($parent)){
           $childrens = taxonomy_get_children($cat->tid);
+          if(empty($parent)){
           $catlist.= '<span ' . $style . ' class="sidelinks">
              <a  id="c-' . $cat->tid . '" href="JavaScript:void(0);">' . stripslashes($cat->name) . '</a></span><br/>';
-          }
+          }          
+          
        }
-
+//$sel_cat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.cat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='0' " . $searchcat . $search . $cond . " AND q.status='1' group by c.cat_id";
+//$listcat = ExecuteQuery($sel_cat, "select");
 //    if (!empty($listcat)) {
-//        foreach ($listcat as $cats) {
+//        foreach ($listcat as $cat) {
 //            $style = '';
 //
 //            if ($cid == $cat['cat_id']) {

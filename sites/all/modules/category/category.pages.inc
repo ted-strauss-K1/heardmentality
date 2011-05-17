@@ -119,14 +119,16 @@ function treemenu_list() {
 }
 
 function _get_taxonomy_tree2($vid) {
+  global $gSitePath, $user;
   $pole = array();
   $items = array();
   $terms = taxonomy_get_tree($vid);
   //$output = '<li>' . taxonomy_vocabulary_load($vid)->name;
   foreach ($terms as $term) {
     $count = db_result(db_query("SELECT COUNT(nid) FROM {term_node} WHERE tid = %d", $term->tid));
+    $foll = db_result(db_query("SELECT COUNT(sid) FROM {subscriptions} WHERE field = '%s' AND value = '%d' AND recipient_uid = '%d'", 'tid', $term->tid, $user->uid));
     $pole[] = Array(
-      l($term->name, "taxonomy/term/$term->tid") . " ($count)", $term->depth, $count, $term->tid
+      l($term->name, "taxonomy/term/$term->tid") . " ($count)", $term->depth, $count, $term->tid, $foll
     );
   }
   $depth = -1;
@@ -137,7 +139,9 @@ function _get_taxonomy_tree2($vid) {
         $output .= "</li></ul></li>";
     }
     if ($list[1] == $depth) $output .= "</li>";
-    $output .= "<li>$list[0]";
+    $dest = '?destination=category';
+    $subscription = $list[4]==1?"<a href='".$gSitePath."subscriptions/del/taxa/".$list[3].$dest."' title='unfollow'>unfollow</a>":"<a href='".$gSitePath."subscriptions/add/taxa/".$list[3].$dest."' title='follow'>follow</a>";
+    $output .= "<li>$list[0]&nbsp;&nbsp;<span>$subscription</span>";
 
     $depth = $list[1];
   }

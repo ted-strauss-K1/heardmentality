@@ -1453,6 +1453,9 @@ function notify_theme(){
 'notify_user_follow' =>  array(
 'arguments' => array('result' => NULL),
 ),
+'notify_category_follow' =>  array(
+'arguments' => array('result' => NULL),
+),
 );
 
 }
@@ -1928,6 +1931,24 @@ function theme_notify_user_follow($result = ''){
     <div align="right">'.ago($submitted).'</div><hr>';
     return $output;
     
+}
+
+function theme_notify_category_follow($result = ''){
+    global $user, $gSitePath;
+
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path .'/notify.css';
+    drupal_add_css($full_path);
+    $udetails=user_load($result->uid);
+    $data=unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s",$result->timestamp);
+    
+    $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
+    <div id="notify-text">'. t($result->message)
+.'&nbsp<strong><a href="'.$gSitePath.'taxonomy/term/'.t($data['tid']).'" title="'.t($data['category']).'">'.$data['category'].'</a></strong></div>
+    <div align="right">'.ago($submitted).'</div><hr>';
+    return $output;
+
 }
 
 

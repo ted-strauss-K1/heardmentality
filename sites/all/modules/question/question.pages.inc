@@ -1143,22 +1143,43 @@ function question_ajax() {
 
         if ($_REQUEST['sel_id'] != '') {
         $cid=$_REQUEST['sel_id'];
-      $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='$cid' AND q.status='1' group by c.cat_id";
-       $listsscat = ExecuteQuery($sel_sscat, "select");
+//      $sel_sscat = "select *,count(*) as cntc from {category} as c join {question_cat} as qc on qc.scat=c.cat_id  join {question} as q on q.qid=qc.qid  where c.parent_id='$cid' AND q.status='1' group by c.cat_id";
+//       $listsscat = ExecuteQuery($sel_sscat, "select");
+//
+//                        foreach ($listsscat as $sscat) {
+//                            $style = '';
+//                            if ($sscid == $sscat['cat_id']) {
+//                                $style = 'style="font-weight:bold"';
+//                            }
+//                            $sscat_qry = "SELECT count(distinct cat.scat) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond   group by q.qid";
+//                          // $total_count3= db_result(db_query($sscat_qry));
+//                            $total_count3= ExecuteQuery($sscat_qry, 'norows');
+//
+//                            $style = 'class="sublinks scat" style="padding-left:10px"';
+//                            $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
+//                        }
+//                        echo $catlist;
 
-                        foreach ($listsscat as $sscat) {
-                            $style = '';
-                            if ($sscid == $sscat['cat_id']) {
-                                $style = 'style="font-weight:bold"';
-                            }
-                            $sscat_qry = "SELECT count(distinct cat.scat) FROM question_cat as cat join question as q on q.qid=cat.qid where q.status='1' AND cat.scat ='" . $sscat['cat_id'] . "' $cond   group by q.qid";
-                          // $total_count3= db_result(db_query($sscat_qry));
-                            $total_count3= ExecuteQuery($sscat_qry, 'norows');
 
-                            $style = 'class="sublinks scat" style="padding-left:10px"';
-                            $catlist.='<br class="scat"/><span ' . $style . '><a  id="sc-'.$sscat['cat_id'].'" ' . $style . ' href="javascript:void(0);">' . $sscat['cat_name'] . '[' . $total_count3 . ']</a></span>';
-                        }
-                        echo $catlist;
+
+
+
+
+
+                        /*Node conversion*/
+                              $parent = taxonomy_get_parents($cid);
+                              $childrens = taxonomy_get_children($cid);
+                              foreach($childrens as $children){
+                                  $style = '';
+                              if ($sscid == $children->tid) {
+                                 $style = 'style="font-weight:bold"';
+                              }
+                              $style = 'class="sublinks scat" style="padding-left:10px"';
+                              $catlist.= '<br class="scat"/><span ' . $style . '><a  id="sc-' . $children->tid . '" href="JavaScript:void(0);" ' . $style . '>' . stripslashes($children->name) . '</a></span>';
+                                }
+                            echo $catlist;
+                       /*Node conversion*/
+
             
         }
     }else if(isset($_REQUEST['user_scat'])){

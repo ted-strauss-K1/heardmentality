@@ -1512,7 +1512,7 @@ function resource_media($qid='') {
     //$query = "select *,DATE_FORMAT(r.posted_date, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {resource_reply} as wl where wl.rid=r.rid ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate from {resource} as r join {user_profile} as u on u.uid=r.uid where r.qid='$qid' AND r.rtype='2' AND status='1' ORDER BY rid DESC ";
     //$cnt = ExecuteQuery($query, "select");
    if (empty($cond))
-     $sql = "SELECT f.nid FROM {forum} as f RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' ORDER BY f.nid DESC $sorting";
+     $sql = "SELECT f.nid FROM {forum} as f RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $sorting";
     else
         $sql = "SELECT DISTINCT(f.nid) FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' AND c.field_rtype_value = '%s' $cond $sorting";
 
@@ -1559,7 +1559,7 @@ function resource_media($qid='') {
                 $content.='<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum->nid . '" > ' . $url[2] . ' </a> ';
             }
             //$query = "select * from {resource_options} a,{possible_answer} b where a.paid=b.paid AND a.rid='" . $forum->nid . "'";
-            $query = "select * from {resource_options} a,{poll_choices} b where a.chorder=b.chorder AND a.nid='" . $forum->nid . "'";
+         $query = "select * from {resource_options} a,{poll_choices} b where a.chorder=b.chorder AND a.nid='" . $forum->nid . "' AND b.nid='$qid'";
             $strnth = ExecuteQuery($query, "select");
             foreach ($strnth as $list) {
                 $ans = $list['chtext'];
