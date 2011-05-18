@@ -878,7 +878,12 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
 //  }
 //  $poll_results = '';
 //echo $node->allowvotes; exit;
-    return theme('issue_results', $nid, t('12'),t('17'),t('3'),$node->allowvotes);
+
+    // get debate, resource, pundit counts
+    $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$nid'"));
+    $resourceCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '2' AND field_ref_qid_nid = '$nid'"));
+    $punditCount = 3;
+    return theme('issue_results', $nid, t($debateCount),t($resourceCount),t($punditCount),$node->allowvotes);
 }
 
 //function theme_issue_results($title='',$votes=''){
