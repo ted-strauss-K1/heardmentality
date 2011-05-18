@@ -133,9 +133,9 @@ global $gSitePath,$theme,$apikey;
 <ul id="maintabs" class="mytabs" >
     <li class="current" id="in"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/details" title="Info"><span>Details</span></a></li>
 <li class=""><a id="AF" href='#' onClick="jQuery('#twitMsg').html('You must vote on the issue before you can see the results!');jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);jQuery(this).die('click');jQuery(this).unbind('click');return false;"><span >Reporting</span></a></li>
-<li id="par1"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/debate" title="Debate"><span>Debate(<?php print $votes; ?>)</span></a></li>
-<li class="" id="par2"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/resource" title="Resources"><span>Resources(<?php print $votes; ?>)</span></a></li>
-<li class=""><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/guru" title="Gurus"><span>Pundits (<?php print $votes; ?>)</span></a></li>
+<li id="par1"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/debate" title="Debate"><span>Debate(<?php print $cdebate; ?>)</span></a></li>
+<li class="" id="par2"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/resource" title="Resources"><span>Resources(<?php print $cresource; ?>)</span></a></li>
+<li class=""><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/guru" title="Gurus"><span>Pundits (<?php print $cpundit; ?>)</span></a></li>
 
               </ul>
               <div class="mytabs-container" id="tabcontent">
@@ -147,9 +147,9 @@ global $gSitePath,$theme,$apikey;
 	<div id="rotate">
 <ul id="maintabs" class="mytabs" >
 <li class="current" id="in"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/report" title="Report"><span>Reporting</span></a></li>
-<li id="par1"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/debate" title="Debate"><span>Debate(<?php print $votes; ?>)</span></a></li>
-<li class="" id="par2"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/resource" title="Resources"><span>Resources(<?php print $votes; ?>)</span></a></li>
-<li class=""><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/guru" title="Gurus"><span>Pundits (<?php print $votes; ?>)</span></a></li>
+<li id="par1"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/debate" title="Debate"><span>Debate(<?php print $cdebate; ?>)</span></a></li>
+<li class="" id="par2"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/resource" title="Resources"><span>Resources(<?php print $cresource; ?>)</span></a></li>
+<li class=""><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/guru" title="Gurus"><span>Pundits (<?php print $cpundit; ?>)</span></a></li>
 <li class="" id="in"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/details" title="Info"><span>Details</span></a></li>
               </ul>
               <div class="mytabs-container" id="tabcontent">
@@ -157,4 +157,7 @@ global $gSitePath,$theme,$apikey;
         </div><div class="clr"></div>
            </div>
 
-<?php }  ?>
+<?php }  // print '<pre>';
+//  var_dump(get_defined_vars());
+//print '</pre>';
+?>

@@ -237,9 +237,9 @@ function issue_edit_vote_submit($form, &$form_state) {
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
    global $gSitePath;
-// print $form_id;
-//    echo '<pre>';
-   // print_r($form);
+ //rint $form_id;
+ //  echo '<pre>';
+  //print_r($form);
 if($form_id=='user_relationships_ui_request'){
     
       $form['#submit'][] = 'add_follow_notify';
@@ -250,12 +250,14 @@ if($form_id == 'subscriptions_add_form'){
 if($form_id=='poll_view_voting'){
 
     $form['vote']['#submit'][] = 'add_vote_notify';
+     $form['vote']['#submit'][] = 'chk_profile_complete';
     $form['#validate'][]='check_user_anonymous';
   //echo $form_id."<pre>";  print_r($form);exit;
 }
-//if($form_id=='issue_edit_vote'){
-//    $form['#action'] = 'qlite/view/'.$form['#nid'];
-//}
+if($form_id=='issue_edit_vote'){
+  // $form['#action'] = 'qlite/view/'.$form['#nid'];
+       $form['#submit'][] = 'chk_profile_complete';
+}
     if ($form_id == 'poll_node_form') {
         //$form['#after_build'][] = 'issue_after_build';
 
@@ -342,6 +344,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                 drupal_set_html_head('<script>
                         var uid="' . $user->uid . '";
                     </script>');
+              //  print_r($user);
                 if ($user->initpop == 1 && $user->uid > 1) {
                     drupal_add_js('jQuery(document).ready(function () { loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");});', 'inline');
                     $user_data = array('initpop' => 2);
@@ -524,7 +527,7 @@ function issue_theme($existing, $type, $theme, $path) {
     return array(
         'issue_results' => array(
             'template' => 'issue_results',
-            'arguments' => array('nid' => NULL, 'votes' => NULL,'allowvotes'=>NULL),
+            'arguments' => array('nid' => NULL, 'cdebate' => NULL,'cresource'=>NULL,'cpundit'=>NULL,'allowvotes'=>NULL),
         ), 'issue_details' => array(
             'template' => 'issue_details_tab',
             'arguments' => array('nid' => NULL, 'votes' => NULL),
@@ -875,7 +878,7 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
 //  }
 //  $poll_results = '';
 //echo $node->allowvotes; exit;
-    return theme('issue_results', $nid, t('12'),$node->allowvotes);
+    return theme('issue_results', $nid, t('12'),t('17'),t('3'),$node->allowvotes);
 }
 
 //function theme_issue_results($title='',$votes=''){
@@ -1391,7 +1394,8 @@ function add_vote_notify($form, &$form_state){
     $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $choice);
     set_notify_log($user->uid, $nid, 'add_vote', $variable);
     /*New SET NOTIFY LOG*/
-     _send_votenotify($nid);
+
+        _send_votenotify($nid);
     increasepoints('2', $nid, '0');
 }
 
@@ -1464,4 +1468,16 @@ function add_subscription_notify($form, &$form_state){
     $variable = array('tid' => $tid, 'category' => $category);
     set_notify_log($uid, '', 'category_follow', $variable);
     /*New SET NOTIFY LOG*/
+}
+function chk_profile_complete($form, &$form_state){
+
+global $user;
+      ////////////question search vote added end here
+    //first time vote shows profile update popup
+    $ccnt=user_load(array('uid'=>$user->uid));
+
+    if($ccnt->prompt==1 &&  is_null($user->initpop)){
+        $user_data = array('initpop' =>'1');
+        user_save( $user , $user_data);
+    }
 }
