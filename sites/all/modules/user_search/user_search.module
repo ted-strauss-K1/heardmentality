@@ -284,7 +284,7 @@ function facetad_refine() {
     /********Node Conversion********/
     // get section vocabulary id
      $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
-     $sel_catm = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid' AND t.tid = '$suid'");
+     $sel_catm = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where t.vid = '$vid' AND t.tid = '$suid'");
     $saveresult = db_fetch_object($sel_catm);
 
     $qry = '';
@@ -520,7 +520,7 @@ function _sidebar_category() {
     $search = '';
     if (!empty($txt_search)) {
 
-        $search.= " AND q.question LIKE  '%" . $txt_search . "%'";
+        $search.= " AND q.title LIKE  '%" . $txt_search . "%'";
     }
     if (!empty($_REQUEST['cid'])) {
         $cid = $_REQUEST['cid'];
@@ -540,15 +540,15 @@ function _sidebar_category() {
     }
     if (!empty($_REQUEST['q_country'])) {
         $q_country = $_REQUEST['q_country'];
-        $cond .= " AND q.country='$q_country'";
+        $cond .= " AND lc.field_issue_country_value='$q_country'";
     }
     if (!empty($_REQUEST['q_state'])) {
         $q_state = $_REQUEST['q_state'];
-        $cond .= " AND q.state='$q_state'";
+        $cond .= " AND ls.field_issue_state_value='$q_state'";
     }
     if (!empty($_REQUEST['q_city'])) {
         $q_city = $_REQUEST['q_city'];
-        $cond .= " AND q.city='$q_city'";
+        $cond .= " AND lt.field_issue_city_value='$q_city'";
     }
 
 
@@ -572,8 +572,10 @@ function _sidebar_category() {
           $parent = taxonomy_get_parents($cat->tid);
           $childrens = taxonomy_get_children($cat->tid);
           if(empty($parent)){
+          $cat_qry = "SELECT count(distinct q.nid) FROM term_node as cat join node as q on q.nid=cat.nid JOIN content_field_issue_country lc ON q.nid = lc.nid JOIN content_field_issue_state ls ON q.nid = ls.nid JOIN content_field_issue_city lt ON q.nid = lt.nid WHERE q.status='1' AND cat.tid ='" . $cat->tid . "' $cond $search  ";
+          $total_count1 = db_result(db_query($cat_qry));
           $catlist.= '<span ' . $style . ' class="sidelinks">
-             <a  id="c-' . $cat->tid . '" href="JavaScript:void(0);">' . stripslashes($cat->name) . '</a></span><br/>';
+             <a  id="c-' . $cat->tid . '" href="JavaScript:void(0);">' . stripslashes($cat->name) . '[' .$total_count1 . ']' .'</a></span><br/>';
           }          
           
        }

@@ -1788,7 +1788,7 @@ function resdebate_list($qid='', $rid='') {
         $replybutton = '<a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $rid . '-0" href="#postreply"></a>';
         $flag.='<a name="' . $rid . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'resource\',this);"></a>';
     } else {
-        $replybutton = '<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $rid . '-' . $forum['reid'] . '" href="#postreply"></a>';
+        $replybutton = '<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $rid . '-' . $forum->reid . '" href="#postreply"></a>';
         $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
     }
 
