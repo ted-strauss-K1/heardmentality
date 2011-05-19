@@ -21,7 +21,7 @@ $directory = $base_path . $directory;
 <script src="<?php echo $directory; ?>/scripts/localscroll.js"></script>
 <script src="<?php echo $directory; ?>/scripts/init.js"></script>
 <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
-
+<script src="<?php echo $directory; ?>/floatbox/floatbox.js"></script>
 <link rel="stylesheet" href="<?php echo $directory; ?>/css/jbubble.css" type="text/css" media="screen" charset="utf-8">
 <link href="<?php echo $directory; ?>/css/slider_css.css" rel="stylesheet" type="text/css">	
 <script type="text/javascript">
