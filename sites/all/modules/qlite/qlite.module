@@ -130,9 +130,16 @@ function top_list() {
       </div>
       </div>'; */
 
+   $vocabName = 'Sections';
+   $vocabs = taxonomy_get_vocabularies(NULL);
+   foreach($vocabs as $vocab){
+       if($vocab->name == $vocabName){
+          $vid = $vocab->vid;
+       }
+   }
 
-
-    $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
+    $query = "SELECT * FROM {term_data} td JOIN {term_hierarchy} th ON td.tid = th.tid WHERE th.parent = '0' AND td.vid = '$vid'";
+   // $query = "SELECT * from {category} where parent_id='0' ORDER BY cat_name ASC";
     $list = ExecuteQuery($query, "select");
     $output .= ' 
             <div class="factbottom" align="center">
@@ -140,7 +147,7 @@ function top_list() {
     foreach ($list as $cat) {
 
         $output .= '    
-          <option value=' . $cat['cat_id'] . '> ' . stripslashes($cat['cat_name']) . ' </option> ';
+          <option value=' . $cat['tid'] . '> ' . stripslashes($cat['name']) . ' </option> ';
     }
 
     $output .= '</select> &nbsp;  <span id="res_scat"><select name="" disabled="disabled">
@@ -309,16 +316,20 @@ function get_top_list($time='') {
               <div class="innerbox" ><ul class="">';
     switch ($time) {
         case '1':
-            $cond.=' AND DATE(date_added)="' . date('Y-m-d') . '" ';
+            //$cond.=' AND DATE(date_added)="' . date('Y-m-d') . '" ';
+            $cond.=' AND DATE(created)="' . time() . '" ';
             break;
         case '2':
-            $cond.=' AND YEARWEEK(date_added)=YEARWEEK("' . date('Y-m-d') . '") ';
+            //$cond.=' AND YEARWEEK(date_added)=YEARWEEK("' . date('Y-m-d') . '") ';
+            $cond.=' AND YEARWEEK(created)=YEARWEEK("' . time() . '") ';
             break;
         case '3':
-            $cond.=' AND MONTH(date_added)=MONTH("' . date('Y-m-d') . '") ';
+            //$cond.=' AND MONTH(date_added)=MONTH("' . date('Y-m-d') . '") ';
+            $cond.=' AND MONTH(created)=MONTH("' . time() . '") ';
             break;
         case '4':
-            $cond.=' AND YEAR(date_added)=YEAR("' . date('Y-m-d') . '") ';
+            //$cond.=' AND YEAR(date_added)=YEAR("' . date('Y-m-d') . '") ';
+            $cond.=' AND YEAR(created)=YEAR("' . time() . '") ';
             break;
         default:
 
@@ -326,7 +337,7 @@ function get_top_list($time='') {
     }
 
    // $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20";
- $query="select * from {node} where type='poll' order by nid DESC";
+   $query="select * from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' $cond AND n.type='poll' GROUP BY tn.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
     $list = ExecuteQuery($query, "select");
 
     if (!empty($list)) {
@@ -359,19 +370,24 @@ function get_hot_list($time='') {
     $de = date("d");
     $y = date("Y");
     $date = date('Y-m-d', mktime(0, 0, 0, $m, ($de - 7), $y));
-
+    $timestamp = mktime(0, 0, 0, $m, ($de - 7), $y);
+   
     switch ($time) {
         case '1':
-            $cond.=' AND DATE(date_added)="' . date('Y-m-d') . '" ';
+            //$cond.=' AND DATE(date_added)="' . date('Y-m-d') . '" ';
+            $cond.=' AND DATE(created)="' . time() . '" ';
             break;
         case '2':
-            $cond.=' AND YEARWEEK(date_added)=YEARWEEK("' . date('Y-m-d') . '") ';
+            //$cond.=' AND YEARWEEK(date_added)=YEARWEEK("' . date('Y-m-d') . '") ';
+            $cond.=' AND YEARWEEK(created)=YEARWEEK("' . time() . '") ';
             break;
         case '3':
-            $cond.=' AND MONTH(date_added)=MONTH("' . date('Y-m-d') . '") ';
+            //$cond.=' AND MONTH(date_added)=MONTH("' . date('Y-m-d') . '") ';
+            $cond.=' AND MONTH(created)=MONTH("' . time() . '") ';
             break;
         case '4':
-            $cond.=' AND YEAR(date_added)=YEAR("' . date('Y-m-d') . '") ';
+            //$cond.=' AND YEAR(date_added)=YEAR("' . date('Y-m-d') . '") ';
+            $cond.=' AND YEAR(created)=YEAR("' . time() . '") ';
             break;
         default:
 
@@ -380,7 +396,7 @@ function get_hot_list($time='') {
 
 
     //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' AND date(q.date_added) >= '$date' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20 ";
-    $query="select * from {node} where type='poll' order by nid DESC";
+    $query="select * from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' AND n.created >= '$timestamp' $cond AND n.type='poll' GROUP BY tn.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
     // $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid   where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
@@ -420,19 +436,23 @@ function get_local_list($time='') {
             $query = array('query' => $country['cn'], 'maxRows' => '1', 'featureclass' => 'S');
             //  $result = geonames_query('search', $query);
             //  print_r($result);
-            $result = db_fetch_array(db_query("SELECT * FROM {geonames_countryinfo} WHERE name LIKE '%%%s%%' LIMIT 0,1", $country['cn']));
+            //$result = db_fetch_array(db_query("SELECT * FROM {geonames_countryinfo} WHERE name LIKE '%%%s%%' LIMIT 0,1", $country['cn']));
             // echo   $cc=$result->results[0]['countryname'];
+            $result = db_fetch_array(db_query("SELECT * FROM {geonames_countryinfo} WHERE iso_alpha2 ='%s' LIMIT 0,1", $country['cn']));
             $cc = $result['name'];
             $putcon = (!empty($cc)) ? $cc : trim($country['cn']);
-            $cond.=" AND q.country='" . $putcon . "'";
+            //$cond.=" AND q.country='" . $putcon . "'";
+            $cond.=" AND cc.field_issue_country_value='" . $putcon . "'";
         }
         if (!empty($country['state'])) {
 
-            $cond.=" OR q.state='" . trim($country['state']) . "'";
+            //$cond.=" OR q.state='" . trim($country['state']) . "'";
+            $cond.=" OR cs.field_issue_state_value='" . trim($country['state']) . "'";
         }
         if (!empty($country['city'])) {
 
-            $cond.=" OR q.city='" . trim($country['city']) . "'";
+            //$cond.=" OR q.city='" . trim($country['city']) . "'";
+            $cond.=" OR ct.field_issue_city_value='" . trim($country['city']) . "'";
         }
     }
 
@@ -457,8 +477,9 @@ function get_local_list($time='') {
 // $homepage = file_get_contents('http://api.hostip.info/country.php');
     //  echo get_real_ip_addr();
 
-    $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,20 ";
-
+    //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,20 ";
+    $locTableJoin = "JOIN {content_field_issue_country} cc ON n.nid = cc.nid JOIN {content_field_issue_state} cs ON n.nid = cs.nid JOIN {content_field_issue_city} ct ON n.nid = ct.nid ";
+    $query="select * from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid $locTableJoin JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' $cond AND n.type='poll' GROUP BY tn.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
     //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
@@ -469,13 +490,13 @@ function get_local_list($time='') {
         foreach ($list as $quest) {
 
 
-            if (strlen($quest['question']) > 40) {
-                $bubble_question = 'rel="' . htmlentities(wordwrap($quest['question'], 40, '<br/>')) . '"';
+            if (strlen($quest['title']) > 40) {
+                $bubble_question = 'rel="' . htmlentities(wordwrap($quest['title'], 40, '<br/>')) . '"';
             } else {
                 $bubble_question = '';
             }
-
-            $output .= '<li  class=""><a ' . $bubble_question . ' href="' . $gSitePath . $quest['url'] . '" style="' . drupal_link_color($user->uid, $quest['qid']) . '">' . htmlentities(myTruncate($quest['question'], '40', '', '..')) . '</a></li>';
+            $qpath=drupal_get_path_alias('node/'.$quest['nid']);
+            $output .= '<li  class=""><a ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['qid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
         }
     } else {
 
@@ -549,25 +570,58 @@ function qlite_cron() {
 
 
     global $gSitePath, $user, $gDocPath, $base_root;
+//    $j = 5;
+//    $k = 5;
+//    $l = 5;
+//    $fcnt = array();
+//    $gvote = array();
+//    $query = "SELECT * from {question}";
+//    $list = ExecuteQuery($query, "select");
+//
+//    foreach ($list as $quest) {
+//
+//
+//        $query1 = "select IFNULL((select count(*) from {possible_answer_vote} as pa where q.qid=pa.qid group by pa.qid ),0) as pvote,(select count(*) from {suggest_answer_vote} as sa where q.qid=sa.qid group by sa.qid ) as svote from {question} as q where q.qid='" . $quest['qid'] . "'";
+//        $gvote = ExecuteQuery($query1, "select");
+//        $m1 = $gvote[0]['pvote'];
+//        $m2 = $gvote[0]['svote'];
+//
+//        $tvote = $m1 + $m2;
+//
+//        $query2 = "select IFNULL((select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid),0) as wcnt,IFNULL((select count(*) from {resource} where qid='" . $quest['qid'] . "' group by qid),0) as rcnt from {forum_wave} as f where f.qid_rid='" . $quest['qid'] . "' ";
+//        $fcnt = db_fetch_object(db_query($query2));
+//
+//        //The value �active� will be calculated as follows (j,k,l are constant values that will be hard-coded):
+//        //Active =  (j * #_of_votes_for_question) + (k * #_of_forum_posts) + (l * #_of_posted_resources)
+//        if (!empty($fcnt)) {
+//            $cntr = $fcnt->wcnt;
+//            $wcnt = $fcnt->rcnt;
+//            $active = (($j * $tvote) + ($k * $cntr) + ($l * $wcnt));
+//            db_query("update {question} set active_rate='" . $active . "' where qid='" . $quest['qid'] . "'");
+//        }
+//    }
+
+    /*Node conversion*/
+
     $j = 5;
     $k = 5;
     $l = 5;
     $fcnt = array();
     $gvote = array();
-    $query = "SELECT * from {question}";
+    $query = "SELECT * from {node} WHERE type = 'poll'";
     $list = ExecuteQuery($query, "select");
 
     foreach ($list as $quest) {
 
 
-        $query1 = "select IFNULL((select count(*) from {possible_answer_vote} as pa where q.qid=pa.qid group by pa.qid ),0) as pvote,(select count(*) from {suggest_answer_vote} as sa where q.qid=sa.qid group by sa.qid ) as svote from {question} as q where q.qid='" . $quest['qid'] . "'";
+        $query1 = "select IFNULL((select count(*) from {poll_votes} as pv where n.nid=pv.nid group by pv.nid ),0) as pvote,(select count(*) from {suggest_answer_vote} as sa where n.nid=sa.qid group by sa.qid ) as svote from {node} as n where n.nid='" . $quest['nid'] . "'";
         $gvote = ExecuteQuery($query1, "select");
         $m1 = $gvote[0]['pvote'];
         $m2 = $gvote[0]['svote'];
 
         $tvote = $m1 + $m2;
 
-        $query2 = "select IFNULL((select count(*) from {forum_wavelets} as w where w.wid=f.fid group by w.wid),0) as wcnt,IFNULL((select count(*) from {resource} where qid='" . $quest['qid'] . "' group by qid),0) as rcnt from {forum_wave} as f where f.qid_rid='" . $quest['qid'] . "' ";
+        $query2 = "select IFNULL((select count(*) from {comments} as c where c.nid=f.nid group by c.nid),0) as wcnt,IFNULL((select count(*) from {content_type_forum} where field_ref_qid_nid='" . $quest['nid'] . "' AND field_type_value = '2' group by field_ref_qid_nid),0) as rcnt from {content_type_forum} as f where f.field_ref_qid_nid='" . $quest['nid'] . "' ";
         $fcnt = db_fetch_object(db_query($query2));
 
         //The value �active� will be calculated as follows (j,k,l are constant values that will be hard-coded):
@@ -576,9 +630,10 @@ function qlite_cron() {
             $cntr = $fcnt->wcnt;
             $wcnt = $fcnt->rcnt;
             $active = (($j * $tvote) + ($k * $cntr) + ($l * $wcnt));
-            db_query("update {question} set active_rate='" . $active . "' where qid='" . $quest['qid'] . "'");
+            db_query("update {content_type_poll} set field_active_rate_value='" . $active . "' where nid='" . $quest['nid'] . "'");
         }
     }
+    /*Node conversion*/
 }
 
 function load_condition() {
@@ -589,14 +644,14 @@ function load_condition() {
         if (!empty($cid)) {
 
             //$cond .= " AND q.cid='$cid'";
-            $cond .= " AND qcat.cat='$cid'";
+            $cond .= " AND tn.tid='$cid'";
             //$cond .= " AND qcat.cat IN()";
         }
 
         if (!empty($scid)) {
 
             //$cond .= " AND q.scid='$scid'";
-            $cond .= " AND qcat.scat='$scid'";
+            $cond = " AND tn.tid='$scid'";
         }
     }
 

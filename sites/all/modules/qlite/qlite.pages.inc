@@ -276,15 +276,27 @@ function load_ajax() {
         case '5':
             extract($_REQUEST);
             
-           $query = "SELECT * from {category} where parent_id='$cid' ORDER BY cat_name ASC";
+//           $query = "SELECT * from {category} where parent_id='$cid' ORDER BY cat_name ASC";
+//            $list = ExecuteQuery($query, "select");
+//            $output .= '<select id="tscat" onchange="get_toplist(this.value,2)"><option value="" >select a sub-section</option>';
+//            foreach ($list as $cat) {
+//
+//                $output .= '<option value='.$cat['cat_id'].' > '.stripslashes($cat['cat_name']).' </option>';
+//            }
+//
+//            $output .= '</select>';
+
+            /*Node conversion*/
+            $query = "SELECT * from {term_data} td JOIN {term_hierarchy} th ON td.tid = th.tid where th.parent='$cid' ORDER BY td.name ASC";
             $list = ExecuteQuery($query, "select");
             $output .= '<select id="tscat" onchange="get_toplist(this.value,2)"><option value="" >select a sub-section</option>';
             foreach ($list as $cat) {
-                
-                $output .= '<option value='.$cat['cat_id'].' > '.stripslashes($cat['cat_name']).' </option>';
+
+                $output .= '<option value='.$cat['tid'].' > '.stripslashes($cat['name']).' </option>';
             }
-            
+
             $output .= '</select>';
+            /*Node conversion*/
             
             echo $output;
             break;
