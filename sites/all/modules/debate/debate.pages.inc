@@ -10,7 +10,7 @@ function debate_list($qid = '', $did='') {
     $like = '';
     $flag = '';
 // get nid for respective did
-    $nodeid = db_result(db_query("SELECT nid FROM {debate} WHERE did = '%d'", $did));
+    //$nodeid = db_result(db_query("SELECT nid FROM {debate} WHERE did = '%d'", $did));
     //$query = "SELECT *,u.uid as uid,IFNULL((select did  FROM {debate} where did > f.did AND qid='$qid'  limit 0,1 ),0) as pdid,IFNULL((select did FROM {debate} where did < f.did AND qid='$qid' order by did DESC limit 0,1 ),0) as ndid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
     //$list = ExecuteQuery($query, "select");
     $forum = node_load($did);

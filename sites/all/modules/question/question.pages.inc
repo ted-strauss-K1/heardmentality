@@ -406,7 +406,14 @@ function question_save() {
                     //node_validate($deb);
                     //$node = node_submit($deb);
                     $save = node_save($deb);
-
+                    
+                    // add default debate options
+                    $choices = db_query("SELECT * FROM {poll_choices} WHERE nid = '$result->nid'");
+                    while($list = db_fetch_object($choices)){
+                       //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
+                        $forum = "INSERT INTO {debate_options} set nid = '%d',chorder='%d',ans_val='%d' ";
+                        db_query($forum, $deb->nid, $list->chorder, 1);
+                    }
             //create a default ends
 
 
@@ -1174,8 +1181,11 @@ function question_ajax() {
                               if ($sscid == $children->tid) {
                                  $style = 'style="font-weight:bold"';
                               }
+                              $sscat_qry = "SELECT count(distinct cat.tid) FROM term_node as cat join node as q on q.nid=cat.nid where q.status='1' AND cat.tid ='" . $children->tid. "' $cond group by q.nid";
+                              $total = db_result(db_query($sscat_qry));
+                              $total = $total!=''?$total:0;
                               $style = 'class="sublinks scat" style="padding-left:10px"';
-                              $catlist.= '<br class="scat"/><span ' . $style . '><a  id="sc-' . $children->tid . '" href="JavaScript:void(0);" ' . $style . '>' . stripslashes($children->name) . '</a></span>';
+                              $catlist.= '<br class="scat"/><span ' . $style . '><a  id="sc-' . $children->tid . '" href="JavaScript:void(0);" ' . $style . '>' . stripslashes($children->name) . '[' .$total. ']' .'</a></span>';
                                 }
                             echo $catlist;
                        /*Node conversion*/
