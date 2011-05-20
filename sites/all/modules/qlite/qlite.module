@@ -337,7 +337,7 @@ function get_top_list($time='') {
     }
 
    // $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20";
-   $query="select * from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' $cond AND n.type='poll' GROUP BY tn.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
+   $query="select n.nid, n.title from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' $cond AND n.type='poll' GROUP BY tn.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
     $list = ExecuteQuery($query, "select");
 
     if (!empty($list)) {
@@ -349,7 +349,7 @@ function get_top_list($time='') {
                 $bubble_question = '';
             }
             $qpath=drupal_get_path_alias('node/'.$quest['nid']);
-            $output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['qid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
+            $output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
         }
     } else {
 
@@ -396,7 +396,7 @@ function get_hot_list($time='') {
 
 
     //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1' AND date(q.date_added) >= '$date' $cond group by qcat.qid order by q.active_rate  DESC LIMIT 0,20 ";
-    $query="select * from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' AND n.created >= '$timestamp' $cond AND n.type='poll' GROUP BY tn.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
+    $query="select n.nid, n.title from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' AND n.created >= '$timestamp' $cond AND n.type='poll' GROUP BY tn.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
     // $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid   where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
@@ -411,7 +411,7 @@ function get_hot_list($time='') {
                 $bubble_question = '';
             }
             $qpath=drupal_get_path_alias('node/'.$quest['nid']);
-            $output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['qid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
+            $output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
         }
     } else {
 
@@ -479,7 +479,7 @@ function get_local_list($time='') {
 
     //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,20 ";
     $locTableJoin = "JOIN {content_field_issue_country} cc ON n.nid = cc.nid JOIN {content_field_issue_state} cs ON n.nid = cs.nid JOIN {content_field_issue_city} ct ON n.nid = ct.nid ";
-    $query="select * from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid $locTableJoin JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' $cond AND n.type='poll' GROUP BY tn.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
+    $query="select n.nid, n.title from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid $locTableJoin JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' $cond AND n.type='poll' GROUP BY tn.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
     //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
@@ -496,7 +496,7 @@ function get_local_list($time='') {
                 $bubble_question = '';
             }
             $qpath=drupal_get_path_alias('node/'.$quest['nid']);
-            $output .= '<li  class=""><a ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['qid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
+            $output .= '<li  class=""><a ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
         }
     } else {
 
