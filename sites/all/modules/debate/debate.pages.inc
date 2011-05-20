@@ -1983,14 +1983,16 @@ function debate_ajax() {
                 foreach ($html->find('img') as $element) {
                     $imgs[] = url_to_absolute($url, $element->src);
                 }
-                $count = count($imgs);
+                $web_images = collect_valid_images($imgs);
+                
+                $count = count($web_images);
                 $totalImage = $count>10?'10':$count;
                 $endImage = $totalImage!=0?($totalImage-1):0;
                 $imgPath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
                 $imgSelector = '<div class="img-selector">';
                 for($i=0;$i<10;$i++){
                     $imgSelector .= '<div class="cur-img">
-                                    <img id="cur_img_'.$i.'" src="' . $imgs[$i] . '" width="118" height="73"  />
+                                    <img id="cur_img_'.$i.'" src="' . $web_images[$i] . '" width="118" height="73"  />
                                     </div>';
                 }
                 $imgSelector .= ' <input type="hidden" id="cur_id_val" value="0" />
@@ -2001,7 +2003,7 @@ function debate_ajax() {
                                 &nbsp;&nbsp;<a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="'.$imgPath.'arrow_right.png"></a>';
                 echo $imgSelector;
                 echo '<div class="rightfm">' . $inc . '</div>
-                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $imgs[0] . '"/>
+                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/>
                         ';
                 /*
                   $tg = new thumbnailGenerator;
@@ -2871,4 +2873,18 @@ function like_dislike_bar($cntagree = '', $cntdisagree = ''){
     $bar = '<div><b>Rating </b>('.$totalCount.' total)</div><div id="likebar"><span id="like-percent-area" class="like-per" style="width:'.$up_percent.'%;"></span><span id="dislike-percent-area" class="dislike-per" style="width:'.$down_percent.'%;"></span></div>
             '.$cntagree.'&nbsp;likes&nbsp;'.$cntdisagree.'&nbsp;dislikes';
     return $bar;
+}
+
+function collect_valid_images($images){
+    $ext_arr = array('jpg', 'jpeg', 'gif', 'png', 'JPEG', 'bmp');
+    foreach($images as $image){
+    $im = explode("/",$image);
+    $webimage = end($im);
+    $ext = explode(".",$webimage);
+    $extension = end($ext);
+    if(in_array($extension, $ext_arr)){
+        $fImages[] = $image;
+    }
+    }
+    return $fImages;
 }
