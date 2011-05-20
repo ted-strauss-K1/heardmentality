@@ -1967,6 +1967,7 @@ function debate_ajax() {
                 require_once('simple_html_dom.php');
                 require_once('thumbnail.php');
                 require_once('url_to_absolute.php');
+                
                 $url = $_GET['url'];
                 $html = file_get_html($url);
                 $tags = get_meta_tags($url);
@@ -1982,10 +1983,26 @@ function debate_ajax() {
                 foreach ($html->find('img') as $element) {
                     $imgs[] = url_to_absolute($url, $element->src);
                 }
-                echo '<div class="leftfm"><img src="' . $imgs[0] . '" width="118" height="73"  /></div><div class="rightfm">' . $inc . '</div>
-                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" name="uimg" value="' . $imgs[0] . '"/>
+                $count = count($imgs);
+                $totalImage = $count>10?'10':$count;
+                $endImage = $totalImage!=0?($totalImage-1):0;
+                $imgPath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+                $imgSelector = '<div class="img-selector">';
+                for($i=0;$i<10;$i++){
+                    $imgSelector .= '<div class="cur-img">
+                                    <img id="cur_img_'.$i.'" src="' . $imgs[$i] . '" width="118" height="73"  />
+                                    </div>';
+                }
+                $imgSelector .= ' <input type="hidden" id="cur_id_val" value="0" />
+                                    <input type="hidden" id="end_image" value="'.$endImage.'" />
+                                        <input type="hidden" id="pre_id_val" value="" />
+                                        
+                                 </div><a href="javascript:void(0)" style="display:none" title="previous"  id="re-sel-pre"><img src="'.$imgPath.'arrow_left.png"></a>
+                                &nbsp;&nbsp;<a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="'.$imgPath.'arrow_right.png"></a>';
+                echo $imgSelector;
+                echo '<div class="rightfm">' . $inc . '</div>
+                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $imgs[0] . '"/>
                         ';
-
                 /*
                   $tg = new thumbnailGenerator;
                   foreach($images as $url => $void) {

@@ -20,6 +20,10 @@ $.get(purl+"?action=url&url="+url,function(response)
 {
 jQuery("#linkbox").html(response);
 jQuery("#lattach").removeAttr('disabled');
+if(jQuery('#cur_id_val').val() == jQuery('#end_image').val()){
+    jQuery('#re-sel-next').hide();
+    jQuery('#re-sel-prev').hide();
+}
 });
 
 }
@@ -233,3 +237,49 @@ function clearForm(form) {
    this.selectedIndex = -1;
   });
 };
+
+
+// resources image selector
+jQuery(document).ready(function() {
+    
+    jQuery('#re-sel-next').live('click',function() {
+    var curr = jQuery("#cur_id_val").val();
+    var next= Number(curr)+Number(1);
+    var end = jQuery('#end_image').val();
+    end = Number(end)-Number(1);
+    var imgid = '#cur_img_';
+    var src = jQuery(imgid+next).attr("src");
+            jQuery(imgid+curr).hide();
+            jQuery(imgid+next).show();
+            jQuery('#cur_id_val').val(next);
+            jQuery('#final_uimage').val(src);
+            
+            if(curr >= end){
+                jQuery('#re-sel-next').hide();
+            }
+            if(curr >= 0){
+                jQuery('#re-sel-pre').show();
+            }
+    });
+    jQuery('#re-sel-pre').live('click',function() {
+    var curr = jQuery("#cur_id_val").val();
+    var pre= Number(curr)-Number(1);
+    var end = jQuery('#end_image').val();
+    end = Number(end)+Number(1);
+    var imgid = '#cur_img_';
+    var src = jQuery(imgid+pre).attr("src");
+    
+            jQuery(imgid+curr).hide();
+            jQuery(imgid+pre).show();
+            jQuery('#cur_id_val').val(pre);
+            jQuery('#final_uimage').val(src);
+
+             if(curr<end){
+               jQuery('#re-sel-next').show();
+            }
+            if(pre == 0){
+                jQuery('#re-sel-pre').hide();
+            }
+    });
+
+})
