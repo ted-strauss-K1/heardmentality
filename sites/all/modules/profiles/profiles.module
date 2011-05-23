@@ -334,11 +334,12 @@ function user_facts() {
     $quest = '';
     $ans = '';
     //$usercnt = db_result(db_query("select count(uid) from {users} where status='1' and country REGEXP '[^0-9]'"));
-
+    $num_users = db_result(db_query("SELECT COUNT(*) FROM {users} u WHERE u.access != 0 AND u.status !=0"));
     $usercnt = db_result(db_query(" select count(u.uid) from users as u join user_profile as up on u.uid=up.uid where u.status=1 and up.country REGEXP '[^0-9]'"));
     // $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1'"));
-    $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1' and q.country REGEXP '[^0-9]'"));
-    $ans = db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]'"));
+    $type='poll';
+   $count = db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = '%s' ", $type));
+    $ans = db_result(db_query("select count(*) from {poll_votes} as a join {node} as q on q.nid=a.nid where q.status='1' and q.country REGEXP '[^0-9]'"));
     $userslist = db_query('SELECT count(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
     //$get_ans = db_queryd('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 AND up.country REGEXP \'[^0-9]\'', time() - $time_period);
     //exit;
@@ -349,7 +350,7 @@ function user_facts() {
          <div class="fa-item">
           <ul>
         
-          <li><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $usercnt . '\')"><span>' . $usercnt . '</span> Contributors</a></li>
+          <li><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $num_users . '\')"><span>' . $usercnt . '</span> Contributors</a></li>
           <li><a href="' . $gSitePath . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"><span >' . $total_users . '</span> Online</a></li>
           <li><a href="' . $gSitePath . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"><span>' . $quest . '</span> Issues</a></li>
           <li><a href="' . $gSitePath . 'google/map/answer" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/answer\',\'Facts And Figures : Toatal Votes ' . $ans . '\')"><span >' . $ans . '</span> Votes</a></li>
@@ -1084,8 +1085,8 @@ function profiles_user($op, $edit, &$account, $category = NULL) {
     switch ($op) {
 
         case 'insert':
-
-            $_REQUEST['destination'] = 'Your path here';
+        //home page
+            $_REQUEST['destination'] ='qlite/view';
 
             break;
         case 'categories':
