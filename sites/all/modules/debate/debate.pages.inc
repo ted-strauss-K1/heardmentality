@@ -1819,7 +1819,7 @@ function resdebate_list($qid='', $rid='') {
         <div class="fm-4">
         	<div class="leftfm">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
             <div class="rightfm">
-<h5>' . $forum->title . '</h5>
+<!-- <h5>' . $forum->title . '</h5> -->
 ' . make_clickable($forum->body) . '
             </div>
       </div>
@@ -1990,7 +1990,7 @@ function debate_ajax() {
                 $endImage = $totalImage!=0?($totalImage-1):0;
                 $imgPath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
                 $imgSelector = '<div class="img-selector">';
-                for($i=0;$i<10;$i++){
+                for($i=0;$i<$totalImage;$i++){
                     $imgSelector .= '<div class="cur-img">
                                     <img id="cur_img_'.$i.'" src="' . $web_images[$i] . '" width="118" height="73"  />
                                     </div>';

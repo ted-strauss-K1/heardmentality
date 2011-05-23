@@ -268,7 +268,7 @@ function qlite_view() {
         $answprcs = $vlsistquest->vote / 100 * $totalvotes;
 
         $valuss = $answprcs * 100;
-
+        //$valuss = 5;
         if ($valuss > $tot) {
             $insert_change = "insert into suggest_ans_changeids (qid,ans_id)Values('" . $qid . "','" . $vlsistquest->said . "') ";
             $listchnge = db_query($insert_change);
@@ -285,19 +285,21 @@ function qlite_view() {
             //echo $vlsistquest->said;
         }
     }
+  
     $mysql_sug_rows = mysql_num_rows(db_query("select distinct(answer_id) from suggest_ans_tmp  "));
 
 
     //echo $mysql_sug_rows;
-    $vpans = "select * from {possible_answer} where  qid='" . $qid . "' order by vote desc limit 0,$mysql_sug_rows ";
+    //$vpans = "select * from {possible_answer} where  qid='" . $qid . "' order by vote desc limit 0,$mysql_sug_rows ";
+    $vpans = "select * from {poll_choices} where  nid='" . $qid . "' order by chvotes desc limit 0,$mysql_sug_rows ";
 
     $vplist = db_query($vpans);
 
     while ($vplistquest = db_fetch_object($vplist)) {
-        $insert_list_ids = "insert into possible_answer_changeids (qid,ans_id)Values('" . $qid . "','" . $vplistquest->paid . "') ";
+        $insert_list_ids = "insert into possible_answer_changeids (qid,ans_id)Values('" . $qid . "','" . $vplistquest->chorder . "') ";
         $qrylist_change = db_query($insert_list_ids);
 
-        $select_allvp = "select * from possible_answer_vote where panswer_id=$vplistquest->paid  ";
+        $select_allvp = "select * from poll_votes where chorder= '$vplistquest->chorder' AND nid = '$qid'  ";
         $listamp = db_query($select_allvp);
 
         while ($listamqryamp = db_fetch_object($listamp)) {
@@ -306,7 +308,7 @@ function qlite_view() {
             $qrylist = db_query($insert_whited);
         }
     }
-
+  
     $qry1 = db_query("select * from suggest_ans_changeids where qid ='" . $qid . "'");
     $array1 = array();
     while ($row1 = db_fetch_object($qry1)) {
@@ -330,12 +332,12 @@ function qlite_view() {
 
         $deletsug = db_query("delete from suggest_answer_vote where answer_id='$array1[$x]'");
 
-        $deletpos = db_query("delete from possible_answer_vote where panswer_id='$array2[$x]'");
+        $deletpos = db_query("delete from poll_votes where chorder='$array2[$x]' AND nid = '$qid'");
 
-        $rechange_list = db_query("select * from {possible_answer} where  paid='" . $array2[$x] . "'  ");
+        $rechange_list = db_query("select * from {poll_choices} where  chorder='" . $array2[$x] . "' AND nid = '$qid' ");
 
         $rechg = db_fetch_object($rechange_list);
-        $rechg->vote;
+        $rechg->chvotes;
 
         $rechange_list_new = db_query("select * from {suggest_answer} where  said='" . $array1[$x] . "'  ");
 
@@ -365,10 +367,10 @@ function qlite_view() {
         if ($usert->notify_itype == 1) {
             $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $rechg_new->uid . "','1','1','" . $qid . "') ");
         }
-        $update_ids = "update possible_answer set  answer='$rechg_new->answer', vote='$rechg_new->vote'  where paid='$array2[$x]' ";
+        $update_ids = "update poll_choices set  chtext='$rechg_new->answer', chvotes='$rechg_new->vote'  where chorder='$array2[$x]' AND nid = '$qid' ";
         $updateqry = db_query($update_ids);
 
-        $update_sug = "update suggest_answer set  answer='$rechg->answer', vote='$rechg->vote',uid='$oListquest->uid' where said='$array1[$x]' ";
+        $update_sug = "update suggest_answer set  answer='$rechg->chtext', vote='$rechg->chvotes',uid='$oListquest->uid' where said='$array1[$x]' ";
         $updateqrys = db_query($update_sug);
 
 
@@ -405,7 +407,7 @@ function qlite_view() {
 
     while ($tmp_rec = db_fetch_object($seltmp)) {
 
-        $insert_dumm = "insert into possible_answer_vote (qid,uid,panswer_id,vote_pdate) values ('" . $tmp_rec->qid . "','" . $tmp_rec->uid . "','" . $tmp_rec->answer_id . "','" . $tmp_rec->vote_date . "')";
+        $insert_dumm = "insert into poll_votes (nid,uid,chorder) values ('" . $tmp_rec->qid . "','" . $tmp_rec->uid . "','" . $tmp_rec->answer_id . "','" . $tmp_rec->vote_date . "')";
         $dumy_rec = db_query($insert_dumm);
         //provocateur badge
         provocateur($tmp_rec->qid, $tmp_rec->answer_id);
