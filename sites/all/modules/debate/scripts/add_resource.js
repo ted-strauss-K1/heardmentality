@@ -245,6 +245,7 @@ jQuery(document).ready(function() {
     jQuery('#re-sel-next').live('click',function() {
     var curr = jQuery("#cur_id_val").val();
     var next= Number(curr)+Number(1);
+    var imgcount = Number(next)+Number(1);
     var end = jQuery('#end_image').val();
     end = Number(end)-Number(1);
     var imgid = '#cur_img_';
@@ -252,6 +253,7 @@ jQuery(document).ready(function() {
             jQuery(imgid+curr).hide();
             jQuery(imgid+next).show();
             jQuery('#cur_id_val').val(next);
+            jQuery('#img_count').html(imgcount);
             jQuery('#final_uimage').val(src);
             
             if(curr >= end){
@@ -264,6 +266,7 @@ jQuery(document).ready(function() {
     jQuery('#re-sel-pre').live('click',function() {
     var curr = jQuery("#cur_id_val").val();
     var pre= Number(curr)-Number(1);
+    var imgcount = Number(pre)+Number(1);
     var end = jQuery('#end_image').val();
     end = Number(end)+Number(1);
     var imgid = '#cur_img_';
@@ -272,6 +275,7 @@ jQuery(document).ready(function() {
             jQuery(imgid+curr).hide();
             jQuery(imgid+pre).show();
             jQuery('#cur_id_val').val(pre);
+            jQuery('#img_count').html(imgcount);
             jQuery('#final_uimage').val(src);
 
              if(curr<end){

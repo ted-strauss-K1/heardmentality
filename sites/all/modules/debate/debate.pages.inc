@@ -1987,6 +1987,8 @@ function debate_ajax() {
                 
                 $count = count($web_images);
                 $totalImage = $count>10?'10':$count;
+                //$totalImage = $count;
+                $imgCount = $count>0?1:0;
                 $endImage = $totalImage!=0?($totalImage-1):0;
                 $imgPath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
                 $imgSelector = '<div class="img-selector">';
@@ -2000,7 +2002,8 @@ function debate_ajax() {
                                         <input type="hidden" id="pre_id_val" value="" />
                                         
                                  </div><a href="javascript:void(0)" style="display:none" title="previous"  id="re-sel-pre"><img src="'.$imgPath.'arrow_left.png"></a>
-                                &nbsp;&nbsp;<a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="'.$imgPath.'arrow_right.png"></a>';
+                                &nbsp;&nbsp;<a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="'.$imgPath.'arrow_right.png"></a><br>
+                                    <span id="img_count">'.$imgCount.'</span> of '.$totalImage.'';
                 echo $imgSelector;
                 echo '<div class="rightfm">' . $inc . '</div>
                     <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/>
