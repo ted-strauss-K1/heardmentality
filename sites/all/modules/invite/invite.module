@@ -222,7 +222,7 @@ function hm_mails($qid='', $nid='', $type='') {
             }
            
             break;
-        case add_like:
+        case 'add_like':
 
             $sel_forum = "select * from forum_wavelets where wlid='" . $nid . "'";
             $forum_fet = db_query($sel_forum);
@@ -249,11 +249,12 @@ function hm_mails($qid='', $nid='', $type='') {
                 }
             }
             break;
-        case add_forum:
+        case 'add_forum':
 
-            $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
-
-
+            //$sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
+            $sel_wave = db_fetch_object(db_query("select n.title from {content_type_forum} c join {node} n ON c.nid = n.nid where c.nid='$nid'"));
+            $qpath=drupal_get_path_alias('node/'.$qid);
+            
             while ($fet_follow = db_fetch_object($get_follow)) {
                 if ($fet_follow->notify_etype == 1) {
                     //id=4 for add question
@@ -265,7 +266,7 @@ function hm_mails($qid='', $nid='', $type='') {
                     $contentm = str_replace("#anothername#", $user->name, $contentm);
 
                     $contentm = str_replace("#question#", $wavelet, $contentm);
-                    $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+                    $contentm = str_replace("#link#", $gSitePath . $qpath, $contentm);
                     $contentm = str_replace("#content#", "created a Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
 
 
@@ -274,11 +275,15 @@ function hm_mails($qid='', $nid='', $type='') {
                 }
             }
             break;
-        case reply_forum:
+        case 'reply_forum':
 
-            $sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
-
-            $qdetails = load_question($sel_wave->qid_rid);
+            //$sel_wave = db_fetch_object(db_query("select * from {forum_wave} where fid='$nid'"));
+            $sel_wave = db_fetch_object(db_query("select n.title, c.field_ref_qid_nid from {content_type_forum} c join {node} n ON c.nid = n.nid where c.nid='$nid'"));
+            
+            //$qdetails = load_question($sel_wave->qid_rid);
+            $qdetails = node_load($sel_wave->field_ref_qid_nid);
+            $qpath=drupal_get_path_alias('node/'.$sel_wave->field_ref_qid_nid);
+            
             $sel_wavelet = db_fetch_object(db_query("select * from {forum_wavelets} where wlid='$nid' AND uid='$user->uid'"));
             $mail_row = db_query("select mail from users where uid='" . $user->uid . "'");
             $fet_mail = db_fetch_object($mail_row);
@@ -297,7 +302,7 @@ function hm_mails($qid='', $nid='', $type='') {
                     $contentm = str_replace("#anothername#", $user->name, $contentm);
 
                     $contentm = str_replace("#question#", $wavelet, $contentm);
-                    $contentm = str_replace("#link#", $gSitePath . $qdetails['url'], $contentm);
+                    $contentm = str_replace("#link#", $gSitePath . $qpath, $contentm);
                     $contentm = str_replace("#content#", "posted a reply[" . $sel_wavelet->wavelet . "] under Forum Topic [" . $sel_wave->title . "] for the below question. Kindly have a review", $contentm);
 
 
@@ -308,7 +313,7 @@ function hm_mails($qid='', $nid='', $type='') {
             break;
 
 
-        case user_badges:
+        case 'user_badges':
             $sel_wave = db_fetch_object(db_query("select * from {user_badges} where badge='$nid' AND uid='$user->uid'"));
             //$sel_wavelet = db_fetch_object(db_query("select * from {forum_wavelets} where wlid='$nid' AND uid='$user->uid'"));
             $mail_row = db_query("select mail from users where uid='" . $user->uid . "'");
@@ -332,7 +337,7 @@ function hm_mails($qid='', $nid='', $type='') {
             }
             break;
 
-        case follower:
+        case 'follower':
             $sel_ulists = "SELECT * FROM users LEFT JOIN user_profile ON users.uid=user_profile.uid Where users.uid='" . $nid . "'";
 
             $user_namelistfs = ExecuteQuery($sel_ulists, "select");

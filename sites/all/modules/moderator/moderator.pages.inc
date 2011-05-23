@@ -94,7 +94,9 @@ function quest_mail($qids = '') {
     foreach ($qids as $id) {
 
 
-        $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
+        //$query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
+        $query = db_query("select u.mail,n.title AS question  from {node} as n left join {users} as u on u.uid=n.uid where n.nid='$id' ");
+
         $det = db_fetch_object($query);
 
         $to = $det->mail;
@@ -135,7 +137,9 @@ function question_deleted_mail($qaid) {
     $subject = 'Heardmentality Question Has Been Deleted ';
     $delmsg = 'Has been Deleted By Headmentality admin';
 
-    $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    //$query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    $query = db_query("select u.mail,n.title AS question  from {node} as n left join {users} as u on u.uid=n.uid where n.nid='$qaid' ");
+    
     $det = db_fetch_object($query);
 
     $to = $det->mail;
@@ -157,8 +161,9 @@ function question_deleted_mail_voters($qaid) {
     $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
     $delmsg = 'Has been Deleted By Headmentality admin';
 
-    $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
-
+    //$query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    $query = db_query("select n.title AS question,p.uid from poll_votes as p left join node as n on n.nid=p.nid where p.nid='$qaid' ");
+    
     while ($det = db_fetch_object($query)) {
 
         $sellist = "select * from users where uid='" . $det->uid . "'";
@@ -185,8 +190,9 @@ function question_deleted_mail_suggest($qaid) {
     $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
     $delmsg = 'Has been Deleted By Headmentality admin';
 
-    $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
-
+    //$query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    $query = db_query("select n.title AS question,s.uid from suggest_answer as s left join node as n on n.nid=s.qid where s.qid='$qaid' ");
+    
     while ($det = db_fetch_object($query)) {
 
         $sellist = "select * from users where uid='" . $det->uid . "'";
@@ -213,7 +219,8 @@ function question_edited_mail($qaid) {
     $subject = 'Heardmentality Issue Has Been Edited By Moderator ';
     $delmsg = 'Has been edited by our Moderator';
 
-    $query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    //$query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    $query = db_query("select u.mail,n.title AS question  from {node} as n left join {users} as u on u.uid=n.uid where n.nid='$qaid' ");
     $det = db_fetch_object($query);
 
     $to = $det->mail;
@@ -234,8 +241,8 @@ function question_edited_mail_voters($qaid) {
     $from = variable_get('site_mail');
     $subject = 'Heardmentality Question Has Been Edited By admin ';
     $delmsg = 'Has been Edited By Headmentality admin';
-    $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
-
+    //$query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    $query = db_query("select n. title AS question,p.uid  from poll_votes as p left join node as n on n.nid=p.nid where p.nid='$qaid' ");
     while ($det = db_fetch_object($query)) {
 
         $sellist = "select * from users where uid='" . $det->uid . "'";
@@ -262,8 +269,8 @@ function question_edited_mail_suggest($qaid) {
     $subject = 'Heardmentality Question Has Been Edited By admin ';
     $delmsg = 'Has been Edited By Moderator';
 
-    $query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
-
+    //$query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    $query = db_query("select n.title AS question, s.uid  from suggest_answer as s left join node as n on n.nid=s.qid where s.qid='$qaid' ");
     while ($det = db_fetch_object($query)) {
 
         $sellist = "select * from users where uid='" . $det->uid . "'";
@@ -295,7 +302,8 @@ function question_merge_mail($toissue='', $dupeissue='') {
     $list_content = db_fetch_object($rs_mgmt);
     // for voters who voted the dupe issues
 
-    $query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$dupeissue' ");
+    //$query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$dupeissue' ");
+    $query = db_query("select n.title AS question,p.uid from poll_votes as p left join node as n on p.nid=n.nid where p.nid='$dupeissue' ");
     $detail = load_question($dupeissue);
     //create a mail content
     $msg = '<br/>Issue [' . $detail['question'] . '] <br/> has been merged to below Issue due to Duped <br/> [ ' . $finalissue['question'] . '] <br/>';
