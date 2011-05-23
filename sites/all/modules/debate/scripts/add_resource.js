@@ -24,6 +24,8 @@ if(jQuery('#cur_id_val').val() == jQuery('#end_image').val()){
     jQuery('#re-sel-next').hide();
     jQuery('#re-sel-prev').hide();
 }
+jQuery('#re-sel-pre').bind('click', disableLink);
+jQuery('#re-sel-pre').fadeTo('fast', 0.2);
 });
 
 }
@@ -241,7 +243,8 @@ function clearForm(form) {
 
 // resources image selector
 jQuery(document).ready(function() {
-    
+
+
     jQuery('#re-sel-next').live('click',function() {
     var curr = jQuery("#cur_id_val").val();
     var next= Number(curr)+Number(1);
@@ -257,10 +260,12 @@ jQuery(document).ready(function() {
             jQuery('#final_uimage').val(src);
             
             if(curr >= end){
-                jQuery('#re-sel-next').hide();
+                jQuery('#re-sel-next').bind('click', disableLink);
+                jQuery('#re-sel-next').fadeTo('fast', 0.2);
             }
             if(curr >= 0){
-                jQuery('#re-sel-pre').show();
+                jQuery('#re-sel-pre').unbind();
+                jQuery('#re-sel-pre').fadeTo('fast', 1);
             }
     });
     jQuery('#re-sel-pre').live('click',function() {
@@ -279,11 +284,22 @@ jQuery(document).ready(function() {
             jQuery('#final_uimage').val(src);
 
              if(curr<end){
-               jQuery('#re-sel-next').show();
+               jQuery('#re-sel-next').unbind();
+               jQuery('#re-sel-next').fadeTo('fast', 1);
             }
             if(pre == 0){
-                jQuery('#re-sel-pre').hide();
+                jQuery('#re-sel-pre').bind('click', disableLink);
+                jQuery('#re-sel-pre').fadeTo('fast', 0.2);
             }
     });
 
+
+
 })
+
+function disableLink(e) {
+    // cancels the event
+    e.preventDefault();
+
+    return false;
+}
