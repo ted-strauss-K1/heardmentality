@@ -15,9 +15,12 @@ $directory = $base_path . $directory;
      var gSitePath='<?php print $gSitePath;?>';
  </script>
 
-        <?php print $scripts; ?>
+        <?php print $scripts; 
+        print " <script>jQuery(document).ready(function() {jQuery('#twitMsg',top.document).html('".$messages."');
+        jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); }); </script>";?>
 </head>
 <body>
+    
     <div class="popup-add-suggest" id="log">
 	<div class="facttop"> <?php print $title; ?></div>
 	<div id="log_res"><!-- spanner --></div>
