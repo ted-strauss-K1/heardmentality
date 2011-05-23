@@ -2131,7 +2131,7 @@ function debate_ajax() {
             $vlist = ExecuteQuery($vans, "select");
             $cnt_ans = count($vlist);
             $output.="<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
-        <script type='text/javascript' src='" . $gSitePath . "misc/jquery.js'></script>
+        <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>
        			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
 <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 <script type='text/javascript' language='javascript'>
@@ -2218,7 +2218,7 @@ $(document).ready(function() {
             $vlist = ExecuteQuery($vans, "select");
             $cnt_ans = count($vlist);
             $output.="<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
-        <script type='text/javascript' src='" . $gSitePath . "misc/jquery.js'></script>
+        <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>
        			<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
 <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'heardmentality') . "/css/content.css' type='text/css' />
 <script type='text/javascript' language='javascript'>

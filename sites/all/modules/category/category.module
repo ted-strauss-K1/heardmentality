@@ -109,46 +109,62 @@ function category_cron() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
 // section
-    $pundit = "SELECT * FROM {category} where parent_id='0'  ";
+   // $pundit = "SELECT * FROM {category} where parent_id='0'  ";
+     $pundit = "SELECT * FROM {term_hierarchy} where parent='0'  ";
 
     $cat = ExecuteQuery($pundit, "select");
     db_query("TRUNCATE TABLE {pundit_section} ");
     foreach ($cat as $list) {
 
-        $query = "SELECT sum(score) as score,p.uid
-FROM {question_cat} AS q
+//        $query = "SELECT sum(score) as score,p.uid
+//FROM {question_cat} AS q
+//LEFT
+//JOIN {pundit_scores} AS p ON p.qid = q.qid
+//WHERE q.cat ='" . $list['cat_id'] . "' group by p.uid";
+
+        $query = "SELECT sum(p.score) as score,p.uid
+FROM {term_node} AS tn
 LEFT
-JOIN {pundit_scores} AS p ON p.qid = q.qid
-WHERE q.cat ='" . $list['cat_id'] . "' group by p.uid";
+JOIN {pundit_scores} AS p ON p.qid = tn.nid
+WHERE tn.tid ='" . $list['tid'] . "' group by p.uid";
+
         $pundit_final = ExecuteQuery($query, "select");
     
         foreach($pundit_final as $ins){
       
       if(!empty($ins['uid'])&&!empty($ins['score']))
-    db_query("insert into {pundit_section} set cat_id='".$list['cat_id']."',uid='".$ins['uid']."',score='".$ins['score']."' ");
+    db_query("insert into {pundit_section} set cat_id='".$list['tid']."',uid='".$ins['uid']."',score='".$ins['score']."' ");
         
         }
 
     }
 
     //for subsection
-     $pundit = "SELECT * FROM {category} where parent_id>0 ";
+     //$pundit = "SELECT * FROM {category} where parent_id>0 ";
+    $pundit = "SELECT * FROM {term_hierarchy} where parent>0  ";
 
     $cat = ExecuteQuery($pundit, "select");
 
     foreach ($cat as $list) {
 
-    $query = "SELECT sum(score) as score,p.uid
-FROM {question_cat} AS q
+//    $query = "SELECT sum(score) as score,p.uid
+//FROM {question_cat} AS q
+//LEFT
+//JOIN {pundit_scores} AS p ON p.qid = q.qid
+//WHERE q.scat ='" . $list['cat_id'] . "' group by p.uid";
+
+        $query = "SELECT sum(p.score) as score,p.uid
+FROM {term_node} AS tn
 LEFT
-JOIN {pundit_scores} AS p ON p.qid = q.qid
-WHERE q.scat ='" . $list['cat_id'] . "' group by p.uid";
+JOIN {pundit_scores} AS p ON p.qid = tn.nid
+WHERE tn.tid ='" . $list['tid'] . "' group by p.uid";
+        
         $pundit_final = ExecuteQuery($query, "select");
 
         foreach($pundit_final as $ins){
 
        if(!empty($ins['uid'])&&!empty($ins['score']))
-    db_query("insert into {pundit_section} set cat_id='".$list['cat_id']."',uid='".$ins['uid']."',score='".$ins['score']."' ");
+    db_query("insert into {pundit_section} set cat_id='".$list['tid']."',uid='".$ins['uid']."',score='".$ins['score']."' ");
 
         }
 
