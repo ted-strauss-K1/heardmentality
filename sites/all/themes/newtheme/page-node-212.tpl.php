@@ -15,9 +15,12 @@ $directory = $base_path . $directory;
      var gSitePath='<?php print $gSitePath;?>';
  </script>
 
-        <?php print $scripts; 
-        print " <script>jQuery(document).ready(function() {jQuery('#twitMsg',top.document).html('".$messages."');
-        jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); }); </script>";?>
+        <?php print $scripts;
+        if(!empty ($messages)){
+        print " <script>jQuery(document).ready(function() {jQuery('#twitMsg',top.document).html('".t($messages)."');
+        jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); }); </script>";
+        }
+        ?>
 </head>
 <body>
     
