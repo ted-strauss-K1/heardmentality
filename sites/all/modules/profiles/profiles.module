@@ -338,8 +338,8 @@ function user_facts() {
     $usercnt = db_result(db_query(" select count(u.uid) from users as u join user_profile as up on u.uid=up.uid where u.status=1 and up.country REGEXP '[^0-9]'"));
     // $quest = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1'"));
     $type='poll';
-   $count = db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = '%s' ", $type));
-    $ans = db_result(db_query("select count(*) from {poll_votes} as a join {node} as q on q.nid=a.nid where q.status='1' and q.country REGEXP '[^0-9]'"));
+   $quest = db_result(db_query("SELECT COUNT(*) FROM {node} WHERE type = '%s' ", $type));
+    $ans = db_result(db_query("select count(*) from {poll_votes} as a join {node} as q on q.nid=a.nid  "));
     $userslist = db_query('SELECT count(*) access FROM {users} WHERE access >= %d AND uid != 0 ORDER BY access DESC', time() - $time_period);
     //$get_ans = db_queryd('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 AND up.country REGEXP \'[^0-9]\'', time() - $time_period);
     //exit;

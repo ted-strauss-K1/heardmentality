@@ -503,7 +503,19 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
 
                     $block['content'] = $tab;
                         break;
-                    
+                   case 'issue-3':
+                      $block['subject'] = "Pundit Tab";
+                   // if (arg(0) == 'node' && is_numeric(arg(1))) {
+                        $nid = arg(2);
+
+                        //$node=node_load(array('nid'=>20));
+                        $tab = issue_pundit_tab($nid);
+                   // }
+
+
+                    $block['content'] = $tab;
+
+                     break;
                  case 'issue-4':
                       $block['subject'] = "Details Tab";
                    // if (arg(0) == 'node' && is_numeric(arg(1))) {
@@ -558,7 +570,10 @@ function issue_tab_content($nid='',$type=''){
              print $block['content'];
 
          break;
-
+      case 'guru':
+          $block = module_invoke('issue', 'block', 'view','issue-3');
+             print $block['content'];
+          break;
       case 'report':
 
        $block = module_invoke('issue', 'block', 'view','issue-0');
@@ -836,6 +851,28 @@ return $output;
   // return theme('issue_details', $nid);
 }
 
+function issue_pundit_tab($qid=''){
+
+   //	$output='sample content Gurus';
+            $profileBadges = getAnsweredUsers($qid);
+
+            $output1 = '';
+            if (count($profileBadges) > 0) {
+
+                $pat = $gSitePath . drupal_get_path('module', 'profile');
+                foreach ($profileBadges as $profile) {
+                  $details=load_user($profile['uid']);
+                   $output1.=load_user_badge($profile['uid']);
+                    $output1 .= '<div class="clr"></div><br/>';
+                }
+            } else {
+                $output1 = "<div class='messages warning'>No Pundit(s) found for this issue</div>";
+            }
+            $output = $output1;
+
+return $output;
+
+}
 function load_taxonomy($nid=''){
 
      global $gSitePath, $user, $gDocPath, $base_root;
@@ -882,7 +919,7 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
     // get debate, resource, pundit counts
     $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$nid'"));
     $resourceCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '2' AND field_ref_qid_nid = '$nid'"));
-    $punditCount = 3;
+    $punditCount = count(getAnsweredUsers($nid));
     return theme('issue_results', $nid, t($debateCount),t($resourceCount),t($punditCount),$node->allowvotes);
 }
 
@@ -1485,4 +1522,47 @@ global $user;
         $user_data = array('initpop' =>'1');
         user_save( $user , $user_data);
     }
+}
+
+
+
+
+
+function getAnsweredUsers($question_id = NULL) {
+    /*   $query = "SELECT pav.uid, sav.uid
+      from suggest_answer_vote sav
+      INNER JOIN possible_answer_vote pav on sav.qid=pav.qid
+      where 1=1 AND pav.qid = '".$question_id."' OR  sav.qid = '".$question_id."'
+      order by  pav.uid"; */
+    $query = "SELECT  sav.uid from suggest_answer_vote sav
+			where  sav.qid ='" . $question_id . "' UNION
+			SELECT pav.uid
+			from poll_votes pav
+			where  pav.nid ='" . $question_id . "'";
+
+    $userids = ExecuteQuery($query, "select");
+    if (count($userids) <= 0) {
+        return $userids;
+    } else {
+        $Ids = array();
+        foreach ($userids as $userid) {
+            $Ids[] = $userid['uid'];
+        }
+        $separated = implode(",", $Ids);
+        $separated = '( ' . $separated . ')';
+
+        /*   $query = "SELECT bt.name as badgename, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
+          from profile_badges pb
+          INNER JOIN users u on pb.uid=u.uid
+          LEFT JOIN badge_types bt on  bt.id = pb.badge_type_id
+          WHERE 1=1 AND u.uid  IN".$separated;
+          $query = "SELECT up.image, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
+          from profile_badges pb
+          INNER JOIN users u on pb.uid=u.uid
+          LEFT JOIN user_profile up on  up.uid = u.uid
+          WHERE 1=1 AND u.uid  IN" . $separated; */
+        $query = "(select ps.uid from {term_node} as qc join  {pundit_section} as ps on ps.cat_id=qc.tid join {users} as u on u.uid=ps.uid where u.status=1 AND qc.nid=$question_id AND ps.uid IN $separated group by ps.uid) union (select ps.uid from {term_node} as qc join  {pundit_section} as ps on ps.cat_id=qc.tid join {users} as u on u.uid=ps.uid where u.status=1 AND qc.nid=$question_id AND ps.uid IN $separated group by ps.uid) ";
+        $profileBadges = ExecuteQuery($query, "select");
+    }
+    return $profileBadges;
 }

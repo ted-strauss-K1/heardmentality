@@ -13,8 +13,6 @@
 
 
 
-
-
 function report_percent($nid='') {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $output = '';

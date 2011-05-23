@@ -757,10 +757,10 @@ function google_map() {
         case 'google/map/questions':
             $variable = "Issues";
             // $geomap_qry = "select count(*)as count,q.country from question as q join users as u on q.uid=u.uid where q.status='1' group by q.country";
-            $cnt = db_result(db_query("select count(*) from {question} as q join {users} as u on q.uid=u.uid where q.status='1' and q.country REGEXP '[^0-9]'"));
+             $cnt = db_result(db_query("select count(*) from {content_field_issue_country}  where field_issue_country_value REGEXP '[^0-9]'"));
 
             // $geomap_qry = "select count(*) as count, country from question where country REGEXP '[^0-9]' group by country";
-            $geomap_qry = "select count(*) as count, q.country from {question} as q join {users} as u on q.uid=u.uid where q.status='1' and q.country REGEXP '[^0-9]' group by country";
+            $geomap_qry = "select count(*) as count,field_issue_country_value as country from {content_field_issue_country} where field_issue_country_value REGEXP '[^0-9]' group by field_issue_country_value";
             $geomap_exec = ExecuteQuery($geomap_qry, "select");
 
             $first = 0;
@@ -772,9 +772,9 @@ function google_map() {
             break;
         case 'google/map/answer':
             $variable = "Votes";
-            $geomap_qry = "select count(*)as count,q.country from possible_answer_vote as a join question as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]' group by q.country";
+            $geomap_qry = "select count(*)as count,q.field_issue_country_value as country from {poll_votes} as a join {content_field_issue_country} as q on q.nid=a.nid where q.field_issue_country_value REGEXP '[^0-9]' group by q.field_issue_country_value";
             $geomap_exec = ExecuteQuery($geomap_qry, "select");
-            $cnt = db_result(db_query("select count(*) from {possible_answer_vote} as a join {question} as q on q.qid=a.qid where q.status='1' and q.country REGEXP '[^0-9]'"));
+            $cnt = db_result(db_query("select count(*) from {poll_votes} as a join {content_field_issue_country} as q on q.nid=a.nid where q.field_issue_country_value REGEXP '[^0-9]'"));
 
             $first = 0;
             foreach ($geomap_exec as $geomapeach) {
