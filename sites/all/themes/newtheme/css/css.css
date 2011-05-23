@@ -1542,6 +1542,9 @@ img{ border:none; outline:none;}
 .popup-resource-new .fm-2-left{ float:left; width:140px;}
 .popup-resource-new .fm-2-right select{ float:left; width:110px;}
 .popup-resource-new .leftfm{ float:left; margin-right:10px;}
+
+.popup-resource-new .img-selector{float:left; margin-right:10px; width:118px; height:73px; overflow:hidden;}
+
 .popup-debate-new .fm-1{ color:#000; font-weight:bold;}
 .popup-issue-flag .cmt_list,.popup-user-flag .cmt_list{ border:0; padding-left:10px;}
 .popup-issue-flag .txt_area,.popup-user-flag .txt_area{ padding:10px;}
