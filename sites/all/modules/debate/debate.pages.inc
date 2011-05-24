@@ -2005,7 +2005,8 @@ function debate_ajax() {
                                 &nbsp;&nbsp;<a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="'.$imgPath.'arrow_right.png"></a><br>
                                     <span id="img_count">'.$imgCount.'</span> of '.$totalImage.'';
                 echo $imgSelector;
-                echo '<div class="rightfm">' . $inc . '</div>
+                echo '<div class="rightfm">' . $inc . '</div><br>
+                    <input type="checkbox" name="no_thumbnail" id="no_thumbnail" />&nbsp; No Thumbnail
                     <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/>
                         ';
                 /*

@@ -261,192 +261,198 @@ function qlite_view() {
         }
         $chk = '';
     }
-    $vsans = "select * from {suggest_answer} where  qid=$qid ";
-    $vslist = db_query($vsans);
-
-    while ($vlsistquest = db_fetch_object($vslist)) {
-        $answprcs = $vlsistquest->vote / 100 * $totalvotes;
-
-        $valuss = $answprcs * 100;
-        //$valuss = 5;
-        if ($valuss > $tot) {
-            $insert_change = "insert into suggest_ans_changeids (qid,ans_id)Values('" . $qid . "','" . $vlsistquest->said . "') ";
-            $listchnge = db_query($insert_change);
-
-            $select_allv = "select * from suggest_answer_vote where answer_id=$vlsistquest->said  ";
-            $listam = db_query($select_allv);
-
-            while ($listamqry = db_fetch_object($listam)) {
-
-                $insert_white = "insert into suggest_ans_tmp (qid,uid,answer_id,vote,vote_date)Values('" . $qid . "','" . $listamqry->uid . "','" . $vlsistquest->said . "','" . $vlsistquest->vote . "','" . $listamqry->vote_date . "') ";
-                $qrylist = db_query($insert_white);
-            }
-            //echo $valuss;
-            //echo $vlsistquest->said;
-        }
-    }
-  
-    $mysql_sug_rows = mysql_num_rows(db_query("select distinct(answer_id) from suggest_ans_tmp  "));
+    /*******old suggest answer replacement MAY 24 2011*******/
 
 
-    //echo $mysql_sug_rows;
-    //$vpans = "select * from {possible_answer} where  qid='" . $qid . "' order by vote desc limit 0,$mysql_sug_rows ";
-    $vpans = "select * from {poll_choices} where  nid='" . $qid . "' order by chvotes desc limit 0,$mysql_sug_rows ";
+//    $vsans = "select * from {suggest_answer} where  qid=$qid ";
+//    $vslist = db_query($vsans);
+//
+//    while ($vlsistquest = db_fetch_object($vslist)) {
+//        $answprcs = $vlsistquest->vote / 100 * $totalvotes;
+//
+//        $valuss = $answprcs * 100;
+//        //$valuss = 5;
+//        if ($valuss > $tot) {
+//            $insert_change = "insert into suggest_ans_changeids (qid,ans_id)Values('" . $qid . "','" . $vlsistquest->said . "') ";
+//            $listchnge = db_query($insert_change);
+//
+//            $select_allv = "select * from suggest_answer_vote where answer_id=$vlsistquest->said  ";
+//            $listam = db_query($select_allv);
+//
+//            while ($listamqry = db_fetch_object($listam)) {
+//
+//                $insert_white = "insert into suggest_ans_tmp (qid,uid,answer_id,vote,vote_date)Values('" . $qid . "','" . $listamqry->uid . "','" . $vlsistquest->said . "','" . $vlsistquest->vote . "','" . $listamqry->vote_date . "') ";
+//                $qrylist = db_query($insert_white);
+//            }
+//            //echo $valuss;
+//            //echo $vlsistquest->said;
+//        }
+//    }
+//
+//    $mysql_sug_rows = mysql_num_rows(db_query("select distinct(answer_id) from suggest_ans_tmp  "));
+//
+//
+//    //echo $mysql_sug_rows;
+//    //$vpans = "select * from {possible_answer} where  qid='" . $qid . "' order by vote desc limit 0,$mysql_sug_rows ";
+//    $vpans = "select * from {poll_choices} where  nid='" . $qid . "' order by chvotes desc limit 0,$mysql_sug_rows ";
+//
+//    $vplist = db_query($vpans);
+//
+//    while ($vplistquest = db_fetch_object($vplist)) {
+//        $insert_list_ids = "insert into possible_answer_changeids (qid,ans_id)Values('" . $qid . "','" . $vplistquest->chorder . "') ";
+//        $qrylist_change = db_query($insert_list_ids);
+//
+//        $select_allvp = "select * from poll_votes where chorder= '$vplistquest->chorder' AND nid = '$qid'  ";
+//        $listamp = db_query($select_allvp);
+//
+//        while ($listamqryamp = db_fetch_object($listamp)) {
+//
+//            $insert_whited = "insert into possible_answer_tmp (qid,uid,panswer_id,vote,vote_pdate)Values('" . $qid . "','" . $listamqryamp->uid . "','" . $vplistquest->paid . "','" . $vplistquest->vote . "','" . $listamqryamp->vote_pdate . "') ";
+//            $qrylist = db_query($insert_whited);
+//        }
+//    }
+//
+//    $qry1 = db_query("select * from suggest_ans_changeids where qid ='" . $qid . "'");
+//    $array1 = array();
+//    while ($row1 = db_fetch_object($qry1)) {
+//        $array1[] = $row1->ans_id;
+//    }
+//
+//    $qry2 = db_query("select * from possible_answer_changeids where qid ='" . $qid . "' ");
+//    while ($row2 = db_fetch_object($qry2)) {
+//        $array2[] = $row2->ans_id;
+//    }
+//
+//    for ($x = 0; $x < sizeof($array1); $x++) {
+//        $array[] = $array1[$x] . " - " . $array2[$x];
+//
+//        $array1[$x] . " - " . $array2[$x];
+//
+//        $update_idss = db_query("update possible_answer_tmp set  panswer_id='$array1[$x]'  where panswer_id='$array2[$x]' ");
+//
+//
+//        $updateval = db_query("update suggest_ans_tmp set  answer_id='$array2[$x]' where answer_id='$array1[$x]'");
+//
+//        $deletsug = db_query("delete from suggest_answer_vote where answer_id='$array1[$x]'");
+//
+//        $deletpos = db_query("delete from poll_votes where chorder='$array2[$x]' AND nid = '$qid'");
+//
+//        $rechange_list = db_query("select * from {poll_choices} where  chorder='" . $array2[$x] . "' AND nid = '$qid' ");
+//
+//        $rechg = db_fetch_object($rechange_list);
+//        $rechg->chvotes;
+//
+//        $rechange_list_new = db_query("select * from {suggest_answer} where  said='" . $array1[$x] . "'  ");
+//
+//        $rechg_new = db_fetch_object($rechange_list_new);
+//        $rechg_new->vote;
+//        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='3'";
+//        $rs_mgmt = db_query($sel_user_cmt);
+//        $list_content = db_fetch_object($rs_mgmt);
+//
+//        $vuser_ownersug = "select * from {users} where  uid='" . $rechg_new->uid . "'";
+//        $userown = db_query($vuser_ownersug);
+//        $ufet_qwn = db_fetch_object($userown);
+//        $ufet_qwn->mail;
+//        if ($usert->notify_etype == 1) {
+//            $subject_proj = $list_content->subject;
+//
+//
+//            //////////mail for suggest answer owner///////////////
+//
+//
+//            $contentm = str_replace("#uname#", $ufet_qwn->name, $list_content->content);
+//            $contentm = str_replace("#quest#", $oListquest->title, $contentm);
+//            //echo  $contentm;
+//
+//            $mail_success = htmlmail_function($ufet_qwn->mail, $subject_proj, $contentm, '');
+//        }
+//        if ($usert->notify_itype == 1) {
+//            $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $rechg_new->uid . "','1','1','" . $qid . "') ");
+//        }
+//        $update_ids = "update poll_choices set  chtext='$rechg_new->answer', chvotes='$rechg_new->vote'  where chorder='$array2[$x]' AND nid = '$qid' ";
+//        $updateqry = db_query($update_ids);
+//
+//        $update_sug = "update suggest_answer set  answer='$rechg->chtext', vote='$rechg->chvotes',uid='$oListquest->uid' where said='$array1[$x]' ";
+//        $updateqrys = db_query($update_sug);
+//
+//
+//        /////////////Mail For question Author///////////
+//
+//
+//        $vuser = "select * from {users} where  uid='" . $oListquest->uid . "'";
+//        $username = db_query($vuser);
+//        $ufet = db_fetch_object($username);
+//        $ufet->mail;
+//        if ($ufet->notify_etype == 1) {
+//            $subject_projm = 'Heard Menatlity-Answer Has Been Replaced For Your Question';
+//
+//
+//            $contentmown = str_replace("#uname#", $ufet->name, $list_content->content);
+//            $contentmown .= str_replace("#quest#", $oListquest->title, $contentmown);
+//            //	echo  $contentmown;
+//
+//            $mail_success = htmlmail_function($ufet->mail, $subject_projm, $contentmown, $from, '');
+//
+//
+//            // $mail_success = htmlmail_function($ufet->mail,$subject_proj,$messpro_list,$from,'');
+//        }
+//        $delossld = "delete  from possible_answer_changeids where ans_id='" . $array2[$x] . "'";
+//        $delssqry = db_query($delossld);
+//        $deloldwds = "delete  from suggest_ans_changeids where ans_id='" . $array1[$x] . "'";
+//        $delqrysss = db_query($deloldwds);
+//        if ($ufet->notify_itype == 1) {
+//            $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $ufet->uid . "','1','1','" . $qid . "') ");
+//        }
+//    }
+//
+//    $seltmp = db_query("select * from suggest_ans_tmp");
+//
+//    while ($tmp_rec = db_fetch_object($seltmp)) {
+//
+//        $insert_dumm = "insert into poll_votes (nid,uid,chorder) values ('" . $tmp_rec->qid . "','" . $tmp_rec->uid . "','" . $tmp_rec->answer_id . "','" . $tmp_rec->vote_date . "')";
+//        $dumy_rec = db_query($insert_dumm);
+//        //provocateur badge
+//        provocateur($tmp_rec->qid, $tmp_rec->answer_id);
+//        ///////////////////////mail notification for who voted answers ///////////////////////////////
+//        $vusers = "select * from {users} where  uid='" . $tmp_rec->uid . "' ";
+//        $usernames = db_query($vusers);
+//        $ufets = db_fetch_object($usernames);
+//        $ufets->mail;
+//        if ($ufets->notify_etype == 1) {
+//            $subject_projlist = 'Heard Menatlity-Answer Has Been Replaced ';
+//
+//
+//            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='3'";
+//            $rs_mgmt = db_query($sel_user_cmt);
+//            $list_content = db_fetch_object($rs_mgmt);
+//            $contentmlist = str_replace("#uname#", $ufets->name, $list_content->content);
+//            $contentmlist = str_replace("#quest#", $oListquest->title, $contentmlist);
+//            // $contentm;
+//
+//            $mail_success = htmlmail_function($ufets->mail, $subject_projlist, $contentmlist, '');
+//        }
+//
+//        if ($ufets->notify_itype == 1) {
+//
+//
+//            $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $tmp_rec->uid . "','1','1','" . $qid . "' ");
+//        }
+//        $deltmp = db_query("delete  from suggest_ans_tmp");
+//    }
+//
+//    $seltmps = db_query("select * from possible_answer_tmp");
+//
+//    while ($tmp_recs = db_fetch_object($seltmps)) {
+//
+//        $insert_dumms = "insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('" . $tmp_recs->qid . "','" . $tmp_recs->uid . "','" . $tmp_recs->panswer_id . "','" . $tmp_recs->vote_pdate . "')";
+//        $dumy_recs = db_query($insert_dumms);
+//
+//        $deltmps = db_query("delete  from possible_answer_tmp");
+//    }
 
-    $vplist = db_query($vpans);
 
-    while ($vplistquest = db_fetch_object($vplist)) {
-        $insert_list_ids = "insert into possible_answer_changeids (qid,ans_id)Values('" . $qid . "','" . $vplistquest->chorder . "') ";
-        $qrylist_change = db_query($insert_list_ids);
-
-        $select_allvp = "select * from poll_votes where chorder= '$vplistquest->chorder' AND nid = '$qid'  ";
-        $listamp = db_query($select_allvp);
-
-        while ($listamqryamp = db_fetch_object($listamp)) {
-
-            $insert_whited = "insert into possible_answer_tmp (qid,uid,panswer_id,vote,vote_pdate)Values('" . $qid . "','" . $listamqryamp->uid . "','" . $vplistquest->paid . "','" . $vplistquest->vote . "','" . $listamqryamp->vote_pdate . "') ";
-            $qrylist = db_query($insert_whited);
-        }
-    }
-  
-    $qry1 = db_query("select * from suggest_ans_changeids where qid ='" . $qid . "'");
-    $array1 = array();
-    while ($row1 = db_fetch_object($qry1)) {
-        $array1[] = $row1->ans_id;
-    }
-
-    $qry2 = db_query("select * from possible_answer_changeids where qid ='" . $qid . "' ");
-    while ($row2 = db_fetch_object($qry2)) {
-        $array2[] = $row2->ans_id;
-    }
-
-    for ($x = 0; $x < sizeof($array1); $x++) {
-        $array[] = $array1[$x] . " - " . $array2[$x];
-
-        $array1[$x] . " - " . $array2[$x];
-
-        $update_idss = db_query("update possible_answer_tmp set  panswer_id='$array1[$x]'  where panswer_id='$array2[$x]' ");
-
-
-        $updateval = db_query("update suggest_ans_tmp set  answer_id='$array2[$x]' where answer_id='$array1[$x]'");
-
-        $deletsug = db_query("delete from suggest_answer_vote where answer_id='$array1[$x]'");
-
-        $deletpos = db_query("delete from poll_votes where chorder='$array2[$x]' AND nid = '$qid'");
-
-        $rechange_list = db_query("select * from {poll_choices} where  chorder='" . $array2[$x] . "' AND nid = '$qid' ");
-
-        $rechg = db_fetch_object($rechange_list);
-        $rechg->chvotes;
-
-        $rechange_list_new = db_query("select * from {suggest_answer} where  said='" . $array1[$x] . "'  ");
-
-        $rechg_new = db_fetch_object($rechange_list_new);
-        $rechg_new->vote;
-        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='3'";
-        $rs_mgmt = db_query($sel_user_cmt);
-        $list_content = db_fetch_object($rs_mgmt);
-
-        $vuser_ownersug = "select * from {users} where  uid='" . $rechg_new->uid . "'";
-        $userown = db_query($vuser_ownersug);
-        $ufet_qwn = db_fetch_object($userown);
-        $ufet_qwn->mail;
-        if ($usert->notify_etype == 1) {
-            $subject_proj = $list_content->subject;
-
-
-            //////////mail for suggest answer owner///////////////
-
-
-            $contentm = str_replace("#uname#", $ufet_qwn->name, $list_content->content);
-            $contentm = str_replace("#quest#", $oListquest->title, $contentm);
-            //echo  $contentm;
-
-            $mail_success = htmlmail_function($ufet_qwn->mail, $subject_proj, $contentm, '');
-        }
-        if ($usert->notify_itype == 1) {
-            $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $rechg_new->uid . "','1','1','" . $qid . "') ");
-        }
-        $update_ids = "update poll_choices set  chtext='$rechg_new->answer', chvotes='$rechg_new->vote'  where chorder='$array2[$x]' AND nid = '$qid' ";
-        $updateqry = db_query($update_ids);
-
-        $update_sug = "update suggest_answer set  answer='$rechg->chtext', vote='$rechg->chvotes',uid='$oListquest->uid' where said='$array1[$x]' ";
-        $updateqrys = db_query($update_sug);
-
-
-        /////////////Mail For question Author///////////
-
-
-        $vuser = "select * from {users} where  uid='" . $oListquest->uid . "'";
-        $username = db_query($vuser);
-        $ufet = db_fetch_object($username);
-        $ufet->mail;
-        if ($ufet->notify_etype == 1) {
-            $subject_projm = 'Heard Menatlity-Answer Has Been Replaced For Your Question';
-
-
-            $contentmown = str_replace("#uname#", $ufet->name, $list_content->content);
-            $contentmown .= str_replace("#quest#", $oListquest->title, $contentmown);
-            //	echo  $contentmown;
-
-            $mail_success = htmlmail_function($ufet->mail, $subject_projm, $contentmown, $from, '');
-
-
-            // $mail_success = htmlmail_function($ufet->mail,$subject_proj,$messpro_list,$from,'');
-        }
-        $delossld = "delete  from possible_answer_changeids where ans_id='" . $array2[$x] . "'";
-        $delssqry = db_query($delossld);
-        $deloldwds = "delete  from suggest_ans_changeids where ans_id='" . $array1[$x] . "'";
-        $delqrysss = db_query($deloldwds);
-        if ($ufet->notify_itype == 1) {
-            $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $ufet->uid . "','1','1','" . $qid . "') ");
-        }
-    }
-
-    $seltmp = db_query("select * from suggest_ans_tmp");
-
-    while ($tmp_rec = db_fetch_object($seltmp)) {
-
-        $insert_dumm = "insert into poll_votes (nid,uid,chorder) values ('" . $tmp_rec->qid . "','" . $tmp_rec->uid . "','" . $tmp_rec->answer_id . "','" . $tmp_rec->vote_date . "')";
-        $dumy_rec = db_query($insert_dumm);
-        //provocateur badge
-        provocateur($tmp_rec->qid, $tmp_rec->answer_id);
-        ///////////////////////mail notification for who voted answers ///////////////////////////////
-        $vusers = "select * from {users} where  uid='" . $tmp_rec->uid . "' ";
-        $usernames = db_query($vusers);
-        $ufets = db_fetch_object($usernames);
-        $ufets->mail;
-        if ($ufets->notify_etype == 1) {
-            $subject_projlist = 'Heard Menatlity-Answer Has Been Replaced ';
-
-
-            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='3'";
-            $rs_mgmt = db_query($sel_user_cmt);
-            $list_content = db_fetch_object($rs_mgmt);
-            $contentmlist = str_replace("#uname#", $ufets->name, $list_content->content);
-            $contentmlist = str_replace("#quest#", $oListquest->title, $contentmlist);
-            // $contentm;
-
-            $mail_success = htmlmail_function($ufets->mail, $subject_projlist, $contentmlist, '');
-        }
-
-        if ($ufets->notify_itype == 1) {
-
-
-            $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $tmp_rec->uid . "','1','1','" . $qid . "' ");
-        }
-        $deltmp = db_query("delete  from suggest_ans_tmp");
-    }
-
-    $seltmps = db_query("select * from possible_answer_tmp");
-
-    while ($tmp_recs = db_fetch_object($seltmps)) {
-
-        $insert_dumms = "insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('" . $tmp_recs->qid . "','" . $tmp_recs->uid . "','" . $tmp_recs->panswer_id . "','" . $tmp_recs->vote_pdate . "')";
-        $dumy_recs = db_query($insert_dumms);
-
-        $deltmps = db_query("delete  from possible_answer_tmp");
-    }
+    /*******old suggest answer replacement MAY 24 2011*******/
 
     if ($user->uid > 0) {
         $voutput .= '

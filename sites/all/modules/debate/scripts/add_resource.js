@@ -257,7 +257,12 @@ jQuery(document).ready(function() {
             jQuery(imgid+next).show();
             jQuery('#cur_id_val').val(next);
             jQuery('#img_count').html(imgcount);
-            jQuery('#final_uimage').val(src);
+            if(jQuery('#no_thumbnail').attr('checked')){
+             jQuery('#final_uimage').val('');
+            }
+            else{
+             jQuery('#final_uimage').val(src);
+            }
             
             if(curr >= end){
                 jQuery('#re-sel-next').bind('click', disableLink);
@@ -281,7 +286,12 @@ jQuery(document).ready(function() {
             jQuery(imgid+pre).show();
             jQuery('#cur_id_val').val(pre);
             jQuery('#img_count').html(imgcount);
-            jQuery('#final_uimage').val(src);
+            if(jQuery('#no_thumbnail').attr('checked')){
+             jQuery('#final_uimage').val('');
+            }
+            else{
+             jQuery('#final_uimage').val(src);
+            }
 
              if(curr<end){
                jQuery('#re-sel-next').unbind();
@@ -293,7 +303,16 @@ jQuery(document).ready(function() {
             }
     });
 
-
+jQuery('#no_thumbnail').live('click', function() {
+    var curr = jQuery("#cur_id_val").val();
+    var imgid = '#cur_img_';
+    var src = jQuery(imgid+curr).attr("src");
+    if(jQuery('#no_thumbnail').attr('checked')){
+    jQuery('#final_uimage').val('');
+    }else{
+    jQuery('#final_uimage').val(src);
+    }
+});
 
 })
 
