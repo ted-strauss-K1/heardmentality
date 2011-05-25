@@ -24,8 +24,9 @@ if(jQuery('#cur_id_val').val() == jQuery('#end_image').val()){
     jQuery('#re-sel-next').hide();
     jQuery('#re-sel-prev').hide();
 }
-jQuery('#re-sel-pre').bind('click', disableLink);
-jQuery('#re-sel-pre').fadeTo('fast', 0.2);
+//jQuery('#re-sel-pre').bind('click', disableLink);
+//jQuery('#re-sel-pre').fadeTo('fast', 0.2);
+jQuery('#re-sel-pre').hide();
 });
 
 }
@@ -265,12 +266,14 @@ jQuery(document).ready(function() {
             }
             
             if(curr >= end){
-                jQuery('#re-sel-next').bind('click', disableLink);
-                jQuery('#re-sel-next').fadeTo('fast', 0.2);
+                //jQuery('#re-sel-next').bind('click', disableLink);
+                //jQuery('#re-sel-next').fadeTo('fast', 0.2);
+                jQuery('#re-sel-next').hide();
             }
             if(curr >= 0){
-                jQuery('#re-sel-pre').unbind();
-                jQuery('#re-sel-pre').fadeTo('fast', 1);
+                //jQuery('#re-sel-pre').unbind();
+                //jQuery('#re-sel-pre').fadeTo('fast', 1);
+                jQuery('#re-sel-pre').show();
             }
     });
     jQuery('#re-sel-pre').live('click',function() {
@@ -294,12 +297,15 @@ jQuery(document).ready(function() {
             }
 
              if(curr<end){
-               jQuery('#re-sel-next').unbind();
-               jQuery('#re-sel-next').fadeTo('fast', 1);
+               //jQuery('#re-sel-next').unbind();
+               //jQuery('#re-sel-next').fadeTo('fast', 1);
+               jQuery('#re-sel-next').show();
             }
+            
             if(pre == 0){
-                jQuery('#re-sel-pre').bind('click', disableLink);
-                jQuery('#re-sel-pre').fadeTo('fast', 0.2);
+                //jQuery('#re-sel-pre').bind('click', disableLink);
+                //jQuery('#re-sel-pre').fadeTo('fast', 0.2);
+                jQuery('#re-sel-pre').hide();
             }
     });
 
