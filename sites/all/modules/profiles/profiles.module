@@ -978,13 +978,16 @@ $path_to_theme = $gSitePath.drupal_get_path('theme', $theme_default);
             //answers posted
                 $userSettings = (array)load_user($uid);
                 $is_follow_follower = checkFollowStatus($user->uid, $uid);
-            $get_ans = db_query("select q.*,a.vote_pdate as vdate from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='" . $uid . "'");
+            
              if (($userSettings['question_privacy'] == 1) || ($userSettings['question_privacy'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['question_privacy'] == 3 && $is_follow_follower == TRUE) && ($userSettings['question_privacy'] != 4)) {
-
+            //$get_ans = db_query("select q.*,a.vote_pdate as vdate from {possible_answer_vote} as a join {question} as q on a.qid=q.qid where  q.status='1' and a.uid='" . $uid . "'");
+            $get_ans = db_query("select n.*, p.date_voted from {poll_votes} as p join {node} as n on p.nid=n.nid where  n.status='1' AND n.type='poll' and p.uid='" . $uid . "'");
             while ($setans = db_fetch_object($get_ans)) {
 
-                $inc_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->vdate</span>  <span class='tab-historyspan2'>answered</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->question, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->qid) . "'>" . htmlentities(substr($setans->question, 0, 40)) . "</a></div>
-";
+                //$inc_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->vdate</span>  <span class='tab-historyspan2'>answered</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->question, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->qid) . "'>" . htmlentities(substr($setans->question, 0, 40)) . "</a></div>";
+                
+                $alias = drupal_get_path_alias('node/'.$setans->nid);
+                $inc_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->date_voted</span>  <span class='tab-historyspan2'>answered</span>  <a href='" . $gSitePath . $alias . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->title, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->nid) . "'>" . htmlentities(substr($setans->title, 0, 40)) . "</a></div>";
             }
              
 
@@ -995,13 +998,15 @@ $path_to_theme = $gSitePath.drupal_get_path('theme', $theme_default);
            
             //answers ends
             //question sposted
-            $get_ans = db_query("select q.* from {question} as q where q.uid='" . $uid . "' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
-
+            //$get_ans = db_query("select q.* from {question} as q where q.uid='" . $uid . "' AND q.status='1' ORDER BY q.qid DESC  LIMIT 0,5");
+            $get_ans = db_query("select n.* from {node} as n where n.uid='" . $uid . "' AND n.status='1' AND n.type='poll' ORDER BY n.nid DESC  LIMIT 0,5");
             while ($setans = db_fetch_object($get_ans)) {
 
                 // $qns_list .= "<li><a href='" . $gSitePath . $setans->url . "'>$setans->question?</a></li>";
-                $qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->date_added</span>  <span class='tab-historyspan2'>Issue Created</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->question, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->qid) . "'>" . htmlentities(substr($setans->question, 0, 40)) . "</a></div>
-";
+                //$qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$setans->date_added</span>  <span class='tab-historyspan2'>Issue Created</span>  <a href='" . $gSitePath . $setans->url . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->question, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->qid) . "'>" . htmlentities(substr($setans->question, 0, 40)) . "</a></div>";
+                $date_added = date("Y-m-d h:j:s", $setans->created);
+                $alias = drupal_get_path_alias('node/'.$setans->nid);
+                $qns_list .= "<div class='tab-history'><span class='tab-historyspan1'>$date_added</span>  <span class='tab-historyspan2'>Issue Created</span>  <a href='" . $gSitePath . $alias . "' class='tab-historyspan3' title='" . htmlentities(wordwrap($setans->title, 40, '<br/>')) . "' style='" . drupal_link_color($user->uid, $setans->nid) . "'>" . htmlentities(substr($setans->title, 0, 40)) . "</a></div>";
             }
             }
             $inc_qns .= $qns_list;

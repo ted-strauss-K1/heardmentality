@@ -1330,57 +1330,20 @@ function save_resources() {
 
 function flag_question() {
     global $gSitePath, $user, $gDocPath, $base_root;
+$type=arg(2); $id=arg(3);
 
-    $falgq = '';
-   // drupal_add_js( drupal_get_path('module', 'debate') . '/scripts/debate.js');
+switch($type){
+    case 'comment':
+     return abuse_report('comment',$id);
+        break;
+    case 'user':
+     return abuse_report('user',$id);
+        break;
+    default:
+        return abuse_report('node',$type);
+        break;
+}
 
-    if (isset($_REQUEST['uid'])) {
-        drupal_set_title("Flag Contributor");
-        $uid = $_REQUEST['uid'];
-        $vSql = "select * from {user_profile} where  uid='$uid' ";
-        $rlist = db_query($vSql);
-        $oListquest = db_fetch_object($rlist);
-        $img_path1 = $gSitePath . drupal_get_path('module', 'profile') . '/snap/' . $oListquest->image;
-        $PROFILE_IMAGE = '<img src="' . $img_path1 . '" align="absmiddle" alt="Profile image" >';
-     drupal_set_title('Flag Contributor');
-        $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">
-	<input type="hidden" name="uid" value="' . $uid . '"/>
-	<div class="cmt_list"><div class="lft_view">  <p><span>' . $PROFILE_IMAGE . '</span><span>  </span><span>' . $oListquest->real_name . '</span> </p>
-	 <p class="cmt_date">  ' . $oListquest->context . ' </p></div></div>';
-    } elseif (isset($_REQUEST['rid'])) {
- drupal_set_title("Flag Reference");
-        $rid = $_REQUEST['rid'];
-        $vSql = "select * from {resource} as r  join {user_profile} as u on u.uid=r.uid where  r.rid='$rid' ";
-        $rlist = db_query($vSql);
-        $oListquest = db_fetch_object($rlist);
-        $content = '';
-        $content = (!empty($oListquest->nlink)) ? $oListquest->nlink : (!empty($oListquest->membed)) ? $oListquest->membed : (!empty($oListquest->facts)) ? $oListquest->facts : 'No Resource';
-        $date = '';
-        $date = format_date_class($oListquest->posted_date, date('Y-m-d h:i:s'));
-        drupal_set_title('Flag Resource');
-        $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">
-	<input type="hidden" name="rid" value="' . $rid . '"/>
-	<div class="cmt_list"><div class="lft_view">  <p><span>Posted by ' . $oListquest->real_name . ' on ' . $date . '</span> </p>
-	 <p class="cmt_date">  ' . $content . ' </p></div></div>';
-    } else {
- drupal_set_title("Flag Issue");
-        $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-        //$vSql = "select * from {question} where status='1' and qid=$qid ";
-        $vSql = "select * from {node} n JOIN {node_revisions} r ON n.nid = r.nid where n.status='1' and n.nid=$qid ";
-        $rlist = db_query($vSql);
-        $oListquest = db_fetch_object($rlist);
-         drupal_set_title('Flag Issue');
-        $falgq .= '<form id="flagform"  method="post" action="' . $gSitePath . 'qlite/flagreport" enctype="multipart/form-data">
-	<input type="hidden" name="qaid" value="' . $qid . '"/>
-	<div class="cmt_list"><div class="lft_view">  <p><b>Question :</b>' . $oListquest->title . ' </p>
- <p class="cmt_date"> <b>Context :</b> ' . $oListquest->body . ' </p></div></div>';
-
-    }
-$falgq.=report_theme();
-
-$flagg.='</form></div>';
-return abuse_report('node',$qid);
-   return $falgq;
 }
 
 function panel_content_old() {

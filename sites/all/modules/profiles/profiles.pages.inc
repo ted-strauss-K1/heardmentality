@@ -576,7 +576,135 @@ elt.each(function(el){ el.set(\'value\',chk); });
     echo $strReturn;
 }
 
-function activities($uid = '') {
+// after node conversion
+function activities($uid = ''){
+     drupal_set_title('Recent Activities');
+    global $gSitePath, $user, $gDocPath, $base_root;
+    //$uid = $user->uid;
+  $is_follow_follower = checkFollowStatus($user->uid, $uid);
+  $userSettings = (array)load_user($uid);
+    $strReturn = '<div class="history-tab">';
+    //privacy settings
+      if (($userSettings['question_privacy'] == 1) || ($userSettings['question_privacy'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['question_privacy'] == 3 && $is_follow_follower == TRUE) && ($userSettings['question_privacy'] != 4)) {
+
+          $sql = "SELECT * FROM {notify_activity} WHERE uid = '$uid' ORDER BY naid DESC LIMIT 0,50";
+          $fetch = ExecuteQuery($sql, "select");
+          if(!empty($fetch)){
+             foreach($fetch as $list){
+                 $type = $list['message_id'];
+                 switch($type){
+                   case 'add_question':
+                         //questions
+                    $quest = db_result(db_query("SELECT title FROM {node} WHERE nid='".$list['nid']."'"));
+                    if (!empty($quest)) {
+                        $date = format_date_class(date('Y-m-d h:i:s', $list['timestamp']), date('Y-m-d h:i:s'));
+                        $alias = drupal_get_path_alias('node/'.$list['nid']);
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>Asked</b></span> <span><a href="' . $gSitePath . $alias . '">' . myTruncate($quest, '60', '..', '..') . ' </a></span></div>';
+                    }
+                    break;
+                    case 'add_vote':
+                        //vote
+                        $quest = db_result(db_query("SELECT title FROM {node} WHERE nid='".$list['nid']."'"));
+                        if (!empty($quest)) {
+                            $date = format_date_class(date('Y-m-d h:i:s', $list['timestamp']), date('Y-m-d h:i:s'));
+                            $alias = drupal_get_path_alias('node/'.$list['nid']);
+                            $strReturn .= '<div ><span>' . $date . '</span><span> <b>Answered</b></span> <span><a href="' . $gSitePath . $alias . '">' . myTruncate($quest, '60', '..', '..') . ' </a></span></div>';
+                        }
+                    break;
+                    case 'add_resource':
+                        //resource
+                        $resource = db_result(db_query("SELECT title FROM {node} WHERE nid='".$list['nid']."'"));
+                        $vars = unserialize($list['variables']);
+                        $qid = $vars['qid'];
+                        $quest = db_result(db_query("SELECT title FROM {node} WHERE nid='".$qid."'"));
+                        if (!empty($quest)) {
+                            $date = format_date_class(date('Y-m-d h:i:s', $list['timestamp']), date('Y-m-d h:i:s'));
+                            $alias = drupal_get_path_alias('node/'.$qid);
+                            $strReturn .= '<div ><span>' . $date . '</span><span> <b>Added new resource</b></span> <span></span>'.$resource.'<span> <b>for</b> <a href="' . $gSitePath . $alias . '">' . myTruncate($quest, '60', '..', '..') . ' </a></span></div>';
+                        }
+                    break;
+                    case 'add_debate':
+                        //debate
+                        $resource = db_result(db_query("SELECT title FROM {node} WHERE nid='".$list['nid']."'"));
+                        $vars = unserialize($list['variables']);
+                        $qid = $vars['qid'];
+                        $quest = db_result(db_query("SELECT title FROM {node} WHERE nid='".$qid."'"));
+                        if (!empty($quest)) {
+                            $date = format_date_class(date('Y-m-d h:i:s', $list['timestamp']), date('Y-m-d h:i:s'));
+                            $alias = drupal_get_path_alias('node/'.$qid);
+                            $strReturn .= '<div ><span>' . $date . '</span><span> <b>Posted new debate</b></span> <span></span>'.$resource.'<span> <b>for</b> <a href="' . $gSitePath . $alias . '">' . myTruncate($quest, '60', '..', '..') . ' </a></span></div>';
+                        }
+                    break;
+                    case 'deb_agree':
+                        //agree
+                         $vars = unserialize($list['variables']);
+                         $pid = $vars['did'];
+                         $debate = db_result(db_query("SELECT title FROM {node} WHERE nid='".$pid."'"));
+                         
+                         $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '$pid'"));
+                         $quest = db_result(db_query("SELECT title FROM {node} WHERE nid='".$qid."' AND type='poll'"));
+                          if (!empty($quest)) {
+                         $date = format_date_class(date('Y-m-d h:i:s', $list['timestamp']), date('Y-m-d h:i:s'));
+                         $alias = drupal_get_path_alias('node/'.$qid);
+                         $strReturn .= '<div ><span>' . $date . '</span><span> <b>I like This Wave</b></span> <span>' . $debate . '<span> <b>for</b>  <a href="' . $gSitePath . $alias . '">' . myTruncate($quest, '60', '..', '..') . ' </a></span></div>';
+                          }
+                    break;
+                    case 'res_agree':
+                        //agree
+                         $vars = unserialize($list['variables']);
+                         $pid = $vars['rid'];
+                         $resource = db_result(db_query("SELECT title FROM {node} WHERE nid='".$pid."'"));
+                         $qid = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '$pid'"));
+                         $quest = db_result(db_query("SELECT title FROM {node} WHERE nid='".$qid."' AND type='poll'"));
+                         if (!empty($quest)) {
+                         $date = format_date_class(date('Y-m-d h:i:s', $list['timestamp']), date('Y-m-d h:i:s'));
+                         $alias = drupal_get_path_alias('node/'.$qid);
+                         $strReturn .= '<div ><span>' . $date . '</span><span> <b>I like This Wave</b></span> <span>' . $resource . '<span> <b>for</b>  <a href="' . $gSitePath . $alias . '">' . myTruncate($quest, '60', '..', '..') . ' </a></span></div>';
+                         }
+                    break;
+                    case 'user_follow':
+                        //follower
+                        $vars = unserialize($list['variables']);
+                        $fuid = $vars['target_id'];
+                        $foll = load_user($fuid);
+                        $date = format_date_class(date('Y-m-d h:i:s', $list['timestamp']), date('Y-m-d h:i:s'));
+                        $strReturn .= '<div ><span>' . $date . '</span><span> <b>New Follower</b></span> <span><a href="' . $gSitePath . 'profile/' .$fuid . '">' . $foll->name . '</a></span></div>';
+                    break;
+                    case 'suggest_answer':
+                        //suggest answer
+                        $quest = db_result(db_query("SELECT title FROM {node} WHERE nid='".$list['nid']."'"));
+                        if (!empty($quest)) {
+                            $date = format_date_class(date('Y-m-d h:i:s', $list['timestamp']), date('Y-m-d h:i:s'));
+                            $alias = drupal_get_path_alias('node/'.$list['nid']);
+                            $strReturn .= '<div ><span>' . $date . '</span><span> <b>Suggested Answer</b></span> for <span><a href="' . $gSitePath . $alias . '">' . myTruncate($quest, '60', '..', '..') . ' </a></span></div>';
+                        }
+                    break;
+                    case 'add_badge':
+                        // badges
+                        $vars = unserialize($list['variables']);
+                        $badge = $vars['bid'];
+                        $bad = db_fetch_object(db_query("select * from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.badge='" . $badge . "'"));
+
+                        //echo "<pre>"; print_r($bad);
+
+                        if (!empty($bad)) {
+                            $date = format_date_class(date('Y-m-d h:i:s', $list['timestamp']), date('Y-m-d h:i:s'));
+                            $strReturn .= '<div ><span>' . $date . '</span><span> <b>Awarded Badge </b></span> <span><a title=' . $bad->info . ' href="' . $gSitePath . 'badges/user/' . $bad->bid . '">' . $bad->name . ' </a></span></div>';
+                        }
+                    break;
+                    
+                 }
+             }
+          } else {
+          $strReturn .='<div class="warning">No Activity Found!</div>';
+    }
+
+    }
+      $strReturn.='</div>';
+    echo $strReturn;
+}
+
+function activities_old($uid = '') {
     drupal_set_title('Recent Activities');
     global $gSitePath, $user, $gDocPath, $base_root;
     //$uid = $user->uid;

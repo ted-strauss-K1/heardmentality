@@ -103,7 +103,8 @@ function debate_list($qid = '', $did='') {
 //flag
     if (user_is_logged_in ()) {
         $replybutton = '<a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a>';
-        $flag.='<a name="' . $did . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',this);"></a>';
+        //$flag.='<a name="' . $did . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'debate\',this);"></a>';
+        $flag.='<a name="' . $did . '-0" href="javascript:void(0);"  class="flag-menu" title="Report Post" onclick="loadflagresdeb(\''.$gSitePath.'qlite/flag/'.$did.'\', \'Report\');"></a>';
     } else {
         $replybutton = '<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a>';
         $flag.='<a name="' . $did . '-0" href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
@@ -359,8 +360,10 @@ function get_debate($did = '', $pid = '') {
                 // $flag.='<a name="' . $did . '-' . $forum['cid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
 
                 if (user_is_logged_in ()) {
-                    $replybutton = '<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['rid'] . '"  href="#postreply"></a>';
-                    $flag.='<a name="' . $did . '-' . $forum['rid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
+                    $replybutton = '<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $did . '-' . $forum['cid'] . '"  href="#postreply"></a>';
+                    //$flag.='<a name="' . $did . '-' . $forum['cid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'debate_reply\',this);"></a>';
+                    $flag.='<a name="' . $did . '-' . $forum['cid'] . '" href="#freport" class="flag-menu" onclick="loadflagresdeb(\''.$gSitePath.'qlite/flag/comment/'.$forum['cid'].'\', \'Report\');"></a>';
+                    
                 } else {
                     $replybutton = '<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $did . '-0" href="#postreply"></a>';
                     $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
@@ -534,8 +537,9 @@ function get_res_debate($rid = '', $pid = '') {
                 //$flag.='<a  href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',' . $forum['cid'] . ');"></a>';
 
                 if (user_is_logged_in ()) {
-                    $replybutton = '<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $rid . '-' . $forum['reid'] . '"  href="#postreply"></a>';
-                    $flag.='<a name="' . $rid . '-' . $forum['reid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',this);"></a>';
+                    $replybutton = '<a class="floatbox reply-menu" onclick="addComment(this);" id="' . $rid . '-' . $forum['cid'] . '"  href="#postreply"></a>';
+                    //$flag.='<a name="' . $rid . '-' . $forum['reid'] . '" href="#freport" class="floatbox flag-menu" onclick="report_forum(\'rresource\',this);"></a>';
+                    $flag.='<a name="' . $rid . '-' . $forum['cid'] . '" href="javascript:void(0);" class="flag-menu" onclick="loadflagresdeb(\''.$gSitePath.'qlite/flag/comment/'.$forum['cid'].'\', \'Report\');"></a>';
                 } else {
                     $replybutton = '<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $rid . '-' . $forum['reid'] . '" href="#postreply"></a>';
                     $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
@@ -1786,7 +1790,8 @@ function resdebate_list($qid='', $rid='') {
 
     if (user_is_logged_in ()) {
         $replybutton = '<a class="floatbox reply-menu" onclick="addComment(this);" name="rep" title="Reply Post"  id="' . $rid . '-0" href="#postreply"></a>';
-        $flag.='<a name="' . $rid . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'resource\',this);"></a>';
+        //$flag.='<a name="' . $rid . '-0" href="#freport"  class="floatbox flag-menu" title="Report Post" onclick="report_forum(\'resource\',this);"></a>';
+        $flag.='<a name="' . $rid . '-0" href="javascript:void(0);"  class="flag-menu" title="Report Post" onclick="loadflagresdeb(\''.$gSitePath.'qlite/flag/'.$rid.'\', \'Report\');"></a>';
     } else {
         $replybutton = '<a class=" reply-menu" onclick="check_popup_login();" name="rep" title="Reply Post"  id="' . $rid . '-' . $forum->reid . '" href="#postreply"></a>';
         $flag.='<a  href="#freport"  class=" flag-menu" title="Report Post" onclick="check_popup_login();"></a>';
@@ -1819,7 +1824,7 @@ function resdebate_list($qid='', $rid='') {
         <div class="fm-4">
         	<div class="leftfm">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
             <div class="rightfm">
-<!-- <h5>' . $forum->title . '</h5> -->
+ <a href="' . $forum->title . '" target="_blank"><h5>' . $forum->title . '</h5></a>
 ' . make_clickable($forum->body) . '
             </div>
       </div>
@@ -2527,7 +2532,7 @@ function debate_submit() {
                 $values['nid'] = $nodeid;
                 $values['uid'] = $user->uid;
                 $values['name'] = $user->name;
-                $values['subject'] = 'Debate';
+                $values['subject'] = check_plain($waveletcmt);
                 $values['comment'] = check_plain($waveletcmt);
                 $values['str_wk'] = $str_wk;
                 //drupal_execute('postreplyform', $values, NULL);
@@ -2596,7 +2601,7 @@ function debate_submit() {
             $values['nid'] = $nodeid;
             $values['uid'] = $user->uid;
             $values['name'] = $user->name;
-            $values['subject'] = 'Resource';
+            $values['subject'] = check_plain($waveletcmt);
             $values['comment'] = check_plain($waveletcmt);
             $values['str_wk'] = $str_wk;
             //drupal_execute('postreplyform', $values, NULL);

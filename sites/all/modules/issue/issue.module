@@ -883,6 +883,43 @@ function load_taxonomy($nid=''){
         $cattermid = $catterm->tid;
         break;
     }
+  // get category for node
+  //$terms = get_quest_taxonomy($nid);
+    $terms = get_question_categories($nid);
+  if($terms){
+      $category .= $terms;
+//  foreach($terms as $term){
+//      $tid = $term->tid;
+//      //check parent
+//      $parent = taxonomy_get_parents($tid);
+//      $children = taxonomy_get_children($tid);
+//      //$name = '<a title="'.$term->name.'" rel="tag" href="'.$gSitePath.'taxonomy/term/'.$tid.'">'.$term->name.'</a>';
+//      if(empty($parent)){
+//          //parent
+//          $catPath = 'searchquestion?txt_search=&cid='.$tid;
+//          $category.= '<div class="butb"><div class="butb-left"></div><div class="butb-bg"><a title="'.$term->name.'" rel="tag" href="'.$gSitePath.$catPath.'">'.$term->name.'</a></div><div class="butb-right"></div></div>';
+//      }else if(!empty($parent)&&!empty($children)){
+//          //first level
+//         //echo '<pre>'; print_r($parent);
+//          $cid = $pid->tid;
+//          $catPath = 'searchquestion?txt_search=&cid=' . $cid. '&scid='.$tid;
+//          $category.= '<div class="butb"><div class="buty-left"></div><div class="buty-bg"><a title="'.$term->name.'" rel="tag" href="'.$gSitePath.$catPath.'">'.$term->name.'</a></div><div class="buty-right"></div></div>';
+//      }else if(!empty($parent)&&empty($children)){
+//          //second level
+//          $fLevel = taxonomy_get_parents($parent->tid);
+//          $cid = $fLevel->tid;
+//          $sid = $parent->tid;
+//          $catPath = 'searchquestion?txt_search=&cid=' . $cid. '&scid='.$sid.'&sscid='.$tid;
+//          $category.= '<div class="butb"><div class="butg-left"></div><div class="butg-bg"><a title="'.$term->name.'" rel="tag" href="'.$gSitePath.$catPath.'">'.$term->name.'</a></div><div class="butg-right"></div></div>';
+//
+//          $category.= '<br class="clr"/><br class="clr"/>';
+//      }
+//
+//  }
+
+  }else{
+      $category.= 'No associated categories.';
+  }
   //  print render_view_page(2, $cattermid);
     ///new tech
   
@@ -890,16 +927,17 @@ function load_taxonomy($nid=''){
 //$vars['node_content'] = $node_content;
 //print_r($node_content);
 //print drupal_render($node_content->field_tags);
-     $node=node_load($nid);
-if (module_exists('taxonomy')) {
+  
+    $node=node_load($nid);
+    if (module_exists('taxonomy')) {
         $terms = taxonomy_link('taxonomy terms', $node);
        $html=theme('links', $terms, array('class' => 'node-terms'));
     } else {
           $html= 'No associated categories.';
     }
 
-
-    return $html;
+    //return $html;
+    return $category;
 }
 
 
@@ -1779,3 +1817,68 @@ function suggest_answer_replacement($qid = ''){
     }
    
 }
+
+function get_quest_taxonomy($nid){
+  $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+  $result = db_query(db_rewrite_sql('SELECT t.tid, t.* FROM {term_data} t INNER JOIN {term_node} r ON r.tid = t.tid WHERE t.vid = %d AND r.nid = %d ORDER BY weight', 't', 'tid'), $vid, $nid);
+  $terms = array();
+  while ($term = db_fetch_object($result)) {
+    $terms[] = $term;
+  }
+  return $terms;
+}
+
+
+function get_question_categories($nid){
+    global $gSitePath;
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+    $csql = db_query("SELECT td.tid FROM {term_data} as td JOIN {term_hierarchy} as th ON td.tid = th.tid WHERE td.vid = '$vid' AND th.parent = 0");
+    while($cat = db_fetch_object($csql)){
+        $catVals[] = $cat->tid;
+    }
+    $cat = implode(",", $catVals);
+    $ncats = db_query("SELECT tid FROM {term_node} WHERE nid = '$nid' AND tid IN($cat)");
+    while($ncat = db_fetch_object($ncats)){
+        $cat = $ncat->tid;
+        
+        $ctitle = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$cat'"));
+        // parent categories
+        $catPath = 'searchquestion?txt_search=&cid='.$cat;
+        $category.= '<div class="butb"><div class="butb-left"></div><div class="butb-bg"><a title="'.$ctitle.'" rel="tag" href="'.$gSitePath.$catPath.'">'.$ctitle.'</a></div><div class="butb-right"></div></div>';
+        $scats = get_node_tree_child($cat, $nid);
+        foreach($scats as $scat){
+           
+            $sctitle = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$scat'"));
+            // first level categories
+            $scatPath = 'searchquestion?txt_search=&cid=' . $cat. '&scid='.$scat;
+            $category.= '<div class="butb"><div class="buty-left"></div><div class="buty-bg"><a title="'.$sctitle.'" rel="tag" href="'.$gSitePath.$scatPath.'">'.$sctitle.'</a></div><div class="buty-right"></div></div>';
+            $sscats = get_node_tree_child($scat, $nid);
+            foreach($sscats as $sscat){
+                
+                $ssctitle = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$sscat'"));
+                // second level categories
+                $sscatPath = 'searchquestion?txt_search=&cid=' . $cat. '&scid='.$scat.'&sscid='.$sscat;
+                $category.= '<div class="butb"><div class="butg-left"></div><div class="butg-bg"><a title="'.$ssctitle.'" rel="tag" href="'.$gSitePath.$sscatPath.'">'.$ssctitle.'</a></div><div class="butg-right"></div></div>';
+            }
+        }
+        $category .= '<br class="clr"/><br class="clr"/>';
+    }
+    return $category;
+}
+
+function get_node_tree_child($tid, $nid){
+    $childrenArray = taxonomy_get_children($tid);
+    foreach($childrenArray as $key=>$value){
+        $children[] = $key;
+    }
+    $scats = implode(",", $children);
+    $nscats = db_query("SELECT tid FROM {term_node} WHERE nid = '$nid' AND tid IN($scats)");
+    while($nscat = db_fetch_object($nscats)){
+        $subcats[] = $nscat->tid;
+    }
+    return $subcats;
+}
+
+
+
+
