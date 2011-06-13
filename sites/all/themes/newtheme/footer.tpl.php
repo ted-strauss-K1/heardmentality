@@ -8,7 +8,8 @@
    </div>
  <div class="menu">
   <ul>
-  <?php   $mbl=4;$min=0; foreach ($secondary_links as $linksm): $min++;?>
+  <?php   $mbl=4;$min=0;
+            foreach ($secondary_links as $linksm): $min++;?>
          <li class="listnone"><a href="<?php print($gSitePath.$linksm['href']);?>" <?php if($linksm['title'] == 'Contact Us'||($linksm['title'] == 'Privacy & Policy')||($linksm['title'] == 'User Agreement')):?> rel="width:850,height:570" class="advanced<?php echo $mbl++; ?>" title="<?php print($linksm['title']);?>"<?php endif;?>><?php print($linksm['title']);?></a></li><?php $min++;?> 
           <?php endforeach; ?>
           </ul>

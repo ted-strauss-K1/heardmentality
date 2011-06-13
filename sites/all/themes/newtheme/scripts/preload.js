@@ -86,6 +86,22 @@ function loadflagquestion(url,title)
 	
 	
 }
+function loadflagresdeb(url,title)
+{
+
+
+    //jQuery.nyroModalSettings({ title:'Flag Posts'});
+
+    //jQuery.nyroModalManual({
+    // url: url,width:550,height:450,title:'Flag Posts'
+    //  });
+
+    var options = 'newBox:true width:50% height:60% caption:' +
+    '`Flag Posts`';
+    parent.fb.start(url, options);
+
+
+}
 function loadeditquestion(url,title)
 {
 	
