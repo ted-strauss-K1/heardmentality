@@ -890,11 +890,19 @@ function moderator_ajax($action='') {
             $final=get_dupe_query(arg(3));
             $result =db_query($final['query']);
             while ($coupon = db_fetch_object($result)) {
-              $rows[] = array(
-                    array('data' => l($coupon->question, $gSitePath . $coupon->url, array('attributes' => array('title' => t($coupon->context), 'class' => 'floatbox')))),
+//              $rows[] = array(
+//                    array('data' => l($coupon->question, $gSitePath . $coupon->url, array('attributes' => array('title' => t($coupon->context), 'class' => 'floatbox')))),
+//                    array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+//                    array('data' => ago($coupon->date_added)),
+//                    array('data' => '<input type="radio" checked="checked" name="dupeq[]" value="' . $coupon->qid . '"/>'),
+//                );
+                /*Node conversion*/
+                $url = drupal_get_path_alias('node/'.$coupon->nid);
+                $rows[] = array(
+                    array('data' => l($coupon->title, $gSitePath . $url, array('attributes' => array('title' => t($coupon->body), 'class' => 'floatbox')))),
                     array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
-                    array('data' => ago($coupon->date_added)),
-                    array('data' => '<input type="radio" checked="checked" name="dupeq[]" value="' . $coupon->qid . '"/>'),
+                    array('data' => $coupon->created),
+                    array('data' => '<input type="radio" checked="checked" name="dupeq[]" value="' . $coupon->nid . '"/>'),
                 );
             }
             $head = array(
@@ -981,24 +989,29 @@ function moderator_ajax($action='') {
 }
 function get_dupe_query($qid=''){
 if(is_numeric($qid)){
-    $query = "select * from {question}  where qid='" . $qid . "'";
+    //$query = "select * from {question}  where qid='" . $qid . "'";
+    $query = "select * from {node}  where nid='" . $qid . "' AND type = 'poll'";
             $ans = ExecuteQuery($query, "select");
 
-            $words = explode(" ", $ans[0]['question']);
+            //$words = explode(" ", $ans[0]['question']);
+            $words = explode(" ", $ans[0]['title']);
 
             $words = array_filter($words, 'word_array_filter');
 
             $words = array_filter($words);
 
-            $query = "SELECT q.question,q.context,u.name,q.date_added,q.url,q.qid FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
-           //$query = "SELECT n.title AS question,nr.body AS context,u.name, n.nid AS qid FROM {node} as n JOIN {node_revisions} as nr ON n.nid = nr.nid, {users} as u WHERE n.uid=u.uid AND n.nid!='$qid' and n.type = 'poll'";
-            $querycnt="SELECT ifnull(count(*),0) FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
-            $querysub.='AND (';
+            //$query = "SELECT q.question,q.context,u.name,q.date_added,q.url,q.qid FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
+           $query = "SELECT n.title ,nr.body ,u.name, n.nid FROM {node} as n JOIN {node_revisions} as nr ON n.nid = nr.nid, {users} as u WHERE n.uid=u.uid AND n.nid!='$qid' and n.type = 'poll'";
+            //$querycnt="SELECT ifnull(count(*),0) FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
+           $querycnt="SELECT ifnull(count(*),0) FROM {node} as n,{users} as u WHERE n.uid=u.uid AND n.nid!='" . $qid . "' ";
+           $querysub.='AND (';
             for ($i = 0; $i < count($words); $i++) {
                 if ($i)
                     $querysub.=" OR ";
 
-                $querysub .= " q.question LIKE CONVERT(_utf8 '%%%s%%' USING latin1 ) COLLATE latin1_swedish_ci ";
+                //$querysub .= " q.question LIKE CONVERT(_utf8 '%%%s%%' USING latin1 ) COLLATE latin1_swedish_ci ";
+                $querysub .= " n.title LIKE CONVERT(_utf8 '%%%s%%' USING utf8 ) COLLATE utf8_general_ci ";
+                
 
                 $flag = true;
             }
@@ -1017,6 +1030,7 @@ if(is_numeric($qid)){
              $count=db_result(db_query($querycnt));
 
             }
+            
     return array('query'=>$final,'count'=>$count);
 
 }
@@ -1040,28 +1054,53 @@ function merge_dupeform($form_state, $qid, $dupeid) {
         '#title' => t('Merge the Dupe Issue'),
         '#tree' => TRUE,
     );
-    $query = "select * from {possible_answer} where qid='$qid'";
+//    $query = "select * from {possible_answer} where qid='$qid'";
+//    $loop = ExecuteQuery($query, 'select');
+//    $dupe = "select * from {possible_answer} where qid='$dupeid'";
+//    $dupelist = db_query($dupe);
+//    $row = array();
+//    $row['new'] = 'Mark as new';
+//    while ($gen = db_fetch_object($dupelist)) {
+//        $row[$gen->paid] = $gen->answer;
+//    }
+//
+//
+//    foreach ($loop as $main) {
+//        $period =
+//                $form['merge'][$main['paid']] = array(
+//            '#type' => 'select',
+//            '#title' => t($main['answer']),
+//            '#default_value' => variable_get('timer', 259200),
+//            '#options' => $row,
+//            '#description' => t('Possible answers'),
+//        );
+//    }
+
+    /*Node conversion*/
+    
+    $query = "select * from {poll_choices} where nid='$qid'";
     $loop = ExecuteQuery($query, 'select');
-    $dupe = "select * from {possible_answer} where qid='$dupeid'";
+    $dupe = "select * from {poll_choices} where nid='$dupeid'";
     $dupelist = db_query($dupe);
     $row = array();
     $row['new'] = 'Mark as new';
     while ($gen = db_fetch_object($dupelist)) {
-        $row[$gen->paid] = $gen->answer;
+        $row[$gen->chorder] = $gen->chtext;
     }
 
 
     foreach ($loop as $main) {
         $period =
-                $form['merge'][$main['paid']] = array(
+                $form['merge'][$main['chorder']] = array(
             '#type' => 'select',
-            '#title' => t($main['answer']),
+            '#title' => t($main['chtext']),
             '#default_value' => variable_get('timer', 259200),
             '#options' => $row,
             '#description' => t('Possible answers'),
         );
     }
-
+    /*Node conversion*/
+    
     $form['qid'] = array('#type' => 'hidden', '#value' => $qid);
     $form['dupeid'] = array('#type' => 'hidden', '#value' => $dupeid);
     //$form['#action'] =$gSitePath.'moderator/ajax/mergesave';
@@ -1075,6 +1114,99 @@ function merge_dupeform_validate(&$form, $form_state, $form_id) {
 }
 
 function merge_dupeform_submit(&$form, $form_state, $form_id) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    //print_r($form);
+    // possible answers merging process
+    //  foreach ($form['#post']['merge'] as $key => $value) {
+    //  echo "Key: $key; Value: $value<br />\n";
+    // $query="update ";
+    //}
+    $qid = $form['#post']['qid'];
+    $dupeid = $form['#post']['dupeid'];
+    if (is_numeric($qid) && is_numeric($dupeid) && !is_null($qid) && !is_null($dupeid)) {
+
+        $mainQuest = node_load($qid);
+        $dupeQuest = node_load($dupeid);
+
+         
+         $mainQuest->field_issue_country = array_unique(array_merge($mainQuest->field_issue_country,$dupeQuest->field_issue_country));
+         $mainQuest->field_issue_state = array_unique(array_merge($mainQuest->field_issue_state,$dupeQuest->field_issue_state));
+         $mainQuest->field_issue_city = array_unique(array_merge($mainQuest->field_issue_city,$dupeQuest->field_issue_city));
+         $mainQuest->taxonomy = array_unique(array_merge($mainQuest->taxonomy,$dupeQuest->taxonomy));
+         $mainQuest->field_active_rate = array_unique(array_merge($mainQuest->field_active_rate,$dupeQuest->field_active_rate));
+         $mainQuest->choice = array_unique(array_merge($mainQuest->choice,$dupeQuest->choice));
+         
+//         $count = count($mainQuest->choice);
+//         for($i=0; $i<$count; $i++){
+//            $mainQuest->choice[$i]['chorder'] = $form['#post']['merge'][$i];
+//            $mainQuest->choice[$i]['chtext'] = $form['#post']['merge'][$i];
+//         }
+//         echo '<pre>';
+//          //$paid = $form['#post']['merge'][$dalist['paid']];
+//         print_r($mainQuest->choice); exit;
+         
+        
+         node_save($mainQuest);
+
+         //merge remaining answers in poll_choices table
+        db_query("update {poll_choices} set nid='$qid' where nid='$dupeid'");
+        db_query("update {poll_votes} set nid='$qid' where nid='$dupeid'");
+        db_query("update {possible_answer_spectrum} set qid='$qid' where qid='$dupeid'");
+        //merge suggest answers
+        db_query("update {suggest_answer} set qid='$qid' where qid='$dupeid'");
+        db_query("update {suggest_answer_vote} set qid='$qid' where qid='$dupeid'");
+
+        // merge url alias
+       // $details = load_question($qid);
+        $url = 'node/' . $dupeid;
+        $dst = 'node/'. $qid;
+        db_query("update {url_alias} set dst='" . $dst . "' where src='" . $url . "'");
+
+        /********Node Conversion********/
+           
+
+        
+
+        
+        
+
+        //debate resource and their neutral, answers options
+        
+        db_query("UPDATE {content_type_forum} SET field_ref_qid_nid = '$qid' WHERE field_ref_qid_nid = '$dupeid'");
+        $vid = db_result("SELECT vid FROM {node_revisions} WHERE nid = '$qid'");
+        db_query("UPDATE {forum} SET nid = '$qid', vid = '$vid' WHERE nid = '$dupeid'");
+        $rtid = get_taxonomy_id('forum', 'Resource');
+        $dtid = get_taxonomy_id('forum', 'Debate');
+        db_query("UPDATE {term_node} SET nid = '$qid', vid = '$vid' WHERE nid = '$dupeid' AND tid IN('$rtid', '$dtid')");
+        db_query("UPDATE {votingapi_vote} SET content_id = '$qid' WHERE content_id = '$dupeid' AND content_type = 'node'");
+        
+
+
+        //Guru points table
+        db_query("update {tbl_user_points} set qid='$qid' where qid='$dupeid'");
+
+        //badges table
+        db_query("update {user_badges} set qid='$qid' where qid='$dupeid'");
+        $dupe = load_question($dupeid);
+        //delete the dupe Question
+        node_delete($dupeid);
+        watchdog('Dupe Issue Merged', 'Dupe Issue [@dupe] merged to [ @issue] By Moderator', array('@dupe' => $dupe['question'], '@issue' => $details['question'], '@username' => $user->name));
+
+        print drupal_json(array('err' => false, 'msg' => 'Successfully Merged the Issues', 'content' => '', 'qid' => $qid));
+        // send mail status as edited for final issue
+        // question_edited_mail($qid);
+    } else {
+
+        watchdog('Dupe Issue Merged Error ', 'Dupe Issue @dupe merged to  @issue By Moderator ', array('@dupe' => $dupe['question'], '@issue' => $details['question'], '@username' => $user->name), WATCHDOG_ERROR);
+
+        print drupal_json(array('err' => true, 'msg' => 'Sorry Merge Process Error Please Redo the Process Again', 'content' => ''));
+    }
+}
+
+
+
+function merge_dupeform_submit_old(&$form, $form_state, $form_id) {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     //print_r($form);
@@ -1205,6 +1337,7 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
         print drupal_json(array('err' => true, 'msg' => 'Sorry Merge Process Error Please Redo the Process Again', 'content' => ''));
     }
 }
+
 
 function ago($timestamp) {
     $difference = time() - strtotime($timestamp);
