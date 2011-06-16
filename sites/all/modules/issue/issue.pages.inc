@@ -888,9 +888,9 @@ function issue_create_form($form_state){
     '#type' => 'fieldset',
     );
     
-    if(!empty($form_state['values']['q_quest'])){
-        $form['related_issues']['rel_iss_check'] = array('#type' => 'checkbox', '#title' => '', '#value' => '');
-    }
+//    if(!empty($form_state['values']['q_quest'])){
+      //  $form['related_issues']['rel_iss_check'] = array('#type' => 'checkbox', '#title' => '', '#value' => '');
+  //  }
 
 //    $form['related_div'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>
 //                                <div class="do-in2bor"><strong>Related Issue(s):</strong></div>
@@ -979,7 +979,7 @@ function issue_related_callback(){
 
     $question = $_POST['q_quest'];
     $form = issue_callback_helper();
- 
+ $array=array();
   $res = get_releated_issues($question);
   if($res){
   $nids = $res['nid'];
@@ -987,14 +987,26 @@ function issue_related_callback(){
   $i=0;
   if(!empty($contents)){
   foreach($contents as $key => $result){
-     $checkboxes = $form['related_issues']['rel_iss_check'];
-     unset($checkboxes['#prefix'], $checkboxes['#suffix']);
-     $checkboxes['#title'] = $result;
-     $checkboxes['#value'] = $nids[$key];
-     $checkboxes['#parents'] = array('rel_iss_check', $key);
-     $output .= drupal_render($checkboxes);
+     //$checkboxes = $form['related_issues']['rel_iss_check'];
+    // $form['related_issues']['rel_iss_check'] = array('#type' => 'checkbox', '#title' => '', '#value' => '');
+    // unset($checkboxes['#prefix'], $checkboxes['#suffix']);
+     //$title[] = $result;
+     $array[$nids[$key]]=$result;
+     //$checkboxes['#parents'] = array('rel_iss_check', $key);
+     
      $i++;
   }
+
+    // $checkboxes = $form['related_issues']['rel_iss_check'];
+    // $checkboxes['#type'] = 'checkboxes';
+    // $checkboxes['#options'] = $array;
+     //$checkboxes['#parents'] = array('rel_iss_check', $key);
+    // $output .= drupal_render($checkboxes);
+
+  $checkboxes['related_issues']['rel_iss_check'] = array('#type' => 'checkboxes',
+       '#options' => $array );
+  $output .= drupal_render($checkboxes);
+  //$output .= drupal_render($form);
   }else{
      $output = 'No Related Issues';
   }
