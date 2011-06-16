@@ -1,4 +1,4 @@
-// $Id: ahah.js,v 1.1.2.1 2009/03/21 19:43:51 mfer Exp $
+// jQueryId: ahah.js,v 1.1.2.1 2009/03/21 19:43:51 mfer Exp jQuery
 
 /**
  * Provides AJAX-like page updating via AHAH (Asynchronous HTML and HTTP).
@@ -17,15 +17,15 @@
  */
 Drupal.behaviors.ahah = function(context) {
   for (var base in Drupal.settings.ahah) {
-    if (!$('#'+ base + '.ahah-processed').size()) {
+    if (!jQuery('#'+ base + '.ahah-processed').size()) {
       var element_settings = Drupal.settings.ahah[base];
 
-      $(element_settings.selector).each(function() {
+      jQuery(element_settings.selector).each(function() {
         element_settings.element = this;
         var ahah = new Drupal.ahah(base, element_settings);
       });
 
-      $('#'+ base).addClass('ahah-processed');
+      jQuery('#'+ base).addClass('ahah-processed');
     }
   }
 };
@@ -63,7 +63,7 @@ Drupal.ahah = function(base, element_settings) {
   }
 
   // Record the form action and target, needed for iFrame file uploads.
-  var form = $(this.element).parents('form');
+  var form = jQuery(this.element).parents('form');
   this.form_action = form.attr('action');
   this.form_target = form.attr('target');
   this.form_encattr = form.attr('encattr');
@@ -95,18 +95,18 @@ Drupal.ahah = function(base, element_settings) {
   };
 
   // Bind the ajaxSubmit function to the element event.
-  $(element_settings.element).bind(element_settings.event, function() {
-    $(element_settings.element).parents('form').ajaxSubmit(options);
+  jQuery(element_settings.element).bind(element_settings.event, function() {
+    jQuery(element_settings.element).parents('form').ajaxSubmit(options);
     return false;
   });
   // If necessary, enable keyboard submission so that AHAH behaviors
   // can be triggered through keyboard input as well as e.g. a mousedown
   // action.
   if (element_settings.keypress) {
-    $(element_settings.element).keypress(function(event) {
+    jQuery(element_settings.element).keypress(function(event) {
       // Detect enter key.
       if (event.keyCode == 13) {
-        $(element_settings.element).trigger(element_settings.event);
+        jQuery(element_settings.element).trigger(element_settings.event);
         return false;
       }
     });
@@ -118,7 +118,7 @@ Drupal.ahah = function(base, element_settings) {
  */
 Drupal.ahah.prototype.beforeSubmit = function (form_values, element, options) {
   // Disable the element that received the change.
-  $(this.element).addClass('progress-disabled').attr('disabled', true);
+  jQuery(this.element).addClass('progress-disabled').attr('disabled', true);
 
   // Insert progressbar or throbber.
   if (this.progress.type == 'bar') {
@@ -129,16 +129,16 @@ Drupal.ahah.prototype.beforeSubmit = function (form_values, element, options) {
     if (this.progress.url) {
       progressBar.startMonitoring(this.progress.url, this.progress.interval || 1500);
     }
-    this.progress.element = $(progressBar.element).addClass('ahah-progress ahah-progress-bar');
+    this.progress.element = jQuery(progressBar.element).addClass('ahah-progress ahah-progress-bar');
     this.progress.object = progressBar;
-    $(this.element).after(this.progress.element);
+    jQuery(this.element).after(this.progress.element);
   }
   else if (this.progress.type == 'throbber') {
-    this.progress.element = $('<div class="ahah-progress ahah-progress-throbber"><div class="throbber">&nbsp;</div></div>');
+    this.progress.element = jQuery('<div class="ahah-progress ahah-progress-throbber"><div class="throbber">&nbsp;</div></div>');
     if (this.progress.message) {
-      $('.throbber', this.progress.element).after('<div class="message">' + this.progress.message + '</div>')
+      jQuery('.throbber', this.progress.element).after('<div class="message">' + this.progress.message + '</div>')
     }
-    $(this.element).after(this.progress.element);
+    jQuery(this.element).after(this.progress.element);
   }
 };
 
@@ -146,11 +146,11 @@ Drupal.ahah.prototype.beforeSubmit = function (form_values, element, options) {
  * Handler for the form redirection completion.
  */
 Drupal.ahah.prototype.success = function (response, status) {
-  var wrapper = $(this.wrapper);
-  var form = $(this.element).parents('form');
-  // Manually insert HTML into the jQuery object, using $() directly crashes
+  var wrapper = jQuery(this.wrapper);
+  var form = jQuery(this.element).parents('form');
+  // Manually insert HTML into the jQuery object, using jQuery() directly crashes
   // Safari with long string lengths. http://dev.jquery.com/ticket/1152
-  var new_content = $('<div></div>').html(response.data);
+  var new_content = jQuery('<div></div>').html(response.data);
 
   // Restore the previous action and target to the form.
   form.attr('action', this.form_action);
@@ -159,12 +159,12 @@ Drupal.ahah.prototype.success = function (response, status) {
 
   // Remove the progress element.
   if (this.progress.element) {
-    $(this.progress.element).remove();
+    jQuery(this.progress.element).remove();
   }
   if (this.progress.object) {
     this.progress.object.stopMonitoring();
   }
-  $(this.element).removeClass('progress-disabled').attr('disabled', false);
+  jQuery(this.element).removeClass('progress-disabled').attr('disabled', false);
 
   // Add the new content to the page.
   Drupal.freezeHeight();
@@ -182,10 +182,10 @@ Drupal.ahah.prototype.success = function (response, status) {
 
   // Determine what effect use and what content will receive the effect, then
   // show the new content.
-  if ($('.ahah-new-content', new_content).size() > 0) {
-    $('.ahah-new-content', new_content).hide();
+  if (jQuery('.ahah-new-content', new_content).size() > 0) {
+    jQuery('.ahah-new-content', new_content).hide();
     new_content.show();
-    $(".ahah-new-content", new_content)[this.showEffect](this.showSpeed);
+    jQuery(".ahah-new-content", new_content)[this.showEffect](this.showSpeed);
   }
   else if (this.showEffect != 'show') {
     new_content[this.showEffect](this.showSpeed);
@@ -206,16 +206,16 @@ Drupal.ahah.prototype.success = function (response, status) {
 Drupal.ahah.prototype.error = function (response, uri) {
   alert(Drupal.ahahError(response, uri));
   // Resore the previous action and target to the form.
-  $(this.element).parent('form').attr( { action: this.form_action, target: this.form_target} );
+  jQuery(this.element).parent('form').attr( { action: this.form_action, target: this.form_target} );
   // Remove the progress element.
   if (this.progress.element) {
-    $(this.progress.element).remove();
+    jQuery(this.progress.element).remove();
   }
   if (this.progress.object) {
     this.progress.object.stopMonitoring();
   }
   // Undo hide.
-  $(this.wrapper).show();
+  jQuery(this.wrapper).show();
   // Re-enable the element.
-  $(this.element).removeClass('progess-disabled').attr('disabled', false);
+  jQuery(this.element).removeClass('progess-disabled').attr('disabled', false);
 };

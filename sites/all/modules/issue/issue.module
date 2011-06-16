@@ -83,11 +83,50 @@ function issue_menu() {
         'access callback'=>true,
      'file'=>'issue.pages.inc'
     );
-
+$menu['issue/create'] = array(
+        'title' => 'Add an Issue',
+        'page callback' => 'issue_create',
+        'access arguments' => array('create issue'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'issue.pages.inc',
+    );
+$menu['issue/autotextfields/callback'] = array(
+        'title' => 'Add an Issue',
+        'page callback' => 'issue_autotextfields_callback',
+        'access arguments' => array('create issue'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'issue.pages.inc',
+    );
+$menu['issue/get_related_issues'] = array(
+        'title' => 'Related Issues',
+        'page callback' => 'issue_related_callback',
+        'access arguments' => array('create issue'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file'=>'issue.pages.inc'
+    );
 
 
     return $menu;
 }
+
+
+function issue_callback_helper() {
+  $form_state = array('storage' => NULL, 'submitted' => FALSE);
+  $form_build_id = $_POST['form_build_id'];
+  $form = form_get_cache($form_build_id, $form_state);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  $form_state['post'] = $form['#post'] = $_POST;
+  // Enable the submit/validate handlers to determine whether AHAH-submittted.
+  $form_state['ahah_submission'] = TRUE;
+  $form['#programmed'] = $form['#redirect'] = FALSE;
+  drupal_process_form($form_id, $form, $form_state);
+  $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
+  return $form;
+}
+
+
+
 
 /**
  * Implementation of hook_init().
@@ -545,7 +584,9 @@ function issue_theme($existing, $type, $theme, $path) {
         ), 'issue_details' => array(
             'template' => 'issue_details_tab',
             'arguments' => array('nid' => NULL, 'votes' => NULL),
-        )
+        ), 'issue_answer' => array(
+            'arguments' => array('form' => NULL),
+        ),
     );
 }
 
@@ -1881,4 +1922,36 @@ function get_node_tree_child($tid, $nid){
 
 
 
+function theme_issue_answer($form) {
+  // Change the button title to reflect the behavior when using JavaScript.
+  drupal_add_js('if (Drupal.jsEnabled) { $(document).ready(function() { $("#edit-poll-more").val("'. t('Add Another Answer') .'"); }); }', 'inline');
 
+  $rows = array();
+  $headers = array(
+    t('Possible Answers<br><small>Enter atleast two possible answers. Click Add Another Answer to enter more.</small>'),
+    
+  );
+
+  foreach (element_children($form) as $key) {
+    // No need to print the field title every time.
+    unset($form[$key]['chtext']['#title'], $form[$key]['chvotes']['#title']);
+
+    // Build the table row.
+    $row = array(
+      'data' => array(
+        array('data' => drupal_render($form[$key]['chtext']), 'class' => 'poll-chtext'),
+        
+      ),
+    );
+
+    // Add additional attributes to the row, such as a class for this row.
+    if (isset($form[$key]['#attributes'])) {
+      $row = array_merge($row, $form[$key]['#attributes']);
+    }
+    $rows[] = $row;
+  }
+
+  $output = theme('table', $headers, $rows);
+  $output .= drupal_render($form);
+  return $output;
+}
