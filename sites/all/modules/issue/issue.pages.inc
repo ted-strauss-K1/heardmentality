@@ -978,44 +978,42 @@ function _issue_answer_form($delta, $value = '', $votes = 0) {
 function issue_related_callback(){
 
     $question = $_POST['q_quest'];
-    $form = issue_callback_helper();
- $array=array();
-  $res = get_releated_issues($question);
+
+  // define a string variable to contain callback output
+  $output = "";
+
+  // loop through the taxonomy tree and fetch child taxonomies
+  $options = array();
+
+ $res = get_releated_issues($question);
   if($res){
   $nids = $res['nid'];
   $contents = $res['content'];
   $i=0;
   if(!empty($contents)){
   foreach($contents as $key => $result){
-     //$checkboxes = $form['related_issues']['rel_iss_check'];
-    // $form['related_issues']['rel_iss_check'] = array('#type' => 'checkbox', '#title' => '', '#value' => '');
-    // unset($checkboxes['#prefix'], $checkboxes['#suffix']);
-     //$title[] = $result;
-     $array[$nids[$key]]=$result;
-     //$checkboxes['#parents'] = array('rel_iss_check', $key);
-     
+       $array[$nids[$key]]=$result;
+    
      $i++;
   }
 
-    // $checkboxes = $form['related_issues']['rel_iss_check'];
-    // $checkboxes['#type'] = 'checkboxes';
-    // $checkboxes['#options'] = $array;
-     //$checkboxes['#parents'] = array('rel_iss_check', $key);
-    // $output .= drupal_render($checkboxes);
-
-  $checkboxes['related_issues']['rel_iss_check'] = array('#type' => 'checkboxes',
+  $form['rel_iss_check'] = array('#type' => 'checkboxes',
        '#options' => $array );
-  $output .= drupal_render($checkboxes);
-  //$output .= drupal_render($form);
+ 
   }else{
      $output = 'No Related Issues';
   }
   }
-  // Final rendering callback.
-  drupal_json(array('status' => TRUE, 'data' => $output));
-  exit();
-}
+  // rebuild form object and output new form elements
+  $output .= ahah_render($form, 'rel_iss_check');
 
+  // render form output as JSON
+  print drupal_to_js(array('data' => $output, 'status' => true));
+
+  // exit to avoid rendering the theme layer
+  exit();
+
+}
 
 function issue_create_form_submit($form, &$form_state) {
     //echo '<pre>'; print_r($form_state); exit;
