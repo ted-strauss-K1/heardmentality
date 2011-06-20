@@ -82,6 +82,12 @@ function moderator_menu() {
         'access arguments' => array('Moderate Question'),
         'page arguments' => array(3,4),
     );
+    $mdtrest['moderator/issue/addanswer'] = array(
+        'title' => 'Moderator Ahah Contraol',
+        'page callback' => 'moderator_add_choice_callback',
+        'access arguments' => array('Moderate Question'),
+        'page arguments' => array(3,4),
+    );
 
     return $mdtrest;
 }
@@ -396,54 +402,111 @@ function moderator_edit_issue_form($form_state, $qid){
     $i = 1;
     $tab = 3;
     $answer_count = 1;
-    foreach ($ans as $array) {
-    // chorder for answer
-    $chorder = $array['chorder'];
-    
-    $form['ans_title_'.$i] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$i.'</span></label>');
-    $form['meta_open_'.$i] = array('#type' => 'markup', '#value' => '<div id="main-open">');
-    
-    $form['answer_'.$i] = array('#type' => 'textfield',
-                                '#value' => $array['chtext'],
-                                '#suffix' => '<div class="clr"></div>');
 
-     /*Short Answers*/
-    // get short answers
      $query = "SELECT * FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'";
      $short = ExecuteQuery($query, "select");
 
-    $form['short_answer_'.$i] = array('#type' => 'textfield',
-                                '#maxlength' => 10,
-                                '#size' => 10,
-                                '#title' => 'Enter Short Answer',
-                                '#default_value' => $short[0]['short_answer']);
-    // get meta dada info
-    $form['meta_info_'.$i] = array('#type' => 'markup',
-                                '#value' => '<div id="meta-info">');
-    //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
-    $form['meta_'.$i]=meta_data_generate($i);
-    $form['meta_info_close_'.$i] = array('#type' => 'markup',
-                                '#value' => '</div>');
-    $form['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
-    $i++;
+
+    /////////////////////
+
+    if (isset($form_state['choice_count'])) {
+        $choice_count = $form_state['choice_count'];
     }
+    else {
+        $choice_count = count($ans);
+    }
+
+    $form['choice_wrapper'] = array(
+    '#tree' => FALSE,
+    '#prefix' => '<div class="clear-block" id="poll-choice-wrapper">',
+    '#suffix' => '</div>',
+    );
+
+
+    // Container for just the poll choices.
+      $form['choice_wrapper']['choice'] = array(
+        '#prefix' => '<div id="poll-choices">',
+        '#suffix' => '</div>',
+     
+      );
+
+
+    // Add the current choices to the form.
+      for ($i = 0; $i < $choice_count; $i++) {
+            $answer = $ans[$i]['chtext']!=''?$ans[$i]['chtext']:'';
+            $shortAns = $short[$i]['short_answer']!=''?$short[$i]['short_answer']:'';
+            $form['choice_wrapper']['choice'][$i] = _mod_answer_form($i, $answer, $shortAns);
+            
+      }
+
+      // AHAH-enabled buttons with the id 'more'.
+      $form['choice_wrapper']['poll_more'] = array(
+        '#type' => 'submit',
+        '#value' => t('Add Another Answer'),
+        '#description' => t("If the amount of boxes above isn't enough, click here to add more choices."),
+        '#weight' => 1,
+
+        '#ahah' => array(
+          'path' => 'moderator/issue/addanswer',
+          'wrapper' => 'poll-choices',
+          'method' => 'replace',
+          'effect' => 'fade',
+        ),
+      );
+
+
+    ////////////////////////
+
+
+
+//    foreach ($ans as $array) {
+//    // chorder for answer
+//    $chorder = $array['chorder'];
+//
+//    $form['ans_title_'.$i] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$i.'</span></label>');
+//    $form['meta_open_'.$i] = array('#type' => 'markup', '#value' => '<div id="main-open">');
+//
+//    $form['answer_'.$i] = array('#type' => 'textfield',
+//                                '#value' => $array['chtext'],
+//                                '#suffix' => '<div class="clr"></div>');
+//
+//     /*Short Answers*/
+//    // get short answers
+//     $query = "SELECT * FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'";
+//     $short = ExecuteQuery($query, "select");
+//
+//    $form['short_answer_'.$i] = array('#type' => 'textfield',
+//                                '#maxlength' => 10,
+//                                '#size' => 10,
+//                                '#title' => 'Enter Short Answer',
+//                                '#default_value' => $short[0]['short_answer']);
+//    // get meta dada info
+//    $form['meta_info_'.$i] = array('#type' => 'markup',
+//                                '#value' => '<div id="meta-info">');
+//    //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
+//    $form['meta_'.$i]=meta_data_generate($i);
+//    $form['meta_info_close_'.$i] = array('#type' => 'markup',
+//                                '#value' => '</div>');
+//    $form['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
+//    $i++;
+//    }
    
-    $form['ans_count'] = array('#type' => 'hidden', '#value' => $i);
-   
-    $form['more_answer'] = array('#type' => 'fieldset',
-                                 '#value' => '<div id="more-answer-wrap"></div>',
-                                 '#title' => 'More Answers',
-                                );
-    $form['add_another_answer'] = array('#type' => 'submit',
-                                         '#value' => t('ADD ANOTHER ANSWER'),
-                                        '#suffix' => '<br />',
-                                        '#ahah' => array('wrapper' => 'more-answer-wrap',
-                                                         'path' => 'moderator/issue/ahah/answer/more',
-                                                         'effect' => 'fade',
-                                                         'method' => 'append',
-                                                          
-                                                        )
-                                    );
+//    $form['ans_count'] = array('#type' => 'hidden', '#value' => $i);
+//
+//    $form['more_answer'] = array('#type' => 'fieldset',
+//                                 '#value' => '<div id="more-answer-wrap"></div>',
+//                                 '#title' => 'More Answers',
+//                                );
+//    $form['add_another_answer'] = array('#type' => 'submit',
+//                                         '#value' => t('ADD ANOTHER ANSWER'),
+//                                        '#suffix' => '<br />',
+//                                        '#ahah' => array('wrapper' => 'more-answer-wrap',
+//                                                         'path' => 'moderator/issue/ahah/answer/more',
+//                                                         'effect' => 'fade',
+//                                                         'method' => 'append',
+//                                                         'tree' => TRUE
+//                                                        )
+//                                    );
     
     $form['quest_cat_mark'] = array('#type' => 'markup', '#value' => '<label><span>Categories</span></label>');
     /*categories*/
@@ -2063,7 +2126,7 @@ function moderator_ahah_callback($type = '', $key = ''){
     $fields['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
     $fields['ans_count_1'] = array('#type' => 'hidden', '#value' => $count);    
    }
-   $output .= ahah_render($fields, $fieldName);
+   $output = ahah_render($fields, $fieldName);
    print drupal_to_js(array('data' => $output, 'status' => true));
    
 }
@@ -2071,4 +2134,109 @@ function moderator_ahah_callback($type = '', $key = ''){
 // submit moderatr edit issues
 function moderator_edit_issue_form_submit($form, &$form_state){
    echo '<pre>'; print_r($form_state['values']); exit;
+    
+}
+
+function moderator_add_choice_callback(){
+    $delta = count($_POST['choice']);
+
+  // Build our new form element.
+  $form_element = _mod_answer_form($delta);
+  drupal_alter('form', $form_element, array(), 'moderator/issue/addanswer');
+
+  // Build the new form.
+  $form_state = array('storage' => NULL, 'submitted' => FALSE);
+  $form_build_id = $_POST['form_build_id'];
+
+  // Add the new element to the stored form. Without adding the element to the
+  // form, Drupal is not aware of this new elements existence and will not
+  // process it. We retreive the cached form, add the element, and resave.
+  $form = form_get_cache($form_build_id, $form_state);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  $form['choice_wrapper']['choice'][$delta] = $form_element;
+  form_set_cache($form_build_id, $form, $form_state);
+  $form += array(
+    '#post' => $_POST,
+    '#programmed' => FALSE,
+  );
+  $form_state['post'] = $_POST;
+  // Build, validate and if possible, submit the form.
+ // drupal_process_form($form_id, $form, $form_state);
+  // Rebuild the form.
+  $form = form_builder($form_id, $form, $args, $form_state);
+//  $validate = issue_form_validate($form, $form_state);
+//  if($validate){$delta = 1;}
+  // Render the new output.
+
+  $choice_form = $form['choice_wrapper']['choice'];
+  unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
+  $choice_form[$delta]['#attributes']['class'] = empty($choice_form[$delta]['#attributes']['class']) ? 'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] .' ahah-new-content';
+  //$choice_form[$delta]['chvotes']['#value'] = 0;
+  $output = theme('status_messages') .drupal_render($choice_form);
+
+  drupal_json(array('status' => TRUE, 'data' => $output));
+}
+function moderator_theme($existing, $type, $theme, $path) {
+
+    return array(
+        'mod_answer_des' => array(
+            'arguments' => array('form' => NULL),
+        ),
+    );
+}
+function theme_mod_answer_des($form){
+   // Change the button title to reflect the behavior when using JavaScript.
+  drupal_add_js('if (Drupal.jsEnabled) { $(document).ready(function() { $("#edit-poll-more").val("'. t('Add Another Answer') .'"); }); }', 'inline');
+
+  
+}
+
+function _mod_answer_form($delta, $answer = '', $short_answer = ''){
+    $form = array(
+    '#tree' => TRUE,
+    );
+  // We'll manually set the #parents property of these fields so that
+  // their values appear in the $form_state['values']['choice'] array.
+  // limited fields 10 (0 to 9)
+     if($delta == 0 || $delta == 1){
+         $req = TRUE;
+     }else{
+         $req = FALSE;
+     }
+  if($delta < 10){
+  //$answer = $value[$delta]['chtext']!=''?$value[$delta]['chtext']:'';
+
+  $form['ans_title_'.$delta] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$delta.'</span></label>');
+    $form['meta_open_'.$delta] = array('#type' => 'markup', '#value' => '<div id="main-open">');
+
+    $form['answer'] = array('#type' => 'textfield',
+                                '#suffix' => '<div class="clr"></div>',
+                                '#parents' => array('choice', $delta, 'answer'),
+                                '#default_value' => $answer,
+                                );
+
+    $form['short_answer'] = array('#type' => 'textfield',
+                                '#maxlength' => 10,
+                                '#size' => 10,
+                                '#title' => 'Enter Short Answer',
+                                '#parents' => array('choice', $delta, 'short_answer'),
+                                '#default_value' => $short_answer,
+                                );
+    // get meta dada info
+    $form['meta_info'] = array('#type' => 'markup',
+                                '#value' => '<div id="meta-info">');
+    //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
+    $form['meta']=meta_data_generate($delta);
+    $form['meta_info_close'] = array('#type' => 'markup',
+                                '#value' => '</div>');
+    $form['meta_close'] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
+  }else{
+  $form['error_msg'] = array(
+    '#type' => 'markup',
+    '#value' => 'Maximum Fields Exceeded',
+    '#prefix' => '<li><label><span class="error">', '#suffix' => '</span></label></li>',
+  );
+  }
+  return $form;
 }
