@@ -411,7 +411,8 @@ function moderator_edit_issue_form($form_state, $qid){
                                 '#title' => 'Enter Short Answer ');
     $form['meta_info_'.$i] = array('#type' => 'markup',
                                 '#value' => '<div id="meta-info">');
-    $form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
+    //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
+    $form['meta_'.$i]=meta_data_generate($i);
     $form['meta_info_close_'.$i] = array('#type' => 'markup',
                                 '#value' => '</div>');
     $form['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
@@ -2025,8 +2026,8 @@ function moderator_ahah_callback($type = '', $key = ''){
        $i = $_POST['ans_count_1']!=''?$_POST['ans_count_1']:$_POST['ans_count'];
        $count = $i+1;
        $fieldName = 'more_answer';
-       $fields['more_answer']['answer_'.$i] = array('#type' => 'textfield', '#title' => t('Answer '.$i), '#value' => '');
-       $fields['more_answer']['short_answer_'.$i] = array('#type' => 'textfield', '#value' => '','#title' => t('Short Answer '.$i));
+       $fields['answer_'.$i] = array('#type' => 'textfield', '#title' => t('Answer '.$i), '#value' => '');
+       $fields['short_answer_'.$i] = array('#type' => 'textfield', '#value' => '','#title' => t('Short Answer '.$i));
        $fields['ans_count_1'] = array('#type' => 'hidden', '#value' => $count);
    }
    $output = ahah_render($fields, $fieldName);
