@@ -403,8 +403,7 @@ function moderator_edit_issue_form($form_state, $qid){
     $tab = 3;
     $answer_count = 1;
 
-     $query = "SELECT * FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'";
-     $short = ExecuteQuery($query, "select");
+     
 
 
     /////////////////////
@@ -434,7 +433,10 @@ function moderator_edit_issue_form($form_state, $qid){
     // Add the current choices to the form.
       for ($i = 0; $i < $choice_count; $i++) {
             $answer = $ans[$i]['chtext']!=''?$ans[$i]['chtext']:'';
-            $shortAns = $short[$i]['short_answer']!=''?$short[$i]['short_answer']:'';
+            $chorder = $ans[$i]['chorder'];
+            $short = db_result(db_query("SELECT short_answer FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'"));
+            
+            $shortAns = $short!=''?$short:'';
             $form['choice_wrapper']['choice'][$i] = _mod_answer_form($i, $answer, $shortAns);
             
       }
