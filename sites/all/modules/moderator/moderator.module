@@ -412,7 +412,7 @@ function moderator_edit_issue_form($form_state, $qid){
      $query = "SELECT * FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'";
      $short = ExecuteQuery($query, "select");
 
-    $form['short_answer'.$i] = array('#type' => 'textfield',
+    $form['short_answer_'.$i] = array('#type' => 'textfield',
                                 '#maxlength' => 10,
                                 '#size' => 10,
                                 '#title' => 'Enter Short Answer',
@@ -2035,18 +2035,20 @@ function meta_data_generate($i = ''){
 
 
 function moderator_ahah_callback($type = '', $key = ''){
-   if($type == 'answer'){
+   // add more answer option
+    if($type == 'answer'){
        $i = $_POST['ans_count_1']!=''?$_POST['ans_count_1']:$_POST['ans_count'];
        $count = $i+1;
-       $fieldName = 'more_answer';
+    $fieldName = 'more_answer';
        
     $fields['ans_title_'.$i] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$i.'</span></label>');
     $fields['meta_open_'.$i] = array('#type' => 'markup', '#value' => '<div id="main-open">');
 
     $fields['answer_'.$i] = array('#type' => 'textfield',
-                                '#suffix' => '<div class="clr"></div>');
+                                '#suffix' => '<div class="clr"></div>',
+                                );
 
-    $fields['short_answer'.$i] = array('#type' => 'textfield',
+    $fields['short_answer_'.$i] = array('#type' => 'textfield',
                                 '#maxlength' => 10,
                                 '#size' => 10,
                                 '#title' => 'Enter Short Answer',
@@ -2061,7 +2063,7 @@ function moderator_ahah_callback($type = '', $key = ''){
     $fields['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
     $fields['ans_count_1'] = array('#type' => 'hidden', '#value' => $count);    
    }
-   $output = ahah_render($fields, $fieldName);
+   $output .= ahah_render($fields, $fieldName);
    print drupal_to_js(array('data' => $output, 'status' => true));
    
 }
