@@ -2036,5 +2036,5 @@ function moderator_ahah_callback($type = '', $key = ''){
 
 // submit moderatr edit issues
 function moderator_edit_issue_form_submit($form, &$form_state){
-   //echo '<pre>'; print_r($form_state); exit;
+   echo '<pre>'; print_r($form_state['values']); exit;
 }
