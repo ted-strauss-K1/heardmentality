@@ -883,9 +883,8 @@ function issue_create_form($form_state){
 
     $form['related_issues'] = array(
     '#title' => t("Related Issues"),
-    '#prefix' => '<div id="related_issues_holder">',
-    '#suffix' => '</div>',
     '#type' => 'fieldset',
+        '#value'=>'<div id="related_issues_holder"></div>'
     );
     
 //    if(!empty($form_state['values']['q_quest'])){
