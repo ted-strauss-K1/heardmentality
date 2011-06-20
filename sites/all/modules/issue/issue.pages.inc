@@ -900,44 +900,56 @@ function issue_create_form($form_state){
     
    
 
-   
+   $form['#validate'][] = 'issue_create_form_validate';
 
     $form['submit'] = array('#type' => 'submit', '#attributes' => array('class' => 'question-save'), '#value' => 'SUBMIT NEW ISSUE');
     
     return $form;
 }
-
+function issue_form_validate($form, &$form_state){
+    if($form['form_id']['#post']['answer'][0] == '' || $form['form_id']['#post']['answer'][1] == ''){
+       $error =   'You must fill in at least two choices.';
+    }
+    return $error;
+}
 
 function issue_autotextfields_callback() {
   $delta = count($_POST['answer']);
-
+  
   // Build our new form element.
   $form_element = _issue_answer_form($delta);
   drupal_alter('form', $form_element, array(), 'issue/autotextfields/callback');
 
   // Build the new form.
-  $form_state = array('submitted' => FALSE);
+  $form_state = array('storage' => NULL, 'submitted' => FALSE);
   $form_build_id = $_POST['form_build_id'];
+  
   // Add the new element to the stored form. Without adding the element to the
   // form, Drupal is not aware of this new elements existence and will not
   // process it. We retreive the cached form, add the element, and resave.
   $form = form_get_cache($form_build_id, $form_state);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
   $form['choice_wrapper']['answer'][$delta] = $form_element;
   form_set_cache($form_build_id, $form, $form_state);
   $form += array(
     '#post' => $_POST,
     '#programmed' => FALSE,
   );
-
+  $form_state['post'] = $_POST;
+  // Build, validate and if possible, submit the form.
+ // drupal_process_form($form_id, $form, $form_state);
   // Rebuild the form.
-  $form = form_builder('issue_create_form', $form, $form_state);
-
+  $form = form_builder($form_id, $form, $args, $form_state);
+//  $validate = issue_form_validate($form, $form_state);
+//  if($validate){$delta = 1;}
   // Render the new output.
+  
   $choice_form = $form['choice_wrapper']['answer'];
   unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
   $choice_form[$delta]['#attributes']['class'] = empty($choice_form[$delta]['#attributes']['class']) ? 'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] .' ahah-new-content';
   //$choice_form[$delta]['chvotes']['#value'] = 0;
-  $output = drupal_render($choice_form);
+  $output = theme('status_messages') .drupal_render($choice_form);
 
   drupal_json(array('status' => TRUE, 'data' => $output));
 }

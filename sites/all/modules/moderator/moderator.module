@@ -76,6 +76,12 @@ function moderator_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'moderator.pages.inc',
     );
+    $mdtrest['moderator/issue/ahah/%/%'] = array(
+        'title' => 'Moderator Ahah Contraol',
+        'page callback' => 'moderator_ahah_callback',
+        'access arguments' => array('Moderate Question'),
+        'page arguments' => array(3,4),
+    );
 
     return $mdtrest;
 }
@@ -349,8 +355,143 @@ function moderator_user_list($type='') {
     echo $output;
     exit;
 }
+function moderator_edit_issues($qid = ''){
+    global $gSitePath, $user, $gDocPath, $base_root;
+    drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/style.css');
+    $form .= '<script type="text/javascript">
+                        var spath=\'' . $gSitePath . '\';
+                    var setstate=[' . $setstate . '] ;
+                        var setcity=[' . $setcity . '];
+                            var setscat=\'' . $escat1 . '\';
+                                var setsscat=\'' . $esscat1 . '\';
+                            var admin=\'1\';
+		</script>
+			';
+    $form = drupal_get_form('moderator_edit_issue_form', $qid);
+    if (isAjax ())
+        echo $form;
+    else
+        return $form;
+}
 
-function moderator_edit_issues($qid='') {
+function moderator_edit_issue_form($form_state, $qid){
+
+    //$left_qry = "SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='" . $qid . "'";
+     $left_qry = "SELECT * FROM {node_revisions} as n left join {term_node} as t on n.nid=t.nid where n.nid='" . $qid . "'";
+    $result = db_query($left_qry);
+    $quest = db_fetch_object($result);
+    
+    $form['mod_main_div'] = array('#type' => 'markup', '#value' => '<div id="mod-edit-issue">');
+    $form['quest_title'] = array('#type' => 'markup', '#value' => '<label><span>Question</span></label>');
+    $form['title'] = array('#type' => 'textfield',
+                           '#value' => $quest->title,
+                           '#suffix' => '<div class="clr"></div>');
+    $form['quest_context'] = array('#type' => 'markup', '#value' => '<label><span>Context</span></label>');
+    $form['context'] = array('#type' => 'textarea',
+                             '#value' => $quest->body,
+                             '#cols' => 70,
+                             );
+    $query = "SELECT * FROM {poll_choices} where nid='" . $qid . "' ORDER BY chorder ASC";
+    $ans = ExecuteQuery($query, "select");
+    $i = 1;
+    $tab = 3;
+    $answer_count = 1;
+    foreach ($ans as $array) {
+    $form['ans_title_'.$i] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$i.'</span></label>');
+    $form['meta_open_'.$i] = array('#type' => 'markup', '#value' => '<div id="main-open">');
+    
+    $form['answer_'.$i] = array('#type' => 'textfield',
+                                '#value' => $array['chtext'],
+                                '#suffix' => '<div class="clr"></div>');
+    //$form['empty_lab_'.$i] = array('#type' => 'markup', '#value' => '<label>&nbsp;</label>');
+    $form['short_answer_'.$i] = array('#type' => 'textfield',
+                                '#value' => '',
+                                '#maxlength' => 10,
+                                '#size' => 10,
+                                '#title' => 'Enter Short Answer ');
+    $form['meta_info_'.$i] = array('#type' => 'markup',
+                                '#value' => '<div id="meta-info">');
+    $form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
+    $form['meta_info_close_'.$i] = array('#type' => 'markup',
+                                '#value' => '</div>');
+    $form['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
+    $i++;
+    }
+   
+    $form['ans_count'] = array('#type' => 'hidden', '#value' => $i);
+   
+    $form['more_answer'] = array('#type' => 'fieldset',
+                                 '#value' => '<div id="more-answer-wrap"></div>',
+                                 '#title' => 'More Answers',
+                                );
+    $form['add_another_answer'] = array('#type' => 'submit',
+                                         '#value' => t('ADD ANOTHER ANSWER'),
+                                        '#suffix' => '<br />',
+                                        '#ahah' => array('wrapper' => 'more-answer-wrap',
+                                                         'path' => 'moderator/issue/ahah/answer/more',
+                                                         'effect' => 'fade',
+                                                         'method' => 'replace',
+                                                          
+                                                        )
+                                    );
+    
+    $form['quest_cat_mark'] = array('#type' => 'markup', '#value' => '<label><span>Categories</span></label>');
+    /*categories*/
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+    $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
+    
+    $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
+    $result_cat = db_query($qry_cat);
+    $cat = array();
+
+    while ($quest_cat = db_fetch_object($result_cat)) {
+        $cat[] = $quest_cat->tid;
+    }
+    $ecat1 = explode(",", $cat);
+    while ($list = db_fetch_object($client_select)) {
+
+        if (in_array($list->cat_id, $cat)) {
+            $sel = 'SELECTED="SELECTED"';
+        } else {
+            $sel = '';
+        }
+        $options[$list->cat_id] = stripslashes($list->cat_name);
+        $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+    }
+
+    $form['categories'] = array('#type' => 'select',
+                                '#options' => $options,
+                                '#prefix' => '<div style="float:left">',
+                                '#suffix' => '</div>');
+    $form['s_categories'] = array('#type' => 'select',
+                                '#options' => $options,
+                                '#prefix' => '<div style="float:left">',
+                                '#suffix' => '</div>');
+    $form['ss_categories'] = array('#type' => 'select',
+                                '#options' => $options,
+                                '#prefix' => '<div style="float:left">',
+                                '#suffix' => '</div>');
+    $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label><span>Location</span></label>');
+    $form['country'] = array('#type' => 'select',
+                                '#options' => $options,
+                                '#prefix' => '<div style="float:left">',
+                                '#suffix' => '</div>');
+    $form['state'] = array('#type' => 'select',
+                                '#options' => $options,
+                                '#prefix' => '<div style="float:left">',
+                                '#suffix' => '</div>');
+    $form['city'] = array('#type' => 'select',
+                                '#options' => $options,
+                                '#prefix' => '<div style="float:left">',
+                                '#suffix' => '</div>');
+    $form['qid'] = array('#type' => 'hidden',
+                          '#value' => $qid);
+    $form['issue_edit'] = array('#type' => 'submit', '#value' => 'UPDATE ISSUE');
+    $form['mod_main_close_div'] = array('#type' => 'markup', '#value' => '</div>');
+   
+    return $form;
+}
+function moderator_edit_issues_old($qid='') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
@@ -1826,4 +1967,74 @@ function question_edit_save_admin($array) {
     }
 
     return $output;
+}
+
+
+function meta_data_generate($form_state, $i = ''){
+    $Spec_query1 = db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+    while($spec = db_fetch_object($Spec_query1)){
+        $minRange = $spec->spec_min_range;
+        $maxRange = $spec->spec_max_range;
+    }
+    $mNum = '';
+    for($j=$minRange; $j<=$maxRange; $j++){
+        $mNum .= '<span>'.$j.'</span>';
+        $meta[$j] = '';
+    }
+    $form['meta_val_div_'.$i] = array('#type' => 'markup',
+                                '#value' => '<div id="meta-numb">
+                                    '.$mNum.'
+                                    </div>');
+
+    $form['meta_left_'.$i] = array('#type' => 'markup',
+                                    '#value' => '<div id="meta-left-val">
+                                    <span>Left</span><br />
+                                    <span>Authoritarian</span><br />
+                                    <span>Conservative</span><br />
+                                    <span>Dove</span>
+                                    </div>');
+    $form['radio_div_'.$i] = array('#type' => 'markup', '#value' => '<div id="radio-div">');
+    //$meta = array('1' => '', '2' => '', '3' => '', '4' => '', '5' => '', '6' => '', '7' => '');
+    $form['meta1_values_'.$i] = array('#type' => 'radios',
+                                '#options' => $meta,
+                                );
+    $form['meta2_values_'.$i] = array('#type' => 'radios',
+                                '#options' => $meta,
+                                );
+    $form['meta3_values_'.$i] = array('#type' => 'radios',
+                                '#options' => $meta,
+                                );
+    $form['meta4_values_'.$i] = array('#type' => 'radios',
+                                '#options' => $meta,
+                                );
+    $form['radio_div_close_'.$i] = array('#type' => 'markup', '#value' => '</div>');
+    $form['meta_right_'.$i] = array('#type' => 'markup',
+                                    '#value' => '<div id="meta-right-val">
+                                    <span>Right</span><br />
+                                    <span>Libertarian</span><br />
+                                    <span>Radical</span><br />
+                                    <span>Hawk</span>
+                                    </div><div class="clr"></div>');
+    return $form;
+}
+
+
+
+function moderator_ahah_callback($type = '', $key = ''){
+   if($type == 'answer'){
+       $i = $_POST['ans_count_1']!=''?$_POST['ans_count_1']:$_POST['ans_count'];
+       $count = $i+1;
+       $fieldName = 'more_answer';
+       $fields['more_answer']['answer_'.$i] = array('#type' => 'textfield', '#title' => t('Answer '.$i), '#value' => '');
+       $fields['more_answer']['short_answer_'.$i] = array('#type' => 'textfield', '#value' => '','#title' => t('Short Answer '.$i));
+       $fields['ans_count_1'] = array('#type' => 'hidden', '#value' => $count);
+   }
+   $output = ahah_render($fields, $fieldName);
+   print drupal_to_js(array('data' => $output, 'status' => true));
+   
+}
+
+// submit moderatr edit issues
+function moderator_edit_issue_form_submit($form, &$form_state){
+   //echo '<pre>'; print_r($form_state); exit;
 }
