@@ -397,18 +397,27 @@ function moderator_edit_issue_form($form_state, $qid){
     $tab = 3;
     $answer_count = 1;
     foreach ($ans as $array) {
+    // chorder for answer
+    $chorder = $array['chorder'];
+    
     $form['ans_title_'.$i] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$i.'</span></label>');
     $form['meta_open_'.$i] = array('#type' => 'markup', '#value' => '<div id="main-open">');
     
     $form['answer_'.$i] = array('#type' => 'textfield',
                                 '#value' => $array['chtext'],
                                 '#suffix' => '<div class="clr"></div>');
-    //$form['empty_lab_'.$i] = array('#type' => 'markup', '#value' => '<label>&nbsp;</label>');
-    $form['short_answer_'.$i] = array('#type' => 'textfield',
-                                '#value' => '',
+
+     /*Short Answers*/
+    // get short answers
+     $query = "SELECT * FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'";
+     $short = ExecuteQuery($query, "select");
+
+    $form['short_answer'.$i] = array('#type' => 'textfield',
                                 '#maxlength' => 10,
                                 '#size' => 10,
-                                '#title' => 'Enter Short Answer ');
+                                '#title' => 'Enter Short Answer',
+                                '#default_value' => $short[0]['short_answer']);
+    // get meta dada info
     $form['meta_info_'.$i] = array('#type' => 'markup',
                                 '#value' => '<div id="meta-info">');
     //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
@@ -431,7 +440,7 @@ function moderator_edit_issue_form($form_state, $qid){
                                         '#ahah' => array('wrapper' => 'more-answer-wrap',
                                                          'path' => 'moderator/issue/ahah/answer/more',
                                                          'effect' => 'fade',
-                                                         'method' => 'replace',
+                                                         'method' => 'append',
                                                           
                                                         )
                                     );
@@ -458,8 +467,11 @@ function moderator_edit_issue_form($form_state, $qid){
         }
         $options[$list->cat_id] = stripslashes($list->cat_name);
         $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
+        $catOptions = array($list->cat_id => stripslashes($list->cat_name));
     }
-
+    $form['cat1'] = array('#type' => 'hidden',
+                            '#default_value' => $ecat1);
+    
     $form['categories'] = array('#type' => 'select',
                                 '#options' => $options,
                                 '#prefix' => '<div style="float:left">',
@@ -467,7 +479,8 @@ function moderator_edit_issue_form($form_state, $qid){
     $form['s_categories'] = array('#type' => 'select',
                                 '#options' => $options,
                                 '#prefix' => '<div style="float:left">',
-                                '#suffix' => '</div>');
+                                '#suffix' => '</div>',
+                                '#attributes' => array('onchange' => 'get_subcat(q_scat,\'chg_sscat\',2)'));
     $form['ss_categories'] = array('#type' => 'select',
                                 '#options' => $options,
                                 '#prefix' => '<div style="float:left">',
@@ -1971,7 +1984,7 @@ function question_edit_save_admin($array) {
 }
 
 
-function meta_data_generate($form_state, $i = ''){
+function meta_data_generate($i = ''){
     $Spec_query1 = db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
     while($spec = db_fetch_object($Spec_query1)){
         $minRange = $spec->spec_min_range;
@@ -2026,9 +2039,27 @@ function moderator_ahah_callback($type = '', $key = ''){
        $i = $_POST['ans_count_1']!=''?$_POST['ans_count_1']:$_POST['ans_count'];
        $count = $i+1;
        $fieldName = 'more_answer';
-       $fields['answer_'.$i] = array('#type' => 'textfield', '#title' => t('Answer '.$i), '#value' => '');
-       $fields['short_answer_'.$i] = array('#type' => 'textfield', '#value' => '','#title' => t('Short Answer '.$i));
-       $fields['ans_count_1'] = array('#type' => 'hidden', '#value' => $count);
+       
+    $fields['ans_title_'.$i] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$i.'</span></label>');
+    $fields['meta_open_'.$i] = array('#type' => 'markup', '#value' => '<div id="main-open">');
+
+    $fields['answer_'.$i] = array('#type' => 'textfield',
+                                '#suffix' => '<div class="clr"></div>');
+
+    $fields['short_answer'.$i] = array('#type' => 'textfield',
+                                '#maxlength' => 10,
+                                '#size' => 10,
+                                '#title' => 'Enter Short Answer',
+                                );
+    // get meta dada info
+    $fields['meta_info_'.$i] = array('#type' => 'markup',
+                                '#value' => '<div id="meta-info">');
+    //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
+    $fields['meta_'.$i]=meta_data_generate($i);
+    $fields['meta_info_close_'.$i] = array('#type' => 'markup',
+                                '#value' => '</div>');
+    $fields['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
+    $fields['ans_count_1'] = array('#type' => 'hidden', '#value' => $count);    
    }
    $output = ahah_render($fields, $fieldName);
    print drupal_to_js(array('data' => $output, 'status' => true));
