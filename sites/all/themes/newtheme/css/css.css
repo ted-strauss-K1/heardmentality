@@ -1656,3 +1656,55 @@ img{ border:none; outline:none;}
     height:100%;
     float:left;
 }
+
+/*phase 6*/
+#mod-edit-issue .form-radios .form-item {
+    float: left;
+    padding: 1px 0;
+    text-align: center;
+    width: 20px;
+}
+#mod-edit-issue textarea{
+    width: 320px;
+}
+#mod-edit-issue label span{
+    width: 140px;
+    float: left;
+}
+#mod-edit-issue #main-open{
+    float: left;
+}
+#mod-edit-issue #meta-info{
+    width: 300px;
+    float: left;
+    margin-left: 0px;
+}
+#mod-edit-issue #meta-left-val{
+    float: left;
+    width: 81px;
+    min-height: 100px;
+}
+#mod-edit-issue #meta-left-val span{
+    line-height: 32px;
+}
+#mod-edit-issue #meta-right-val{
+    float: right;
+    min-height: 100px;
+}
+#mod-edit-issue #meta-right-val span{
+    line-height: 32px;
+}
+#mod-edit-issue #radio-div{
+    float: left;
+}
+#mod-edit-issue #meta-numb{
+    text-align: center;
+    width: 286px;
+    padding-left:7px;
+    margin-left: 0px;
+}
+#mod-edit-issue #meta-numb span{
+    width: 30px;
+    padding: 0 5px;
+    font-weight: bold;
+}
