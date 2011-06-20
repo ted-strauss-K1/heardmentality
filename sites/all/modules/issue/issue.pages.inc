@@ -1105,6 +1105,17 @@ function issue_create_form_submit($form, &$form_state) {
                         db_query($forum, $deb->nid, $list->chorder, 1);
                     }
 
+                 //Related Issues
+                    if(!empty($form_state['values']['rel_iss_check'])){
+                    $cont_type=array('content_types'=>array('poll'=>'poll'));
+                    $relatedissues = array_combine($form_state['values']['rel_iss_check'], $form_state['values']['rel_iss_check']);
+                    $arrayid = array('nids' => $relatedissues);
+                    $manual = array('enable' => 1, 'nodes' => array('poll' => $arrayid));
+                    $related = array('nid' => $node->nid, 'content_types' => $cont_type, 'taxonomy' =>array(''), 'manual' => $manual, 'sort' => array('criteria' => 'none'));
+                    db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $node->nid, serialize($related));
+                    }
+
+
 
                     $output = drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
 '), $type = 'success');
