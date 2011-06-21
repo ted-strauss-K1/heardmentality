@@ -100,6 +100,7 @@ function i18n_auto_action_node_translate($node) {
   // nodes that are non-source  too, but we'd need to look up the source
   // node for $node->tnid.
 
+// translation should not work when user adding issues , check moderator issue status
 if($node->field_mod_status[0]['value'] == 0 || !isset($node->field_mod_status[0]['value'])){
     return false;
 }
