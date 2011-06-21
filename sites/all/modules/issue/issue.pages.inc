@@ -1038,7 +1038,7 @@ function issue_create_form_submit($form, &$form_state) {
     $node->uid = $account->uid;
     $node->status = 1;
     $node->active = 1;
-    $node->field_mod_status_value = 0;
+    $node->field_mod_status[0]['value'] = 0;
     node_save($node);
 
 
