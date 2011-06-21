@@ -382,19 +382,22 @@ function moderator_edit_issues($qid = ''){
 
 function moderator_edit_issue_form($form_state, $qid){
 
-    //$left_qry = "SELECT * FROM {question} as q left join {question_cat} as t on q.qid=t.qid where q.qid='" . $qid . "'";
-     $left_qry = "SELECT * FROM {node_revisions} as n left join {term_node} as t on n.nid=t.nid where n.nid='" . $qid . "'";
-    $result = db_query($left_qry);
-    $quest = db_fetch_object($result);
-    
+//    $left_qry = "SELECT * FROM {node_revisions} as n left join {term_node} as t on n.nid=t.nid where n.nid='" . $qid . "'";
+//    $result = db_query($left_qry);
+//    $quest = db_fetch_object($result);
+
+    // load node values
+    $node = node_load($qid);
+    //echo '<pre>';print_r($node);
+   
     $form['mod_main_div'] = array('#type' => 'markup', '#value' => '<div id="mod-edit-issue">');
     $form['quest_title'] = array('#type' => 'markup', '#value' => '<label><span>Question</span></label>');
     $form['title'] = array('#type' => 'textfield',
-                           '#value' => $quest->title,
+                           '#value' => $node->title,
                            '#suffix' => '<div class="clr"></div>');
     $form['quest_context'] = array('#type' => 'markup', '#value' => '<label><span>Context</span></label>');
     $form['context'] = array('#type' => 'textarea',
-                             '#value' => $quest->body,
+                             '#value' => $node->body,
                              '#cols' => 70,
                              );
     $query = "SELECT * FROM {poll_choices} where nid='" . $qid . "' ORDER BY chorder ASC";
@@ -406,13 +409,14 @@ function moderator_edit_issue_form($form_state, $qid){
      
 
 
-    /////////////////////
+    ///////////////////// CLONE OF POLL CHOICE MODULE
 
     if (isset($form_state['choice_count'])) {
         $choice_count = $form_state['choice_count'];
     }
     else {
-        $choice_count = count($ans);
+        //$choice_count = count($ans);
+        $choice_count = count($node->choice);
     }
 
     $form['choice_wrapper'] = array(
@@ -432,13 +436,12 @@ function moderator_edit_issue_form($form_state, $qid){
 
     // Add the current choices to the form.
       for ($i = 0; $i < $choice_count; $i++) {
-            $answer = $ans[$i]['chtext']!=''?$ans[$i]['chtext']:'';
-            $chorder = $ans[$i]['chorder'];
+            $answer = $node->choice[$i]['chtext']!=''?$ans[$i]['chtext']:'';
+            $chorder = $node->choice[$i]['chorder'];
+            $chovotes = $node->choice[$i]['chvotes'];
             $short = db_result(db_query("SELECT short_answer FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'"));
-            
             $shortAns = $short!=''?$short:'';
-            $form['choice_wrapper']['choice'][$i] = _mod_answer_form($i, $answer, $shortAns);
-            
+            $form['choice_wrapper']['choice'][$i] = _mod_answer_form($i, $answer, $shortAns, $chorder, $chovotes);
       }
 
       // AHAH-enabled buttons with the id 'more'.
@@ -564,7 +567,9 @@ function moderator_edit_issue_form($form_state, $qid){
                                 '#prefix' => '<div style="float:left">',
                                 '#suffix' => '</div>');
     $form['qid'] = array('#type' => 'hidden',
-                          '#value' => $qid);
+                          '#default_value' => $qid);
+    $form['mod_status'] = array('#type' => 'hidden',
+                          '#default_value' => $node->mod_status);
     $form['issue_edit'] = array('#type' => 'submit', '#value' => 'UPDATE ISSUE');
     $form['mod_main_close_div'] = array('#type' => 'markup', '#value' => '</div>');
    
@@ -2050,50 +2055,43 @@ function question_edit_save_admin($array) {
 
 
 function meta_data_generate($i = ''){
-    $Spec_query1 = db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
-    while($spec = db_fetch_object($Spec_query1)){
-        $minRange = $spec->spec_min_range;
-        $maxRange = $spec->spec_max_range;
+    $rangeQuery = db_query("SELECT min(spec_min_range) as minimum,max(spec_max_range) as maximum FROM political_spectrum");
+    while($range = db_fetch_object($rangeQuery)){
+        $min = $range->minimum;
+        $max = $range->maximum;
     }
-    $mNum = '';
-    for($j=$minRange; $j<=$maxRange; $j++){
+    // top numbers
+        for($j =$min; $j <= $max; $j++){
         $mNum .= '<span>'.$j.'</span>';
-        $meta[$j] = '';
-    }
+        }
     $form['meta_val_div_'.$i] = array('#type' => 'markup',
                                 '#value' => '<div id="meta-numb">
                                     '.$mNum.'
                                     </div>');
-
-    $form['meta_left_'.$i] = array('#type' => 'markup',
-                                    '#value' => '<div id="meta-left-val">
-                                    <span>Left</span><br />
-                                    <span>Authoritarian</span><br />
-                                    <span>Conservative</span><br />
-                                    <span>Dove</span>
-                                    </div>');
-    $form['radio_div_'.$i] = array('#type' => 'markup', '#value' => '<div id="radio-div">');
-    //$meta = array('1' => '', '2' => '', '3' => '', '4' => '', '5' => '', '6' => '', '7' => '');
-    $form['meta1_values_'.$i] = array('#type' => 'radios',
+    $Spec_query1 = db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
+    
+    $count = 1;
+    while($spec = db_fetch_object($Spec_query1)){
+        $minRange = $spec->spec_min_range;
+        $maxRange = $spec->spec_max_range;
+        $spec_name = $spec->spec_name;
+        list($left, $right) = explode(' ', $spec_name);
+        
+        $form['left_val_'.$count] = array('#type' =>'markup', '#value' => '<div id="meta-left-val">'.$left.'</div>');
+        $form['radio_div_'.$count] = array('#type' => 'markup', '#value' => '<div id="radio-div">');
+        for($c = $minRange; $c <= $maxRange; $c++){
+            $meta[$c] = '';       
+        }
+        $form['meta'.$i.'_'.$count.'_values'] = array('#type' => 'radios',
                                 '#options' => $meta,
+                                '#parents' => array('choice', $i, 'meta'.$count.'_values'),
                                 );
-    $form['meta2_values_'.$i] = array('#type' => 'radios',
-                                '#options' => $meta,
-                                );
-    $form['meta3_values_'.$i] = array('#type' => 'radios',
-                                '#options' => $meta,
-                                );
-    $form['meta4_values_'.$i] = array('#type' => 'radios',
-                                '#options' => $meta,
-                                );
-    $form['radio_div_close_'.$i] = array('#type' => 'markup', '#value' => '</div>');
-    $form['meta_right_'.$i] = array('#type' => 'markup',
-                                    '#value' => '<div id="meta-right-val">
-                                    <span>Right</span><br />
-                                    <span>Libertarian</span><br />
-                                    <span>Radical</span><br />
-                                    <span>Hawk</span>
-                                    </div><div class="clr"></div>');
+        $form['radio_div_close_'.$count] = array('#type' => 'markup', '#value' => '</div>');
+        $form['right_val_'.$count] = array('#type' =>'markup', '#value' => '<div id="meta-right-val">'.$right.'</div>');
+        $form['mark_'.$count] = array('#type' =>'markup','#value' => '<br /><div class="clr"></div>');
+        unset($meta);
+        $count++;
+    }
     return $form;
 }
 
@@ -2135,8 +2133,30 @@ function moderator_ahah_callback($type = '', $key = ''){
 
 // submit moderatr edit issues
 function moderator_edit_issue_form_submit($form, &$form_state){
-   echo '<pre>'; print_r($form_state['values']); exit;
-    
+
+     global $gSitePath, $user, $gDocPath, $base_root;
+
+    echo '<pre>'; print_r($form_state['values']); exit;
+    $nid = $form_state['values']['qid'];
+    $title = $form_state['values']['title'];
+    $context = $form_state['values']['context'];
+    $node = node_load($nid);
+    $node->title = check_plain($title);
+    $node->body = check_plain($context);
+    $node->nid = $nid;
+   //print_r($node); exit;
+    $ans_cnt = count($form_state['values']['choice']);
+     for ($i = 0; $i < $ans_cnt; $i++) {
+         $chorder = $form_state['values']['choice'][$i]['chorder'];
+         $chvotes = $form_state['values']['choice'][$i]['chvotes'];
+         $node->choice[$i]['chtext'] = $form_state['values']['choice'][$i]['answer'];
+         $node->choice[$i]['chorder'] = $chorder!=''?$chorder:$i;
+         $node->choice[$i]['chvotes'] = $chvotes!=''?$chvotes:0;
+
+     }
+     $mod_status = $form_state['values']['mod_status']!=''?$form_state['values']['mod_status']:0;
+     $mod_status = $mod_status+1;
+     $node->mod_status = $mod_status;
 }
 
 function moderator_add_choice_callback(){
@@ -2179,6 +2199,9 @@ function moderator_add_choice_callback(){
 
   drupal_json(array('status' => TRUE, 'data' => $output));
 }
+
+
+
 function moderator_theme($existing, $type, $theme, $path) {
 
     return array(
@@ -2193,13 +2216,11 @@ function theme_mod_answer_des($form){
 
   
 }
-
-function _mod_answer_form($delta, $answer = '', $short_answer = ''){
+// moderator generate dynamic answer form here
+function _mod_answer_form($delta, $answer = '', $short_answer = '', $chorder = '', $votes = ''){
     $form = array(
     '#tree' => TRUE,
     );
-  // We'll manually set the #parents property of these fields so that
-  // their values appear in the $form_state['values']['choice'] array.
   // limited fields 10 (0 to 9)
      if($delta == 0 || $delta == 1){
          $req = TRUE;
@@ -2208,17 +2229,26 @@ function _mod_answer_form($delta, $answer = '', $short_answer = ''){
      }
   if($delta < 10){
   //$answer = $value[$delta]['chtext']!=''?$value[$delta]['chtext']:'';
+  $aCount = $delta+1;
+  $form['ans_title_'.$delta] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$aCount.'</span></label>');
+  $form['meta_open_'.$delta] = array('#type' => 'markup', '#value' => '<div id="main-open">');
 
-  $form['ans_title_'.$delta] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$delta.'</span></label>');
-    $form['meta_open_'.$delta] = array('#type' => 'markup', '#value' => '<div id="main-open">');
-
-    $form['answer'] = array('#type' => 'textfield',
+  $form['answer'] = array('#type' => 'textfield',
                                 '#suffix' => '<div class="clr"></div>',
                                 '#parents' => array('choice', $delta, 'answer'),
                                 '#default_value' => $answer,
                                 );
-
-    $form['short_answer'] = array('#type' => 'textfield',
+  $form['chorder'] = array('#type' => 'hidden',
+                                '#suffix' => '<div class="clr"></div>',
+                                '#parents' => array('choice', $delta, 'chorder'),
+                                '#default_value' => $chorder,
+                                );
+  $form['chvotes'] = array('#type' => 'hidden',
+                                '#suffix' => '<div class="clr"></div>',
+                                '#parents' => array('choice', $delta, 'chvotes'),
+                                '#default_value' => $votes,
+                                );
+  $form['short_answer'] = array('#type' => 'textfield',
                                 '#maxlength' => 10,
                                 '#size' => 10,
                                 '#title' => 'Enter Short Answer',
@@ -2226,19 +2256,33 @@ function _mod_answer_form($delta, $answer = '', $short_answer = ''){
                                 '#default_value' => $short_answer,
                                 );
     // get meta dada info
-    $form['meta_info'] = array('#type' => 'markup',
+  $form['meta_info'] = array('#type' => 'markup',
                                 '#value' => '<div id="meta-info">');
     //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
-    $form['meta']=meta_data_generate($delta);
-    $form['meta_info_close'] = array('#type' => 'markup',
+  $form['meta']=meta_data_generate($delta);
+  $form['meta_info_close'] = array('#type' => 'markup',
                                 '#value' => '</div>');
-    $form['meta_close'] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
+  $form['meta_close'] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
   }else{
   $form['error_msg'] = array(
     '#type' => 'markup',
     '#value' => 'Maximum Fields Exceeded',
-    '#prefix' => '<li><label><span class="error">', '#suffix' => '</span></label></li>',
+    '#prefix' => '<label><span class="error">', '#suffix' => '</span></label>',
   );
   }
   return $form;
+}
+
+
+// moderator cron
+function moderator_cron(){
+    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    $query = db_query("SELECT n.nid FROM {content_type_poll} AS cp JOIN {node} AS n ON cp.nid = n.nid WHERE cp.field_mod_status_value = '%d' AND n.type = '%s' AND n.tnid = '%d'", 1, 'poll', 0);
+    while($langNode = db_fetch_object($query)){
+       $nid = $langNode->nid;
+       $node = node_load($nid);
+        // add content in multi languages
+        i18n_auto_action_node_translate($node);
+       
+    }
 }
