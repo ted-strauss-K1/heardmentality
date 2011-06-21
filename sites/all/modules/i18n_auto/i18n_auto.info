@@ -1,0 +1,14 @@
+name = Auto draft translation
+description = Creates a draft of a node in all active languages when a new node is created using Google Translate.
+package = Multilanguage
+core = 6.x
+
+dependencies[] = translation
+dependencies[] = i18n
+dependencies[] = rules
+; Information added by drupal.org packaging script on 2011-04-14
+version = "6.x-2.1"
+core = "6.x"
+project = "i18n_auto"
+datestamp = "1302804116"
+
