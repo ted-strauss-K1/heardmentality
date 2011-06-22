@@ -210,6 +210,10 @@ function issue_edit_vote($dummy='',$nid='') {
     $nid = arg(1);
     
     $node = node_load($nid);
+    
+    // IMPORTANT get translate nid (tnid) for current node
+    $tnid = get_tnid($nid);
+    $tnode = node_load($tnid);
 
     if ($node->choice) {
         $list = array();
@@ -218,11 +222,11 @@ function issue_edit_vote($dummy='',$nid='') {
         }
         $form['choice'] = array(
             '#type' => 'radios',
-            '#default_value' => $node->vote,
+            '#default_value' => $tnode->vote,
             '#options' => $list,
         );
     }
-    $form['#nid'] = $nid;
+    $form['#nid'] = $tnid;
     $form['change'] = array(
         '#type' => 'submit',
         '#value' => t('Change'),
@@ -1974,4 +1978,11 @@ function theme_issue_answer($form) {
   $output = theme('table', $headers, $rows);
   $output .= drupal_render($form);
   return $output;
+}
+
+// get paraent translate id
+function get_tnid($nid = ''){
+    $res = db_result(db_query("SELECT tnid FROM {node} WHERE nid = '%d'", $nid));
+    $tnid = $res!=0?$res:$nid;
+    return $tnid;
 }

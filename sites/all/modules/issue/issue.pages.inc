@@ -156,6 +156,10 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
    $vans = "select * from {poll_choices} where  nid='" . $nid . "'  order by chorder";
     // $vans = "select * from {poll_choices} where  nid='" . $nid . "'";
     $vlist = ExecuteQuery($vans, "select");
+   
+    // IMPORTANT get translate nid (tnid) for current node
+    $nid = get_tnid($nid);
+
     switch ($filter) {
         case 'gender':
             $answer['divide'] = array('male', 'female', 'undefined');

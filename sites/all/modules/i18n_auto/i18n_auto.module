@@ -100,9 +100,11 @@ function i18n_auto_action_node_translate($node) {
   // nodes that are non-source  too, but we'd need to look up the source
   // node for $node->tnid.
 
-// translation should not work when user adding issues , check moderator issue status
-if($node->field_mod_status[0]['value'] == 0 || !isset($node->field_mod_status[0]['value'])){
-    return false;
+// OPENWAVE translation should not work when user adding issues , check moderator issue status
+if($node->type == 'poll'){
+    if($node->field_mod_status[0]['value'] == 0 || !isset($node->field_mod_status[0]['value'])){
+        return false;
+    }
 }
   // Do a variable check to ensure this content type should be translated.
   // Additional check to make sure there *is* a node body - not always the case.
@@ -134,6 +136,7 @@ if($node->field_mod_status[0]['value'] == 0 || !isset($node->field_mod_status[0]
       if (module_exists('comment')) {
         $new_node->comment = $node->comment;
       }
+
 
       // TODO: chunks of this next bit should probably be separate functions
 
@@ -250,14 +253,44 @@ if($node->field_mod_status[0]['value'] == 0 || !isset($node->field_mod_status[0]
         $new_node->title = $node->title;
       }
 
+
+      // OPENWAVE traslate poll choices
+      if($node->type == 'poll'){       
+          foreach($node->choice as $key=>$choice){
+             $chtext = $choice['chtext'];
+             $chorder = $choice['chorder'];
+             $chvotes = $choice['chvotes'];
+             try {
+                $gt = new Gtranslate;
+                $choiceVal = $gt->$func($chtext);
+                // get rid of any HTML encoded data Google might send
+                $new_node->choice[$key]['chtext'] = html_entity_decode($choiceVal, ENT_QUOTES); 
+              }
+              catch (GTranslateException $ge) {
+                // if there was a problem, pass the error to watchdog.
+                $message = t('From GTranslate: ') . $ge->getMessage();
+                watchdog(t('auto translate'), $message, array(), WATCHDOG_ERROR);
+                // fall back to original title.
+                $new_node->choice[$key]['chtext'] = $node->choice[$key]['chtext'];
+              }
+              $new_node->choice[$key]['chorder'] = $chorder;
+              $new_node->choice[$key]['chvotes'] = $chvotes;              
+         }
+      }
+    // OPENWAVE traslate poll choices ends
+
       // TODO: Look up CCK fields and cycle through and translate too.
 
       // create the new translation node
-      node_save(node_submit($new_node));
-
+    node_save(node_submit($new_node));
+     // set alias url
+    $dst = clean_url(myTruncate($new_node->title, 100, ''), '', '-', $new_node->nid);
+    $url = 'node/' . $new_node->nid;
+    db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, $langcode);
+    
       // inform user of new translation
       drupal_set_message(t('New translation draft with language code of %language created in node %nid.', array('%language' => $new_node->language, '%nid' => $new_node->nid)));
-    }
+  }
     // Return outside of the foreach loop, returning too early causes attached files to be lost.
     return array('node' => $node);
   }

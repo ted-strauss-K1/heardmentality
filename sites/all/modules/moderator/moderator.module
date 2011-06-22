@@ -2282,8 +2282,8 @@ function moderator_cron(){
        $nid = $langNode->nid;
        $node = node_load($nid);
        //echo '<pre>'; print_r($node); exit;
-        // add content in multi languages
-       db_query("UPDATE {node} SET language = '%s', translate = '%d', tnid = '%d' WHERE nid = '%d'", 'en', 1, $nid, $nid);
+       // add content in multi languages
        i18n_auto_action_node_translate($node);
+       db_query("UPDATE {node} SET language = '%s', translate = '%d', tnid = '%d' WHERE nid = '%d'", 'en', 1, $nid, $nid);
     }
 }
