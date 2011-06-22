@@ -393,11 +393,11 @@ function moderator_edit_issue_form($form_state, $qid){
     $form['mod_main_div'] = array('#type' => 'markup', '#value' => '<div id="mod-edit-issue">');
     $form['quest_title'] = array('#type' => 'markup', '#value' => '<label><span>Question</span></label>');
     $form['title'] = array('#type' => 'textfield',
-                           '#value' => $node->title,
+                           '#default_value' => $node->title,
                            '#suffix' => '<div class="clr"></div>');
     $form['quest_context'] = array('#type' => 'markup', '#value' => '<label><span>Context</span></label>');
     $form['context'] = array('#type' => 'textarea',
-                             '#value' => $node->body,
+                             '#default_value' => $node->body,
                              '#cols' => 70,
                              );
     $query = "SELECT * FROM {poll_choices} where nid='" . $qid . "' ORDER BY chorder ASC";
@@ -2136,7 +2136,7 @@ function moderator_edit_issue_form_submit($form, &$form_state){
 
      global $gSitePath, $user, $gDocPath, $base_root;
 
-    echo '<pre>'; print_r($form_state['values']); exit;
+   // echo '<pre>'; print_r($form_state['values']); exit;
     $nid = $form_state['values']['qid'];
     $title = $form_state['values']['title'];
     $context = $form_state['values']['context'];
@@ -2154,9 +2154,9 @@ function moderator_edit_issue_form_submit($form, &$form_state){
          $node->choice[$i]['chvotes'] = $chvotes!=''?$chvotes:0;
 
      }
-     $mod_status = $form_state['values']['mod_status']!=''?$form_state['values']['mod_status']:0;
-     $mod_status = $mod_status+1;
-     $node->mod_status = $mod_status;
+     
+     $node->field_mod_status[0]['value'] = 1;
+     node_save($node);
 }
 
 function moderator_add_choice_callback(){
@@ -2281,8 +2281,9 @@ function moderator_cron(){
     while($langNode = db_fetch_object($query)){
        $nid = $langNode->nid;
        $node = node_load($nid);
+       //echo '<pre>'; print_r($node); exit;
         // add content in multi languages
-        i18n_auto_action_node_translate($node);
-       
+       db_query("UPDATE {node} SET language = '%s', translate = '%d', tnid = '%d' WHERE nid = '%d'", 'en', 1, $nid, $nid);
+       i18n_auto_action_node_translate($node);
     }
 }
