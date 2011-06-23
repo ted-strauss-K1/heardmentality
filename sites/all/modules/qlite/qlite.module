@@ -130,7 +130,7 @@ function top_list() {
       </div>
       </div>'; */
 
-   $vocabName = 'Sections';
+   $vocabName = t('Sections');
    $vocabs = taxonomy_get_vocabularies(NULL);
    foreach($vocabs as $vocab){
        if($vocab->name == $vocabName){
@@ -151,7 +151,7 @@ function top_list() {
     }
 
     $output .= '</select> &nbsp;  <span id="res_scat"><select name="" disabled="disabled">
-                <option>select a sub-section</option>
+                <option>'.t('select a sub-section').'</option>
               </select>
               </span></div> ';
     $output .= '
@@ -351,7 +351,7 @@ function get_top_list($time='') {
             }
             $qpath=drupal_get_path_alias('node/'.$quest['nid']);
             //$output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
-            $output .= '<li class="">'.l(htmlentities(myTruncate($quest['title'], '40', '', '..')), $gSitePath . $qpath, array('attributes' => array('rel' => $bubble_question, 'style' => drupal_link_color($user->uid, $quest['nid'])))).'</a></li>';
+            $output .= '<li class="">'.l(htmlentities(myTruncate($quest['title'], '40', '', '..')),$qpath, array('attributes' => array('rel' => $bubble_question, 'style' => drupal_link_color($user->uid, $quest['nid'])))).'</a></li>';
         }
     } else {
 
@@ -415,7 +415,7 @@ function get_hot_list($time='') {
             }
             $qpath=drupal_get_path_alias('node/'.$quest['nid']);
             //$output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
-            $output .= '<li class="">'.l(htmlentities(myTruncate($quest['title'], '40', '', '..')), $gSitePath . $qpath, array('attributes' => array('rel' => $bubble_question, 'style' => drupal_link_color($user->uid, $quest['nid'])))).'</a></li>';
+            $output .= '<li class="">'.l(htmlentities(myTruncate($quest['title'], '40', '', '..')),$qpath, array('attributes' => array('rel' => $bubble_question, 'style' => drupal_link_color($user->uid, $quest['nid'])))).'</a></li>';
 
         }
     } else {
@@ -503,7 +503,7 @@ function get_local_list($time='') {
             }
             $qpath=drupal_get_path_alias('node/'.$quest['nid']);
             //$output .= '<li  class=""><a ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
-            $output .= '<li class="">'.l(htmlentities(myTruncate($quest['title'], '40', '', '..')), $gSitePath . $qpath, array('attributes' => array('rel' => $bubble_question, 'style' => drupal_link_color($user->uid, $quest['nid'])))).'</a></li>';
+            $output .= '<li class="">'.l(htmlentities(myTruncate($quest['title'], '40', '', '..')),$qpath, array('attributes' => array('rel' => $bubble_question, 'style' => drupal_link_color($user->uid, $quest['nid'])))).'</a></li>';
         }
     } else {
 
