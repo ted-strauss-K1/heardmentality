@@ -481,7 +481,7 @@ function quest_lite_block($op = 'list', $delta = 0, $edit = array()) {
         case 'view':
             switch ($delta) {
                 case 0:
-                    $block['subject'] = " RELATED ISSUES ";
+                    $block['subject'] = t(" RELATED ISSUES ");
                     $block['content'] = _related_issue();
                     break;
             }

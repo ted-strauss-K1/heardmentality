@@ -77,13 +77,13 @@ function moderator_menu() {
         'file' => 'moderator.pages.inc',
     );
     $mdtrest['moderator/issue/ahah/%/%'] = array(
-        'title' => 'Moderator Ahah Contraol',
+        'title' => 'Moderator Ahah Control',
         'page callback' => 'moderator_ahah_callback',
         'access arguments' => array('Moderate Question'),
         'page arguments' => array(3,4),
     );
     $mdtrest['moderator/issue/addanswer'] = array(
-        'title' => 'Moderator Ahah Contraol',
+        'title' => 'Moderator Ahah Control',
         'page callback' => 'moderator_add_choice_callback',
         'access arguments' => array('Moderate Question'),
         'page arguments' => array(3,4),
@@ -242,7 +242,7 @@ function moderator_issues_list($type='') {
             //  $query="SELECT * FROM {question} ";
             $query = "SELECT * FROM
 (SELECT DISTINCT n.nid as qid, n.title as question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM node_revisions WHERE nid=n.nid ) AS tcnt FROM node AS n
-WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.type = 'poll' ORDER BY n.nid ASC
+WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.type = 'poll' ORDER BY n.nid DESC
 ) AS issue WHERE issue.tcnt<3";
 //            $query = "SELECT * FROM
 //(SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM question_cat_revision WHERE qid=q.qid) AS tcnt FROM question AS q

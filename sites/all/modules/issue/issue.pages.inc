@@ -907,7 +907,7 @@ function issue_create_form($form_state){
    $form['#validate'][] = 'issue_create_form_validate';
 
     $form['submit'] = array('#type' => 'submit', '#attributes' => array('class' => 'question-save'), '#value' => 'SUBMIT NEW ISSUE');
-    
+    $form['#redirect'] = '';
     return $form;
 }
 function issue_form_validate($form, &$form_state){
@@ -1130,7 +1130,8 @@ function issue_create_form_submit($form, &$form_state) {
          increasepoints('1', $node->nid, '0');
         //_send_qnotify($node->nid);
         //drupal_goto($path);
-        echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';
+        //echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';
+         drupal_goto($gSitePath . $path);
 }
 
 

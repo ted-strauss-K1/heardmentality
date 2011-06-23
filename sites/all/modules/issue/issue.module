@@ -203,6 +203,81 @@ function issue_form(&$node, $form_state) {
     return $form;
 }
 
+
+// add vote for issue
+function issue_add_vote($dummy='',$nid='') {
+
+    $form = array();
+    if(empty($nid))
+    $nid = arg(1);
+
+    $node = node_load($nid);
+
+    // IMPORTANT get translate nid (tnid) for current node
+    $tnid = get_tnid($nid);
+    $tnode = node_load($tnid);
+
+    if ($node->choice) {
+        $list = array();
+        foreach ($node->choice as $i => $choice) {
+            $list[$i] = check_plain($choice['chtext']);
+        }
+        $form['choice'] = array(
+            '#type' => 'radios',
+            '#default_value' => -1,
+            '#options' => $list,
+        );
+    }
+    $form['#nid'] = $tnid;
+    $form['change'] = array(
+        '#type' => 'submit',
+        '#value' => t('Vote'),
+    );
+    $form['#cache'] = TRUE;
+
+    // Provide a more cleanly named voting form theme.
+    $form['#theme'] = 'poll_vote';
+    return $form;
+}
+/**
+ * Validation function for processing votes
+ */
+function issue_add_vote_validate($form, &$form_state) {
+  if ($form_state['values']['choice'] == -1) {
+    form_set_error( 'choice', t('Your vote could not be recorded because you did not select any of the choices.'));
+  }
+}
+
+/**
+ * Submit handler for processing a vote
+ */
+function issue_add_vote_submit($form, &$form_state) {
+  global $user;
+  $nid = $form['#nid'];
+  $choice = $form_state['values']['choice'];
+
+  global $user;
+  if ($user->uid) {
+    db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $choice, $user->uid);
+  }
+  else {
+    db_query("INSERT INTO {poll_votes} (nid, chorder, hostname) VALUES (%d, %d, '%s')", $nid, $choice, ip_address());
+  }
+
+  // Add one to the votes.
+  db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
+
+  cache_clear_all();
+  drupal_set_message(t('Your vote was recorded.'));
+
+  // Return the user to whatever page they voted from.
+}
+
+
+
+
+
+
 function issue_edit_vote($dummy='',$nid='') {
 
     $form = array();
@@ -310,7 +385,7 @@ if($form_id=='user_relationships_ui_request'){
 if($form_id == 'subscriptions_add_form'){
       $form['#submit'][] = 'add_subscription_notify';
 }
-if($form_id=='poll_view_voting'){
+if($form_id=='issue_add_vote'){
 
     $form['vote']['#submit'][] = 'add_vote_notify';
      $form['vote']['#submit'][] = 'chk_profile_complete';
@@ -416,8 +491,17 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
                 $node->style=drupal_link_color($user->uid, $node->nid);
                 if(user_is_logged_in()){
-                if ($node->allowvotes) {
-                    
+
+                // IMPORTANT get translate nid (tnid) for current node
+                $tnid = get_tnid($node->nid);
+                $tnode = node_load($tnid);
+                // echo '<pre>'; print_r($tnode);exit;
+                if ($tnode->allowvotes) {
+                   $output .= drupal_get_form('issue_add_vote',$node->nid);
+                   $node->content['body'] = array
+                        (
+                        '#value' => $output,
+                    );
                 } else {
                     //print_r($node);
                     unset($node->content['body']);
@@ -430,9 +514,8 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                     );
                 }
                 }else{
-
                     unset($node->content['body']);
-                    $output .= drupal_get_form('poll_view_voting',$node,'');
+                    $output .= drupal_get_form('issue_add_vote',$node->nid);
                     $node->content['body'] = array
                         (
                         '#value' => $output,
@@ -933,7 +1016,7 @@ function issue_pundit_tab($qid=''){
                     $output1 .= '<div class="clr"></div><br/>';
                 }
             } else {
-                $output1 = "<div class='messages warning'>No Pundit(s) found for this issue</div>";
+                $output1 = "<div class='messages warning'>".t('No Pundit(s) found for this issue')."</div>";
             }
             $output = $output1;
 

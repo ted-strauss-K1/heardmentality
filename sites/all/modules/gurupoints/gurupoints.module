@@ -156,7 +156,7 @@ function ajax_pundits() {
     }
      $output.= '</ul>';
     }else{
-         $output.= '<center><small>No Pundit(s) Found </small></center>';
+         $output.= '<center><small>'.t('No Pundits Found').' </small></center>';
     }
    
 

@@ -205,7 +205,7 @@ function get_top_pundits() {
     }
     $output .= '
  <div class="pundit-con">
-     <div class="commutop-profile">PUNDITS</div>  ';
+     <div class="commutop-profile">'.t('PUNDITS').'</div>  ';
 
     $output.='<div class="hm-cen-pun">
            <div class="pun" id="pundits">
@@ -312,7 +312,7 @@ function get_top_list($time='') {
     $cond = '';
     $cond = load_condition();
     $output .= '<div>
-         <h3><strong>Most active questions ever</strong></h3>
+         <h3><strong>'.t('Most active questions ever').'</strong></h3>
               <div class="innerbox" ><ul class="">';
     switch ($time) {
         case '1':
@@ -344,12 +344,14 @@ function get_top_list($time='') {
        foreach ($list as $quest) {
 
             if (strlen($quest['title']) > 40) {
-                $bubble_question = 'rel="' . htmlentities(wordwrap($quest['title'], 40, '<br/>')) . '"';
+                //$bubble_question = 'rel="' . htmlentities(wordwrap($quest['title'], 40, '<br/>')) . '"';
+                $bubble_question =  htmlentities(wordwrap($quest['title'], 40, '<br/>'));
             } else {
                 $bubble_question = '';
             }
             $qpath=drupal_get_path_alias('node/'.$quest['nid']);
-            $output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
+            //$output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
+            $output .= '<li class="">'.l(htmlentities(myTruncate($quest['title'], '40', '', '..')), $gSitePath . $qpath, array('attributes' => array('rel' => $bubble_question, 'style' => drupal_link_color($user->uid, $quest['nid'])))).'</a></li>';
         }
     } else {
 
@@ -400,18 +402,21 @@ function get_hot_list($time='') {
     // $query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid   where q.status='1' AND date(q.date_added) >= '$date' $cond order by q.active_rate  DESC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
-        <h3><strong>Most active questions in the last seven days</strong></h3>
+        <h3><strong>'.t('Most active questions in the last seven days').'</strong></h3>
               <div class="innerbox" ><ul class="">';
     if (!empty($list)) {
         foreach ($list as $quest) {
 
             if (strlen($quest['title']) > 40) {
-                $bubble_question = 'rel="' . htmlentities(wordwrap($quest['title'], 40, '<br/>')) . '"';
+                //$bubble_question = 'rel="' . htmlentities(wordwrap($quest['title'], 40, '<br/>')) . '"';
+                $bubble_question = htmlentities(wordwrap($quest['title'], 40, '<br/>'));
             } else {
                 $bubble_question = '';
             }
             $qpath=drupal_get_path_alias('node/'.$quest['nid']);
-            $output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
+            //$output .= '<li class=""><a  ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
+            $output .= '<li class="">'.l(htmlentities(myTruncate($quest['title'], '40', '', '..')), $gSitePath . $qpath, array('attributes' => array('rel' => $bubble_question, 'style' => drupal_link_color($user->uid, $quest['nid'])))).'</a></li>';
+
         }
     } else {
 
@@ -483,7 +488,7 @@ function get_local_list($time='') {
     //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
-             <h3><strong>Local questions</strong></h3>
+             <h3><strong>'.t('Local questions').'</strong></h3>
               <div class="innerbox"><ul class="">';
 
     if (!empty($list)) {
@@ -491,12 +496,14 @@ function get_local_list($time='') {
 
 
             if (strlen($quest['title']) > 40) {
-                $bubble_question = 'rel="' . htmlentities(wordwrap($quest['title'], 40, '<br/>')) . '"';
+                //$bubble_question = 'rel="' . htmlentities(wordwrap($quest['title'], 40, '<br/>')) . '"';
+                $bubble_question = htmlentities(wordwrap($quest['title'], 40, '<br/>'));
             } else {
                 $bubble_question = '';
             }
             $qpath=drupal_get_path_alias('node/'.$quest['nid']);
-            $output .= '<li  class=""><a ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
+            //$output .= '<li  class=""><a ' . $bubble_question . ' href="' . $gSitePath . $qpath . '" style="' . drupal_link_color($user->uid, $quest['nid']) . '">' . htmlentities(myTruncate($quest['title'], '40', '', '..')) . '</a></li>';
+            $output .= '<li class="">'.l(htmlentities(myTruncate($quest['title'], '40', '', '..')), $gSitePath . $qpath, array('attributes' => array('rel' => $bubble_question, 'style' => drupal_link_color($user->uid, $quest['nid'])))).'</a></li>';
         }
     } else {
 
