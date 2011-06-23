@@ -143,7 +143,7 @@ function top_list() {
     $list = ExecuteQuery($query, "select");
     $output .= ' 
             <div class="factbottom" align="center">
-            <select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >select a section</option>';
+            <select id="tcat" onchange="get_toplist(this.value,1)"><option value="" >'.t('select a section').'</option>';
     foreach ($list as $cat) {
 
         $output .= '    
