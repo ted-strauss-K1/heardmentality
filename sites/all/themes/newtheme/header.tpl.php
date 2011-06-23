@@ -10,7 +10,7 @@
  *
  */
 error_reporting(E_ALL);
-ini_set('display_errors','On');
+ini_set('display_errors', 'On');
 
 global $user, $gSitePath, $apikey;
 $directory = $base_path . $directory;
@@ -98,7 +98,7 @@ $directory = $base_path . $directory;
                         });
 					
 
-     </script>
+                    </script>
 
                     <script type="text/javascript">
                         function callfunction()
@@ -178,7 +178,7 @@ $directory = $base_path . $directory;
                         // }
                     </script>
                     </head>
-					
+
                     <body class="<?php print $body_classes; ?>" >
                         <!--main div-->
                         <div id="loading">
@@ -190,28 +190,28 @@ $directory = $base_path . $directory;
                         // display moderator messages
                         $variable = get_defined_vars();
                         $notifies = $variable['notify'];
-                        if(count($notifies)>0){
-                            $i=1;
-                         ?>
-                        <div id="notify-container">
+                        if (count($notifies) > 0) {
+                            $i = 1;
+                        ?>
+                            <div id="notify-container">
                             <?php
-                            foreach($notifies as $notify){
-                            $moderator = db_result(db_query("SELECT name FROM {users} WHERE uid = '$notify->moderator_id'"));
-                            $message = $notify->message;
+                            foreach ($notifies as $notify) {
+                                $moderator = db_result(db_query("SELECT name FROM {users} WHERE uid = '$notify->moderator_id'"));
+                                $message = $notify->message;
                             ?>
                                 <div id="not-id-<?php echo $i; ?>">
-                                <div id="not-div">
-                               
-                                <span class="notify-close"><a href="javascript:void(0);" onclick="close_notify_message(<?php echo $i; ?>, <?php echo $notify->id?>, <?php echo $user->uid;?>)" title="dismiss this notification">×</a></span>
-                                <span class="notify-text"><div align="center">Moderator sent a message <span>'<?php echo t($message); ?>'</span></div></span>
-                                </div>
+                                    <div id="not-div">
+
+                                        <span class="notify-close"><a href="javascript:void(0);" onclick="close_notify_message(<?php echo $i; ?>, <?php echo $notify->id ?>, <?php echo $user->uid; ?>)" title="dismiss this notification">×</a></span>
+                                        <span class="notify-text"><div align="center">Moderator sent a message <span>'<?php echo t($message); ?>'</span></div></span>
+                                    </div>
                                 </div>
                             <?php
-                            $i++;
+                                $i++;
                             }
                             ?>
                         </div>
-                        <?php }?>
+                        <?php } ?>
 
                         <div class="main">
                             <div class="top"></div>
@@ -222,66 +222,66 @@ $directory = $base_path . $directory;
 
                                     <div id="header">
                                         <div class="top-left-outer">
-                                            <div class="text-logo"><div  class="textspace"><?php print t("Be Heard Don't Be");?><br />
-                                                    <?php print t('Part Of The Herd');?></div>
+                                            <div class="text-logo"><div  class="textspace"><?php print t("Be Heard Don't Be"); ?><br />
+                                                    <?php print t('Part Of The Herd'); ?></div>
                                             </div>
                                             <div class="date-time">
 
                                                 <?php
-                                                echo $changetime = t(zonechange(18, 0));
+                                                    echo $changetime = t(zonechange(18, 0));
                                                 ?>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div align="center" ><a href="<?php print $front_page; ?>" class="logo" title="<?php print t('Home'); ?>"><?php print t('HEARD');?>&nbsp;&nbsp;&nbsp;&nbsp;<?php print t('MENTALITY'); ?></a></div>
-                                        <!-- /logo-title -->
+                                            <div align="center" ><?php print l('HEARD&nbsp;&nbsp;&nbsp;&nbsp;MENTALITY','<front>', array('attributes' => array('title' => t('Home'),'class'=>'logo','data-fb-options'=>$attr),'html'=>'true')); ?></div>
+                                            <!-- /logo-title -->
 
-                                        <div class="loginvi-outer">
+                                            <div class="loginvi-outer">
 
                                             <?php include "login.tpl.php"; ?>
-                                            </div>
-                                            <div class="clr"></div>
+                                                </div>
+                                                <div class="clr"></div>
 
                                         <?php if (!empty($search_box)): ?>
-                                                    <div id="search-box"><?php print $search_box; ?></div>
+                                                        <div id="search-box"><?php print $search_box; ?></div>
                                         <?php endif; ?>
 
                                         <?php if (!empty($header)): ?>
-                                                        <div id="header-region">
+                                                            <div id="header-region">
                                             <?php print $header; ?>
-                                                    </div>
+                                                        </div>
                                         <?php endif; ?>
                                         <?php
-                                                        if (isset($_REQUEST['stype'])) {
+                                                            if (isset($_REQUEST['stype'])) {
 
 
-                                                            $spe = $_REQUEST['stype'];
-                                                        }
+                                                                $spe = $_REQUEST['stype'];
+                                                            }
 
-                                                        if (isset($_REQUEST['txt_search'])) {
+                                                            if (isset($_REQUEST['txt_search'])) {
 
-                                                            $skey = $_REQUEST['txt_search'];
-                                                        } else {
-                                                            $skey = t('Search');
-                                                        }
+                                                                $skey = $_REQUEST['txt_search'];
+                                                            } else {
+                                                                $skey = t('Search');
+                                                            }
                                         ?>
-                                                        <div class="clr"></div>
+                                                            <div class="clr"></div>
 
-                                                        <div id="menu">
-                                                            <div class="search">  <form class="home_searchEngine" name="search" method="post" action="">
-                                                                    <div class="searchtext">
-                                                                        <input name="txt_search"  id="txt_search" value="<?php echo $skey; ?>" type="text"  onblur="if(search.txt_search.value =='') search.txt_search.value = ''" onfocus="if(search.txt_search.value =='Search') search.txt_search.value = ''" />
-                                                                    </div>
-                                                                    <div class="searchr">
+                                                            <div id="menu">
+                                                                <div class="search">  <form class="home_searchEngine" name="search" method="post" action="">
+                                                                        <div class="searchtext">
+                                                                            <input name="txt_search"  id="txt_search" value="<?php echo $skey; ?>" type="text"  onblur="if(search.txt_search.value =='') search.txt_search.value = ''" onfocus="if(search.txt_search.value =='Search') search.txt_search.value = ''" />
+                                                                        </div>
+                                                                        <div class="searchr">
 
-                                                                        <div class="stext">  <input type="radio" name="stype[]" id="stype1" value="1" <?php
-                                                        if (isset($_REQUEST['stype'])) {
-                                                            if ($_REQUEST['stype'][0] == 1) {
+                                                                            <div class="stext">  <input type="radio" name="stype[]" id="stype1" value="1" <?php
+                                                            if (isset($_REQUEST['stype'])) {
+                                                                if ($_REQUEST['stype'][0] == 1) {
                                         ?> checked="checked" <?php
                                                                                 }
                                                                             } else {
                                         ?> checked="checked" <?php } ?>   /></div>
-                                                        <label for="radio" class="slab"><?php print t('Issues');?></label>
+                                                        <label for="radio" class="slab"><?php print t('Issues'); ?></label>
                                                     </div>
                                                     <div class="searchr">
 
@@ -290,40 +290,52 @@ $directory = $base_path . $directory;
                                                                                         if ($_REQUEST['stype'][0] == 2) {
                                         ?> checked="checked" <?php }
                                                                                     } ?>  /></div>
-                                                        <label for="radio2" class="slab"><?php print t('Users');?></label>
+                                                        <label for="radio2" class="slab"><?php print t('Users'); ?></label>
                                                     </div>
                                                     <div>&nbsp;
-                                                        <input name="Search" type="submit" value="<?php print t('Search');?>"  onclick="return callfunction();"/>
+                                                        <input name="Search" type="submit" value="<?php print t('Search'); ?>"  onclick="return callfunction();"/>
                                                     </div>
                                                 </form>     </div>
 
                                             <div class="men">
-                                                <?php if (count($primary_links)) : ?>
+                                                <ul>
+                                                    <?php if (count($primary_links)) : ?>
 
-                                                <?php $mb = 1;
-                                                  foreach ($primary_links as $link): ?>
-                                 <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'Readme' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" <?php if ($link['title']== 'Readme') { ?> data-fb-options="width:769 height:80%" <?php } else { ?> data-fb-options="width:700 height:60%" <?php } ?>  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print t($link['title']); ?></a></li>
-                                                <?php endforeach; ?>
+                                                    <?php
+                                                                                          $mb = 1;
+                                                                                          foreach ($primary_links as $link):
+                                                                                              $class='';$attr='';
+                                                                                              if ($link['title'] == 'Readme' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')) {
+                                                                                                  $class = 'floatbox';
+                                                                                                  if ($link['title'] == 'Readme') {
+                                                                                                      $attr = 'width:769 height:80%';
+                                                                                                  } else {
+                                                                                                      $attr = 'width:700 height:60%';
+                                                                                                  }
+                                                                                              } ?>
+                                                                                              <li><?php print l(t($link['title']), $link['href'], array('attributes' => array('rel' => 'nofollow','class'=>$class,'data-fb-options'=>$attr))); ?></li>
 
-                                                <?php endif; ?>
+<?php endforeach; ?>
 
-                                                                                            </div>
+                                                    <?php endif; ?>
+                                                                                          </ul>
 
-                                                                                            <div class="edition">
-                                                                                                <div ><?php echo t('Edition:');?><span id="lang"></span>
-                                                                                                    <!-- Google Translate -->
+                                                                                      </div>
 
-                                                                                                </div>
-                                                                                            </div> <!-- /navigation -->
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <!-- /header -->
-                                                                                    <div class="clr"></div>
+                                                                                      <div class="edition">
+                                                                                          <div ><?php echo t('Edition:'); ?><span id="lang"></span>
+                                                                                              <!-- Google Translate -->
+
+                                                                                          </div>
+                                                                                      </div> <!-- /navigation -->
+                                                                                  </div>
+                                                                              </div>
+                                                                              <!-- /header -->
+                                                                              <div class="clr"></div>
 
 
-                                                                                    <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;
-                                                                                                endif; ?></div>
+                                                                              <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;
+                                                                                              endif; ?></div>
                                     <div class="clr"></div>
                                     <!--Header close-->
 
-                              
