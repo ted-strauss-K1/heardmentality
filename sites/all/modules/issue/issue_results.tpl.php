@@ -105,15 +105,15 @@ global $gSitePath,$theme,$apikey;
      <div class="sharing-section">
             <div  class="but-cont"><div class="but-left"><img src="<?php print $path; ?>/images/but-left.jpg"></div>
               <a title="Bookmark" class="but butnew share-link" onclick="showShareUI();" href="javascript:void(0);">
-                 <img ALIGN=ABSMIDDLE title="Share" alt="Share" src="<?php print $path; ?>/images/face-ic.jpg"/>&nbsp;
-                    Share</a>
+                 <img ALIGN=ABSMIDDLE title="Share" alt="<?php print t('Share'); ?>" src="<?php print $path; ?>/images/face-ic.jpg"/>&nbsp;
+                    <?php print t('Share'); ?></a>
              <div class="but-right">
            <img width="7" height="24" src="<?php print $path; ?>/images/but-right.jpg"></div></div>
               <!-- <div class="share2">
             <a title="Invite" onclick="formsubmittype(2,<?php print $nid; ?>);" href="javascript:void(0);" class="share-link"> Invite</a>
              </div>-->
             <div  class=""><div class="but-left"><img src="<?php print $path; ?>/images/but-left.jpg"></div>
-              <a class="but butnew share-link" title="Suggest a new answer"   onclick="formsubmittype(4,<?php print $nid; ?>);" href="javascript:void(0);">Suggest a new answer</a>
+              <a class="but butnew share-link" title="<?php print t('Suggest a new answer'); ?>"   onclick="formsubmittype(4,<?php print $nid; ?>);" href="javascript:void(0);"><?php print t('Suggest a new answer'); ?></a>
 <div class="but-right">
            <img width="7" height="24" src="<?php print $path; ?>/images/but-right.jpg"></div></div>
             <!-- <div class="share3">

@@ -192,10 +192,10 @@ function qlite_view() {
 		</script>';
     //echo $stringfunct;
     if (drupal_is_front_page ()) {
-        $qlink = 'ISSUE AT HAND';
+        $qlink = t('ISSUE AT HAND');
     } else {
         // $qlink = substr($oListquest->title, 0, 160) . '<a onclick="showdetails(' . $qid . ');">...</a>';
-        $qlink = "ISSUE";
+        $qlink = t("ISSUE");
     }
 
 
