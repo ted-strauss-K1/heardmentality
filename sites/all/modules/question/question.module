@@ -214,14 +214,25 @@ function question_init() {
 	}
 	
 	
-	setlocale(LC_ALL, 'en_US.UTF8');
+setlocale(LC_ALL, 'en_US.UTF8');
 function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
     if (! empty($replace)) {
         $str = str_replace((array) $replace, ' ', $str);
     }
     
-    $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+//    $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+//    $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+//    $clean = strtolower(trim($clean, '-'));
+//    $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+//    if(!empty($qid)){
+//    $clean='issue/'.$qid.'/'.$clean;
+//    }
+    
+/*URL alias for all languages*/
+    $clean = $str;
+    $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $clean);
     $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+    $clean = $clean==''?$str:$clean;
     $clean = strtolower(trim($clean, '-'));
     $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
     if(!empty($qid)){
