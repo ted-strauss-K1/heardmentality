@@ -222,18 +222,18 @@ $directory = $base_path . $directory;
 
                                     <div id="header">
                                         <div class="top-left-outer">
-                                            <div class="text-logo"><div  class="textspace">Be Heard Don't Be<br />
-                                                    Part Of The Herd</div>
+                                            <div class="text-logo"><div  class="textspace"><?php print t("Be Heard Don't Be");?><br />
+                                                    <?php print t('Part Of The Herd');?></div>
                                             </div>
                                             <div class="date-time">
 
                                                 <?php
-                                                echo $changetime = zonechange(18, 0);
+                                                echo $changetime = t(zonechange(18, 0));
                                                 ?>
                                             </div>
                                         </div>
 
-                                        <div align="center" ><a href="<?php print $front_page; ?>" class="logo" title="<?php print t('Home'); ?>">HEARD  &nbsp;&nbsp;&nbsp;&nbsp;MENTALITY</a></div>
+                                        <div align="center" ><a href="<?php print $front_page; ?>" class="logo" title="<?php print t('Home'); ?>"><?php print t('HEARD');?>&nbsp;&nbsp;&nbsp;&nbsp;<?php print t('MENTALITY'); ?></a></div>
                                         <!-- /logo-title -->
 
                                         <div class="loginvi-outer">
@@ -262,7 +262,7 @@ $directory = $base_path . $directory;
 
                                                             $skey = $_REQUEST['txt_search'];
                                                         } else {
-                                                            $skey = 'Search';
+                                                            $skey = t('Search');
                                                         }
                                         ?>
                                                         <div class="clr"></div>
@@ -281,7 +281,7 @@ $directory = $base_path . $directory;
                                                                                 }
                                                                             } else {
                                         ?> checked="checked" <?php } ?>   /></div>
-                                                        <label for="radio" class="slab">Questions</label>
+                                                        <label for="radio" class="slab"><?php print t('Issues');?></label>
                                                     </div>
                                                     <div class="searchr">
 
@@ -290,10 +290,10 @@ $directory = $base_path . $directory;
                                                                                         if ($_REQUEST['stype'][0] == 2) {
                                         ?> checked="checked" <?php }
                                                                                     } ?>  /></div>
-                                                        <label for="radio2" class="slab">Users</label>
+                                                        <label for="radio2" class="slab"><?php print t('Users');?></label>
                                                     </div>
                                                     <div>&nbsp;
-                                                        <input name="Search" type="submit" value="Search"  onclick="return callfunction();"/>
+                                                        <input name="Search" type="submit" value="<?php print t('Search');?>"  onclick="return callfunction();"/>
                                                     </div>
                                                 </form>     </div>
 
@@ -302,7 +302,7 @@ $directory = $base_path . $directory;
 
                                                 <?php $mb = 1;
                                                   foreach ($primary_links as $link): ?>
-                                 <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'Readme' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" <?php if ($link['title']== 'Readme') { ?> data-fb-options="width:769 height:80%" <?php } else { ?> data-fb-options="width:700 height:60%" <?php } ?>  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print($link['title']); ?></a></li>
+                                 <li><a href="<?php print($gSitePath . $link['href']); ?>" <?php if ($link['title'] == 'Readme' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')): ?> class="floatbox" <?php if ($link['title']== 'Readme') { ?> data-fb-options="width:769 height:80%" <?php } else { ?> data-fb-options="width:700 height:60%" <?php } ?>  rel="nofollow" title="<?php print($link['title']); ?>"<?php endif; ?>><?php print t($link['title']); ?></a></li>
                                                 <?php endforeach; ?>
 
                                                 <?php endif; ?>
@@ -310,7 +310,7 @@ $directory = $base_path . $directory;
                                                                                             </div>
 
                                                                                             <div class="edition">
-                                                                                                <div >Edition:<span id="lang"></span>
+                                                                                                <div ><?php echo t('Edition:');?><span id="lang"></span>
                                                                                                     <!-- Google Translate -->
 
                                                                                                 </div>

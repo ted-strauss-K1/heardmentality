@@ -2,7 +2,7 @@
 		if($user->uid == ''|| $user->uid == '0'):
 
 			  ?>
-         <div class="loginvi"> <div class="btex"> <span class="black11">       Login via your social network:</span></div>
+         <div class="loginvi"> <div class="btex"> <span class="black11">       <?php echo t('Login via your social network:');?></span></div>
     
 <!-- socialize.js script should only be included once -->
 <script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php echo $apikey; ?>"></script>
@@ -39,7 +39,7 @@ var login_params=
        	  <div class="debate-outer">
             <div id="masterdiv">
 
-	<div onclick="SwitchMenu('sub1')" class="menutitle">My Account</div>
+	<div onclick="SwitchMenu('sub1')" class="menutitle"><?php echo t('My Account');?></div>
     <div class="clr"></div>
 	<span id="sub1" class="submenu" style="display: none;">
             <a href="<?php echo $gSitePath;?>profile" ><?php
@@ -63,9 +63,9 @@ var login_params=
 		
 
 
-                 <a onclick="loadeditquestion('<?php echo $gSitePath;?>account/edit','Edit Profile ');" href="javascript:void(0);">Edit Profile</a><br>
-		 <a href="<?php echo $gSitePath?>mynotify">Notify </a><br>
-                 <a  href="<?php echo $gSitePath; ?>logout">Sign Out</a>
+                 <a onclick="loadeditquestion('<?php echo $gSitePath;?>account/edit','Edit Profile ');" href="javascript:void(0);"><?php echo t('Edit Profile');?></a><br>
+		 <a href="<?php echo $gSitePath?>mynotify"> <?php echo t('Notify');?></a><br>
+                 <a  href="<?php echo $gSitePath; ?>logout"><?php echo t('Sign Out');?></a>
 	</span>
 
 </div>

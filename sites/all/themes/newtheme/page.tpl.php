@@ -34,8 +34,9 @@
       <?php if (!empty($right)): ?>
 	    <div class="fact home-lay1-3">
                 <div id="block-sitetour">
-        <div class="sitetour">
-              <a href="<?php echo $gSitePath; ?>?tourId=MyTour"><img title="take the site tour" alt="take the site tour" src="<?php echo $gSitePath.path_to_theme();?>/images/take-tour.png"/></a>
+        <div align="center" style="line-height:18px;min-height: 60px;background-color:#F3F3F3;font-weight:bold;" title="<?php print t('Take a site tour');?>" class="sitetour">
+            <small style="text-align:center;padding:7px;"><?php print t('Find out more using the Heard Mentality site...');?></small><br/>
+            <a><?php print t('TAKE THE SITE TOUR');?></a>
         </div>
         </div>
         <div id="sidebar-right" class="column sidebar">

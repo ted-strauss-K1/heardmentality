@@ -17,13 +17,16 @@ $directory = $base_path . $directory;
 
         <?php print $scripts;
         if(!empty ($messages)){
-        print " <script>jQuery(document).ready(function() {jQuery('#twitMsg',top.document).html('".t($messages)."');
+            $str=ltrim(rtrim(strip_tags($messages)));
+        $str = str_replace(array("\n", "\r"), '', $str);
+
+        print " <script>jQuery(document).ready(function() {jQuery('#twitMsg',top.document).html('".$str."');
         jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); }); </script>";
         }
         ?>
 </head>
 <body>
-    
+
     <div class="popup-add-suggest" id="log">
 	<div class="facttop"> <?php print $title; ?></div>
 	<div id="log_res"><!-- spanner --></div>
