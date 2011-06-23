@@ -139,7 +139,7 @@ global $gSitePath,$theme,$apikey;
 
               </ul>
               <div class="mytabs-container" id="tabcontent">
-            Loading. Please Wait...
+            <?php print t('Loading. Please Wait...'); ?>
         </div><div class="clr"></div>
            </div>
 <?php }else{ ?>
@@ -153,7 +153,7 @@ global $gSitePath,$theme,$apikey;
 <li class="" id="in"><a href="<?php print $gSitePath; ?>/issue/tab/<?php print $nid; ?>/details" title="Info"><span><?php print t('Details');?></span></a></li>
               </ul>
               <div class="mytabs-container" id="tabcontent">
-            Loading. Please Wait...
+          <?php print t('Loading. Please Wait...'); ?>
         </div><div class="clr"></div>
            </div>
 

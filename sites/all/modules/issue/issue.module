@@ -478,7 +478,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
 
                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
-                drupal_set_title('ISSUE');
+                drupal_set_title(t('ISSUE'));
                 drupal_set_html_head('<script>
                         var uid="' . $user->uid . '";
                     </script>');
