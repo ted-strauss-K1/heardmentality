@@ -383,7 +383,7 @@ function load_bubble($uid = '') {
                     <div style="padding-left:10px;text-align:left;"><strong>'.myTruncate($details->name,'10','..').' </strong></div>
                         <ul style="list-style-type:none">
                       
-                        <li style="width:30px">' . $ranking . '<br /><span class="profInfo-value" title="' . $points . ' Points">' . $points . '</span></li>
+                        <li style="width:30px">' . t($ranking) . '<br /><span class="profInfo-value" title="' . $points . ' '.t('Points').'">' . $points . '</span></li>
                         <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><br><span>' . $badges['gold'] . '</span></li>
                         <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><br /><span>' . $badges['silver'] . '</span></li>
                         <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><br /><span>' . $badges['bronze'] . '</span></li>
