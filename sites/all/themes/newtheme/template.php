@@ -99,7 +99,7 @@ function newtheme_preprocess_page(&$vars) {
    
     global $theme_path;
     if($vars['template_files'][1]!='page-issue-create'){
-       // drupal_add_js($path . "/scripts/jquery1.4.js", 'core'); //where you store your jque
+        drupal_add_js($path . "/scripts/jquery1.4.js", 'core'); //where you store your jque
     }
     //drupal_add_js("js/more_javascripts.js", 'theme'); //any other js files you may have
 

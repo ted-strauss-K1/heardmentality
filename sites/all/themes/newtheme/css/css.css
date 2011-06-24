@@ -1681,15 +1681,17 @@ img{ border:none; outline:none;}
 }
 #mod-edit-issue #meta-left-val{
     float: left;
+    padding-top: 18px;
     width: 81px;
-    min-height: 100px;
+/*    min-height: 100px;*/
 }
 #mod-edit-issue #meta-left-val span{
     line-height: 32px;
 }
 #mod-edit-issue #meta-right-val{
     float: right;
-    min-height: 100px;
+    padding-top: 18px;
+/*    min-height: 100px;*/
 }
 #mod-edit-issue #meta-right-val span{
     line-height: 32px;

@@ -301,11 +301,12 @@ $directory = $base_path . $directory;
                                                 <ul>
                                                     <?php if (count($primary_links)) : ?>
 
+
                                                     <?php
                                                                                           $mb = 1;
                                                                                           foreach ($primary_links as $link):
                                                                                               $class='';$attr='';
-                                                                                              if ($link['title'] == 'Readme' || ($link['title'] == 'Add a Issue') || ($link['title'] == 'Privacy')) {
+                                                                                              if ($link['title'] == 'Readme' || ($link['title'] == 'Privacy')) {
                                                                                                   $class = 'floatbox';
                                                                                                   if ($link['title'] == 'Readme') {
                                                                                                       $attr = 'width:769 height:80%';
@@ -314,6 +315,7 @@ $directory = $base_path . $directory;
                                                                                                   }
                                                                                               } ?>
                                                                                               <li><?php print l(t($link['title']), $link['href'], array('attributes' => array('rel' => 'nofollow','class'=>$class,'data-fb-options'=>$attr))); ?></li>
+
 
 <?php endforeach; ?>
 

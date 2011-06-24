@@ -83,7 +83,7 @@ global $apikey, $gSitePath;
 <?php print $content ?>
                 </div>
 
-<?php //print $links; ?>
+<?php print $links; ?>
                     <?php if($page): ?>
 </div></div>
 
