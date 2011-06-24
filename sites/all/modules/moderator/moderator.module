@@ -97,7 +97,7 @@ function moderator_issues() {
 
     // drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
     $inline = "      var admin='1';";
-
+drupal_add_js("misc/ahah.js");
     drupal_add_js($inline, $type = 'inline');
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
     drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
