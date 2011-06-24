@@ -98,9 +98,11 @@ function newtheme_preprocess_page(&$vars) {
 // there's also a $theme_path global
    
     global $theme_path;
-    if($vars['template_files'][1]!='page-issue-create'){
+
+   // if($vars['template_files'][1]!='page-issue-create'){
         drupal_add_js($path . "/scripts/jquery1.4.js", 'core'); //where you store your jque
-    }
+   // }
+
     //drupal_add_js("js/more_javascripts.js", 'theme'); //any other js files you may have
 
     $js = drupal_add_js(NULL, NULL, 'header'); //get header js files in an array
