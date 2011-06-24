@@ -355,7 +355,7 @@ function get_top_list($time='') {
         }
     } else {
 
-        $output .= '<div align="center"><b>No Top List Found</b></div>';
+        $output .= '<div align="center"><b>'.t('No Top List Found').'</b></div>';
     }
     $output .= '</ul></div> </div><div class="clr"></div>';
     return $output;
@@ -404,7 +404,7 @@ function get_hot_list($time='') {
     $output .= '<div>
         <h3><strong>'.t('Most active questions in the last seven days').'</strong></h3>
               <div class="innerbox" ><ul class="">';
-    if (!empty($list)) {
+    if (empty($list)) {
         foreach ($list as $quest) {
 
             if (strlen($quest['title']) > 40) {
@@ -420,7 +420,7 @@ function get_hot_list($time='') {
         }
     } else {
 
-        $output .= '<div align="center"><b>No Hot List Found</b></div>';
+        $output .= '<div align="center"><b>'.t('No Hot List Found').'</b></div>';
     }
     $output .= '</ul></div> </div><div class="clr"></div>';
     return $output;
@@ -507,7 +507,7 @@ function get_local_list($time='') {
         }
     } else {
 
-        $output .= '<div align="center"><b>No Local List Found</b></div>';
+        $output .= '<div align="center"><b>'.t('No Local List Found').'</b></div>';
     }
     $output .= '</ul></div> </div><div class="clr"></div>';
     return $output;
