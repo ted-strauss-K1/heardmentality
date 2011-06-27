@@ -576,21 +576,14 @@ global $gSitePath, $user, $gDocPath, $base_root;
                                                 'path' => 'moderator/issue/ahah/category/scat',
                                                 'effect' => 'fade'));
     $form['sub_categories'] = array('#type' => 'fieldset',
-                                    '#value' => '<div style="float:left" id="sub-cat-wrapper"></div>',
-                                    );
+                                    '#value' => '<div id="sub-cat-wrapper"></div>',
+                                    '#attributes' => array('style' => 'width:140px; float:left'));
     $form['sub_sub_categories'] = array('#type' => 'fieldset',
-                                    '#value' => '<div style="float:left" id="sub-sub-cat-wrapper">
-                                                </div><br /><div class="clr"></div>',
-                                    );
-//    $form['s_categories'] = array('#type' => 'select',
-//                                '#options' => $options,
-//                                '#prefix' => '<div style="float:left">',
-//                                '#suffix' => '</div>',
-//                                '#attributes' => array('onchange' => 'get_subcat(q_scat,\'chg_sscat\',2)'));
-//    $form['ss_categories'] = array('#type' => 'select',
-//                                '#options' => $options,
-//                                '#prefix' => '<div style="float:left">',
-//                                '#suffix' => '</div>');
+                                    '#value' => '<div id="sub-sub-cat-wrapper">
+                                                </div>',
+                                    '#attributes' => array('style' => 'width:140px; float:left'),
+                                    '#suffix' => '<br /><div class="clr"></div>');
+
     $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label><span>Location</span></label>');
     $form['country'] = array('#type' => 'select',
                                 '#options' => $options,
@@ -2200,13 +2193,15 @@ function moderator_ahah_callback($type = '', $key = ''){
        
       if($key == 'scat'){
        $catids = $_POST['q_cat'];
+       $fieldName1 = 'q_scat'   ;
       }
       if($key == 'sscat'){
         $catids = $_POST['q_scat'];
+        $fieldName2 = 'q_sscat'   ;
       }
        $cids = implode(",",$catids);
        // SET SUB CATEGORIES
-       $fieldName = 'q_scat'   ;
+       
        $scats = array();
        foreach($catids as $catid){
        $ids = taxonomy_get_children($catid);
@@ -2229,15 +2224,17 @@ function moderator_ahah_callback($type = '', $key = ''){
                                     '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
                                                 'path' => 'moderator/issue/ahah/category/sscat',
                                                 'effect' => 'fade'));
+       $output .= ahah_render($fields, $fieldName1);
        }
        if($key == 'sscat'){
        $fields['q_sscat'] = array('#type' => 'select', '#options' => $options ,
                                     '#multiple' => 'multiple',
                                     );
+       $output .= ahah_render($fields, $fieldName2);
        }
     
    }
-   $output = ahah_render($fields, $fieldName);
+   
 
 
   // AHAH is not being nice to us and doesn't know the "other" button (that is,
