@@ -374,6 +374,30 @@ function moderator_edit_issues($qid = ''){
 		</script>
 			';
     $form = drupal_get_form('moderator_edit_issue_form', $qid);
+        // AHAH is not being nice to us and doesn't know the "other" button (that is,
+ // either "Upload" or "Delete") yet. Which in turn causes it not to attach
+  // AHAH behaviours after replacing the element. So we need to tell it first.
+
+  // Loop through the JS settings and find the settings needed for our buttons.
+  $javascript = drupal_add_js(NULL, NULL);
+  $filefield_ahah_settings = array();
+  if (isset($javascript['setting'])) {
+   foreach ($javascript['setting'] as $settings) {
+      if (isset($settings['ahah'])) {
+       foreach ($settings['ahah'] as $id => $ahah_settings) {
+
+           $filefield_ahah_settings[$id] = $ahah_settings;
+
+       }
+     }
+    }
+  }
+
+ // Add the AHAH settings needed for our new buttons.
+ if (!empty($filefield_ahah_settings)) {
+    $form .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, '. drupal_to_js($filefield_ahah_settings) .');</script>';
+  }
+
     if (isAjax ())
         echo $form;
     else
@@ -2322,7 +2346,7 @@ function moderator_add_choice_callback(){
   unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
   $choice_form[$delta]['#attributes']['class'] = empty($choice_form[$delta]['#attributes']['class']) ? 'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] .' ahah-new-content';
   //$choice_form[$delta]['chvotes']['#value'] = 0;
-  $output = theme('status_messages') .drupal_render($choice_form);
+  $output = drupal_render($choice_form);
 
   drupal_json(array('status' => TRUE, 'data' => $output));
 }
