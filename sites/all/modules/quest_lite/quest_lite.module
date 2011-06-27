@@ -271,7 +271,7 @@ $langcode = $language->language; //ISO2 code
         return $qid;
     } else {
         if (!empty($user->uid)) {
-            $query = "SELECT nid from {node} where uid='" . $user->uid . "' AND status='1' and type='poll' and  order by nid DESC limit 0,1 ";
+            $query = "SELECT nid from {node} where uid='" . $user->uid . "' AND status='1' and type='poll' and (language = 'en' or language = '') order by nid DESC limit 0,1";
             $quest = db_query($query);
             $qid = db_result($quest);
         }
@@ -298,7 +298,9 @@ $langcode = $language->language; //ISO2 code
    if($qid==''||!is_numeric($qid)){
       //echo "numeric 3";
 
-      $query = "SELECT nid from {node} where status='1' and type='poll' and language='en' order by nid DESC limit 0,1 ";
+      $uidCond = $user->uid!=''?" AND uid = $user->uid":"";
+      $query = "SELECT nid from {node} where status='1' and type='poll' $uidCond and language='en' order by nid DESC limit 0,1 ";
+
       $quest = db_query($query);
       $qid = db_result($quest);
       } 
@@ -554,7 +556,7 @@ function _related_issue() {
         }
     }
     if ($vCnt == 0) {
-        $content.='<li class="">No suggest question</li>';
+        $content.='<li class="">'.t('No suggest question').'</li>';
     }
 
     $content.='</ul></div>';
