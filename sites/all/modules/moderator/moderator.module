@@ -190,7 +190,7 @@ function _moderator_user_left() {
 function _moderator_left() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     //$query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE uid = '$user->uid' and qid=q.qid) as tcnt FROM {question} AS q  having tcnt<1 ORDER BY q.qid DESC";
-    $query = "SELECT DISTINCT n.nid, n.title,(SELECT IFNULL( count( * ) , 0 ) FROM {node_revisions} WHERE uid = '$user->uid' and nid=n.nid) as tcnt FROM {node} AS n WHERE n.type='poll' having tcnt<1 ORDER BY n.nid DESC";
+    $query = "SELECT DISTINCT n.nid, n.title,(SELECT IFNULL( count( * ) , 0 ) FROM {node_revisions} WHERE uid = '$user->uid' and nid=n.nid) as tcnt FROM {node} AS n WHERE n.type='poll' AND (language = 'en' OR language = '') having tcnt<1 ORDER BY n.nid DESC";
     $new = ExecuteQuery($query, 'norows');
 
     //$query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' group by q.qid ORDER BY f.flag_date DESC";
@@ -242,7 +242,7 @@ function moderator_issues_list($type='') {
             //  $query="SELECT * FROM {question} ";
             $query = "SELECT * FROM
 (SELECT DISTINCT n.nid as qid, n.title as question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM node_revisions WHERE nid=n.nid ) AS tcnt FROM node AS n
-WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.type = 'poll' ORDER BY n.nid DESC
+WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.type = 'poll' AND (language = 'en' OR language = '') ORDER BY n.nid DESC
 ) AS issue WHERE issue.tcnt<3";
 //            $query = "SELECT * FROM
 //(SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM question_cat_revision WHERE qid=q.qid) AS tcnt FROM question AS q
@@ -381,7 +381,7 @@ function moderator_edit_issues($qid = ''){
 }
 
 function moderator_edit_issue_form($form_state, $qid){
-
+global $gSitePath, $user, $gDocPath, $base_root;
 //    $left_qry = "SELECT * FROM {node_revisions} as n left join {term_node} as t on n.nid=t.nid where n.nid='" . $qid . "'";
 //    $result = db_query($left_qry);
 //    $quest = db_fetch_object($result);
@@ -538,21 +538,34 @@ function moderator_edit_issue_form($form_state, $qid){
         $catOptions = array($list->cat_id => stripslashes($list->cat_name));
     }
     $form['cat1'] = array('#type' => 'hidden',
-                            '#default_value' => $ecat1);
+                            '#default_value' => $ecat1, '#id' => 'cat1');
     
-    $form['categories'] = array('#type' => 'select',
+    $form['q_cat'] = array('#type' => 'select',
                                 '#options' => $options,
-                                '#prefix' => '<div style="float:left">',
-                                '#suffix' => '</div>');
-    $form['s_categories'] = array('#type' => 'select',
-                                '#options' => $options,
-                                '#prefix' => '<div style="float:left">',
-                                '#suffix' => '</div>',
-                                '#attributes' => array('onchange' => 'get_subcat(q_scat,\'chg_sscat\',2)'));
-    $form['ss_categories'] = array('#type' => 'select',
-                                '#options' => $options,
-                                '#prefix' => '<div style="float:left">',
-                                '#suffix' => '</div>');
+                                '#prefix' => '<div style="float:left"> <div class="mod-t5">
+                                              ',
+                                '#suffix' => '</div></div>',
+                                '#attributes' => array('class' => 'mod-txtarea'),
+                                '#multiple' => 'multiple',
+                                '#id' => 'q_cat',
+                                '#ahah' => array('wrapper' => 'sub-cat-wrapper',
+                                                'path' => 'moderator/issue/ahah/category/scat',
+                                                'effect' => 'fade'));
+    $form['sub_categories'] = array('#type' => 'fieldset',
+                                    '#prefix' => '<div style="float:left" id="sub-cat-wrapper">',
+                                    '#suffix' => '</div><br /><div class="clr"></div>',);
+    $form['sub_sub_categories'] = array('#type' => 'fieldset',
+                                    '#prefix' => '<div style="float:left" id="sub-sub-cat-wrapper">',
+                                    '#suffix' => '</div><br /><div class="clr"></div>',);
+//    $form['s_categories'] = array('#type' => 'select',
+//                                '#options' => $options,
+//                                '#prefix' => '<div style="float:left">',
+//                                '#suffix' => '</div>',
+//                                '#attributes' => array('onchange' => 'get_subcat(q_scat,\'chg_sscat\',2)'));
+//    $form['ss_categories'] = array('#type' => 'select',
+//                                '#options' => $options,
+//                                '#prefix' => '<div style="float:left">',
+//                                '#suffix' => '</div>');
     $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label><span>Location</span></label>');
     $form['country'] = array('#type' => 'select',
                                 '#options' => $options,
@@ -572,7 +585,39 @@ function moderator_edit_issue_form($form_state, $qid){
                           '#default_value' => $node->mod_status);
     $form['issue_edit'] = array('#type' => 'submit', '#value' => 'UPDATE ISSUE');
     $form['mod_main_close_div'] = array('#type' => 'markup', '#value' => '</div>');
+
+
+    //Moderator Revision
+   $result = db_query("select u.uid,u.name,nr.timestamp from {node_revisions} as nr join {users} as u on u.uid=nr.uid JOIN {node} as n ON n.nid = nr.nid where nr.nid='$qid' AND n.uid != nr.uid GROUP BY nr.uid");
+//   $dupecnt=get_dupe_query($qid);
+//   $dcnt=!empty($dupecnt['count'])?$dupecnt['count']:'0';
+//   $form['pre_up_mod'] = array('#type' => 'markup','#prefix' => '<div class="mod-t-outer">',
+//                                '#suffix' => '</div>',
+//                                '#value' => '<strong><a data-fb-options="type:ajax width:640 height:385" title="Dupe List" href="' . $gSitePath . 'moderator/ajax/dupelist/' . $qid . '" class="floatbox">Duped Issues </a>('.$dcnt.')</strong>');
    
+   $form['pre_up_mod_title'] = array('#type' => 'markup',
+                                '#value' => '<div class="mod-t-outer">
+                                <strong>Previous Updated Moderators</strong>
+                                </div>');
+    while ($coupon = db_fetch_object($result)) {
+        $updated = date("Y-m-d H:i:s",$coupon->timestamp);
+        $rows[] = array(
+            array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+            array('data' => ago($updated))
+        );
+    }
+    $head = array(
+        array('data' => t('Moderator')),
+        array('data' => t('Updated On ')),
+    );
+    //print drupal_render( );
+    $form['mod_list'] = array('#type' => 'markup', '#value' => theme_table($head, $rows, array('style' => 'width: 100%')));
+    if (empty($rows))
+     $form['mod_list_empty'] = array('#type' => 'markup',
+                                    '#value' => '<div class="mod-t-outer">
+                                    <strong>No One Updated Yet !</strong>
+                                     </div>');
+
     return $form;
 }
 function moderator_edit_issues_old($qid='') {
@@ -2126,6 +2171,47 @@ function moderator_ahah_callback($type = '', $key = ''){
     $fields['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
     $fields['ans_count_1'] = array('#type' => 'hidden', '#value' => $count);    
    }
+   elseif($type == 'category'){
+       
+      if($key == 'scat'){
+       $catids = $_POST['q_cat'];
+      }
+      if($key == 'sscat'){
+        $catids = $_POST['q_scat'];
+      }
+       $cids = implode(",",$catids);
+       // SET SUB CATEGORIES
+       $fieldName = 'q_scat'   ;
+       $scats = array();
+       foreach($catids as $catid){
+       $ids = taxonomy_get_children($catid);
+       foreach($ids as $tid=>$value){
+            $stid[] = $tid;
+       }
+       array_push($scats, $stid);
+       }
+      // print_r($stid);exit;
+       $i=0;
+       foreach($stid as $value => $scid){
+           $options[$scid] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '".$scid."'"));
+           $i++;
+       }
+       
+       //print_r($keys[0]);exit;
+       if($key == 'scat'){
+       $fields['q_scat'] = array('#type' => 'select', '#options' => $options ,
+                                    '#multiple' => 'multiple',
+                                    '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
+                                                'path' => 'moderator/issue/ahah/category/sscat',
+                                                'effect' => 'fade'));
+       }
+       if($key == 'sscat'){
+       $fields['q_sscat'] = array('#type' => 'select', '#options' => $options ,
+                                    '#multiple' => 'multiple',
+                                    );
+       }
+    
+   }
    $output = ahah_render($fields, $fieldName);
    print drupal_to_js(array('data' => $output, 'status' => true));
    
@@ -2154,8 +2240,19 @@ function moderator_edit_issue_form_submit($form, &$form_state){
          $node->choice[$i]['chvotes'] = $chvotes!=''?$chvotes:0;
 
      }
-     
-     $node->field_mod_status[0]['value'] = 1;
+     $node->revision = TRUE;
+     // set field_mod_status as 1 if 3 moderators updated this issue
+     $revisions = node_revision_list($node);
+     foreach($revisions as $revision){
+         if($revision->uid != $node->uid && $revision->uid != $user->uid){
+         $uid[] = $revision->uid;
+         }
+     }
+     $modids = array_unique($uid);
+     $modCount = count($modids);
+     if($modCount == 2){
+         $node->field_mod_status[0]['value'] = 1;
+     }
      node_save($node);
 }
 
