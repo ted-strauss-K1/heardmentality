@@ -568,7 +568,7 @@ function load_issue_data(){
     //var ahah = new Drupal.ahah(base, element_settings);
  jQuery.extend(Drupal.settings, { "basePath": "\u002fheardmentality\u002f", "user_relationships_ui": { "loadingimage": "\u002fheardmentality\u002fsites\u002fall\u002fmodules\u002fuser_relationships\u002fuser_relationships_ui\u002fimages\u002floadingAnimation.gif", "savingimage": "\u002fheardmentality\u002fsites\u002fall\u002fmodules\u002fuser_relationships\u002fuser_relationships_ui\u002fimages\u002fsavingimage.gif", "position": { "position": "absolute", "left": "0", "top": "0" } }, "send_button": "Queue for translation", "send_link": "Send now", "queued_message": "There are strings queued for translation: ", "checking_status": "Checking status...", "ican_url": { "ican_string_status_url": "\u002fheardmentality\u002ficl_content\u002ficl_string_status", "ican_string_send_url": "\u002fheardmentality\u002ficl_content\u002ficl_string_send", "ican_string_que_url": "\u002fheardmentality\u002fadmin\u002fcontent\u002ftranslation-management\u002fdashboard?string=queued", "ican_string_token": "90ed507b5bd465275050eb9353589d8f" }, "ahah": { "edit-poll-more": { "url": "\u002fheardmentality\u002fmoderator\u002fissue\u002faddanswer", "event": "mousedown", "keypress": true, "wrapper": "poll-choices", "selector": "#edit-poll-more", "effect": "fade", "method": "replace", "progress": { "type": "throbber" }, "button": { "op": "Add Another Answer" } } } });
 Drupal.attachBehaviors($("#mod-edit-issue"));
-alert(33);
+
   //  trigger_get_state();
     trigger_get_scat();
 

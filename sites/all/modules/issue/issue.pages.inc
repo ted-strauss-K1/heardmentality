@@ -820,19 +820,24 @@ function issue_create(){
 
 function issue_create_form($form_state){
 
-    //drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+    $inline = 'jQuery(function() {
+CountlimitChars = function(){
+jQuery("#numberofword").text(140 - jQuery("#q_quest").val().length ).show();
+} })';
+    drupal_add_js($inline, $type = 'inline');
     //drupal_add_js( drupal_get_path('module', 'question') . '/scripts/post_list.js');
 
     //$form['#attributes'] = array('onsubmit' => 'return validate_question()');
     $form['issue_cont'] = array('#type' => 'markup', '#value' => '<div ><ul id="add_more">');
     $form['title_div'] = array('#type' => 'markup', '#value' => '<li><label><span>');
-    $form['q_quest'] = array('#type' => 'textfield', '#maxlength' => 140, '#suffix' => '<br>
-                                </span></label>
-                                <span class="span1">&nbsp;</span><small>Max 140 Chars.</small>
-                                </li>', '#required' => TRUE, '#id' => 'q_quest', '#title' => 'Enter Question',
-                            '#ahah' => array('path'=>'issue/get_related_issues','wrapper'=>'related_issues_holder','effect' => 'fade'));
+    $form['q_quest'] = array('#type' => 'textfield', '#maxlength' => 140, '#suffix' => '
+                                </span></label><small id="numberofword">140</small><small> '.t('Chars Left.').'</small>
+                                <span class="span1">&nbsp;</span>
+                                </li>', '#required' => TRUE, '#id' => 'q_quest', '#title' => t('Enter Question'),
+                            '#ahah' => array('path'=>'issue/get_related_issues','wrapper'=>'related_issues_holder','effect' => 'fade'),
+                            '#attributes' => array('onkeyup' => 'CountlimitChars()'));
     $form['desc_div'] = array('#type' => 'markup', '#value' => '<li><label><span>');
-    $form['q_context'] = array('#type' => 'textarea', '#rows' => 4, '#suffix' => '</span></label></li>', '#title' => 'Enter Context');
+    $form['q_context'] = array('#type' => 'textarea', '#rows' => 4, '#suffix' => '</span></label></li>', '#title' => t('Enter Context'));
 //    $form['choices'][] = array('#type' => 'textfield', '#prefix' => ' <li><label><span>', '#suffix' => '</span></label></li>', '#required' => TRUE, '#id' => 'q_ans1', '#title' => 'Option1');
 //    $form['choices'][] = array('#type' => 'textfield', '#prefix' => '<li><label><span>', '#suffix' => '</span></label></li>', '#required' => TRUE, '#id' => 'q_ans2', '#title' => 'Option2');
     
@@ -906,7 +911,7 @@ function issue_create_form($form_state){
 
    $form['#validate'][] = 'issue_create_form_validate';
 
-    $form['submit'] = array('#type' => 'submit', '#attributes' => array('class' => 'question-save'), '#value' => 'SUBMIT NEW ISSUE');
+    $form['submit'] = array('#type' => 'submit', '#attributes' => array('class' => 'question-save'), '#value' => t('SUBMIT NEW ISSUE'));
     $form['#redirect'] = '';
     return $form;
 }
@@ -1131,7 +1136,7 @@ function issue_create_form_submit($form, &$form_state) {
         //_send_qnotify($node->nid);
         //drupal_goto($path);
         //echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';
-         drupal_goto($gSitePath . $path);
+         drupal_goto($path);
 }
 
 

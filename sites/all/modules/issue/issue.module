@@ -2034,8 +2034,9 @@ function theme_issue_answer($form) {
   drupal_add_js('if (Drupal.jsEnabled) { $(document).ready(function() { $("#edit-poll-more").val("'. t('Add Another Answer') .'"); }); }', 'inline');
 
   $rows = array();
+  $head = t('Possible Answers').' <br><small>'.t('Enter atleast two possible answers.'). t('Click Add Another Answer to enter more.').'</small>';
   $headers = array(
-    t('Possible Answers<br><small>Enter atleast two possible answers. Click Add Another Answer to enter more.</small>'),
+    $head,
     
   );
 
