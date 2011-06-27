@@ -552,11 +552,12 @@ global $gSitePath, $user, $gDocPath, $base_root;
                                                 'path' => 'moderator/issue/ahah/category/scat',
                                                 'effect' => 'fade'));
     $form['sub_categories'] = array('#type' => 'fieldset',
-                                    '#prefix' => '<div style="float:left" id="sub-cat-wrapper">',
-                                    '#suffix' => '</div><br /><div class="clr"></div>',);
+                                    '#value' => '<div style="float:left" id="sub-cat-wrapper"></div>',
+                                    );
     $form['sub_sub_categories'] = array('#type' => 'fieldset',
-                                    '#prefix' => '<div style="float:left" id="sub-sub-cat-wrapper">',
-                                    '#suffix' => '</div><br /><div class="clr"></div>',);
+                                    '#value' => '<div style="float:left" id="sub-sub-cat-wrapper">
+                                                </div><br /><div class="clr"></div>',
+                                    );
 //    $form['s_categories'] = array('#type' => 'select',
 //                                '#options' => $options,
 //                                '#prefix' => '<div style="float:left">',
@@ -2213,6 +2214,35 @@ function moderator_ahah_callback($type = '', $key = ''){
     
    }
    $output = ahah_render($fields, $fieldName);
+
+
+  // AHAH is not being nice to us and doesn't know the "other" button (that is,
+  // either "Upload" or "Delete") yet. Which in turn causes it not to attach
+  // AHAH behaviours after replacing the element. So we need to tell it first.
+
+  // Loop through the JS settings and find the settings needed for our buttons.
+  $javascript = drupal_add_js(NULL, NULL);
+  $filefield_ahah_settings = array();
+  if (isset($javascript['setting'])) {
+    foreach ($javascript['setting'] as $settings) {
+      if (isset($settings['ahah'])) {
+        foreach ($settings['ahah'] as $id => $ahah_settings) {
+          
+            $filefield_ahah_settings[$id] = $ahah_settings;
+          
+        }
+      }
+   }
+  }
+
+  // Add the AHAH settings needed for our new buttons.
+  if (!empty($filefield_ahah_settings)) {
+    $output .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, '. drupal_to_js($filefield_ahah_settings) .');</script>';
+  }
+
+
+
+
    print drupal_to_js(array('data' => $output, 'status' => true));
    
 }
@@ -2222,7 +2252,7 @@ function moderator_edit_issue_form_submit($form, &$form_state){
 
      global $gSitePath, $user, $gDocPath, $base_root;
 
-   // echo '<pre>'; print_r($form_state['values']); exit;
+    echo '<pre>'; print_r($form_state['values']); exit;
     $nid = $form_state['values']['qid'];
     $title = $form_state['values']['title'];
     $context = $form_state['values']['context'];
