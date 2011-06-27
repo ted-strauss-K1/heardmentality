@@ -298,7 +298,7 @@ $langcode = $language->language; //ISO2 code
    if($qid==''||!is_numeric($qid)){
       //echo "numeric 3";
 
-      $query = "SELECT nid from {node} where status='1' and type='poll' order by nid DESC limit 0,1 ";
+      $query = "SELECT nid from {node} where status='1' and type='poll' and language='en' order by nid DESC limit 0,1 ";
       $quest = db_query($query);
       $qid = db_result($quest);
       } 
