@@ -96,14 +96,19 @@ function moderator_menu() {
     return $mdtrest;
 }
 
+function moderator_init()
+{
+        $inline = "      var admin='1';";
+drupal_add_js("misc/ahah.js");
+    drupal_add_js($inline, $type = 'inline');
+    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
+}
+
 function moderator_issues() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
     // drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
-    $inline = "      var admin='1';";
-drupal_add_js("misc/ahah.js");
-    drupal_add_js($inline, $type = 'inline');
-    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
+
     drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
     drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.js');
@@ -120,10 +125,7 @@ function moderator_users() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
     // drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
-    $inline = "      var admin='1';";
-
-    drupal_add_js($inline, $type = 'inline');
-    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
+  
     drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
     drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.js');
@@ -311,7 +313,7 @@ function moderator_user_list($type='') {
     //This is numbers per page
     $num_per_page = 12;
 
-    drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
+   
 
     $output = '';
     switch ($type) {
@@ -365,7 +367,7 @@ function moderator_user_list($type='') {
     echo $output;
     exit;
 }
-function moderator_edit_issues($qid = ''){
+function moderator_edit_issues($qid = ''){   
     global $gSitePath, $user, $gDocPath, $base_root;
     drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/style.css');
     $form .= '<script type="text/javascript">
@@ -377,7 +379,7 @@ function moderator_edit_issues($qid = ''){
                             var admin=\'1\';
 		</script>
 			';
-    $form = drupal_get_form('moderator_edit_issue_form', $qid);
+    $form.= drupal_get_form('moderator_edit_issue_form', $qid);
         // AHAH is not being nice to us and doesn't know the "other" button (that is,
  // either "Upload" or "Delete") yet. Which in turn causes it not to attach
   // AHAH behaviours after replacing the element. So we need to tell it first.
@@ -402,10 +404,19 @@ function moderator_edit_issues($qid = ''){
     $form .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, '. drupal_to_js($filefield_ahah_settings) .');</script>';
   }
 
-    if (isAjax ())
-        echo $form;
-    else
+
+
+
+    if (isAjax ()){
+          $form='<iframe id="theiframe" frameborder="0" style="height:100%;width:100%;border:none;min-height:455px;overflow:scroll;" name="editissue" src="'.url($_GET['q']).'"></iframe>';
+       print drupal_json(array('status'=>true,'output'=>$form));
+    exit();
+    
+    }
+        else{
         return $form;
+
+        }
 }
 
 function moderator_edit_issue_form($form_state, $qid){

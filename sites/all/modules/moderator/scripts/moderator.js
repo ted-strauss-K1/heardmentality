@@ -153,36 +153,6 @@ jQuery(document).ready(function(){
     });
 
 
-
-    jQuery('a.issue-links').live('click',function(e){
-        jQuery('a.issue-links').removeAttr('name');
-        jQuery(this).attr('name','icurrent');
-        e.preventDefault();
-        e.stopPropagation();
-        //     parent.fb.start(jQuery(this).attr('href'), {
-        //   type:'ajax',
-        //  width: '70%',
-        //   height: '90%',
-        //  caption:'DEBATE SUMMARY'
-        // afterItemStart:'`fb$("fbCaption").append("DEBATE SUMMARY");fb.translate(\'eat a peach\', \'fr\', function(result) { alert(result.responseData.translatedText); }); `',
-        //controlsPos:'tr', captionPos:'tc',caption:'#boxSelect',
-        //afterItemEnd:'`fb$("boxSelect").selectedIndex = 0;`'
-        // });
-
-        jQuery.ajax({
-            type: "GET",
-            url: jQuery(this).attr('href'),
-            complete: function(){
-             
-                load_issue_data();
-            },
-
-            success: function(msg){
-                jQuery('#mod-edit-issue').html(msg);
-                
-            }
-        });
-    });
     jQuery('a.user-links').live('click',function(e){
         jQuery(this).attr('name','icurrent');
         e.preventDefault();
@@ -221,6 +191,48 @@ jQuery(document).ready(function(){
 
 
 });
+
+    // Drupal behavior to attach our AJAX click handler to links with
+// the .our-links class.
+Drupal.behaviors.moderator = function(context) {
+    jQuery('a.issue-links',context).live('click',function(e){
+        jQuery('a.issue-links').removeAttr('name');
+        jQuery(this).attr('name','icurrent');
+        e.preventDefault();
+        e.stopPropagation();
+        //     parent.fb.start(jQuery(this).attr('href'), {
+        //   type:'ajax',
+        //  width: '70%',
+        //   height: '90%',
+        //  caption:'DEBATE SUMMARY'
+        // afterItemStart:'`fb$("fbCaption").append("DEBATE SUMMARY");fb.translate(\'eat a peach\', \'fr\', function(result) { alert(result.responseData.translatedText); }); `',
+        //controlsPos:'tr', captionPos:'tc',caption:'#boxSelect',
+        //afterItemEnd:'`fb$("boxSelect").selectedIndex = 0;`'
+        // });
+
+        jQuery.ajax({
+            type: "GET",
+             dataType: 'json',
+            url: jQuery(this).attr('href'),
+            complete: function(){
+
+                load_issue_data();
+                 Drupal.attachBehaviors(jQuery('#poll-choice-wrapper'));
+                       Drupal.attachBehaviors(context);
+            },
+
+            success: function(msg){
+                // var result = Drupal.parseJson(msg);
+
+           var message = jQuery("#mod-edit-issue").html(msg.output);
+              
+            }
+        });
+    });
+}
+
+
+
 
 function trigger_get_scat(){
 
