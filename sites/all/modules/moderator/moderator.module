@@ -86,7 +86,11 @@ function moderator_menu() {
         'title' => 'Moderator Ahah Control',
         'page callback' => 'moderator_add_choice_callback',
         'access arguments' => array('Moderate Question'),
-        'page arguments' => array(3,4),
+    );
+    $mdtrest['moderator/edit/issue/submit'] = array(
+        'title' => 'Moderator Ahah Control',
+        'page callback' => 'moderator_edit_issue_submit',
+        'access arguments' => array('Moderate Question'),
     );
 
     return $mdtrest;
@@ -551,57 +555,87 @@ global $gSitePath, $user, $gDocPath, $base_root;
     }
     $ecat1 = explode(",", $cat);
     while ($list = db_fetch_object($client_select)) {
-
-        if (in_array($list->cat_id, $cat)) {
-            $sel = 'SELECTED="SELECTED"';
-        } else {
-            $sel = '';
-        }
         $options[$list->cat_id] = stripslashes($list->cat_name);
-        $output .= '<option value="' . $list->cat_id . '" ' . $sel . '>' . stripslashes($list->cat_name) . '</option>';
-        $catOptions = array($list->cat_id => stripslashes($list->cat_name));
     }
     $form['cat1'] = array('#type' => 'hidden',
                             '#default_value' => $ecat1, '#id' => 'cat1');
     
     $form['q_cat'] = array('#type' => 'select',
                                 '#options' => $options,
-                                '#prefix' => '<div style="float:left"> <div class="mod-t5">
-                                              ',
-                                '#suffix' => '</div></div>',
-                                '#attributes' => array('class' => 'mod-txtarea'),
+                                '#prefix' => '<div style="float:left;">',
+                                '#suffix' => '</div>',
                                 '#multiple' => 'multiple',
                                 '#id' => 'q_cat',
                                 '#ahah' => array('wrapper' => 'sub-cat-wrapper',
                                                 'path' => 'moderator/issue/ahah/category/scat',
-                                                'effect' => 'fade'));
-    $form['sub_categories'] = array('#type' => 'fieldset',
-                                    '#value' => '<div id="sub-cat-wrapper"></div>',
-                                    '#attributes' => array('style' => 'width:140px; float:left'));
-    $form['sub_sub_categories'] = array('#type' => 'fieldset',
-                                    '#value' => '<div id="sub-sub-cat-wrapper">
+                                                'effect' => 'fade',
+                                                'method' => 'replace'),
+                                '#size' => 5,
+                                '#default_value' => $cat);
+    foreach($options as $tid => $value){
+        $childrenArray = taxonomy_get_children($tid);
+        foreach($childrenArray as $ctid=>$scat){
+            $firstChildren[$ctid] = $scat->name;
+        }
+    }
+    foreach($firstChildren as $tid => $value){
+        $childrenArray = taxonomy_get_children($tid);
+        foreach($childrenArray as $ctid=>$scat){
+            $secondChildren[$ctid] = $scat->name;
+        }
+    }
+    
+    $form['sub_categories'] = array('#type' => 'markup',
+                                    '#value' => '<div id="sub-cat-wrapper" style="padding-left:5px; float:left"></div>',
+                                    );
+    
+    $form['sub_sub_categories'] = array('#type' => 'markup',
+                                    '#value' => '<div id="sub-sub-cat-wrapper" style="padding-left:5px; float:left">
                                                 </div>',
-                                    '#attributes' => array('style' => 'width:140px; float:left'),
                                     '#suffix' => '<br /><div class="clr"></div>');
 
     $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label><span>Location</span></label>');
-    $form['country'] = array('#type' => 'select',
-                                '#options' => $options,
+
+    $countryList = geonames_query('countryinfo');
+    foreach($countryList->results as $country){
+        $countries[$country['countryname']] = $country['countryname'];
+    }
+    $form['q_country'] = array('#type' => 'select',
+                                '#options' => $countries,
                                 '#prefix' => '<div style="float:left">',
-                                '#suffix' => '</div>');
-    $form['state'] = array('#type' => 'select',
-                                '#options' => $options,
-                                '#prefix' => '<div style="float:left">',
-                                '#suffix' => '</div>');
-    $form['city'] = array('#type' => 'select',
-                                '#options' => $options,
-                                '#prefix' => '<div style="float:left">',
-                                '#suffix' => '</div>');
+                                '#suffix' => '</div>',
+                                '#multiple' => 'multiple',
+                                '#ahah' => array('wrapper' => 'state-wrapper',
+                                                'path' => 'moderator/issue/ahah/location/state',
+                                                'effect' => 'fade'),
+                                '#size' => 5);
+    $form['state_div'] = array('#type' => 'markup',
+                                '#value' => '<div id="state-wrapper" style="padding-left:5px; float:left"></div>');
+    $form['city_div'] = array('#type' => 'markup',
+                                '#value' => '<div id="city-wrapper" style="padding-left:5px; float:left"></div>',
+                                '#suffix' => '<br /><div class="clr"></div>');
+//    $form['state'] = array('#type' => 'select',
+//                                '#options' => $options,
+//                                '#prefix' => '<div style="float:left">',
+//                                '#suffix' => '</div>');
+//    $form['city'] = array('#type' => 'select',
+//                                '#options' => $options,
+//                                '#prefix' => '<div style="float:left">',
+//                                '#suffix' => '</div>');
     $form['qid'] = array('#type' => 'hidden',
                           '#default_value' => $qid);
     $form['mod_status'] = array('#type' => 'hidden',
                           '#default_value' => $node->mod_status);
-    $form['issue_edit'] = array('#type' => 'submit', '#value' => 'UPDATE ISSUE');
+    $form['issue_edit'] = array('#type' => 'submit',
+                                '#value' => 'UPDATE ISSUE',
+                                '#suffix' => '<br /><div class="clr"></div>',
+                                '#submit' => array('node_form_submit_build_node'),
+                                '#ahah' => array('path' => 'moderator/edit/issue/submit',
+                                                 'wrapper' => 'success-message',
+                                                  'effect' => 'fade'));
+    $form['success_div'] = array('#type' => 'markup',
+                                '#value' => '<div id="success-message"></div>
+                                            <br /><div class="clr"></div>');
     $form['mod_main_close_div'] = array('#type' => 'markup', '#value' => '</div>');
 
 
@@ -2190,7 +2224,15 @@ function moderator_ahah_callback($type = '', $key = ''){
     $fields['ans_count_1'] = array('#type' => 'hidden', '#value' => $count);    
    }
    elseif($type == 'category'){
-       
+      $qid = $_POST['qid'];
+      // selected categories
+      $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
+      $result_cat = db_query($qry_cat);
+      $cat = array();
+
+       while ($quest_cat = db_fetch_object($result_cat)) {
+            $cat[] = $quest_cat->tid;
+        }
       if($key == 'scat'){
        $catids = $_POST['q_cat'];
        $fieldName1 = 'q_scat'   ;
@@ -2212,9 +2254,13 @@ function moderator_ahah_callback($type = '', $key = ''){
        }
       // print_r($stid);exit;
        $i=0;
+       if(count($stid)>0){
        foreach($stid as $value => $scid){
            $options[$scid] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '".$scid."'"));
            $i++;
+       }
+       }else{
+           $options[] = 'No Sub Category';
        }
        
        //print_r($keys[0]);exit;
@@ -2223,20 +2269,71 @@ function moderator_ahah_callback($type = '', $key = ''){
                                     '#multiple' => 'multiple',
                                     '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
                                                 'path' => 'moderator/issue/ahah/category/sscat',
-                                                'effect' => 'fade'));
+                                                'effect' => 'fade',
+                                     ),
+                                    '#size' => 5,
+                                    '#default_value' => $cat);
        $output .= ahah_render($fields, $fieldName1);
        }
        if($key == 'sscat'){
        $fields['q_sscat'] = array('#type' => 'select', '#options' => $options ,
                                     '#multiple' => 'multiple',
-                                    );
+                                    '#size' => 5,
+                                    '#default_value' => $cat);
        $output .= ahah_render($fields, $fieldName2);
        }
     
    }
-   
+   elseif($type == 'location'){
+        $qid = $_POST['qid'];
+        if($key == 'state'){
+           $countryNames = $_POST['q_country'];
+           $fieldNameState = 'q_state';
 
+           foreach ($countryNames as $country) {
 
+                    $geoid = db_result(db_query("SELECT geonameid FROM {geonames_countryinfo} where name LIKE '%" . $country . "%' limit 0,1"));
+
+                    $query = array('geonameid' => $geoid);
+                    $results = geonames_query('children', $query);
+                    foreach ($results->results as $state) {
+                        $set = '';
+
+                        if (strpos(strtolower($setstate), strtolower($state['name']))) {
+                            $set = 'SELECTED=SELECTED';
+                        }
+                        $states[$state['geonameid']] = $state['name'];
+                    }
+                }
+            $fields['q_state'] = array('#type' => 'select', '#options' => $states,
+                                        '#multiple' => 'multiple',
+                                        '#ahah' => array('wrapper' => 'city-wrapper',
+                                                'path' => 'moderator/issue/ahah/location/city',
+                                                'effect' => 'fade'),
+                                        '#size' => 5);
+            $output .= ahah_render($fields, $fieldNameState);
+        }
+        if($key == 'city'){
+            $steateIds = $_POST['q_state'];
+            $fieldNameCity = 'q_city';
+            foreach ($steateIds as $code) {
+                    $explode = explode(',', $code);
+                    $query = array('geonameid' => $explode[0]);
+                    $result = geonames_query('children', $query);
+                    foreach ($result->results as $state) {
+
+                        $ret .= sprintf('<option value="%s,%s,%s">%s</option>', $state['geonameid'], $explode[0], $explode[1], $state['name']);
+                        $cities[$state['geonameid'].$explode[0].$explode[1]] = $state['name'];
+                    }
+                }
+            $fields['q_city'] = array('#type' => 'select', '#options' => $cities,
+                                        '#multiple' => 'multiple',
+                                        '#size' => 5);
+            $output .= ahah_render($fields, $fieldNameCity);
+        }
+   }
+
+// set ahah behaviour for inner rendering buttons
   // AHAH is not being nice to us and doesn't know the "other" button (that is,
   // either "Upload" or "Delete") yet. Which in turn causes it not to attach
   // AHAH behaviours after replacing the element. So we need to tell it first.
@@ -2264,16 +2361,25 @@ function moderator_ahah_callback($type = '', $key = ''){
 
 
 
-   print drupal_to_js(array('data' => $output, 'status' => true));
+   //print drupal_to_js(array('data' => $output, 'status' => true));
+  print drupal_json(array('data' => $output, 'status' => true));
    
 }
 
-// submit moderatr edit issues
-function moderator_edit_issue_form_submit($form, &$form_state){
 
-     global $gSitePath, $user, $gDocPath, $base_root;
+function moderator_edit_issue_submit(){
+  $form_state = array('storage' => NULL, 'submitted' => FALSE);
+  $form_build_id = $_POST['form_build_id'];
+  $form = form_get_cache($form_build_id, $form_state);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  $form_state['values'] = $form['#post'] = $_POST;
+  // Enable the submit/validate handlers to determine whether AHAH-submittted.
+  $form_state['ahah_submission'] = TRUE;
+  $form['#programmed'] = $form['#redirect'] = FALSE;
 
-    echo '<pre>'; print_r($form_state['values']); exit;
+  
+  //save values
     $nid = $form_state['values']['qid'];
     $title = $form_state['values']['title'];
     $context = $form_state['values']['context'];
@@ -2281,7 +2387,7 @@ function moderator_edit_issue_form_submit($form, &$form_state){
     $node->title = check_plain($title);
     $node->body = check_plain($context);
     $node->nid = $nid;
-   //print_r($node); exit;
+    
     $ans_cnt = count($form_state['values']['choice']);
      for ($i = 0; $i < $ans_cnt; $i++) {
          $chorder = $form_state['values']['choice'][$i]['chorder'];
@@ -2304,7 +2410,31 @@ function moderator_edit_issue_form_submit($form, &$form_state){
      if($modCount == 2){
          $node->field_mod_status[0]['value'] = 1;
      }
+    // taxonomy terms
+     $q_cat = $form_state['values']['q_cat']!=''?$form_state['values']['q_cat']:array();
+     $q_scat = $form_state['values']['q_scat']!=''?$form_state['values']['q_scat']:array();
+     $q_sscat = $form_state['values']['q_sscat']!=''?$form_state['values']['q_sscat']:array();
+     $term = array_merge($q_cat, $q_scat, $q_sscat);
+     
      node_save($node);
+     taxonomy_node_save($node,$term);
+
+    $fields['success_message'] = array('#type' => 'markup', '#value' => 'Edited Successfully');
+    $output = ahah_render($fields, 'success_message');
+    print drupal_json(array('data' => $output, 'status' => true));
+}
+
+
+
+
+// submit moderatr edit issues
+function moderator_edit_issue_form_submit($form, &$form_state){
+
+     global $gSitePath, $user, $gDocPath, $base_root;
+
+    echo '<pre>'; print_r($form_state['values']); exit;
+    
+     
 }
 
 function moderator_add_choice_callback(){
