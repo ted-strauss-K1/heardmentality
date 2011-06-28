@@ -87,12 +87,7 @@ function moderator_menu() {
         'page callback' => 'moderator_add_choice_callback',
         'access arguments' => array('Moderate Question'),
     );
-    $mdtrest['moderator/edit/issue/submit'] = array(
-        'title' => 'Moderator Ahah Control',
-        'page callback' => 'moderator_edit_issue_submit',
-        'access arguments' => array('Moderate Question'),
-    );
-
+   
     return $mdtrest;
 }
 
@@ -370,6 +365,47 @@ function moderator_user_list($type='') {
 function moderator_edit_issues($qid = ''){   
     global $gSitePath, $user, $gDocPath, $base_root;
     drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/style.css');
+
+    // select sub categories for a issue
+    /*categories*/
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+    $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
+    
+    while ($list = db_fetch_object($client_select)) {
+        $options[$list->cat_id] = stripslashes($list->cat_name);
+    }
+
+    foreach($options as $tid => $value){
+        $childrenArray = taxonomy_get_children($tid);
+        foreach($childrenArray as $ctid=>$scat){
+            $firstChildren[] = $ctid;
+        }
+    }
+    foreach($firstChildren as $tid){
+        $childrenArray = taxonomy_get_children($tid);
+        foreach($childrenArray as $ctid=>$scat){
+            $secondChildren[] = $ctid;
+        }
+    }
+    $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
+    $result_cat = db_query($qry_cat);
+    $qcats = array();
+    while($qcatList = db_fetch_object($result_cat)){
+        $qcats[] = $qcatList->tid;
+    }
+    foreach($firstChildren as $scats){
+        if(in_array($scats, $qcats)){
+            $firstLevel[] = $scats;
+        }
+    }
+    foreach($secondChildren as $scats){
+        if(in_array($scats, $qcats)){
+            $secondLevel[] = $scats;
+        }
+    }
+    $escat1 = implode(",", array_filter($firstLevel));
+    $esscat1 = implode(",", array_filter($secondLevel));
+
     $form .= '<script type="text/javascript">
                         var spath=\'' . $gSitePath . '\';
                     var setstate=[' . $setstate . '] ;
@@ -433,7 +469,8 @@ global $gSitePath, $user, $gDocPath, $base_root;
     $form['quest_title'] = array('#type' => 'markup', '#value' => '<label><span>Question</span></label>');
     $form['title'] = array('#type' => 'textfield',
                            '#default_value' => $node->title,
-                           '#suffix' => '<div class="clr"></div>');
+                           '#suffix' => '<div class="clr"></div>',
+                            '#required' => TRUE);
     $form['quest_context'] = array('#type' => 'markup', '#value' => '<label><span>Context</span></label>');
     $form['context'] = array('#type' => 'textarea',
                              '#default_value' => $node->body,
@@ -480,7 +517,12 @@ global $gSitePath, $user, $gDocPath, $base_root;
             $chovotes = $node->choice[$i]['chvotes'];
             $short = db_result(db_query("SELECT short_answer FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'"));
             $shortAns = $short!=''?$short:'';
-            $form['choice_wrapper']['choice'][$i] = _mod_answer_form($i, $answer, $shortAns, $chorder, $chovotes);
+            $posQuery= db_query("select value from {possible_answer_spectrum} where qid='$qid' AND possible_chorder = '".$chorder."' ORDER BY pid ASC");
+            $pos_spectrum = array();
+            while($spectrum = db_fetch_object($posQuery)){
+                $pos_spectrum[] = $spectrum->value;
+            }
+            $form['choice_wrapper']['choice'][$i] = _mod_answer_form($i, $answer, $shortAns, $pos_spectrum, $chorder, $chovotes);
       }
 
       // AHAH-enabled buttons with the id 'more'.
@@ -501,56 +543,6 @@ global $gSitePath, $user, $gDocPath, $base_root;
 
     ////////////////////////
 
-
-
-//    foreach ($ans as $array) {
-//    // chorder for answer
-//    $chorder = $array['chorder'];
-//
-//    $form['ans_title_'.$i] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$i.'</span></label>');
-//    $form['meta_open_'.$i] = array('#type' => 'markup', '#value' => '<div id="main-open">');
-//
-//    $form['answer_'.$i] = array('#type' => 'textfield',
-//                                '#value' => $array['chtext'],
-//                                '#suffix' => '<div class="clr"></div>');
-//
-//     /*Short Answers*/
-//    // get short answers
-//     $query = "SELECT * FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'";
-//     $short = ExecuteQuery($query, "select");
-//
-//    $form['short_answer_'.$i] = array('#type' => 'textfield',
-//                                '#maxlength' => 10,
-//                                '#size' => 10,
-//                                '#title' => 'Enter Short Answer',
-//                                '#default_value' => $short[0]['short_answer']);
-//    // get meta dada info
-//    $form['meta_info_'.$i] = array('#type' => 'markup',
-//                                '#value' => '<div id="meta-info">');
-//    //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
-//    $form['meta_'.$i]=meta_data_generate($i);
-//    $form['meta_info_close_'.$i] = array('#type' => 'markup',
-//                                '#value' => '</div>');
-//    $form['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
-//    $i++;
-//    }
-   
-//    $form['ans_count'] = array('#type' => 'hidden', '#value' => $i);
-//
-//    $form['more_answer'] = array('#type' => 'fieldset',
-//                                 '#value' => '<div id="more-answer-wrap"></div>',
-//                                 '#title' => 'More Answers',
-//                                );
-//    $form['add_another_answer'] = array('#type' => 'submit',
-//                                         '#value' => t('ADD ANOTHER ANSWER'),
-//                                        '#suffix' => '<br />',
-//                                        '#ahah' => array('wrapper' => 'more-answer-wrap',
-//                                                         'path' => 'moderator/issue/ahah/answer/more',
-//                                                         'effect' => 'fade',
-//                                                         'method' => 'append',
-//                                                         'tree' => TRUE
-//                                                        )
-//                                    );
     
     $form['quest_cat_mark'] = array('#type' => 'markup', '#value' => '<label><span>Categories</span></label>');
     /*categories*/
@@ -578,11 +570,13 @@ global $gSitePath, $user, $gDocPath, $base_root;
                                 '#multiple' => 'multiple',
                                 '#id' => 'q_cat',
                                 '#ahah' => array('wrapper' => 'sub-cat-wrapper',
+                                                'event' => 'click',
                                                 'path' => 'moderator/issue/ahah/category/scat',
                                                 'effect' => 'fade',
                                                 'method' => 'replace'),
                                 '#size' => 5,
-                                '#default_value' => $cat);
+                                '#default_value' => $cat,
+                                '#required' => TRUE);
     foreach($options as $tid => $value){
         $childrenArray = taxonomy_get_children($tid);
         foreach($childrenArray as $ctid=>$scat){
@@ -595,7 +589,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
             $secondChildren[$ctid] = $scat->name;
         }
     }
-    
+   //echo '<pre>'; print_r($firstChildren);
     $form['sub_categories'] = array('#type' => 'markup',
                                     '#value' => '<div id="sub-cat-wrapper" style="padding-left:5px; float:left"></div>',
                                     );
@@ -611,28 +605,28 @@ global $gSitePath, $user, $gDocPath, $base_root;
     foreach($countryList->results as $country){
         $countries[$country['countryname']] = $country['countryname'];
     }
+    $qcountries = db_query("SELECT field_issue_country_value AS country FROM {content_field_issue_country} WHERE nid = '$qid'");
+    while($country = db_fetch_object($qcountries)){
+        $countriesSelected[] = $country->country;
+    }
     $form['q_country'] = array('#type' => 'select',
                                 '#options' => $countries,
                                 '#prefix' => '<div style="float:left">',
                                 '#suffix' => '</div>',
                                 '#multiple' => 'multiple',
+                                '#id' => 'q_country',
                                 '#ahah' => array('wrapper' => 'state-wrapper',
                                                 'path' => 'moderator/issue/ahah/location/state',
-                                                'effect' => 'fade'),
-                                '#size' => 5);
+                                                'effect' => 'fade',
+                                                'event' => 'click',),
+                                '#size' => 5,
+                                '#default_value' => $countriesSelected);
     $form['state_div'] = array('#type' => 'markup',
                                 '#value' => '<div id="state-wrapper" style="padding-left:5px; float:left"></div>');
     $form['city_div'] = array('#type' => 'markup',
                                 '#value' => '<div id="city-wrapper" style="padding-left:5px; float:left"></div>',
                                 '#suffix' => '<br /><div class="clr"></div>');
-//    $form['state'] = array('#type' => 'select',
-//                                '#options' => $options,
-//                                '#prefix' => '<div style="float:left">',
-//                                '#suffix' => '</div>');
-//    $form['city'] = array('#type' => 'select',
-//                                '#options' => $options,
-//                                '#prefix' => '<div style="float:left">',
-//                                '#suffix' => '</div>');
+
     $form['qid'] = array('#type' => 'hidden',
                           '#default_value' => $qid);
     $form['mod_status'] = array('#type' => 'hidden',
@@ -640,10 +634,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
     $form['issue_edit'] = array('#type' => 'submit',
                                 '#value' => 'UPDATE ISSUE',
                                 '#suffix' => '<br /><div class="clr"></div>',
-                                '#submit' => array('node_form_submit_build_node'),
-                                '#ahah' => array('path' => 'moderator/edit/issue/submit',
-                                                 'wrapper' => 'success-message',
-                                                  'effect' => 'fade'));
+                                );
     $form['success_div'] = array('#type' => 'markup',
                                 '#value' => '<div id="success-message"></div>
                                             <br /><div class="clr"></div>');
@@ -2162,7 +2153,7 @@ function question_edit_save_admin($array) {
 }
 
 
-function meta_data_generate($i = ''){
+function meta_data_generate($i = '', $pos_spectrum = array()){
     $rangeQuery = db_query("SELECT min(spec_min_range) as minimum,max(spec_max_range) as maximum FROM political_spectrum");
     while($range = db_fetch_object($rangeQuery)){
         $min = $range->minimum;
@@ -2193,6 +2184,7 @@ function meta_data_generate($i = ''){
         $form['meta'.$i.'_'.$count.'_values'] = array('#type' => 'radios',
                                 '#options' => $meta,
                                 '#parents' => array('choice', $i, 'meta'.$count.'_values'),
+                                '#default_value' => $pos_spectrum[($count-1)],
                                 );
         $form['radio_div_close_'.$count] = array('#type' => 'markup', '#value' => '</div>');
         $form['right_val_'.$count] = array('#type' =>'markup', '#value' => '<div id="meta-right-val">'.$right.'</div>');
@@ -2206,35 +2198,8 @@ function meta_data_generate($i = ''){
 
 
 function moderator_ahah_callback($type = '', $key = ''){
-   // add more answer option
-    if($type == 'answer'){
-       $i = $_POST['ans_count_1']!=''?$_POST['ans_count_1']:$_POST['ans_count'];
-       $count = $i+1;
-    $fieldName = 'more_answer';
-       
-    $fields['ans_title_'.$i] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$i.'</span></label>');
-    $fields['meta_open_'.$i] = array('#type' => 'markup', '#value' => '<div id="main-open">');
-
-    $fields['answer_'.$i] = array('#type' => 'textfield',
-                                '#suffix' => '<div class="clr"></div>',
-                                );
-
-    $fields['short_answer_'.$i] = array('#type' => 'textfield',
-                                '#maxlength' => 10,
-                                '#size' => 10,
-                                '#title' => 'Enter Short Answer',
-                                );
-    // get meta dada info
-    $fields['meta_info_'.$i] = array('#type' => 'markup',
-                                '#value' => '<div id="meta-info">');
-    //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
-    $fields['meta_'.$i]=meta_data_generate($i);
-    $fields['meta_info_close_'.$i] = array('#type' => 'markup',
-                                '#value' => '</div>');
-    $fields['meta_close_'.$i] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
-    $fields['ans_count_1'] = array('#type' => 'hidden', '#value' => $count);    
-   }
-   elseif($type == 'category'){
+   
+   if($type == 'category'){
       $qid = $_POST['qid'];
       // selected categories
       $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
@@ -2281,16 +2246,18 @@ function moderator_ahah_callback($type = '', $key = ''){
                                     '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
                                                 'path' => 'moderator/issue/ahah/category/sscat',
                                                 'effect' => 'fade',
-                                     ),
+                                                'event' => 'click',
+                                                ),
                                     '#size' => 5,
-                                    '#default_value' => $cat);
+                                    
+                                    '#id' => 'q_scat');
        $output .= ahah_render($fields, $fieldName1);
        }
        if($key == 'sscat'){
        $fields['q_sscat'] = array('#type' => 'select', '#options' => $options ,
                                     '#multiple' => 'multiple',
                                     '#size' => 5,
-                                    '#default_value' => $cat);
+                                    );
        $output .= ahah_render($fields, $fieldName2);
        }
     
@@ -2320,7 +2287,8 @@ function moderator_ahah_callback($type = '', $key = ''){
                                         '#multiple' => 'multiple',
                                         '#ahah' => array('wrapper' => 'city-wrapper',
                                                 'path' => 'moderator/issue/ahah/location/city',
-                                                'effect' => 'fade'),
+                                                'effect' => 'fade',
+                                                'event' => 'click',),
                                         '#size' => 5);
             $output .= ahah_render($fields, $fieldNameState);
         }
@@ -2378,19 +2346,18 @@ function moderator_ahah_callback($type = '', $key = ''){
 }
 
 
-function moderator_edit_issue_submit(){
-  $form_state = array('storage' => NULL, 'submitted' => FALSE);
-  $form_build_id = $_POST['form_build_id'];
-  $form = form_get_cache($form_build_id, $form_state);
-  $args = $form['#parameters'];
-  $form_id = array_shift($args);
-  $form_state['values'] = $form['#post'] = $_POST;
-  // Enable the submit/validate handlers to determine whether AHAH-submittted.
-  $form_state['ahah_submission'] = TRUE;
-  $form['#programmed'] = $form['#redirect'] = FALSE;
+// submit moderatr edit issues
+function moderator_edit_issue_form_submit($form, &$form_state){
 
-  
-  //save values
+     global $gSitePath, $user, $gDocPath, $base_root;
+
+      $sql = "SELECT aid FROM {abuse} WHERE oid = '$nid'";
+      $flagids = ExecuteQuery($sql, "select");
+      foreach ($flagids as $flagid) {
+          $fids[] = $flagid['aid'];
+      }
+        update_flag_badges($fids);
+     //save values
     $nid = $form_state['values']['qid'];
     $title = $form_state['values']['title'];
     $context = $form_state['values']['context'];
@@ -2398,7 +2365,7 @@ function moderator_edit_issue_submit(){
     $node->title = check_plain($title);
     $node->body = check_plain($context);
     $node->nid = $nid;
-    
+
     $ans_cnt = count($form_state['values']['choice']);
      for ($i = 0; $i < $ans_cnt; $i++) {
          $chorder = $form_state['values']['choice'][$i]['chorder'];
@@ -2426,26 +2393,87 @@ function moderator_edit_issue_submit(){
      $q_scat = $form_state['values']['q_scat']!=''?$form_state['values']['q_scat']:array();
      $q_sscat = $form_state['values']['q_sscat']!=''?$form_state['values']['q_sscat']:array();
      $term = array_merge($q_cat, $q_scat, $q_sscat);
-     
-     node_save($node);
-     taxonomy_node_save($node,$term);
+    //echo '<pre>'; print_r($form_state['values']); exit;
 
-    $fields['success_message'] = array('#type' => 'markup', '#value' => 'Edited Successfully');
-    $output = ahah_render($fields, 'success_message');
-    print drupal_json(array('data' => $output, 'status' => true));
-}
-
-
-
-
-// submit moderatr edit issues
-function moderator_edit_issue_form_submit($form, &$form_state){
-
-     global $gSitePath, $user, $gDocPath, $base_root;
-
-    echo '<pre>'; print_r($form_state['values']); exit;
+    // location details
+    db_query('DELETE FROM {content_field_issue_country} WHERE vid = %d', $node->vid);
+    db_query('DELETE FROM {content_field_issue_state} WHERE vid = %d', $node->vid);
+    db_query('DELETE FROM {content_field_issue_city} WHERE vid = %d', $node->vid);
     
-     
+    $q_country = $form_state['values']['q_country'];
+    $q_state = $form_state['values']['q_state'];
+    $q_city = $form_state['values']['q_city'];
+    foreach($q_country as $key => $country){
+        $countries[] = $country;
+    }
+    foreach($q_state as $key => $state){
+        $states[] = $state;
+    }
+    foreach($q_city as $key => $city){
+        $cities[] = $city;
+    }
+    for($i = 0; $i <= count($q_country); $i++){
+     $node->field_issue_country[$i]['value'] = $countries[$i];
+    }
+
+    for($i = 0; $i <= count($q_state); $i++){
+     $state = explode(",", $q_state[$i]);
+     $node->field_issue_state[$i]['value'] = $states[$i];
+     //$node->field_scountry_value[$i]['value'] = $state[1];
+    }
+    for($i = 0; $i <= count($q_city); $i++){
+     $city = explode(",", $q_city[$i]);
+     $node->field_issue_city[$i]['value'] = $cities[$i];
+     //$node->field_cstate_value[$i]['value'] = $city[1];
+     //$node->field_ccountry_value[$i]['value'] = $city[2];
+    }
+
+
+    node_save($node);
+    taxonomy_node_delete($node);
+    taxonomy_node_save($node,$term);
+    
+        /* SAVING META INFORMATION */
+        $query = "SELECT * FROM {poll_choices} where nid='" . $nid . "' ORDER BY chorder ASC";
+        $ans = ExecuteQuery($query, "select");
+
+         $chk_exsit = db_result(db_query("select count(*) from {possible_answer_spectrum} where qid='$nid'"));
+        if ($chk_exsit) {
+
+            $Spec_query2 = db_query("delete from {possible_answer_spectrum} where qid=%d",$nid);
+        }
+        $i = 0;
+        foreach ($ans as $ans_array) {
+            $row_count = 1;
+            $Spec_query2 = db_query("SELECT political_spec_id FROM {political_spectrum}");
+            /* insert short answers for each answer */
+            $short_ans = $form_state['values']['choice'][$i]['short_answer'];
+            if($short_ans!=''){
+            db_query("DELETE FROM {short_answers} WHERE qid = '%d' AND chorder = '%d'", $nid, $ans_array['chorder']);
+            db_query("INSERT INTO {short_answers} SET chid = '%d', short_answer = '%s', chorder = '%d', qid = '%d'", $ans_array['chid'], $short_ans, $ans_array['chorder'], $nid);
+            }
+            /* insert short answers for each answer */
+            while ($Spec_result2 = db_fetch_object($Spec_query2)) {
+                $metaCnt = 'meta'.$row_count.'_values';
+                $posted_rating = $form_state['values']['choice'][$i][$metaCnt].'<br />';
+                $ans_id = $ans_array['chid'];
+                $political_id = $Spec_result2->political_spec_id;
+                /* echo '<pre>';
+                  echo $posted_rating.'-';
+                  echo $Spec_result2->political_spec_id.'<br>'; */
+               $sql = "insert into possible_answer_spectrum set qid= '$nid' , possible_ans_id='$ans_id' , political_spec_id='$political_id', possible_chorder = '".$ans_array['chorder']."',value='$posted_rating'";
+                $insert_query = db_query($sql);
+                $row_count++;
+            }
+            
+            $i++;
+        }
+        
+        question_edited_mail($nid);
+        question_edited_mail_voters($nid);
+        question_edited_mail_suggest($nid);
+        drupal_set_message('Thank you, Question updated successfully!', 'success');
+   
 }
 
 function moderator_add_choice_callback(){
@@ -2506,7 +2534,7 @@ function theme_mod_answer_des($form){
   
 }
 // moderator generate dynamic answer form here
-function _mod_answer_form($delta, $answer = '', $short_answer = '', $chorder = '', $votes = ''){
+function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectrum = array(), $chorder = '', $votes = ''){
     $form = array(
     '#tree' => TRUE,
     );
@@ -2519,6 +2547,11 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $chorder = '
   if($delta < 10){
   //$answer = $value[$delta]['chtext']!=''?$value[$delta]['chtext']:'';
   $aCount = $delta+1;
+  if($delta == 0 || $delta == 1){
+      $req = TRUE;
+  }else{
+      $req = FALSE;
+  }
   $form['ans_title_'.$delta] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$aCount.'</span></label>');
   $form['meta_open_'.$delta] = array('#type' => 'markup', '#value' => '<div id="main-open">');
 
@@ -2526,6 +2559,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $chorder = '
                                 '#suffix' => '<div class="clr"></div>',
                                 '#parents' => array('choice', $delta, 'answer'),
                                 '#default_value' => $answer,
+                                '#required' => $req,
                                 );
   $form['chorder'] = array('#type' => 'hidden',
                                 '#suffix' => '<div class="clr"></div>',
@@ -2548,7 +2582,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $chorder = '
   $form['meta_info'] = array('#type' => 'markup',
                                 '#value' => '<div id="meta-info">');
     //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
-  $form['meta']=meta_data_generate($delta);
+  $form['meta']=meta_data_generate($delta, $pos_spectrum);
   $form['meta_info_close'] = array('#type' => 'markup',
                                 '#value' => '</div>');
   $form['meta_close'] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');

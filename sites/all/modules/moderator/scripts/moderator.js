@@ -6,7 +6,7 @@
 
 
 jQuery(document).ready(function(){
-
+load_issue_data_ahah();
     
      jQuery('#tabcontent').ajaxComplete(function(event, xhr, settings) {
      var curl=settings.url;
@@ -919,5 +919,20 @@ jQuery(document).ready(function(){
                 
             });
 
+
+
+  
+
 });
 
+function load_issue_data_ahah(){
+     jQuery('#q_cat').trigger('click');
+     var scatarray=setscat.split(',');
+     
+     setTimeout(function(){  
+     }, 2000);
+     alert(scatarray);
+     jQuery('#q_scat').val(scatarray);
+
+      jQuery('#q_country').trigger('click');
+  }
