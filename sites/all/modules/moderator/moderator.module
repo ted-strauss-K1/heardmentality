@@ -242,9 +242,9 @@ function moderator_issues_list($type='') {
             // echo  $query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE  qid=q.qid) as tcnt FROM {question} AS q where HAVING tcnt<3 AND q.qid not in (select q.qid from  {question_cat_revision} as qr where qr.uid=$user->uid ) ORDER BY q.qid ASC";
             //  $query="SELECT * FROM {question} ";
             $query = "SELECT * FROM
-(SELECT DISTINCT n.nid as qid, n.title as question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM node_revisions WHERE nid=n.nid ) AS tcnt FROM node AS n
-WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.type = 'poll' AND (language = 'en' OR language = '') ORDER BY n.nid DESC
-) AS issue WHERE issue.tcnt<3";
+(SELECT DISTINCT n.nid as qid, n.title as question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM content_type_poll WHERE nid = n.nid AND field_mod_status_value =1) AS tcnt FROM node AS n
+WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.type = 'poll' AND (tnid = '0' AND translate='0') ORDER BY n.nid DESC
+) AS issue WHERE issue.tcnt<1";
 //            $query = "SELECT * FROM
 //(SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM question_cat_revision WHERE qid=q.qid) AS tcnt FROM question AS q
 //WHERE q.qid NOT IN (SELECT qr.qid FROM question_cat_revision AS qr WHERE qr.uid=$user->uid ) ORDER BY q.qid ASC
