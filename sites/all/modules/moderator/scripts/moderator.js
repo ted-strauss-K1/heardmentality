@@ -927,12 +927,15 @@ jQuery(document).ready(function(){
 
 function load_issue_data_ahah(){
      jQuery('#q_cat').trigger('click');
-     var scatarray=setscat.split(',');
+   
      
-     setTimeout(function(){  
-     }, 2000);
-     alert(scatarray);
-     jQuery('#q_scat').val(scatarray);
+     setTimeout(hello,2000);
+
+     
 
       jQuery('#q_country').trigger('click');
+  }
+
+  function hello(){
+      jQuery('#q_scat').trigger('click');
   }

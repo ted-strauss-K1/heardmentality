@@ -367,42 +367,7 @@ function moderator_edit_issues($qid = ''){
     drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/style.css');
 
     // select sub categories for a issue
-    /*categories*/
-    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
-    $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
     
-    while ($list = db_fetch_object($client_select)) {
-        $options[$list->cat_id] = stripslashes($list->cat_name);
-    }
-
-    foreach($options as $tid => $value){
-        $childrenArray = taxonomy_get_children($tid);
-        foreach($childrenArray as $ctid=>$scat){
-            $firstChildren[] = $ctid;
-        }
-    }
-    foreach($firstChildren as $tid){
-        $childrenArray = taxonomy_get_children($tid);
-        foreach($childrenArray as $ctid=>$scat){
-            $secondChildren[] = $ctid;
-        }
-    }
-    $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
-    $result_cat = db_query($qry_cat);
-    $qcats = array();
-    while($qcatList = db_fetch_object($result_cat)){
-        $qcats[] = $qcatList->tid;
-    }
-    foreach($firstChildren as $scats){
-        if(in_array($scats, $qcats)){
-            $firstLevel[] = $scats;
-        }
-    }
-    foreach($secondChildren as $scats){
-        if(in_array($scats, $qcats)){
-            $secondLevel[] = $scats;
-        }
-    }
     $escat1 = implode(",", array_filter($firstLevel));
     $esscat1 = implode(",", array_filter($secondLevel));
 
@@ -556,12 +521,13 @@ global $gSitePath, $user, $gDocPath, $base_root;
     while ($quest_cat = db_fetch_object($result_cat)) {
         $cat[] = $quest_cat->tid;
     }
+    
     $ecat1 = explode(",", $cat);
     while ($list = db_fetch_object($client_select)) {
         $options[$list->cat_id] = stripslashes($list->cat_name);
     }
     $form['cat1'] = array('#type' => 'hidden',
-                            '#default_value' => $ecat1, '#id' => 'cat1');
+                            '#default_value' => $cat, '#id' => 'cat1');
     
     $form['q_cat'] = array('#type' => 'select',
                                 '#options' => $options,
@@ -2202,13 +2168,53 @@ function moderator_ahah_callback($type = '', $key = ''){
    if($type == 'category'){
       $qid = $_POST['qid'];
       // selected categories
-      $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
-      $result_cat = db_query($qry_cat);
-      $cat = array();
 
-       while ($quest_cat = db_fetch_object($result_cat)) {
-            $cat[] = $quest_cat->tid;
+      /*categories*/
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+    $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
+
+    while ($list = db_fetch_object($client_select)) {
+        $categories[$list->cat_id] = stripslashes($list->cat_name);
+    }
+
+    foreach($categories as $tid => $value){
+        $childrenArray = taxonomy_get_children($tid);
+        foreach($childrenArray as $ctid=>$scat){
+            $firstChildren[$ctid] = $scat->name;
         }
+    }
+    foreach($firstChildren as $tid => $value){
+        $childrenArray = taxonomy_get_children($tid);
+        foreach($childrenArray as $ctid=>$scat){
+            $secondChildren[$ctid] = $scat->name;
+        }
+    }
+    $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
+    $result_cat = db_query($qry_cat);
+    $qcats = array();
+    while($qcatList = db_fetch_object($result_cat)){
+        $qcats[] = $qcatList->tid;
+    }
+    foreach($firstChildren as $keytid => $scats){
+        if(in_array($keytid, $qcats)){
+            $firstLevel[$keytid] = $scats;
+        }
+    }
+    foreach($secondChildren as $keytid => $scats){
+        if(in_array($keytid, $qcats)){
+            $secondLevel[] = $scats;
+        }
+    }
+
+$qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
+    $result_cat = db_query($qry_cat);
+    $cat = array();
+
+    while ($quest_cat = db_fetch_object($result_cat)) {
+        $cat[$quest_cat->tid] = $quest_cat->tid;
+    }
+  
+//print_r($cat);exit;
       if($key == 'scat'){
        $catids = $_POST['q_cat'];
        $fieldName1 = 'q_scat'   ;
@@ -2238,26 +2244,29 @@ function moderator_ahah_callback($type = '', $key = ''){
        }else{
            $options[] = 'No Sub Category';
        }
-       
+       //print_r($firstLevel); exit;
        //print_r($keys[0]);exit;
        if($key == 'scat'){
-       $fields['q_scat'] = array('#type' => 'select', '#options' => $options ,
-                                    '#multiple' => 'multiple',
-                                    '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
+       $fields['q_scat'] = array('#type' => 'select',
+                                '#options' => $options ,
+                                '#multiple' => 'multiple',
+                                '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
                                                 'path' => 'moderator/issue/ahah/category/sscat',
                                                 'effect' => 'fade',
                                                 'event' => 'click',
                                                 ),
-                                    '#size' => 5,
-                                    
-                                    '#id' => 'q_scat');
+                                '#size' => 5,
+                                '#default_value' => $cat,
+                                '#id' => 'q_scat');
        $output .= ahah_render($fields, $fieldName1);
        }
        if($key == 'sscat'){
-       $fields['q_sscat'] = array('#type' => 'select', '#options' => $options ,
+       $fields['q_sscat'] = array('#type' => 'select',
+                                    '#options' => $options ,
                                     '#multiple' => 'multiple',
                                     '#size' => 5,
-                                    );
+                                    '#default_value' => $cat,
+                                    '#id' => 'q_sscat');
        $output .= ahah_render($fields, $fieldName2);
        }
     
