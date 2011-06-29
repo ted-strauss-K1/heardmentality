@@ -929,9 +929,9 @@ function load_issue_data_ahah(){
      jQuery('#q_cat').trigger('click');
    
      
-     setTimeout(catSet,2000);
+     setTimeout(catSet,3000);
      jQuery('#q_country').trigger('click');
-     setTimeout(locSet,2000);
+     setTimeout(locSet,3000);
   }
 
   function catSet(){

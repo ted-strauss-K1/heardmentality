@@ -608,27 +608,36 @@ global $gSitePath, $user, $gDocPath, $base_root;
 
 
     //Moderator Revision
-   $result = db_query("select u.uid,u.name,nr.timestamp from {node_revisions} as nr join {users} as u on u.uid=nr.uid JOIN {node} as n ON n.nid = nr.nid where nr.nid='$qid' AND n.uid != nr.uid GROUP BY nr.uid");
+   $result = db_query("SELECT u.uid,u.name,nr.timestamp FROM
+                        (SELECT * FROM (select * FROM node_revisions where nid = '$qid' order by timestamp desc) as subs group by uid) as nr
+                        JOIN {users} as u on u.uid=nr.uid JOIN {node} as n ON n.nid = nr.nid ORDER BY nr.timestamp DESC");
 //   $dupecnt=get_dupe_query($qid);
 //   $dcnt=!empty($dupecnt['count'])?$dupecnt['count']:'0';
 //   $form['pre_up_mod'] = array('#type' => 'markup','#prefix' => '<div class="mod-t-outer">',
 //                                '#suffix' => '</div>',
 //                                '#value' => '<strong><a data-fb-options="type:ajax width:640 height:385" title="Dupe List" href="' . $gSitePath . 'moderator/ajax/dupelist/' . $qid . '" class="floatbox">Duped Issues </a>('.$dcnt.')</strong>');
+
+   //owner uid
+   $ownerId = db_result(db_query("SELECT uid FROM {node} WHERE nid = '$qid'"));
    
    $form['pre_up_mod_title'] = array('#type' => 'markup',
                                 '#value' => '<div class="mod-t-outer">
-                                <strong>Previous Updated Moderators</strong>
+                                <strong>Previously Updated</strong>
                                 </div>');
+   
     while ($coupon = db_fetch_object($result)) {
+        $owner = $ownerId==$coupon->uid?'&nbsp;(owner)':'';
         $updated = date("Y-m-d H:i:s",$coupon->timestamp);
         $rows[] = array(
-            array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox')))),
+            array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox'))).$owner),
             array('data' => ago($updated))
         );
     }
+   
+    
     $head = array(
-        array('data' => t('Moderator')),
-        array('data' => t('Updated On ')),
+        array('data' => t('')),
+        array('data' => t('')),
     );
     //print drupal_render( );
     $form['mod_list'] = array('#type' => 'markup', '#value' => theme_table($head, $rows, array('style' => 'width: 100%')));
@@ -2169,49 +2178,13 @@ function moderator_ahah_callback($type = '', $key = ''){
       $qid = $_POST['qid'];
       // selected categories
 
-      /*categories*/
-    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
-    $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
-
-    while ($list = db_fetch_object($client_select)) {
-        $categories[$list->cat_id] = stripslashes($list->cat_name);
-    }
-
-    foreach($categories as $tid => $value){
-        $childrenArray = taxonomy_get_children($tid);
-        foreach($childrenArray as $ctid=>$scat){
-            $firstChildren[$ctid] = $scat->name;
-        }
-    }
-    foreach($firstChildren as $tid => $value){
-        $childrenArray = taxonomy_get_children($tid);
-        foreach($childrenArray as $ctid=>$scat){
-            $secondChildren[$ctid] = $scat->name;
-        }
-    }
+    // get categories for a question
     $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
-    $result_cat = db_query($qry_cat);
-    $qcats = array();
-    while($qcatList = db_fetch_object($result_cat)){
-        $qcats[] = $qcatList->tid;
-    }
-    foreach($firstChildren as $keytid => $scats){
-        if(in_array($keytid, $qcats)){
-            $firstLevel[$keytid] = $scats;
-        }
-    }
-    foreach($secondChildren as $keytid => $scats){
-        if(in_array($keytid, $qcats)){
-            $secondLevel[] = $scats;
-        }
-    }
-
-$qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
     $result_cat = db_query($qry_cat);
     $cat = array();
 
     while ($quest_cat = db_fetch_object($result_cat)) {
-        $cat[$quest_cat->tid] = $quest_cat->tid;
+        $cat[] = $quest_cat->tid;
     }
   
 //print_r($cat);exit;
@@ -2256,7 +2229,7 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
                                                 'event' => 'click',
                                                 ),
                                 '#size' => 5,
-                                '#default_value' => $cat,
+                                '#value' => $cat,
                                 '#id' => 'q_scat',
                                 );
        $output .= ahah_render($fields, $fieldName1);
@@ -2266,7 +2239,7 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
                                     '#options' => $options ,
                                     '#multiple' => 'multiple',
                                     '#size' => 5,
-                                    '#default_value' => $cat,
+                                    '#value' => $cat,
                                     '#id' => 'q_sscat');
        $output .= ahah_render($fields, $fieldName2);
        }
@@ -2275,6 +2248,11 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
    elseif($type == 'location'){
         $qid = $_POST['qid'];
         if($key == 'state'){
+           // select state
+           $sQuery = db_query("SELECT field_issue_state_value AS state_code FROM {content_field_issue_state} WHERE nid = '$qid'");
+           while($list = db_fetch_object($sQuery)){
+               $selectedStates[] = $list->state_code;
+           }
            $countryNames = $_POST['q_country'];
            $fieldNameState = 'q_state';
            if(!empty($countryNames)){
@@ -2285,11 +2263,6 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
                     $query = array('geonameid' => $geoid);
                     $results = geonames_query('children', $query);
                     foreach ($results->results as $state) {
-                        $set = '';
-
-                        if (strpos(strtolower($setstate), strtolower($state['name']))) {
-                            $set = 'SELECTED=SELECTED';
-                        }
                         $states[$state['geonameid']] = $state['name'];
                     }
                 }
@@ -2303,10 +2276,17 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
                                                 'effect' => 'fade',
                                                 'event' => 'click',),
                                         '#size' => 5,
-                                        '#id' => 'q_state');
+                                        '#id' => 'q_state',
+                                        '#value' => $selectedStates);
             $output .= ahah_render($fields, $fieldNameState);
         }
         if($key == 'city'){
+           
+            // select city
+           $cQuery = db_query("SELECT field_issue_city_value AS city_code FROM {content_field_issue_city} WHERE nid = '$qid'");
+           while($list = db_fetch_object($cQuery)){
+               $selectedCities[] = $list->city_code;
+           }
             $steateIds = $_POST['q_state'];
             $fieldNameCity = 'q_city';
             if(!empty($steateIds)){
@@ -2315,8 +2295,6 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
                     $query = array('geonameid' => $explode[0]);
                     $result = geonames_query('children', $query);
                     foreach ($result->results as $state) {
-
-                        $ret .= sprintf('<option value="%s,%s,%s">%s</option>', $state['geonameid'], $explode[0], $explode[1], $state['name']);
                         $cities[$state['geonameid'].$explode[0].$explode[1]] = $state['name'];
                     }
                 }
@@ -2325,7 +2303,8 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
             }
             $fields['q_city'] = array('#type' => 'select', '#options' => $cities,
                                         '#multiple' => 'multiple',
-                                        '#size' => 5);
+                                        '#size' => 5,
+                                        '#value' => $selectedCities);
             $output .= ahah_render($fields, $fieldNameCity);
         }
    }
@@ -2366,7 +2345,7 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
 
 // submit moderatr edit issues
 function moderator_edit_issue_form_submit($form, &$form_state){
-
+//echo '<pre>'; print_r($form_state); exit;
      global $gSitePath, $user, $gDocPath, $base_root;
 
       $sql = "SELECT aid FROM {abuse} WHERE oid = '$nid'";
@@ -2394,7 +2373,7 @@ function moderator_edit_issue_form_submit($form, &$form_state){
 
      }
      $node->revision = TRUE;
-     // set field_mod_status as 1 if 3 moderators updated this issue
+     //****** set field_mod_status as 1 if 3 moderators updated this issue ******///
      $revisions = node_revision_list($node);
      foreach($revisions as $revision){
          if($revision->uid != $node->uid && $revision->uid != $user->uid){
@@ -2404,23 +2383,25 @@ function moderator_edit_issue_form_submit($form, &$form_state){
      $modids = array_unique($uid);
      $modCount = count($modids);
      if($modCount == 2){
+         // set status as 1 for 3rd moderator
          $node->field_mod_status[0]['value'] = 1;
      }
+     //****** set field_mod_status as 1 if 3 moderators updated this issue ******///
     // taxonomy terms
-     $q_cat = $form_state['values']['q_cat']!=''?$form_state['values']['q_cat']:array();
-     $q_scat = $form_state['values']['q_scat']!=''?$form_state['values']['q_scat']:array();
-     $q_sscat = $form_state['values']['q_sscat']!=''?$form_state['values']['q_sscat']:array();
+     $q_cat = $form_state['clicked_button']['#post']['q_cat']!=''?$form_state['clicked_button']['#post']['q_cat']:array();
+     $q_scat = $form_state['clicked_button']['#post']['q_scat']!=''?$form_state['clicked_button']['#post']['q_scat']:array();
+     $q_sscat = $form_state['clicked_button']['#post']['q_sscat']!=''?$form_state['clicked_button']['#post']['q_sscat']:array();
      $term = array_merge($q_cat, $q_scat, $q_sscat);
-    //echo '<pre>'; print_r($form_state['values']); exit;
+    
 
     // location details
     db_query('DELETE FROM {content_field_issue_country} WHERE vid = %d', $node->vid);
     db_query('DELETE FROM {content_field_issue_state} WHERE vid = %d', $node->vid);
     db_query('DELETE FROM {content_field_issue_city} WHERE vid = %d', $node->vid);
     
-    $q_country = $form_state['values']['q_country'];
-    $q_state = $form_state['values']['q_state'];
-    $q_city = $form_state['values']['q_city'];
+    $q_country = $form_state['clicked_button']['#post']['q_country'];
+    $q_state = $form_state['clicked_button']['#post']['q_state'];
+    $q_city = $form_state['clicked_button']['#post']['q_city'];
     foreach($q_country as $key => $country){
         $countries[] = $country;
     }
@@ -2623,7 +2604,7 @@ function moderator_cron(){
        $nid = $langNode->nid;
        $node = node_load($nid);
        //echo '<pre>'; print_r($node); exit;
-       // add content in multi languages
+       // add content in multi languages (title, body, choices)
        i18n_auto_action_node_translate($node);
        db_query("UPDATE {node} SET language = '%s', translate = '%d', tnid = '%d' WHERE nid = '%d'", 'en', 1, $nid, $nid);
     }
