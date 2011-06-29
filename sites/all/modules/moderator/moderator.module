@@ -2258,7 +2258,7 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
                                 '#size' => 5,
                                 '#default_value' => $cat,
                                 '#id' => 'q_scat',
-                                '#autocomplete_path' => FALSE);
+                                );
        $output .= ahah_render($fields, $fieldName1);
        }
        if($key == 'sscat'){
