@@ -431,12 +431,12 @@ global $gSitePath, $user, $gDocPath, $base_root;
     //echo '<pre>';print_r($node);
    
     $form['mod_main_div'] = array('#type' => 'markup', '#value' => '<div id="mod-edit-issue">');
-    $form['quest_title'] = array('#type' => 'markup', '#value' => '<label><span>Question</span></label>');
+    $form['quest_title'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Question').'</span></label>');
     $form['title'] = array('#type' => 'textfield',
                            '#default_value' => $node->title,
                            '#suffix' => '<div class="clr"></div>',
                             '#required' => TRUE);
-    $form['quest_context'] = array('#type' => 'markup', '#value' => '<label><span>Context</span></label>');
+    $form['quest_context'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Context').'</span></label>');
     $form['context'] = array('#type' => 'textarea',
                              '#default_value' => $node->body,
                              '#cols' => 70,
@@ -509,7 +509,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
     ////////////////////////
 
     
-    $form['quest_cat_mark'] = array('#type' => 'markup', '#value' => '<label><span>Categories</span></label>');
+    $form['quest_cat_mark'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Categories').'</span></label>');
     /*categories*/
     $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
     $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
@@ -565,7 +565,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
                                                 </div>',
                                     '#suffix' => '<br /><div class="clr"></div>');
 
-    $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label><span>Location</span></label>');
+    $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Location').'</span></label>');
 
     $countryList = geonames_query('countryinfo');
     foreach($countryList->results as $country){
@@ -598,7 +598,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
     $form['mod_status'] = array('#type' => 'hidden',
                           '#default_value' => $node->mod_status);
     $form['issue_edit'] = array('#type' => 'submit',
-                                '#value' => 'UPDATE ISSUE',
+                                '#value' => t('UPDATE ISSUE'),
                                 '#suffix' => '<br /><div class="clr"></div>',
                                 );
     $form['success_div'] = array('#type' => 'markup',
@@ -622,7 +622,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
    
    $form['pre_up_mod_title'] = array('#type' => 'markup',
                                 '#value' => '<div class="mod-t-outer">
-                                <strong>Previously Updated</strong>
+                                <strong>'.t('Previously Updated').'</strong>
                                 </div>');
    
     while ($coupon = db_fetch_object($result)) {
@@ -2151,7 +2151,7 @@ function meta_data_generate($i = '', $pos_spectrum = array()){
         $spec_name = $spec->spec_name;
         list($left, $right) = explode(' ', $spec_name);
         
-        $form['left_val_'.$count] = array('#type' =>'markup', '#value' => '<div id="meta-left-val">'.$left.'</div>');
+        $form['left_val_'.$count] = array('#type' =>'markup', '#value' => '<div id="meta-left-val">'.t($left).'</div>');
         $form['radio_div_'.$count] = array('#type' => 'markup', '#value' => '<div id="radio-div">');
         for($c = $minRange; $c <= $maxRange; $c++){
             $meta[$c] = '';       
@@ -2162,7 +2162,7 @@ function meta_data_generate($i = '', $pos_spectrum = array()){
                                 '#default_value' => $pos_spectrum[($count-1)],
                                 );
         $form['radio_div_close_'.$count] = array('#type' => 'markup', '#value' => '</div>');
-        $form['right_val_'.$count] = array('#type' =>'markup', '#value' => '<div id="meta-right-val">'.$right.'</div>');
+        $form['right_val_'.$count] = array('#type' =>'markup', '#value' => '<div id="meta-right-val">'.t($right).'</div>');
         $form['mark_'.$count] = array('#type' =>'markup','#value' => '<br /><div class="clr"></div>');
         unset($meta);
         $count++;
@@ -2215,7 +2215,7 @@ function moderator_ahah_callback($type = '', $key = ''){
            $i++;
        }
        }else{
-           $options[] = 'No Sub Category';
+           $options[] = t('No Sub Category');
        }
        //print_r($firstLevel); exit;
        //print_r($keys[0]);exit;
@@ -2267,7 +2267,7 @@ function moderator_ahah_callback($type = '', $key = ''){
                     }
                 }
            }else{
-               $states[] = 'No countries selected';
+               $states[] = t('No countries selected');
            }
             $fields['q_state'] = array('#type' => 'select', '#options' => $states,
                                         '#multiple' => 'multiple',
@@ -2299,7 +2299,7 @@ function moderator_ahah_callback($type = '', $key = ''){
                     }
                 }
             }else{
-                $cities[] = 'No states selected';
+                $cities[] = t('No states selected');
             }
             $fields['q_city'] = array('#type' => 'select', '#options' => $cities,
                                         '#multiple' => 'multiple',
@@ -2551,7 +2551,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
   }else{
       $req = FALSE;
   }
-  $form['ans_title_'.$delta] =  array('#type' => 'markup', '#value' => '<label><span>Answer '.$aCount.'</span></label>');
+  $form['ans_title_'.$delta] =  array('#type' => 'markup', '#value' => '<label><span>'.t('Answer').' '.$aCount.'</span></label>');
   $form['meta_open_'.$delta] = array('#type' => 'markup', '#value' => '<div id="main-open">');
 
   $form['answer'] = array('#type' => 'textfield',
@@ -2573,7 +2573,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
   $form['short_answer'] = array('#type' => 'textfield',
                                 '#maxlength' => 10,
                                 '#size' => 10,
-                                '#title' => 'Enter Short Answer',
+                                '#title' => t('Enter Short Answer'),
                                 '#parents' => array('choice', $delta, 'short_answer'),
                                 '#default_value' => $short_answer,
                                 );
@@ -2588,7 +2588,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
   }else{
   $form['error_msg'] = array(
     '#type' => 'markup',
-    '#value' => 'Maximum Fields Exceeded',
+    '#value' => t('Maximum Fields Exceeded'),
     '#prefix' => '<label><span class="error">', '#suffix' => '</span></label>',
   );
   }
