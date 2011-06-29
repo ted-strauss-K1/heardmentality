@@ -277,13 +277,13 @@ if($node->type == 'poll'){
               $new_node->choice[$key]['chvotes'] = $chvotes;              
          }
       }
-      $new_node->uid = $node->uid;
     // OPENWAVE traslate poll choices ends
-
+     $new_node->uid = $node->uid;
       // TODO: Look up CCK fields and cycle through and translate too.
 
       // create the new translation node
-    node_save(node_submit($new_node));
+    //node_save(node_submit($new_node));
+    node_save($new_node);
      // set alias url
     $dst = clean_url(myTruncate($new_node->title, 100, ''), '', '-', $new_node->nid);
     $url = 'node/' . $new_node->nid;
