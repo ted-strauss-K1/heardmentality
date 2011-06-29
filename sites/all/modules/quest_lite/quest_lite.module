@@ -299,7 +299,7 @@ $langcode = $language->language; //ISO2 code
       //echo "numeric 3";
 
       $uidCond = $user->uid!=''?" AND uid = $user->uid":"";
-      $query = "SELECT nid from {node} where status='1' and type='poll' $uidCond and language='en' order by nid DESC limit 0,1 ";
+      $query = "SELECT nid from {node} where status='1' and type='poll' and language='en' order by nid DESC limit 0,1 ";
 
       $quest = db_query($query);
       $qid = db_result($quest);

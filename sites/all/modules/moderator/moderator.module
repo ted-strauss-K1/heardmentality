@@ -2600,7 +2600,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
 // moderator cron
 function moderator_cron(){
     global $gSitePath, $user, $gDocPath, $base_root, $language;
-    $query = db_query("SELECT n.nid FROM {content_type_poll} AS cp JOIN {node} AS n ON cp.nid = n.nid WHERE cp.field_mod_status_value = '%d' AND n.type = '%s' AND n.tnid = '%d'", 1, 'poll', 0);
+    $query = db_query("SELECT n.nid FROM {content_type_poll} AS cp JOIN {node} AS n ON cp.nid=n.nid WHERE cp.field_mod_status_value='%d' AND n.type='%s' AND n.tnid='%d' AND n.translate='%d'", 1, 'poll', 0, 0);
     while($langNode = db_fetch_object($query)){
        $nid = $langNode->nid;
        $node = node_load($nid);

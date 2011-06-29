@@ -277,6 +277,7 @@ if($node->type == 'poll'){
               $new_node->choice[$key]['chvotes'] = $chvotes;              
          }
       }
+      $new_node->uid = $node->uid;
     // OPENWAVE traslate poll choices ends
 
       // TODO: Look up CCK fields and cycle through and translate too.
