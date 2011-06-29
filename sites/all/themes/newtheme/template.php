@@ -98,7 +98,7 @@ function newtheme_preprocess_page(&$vars) {
 // there's also a $theme_path global
    
     global $theme_path;
-
+//overide default jquery
    // if($vars['template_files'][1]!='page-issue-create'){
         drupal_add_js($path . "/scripts/jquery1.4.js", 'core'); //where you store your jque
    // }
