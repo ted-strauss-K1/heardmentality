@@ -2432,9 +2432,31 @@ function drupal_to_js($var) {
       return $var;
     case 'resource':
     case 'string':
-      return '"'. str_replace(array("\r", "\n", "<", ">", "&"),
-                              array('\r', '\n', '\x3c', '\x3e', '\x26'),
-                              addslashes($var)) .'"';
+        //patch applied under http://drupal.org/files/issues/479368_drupal_to_js_all_escaped_13.patch
+     // return '"'. str_replace(array("\r", "\n", "<", ">", "&"),
+                    //          array('\r', '\n', '\x3c', '\x3e', '\x26'),
+                  //            addslashes($var)) .'"';
+              static $replace_pairs;
+
+      if (!isset($replace_pairs)) {
+        $replace_pairs = array(
+          '\\' => '\u005c',
+          '<' => '\u003c',
+          '>' => '\u003e',
+          '&' => '\u0026',
+          '"' => '\u0022',
+          '/' => '\u002f',
+          "'" => '\u0027',
+          "\xe2\x80\xa8" => '\u2028', // Line Separator
+          "\xe2\x80\xa9" => '\u2029', // Paragraph Separator
+       );
+       // Remaining unicode replacements.
+       for ($i = 0; $i < 32; $i++) {
+          $replace_pairs[chr($i)] = '\u00' . sprintf("%02s", dechex($i));
+       }
+      }
+      return '"'. strtr($var, $replace_pairs) .'"';
+
     case 'array':
       // Arrays in JSON can't be associative. If the array is empty or if it
       // has sequential whole number keys starting with 0, it's not associative
@@ -3859,6 +3881,10 @@ function _drupal_decode_exception($exception) {
  * @param $fatal
  *   TRUE if the error is fatal.
  */
+ function drupal_get_bootstrap_phase() {
+  return drupal_bootstrap();
+}
+
 function _drupal_log_error($error, $fatal = FALSE) {
   // Initialize a maintenance theme if the boostrap was not complete.
   // Do it early because drupal_set_message() triggers a drupal_theme_initialize().
