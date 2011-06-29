@@ -2257,7 +2257,8 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
                                                 ),
                                 '#size' => 5,
                                 '#default_value' => $cat,
-                                '#id' => 'q_scat');
+                                '#id' => 'q_scat',
+                                '#autocomplete_path' => FALSE);
        $output .= ahah_render($fields, $fieldName1);
        }
        if($key == 'sscat'){
@@ -2276,7 +2277,7 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
         if($key == 'state'){
            $countryNames = $_POST['q_country'];
            $fieldNameState = 'q_state';
-
+           if(!empty($countryNames)){
            foreach ($countryNames as $country) {
 
                     $geoid = db_result(db_query("SELECT geonameid FROM {geonames_countryinfo} where name LIKE '%" . $country . "%' limit 0,1"));
@@ -2292,18 +2293,23 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
                         $states[$state['geonameid']] = $state['name'];
                     }
                 }
+           }else{
+               $states[] = 'No countries selected';
+           }
             $fields['q_state'] = array('#type' => 'select', '#options' => $states,
                                         '#multiple' => 'multiple',
                                         '#ahah' => array('wrapper' => 'city-wrapper',
                                                 'path' => 'moderator/issue/ahah/location/city',
                                                 'effect' => 'fade',
                                                 'event' => 'click',),
-                                        '#size' => 5);
+                                        '#size' => 5,
+                                        '#id' => 'q_state');
             $output .= ahah_render($fields, $fieldNameState);
         }
         if($key == 'city'){
             $steateIds = $_POST['q_state'];
             $fieldNameCity = 'q_city';
+            if(!empty($steateIds)){
             foreach ($steateIds as $code) {
                     $explode = explode(',', $code);
                     $query = array('geonameid' => $explode[0]);
@@ -2314,6 +2320,9 @@ $qry_cat = "SELECT tid from {term_node} where nid='" . $qid . "'";
                         $cities[$state['geonameid'].$explode[0].$explode[1]] = $state['name'];
                     }
                 }
+            }else{
+                $cities[] = 'No states selected';
+            }
             $fields['q_city'] = array('#type' => 'select', '#options' => $cities,
                                         '#multiple' => 'multiple',
                                         '#size' => 5);

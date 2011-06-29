@@ -929,13 +929,14 @@ function load_issue_data_ahah(){
      jQuery('#q_cat').trigger('click');
    
      
-     setTimeout(hello,2000);
-
-     
-
-      jQuery('#q_country').trigger('click');
+     setTimeout(catSet,2000);
+     jQuery('#q_country').trigger('click');
+     setTimeout(locSet,2000);
   }
 
-  function hello(){
+  function catSet(){
       jQuery('#q_scat').trigger('click');
+  }
+  function locSet(){
+      jQuery('#q_state').trigger('click');
   }
