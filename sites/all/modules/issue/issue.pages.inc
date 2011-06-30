@@ -1047,30 +1047,20 @@ function issue_create_form_submit($form, &$form_state) {
     $node->uid = $account->uid;
     $node->status = 1;
     $node->active = 1;
+    $node->language = i18n_get_lang(); // set current language
     $node->field_mod_status[0]['value'] = 0;
-    node_save($node);
-
-
     if (!user_access('administer nodes')) {
-        // Make sure all votes are 0 initially
-        foreach ($node->choice as $i => $choice) {
-            $node->choice[$i]['chvotes'] = 0;
-        }
         $node->active = 1;
     }
-
-    db_query("INSERT INTO {poll} (nid, runtime, active) VALUES (%d, %d, %d)", $node->nid, $node->runtime, $node->active);
-
-    $j = 0;
     $count = count($form_state['values']['answer']);
-    for ($i = 0; $i <= $count; $i++) {
-        $name = "q_ans" . $i;
-
-        if (!empty($form_state['values']['answer'][$i])) {
-
-            db_query("INSERT INTO {poll_choices} (nid, chtext, chvotes, chorder) VALUES (%d, '%s', %d, %d)", $node->nid, $form_state['values']['answer'][$i], '0', $j++);
-        }
-    }
+    for ($i = 0; $i < $count; $i++) {
+         $node->choice[$i]['chtext'] = $form_state['values']['answer'][$i];
+         $node->choice[$i]['chorder'] = $i;
+          // Make sure all votes are 0 initially
+         $node->choice[$i]['chvotes'] = 0;
+     }
+    //echo '<pre>'; print_r($node); exit;
+    node_save($node);
 
      /*New SET NOTIFY LOG*/
             //set_notify_log($uid , $message_id, $nid, $variable)
@@ -1079,8 +1069,7 @@ function issue_create_form_submit($form, &$form_state) {
             $variable = array('qid' => $qid, 'q_title' => $qtitle, 'uid' => $user->uid);
             set_notify_log($user->uid, $qid, 'add_question', $variable);
      /*New SET NOTIFY LOG*/
-
-//url alias
+    //url alias
     $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
     $url = 'node/' . $node->nid;
     db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, 'en');
@@ -1088,46 +1077,44 @@ function issue_create_form_submit($form, &$form_state) {
    // return $node;
 
    // insert default debate for each issue
-                    $deb = new stdClass();
-                    $deb->field_private[0]['value'] ='';
-                    $deb->field_ref_qid[0]['nid'] = $node->nid;
-                    $deb->field_type[0]['value'] = '1';
+    $deb = new stdClass();
+    $deb->field_private[0]['value'] ='';
+    $deb->field_ref_qid[0]['nid'] = $node->nid;
+    $deb->field_type[0]['value'] = '1';
 
-                    $deb->type = 'forum';
-                    $deb->title = 'What you think about this issue!';
-                    $deb->uid = $user->uid;
-                  $deb->body = "Let's have a debate";
-                    $deb->status = 1;
-                    // get tid for debate
-                    // get_taxonomy_id('module name','term data name')
-                    $tid = get_taxonomy_id('forum','Debate');
-                    $deb->taxonomy = array($tid);
+    $deb->type = 'forum';
+    $deb->title = 'What you think about this issue!';
+    $deb->uid = $user->uid;
+    $deb->body = "Let's have a debate";
+    $deb->status = 1;
+    // get tid for debate
+    // get_taxonomy_id('module name','term data name')
+    $tid = get_taxonomy_id('forum','Debate');
+    $deb->taxonomy = array($tid);
 
-                    //node_validate($deb);
-                    //$node = node_submit($deb);
-                    $save = node_save($deb);
+    //node_validate($deb);
+    //$node = node_submit($deb);
+    $save = node_save($deb);
 
-                    // add default debate options
-                    $choices = db_query("SELECT * FROM {poll_choices} WHERE nid = '$node->nid'");
-                    while($list = db_fetch_object($choices)){
-                       //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
-                        $forum = "INSERT INTO {debate_options} set nid = '%d',chorder='%d',ans_val='%d' ";
-                        db_query($forum, $deb->nid, $list->chorder, 1);
-                    }
+    // add default debate options
+    $choices = db_query("SELECT * FROM {poll_choices} WHERE nid = '$node->nid'");
+    while($list = db_fetch_object($choices)){
+       //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
+        $forum = "INSERT INTO {debate_options} set nid = '%d',chorder='%d',ans_val='%d' ";
+        db_query($forum, $deb->nid, $list->chorder, 1);
+    }
 
-                 //Related Issues
-                    if(!empty($form_state['values']['rel_iss_check'])){
-                    $cont_type=array('content_types'=>array('poll'=>'poll'));
-                    $relatedissues = array_combine($form_state['values']['rel_iss_check'], $form_state['values']['rel_iss_check']);
-                    $arrayid = array('nids' => $relatedissues);
-                    $manual = array('enable' => 1, 'nodes' => array('poll' => $arrayid));
-                    $related = array('nid' => $node->nid, 'content_types' => $cont_type, 'taxonomy' =>array(''), 'manual' => $manual, 'sort' => array('criteria' => 'none'));
-                    db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $node->nid, serialize($related));
-                    }
-
-
-
-                    $output = drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
+ //Related Issues
+    if(!empty($form_state['values']['rel_iss_check'])){
+    $cont_type=array('content_types'=>array('poll'=>'poll'));
+    $relatedissues = array_combine($form_state['values']['rel_iss_check'], $form_state['values']['rel_iss_check']);
+    $arrayid = array('nids' => $relatedissues);
+    $manual = array('enable' => 1, 'nodes' => array('poll' => $arrayid));
+    $related = array('nid' => $node->nid, 'content_types' => $cont_type, 'taxonomy' =>array(''), 'manual' => $manual, 'sort' => array('criteria' => 'none'));
+    db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $node->nid, serialize($related));
+    }
+    
+    $output = drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
 '), $type = 'success');
         unset($_SESSION['post']);
         $_SESSION['post'] = '';
