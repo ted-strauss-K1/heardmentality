@@ -350,10 +350,10 @@ function user_facts() {
          <div class="fa-item">
           <ul>
         
-          <li><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $num_users . '\')"><span>' . $usercnt . '</span> Contributors</a></li>
-          <li><a href="' . $gSitePath . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"><span >' . $total_users . '</span> Online</a></li>
-          <li><a href="' . $gSitePath . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"><span>' . $quest . '</span> Issues</a></li>
-          <li><a href="' . $gSitePath . 'google/map/answer" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/answer\',\'Facts And Figures : Toatal Votes ' . $ans . '\')"><span >' . $ans . '</span> Votes</a></li>
+          <li><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $num_users . '\')"><span>' . $usercnt . '</span> '.t('Contributors').'</a></li>
+          <li><a href="' . $gSitePath . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"><span >' . $total_users . '</span> '.t('Online').'</a></li>
+          <li><a href="' . $gSitePath . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"><span>' . $quest . '</span> '.t('Issues').'</a></li>
+          <li><a href="' . $gSitePath . 'google/map/answer" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/answer\',\'Facts And Figures : Toatal Votes ' . $ans . '\')"><span >' . $ans . '</span> '.t('Votes').'</a></li>
           </ul>
           </div>
           
@@ -2264,4 +2264,16 @@ function check_follow_unfollow($requester, $requestee){
     
     $fid = db_result(db_query("SELECT rid FROM {user_relationships} WHERE requester_id = '%d' AND requestee_id = '%d'", $requester, $requestee));
     return $fid;
+}
+
+function profiles_init(){
+    global $gSitePath, $user, $gDocPath, $base_root,$language;
+    //echo $language->language; exit;
+    $langcode = isset($langcode) ? $langcode : $language->language;
+    $default = language_default();
+    $default_langcode = $default->language;
+    $currLanguage = i18n_get_lang();
+    
+    // update current viewing language as a default language for a user
+    db_query("UPDATE {users} SET language = '%s' WHERE uid = '%d'", $currLanguage, $user->uid);
 }

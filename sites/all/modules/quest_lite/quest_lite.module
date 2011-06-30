@@ -263,6 +263,9 @@ $langcode = $language->language; //ISO2 code
   $default = language_default();
   $default_langcode = $default->language;
 
+  // current browser language
+  $currLanguage = i18n_get_lang();
+
     $qid = '';
     $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1); // Return the NID
 
@@ -271,14 +274,14 @@ $langcode = $language->language; //ISO2 code
         return $qid;
     } else {
         if (!empty($user->uid)) {
-            $query = "SELECT nid from {node} where uid='" . $user->uid . "' AND status='1' and type='poll' and (language = 'en' or language = '') order by nid DESC limit 0,1";
+            $query = "SELECT nid from {node} where uid='" . $user->uid . "' AND status='1' and type='poll' and language = '$currLanguage' order by nid DESC limit 0,1";
             $quest = db_query($query);
             $qid = db_result($quest);
         }
 
 
   $sql = 'SELECT n.nid FROM {node} n WHERE n.type="poll" and n.tnid = %d and n.language = \'%s\' ';
-  $qid = db_result(db_query(db_rewrite_sql($sql), $qid, $langcode)); //defaults should be in default language
+  $qid = db_result(db_query(db_rewrite_sql($sql), $qid, $currLanguage)); //defaults should be in default language
 
         /* if ($qid == ''||!is_numeric($qid)) {
           echo "hi numeric 1";
@@ -299,7 +302,7 @@ $langcode = $language->language; //ISO2 code
       //echo "numeric 3";
 
       $uidCond = $user->uid!=''?" AND uid = $user->uid":"";
-      $query = "SELECT nid from {node} where status='1' and type='poll' and language='en' order by nid DESC limit 0,1 ";
+      $query = "SELECT nid from {node} where status='1' and type='poll' and language='$currLanguage' order by nid DESC limit 0,1 ";
 
       $quest = db_query($query);
       $qid = db_result($quest);
