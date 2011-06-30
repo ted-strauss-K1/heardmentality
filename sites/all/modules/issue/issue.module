@@ -1278,6 +1278,7 @@ function list_debate($qid='', $type='') {
 //    $cnt = ExecuteQuery($query, "select");
 
     // load debate
+    
     $sorting = 'ORDER BY f.nid DESC';
     $cond = '';
     extract($_REQUEST);
@@ -1300,13 +1301,25 @@ function list_debate($qid='', $type='') {
    else
    $sql = "SELECT DISTINCT(f.nid) FROM  {debate_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
 
+   // forum for translated languages
+   $issueId = $qid;
+   $tnid = get_tnid($qid);
+   $qid = $tnid;
+
    $nodes = db_query($sql, $tid, $qid);
-    $count = db_result(db_query($sql, $tid, $qid));
+   $count = db_result(db_query($sql, $tid, $qid));
 
     if ($count>0) {
         $i=0;
         while ($node = db_fetch_object($nodes)) {
             $forum = node_load( array('nid' => $node->nid, 'status' => '1'));
+            ///*******************/
+            // translated content for title and body
+            // get forum default language id
+            $translated = get_translated_content_forum($issueId, $forum->nid);
+            $forum->title = $translated->title;
+            $forum->body = $translated->body;
+            ///*******************/
 
             $bg = $i % 2;
             if ($bg)
@@ -1404,7 +1417,7 @@ function list_debate($qid='', $type='') {
 <div class="centerpartside-out">
 <div class="centerpartside-top">
 <div class="centerpartside">
-<h4><a class="debate-links" href="' . $gSitePath . 'issues/debate/' . $qid . '/' . $forum->nid . '" >' . myTruncate($forum->title, '30', '', '..') . '</a></h4><br>
+<h4><a class="debate-links" href="' . $gSitePath . 'issues/debate/' . $issueId . '/' . $translated->nid . '" >' . myTruncate($forum->title, '30', '', '..') . '</a></h4><br>
 ' . myTruncate($forum->body, '25', '', '..') . '
 </div>
 <div class="rightpartside">
@@ -2069,4 +2082,13 @@ function get_tnid($nid = ''){
     $res = db_result(db_query("SELECT tnid FROM {node} WHERE nid = '%d'", $nid));
     $tnid = $res!=0?$res:$nid;
     return $tnid;
+}
+
+function get_translated_content_forum($nid = '', $forumId =''){
+    $curLanguage = db_result(db_query("SELECT language FROM {node} WHERE nid = '$nid'"));
+    $ftid = db_result(db_query("SELECT nid FROM {node} WHERE tnid = '$forumId' AND language = '$curLanguage' AND translate = 1"));
+    $ftid = $ftid!=''?$ftid:$forumId;
+
+    $translated = node_load( array('nid' => $ftid, 'status' => '1'));
+    return $translated;
 }

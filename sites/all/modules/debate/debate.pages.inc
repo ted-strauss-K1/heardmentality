@@ -2,6 +2,15 @@
 
 function debate_list($qid = '', $did='') {
 
+    // translated node title, body for a debate
+    $tnid = get_tnid($did);
+    $did = $tnid;
+
+    // main node for a question
+    $issuId = $qid;
+    $tqid = get_tnid($qid);
+    $qid = $tqid;
+    
     global $gSitePath, $user, $gDocPath, $base_root;
     if (empty($qid) || !is_numeric($qid) || empty($did) || !is_numeric($did)) {
         return FALSE;
@@ -14,6 +23,14 @@ function debate_list($qid = '', $did='') {
     //$query = "SELECT *,u.uid as uid,IFNULL((select did  FROM {debate} where did > f.did AND qid='$qid'  limit 0,1 ),0) as pdid,IFNULL((select did FROM {debate} where did < f.did AND qid='$qid' order by did DESC limit 0,1 ),0) as ndid  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.qid='$qid' AND f.did='$did' AND f.status='1'";
     //$list = ExecuteQuery($query, "select");
     $forum = node_load($did);
+
+    /*******************/
+    // translated content for title and body
+    $translated = get_translated_content_forum($issuId, $forum->nid);
+    $forum->title = $translated->title;
+    $forum->body = $translated->body;
+    ///*******************/
+
     $dlink = $gSitePath . 'issues/debate/';
 
 //    foreach ($list as $forum) {
