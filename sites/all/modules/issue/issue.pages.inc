@@ -1072,7 +1072,7 @@ function issue_create_form_submit($form, &$form_state) {
     //url alias
     $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
     $url = 'node/' . $node->nid;
-    db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, 'en');
+    db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, i18n_get_lang());
 
    // return $node;
 
