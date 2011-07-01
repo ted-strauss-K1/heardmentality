@@ -2272,8 +2272,9 @@ function profiles_init(){
     $langcode = isset($langcode) ? $langcode : $language->language;
     $default = language_default();
     $default_langcode = $default->language;
-    $currLanguage = i18n_get_lang();
-    
+   $currLanguage = i18n_get_lang();
+
     // update current viewing language as a default language for a user
-    //db_query("UPDATE {users} SET language = '%s' WHERE uid = '%d'", $currLanguage, $user->uid);
+  //  db_query("UPDATE {users} SET language = '%s' WHERE uid = '%d'", $currLanguage, $user->uid);
+
 }
