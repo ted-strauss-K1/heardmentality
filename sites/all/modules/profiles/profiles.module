@@ -2267,7 +2267,7 @@ function check_follow_unfollow($requester, $requestee){
 }
 
 function profiles_init(){
-    global $gSitePath, $user, $gDocPath, $base_root,$language;
+    global $gSitePath, $user, $gDocPath, $base_root,$language,$langcode;
     //echo $language->language; exit;
     $langcode = isset($langcode) ? $langcode : $language->language;
     $default = language_default();
@@ -2275,5 +2275,5 @@ function profiles_init(){
     $currLanguage = i18n_get_lang();
     
     // update current viewing language as a default language for a user
-    db_query("UPDATE {users} SET language = '%s' WHERE uid = '%d'", $currLanguage, $user->uid);
+    //db_query("UPDATE {users} SET language = '%s' WHERE uid = '%d'", $currLanguage, $user->uid);
 }

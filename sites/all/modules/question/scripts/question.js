@@ -9,20 +9,38 @@ jQuery(document).ready( function() {
       get_releted_issue(0);
    var url = spath+"exist_question";
  jQuery.ajax({
-type: "POST",
+type: 'POST',
+dataType: "json",
 url: url,
-data: "question="+ quest,
+data: {'question': quest},
 success: function(msg){
-        jQuery("#inside_content").html(msg);
-},
-complete:function(){question_check()}
+        jQuery("#inside_content").html(msg.result);
+        jQuery("#dupe_count").val(msg.dupe_count);
+        //jQuery('#dupe_count').val();
+}
+//complete:function(){question_check()}
 });
  }else{
  jQuery('#err').html('<li>Please provide proper Issue!</li>');
  }
 
 })
+
+// check duplicate before submit
+jQuery('#save_issue').click(function() {
+    var dupeCount = jQuery("#dupe_count").val();
+    if(dupeCount != 0){
+         jQuery('#twitMsg').html("Duplicate issues exist! Please verify your isuue with duplication");
+         jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+         return false;
+    }else{
+        return true;
+    }
 });
+
+});
+
+
 /*RELEATED QUESTIONS AUTOCOMPLETE*/
 	function get_releted_issue(cat_id)
 	{

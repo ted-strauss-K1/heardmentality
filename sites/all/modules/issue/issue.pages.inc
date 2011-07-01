@@ -820,11 +820,7 @@ function issue_create(){
 
 function issue_create_form($form_state){
 
-    $inline = 'jQuery(function() {
-CountlimitChars = function(){
-jQuery("#numberofword").text(140 - jQuery("#q_quest").val().length ).show();
-} })';
-    drupal_add_js($inline, $type = 'inline');
+   
     //drupal_add_js( drupal_get_path('module', 'question') . '/scripts/post_list.js');
 
     //$form['#attributes'] = array('onsubmit' => 'return validate_question()');
@@ -891,7 +887,7 @@ jQuery("#numberofword").text(140 - jQuery("#q_quest").val().length ).show();
     $form['issue_cont_close'] = array('#type' => 'markup', '#value' => '</ul><div class="clr"></div>');
 
     $form['related_issues'] = array(
-    '#title' => t("Related Issues"),
+    '#title' => t("<strong>Related Issues</strong>"),
     '#type' => 'fieldset',
         '#value'=>'<div id="related_issues_holder"></div>'
     );
@@ -908,10 +904,10 @@ jQuery("#numberofword").text(140 - jQuery("#q_quest").val().length ).show();
 
     
    
-
+    $form['dupe_count'] = array('#type' => 'hidden', '#id' => 'dupe_count', '#default_value' => 0);
    $form['#validate'][] = 'issue_create_form_validate';
 
-    $form['submit'] = array('#type' => 'submit', '#attributes' => array('class' => 'question-save'), '#value' => t('SUBMIT NEW ISSUE'));
+    $form['submit'] = array('#type' => 'submit', '#attributes' => array('class' => 'question-save'), '#value' => t('SUBMIT NEW ISSUE'), '#id' => 'save_issue');
     $form['#redirect'] = '';
     return $form;
 }
@@ -947,9 +943,10 @@ function issue_autotextfields_callback() {
   );
   $form_state['post'] = $_POST;
   // Build, validate and if possible, submit the form.
- // drupal_process_form($form_id, $form, $form_state);
+  drupal_process_form($form_id, $form, $form_state);
   // Rebuild the form.
   $form = form_builder($form_id, $form, $args, $form_state);
+  
 //  $validate = issue_form_validate($form, $form_state);
 //  if($validate){$delta = 1;}
   // Render the new output.
@@ -1017,13 +1014,14 @@ function issue_related_callback(){
      $i++;
   }
 
-  $form['rel_iss_check'] = array('#type' => 'checkboxes',
+  $form['related_issues']['rel_iss_check'] = array('#type' => 'checkboxes',
        '#options' => $array );
  
   }else{
      $output = 'No Related Issues';
   }
   }
+
   // rebuild form object and output new form elements
   $output .= ahah_render($form, 'rel_iss_check');
 
@@ -1038,6 +1036,8 @@ function issue_related_callback(){
 function issue_create_form_submit($form, &$form_state) {
     //echo '<pre>'; print_r($form_state); exit;
     global $user, $gSitePath;
+
+   
     $account = user_load(array('uid' => $user->uid));
     $node = new StdClass();
     $node->type = 'poll';
@@ -1124,6 +1124,7 @@ function issue_create_form_submit($form, &$form_state) {
         //drupal_goto($path);
         //echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';
          drupal_goto($path);
+  
 }
 
 
@@ -1133,7 +1134,7 @@ function get_releated_issues($question = '',$cat_id = '',$context = '')
 { 
     //$form = array('#tree'=>TRUE);
     
-    
+        $currLanguage = i18n_get_lang();
 	$where_condition = '';
 	$words = explode(" ", $question);
            $words = array_filter($words, 'word_array_filter');
@@ -1167,17 +1168,16 @@ function get_releated_issues($question = '',$cat_id = '',$context = '')
 	}
          $text="$question $context";
 //printf("SELECT count(MATCH(r.body, r.title) AGAINST ('%s')) FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,0);
-	$count = db_result(db_query("SELECT count(MATCH(r.body, r.title) AGAINST ('%s')) FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,0));
+	$count = db_result(db_query("SELECT COUNT(n.nid) FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid AND MATCH(r.body, r.title) AGAINST ('%s') AND n.language = '%s' ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,$currLanguage));
 	$rel_output.= '<div class="innerbox" style="width:auto;height:auto; overflow:auto; min-height:150px;"><ul>';
 	if (($count!=0)&&($question!=''))
 	{
 		$rel_count = 1;
-		//$rel_query = db_query("SELECT r.nid,r.title, MATCH(r.body, r.title) AGAINST ('%s') AS score FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,0);
-		$sql = "SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND n.title LIKE '%$question%' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10";
-                $rel_query = db_query($sql);
+		$rel_query = db_query("SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND MATCH(r.body, r.title) AGAINST ('%s') AND n.language = '%s' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text, $currLanguage);
+		//$sql = "SELECT r.nid,r.title FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND n.type='poll' AND n.title LIKE '%$question%' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10";
+                //$rel_query = db_query($sql);
                 while ($rel_options = db_fetch_object($rel_query)) {
-		 // $rel_output.='<li><input style="width:15px;" type="checkbox" name="chk_rel_issue[]" id="chk_rel_issue[]" value="'.$rel_options->nid.'"> ';
-
+		 
                     $form['mycheck_'.$rel_count] = array('#type' => 'checkbox', '#default_value' => $rel_count, '#title' => substr($rel_options->title,0,50));
 
 
@@ -1198,3 +1198,4 @@ function get_releated_issues($question = '',$cat_id = '',$context = '')
 //echo "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid ";
 
 }
+

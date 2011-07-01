@@ -483,7 +483,8 @@ global $gSitePath, $user, $gDocPath, $base_root;
             $chovotes = $node->choice[$i]['chvotes'];
             $short = db_result(db_query("SELECT short_answer FROM {short_answers} where qid='" . $qid . "' AND chorder = '".$chorder."'"));
             $shortAns = $short!=''?$short:'';
-            $posQuery= db_query("select value from {possible_answer_spectrum} where qid='$qid' AND possible_chorder = '".$chorder."' ORDER BY pid ASC");
+            // meta data for each moderators
+            $posQuery= db_query("select value from {possible_answer_spectrum} where qid='$qid' AND possible_chorder = '".$chorder."' AND uid = '$user->uid' ORDER BY pid ASC");
             $pos_spectrum = array();
             while($spectrum = db_fetch_object($posQuery)){
                 $pos_spectrum[] = $spectrum->value;
@@ -2433,14 +2434,14 @@ function moderator_edit_issue_form_submit($form, &$form_state){
     taxonomy_node_delete($node);
     taxonomy_node_save($node,$term);
     
-        /* SAVING META INFORMATION */
+        /* SAVING META INFORMATION for each moderator */
         $query = "SELECT * FROM {poll_choices} where nid='" . $nid . "' ORDER BY chorder ASC";
         $ans = ExecuteQuery($query, "select");
 
-         $chk_exsit = db_result(db_query("select count(*) from {possible_answer_spectrum} where qid='$nid'"));
+         $chk_exsit = db_result(db_query("select count(*) from {possible_answer_spectrum} where qid='$nid' AND uid = '$user->uid'"));
         if ($chk_exsit) {
 
-            $Spec_query2 = db_query("delete from {possible_answer_spectrum} where qid=%d",$nid);
+            $Spec_query2 = db_query("delete from {possible_answer_spectrum} where qid=%d AND uid=%d",$nid, $user->uid);
         }
         $i = 0;
         foreach ($ans as $ans_array) {
@@ -2461,7 +2462,7 @@ function moderator_edit_issue_form_submit($form, &$form_state){
                 /* echo '<pre>';
                   echo $posted_rating.'-';
                   echo $Spec_result2->political_spec_id.'<br>'; */
-               $sql = "insert into possible_answer_spectrum set qid= '$nid' , possible_ans_id='$ans_id' , political_spec_id='$political_id', possible_chorder = '".$ans_array['chorder']."',value='$posted_rating'";
+               $sql = "insert into possible_answer_spectrum set qid= '$nid' , possible_ans_id='$ans_id' , political_spec_id='$political_id', possible_chorder = '".$ans_array['chorder']."',value='$posted_rating', uid = '$user->uid'";
                 $insert_query = db_query($sql);
                 $row_count++;
             }

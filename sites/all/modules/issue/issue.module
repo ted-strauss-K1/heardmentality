@@ -159,6 +159,12 @@ function issue_init() {
     if (module_exists('jquery_ui')) {
         jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
     }
+     $inline = 'jQuery(function() {
+CountlimitChars = function(){
+jQuery("#numberofword").text(140 - jQuery("#q_quest").val().length ).show();
+} })';
+    drupal_add_js($inline, $type = 'inline');
+    drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
 }
 
 /**

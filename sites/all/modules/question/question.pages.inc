@@ -3304,44 +3304,39 @@ function exist_dupe() {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
+    $currLanguage = i18n_get_lang();
     $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $question = $_REQUEST['question'];
-
-
-    $query = "select * from question  where question='$question'";
-    $ans = ExecuteQuery($query, "norows");
-
     $words = explode(" ", $question);
-
-
-    $query = "SELECT * FROM question WHERE 1";
+    $query = "SELECT distinct(n.nid), n.title FROM {node} n JOIN {node_revisions} nr ON n.nid = nr.nid WHERE n.status = 1 AND n.type = 'poll' AND language = '$currLanguage'";
     for ($i = 0; $i < count($words); $i++) {
         $samples = " " . $words[$i] . "  ";
         //echo $samples;
         // $query = "SELECT * FROM question WHERE question LIKE ('$words[$i]%') or question LIKE ('%$words[$i]%') or  context LIKE ('%$words[$i]%') and status='0' ";
         //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
-        $query .= " AND question LIKE CONVERT(_utf8 '%$words[$i]%' USING latin1 ) COLLATE latin1_swedish_ci";
+        $query .= " AND nr.title LIKE CONVERT(_utf8 '%%$words[$i]%%' USING utf8 ) COLLATE utf8_general_ci";
     }
 
-$result = mysql_query($query);
-$dupecount = mysql_num_rows($result);
+$result = db_query($query);
+$dupecount = db_affected_rows($result);
 
  $rel_ques .= '<div class="innerbox" style="width:155px; height:150px; overflow:auto; margin-top:7px; color:#986700; ">';
  $rel_ques .= "<ul>";
  if($dupecount != 0)
  {
- while ($mylist = mysql_fetch_array($result)) {
-$validpath =  $gSitePath.$mylist['url'];
+ while ($mylist = db_fetch_array($result)) {
+        $validpath =  $gSitePath.drupal_get_path_alias('node/'.$mylist['nid']);
         $rel_ques .= "<li>";
-        $rel_ques .= "<a href='".$validpath."' target='_blank'>".$mylist['question']."</a>";
+        $rel_ques .= "<a href='".$validpath."' target='_blank'>&gt;&gt;&nbsp;".$mylist['title']."</a>";
         $rel_ques .= "</li>";
     }
  }else{
-     $rel_ques .= "<li>No Dupe Questions</li>";
+     $rel_ques .= "<li>".t('No Dupe Questions')."</li>";
  }
     $rel_ques .= "</ul>";
     $rel_ques .= '</div>';
-    echo $rel_ques;
+    $json = array('result' => $rel_ques, 'dupe_count' => $dupecount);
+    print_r(json_encode($json));
     exit;
 }
 

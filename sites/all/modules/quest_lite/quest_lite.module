@@ -274,7 +274,7 @@ $langcode = $language->language; //ISO2 code
         return $qid;
     } else {
         if (!empty($user->uid)) {
-            $query = "SELECT nid from {node} where uid='" . $user->uid . "' AND status='1' and type='poll'  order by nid DESC limit 0,1";
+            $query = "SELECT nid from {node} where uid='" . $user->uid . "' AND status='1' and type='poll' AND (tnid = nid OR tnid = 0)  order by nid DESC limit 0,1";
             $quest = db_query($query);
             $qid = db_result($quest);
         }
