@@ -6,7 +6,7 @@ jQuery(document).ready( function() {
 
  var quest = jQuery('#q_quest').val();
  if(jQuery.trim(quest).length){
-      get_releted_issue(0);
+     // get_releted_issue(0);
    var url = spath+"exist_question";
  jQuery.ajax({
 type: 'POST',
