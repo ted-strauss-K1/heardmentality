@@ -30,7 +30,7 @@ success: function(msg){
 jQuery('#save_issue').click(function() {
     var dupeCount = jQuery("#dupe_count").val();
     if(dupeCount != 0){
-         jQuery('#twitMsg').html("Duplicate issues exist! Please verify your isuue with duplication");
+         jQuery('#twitMsg').html("Duplicate issues exist! Please verify your issue with duplication");
          jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
          return false;
     }else{

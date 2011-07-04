@@ -2461,6 +2461,7 @@ function debate_submit() {
                     // save values as node
                     $deb = new stdClass();
                     $deb->field_private[0]['value'] = $wprivate;
+                    $qid = get_tnid($qid);
                     $deb->field_ref_qid[0]['nid'] = $qid;
                     $deb->field_type[0]['value'] = '1';
 
@@ -2473,7 +2474,7 @@ function debate_submit() {
                     // get_taxonomy_id('module name','term data name')
                     $tid = get_taxonomy_id('forum', 'Debate');
                     $deb->taxonomy = array($tid);
-
+                   
                     //node_validate($deb);
                     //$node = node_submit($deb);
                     $save = node_save($deb);

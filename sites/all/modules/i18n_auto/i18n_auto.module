@@ -278,6 +278,24 @@ if($node->type == 'poll'){
          }
       }
     // OPENWAVE traslate poll choices ends
+
+//    // set translated nid as node reference for translated forums (debate, resource)
+//    if($node->type == 'forum'){
+//    $mainRefId = db_result(db_query("SELECT field_ref_qid_nid FROM {content_type_forum} WHERE nid = '$node->nid'"));
+//    $tnid = db_result(db_query("SELECT nid FROM {node} WHERE tnid = '$mainRefId' AND language = '$langcode'"));
+//    $fType = db_result(db_query("SELECT field_type_value FROM {content_type_forum} WHERE nid = '$node->nid'"));
+//
+//    $new_node->field_ref_qid[0]['nid'] = $tnid;
+//    $new_node->field_private[0]['value'] ='';
+//    $new_node->field_type[0]['value'] = $fType;
+//
+//    if($fType == 1){
+//    $tid = get_taxonomy_id('forum','Debate');
+//    }elseif($fType == 2){
+//    $tid = get_taxonomy_id('forum','Resource');
+//    }
+//    $new_node->taxonomy = array($tid);
+//    }
      $new_node->uid = $node->uid;
       // TODO: Look up CCK fields and cycle through and translate too.
 

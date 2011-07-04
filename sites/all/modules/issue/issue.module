@@ -1099,6 +1099,7 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
     global $gSitePath, $user, $gDocPath, $base_root;
     // Count the votes and find the maximum
   $node=node_load($nid);
+  $tnid = get_tnid($nid);
     // $total_votes = 0;
     // $max_votes = 0;
     // foreach ($node->choice as $choice) {
@@ -1111,8 +1112,8 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
 //echo $node->allowvotes; exit;
 
     // get debate, resource, pundit counts
-    $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$nid'"));
-    $resourceCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '2' AND field_ref_qid_nid = '$nid'"));
+    $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$tnid'"));
+    $resourceCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '2' AND field_ref_qid_nid = '$tnid'"));
     $punditCount = count(getAnsweredUsers($nid));
     return theme('issue_results', $nid, t($debateCount),t($resourceCount),t($punditCount),$node->allowvotes);
 }

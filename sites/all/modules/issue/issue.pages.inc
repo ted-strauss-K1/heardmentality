@@ -889,26 +889,14 @@ function issue_create_form($form_state){
     $form['related_issues'] = array(
     '#title' => t("<strong>Related Issues</strong>"),
     '#type' => 'fieldset',
-        '#value'=>'<div id="related_issues_holder"></div>'
+    '#value'=>'<div id="related_issues_holder"></div>'
     );
-    
-//    if(!empty($form_state['values']['q_quest'])){
-      //  $form['related_issues']['rel_iss_check'] = array('#type' => 'checkbox', '#title' => '', '#value' => '');
-  //  }
 
-//    $form['related_div'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>
-//                                <div class="do-in2bor"><strong>Related Issue(s):</strong></div>
-//                                <div><span  title="Releted Questions"  id="releated_questions"></span></div>
-//                                </div>
-//                                <div class="clr"></div>');
-
-    
-   
-    $form['dupe_count'] = array('#type' => 'hidden', '#id' => 'dupe_count', '#default_value' => 0);
-   $form['#validate'][] = 'issue_create_form_validate';
+   $form['dupe_count'] = array('#type' => 'hidden', '#id' => 'dupe_count', '#default_value' => 0);
+   //$form['#validate'][] = 'issue_create_form_validate';
 
     $form['submit'] = array('#type' => 'submit', '#attributes' => array('class' => 'question-save'), '#value' => t('SUBMIT NEW ISSUE'), '#id' => 'save_issue');
-    $form['#redirect'] = '';
+    //$form['#redirect'] = '';
     return $form;
 }
 function issue_form_validate($form, &$form_state){
@@ -1014,7 +1002,7 @@ function issue_related_callback(){
      $i++;
   }
 
-  $form['related_issues']['rel_iss_check'] = array('#type' => 'checkboxes',
+  $form['rel_iss_check'] = array('#type' => 'checkboxes',
        '#options' => $array );
  
   }else{
