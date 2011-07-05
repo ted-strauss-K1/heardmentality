@@ -191,7 +191,7 @@ function _moderator_user_left() {
 function _moderator_left() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     //$query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE uid = '$user->uid' and qid=q.qid) as tcnt FROM {question} AS q  having tcnt<1 ORDER BY q.qid DESC";
-    $query = "SELECT DISTINCT n.nid, n.title,(SELECT IFNULL( count( * ) , 0 ) FROM {node_revisions} WHERE uid = '$user->uid' and nid=n.nid) as tcnt FROM {node} AS n WHERE n.type='poll' AND (language = 'en' OR language = '') having tcnt<1 ORDER BY n.nid DESC";
+    $query = "SELECT DISTINCT n.nid, n.title,(SELECT IFNULL( count( * ) , 0 ) FROM {node_revisions} WHERE uid = '$user->uid' and nid=n.nid) as tcnt FROM {node} AS n WHERE n.type='poll'  AND tnid = '0' AND translate='0' having tcnt<1 ORDER BY n.nid DESC";
     $new = ExecuteQuery($query, 'norows');
 
     //$query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' group by q.qid ORDER BY f.flag_date DESC";
@@ -243,7 +243,7 @@ function moderator_issues_list($type='') {
             //  $query="SELECT * FROM {question} ";
             $query = "SELECT * FROM
 (SELECT DISTINCT n.nid as qid, n.title as question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM content_type_poll WHERE nid = n.nid AND field_mod_status_value =1) AS tcnt FROM node AS n
-WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.type = 'poll' AND (tnid = '0' AND translate='0') ORDER BY n.nid DESC
+WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.type = 'poll' AND tnid = '0' AND translate='0' ORDER BY n.nid DESC
 ) AS issue WHERE issue.tcnt<1";
 
 //            $query = "SELECT * FROM

@@ -1014,7 +1014,7 @@ function issue_related_callback() {
     $form_state = array('storage' => NULL, 'submitted' => FALSE);
     $form_build_id = $_POST['form_build_id'];
     $form = form_get_cache($form_build_id, $form_state);
-
+      $delta = count($_POST['answer']);
 
     $args = $form['#parameters'];
     $form_id = array_shift($args);
@@ -1023,6 +1023,7 @@ function issue_related_callback() {
 // Stash original form action to avoid overwriting with drupal_rebuild_form().
     $form_state['action'] = $form['#action'];
     $form_state['rebuild'] = TRUE;
+     $form_state['choice_count'] = $delta;
     drupal_process_form($form_id, $form, $form_state);
     $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
 
