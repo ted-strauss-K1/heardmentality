@@ -958,6 +958,8 @@ function issue_autotextfields_callback() {
     );
     $form_state['post'] = $_POST;
     // Build, validate and if possible, submit the form.
+    $form_state['action'] = $form['#action'];
+    $form_state['rebuild'] = TRUE;
     drupal_process_form($form_id, $form, $form_state);
     // Rebuild the form.
     $form = form_builder($form_id, $form, $args, $form_state);
