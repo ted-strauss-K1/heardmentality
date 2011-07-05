@@ -144,7 +144,9 @@ function ahah_render($fields, $name) {
 
   // Render the new output.
   $new_form = $form[$name];
-  return drupal_render($new_form);
+ // echo '<pre>';
+ // print_r($new_form);
+  return  drupal_render($new_form);
 }
 
 
