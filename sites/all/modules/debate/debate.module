@@ -954,4 +954,20 @@ function vote_up_down_count($criteria = ''){
     return $count;
 }
 
+function debate_cron(){
+    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    // get oly debates (not resources)
+    // field_type_value must be 1(debates only).
+    $query = db_query("SELECT n.nid FROM {content_type_forum} AS cf JOIN {node} AS n ON cf.nid=n.nid WHERE cf.field_lang_status_value='%d' AND cf.field_type_value = '%d' AND n.type='%s' AND n.tnid='%d' AND n.translate='%d'", 0, 1, 'forum', 0, 0);
+    while($langNode = db_fetch_object($query)){
+       $nid = $langNode->nid;
+       $node = node_load($nid);
+       //echo '<pre>'; print_r($node); exit;
+       // add content in multi languages (title, body, choices)
+       $node->field_lang_status[0]['value'] = 1;
+       issue_translator_action_node_translate($node);
+       db_query("UPDATE {node} SET translate = '%d', tnid = '%d' WHERE nid = '%d' AND translate = '%d'", 1, $nid, $nid, 0);
+    }
+}
+
 

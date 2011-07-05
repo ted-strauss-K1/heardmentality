@@ -582,6 +582,12 @@ function debate_wave($qid = '') {
     $inc_pans = '';
     $wave = '';
     $ans = load_options($qid);
+
+    // site url with default language
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+    //$gSitePath = $sitelink;
+
     //answers
     $filter_list.='<select name="dfilt-ans" id="dfilt-ans" class="select-1"><option value="">Possible Answers</option>';
     foreach ($ans as $list) {
@@ -631,7 +637,7 @@ function debate_wave($qid = '') {
 
 		<div class="comment" id="newwavediv" style="display:none"><div class="popup-debate-new">';
     if (!empty($user->uid)) {
-        $wave .= '	<form  id="newwaveform" class="newwave" action="' . $gSitePath . 'issues/debate/save" method="post" accept-charset="utf-8">
+        $wave .= '	<form  id="newwaveform" class="newwave" action="' . $sitelink . 'issues/debate/save" method="post" accept-charset="utf-8">
 	<input type="hidden" name="action" value="new"/><input type="hidden" name="qid" value="' . $qid . '"/>
 <div class="new-debate-wrapper">
   	<div class="form-outer-debate">

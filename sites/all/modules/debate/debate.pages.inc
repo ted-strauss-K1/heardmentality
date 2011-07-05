@@ -2,6 +2,14 @@
 
 function debate_list($qid = '', $did='') {
 
+    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    $curLanguage = $language->language;
+
+    // site url with default language
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+    //$gSitePath = $sitelink;
+
     // translated node title, body for a debate
     $tnid = get_tnid($did);
     $did = $tnid;
@@ -11,7 +19,7 @@ function debate_list($qid = '', $did='') {
     $tqid = get_tnid($qid);
     $qid = $tqid;
     
-    global $gSitePath, $user, $gDocPath, $base_root;
+    
     if (empty($qid) || !is_numeric($qid) || empty($did) || !is_numeric($did)) {
         return FALSE;
     }
@@ -26,7 +34,7 @@ function debate_list($qid = '', $did='') {
 
     /*******************/
     // translated content for title and body
-    $translated = get_translated_content_forum($issuId, $forum->nid);
+    $translated = get_translated_content_forum($issuId, $forum->nid, $curLanguage);
     $forum->title = $translated->title;
     $forum->body = $translated->body;
     ///*******************/
@@ -992,6 +1000,13 @@ function admin_wlets_edit() {
 
 function add_resources($qid='') {
     global $gSitePath, $user, $gDocPath, $base_root;
+
+    // site url with default language
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+    $gSitePath = $sitelink;
+
+
     $ans = load_options($qid);
     drupal_add_js('var spath="' . $gSitePath . '";', 'inline');
     drupal_add_css(drupal_get_path('module', 'debate') . '/css/fileuploader.css');
@@ -1711,6 +1726,9 @@ function resdebate_list($qid='', $rid='') {
         return FALSE;
     }
 
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+
     $output = '';
     $like = '';
     $flag = '';
@@ -1917,7 +1935,7 @@ function resdebate_list($qid='', $rid='') {
 </div>
 <div class="clr"></div>
 <div class="reply-wrapper" id="postreply" style="display:none;">
-<form id="postreplyform" name="freply" action="' . $gSitePath . 'issues/debate/save">
+<form id="postreplyform" name="freply" action="' . $sitelink . 'issues/debate/save">
   	<h2>REPLY</h2>
 
     	<div>
@@ -2442,7 +2460,7 @@ function make_clickable($ret) {
 
 function debate_submit() {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_url;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_url, $language;
     extract($_REQUEST);
 
     if (!user_is_logged_in()) {
@@ -2474,7 +2492,11 @@ function debate_submit() {
                     // get_taxonomy_id('module name','term data name')
                     $tid = get_taxonomy_id('forum', 'Debate');
                     $deb->taxonomy = array($tid);
-                   
+
+                    // language status, initially language status is 0
+                    $deb->language = $language->language;
+                    $deb->field_lang_status[0]['value'] = 0;
+                    
                     //node_validate($deb);
                     //$node = node_submit($deb);
                     $save = node_save($deb);

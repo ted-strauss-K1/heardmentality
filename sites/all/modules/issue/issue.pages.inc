@@ -881,11 +881,10 @@ function issue_create_form(&$form_state) {
     $form['issue_cont_close'] = array('#type' => 'markup', '#value' => '</ul><div class="clr"></div>');
 
     $form['related_issues'] = array(
-        '#title' => t("Generated text fields for first and last name"),
+        '#title' => t("Related Issues"),
         '#prefix' => '<div id="related-issues">',
         '#suffix' => '</div>',
         '#type' => 'fieldset',
-        '#description' => t('This is where we put automatically generated textfields'),
     );
 
     if ($form_state['values']['q_quest']) {
@@ -1093,6 +1092,7 @@ function issue_create_form_submit($form, &$form_state) {
     // get_taxonomy_id('module name','term data name')
     $tid = get_taxonomy_id('forum', 'Debate');
     $deb->taxonomy = array($tid);
+    $deb->language = i18n_get_lang(); // set current language
 
     //node_validate($deb);
     //$node = node_submit($deb);
