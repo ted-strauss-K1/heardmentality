@@ -317,9 +317,10 @@ function like_notification($nid='', $set='') { //vijay important comented
 }
 
 function get_debate($did = '', $pid = '') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $language;
     $output = '';
     $bg = '';
+    $curLanguage = $language->language;
     if (!empty($did)) {
 
         //$query = "select * from {debate_reply} as f  join {user_profile} as u on u.uid=f.uid  where f.did='$did' and f.status='1' and parentid='$pid'";
@@ -330,6 +331,11 @@ function get_debate($did = '', $pid = '') {
 
         foreach ($list as $forum) {
             $cid = $forum['cid'];
+
+            // get language translated comment
+            $translated = get_translated_comment($cid, $curLanguage);
+            $forum['comment'] = $translated;
+
 // $date = cdatetime($forum['date_added']).$forum['date_added'];
             //$date = format_date_class($forum['date_added'], date());
             $posted = date("Y-m-d H:i:s", $forum['timestamp']);
@@ -495,7 +501,8 @@ function get_debate($did = '', $pid = '') {
 
 function get_res_debate($rid = '', $pid = '') {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    $curLanguage = $language->language;
     $output = '';
     $bg = '';
     if (!empty($rid)) {
@@ -509,6 +516,11 @@ function get_res_debate($rid = '', $pid = '') {
 
         foreach ($list as $forum) {
             $cid = $forum['cid'];
+
+            // get language translated comment
+            $translated = get_translated_comment($cid, $curLanguage);
+            $forum['comment'] = $translated;
+
 // $date = cdatetime($forum['date_added']).$forum['date_added'];
             $posted = date("Y-m-d H:i:s", $forum['timestamp']);
             $date = format_date_class($posted, date());
@@ -1187,11 +1199,16 @@ function resource_list($type, $qid) {
 }
 
 function resource_innews($qid='', $rtype='') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $language;
     $wave = '';
     $click = '';
     $sortin = 'ORDER BY rid DESC';
     $cond = '';
+
+    // site url with default language
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+    
     extract($_REQUEST);
 //    if (isset($sort) && $sort == 1)
 //        $sortin = ' ORDER BY r.posted_date DESC';
@@ -1233,6 +1250,11 @@ function resource_innews($qid='', $rtype='') {
     else
         $sql = "SELECT DISTINCT(f.nid) FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $cond $sorting";
 
+    // forum for translated languages
+   $issueId = $qid;
+   $tnid = get_tnid($qid);
+   $qid = $tnid;
+
     $nodes = db_query($sql, $tid, $qid, $resType);
     $count = db_result(db_query($sql, $tid, $qid, $resType));
 
@@ -1241,6 +1263,17 @@ function resource_innews($qid='', $rtype='') {
 
         while ($node = db_fetch_object($nodes)) {
             $forum = node_load(array('nid' => $node->nid, 'status' => '1'));
+
+
+            ///*******************/
+            // translated content for title and body
+            // get forum default language id
+            $translated = get_translated_content_forum($issueId, $forum->nid, $curLanguage);
+            $forum->title = $translated->title;
+            $forum->body = $translated->body;
+            ///*******************/
+
+
 
             $bg = $i % 2;
             if ($bg)
@@ -1341,7 +1374,7 @@ function resource_innews($qid='', $rtype='') {
 <div class="fm-5">
 <div class="leftfm">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE) . '</div>
 <div class="rightfm">
-<a class="debate-links" href="' . $gSitePath . 'resource/debate/' . $qid . '/' . $forum->nid . '" >' . myTruncate($forum->body, '50', '', '..') . '</a><br>
+<a class="debate-links" href="' . $sitelink . 'resource/debate/' . $qid . '/' . $forum->nid . '" >' . myTruncate($forum->body, '50', '', '..') . '</a><br>
 <a target="_blank" href="' . $forum->title . '">' . myTruncate($forum->title, '25', '', '..') . '</a><br>
 <br>
 
@@ -2134,8 +2167,14 @@ function debate_ajax() {
                 $tid = get_taxonomy_id('forum', 'Resource');
                 $res->taxonomy = array($tid);
                 // content type values
+
+                // set main node as ref node for all resources
+                $qaid = get_tnid($qaid);
+                
                 $res->field_ref_qid[0]['nid'] = $qaid;
                 $res->field_type[0]['value'] = '2';
+                
+                $res->language = 'en';
 
                 $save = node_save($res);
 
@@ -2493,8 +2532,11 @@ function debate_submit() {
                     $tid = get_taxonomy_id('forum', 'Debate');
                     $deb->taxonomy = array($tid);
 
+                    // LANGUAGE DETECTION
+                    // detect language from inputs using googleapis
+                    $inputLanguage = get_input_language($wtitle);
+                    $deb->language = $inputLanguage;
                     // language status, initially language status is 0
-                    $deb->language = $language->language;
                     $deb->field_lang_status[0]['value'] = 0;
                     
                     //node_validate($deb);
@@ -2575,6 +2617,13 @@ function debate_submit() {
                 $values['subject'] = check_plain($waveletcmt);
                 $values['comment'] = check_plain($waveletcmt);
                 $values['str_wk'] = $str_wk;
+
+
+                // LANGUAGE DETECTION
+                // detect language from inputs using googleapis
+                $inputLanguage = get_input_language(check_plain($waveletcmt));
+                $values['language'] = $inputLanguage;
+
                 //drupal_execute('postreplyform', $values, NULL);
                 //custom comment submission (debate reply as comments)
                 custom_comment_submission($values);
@@ -2644,6 +2693,13 @@ function debate_submit() {
             $values['subject'] = check_plain($waveletcmt);
             $values['comment'] = check_plain($waveletcmt);
             $values['str_wk'] = $str_wk;
+
+
+            // LANGUAGE DETECTION
+            // detect language from inputs using googleapis
+            $inputLanguage = get_input_language(check_plain($waveletcmt));
+            $values['language'] = $inputLanguage;
+
             //drupal_execute('postreplyform', $values, NULL);
             //custom comment submission (debate reply as comments)
             custom_comment_submission($values);
@@ -2912,7 +2968,7 @@ function get_coins($key) {
 
 // reply as comments
 function custom_comment_submission($comm = '') {
-    db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d'", $comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk']);
+    db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d', language = '%s'", $comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk'], $comm['language']);
 }
 
 

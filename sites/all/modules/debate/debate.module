@@ -968,6 +968,14 @@ function debate_cron(){
        issue_translator_action_node_translate($node);
        db_query("UPDATE {node} SET translate = '%d', tnid = '%d' WHERE nid = '%d' AND translate = '%d'", 1, $nid, $nid, 0);
     }
+
+    //comments(debate replies and resource replies) translation
+    $cQuery = db_query("SELECT * FROM {comments} WHERE translate = '%d' AND tcid = '%d' AND language != ''", 0, 0);
+    while($tComment = db_fetch_object($cQuery)){
+        $cid = $tComment->cid;
+        issue_comment_translate($tComment);
+        db_query("UPDATE {comments} SET translate = '%d', tcid = '%d' WHERE cid = '%d'", 1, $cid, $cid);
+    }
 }
 
 

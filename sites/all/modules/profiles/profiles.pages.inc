@@ -996,7 +996,7 @@ function user_details() {
 
     $form['left_div_top'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-leftside">');
     $form['left_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-leftside-forms">
-                          <h3>PERSONAL INFO AND DEMOGRAPHICS</h3>
+                          <h3>'.t('PERSONAL INFO AND DEMOGRAPHICS').'</h3>
                           <div class="form-wra">
                           &nbsp;
                           <div class="clr"></div> </div>');
@@ -1008,7 +1008,7 @@ function user_details() {
         '#default_value' => variable_get('username', ''),
         '#id' => 'username',
         '#required' => 1,
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">User Name</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('User Name').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1022,7 +1022,7 @@ function user_details() {
         '#description' => t(' '),
         '#default_value' => variable_get('fname', ''),
         '#id' => 'name',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Name</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Name').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1037,7 +1037,7 @@ function user_details() {
         '#default_value' => variable_get('email', ''),
         '#id' => 'email',
         '#required' => 1,
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Email</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Email').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1051,7 +1051,7 @@ function user_details() {
         '#description' => t(' '),
         '#default_value' => variable_get('gender', ''),
         '#id' => 'gender',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Gender</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Gender').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1065,7 +1065,7 @@ function user_details() {
         '#description' => t(' '),
         '#default_value' => variable_get('dob', ''),
         '#id' => 'year',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Year of Birth</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Year of Birth').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1080,7 +1080,7 @@ function user_details() {
         '#description' => t(''),
         '#default_value' => variable_get('zip', ''),
         '#id' => 'location',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Zip</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Zip').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1109,7 +1109,7 @@ function user_details() {
         '#description' => t(' '),
         '#default_value' => variable_get('religion', ''),
         '#id' => 'religion',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Religion</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Religion').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1123,7 +1123,7 @@ function user_details() {
         '#description' => t(' '),
         '#default_value' => variable_get('ethinicity', ''),
         '#id' => 'ethnicity',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Ethnic</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Ethnic').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1138,7 +1138,7 @@ function user_details() {
         '#default_value' => variable_get('sorient', ''),
         '#description' => t(' '),
         '#id' => 'sex',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Sorient</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Sexual Orientation').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1152,7 +1152,7 @@ function user_details() {
         '#description' => t(' '),
         '#default_value' => variable_get('education', ''),
         '#id' => 'education',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Education</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Education').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1166,7 +1166,7 @@ function user_details() {
         '#description' => t(' '),
         '#default_value' => variable_get('income', ''),
         '#id' => 'income',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Income Range[USD]</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Income Range').'[USD]</div>
                 <div class="form-wra-2">',
         '#suffix' => '  </div>
            <div class="clr"></div>
@@ -1180,7 +1180,7 @@ function user_details() {
         '#description' => t(' '),
         '#default_value' => variable_get('marital', ''),
         '#id' => 'marital',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Marital Status</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Marital Status').'</div>
                 <div class="form-wra-2">',
         '#suffix' => ' </div>
            <div class="clr"></div>
@@ -1196,7 +1196,7 @@ function user_details() {
         '#description' => t(''),
         '#default_value' => variable_get('bio', ''),
         '#id' => 'bio',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">Bio</div>
+        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Bio').'</div>
                 <div class="form-wra-2">',
         '#suffix' => '</div>
            <div class="clr"></div>
@@ -1204,9 +1204,9 @@ function user_details() {
         '#attributes' => array('class' => 'input-nor'),
     );
     $form['text'] = array('#type' => 'markup', '#value' => '<div class="form-wra">
-           	           When I vote on issues or post content to Heard
+           	           '.t('When I vote on issues or post content to Heard
 Mentality I want the following privacy settings applied
-when other users view my profile
+when other users view my profile').'
            <div class="clr"></div>
            </div>');
     $form['left_div_close'] = array('#type' => 'markup', '#value' => '</div>');
@@ -1243,12 +1243,12 @@ function get_privacy_form() {
     $options = array('1' => t(''), '2' => t(''), '3' => t(''), '4' => t(''));
     $query = "select * from {profile_fields} ORDER BY `profile_fields`.`fid` ASC";
     $result = db_query($query);
-    $form['privacy_setting'] = array('#type' => 'markup', '#value' => '<h3>PRIVACY SETTINGS</h3>
+    $form['privacy_setting'] = array('#type' => 'markup', '#value' => '<h3>'.t('PRIVACY SETTINGS').'</h3>
               <div class="form-wra">
-           	    <div class="form-wra-4">Anyone</div>
-                <div class="form-wra-4">Logged in Users</div>
-                <div class="form-wra-4">Followers & Followees</div>
-                <div class="form-wra-4">No one</div>
+           	    <div class="form-wra-4">'.t('Anyone').'</div>
+                <div class="form-wra-4">'.t('Logged in Users').'</div>
+                <div class="form-wra-4">'.t('Followers & Followees').'</div>
+                <div class="form-wra-4">'.t('No one').'</div>
            <div class="clr"></div>
            </div>');
     $form['username_privacy'] = array(
@@ -1344,7 +1344,7 @@ var avtar=\'' . $account->avatar . '\';
 
     $form['notify'] = array(
         '#type' => 'radios',
-        '#prefix' => '<div class="summarymail"><p>Send me a summary of my subscriptions to my email</p>
+        '#prefix' => '<div class="summarymail"><p>'.t('Send me a summary of my subscriptions to my email').'</p>
                     <div class="form-wra bortopnone">',
         '#default_value' => variable_get('notify', $account->notify_etype),
         '#options' => $options,
@@ -1354,7 +1354,7 @@ var avtar=\'' . $account->avatar . '\';
     $form['merge'] = array('#type' => 'markup', '#value' => '
                 <div class="clr"></div>
         <div class="merge-social-new">
-          <div align="center">Select the Social networks you want to share you Heard Mentality opinions add posts with.</div>
+          <div align="center">'.t('Select the Social networks you want to share you Heard Mentality opinions add posts with.').'</div>
           <div class="clr"></div>
           <div align="center" class="merge-script-outer-new">
           <div id="divConnect"></div>
@@ -1378,7 +1378,7 @@ var avtar=\'' . $account->avatar . '\';
 
     $form['fb_outer'] = array('#type' => 'markup',
         '#value' => '<div class="web-reference-new">
-                     <div class="web-reference-tit-new">PERSONAL LINKS</div>
+                     <div class="web-reference-tit-new">'.t('PERSONAL LINKS').'</div>
                      <div class="clr"></div>');
 
     $social = explode('||', $account->social);
@@ -1430,7 +1430,10 @@ var avtar=\'' . $account->avatar . '\';
     $form['hiddentop'] = array('#type' => 'markup', '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
     $form = $form + inc_avatar_form();
     $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
-
+    $languages = i18n_language_list();
+    $form['default_language'] = array('#type' => 'select', '#prefix' => t('Default Language'), 
+                                        '#options' => $languages, '#suffix' => '<br />',
+                                        '#default_value' => $account->language);
     $form['submit'] = array('#type' => 'submit', '#value' => 'Submit', '#id' => 'update_submit');
     return $form;
 }

@@ -2099,6 +2099,7 @@ function theme_issue_answer($form) {
   return $output;
 }
 
+/*********** LANGUAGE TRANSLATION ************/
 // get paraent translate id
 function get_tnid($nid = ''){
     $res = db_result(db_query("SELECT tnid FROM {node} WHERE nid = '%d'", $nid));
@@ -2106,6 +2107,7 @@ function get_tnid($nid = ''){
     return $tnid;
 }
 
+// get translated content for debates
 function get_translated_content_forum($nid = '', $forumId ='', $curLanguage = ''){
     //$curLanguage = db_result(db_query("SELECT language FROM {node} WHERE nid = '$nid'"));
     $ftid = db_result(db_query("SELECT nid FROM {node} WHERE tnid = '$forumId' AND language = '$curLanguage' AND translate = 1"));
@@ -2114,3 +2116,23 @@ function get_translated_content_forum($nid = '', $forumId ='', $curLanguage = ''
     $translated = node_load( array('nid' => $ftid, 'status' => '1'));
     return $translated;
 }
+
+// get translated debate replies/ and resource replies
+function get_translated_comment($cid = '', $curLanguage = ''){
+    $tcid = db_result(db_query("SELECT cid FROM {comments} WHERE tcid = '$cid' AND language = '$curLanguage' AND translate = 1"));
+    $tcid = $tcid!=''?$tcid:$cid;
+    $translated = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '$tcid'"));
+    return $translated;
+}
+
+// detect input language from users
+function get_input_language($title = ''){
+    module_load_include('inc', 'issue_translator', 'gtranslate-api-php/googletranslate.class');
+    $gt = new GoogleTranslateWrapper();
+    $input = $gt->detectLanguage($title);
+    $language = $input['language'];
+    $language = $language!=''?$language:'en';
+    return $language;
+}
+
+

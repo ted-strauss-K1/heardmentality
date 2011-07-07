@@ -1014,7 +1014,7 @@ function issue_related_callback() {
     $form_state = array('storage' => NULL, 'submitted' => FALSE);
     $form_build_id = $_POST['form_build_id'];
     $form = form_get_cache($form_build_id, $form_state);
-      $delta = count($_POST['answer']);
+    $delta = count($_POST['answer']);
 
     $args = $form['#parameters'];
     $form_id = array_shift($args);
@@ -1023,7 +1023,7 @@ function issue_related_callback() {
 // Stash original form action to avoid overwriting with drupal_rebuild_form().
     $form_state['action'] = $form['#action'];
     $form_state['rebuild'] = TRUE;
-     $form_state['choice_count'] = $delta;
+    $form_state['choice_count'] = $delta;
     drupal_process_form($form_id, $form, $form_state);
     $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
 
@@ -1052,7 +1052,12 @@ function issue_create_form_submit($form, &$form_state) {
     $node->uid = $account->uid;
     $node->status = 1;
     $node->active = 1;
-    $node->language = i18n_get_lang(); // set current language
+
+    // LANGUAGE DETECTION
+    // detect language from inputs using googleapis
+    $inputLanguage = get_input_language($form_state['values']['q_quest']);
+
+    $node->language = $inputLanguage; // set user input language
     $node->field_mod_status[0]['value'] = 0;
     if (!user_access('administer nodes')) {
         $node->active = 1;
@@ -1095,7 +1100,9 @@ function issue_create_form_submit($form, &$form_state) {
     // get_taxonomy_id('module name','term data name')
     $tid = get_taxonomy_id('forum', 'Debate');
     $deb->taxonomy = array($tid);
-    $deb->language = i18n_get_lang(); // set current language
+    $deb->language = 'en'; // set current language
+    // language status, initially language status is 0
+    $deb->field_lang_status[0]['value'] = 0;
 
     //node_validate($deb);
     //$node = node_submit($deb);

@@ -292,3 +292,38 @@ if($node->type == 'forum' && $node->field_lang_status[0]['value'] == 0){
   }
 }
 
+// comment translation
+function issue_comment_translate($reply){
+    $new['tcid'] = $reply->cid;
+    $languages = i18n_language_list();
+    unset($languages[$reply->language]); // exclude the language of the new node
+    foreach ($languages as $langcode => $language) {
+        require_once("gtranslate-api-php/GTranslate.php");
+        $func = $reply->language . '_to_' . $langcode;
+        
+        try{
+        $gt = new Gtranslate;
+        $ttitle = $gt->$func($reply->comment);
+        // get rid of any HTML encoded data Google might send
+        $new['subject'] = html_entity_decode($ttitle, ENT_QUOTES);
+        $new['comment'] = html_entity_decode($ttitle, ENT_QUOTES);
+        }
+        catch (GTranslateException $ge) {
+        // if there was a problem, pass the error to watchdog.
+        $message = t('From GTranslate: ') . $ge->getMessage();
+        watchdog(t('auto translate'), $message, array(), WATCHDOG_ERROR);
+        // fall back to original title.
+        $new['subject'] = $reply->comment;
+        $new['comment'] = $reply->comment;
+        }
+        $new['pid'] = $reply->pid;
+        $new['nid'] = $reply->nid;
+        $new['uid'] = $reply->uid;
+        $new['name'] = $reply->name;
+        
+        $new['language'] = $langcode;
+        $new['translate'] = 1;
+        db_query("INSERT INTO {comments} SET uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d', language = '%s', tcid = '%d', translate = '%d'", $new['uid'], $new['subject'], $new['comment'], $new['name'], time(), '1', $new['str_wk'], $new['language'], $new['tcid'], $new['translate']);
+        drupal_set_message(t("Translation occured - ".$langcode));
+    }
+}
