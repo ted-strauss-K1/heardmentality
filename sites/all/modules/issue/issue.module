@@ -2107,6 +2107,31 @@ function theme_issue_answer($form) {
   return $output;
 }
 
+function issue_link($type, $object, $teaser = FALSE) {
+
+    $nid = $object->nid;
+    $tnid = get_tnid($nid);
+    $lang = db_result(db_query("SELECT language FROM {node} WHERE nid = '%d' AND tnid = '%d'", $tnid, $tnid));
+    $languages = language_list();
+    foreach ($languages as $langcode => $language) {
+        if($langcode == $lang){
+            $nodeLanguage = $language;
+        }
+    }
+  // echo '<pre>'; print_r($languages);exit;
+    $links['issue_original'] = array(
+        'title' => t('View Originally Posted Issue'),
+        'href' => 'node/'. $tnid,
+        'language' => $nodeLanguage,
+        'attributes' => array('class' => 'node-issue-org'),
+      );
+  return $links;
+}
+
+
+
+
+
 /*********** LANGUAGE TRANSLATION ************/
 // get paraent translate id
 function get_tnid($nid = ''){
