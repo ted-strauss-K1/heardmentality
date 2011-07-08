@@ -979,9 +979,17 @@ function issue_resource_tab($qid = ''){
 
 function issue_details_tab($nid=''){
     global $gSitePath, $user, $gDocPath, $base_root;
+
+    // set parent node(tnid) here
+    $issueId = $nid;
+    $tnid = get_tnid($nid);
+    $nid = $tnid;
+
+    $currLangIssue = node_load($issueId);
+
     $node=node_load($nid);
-     $debatecnt=db_result(db_query("SELECT COUNT(*) from {node} where type='forum' AND qid=$nid"));
-      $numresource = db_result(db_query("SELECT COUNT(*) from {node} where type='forum' AND qid=$nid"));
+    $debatecnt=db_result(db_query("SELECT COUNT(*) from {node} where type='forum' AND qid=$nid"));
+    $numresource = db_result(db_query("SELECT COUNT(*) from {node} where type='forum' AND qid=$nid"));
       
     //print_r($node);
         $bubble = load_bubble($node->uid);
@@ -990,7 +998,7 @@ function issue_details_tab($nid=''){
             $output.= '
                        <div class="">
 <div  class="details-left">
- <span class="profile-gray">Context</span> :' . $node->body . '
+ <span class="profile-gray">Context</span> :' . $currLangIssue->body . '
      <br/>
      <span class="profile-gray">Section </span>:' . $section . '
      </div>

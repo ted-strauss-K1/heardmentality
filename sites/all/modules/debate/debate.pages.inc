@@ -2614,8 +2614,13 @@ function debate_submit() {
                 $values['nid'] = $nodeid;
                 $values['uid'] = $user->uid;
                 $values['name'] = $user->name;
+                
                 $values['subject'] = check_plain($waveletcmt);
                 $values['comment'] = check_plain($waveletcmt);
+                $values['status'] = 1;
+                $values['format'] = '';
+                $values['mail'] = '';
+                $values['homepage'] = '';
                 $values['str_wk'] = $str_wk;
 
 
@@ -2626,8 +2631,9 @@ function debate_submit() {
 
                 //drupal_execute('postreplyform', $values, NULL);
                 //custom comment submission (debate reply as comments)
-                custom_comment_submission($values);
-
+                
+                $commentId = comment_save($values);
+                custom_comment_update($commentId,$values);
 
 //                $getcomments = array();
 //
@@ -2692,6 +2698,10 @@ function debate_submit() {
             $values['name'] = $user->name;
             $values['subject'] = check_plain($waveletcmt);
             $values['comment'] = check_plain($waveletcmt);
+            $values['status'] = 1;
+            $values['format'] = '';
+            $values['mail'] = '';
+            $values['homepage'] = '';
             $values['str_wk'] = $str_wk;
 
 
@@ -2702,7 +2712,10 @@ function debate_submit() {
 
             //drupal_execute('postreplyform', $values, NULL);
             //custom comment submission (debate reply as comments)
-            custom_comment_submission($values);
+            
+            $commentId = comment_save($values);
+            custom_comment_update($commentId,$values);
+
             $cid = db_last_insert_id('comments', 'cid');
             post_notification($nodeid, $cid);
             echo $output = get_res_debate($nodeid, 0);
@@ -2967,8 +2980,9 @@ function get_coins($key) {
 }
 
 // reply as comments
-function custom_comment_submission($comm = '') {
-    db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d', language = '%s'", $comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk'], $comm['language']);
+function custom_comment_update($cid, $comm = '') {
+    //db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d', language = '%s'", $comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk'], $comm['language']);
+    db_query("UPDATE {comments} SET str_wk = '%d', language = '%s' WHERE cid = '%d'", $comm['str_wk'], $comm['language'], $cid);
 }
 
 
