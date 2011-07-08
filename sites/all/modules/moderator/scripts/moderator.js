@@ -62,9 +62,11 @@ load_issue_data_ahah();
                 var qid=msg.qid;
             },
             complete:function(){
-                jQuery('div.mod-midside-inner').load(jQuery('a[name="icurrent"]').attr('href'),function() {
-                    load_issue_data();
-                });
+               // jQuery('div.mod-midside-inner').load(jQuery('a[name="icurrent"]').attr('href'),function() {
+               //     load_issue_data();
+               // });
+                jQuery('#theiframe').attr("src", $('#theiframe').attr("src"));
+
                 fb.end();
                     
             }
@@ -194,8 +196,8 @@ load_issue_data_ahah();
 
     // Drupal behavior to attach our AJAX click handler to links with
 // the .our-links class.
-Drupal.behaviors.moderator = function(context) {
-    jQuery('a.issue-links',context).live('click',function(e){
+jQuery(document).ready(function(){
+    jQuery('a.issue-links').live('click',function(e){
         jQuery('a.issue-links').removeAttr('name');
         jQuery(this).attr('name','icurrent');
         e.preventDefault();
@@ -217,8 +219,8 @@ Drupal.behaviors.moderator = function(context) {
             complete: function(){
 
                 load_issue_data();
-                 Drupal.attachBehaviors(jQuery('#poll-choice-wrapper'));
-                       Drupal.attachBehaviors(context);
+                 //Drupal.attachBehaviors(jQuery('#poll-choice-wrapper'));
+                    //   Drupal.attachBehaviors(context);
             },
 
             success: function(msg){
@@ -229,7 +231,7 @@ Drupal.behaviors.moderator = function(context) {
             }
         });
     });
-}
+});
 
 
 
