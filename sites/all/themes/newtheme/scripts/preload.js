@@ -273,3 +273,10 @@ function close_notify_message(dcount, mid, uid){
     });
     
 }
+
+function show_inotify(data){
+
+    jQuery('#twitMsg',top.document).html(data);
+    jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+
+}
