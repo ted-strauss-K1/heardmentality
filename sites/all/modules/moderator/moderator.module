@@ -576,7 +576,10 @@ global $gSitePath, $user, $gDocPath, $base_root;
 
     $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Location').'</span></label>');
 
-    $countryList = geonames_query('countryinfo');
+    $options = array(
+  'sortby' => 'countryname',
+);
+    $countryList = geonames_query('countryinfo',NULL, $options);
     foreach($countryList->results as $country){
         $countries[$country['countryname']] = $country['countryname'];
     }
@@ -2329,6 +2332,7 @@ function moderator_ahah_callback($type = '', $key = ''){
                     foreach ($results->results as $state) {
                         $states[$state['geonameid']] = $state['name'];
                     }
+                    print_r($states);
                 }
            }else{
                $states[] = t('No countries selected');

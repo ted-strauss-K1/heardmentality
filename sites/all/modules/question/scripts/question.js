@@ -79,11 +79,12 @@ function question_check(){
 function validate_question(){
 
     var quest = jQuery('#q_quest').val();
-    var ans1 = jQuery('#q_ans1').val();
-    var ans2 = jQuery('#q_ans2').val();
+    var ans1 = jQuery('#q_ans0').val();
+    var ans2 = jQuery('#q_ans1').val();
 
    // var cat1 = jQuery('#cat1').val();
-   // var cat1 = jQuery('#q_cat').val();
+  var cat1 = jQuery('#q_cat :selected').val();
+
      var check = jQuery('#exist_check').val();
 
     var err = '';
@@ -98,8 +99,11 @@ function validate_question(){
 
          if (jQuery.trim(ans1).length < 1||jQuery.trim(ans2).length < 1)
         err += '<li>Minimum 2 answers required</li>';
-    //if (jQuery.trim(cat1).length < 1)
-       // err += '<li>Please Provide Main Cateogry of the Question!</li>';
+    if (jQuery.trim(cat1).length < 1){
+        jQuery('#q_cat').css('border','1px solid red');
+          err += '<li>Please Provide Main Cateogry of the Issue!</li>';
+    }
+      
     jQuery("#add_more input").each(function(){
         jQuery(this).css('border','1px solid #838381');
     });
@@ -113,8 +117,9 @@ function validate_question(){
 
 
   if (jQuery.trim(err).length > 1) {
-        jQuery('#err').html(err);
-        jQuery('#err').addClass('error');
+      show_inotify(err);
+       // jQuery('#err').html(err);
+       // jQuery('#err').addClass('error');
         return false;
     }else{
     return true;

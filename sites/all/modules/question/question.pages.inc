@@ -3307,7 +3307,11 @@ function exist_dupe() {
     $currLanguage = i18n_get_lang();
     $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $question = $_REQUEST['question'];
-    $words = explode(" ", $question);
+   
+    $words=removeCommonWords($question);
+      $words=trim($words);
+     $words = explode(" ", $words);
+   
     $query = "SELECT distinct(n.nid), n.title FROM {node} n JOIN {node_revisions} nr ON n.nid = nr.nid WHERE n.status = 1 AND n.type = 'poll' AND language = '$currLanguage'";
     for ($i = 0; $i < count($words); $i++) {
         $samples = " " . $words[$i] . "  ";
@@ -3316,13 +3320,12 @@ function exist_dupe() {
         //AND question LIKE '%hi%' and question LIKE '%issue%' and status='1'"
         $query .= " AND nr.title LIKE CONVERT(_utf8 '%%$words[$i]%%' USING utf8 ) COLLATE utf8_general_ci";
     }
-
 $result = db_query($query);
 $dupecount = db_affected_rows($result);
 
  $rel_ques .= '<div class="innerbox" style="width:155px; height:150px; overflow:auto; margin-top:7px; color:#986700; ">';
  $rel_ques .= "<ul>";
- if($dupecount != 0)
+ if($dupecount>0&&count($words))
  {
  while ($mylist = db_fetch_array($result)) {
         $validpath =  $gSitePath.drupal_get_path_alias('node/'.$mylist['nid']);
