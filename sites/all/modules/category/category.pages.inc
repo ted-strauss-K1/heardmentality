@@ -112,7 +112,7 @@ function treemenu_list() {
     $strReturn .= '</ul>';
 
     if (count($client_array) < 1) {
-        drupal_set_message($message = 'No category Found!', $type = 'error');
+        drupal_set_message($message = t('No Sections Found!'), $type = 'error');
     }
 
     return $strReturn;
@@ -127,9 +127,7 @@ function _get_taxonomy_tree2($vid) {
   foreach ($terms as $term) {
     $count = db_result(db_query("SELECT COUNT(nid) FROM {term_node} WHERE tid = %d", $term->tid));
     $foll = db_result(db_query("SELECT COUNT(sid) FROM {subscriptions} WHERE field = '%s' AND value = '%d' AND recipient_uid = '%d'", 'tid', $term->tid, $user->uid));
-    $pole[] = Array(
-      l($term->name, "taxonomy/term/$term->tid") . " ($count)", $term->depth, $count, $term->tid, $foll
-    );
+    $pole[] = Array(l(t($term->name), "taxonomy/term/$term->tid") . " ($count)", $term->depth, $count, $term->tid, $foll);
   }
   $depth = -1;
   foreach ($pole as $list) {

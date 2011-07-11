@@ -50,6 +50,7 @@ load_issue_data_ahah();
 
     jQuery('#merge-dupeform').live('submit',function(e){
         e.preventDefault();
+        if(confirm("Are you sure to merge this issue [which is going to deleted once merged]? ")){
         var data=jQuery(this).serialize();
         jQuery.ajax({
             type: "POST",
@@ -71,9 +72,12 @@ load_issue_data_ahah();
                     
             }
         });
+        }else{
+            return false;
+        }
     });
 
-    jQuery('#mod-question').live('submit',function(e){
+    jQuery('#moderator-edit-issue-form').live('submit',function(e){
         e.preventDefault();
         if(validate_question()){
 

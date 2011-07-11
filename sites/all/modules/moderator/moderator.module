@@ -431,11 +431,12 @@ global $gSitePath, $user, $gDocPath, $base_root;
     $node = node_load($qid);
     //echo '<pre>';print_r($node);
    
-    $form['mod_main_div'] = array('#type' => 'markup', '#value' => '<div id="mod-edit-issue">');
+    $form['mod_main_div'] = array('#type' => 'markup', '#value' => '<div id="mod-edit-issue"> <div id="err" class="clear"></div>');
     $form['quest_title'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Question').'</span></label>');
     $form['title'] = array('#type' => 'textfield',
                            '#default_value' => $node->title,
                            '#suffix' => '<div class="clr"></div>',
+                            '#id'=>'q_quest',
                             '#required' => TRUE);
        $dupecnt=get_dupe_query($qid);
   $dcnt=!empty($dupecnt['count'])?$dupecnt['count']:'0';
@@ -1496,7 +1497,7 @@ foreach ($terms as $key => $tobj) { // $key is the TID for the displayed node.
       
       $set_order=$set_order+1;
        db_query("update {poll_choices} set nid='$qid',chorder='$set_order' where chid='".$dalist_rem['chid']."' and nid='$dupeid'");
-        db_query("update {poll_votes} set qid='$qid',chorder='$set_order' where qid='$dupeid' AND chorder='".$dalist_rem['chorder']."'");
+        db_query("update {poll_votes} set nid='$qid',chorder='$set_order' where nid='$dupeid' AND chorder='".$dalist_rem['chorder']."'");
          db_query("update {possible_answer_spectrum} set nid='$qid',possible_chorder='$set_order' where qid='$dupeid' AND possible_ans_id='" . $dalist['chid'] . "' ");
          //short answer
          db_query("update {short_answers} set qid='$qid',chorder='$set_order' where qid='$dupeid' AND chorder='".$dalist_rem['chorder']."'");
@@ -2621,6 +2622,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
                                 '#suffix' => '<div class="clr"></div>',
                                 '#parents' => array('choice', $delta, 'answer'),
                                 '#default_value' => $answer,
+                                '#id'=>'q_ans'.$delta,
                                 '#required' => $req,
                                 );
   $form['chorder'] = array('#type' => 'hidden',
