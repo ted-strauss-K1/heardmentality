@@ -2325,14 +2325,14 @@ function moderator_ahah_callback($type = '', $key = ''){
            if(!empty($countryNames)){
            foreach ($countryNames as $country) {
 
-                    $geoid = db_result(db_query("SELECT geonameid FROM {geonames_countryinfo} where name LIKE '%" . $country . "%' limit 0,1"));
+                    $geoid = db_result(db_query("SELECT geonameid FROM {geonames_countryinfo} where name LIKE '" . trim($country). "' limit 0,1"));
 
                     $query = array('geonameid' => $geoid);
                     $results = geonames_query('children', $query);
                     foreach ($results->results as $state) {
                         $states[$state['geonameid']] = $state['name'];
                     }
-                    print_r($states);
+                   // print_r($states);
                 }
            }else{
                $states[] = t('No countries selected');
