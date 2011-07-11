@@ -324,7 +324,7 @@ function get_debate($did = '', $pid = '') {
     if (!empty($did)) {
 
         //$query = "select * from {debate_reply} as f  join {user_profile} as u on u.uid=f.uid  where f.did='$did' and f.status='1' and parentid='$pid'";
-        $query = "SELECT * FROM {comments} as c where c.nid='$did' and c.status='1' and c.pid='$pid' ";
+        $query = "SELECT * FROM {comments} as c where c.nid='$did' and c.status='0' and c.pid='$pid' AND (c.cid = c.tcid OR c.tcid = 0)";
         $list = ExecuteQuery($query, "select");
 
 //print_r($set);
@@ -509,12 +509,13 @@ function get_res_debate($rid = '', $pid = '') {
 
 
         //$query = "select * from {resource_reply} as f  join {user_profile} as u on u.uid=f.uid  where f.rid='$rid' and f.status='1' and parentid='$pid'";
-        $query = "SELECT * FROM {comments} as c where c.nid='$rid' and c.status='1' and c.pid='$pid' ";
+        $query = "SELECT * FROM {comments} as c where c.nid='$rid' and c.status='0' and c.pid='$pid' AND (c.cid = c.tcid OR c.tcid = 0) ";
         $list = ExecuteQuery($query, "select");
 
 //print_r($set);
 
         foreach ($list as $forum) {
+
             $cid = $forum['cid'];
 
             // get language translated comment
@@ -2617,7 +2618,7 @@ function debate_submit() {
                 
                 $values['subject'] = check_plain($waveletcmt);
                 $values['comment'] = check_plain($waveletcmt);
-                $values['status'] = 1;
+                $values['status'] = 0;
                 $values['format'] = '';
                 $values['mail'] = '';
                 $values['homepage'] = '';
@@ -2698,7 +2699,7 @@ function debate_submit() {
             $values['name'] = $user->name;
             $values['subject'] = check_plain($waveletcmt);
             $values['comment'] = check_plain($waveletcmt);
-            $values['status'] = 1;
+            $values['status'] = 0;
             $values['format'] = '';
             $values['mail'] = '';
             $values['homepage'] = '';

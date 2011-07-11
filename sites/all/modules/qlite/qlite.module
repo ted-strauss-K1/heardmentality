@@ -406,7 +406,7 @@ function get_hot_list($time='') {
     $output .= '<div>
         <h3><strong>'.t('Most active questions in the last seven days').'</strong></h3>
               <div class="innerbox" ><ul class="">';
-    if (empty($list)) {
+    if (!empty($list)) {
         foreach ($list as $quest) {
 
             if (strlen($quest['title']) > 40) {

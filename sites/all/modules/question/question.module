@@ -246,11 +246,13 @@ function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
 	function myTruncate($string, $limit, $break = " ", $pad = "") {
     
     // return with no change if string is shorter than $limit
-    if (strlen($string) <= $limit)
+         $string = drupal_convert_to_utf8($string);
+            
+    if (drupal_strlen($string) <= $limit)
         return $string;
-    $string = substr($string, 0, $limit);
+    $string = drupal_substr($string, 0, $limit);
     if (false !== ($breakpoint = strrpos($string, $break))) {
-        $string = substr($string, 0, $breakpoint);
+        $string = drupal_substr($string, 0, $breakpoint);
     }
     $string = str_replace("\"", "", $string);
     return $string.$pad;

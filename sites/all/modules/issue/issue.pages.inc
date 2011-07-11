@@ -898,7 +898,8 @@ function issue_create_form(&$form_state) {
         $options = array();
 
         $res = get_releated_issues($question);
-        if ($res) {
+        
+        if (!empty($res)) {
             $nids = $res['nid'];
             $contents = $res['content'];
             $i = 0;
@@ -912,8 +913,10 @@ function issue_create_form(&$form_state) {
                 $form['related_issues']['rel_iss_check'] = array('#type' => 'checkboxes',
                     '#options' => $array);
             } else {
-                $output = 'No Related Issues';
+                $form['related_issues']['no_rel'] = array('#type'=>'markup', '#value' =>'No Related Issues');
             }
+        }else{
+            $form['related_issues']['no_rel'] = array('#type'=>'markup', '#value' =>'No Related Issues');
         }
     }
 
@@ -1082,7 +1085,7 @@ function issue_create_form_submit($form, &$form_state) {
     //url alias
     $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
     $url = 'node/' . $node->nid;
-    db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, i18n_get_lang());
+    db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, $inputLanguage);
 
     // return $node;
     // insert default debate for each issue

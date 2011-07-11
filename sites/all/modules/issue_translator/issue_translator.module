@@ -316,14 +316,14 @@ function issue_comment_translate($reply){
         $new['subject'] = $reply->comment;
         $new['comment'] = $reply->comment;
         }
-        $new['pid'] = $reply->pid;
+        
         $new['nid'] = $reply->nid;
         $new['uid'] = $reply->uid;
         $new['name'] = $reply->name;
         
         $new['language'] = $langcode;
         $new['translate'] = 1;
-        db_query("INSERT INTO {comments} SET uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d', language = '%s', tcid = '%d', translate = '%d'", $new['uid'], $new['subject'], $new['comment'], $new['name'], time(), '1', $new['str_wk'], $new['language'], $new['tcid'], $new['translate']);
+        db_query("INSERT INTO {comments} SET nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d', language = '%s', tcid = '%d', translate = '%d'", $new['nid'], $new['uid'], $new['subject'], $new['comment'], $new['name'], time(), '0', $new['str_wk'], $new['language'], $new['tcid'], $new['translate']);
         drupal_set_message(t("Translation occured - ".$langcode));
     }
 }

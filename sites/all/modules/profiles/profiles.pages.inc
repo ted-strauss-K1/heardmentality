@@ -7,9 +7,12 @@ function profile_view() {
     $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     $uid = '';
 
+    if(!is_numeric($profile_name)){
     $profile_name = strtolower($profile_name);
     $getuser = user_load(array('name' => $profile_name));
-
+    }else{
+    $getuser = user_load(array('uid' => $profile_name));
+    }
     if (isset($getuser) && !empty($getuser)) {
 
         $uid = $getuser->uid;
@@ -24,6 +27,7 @@ function profile_view() {
         drupal_not_found();
         return;
     }
+    
     //activities
     $tag = '';
     if (isset($_REQUEST['tag'])) {

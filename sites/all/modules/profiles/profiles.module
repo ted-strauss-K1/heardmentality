@@ -1087,6 +1087,7 @@ function profile_cron() {
 
 function profiles_user($op, $edit, &$account, $category = NULL) {
     // print_r($op);
+    module_load_include('inc', 'profiles', 'profiles.pages');
     switch ($op) {
 
         case 'insert':
@@ -1096,6 +1097,12 @@ function profiles_user($op, $edit, &$account, $category = NULL) {
             break;
         case 'categories':
 
+            break;
+
+        case 'view':            
+            
+            //unset($account->content);
+           // echo '<pre>';print_r($account);
             break;
     }
 }
@@ -2266,15 +2273,3 @@ function check_follow_unfollow($requester, $requestee){
     return $fid;
 }
 
-function profiles_init(){
-    global $gSitePath, $user, $gDocPath, $base_root,$language,$langcode;
-    //echo $language->language; exit;
-    $langcode = isset($langcode) ? $langcode : $language->language;
-    $default = language_default();
-    $default_langcode = $default->language;
-   $currLanguage = i18n_get_lang();
-
-    // update current viewing language as a default language for a user
-  //  db_query("UPDATE {users} SET language = '%s' WHERE uid = '%d'", $currLanguage, $user->uid);
-
-}
