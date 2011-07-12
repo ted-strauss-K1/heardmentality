@@ -1487,13 +1487,14 @@ function list_debate($qid='', $type='') {
 <div class="clr"></div>
 ';
             // update points
-            debate_roundup($forum->nid);
+            $tForumId = get_tnid($forum->nid);
+            debate_roundup($tForumId);
         }
     } else {
         $wave .= '
 	<div class="messages warning">
 
-	No Debate Posted Yet!!
+	'.t('No Debate Posted Yet!!').'
 		</div>
 
 

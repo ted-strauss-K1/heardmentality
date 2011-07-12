@@ -1284,7 +1284,8 @@ function resource_innews($qid='', $rtype='') {
             $i++;
             $account = user_load($forum->uid);
             // resource round up
-            resource_roundup($forum->nid);
+            $tForumId = get_tnid($forum->nid);
+            resource_roundup($tForumId);
 
 
             // vote agree, disagree calculation
@@ -1746,7 +1747,8 @@ function resource_media($qid='') {
 <div class="clr"></div>
 ';
             // resource round up
-            resource_roundup($forum->nid);
+            $tForumId = get_tnid($forum->nid);
+            resource_roundup($tForumId);
         }
     } else {
         $wave.='<div class="messages warning">No Resources Found!</div>';
@@ -2208,6 +2210,7 @@ function debate_ajax() {
             break;
         case 'analysis':
             $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            $tnid = get_tnid($qid);
             //$vans = "select * from {possible_answer} where  qid=$qid ";
             $vans = "select * from {poll_choices} where  nid=$qid ";
             $vlist = ExecuteQuery($vans, "select");
@@ -2230,7 +2233,7 @@ function debate_ajax() {
                 $insdata.="'" . $answer . "',";
 
                 //$sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
-                $sel = "select * from {debate_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND o.ans_val IN ('1','2') group by o.nid";
+                $sel = "select * from {debate_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND d.field_ref_qid_nid = '$tnid' AND o.ans_val IN ('1','2') group by o.nid";
                 $tmplist = ExecuteQuery($sel, "select");
 
                 $final = '';
@@ -2242,6 +2245,7 @@ function debate_ajax() {
                     $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
 
                     $final = $final + (($tmp * $list['field_strength_value']) / $cnt_opt);
+                   // echo $final.'<br>';
                 }
 
                 $final = (!empty($final)) ? $final : '0';
