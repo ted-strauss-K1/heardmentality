@@ -78,25 +78,25 @@ load_issue_data_ahah();
     });
 
     jQuery('#moderator-edit-issue-form').live('submit',function(e){
-        e.preventDefault();
+       // e.preventDefault();
         if(validate_question()){
 
-            var data=jQuery(this).serialize();
-            jQuery.ajax({
-                type: "POST",
-                dataType: 'json',
-                url: jQuery(this).attr('action'),
-                data:data,
-                success: function(msg){
-                    jQuery('#twitMsg').html(msg.msg);
-                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
-                },
-                complete:function(){
-                jQuery('div.mod-midside-inner').load(jQuery('a[name="icurrent"]').attr('href'),function() {
-                    load_issue_data();
-                });
-                }
-            });
+//            var data=jQuery(this).serialize();
+//            jQuery.ajax({
+//                type: "POST",
+//                dataType: 'json',
+//                url: jQuery(this).attr('action'),
+//                data:data,
+//                success: function(msg){
+//                    jQuery('#twitMsg').html(msg.msg);
+//                    jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+//                },
+//                complete:function(){
+//                jQuery('div.mod-midside-inner').load(jQuery('a[name="icurrent"]').attr('href'),function() {
+//                    load_issue_data();
+//                });
+//                }
+//            });
 
             return true;
         }else{

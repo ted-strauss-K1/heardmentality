@@ -2323,11 +2323,20 @@ function moderator_ahah_callback($type = '', $key = ''){
            $countryNames = $_POST['q_country'];
            $fieldNameState = 'q_state';
            if(!empty($countryNames)){
+
+            $countryList = geonames_query('countryinfo',NULL, $options);
            foreach ($countryNames as $country) {
 
-                    $geoid = db_result(db_query("SELECT geonameid FROM {geonames_countryinfo} where name LIKE '" . trim($country). "' limit 0,1"));
-
-                    $query = array('geonameid' => $geoid);
+$xyz=geonames_countryinfo($country);
+//print_r($xyz);
+    foreach($countryList->results as $countryss){
+        if($country == $countryss['countryname']){
+            $geoid=$countryss['geonameid'];
+            break;
+        }
+    }
+                 
+                  $query = array('geonameid' => $geoid);
                     $results = geonames_query('children', $query);
                     foreach ($results->results as $state) {
                         $states[$state['geonameid']] = $state['name'];
