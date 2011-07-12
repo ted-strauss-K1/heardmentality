@@ -180,7 +180,8 @@ function i18ntaxonomy_theme() {
   return array(
     'i18ntaxonomy_term_page' => array(
       'arguments' => array('tids' => array(), 'result' => NULL),
-      'file' => 'taxonomy.pages.inc',
+      //'file' => 'taxonomy.pages.inc',
+         'file' => 'i18ntaxonomy.pages.inc',
     ),
   );
 }

@@ -452,16 +452,18 @@ function get_local_list($time='') {
             //$cond.=" AND q.country='" . $putcon . "'";
             $cond.=" AND cc.field_issue_country_value='" . $putcon . "'";
         }
-        if (!empty($country['state'])) {
+      //  if (!empty($country['state'])) {
 
             //$cond.=" OR q.state='" . trim($country['state']) . "'";
-            $cond.=" OR cs.field_issue_state_value='" . trim($country['state']) . "'";
-        }
-        if (!empty($country['city'])) {
+       //     $cond.=" OR cs.field_issue_state_value='" . trim($country['state']) . "' )";
+      //  }else{
+          //    $cond.=" ) ";
+      //  }
+      //  if (!empty($country['city'])) {
 
             //$cond.=" OR q.city='" . trim($country['city']) . "'";
-            $cond.=" OR ct.field_issue_city_value='" . trim($country['city']) . "'";
-        }
+        //    $cond.=" OR ct.field_issue_city_value='" . trim($country['city']) . "'";
+       // }
     }
 
     switch ($time) {
@@ -486,12 +488,12 @@ function get_local_list($time='') {
     //  echo get_real_ip_addr();
 
     //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid join question_cat as qcat on qcat.qid=q.qid where q.status='1'  $cond group by qcat.qid order by q.active_rate  ASC LIMIT 0,20 ";
-    $locTableJoin = "JOIN {content_field_issue_country} cc ON n.tnid = cc.nid JOIN {content_field_issue_state} cs ON n.tnid = cs.nid JOIN {content_field_issue_city} ct ON n.tnid = ct.nid ";
+    $locTableJoin = "JOIN {content_field_issue_country} cc ON n.nid = cc.nid JOIN {content_field_issue_state} cs ON n.nid = cs.nid JOIN {content_field_issue_city} ct ON n.nid = ct.nid ";
     $query="select n.nid, n.title from {node} AS n JOIN {content_type_poll} cp ON n.nid = cp.nid $locTableJoin JOIN {user_profile} as u ON u.uid = n.uid LEFT JOIN {term_node} tn ON tn.nid = n.nid WHERE n.status = '1' $cond AND n.type='poll' AND n.language = '$currLanguage' GROUP BY n.nid order by cp.field_active_rate_value DESC LIMIT 0,20";
     //$query = "SELECT * from {question} as q join {user_profile} as u on u.uid=q.uid  where q.status='1'  $cond order by q.active_rate  ASC LIMIT 0,10 ";
     $list = ExecuteQuery($query, "select");
     $output .= '<div>
-             <h3><strong>'.t('Local questions').'</strong></h3>
+             <h3><strong>'.t('Local Issues').'</strong></h3>
               <div class="innerbox"><ul class="">';
 
     if (!empty($list)) {
@@ -510,7 +512,7 @@ function get_local_list($time='') {
         }
     } else {
 
-        $output .= '<div align="center"><b>'.t('No Local List Found').'</b></div>';
+        $output .= '<div align="center"><b>'.t('No Local Issues Found').'</b></div>';
     }
     $output .= '</ul></div> </div><div class="clr"></div>';
     return $output;

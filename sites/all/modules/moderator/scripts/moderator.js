@@ -100,8 +100,10 @@ load_issue_data_ahah();
 
             return true;
         }else{
+             e.preventDefault();
             jQuery('#twitMsg').html('Some Of The Required fields are Empty!');
             jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+            return false;
         }
 
 
