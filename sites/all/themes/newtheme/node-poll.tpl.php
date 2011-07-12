@@ -59,7 +59,7 @@ global $apikey, $gSitePath;
     <?php print $picture ?>
 
 <?php if (!$page): ?>
-      <div class="titl"> <a style="<?php print $style; ?>" href="qlite/view/<?php print $nid ?>?ajax=1" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></div>
+      <div class="titl"> <a style="<?php print $style; ?>" href="<?php print $gSitePath; ?>qlite/view/<?php print $nid ?>?ajax=1" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></div>
 <?php endif; ?>
 <?php if($page): ?>
 <div>
