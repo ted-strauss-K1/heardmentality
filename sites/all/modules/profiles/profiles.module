@@ -791,7 +791,7 @@ if (($userSettings['marital'] == 1) || ($userSettings['marital'] == 2 && $user->
     //      {
 
     $following = '';
-    $newlist = followinglist($uid);
+    $newlist = profile_followinglist($uid);
 
 
     for ($i = 0; $i < count($newlist); $i++) {
@@ -803,7 +803,7 @@ if (($userSettings['marital'] == 1) || ($userSettings['marital'] == 2 && $user->
     //     {
 
     $follower = '';
-    $newlist2 = followerlist($uid);
+    $newlist2 = profile_followerlist($uid);
 
     for ($k = 0; $k < count($newlist2); $k++) {
         $follower .= '' . $newlist2[$k] . '';

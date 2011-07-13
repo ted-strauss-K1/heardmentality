@@ -38,7 +38,7 @@ function profile_view() {
 
         case 'activity':
 
-            $strReturn = activities($uid);
+            $strReturn = profile_activities($uid);
             break;
         case 'history':
             $strReturn = profile_tab($tag, $uid);
@@ -188,7 +188,7 @@ function event_photo() {
 ////followers/////////////////////////
 
 
-function followerlist($uids) {
+function profile_followerlist($uids) {
 global $user,$gSitePath;
   //using user relation module api
 $relationships = user_relationships_load($param = array("approved" => 1, "requestee_id" => $uids,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'10'), $reset = FALSE);
@@ -254,7 +254,7 @@ function save_follow_profile() {
 //////////following //////////////////////////
 
 
-function followinglist($umid) {
+function profile_followinglist($umid) {
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
 
@@ -581,7 +581,7 @@ elt.each(function(el){ el.set(\'value\',chk); });
 }
 
 // after node conversion
-function activities($uid = ''){
+function profile_activities($uid = ''){
      drupal_set_title('Recent Activities');
     global $gSitePath, $user, $gDocPath, $base_root;
     //$uid = $user->uid;
