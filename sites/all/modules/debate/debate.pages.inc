@@ -2034,7 +2034,9 @@ function debate_ajax() {
     global $gSitePath, $user, $gDocPath, $base_root;
 
     extract($_REQUEST);
-
+    // site url with default language
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
     switch ($action) {
 
         case 'url':
@@ -2387,11 +2389,11 @@ $(document).ready(function() {
             break;
         case 'dreport':
             $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-            echo '<iframe scrolling="no" style="height: 250px;" id="frmGoogle" src="' . $gSitePath . '/debate/ajax/' . $qid . '?action=analysis" border="0" frameborder="0" width="100%"></iframe>';
+            echo '<iframe scrolling="no" style="height: 250px;" id="frmGoogle" src="' . $sitelink . 'debate/ajax/' . $qid . '?action=analysis" border="0" frameborder="0" width="100%"></iframe>';
             break;
         case 'resreport':
             $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-            echo '<iframe scrolling="no" style="height: 250px;" id="frmGoogle" src="' . $gSitePath . '/debate/ajax/' . $qid . '?action=resanalysis" border="0" frameborder="0" width="100%"></iframe>';
+            echo '<iframe scrolling="no" style="height: 250px;" id="frmGoogle" src="' . $sitelink . 'debate/ajax/' . $qid . '?action=resanalysis" border="0" frameborder="0" width="100%"></iframe>';
             break;
         case 'filter':
             $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
