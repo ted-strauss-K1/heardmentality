@@ -2778,3 +2778,4 @@ function removeCommonWords($input){
                 return $output = preg_replace('!\s+!', ' ', $input);
 
 	}
+        
