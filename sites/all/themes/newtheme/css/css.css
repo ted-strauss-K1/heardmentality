@@ -1710,3 +1710,21 @@ img{ border:none; outline:none;}
     padding: 0 5px;
     font-weight: bold;
 }
+
+/*new search */
+.inside2 .search-left{
+    float:left;
+    width: 345px;
+}
+.inside2 .search-right{
+    float:right;
+    height:auto;
+    width:650px;
+}
+.inside2 .search-right .titl{
+    font-weight: bold;
+    font-size:14px;
+}
+.inside2 .search-left .selectbox-sm{
+    width:90px;
+}

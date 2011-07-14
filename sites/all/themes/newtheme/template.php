@@ -171,6 +171,16 @@ function phptemplate_preprocess_block(&$variables) {
 
 }
 
+function phptemplate_preprocess_node(&$vars) {
+  if (arg(0) == 'issues') {
+    $suggestions = array(
+      'node-issues'
+    );
+    $vars['template_files'] = array_merge($vars['template_files'], $suggestions);
+  }
+}
+
+
 function sub_menu_cat($id='', $level='') {
     global $gSitePath;
     $strReturn = null;
