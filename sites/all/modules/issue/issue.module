@@ -33,6 +33,7 @@ function issue_perm() {
         'show vote results',
         'access electoral list',
         'add write-ins',
+        'issue list',
     );
 }
 
@@ -101,6 +102,13 @@ $menu['issue/get_related_issues'] = array(
         'title' => 'Related Issues',
         'page callback' => 'issue_related_callback',
         'access arguments' => array('create issue'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file'=>'issue.pages.inc'
+    );
+$menu['issues'] = array(
+        'title' => 'Issues',
+        'page callback' => 'issues_list',
+        'access arguments' => array('issue list'),
         'type' => MENU_SUGGESTED_ITEM,
         'file'=>'issue.pages.inc'
     );
@@ -529,7 +537,56 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                         '#value' => $output,
                     );
                 }
+                // only for search issues
+                if(arg(0)=='issues'){
+                    //votes
+                    $tnid = get_tnid($node->nid);
+                    $voteCount = db_result(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $tnid . "'"));
+                    //debates
+                    $debates = db_result(db_query("SELECT count(nid) as fcount FROM `content_type_forum` where field_ref_qid_nid='" . $tnid . "' AND field_type_value = '1'"));
+                    //resources
+                    $resources = db_result(db_query("SELECT COUNT(nid) FROM content_type_forum where  field_ref_qid_nid='$tnid' AND field_type_value = '2'"));
+                    $node->votecount = $voteCount;
+                    $node->totaldebates = $debates;
+                    $node->totalresources = $resources;
 
+                    // categories
+                    $ctitle = array();
+                    $sctitle = array();
+                    $ssctitle = array();
+                    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+                    $csql = db_query("SELECT td.tid FROM {term_data} as td JOIN {term_hierarchy} as th ON td.tid = th.tid WHERE td.vid = '$vid' AND th.parent = 0");
+
+                    $catVals = array();
+                    while($cat = db_fetch_object($csql)){
+                        $catVals[] = $cat->tid;
+                    }
+                    if(!empty($catVals)){
+
+                        $cat = implode(",", $catVals);
+                        $ncats = db_query("SELECT tid FROM {term_node} WHERE nid = '$tnid' AND tid IN($cat)");
+                        while($ncat = db_fetch_object($ncats)){
+                            $cat = $ncat->tid;
+                            $ctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$cat'"));
+                            // parent categories
+                            $scats = get_node_tree_child($cat, $tnid);
+                            foreach($scats as $scat){
+                                $sctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$scat'"));
+                                // first level categories
+                                $sscats = get_node_tree_child($scat, $tnid);
+                                foreach($sscats as $sscat){
+                                    $ssctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$sscat'"));
+                                    // second level categories
+                                }
+                            }
+                        }
+                    
+                    }
+                    $node->catsubject = !empty($ctitle)?rtrim(implode(",",$ctitle)):'none';
+                    $node->catarea = !empty($sctitle)?rtrim(implode(",",$sctitle)):'none';
+                    $node->catdetail = !empty($ssctitle)?rtrim(implode(",",$ssctitle)):'none';
+                    ////////////
+                }
 
                 break;
         }
@@ -2060,13 +2117,17 @@ function get_question_categories($nid){
 
 function get_node_tree_child($tid, $nid){
     $childrenArray = taxonomy_get_children($tid);
+    $children = array();
+    $subcats = array();
     foreach($childrenArray as $key=>$value){
         $children[] = $key;
     }
+    if(!empty($children)){
     $scats = implode(",", $children);
     $nscats = db_query("SELECT tid FROM {term_node} WHERE nid = '$nid' AND tid IN($scats)");
     while($nscat = db_fetch_object($nscats)){
         $subcats[] = $nscat->tid;
+    }
     }
     return $subcats;
 }

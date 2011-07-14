@@ -246,7 +246,9 @@ function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
 	function myTruncate($string, $limit, $break = " ", $pad = "") {
     
     // return with no change if string is shorter than $limit
+
          $string = drupal_convert_to_utf8($string,'utf-8');
+
             
     if (drupal_strlen($string) <= $limit)
         return $string;

@@ -975,7 +975,7 @@ function issue_autotextfields_callback() {
     unset($choice_form['#prefix'], $choice_form['#suffix']); // Prevent duplicate wrappers.
     $choice_form[$delta]['#attributes']['class'] = empty($choice_form[$delta]['#attributes']['class']) ? 'ahah-new-content' : $choice_form[$delta]['#attributes']['class'] . ' ahah-new-content';
     //$choice_form[$delta]['chvotes']['#value'] = 0;
-    $output = theme('status_messages') . drupal_render($choice_form);
+    $output = drupal_render($choice_form);
 
     drupal_json(array('status' => TRUE, 'data' => $output));
 }
@@ -1205,3 +1205,206 @@ function get_releated_issues($question = '', $cat_id = '', $context = '') {
 //echo "SELECT q.qid, q.question FROM {question} q  left join question_cat qc on qc.qid=q.qid  WHERE $where_condition  group by q.qid ";
 }
 
+
+// issue list here
+function issues_list(){
+    $output = '';
+    drupal_add_js(drupal_get_path('module','issue').'/js/filter.js');
+    $output .= '<div class="search-left">';
+    $output .= drupal_get_form('issue_search_form');
+    $output .= '</div>
+                <div class="search-right">';
+    $output .= '<b>'.t('ISSUES').'</b>&nbsp;<b>[&nbsp;</b>'.t('INDICATE SEARCH STATE LIKE KEYWORD, SUBJECT, ETC').'<b>&nbsp;]</b><br /><br />';
+    $output .= search_issue_results();
+    $output .= '</div><div class="clr"></div>';
+    return $output;
+}
+function issue_search_form(&$form_state){
+    //$form['#method'] = 'get';
+    $key = arg(1)=='0'?'':arg(1);
+    $subject = arg(2);
+    $area = arg(3);
+    $detail = arg(4);
+    $getcountry = arg(5);
+    $getState = arg(6);
+    $getCity = arg(7);
+    
+    $form['issue_key'] = array('#type' => 'textfield',
+                                '#title' => t('SEARCH ISSUES'),
+                                '#size' => 40,
+                                '#default_value' => $key);
+    $form['category_mark'] = array('#type' => 'markup', '#value' => t('FILTER BY CATEGORY').'<br /><div class="clr"></div>');
+    /*categories*/
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+    $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
+    $options[''] = 'SUBJECT';
+    while ($list = db_fetch_object($client_select)) {
+        $options[$list->cat_id] = stripslashes($list->cat_name);
+    }
+    $form['subject'] = array('#type' => 'select',
+                            '#options' => $options,
+                            '#prefix' => '<div style="float:left;">',
+                            '#suffix' => '</div>',
+                            '#ahah' => array('wrapper' => 'sub-cat-wrapper',
+                                                'event' => 'change',
+                                                'path' => 'moderator/issue/ahah/category/scat/search',
+                                                'effect' => 'fade',
+                                                'method' => 'replace'),
+                            '#attributes' => array('class'=>'selectbox-sm'),
+                            '#default_value' => $subject,
+                            '#id' => 'subject');
+    // get first level category
+    $form['defarea'] = array('#type' => 'hidden', '#default_value' => $area);
+    $form['defdetail'] = array('#type' => 'hidden', '#default_value' => $detail);
+    $form['sub_categories'] = array('#type' => 'markup',
+                                    '#value' => '<div id="sub-cat-wrapper" style="float:left"></div>',
+                                    );
+
+    $form['sub_sub_categories'] = array('#type' => 'markup',
+                                    '#value' => '<div id="sub-sub-cat-wrapper" style="float:left">
+                                                </div>',
+                                    '#suffix' => '<br /><div class="clr"></div>');
+    $form['location_mark'] = array('#type' => 'markup', '#value' => t('FILTER BY LOCATION').'<br /><div class="clr"></div>');
+    // location
+    $countries[''] = 'COUNTRY';
+    $countryList = geonames_query('countryinfo',NULL);
+    foreach($countryList->results as $country){
+        $countries[$country['countryname']] = $country['countryname'];
+    }
+    $form['country'] = array('#type' => 'select',
+                            '#options' => $countries,
+                            '#prefix' => '<div style="float:left;">',
+                            '#suffix' => '</div>',
+                            '#ahah' => array('wrapper' => 'state-wrapper',
+                                                'path' => 'moderator/issue/ahah/location/state/search',
+                                                'effect' => 'fade',
+                                                'event' => 'change',),
+                            '#attributes' => array('class'=>'selectbox-sm'),
+                            '#default_value' => $getcountry,
+                            '#id' => 's_country');
+
+    // default state, city
+    $form['defstate'] = array('#type' => 'hidden', '#default_value' => $getState);
+    $form['defcity'] = array('#type' => 'hidden', '#default_value' => $getCity);
+
+    $form['state_div'] = array('#type' => 'markup',
+                                '#value' => '<div id="state-wrapper" style="float:left"></div>');
+    $form['city_div'] = array('#type' => 'markup',
+                                '#value' => '<div id="city-wrapper" style="float:left"></div>',
+                                '#suffix' => '<br /><div class="clr"></div>');
+    
+    $form['search'] = array('#type'=>'submit', '#value' => t('SUBMIT'));
+    return $form;
+}
+function issue_search_form_submit($form, &$form_state){
+    $key = $form_state['values']['issue_key'];
+    $key = $key!=""?$key:0;
+    
+    $subject = $form_state['values']['subject'];
+    $subject = $subject!=""?$subject:0;
+    $area = $form_state['clicked_button']['#post']['area'];
+    $area = $area!=""?$area:0;
+    $detail = $form_state['clicked_button']['#post']['detail'];
+    $detail = $detail!=""?$detail:0;
+
+    $country = $form_state['values']['country'];
+    $country = $country!=""?$country:0;
+    $state = $form_state['clicked_button']['#post']['state'];
+    $state = $state!=""?$state:0;
+    $city = $form_state['clicked_button']['#post']['city'];
+    $city = $city!=""?$city:0;
+
+   // $path = 'issues/?key='.$key.'&subject='.$subject.'&area='.$area.'&detail='.$detail.'&country='.$country.'&state='.$state.'&city='.$city;
+     $path = 'issues/'.$key.'/'.$subject.'/'.$area.'/'.$detail.'/'.$country.'/'.$state.'/'.$city;
+    drupal_goto($path);
+}
+
+// search issue results
+function search_issue_results(){
+    global $language;
+    $issue = '';
+    $curLanguage = $language->language;
+    
+    $key = arg(1)!='0'?arg(1):'';
+    $subject = arg(2)!='0'?arg(2):'';
+    $area = arg(3)!='0'?arg(3):'';
+    $detail = arg(4)!='0'?arg(4):'';
+    $country = arg(5)!='0'?arg(5):'';
+    $state = arg(6)!='0'?arg(6):'';
+    $city = arg(7)!='0'?arg(7):'';
+
+    $rec_per_page = 5;
+
+    $where = '';
+    $val = array();
+    // conditions
+    if(!empty($key)){
+        $where .= " AND MATCH(nr.title, nr.body) AGAINST('%s')";
+        $val[] = $key;
+        
+    }
+    if(!empty($subject)){
+        $where .= " AND tn.tid = '%d'";
+        $val[] = $subject;
+        
+    }
+    if(!empty($area)){
+        $where .= " AND tn.tid = '%d'";
+        $val[] = $area;
+        
+    }
+    if(!empty($detail)){
+        $where .= " AND tn.tid = '%d'";
+        $val[] = $detail;
+        
+    }
+    if(!empty($country)){
+        $where .= "AND cc.field_issue_country_value = '%s'";
+        $val[] = $country;
+        
+    }
+    if(!empty($state)){
+        $where .= "AND cs.field_issue_state_value = '%d'";
+        $val[] = $state;
+        
+    }
+    if(!empty($city)){
+        $where .= "AND ct.field_issue_city_value = '%d'";
+        $val[] = $city;
+        
+    }
+
+    // filter with default language if issue key is empty
+    $langFilter = $key==''?"AND n.language = '$curLanguage'":'';
+
+   $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
+            JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+            JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+            JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+            LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
+            WHERE n.type = 'poll' $langFilter $where";
+   $sqlcount = ExecuteQuery($sql, 'norows');
+
+   $final = call_user_func_array('sprintf', array_merge((array) $sql, $val));
+   $sqlcount = ExecuteQuery($final, 'norows');
+
+    $query = pager_query_new($final, $rec_per_page, 0, $sqlcount);
+//    $query = do_search($keywords, $type, $join1 = '', $where1 = '1',
+//            $arguments1 = array(), $select2 = 'i.relevance AS score',
+//            $join2 = '', $arguments2 = array(),
+//            $sort_parameters = 'ORDER BY score DESC');
+
+    $count = db_affected_rows($query);
+    if($count){
+    while($result = db_fetch_object($query)){
+        $nid = $result->nid;
+        $node = node_load($nid);
+        $issue .= node_view(node_load($node->nid), 1);
+    }
+    $issue .= '<div class="clr"></div><br />';
+    $issue .= theme('pager', array(), $rec_per_page);
+    }else{
+        $issue .= t('No Issues Found');
+    }
+    return $issue;
+}

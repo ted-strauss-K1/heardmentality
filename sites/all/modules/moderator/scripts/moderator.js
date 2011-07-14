@@ -191,7 +191,7 @@ load_issue_data_ahah();
             }
         });
     });
-    jQuery('.pager a').live('click',function(e){
+    jQuery('#mod-issue .pager a').live('click',function(e){
         e.preventDefault();
         e.stopPropagation();
         jQuery(this).parents('div.mytabs-container').load(jQuery(this).attr('href'));
