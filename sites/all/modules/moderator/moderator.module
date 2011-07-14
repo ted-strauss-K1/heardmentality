@@ -2429,7 +2429,11 @@ function moderator_ahah_callback($type = '', $key = '', $from = ''){
            while($list = db_fetch_object($cQuery)){
                $selectedCities[] = $list->city_code;
            }
+
+          // print_r($selectedCities);
+
             if($from == 'mod'){
+
             $steateIds = $_POST['q_state'];
             $fieldNameCity = 'q_city';
             }else{
