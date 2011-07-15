@@ -365,11 +365,16 @@ var OpenIdSelector = new Class({
 }
 
 function openid_login_save() {
+
     global $gSitePath, $user, $gDocPath, $base_root;
+    ob_start();
+   error_reporting(0);
+//ini_set('display_errors','Off');
+
     //print_r($_COOKIE);
     //echo $_COOKIE["faceidc"];
     $pass = $_GET['UID'];
-    //print_r($_REQUEST);
+   // print_r($_REQUEST);
 
     if ($_GET['gender'] == 'm')
         $gender = '1';
@@ -400,6 +405,7 @@ function openid_login_save() {
             'name' => md5(),
             'pass' => $pass,
             'mail' => $_GET['email'],
+            'picture'=> $_GET['photoURL'],
             'provider' => $_GET['provider'],
             'Identity' => $pass,
             'total_coins' => $ini_coins,
@@ -424,7 +430,7 @@ function openid_login_save() {
         $subject_proj = $list_content->subject;
         $contentm = str_replace("#uname#", $user_namelistfs[0]['name'], $list_content->content);
         //echo $contentm;die;
-        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','" . $user_namelistfs[0]['mail'] . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
+        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('".variable_get('site_mail', ini_get('sendmail_from'))."','".variable_get('site_mail', ini_get('sendmail_from'))."','" . $user_namelistfs[0]['mail'] . "','" . $subject_proj . "','" . $contentm . "',0,0,now())";
         db_query($ins_qry);
 
         //$mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, '');
@@ -457,9 +463,10 @@ function openid_login_save() {
         $insersult = db_query($insert_profile);
         $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='$pass' and provider='" . $_GET['provider'] . "' AND uid='$lid'"));
     } else {
+ 
+       $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
 
-        $select_user = db_fetch_object(db_query("SELECT * from {users} where Identity='" . $pass . "' and provider='" . $_GET['provider'] . "'"));
-    }
+       }
     //date difference disable for x days
     $d1 = time();
     $d2 = $select_user->blocktime;
@@ -472,6 +479,7 @@ function openid_login_save() {
       user_save($select_user,array('status'=>1));
     }
      $msg="<div class='warning'>Login Error Occurs....</div>";
+     
     $user = make_login($select_user, $_GET['UID'],$indays);
     if ($user) {
          drupal_set_message(t("You have been logged in success..."), $type = "success");
@@ -483,15 +491,15 @@ function openid_login_save() {
          $variable = array();
          set_notify_log($select_user->uid, '', 'user_login', $variable);
          /*New SET NOTIFY LOG*/
-
-        drupal_goto();
+   
+    }else{
+ drupal_set_message(t("Login Error Occurs...."), $type = "error");
     }
-
-    return '<div class="warning">Login Error Occurs....</div>';
+ drupal_goto();
+   
 }
 
 function make_login($result='', $pwd='',$blockdays='') {
-
 
     if ($result && function_exists("user_load")) {
         if ($account = user_load(array('uid' => $result->uid, 'status' => 1))) {
@@ -506,9 +514,7 @@ function make_login($result='', $pwd='',$blockdays='') {
                 'pass' => $pwd, // No need to hash the password
                 'status' => 1, // Otherwise the user is blocked on creation
             );
-            $users = user_authenticate($params);
-            // print_r($users);
-           
+            $users = user_authenticate($params);           
         } else {
         
             drupal_set_message(t("Could not log you in due to disabled by Moderator for $blockdays more days!"), $type = "error");

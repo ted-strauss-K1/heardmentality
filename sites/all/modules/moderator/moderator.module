@@ -1426,10 +1426,10 @@ function merge_dupeform_submit(&$form, $form_state, $form_id) {
 
     //print_r($form);
     // possible answers merging process
-    foreach ($form['#post']['merge'] as $key => $value) {
-      echo "Key: $key; Value: $value<br />\n";
+  //  foreach ($form['#post']['merge'] as $key => $value) {
+     // echo "Key: $key; Value: $value<br />\n";
    //  $query="update ";
-   }
+   //}
     $qid = $form['#post']['qid'];
      $dupeid = $form['#post']['dupeid'];
     if (is_numeric($qid) && is_numeric($dupeid) && !is_null($qid) && !is_null($dupeid)) {
@@ -1464,15 +1464,11 @@ foreach ($terms as $key => $tobj) { // $key is the TID for the displayed node.
          
         
      node_save($mainQuest);
-
-         //merge remaining answers in poll_choices table
-      //  db_query("update {poll_choices} set nid='$qid' where nid='$dupeid'");
-    //   db_query("update {poll_votes} set nid='$qid' where nid='$dupeid'");
-     //   db_query("update {possible_answer_spectrum} set qid='$qid' where qid='$dupeid'");
+//merging poll choices starts
          $sel_dupe_answers = "select * from {poll_choices} where nid='$qid' ";
         $result = ExecuteQuery($sel_dupe_answers, 'select');
         //send notification mail before update the vote table
-       // question_merge_mail($qid, $dupeid);
+        question_merge_mail($qid, $dupeid);
 
         foreach ($result as $dalist) {
 
@@ -1483,19 +1479,23 @@ foreach ($terms as $key => $tobj) { // $key is the TID for the displayed node.
                 db_query("delete from {poll_choices} where nid='$dupeid' AND chorder='$paid'");
                 //delete short answer
                 db_query("delete from {short_answers} where qid='$dupeid' AND chorder='$paid'");
-                   db_query("update {possible_answer_spectrum} set nid='$qid',possible_ans_id='" . $dalist['chid'] . "',possible_chorder='" . $dalist['chorder'] . "' where qid='$dupeid' AND possible_chorder='$paid' ");
+
+                 //  db_query("update {possible_answer_spectrum} set nid='$qid',possible_ans_id='" . $dalist['chid'] . "',possible_chorder='" . $dalist['chorder'] . "' where qid='$dupeid' AND possible_chorder='$paid' ");
                 //debate options merging
                  db_query("update {debate_options} set chorder='" . $dalist['chorder'] . "',nid='$qid' where nid='$dupeid' and chorder='$paid'");
               db_query("update {resource_options} set chorder='" . $dalist['chorder'] . "',nid='$qid' where nid='$dupeid' and  chorder='$paid'");
             }
-           
+              $totcnt=db_result(db_query("select count(*) from {poll_votes} where qid='$qid' and chorder='".$dalist['chorder']."'"));
+
+             if(is_numeric($totcnt))         // Reset the to the votes.
+      db_query("UPDATE {poll_choices} SET chvotes =%d WHERE nid = %d AND chorder = %d",$totcnt,$qid, $dalist['chorder']);
         }
 
         //merge remaining answers in answer table
          $sel_dupe_rem_answers = "select * from {poll_choices} where nid='$dupeid' ";
         $result_rem = ExecuteQuery($sel_dupe_rem_answers, 'select');
         //find the max order and set next value to other choices
-        $set_order=db_result(db_query("select max(chorder) from {poll_choices} where nid='$dupeid' "));
+        $set_order=db_result(db_query("select max(chorder) from {poll_choices} where nid='$qid' "));
   foreach ($result_rem as $dalist_rem) {
       
       $set_order=$set_order+1;
@@ -1512,10 +1512,18 @@ foreach ($terms as $key => $tobj) { // $key is the TID for the displayed node.
 
   }
           //merge answers ends
+
         //merge suggest answers
         db_query("update {suggest_answer} set qid='$qid' where qid='$dupeid'");
         db_query("update {suggest_answer_vote} set qid='$qid' where qid='$dupeid'");
 
+        //delete the remaining spectrum for dupe issue
+        db_query("delete from {possible_answer_spectrum} where nid='$dupeid'");
+
+        //merge and filter the dupliacted votes from 2 issues done by same user //PHASE 6
+        issue_merge_filter_vote($qid);
+          //merge and filter the dupliacted votes from 2 issues done by same user //PHASE 6
+          
         // merge url alias
        // $details = load_question($qid);
         $url = 'node/' . $dupeid;
@@ -1554,8 +1562,7 @@ foreach ($terms as $key => $tobj) { // $key is the TID for the displayed node.
 
        
         watchdog('Dupe Issue Merged', 'Dupe Issue [@dupe] merged to [ @issue] By Moderator', array('@dupe' => $dupeQuest->title, '@issue' => $mainQuest->title, '@username' => $user->name),WATCHDOG_INFO);
-        module_load_include('module', 'comment', 'comment');
-
+  //update the comment counts statistics
       $count = db_result(db_query('SELECT IFNULL(COUNT(*),0) FROM {node_comments} nc INNER JOIN {node} n ON n.nid = nc.cid WHERE nc.nid = %d AND n.status = %d', $qid, 1));
           db_query("UPDATE {node_comment_statistics} SET comment_count = %d, last_comment_timestamp = %d, last_comment_name = %d, last_comment_uid = %d,comment_count=%d WHERE nid = %d", 0, NULL, 0, 0,$count, $qid);
 
@@ -1570,7 +1577,35 @@ foreach ($terms as $key => $tobj) { // $key is the TID for the displayed node.
     }
 }
 
+function issue_merge_filter_vote($qid=''){
+     global $gSitePath, $user, $gDocPath, $base_root;
+//remove duplicated votes by same user while merging the issues
+     if(is_numeric($qid)){
 
+           $sel_dupe_answers = "select * from {poll_votes} where nid='$qid' group by uid ";
+        $result = ExecuteQuery($sel_dupe_answers, 'select');
+
+        foreach($result as $tmp){
+
+            //count if it is more than one
+            $cnt=db_result(db_query("select count(*) from {poll_votes} where qid='$qid' and uid='".$tmp['uid']."'"));
+          //if count > 1 then remove the old vote and keep the recent vote (1)
+            if($cnt>1){
+                $max_date=db_result(db_query("SELECT max(date_voted) FROM {poll_votes} where nid='$qid' and uid=".$tmp['uid'].""));
+                //except the recent one delete the other votes for this specific user
+                db_query("delete  from {poll_votes} where nid='$qid' AND uid=".$tmp['uid']." AND date_voted<$max_date ");
+            }
+             $totcnt=db_result(db_query("select count(*) from {poll_votes} where qid='$qid' and chorder='".$tmp['chorder']."'"));
+           
+             if(is_numeric($totcnt))         // Reset the to the votes.
+      db_query("UPDATE {poll_choices} SET chvotes =%d WHERE nid = %d AND chorder = %d",$totcnt,$qid, $tmp['chorder']);
+
+        }
+
+     }
+ watchdog('Merge Issue duplicate voting filtered ', 'Issue @id duplicate voting filtered while merging ',array('@id'=>$qid),WATCHDOG_INFO);
+
+}
 
 function merge_dupeform_submit_old(&$form, $form_state, $form_id) {
     global $gSitePath, $user, $gDocPath, $base_root;

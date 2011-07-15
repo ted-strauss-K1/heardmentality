@@ -124,9 +124,9 @@ function get_state($code = '') {
 function UserPicture($mid, $profile='') {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
     $userslist=user_load(array('uid'=>$mid));
-    $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
-    $rs_image = db_query($selimage);
-    $resultimage = db_fetch_object($rs_image);
+   // $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+    //$rs_image = db_query($selimage);
+  //  $resultimage = db_fetch_object($rs_image);
     $selected_avatar = $resultimage->avatar;
     //$default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
      $default = $gSitePath.avatar_selection_get_random_image($userslist);
@@ -149,14 +149,14 @@ function UserPicture($mid, $profile='') {
             break;
         default:
 
-            if ($resultimage->image != 'noimage.jpg') {
+            if (!empty($userslist->picture)) {
                 $upload_dir = variable_get('user_picture_path', 'pictures');
 
-                $img_path = $resultimage->image;
+                $img_path = $userslist->picture;
 
                 if (file_exists($img_path)) {
-
-                    $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" />';
+                    $PROFILE_IMAGE=theme('user_picture', $userslist,'65x56');
+                   // $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" />';
                 } else {
 
                     $PROFILE_IMAGE = '<img src="' . $default . '" alt="photo" class="uprofile" ALIGN=ABSMIDDLE width="65"  height="56" />';
@@ -179,11 +179,11 @@ function UserPicture($mid, $profile='') {
 function UserPicture_small($mid) {
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-    $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
-    $rs_image = db_query($selimage);
+    //$selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+ //   $rs_image = db_query($selimage);
 $userslist=user_load(array('uid'=>$mid));
  $default = $gSitePath.avatar_selection_get_random_image($userslist);
-    $resultimage = db_fetch_object($rs_image);
+   // $resultimage = db_fetch_object($rs_image);
    // $default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
         case '2':
@@ -203,12 +203,14 @@ $userslist=user_load(array('uid'=>$mid));
             break;
         default:
 
-            if ($resultimage->image != 'noimage.jpg') {
-                $img_path = $resultimage->image;
-                if (file_exists($img_path)) {
-                    // echo $gSitePath.$img_path;
+           if (!empty($userslist->picture)) {
+                $upload_dir = variable_get('user_picture_path', 'pictures');
 
-                    $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" ALIGN=ABSMIDDLE class="uprofile" alt="Photo" height="30" width="30" >';
+                $img_path = $userslist->picture;
+
+                if (file_exists($img_path)) {
+                    $PROFILE_IMAGE=theme('user_picture', $userslist,'30x30');
+                   // $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" />';
                 } else {
                     $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
                 }
@@ -2178,8 +2180,14 @@ function _avatar_submit($form, &$form_state) {
 
     if (!empty($_SESSION['filepath'])||!empty($form_state['values']['oldimg'])) {
         $img_avt = '1';
+$imgpath=$insimage;
     } else {
          $img_avt = '2';
+           $image_path = file_create_path('avatar_selection');
+
+            //  $image_path=file_directory_path().'/avatar_selection';
+            $selected_avatar = $resultimage->avatar;
+            $imgpath = $image_path . '/' . $form_state['values']['select_avatar'];
       //  $insimage = $form_state['values']['image'];
     }
 
@@ -2202,7 +2210,7 @@ function _avatar_submit($form, &$form_state) {
     $query = "UPDATE {user_profile} set image_avatar='%s',image='%s',avatar='%s',social='%s',urls='%s'  where uid='%d' ";
     $result = db_query($query, $form_state['values']['img_avt'], $insimage, $form_state['values']['select_avatar'], $social, $form_state['values']['myweb'], $user->uid);
     //notify type
-    db_query("update {users} set notify_etype='%d' where uid='%d'", $form_state['values']['notify'], $user->uid);
+    db_query("update {users} set notify_etype='%d',picture='%s' where uid='%d'", $form_state['values']['notify'],$imgpath,$user->uid);
     //drupal_set_message(t('Your form has been saved.', 'success'));
 
 
@@ -2236,6 +2244,7 @@ function _privacy_submit($form, &$form_state) {
 function _basic_submit($form, &$form_state) {
 
     global $gSitePath, $user, $gDocPath, $base_root;
+    $account=user_load($user->uid);
     $age = age($form_state['values']['dob']);
 
     $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s' where uid='%d' ";
@@ -2243,6 +2252,8 @@ function _basic_submit($form, &$form_state) {
     //update username
     db_query("update {users} set name='%s',mail='%s',prompt='%d',language='%s' where uid='%d'", $form_state['values']['username'], $form_state['values']['email'],'0',$form_state['values']['default_language'],$user->uid);
     //drupal_set_message(t('Your profile has been updated', 'success'));
+     $edit = array('profile_gender' =>$form_state['values']['gender'],'real_name'=>$form_state['values']['fname'],'profile_bio'=>$form_state['values']['bio'],'profile_zip'=>$form_state['values']['zip'],'profile_country'=>$form_state['values']['country'],'profile_state'=>$form_state['values']['state'],'profile_city'=>$form_state['values']['city'],'profile_religion'=>$form_state['values']['religion'],'profile_ethnic'=>$form_state['values']['ethnic'],'profile_dob'=>$form_state['values']['dob'],'profile_income'=>$form_state['values']['income'],'profile_marital'=>$form_state['values']['marital'],'profile_sorient'=>$form_state['values']['sorient']);
+  user_save($account, $edit, 'Profile');
     return true;
 }
 

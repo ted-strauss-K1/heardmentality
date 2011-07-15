@@ -2429,34 +2429,7 @@ $(document).ready(function() {
     exit;
 }
 
-function resource_save_ext_imgs($url='') {
 
-
-    $result = drupal_http_request($url);
-
-    $dir = file_create_path() . '/resources';
-
-    if (!file_check_directory($dir)) {
-
-        mkdir($dir, 0775, true);
-    }
-    $code = floor($result->code / 100) * 100;
-    $ext = '.' . 'jpg';
-    $types = array('image/jpeg', 'image/png', 'image/gif');
-    $src = file_create_path() . '/resources/' . md5($url) . $ext;
-    if ($result->data && $code != 400 && $code != 500 && in_array($result->Content - Type, $types)) {
-
-        $return = file_save_data($result->data, $src);
-
-        return $return;
-    } else {
-
-        //if we are unsuccessful then log a message in the watchdog
-
-        watchdog('resource', 'The image ' . $url . ' could not be retrieved');
-        return false;
-    }
-}
 
 ////url to hyperlink converting 
 function _make_url_clickable_cb($matches) {
