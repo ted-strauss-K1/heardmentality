@@ -309,23 +309,91 @@ function newtheme_heartbeat_list($messages, HeartbeatAccess $heartbeatAccess, $l
     return $content;
 }
 
-//function newtheme_user_profile($account) {
-//    $output = '<div class="profile">';
-//    $output.='Hi ' . $account->name . '<br />';
-//    $output .= '</div>';
-//    $output .= '<p>Your 10 most recent posts</p>';
-//
-//    $uid = $account->uid;
-//    $result = db_query_range(db_rewrite_sql("SELECT n.nid, n.title FROM {node} n WHERE n.uid = %d and n.status=1 ORDER BY n.changed DESC"), $uid, 0, 10);
-//
-//    $output .= '<ul>';
-//    while ($data = db_fetch_object($result)) {
-//        $edit = "/node/" . $data->nid . "/edit";
-//
-//        $output .= '<li>' . l(check_plain($data->title), "node/$data->nid") . ' <a href="' . $edit . '">edit</a></li>';
-//    }
-//    $output .= '</ul>';
-//
-//    return $output;
-//}
+function newtheme_user_profile($account) {
+    $output = '<div class="profile">';
+    $output.='Hi ' . $account->name . '<br />';
+    $output .= '</div>';
+    $output .= '<p>Your 10 most recent posts</p>';
 
+    $uid = $account->uid;
+    $result = db_query_range(db_rewrite_sql("SELECT n.nid, n.title FROM {node} n WHERE n.uid = %d and n.status=1 ORDER BY n.changed DESC"), $uid, 0, 10);
+
+    $output .= '<ul>';
+    while ($data = db_fetch_object($result)) {
+        $edit = "/node/" . $data->nid . "/edit";
+
+        $output .= '<li>' . l(check_plain($data->title), "node/$data->nid") . ' <a href="' . $edit . '">edit</a></li>';
+    }
+    $output .= '</ul>';
+
+    return $output;
+}
+
+function phptemplate_user_picture($account, $size = '65x56') {
+    //print_r(func_get_args());
+  if (!variable_get('user_pictures', 0))  {
+    return '';
+  }
+
+  // Default to a certain size
+  if (arg(0) == 'user' && is_numeric(arg(1))) {
+    $size = '65x56';
+  }
+ 
+  if ($account->picture && file_exists($account->picture)) {
+    switch($size) {
+      case '65x56':
+        $maxsize_icon = array('w'=> 65, 'h'=> 56);
+        $info = image_get_info($account->picture);
+        if ($info['height'] < $maxsize_icon['h']) {
+          $maxsize_icon['h'] = $info['height'];
+        }
+        if ($info['width'] < $maxsize_icon['w']) {
+          $maxsize_icon['w'] = $info['width'];
+        }
+        
+        $newpicture = dirname($account->picture) . '/picture-'
+         . $account->uid . '.' . $info['extension'];
+        if (!file_exists($newpicture) ||
+          (filectime($newpicture) < filectime($account->picture))) {
+          image_scale($account->picture, $newpicture, $maxsize_icon['w'],
+            $maxsize_icon['h']);
+        }
+        $picture = file_create_url($newpicture);
+        break;
+
+      case '30x30':
+        $maxsize_tile = array('w'=> 30, 'h'=> 30);
+        $info = image_get_info($account->picture);
+        $newpicture = dirname($account->picture) . '/picture-'
+          . $account->uid . '-small' . '.' . $info['extension'];
+        if (!file_exists($newpicture) ||
+          (filectime($newpicture) < filectime($account->picture))) {
+          image_scale($account->picture, $newpicture, $newpicture,
+            $maxsize_tile['w'], $maxsize_tile['h']);
+        }
+        $picture = file_create_url($newpicture);
+        break;
+
+      default:
+        $picture = file_create_url($account->picture);
+        break;
+    }
+  }
+  else {
+    $picture = variable_get('user_picture_default', '');
+  }
+
+  if (isset($picture)) {
+    $alt = t('@user\'s picture',
+      array('@user' => $account->name ? $account->name :
+        variable_get('anonymous', 'Anonymous')));
+    $attr=array('width'=>$maxsize_icon['w'],'height'=>$maxsize_icon['h']);
+    $picture = theme('image', $picture, $alt, $alt,$attr, false);
+    if (!empty($account->uid) && user_access('access user profiles')) {
+      $picture = l($picture, "profile/$account->name", array('html' => TRUE));
+    }
+
+    return $picture;
+  }
+}

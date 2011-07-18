@@ -67,7 +67,7 @@ var login_params=
 		
 
 
-                 <a onclick="loadeditquestion('<?php echo $sitelink;?>account/edit','Edit Profile ');" href="javascript:void(0);"><?php echo t('Edit Profile');?></a><br>
+                <a href="<?php echo $gSitePath?>account/edit"><?php echo t('Edit Profile');?></a><br>
 		 <a href="<?php echo $gSitePath?>mynotify"> <?php echo t('Notify');?></a><br>
                  <a  href="<?php echo $gSitePath; ?>logout"><?php echo t('Sign Out');?></a>
 	</span>
