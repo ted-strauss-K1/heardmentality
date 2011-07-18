@@ -11,8 +11,8 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
     } ?> clear-block">
 
     <?php print $picture ?>
-  <?php $url = drupal_get_path_alias('node/'.$nid);?>
-       <div class="titl"> <a style="<?php print $style; ?>" href="<?php print $sitelink.$url?>" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></div>
+  
+       <div class="titl"> <a style="<?php print $style; ?>" href="<?php print $node_url; ?>" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></div>
          <div class="meta">
         <?php if ($submitted): ?>
             <span class="submitted"><?php //print $submitted ?></span>
@@ -27,7 +27,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 <?php print $content ?>
                 </div><br />
               
-                <div><a href="<?php print $sitelink.$url?>"><?php print t('Click');?></a>&nbsp;<?php print t('to see full Issue page with debate and references');?></div>
+                <div><a href="<?php print $node_url; ?>"><?php print t('Click');?></a>&nbsp;<?php print t('to see full Issue page with debate and references');?></div>
                 <div><b><?php print t('Subject');?>:</b>&nbsp;<?php print $catsubject;?>&nbsp;<b>|</b>&nbsp;
                     <b><?php print t('Area');?>:</b>&nbsp;<?php print $catarea;?>&nbsp;<b>|</b>&nbsp;
                     <b><?php print t('Detail');?>:</b>&nbsp;<?php print $catdetail;?>&nbsp;
