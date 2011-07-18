@@ -11,7 +11,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
     } ?> clear-block">
 
     <?php print $picture ?>
-  
+ 
        <div class="titl"> <a style="<?php print $style; ?>" href="<?php print $node_url; ?>" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></div>
          <div class="meta">
         <?php if ($submitted): ?>
