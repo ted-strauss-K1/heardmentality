@@ -402,7 +402,7 @@ if($form_id == 'subscriptions_add_form'){
       $form['#submit'][] = 'add_subscription_notify';
 }
 if($form_id=='issue_add_vote'){
-
+  $form['vote']['#submit'][]='choice_vote_date_update';
     $form['vote']['#submit'][] = 'add_vote_notify';
      $form['vote']['#submit'][] = 'chk_profile_complete';
     $form['#validate'][]='check_user_anonymous';
@@ -410,6 +410,7 @@ if($form_id=='issue_add_vote'){
 }
 if($form_id=='issue_edit_vote'){
   // $form['#action'] = 'qlite/view/'.$form['#nid'];
+        $form['#submit'][]='choice_vote_date_update';
        $form['#submit'][] = 'chk_profile_complete';
 }
     if ($form_id == 'poll_node_form') {
@@ -447,7 +448,20 @@ $form['op']=false;
         //print_r($form);exit;
     }
 }
+function choice_vote_date_update($form, &$form_state) {
+    global $user;
+    echo '<pre>';
+    print_r($form);
+        //update the date that has to be set while adding or editing vote due to merge issue problem
+     $nid = !empty($form['#nid'])?$form['#nid']:$form['#node']->nid;
+     $date_time = date("y-m-d H:i:s", time());
+     //$date_time=strtotime($date_time);
 
+    db_query("update {poll_votes} set `date_voted`='$date_time' where uid=%d and nid=%d",$user->uid,$nid);
+
+    //update the date that has to be set while adding or editing vote
+
+}
 function _test_helper_story_node_form_validate($form, &$form_state) {
     if ($form_state['values']['title'] == "Testing") {
         form_set_error('title', t('No testing allowed!'));

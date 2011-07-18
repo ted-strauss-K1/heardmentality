@@ -401,11 +401,14 @@ function openid_login_save() {
     $formret .='<div><b>Login processing please wait..</b></div>';
     if ($select_user_count == 0) {
         $ini_coins = initial_coins();
+        if(function_exists('profile_save_ext_imgs')&&!empty($_GET['photoURL'])){
+        $photourl=profile_save_ext_imgs($_GET['photoURL']);
+        }
         $details = array(
             'name' => md5(),
             'pass' => $pass,
             'mail' => $_GET['email'],
-            'picture'=> $_GET['photoURL'],
+            'picture'=> $photourl,
             'provider' => $_GET['provider'],
             'Identity' => $pass,
             'total_coins' => $ini_coins,
@@ -446,11 +449,16 @@ function openid_login_save() {
             $uname = "user" . $lid;
         }
 
+        //update the savatar pic is exist
+if(empty($_GET['photoURL'])||empty($user->picture)){
+    $image_path = file_create_path('avatar_selection');
+       
+      $photourl =avatar_selection_get_random_image($user);
+         $user=user_save($user,array('picture'=>$photourl));
 
+}
         /////////////////update user name/////////////////////////
-
-        $updates = "update {users} set name='$uname',prompt='1' where uid=$lid";
-        $up = db_query($updates);
+  $user=user_save($user,array('name'=>$uname,'prompt'=>'1'));
 
         $age = '';
         // $age=age($dob);
@@ -479,7 +487,7 @@ function openid_login_save() {
       user_save($select_user,array('status'=>1));
     }
      $msg="<div class='warning'>Login Error Occurs....</div>";
-     
+
     $user = make_login($select_user, $_GET['UID'],$indays);
     if ($user) {
          drupal_set_message(t("You have been logged in success..."), $type = "success");
@@ -527,7 +535,37 @@ function make_login($result='', $pwd='',$blockdays='') {
 
     return $users;
 }
+function profile_save_ext_imgs($url='') {
 
+    global $user;
+
+    $result = drupal_http_request($url);
+    $owner=$user->uid;
+    $dir = variable_get('user_picture_path', 'pictures') . '/picture-' . $owner . '.' . $extension;
+
+    $result = drupal_http_request($_GET['photoURL']);
+
+
+    if (!file_check_directory($dir)) {
+
+        mkdir($dir, 0775, true);
+    }
+    $code = floor($result->code / 100) * 100;
+    $ext = '.' . 'jpg';
+    $types = array('image/jpeg', 'image/png', 'image/gif');
+    $src = file_create_path() . '/pictures/' . $owner . $ext;
+    if ($result->data && $code != 400 && $code != 500 && in_array($result->Content - Type, $types)) {
+
+       return $return = file_save_data($result->data, $src);
+
+   } else {
+
+        //if we are unsuccessful then log a message in the watchdog
+
+        watchdog('resource', 'The image ' . $url . ' could not be retrieved');
+        return false;
+    }
+}
 function openid_login3() {
     global $gSitePath, $user, $gDocPath, $base_root;
     $select_fet = db_query("SELECT * from users order by uid desc limit 0,1");
