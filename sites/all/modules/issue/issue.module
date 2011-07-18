@@ -402,9 +402,10 @@ if($form_id == 'subscriptions_add_form'){
       $form['#submit'][] = 'add_subscription_notify';
 }
 if($form_id=='issue_add_vote'){
-  $form['vote']['#submit'][]='choice_vote_date_update';
-    $form['vote']['#submit'][] = 'add_vote_notify';
-     $form['vote']['#submit'][] = 'chk_profile_complete';
+ // echo '<pre>';print_r($form);exit;
+    $form['#submit'][]='choice_vote_date_update';
+    $form['#submit'][] = 'add_vote_notify';
+     $form['#submit'][] = 'chk_profile_complete';
     $form['#validate'][]='check_user_anonymous';
   //echo $form_id."<pre>";  print_r($form);exit;
 }
@@ -450,8 +451,8 @@ $form['op']=false;
 }
 function choice_vote_date_update($form, &$form_state) {
     global $user;
-    echo '<pre>';
-    print_r($form);
+    //echo '<pre>';
+    //print_r($form);
         //update the date that has to be set while adding or editing vote due to merge issue problem
      $nid = !empty($form['#nid'])?$form['#nid']:$form['#node']->nid;
      $date_time = date("y-m-d H:i:s", time());
@@ -1733,8 +1734,8 @@ function add_vote_notify($form, &$form_state){
     global $user;
     /*New SET NOTIFY LOG*/
     //echo '<pre>'; print_r($form);
-    $nid = $form['#node']->nid;
-    $choice = $form['vote']['#post']['choice'];
+    $nid = $form['#nid'];
+    $choice = $form['#post']['choice'];
     $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
     $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $choice);
     set_notify_log($user->uid, $nid, 'add_vote', $variable);
