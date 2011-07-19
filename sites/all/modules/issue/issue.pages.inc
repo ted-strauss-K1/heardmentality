@@ -1333,9 +1333,32 @@ function search_issue_results(){
     $state = arg(6)!='0'?arg(6):'';
     $city = arg(7)!='0'?arg(7):'';
 
+    $sortValue = arg(8)!=''?arg(8):'all';
+    $where = '';
+    $groupBy = '';
+    
+    switch($sortValue){
+        case 'alltime':
+            $sortBy = 'ORDER BY SUM(pc.chvotes) DESC';
+            $groupBy = 'GROUP BY pc.nid';
+            break;
+        case '7days':
+            $where .= 'AND pv.date_voted >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
+            $sortBy = 'ORDER BY SUM(pc.chvotes) DESC';
+            $groupBy = 'GROUP BY pc.nid';
+            break;
+        case 'views':
+            $sortBy = 'ORDER BY COUNT(qv.qid) DESC';
+            $groupBy = 'GROUP BY qv.qid';
+            break;
+        default:
+            $sortBy = 'ORDER BY n.nid DESC';
+            break;
+    }
+
     $rec_per_page = 5;
 
-    $where = '';
+    
     $val = array();
     // conditions
     if(!empty($key)){
@@ -1377,12 +1400,15 @@ function search_issue_results(){
     // filter with default language if issue key is empty
     $langFilter = $key==''?"AND n.language = '$curLanguage'":'';
 
-   $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
+ echo  $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
             JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
             JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
             JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+            JOIN {poll_choices} AS pc ON n.nid = pc.nid
+            LEFT JOIN {poll_votes} AS pv ON n.nid = pv.nid
             LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
-            WHERE n.type = 'poll' $langFilter $where";
+            LEFT JOIN {qviews} AS qv ON n.nid = qv.qid
+            WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy"; exit;
    $sqlcount = ExecuteQuery($sql, 'norows');
 
    $final = call_user_func_array('sprintf', array_merge((array) $sql, $val));
@@ -1395,7 +1421,24 @@ function search_issue_results(){
 //            $sort_parameters = 'ORDER BY score DESC');
 
     $count = db_affected_rows($query);
-    if($count){
+    if($sqlcount){
+
+    $key = arg(1)!=''?arg(1):'0';
+    $subject = arg(2)!=''?arg(2):'0';
+    $area = arg(3)!=''?arg(3):'0';
+    $detail = arg(4)!=''?arg(4):'0';
+    $country = arg(5)!=''?arg(5):'0';
+    $state = arg(6)!=''?arg(6):'0';
+    $city = arg(7)!=''?arg(7):'0';
+
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+
+
+    $key_path = $sitelink.'issues/'.$key.'/'.$subject.'/'.$area.'/'.$detail.'/'.$country.'/'.$state.'/'.$city;
+    $issue .= 'SORT BY:&nbsp;<a href="'.$key_path.'/alltime">'.t('# of Votes all-time').'</a>&nbsp;|&nbsp;'
+              .'<a href="'.$key_path.'/7days">'.t('# of Votes last 7 days').'</a>&nbsp;|&nbsp;'
+                .'<a href="'.$key_path.'/views">'.t('# Views all-time').'</a>';
     while($result = db_fetch_object($query)){
         $nid = $result->nid;
         $node = node_load($nid);
