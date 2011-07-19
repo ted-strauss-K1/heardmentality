@@ -1389,13 +1389,13 @@ function search_issue_results(){
             $sortBy = 'ORDER BY SUM(pc.chvotes) DESC';
             $groupBy = 'GROUP BY pc.nid';
 
-            $sql = "SELECT pc.nid FROM {poll_choices} AS pc LEFT JOIN 
-                {node} AS n ON pc.nid = n.nid
+            $sql = "SELECT pc.nid FROM {poll_choices} AS pc JOIN 
+                (SELECT DISTINCT(n.nid) FROM {node} AS n
                 JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
                 JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
                 JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
                 LEFT JOIN {term_node} AS tn ON n.nid = tn.nid 
-                WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
+                WHERE n.type = 'poll' $langFilter $where) AS temp ON pc.nid = temp.nid $groupBy $sortBy";
             break;
         case '7days':
             $where .= 'AND pv.date_voted >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
