@@ -76,11 +76,11 @@ function moderator_menu() {
         'type' => MENU_SUGGESTED_ITEM,
         'file' => 'moderator.pages.inc',
     );
-    $mdtrest['moderator/issue/ahah/%/%/%'] = array(
+    $mdtrest['moderator/issue/ahah/%/%'] = array(
         'title' => 'Moderator Ahah Control',
         'page callback' => 'moderator_ahah_callback',
-        'access arguments' => array('ahah search'),
-        'page arguments' => array(3,4,5),
+        'access arguments' => array('Moderate Question'),
+        'page arguments' => array(3,4),
     );
     $mdtrest['moderator/issue/addanswer'] = array(
         'title' => 'Moderator Ahah Control',
@@ -533,7 +533,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
     
     $ecat1 = explode(",", $cat);
     while ($list = db_fetch_object($client_select)) {
-        $options[$list->cat_id] = stripslashes($list->cat_name);
+        $options[$list->cat_id] = t(stripslashes($list->cat_name));
     }
     $form['cat1'] = array('#type' => 'hidden',
                             '#default_value' => $cat, '#id' => 'cat1');
@@ -546,7 +546,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
                                 '#id' => 'q_cat',
                                 '#ahah' => array('wrapper' => 'sub-cat-wrapper',
                                                 'event' => 'click',
-                                                'path' => 'moderator/issue/ahah/category/scat/mod',
+                                                'path' => 'moderator/issue/ahah/category/scat',
                                                 'effect' => 'fade',
                                                 'method' => 'replace'),
                                 '#size' => 5,
@@ -594,7 +594,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
                                 '#multiple' => 'multiple',
                                 '#id' => 'q_country',
                                 '#ahah' => array('wrapper' => 'state-wrapper',
-                                                'path' => 'moderator/issue/ahah/location/state/mod',
+                                                'path' => 'moderator/issue/ahah/location/state',
                                                 'effect' => 'fade',
                                                 'event' => 'click',),
                                 '#size' => 5,
@@ -2274,7 +2274,7 @@ function meta_data_generate($i = '', $pos_spectrum = array()){
 
 
 
-function moderator_ahah_callback($type = '', $key = '', $from = ''){
+function moderator_ahah_callback($type = '', $key = ''){
 
    if($type == 'category'){
       $qid = $_POST['qid'];
@@ -2291,30 +2291,16 @@ function moderator_ahah_callback($type = '', $key = '', $from = ''){
   
 //print_r($cat);exit;
       if($key == 'scat'){
-        if($from == 'mod'){
+        
            $catids = $_POST['q_cat'];
            $fieldName1 = 'q_scat'   ;
-        }else{
-           $catids[] = $_POST['subject'];
-           $catids = empty($catids[0])?array():$catids;
-           $fieldName1 = 'area';
-           $options[''] = t('AREA');
-
-           $defArea = $_POST['defarea'];
-        }
+        
       }
       if($key == 'sscat'){
-          if($from == 'mod'){
+          
             $catids = $_POST['q_scat'];
             $fieldName2 = 'q_sscat'   ;
-          }else{
-            $catids[] = $_POST['area'];
-            $catids = empty($catids[0])?array():$catids;
-            $fieldName2 = 'detail'   ;
-            $options[''] = t('DETAIL');
-
-            $defDetail = $_POST['defdetail'];
-          }
+          
       }
        $cids = implode(",",$catids);
        // SET SUB CATEGORIES
@@ -2333,7 +2319,7 @@ function moderator_ahah_callback($type = '', $key = '', $from = ''){
        $i=0;
        if(count($stid)>0){
        foreach($stid as $value => $scid){
-           $options[$scid] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '".$scid."'"));
+           $options[$scid] = t(db_result(db_query("SELECT name FROM {term_data} WHERE tid = '".$scid."'")));
            $i++;
        }
        }else{
@@ -2342,12 +2328,12 @@ function moderator_ahah_callback($type = '', $key = '', $from = ''){
        //print_r($firstLevel); exit;
        //print_r($keys[0]);exit;
        if($key == 'scat'){
-           if($from == 'mod'){
+           
                $fields['q_scat'] = array('#type' => 'select',
                                     '#options' => $options ,
                                     '#multiple' => 'multiple',
                                     '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
-                                                    'path' => 'moderator/issue/ahah/category/sscat/mod',
+                                                    'path' => 'moderator/issue/ahah/category/sscat',
                                                     'effect' => 'fade',
                                                     'event' => 'click',
                                                     ),
@@ -2355,38 +2341,18 @@ function moderator_ahah_callback($type = '', $key = '', $from = ''){
                                     '#value' => $cat,
                                     '#id' => 'q_scat',
                                     );
-           }else{
-               $fields['area'] = array('#type' => 'select',
-                                    '#options' => $options ,
-
-                                    '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
-                                                    'path' => 'moderator/issue/ahah/category/sscat/search',
-                                                    'effect' => 'fade',
-                                                    'event' => 'change',
-                                                    ),
-
-                                    '#attributes' => array('class'=>'selectbox-sm'),
-                                    '#id' => 'area',
-                                    '#value' => $defArea,
-                                    );
-           }
+           
        $output .= ahah_render($fields, $fieldName1);
        }
        if($key == 'sscat'){
-        if($from == 'mod'){
+        
            $fields['q_sscat'] = array('#type' => 'select',
                                     '#options' => $options ,
                                     '#multiple' => 'multiple',
                                     '#size' => 5,
                                     '#value' => $cat,
                                     '#id' => 'q_sscat');
-        }else{
-            $fields['detail'] = array('#type' => 'select',
-                                    '#options' => $options ,
-                                    '#attributes' => array('class'=>'selectbox-sm'),
-                                    '#id' => 'detail',
-                                    '#value' => $defDetail);
-        }
+        
        $output .= ahah_render($fields, $fieldName2);
        }
     
@@ -2399,15 +2365,10 @@ function moderator_ahah_callback($type = '', $key = '', $from = ''){
            while($list = db_fetch_object($sQuery)){
                $selectedStates[] = $list->state_code;
            }
-           if($from == 'mod'){
+           
            $countryNames = $_POST['q_country'];
            $fieldNameState = 'q_state';
-           }else{
-           $countryNames[] = $_POST['country'];
-           $fieldNameState = 'state';
-           $states[] = t('STATE');
-           $defstate = $_POST['defstate'];
-           }
+           
            
            if(!empty($countryNames)){
 
@@ -2433,28 +2394,17 @@ function moderator_ahah_callback($type = '', $key = '', $from = ''){
            }else{
                $states[] = t('No countries selected');
            }
-           if($from == 'mod'){
+           
             $fields['q_state'] = array('#type' => 'select', '#options' => $states,
                                         '#multiple' => 'multiple',
                                         '#ahah' => array('wrapper' => 'city-wrapper',
-                                                'path' => 'moderator/issue/ahah/location/city/mod',
+                                                'path' => 'moderator/issue/ahah/location/city',
                                                 'effect' => 'fade',
                                                 'event' => 'click',),
                                         '#size' => 5,
                                         '#id' => 'q_state',
                                         '#value' => $selectedStates);
-           }else{
-               $fields['state'] = array('#type' => 'select', '#options' => $states,
-                                        
-                                        '#ahah' => array('wrapper' => 'city-wrapper',
-                                                'path' => 'moderator/issue/ahah/location/city/search',
-                                                'effect' => 'fade',
-                                                'event' => 'change',),
-                                        '#attributes' => array('class'=>'selectbox-sm'),
-                                        '#value' => $defstate,
-                                        '#id' => 's_state',
-                                        );
-           }
+           
             $output .= ahah_render($fields, $fieldNameState);
         }
         if($key == 'city'){
@@ -2467,16 +2417,11 @@ function moderator_ahah_callback($type = '', $key = '', $from = ''){
 
           // print_r($selectedCities);
 
-            if($from == 'mod'){
+            
 
             $steateIds = $_POST['q_state'];
             $fieldNameCity = 'q_city';
-            }else{
-            $steateIds[] = $_POST['state'];
-            $fieldNameCity = 'city';
-            $cities[] = t('CITY');
-            $defcity = $_POST['defcity'];
-            }
+            
             if(!empty($steateIds)){
             foreach ($steateIds as $code) {
                     $explode = explode(',', $code);
@@ -2489,18 +2434,12 @@ function moderator_ahah_callback($type = '', $key = '', $from = ''){
             }else{
                 $cities[] = t('No states selected');
             }
-            if($from == 'mod'){
+            
             $fields['q_city'] = array('#type' => 'select', '#options' => $cities,
                                         '#multiple' => 'multiple',
                                         '#size' => 5,
                                         '#value' => $selectedCities);
-            }else{
-             $fields['city'] = array('#type' => 'select', 
-                                    '#options' => $cities,
-                                    '#attributes' => array('class'=>'selectbox-sm'),
-                                    '#value' => $defcity
-                                        );
-            }
+           
             $output .= ahah_render($fields, $fieldNameCity);
         }
    }

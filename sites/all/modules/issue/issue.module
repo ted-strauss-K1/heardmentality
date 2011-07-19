@@ -112,6 +112,12 @@ $menu['issues'] = array(
         'type' => MENU_SUGGESTED_ITEM,
         'file'=>'issue.pages.inc'
     );
+$menu['issue/ahah/%/%'] = array(
+        'title' => 'Issue Ahah Control',
+        'page callback' => 'issue_ahah_callback',
+        'access arguments' => array('issue list'),
+        'page arguments' => array(2,3),
+    );
 
 
     return $menu;
@@ -2245,5 +2251,200 @@ function get_input_language($title = ''){
     return $language;
 }
 
+// issue ahah calllback
+function issue_ahah_callback($type = '', $key = ''){
+
+   if($type == 'category'){
+      
+
+      if($key == 'scat'){
+        
+           $catids[] = $_POST['subject'];
+           $catids = empty($catids[0])?array():$catids;
+           $fieldName1 = 'area';
+           $options[''] = t('AREA');
+
+           $defArea = $_POST['defarea'];
+       
+      }
+      if($key == 'sscat'){
+          
+            $catids[] = $_POST['area'];
+            $catids = empty($catids[0])?array():$catids;
+            $fieldName2 = 'detail'   ;
+            $options[''] = t('DETAIL');
+
+            $defDetail = $_POST['defdetail'];
+          
+      }
+       $cids = implode(",",$catids);
+       // SET SUB CATEGORIES
+
+       $scats = array();
+
+       foreach($catids as $catid){
+       $ids = taxonomy_get_children($catid);
+       foreach($ids as $tid=>$value){
+            $stid[] = $tid;
+       }
+
+       array_push($scats, $stid);
+       }
+      // print_r($stid);exit;
+       $i=0;
+       if(count($stid)>0){
+       foreach($stid as $value => $scid){
+           $cnt = taxonomy_term_count_nodes($scid);
+           if($cnt!=0){
+           $options[$scid] = t(db_result(db_query("SELECT name FROM {term_data} WHERE tid = '".$scid."'")));
+           }
+           $i++;
+       }
+       }
+       //print_r($firstLevel); exit;
+       //print_r($keys[0]);exit;
+       if($key == 'scat'){
+          
+               $fields['area'] = array('#type' => 'select',
+                                    '#options' => $options ,
+
+                                    '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
+                                                    'path' => 'issue/ahah/category/sscat',
+                                                    'effect' => 'fade',
+                                                    'event' => 'change',
+                                                    ),
+
+                                    '#attributes' => array('class'=>'selectbox-sm'),
+                                    '#id' => 'area',
+                                    '#value' => $defArea,
+                                    );
+           
+       $output .= ahah_render($fields, $fieldName1);
+       }
+       if($key == 'sscat'){
+        
+            $fields['detail'] = array('#type' => 'select',
+                                    '#options' => $options ,
+                                    '#attributes' => array('class'=>'selectbox-sm'),
+                                    '#id' => 'detail',
+                                    '#value' => $defDetail);
+        
+       $output .= ahah_render($fields, $fieldName2);
+       }
+
+   }
+   elseif($type == 'location'){
+        
+        if($key == 'state'){
+           // select state
+           
+          
+           $countryNames[] = $_POST['country'];
+           $fieldNameState = 'state';
+           $states[] = t('STATE');
+           $defstate = $_POST['defstate'];
+           
+
+           if(!empty($countryNames)){
+
+            $countryList = geonames_query('countryinfo',NULL, $options);
+           foreach ($countryNames as $country) {
+
+                $xyz=geonames_countryinfo($country);
+                //print_r($xyz);
+                    foreach($countryList->results as $countryss){
+                        if($country == $countryss['countryname']){
+                            $geoid=$countryss['geonameid'];
+                            break;
+                        }
+                    }
+
+                  $query = array('geonameid' => $geoid);
+                    $results = geonames_query('children', $query);
+                    foreach ($results->results as $state) {
+                        $states[$state['geonameid']] = $state['name'];
+                    }
+                   // print_r($states);
+                }
+           }else{
+               $states[] = t('No countries selected');
+           }
+           
+               $fields['state'] = array('#type' => 'select', '#options' => $states,
+
+                                        '#ahah' => array('wrapper' => 'city-wrapper',
+                                                'path' => 'issue/ahah/location/city',
+                                                'effect' => 'fade',
+                                                'event' => 'change',),
+                                        '#attributes' => array('class'=>'selectbox-sm'),
+                                        '#value' => $defstate,
+                                        '#id' => 's_state',
+                                        );
+           
+            $output .= ahah_render($fields, $fieldNameState);
+        }
+        if($key == 'city'){
+
+            
+            $steateIds[] = $_POST['state'];
+            $fieldNameCity = 'city';
+            $cities[] = t('CITY');
+            $defcity = $_POST['defcity'];
+            
+            if(!empty($steateIds)){
+            foreach ($steateIds as $code) {
+                    $explode = explode(',', $code);
+                    $query = array('geonameid' => $explode[0]);
+                    $result = geonames_query('children', $query);
+                    foreach ($result->results as $state) {
+                      $cities[$state['geonameid'].$explode[0].$explode[1]] = $state['name'];
+                    }
+                }
+            }else{
+                $cities[] = t('No states selected');
+            }
+            
+             $fields['city'] = array('#type' => 'select',
+                                    '#options' => $cities,
+                                    '#attributes' => array('class'=>'selectbox-sm'),
+                                    '#value' => $defcity
+                                        );
+            
+            $output .= ahah_render($fields, $fieldNameCity);
+        }
+   }
+
+// set ahah behaviour for inner rendering buttons
+  // AHAH is not being nice to us and doesn't know the "other" button (that is,
+  // either "Upload" or "Delete") yet. Which in turn causes it not to attach
+  // AHAH behaviours after replacing the element. So we need to tell it first.
+
+  // Loop through the JS settings and find the settings needed for our buttons.
+  $javascript = drupal_add_js(NULL, NULL);
+  $filefield_ahah_settings = array();
+  if (isset($javascript['setting'])) {
+    foreach ($javascript['setting'] as $settings) {
+      if (isset($settings['ahah'])) {
+        foreach ($settings['ahah'] as $id => $ahah_settings) {
+
+            $filefield_ahah_settings[$id] = $ahah_settings;
+
+        }
+      }
+   }
+  }
+
+  // Add the AHAH settings needed for our new buttons.
+  if (!empty($filefield_ahah_settings)) {
+    $output .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, '. drupal_to_js($filefield_ahah_settings) .');</script>';
+  }
+
+
+
+
+   //print drupal_to_js(array('data' => $output, 'status' => true));
+  print drupal_json(array('data' => $output, 'status' => true));
+
+}
 
 

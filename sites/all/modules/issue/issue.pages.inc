@@ -1221,13 +1221,13 @@ function issues_list(){
 }
 function issue_search_form(&$form_state){
     //$form['#method'] = 'get';
-    $key = arg(1)=='0'?'':arg(1);
-    $subject = arg(2);
-    $area = arg(3);
-    $detail = arg(4);
-    $getcountry = arg(5);
-    $getState = arg(6);
-    $getCity = arg(7);
+    $key = arg(1)=='0'?'':check_plain(arg(1));
+    $subject = check_plain(arg(2));
+    $area = check_plain(arg(3));
+    $detail = check_plain(arg(4));
+    $getcountry = check_plain(arg(5));
+    $getState = check_plain(arg(6));
+    $getCity = check_plain(arg(7));
     
     $form['issue_key'] = array('#type' => 'textfield',
                                 '#title' => t('SEARCH ISSUES'),
@@ -1239,7 +1239,10 @@ function issue_search_form(&$form_state){
     $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
     $options[''] = 'SUBJECT';
     while ($list = db_fetch_object($client_select)) {
-        $options[$list->cat_id] = stripslashes($list->cat_name);
+        $cnt = taxonomy_term_count_nodes($list->cat_id);
+        if($cnt!=0){
+        $options[$list->cat_id] = t(stripslashes($list->cat_name));
+        }
     }
     $form['subject'] = array('#type' => 'select',
                             '#options' => $options,
@@ -1247,7 +1250,7 @@ function issue_search_form(&$form_state){
                             '#suffix' => '</div>',
                             '#ahah' => array('wrapper' => 'sub-cat-wrapper',
                                                 'event' => 'change',
-                                                'path' => 'moderator/issue/ahah/category/scat/search',
+                                                'path' => 'issue/ahah/category/scat',
                                                 'effect' => 'fade',
                                                 'method' => 'replace'),
                             '#attributes' => array('class'=>'selectbox-sm'),
@@ -1276,7 +1279,7 @@ function issue_search_form(&$form_state){
                             '#prefix' => '<div style="float:left;">',
                             '#suffix' => '</div>',
                             '#ahah' => array('wrapper' => 'state-wrapper',
-                                                'path' => 'moderator/issue/ahah/location/state/search',
+                                                'path' => 'issue/ahah/location/state',
                                                 'effect' => 'fade',
                                                 'event' => 'change',),
                             '#attributes' => array('class'=>'selectbox-sm'),
@@ -1343,27 +1346,27 @@ function search_issue_results(){
 
     
     $val = array();
-    // conditions
+    // conditions key
     if(!empty($key)){
         $where .= " AND MATCH(nr.title, nr.body) AGAINST('%s')";
         $val[] = $key;
         
     }
-    if(!empty($subject)){
-        $where .= " AND tn.tid = '%d'";
-        $val[] = $subject;
-        
-    }
-    if(!empty($area)){
-        $where .= " AND tn.tid = '%d'";
-        $val[] = $area;
-        
-    }
+    // categories
     if(!empty($detail)){
         $where .= " AND tn.tid = '%d'";
         $val[] = $detail;
         
+    }elseif(!empty($area)){
+        $where .= " AND tn.tid = '%d'";
+        $val[] = $area;
+        
+    }elseif(!empty($subject)){
+        $where .= " AND tn.tid = '%d'";
+        $val[] = $subject;
+        
     }
+    // locations
     if(!empty($country)){
         $where .= "AND cc.field_issue_country_value = '%s'";
         $val[] = $country;
@@ -1386,16 +1389,16 @@ function search_issue_results(){
 
      switch($sortValue){
         case 'alltime':
-            $sortBy = 'ORDER BY SUM(pc.chvotes) DESC';
-            $groupBy = 'GROUP BY pc.nid';
+            $sortBy = 'ORDER BY COUNT(pv.nid) DESC';
+            $groupBy = 'GROUP BY pv.nid';
 
-            $sql = "SELECT pc.nid FROM {poll_choices} AS pc JOIN 
+            $sql = "SELECT pv.nid FROM {poll_votes} AS pv JOIN
                 (SELECT DISTINCT(n.nid) FROM {node} AS n
                 JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
                 JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
                 JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
                 LEFT JOIN {term_node} AS tn ON n.nid = tn.nid 
-                WHERE n.type = 'poll' $langFilter $where) AS temp ON pc.nid = temp.nid $groupBy $sortBy";
+                WHERE n.type = 'poll' $langFilter $where) AS temp ON pv.nid = temp.nid $groupBy $sortBy";
             break;
         case '7days':
             $where .= 'AND pv.date_voted >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
@@ -1416,13 +1419,13 @@ function search_issue_results(){
             $sortBy = 'ORDER BY COUNT(qv.qid) DESC';
             $groupBy = 'GROUP BY qv.qid';
 
-            $sql = "SELECT DISTINCT(qv.qid) as nid FROM {qviews} AS qv 
-                    JOIN {node} AS n ON qv.qid = n.nid
+            $sql = "SELECT qv.qid as nid FROM {qviews} AS qv 
+                    JOIN (SELECT DISTINCT(n.nid) FROM {node} AS n
                     JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
                     JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
                     JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
                     LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
-                   WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
+                   WHERE n.type = 'poll' $langFilter $where) AS iss ON qv.qid = iss.nid $groupBy $sortBy";
 
             break;
         default:
