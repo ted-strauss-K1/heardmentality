@@ -1337,24 +1337,7 @@ function search_issue_results(){
     $where = '';
     $groupBy = '';
     
-    switch($sortValue){
-        case 'alltime':
-            $sortBy = 'ORDER BY SUM(pc.chvotes) DESC';
-            $groupBy = 'GROUP BY pc.nid';
-            break;
-        case '7days':
-            $where .= 'AND pv.date_voted >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
-            $sortBy = 'ORDER BY SUM(pc.chvotes) DESC';
-            $groupBy = 'GROUP BY pc.nid';
-            break;
-        case 'views':
-            $sortBy = 'ORDER BY COUNT(qv.qid) DESC';
-            $groupBy = 'GROUP BY qv.qid';
-            break;
-        default:
-            $sortBy = 'ORDER BY n.nid DESC';
-            break;
-    }
+   
 
     $rec_per_page = 5;
 
@@ -1400,15 +1383,65 @@ function search_issue_results(){
     // filter with default language if issue key is empty
     $langFilter = $key==''?"AND n.language = '$curLanguage'":'';
 
- echo  $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
+
+     switch($sortValue){
+        case 'alltime':
+            $sortBy = 'ORDER BY SUM(pc.chvotes) DESC';
+            $groupBy = 'GROUP BY pc.nid';
+
+            $sql = "SELECT pc.nid FROM {poll_choices} AS pc LEFT JOIN 
+                {node} AS n ON pc.nid = n.nid
+                JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+                JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+                JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+                LEFT JOIN {term_node} AS tn ON n.nid = tn.nid 
+                WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
+            break;
+        case '7days':
+            $where .= 'AND pv.date_voted >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
+            $sortBy = 'ORDER BY SUM(pc.chvotes) DESC';
+            $groupBy = 'GROUP BY pc.nid';
+
+            $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
             JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
             JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
             JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
             JOIN {poll_choices} AS pc ON n.nid = pc.nid
             LEFT JOIN {poll_votes} AS pv ON n.nid = pv.nid
             LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
-            LEFT JOIN {qviews} AS qv ON n.nid = qv.qid
-            WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy"; exit;
+            WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
+
+            break;
+        case 'views':
+            $sortBy = 'ORDER BY COUNT(qv.qid) DESC';
+            $groupBy = 'GROUP BY qv.qid';
+
+            $sql = "SELECT DISTINCT(qv.qid) as nid FROM {qviews} AS qv 
+                    JOIN {node} AS n ON qv.qid = n.nid
+                    JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+                    JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+                    JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+                    LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
+                   WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
+
+            break;
+        default:
+            $sortBy = 'ORDER BY n.nid DESC';
+            $groupBy = '';
+
+            $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
+            JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+            JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+            JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+            LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
+            WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
+
+            break;
+    }
+
+
+//echo $sql; exit;
+   
    $sqlcount = ExecuteQuery($sql, 'norows');
 
    $final = call_user_func_array('sprintf', array_merge((array) $sql, $val));
