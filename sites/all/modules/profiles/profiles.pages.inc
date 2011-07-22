@@ -1297,7 +1297,7 @@ function get_privacy_form() {
 }
 
 function get_avatar_form() {
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey, $theme;
     $form = array();
     drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js');
     drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
@@ -1390,7 +1390,7 @@ var avtar=\'' . $account->avatar . '\';
         '#type' => 'textfield',
         '#prefix' => '<div class="social-outer-new">
                           <div class="social-left-new">
-                          <img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-face.jpg"></div>
+                          <img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-face.jpg"></div>
                           <div class="social-rite-new">',
         '#description' => t(''),
         '#default_value' => variable_get('facebook', $social[0]),
@@ -1401,7 +1401,7 @@ var avtar=\'' . $account->avatar . '\';
     $form['twitter'] = array(
         '#type' => 'textfield',
         '#prefix' => '<div class="social-outer-new">
-                          <div class="social-left-new"><img width="26" height="27" alt="Twitter" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-twit.jpg"></div>
+                          <div class="social-left-new"><img width="26" height="27" alt="Twitter" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-twit.jpg"></div>
                           <div class="social-rite-new">',
         '#description' => t(' '),
         '#default_value' => variable_get('twitter', $social[1]),
@@ -1432,7 +1432,7 @@ var avtar=\'' . $account->avatar . '\';
       </div>');
 
     $form['hiddentop'] = array('#type' => 'markup', '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
-    $form = $form + inc_avatar_form();
+    $form = $form + inc_avatar_form($form, $form_state);
     $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
     $languages = i18n_language_list();
     $form['default_language'] = array('#type' => 'select', '#prefix' => t('Default Language'), 

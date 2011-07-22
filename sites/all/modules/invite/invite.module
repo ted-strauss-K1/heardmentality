@@ -61,7 +61,7 @@ function htmlmail_function($to, $subject, $message, $headers = NULL) {
    
     $from = variable_get('site_mail');
 // To send HTML mail, the Content-type header must be set
-    $path =$base_url.'/'.drupal_get_path('theme', 'newtheme');
+    $path =$base_url.'/'.drupal_get_path('theme', $theme);
 
     $newmessage = '';
 

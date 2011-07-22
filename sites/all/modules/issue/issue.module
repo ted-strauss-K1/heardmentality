@@ -526,6 +526,8 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                     user_save($user, $user_data);
                 }
                 drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
+                // set context to display in front page 
+                $node->context=$node->body;
                 $node->style=drupal_link_color($user->uid, $node->nid);
                 if(user_is_logged_in()){
 
@@ -682,6 +684,9 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
              $blocks[1] = array(
                 'info' => t('Details Tab'),
             );
+             $blocks[2] = array(
+                'info' => t('Details Left'),
+            );
 
             return $blocks;
 
@@ -696,7 +701,9 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
                       $node=node_load($nid);
 
                       if(!empty($node)&&$node->type=='poll')
-                        $tab = issue_view_results($nid, false, false, true);
+                        //$tab = issue_view_results($nid, false, false, true);
+                        
+                        $tab = view_issue_results($nid);
                     }
 
 
@@ -763,13 +770,33 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
                     $block['content'] = $tab;
 
                      break;
+
+
+                 case '2':
+                     if(arg(0)=='node' && is_numeric(arg(1))){
+                         $nid = arg(1);
+                     }
+                     $nid = $nid!=''?$nid:get_qid();
+                     $block['subject'] = "Issue Details with Category & Location";
+                     $item = _issue_information($nid);
+                     if($item){
+                     $subject = $item['subject'];
+                     $area = $item['area'];
+                     $detail = $item['detail'];
+                     $postedby = $item['postedby'];
+                     $created = $item['created'];
+                     $original_nid = $item['original_nid'];
+                     $original_language = $item['original_language'];
+                     $orgLangKey = $item['orgLangKey'];
+                     
+                     $block['content'] = theme('issue_information',$nid, $created, $postedby, $subject, $area, $detail, $original_nid, $original_language, $orgLangKey);
+                     }
             }
             return $block;
     }
 }
 
 function issue_theme($existing, $type, $theme, $path) {
-
     return array(
         'issue_results' => array(
             'template' => 'issue_results',
@@ -779,7 +806,15 @@ function issue_theme($existing, $type, $theme, $path) {
             'arguments' => array('nid' => NULL, 'votes' => NULL),
         ), 'issue_answer' => array(
             'arguments' => array('form' => NULL),
+        ),'issue_information' => array(
+            'arguments' => array('nid' => NULL, 'created' => NULL, 'postedby' => NULL, 'subject' => NULL, 'area' => NULL, 'detail' => NULL, 'original_nid' => NULL, 'original_language' => NULL, 'orgLangKey' => NULL),
+        ),'issue_result_analysis' => array(
+            'arguments' => array('nid' => NULL),
+        ),'issue_detail_wrapper' => array(
+            'template' => 'issue_detail_wrapper',
+            'arguments' => array('nid' => NULL, 'result_analysis' => NULL),
         ),
+
     );
 }
 
@@ -1363,7 +1398,7 @@ function get_taxonomy_id($module = '', $name = ''){
 
 // list debate
 function list_debate($qid='', $type='') {
-    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
     $curLanguage = $language->language;
     $wave = '';
     $click = '';
@@ -1513,9 +1548,9 @@ function list_debate($qid='', $type='') {
 <div class="leftpartside">
 <div class="toppart"><p>'.$voteUp.'</p>
 
-<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
 <div class="toppart2"><p>'.$voteDown.'</p>
-<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
 </div>
 
@@ -2447,4 +2482,158 @@ function issue_ahah_callback($type = '', $key = ''){
 
 }
 
+
+////
+function _issue_information($nid = ''){
+    $node = node_load($nid);
+    $tnid = get_tnid($node->nid);
+    $users = user_load($node->uid);
+    // category lists
+    $ctitle = array();
+        $sctitle = array();
+        $ssctitle = array();
+        $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+        $csql = db_query("SELECT td.tid FROM {term_data} as td JOIN {term_hierarchy} as th ON td.tid = th.tid WHERE td.vid = '$vid' AND th.parent = 0");
+
+        $catVals = array();
+        while($cat = db_fetch_object($csql)){
+            $catVals[] = $cat->tid;
+        }
+        if(!empty($catVals)){
+
+            $cat = implode(",", $catVals);
+            $ncats = db_query("SELECT tid FROM {term_node} WHERE nid = '$tnid' AND tid IN($cat)");
+            while($ncat = db_fetch_object($ncats)){
+                $cat = $ncat->tid;
+                $ctitle[$cat] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$cat'"));
+                // parent categories
+                $scats = get_node_tree_child($cat, $tnid);
+                foreach($scats as $scat){
+                    $sctitle[$scat] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$scat'"));
+                    // first level categories
+                    $sscats = get_node_tree_child($scat, $tnid);
+                    foreach($sscats as $sscat){
+                        $ssctitle[$sscat] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$sscat'"));
+                        // second level categories
+                    }
+                }
+            }
+
+        }
+
+     // find originally posted language
+     $trans = node_load($tnid);
+     $orgLangKey = $trans->language;
+     $languages = language_list();
+     $orgLanguage = $languages[$orgLangKey]->name;
+     $path = drupal_get_path_alias('node/'.$tnid);
+
+     $values['subject'] = $ctitle;
+     $values['area'] = $sctitle;
+     $values['detail'] = $ssctitle;
+     $values['postedby'] = $users->name;
+     $values['created'] = format_date($node->created,"custom","M j Y");
+     $values['original_nid'] = $tnid;
+     $values['orgLangKey'] = $orgLangKey;
+     $values['original_language'] = $orgLanguage;
+     return $values;
+
+}
+
+// issue information theme
+function theme_issue_information($nid = '', $created = '', $postedby = '', $ctitle = array(), $sctitle = array(), $ssctitle = array(), $original_nid = '', $original_language = '', $orgLangKey = ''){
+    global $gSitePath;
+    $info = '';
+    $info .= '<div id="issue_information">';
+    // created details
+    $info .= '<div class="post-by">'.t('Issue posted on ').$created.'&nbsp;'
+           .t('By').'&nbsp;'.l($postedby,'profile/'.$postedby).'</div>';
+    //category details
+    $info .= '<div class="catarea">';
+    $info .= '<div class="cat-title">SUBJECT</div>';
+        if(!empty($ctitle)){
+        foreach($ctitle as $tid=>$subject){
+            $info .= l($subject,'issues/0/'.$tid.'/0/0/0/0/0').'<br />';
+        }}
+        else{
+            $info .= t('No subjects found').'<br />';
+        }
+    $info .= '</div>';
+    $info .= '<div class="catarea">';
+    $info .= '<div class="cat-title">AREA</div>';
+        if(!empty($sctitle)){
+        foreach($sctitle as $tid=>$area){
+            $parent = taxonomy_get_parents($tid);
+            $cid = array_keys($parent);
+            $info .= l($area,'issues/0/'.$cid[0].'/'.$tid.'/0/0/0/0').'<br />';
+        }}
+        else{
+            $info .= t('No areas found').'<br />';
+        }
+    $info .= '</div>';
+    $info .= '<div class="catarea">';
+    $info .= '<div class="cat-title">DETAIL</div>';
+        if(!empty($ssctitle)){
+        foreach($ssctitle as $tid=>$detail){
+             $sparent = taxonomy_get_parents($tid);
+             $ssid = array_keys($sparent);
+             $ssparent = taxonomy_get_parents($ssid[0]);
+             $cid = array_keys($ssparent);
+             $info .= l($detail,'issues/0/'.$cid[0].'/'.$ssid[0].'/'.$tid.'/0/0/0').'<br />';
+        }}
+        else{
+            $info .= t('No details found').'<br />';
+        }
+    $info .= '</div>';
+    // original language
+    $path = drupal_get_path_alias('node/'.$original_nid);
+    $info .= '<br />'.t('Issue originally written in').'&nbsp;'.$original_language.'<br />'
+               .l('Click to view in original language', $gSitePath.$orgLangKey.'/'.$path) ;
+    $info .= '</div>';
+    return $info;
+}
+
+
+
+
+// issue results , debates, resources
+function view_issue_results($nid = ''){
+   $results = theme('issue_result_analysis',$nid);
+   
+   return theme('issue_detail_wrapper', $nid, $results);
+}
+function theme_issue_result_analysis($nid = ''){
+    global $gSitePath;
+    module_load_include('inc', 'issue', 'issue.pages');
+    $results = '';
+    $results .= '<div class="result-analysis-title">RESULTS</div>';
+
+    
+    
+    //$results .=report_graph($nid);
+    $results .= '<div class="analysis-wrapper">';
+    $results .= '<div class="analysis-left">';
+        $results .= '<div class="result-analysis">';
+        $results .= report_percent($nid);
+        $results .= '</div><br />';
+
+        $results .= '<div class="goog-graph">';
+        $results .= report_map($nid);
+        $results .= '</div>';
+
+    $results .= '</div>';
+    $results .= '<div class="analysis-right">';
+        $results .= '<div class="vote-percent">';
+        $results .= report_vote_percent($nid);
+        $results .= '</div><br />';
+        $results .= '<div class="result-analysis">';
+        $results .= report_graph($nid);
+        $results .= '</div>';
+    $results .= '</div>';
+    $results .= '</div>';
+    
+    
+    //$results .= '<iframe style="height: 350px;" id="frmGoogle" scrolling="no" src="' . $gSitePath . '/issue/report/percent/' . $nid . '" border="0" frameborder="0" width="100%"></iframe>';
+    return $results;
+}
 

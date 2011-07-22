@@ -28,7 +28,7 @@ function hmnewsletter_menu() {
 function getFollowers($follwerQ='', $subject='') {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $base_url, $theme_path, $theme, $conf;
 
-    $path = drupal_get_path('theme', 'newtheme');
+    $path = drupal_get_path('theme', $theme);
 
 //    if (findtask() <= 3) {
 //        $follwerQ = db_query("
@@ -164,7 +164,7 @@ function getfollowers_monthly() {
 function getnonfollowers() {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme_path, $theme, $conf;
 
-    $path = drupal_get_path('theme', 'newtheme');
+    $path = drupal_get_path('theme', $theme);
     if (findtask() <= 3) {
         $nonfollwerQ = db_query("
 								SELECT DISTINCT u.`uid` FROM {users} AS u
@@ -254,7 +254,7 @@ function getnonfollowerquestion() {
 function preparemail($mailcontent, $receiver, $task = 'follower') {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $base_url, $theme_path, $theme, $conf;
 
-    $path = drupal_get_path('theme', 'newtheme');
+    $path = drupal_get_path('theme', $theme);
 
     $mail = '';
 
@@ -323,7 +323,7 @@ function preparemail($mailcontent, $receiver, $task = 'follower') {
 function preparemailcontent($follower_activites, $receiver_id) {
     global $gSitePath, $user, $gDocPath, $base_root, $base_path, $base_url, $theme_path, $theme, $conf;
 
-    $path = drupal_get_path('theme', 'newtheme');
+    $path = drupal_get_path('theme', $theme);
 //print_r($follower_activites);
     $uid_details = load_user($follower_activites[0]['uid']);
 

@@ -1757,11 +1757,11 @@ function quest_mail_warning($qids = '') {
 function moderate_quest() {
 
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme;
     drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
-    drupal_add_js(drupal_get_path('theme', 'newtheme') . '/floatbox/floatbox.js');
-    drupal_add_js(drupal_get_path('theme', 'newtheme') . '/floatbox/options.js');
-    drupal_add_css(drupal_get_path('theme', 'newtheme') . '/floatbox/floatbox.css');
+    drupal_add_js(drupal_get_path('theme', $theme) . '/floatbox/floatbox.js');
+    drupal_add_js(drupal_get_path('theme', $theme) . '/floatbox/options.js');
+    drupal_add_css(drupal_get_path('theme', $theme) . '/floatbox/floatbox.css');
 
     $start = '';
     $lkr = '';
@@ -3348,7 +3348,7 @@ $dupecount = db_affected_rows($result);
 
 function dupe_question() {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
 
     $qaid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
@@ -3369,7 +3369,7 @@ function dupe_question() {
 
     $output .= '<link rel="stylesheet" href="' . $gSitePath . 'modules/system/system.css" type="text/css" />
 
-	<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/css/css.css" type="text/css" />
+	<link rel="stylesheet" href="' . $gSitePath . drupal_get_path('theme', $theme) . '/css/css.css" type="text/css" />
 <link rel="stylesheet" href="' . $gSitePath . 'sites/all/modules/tagging/tagging.css" type="text/css" />';
 
     $output .='<div class="do-in2"><div class="do-intop">Dupe Search For "' . $q . '"</div><div class="inside2">';

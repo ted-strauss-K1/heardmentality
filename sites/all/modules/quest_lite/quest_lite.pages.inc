@@ -46,7 +46,7 @@ function hm_flag($qid, $last_id, $user, $admin) {
 
 //////////////insert front end mail notification//////////////////////
 function qlite_view() {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey, $theme;
     //echo $_SERVER['QUERY_STRING'];
     $lji = explode("=", $_SERVER['QUERY_STRING']);
 
@@ -76,7 +76,7 @@ function qlite_view() {
     drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js');
-    drupal_add_js(drupal_get_path('theme', 'newtheme') . '/scripts/jbubble.js');
+    drupal_add_js(drupal_get_path('theme', $theme) . '/scripts/jbubble.js');
    // drupal_set_html_head('<script>
      //       var uid="' . $user->uid . '";
 	//</script>');
@@ -222,7 +222,8 @@ function qlite_view() {
  */
     //likes
     $voutput.=node_view($oListquest, FALSE, true, true);
-    $block=issue_view_results($qid, false, false, true);
+    //$block=issue_view_results($qid, false, false, true);
+    $block=view_issue_results($qid);
     $voutput.='  <div class="clr"></div>';
     $voutput.=$block;
     /*  $query = "select sum(like_yes) as res from {question_like} where qid='" . $qid . "' group by qid ";
@@ -627,26 +628,26 @@ function qlite_view() {
             <!--<div class="tag">
              <span>Tags [<a href="#" onclick="loadtag(\'' . $gSitePath . 'qlite/addtag/' . $qid . '\',\'Edit Tags \'); ">Retag</a>]:</span>' . $instags . '</div>-->
             <div class="sharing-section">
-            <div  class="but-cont"><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
+            <div  class="but-cont"><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/but-left.jpg"></div>
               <a title="Bookmark" class="but butnew share-link" onclick="showShareUI();" href="javascript:void(0);">
                  <img ALIGN=ABSMIDDLE title="Share" alt="Share" src="' . $gSitePath . path_to_theme() . '/images/face-ic.jpg"/>&nbsp;
                     Share</a>
              <div class="but-right">
-           <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
+           <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/but-right.jpg"></div></div>
               <!-- <div class="share2">
             <a title="Invite" onclick="formsubmittype(2,' . $qid . ');" href="javascript:void(0);" class="share-link"> Invite</a>
              </div>-->
-            <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
+            <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/but-left.jpg"></div>
               '.$suggestButton.'
 <div class="but-right">
-           <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
+           <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/but-right.jpg"></div></div>
             <!-- <div class="share3">
         <a title="Create Mashup" class="share-link" onclick="formsubmittype(5,' . $qid . ');" href="javascript:void(0);">&lt;Embed&gt;</a>
              </div>-->
-  <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-left.jpg"></div>
+  <div  class=""><div class="but-left"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/but-left.jpg"></div>
              '.$flagButton.'
               <div class="but-right">
-           <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/but-right.jpg"></div></div>
+           <img width="7" height="24" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/but-right.jpg"></div></div>
 
             </div>
              <div class="clr"></div>

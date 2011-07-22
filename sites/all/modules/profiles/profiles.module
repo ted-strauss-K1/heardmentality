@@ -122,7 +122,7 @@ function get_state($code = '') {
 
 
 function UserPicture($mid, $profile='') {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme;
     $userslist=user_load(array('uid'=>$mid));
    // $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
     //$rs_image = db_query($selimage);
@@ -366,7 +366,7 @@ function user_facts() {
 }
 
 function load_bubble($uid = '') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
     //<img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40
     $medal = updateProfileBadge($uid);
     $details = load_user($uid);
@@ -386,9 +386,9 @@ function load_bubble($uid = '') {
                         <ul style="list-style-type:none">
                       
                         <li style="width:30px">' . t($ranking) . '<br /><span class="profInfo-value" title="' . $points . ' '.t('Points').'">' . $points . '</span></li>
-                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><br><span>' . $badges['gold'] . '</span></li>
-                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><br /><span>' . $badges['silver'] . '</span></li>
-                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><br /><span>' . $badges['bronze'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/cor-gold.jpg" /><br><span>' . $badges['gold'] . '</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/cor-silver.jpg" /><br /><span>' . $badges['silver'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/cor-gray.jpg" /><br /><span>' . $badges['bronze'] . '</span></li>
                         </ul>
                     </div>
                  </div>
@@ -402,7 +402,7 @@ function load_bubble($uid = '') {
 
 function load_user_badge($uid='',$search=''){
 
-     global $gSitePath, $user, $gDocPath, $base_root;
+     global $gSitePath, $user, $gDocPath, $base_root, $theme;
     //<img src="' . $gSitePath . path_to_theme() . '/images/yellow-dot.png" alt="yellow badge" />2 <img src="' . $gSitePath . path_to_theme() . '/images/violet-dot.png" alt="violet-badges" />4 <img src="' . $gSitePath . path_to_theme() . '/images/brown-dot.png" alt="brown badges" />40
     $medal = updateProfileBadge($uid);
     $details = load_user($uid);
@@ -428,9 +428,9 @@ function load_user_badge($uid='',$search=''){
                         <div class="profInfo-name">'.$link.'</div>
                             <div class="profInfo-name2">' . $ranking . '</div>
                         <ul >
-                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gold.jpg" /><span>' . $badges['gold'] . '</span></li>
-                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-silver.jpg" /><span>' . $badges['silver'] . '</span></li>
-                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/cor-gray.jpg" /><span>' . $badges['bronze'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gold" title="' . $badges['gold'] . ' Golds" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/cor-gold.jpg" /><span>' . $badges['gold'] . '</span></li>
+                        <li><img width="10" height="10" alt="Silver" title="' . $badges['silver'] . ' Silvers" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/cor-silver.jpg" /><span>' . $badges['silver'] . '</span></li>
+                        <li><img width="10" height="10" alt="Gray" title="' . $badges['bronze'] . ' Bronzes" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/cor-gray.jpg" /><span>' . $badges['bronze'] . '</span></li>
                         </ul>
                     </div>
                  </div>
@@ -895,7 +895,7 @@ if (($userSettings['marital'] == 1) || ($userSettings['marital'] == 2 && $user->
 }
 
 function profile_tab($tab='', $uid='') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
 
     //bio privacy settings
     $userSettings = checkPrivacySettings($uid);
@@ -1157,7 +1157,7 @@ function leghist_cck_alter(&$form) {
 // Edit Profile
 function profile_edit($step='') {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey, $theme;
     drupal_add_js(drupal_get_path('module', 'profiles') . '/js/profile.js');
 
 
@@ -1340,7 +1340,7 @@ Don’t be part of the Herd</strong></p>
     <div align="center"><br />
 
     <p class="pro-text2">To learn more about Heard Mentality see this short tour of the features available to youTake</p><br />
-<p><a href="#"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/site-tour.png" width="264" height="45" alt="Take the site tour" /></a></p>
+<p><a href="#"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/site-tour.png" width="264" height="45" alt="Take the site tour" /></a></p>
 
     </div>
 
@@ -1398,7 +1398,7 @@ Don’t be part of the Herd</strong></p>
         ligula accumsan ante rutrum at eleifend elit
         bibendum. Suspendisse lobortis sollicitudin ultrices.
         Sed tincidunt convallis</p>
-      <p><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/map-step1.jpg" width="369" height="184" alt="Map" /></p>
+      <p><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/map-step1.jpg" width="369" height="184" alt="Map" /></p>
     </div>
     <div class="pro-content-right">
       <div class="form-outer">
@@ -1413,7 +1413,7 @@ Don’t be part of the Herd</strong></p>
 }
 
 function profiles_form($form_state, $step) {
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey, $theme;
     $data = '
 
 var spath=\'' . $gSitePath . '\';
@@ -1617,7 +1617,7 @@ var avtar=\'' . $account->avatar . '\';
             $form['facebook'] = array(
                 '#type' => 'textfield',
                 '#title' => t(''),
-                '#prefix' => '<div class="form-bg-face-img"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-face.jpg"></div><div class="form-bg-face">',
+                '#prefix' => '<div class="form-bg-face-img"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-face.jpg"></div><div class="form-bg-face">',
                 '#description' => t(''),
                 '#default_value' => variable_get('facebook', $social[0]),
                 '#id' => 'face',
@@ -1628,7 +1628,7 @@ var avtar=\'' . $account->avatar . '\';
             $form['twitter'] = array(
                 '#type' => 'textfield',
                 '#title' => t(''),
-                '#prefix' => '<div class="form-bg-face-img"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/soc-twit.jpg"></div><div class="form-bg-face">',
+                '#prefix' => '<div class="form-bg-face-img"><img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-twit.jpg"></div><div class="form-bg-face">',
                 '#description' => t(' '),
                 '#default_value' => variable_get('twitter', $social[1]),
                 '#id' => 'twitter',
@@ -2006,7 +2006,7 @@ function profiles_form_submit($form, &$form_state) {
 function inc_avatar_form($form, &$form_state) {
 
 
-    global $gSitePath, $user, $gDocPath, $base_root, $_GET;
+    global $gSitePath, $user, $gDocPath, $base_root, $_GET, $theme;
     //avatar
     $form = array();
     // We find out the current page number.

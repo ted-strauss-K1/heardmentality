@@ -103,7 +103,7 @@ function send_forumnotify($nid='', $qid='') {
 }
 
 function list_debate_old($qid='', $type='') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root,$theme;
     $wave = '';
     $click = '';
 //    $sortin = 'ORDER BY did DESC';
@@ -223,9 +223,9 @@ function list_debate_old($qid='', $type='') {
 <div class="leftpartside">
 <div class="toppart"><p>'.$voteUp.'</p>
 
-<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
 <div class="toppart2"><p>'.$voteDown.'</p>
-<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
 </div>
 
@@ -340,9 +340,9 @@ function list_debate_old($qid='', $type='') {
 //<div class="leftpartside">
 //<div class="toppart"><p>' . $forum['cntagree'] . '</p>
 //
-//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
 //<div class="toppart2"><p>' . $forum['cntdisagree'] . '</p>
-//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 //
 //</div>
 //
@@ -410,7 +410,7 @@ function list_debate_old($qid='', $type='') {
 }
 
 function debate_roundup($did='') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
 //main debate
     //$query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.did='$did'";
     
@@ -492,7 +492,7 @@ WHERE f.nid = '$did'";
 }
 
 function resource_roundup($rid='') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
 //main debate
     //$query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {resource} as f  join {user_profile} as u on u.uid=f.uid   where f.rid='$rid'";
     $query = "SELECT IFNULL((select count(*) from {votingapi_vote} as l where l.content_id=f.nid AND content_type='node' AND value='1' group by l.content_id),0) as cntagree,IFNULL((select count(*) from {votingapi_vote} as l where l.content_id=f.nid AND content_type='node' AND value='-1' group by l.content_id),0) as cntdisagree  FROM {node} as f  join {user_profile} as u on u.uid=f.uid   where f.nid='$rid'";
@@ -955,7 +955,7 @@ function vote_up_down_count($criteria = ''){
 }
 
 function debate_cron(){
-    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
     // get oly debates (not resources)
     // field_type_value must be 1(debates only).
     $query = db_query("SELECT n.nid FROM {content_type_forum} AS cf JOIN {node} AS n ON cf.nid=n.nid WHERE cf.field_lang_status_value='%d' AND cf.field_type_value = '%d' AND n.type='%s' AND n.tnid='%d' AND n.translate='%d'", 0, 1, 'forum', 0, 0);

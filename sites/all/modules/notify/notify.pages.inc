@@ -2,7 +2,7 @@
 
 function my_notify_list() {
     
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme;
 
     drupal_add_css(drupal_get_path('module', 'quest_lite') . '/css/main.css');
     // drupal_add_css(drupal_get_path('module', 'quest_lite').'/css/page.css');
@@ -15,7 +15,7 @@ function my_notify_list() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/like.js');
     // drupal_add_js(drupal_get_path('module', 'forum').'/scripts/forum.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
-    drupal_add_css(drupal_get_path('theme', 'newtheme') . '/rotate_files/ui.css');
+    drupal_add_css(drupal_get_path('theme', $theme) . '/rotate_files/ui.css');
     drupal_add_js(drupal_get_path('module', 'notify') . '/scripts/script.js');
     $idb = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 // echo $idb;

@@ -2,7 +2,7 @@
 
 function search_results() {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme;
 
     $flink = '';
     $fetresult = '';
@@ -135,7 +135,7 @@ function search_results() {
             //href='$page_name?start=$back&$lkr'
             $fetresult .= "<a class='' href='JavaScript:void(0);' id='$back'>Previous</a>";
             //href='$page_name?start=$back&$lkr'
-            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/images/p-l.jpg'></a>";
+            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath . drupal_get_path('theme', $theme) . "/images/p-l.jpg'></a>";
         }
         $fetresult .= "</li><li>";
         $i = 0;
@@ -158,7 +158,7 @@ function search_results() {
             //$fetresult .= "<li><a href='$page_name?start=$next&code=$code&txt_search=$name'><img alt='Next' src='".$gSitePath."sites/all/themes/newtheme/images/p-r.jpg'></a></li>";
             //$fetresult .= "&nbsp;&nbsp;<li><a href='$page_name?start=$next&code=$code&txt_search=$name'>Next</a></li>";
             //href='$page_name?start=$next&$lkr'
-            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/images/p-r.jpg'></a>";
+            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath . drupal_get_path('theme', $theme) . "/images/p-r.jpg'></a>";
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0)' id='$next'>Next</a>";
         }
@@ -519,7 +519,7 @@ function search_results_ajax() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     // drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey, $theme;
     $start = '';
     $txt_search = '';
     $cid = '';
@@ -716,7 +716,7 @@ function search_results_ajax() {
             //href='$page_name?start=$back&$lkr'
             $fetresult .= "<a class='' href='JavaScript:void(0);' id='$back'>Previous</a>";
             //href='$page_name?start=$back&$lkr'
-            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/images/p-l.jpg'></a>";
+            $fetresult .= "&nbsp;&nbsp;<a class='' href='JavaScript:void(0);' id='$back'><img alt='Previous' src='" . $gSitePath . drupal_get_path('theme', $theme) . "/images/p-l.jpg'></a>";
         }
         //////////////// Let us display the page links at  center. We will not display the current page as a link ///////////
         $fetresult .= "</li><li>";
@@ -737,7 +737,7 @@ function search_results_ajax() {
         ///////////// If we are not in the last page then Next link will be displayed. Here we check that /////
         if ($this1 < $sel_count) {
             //href='$page_name?start=$next&$lkr'
-            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath . drupal_get_path('theme', 'newtheme') . "/images/p-r.jpg'></a>";
+            $fetresult .= "<a class='sidelinks' href='JavaScript:void(0);' id='$next'><img alt='Next' src='" . $gSitePath . drupal_get_path('theme', $theme) . "/images/p-r.jpg'></a>";
             //href='$page_name?start=$next&$lkr'
             $fetresult .= "&nbsp;&nbsp;<a class='sidelinks' href='JavaScript:void(0);' id='$next'>Next</a>";
         }
@@ -756,7 +756,7 @@ function search_results_question() {
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js');
     //drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $apikey, $theme;
     $start = '';
     $txt_search = '';
     $cid = '';
@@ -973,7 +973,7 @@ function search_results_question() {
 
 function user_follower() {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme;
 
     $follid = (int) substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
@@ -981,7 +981,7 @@ function user_follower() {
         <script>
         var gSitePath="' . $gSitePath . '";
 </script>
-        	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') .'/scripts/jquery1.4.js"></script>
+        	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', $theme) .'/scripts/jquery1.4.js"></script>
       	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'profiles') . '/js/profile.js"></script>
   <link rel="stylesheet" href="' . $gSitePath . 'modules/system/system.css" type="text/css" />
 		<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
@@ -1109,13 +1109,13 @@ function user_follower() {
 }
 
 function user_following() {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme;
     $follid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
     
     $following .= '<script>
         var gSitePath="' . $gSitePath . '";
 </script>
-        <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') .'/scripts/jquery1.4.js"></script>
+        <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', $theme) .'/scripts/jquery1.4.js"></script>
       	<script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'profiles') . '/js/profile.js"></script>
   <link rel="stylesheet" href="' . $gSitePath . 'modules/system/system.css" type="text/css" />
 		<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />';

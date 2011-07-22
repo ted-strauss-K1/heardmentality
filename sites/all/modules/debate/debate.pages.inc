@@ -2,7 +2,7 @@
 
 function debate_list($qid = '', $did='') {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
     $curLanguage = $language->language;
 
     // site url with default language
@@ -107,7 +107,7 @@ function debate_list($qid = '', $did='') {
     if ($user->uid != $forum->uid) {
 
         if (count($fetch) < 1) {
-            $imgpath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+            $imgpath = $gSitePath.drupal_get_path('theme', $theme).'/images/';
             $likeImg = '<img src="'.$imgpath.'likebig.png" title="like" />';
             $dislikeImg = '<img src="'.$imgpath.'dislike.png" title="dislike" />';
             $like = '<li id="lik-btns-node-'.$forum->nid.'"><span type="is_debate" name="' . $did . '" id="dagree" ><a href="javascript:void(0);" name="a-' . $did . '" class="dagree">'.$likeImg.'</a>&nbsp;<a name="da-' . $did . '" href="javascript:void(0);" class="ddisagree">'.$dislikeImg.'</a></span></li>';
@@ -150,10 +150,10 @@ function debate_list($qid = '', $did='') {
 
 <div class="toppart"><p>' . $agreecnt . '</p>
 
-<p align="center"><img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg"></p></div>
+<p align="center"><img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg"></p></div>
 
 <div class="toppart2"><p>' . $disagreecnt . '</p>
-<p align="center"><img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg"></p>
+<p align="center"><img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg"></p>
 <div class="clr"></div>
 </div>
 <div class="clr"></div>
@@ -317,7 +317,7 @@ function like_notification($nid='', $set='') { //vijay important comented
 }
 
 function get_debate($did = '', $pid = '') {
-    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
     $output = '';
     $bg = '';
     $curLanguage = $language->language;
@@ -368,7 +368,7 @@ function get_debate($did = '', $pid = '') {
                 //$cntdisagree = db_result(db_query("select count(*) from {user_likes} where is_debate_reply='1' AND is_agree='0' AND node_id='" . $forum['rid'] . "'"));
                 if ($user->uid != $forum['uid']) {
                     if (count($fetch) < 1) {
-                        $imgpath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+                        $imgpath = $gSitePath.drupal_get_path('theme', $theme).'/images/';
                         $likeImg = '<img src="'.$imgpath.'likebig.png" title="like" />';
                         $dislikeImg = '<img src="'.$imgpath.'dislike.png" title="dislike" />';
                         $like = '<li id="lik-btns-comment-'.$forum['cid'].'"><span name="' . $forum['cid'] . '" type="is_debate_reply" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['cid'] . '" class="ragree"">'.$likeImg.'</a>&nbsp;<a name="da-' . $forum['cid'] . '" href="javascript:void(0);" class="rdisagree">'.$dislikeImg.'</a></span></li>';
@@ -403,9 +403,9 @@ function get_debate($did = '', $pid = '') {
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_bubble($account->uid);
                 if ($forum['str_wk'])
-                    $plus = '<a href="#"><img width="23" height="23" alt="Strengthen" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/plus-img.jpg"></a>';
+                    $plus = '<a href="#"><img width="23" height="23" alt="Strengthen" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/plus-img.jpg"></a>';
                 else
-                    $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/minus-img.jpg"></a>';
+                    $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/minus-img.jpg"></a>';
 
                 $output .= '<div class="clr"></div>
 <div class="hm-debate-cont-outer backash com-' . $forum['cid'] . '"">
@@ -439,13 +439,13 @@ function get_debate($did = '', $pid = '') {
 <p>' . $cntagree . '</p>
 
 <p align="center">
-<img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg">
+<img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg">
 </p></div>
 
 <div class="toppart2">
 <p>' . $cntdisagree . '</p>
 <p align="center">
-<img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg">
+<img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg">
 </p>
 <div class="clr"></div>
 </div>
@@ -501,7 +501,7 @@ function get_debate($did = '', $pid = '') {
 
 function get_res_debate($rid = '', $pid = '') {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
     $curLanguage = $language->language;
     $output = '';
     $bg = '';
@@ -553,7 +553,7 @@ function get_res_debate($rid = '', $pid = '') {
 
                 if ($user->uid != $forum['uid']) {
                     if (count($fetch) < 1) {
-                        $imgpath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+                        $imgpath = $gSitePath.drupal_get_path('theme', $theme).'/images/';
                         $likeImg = '<img src="'.$imgpath.'likebig.png" title="like" />';
                         $dislikeImg = '<img src="'.$imgpath.'dislike.png" title="dislike" />';
                         $like = '<li id="lik-btns-comment-'.$forum['cid'].'"><span type="is_resource_reply" name="' . $forum['cid'] . '" id="dragree" ><a href="javascript:void(0);" name="a-' . $forum['cid'] . '" class="ragree"">'.$likeImg.'</a>&nbsp;<a name="da-' . $forum['cid'] . '" href="javascript:void(0);" class="rdisagree">'.$dislikeImg.'</a></span></li>';
@@ -588,9 +588,9 @@ function get_res_debate($rid = '', $pid = '') {
                 $medal = updateProfileBadge($account->uid);
                 $bubble = load_user_badge($account->uid);
                 if ($forum['str_wk'])
-                    $plus = '<a href="#"><img width="23" height="23" alt="Strengthen" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/plus-img.jpg"></a>';
+                    $plus = '<a href="#"><img width="23" height="23" alt="Strengthen" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/plus-img.jpg"></a>';
                 else
-                    $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/minus-img.jpg"></a>';
+                    $plus='<a href="#"><img width="23" height="23" alt="Weaken" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/minus-img.jpg"></a>';
 
                 $output .= '<div class="clr"></div>
 <div class="hm-debate-cont-outer backash com-' . $forum['cid'] . '"">
@@ -624,13 +624,13 @@ function get_res_debate($rid = '', $pid = '') {
 <p>' . $cntagree . '</p>
 
 <p align="center">
-<img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg">
+<img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg">
 </p></div>
 
 <div class="toppart2">
 <p>' . $cntdisagree . '</p>
 <p align="center">
-<img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg">
+<img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg">
 </p>
 <div class="clr"></div>
 </div>
@@ -1200,7 +1200,7 @@ function resource_list($type, $qid) {
 }
 
 function resource_innews($qid='', $rtype='') {
-    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
     $wave = '';
     $click = '';
     $sortin = 'ORDER BY rid DESC';
@@ -1359,9 +1359,9 @@ function resource_innews($qid='', $rtype='') {
 <div class="leftpartside">
 <div class="toppart"><p>' . $voteUp . '</p>
 
-<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
 <div class="toppart2"><p>' . $voteDown . '</p>
-<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
 </div>
 
@@ -1485,9 +1485,9 @@ function resource_innews($qid='', $rtype='') {
 //<div class="leftpartside">
 //<div class="toppart"><p>' . $forum['agree'] . '</p>
 //
-//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
 //<div class="toppart2"><p>' . $forum['disagree'] . '</p>
-//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 //
 //</div>
 //
@@ -1561,7 +1561,7 @@ function resource_innews($qid='', $rtype='') {
 }
 
 function resource_media($qid='') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
     $wave = '';
     $click = '';
         $sorting = 'ORDER BY f.nid DESC';
@@ -1696,9 +1696,9 @@ function resource_media($qid='') {
 <div class="leftpartside">
 <div class="toppart"><p>' . $voteUp . '</p>
 
-<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
 <div class="toppart2"><p>' . $voteDown . '</p>
-<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
 
 </div>
 
@@ -1757,7 +1757,7 @@ function resource_media($qid='') {
 }
 
 function resdebate_list($qid='', $rid='') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
     if (empty($qid) || !is_numeric($qid) || empty($rid) || !is_numeric($rid)) {
         return FALSE;
     }
@@ -1841,7 +1841,7 @@ function resdebate_list($qid='', $rid='') {
     $disagreecnt = vote_up_down_count($criteriaDownNode);
     if ($user->uid != $forum->uid) {
         if (count($fetch) < 1) {
-            $imgpath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+            $imgpath = $gSitePath.drupal_get_path('theme', $theme).'/images/';
             $likeImg = '<img src="'.$imgpath.'likebig.png" title="like" />';
             $dislikeImg = '<img src="'.$imgpath.'dislike.png" title="dislike" />';
             $like = '<li id="lik-btns-node-'.$forum->nid.'"><span name="' . $rid . '" id="dagree" type="is_resource" ><a href="javascript:void(0);" name="a-' . $rid . '" class="dagree">'.$likeImg.'</a>&nbsp;<a name="da-' . $rid . '" href="javascript:void(0);" class="ddisagree">'.$dislikeImg.'</a></span></li>';
@@ -1917,10 +1917,10 @@ function resdebate_list($qid='', $rid='') {
 
 <div class="toppart"><p>' . $agreecnt . '</p>
 
-<p align="center"><img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/aggree-hand.jpg"></p></div>
+<p align="center"><img height="15" width="18" alt="Agree" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg"></p></div>
 
 <div class="toppart2"><p>' . $disagreecnt . '</p>
-<p align="center"><img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') . '/images/disaggree-hand.jpg"></p>
+<p align="center"><img height="15" width="18" alt="Dis Agree" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg"></p>
 <div class="clr"></div>
 </div>
 <div class="clr"></div>
@@ -2031,7 +2031,7 @@ function resdebate_list($qid='', $rid='') {
 }
 
 function debate_ajax() {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
 
     extract($_REQUEST);
     // site url with default language
@@ -2068,7 +2068,7 @@ function debate_ajax() {
                 //$totalImage = $count;
                 $imgCount = $count>0?1:0;
                 $endImage = $totalImage!=0?($totalImage-1):0;
-                $imgPath = $gSitePath.drupal_get_path('theme', 'newtheme').'/images/';
+                $imgPath = $gSitePath.drupal_get_path('theme', $theme).'/images/';
                 $imgSelector = '<div class="img-selector">';
                 for($i=0;$i<$totalImage;$i++){
                     $imgSelector .= '<div class="cur-img">
@@ -2479,7 +2479,7 @@ function make_clickable($ret) {
 
 function debate_submit() {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_url, $language;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_url, $language, $theme;
     extract($_REQUEST);
 
     if (!user_is_logged_in()) {

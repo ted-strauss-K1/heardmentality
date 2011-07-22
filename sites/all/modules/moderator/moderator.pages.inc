@@ -342,12 +342,12 @@ function question_merge_mail($toissue='', $dupeissue='') {
 
 
 function moderator_send_message($uid = ''){
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $messages;
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $messages, $theme;
 
     $users = user_load($uid);
     $output = '';
     $output .= '<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
-                <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', 'newtheme') .'/scripts/jquery1.4.js"></script>
+                <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', $theme) .'/scripts/jquery1.4.js"></script>
                 <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'moderator') . '/scripts/moderator.js"></script>';
     $output .= '<div class="facttop">Send Message to '.$users->name.'</div><br />
                 <div style="padding:15px"><p><strong>Enter your message here</strong></p><br />';

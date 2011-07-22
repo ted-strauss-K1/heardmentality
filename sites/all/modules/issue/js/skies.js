@@ -16,7 +16,8 @@ Highcharts.theme = {
 				[1, 'rgba(255, 255, 255, 0)']
 			]
 		},
-		plotBorderWidth: 1
+		plotBorderWidth: 1,
+                shadow: true
 	},
 	title: {
 		style: { 
@@ -66,17 +67,14 @@ Highcharts.theme = {
 		}
 	},
 	legend: {
-		itemStyle: {
-			font: '9pt Trebuchet MS, Verdana, sans-serif',
-			color: '#3E576F'
-		},
-		itemHoverStyle: {
-			color: 'black'
-		},
-		itemHiddenStyle: {
-			color: 'silver'
-		}
-	},
+                                         layout: 'vertical',
+                                         align: 'right',
+                                         verticalAlign: 'top',
+                                         x: -12,
+                                         y: 10,
+                                         borderWidth: 0,
+                                         floating: true
+                                      },
 	labels: {
 		style: {
 			color: '#3E576F'
