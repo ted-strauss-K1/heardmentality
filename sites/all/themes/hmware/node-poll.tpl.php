@@ -174,13 +174,13 @@ act.addActionLink("<?php print t($title); ?>","<?php print $pagePath; ?>");
 
 var showShareBarUI_params=
 {
-  containerID: 'componentDiv',
+  containerID: 'shareDiv',
   shareButtons: 'Facebook-Like,google-plusone,Share,Twitter',
   userAction: act
 }
 </script>
                         
-<div id="componentDiv"></div>
+<div id="shareDiv"></div>
 <script type="text/javascript">
    gigya.services.socialize.showShareBarUI(conf,showShareBarUI_params);
 </script>
