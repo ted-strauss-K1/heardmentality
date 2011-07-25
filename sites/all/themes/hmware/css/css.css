@@ -159,12 +159,12 @@ img{ border:none;}
 
 
 /*footer satrt*/
-.footer{ width:1050px; background:#666666; height:36px;  margin:0 auto; margin-top:13px; margin-bottom:13px;}
-.footer .copy{ float:left; width:150px; font: normal 11px Arial, Helvetica, sans-serif; color:#ffffff; padding:10px 0px 0px 20px;}
+.footer{ width:1050px; background:#B8DBD9; height:36px;  margin:0 auto; margin-top:13px; margin-bottom:13px;}
+.footer .copy{ float:left; width:150px; font: normal 11px Arial, Helvetica, sans-serif; color:#000; padding:10px 0px 0px 20px;}
 .footer .menu{ float:left; width:350px; padding-top:10px; margin-left:250px;}
 .footer .menu ul{margin:0; padding:0; padding-left:10px;}
 .footer .menu ul li{float:left; padding-left:5px; list-style:disc; font:normal 11px Arial, Helvetica, sans-serif; color:#ffffff; text-decoration:none; padding-right:30px;} 
-.footer .menu ul li a{ color:#ffffff; text-decoration:none; }
+.footer .menu ul li a{ color:#000; text-decoration:none; }
 .footer .menu ul li a:hover{text-decoration:underline; }
 .listnone{ list-style:none;}
 .footer-icon-outer{float:right; width:175px; margin-top:8px;}
@@ -1772,7 +1772,7 @@ img{ border:none; outline:none;}
 }
 .hm-cen .issue_right{
     float:right;
-    width:300px
+    width:200px;
 }
 .hm-cen .sub-title{
     font-weight:bold;
@@ -1823,4 +1823,20 @@ img{ border:none; outline:none;}
     width:337px;
     font-weight:bold;
     padding-top:15px;
+}
+.deb-res-area{
+    margin-top:20px;
+}
+.deb-res-area .deb-area{
+    float: left;
+    width: 310px;
+}
+.deb-res-area span a{
+    color: #fff;
+    font-size:10px;
+}
+.deb-res-area .res-area{
+    float: right;
+    width: 310px;
+    margin-right: 20px;
 }

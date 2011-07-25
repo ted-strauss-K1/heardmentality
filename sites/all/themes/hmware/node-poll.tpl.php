@@ -52,7 +52,11 @@ global $apikey, $gSitePath, $theme;
  $path=$gSitePath.  drupal_get_path('theme',$theme);
  $node=node_load(array('nid'=>$nid));
 ?>
-<script>
+
+<!-- socialize.js script should only be included once -->
+<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php echo $apikey; ?>"></script>
+
+<script type="text/javascript">
     var conf =
         {
         APIKey:'<?php print $apikey; ?>'
@@ -67,40 +71,6 @@ global $apikey, $gSitePath, $theme;
 
     }
 
-    function showShareUI() {
-
-
-        var act = new gigya.services.socialize.UserAction();
-
-        act.setUserMessage("Your comment here...");
-
-
-        act.setTitle("<?php print t($node->title); ?>");
-        act.setDescription("<?php print t(trim(strip_tags($node->body))); ?>");
-
-
-        act.setLinkBack("<?php print $gSitePath.request_uri(); ?>");
-
-
-    act.addActionLink("<?php print t($node->title); ?>","<?php print $gSitePath.request_uri(); ?>");
-
-
-
-
-
-        var params =
-            {
-            userAction: act,
-            onError: onError,
-            onSendDone: onSendDone,
-            showEmailButton:true,
-            showMoreButton:true
-        };
-
-
-        gigya.services.socialize.showShareUI(conf, params);
-
-    }
 
 
     function onError(event) {
@@ -190,14 +160,30 @@ global $apikey, $gSitePath, $theme;
                 <?php print $context; ?>
             </div>
             <div class="clr"></div>
-            <div class="share_link">
-                  <div  class="but-cont"><div class="but-left"><img src="<?php print $path; ?>/images/but-left.jpg"></div>
-                  <a title="Bookmark" class="but butnew share-link" onclick="showShareUI();" href="javascript:void(0);">
-                     <img ALIGN=ABSMIDDLE title="Share" alt="<?php print t('Share'); ?>" src="<?php print $path; ?>/images/face-ic.jpg"/>&nbsp;
-                        <?php print t('Share'); ?></a>
-                 <div class="but-right">
-                <img width="7" height="24" src="<?php print $path; ?>/images/but-right.jpg"></div></div>
-            </div>
+
+<?php
+$nodepath = 'node/'.$nid;
+$pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
+<script type="text/javascript">
+var act = new gigya.services.socialize.UserAction();
+act.setUserMessage("Your comment here...");
+act.setTitle("<?php print t($title); ?>");
+act.setDescription("<?php print t(trim(strip_tags($context))); ?>");
+act.setLinkBack("<?php print $pagePath; ?>");
+act.addActionLink("<?php print t($title); ?>","<?php print $pagePath; ?>");
+
+var showShareBarUI_params=
+{
+  containerID: 'componentDiv',
+  shareButtons: 'Facebook-Like,google-plusone,Share,Twitter',
+  userAction: act
+}
+</script>
+                        
+<div id="componentDiv"></div>
+<script type="text/javascript">
+   gigya.services.socialize.showShareBarUI(conf,showShareBarUI_params);
+</script>
             </div>
             <?php endif; ?>
              <div class="issue_right">

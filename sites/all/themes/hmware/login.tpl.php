@@ -87,8 +87,8 @@ var login_params=
 
             <div class="debate-second-2">
               <ul>
-               <li><img width="16" height="16" alt="Ctegory" src="<?php echo $base_path.$directory; ?>/images/category.png"> <span>X <?php echo $notification;?></span></li>
-              	<li><img width="16" height="16" alt="Coins" src="<?php echo $base_path.$directory; ?>/images/coins.png"> <span>X <?php echo $coins;?></span></li>
+               <li><img width="16" height="16" alt="Ctegory" src="<?php echo $directory; ?>/images/category.png"> <span>X <?php echo $notification;?></span></li>
+              	<li><img width="16" height="16" alt="Coins" src="<?php echo $directory; ?>/images/coins.png"> <span>X <?php echo $coins;?></span></li>
                 <li>Some text</li>
 
               </ul>
