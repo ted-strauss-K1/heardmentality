@@ -810,9 +810,13 @@ function issue_theme($existing, $type, $theme, $path) {
             'arguments' => array('nid' => NULL, 'created' => NULL, 'postedby' => NULL, 'subject' => NULL, 'area' => NULL, 'detail' => NULL, 'original_nid' => NULL, 'original_language' => NULL, 'orgLangKey' => NULL),
         ),'issue_result_analysis' => array(
             'arguments' => array('nid' => NULL),
+        ),'issue_debate_list' => array(
+            'arguments' => array('nid' => NULL),
+        ),'issue_resource_list' => array(
+            'arguments' => array('nid' => NULL),
         ),'issue_detail_wrapper' => array(
             'template' => 'issue_detail_wrapper',
-            'arguments' => array('nid' => NULL, 'result_analysis' => NULL),
+            'arguments' => array('nid' => NULL, 'result_analysis' => NULL, 'debate_list' => NULL, 'resource_list' => NULL),
         ),
 
     );
@@ -2599,8 +2603,10 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
 // issue results , debates, resources
 function view_issue_results($nid = ''){
    $results = theme('issue_result_analysis',$nid);
+   $debates = theme('issue_debate_list', $nid);
+   $resources = theme('issue_resource_list', $nid);
    
-   return theme('issue_detail_wrapper', $nid, $results);
+   return theme('issue_detail_wrapper', $nid, $results, $debates, $resources);
 }
 function theme_issue_result_analysis($nid = ''){
     global $gSitePath;
@@ -2637,3 +2643,20 @@ function theme_issue_result_analysis($nid = ''){
     return $results;
 }
 
+// debate list
+function theme_issue_debate_list($nid = ''){
+    $debates = '';
+    $filters = '<span><a href="#">Show debate statistics</a>&nbsp;|&nbsp;<a href="#">Show filter options</a></span>';
+    $count = '';
+    $addNew = '<span style="float:right"><a href="#">Add Argument</a></span>';
+    $debates .= '<div class="result-analysis-title">DEBATE'.$addNew.'<br />'.$filters.'</div><br />';
+    $debates .= list_debate($nid, 1);
+    return $debates;
+}
+function theme_issue_resource_list($nid = ''){
+    $resources = '';
+    $filters = '<span><a>Show filter options</a></span>';
+    $resources .= '<div class="result-analysis-title">REFERENCES<br />'.$filters.'</div><br />';
+    return $resources;
+
+}
