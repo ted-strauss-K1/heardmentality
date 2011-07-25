@@ -9,7 +9,7 @@
          <div class="loginvi"> <div class="btex"> <span class="black11">       <?php echo t('Login via your social network:');?></span></div>
     
 <!-- socialize.js script should only be included once -->
-<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php echo $apikey; ?>"></script>
+<!--<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php echo $apikey; ?>"></script>-->
 <script type="text/javascript">
 var conf=
 {

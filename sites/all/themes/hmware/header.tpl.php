@@ -32,7 +32,7 @@ $directory = $base_path . $directory;
         <script src="<?php echo $directory; ?>/scripts/jbubble.js"></script>
         <script src="<?php echo $directory; ?>/scripts/jquery.livequery.js"></script>
         <script src="<?php echo $directory; ?>/scripts/jquery.cookie.pack.js"></script>
-
+        <script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php echo $apikey; ?>"></script>
 
         <!-- Autosuggest module -->
         <script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.watermarkinput.js"></script>

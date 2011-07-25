@@ -54,7 +54,7 @@ global $apikey, $gSitePath, $theme;
 ?>
 
 <!-- socialize.js script should only be included once -->
-<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php echo $apikey; ?>"></script>
+<!--<script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php echo $apikey; ?>"></script>-->
 
 <script type="text/javascript">
     var conf =
