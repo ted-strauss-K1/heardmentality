@@ -115,6 +115,10 @@ global $apikey, $gSitePath, $theme;
 
 		}
 		}
+
+
+                
+               
 </script>
 
 
@@ -192,10 +196,13 @@ var showShareBarUI_params=
                         <?php print $content ?>
                 </div>
                  <div class="clr"></div>
-                <div  class=""><div class="but-left"><img src="<?php print $path; ?>/images/but-left.jpg"></div>
+<!--                <div  class=""><div class="but-left"><img src="<?php print $path; ?>/images/but-left.jpg"></div>
                   <a class="but butnew share-link" title="<?php print t('Suggest a new answer'); ?>"   onclick="formsubmittype(4,<?php print $nid; ?>);" href="javascript:void(0);"><?php print t('Suggest a new answer'); ?></a>
     <div class="but-right">
-               <img width="7" height="24" src="<?php print $path; ?>/images/but-right.jpg"></div></div>
+               <img width="7" height="24" src="<?php print $path; ?>/images/but-right.jpg"></div></div>-->
+
+                <span> Wait! I want to&nbsp;<a href="javascript:void(0);" id="sugg-btn">suggest a different answer</a></span>
+                <div id="sugg-form" class="sugg-form" style="display:none;"><?php print $suggest; ?></div><br /><br />
             </div>
 <?php //print $links; ?>
                     <?php if($page): ?>
