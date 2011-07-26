@@ -2734,12 +2734,21 @@ will be counted in the results.'),
                 '#size' => 38,
                 '#attributes' => array('class' => 'text-input'),
                 '#maxlength' => 40,
+                '#id' => 'sugg_ans',
+            );
+        $form['new_suggest_answer_dum'] = array(
+                '#type' => 'textfield',
+                '#size' => 38,
+                '#attributes' => array('class' => 'text-input-dum'),
+                '#maxlength' => 40,
+                '#id' => 'sugg_ans_dum',
+                '#value' => t('or type your new answer'),
             );
         $form['#nid'] = $nid;
         $form['submit_suggest_answer'] = array(
             '#type' => 'submit',
             '#value' => t('submit'),
-            '#suffix' => '&nbsp;&nbsp;<a href="javascript:void(0);" id="canc">'.t('Cancel').'</a>',
+            '#suffix' => '&nbsp;&nbsp;<a href="javascript:void(0);" id="canc" title="'.t('close').'">'.t('Cancel').'</a>',
         );
       }elseif($err == 0){
          $form['vote_error'] = array(

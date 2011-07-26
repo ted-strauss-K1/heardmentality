@@ -48,6 +48,26 @@ function substate(){
     jQuery('#sugg-btn').live('click',function(){
         jQuery('#sugg-form').slideToggle('fast');
     });
+jQuery(document).ready(function() {
+    // suggest answer text box
+    jQuery('#sugg_ans').hide();
+    jQuery('#sugg_ans_dum').show();
+    
+    jQuery('#sugg_ans_dum').focus(function() {
+        $(this).hide();
+        jQuery('#sugg_ans').show();
+        jQuery('#sugg_ans').focus();
+    });
+    jQuery('#sugg_ans').blur(function(){
+        if(jQuery('#sugg_ans').val().length == 0){
+            jQuery('#sugg_ans').hide();
+            jQuery('#sugg_ans_dum').show();
+        }
+    });
 
+    jQuery('#canc').live('click', function() {
+        jQuery('#sugg-form').slideUp('fast');
+    });  
+})
 
 
