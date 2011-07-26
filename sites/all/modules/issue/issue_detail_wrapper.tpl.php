@@ -7,11 +7,13 @@
 ?>
 
 <div><?php print $result_analysis; ?></div>
+<div class="clr"></div>
 <div class="deb-res-area">
-    <div class="deb-area">
+    <div>
         <?php print $debate_list; ?>
     </div>
-    <div class="res-area">
+    <div class="clr"></div>
+    <div>
          <?php print $resource_list; ?>
     </div>
 </div>

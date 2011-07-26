@@ -45,3 +45,9 @@ function substate(){
 }
 
 
+    jQuery('#sugg-btn').live('click',function(){
+        jQuery('#sugg-form').slideToggle('fast');
+    });
+
+
+
