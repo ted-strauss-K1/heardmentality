@@ -37,65 +37,65 @@ $directory = $base_path . $directory;
         <!-- Autosuggest module -->
         <script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.watermarkinput.js"></script>
         <script type="text/javascript" src="<?php echo $directory; ?>/lib/autosuggest/bsn.AutoSuggest_2.1.3.js"></script>
-        <link rel="stylesheet" href="<?php echo $directory; ?>/lib/autosuggest/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8">
+        <link rel="stylesheet" href="<?php echo $directory; ?>/lib/autosuggest/autosuggest_inquisitor.css" type="text/css" media="screen" charset="utf-8" />
             <script type="text/javascript" src="<?php echo $directory; ?>/lib/jquery.tab.js"></script>
-            <link rel="stylesheet" href="<?php echo $directory; ?>/lib/jquery.tab.css" type="text/css" media="screen" charset="utf-8">
-                <link rel="stylesheet" href="<?php echo $directory; ?>/css/jbubble.css" type="text/css" media="screen" charset="utf-8">
+            <link rel="stylesheet" href="<?php echo $directory; ?>/lib/jquery.tab.css" type="text/css" media="screen" charset="utf-8" />
+                <link rel="stylesheet" href="<?php echo $directory; ?>/css/jbubble.css" type="text/css" media="screen" charset="utf-8" />
                     <script type="text/javascript">
                         var gSitePath='<?php echo $gSitePath; ?>';
              
 
-                        jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel-control').livequery(function () {
-
-                        
-                            if (jQuery(this).attr("rel").length > 0) {
-                                // jQuery(this).CreateBubblePopup();
-                                var id=jQuery(this);
-                                jQuery(this).CreateBubblePopup({
-                                    position : 'top',
-                                    align	 : 'center',
-                                    dropShadow: false,
-                                    openingDelay:300,
-                                    selectable: true,
-                                    innerHtmlStyle: {
-                                        'text-align':'center','background-color':'#FFFFFF'
-                                    },
-                                    themeName: 	'blue',
-                                    alwaysVisible: false,
-                                    innerHtml: jQuery(this).attr("rel"),
-                                    themePath: '<?php echo $directory; ?>/images/bp_images'
-
-                                });
-                                //  jQuery(this).ShowBubblePopup();
-                            }
-
-                        });
-                        jQuery('.p-foll li a,#mfollowing a,#inbox a,.contarea a').not('.jcarousel-control').each(function () {
-
-                            if (jQuery(this).attr("rel").length > 0) {
-                                //  jQuery(this).CreateBubblePopup();
-                                var id=jQuery(this);
-                                jQuery(this).CreateBubblePopup({
-                                    position : 'top',
-                                    align	 : 'center',
-                                    dropShadow: false,
-                                    openingDelay:100,
-                                    selectable: true,
-                                    innerHtmlStyle: {
-                                        'text-align':'center','background-color':'#FFFFFF'
-                                    },
-                                    alwaysVisible: false,
-                                    themeName: 	'blue',
-
-                                    innerHtml: jQuery(this).attr("rel"),
-                                    themePath: '<?php echo $directory; ?>/images/bp_images'
-
-                                });
-                                //  jQuery(this).ShowBubblePopup();
-                            }
-
-
-                        });
+//                        jQuery('.innerbox a,.facttext a,.titl a,.pro_row a,.lft_view a').not('.jcarousel-control').livequery(function () {
+//
+//
+//                            if (jQuery(this).attr("rel").length > 0) {
+//                                // jQuery(this).CreateBubblePopup();
+//                                var id=jQuery(this);
+//                                jQuery(this).CreateBubblePopup({
+//                                    position : 'top',
+//                                    align	 : 'center',
+//                                    dropShadow: false,
+//                                    openingDelay:300,
+//                                    selectable: true,
+//                                    innerHtmlStyle: {
+//                                        'text-align':'center','background-color':'#FFFFFF'
+//                                    },
+//                                    themeName: 	'blue',
+//                                    alwaysVisible: false,
+//                                    innerHtml: jQuery(this).attr("rel"),
+//                                    themePath: '<?php echo $directory; ?>/images/bp_images'
+//
+//                                });
+//                                //  jQuery(this).ShowBubblePopup();
+//                            }
+//
+//                        });
+//                        jQuery('.p-foll li a,#mfollowing a,#inbox a,.contarea a').not('.jcarousel-control').each(function () {
+//
+//                            if (jQuery(this).attr("rel").length > 0) {
+//                                //  jQuery(this).CreateBubblePopup();
+//                                var id=jQuery(this);
+//                                jQuery(this).CreateBubblePopup({
+//                                    position : 'top',
+//                                    align	 : 'center',
+//                                    dropShadow: false,
+//                                    openingDelay:100,
+//                                    selectable: true,
+//                                    innerHtmlStyle: {
+//                                        'text-align':'center','background-color':'#FFFFFF'
+//                                    },
+//                                    alwaysVisible: false,
+//                                    themeName: 	'blue',
+//
+//                                    innerHtml: jQuery(this).attr("rel"),
+//                                    themePath: '<?php echo $directory; ?>/images/bp_images'
+//
+//                                });
+//                                //  jQuery(this).ShowBubblePopup();
+//                            }
+//
+//
+//                        });
 					
 
                     </script>
@@ -268,7 +268,7 @@ $directory = $base_path . $directory;
                                                             <div class="clr"></div>
 
                                                             <div id="menu">
-                                                                <div class="search">  <form class="home_searchEngine" name="search" method="post" action="">
+<!--                                                                <div class="search">  <form class="home_searchEngine" name="search" method="post" action="">
                                                                         <div class="searchtext">
                                                                             <input name="txt_search"  id="txt_search" value="<?php echo $skey; ?>" type="text"  onblur="if(search.txt_search.value =='') search.txt_search.value = ''" onfocus="if(search.txt_search.value =='Search') search.txt_search.value = ''" />
                                                                         </div>
@@ -295,7 +295,7 @@ $directory = $base_path . $directory;
                                                     <div>&nbsp;
                                                         <input name="Search" type="submit" value="<?php print t('Search'); ?>"  onclick="return callfunction();"/>
                                                     </div>
-                                                </form>     </div>
+                                                </form>     </div>-->
 
                                             <div class="men">
                                                 <ul>
@@ -323,13 +323,13 @@ $directory = $base_path . $directory;
                                                                                           </ul>
 
                                                                                       </div>
-
+<!--
                                                                                       <div class="edition">
-                                                                                          <div ><?php echo t('Edition:'); ?><span id="lang"></span>
-                                                                                              <!-- Google Translate -->
+                                                                                          <div ><?php //echo t('Edition:'); ?><span id="lang"></span>
+                                                                                               Google Translate 
 
                                                                                           </div>
-                                                                                      </div> <!-- /navigation -->
+                                                                                      </div>  /navigation -->
                                                                                   </div>
                                                                               </div>
                                                                               <!-- /header -->

@@ -48,7 +48,7 @@ jQuery(function() {
         // Init autosuggest
         var as_json = new bsn.AutoSuggest('txt_search', options);
         // Display a little watermak
-        jQuery("#txt_search").Watermark("");
+       // jQuery("#txt_search").Watermark("");
     }
 
 	

@@ -37,57 +37,57 @@ jQuery(function() {
 });
 
 
-function translateTo( destLang ){ 
-
-  jQuery('body').translate(
-      'english', 
-      destLang, 
-      {not: '#menu, pre, .jq-translate-ui', fromOriginal:true,
-	  start:        function(){jQuery('#loading').fadeIn();},
-      complete:     function(){jQuery('#loading').fadeOut();}
-  
-	  }
-      )
-	jQuery(".jq-translate-ui").val(destLang).attr("selected", "selected");
-  jQuery(".jq-translate-ui option:contains("+destLang+")").val();
-jQuery(".jq-translate-ui option[text=" + destLang +"]").attr("selected","selected") ;
-
-}
-
-jQuery(document).ready(function(){
-
-  /*--- snip ---*/
-
-  //when the Google Language API is loaded
-  jQuery.translate(function(){ 
-    // clear the loading gif
-    jQuery('#lang').empty();
-    //generate dropdown
-    jQuery.translate.ui('select', 'option') 
-    // when selecting another language
-    .change(function(){
-      var lang =jQuery(this).val();
-      translateTo(lang);
-      jQuery.cookie('destLang', lang, {path:'/'});
-      })
-    .val('English') //select English as default
-    .appendTo('#lang'); //insert the dropdown to the page
-
-    //insert Google's logo after the dropdown:
-//jQuery.translate.getBranding().appendTo(jQuery('#lang'));
-
-    //get previously translated language      
-    var destLang = jQuery.cookie('destLang'); 
-    if (destLang && destLang != 'English') {
-    jQuery('.jq-translate-ui').val(destLang);
-    translateTo( destLang );
-    }else{
-       jQuery('.jq-translate-ui').val('en');
-    }
-  });
-  
-   
-});
+//function translateTo( destLang ){
+//
+//  jQuery('body').translate(
+//      'english',
+//      destLang,
+//      {not: '#menu, pre, .jq-translate-ui', fromOriginal:true,
+//	  start:        function(){jQuery('#loading').fadeIn();},
+//      complete:     function(){jQuery('#loading').fadeOut();}
+//
+//	  }
+//      )
+//	jQuery(".jq-translate-ui").val(destLang).attr("selected", "selected");
+//  jQuery(".jq-translate-ui option:contains("+destLang+")").val();
+//jQuery(".jq-translate-ui option[text=" + destLang +"]").attr("selected","selected") ;
+//
+//}
+//
+//jQuery(document).ready(function(){
+//
+//  /*--- snip ---*/
+//
+//  //when the Google Language API is loaded
+//  jQuery.translate(function(){
+//    // clear the loading gif
+//    jQuery('#lang').empty();
+//    //generate dropdown
+//    jQuery.translate.ui('select', 'option')
+//    // when selecting another language
+//    .change(function(){
+//      var lang =jQuery(this).val();
+//      translateTo(lang);
+//      jQuery.cookie('destLang', lang, {path:'/'});
+//      })
+//    .val('English') //select English as default
+//    .appendTo('#lang'); //insert the dropdown to the page
+//
+//    //insert Google's logo after the dropdown:
+////jQuery.translate.getBranding().appendTo(jQuery('#lang'));
+//
+//    //get previously translated language
+//    var destLang = jQuery.cookie('destLang');
+//    if (destLang && destLang != 'English') {
+//    jQuery('.jq-translate-ui').val(destLang);
+//    translateTo( destLang );
+//    }else{
+//       jQuery('.jq-translate-ui').val('en');
+//    }
+//  });
+//
+//
+//});
 
 </script>
 <?php print $closure; ?>
