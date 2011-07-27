@@ -2790,7 +2790,7 @@ function issue_suggest_form_submit($form, &$form_state){
              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
              $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $new_suggest_answer);
              set_notify_log($user->uid, $nid, 'suggest_answer', $variable);
-        /*New SET NOTIFY LOG*/
+        /*New SET NOTIFY LOG*/ 
              
         drupal_set_message($message = 'Your answer was added!', $type = 'success');
         }else{
