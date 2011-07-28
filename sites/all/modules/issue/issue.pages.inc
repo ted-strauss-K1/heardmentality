@@ -1165,18 +1165,30 @@ function issue_create_form_submit($form, &$form_state) {
         db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $node->nid, serialize($related));
     }
 
+    cache_clear_all();
     $output = drupal_set_message(t('Your issue has been added.  It will be reviewed by 3 moderators but is available immediately.
 '), $type = 'success');
     unset($_SESSION['post']);
     $_SESSION['post'] = '';
-    $path = drupal_get_path_alias('node/' . $node->nid);
+    $path = db_result(db_query("SELECT dst FROM {url_alias} WHERE src = 'node/%d' LIMIT 1",$node->nid));
+    if(empty ($path))
+     $path = drupal_get_path_alias(getPathAlias($node->nid));
+
     increasepoints('1', $node->nid, '0');
     //_send_qnotify($node->nid);
     //drupal_goto($path);
     //echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';
     drupal_goto($path);
 }
+function getPathAlias($nid){
+	$alias = 'node/'.$nid;
 
+	//check for an alias using drupal_lookup_path()
+	if((drupal_lookup_path('alias', 'node/'.$nid)!==false))
+		$alias = drupal_lookup_path('alias', 'node/'.$nid);
+
+	return $alias;
+}
 function get_releated_issues($question = '', $cat_id = '', $context = '') {
     //$form = array('#tree'=>TRUE);
 
