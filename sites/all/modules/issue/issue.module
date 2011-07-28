@@ -359,11 +359,14 @@ echo $content;
 function issue_edit_vote_validate($form, &$form_state) {
     if (!user_is_logged_in()) {
 
-        form_set_error(t('You .'));
+        form_set_error(t('You have to login to do this action!.'));
     }
 
     if ($form_state['values']['choice'] == -1) {
         form_set_error('choice', t('Your vote could not be recorded because you did not select any of the choices.'));
+    }
+    if($form['choice']['#default_value']==$form_state['values']['choice']){
+      form_set_error('choice', t('Your vote could not be recorded because you did not select any new choices.'));
     }
 }
 
@@ -382,9 +385,10 @@ function issue_edit_vote_submit($form, &$form_state) {
         set_notify_log($user->uid, $nid, 'change_answer', $variable);
         /*New SET NOTIFY LOG*/
     }
-
-    // Add one to the votes.
-    //db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $node->nid, $choice);
+//minus one the value of previously voted choice
+  db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = %d AND chorder = %d", $nid, $form['choice']['#default_value']);
+    // Add one to the votes.for new choices
+    db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
 
     cache_clear_all();
     drupal_set_message(t('Your vote has been updated'));
