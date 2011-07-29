@@ -1981,7 +1981,9 @@ img{ border:none; outline:none;}
     display: none;
 }
 .deb-res-area .show-reply{
-    padding-left:32px;
+    margin-left: 40px;
+    width: 100%;
+    margin-top: 39px;
 }
 .deb-res-area .show-reply a{
     color:  #336699;
@@ -1992,5 +1994,10 @@ img{ border:none; outline:none;}
 }
 .new-reply-wrapper{
     width:500px;
-    margin: 20px 0 0 82px;
+    margin: 20px 0 0 45px;
+}
+.new-debate-wrapper .all-replies{
+    border: 1px solid #ccc;
+    padding: 4px 8px 4px 4px;
+    margin: 8px;
 }
