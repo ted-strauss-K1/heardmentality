@@ -1596,3 +1596,26 @@ function issue_debates($qid='', $type='') {
     return $debate_theme;
     //return $wave;
 }
+
+// forum replies
+function forum_replies($debate_tnid, $pid = ''){
+    global $gSitePath, $user, $language, $theme;
+    $curLanguage = $language->language;
+    $comments = '';
+
+    $query = "SELECT * FROM {comments} as c where c.nid='$debate_tnid' and c.status='0' and c.pid='$pid' AND (c.cid = c.tcid OR c.tcid = 0)";
+    $list = ExecuteQuery($query, "select");
+
+    if(count($list)>0){
+    foreach ($list as $forum) {
+            $cid = $forum['cid'];
+            if (!empty($forum['comment'])) {
+                $items = forum_reply_datas($cid);
+                $comments .= theme('forum_reply_template', $items);
+            }
+    }
+    }else{
+        $comments .= '<div id="no_rply_'.$debate_tnid.'">'.t('No Replies').'</div>';
+    }
+    return $comments;
+}

@@ -2876,7 +2876,7 @@ function issue_suggest_form_submit($form, &$form_state){
 function add_new_debate_form($form_state, $nid = ''){
     global $theme, $gSitePath;
     $form = '';
-
+    $form['#method'] = 'post';
     $form['nid'] = array('#type' => 'hidden', '#default_value' => $nid);
     $form['head'] = array('#type' => 'markup', 
                             '#value' => '<div class="head">ADD ARGUMENT</div>',
@@ -3000,7 +3000,7 @@ function add_new_debate_form_submit($form, &$form_state){
     }else{
         $json['message'] = '<div align="center"><b>Error occured. Please try again.</b></div>';
     }
-print json_encode($json);
+print json_encode($json); exit;
 }
 
 
@@ -3053,7 +3053,8 @@ function theme_single_debate_template($debItems = array()){
     $debt .= '<div class="rating">'.$ratings.'</div>
              <div class="reply">'.$delete.$reply.'</div>
                  <div class="clr"></div>';
-    $debt .= '<div class="reply-box" id="reply_box_'.$debItems['debate_tnid'].'">'.$reply_box.'</div>';
+    $debt .= '<div class="reply-box" id="reply_box_'.$debItems['debate_tnid'].'">
+                '.$reply_box.'</div>';
     // replies for a debate
 
     $reply_count =  db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '".$debItems['debate_tnid']."'"));
@@ -3185,12 +3186,17 @@ function load_debate_datas($debId = '', $issId = '', $issTnid = ''){
 
 // forum reply form
 function forum_reply_form($form, $debate_tnid){
+    global $gSitePath, $theme, $user;
     $form = '';
-    $form['debate_tnid'] = array('#type' => 'hidden', '#default_value' => $debate_tnid);
+    if($user->uid!=''){
+    $form['#attributes'] = array('class' => 'arg-reply-form');
+    $form['err_r'] = array('#type' => 'markup', '#value' => '<div class="error-msg" id="reply_err"></div>');
+    $form['debate_tnid'] = array('#type' => 'hidden', '#id' => 'ded_tnid' , '#default_value' => $debate_tnid);
     $form['reply_content'] = array('#type' => 'textarea',
                             '#size' => 70,
                             '#cols' => 10,
                             '#title' => t('Add your reply'),
+                            '#id' => 'reply_content_'.$debate_tnid,
                             '#rows' => 6,
                             '#attributes' => array('class' => 'textarea-input'));
     $form['reply_submit'] = array('#type' => 'submit',
@@ -3198,8 +3204,11 @@ function forum_reply_form($form, $debate_tnid){
                                 '#attributes' => array('class' => 'orange-btn'),
                                 '#prefix' => '<div align="right">',
                                 '#suffix' => '</div><span id="sub_loader" style="display:none; float:right"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
-                                '#id' => 'add_reply'
+                                '#id' => 'add_reply',
                                 );
+    }else{
+     $form['log_in'] = array('#type' => 'markup', '#value' => t('Please Login to post reply'));
+    }
     return $form;
 }
 function forum_reply_form_submit($form, &$form_state){
@@ -3231,60 +3240,61 @@ function forum_reply_form_submit($form, &$form_state){
 
     $commentId = comment_save($values);
     custom_comment_update($commentId,$values);
-}
-
-
-function forum_replies($debate_tnid, $pid = ''){
-    global $gSitePath, $user, $language, $theme;
-    $curLanguage = $language->language;
-    $comments = '';
-
-    $query = "SELECT * FROM {comments} as c where c.nid='$debate_tnid' and c.status='0' and c.pid='$pid' AND (c.cid = c.tcid OR c.tcid = 0)";
-    $list = ExecuteQuery($query, "select");
-
-    if(count($list)>0){
-    foreach ($list as $forum) {
-            $cid = $forum['cid'];
-
-            // get language translated comment
-            $translated = get_translated_comment($cid, $curLanguage);
-            $forum['comment'] = $translated;
-
-            $posted = date("Y-m-d H:i:s", $forum['timestamp']);
-            $date = format_date_class($posted, date());
-            $account = user_load($forum['uid']);
-
-            if (!empty($forum['comment'])) {
-                $querylike = "SELECT * FROM {votingapi_vote} WHERE content_type = 'comment' AND uid = '$user->uid' AND content_id = '" . $forum['cid'] . "'";
-                $fetch = ExecuteQuery($querylike, "select");
-
-                $criteriaUp = array('content_type' => 'comment',
-                    'content_id' => $forum['cid'],
-                    'tag' => 'vote',
-                    'vote_type' => 'up');
-                $criteriaDown = array('content_type' => 'comment',
-                    'content_id' => $forum['cid'],
-                    'tag' => 'vote',
-                    'vote_type' => 'down');
-                $cntagree = vote_up_down_count($criteriaUp);
-                $cntdisagree = vote_up_down_count($criteriaDown);
-
-                $items = array();
-                $items['reply_content'] = $forum['comment'];
-                $items['vote_up'] = $cntagree;
-                $items['vote_down'] = $cntdisagree;
-                $items['uid'] = $account->uid;
-                $items['uname'] = $account->name;
-                $items['posted'] = $posted;
-
-                $comments .= theme('forum_reply_template', $items);
-            }
-    }
+    $json = array();
+    if($commentId){
+    $items = forum_reply_datas($commentId);
+    $json['content'] = theme('forum_reply_template', $items);
+    $json['message'] = 'Thanks, Your reply posted';
     }else{
-        $comments .= '<div>'.t('No Replies').'</div>';
+    $json['message'] = 'Sorry your reply not able to post';
     }
-    return $comments;
+    print json_encode($json); exit;
 }
+
+
+function forum_reply_datas($cid = ''){
+
+    global $gSitePath, $user, $language, $theme;
+
+    $curLanguage = $language->language;
+    $query = "SELECT * FROM {comments} WHERE cid = '$cid'";
+    $list = ExecuteQuery($query, "select");
+    // get language translated comment
+    foreach($list as $forum){
+        $translated = get_translated_comment($cid, $curLanguage);
+        $forum['comment'] = $translated;
+
+        $posted = date("Y-m-d H:i:s", $forum['timestamp']);
+        $date = format_date_class($posted, date());
+        $account = user_load($forum['uid']);
+
+        $items = array();
+        if (!empty($forum['comment'])) {
+            $querylike = "SELECT * FROM {votingapi_vote} WHERE content_type = 'comment' AND uid = '$user->uid' AND content_id = '" . $forum['cid'] . "'";
+            $fetch = ExecuteQuery($querylike, "select");
+
+            $criteriaUp = array('content_type' => 'comment',
+                'content_id' => $forum['cid'],
+                'tag' => 'vote',
+                'vote_type' => 'up');
+            $criteriaDown = array('content_type' => 'comment',
+                'content_id' => $forum['cid'],
+                'tag' => 'vote',
+                'vote_type' => 'down');
+            $cntagree = vote_up_down_count($criteriaUp);
+            $cntdisagree = vote_up_down_count($criteriaDown);
+
+            $items['reply_content'] = $forum['comment'];
+            $items['vote_up'] = $cntagree;
+            $items['vote_down'] = $cntdisagree;
+            $items['uid'] = $account->uid;
+            $items['uname'] = $account->name;
+            $items['posted'] = $posted;
+        }
+    }
+    return $items;
+}
+
 
 function theme_forum_reply_template($repItems = array()){
     global $user, $gSitePath, $theme;
@@ -3294,7 +3304,7 @@ function theme_forum_reply_template($repItems = array()){
     $ratings = ''.$repItems['vote_up'].'&nbsp;<a href="javascript:void(0);" title="Agree This!"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
                 <a href="javascript:void(0);" title="Disagree This!"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>&nbsp;'.$repItems['vote_up'].'';
 
-    $reply .= '<div style="width:400px">';
+    
     $reply .= '<div class="new-reply-wrapper">';
     $reply .= '<div class="user-avatar"><a href="'.$sitelink.'profile/'.$repItems['uname'].'">'.UserPicture_small($repItems['uid']).'</a></div>';
     $reply .= '<div class="mid-area">
@@ -3305,7 +3315,7 @@ function theme_forum_reply_template($repItems = array()){
     $reply .= '<div class="rating">'.$ratings.'</div>
                  <div class="clr"></div>';
     $reply .= '</div><div class="clr"></div>';
-    $reply .= '</div>';
+    
     return $reply;
 
 }

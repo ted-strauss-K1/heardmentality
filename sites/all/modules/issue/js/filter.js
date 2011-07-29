@@ -148,3 +148,41 @@ function show_replies(id){
   jQuery(open_id).slideToggle('slow');
 }
 
+
+
+jQuery('.arg-reply-form').live('submit', function(e){
+    e.preventDefault();
+
+    var cont = jQuery(this);
+    var debid = cont.find('#ded_tnid').val();
+    var norep = "#no_rply_"+debid;
+    if(cont.find('textarea').val().length<2){
+        jQuery(this).find('#reply_err').html('Please enter your reply');
+    }else{
+        cont.find('#add_reply').hide();
+        cont.find('#sub_loader').show();
+        var data = cont.serialize();
+        var ded_tnid = cont.find('#ded_tnid').val();
+        var box_id = '#reply_box_'+ded_tnid;
+        var open_id = '#all_replybox_'+ded_tnid;
+        jQuery.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: cont.attr('action'),
+            data: data,
+            success: function(msg){
+                cont.find('textarea').val('');
+                jQuery(box_id).slideUp('slow');
+                jQuery(norep).remove();
+                jQuery(msg.content).prependTo(open_id);
+                jQuery(open_id).slideDown('slow');
+            },
+            complete: function(){
+                cont.find('#add_reply').show();
+                cont.find('#sub_loader').hide();
+            }
+        });
+    }
+    return false;
+});
+
