@@ -1867,8 +1867,130 @@ img{ border:none; outline:none;}
     border: 1px solid #000;
     height: 33px;
 }
+.issue_right .sugg-form .text-input-dum{
+    border: 1px solid #000;
+    height: 33px;
+    color: #ccc;
+}
 .issue_right .sugg-form .suggest-error{
     color:#ff0000;
     line-height: 1;
     font-size: 10px;
+}
+.deb-res-area .add-debate{
+    width: 400px;
+    margin-left: 120px;
+    padding-bottom: 18px;
+}
+.deb-res-area .add-debate .text-input{
+    border: 1px solid #000;
+    height: 33px;
+    width: 300px;
+}
+.deb-res-area .add-debate .textarea-input{
+    border: 1px solid #000;
+    width: 370px;
+}
+.deb-res-area .head{
+    font-size: 14px;
+    font-weight: bold;
+}
+.deb-res-area .add-debate .sel-box{
+    float: left;
+    width: 40px;
+}
+.orange-btn{
+    background-color:  #F57927;
+    color: #fff;
+    font-weight: bold;
+    padding: 3px 7px;
+    border: 0;
+    cursor: pointer;
+    font-size: 10px;
+}
+.deb-res-area .error-msg{
+    color: #ff0000;
+    font-size: 10px;
+}
+.deb-res-area .submit-msg{
+    color: #529214;
+    font-size: 10px;
+}
+.new-debate-wrapper{
+    border-top: 1px solid #ccc;
+    float: left;
+    padding: 20px 10px;
+}
+.new-debate-wrapper .user-avatar{
+    float: left;
+    padding: 5px;
+}
+.new-debate-wrapper .mid-area{
+    margin-left:12px;
+    float: left;
+}
+.new-debate-wrapper .posted{
+    color: #666;
+    font-size: 10px;
+}
+.new-debate-wrapper .mid-area a{
+    color:  #028cd2;
+    font-size: 10px;
+    cursor: pointer;
+}
+.new-debate-wrapper .rating{
+    float: right;
+}
+
+.new-debate-wrapper .choice span{
+    padding: 2px;
+    margin: 0 2px;
+    font-weight: bold;
+}
+.new-debate-wrapper .comm-text{
+   padding-bottom: 7px;
+}
+.new-debate-wrapper .yellow-box{
+    color: #F4A83D;
+}
+.new-debate-wrapper .green-box{
+    color: #007700;
+}
+.new-debate-wrapper .red-box{
+    color: #FF0000;
+}
+.new-debate-wrapper .reply{
+    float: right;
+    margin-right: -58px;
+    padding-top: 55px;
+}
+.new-debate-wrapper .reply a{
+    color: #FFFFFF;
+}
+.new-debate-wrapper .reply a:hover{
+    text-decoration: none;
+}
+.new-debate-wrapper .reply-box{
+    display: none;
+    padding: 17px 0 0 200px;
+}
+.new-debate-wrapper .textarea-input{
+    border: 1px solid #000;
+}
+.deb-res-area .all-replies{
+    display: none;
+}
+.deb-res-area .show-reply{
+    padding-left:32px;
+}
+.deb-res-area .show-reply a{
+    color:  #336699;
+    font-size: 10px;
+}
+.deb-res-area .show-reply a:hover{
+    text-decoration: none;
+}
+.new-reply-wrapper{
+    width:500px;
+    margin: 20px 0 0 82px;
 }
