@@ -6,7 +6,7 @@
                 <div class="do-intop"><?php print t('ADD AN ISSUE');?></div>
                 <div class="inside2">
                     <div id="err" class=""></div>
-                    <div class="clr">&nbsp;</div>
+                  
                     <div class="left"><strong>
                            <?php print t('Please follow'); ?> <?php print t('Heard Mentality\'s'); ?>,<br/>
                            <span class="ytex"><?php print t('Guidelines & Principles'); ?></span>
@@ -36,8 +36,7 @@
                              <?php }?>
                     </div>
                     <div class="right" id="qform">
-                        <div id="twitMsg" class="messages"><?php if ($show_messages && $messages): print $messages;
-        endif; ?></div>
+                     
                         <div class="clr"></div>
 <?php print $content; ?>
                         <div class="clr"></div>
@@ -46,5 +45,6 @@
                 </div>
             </div></div>
 </div>
+
    <?php include "footer.tpl.php"; ?>
 

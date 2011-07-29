@@ -17,8 +17,14 @@
     
         
            <div class="ques home-lay1-2">
+            <?php   if (isset($node)) { ?>
+                <div class="hm-page-title">ISSUE</div>
+                <?php
+  // do something with $node
+} else { ?>
 		    <div class="hm-page-title">  <?php if (!empty($title)): ?><?php print $title; ?><?php endif; ?></div>
-			<!--class="questop"-->
+			<?php } ?>
+          <!--class="questop"-->
           <div class="" >
             <!--<div class="questopr"><?php echo date("M d,Y") ?></div>-->
           </div>
