@@ -170,6 +170,7 @@ function ahah_render($fields, $name) {
 function issue_init() {
     // Use poll.module's stylesheet, no need to duplicate at this point.
     drupal_add_css(drupal_get_path('module', 'poll') . '/poll.css');
+    drupal_add_js(drupal_get_path('module', 'issue') . '/js/filter.js');
 
 
     if (module_exists('jquery_ui')) {
@@ -824,6 +825,10 @@ function issue_theme($existing, $type, $theme, $path) {
         ),'issue_detail_wrapper' => array(
             'template' => 'issue_detail_wrapper',
             'arguments' => array('nid' => NULL, 'result_analysis' => NULL, 'debate_list' => NULL, 'resource_list' => NULL),
+        ),'single_debate_template' => array(
+            'arguments' => array('debItems' => array()),
+        ),'forum_reply_template' => array(
+            'arguments' => array('repItems' => array()),
         ),
 
     );
@@ -2613,7 +2618,7 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
 function view_issue_results($nid = ''){
    $results = theme('issue_result_analysis',$nid);
    $debates = theme('issue_debate_list', $nid);
-   $resources = theme('issue_resource_list', $nid);
+   //$resources = theme('issue_resource_list', $nid);
    
    return theme('issue_detail_wrapper', $nid, $results, $debates, $resources);
 }
@@ -2654,12 +2659,49 @@ function theme_issue_result_analysis($nid = ''){
 
 // debate list
 function theme_issue_debate_list($nid = ''){
+    global $user;
     $debates = '';
+    module_load_include('inc', 'issue', 'issue.pages');
     $filters = '<span><a href="#">Show debate statistics</a>&nbsp;|&nbsp;<a href="#">Show filter options</a></span>';
     $count = '';
-    $addNew = '<span style="float:right"><a href="#">Add Argument</a></span>';
+
+
+
+    $ans = load_options($nid);
+    //answers
+    
+    foreach ($ans as $list) {
+        $short_answer = get_short_answer($nid, $list['chorder']);
+        $answer = $short_answer!=''?$short_answer:$list['chtext'];
+        $inc_pans.='<div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">' . $answer . '</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        </div>
+        <div class="clr"></div>
+    </div>';
+    }
+    
+    //print_r($cnt);
+    $userCheckDebate = user_is_logged_in()!=''?'<a href="javascript:void(0);" id="addnew_debate" title="New Debate" class="orange-btn">ADD ARGUMENT</a>':'<a href="javascript:void(0);"  title="New Debate" onclick="check_popup_login()" class="orange-btn">ADD ARGUMENT</a>';
+    $userCheckDebate = '<a href="javascript:void(0);" id="addnew_debate" title="New Debate" class="orange-btn">ADD ARGUMENT</a>';
+ 
+    $addNew = '<span style="float:right">'.$userCheckDebate.'</span>';
     $debates .= '<div class="result-analysis-title">DEBATE'.$addNew.'<br />'.$filters.'</div><br />';
-    $debates .= list_debate($nid, 1);
+
+
+    $debates .= '<div class="submit-msg" id="submitted-msg" align="center"></div>';
+    $debates .= '<div class="add-debate" id="add_debate_wrapper" style="display:none">';
+        if (!empty($user->uid)) {
+        $debates .= drupal_get_form('add_new_debate_form', $nid);
+        }else{
+         $debates .= '<div align="center"><b>Please log in to participate in the debate</b></div>';
+        }
+    $debates .= '</div>';
+    $debates .= '<div id="issue_debate_list">';
+    $debates .= issue_debates($nid, 1);
+    $debates .= '</div>';
     return $debates;
 }
 function theme_issue_resource_list($nid = ''){
@@ -2829,4 +2871,441 @@ function issue_suggest_form_submit($form, &$form_state){
         }
     }
     
+}
+
+function add_new_debate_form($form_state, $nid = ''){
+    global $theme, $gSitePath;
+    $form = '';
+
+    $form['nid'] = array('#type' => 'hidden', '#default_value' => $nid);
+    $form['head'] = array('#type' => 'markup', 
+                            '#value' => '<div class="head">ADD ARGUMENT</div>',
+                            '#suffix' => '<span class="error-msg" id="deb-err"></span>');
+    $form['title'] = array('#type' => 'textarea',
+                            '#id' => 'deb_title',
+                            '#size' => 70,
+                            '#cols' => 10,
+                            '#rows' => 6,
+                            '#attributes' => array('class' => 'textarea-input'));
+
+    $ans = load_options($nid);
+    //answers
+    $form['tot_answers'] = array('#type' => 'hidden',
+                                '#default_value' => count($ans),
+                                '#id' => 'tot_ans');
+    $i=0;
+    foreach ($ans as $list) {
+        $short_answer = get_short_answer($nid, $list['chorder']);
+        $answer = $short_answer!=''?$short_answer:$list['chtext'];
+
+        $supports = array('0' => '+/-', '1' => '+', '2' => '-');
+        $form['sup_opp_'.$i] = array('#type' => 'select',
+                                    '#options' => $supports,
+                                    '#attributes' => array('class' => 'sel-box'),
+                                    '#suffix' => '&nbsp;&nbsp;'.$answer.'<br />',
+                                    '#id' => 'sup_'.$i
+                                    );
+        
+        $form['ans_id_'.$i] = array('#type' => 'hidden',
+                                    '#value' => $list['chorder']
+                                    );
+        $i++;
+    }
+    $form['clr_div'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>');
+    $form['new_debate_submit'] = array('#type' => 'submit',
+                                '#value' => t('SUBMIT'),
+                                '#attributes' => array('class' => 'orange-btn'),
+                                '#prefix' => '<div align="right">',
+                                '#suffix' => '</div><span id="sub_loader" style="display:none; float:right"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
+                                '#id' => 'add_new_debate'
+                                );
+    return $form;
+}
+
+
+// add new debate submission
+function add_new_debate_form_submit($form, &$form_state){
+    global $user;
+    $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
+    $wtitle = $form_state['values']['title'];
+    $nid = $form_state['values']['nid'];
+    
+    $tot_ans = $form_state['values']['tot_answers'];
+
+    //echo '<pre>'; print_r($form_state); exit;
+    if (!empty($wtitle) && !empty($user->uid)) {
+                $lose_coins = get_coins('c_debate');
+                if ($user_coins >= $lose_coins) {
+
+                    // save values as node
+                    $deb = new stdClass();
+                    $deb->field_private[0]['value'] = "";
+                    $tnid = get_tnid($nid);
+                    $deb->field_ref_qid[0]['nid'] = $tnid;
+                    $deb->field_type[0]['value'] = '1';
+
+                    $deb->type = 'forum';
+                    $deb->title = $wtitle;
+                    $deb->uid = $user->uid;
+                    $deb->body = "";
+                    $deb->status = 1;
+                    // get tid for debate
+                    // get_taxonomy_id('module name','term data name')
+                    $tid = get_taxonomy_id('forum', 'Debate');
+                    $deb->taxonomy = array($tid);
+
+                    // LANGUAGE DETECTION
+                    // detect language from inputs using googleapis
+                    $inputLanguage = get_input_language($wtitle);
+                    $deb->language = $inputLanguage;
+                    // language status, initially language status is 0
+                    $deb->field_lang_status[0]['value'] = 0;
+                    //echo '<pre>'; print_r($deb); exit;
+                    $save = node_save($deb);
+
+                    $nodeid = $deb->nid;
+                    $vid = $deb->vid;
+
+
+                    
+// add coin for Create new debates
+                    $coin_type = 'c_debate';
+                    user_coins_update($user->uid, '', $coin_type);
+
+                    for($i=0;$i<$tot_ans;$i++){
+                        //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
+                        $forum = "INSERT INTO {debate_options} set nid = '%d',chorder='%d',ans_val='%d' ";
+                        $result = db_query($forum, $nodeid, $form_state['values']['ans_id_'.$i], $form_state['values']['sup_opp_'.$i]);
+                    }
+
+                    
+                    //echo list_debate($qid, 1);
+                    $dumid = '';
+                    send_forumnotify($dumid, $nid);
+
+                    /* New SET NOTIFY LOG */
+                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+                    $variable = array('did' => $nodeid, 'd_title' => $wtitle, 'uid' => $user->uid, 'qid' => $nid, 'q_title' => $qtitle);
+                    set_notify_log($user->uid, $nodeid, 'add_debate', $variable);
+                    /* New SET NOTIFY LOG */
+                } else {
+                    $json['message'] = '<div align="center"><b>Sorry you do not have enough coins to post New Debate</b></div>';
+
+                }
+                $json['message'] = 'Your argument posted successfully';
+                $tnid = get_tnid($nid);
+                $items = load_debate_datas($deb->nid, $nid, $tnid);
+                
+                $json['content'] .= theme('single_debate_template', $items);
+    }else{
+        $json['message'] = '<div align="center"><b>Error occured. Please try again.</b></div>';
+    }
+print json_encode($json);
+}
+
+
+// single debate theme
+function theme_single_debate_template($debItems = array()){
+    global $user, $gSitePath, $theme;
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+
+    // anwers strength
+    $strnth = $debItems['strength'];
+    
+    foreach ($strnth as $list) {
+    $short_answer = get_short_answer($debItems['issue_tnid'], $list['chorder']);
+    $ans = $short_answer!=''?$short_answer:$list['chtext'];
+
+    switch ($list['ans_val']) {
+        case 0:
+            $strength.='<div><span class="yellow-box">+/-</span>'.$ans.'</div>';
+            break;
+        case 1:
+            $strength.='<div><span class="green-box">+</span>'.$ans.'</div>';
+            break;
+        case 2:
+            $strength.='<div><span class="red-box">-</span>'.$ans.'</div>';
+            break;
+    }
+    }
+
+    $ratings = ''.$debItems['vote_up'].'&nbsp;<a href="javascript:void(0);" title="Agree This!"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
+                <a href="javascript:void(0);" title="Disagree This!"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>&nbsp;'.$debItems['vote_up'].'';
+    $reply = '<a class="orange-btn" title="Reply" id="deb_reply_'.$debItems['debate_tnid'].'" href="javascript:void(0);" onclick="open_replybox(this.id)">Reply</a>';
+
+    //$delete = $debItems['uid']==$user->uid?'<a href="javascript:void(0);" id="own_debate_delete" class="orange-btn">Delete</a>&nbsp;&nbsp;':'';
+
+    $reply_box = drupal_get_form('forum_reply_form', $debItems['debate_tnid']);
+    $replies = '';
+
+    $comments = forum_replies($debItems['debate_tnid'], 0);
+
+    $debt = '';
+    $debt .= '<div class="new-debate-wrapper">';
+    $debt .= '<div class="user-avatar"><a href="'.$sitelink.'profile/'.$debItems['uname'].'">'.UserPicture_small($debItems['uid']).'</a></div>';
+    $debt .= '<div class="mid-area">
+            '.l($debItems['uname'],'profile/'.$debItems['uname']).'
+              &nbsp;&nbsp;<span class="posted">'.$debItems['posted'].'</span>&nbsp;|&nbsp;<a>'.t('Report Abuse').'</a>
+              <div class="comm-text">'.$debItems['title'].'</div>
+              <div class="choice">'.$strength.'</div>
+            </div>';
+    $debt .= '<div class="rating">'.$ratings.'</div>
+             <div class="reply">'.$delete.$reply.'</div>
+                 <div class="clr"></div>';
+    $debt .= '<div class="reply-box" id="reply_box_'.$debItems['debate_tnid'].'">'.$reply_box.'</div>';
+    // replies for a debate
+
+    $reply_count =  db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '".$debItems['debate_tnid']."'"));
+
+    $debt .= '<div class="show-reply">
+                <a href="javascript:void(0);" onclick="show_replies(this.id)" title="'.t('show reply').'" id="show_reply_'.$debItems['debate_tnid'].'">'.t('Replies').'</a>
+              ('.$reply_count.')';
+    
+         // rply template here
+        $debt .= '<div class="all-replies" id="all_replybox_'.$debItems['debate_tnid'].'">';
+        $debt .= $comments;
+        $debt .=  '</div>';
+        //rply template ends here
+        
+    $debt .= '</div>';
+    $debt .= '</div><div class="clr"></div>';
+    return $debt;
+}
+
+function load_debate_datas($debId = '', $issId = '', $issTnid = ''){
+
+     global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
+     $curLanguage = $language->language;
+
+     $forum = node_load( array('nid' => $debId, 'status' => '1'));
+        ///*******************/
+        // translated content for title and body
+        // get forum default language id
+        $translated = get_translated_content_forum($issId, $debId, $curLanguage);
+        $forum->title = $translated->title;
+        $forum->body = $translated->body;
+        ///*******************/
+
+        $bg = $i % 2;
+        if ($bg)
+            $setbg = 'back-col';
+        else
+            $setbg='';
+        $i++;
+        $account = user_load($forum->uid);
+
+
+
+        // vote agree, disagree calculation
+        $voteUp = 0;
+        $voteDown = 0;
+        $criteriaUpNode = array('content_type' => 'node',
+                               'content_id' => $forum->nid,
+                                'tag' => 'vote',
+                                'vote_type' => 'up');
+        $criteriaDownNode = array('content_type' => 'node',
+                               'content_id' => $forum->nid,
+                                'tag' => 'vote',
+                                'vote_type' => 'down');
+        $voteUp = vote_up_down_count($criteriaUpNode);
+        $voteDown = vote_up_down_count($criteriaDownNode);
+        $sql = db_query("SELECT cid FROM {comments} WHERE nid = '%d'", $forum->nid);
+        while($row = db_fetch_object($sql)){
+            $criteriaUp = array('content_type' => 'comment',
+                               'content_id' => $row->cid,
+                                'tag' => 'vote',
+                                'vote_type' => 'up');
+            $criteriaDown = array('content_type' => 'comment',
+                               'content_id' => $row->cid,
+                                'tag' => 'vote',
+                                'vote_type' => 'down');
+            $voteUp += vote_up_down_count($criteriaUp);
+            $voteDown += vote_up_down_count($criteriaDown);
+        }
+
+        //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
+        $query = "select * from {debate_options} a join  {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' and b.nid='$issTnid' ORDER BY b.chorder";
+        $strnth = ExecuteQuery($query, "select");
+        $strength = '';
+        foreach ($strnth as $list) {
+            $short_answer = get_short_answer($issTnid, $list['chorder']);
+            $ans = $short_answer!=''?$short_answer:$list['chtext'];
+
+            switch ($list['ans_val']) {
+                case 0:
+                    $strength.='<div class="bottpart">
+                            <div class="green"><em>&nbsp;&nbsp;+</em></div>
+                            <div class="green-box">' . $ans . '</div>
+                                 <div class="clr"></div>
+                                 </div>';
+                    break;
+                case 1:
+                    $strength.='<div class="bottpart">
+                            <div class="green"><em>&nbsp;&nbsp;+</em></div>
+                            <div class="green-box">' . $ans . '</div>
+                                 <div class="clr"></div>
+                                 </div>';
+                    break;
+                case 2:
+                    $strength.='<div class="bottpart">
+                            <div class="pink"><em>&nbsp;&nbsp;-</em></div>
+                            <div class="pink-box">' . $ans . '</div>
+                                 <div class="clr"></div>
+                                 </div>';
+                    break;
+            }
+        }
+
+// date posted, last activity
+        $last_timestamp = db_result(db_query("SELECT timestamp FROM {comments} WHERE nid = '%d' ORDER BY cid DESC LIMIT 0,1", $forum->nid));
+
+        $posted = date("F d Y H:i:s", $forum->created);
+        $last_activity = $last_timestamp!=''?date("F d Y H:i:s", $last_timestamp):$posted;
+// strenght weak calculation
+        $strCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 1, $forum->nid));
+        $weakCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 0, $forum->nid));
+
+        $item = array();
+        $item['debate_id'] = $debId;
+        $item['issue_id'] = $issId;
+        $item['title'] = $forum->title;
+        $item['issue_tnid'] = $issTnid;
+        $item['debate_tnid'] = $translated->nid;
+        $item['uid'] = $account->uid;
+        $item['uname'] = $account->name;
+        $item['posted'] = $posted;
+        $item['last_activity'] = $last_activity;
+        $item['strength'] = $strnth;
+        $item['vote_up'] = $voteUp;
+        $item['vote_down'] = $voteDown;
+        return $item;
+
+}
+
+// forum reply form
+function forum_reply_form($form, $debate_tnid){
+    $form = '';
+    $form['debate_tnid'] = array('#type' => 'hidden', '#default_value' => $debate_tnid);
+    $form['reply_content'] = array('#type' => 'textarea',
+                            '#size' => 70,
+                            '#cols' => 10,
+                            '#title' => t('Add your reply'),
+                            '#rows' => 6,
+                            '#attributes' => array('class' => 'textarea-input'));
+    $form['reply_submit'] = array('#type' => 'submit',
+                                '#value' => t('SUBMIT'),
+                                '#attributes' => array('class' => 'orange-btn'),
+                                '#prefix' => '<div align="right">',
+                                '#suffix' => '</div><span id="sub_loader" style="display:none; float:right"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
+                                '#id' => 'add_reply'
+                                );
+    return $form;
+}
+function forum_reply_form_submit($form, &$form_state){
+    global $user;
+    $values = array();
+    //$values['did'] = $fdid;
+    //$values['pid'] = $comid;
+    $values['nid'] = $form_state['values']['debate_tnid'];
+    $values['uid'] = $user->uid;
+    $values['name'] = $user->name;
+
+    $str_wk = 1;
+    $values['subject'] = check_plain($form_state['values']['reply_content']);
+    $values['comment'] = check_plain($form_state['values']['reply_content']);
+    $values['status'] = 0;
+    $values['format'] = '';
+    $values['mail'] = '';
+    $values['homepage'] = '';
+    $values['str_wk'] = $str_wk;
+
+
+    // LANGUAGE DETECTION
+    // detect language from inputs using googleapis
+    $inputLanguage = get_input_language(check_plain($form_state['values']['reply_content']));
+    $values['language'] = $inputLanguage;
+
+    //drupal_execute('postreplyform', $values, NULL);
+    //custom comment submission (debate reply as comments)
+
+    $commentId = comment_save($values);
+    custom_comment_update($commentId,$values);
+}
+
+
+function forum_replies($debate_tnid, $pid = ''){
+    global $gSitePath, $user, $language, $theme;
+    $curLanguage = $language->language;
+    $comments = '';
+
+    $query = "SELECT * FROM {comments} as c where c.nid='$debate_tnid' and c.status='0' and c.pid='$pid' AND (c.cid = c.tcid OR c.tcid = 0)";
+    $list = ExecuteQuery($query, "select");
+
+    if(count($list)>0){
+    foreach ($list as $forum) {
+            $cid = $forum['cid'];
+
+            // get language translated comment
+            $translated = get_translated_comment($cid, $curLanguage);
+            $forum['comment'] = $translated;
+
+            $posted = date("Y-m-d H:i:s", $forum['timestamp']);
+            $date = format_date_class($posted, date());
+            $account = user_load($forum['uid']);
+
+            if (!empty($forum['comment'])) {
+                $querylike = "SELECT * FROM {votingapi_vote} WHERE content_type = 'comment' AND uid = '$user->uid' AND content_id = '" . $forum['cid'] . "'";
+                $fetch = ExecuteQuery($querylike, "select");
+
+                $criteriaUp = array('content_type' => 'comment',
+                    'content_id' => $forum['cid'],
+                    'tag' => 'vote',
+                    'vote_type' => 'up');
+                $criteriaDown = array('content_type' => 'comment',
+                    'content_id' => $forum['cid'],
+                    'tag' => 'vote',
+                    'vote_type' => 'down');
+                $cntagree = vote_up_down_count($criteriaUp);
+                $cntdisagree = vote_up_down_count($criteriaDown);
+
+                $items = array();
+                $items['reply_content'] = $forum['comment'];
+                $items['vote_up'] = $cntagree;
+                $items['vote_down'] = $cntdisagree;
+                $items['uid'] = $account->uid;
+                $items['uname'] = $account->name;
+                $items['posted'] = $posted;
+
+                $comments .= theme('forum_reply_template', $items);
+            }
+    }
+    }else{
+        $comments .= '<div>'.t('No Replies').'</div>';
+    }
+    return $comments;
+}
+
+function theme_forum_reply_template($repItems = array()){
+    global $user, $gSitePath, $theme;
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+
+    $ratings = ''.$repItems['vote_up'].'&nbsp;<a href="javascript:void(0);" title="Agree This!"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
+                <a href="javascript:void(0);" title="Disagree This!"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>&nbsp;'.$repItems['vote_up'].'';
+
+    $reply .= '<div style="width:400px">';
+    $reply .= '<div class="new-reply-wrapper">';
+    $reply .= '<div class="user-avatar"><a href="'.$sitelink.'profile/'.$repItems['uname'].'">'.UserPicture_small($repItems['uid']).'</a></div>';
+    $reply .= '<div class="mid-area">
+            '.l($repItems['uname'],'profile/'.$repItems['uname']).'
+              &nbsp;&nbsp;<span class="posted">'.$repItems['posted'].'</span>&nbsp;|&nbsp;<a>'.t('Abuse').'</a>
+              <div class="comm-text">'.$repItems['reply_content'].'</div>
+            </div>';
+    $reply .= '<div class="rating">'.$ratings.'</div>
+                 <div class="clr"></div>';
+    $reply .= '</div><div class="clr"></div>';
+    $reply .= '</div>';
+    return $reply;
+
 }

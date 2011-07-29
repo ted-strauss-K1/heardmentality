@@ -32,7 +32,7 @@ function report_percent($nid='') {
             theme = 'skies';
             </script>
             <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'issue') . "/css/css.css' type='text/css' />
-            <script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'issue') . "/js/filter.js'></script>
+            
             <script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'issue') . "/js/skies.js'></script>
 			";
 
@@ -1257,7 +1257,7 @@ function get_releated_issues($question = '', $cat_id = '', $context = '') {
 // issue list here
 function issues_list(){
     $output = '';
-    drupal_add_js(drupal_get_path('module','issue').'/js/filter.js');
+    //drupal_add_js(drupal_get_path('module','issue').'/js/filter.js');
     $output .= '<div class="search-left">';
     $output .= drupal_get_form('issue_search_form');
     $output .= '</div>
@@ -1534,4 +1534,65 @@ function search_issue_results(){
         $issue .= t('No Issues Found');
     }
     return $issue;
+}
+
+
+function issue_debates($qid='', $type='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
+    $curLanguage = $language->language;
+    $wave = '';
+    $click = '';
+    $debate_theme = '';
+
+
+    // load debate
+
+    $sorting = 'ORDER BY f.nid DESC';
+    $cond = '';
+    extract($_REQUEST);
+    if (isset($sort) && $sort == 1){
+        $sorting = 'ORDER BY n.created DESC';
+    }elseif (isset($sort) && $sort == 2){
+        $sorting = ' ORDER BY c.field_strength_value DESC';
+    }
+    if (isset($ans) && !empty($ans)){
+        $cond.=" AND do.chorder='$ans'";
+    }
+    if (isset($sup) && $sup > 0){
+        $cond.=" AND do.ans_val='$sup'";
+    }
+    $tid = get_taxonomy_id('forum', 'Debate');
+    //$sql = "SELECT f.nid FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
+
+   if (empty($cond))
+  $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid JOIN {debate_options} as do ON n.nid = do.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+   else
+   $sql = "SELECT DISTINCT(f.nid) FROM  {debate_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
+
+   // forum for translated languages
+   $issueId = $qid;
+   $tnid = get_tnid($qid);
+   $qid = $tnid;
+
+   $nodes = db_query($sql, $tid, $qid);
+   $count = db_result(db_query($sql, $tid, $qid));
+
+    if ($count>0) {
+        $i=0;
+        while ($node = db_fetch_object($nodes)) {
+            
+            $items = load_debate_datas($node->nid, $issueId, $tnid);
+
+
+            $debate_theme .= theme('single_debate_template', $items);
+
+        }
+    } else {
+        $debate_theme .= '<div class="messages warning">'.t('No Debate Posted Yet!!').'</div>';
+    }
+
+
+    
+    return $debate_theme;
+    //return $wave;
 }

@@ -2920,50 +2920,10 @@ function debate_submit() {
     return;
 }
 
-function users_coins_update($uid = '', $bid = '', $keyname = '') {
-    if ($bid != '') {
-        $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
-    }
-    $sql = "SELECT * FROM {tbl_coins} WHERE key_name = '$keyname'";
-    $coins = ExecuteQuery($sql, 'select');
-    foreach ($coins as $coin) {
-        $coin_count = $coin['coin_count'];
-        $coin_type = $coin['type'];
-    }
-    $insert = "INSERT INTO {user_coins} SET coin_key = '%s', coin_type = '%s', coin_count = '%d', uid = '%d'";
-    db_query($insert, $keyname, $coin_type, $coin_count, $uid);
 
-    // update total coins
-    $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
-    if ($coin_type == 'earn') {
-        $total_coins = $user_coins + $coin_count;
-        $message_id = 'add_coins';
-    }
-    if ($coin_type == 'lose') {
-        $total_coins = $user_coins - $coin_count;
-        $message_id = 'lose_coins';
-    }
 
-    /* New SET NOTIFY LOG */
-    $variable = array('coin_count' => $coin_count, 'coint_type' => $coin_type);
-    set_notify_log($uid, '', $message_id, $variable);
-    /* New SET NOTIFY LOG */
 
-    db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
-    $details = user_load(array('uid' => $uid));
-    return $details->total_coins;
-}
 
-function get_coins($key) {
-    $coins = db_result(db_query("SELECT coin_count FROM {tbl_coins} WHERE key_name = '$key'"));
-    return $coins;
-}
-
-// reply as comments
-function custom_comment_update($cid, $comm = '') {
-    //db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d', language = '%s'", $comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk'], $comm['language']);
-    db_query("UPDATE {comments} SET str_wk = '%d', language = '%s' WHERE cid = '%d'", $comm['str_wk'], $comm['language'], $cid);
-}
 
 
 function like_dislike_bar($cntagree = '', $cntdisagree = ''){
