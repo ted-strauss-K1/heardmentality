@@ -47,7 +47,7 @@ function bind_clk(){
                return false;
             }
 
-            el.empty();
+           // el.empty();
 
             el.slideDown('slow');
             var wid=el.parent('span').attr('name');

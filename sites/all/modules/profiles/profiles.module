@@ -2284,3 +2284,12 @@ function check_follow_unfollow($requester, $requestee){
     return $fid;
 }
 
+// check whether the user has moderator permission
+function is_moderator($uid = ''){
+    global $user;
+    if(is_array($user->roles) && in_array('administrator', $user->roles)){
+     return true;
+    }else{
+     return false;
+    }
+}

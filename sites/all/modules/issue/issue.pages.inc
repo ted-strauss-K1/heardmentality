@@ -1544,6 +1544,7 @@ function issue_debates($qid='', $type='') {
     $click = '';
     $debate_theme = '';
 
+    //drupal_add_js( drupal_get_path('module', 'debate') . '/scripts/debate.js');
 
     // load debate
 
@@ -1585,7 +1586,9 @@ function issue_debates($qid='', $type='') {
 
 
             $debate_theme .= theme('single_debate_template', $items);
-
+            // update points
+            $tForumId = get_tnid($node->nid);
+            debate_roundup($tForumId);
         }
     } else {
         $debate_theme .= '<div class="messages warning">'.t('No Debate Posted Yet!!').'</div>';
@@ -1603,7 +1606,7 @@ function forum_replies($debate_tnid, $pid = ''){
     $curLanguage = $language->language;
     $comments = '';
 
-    $query = "SELECT * FROM {comments} as c where c.nid='$debate_tnid' and c.status='0' and c.pid='$pid' AND (c.cid = c.tcid OR c.tcid = 0)";
+    $query = "SELECT * FROM {comments} as c where c.nid='$debate_tnid' and c.status='0' and c.pid='$pid' AND (c.cid = c.tcid OR c.tcid = 0) ORDER BY c.cid DESC";
     $list = ExecuteQuery($query, "select");
 
     if(count($list)>0){
@@ -1618,4 +1621,41 @@ function forum_replies($debate_tnid, $pid = ''){
         $comments .= '<div id="no_rply_'.$debate_tnid.'">'.t('No Replies').'</div>';
     }
     return $comments;
+}
+
+// delete forum, comments
+function issue_thread_delete($type = '', $tnid = ''){
+    if($type == 'forum'){
+        $tlists = translation_node_get_translations($tnid);
+        //print_r($tlists);
+        foreach($tlists as $list){ 
+            node_delete($list->nid);
+        }
+        db_query("DELETE FROM {debate_options} WHERE nid = '$tnid'");
+        print t('Your argument removed fro list'); exit;
+    }
+    if($type == 'reply'){
+        $tcid = $tnid;
+        $comment = db_fetch_object(db_query('SELECT c.*, u.name AS registered_name, u.uid FROM {comments} c INNER JOIN {users} u ON u.uid = c.uid WHERE c.cid = %d', $tcid));
+       
+        if($comment->translate==1){
+            $trans = db_query('SELECT c.*, u.name AS registered_name, u.uid FROM {comments} c INNER JOIN {users} u ON u.uid = c.uid WHERE c.tcid = %d', $comment->cid);
+            while($translations = db_fetch_object($trans)){
+                delete_replies($translations);
+            }
+        }else{
+            delete_replies($comment);
+        }
+        print t('Your reply removed from list'); exit;
+    }
+}
+
+function delete_replies($comment){
+      // Delete the comment:
+      db_query('DELETE FROM {comments} WHERE cid = %d', $comment->cid);
+      watchdog('content', 'Comment: deleted %subject.', array('%subject' => $comment->subject));
+
+      comment_invoke_comment($comment, 'delete');
+      // update comment statistics
+      _comment_update_node_statistics($comment->nid);
 }

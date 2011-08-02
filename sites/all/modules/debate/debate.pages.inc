@@ -2794,6 +2794,8 @@ function debate_submit() {
 
                             $variable = array('did' => $content_id, 'd_title' => $dtitle, 'qid' => $qid, 'q_title' => $qtitle);
                             $nodeid = $content_id;
+                            $item = load_debate_datas($content_id);
+                            $msg['cnt'] = $item['vote_up'];
                         } else if ($action == 'is_debate_reply') {
 
                             $message_id = 'deb_reply_agree';
@@ -2833,6 +2835,8 @@ function debate_submit() {
 
                             $variable = array('did' => $content_id, 'd_title' => $dtitle, 'qid' => $qid, 'q_title' => $qtitle);
                             $nodeid = $content_id;
+                            $item = load_debate_datas($content_id);
+                            $msg['cnt'] = $item['vote_down'];
                         } else if ($action == 'is_debate_reply') {
 
                             $message_id = 'deb_reply_disagree';
@@ -2865,7 +2869,7 @@ function debate_submit() {
                     /* New SET NOTIFY LOG */
 
 
-                    $msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
+                    //$msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
                     if ($agree) {
                         $msg['msg'] = "<em><strong>Agreed!</strong>You have $coins coins left</em> ";
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
