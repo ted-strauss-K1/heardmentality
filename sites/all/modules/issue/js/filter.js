@@ -58,13 +58,13 @@ jQuery(document).ready(function() {
     });
 
   //trigger search filters
-     //   search_iss_trig();
+     search_iss_trig();
 //for IE
         // setTimeout(resetFields,3000);
         //  jQuery('#subject').change();
       //   jQuery('#subject').val("3");
-sendEvent(jQuery('#subject'),'change');//assuming there is a select element
-jQuery('#subject').fireEvent("onchange");
+//sendEvent(jQuery('#subject'),'change');//assuming there is a select element
+//jQuery('#subject').fireEvent("onchange");
 
 });
 
