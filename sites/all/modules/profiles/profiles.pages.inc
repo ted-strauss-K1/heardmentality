@@ -1180,7 +1180,7 @@ function user_details() {
     $form['marital'] = array(
         '#type' => 'select',
         '#title' => t(''),
-        '#options' => array('Select' => 'Select', 'Single' => 'Single', 'Married' => 'Married','Divorced'=>'Divorced','Widow'=>'Widow'),
+        '#options' => array('0' => 'Select', 'Single' => 'Single', 'Married' => 'Married','Divorced'=>'Divorced','Widow'=>'Widow'),
         '#description' => t(' '),
         '#default_value' => variable_get('marital', ''),
         '#id' => 'marital',

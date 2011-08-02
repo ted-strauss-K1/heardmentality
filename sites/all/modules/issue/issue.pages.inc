@@ -172,7 +172,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
                 elseif ($list == 'female')
                     $gen = 2;
                 else
-                    $gen='';
+                    $gen='0';
 
                 $inc_cnt = '[';
                 for ($ab = 0; $ab < count($vlist); $ab++) {
@@ -199,7 +199,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
                 elseif ($key == 2)
                     $query_ins = "AND u.age>='51' ";
                 else
-                    $query_ins = "AND u.age='' ";
+                    $query_ins = "AND u.age='0' ";
 
 
                 $inc_cnt = '[';
@@ -222,7 +222,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
             foreach ($answer['divide'] as $list) {
                 if ($list == 'undefined')
-                    $reg = '';
+                    $reg = '0';
                 else
                     $reg=$list;
 
@@ -266,7 +266,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
             foreach ($answer['divide'] as $list) {
                 if ($list == 'undefined')
-                    $reg = '';
+                    $reg = '0';
                 else
                     $reg=$list;
 
@@ -288,7 +288,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
             foreach ($answer['divide'] as $list) {
                 if ($list == 'undefined')
-                    $reg = '';
+                    $reg = '0';
                 else
                     $reg=$list;
 
@@ -310,7 +310,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
             foreach ($answer['divide'] as $list) {
                 if ($list == 'undefined')
-                    $reg = '';
+                    $reg = '0';
                 else
                     $reg=$list;
 
@@ -333,7 +333,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
             foreach ($answer['divide'] as $list) {
                 if ($list == 'undefined')
-                    $reg = '';
+                    $reg = '0';
                 else
                     $reg=$list;
 
