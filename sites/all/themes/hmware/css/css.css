@@ -1962,7 +1962,7 @@ img{ border:none; outline:none;}
 .new-debate-wrapper .reply{
     float: right;
     margin-right: -58px;
-    padding-top: 55px;
+    margin-top: 55px;
 }
 .new-debate-wrapper .reply a{
     color: #FFFFFF;
@@ -2000,4 +2000,7 @@ img{ border:none; outline:none;}
     border: 1px solid #ccc;
     padding: 4px 8px 4px 4px;
     margin: 8px;
+}
+.new-reply-wrapper .reply a{
+    color:#fff;
 }

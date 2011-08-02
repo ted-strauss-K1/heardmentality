@@ -160,8 +160,8 @@ global $apikey, $gSitePath, $theme;
             <?php if($page):?>
             <div class="issue_left">
             <div class="context">
-                <div class="sub-title">Context</div>
-                <?php print $context; ?>
+                <div class="sub-title"><?php print t('Context'); ?></div>
+                <?php print t($context); ?>
             </div>
             <div class="clr"></div>
 
@@ -172,7 +172,9 @@ $pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
 var act = new gigya.services.socialize.UserAction();
 act.setUserMessage("Your comment here...");
 act.setTitle("<?php print t($title); ?>");
-act.setDescription("<?php print t(trim(strip_tags($context))); ?>");
+act.setDescription("<?php
+                    $context = str_replace(array("\r", "\n"), '', $context);
+                 print t(htmlentities($context));?>");
 act.setLinkBack("<?php print $pagePath; ?>");
 act.addActionLink("<?php print t($title); ?>","<?php print $pagePath; ?>");
 
