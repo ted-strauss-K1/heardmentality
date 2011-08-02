@@ -580,7 +580,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
   'sortby' => 'countryname',
 );
     $countryList = geonames_query('countryinfo',NULL, $options);
-  
+  //print_r($countryList);
     foreach($countryList->results as $country){
         $countries[$country['countryname']] = $country['countryname'];
     }

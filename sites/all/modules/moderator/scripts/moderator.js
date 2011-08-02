@@ -34,8 +34,8 @@ load_issue_data_ahah();
 });
     jQuery('#qdupeform').live('submit',function(e){
         e.preventDefault();
-        var dupeid=$("#qdupeform input[type='radio']:checked").val();
-        var qid=$("#qdupeform input[type='hidden']").val();
+        var dupeid=jQuery("#qdupeform input[type='radio']:checked").val();
+        var qid=jQuery("#qdupeform input[type='hidden']").val();
         if(typeof(dupeid)!="undefined"){
             var url=gSitePath+'moderator/ajax/mergeissue/'+qid+'/'+dupeid;
             var options = 'type:ajax sameBox:true width:40% height:50% caption:' +
@@ -66,7 +66,7 @@ load_issue_data_ahah();
                // jQuery('div.mod-midside-inner').load(jQuery('a[name="icurrent"]').attr('href'),function() {
                //     load_issue_data();
                // });
-                jQuery('#theiframe').attr("src", $('#theiframe').attr("src"));
+                jQuery('#theiframe').attr("src", jQuery('#theiframe').attr("src"));
 
                 fb.end();
                     
@@ -948,3 +948,50 @@ function load_issue_data_ahah(){
   function locSet(){
       jQuery('#q_state').trigger('click');
   }
+
+//  if (Drupal.jsEnabled) {
+//
+//    var selected = new Array();
+//
+//   jQuery('select').live('mouseover',function() {
+//
+//      if (this.multiple == true) {
+//        for (var i=0,a=0;i<this.options.length;i++) {
+//          if (this.options[i].selected == true) {
+//            selected[a] = this.options[i].value;
+//            a++;
+//          }
+//        }
+//      }
+//    });
+//
+//    // safe them when you click the mouse
+//    jQuery('select').live('change',function() {
+//      // make sure it's a multiple select
+//      alert(this.multiple);
+//      if (this.multiple == true) {
+//        for(var i=0;i<selected.length;i++) {
+//          for(var a=0;a<this.options.length;a++){
+//            if (selected[i] == this.options[a].value && this.options[a].selected == true) {
+//              this.options[a].selected = false;
+//              selected.splice(i,1);
+//            } else if (selected[i] == this.options[a].value) {
+//              this.options[a].selected = true;
+//            }
+//          }
+//        }
+//      }
+//
+//      // load all selected options in array when the mouse pointer hovers the select box
+//      if (this.multiple == true) {
+//        for (var i=0,a=0;i<this.options.length;i++) {
+//          if (this.options[i].selected == true) {
+//            selected[a] = this.options[i].value;
+//            a++;
+//          }
+//        }
+//      }
+//
+//    });
+//
+//}

@@ -244,7 +244,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
             foreach ($answer['divide'] as $list) {
                 if ($list == 'undefined')
-                    $reg = '';
+                    $reg = '0';
                 else
                     $reg=$list;
 

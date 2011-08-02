@@ -26,11 +26,6 @@ function MM_jumpMenuGo(){
 document.form1.submit();
 }
 
-jQuery(document).ready(function(){
-
-    search_iss_trig();
-})
-
 function search_iss_trig(){
     jQuery('#subject').trigger('change');
     setTimeout(subcatSet,3000);
@@ -44,10 +39,7 @@ function substate(){
     jQuery('#s_state').trigger('change');
 }
 
-// open suggest answer form
-    jQuery('#sugg-btn').live('click',function(){
-        jQuery('#sugg-form').slideToggle('fast');
-    });
+
 jQuery(document).ready(function() {
     // suggest answer text box
     jQuery('#sugg_ans').hide();
@@ -65,10 +57,38 @@ jQuery(document).ready(function() {
         }
     });
 
-    jQuery('#canc').live('click', function() {
+  //trigger search filters
+     //   search_iss_trig();
+//for IE
+        // setTimeout(resetFields,3000);
+        //  jQuery('#subject').change();
+      //   jQuery('#subject').val("3");
+sendEvent(jQuery('#subject'),'change');//assuming there is a select element
+jQuery('#subject').fireEvent("onchange");
+
+});
+
+function sendEvent(ele,e){
+	try{// every browser except IE8 and below works here
+		var evt = document.createEvent("HTMLEvents");
+		evt.initEvent(e, true, true);
+		ele.dispatchEvent(evt);
+	}
+	catch(err){
+		ele.fireEvent('on'+e);
+	}
+}
+
+
+// open suggest answer form
+    jQuery('#sugg-btn').live('click',function(){
+        jQuery('#sugg-form').slideToggle('fast');
+    });
+
+jQuery('#canc').live('click', function() {
         jQuery('#sugg-form').slideUp('fast');
-    });  
-})
+    });
+
 // open add new debate form
  jQuery('#addnew_debate').live('click',function(){
         jQuery('#submitted-msg').html('');
@@ -131,6 +151,7 @@ jQuery('#add-new-debate-form').live('submit', function(e){
           }
         });
     }
+    return false;
 });
 
 

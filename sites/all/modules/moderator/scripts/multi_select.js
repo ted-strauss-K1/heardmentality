@@ -109,7 +109,16 @@
  *  - Click-and-drag across options causes selection of mousedown option
  */
 jQuery(document).ready(function () {
-    // Semi-globals (variables shared between all select elements on a page)
+   multi_select();
+
+ //  jQuery('select').ajaxStop(function() {
+ //  multi_select();
+//});
+});
+
+function multi_select(){
+
+     // Semi-globals (variables shared between all select elements on a page)
     //
     // true if the click event is required for synchronizing the state.
     // false if the click event is not required for synchronizing the state.
@@ -508,7 +517,6 @@ jQuery(document).ready(function () {
         var optelems = jQuery("select[multiple] option");
         optelems.unbind('mouseup', optionMouseUp);
     }
-});
 
-
+}
 // vim: set ts=8 sts=4 sw=4 et:
