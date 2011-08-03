@@ -52,7 +52,7 @@ function report_percent($nid='') {
     $cnt = $result['cnt'];
 
     foreach ($ans as $key => $value) {
-        $ins_script .= "{name: '" . $ans[$key] . "',data: " . $cnt[$key] . "},";
+        $ins_script .= "{name: '" .t(addslashes($ans[$key])) . "',data: " . $cnt[$key] . "},";
     }
 
     $per = json_encode($result);
@@ -460,7 +460,7 @@ function report_graph($nid='') {
         // short answers
         $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
         $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
-
+        $answer=t(addslashes($answer));
         $i = $ab + 1;
         $ans = array();
 
@@ -1318,10 +1318,17 @@ function issue_search_form(&$form_state){
     $form['location_mark'] = array('#type' => 'markup', '#value' => t('FILTER BY LOCATION').'<br /><div class="clr"></div>');
     // location
     $countries[''] = 'COUNTRY';
-    $countryList = geonames_query('countryinfo',NULL);
-    foreach($countryList->results as $country){
-        $countries[$country['countryname']] = $country['countryname'];
+   // $countryList = geonames_query('countryinfo',NULL);
+      //foreach($countryList->results as $country){
+     //   $countries[$country['countryname']] = $country['countryname'];
+    //}
+    //list only the country the issue is
+    $cck_country=db_query("select field_issue_country_value from {content_field_issue_country} group by field_issue_country_value");
+    while ($ccklist = db_fetch_object($cck_country)) {
+        if(!empty($ccklist->field_issue_country_value))
+          $countries[$ccklist->field_issue_country_value] =$ccklist->field_issue_country_value;
     }
+  //  array_filter($countries, 'strlen');
     $form['country'] = array('#type' => 'select',
                             '#options' => $countries,
                             '#prefix' => '<div style="float:left;">',
@@ -1658,4 +1665,33 @@ function delete_replies($comment){
       comment_invoke_comment($comment, 'delete');
       // update comment statistics
       _comment_update_node_statistics($comment->nid);
+}
+
+
+function insight_view($nid=''){
+
+
+//    1.  Demographics by possible answer to total votes
+//   Sum of votes for a possible answer by each demographic / total votes.
+//ex: sum votes for possible answer A where demographic = male / total number of votes (not including changed votes)
+//
+//2.  Demographics by possible answer by total demographic votes
+//   Sum of votes for a possible answer by each demographic / total votes for the same demographic
+//ex: sum votes for possible answer A where demographic = age group X / total votes for age group X
+//
+//3. Demographics total votes by total votes
+//   Sum of all votes by a demographic / total votes
+//ex: Sum all votes by hindus (regardless of possible answer) / total votes
+
+    if(is_numeric($nid)){
+
+    // calculation
+        
+
+
+    }
+
+
+
+
 }
