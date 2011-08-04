@@ -229,9 +229,15 @@ function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
 //    }
     
 /*URL alias for all languages*/
+    if(function_exists('pathauto_cleanstring')) {
+   $str = pathauto_cleanstring($str);
+}
+
     $clean = $str;
     $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $clean);
-    $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+  //  $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+    $clean = trim(ereg_replace(' +',' ',preg_replace('/[^a-zA-Z0-9\s]/','',strtolower($clean))));
+    $clean=str_replace(' ',$delimiter,$clean);
     if( strlen($clean)<3 || strstr($clean, ' ')){
         $clean = $str;
     }

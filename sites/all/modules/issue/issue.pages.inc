@@ -1091,7 +1091,7 @@ function issue_create_form_submit($form, &$form_state) {
     $node->uid = $account->uid;
     $node->status = 1;
     $node->active = 1;
-
+    $node->path=
     // LANGUAGE DETECTION
     // detect language from inputs using googleapis
     $inputLanguage = get_input_language($form_state['values']['q_quest']);
@@ -1121,7 +1121,9 @@ function issue_create_form_submit($form, &$form_state) {
     //url alias
     $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
     $url = 'node/' . $node->nid;
-    db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, $inputLanguage);
+   // db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, $inputLanguage);
+
+    path_set_alias($url, $dst,'',$inputLanguage);
 
     // return $node;
     // insert default debate for each issue
@@ -1686,9 +1688,12 @@ function insight_view($nid=''){
     if(is_numeric($nid)){
 
     // calculation
-        
+        $gender=report_percent_broken($nid,'',array('dochg'=>'gender'));
+        echo '<pre>';
+        print_r($gender);
 
-
+        $age=report_percent_broken($nid,'',array('dochg'=>'age'));
+        print_r($age);
     }
 
 
