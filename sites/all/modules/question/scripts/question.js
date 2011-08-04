@@ -28,6 +28,7 @@ success: function(msg){
 
 // check duplicate before submit
 jQuery('#save_issue').click(function() {
+    if(jQuery('#dupe-issue-area').length>0){
     var dupeCount = jQuery("#dupe_count").val();
     if(dupeCount != 0){
          jQuery('#twitMsg').html("Duplicate issues exist! Please verify your issue with duplication");
@@ -35,6 +36,7 @@ jQuery('#save_issue').click(function() {
          return false;
     }else{
         return true;
+    }
     }
 });
 

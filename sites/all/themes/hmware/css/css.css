@@ -2004,3 +2004,50 @@ img{ border:none; outline:none;}
 .new-reply-wrapper .reply a{
     color:#fff;
 }
+.uactivity{
+    font-size: 10px;
+    padding: 7px;
+}
+.contarea .left-map{
+    float: left;
+    width: 615px;
+    background-color: #B8DBD9;
+}
+.contarea .left-map .head{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 17px 0 9px 0;
+}
+.contarea .left-map .head span{
+    padding-right:4px;
+}
+.contarea .happening-now{
+   margin-left: 620px;
+   
+}
+.contarea .happening-now .title{
+   padding-bottom: 20px;
+   font-size: 14px;
+   font-weight: bold;
+}
+.facts-figures{
+    font-size: 16px;
+}
+.facts-figures ul{
+    width: 300px;
+}
+.facts-figures ul li{
+    display: inline;
+}
+.facts-figures ul li span{
+    font-weight: normal;
+    font-size: 30px;
+    color: #fff;
+}
+.facts-figures ul li a{
+    font-size: 26px;
+    color: #000;
+}
+.uactivity .activity-stream{
+    padding-bottom:10px;
+}

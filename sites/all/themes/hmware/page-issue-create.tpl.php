@@ -30,7 +30,7 @@
                              global $user;
                              if (is_array($user->roles) && in_array('administrator', $user->roles)){
                              ?>
-                             <div class="clr" style="font-weight:bold;color:black"><?php print t('Dupe questions'); ?>:</div>
+                             <div class="clr" id="dupe-issue-area" style="font-weight:bold;color:black"><?php print t('Dupe questions'); ?>:</div>
 
                              <div id="inside_content"></div>
                              <?php }?>

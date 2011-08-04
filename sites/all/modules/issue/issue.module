@@ -3049,7 +3049,7 @@ function theme_single_debate_template($debItems = array()){
                 <span type="is_debate" name="' . $debItems['debate_tnid'] . '" id="dagree" >
                     <a href="javascript:void(0);" title="Agree This!" name="a-' . $debItems['debate_tnid'] . '" class="dagree"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
                     <a href="javascript:void(0);" title="Disagree This!" name="da-' . $debItems['debate_tnid'] . '" class="ddisagree"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
-                &nbsp;'.$debItems['vote_down'].'';
+                </span>&nbsp;'.$debItems['vote_down'].'';
     $reply = '<a class="orange-btn" title="Reply" id="deb_reply_'.$debItems['debate_tnid'].'" href="javascript:void(0);" onclick="open_replybox(this.id)">Reply</a>';
 
     if(is_moderator() || $debItems['uid']==$user->uid){
@@ -3309,7 +3309,7 @@ function forum_reply_datas($cid = ''){
         $forum['comment'] = $translated;
 
         $posted = date("Y-m-d H:i:s", $forum['timestamp']);
-        $date = format_date_class($posted, date());
+        $date = format_date_class($posted, date("Y-m-d H:i:s"));
         $account = user_load($forum['uid']);
 
         $items = array();
@@ -3347,8 +3347,11 @@ function theme_forum_reply_template($repItems = array()){
     $path = '<front>';
     $sitelink = url($path, array('absolute' => TRUE)).'/';
 
-    $ratings = ''.$repItems['vote_up'].'&nbsp;<a href="javascript:void(0);" title="Agree This!"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
-                <a href="javascript:void(0);" title="Disagree This!"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>&nbsp;'.$repItems['vote_up'].'';
+    $ratings = ''.$repItems['vote_up'].'&nbsp;
+                <span name="' . $repItems['cid'] . '" type="is_debate_reply" id="dragree" >
+                <a href="javascript:void(0);" title="Agree This!" name="a-' . $repItems['cid'] . '" class="ragree""><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
+                <a href="javascript:void(0);" title="Disagree This!" name="da-' . $repItems['cid'] . '" class="rdisagree"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
+                </span>&nbsp;'.$repItems['vote_down'].'';
 
     if(is_moderator() || $repItems['uid']==$user->uid){
     $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id)" id="own_reply_'.$repItems['cid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';

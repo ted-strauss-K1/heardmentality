@@ -4,7 +4,7 @@
  * Implementation of hook_perm().
  */
 function notify_perm() {
-    return array('notify', 'Notify Report', 'Notify Report Content', 'Notify Report Content2', 'Notify Report Content3', 'Admin Notification');
+    return array('notify', 'Notify Report', 'Notify Report Content', 'Notify Report Content2', 'Notify Report Content3', 'Admin Notification', 'happening now');
 }
 
 /**
@@ -86,6 +86,15 @@ function notify_menu() {
         'type' => MENU_CALLBACK,
         'page arguments' => array(2),
         'access arguments' => array('notify'),
+        'file' => 'notify.pages.inc',
+    );
+
+    $items['happening/stream/%'] = array(
+        'title' => 'Happening Now Stream',
+        'page callback' => 'happening_stream',
+        'type' => MENU_CALLBACK,
+        'page arguments' => array(2),
+        'access arguments' => array('happening now'),
         'file' => 'notify.pages.inc',
     );
 
@@ -1357,7 +1366,9 @@ function notify_block($op = 'list', $delta = 0, $edit = array()) {
             $blocks[0] = array(
                 'info' => t('Heart Beat Messages'),
             );
-
+            $blocks[1] = array(
+                'info' => t('Happening Right Now'),
+            );
             return $blocks;
 
         case 'view':
@@ -1368,6 +1379,9 @@ function notify_block($op = 'list', $delta = 0, $edit = array()) {
                     $block['content'] = _notify_content($uid);
 
                     break;
+                case '1':
+                    //$block['subject'] = "Happening Right Now";
+                    $block['content'] = _happening_now();
             }
             return $block;
     }
@@ -2245,4 +2259,191 @@ function _activity_get_friends($uid) {
     }
 
     return $uids;
+}
+// phase VI happening now
+function _happening_now(){
+    
+     global $gSitePath,$user,$gDocPath,$base_root;
+     drupal_add_js(drupal_get_path('module', 'notify') . '/scripts/script.js');
+     $data='
+var streamtimer = setInterval(function() {
+      load_stream(jQuery("div.more-link a"),"new");
+}, 10000);
+setTimeout(function(){clearInterval(streamtimer);}, 240000);
+';
+     drupal_add_js($data, $type='inline');
+     //drupal_set_html_head('<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>');
+     
+     $start=variable_get(arg(1),'0');
+     $limit=10;
+
+
+     //$restrict_msgids = array('add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points');
+     $restrict_msgids = "'add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points'";
+
+     //data query
+   $sql="SELECT distinct b.naid,b.*,a.message
+      FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` = `b`.`uid`
+     WHERE  a.status = 1 AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC LIMIT %d, %d";
+        //count query
+        $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` = `b`.`uid`
+     WHERE a.status = 1 AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC "));
+//$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+   $query=db_query($sql, $start,$limit);
+   
+     //printf($sql, $uids, $uids, $start,$limit);
+$i=0;
+
+// restricted message ids.. these should not display in happening now
+
+
+
+
+$output.='<div class="uactivity" id="uactivity">';
+    while($result=  db_fetch_object($query)){
+            $style = $i>=5?"display:block":"display:none";
+            $output.= '<div id="msg-'.$result->naid.'" style="'.$style.'" class="activity-stream">';
+            $output.= theme('notify_'.$result->message_id,$result);
+            $output.= '</div>';
+            $i++;
+    }
+    if (!$i) {
+            $output.='No User Activity Found!';
+        }
+ 
+    $output.='</div>';
+    if ($count > $limit) {
+        $style = 'style="display:none"';
+    } else {
+        $style = 'style="display:none"';
+    }
+
+    $output.='<div ' . $style . ' class="more-link"><a id="' . ($start + $limit) . '" href="' . $gSitePath . 'happening/stream/">More Activity</a></div>';
+    return $output;
+}
+
+function happening_stream($start='') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $max=50;
+    $limit=10;
+
+
+    
+    $json = array();
+    
+     $json['more'] = true;
+    $json['error'] = false;
+    if(($start+$limit)>$max){
+         $limit = max(0, $max-$start);
+         $json['more'] = false;
+    }
+//$restrict_msgids = array('add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points');
+    $restrict_msgids = "'add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points'";
+    
+    // $start=variable_get(arg(1),'0');
+    if ($_GET['action'] == 'more') {
+
+       
+         
+            //data query
+            $sql = "SELECT distinct b.naid,b.*,a.message
+      FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` = `b`.`uid`
+     WHERE a.status = 1 AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC LIMIT %d, %d";
+            //count query
+//            $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+//INNER JOIN `notify_messages` a
+//        ON `b`.`message_id` = `a`.`message_id`
+//INNER JOIN `users` u
+//        ON `u`.`uid` IN (%s)
+//     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
+//$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+$query=db_query($sql, $start,$limit);
+           
+            $i = 0;
+
+            while ($result = db_fetch_object($query)) {
+                if(!in_array($result->message_id, $restrict_msgids)){
+                $output.= '<div id="msg-' . $result->naid . '">';
+                $output.= theme('notify_' . $result->message_id, $result);
+                $output.= '</div>';
+                $i++;
+                }   
+            }
+
+
+           if($i<$limit){
+              $json['more'] = false;
+            }
+              if (!$i) {
+                $json['error'] = true;
+                $json['more'] = false;
+                $output = 'No User Activity Found!';
+            }
+      
+        $json['status'] = true;
+
+        $json['content'] = $output;
+        $json['count'] = $i;
+
+        $json['start'] = $start + $limit;
+        print json_encode($json);
+    }
+    if ($_GET['action'] == 'new') {
+        $firstid = $_GET['firstid'];
+            //data query
+            $sql = "SELECT distinct b.naid,b.*,a.message
+      FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` = `b`.`uid`
+     WHERE a.status = 1 AND b.naid>$firstid AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC LIMIT %d, %d";
+            //count query
+            $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` = `b`.`uid`
+     WHERE a.status = 1 ND `b`.`message_id` NOT IN($restrict_msgids)  ORDER BY b.timestamp DESC LIMIT %d,%d  ",0,$limit));
+
+//$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
+$query=db_query($sql, 0,$limit);
+            
+
+            $i = 0;
+
+            while ($result = db_fetch_object($query)) {
+                if(!in_array($result->message_id, $restrict_msgids)){
+                $output.= '<div id="msg-' . $result->naid . '" class="activity-stream" style="display:none">';
+                $output.= theme('notify_' . $result->message_id, $result);
+                $output.= '</div>';
+                $i++;
+                }
+            }
+
+            if ($i == 0) {
+                $json['error'] = true;
+                $output = 'No User Activity Found!';
+            }
+        
+        $json['status'] = true;
+        $json['content'] = $output;
+        $json['count'] = $count;
+
+        $json['start'] = $start + $limit;
+        print json_encode($json);
+    }
 }

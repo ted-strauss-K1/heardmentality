@@ -113,7 +113,23 @@ reset_tabs();
     });
 
 
+
 });
+
+
+// happening now slide down
+//setTimeout(slidestream, 5000);
+
+ //var duration = 2000;
+function slidestream(){
+var delay = 0;
+jQuery(jQuery('#uactivity div.activity-stream:hidden').get().reverse()).each(function(){
+    jQuery(this).delay(delay).slideDown('slow');
+    delay +=2000;
+});
+}
+
+
 
 function load_stream(more,action){
 
@@ -124,14 +140,15 @@ function load_stream(more,action){
             var query_string = url.split("?");
             //pass filter value along with url
         var urr=more.attr('href')+more.attr('id')+'?'+query_string[1];
- jQuery.getJSON(urr,
-        {
-            'time': timestamp,'action':action,'firstid':firstmid[1]
-        },
-        function(data) {
 
-            var cnt=data.count;
-           // jQuery.unblockUI();
+        jQuery.ajax({
+          type: 'GET',
+          dataType: 'json',
+          url: urr,
+          data: {'time': timestamp,'action':action,'firstid':firstmid[1]},
+          success: function(data){
+              var cnt=data.count;
+              // jQuery.unblockUI();
             if(data.error){
             if(action=='more'){
                  jQuery('#uactivity').append('<div class="warning"><small>No More User Activity!</small></div>');
@@ -146,15 +163,54 @@ function load_stream(more,action){
                    jQuery('div.more-link').fadeOut('slow');
                    jQuery('#uactivity').append('<div class="warning"><small>There are no more posts to show right now.!</small></div>');
               }
-                 
+
                 }
               if(action=='new'){
                 more.attr('id',data.start);
               jQuery('#uactivity').prepend(data.content);
                 }
             }
-        jQuery("body").css({'opacity':''});
+            jQuery("body").css({'opacity':''});
+          },
+          complete: function(){
+              slidestream();
+          }
         });
+
+
+
+
+// jQuery.getJSON(urr,
+//        {
+//            'time': timestamp,'action':action,'firstid':firstmid[1]
+//        },
+//        function(data) {
+//
+//            var cnt=data.count;
+//           // jQuery.unblockUI();
+//            if(data.error){
+//            if(action=='more'){
+//                 jQuery('#uactivity').append('<div class="warning"><small>No More User Activity!</small></div>');
+//                 jQuery('div.more-link').fadeOut('slow');
+//            }
+//             // alert('error occurs please try to reload!!')
+//            }else{
+//                if(action=='more'){
+//                      more.attr('id',data.start);
+//              jQuery('#uactivity').append(data.content);
+//              if(!data.more){
+//                   jQuery('div.more-link').fadeOut('slow');
+//                   jQuery('#uactivity').append('<div class="warning"><small>There are no more posts to show right now.!</small></div>');
+//              }
+//
+//                }
+//              if(action=='new'){
+//                more.attr('id',data.start);
+//              jQuery('#uactivity').prepend(data.content);
+//                }
+//            }
+//        jQuery("body").css({'opacity':''});
+//        }).complete(function() { alert("complete"); });
 
 
 

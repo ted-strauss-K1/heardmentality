@@ -1641,7 +1641,7 @@ function issue_thread_delete($type = '', $tnid = ''){
             node_delete($list->nid);
         }
         db_query("DELETE FROM {debate_options} WHERE nid = '$tnid'");
-        print t('Your argument removed fro list'); exit;
+        print t('Your argument removed from list'); exit;
     }
     if($type == 'reply'){
         $tcid = $tnid;
