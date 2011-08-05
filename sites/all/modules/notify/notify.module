@@ -2275,7 +2275,7 @@ setTimeout(function(){clearInterval(streamtimer);}, 240000);
      //drupal_set_html_head('<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>');
      
      $start=variable_get(arg(1),'0');
-     $limit=10;
+     $limit=40;
 
 
      //$restrict_msgids = array('add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points');
@@ -2290,12 +2290,12 @@ INNER JOIN `users` u
         ON `u`.`uid` = `b`.`uid`
      WHERE  a.status = 1 AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC LIMIT %d, %d";
         //count query
-        $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
-INNER JOIN `notify_messages` a
-        ON `b`.`message_id` = `a`.`message_id`
-INNER JOIN `users` u
-        ON `u`.`uid` = `b`.`uid`
-     WHERE a.status = 1 AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC "));
+//       $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+//INNER JOIN `notify_messages` a
+//        ON `b`.`message_id` = `a`.`message_id`
+//INNER JOIN `users` u
+//        ON `u`.`uid` = `b`.`uid`
+//     WHERE a.status = 1 AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC"));
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
    $query=db_query($sql, $start,$limit);
    
@@ -2303,17 +2303,18 @@ INNER JOIN `users` u
 $i=0;
 
 // restricted message ids.. these should not display in happening now
+$count = db_affected_rows($query);
 
-
-
+$showCnt = 5;
+$hideCnt = $count-$showCnt;
 
 $output.='<div class="uactivity" id="uactivity">';
     while($result=  db_fetch_object($query)){
-            $style = $i>=5?"display:block":"display:none";
+            $style = $i>=$hideCnt?"display:block":"display:none";
             $output.= '<div id="msg-'.$result->naid.'" style="'.$style.'" class="activity-stream">';
             $output.= theme('notify_'.$result->message_id,$result);
             $output.= '</div>';
-            $i++;
+            $i++;           
     }
     if (!$i) {
             $output.='No User Activity Found!';

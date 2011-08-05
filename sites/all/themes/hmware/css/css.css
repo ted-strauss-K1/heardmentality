@@ -2023,6 +2023,8 @@ img{ border:none; outline:none;}
 }
 .contarea .happening-now{
    margin-left: 620px;
+   height: 735px;
+   overflow: hidden;
    
 }
 .contarea .happening-now .title{
@@ -2034,7 +2036,8 @@ img{ border:none; outline:none;}
     font-size: 16px;
 }
 .facts-figures ul{
-    width: 300px;
+    width: 100%;
+    padding-left: 30px;
 }
 .facts-figures ul li{
     display: inline;
