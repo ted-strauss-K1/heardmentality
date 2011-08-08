@@ -2022,10 +2022,9 @@ img{ border:none; outline:none;}
     padding-right:4px;
 }
 .contarea .happening-now{
-   margin-left: 620px;
+   padding-left: 15px;
    height: 735px;
-   overflow: hidden;
-   
+   overflow: hidden;   
 }
 .contarea .happening-now .title{
    padding-bottom: 20px;
