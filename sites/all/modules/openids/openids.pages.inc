@@ -540,10 +540,11 @@ function profile_save_ext_imgs($url='') {
     global $user;
 
     $result = drupal_http_request($url);
+    $extension="jpg";
     $owner=$user->uid;
     $dir = variable_get('user_picture_path', 'pictures') . '/picture-' . $owner . '.' . $extension;
 
-    $result = drupal_http_request($_GET['photoURL']);
+    //$result = drupal_http_request($_GET['photoURL']);
 
 
     if (!file_check_directory($dir)) {
