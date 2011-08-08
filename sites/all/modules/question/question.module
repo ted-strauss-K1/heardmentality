@@ -235,9 +235,10 @@ function clean_url($str, $replace = array(), $delimiter = '-',$qid='') {
 
     $clean = $str;
     $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $clean);
-  //  $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
-    $clean = trim(ereg_replace(' +',' ',preg_replace('/[^a-zA-Z0-9\s]/','',strtolower($clean))));
-    $clean=str_replace(' ',$delimiter,$clean);
+    $clean = seoname($clean);
+    $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+    //$clean = trim(ereg_replace(' +',' ',preg_replace('/[^a-zA-Z0-9\s]/','',strtolower($clean))));
+    //$clean=str_replace(' ',$delimiter,$clean);
     if( strlen($clean)<3 || strstr($clean, ' ')){
         $clean = $str;
     }
@@ -403,3 +404,64 @@ function flag_user_mail($uids = '',$days='') {
     }
     return true;
 }
+
+// seo string
+function seoname($seoit) {
+      $seoit = str_replace('&quot;','',$seoit);
+     $seoit = str_replace('&#39;','',$seoit);
+      $seoit = str_replace('&lt;','',$seoit);
+     $seoit = str_replace('&gt;','',$seoit);
+      $seoit = str_replace('&amp;','',$seoit);
+      $seoit = str_replace('&#92;','',$seoit);
+      $seoit = str_replace('&','',$seoit);
+      $seoit = str_replace('+','',$seoit);
+     $seoit = str_replace('|','',$seoit);
+     $seoit = str_replace(';','',$seoit);
+     $seoit = str_replace('é','',$seoit);
+     $seoit = str_replace('½','',$seoit);
+      $seoit = str_replace('?','',$seoit);
+      $seoit = str_replace('=','',$seoit);
+      $seoit = str_replace('/','',$seoit);
+      $seoit = str_replace('\\','',$seoit);
+      $seoit = str_replace('@','',$seoit);
+      $seoit = str_replace('~','',$seoit);
+      $seoit = str_replace('!','',$seoit);
+      $seoit = str_replace('£','',$seoit);
+      $seoit = str_replace('$','',$seoit);
+      $seoit = str_replace('%','',$seoit);
+     $seoit = str_replace('&#287;','g',$seoit);
+     $seoit = str_replace('&#286;','G',$seoit);
+     $seoit = str_replace('&#305;','i',$seoit);
+     $seoit = str_replace('&#304;','i',$seoit);
+     $seoit = str_replace('ü','u',$seoit);
+     $seoit = str_replace('Ü','U',$seoit);
+     $seoit = str_replace('&#350;','S',$seoit);
+     $seoit = str_replace('&#351;','s',$seoit);
+     $seoit = str_replace('ö','o',$seoit);
+     $seoit = str_replace('Ö','O',$seoit);
+     $seoit = str_replace('Ç','C',$seoit);
+     $seoit = str_replace('ç','c',$seoit);
+     $seoit = str_replace(':','_',$seoit);
+      $seoit = str_replace('^','',$seoit);
+      $seoit = str_replace('*','',$seoit);
+      $seoit = str_replace('_','',$seoit);
+      $seoit = str_replace('{','',$seoit);
+      $seoit = str_replace('}','',$seoit);
+      $seoit = str_replace('[','',$seoit);
+      $seoit = str_replace(']','',$seoit);
+      $seoit = str_replace('-','',$seoit);
+      $seoit = str_replace(' & ','',$seoit);
+      $seoit = str_replace('"','',$seoit);
+      $seoit = str_replace('.','',$seoit);
+      $seoit = str_replace('\'','',$seoit);
+      $seoit = str_replace(',','',$seoit);
+      $seoit = str_replace(' ','-',$seoit);
+      $seoit = str_replace(':','',$seoit);
+      $seoit = str_replace('#','',$seoit);
+      $seoit = str_replace('(','',$seoit);
+      $seoit = str_replace(')','',$seoit);
+      $seoit = str_replace('---','-',$seoit);
+      $seoit = str_replace('--','-',$seoit);
+      $seoit = strtolower($seoit);
+      return $seoit;
+      }

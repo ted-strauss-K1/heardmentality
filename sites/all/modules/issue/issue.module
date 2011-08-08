@@ -2722,6 +2722,7 @@ function theme_issue_resource_list($nid = ''){
 // suggest vote form here
 function issue_suggest_form($dummy = '', $nid = ''){
     global $user;
+    $nid = get_tnid($nid);
     $form = '';
     $form['nid'] = array(
                     '#type' => 'hidden',
@@ -2838,11 +2839,11 @@ function issue_suggest_form_submit($form, &$form_state){
         if($new_suggest_answer!=''){
         db_query("INSERT INTO {suggest_answer} SET uid = '%d', qid = '%d', answer = '%s', date_added = '%s'", 
                 $user->uid, $nid, $new_suggest_answer, date('Y-m-d'));
-
+        $sid = db_last_insert_id('suggest_answer', 'said');
         /*New SET NOTIFY LOG*/
              $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
              $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $new_suggest_answer);
-             set_notify_log($user->uid, $nid, 'suggest_answer', $variable);
+             set_notify_log($user->uid, $nid, 'suggest_answer', $variable);             
         /*New SET NOTIFY LOG*/ 
              
         drupal_set_message($message = 'Your answer was added!', $type = 'success');
@@ -3245,6 +3246,8 @@ function forum_reply_form_submit($form, &$form_state){
         $debate_id = $form_state['values']['debate_id'];
         $issue_id = $form_state['values']['issue_id'];
 
+        $debate_tnid = $form_state['values']['debate_tnid'];
+
         //$values['pid'] = $comid;
         /*set debate tnid as nid*/
         $values['nid'] = $form_state['values']['debate_tnid'];
@@ -3274,9 +3277,10 @@ function forum_reply_form_submit($form, &$form_state){
 
 
         /* New SET NOTIFY LOG */
-        $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $issue_id));
-        $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $debate_id));
-        $variable = array('did' => $debate_id, 'd_title' => $dtitle, 'uid' => $user->uid, 'qid' => $issue_id, 'q_title' => $qtitle);
+        $issue_tnid = get_tnid($issue_id);
+        $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $issue_tnid));
+        $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $debate_tnid));
+        $variable = array('did' => $debate_tnid, 'd_title' => $dtitle, 'uid' => $user->uid, 'qid' => $issue_tnid, 'q_title' => $qtitle);
         set_notify_log($user->uid, $debate_id, 'debate_reply', $variable);
         /* New SET NOTIFY LOG */
 

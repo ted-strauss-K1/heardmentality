@@ -1091,7 +1091,7 @@ function issue_create_form_submit($form, &$form_state) {
     $node->uid = $account->uid;
     $node->status = 1;
     $node->active = 1;
-    $node->path=
+    //$node->path=
     // LANGUAGE DETECTION
     // detect language from inputs using googleapis
     $inputLanguage = get_input_language($form_state['values']['q_quest']);
@@ -1147,7 +1147,7 @@ function issue_create_form_submit($form, &$form_state) {
 
     //node_validate($deb);
     //$node = node_submit($deb);
-    $save = node_save($deb);
+    //$save = node_save($deb);
 
     // add default debate options
     $choices = db_query("SELECT * FROM {poll_choices} WHERE nid = '$node->nid'");
@@ -1180,7 +1180,7 @@ function issue_create_form_submit($form, &$form_state) {
     //_send_qnotify($node->nid);
     //drupal_goto($path);
     //echo '<script>window.parent.location.href="' . $gSitePath . $path . '";</script>';
-    drupal_goto($path);
+    drupal_goto($gSitePath.$inputLanguage.'/'.$path);
 }
 function getPathAlias($nid){
 	$alias = 'node/'.$nid;

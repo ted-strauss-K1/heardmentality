@@ -1350,6 +1350,8 @@ function notify_leftpanel() {
 /* BOF SET NOTIFY LOG apr 19 2011 */
 
 function set_notify_log($uid = '', $nid ='', $message_id = '', $variables = '') {
+    global $language;
+    $curLanguage = $language->language;
     $uname = db_result(db_query("SELECT name FROM {users} WHERE uid = '%d'", $uid));
     $message = db_result(db_query("SELECT message FROM {notify_messages} WHERE message_id = '%s'", $message_id));
     $variables = serialize($variables);
@@ -1481,6 +1483,12 @@ function theme_notify_add_question($result='') {
     drupal_add_css($full_path);
     $udetails = user_load($result->uid);
     $data = unserialize($result->variables);
+
+    // translated node details
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
+
 //print_r($data);
 //$node=node_load($result->nid);
 $url = drupal_get_path_alias('node/'.$data['qid']);
@@ -1502,6 +1510,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1521,6 +1535,16 @@ $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated debate details
+$trans = get_translated_node($data['did']);
+$data['did'] = $trans->nid;
+$data['d_title'] = $trans->title;
+
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
 .'</div><div id="notify-link">' . l($data['q_title'],$url) . '</div>
@@ -1539,6 +1563,18 @@ $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $rtype = $data['rtype'];
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated resource details
+$trans = get_translated_node($data['rid']);
+$data['rid'] = $trans->nid;
+$data['r_title'] = $trans->title;
+
+
 $url = drupal_get_path_alias('node/'.$data['qid']);
 switch($rtype){
     case '1':
@@ -1589,6 +1625,17 @@ function theme_notify_resource_reply($result = ''){
     drupal_add_css($full_path);
     $udetails=user_load($result->uid);
     $data=unserialize($result->variables);
+
+    // translated node details
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
+
+    // translated resource details
+    $trans = get_translated_node($data['rid']);
+    $data['rid'] = $trans->nid;
+    $data['r_title'] = $trans->title;
+
     $submitted = date("Y-m-d H:i:s",$result->timestamp);
     $url = drupal_get_path_alias('node/'.$data['qid']);
     $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1605,6 +1652,17 @@ function theme_notify_debate_reply($result = ''){
     drupal_add_css($full_path);
     $udetails=user_load($result->uid);
     $data=unserialize($result->variables);
+
+    // translated node details
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
+
+    // translated resource details
+    $trans = get_translated_node($data['did']);
+    $data['did'] = $trans->nid;
+    $data['d_title'] = $trans->title;
+
     $submitted = date("Y-m-d H:i:s",$result->timestamp);
     $url = drupal_get_path_alias('node/'.$data['qid']);
     $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1620,6 +1678,18 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated resource details
+$trans = get_translated_node($data['did']);
+$data['did'] = $trans->nid;
+$data['d_title'] = $trans->title;
+
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1639,6 +1709,17 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated resource details
+$trans = get_translated_node($data['did']);
+$data['did'] = $trans->nid;
+$data['d_title'] = $trans->title;
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1658,6 +1739,17 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated resource details
+$trans = get_translated_node($data['did']);
+$data['did'] = $trans->nid;
+$data['d_title'] = $trans->title;
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1677,6 +1769,17 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated resource details
+$trans = get_translated_node($data['did']);
+$data['did'] = $trans->nid;
+$data['d_title'] = $trans->title;
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1696,6 +1799,18 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated resource details
+$trans = get_translated_node($data['rid']);
+$data['rid'] = $trans->nid;
+$data['r_title'] = $trans->title;
+
+
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1714,6 +1829,18 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated resource details
+$trans = get_translated_node($data['rid']);
+$data['rid'] = $trans->nid;
+$data['r_title'] = $trans->title;
+
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1732,6 +1859,17 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated resource details
+$trans = get_translated_node($data['rid']);
+$data['rid'] = $trans->nid;
+$data['r_title'] = $trans->title;
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1750,6 +1888,17 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+// translated resource details
+$trans = get_translated_node($data['did']);
+$data['rid'] = $trans->nid;
+$data['r_title'] = $trans->title;
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1769,6 +1918,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -1788,11 +1943,18 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
     <div id="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['answer']) . '"</div>
+.'</div>
     On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
         <div align="right">'.ago($submitted).'</div><hr>';
 
@@ -1824,6 +1986,12 @@ $full_path = $module_path .'/notify.css';
 drupal_add_css($full_path);
 $udetails=user_load($result->uid);
 $data=unserialize($result->variables);
+
+// translated node details
+$trans = get_translated_node($data['qid']);
+$data['qid'] = $trans->nid;
+$data['q_title'] = $trans->title;
+
 $submitted = date("Y-m-d H:i:s",$result->timestamp);
 $url = drupal_get_path_alias('node/'.$data['qid']);
 $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
@@ -2275,7 +2443,7 @@ setTimeout(function(){clearInterval(streamtimer);}, 240000);
      //drupal_set_html_head('<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>');
      
      $start=variable_get(arg(1),'0');
-     $limit=40;
+     $limit=10;
 
 
      //$restrict_msgids = array('add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points');
@@ -2447,4 +2615,17 @@ $query=db_query($sql, 0,$limit);
         $json['start'] = $start + $limit;
         print json_encode($json);
     }
+}
+
+function get_translated_node($nid = '', $lang = ''){
+    global $language;
+    $curLanguage = $language->language;
+    $obj = db_query("SELECT nid, title FROM {node} WHERE tnid = '$nid' AND language = '$curLanguage'");
+    $cnt = db_affected_rows($obj);
+    if($cnt > 0){
+    $trans = db_fetch_object($obj);
+    }else{
+        $trans = node_load($nid);
+    }
+    return $trans;
 }
