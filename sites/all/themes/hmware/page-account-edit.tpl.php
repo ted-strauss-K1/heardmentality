@@ -9,5 +9,5 @@ include "header.tpl.php";
 <?php print $content; ?>
                 <div class="clr"></div>
             </div></div>
-</div>
+
 <?php include "footer.tpl.php"; ?>

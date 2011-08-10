@@ -59,7 +59,8 @@ function phptemplate_breadcrumb($breadcrumb) {
  */
 function phptemplate_preprocess_page(&$vars) {
     global $user;
-// print_r($vars);exit;
+	//echo '<pre>';
+//print_r($vars);exit;
     if ((arg(1) == 'block')) {
         $vars['template_files'][0] = 'page-test';
     }
