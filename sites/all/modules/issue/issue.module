@@ -125,7 +125,14 @@ $menu['issue/thread/delete/%/%'] = array(
         'page arguments' => array(3,4),
         'file'=>'issue.pages.inc'
     );
-
+$menu['issue/ajax/%/%'] = array(
+        'title' => 'Insight View',
+        'page callback' => 'issue_ajax',
+        'type' => MENU_LOCAL_TASK,
+        'page arguments' => array(2,3),
+        'access callback'=>true,
+     'file'=>'issue.pages.inc'
+    );
     return $menu;
 }
 
@@ -2623,7 +2630,12 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
 
 // issue results , debates, resources
 function view_issue_results($nid = ''){
-   //$results = theme('issue_result_analysis',$nid);
+   global $user;
+   $node = node_load(array('nid' => $nid));
+  
+   if(user_is_logged_in() && !empty($user) && $node->allowvotes != 1){
+   $results = theme('issue_result_analysis',$nid);
+   }
    $debates = theme('issue_debate_list', $nid);
    //$resources = theme('issue_resource_list', $nid);
    
@@ -2631,6 +2643,13 @@ function view_issue_results($nid = ''){
 }
 function theme_issue_result_analysis($nid = ''){
     global $gSitePath;
+    $inline = '
+                var nid = '.$nid.'
+                jQuery(document).ready(function(){
+                insight_view(nid)
+                })
+                ';
+    drupal_add_js($inline, 'inline');
     module_load_include('inc', 'issue', 'issue.pages');
     $results = '';
     $results .= '<div class="result-analysis-title">RESULTS</div>';
@@ -2650,8 +2669,9 @@ function theme_issue_result_analysis($nid = ''){
 
     $results .= '</div>';
     $results .= '<div class="analysis-right">';
-        $results .= '<div class="vote-percent">';
-        $results .= report_vote_percent($nid);
+        $results .= '<div class="vote-percent" id="insight-view">';
+        $results .= 'Loading...';
+        //$results .= insight_view($nid);
         $results .= '</div><br />';
         $results .= '<div class="result-analysis">';
         $results .= report_graph($nid);
@@ -3224,6 +3244,7 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id){
                             '#id' => 'reply_content_'.$debate_tnid,
                             '#rows' => 6,
                             '#attributes' => array('class' => 'textarea-input'));
+    $form['str_wk'] = array('#type' => 'radios', '#options' => array('1' => t('Strengthen'), '0' => t('Weaken')), '#default_value' => '1');
     $form['reply_submit'] = array('#type' => 'submit',
                                 '#value' => t('SUBMIT'),
                                 '#attributes' => array('class' => 'orange-btn'),
@@ -3254,14 +3275,14 @@ function forum_reply_form_submit($form, &$form_state){
         $values['uid'] = $user->uid;
         $values['name'] = $user->name;
 
-        $str_wk = 1;
+        
         $values['subject'] = check_plain($form_state['values']['reply_content']);
         $values['comment'] = check_plain($form_state['values']['reply_content']);
         $values['status'] = 0;
         $values['format'] = '';
         $values['mail'] = '';
         $values['homepage'] = '';
-        $values['str_wk'] = $str_wk;
+        $values['str_wk'] = $form_state['values']['str_wk'];
 
 
         // LANGUAGE DETECTION

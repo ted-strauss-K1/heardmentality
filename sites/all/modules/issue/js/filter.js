@@ -236,3 +236,16 @@ function delete_thread(id){
         return false;
     }
 }
+// insight view
+function insight_view(nid){
+
+var url = spath+'issue/ajax/insightview/'+nid;
+jQuery.ajax({
+    type: 'get',
+    url: url,
+    success:function(msg){
+        jQuery('#insight-view').html(msg);
+    }
+});
+
+}

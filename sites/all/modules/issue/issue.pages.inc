@@ -1670,6 +1670,15 @@ function delete_replies($comment){
 }
 
 
+function issue_ajax($task = '', $nid = ''){
+    switch($task){
+        case 'insightview':
+            $result = insight_view($nid);
+    }
+    echo $result;
+}
+
+
 function insight_view($nid=''){
 
 
@@ -1686,17 +1695,251 @@ function insight_view($nid=''){
 //ex: Sum all votes by hindus (regardless of possible answer) / total votes
 
     if(is_numeric($nid)){
+        $nid = get_tnid($nid);
+        // calculation
+        // total votes a issue
+        //echo '<pre>';
+        $insight = '';
+        $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
+        if($totalVotes >= 1){
+        $insight .= by_possible_answers_votes($nid).'<br />';
+        $insight .= by_demographic_votes($nid).'<br />';
+        $insight .= by_total_votes($nid);
+        }else{
+            $insight .= t('Insight view cannot be calculated until 10 votes have been received.');
+        }
+        return $insight;
+        
 
-    // calculation
-        $gender=report_percent_broken($nid,'',array('dochg'=>'gender'));
-        echo '<pre>';
-        print_r($gender);
-
-        $age=report_percent_broken($nid,'',array('dochg'=>'age'));
-        print_r($age);
+//        $income=report_percent_broken($nid,'',array('dochg'=>'age'));
+//        $val = 0;
+//        $cnt = $income['cnt'];
+//        print_r($income);
+//        foreach($cnt as $key=>$count){
+//            $arr = json_decode($count);
+//            $val = $val+array_sum($arr);
+//        }
+//        echo $val;
     }
 
 
+//exit;
+
+}
+
+function by_possible_answers_votes($nid = ''){
+    $byPossible = array();
+    $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
+        $node = node_load($nid);
+
+        //demo['divide'],demo['cnt']
+        // DEMOGRAPHICS
+        $demographics = array('gender', 'age', 'religion', 'ethnicity', 'income', 'marital', 'sorient', 'edu');
+        foreach($demographics as $demographic){
+            $demo=report_percent_broken($nid,'',array('dochg'=>$demographic));
+
+            $divides = $demo['divide'];
+            $cnts = $demo['cnt'];
+            foreach($divides as $key=>$divide){
+               $divide = $divide=='undefined'?'undefined_'.$demographic:$divide;
+               $count = $cnts[$key];
+               $choices = json_decode($count);
+               
+               foreach($choices as $choice=>$cCount){
+                    $percent = ($cCount/$totalVotes)*100;
+                    $byPossible[$divide][$node->choice[$choice]['chtext']] = $percent;
+
+               }
+               unset($choices);
+            }
+        }
 
 
+   
+            $temp = $byPossible;
+
+            $first_key=max_key($byPossible);
+            unset($byPossible[$first_key]);
+            $second_key=max_key($byPossible);
+
+            $first = $temp[$first_key];
+            $second = $temp[$second_key];
+
+            $fmax = max($first);
+            $smax = max($second);
+            foreach($first as $ch => $val){
+                if($val==$fmax){
+                    $fChoice = $ch;
+                }
+            }
+            foreach($second as $ch => $val){
+                if($val==$smax){
+                    $sChoice = $ch;
+                }
+            }
+
+            //special wordings for each demographic
+            $age=report_percent_broken($nid,'',array('dochg'=>'age'));
+            $income=report_percent_broken($nid,'',array('dochg'=>'income'));
+                if(in_array($first_key,$age['divide'])){
+                    $extraStr1 = " aged people";
+                }else if(in_array($first_key,$income['divide'])){
+                    $extraStr1 = " salaried people";
+                }
+                if(in_array($second_key,$age['divide'])){
+                    $extraStr2 = " aged people";
+                }else if(in_array($second_key,$income['divide'])){
+                    $extraStr2 = " salaried people";
+                }
+            $str .= ceil($fmax).'% '.t('of '.$first_key.$extraStr1.' voted for '.$fChoice).'<br />';
+            $str .= ceil($smax).'% '.t('of '.$second_key.$extraStr2.' voted for '.$sChoice);
+            return $str;
+}
+
+function by_demographic_votes($nid = ''){
+        $byDemographic = array();
+        $node = node_load($nid);
+
+        //demo['divide'],demo['cnt']
+        // DEMOGRAPHICS
+        $demographics = array('gender', 'age', 'religion', 'ethnicity', 'income', 'marital', 'sorient', 'edu');
+        foreach($demographics as $demographic){
+            $demo=report_percent_broken($nid,'',array('dochg'=>$demographic));
+
+            $divides = $demo['divide'];
+            $cnts = $demo['cnt'];
+            
+           // total votes per demographic
+           $val = 0;
+//           foreach($cnts as $arrkey=>$votes){
+//                $arr = json_decode($votes);
+//                $val = $val+array_sum($arr);
+//            }
+//           $demoVotes = $val;
+           
+            foreach($divides as $key=>$divide){
+               $divide = $divide=='undefined'?'undefined_'.$demographic:$divide;
+               $count = $cnts[$key];
+               $choices = json_decode($count);
+               // total counts for group x in each demographic
+               $demoVotes = array_sum($choices);
+
+               foreach($choices as $choice=>$cCount){
+                    $percent = ($cCount/$demoVotes)*100;
+                    $byDemographic[$divide][$node->choice[$choice]['chtext']] = $percent;
+               }
+               unset($choices);
+            }
+        }
+
+
+        //print_r($byDemographic);exit;
+            $temp = $byDemographic;
+
+            $first_key=max_key($byDemographic);
+            unset($byDemographic[$first_key]);
+            $second_key=max_key($byDemographic);
+
+            $first = $temp[$first_key];
+            $second = $temp[$second_key];
+
+            $fmax = max($first);
+            $smax = max($second);
+            foreach($first as $ch => $val){
+                if($val==$fmax){
+                    $fChoice = $ch;
+                }
+            }
+            foreach($second as $ch => $val){
+                if($val==$smax){
+                    $sChoice = $ch;
+                }
+            }
+
+            //special wordings for each demographic
+            $age=report_percent_broken($nid,'',array('dochg'=>'age'));
+            $income=report_percent_broken($nid,'',array('dochg'=>'income'));
+                if(in_array($first_key,$age['divide'])){
+                    $extraStr1 = "between the ages of ";
+                }else if(in_array($first_key,$income['divide'])){
+                    $extraStr1 = "salaried between ";
+                }
+                if(in_array($second_key,$age['divide'])){
+                    $extraStr2 = "between the ages of ";
+                }else if(in_array($second_key,$income['divide'])){
+                    $extraStr2 = "salaried between ";
+                }
+            $str .= ceil($fmax).'% '.t('of the voters are '.$extraStr1.$first_key).' voted for '.$fChoice.'<br />';
+            $str .= ceil($smax).'% '.t('of the voters are '.$extraStr2.$second_key).' voted for '.$sChoice;
+            return $str;
+}
+
+function by_total_votes($nid = ''){
+    $bytotalVotes = array();
+    $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
+    $node = node_load($nid);
+    //demo['divide'],demo['cnt']
+    // DEMOGRAPHICS
+    $demographics = array('gender', 'age', 'religion', 'ethnicity', 'income', 'marital', 'sorient', 'edu');
+    foreach($demographics as $demographic){
+        $demo=report_percent_broken($nid,'',array('dochg'=>$demographic));
+        $divides = $demo['divide'];
+        $cnts = $demo['cnt'];
+
+       // total votes per demographic
+       $val = 0;
+       
+       $demoVotes = $val;
+        foreach($divides as $key=>$divide){
+            $count = $cnts[$key];
+            $choices = json_decode($count);
+            // total counts for group x in each demographic
+            $demoVotes = array_sum($choices);
+            $percent = ($demoVotes/$totalVotes)*100;
+            $bytotalVotes[$divide] = $percent;
+        }
+       
+    }
+    $temp = $bytotalVotes;
+    $fmax = max($bytotalVotes);
+    foreach($bytotalVotes as $vkey => $byVotes){
+        if($fmax == $byVotes){
+            $first_key = $vkey;
+            break;
+        }
+    }
+    unset($bytotalVotes[$first_key]);
+    $smax = max($bytotalVotes);
+    foreach($bytotalVotes as $vkey => $byVotes){
+        if($smax == $byVotes){
+            $second_key = $vkey;
+            break;
+        }
+    }
+
+    //special wordings for each demographic
+            $age=report_percent_broken($nid,'',array('dochg'=>'age'));
+            $income=report_percent_broken($nid,'',array('dochg'=>'income'));
+                if(in_array($first_key,$age['divide'])){
+                    $extraStr1 = "between the ages of ";
+                }else if(in_array($first_key,$income['divide'])){
+                    $extraStr1 = "salaried between ";
+                }
+                if(in_array($second_key,$age['divide'])){
+                    $extraStr2 = "between the ages of ";
+                }else if(in_array($second_key,$income['divide'])){
+                    $extraStr2 = "salaried between ";
+                }
+            $str .= ceil($fmax).'% '.t('of the voters are '.$extraStr1.$first_key).'<br />';
+            $str .= ceil($smax).'% '.t('of the voters are '.$extraStr2.$second_key);
+            return $str;
+
+}
+
+
+function max_key($array) {
+    foreach ($array as $key => $val) {
+        if ($val == max($array))
+        return $key;
+    }
 }
