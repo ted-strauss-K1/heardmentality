@@ -429,6 +429,8 @@ global $gSitePath, $user, $gDocPath, $base_root;
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/multi_select.js');
     // load node values
     $node = node_load($qid);
+    $alias = drupal_get_path_alias('node/'.$qid);
+    $originalPath = $node->language.'/'.$node->path;
     //echo '<pre>';print_r($node);
 
     $form['mod_main_div'] = array('#type' => 'markup', '#value' => '<div id="mod-edit-issue"> <div id="err" class="clear"></div>');
@@ -440,6 +442,9 @@ global $gSitePath, $user, $gDocPath, $base_root;
                             '#required' => TRUE);
        $dupecnt=get_dupe_query($qid);
   $dcnt=!empty($dupecnt['count'])?$dupecnt['count']:'0';
+  $form['org_issue']= array('#type' => 'markup','#prefix' => '<div class="mod-t-outer">',
+                                '#suffix' => '</div>',
+                                '#value' => '<strong><a title="Original Issue" href="'.$gSitePath.$originalPath.'" target="_blank">'.t('View Issue in new tab').'</a></strong>');
    $form['pre_up_mod'] = array('#type' => 'markup','#prefix' => '<div class="mod-t-outer">',
                                 '#suffix' => '</div>',
                                 '#value' => '<strong><a data-fb-options="type:ajax width:640 height:385" title="Dupe List" href="' . $gSitePath . 'moderator/ajax/dupelist/' . $qid . '" class="floatbox">Possible Dupes</a>('.$dcnt.')</strong>');

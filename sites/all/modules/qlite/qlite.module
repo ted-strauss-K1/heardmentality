@@ -166,7 +166,7 @@ function top_list() {
 
     $output .= get_local_list();
 
-    $output .= get_top_pundits();
+    //$output .= get_top_pundits();
 
     $output .= "</div></div>";
 

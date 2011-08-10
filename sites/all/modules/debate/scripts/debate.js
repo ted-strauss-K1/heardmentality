@@ -34,8 +34,8 @@ function bind_clk(){
 
 }
 
-(function($){
-    $.fn.extend({
+(function(jQuery){
+    jQuery.fn.extend({
         agree: function(e,type) {
 
             e.preventDefault();
@@ -53,6 +53,7 @@ function bind_clk(){
             var wid=el.parent('span').attr('name');
             var action=el.parent('span').attr('type');
             // $('likelink').empty();
+            //el.parent('span').find('a').unbind('click');
 
             var url = spath + 'issues/debate/save';
              jQuery('#twitMsg').html("Please wait while saving your post....!");
@@ -243,7 +244,13 @@ jQuery(document).ready(function() {
     bind_clk();
 
 
-    //for submit
+    
+
+
+});
+
+
+//for submit
     jQuery('#waveButton').live('click',function(e) {
  if(uid>0){
        e.preventDefault();
@@ -296,7 +303,7 @@ jQuery(document).ready(function() {
             url: jQuery(this).attr('action'),
             data:data,
             success: function(data){
-                
+
                  jQuery('#twitMsg',top.document).html(data);
                jQuery('#twitMsg',top.document).slideDown().delay(2000).slideUp(400);
                  fl.clearForm();
@@ -314,8 +321,6 @@ jQuery(document).ready(function() {
 
         });
 
-
-});
 
 
 function report_forum(typ,el){

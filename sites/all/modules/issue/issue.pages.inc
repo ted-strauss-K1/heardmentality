@@ -25,16 +25,13 @@ function report_percent($nid='') {
 
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
-    $output .= "
-            <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>
-            <script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'issue') . "/js/highcharts.js'></script>
-            <script>var example = 'bar-stacked',
-            theme = 'skies';
-            </script>
-            <link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'issue') . "/css/css.css' type='text/css' />
-            
-            <script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'issue') . "/js/skies.js'></script>
-			";
+    drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
+    drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
+    $inline = "var example = 'bar-stacked',
+            theme = 'skies'";
+    drupal_add_js($inline, 'inline');
+    
+
 
     $ans_array = array();
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
@@ -427,13 +424,12 @@ function report_graph($nid='') {
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
 
-    $output.= "
-        			
-        <script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js\" type=\"text/javascript\"></script>
+    drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
+    drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
+    drupal_add_css(drupal_get_path('theme', 'hmware') . "/css/css.css");
 
-<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'issue') . "/js/highcharts.js'></script>
-	<script type='text/javascript' src='" . $gSitePath . drupal_get_path('module', 'issue') . "/js/skies.js'></script>
-<link rel='stylesheet' href='" . $gSitePath . drupal_get_path('theme', 'hmware') . "/css/css.css' type='text/css' />
+
+    $output.= "
 <script type='text/javascript' language='javascript'>
 
 ";
@@ -1701,7 +1697,7 @@ function insight_view($nid=''){
         //echo '<pre>';
         $insight = '';
         $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
-        if($totalVotes >= 1){
+        if($totalVotes >= 10){
         $insight .= by_possible_answers_votes($nid).'<br />';
         $insight .= by_demographic_votes($nid).'<br />';
         $insight .= by_total_votes($nid);
