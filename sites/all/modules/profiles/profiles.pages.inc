@@ -985,25 +985,27 @@ var spath=\'' . $gSitePath . '\';
     
     $update = '';
     $update .= drupal_get_form('user_details');
+    
     return $update;
 }
 
 function user_details() {
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    global $gSitePath, $user, $gDocPath, $base_root, $apikey, $theme;
     $details = load_user($user->uid);
-       $form['#attributes']['enctype'] = "multipart/form-data";
+    $options = array('1' => t('weekly'), '2' => t('monthly'), '0' => t('never'));
+    $form['#attributes']['enctype'] = "multipart/form-data";
     $form['#attributes']['onsubmit'] = "return validate_reg();";
     $form['main_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-wrapper">');
-    $form['right_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-rightside"><h3>SOCIAL  NETWORK SETTINGS</h3>');
-    $form = $form + get_avatar_form();
-    $form['right_div_close'] = array('#type' => 'markup', '#value' => '</div>');
-
-    $form['left_div_top'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-leftside">');
-    $form['left_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-leftside-forms">
-                          <h3>'.t('PERSONAL INFO AND DEMOGRAPHICS').'</h3>
-                          <div class="form-wra">
-                          &nbsp;
-                          <div class="clr"></div> </div>');
+    $form['right_div'] = array('#type' => 'markup', '#value' => '<div class="edit-right-profile-wrapper">');
+    $form['profile_head'] = array('#type'=>'markup', '#value'=>'<h2>'.t('Edit Profile').'</h2>');
+    $form['profile_th'] = array('#type'=>'markup', '#value'=>'<div class="editprofileHead">
+        <div class="editprofileLeftTxt">'.t('USER INFO').'<br>'.t('*Required field').'</div>
+        <div class="editprofileRightTxt"><b>'.t('PRIVACY SETTING').'</b><br>
+            '.t('Set the privacy levels for each of your profile characteristics. If you choose to hide your
+profile details, your demographic info will still be calculated but not shown. Thanks for contributing!').'</div>
+        </div>');
+    $form['right_profile'] = array('#type' => 'markup', '#value' => '<div class="right-profile-form">');   
+   
     $form['username'] = array(
         '#type' => 'textfield',
         '#title' => t(''),
@@ -1212,18 +1214,11 @@ function user_details() {
 Mentality I want the following privacy settings applied
 when other users view my profile').'
            <div class="clr"></div>
-           </div>');
-    $form['left_div_close'] = array('#type' => 'markup', '#value' => '</div>');
-    $form['left_privacy'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-leftside-privacy">');
-    $form = $form + get_privacy_form();
-    $form['left_privacy_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div></div>');
-    $form['left_div_bottom'] = array('#type' => 'markup', '#value' => '<div class="clr"></div></div>');
-
-    $form['main_div_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div></div>');
+           </div>'); 
 
     // set default values
     $form['bio']['#default_value'] = empty($details->bio) ? 'Bio' : $details->bio;
-    
+
     $form['sorient']['#default_value'] = empty($details->sorient) ? '0' : $details->sorient;
     $form['income']['#default_value'] = empty($details->income) ? '0' : $details->income;
      $form['marital']['#default_value'] = empty($details->marital) ? '0' : $details->marital;
@@ -1236,7 +1231,118 @@ when other users view my profile').'
     $form['email']['#default_value'] = empty($details->mail) ? 'Email' : $details->mail;
     $form['fname']['#default_value'] = empty($details->real_name) ? 'Name' : $details->real_name;
     $form['username']['#default_value'] = empty($details->name) ? 'Username' : $details->name;
+    
+    $form['right_profile_close'] = array('#type'=> 'markup', '#value'=> '</div>');
+
+    $form['right_privacy'] = array('#type' => 'markup', '#value' => '<div class="privacy_right">');
+    $form = $form + get_privacy_form();
+    $form['right_privacy_close'] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
+    $form['follow_bottom'] = array('#type' => 'markup', '#value' => '<div class="follow_bottom">');  
+
+     $form['fb_outer'] = array('#type' => 'markup',
+        '#value' => '<div class="web-reference-new-txt">
+                     <div class="web-reference-tit-new-txt">'.t('PERSONAL LINKS').'</div>
+                     <div class="clr"></div>');
+
+    $social = explode('||', $details->social);
+    $form['facebook'] = array(
+        '#type' => 'textfield',
+        '#prefix' => '<div class="social-outer-new">
+                          <div class="social-left-new">
+                          <img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-face.jpg"></div>
+                          <div class="social-rite-new">',
+        '#description' => t(''),
+        '#default_value' => variable_get('facebook', $social[0]),
+        '#id' => 'face',
+        '#suffix' => '</div>
+                         </div><div class="clr"></div>',
+    );
+    $form['twitter'] = array(
+        '#type' => 'textfield',
+        '#prefix' => '<div class="social-outer-new">
+                          <div class="social-left-new"><img width="26" height="27" alt="Twitter" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-twit.jpg"></div>
+                          <div class="social-rite-new">',
+        '#description' => t(' '),
+        '#default_value' => variable_get('twitter', $social[1]),
+        '#id' => 'twitter',
+        '#suffix' => '</div>
+                         </div>
+                         <div class="clr"></div>',
+    );
+     $form['myweb'] = array(
+                '#type' => 'textfield',
+                '#title' => t(''),
+                '#description' => t(''),
+                '#default_value' => variable_get('myweb', $details->urls),
+                '#id' => 'myweb',
+                 '#prefix' => '<div class="social-outer-new">
+
+                          <div class="social-left-new">My Website :</div><div class="social-rite-new">',
+                '#suffix' => '</div>
+                         </div>
+                         <div class="clr"></div>',
+            );   
+    
+    $form = $form + follow_links_form($form_state, $user->uid);
+
+    $form['merge'] = array('#type' => 'markup', '#value' => '
+                <div class="clr"></div>
+        <div class="merge-social-new-edit">
+          <div><h3>'.t('SOCIAL CONNECT').'</h3></div>
+          <div class="clr"></div>
+          <div class="merge-script-outer-new">
+          <div id="divConnect"></div>
+    <script type="text/javascript">
+        // show Add Connections Plugin in "divConnect"
+        gigya.services.socialize.showAddConnectionsUI(conf, {
+			height:65
+			,width:175
+			,showTermsLink:false //remove trems link
+			,hideGigyaLink:true // remove Gigya link
+			,useHTML:true  // Use the HTML implementation of the Plugin (rather then Flash implementation)
+			,containerID: "divConnect" // The component will embed itself inside the divConnect Div
+		});
+    </script>
+         </div>
+    </div>
+          <div class="clr"></div>');
+
+    //$form['personal_links'] = array('#type' => 'markup', '#value' => '<div class="web-reference-new">');
+    $form['notify'] = array(
+        '#type' => 'radios',
+        '#prefix' => '<div class="summarymail-txt"><h3>'.t('SUBSCIPTIONS').'</h3>
+                    <div class="form-wra bortopnone">',
+        '#default_value' => variable_get('notify', $details->notify_etype),
+        '#options' => $options,
+        '#suffix' => '<div class="clr"></div>
+                            </div>
+                            </div>');
+    // avatar hidden values
+    $form['img_avt'] = array('#type' => 'hidden', '#default_value' => variable_get('img_avt', $details->image_avatar));
+    $form['image'] = array('#type' => 'hidden', '#default_value' => variable_get('image', $details->image));
+
+    $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
+      </div>');
+
+    $form['hiddentop'] = array('#type' => 'markup', '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
+    $form = $form + inc_avatar_form($form, $form_state);
+    $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
+    $languages = i18n_language_list();
+    $form['default_language'] = array('#type' => 'select', '#prefix' => '<h3>'.t('Default Language').'</h3>',
+                                        '#options' => $languages, '#suffix' => '<br />',
+                                        '#default_value' => $details->language);
+    $form['submit'] = array('#type' => 'submit', '#value' => 'Submit', '#id' => 'update_submit');
+    
+    $form['follow_bottom_close'] = array('#type' => 'markup', '#value' => '</div>');
+    $form['right_div_close'] = array('#type'=> 'markup', '#value'=> '</div>');
+    $form['left_div'] = array('#type' => 'markup', '#value' => '<div class="edit-left-profile-wrapper">');
+    $form = $form + get_avatar_form();
+    $form['left_div_close'] = array('#type'=> 'markup', '#value'=> '<div class="clr"></div></div>');
+    $form['main_div_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div></div>');
+    
     return $form;
+
+    
 }
 
 function get_privacy_form() {
@@ -1247,7 +1353,7 @@ function get_privacy_form() {
     $options = array('1' => t(''), '2' => t(''), '3' => t(''), '4' => t(''));
     $query = "select * from {profile_fields} ORDER BY `profile_fields`.`fid` ASC";
     $result = db_query($query);
-    $form['privacy_setting'] = array('#type' => 'markup', '#value' => '<h3>'.t('PRIVACY SETTINGS').'</h3>
+    $form['privacy_setting'] = array('#type' => 'markup', '#value' => '
               <div class="form-wra">
            	    <div class="form-wra-4">'.t('Anyone').'</div>
                 <div class="form-wra-4">'.t('Logged in Users').'</div>
@@ -1288,7 +1394,7 @@ function get_privacy_form() {
         '#options' => $options,
         '#prefix' => '<br/><br/><br/><div class="form-wra">',
         '#suffix' => '<div class="clr"></div></div>',
-        '#suffix' => '<div class="clr"></div>'
+        
     );
     $form['mid_div'] = array('#type' => 'markup', '#value' => '
           <div class="clr"></div>
@@ -1343,102 +1449,7 @@ var avtar=\'' . $account->avatar . '\';
                 '#id' => 'oldimg',
             );
     $form['avatar_div_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>
-    </div><div class="clr"></div>');
-
-
-    $form['notify'] = array(
-        '#type' => 'radios',
-        '#prefix' => '<div class="summarymail"><p>'.t('Send me a summary of my subscriptions to my email').'</p>
-                    <div class="form-wra bortopnone">',
-        '#default_value' => variable_get('notify', $account->notify_etype),
-        '#options' => $options,
-        '#suffix' => '<div class="clr"></div>
-                            </div>
-                            </div>');
-    $form['merge'] = array('#type' => 'markup', '#value' => '
-                <div class="clr"></div>
-        <div class="merge-social-new">
-          <div align="center">'.t('Select the Social networks you want to share you Heard Mentality opinions add posts with.').'</div>
-          <div class="clr"></div>
-          <div align="center" class="merge-script-outer-new">
-          <div id="divConnect"></div>
-    <script type="text/javascript">
-        // show Add Connections Plugin in "divConnect"
-        gigya.services.socialize.showAddConnectionsUI(conf, {
-			height:65
-			,width:175
-			,showTermsLink:false //remove trems link
-			,hideGigyaLink:true // remove Gigya link
-			,useHTML:true  // Use the HTML implementation of the Plugin (rather then Flash implementation)
-			,containerID: "divConnect" // The component will embed itself inside the divConnect Div
-		});
-    </script>
-         </div>
-    </div>
-          <div class="clr"></div>');
-
-    //$form['personal_links'] = array('#type' => 'markup', '#value' => '<div class="web-reference-new">');
-
-
-    $form['fb_outer'] = array('#type' => 'markup',
-        '#value' => '<div class="web-reference-new">
-                     <div class="web-reference-tit-new">'.t('PERSONAL LINKS').'</div>
-                     <div class="clr"></div>');
-
-    $social = explode('||', $account->social);
-    $form['facebook'] = array(
-        '#type' => 'textfield',
-        '#prefix' => '<div class="social-outer-new">
-                          <div class="social-left-new">
-                          <img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-face.jpg"></div>
-                          <div class="social-rite-new">',
-        '#description' => t(''),
-        '#default_value' => variable_get('facebook', $social[0]),
-        '#id' => 'face',
-        '#suffix' => '</div>
-                         </div><div class="clr"></div>',
-    );
-    $form['twitter'] = array(
-        '#type' => 'textfield',
-        '#prefix' => '<div class="social-outer-new">
-                          <div class="social-left-new"><img width="26" height="27" alt="Twitter" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-twit.jpg"></div>
-                          <div class="social-rite-new">',
-        '#description' => t(' '),
-        '#default_value' => variable_get('twitter', $social[1]),
-        '#id' => 'twitter',
-        '#suffix' => '</div>
-                         </div>
-                         <div class="clr"></div>',
-    );
-     $form['myweb'] = array(
-                '#type' => 'textfield',
-                '#title' => t(''),
-                '#description' => t(''),
-                '#default_value' => variable_get('myweb', $account->urls),
-                '#id' => 'myweb',
-                 '#prefix' => '<div class="social-outer-new">
-                         
-                          <div class="social-left-new">My Website :</div><div class="social-rite-new">',
-                '#suffix' => '</div>
-                         </div>
-                         <div class="clr"></div>',
-            );
-    $form = $form + follow_links_form($form_state, $user->uid);
-    // avatar hidden values
-    $form['img_avt'] = array('#type' => 'hidden', '#default_value' => variable_get('img_avt', $account->image_avatar));
-    $form['image'] = array('#type' => 'hidden', '#default_value' => variable_get('image', $account->image));
-
-    $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
-      </div>');
-
-    $form['hiddentop'] = array('#type' => 'markup', '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
-    $form = $form + inc_avatar_form($form, $form_state);
-    $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
-    $languages = i18n_language_list();
-    $form['default_language'] = array('#type' => 'select', '#prefix' => t('Default Language'), 
-                                        '#options' => $languages, '#suffix' => '<br />',
-                                        '#default_value' => $account->language);
-    $form['submit'] = array('#type' => 'submit', '#value' => 'Submit', '#id' => 'update_submit');
+    </div><div class="clr"></div>');    
     return $form;
 }
 
