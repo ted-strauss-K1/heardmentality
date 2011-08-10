@@ -2627,6 +2627,10 @@ function get_translated_node($nid = '', $lang = ''){
     }else{
         $trans = node_load($nid);
     }
+
+    $a = 'a';
+
     //nava
+
     return $trans;
 }
