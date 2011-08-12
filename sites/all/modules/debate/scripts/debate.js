@@ -53,7 +53,8 @@ function bind_clk(){
             var wid=el.parent('span').attr('name');
             var action=el.parent('span').attr('type');
             // $('likelink').empty();
-            //el.parent('span').find('a').unbind('click');
+            el.closest('span').find('a.dagree').attr('class','');
+            el.closest('span').find('a.ddisagree').attr('class','');
 
             var url = spath + 'issues/debate/save';
              jQuery('#twitMsg').html("Please wait while saving your post....!");
@@ -69,7 +70,13 @@ function bind_clk(){
                     'content_id': wid
                 },
                 success: function(msg){
-                    
+                    if(type==0){
+                        el.closest('div').find('#disag-cnt').html(msg.ratecount);
+                    }
+                    if(type==1){
+                        el.closest('div').find('#ag-cnt').html(msg.ratecount);
+                    }
+
                     var ntype = msg.type;
                     var barid = '#bar-area-'+ntype+'-'+wid;
                     var btnid = '#lik-btns-'+ntype+'-'+wid;

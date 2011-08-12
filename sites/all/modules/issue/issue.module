@@ -2637,7 +2637,7 @@ function view_issue_results($nid = ''){
    $results = theme('issue_result_analysis',$nid);
    }
    $debates = theme('issue_debate_list', $nid);
-   //$resources = theme('issue_resource_list', $nid);
+   $resources = theme('issue_resource_list', $nid);
    
    return theme('issue_detail_wrapper', $nid, $results, $debates, $resources);
 }
@@ -2686,44 +2686,37 @@ function theme_issue_result_analysis($nid = ''){
 
 // debate list
 function theme_issue_debate_list($nid = ''){
-    global $user;
+    global $user, $gSitePath;
     $debates = '';
     module_load_include('inc', 'issue', 'issue.pages');
-    $filters = '<span><a href="#">Show debate statistics</a>&nbsp;|&nbsp;<a href="#">Show filter options</a></span>';
+    $filters = '<span><a href="javascript:void(0);" id="show-analytics" title="'.t('Debate Statistics').'">'.t('Show debate statistics').'</a>&nbsp;|&nbsp;<a href="javascript:void(0);" id="show-filter" title="'.t('Filter Options').'">'.t('Show filter options').'</a></span>';
     $count = '';
 
 
-
-    $ans = load_options($nid);
-    //answers
-    
-    foreach ($ans as $list) {
-        $short_answer = get_short_answer($nid, $list['chorder']);
-        $answer = $short_answer!=''?$short_answer:$list['chtext'];
-        $inc_pans.='<div class="form-outer-debate">
-    	<div class="fm-1">&nbsp;</div>
-        <div class="fm-2">
-        <div class="fm-2-left">' . $answer . '</div>
-        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
-        </div>
-        <div class="clr"></div>
-    </div>';
-    }
     
     //print_r($cnt);
-    $userCheckDebate = user_is_logged_in()!=''?'<a href="javascript:void(0);" id="addnew_debate" title="New Debate" class="orange-btn">ADD ARGUMENT</a>':'<a href="javascript:void(0);"  title="New Debate" onclick="check_popup_login()" class="orange-btn">ADD ARGUMENT</a>';
+    //$userCheckDebate = user_is_logged_in()!=''?'<a href="javascript:void(0);" id="addnew_debate" title="New Debate" class="orange-btn">ADD ARGUMENT</a>':'<a href="javascript:void(0);"  title="New Debate" onclick="check_popup_login()" class="orange-btn">ADD ARGUMENT</a>';
     $userCheckDebate = '<a href="javascript:void(0);" id="addnew_debate" title="New Debate" class="orange-btn">ADD ARGUMENT</a>';
  
     $addNew = '<span style="float:right">'.$userCheckDebate.'</span>';
     $debates .= '<div class="result-analysis-title">DEBATE'.$addNew.'<br />'.$filters.'</div><br />';
 
-
+    // analysis block
+    $debates .= '<div style="display:block" id="analytics-area">
+                <iframe src="'.$gSitePath.'debate/ajax/'.$nid.'?action=analysis" width="320" height="350" frameborder=0 scrolling="no"></iframe>
+                </div>';
+    // analysis block
+    // filter block
+    $display = isset($_GET['sup'])?'style="display:block"':'style="display:none"';
+    $debates .= '<div id="filter-area" '.$display.'>'.drupal_get_form('filter_options', $nid).'</div>';
+    // filter block
+    
     $debates .= '<div class="submit-msg" id="submitted-msg" align="center"></div>';
     $debates .= '<div class="add-debate" id="add_debate_wrapper" style="display:none">';
         if (!empty($user->uid)) {
         $debates .= drupal_get_form('add_new_debate_form', $nid);
         }else{
-         $debates .= '<div align="center"><b>Please log in to participate in the debate</b></div>';
+         $debates .= '<div align="center"><b>'.t('Please log in to participate in the debate').'</b></div>';
         }
     $debates .= '</div>';
     $debates .= '<div id="issue_debate_list">';
@@ -2733,8 +2726,15 @@ function theme_issue_debate_list($nid = ''){
 }
 function theme_issue_resource_list($nid = ''){
     $resources = '';
-    $filters = '<span><a>Show filter options</a></span>';
-    $resources .= '<div class="result-analysis-title">REFERENCES<br />'.$filters.'</div><br />';
+    module_load_include('inc', 'issue', 'issue.pages');
+    $filters = '<span><a href="javascript:void(0);" id="show-res-filter">Show filter options</a></span>';
+    
+    $addNew = '<span style="float:right"><a href="javascript:void(0);" id="addnew_reference" title="New Reference" class="orange-btn">ADD REFERENCE</a></span>';
+    $resources .= '<div class="result-analysis-title">REFERENCES'.$addNew.'<br />'.$filters.'</div><br />';
+    $resources .= '<div style="display:none" id="add-resource-area">';
+    $resources .= add_new_resources($nid);
+    $resources .= '</div>';
+    $resources .= issue_resources($nid);
     return $resources;
 
 }
@@ -3048,11 +3048,13 @@ function theme_single_debate_template($debItems = array()){
 
     // anwers strength
     $strnth = $debItems['strength'];
+    //echo '<pre>';print_r($strnth);exit;
     
     foreach ($strnth as $list) {
-    $short_answer = get_short_answer($debItems['issue_tnid'], $list['chorder']);
-    $ans = $short_answer!=''?$short_answer:$list['chtext'];
-
+    $short_answer = get_short_answer($debItems['issue_id'], $list['chorder']);
+    $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '".$debItems['issue_id']."' AND chorder = '".$list['chorder']."'"));
+    $ans = $short_answer!=''?$short_answer:$tranAns;
+    
     switch ($list['ans_val']) {
         case 0:
             $strength.='<div><span class="yellow-box">+/-</span>'.$ans.'</div>';
@@ -3066,11 +3068,27 @@ function theme_single_debate_template($debItems = array()){
     }
     }
 
-    $ratings = ''.$debItems['vote_up'].'&nbsp;
+    // allow rating check
+    $agreeClass = '';
+    $disagreeClass = '';
+    if($debItems['posted_by'] == $user->uid){
+        $agreeTitle = 'title="You are not able to rate your own post!"';
+        $disagreeTitle = 'title="You are not able to rate your own post!"';
+    }elseif($debItems['allow_rating']==0){
+        $agreeClass = 'class="dagree"';
+        $disagreeClass = 'class="ddisagree"';
+        $agreeTitle = 'title="Agree This!"';
+        $disagreeTitle = 'title="Disagree This!"';
+    }else{
+        $agreeTitle = 'title="You have rated this!"';
+        $disagreeTitle = 'title="You have rated this!"';
+    }
+
+    $ratings = '<span id="ag-cnt">'.$debItems['vote_up'].'</span>&nbsp;
                 <span type="is_debate" name="' . $debItems['debate_tnid'] . '" id="dagree" >
-                    <a href="javascript:void(0);" title="Agree This!" name="a-' . $debItems['debate_tnid'] . '" class="dagree"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
-                    <a href="javascript:void(0);" title="Disagree This!" name="da-' . $debItems['debate_tnid'] . '" class="ddisagree"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
-                </span>&nbsp;'.$debItems['vote_down'].'';
+                    <a href="javascript:void(0);" '.$agreeTitle.' name="a-' . $debItems['debate_tnid'] . '" '.$agreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
+                    <a href="javascript:void(0);" '.$disagreeTitle.' name="da-' . $debItems['debate_tnid'] . '" '.$disagreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
+                </span>&nbsp;<span id="disag-cnt">'.$debItems['vote_down'].'</span>';
     $reply = '<a class="orange-btn" title="Reply" id="deb_reply_'.$debItems['debate_tnid'].'" href="javascript:void(0);" onclick="open_replybox(this.id)">Reply</a>';
 
     if(is_moderator() || $debItems['uid']==$user->uid){
@@ -3163,43 +3181,14 @@ function load_debate_datas($debId = '', $issId = '', $issTnid = ''){
                                'content_id' => $row->cid,
                                 'tag' => 'vote',
                                 'vote_type' => 'down');
-            $voteUp += vote_up_down_count($criteriaUp);
-            $voteDown += vote_up_down_count($criteriaDown);
+            //$voteUp += vote_up_down_count($criteriaUp);
+            //$voteDown += vote_up_down_count($criteriaDown);
         }
 
         //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
         $query = "select * from {debate_options} a join  {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' and b.nid='$issTnid' ORDER BY b.chorder";
         $strnth = ExecuteQuery($query, "select");
-        $strength = '';
-        foreach ($strnth as $list) {
-            $short_answer = get_short_answer($issTnid, $list['chorder']);
-            $ans = $short_answer!=''?$short_answer:$list['chtext'];
-
-            switch ($list['ans_val']) {
-                case 0:
-                    $strength.='<div class="bottpart">
-                            <div class="green"><em>&nbsp;&nbsp;+</em></div>
-                            <div class="green-box">' . $ans . '</div>
-                                 <div class="clr"></div>
-                                 </div>';
-                    break;
-                case 1:
-                    $strength.='<div class="bottpart">
-                            <div class="green"><em>&nbsp;&nbsp;+</em></div>
-                            <div class="green-box">' . $ans . '</div>
-                                 <div class="clr"></div>
-                                 </div>';
-                    break;
-                case 2:
-                    $strength.='<div class="bottpart">
-                            <div class="pink"><em>&nbsp;&nbsp;-</em></div>
-                            <div class="pink-box">' . $ans . '</div>
-                                 <div class="clr"></div>
-                                 </div>';
-                    break;
-            }
-        }
-
+        
 // date posted, last activity
         $last_timestamp = db_result(db_query("SELECT timestamp FROM {comments} WHERE nid = '%d' ORDER BY cid DESC LIMIT 0,1", $forum->nid));
 
@@ -3208,6 +3197,8 @@ function load_debate_datas($debId = '', $issId = '', $issTnid = ''){
 // strenght weak calculation
         $strCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 1, $forum->nid));
         $weakCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 0, $forum->nid));
+        $allowRating = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d' AND uid = '%d'", 'node', $forum->nid, $user->uid));
+        $allowRating = $allowRating>0?1:0;
 
         $item = array();
         $item['debate_id'] = $translated->nid;
@@ -3222,6 +3213,9 @@ function load_debate_datas($debId = '', $issId = '', $issTnid = ''){
         $item['strength'] = $strnth;
         $item['vote_up'] = $voteUp;
         $item['vote_down'] = $voteDown;
+        $item['allow_rating'] = $allowRating;
+        $item['posted_by'] = $forum->uid;
+        
         return $item;
 
 }
@@ -3339,8 +3333,9 @@ function forum_reply_datas($cid = ''){
 
         $items = array();
         if (!empty($forum['comment'])) {
-            $querylike = "SELECT * FROM {votingapi_vote} WHERE content_type = 'comment' AND uid = '$user->uid' AND content_id = '" . $forum['cid'] . "'";
-            $fetch = ExecuteQuery($querylike, "select");
+            $querylike = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = 'comment' AND uid = '$user->uid' AND content_id = '" . $forum['cid'] . "'"));
+            //$fetch = ExecuteQuery($querylike, "select");
+            $querylike = $querylike>0?1:0;
 
             $criteriaUp = array('content_type' => 'comment',
                 'content_id' => $forum['cid'],
@@ -3360,6 +3355,8 @@ function forum_reply_datas($cid = ''){
             $items['uid'] = $account->uid;
             $items['uname'] = $account->name;
             $items['posted'] = $posted;
+            $items['allow_rating'] = $querylike;
+            $items['posted_by'] = $forum['uid'];
         }
     }
     return $items;
@@ -3372,11 +3369,27 @@ function theme_forum_reply_template($repItems = array()){
     $path = '<front>';
     $sitelink = url($path, array('absolute' => TRUE)).'/';
 
-    $ratings = ''.$repItems['vote_up'].'&nbsp;
+    // check allow rating
+    $agreeClass = '';
+    $disagreeClass = '';
+    if($repItems['posted_by'] == $user->uid){
+        $agreeTitle = 'title="You are not able to rate your own post!"';
+        $disagreeTitle = 'title="You are not able to rate your own post!"';
+    }elseif($repItems['allow_rating']==0){
+        $agreeClass = 'class="dagree"';
+        $disagreeClass = 'class="ddisagree"';
+        $agreeTitle = 'title="Agree This!"';
+        $disagreeTitle = 'title="Disagree This!"';
+    }else{
+        $agreeTitle = 'title="You have rated this!"';
+        $disagreeTitle = 'title="You have rated this!"';
+    }
+
+    $ratings = '<span id="ag-cnt">'.$repItems['vote_up'].'</span>&nbsp;
                 <span name="' . $repItems['cid'] . '" type="is_debate_reply" id="dragree" >
-                <a href="javascript:void(0);" title="Agree This!" name="a-' . $repItems['cid'] . '" class="ragree""><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
-                <a href="javascript:void(0);" title="Disagree This!" name="da-' . $repItems['cid'] . '" class="rdisagree"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
-                </span>&nbsp;'.$repItems['vote_down'].'';
+                <a href="javascript:void(0);" '.$agreeTitle.' name="a-' . $repItems['cid'] . '" '.$agreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
+                <a href="javascript:void(0);" '.$disagreeTitle.' name="da-' . $repItems['cid'] . '" '.$disagreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
+                </span>&nbsp;<span id="disag-cnt">'.$repItems['vote_down'].'</span>';
 
     if(is_moderator() || $repItems['uid']==$user->uid){
     $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id)" id="own_reply_'.$repItems['cid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';

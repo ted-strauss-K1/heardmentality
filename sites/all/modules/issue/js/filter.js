@@ -66,6 +66,22 @@ jQuery(document).ready(function() {
 //sendEvent(jQuery('#subject'),'change');//assuming there is a select element
 //jQuery('#subject').fireEvent("onchange");
 
+ jQuery('#analytics-area').slideUp(3000);
+
+jQuery('#show-analytics').click(function(){
+    jQuery('#filter-area').slideUp('fast');
+    jQuery('#analytics-area').slideToggle('slow'); 
+})
+jQuery('#show-filter').click(function(){
+    jQuery('#analytics-area').slideUp('fast');
+    jQuery('#filter-area').slideToggle('slow');
+})
+
+
+jQuery('#addnew_reference').click(function(){
+    jQuery('#add-resource-area').slideToggle('slow');
+});
+
 });
 
 function sendEvent(ele,e){

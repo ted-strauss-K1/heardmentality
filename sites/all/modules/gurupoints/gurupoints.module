@@ -258,7 +258,7 @@ function gurupoints_cron(){
             
                 $sel="CREATE VIEW {temp_scores} AS (select sum(c.field_score_value) as score,c.field_ref_qid_nid AS qid,1 as type,c.nid as nid  from {content_type_forum} c JOIN {node} n ON n.nid = c.nid where n.uid='".$list['uid']."' AND c.field_type_value = '2' group by c.nid) union (select sum(cm.score) as score,cf.field_ref_qid_nid as qid,2 as type,cf.nid as nid from {comments} as cm join {content_type_forum} as cf on cf.nid=cm.nid JOIN {node} AS n ON cm.nid = n.nid where cm.uid='".$list['uid']."' AND cf.field_type_value = '2'  group by cm.cid) ";
 
-              $point_list = ExecuteQuery($sel, "select");
+              $point_list = db_query($sel);
 
              $query="select *,sum(score) as tscore from {temp_scores} group by qid";
                $tscore = ExecuteQuery($query, "select");
