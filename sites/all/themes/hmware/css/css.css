@@ -1577,7 +1577,7 @@ img{ border:none; outline:none;}
 .popup-update-profile .form-bg select{ width:100px;}
 
 .debate-l{ float:left; width:200px; margin-right:10px;}
-.debate-r{ float:left; width:300px;}
+.debate-r{ float:left; width:500px; padding-left: 100px;}
 .debate-r-row{ margin-top:5px; text-align:left; clear:both; float:left; width:100%;}
 .flag-report{ padding-left:10px;}
 .popup-update-profile .newcretae-profile-wrapper{ width:980px;}

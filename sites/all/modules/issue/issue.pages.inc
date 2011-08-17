@@ -2065,7 +2065,7 @@ function add_new_resources($qid='') {
 	</select></div>
     </div>
 
-    <div id="div1" style="display:none;"  class="debate-r-row"><input type="text" class="" style="float:left; padding:3px;"  name="nlink" value="http://" id="nlink"/> <div><input id="lattach" name="name" type="button" value="Attach"  style="float:left; width:50px; padding:1px;"/></div></div>
+    <div id="div1" style="display:none;"  class="debate-r-row"><input type="text" class="listbox1" style="float:left; padding:3px;"  name="nlink" value="http://" id="nlink"/> <div><input id="lattach" name="name" type="button" value="Attach"  style="float:left; width:50px; padding:1px;"/></div></div>
     <div id="div2" style="display:none;"  class="debate-r-row"><select name="mtype" class="listbox1" id="mtype"   >
     <option value="0">Choose Format </option>
     <option value="1">Web Video </option>
@@ -2073,7 +2073,7 @@ function add_new_resources($qid='') {
     </select>
     </div>
     
-    <div id="media" style="display:none;"  class="debate-r-row"> <input type="text"  name="membed" id="membed" value="http://"  class="" ></div>
+    <div id="media" style="display:none;"  class="debate-r-row"> <input type="text"  name="membed" id="membed" value="http://"  class="listbox1" ></div>
     <div id="media_div" style="display:none;"  class="debate-r-row">
     <input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div>
     </div>

@@ -82,15 +82,18 @@ jQuery('#show-filter').click(function(){
 jQuery('#show-res-statistics').click(function(){
     jQuery('#res-analytics-area').slideToggle('fast');
     jQuery('#res-filter-area').slideUp('slow');
+    jQuery('#add-resource-area').slideUp('slow');
 })
 jQuery('#show-res-filter').click(function(){
     jQuery('#res-analytics-area').slideUp('fast');
     jQuery('#res-filter-area').slideToggle('slow');
+    jQuery('#add-resource-area').slideUp('slow');
 })
 
 
 jQuery('#addnew_reference').click(function(){
-    jQuery('#res-analytics-area').slideUp('fast');
+    jQuery('#res-analytics-area').hide('fast');
+    jQuery('#res-filter-area').hide('fast');
     jQuery('#add-resource-area').slideToggle('slow');
 });
 
