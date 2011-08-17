@@ -133,11 +133,11 @@ $menu['issue/ajax/%/%'] = array(
         'access callback'=>true,
      'file'=>'issue.pages.inc'
     );
-$menu['issues/load_resources/%/%'] = array(
+$menu['issues/load_resources/%/%/%/%/%'] = array(
         'title' => 'Load Resources',
         'page callback' => 'issue_resources',
         'type' => MENU_LOCAL_TASK,
-        'page arguments' => array(2,3),
+        'page arguments' => array(2,3,4,5,6),
         'access callback'=>true,
      'file'=>'issue.pages.inc'
     );
@@ -2751,9 +2751,22 @@ function theme_issue_resource_list($nid = ''){
 
     $addNew = '<span style="float:right"><a href="javascript:void(0);" id="addnew_reference" title="New Reference" class="orange-btn">ADD REFERENCE</a></span>';
     $resources .= '<div class="result-analysis-title">REFERENCES'.$addNew.'<br />'.$filters.'</div><br />';
-    $resources .= '<div style="display:block" id="analytics-area">
+    // resource statistics block
+    $resources .= '<div style="display:block" id="res-analytics-area">
                 <iframe src="'.$gSitePath.'debate/ajax/'.$nid.'?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>
                 </div>';
+    // resource statistics block
+    // filter block
+    $display = isset($_GET['sup'])?'style="display:block"':'style="display:none"';
+    $resources .= '<div id="res-filter-area" '.$display.'>'.drupal_get_form('filter_options', $nid).'</div><div class="clr"></div>';
+    $sup = $_GET['sup']!=''?$_GET['sup']:'n';
+    $ans = $_GET['ans']!=''?$_GET['ans']:'n';
+    $sort = $_GET['sort']!=''?$_GET['sort']:'n';
+    $resources .= '<input type="hidden" name="sup" id="sup" value="'.$sup.'" />
+                   <input type="hidden" name="ans" id="ans" value="'.$ans.'" />
+                   <input type="hidden" name="sort" id="sort" value="'.$sort.'" />';
+    // filter block
+    
     $resources .= '<div style="display:none" id="add-resource-area">';
     $resources .= '<div class="msg" id="alert-area"></div>';
     $resources .= add_new_resources($nid);

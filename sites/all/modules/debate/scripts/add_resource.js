@@ -345,8 +345,14 @@ function res_type_tab(id,tab,nid){
 //        jQuery(divid).hide();
 //    }
 //    }
+
+    // url sort get values
+    var sup = jQuery('#sup').val();
+    var ans = jQuery('#ans').val();
+    var sort = jQuery('#sort').val();
+
     jQuery('#load-resource').prepend('Loading...');
-    var url = spath+'issues/load_resources/'+nid+'/'+id;
+    var url = spath+'issues/load_resources/'+nid+'/'+id+'/'+sup+'/'+ans+'/'+sort;
     jQuery.ajax({
         type: 'post',
         url: url,

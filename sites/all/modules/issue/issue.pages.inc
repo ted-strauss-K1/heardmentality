@@ -2126,12 +2126,17 @@ function issue_resources_list($qid = ''){
 }
 
 // resources in news
-function issue_resources($qid, $rtype = ''){
+function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort=''){
     global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
     $wave = '';
     $click = '';
     $sortin = 'ORDER BY rid DESC';
     $cond = '';
+
+    // load resources
+    $sup = $sup!='n'?$sup:'';
+    $ans = $ans!='n'?$ans:'';
+    $sort = $sort!='n'?$sort:'';
 
     // site url with default language
     $path = '<front>';

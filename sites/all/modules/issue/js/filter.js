@@ -67,6 +67,7 @@ jQuery(document).ready(function() {
 //jQuery('#subject').fireEvent("onchange");
 
  jQuery('#analytics-area').slideUp(3000);
+ jQuery('#res-analytics-area').slideUp(3000);
 
 jQuery('#show-analytics').click(function(){
     jQuery('#filter-area').slideUp('fast');
@@ -77,8 +78,19 @@ jQuery('#show-filter').click(function(){
     jQuery('#filter-area').slideToggle('slow');
 })
 
+// resource tab
+jQuery('#show-res-statistics').click(function(){
+    jQuery('#res-analytics-area').slideToggle('fast');
+    jQuery('#res-filter-area').slideUp('slow');
+})
+jQuery('#show-res-filter').click(function(){
+    jQuery('#res-analytics-area').slideUp('fast');
+    jQuery('#res-filter-area').slideToggle('slow');
+})
+
 
 jQuery('#addnew_reference').click(function(){
+    jQuery('#res-analytics-area').slideUp('fast');
     jQuery('#add-resource-area').slideToggle('slow');
 });
 
