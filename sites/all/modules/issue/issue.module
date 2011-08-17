@@ -1011,7 +1011,7 @@ function issue_debate_tab($qid = ''){
 
 </form>';
     } else {
-        $wave .= '<div align="center"><b>Please log in to participate in the debate</b></div>';
+        $wave .= '<div align="center"><b>'.t('Please log in to participate in the debate').'</b></div>';
     }
     $wave .= ' </div></div>
 	<div><div id="qwave" class="">';

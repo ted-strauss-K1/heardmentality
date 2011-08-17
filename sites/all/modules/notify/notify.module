@@ -1587,7 +1587,7 @@ switch($rtype){
         <div style="float:left">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE) . '</div>
         <div id="notify-text-quote">"' . $data['r_title'] . '"</div>
         <div id="notify-desc">' . $data['description'] . '</div>
-    </div>
+    </div><div class="clr"></div>
         <div align="right">'.ago($submitted).'</div><hr>';
             break;
         case '2':
@@ -1598,10 +1598,11 @@ switch($rtype){
     <div>
         <div style="float:left">' . $image . '</div>
         <div id="notify-text-quote">"' . $data['r_title'] . '"</div>
-    </div>
+    </div><div class="clr"></div>
         <div align="right">'.ago($submitted).'</div><hr>';
             break;
         case '3':
+            $image = !empty($data['file'])?$data['file']:file_directory_path() . '/noimage.jpg';
             $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
           <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
                     . ' On </div><div id="notify-link">' . l($data['q_title'], $url) . '</div>
@@ -1609,12 +1610,12 @@ switch($rtype){
         <div style="float:left">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE) . '</div>
         <div id="notify-text-quote">"' . $data['r_title'] . '"</div>
         <div id="notify-desc">' . $data['description'] . '</div>
-    </div>
+    </div><div class="clr"></div>
         <div align="right">'.ago($submitted).'</div><hr>';
             break;
     }
 
-
+   
     return $output;
 }
 

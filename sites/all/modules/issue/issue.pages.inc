@@ -2015,96 +2015,94 @@ function add_new_resources($qid='') {
     //$gSitePath = $sitelink;
 
 
-    $ans = load_options($qid);
-   
-    drupal_add_js('var spath="' . $gSitePath . '";', 'inline');
+     drupal_add_js('var spath="' . $gSitePath . '";', 'inline');
     drupal_add_css(drupal_get_path('module', 'debate') . '/css/fileuploader.css');
     drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/fileuploader.js');
     drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js');
     drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/add_resource.js');
 
 
-    //answers
-    foreach ($ans as $list) {
-        $short_answer = get_short_answer($qid, $list['chorder']);
-        $answer = $short_answer!=''?$short_answer:$list['chtext'];
+    if (!user_is_logged_in()) {
+        $resources .= '<div align="center"><b>'.t('Please log in to post a reference').'!</b></div>';
+    }else{
+        $ans = load_options($qid);
+            //answers
+            foreach ($ans as $list) {
+                $short_answer = get_short_answer($qid, $list['chorder']);
+                $answer = $short_answer!=''?$short_answer:$list['chtext'];
 
-        $inc_pans.='
-	<div class="debate-r-row">
-        <div class="fm-2">
-        <div class="fm-2-left">' . $answer . ' </div>
-<div class="fm-2-right">
+                $inc_pans.='
+                <div class="debate-r-row">
+                <div class="fm-2">
+                <div class="fm-2-left">' . $answer . ' </div>
+        <div class="fm-2-right">
 
-            <input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
-              </div>
+                    <input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select>
+                      </div>
+                </div>
+
+
+
+
+            <div class="clr"></div>
+            </div>
+                        ';
+            }
+
+            $resources .= '
+
+                      <div class="popup-resource-new">         <div class="" id="err">' . $list_err . '</div>
+            <div class="">
+                <form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'debate/ajax" enctype="multipart/form-data" >
+                    <input type="hidden" name="qaid" value="' . $qid . '"/>
+                     <input type="hidden" name="action" value="resource_new"/>
+
+        <div class="debate-r">
+            <div class="debate-r-row">
+                <div class="fm-2">   <select name="rtype" class="listbox1" id="rtype" >
+                <option value="0">Resource Type </option>
+                <option value="1">News </option>
+                <option value="2">Multimedia </option>
+                <option value="3">Facts </option>
+                </select></div>
+            </div>
+
+            <div id="div1" style="display:none;"  class="debate-r-row"><input type="text" class="listbox1" style="float:left; padding:3px;"  name="nlink" value="http://" id="nlink"/> <div><input id="lattach" name="name" type="button" value="Attach"  style="float:left; width:50px; padding:1px;"/></div></div>
+            <div id="div2" style="display:none;"  class="debate-r-row"><select name="mtype" class="listbox1" id="mtype"   >
+            <option value="0">Choose Format </option>
+            <option value="1">Web Video </option>
+            <option value="2">Podcast,PDF, DOC, PPT. </option>
+            </select>
+            </div>
+
+            <div id="media" style="display:none;"  class="debate-r-row"> <input type="text"  name="membed" id="membed" value="http://"  class="listbox1" ></div>
+            <div id="media_div" style="display:none;"  class="debate-r-row">
+            <input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div>
+            </div>
+            <div class="debate-r-row" id="linkbox"></div>
+
+
+
+         ' . $inc_pans . '
+                <div class="debate-r-row">
+                  <div class="fm-2">
+                <div class="fm-2-right" align="right"><input name="submit" value="Submit" title="submit" type="submit" id="submitter" class="orange-btn"/></div>
+                <br />
+        </div>
+            <div class="clr"></div>
+            </div>
         </div>
 
+        </form>
+              <div class="clr"></div>
+          </div>
+        </div>
+
+        </body>
 
 
 
-    <div class="clr"></div>
-    </div>
-    		';
-    }
-
-    $resources .= '
-
-              <div class="popup-resource-new">         <div class="" id="err">' . $list_err . '</div>
-    <div class="">
-        <form id="myForm" name="myForm"  method="post" action="' . $gSitePath . 'debate/ajax" enctype="multipart/form-data" >
-            <input type="hidden" name="qaid" value="' . $qid . '"/>
-             <input type="hidden" name="action" value="resource_new"/>
-
-<div class="debate-r">
-    <div class="debate-r-row">
-        <div class="fm-2">   <select name="rtype" class="listbox1" id="rtype" >
-	<option value="0">Resource Type </option>
-	<option value="1">News </option>
-	<option value="2">Multimedia </option>
-	<option value="3">Facts </option>
-	</select></div>
-    </div>
-
-    <div id="div1" style="display:none;"  class="debate-r-row"><input type="text" class="listbox1" style="float:left; padding:3px;"  name="nlink" value="http://" id="nlink"/> <div><input id="lattach" name="name" type="button" value="Attach"  style="float:left; width:50px; padding:1px;"/></div></div>
-    <div id="div2" style="display:none;"  class="debate-r-row"><select name="mtype" class="listbox1" id="mtype"   >
-    <option value="0">Choose Format </option>
-    <option value="1">Web Video </option>
-    <option value="2">Podcast,PDF, DOC, PPT. </option>
-    </select>
-    </div>
-    
-    <div id="media" style="display:none;"  class="debate-r-row"> <input type="text"  name="membed" id="membed" value="http://"  class="listbox1" ></div>
-    <div id="media_div" style="display:none;"  class="debate-r-row">
-    <input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div>
-    </div>
-    <div class="debate-r-row" id="linkbox"></div>
-
-
-
- ' . $inc_pans . '
-     	<div class="debate-r-row">
-          <div class="fm-2">
-        <div class="fm-2-right" align="right"><input name="submit" value="Submit" title="submit" type="submit" id="submitter" class="orange-btn"/></div>
-        <br />
-</div>
-    <div class="clr"></div>
-    </div>
-</div>
-
-</form>
-      <div class="clr"></div>
-  </div>
-</div>
-
-</body>
-
-
-      
-';
-
-    if (!user_is_logged_in()) {
-        $resources = '<div class="warning">Please log in to post a reference!</div><script>jQuery(document).ready(function() {jQuery(\'#twitMsg\',top.document).html("Please log in to post a reference!");
-        jQuery(\'#twitMsg\',top.document).delay(400).slideDown(400).delay(3000).slideUp(400); }); </script>';
+        ';
     }
 
     return $resources;
