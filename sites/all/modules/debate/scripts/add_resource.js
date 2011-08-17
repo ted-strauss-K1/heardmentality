@@ -7,13 +7,13 @@ jQuery("#lattach").click(function()
 {
 var content=jQuery('#nlink').val();
 var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-jQuery(this).attr('disabled',true);
+
 var url= content.match(urlRegex);
 var purl=spath+'debate/ajax';
 
 if(url.length>0)
 {
-
+jQuery(this).attr('disabled',true);
 $("#linkbox").slideDown('show');
 $("#linkbox").html("Loading.....");
 $.get(purl+"?action=url&url="+url,function(response)
@@ -28,7 +28,6 @@ if(jQuery('#cur_id_val').val() == jQuery('#end_image').val()){
 //jQuery('#re-sel-pre').fadeTo('fast', 0.2);
 jQuery('#re-sel-pre').hide();
 });
-
 }
 return false;
 });
@@ -157,6 +156,8 @@ jQuery('input[type="submit"]').attr('disabled',true);
                 jQuery( "form" )[ 0 ].reset();
                 jQuery('#uscrap').empty();
                 jQuery("#linkbox").html('');
+                jQuery('#nlink').val('http://');
+                jQuery('#add-resource-area').slideUp();
              //jQuery( "form" )[ 0 ].clearForm();
             // clearForm(jQuery(this));
                 el.html(data);
@@ -167,10 +168,12 @@ jQuery('input[type="submit"]').attr('disabled',true);
 
         return false;
     });
-	   
 });
 
-
+function startload(){
+    initialize();
+    createUploader();
+}
 
 
 function createUploader(){
@@ -203,7 +206,8 @@ function createUploader(){
 
 // in your app create uploader as soon as the DOM is ready
 // don't wait for the window to load
-window.onload = createUploader;
+//window.onload = createUploader;
+window.onload=startload;
 
 
  jQuery.fn.clearForm = function() {
@@ -327,4 +331,28 @@ function disableLink(e) {
     e.preventDefault();
 
     return false;
+}
+
+
+// open resource subtab types
+function res_type_tab(id,tab,nid){
+    var divid;
+//    for(var i=1;i<=3;i++){
+//    divid = '#res-type-'+i;
+//    if(i==id){
+//        jQuery(divid).show();
+//    }else{
+//        jQuery(divid).hide();
+//    }
+//    }
+    jQuery('#load-resource').prepend('Loading...');
+    var url = spath+'issues/load_resources/'+nid+'/'+id;
+    jQuery.ajax({
+        type: 'post',
+        url: url,
+        success: function(msg){
+            jQuery('#load-resource').html('');
+            jQuery('#load-resource').html(msg);
+        }
+    });
 }

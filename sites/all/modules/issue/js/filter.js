@@ -228,13 +228,13 @@ jQuery('.arg-reply-form').live('submit', function(e){
 });
 
 
-function delete_thread(id){
+function delete_thread(id, type){
     var spl = id.split("_");
     var fid  = spl[2];
     var dtype = spl[1];
     //var msgid = '#reply-msg-'+fid;
     
-    var url = spath+'issue/thread/delete/'+dtype+'/'+fid;
+    var url = spath+'issue/thread/delete/'+dtype+'/'+fid+'/'+type;
     if(confirm("Are you sure to delete this argument?")){
     jQuery.ajax({
         type: 'post',

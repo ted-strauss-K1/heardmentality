@@ -1951,6 +1951,13 @@ img{ border:none; outline:none;}
 .new-debate-wrapper .comm-text{
    padding-bottom: 7px;
 }
+.mid-area img{
+    float: left;
+    padding-right: 12px;
+}
+.mid-area .res-body{
+    width:450px;
+}
 .new-debate-wrapper .yellow-box{
     color: #F4A83D;
 }
@@ -2066,3 +2073,9 @@ img{ border:none; outline:none;}
 .web-reference-new-txt { width: 350px; margin: 10px 0;}
 .web-reference-tit-new-txt { text-transform: capitalize; font-size: 15px; font-weight: bold;}
 /*End*/
+
+/*filter options*/
+.fl-left{
+    float: left;
+    padding-right: 23px;
+}

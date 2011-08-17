@@ -118,16 +118,24 @@ $menu['issue/ahah/%/%'] = array(
         'access arguments' => array('issue list'),
         'page arguments' => array(2,3),
     );
-$menu['issue/thread/delete/%/%'] = array(
+$menu['issue/thread/delete/%/%/%'] = array(
         'title' => 'Forum / Reply delete',
         'page callback' => 'issue_thread_delete',
         'access arguments' => array('vote on issue'),
-        'page arguments' => array(3,4),
+        'page arguments' => array(3,4,5),
         'file'=>'issue.pages.inc'
     );
 $menu['issue/ajax/%/%'] = array(
         'title' => 'Insight View',
         'page callback' => 'issue_ajax',
+        'type' => MENU_LOCAL_TASK,
+        'page arguments' => array(2,3),
+        'access callback'=>true,
+     'file'=>'issue.pages.inc'
+    );
+$menu['issues/load_resources/%/%'] = array(
+        'title' => 'Load Resources',
+        'page callback' => 'issue_resources',
         'type' => MENU_LOCAL_TASK,
         'page arguments' => array(2,3),
         'access callback'=>true,
@@ -843,6 +851,8 @@ function issue_theme($existing, $type, $theme, $path) {
             'arguments' => array('debItems' => array()),
         ),'forum_reply_template' => array(
             'arguments' => array('repItems' => array()),
+        ),'single_resource_template' => array(
+            'arguments' => array('debItems' => array()),
         ),
 
     );
@@ -2703,7 +2713,7 @@ function theme_issue_debate_list($nid = ''){
 
     // analysis block
     $debates .= '<div style="display:block" id="analytics-area">
-                <iframe src="'.$gSitePath.'debate/ajax/'.$nid.'?action=analysis" width="320" height="350" frameborder=0 scrolling="no"></iframe>
+                <iframe src="'.$gSitePath.'debate/ajax/'.$nid.'?action=analysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>
                 </div>';
     // analysis block
     // filter block
@@ -2725,16 +2735,31 @@ function theme_issue_debate_list($nid = ''){
     return $debates;
 }
 function theme_issue_resource_list($nid = ''){
+    global $gSitePath;
     $resources = '';
     module_load_include('inc', 'issue', 'issue.pages');
-    $filters = '<span><a href="javascript:void(0);" id="show-res-filter">Show filter options</a></span>';
     
+    $filters = '<span><a href="javascript:void(0);" onclick="res_type_tab(1,\'innews\','.$nid.')" title="'.t('In News').'">'.t('In News').'</a>&nbsp;
+               <a href="javascript:void(0);" onclick="res_type_tab(2, \'media\','.$nid.')" title="'.t('Multimedia').'">'.t('Multimedia').'</a>&nbsp;
+               <a href="javascript:void(0);" onclick="res_type_tab(3, \'facts\','.$nid.')" title="'.t('Facts').'">'.t('Facts').'</a>&nbsp;
+               <a href="javascript:void(0);" id="show-res-filter">'.t('Show filter options').'</a>&nbsp;
+               <a href="javascript:void(0);" id="show-res-statistics" title="'.t('Show Reference Statistics').'">'.t('Show Reference Statistics').'</a>&nbsp;</span>';
+
+    $rtypes = '<a href="javascript:void(0);>'.t('In News').'</a>&nbsp;
+               <a href="javascript:void(0);>'.t('Multimedia').'</a>&nbsp;
+               <a href="javascript:void(0);>'.t('Facts').'</a>&nbsp;';
+
     $addNew = '<span style="float:right"><a href="javascript:void(0);" id="addnew_reference" title="New Reference" class="orange-btn">ADD REFERENCE</a></span>';
     $resources .= '<div class="result-analysis-title">REFERENCES'.$addNew.'<br />'.$filters.'</div><br />';
+    $resources .= '<div style="display:block" id="analytics-area">
+                <iframe src="'.$gSitePath.'debate/ajax/'.$nid.'?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>
+                </div>';
     $resources .= '<div style="display:none" id="add-resource-area">';
+    $resources .= '<div class="msg" id="alert-area"></div>';
     $resources .= add_new_resources($nid);
     $resources .= '</div>';
-    $resources .= issue_resources($nid);
+    $resources .= issue_resources_list($nid);
+    
     return $resources;
 
 }
@@ -3092,7 +3117,7 @@ function theme_single_debate_template($debItems = array()){
     $reply = '<a class="orange-btn" title="Reply" id="deb_reply_'.$debItems['debate_tnid'].'" href="javascript:void(0);" onclick="open_replybox(this.id)">Reply</a>';
 
     if(is_moderator() || $debItems['uid']==$user->uid){
-       $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id)" id="own_forum_'.$debItems['debate_tnid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
+       $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id, \'debate\')" id="own_forum_'.$debItems['debate_tnid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
     }
     
 
@@ -3219,6 +3244,84 @@ function load_debate_datas($debId = '', $issId = '', $issTnid = ''){
         return $item;
 
 }
+
+// load resource datas
+function load_resource_datas($resId = '', $issId = '', $issTnid = '', $resType = ''){
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
+     $curLanguage = $language->language;
+     $forum = node_load( array('nid' => $resId, 'status' => '1'));
+        $account = user_load($forum->uid);
+        // vote agree, disagree calculation
+        $voteUp = 0;
+        $voteDown = 0;
+        $criteriaUpNode = array('content_type' => 'node',
+                               'content_id' => $forum->nid,
+                                'tag' => 'vote',
+                                'vote_type' => 'up');
+        $criteriaDownNode = array('content_type' => 'node',
+                               'content_id' => $forum->nid,
+                                'tag' => 'vote',
+                                'vote_type' => 'down');
+        $voteUp = vote_up_down_count($criteriaUpNode);
+        $voteDown = vote_up_down_count($criteriaDownNode);
+        $sql = db_query("SELECT cid FROM {comments} WHERE nid = '%d'", $forum->nid);
+        while($row = db_fetch_object($sql)){
+            $criteriaUp = array('content_type' => 'comment',
+                               'content_id' => $row->cid,
+                                'tag' => 'vote',
+                                'vote_type' => 'up');
+            $criteriaDown = array('content_type' => 'comment',
+                               'content_id' => $row->cid,
+                                'tag' => 'vote',
+                                'vote_type' => 'down');
+            //$voteUp += vote_up_down_count($criteriaUp);
+            //$voteDown += vote_up_down_count($criteriaDown);
+        }
+
+        //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
+        $query = "select * from {resource_options} a join  {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' and b.nid='$issTnid' ORDER BY b.chorder";
+        $strnth = ExecuteQuery($query, "select");
+
+// date posted, last activity
+        $last_timestamp = db_result(db_query("SELECT timestamp FROM {comments} WHERE nid = '%d' ORDER BY cid DESC LIMIT 0,1", $forum->nid));
+
+        $posted = date("F d Y H:i:s", $forum->created);
+        $last_activity = $last_timestamp!=''?date("F d Y H:i:s", $last_timestamp):$posted;
+// strenght weak calculation
+        $strCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 1, $forum->nid));
+        $weakCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 0, $forum->nid));
+        $allowRating = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d' AND uid = '%d'", 'node', $forum->nid, $user->uid));
+        $allowRating = $allowRating>0?1:0;
+
+        $item = array(); 
+
+        $item['rtype'] = $resType;
+        $item['issue_id'] = $issId;
+        $item['title'] = $forum->title;
+        $item['body'] = $forum->body;
+        $item['issue_tnid'] = $issTnid;
+        $item['resource_id'] = $resId;
+        $item['image'] = $forum->field_filepath[0]['value'];
+        $item['uid'] = $account->uid;
+        $item['uname'] = $account->name;
+        $item['posted'] = $posted;
+        $item['last_activity'] = $last_activity;
+        $item['strength'] = $strnth;
+        $item['vote_up'] = $voteUp;
+        $item['vote_down'] = $voteDown;
+        $item['allow_rating'] = $allowRating;
+        $item['posted_by'] = $forum->uid;
+
+        // media
+        if($resType == 'multimedia'){
+            $item['video_id'] = $forum->field_videoid[0]['value']!=''?$forum->field_videoid[0]['value']:'';
+            $item['nlink'] = $forum->field_nlink[0]['value']!=''?$forum->field_nlink[0]['value']:'';
+            $item['filepath'] = $forum->field_filepath[0]['value']!=''?$forum->field_filepath[0]['value']:'';
+        }
+
+        return $item;
+}
+
 
 // forum reply form
 function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id){
@@ -3392,7 +3495,7 @@ function theme_forum_reply_template($repItems = array()){
                 </span>&nbsp;<span id="disag-cnt">'.$repItems['vote_down'].'</span>';
 
     if(is_moderator() || $repItems['uid']==$user->uid){
-    $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id)" id="own_reply_'.$repItems['cid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
+    $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id, \'reply\')" id="own_reply_'.$repItems['cid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
     }
     
     $reply .= '<div class="new-reply-wrapper" id="reply-block-'.$repItems['cid'].'">';
@@ -3409,4 +3512,119 @@ function theme_forum_reply_template($repItems = array()){
     
     return $reply;
 
+}
+
+function theme_single_resource_template($resItems = array()){
+    global $user, $gSitePath, $theme;
+    $delete = '';
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+
+    // anwers strength
+    $strnth = $resItems['strength'];
+    //echo '<pre>';print_r($strnth);exit;
+
+    foreach ($strnth as $list) {
+    $short_answer = get_short_answer($resItems['issue_id'], $list['chorder']);
+    $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '".$resItems['issue_id']."' AND chorder = '".$list['chorder']."'"));
+    $ans = $short_answer!=''?$short_answer:$tranAns;
+
+    switch ($list['ans_val']) {
+        case 0:
+            $strength.='<div><span class="yellow-box">+/-</span>'.$ans.'</div>';
+            break;
+        case 1:
+            $strength.='<div><span class="green-box">+</span>'.$ans.'</div>';
+            break;
+        case 2:
+            $strength.='<div><span class="red-box">-</span>'.$ans.'</div>';
+            break;
+    }
+    }
+
+    // allow rating check
+    $agreeClass = '';
+    $disagreeClass = '';
+    if($resItems['posted_by'] == $user->uid){
+        $agreeTitle = 'title="You are not able to rate your own post!"';
+        $disagreeTitle = 'title="You are not able to rate your own post!"';
+    }elseif($resItems['allow_rating']==0){
+        $agreeClass = 'class="dagree"';
+        $disagreeClass = 'class="ddisagree"';
+        $agreeTitle = 'title="Agree This!"';
+        $disagreeTitle = 'title="Disagree This!"';
+    }else{
+        $agreeTitle = 'title="You have rated this!"';
+        $disagreeTitle = 'title="You have rated this!"';
+    }
+
+    $ratings = '<span id="ag-cnt">'.$resItems['vote_up'].'</span>&nbsp;
+                <span type="is_debate" name="' . $resItems['resource_id'] . '" id="dagree" >
+                    <a href="javascript:void(0);" '.$agreeTitle.' name="a-' . $resItems['resource_id'] . '" '.$agreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
+                    <a href="javascript:void(0);" '.$disagreeTitle.' name="da-' . $resItems['resource_id'] . '" '.$disagreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
+                </span>&nbsp;<span id="disag-cnt">'.$resItems['vote_down'].'</span>';
+    $reply = '<a class="orange-btn" title="Reply" id="deb_reply_'.$resItems['resource_id'].'" href="javascript:void(0);" onclick="open_replybox(this.id)">Reply</a>';
+
+    if(is_moderator() || $resItems['uid']==$user->uid){
+       $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id, \'resource\')" id="own_forum_'.$resItems['resource_id'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
+    }
+
+
+    $reply_box = drupal_get_form('forum_reply_form', $resItems['debate_id'], $resItems['resource_id'], $resItems['issue_id']);
+    $replies = '';
+
+    $comments = forum_replies($resItems['resource_id'], 0);
+
+    $image = !empty($resItems['image']) ? $resItems['image'] : file_directory_path() . '/noimage.jpg';
+
+    $debt = '';
+    $debt .= '<div class="new-debate-wrapper" id="forum-block-'.$resItems['resource_id'].'">';
+    $debt .= '<div class="user-avatar"><a href="'.$sitelink.'profile/'.$resItems['uname'].'">'.UserPicture_small($resItems['uid']).'</a></div>';
+
+    // display news , media, facts
+    if($resItems['rtype'] == 'news' || $resItems['rtype'] == 'facts'){
+        $content = '<div class="comm-text"><a href="'.$resItems['title'].'" target="_blank" title="'.$resItems['title'].'">'.$resItems['title'].'</a></div>
+                  '.theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE).'
+                  <div class="res-body">'.$resItems['body'].'</div>
+                  <div class="clr"></div>';
+    }elseif($resItems['rtype'] == 'multimedia'){
+        if($resItems['video_id']!=''){
+        $content = '<div class="comm-text">
+                    <a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $resItems['video_id'] . '" class="floatbox" data-fb-options="width:480 height:384"><img width="125" height="100" src="http://img.youtube.com/vi/' . $resItems['video_id'] . '/default.jpg" alt="Video " ></a>
+                    <a target="_blank" href="' . $resItems['nlink'] . '">' . $resItems['nlink'] . '</a>
+                    </div>';
+        }elseif($resItems['filepath']!=''){
+            $url = explode('/', $resItems['filepath']);
+            $content = '<div class="comm-text"><a href="' . $gSitePath . 'resource/debate/' . $resItems['issue_tnid'] . '/' . $resItems['resource_id'] . '" target="_blank" > ' . $url[2] . ' </a></div>';
+        }
+    }
+
+    $debt .= '<div class="mid-area">
+            '.l($resItems['uname'],'profile/'.$resItems['uname']).'
+              &nbsp;&nbsp;<span class="posted">'.$resItems['posted'].'</span>&nbsp;|&nbsp;<a>'.t('Report Abuse').'</a>
+              '.$content.'
+              <div class="choice">'.$strength.'</div>
+            </div>';
+    $debt .= '<div class="rating">'.$ratings.'</div>
+             <div class="reply">'.$delete.$reply.'</div>
+                 <div class="clr"></div>';
+    $debt .= '<div class="reply-box" id="reply_box_'.$resItems['resource_id'].'">
+                '.$reply_box.'</div>';
+    // replies for a debate
+    $debt .= '<div align="center" class="submit-msg" id="reply-msg-'.$resItems['resource_id'].'"></div>';
+    $reply_count =  db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '".$resItems['resource_id']."'"));
+
+    $debt .= '<div class="show-reply">
+                <a href="javascript:void(0);" onclick="show_replies(this.id)" title="'.t('show reply').'" id="show_reply_'.$resItems['resource_id'].'">'.t('Replies').'</a>
+              ('.$reply_count.')';
+
+         // rply template here
+        $debt .= '<div class="all-replies" id="all_replybox_'.$resItems['resource_id'].'">';
+        $debt .= $comments;
+        $debt .=  '</div>';
+        //rply template ends here
+
+    $debt .= '</div>';
+    $debt .= '</div><div class="clr"></div>';
+    return $debt;
 }
