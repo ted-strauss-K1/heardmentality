@@ -3640,4 +3640,4 @@ function theme_single_resource_template($resItems = array()){
     $debt .= '</div>';
     $debt .= '</div><div class="clr"></div>';
     return $debt;
-}
+} 
