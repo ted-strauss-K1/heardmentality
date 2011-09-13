@@ -1,5 +1,5 @@
 <?php
-
+ini_set('upload_max_filesize', '10M');
 /**
  * Handle file uploads via XMLHttpRequest
  */
@@ -61,10 +61,11 @@ class qqUploadedFileForm {
 
 class qqFileUploader {
     private $allowedExtensions = array();
-    private $sizeLimit = 10485760;
+    //private $sizeLimit = 10485760;
+    private $sizeLimit = 7000;
     private $file;
 
-    function __construct(array $allowedExtensions = array(), $sizeLimit = 10485760){
+    function __construct(array $allowedExtensions = array(), $sizeLimit = 7000){
         $allowedExtensions = array_map("strtolower", $allowedExtensions);
 
         $this->allowedExtensions = $allowedExtensions;
@@ -82,12 +83,14 @@ class qqFileUploader {
     }
 
     private function checkServerSettings(){
-        $postSize = $this->toBytes(ini_get('post_max_size'));
-        $uploadSize = $this->toBytes(ini_get('upload_max_filesize'));
 
-        if ($postSize < $this->sizeLimit || $uploadSize < $this->sizeLimit){
+        $postSize = $this->toBytes(ini_get('post_max_size'));
+    $uploadSize = $this->toBytes(ini_get('upload_max_filesize'));
+     
+    if ($postSize < $this->sizeLimit || $uploadSize < $this->sizeLimit){
+   
             $size = max(1, $this->sizeLimit / 1024 / 1024) . 'M';
-            die("{'error':'increase post_max_size and upload_max_filesize to $size'}");
+          //  die("{'error':'increase post_max_size and upload_max_filesize to $size'}");
         }
     }
 

@@ -1,5 +1,4 @@
 <?php
-// $Id: install.php,v 1.113.2.9 2009/04/27 10:50:35 goba Exp $
 
 require_once './includes/install.inc';
 
@@ -19,14 +18,13 @@ define('MAINTENANCE_MODE', 'install');
 function install_main() {
   require_once './includes/bootstrap.inc';
   drupal_bootstrap(DRUPAL_BOOTSTRAP_CONFIGURATION);
- // The user agent header is used to pass a database prefix in the request when
+  // The user agent header is used to pass a database prefix in the request when
  // running tests. However, for security reasons, it is imperative that no
  // installation be permitted using such a prefix.
   if (isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], "simpletest") !== FALSE) {
    header($_SERVER['SERVER_PROTOCOL'] . ' 403 Forbidden');
    exit;
   }
-
   // This must go after drupal_bootstrap(), which unsets globals!
   global $profile, $install_locale, $conf;
 
@@ -46,6 +44,13 @@ function install_main() {
   module_list(TRUE, FALSE, FALSE, $module_list);
   drupal_load('module', 'system');
   drupal_load('module', 'filter');
+
+  // Install profile chosen, set the global immediately.
+  // This needs to be done before the theme cache gets 
+  // initialized in drupal_maintenance_theme().
+  if (!empty($_GET['profile'])) {
+    $profile = preg_replace('/[^a-zA-Z_0-9]/', '', $_GET['profile']);
+  }
 
   // Set up theme system for the maintenance page.
   drupal_maintenance_theme();
@@ -81,15 +86,14 @@ function install_main() {
     $task = NULL;
   }
 
-  // Decide which profile to use.
-  if (!empty($_GET['profile'])) {
-    $profile = preg_replace('/[^a-zA-Z_0-9]/', '', $_GET['profile']);
-  }
-  elseif ($profile = install_select_profile()) {
-    install_goto("install.php?profile=$profile");
-  }
-  else {
-    install_no_profile_error();
+  // No profile was passed in GET, ask the user.
+  if (empty($_GET['profile'])) {
+    if ($profile = install_select_profile()) {
+      install_goto("install.php?profile=$profile");
+    }
+    else {
+      install_no_profile_error();
+    }
   }
 
   // Load the profile.
@@ -530,7 +534,7 @@ function install_select_locale($profilename) {
       drupal_set_title(st('Choose language'));
       if (!empty($_GET['localize'])) {
         $output = '<p>'. st('With the addition of an appropriate translation package, this installer is capable of proceeding in another language of your choice. To install and use Drupal in a language other than English:') .'</p>';
-        $output .= '<ul><li>'. st('Determine if <a href="@translations" target="_blank">a translation of this Drupal version</a> is available in your language of choice. A translation is provided via a translation package; each translation package enables the display of a specific version of Drupal in a specific language. Not all languages are available for every version of Drupal.', array('@translations' => 'http://drupal.org/project/translations')) .'</li>';
+        $output .= '<ul><li>'. st('Determine if <a href="@translations" target="_blank">a translation of this Drupal version</a> is available in your language of choice. A translation is provided via a translation package; each translation package enables the display of a specific version of Drupal in a specific language. Not all languages are available for every version of Drupal.', array('@translations' => 'http://localize.drupal.org')) .'</li>';
         $output .= '<li>'. st('If an alternative translation package of your choice is available, download and extract its contents to your Drupal root directory.') .'</li>';
         $output .= '<li>'. st('Return to choose language using the second link below and select your desired language from the displayed list. Reloading the page allows the list to automatically adjust to the presence of new translation packages.') .'</li>';
         $output .= '</ul><p>'. st('Alternatively, to install and use Drupal in English, or to defer the selection of an alternative language until after installation, select the first link below.') .'</p>';
