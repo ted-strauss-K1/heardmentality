@@ -38,7 +38,7 @@ function report_percent($nid='') {
 
         $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
         $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
-
+        $answer= substr(t(addslashes($answer)), 0, 10);
         array_push($ans_array, $answer);
         //array_push($ans_array, $vlist[$ab]['answer']);
     }
@@ -417,10 +417,11 @@ function report_answer_details($nid = '', $aid = '', $action = '', $date = '') {
 function report_graph($nid='') {
 
     global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-
+    $qid = $nid;
+    $nid = get_tnid($nid);
     $output = '';
 
-    $vans = "select * from {poll_choices} where  nid=$nid order by chorder";
+    $vans = "select * from {poll_choices} where  nid=$qid order by chorder";
     $vlist = ExecuteQuery($vans, "select");
     $cnt_ans = count($vlist);
 
@@ -454,9 +455,9 @@ function report_graph($nid='') {
     for ($ab = 0; $ab < $cnt_ans; $ab++) {
 
         // short answers
-        $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
+        $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
         $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
-        $answer=t(addslashes($answer));
+        $answer= substr(t(addslashes($answer)), 0, 10);
         $i = $ab + 1;
         $ans = array();
 
@@ -671,9 +672,12 @@ function report_map($nid='') {
             $getresult[] = $fieldsset;
         }
         $pcnt_ans = count($getresult);
-
+        //short answer
+        $short_answer = get_short_answer($nid, $vlist[$i]['chorder']);
+        $answer = $short_answer != '' ? $short_answer : $vlist[$i]['chtext'];
+        $answer= substr(t(addslashes($answer)), 0, 10);
         // $desc .= '<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png" border="0" alt=""/> &nbsp; '.$vlist[$i]['answer'].'<br/>';
-        $desc .= '<img src="http://labs.google.com/ridefinder/images/mm_20_' . $marker[$i] . '.png" border="0" alt=""/> &nbsp; ' . $vlist[$i]['chtext'] . '&nbsp;&nbsp;';
+        $desc .= '<img src="http://labs.google.com/ridefinder/images/mm_20_' . $marker[$i] . '.png" border="0" alt=""/> &nbsp; ' . $answer . '&nbsp;&nbsp;';
 
         if (is_array($getresult)) {
             $zcnt = 0;
@@ -1276,7 +1280,12 @@ function issue_search_form(&$form_state){
     $getcountry = check_plain(arg(5));
     $getState = check_plain(arg(6));
     $getCity = check_plain(arg(7));
-    
+
+
+    $inline = 'function clrForm(thisform){jQuery(":input", "#issue-search-form").not(":button, :submit, :hidden").val("").removeAttr(":selected");}';
+    drupal_add_js($inline, 'inline');
+
+
     $form['issue_key'] = array('#type' => 'textfield',
                                 '#title' => t('SEARCH ISSUES'),
                                 '#size' => 40,
@@ -1352,9 +1361,11 @@ function issue_search_form(&$form_state){
                                 '#suffix' => '<br /><div class="clr"></div>');
     
     $form['search'] = array('#type'=>'submit', '#value' => t('SUBMIT'));
+    $form['reset_btn'] = array('#type' => 'markup', '#value' => '<input type="button" value="'.t('RESET').'" name="reset" onclick="javascript:clrForm(this.form)" />');
     return $form;
 }
 function issue_search_form_submit($form, &$form_state){
+    //echo '<pre>';print_r($form_state);exit;
     $key = $form_state['values']['issue_key'];
     $key = $key!=""?$key:0;
     
@@ -1403,7 +1414,7 @@ function search_issue_results(){
     $val = array();
     // conditions key
     if(!empty($key)){
-        $where .= " AND MATCH(nr.title, nr.body) AGAINST('%s')";
+        $where .= " AND MATCH(nr.title, nr.body) AGAINST('%s*' IN BOOLEAN MODE)";
         $val[] = $key;
         
     }
@@ -1439,7 +1450,14 @@ function search_issue_results(){
     }
 
     // filter with default language if issue key is empty
-    $langFilter = $key==''?"AND n.language = '$curLanguage'":'';
+    if($key!=''){
+        if($curLanguage=='en'){
+           $langFilter = "AND (n.language = '$curLanguage' OR n.language = '')";
+        }else{
+           $langFilter = "AND n.language = '$curLanguage'";
+        }
+    }
+    //$langFilter = $key==''?"AND n.language = '$curLanguage'":'';
 
 
      switch($sortValue){
@@ -1472,15 +1490,15 @@ function search_issue_results(){
             break;
         case 'views':
             $sortBy = 'ORDER BY COUNT(qv.qid) DESC';
-            $groupBy = 'GROUP BY qv.qid';
+            $groupBy = 'GROUP BY iss.nid';
 
-            $sql = "SELECT qv.qid as nid FROM {qviews} AS qv 
-                    JOIN (SELECT DISTINCT(n.nid) FROM {node} AS n
+          $sql = "SELECT iss.nid as nid FROM
+                     (SELECT DISTINCT(n.nid) FROM {node} AS n
                     JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
                     JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
                     JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
                     LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
-                   WHERE n.type = 'poll' $langFilter $where) AS iss ON qv.qid = iss.nid $groupBy $sortBy";
+                   WHERE n.type = 'poll' $langFilter $where) AS iss LEFT JOIN {qviews} AS qv ON iss.nid = qv.qid $groupBy $sortBy";
 
             break;
         default:
@@ -1995,7 +2013,7 @@ function filter_options($form, $nid){
 }
 
 function filter_options_submit($form, &$form_state){
-    global $gSitePath, $language;
+    global $gSitePath, $language, $theme;
     $nid = $form_state['values']['nid'];
     $sup = $form_state['values']['dfilt_sup'];
     $ans = $form_state['values']['dfilt_ans'];
@@ -2007,7 +2025,7 @@ function filter_options_submit($form, &$form_state){
 
 // add new resource
 function add_new_resources($qid='') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
 
     // site url with default language
     $path = '<front>';
@@ -2086,7 +2104,10 @@ function add_new_resources($qid='') {
          ' . $inc_pans . '
                 <div class="debate-r-row">
                   <div class="fm-2">
-                <div class="fm-2-right" align="right"><input name="submit" value="Submit" title="submit" type="submit" id="submitter" class="orange-btn"/></div>
+                <div class="fm-2-right" align="right">
+                    <input name="submit" value="Submit" title="submit" type="submit" id="add-new-res" class="orange-btn"/>
+                    <span id="sub_loader_res" style="display:none; float:right"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading">
+                </div>
                 <br />
         </div>
             <div class="clr"></div>
@@ -2198,6 +2219,8 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort=''){
         while ($node = db_fetch_object($nodes)) {
             $items = load_resource_datas($node->nid, $issueId, $tnid, $resType);
             $resouce_theme .= theme('single_resource_template', $items);
+            $tForumId = get_tnid($node->nid);
+            resource_roundup($tForumId);
         }
    }else{
        $resouce_theme = '<div class="messages warning">'.t('No Resource Posted Yet!!').'</div>';

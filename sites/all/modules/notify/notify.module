@@ -216,7 +216,7 @@ function forum_post() {
 
 function notify_messages() {
 
-        return drupal_get_form('notify_messages_form');
+    return drupal_get_form('notify_messages_form');
 }
 
 function notify_messages_form(&$form_state) {
@@ -352,11 +352,9 @@ function notify_messages_form_submit($form, &$form_state) {
 
         if ($value) {
             db_query("delete from {notify_activity} where naid='$key' ");
-        
+        }
     }
-}
     drupal_set_message(t('Selected Messages has been deleted successfully!'));
-
 }
 
 function notify_settings() {
@@ -434,7 +432,7 @@ function notify_activity_form_submit($form, &$form_state) {
 
     drupal_set_message(t('Notification status has been updated!'));
 
-drupal_goto('admin/notify/settings');
+    drupal_goto('admin/notify/settings');
 }
 
 function theme_notify_settings_form($form) {
@@ -1389,91 +1387,89 @@ function notify_block($op = 'list', $delta = 0, $edit = array()) {
     }
 }
 
-
-function notify_theme(){
-   return array(
-       'notify_settings_form' => array('arguments' => array('form' => NULL),),
+function notify_theme() {
+    return array(
+        'notify_settings_form' => array('arguments' => array('form' => NULL),),
         'notify_message_form' => array('arguments' => array('form' => NULL),),
-'notify_add_question'  => array(
-'arguments' => array('result' => NULL),
-),
-'notify_add_vote' => array(
-'arguments' => array('result' => NULL),
-),
-'notify_add_debate' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_add_resource' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_resource_reply' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_debate_reply' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_deb_agree' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_deb_disagree' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_res_agree' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_res_disagree' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_deb_reply_agree' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_deb_reply_disagree' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_res_reply_agree' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_res_reply_disagree' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_suggest_answer' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_change_answer' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_update_profile' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_question_flag' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_user_login' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_add_badge' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_add_coins' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_lose_coins' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_add_points' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_follow_message' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_user_follow' =>  array(
-'arguments' => array('result' => NULL),
-),
-'notify_category_follow' =>  array(
-'arguments' => array('result' => NULL),
-),
-);
-
+        'notify_add_question' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_add_vote' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_add_debate' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_add_resource' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_resource_reply' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_debate_reply' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_deb_agree' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_deb_disagree' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_res_agree' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_res_disagree' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_deb_reply_agree' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_deb_reply_disagree' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_res_reply_agree' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_res_reply_disagree' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_suggest_answer' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_change_answer' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_update_profile' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_question_flag' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_user_login' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_add_badge' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_add_coins' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_lose_coins' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_add_points' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_follow_message' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_user_follow' => array(
+            'arguments' => array('result' => NULL),
+        ),
+        'notify_category_follow' => array(
+            'arguments' => array('result' => NULL),
+        ),
+    );
 }
 
 function theme_notify_add_question($result='') {
@@ -1491,104 +1487,100 @@ function theme_notify_add_question($result='') {
 
 //print_r($data);
 //$node=node_load($result->nid);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.'</div><div id="notify-link">' . l($data['q_title'],$url) . '</div>
-    <div align="right">'.ago($submitted).'</div><hr>';
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
+            . '</div><div id="notify-link">' . l($data['q_title'], $url) . '</div>
+    <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
+function theme_notify_add_vote($result = '') {
 
-function theme_notify_add_vote($result = ''){
-    
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.'</div><div id="notify-link">' . l($data['q_title'],$url) . '</div>
-    <div align="right">'.ago($submitted).'</div><hr>';
-return $output;
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
+            . '</div><div id="notify-link">' . l($data['q_title'], $url) . '</div>
+    <div align="right">' . ago($submitted) . '</div><hr>';
+    return $output;
 }
 
+function theme_notify_add_debate($result = '') {
 
-function theme_notify_add_debate($result = ''){
-
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated debate details
-$trans = get_translated_node($data['did']);
-$data['did'] = $trans->nid;
-$data['d_title'] = $trans->title;
+    $trans = get_translated_node($data['did']);
+    $data['did'] = $trans->nid;
+    $data['d_title'] = $trans->title;
 
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.'</div><div id="notify-link">' . l($data['q_title'],$url) . '</div>
-    <div id="msg-'.$result->naid.'" class="notify-text">"'.$data['d_title'].'"</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
-return $output;
-
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
+            . '</div><div id="notify-link">' . l($data['q_title'], $url) . '</div>
+    <div id="msg-' . $result->naid . '" class="notify-text">"' . $data['d_title'] . '"</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
+    return $output;
 }
 
-
-function theme_notify_add_resource($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$rtype = $data['rtype'];
+function theme_notify_add_resource($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $rtype = $data['rtype'];
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated resource details
-$trans = get_translated_node($data['rid']);
-$data['rid'] = $trans->nid;
-$data['r_title'] = $trans->title;
+    $trans = get_translated_node($data['rid']);
+    $data['rid'] = $trans->nid;
+    $data['r_title'] = $trans->title;
 
 
-$url = drupal_get_path_alias('node/'.$data['qid']);
-switch($rtype){
-    case '1':
-     $image = !empty($data['file'])?$data['file']:file_directory_path() . '/noimage.jpg';
-      $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-          <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.' On </div><div id="notify-link">' . l($data['q_title'],$url) . '</div>
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    switch ($rtype) {
+        case '1':
+            $image = !empty($data['file']) ? $data['file'] : file_directory_path() . '/noimage.jpg';
+            $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+          <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
+                    . ' On </div><div id="notify-link">' . l($data['q_title'], $url) . '</div>
 
     <div>
         <div style="float:left">' . theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE) . '</div>
         <div id="notify-text-quote">"' . $data['r_title'] . '"</div>
         <div id="notify-desc">' . $data['description'] . '</div>
     </div><div class="clr"></div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+        <div align="right">' . ago($submitted) . '</div><hr>';
             break;
         case '2':
             $image = '<img width="125" height="100" src="http://img.youtube.com/vi/' . $data['videoid'] . '/default.jpg" alt="Video " >';
@@ -1599,7 +1591,7 @@ switch($rtype){
         <div style="float:left">' . $image . '</div>
         <div id="notify-text-quote">"' . $data['r_title'] . '"</div>
     </div><div class="clr"></div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+        <div align="right">' . ago($submitted) . '</div><hr>';
             break;
         case '3':
             $image = !empty($data['file'])?$data['file']:file_directory_path() . '/noimage.jpg';
@@ -1611,7 +1603,7 @@ switch($rtype){
         <div id="notify-text-quote">"' . $data['r_title'] . '"</div>
         <div id="notify-desc">' . $data['description'] . '</div>
     </div><div class="clr"></div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+        <div align="right">' . ago($submitted) . '</div><hr>';
             break;
     }
 
@@ -1619,13 +1611,12 @@ switch($rtype){
     return $output;
 }
 
-
-function theme_notify_resource_reply($result = ''){
+function theme_notify_resource_reply($result = '') {
     $module_path = drupal_get_path('module', 'notify');
-    $full_path = $module_path .'/notify.css';
+    $full_path = $module_path . '/notify.css';
     drupal_add_css($full_path);
-    $udetails=user_load($result->uid);
-    $data=unserialize($result->variables);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
     // translated node details
     $trans = get_translated_node($data['qid']);
@@ -1637,22 +1628,21 @@ function theme_notify_resource_reply($result = ''){
     $data['rid'] = $trans->nid;
     $data['r_title'] = $trans->title;
 
-    $submitted = date("Y-m-d H:i:s",$result->timestamp);
-    $url = drupal_get_path_alias('node/'.$data['qid']);
-    $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-        <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.'<div>'.$data['r_title'].'</div> On </div><div id="notify-link">' . l($data['q_title'],$url) . '</div>
-    <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+        <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
+            . '<div>' . $data['r_title'] . '</div> On </div><div id="notify-link">' . l($data['q_title'], $url) . '</div>
+    <div align="right">' . ago($submitted) . '</div><hr>';
     return $output;
 }
 
-
-function theme_notify_debate_reply($result = ''){
+function theme_notify_debate_reply($result = '') {
     $module_path = drupal_get_path('module', 'notify');
-    $full_path = $module_path .'/notify.css';
+    $full_path = $module_path . '/notify.css';
     drupal_add_css($full_path);
-    $udetails=user_load($result->uid);
-    $data=unserialize($result->variables);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
     // translated node details
     $trans = get_translated_node($data['qid']);
@@ -1664,519 +1654,500 @@ function theme_notify_debate_reply($result = ''){
     $data['did'] = $trans->nid;
     $data['d_title'] = $trans->title;
 
-    $submitted = date("Y-m-d H:i:s",$result->timestamp);
-    $url = drupal_get_path_alias('node/'.$data['qid']);
-    $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-        <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.'<div>'.$data['d_title'].'</div> On </div><div id="notify-link">' . l($data['q_title'],$url) . '</div>
-    <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+        <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
+            . '<div>' . $data['d_title'] . '</div> On </div><div id="notify-link">' . l($data['q_title'], $url) . '</div>
+    <div align="right">' . ago($submitted) . '</div><hr>';
     return $output;
 }
 
-function theme_notify_deb_agree($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_deb_agree($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated resource details
-$trans = get_translated_node($data['did']);
-$data['did'] = $trans->nid;
-$data['d_title'] = $trans->title;
+    $trans = get_translated_node($data['did']);
+    $data['did'] = $trans->nid;
+    $data['d_title'] = $trans->title;
 
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="msg-'.$result->naid.'" class="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="msg-' . $result->naid . '" class="notify-text">' . t($result->message)
+            . '</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
-return $output;
-
+    return $output;
 }
 
-
-function theme_notify_deb_disagree($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_deb_disagree($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated resource details
-$trans = get_translated_node($data['did']);
-$data['did'] = $trans->nid;
-$data['d_title'] = $trans->title;
+    $trans = get_translated_node($data['did']);
+    $data['did'] = $trans->nid;
+    $data['d_title'] = $trans->title;
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div><div id="notify-text-quote">"' . t($data['d_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
-
-function theme_notify_deb_reply_agree($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_deb_reply_agree($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated resource details
-$trans = get_translated_node($data['did']);
-$data['did'] = $trans->nid;
-$data['d_title'] = $trans->title;
+    $trans = get_translated_node($data['did']);
+    $data['did'] = $trans->nid;
+    $data['d_title'] = $trans->title;
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
-
-function theme_notify_deb_reply_disagree($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_deb_reply_disagree($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated resource details
-$trans = get_translated_node($data['did']);
-$data['did'] = $trans->nid;
-$data['d_title'] = $trans->title;
+    $trans = get_translated_node($data['did']);
+    $data['did'] = $trans->nid;
+    $data['d_title'] = $trans->title;
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
-
-function theme_notify_res_agree($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_res_agree($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated resource details
-$trans = get_translated_node($data['rid']);
-$data['rid'] = $trans->nid;
-$data['r_title'] = $trans->title;
+    $trans = get_translated_node($data['rid']);
+    $data['rid'] = $trans->nid;
+    $data['r_title'] = $trans->title;
 
 
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
-function theme_notify_res_disagree($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_res_disagree($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated resource details
-$trans = get_translated_node($data['rid']);
-$data['rid'] = $trans->nid;
-$data['r_title'] = $trans->title;
+    $trans = get_translated_node($data['rid']);
+    $data['rid'] = $trans->nid;
+    $data['r_title'] = $trans->title;
 
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div><div id="notify-text-quote">"' . t($data['r_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
-function theme_notify_res_reply_agree($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_res_reply_agree($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated resource details
-$trans = get_translated_node($data['rid']);
-$data['rid'] = $trans->nid;
-$data['r_title'] = $trans->title;
+    $trans = get_translated_node($data['rid']);
+    $data['rid'] = $trans->nid;
+    $data['r_title'] = $trans->title;
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
-function theme_notify_res_reply_disagree($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_res_reply_disagree($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 // translated resource details
-$trans = get_translated_node($data['did']);
-$data['rid'] = $trans->nid;
-$data['r_title'] = $trans->title;
+    $trans = get_translated_node($data['did']);
+    $data['rid'] = $trans->nid;
+    $data['r_title'] = $trans->title;
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div><div id="notify-text-quote">"' . t($data['c_title']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
-
-function theme_notify_suggest_answer($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_suggest_answer($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div><div id="notify-text-quote">"' . t($data['answer']) . '"</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div><div id="notify-text-quote">"' . t($data['answer']) . '"</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
-
-function theme_notify_change_answer($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_change_answer($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div>
-    On <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div>
+    On <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
+function theme_notify_update_profile($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div>
 
-function theme_notify_update_profile($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div>
-
-    <div align="right">'.ago($submitted).'</div><hr>';
+    <div align="right">' . ago($submitted) . '</div><hr>';
 
     return $output;
 }
 
-
-function theme_notify_question_flag($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
+function theme_notify_question_flag($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
 
 // translated node details
-$trans = get_translated_node($data['qid']);
-$data['qid'] = $trans->nid;
-$data['q_title'] = $trans->title;
+    $trans = get_translated_node($data['qid']);
+    $data['qid'] = $trans->nid;
+    $data['q_title'] = $trans->title;
 
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$url = drupal_get_path_alias('node/'.$data['qid']);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div>
-    <div id="notify-link">' . l($data['q_title'],$url) . '</div>
-        <div align="right">'.ago($submitted).'</div><hr>';
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $url = drupal_get_path_alias('node/' . $data['qid']);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div>
+    <div id="notify-link">' . l($data['q_title'], $url) . '</div>
+        <div align="right">' . ago($submitted) . '</div><hr>';
 
 
     return $output;
 }
 
+function theme_notify_user_login($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '</div>
 
-function theme_notify_user_login($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'</div>
-
-    <div align="right">'.ago($submitted).'</div><hr>';
-
-    return $output;
-}
-
-
-function theme_notify_add_badge($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'&nbsp<strong>'.$data['badge'].'</strong></div>
-
-    <div align="right">'.ago($submitted).'</div><hr>';
+    <div align="right">' . ago($submitted) . '</div><hr>';
 
     return $output;
 }
 
+function theme_notify_add_badge($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '&nbsp<strong>' . $data['badge'] . '</strong></div>
 
-function theme_notify_add_coins($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
-
-    <div align="right">'.ago($submitted).'</div><hr>';
-
-    return $output;
-}
-
-
-function theme_notify_lose_coins($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'&nbsp<strong>'.$data['coin_count'].' coins</strong></div>
-
-    <div align="right">'.ago($submitted).'</div><hr>';
+    <div align="right">' . ago($submitted) . '</div><hr>';
 
     return $output;
 }
 
+function theme_notify_add_coins($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '&nbsp<strong>' . $data['coin_count'] . ' coins</strong></div>
 
-function theme_notify_add_points($result = ''){
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'&nbsp<strong>'.$data['points'].' points</strong></div>
-
-    <div align="right">'.ago($submitted).'</div><hr>';
+    <div align="right">' . ago($submitted) . '</div><hr>';
 
     return $output;
 }
 
+function theme_notify_lose_coins($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '&nbsp<strong>' . $data['coin_count'] . ' coins</strong></div>
 
-function theme_notify_follow_message($result = ''){
+    <div align="right">' . ago($submitted) . '</div><hr>';
+
+    return $output;
+}
+
+function theme_notify_add_points($result = '') {
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '&nbsp<strong>' . $data['points'] . ' points</strong></div>
+
+    <div align="right">' . ago($submitted) . '</div><hr>';
+
+    return $output;
+}
+
+function theme_notify_follow_message($result = '') {
     global $user;
 
-$module_path = drupal_get_path('module', 'notify');
-$full_path = $module_path .'/notify.css';
-drupal_add_css($full_path);
-$udetails=user_load($result->uid);
-$data=unserialize($result->variables);
-$submitted = date("Y-m-d H:i:s",$result->timestamp);
+    $module_path = drupal_get_path('module', 'notify');
+    $full_path = $module_path . '/notify.css';
+    drupal_add_css($full_path);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
 
-$uids = $data['to_uid'];
-if(in_array($user->uid, $uids)){
-$output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'&nbsp<strong>'.$data['message'].'</strong></div>
-    <div align="right">'.ago($submitted).'</div><hr>';
-}else{
-$output = '';
+    $uids = $data['to_uid'];
+    if (in_array($user->uid, $uids)) {
+        $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+                . '&nbsp<strong>' . $data['message'] . '</strong></div>
+    <div align="right">' . ago($submitted) . '</div><hr>';
+    } else {
+        $output = '';
+    }
+    return $output;
 }
-return $output;
-}
 
-
-function theme_notify_user_follow($result = ''){
+function theme_notify_user_follow($result = '') {
     global $user, $gSitePath;
 
     $module_path = drupal_get_path('module', 'notify');
-    $full_path = $module_path .'/notify.css';
+    $full_path = $module_path . '/notify.css';
     drupal_add_css($full_path);
-    $udetails=user_load($result->uid);
-    $data=unserialize($result->variables);
-    $submitted = date("Y-m-d H:i:s",$result->timestamp);
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
     $target = user_load($data['target_id']);
-    $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'&nbsp<strong><a href="'.$gSitePath.'profile/'.t($target->name).'" title="'.t($target->name).'">'.$target->name.'</a></strong></div>
-    <div align="right">'.ago($submitted).'</div><hr>';
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '&nbsp<strong><a href="' . $gSitePath . 'profile/' . t($target->name) . '" title="' . t($target->name) . '">' . $target->name . '</a></strong></div>
+    <div align="right">' . ago($submitted) . '</div><hr>';
     return $output;
-    
 }
 
-function theme_notify_category_follow($result = ''){
+function theme_notify_category_follow($result = '') {
     global $user, $gSitePath;
 
     $module_path = drupal_get_path('module', 'notify');
-    $full_path = $module_path .'/notify.css';
+    $full_path = $module_path . '/notify.css';
     drupal_add_css($full_path);
-    $udetails=user_load($result->uid);
-    $data=unserialize($result->variables);
-    $submitted = date("Y-m-d H:i:s",$result->timestamp);
-    
-    $output = '<a href="'.$base_path.'profile/'.t($udetails->name).'" title="'.t($udetails->name).'">'.UserPicture_small($result->uid).t($udetails->name).'</a>
-    <div id="notify-text">'. t($result->message)
-.'&nbsp<strong><a href="'.$gSitePath.'taxonomy/term/'.t($data['tid']).'" title="'.t($data['category']).'">'.$data['category'].'</a></strong></div>
-    <div align="right">'.ago($submitted).'</div><hr>';
-    return $output;
+    $udetails = user_load($result->uid);
+    $data = unserialize($result->variables);
+    $submitted = date("Y-m-d H:i:s", $result->timestamp);
 
+    $output = '<a href="' . $base_path . 'profile/' . t($udetails->name) . '" title="' . t($udetails->name) . '">' . UserPicture_small($result->uid) . t($udetails->name) . '</a>
+    <div id="notify-text">' . t($result->message)
+            . '&nbsp<strong><a href="' . $gSitePath . 'taxonomy/term/' . t($data['tid']) . '" title="' . t($data['category']) . '">' . $data['category'] . '</a></strong></div>
+    <div align="right">' . ago($submitted) . '</div><hr>';
+    return $output;
 }
 
-
-function _notify_content($uid = ''){
-     $filter = $_GET['filter'];
-     global $gSitePath,$user,$gDocPath,$base_root;
-     drupal_add_js(drupal_get_path('module', 'notify') . '/scripts/script.js');
-     $data='setInterval(function() {
+function _notify_content($uid = '') {
+    $filter = $_GET['filter'];
+    global $gSitePath, $user, $gDocPath, $base_root;
+    drupal_add_js(drupal_get_path('module', 'notify') . '/scripts/script.js');
+    $data = 'setInterval(function() {
       load_stream(jQuery("div.more-link a"),"new");
 }, 10000);';
-     drupal_add_js($data, $type='inline');
-     //drupal_set_html_head('<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>');
-     $uarray=array();
-     $start=variable_get(arg(1),'0');
-     $limit=15;
-     $uarray=_activity_heartbeat_related_uid_info($user->uid);
-     $filterPath = '?filter=';
-     if(!empty($uarray)){
-      // filteration url html
-      $output .= '<a href="'.$filterPath.'all">All</a>&nbsp;|&nbsp;<a href="'.$filterPath.'votes">Votes</a>&nbsp;|&nbsp;
-          <a href="'.$filterPath.'issues">New Issues</a>&nbsp;|&nbsp;<a href="'.$filterPath.'debates">Debates</a>
-          &nbsp;|&nbsp;<a href="'.$filterPath.'resources">Resource</a>&nbsp;|&nbsp;<a href="'.$filterPath.'agrees">Agree</a>
-          &nbsp;|&nbsp;<a href="'.$filterPath.'badges">Badges</a><br>';
-      //filter where conditions
- $where=notify_filter_where($filter);
- //users whom u r following
-    $uids=implode(',',$uarray);
-     //data query
-     $sql="SELECT distinct b.naid,b.*,a.message
+    drupal_add_js($data, $type = 'inline');
+    //drupal_set_html_head('<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>');
+    $uarray = array();
+    $start = variable_get(arg(1), '0');
+    $limit = 15;
+    $uarray = _activity_heartbeat_related_uid_info($user->uid);
+    $filterPath = '?filter=';
+    if (!empty($uarray)) {
+        // filteration url html
+        $output .= '<a href="' . $filterPath . 'all">All</a>&nbsp;|&nbsp;<a href="' . $filterPath . 'votes">Votes</a>&nbsp;|&nbsp;
+          <a href="' . $filterPath . 'issues">New Issues</a>&nbsp;|&nbsp;<a href="' . $filterPath . 'debates">Debates</a>
+          &nbsp;|&nbsp;<a href="' . $filterPath . 'resources">Resource</a>&nbsp;|&nbsp;<a href="' . $filterPath . 'agrees">Agree</a>
+          &nbsp;|&nbsp;<a href="' . $filterPath . 'badges">Badges</a><br>';
+        //filter where conditions
+        $where = notify_filter_where($filter);
+        //users whom u r following
+        $uids = implode(',', $uarray);
+        //data query
+        $sql = "SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
@@ -2189,23 +2160,22 @@ INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%s)
-     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.naid DESC ",$uids,$uids));
+     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.naid DESC ", $uids, $uids));
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
-     $query=db_query($sql, $uids, $uids, $start,$limit);
-     //printf($sql, $uids, $uids, $start,$limit);
-$i=0;
+        $query = db_query($sql, $uids, $uids, $start, $limit);
+        //printf($sql, $uids, $uids, $start,$limit);
+        $i = 0;
 
-$output.='<div class="uactivity" id="uactivity">';
-    while($result=  db_fetch_object($query)){
-        $output.= '<div id="msg-'.$result->naid.'">';
-        
-         $output.= theme('notify_'.$result->message_id,$result);
-        
-        $output.= '</div>';
-        $i++; 
+        $output.='<div class="uactivity" id="uactivity">';
+        while ($result = db_fetch_object($query)) {
+            $output.= '<div id="msg-' . $result->naid . '">';
 
-    }
-    if (!$i) {
+            $output.= theme('notify_' . $result->message_id, $result);
+
+            $output.= '</div>';
+            $i++;
+        }
+        if (!$i) {
             $output.='No User Activity Found!';
         }
     } else {
@@ -2225,19 +2195,19 @@ $output.='<div class="uactivity" id="uactivity">';
 function notify_stream($start='') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
-    $max=50;
-    $limit=15;
+    $max = 50;
+    $limit = 15;
 
-    
+
     $filter = $_GET['filter'];
     $where = notify_filter_where($filter);
     $json = array();
     $uarray = array();
-     $json['more'] = true;
+    $json['more'] = true;
     $json['error'] = false;
-    if(($start+$limit)>$max){
-         $limit = max(0, $max-$start);
-         $json['more'] = false; 
+    if (($start + $limit) > $max) {
+        $limit = max(0, $max - $start);
+        $json['more'] = false;
     }
 
     $uarray = _activity_heartbeat_related_uid_info($user->uid);
@@ -2262,7 +2232,7 @@ INNER JOIN `users` u
 //        ON `u`.`uid` IN (%s)
 //     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
-$query=db_query($sql, $uids, $uids, $start,$limit);
+            $query = db_query($sql, $uids, $uids, $start, $limit);
             $i = 0;
 
             while ($result = db_fetch_object($query)) {
@@ -2272,11 +2242,11 @@ $query=db_query($sql, $uids, $uids, $start,$limit);
                 $i++;
             }
 
-          
-           if($i<$limit){
-              $json['more'] = false;
+
+            if ($i < $limit) {
+                $json['more'] = false;
             }
-              if (!$i) {
+            if (!$i) {
                 $json['error'] = true;
                 $json['more'] = false;
                 $output = 'No User Activity Found!';
@@ -2285,7 +2255,7 @@ $query=db_query($sql, $uids, $uids, $start,$limit);
             $output = 'No User Activity Found!';
         }
         $json['status'] = true;
-       
+
         $json['content'] = $output;
         $json['count'] = $i;
 
@@ -2310,10 +2280,10 @@ INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` IN (%s)
-     WHERE b.`uid`IN (%s) AND a.status = 1  $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,0,$limit));
+     WHERE b.`uid`IN (%s) AND a.status = 1  $where ORDER BY b.timestamp DESC LIMIT %d,%d  ", $uids, $uids, 0, $limit));
 
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
-$query=db_query($sql, $uids, $uids, 0,$limit);
+            $query = db_query($sql, $uids, $uids, 0, $limit);
 
             $i = 0;
 
@@ -2429,36 +2399,37 @@ function _activity_get_friends($uid) {
 
     return $uids;
 }
+
 // phase VI happening now
-function _happening_now(){
-    
-     global $gSitePath,$user,$gDocPath,$base_root;
-     drupal_add_js(drupal_get_path('module', 'notify') . '/scripts/script.js');
-     $data='
+function _happening_now() {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+    drupal_add_js(drupal_get_path('module', 'notify') . '/scripts/script.js');
+    $data = '
 var streamtimer = setInterval(function() {
       load_stream(jQuery("div.more-link a"),"new");
 }, 10000);
 setTimeout(function(){clearInterval(streamtimer);}, 240000);
 ';
-     drupal_add_js($data, $type='inline');
-     //drupal_set_html_head('<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>');
-     
-     $start=variable_get(arg(1),'0');
-     $limit=10;
+    drupal_add_js($data, $type = 'inline');
+    //drupal_set_html_head('<script type="text/javascript" src="https://getfirebug.com/firebug-lite-debug.js"></script>');
+
+    $start = variable_get(arg(1), '0');
+    $limit = 10;
 
 
-     //$restrict_msgids = array('add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points');
-     $restrict_msgids = "'add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points'";
+    //$restrict_msgids = array('add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points');
+    $restrict_msgids = "'add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points'";
 
-     //data query
-   $sql="SELECT distinct b.naid,b.*,a.message
+    //data query
+    $sql = "SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` = `b`.`uid`
      WHERE  a.status = 1 AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC LIMIT %d, %d";
-        //count query
+    //count query
 //       $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 //INNER JOIN `notify_messages` a
 //        ON `b`.`message_id` = `a`.`message_id`
@@ -2466,29 +2437,29 @@ INNER JOIN `users` u
 //        ON `u`.`uid` = `b`.`uid`
 //     WHERE a.status = 1 AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC"));
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
-   $query=db_query($sql, $start,$limit);
-   
-     //printf($sql, $uids, $uids, $start,$limit);
-$i=0;
+    $query = db_query($sql, $start, $limit);
+
+    //printf($sql, $uids, $uids, $start,$limit);
+    $i = 0;
 
 // restricted message ids.. these should not display in happening now
-$count = db_affected_rows($query);
+    $count = db_affected_rows($query);
 
-$showCnt = 5;
-$hideCnt = $count-$showCnt;
+    $showCnt = 5;
+    $hideCnt = $count - $showCnt;
 
-$output.='<div class="uactivity" id="uactivity">';
-    while($result=  db_fetch_object($query)){
-            $style = $i>=$hideCnt?"display:block":"display:none";
-            $output.= '<div id="msg-'.$result->naid.'" style="'.$style.'" class="activity-stream">';
-            $output.= theme('notify_'.$result->message_id,$result);
-            $output.= '</div>';
-            $i++;           
+    $output.='<div class="uactivity" id="uactivity">';
+    while ($result = db_fetch_object($query)) {
+        $style = $i >= $hideCnt ? "display:block" : "display:none";
+        $output.= '<div id="msg-' . $result->naid . '" style="' . $style . '" class="activity-stream">';
+        $output.= theme('notify_' . $result->message_id, $result);
+        $output.= '</div>';
+        $i++;
     }
     if (!$i) {
-            $output.='No User Activity Found!';
-        }
- 
+        $output.='No User Activity Found!';
+    }
+
     $output.='</div>';
     if ($count > $limit) {
         $style = 'style="display:none"';
@@ -2503,36 +2474,36 @@ $output.='<div class="uactivity" id="uactivity">';
 function happening_stream($start='') {
 
     global $gSitePath, $user, $gDocPath, $base_root;
-    $max=50;
-    $limit=10;
+    $max = 50;
+    $limit = 10;
 
 
-    
+
     $json = array();
-    
-     $json['more'] = true;
+
+    $json['more'] = true;
     $json['error'] = false;
-    if(($start+$limit)>$max){
-         $limit = max(0, $max-$start);
-         $json['more'] = false;
+    if (($start + $limit) > $max) {
+        $limit = max(0, $max - $start);
+        $json['more'] = false;
     }
 //$restrict_msgids = array('add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points');
     $restrict_msgids = "'add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points'";
-    
+
     // $start=variable_get(arg(1),'0');
     if ($_GET['action'] == 'more') {
 
-       
-         
-            //data query
-            $sql = "SELECT distinct b.naid,b.*,a.message
+
+
+        //data query
+        $sql = "SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` = `b`.`uid`
      WHERE a.status = 1 AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC LIMIT %d, %d";
-            //count query
+        //count query
 //            $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 //INNER JOIN `notify_messages` a
 //        ON `b`.`message_id` = `a`.`message_id`
@@ -2540,29 +2511,29 @@ INNER JOIN `users` u
 //        ON `u`.`uid` IN (%s)
 //     WHERE b.`uid`IN (%s) AND a.status = 1 $where ORDER BY b.timestamp DESC LIMIT %d,%d  ",$uids,$uids,$start,$limit));
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
-$query=db_query($sql, $start,$limit);
-           
-            $i = 0;
+        $query = db_query($sql, $start, $limit);
 
-            while ($result = db_fetch_object($query)) {
-                if(!in_array($result->message_id, $restrict_msgids)){
+        $i = 0;
+
+        while ($result = db_fetch_object($query)) {
+            if (!in_array($result->message_id, $restrict_msgids)) {
                 $output.= '<div id="msg-' . $result->naid . '">';
                 $output.= theme('notify_' . $result->message_id, $result);
                 $output.= '</div>';
                 $i++;
-                }   
             }
+        }
 
 
-           if($i<$limit){
-              $json['more'] = false;
-            }
-              if (!$i) {
-                $json['error'] = true;
-                $json['more'] = false;
-                $output = 'No User Activity Found!';
-            }
-      
+        if ($i < $limit) {
+            $json['more'] = false;
+        }
+        if (!$i) {
+            $json['error'] = true;
+            $json['more'] = false;
+            $output = 'No User Activity Found!';
+        }
+
         $json['status'] = true;
 
         $json['content'] = $output;
@@ -2573,42 +2544,42 @@ $query=db_query($sql, $start,$limit);
     }
     if ($_GET['action'] == 'new') {
         $firstid = $_GET['firstid'];
-            //data query
-            $sql = "SELECT distinct b.naid,b.*,a.message
+        //data query
+        $sql = "SELECT distinct b.naid,b.*,a.message
       FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` = `b`.`uid`
      WHERE a.status = 1 AND b.naid>$firstid AND `b`.`message_id` NOT IN($restrict_msgids) ORDER BY b.naid DESC LIMIT %d, %d";
-            //count query
-            $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
+        //count query
+        $count = db_result(db_query("SELECT count(distinct b.naid) FROM `notify_activity` b
 INNER JOIN `notify_messages` a
         ON `b`.`message_id` = `a`.`message_id`
 INNER JOIN `users` u
         ON `u`.`uid` = `b`.`uid`
-     WHERE a.status = 1 ND `b`.`message_id` NOT IN($restrict_msgids)  ORDER BY b.timestamp DESC LIMIT %d,%d  ",0,$limit));
+     WHERE a.status = 1 ND `b`.`message_id` NOT IN($restrict_msgids)  ORDER BY b.timestamp DESC LIMIT %d,%d  ", 0, $limit));
 
 //$query=db_query_range(db_rewrite_sql($sql), $uids, $uids, $start,$limit);
-$query=db_query($sql, 0,$limit);
-            
+        $query = db_query($sql, 0, $limit);
 
-            $i = 0;
 
-            while ($result = db_fetch_object($query)) {
-                if(!in_array($result->message_id, $restrict_msgids)){
+        $i = 0;
+
+        while ($result = db_fetch_object($query)) {
+            if (!in_array($result->message_id, $restrict_msgids)) {
                 $output.= '<div id="msg-' . $result->naid . '" class="activity-stream" style="display:none">';
                 $output.= theme('notify_' . $result->message_id, $result);
                 $output.= '</div>';
                 $i++;
-                }
             }
+        }
 
-            if ($i == 0) {
-                $json['error'] = true;
-                $output = 'No User Activity Found!';
-            }
-        
+        if ($i == 0) {
+            $json['error'] = true;
+            $output = 'No User Activity Found!';
+        }
+
         $json['status'] = true;
         $json['content'] = $output;
         $json['count'] = $count;
@@ -2618,14 +2589,14 @@ $query=db_query($sql, 0,$limit);
     }
 }
 
-function get_translated_node($nid = '', $lang = ''){
+function get_translated_node($nid = '', $lang = '') {
     global $language;
     $curLanguage = $language->language;
     $obj = db_query("SELECT nid, title FROM {node} WHERE tnid = '$nid' AND language = '$curLanguage'");
     $cnt = db_affected_rows($obj);
-    if($cnt > 0){
-    $trans = db_fetch_object($obj);
-    }else{
+    if ($cnt > 0) {
+        $trans = db_fetch_object($obj);
+    } else {
         $trans = node_load($nid);
     }
     return $trans;

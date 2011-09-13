@@ -2207,7 +2207,15 @@ function debate_ajax() {
                 $variable = array('rid' => $nodeid, 'r_title' => $rtitle, 'uid' => $user->uid, 'qid' => $qaid, 'q_title' => $qtitle, 'description' => $description, 'file' => $file, 'rtype' => $rtype, 'videoid' => $ytvID);
                 set_notify_log($user->uid, $nodeid, 'add_resource', $variable);
                 /* New SET NOTIFY LOG */
-                echo '<div class="messages success"> Your reference has been added </div>';
+
+                // return inserted data
+                $tnid = get_tnid($qaid);
+                module_load_include('inc', 'issue', 'issue.pages');
+                $items = load_resource_datas($nodeid, $qaid, $tnid, $res->field_rtype[0]['value']);
+                $co = theme('single_resource_template', $items);
+                print $co;
+                //echo '<div class="messages success"> Your reference has been added </div>';
+                exit;
             }
             break;
         case 'analysis':

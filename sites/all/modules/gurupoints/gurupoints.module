@@ -4,7 +4,7 @@
  * Implementation of hook_perm().
  */
 function gurupoints_perm() {
-    return array('Add Points', 'list Points', 'Home List', 'Add Coins','List Coins');
+    return array('Add Points', 'list Points', 'Home List', 'Add Coins','List Coins', 'List Pundits');
 }
 
 /**
@@ -21,7 +21,8 @@ function gurupoints_menu() {
     $search_result['admin/addcoins'] = array('title' => ' Add Coins', 'page callback' => 'add_coins', 'access arguments' => array('Add Coins'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'gurupoints.pages.inc',);
     $search_result['admin/coin/save'] = array('title' => ' Add Coins', 'page callback' => 'save_coins', 'access arguments' => array('Add Coins'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'gurupoints.pages.inc',);
     $search_result['admin/user/coins'] = array('title' => 'User Coin List', 'page callback' => 'user_coins','access arguments' => array('List Coins'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'gurupoints.pages.inc',);
-
+    $search_result['pundits'] = array('title' => 'Pundit Lists', 'page callback' => 'pundit_lists', 'access callback' => TRUE);
+    
     return $search_result;
 }
 
@@ -299,4 +300,190 @@ function update_ranking($uid = ''){
 function initial_coins(){
     $coins = db_result(db_query("SELECT coin_count FROM {tbl_coins} WHERE key_name = 'initial'"));
     return $coins;
+}
+
+
+// phase VI
+
+function pundit_lists(){
+    $output .= '<div class="pundit-wrapper">';
+    $output .= '<div class="left-area">
+                <p>'.t('Pundits are users who descriptive text tk tk in a
+certain subject descriptive text tk. Filter the pundits
+by expertise below.').'</p><br />
+                '.drupal_get_form('filter_pundits').'
+                </div>';
+    $output .= '<div class="right-area">
+                <h3>'.t('PUNDITS').'</h3>
+                '.pundits_load().'
+                </div><div class="clr"></div>';
+    $output .= '</div>';
+    return $output;
+}
+
+// pundit lists
+function pundits_load(){
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    $cond='';
+    drupal_add_css(drupal_get_path('module', 'gurupoints').'/scripts/pundits.css');
+
+    
+    $cid = arg(1)!=0?arg(1):'';
+    $scid = arg(2)!=0?arg(2):'';
+    $sscid = arg(3)!=0?arg(3):'';
+    
+    $catid=(!empty($scid))?$scid:$cid;
+    if(!empty($catid))
+        $cond=" AND cat_id='$catid' ";
+    if(!empty($cond))
+     $user_pt = "select * from {pundit_section} where score !='NULL' $cond  order by score desc";
+   else
+        $user_pt = "select * from {pundit_section} where score !='NULL'  group by uid order by score desc";
+    $list = ExecuteQuery($user_pt, "select");
+    if(count($list)>0){
+    foreach ($list as $quest) {
+        $udetails = load_user($quest['uid']);
+        $items = load_pundit_details($quest['uid']);
+        //$output.= '<a rel=\'' . $bubble . '\'  href="' . $gSitePath . '/profile/' . $udetails->name . '">' . UserPicture($quest['uid']) . '</a>';
+        $output .= theme('single_pundit', $items);
+    }
+    }else{
+         $output.= '<center><small>'.t('No Pundits Found').' </small></center>';
+    }
+    return $output;
+}
+
+
+
+// load pundit details
+function load_pundit_details($uid){
+    $pund = load_user($uid);
+    $pundits = array();
+    
+    $pundits['name'] = $pund->name;
+    $pundits['real_name'] = $pund->real_name;
+    $pundits['first_name'] = $pund->first_name;
+    $pundits['last_name'] = $pund->last_name;
+    $pundits['member_since'] = date("M d, Y", $pund->created);
+
+    $total_votes = db_result(db_query("SELECT COUNT(*) FROM {poll_votes} WHERE uid = %d", $uid));
+    $pundits['total_votes'] = $total_votes;
+    $total_comments = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE uid = %d AND (nid = tcid OR tcid = 0)", $uid));
+    $pundits['total_comments'] = $total_comments;
+    $total_references = db_result(db_query("SELECT COUNT(*) FROM {node} n JOIN {content_type_forum} f ON n.nid = f.nid WHERE n.type='%s' AND n.uid = %d AND f.field_type_value = %d", 'forum', $uid, 2));
+    $pundits['total_references'] = $total_references;
+    $total_followers = db_result(db_query("SELECT COUNT(*) FROM {user_relationships} WHERE requestee_id = %d", $uid));
+    $pundits['total_followers'] = $total_followers;
+
+    $sql = db_query("SELECT * FROM {user_profile} WHERE uid = %d", $uid);
+    $profiles = db_fetch_object($sql);
+    foreach($profiles as $profile){
+        $pundits['city'] = $pund->city;
+        $pundits['state'] = $pund->state;
+        $pundits['country'] = $pund->country;
+        $pundits['religion'] = $pund->religion;
+        $pundits['ethnic'] = $pund->ethnic;
+        $pundits['gender'] = $pund->gender==1?'Male':'Female';
+        $pundits['sorient'] = $pund->sorient;
+        $pundits['edu'] = $pund->edu;
+
+        // age
+        $dob = $pund->dob;
+        $pundits['age'] = date("Y")-$dob;
+        $pundits['pundit_id'] = $uid;
+    }
+    return $pundits;
+    //echo '<pre>';print_r($pundits);    exit;
+    
+}
+
+function gurupoints_theme($existing, $type, $theme, $path){
+    return array(
+        'single_pundit' => array(
+                            'arguments' => array('punditItems' => array()),
+                            ),
+        
+    );
+}
+
+function theme_single_pundit($punditItems){
+    global $gSitePath, $theme;
+   
+    $output = '';
+    $output .= '<div class="pundit-area">';
+    $output .= '<div class="top-p">';
+    $output .= UserPicture($punditItems['pundit_id']);
+    $output .= l($punditItems['name'], 'profile/'.$punditItems['name']).'<br />';
+    $output .= t('Member Since').'<br />'.$punditItems['member_since'];
+    $output .= '</div><div class="clr"></div>';
+    $output .= '<div class="bottom">
+                    <div><span><b>'.t('votes').':</b>'.$punditItems['total_votes'].'</span><span><b>'.t('Comments').':</b>'.$punditItems['total_comments'].'</span></div>
+                    <div><span><b>'.t('References').':</b>'.$punditItems['total_references'].'</span><span><b>'.t('Followers').':</b>'.$punditItems['total_followers'].'</span></div>
+                    <div class="det">'.t('Real Name').':&nbsp;'.$punditItems['real_name'].'<br />
+                    '.t('Location').':&nbsp;'.$punditItems['state'].', '.$punditItems['country'].'<br />
+                    '.t('Age').':&nbsp;'.$punditItems['age'].'<br />
+                    '.t('Gender').':&nbsp;'.$punditItems['gender'].'<br />
+                    '.t('Religion').':&nbsp;'.$punditItems['religion'].'<br />
+                    '.t('Ethnicity').':&nbsp;'.$punditItems['ethnic'].'<br />
+                    '.t('Sexual Orientation').':&nbsp;'.$punditItems['sorient'].'<br />
+                    '.t('Education').':&nbsp;'.$punditItems['edu'].'<br />
+                    </div>
+                </div>';
+    $output .= '</div>';
+    return $output;
+}
+
+// filter pundits
+
+function filter_pundits($form){
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+    $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
+    $options[''] = 'SUBJECT';
+    while ($list = db_fetch_object($client_select)) {
+        //$cnt = taxonomy_term_count_nodes($list->cat_id);
+        
+        $options[$list->cat_id] = t(stripslashes($list->cat_name));
+        
+    }
+
+    $subject = check_plain(arg(1));
+    $area = check_plain(arg(2));
+    $detail = check_plain(arg(3));
+
+    $form['title'] = array('#type' => 'markup', '#value' => '<b>'.t('FILTER PUNDITS').'</b>', '#suffix' => '<div class="clr"></div>');
+    $form['subject'] = array('#type' => 'select',
+                            '#options' => $options,
+                            '#prefix' => '<div style="float:left;">',
+                            '#suffix' => '</div>',
+                            '#ahah' => array('wrapper' => 'sub-cat-wrapper',
+                                                'event' => 'change',
+                                                'path' => 'issue/ahah/category/scat',
+                                                'effect' => 'fade',
+                                                'method' => 'replace'),
+                            '#attributes' => array('class'=>'selectbox-sm'),
+                            '#default_value' => $subject,
+                            '#id' => 'subject');
+    // get first level category
+    $form['defarea'] = array('#type' => 'hidden', '#default_value' => $area);
+    $form['defdetail'] = array('#type' => 'hidden', '#default_value' => $detail);
+    $form['sub_categories'] = array('#type' => 'markup',
+                                    '#value' => '<div id="sub-cat-wrapper" style="float:left"></div>',
+                                    );
+
+    $form['sub_sub_categories'] = array('#type' => 'markup',
+                                    '#value' => '<div id="sub-sub-cat-wrapper" style="float:left">
+                                                </div>',
+                                    '#suffix' => '<br /><div class="clr"></div>');
+    $form['filter'] = array('#type' => 'submit', '#value' => t('SUBMIT'));
+
+    return $form;
+}
+
+function filter_pundits_submit($form, &$form_state){
+    //echo '<pre>'; print_r($form); exit;
+    $cid = $form['#post']['subject']!=''?$form['#post']['subject']:0;
+    $scid = $form['#post']['area']!=''?$form['#post']['area']:0;
+    $sscid = $form['#post']['detail']!=''?$form['#post']['detail']:0;
+    $path = 'pundits/'.$cid.'/'.$scid.'/'.$sscid;
+    drupal_goto($path);
 }

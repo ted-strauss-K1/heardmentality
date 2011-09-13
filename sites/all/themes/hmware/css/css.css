@@ -2079,3 +2079,6 @@ img{ border:none; outline:none;}
     float: left;
     padding-right: 23px;
 }
+#load-resource .choice{
+    width: 300px;
+}

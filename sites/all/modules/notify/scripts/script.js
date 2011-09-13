@@ -278,7 +278,7 @@ function get_Reply(make){
 function get_votes(){
 
     var vals = [];
-    $$('.check-me').each(function(e){
+    $('.check-me').each(function(e){
         if(e.getProperty('checked')){
             vals.push(e.value);
         }

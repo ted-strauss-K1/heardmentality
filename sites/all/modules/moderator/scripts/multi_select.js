@@ -108,13 +108,13 @@
  *  - Click event doesn't occur when dragging across multiple elements
  *  - Click-and-drag across options causes selection of mousedown option
  */
-jQuery(document).ready(function () {
-   multi_select();
-
- //  jQuery('select').ajaxStop(function() {
- //  multi_select();
+//jQuery(document).ready(function () {
+//   multi_select();
+//
+// //  jQuery('select').ajaxStop(function() {
+// //  multi_select();
+////});
 //});
-});
 
 function multi_select(){
 

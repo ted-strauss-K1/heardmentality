@@ -97,7 +97,6 @@ function hmware_preprocess_page(&$vars) {
     $path = drupal_get_path('theme', $theme);
 
 // there's also a $theme_path global
-   
     global $theme_path;
 //overide default jquery
    // if($vars['template_files'][1]!='page-issue-create'){

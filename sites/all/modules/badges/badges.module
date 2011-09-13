@@ -121,7 +121,7 @@ function biographer($uid = '') {
 	$badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='1'"));
     if ($i == 9&&$badgecnt==0) {
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 1, $uid);
-      $last_id =  mysql_insert_id();
+      $last_id =  db_last_insert_id('user_badges','badge');
       user_coins_update($uid,1,'');
     //  hm_mails('',$last_id,'user_badges');
      // badges_user($uid,$last_id);
@@ -143,7 +143,7 @@ function citizen_patrol($uid = '') {
     if ($count == 1 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)",2, $uid);
-         $last_id =  mysql_insert_id();
+         $last_id =  db_last_insert_id('user_badges','badge');
          user_coins_update($uid,2,'');
 
          /*New SET NOTIFY LOG*/
@@ -175,7 +175,7 @@ function civic_duty($uid = '') {
     if ($count >= 3 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 3, $uid);
-         $last_id =  mysql_insert_id();
+         $last_id =  db_last_insert_id('user_badges','badge');
 
          /*New SET NOTIFY LOG*/
          $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 3));
@@ -203,7 +203,7 @@ function patriotic_citizen($uid = '') {
         // count 1000
         if($count >= 5 && $badgecnt == 0) {
             db_query("INSERT INTO {user_badges} (bid, uid) VALUES(%d,%d)",45,$uid);
-            $last_id = mysql_insert_id();
+            $last_id = db_last_insert_id('user_badges','badge');
 
              /*New SET NOTIFY LOG*/
              $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 454));
@@ -229,7 +229,7 @@ function cleanup($uid = '') {
         
         db_query("update {answer_withdraw} set status='1' where uid='$uid' AND pid_sid='$count->pid_sid' ");
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 4, $uid);
-        $last_id =  mysql_insert_id();
+        $last_id =  db_last_insert_id('user_badges','badge');
 
          /*New SET NOTIFY LOG*/
          $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 4));
@@ -280,7 +280,7 @@ function pamphleteer($uid = ''){
             // count 10
             if ($badgecnt == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 46, $uid);
-                $last_id =  mysql_insert_id();
+                $last_id =  db_last_insert_id('user_badges','badge');
 
                  /*New SET NOTIFY LOG*/
                  $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 46));
@@ -329,7 +329,7 @@ function commentator($uid = '') {
             // count 10
             if ($badgecnt == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 5, $uid);
-                $last_id =  mysql_insert_id();
+                $last_id =  db_last_insert_id('user_badges','badge');
 
                 /*New SET NOTIFY LOG*/
                  $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 5));
@@ -379,7 +379,7 @@ function senator($uid = ''){
             // count 10
             if ($badgecnt == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 47, $uid);
-                $last_id =  mysql_insert_id();
+                $last_id =  db_last_insert_id('user_badges','badge');
 
                 /*New SET NOTIFY LOG*/
                  $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 47));
@@ -411,7 +411,7 @@ function discipline($uid = '', $qid = '') {
     if ($count >= 3) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 7, $uid);
-         $last_id =  mysql_insert_id();
+         $last_id =  db_last_insert_id('user_badges','badge');
 
          /*New SET NOTIFY LOG*/
          $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 7));
@@ -448,7 +448,7 @@ function electorate($uid = '', $qid = '') {
     if ($count >= 10) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 9, $uid);
-         $last_id =  mysql_insert_id();
+         $last_id =  db_last_insert_id('user_badges','badge');
 
          /*New SET NOTIFY LOG*/
          $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 9));
@@ -491,7 +491,7 @@ function enthusiast($uid = '') {
                 if ($diff3 >= 30) {
                     
                     db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
-                     $last_id =  mysql_insert_id();
+                     $last_id =  db_last_insert_id('user_badges','badge');
                    // hm_mails('',$last_id,'user_badges');
                    // badges_user($uid,$last_id);
 
@@ -576,7 +576,7 @@ function yearling_old() {
                     $countret = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where bid='43' and uid='$userlist->uid' and yearly_point='$rep' "));
                     if ($countret == 0) {
                         db_query("INSERT INTO {user_badges} (bid, uid,yearly_point) VALUES (%d, %d,%d)", 43, $userlist->uid, $rep);
-                         $last_id =  mysql_insert_id();
+                         $last_id =  db_last_insert_id('user_badges','badge');
                          user_coins_update($userlist->uid,43,'');
                         // hm_mails('',$last_id,'user_badges');
                         // badges_user($uid,$last_id);
@@ -655,7 +655,7 @@ function Tumbleweed() {
             $viewbad = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qklisy->uid' and  qid='$qklisy->nid' and bid='42'"));
             if ($viewbad == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('42', '$qklisy->uid','$qklisy->nid') ");
-                 $last_id =  mysql_insert_id();
+                 $last_id =  db_last_insert_id('user_badges','badge');
 
                  /*New SET NOTIFY LOG*/
                  $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 42));
@@ -685,7 +685,7 @@ function Taxonomist() {
             $tagcntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qtag->uid' and tid='$qtag->tid'  and bid='40'"));
             if ($tagcntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,tid) VALUES ('40','$qtag->uid','$qtag->tid') ");
-                 $last_id =  mysql_insert_id();
+                 $last_id =  db_last_insert_id('user_badges','badge');
 
                   /*New SET NOTIFY LOG*/
                  $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 40));
@@ -728,7 +728,7 @@ function Student() {
             $stucntr = db_result(db_query("SELECT COUNT(*) FROM {user_badges} where  uid='$qstude->uid' and qid='$qstude->nid'  and bid='38'"));
             if ($stucntr == 0) {
                 db_query("INSERT INTO {user_badges} (bid, uid,qid) VALUES ('38','$qstude->uid','$qstude->nid') ");
-                 $last_id =  mysql_insert_id();
+                 $last_id =  db_last_insert_id('user_badges','badge');
 
                   /*New SET NOTIFY LOG*/
                  $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 38));
@@ -869,7 +869,7 @@ function supporter($uid, $nodeid, $rtype){
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='39' AND node_id='$nodeid' AND type='$rtype'"));
     if($badgecnt == 0){
      db_query("INSERT INTO {user_badges} (bid, uid, node_id, type) VALUES (%d, %d, %d, '%s')", 39, $uid, $nodeid, $rtype);
-     $last_id =  mysql_insert_id();
+     $last_id =  db_last_insert_id('user_badges','badge');
 
      /*New SET NOTIFY LOG*/
      $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 39));
@@ -884,7 +884,7 @@ function seer($uid, $nodeid, $rtype){
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='49' AND node_id='$nodeid' AND type='$rtype'"));
     if($badgecnt == 0){
      db_query("INSERT INTO {user_badges} (bid, uid, node_id, type) VALUES (%d, %d, %d, '%s')", 49, $uid, $nodeid, $rtype);
-     $last_id =  mysql_insert_id();
+     $last_id =  db_last_insert_id('user_badges','badge');
 
      /*New SET NOTIFY LOG*/
      $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 49));
@@ -899,7 +899,7 @@ function oracle($uid, $nodeid, $rtype){
     $badgecnt = db_result(db_query("SELECT COUNT(bid) FROM {user_badges} where uid='$uid' AND bid='50' AND node_id='$nodeid' AND type='$rtype'"));
     if($badgecnt == 0){
      db_query("INSERT INTO {user_badges} (bid, uid, node_id, type) VALUES (%d, %d, %d, '%s')", 50, $uid, $nodeid, $rtype);
-     $last_id =  mysql_insert_id();
+     $last_id =  db_last_insert_id('user_badges','badge');
 
      /*New SET NOTIFY LOG*/
      $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 50));
@@ -936,7 +936,7 @@ AND l.is_like = '1' AND f.uid = '$uid'"));
     if ($count1 > 10 && $count2 >= 10 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 32, $uid);
-        $last_id =  mysql_insert_id();
+        $last_id =  db_last_insert_id('user_badges','badge');
         user_coins_update($uid,32,'');
        // hm_mails('',$last_id,'user_badges');
        // badges_user($uid,$last_id);
@@ -957,7 +957,7 @@ function generalist_old($uid = '') {
     if ($count > 50 && $badgecnt == 0) {
         
         db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 16, $uid);
-        $last_id =  mysql_insert_id();
+        $last_id =  db_last_insert_id('user_badges','badge');
         user_coins_update($uid,16,'');
        // hm_mails('',$last_id,'user_badges');
        // badges_user($uid,$last_id);
@@ -988,7 +988,7 @@ function legendary($uid = '') {
         if ($sum >= 20 && $badgecnt == 0) {
             
             db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 22, $uid);
-            $last_id =  mysql_insert_id();
+            $last_id =  db_last_insert_id('user_badges','badge');
 
             /*New SET NOTIFY LOG*/
              $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 22));
@@ -1035,7 +1035,7 @@ function fanatic($uid = '') {
                 if ($diff3 >= 50) {
                     
                     db_query("INSERT INTO {user_badges} (bid, uid) VALUES (%d, %d)", 11, $uid);
-                     $last_id =  mysql_insert_id();
+                     $last_id =  db_last_insert_id('user_badges','badge');
 
                      /*New SET NOTIFY LOG*/
                      $badgeName = db_result(db_query("SELECT name FROM {badges} WHERE bid = '%d'", 11));

@@ -209,8 +209,8 @@ $userslist=user_load(array('uid'=>$mid));
                 $img_path = $userslist->picture;
 
                 if (file_exists($img_path)) {
-                    $PROFILE_IMAGE=theme('user_picture', $userslist,'30x30');
-                   // $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="65"  height="56" />';
+                    //$PROFILE_IMAGE=theme('user_picture', $userslist,'30x30');
+                    $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="30"  height="30" />';
                 } else {
                     $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
                 }
@@ -824,7 +824,7 @@ if (($userSettings['marital'] == 1) || ($userSettings['marital'] == 2 && $user->
         $edit.='<a href="javascript:void(0);" onclick="loadeditquestion(\'' . $gSitePath . 'account/' . edit . '\',\'Report \');
 " >Edit My Profile </a><span class="separate"></span> ';
 
-        $inc = '&nbsp; <a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uid . '\',\'Follower\');" >Contact Contributors</a>';
+        $inc = '&nbsp; <a href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'user/follower/' . $uid . '\',\'Follower\');" >Contact Contributors</a>';
 
         $inc = '<li>&nbsp;<img src="' . $gSitePath . path_to_theme() . '/images/mail.jpg" alt="mail" width="19" height="11" />&nbsp;' . $inc . '</li>';
         //$inc_msg = '  <li><a href="' . $clink . '?tag=msg">Message[' . $cnt_msg . ']</a></li>';

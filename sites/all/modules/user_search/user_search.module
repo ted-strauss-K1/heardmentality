@@ -98,7 +98,7 @@ function user_search_menu() {
         'file' => 'user_search.pages.inc',
     );
 
-    $search_result['follower'] = array(
+    $search_result['user/follower'] = array(
         'title' => 'Follower',
         'page callback' => 'user_follower',
         'access arguments' => array('Follower'),
@@ -106,7 +106,7 @@ function user_search_menu() {
         'file' => 'user_search.pages.inc',
     );
 
-    $search_result['following'] = array(
+    $search_result['user/following'] = array(
         'title' => ' Following',
         'page callback' => 'user_following',
         'access arguments' => array('Following'),
@@ -173,7 +173,12 @@ function user_search_menu() {
         'access arguments' => array('Notify Report Content'),
         'file' => 'user_search.pages.inc',
     );
-
+    $search_result['following'] = array(
+        'title' => ' Yor Are Following ',
+        'page callback' => '_following',
+        'access arguments' => array('Following'),
+        'type' => MENU_SUGGESTED_ITEM,
+    );
     return $search_result;
 }
 
@@ -367,6 +372,9 @@ function user_search_block($op = 'list', $delta = 0, $edit = array()) {
               $blocks[1] = array(
                 'info' => t('User Refine Search'),
             );
+               $blocks[2] = array(
+                'info' => t('You are following'),
+            );
             return $blocks;
 
         case 'view':
@@ -378,6 +386,10 @@ function user_search_block($op = 'list', $delta = 0, $edit = array()) {
                 case 1:
                      $block['subject'] = " User Refine Search ";
                     $block['content'] = _user_search();
+                    break;
+                case 2:
+                     $block['subject'] = " You Are Following ";
+                    $block['content'] = _following_list();
                     break;
             }
             return $block;
@@ -747,4 +759,61 @@ function _sidebar_location() {
     $optionlist.='</div>';
 
     return $optionlist;
+}
+
+
+
+// Redesign sep 02
+function _following(){
+    global $user;
+    $output = '';
+    if($user){
+        $block = module_invoke('user_search', 'block', 'view', 2);
+        
+        $output .= $block['content'];
+    }else{
+        $output .= t('You must login to view your relationship with other users');
+    }
+    return $output;
+}
+
+function _following_list($uid = ''){
+     //using user relation module api
+    global $user, $gSitePath;
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+    $output = '';
+    $i=0;
+    $more = '';
+    
+    drupal_add_css(drupal_get_path('module', 'user_search').'/style/style.css');
+    
+    $uid = $uid!=''?$uid:$user->uid;
+    $relationships = user_relationships_load($param = array("approved" => 1, "requester_id" => $uid,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'10'), $reset = FALSE);
+    $requestcount = count($relationships);
+    $output .= '<div class="my-following">';
+    $output .= '<div class="head">'.t('YOU ARE FOLLOWING').'</div>';
+    if ($relationships) {
+        foreach ($relationships as $rtid => $relationship) {
+        $output .='<a href="'.$sitelink.'profile/'.$relationship->requestee->name.'">'.userPicture_small($relationship->requestee_id).'</a>';
+        //break;
+        $i++;
+        $output .= ($i%5)==0?'<br /><div class="clr"></div>':'';
+        if($i==15):
+            $more = '('.l('See More', '#').')';
+            break;
+        endif;
+        }
+    }else{
+        $output .= t('No following users');
+    }
+
+    // links
+    $find = l('Find more people to follow', '#');
+    $follower = l('See who is following me', '#');
+    $output .= '<div class="count" align="right">'.$requestcount.$more.'</div><br />
+                <div>'.$find.'<br />'.$follower.'</div>';
+
+    $output .= '</div>';
+    return $output;
 }

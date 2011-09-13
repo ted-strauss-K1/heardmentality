@@ -94,18 +94,20 @@ return false;
         var membed = jQuery('#membed').val();
         var docpath = jQuery('#docpath').val();
         var err = '';
+        var trig_ref = '';
         var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
         if (cat1==0)
             err += '<li>Please Select Type !</li>';
         if (cat1==1)
         {
-
+            trig_ref = '#ref_innews';
             if (!tomatch.test(nlink))
                 err += '<li>Please Enter Link </li>';
 
         }
         if (cat1==2)
         {
+            trig_ref = '#ref_multimedia';
             if (mtype==0)
                 err += '<li>Please Select Media Type !</li>';
 
@@ -131,6 +133,7 @@ return false;
         }
         if (cat1==3)
         {
+            trig_ref = '#ref_facts';
 
             if (!tomatch.test(nlink))
                 err += '<li>Please Enter  Fact Link</li>';
@@ -147,7 +150,9 @@ return false;
             el.hide();
         }
 
-jQuery('input[type="submit"]').attr('disabled',true);
+//jQuery('input[type="submit"]').attr('disabled',true);
+        jQuery(this).find('#add-new-res').hide();
+        jQuery(this).find('#sub_loader_res').show();
        // e.preventDefault();
    
         jQuery.post( jQuery(this).attr('action'), jQuery(this).serialize(),
@@ -157,11 +162,17 @@ jQuery('input[type="submit"]').attr('disabled',true);
                 jQuery('#uscrap').empty();
                 jQuery("#linkbox").html('');
                 jQuery('#nlink').val('http://');
-                jQuery('#add-resource-area').slideUp();
+                
+                
              //jQuery( "form" )[ 0 ].clearForm();
             // clearForm(jQuery(this));
-                el.html(data);
-                 el.delay(400).slideDown(400).delay(3000).slideUp(400);
+                //el.html(data);
+                //jQuery(data).prependTo('#load-resource');
+                jQuery(trig_ref).trigger('click');
+                jQuery('#add-resource-area').slideUp();
+                jQuery('#sub_loader_res').hide();
+                jQuery('#add-new-res').show();
+                // el.delay(400).slideDown(400).delay(3000).slideUp(400);
                // jQuery.growlUI('', data);
                jQuery('input[type="submit"]').removeAttr('disabled');
             });

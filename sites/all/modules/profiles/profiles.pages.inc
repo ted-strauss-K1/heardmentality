@@ -232,7 +232,7 @@ if ($relationships) {
 
 
     if ($requestcount > 5) {
-        $output[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'follower/' . $uids . '\',\'Follower\');">More</a>';
+        $output[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'user/follower/' . $uids . '\',\'Follower\');">More</a>';
     }
     if ($requestcount == 0) {
         $output[] .= '<span style="padding-left:17px;">Please follow people!</span>';
@@ -296,7 +296,7 @@ if ($relationships) {
 
 
     if ($requestcount > 5) {
-        $output[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'following/' . $umid . '\',\'Follower\');">More</a>';
+        $output[] .= '<a style="color:#F37321;" href="javascript:void(0);" onclick="loadfollower(\'' . $gSitePath . 'user/following/' . $umid . '\',\'Follower\');">More</a>';
     }
     if ($requestcount == 0) {
         $output[] .= '<span style="padding-left:17px;">No Followers Yet</span>';

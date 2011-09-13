@@ -2640,9 +2640,15 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
 
 // issue results , debates, resources
 function view_issue_results($nid = ''){
-   global $user;
+   global $user, $theme;
    $node = node_load(array('nid' => $nid));
-  
+
+   // update view count
+   module_load_include('inc', 'quest_lite', 'quest_lite.pages');
+   insertviews($node->nid);
+   // temp intialize function before user voted for a issue
+   $inline = 'function initialize(){}';
+   drupal_add_js($inline, 'inline');
    if(user_is_logged_in() && !empty($user) && $node->allowvotes != 1){
    $results = theme('issue_result_analysis',$nid);
    }
@@ -2699,7 +2705,7 @@ function theme_issue_debate_list($nid = ''){
     global $user, $gSitePath;
     $debates = '';
     module_load_include('inc', 'issue', 'issue.pages');
-    $filters = '<span><a href="javascript:void(0);" id="show-analytics" title="'.t('Debate Statistics').'">'.t('Show debate statistics').'</a>&nbsp;|&nbsp;<a href="javascript:void(0);" id="show-filter" title="'.t('Filter Options').'">'.t('Show filter options').'</a></span>';
+    $filters = '<span><a href="javascript:void(0);" id="show-analytics" title="'.t('Debate Statistics').'">'.t('Show/Hide debate statistics').'</a>&nbsp;|&nbsp;<a href="javascript:void(0);" id="show-filter" title="'.t('Filter Options').'">'.t('Show/Hide filter options').'</a></span>';
     $count = '';
 
 
@@ -2739,11 +2745,11 @@ function theme_issue_resource_list($nid = ''){
     $resources = '';
     module_load_include('inc', 'issue', 'issue.pages');
     
-    $filters = '<span><a href="javascript:void(0);" onclick="res_type_tab(1,\'innews\','.$nid.')" title="'.t('In News').'">'.t('In News').'</a>&nbsp;
-               <a href="javascript:void(0);" onclick="res_type_tab(2, \'media\','.$nid.')" title="'.t('Multimedia').'">'.t('Multimedia').'</a>&nbsp;
-               <a href="javascript:void(0);" onclick="res_type_tab(3, \'facts\','.$nid.')" title="'.t('Facts').'">'.t('Facts').'</a>&nbsp;
-               <a href="javascript:void(0);" id="show-res-filter">'.t('Show filter options').'</a>&nbsp;
-               <a href="javascript:void(0);" id="show-res-statistics" title="'.t('Show Reference Statistics').'">'.t('Show Reference Statistics').'</a>&nbsp;</span>';
+    $filters = '<span><a href="javascript:void(0);" onclick="res_type_tab(1,\'innews\','.$nid.')" title="'.t('In News').'" id="ref_innews">'.t('In News').'</a>&nbsp;
+               <a href="javascript:void(0);" onclick="res_type_tab(2, \'media\','.$nid.')" title="'.t('Multimedia').'" id="ref_multimedia">'.t('Multimedia').'</a>&nbsp;
+               <a href="javascript:void(0);" onclick="res_type_tab(3, \'facts\','.$nid.')" title="'.t('Facts').'" id="ref_facts">'.t('Facts').'</a>&nbsp;
+               <a href="javascript:void(0);" id="show-res-filter" title="'.t('Filter options').'">'.t('Show/Hide filter options').'</a>&nbsp;
+               <a href="javascript:void(0);" id="show-res-statistics" title="'.t('Reference Statistics').'">'.t('Show/Hide Reference Statistics').'</a>&nbsp;</span>';
 
     $rtypes = '<a href="javascript:void(0);>'.t('In News').'</a>&nbsp;
                <a href="javascript:void(0);>'.t('Multimedia').'</a>&nbsp;
@@ -3608,14 +3614,20 @@ function theme_single_resource_template($resItems = array()){
                     </div>';
         }elseif($resItems['filepath']!=''){
             $url = explode('/', $resItems['filepath']);
-            $content = '<div class="comm-text"><a href="' . $gSitePath . 'resource/debate/' . $resItems['issue_tnid'] . '/' . $resItems['resource_id'] . '" target="_blank" > ' . $url[2] . ' </a></div>';
+            $content = '<div class="comm-text"><a href="' . $gSitePath . $resItems['filepath'] . '" target="_blank" > ' . $url[2] . ' </a></div>';
         }
     }
 
+    if(isset($user->uid)&&$user->uid!=$resItems['uid']){
+    $abuse = 'onclick="loadflagresdeb(\''.$gSitePath.'qlite/flag/'. $resItems['resource_id'].'\', \'Report\');"';
+    }else{
+    $abuse = ''    ;
+    }
     $debt .= '<div class="mid-area">
             '.l($resItems['uname'],'profile/'.$resItems['uname']).'
-              &nbsp;&nbsp;<span class="posted">'.$resItems['posted'].'</span>&nbsp;|&nbsp;<a>'.t('Report Abuse').'</a>
+              &nbsp;&nbsp;<span class="posted">'.$resItems['posted'].'</span>&nbsp;|&nbsp;<a '.$abuse.' href="javascript:void(0);" title="'.t('Report Abuse').'">'.t('Report Abuse').'</a>
               '.$content.'
+              <div class="clr"></div>
               <div class="choice">'.$strength.'</div>
             </div>';
     $debt .= '<div class="rating">'.$ratings.'</div>

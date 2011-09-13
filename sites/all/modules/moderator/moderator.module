@@ -427,6 +427,9 @@ global $gSitePath, $user, $gDocPath, $base_root;
 //    $result = db_query($left_qry);
 //    $quest = db_fetch_object($result);
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/multi_select.js');
+    $inline = "jQuery(document).ready(function () {
+   multi_select();});";
+    drupal_add_js($inline, 'inline');
     // load node values
     $node = node_load($qid);
     $alias = drupal_get_path_alias('node/'.$qid);
@@ -2509,7 +2512,8 @@ function moderator_ahah_callback($type = '', $key = ''){
     $output .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, '. drupal_to_js($filefield_ahah_settings) .');</script>';
   }
 
-
+//$output .= '<script type="text/javascript">
+ //  window.onload = multi_select();</script>';
 
 
    //print drupal_to_js(array('data' => $output, 'status' => true));
