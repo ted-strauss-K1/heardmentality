@@ -13,13 +13,7 @@ function question_perm() {
  
 function question_menu() {	
 
-$items['question'] = array(
-    'title' => ' My Question',
-    'page callback' => 'my_question',
-    'access arguments' => array('Question user'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
+
 $items['question/add'] = array(
     'title' => ' Add Question',
     'page callback' => 'question_add',
@@ -42,116 +36,6 @@ $items['question/save'] = array(
      'type' => MENU_CALLBACK,
     'file' => 'question.pages.inc',
   );
- $items['question/edit'] = array(
-    'title' => 'Edit Question',
-    'page callback' => 'edit_question',
-	 'access arguments' => array('Question edit'),
-     'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
-  $items['question/delete'] = array(
-    'title' => 'Delete Category',
-    'page callback' => 'drupal_get_form',
-	'page arguments' => array('question_delete_confirm', 3),
-    'access arguments' => array('Question delete'),
-    'type' => MENU_CALLBACK,
-    'file' => 'question.pages.inc',
-  );
-  $items['question/reply'] = array(
-    'title' => ' Add Question',
-    'page callback' => 'question_reply',
-    'access arguments' => array('Question add'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
- 
- 
- $items['admin/questions'] = array(
-    'title' => 'Admin Panel',
-    'page callback' => 'admin_content',
-	 'type' => MENU_CALLBACK,
-	   'access arguments' => array('Admin Panel'),
-       'file' => 'question.pages.inc',
-  );
- 
-  $items['admin/panel'] = array(
-    'title' => 'Admin Panel',
-    'page callback' => 'admin_panel_tab',
-	 'type' => MENU_CALLBACK,
-	   'access arguments' => array('Admin Panel'),
-       'file' => 'question.pages.inc',
-  );
- 
- 
-  $items['admin/panelc'] = array(
-    'title' => 'Admin Panel',
-    'page callback' => 'panel_content',
-	 'type' => MENU_CALLBACK,
-	   'access arguments' => array('Admin Panel'),
-    'file' => 'question.pages.inc',
-  );
- 
- $items['admin/userlist'] = array(
-    'title' => 'Users List',
-    'page callback' => 'moderate_user',
-    'access arguments' => array('Users List'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
-
-  $items['admin/question/list'] = array(
-    'title' => 'Question List',
-    'page callback' => 'moderate_quest',
-    'access arguments' => array('Question List'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
- $items['admin/notifymail'] = array(
-    'title' => 'Moderate Question',
-    'page callback' => 'moderate_user_mail',
-    'access arguments' => array('Moderate User'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
- $items['admin/edit/questions'] = array(
-    'title' => 'Edit Question',
-    'page callback' => 'edit_questions',
-    'access arguments' => array('Edit Question'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
-  $items['admin/view/question'] = array(
-    'title' => 'View Question',
-    'page callback' => 'view_questions',
-    'access arguments' => array('View Question'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
-  
-    $items['autosuggest'] = array(
-    'title' => 'Add Question',
-    'page callback' => 'auto_suggest_quest',
-    'access arguments' => array('Question add'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
-    
-   $items['admin/dupe/questions'] = array(
-    'title' => 'Dupe Question',
-    'page callback' => 'dupe_question',
-    'access arguments' => array('Dupe Question'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
-
-   $items['front_dupequestion'] = array(
-    'title' => 'Dupe Question',
-    'page callback' => 'front_dupe',
-    'access arguments' => array('Question add'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
-
    $items['exist_question'] = array(
     'title' => 'Dupe Question',
     'page callback' => 'exist_dupe',
