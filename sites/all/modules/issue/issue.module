@@ -1,0 +1,3655 @@
+<?php
+
+// $Id: issue.module,v 1.21.2.88.2.34 2010/06/22 09:30:59 mirodietiker Exp $
+
+/**
+ * @file
+ * Issue Poll -A sophisticated issue module for voting and analysis report generating.
+ */
+
+/**
+ * Implementation of hook_help().
+ */
+function issue_help($path, $arg) {
+    switch ($path) {
+        case 'admin/modules#description':
+            return t('A sophisticated issue module for voting and analysis report generating.');
+            break;
+    }
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function issue_perm() {
+    return array(
+        'create issue',
+        'edit issue',
+        'edit own issue',
+        'vote on issue',
+        'cancel own vote',
+        'administer issue',
+        'inspect all votes',
+        'show vote results',
+        'access electoral list',
+        'add write-ins',
+        'issue list',
+    );
+}
+
+/**
+ * Implementation of hook_access().
+ */
+function issue_access($op, $node, $account) {
+    if ($op == 'create') {
+        return user_access('create issue', $account);
+    }
+    if ($op == 'update') {
+        if (user_access('edit issue', $account) || ($node->uid == $account->uid && user_access('edit own issue', $account))) {
+            return TRUE;
+        }
+    }
+}
+
+/**
+ * Implementation of hook_node_info().
+ */
+function issue_node_info() {
+
+    $info = array();
+
+    return $info;
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function issue_menu() {
+    global $user;
+
+
+        $menu['issue/tab/%/%'] = array(
+        'title' => ' Issue Tab Data',
+        'page callback' => 'issue_tab_content',
+        'type' => MENU_LOCAL_TASK,
+        'page arguments' => array(2,3),
+        'access callback'=>true,
+          'file'=>'issue.pages.inc'
+    );
+ $menu['issue/report/%/%'] = array(
+        'title' => ' Issue Report Data',
+        'page callback' => 'issue_report_data',
+        'type' => MENU_LOCAL_TASK,
+        'page arguments' => array(2,3),
+        'access callback'=>true,
+     'file'=>'issue.pages.inc'
+    );
+$menu['issue/create'] = array(
+        'title' => 'Add an Issue',
+        'page callback' => 'issue_create',
+        'access arguments' => array('create issue'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'issue.pages.inc',
+    );
+$menu['issue/autotextfields/callback'] = array(
+        'title' => 'Add an Issue',
+        'page callback' => 'issue_autotextfields_callback',
+        'access arguments' => array('create issue'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'issue.pages.inc',
+    );
+$menu['issue/get_related_issues'] = array(
+        'title' => 'Related Issues',
+        'page callback' => 'issue_related_callback',
+        'access arguments' => array('create issue'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file'=>'issue.pages.inc'
+    );
+$menu['issues'] = array(
+        'title' => 'Issues',
+        'page callback' => 'issues_list',
+        'access arguments' => array('issue list'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file'=>'issue.pages.inc'
+    );
+$menu['issue/ahah/%/%'] = array(
+        'title' => 'Issue Ahah Control',
+        'page callback' => 'issue_ahah_callback',
+        'access arguments' => array('issue list'),
+        'page arguments' => array(2,3),
+    );
+$menu['issue/thread/delete/%/%/%'] = array(
+        'title' => 'Forum / Reply delete',
+        'page callback' => 'issue_thread_delete',
+        'access arguments' => array('vote on issue'),
+        'page arguments' => array(3,4,5),
+        'file'=>'issue.pages.inc'
+    );
+$menu['issue/ajax/%/%'] = array(
+        'title' => 'Insight View',
+        'page callback' => 'issue_ajax',
+        'type' => MENU_LOCAL_TASK,
+        'page arguments' => array(2,3),
+        'access callback'=>true,
+     'file'=>'issue.pages.inc'
+    );
+$menu['issues/load_resources/%/%/%/%/%'] = array(
+        'title' => 'Load Resources',
+        'page callback' => 'issue_resources',
+        'type' => MENU_LOCAL_TASK,
+        'page arguments' => array(2,3,4,5,6),
+        'access callback'=>true,
+     'file'=>'issue.pages.inc'
+    );
+    return $menu;
+}
+
+
+function issue_callback_helper() {
+  $form_state = array('storage' => NULL, 'submitted' => FALSE);
+  $form_build_id = $_POST['form_build_id'];
+  $form = form_get_cache($form_build_id, $form_state);
+  $args = $form['#parameters'];
+  $form_id = array_shift($args);
+  $form_state['post'] = $form['#post'] = $_POST;
+  // Enable the submit/validate handlers to determine whether AHAH-submittted.
+  $form_state['ahah_submission'] = TRUE;
+  $form['#programmed'] = $form['#redirect'] = FALSE;
+  drupal_process_form($form_id, $form, $form_state);
+  $form = drupal_rebuild_form($form_id, $form_state, $args, $form_build_id);
+  return $form;
+}
+
+
+function ahah_render($fields, $name) {
+  $form_state = array('submitted' => FALSE);
+  $form_build_id = $_POST['form_build_id'];
+  // Add the new element to the stored form. Without adding the element to the
+  // form, Drupal is not aware of this new elements existence and will not
+  // process it. We retreive the cached form, add the element, and resave.
+  $form = form_get_cache($form_build_id, $form_state);
+  $form[$name] = $fields;
+  form_set_cache($form_build_id, $form, $form_state);
+  $form += array(
+    '#post' => $_POST,
+    '#programmed' => FALSE,
+  );
+  // Rebuild the form.
+  $form = form_builder($_POST['form_id'], $form, $form_state);
+
+  // Render the new output.
+  $new_form = $form[$name];
+ // echo '<pre>';
+ // print_r($new_form);
+  return  drupal_render($new_form);
+}
+
+
+/**
+ * Implementation of hook_init().
+ */
+function issue_init() {
+    // Use poll.module's stylesheet, no need to duplicate at this point.
+    drupal_add_js('var spath="' . $gSitePath . '";', 'inline');
+    drupal_add_css(drupal_get_path('module', 'poll') . '/poll.css');
+    drupal_add_js(drupal_get_path('module', 'issue') . '/js/filter.js');
+
+
+    if (module_exists('jquery_ui')) {
+        jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
+    }
+     $inline = 'jQuery(function() {
+CountlimitChars = function(){
+jQuery("#numberofword").text(140 - jQuery("#q_quest").val().length ).show();
+} })';
+    drupal_add_js($inline, $type = 'inline');
+    drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
+}
+
+/**
+ * Implementation of hook_form().
+ *
+ * This hook displays the form necessary to create/edit the issue.
+ */
+function issue_form(&$node, $form_state) {
+
+    $type = node_get_types('type', $node);
+    $editing = isset($node->nid);
+    $form = array();
+
+    // Only add javascript once, even if _form is called multiple times.
+    static $add_js;
+    if (!$add_js) {
+        // Pass translatable strings
+        drupal_add_js(array('advPoll' => array('remove' => t('Remove'), 'addChoice' => t('Add choice'), 'noLimit' => t('No limit'))), 'setting');
+        drupal_add_js(drupal_get_path('module', 'issue') . '/issue-form.js', 'module');
+        drupal_add_css(drupal_get_path('module', 'issue') . '/issue.css', 'module');
+        $add_js = TRUE;
+    }
+
+    $form['title'] = array(
+        '#type' => 'textfield',
+        '#maxlength' => 100,
+        '#title' => check_plain($type->title_label),
+        '#required' => TRUE,
+        '#default_value' => $node->title,
+    );
+    $form['body_field']['body'] = array(
+        '#type' => 'textarea',
+        '#title' => check_plain($type->body_label),
+        '#required' => FALSE,
+        '#default_value' => $node->body,
+    );
+
+    $form['body_field']['format'] = filter_form($node->format);
+
+
+
+    return $form;
+}
+
+
+// add vote for issue
+function issue_add_vote($dummy='',$nid='') {
+
+    $form = array();
+    if(empty($nid))
+    $nid = arg(1);
+
+    $node = node_load($nid);
+
+    // IMPORTANT get translate nid (tnid) for current node
+    $tnid = get_tnid($nid);
+    $tnode = node_load($tnid);
+
+    if ($node->choice) {
+        $list = array();
+        foreach ($node->choice as $i => $choice) {
+            $list[$i] = check_plain($choice['chtext']);
+        }
+        $form['choice'] = array(
+            '#type' => 'radios',
+            '#default_value' => -1,
+            '#options' => $list,
+        );
+    }
+    $form['#nid'] = $tnid;
+    $form['change'] = array(
+        '#type' => 'submit',
+        '#value' => t('Vote'),
+    );
+    $form['#cache'] = TRUE;
+
+    // Provide a more cleanly named voting form theme.
+    $form['#theme'] = 'poll_vote';
+    return $form;
+}
+/**
+ * Validation function for processing votes
+ */
+function issue_add_vote_validate($form, &$form_state) {
+  if ($form_state['values']['choice'] == -1) {
+    form_set_error( 'choice', t('Your vote could not be recorded because you did not select any of the choices.'));
+  }
+}
+
+/**
+ * Submit handler for processing a vote
+ */
+function issue_add_vote_submit($form, &$form_state) {
+  global $user;
+  $nid = $form['#nid'];
+  $choice = $form_state['values']['choice'];
+
+  global $user;
+  if ($user->uid) {
+    db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $choice, $user->uid);
+  }
+  else {
+    db_query("INSERT INTO {poll_votes} (nid, chorder, hostname) VALUES (%d, %d, '%s')", $nid, $choice, ip_address());
+  }
+
+  // Add one to the votes.
+  db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
+
+  cache_clear_all();
+  drupal_set_message(t('Your vote was recorded.'));
+
+  // Return the user to whatever page they voted from.
+}
+
+
+
+
+
+
+function issue_edit_vote($dummy='',$nid='') {
+
+    $form = array();
+    if(empty($nid))
+    $nid = arg(1);
+    
+    $node = node_load($nid);
+    
+    // IMPORTANT get translate nid (tnid) for current node
+    $tnid = get_tnid($nid);
+    $tnode = node_load($tnid);
+
+    if ($node->choice) {
+        $list = array();
+        foreach ($node->choice as $i => $choice) {
+            $list[$i] = check_plain($choice['chtext']);
+        }
+        $form['choice'] = array(
+            '#type' => 'radios',
+            '#default_value' => $tnode->vote,
+            '#options' => $list,
+        );
+    }
+    $form['#nid'] = $tnid;
+    $form['change'] = array(
+        '#type' => 'submit',
+        '#value' => t('Change'),
+    );
+    $form['#cache'] = TRUE;
+
+    // Provide a more cleanly named voting form theme.
+    $form['#theme'] = 'poll_vote';
+    return $form;
+}
+
+function issue_report_data($type='',$nid=''){
+
+switch($type){
+case 'map':
+      $content=report_map($nid);
+    break;
+    case 'graph':
+        $content=report_graph($nid);
+        break;
+    case 'percent':
+    default:
+
+$content=report_percent($nid);
+        
+        break;
+}
+
+echo $content;
+}
+
+
+function issue_edit_vote_validate($form, &$form_state) {
+    if (!user_is_logged_in()) {
+
+        form_set_error(t('You have to login to do this action!.'));
+    }
+
+    if ($form_state['values']['choice'] == -1) {
+        form_set_error('choice', t('Your vote could not be recorded because you did not select any of the choices.'));
+    }
+    if($form['choice']['#default_value']==$form_state['values']['choice']){
+      form_set_error('choice', t('Your vote could not be recorded because you did not select any new choices.'));
+    }
+}
+
+function issue_edit_vote_submit($form, &$form_state) {
+    global $user;
+    $nid = $form['#nid'];
+    $choice = $form_state['values']['choice'];
+
+    if ($user->uid) {
+        db_query('update {poll_votes} set chorder=%d where nid=%d and uid=%d', $choice, $nid, $user->uid);
+        
+        /*New SET NOTIFY LOG*/
+        $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+        $answer = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '%d' AND chorder = '%d'", $nid, $choice));
+        $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $answer);
+        set_notify_log($user->uid, $nid, 'change_answer', $variable);
+        /*New SET NOTIFY LOG*/
+    }
+//minus one the value of previously voted choice
+  db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = %d AND chorder = %d", $nid, $form['choice']['#default_value']);
+    // Add one to the votes.for new choices
+    db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
+
+    cache_clear_all();
+    drupal_set_message(t('Your vote has been updated'));
+
+    // Return the user to whatever page they voted from.
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function issue_form_alter(&$form, $form_state, $form_id) {
+   global $gSitePath;
+ //rint $form_id;
+ //  echo '<pre>';
+  //print_r($form);
+if($form_id=='user_relationships_ui_request'){
+    
+      $form['#submit'][] = 'add_follow_notify';
+}
+if($form_id == 'subscriptions_add_form'){
+      $form['#submit'][] = 'add_subscription_notify';
+}
+if($form_id=='issue_add_vote'){
+ // echo '<pre>';print_r($form);exit;
+    $form['#submit'][]='choice_vote_date_update';
+    $form['#submit'][] = 'add_vote_notify';
+     $form['#submit'][] = 'chk_profile_complete';
+    $form['#validate'][]='check_user_anonymous';
+  //echo $form_id."<pre>";  print_r($form);exit;
+}
+if($form_id=='issue_edit_vote'){
+  // $form['#action'] = 'qlite/view/'.$form['#nid'];
+        $form['#submit'][]='choice_vote_date_update';
+       $form['#submit'][] = 'chk_profile_complete';
+}
+    if ($form_id == 'poll_node_form') {
+        //$form['#after_build'][] = 'issue_after_build';
+
+
+        $form['field_issue_state']['#access'] = false;
+        $form['field_issue_city']['#access'] = false;
+       
+           //echo "<pre>";
+        //print_r($form); exit;
+      // echo $form['#node']->nid; exit;
+    }
+     if ($form_id == 'abuse_report_form') {
+    //  echo "<pre>";
+     //print_r($form);
+
+        //$form['#after_build'][] = 'issue_after_build';
+$form['reason'] = array(
+'#type' => 'radios',
+'#title' => t('Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing?'),
+'#options' =>array_filter($form['reason']['#options']),
+    '#required' => TRUE,
+    '#default_value'=> variable_get('reason', 1),
+);
+$form['op']=false;
+ $form['submit'] = array('#type' => 'submit', '#value' => t('Send'),'#ahah'=>array(
+    'wrapper' => 'log_res',
+    'method' => 'replace',
+    'effect' => 'fade',
+  ),);
+
+ $form['#submit'][] = 'add_flag_notify';
+          // echo "<pre>";
+        //print_r($form);exit;
+    }
+}
+function choice_vote_date_update($form, &$form_state) {
+    global $user;
+    //echo '<pre>';
+    //print_r($form);
+        //update the date that has to be set while adding or editing vote due to merge issue problem
+     $nid = !empty($form['#nid'])?$form['#nid']:$form['#node']->nid;
+     $date_time = date("y-m-d H:i:s", time());
+     //$date_time=strtotime($date_time);
+
+    db_query("update {poll_votes} set `date_voted`='$date_time' where uid=%d and nid=%d",$user->uid,$nid);
+
+    //update the date that has to be set while adding or editing vote
+
+}
+function _test_helper_story_node_form_validate($form, &$form_state) {
+    if ($form_state['values']['title'] == "Testing") {
+        form_set_error('title', t('No testing allowed!'));
+    }
+}
+function check_user_anonymous($form, &$form_state){
+
+if(user_is_anonymous ())
+    form_set_error ('', t('Please login and cast your vote to see the reports of this issue ! '));
+   
+}
+function issue_after_build($form, &$form_state) {
+    // allter the form values: Stuff!
+
+
+
+    foreach (element_children($form['choice']) as $key) {
+
+
+        // echo "dd";
+    }//exit;
+    return $form;
+}
+
+function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
+
+    global $user;
+
+    if ($node->type == 'poll') {
+       // echo "<pre>";
+       // print_r($node);
+       // exit;
+        switch ($op) {
+            case 'insert':
+                //    echo "<pre>";
+                //  print_r($node);
+                break;
+            case 'load':
+
+                break;
+            case 'view':
+                $output = '';
+                drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
+                drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/subtab.js');
+
+                drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
+                //drupal_set_title(t('ISSUE'));
+                drupal_set_html_head('<script>
+                        var uid="' . $user->uid . '";
+                    </script>');
+               // print_r($user);
+                if ($user->initpop == 1 && $user->uid > 1) { 
+                    drupal_add_js('jQuery(document).ready(function () { loadeditquestion(gSitePath+"profile/edit/1","Edit Profile ");});', 'inline');
+                    $user_data = array('initpop' => 2);
+                    user_save($user, $user_data);
+                }
+                drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/wave.js', 'theme');
+                // set context to display in front page 
+                $node->context=$node->body;
+                $node->style=drupal_link_color($user->uid, $node->nid);
+                if(user_is_logged_in()){
+
+                
+                $node->suggest = drupal_get_form('issue_suggest_form',$node->nid);
+               
+                // IMPORTANT get translate nid (tnid) for current node
+                $tnid = get_tnid($node->nid);
+                $tnode = node_load($tnid);
+                // echo '<pre>'; print_r($tnode);exit;
+                if ($tnode->allowvotes) {
+                   $output .= drupal_get_form('issue_add_vote',$node->nid);
+                   $node->content['body'] = array
+                        (
+                        '#value' => $output,
+                    );
+                } else {
+                    //print_r($node);
+                    unset($node->content['body']);
+                    // suggest answer calculation here
+                    suggest_answer_replacement($node->nid);
+                    $output .= drupal_get_form('issue_edit_vote',$node->nid);
+                    $node->content['body'] = array
+                        (
+                        '#value' => $output,
+                    );
+                }
+                }else{
+                    unset($node->content['body']);
+                    $output .= drupal_get_form('issue_add_vote',$node->nid);
+                    $node->content['body'] = array
+                        (
+                        '#value' => $output,
+                    );
+                }
+                // only for search issues
+                if(arg(0)=='issues'){
+                    //votes
+                    $tnid = get_tnid($node->nid);
+                    $voteCount = db_result(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $tnid . "'"));
+                    //debates
+                    $debates = db_result(db_query("SELECT count(nid) as fcount FROM `content_type_forum` where field_ref_qid_nid='" . $tnid . "' AND field_type_value = '1'"));
+                    //resources
+                    $resources = db_result(db_query("SELECT COUNT(nid) FROM content_type_forum where  field_ref_qid_nid='$tnid' AND field_type_value = '2'"));
+                    $node->votecount = $voteCount;
+                    $node->totaldebates = $debates;
+                    $node->totalresources = $resources;
+
+                    // categories
+                    $ctitle = array();
+                    $sctitle = array();
+                    $ssctitle = array();
+                    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+                    $csql = db_query("SELECT td.tid FROM {term_data} as td JOIN {term_hierarchy} as th ON td.tid = th.tid WHERE td.vid = '$vid' AND th.parent = 0");
+
+                    $catVals = array();
+                    while($cat = db_fetch_object($csql)){
+                        $catVals[] = $cat->tid;
+                    }
+                    if(!empty($catVals)){
+
+                        $cat = implode(",", $catVals);
+                        $ncats = db_query("SELECT tid FROM {term_node} WHERE nid = '$tnid' AND tid IN($cat)");
+                        while($ncat = db_fetch_object($ncats)){
+                            $cat = $ncat->tid;
+                            $ctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$cat'"));
+                            // parent categories
+                            $scats = get_node_tree_child($cat, $tnid);
+                            foreach($scats as $scat){
+                                $sctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$scat'"));
+                                // first level categories
+                                $sscats = get_node_tree_child($scat, $tnid);
+                                foreach($sscats as $sscat){
+                                    $ssctitle[] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$sscat'"));
+                                    // second level categories
+                                }
+                            }
+                        }
+                    
+                    }
+                    $node->catsubject = !empty($ctitle)?rtrim(implode(",",$ctitle)):'none';
+                    $node->catarea = !empty($sctitle)?rtrim(implode(",",$sctitle)):'none';
+                    $node->catdetail = !empty($ssctitle)?rtrim(implode(",",$ssctitle)):'none';
+                    ////////////
+                }
+
+                break;
+        }
+    }
+}
+
+function issue_save($array='') {
+    global $user;
+    $account = user_load(array('uid' => $user->uid));
+    $node = new StdClass();
+    $node->type = 'poll';
+    $node->create = time();
+    $node->title = $array['q_quest'];
+    $node->body = $array['q_context'];
+    $node->uid = $account->uid;
+    $node->status = 1;
+    $node->active = 1;
+    node_save($node);
+
+
+    if (!user_access('administer nodes')) {
+        // Make sure all votes are 0 initially
+        foreach ($node->choice as $i => $choice) {
+            $node->choice[$i]['chvotes'] = 0;
+        }
+        $node->active = 1;
+    }
+
+    db_query("INSERT INTO {poll} (nid, runtime, active) VALUES (%d, %d, %d)", $node->nid, $node->runtime, $node->active);
+
+    $j = 0;
+    for ($i = 1; $i <= $array['ans_cnt']; $i++) {
+        $name = "q_ans" . $i;
+
+        if (!empty($array[$name])) {
+
+            db_query("INSERT INTO {poll_choices} (nid, chtext, chvotes, chorder) VALUES (%d, '%s', %d, %d)", $node->nid, $array[$name], '0', $j++);
+        }
+    }
+
+     /*New SET NOTIFY LOG*/
+            //set_notify_log($uid , $message_id, $nid, $variable)
+            $qid = $node->nid;
+            $qtitle = $node->title;
+            $variable = array('qid' => $qid, 'q_title' => $qtitle, 'uid' => $user->uid);
+            set_notify_log($user->uid, $qid, 'add_question', $variable);
+     /*New SET NOTIFY LOG*/
+            
+//url alias
+    $dst = clean_url(myTruncate($node->title, 100, ''), '', '-', $node->nid);
+    $url = 'node/' . $node->nid;
+    db_query("INSERT INTO {url_alias} (src, dst, language) VALUES ('%s', '%s', '%s')", $url, $dst, 'en');
+    //Related Issues
+    if(!empty($array['chk_rel_issue'])){
+    $cont_type=array('content_types'=>array('poll'=>'poll'));
+    $relatedissues = array_combine($array['chk_rel_issue'], $array['chk_rel_issue']);
+    $arrayid = array('nids' => $relatedissues);
+    $manual = array('enable' => 1, 'nodes' => array('poll' => $arrayid));
+    $related = array('nid' => $node->nid, 'content_types' => $cont_type, 'taxonomy' =>array(''), 'manual' => $manual, 'sort' => array('criteria' => 'none'));
+    db_query("INSERT INTO {noderecommendation_node} (nid, data) VALUES (%d, '%s')", $node->nid, serialize($related));
+    }
+    return $node;
+}
+
+function issue_block($op = 'list', $delta = 0, $edit = array()) {
+
+    switch ($op) {
+        case 'list':
+            $blocks[0] = array(
+                'info' => t('Node block'),
+            );
+             $blocks[1] = array(
+                'info' => t('Details Tab'),
+            );
+             $blocks[2] = array(
+                'info' => t('Details Left'),
+            );
+
+            return $blocks;
+
+        case 'view':   
+            switch ($delta) {
+                case '0':
+
+                    $block['subject'] = "Issue Reporting";
+                    if (arg(0) == 'node' && is_numeric(arg(1))) {
+                        $nid = arg(1);
+
+                      $node=node_load($nid);
+
+                      if(!empty($node)&&$node->type=='poll')
+                        //$tab = issue_view_results($nid, false, false, true);
+                        
+                        $tab = view_issue_results($nid);
+                    }
+
+
+                    $block['content'] = $tab;
+
+                    break;
+
+                    case 'issue-0':
+                        $block['subject'] = "Reporting Tab";
+                        $nid = arg(2);
+                        $tab = issue_report_tab($nid);
+                        $block['content'] = $tab;
+                        break;
+                    case 'issue-1':
+
+                         $block['subject'] = "Debate Tab";
+                   // if (arg(0) == 'node' && is_numeric(arg(1))) {
+                        $nid = arg(2);
+
+                        //$node=node_load(array('nid'=>20));
+                        $tab = issue_debate_tab($nid);
+                   // }
+
+
+                    $block['content'] = $tab;
+                        break;
+
+                    case 'issue-2':
+
+                         $block['subject'] = "Resource Tab";
+                   // if (arg(0) == 'node' && is_numeric(arg(1))) {
+                        $nid = arg(2);
+
+                        //$node=node_load(array('nid'=>20));
+                        $tab = issue_resource_tab($nid);
+                   // }
+
+
+                    $block['content'] = $tab;
+                        break;
+                   case 'issue-3':
+                      $block['subject'] = "Pundit Tab";
+                   // if (arg(0) == 'node' && is_numeric(arg(1))) {
+                        $nid = arg(2);
+
+                        //$node=node_load(array('nid'=>20));
+                        $tab = issue_pundit_tab($nid);
+                   // }
+
+
+                    $block['content'] = $tab;
+
+                     break;
+                 case 'issue-4':
+                      $block['subject'] = "Details Tab";
+                   // if (arg(0) == 'node' && is_numeric(arg(1))) {
+                        $nid = arg(2);
+
+                        //$node=node_load(array('nid'=>20));
+                        $tab = issue_details_tab($nid);
+                   // }
+
+
+                    $block['content'] = $tab;
+
+                     break;
+
+
+                 case '2':
+                     if(arg(0)=='node' && is_numeric(arg(1))){
+                         $nid = arg(1);
+                     }
+                     $nid = $nid!=''?$nid:get_qid();
+                     $block['subject'] = "Issue Details with Category & Location";
+                     $item = _issue_information($nid);
+                     if($item){
+                     $subject = $item['subject'];
+                     $area = $item['area'];
+                     $detail = $item['detail'];
+                     $postedby = $item['postedby'];
+                     $created = $item['created'];
+                     $original_nid = $item['original_nid'];
+                     $original_language = $item['original_language'];
+                     $orgLangKey = $item['orgLangKey'];
+                     
+                     $block['content'] = theme('issue_information',$nid, $created, $postedby, $subject, $area, $detail, $original_nid, $original_language, $orgLangKey);
+                     }
+            }
+            return $block;
+    }
+}
+
+function issue_theme($existing, $type, $theme, $path) {
+    return array(
+        'issue_results' => array(
+            'template' => 'issue_results',
+            'arguments' => array('nid' => NULL, 'cdebate' => NULL,'cresource'=>NULL,'cpundit'=>NULL,'allowvotes'=>NULL),
+        ), 'issue_details' => array(
+            'template' => 'issue_details_tab',
+            'arguments' => array('nid' => NULL, 'votes' => NULL),
+        ), 'issue_answer' => array(
+            'arguments' => array('form' => NULL),
+        ),'issue_information' => array(
+            'arguments' => array('nid' => NULL, 'created' => NULL, 'postedby' => NULL, 'subject' => NULL, 'area' => NULL, 'detail' => NULL, 'original_nid' => NULL, 'original_language' => NULL, 'orgLangKey' => NULL),
+        ),'issue_result_analysis' => array(
+            'arguments' => array('nid' => NULL),
+        ),'issue_debate_list' => array(
+            'arguments' => array('nid' => NULL),
+        ),'issue_resource_list' => array(
+            'arguments' => array('nid' => NULL),
+        ),'issue_detail_wrapper' => array(
+            'template' => 'issue_detail_wrapper',
+            'arguments' => array('nid' => NULL, 'result_analysis' => NULL, 'debate_list' => NULL, 'resource_list' => NULL),
+        ),'single_debate_template' => array(
+            'arguments' => array('debItems' => array()),
+        ),'forum_reply_template' => array(
+            'arguments' => array('repItems' => array()),
+        ),'single_resource_template' => array(
+            'arguments' => array('debItems' => array()),
+        ),
+
+    );
+}
+
+function issue_tab_content($nid='',$type=''){
+//panel_content($nid, $type);
+     switch ($type) {
+     case 'details':
+
+       $block = module_invoke('issue', 'block', 'view','issue-4');
+             print $block['content'];
+
+         break;
+
+     case 'debate':
+        
+       $block = module_invoke('issue', 'block', 'view','issue-1');
+             print $block['content'];
+
+         break;
+
+     case 'resource':
+        
+       $block = module_invoke('issue', 'block', 'view','issue-2');
+             print $block['content'];
+
+         break;
+      case 'guru':
+          $block = module_invoke('issue', 'block', 'view','issue-3');
+             print $block['content'];
+          break;
+      case 'report':
+
+       $block = module_invoke('issue', 'block', 'view','issue-0');
+             print $block['content'];
+
+         break;
+     }
+exit;
+}
+// debate tab
+function issue_debate_tab($qid = ''){
+  
+     global $gSitePath, $user, $gDocPath, $base_root, $language;
+    $node=node_load($qid);
+    $langcode = $language->language;
+
+    // site url with default language
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+    //$gSitePath = $sitelink;
+
+    $inc_pans = '';
+    $wave = '';
+    $wave .= '<input type="hidden" name="mqid" value="'.$qid.'">';
+    //$wave .= panel_content();
+    $wave .= '<div id="waveerr"></div>
+                       <ul id="tabmenu" class="subtabs" >
+                                       <li><a class="" href="javascript:tabactive(\'dargs\',\'' . $sitelink . '\',\'' . $qid . '\')" id="tabdargs">Arguments</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'dreport\',\'' . $sitelink . '\',\'' . $qid . '\')" id="tabdreport">Analysis</a></li>
+
+                               </ul>
+                               <div id="rcontents" class="mytabs-container"></div>
+                               <script type="text/javascript">tabactive(\'dargs\',\'' . $sitelink . '\',\'' . $qid . '\')</script>';
+    return $wave;
+    $ans = load_options($qid);
+    //answers
+    $filter_list.='<select name="dfilt-ans" id="dfilt-ans" class="select-1"><option value="">Possible Answers</option>';
+    foreach ($ans as $list) {
+         $short_answer = get_short_answer($qid, $list['chorder']);
+         $answer = $short_answer!=''?$short_answer:$list['chtext'];
+         
+        $filter_list.='<option value="' . $list['chorder'] . '">' . $answer . '</option>';
+        $inc_pans.='<div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">' . $answer . '</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        </div>
+        <div class="clr"></div>
+    </div>';
+    }
+    $filter_list.='</select>';
+    //print_r($cnt);
+    $userCheckDebate = user_is_logged_in()!=''?'<a href="#newwavediv" onclick="" title="New Debate" class="floatbox"><input name="" type="button" class="submit-debate-btn"/></a>':'<a href="#"  title="New Debate" onclick="check_popup_login()"><input name="" type="button" class="submit-debate-btn"/></a>';
+    //$chkuserOnclick = user_is_logged_in()==''?'onclick="check_popup_login()"':'';
+    $wave .= '
+
+     <div class=" debate-round-tab-outer">
+              	<div class="form-part-top">
+                    <div class="form-m1">Filter By :<br />
+<select name="dfilt-sup" id="dfilt-sup" class="select-2"><option value="0">+/-</option><option value="1">+</option><option value="2">-</option></select></div>
+                    <div class="form-m2"><br/>
+                    ' . $filter_list . '
+                    </div>
+                    <div class="form-m3"><br/>
+                    <select name="dfilt-sort" id="dfilt-sort" class="select-2"><option value="0">Sort By :</option>
+                    <option value="1">Most Recent</option>
+                     <option value="2">Most Support</option>
+                    </select>
+
+                    </div>
+                    <div class="form-m4" align="right">&nbsp;<br />
+'.$userCheckDebate.'
+
+                </div>
+
+                	<div class="clr"></div><br />
+
+                    <div class="clr"></div>
+
+
+		<div class="comment" id="newwavediv" style="display:none"><div class="popup-debate-new">';
+    if (!empty($user->uid)) {
+        $wave .= '	<form  id="newwaveform" class="newwave" action="' . $sitelink . 'issues/debate/save" method="post" accept-charset="utf-8">
+	<input type="hidden" name="action" value="new"/><input type="hidden" name="qid" value="' . $qid . '"/>
+<div class="new-debate-wrapper">
+  	<div class="form-outer-debate">
+    	<div class="fm-1"> Please Follow the <a href="#">Principles and Guidelines.</a></div>
+        <div class="fm-2"><input name="wtitle" id="wtitle" type="text" value="Title" /> </div>
+    <div class="clr"></div>
+    </div>
+
+    <div class="form-outer-debate">
+    	<div class="fm-1"> All debates should be:<br />
+            <ul>
+            <li>Concise</li>
+            <li>Etc</li>
+            </ul>
+</div>
+        <div class="fm-2"><textarea name="wcon" id="wcon"   cols="10" rows="6">Enter text here</textarea></div>
+<!--<div ><b>Private Reply :</b> [Only followers can do reply]</div>
+	<p><select name="wprivate" id="wprivate">
+	<option value="0"> Disabled</option>
+	<option value="1"> Enabled  </option>
+	</select></p>		-->
+
+    <div class="clr"></div>
+    </div>
+' . $inc_pans . '
+    <div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">&nbsp</div>
+        <div class="fm-2-right" align="right"><input name="" type="button" onclick="wave_form(this);" class="submit-debate-btn"/></div>
+
+        </div>
+
+    <div class="clr"></div>
+    </div>
+
+
+  <div class="clr"></div>
+  </div>
+
+</form>';
+    } else {
+        $wave .= '<div align="center"><b>'.t('Please log in to participate in the debate').'</b></div>';
+    }
+    $wave .= ' </div></div>
+	<div><div id="qwave" class="">';
+
+
+    $wave .= list_debate($qid, 1);
+
+
+    $wave .= '</div>
+	';
+
+    //$wave .= list_debate($qid, 'debate');
+    return $wave;
+    
+
+
+
+    
+}
+
+// resource tab
+function issue_resource_tab($qid = ''){
+    //require('issue.pages.inc');
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $node=node_load($qid);
+    $type = 'innews';
+    $ans = load_options($qid);
+
+// site url with selected language
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+    //$gSitePath = $sitelink;
+
+    $output .= '<input type="hidden" name="mqid" value="'.$qid.'">';
+    $output .= '<div id="waveerr"></div>
+                       <ul id="tabmenu" class="subtabs" >
+                                       <li><a class="" href="javascript:tabactive(\'In\',\'' . $sitelink . '\',\'' . $qid . '\')" id="tabIn">'.t('In the News').'</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'M\',\'' . $sitelink . '\',\'' . $qid . '\')" id="tabM">'.t('Multimedia').'</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'F\',\'' . $sitelink . '\',\'' . $qid . '\')" id="tabF">'.t('Facts').'</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'resreport\',\'' . $sitelink . '\',\'' . $qid . '\')" id="tabresreport">'.t('Analysis').'</a></li>
+
+                               </ul>
+                               <div id="rcontents" class="mytabs-container"></div>
+                               <script type="text/javascript">tabactive(\'In\',\'' . $sitelink . '\',\'' . $qid . '\')</script>';
+    return $output;
+    //answers
+    $filter_list.='<select name="rfilt-ans" id="rfilt-ans" class="select-1"><option value="">'.t('Possible Answers').'</option>';
+    foreach ($ans as $list) {
+
+        $short_answer = get_short_answer($qid, $list['chorder']);
+        $answer = $short_answer!=''?$short_answer:$list['chtext'];
+
+        $filter_list.='<option value="' . $list['chorder'] . '">' . $answer . '</option>';
+        $inc_pans.='<div class="form-outer-debate">
+    	<div class="fm-1">&nbsp;</div>
+        <div class="fm-2">
+        <div class="fm-2-left">' . $answer . '</div>
+        <div class="fm-2-right"><input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/><select  name="sup_opp[]"><option value="0">Neutral</option><option  value="1">Supports</option><option value="2">Oppose</option></select></div>
+        </div>
+        <div class="clr"></div>
+    </div>';
+    }
+    $filter_list.='</select>';
+    //print_r($cnt);
+    if(user_is_logged_in ())
+        $rbutton='<a href="javascript:void(0);" onclick="javascript:loadresource(\'' . $sitelink . 'debate/resource/new/' . $qid . '\',\'Add\');" title="New Debate"><input name="" type="button"   class="submit-debate-btn"/></a>';
+    else
+        $rbutton='<a href="javascript:void(0);" onclick="javascript:check_popup_login();" title="New Debate"><input name="" type="button"   class="submit-debate-btn"/></a>';
+
+    $output .= '
+
+     <div class=" debate-round-tab-outer">
+              	<div class="form-part-top">
+                    <div class="form-m1">Filter By :
+<select name="rfilt-sup" id="rfilt-sup" class="select-2"><option value="0">+/-</option><option value="1">+</option><option value="2">-</option></select></div>
+                    <div class="form-m2"><br/>
+                    ' . $filter_list . '
+                    </div>
+                    <div class="form-m3"><br/><input type="hidden" name="rtype" id="rtype" value="' . $type . '" />
+                    <select name="rfilt-sort" id="rfilt-sort" class="select-2"><option value="0">Sort By :</option>
+                    <option value="1">Most Recent</option>
+                     <option value="2">Most Support</option>
+                    </select>
+
+                    </div>
+                    <div class="form-m4" align="right">&nbsp;<br />'.$rbutton.'</div>
+
+                </div>
+
+                	<div class="clr"></div><br />
+                                    <div class="clr"></div> <div id="resfilter">';
+
+    switch ($type) {
+        case 'innews':
+            $output.= resource_innews($qid, 1);
+            break;
+        case 'media':
+
+            $output.= resource_media($qid);
+            break;
+        case 'facts':
+
+
+            $output.= resource_innews($qid, 3);
+            break;
+        default:
+            $output = '<div class="messages warning">No Action Found!</div>';
+            break;
+    }
+
+    $output.='</div></div>';
+
+    if (isAjax ())
+        echo $output;
+    else
+        return $output;
+}
+
+function issue_details_tab($nid=''){
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    // set parent node(tnid) here
+    $issueId = $nid;
+    $tnid = get_tnid($nid);
+    $nid = $tnid;
+
+    $currLangIssue = node_load($issueId);
+
+    $node=node_load($nid);
+    $debatecnt=db_result(db_query("SELECT COUNT(*) from {node} where type='forum' AND qid=$nid"));
+    $numresource = db_result(db_query("SELECT COUNT(*) from {node} where type='forum' AND qid=$nid"));
+      
+    //print_r($node);
+        $bubble = load_bubble($node->uid);
+            $medal = updateProfileBadge($node->uid);
+            $section = load_taxonomy($nid,1);
+            $output.= '
+                       <div class="">
+<div  class="details-left">
+ <span class="profile-gray">Context</span> :' . $currLangIssue->body . '
+     <br/>
+     <span class="profile-gray">Section </span>:' . $section . '
+     </div>
+<div style="float:left;">
+<div class="profile-lefthm">
+<span class="profile-gray">Byline: </span>
+<br />
+' . $bubble . '
+<div class="clr"></div>
+<div>
+
+<span class="profile-gray">Date Created </span> : ' .format_date($node->created,"custom","D j M Y") . '  <br />
+<span class="profile-gray">Number of Votes </span>:  ' . $node->vote . '<br />
+<span class="profile-gray">Number of Forum Posts</span> : ' . $debatecnt . '<br />
+<span class="profile-gray">Number of Resources </span> :  ' . $numresource . '<br />
+
+</div>
+</div>
+
+</div><div class="clr"></div><br />
+
+
+
+</div>';
+             
+
+return $output;
+  // return theme('issue_details', $nid);
+}
+
+function issue_pundit_tab($qid=''){
+
+   //	$output='sample content Gurus';
+            $profileBadges = getAnsweredUsers($qid);
+
+            $output1 = '';
+            if (count($profileBadges) > 0) {
+
+                $pat = $gSitePath . drupal_get_path('module', 'profile');
+                foreach ($profileBadges as $profile) {
+                  $details=load_user($profile['uid']);
+                   $output1.=load_user_badge($profile['uid']);
+                    $output1 .= '<div class="clr"></div><br/>';
+                }
+            } else {
+                $output1 = "<div class='messages warning'>".t('No Pundit(s) found for this issue')."</div>";
+            }
+            $output = $output1;
+
+return $output;
+
+}
+function load_taxonomy($nid=''){
+
+     global $gSitePath, $user, $gDocPath, $base_root;
+       $arrcategories = taxonomy_node_get_terms($nid);
+    foreach($arrcategories as $catterm) {
+        $cattermid = $catterm->tid;
+        break;
+    }
+  // get category for node
+  //$terms = get_quest_taxonomy($nid);
+    $terms = get_question_categories($nid);
+  if($terms){
+      $category .= $terms;
+//  foreach($terms as $term){
+//      $tid = $term->tid;
+//      //check parent
+//      $parent = taxonomy_get_parents($tid);
+//      $children = taxonomy_get_children($tid);
+//      //$name = '<a title="'.$term->name.'" rel="tag" href="'.$gSitePath.'taxonomy/term/'.$tid.'">'.$term->name.'</a>';
+//      if(empty($parent)){
+//          //parent
+//          $catPath = 'searchquestion?txt_search=&cid='.$tid;
+//          $category.= '<div class="butb"><div class="butb-left"></div><div class="butb-bg"><a title="'.$term->name.'" rel="tag" href="'.$gSitePath.$catPath.'">'.$term->name.'</a></div><div class="butb-right"></div></div>';
+//      }else if(!empty($parent)&&!empty($children)){
+//          //first level
+//         //echo '<pre>'; print_r($parent);
+//          $cid = $pid->tid;
+//          $catPath = 'searchquestion?txt_search=&cid=' . $cid. '&scid='.$tid;
+//          $category.= '<div class="butb"><div class="buty-left"></div><div class="buty-bg"><a title="'.$term->name.'" rel="tag" href="'.$gSitePath.$catPath.'">'.$term->name.'</a></div><div class="buty-right"></div></div>';
+//      }else if(!empty($parent)&&empty($children)){
+//          //second level
+//          $fLevel = taxonomy_get_parents($parent->tid);
+//          $cid = $fLevel->tid;
+//          $sid = $parent->tid;
+//          $catPath = 'searchquestion?txt_search=&cid=' . $cid. '&scid='.$sid.'&sscid='.$tid;
+//          $category.= '<div class="butb"><div class="butg-left"></div><div class="butg-bg"><a title="'.$term->name.'" rel="tag" href="'.$gSitePath.$catPath.'">'.$term->name.'</a></div><div class="butg-right"></div></div>';
+//
+//          $category.= '<br class="clr"/><br class="clr"/>';
+//      }
+//
+//  }
+
+  }else{
+      $category.= 'No associated categories.';
+  }
+  //  print render_view_page(2, $cattermid);
+    ///new tech
+  
+ //$node_content = node_view(node_load($nid));
+//$vars['node_content'] = $node_content;
+//print_r($node_content);
+//print drupal_render($node_content->field_tags);
+  
+    $node=node_load($nid);
+    if (module_exists('taxonomy')) {
+        $terms = taxonomy_link('taxonomy terms', $node);
+       $html=theme('links', $terms, array('class' => 'node-terms'));
+    } else {
+          $html= 'No associated categories.';
+    }
+
+    //return $html;
+    return $category;
+}
+
+
+function issue_view_results(&$nid, $teaser, $page, $block) {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    // Count the votes and find the maximum
+  $node=node_load($nid);
+  $tnid = get_tnid($nid);
+    // $total_votes = 0;
+    // $max_votes = 0;
+    // foreach ($node->choice as $choice) {
+//    if (isset($choice['chvotes'])) {
+//      $total_votes += $choice['chvotes'];
+//      $max_votes = max($max_votes, $choice['chvotes']);
+//    }
+//  }
+//  $poll_results = '';
+//echo $node->allowvotes; exit;
+
+    // get debate, resource, pundit counts
+    $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$tnid'"));
+    $resourceCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '2' AND field_ref_qid_nid = '$tnid'"));
+    $punditCount = count(getAnsweredUsers($nid));
+    return theme('issue_results', $nid, t($debateCount),t($resourceCount),t($punditCount),$node->allowvotes);
+}
+
+//function theme_issue_results($title='',$votes=''){
+//
+//    $output = '<div id="philquotes-text">'. t($title)
+//.'</div><div id="philquotes-origin">' . t($votes) . '</div>';
+//return $output;
+//}
+//function template_preprocess_issue_results(&$variables) {
+//
+//  $path = base_path() . path_to_theme() . '/';
+//  $variables['path'] = $path;
+//}
+//
+//function issue_preprocess_block(&$vars) {
+//
+// global $gSitePath, $user, $gDocPath, $base_root, $base_path, $saaais, $apikey;
+//   $path = base_path() . path_to_theme() . '/';
+//    $vars['path'] = $path;
+// return $vars;
+//}
+
+/**
+ * Implementation of hook_load().
+ *
+ * Load the votes and issue-specific data into the node object.
+ */
+
+
+function issue_load($node) {
+    $issue = db_fetch_object(db_query('SELECT * FROM {issue} WHERE nid = %d', $node->nid));
+    $result = db_query('SELECT cid, weight, label, writein FROM {issue_choices} WHERE nid = %d ORDER BY weight', $node->nid);
+    $issue->choice = array();
+    $issue->writein_choices = 0;
+    while ($choice = db_fetch_array($result)) {
+        $issue->choice[$choice['cid']] = $choice;
+        if ($choice['writein'] == 1) {
+            $issue->writein_choices++;
+        }
+    }
+    $issue->choices = count($issue->choice);
+
+    $result = db_query("SELECT value FROM {votingapi_cache} WHERE content_type = 'issue' AND content_id = %d AND tag = '_issue' AND function = 'total_votes'", $node->nid);
+    if ($cache = db_fetch_object($result)) {
+        // Found total votes in the cache.
+        $issue->votes = $cache->value;
+    } else {
+        $issue->votes = 0;
+    }
+
+    list($issue->voted, $issue->cancel_vote) = _issue_user_voted($node->nid);
+    return $issue;
+}
+
+/**
+ * Implementation of hook_validate().
+ *
+ * Validate the editing of an issue node. 
+ */
+function issue_validate($node, &$form) {
+    // Use form_set_error for any errors.
+    $node->choice = array_values($node->choice);
+
+    // TODO: verify if this hack is still needed in Drupal 6.
+    // Start keys at 1 rather than 0.
+    array_unshift($node->choice, '');
+    unset($node->choice[0]);
+
+    // Check for at least two choices.
+    $real_choices = 0;
+
+    // TODO: take out _POST
+    foreach ($_POST['choice'] as $i => $choice) {
+        if ($choice['label'] != '') {
+            $real_choices++;
+        }
+    }
+
+    if ($real_choices < 2) {
+        form_set_error("choice][$real_choices][label", t('You must fill in at least two choices.'));
+    }
+
+    // Validate max choices since it has #DANGEROUS_SKIP_CHECK set to true.
+    if ($node->settings['max_choices'] < 0) {
+        form_set_error('settings][max_choices]', t('Maximum choices must be a non-negative integer.'));
+    }
+
+    if ($node->settings['max_choices'] > $real_choices) {
+        form_set_error('settings][max_choices]', t('Maximum choices cannot be larger than the number of choices submitted.'));
+    }
+
+    // Validate dates.
+    if (!empty($node->settings['start_date']) && strtotime($node->settings['start_date']) <= 0) {
+        form_set_error('settings][start_date', t('You have to specify a valid starting date.'));
+    }
+    if (!empty($node->settings['end_date']) && strtotime($node->settings['end_date']) <= 0) {
+        form_set_error('settings][end_date', t('You have to specify a valid ending date.'));
+    }
+    if (!empty($node->settings['end_date']) && $node->settings['end_date'] < $node->settings['start_date']) {
+        form_set_error('settings][end_date', t('Ending date cannot be before the starting date.'));
+    }
+}
+
+/**
+ * Implementation of hook_insert().
+ *
+ * This is called upon node creation.
+ */
+function issue_insert($node) {
+
+    // Insert the choices.
+    _issue_insert_choices($node);
+}
+
+/**
+ * Implementation of hook_update().
+ *
+ * This is called upon node edition.
+ */
+function issue_update($node) {
+
+    db_query("UPDATE {issue} SET active = %d, max_choices = %d, algorithm = '%s', use_list = %d, show_votes = %d, start_date = '%s', end_date = '%s', writeins = %d, show_writeins = %d, question = '%s' WHERE nid = %d", !$node->settings['close'], $node->settings['max_choices'], $node->settings['algorithm'], $node->settings['use_list'], $node->settings['show_votes'], $node->settings['start_date'] ? strtotime($node->settings['start_date']) : 0, $node->settings['end_date'] ? strtotime($node->settings['end_date']) : 0, $node->settings['writeins'], $node->settings['show_writeins'], isset($node->question) ? $node->question : '', $node->nid);
+
+    _issue_insert_choices($node);
+    votingapi_recalculate_results('issue', $node->nid);
+}
+
+/**
+ * Implementation of hook_delete().
+ */
+function issue_delete($node) {
+    db_query('DELETE FROM {issue} WHERE nid = %d', $node->nid);
+    db_query('DELETE FROM {issue_choices} WHERE nid = %d', $node->nid);
+    db_query('DELETE FROM {issue_electoral_list} WHERE nid = %d', $node->nid);
+
+    // TODO: These should be converted to a votingapi method eventually.
+    db_query("DELETE FROM {votingapi_vote} WHERE content_id = %d AND content_type = 'issue'", $node->nid);
+    db_query("DELETE FROM {votingapi_cache} WHERE content_id = %d AND content_type = 'issue'", $node->nid);
+}
+
+// get taxonomy id
+function get_taxonomy_id($module = '', $name = ''){
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE module = '%s'", $module));
+    $tid = db_result(db_query("SELECT tid FROM {term_data} WHERE vid = '%d' AND name = '%s'", $vid, $name));
+    return $tid;
+}
+
+// list debate
+function list_debate($qid='', $type='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
+    $curLanguage = $language->language;
+    $wave = '';
+    $click = '';
+//    $sortin = 'ORDER BY did DESC';
+//    $cond = '';
+//    extract($_REQUEST);
+//    if (isset($sort) && $sort == 1)
+//        $sortin = ' ORDER BY f.created DESC';
+//    elseif (isset($sort) && $sort == 2)
+//        $sortin = ' ORDER BY f.strength DESC';
+//    if (isset($ans) && !empty($ans))
+//        $cond.=" AND do.paid='$ans'";
+//    if (isset($sup) && $sup > 0)
+//        $cond.=" AND do.ans_val='$sup'";
+//
+//    if (empty($cond))
+//        $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(f.agree,0) as cntagree,IFNULL(f.disagree,0) as cntdisagree from {debate} as f join {user_profile} as u on u.uid=f.uid where f.qid='$qid' AND type='$type' AND status='1' $sortin ";
+//    else
+//        $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(f.agree,0) as cntagree,IFNULL(f.disagree,0) as cntdisagree from {debate_options} as do join {debate} as f on do.did=f.did join {user_profile} as u on u.uid=f.uid where f.qid='$qid' AND type='$type' AND status='1' $cond  $sortin ";
+//    $cnt = ExecuteQuery($query, "select");
+
+    // load debate
+    
+    $sorting = 'ORDER BY f.nid DESC';
+    $cond = '';
+    extract($_REQUEST);
+    if (isset($sort) && $sort == 1){
+        $sorting = 'ORDER BY n.created DESC';
+    }elseif (isset($sort) && $sort == 2){
+        $sorting = ' ORDER BY c.field_strength_value DESC';
+    }
+    if (isset($ans) && !empty($ans)){
+        $cond.=" AND do.chorder='$ans'";
+    }
+    if (isset($sup) && $sup > 0){
+        $cond.=" AND do.ans_val='$sup'";
+    }
+    $tid = get_taxonomy_id('forum', 'Debate');
+    //$sql = "SELECT f.nid FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
+   
+   if (empty($cond))
+  $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid JOIN {debate_options} as do ON n.nid = do.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+   else
+   $sql = "SELECT DISTINCT(f.nid) FROM  {debate_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
+
+   // forum for translated languages
+   $issueId = $qid;
+   $tnid = get_tnid($qid);
+   $qid = $tnid;
+
+   $nodes = db_query($sql, $tid, $qid);
+   $count = db_result(db_query($sql, $tid, $qid));
+
+    if ($count>0) {
+        $i=0;
+        while ($node = db_fetch_object($nodes)) {
+            $forum = node_load( array('nid' => $node->nid, 'status' => '1'));
+            ///*******************/
+            // translated content for title and body
+            // get forum default language id
+            $translated = get_translated_content_forum($issueId, $forum->nid, $curLanguage);
+            $forum->title = $translated->title;
+            $forum->body = $translated->body;
+            ///*******************/
+
+            $bg = $i % 2;
+            if ($bg)
+                $setbg = 'back-col';
+            else
+                $setbg='';
+            $i++;
+            $account = user_load($forum->uid);
+
+
+
+            // vote agree, disagree calculation
+            $voteUp = 0;
+            $voteDown = 0;
+            $criteriaUpNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+            $criteriaDownNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+            $voteUp = vote_up_down_count($criteriaUpNode);
+            $voteDown = vote_up_down_count($criteriaDownNode);
+            $sql = db_query("SELECT cid FROM {comments} WHERE nid = '%d'", $forum->nid);
+            while($row = db_fetch_object($sql)){
+                $criteriaUp = array('content_type' => 'comment',
+                                   'content_id' => $row->cid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+                $criteriaDown = array('content_type' => 'comment',
+                                   'content_id' => $row->cid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+                $voteUp += vote_up_down_count($criteriaUp);
+                $voteDown += vote_up_down_count($criteriaDown);
+            }
+
+            //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
+            $query = "select * from {debate_options} a join  {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' and b.nid='$qid' ORDER BY b.chorder";
+            $strnth = ExecuteQuery($query, "select");
+            $strength = '';
+            foreach ($strnth as $list) {
+                $short_answer = get_short_answer($qid, $list['chorder']);
+                $ans = $short_answer!=''?$short_answer:$list['chtext'];
+
+                switch ($list['ans_val']) {
+                    case 0:
+                        $strength.='<div class="bottpart">
+                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+                                <div class="green-box">' . $ans . '</div>
+                                     <div class="clr"></div>
+                                     </div>';
+                        break;
+                    case 1:
+                        $strength.='<div class="bottpart">
+                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+                                <div class="green-box">' . $ans . '</div>
+                                     <div class="clr"></div>
+                                     </div>';
+                        break;
+                    case 2:
+                        $strength.='<div class="bottpart">
+                                <div class="pink"><em>&nbsp;&nbsp;-</em></div>
+                                <div class="pink-box">' . $ans . '</div>
+                                     <div class="clr"></div>
+                                     </div>';
+                        break;
+                }
+            }
+
+// date posted, last activity
+            $last_timestamp = db_result(db_query("SELECT timestamp FROM {comments} WHERE nid = '%d' ORDER BY cid DESC LIMIT 0,1", $forum->nid));
+
+            $posted = date("F d Y H:i:s", $forum->created);
+            $last_activity = $last_timestamp!=''?date("F d Y H:i:s", $last_timestamp):$posted;
+// strenght weak calculation
+            $strCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 1, $forum->nid));
+            $weakCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 0, $forum->nid));
+
+            $wave.='         <div class="debate-summary-wrapper" >
+<div class="deb-center">
+<div class="leftpartside">
+<div class="toppart"><p>'.$voteUp.'</p>
+
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+<div class="toppart2"><p>'.$voteDown.'</p>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+
+</div>
+
+</div>
+
+
+<div class="centerpartside-out">
+<div class="centerpartside-top">
+<div class="centerpartside">
+<h4>'.l(t($forum->title), 'issues/debate/' . $issueId . '/' . $translated->nid , array('attributes' => array('class' => 'debate-links'))).'</h4><br>
+' . myTruncate($forum->body, '25', '', '..') . '
+</div>
+<div class="rightpartside">
+<a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
+
+</div>
+<div class="clr"></div>
+
+<div class="centerpartside-bottom">
+' . $strength . '
+
+<ul>
+
+
+<li>Posted : ' . $posted . ' </li>
+<div class="clr"></div>
+<li>Last Activity: ' . $last_activity . '</li>
+
+
+</ul>
+
+
+</div>
+
+
+<div class="clr"></div>
+
+</div>
+
+</div>
+<div class="deb-bott">
+</div>
+<div class="clr"></div>
+
+</div>
+
+<div class="clr"></div>
+';
+            // update points
+            $tForumId = get_tnid($forum->nid);
+            debate_roundup($tForumId);
+        }
+    } else {
+        $wave .= '
+	<div class="messages warning">
+
+	'.t('No Debate Posted Yet!!').'
+		</div>
+
+
+	';
+    }
+
+    return $wave;
+}
+
+function panel_content($qid = '', $type = '') {
+
+    global $gSitePath, $user, $gDocPath, $base_root;
+
+    //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+
+    //$type = $_REQUEST['type'];
+    $queryd = "SELECT qid, SUM(vote) as possiblevote FROM possible_answer where qid='" . $qid . "' GROUP BY qid";
+    $query_listd = db_query($queryd);
+    $fetvotd = db_fetch_object($query_listd);
+
+    $query_sugests = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='" . $qid . "' GROUP BY qid";
+    $query_sugestlistd = db_query($query_sugests);
+    $fetvotsugestbg = db_fetch_object($query_sugestlistd);
+    $totalvotesm = $fetvotd->possiblevote + $fetvotsugestbg->suggestv;
+    $vSql = "select * from {question} where status='1' and qid=$qid ";
+    $rlist = db_query($vSql);
+    $oListquest = db_fetch_object($rlist);
+
+    $query = " SELECT (SELECT count( * ) FROM forum_wavelets AS w WHERE w.wid = f.fid GROUP BY w.wid ) AS wcnt FROM forum_wave AS f WHERE f.qid = '$qid' ";
+    $list = ExecuteQuery($query, "select");
+    $debatecnt = 0;
+    foreach ($list as $fcnt) {
+
+        $debatecnt = $debatecnt + $fcnt['wcnt'];
+    }
+
+
+    $numresource = db_result(db_query("SELECT COUNT(*) from {resource} where qid=$qid"));
+    $query_user = "SELECT * FROM users where uid='$oListquest->uid' ";
+    $query_userinfo = db_query($query_user);
+    $fetuserlist = db_fetch_object($query_userinfo);
+    switch ($type) {
+
+        case "debate":
+            $output = '
+			<div id="waveerr"></div>
+                       <ul id="tabmenu" class="subtabs" >
+                                       <li><a class="" href="javascript:tabactive(\'dargs\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabdargs">Arguments</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'dreport\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabdreport">Analysis</a></li>
+
+                               </ul>
+                               <div id="rcontents" class="mytabs-container"></div>
+                               <script type="text/javascript">tabactive(\'dargs\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';
+            break;
+        case "resource":
+
+            $output = '
+			<div id="waveerr"></div>
+                       <ul id="tabmenu" class="subtabs" >
+                                       <li><a class="" href="javascript:tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabIn">In the News</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'M\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabM">Multimedia</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'F\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabF">Facts</a></li>
+                                       <li><a class="" href="javascript:tabactive(\'resreport\',\'' . $gSitePath . '\',\'' . $qid . '\')" id="tabresreport">Analysis</a></li>
+
+                               </ul>
+                               <div id="rcontents" class="mytabs-container"></div>
+                               <script type="text/javascript">tabactive(\'In\',\'' . $gSitePath . '\',\'' . $qid . '\')</script>';
+
+            break;
+        case "guru":
+            //	$output='sample content Gurus';
+            $profileBadges = getAnsweredUsers($qid);
+
+            $output1 = '';
+            if (count($profileBadges) > 0) {
+
+                $pat = $gSitePath . drupal_get_path('module', 'profile');
+                foreach ($profileBadges as $profile) {
+                  $details=load_user($profile['uid']);
+                   $output1.=load_user_badge($profile['uid']);
+                    $output1 .= '<div class="clr"></div><br/>';
+                }
+            } else {
+                $output1 = "No Users available";
+            }
+            $output = $output1;
+
+            break;
+        case "Info":
+            $bubble = load_bubble($fetuserlist->uid);
+            $medal = updateProfileBadge($fetuserlist->uid);
+            $section = load_qcat($qid,1);
+            $output.= '
+                       <div class="">
+<div  class="details-left">
+ <span class="profile-gray">Context</span> :' . $oListquest->context . '
+     <br/>
+     <span class="profile-gray">Section </span>:' . $section . '
+     </div>
+<div style="float:left;">
+<div class="profile-lefthm">
+<span class="profile-gray">Byline: </span>
+<br />
+' . $bubble . '
+<div class="clr"></div>
+<div>
+
+<span class="profile-gray">Date Created </span> : ' . date("D j M Y", strtotime($oListquest->date_added)) . '  <br />
+<span class="profile-gray">Number of Votes </span>:  ' . $totalvotesm . '<br />
+<span class="profile-gray">Number of Forum Posts</span> : ' . $debatecnt . '<br />
+<span class="profile-gray">Number of Resources </span> :  ' . $numresource . '<br />
+
+</div>
+</div>
+
+</div><div class="clr"></div><br />
+
+
+
+</div>
+		';
+            break;
+        case "Politician":
+            $output = 'sample content Politician';
+            break;
+
+        case "news":
+            $output = 'sample content news';
+            break;
+        case "multimedia":
+            $output = 'sample content multimedia';
+            break;
+        case "facts":
+            $output = 'sample content facts';
+            break;
+        default:
+            $output = '
+			  <ul class="subtabs" id="tabs">
+				<li class="current"><a href="javascript:loadReport(1,\'' . $gSitePath . '\',' . $qid . ');"  id="tab1">'.t('Votes').'</a></li>
+				<li ><a href="javascript:loadReport(2,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab2">'.t('Overtime').'</a></li>
+				<li ><a href="javascript:loadReport(3,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab3">'.t('By Area').'</a></li>
+			</ul>
+			   <div class="mytabs-container" id="tabs-container"><iframe style="height: 350px;" id="frmGoogle" scrolling="no" src="' . $gSitePath . '/qlite/percent/' . $qid . '" border="0" frameborder="0" width="100%"></iframe></div>
+			<script type="text/javascript">loadReport(1,\'' . $gSitePath . '\',' . $qid . ')</script>';
+            break;
+    }
+    echo $output;
+}
+
+
+function issue_report_tab($qid = ''){
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $output = '
+			  <ul class="subtabs" id="tabs">
+				<li class="current"><a href="javascript:loadReport(1,\'' . $gSitePath . '\',' . $qid . ');"  id="tab1">'.t('Votes').'</a></li>
+				<li ><a href="javascript:loadReport(2,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab2">'.t('Overtime').'</a></li>
+				<li ><a href="javascript:loadReport(3,\'' . $gSitePath . '\',' . $qid . ');" class="" id="tab3">'.t('By Area').'</a></li>
+			</ul>
+			   <div class="mytabs-container" id="tabs-container"><iframe style="height: 350px;" id="frmGoogle" scrolling="no" src="' . $gSitePath . '/qlite/percent/' . $qid . '" border="0" frameborder="0" width="100%"></iframe></div>
+			<script type="text/javascript">loadReport(1,\'' . $gSitePath . '\',' . $qid . ')</script>';
+    return $output;
+}
+
+function add_vote_notify($form, &$form_state){
+    global $user;
+    /*New SET NOTIFY LOG*/
+    //echo '<pre>'; print_r($form);
+    $nid = $form['#nid'];
+    $choice = $form['#post']['choice'];
+    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+    $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $choice);
+    set_notify_log($user->uid, $nid, 'add_vote', $variable);
+    /*New SET NOTIFY LOG*/
+
+        _send_votenotify($nid);
+    increasepoints('2', $nid, '0');
+}
+
+function add_flag_notify($form, &$form_state){
+    global $user;
+    /*New SET NOTIFY LOG*/
+    //echo '<pre>'; print_r($form); exit;
+    $nid = $form['#parameters'][2]->oid;
+    $qtitle = $form['#parameters'][2]->title;
+    $variable = array('qid' => $nid, 'q_title' => $qtitle);
+    set_notify_log($user->uid, $nid, 'question_flag', $variable);
+    /*New SET NOTIFY LOG*/
+}
+
+function dates_range($date1, $date2) {
+if(empty($date1))
+    $date1=format_date(time(), 'custom', 'Y-m-d');
+if(empty($date2))
+      $date1=format_date(time(), 'custom', 'Y-m-d');
+
+    if ($date1 < $date2) {
+        $dates_range[] = $date1;
+        $date1 = strtotime($date1);
+        $date2 = strtotime($date2);
+        while ($date1 != $date2) {
+            $date1 = mktime(0, 0, 0, date("m", $date1), date("d", $date1) + 1, date("Y", $date1));
+            $dates_range[] = date('Y-m-d', $date1);
+        }
+    }
+    return $dates_range;
+}
+
+function _send_votenotify($qid='') {
+    global $gSitePath, $user, $gDocPath, $base_root;
+    $qry = "insert into notification (uid,follower_action,is_question,new_answer,node_id) values('" . $user->uid . "','1','1','1'," . $qid . "' ) ";
+
+    hm_mails($qid, '', 'vote_answer');
+}
+
+// short answer for issue
+function get_short_answer($nid = '', $chorder = ''){
+
+    $sql = db_query("SELECT short_answer FROM {short_answers} WHERE qid= '%d' AND chorder = '%d'", $nid, $chorder);
+    $short = db_fetch_object($sql);
+    $answers = $short->short_answer;
+    
+    return $answers;
+}
+
+// follow notify
+function add_follow_notify($form, &$form_state){
+    global $user;
+    /*New SET NOTIFY LOG*/
+    //echo '<pre>'; print_r($form); exit;
+    $target = $form['#parameters'][2]->uid;
+    $uid = $user->uid;
+    $variable = array('target_id' => $target);
+    set_notify_log($uid, '', 'user_follow', $variable);
+    /*New SET NOTIFY LOG*/
+}
+
+
+function add_subscription_notify($form, &$form_state){
+    global $user;
+    /*New SET NOTIFY LOG*/
+    //echo '<pre>'; print_r($form); exit;
+    $tid = $form['sid']['#value'];
+    $category = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '%d'", $tid));
+    $uid = $user->uid;
+    $variable = array('tid' => $tid, 'category' => $category);
+    set_notify_log($uid, '', 'category_follow', $variable);
+    /*New SET NOTIFY LOG*/
+}
+function chk_profile_complete($form, &$form_state){
+
+global $user;
+      ////////////question search vote added end here
+    //first time vote shows profile update popup
+    $ccnt=user_load(array('uid'=>$user->uid));
+
+    if($ccnt->prompt==1 &&  is_null($user->initpop)){
+        $user_data = array('initpop' =>'1');
+        user_save( $user , $user_data);
+    }
+}
+
+
+
+
+
+function getAnsweredUsers($question_id = NULL) {
+    /*   $query = "SELECT pav.uid, sav.uid
+      from suggest_answer_vote sav
+      INNER JOIN possible_answer_vote pav on sav.qid=pav.qid
+      where 1=1 AND pav.qid = '".$question_id."' OR  sav.qid = '".$question_id."'
+      order by  pav.uid"; */
+    $query = "SELECT  sav.uid from suggest_answer_vote sav
+			where  sav.qid ='" . $question_id . "' UNION
+			SELECT pav.uid
+			from poll_votes pav
+			where  pav.nid ='" . $question_id . "'";
+
+    $userids = ExecuteQuery($query, "select");
+    if (count($userids) <= 0) {
+        return $userids;
+    } else {
+        $Ids = array();
+        foreach ($userids as $userid) {
+            $Ids[] = $userid['uid'];
+        }
+        $separated = implode(",", $Ids);
+        $separated = '( ' . $separated . ')';
+
+        /*   $query = "SELECT bt.name as badgename, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
+          from profile_badges pb
+          INNER JOIN users u on pb.uid=u.uid
+          LEFT JOIN badge_types bt on  bt.id = pb.badge_type_id
+          WHERE 1=1 AND u.uid  IN".$separated;
+          $query = "SELECT up.image, pb.uid, pb.badge_type_id,  pb.post_count	,u.name
+          from profile_badges pb
+          INNER JOIN users u on pb.uid=u.uid
+          LEFT JOIN user_profile up on  up.uid = u.uid
+          WHERE 1=1 AND u.uid  IN" . $separated; */
+        $query = "(select ps.uid from {term_node} as qc join  {pundit_section} as ps on ps.cat_id=qc.tid join {users} as u on u.uid=ps.uid where u.status=1 AND qc.nid=$question_id AND ps.uid IN $separated group by ps.uid) union (select ps.uid from {term_node} as qc join  {pundit_section} as ps on ps.cat_id=qc.tid join {users} as u on u.uid=ps.uid where u.status=1 AND qc.nid=$question_id AND ps.uid IN $separated group by ps.uid) ";
+        $profileBadges = ExecuteQuery($query, "select");
+    }
+    return $profileBadges;
+}
+
+function suggest_answer_replacement($qid = ''){
+    
+    $query = "SELECT nid, SUM(nid) as possiblevote FROM poll_votes where nid='" . $qid . "' GROUP BY nid";
+    $query_list = db_query($query);
+    $fetvot = db_fetch_object($query_list);
+    $vot1 = $fetvot->possiblevote;
+
+    $query_sugest = "SELECT qid, SUM(vote) as suggestv FROM suggest_answer where qid='" . $qid . "' GROUP BY qid";
+    $query_sugestlist = db_query($query_sugest);
+    $fetvotsugest = db_fetch_object($query_sugestlist);
+    $vot2 = $fetvotsugest->suggestv;
+    $totalvotes = $vot1 + $vot2;
+
+    $vSqlsv = "select * from {vote_percent} where id='1' ";
+    $rlistbv = db_query($vSqlsv);
+    $oListquestbv = db_fetch_object($rlistbv);
+
+    $percent = $oListquestbv->percent / 100 * $totalvotes;
+    //echo $percent;
+    $tot = $percent * 100; 
+
+
+    $vsans = "select * from {suggest_answer} where  qid=$qid ";
+    $vslist = db_query($vsans);
+
+    while ($vlsistquest = db_fetch_object($vslist)) {
+        $answprcs = $vlsistquest->vote / 100 * $totalvotes;
+
+        $valuss = $answprcs * 100;
+       // $valuss = 2000;
+        if ($valuss > $tot) {
+            $insert_change = "insert into suggest_ans_changeids (qid,ans_id)Values('" . $qid . "','" . $vlsistquest->said . "') ";
+            $listchnge = db_query($insert_change);
+
+            $select_allv = "select * from suggest_answer_vote where answer_id=$vlsistquest->said  ";
+            $listam = db_query($select_allv);
+
+            while ($listamqry = db_fetch_object($listam)) {
+
+                $insert_white = "insert into suggest_ans_tmp (qid,uid,answer_id,vote,vote_date)Values('" . $qid . "','" . $listamqry->uid . "','" . $vlsistquest->said . "','" . $vlsistquest->vote . "','" . $listamqry->vote_date . "') ";
+                $qrylist = db_query($insert_white);
+            }
+            //echo $valuss;
+            //echo $vlsistquest->said;
+        }
+    }
+
+    $mysql_sug_rows = mysql_num_rows(db_query("select distinct(answer_id) from suggest_ans_tmp  "));
+
+
+    //echo $mysql_sug_rows;
+    //$vpans = "select * from {possible_answer} where  qid='" . $qid . "' order by vote desc limit 0,$mysql_sug_rows ";
+    $vpans = "select * from {poll_choices} where  nid='" . $qid . "' order by chvotes desc limit 0,$mysql_sug_rows ";
+
+    $vplist = db_query($vpans);
+
+    while ($vplistquest = db_fetch_object($vplist)) {
+        $insert_list_ids = "insert into possible_answer_changeids (qid,ans_id)Values('" . $qid . "','" . $vplistquest->chorder . "') ";
+        $qrylist_change = db_query($insert_list_ids);
+
+        $select_allvp = "select * from poll_votes where chorder= '$vplistquest->chorder' AND nid = '$qid'  ";
+        $listamp = db_query($select_allvp);
+
+        while ($listamqryamp = db_fetch_object($listamp)) {
+
+            $insert_whited = "insert into possible_answer_tmp (qid,uid,panswer_id,vote,vote_pdate)Values('" . $qid . "','" . $listamqryamp->uid . "','" . $vplistquest->paid . "','" . $vplistquest->vote . "','" . $listamqryamp->vote_pdate . "') ";
+            $qrylist = db_query($insert_whited);
+        }
+    }
+
+    $qry1 = db_query("select * from suggest_ans_changeids where qid ='" . $qid . "'");
+    $array1 = array();
+    while ($row1 = db_fetch_object($qry1)) {
+        $array1[] = $row1->ans_id;
+    }
+
+    $qry2 = db_query("select * from possible_answer_changeids where qid ='" . $qid . "' ");
+    while ($row2 = db_fetch_object($qry2)) {
+        $array2[] = $row2->ans_id;
+    }
+
+    for ($x = 0; $x < sizeof($array1); $x++) {
+        $array[] = $array1[$x] . " - " . $array2[$x];
+
+        $array1[$x] . " - " . $array2[$x];
+
+        $update_idss = db_query("update possible_answer_tmp set  panswer_id='$array1[$x]'  where panswer_id='$array2[$x]' ");
+
+
+        $updateval = db_query("update suggest_ans_tmp set  answer_id='$array2[$x]' where answer_id='$array1[$x]'");
+
+        $deletsug = db_query("delete from suggest_answer_vote where answer_id='$array1[$x]'");
+
+        $deletpos = db_query("delete from poll_votes where chorder='$array2[$x]' AND nid = '$qid'");
+
+        $rechange_list = db_query("select * from {poll_choices} where  chorder='" . $array2[$x] . "' AND nid = '$qid' ");
+
+        $rechg = db_fetch_object($rechange_list);
+        $rechg->chvotes;
+
+        $rechange_list_new = db_query("select * from {suggest_answer} where  said='" . $array1[$x] . "'  ");
+
+        $rechg_new = db_fetch_object($rechange_list_new);
+        $rechg_new->vote;
+        $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='3'";
+        $rs_mgmt = db_query($sel_user_cmt);
+        $list_content = db_fetch_object($rs_mgmt);
+
+        $vuser_ownersug = "select * from {users} where  uid='" . $rechg_new->uid . "'";
+        $userown = db_query($vuser_ownersug);
+        $ufet_qwn = db_fetch_object($userown);
+        $ufet_qwn->mail;
+        if ($usert->notify_etype == 1) {
+            $subject_proj = $list_content->subject;
+
+
+            //////////mail for suggest answer owner///////////////
+
+
+            $contentm = str_replace("#uname#", $ufet_qwn->name, $list_content->content);
+            $contentm = str_replace("#quest#", $oListquest->title, $contentm);
+            //echo  $contentm;
+
+            $mail_success = htmlmail_function($ufet_qwn->mail, $subject_proj, $contentm, '');
+        }
+        if ($usert->notify_itype == 1) {
+            $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $rechg_new->uid . "','1','1','" . $qid . "') ");
+        }
+        $update_ids = "update poll_choices set  chtext='$rechg_new->answer', chvotes='$rechg_new->vote'  where chorder='$array2[$x]' AND nid = '$qid' ";
+        $updateqry = db_query($update_ids);
+
+        $update_sug = "update suggest_answer set  answer='$rechg->chtext', vote='$rechg->chvotes',uid='$oListquest->uid' where said='$array1[$x]' ";
+        $updateqrys = db_query($update_sug);
+
+
+        /////////////Mail For question Author///////////
+
+
+        $vuser = "select * from {users} where  uid='" . $oListquest->uid . "'";
+        $username = db_query($vuser);
+        $ufet = db_fetch_object($username);
+        $ufet->mail;
+        if ($ufet->notify_etype == 1) {
+            $subject_projm = 'Heard Menatlity-Answer Has Been Replaced For Your Question';
+
+
+            $contentmown = str_replace("#uname#", $ufet->name, $list_content->content);
+            $contentmown .= str_replace("#quest#", $oListquest->title, $contentmown);
+            //	echo  $contentmown;
+
+            $mail_success = htmlmail_function($ufet->mail, $subject_projm, $contentmown, $from, '');
+
+
+            // $mail_success = htmlmail_function($ufet->mail,$subject_proj,$messpro_list,$from,'');
+        }
+        $delossld = "delete  from possible_answer_changeids where ans_id='" . $array2[$x] . "'";
+        $delssqry = db_query($delossld);
+        $deloldwds = "delete  from suggest_ans_changeids where ans_id='" . $array1[$x] . "'";
+        $delqrysss = db_query($deloldwds);
+        if ($ufet->notify_itype == 1) {
+            $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $ufet->uid . "','1','1','" . $qid . "') ");
+        }
+    }
+
+    $seltmp = db_query("select * from suggest_ans_tmp");
+
+    while ($tmp_rec = db_fetch_object($seltmp)) {
+
+        $insert_dumm = "insert into poll_votes (nid,uid,chorder) values ('" . $tmp_rec->qid . "','" . $tmp_rec->uid . "','" . $tmp_rec->answer_id . "','" . $tmp_rec->vote_date . "')";
+        $dumy_rec = db_query($insert_dumm);
+        //provocateur badge
+        provocateur($tmp_rec->qid, $tmp_rec->answer_id);
+        ///////////////////////mail notification for who voted answers ///////////////////////////////
+        $vusers = "select * from {users} where  uid='" . $tmp_rec->uid . "' ";
+        $usernames = db_query($vusers);
+        $ufets = db_fetch_object($usernames);
+        $ufets->mail;
+        if ($ufets->notify_etype == 1) {
+            $subject_projlist = 'Heard Menatlity-Answer Has Been Replaced ';
+
+
+            $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='3'";
+            $rs_mgmt = db_query($sel_user_cmt);
+            $list_content = db_fetch_object($rs_mgmt);
+            $contentmlist = str_replace("#uname#", $ufets->name, $list_content->content);
+            $contentmlist = str_replace("#quest#", $oListquest->title, $contentmlist);
+            // $contentm;
+
+            $mail_success = htmlmail_function($ufets->mail, $subject_projlist, $contentmlist, '');
+        }
+
+        if ($ufets->notify_itype == 1) {
+
+
+            $insert_notify = db_query("insert into notification (uid,new_answer,is_question,node_id) values('" . $tmp_rec->uid . "','1','1','" . $qid . "' ");
+        }
+        $deltmp = db_query("delete  from suggest_ans_tmp");
+    }
+
+    $seltmps = db_query("select * from possible_answer_tmp");
+
+    while ($tmp_recs = db_fetch_object($seltmps)) {
+
+        $insert_dumms = "insert into suggest_answer_vote (qid,uid,answer_id,vote_date) values ('" . $tmp_recs->qid . "','" . $tmp_recs->uid . "','" . $tmp_recs->panswer_id . "','" . $tmp_recs->vote_pdate . "')";
+        $dumy_recs = db_query($insert_dumms);
+
+        $deltmps = db_query("delete  from possible_answer_tmp");
+    }
+   
+}
+
+function get_quest_taxonomy($nid){
+  $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+  $result = db_query(db_rewrite_sql('SELECT t.tid, t.* FROM {term_data} t INNER JOIN {term_node} r ON r.tid = t.tid WHERE t.vid = %d AND r.nid = %d ORDER BY weight', 't', 'tid'), $vid, $nid);
+  $terms = array();
+  while ($term = db_fetch_object($result)) {
+    $terms[] = $term;
+  }
+  return $terms;
+}
+
+
+function get_question_categories($nid){
+    global $gSitePath;
+    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+    $csql = db_query("SELECT td.tid FROM {term_data} as td JOIN {term_hierarchy} as th ON td.tid = th.tid WHERE td.vid = '$vid' AND th.parent = 0");
+    while($cat = db_fetch_object($csql)){
+        $catVals[] = $cat->tid;
+    }
+    $cat = implode(",", $catVals);
+    $ncats = db_query("SELECT tid FROM {term_node} WHERE nid = '$nid' AND tid IN($cat)");
+    while($ncat = db_fetch_object($ncats)){
+        $cat = $ncat->tid;
+        
+        $ctitle = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$cat'"));
+        // parent categories
+        $catPath = 'searchquestion?txt_search=&cid='.$cat;
+        $category.= '<div class="butb"><div class="butb-left"></div><div class="butb-bg"><a title="'.$ctitle.'" rel="tag" href="'.$gSitePath.$catPath.'">'.$ctitle.'</a></div><div class="butb-right"></div></div>';
+        $scats = get_node_tree_child($cat, $nid);
+        foreach($scats as $scat){
+           
+            $sctitle = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$scat'"));
+            // first level categories
+            $scatPath = 'searchquestion?txt_search=&cid=' . $cat. '&scid='.$scat;
+            $category.= '<div class="butb"><div class="buty-left"></div><div class="buty-bg"><a title="'.$sctitle.'" rel="tag" href="'.$gSitePath.$scatPath.'">'.$sctitle.'</a></div><div class="buty-right"></div></div>';
+            $sscats = get_node_tree_child($scat, $nid);
+            foreach($sscats as $sscat){
+                
+                $ssctitle = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$sscat'"));
+                // second level categories
+                $sscatPath = 'searchquestion?txt_search=&cid=' . $cat. '&scid='.$scat.'&sscid='.$sscat;
+                $category.= '<div class="butb"><div class="butg-left"></div><div class="butg-bg"><a title="'.$ssctitle.'" rel="tag" href="'.$gSitePath.$sscatPath.'">'.$ssctitle.'</a></div><div class="butg-right"></div></div>';
+            }
+        }
+        $category .= '<br class="clr"/><br class="clr"/>';
+    }
+    return $category;
+}
+
+function get_node_tree_child($tid, $nid){
+    $childrenArray = taxonomy_get_children($tid);
+    $children = array();
+    $subcats = array();
+    foreach($childrenArray as $key=>$value){
+        $children[] = $key;
+    }
+    if(!empty($children)){
+    $scats = implode(",", $children);
+    $nscats = db_query("SELECT tid FROM {term_node} WHERE nid = '$nid' AND tid IN($scats)");
+    while($nscat = db_fetch_object($nscats)){
+        $subcats[] = $nscat->tid;
+    }
+    }
+    return $subcats;
+}
+
+
+
+function theme_issue_answer($form) {
+  // Change the button title to reflect the behavior when using JavaScript.
+  drupal_add_js('if (Drupal.jsEnabled) { $(document).ready(function() { $("#edit-poll-more").val("'. t('Add Another Answer') .'"); }); }', 'inline');
+
+  $rows = array();
+  $head = t('Possible Answers').' <br><small>'.t('Enter atleast two possible answers.'). t('Click Add Another Answer to enter more.').'</small>';
+  $headers = array(
+    $head,
+    
+  );
+
+  foreach (element_children($form) as $key) {
+    // No need to print the field title every time.
+    unset($form[$key]['chtext']['#title'], $form[$key]['chvotes']['#title']);
+
+    // Build the table row.
+    $row = array(
+      'data' => array(
+        array('data' => drupal_render($form[$key]['chtext']), 'class' => 'poll-chtext'),
+        
+      ),
+    );
+
+    // Add additional attributes to the row, such as a class for this row.
+    if (isset($form[$key]['#attributes'])) {
+      $row = array_merge($row, $form[$key]['#attributes']);
+    }
+    $rows[] = $row;
+  }
+
+  $output = theme('table', $headers, $rows);
+  $output .= drupal_render($form);
+  return $output;
+}
+
+function issue_link($type, $object, $teaser = FALSE) {
+
+    $nid = $object->nid;
+    $tnid = get_tnid($nid);
+    $lang = db_result(db_query("SELECT language FROM {node} WHERE nid = '%d' AND tnid = '%d'", $tnid, $tnid));
+    $languages = language_list();
+    foreach ($languages as $langcode => $language) {
+        if($langcode == $lang){
+            $nodeLanguage = $language;
+        }
+    }
+  // echo '<pre>'; print_r($languages);exit;
+    $links['issue_original'] = array(
+        'title' => t('View Originally Posted Issue'),
+        'href' => 'node/'. $tnid,
+        'language' => $nodeLanguage,
+        'attributes' => array('class' => 'node-issue-org'),
+      );
+  return $links;
+}
+
+
+
+
+
+/*********** LANGUAGE TRANSLATION ************/
+// get paraent translate id
+function get_tnid($nid = ''){
+    $res = db_result(db_query("SELECT tnid FROM {node} WHERE nid = '%d'", $nid));
+    $tnid = $res!=0?$res:$nid;
+    return $tnid;
+}
+
+// get translated content for debates
+function get_translated_content_forum($nid = '', $forumId ='', $curLanguage = ''){
+    //$curLanguage = db_result(db_query("SELECT language FROM {node} WHERE nid = '$nid'"));
+    $ftid = db_result(db_query("SELECT nid FROM {node} WHERE tnid = '$forumId' AND language = '$curLanguage' AND translate = 1"));
+    $ftid = $ftid!=''?$ftid:$forumId;
+
+    $translated = node_load( array('nid' => $ftid, 'status' => '1'));
+    return $translated;
+}
+
+// get translated debate replies/ and resource replies
+function get_translated_comment($cid = '', $curLanguage = ''){
+    $tcid = db_result(db_query("SELECT cid FROM {comments} WHERE tcid = '$cid' AND language = '$curLanguage' AND translate = 1"));
+    $tcid = $tcid!=''?$tcid:$cid;
+    $translated = db_result(db_query("SELECT comment FROM {comments} WHERE cid = '$tcid'"));
+    return $translated;
+}
+
+// detect input language from users
+function get_input_language($title = ''){
+    module_load_include('inc', 'issue_translator', 'gtranslate-api-php/googletranslate.class');
+    $gt = new GoogleTranslateWrapper();
+    $input = $gt->detectLanguage($title);
+    $language = $input['language'];
+    $language = $language!=''?$language:'en';
+    return $language;
+}
+
+// issue ahah calllback
+function issue_ahah_callback($type = '', $key = ''){
+
+   if($type == 'category'){
+      
+
+      if($key == 'scat'){
+        
+           $catids[] = $_POST['subject'];
+           $catids = empty($catids[0])?array():$catids;
+           $fieldName1 = 'area';
+           $options[''] = t('AREA');
+
+           $defArea = $_POST['defarea'];
+       
+      }
+      if($key == 'sscat'){
+          
+            $catids[] = $_POST['area'];
+            $catids = empty($catids[0])?array():$catids;
+            $fieldName2 = 'detail'   ;
+            $options[''] = t('DETAIL');
+
+            $defDetail = $_POST['defdetail'];
+          
+      }
+       $cids = implode(",",$catids);
+       // SET SUB CATEGORIES
+
+       $scats = array();
+
+       foreach($catids as $catid){
+       $ids = taxonomy_get_children($catid);
+       foreach($ids as $tid=>$value){
+            $stid[] = $tid;
+       }
+
+       array_push($scats, $stid);
+       }
+      // print_r($stid);exit;
+       $i=0;
+       if(count($stid)>0){
+       foreach($stid as $value => $scid){
+           $cnt = taxonomy_term_count_nodes($scid);
+           if($cnt!=0){
+           $options[$scid] = t(db_result(db_query("SELECT name FROM {term_data} WHERE tid = '".$scid."'")));
+           }
+           $i++;
+       }
+       }
+       //print_r($firstLevel); exit;
+       //print_r($keys[0]);exit;
+       if($key == 'scat'){
+          
+               $fields['area'] = array('#type' => 'select',
+                                    '#options' => $options ,
+
+                                    '#ahah' => array('wrapper' => 'sub-sub-cat-wrapper',
+                                                    'path' => 'issue/ahah/category/sscat',
+                                                    'effect' => 'fade',
+                                                    'event' => 'change',
+                                                    ),
+
+                                    '#attributes' => array('class'=>'selectbox-sm'),
+                                    '#id' => 'area',
+                                    '#value' => $defArea,
+                                    );
+           
+       $output .= ahah_render($fields, $fieldName1);
+       }
+       if($key == 'sscat'){
+        
+            $fields['detail'] = array('#type' => 'select',
+                                    '#options' => $options ,
+                                    '#attributes' => array('class'=>'selectbox-sm'),
+                                    '#id' => 'detail',
+                                    '#value' => $defDetail);
+        
+       $output .= ahah_render($fields, $fieldName2);
+       }
+
+   }
+   elseif($type == 'location'){
+        
+        if($key == 'state'){
+           // select state
+           
+          
+           $countryNames[] = $_POST['country'];
+           $fieldNameState = 'state';
+           $states[] = t('STATE');
+           $defstate = $_POST['defstate'];
+           
+
+           if(!empty($countryNames)){
+
+            $countryList = geonames_query('countryinfo',NULL, $options);
+           foreach ($countryNames as $country) {
+
+                $xyz=geonames_countryinfo($country);
+                //print_r($xyz);
+                    foreach($countryList->results as $countryss){
+                        if($country == $countryss['countryname']){
+                            $geoid=$countryss['geonameid'];
+                            break;
+                        }
+                    }
+
+                  $query = array('geonameid' => $geoid);
+                    $results = geonames_query('children', $query);
+                    foreach ($results->results as $state) {
+                        $states[$state['geonameid']] = $state['name'];
+                    }
+                   // print_r($states);
+                }
+           }else{
+               $states[] = t('No countries selected');
+           }
+           
+               $fields['state'] = array('#type' => 'select', '#options' => $states,
+
+                                        '#ahah' => array('wrapper' => 'city-wrapper',
+                                                'path' => 'issue/ahah/location/city',
+                                                'effect' => 'fade',
+                                                'event' => 'change',),
+                                        '#attributes' => array('class'=>'selectbox-sm'),
+                                        '#value' => $defstate,
+                                        '#id' => 's_state',
+                                        );
+           
+            $output .= ahah_render($fields, $fieldNameState);
+        }
+        if($key == 'city'){
+
+            
+            $steateIds[] = $_POST['state'];
+            $fieldNameCity = 'city';
+            $cities[] = t('CITY');
+            $defcity = $_POST['defcity'];
+            
+            if(!empty($steateIds)){
+            foreach ($steateIds as $code) {
+                    $explode = explode(',', $code);
+                    $query = array('geonameid' => $explode[0]);
+                    $result = geonames_query('children', $query);
+                    foreach ($result->results as $state) {
+                      $cities[$state['geonameid'].$explode[0].$explode[1]] = $state['name'];
+                    }
+                }
+            }else{
+                $cities[] = t('No states selected');
+            }
+            
+             $fields['city'] = array('#type' => 'select',
+                                    '#options' => $cities,
+                                    '#attributes' => array('class'=>'selectbox-sm'),
+                                    '#value' => $defcity
+                                        );
+            
+            $output .= ahah_render($fields, $fieldNameCity);
+        }
+   }
+
+// set ahah behaviour for inner rendering buttons
+  // AHAH is not being nice to us and doesn't know the "other" button (that is,
+  // either "Upload" or "Delete") yet. Which in turn causes it not to attach
+  // AHAH behaviours after replacing the element. So we need to tell it first.
+
+  // Loop through the JS settings and find the settings needed for our buttons.
+  $javascript = drupal_add_js(NULL, NULL);
+  $filefield_ahah_settings = array();
+  if (isset($javascript['setting'])) {
+    foreach ($javascript['setting'] as $settings) {
+      if (isset($settings['ahah'])) {
+        foreach ($settings['ahah'] as $id => $ahah_settings) {
+
+            $filefield_ahah_settings[$id] = $ahah_settings;
+
+        }
+      }
+   }
+  }
+
+  // Add the AHAH settings needed for our new buttons.
+  if (!empty($filefield_ahah_settings)) {
+    $output .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, '. drupal_to_js($filefield_ahah_settings) .');</script>';
+  }
+
+
+
+
+   //print drupal_to_js(array('data' => $output, 'status' => true));
+  print drupal_json(array('data' => $output, 'status' => true));
+
+}
+
+
+////
+function _issue_information($nid = ''){
+    $node = node_load($nid);
+    $tnid = get_tnid($node->nid);
+    $users = user_load($node->uid);
+    // category lists
+    $ctitle = array();
+        $sctitle = array();
+        $ssctitle = array();
+        $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
+        $csql = db_query("SELECT td.tid FROM {term_data} as td JOIN {term_hierarchy} as th ON td.tid = th.tid WHERE td.vid = '$vid' AND th.parent = 0");
+
+        $catVals = array();
+        while($cat = db_fetch_object($csql)){
+            $catVals[] = $cat->tid;
+        }
+        if(!empty($catVals)){
+
+            $cat = implode(",", $catVals);
+            $ncats = db_query("SELECT tid FROM {term_node} WHERE nid = '$tnid' AND tid IN($cat)");
+            while($ncat = db_fetch_object($ncats)){
+                $cat = $ncat->tid;
+                $ctitle[$cat] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$cat'"));
+                // parent categories
+                $scats = get_node_tree_child($cat, $tnid);
+                foreach($scats as $scat){
+                    $sctitle[$scat] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$scat'"));
+                    // first level categories
+                    $sscats = get_node_tree_child($scat, $tnid);
+                    foreach($sscats as $sscat){
+                        $ssctitle[$sscat] = db_result(db_query("SELECT name FROM {term_data} WHERE tid = '$sscat'"));
+                        // second level categories
+                    }
+                }
+            }
+
+        }
+
+     // find originally posted language
+     $trans = node_load($tnid);
+     $orgLangKey = $trans->language;
+     $languages = language_list();
+     $orgLanguage = $languages[$orgLangKey]->name;
+     $path = drupal_get_path_alias('node/'.$tnid);
+
+     $values['subject'] = $ctitle;
+     $values['area'] = $sctitle;
+     $values['detail'] = $ssctitle;
+     $values['postedby'] = $users->name;
+     $values['created'] = format_date($node->created,"custom","M j Y");
+     $values['original_nid'] = $tnid;
+     $values['orgLangKey'] = $orgLangKey;
+     $values['original_language'] = $orgLanguage;
+     return $values;
+
+}
+
+// issue information theme
+function theme_issue_information($nid = '', $created = '', $postedby = '', $ctitle = array(), $sctitle = array(), $ssctitle = array(), $original_nid = '', $original_language = '', $orgLangKey = ''){
+    global $gSitePath;
+    $info = '';
+    $info .= '<div id="issue_information">';
+    // created details
+    $info .= '<div class="post-by">'.t('Issue posted on ').$created.'&nbsp;'
+           .t('By').'&nbsp;'.l($postedby,'profile/'.$postedby).'</div>';
+    //category details
+    $info .= '<div class="catarea">';
+    $info .= '<div class="cat-title">SUBJECT</div>';
+        if(!empty($ctitle)){
+        foreach($ctitle as $tid=>$subject){
+            $info .= l($subject,'issues/0/'.$tid.'/0/0/0/0/0').'<br />';
+        }}
+        else{
+            $info .= t('No subjects found').'<br />';
+        }
+    $info .= '</div>';
+    $info .= '<div class="catarea">';
+    $info .= '<div class="cat-title">AREA</div>';
+        if(!empty($sctitle)){
+        foreach($sctitle as $tid=>$area){
+            $parent = taxonomy_get_parents($tid);
+            $cid = array_keys($parent);
+            $info .= l($area,'issues/0/'.$cid[0].'/'.$tid.'/0/0/0/0').'<br />';
+        }}
+        else{
+            $info .= t('No areas found').'<br />';
+        }
+    $info .= '</div>';
+    $info .= '<div class="catarea">';
+    $info .= '<div class="cat-title">DETAIL</div>';
+        if(!empty($ssctitle)){
+        foreach($ssctitle as $tid=>$detail){
+             $sparent = taxonomy_get_parents($tid);
+             $ssid = array_keys($sparent);
+             $ssparent = taxonomy_get_parents($ssid[0]);
+             $cid = array_keys($ssparent);
+             $info .= l($detail,'issues/0/'.$cid[0].'/'.$ssid[0].'/'.$tid.'/0/0/0').'<br />';
+        }}
+        else{
+            $info .= t('No details found').'<br />';
+        }
+    $info .= '</div>';
+    // original language
+    $path = drupal_get_path_alias('node/'.$original_nid);
+    $info .= '<br />'.t('Issue originally written in').'&nbsp;'.$original_language.'<br />'
+               .l('Click to view in original language', $gSitePath.$orgLangKey.'/'.$path) ;
+    $info .= '</div>';
+    return $info;
+}
+
+
+
+
+// issue results , debates, resources
+function view_issue_results($nid = ''){
+   global $user, $theme;
+   $node = node_load(array('nid' => $nid));
+
+   // update view count
+   module_load_include('inc', 'quest_lite', 'quest_lite.pages');
+   insertviews($node->nid);
+   // temp intialize function before user voted for a issue
+   $inline = 'function initialize(){}';
+   drupal_add_js($inline, 'inline');
+   if(user_is_logged_in() && !empty($user) && $node->allowvotes != 1){
+   $results = theme('issue_result_analysis',$nid);
+   }
+   $debates = theme('issue_debate_list', $nid);
+   $resources = theme('issue_resource_list', $nid);
+   
+   return theme('issue_detail_wrapper', $nid, $results, $debates, $resources);
+}
+function theme_issue_result_analysis($nid = ''){
+    global $gSitePath;
+    $inline = '
+                var nid = '.$nid.'
+                jQuery(document).ready(function(){
+                insight_view(nid)
+                })
+                ';
+    drupal_add_js($inline, 'inline');
+    module_load_include('inc', 'issue', 'issue.pages');
+    $results = '';
+    $results .= '<div class="result-analysis-title">RESULTS</div>';
+
+    
+    
+    //$results .=report_graph($nid);
+    $results .= '<div class="analysis-wrapper">';
+    $results .= '<div class="analysis-left">';
+        $results .= '<div class="result-analysis">';
+        $results .= report_percent($nid);
+        $results .= '</div><br />';
+
+        $results .= '<div class="goog-graph">';
+        $results .= report_map($nid);
+        $results .= '</div>';
+
+    $results .= '</div>';
+    $results .= '<div class="analysis-right">';
+        $results .= '<div class="vote-percent" id="insight-view">';
+        $results .= 'Loading...';
+        //$results .= insight_view($nid);
+        $results .= '</div><br />';
+        $results .= '<div class="result-analysis">';
+        $results .= report_graph($nid);
+        $results .= '</div>';
+    $results .= '</div>';
+    $results .= '</div>';
+    
+    
+    //$results .= '<iframe style="height: 350px;" id="frmGoogle" scrolling="no" src="' . $gSitePath . '/issue/report/percent/' . $nid . '" border="0" frameborder="0" width="100%"></iframe>';
+    return $results;
+}
+
+// debate list
+function theme_issue_debate_list($nid = ''){
+    global $user, $gSitePath;
+    $debates = '';
+    module_load_include('inc', 'issue', 'issue.pages');
+    $filters = '<span><a href="javascript:void(0);" id="show-analytics" title="'.t('Debate Statistics').'">'.t('Show/Hide debate statistics').'</a>&nbsp;|&nbsp;<a href="javascript:void(0);" id="show-filter" title="'.t('Filter Options').'">'.t('Show/Hide filter options').'</a></span>';
+    $count = '';
+
+
+    
+    //print_r($cnt);
+    //$userCheckDebate = user_is_logged_in()!=''?'<a href="javascript:void(0);" id="addnew_debate" title="New Debate" class="orange-btn">ADD ARGUMENT</a>':'<a href="javascript:void(0);"  title="New Debate" onclick="check_popup_login()" class="orange-btn">ADD ARGUMENT</a>';
+    $userCheckDebate = '<a href="javascript:void(0);" id="addnew_debate" title="New Debate" class="orange-btn">ADD ARGUMENT</a>';
+ 
+    $addNew = '<span style="float:right">'.$userCheckDebate.'</span>';
+    $debates .= '<div class="result-analysis-title">DEBATE'.$addNew.'<br />'.$filters.'</div><br />';
+
+    // analysis block
+    $debates .= '<div style="display:block" id="analytics-area">
+                <iframe src="'.$gSitePath.'debate/ajax/'.$nid.'?action=analysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>
+                </div>';
+    // analysis block
+    // filter block
+    $display = isset($_GET['sup'])?'style="display:block"':'style="display:none"';
+    $debates .= '<div id="filter-area" '.$display.'>'.drupal_get_form('filter_options', $nid).'</div>';
+    // filter block
+    
+    $debates .= '<div class="submit-msg" id="submitted-msg" align="center"></div>';
+    $debates .= '<div class="add-debate" id="add_debate_wrapper" style="display:none">';
+        if (!empty($user->uid)) {
+        $debates .= drupal_get_form('add_new_debate_form', $nid);
+        }else{
+         $debates .= '<div align="center"><b>'.t('Please log in to participate in the debate').'</b></div>';
+        }
+    $debates .= '</div>';
+    $debates .= '<div id="issue_debate_list">';
+    $debates .= issue_debates($nid, 1);
+    $debates .= '</div>';
+    return $debates;
+}
+function theme_issue_resource_list($nid = ''){
+    global $gSitePath;
+    $resources = '';
+    module_load_include('inc', 'issue', 'issue.pages');
+    
+    $filters = '<span><a href="javascript:void(0);" onclick="res_type_tab(1,\'innews\','.$nid.')" title="'.t('In News').'" id="ref_innews">'.t('In News').'</a>&nbsp;
+               <a href="javascript:void(0);" onclick="res_type_tab(2, \'media\','.$nid.')" title="'.t('Multimedia').'" id="ref_multimedia">'.t('Multimedia').'</a>&nbsp;
+               <a href="javascript:void(0);" onclick="res_type_tab(3, \'facts\','.$nid.')" title="'.t('Facts').'" id="ref_facts">'.t('Facts').'</a>&nbsp;
+               <a href="javascript:void(0);" id="show-res-filter" title="'.t('Filter options').'">'.t('Show/Hide filter options').'</a>&nbsp;
+               <a href="javascript:void(0);" id="show-res-statistics" title="'.t('Reference Statistics').'">'.t('Show/Hide Reference Statistics').'</a>&nbsp;</span>';
+
+    $rtypes = '<a href="javascript:void(0);>'.t('In News').'</a>&nbsp;
+               <a href="javascript:void(0);>'.t('Multimedia').'</a>&nbsp;
+               <a href="javascript:void(0);>'.t('Facts').'</a>&nbsp;';
+
+    $addNew = '<span style="float:right"><a href="javascript:void(0);" id="addnew_reference" title="New Reference" class="orange-btn">ADD REFERENCE</a></span>';
+    $resources .= '<div class="result-analysis-title">REFERENCES'.$addNew.'<br />'.$filters.'</div><br />';
+    // resource statistics block
+    $resources .= '<div style="display:block" id="res-analytics-area">
+                <iframe src="'.$gSitePath.'debate/ajax/'.$nid.'?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>
+                </div>';
+    // resource statistics block
+    // filter block
+    $display = isset($_GET['sup'])?'style="display:block"':'style="display:none"';
+    $resources .= '<div id="res-filter-area" '.$display.'>'.drupal_get_form('filter_options', $nid).'</div><div class="clr"></div>';
+    $sup = $_GET['sup']!=''?$_GET['sup']:'n';
+    $ans = $_GET['ans']!=''?$_GET['ans']:'n';
+    $sort = $_GET['sort']!=''?$_GET['sort']:'n';
+    $resources .= '<input type="hidden" name="sup" id="sup" value="'.$sup.'" />
+                   <input type="hidden" name="ans" id="ans" value="'.$ans.'" />
+                   <input type="hidden" name="sort" id="sort" value="'.$sort.'" />';
+    // filter block
+    
+    $resources .= '<div style="display:none" id="add-resource-area">';
+    $resources .= '<div class="msg" id="alert-area"></div>';
+    $resources .= add_new_resources($nid);
+    $resources .= '</div>';
+    $resources .= issue_resources_list($nid);
+    
+    return $resources;
+
+}
+
+// suggest vote form here
+function issue_suggest_form($dummy = '', $nid = ''){
+    global $user;
+    $nid = get_tnid($nid);
+    $form = '';
+    $form['nid'] = array(
+                    '#type' => 'hidden',
+                    '#value' => $nid,
+                    );
+    if (user_is_logged_in()) {
+    $form['intro_desc'] = array(
+                            '#type' => 'markup',
+                            '#prefix' => '<div class="sugg-desc">',
+                            '#value' => t('The following answers have been suggested by other users. You can
+vote for one of the suggested answers, or contribute a new answer suggestion
+of your own. When the votes on a suggested answer reach <span>[still
+working out requirements]</span>, that vote joins the list of offi cial answers and
+will be counted in the results.'),
+                            '#suffix' => '</div>',
+                            );
+
+    // get suggest answer for current issue
+    $answers = "SELECT * FROM suggest_answer where qid='" . $nid . "'  ";
+    $anslist = db_query($answers);
+    $count_row = db_result(db_query($answers));
+
+    // user should login to participate with suggest answers
+    $err = 0;
+    if (isset($count_row) && $count_row > 0) {
+        while ($answerfet = db_fetch_object($anslist)) {
+           
+           $options[$answerfet->said] = $answerfet->answer;
+           
+        }
+        $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
+        $form['suggested_answer'] = array(
+                                        '#type' => 'radios',
+                                        '#options' => $options,
+                                        '#default_value' => $mysugg,
+                                        );
+        $alreadyAdded = db_result(db_query("SELECT COUNT(said) FROM {suggest_answer} WHERE qid = '$nid' AND uid = '$user->uid'"));
+        $alreadyVotedSuggest = db_result(db_query("SELECT COUNT(answer_id) FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
+        $alreadyVotedMain = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '$nid' AND uid = '$user->uid'"));
+        // check whether the user already suggested the answer. if yes do not allow him to vote
+        // also check whether the user already voted for this issue
+        if($alreadyAdded==0 && $alreadyVotedSuggest==0 && $alreadyVotedMain==0){
+        $form['submit_suggest_vote'] = array(
+                                '#type' => 'submit',
+                                '#value' => t('Vote'),
+                                );
+        }else{
+        $form['vote_error'] = array(
+                            '#type' => 'markup',
+                            '#prefix' => '<div class="suggest-error">',
+                            '#value' => t('You are not able to vote from suggested answers list. You have already voted or suggested a new answer.'),
+                            '#suffix' => '</div>',
+                            );
+        $err = 1;
+        }
+    }
+
+
+      // user can suggest only one answer per issue
+      if($alreadyAdded==0){
+        $form['new_suggest_answer'] = array(
+                '#type' => 'textfield',
+                '#size' => 38,
+                '#attributes' => array('class' => 'text-input'),
+                '#maxlength' => 40,
+                '#id' => 'sugg_ans',
+            );
+        $form['new_suggest_answer_dum'] = array(
+                '#type' => 'textfield',
+                '#size' => 38,
+                '#attributes' => array('class' => 'text-input-dum'),
+                '#maxlength' => 40,
+                '#id' => 'sugg_ans_dum',
+                '#value' => t('or type your new answer'),
+            );
+        $form['#nid'] = $nid;
+        $form['submit_suggest_answer'] = array(
+            '#type' => 'submit',
+            '#value' => t('submit'),
+            '#suffix' => '&nbsp;&nbsp;<a href="javascript:void(0);" id="canc" title="'.t('close').'">'.t('Cancel').'</a>',
+        );
+      }elseif($err == 0){
+         $form['vote_error'] = array(
+                            '#type' => 'markup',
+                            '#prefix' => '<div class="suggest-error">',
+                            '#value' => t('You have already suggested a answer for this issue.'),
+                            '#suffix' => '</div>',
+                            );
+      }
+
+  }else{
+      $form['login_error'] = array(
+                            '#type' => 'markup',
+                            '#prefix' => '<div class="login-error">',
+                            '#value' => t('You should login to vote or post suggest answers.'),
+                            '#suffix' => '</div>',
+                            );
+  }
+
+  
+    
+    return $form;
+}
+
+function issue_suggest_form_submit($form, &$form_state){
+    global $user;
+    //echo '<pre>'; print_r($form_state); exit;
+    $nid = $form_state['values']['nid'];
+    $submit = $form_state['clicked_button']['#parents'][0];
+
+    // submit new suggest answer
+    if($submit == 'submit_suggest_answer'){
+        $new_suggest_answer = $form_state['values']['new_suggest_answer'];
+        if($new_suggest_answer!=''){
+        db_query("INSERT INTO {suggest_answer} SET uid = '%d', qid = '%d', answer = '%s', date_added = '%s'", 
+                $user->uid, $nid, $new_suggest_answer, date('Y-m-d'));
+        $sid = db_last_insert_id('suggest_answer', 'said');
+        /*New SET NOTIFY LOG*/
+             $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+             $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $new_suggest_answer);
+             set_notify_log($user->uid, $nid, 'suggest_answer', $variable);             
+        /*New SET NOTIFY LOG*/ 
+             
+        drupal_set_message($message = 'Your answer was added!', $type = 'success');
+        }else{
+        //echo '<div class="messages error"> Please suggest your answer! </div>';
+        drupal_set_message($message = 'Please enter suggest your answer!', $type = 'error');
+        }
+    }
+    // suggest a vote
+    if($submit == 'submit_suggest_vote'){
+        $suggested_answer = $form_state['values']['suggested_answer'];
+
+        // get suggest answer vote count
+        $list_own_answer = db_query("select * from {suggest_answer} where said='$suggested_answer'");
+        $userown = db_fetch_object($list_own_answer);
+
+
+        if($suggested_answer!=''){
+        $calvote = db_result(db_query("SELECT COUNT(*) from {suggest_answer_vote} where answer_id='$suggested_answer'"));
+        if ($calvote == 0) {
+            $votepoint = '1';
+        } else {
+            $votepoint = $userown->vote + 1;
+        }
+        
+        db_query("INSERT INTO {suggest_answer_vote} SET qid = '%d', uid = '%d', answer_id = '%d', vote_date = '%s'",
+                $nid, $user->uid, $suggested_answer, date('Y-m-d'));
+        db_query("UPDATE {suggest_answer} SET vote = '%s' WHERE said = '%d' AND qid = '%d'", $votepoint, $suggested_answer, $nid);
+        drupal_set_message($message = 'Your vote was added!', $type = 'success');
+        
+        }else{
+             drupal_set_message($message = 'Please select your answer to vote!', $type = 'error');
+        }
+    }
+    
+}
+
+function add_new_debate_form($form_state, $nid = ''){
+    global $theme, $gSitePath;
+    $form = '';
+    $form['#action'] = url($_GET['q'], array('absolute' => TRUE));
+    $form['#method'] = 'post';
+    $form['nid'] = array('#type' => 'hidden', '#default_value' => $nid);
+    $form['head'] = array('#type' => 'markup', 
+                            '#value' => '<div class="head">ADD ARGUMENT</div>',
+                            '#suffix' => '<span class="error-msg" id="deb-err"></span>');
+    $form['title'] = array('#type' => 'textarea',
+                            '#id' => 'deb_title',
+                            '#size' => 70,
+                            '#cols' => 10,
+                            '#rows' => 6,
+                            '#attributes' => array('class' => 'textarea-input'));
+
+    $ans = load_options($nid);
+    //answers
+    $form['tot_answers'] = array('#type' => 'hidden',
+                                '#default_value' => count($ans),
+                                '#id' => 'tot_ans');
+    $i=0;
+    foreach ($ans as $list) {
+        $short_answer = get_short_answer($nid, $list['chorder']);
+        $answer = $short_answer!=''?$short_answer:$list['chtext'];
+
+        $supports = array('0' => '+/-', '1' => '+', '2' => '-');
+        $form['sup_opp_'.$i] = array('#type' => 'select',
+                                    '#options' => $supports,
+                                    '#attributes' => array('class' => 'sel-box'),
+                                    '#suffix' => '&nbsp;&nbsp;'.$answer.'<br />',
+                                    '#id' => 'sup_'.$i
+                                    );
+        
+        $form['ans_id_'.$i] = array('#type' => 'hidden',
+                                    '#value' => $list['chorder']
+                                    );
+        $i++;
+    }
+    $form['clr_div'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>');
+    $form['new_debate_submit'] = array('#type' => 'submit',
+                                '#value' => t('SUBMIT'),
+                                '#attributes' => array('class' => 'orange-btn'),
+                                '#prefix' => '<div align="right">',
+                                '#suffix' => '</div><span id="sub_loader" style="display:none; float:right"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
+                                '#id' => 'add_new_debate'
+                                );
+    return $form;
+}
+
+
+// add new debate submission
+function add_new_debate_form_submit($form, &$form_state){
+    global $user;
+    $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
+    $wtitle = $form_state['values']['title'];
+    $nid = $form_state['values']['nid'];
+    
+    $tot_ans = $form_state['values']['tot_answers'];
+
+    //echo '<pre>'; print_r($form_state); exit;
+    if (!empty($wtitle) && !empty($user->uid)) {
+                $lose_coins = get_coins('c_debate');
+                if ($user_coins >= $lose_coins) {
+
+                    // save values as node
+                    $deb = new stdClass();
+                    $deb->field_private[0]['value'] = "";
+                    $tnid = get_tnid($nid);
+                    $deb->field_ref_qid[0]['nid'] = $tnid;
+                    $deb->field_type[0]['value'] = '1';
+
+                    $deb->type = 'forum';
+                    $deb->title = $wtitle;
+                    $deb->uid = $user->uid;
+                    $deb->body = $wtitle;
+                    $deb->status = 1;
+                    // get tid for debate
+                    // get_taxonomy_id('module name','term data name')
+                    $tid = get_taxonomy_id('forum', 'Debate');
+                    $deb->taxonomy = array($tid);
+
+                    // LANGUAGE DETECTION
+                    // detect language from inputs using googleapis
+                    $inputLanguage = get_input_language($wtitle);
+                    $deb->language = $inputLanguage;
+                    // language status, initially language status is 0
+                    $deb->field_lang_status[0]['value'] = 0;
+                    //echo '<pre>'; print_r($deb); exit;
+                    $save = node_save($deb);
+
+                    $nodeid = $deb->nid;
+                    $vid = $deb->vid;
+
+
+                    
+// add coin for Create new debates
+                    $coin_type = 'c_debate';
+                    user_coins_update($user->uid, '', $coin_type);
+
+                    for($i=0;$i<$tot_ans;$i++){
+                        //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
+                        $forum = "INSERT INTO {debate_options} set nid = '%d',chorder='%d',ans_val='%d' ";
+                        $result = db_query($forum, $nodeid, $form_state['values']['ans_id_'.$i], $form_state['values']['sup_opp_'.$i]);
+                    }
+
+                    
+                    //echo list_debate($qid, 1);
+                    $dumid = '';
+                    send_forumnotify($dumid, $nid);
+
+                    /* New SET NOTIFY LOG */
+                    $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+                    $variable = array('did' => $nodeid, 'd_title' => $wtitle, 'uid' => $user->uid, 'qid' => $nid, 'q_title' => $qtitle);
+                    set_notify_log($user->uid, $nodeid, 'add_debate', $variable);
+                    /* New SET NOTIFY LOG */
+
+                    
+                    $tnid = get_tnid($nid);
+
+                    //load_debate_datas(debate id, issue id, issue tnid)
+                    $items = load_debate_datas($deb->nid, $nid, $tnid);
+
+                    $json['content'] = theme('single_debate_template', $items);
+                    $json['message'] = 'Your argument posted successfully';
+
+                } else {
+                    $json['message'] = '<div align="center">'.t('Sorry you do not have enough coins to post New Debate').'</div>';
+
+                }
+                
+    }else{
+        $json['message'] = '<div align="center"><b>Error occured. Please try again.</b></div>';
+    }
+print json_encode($json); exit;
+}
+
+
+// single debate theme
+function theme_single_debate_template($debItems = array()){
+    global $user, $gSitePath, $theme;
+    $delete = '';
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+
+    // anwers strength
+    $strnth = $debItems['strength'];
+    //echo '<pre>';print_r($strnth);exit;
+    
+    foreach ($strnth as $list) {
+    $short_answer = get_short_answer($debItems['issue_id'], $list['chorder']);
+    $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '".$debItems['issue_id']."' AND chorder = '".$list['chorder']."'"));
+    $ans = $short_answer!=''?$short_answer:$tranAns;
+    
+    switch ($list['ans_val']) {
+        case 0:
+            $strength.='<div><span class="yellow-box">+/-</span>'.$ans.'</div>';
+            break;
+        case 1:
+            $strength.='<div><span class="green-box">+</span>'.$ans.'</div>';
+            break;
+        case 2:
+            $strength.='<div><span class="red-box">-</span>'.$ans.'</div>';
+            break;
+    }
+    }
+
+    // allow rating check
+    $agreeClass = '';
+    $disagreeClass = '';
+    if($debItems['posted_by'] == $user->uid){
+        $agreeTitle = 'title="You are not able to rate your own post!"';
+        $disagreeTitle = 'title="You are not able to rate your own post!"';
+    }elseif($debItems['allow_rating']==0){
+        $agreeClass = 'class="dagree"';
+        $disagreeClass = 'class="ddisagree"';
+        $agreeTitle = 'title="Agree This!"';
+        $disagreeTitle = 'title="Disagree This!"';
+    }else{
+        $agreeTitle = 'title="You have rated this!"';
+        $disagreeTitle = 'title="You have rated this!"';
+    }
+
+    $ratings = '<span id="ag-cnt">'.$debItems['vote_up'].'</span>&nbsp;
+                <span type="is_debate" name="' . $debItems['debate_tnid'] . '" id="dagree" >
+                    <a href="javascript:void(0);" '.$agreeTitle.' name="a-' . $debItems['debate_tnid'] . '" '.$agreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
+                    <a href="javascript:void(0);" '.$disagreeTitle.' name="da-' . $debItems['debate_tnid'] . '" '.$disagreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
+                </span>&nbsp;<span id="disag-cnt">'.$debItems['vote_down'].'</span>';
+    $reply = '<a class="orange-btn" title="Reply" id="deb_reply_'.$debItems['debate_tnid'].'" href="javascript:void(0);" onclick="open_replybox(this.id)">Reply</a>';
+
+    if(is_moderator() || $debItems['uid']==$user->uid){
+       $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id, \'debate\')" id="own_forum_'.$debItems['debate_tnid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
+    }
+    
+
+    $reply_box = drupal_get_form('forum_reply_form', $debItems['debate_id'], $debItems['debate_tnid'], $debItems['issue_id']);
+    $replies = '';
+
+    $comments = forum_replies($debItems['debate_tnid'], 0);
+
+    $debt = '';
+    $debt .= '<div class="new-debate-wrapper" id="forum-block-'.$debItems['debate_tnid'].'">';
+    $debt .= '<div class="user-avatar"><a href="'.$sitelink.'profile/'.$debItems['uname'].'">'.UserPicture_small($debItems['uid']).'</a></div>';
+    $debt .= '<div class="mid-area">
+            '.l($debItems['uname'],'profile/'.$debItems['uname']).'
+              &nbsp;&nbsp;<span class="posted">'.$debItems['posted'].'</span>&nbsp;|&nbsp;<a>'.t('Report Abuse').'</a>
+              <div class="comm-text">'.$debItems['title'].'</div>
+              <div class="choice">'.$strength.'</div>
+            </div>';
+    $debt .= '<div class="rating">'.$ratings.'</div>
+             <div class="reply">'.$delete.$reply.'</div>
+                 <div class="clr"></div>';
+    $debt .= '<div class="reply-box" id="reply_box_'.$debItems['debate_tnid'].'">
+                '.$reply_box.'</div>';
+    // replies for a debate
+    $debt .= '<div align="center" class="submit-msg" id="reply-msg-'.$debItems['debate_tnid'].'"></div>';
+    $reply_count =  db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '".$debItems['debate_tnid']."'"));
+
+    $debt .= '<div class="show-reply">
+                <a href="javascript:void(0);" onclick="show_replies(this.id)" title="'.t('show reply').'" id="show_reply_'.$debItems['debate_tnid'].'">'.t('Replies').'</a>
+              ('.$reply_count.')';
+    
+         // rply template here
+        $debt .= '<div class="all-replies" id="all_replybox_'.$debItems['debate_tnid'].'">';
+        $debt .= $comments;
+        $debt .=  '</div>';
+        //rply template ends here
+        
+    $debt .= '</div>';
+    $debt .= '</div><div class="clr"></div>';
+    return $debt;
+}
+
+function load_debate_datas($debId = '', $issId = '', $issTnid = ''){
+
+     global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
+     $curLanguage = $language->language;
+
+     $forum = node_load( array('nid' => $debId, 'status' => '1'));
+        ///*******************/
+        // translated content for title and body
+        // get forum default language id
+        $translated = get_translated_content_forum($issId, $debId, $curLanguage);
+        $forum->title = $translated->title;
+        $forum->body = $translated->body;
+        ///*******************/
+
+        $bg = $i % 2;
+        if ($bg)
+            $setbg = 'back-col';
+        else
+            $setbg='';
+        $i++;
+        $account = user_load($forum->uid);
+
+
+
+        // vote agree, disagree calculation
+        $voteUp = 0;
+        $voteDown = 0;
+        $criteriaUpNode = array('content_type' => 'node',
+                               'content_id' => $forum->nid,
+                                'tag' => 'vote',
+                                'vote_type' => 'up');
+        $criteriaDownNode = array('content_type' => 'node',
+                               'content_id' => $forum->nid,
+                                'tag' => 'vote',
+                                'vote_type' => 'down');
+        $voteUp = vote_up_down_count($criteriaUpNode);
+        $voteDown = vote_up_down_count($criteriaDownNode);
+        $sql = db_query("SELECT cid FROM {comments} WHERE nid = '%d'", $forum->nid);
+        while($row = db_fetch_object($sql)){
+            $criteriaUp = array('content_type' => 'comment',
+                               'content_id' => $row->cid,
+                                'tag' => 'vote',
+                                'vote_type' => 'up');
+            $criteriaDown = array('content_type' => 'comment',
+                               'content_id' => $row->cid,
+                                'tag' => 'vote',
+                                'vote_type' => 'down');
+            //$voteUp += vote_up_down_count($criteriaUp);
+            //$voteDown += vote_up_down_count($criteriaDown);
+        }
+
+        //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
+        $query = "select * from {debate_options} a join  {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' and b.nid='$issTnid' ORDER BY b.chorder";
+        $strnth = ExecuteQuery($query, "select");
+        
+// date posted, last activity
+        $last_timestamp = db_result(db_query("SELECT timestamp FROM {comments} WHERE nid = '%d' ORDER BY cid DESC LIMIT 0,1", $forum->nid));
+
+        $posted = date("F d Y H:i:s", $forum->created);
+        $last_activity = $last_timestamp!=''?date("F d Y H:i:s", $last_timestamp):$posted;
+// strenght weak calculation
+        $strCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 1, $forum->nid));
+        $weakCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 0, $forum->nid));
+        $allowRating = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d' AND uid = '%d'", 'node', $forum->nid, $user->uid));
+        $allowRating = $allowRating>0?1:0;
+
+        $item = array();
+        $item['debate_id'] = $translated->nid;
+        $item['issue_id'] = $issId;
+        $item['title'] = $forum->title;
+        $item['issue_tnid'] = $issTnid;
+        $item['debate_tnid'] = $debId;
+        $item['uid'] = $account->uid;
+        $item['uname'] = $account->name;
+        $item['posted'] = $posted;
+        $item['last_activity'] = $last_activity;
+        $item['strength'] = $strnth;
+        $item['vote_up'] = $voteUp;
+        $item['vote_down'] = $voteDown;
+        $item['allow_rating'] = $allowRating;
+        $item['posted_by'] = $forum->uid;
+        
+        return $item;
+
+}
+
+// load resource datas
+function load_resource_datas($resId = '', $issId = '', $issTnid = '', $resType = ''){
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
+     $curLanguage = $language->language;
+     $forum = node_load( array('nid' => $resId, 'status' => '1'));
+        $account = user_load($forum->uid);
+        // vote agree, disagree calculation
+        $voteUp = 0;
+        $voteDown = 0;
+        $criteriaUpNode = array('content_type' => 'node',
+                               'content_id' => $forum->nid,
+                                'tag' => 'vote',
+                                'vote_type' => 'up');
+        $criteriaDownNode = array('content_type' => 'node',
+                               'content_id' => $forum->nid,
+                                'tag' => 'vote',
+                                'vote_type' => 'down');
+        $voteUp = vote_up_down_count($criteriaUpNode);
+        $voteDown = vote_up_down_count($criteriaDownNode);
+        $sql = db_query("SELECT cid FROM {comments} WHERE nid = '%d'", $forum->nid);
+        while($row = db_fetch_object($sql)){
+            $criteriaUp = array('content_type' => 'comment',
+                               'content_id' => $row->cid,
+                                'tag' => 'vote',
+                                'vote_type' => 'up');
+            $criteriaDown = array('content_type' => 'comment',
+                               'content_id' => $row->cid,
+                                'tag' => 'vote',
+                                'vote_type' => 'down');
+            //$voteUp += vote_up_down_count($criteriaUp);
+            //$voteDown += vote_up_down_count($criteriaDown);
+        }
+
+        //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
+        $query = "select * from {resource_options} a join  {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' and b.nid='$issTnid' ORDER BY b.chorder";
+        $strnth = ExecuteQuery($query, "select");
+
+// date posted, last activity
+        $last_timestamp = db_result(db_query("SELECT timestamp FROM {comments} WHERE nid = '%d' ORDER BY cid DESC LIMIT 0,1", $forum->nid));
+
+        $posted = date("F d Y H:i:s", $forum->created);
+        $last_activity = $last_timestamp!=''?date("F d Y H:i:s", $last_timestamp):$posted;
+// strenght weak calculation
+        $strCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 1, $forum->nid));
+        $weakCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 0, $forum->nid));
+        $allowRating = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = '%s' AND content_id = '%d' AND uid = '%d'", 'node', $forum->nid, $user->uid));
+        $allowRating = $allowRating>0?1:0;
+
+        $item = array(); 
+
+        $item['rtype'] = $resType;
+        $item['issue_id'] = $issId;
+        $item['title'] = $forum->title;
+        $item['body'] = $forum->body;
+        $item['issue_tnid'] = $issTnid;
+        $item['resource_id'] = $resId;
+        $item['image'] = $forum->field_filepath[0]['value'];
+        $item['uid'] = $account->uid;
+        $item['uname'] = $account->name;
+        $item['posted'] = $posted;
+        $item['last_activity'] = $last_activity;
+        $item['strength'] = $strnth;
+        $item['vote_up'] = $voteUp;
+        $item['vote_down'] = $voteDown;
+        $item['allow_rating'] = $allowRating;
+        $item['posted_by'] = $forum->uid;
+
+        // media
+        if($resType == 'multimedia'){
+            $item['video_id'] = $forum->field_videoid[0]['value']!=''?$forum->field_videoid[0]['value']:'';
+            $item['nlink'] = $forum->field_nlink[0]['value']!=''?$forum->field_nlink[0]['value']:'';
+            $item['filepath'] = $forum->field_filepath[0]['value']!=''?$forum->field_filepath[0]['value']:'';
+        }
+
+        return $item;
+}
+
+
+// forum reply form
+function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id){
+    global $gSitePath, $theme, $user;
+    $form = '';
+    if($user->uid!=''){
+    $form['#attributes'] = array('class' => 'arg-reply-form');
+    $form['#action'] = url($_GET['q'], array('absolute' => TRUE));
+    $form['err_r'] = array('#type' => 'markup', '#value' => '<div class="error-msg" id="reply_err"></div>');
+    $form['debate_tnid'] = array('#type' => 'hidden', '#id' => 'deb_tnid' , '#default_value' => $debate_tnid);
+    $form['debate_id'] = array('#type' => 'hidden', '#id' => 'deb_id' , '#default_value' => $debate_id);
+    $form['issue_id'] = array('#type' => 'hidden', '#id' => 'iss_id' , '#default_value' => $issue_id);
+    $form['reply_content'] = array('#type' => 'textarea',
+                            '#size' => 70,
+                            '#cols' => 10,
+                            '#title' => t('Add your reply'),
+                            '#id' => 'reply_content_'.$debate_tnid,
+                            '#rows' => 6,
+                            '#attributes' => array('class' => 'textarea-input'));
+    $form['str_wk'] = array('#type' => 'radios', '#options' => array('1' => t('Strengthen'), '0' => t('Weaken')), '#default_value' => '1');
+    $form['reply_submit'] = array('#type' => 'submit',
+                                '#value' => t('SUBMIT'),
+                                '#attributes' => array('class' => 'orange-btn'),
+                                '#prefix' => '<div align="right">',
+                                '#suffix' => '</div><span id="sub_loader" style="display:none; float:right"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
+                                '#id' => 'add_reply',
+                                );
+    }else{
+     $form['log_in'] = array('#type' => 'markup', '#value' => t('Please Login to post reply'));
+    }
+    return $form;
+}
+function forum_reply_form_submit($form, &$form_state){
+    global $user;
+    $values = array();
+    $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
+    $lose_coins = get_coins('p_debate');
+    if ($user_coins >= $lose_coins) {
+        
+        $debate_id = $form_state['values']['debate_id'];
+        $issue_id = $form_state['values']['issue_id'];
+
+        $debate_tnid = $form_state['values']['debate_tnid'];
+
+        //$values['pid'] = $comid;
+        /*set debate tnid as nid*/
+        $values['nid'] = $form_state['values']['debate_tnid'];
+        $values['uid'] = $user->uid;
+        $values['name'] = $user->name;
+
+        
+        $values['subject'] = check_plain($form_state['values']['reply_content']);
+        $values['comment'] = check_plain($form_state['values']['reply_content']);
+        $values['status'] = 0;
+        $values['format'] = '';
+        $values['mail'] = '';
+        $values['homepage'] = '';
+        $values['str_wk'] = $form_state['values']['str_wk'];
+
+
+        // LANGUAGE DETECTION
+        // detect language from inputs using googleapis
+        $inputLanguage = get_input_language(check_plain($form_state['values']['reply_content']));
+        $values['language'] = $inputLanguage;
+
+        //drupal_execute('postreplyform', $values, NULL);
+        //custom comment submission (debate reply as comments)
+
+        $commentId = comment_save($values);
+        custom_comment_update($commentId,$values);
+
+
+        /* New SET NOTIFY LOG */
+        $issue_tnid = get_tnid($issue_id);
+        $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $issue_tnid));
+        $dtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $debate_tnid));
+        $variable = array('did' => $debate_tnid, 'd_title' => $dtitle, 'uid' => $user->uid, 'qid' => $issue_tnid, 'q_title' => $qtitle);
+        set_notify_log($user->uid, $debate_id, 'debate_reply', $variable);
+        /* New SET NOTIFY LOG */
+
+
+        $json = array();
+        if($commentId){
+        $items = forum_reply_datas($commentId);
+        $json['content'] = theme('forum_reply_template', $items);
+        $json['message'] = t('Thanks, Your reply posted');
+        }else{
+        $json['message'] = t('Sorry your reply not able to post');
+        }
+    }else{
+       $json['message'] = t('Sorry, you do not have enough coins to reply for this post');
+    }
+    print json_encode($json); exit;
+}
+
+
+function forum_reply_datas($cid = ''){
+
+    global $gSitePath, $user, $language, $theme;
+
+    $curLanguage = $language->language;
+    $query = "SELECT * FROM {comments} WHERE cid = '$cid'";
+    $list = ExecuteQuery($query, "select");
+    // get language translated comment
+    foreach($list as $forum){
+        $translated = get_translated_comment($cid, $curLanguage);
+        $forum['comment'] = $translated;
+
+        $posted = date("Y-m-d H:i:s", $forum['timestamp']);
+        $date = format_date_class($posted, date("Y-m-d H:i:s"));
+        $account = user_load($forum['uid']);
+
+        $items = array();
+        if (!empty($forum['comment'])) {
+            $querylike = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_type = 'comment' AND uid = '$user->uid' AND content_id = '" . $forum['cid'] . "'"));
+            //$fetch = ExecuteQuery($querylike, "select");
+            $querylike = $querylike>0?1:0;
+
+            $criteriaUp = array('content_type' => 'comment',
+                'content_id' => $forum['cid'],
+                'tag' => 'vote',
+                'vote_type' => 'up');
+            $criteriaDown = array('content_type' => 'comment',
+                'content_id' => $forum['cid'],
+                'tag' => 'vote',
+                'vote_type' => 'down');
+            $cntagree = vote_up_down_count($criteriaUp);
+            $cntdisagree = vote_up_down_count($criteriaDown);
+
+            $items['cid'] = $cid;
+            $items['reply_content'] = $forum['comment'];
+            $items['vote_up'] = $cntagree;
+            $items['vote_down'] = $cntdisagree;
+            $items['uid'] = $account->uid;
+            $items['uname'] = $account->name;
+            $items['posted'] = $posted;
+            $items['allow_rating'] = $querylike;
+            $items['posted_by'] = $forum['uid'];
+        }
+    }
+    return $items;
+}
+
+
+function theme_forum_reply_template($repItems = array()){
+    global $user, $gSitePath, $theme;
+    $delete = '';
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+
+    // check allow rating
+    $agreeClass = '';
+    $disagreeClass = '';
+    if($repItems['posted_by'] == $user->uid){
+        $agreeTitle = 'title="You are not able to rate your own post!"';
+        $disagreeTitle = 'title="You are not able to rate your own post!"';
+    }elseif($repItems['allow_rating']==0){
+        $agreeClass = 'class="dagree"';
+        $disagreeClass = 'class="ddisagree"';
+        $agreeTitle = 'title="Agree This!"';
+        $disagreeTitle = 'title="Disagree This!"';
+    }else{
+        $agreeTitle = 'title="You have rated this!"';
+        $disagreeTitle = 'title="You have rated this!"';
+    }
+
+    $ratings = '<span id="ag-cnt">'.$repItems['vote_up'].'</span>&nbsp;
+                <span name="' . $repItems['cid'] . '" type="is_debate_reply" id="dragree" >
+                <a href="javascript:void(0);" '.$agreeTitle.' name="a-' . $repItems['cid'] . '" '.$agreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
+                <a href="javascript:void(0);" '.$disagreeTitle.' name="da-' . $repItems['cid'] . '" '.$disagreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
+                </span>&nbsp;<span id="disag-cnt">'.$repItems['vote_down'].'</span>';
+
+    if(is_moderator() || $repItems['uid']==$user->uid){
+    $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id, \'reply\')" id="own_reply_'.$repItems['cid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
+    }
+    
+    $reply .= '<div class="new-reply-wrapper" id="reply-block-'.$repItems['cid'].'">';
+    $reply .= '<div class="user-avatar"><a href="'.$sitelink.'profile/'.$repItems['uname'].'">'.UserPicture_small($repItems['uid']).'</a></div>';
+    $reply .= '<div class="mid-area">
+            '.l($repItems['uname'],'profile/'.$repItems['uname']).'
+              &nbsp;&nbsp;<span class="posted">'.$repItems['posted'].'</span>&nbsp;|&nbsp;<a>'.t('Abuse').'</a>
+              <div class="comm-text">'.$repItems['reply_content'].'</div>
+            </div>';
+    $reply .= '<div class="rating">'.$ratings.'</div>
+                <div class="reply">'.$delete.'</div>
+                 <div class="clr"></div>';
+    $reply .= '</div><div class="clr"></div>';
+    
+    return $reply;
+
+}
+
+function theme_single_resource_template($resItems = array()){
+    global $user, $gSitePath, $theme;
+    $delete = '';
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+
+    // anwers strength
+    $strnth = $resItems['strength'];
+    //echo '<pre>';print_r($strnth);exit;
+
+    foreach ($strnth as $list) {
+    $short_answer = get_short_answer($resItems['issue_id'], $list['chorder']);
+    $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '".$resItems['issue_id']."' AND chorder = '".$list['chorder']."'"));
+    $ans = $short_answer!=''?$short_answer:$tranAns;
+
+    switch ($list['ans_val']) {
+        case 0:
+            $strength.='<div><span class="yellow-box">+/-</span>'.$ans.'</div>';
+            break;
+        case 1:
+            $strength.='<div><span class="green-box">+</span>'.$ans.'</div>';
+            break;
+        case 2:
+            $strength.='<div><span class="red-box">-</span>'.$ans.'</div>';
+            break;
+    }
+    }
+
+    // allow rating check
+    $agreeClass = '';
+    $disagreeClass = '';
+    if($resItems['posted_by'] == $user->uid){
+        $agreeTitle = 'title="You are not able to rate your own post!"';
+        $disagreeTitle = 'title="You are not able to rate your own post!"';
+    }elseif($resItems['allow_rating']==0){
+        $agreeClass = 'class="dagree"';
+        $disagreeClass = 'class="ddisagree"';
+        $agreeTitle = 'title="Agree This!"';
+        $disagreeTitle = 'title="Disagree This!"';
+    }else{
+        $agreeTitle = 'title="You have rated this!"';
+        $disagreeTitle = 'title="You have rated this!"';
+    }
+
+    $ratings = '<span id="ag-cnt">'.$resItems['vote_up'].'</span>&nbsp;
+                <span type="is_debate" name="' . $resItems['resource_id'] . '" id="dagree" >
+                    <a href="javascript:void(0);" '.$agreeTitle.' name="a-' . $resItems['resource_id'] . '" '.$agreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" align="absmiddle" /></a>
+                    <a href="javascript:void(0);" '.$disagreeTitle.' name="da-' . $resItems['resource_id'] . '" '.$disagreeClass.'><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Diasagree" align="absmiddle" /></a>
+                </span>&nbsp;<span id="disag-cnt">'.$resItems['vote_down'].'</span>';
+    $reply = '<a class="orange-btn" title="Reply" id="deb_reply_'.$resItems['resource_id'].'" href="javascript:void(0);" onclick="open_replybox(this.id)">Reply</a>';
+
+    if(is_moderator() || $resItems['uid']==$user->uid){
+       $delete .= '<a href="javascript:void(0);" onclick="delete_thread(this.id, \'resource\')" id="own_forum_'.$resItems['resource_id'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
+    }
+
+
+    $reply_box = drupal_get_form('forum_reply_form', $resItems['debate_id'], $resItems['resource_id'], $resItems['issue_id']);
+    $replies = '';
+
+    $comments = forum_replies($resItems['resource_id'], 0);
+
+    $image = !empty($resItems['image']) ? $resItems['image'] : file_directory_path() . '/noimage.jpg';
+
+    $debt = '';
+    $debt .= '<div class="new-debate-wrapper" id="forum-block-'.$resItems['resource_id'].'">';
+    $debt .= '<div class="user-avatar"><a href="'.$sitelink.'profile/'.$resItems['uname'].'">'.UserPicture_small($resItems['uid']).'</a></div>';
+
+    // display news , media, facts
+    if($resItems['rtype'] == 'news' || $resItems['rtype'] == 'facts'){
+        $content = '<div class="comm-text"><a href="'.$resItems['title'].'" target="_blank" title="'.$resItems['title'].'">'.$resItems['title'].'</a></div>
+                  '.theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE).'
+                  <div class="res-body">'.$resItems['body'].'</div>
+                  <div class="clr"></div>';
+    }elseif($resItems['rtype'] == 'multimedia'){
+        if($resItems['video_id']!=''){
+        $content = '<div class="comm-text">
+                    <a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/' . $resItems['video_id'] . '" class="floatbox" data-fb-options="width:480 height:384"><img width="125" height="100" src="http://img.youtube.com/vi/' . $resItems['video_id'] . '/default.jpg" alt="Video " ></a>
+                    <a target="_blank" href="' . $resItems['nlink'] . '">' . $resItems['nlink'] . '</a>
+                    </div>';
+        }elseif($resItems['filepath']!=''){
+            $url = explode('/', $resItems['filepath']);
+            $content = '<div class="comm-text"><a href="' . $gSitePath . $resItems['filepath'] . '" target="_blank" > ' . $url[2] . ' </a></div>';
+        }
+    }
+
+    if(isset($user->uid)&&$user->uid!=$resItems['uid']){
+    $abuse = 'onclick="loadflagresdeb(\''.$gSitePath.'qlite/flag/'. $resItems['resource_id'].'\', \'Report\');"';
+    }else{
+    $abuse = ''    ;
+    }
+    $debt .= '<div class="mid-area">
+            '.l($resItems['uname'],'profile/'.$resItems['uname']).'
+              &nbsp;&nbsp;<span class="posted">'.$resItems['posted'].'</span>&nbsp;|&nbsp;<a '.$abuse.' href="javascript:void(0);" title="'.t('Report Abuse').'">'.t('Report Abuse').'</a>
+              '.$content.'
+              <div class="clr"></div>
+              <div class="choice">'.$strength.'</div>
+            </div>';
+    $debt .= '<div class="rating">'.$ratings.'</div>
+             <div class="reply">'.$delete.$reply.'</div>
+                 <div class="clr"></div>';
+    $debt .= '<div class="reply-box" id="reply_box_'.$resItems['resource_id'].'">
+                '.$reply_box.'</div>';
+    // replies for a debate
+    $debt .= '<div align="center" class="submit-msg" id="reply-msg-'.$resItems['resource_id'].'"></div>';
+    $reply_count =  db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '".$resItems['resource_id']."'"));
+
+    $debt .= '<div class="show-reply">
+                <a href="javascript:void(0);" onclick="show_replies(this.id)" title="'.t('show reply').'" id="show_reply_'.$resItems['resource_id'].'">'.t('Replies').'</a>
+              ('.$reply_count.')';
+
+         // rply template here
+        $debt .= '<div class="all-replies" id="all_replybox_'.$resItems['resource_id'].'">';
+        $debt .= $comments;
+        $debt .=  '</div>';
+        //rply template ends here
+
+    $debt .= '</div>';
+    $debt .= '</div><div class="clr"></div>';
+    return $debt;
+} 

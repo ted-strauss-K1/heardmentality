@@ -1,0 +1,1058 @@
+<?php
+
+/**
+ * Implementation of hook_perm().
+ */
+function debate_perm() {
+    return array('Debate List', 'Debate Save', 'Admin Debate', 'Resource Debate');
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function debate_menu() {
+    $items['issues/debate/%/%'] = array(
+        'title' => ' Debate',
+        'page callback' => 'debate_list',
+        'access arguments' => array('Debate List'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'page arguments' => array(2, 3),
+        'file' => 'debate.pages.inc',
+    );
+    $items['debate/resource/new/%'] = array(
+        'title' => 'Debate Resources',
+        'page callback' => 'add_resources',
+        'access arguments' => array('Resource Debate'),
+        'page arguments' => array(3),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',);
+
+    $items['resource/debate/%/%'] = array(
+        'title' => 'Resource Debate',
+        'page callback' => 'resdebate_list',
+        'access arguments' => array('Resource Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'page arguments' => array(2, 3),
+        'file' => 'debate.pages.inc',
+    );
+    $items['issues/resource/%/%'] = array(
+        'title' => 'Resource Debate List',
+        'page callback' => 'resource_list',
+        'access arguments' => array('Resource Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'page arguments' => array(2, 3),
+        'file' => 'debate.pages.inc',
+    );
+    $items['issues/debate/save'] = array(
+        'title' => 'Debate',
+        'page callback' => 'debate_submit',
+        'access arguments' => array('Debate Save'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+    $items['admin/debate'] = array(
+        'title' => 'Admin Debate',
+        'page callback' => 'admin_debate',
+        'access arguments' => array('Admin Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+
+    $items['admin/debate/edit'] = array(
+        'title' => 'Admin Edit Debate',
+        'page callback' => 'admin_debate_edit',
+        'access arguments' => array('Admin Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+    $items['admin/wavelets'] = array(
+        'title' => 'Admin Debate Wavelets',
+        'page callback' => 'admin_debate_wlets',
+        'access arguments' => array('Admin Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+
+    $items['admin/wavelets/edit'] = array(
+        'title' => 'Admin Forum Wavelets',
+        'page callback' => 'admin_wlets_edit',
+        'access arguments' => array('Admin Debate'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+    $items['debate/ajax'] = array(
+        'title' => 'Admin Forum Wavelets',
+        'page callback' => 'debate_ajax',
+        'access arguments' => array('Debate List'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'debate.pages.inc',
+    );
+    return $items;
+}
+
+function debate_init() {
+    //  drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
+}
+
+function send_forumnotify($nid='', $qid='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+
+    $insert_notify = db_query("insert into notification (uid,follower_action,is_wave,node_id) values('" . $user->uid . "','1','1','" . $nid . "' ) ");
+
+    hm_mails($qid, $nid, 'add_forum');
+}
+
+function list_debate_old($qid='', $type='') {
+    global $gSitePath, $user, $gDocPath, $base_root,$theme;
+    $wave = '';
+    $click = '';
+//    $sortin = 'ORDER BY did DESC';
+//    $cond = '';
+//    extract($_REQUEST);
+//    if (isset($sort) && $sort == 1)
+//        $sortin = ' ORDER BY f.created DESC';
+//    elseif (isset($sort) && $sort == 2)
+//        $sortin = ' ORDER BY f.strength DESC';
+//    if (isset($ans) && !empty($ans))
+//        $cond.=" AND do.paid='$ans'";
+//    if (isset($sup) && $sup > 0)
+//        $cond.=" AND do.ans_val='$sup'";
+//
+//    if (empty($cond))
+//        $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(f.agree,0) as cntagree,IFNULL(f.disagree,0) as cntdisagree from {debate} as f join {user_profile} as u on u.uid=f.uid where f.qid='$qid' AND type='$type' AND status='1' $sortin ";
+//    else
+//        $query = "select f.*,DATE_FORMAT(f.date_added, '%a %M %Y %h:%i %p') as date_added,IFNULL((select DATE_FORMAT(date_added, '%a %M %Y %h:%i %p') from {debate_reply} as wl where wl.did=f.did ORDER BY wl.rid ASC LIMIT 0,1),0) as rdate,IFNULL(f.agree,0) as cntagree,IFNULL(f.disagree,0) as cntdisagree from {debate_options} as do join {debate} as f on do.did=f.did join {user_profile} as u on u.uid=f.uid where f.qid='$qid' AND type='$type' AND status='1' $cond  $sortin ";
+//    $cnt = ExecuteQuery($query, "select");
+
+    // load debate
+    $sorting = 'ORDER BY f.nid DESC';
+    extract($_REQUEST);
+    if (isset($sort) && $sort == 1){
+        $sorting = 'ORDER BY n.created DESC';
+    }
+    $tid = get_taxonomy_id('forum', 'Debate');
+    $sql = "SELECT f.nid FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+    $nodes = db_query($sql, $tid, $qid);
+    $count = db_result(db_query($sql, $tid, $qid));
+       
+    if ($count>0) {
+        $i=0;
+        while ($node = db_fetch_object($nodes)) {
+            $forum = node_load( array('nid' => $node->nid, 'status' => '1'));
+
+            $bg = $i % 2;
+            if ($bg)
+                $setbg = 'back-col';
+            else
+                $setbg='';
+            $i++;
+            $account = user_load($forum->uid);
+
+            
+
+            // vote agree, disagree calculation
+            $voteUp = 0;
+            $voteDown = 0;
+            $criteriaUpNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+            $criteriaDownNode = array('content_type' => 'node',
+                                   'content_id' => $forum->nid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+            $voteUp = vote_up_down_count($criteriaUpNode);
+            $voteDown = vote_up_down_count($criteriaDownNode);
+            $sql = db_query("SELECT cid FROM {comments} WHERE nid = '%d'", $forum->nid);
+            while($row = db_fetch_object($sql)){                
+                $criteriaUp = array('content_type' => 'comment',
+                                   'content_id' => $row->cid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'up');
+                $criteriaDown = array('content_type' => 'comment',
+                                   'content_id' => $row->cid,
+                                    'tag' => 'vote',
+                                    'vote_type' => 'down');
+                $voteUp += vote_up_down_count($criteriaUp);
+                $voteDown += vote_up_down_count($criteriaDown);
+            }
+
+            //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
+            $query = "select * from {debate_options} a,{poll_choices} b where a.chorder=b.chorder AND a.nid='" . $forum->nid . "'";
+            $strnth = ExecuteQuery($query, "select");
+            $strength = '';
+            foreach ($strnth as $list) {
+                $ans = $list['chtext'];
+
+                switch ($list['ans_val']) {
+                    case 0:
+                        $strength.='<div class="bottpart">
+                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+                                <div class="green-box">' . $ans . '</div>
+                                     <div class="clr"></div>
+                                     </div>';
+                        break;
+                    case 1:
+                        $strength.='<div class="bottpart">
+                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+                                <div class="green-box">' . $ans . '</div>
+                                     <div class="clr"></div>
+                                     </div>';
+                        break;
+                    case 2:
+                        $strength.='<div class="bottpart">
+                                <div class="pink"><em>&nbsp;&nbsp;-</em></div>
+                                <div class="pink-box">' . $ans . '</div>
+                                     <div class="clr"></div>
+                                     </div>';
+                        break;
+                }
+            }
+
+// date posted, last activity
+            $last_timestamp = db_result(db_query("SELECT timestamp FROM {comments} WHERE nid = '%d' ORDER BY cid DESC LIMIT 0,1", $forum->nid));
+            
+            $posted = date("F d Y H:i:s", $forum->created);
+            $last_activity = $last_timestamp!=''?date("F d Y H:i:s", $last_timestamp):$posted;
+// strenght weak calculation
+            $strCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 1, $forum->nid));
+            $weakCount = db_result(db_query("SELECT COUNT(*) FROM {comments} WHERE str_wk = '%d' AND nid = '%d'", 0, $forum->nid));
+
+            $wave.='         <div class="debate-summary-wrapper" >
+<div class="deb-center">
+<div class="leftpartside">
+<div class="toppart"><p>'.$voteUp.'</p>
+
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+<div class="toppart2"><p>'.$voteDown.'</p>
+<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+
+</div>
+
+</div>
+
+
+<div class="centerpartside-out">
+<div class="centerpartside-top">
+<div class="centerpartside">
+<h4><a class="debate-links" href="' . $gSitePath . 'issues/debate/' . $qid . '/' . $forum->nid . '" >' . myTruncate($forum->title, '30', '', '..') . '</a></h4><br>
+' . myTruncate($forum->body, '25', '', '..') . '
+</div>
+<div class="rightpartside">
+<a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
+
+</div>
+<div class="clr"></div>
+
+<div class="centerpartside-bottom">
+' . $strength . '
+
+<ul>
+
+
+<li>Posted : ' . $posted . ' </li>
+<div class="clr"></div>
+<li>Last Activity: ' . $last_activity . '</li>
+
+
+</ul>
+
+
+</div>
+
+
+<div class="clr"></div>
+
+</div>
+
+</div>
+<div class="deb-bott">
+</div>
+<div class="clr"></div>
+
+</div>
+
+<div class="clr"></div>
+';
+            // update points
+            debate_roundup($forum->nid);
+        }
+    } else {
+        $wave .= '
+	<div class="messages warning">
+
+	No Debate Posted Yet!!
+		</div>
+
+
+	';
+    }
+
+
+//    $i = 0;
+//    if (!empty($cnt)) {
+//
+//
+//        foreach ($cnt as $forum) {
+//            $bg = $i % 2;
+//            if ($bg)
+//                $setbg = 'back-col';
+//            else
+//                $setbg='';
+//            $i++;
+//            $account = user_load($forum['uid']);
+//
+//            $query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.did='" . $forum['did'] . "'";
+//            $strnth = ExecuteQuery($query, "select");
+//            $strength = '';
+//            foreach ($strnth as $list) {
+//                $ans = $list['answer'];
+//
+//                switch ($list['ans_val']) {
+//                    case 0:
+//                        $strength.='<div class="bottpart">
+//                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+//                                <div class="green-box">' . $ans . '</div>
+//                                     <div class="clr"></div>
+//                                     </div>';
+//                        break;
+//                    case 1:
+//                        $strength.='<div class="bottpart">
+//                                <div class="green"><em>&nbsp;&nbsp;+</em></div>
+//                                <div class="green-box">' . $ans . '</div>
+//                                     <div class="clr"></div>
+//                                     </div>';
+//                        break;
+//                    case 2:
+//                        $strength.='<div class="bottpart">
+//                                <div class="pink"><em>&nbsp;&nbsp;-</em></div>
+//                                <div class="pink-box">' . $ans . '</div>
+//                                     <div class="clr"></div>
+//                                     </div>';
+//                        break;
+//                }
+//            }
+//
+//
+//
+//            $wave.='         <div class="debate-summary-wrapper" >
+//<div class="deb-center">
+//<div class="leftpartside">
+//<div class="toppart"><p>' . $forum['cntagree'] . '</p>
+//
+//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/aggree-hand.jpg" width="18" height="15" alt="Agree" /></p></div>
+//<div class="toppart2"><p>' . $forum['cntdisagree'] . '</p>
+//<p align="center"><img src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/disaggree-hand.jpg" width="18" height="15" alt="Agree" /></p>
+//
+//</div>
+//
+//</div>
+//
+//
+//<div class="centerpartside-out">
+//<div class="centerpartside-top">
+//<div class="centerpartside">
+//<h4><a class="debate-links" href="' . $gSitePath . 'issues/debate/' . $qid . '/' . $forum['did'] . '" >' . myTruncate($forum['title'], '30', '', '..') . '</a></h4><br>
+//' . myTruncate($forum['content'], '25', '', '..') . '
+//</div>
+//<div class="rightpartside">
+//<a  rel=\'' . $bubble . '\' href="' . $gSitePath . 'profile/' . $account->name . '">' . UserPicture_small($account->uid) . '</a></div>
+//
+//</div>
+//<div class="clr"></div>
+//
+//<div class="centerpartside-bottom">
+//' . $strength . '
+//
+//<ul>
+//
+//
+//<li>Posted : ' . $forum['date_added'] . ' </li>
+//<div class="clr"></div>
+//<li>Last Activity: ' . $forum['rdate'] . '</li>
+//
+//
+//</ul>
+//
+//
+//</div>
+//
+//
+//<div class="clr"></div>
+//
+//</div>
+//
+//</div>
+//<div class="deb-bott">
+//</div>
+//<div class="clr"></div>
+//
+//</div>
+//
+//<div class="clr"></div>
+//';
+//             // update points
+//    debate_roundup($forum['did']);
+//        }
+//    } else {
+//
+//        $wave .= '
+//	<div class="messages warning">
+//
+//	No Debate Posted Yet!!
+//		</div>
+//
+//
+//	';
+//    }
+
+    return $wave;
+}
+
+function debate_roundup($did='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
+//main debate
+    //$query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.did AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {debate} as f  join {user_profile} as u on u.uid=f.uid   where f.did='$did'";
+    
+    $query = "SELECT IFNULL((select count(*) from {votingapi_vote} as l where l.content_id=f.nid AND content_type='node' AND value='1' group by l.content_id),0) as cntagree,IFNULL((select count(*) from {votingapi_vote} as l where l.content_id=f.nid AND content_type='node' AND value='-1' group by l.content_id),0) as cntdisagree  FROM {node} as f  join {user_profile} as u on u.uid=f.uid   where f.nid='$did'";
+    
+    $main = ExecuteQuery($query, "select");
+//sub debate
+//    $query = "SELECT IFNULL( (
+//
+//SELECT count( * )
+//FROM {user_likes} AS l
+//WHERE l.node_id = f.rid
+//AND is_debate_reply = '1'
+//AND is_agree = '1'
+//GROUP BY l.node_id ) , 0
+//) AS cntagree, IFNULL( (
+//
+//SELECT count( * )
+//FROM {user_likes} AS l
+//WHERE l.node_id = f.rid
+//AND is_debate_reply = '1'
+//AND is_agree = '0'
+//GROUP BY l.node_id ) , 0
+//) AS cntdisagree,f.str_wk,f.rid
+//FROM {debate_reply} AS f
+//JOIN user_profile AS u ON u.uid = f.uid
+//WHERE f.did = '$did'";
+
+    $query = "SELECT IFNULL( (
+
+SELECT count( * )
+FROM {votingapi_vote} AS l
+WHERE l.content_id = f.cid
+AND content_type = 'comment'
+AND value = '1'
+GROUP BY l.content_id ) , 0
+) AS cntagree, IFNULL( (
+
+SELECT count( * )
+FROM {votingapi_vote} AS l
+WHERE l.content_id = f.cid
+AND content_type = 'comment'
+AND value = '-1'
+GROUP BY l.content_id ) , 0
+) AS cntdisagree,f.str_wk,f.cid
+FROM {comments} AS f
+JOIN user_profile AS u ON u.uid = f.uid
+WHERE f.nid = '$did'";
+    $sub = ExecuteQuery($query, "select");
+
+    foreach ($sub as $list) {
+        $list['str_wk'];
+        $str_wk = ($list['str_wk'] == 0) ? '-1' : '1';
+        $agree = $agree + $list['cntagree'];
+        $dagree = $dagree + $list['cntdisagree'];
+        $strength = $list['cntagree'] - $list['cntdisagree'];
+        $activity = $list['cntagree'] + $list['cntdisagree'];
+
+        $rollup = $strength * $str_wk;
+        //pundit score
+
+        //db_query("update {debate_reply} set score='$strength' where rid='" . $list['rid'] . "'");
+        db_query("update {comments} set score='$strength' where cid='" . $list['cid'] . "'");
+        //Activity
+        $sum_act = $sum_act + $activity;
+        //For Rollup Strenght
+        $sum_rollup = $sum_rollup + $rollup;
+    }
+    $agree = $main['0']['cntagree'] + $agree;
+    //pundit score
+    $debate_str = $main['0']['cntagree'] + $main['0']['cntdisagree'];
+    $dagree = $main['0']['cntdisagree'] + $dagree;
+    $sum_act = $agree + $dagree;
+
+    $sum_rollup = $main['0']['cntagree'] + $sum_rollup;
+    //$query = "update {debate} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup',score='$debate_str' where did='$did'";
+    $query = "update {content_type_forum} set field_agree_value='$agree',field_disagree_value='$dagree',field_activity_value='$sum_act',field_strength_value='$sum_rollup',field_score_value='$debate_str' where nid='$did'";
+    $main = ExecuteQuery($query, "select");
+}
+
+function resource_roundup($rid='') {
+    global $gSitePath, $user, $gDocPath, $base_root, $theme;
+//main debate
+    //$query = "SELECT IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_resource='1' AND is_agree='1' group by l.node_id),0) as cntagree,IFNULL((select count(*) from {user_likes} as l where l.node_id=f.rid AND is_debate='1' AND is_agree='0' group by l.node_id),0) as cntdisagree  FROM {resource} as f  join {user_profile} as u on u.uid=f.uid   where f.rid='$rid'";
+    $query = "SELECT IFNULL((select count(*) from {votingapi_vote} as l where l.content_id=f.nid AND content_type='node' AND value='1' group by l.content_id),0) as cntagree,IFNULL((select count(*) from {votingapi_vote} as l where l.content_id=f.nid AND content_type='node' AND value='-1' group by l.content_id),0) as cntdisagree  FROM {node} as f  join {user_profile} as u on u.uid=f.uid   where f.nid='$rid'";
+    $main = ExecuteQuery($query, "select");
+//sub debate
+//    $query = "SELECT IFNULL( (
+//
+//SELECT count( * )
+//FROM {user_likes} AS l
+//WHERE l.node_id = f.reid
+//AND is_resource_reply = '1'
+//AND is_agree = '1'
+//GROUP BY l.node_id ) , 0
+//) AS cntagree, IFNULL( (
+//
+//SELECT count( * )
+//FROM {user_likes} AS l
+//WHERE l.node_id = f.reid
+//AND is_resource_reply = '1'
+//AND is_agree = '0'
+//GROUP BY l.node_id ) , 0
+//) AS cntdisagree,f.str_wk,f.reid
+//FROM {resource_reply} AS f
+//JOIN user_profile AS u ON u.uid = f.uid
+//WHERE f.rid = '$rid'";
+
+    $query = "SELECT IFNULL( (
+
+SELECT count( * )
+FROM {votingapi_vote} AS l
+WHERE l.content_id = f.cid
+AND content_type = 'comment'
+AND value = '1'
+GROUP BY l.content_id ) , 0
+) AS cntagree, IFNULL( (
+
+SELECT count( * )
+FROM {votingapi_vote} AS l
+WHERE l.content_id = f.cid
+AND content_type = 'comment'
+AND value = '-1'
+GROUP BY l.content_id ) , 0
+) AS cntdisagree,f.str_wk,f.cid
+FROM {comments} AS f
+JOIN user_profile AS u ON u.uid = f.uid
+WHERE f.nid = '$rid'";
+    $sub = ExecuteQuery($query, "select");
+
+    foreach ($sub as $list) {
+        $list['str_wk'];
+        $str_wk = ($list['str_wk'] == 0) ? '-1' : '1';
+        $agree = $agree + $list['cntagree'];
+        $dagree = $dagree + $list['cntdisagree'];
+        $strength = $list['cntagree'] - $list['cntdisagree'];
+        $activity = $list['cntagree'] + $list['cntdisagree'];
+
+        $rollup = $strength * $str_wk;
+        //pundit score
+        //db_query("update {resource_reply} set score='$strength' where did='" . $list['reid'] . "'");
+        db_query("update {comments} set score='$strength' where cid='" . $list['cid'] . "'");
+        //Activity
+        $sum_act = $sum_act + $activity;
+        //For Rollup Strenght
+        $sum_rollup = $sum_rollup + $rollup;
+    }
+    $agree = $main['0']['cntagree'] + $agree;
+    $dagree = $main['0']['cntdisagree'] + $dagree;
+    $sum_act = $agree + $dagree;
+    $sum_rollup = $main['0']['cntagree'] + $sum_rollup;
+    $debate_str = $main['0']['cntagree'] + $main['0']['cntdisagree'];
+    //pundit score
+
+    //$query = "update {resource} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup',score='$debate_str' where rid='$rid'";
+    $query = "update {content_type_forum} set field_agree_value='$agree',field_disagree_value='$dagree',field_activity_value='$sum_act',field_strength_value='$sum_rollup',field_score_value='$debate_str' where nid='$rid'";
+    $main = ExecuteQuery($query, "select");
+}
+
+function converttimestamp($indate) {
+
+    list($year, $month, $day) = explode('-', $indate);
+
+    $timestamp = mktime(0, 0, 0, $month, $day, $year);
+
+    return $timestamp;
+}
+
+function cdatetime($timestamp) {
+    if (!$timestamp) {
+        return 'N/A';
+    }
+
+    $timestamp = (int) strtotime($timestamp);
+    $difference = time() - $timestamp;
+    $periods = array("sec", "min", "hour", "day", "week", "month", "year", "decade");
+    $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
+    $total_lengths = count($lengths);
+
+    if ($difference > 0) { // this was in the past
+        $ending = "ago";
+    } else { // this was in the future
+        $difference = -$difference;
+        $ending = " from now";
+    }
+    //return;
+
+    for ($j = 0; $difference > $lengths[$j] && $total_lengths > $j; $j++) {
+        $difference /= $lengths[$j];
+    }
+
+    $difference = round($difference);
+    if ($difference != 1) {
+        $periods[$j].= "s";
+    }
+
+    $text = "$difference $periods[$j] $ending";
+
+    return $text;
+}
+
+function format_date_class($date, $date2) {
+    // this function gives a fuzzy description of the date relative to today
+    // NOTE: this will only work properly if the date is given for time: 00:00 AM
+    // (i.e. Tomorrow, in 3 days, in a week, etc.)
+    //$date=$params['sdate'];
+    //$date2=$params['edate'];
+    $twodiff = datediff('y', $date, date("Y-m-d H:i:s"), '');
+    $date = strToTime($date);
+    $date2 = strToTime($date2);
+    $time = date('h:i ', $date);
+    $default = date('M j,y h:i ', $date);
+    $difference = $date - strToTime(date("Y-m-d"));
+    //  $diff_days = round($difference / (24*3600));
+    $diff_days = floor($difference / (60 * 60 * 24));
+    if ($date) {
+        // handle negatives
+        if ($difference >= 0) {
+            if ($diff_days < 13) {
+                // days to a week
+                switch ($twodiff) {
+                    case 0:
+
+                        if ($twodiff == 0) {
+                            $fuzz = "Today " . $time;
+                        } else {
+                            $fuzz = $default;
+                        }
+                        break;
+                    case 1:
+
+                        $fuzz = "Tomorrow " . $time;
+
+                        break;
+                    case 8:
+                        $fuzz .= "In a week ";
+                        // $fuzz.= "[$default]";
+                        break;
+                    default:
+
+                        $fuzz .= "In " . $diff_days . " days ";
+                    // $fuzz.= "[$default]";
+                }
+            } elseif ($diff_days < 25) {
+                // weeks
+                $diff_weeks = round($diff_days / 7);
+                $fuzz.= "In about " . $diff_weeks . " weeks ";
+                $fuzz.= "[$default]";
+            } elseif ($diff_days < 340) {
+                // months
+                $diff_months = round($diff_days / 30.4); // this gives good approximation to average month duration (365/12 = 30.416...), (365.25/12 = 30.4375)
+                if ($diff_months == 1) {
+                    $fuzz.= "In about a month";
+                    $fuzz.= "[$default]";
+                } else {
+                    $fuzz.= "in about " . $diff_months . " months ";
+                    $fuzz.= "[$default]";
+                }
+            } else {
+                // years
+                $diff_years = round($diff_days / 365.25);
+                if ($diff_years == 1) {
+                    // $fuzz = "In about a year";
+                    $fuzz = $default;
+                } else {
+                    //   $fuzz = "In about ".$diff_years." years";
+                    $fuzz = $default;
+                }
+            }
+        } else {
+            $diff_days = -$diff_days;
+
+            if ($diff_days < 13) {
+                // days to a week
+                switch ($diff_days) {
+                    case 0:
+
+                        $fuzz = "Today " . $time;
+
+                    case 1:
+
+                        $fuzz = "Yesterday " . $time;
+
+                        break;
+                    case 2:
+                    case 3:
+                    case 4:
+                    case 5:
+                        $fuzz = $diff_days . " days ago";
+                        //$fuzz.= "[$default]";
+                        break;
+                    case 6:
+                    case 7:
+                    case 8:
+                        $fuzz = "Around last week";
+                    //	$fuzz.= "[$default]";
+                    default:
+                        $fuzz = "Over a week ago";
+                    // $fuzz.= "[$default]";
+                }
+            } elseif ($diff_days < 25) {
+                // weeks
+                $diff_weeks = round($diff_days / 7);
+                $fuzz = "Around " . $diff_weeks . " weeks ago";
+                // $fuzz.= "[$default]";
+            } elseif ($diff_days < 340) {
+                // months
+                $diff_months = round($diff_days / 30.4); // this gives good approximation to average month duration (365/12 = 30.416...), (365.25/12 = 30.4375)
+                if ($diff_months == 1) {
+                    $fuzz = "Around last month";
+                    // $fuzz.= "[$default]";
+                } else {
+                    $fuzz = "Around " . $diff_months . " months ago";
+                    // $fuzz.= "[$default]";
+                }
+            } else {
+                // years
+                $diff_years = round($diff_days / 365.25);
+                if ($diff_years = 39) {
+                    // for epoch fail
+                    $fuzz = "Forever ago";
+                } else if ($diff_years == 1) {
+                    $fuzz = "Around last year";
+                } else {
+                    $fuzz = "Around " . $diff_years . " years ago";
+                }
+            }
+        }
+    } else {
+        $fuzz = "unknown time";
+    }
+
+
+    return $fuzz;
+}
+
+function datediff($interval, $datefrom, $dateto, $using_timestamps = false) {
+
+    /*
+
+      $interval can be:
+
+      yyyy - Number of full years
+
+      q - Number of full quarters
+
+      m - Number of full months
+
+      y - Difference between day numbers
+
+      (eg 1st Jan 2004 is "1", the first day. 2nd Feb 2003 is "33". The datediff is "-32".)
+
+      d - Number of full days
+
+      w - Number of full weekdays
+
+      ww - Number of full weeks
+
+      h - Number of full hours
+
+      n - Number of full minutes
+
+      s - Number of full seconds (default)
+
+     */
+
+
+
+    if (!$using_timestamps) {
+
+        $datefrom = strtotime($datefrom, 0);
+
+        $dateto = strtotime($dateto, 0);
+    }
+
+    $difference = $dateto - $datefrom; // Difference in seconds
+
+
+
+    switch ($interval) {
+
+
+
+        case 'yyyy': // Number of full years
+
+
+
+            $years_difference = floor($difference / 31536000);
+
+            if (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom), date("j", $datefrom), date("Y", $datefrom) + $years_difference) > $dateto) {
+
+                $years_difference--;
+            }
+
+            if (mktime(date("H", $dateto), date("i", $dateto), date("s", $dateto), date("n", $dateto), date("j", $dateto), date("Y", $dateto) - ($years_difference + 1)) > $datefrom) {
+
+                $years_difference++;
+            }
+
+            $datediff = $years_difference;
+
+            break;
+
+
+
+        case "q": // Number of full quarters
+
+
+
+            $quarters_difference = floor($difference / 8035200);
+
+            while (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom) + ($quarters_difference * 3), date("j", $dateto), date("Y", $datefrom)) < $dateto) {
+
+                $months_difference++;
+            }
+
+            $quarters_difference--;
+
+            $datediff = $quarters_difference;
+
+            break;
+
+
+
+        case "m": // Number of full months
+
+
+
+            $months_difference = floor($difference / 2678400);
+
+            while (mktime(date("H", $datefrom), date("i", $datefrom), date("s", $datefrom), date("n", $datefrom) + ($months_difference), date("j", $dateto), date("Y", $datefrom)) < $dateto) {
+
+                $months_difference++;
+            }
+
+            $months_difference--;
+
+            $datediff = $months_difference;
+
+            break;
+
+
+
+        case 'y': // Difference between day numbers
+
+
+
+            $datediff = date("z", $dateto) - date("z", $datefrom);
+
+            break;
+
+
+
+        case "d": // Number of full days
+
+
+
+            $datediff = floor($difference / 86400);
+
+            break;
+
+
+
+        case "w": // Number of full weekdays
+
+
+
+            $days_difference = floor($difference / 86400);
+
+            $weeks_difference = floor($days_difference / 7); // Complete weeks
+
+            $first_day = date("w", $datefrom);
+
+            $days_remainder = floor($days_difference % 7);
+
+            $odd_days = $first_day + $days_remainder; // Do we have a Saturday or Sunday in the remainder?
+
+            if ($odd_days > 7) { // Sunday
+                $days_remainder--;
+            }
+
+            if ($odd_days > 6) { // Saturday
+                $days_remainder--;
+            }
+
+            $datediff = ($weeks_difference * 5) + $days_remainder;
+
+            break;
+
+
+
+        case "ww": // Number of full weeks
+
+
+
+            $datediff = floor($difference / 604800);
+
+            break;
+
+
+
+        case "h": // Number of full hours
+
+
+
+            $datediff = floor($difference / 3600);
+
+            break;
+
+
+
+        case "n": // Number of full minutes
+
+
+
+            $datediff = floor($difference / 60);
+
+            break;
+
+
+
+        default: // Number of full seconds (default)
+
+
+
+            $datediff = $difference;
+
+            break;
+    }
+
+
+
+    return $datediff;
+}
+
+// vote up down count
+function vote_up_down_count($criteria = ''){
+    $value = $criteria['vote_type'] == 'up'?'1':'-1';
+    $count = db_result(db_query("SELECT COUNT(*) FROM {votingapi_vote} WHERE content_id = '%d' AND content_type = '%s' AND tag = '%s' AND value = '%d'",
+            $criteria['content_id'], $criteria['content_type'], $criteria['tag'], $value));
+    return $count;
+}
+
+function debate_cron(){
+    global $gSitePath, $user, $gDocPath, $base_root, $language, $theme;
+    // get oly debates (not resources)
+    // field_type_value must be 1(debates only).
+    $query = db_query("SELECT n.nid FROM {content_type_forum} AS cf JOIN {node} AS n ON cf.nid=n.nid WHERE cf.field_lang_status_value='%d' AND cf.field_type_value = '%d' AND n.type='%s' AND n.tnid='%d' AND n.translate='%d'", 0, 1, 'forum', 0, 0);
+    while($langNode = db_fetch_object($query)){
+       $nid = $langNode->nid;
+       $node = node_load($nid);
+       //echo '<pre>'; print_r($node); exit;
+       // add content in multi languages (title, body, choices)
+       $node->field_lang_status[0]['value'] = 1;
+       issue_translator_action_node_translate($node);
+       db_query("UPDATE {node} SET translate = '%d', tnid = '%d' WHERE nid = '%d' AND translate = '%d'", 1, $nid, $nid, 0);
+    }
+
+    //comments(debate replies and resource replies) translation
+    $cQuery = db_query("SELECT * FROM {comments} WHERE translate = '%d' AND tcid = '%d' AND language != ''", 0, 0);
+    while($tComment = db_fetch_object($cQuery)){
+        $cid = $tComment->cid;
+        issue_comment_translate($tComment);
+        db_query("UPDATE {comments} SET translate = '%d', tcid = '%d' WHERE cid = '%d'", 1, $cid, $cid);
+    }
+}
+
+
+function resource_save_ext_imgs($url='') {
+
+
+    $result = drupal_http_request($url);
+
+    $dir = file_create_path() . '/resources';
+
+    if (!file_check_directory($dir)) {
+
+        mkdir($dir, 0775, true);
+    }
+    $code = floor($result->code / 100) * 100;
+    $ext = '.' . 'jpg';
+    $types = array('image/jpeg', 'image/png', 'image/gif');
+    $src = file_create_path() . '/resources/' . md5($url) . $ext;
+    if ($result->data && $code != 400 && $code != 500 && in_array($result->Content - Type, $types)) {
+
+        $return = file_save_data($result->data, $src);
+
+        return $return;
+    } else {
+
+        //if we are unsuccessful then log a message in the watchdog
+
+        watchdog('resource', 'The image ' . $url . ' could not be retrieved');
+        return false;
+    }
+}
+
+function get_coins($key) {
+    $coins = db_result(db_query("SELECT coin_count FROM {tbl_coins} WHERE key_name = '$key'"));
+    return $coins;
+}
+
+
+function users_coins_update($uid = '', $bid = '', $keyname = '') {
+    if ($bid != '') {
+        $keyname = db_result(db_query("SELECT btype FROM {badges} WHERE bid = '$bid'"));
+    }
+    $sql = "SELECT * FROM {tbl_coins} WHERE key_name = '$keyname'";
+    $coins = ExecuteQuery($sql, 'select');
+    foreach ($coins as $coin) {
+        $coin_count = $coin['coin_count'];
+        $coin_type = $coin['type'];
+    }
+    $insert = "INSERT INTO {user_coins} SET coin_key = '%s', coin_type = '%s', coin_count = '%d', uid = '%d'";
+    db_query($insert, $keyname, $coin_type, $coin_count, $uid);
+
+    // update total coins
+    $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$uid'"));
+    if ($coin_type == 'earn') {
+        $total_coins = $user_coins + $coin_count;
+        $message_id = 'add_coins';
+    }
+    if ($coin_type == 'lose') {
+        $total_coins = $user_coins - $coin_count;
+        $message_id = 'lose_coins';
+    }
+
+    /* New SET NOTIFY LOG */
+    $variable = array('coin_count' => $coin_count, 'coint_type' => $coin_type);
+    set_notify_log($uid, '', $message_id, $variable);
+    /* New SET NOTIFY LOG */
+
+    db_query("UPDATE {users} SET total_coins = '%d' WHERE uid = '$uid'", $total_coins);
+    $details = user_load(array('uid' => $uid));
+    return $details->total_coins;
+}
+
+
+
+// reply as comments
+function custom_comment_update($cid, $comm = '') {
+    //db_query("INSERT INTO {comments} SET pid = '%d', nid = '%d', uid = '%d', subject = '%s', comment = '%s', name = '%s', timestamp = '%d', status = '%d', str_wk = '%d', language = '%s'", $comm['pid'], $comm['nid'], $comm['uid'], $comm['subject'], $comm['comment'], $comm['name'], time(), '1', $comm['str_wk'], $comm['language']);
+    db_query("UPDATE {comments} SET str_wk = '%d', language = '%s' WHERE cid = '%d'", $comm['str_wk'], $comm['language'], $cid);
+}
+
