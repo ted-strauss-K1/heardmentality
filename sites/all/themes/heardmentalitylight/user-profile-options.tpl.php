@@ -22,7 +22,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 			  <div class="profile-complete">
 				  <div class="progress"></div>
 			  </div>
-			  <p> <?php print t('Filling out <em>!empty-field</em> will bring your profile to !complete% Complete', array('!empty-field' => $complete_percent['nextfield'], '!complete' => $complete_percent['nextpercent'])); ?> <a class="blue">Add it here.</a></p>
+			  <p> <?php print t('Filling out <em>!empty-field</em> will bring your profile to !complete% Complete', array('!empty-field' => $complete_percent['nextfield'], '!complete' => $complete_percent['nextpercent'])); ?> <a class="blue"><?php print t('Add it here.'); ?></a></p>
 
 			</div> 
                   </div>

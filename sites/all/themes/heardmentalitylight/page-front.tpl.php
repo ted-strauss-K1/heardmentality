@@ -126,7 +126,7 @@ $directoryPath = $base_path . $directory;
 				</div>
 				<div class="grey-box-cat">
 					<ul class="tags">
-                                        <?php print $popular_categories; ?>
+                                        <?php if($popular_categories): print $popular_categories; endif; ?>
 					</ul>
 					<div class="clear"></div>
 					<br />

@@ -236,7 +236,7 @@ function phptemplate_preprocess_node(&$vars) {
   }
 }
 
-function heardmentalitylight_theme(){
+function heardmentalitylight_theme($existing, $type, $theme, $path){
 return array(
 'issue_search_form' => array(
 'arguments' => array('form' => NULL),
@@ -244,3 +244,6 @@ return array(
 ),
 );
 }
+
+
+

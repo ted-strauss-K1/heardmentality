@@ -57,158 +57,58 @@ $directoryPath = $base_path . $directory;
 
 	<div class="header">
 		<?php include 'header.tpl.php';?>
+            <div class="container">
+
+    <div class="toggler profile-message" style="height:auto;width:auto">
+      <div class="clear"></div>
+	    	
+						<?php if($messages):?>
+                                                <div id="effect" class="" style="width:auto;height:auto">
+						<div class="message top-message">
+							<p class="double" style="disply:block">
+                                                            <?php print $messages; ?>
+                                                        </p>
+						</div>
+                                                <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick">Hide</span></a>
+                                                </div>
+                                                <?php endif; ?>
+					<br class="clear">
+	    	
+    </div>
+
+  </div>
+
 	<div class="container">
 
             <div class="twelve columns">
 		  <h2 class="dinbold page-title"><?php print t('Issues / Search state / if any'); ?></h2>
 			<div class="grey-box search">
 				
-                            <?php print $issue_search_area; ?>
+                            <?php if($issue_search_area): print $issue_search_area; endif; ?>
 					<div class="clear"></div>
 				</div>
+                        <?php if($issue_filter_area): ?>
 			<div class="sort-white-box">
-			  <div class="sort-by">View &nbsp;<a class="active">Most Votes (all-time)</a> <a>Most Votes (past 7 days)</a> | <a>Number of Views</a></div>
-			</div>
+                            <?php print $issue_filter_area; ?>
+                        </div>
+                        <?php endif; ?>
 			<div class="white-box">
-				<div class="clear"></div>
-				<h2 class="din half"><a href="" title="permalink" class="issue-title">Do you beleive ad minima veniam, quis nostrum exercitatinem ullam corporis suscipit laboriosamm exercitationem ullam corpo (140 characters)?</a></h2>
-				<br>
-        <ul class="vote">
-					<fieldset>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 1" />No, ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</label>
-						</li>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 2" />Yes, on the other hand, we denounce with righteous indignation</label>
-						</li>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 3" />Dunno, we denounce with righteous indignation</label>
-						</li>
-				  </fieldset>
-				</ul>
-				<p class="issue-meta"><a>1234 Votes</a> / <a>33 Comments</a> / <a>12 References</a> </p>
-				<a href="#" class="button vote floatright">Vote</a>
-				<br class="clear">
-
-
-				<br class="clear">
-
-
-				<hr>
-				<div class="clear"></div>
-				<h2 class="din half">Do you believe BPpill well?</h2>
-				<br>
-        <ul class="vote">
-					<fieldset>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 1" />No, ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</label>
-						</li>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 2" />Yes, on the other hand, we denounce with righteous indignation</label>
-						</li>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 3" />Dunno, we denounce with righteous indignation</label>
-						</li>
-				  </fieldset>
-				</ul>
-				<p class="issue-meta"><a>1234 Votes</a> / <a>33 Comments</a> / <a>12 References</a> </p>
-				<a href="#" class="button vote floatright">Vote</a>
-				<br class="clear">
-
-
-				<br class="clear">
-
-				<hr>
-				<div class="clear"></div>
-				<h2 class="din half">Do you gulf spill well?</h2>
-				<br>
-        <ul class="vote">
-					<fieldset>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 1" />No, ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</label>
-						</li>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 2" />Yes, on the other hand, we denounce with righteous indignation</label>
-						</li>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 3" />Dunno, we denounce with righteous indignation</label>
-						</li>
-				  </fieldset>
-				</ul>
-				<p class="issue-meta"><a>1234 Votes</a> / <a>33 Comments</a> / <a>12 References</a> </p>
-				<a href="#" class="button vote floatright">Vote</a>
-				<br class="clear">
-
-
-				<br class="clear">
-
-				<hr>
-				<div class="clear"></div>
-				<h2 class="din half">Do you believe BP Handled the Mexico gulf spill well?</h2>
-				<br>
-        <ul class="vote">
-					<fieldset>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 1" />No, ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam</label>
-						</li>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 2" />Yes, on the other hand, we denounce with righteous indignation</label>
-						</li>
-						<li>
-				      <label class="answer"><input type="radio" name="vote" id="regularRadio" class="radio" value="radio 3" />Dunno, we denounce with righteous indignation</label>
-						</li>
-				  </fieldset>
-				</ul>
-				<p class="issue-meta"><a>1234 Votes</a> / <a>33 Comments</a> / <a>12 References</a> </p>
-				<a href="#" class="button vote floatright">Vote</a>
-				<br class="clear">
-
-
-			  <br class="clear">
-
-				<hr>
-				<div class="pagination">
-				  <ul>
-				    <a class="prev">Prev</a>
-				    <li><a>1</a></li><li><a class="active">2</a></li><li><a>3</a></li><li><a>4</a></li>
-				    <a class="next">Next</a>
-				  </ul>
-			  </div>
-			  <br class="clear">
-			</div>
+                        <?php print $content; ?>
+                        </div>
 		</div>
 		<div class="four columns">
 			<br>
 			<div class="toggler profile-message">
   	    	<div id="effect">
-						<div class="message right-message">
-
-	    	      <a href="#" id="button" class="hide-message2 ui-dialog-titlebar-close "><span class="ui-icon ui-icon-closethick">close</span></a>
-
-							<p class="profile-status"><strong>Your profile is only 75% complete.</strong></p>
-      		    <div class="profile-complete">
-      					<div class="progress"></div>
-      				</div>
-      				<p class="profile-status"> Filling in your Religion will bring you up to 85% complete. <a class="bolded">Add it here.</a></p>
-						</div>
+						
+                                <?php print $profile_complete_alert; ?>
+						
 	    	</div>
       </div>
 			<div class="grey-box">
 			  <div class="icon cat text"></div>
 				<ul class="tags">
-			    <label for="" class="tags-on">ACTIVE CATEGORIES</label>
-			    <div class="clear"></div>
-					<li><a>Society</a></li>
-					<li><a>Multimedia</a></li>
-					<li><a>Coutries</a></li>
-			    <li><a>Mobile</a></li>
-			    <li><a>Society</a></li>
-					<li><a>Multimedia</a></li>
-					<li><a>technology</a></li>
-			    <li><a>Mobile</a></li>
-			    <li><a>Society</a></li>
-					<li><a>Multimedia</a></li>
-					<li><a>technology</a></li>
+			     <?php if($popular_categories): print $popular_categories; endif; ?>
 				</ul>
 				<br class="clear">
 				<div class="clear"></div>
@@ -227,3 +127,9 @@ $directoryPath = $base_path . $directory;
 ================================================== -->
 </body>
 </html>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('.pager-first').remove();
+        jQuery('.pager-last').remove();
+    });
+</script>

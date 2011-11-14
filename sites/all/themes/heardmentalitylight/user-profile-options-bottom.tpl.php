@@ -25,5 +25,5 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
             <?php print $medal_list; ?>
 
     </div>
-    <a type="submit" title="<?php print t('Log out');?>" href="<?php print $base_url.'/logout';?>" class="button darker floatright" />Logout</a>
+    <a type="submit" title="<?php print t('Log out');?>" href="<?php print $base_url.'/logout';?>" class="button darker floatright" /><?php print t('Logout'); ?></a>
     <br class="clear">

@@ -2142,3 +2142,8 @@ textarea#q_quest  {
 .eight .foot-empty{
     height: 135px;
 }
+.twelve .white-box h2 a{
+    color: #333333;
+    outline: 0 none;
+    text-decoration: underline;
+}
