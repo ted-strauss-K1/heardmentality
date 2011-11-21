@@ -494,39 +494,21 @@ function theme_pcp_profile_percent_complete($complete_data) {
     $account=load_user($user->uid);
 
     $votecnt=db_result(db_query("select count(*) from {possible_answer_vote} where uid='$user->uid'"));
-    $output .= '
-        <div class="debate-cor-inner-percent">
-                        	<div class="debate-cor-inner-percent-left"><script>var prompt=\''.$account->prompt.'\';</script>
-                            	'.t('!complete% Complete', array('!complete' => $complete_data['percent'])).'
-                            </div>
 
 
+    $output .= '<style type="text/css">.profile-complete .progress {
+                background: none repeat scroll 0 0 #99F279;
+                height: 7px;
+                width: '. $complete_data['percent'] .'%;
+            }</style>';
+    $output .= '<div class="profile-meta quick-profile">
+			  <p>'.t('Your profile is ').t('!complete% Complete!', array('!complete' => $complete_data['percent'])).'</p>
+			  <div class="profile-complete">
+				  <div class="progress"></div>
+			  </div>
+			  <p>'.t('Filling in your '.$complete_data['nextfield'].' will bring you up to ') . t('!complete% Complete', array('!complete' => $complete_data['nextpercent'])).'. <a class="blue">Add it here.</a></p>
 
-                        </div><div class="clr"></div>
- <div class="debate-cor-inner-percent-right">
-
-                                	<div style="width: ' . $complete_data['percent'] . '%;" class=" debate-cor-inner-percent-right-percent-bar">
-                                    </div>
-
-                                </div>
-
-';
-
-
-    if ($complete_data['nextfield'] && $complete_data['nextpercent']) {
-        if (is_numeric($complete_data['nextfield_fid'])) {
-          // $nextpath = 'user/' . $complete_data['uid'] . '/edit/' . $complete_data['nextcategory'];
-        }
-
-        if ($complete_data['nextfield_fid'] == 'user_picture') {
-          // $nextpath = 'user/' . $complete_data['uid'] . '/edit';
-        }
-
-      //  $output .= t('Filling out ') . '<i> ' . l($complete_data['nextfield'], $nextpath, array('query' => 'fieldname=' . $complete_data['nextname'],'attributes' => array('onclick' => 'loadeditquestion(\'http://localhost/heardmentality/edit\',\'Edit Profile \');'))) . '</i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent']));
-   $output .= '<span>'.t('Filling out ') . '<i> <a href="'.$nextpath.'" onclick="loadeditquestion(\''.$gSitePath.'account/edit\',\'Edit Profile \');" >'.$complete_data['nextfield'].'</a></i> ' . t('will bring your profile to') . ' ' . t('!complete% Complete', array('!complete' => $complete_data['nextpercent'])).'</span>';
-
-        }
-
+			</div>';
     return $output;
 }
 

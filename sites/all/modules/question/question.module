@@ -14,20 +14,6 @@ function question_perm() {
 function question_menu() {	
 
 
-$items['question/add'] = array(
-    'title' => ' Add Question',
-    'page callback' => 'question_add',
-    'access arguments' => array('Question add'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
-$items['question/save'] = array(
-    'title' => ' Save Question',
-    'page callback' => 'question_save',
-    'access arguments' => array('Question save'),
-    'type' => MENU_SUGGESTED_ITEM,
-    'file' => 'question.pages.inc',
-  );
 
   $items['question/ajax'] = array(
     'title' => ' Ajax Function',

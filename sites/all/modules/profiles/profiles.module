@@ -293,14 +293,35 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
             $blocks[0] = array(
                 'info' => t('HOME FACTS & FIGURES'),
             );
+            $blocks[1] = array(
+                'info' => t('Profile complete percent Options'),
+            );
+            $blocks[2] = array(
+                'info' => t('Profile complete percent Options - Bottom'),
+            );
+            $blocks[3] = array(
+                'info' => t('Profile complete percent Options - Right'),
+            );
 
             return $blocks;
 
         case 'view':
             switch ($delta) {
                 case 0:
-                    $block['subject'] = "";
+                    $block['subject'] = t("THE HERD");
                     $block['content'] = home_facts_figures();
+                    break;
+                case 1:
+                    $block['subject'] = t("Profile Complete Percent");
+                    $block['content'] = profile_complete_percent_area();
+                    break;
+                case 2:
+                    $block['subject'] = t("Profile Complete Percent");
+                    $block['content'] = profile_complete_percent_area_bottom();
+                    break;
+                case 3:
+                    $block['subject'] = t("Profile Complete Percent Alert");
+                    $block['content'] = profile_complete_percent_alert();
                     break;
             }
             return $block;
@@ -366,7 +387,8 @@ function user_facts() {
 }
 
 function home_facts_figures() {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user, $gDocPath, $base_root;
+    $gSitePath = $base_url.'/';
     $time_period = variable_get('user_block_seconds_online', 900);
     // drupal_set_html_head('  <script type="text/javascript" src="http://www.google.com/jsapi"></script>');
     drupal_add_js(drupal_get_path('module', 'profiles') . '/js/tab.js');
@@ -385,25 +407,26 @@ function home_facts_figures() {
     //$get_ans = db_queryd('SELECT count(*) as count,up.* FROM users as u join user_profile as up on u.uid=up.uid  WHERE u.access >= %d AND u.uid != 0 AND up.country REGEXP \'[^0-9]\'', time() - $time_period);
     //exit;
     $total_users = db_result($userslist);
-    $output.="   <div id='heatmap' style='width: 620px; height: 410px;'><iframe id='cirmap' src ='" . $gSitePath . "google/map/users?width=600&height=400' width='610' frameborder='0' height='400' scrolling='no'></iframe></div>
-";
-    $output .= '<div class="clr"></div>
-         <div class="facts-figures">
-          <ul>
-
-          <li><span>' . $usercnt . '</span><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $num_users . '\')"> '.t('Users').'</a></li>
-          <li><span >' . $total_users . '</span><a href="' . $gSitePath . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"> '.t('Online').'</a></li>
-          </ul>
-          <br />
-          <ul>
-          <li><span>' . $quest . '</span><a href="' . $gSitePath . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"> '.t('Issues').'</a></li>
-          <li><span >' . $ans . '</span><a href="' . $gSitePath . 'google/map/answer" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/answer\',\'Facts And Figures : Toatal Votes ' . $ans . '\')">'.t('Votes').'</a></li>
-          </ul>
-          </div>
-
-
-<div class="clr"></div>
-  ';
+    $output.= theme('show_heat_map', $quest, $usercnt, $total_users, $ans);
+//    $output.="   <div id='heatmap' style='width: 620px; height: 410px;'><iframe id='cirmap' src ='" . $gSitePath . "google/map/users?width=600&height=400' width='610' frameborder='0' height='400' scrolling='no'></iframe></div>
+//";
+//    $output .= '<div class="clr"></div>
+//         <div class="facts-figures">
+//          <ul>
+//
+//          <li><span>' . $usercnt . '</span><a href="' . $gSitePath . 'google/map/users"  title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/users\',\'Facts And Figures : Total Users ' . $num_users . '\')"> '.t('Users').'</a></li>
+//          <li><span >' . $total_users . '</span><a href="' . $gSitePath . 'google/map/online" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/online\',\'Facts And Figures : Online  ' . $total_users . '\')"> '.t('Online').'</a></li>
+//          </ul>
+//          <br />
+//          <ul>
+//          <li><span>' . $quest . '</span><a href="' . $gSitePath . 'google/map/questions" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/questions\',\'Facts And Figures : Total Issues ' . $quest . '\')"> '.t('Issues').'</a></li>
+//          <li><span >' . $ans . '</span><a href="' . $gSitePath . 'google/map/answer" title="Double Click To Launch" ondblclick="return loadtab(\'' . $gSitePath . 'google/map/answer\',\'Facts And Figures : Toatal Votes ' . $ans . '\')">'.t('Votes').'</a></li>
+//          </ul>
+//          </div>
+//
+//
+//<div class="clr"></div>
+//  ';
     return $output;
 }
 
@@ -2334,4 +2357,134 @@ function is_moderator($uid = ''){
     }else{
      return false;
     }
+}
+function UserPicture_small_src($mid) {
+
+global $base_url, $user, $gDocPath, $base_root, $base_path;
+    //$selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+ //   $rs_image = db_query($selimage);
+$gSitePath = $base_url.'/';
+$userslist=user_load(array('uid'=>$mid));
+ $default = $gSitePath.avatar_selection_get_random_image($userslist);
+   // $resultimage = db_fetch_object($rs_image);
+   // $default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+    switch ($resultimage->image_avatar) {
+        case '2':
+            $image_path = file_create_path('avatar_selection');
+
+            //  $image_path=file_directory_path().'/avatar_selection';
+            $selected_avatar = $resultimage->avatar;
+            $ipath = $gSitePath . $image_path . '/' . $selected_avatar;
+
+            if (file_exists($image_path . '/' . $selected_avatar)) {
+                //$PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
+                $PROFILE_IMAGE = $ipath;
+            } else {
+                $PROFILE_IMAGE = $default;
+            }
+
+            break;
+        default:
+
+           if (!empty($userslist->picture)) {
+                $upload_dir = variable_get('user_picture_path', 'pictures');
+
+                $img_path = $userslist->picture;
+
+                if (file_exists($img_path)) {
+                    //$PROFILE_IMAGE=theme('user_picture', $userslist,'30x30');
+                    $PROFILE_IMAGE = $gSitePath . $img_path;
+                } else {
+                    $PROFILE_IMAGE = $default ;
+                }
+            } elseif ($resultimage->image_url != '') {
+
+                //echo $resultimage->image_url;
+                if ($resultimage->image_url != '') {
+                    $PROFILE_IMAGE = $resultimage->image_url;
+                } else {
+                    $PROFILE_IMAGE = $default;
+                }
+            } else {
+                //echo $resultimage->image;
+                $img_path = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
+
+                if (file_exists($img_path)) {
+                    $PROFILE_IMAGE = $img_path;
+                } else {
+                    $PROFILE_IMAGE = $default;
+                }
+            }
+            break;
+    }
+
+    return $PROFILE_IMAGE;
+}
+
+// profiles themes
+function profiles_theme(){
+    return array(
+        'show_heat_map' => array(
+            'template' => 'show-heat-map',
+            'arguments' => array('issues' => NULL, 'users' => NULL, 'online' => NULL, 'votes' => NULL),
+        ),
+        'user_badge_coins' => array(
+            'template' => 'user-badge-coins',
+            'arguments' => array('badges' => NULL, 'coins' => NULL),
+        ),
+        'user_profile_options' => array(
+            'template' => 'user-profile-options',
+            'arguments' => array('name' => NULL, 'complete_percent' => NULL, 'user_picture' => NULL, 'medal_list' => NULL),
+        ),
+        'user_profile_options_bottom' => array(
+            'template' => 'user-profile-options-bottom',
+            'arguments' => array('name' => NULL, 'complete_percent' => NULL, 'user_picture' => NULL, 'medal_list' => NULL, 'ranking' => NULL, 'points' => NULL),
+        ),
+         'user_profile_options_alert' => array(
+            'template' => 'user-profile-options-alert',
+            'arguments' => array('name' => NULL, 'complete_percent' => NULL, 'user_picture' => NULL, 'medal_list' => NULL, 'ranking' => NULL, 'points' => NULL),
+        ),
+    );
+}
+
+//profile_complete_percent
+
+function profile_complete_percent_area(){
+    global $user;
+    $name = $user->name;
+    $complete_data = pcp_get_complete_percentage_data($user);
+    $userPicture = UserPicture_small_src($user->uid);
+    $medalList = load_user_medal_list($user->uid);
+    return theme('user_profile_options', $name, $complete_data, $userPicture, $medalList);
+}
+
+// profile complete options bottom
+function profile_complete_percent_area_bottom(){
+    global $user;
+    $name = $user->name;
+    $complete_data = pcp_get_complete_percentage_data($user);
+    $userPicture = UserPicture_small_src($user->uid);
+    $medalList = load_user_medal_list($user->uid);
+    $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$user->rank_id'"));
+    $points = db_result(db_query("SELECT SUM(points) FROM {tbl_user_points} WHERE uid = '" . $user->uid . "'"));
+    $points = $points != '' ? $points : 0;
+    return theme('user_profile_options_bottom', $name, $complete_data, $userPicture, $medalList, $ranking, $points);
+}
+
+//profile_complete_percent_alert
+
+function profile_complete_percent_alert(){
+    global $user;
+    $name = $user->name;
+    $complete_data = pcp_get_complete_percentage_data($user);
+    $userPicture = UserPicture_small_src($user->uid);
+    $medalList = load_user_medal_list($user->uid);
+    return theme('user_profile_options_alert', $name, $complete_data, $userPicture, $medalList);
+}
+
+function load_user_medal_list($uid = ''){
+    $users = load_user($uid);
+    $badges = load_badges($uid);
+    $coins = $users->total_coins!=''?$users->total_coins:0;
+    return theme('user_badge_coins', $badges, $coins);
 }

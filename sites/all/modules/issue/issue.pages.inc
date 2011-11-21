@@ -858,16 +858,20 @@ function issue_create_form(&$form_state) {
         $form['#action'] = $form_state['action'];
     }
     //$form['#attributes'] = array('onsubmit' => 'return validate_question()');
-    $form['issue_cont'] = array('#type' => 'markup', '#value' => '<div ><ul id="add_more">');
-    $form['title_div'] = array('#type' => 'markup', '#value' => '<li><label><span>');
-    $form['q_quest'] = array('#type' => 'textfield', '#maxlength' => 140, '#suffix' => '
-                                </span></label><small id="numberofword">140</small><small> ' . t('Chars Left.') . '</small>
-                                <span class="span1">&nbsp;</span>
-                                </li>', '#required' => TRUE, '#id' => 'q_quest', '#title' => t('Enter Question'),
+    $form['issue_cont'] = array('#type' => 'markup', 
+                            '#value' => '<div class="grey-box">
+                                        <h2 class="din">'.t('Add an Issue').'</h2>
+                                        <div class="new-issue">
+                                        <hr class="short2">');
+    $form['title_div'] = array('#type' => 'markup', '#value' => '<label for="" class="add-on"><div class="number dinbold">1</div><span class="title ">'.t('Question').'</span><br>
+                                                                <span class="guides">'.t('Max 140 chars.').'</span></label>');
+    $form['q_quest'] = array('#type' => 'textarea', '#suffix' => '
+                                <hr class="short2">', '#required' => TRUE, '#id' => 'q_quest',
         '#ahah' => array('path' => 'issue/get_related_issues', 'wrapper' => 'related-issues', 'effect' => 'fade'),
-        '#attributes' => array('onkeyup' => 'CountlimitChars()'));
-    $form['desc_div'] = array('#type' => 'markup', '#value' => '<li><label><span>');
-    $form['q_context'] = array('#type' => 'textarea', '#rows' => 4, '#suffix' => '</span></label></li>', '#title' => t('Enter Context'));
+        '#attributes' => array('onkeyup' => 'CountlimitChars()', 'rows' => 0, 'cols' => 0),
+        );
+    $form['desc_div'] = array('#type' => 'markup', '#value' => '<label for="" class="add-on"><div class="number dinbold">2</div><span class="title ">'.t('Context').'</span><br><span class="guides">'.t('Enter a brief description or backstory to provide context. You may include links.').'</span></label>');
+    $form['q_context'] = array('#type' => 'textarea', '#rows' => 4, '#suffix' => '<hr class="short2">', '#id' => 'Question', '#attributes' => array('rows' => 0, 'cols' => 0));
 //    $form['choices'][] = array('#type' => 'textfield', '#prefix' => ' <li><label><span>', '#suffix' => '</span></label></li>', '#required' => TRUE, '#id' => 'q_ans1', '#title' => 'Option1');
 //    $form['choices'][] = array('#type' => 'textfield', '#prefix' => '<li><label><span>', '#suffix' => '</span></label></li>', '#required' => TRUE, '#id' => 'q_ans2', '#title' => 'Option2');
 
@@ -886,8 +890,9 @@ function issue_create_form(&$form_state) {
 
 // Container for just the poll choices.
     $form['choice_wrapper']['answer'] = array(
-        '#prefix' => '<div id="poll-choices">',
-        '#suffix' => '</div>',
+        '#prefix' => '<div id="poll-choices">
+                        <label for="" class="add-on"><div class="number dinbold">3</div><span class="title ">'.t('Answers').'</span> <br><span class="guides">'.t('Enter at least two answers.').'</span></label>',
+        '#suffix' => '</div><div class="clear"></div>',
         '#theme' => 'issue_answer',
     );
 
@@ -902,7 +907,7 @@ function issue_create_form(&$form_state) {
     // AHAH-enabled buttons with the id 'more'.
     $form['choice_wrapper']['poll_more'] = array(
         '#type' => 'submit',
-        '#value' => t('Add Another Answer'),
+        '#value' => t('+ Add another answer'),
         '#description' => t("If the amount of boxes above isn't enough, click here to add more choices."),
         '#weight' => 1,
         '#ahah' => array(
@@ -911,12 +916,15 @@ function issue_create_form(&$form_state) {
             'method' => 'replace',
             'effect' => 'fade',
         ),
+        '#attributes' => array('class' => 'add-answer light'),
+        '#suffix' => '<div class="clear"></div>
+                                <hr class="bottom">',
     );
 
 
 
     $form['exist_check'] = array('#type' => 'hidden', '#value' => '', '#id' => 'exist_check');
-    $form['issue_cont_close'] = array('#type' => 'markup', '#value' => '</ul><div class="clr"></div>');
+    
 
     $form['related_issues'] = array(
         '#title' => t("Related Issues"),
@@ -961,9 +969,11 @@ function issue_create_form(&$form_state) {
     $form['dupe_count'] = array('#type' => 'hidden', '#id' => 'dupe_count', '#default_value' => 0);
     //$form['#validate'][] = 'issue_create_form_validate';
 
-    $form['submit'] = array('#type' => 'submit', '#attributes' => array('class' => 'question-save'), '#value' => t('SUBMIT NEW ISSUE'), '#id' => 'save_issue');
+    $form['submit'] = array('#type' => 'submit', '#attributes' => array('class' => 'submit-issue'), '#value' => t('SUBMIT NEW ISSUE'), '#id' => 'save_issue',
+                            '#prefix' => '<label class="before-submit">Your issue will go live immediately, but a moderator will edit it soon to assign categories, look for duplicates, or make format changes</label>',
+                            '#suffix' => ' <div class="clear"></div>');
     //$form['#redirect'] = '';
-
+    $form['issue_cont_close'] = array('#type' => 'markup', '#value' => '</div></div>');
     $form['#cache'] = TRUE;
     return $form;
 }
@@ -1034,17 +1044,15 @@ function _issue_answer_form($delta, $value = '', $votes = 0) {
     if ($delta < 10) {
         $form['chtext'] = array(
             '#type' => 'textfield',
-            '#title' => t('Choice @n', array('@n' => ($delta + 1))),
             '#default_value' => $value,
             '#parents' => array('answer', $delta),
-            '#prefix' => '<li><label><span>', '#suffix' => '</span></label></li>',
             '#required' => $req,
+            '#id' => 'Answer',
         );
     } else {
         $form['error_msg'] = array(
             '#type' => 'markup',
             '#value' => 'Maximum Fields Exceeded',
-            '#prefix' => '<li><label><span class="error">', '#suffix' => '</span></label></li>',
         );
     }
     return $form;
@@ -1261,16 +1269,11 @@ function get_releated_issues($question = '', $cat_id = '', $context = '') {
 // issue list here
 function issues_list(){
     $output = '';
-    //drupal_add_js(drupal_get_path('module','issue').'/js/filter.js');
-    $output .= '<div class="search-left">';
-    $output .= drupal_get_form('issue_search_form');
-    $output .= '</div>
-                <div class="search-right">';
-    $output .= '<b>'.t('ISSUES').'</b>&nbsp;<b>[&nbsp;</b>'.t('INDICATE SEARCH STATE LIKE KEYWORD, SUBJECT, ETC').'<b>&nbsp;]</b><br /><br />';
     $output .= search_issue_results();
-    $output .= '</div><div class="clr"></div>';
+    $output .= '';
     return $output;
 }
+// issue search form
 function issue_search_form(&$form_state){
     //$form['#method'] = 'get';
     $key = arg(1)=='0'?'':check_plain(arg(1));
@@ -1287,7 +1290,6 @@ function issue_search_form(&$form_state){
 
 
     $form['issue_key'] = array('#type' => 'textfield',
-                                '#title' => t('SEARCH ISSUES'),
                                 '#size' => 40,
                                 '#default_value' => $key);
     $form['category_mark'] = array('#type' => 'markup', '#value' => t('FILTER BY CATEGORY').'<br /><div class="clr"></div>');
@@ -1359,11 +1361,13 @@ function issue_search_form(&$form_state){
     $form['city_div'] = array('#type' => 'markup',
                                 '#value' => '<div id="city-wrapper" style="float:left"></div>',
                                 '#suffix' => '<br /><div class="clr"></div>');
-    
-    $form['search'] = array('#type'=>'submit', '#value' => t('SUBMIT'));
-    $form['reset_btn'] = array('#type' => 'markup', '#value' => '<input type="button" value="'.t('RESET').'" name="reset" onclick="javascript:clrForm(this.form)" />');
+    $form['submit'] = array('#type'=>'submit', '#value' => t('SUBMIT'), '#attributes' => array('class' => 're-submit light floatleft'));
+    $form['search'] = array('#type'=>'submit', '#value' => t('SEARCH'), '#attributes' => array('class' => 'search-button'));
+    $form['reset_btn'] = array('#type' => 'markup', '#value' => '<input type="button" value="'.t('CLEAR OPTIONS').'" name="reset" onclick="javascript:clrForm(this.form)" class="re-submit light floatleft" />');
     return $form;
 }
+
+// issue search form submit
 function issue_search_form_submit($form, &$form_state){
     //echo '<pre>';print_r($form_state);exit;
     $key = $form_state['values']['issue_key'];
@@ -1531,30 +1535,12 @@ function search_issue_results(){
 
     $count = db_affected_rows($query);
     if($sqlcount){
-
-    $key = arg(1)!=''?arg(1):'0';
-    $subject = arg(2)!=''?arg(2):'0';
-    $area = arg(3)!=''?arg(3):'0';
-    $detail = arg(4)!=''?arg(4):'0';
-    $country = arg(5)!=''?arg(5):'0';
-    $state = arg(6)!=''?arg(6):'0';
-    $city = arg(7)!=''?arg(7):'0';
-
-    $path = '<front>';
-    $sitelink = url($path, array('absolute' => TRUE)).'/';
-
-
-    $key_path = $sitelink.'issues/'.$key.'/'.$subject.'/'.$area.'/'.$detail.'/'.$country.'/'.$state.'/'.$city;
-    $issue .= 'SORT BY:&nbsp;<a href="'.$key_path.'/alltime">'.t('# of Votes all-time').'</a>&nbsp;|&nbsp;'
-              .'<a href="'.$key_path.'/7days">'.t('# of Votes last 7 days').'</a>&nbsp;|&nbsp;'
-                .'<a href="'.$key_path.'/views">'.t('# Views all-time').'</a>';
     while($result = db_fetch_object($query)){
         $nid = $result->nid;
         $node = node_load($nid);
         $issue .= node_view(node_load($node->nid), 1);
     }
-    $issue .= '<div class="clr"></div><br />';
-    $issue .= theme('pager', array(), $rec_per_page);
+    $issue .= '<div class="pagination">'.theme('pager', array(), $rec_per_page).'</div><br class="clear">';
     }else{
         $issue .= t('No Issues Found');
     }

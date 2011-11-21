@@ -1380,7 +1380,7 @@ function notify_block($op = 'list', $delta = 0, $edit = array()) {
 
                     break;
                 case '1':
-                    //$block['subject'] = "Happening Right Now";
+                    $block['subject'] = t("HAPPENING NOW");
                     $block['content'] = _happening_now();
             }
             return $block;
@@ -1468,6 +1468,10 @@ function notify_theme() {
         ),
         'notify_category_follow' => array(
             'arguments' => array('result' => NULL),
+        ),
+        'notify_activity_stream' => array(
+            'template' => 'notify-activity-stream',
+            'arguments' => array('udetails' => NULL, 'userPicture' => NULL, 'data' => NULL, 'message' => NULL, 'message_id' => NULL, 'submitted' => NULL),
         ),
     );
 }
@@ -2445,14 +2449,23 @@ INNER JOIN `users` u
 // restricted message ids.. these should not display in happening now
     $count = db_affected_rows($query);
 
-    $showCnt = 5;
+    $showCnt = 6;
     $hideCnt = $count - $showCnt;
 
     $output.='<div class="uactivity" id="uactivity">';
     while ($result = db_fetch_object($query)) {
         $style = $i >= $hideCnt ? "display:block" : "display:none";
         $output.= '<div id="msg-' . $result->naid . '" style="' . $style . '" class="activity-stream">';
-        $output.= theme('notify_' . $result->message_id, $result);
+        //$output.= theme('notify_' . $result->message_id, $result);
+        // stream theme
+        $udetails = user_load($result->uid);
+        $data = unserialize($result->variables);
+        $submitted = ago(date("Y-m-d H:i:s", $result->timestamp));
+        $userPicture = UserPicture_small_src($result->uid);
+        $message = $result->message;
+        $message_id = $result->message_id;
+        $output .= theme('notify_activity_stream', $udetails, $userPicture, $data, $message, $message_id, $submitted);
+
         $output.= '</div>';
         $i++;
     }
@@ -2569,7 +2582,15 @@ INNER JOIN `users` u
         while ($result = db_fetch_object($query)) {
             if (!in_array($result->message_id, $restrict_msgids)) {
                 $output.= '<div id="msg-' . $result->naid . '" class="activity-stream" style="display:none">';
-                $output.= theme('notify_' . $result->message_id, $result);
+               // $output.= theme('notify_' . $result->message_id, $result);
+                 // stream theme
+                $udetails = user_load($result->uid);
+                $data = unserialize($result->variables);
+                $submitted = ago(date("Y-m-d H:i:s", $result->timestamp));
+                $userPicture = UserPicture_small_src($result->uid);
+                $message = $result->message;
+                $message_id = $result->message_id;
+                $output .= theme('notify_activity_stream', $udetails, $userPicture, $data, $message, $message_id, $submitted);
                 $output.= '</div>';
                 $i++;
             }

@@ -199,8 +199,15 @@ function issue_init() {
         jquery_ui_add(array('ui.draggable', 'ui.droppable', 'ui.sortable'));
     }
      $inline = 'jQuery(function() {
+var maxChar = 140;
 CountlimitChars = function(){
-jQuery("#numberofword").text(140 - jQuery("#q_quest").val().length ).show();
+var text = jQuery("#q_quest").val();
+if(text.length > maxChar){
+    text = text.substring(0, maxChar);
+    jQuery("#q_quest").val(text);
+}else{
+//jQuery("#numberofword").text(maxChar - jQuery("#q_quest").val().length ).show();
+}
 } })';
     drupal_add_js($inline, $type = 'inline');
     drupal_add_js(drupal_get_path('module', 'question').'/scripts/question.js');
@@ -277,6 +284,7 @@ function issue_add_vote($dummy='',$nid='') {
     $form['change'] = array(
         '#type' => 'submit',
         '#value' => t('Vote'),
+        '#attributes' => array('class' => 'button vote floatright'),
     );
     $form['#cache'] = TRUE;
 
@@ -350,6 +358,7 @@ function issue_edit_vote($dummy='',$nid='') {
     $form['change'] = array(
         '#type' => 'submit',
         '#value' => t('Change'),
+        '#attributes' => array('class' => 'button vote floatright'),
     );
     $form['#cache'] = TRUE;
 
@@ -717,6 +726,12 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
              $blocks[2] = array(
                 'info' => t('Details Left'),
             );
+             $blocks[3] = array(
+                'info' => t('Issue Search Form'),
+            );
+             $blocks[4] = array(
+                'info' => t('Issue Filter Options'),
+            );
 
             return $blocks;
 
@@ -821,6 +836,16 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
                      
                      $block['content'] = theme('issue_information',$nid, $created, $postedby, $subject, $area, $detail, $original_nid, $original_language, $orgLangKey);
                      }
+                     break;
+                  case '3':
+                      $block['subject'] = 'Issue Search Form';
+                      $block['content'] = drupal_get_form('issue_search_form');
+                      break;
+                  case '4':
+                      $block['subject'] = 'Issue Filter Options';
+                      $block['content'] = issue_filter_options();
+                      break;
+                      
             }
             return $block;
     }
@@ -2234,7 +2259,7 @@ function get_node_tree_child($tid, $nid){
 
 function theme_issue_answer($form) {
   // Change the button title to reflect the behavior when using JavaScript.
-  drupal_add_js('if (Drupal.jsEnabled) { $(document).ready(function() { $("#edit-poll-more").val("'. t('Add Another Answer') .'"); }); }', 'inline');
+  drupal_add_js('if (Drupal.jsEnabled) { $(document).ready(function() { $("#edit-poll-more").val("'. t('+ Add another answer') .'"); }); }', 'inline');
 
   $rows = array();
   $head = t('Possible Answers').' <br><small>'.t('Enter atleast two possible answers.'). t('Click Add Another Answer to enter more.').'</small>';
@@ -2262,7 +2287,7 @@ function theme_issue_answer($form) {
     $rows[] = $row;
   }
 
-  $output = theme('table', $headers, $rows);
+ // $output = theme('table', $headers, $rows);
   $output .= drupal_render($form);
   return $output;
 }
@@ -3652,4 +3677,46 @@ function theme_single_resource_template($resItems = array()){
     $debt .= '</div>';
     $debt .= '</div><div class="clr"></div>';
     return $debt;
-} 
+}
+
+// issue filter options
+function issue_filter_options(){
+    $key = arg(1)!=''?arg(1):'0';
+    $subject = arg(2)!=''?arg(2):'0';
+    $area = arg(3)!=''?arg(3):'0';
+    $detail = arg(4)!=''?arg(4):'0';
+    $country = arg(5)!=''?arg(5):'0';
+    $state = arg(6)!=''?arg(6):'0';
+    $city = arg(7)!=''?arg(7):'0';
+    $method = arg(8)!=''?arg(8):'0';
+
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+
+    if($method=='alltime'){
+        $actall = 'class="active"';
+        $act7 = '';
+        $actviews = '';
+    }elseif($method=='7days'){
+        $actall = '';
+        $act7 = 'class="active"';
+        $actviews = '';
+    }elseif($method=='views'){
+        $actall = '';
+        $act7 = '';
+        $actviews = 'class="active"';
+    }else{
+        $actall = 'class="active"';
+        $act7 = '';
+        $actviews = '';
+    }
+    
+    
+    
+    $key_path = $sitelink.'issues/'.$key.'/'.$subject.'/'.$area.'/'.$detail.'/'.$country.'/'.$state.'/'.$city;
+    $issue_filter = '<div class="sort-by">View &nbsp;
+                <a href="'.$key_path.'/alltime" '.$actall.'>'.t('Most Votes (all-time)').'</a>&nbsp;|&nbsp;'
+              .'<a href="'.$key_path.'/7days" '.$act7.'>'.t('Most Votes (past 7 days)').'</a>&nbsp;|&nbsp;'
+                .'<a href="'.$key_path.'/views" '.$actviews.'>'.t('Number of Views').'</a></div>';
+    return $issue_filter;
+}

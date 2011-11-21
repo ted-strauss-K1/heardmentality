@@ -921,7 +921,7 @@ function google_map() {
     if ($_REQUEST['width'] == '155')
         $vars = ' geomap.draw(data,{width:155,height:100,showLegend:false});';
     else
-        $vars=' geomap.draw(data,{width:600,height:400,showLegend:true});';
+        $vars=' geomap.draw(data,{width:'.$_REQUEST['width'].',height:'.$_REQUEST['height'].',showLegend:true});';
 
     echo $script .= "<script type='text/javascript' src='http://www.google.com/jsapi'></script>";
     echo $script.="<script type='text/javascript'>
