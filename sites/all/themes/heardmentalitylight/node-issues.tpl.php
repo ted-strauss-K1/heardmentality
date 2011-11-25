@@ -8,7 +8,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 
 
                 <div class="clear"></div>
-                <h2 class="din half"><a href="<?php print $node_url; ?>" title="permalink" class="issue-title"><?php print $title ?>?</a></h2>
+                <h2 class="din half"><a href="<?php print $node_url; ?>" title="permalink" class="issue-title"><?php print t($title); ?>?</a></h2>
                 <br>
                 <?php print $content;?>
 <!--<ul class="vote">

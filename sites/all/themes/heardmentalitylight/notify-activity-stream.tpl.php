@@ -15,11 +15,27 @@ global $base_url;
     </span><br>
  <?php if($message_id == 'add_question' || $message_id == 'add_debate' || $message_id == 'add_resource' || $message_id == 'deb_agree'
             || $message_id == 'deb_disagree' || $message_id == 'res_agree' || $message_id == 'res_disagree' || $message_id == 'suggest_answer'
-         || $message_id == 'change_answer'){?>
+         || $message_id == 'change_answer' || $message_id == 'deb_reply_agree' || $message_id == 'deb_reply_disagree' || $message_id == 'res_reply_agree'
+         || $message_id == 'res_reply_disagree' || $message_id == 'debate_reply' || $message_id == 'resource_reply'){?>
 
  <?php print t($message).'&nbsp;'.t('on');?>:"
  <?php if($data['q_title']):
-         print l($data['q_title'].'?', $url).'"';
+         print l($data['q_title'].'?', $url).'"<br class="clear">';
+         if($message_id == 'add_resource'){
+         $rtype = $data['rtype'];
+         switch ($rtype) {
+             case '1':
+                 $image = !empty($data['file']) ? $data['file'] : file_directory_path() . '/noimage.jpg';
+                 print '<p class="action-comment-ref">'.theme('image', $image, t('Resources'), 'Resources', array('width' => '70px', 'height' => '60px'), FALSE).$data['description'].'</p>';
+                 break;
+             case '2':
+                 print '<p class="action-comment-ref"><img width="125" height="100" src="http://img.youtube.com/vi/' . $data['videoid'] . '/default.jpg" alt="Video " /></p>';
+                 break;
+         }
+  ?>
+    
+   <?php      
+   }
          endif;
    ?><?php       } else if($message_id == 'add_badge'){
     print t($message).'&nbsp;"'.t($data['badge']).'"';

@@ -1,5 +1,5 @@
 <?php
-global $user;
+global $user, $base_path;
 $directoryPath = $base_path . $directory;
 ?>
 <div class="medals">

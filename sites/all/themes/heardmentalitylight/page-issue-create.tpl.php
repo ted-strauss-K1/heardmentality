@@ -1,5 +1,5 @@
 <?php
-global $user, $gSitePath, $apikey;
+global $user, $apikey;
 $directoryPath = $base_path . $directory;
 ?>
 <!doctype html>

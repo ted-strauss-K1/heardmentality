@@ -69,7 +69,7 @@ $directoryPath = $base_path . $directory;
                                                             <?php print $messages; ?>
                                                         </p>
 						</div>
-                                                <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick">Hide</span></a>
+                                                <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick"><?php print t('Hide'); ?></span></a>
                                                
 						
 					<br class="clear">
@@ -102,7 +102,7 @@ $directoryPath = $base_path . $directory;
 
 					<div class="border-bottom">
 						<p class="din banner-text"><?php print t('Heard Mentality: The Global Forum for Public Opinion');?>. <br /><?php print t('Be Heard. Don\'t Be Part of the Herd!'); ?></p>
-						<a href="#" class="button vote floatright participate">Be Heard!</a>
+                                                <a href="<?php print $sitelink;?>issues" class="button vote floatright participate"><?php print t('Be Heard!'); ?></a>
 						<div class="clear"></div>
 					</div>
 				</div>

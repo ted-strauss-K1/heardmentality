@@ -237,12 +237,19 @@ function phptemplate_preprocess_node(&$vars) {
 }
 
 function heardmentalitylight_theme($existing, $type, $theme, $path){
+  $themePath = drupal_get_path('theme', $theme);
+  $formPath = $themePath.'/forms/';
+
 return array(
-'issue_search_form' => array(
-'arguments' => array('form' => NULL),
-'template' => 'issue-search-form',
-),
-);
+        'issue_search_form' => array(
+        'arguments' => array('form' => NULL),
+        'template' => 'issue-search-form',
+        ),
+        'issue_suggest_form' => array(
+        'arguments' => array('form' => NULL),
+        'template' => 'issue-suggest-form',
+        ),
+    );
 }
 
 

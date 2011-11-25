@@ -2147,3 +2147,158 @@ textarea#q_quest  {
     outline: 0 none;
     text-decoration: underline;
 }
+.choices .form-radios .form-item{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #E1E1E1;
+    letter-spacing: 1px;
+    margin: 3px 0 15px;
+    padding: 10px;
+    text-shadow: 0 1px #FFFFFF;
+    width: 96%;
+}
+.poll .vote-form .choices {
+    display: inherit;
+}
+.choices .form-radios .form-item:hover{
+    background:#D3EDEA;
+    border-width:1px;
+    color:#000;
+    border-style:solid;
+    border-color:#82D1C8;
+    cursor: pointer;
+}
+.choices .form-radios .form-item label.option {
+    font-size: 1.1em;
+}
+.pagination .pager a{
+    font-weight: normal;
+}
+.pagination .pager .pager-current{
+    background: none repeat scroll 0 0 #777777;
+    border: 1px solid #666666;
+    color: #FFFFFF;
+    padding: 1px 5px 2px;
+    text-shadow: 0 -1px #666666;
+    width: auto;
+}
+.pagination .pager .pager-item a{
+    text-decoration: none;
+    background: none;
+    border: 0;
+    color: #777777;
+    padding: 1px 5px 2px;
+    text-shadow: 0 -1px #666666;
+    width: auto;
+}
+.pagination .pager .item-list .pager li {
+    background-image: none;
+    display: inline;
+    list-style-type: none;
+    padding: 5px;
+}
+.pager-next a.active, .pager-previous a.active{
+    background: none;
+    text-decoration: none;
+    border: 0;
+    color: #777777;
+    padding: 1px 5px 2px;
+}
+
+.pagination ul li {
+    float: none;
+}
+.pagination .pager a:hover{
+    color: #EF00D3;
+}
+/*Active Category*/
+.four .grey-box {
+    padding: 22px 20px 10px 14px;
+}
+.twelve .suggest{
+    float: right;
+    width: 73%;
+}
+.suggest .suggest-error{
+    font-size: 10px;
+    color: #ff0000;
+}
+.suggest input.light{
+    margin-top: 15px;
+}
+.suggest input#Answer3  {
+    width: 75%;
+}
+.twelve .sugg-hide{
+    display: none;
+}
+#add-new-debate-form .value-select .form-item{
+    float: left;
+}
+#add-new-debate-form .value-select label.value{
+    padding: 12px 10px 0 0;
+}
+#add-new-debate-form .value-select select.select-value{
+    margin: 0 6px 3px 0;
+}
+.select-cat{
+    width: 170px;
+    margin: -12px 15px 10px 0;
+}
+.likebar{
+    margin: 0 0 10px 1px;
+    opacity: 0.9;
+}
+.likebar .like-per{
+    background: none repeat scroll 0 0 #84D861;
+    height: 5px;
+}
+.likebar .dislike-per{
+    background: none repeat scroll 0 0 #DD5345;
+    height: 5px;
+}
+#deb-err{
+    color: #FF0000;
+}
+textarea#deb_title, textarea.textarea-input  {
+    margin: 7px 1% 25px 1px;
+    width: 98%;
+}
+
+textarea#deb_title, textarea.textarea-input {
+    -moz-border-radius: 3px 3px 3px 3px;
+    border-color: #666666 #AAAAAA #AAAAAA #666666;
+    float: right;
+    margin: 0 1% 30px 1px;
+    padding: 2% 1%;
+    width: 98%;
+}
+.ref img{
+    float: left;
+}
+.ref span img, .ref span a img{
+    padding-right: 7px;
+}
+.error-msg{
+    color: #FF0000;
+}
+.suc-msg{
+    color: #84D861;
+}
+.res-reply li{
+    background: none repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #DDDDDD;
+    border-left: 1px solid #CCCCCC;
+    font-size: 1em;
+    margin: 10px 0 0;
+    padding: 5px 0 0 20px;
+}
+.listbox1{
+    width: 99%;
+}
+.img-selector{float:left; margin-right:10px; width:118px; height:73px; overflow:hidden;}
+.vote-results ul li {
+    width: 49.5%;
+}
+.vote-results ul li img {
+    width: auto;
+}

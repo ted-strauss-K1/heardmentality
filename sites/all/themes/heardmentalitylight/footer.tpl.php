@@ -48,7 +48,7 @@
             print $profile_option_block;
          }else{?>
         <div id="dialog" title="Login" class="dialog">
-        <p>Login to Heard Mentality using one of your favorite Social network logins</p>
+        <p><?php print t('Login to Heard Mentality using one of your favorite Social network logins'); ?></p>
         <script type="text/javascript">
         var conf=
         {
@@ -75,6 +75,7 @@
         </script>
         <?php }?>
 	</div>
+<?php print $closure; ?>
 <!-- gigya login / logout ends -->
 <!-- JS
 ================================================== -->

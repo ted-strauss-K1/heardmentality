@@ -1,3 +1,7 @@
+<?php
+$path = '<front>';
+$sitelink = url($path, array('absolute' => TRUE)).'/';
+?>
 <div class="line-top">
 			<div class="container">
 				<div class="navigation">
@@ -15,7 +19,7 @@
 						</ul>
 				  </div>
 					<div class="top-left">
-						<a class="logo" href="<?php print $base_path;?>"><img src="<?php print $directoryPath;?>/images/tiny_logo.png" class="logo-img"> <?php print t('Heard Mentality'); ?></a>
+						<a class="logo" href="<?php print $sitelink;?>"><img src="<?php print $directoryPath;?>/images/tiny_logo.png" class="logo-img"> <?php print t('Heard Mentality'); ?></a>
 						<ul class="menu">
                                                     <?php
                                                     foreach ($primary_links as $mainMenu){

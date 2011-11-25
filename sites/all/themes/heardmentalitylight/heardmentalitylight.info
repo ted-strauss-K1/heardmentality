@@ -28,6 +28,7 @@ regions[profile_options_bottom] = Profile Options Bottom
 regions[profile_complete_alert] = Profile Complete Alert
 regions[issue_search_area] = Issue Search Area
 regions[issue_filter_area] = Issue Filter Area
+regions[issue_real_info] = Issue Real Info
 
 ; Information added by drupal.org packaging script on 2010-07-16
 version = "1.0"

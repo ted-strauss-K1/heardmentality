@@ -1,5 +1,5 @@
 <?php
-global $apikey, $base_path, $theme;
+global $apikey, $base_path, $theme, $base_url;
 $gSitePath = $base_path.'/';
  $path=$gSitePath.  drupal_get_path('theme',$theme);
  $node=node_load(array('nid'=>$nid));
@@ -59,48 +59,29 @@ $gSitePath = $base_path.'/';
 </script>
 
 
-<div id="node-<?php print $node->nid; ?>" class="node<?php if ($sticky) {
-    print ' sticky';
-} ?><?php if (!$status) {
-        print ' node-unpublished';
-    } ?> clear-block">
 
-    <?php print $picture ?>
 
-<?php if (!$page): ?>
-      <div class="titl"> <a style="<?php print $style; ?>" href="<?php print $gSitePath; ?>qlite/view/<?php print $nid ?>?ajax=1" title="<?php print $title ?>"><?php print rtrim($title, "?"); ?>? </a></div>
-<?php endif; ?>
-<?php if($page): ?>
-        <div class="flag-issue"><div class="but-left"><img src="<?php print $path; ?>/images/but-left.jpg"></div>
-             <a title="Flag" class="but butnew share-link"  onclick="formsubmittype(3,<?php print $nid; ?>);" href="javascript:void(0);"><img  src="<?php print $path; ?>/images/flag.png" alt="flag" /></a>
-             &nbsp; <?php print t('Flag this Issue');?>
-             <div class="but-right">
-           <img width="7" height="24" src="<?php print $path; ?>/images/but-right.jpg"></div></div>
-      <div class="clr"></div>
-            <div>
-              <div class="issue-title"><?php print rtrim($title, "?"); ?>? </div>
-            </div>
-      <div class="quesin">
-              <div class="quesinner">
-                <div class="quesinnerr">
+                        
+                        <a class="icon flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
+                        <h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
+                        <p class="description"><?php print t($context); ?>&nbsp;<a>[...]</a></p>
+                        <div class="clear"></div>
+                        <div class="issue-things">
 
-<?php endif; ?>
-    <div class="meta">
-        <?php if ($submitted): ?>
-            <span class="submitted"><?php //print $submitted ?></span>
-        <?php endif; ?>
 
-<?php if ($terms): ?>
-                <div class="terms terms-inline"><?php //print $terms ?></div>
-        <?php endif; ?>
-            </div>
-            <?php if($page):?>
-            <div class="issue_left">
-            <div class="context">
-                <div class="sub-title"><?php print t('Context'); ?></div>
-                <?php print t($context); ?>
-            </div>
-            <div class="clr"></div>
+                        </div>
+
+                        <?php print $content ?>
+                        
+                        <br class="clear">
+                        <div class="expanding">
+                          <h6 class="wait">... <?php print t('Or submit a different answer'); ?></h6>
+                          <?php print $suggest; ?>
+                        </div>
+                        <div id="shareDiv" class="floatright"></div>
+
+                        
+
 
 <?php
 $nodepath = 'node/'.$nid;
@@ -123,29 +104,8 @@ var showShareBarUI_params=
 }
 </script>
 
-<div id="shareDiv"></div>
+
 <script type="text/javascript">
    gigya.services.socialize.showShareBarUI(conf,showShareBarUI_params);
 </script>
-            </div>
-            <?php endif; ?>
-             <div class="issue_right">
-                <div class="content">
-                    <div class="sub-title">Vote</div>
-                        <?php print $content ?>
-                </div>
-                 <div class="clr"></div>
-<!--                <div  class=""><div class="but-left"><img src="<?php print $path; ?>/images/but-left.jpg"></div>
-                  <a class="but butnew share-link" title="<?php print t('Suggest a new answer'); ?>"   onclick="formsubmittype(4,<?php print $nid; ?>);" href="javascript:void(0);"><?php print t('Suggest a new answer'); ?></a>
-    <div class="but-right">
-               <img width="7" height="24" src="<?php print $path; ?>/images/but-right.jpg"></div></div>-->
-
-                <span> Wait! I want to&nbsp;<a href="javascript:void(0);" id="sugg-btn">suggest a different answer</a></span>
-                <div id="sugg-form" class="sugg-form" style="display:none;"><?php print $suggest; ?></div><br /><br />
-            </div>
-<?php //print $links; ?>
-                    <?php if($page): ?>
-</div></div>
-
-</div>
-     <?php endif; ?> </div>
+           
