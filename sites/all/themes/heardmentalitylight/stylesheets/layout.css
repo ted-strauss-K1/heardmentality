@@ -66,8 +66,12 @@
 		font-weight:normal;
 		padding:8px 19px 0px 10px;
 		text-shadow:none;
-		color:#000;text-transform:uppercase;
+		color:#444;text-transform:uppercase;
 		}
+		
+		.top-right.blue h6 a:hover{ 
+			color:#000;
+			}
 
 
 		ul.menu {
@@ -91,6 +95,17 @@
 			padding:9px 11px 8px 10px;
 			line-height:15px;
 			display:block;
+			-webkit-transition: border 0.2s linear, -webkit-box-shadow 0.2s linear, background-color 0.2s linear;
+			-webkit-transition-property: border, -webkit-box-shadow, background-color;
+			-webkit-transition-duration: 0.2s, 0.2s, 0.2s;
+			-webkit-transition-timing-function: linear, linear, linear;
+			-webkit-transition-delay: initial, initial;
+
+			-moz-transition: border 0.2s linear, -moz-box-shadow 0.2s linear, background-color 0.2s linear;
+			-moz-transition-property: border, -moz-box-shadow, background-color;
+			-moz-transition-duration: 0.2s, 0.2s, 0.2s;
+			-moz-transition-timing-function: linear, linear, linear;
+			-moz-transition-delay: initial, initial
 		}
 		ul.menu li a.add {background:#ccc;color:#111;margin:0px}
 		ul.menu li a.add-2 {background:#bbb;color:#111;margin:0px}
@@ -103,6 +118,7 @@
 
 		ul.menu li a:hover, ul.menu li a:active, ul.menu li a.active{
 			background:#434bf0;
+			color:white;
 		}	
     
     ul.lang {margin:0px 0px 5px 5px;}
@@ -114,6 +130,12 @@
 		.dialog {width:100px}
 		.dialog p{font-size:15px;}
 		
+
+/* #FLAG DIALOG
+================================================== */
+
+		
+ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		
 
 /* #Icons
@@ -135,11 +157,14 @@
 	.icon.circle {background:url(../images/icons/circle2.png) 0px 4px no-repeat;float:left;margin:-5px 0px -5px 0px;padding:7px 0px 10px 31px;filter:alpha(opacity=95);opacity:0.97;color:#00b78a}
 	.icon.flag {background:url(../images/icons/59-flag.png) center left no-repeat;float:right;padding:7px 23px 0px 0px;margin:-5px -5px 0px 0px}
 	.icon.flag2 {background:url(../images/icons/59-flag.png) center right no-repeat;float:right;padding:7px 23px 0px 10px;margin:0px 4px 10px 10px}
+	.icon.flag3 {background:url(../images/icons/59-flag.png) center right no-repeat;float:left;padding:7px 23px 0px 0px;margin:0px 14px 10px 0px;opacity:1}
 	
 	.icon.heart {background:url(../images/icons/29-heart.png) center left no-repeat;float:right;padding:7px 28px 0px 0px;margin:2px 7px 0px 0px}
 	
-	.icon.stats {background:url(../images/icons/122-stats.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}
-	.icon.cat {background:url(../images/icons/14-tag.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -8px 0px 0px;filter:alpha(opacity=90);opacity:0.9}
+	.icon.stats {background:url(../images/icons/122-stats.png) top center no-repeat;float:left;padding:1px 16px 0px 14px;margin:-5px 0px -5px 0px;filter:alpha(opacity=90);opacity:0.9;height:27px;}
+	.icon.cat {background:url(../images/icons/14-tag.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -8px 0px 0px;filter:alpha(opacity=90);opacity:0.75}
+	.icon.cat2 {background:url(../images/icons/14-tag.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:0px -2px 0px 0px;filter:alpha(opacity=90);opacity:0.75}
+
   .icon.mod-history {background:url(../images/icons/162-receipt.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}	
   .icon.dupes {background:url(../images/icons/104-index-cards.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}	  
 .icon.guides {background:url(../images/icons/187-pencil.png) top right no-repeat;float:right;padding:1px 18px 0px 20px;margin:-5px -5px 0px 0px;filter:alpha(opacity=90);opacity:0.9}	    
@@ -163,7 +188,8 @@
 	}
 	img.dark-logo {float:right;margin:-8px -4px 0px 0px}	
 	
-	
+	#footer .blurb{ font-size:25px;color:#ccc;line-height:1.1em}
+	#footer hr.dark{ border-color:#555}
 
 /* #Page Styles
 ================================================== */
@@ -210,7 +236,7 @@
 		border-color:#d2d2d2 #e5e5e5 #e5e5e5 #ddd;
 		margin:30px 0px 20px 10px;
 		padding:22px 22px 10px 22px;
-		border-radius: 3px;                
+		border-radius: 3px;
 	}
 	
 	.grey-box.message {
@@ -236,7 +262,7 @@
 	a {
 		font-weight:normal;
 	   	color:#1366BA;
-                text-decoration:none;
+     	text-decoration:none;
 	}
 	.circle-box {
 		background:url(../images/circle_bg.png) 0px -210px no-repeat;
@@ -245,12 +271,71 @@
 		width:300px;
 		height:300px;
 	}
+	
+	.see {
+			position:relative;
+			display:block;
+			height: 100px;
+			width: 250px;
+			background:url(../images/see-event.png) 0 0 no-repeat;
+		}
+		
+	.vote-now {
+			position:relative;
+			display:block;
+			height: 100px;
+			width: 250px;
+			background:url(../images/vote-event.png) 0 0 no-repeat;
+		}
+		
+	.share-now {
+			position:relative;
+			display:block;
+			height: 100px;
+			width: 250px;
+			background:url(../images/share-event.png) 0 0 no-repeat;
+		}
+
+		.circle-box .see *,.circle-box .vote *,.circle-box .share * {
+		  display: none;
+		}
+
+	.see span.hover{
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		height: 100px;
+		width: 250px;
+		background:url(../images/see-event.png) 0 -100px no-repeat;
+	}
+	
+	.vote-now span.hover {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		height: 100px;
+		width: 250px;
+		background:url(../images/vote-event.png) 0 -100px no-repeat;
+	}
+	
+	.share-now span.hover {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: block;
+		height: 100px;
+		width: 250px;
+		background:url(../images/share-event.png) 0 -100px no-repeat;
+	}
+	
 	.see-banner, .vote-banner, .share-banner {
 		text-align:center;
 		font-family: 'DINBoldRegular';
 		text-transform:uppercase;
 		font-size:40px;
-		padding:140px 0px 0px 10px;
+		padding:110px 0px 0px 30px;
 	}
 	.error-banner {
 		text-align:center;
@@ -296,13 +381,13 @@
 	}
 	
 	ul.tags li {
-		padding:2px 6px 2px 6px;
+		padding:0px 4px 0px 4px;
 		font-size:12px;
 		margin:3px 6px 3px 0px;
 		letter-spacing:1px;
 		background:#a3c9ef;
 		border-radius: 3px;
-		text-shadow: 0 1px #afd7ff;
+		text-shadow: 0 1px #c8e2fc;
 		width:auto;float:left;
 		border-width:1px;
 		border-style:solid;
@@ -310,9 +395,22 @@
 		border-color:#92b7dd;
 	}
 	
+	ul.tags li:hover {
+		text-shadow: 0 -1px #3b536c;
+		color:#fff;
+		border-color:#53789d;
+		background:#53789d;
+		
+	}
+	
 	ul.tags li a{
 		color:#111;
 	}
+	
+	ul.tags li a:hover{
+		color:#fff;
+	}
+
 	
 	ul.badges li {
 		padding:1px 7px 2px 7px;
@@ -588,6 +686,13 @@
     cursor:pointer;
 	}
 	
+	label.vote-answer {
+		margin:-17px 0px 0px 20px;
+		padding:0px 0px 0px 10px;
+		font-weight:normal;
+	  font-size:1em;
+    cursor:pointer;
+	}
 	.vote-results {
 
 	}
@@ -664,6 +769,24 @@
 		margin:0px 2px 0px 0px;
 	  border-left: 1px solid #999;
 	}
+	
+	input.submit-issue.leftfloat {
+		float:left;
+		font-size:13px;
+	}
+	
+	.button.upload-grey {
+		color:#333;
+		font-size:15px;
+		text-shadow: 0 -1px #ccc;
+		border: 1px solid #999;
+	  border-top: 1px solid #999;
+		margin:0px 2px 10px 0px;
+	  border-left: 1px solid #999;
+	}
+	
+
+	
 	.button.vote:hover, input.submit-issue:hover, input.save:hover {
 		background: #7abcff; /* Old browsers */
 		background: -moz-linear-gradient(top, #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6+ */
@@ -692,7 +815,7 @@
 	}
 	
 	.button.participate {
-	  margin:16px 0px 0px 0px;
+	  margin:5px 0px 0px 0px;
 	}
 	.update-issue, .delete-issue {float:right;margin:0px 0px 0px 20px}
 	input.remove {float:right;margin:0px 0px 0px 20px;opacity:1.0}
@@ -772,6 +895,13 @@ span.debate-count, span.reference-count {
 	margin:5px 0px 5px 0px;
 	color:#000;
 }	
+
+.comments h6.blue-link a{
+	padding-left: 0px;
+	margin:5px 0px 5px 0px;
+	color:#000;
+	opacity:1;
+}
 .comments h6 a{
 	color:#000;
 }
@@ -839,10 +969,12 @@ p.comment-meta {
 }
 .comment-agree a.disagree{
 	color:#DD5345;
-	float:right;
+	float:left;
+	margin:0px 0px 0px 10px;
 	cursor:pointer;
 }
 
+a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;padding:1px 7px 1px 0px;margin:0px}
 .comments ul{
   margin:0px;
   padding:0px;
@@ -876,10 +1008,20 @@ p.comment-meta {
   padding:5px 0px 0px 20px;
   margin:10px 0px 0px 0px;
 	border-bottom:1px solid #ddd;
-	border-left:1px solid #ccc;
+	border-left:5px solid #ccc;
 	background:none;
 }
-	
+
+.comments ul li ul li.reply-to-reply{
+  margin:10px 0px 0px 10px;
+
+}
+
+.comments ul li ul li.reply-to-reply-to-reply{
+  margin:10px 0px 0px 20px;
+
+}
+
 .top-arrow {
   width:23px;
   height:23px;
@@ -1185,7 +1327,7 @@ label.add-on-2 {
 textarea#Question, input#Answer, input#Answer3, input#info, textarea#Comment, textarea#Reply  {
   margin:0px 1% 30px 1px;
   resize: none;
-  border-color:#666 #aaa #aaa #666;
+  border-color:#999 #bbb #bbb #999;
   width:58%;
   float:right;
   padding:2% 1% 2% 1%;
@@ -1278,11 +1420,13 @@ label span.title, label span.title-2  {
 	text-shadow: #fff 0px 1px;
 }
 
+
 label span.title-2  {
 	line-height:2em;
 	font-size:13px;
 }
 
+small.red {color:red;font-size:11px}
 
 
 label span.guides {
@@ -1579,12 +1723,12 @@ span.lighter {color:#777;}
 label.login {text-align:right;text-transform:none;color:#000;font-weight:normal;font-size:12px;margin:-10px 0px 10px 0px}	
 span.sort {font-weight:normal;letter-spacing:0.1em;font-weight:bold;color:#666;text-shadow: 0 1px #fff;font-size:0.8em;margin:0px 3px 0px -15px;}
 
-span.activity {font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:1em;padding:0px 3px 0px 3px;}
-.activity.map-title {margin:-12px 3px 12px -3px;font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:1em;padding:0px 3px 0px 3px;}
+span.activity {font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:11px;padding:0px 3px 0px 3px;}
+.activity.map-title {margin:-12px 3px 12px -3px;font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:11px;padding:0px 3px 0px 3px;}
 
 .action span.date {color:#BA00A4;}
 .action span.name {color:#BA00A4;font-weight:bold}
-.action span.name a{font-weight:bold}
+.action span.name a{color:#BA00A4;font-weight:bold}
 
 
 .action ul {}
@@ -1598,8 +1742,8 @@ p.action-item {padding:0px 4px 0px 0px;margin:0px 0px 0px 60px;font-size:13px;}
 p.profile.action-item {padding:0px 4px 0px 0px;margin:0px 0px 0px 10px;font-size:13px;}
 
 p.action-comment-ref {padding:0px 10px 0px 10px;margin:10px 0px 0px 60px ;font-size:13px;white-space:inherit;border-left:3px solid #ccc;}
-p.action-ref {padding:0px 10px 0px 0px;margin:10px 0px 0px 60px ;font-size:13px;white-space:inherit;}
-
+p.action-ref {padding:0px 10px 0px 0px;margin:10px 0px 0px 60px ;font-size:13px;white-space:inherit;color:#666}
+p.action-ref {color:#ccc}
 p.profile.action-comment-ref {padding:0px 10px 0px 10px;margin:10px 0px 0px 20px ;font-size:13px;white-space:inherit;border-left:3px solid #ccc;}
 
 .action.prof {border-bottom:1px solid #ddd;padding:10px 5px 10px 5px;margin:0px;}
@@ -1707,7 +1851,7 @@ a.twitter {
 	background: url(../images/twitter.png) left center no-repeat;
 	width:39px;
 	height:40px;
-	margin:-10px 0px 20px 0px ;
+	margin:-2px 5px 20px -10px ;
 }
 
 p.policy {
@@ -1746,7 +1890,9 @@ p.policy a:hover{
 			width:338px;
 		}
 		
-
+		.main-banner-display {
+			display:none;
+		}
 
 		.select-cat {
 			float:left;
@@ -1762,7 +1908,7 @@ p.policy a:hover{
 			width:75%;
 		}
 		.button.participate {
-    	  margin:-10px 0px 0px 0px;
+    	  margin:2px 0px 0px 0px;
     	}
     	
     	ul.vote li.post {
@@ -1782,6 +1928,9 @@ p.policy a:hover{
       margin:10px 3px 10px 0px;
     }
     
+		.main-banner-display {
+			display:none;
+		}
 
 		.banner-text {
 			font-size:22px;
@@ -1843,7 +1992,7 @@ p.policy a:hover{
     }
 
 		 .button.participate {
-    	  margin:12px 0px 0px 0px;
+    	  margin:2px 0px 0px 0px;
     	}
 		
 	}
@@ -1909,6 +2058,9 @@ p.policy a:hover{
 			width:300px;
 			height:300px;
 		}
+		
+
+			
 		.see-banner, .vote-banner, .share-banner {
 			font-size:40px;
 			padding:145px 0px 0px 0px;
@@ -1977,13 +2129,14 @@ p.policy a:hover{
 		
 		h2 {font-size:1.8em;line-height:1.2em;}
 		
+		
 		input.add-answer {
     	margin:0px 4px 5px 0px;
     }
     
    
     .button.participate {
-    	  margin:-4px 0px 20px 0px;
+    	  margin:-10px 0px 20px 0px;
     	}
     	
     	.vote-results ul li{ float:none;width:94.5%;}
@@ -2042,6 +2195,9 @@ p.policy a:hover{
 	.half2 {
 		font-size:18px;line-height:1em;
 	}
+	.halfgrey {
+		color:#555;
+	}
 	@font-face {
 	    font-family: 'StRydeRegular';
 	    src: url('../fonts/stryde-regular-webfont.eot');
@@ -2075,8 +2231,8 @@ p.policy a:hover{
 		font-weight: normal;
 	    font-style: normal;
 	}
-	
-
+		h2.din a {color:#000}
+	h2.din a:hover {border-bottom:1px dotted #ccc;color:#000}
 
 /* #Misc
 ================================================== */
@@ -2084,6 +2240,7 @@ p.policy a:hover{
 .no-bg {background:none;}
 .centered {text-align:center;width:100%;}
 .auto-height {height:auto;}
+
 
 /*openwave*/
 .grey-box-cat {
@@ -2137,7 +2294,7 @@ textarea#q_quest  {
 .container .nine .grey-box{
     height: 795px;
     overflow: hidden;
-                
+
 }
 .eight .foot-empty{
     height: 135px;
