@@ -403,6 +403,7 @@ $(document).ready(function(){
 							   	});
 						   });
 						   
+						
  $(document).ready(function(){
  						   $(" h6#add-arg").fadeTo("fast", 1); // This sets the opacity of the thumbs to fade down to 30% when the page loads
  						   $(" h6#add-arg").hover(function(){
@@ -444,6 +445,41 @@ $(function(){
 		$('#dialog2').dialog('open');
 		return false;
 	});
+	
+	
+	// Dialog			
+	$('#dialog-flag').dialog({
+		autoOpen: false,
+		modal: false,
+		minWidth: 320,
+		resizable:false
+	});
+
+	// Dialog Link
+	$('#dialog_link-flag').click(function(){
+		$('#dialog-flag').dialog('open');
+		return false;
+	});
+
+
+	// Dialog			
+	$('#dialog-profile-pic').dialog({
+		autoOpen: false,
+		modal: false,
+		minWidth: 320,
+		resizable:false
+	});
+
+	// Dialog Link
+	$('#dialog_link-pic').click(function(){
+		$('#dialog-profile-pic').dialog('open');
+		return false;
+	});
+	
+	
+	
+	
+	
 	
 	
 	// Toggler hide
@@ -754,9 +790,9 @@ $(function(){
 
 $(function() {
   
-  $('#medal1, #medal2, #medal3,  img.coin2').tipsy({gravity: 'nw'});
-  $('.flag, .flag2, .heart').tipsy({gravity: 'w'});
-  $('span.lighter').tipsy({gravity: 's'});
+  $('#medal1, #medal2, #medal3,  img.coin2, .disagree, .agree').tipsy({gravity: 'nw'});
+  $('.flag, .flag2, .heart, a.stats-quick').tipsy({gravity: 'w'});
+  $('span.lighter, .privacy-rules').tipsy({gravity: 's'});
 
 
 
@@ -770,4 +806,21 @@ $(function() {
   
   $('#example-html').tipsy({html: true });
   
+});
+
+/**
+ * Front Page Carousel Thing
+ */
+
+
+
+$(document).ready(function() {
+	$('.see, .vote-now, .share-now').append('<span class="hover"></span>').each(function () {
+	  var $span = $('> span.hover', this).css('opacity', 0);
+	  $(this).hover(function () {
+	    $span.stop().fadeTo(200, 1);
+	  }, function () {
+	    $span.stop().fadeTo(200, 0);
+	  });
+	});
 });
