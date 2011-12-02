@@ -101,7 +101,7 @@ function checkUpAndDownVotes($uid = null) {
 }
 
 function get_question($qid = '') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $user, $base_root;
 
     $sel_userms = "SELECT * FROM {question} where qid='$qid' ";
     $rs_userms = db_query($sel_userms);
@@ -110,7 +110,7 @@ function get_question($qid = '') {
 
 function get_state($code = '') {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $user, $base_path;
 
     $query = array('postalcode' => $code, 'maxrows' => 1);
     $result = geonames_query('postalcodesearch', $query);
@@ -122,14 +122,14 @@ function get_state($code = '') {
 
 
 function UserPicture($mid, $profile='') {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $theme;
+    global $base_url, $user, $base_root, $base_path, $theme;
     $userslist=user_load(array('uid'=>$mid));
    // $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
     //$rs_image = db_query($selimage);
   //  $resultimage = db_fetch_object($rs_image);
     $selected_avatar = $resultimage->avatar;
     //$default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
-     $default = $gSitePath.avatar_selection_get_random_image($userslist);
+     $default = $base_url.'/'.avatar_selection_get_random_image($userslist);
     if ($profile)
         $resultimage->image_avatar = 1;
 
@@ -137,7 +137,7 @@ function UserPicture($mid, $profile='') {
         case '2':
             $image_path = file_create_path('avatar_selection');
 
-            $ipath = $gSitePath . $image_path . '/' . $selected_avatar;
+            $ipath = $base_url.'/' . $image_path . '/' . $selected_avatar;
 
             if (file_check_location($image_path . '/' . $selected_avatar)) {
                 $PROFILE_IMAGE = '<img src="' . $ipath . '" alt="avatar" ALIGN=ABSMIDDLE width="54" class="uprofile"  height="54" >';
@@ -167,7 +167,7 @@ function UserPicture($mid, $profile='') {
                 $PROFILE_IMAGE = '<img src="' . $resultimage->image_url . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
             } else {
                 //echo $resultimage->image;
-                $img_path = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
+                $img_path = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
                 $PROFILE_IMAGE = '<img src="' . $default . '" class="uprofile" align="absmiddle" alt="photo" width="65"  height="56" />';
             }
             break;
@@ -178,11 +178,11 @@ function UserPicture($mid, $profile='') {
 
 function UserPicture_small($mid) {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $base_url, $user, $base_path;
     //$selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
  //   $rs_image = db_query($selimage);
 $userslist=user_load(array('uid'=>$mid));
- $default = $gSitePath.avatar_selection_get_random_image($userslist);
+ $default = $base_url.'/'.avatar_selection_get_random_image($userslist);
    // $resultimage = db_fetch_object($rs_image);
    // $default = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
@@ -191,7 +191,7 @@ $userslist=user_load(array('uid'=>$mid));
 
             //  $image_path=file_directory_path().'/avatar_selection';
             $selected_avatar = $resultimage->avatar;
-            $ipath = $gSitePath . $image_path . '/' . $selected_avatar;
+            $ipath = $base_url.'/' . $image_path . '/' . $selected_avatar;
 
             if (file_exists($image_path . '/' . $selected_avatar)) {
                 //$PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
@@ -210,7 +210,7 @@ $userslist=user_load(array('uid'=>$mid));
 
                 if (file_exists($img_path)) {
                     //$PROFILE_IMAGE=theme('user_picture', $userslist,'30x30');
-                    $PROFILE_IMAGE = '<img src="' . $gSitePath . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="30"  height="30" />';
+                    $PROFILE_IMAGE = '<img src="' . $base_url.'/' . $img_path . '" class="uprofile" alt="photo" ALIGN=ABSMIDDLE width="30"  height="30" />';
                 } else {
                     $PROFILE_IMAGE = '<img src="' . $default . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Photo" >';
                 }
@@ -224,7 +224,7 @@ $userslist=user_load(array('uid'=>$mid));
                 }
             } else {
                 //echo $resultimage->image;
-                $img_path = $gSitePath . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
+                $img_path = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/' . $resultimage->image;
 
                 if (file_exists($img_path)) {
                     $PROFILE_IMAGE = '<img src="' . $img_path . '" align="absmiddle" class="uprofile" height="30" width="30" alt="Profile image" >';
@@ -262,7 +262,7 @@ $userslist=user_load(array('uid'=>$mid));
 
 function save_message() {
     //print_r($_REQUEST);
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $user, $base_root, $base_path;
     $to_uid = $_REQUEST['muid'];
     $message = $_REQUEST['frmsgs'];
     $countUser = count($to_uid);
@@ -302,6 +302,12 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
             $blocks[3] = array(
                 'info' => t('Profile complete percent Options - Right'),
             );
+            $blocks[4] = array(
+                'info' => t('User Profile Bio'),
+            );
+            $blocks[5] = array(
+                'info' => t('User Profile Information'),
+            );
 
             return $blocks;
 
@@ -322,6 +328,14 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
                 case 3:
                     $block['subject'] = t("Profile Complete Percent Alert");
                     $block['content'] = profile_complete_percent_alert();
+                    break;
+                case 4:
+                    $block['subject'] = t("User Profile Bio");
+                    $block['content'] = user_profile_bio();
+                    break;
+                case 5:
+                    $block['subject'] = t("User Profile Information");
+                    $block['content'] = user_profile_info();
                     break;
             }
             return $block;
@@ -2071,7 +2085,7 @@ function profiles_form_submit($form, &$form_state) {
 function inc_avatar_form($form, &$form_state) {
 
 
-    global $gSitePath, $user, $gDocPath, $base_root, $_GET, $theme;
+    global $user, $_GET, $theme;
     //avatar
     $form = array();
     // We find out the current page number.
@@ -2109,7 +2123,7 @@ function inc_avatar_form($form, &$form_state) {
 }
 
 function event_photo_profile(&$form, &$form_state) {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $user;
     $suc = '';
     $return = array();
 
@@ -2232,7 +2246,7 @@ function age($date) {
 
 function _avatar_submit($form, &$form_state) {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user;
  // echo '<pre>';
   //print_r($form_state);
     //file handler
@@ -2242,10 +2256,14 @@ function _avatar_submit($form, &$form_state) {
     $flag = $return['flag'];
     $suc = $return['suc'];
     //file handler ends
-
-    if (!empty($_SESSION['filepath'])||!empty($form_state['values']['oldimg'])) {
+    $curr_avatar = str_replace($base_url.'/','',$form_state['values']['current_image']);
+    if(!empty($curr_avatar)){
+     $imgpath=$curr_avatar;
+     $img_avt = '2';
+    }
+    else if(!empty($_SESSION['filepath'])||!empty($form_state['values']['oldimg'])) {
         $img_avt = '1';
-$imgpath=$insimage;
+        $imgpath=$insimage;
     } else {
          $img_avt = '2';
            $image_path = file_create_path('avatar_selection');
@@ -2258,22 +2276,24 @@ $imgpath=$insimage;
 
     // follow links starts here
     $links = $form_state['values']['follow_links'];
-    //print_r($links);echo $user->uid;
+    //echo '<pre>';print_r($links);exit;
     foreach ($links as $name => $link) {
         //  print_r($link);
         $link = (object) $link;
         $link->url = trim($link->url);
 
         $link->uid = $user->uid;
-        if (!empty($link->name) && !empty($link->url))
+        if (!empty($link->name) && !empty($link->url)){
             follow_link_save($link);
+        }
     }  // follow links ends here
 
     if (!empty($form_state['values']['facebook']) || !empty($form_state['values']['twitter']))
         $social = $form_state['values']['facebook'] . '||' . $form_state['values']['twitter'];
 
     $query = "UPDATE {user_profile} set image_avatar='%s',image='%s',avatar='%s',social='%s',urls='%s'  where uid='%d' ";
-    $result = db_query($query, $form_state['values']['img_avt'], $insimage, $form_state['values']['select_avatar'], $social, $form_state['values']['myweb'], $user->uid);
+    //$result = db_query($query, $img_avt, $insimage, $form_state['values']['select_avatar'], $social, $form_state['values']['myweb'], $user->uid);
+    $result = db_query($query, $img_avt, $imgpath, $form_state['values']['select_avatar'], $social, $form_state['values']['myweb'], $user->uid);
     //notify type
     db_query("update {users} set notify_etype='%d',picture='%s' where uid='%d'", $form_state['values']['notify'],$imgpath,$user->uid);
     //drupal_set_message(t('Your form has been saved.', 'success'));
@@ -2295,12 +2315,12 @@ function _privacy_submit($form, &$form_state) {
     $chk1 = db_result($chk);
     if ($chk1) {
 
-        $query = "UPDATE {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d'  where uid='%d' ";
+        $query = "UPDATE {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d', mywebsite='%d', facebook='%d', twitter='%d'  where uid='%d' ";
     } else {
-        $query = "INSERT INTO {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d',uid='%d'";
+        $query = "INSERT INTO {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d',mywebsite='%d', facebook='%d', twitter='%d',uid='%d'";
     }
 
-    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $income_privacy,$marital_privacy,$sorient_privacy, $edu_privacy, $dob_privacy, $user->uid);
+    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $income_privacy,$marital_privacy,$sorient_privacy, $edu_privacy, $dob_privacy, $mywebsite_privacy, $facebook_privacy, $twitter_privacy, $user->uid);
     db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
     //drupal_set_message(t('Your form has been saved.', 'success'));
     return true;
@@ -2444,7 +2464,16 @@ function profiles_theme(){
             'template' => 'user-profile-options-alert',
             'arguments' => array('name' => NULL, 'complete_percent' => NULL, 'user_picture' => NULL, 'medal_list' => NULL, 'ranking' => NULL, 'points' => NULL),
         ),
+        'user_profile_bio' => array(
+            'template' => 'user-profile-bio',
+            'arguments' => array('getuser' => NULL, 'ranking' => NULL, 'follow_status' => NULL, 'settings' => NULL),
+        ),
+        'user_profile_information' => array(
+            'template' => 'user-profile-information',
+            'arguments' => array('getuser' => NULL, 'badges' => NULL, 'coins' => NULL, 'votes' => NULL, 'comments' => NULL, 'references' => NULL, 'followers' => NULL, 'following' => NULL, 'badgeList' => NULL, 'followerList' => NULL, 'followingList' => NULL, 'settings' => NULL),
+        ),
     );
+    
 }
 
 //profile_complete_percent
@@ -2487,4 +2516,272 @@ function load_user_medal_list($uid = ''){
     $badges = load_badges($uid);
     $coins = $users->total_coins!=''?$users->total_coins:0;
     return theme('user_badge_coins', $badges, $coins);
+}
+
+
+
+// user profile bio informations
+function user_profile_bio($uid = ''){
+    global $user, $base_url;
+
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+    
+    $getuser = user_load(array('uid' => $uid));
+    
+    $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$getuser->rank_id'"));
+    $profiles = db_query("SELECT * FROM {user_profile} WHERE uid = '$uid'");
+    $profileDetails = db_fetch_object($profiles);
+
+    // get user privacy settings
+    $userSettings = checkPrivacySettings($uid);
+    $settings = get_user_privacy_values($userSettings, $uid);
+    //echo '<pre>'; print_r($settings); exit;
+
+    // check follow status
+    drupal_add_js(USER_RELATIONSHIPS_UI_PATH .'/user_relationships_ui.js');
+    if($user->uid==0){
+        $status = 'Login to Follow User';
+        $flink = '#';
+        $fClass = '';
+    }
+    else if($user->uid != $getuser->uid){
+        $followingid = check_follow_unfollow($user->uid, $getuser->uid);
+        if($followingid){
+            // unfollow
+            //$flink='<a class="user_relationships_popup_link linkfol" href="' . $base_url.'/' . 'user/'.$user->uid.'/relationships/'.$followingid.'/remove/?destination=profile/'.$getuser->name.'">Unfollow</a>';
+            $flink = $sitelink. 'user/'.$user->uid.'/relationships/'.$followingid.'/remove/?destination=profile/'.$getuser->name;
+            $status = 'Unfollow User' ;
+        }else{
+            // follow
+            //$flink='<a class="user_relationships_popup_link linkfol" href="' . $base_url.'/' . 'relationship/'.$getuser->uid.'/request/'.$user->uid.'?destination=profile/'.$getuser->name.'">Follow</a>';
+            $flink = $sitelink. 'relationship/'.$getuser->uid.'/request/'.$user->uid.'?destination=profile/'.$getuser->name;
+            $status = 'Follow User' ;
+        }
+        $fClass = 'user_relationships_popup_link';
+    }else{
+        $flink = $sitelink.'account/edit';
+        $status = 'Edit Profile' ;
+        $fClass = '';
+    }
+    $follow_status['status'] = $status;
+    $follow_status['href'] = $flink;
+    $follow_status['fclass'] = $fClass;
+
+    return theme('user_profile_bio', $getuser, $ranking, $follow_status, $settings);
+}
+
+
+// user profile information
+function user_profile_info(){
+    global $user, $base_url;
+    // get user profile id for a particular user
+    $uid = get_user_profile_id();
+    $getuser = user_load(array('uid' => $uid));
+    
+    $badges = load_badges($uid);
+    $coins = $getuser->total_coins!=''?$getuser->total_coins:0;
+    $votes = db_result(db_query("SELECT COUNT(nid) FROM {poll_votes} WHERE uid = '$uid'"));
+    $comments = db_result(db_query("SELECT COUNT(DISTINCT(nid)) FROM {comments} WHERE uid = '$uid'"));
+    $references = db_result(db_query("SELECT COUNT(f.nid) FROM {content_type_forum} AS f LEFT JOIN {node} AS n ON f.nid = n.nid WHERE n.uid = '$uid' AND f.field_type_value = 2"));
+
+//  relationships - following
+    $relationships = user_relationships_load($param = array("approved" => 1, "requester_id" => $uid,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'8'), $reset = FALSE);
+    $following = count($relationships);
+    if ($relationships) {
+        foreach ($relationships as $rtid => $relationship) {
+            $fgimage = UserPicture_small_src($relationship->requestee_id, 0);
+            $followingList[$relationship->requestee->name] = $fgimage;
+        }
+    }
+//  relationships - followers
+    $frrelationships = user_relationships_load($param = array("approved" => 1, "requestee_id" => $uid,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'8'), $reset = FALSE);    
+    $followers = count($frrelationships);
+    if ($frrelationships) {
+        foreach ($frrelationships as $rtid => $frrelationship) {
+            $frimage = UserPicture_small_src($frrelationship->requester_id, 0);
+            $followerList[$frrelationship->requester->name] = $frimage;
+        }
+    }
+    
+    $getbadges = db_query("SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid");
+    while($badge = db_fetch_object($getbadges)){
+        $badgeList[$badge->name.' x '.$badge->bcnt] = $badge->btype;
+    }
+    // get user privacy settings
+    $userSettings = checkPrivacySettings($uid);
+    $settings = get_user_privacy_values($userSettings, $uid);
+    
+    return theme('user_profile_information', $getuser, $badges, $coins, $votes, $comments, $references, $followers, $following, $badgeList, $followerList, $followingList, $settings);
+}
+
+
+function get_user_profile_id(){
+    global $user, $base_url;
+    $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+    $uid = '';
+
+    if(!is_numeric($profile_name)){
+    $profile_name = strtolower($profile_name);
+    $getuser = user_load(array('name' => $profile_name));
+    }else{
+    $getuser = user_load(array('uid' => $profile_name));
+    }
+    if (isset($getuser) && !empty($getuser)) {
+
+        $uid = $getuser->uid;
+    }
+
+    if ($uid == '') {
+        $uid = $user->uid;
+    }
+
+    if ($uid == '') {
+        drupal_not_found();
+        return;
+    }
+
+    return $uid;
+}
+
+function get_user_privacy_values($userSettings, $uid){
+    global $base_url, $user;
+    $settings = array();
+    //Checking settings and displaying the field
+    $get_cn = db_query("select * from {user_profile} where uid='$uid'");
+    $result = db_fetch_array($get_cn);
+    $getuser = user_load(array('uid' => $result['uid']));
+    $is_follow_follower = checkFollowStatus($user->uid, $uid);
+    
+    if (is_array($result))
+        extract($result);
+    
+    if (($userSettings['real_name'] == 1) || ($userSettings['real_name'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['real_name'] == 3 && $is_follow_follower == TRUE) && ($userSettings['real_name'] != 4)) {
+        $settings['real_name'] = $result['real_name'];
+    }
+    else{
+        $settings['real_name'] = '';
+    }
+    
+     if (($userSettings['mail'] == 1) || ($userSettings['mail'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['mail'] == 3 && $is_follow_follower == TRUE) && ($userSettings['mail'] != 4)) {
+        $settings['email'] = $getuser->mail;
+    }
+    else{
+        $settings['email'] = '';
+    }
+    if (($userSettings['bio'] == 1) || ($userSettings['bio'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['bio'] == 3 && $is_follow_follower == TRUE) && ($userSettings['bio'] != 4)) {
+        $settings['bio'] = $result['bio'];
+    }else{
+        $settings['bio'] = '';
+    }
+    if (($userSettings['zip'] == 1) || ($userSettings['zip'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['zip'] == 3 && $is_follow_follower == TRUE) && ($userSettings['zip'] != 4)) {
+        $country1 .= $result['country'];
+
+        if (!empty($state)) {
+            $country1.='(' . $result['state'] . ',' . $result['city'] . ').';
+        }
+        $settings['location'] = $country1;
+    }else {
+        $settings['location'] = "";
+    }
+    if (($userSettings['religion'] == 1) || ($userSettings['religion'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['religion'] == 3 && $is_follow_follower == TRUE) && ($userSettings['religion'] != 4)) {
+        $settings['religion'] = $result['religion'];
+    }
+    else {
+        $settings['religion'] = "";
+    }
+
+
+
+    if (($userSettings['image'] == 1) || ($userSettings['image'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['image'] == 3 && $is_follow_follower == TRUE) && ($userSettings['image'] != 4)) {
+        $img_path1 = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/' . $result['image'];
+        $PROFILE_IMAGE = '<img src="' . $img_path1 . '" align="absmiddle" alt="Profile image" >';
+    }
+
+    if (($userSettings['dob'] == 1) || ($userSettings['dob'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['dob'] == 3 && $is_follow_follower == TRUE) && ($userSettings['dob'] != 4)) {
+        $settings['dob'] = $age;
+    }if ($settings['dob'] == 0) {
+        $dob1 = "";
+    } else {
+        $rem_value = $settings['dob'] % 5;
+        $rem_first = $settings['dob'] - $rem_value;
+        $rem_second = $rem_first + 5;
+        $settings['dob'] = $rem_first . ' - ' . $rem_second.' '.t('Years Old');
+    }
+    if (($userSettings['sorient'] == 1) || ($userSettings['sorient'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['sorient'] == 3 && $is_follow_follower == TRUE) && ($userSettings['sorient'] != 4)) {
+        $settings['sorient'] = $result['sorient'];
+    }else {
+        $settings['sorient'] = "";
+    }
+    if (($userSettings['edu'] == 1) || ($userSettings['edu'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['edu'] == 3 && $is_follow_follower == TRUE) && ($userSettings['edu'] != 4)) {
+        $settings['edu'] = $result['edu'];
+    } else {
+        $settings['edu'] = "";
+    }
+    if (($userSettings['ethnic'] == 1) || ($userSettings['ethnic'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['ethnic'] == 3 && $is_follow_follower == TRUE) && ($userSettings['ethnic'] != 4)) {
+        $settings['ethnic'] = $result['ethnic'];
+    }
+    else {
+        $settings['ethnic'] = "";
+    }
+
+    if (($userSettings['income'] == 1) || ($userSettings['income'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['income'] == 3 && $is_follow_follower == TRUE) && ($userSettings['income'] != 4)) {
+        $settings['income'] = $result['income'];
+    }
+    else {
+        $settings['income'] = "";
+    }
+    if (($userSettings['marital'] == 1) || ($userSettings['marital'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['marital'] == 3 && $is_follow_follower == TRUE) && ($userSettings['marital'] != 4)) {
+        $settings['marital'] = $result['marital'];
+    }
+    else{
+        $settings['marital'] = "";
+    }
+
+    if (($userSettings['gender'] == 1) || ($userSettings['gender'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['gender'] == 3 && $is_follow_follower == TRUE) && ($userSettings['gender'] != 4)) {
+        $settings['gender'] = $result['gender'];
+        $settings['gender'] = $settings['gender']==1?'Male':'Female';
+    }
+    else{
+        $settings['gender'] = "";
+    }
+
+    
+    if (($userSettings['mywebsite'] == 1) || ($userSettings['mywebsite'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['mywebsite'] == 3 && $is_follow_follower == TRUE) && ($userSettings['mywebsite'] != 4)) {
+        $settings['mywebsite'] = $result['urls'];
+    }else{
+        $settings['mywebsite'] ="";
+    }
+    list($facebook, $twitter) = explode("||", $result['social']);
+    if (($userSettings['facebook'] == 1) || ($userSettings['facebook'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['facebook'] == 3 && $is_follow_follower == TRUE) && ($userSettings['facebook'] != 4)) {
+        $settings['facebook'] = $facebook;
+    }else{
+        $settings['facebook'] ="";
+    }
+    if (($userSettings['twitter'] == 1) || ($userSettings['twitter'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['twitter'] == 3 && $is_follow_follower == TRUE) && ($userSettings['twitter'] != 4)) {
+        $settings['twitter'] = $twitter;
+    }else{
+        $settings['twitter'] = "";
+    }
+
+
+    if (($userSettings['answers'] == 1) || ($userSettings['answers'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['answers'] == 3 && $is_follow_follower == TRUE) && ($userSettings['answers'] != 4)) {
+        $settings['answers'] = $ins_ans;
+    }else{
+        $settings['answers'] = '';
+    }
+    if (($userSettings['questions'] == 1) || ($userSettings['questions'] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($userSettings['questions'] == 3 && $is_follow_follower == TRUE) && ($userSettings['questions'] != 4)) {
+        $settings['questions'] = $inc_qns;
+    }else{
+        $settings['questions'] = '';
+    }
+    // other website links
+    $othQuery = db_query("SELECT name, url FROM {follow_links} WHERE uid = '$uid'");
+    
+    while($otherLinks = db_fetch_object($othQuery)){
+        $others[$otherLinks->name] = $otherLinks->url;
+    }
+    $settings['other_links'] = $others;
+
+    return $settings;
 }

@@ -396,9 +396,7 @@ function _follow_links_form_link($networks, $link, $title) {
         '#options' => $networks,
         '#description' => t(''),
         '#default_value' => variable_get('name', ''),
-        '#attributes' => array('class' => 'socials-name'),
-        '#prefix' => '<div class="form-bg">',
-        '#suffix' => ' <div class="clr"></div> </div>',
+        '#attributes' => array('class' => 'info'),
     );
     $elements['name']['#default_value'] = array_search($title, $networks);
     if (isset($link->lid)) {
@@ -414,13 +412,10 @@ function _follow_links_form_link($networks, $link, $title) {
     $elements['url'] = array(
         '#type' => 'textfield',
         '#size' => '',
-        // '#prefix' => '<div class="social-rite">',
-        //  '#sufix' => '</div>',
         '#default_value' => isset($link->url) ? $link->url : '',
         '#element_validate' => array('follow_url_validate'),
-        '#attributes' => array('class' => 'socials-val'),
-        '#prefix' => '<div class="form-bg">',
-        '#suffix' => '<div class="clr"></div> </div>',
+        '#attributes' => array('class' => 'info'),
+        '#suffix' => '<hr class="short-2">',
     );
 
     return $elements;

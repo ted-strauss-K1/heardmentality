@@ -1369,19 +1369,25 @@ function notify_block($op = 'list', $delta = 0, $edit = array()) {
             $blocks[1] = array(
                 'info' => t('Happening Right Now'),
             );
+            $blocks[2] = array(
+                'info' => t('User Activity Starem'),
+            );
             return $blocks;
 
         case 'view':
             switch ($delta) {
                 case '0':
-
                     $block['subject'] = "Heart Beat Messages";
                     $block['content'] = _notify_content($uid);
-
                     break;
                 case '1':
                     $block['subject'] = t("HAPPENING NOW");
                     $block['content'] = _happening_now();
+                    break;
+                case '2':
+                    $block['subject'] = t("User activity Stream");
+                    $block['content'] = _user_activity_stream();
+                    break;
             }
             return $block;
     }
@@ -1471,6 +1477,14 @@ function notify_theme() {
         ),
         'notify_activity_stream' => array(
             'template' => 'notify-activity-stream',
+            'arguments' => array('udetails' => NULL, 'userPicture' => NULL, 'data' => NULL, 'message' => NULL, 'message_id' => NULL, 'submitted' => NULL),
+        ),
+        'user_activity_stream' => array(
+            'template' => 'user-activity-stream',
+            'arguments' => array('filters' => NULL, 'output' => NULL, 'pagination' => NULL),
+        ),
+        'user_activity_stream_thread' => array(
+            'template' => 'user-activity-stream-thread',
             'arguments' => array('udetails' => NULL, 'userPicture' => NULL, 'data' => NULL, 'message' => NULL, 'message_id' => NULL, 'submitted' => NULL),
         ),
     );
@@ -2349,6 +2363,23 @@ function notify_filter_where($filter='') {
     return $where;
 }
 
+function notify_user_stream_filter_where($filter='') {
+    $where = '';
+    if ($filter == 'votes') {
+        $where .= "AND (a.message_id = 'add_vote')";
+    } else if ($filter == 'issues') {
+        $where .= "AND (a.message_id = 'add_question')";
+    } else if ($filter == 'debates') {
+        $where .= "AND (a.message_id = 'add_debate' OR a.message_id = 'deb_agree' OR a.message_id = 'deb_disagree')";
+    } else if ($filter == 'resources') {
+        $where .= "AND (a.message_id = 'add_resource' OR a.message_id = 'resource_reply' OR a.message_id = 'res_reply_agree' OR a.message_id = 'res_reply_disagree')";
+    } else if ($filter == 'badges') {
+        $where .= "AND (a.message_id = 'add_badge')";
+    }
+    // filteration
+    return $where;
+}
+
 /**
  * Generate the view of people that a user is following
  */
@@ -2407,7 +2438,7 @@ function _activity_get_friends($uid) {
 // phase VI happening now
 function _happening_now() {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user, $gDocPath, $base_root;
     drupal_add_js(drupal_get_path('module', 'notify') . '/scripts/script.js');
     $data = '
 var streamtimer = setInterval(function() {
@@ -2480,7 +2511,7 @@ INNER JOIN `users` u
         $style = 'style="display:none"';
     }
 
-    $output.='<div ' . $style . ' class="more-link"><a id="' . ($start + $limit) . '" href="' . $gSitePath . 'happening/stream/">More Activity</a></div>';
+    $output.='<div ' . $style . ' class="more-link"><a id="' . ($start + $limit) . '" href="' . $base_url . '/happening/stream/">More Activity</a></div>';
     return $output;
 }
 
@@ -2621,4 +2652,101 @@ function get_translated_node($nid = '', $lang = '') {
         $trans = node_load($nid);
     }
     return $trans;
+}
+
+function _user_activity_stream(){
+    global $user;
+
+    $filterPath = '?filter=';
+    $filter = $_GET['filter'];
+    if($filter=='all' || $filter==''){
+        $aclass = 'class="active"';
+        $vclass = '';
+        $dclass = '';
+        $iclass = '';
+        $rclass = '';
+    }else if($filter=='votes'){
+        $aclass = '';
+        $vclass = 'class="active"';
+        $dclass = '';
+        $iclass = '';
+        $rclass = '';
+    }else if($filter=='debates'){
+        $aclass = '';
+        $vclass = '';
+        $dclass = 'class="active"';
+        $iclass = '';
+        $rclass = '';
+    }else if($filter=='issues'){
+        $aclass = '';
+        $vclass = '';
+        $dclass = '';
+        $iclass = 'class="active"';
+        $rclass = '';
+    }else if($filter=='resources'){
+        $aclass = '';
+        $vclass = '';
+        $dclass = '';
+        $iclass = '';
+        $rclass = 'class="active"';
+    }else{
+        $class = '';
+    }
+    $filters = '<a '.$aclass.' href="'.$filterPath.'all"> '.t('All').'</a> |
+                <a '.$vclass.' href="'.$filterPath.'votes">'.t('Votes').'</a> |
+                <a '.$dclass.' href="'.$filterPath.'debates">'.t('Arguments').'</a> |
+                <a '.$iclass.' href="'.$filterPath.'issues">'.t('Issues Added').'</a> |
+                <a '.$rclass.' href="'.$filterPath.'resources">'.t('References').'</a>';
+    
+    $where = notify_user_stream_filter_where($filter);
+    
+    $start = variable_get(arg(1), '0');
+    $limit = 10;
+
+    // messages should not show in user profile activity stream
+    //$restrict_msgids = "'add_coins', 'lose_coins', 'user_logout', 'user_login', 'add_points'";
+    $open_msgids = "'add_question', 'add_debate', 'add_resource', 'deb_agree', 'deb_disagree', 'res_reply_agree', 'res_reply_disagree', 'add_vote', 'resource_reply', 'user_follow'";
+
+    // get user profile id for a particular user
+    $uid = get_user_profile_id();
+    
+    //data query
+   $sql = "SELECT distinct b.naid,b.*,a.message
+      FROM `notify_activity` b
+INNER JOIN `notify_messages` a
+        ON `b`.`message_id` = `a`.`message_id`
+INNER JOIN `users` u
+        ON `u`.`uid` = `b`.`uid`
+     WHERE  a.status = 1 AND `b`.`message_id` IN($open_msgids) AND b.uid = '$uid' $where ORDER BY b.naid DESC";
+    
+    $query = pager_query($sql, $limit);
+
+    
+    $i = 0;
+
+// restricted message ids.. these should not display in happening now
+    $count = db_affected_rows($query);
+
+    $showCnt = 6;
+    $hideCnt = $count - $showCnt;
+    $udetails = user_load($uid);
+    
+    while ($result = db_fetch_object($query)) {
+        // stream theme
+        
+        $data = unserialize($result->variables);
+        $submitted = ago(date("Y-m-d H:i:s", $result->timestamp));
+        $userPicture = UserPicture_small_src($result->uid);
+        $message = $result->message;
+        $message_id = $result->message_id;
+        $output .= theme('user_activity_stream_thread', $udetails, $userPicture, $data, $message, $message_id, $submitted);
+        $i++;
+    }
+    if (!$i) {
+        $output.='No User Activity Found!';
+    }
+
+    $pagination = theme('pager', NULL, $limit, 0);
+
+   return theme('user_activity_stream', $filters, $output, $pagination);
 }

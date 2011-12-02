@@ -89,7 +89,7 @@ load_notify(err);
        // fb.match(patt);
         var arr = re.exec(fb);
         var host2=RegExp.$2;
-
+        
         if(!patt.test(fb)){
             err=err+"<small> Please provide proper url format Ex: http://www."+host1+".com/username,  </small>";
         }else if(host1!=host2){
@@ -186,10 +186,12 @@ jQuery('div.avatar-selection-pager-nav a').live('click', function() {
 
 function load_notify(err){
 
-    window.scrollTo(0,0);
-    // err=err.wrap('<ul></ul>');
-    jQuery('#twitMsg',top.document).html(err);
-    jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+//    window.scrollTo(0,0);
+//
+//    jQuery('#twitMsg',top.document).html(err);
+//    jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+    jQuery('.toggler').html(err);
+    jQuery('.toggler').show('slow');
 
 }
 function onLoad() {

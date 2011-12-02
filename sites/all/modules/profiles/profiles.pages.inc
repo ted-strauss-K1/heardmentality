@@ -3,71 +3,20 @@
 // tree menu listing
 function profile_view() {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
-    $profile_name = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
-    $uid = '';
+    global $user;
+    // get user profile id for a particular user
+    $uid = get_user_profile_id();
+    $strReturn = user_profile_bio($uid);
 
-    if(!is_numeric($profile_name)){
-    $profile_name = strtolower($profile_name);
-    $getuser = user_load(array('name' => $profile_name));
-    }else{
-    $getuser = user_load(array('uid' => $profile_name));
-    }
-    if (isset($getuser) && !empty($getuser)) {
-
-        $uid = $getuser->uid;
-    }
-
-    if ($uid == '') {
-        $uid = $user->uid;
-    }
-    $strReturn = '';
-
-    if ($uid == '') {
-        drupal_not_found();
-        return;
-    }
+     // profile badges
+    enthusiast($uid);
+    fanatic($uid);
     
-    //activities
-    $tag = '';
-    if (isset($_REQUEST['tag'])) {
-        $tag = $_REQUEST['tag'];
-    }
-
-    switch ($tag) {
-
-        case 'activity':
-
-            $strReturn = profile_activities($uid);
-            break;
-        case 'history':
-            $strReturn = profile_tab($tag, $uid);
-            break;
-        case 'badge':
-            $strReturn = profile_tab($tag, $uid);
-            break;
-        case 'info':
-            $strReturn = profile_tab($tag, $uid);
-            break;
-        case 'msg':
-            $strReturn = profile_tab($tag, $uid);
-        default:
-            // $strReturn ="something wrong";
-//badges
-            enthusiast($uid);
-            fanatic($uid);
-            $strReturn = profile($uid);
-            break;
-    }
-
-    if (isAjax ())
-        echo $strReturn;
-    else
-        return $strReturn;
+    return $strReturn;
 }
 
 function inbox_flex() {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $user;
     $case = $_REQUEST['action'];
     switch ($case) {
 
@@ -90,7 +39,7 @@ function inbox_flex() {
 
 function inbox_msg() {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user;
     $inbox = '';
     $query = "select * from {messages} as m join {users} as u on u.uid=m.from_id where m.to_id='$user->uid' order by mid DESC";
     $msgs = ExecuteQuery($query, "select");
@@ -99,7 +48,7 @@ function inbox_msg() {
 
         foreach ($msgs as $list) {
             $bubble = load_bubble($list['from_id']);
-            $inbox.='  <tr><td height="40px" style="font-style:justify;" >' . $i . '</td><td>' . wordwrap($list['message'], 100, "<br/>") . '</td><td><a href="' . $gSitePath . 'profile/' . $list['name'] . '" rel=\'' . $bubble . '\'>' . $list['name'] . '</a></td><td>' . format_date_class($list['posted_date'], date('Y-m-d')) . '</td><td><a href="#" onclick="del_msg(' . $list['mid'] . ',this);">Delete</a> &nbsp;/&nbsp; <a href="#" onclick="rel_msg(' . $list['from_id'] . ');">Reply</a></td></tr>';
+            $inbox.='  <tr><td height="40px" style="font-style:justify;" >' . $i . '</td><td>' . wordwrap($list['message'], 100, "<br/>") . '</td><td><a href="' . $base_url.'/' . 'profile/' . $list['name'] . '" rel=\'' . $bubble . '\'>' . $list['name'] . '</a></td><td>' . format_date_class($list['posted_date'], date('Y-m-d')) . '</td><td><a href="#" onclick="del_msg(' . $list['mid'] . ',this);">Delete</a> &nbsp;/&nbsp; <a href="#" onclick="rel_msg(' . $list['from_id'] . ');">Reply</a></td></tr>';
             $i++;
         }
     } else {
@@ -133,57 +82,6 @@ function inbox_msg() {
     return $content;
 }
 
-function event_photo() {
-    global $objSmarty, $config;
-    $return = array();
-    $filename = $_FILES['image']['name']; // file up starts
-    $tmp_image = $_FILES['image']['tmp_name'];
-    if ($filename != '') {
-        include drupal_get_path('module', 'profiles') . "/img_resize.php";
-        $ext = strtolower(substr($filename, strpos($filename, '.'), strlen($filename) - 1));
-
-        if ($ext == '.jpg' || $ext == '.gif' || $ext == '.jpeg') {
-            $imagefun = new SimpleImage();
-
-            $image = time() . $filename;
-
-            $path = drupal_get_path('module', 'profiles') . "/snap/";
-            copy($tmp_image, $path . $image);
-            //img resize
-            $sz = getimagesize($path . $image);
-
-            $x = $sz[0]; // org image width
-            $y = $sz[1]; // org image height
-            if ($x > 100) {
-                $imagefun->load($path . $image);
-
-                $imagefun->resizeToWidth(100);
-
-                $imagefun->save($path . $image);
-            }
-
-
-            if ($image != "") {
-                $insimage = $image;
-                //include('round_corner.php');
-            }
-        } else {
-            $flag = 1;
-            $suc = ' Sorry Image Cant Uploaded It Should be gif or Jpeg format!';
-        }
-    } elseif (isset($_REQUEST['oldimg'])) {
-        $insimage = $_REQUEST['oldimg'];
-        $flag = 0;
-    } else {
-        $flag = 0;
-        $insimage = "noimage.jpg";
-    }//file up ends
-
-    $return['image'] = $insimage;
-    $return['flag'] = $flag;
-    $return['suc'] = $suc;
-    return $return;
-}
 
 ////followers/////////////////////////
 
@@ -974,10 +872,10 @@ function amber_tour() {
 // update profile
 function update_profile() {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    global $user, $base_url;
     $data = '
 
-var spath=\'' . $gSitePath . '\';
+var spath=\'' . $base_url.'/' . '\';
 ';
     drupal_add_js($data, 'inline');
     drupal_add_js(drupal_get_path('module', 'profiles') . '/js/validate.js');
@@ -990,22 +888,12 @@ var spath=\'' . $gSitePath . '\';
 }
 
 function user_details() {
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey, $theme;
+    global $base_url, $user, $apikey, $theme;
     $details = load_user($user->uid);
-    $options = array('1' => t('weekly'), '2' => t('monthly'), '0' => t('never'));
+    $options = array('1' => t(''), '2' => t(''), '0' => t(''));
     $form['#attributes']['enctype'] = "multipart/form-data";
     $form['#attributes']['onsubmit'] = "return validate_reg();";
-    $form['main_div'] = array('#type' => 'markup', '#value' => '<div class="newcretae-profile-wrapper">');
-    $form['right_div'] = array('#type' => 'markup', '#value' => '<div class="edit-right-profile-wrapper">');
-    $form['profile_head'] = array('#type'=>'markup', '#value'=>'<h2>'.t('Edit Profile').'</h2>');
-    $form['profile_th'] = array('#type'=>'markup', '#value'=>'<div class="editprofileHead">
-        <div class="editprofileLeftTxt">'.t('USER INFO').'<br>'.t('*Required field').'</div>
-        <div class="editprofileRightTxt"><b>'.t('PRIVACY SETTING').'</b><br>
-            '.t('Set the privacy levels for each of your profile characteristics. If you choose to hide your
-profile details, your demographic info will still be calculated but not shown. Thanks for contributing!').'</div>
-        </div>');
-    $form['right_profile'] = array('#type' => 'markup', '#value' => '<div class="right-profile-form">');   
-   
+
     $form['username'] = array(
         '#type' => 'textfield',
         '#title' => t(''),
@@ -1014,12 +902,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#default_value' => variable_get('username', ''),
         '#id' => 'username',
         '#required' => 1,
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('User Name').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-nor','onblur'=>'chk_uname(this.value);'),
+        '#attributes' => array('class' => 'info','onblur'=>'chk_uname(this.value);'),
     );
     $form['fname'] = array(
         '#type' => 'textfield',
@@ -1028,12 +911,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(' '),
         '#default_value' => variable_get('fname', ''),
         '#id' => 'name',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Name').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-nor'),
+        '#attributes' => array('class' => 'info'),
     );
     $form['email'] = array(
         '#type' => 'textfield',
@@ -1043,12 +921,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#default_value' => variable_get('email', ''),
         '#id' => 'email',
         '#required' => 1,
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Email').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-nor'),
+        '#attributes' => array('class' => 'info'),
     );
     $form['gender'] = array(
         '#type' => 'select',
@@ -1057,12 +930,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(' '),
         '#default_value' => variable_get('gender', ''),
         '#id' => 'gender',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Gender').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
+        '#attributes' => array('class' => 'info'),
     );
     $form['dob'] = array(
         '#type' => 'textfield',
@@ -1071,12 +939,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(' '),
         '#default_value' => variable_get('dob', ''),
         '#id' => 'year',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Year of Birth').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
+        '#attributes' => array('class' => 'info'),
     );
 
     $form['zip'] = array(
@@ -1086,12 +949,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(''),
         '#default_value' => variable_get('zip', ''),
         '#id' => 'location',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Zip').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-nor', 'onblur' => 'get_zip_city(this.value);', 'onkeypress' => 'dis_submit()')
+        '#attributes' => array('class' => 'info', 'onblur' => 'get_zip_city(this.value);')
     );
     $form['country'] = array(
         '#type' => 'hidden',
@@ -1115,12 +973,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(' '),
         '#default_value' => variable_get('religion', ''),
         '#id' => 'religion',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Religion').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
+        '#attributes' => array('class' => 'info'),
     );
     $form['ethnic'] = array(
         '#type' => 'select',
@@ -1129,12 +982,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(' '),
         '#default_value' => variable_get('ethinicity', ''),
         '#id' => 'ethnicity',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Ethnic').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
+        '#attributes' => array('class' => 'info'),
     );
 
     $form['sorient'] = array(
@@ -1144,12 +992,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#default_value' => variable_get('sorient', ''),
         '#description' => t(' '),
         '#id' => 'sex',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Sexual Orientation').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
+        '#attributes' => array('class' => 'info'),
     );
         $form['education'] = array(
         '#type' => 'select',
@@ -1158,12 +1001,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(' '),
         '#default_value' => variable_get('education', ''),
         '#id' => 'education',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Education').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
+        '#attributes' => array('class' => 'info'),
     );
     $form['income'] = array(
         '#type' => 'select',
@@ -1172,12 +1010,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(' '),
         '#default_value' => variable_get('income', ''),
         '#id' => 'income',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Income Range').'[USD]</div>
-                <div class="form-wra-2">',
-        '#suffix' => '  </div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
+        '#attributes' => array('class' => 'info'),
     );
     $form['marital'] = array(
         '#type' => 'select',
@@ -1186,12 +1019,7 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(' '),
         '#default_value' => variable_get('marital', ''),
         '#id' => 'marital',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Marital Status').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => ' </div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-sma'),
+        '#attributes' => array('class' => 'info'),
     );
     $form['bio'] = array(
         '#type' => 'textarea',
@@ -1202,20 +1030,9 @@ profile details, your demographic info will still be calculated but not shown. T
         '#description' => t(''),
         '#default_value' => variable_get('bio', ''),
         '#id' => 'bio',
-        '#prefix' => ' <div class="form-wra"><div class="form-wra-1">'.t('Bio').'</div>
-                <div class="form-wra-2">',
-        '#suffix' => '</div>
-           <div class="clr"></div>
-           </div>',
-        '#attributes' => array('class' => 'input-nor'),
+        '#attributes' => array('class' => 'info'),
+        '#resizable' => FALSE,
     );
-    $form['text'] = array('#type' => 'markup', '#value' => '<div class="form-wra">
-           	           '.t('When I vote on issues or post content to Heard
-Mentality I want the following privacy settings applied
-when other users view my profile').'
-           <div class="clr"></div>
-           </div>'); 
-
     // set default values
     $form['bio']['#default_value'] = empty($details->bio) ? 'Bio' : $details->bio;
 
@@ -1232,65 +1049,40 @@ when other users view my profile').'
     $form['fname']['#default_value'] = empty($details->real_name) ? 'Name' : $details->real_name;
     $form['username']['#default_value'] = empty($details->name) ? 'Username' : $details->name;
     
-    $form['right_profile_close'] = array('#type'=> 'markup', '#value'=> '</div>');
-
-    $form['right_privacy'] = array('#type' => 'markup', '#value' => '<div class="privacy_right">');
+   
     $form = $form + get_privacy_form();
-    $form['right_privacy_close'] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
-    $form['follow_bottom'] = array('#type' => 'markup', '#value' => '<div class="follow_bottom">');  
+    
 
-     $form['fb_outer'] = array('#type' => 'markup',
-        '#value' => '<div class="web-reference-new-txt">
-                     <div class="web-reference-tit-new-txt">'.t('PERSONAL LINKS').'</div>
-                     <div class="clr"></div>');
+    
 
     $social = explode('||', $details->social);
     $form['facebook'] = array(
         '#type' => 'textfield',
-        '#prefix' => '<div class="social-outer-new">
-                          <div class="social-left-new">
-                          <img width="26" height="27" alt="facebook" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-face.jpg"></div>
-                          <div class="social-rite-new">',
         '#description' => t(''),
         '#default_value' => variable_get('facebook', $social[0]),
         '#id' => 'face',
-        '#suffix' => '</div>
-                         </div><div class="clr"></div>',
+        '#attributes' => array('class' => 'info'),
     );
     $form['twitter'] = array(
         '#type' => 'textfield',
-        '#prefix' => '<div class="social-outer-new">
-                          <div class="social-left-new"><img width="26" height="27" alt="Twitter" src="' . $gSitePath . drupal_get_path('theme', $theme) . '/images/soc-twit.jpg"></div>
-                          <div class="social-rite-new">',
         '#description' => t(' '),
         '#default_value' => variable_get('twitter', $social[1]),
         '#id' => 'twitter',
-        '#suffix' => '</div>
-                         </div>
-                         <div class="clr"></div>',
+        '#attributes' => array('class' => 'info'),
     );
      $form['myweb'] = array(
-                '#type' => 'textfield',
-                '#title' => t(''),
-                '#description' => t(''),
-                '#default_value' => variable_get('myweb', $details->urls),
-                '#id' => 'myweb',
-                 '#prefix' => '<div class="social-outer-new">
-
-                          <div class="social-left-new">My Website :</div><div class="social-rite-new">',
-                '#suffix' => '</div>
-                         </div>
-                         <div class="clr"></div>',
-            );   
+        '#type' => 'textfield',
+        '#title' => t(''),
+        '#description' => t(''),
+        '#default_value' => variable_get('myweb', $details->urls),
+        '#id' => 'myweb',
+        '#attributes' => array('class' => 'info'),
+     );   
     
     $form = $form + follow_links_form($form_state, $user->uid);
 
     $form['merge'] = array('#type' => 'markup', '#value' => '
-                <div class="clr"></div>
-        <div class="merge-social-new-edit">
-          <div><h3>'.t('SOCIAL CONNECT').'</h3></div>
-          <div class="clr"></div>
-          <div class="merge-script-outer-new">
+                
           <div id="divConnect"></div>
     <script type="text/javascript">
         // show Add Connections Plugin in "divConnect"
@@ -1303,42 +1095,45 @@ when other users view my profile').'
 			,containerID: "divConnect" // The component will embed itself inside the divConnect Div
 		});
     </script>
-         </div>
-    </div>
-          <div class="clr"></div>');
+         ');
 
     //$form['personal_links'] = array('#type' => 'markup', '#value' => '<div class="web-reference-new">');
     $form['notify'] = array(
         '#type' => 'radios',
-        '#prefix' => '<div class="summarymail-txt"><h3>'.t('SUBSCIPTIONS').'</h3>
-                    <div class="form-wra bortopnone">',
         '#default_value' => variable_get('notify', $details->notify_etype),
         '#options' => $options,
-        '#suffix' => '<div class="clr"></div>
-                            </div>
-                            </div>');
+        );
     // avatar hidden values
+    
     $form['img_avt'] = array('#type' => 'hidden', '#default_value' => variable_get('img_avt', $details->image_avatar));
-    $form['image'] = array('#type' => 'hidden', '#default_value' => variable_get('image', $details->image));
+    //$form['image'] = array('#type' => 'textfield', '#default_value' => variable_get('image', $details->image));
+    $form['image'] = array('#type' => 'hidden', '#default_value' => $user->picture);
+    $form['current_image'] = array('#type' => 'hidden', '#id' => 'curr_avatar', '#default_value' => '');
 
-    $form['bot_div'] = array('#type' => 'markup', '#value' => '<div class=" clr"></div>
-      </div>');
+   
 
     $form['hiddentop'] = array('#type' => 'markup', '#value' => '<div id="avatar-profile-ele" class="d-header" style="display:none;background-color:white;width:350px;position:absolute;top:200px;left:350px;"><a href="javascript:void(0)" onclick="jQuery(\'#avatar-profile-ele\').slideToggle();update_avatar();" style="float:right">close[X]</a>');
     $form = $form + inc_avatar_form($form, $form_state);
     $form['hiddenbot'] = array('#type' => 'markup', '#value' => '</div>');
     $languages = i18n_language_list();
-    $form['default_language'] = array('#type' => 'select', '#prefix' => '<h3>'.t('Default Language').'</h3>',
-                                        '#options' => $languages, '#suffix' => '<br />',
+    $form['default_language'] = array('#type' => 'select', 
+                                        '#options' => $languages, 
                                         '#default_value' => $details->language);
-    $form['submit'] = array('#type' => 'submit', '#value' => 'Submit', '#id' => 'update_submit');
+    // subscription hidden value
+    $form['subscription_email'] = array(
+        '#type' => 'textfield',
+        '#title' => t(''),
+        '#maxlength' => 50,
+        '#default_value' => variable_get('email', $user->mail),
+        '#id' => 'sub_email',
+        '#required' => 1,
+        '#attributes' => array('class' => 'upload button'),
+    );
+    $form['submit'] = array('#type' => 'submit', '#value' => t('Save Changes'), '#id' => 'update_submit', '#attributes' => array('class' => 'submit-issue'));
     
-    $form['follow_bottom_close'] = array('#type' => 'markup', '#value' => '</div>');
-    $form['right_div_close'] = array('#type'=> 'markup', '#value'=> '</div>');
-    $form['left_div'] = array('#type' => 'markup', '#value' => '<div class="edit-left-profile-wrapper">');
+   
     $form = $form + get_avatar_form();
-    $form['left_div_close'] = array('#type'=> 'markup', '#value'=> '<div class="clr"></div></div>');
-    $form['main_div_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div></div>');
+    
     
     return $form;
 
@@ -1347,20 +1142,14 @@ when other users view my profile').'
 
 function get_privacy_form() {
 
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    global $user;
     $query = "select * from {user_profile} where uid='$user->uid'";
     $fetch = ExecuteQuery($query, "select");
     $options = array('1' => t(''), '2' => t(''), '3' => t(''), '4' => t(''));
+    $noOne = array('4' => t(''));
     $query = "select * from {profile_fields} ORDER BY `profile_fields`.`fid` ASC";
     $result = db_query($query);
-    $form['privacy_setting'] = array('#type' => 'markup', '#value' => '
-              <div class="form-wra">
-           	    <div class="form-wra-4">'.t('Anyone').'</div>
-                <div class="form-wra-4">'.t('Logged in Users').'</div>
-                <div class="form-wra-4">'.t('Followers & Followees').'</div>
-                <div class="form-wra-4">'.t('No one').'</div>
-           <div class="clr"></div>
-           </div>');
+   
     $form['username_privacy'] = array(
         '#type' => 'markup',
         '#value' => '<div class="form-wra">&nbsp;
@@ -1373,14 +1162,21 @@ function get_privacy_form() {
 
         $sel = db_result(db_query("SELECT $col FROM {privacy_settings} WHERE uid = '%d'", $user->uid));
         $sel=empty($sel) ? '1' : $sel;
+
+        if($col!='income'){
         $form[$col . '_privacy'] = array(
             '#type' => 'radios',
             '#default_value' => variable_get($col . '_privacy', $sel),
-            '#options' => $options,
-            // '#attributes'=>array('class'=>'form-wra'),
-            '#prefix' => '<div class="form-wra">',
-            '#suffix' => '<div class="clr"></div></div>'
+            '#options' => $options,   
         );
+        }else{
+        $form[$col . '_privacy'] = array(
+            '#type' => 'radios',
+            '#default_value' => variable_get($col . '_privacy', $sel),
+            '#options' => $noOne,
+            '#checked' => TRUE,
+        );
+        }
    
        
         $form['div_down'] = array('#type' => 'markup', '#value' => '
@@ -1403,7 +1199,7 @@ function get_privacy_form() {
 }
 
 function get_avatar_form() {
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey, $theme;
+    global $user, $apikey, $theme;
     $form = array();
     drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection.js');
     drupal_add_js(drupal_get_path('module', 'avatar_selection') . '/js/avatar_selection_pager.js');
@@ -1422,30 +1218,20 @@ var avtar=\'' . $account->avatar . '\';
     drupal_add_js($data, 'inline');
 
     // set the form encoding type
-    $form['avatar_div'] = array('#type' => 'markup', '#value' => '<div class="newimage-upload">');
+    
     $form['#attributes']['enctype'] = "multipart/form-data";
     $options = array('1' => t('weekly'), '2' => t('monthly'), '0' => t('never'));
     // add a file upload file
     $form['file_upload'] = array(
         '#type' => 'file',
-        '#size' => '10',
-        '#description' => t('Select an image file on your computer. (2MB max) '),
-        '#prefix' => '<div class="avatar">
-            <div class="avatar-right">
-            <div class="pick-avatar" onClick="jQuery(\'#avatar-profile-ele\').slideToggle();"></div>
-- Or -
-            <div class="clr"></div>
-            <div></div>
-            <div class="clr"></div>',
-        '#suffix' => '</div>
-        	<div class="avatar-left">' . UserPicture($user->uid, 0) . '</div>
-
-        <div class="clr"></div>
-        </div>'
+        '#size' => '10',        
+        '#prefix' => '<div class="avatar-left"><img src="' . UserPicture_small_src($user->uid, 0).'" /><p>'.t('Select an image file on your computer. (2MB max)').'</p>',
+        '#suffix' => '</div>',
     );
+    
        $form['oldimg'] = array(
                 '#type' => 'hidden',
-                '#default_value' => variable_get('oldimg', $details->image),
+                '#default_value' => variable_get('oldimg', $user->picture),
                 '#id' => 'oldimg',
             );
     $form['avatar_div_close'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>
@@ -1454,7 +1240,7 @@ var avtar=\'' . $account->avatar . '\';
 }
 
 function user_details_validate($form, &$form_state) {
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    global $user;
     $step = $form_state['values']['step'];
     $dob = $form_state['values']['dob'];
     $zip = $form_state['values']['zip'];
@@ -1488,7 +1274,7 @@ function user_details_validate($form, &$form_state) {
 }
 
 function user_details_submit($form, &$form_state) {
-    global $gSitePath, $user, $gDocPath, $base_root, $apikey;
+    global $user;
 
     //profile fields update
     _basic_submit($form, $form_state);
@@ -1504,5 +1290,5 @@ function user_details_submit($form, &$form_state) {
     /*New SET NOTIFY LOG*/
 
 
-    drupal_set_message(t('Your profile has been updated'), 'success');
+    drupal_set_message(t('Your profile info has been updated'), 'success');
 }

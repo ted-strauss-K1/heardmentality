@@ -162,7 +162,9 @@ function get_zip_city(code){
             jQuery('#city').val(msg.city);
             if(msg.state==null){
                show_inotify('Please Provide the proper Zip code ');
-               jQuery('zip').val('');
+               jQuery('#location').val('');
+            }else{
+               show_inotify('You have entered valid zipcode');
             }
 
            // jQuery.unblockUI();
@@ -317,16 +319,19 @@ function loadfollowing(url,title)
 
 function show_inotify(data){
 
-    jQuery('#twitMsg',top.document).html(data);
-    jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+    //jQuery('#twitMsg',top.document).html(data);
+    //jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
+    jQuery('.effect').html(data);
+    jQuery('.effect').show('slow');
 
 }
 
 function update_avatar(){
-
-    var src=jQuery('#avatar-profile-ele input:radio:checked').next("img").attr('src');
+    var src=jQuery('#dialog-profile-pic input:radio:checked').next("img").attr('src');
+    //var src=jQuery('#avatar-profile-ele input:radio:checked').next("img").attr('src');
     if(src.length>3){
         jQuery('div.avatar-left img').attr('src',src);
+        jQuery('#curr_avatar').val(src);
     }
 
 

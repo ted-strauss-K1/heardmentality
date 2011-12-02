@@ -3232,30 +3232,7 @@ function qfull_ajax() {
     }
 }
 
-function insertviews($qid = '') {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
-    //$qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
 
-    if ($user->uid != '') {
-        $ulid = $user->uid;
-        $ipid = $_SERVER['REMOTE_ADDR'];
-        //echo "SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='".$qid."' and view_date='".date("Y-m-d")."' ";
-        $countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where  uid='$user->uid'   and qid='" . $qid . "' and view_date='" . date("Y-m-d") . "' "));
-    } else {
-
-        $ulid = 0;
-        $ipid = $_SERVER['REMOTE_ADDR'];
-
-
-
-        $countret = db_result(db_query("SELECT COUNT(*) FROM {qviews} where ip='$ipid'  and qid='" . $qid . "' and view_date='" . date("Y-m-d") . "'"));
-    }
-    //echo  $countret;
-    if ($countret == 0) {
-
-        db_query("INSERT INTO {qviews} (ip,uid,qid,view_date) VALUES ('$ipid',$ulid,$qid,'" . date("Y-m-d") . "')");
-    }
-}
 
 /////////////popular qusetion ////////// notable question /////////// Famous Question  /////////////////////
 function popquest() {
