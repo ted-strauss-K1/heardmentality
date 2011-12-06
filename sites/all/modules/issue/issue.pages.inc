@@ -1133,37 +1133,7 @@ function issue_create_form_submit($form, &$form_state) {
 
     path_set_alias($url, $dst,'',$inputLanguage);
 
-    // return $node;
-    // insert default debate for each issue
-    $deb = new stdClass();
-    $deb->field_private[0]['value'] = '';
-    $deb->field_ref_qid[0]['nid'] = $node->nid;
-    $deb->field_type[0]['value'] = '1';
-
-    $deb->type = 'forum';
-    $deb->title = 'What you think about this issue!';
-    $deb->uid = $user->uid;
-    $deb->body = "Let's have a debate";
-    $deb->status = 1;
-    // get tid for debate
-    // get_taxonomy_id('module name','term data name')
-    $tid = get_taxonomy_id('forum', 'Debate');
-    $deb->taxonomy = array($tid);
-    $deb->language = 'en'; // set current language
-    // language status, initially language status is 0
-    $deb->field_lang_status[0]['value'] = 0;
-
-    //node_validate($deb);
-    //$node = node_submit($deb);
-    //$save = node_save($deb);
-
-    // add default debate options
-    $choices = db_query("SELECT * FROM {poll_choices} WHERE nid = '$node->nid'");
-    while ($list = db_fetch_object($choices)) {
-        //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
-        $forum = "INSERT INTO {debate_options} set nid = '%d',chorder='%d',ans_val='%d' ";
-        db_query($forum, $deb->nid, $list->chorder, 1);
-    }
+    
 
     //Related Issues
     if (!empty($form_state['values']['rel_iss_check'])) {
