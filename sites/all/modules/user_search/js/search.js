@@ -165,27 +165,6 @@ function get_city(ccode){
 
 
 
-function get_quest_details(quid){
-    //alert(quid);
-    el=jQuery('#quest_info');
-    el.empty();
-    var url = gSitePath + "questinfo";
-
-    jQuery.ajax({
-        type: "POST",
-        url: url,
-        dataType: 'xhr',
-        data: {
-            qsaid: quid
-        },
-        success: function(msg){
-            el.html(msg);
-            
-        }
-    });
-    
-    
-}
 
 			
 function setDefaultCountry(cnt) {
