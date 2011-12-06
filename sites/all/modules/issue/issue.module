@@ -468,11 +468,7 @@ function choice_vote_date_update($form, &$form_state) {
     //update the date that has to be set while adding or editing vote
 
 }
-function _test_helper_story_node_form_validate($form, &$form_state) {
-    if ($form_state['values']['title'] == "Testing") {
-        form_set_error('title', t('No testing allowed!'));
-    }
-}
+
 function check_user_anonymous($form, &$form_state){
 
 if(user_is_anonymous ())
