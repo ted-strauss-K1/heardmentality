@@ -857,7 +857,7 @@ Don’t be part of the Herd</strong></p>
 }
 
 function profiles_form($form_state, $step) {
-    global $base_url, $user, $gDocPath, $base_root, $apikey, $theme;
+    global $base_url, $user, $apikey, $theme;
     $data = '
 
 var spath=\'' . $base_url . '/\';
@@ -1472,7 +1472,7 @@ function inc_avatar_form($form, &$form_state) {
         $form['picture']['select_avatar'] = array(
             '#type' => 'radios',
             '#title' => ($upload == 0 ? t('Select an avatar') : t('Or simply select an icon')),
-            '#description' => $upload ? '' : t('Your virtual face or picture.'),
+            '#description' => $upload ? '' : t(''),
             '#options' => $selects['avatars'],
             '#required' => $force_choose ? TRUE : FALSE,
             '#default_value' => $avatar,

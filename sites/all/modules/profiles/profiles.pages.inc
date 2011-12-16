@@ -257,6 +257,13 @@ function user_details() {
         '#attributes' => array('class' => 'info'),
     );
 
+    $form['country'] = array(
+        '#type' => 'hidden',
+        '#default_value' => variable_get('country', $details->country),
+        '#id' => 'country',
+        '#attributes' => array('class' => 'info'),
+    );
+    
     $form['zip'] = array(
         '#type' => 'textfield',
         '#title' => t(''),
@@ -264,13 +271,12 @@ function user_details() {
         '#description' => t(''),
         '#default_value' => variable_get('zip', ''),
         '#id' => 'location',
-        '#attributes' => array('class' => 'info', 'onblur' => 'get_zip_city(this.value);')
+        '#attributes' => array('class' => 'info', 'onblur' => 'get_zip_city(this.value);'),
     );
-    $form['country'] = array(
-        '#type' => 'hidden',
-        '#default_value' => variable_get('country', $details->country),
-        '#id' => 'country',
-    );
+
+    $locDetails = $details->city.','.$details->state.','.$details->country;
+    
+    $form['city-state-country'] = array('#type' => 'markup', '#value' => '<span id="cit-stat">'.$locDetails.'</span>');
     $form['state'] = array(
         '#type' => 'hidden',
         '#default_value' => variable_get('state', $details->state),
@@ -278,7 +284,7 @@ function user_details() {
     );
     $form['city'] = array(
         '#type' => 'hidden',
-        '#default_value' => variable_get('city', $details->state),
+        '#default_value' => variable_get('city', $details->city),
         '#id' => 'city',
     );
     $form['religion'] = array(

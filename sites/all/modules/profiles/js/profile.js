@@ -160,11 +160,14 @@ function get_zip_city(code){
             jQuery('#country').val(msg.country);
             jQuery('#state').val(msg.state);
             jQuery('#city').val(msg.city);
+            
             if(msg.state==null){
                show_inotify('Please Provide the proper Zip code ');
                jQuery('#location').val('');
+               jQuery('#cit-stat').html('Please Provide the proper Zip code');
             }else{
                show_inotify('You have entered valid zipcode');
+               jQuery('#cit-stat').html(msg.city+','+msg.state+','+msg.country);
             }
 
            // jQuery.unblockUI();
@@ -318,7 +321,6 @@ function loadfollowing(url,title)
 }
 
 function show_inotify(data){
-
     //jQuery('#twitMsg',top.document).html(data);
     //jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
     jQuery('.effect').html(data);
@@ -398,3 +400,4 @@ jQuery(document).ready(function(){
 })
 
 }
+
