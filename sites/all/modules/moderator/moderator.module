@@ -93,8 +93,10 @@ function moderator_menu() {
 
 function moderator_init()
 {
-        $inline = "      var admin='1';";
-drupal_add_js("misc/ahah.js");
+    global $base_url; 
+        $inline = "      var admin='1';
+                        var sitepath = '".$base_url."'";
+    drupal_add_js("misc/ahah.js");
     drupal_add_js($inline, $type = 'inline');
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/moderator.js');
 }
@@ -104,15 +106,19 @@ function moderator_issues() {
 
     // drupal_set_html_head('<script src="http://ws.geonames.org/export/geonamesData.js" type="text/javascript"></script>');
 
-    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
-    drupal_add_js(drupal_get_path('module', 'question') . '/scripts/qadmin.js');
+
     drupal_add_js(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.js');
     drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/jquery.multiSelect.css');
     $output = _moderator_left();
+
+    
+
     $output.=' <div class="mod-midside-inner" id="mod-edit-issue">
             <div class="warning" >No Issue Selected !</div>
           <div class="clr"></div>
         </div>';
+    
+
     return $output;
 }
 
@@ -189,21 +195,21 @@ function _moderator_user_left() {
 }
 
 function _moderator_left() {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $base_url, $user, $gDocPath, $base_root, $base_path;
     //$query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE uid = '$user->uid' and qid=q.qid) as tcnt FROM {question} AS q  having tcnt<1 ORDER BY q.qid DESC";
     $query = "SELECT DISTINCT n.nid, n.title,(SELECT IFNULL( count( * ) , 0 ) FROM {node_revisions} WHERE uid = '$user->uid' and nid=n.nid) as tcnt FROM {node} AS n WHERE n.type='poll'  AND tnid = '0' AND translate='0' having tcnt<1 ORDER BY n.nid DESC";
-    $new = ExecuteQuery($query, 'norows');
+    $new = db_result(db_query($query));
 
     //$query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' group by q.qid ORDER BY f.flag_date DESC";
     $query = "SELECT *,ifnull((select count(*) from {abuse} where oid=n.nid AND type='node' group by oid),0) as fcnt  FROM {abuse} as f  join {node} as n  on f.oid=n.nid where f.type='node' AND n.type='poll' group by n.nid ORDER BY f.created DESC";
 
-    $flag = ExecuteQuery($query, 'norows');
+    $flag = db_result(db_query($query));
     $output = '        <div class="commu">
-        <form id="mod-issue" name="mod-issue" method="POST" action="' . $gSitePath . 'moderator/ajax/issue" >
+        <form id="mod-issue" name="mod-issue" method="POST" action="' . $base_url . '/moderator/ajax/issue" >
           <div id="rotate">
             <ul id="maintabs" class="mytabs">
-              <li class="current"><a href="' . $gSitePath . 'moderator/issues/list/new" title="New Issues"><span>New (' . $new . ')</span></a></li>
-              <li class="ui-tabs-selected"><a href="' . $gSitePath . 'moderator/issues/list/flag" title="Flagged Issues"><span>Flagged (' . $flag . ')</span></a></li>
+              <li class="current"><a href="' . $base_url . '/moderator/issues/list/new" title="New Issues"><span>New (' . $new . ')</span></a></li>
+              <li class="ui-tabs-selected"><a href="' . $base_url . '/moderator/issues/list/flag" title="Flagged Issues"><span>Flagged (' . $flag . ')</span></a></li>
                      </ul>
 
             <div id="tabcontent" class="mytabs-container" style="height:auto;" >
@@ -230,38 +236,53 @@ function _moderator_left() {
 }
 
 function moderator_issues_list($type='') {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $base_url, $user, $base_root, $base_path;
+
+    // root path
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+    
+
     //This is numbers per page
-    $num_per_page = 12;
+    $num_per_page = 25;
 
     $output = '';
     switch ($type) {
         case 'new':
 
-            //actual query
-            // echo  $query = "SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( count( * ) , 0 ) FROM {question_cat_revision} WHERE  qid=q.qid) as tcnt FROM {question} AS q where HAVING tcnt<3 AND q.qid not in (select q.qid from  {question_cat_revision} as qr where qr.uid=$user->uid ) ORDER BY q.qid ASC";
-            //  $query="SELECT * FROM {question} ";
             $query = "SELECT * FROM
 (SELECT DISTINCT n.nid as qid, n.title as question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM content_type_poll WHERE nid = n.nid AND field_mod_status_value =1) AS tcnt FROM node AS n
 WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.type = 'poll' AND tnid = '0' AND translate='0' ORDER BY n.nid DESC
 ) AS issue WHERE issue.tcnt<1";
-
-//            $query = "SELECT * FROM
-//(SELECT DISTINCT q.qid, q.question,(SELECT IFNULL( COUNT( * ) , 0 ) FROM question_cat_revision WHERE qid=q.qid) AS tcnt FROM question AS q
-//WHERE q.qid NOT IN (SELECT qr.qid FROM question_cat_revision AS qr WHERE qr.uid=$user->uid ) ORDER BY q.qid ASC
-//) AS issue WHERE issue.tcnt<3";
             $sqlcnt = ExecuteQuery($query, 'norows');
+
+            $aclass = '';
+            $nclass = 'class="active"';
+            $fclass = '';
             break;
         case 'flag':
-            //actual query
-           //$query = "SELECT *,ifnull((select count(*) from {question_flags} where nodeid=q.qid AND type='question' group by nodeid),0) as fcnt  FROM {question_flags} as f  join {question} as q  on f.nodeid=q.qid where f.type='question' group by q.qid ORDER BY f.flag_date DESC";
+           
             $query = "SELECT n.nid AS qid, n.title AS question, ifnull((select COUNT(*) FROM {abuse} WHERE oid = n.nid), 0) AS fcnt FROM {abuse} a JOIN {node} AS n ON a.oid = n.nid WHERE n.type = 'poll' GROUP BY n.nid ORDER BY a.created DESC";
             $sqlcnt = ExecuteQuery($query, 'norows');
+            
+            $aclass = '';
+            $nclass = '';
+            $fclass = 'class="active"';
             break;
+        case 'all':
+
+            $query = "SELECT n.nid AS qid, n.title AS question FROM {node} AS n WHERE n.type = 'poll' AND n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) GROUP BY n.nid ORDER BY n.created DESC";
+            $sqlcnt = ExecuteQuery($query, 'norows');
+
+            $aclass = 'class="active"';
+            $nclass = '';
+            $fclass = '';
+            break;
+            
         case 'user':
             $uid = arg(4);
             if (is_numeric($uid)) {
-                //$query = "select * from {question} q,{users} u where q.uid=u.uid AND u.uid='$uid' ";
+                
                 $query = "select n.nid AS qid, n.title AS question from {node} n,{users} u where n.uid=u.uid AND u.uid='$uid' AND n.type = 'poll' ";
                 $sqlcnt = ExecuteQuery($query, 'norows');
             }
@@ -269,9 +290,14 @@ WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->
         default:
 
             echo '<div class="warning">No Action(s) Found!</div>';
-            exit;
+            
             break;
     }
+
+    // filters
+    $filter = '<a href="' . $sitelink . 'moderator/issues/list/all" title="All" '.$aclass.'>'.t('All').'</a> |
+               <a href="' . $sitelink . 'moderator/issues/list/new" title="New Issues" '.$nclass.'>'.t('New Issues').'</a> |
+               <a href="' . $sitelink . 'moderator/issues/list/flag" title="Flagged Items" '.$fclass.'>'.t('Flagged Items').'</a>';
 
     //pager_query function
     $rs = pager_query_new($query, $num_per_page, 0, $sqlcnt);
@@ -280,11 +306,14 @@ WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->
     if ($sqlcnt) {
         while ($data = db_fetch_object($rs)) {
 
+            $nid = $data->qid;
+            $issue = $data->question;
+
             if ($type == 'flag')
-                $flag = ('' . $data->fcnt . '<a href="' . $gSitePath . 'moderator/ajax/flaglist/' . $data->qid . '" class="floatbox" title="Flag List" data-fb-options="type:ajax width:640 height:385" ><img src="' . $gSitePath . path_to_theme() . '/images/flag.png" align="absmiddle"/></a>');
+                $flag = ('' . $data->fcnt . '<a href="' . $base_url . '/moderator/ajax/flaglist/' . $data->qid . '" class="floatbox" title="Flag List" data-fb-options="type:ajax width:640 height:385" ><img src="' . $gSitePath . path_to_theme() . '/images/flag.png" align="absmiddle"/></a>');
             $chk = ('<div align="right"><input type="checkbox" class="check-me" name="qids[]" value="' . $data->qid . '" />&nbsp; ' . $flag . '</div> ');
             $nd = ('<div class="' . $alt . '" > ');
-            $nd .= l($data->question, $gSitePath . 'moderator/issues/edit/' . $data->qid, array('attributes' => array('class' => 'issue-links')));
+            $nd .= l($data->question, $base_url . '/moderator/issues/edit/' . $data->qid, array('attributes' => array('class' => 'issue-links')));
             $nd.=$chk;
             $nd .= ( '</div>');
             $output .= ( $nd);
@@ -292,16 +321,21 @@ WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->
                 $alt = 'm-odd';
             else
                 $alt='m-even';
+
+            $streams .= theme('moderator_issue_stream', $nid, $issue);
+
         }
-        $output .= theme('pager', array(), $num_per_page, 0);
+        $pagination = theme('pager', array(), $num_per_page, 0);
     }else {
         echo '<div class="warning">No Issue(s) Found!</div>';
     }
     // print url($_GET['q'], array('absolute' => true));
     $uri = $base_root . request_uri();
     $output.=' <input name="mod-url" type="hidden" id="mod-url" value="' . $uri . '"/><input name="mod-type" type="hidden" id="mod-type" value="' . $type . '"/> <div class="clr"></div></div>';
-    echo $output;
-    exit;
+
+    $stream = theme('moderator_stream', $filter, $streams, $pagination);
+    return $stream;
+   
 }
 
 function moderator_user_list($type='') {
@@ -364,24 +398,14 @@ function moderator_user_list($type='') {
     exit;
 }
 function moderator_edit_issues($qid = ''){   
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user, $gDocPath, $base_root;
     drupal_add_css(drupal_get_path('module', 'moderator') . '/scripts/style.css');
 
     // select sub categories for a issue
     
-    $escat1 = implode(",", array_filter($firstLevel));
-    $esscat1 = implode(",", array_filter($secondLevel));
-
-    $form .= '<script type="text/javascript">
-                        var spath=\'' . $gSitePath . '\';
-                    var setstate=[' . $setstate . '] ;
-                        var setcity=[' . $setcity . '];
-                            var setscat=\'' . $escat1 . '\';
-                                var setsscat=\'' . $esscat1 . '\';
-                            var admin=\'1\';
-		</script>
-			';
-    $form.= drupal_get_form('moderator_edit_issue_form', $qid);
+    
+    
+    $moderateform.= drupal_get_form('moderator_edit_issue_form', $qid);
         // AHAH is not being nice to us and doesn't know the "other" button (that is,
  // either "Upload" or "Delete") yet. Which in turn causes it not to attach
   // AHAH behaviours after replacing the element. So we need to tell it first.
@@ -403,26 +427,63 @@ function moderator_edit_issues($qid = ''){
 
  // Add the AHAH settings needed for our new buttons.
  if (!empty($filefield_ahah_settings)) {
-    $form .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, '. drupal_to_js($filefield_ahah_settings) .');</script>';
+    $moderateform .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, '. drupal_to_js($filefield_ahah_settings) .');</script>';
   }
 
+  // possible dupe form
+  $possibledupeForm = drupal_get_form('possible_dupe_form', $qid);
 
+  // moderation history
+  //Moderator Revision
+   $result = db_query("SELECT u.uid,u.name,nr.timestamp FROM
+                        (SELECT * FROM (select * FROM node_revisions where nid = '$qid' order by timestamp desc) as subs group by uid) as nr
+                        JOIN {users} as u on u.uid=nr.uid JOIN {node} as n ON n.nid = nr.nid ORDER BY nr.timestamp DESC");
 
+   //owner uid
+   $ownerId = db_result(db_query("SELECT uid FROM {node} WHERE nid = '$qid'"));
 
-    if (isAjax ()){
-          $form='<iframe id="theiframe" frameborder="0" style="height:100%;width:100%;border:none;min-height:455px;overflow:scroll;" name="editissue" src="'.url($_GET['q']).'"></iframe>';
-       print drupal_json(array('status'=>true,'output'=>$form));
-    exit();
-    
+    while ($coupon = db_fetch_object($result)) {
+        $owner = $ownerId==$coupon->uid?'&nbsp;(owner)':'';
+        $updated = date("M d, Y",$coupon->timestamp);
+        $modHistory .= theme('mod_history_thread', $coupon->name, $updated);
+        //'<p class="issue-meta">'.t('Edited By').' <a href="">'.$coupon->name.'</a> '.t('On').' '.$updated.'</p><hr>';
     }
-        else{
-        return $form;
+    // originally posted in
+    $tnid = get_tnid($qid);
+    $original = node_load($tnid);
+    
+    $originalPath = $original->language.'/'.$original->path;
 
-        }
+    $originalLangKey = $original->language;
+    $languageList = language_list();
+    $originalLanguage = $languageList[$originalLangKey]->name;
+
+    $moderationHistory = theme('mod_history_view', $modHistory, $originalLanguage, $originalPath);
+
+
+
+  $output = theme('moderate_issue_edit_details', $moderateform, $possibledupeForm, $moderationHistory);
+
+        return $output;
+
+     
 }
 
+// possible dup form
+function possible_dupe_form($form_state, $qid){
+    $dupes = get_dupe_query($qid);
+    $result =db_query($dupes['query']);
+    while($coupons = db_fetch_object($result)){
+        $values[$coupons->nid] = $coupons->title;
+    }
+    $form['possible_dupe'] = array('#type' => 'radios', '#options' => $values, '#id' => 'regularRadio');
+    $form['possible_dupe_submit'] = array('#type' => 'submit', '#value' => t('Merge as Dupe'), '#attributes' => array('class' => 'remove'));
+    return $form;
+}
+
+
 function moderator_edit_issue_form($form_state, $qid){
-global $gSitePath, $user, $gDocPath, $base_root;
+global $base_url, $user, $gDocPath, $base_root;
 //    $left_qry = "SELECT * FROM {node_revisions} as n left join {term_node} as t on n.nid=t.nid where n.nid='" . $qid . "'";
 //    $result = db_query($left_qry);
 //    $quest = db_fetch_object($result);
@@ -436,26 +497,34 @@ global $gSitePath, $user, $gDocPath, $base_root;
     $originalPath = $node->language.'/'.$node->path;
     //echo '<pre>';print_r($node);
 
-    $form['mod_main_div'] = array('#type' => 'markup', '#value' => '<div id="mod-edit-issue"> <div id="err" class="clear"></div>');
-    $form['quest_title'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Question').'</span></label>');
-    $form['title'] = array('#type' => 'textfield',
+    $form['mod_main_div'] = array('#type' => 'markup',
+                                    '#value' => ' <div class="grey-box"><a class="button light" href="'.$base_url.'/'.$originalPath.'" target="_blank">'.t('View issue').'</a>
+                                    <h2 class="din">Issue #</h2><div class="new-issue">
+                                    <hr class="short2">');
+    $form['quest_title'] = array('#type' => 'markup', 
+                                    '#value' => '<label for="" class="add-on"><span class="title ">Question</span><br><span class="guides">'.t('Max 140 chars').'.</span></label>');
+    $form['title'] = array('#type' => 'textarea',
                            '#default_value' => $node->title,
-                           '#suffix' => '<div class="clr"></div>',
+                           '#suffix' => '<div class="clear"></div>
+                                        <hr class="short2">',
                             '#id'=>'q_quest',
-                            '#required' => TRUE);
+                            '#required' => TRUE,
+                            '#resizable' => FALSE);
        $dupecnt=get_dupe_query($qid);
   $dcnt=!empty($dupecnt['count'])?$dupecnt['count']:'0';
-  $form['org_issue']= array('#type' => 'markup','#prefix' => '<div class="mod-t-outer">',
-                                '#suffix' => '</div>',
-                                '#value' => '<strong><a title="Original Issue" href="'.$gSitePath.$originalPath.'" target="_blank">'.t('View Issue in new tab').'</a></strong>');
-   $form['pre_up_mod'] = array('#type' => 'markup','#prefix' => '<div class="mod-t-outer">',
-                                '#suffix' => '</div>',
-                                '#value' => '<strong><a data-fb-options="type:ajax width:640 height:385" title="Dupe List" href="' . $gSitePath . 'moderator/ajax/dupelist/' . $qid . '" class="floatbox">Possible Dupes</a>('.$dcnt.')</strong>');
+ 
+//   $form['pre_up_mod'] = array('#type' => 'markup','#prefix' => '<div class="mod-t-outer">',
+//                                '#suffix' => '</div>',
+//                                '#value' => '<strong><a data-fb-options="type:ajax width:640 height:385" title="Dupe List" href="' . $base_url . '/moderator/ajax/dupelist/' . $qid . '" class="floatbox">Possible Dupes</a>('.$dcnt.')</strong>');
 
-    $form['quest_context'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Context').'</span></label>');
+    $form['quest_context'] = array('#type' => 'markup',
+                                    '#value' => '<label for="" class="add-on"><span class="title ">'.t('Context').'</span><br><span class="guides">'.t('Enter a brief description or backstory to provide context. You may include links.').'</span></label>');
     $form['context'] = array('#type' => 'textarea',
                              '#default_value' => $node->body,
                              '#cols' => 70,
+                             '#suffix' => '<hr class="short2">',
+                             '#resizable' => FALSE,
+                             '#id' => 'Question',
                              );
     $query = "SELECT * FROM {poll_choices} where nid='" . $qid . "' ORDER BY chorder ASC";
     $ans = ExecuteQuery($query, "select");
@@ -526,7 +595,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
     ////////////////////////
 
     
-    $form['quest_cat_mark'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Categories').'</span></label>');
+    $form['quest_cat_mark'] = array('#type' => 'markup', '#value' => '<label class="cat">'.t('Categories').'</label>');
     /*categories*/
     $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
     $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
@@ -539,7 +608,7 @@ global $gSitePath, $user, $gDocPath, $base_root;
         $cat[] = $quest_cat->tid;
     }
     
-    $ecat1 = explode(",", $cat);
+    //$ecat1 = explode(",", $cat);
     while ($list = db_fetch_object($client_select)) {
         $options[$list->cat_id] = t(stripslashes($list->cat_name));
     }
@@ -580,9 +649,9 @@ global $gSitePath, $user, $gDocPath, $base_root;
     $form['sub_sub_categories'] = array('#type' => 'markup',
                                     '#value' => '<div id="sub-sub-cat-wrapper" style="padding-left:5px; float:left">
                                                 </div>',
-                                    '#suffix' => '<br /><div class="clr"></div>');
+                                    '#suffix' => '<br /><div class="clear"></div>');
 
-    $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label><span>'.t('Location').'</span></label>');
+    $form['quest_loc_mark'] = array('#type' => 'markup', '#value' => '<label class="cat">'.t('Location').'</label>');
 
     $options = array(
   'sortby' => 'countryname',
@@ -612,56 +681,30 @@ global $gSitePath, $user, $gDocPath, $base_root;
                                 '#value' => '<div id="state-wrapper" style="padding-left:5px; float:left"></div>');
     $form['city_div'] = array('#type' => 'markup',
                                 '#value' => '<div id="city-wrapper" style="padding-left:5px; float:left"></div>',
-                                '#suffix' => '<br /><div class="clr"></div>');
-
+                                '#suffix' => '<br /><div class="clear"></div>');
+$form['bottom_line'] = array('#type' => 'markup',
+                                '#value' => '<hr class="bottom">');
     $form['qid'] = array('#type' => 'hidden',
                           '#default_value' => $qid);
     $form['mod_status'] = array('#type' => 'hidden',
                           '#default_value' => $node->mod_status);
-    $form['issue_edit'] = array('#type' => 'submit',
-                                '#value' => t('UPDATE ISSUE'),
-                                '#suffix' => '<br /><div class="clr"></div>',
-                                );
-    $form['success_div'] = array('#type' => 'markup',
-                                '#value' => '<div id="success-message"></div>
-                                            <br /><div class="clr"></div>');
-    $form['mod_main_close_div'] = array('#type' => 'markup', '#value' => '</div>');
-
-
-    //Moderator Revision
-   $result = db_query("SELECT u.uid,u.name,nr.timestamp FROM
-                        (SELECT * FROM (select * FROM node_revisions where nid = '$qid' order by timestamp desc) as subs group by uid) as nr
-                        JOIN {users} as u on u.uid=nr.uid JOIN {node} as n ON n.nid = nr.nid ORDER BY nr.timestamp DESC");
-
-   //owner uid
-   $ownerId = db_result(db_query("SELECT uid FROM {node} WHERE nid = '$qid'"));
-   
-   $form['pre_up_mod_title'] = array('#type' => 'markup',
-                                '#value' => '<div class="mod-t-outer">
-                                <strong>'.t('Previously Updated').'</strong>
-                                </div>');
-   
-    while ($coupon = db_fetch_object($result)) {
-        $owner = $ownerId==$coupon->uid?'&nbsp;(owner)':'';
-        $updated = date("Y-m-d H:i:s",$coupon->timestamp);
-        $rows[] = array(
-            array('data' => l($coupon->name, $gSitePath . 'profile/' . $coupon->name, array('attributes' => array('title' => t('View user profile.'), 'class' => 'floatbox'))).$owner),
-            array('data' => ago($updated))
-        );
-    }
-   
     
-    $head = array(
-        array('data' => t('')),
-        array('data' => t('')),
-    );
-    //print drupal_render( );
-    $form['mod_list'] = array('#type' => 'markup', '#value' => theme_table($head, $rows, array('style' => 'width: 100%')));
-    if (empty($rows))
-     $form['mod_list_empty'] = array('#type' => 'markup',
-                                    '#value' => '<div class="mod-t-outer">
-                                    <strong>No One Updated Yet !</strong>
-                                     </div>');
+    $form['issue_delete'] = array('#type' => 'markup',
+                                '#value' => '<input type="button" value="Delete Issue" class="delete-issue" />',
+                               
+                                );
+    
+    $form['issue_edit'] = array('#type' => 'submit',
+                                '#value' => t('Update Issue'),
+                                '#attributes' => array('class' => 'update-issue'),
+                                '#suffix' => '<div class="clear"></div>',
+                                );
+    
+    
+    $form['mod_main_close_div'] = array('#type' => 'markup', '#value' => ' </div></div>');
+
+
+    
 
     return $form;
 }
@@ -1139,7 +1182,11 @@ function moderator_ajax($action='') {
                     $msg = moderator_flag_save();
                     $err = false;
                     $output = '';
-
+                    break;
+                case 'hide':
+                    $msg = moderator_hide_issue($_REQUEST['nid']);
+                    $err = false;
+                    $output = 'Removed';
                     break;
                 default:
                     $err = true;
@@ -1999,6 +2046,7 @@ function moderator_save_issue($array) {
 
 //Badges call back
 function update_flag_badges($qids) {
+    if($qids){
     foreach ($qids as $qid) {
 //        $sql = "SELECT uid,nodeid FROM (question_flags) WHERE nodeid = '$qid' AND type = 'question'";
 //        $users = ExecuteQuery($sql, 'select');
@@ -2018,6 +2066,7 @@ function update_flag_badges($qids) {
             scrutineer($uid, $qid);
         }
         
+    }
     }
 }
 
@@ -2103,7 +2152,7 @@ function question_flagged_ignore_mail($qaid, $reporttext) {
 }
 
 function question_flagged_mail($qaid) {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $user;
 
     $from = variable_get('site_mail');
     $subject_proj = "Heardmentality Question Has Been Ignore";
@@ -2135,7 +2184,7 @@ function question_flagged_mail($qaid) {
 }
 
 function moderator_new_save($qids='') {
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $user;
     $qids = implode(',', $qids);
     if ($_REQUEST['actions']) {
 
@@ -2155,7 +2204,7 @@ function moderator_new_save($qids='') {
 
 function delete_issues($qids='') {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $user;
 
     //Delete Issues
     //$query = db_query("delete from {question} where qid in ($qids)");
@@ -2174,9 +2223,21 @@ function delete_issues($qids='') {
     }
 }
 
+
+// moderator hide issue from stream
+
+function moderator_hide_issue($nid){
+    global $user;
+    $node = node_load($nid);
+    // make revision of this node
+    $node->revision = TRUE;
+    node_save($node);
+    return 'hi';
+}
+
 function flag_quest_mail($qids = '') {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $user;
 
     $from = variable_get('site_mail');
     $subject = 'Heardmentality Flag  Question Removal';
@@ -2284,9 +2345,9 @@ function meta_data_generate($i = '', $pos_spectrum = array()){
         $mNum .= '<span>'.$j.'</span>';
         }
     $form['meta_val_div_'.$i] = array('#type' => 'markup',
-                                '#value' => '<div id="meta-numb">
+                                '#value' => '<div class="privacy-answer">
                                     '.$mNum.'
-                                    </div>');
+                                    </div><br>');
     $Spec_query1 = db_query("SELECT political_spec_id,spec_name,spec_min_range,spec_max_range FROM political_spectrum");
     
     $count = 1;
@@ -2296,7 +2357,7 @@ function meta_data_generate($i = '', $pos_spectrum = array()){
         $spec_name = $spec->spec_name;
         list($left, $right) = explode(' ', $spec_name);
         
-        $form['left_val_'.$count] = array('#type' =>'markup', '#value' => '<div id="meta-left-val">'.t($left).'</div>');
+        $form['left_val_'.$count] = array('#type' =>'markup', '#value' => '<span class="left">'.t($left).'/'.t($right).'</span>');
         $form['radio_div_'.$count] = array('#type' => 'markup', '#value' => '<div id="radio-div">');
         for($c = $minRange; $c <= $maxRange; $c++){
             $meta[$c] = '';       
@@ -2307,8 +2368,8 @@ function meta_data_generate($i = '', $pos_spectrum = array()){
                                 '#default_value' => $pos_spectrum[($count-1)],
                                 );
         $form['radio_div_close_'.$count] = array('#type' => 'markup', '#value' => '</div>');
-        $form['right_val_'.$count] = array('#type' =>'markup', '#value' => '<div id="meta-right-val">'.t($right).'</div>');
-        $form['mark_'.$count] = array('#type' =>'markup','#value' => '<br /><div class="clr"></div>');
+        
+        $form['mark_'.$count] = array('#type' =>'markup','#value' => '<br /><div class="clear"></div>');
         unset($meta);
         $count++;
     }
@@ -2506,12 +2567,19 @@ function moderator_ahah_callback($type = '', $key = ''){
       }
    }
   }
-
+    
+    
   // Add the AHAH settings needed for our new buttons.
   if (!empty($filefield_ahah_settings)) {
     $output .= '<script type="text/javascript">jQuery.extend(Drupal.settings.ahah, '. drupal_to_js($filefield_ahah_settings) .');</script>';
   }
 
+//  $loadjs = 'jQuery(document).ready(function () {
+//                    jQuery.getScript("'.drupal_get_path('module', 'moderator') . '/scripts/multi_select.js'.'");
+//                    multi_select();});';
+//
+//  $output  .= drupal_add_js($loadjs, 'inline');
+   
 //$output .= '<script type="text/javascript">
  //  window.onload = multi_select();</script>';
 
@@ -2559,7 +2627,7 @@ function moderator_edit_issue_form_submit($form, &$form_state){
          $uid[] = $revision->uid;
          }
      }
-     $modids = array_unique($uid);
+     $modids = $uid!=''?array_unique($uid):array();
      $modCount = count($modids);
      if($modCount == 2){
          // set status as 1 for 3rd moderator
@@ -2581,14 +2649,20 @@ function moderator_edit_issue_form_submit($form, &$form_state){
     $q_country = $form_state['clicked_button']['#post']['q_country'];
     $q_state = $form_state['clicked_button']['#post']['q_state'];
     $q_city = $form_state['clicked_button']['#post']['q_city'];
-    foreach($q_country as $key => $country){
-        $countries[] = $country;
+    if($q_country){
+        foreach($q_country as $key => $country){
+            $countries[] = $country;
+        }
     }
-    foreach($q_state as $key => $state){
-        $states[] = $state;
+    if($q_state){
+        foreach($q_state as $key => $state){
+            $states[] = $state;
+        }
     }
-    foreach($q_city as $key => $city){
-        $cities[] = $city;
+    if($q_city){
+        foreach($q_city as $key => $city){
+            $cities[] = $city;
+        }
     }
     for($i = 0; $i <= count($q_country); $i++){
      $node->field_issue_country[$i]['value'] = $countries[$i];
@@ -2703,6 +2777,26 @@ function moderator_theme($existing, $type, $theme, $path) {
         'mod_answer_des' => array(
             'arguments' => array('form' => NULL),
         ),
+        'moderator_issue_stream' => array(
+            'template' => 'moderator-issue-stream',
+            'arguments' => array('nid' => NULL, 'issue' => NULL),
+        ),
+        'moderator_stream' => array(
+            'template' => 'moderator-stream',
+            'arguments' => array('filter' => NULL, 'streams' => NULL, 'pagination' => NULL),
+        ),
+        'mod_history_thread' => array(
+            'template' => 'moderate-history-thread',
+            'arguments' => array('modName' => NULL, 'updatedOn' => NULL),
+        ),
+        'mod_history_view' => array(
+            'template' => 'moderate-history-view',
+            'arguments' => array('modHistory' => NULL,'originalLanguage' => NULL, 'originalPath' => NULL),
+        ),
+        'moderate_issue_edit_details' => array(
+            'template' => 'moderate-issue-edit-details',
+            'arguments' => array('moderateForm' => NULL,'possibleDupeForm' => NULL, 'moderationHistory' => NULL),
+        ),
     );
 }
 function theme_mod_answer_des($form){
@@ -2730,8 +2824,8 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
   }else{
       $req = FALSE;
   }
-  $form['ans_title_'.$delta] =  array('#type' => 'markup', '#value' => '<label><span>'.t('Answer').' '.$aCount.'</span></label>');
-  $form['meta_open_'.$delta] = array('#type' => 'markup', '#value' => '<div id="main-open">');
+  $form['ans_title_'.$delta] =  array('#type' => 'markup', '#value' => '<label for="" class="add-on"><span class="title ">'.t('Answer').' '.$aCount.'</span></label>');
+  //$form['meta_open_'.$delta] = array('#type' => 'markup', '#value' => '<div id="main-open">');
 
   $form['answer'] = array('#type' => 'textfield',
                                 '#suffix' => '<div class="clr"></div>',
@@ -2739,6 +2833,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
                                 '#default_value' => $answer,
                                 '#id'=>'q_ans'.$delta,
                                 '#required' => $req,
+                                '#attributes' => array('class' => 'b-textbox'),
                                 );
   $form['chorder'] = array('#type' => 'hidden',
                                 '#suffix' => '<div class="clr"></div>',
@@ -2750,21 +2845,24 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
                                 '#parents' => array('choice', $delta, 'chvotes'),
                                 '#default_value' => $votes,
                                 );
+  $form['short_answer_title'] = array('#type' => 'markup', '#value' => '<label for="" class="add-on"><span class="title ">Short Answer</span><br><span class="guides">Sed ut perspiciatis unde omnis iste natusab illo inventore </span> </label>');
   $form['short_answer'] = array('#type' => 'textfield',
                                 '#maxlength' => 10,
-                                '#size' => 10,
-                                '#title' => t('Enter Short Answer'),
                                 '#parents' => array('choice', $delta, 'short_answer'),
                                 '#default_value' => $short_answer,
+                                '#suffix' => ' <br class="clear">',
+                                '#id' => 'Answer',
                                 );
     // get meta dada info
   $form['meta_info'] = array('#type' => 'markup',
-                                '#value' => '<div id="meta-info">');
-    //$form['meta_'.$i] = array('#type' => 'markup', '#value' => drupal_get_form('meta_data_generate', $i));
-  $form['meta']=meta_data_generate($delta, $pos_spectrum);
-  $form['meta_info_close'] = array('#type' => 'markup',
-                                '#value' => '</div>');
-  $form['meta_close'] = array('#type' => 'markup', '#value' => '</div><div class="clr"></div>');
+                                '#value' => '<label for="" class="add-on"><span class="title ">Assign Values</span> </label>
+						<br class="clear">
+                                                ');
+    
+  $form['meta'] = meta_data_generate($delta, $pos_spectrum);
+//  $form['meta_info_close'] = array('#type' => 'markup',
+//                                '#value' => '</div>');
+  $form['meta_close'] = array('#type' => 'markup', '#value' => '<div class="clear"></div>');
   }else{
   $form['error_msg'] = array(
     '#type' => 'markup',
@@ -2778,7 +2876,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
 
 // moderator cron
 function moderator_cron(){
-    global $gSitePath, $user, $gDocPath, $base_root, $language;
+    global $user, $language;
     $query = db_query("SELECT n.nid FROM {content_type_poll} AS cp JOIN {node} AS n ON cp.nid=n.nid WHERE cp.field_mod_status_value='%d' AND n.type='%s' AND n.tnid='%d' AND n.translate='%d'", 1, 'poll', 0, 0);
     while($langNode = db_fetch_object($query)){
        $nid = $langNode->nid;

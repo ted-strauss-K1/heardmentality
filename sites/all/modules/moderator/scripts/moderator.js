@@ -101,6 +101,7 @@ load_issue_data_ahah();
             return true;
         }else{
              e.preventDefault();
+             alert('Please add the required fields');
             jQuery('#twitMsg').html('Some Of The Required fields are Empty!');
             jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
             return false;
@@ -995,3 +996,19 @@ function load_issue_data_ahah(){
 //    });
 //
 //}
+
+
+function mod_hide_issue(issid){
+    
+    jQuery.ajax({
+        method: "POST",
+        url: sitepath+'/moderator/ajax/issue',
+        dataType: "json",
+        data: {'nid': issid, 'mod-type': 'hide'},
+        success: function(data){
+            //alert(data.content);
+            var stream = '#stream-'+issid;
+            jQuery(stream).remove();
+        }
+    });
+}

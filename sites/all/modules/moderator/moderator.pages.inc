@@ -215,7 +215,7 @@ function question_edited_mail($qaid) {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
-    $from = variable_get('site_mail');
+    $from = variable_get('site_mail', '');
     $subject = 'Heardmentality Issue Has Been Edited By Moderator ';
     $delmsg = 'Has been edited by our Moderator';
 
@@ -238,7 +238,7 @@ function question_edited_mail_voters($qaid) {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
-    $from = variable_get('site_mail');
+    $from = variable_get('site_mail', '');
     $subject = 'Heardmentality Question Has Been Edited By admin ';
     $delmsg = 'Has been Edited By Headmentality admin';
     //$query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
@@ -265,7 +265,7 @@ function question_edited_mail_suggest($qaid) {
 
     global $gSitePath, $user, $gDocPath, $base_root;
 
-    $from = variable_get('site_mail');
+    $from = variable_get('site_mail', '');
     $subject = 'Heardmentality Question Has Been Edited By admin ';
     $delmsg = 'Has been Edited By Moderator';
 
