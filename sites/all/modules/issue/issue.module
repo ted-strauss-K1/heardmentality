@@ -528,10 +528,24 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
 
                 
                 $node->suggest = drupal_get_form('issue_suggest_form',$node->nid);
+
+               
+
                
                 // IMPORTANT get translate nid (tnid) for current node
                 $tnid = get_tnid($node->nid);
                 $tnode = node_load($tnid);
+
+                 // count individual poll vote counts
+
+                  $sql = db_query("SELECT chvotes FROM {poll_choices} WHERE nid = '$tnid' ORDER BY chorder ASC");
+                  while($iVotes = db_fetch_object($sql)){
+                      $indVotesCount[] = $iVotes->chvotes;
+                  }
+
+                $node->indVoteCounts = $indVotesCount;
+
+
                 // echo '<pre>'; print_r($tnode);exit;
                 if ($tnode->allowvotes) {
                    $output .= drupal_get_form('issue_add_vote',$node->nid);
@@ -1884,7 +1898,8 @@ function theme_issue_debate_list($nid = ''){
       $addNewDebateForm .= '<div align="center"><b>'.t('Please log in to participate in the debate').'</b></div>';
     }
     $debateFilterForm = drupal_get_form('filter_options', $nid);
-    $debateStatistics = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=analysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
+    //$debateStatistics = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=analysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
+    $debateStatistics = '<input type="hidden" id="curr_nid" value="'.$nid.'" />';
     $debateList = issue_debates($nid, 1);
     $debates .= theme('debate_area', $addNewDebateForm, $debateFilterForm, $debateStatistics, $debateList);
     return $debates;
@@ -1905,7 +1920,8 @@ function theme_issue_resource_list($nid = ''){
     }
     $refTypeFilter = $filters;
     $referenceFilterForm = drupal_get_form('filter_options', $nid);
-    $referenceStatistics = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
+    //$referenceStatistics = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
+    $referenceStatistics = '<input type="hidden" id="curr_nid" value="'.$nid.'" />';
     $referenceList .= issue_resources_list($nid);
     $references = theme('reference_area', $addNewReferenceForm, $referenceFilterForm, $refTypeFilter, $referenceStatistics, $referenceList);
     return $references;

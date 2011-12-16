@@ -272,6 +272,39 @@ jQuery.ajax({
 
 }
 
+// load debate statistics
+jQuery('#deb-ana').live('click', function(){
+var nid = jQuery('#curr_nid').val();
+var url = spath+'issue/ajax/debate_statistics/'+nid;
+jQuery('#deb-ana-load-txt').html('Loading...');
+jQuery.ajax({
+    type: 'get',
+    url: url,
+    success:function(msg){
+        jQuery('#load-deb-statics').html(msg);
+    },
+    complete:function(){
+        jQuery('#deb-ana-load-txt').html('');
+    }
+});
+});
+
+// load reference statistics
+jQuery('#res-ana').live('click', function(){
+var nid = jQuery('#curr_nid').val();
+var url = spath+'issue/ajax/resource_statistics/'+nid;
+jQuery('#res-ana-load-txt').html('Loading...');
+jQuery.ajax({
+    type: 'get',
+    url: url,
+    success:function(msg){
+        jQuery('#load-res-statics').html(msg);
+    },
+    complete:function(){
+        jQuery('#res-ana-load-txt').html('');
+    }
+});
+});
 
 
 // from debate module - code cleanup

@@ -426,10 +426,7 @@ function report_graph($nid='') {
     
 
 
-    $output.= "
-<script type='text/javascript' language='javascript'>
-
-";
+    $output.= "<script type='text/javascript' language='javascript'>";
 
     $query = "select date(date_voted) as dat from {poll_votes} where nid='" . $nid . "' ORDER BY date_voted DESC";
     $list = ExecuteQuery($query, "select");
@@ -1703,9 +1700,19 @@ function delete_replies($comment){
 
 
 function issue_ajax($task = '', $nid = ''){
+    global $base_url;
     switch($task){
         case 'insightview':
             $result = insight_view($nid);
+            break;
+
+        case 'debate_statistics':
+            $result = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=analysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
+            break;
+        case 'resource_statistics':
+            $result = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
+            break;
+
     }
     echo $result;
 }
