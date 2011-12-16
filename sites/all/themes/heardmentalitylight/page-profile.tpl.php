@@ -75,44 +75,36 @@ $directoryPath = $base_path . $directory;
 	    	</div>
        <?php endif; ?>
     </div>
-   <div class="twelve columns">
-                        <?php
-                        if($node->type=='poll'):
-                        ?>
-			<h2 class="dinbold page-title"><?php print t('Issue'); ?></h2>
-                        <?php endif; ?>
-			<div class="white-box">
-                                <div class="clear"></div>
-                                <!-- issue view, suggest answer -->
-        			<?php print $content; ?>
-				 <!-- issue view, suggest answer -->
 
-				<a href="#" class="icon share floatleft text"></a>
-				<br class="clear" />
+	<div class="eleven columns">
+			<h2 class="dinbold page-title"><?php print t('PROFILE'); ?></h2>
+			<div class="grey-box">
+                                <?php print $content; ?>
 
-				<br class="clear"><br class="clear">
-                                <?php print $content_bottom; ?>
-				
 			</div>
+
+                        <?php print $user_activity_stream; ?>
+			
+
 		</div>
-            <div class="four columns">
+
+		<div class="five columns">
 			<br>
-			<div class="toggler profile-message">
+		  <div class="toggler profile-message">
   	    	<div id="effect">
-			<?php 
-                        if($profile_complete_alert):
-                        print $profile_complete_alert;
-                        endif;
-                        ?>
+			<?php print $profile_complete_alert; ?>
 	    	</div>
       </div>
-                        <?php if($issue_real_info):?>
-			<div class="grey-box">
-                            <?php print $issue_real_info; ?>
-			 
+      <br>
+			<div class="dark-grey-box ">
+                            <?php print $user_profile_information; ?>
+			  
 			</div>
-                        <?php endif; ?>
-		</div>
+
+
+		</div>	
+
+
 
   </div>
 
@@ -126,3 +118,9 @@ $directoryPath = $base_path . $directory;
 ================================================== -->
 </body>
 </html>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('.pager-first').remove();
+        jQuery('.pager-last').remove();
+    });
+</script>

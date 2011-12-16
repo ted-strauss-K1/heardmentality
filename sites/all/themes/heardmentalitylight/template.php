@@ -85,12 +85,19 @@ function phptemplate_preprocess_page(&$vars) {
 
 
 function heardmentalitylight_preprocess_page(&$vars) {
-    global $theme;
+    // there's also a $theme_path global
+    global $theme, $theme_path;
     $path = drupal_get_path('theme', $theme);
+
+if($vars['node']->type == 'static_pages' || $vars['node']->type == 'page'|| $vars['node']->type == 'webform'){
+    $suggestions = array(
+      'page-static-pages'
+    );
+    $vars['template_files'] = array_merge($vars['template_files'], $suggestions);
+}
+
 //echo '<pre>';
 //print_r($vars);exit;
-// there's also a $theme_path global
-    global $theme_path;
 //overide default jquery
    // if($vars['template_files'][1]!='page-issue-create'){
         drupal_add_js($path . "/javascripts/jquery1.4.js", 'core'); //where you store your jque
@@ -248,6 +255,10 @@ return array(
         'issue_suggest_form' => array(
         'arguments' => array('form' => NULL),
         'template' => 'issue-suggest-form',
+        ),
+        'user_details' => array(
+        'arguments' => array('form' => NULL),
+        'template' => 'profile-edit-form',
         ),
     );
 }

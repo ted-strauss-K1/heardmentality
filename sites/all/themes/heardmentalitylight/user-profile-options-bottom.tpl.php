@@ -8,8 +8,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
     <label for="profile" class="profile-dark dinbold"><?php print $name; ?>, <?php print t($ranking); ?></label>
     <p class="profile-links">
         <a href="<?php print $sitelink?>profile"><?php print t('View Profile');?></a> |
-        <a href="<?php print $sitelink?>account/edit"><?php print t('Edit Profile');?></a> |
-        <a href="<?php print $sitelink?>message"><?php print t('Message followers');?></a>
+        <a href="<?php print $sitelink?>account/edit"><?php print t('Edit Profile');?></a>
     </p>
     <div class="profile-meta">
             <div class="profile-meta footerfloat">
@@ -21,7 +20,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
             </div>
     </div>
     <div class="floatleft">
-            <img class="user-profile" src="<?php print $user_picture;?>"></img>
+        <a href="<?php print $sitelink.'profile'?>" title="<?php print t('View Profile');?>"><img class="user-profile" src="<?php print $user_picture;?>"></a>
             <?php print $medal_list; ?>
 
     </div>

@@ -21,10 +21,12 @@
                     </div>
                     <hr class="short">
                     <div class="expanding">
-                            <h6 class="blue-link"><?php print t('Reference Statistics'); ?></h6>
+                            <h6 class="blue-link" id="res-ana"><?php print t('Reference Statistics'); ?></h6>
                             <ul>
+                               <div id="res-ana-load-txt"></div>
                               <br class="clear">
-                            <?php //print $referenceStatistics; ?>
+                            <?php print $referenceStatistics; ?>
+                              <div id="load-res-statics"></div>
                             <br class="clear">
                             </ul>
 

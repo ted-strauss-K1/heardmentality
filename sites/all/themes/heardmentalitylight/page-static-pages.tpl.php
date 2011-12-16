@@ -1,6 +1,9 @@
 <?php
 global $user, $apikey;
 $directoryPath = $base_path . $directory;
+// root path
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
 ?>
 <!doctype html>
 <!--[if lt IE 7 ]><html class="ie ie6" xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>"> <![endif]-->
@@ -58,7 +61,7 @@ $directoryPath = $base_path . $directory;
 	<div class="header">
 		<?php include 'header.tpl.php';?>
 	<div class="container">
-        <div class="toggler profile-message" style="height:auto;width:auto">
+      <div class="toggler profile-message" style="height:auto;width:auto">
       <div class="clear"></div>
         <?php if($messages):?>
 	    	<div id="effect" class="" style="width:auto;height:auto">
@@ -75,44 +78,50 @@ $directoryPath = $base_path . $directory;
 	    	</div>
        <?php endif; ?>
     </div>
-   <div class="twelve columns">
-                        <?php
-                        if($node->type=='poll'):
-                        ?>
-			<h2 class="dinbold page-title"><?php print t('Issue'); ?></h2>
-                        <?php endif; ?>
-			<div class="white-box">
-                                <div class="clear"></div>
-                                <!-- issue view, suggest answer -->
-        			<?php print $content; ?>
-				 <!-- issue view, suggest answer -->
+        <div class="twelve columns">
+	    <div class="white-box page">
 
-				<a href="#" class="icon share floatleft text"></a>
-				<br class="clear" />
-
-				<br class="clear"><br class="clear">
-                                <?php print $content_bottom; ?>
-				
+				<?php print $node->body;
+                                      print $content;
+                                ?>
+                
+	    </div>
+	  </div>  
+            <?php //if($static_pages_menu): ?>
+                <div class="four columns">
+			
+                <div class="grey-box">
+				<label for="" class="tags-on"><?php print t('PAGES'); ?></label>
+				<ul class="sub-pages">
+                                    <li><a href="<?php print $sitelink.'aboutus';?>"><?php print t('About'); ?></a>
+                                    <ul>
+                                            <li><a href="#what_is_hm"><?php print t('What HM is About'); ?></a></li>
+                                            <li><a href="#organization"><?php print t('Organization'); ?></a></li>
+                                            <li><a href="<?php print $sitelink.'node/305';?>"><?php print t('Contact Us'); ?></a></li>
+                                    </ul>
+                                    <li><a><?php print t('Our Thanks'); ?></a>
+                                    <ul>
+                                            <li><a href="#software_community"><?php print t('Software Community'); ?></a></li>
+                                            <li><a href="#how_can_you_help"><?php print t('How you can help'); ?></a></li>
+                                    </ul>
+                                    <li><a><?php print t('How Heard Mentality Works'); ?></a>
+                                    <ul>
+                                            <li><a href="#points_rank_coins"><?php print t('Points, Rank and Coins'); ?></a></li>
+                                            <li><a href="#pundits"><?php print t('Pundits'); ?></a></li>
+                                            <li><a href="#badges"><?php print t('Badges'); ?></a></li>
+                                    </ul>
+                                    <li><a href="#guide"><?php print t('Guidelines and Principles'); ?></a>
+                                    <li><a href="<?php print $sitelink.'';?>"><?php print t('Legal'); ?></a>
+                                    <ul>
+                                            <li><a href="#legal"><?php print t('Legal'); ?></a></li>
+                                            <li><a href="#privacy"><?php print t('Privacy'); ?></a></li>
+                                            <li><a href="#user-agreement"><?php print t('User Agreement'); ?></a></li>
+                                    </ul>
+				</ul>
+				<div class="clear"></div>
 			</div>
 		</div>
-            <div class="four columns">
-			<br>
-			<div class="toggler profile-message">
-  	    	<div id="effect">
-			<?php 
-                        if($profile_complete_alert):
-                        print $profile_complete_alert;
-                        endif;
-                        ?>
-	    	</div>
-      </div>
-                        <?php if($issue_real_info):?>
-			<div class="grey-box">
-                            <?php print $issue_real_info; ?>
-			 
-			</div>
-                        <?php endif; ?>
-		</div>
+                <?php //endif; ?>
 
   </div>
 

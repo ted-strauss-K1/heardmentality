@@ -70,13 +70,24 @@ $gSitePath = $base_path.'/';
 
 
                         </div>
-
-                        <?php print $content ?>
+                        <div class="poll-vote-area">
+                        <?php if($indVoteCounts !='' && $allowvotes == '' ): ?>
+                           <div class="vote-count-poll">
+                               <?php foreach($indVoteCounts as $vcount){?>
+                               <div class="post-vote-result"><span class="vote-count dinbold"><?php print $vcount; ?></span><br><span class="vote-count-title din">votes</span></div>
+                               <br class="clear" />
+                               <?php }?>
+                           </div>
+                        <?php endif; ?>
+                        <div class="voting-pane"><?php print $content ?></div>
+                        </div>
                         
                         <br class="clear">
                         <div class="expanding">
                           <h6 class="wait">... <?php print t('Or submit a different answer'); ?></h6>
-                          <?php print $suggest; ?>
+                         
+                            <?php print $suggest; ?>
+                          
                         </div>
                         <div id="shareDiv" class="floatright"></div>
 

@@ -1,4 +1,4 @@
-<!--Issue Filter Options-->
+<!--User Following List-->
 <?php
 print $block->content;
 ?>

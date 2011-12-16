@@ -2296,8 +2296,8 @@ textarea#q_quest  {
     overflow: hidden;
 
 }
-.eight .foot-empty{
-    height: 135px;
+.seven .foot-empty{
+    height: 174px;
 }
 .twelve .white-box h2 a{
     color: #333333;
@@ -2458,4 +2458,148 @@ textarea#deb_title, textarea.textarea-input {
 }
 .vote-results ul li img {
     width: auto;
+}
+input.info, textarea.info {
+    float: left;
+    margin: 2px 0 20px;
+    padding: 1%;
+    width: 29%;
+}
+.privacy .form-radios .form-item{
+    float: right;
+    margin: 0 0 0 1%;
+    text-align: center;
+    width: 22%;
+    border: 0px solid #ff0000;
+
+}
+.subscription .form-radios .form-item{
+    float: right;
+    margin: 0 0 0 1%;
+    text-align: center;
+    width: 32%;
+}
+.user-avatar-select img{
+    width: 44px;
+    height: 44px;
+}
+.avatar-left img{
+    background: none repeat scroll 0 0 #DDDDDD;
+    border-color: #666666 #999999 #999999 #888888;
+    border-style: solid;
+    border-width: 1px;
+    float: left;
+    height: 75px;
+    margin: -6px 12px 10px 0;
+    width: 75px;
+}
+.follow-links .form-select{
+    clear: both;
+    float: left;
+    width: 119px;
+}
+.follow-links .form-text{
+    margin-left: 6px;
+}
+.icon.photo {
+    padding: 1px 18px 0 146px;
+    position: absolute;
+}
+.icon.profile{
+    padding: 1px 18px 0 206px;
+    position: absolute;
+}
+input.form-text.upload{
+    width: 90%;
+}
+.action a, .action a:visited{
+    color: #1366BA;
+    font-weight: normal;
+    text-decoration: none;
+}
+.now-foll-txt, .foll-user-area{
+    float: left;
+    padding:5px;
+}
+.foll-user-area a{
+    
+}
+#cit-stat{
+    margin-left: 136px;
+    margin-top: 17px;
+    position: absolute;
+}
+
+/*moderator*/
+#poll-choices .privacy-answer{
+    width: 400px;
+    padding-left: 244px;
+}
+#poll-choices .privacy-answer span{
+    padding-left: 23px;
+}
+#radio-div{
+    margin-left: 256px;
+    width: 500px;
+}
+#radio-div .form-radios .form-item {
+    border: 0 solid #FF0000;
+    float: left;
+    margin: 0 0 0 1%;
+    text-align: center;
+    padding-left: 4px;
+}
+#moderator-edit-issue-form input.form-text  {
+    padding: 11px 20px 10px 0;
+    width: 300px;
+}
+.b-textbox{
+    margin: 0 0 20px;
+    padding: 1%;
+     -moz-border-radius: 3px 3px 3px 3px;
+    border-color: #999999 #BBBBBB #BBBBBB #999999;
+    float: right;
+    padding: 2% 1%;
+    width: 58%;
+}
+#possible-dupe-form .form-radios .form-item{
+    border-bottom: 1px solid #DDDDDD;
+    color: #333333;
+    padding: 0 0 10px;
+    text-shadow: 0 1px #FFFFFF;
+    line-height: 18px;
+    margin-bottom: 12px;
+}
+#possible-dupe-form .form-radios label{
+    font-size: inherit;
+}
+.new-issue .form-select  {
+    float: left;
+    margin: 3px 29px 0 0;
+    width: 156px;
+}
+.twelve .page{
+    min-height: 554px;
+}
+.twelve .page .form-select  {
+    float: inherit;
+}
+
+.vote-count-poll{
+    float:left;
+    margin-top: 14px;
+    padding: 0px 7px;
+}
+.vote-count-poll .post-vote-result{
+    margin-bottom:12px;
+}
+.poll-vote-area{
+    width: 695px;
+}
+.poll .form-radios{
+    width: 100%;
+}
+.voting-pane{
+    width: 85%;
+    float: left;
 }

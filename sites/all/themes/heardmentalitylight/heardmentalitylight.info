@@ -17,7 +17,7 @@ regions[right] = Right sidebar
 regions[content] = Content
 regions[header] = Header
 regions[footer] = Footer
-regions[Beat] = Beat
+regions[following_activity_stream] = Following Activity Stream
 regions[content_bottom]=Content Bottom
 regions[happening_now] = Happening Now
 regions[front_heat_map] = Front Heat Map
@@ -29,6 +29,11 @@ regions[profile_complete_alert] = Profile Complete Alert
 regions[issue_search_area] = Issue Search Area
 regions[issue_filter_area] = Issue Filter Area
 regions[issue_real_info] = Issue Real Info
+regions[user_profile_bio] = User Profile Bio Area
+regions[user_profile_information] = User Profile Information Area
+regions[user_activity_stream] = User Activity Stream
+regions[you_are_following] = You are Following
+regions[static_pages_menu] = Static Pages Menu
 
 ; Information added by drupal.org packaging script on 2010-07-16
 version = "1.0"

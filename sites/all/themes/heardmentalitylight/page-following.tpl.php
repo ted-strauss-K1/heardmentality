@@ -58,63 +58,22 @@ $directoryPath = $base_path . $directory;
 	<div class="header">
 		<?php include 'header.tpl.php';?>
 	<div class="container">
-        <div class="toggler profile-message" style="height:auto;width:auto">
-      <div class="clear"></div>
-        <?php if($messages):?>
-	    	<div id="effect" class="" style="width:auto;height:auto">
+            <?php if($following_activity_stream): ?>
+            <div class="eleven columns">
+                <h2 class="dinbold page-title"><?php print t('Following'); ?></h2>
+                <?php print $following_activity_stream; ?>
+            </div>
+            <?php endif; ?>
 
-						<div class="message top-message">
-							<p class="double" style="disply:block">
-                                                            <?php print $messages; ?>
-                                                        </p>
-						</div>
-                                                <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick"><?php print t('Hide'); ?></span></a>
+            <?php if($you_are_following): ?>
+           <div class="five columns">
+                <br />
+                <br />
+                <?php print $you_are_following; ?>
+            </div>
+            <?php endif; ?>
 
-
-					<br class="clear">
-	    	</div>
-       <?php endif; ?>
-    </div>
-   <div class="twelve columns">
-                        <?php
-                        if($node->type=='poll'):
-                        ?>
-			<h2 class="dinbold page-title"><?php print t('Issue'); ?></h2>
-                        <?php endif; ?>
-			<div class="white-box">
-                                <div class="clear"></div>
-                                <!-- issue view, suggest answer -->
-        			<?php print $content; ?>
-				 <!-- issue view, suggest answer -->
-
-				<a href="#" class="icon share floatleft text"></a>
-				<br class="clear" />
-
-				<br class="clear"><br class="clear">
-                                <?php print $content_bottom; ?>
-				
-			</div>
-		</div>
-            <div class="four columns">
-			<br>
-			<div class="toggler profile-message">
-  	    	<div id="effect">
-			<?php 
-                        if($profile_complete_alert):
-                        print $profile_complete_alert;
-                        endif;
-                        ?>
-	    	</div>
-      </div>
-                        <?php if($issue_real_info):?>
-			<div class="grey-box">
-                            <?php print $issue_real_info; ?>
-			 
-			</div>
-                        <?php endif; ?>
-		</div>
-
-  </div>
+        </div>
 
 	<br />
         <br />
@@ -126,3 +85,10 @@ $directoryPath = $base_path . $directory;
 ================================================== -->
 </body>
 </html>
+<!--remove first / last texts in pagination-->
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        jQuery('.pager-first').remove();
+        jQuery('.pager-last').remove();
+    });
+</script>

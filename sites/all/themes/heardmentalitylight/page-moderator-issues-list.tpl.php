@@ -75,45 +75,33 @@ $directoryPath = $base_path . $directory;
 	    	</div>
        <?php endif; ?>
     </div>
-   <div class="twelve columns">
-                        <?php
-                        if($node->type=='poll'):
-                        ?>
-			<h2 class="dinbold page-title"><?php print t('Issue'); ?></h2>
+                <div class="eleven columns">
+			<h2 class="dinbold page-title"><?php print t('MODERATE'); ?></h2>
+                        <?php if($content): ?>
+                        <?php print $content; ?>
                         <?php endif; ?>
-			<div class="white-box">
-                                <div class="clear"></div>
-                                <!-- issue view, suggest answer -->
-        			<?php print $content; ?>
-				 <!-- issue view, suggest answer -->
-
-				<a href="#" class="icon share floatleft text"></a>
-				<br class="clear" />
-
-				<br class="clear"><br class="clear">
-                                <?php print $content_bottom; ?>
-				
-			</div>
+			
 		</div>
-            <div class="four columns">
+		<div class="five columns">
 			<br>
-			<div class="toggler profile-message">
-  	    	<div id="effect">
-			<?php 
-                        if($profile_complete_alert):
-                        print $profile_complete_alert;
-                        endif;
-                        ?>
-	    	</div>
-      </div>
-                        <?php if($issue_real_info):?>
-			<div class="grey-box">
-                            <?php print $issue_real_info; ?>
-			 
-			</div>
-                        <?php endif; ?>
-		</div>
+		  <div class="grey-box">
+		  	<div class="icon guides text"></div>
+		    <label for="" class="tags-on"><?php print t('GUIDELINES'); ?></label><br />
+				<p class="issue-meta"><?php print t('Please follow Heard Mentality\'s'); ?> <a class="bolded">Guidelines and Principles</a> <?php print t('when moderating a new Issue.
+				All issues should be');?>:
+                                <ul class="issue-meta">
+                                        <li><?php print t('concise'); ?></li>
+                                        <li><?php print t('clean'); ?></li>
+                                        <li><?php print t('original'); ?></li>
+                                        <li><?php print t('unbiased'); ?></li>
+                                </ul></p>
 
+
+
+			  <div class="clear"></div>
+			</div>
+
+		</div>	
   </div>
 
 	<br />

@@ -14,7 +14,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 <div id="dialog" title="<?php print $name; ?>" class="dialog">
 
 		<label for="profile" class="profile"></label>
-		<img class="user-profile" src="<?php print $user_picture;?>" />
+		<a href="<?php print $sitelink.'profile'?>" title="<?php print t('View Profile');?>"><img class="user-profile" src="<?php print $user_picture;?>" /></a>
 		<div class="floatleft small-prog">
 		  <div class="profile-meta quick-profile">
                       <div class="profile-meta quick-profile">
@@ -22,8 +22,9 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 			  <div class="profile-complete">
 				  <div class="progress"></div>
 			  </div>
-			  <p> <?php print t('Filling out <em>!empty-field</em> will bring your profile to !complete% Complete', array('!empty-field' => $complete_percent['nextfield'], '!complete' => $complete_percent['nextpercent'])); ?> <a class="blue"><?php print t('Add it here.'); ?></a></p>
-
+                          <?php if($complete_percent['percent']<100){?>
+			  <p> <?php print t('Filling out <em>!empty-field</em> will bring your profile to !complete% Complete', array('!empty-field' => $complete_percent['nextfield'], '!complete' => $complete_percent['nextpercent'])); ?> <a class="blue" href="<?php print $front_page.'account/edit';?>"><?php print t('Add it here.'); ?></a></p>
+                          <?php }?>
 			</div> 
                   </div>
 		</div>

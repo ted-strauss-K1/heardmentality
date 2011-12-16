@@ -38,7 +38,7 @@ $directoryPath = $base_path . $directory;
 	<link rel="apple-touch-icon" sizes="114x114" href="<?php print $directoryPath;?>/images/apple-touch-icon-114x114.png" />
 
   <!-- socialize.js script should only be included once -->
-  <script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=2_DKqhjEPBIUy_fCc5_X1xS9N-Bc8g9B9yIm_oXdkTc_9yGM-UQQE2KnupQWKO_2iR"></script>
+  <script type="text/javascript" src="http://cdn.gigya.com/js/socialize.js?apiKey=<?php print $apikey; ?>"></script>
   <script type="text/javascript">
   var conf=
   {
@@ -83,17 +83,23 @@ $directoryPath = $base_path . $directory;
 
 		<div class="one-third column">
 			<div class="circle-box">
-				<div class="see-banner"><?php print t('See');?></div>
+				<div class="see-banner">
+						<a class="see" href=""><span class="hover"></span></a>
+					</div>
 			</div>
 		</div>
 		<div class="one-third column">
 			<div class="circle-box">
-				<div class="vote-banner"><?php print t('Vote');?></div>
+				<div class="vote-banner">
+						<a class="vote-now" href=""><span class="hover"></span></a>
+					</div>
 			</div>
 		</div>
 		<div class="one-third column ">
 			<div class="circle-box">
-				<div class="share-banner"><?php print t('Share');?></div>
+				<div class="share-banner">
+						<a class="share-now" href=""><span class="hover"></span></a>
+					</div>
 			</div>
 		</div>
 		<br class="clear"><br><br>
@@ -101,7 +107,7 @@ $directoryPath = $base_path . $directory;
 			<div class="sixteen columns">
 
 					<div class="border-bottom">
-						<p class="din banner-text"><?php print t('Heard Mentality: The Global Forum for Public Opinion');?>. <br /><?php print t('Be Heard. Don\'t Be Part of the Herd!'); ?></p>
+						<p class="din banner-text"><?php print t('Heard Mentality: The Global Forum for Public Opinion');?>.</p>
                                                 <a href="<?php print $sitelink;?>issues" class="button vote floatright participate"><?php print t('Be Heard!'); ?></a>
 						<div class="clear"></div>
 					</div>

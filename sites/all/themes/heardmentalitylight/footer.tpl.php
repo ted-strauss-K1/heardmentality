@@ -1,15 +1,22 @@
+<?php
+// root path
+    $path = '<front>';
+    $sitelink = url($path, array('absolute' => TRUE)).'/';
+?>
 <br class="clear"><br><br>
 	<div class="line-bottom2"></div>
 	<div id="footer">
 	  <div class="container">
-			<div class="two columns">
+			<div class="four columns">
 				<div class="black-box">
-					<a class="facebook" href=""></a>
-					<br>
-					<a class="twitter" href=""></a>
+					<p class="blurb ryde"><?php print t('Be Heard. Don\'t Be Part of the Herd'); ?>!</p>
+					<hr class="dark">
+					<div class="floatleft"><a class="twitter" href=""></a></div>
+					<div class="floatleft"><a class="facebook" href=""></a>	</div>
+					<div class="clear"></div>
 				</div>
 			</div>
-			<div class="eight columns">
+			<div class="seven columns">
   			<div class="black-box">
 					<?php 
                                         if($user->uid != ''|| $user->uid != '0'){
@@ -22,14 +29,14 @@
 				</div>
   		</div>
 
-  		<div class="six columns">
+  		<div class="five columns">
   			<div class="black-box">
-					<img src="<?php print $directoryPath;?>/images/dark_logo.png" class="dark-logo">
+                            <a href="<?php print $front_page; ?>"><img src="<?php print $directoryPath;?>/images/dark_logo.png" class="dark-logo"></a>
 					<ul class="din foot-link">
-						<li><a href="">ABOUT</a></li>
-						<li><a href="">CONTACT</a></li>
-						<li><a href="">DONATE</a></li>
-						<li><a href="">VOLUNTEER</a></li>
+						<li><a href="<?php print $sitelink;?>aboutus"><?php print t('ABOUT'); ?></a></li>
+						<li><a href="<?php print $sitelink;?>node/305"><?php print t('CONTACT'); ?></a></li>
+						<li><a href="<?php print $sitelink;?>donation"><?php print t('DONATE'); ?></a></li>
+						<li><a href=""><?php print t('VOLUNTEER'); ?></a></li>
 
 					</ul>
 
