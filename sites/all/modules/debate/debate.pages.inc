@@ -21,6 +21,7 @@ function like_notification($nid='', $set='') { //vijay important comented
 
 }
 function debate_ajax() {
+
     global $base_url, $user, $gDocPath, $base_root, $theme;
 
     extract($_REQUEST);
@@ -35,7 +36,7 @@ function debate_ajax() {
                 require_once('simple_html_dom.php');
                 require_once('thumbnail.php');
                 require_once('url_to_absolute.php');
-                
+
                 $url = $_GET['url'];
                 $html = file_get_html($url);
                 $tags = get_meta_tags($url);
@@ -52,7 +53,7 @@ function debate_ajax() {
                     $imgs[] = url_to_absolute($url, $element->src);
                 }
                 $web_images = collect_valid_images($imgs);
-                
+
                 $count = count($web_images);
                 $totalImage = $count>10?'10':$count;
                 //$totalImage = $count;
@@ -68,7 +69,7 @@ function debate_ajax() {
                 $imgSelector .= ' <input type="hidden" id="cur_id_val" value="0" />
                                     <input type="hidden" id="end_image" value="'.$endImage.'" />
                                         <input type="hidden" id="pre_id_val" value="" />
-                                        
+
                                  </div>
                                  <table><tr><td width="16"><a href="javascript:void(0)" title="previous"  id="re-sel-pre"><img src="'.$imgPath.'arrow_left.png"></a></td>
                                 <td>&nbsp;&nbsp;<a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="'.$imgPath.'arrow_right.png"></a></td></tr></table><br>
@@ -165,10 +166,10 @@ function debate_ajax() {
 
                 // set main node as ref node for all resources
                 $qaid = get_tnid($qaid);
-                
+
                 $res->field_ref_qid[0]['nid'] = $qaid;
                 $res->field_type[0]['value'] = '2';
-                
+
                 $res->language = 'en';
 
                 $save = node_save($res);
@@ -256,9 +257,217 @@ function debate_ajax() {
                 exit;
             }
             break;
-        
+        case 'analysis':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            $tnid = get_tnid($qid);
+            //$vans = "select * from {possible_answer} where  qid=$qid ";
+            $vans = "select * from {poll_choices} where  nid=$qid ORDER BY chorder";
+            $vlist = ExecuteQuery($vans, "select");
+            $cnt_ans = count($vlist);
+            $output.="<link rel='stylesheet' href='" . $base_url.'/' . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
+        <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>
+       			<script type='text/javascript' src='" . $base_url.'/' . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
+<script type='text/javascript' language='javascript'>
+
+";
+            $insdata.="[";
+            $data.="[";
+
+            for ($ab = 0; $ab < $cnt_ans; $ab++) {
+                // short answers
+                $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
+                $answer = $short_answer!=''?$short_answer:$vlist[$ab]['chtext'];
+
+                $insdata.="'" . $answer . "',";
+
+                //$sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
+                $sel = "select * from {debate_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND d.field_ref_qid_nid = '$tnid' AND o.ans_val IN ('1','2') group by o.nid";
+                $tmplist = ExecuteQuery($sel, "select");
+
+                $final = '';
+                foreach ($tmplist as $list) {
+
+                    //$cnt_opt = db_result(db_query("select count(paid) from {debate_options} where did=" . $list['did'] . " AND ans_val IN ('1','2')"));
+                    $cnt_opt = db_result(db_query("select count(chorder) from {debate_options} where nid=" . $list['nid'] . " AND ans_val IN ('1','2')"));
+
+                    $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
+
+                    $final = $final + (($tmp * $list['field_strength_value']) / $cnt_opt);
+                   // echo $final.'<br>';
+                }
+
+                $final = (!empty($final)) ? $final : '0';
+                $data.=$final . ',';
+            }
+            $insdata = rtrim($insdata, ',');
+            $insdata = $insdata . ']';
+            $data = rtrim($data, ',');
+            $data = $data . ']';
+
+            $output.= "
+var chart;
+var gSitePath='" . $base_url . "/';
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         defaultSeriesType: 'column'
+      },
+      title: {
+         text: 'Debate Report Analysis'
+      },
+      xAxis: {
+         categories:" . $insdata . "
+      },
+      yAxis:{ tickInterval  :1
+    },
+      tooltip: {
+         formatter: function() {
+            return ''+
+                this.series.name +': '+ this.y +'';
+         }
+      },
+      credits: {
+         enabled: false
+      },
+      series: [{
+         name: 'Strength',
+         data: " . $data . "
+      }]
+   });
+
+
+});
+
+ </script>";
+            echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+        <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+
+';
+            break;
+        case 'resanalysis':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            //$vans = "select * from {possible_answer} where  qid=$qid ";
+            $vans = "select * from {poll_choices} where  nid=$qid ";
+            $vlist = ExecuteQuery($vans, "select");
+            $cnt_ans = count($vlist);
+            $output.="<link rel='stylesheet' href='" . $base_url.'/' . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
+        <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>
+       			<script type='text/javascript' src='" . $base_url.'/' . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
+<script type='text/javascript' language='javascript'>
+
+";
+            $insdata.="[";
+            $data.="[";
+
+            for ($ab = 0; $ab < $cnt_ans; $ab++) {
+
+                // short answers
+                $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
+                $answer = $short_answer!=''?$short_answer:$vlist[$ab]['chtext'];
+
+                $insdata.="'" . $answer . "',";
+
+                //$sel = "select * from {resource_options} as o join {resource} as d on d.rid=o.rid  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN (1,2) group by o.rid";
+                $sel = "select * from {resource_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND o.ans_val IN (1,2) group by o.nid";
+                $tmplist = ExecuteQuery($sel, "select");
+                foreach ($tmplist as $list) {
+                    //$cnt_opt = db_result(db_query("select count(paid) from {resource_options} where rid=" . $list['rid'] . " AND ans_val IN (1,2) group by paid"));
+                    $cnt_opt = db_result(db_query("select count(chorder) from {resource_options} where nid=" . $list['nid'] . " AND ans_val IN (1,2) group by chorder"));
+                    $tmp = ($list['ans_val'] == 1) ? '1' : '-1';
+                    $final = $final + (($tmp * $list['field_strength_value']) / $cnt_opt);
+                }
+
+                $final = (!empty($final)) ? $final : '0';
+                $data.=$final . ',';
+            }
+            $insdata = rtrim($insdata, ',');
+            $insdata = $insdata . ']';
+            $data = rtrim($data, ',');
+            $data = $data . ']';
+
+            $output.= "
+var chart;
+var gSitePath='" . $base_url . "/';
+$(document).ready(function() {
+   chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container',
+         defaultSeriesType: 'column'
+      },
+      title: {
+         text: 'Resource Report Analysis'
+      },
+      xAxis: {
+         categories:" . $insdata . "
+      },
+      yAxis:{ tickInterval  :1
+    },
+      tooltip: {
+         formatter: function() {
+            return ''+
+                this.series.name +': '+ this.y +'';
+         }
+      },
+      credits: {
+         enabled: false
+      },
+      series: [{
+         name: 'Strength',
+         data: " . $data . "
+      }]
+   });
+
+
+});
+
+ </script>";
+            echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+        <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+
+';
+
+            break;
+        case 'debatelist':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo $output = debate_wave($qid);
+            break;
+        case 'dreport':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo '<iframe scrolling="no" style="height: 250px;" id="frmGoogle" src="' . $sitelink . 'debate/ajax/' . $qid . '?action=analysis" border="0" frameborder="0" width="100%"></iframe>';
+            break;
+        case 'resreport':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo '<iframe scrolling="no" style="height: 250px;" id="frmGoogle" src="' . $sitelink . 'debate/ajax/' . $qid . '?action=resanalysis" border="0" frameborder="0" width="100%"></iframe>';
+            break;
+        case 'filter':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            echo list_debate($qid, 1);
+            break;
+        case 'resfilter':
+            $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);
+            extract($_REQUEST);
+            switch ($type) {
+                case 'innews':
+                    $output.= resource_innews($qid, 1);
+                    break;
+                case 'media':
+
+                    $output.= resource_media($qid);
+                    break;
+                case 'facts':
+
+
+                    $output.= resource_innews($qid, 3);
+                    break;
+                default:
+                    $output = '<div class="messages warning">No Action Found!</div>';
+                    break;
+            }
+            echo $output;
+            break;
         default:
-            echo "<div class='messages error'>".t('No Action found')."</div>";
+            echo "<div class='messages error'>No Action found</div>";
             break;
     }
 
