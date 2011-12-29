@@ -123,6 +123,12 @@ function issue_menu() {
             'access callback'=>true,
          'file'=>'issue.pages.inc'
         );
+     $menu['issue/vote/ajax/submit/%'] = array(
+            'page callback' => 'issue_vote_submit_ajax',
+            'access arguments' => array('create issue'),
+            'page arguments' => array(4),
+            'type' => MENU_SUGGESTED_ITEM,
+        );
     return $menu;
 }
 
@@ -264,10 +270,18 @@ function issue_add_vote($dummy='',$nid='') {
         );
     }
     $form['#nid'] = $tnid;
+    if(arg(0) == 'issues'){
+        $form['#id'] = 'issue_edit_form_stream';
+        $form['nid_val'] = array('#type' => 'hidden', '#value' => $tnid, '#id' => 'nid_val');
+        $form['def_vote'] = array('#type' => 'hidden', '#value' => '', '#id' => 'def_vote');
+        $form['vote_type'] = array('#type' => 'hidden', '#value' => 'add', '#id' => 'vote_type');
+        $form['#validate'] = '';
+    }
     $form['change'] = array(
         '#type' => 'submit',
         '#value' => t('Vote'),
         '#attributes' => array('class' => 'button vote floatright'),
+        '#id' => 'edit-change',
     );
     $form['#cache'] = TRUE;
 
@@ -338,10 +352,19 @@ function issue_edit_vote($dummy='',$nid='') {
         );
     }
     $form['#nid'] = $tnid;
+
+    if(arg(0) == 'issues'){
+        $form['#id'] = 'issue_edit_form_stream';
+        $form['nid_val'] = array('#type' => 'hidden', '#value' => $tnid, '#id' => 'nid_val');
+        $form['def_vote'] = array('#type' => 'hidden', '#value' => $tnode->vote, '#id' => 'def_vote');
+        $form['vote_type'] = array('#type' => 'hidden', '#value' => 'edit', '#id' => 'vote_type');
+        $form['#validate'] = '';
+    }
     $form['change'] = array(
         '#type' => 'submit',
-        '#value' => t('Change'),
+        '#value' => t('Change Vote'),
         '#attributes' => array('class' => 'button vote floatright'),
+        '#id' => 'edit-change',
     );
     $form['#cache'] = TRUE;
 
@@ -374,7 +397,7 @@ function issue_edit_vote_submit($form, &$form_state) {
 
     if ($user->uid) {
         db_query('update {poll_votes} set chorder=%d where nid=%d and uid=%d', $choice, $nid, $user->uid);
-        
+
         /*New SET NOTIFY LOG*/
         $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
         $answer = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '%d' AND chorder = '%d'", $nid, $choice));
@@ -392,6 +415,102 @@ function issue_edit_vote_submit($form, &$form_state) {
 
     // Return the user to whatever page they voted from.
 }
+
+
+/* New Feature Ajax Submission*/
+function issue_vote_submit_ajax($type = ''){
+    global $user;
+    //echo '<pre>'; print_r($form); exit;
+    $nid = $_POST['nid_val'];
+    $choice = $_POST['choice']!=''?$_POST['choice']:-1;
+    $default_vote = $_POST['def_vote'];
+
+     // update vote time
+     $date_time = date("y-m-d H:i:s", time());
+
+    if($type == 'edit'){
+    // validation here
+    if (!user_is_logged_in()) {
+
+            $msg['message'] = t('You have to login to do this action!.');
+
+    }
+    else if($choice == -1) {
+        
+            $msg['message'] = t('Your vote could not be recorded because you did not select any of the choices.');
+        
+    }
+    else if($default_vote==$choice){
+        
+            $msg['message'] = t('Your vote could not be recorded because you did not select any new choices.');
+       
+    }
+    else{
+        if ($user->uid) {
+            db_query('update {poll_votes} set chorder=%d, date_voted = "%s" where nid=%d and uid=%d', $choice, $date_time, $nid, $user->uid);
+
+            /*New SET NOTIFY LOG*/
+            $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+            $answer = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '%d' AND chorder = '%d'", $nid, $choice));
+            $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $answer);
+            set_notify_log($user->uid, $nid, 'change_answer', $variable);
+            /*New SET NOTIFY LOG*/
+        }
+        //minus one the value of previously voted choice
+        db_query("UPDATE {poll_choices} SET chvotes = chvotes-1 WHERE nid = %d AND chorder = %d", $nid, $default_vote);
+        // Add one to the votes.for new choices
+        db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
+
+
+        cache_clear_all();
+
+
+            $msg['message'] = t('Your vote has been updated');
+            $msg['success'] = 1;
+
+
+    }
+    }else if($type == 'add'){
+        if ($choice == -1) {
+            
+                $msg['message'] = t('Your vote could not be recorded because you did not select any new choices.');
+            
+        }else{
+          if ($user->uid) {
+            $insert = db_query('INSERT INTO {poll_votes} (nid, chorder, uid, date_voted) VALUES (%d, %d, %d, "%s")', $nid, $choice, $user->uid, $date_time);
+          }
+          else {
+            db_query("INSERT INTO {poll_votes} (nid, chorder, hostname, date_voted) VALUES (%d, %d, '%s', '%s')", $nid, $choice, ip_address(), $date_time);
+          }
+
+          // Add one to the votes.
+          db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
+
+
+           /*New SET NOTIFY LOG*/
+              $form = array();
+              $form['#nid'] = $nid;
+              $form['#post']['choice'] = $choice;
+              add_vote_notify($form);
+           /*New SET NOTIFY LOG*/
+              
+          cache_clear_all();
+            if($insert){
+                $msg['message'] = t('Your vote has been recorded');
+                $msg['success'] = 1;
+            }else{
+                $msg['message'] = t('Your vote was not recorded, Try again later');
+            }
+         
+        }
+    }else{
+        $msg['message'] = t('Error in poll voting');
+    }
+        print json_encode($msg);
+}
+/* New Feature Ajax Submission*/
+
+
 
 /**
  * Implementation of hook_form_alter().
@@ -438,17 +557,24 @@ function issue_form_alter(&$form, $form_state, $form_id) {
             //$form['#after_build'][] = 'issue_after_build';
         $form['reason'] = array(
         '#type' => 'radios',
-        '#title' => t('Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing?'),
+        '#title' => '<small>'.t('Which one of Heard Mentality’s Guidelines and Principles is this debate posting infringing?').' <a href="">'.t('Read Guidelines').'</a></small>',
         '#options' =>array_filter($form['reason']['#options']),
         '#required' => TRUE,
         '#default_value'=> variable_get('reason', 1),
         );
+        
+        $form['body'] = array('#type' => 'textarea',
+                              '#resizable' => FALSE,
+                              '#cols' => 75);
+        
         $form['op']=false;
-        $form['submit'] = array('#type' => 'submit', '#value' => t('Send'),'#ahah'=>array(
-        'wrapper' => 'log_res',
-        'method' => 'replace',
-        'effect' => 'fade',
-        ),);
+        $form['submit'] = array('#type' => 'submit', '#value' => t('Submit'),
+                                '#ahah'=>array(
+                                    'wrapper' => 'log_res',
+                                    'method' => 'replace',
+                                    'effect' => 'fade',
+                                    ),
+                                '#attributes' => array('class' => 'submit-issue leftfloat'));
 
         $form['#submit'][] = 'add_flag_notify';
 
@@ -538,14 +664,14 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
 
                  // count individual poll vote counts
 
-                  $sql = db_query("SELECT chvotes FROM {poll_choices} WHERE nid = '$tnid' ORDER BY chorder ASC");
+                  $sql = db_query("SELECT chorder,chvotes FROM {poll_choices} WHERE nid = '$tnid' ORDER BY chorder ASC");
                   while($iVotes = db_fetch_object($sql)){
-                      $indVotesCount[] = $iVotes->chvotes;
+                      $indVotesCount[$iVotes->chorder] = $iVotes->chvotes;
                   }
 
                 $node->indVoteCounts = $indVotesCount;
 
-
+                
                 // echo '<pre>'; print_r($tnode);exit;
                 if ($tnode->allowvotes) {
                    $output .= drupal_get_form('issue_add_vote',$node->nid);
@@ -572,10 +698,37 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                         '#value' => $output,
                     );
                 }
+                $node->allowvotes = $tnode->allowvotes;
+                // selected radio button stays green
+                if($node->allowvotes == '' && arg(0)!='issues'){
+                    $radCss = 'jQuery(document).ready(function(){
+                                jQuery("input[name=choice]:checked").parents("div").addClass("staygreen");
+                                });';
+                    drupal_add_js($radCss, 'inline');
+                }
+                // selected radio button stays green
+
+                // abuse flag form ############
+                $object = _abuse_load('node', $tnid);
+                $reported = db_result(db_query("SELECT COUNT(*) FROM {abuse} WHERE type='%s' AND oid=%d AND uid=%d", 'node', $tnid, $user->uid));
+                if ($reported > 0) {
+                    $flagForm = t('We have already received your report.  Thank you very much!');
+                }
+                else if($user->uid == $object->uid){
+                    $flagForm = t('Sorry, you cannot flag your own content');
+                }else{
+                    $flagForm = drupal_get_form('abuse_report_form', $object, $user);
+                }
+                 // abuse flag form ############
+
+
+                $node->flagForm = $flagForm;
                 // only for search issues
                 if(arg(0)=='issues'){
                     //votes
                     $tnid = get_tnid($node->nid);
+                    $tnode = node_load($tnid);
+                    $node->tnid = $tnid;
                     $voteCount = db_result(db_query("SELECT count(nid) as qcount FROM `poll_votes` where nid='" . $tnid . "'"));
                     //debates
                     $debates = db_result(db_query("SELECT count(nid) as fcount FROM `content_type_forum` where field_ref_qid_nid='" . $tnid . "' AND field_type_value = '1'"));
@@ -584,6 +737,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
                     $node->votecount = $voteCount;
                     $node->totaldebates = $debates;
                     $node->totalresources = $resources;
+                    
 
                     // categories
                     $ctitle = array();
@@ -705,6 +859,9 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
              $blocks[4] = array(
                 'info' => t('Issue Filter Options'),
             );
+             $blocks[5] = array(
+                'info' => t('Popular Categories'),
+            );
 
             return $blocks;
 
@@ -718,10 +875,10 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
 
                       $node=node_load($nid);
 
-                      if(!empty($node)&&$node->type=='poll')
+                      if(!empty($node)&&$node->type=='poll'){
                         //$tab = issue_view_results($nid, false, false, true);
-                        
                         $tab = view_issue_results($nid);
+                      }
                     }
 
 
@@ -755,6 +912,10 @@ function issue_block($op = 'list', $delta = 0, $edit = array()) {
                   case '4':
                       $block['subject'] = 'Issue Filter Options';
                       $block['content'] = issue_filter_options();
+                      break;
+                  case '5':
+                      $block['subject'] = 'Popular Categories';
+                      $block['content'] = popular_categories();
                       break;
                       
             }
@@ -808,7 +969,11 @@ function issue_theme($existing, $type, $theme, $path) {
         ),'issue_result_graph_analysis' => array(
             'template' => 'issue-result-graph-analysis',
             'arguments' => array('map' => NULL, 'report_percent' => NULL, 'report_graph' => NULL),
+        ),'popular_categories' => array(
+            'template' => 'popular-categories',
+            'arguments' => array('popular' => NULL),
         )
+
 
     );
 }
@@ -881,6 +1046,7 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
     // Count the votes and find the maximum
   $node=node_load($nid);
   $tnid = get_tnid($nid);
+  $tnode  = node_load($tnid);
     // $total_votes = 0;
     // $max_votes = 0;
     // foreach ($node->choice as $choice) {
@@ -896,7 +1062,7 @@ function issue_view_results(&$nid, $teaser, $page, $block) {
     $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$tnid'"));
     $resourceCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '2' AND field_ref_qid_nid = '$tnid'"));
     $punditCount = count(getAnsweredUsers($nid));
-    return theme('issue_results', $nid, t($debateCount),t($resourceCount),t($punditCount),$node->allowvotes);
+    return theme('issue_results', $nid, t($debateCount),t($resourceCount),t($punditCount),$tnode->allowvotes);
 }
 
 
@@ -1032,7 +1198,7 @@ function add_vote_notify($form, &$form_state){
     set_notify_log($user->uid, $nid, 'add_vote', $variable);
     /*New SET NOTIFY LOG*/
 
-        _send_votenotify($nid);
+    _send_votenotify($nid);
     increasepoints('2', $nid, '0');
 }
 
@@ -1850,13 +2016,17 @@ function view_issue_results($nid = ''){
    global $user, $theme;
    $node = node_load(array('nid' => $nid));
 
+   // get tnid
+    $tnid = get_tnid($nid);
+    $tnode = node_load($tnid);
+
    module_load_include('inc', 'issue', 'issue.pages');
    // update view count
    insertviews($node->nid);
    // temp intialize function before user voted for a issue
    $inline1 = 'function initialize(){}';
    drupal_add_js($inline1, 'inline');
-   if(user_is_logged_in() && !empty($user) && $node->allowvotes != 1){
+   if(user_is_logged_in() && !empty($user) && $tnode->allowvotes != 1){
 
    // load insight view 
    $inline = '
@@ -1870,6 +2040,7 @@ function view_issue_results($nid = ''){
    $map = report_map($nid);
    $report_percent = report_percent($nid);
    $report_graph = report_graph($nid);
+
    $results = theme('issue_result_graph_analysis', $map, $report_percent, $report_graph);
    //$results = theme('issue_result_analysis',$nid);
    }
@@ -1877,7 +2048,7 @@ function view_issue_results($nid = ''){
    $resources = theme('issue_resource_list', $nid);
 
    
-   $tnid = get_tnid($nid);
+  
     // get debate, resource, pundit counts
    $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$tnid'"));
    $resourceCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '2' AND field_ref_qid_nid = '$tnid'"));
@@ -2849,4 +3020,24 @@ function get_rating_buttons($items, $type){
                 <a href="javascript:void(0);" id="medal1" '.$disagreeTitle.' name="da-' . $itemId . '" '.$disagreeClass.'>'.t('Disagree').' ('.$items['vote_down'].')</a>
                 </span>';
     return $ratings;
+}
+
+
+
+// popular categories
+function popular_categories(){
+    $sql = db_query("SELECT nid, count(nid) as cnt from {poll_votes} group by nid ORDER BY cnt desc");
+    while($votes = db_fetch_object($sql)){
+        $term = db_query("SELECT tn.tid, td.name name FROM {term_node} AS tn LEFT JOIN {term_data} AS td ON tn.tid = td.tid WHERE tn.nid = '%d'", $votes->nid);
+        if($term!=''){
+            while($pop = db_fetch_object($term)){
+            $popular[$pop->tid] = $pop->name;
+            }
+        }
+    }
+
+    // get only 15 elements
+    $popular = array_slice($popular, 0, 15, true);
+    $popular_categories = theme('popular_categories', $popular);
+    return $popular_categories;
 }

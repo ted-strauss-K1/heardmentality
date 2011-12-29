@@ -830,3 +830,69 @@ function show_inotify(data){
     jQuery('#twitMsg',top.document).delay(400).slideDown(400).delay(3000).slideUp(400);
 
 }
+
+// add / edit vote ajax submission
+jQuery('#issue_edit_form_stream').live('submit', function(){
+    var thisForm = jQuery(this);
+    var data = thisForm.serialize();
+    var vote_type = thisForm.find('#vote_type').val();
+    var but_val = '';
+    if(vote_type == 'edit'){
+        but_val = 'Changing...';
+    }else if(vote_type == 'add'){
+        but_val = 'Voting...';
+    }
+    thisForm.find('#edit-change').val(but_val);
+    var choice = thisForm.find('input:radio[name=choice]:checked').val();
+    
+    jQuery.ajax({
+          type: 'POST',
+          dataType: 'json',
+          url: spath+'issue/vote/ajax/submit/'+vote_type,
+          data: data,
+          success: function(msg){
+              var nid_val = thisForm.find('#nid_val').val();
+              //alert(msg.message);
+              jQuery('#vote-msg-alert-'+nid_val).html(msg.message);
+              if(msg.success == 1){
+                  var def_vote = thisForm.find('#def_vote').val();
+                  var newchoicediv = '#'+nid_val+'-chorder-'+choice;
+                  var oldchoicediv = '#'+nid_val+'-chorder-'+def_vote;
+
+                  var oldchoice = jQuery(oldchoicediv).html();
+                  var newchoice = jQuery(newchoicediv).html();
+                  if(vote_type == 'edit'){
+                      thisForm.find('#def_vote').val(choice);
+                     //jQuery('#voting-pane-'+nid_val).html(msg.content);
+                      jQuery(oldchoicediv).html(Number(oldchoice)-Number(1));
+                      jQuery(newchoicediv).html(Number(newchoice)+Number(1));
+                  }else{
+                      jQuery(oldchoicediv).html(Number(oldchoice)-Number(1));
+                      jQuery(newchoicediv).html(Number(newchoice)+Number(1));
+                      var totcount = jQuery('#tot-count-'+nid_val).html();
+                      jQuery('#tot-count-'+nid_val).html(Number(totcount)+Number(1));
+                      
+                      jQuery('#vote-count-poll-'+nid_val).show();
+                      thisForm.find('#vote_type').val('edit');
+                      thisForm.find('#def_vote').val(choice);
+                  }
+                thisForm.find('#edit-change').val('Change Vote');
+              }else{
+                    if(vote_type == 'edit'){
+                        thisForm.find('#edit-change').val('Change Vote');
+                    }else{
+                        thisForm.find('#edit-change').val('Vote');
+                    }
+              }
+          }
+          });
+          return false;
+    
+})
+// VALIDATE FLAG ISSUE FORM
+jQuery('#abuse-report-form').live('submit', function(){
+    if(jQuery(this).find('input:radio[name=reason]:checked').length == 0){
+       jQuery(this).find('#flag-error').html('Please select your flag reason');
+       return false;
+    }
+});
