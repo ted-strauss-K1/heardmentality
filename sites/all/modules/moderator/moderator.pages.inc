@@ -1,7 +1,7 @@
 <?php
 
 function moderater_user_mail($array='', $type='', $action='') {
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path;
+    global $base_url, $user;
 
     $days_from_now = 10; //10 days from now
     $us_id = implode(',', $array['qids']);
@@ -86,7 +86,7 @@ function moderater_user_mail($array='', $type='', $action='') {
 
 function quest_mail($qids = '') {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user, $base_root;
 
     $from = variable_get('site_mail');
     $subject = 'Heardmentality suspended Your account  ';
@@ -111,7 +111,7 @@ function quest_mail($qids = '') {
 
 function quest_mail_warning($uid = '', $msg='') {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user, $base_root;
 
     $from = variable_get('site_mail');
     $subject = 'Heardmentality Warning Mail   ';
@@ -131,7 +131,7 @@ function quest_mail_warning($uid = '', $msg='') {
 
 function question_deleted_mail($qaid) {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user, $base_root;
 
     $from = variable_get('site_mail');
     $subject = 'Heardmentality Question Has Been Deleted ';
@@ -155,7 +155,7 @@ function question_deleted_mail($qaid) {
 
 function question_deleted_mail_voters($qaid) {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user, $base_root;
 
     $from = variable_get('site_mail');
     $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
@@ -184,7 +184,7 @@ function question_deleted_mail_voters($qaid) {
 
 function question_deleted_mail_suggest($qaid) {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user;
 
     $from = variable_get('site_mail');
     $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
@@ -213,7 +213,7 @@ function question_deleted_mail_suggest($qaid) {
 
 function question_edited_mail($qaid) {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user;
 
     $from = variable_get('site_mail', '');
     $subject = 'Heardmentality Issue Has Been Edited By Moderator ';
@@ -236,7 +236,7 @@ function question_edited_mail($qaid) {
 
 function question_edited_mail_voters($qaid) {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user;
 
     $from = variable_get('site_mail', '');
     $subject = 'Heardmentality Question Has Been Edited By admin ';
@@ -263,7 +263,7 @@ function question_edited_mail_voters($qaid) {
 
 function question_edited_mail_suggest($qaid) {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user;
 
     $from = variable_get('site_mail', '');
     $subject = 'Heardmentality Question Has Been Edited By admin ';
@@ -291,7 +291,7 @@ function question_edited_mail_suggest($qaid) {
 
 function question_merge_mail($toissue='', $dupeissue='') {
 
-    global $gSitePath, $user, $gDocPath, $base_root;
+    global $base_url, $user;
 
     $from = variable_get('site_mail');
      $subject = 'Heardmentality Issue you voted has been Merged ';
@@ -342,13 +342,13 @@ function question_merge_mail($toissue='', $dupeissue='') {
 
 
 function moderator_send_message($uid = ''){
-    global $gSitePath, $user, $gDocPath, $base_root, $base_path, $messages, $theme;
+    global $base_url, $user, $gDocPath, $base_root, $base_path, $messages, $theme;
 
     $users = user_load($uid);
     $output = '';
-    $output .= '<link rel="stylesheet" href="' . $gSitePath . path_to_theme() . '/css/css.css" type="text/css" />
-                <script type="text/javascript" src="' . $gSitePath . drupal_get_path('theme', $theme) .'/scripts/jquery1.4.js"></script>
-                <script type="text/javascript" src="' . $gSitePath . drupal_get_path('module', 'moderator') . '/scripts/moderator.js"></script>';
+    $output .= '<link rel="stylesheet" href="' . $base_url.'/'. path_to_theme() . '/css/css.css" type="text/css" />
+                <script type="text/javascript" src="' . $base_url.'/'. drupal_get_path('theme', $theme) .'/scripts/jquery1.4.js"></script>
+                <script type="text/javascript" src="' . $base_url.'/'. drupal_get_path('module', 'moderator') . '/scripts/moderator.js"></script>';
     $output .= '<div class="facttop">Send Message to '.$users->name.'</div><br />
                 <div style="padding:15px"><p><strong>Enter your message here</strong></p><br />';
     $output .= drupal_get_form('user_message', $uid, $user->uid);
@@ -382,7 +382,7 @@ function user_message_submit($form, &$form_state){
 }
 
 function moderator_message_list($uid = ''){
-    global $gSitePath, $base_path, $user;
+    global $base_url, $base_path, $user;
     // admin check
     $where = $user->uid!='1'?'AND moderator_id = '.$user->uid.'':'';
 
@@ -396,7 +396,7 @@ function moderator_message_list($uid = ''){
     while($msg = db_fetch_object($query)){
      $moderator = user_load($msg->moderator_id);
      $status = $msg->status=='1'?'<span class="green">viewed</span>':'<span class="yell">not viewed</span>';
-     $output .= '<tr><td>'.$moderator->name.'</td><td width="40%">'.$msg->message.'</td><td>'.$status.'</td><td><a href="'.$gSitePath.'moderator/msg/delete/'.$uid.'/'.$msg->id.'">remove</a></td></tr>';
+     $output .= '<tr><td>'.$moderator->name.'</td><td width="40%">'.$msg->message.'</td><td>'.$status.'</td><td><a href="'.$base_url.'/moderator/msg/delete/'.$uid.'/'.$msg->id.'">remove</a></td></tr>';
     }
     }else{
      $output .= '<tr><td colspan="4" align="center">No messages</td></tr>';
@@ -406,8 +406,8 @@ function moderator_message_list($uid = ''){
 }
 
 function moderator_delete_message($uid = '', $mid = ''){
-    global $gSitePath, $base_path, $user;
+    global $base_url, $base_path, $user;
     db_query("DELETE FROM {moderator_messages} WHERE id = '%d' AND to_uid = '%d'", $mid, $uid);
-    drupal_goto($gSitePath.'moderator/msg/'.$uid);
+    drupal_goto($base_url.'/moderator/msg/'.$uid);
 }
 ?>

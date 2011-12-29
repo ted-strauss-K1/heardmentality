@@ -58,8 +58,7 @@ load_issue_data_ahah();
             url: jQuery(this).attr('action'),
             data:data,
             success: function(msg){
-                jQuery('#twitMsg').html(msg.msg);
-                jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
+                alert(msg.msg);
                 var qid=msg.qid;
             },
             complete:function(){
