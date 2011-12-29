@@ -56,13 +56,14 @@ function badges_cron() {
 ///////////////won badges mail to user ///////////////
       function badges_user($uid,$last_id)
       {
-        $sel_ulists = "SELECT * FROM users where uid='$uid'";
+          global $user;
+        $sel_ulists = "SELECT * FROM users where uid='$user->uid'";
         $user_namelistfs = ExecuteQuery($sel_ulists, "select");
 
-        $sel_badges = "SELECT * FROM user_badges where uid='$last_id'";
+        $sel_badges = "SELECT * FROM user_badges where uid='$user->uid'";
         $user_badges = ExecuteQuery($sel_badges, "select");
 
-        $badges = "SELECT * FROM badges where bid='$user_badges[bid]'";
+        $badges = "SELECT * FROM badges where bid='".$user_badges['bid']."'";
         $badges_exec = ExecuteQuery($badges, "select");
 
             $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='7'";
@@ -70,7 +71,7 @@ function badges_cron() {
             $list_content = db_fetch_object($rs_mgmt);
             $subject_proj = $list_content->subject;
             $contentm = str_replace("#uname#",$user_namelistfs[0]['name'], $list_content->content);
-             $contentm = str_replace("#badge#", "you".$badges_exec['name']." badges ", $contentm);
+            $contentm = str_replace("#badge#", "you".$badges_exec['name']." badges ", $contentm);
             //echo $contentm;die;
           //  $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('mgopi.php@gmail.com','mgopi.php@gmail.com','".$user_namelistfs[0]['mail']."','".$subject_proj."','".$contentm."',0,0,now())";
            // db_query($ins_qry);
