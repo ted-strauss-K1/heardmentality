@@ -11,11 +11,12 @@ function user_search_perm() {
  * Implementation of hook_menu().
  */
 function user_search_menu() {
-    $search_result['user/following'] = array(
+    $search_result['user/following/%/%'] = array(
         'title' => 'Following',
         'page callback' => '_user_follows',
         'access arguments' => array('Following'),
         'type' => MENU_SUGGESTED_ITEM,
+        'page arguments' => array(2,3),
         'file' => 'user_search.pages.inc',
     );
     $search_result['savefollowing'] = array(
@@ -38,11 +39,7 @@ function user_search_menu() {
 function _following(){
     global $user;
     $output = '';
-    if($user){
-        $block = module_invoke('user_search', 'block', 'view', 2);
-        
-        $output .= $block['content'];
-    }else{
+    if(!$user){
         $output .= t('You must login to view your relationship with other users');
     }
     return $output;

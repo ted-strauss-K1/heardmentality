@@ -28,8 +28,11 @@ function save_follow() {
 }
 
 // user following / followers
-function _user_follows(){
+function _user_follows($uid = '', $fType = ''){
     global $user;
+
+    $uid = $uid!=''?$uid:$user->uid;
+
     $output = '';
     $threads = '';
     // root path
@@ -42,57 +45,95 @@ function _user_follows(){
     drupal_add_js($inline,'inline');
 
     // get relations
-    $relationshipsQuery = "SELECT * FROM {user_relationships} WHERE (requester_id = '$user->uid' OR requestee_id = '$user->uid') AND approved = 1 ORDER BY rid DESC";
-    $relationships = pager_query($relationshipsQuery, $limit);
-    if($relationships){
-    while($relationship = db_fetch_object($relationships)){
-        if($relationship->requester_id == $user->uid){
-            
-            $type = 'following';
-            $followingid = check_follow_unfollow($user->uid, $relationship->requestee_id);
-            if($followingid){
-                $flink = $sitelink. 'user/'.$user->uid.'/relationships/'.$relationship->requestee_id.'/remove/';
-                $uid = $user->uid;
-                $target = $relationship->requestee_id;
-                $status = 'Un-Follow' ;
-            }else{
-                $flink = $sitelink. 'relationship/'.$getuser->uid.'/request/'.$user->uid;
-                $status = 'Follow' ;
-                $uid = $user->uid;
-                $target = $getuser->uid;
-            }
-            // following stayus
-            $fClass = 'user_relationships_popup_link';
-            $follow_status['uid'] = $uid;
-            $follow_status['target'] = $target;
-            $follow_status['status'] = $status;
-            $follow_status['href'] = $flink;
-            $follow_status['fclass'] = $fClass;
-            // get ranking
-            $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$relationship->requestee_id'"));
-            // followid
-            $followid = $relationship->requestee_id;
-
-        }elseif($relationship->requestee_id == $user->uid){
-            
-            $type = 'follower';
-            $follow_status = array();
-            // get ranking
-            $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$relationship->requester_id'"));
-            // followid
-            $followid = $relationship->requester_id;  
+    //$relationshipsQuery = "SELECT * FROM {user_relationships} WHERE (requester_id = '$uid' OR requestee_id = '$uid') AND approved = 1 ORDER BY rid DESC";
+    if($fType == 'following'){
+         $relationshipsQuery = "SELECT * FROM {user_relationships} WHERE requester_id = '$uid' AND approved = 1 ORDER BY rid DESC";
+         $relationships = pager_query($relationshipsQuery, $limit);
+          if($relationships){
+            while($relationship = db_fetch_object($relationships)){
+                // get ranking
+                $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$relationship->requestee_id'"));
+                // followid
+                $followid = $relationship->requestee_id;
+                if($relationship->requestee_id != $user->uid){
+                    $checkFid = check_follow_unfollow($user->uid, $relationship->requestee_id);
+                    if($checkFid){
+                        $flink = $sitelink. 'user/'.$user->uid.'/relationships/'.$relationship->requestee_id.'/remove/';
+                        $currid = $user->uid;
+                        $target = $relationship->requestee_id;
+                        $status = 'Un-Follow' ;
+                        $action = 'unfollow';
+                    }else{
+                        $flink = $sitelink. 'relationship/'.$relationship->requestee_id.'/request/'.$user->uid;
+                        $status = 'Follow' ;
+                        $currid = $user->uid;
+                        $target = $relationship->requestee_id;
+                        $action = 'follow';
+                    }
+                    // following stayus
+                    $fClass = 'user_relationships_popup_link';
+                    $follow_status['uid'] = $currid;
+                    $follow_status['target'] = $target;
+                    $follow_status['status'] = $status;
+                    $follow_status['href'] = $flink;
+                    $follow_status['fclass'] = $fClass;
+                    $follow_status['action'] = $action;
+                }else{
+                    $follow_status = array();
+                }
+                $threads .= theme('following_users_thread', $followid, $type, $follow_status, $ranking);
+            }     
         }
-        // theme
-        $threads .= theme('following_users_thread', $followid, $type, $follow_status, $ranking);
-        
+    }else if($fType == 'follower'){
+        $relationshipsQuery = "SELECT * FROM {user_relationships} WHERE requestee_id = '$uid' AND approved = 1 ORDER BY rid DESC";
+         $relationships = pager_query($relationshipsQuery, $limit);
+         if($relationships){
+            while($relationship = db_fetch_object($relationships)){
+                // get ranking
+                $ranking = db_result(db_query("SELECT ranking FROM {tbl_ranking} WHERE rank_id = '$relationship->requester_id'"));
+                // followid
+                $followid = $relationship->requester_id;
+                if($relationship->requester_id != $user->uid){
+                    $checkFid = check_follow_unfollow($user->uid, $relationship->requester_id);
+                    if($checkFid){
+                        $flink = $sitelink. 'user/'.$user->uid.'/relationships/'.$relationship->requester_id.'/remove/';
+                        $uid = $user->uid;
+                        $target = $relationship->requester_id;
+                        $status = 'Un-Follow' ;
+                        $action = 'unfollow';
+                    }else{
+                        $flink = $sitelink. 'relationship/'.$relationship->requester_id.'/request/'.$user->uid;
+                        $status = 'Follow' ;
+                        $uid = $user->uid;
+                        $target = $relationship->requester_id;
+                        $action = 'follow';
+                    }
+                    // following stayus
+                    $fClass = 'user_relationships_popup_link';
+                    $follow_status['uid'] = $uid;
+                    $follow_status['target'] = $target;
+                    $follow_status['status'] = $status;
+                    $follow_status['href'] = $flink;
+                    $follow_status['fclass'] = $fClass;
+                    $follow_status['action'] = $action;
+                }else{
+                    $follow_status = array();
+                }
+
+                $threads .= theme('following_users_thread', $followid, $type, $follow_status, $ranking);
+            }
+         }
+         
     }
-    $pagination = theme('pager', NULL, $limit, 0);
-    $output = theme('following_users', $threads, $pagination);
-   }else{
-    $output = t('No Followers / Following Found');
-   }
-   return $output;
-        
+    if($threads){
+              // pagination
+            $pagination = theme('pager', NULL, $limit, 0);
+            // theme thread
+            $output = theme('following_users', $threads, $pagination);
+         }else{
+            $output = '<br />'.t('No Following / Followers Found');
+         }
+   return $output;      
 }
 
 function user_search_theme(){
