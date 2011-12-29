@@ -378,6 +378,12 @@ function follow_links_form(&$form_state, $uid = 0) {
 function _follow_links_form_link($networks, $link, $title) {
     $elements = array();
 
+    // BY OPENWAVE to get personal links privacy
+    global $user;
+    $link_privacies = db_result(db_query("SELECT personal_links FROM {privacy_settings} WHERE uid = '%d'", $user->uid));
+    $privacies = unserialize($link_privacies);
+    $def_priv = $privacies[strtolower($title)];
+
     /*   $elements['name'] = array(
       '#type' => 'markup',
       '#prefix' => '<div class="social-left">',
@@ -415,7 +421,15 @@ function _follow_links_form_link($networks, $link, $title) {
         '#default_value' => isset($link->url) ? $link->url : '',
         '#element_validate' => array('follow_url_validate'),
         '#attributes' => array('class' => 'info'),
+    );
+    $elements['privacy'] = array(
+        '#type' => 'radios',
+        '#options' => array(4=>'<span class="privacy-answer">'.t('No one').'</span>',
+                            3=>'<span class="privacy-answer">'.t('Followers').'</span>',
+                            2=>'<span class="privacy-answer">'.t('Logged-in').'</span>',
+                            1=>'<span class="privacy-answer">'.t('Anyone').'</span>'),
         '#suffix' => '<hr class="short-2">',
+        '#default_value' => $def_priv,
     );
 
     return $elements;
