@@ -103,6 +103,9 @@ $directoryPath = $base_path . $directory;
                                     <ul>
                                             <li><a href="#software_community"><?php print t('Software Community'); ?></a></li>
                                             <li><a href="#how_can_you_help"><?php print t('How you can help'); ?></a></li>
+                                            <li><a href="#donate"><?php print t('Donate'); ?></a></li>
+                                            <li><a href="#volunteer"><?php print t('Volunteer'); ?></a></li>
+                                            <li><a href="#moderators"><?php print t('Moderators'); ?></a></li>
                                     </ul>
                                     <li><a><?php print t('How Heard Mentality Works'); ?></a>
                                     <ul>
@@ -110,13 +113,7 @@ $directoryPath = $base_path . $directory;
                                             <li><a href="#pundits"><?php print t('Pundits'); ?></a></li>
                                             <li><a href="#badges"><?php print t('Badges'); ?></a></li>
                                     </ul>
-                                    <li><a href="#guide"><?php print t('Guidelines and Principles'); ?></a>
-                                    <li><a href="<?php print $sitelink.'';?>"><?php print t('Legal'); ?></a>
-                                    <ul>
-                                            <li><a href="#legal"><?php print t('Legal'); ?></a></li>
-                                            <li><a href="#privacy"><?php print t('Privacy'); ?></a></li>
-                                            <li><a href="#user-agreement"><?php print t('User Agreement'); ?></a></li>
-                                    </ul>
+                                    <li><a href="#guide"><?php print t('Guidelines and Principles'); ?></a>   
 				</ul>
 				<div class="clear"></div>
 			</div>

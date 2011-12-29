@@ -131,5 +131,12 @@ $directoryPath = $base_path . $directory;
     jQuery(document).ready(function(){
         jQuery('.pager-first').remove();
         jQuery('.pager-last').remove();
+        // radio button stay green - selected
+        jQuery('input[type=radio]').live('change', function() {
+            jQuery('input[type=radio]').parents('div').removeClass('staygreen');
+            if (jQuery(this.checked)){
+                jQuery(this).parents('div').addClass('staygreen');
+            }
+        });
     });
 </script>

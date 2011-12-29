@@ -8,18 +8,21 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 
 
                 <div class="clear"></div>
+                <div id="vote-msg-alert-<?php print $tnid; ?>" class="v-msg"></div>
                 <h2 class="din half"><a href="<?php print $node_url; ?>" title="permalink" class="issue-title"><?php print t($title); ?>?</a></h2>
                 <br>
                 <div class="poll-vote-area">
-                <?php if($indVoteCounts !='' && $allowvotes == '' ): ?>
-                           <div class="vote-count-poll">
-                               <?php foreach($indVoteCounts as $vcount){?>
-                               <div class="post-vote-result"><span class="vote-count dinbold"><?php print $vcount; ?></span><br><span class="vote-count-title din">votes</span></div>
+                <?php if($allowvotes == 1){
+                    $display = 'style="display: none;"';
+                }?>
+                    <div class="vote-count-poll" <?php print $display; ?> id="vote-count-poll-<?php print $tnid; ?>">
+                               <?php foreach($indVoteCounts as $chorder => $vcount){?>
+                               <div class="post-vote-result"><span class="vote-count dinbold" id="<?php print $tnid; ?>-chorder-<?php print $chorder; ?>"><?php print $vcount; ?></span><br><span class="vote-count-title din">votes</span></div>
                                <br class="clear" />
                                <?php }?>
-                           </div>
-                <?php endif; ?>
-                <div class="voting-pane"><?php print $content;?></div>
+                    </div>
+                
+                <div class="voting-pane" id="voting-pane-<?php print $tnid; ?>"><?php print $content;?></div>
                 </div>
 <!--<ul class="vote">
                         <fieldset>
@@ -34,12 +37,13 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                                 </li>
                   </fieldset>
                 </ul>-->
-                <p class="issue-meta"><a><?php print $votecount;?> <?php print t('Votes');?></a> / <a><?php print $totaldebates;?> <?php print t('Arguments');?></a> / <a><?php print $totalresources;?> <?php print t('References');?></a> </p>
+                <p class="issue-meta"><a><span id="tot-count-<?php print $tnid; ?>"><?php print $votecount;?></span> <?php print t('Votes');?></a> / <a><?php print $totaldebates;?> <?php print t('Arguments');?></a> / <a><?php print $totalresources;?> <?php print t('References');?></a> </p>
 <!--                <a href="#" class="button vote floatright">Vote</a>-->
                 <br class="clear">
-
-
+                 <?php if($allowvotes != 1){ ?>
                 <br class="clear">
+                <a class="button stats stats-quick" title="See the Debate Statistics" href="<?php print $node_url; ?>#statistic-analysis"><span class="icon stats "></span></a>
+                <?php }?>
 
 
                 <hr>

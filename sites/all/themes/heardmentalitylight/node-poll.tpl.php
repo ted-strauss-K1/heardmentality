@@ -3,120 +3,66 @@ global $apikey, $base_path, $theme, $base_url;
 $gSitePath = $base_path.'/';
  $path=$gSitePath.  drupal_get_path('theme',$theme);
  $node=node_load(array('nid'=>$nid));
+ $tnid = get_tnid($nid);
 ?>
-
-<script type="text/javascript">
-   
-
-
-
-    function onError(event) {
-        alert('An error has occured' + ': ' + event.status + '; ' + event.statusMessage);
-    }
+             
+<a class="icon flag" id="dialog_link-flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
+<h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
+<p class="description"><?php print t($context); ?>&nbsp;<a>[...]</a></p>
+<div class="clear"></div>
+<div class="issue-things">
 
 
-    function onSendDone(event)
-    {
-        document.getElementById('status').style.color = "green";
-        document.getElementById('status').innerHTML =
-            'The newsfeed has been posted to: '
-            + event.providers;
-    }
-    function formsubmittype(mtype,ids){
-		jQuery("#txt_act").val(mtype);
-		if(mtype==1)
-		{
+</div>
+<div class="poll-vote-area">
+<?php if($allowvotes == '' ): ?>
+   <div class="vote-count-poll">
+       <?php foreach($indVoteCounts as $chorder => $vcount){?>
+       <div class="post-vote-result"><span class="vote-count dinbold"><?php print $vcount; ?></span><br><span class="vote-count-title din">votes</span></div>
+       <br class="clear" />
+       <?php }?>
+   </div>
+<?php endif; ?>
+<div class="voting-pane"><?php print $content ?></div>
+</div>
 
+<br class="clear">
+<div class="expanding">
+  <h6 class="wait">... <?php print t('Or submit a different answer'); ?></h6>
 
-		document.getElementById('answer_frm').submit();
-		}
-		if(mtype==2)
-		{
+    <?php print $suggest; ?>
 
-		load_invite(' <?php print $gSitePath; ?>invite/invite_friends?qid=<?php print $node->nid; ?>','Profile ');
-		//onclick="load_invite('' . $gSitePath . 'c?qid=' . $qid . '','Profile');
-		}
-		if(mtype==3)
-		{
-		loadflagquestion('<?php print $gSitePath; ?>qlite/flag/'+ids,'Report ');
+</div>
+<div id="shareDiv" class="floatright"></div>
 
-		}
-		if(mtype==4)
-		{
-		loadsuggest('<?php print $gSitePath; ?>qlite/suggest/'+ids,'Answers ');
-
-		}
-		if(mtype==5)
-		{
-		window.location.href="<?php print $gSitePath; ?>mashup/<?php print $node->nid; ?>";
-
-		}
-		}
-
-
-
-
-</script>
-
-
-
-
-                        
-                        <a class="icon flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
-                        <h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
-                        <p class="description"><?php print t($context); ?>&nbsp;<a>[...]</a></p>
-                        <div class="clear"></div>
-                        <div class="issue-things">
-
-
-                        </div>
-                        <div class="poll-vote-area">
-                        <?php if($indVoteCounts !='' && $allowvotes == '' ): ?>
-                           <div class="vote-count-poll">
-                               <?php foreach($indVoteCounts as $vcount){?>
-                               <div class="post-vote-result"><span class="vote-count dinbold"><?php print $vcount; ?></span><br><span class="vote-count-title din">votes</span></div>
-                               <br class="clear" />
-                               <?php }?>
-                           </div>
-                        <?php endif; ?>
-                        <div class="voting-pane"><?php print $content ?></div>
-                        </div>
-                        
-                        <br class="clear">
-                        <div class="expanding">
-                          <h6 class="wait">... <?php print t('Or submit a different answer'); ?></h6>
-                         
-                            <?php print $suggest; ?>
-                          
-                        </div>
-                        <div id="shareDiv" class="floatright"></div>
-
-                        
+<div id="dialog-flag" title="<?php print t('FLAG THIS ITEM'); ?>" class="dialog">
+		<?php if($flagForm): print $flagForm; endif; ?>
+</div>
 
 
 <?php
 $nodepath = 'node/'.$nid;
 $pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
 <script type="text/javascript">
-var act = new gigya.services.socialize.UserAction();
-act.setUserMessage("Your comment here...");
-act.setTitle("<?php print t($title); ?>");
-act.setDescription("<?php
-                    $context = str_replace(array("\r", "\n"), '', $context);
-                 print t(htmlentities($context));?>");
-act.setLinkBack("<?php print $pagePath; ?>");
-act.addActionLink("<?php print t($title); ?>","<?php print $pagePath; ?>");
+    var act = new gigya.services.socialize.UserAction();
+    act.setUserMessage("Your comment here...");
+    act.setTitle("<?php print t($title); ?>");
+    act.setDescription("<?php
+                        $context = str_replace(array("\r", "\n"), '', $context);
+                     print t(htmlentities($context));?>");
+    act.setLinkBack("<?php print $pagePath; ?>");
+    act.addActionLink("<?php print t($title); ?>","<?php print $pagePath; ?>");
 
-var showShareBarUI_params=
-{
-  containerID: 'shareDiv',
-  shareButtons: 'Facebook-Like,google-plusone,Share,Twitter',
-  userAction: act
-}
+    var showShareBarUI_params=
+    {
+      containerID: 'shareDiv',
+      shareButtons: 'Facebook-Like,google-plusone,Share,Twitter',
+      userAction: act
+    }
 </script>
 
 
 <script type="text/javascript">
    gigya.services.socialize.showShareBarUI(conf,showShareBarUI_params);
 </script>
-           
+        

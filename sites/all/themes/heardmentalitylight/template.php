@@ -260,6 +260,10 @@ return array(
         'arguments' => array('form' => NULL),
         'template' => 'profile-edit-form',
         ),
+        'abuse_report_form' => array(
+        'arguments' => array('form' => NULL),
+        'template' => 'issue-flag-form',
+        ),
     );
 }
 

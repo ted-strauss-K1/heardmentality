@@ -2603,3 +2603,42 @@ input.form-text.upload{
     width: 85%;
     float: left;
 }
+#dialog-flag .form-radios .form-item{
+    float: left;
+}
+#dialog-flag #abuse-report-form{
+    font-size: 10px;
+}
+#abuse-report-form #flag-error{
+    color: #FF0000;
+}
+.twelve a.stats-quick{
+    margin: 1px 0 3px;
+}
+.follow-links .form-radios{
+    margin-left: 380px;
+    position: absolute;
+}
+.follow-links .form-radios .form-item{
+    float: left;
+    padding: 0 23px;
+}
+.follow-links .form-radios .form-item input.form-radio{
+    margin-top: 15px;
+}
+.follow-links .form-radios .form-item .privacy-answer{
+    margin-left: -33px;
+    position: absolute;
+}
+.choices .form-radios .staygreen{
+    background:#D3EDEA;
+    border-width:1px;
+    color:#000;
+    border-style:solid;
+    border-color:#82D1C8;
+    cursor: pointer;
+}
+.v-msg{
+    color: #2A720C;
+    padding-bottom: 7px;
+}
