@@ -1631,16 +1631,23 @@ function _privacy_submit($form, &$form_state) {
             $$child = $form_state['values'][$child];
         }
     }
+    $personal_privacies = $form_state['values']['follow_links'];
+    foreach($personal_privacies as $link=>$privacy){
+        if($privacy['url']!='' && $privacy['privacy']){
+            $peronal_privacies[$link] = $privacy['privacy'];
+        }
+    }
+    $link_privacies =  serialize($peronal_privacies);
     $chk = db_query("select * from {privacy_settings} where uid='$user->uid'");
     $chk1 = db_result($chk);
     if ($chk1) {
 
-        $query = "UPDATE {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d', mywebsite='%d', facebook='%d', twitter='%d'  where uid='%d' ";
+        $query = "UPDATE {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d', mywebsite='%d', facebook='%d', twitter='%d', personal_links='%s'  where uid='%d' ";
     } else {
-        $query = "INSERT INTO {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d',mywebsite='%d', facebook='%d', twitter='%d',uid='%d'";
+        $query = "INSERT INTO {privacy_settings} set real_name='%d',mail='%s',gender='%d',bio='%d',zip='%d',religion='%d',ethnic='%d',income='%d',marital='%d',sorient='%d',edu='%d',dob='%d',mywebsite='%d', facebook='%d', twitter='%d', personal_links = '%s',uid='%d'";
     }
 
-    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $income_privacy,$marital_privacy,$sorient_privacy, $edu_privacy, $dob_privacy, $mywebsite_privacy, $facebook_privacy, $twitter_privacy, $user->uid);
+    db_query($query, $real_name_privacy, $mail_privacy, $gender_privacy, $bio_privacy, $zip_privacy, $religion_privacy, $ethnic_privacy, $income_privacy,$marital_privacy,$sorient_privacy, $edu_privacy, $dob_privacy, $mywebsite_privacy, $facebook_privacy, $twitter_privacy, $link_privacies, $user->uid);
     db_query("update {user_profile} set question_privacy='%d' where uid='%d'", $activity_privacy, $user->uid);
     //drupal_set_message(t('Your form has been saved.', 'success'));
     return true;
@@ -1701,13 +1708,14 @@ function is_moderator($uid = ''){
 function UserPicture_small_src($mid) {
 
 global $base_url, $user, $gDocPath, $base_root, $base_path;
-    //$selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
- //   $rs_image = db_query($selimage);
+    $selimage = "select image,image_url,image_avatar,avatar from {user_profile} where uid='$mid'";
+    $rs_image = db_query($selimage);
+    $resultimage = db_fetch_object($rs_image);
 
-$userslist=user_load(array('uid'=>$mid));
- $default = $base_url.'/'.avatar_selection_get_random_image($userslist);
-   // $resultimage = db_fetch_object($rs_image);
-   // $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
+    $userslist=user_load(array('uid'=>$mid));
+    $default = $base_url.'/'.avatar_selection_get_random_image($userslist);
+
+    $default = $base_url.'/' . drupal_get_path('module', 'profiles') . '/snap/noimage.jpg';
     switch ($resultimage->image_avatar) {
         case '2':
             $image_path = file_create_path('avatar_selection');
@@ -2105,9 +2113,15 @@ function get_user_privacy_values($userSettings, $uid){
     }
     // other website links
     $othQuery = db_query("SELECT name, url FROM {follow_links} WHERE uid = '$uid'");
-    
+    $link_privacies = unserialize($userSettings['personal_links']);
+
+
     while($otherLinks = db_fetch_object($othQuery)){
-        $others[$otherLinks->name] = $otherLinks->url;
+        if (($link_privacies[$otherLinks->name] == 1) || ($link_privacies[$otherLinks->name] == 2 && $user->uid != 0) || ($user->uid == $uid) || ($user->uid == 1) || ($link_privacies[$otherLinks->name] == 3 && $is_follow_follower == TRUE) && ($link_privacies[$otherLinks->name] != 4)) {
+            $others[$otherLinks->name] = $otherLinks->url;
+        }else{
+            $others = array();
+        }
     }
     $settings['other_links'] = $others;
 
