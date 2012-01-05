@@ -9,7 +9,7 @@
 	  <div class="container">
 			<div class="four columns">
 				<div class="black-box">
-					<p class="blurb ryde"><?php print t('Be Heard. Don\'t Be Part of the Herd'); ?>!</p>
+					<p class="blurb ryde"><?php print t('Be Heard. Don\'t Be Part of the Herd!'); ?></p>
 					<hr class="dark">
 					<div class="floatleft"><a class="twitter" href=""></a></div>
 					<div class="floatleft"><a class="facebook" href=""></a>	</div>
@@ -44,7 +44,7 @@
 
   		</div>
 			<a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/" style="float:right;margin:0px 10px 0px 10px"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc/3.0/88x31.png" /></a>
-			<p class="policy"> HEARD MENTALITY &copy; 2011<br><a>Legal</a><a>Privacy</a><a>User Agreement</a></p>
+			<p class="policy"> <?php print t('HEARD MENTALITY'); ?> &copy; 2011<br><a><?php print t('Legal'); ?></a><a><?php print t('Privacy'); ?></a><a><?php print t('User Agreement'); ?></a></p>
 		</div>
 
 	</div>
