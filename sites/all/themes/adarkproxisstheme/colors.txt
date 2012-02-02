@@ -1,7 +1,0 @@
-# $Id: colors.txt,v 1.1 2009/07/22 18:24:01 proxiss Exp $
-# colors used in this theme
-Background: #101010
-H1 Content & Text : #777777
-LMenu & Tabsmenu : #888a00
-LMenu Back: #1E1402
-Subtasks: #8a7500
