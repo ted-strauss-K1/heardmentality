@@ -151,7 +151,7 @@ ini_set('session.use_cookies',      1);
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use_trans_sid',    0);
 ini_set('url_rewriter.tags',        '');
-ini_set('memory_limit', '32M'); 
+ini_set('memory_limit', '64M'); 
 global $gSitePath ,$gDocPath,$apikey;
 $gSitePath="http://".$_SERVER['HTTP_HOST']."/heardmentality/";
 $gDocPath=$_SERVER['DOCUMENT_ROOT']."/heardmentality/";
