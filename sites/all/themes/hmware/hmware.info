@@ -1,0 +1,28 @@
+name = Heard Mentality (HMware)
+description =Openwave Theme.
+version = VERSION
+core = 6.x
+engine = phptemplate
+screenshot = screenshot.gif
+stylesheets[all][] = css/css.css
+stylesheets[all][] = floatbox/floatbox.css
+stylesheets[print][] = print.css
+
+scripts[] = scripts/cufon-yui.js
+scripts[] = scripts/cufon-replace.js
+scripts[] = scripts/Trajan_Pro_400.font.js
+scripts[] = scripts/preload.js
+scripts[] = floatbox/floatbox.js
+scripts[] = floatbox/options.js
+regions[left] = Left sidebar
+regions[right] = Right sidebar
+regions[content] = Content
+regions[header] = Header
+regions[footer] = Footer
+regions[Beat] = Beat
+regions[content_bottom]=Content Bottom
+; Information added by drupal.org packaging script on 2010-07-16
+version = "6.16"
+project = "drupal"
+datestamp = "1260996916"
+
