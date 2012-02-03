@@ -1,0 +1,47 @@
+<?php
+
+/**
+ * Implementation of hook_perm().
+ */
+function user_search_perm() {
+    return array('Following', 'Follower');
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function user_search_menu() {
+    $search_result['user/following/%/%'] = array(
+        'title' => 'Following',
+        'page callback' => '_user_follows',
+        'access arguments' => array('Following'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'page arguments' => array(2,3),
+        'file' => 'user_search.pages.inc',
+    );
+    $search_result['savefollowing'] = array(
+        'title' => 'Following',
+        'page callback' => 'save_follow',
+        'access arguments' => array('Following'),
+        'type' => MENU_SUGGESTED_ITEM,
+        'file' => 'user_search.pages.inc',
+    );
+    $search_result['following'] = array(
+        'title' => 'Yor Are Following ',
+        'page callback' => '_following',
+        'access arguments' => array('Following'),
+        'type' => MENU_SUGGESTED_ITEM,
+    );
+    return $search_result;
+}
+
+// Redesign sep 02
+function _following(){
+    global $user;
+    $output = '';
+    if(!$user){
+        $output .= t('You must login to view your relationship with other users');
+    }
+    return $output;
+}
+
