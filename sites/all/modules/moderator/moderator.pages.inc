@@ -1,0 +1,413 @@
+<?php
+
+function moderater_user_mail($array='', $type='', $action='') {
+    global $base_url, $user;
+
+    $days_from_now = 10; //10 days from now
+    $us_id = implode(',', $array['qids']);
+    $msg = check_plain($_REQUEST['reporttext']);
+    switch ($type) {
+        case 'warning':
+
+            if ($action) {
+
+
+                foreach ($array as $idd) {
+
+                    quest_mail_warning($idd, $msg);
+                }
+                return '<div class="success">Warning Message Send!</div>';
+            } else {
+
+                flag_user_mail($array, $days_from_now);
+                foreach ($array as $idd) {
+
+                    $conv_secs = $days_from_now * 60 * 60 * 24; //convert days to secs
+
+                    $current_timestamp = date("U");
+
+                    $target_timestamp = $current_timestamp + $conv_secs;
+
+                    db_query("update {users} set status='%d',blocktime='%d' where uid='%d'", '0', $target_timestamp, $idd);
+                }
+
+
+
+                return '<div class="success">Suspended  successfully for ' . $days_from_now . ' days!</div>';
+            }
+            break;
+        case 'reject':
+            switch ($action) {
+                case '2':
+                    $qids = implode(',', $array);
+                    $query = db_query("delete  from {question_flags} where type='user' AND nodeid in ($qids)");
+                    return '<div class="success">User(s) has been ignored from flaglist successfully!</div>';
+                    break;
+                case '1':
+
+                    foreach ($array as $idd) {
+
+                        quest_mail_warning($idd, $msg);
+                    }
+                    return '<div class="success">Warning Message Send!</div>';
+                    break;
+                case '0':
+                    flag_user_mail($array, $days_from_now);
+                    foreach ($array as $idd) {
+
+
+
+                        $days_from_now = 10; //10 days from now
+
+                        $conv_secs = $days_from_now * 60 * 60 * 24; //convert days to secs
+
+                        $current_timestamp = date("U");
+
+                        $target_timestamp = $current_timestamp + $conv_secs;
+
+                        db_query("update {users} set status='%d',blocktime='%d' where uid='%d'", '0', $target_timestamp, $idd);
+                    }
+                    return '<div class="success">Users has been suspended  successfully for ' . $days_from_now . ' days!</div>';
+
+                    break;
+                default:
+                    return "No Action Found!";
+                    break;
+            }
+
+
+            break;
+        default:
+            return "No Action Found!";
+
+            break;
+    }
+}
+
+function quest_mail($qids = '') {
+
+    global $base_url, $user, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality suspended Your account  ';
+    $warn = $_REQUEST['warn_msg'];
+    foreach ($qids as $id) {
+
+
+        //$query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where qid='$id' ");
+        $query = db_query("select u.mail,n.title AS question  from {node} as n left join {users} as u on u.uid=n.uid where n.nid='$id' ");
+
+        $det = db_fetch_object($query);
+
+        $to = $det->mail;
+        $msg = '<br/>Question : ' . $det->question . ' ' . $warn . '<br/>';
+        if (!empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+    }
+    return true;
+}
+
+function quest_mail_warning($uid = '', $msg='') {
+
+    global $base_url, $user, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Warning Mail   ';
+
+    $query = db_query("select mail from {users} where uid='$uid' ");
+    $det = db_fetch_object($query);
+
+    $to = $det->mail;
+    $msg = ' This is warning message from Moderator due to, <br/> <b>"' . $msg . '"</b><br/>If this continues we will block Your account';
+    if (!empty($to)) {
+
+        $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+    }
+
+    return true;
+}
+
+function question_deleted_mail($qaid) {
+
+    global $base_url, $user, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality Question Has Been Deleted ';
+    $delmsg = 'Has been Deleted By Headmentality admin';
+
+    //$query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    $query = db_query("select u.mail,n.title AS question  from {node} as n left join {users} as u on u.uid=n.uid where n.nid='$qaid' ");
+    
+    $det = db_fetch_object($query);
+
+    $to = $det->mail;
+    $msg = '<br/>Question : ' . $det->question . ' ' . $delmsg . '<br/>';
+    if (!empty($to)) {
+
+        $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+    }
+
+
+    return true;
+}
+
+function question_deleted_mail_voters($qaid) {
+
+    global $base_url, $user, $base_root;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
+    $delmsg = 'Has been Deleted By Headmentality admin';
+
+    //$query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    $query = db_query("select n.title AS question,p.uid from poll_votes as p left join node as n on n.nid=p.nid where p.nid='$qaid' ");
+    
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : ' . $det->question . ' ' . $delmsg . '<br/>';
+
+
+
+        if (!empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+    }
+    return true;
+}
+
+function question_deleted_mail_suggest($qaid) {
+
+    global $base_url, $user;
+
+    $from = variable_get('site_mail');
+    $subject = 'Heardmentality question  Has Been Deleted which You have  answered  ';
+    $delmsg = 'Has been Deleted By Headmentality admin';
+
+    //$query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    $query = db_query("select n.title AS question,s.uid from suggest_answer as s left join node as n on n.nid=s.qid where s.qid='$qaid' ");
+    
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : ' . $det->question . ' ' . $delmsg . '<br/>';
+
+
+
+        if (!empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+    }
+    return true;
+}
+
+function question_edited_mail($qaid) {
+
+    global $base_url, $user;
+
+    $from = variable_get('site_mail', '');
+    $subject = 'Heardmentality Issue Has Been Edited By Moderator ';
+    $delmsg = 'Has been edited by our Moderator';
+
+    //$query = db_query("select u.mail,q.question  from {question} as q left join {users} as u on u.uid=q.uid where q.qid='$qaid' ");
+    $query = db_query("select u.mail,n.title AS question  from {node} as n left join {users} as u on u.uid=n.uid where n.nid='$qaid' ");
+    $det = db_fetch_object($query);
+
+    $to = $det->mail;
+    $msg = '<br/>Question : ' . $det->question . ' ' . $delmsg . '<br/>';
+    if (!empty($to)) {
+
+        $mail_suc = htmlmail($to, $subject, $msg, '');
+    }
+
+
+    return true;
+}
+
+function question_edited_mail_voters($qaid) {
+
+    global $base_url, $user;
+
+    $from = variable_get('site_mail', '');
+    $subject = 'Heardmentality Question Has Been Edited By admin ';
+    $delmsg = 'Has been Edited By Headmentality admin';
+    //$query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    $query = db_query("select n. title AS question,p.uid  from poll_votes as p left join node as n on n.nid=p.nid where p.nid='$qaid' ");
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : ' . $det->question . ' ' . $delmsg . '<br/>';
+
+
+
+        if (!empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+    }
+    return true;
+}
+
+function question_edited_mail_suggest($qaid) {
+
+    global $base_url, $user;
+
+    $from = variable_get('site_mail', '');
+    $subject = 'Heardmentality Question Has Been Edited By admin ';
+    $delmsg = 'Has been Edited By Moderator';
+
+    //$query = db_query("select u.question,q.uid  from suggest_answer as q left join question as u on u.qid=q.qid where q.qid='$qaid' ");
+    $query = db_query("select n.title AS question, s.uid  from suggest_answer as s left join node as n on n.nid=s.qid where s.qid='$qaid' ");
+    while ($det = db_fetch_object($query)) {
+
+        $sellist = "select * from users where uid='" . $det->uid . "'";
+        $res_users = db_query($sellist);
+        $usert = db_fetch_object($res_users);
+        $to = $usert->mail;
+        $msg = '<br/>Question : ' . $det->question . ' ' . $delmsg . '<br/>';
+
+
+
+        if (!empty($to)) {
+
+            $mail_suc = htmlmail($to, $subject, $msg, $from, '');
+        }
+    }
+    return true;
+}
+
+function question_merge_mail($toissue='', $dupeissue='') {
+
+    global $base_url, $user;
+
+    $from = variable_get('site_mail');
+     $subject = 'Heardmentality Issue you voted has been Merged ';
+
+    $finalissue = load_question($toissue);
+    $sel_user_cmt = "SELECT * FROM notification_mail_format Where id='9'";
+    $rs_mgmt = db_query($sel_user_cmt);
+    $list_content = db_fetch_object($rs_mgmt);
+    // for voters who voted the dupe issues
+
+    //$query = db_query("select u.question,q.uid  from possible_answer_vote as q left join question as u on u.qid=q.qid where q.qid='$dupeissue' ");
+    $query = db_query("select n.title AS question,p.uid from poll_votes as p left join node as n on p.nid=n.nid where p.nid='$dupeissue' ");
+    $detail = load_question($dupeissue);
+    //create a mail content
+    $msg = '<br/>Issue [' . $detail['question'] . '] <br/> has been merged to below Issue due to Duped <br/> [ ' . $finalissue['question'] . '] <br/>';
+   
+    while ($det = db_fetch_object($query)) {
+      
+        $usert=array();
+        $usert = user_load(array('uid' => $det->uid));
+         $to = $usert->mail;
+         $contentm = str_replace("#content#", $msg, $list_content->content);
+         $contentm = str_replace("#uname#", $usert->name, $contentm);
+
+        if (!empty($to)) {
+             $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('$from','$from','$to','" . $subject . "','" . $contentm . "',0,0,now())";
+
+            db_query($ins_qry);
+        }
+    }
+
+    // for the user who posted the issue
+    $subject = 'Heardmentality Issue you posted has been Merged ';
+    $userm = user_load(array('uid' => $detail['uid']));
+    $to = $userm->mail;
+    $contentm = str_replace("#uname#", $userm->name, $list_content->content);
+    $contentm = str_replace("#content#", $msg, $contentm);
+
+
+    if (!empty($to)) {
+        $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date)values('$from','$from','$to','" . $subject . "','" . $contentm . "',0,0,now())";
+
+        db_query($ins_qry);
+    }
+ 
+    return true;
+}
+
+
+function moderator_send_message($uid = ''){
+    global $base_url, $user, $gDocPath, $base_root, $base_path, $messages, $theme;
+
+    $users = user_load($uid);
+    $output = '';
+    $output .= '<link rel="stylesheet" href="' . $base_url.'/'. path_to_theme() . '/css/css.css" type="text/css" />
+                <script type="text/javascript" src="' . $base_url.'/'. drupal_get_path('theme', $theme) .'/scripts/jquery1.4.js"></script>
+                <script type="text/javascript" src="' . $base_url.'/'. drupal_get_path('module', 'moderator') . '/scripts/moderator.js"></script>';
+    $output .= '<div class="facttop">Send Message to '.$users->name.'</div><br />
+                <div style="padding:15px"><p><strong>Enter your message here</strong></p><br />';
+    $output .= drupal_get_form('user_message', $uid, $user->uid);
+    $output .= '<div class="mod-msg-box">';
+    $output .= moderator_message_list($uid);
+    $output .= '</div></div>';
+    echo $output;
+}
+
+function user_message($form_state, $touid = '', $fromid = ''){
+    $form['message'] = array('#type' => 'textarea', '#id' => 'message', '#suffix' => '(100 characters only)<br /><span id="charLeft"></span>&nbsp;Characters left<br />');
+    $form['fromid'] = array('#type' => 'hidden', '#value' => $fromid);
+    $form['touid'] = array('#type' => 'hidden', '#value' => $touid);
+    $form['send_message'] = array('#type' => 'submit', '#value' => 'Send', '#id' => 'msg-sub');
+    return $form;
+}
+
+function user_message_submit($form, &$form_state){
+   $message = $form_state['values']['message'];
+   $touid = $form_state['values']['touid'];
+   $fromid = $form_state['values']['fromid'];
+
+   $sql = db_query("INSERT INTO {moderator_messages} SET moderator_id = '%d', message = '%s', to_uid = '%d'", $fromid, $message,$touid);
+   if($sql){
+      //drupal_set_message('Message Sent Successfully', 'success');
+        '<script>show_inotify("Message Sent Successfully")</script>';
+   }else{
+       //drupal_set_message('Sorry error occured', 'error');
+        '<script>show_inotify("Sorry error occured")</script>';
+   }
+}
+
+function moderator_message_list($uid = ''){
+    global $base_url, $base_path, $user;
+    // admin check
+    $where = $user->uid!='1'?'AND moderator_id = '.$user->uid.'':'';
+
+    $count = db_result(db_query("SELECT COUNT(*) AS counts FROM {moderator_messages} WHERE to_uid = '$uid' $where ORDER BY id DESC"));
+    $sql = "SELECT * FROM {moderator_messages} WHERE to_uid = '%d' $where ORDER BY id DESC";
+    $query = db_query($sql, $uid);
+    $output = '';
+    $output .= '<table class="mod-message-table" width="100%">
+                <tr class="head"><td>Moderator</td><td>Message</td><td>Status</td><td>Action</td></tr>';
+    if(($count)>0){
+    while($msg = db_fetch_object($query)){
+     $moderator = user_load($msg->moderator_id);
+     $status = $msg->status=='1'?'<span class="green">viewed</span>':'<span class="yell">not viewed</span>';
+     $output .= '<tr><td>'.$moderator->name.'</td><td width="40%">'.$msg->message.'</td><td>'.$status.'</td><td><a href="'.$base_url.'/moderator/msg/delete/'.$uid.'/'.$msg->id.'">remove</a></td></tr>';
+    }
+    }else{
+     $output .= '<tr><td colspan="4" align="center">No messages</td></tr>';
+    }
+    $output .= '</table>';
+    return $output;
+}
+
+function moderator_delete_message($uid = '', $mid = ''){
+    global $base_url, $base_path, $user;
+    db_query("DELETE FROM {moderator_messages} WHERE id = '%d' AND to_uid = '%d'", $mid, $uid);
+    drupal_goto($base_url.'/moderator/msg/'.$uid);
+}
+?>
