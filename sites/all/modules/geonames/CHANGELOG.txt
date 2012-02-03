@@ -1,0 +1,21 @@
+// $Id
+
+- Added functions for continent codes, country info, feature code info, us states info
+- Added some tables and functions for metadata to local tables (countryinfo and featurecodes)
+- Removed all "module_invoke_all" calls.
+- Aggregated the full configuration in geonames_config.inc
+- Probably done lots of other stuff as well ;)
+
+COMMITTED 29.09:
+geonames                  bugfix line 462/465.. "==" to "=", and "else if" to "if"
+wikipediasearch           changed columns from associative array to array
+wikipediabbox             changed columns from associative array to array
+
+PENDING:
+postalcodesearch          styled code
+children     styled code
+countrycode               styled code
+countryinfo               styled code
+countrysubdivision        styled code
+hierarchy                 styled code
+nearbyplace

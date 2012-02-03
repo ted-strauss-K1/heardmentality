@@ -1,0 +1,433 @@
+$content['type']  = array (
+  'name' => 'Issue',
+  'type' => 'poll',
+  'description' => 'A <em>poll</em> is a question with a set of possible responses. A <em>poll</em>, once created, automatically provides a simple running count of the number of votes received for each response.',
+  'title_label' => 'Question',
+  'body_label' => 'context',
+  'min_word_count' => '0',
+  'help' => '',
+  'node_options' => 
+  array (
+    'status' => true,
+    'promote' => true,
+    'sticky' => false,
+    'revision' => false,
+  ),
+  'old_type' => 'poll',
+  'orig_type' => 'poll',
+  'module' => 'poll',
+  'custom' => '0',
+  'modified' => '1',
+  'locked' => '1',
+  'reset' => 'Reset to defaults',
+  'multistep_expose' => 'disabled',
+  'multistep_steps' => '0',
+  'multistep_buttons' => 0,
+  'multistep_default' => 'multistep',
+  'multistep_extra_title' => '1',
+  'multistep_extra_body_field' => 1,
+  'multistep_extra_revision_information' => '0',
+  'multistep_extra_author' => '0',
+  'multistep_extra_options' => '0',
+  'multistep_extra_comment_settings' => '0',
+  'multistep_extra_menu' => '0',
+  'multistep_extra_taxonomy_2' => 1,
+  'multistep_extra_path' => '0',
+  'multistep_extra_choice_wrapper' => '0',
+  'multistep_extra_settings' => '0',
+  'content_profile_use' => 0,
+  'comment' => '0',
+  'comment_default_mode' => '4',
+  'comment_default_order' => '1',
+  'comment_default_per_page' => '50',
+  'comment_controls' => '3',
+  'comment_anonymous' => 0,
+  'comment_subject_field' => '1',
+  'comment_preview' => '1',
+  'comment_form_location' => '0',
+);
+$content['groups']  = array (
+  0 => 
+  array (
+    'label' => 'Location',
+    'group_type' => 'standard',
+    'settings' => 
+    array (
+      'form' => 
+      array (
+        'style' => 'fieldset',
+        'description' => '',
+      ),
+      'display' => 
+      array (
+        'description' => '',
+        'teaser' => 
+        array (
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'full' => 
+        array (
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        4 => 
+        array (
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'token' => 
+        array (
+          'format' => 'fieldset',
+          'exclude' => 0,
+        ),
+        'label' => 'above',
+      ),
+    ),
+    'weight' => '7',
+    'group_name' => 'group_location',
+  ),
+);
+$content['fields']  = array (
+  0 => 
+  array (
+    'label' => 'country',
+    'field_name' => 'field_issue_country',
+    'type' => 'text',
+    'widget_type' => 'optionwidgets_select',
+    'change' => 'Change basic information',
+    'weight' => '8',
+    'description' => '',
+    'default_value' => 
+    array (
+      0 => 
+      array (
+        'value' => '',
+      ),
+    ),
+    'default_value_php' => '',
+    'default_value_widget' => NULL,
+    'group' => 'group_location',
+    'required' => 0,
+    'multiple' => '1',
+    'text_processing' => '1',
+    'max_length' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '$optionlist=array();
+$result = geonames_query(\'countryinfo\');
+foreach ($result->results as $country) {
+  $optionlist[$country[\'countryname\']]=$country[\'countryname\'];
+}
+return  $optionlist;',
+    'op' => 'Save field settings',
+    'module' => 'text',
+    'widget_module' => 'optionwidgets',
+    'columns' => 
+    array (
+      'value' => 
+      array (
+        'type' => 'text',
+        'size' => 'big',
+        'not null' => false,
+        'sortable' => true,
+        'views' => true,
+      ),
+      'format' => 
+      array (
+        'type' => 'int',
+        'unsigned' => true,
+        'not null' => false,
+        'views' => false,
+      ),
+    ),
+    'display_settings' => 
+    array (
+      'weight' => '8',
+      'parent' => 'group_location',
+      'label' => 
+      array (
+        'format' => 'above',
+      ),
+      'teaser' => 
+      array (
+        'format' => 'hidden',
+        'exclude' => 0,
+      ),
+      'full' => 
+      array (
+        'format' => 'hidden',
+        'exclude' => 0,
+      ),
+      4 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+  ),
+  1 => 
+  array (
+    'label' => 'state',
+    'field_name' => 'field_issue_state',
+    'type' => 'number_integer',
+    'widget_type' => 'optionwidgets_select',
+    'change' => 'Change basic information',
+    'weight' => '9',
+    'description' => '',
+    'default_value' => 
+    array (
+      0 => 
+      array (
+        'value' => NULL,
+      ),
+    ),
+    'default_value_php' => '',
+    'default_value_widget' => 
+    array (
+      'field_issue_state' => 
+      array (
+        'value' => 
+        array (
+          0 => NULL,
+        ),
+      ),
+    ),
+    'group' => 'group_location',
+    'required' => 0,
+    'multiple' => '1',
+    'min' => '',
+    'max' => '',
+    'prefix' => '',
+    'suffix' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'op' => 'Save field settings',
+    'module' => 'number',
+    'widget_module' => 'optionwidgets',
+    'columns' => 
+    array (
+      'value' => 
+      array (
+        'type' => 'int',
+        'not null' => false,
+        'sortable' => true,
+      ),
+    ),
+    'display_settings' => 
+    array (
+      'weight' => '9',
+      'parent' => 'group_location',
+      'label' => 
+      array (
+        'format' => 'above',
+      ),
+      'teaser' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      4 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+  ),
+  2 => 
+  array (
+    'label' => 'city',
+    'field_name' => 'field_issue_city',
+    'type' => 'number_integer',
+    'widget_type' => 'optionwidgets_select',
+    'change' => 'Change basic information',
+    'weight' => '10',
+    'description' => '',
+    'default_value' => 
+    array (
+      0 => 
+      array (
+        'value' => NULL,
+      ),
+    ),
+    'default_value_php' => '',
+    'default_value_widget' => 
+    array (
+      'field_issue_city' => 
+      array (
+        'value' => 
+        array (
+          0 => NULL,
+        ),
+      ),
+    ),
+    'group' => 'group_location',
+    'required' => 0,
+    'multiple' => '1',
+    'min' => '',
+    'max' => '',
+    'prefix' => '',
+    'suffix' => '',
+    'allowed_values' => '',
+    'allowed_values_php' => '',
+    'op' => 'Save field settings',
+    'module' => 'number',
+    'widget_module' => 'optionwidgets',
+    'columns' => 
+    array (
+      'value' => 
+      array (
+        'type' => 'int',
+        'not null' => false,
+        'sortable' => true,
+      ),
+    ),
+    'display_settings' => 
+    array (
+      'weight' => '10',
+      'parent' => 'group_location',
+      'label' => 
+      array (
+        'format' => 'above',
+      ),
+      'teaser' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      4 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+  ),
+  3 => 
+  array (
+    'label' => 'References',
+    'field_name' => 'field_ref',
+    'type' => 'nodereference',
+    'widget_type' => 'nodereference_autocomplete',
+    'change' => 'Change basic information',
+    'weight' => '11',
+    'autocomplete_match' => 'contains',
+    'size' => '60',
+    'description' => '',
+    'default_value' => 
+    array (
+      0 => 
+      array (
+        'nid' => NULL,
+        '_error_element' => 'default_value_widget][field_ref][0][nid][nid',
+      ),
+    ),
+    'default_value_php' => '',
+    'default_value_widget' => 
+    array (
+      'field_ref' => 
+      array (
+        0 => 
+        array (
+          'nid' => 
+          array (
+            'nid' => '',
+            '_error_element' => 'default_value_widget][field_ref][0][nid][nid',
+          ),
+          '_error_element' => 'default_value_widget][field_ref][0][nid][nid',
+        ),
+      ),
+    ),
+    'group' => false,
+    'required' => 0,
+    'multiple' => '0',
+    'referenceable_types' => 
+    array (
+      'poll' => 'poll',
+      'blog' => 0,
+      'profile' => 0,
+      'news_page' => 0,
+      'page' => 0,
+      'story' => 0,
+      'webform' => 0,
+    ),
+    'op' => 'Save field settings',
+    'module' => 'nodereference',
+    'widget_module' => 'nodereference',
+    'columns' => 
+    array (
+      'nid' => 
+      array (
+        'type' => 'int',
+        'unsigned' => true,
+        'not null' => false,
+        'index' => true,
+      ),
+    ),
+    'display_settings' => 
+    array (
+      'weight' => '11',
+      'parent' => '',
+      'label' => 
+      array (
+        'format' => 'above',
+      ),
+      'teaser' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'full' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      4 => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+      'token' => 
+      array (
+        'format' => 'default',
+        'exclude' => 0,
+      ),
+    ),
+  ),
+);
+$content['extra']  = array (
+  'title' => '-5',
+  'body_field' => '0',
+  'revision_information' => '3',
+  'author' => '2',
+  'options' => '4',
+  'comment_settings' => '6',
+  'menu' => '-1',
+  'taxonomy' => '-3',
+  'path' => '5',
+  'choice_wrapper' => '-4',
+  'settings' => '-2',
+);
