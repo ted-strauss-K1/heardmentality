@@ -157,9 +157,10 @@ global $gSitePath ,$gDocPath,$apikey;
 $gSitePath="http://".$_SERVER['HTTP_HOST']."/heardmentality/";
 $gDocPath=$_SERVER['DOCUMENT_ROOT']."/heardmentality/";
 
-
-$apikey='2_7IH6xLn1pLF5KHr3qf2xLMSlrh_c-6cxoPXhe4cm5sRqu9XzfrohK2-nAX0rPU0I';
-$googlekey='ABQIAAAA8-AXKtSZDYjcD0MTigFCmxSgEOPLDAS1yAhUXqvPQqKhRCTlchT7zLkyGACjmPOcVf90HTBds2HSOg';
+$apikey='2_A2ZGtCslkMZbTagqZRUFg6laSGONdDewofnvzXu96J3-nKIrOZGIusR2wpfQIEdC';
+$googlekey='ABQIAAAAEMg4Uz3iFHKezP9YxK2-ORR7UzrUHPdQNxgEPYCZovH3YmNejBTEtAzCPaOdTMO81lgtU_7mcQ8gnA';
+//$apikey='2_7IH6xLn1pLF5KHr3qf2xLMSlrh_c-6cxoPXhe4cm5sRqu9XzfrohK2-nAX0rPU0I';
+//$googlekey='ABQIAAAA8-AXKtSZDYjcD0MTigFCmxSgEOPLDAS1yAhUXqvPQqKhRCTlchT7zLkyGACjmPOcVf90HTBds2HSOg';
 
 
 /**
