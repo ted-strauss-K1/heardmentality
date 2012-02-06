@@ -5,7 +5,7 @@
             <ul>
               <li>
             <div class="leave-a-comment">
-              <?php print $addNewDebateForm; ?>
+              ABC<?php print $addNewDebateForm; ?>
             </div>
             </li>
           </ul>
