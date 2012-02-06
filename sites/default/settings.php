@@ -94,7 +94,8 @@ error_reporting(E_ALL);
 ini_set('display_errors','On');
 //$db_url = 'mysql://root:@localhost/hm';
 //for 10 server 
-$db_url = 'mysql://heardmentality:heard#2010@localhost/heardmentality';
+//$db_url = 'mysql://heardmentality:heard#2010@localhost/heardmentality';
+$db_url = 'mysql://root:H3@rdMDB#2012@localhost/heardmentality';
 $db_prefix = '';
 
 /**
@@ -156,25 +157,10 @@ global $gSitePath ,$gDocPath,$apikey;
 $gSitePath="http://".$_SERVER['HTTP_HOST']."/heardmentality/";
 $gDocPath=$_SERVER['DOCUMENT_ROOT']."/heardmentality/";
 
-if($_SERVER['HTTP_HOST']=='localhost')
-{
-$googlekey='ABQIAAAAk7qgEva0Ioa4Suru5Tb5eBQFLOarkQUzCA92TG3xPimqxCbarBQTnRVvbdF68v6R547r-Sy34P_yWA';
-$apikey='2_NzdYHs2MdPR8dCPkrBvof2XeiahJHMchg3EjXK8yhHlLqp1KkHFZeUZaE7N6vRBu';
-}
-elseif($_SERVER['HTTP_HOST']=='58.68.27.117')
-{
 
-$apikey='2_CRglU1d9wu0oGhNKWnLKevzuVwbWRVkprtQhUS1zsCmdoYjEa0SfwwwRL9QCeV5E';
-}elseif($_SERVER['HTTP_HOST']=='openwaveprojects.com'){
-
-$apikey='2_b1lmxsCzCiZwBNC3AIsLDkMwP9tL6OkAIym6lXlPHKGcoukghPGvbt-xp1iSHvla';
-$googlekey='ABQIAAAA8-AXKtSZDYjcD0MTigFCmxSgEOPLDAS1yAhUXqvPQqKhRCTlchT7zLkyGACjmPOcVf90HTBds2HSOg';
-}
-else
-{
 $apikey='2_7IH6xLn1pLF5KHr3qf2xLMSlrh_c-6cxoPXhe4cm5sRqu9XzfrohK2-nAX0rPU0I';
 $googlekey='ABQIAAAA8-AXKtSZDYjcD0MTigFCmxSgEOPLDAS1yAhUXqvPQqKhRCTlchT7zLkyGACjmPOcVf90HTBds2HSOg';
-}
+
 
 /**
  * If you encounter a situation where users post a large amount of text, and
