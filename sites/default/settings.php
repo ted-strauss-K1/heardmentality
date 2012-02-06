@@ -94,7 +94,7 @@ error_reporting(E_ALL);
 ini_set('display_errors','On');
 //$db_url = 'mysql://root:@localhost/hm';
 //for 10 server 
-//$db_url = 'mysql://heardmentality:heard#2010@localhost/heardmentality';
+//$db_url = 'mysql://heardmentality:H3@rdM3nt@l!ty@localhost/heardmentality';
 $db_url = 'mysql://root:H3@rdMDB#2012@localhost/heardmentality';
 $db_prefix = '';
 
@@ -152,16 +152,30 @@ ini_set('session.use_cookies',      1);
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use_trans_sid',    0);
 ini_set('url_rewriter.tags',        '');
-ini_set('memory_limit', '64M'); 
+ini_set('memory_limit', '50M'); 
 global $gSitePath ,$gDocPath,$apikey;
 $gSitePath="http://".$_SERVER['HTTP_HOST']."/heardmentality/";
 $gDocPath=$_SERVER['DOCUMENT_ROOT']."/heardmentality/";
 
+if($_SERVER['HTTP_HOST']=='localhost')
+{
+$googlekey='ABQIAAAAEMg4Uz3iFHKezP9YxK2-ORR7UzrUHPdQNxgEPYCZovH3YmNejBTEtAzCPaOdTMO81lgtU_7mcQ8gnA';
+$apikey='2_A2ZGtCslkMZbTagqZRUFg6laSGONdDewofnvzXu96J3-nKIrOZGIusR2wpfQIEdC';
+}
+elseif($_SERVER['HTTP_HOST']=='58.68.27.117')
+{
+
+$apikey='2_CRglU1d9wu0oGhNKWnLKevzuVwbWRVkprtQhUS1zsCmdoYjEa0SfwwwRL9QCeV5E';
+}elseif($_SERVER['HTTP_HOST']=='openwaveprojects.com'){
+
+$apikey='2_b1lmxsCzCiZwBNC3AIsLDkMwP9tL6OkAIym6lXlPHKGcoukghPGvbt-xp1iSHvla';
+$googlekey='ABQIAAAA8-AXKtSZDYjcD0MTigFCmxSgEOPLDAS1yAhUXqvPQqKhRCTlchT7zLkyGACjmPOcVf90HTBds2HSOg';
+}
+else
+{
 $apikey='2_A2ZGtCslkMZbTagqZRUFg6laSGONdDewofnvzXu96J3-nKIrOZGIusR2wpfQIEdC';
 $googlekey='ABQIAAAAEMg4Uz3iFHKezP9YxK2-ORR7UzrUHPdQNxgEPYCZovH3YmNejBTEtAzCPaOdTMO81lgtU_7mcQ8gnA';
-//$apikey='2_7IH6xLn1pLF5KHr3qf2xLMSlrh_c-6cxoPXhe4cm5sRqu9XzfrohK2-nAX0rPU0I';
-//$googlekey='ABQIAAAA8-AXKtSZDYjcD0MTigFCmxSgEOPLDAS1yAhUXqvPQqKhRCTlchT7zLkyGACjmPOcVf90HTBds2HSOg';
-
+}
 
 /**
  * If you encounter a situation where users post a large amount of text, and
@@ -182,7 +196,7 @@ $googlekey='ABQIAAAAEMg4Uz3iFHKezP9YxK2-ORR7UzrUHPdQNxgEPYCZovH3YmNejBTEtAzCPaOd
  * shared base domain. Doing so assures that users remain logged in as they
  * cross between your various domains.
  */
-# $cookie_domain = 'example.com';
+ # Just test $cookie_domain = 'example.com';
 
 /**
  * Variable overrides:
