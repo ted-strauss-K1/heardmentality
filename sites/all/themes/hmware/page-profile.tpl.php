@@ -19,7 +19,7 @@
         </div>
       <div style="float: left;" class="commu3">
           <div class="inner-commutop">
-            <p>ACTIVITY STREAM</p>
+            <p>ACTIVITY STREAMMM</p>
           </div>
           <div class="inner">
               <div class="clr"></div>
