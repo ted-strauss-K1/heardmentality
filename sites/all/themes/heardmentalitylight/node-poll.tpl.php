@@ -10,10 +10,8 @@ $gSitePath = $base_path.'/';
 <h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
 <p class="description"><?php print t($context); ?>&nbsp;<a>[...]</a></p>
 <div class="clear"></div>
-<div class="issue-things">
-
-
-</div>
+<!--><div class="issue-things">
+</div>-->
 <div class="poll-vote-area">
 <?php if($allowvotes == '' ): ?>
    <div class="vote-count-poll">
