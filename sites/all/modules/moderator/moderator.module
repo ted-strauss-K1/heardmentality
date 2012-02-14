@@ -236,8 +236,8 @@ function _moderator_left() {
 }
 
 function moderator_issues_list($type='') {
-    global $base_url, $user, $base_root, $base_path;
-
+    global $base_url, $user, $base_root, $base_path, $language;
+    $curLanguage = $language->language;
     // root path
     $path = '<front>';
     $sitelink = url($path, array('absolute' => TRUE)).'/';
@@ -271,7 +271,7 @@ WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->
             break;
         case 'all':
 
-            $query = "SELECT n.nid AS qid, n.title AS question FROM {node} AS n WHERE n.type = 'poll' AND n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) GROUP BY n.nid ORDER BY n.created DESC";
+            $query = "SELECT n.nid AS qid, n.title AS question FROM {node} AS n JOIN content_type_poll AS cp WHERE n.type = 'poll' AND n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.tnid = '0' AND translate='0' AND cp.field_mod_status_value = 1 GROUP BY n.nid ORDER BY n.created DESC";
             $sqlcnt = ExecuteQuery($query, 'norows');
 
             $aclass = 'class="active"';
@@ -444,9 +444,11 @@ function moderator_edit_issues($qid = ''){
 
     while ($coupon = db_fetch_object($result)) {
         $owner = $ownerId==$coupon->uid?'&nbsp;(owner)':'';
+        if($ownerId!=$coupon->uid){
         $updated = date("M d, Y",$coupon->timestamp);
         $modHistory .= theme('mod_history_thread', $coupon->name, $updated);
         //'<p class="issue-meta">'.t('Edited By').' <a href="">'.$coupon->name.'</a> '.t('On').' '.$updated.'</p><hr>';
+        }
     }
     // originally posted in
     $tnid = get_tnid($qid);
@@ -1009,7 +1011,8 @@ function moderator_ajax($action='') {
 function get_dupe_query($qid=''){
 if(is_numeric($qid)){
     //$query = "select * from {question}  where qid='" . $qid . "'";
-    $query = "select * from {node}  where nid='" . $qid . "' AND type = 'poll'";
+    $node = node_load($qid);
+    $query = "select * from {node} where nid='" . $qid . "' AND type = 'poll'";
             $ans = ExecuteQuery($query, "select");
 
             //$words = explode(" ", $ans[0]['question']);
@@ -1022,7 +1025,7 @@ if(is_numeric($qid)){
             $words = array_filter($words);
 
             //$query = "SELECT q.question,q.context,u.name,q.date_added,q.url,q.qid FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
-           $query = "SELECT n.title ,nr.body ,u.name, n.nid FROM {node} as n JOIN {node_revisions} as nr ON n.nid = nr.nid, {users} as u WHERE n.uid=u.uid AND n.nid!='$qid' and n.type = 'poll' ";
+           $query = "SELECT n.title ,nr.body ,u.name, n.nid FROM {node} as n JOIN {node_revisions} as nr ON n.nid = nr.nid, {users} as u WHERE n.uid=u.uid AND n.nid!='$qid' and n.type = 'poll' AND n.language = '$node->language' ";
             //$querycnt="SELECT ifnull(count(*),0) FROM {question} as q,{users} as u WHERE q.uid=u.uid AND q.qid!='" . $qid . "' ";
            $querycnt="SELECT ifnull(count(*),0) FROM {node} as n,{users} as u WHERE n.uid=u.uid AND n.nid!='" . $qid . "' and n.type = 'poll'  ";
            $querysub.='AND (';
