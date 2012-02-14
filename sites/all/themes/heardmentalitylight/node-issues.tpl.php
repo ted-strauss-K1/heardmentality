@@ -43,9 +43,9 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     / <a href="<?php print $node_url; ?>"><?php print $totalresources;?> <?php print t('References');?></a> </p>
 <!--                <a href="#" class="button vote floatright">Vote</a>-->
                 <br class="clear">
-                 <?php if($allowvotes != 1){ ?>
+                 <?php if($allowvotes != 1 && $user->uid>0){ ?>
                 <br class="clear">
-                <a class="button stats stats-quick" title="See the Debate Statistics" href="<?php print $node_url; ?>#statistic-analysis"><span class="icon stats "></span></a>
+                <a class="button stats stats-quick" title="See the Debate Statistics" href="<?php print $node_url; ?>#results"><span class="icon stats "></span></a>
                 <?php }?>
 
 
