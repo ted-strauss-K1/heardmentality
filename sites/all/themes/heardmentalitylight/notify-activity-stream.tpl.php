@@ -128,6 +128,6 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
             </div>
 
         <?php }?>
-
-<!--<span class="submitted"><?php //print $submitted; ?></span>-->
+<br class="clr" />
+<span class="submitted"><?php print $submitted; ?></span>
 </li>
