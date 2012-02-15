@@ -900,3 +900,8 @@ jQuery('#abuse-report-form').live('submit', function(){
        return false;
     }
 });
+
+jQuery('.openlogin_box').live('click', function(){
+    $('#dialog').dialog('open');
+    return false;
+})

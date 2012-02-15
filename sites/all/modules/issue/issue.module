@@ -279,7 +279,7 @@ function issue_add_vote($dummy='',$nid='') {
     }
 
     // check login before vote
-    $loginBoxClass = $user->uid==0?'dialog_link':'';
+    $loginBoxClass = $user->uid==0?'openlogin_box':'';
     $form['check_login'] = array('#type' => 'hidden', '#value' => $user->uid, '#id' => 'check_login');
 
     $form['change'] = array(
