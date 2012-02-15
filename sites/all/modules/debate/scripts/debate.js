@@ -43,7 +43,8 @@ function bind_clk(){
             if(uid<1){
                 //jQuery('#twitMsg').html("Please Login to do this!");
                 //jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
-               alert('Please login to do this!');
+               //alert('Please login to do this!');
+               $('#dialog').dialog('open');
                return false;
             }
 
