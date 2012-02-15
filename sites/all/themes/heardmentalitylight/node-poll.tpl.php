@@ -62,11 +62,6 @@ $pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
       shareButtons: 'Facebook,Twitter,google-plusone,Share',
       userAction: act
     }
-
-    $('.dialog_link').live('click',function(){
-		$('#dialog').dialog('open');
-		return false;
-	});
 </script>
 
 

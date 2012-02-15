@@ -1,6 +1,9 @@
+<?php global $user;
+$loginBoxClass = $user->uid==0?'openlogin_box':'';
+?>
 <div class="expanding">
               <h3 class="din floatleft">></h3>
-              <h6 value="Reply" id="add-arg" class="add-comment button"><?php print t('Add an Argument'); ?></h6>
+              <h6 value="Reply" id="add-arg" class="add-comment button <?php print $loginBoxClass;?>"><?php print t('Add an Argument'); ?></h6>
 
             <ul>
               <li>

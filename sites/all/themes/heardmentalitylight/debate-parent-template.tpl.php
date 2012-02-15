@@ -1,3 +1,6 @@
+<?php global $user;
+$loginBoxClass = $user->uid==0?'openlogin_box':'';
+?>
 <div id="forum-block-<?php print $items['debate_tnid'];?>">
 <?php if($comments){ ?>
 <h6 class="active">/ <?php print t('Argument'); ?></h6>
@@ -26,7 +29,7 @@
                 endif;
           ?>
           <?php if($reply_box): ?>
-          <h6 value="Reply" id="reply" class="add-comment button light"><?php print t('Reply'); ?></h6>
+          <h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass;?>"><?php print t('Reply'); ?></h6>
             <ul>
           <br />
           <div id="reply-msg-<?php print $items['debate_tnid'];?>" class="suc-msg"></div>

@@ -1,6 +1,7 @@
 <?php
 global $base_url;
     $image = !empty($items['image']) ? $items['image'] : file_directory_path() . '/noimage.jpg';
+    $loginBoxClass = $user->uid==0?'openlogin_box':'';
 ?>
 <div id="forum-block-<?php print $items['resource_id'];?>">
 
@@ -54,7 +55,7 @@ global $base_url;
           ?>
       <div class="expanding">
                <?php if($reply_box): ?>
-                <h6 value="Reply" id="reply" class="add-comment button light" onclick="resOpenReplyBox(<?php print $items['resource_id'];?>)"><?php print t('Reply'); ?></h6>
+                <h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass;?>" onclick="resOpenReplyBox(<?php print $items['resource_id'];?>)"><?php print t('Reply'); ?></h6>
                  
                    <ul>
                       <li>
