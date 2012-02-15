@@ -54,7 +54,7 @@ $pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
     var showShareBarUI_params=
     {
       containerID: 'shareDiv',
-      shareButtons: 'Facebook-Like,google-plusone,Share,Twitter',
+      shareButtons: 'Facebook,Twitter,google-plusone,Share',
       userAction: act
     }
 </script>
