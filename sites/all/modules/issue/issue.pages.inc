@@ -1574,9 +1574,9 @@ function issue_debates($qid='', $type='') {
             $ans = $short_answer!=''?$short_answer:$tranAns;
 
             switch ($list['ans_val']) {
-                case 0:
-                    $strength.='<p class="position-plus"><strong>+/-</strong>&nbsp;'.$ans.'</p>';
-                    break;
+//                case 0:
+//                    $strength.='<p class="position-plus"><strong>+/-</strong>&nbsp;'.$ans.'</p>';
+//                    break;
                 case 1:
                     $strength.='<p class="position-minus"><strong>+</strong>&nbsp;'.$ans.'</p>';
                     break;
