@@ -11,10 +11,16 @@ global $base_url;
     <span class="name"><a><?php print $items['uname']; ?></a></span>
         <?php
         if($items['rtype'] == 'news' || $items['rtype'] == 'facts'){
+
+        $refTit = str_replace('http://', '', $items['title']);
+        $refBody = str_replace($refTit, '<span title="'.$items['title'].'">'.$refTit.'</span>', $items['body']);
         ?>
-            <p class="action-ref"><span class="name"><a href="<?php print t($items['title']); ?>" target="_blank"><?php print t($items['title']); ?></a></span>
+            <p class="action-ref">
+<!--                <span class="name">
+                    <a href="<?php //print t($items['title']); ?>" target="_blank"><?php //print t($items['title']); ?></a>
+                </span>-->
             <span><?php print theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE); ?></span>
-            <br><?php print t($items['body']); ?></p>
+            <br><?php print $refBody; ?></p>
             
         <?php
             
