@@ -4,7 +4,7 @@ $directoryPath = $base_path . $directory;
 $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
 ?>
-<?php if($complete_percent['percent']<200){?>
+<?php if($complete_percent['percent']<100){?>
 <div class="message right-message">
 
   <a href="#" id="button" class="hide-message2 ui-dialog-titlebar-close "><span class="ui-icon ui-icon-closethick">close</span></a>
