@@ -52,7 +52,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 					</div>
 					<div class="top-right blue">
 						<div class="expanding">
-              <h6><?php t('Language'); ?></h6>
+              <h6><?php print t('Language'); ?></h6>
               <ul class="lang">
                 <?php if($multilanguage_area): print $multilanguage_area; endif; ?>
               </ul>
