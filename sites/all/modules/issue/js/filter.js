@@ -833,6 +833,10 @@ function show_inotify(data){
 
 // add / edit vote ajax submission
 jQuery('#issue_edit_form_stream').live('submit', function(){
+    if(jQuery('#check_login').val()==0){
+        $('#dialog').dialog('open');
+	return false;
+    }
     var thisForm = jQuery(this);
     var data = thisForm.serialize();
     var vote_type = thisForm.find('#vote_type').val();

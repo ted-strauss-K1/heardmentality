@@ -247,7 +247,7 @@ function issue_form(&$node, $form_state) {
 
 // add vote for issue
 function issue_add_vote($dummy='',$nid='') {
-
+    global $user;
     $form = array();
     if(empty($nid))
     $nid = arg(1);
@@ -277,10 +277,15 @@ function issue_add_vote($dummy='',$nid='') {
         $form['vote_type'] = array('#type' => 'hidden', '#value' => 'add', '#id' => 'vote_type');
         $form['#validate'] = '';
     }
+
+    // check login before vote
+    $loginBoxClass = $user->uid==0?'dialog_link':'';
+    $form['check_login'] = array('#type' => 'hidden', '#value' => $user->uid, '#id' => 'check_login');
+
     $form['change'] = array(
         '#type' => 'submit',
         '#value' => t('Vote'),
-        '#attributes' => array('class' => 'button vote floatright'),
+        '#attributes' => array('class' => 'button vote floatright '.$loginBoxClass.''),
         '#id' => 'edit-change',
     );
     $form['#cache'] = TRUE;
