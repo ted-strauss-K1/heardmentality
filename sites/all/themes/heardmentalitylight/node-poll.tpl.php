@@ -8,7 +8,12 @@ $gSitePath = $base_path.'/';
              
 <a class="icon flag" id="dialog_link-flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
 <h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
-<p class="description"><?php print t($context); ?>&nbsp;<a>[...]</a></p>
+<p class="description">
+    <span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
+        <?php print t($context); ?>&nbsp;
+    </span>
+    <?php if(strlen($context)>150) {?><a onclick="showDesc()" id="more-desc">[...]</a><?php }?>
+</p>
 <div class="clear"></div>
 <div class="issue-things">
 </div>
@@ -62,5 +67,9 @@ $pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
 
 <script type="text/javascript">
    gigya.services.socialize.showShareBarUI(conf,showShareBarUI_params);
+   function showDesc(){
+       jQuery('#sp-desc').css('height', 'auto');
+       jQuery('#more-desc').hide();
+   }
 </script>
         
