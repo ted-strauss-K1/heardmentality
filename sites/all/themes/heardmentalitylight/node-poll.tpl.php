@@ -1,12 +1,15 @@
 <?php
-global $apikey, $base_path, $theme, $base_url;
+global $apikey, $base_path, $theme, $base_url, $user;
 $gSitePath = $base_path.'/';
  $path=$gSitePath.  drupal_get_path('theme',$theme);
  $node=node_load(array('nid'=>$nid));
  $tnid = get_tnid($nid);
 ?>
-             
+<?php if($user->uid!=0){?>
 <a class="icon flag" id="dialog_link-flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
+<?php }else{?>
+<a class="icon flag openlogin_box" title="flag this issue" rel="lightframe"  href="#"></a>
+<?php }?>
 <h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
 <p class="description">
     <span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
