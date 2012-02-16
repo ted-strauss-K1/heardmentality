@@ -2234,9 +2234,9 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort=''){
             $ans = $short_answer!=''?$short_answer:$tranAns;
 
             switch ($list['ans_val']) {
-                case 0:
-                    $strength.='<div><span class="yellow-box">+/-</span>'.$ans.'</div>';
-                    break;
+//                case 0:
+//                    $strength.='<div><span class="yellow-box">+/-</span>'.$ans.'</div>';
+//                    break;
                 case 1:
                     $strength.='<div><span class="green-box">+</span>'.$ans.'</div>';
                     break;
