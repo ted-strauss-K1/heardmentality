@@ -1779,6 +1779,10 @@ function by_possible_answers_votes($nid = ''){
             $divides = $demo['divide'];
             $cnts = $demo['cnt'];
             foreach($divides as $key=>$divide){
+                // removed undefined from results
+                if($divide=='undefined'){
+                    unset($key);
+                }
                $divide = $divide=='undefined'?'undefined_'.$demographic:$divide;
                $count = $cnts[$key];
                $choices = json_decode($count);
@@ -1856,6 +1860,10 @@ function by_demographic_votes($nid = ''){
 //           $demoVotes = $val;
            
             foreach($divides as $key=>$divide){
+                // removed undefined from results
+                if($divide=='undefined'){
+                    unset($key);
+                }
                $divide = $divide=='undefined'?'undefined_'.$demographic:$divide;
                $count = $cnts[$key];
                $choices = json_decode($count);
