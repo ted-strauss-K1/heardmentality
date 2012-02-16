@@ -119,7 +119,7 @@ function report_percent($nid='') {
 <div id="contentr1">
 	' . $incflt . '
      <div>
-     <form id="form1" name="form1" method="post" action="">
+     <form id="form1" name="form1" method="post" action="'. request_uri().'#results">
   <select name="dochg" onchange="MM_jumpMenuGo(this.value);" id="dochg">
 
   <option value="">'.t('Filter').'</option>
