@@ -1,5 +1,5 @@
 <?php
-global $user, $base_url;
+global $user, $base_url,$base_path;
 $directoryPath = $base_path . $directory;
 $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
@@ -14,7 +14,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
         <div class="progress"></div>
 </div>
             
-            <p> <?php print t('Filling in your <em>!empty-field</em> will bring you to !complete% Complete', array('!empty-field' => $complete_percent['nextfield'], '!complete' => $complete_percent['nextpercent'])); ?> <a class="bolded" href="<?php print $front_page.'account/edit';?>"><?php print t('Add it here.'); ?></a></p>
+            <p> <?php print t('Filling in your <em>!empty-field</em> will bring you to !complete% Complete', array('!empty-field' => $complete_percent['nextfield'], '!complete' => $complete_percent['nextpercent'])); ?> <a class="bolded" href="<?php print $sitelink.'account/edit';?>"><?php print t('Add it here.'); ?></a></p>
            
 </div>
  <?php }?>
