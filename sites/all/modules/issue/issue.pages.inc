@@ -1699,7 +1699,7 @@ function delete_replies($comment){
 
 
 function issue_ajax($task = '', $nid = ''){
-    global $base_url;
+    global $base_url, $user;
     switch($task){
         case 'insightview':
             $result = insight_view($nid);
@@ -1711,6 +1711,23 @@ function issue_ajax($task = '', $nid = ''){
         case 'resource_statistics':
             $result = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
             break;
+        case 'getForumFlagForm':
+            // abuse flag form ############
+            $tnid =$nid;
+            $flagType = $_GET['flag_type'];
+            $object = _abuse_load($flagType, $tnid);
+           // echo '<pre>'; print_r($object);exit;
+            $reported = db_result(db_query("SELECT COUNT(*) FROM {abuse} WHERE type='%s' AND oid=%d AND uid=%d", 'node', $tnid, $user->uid));
+            if ($reported > 0) {
+                $flagForm = t('We have already received your report.  Thank you very much!');
+            }
+            else if($user->uid == $object->uid){
+                $flagForm = t('Sorry, you cannot flag your own content');
+            }else{
+                $flagForm = drupal_get_form('abuse_report_form', $object, $user);
+            }
+             // abuse flag form ############
+            $result = $flagForm;
 
     }
     echo $result;

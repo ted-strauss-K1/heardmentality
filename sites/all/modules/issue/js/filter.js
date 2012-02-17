@@ -894,14 +894,46 @@ jQuery('#issue_edit_form_stream').live('submit', function(){
     
 })
 // VALIDATE FLAG ISSUE FORM
-jQuery('#abuse-report-form').live('submit', function(){
+jQuery('#abuse-report-form').live('submit', function(e){
+    e.preventDefault();
     if(jQuery(this).find('input:radio[name=reason]:checked').length == 0){
        jQuery(this).find('#flag-error').html('Please select your flag reason');
        return false;
     }
+    var data=jQuery(this).serialize();
+    jQuery.ajax({
+        type: 'post',
+        url: jQuery(this).attr('action'),
+        data: data,
+        success: function(data){
+            jQuery('#abuse-report-form').html(data);
+
+        }
+    });
 });
 
 jQuery('.openlogin_box').live('click', function(){
     $('#dialog').dialog('open');
     return false;
 })
+
+// open flag for arguments
+function open_flag_box(oid, type){
+    var divId;
+    if(type == 'node'){
+        divId = '#flag-arg-'+oid;
+    }else if(type == 'comment'){
+        divId = '#flag-comm-'+oid;
+    }
+    jQuery(divId).dialog('open');
+    jQuery(divId).html('Please Wait...');
+    jQuery.ajax({
+        type: 'get',
+        data: {'flag_type': type},
+        url: sitepath+'/issue/ajax/getForumFlagForm/'+oid,
+        success: function(form){
+            jQuery(divId).html(form);
+        }
+    });
+    return false;
+}
