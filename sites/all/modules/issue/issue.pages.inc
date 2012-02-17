@@ -1717,7 +1717,7 @@ function issue_ajax($task = '', $nid = ''){
             $flagType = $_GET['flag_type'];
             $object = _abuse_load($flagType, $tnid);
            // echo '<pre>'; print_r($object);exit;
-            $reported = db_result(db_query("SELECT COUNT(*) FROM {abuse} WHERE type='%s' AND oid=%d AND uid=%d", 'node', $tnid, $user->uid));
+           $reported = db_result(db_query("SELECT COUNT(*) FROM {abuse} WHERE type='%s' AND oid=%d AND uid=%d", $flagType, $tnid, $user->uid));
             if ($reported > 0) {
                 $flagForm = t('We have already received your report.  Thank you very much!');
             }
