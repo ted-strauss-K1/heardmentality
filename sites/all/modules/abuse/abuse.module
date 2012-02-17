@@ -689,10 +689,12 @@ function abuse_report_form_submit($form, &$form_state) {
     // Call the sequencer for sequencing content
     if ($result) {
       drupal_set_message(t('Thank you for your report.  We will look into this shortly.'));
-      $form_state['redirect'] = '';
+      print t('Thank you for your report.  We will look into this shortly.');
+     // $form_state['redirect'] = '';
     }
     else {
-      drupal_set_message(t('Thank you for your report.'));
+      //drupal_set_message(t('Thank you for your report.'));
+       print t('Thank you for your report.');
     }
   }
 }
