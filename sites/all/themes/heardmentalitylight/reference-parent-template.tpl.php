@@ -7,7 +7,7 @@ global $base_url;
 
 
 <li>
-    <a href="#" class="icon flag2" title="flag this argument"></a>
+    <a href="javascript:void(0);" class="icon flag2" onclick="open_flag_box(<?php print $items['resource_id'];?>, 'node')" title="flag this argument"></a>
     <img src="<?php print UserPicture_small_src($items['uid']); ?>" alt="<?php print $items['uname']; ?>" class="user-thumb" >
     <span class="name"><a><?php print $items['uname']; ?></a></span>
         <?php
@@ -84,5 +84,16 @@ global $base_url;
 </li>
 
 </div>
-
+<div id="flag-arg-<?php print $items['resource_id'];?>" title="<?php print t('FLAG THIS ITEM'); ?>" class="form-flag" style="display: none">
+    <input type="hidden" value="forum" id="flagtype" />
+    <?php print t('Please Wait...'); ?>
+</div>
+<script type="text/javascript">
+    $('#flag-arg-<?php print $items['resource_id'];?>').dialog({
+		autoOpen: false,
+		modal: false,
+		minWidth: 320,
+		resizable:false
+	});
+</script>
 

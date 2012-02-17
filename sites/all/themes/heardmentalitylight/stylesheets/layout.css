@@ -2606,10 +2606,10 @@ input.form-text.upload{
     width: 85%;
     float: left;
 }
-#dialog-flag .form-radios .form-item{
+#dialog-flag .form-radios .form-item, .form-flag .form-radios .form-item{
     float: left;
 }
-#dialog-flag #abuse-report-form{
+#dialog-flag #abuse-report-form, .form-flag #abuse-report-form{
     font-size: 10px;
 }
 #abuse-report-form #flag-error{

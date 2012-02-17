@@ -1,5 +1,5 @@
 <li id="reply-block-<?php print $items['cid'];?>">
-      <a href="#" class="icon flag2" title="flag this Reply"></a>
+      <a href="javascript:void(0);" class="icon flag2" onclick="open_flag_box(<?php print $items['cid'];?>, 'comment')" title="flag this Reply"></a>
   <img src="<?php print $userPicture; ?>" class="user-thumb" />
   <span class="name"><a><?php print $items['uname']; ?></a></span>
   <p><?php print t($items['reply_content']); ?></p>
@@ -16,3 +16,15 @@
           ?>
 <br class="clear">
 </li>
+<div id="flag-comm-<?php print $items['cid'];?>" title="<?php print t('FLAG THIS ITEM'); ?>" class="form-flag" style="display: none">
+    <input type="hidden" value="comment" id="flagtype" />
+    <?php print t('Please Wait...'); ?>
+</div>
+<script type="text/javascript">
+    $('#flag-comm-<?php print $items['cid'];?>').dialog({
+		autoOpen: false,
+		modal: false,
+		minWidth: 320,
+		resizable:false
+	});
+</script>

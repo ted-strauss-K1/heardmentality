@@ -9,7 +9,7 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
 <?php }?>
 <ul>
 <li>
-    <a href="#" class="icon flag2" title="flag this argument"></a>
+    <a href="javascript:void(0);" class="icon flag2" onclick="open_flag_box(<?php print $items['debate_tnid'];?>, 'node')" title="flag this argument"></a>
     <img src="<?php print UserPicture_small_src($items['uid']); ?>" alt="<?php print $items['uname']; ?>" class="user-thumb" >
     <span class="name"><a><?php print $items['uname']; ?></a></span>
     <p><?php print t($items['title']); ?></p>
@@ -51,3 +51,15 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
 </li>
 </ul>
 </div>
+<div id="flag-arg-<?php print $items['debate_tnid'];?>" title="<?php print t('FLAG THIS ITEM'); ?>" class="form-flag" style="display: none">
+    <input type="hidden" value="forum" id="flagtype" />
+    <?php print t('Please Wait...'); ?>
+</div>
+<script type="text/javascript">
+    $('#flag-arg-<?php print $items['debate_tnid'];?>').dialog({
+		autoOpen: false,
+		modal: false,
+		minWidth: 320,
+		resizable:false
+	});
+</script>
