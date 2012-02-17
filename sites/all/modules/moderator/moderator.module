@@ -479,13 +479,18 @@ function possible_dupe_form($form_state, $qid){
     while($coupons = db_fetch_object($result)){
         $values[$coupons->nid] = $coupons->title;
     }
+    $form['qid'] = array('#type' => 'hidden', '#value' => $qid, '#id' => 'o_qid');
     $form['possible_dupe'] = array('#type' => 'radios', '#options' => $values, '#id' => 'regularRadio');
     if($values){
     $form['possible_dupe_submit'] = array('#type' => 'submit',
                                           '#value' => t('Merge as Dupe'),
                                           '#attributes' => array('class' => 'remove'),
-                                           '#prefix' => '<a data-fb-options="type:ajax width:740 height:385" title="Dupe List" href="' . $base_url . '/moderator/ajax/dupelist/' . $qid . '" class="floatbox">',
-                                            '#suffix' => '</a>');
+                                           );
+//    $form['possible_dupe_submit'] = array('#type' => 'submit',
+//                                          '#value' => t('Merge as Dupe'),
+//                                          '#attributes' => array('class' => 'remove'),
+//                                           '#prefix' => '<a data-fb-options="type:ajax width:740 height:385" title="Dupe List" href="' . $base_url . '/moderator/ajax/dupelist/' . $qid . '" class="floatbox">',
+//                                            '#suffix' => '</a>');
     
     }else{
         $form['no_dupe_issues'] = array('#type' => 'markup', '#value' => t('No Dupe Issues Found'));

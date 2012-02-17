@@ -47,6 +47,23 @@ load_issue_data_ahah();
             jQuery('#twitMsg').delay(400).slideDown(400).delay(3000).slideUp(400);
         }
     });
+    jQuery('#possible-dupe-form').live('submit',function(e){
+            e.preventDefault();
+            var dupeid=jQuery("#possible-dupe-form input[type='radio']:checked").val();
+            var qid=jQuery("#possible-dupe-form input[name='qid']").val();
+            if(typeof(dupeid)!="undefined"){
+                var url=gSitePath+'moderator/ajax/mergeissue/'+qid+'/'+dupeid;
+                var options = 'type:ajax sameBox:true width:40% height:50% caption:' +
+                '`Merge Dupe Issues`';
+                parent.fb.start(url, options);
+            }else{
+                alert('Please check one issue from the list to merge!');
+            }
+    });
+
+    // new dupe form
+
+
 
     jQuery('#merge-dupeform').live('submit',function(e){
         e.preventDefault();
