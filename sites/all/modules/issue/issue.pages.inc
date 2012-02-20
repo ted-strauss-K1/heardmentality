@@ -1418,13 +1418,13 @@ function search_issue_results(){
     }
 
     // filter with default language if issue key is empty
-    if($key!=''){
+    //if($key!=''){
         if($curLanguage=='en'){
            $langFilter = "AND (n.language = '$curLanguage' OR n.language = '')";
         }else{
            $langFilter = "AND n.language = '$curLanguage'";
         }
-    }
+    //}
     //$langFilter = $key==''?"AND n.language = '$curLanguage'":'';
 
 
@@ -1470,16 +1470,26 @@ function search_issue_results(){
 
             break;
         default:
-            $sortBy = 'ORDER BY COUNT(pv.nid) DESC';
-            $groupBy = 'GROUP BY pv.nid';
+            $sortBy = 'ORDER BY n.nid DESC';
+            $groupBy = '';
 
-            $sql = "SELECT pv.nid FROM {poll_votes} AS pv JOIN
-                (SELECT DISTINCT(n.nid) FROM {node} AS n
-                JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
-                JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
-                JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
-                LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
-                WHERE n.type = 'poll' $langFilter $where) AS temp ON pv.nid = temp.nid $groupBy $sortBy";
+            $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
+            JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+            JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+            JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+            LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
+            WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
+
+//            $sortBy = 'ORDER BY COUNT(pv.nid) DESC';
+//            $groupBy = 'GROUP BY pv.nid';
+//
+//            $sql = "SELECT pv.nid FROM {poll_votes} AS pv JOIN
+//                (SELECT DISTINCT(n.nid) FROM {node} AS n
+//                JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+//                JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+//                JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+//                LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
+//                WHERE n.type = 'poll' $langFilter $where) AS temp ON pv.nid = temp.nid $groupBy $sortBy";
             break;
     }
 
