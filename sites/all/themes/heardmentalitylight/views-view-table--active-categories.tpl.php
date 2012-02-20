@@ -23,6 +23,7 @@
            }else{
                $href = 'issues/0/'.$tid.'/0/0/0/0/0';
            }
+           print $href;
            print '<li><a href="'.$sitelink.$href.'">'.t($rows[$i]['name']).'('.$count.')</a></li>';
            }
          }
