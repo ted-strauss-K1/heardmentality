@@ -253,7 +253,7 @@ function user_details() {
         '#maxlength' => 4,
         '#description' => t(' '),
         '#default_value' => variable_get('dob', ''),
-        '#id' => 'year',
+        '#id' => 'dob',
         '#attributes' => array('class' => 'info'),
     );
 
@@ -270,7 +270,7 @@ function user_details() {
         '#maxlength' => 10,
         '#description' => t(''),
         '#default_value' => variable_get('zip', ''),
-        '#id' => 'location',
+        '#id' => 'zip',
         '#attributes' => array('class' => 'info', 'onblur' => 'get_zip_city(this.value);'),
     );
 
@@ -312,7 +312,7 @@ function user_details() {
          '#options' => array('0' => 'Sexual Orientation', 'Straight' => 'Straight', 'Gay' => 'Gay','Bisexual'=>'Bisexual','Transgender'=>'Transgender'),
         '#default_value' => variable_get('sorient', ''),
         '#description' => t(' '),
-        '#id' => 'sex',
+        '#id' => 'sorient',
         '#attributes' => array('class' => 'info'),
     );
         $form['education'] = array(
@@ -321,7 +321,7 @@ function user_details() {
         '#options' => array('0' => 'Education Level', 'No High School' => 'No High School', 'High School' => 'High School', 'Technical College' => 'Technical College', 'University' => 'University', 'Masters Degree' => 'Masters Degree'),
         '#description' => t(' '),
         '#default_value' => variable_get('education', ''),
-        '#id' => 'education',
+        '#id' => 'edu',
         '#attributes' => array('class' => 'info'),
     );
     $form['income'] = array(

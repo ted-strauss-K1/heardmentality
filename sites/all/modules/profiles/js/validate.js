@@ -41,10 +41,10 @@ function validate_reg()
         return false;
     }
 	
-    if (jQuery('#year').val()!='')
+    if (jQuery('#dob').val()!='')
     {
             
-        if(!(/^[0-9]{4}$/.test(jQuery('#year').val())))
+        if(!(/^[0-9]{4}$/.test(jQuery('#dob').val())))
         {
 	
             err=err+" Date Of Birth must be valid format YYYY-[1986]! ";
@@ -53,7 +53,7 @@ function validate_reg()
         }
     }
 
-    var zip=jQuery('#location').val();
+    var zip=jQuery('#zip').val();
 
     if(zip.length>0){
         var zstate=jQuery('input[name="state"]').val();
@@ -256,7 +256,7 @@ function getFriends_callback(response) {
 
 // disable submit button when entering zipcode
 jQuery(document).ready(function(){
-    $('#location').keypress(function() {
+    $('#zip').keypress(function() {
       $("#update_submit").attr('disabled', 'disabled');
     });
 });
