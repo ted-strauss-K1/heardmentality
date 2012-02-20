@@ -10,6 +10,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
         <a href="<?php print $sitelink?>profile"><?php print t('View Profile');?></a> |
         <a href="<?php print $sitelink?>account/edit"><?php print t('Edit Profile');?></a>
     </p>
+    <?php if($complete_percent['percent']<100){?>
     <div class="profile-meta">
             <div class="profile-meta footerfloat">
                     <p><?php print t('Your profile is !complete% Complete', array('!complete' => $complete_percent['percent']))?></p>
@@ -19,6 +20,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     <br>
             </div>
     </div>
+    <?php }?>
     <div class="floatleft">
         <a href="<?php print $sitelink.'profile'?>" title="<?php print t('View Profile');?>"><img class="user-profile" src="<?php print $user_picture;?>"></a>
             <?php print $medal_list; ?>
