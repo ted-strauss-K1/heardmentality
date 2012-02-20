@@ -1473,12 +1473,12 @@ function search_issue_results(){
             $sortBy = 'ORDER BY n.nid DESC';
             $groupBy = '';
 
-           echo $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
+            $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
             JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
             JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
             JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
             LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
-            WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy"; exit;
+            WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
 
 //            $sortBy = 'ORDER BY COUNT(pv.nid) DESC';
 //            $groupBy = 'GROUP BY pv.nid';
