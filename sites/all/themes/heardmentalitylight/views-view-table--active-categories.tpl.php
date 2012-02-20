@@ -10,7 +10,8 @@
     <?php if($rows):
         for($i=0; $i<count($rows); $i++){
            $tid = $rows[$i]['tid'];
-           $count = db_result(db_query("SELECT COUNT(nid) FROM {term_node} WHERE tid = %d", $tid));
+           $sql = "SELECT COUNT(tn.nid) FROM {term_node} AS tn JOIN {node} AS n ON tn.nid = n.nid WHERE tn.tid = %d and n.type = '%s'";
+           $count = db_result(db_query($sql, $tid, 'poll'));
            if($count>0){
            $pid = db_result(db_query("SELECT parent FROM term_hierarchy WHERE tid = '".$tid."'"));
            if($pid!=0){
