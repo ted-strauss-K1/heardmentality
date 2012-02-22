@@ -14,8 +14,8 @@
                  <?php if($settings['mywebsite']): ?>
                 <span class="URL"><?php print t('Web'); ?>: <a href="<?php print $settings['mywebsite']; ?>" target="_blank"><?php print $settings['mywebsite']; ?></a></span>,
                 <?php endif; ?>
-                <?php if($getuser->mail): ?>
-                <span class="URL"><?php print t('Email'); ?>: <?php print $getuser->mail; ?></span>,
+                <?php if($settings['email']): ?>
+                <span class="URL"><?php print t('Email'); ?>: <?php print $settings['email']; ?></span>,
                 <?php endif; ?>
                 <?php if($settings['twitter']): ?>
                 <span class="URL"><?php print t('Twitter'); ?>: <a href="<?php print $settings['twitter']; ?>" target="_blank"><?php print $settings['twitter']; ?></a></span>,
