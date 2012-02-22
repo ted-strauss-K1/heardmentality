@@ -3,7 +3,9 @@
 ?>
 <?php
   global $base_url;
-    
+  $path = '<front>';
+  $sitelink = url($path, array('absolute' => TRUE)).'/';    
+  
     //category details
   //print_r($ctitle); exit;
         if(!empty($subject)){
@@ -42,7 +44,7 @@
 				<br class="clear">
 				<hr class="short">
 				<br>
-				<p class="issue-meta"><?php print t('Posted on'); ?> <?php print $created; ?> <br><?php print t('by');?> <a class="username"><?php print $postedby; ?></a>.
+				<p class="issue-meta"><?php print t('Posted on'); ?> <?php print $created; ?> <br><?php print t('by');?> <a class="username" href="<?php print $sitelink.'profile/'.$postedby; ?>" ><?php print $postedby; ?></a>.
                                 <?php print t('Read original post in');?> <a href="<?php print $base_url.'/'.$orgLangKey.'/'.$path;?>"><?php print $original_language; ?></a> </p>
 
 				<div class="clear"></div>
