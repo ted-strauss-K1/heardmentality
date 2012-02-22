@@ -1,6 +1,8 @@
 <?php	
 $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/'; 
+$items['reply_content'] = str_replace("\r\n", "<br>", $items['reply_content']);  
+$items['reply_content'] = str_replace("\n", "<br>", $items['reply_content']);
 ?>
 <li id="reply-block-<?php print $items['cid'];?>">
       <a href="javascript:void(0);" class="icon flag2" onclick="open_flag_box(<?php print $items['cid'];?>, 'comment')" title="flag this Reply"></a>
