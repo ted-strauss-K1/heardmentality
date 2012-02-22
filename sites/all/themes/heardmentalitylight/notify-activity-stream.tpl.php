@@ -8,33 +8,33 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 
  $username = '<span class="name">
         <a href="'.$sitelink.'profile/' .$udetails->name.'" title="'.t($udetails->name).'">'. $udetails->name.'</a>
-    </span><br>';
+    </span>&nbsp;';
 ?>
 <li>
-    <a href="<?php print $sitelink.'profile/'.$udetails->name; ?>"><img class="following-user listed" src="<?php print $userPicture;?>" alt="" /></a>
+    <!--<a href="<?php print $sitelink.'profile/'.$udetails->name; ?>"><img class="following-user listed" src="<?php print $userPicture;?>" alt="" /></a>-->
 
     
  <?php if($message_id == 'add_question'){?>
 	<p class="action-item">
             <?php print $username; ?>
-            <?php print t('Added a new issue'); ?>: "
+            <?php print t('added a new issue'); ?>: "
             <?php print l($data['q_title'].'?', $url); ?>"</p>
         <?php }else if($message_id == 'add_vote'){?>
         <p class="action-item">
             <?php print $username; ?>
-            <?php print t('Voted on the issue'); ?>: "
+            <?php print t('voted on the issue'); ?>: "
             <?php print l($data['q_title'].'?', $url); ?>"</p>
         <p class="action-comment-ref"><?php print t($node->body); ?></p>
         <?php }else if($message_id == 'add_debate'){?>
         <p class="action-item">
             <?php print $username; ?>
-            <?php print t('Posted an argument on the issue'); ?>: "
+            <?php print t('posted an argument on the issue'); ?>: "
             <a href="<?php print $sitelink.$url.'#forum-block-'.$data['did'];?>"><?php print t($data['q_title']); ?>?</a>"</p>
         <p class="action-comment-ref"><?php print t($data['d_title']); ?></p>
         <?php }else if($message_id == 'add_resource'){?>
         <p class="action-item">
             <?php print $username; ?>
-            <?php print t('Posted a reference on the issue'); ?>: "
+            <?php print t('posted a reference on the issue'); ?>: "
             <a href="<?php print $sitelink.$url.'#forum-block-'.$data['rid'];?>"><?php print t($data['q_title']); ?>?</a>"</p>
         <p class="action-comment-ref">
             <?php
@@ -76,13 +76,13 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
         <?php }else if($message_id == 'deb_agree'){?>
         <p class="action-item">
             <?php print $username; ?>
-            <?php print t('Strengthened an argument on the issue'); ?>: "
+            <?php print t('strengthened an argument on the issue'); ?>: "
             <a href="<?php print $sitelink.$url.'#forum-block-'.$data['did'];?>"><?php print t($data['q_title']); ?>?</a>"</p>
         <p class="action-comment-ref"><?php print t($data['d_title']); ?></p>
         <?php }else if($message_id == 'deb_disagree'){?>
         <p class="action-item">
             <?php print $username; ?>
-            <?php print t('Weakened an argument on the issue'); ?>: "
+            <?php print t('weakened an argument on the issue'); ?>: "
             <a href="<?php print $sitelink.$url.'#forum-block-'.$data['did'];?>"><?php print t($data['q_title']); ?>?</a>"</p>
         <p class="action-comment-ref"><?php print t($data['d_title']); ?></p>
         <?php }else if($message_id == 'resource_reply_agree' || $message_id == 'resource_reply_disagree'){
