@@ -1,7 +1,7 @@
 <?php global $user;
 $loginBoxClass = $user->uid==0?'openlogin_box':'';
 $path = '<front>';
-$sitelink = url($path, array('absolute' => TRUE)).'/';
+$sitelink = url($path, array('absolute' => TRUE)).'/'; 
 ?>
 <div id="forum-block-<?php print $items['debate_tnid'];?>">
 <?php if($comments){ ?>
