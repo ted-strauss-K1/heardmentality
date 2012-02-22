@@ -1671,7 +1671,7 @@ function search_issue_results(){
     }else{
         $issue .= t('No Issues Found');
     }
-    return $issue;
+    return $issue; 
 }
 /******************************/
 
