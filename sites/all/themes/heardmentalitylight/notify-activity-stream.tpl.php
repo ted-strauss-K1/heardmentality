@@ -8,7 +8,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 
  $username = '<span class="name">
         <a href="'.$sitelink.'profile/' .$udetails->name.'" title="'.t($udetails->name).'">'. $udetails->name.'</a>
-    </span>&nbsp;'; 
+    </span>'; 
 ?>
 <li>
     <a href="<?php print $sitelink.'profile/'.$udetails->name; ?>"><img class="following-user listed" src="<?php print $userPicture;?>" alt="" /></a>
