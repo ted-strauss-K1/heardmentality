@@ -82,7 +82,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
         <?php }else if($message_id == 'deb_disagree'){?>
         <p class="action-item">
             <?php print $username; ?>
-            <?php print t('weakened an argument on the issue'); ?>: "
+            <?php print t('weakened an argument on the issue'); ?>: " 
             <a href="<?php print $sitelink.$url.'#forum-block-'.$data['did'];?>"><?php print t($data['q_title']); ?>?</a>"</p>
         <p class="action-comment-ref"><?php print t($data['d_title']); ?></p>
         <?php }else if($message_id == 'resource_reply_agree' || $message_id == 'resource_reply_disagree'){
