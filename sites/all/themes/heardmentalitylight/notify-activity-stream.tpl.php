@@ -11,7 +11,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
     </span><br>';
 ?>
 <li>
-    <!--<a href="<?php print $sitelink.'profile/'.$udetails->name; ?>"><img class="following-user listed" src="<?php print $userPicture;?>" alt="" /></a>-->
+    <a href="<?php print $sitelink.'profile/'.$udetails->name; ?>"><img class="following-user listed" src="<?php print $userPicture;?>" alt="" /></a>
 
     
  <?php if($message_id == 'add_question'){?>
