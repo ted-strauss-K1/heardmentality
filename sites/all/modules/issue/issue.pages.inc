@@ -805,7 +805,7 @@ map.setCenter(new GLatLng(Math.round(lat),Math.round(lng) ), 5);
 		
 	 /*Rally dev - 507 - Remove the display of zoom and filter, so we clear the variables of control below*/
      $zoom = " ";
-	 $filter = " ";
+	 $filter = " "; 
 	 /*****************/
 	 
     $out .= $script;
