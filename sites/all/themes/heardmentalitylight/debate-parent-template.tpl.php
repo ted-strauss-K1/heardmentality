@@ -2,6 +2,8 @@
 $loginBoxClass = $user->uid==0?'openlogin_box':'';
 $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/'; 
+$items['title'] = str_replace("\r\n", "<br>", $items['title']);  
+$items['title'] = str_replace("\n", "<br>", $items['title']);
 ?>
 <div id="forum-block-<?php print $items['debate_tnid'];?>">
 <?php if($comments){ ?>
