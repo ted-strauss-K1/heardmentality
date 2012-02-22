@@ -4,6 +4,7 @@ $gSitePath = $base_path.'/';
  $path=$gSitePath.  drupal_get_path('theme',$theme);
  $node=node_load(array('nid'=>$nid));
  $tnid = get_tnid($nid);
+ $context = str_replace("\r\n", "<br>", $context);  
 ?>
 <?php if($user->uid!=0){?>
 <a class="icon flag" id="dialog_link-flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
