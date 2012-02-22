@@ -1362,7 +1362,7 @@ function issue_search_form_submit($form, &$form_state){
 }
 
 // search issue results
-function search_issue_results(){
+function search_issue_results__problamatic(){
     global $language;
     $issue = '';
     $curLanguage = $language->language;
@@ -1526,6 +1526,154 @@ function search_issue_results(){
     return $issue;
 }
 
+/********NEW - Need to make proper*******/
+// search issue results
+function search_issue_results(){
+    global $language;
+    $issue = '';
+    $curLanguage = $language->language;
+    
+    $key = arg(1)!='0'?arg(1):'';
+    $subject = arg(2)!='0'?arg(2):'';
+    $area = arg(3)!='0'?arg(3):'';
+    $detail = arg(4)!='0'?arg(4):'';
+    $country = arg(5)!='0'?arg(5):'';
+    $state = arg(6)!='0'?arg(6):'';
+    $city = arg(7)!='0'?arg(7):'';
+
+    $sortValue = arg(8)!=''?arg(8):'all';
+    $where = '';
+    $groupBy = '';
+    
+   
+    $rec_per_page = 5;
+
+    
+    $val = array();
+    // conditions key
+    if(!empty($key)){
+		$where .= "AND ( nr.title like '%%$key%%' OR  nr.body like '%%$key%%'  OR  (MATCH(nr.title, nr.body) AGAINST('$key*' IN BOOLEAN MODE)) ) ";
+    }
+    // categories
+    if(!empty($detail)){
+        $where .= " AND tn.tid = '$detail' ";
+        $val[] = $detail;
+        
+    }elseif(!empty($area)){
+        $where .= " AND tn.tid = '$area' ";
+        $val[] = $area;
+        
+    }elseif(!empty($subject)){
+        $where .= " AND tn.tid = '$subject' ";
+        $val[] = $subject;
+        
+    }
+    // locations
+    if(!empty($country)){
+        $where .= "AND cc.field_issue_country_value = '$country' ";
+        $val[] = $country;
+        
+    }
+    if(!empty($state)){
+        $where .= "AND cs.field_issue_state_value = '$state' ";
+        $val[] = $state;
+        
+    }
+    if(!empty($city)){
+        $where .= "AND ct.field_issue_city_value = '$city' ";
+        $val[] = $city;
+        
+    }
+
+    // filter with default language if issue key is empty
+    //if($key!=''){
+        if($curLanguage=='en'){
+           $langFilter = "AND (n.language = '$curLanguage' OR n.language = '')";
+        }else{
+           $langFilter = "AND n.language = '$curLanguage'";
+        }
+    //}
+    //$langFilter = $key==''?"AND n.language = '$curLanguage'":'';
+
+
+     switch($sortValue){
+        case 'alltime':
+            $sortBy = 'ORDER BY COUNT(pv.nid) DESC';
+            $groupBy = 'GROUP BY pv.nid';
+
+            $sql = "SELECT pv.nid FROM {poll_votes} AS pv JOIN
+                (SELECT DISTINCT(n.nid) FROM {node} AS n
+                JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+                JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+                JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+                LEFT JOIN {term_node} AS tn ON n.nid = tn.nid 
+                WHERE n.type = 'poll' $langFilter $where) AS temp ON pv.nid = temp.nid $groupBy $sortBy";
+            break;
+        case '7days':
+            $where .= 'AND pv.date_voted >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)';
+            $sortBy = 'ORDER BY SUM(pc.chvotes) DESC';
+            $groupBy = 'GROUP BY pc.nid';
+
+            $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
+            JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+            JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+            JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+            JOIN {poll_choices} AS pc ON n.nid = pc.nid
+            LEFT JOIN {poll_votes} AS pv ON n.nid = pv.nid
+            LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
+            WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
+
+            break;
+        case 'views':
+            $sortBy = 'ORDER BY COUNT(qv.qid) DESC';
+            $groupBy = 'GROUP BY iss.nid';
+
+          $sql = "SELECT iss.nid as nid FROM
+                     (SELECT DISTINCT(n.nid) FROM {node} AS n
+                    JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+                    JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+                    JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+                    LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
+                   WHERE n.type = 'poll' $langFilter $where) AS iss LEFT JOIN {qviews} AS qv ON iss.nid = qv.qid $groupBy $sortBy";
+
+            break;
+        default:
+            $sortBy = 'ORDER BY n.nid DESC';
+            $groupBy = '';
+
+            $sql = "SELECT DISTINCT(n.nid) FROM {node} AS n JOIN {node_revisions} AS nr ON n.nid = nr.nid
+            JOIN {content_field_issue_country} AS cc ON n.nid = cc.nid
+            JOIN {content_field_issue_state} AS cs ON n.nid = cs.nid
+            JOIN {content_field_issue_city} AS ct ON n.nid = ct.nid
+            LEFT JOIN {term_node} AS tn ON n.nid = tn.nid
+            WHERE n.type = 'poll' $langFilter $where $groupBy $sortBy";
+
+            break;
+    }
+
+   
+   $sqlcount = ExecuteQuery($sql, 'norows');
+
+   $final = $sql;
+   //echo $final; 
+   
+   $query = pager_query_new($final, $rec_per_page, 0, $sqlcount);
+	  
+
+    $count = db_affected_rows($query);
+    if($sqlcount){
+    while($result = db_fetch_object($query)){
+        $nid = $result->nid;
+        $node = node_load($nid);
+        $issue .= node_view(node_load($node->nid), 1);
+    }
+    $issue .= '<div class="pagination">'.theme('pager', array(), $rec_per_page).'</div><br class="clear">';
+    }else{
+        $issue .= t('No Issues Found');
+    }
+    return $issue;
+}
+/******************************/
 
 function issue_debates($qid='', $type='') {
     global $user, $language, $theme;
