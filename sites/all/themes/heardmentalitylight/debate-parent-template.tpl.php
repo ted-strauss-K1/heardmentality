@@ -1,5 +1,7 @@
 <?php global $user;
 $loginBoxClass = $user->uid==0?'openlogin_box':'';
+$path = '<front>';
+$sitelink = url($path, array('absolute' => TRUE)).'/';
 ?>
 <div id="forum-block-<?php print $items['debate_tnid'];?>">
 <?php if($comments){ ?>
@@ -9,9 +11,9 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
 <?php }?>
 <ul>
 <li>
-    <a href="javascript:void(0);" class="icon flag2" onclick="open_flag_box(<?php print $items['debate_tnid'];?>, 'node')" title="flag this argument"></a>
-    <img src="<?php print UserPicture_small_src($items['uid']); ?>" alt="<?php print $items['uname']; ?>" class="user-thumb" >
-    <span class="name"><a><?php print $items['uname']; ?></a></span>
+    <a href="#" class="icon flag2" title="flag this argument"></a>
+    <a href="<?php print $sitelink.'profile/'.$items['uname']; ?>"><img src="<?php print UserPicture_small_src($items['uid']); ?>" alt="<?php print $items['uname']; ?>" class="user-thumb" ></a>
+    <span class="name"><a href="<?php print $sitelink.'profile/'.$items['uname']; ?>"><?php print $items['uname']; ?></a></span>
     <p><?php print t($items['title']); ?></p>
     <p class="comment-meta"><a><?php print $reply_count; ?> <?php print t('Replies'); ?></a></p>
     
