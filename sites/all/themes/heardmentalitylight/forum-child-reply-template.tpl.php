@@ -1,7 +1,11 @@
+<?php	
+$path = '<front>';
+$sitelink = url($path, array('absolute' => TRUE)).'/';
+?>
 <li id="reply-block-<?php print $items['cid'];?>">
       <a href="javascript:void(0);" class="icon flag2" onclick="open_flag_box(<?php print $items['cid'];?>, 'comment')" title="flag this Reply"></a>
-  <img src="<?php print $userPicture; ?>" class="user-thumb" />
-  <span class="name"><a><?php print $items['uname']; ?></a></span>
+  <a href="<?php print $sitelink.'profile/'.$items['uname']; ?>"><img src="<?php print $userPicture; ?>" class="user-thumb" /></a>
+  <span class="name"><a href="<?php print $sitelink.'profile/'.$items['uname']; ?>"><?php print $items['uname']; ?></a></span>
   <p><?php print t($items['reply_content']); ?></p>
   <p class="comment-meta"><a><?php //print t('No Replies'); ?></a></p>
   <br class="clear">
