@@ -423,6 +423,10 @@
   .double{font-size:110%;}
   .twelve{font-size:13px;line-height:1em;margin-top:-10px;letter-spacing:0.1em;color:#666}
 	.minus-ten {margin-top:-10px;font-size:12px;line-height:1em}
+
+	/*Rallydev-522*/
+  #issue-create-form #related-issues, #issue-create-form .before-submit {display:none;}
+  
 /* #EXPANDING BOX
 ================================================== */	
 	
