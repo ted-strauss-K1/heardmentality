@@ -2,14 +2,16 @@
 global $base_url;
     $image = !empty($items['image']) ? $items['image'] : file_directory_path() . '/noimage.jpg';
     $loginBoxClass = $user->uid==0?'openlogin_box':'';
+    $path = '<front>';
+	$sitelink = url($path, array('absolute' => TRUE)).'/';
 ?>
 <div id="forum-block-<?php print $items['resource_id'];?>">
 
 
 <li>
-    <a href="javascript:void(0);" class="icon flag2" onclick="open_flag_box(<?php print $items['resource_id'];?>, 'node')" title="flag this argument"></a>
-    <img src="<?php print UserPicture_small_src($items['uid']); ?>" alt="<?php print $items['uname']; ?>" class="user-thumb" >
-    <span class="name"><a><?php print $items['uname']; ?></a></span>
+    <a href="#" class="icon flag2" title="flag this argument"></a>
+    <a href="<?php print $sitelink.'profile/'.$items['uname']; ?>"><img src="<?php print UserPicture_small_src($items['uid']); ?>" alt="<?php print $items['uname']; ?>" class="user-thumb" ></a>
+    <span class="name"><a href="<?php print $sitelink.'profile/'.$items['uname']; ?>"><?php print $items['uname']; ?></a></span>
         <?php
         if($items['rtype'] == 'news' || $items['rtype'] == 'facts'){
 
