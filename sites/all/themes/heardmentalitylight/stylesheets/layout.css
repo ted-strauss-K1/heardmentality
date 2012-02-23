@@ -2615,7 +2615,7 @@ input.form-text.upload{
     margin-bottom:12px;
 }
 .poll-vote-area{
-    
+    width:100%;
 }
 .poll-vote-area p a:visited{
     text-decoration:none;
