@@ -18,7 +18,7 @@ e.stopPropagation();
  });
  
  
-/**Rallydev 492**/ 
+/**Rallydev 495**/ 
 $(document).ready(function(){
 
   $('.profile-close-icon').click(function() { 
