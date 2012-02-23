@@ -3,13 +3,11 @@ global $user, $base_url,$base_path;
 $directoryPath = $base_path . $directory;
 $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
-
-print "Profile box status :".$_SESSION['hide_profile_box'];
 ?>
 <?php if($complete_percent['percent']<100 && !isset($_SESSION['hide_profile_box']) ){ ?>
 <div class="message right-message">
 
-  <a href="#" id="button" class="hide-message2 ui-dialog-titlebar-close profile-close-icon"><span class="ui-icon ui-icon-closethick ">close</span></a>
+  <a href="#" id="button" class="hide-message2 ui-dialog-titlebar-close profile-close-icon"><span class="ui-icon ui-icon-closethick">close</span></a>
 
                                     <p class="profile-status"><strong><?php print t('Your profile is !complete% Complete', array('!complete' => $complete_percent['percent']))?></strong></p>
 <div class="profile-complete">
