@@ -18,13 +18,12 @@ e.stopPropagation();
  });
  
  
- 
+/**Rallydev 492**/ 
 $(document).ready(function(){
 
   $('.profile-close-icon').click(function() { 
     var request_path = Drupal.settings.hm_base_url;
 	urls = request_path + '/profile/profile_box_session';
-	alert(urls);
 	jQuery.ajax({
 		type: "GET",
 		url: urls,
@@ -32,7 +31,6 @@ $(document).ready(function(){
 		
 		},
 		success: function(msg){
-          alert(msg);
 		  $('.right-message').hide();
 		}
 	});
