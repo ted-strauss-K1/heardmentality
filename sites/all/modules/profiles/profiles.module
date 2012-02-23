@@ -277,7 +277,7 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
                 'info' => t('Following Counts'),
             );
             $blocks[8] = array(
-                'info' => t('Issues Search Count'),
+                'info' => t('Issues Search Count'), 
             );
             return $blocks;
 
