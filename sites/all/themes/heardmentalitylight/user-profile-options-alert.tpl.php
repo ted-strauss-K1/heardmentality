@@ -5,7 +5,7 @@ $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
 ?>
 <?php if($complete_percent['percent']<100 && !isset($_SESSION['hide_profile_box']) ){ ?>
-<div class="message right-message">
+<div class="message right-message profile-status-toggle">
 
   <a href="#" id="button" class="hide-message2 ui-dialog-titlebar-close profile-close-icon"><span class="ui-icon ui-icon-closethick">close</span></a>
 
