@@ -23,7 +23,7 @@ $(document).ready(function(){
 
   $('.profile-close-icon').click(function() { alert("clicked for close");
     var request_path = Drupal.settings.hm_base_url;
-	urls = request_path + '/profile_box_session';
+	urls = request_path + '/profile/profile_box_session';
 	alert(urls);
 	jQuery.ajax({
 		type: "GET",
