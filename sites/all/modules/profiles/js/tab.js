@@ -16,3 +16,37 @@ e.stopPropagation();
 
     });
  });
+ 
+ 
+ 
+$(document).ready(function(){
+
+  $('.profile-close-icon').click(function(){
+    var request_path = Drupal.settings.hm_base_url;
+	alert(request_path);
+  });
+  
+
+});
+
+function profile_box_session() {
+
+	/*jQuery(document).ready(function(){
+		var urls = gSitePath+'savefollowing';
+		var divid = '#record-'+fid;
+		var follid = '#followname-'+fid;
+		var followname = jQuery(follid).val();
+		jQuery.ajax({
+			type: "GET",
+			url: urls,
+			data: {
+			   'delete':  fid
+			},
+			success: function(msg){
+				jQuery(divid).remove();
+				show_inotify("You now unfollowed from "+followname+"!");
+			}
+		});
+	})
+*/
+}
