@@ -30,6 +30,7 @@ function profiles_menu() {
 		'title' => ' Privacy Profile', 
 		'page callback' => 'profile_box_session', 
 		'access' => TRUE,  
+		'access arguments' => array('Profile View'),
 		'type' => MENU_CALLBACK, 
 		'file' => 'profiles.pages.inc',
 	);
