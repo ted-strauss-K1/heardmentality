@@ -126,7 +126,7 @@ $directoryPath = $base_path . $directory;
 
 			<div class="seven columns">
 
-				<div class="white-box">
+				<div class="white-box hide-on-mobiles">
 					<?php if($front_heat_map): print $front_heat_map; endif; ?>
                                     
 				</div>
