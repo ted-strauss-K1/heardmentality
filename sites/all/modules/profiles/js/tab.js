@@ -31,7 +31,7 @@ $(document).ready(function(){
 		
 		},
 		success: function(msg){
-		  $('.right-message').remove();
+		  $('.profile-status-toggle').remove();
 		}
 	});
 		
