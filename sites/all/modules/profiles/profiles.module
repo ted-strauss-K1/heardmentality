@@ -29,7 +29,7 @@ function profiles_menu() {
 	$items['profile/profile_box_session'] = array(
 		'title' => ' Privacy Profile', 
 		'page callback' => 'profile_box_session', 
-		'access' => TRUE, 
+		'access' => TRUE,  
 		'type' => MENU_CALLBACK, 
 		'file' => 'profiles.pages.inc',
 	);
