@@ -313,10 +313,25 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
                     $block['subject'] = t("Following Counts");
                     $block['content'] = _following_counts();
                     break;
+                case 8:
+                    $block['subject'] = t("Issues Search Count");
+                    $block['content'] = hm_issues_search_count();
+                    break;					
             }
             return $block;
     }
 }
+
+function hm_issues_search_count() {
+
+  $count =  t("# Issues : <em>!search-count</em> ",array("!search-count" => variable_get("hm_search_results_count","")));
+  $output = 
+	 '<div class="message right-message">
+	  <p class="profile-status"><strong>'.$count.'</strong></p>                 
+	 </div>';
+  return $output;
+}
+
 function report_theme(){
 
    drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/debate.js');
