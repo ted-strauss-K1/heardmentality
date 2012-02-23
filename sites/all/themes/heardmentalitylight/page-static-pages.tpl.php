@@ -79,6 +79,7 @@ $directoryPath = $base_path . $directory;
        <?php endif; ?>
     </div>
         <div class="twelve columns">
+        <br>
 	    <div class="white-box page">
 
 				<?php print $node->body;
