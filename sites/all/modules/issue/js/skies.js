@@ -17,15 +17,14 @@ Highcharts.theme = {
 			]
 		},
 		plotBorderWidth: 1,
-                shadow: true
+      shadow: false
 	},
 	chart: {
     animation: true,
     backgroundColor: "eee",
     className: "",
     height: 200,
-  }
-  
+  } 
 };
 
 // Apply the theme

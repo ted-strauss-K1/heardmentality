@@ -2,7 +2,7 @@
 <h2 class="din"><?php print t('Results'); ?></h2>
 				<div class="vote-results">
 			  	<ul>
-                                  <li>
+                                  <li class="full">
 
 							<p class="result-title dinbold"><?php print t('Ethnicity'); ?></p>
 			  	    <?php print $report_percent;?>
@@ -19,7 +19,7 @@
 			  	    <?php print $map;?>
 
 			  	  </li>
-			  	  <li>
+			  	  <li class="full">
 							<p class="result-title dinbold"><?php print t('Vote History'); ?></p>
 			  	    <?php print $report_graph;?>
 			  	  </li>
