@@ -21,7 +21,7 @@ e.stopPropagation();
  
 $(document).ready(function(){
 
-  $('.profile-close-icon').click(function() { alert("clicked for close");
+  $('.profile-close-icon').click(function() { 
     var request_path = Drupal.settings.hm_base_url;
 	urls = request_path + '/profile/profile_box_session';
 	alert(urls);
@@ -33,7 +33,7 @@ $(document).ready(function(){
 		},
 		success: function(msg){
           alert(msg);
-		  $(this).parent().hide();
+		  $('.right-message').hide();
 		}
 	});
 		
