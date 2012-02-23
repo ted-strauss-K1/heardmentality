@@ -1890,6 +1890,10 @@ p.policy a:hover{
 			width:338px;
 		}
 		
+		.border-bottom {
+		  margin-top:0px;
+		}
+		
 		.main-banner-display {
 			display:none;
 		}
