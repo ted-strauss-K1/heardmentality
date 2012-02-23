@@ -117,7 +117,7 @@ $100</div>
 <div class="clr"></div>
 <div class="row1"><br />
 
-<h3 class="din">Public comment</strong><h3 />
+<h3 class="din">Public comment</strong></h3>
 <p>Have a thought to share with the world? Put up to 200 characters here:<p>
 
 <div class="textbox-lengthy">
@@ -134,7 +134,7 @@ $100</div>
 </div>
 <div class="clr"></div>
 <div>
-<h3 class="din">Other ways to give</strong><h3 />
+<h3 class="din">Other ways to give</strong></h3>
 
 <p>For more information about our non-profit status or other questions , <span><a href="#" class="links">click here.</a></span></p>
 
