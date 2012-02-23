@@ -617,4 +617,5 @@ function user_details_submit($form, &$form_state) {
 function profile_box_session() {
    $_SESSION['hide_profile_box'] = 1;
    print "Profile Box Vanished";
+   exit;
 }
