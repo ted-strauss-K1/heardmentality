@@ -23,7 +23,7 @@ Highcharts.theme = {
     animation: true,
     backgroundColor: "eee",
     className: "",
-    height: 500,
+    height: 200,
   }
   
 };
