@@ -12,13 +12,19 @@ Highcharts.theme = {
 		plotBackgroundColor: {
 			linearGradient: [0, 0, 250, 500],
 			stops: [
-				[0, 'rgba(1, 1, 255, 1)'],
-				[1, 'rgba(255, 1, 1, 0)']
+				[0, 'rgba(255, 255, 255, 1)'],
+				[1, 'rgba(255, 255, 255, 0)']
 			]
 		},
 		plotBorderWidth: 1,
                 shadow: true
-	}
+	},
+	chart: {
+    animation: true,
+    backgroundColor: "eee",
+    className: ""
+  }
+  
 };
 
 // Apply the theme
