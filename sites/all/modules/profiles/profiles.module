@@ -326,7 +326,7 @@ function profiles_block($op = 'list', $delta = 0, $edit = array()) {
 
 function hm_issues_search_count() {
 
-  $count =  t("# Issues : <em>!search-count</em> ",array("!search-count" => variable_get("hm_search_results_count","")));
+  $count =  t("<em>!search-count</em> Issues :  ",array("!search-count" => variable_get("hm_search_results_count","")));
   $output = 
 	 '<div class="message right-message">
 	  <p class="profile-status"><strong>'.$count.'</strong></p>                 
