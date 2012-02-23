@@ -33,6 +33,7 @@ $(document).ready(function(){
 		},
 		success: function(msg){
           alert(msg);
+		  $(this).parent().hide();
 		}
 	});
 		
@@ -40,13 +41,3 @@ $(document).ready(function(){
   
 
 });
-
-function profile_box_session() {
-
-	jQuery(document).ready(function(){
-		
-	
-
-	})
-
-}
