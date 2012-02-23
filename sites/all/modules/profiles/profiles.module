@@ -3,7 +3,7 @@
 /**
  * Storing the base url in the js variable
  */
-function profiles_init() {
+function profiles_init() { 
   global $base_url;
   drupal_add_js(array('hm_base_url' => $base_url),'setting');
 }
