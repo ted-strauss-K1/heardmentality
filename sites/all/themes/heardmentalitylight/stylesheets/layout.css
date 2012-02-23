@@ -1957,6 +1957,11 @@ p.policy a:hover{
 
 	/* Anything smaller than standard 960 */
 	@media only screen and (max-width: 967px) {
+	  
+	  .hide-on-mobiles {
+		  display:none;
+		}
+		
 		.circle-box {
 			background:url(../images/circle_bg.png) center -13px no-repeat;
 			margin:50px 0px 10px 0px;
@@ -2010,6 +2015,10 @@ p.policy a:hover{
 	
 	/* Mobile Only */
 	@media only screen and (max-width: 767px)  {
+		
+		.hide-on-mobiles {
+		  display:none;
+		}
 		
 		.top-left {
 			float:left;
@@ -2160,7 +2169,6 @@ p.policy a:hover{
 		input.form-text, input.form-text.user-search {
 			width:250px;
 		}
-
 		.select-cat {
 			float:left;
 			width:100%;

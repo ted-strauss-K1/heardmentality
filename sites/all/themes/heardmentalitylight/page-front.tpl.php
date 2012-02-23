@@ -120,10 +120,8 @@ $directoryPath = $base_path . $directory;
 		<div class="container">
 			<div class="nine columns">
 				<?php if($happening_now):?>
-  				<?php print $happening_now;?>
-                                <?php endif; ?>
-
-				<!--<a class="icon2 download text dinbold" href="Heard_Mentality.zip">Download</a>-->
+  			<?php print $happening_now;?>
+        <?php endif; ?>
 			</div>
 
 			<div class="seven columns">
