@@ -22,7 +22,9 @@ Highcharts.theme = {
 	chart: {
     animation: true,
     backgroundColor: "eee",
-    className: ""
+    className: "",
+    renderTo: 'container',
+    height: 500
   }
   
 };
