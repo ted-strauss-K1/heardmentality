@@ -23,8 +23,7 @@ Highcharts.theme = {
     animation: true,
     backgroundColor: "eee",
     className: "",
-    renderTo: 'container',
-    height: 500
+    height: 500,
   }
   
 };
