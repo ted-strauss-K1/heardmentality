@@ -8,5 +8,5 @@
   <ul class="action">
     <?php print $block->content;?>
   </ul>
-  <br><br>
+  <br class="clear"><br>
 </div>
