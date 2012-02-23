@@ -108,24 +108,23 @@
 			-moz-transition-delay: initial, initial
 		}
 		
-		ul.menu li a:nth-child(even){
-		  background:#F7314A;
-			color:white;
+		ul.menu li:nth-child(odd){background:#D81A29;color:white;}
+		ul.menu li:nth-child(even){background:#F7314A;color:white;}
+		
+		ul.menu li.login{
+      background:#000;
 		}
+		
 		ul.menu li a.add {background:#ccc;color:#111;margin:0px}
 		ul.menu li a.add-2 {background:#bbb;color:#111;margin:0px}
 		ul.menu li a:hover.add {color:white;background:#000;}
-		ul.menu li a.issues, ul.menu li a.following  {background:#F7314A;color:white;}
-		ul.menu li a:hover.issues, ul.menu li a:hover.following  {background:#434bf0;color:white;}
-		ul.menu li a.analysis  {	background:#D81A29;color:white;}
 		ul.menu li a:hover.analysis {	background:#434bf0;color:white;}
 
 
 		ul.menu li a:hover, ul.menu li a:active, ul.menu li a.active{
 			background:#434bf0;
 			color:white;
-		}	
-    
+		} 
     ul.lang {margin:0px 0px 5px 5px;}
     ul.lang li{float:right;margin:2px 5px 12px 10px;text-transform:uppercase;color:#333;font-size:11px;line-height:11px;letter-spacing:0.1em;}
     ul.lang li a{color:#222;}
@@ -2024,10 +2023,14 @@ p.policy a:hover{
 		}
 		ul.menu li{
 			float:left;
-			
 			color:white;
 			text-transform:uppercase
 		}
+		
+		ul.menu li.login{
+      background:transparent;
+		}
+		
 		ul.menu li a{
 			color:white;
 			text-decoration:none;

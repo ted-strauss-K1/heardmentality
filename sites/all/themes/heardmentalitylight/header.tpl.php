@@ -7,7 +7,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 				<div class="navigation">
 					<div class="top-right login">
 					  <ul class="menu">
-							<li>
+							<li class="login">
 							  <a href="#" id="dialog_link" class="ui-state-default ui-corner-all login">
                   <?php if($user->uid == ''){
                               print t('LOGIN');
