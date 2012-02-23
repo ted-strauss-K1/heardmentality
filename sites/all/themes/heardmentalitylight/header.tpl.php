@@ -7,15 +7,16 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 				<div class="navigation">
 					<div class="top-right login">
 					  <ul class="menu">
-							<li><a href="#" id="dialog_link" class="ui-state-default ui-corner-all login">
-                                                                <?php if($user->uid == ''){
-                                                                            print t('LOGIN');
-                                                                        }else{
-                                                                           print $user->name;
-                                                                        }
-                                                                ?>
-                                                            </a></li>
-                                                                
+							<li>
+							  <a href="#" id="dialog_link" class="ui-state-default ui-corner-all login">
+                  <?php if($user->uid == ''){
+                              print t('LOGIN');
+                          }else{
+                             print $user->name;
+                          }
+                  ?>
+                </a>
+              </li>                                                  
 						</ul>
 				  </div>
 					<div class="top-left">
@@ -26,9 +27,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                                                     ?>
                                                     <li><?php print l(t($mainMenu['title']), $mainMenu['href'], array('attributes' => array('class'=>'issues'))); ?></li>
                                                     <?php }?>
-<!--							<li><a href="" class="issues">Issues</a></li>
-							<li><a href="" class="analysis">Following</a></li>
-							<li><a href="" class="following">Analysis</a></li>-->
+
 						</ul>
 					</div>
 
