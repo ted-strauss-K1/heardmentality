@@ -8,7 +8,7 @@ Highcharts.theme = {
 	chart: {
 		className: 'skies',
 		borderWidth: 0,
-		plotShadow: true,
+		plotShadow: false,
 		plotBackgroundColor: {
 			linearGradient: [0, 0, 250, 500],
 			stops: [

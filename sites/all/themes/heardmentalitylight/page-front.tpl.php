@@ -106,7 +106,7 @@ $directoryPath = $base_path . $directory;
 		</div>
 		<br class="clear"><br><br>
 		<div class="container">
-			<div class="sixteen columns">
+			<div class="sixteen columns top-mobile">
 
 					<div class="border-bottom">
 						<p class="din banner-text"><?php print t('Heard Mentality: The Global Forum for Public Opinion');?>.</p>

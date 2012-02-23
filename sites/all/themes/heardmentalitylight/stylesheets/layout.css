@@ -1962,6 +1962,9 @@ p.policy a:hover{
 	  .hide-on-mobiles {
 		  display:none;
 		}
+		.top-mobile {
+		  margin-top:-20px;
+		}
 		
 		.circle-box {
 			background:url(../images/circle_bg.png) center -13px no-repeat;
@@ -2019,6 +2022,10 @@ p.policy a:hover{
 		
 		.hide-on-mobiles {
 		  display:none;
+		}
+		
+		.top-mobile {
+		  margin-top:-20px;
 		}
 		
 		.top-left {
