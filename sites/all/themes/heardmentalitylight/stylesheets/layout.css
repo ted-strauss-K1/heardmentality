@@ -107,6 +107,11 @@
 			-moz-transition-timing-function: linear, linear, linear;
 			-moz-transition-delay: initial, initial
 		}
+		
+		ul.menu li a:nth-child(even){
+		  background:#F7314A;
+			color:white;
+		}
 		ul.menu li a.add {background:#ccc;color:#111;margin:0px}
 		ul.menu li a.add-2 {background:#bbb;color:#111;margin:0px}
 		ul.menu li a:hover.add {color:white;background:#000;}
