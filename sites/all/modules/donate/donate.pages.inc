@@ -73,7 +73,7 @@ function redirectPayment(i) {
   
 
 <div class="row1">
-<strong>Select your tax-deductible gift amount:</strong>
+<h3 class="din">Select your tax-deductible gift amount:</h3>
 <div class="clr"></div>
 
 <div class="lin1"><input type="radio" value="35" onclick="document.getElementById(\'amountGiven\').value=\'\'" id="input_amount_3" name="amount"/>$35</div> 
@@ -117,8 +117,9 @@ $100</div>
 <div class="clr"></div>
 <div class="row1"><br />
 
-<strong>Public comment</strong><br />
-Have a thought to share with the world? Put up to 200 characters here:
+<h3 class="din">Public comment</strong><h3 />
+<p>Have a thought to share with the world? Put up to 200 characters here:<p>
+
 <div class="textbox-lengthy">
 <input type="text" style="width: 70%;" maxlength="200" size="30" name="comment"/>
 </div>
@@ -133,9 +134,9 @@ Have a thought to share with the world? Put up to 200 characters here:
 </div>
 <div class="clr"></div>
 <div>
-<strong>Other ways to give</strong><br />
+<h3 class="din">Other ways to give</strong><h3 />
 
-For more information about our non-profit status or other questions , <span><a href="#" class="links">click here.</a></span>
+<p>For more information about our non-profit status or other questions , <span><a href="#" class="links">click here.</a></span></p>
 
 
 </div>
