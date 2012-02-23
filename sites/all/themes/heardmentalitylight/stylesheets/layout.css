@@ -500,6 +500,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	p.description {
 	  width:88%;
+	  line-height:1.2em;
 		float:left;
 	  padding:0px 10px 0px 0px;
 	  margin:20px 0px 40px 0px;
@@ -2666,4 +2667,4 @@ input.form-text.upload{
     padding-bottom: 7px;
 }
 
-p{ line-height:1em;}
+p{ line-height:1.2em;}
