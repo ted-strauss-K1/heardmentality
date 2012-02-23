@@ -57,6 +57,7 @@ $directoryPath = $base_path . $directory;
 
 	<div class="header">
 		<?php include 'header.tpl.php';?>
+	</div>	
 	<div class="container">
 
     <div class="toggler profile-message" style="height:auto;width:auto">
