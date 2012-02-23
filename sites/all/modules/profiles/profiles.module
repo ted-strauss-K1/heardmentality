@@ -26,7 +26,17 @@ function profiles_menu() {
     
     $items['account/edit'] = array('title' => 'Update Profile', 'page callback' => 'update_profile', 'access arguments' => array('Update Profile'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc');
 
-    return $items;
+	$items['profile/profile_box_session'] = array(
+		'title' => ' Privacy Profile', 
+		'page callback' => 'profile_box_session', 
+		'access' => TRUE,
+		'access arguments' => TRUE,
+		'type' => MENU_CALLBACK, 
+		'file' => 'profiles.pages.inc',
+	);
+	
+  
+  return $items;
 }
 
 function userTypes() {
