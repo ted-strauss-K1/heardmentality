@@ -2,10 +2,10 @@
 function donation_paypal()
 {
 global $gSitePath,$user, $gDocPath,$base_root;
-$opdonate='        <div class="do-intop">MAKE A DONATION</div>
+$opdonate='        <h1 class="do-intop din">MAKE A DONATION</h1>
         <div class="inside">
-        Heard Mentality is a nonprofit and relies on your individual donations.<br />
-        Please make your donation now.<br /><br />
+        <p>Heard Mentality is a nonprofit and relies on your individual donations.<br />
+        Please make your donation now.<br /><br /></p>
 <script language="javascript" type="text/javascript">
 function validateForm(form) {
 
