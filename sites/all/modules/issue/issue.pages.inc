@@ -1661,6 +1661,10 @@ function search_issue_results(){
 
    
    $sqlcount = ExecuteQuery($sql, 'norows');
+   
+   /**Rally dev :498**/
+   variable_set('hm_search_results_count',$sqlcount);
+   /******************/
 
    $final = $sql;
    //echo $final; 
