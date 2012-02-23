@@ -38,6 +38,7 @@ Highcharts.theme = {
 		labels: {
 			style: {
 				color: '#666',
+				rotation: 90,
 				fontWeight: 'bold'
 			}
 		},
@@ -71,8 +72,8 @@ Highcharts.theme = {
      layout: 'horizontal',
      align: 'right',
      verticalAlign: 'bottom',
-     x: 12,
-     y: 10,
+     x: 0,
+     y: 0,
      borderWidth: 0,
      floating: true
   },
