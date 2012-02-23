@@ -80,34 +80,35 @@ $directoryPath = $base_path . $directory;
   </div>
 
 	<div class="container">
-
-		<div class="one-third column">
-			<div class="circle-box">
-				<div class="see-banner">
-						<a class="see" href=""><span class="hover"></span></a>
-					</div>
-			</div>
-		</div>
-		<div class="one-third column">
-			<div class="circle-box">
-				<div class="vote-banner">
-						<a class="vote-now" href=""><span class="hover"></span></a>
-					</div>
-			</div>
-		</div>
-		<div class="one-third column ">
-			<div class="circle-box">
-				<div class="share-banner">
-						<a class="share-now" href=""><span class="hover"></span></a>
-					</div>
-			</div>
+    <div class="main-banner-display">
+  		<div class="one-third column">
+  			<div class="circle-box">
+  				<div class="see-banner">
+  						<a class="see" href=""><span class="hover"></span></a>
+  					</div>
+  			</div>
+  		</div>
+  		<div class="one-third column">
+  			<div class="circle-box">
+  				<div class="vote-banner">
+  						<a class="vote-now" href=""><span class="hover"></span></a>
+  					</div>
+  			</div>
+  		</div>
+  		<div class="one-third column ">
+  			<div class="circle-box">
+  				<div class="share-banner">
+  						<a class="share-now" href=""><span class="hover"></span></a>
+  					</div>
+  			</div>
+  		</div>
 		</div>
 		<br class="clear"><br><br>
 		<div class="container">
 			<div class="sixteen columns">
 
 					<div class="border-bottom">
-						<p class="din banner-text"><?php print t('!Heard Mentality: The Global Forum for Public Opinion');?>.</p>
+						<p class="din banner-text"><?php print t('Heard Mentality: The Global Forum for Public Opinion');?>.</p>
                                                 <a href="<?php print $sitelink;?>issues" class="button vote floatright participate"><?php print t('Be Heard!'); ?></a>
 						<div class="clear"></div>
 					</div>
