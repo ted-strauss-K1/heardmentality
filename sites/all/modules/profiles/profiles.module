@@ -347,7 +347,7 @@ function hm_issues_search_count() {
   $count =  t("<em>!search-count</em> issues ",array("!search-count" => variable_get("hm_search_results_count","")));
   $output = 
 	 '<div class="message right-message">
-	  <p class="profile-status"><strong># Issues</strong></p>   
+	  <p class="profile-status"><strong></strong></p>   
       <p class="profile-status">'.$count.'</p>   	  
 	 </div>';
   return $output;
