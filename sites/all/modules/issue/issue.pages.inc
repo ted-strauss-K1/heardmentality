@@ -866,9 +866,17 @@ function issue_create_form(&$form_state) {
                                                                 <span class="guides">'.t('Max 140 chars.').'</span></label>');
     $form['q_quest'] = array('#type' => 'textarea', '#suffix' => '
                                 <hr class="short2">', '#id' => 'q_quest',
-        '#ahah' => array('path' => 'issue/get_related_issues', 'wrapper' => 'related-issues', 'effect' => 'fade'),
         '#attributes' => array('onkeyup' => 'CountlimitChars()', 'rows' => 0, 'cols' => 0),
         );
+
+
+//    $form['q_quest'] = array('#type' => 'textarea', '#suffix' => '
+//                                <hr class="short2">', '#id' => 'q_quest',
+//        '#ahah' => array('path' => 'issue/get_related_issues', 'wrapper' => 'related-issues', 'effect' => 'fade'),
+//        '#attributes' => array('onkeyup' => 'CountlimitChars()', 'rows' => 0, 'cols' => 0),
+//        );
+
+
     $form['desc_div'] = array('#type' => 'markup', '#value' => '<label for="" class="add-on"><div class="number dinbold">2</div><span class="title ">'.t('Context').'</span><br><span class="guides">'.t('Enter a brief description or backstory to provide context. You may include links.').'</span></label>');
     $form['q_context'] = array('#type' => 'textarea', '#rows' => 4, '#suffix' => '<hr class="short2">', '#id' => 'Question', '#attributes' => array('rows' => 0, 'cols' => 0));
 //    $form['choices'][] = array('#type' => 'textfield', '#prefix' => ' <li><label><span>', '#suffix' => '</span></label></li>', '#required' => TRUE, '#id' => 'q_ans1', '#title' => 'Option1');
