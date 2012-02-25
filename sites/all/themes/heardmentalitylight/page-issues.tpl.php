@@ -81,7 +81,6 @@ $directoryPath = $base_path . $directory;
 	<div class="container">
 
             <div class="twelve columns">
-		  <h2 class="dinbold page-title"><?php print t('Issues / Search state / if any'); ?></h2>
 			<div class="grey-box search">
 				
                             <?php if($issue_search_area): print $issue_search_area; endif; ?>
