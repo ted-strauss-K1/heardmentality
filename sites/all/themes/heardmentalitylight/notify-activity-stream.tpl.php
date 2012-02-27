@@ -7,7 +7,7 @@ $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
 
  $username = '<span class="name">
-        <a href="'.$sitelink.'profile/' .$udetails->name.'" title="'.t($udetails->name).'">'. $udetails->name.'</a>
+        <a href="'.$sitelink.'profile/' .$udetails->name.'" title="'.t($udetails->name).'">'. ucwords($udetails->name).'</a>
     </span>'; 
 ?>
 <li>
