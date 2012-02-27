@@ -1,5 +1,8 @@
 <?php
 // root path
+    /**Rallydev:503**/
+    global $base_url;
+	/**/
     $path = '<front>';
     $sitelink = url($path, array('absolute' => TRUE)).'/';
 ?>
@@ -72,7 +75,7 @@
                 ,width: 280
                 ,containerID: 'componentDiv'
                 ,useFacebookConnect: 'true'
-                , redirectURL:'<?php print $base_url;?>openids/save'
+                , redirectURL:'<?php print $base_url;?>/openids/save'
                 ,facepilePosition: 'top'
         }
         </script>
