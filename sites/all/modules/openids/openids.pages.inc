@@ -504,10 +504,10 @@ if(empty($_GET['photoURL'])||empty($user->picture)){
  drupal_set_message(t("Login Error Occurs...."), $type = "error");
     }
 
-  //drupal_goto();
+  drupal_goto();
   
   /**RallyDev:503**/
-  drupal_goto($_SERVER['HTTP_REFERER']);
+  //drupal_goto($_SERVER['HTTP_REFERER']);
 }
 
 function make_login($result='', $pwd='',$blockdays='') {
