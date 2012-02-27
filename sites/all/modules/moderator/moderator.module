@@ -441,14 +441,19 @@ function moderator_edit_issues($qid = ''){
 
    //owner uid
    $ownerId = db_result(db_query("SELECT uid FROM {node} WHERE nid = '$qid'"));
-
+ 
     while ($coupon = db_fetch_object($result)) {
+	  
         $owner = $ownerId==$coupon->uid?'&nbsp;(owner)':'';
-        if($ownerId!=$coupon->uid){
+		/**Rallydev:510**/
+        if($ownerId != $coupon->uid){
         $updated = date("M d, Y",$coupon->timestamp);
-        $modHistory .= theme('mod_history_thread', $coupon->name, $updated);
+          $modHistory .= theme('mod_history_thread', $coupon->name, $updated);
         //'<p class="issue-meta">'.t('Edited By').' <a href="">'.$coupon->name.'</a> '.t('On').' '.$updated.'</p><hr>';
-        }
+        } else {
+		  $modHistory .= theme('mod_history_thread', $coupon->name.':Owner', $updated);
+		}
+		/**/
     }
     // originally posted in
     $tnid = get_tnid($qid);
