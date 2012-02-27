@@ -57,37 +57,15 @@ function debate_ajax() {
                 $count = count($web_images);
                 $totalImage = $count>10?'10':$count;
                 //$totalImage = $count;
-                
-				
-				 /**Rallydev:492**/
-				$imgSelector = '<div class="img-selector">';
-				$img_inc = 0; 
-				$final_total_image = 0;
-                for($i=0;$i<$totalImage;$i++) {
-				     $image_attributes = array();
-			         $image_attributes  = getimagesize($web_images[$i]); 
-					 if($image_attributes[0] > 32 && $image_attributes[1] > 32) { 
-					    $imgSelector .= '<div class="cur-img">
-						<img id="cur_img_'.$img_inc++.'" src="' . $web_images[$i] . '" width="118" height="73"  />
-						</div>';
-						++$final_total_image;
-					 }
-				   
-                }				
-				
-				$imgCount = $final_total_image>0?1:0;
-				$totalImage = $final_total_image;
-                $endImage = $final_total_image!=0?($final_total_image-1):0;
+                $imgCount = $count>0?1:0;
+                $endImage = $totalImage!=0?($totalImage-1):0;
                 $imgPath = $base_url.'/'.drupal_get_path('theme', 'hmware').'/images/';
-                
-               /* for($i=0;$i<$totalImage;$i++) {
+                $imgSelector = '<div class="img-selector">';
+                for($i=0;$i<$totalImage;$i++){
                     $imgSelector .= '<div class="cur-img">
                                     <img id="cur_img_'.$i.'" src="' . $web_images[$i] . '" width="118" height="73"  />
-                                    </div>';			
+                                    </div>';
                 }
-				*/
-				/************************************************/
-				
                 $imgSelector .= ' <input type="hidden" id="cur_id_val" value="0" />
                                     <input type="hidden" id="end_image" value="'.$endImage.'" />
                                         <input type="hidden" id="pre_id_val" value="" />
@@ -95,7 +73,7 @@ function debate_ajax() {
                                  </div>
                                  <table><tr><td width="16"><a href="javascript:void(0)" title="previous"  id="re-sel-pre"><img src="'.$imgPath.'arrow_left.png"></a></td>
                                 <td>&nbsp;&nbsp;<a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="'.$imgPath.'arrow_right.png"></a></td></tr></table><br>
-                                    <span id="img_count">'.$imgCount.'</span> of '.$totalImage;
+                                    <span id="img_count">'.$imgCount.'</span> of '.$totalImage.'';
                 echo $imgSelector;
                 echo '<div class="rightfm">' . $inc . '</div><br>
                     <input type="checkbox" name="no_thumbnail" id="no_thumbnail" />&nbsp; No Thumbnail
