@@ -32,7 +32,7 @@ function debate_ajax() {
 
         case 'url':
             if ($_GET['url']) {
-
+                set_time_limit(0); 
                 require_once('simple_html_dom.php');
                 require_once('thumbnail.php');
                 require_once('url_to_absolute.php');
@@ -55,8 +55,8 @@ function debate_ajax() {
                 $web_images = collect_valid_images($imgs);
 
                 $count = count($web_images);
-                $totalImage = $count>10?'10':$count;
-                //$totalImage = $count;
+                $totalImage = $count>20?'20':$count;
+                $totalImage = $count;
                 
 				
 				 /**Rallydev:492**/
@@ -66,7 +66,7 @@ function debate_ajax() {
                 for($i=0;$i<$totalImage;$i++) {
 				     $image_attributes = array();
 			         $image_attributes  = getimagesize($web_images[$i]); 
-					 if($image_attributes[0] > 32 && $image_attributes[1] > 32) { 
+					 if(($image_attributes[0] > 32 && $image_attributes[1] > 32) && $final_total_image < 10) { 
 					    $imgSelector .= '<div class="cur-img">
 						<img id="cur_img_'.$img_inc++.'" src="' . $web_images[$i] . '" width="118" height="73"  />
 						</div>';
