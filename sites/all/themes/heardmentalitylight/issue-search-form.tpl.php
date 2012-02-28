@@ -11,6 +11,7 @@ print drupal_render($form['defstate']);
 print drupal_render($form['defcity']);
 
   $final_category = "";
+  $final_location = "";
   
   $subject = arg(2);
   $subject_term = taxonomy_get_term($subject)->name;
@@ -34,6 +35,14 @@ print drupal_render($form['defcity']);
     print '<label class="cat">CATEGORY : '.$final_category.'</label>';
   }
   
+  $country = arg(5);
+  if(trim($country) != '0') {
+     $final_location = $country;
+  } 
+  
+  if(trim($final_location)!="") {
+    print '<label class="cat" style="padding:11px 0 0 11px;">LOCATION : '.$final_location.'</label>';
+  }  
 ?>
 <div class="search">
             <br>
