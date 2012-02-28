@@ -55,7 +55,7 @@ function debate_ajax() {
                 $web_images = collect_valid_images($imgs);
 
                 $count = count($web_images);
-                $totalImage = $count>20?'20':$count;
+                $totalImage = $count>25?'25':$count;
 		
 				 /**Rallydev:492**/
 				$imgSelector = '<div class="img-selector">';
