@@ -16,13 +16,13 @@ global $base_url;
         if($items['rtype'] == 'news' || $items['rtype'] == 'facts'){
 
         $refTit = str_replace('http://', '', $items['title']);
-        $refBody = str_replace($refTit, '<span title="'.$items['title'].'">'.$refTit.'</span>', $items['body']);
+        $refBody = str_replace($refTit, '<span title="'.$items['title'].'"><a href="'.$items['title'].'" target="_blank">'.$refTit.'</a></span>', $items['body']);
         ?>
             <p class="action-ref">
 <!--                <span class="name">
                     <a href="<?php //print t($items['title']); ?>" target="_blank"><?php //print t($items['title']); ?></a>
                 </span>-->
-            <span><?php print theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE); ?></span>
+            <span><a href="<?php print $items['title']; ?>" target="_blank"><?php print theme('image', $image, t('Resources'), 'Resources', array('width' => '118px', 'height' => '73px'), FALSE); ?></a></span>
             <br><?php print $refBody; ?></p>
             
         <?php
