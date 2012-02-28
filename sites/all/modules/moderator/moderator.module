@@ -271,8 +271,12 @@ WHERE n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->
             break;
         case 'all':
 
-            $query = "SELECT n.nid AS qid, n.title AS question FROM {node} AS n JOIN content_type_poll AS cp WHERE n.type = 'poll' AND n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.tnid = '0' AND translate='0' AND cp.field_mod_status_value = 1 GROUP BY n.nid ORDER BY n.created DESC";
-            $sqlcnt = ExecuteQuery($query, 'norows');
+            //$query = "SELECT n.nid AS qid, n.title AS question FROM {node} AS n JOIN content_type_poll AS cp WHERE n.type = 'poll' AND n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid=$user->uid ) AND n.tnid = '0' AND translate='0' AND cp.field_mod_status_value = 1 GROUP BY n.nid ORDER BY n.created DESC";
+			/**Rallydev:521**/
+			  $query = "SELECT n.nid AS qid, n.title AS question FROM node AS n JOIN content_type_poll AS cp WHERE n.type = 'poll' AND n.nid NOT IN (SELECT qr.nid FROM node_revisions AS qr WHERE qr.uid = $user->uid ) AND n.tnid = '0' AND translate='0' AND (select field_mod_status_value from content_type_poll where nid = n.nid order by vid desc limit 1) = 0 GROUP BY n.nid ORDER BY n.created DESC";
+			/****/
+			
+			$sqlcnt = ExecuteQuery($query, 'norows');
 
             $aclass = 'class="active"';
             $nclass = '';
