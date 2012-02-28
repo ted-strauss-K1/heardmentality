@@ -9,6 +9,31 @@ print drupal_render($form['defarea']);
 print drupal_render($form['defdetail']);
 print drupal_render($form['defstate']);
 print drupal_render($form['defcity']);
+
+  $final_category = "";
+  
+  $subject = arg(2);
+  $subject_term = taxonomy_get_term($subject)->name;
+  if(trim($subject_term)!="") {
+     $final_category = $subject_term;
+  } 
+  
+  $subject_sub_cat_1 = arg(3);
+  $subject_sub_cat_1_term = taxonomy_get_term($subject_sub_cat_1)->name;
+  if(trim($subject_sub_cat_1_term)!="") {
+     $final_category .= '&nbsp;/&nbsp;'.$subject_sub_cat_1_term;
+  } 
+  
+  $subject_sub_cat_2 = arg(4);
+  $subject_sub_cat_2_term = taxonomy_get_term($subject_sub_cat_2)->name;
+  if(trim($subject_sub_cat_2_term)!="") {
+     $final_category .=  '&nbsp;/&nbsp;'.$subject_sub_cat_2_term;
+  } 
+  
+  if(trim($final_category)!="") {
+    print '<label class="cat">CATEGORY : '.$final_category.'</label>';
+  }
+  
 ?>
 <div class="search">
             <br>
