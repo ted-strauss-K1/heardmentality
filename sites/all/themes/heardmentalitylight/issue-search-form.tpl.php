@@ -10,7 +10,7 @@ print drupal_render($form['defdetail']);
 print drupal_render($form['defstate']);
 print drupal_render($form['defcity']);
 
-  $final_category = "";
+ /* $final_category = "";
   $final_location = "";
   
   $subject = arg(2);
@@ -41,9 +41,36 @@ print drupal_render($form['defcity']);
   } 
   
   if(trim($final_location)!="") {
-    print '<label class="cat" style="padding:11px 0 0 11px;">LOCATION : '.$final_location.'</label>';
+    print '<label class="cat" style="padding:11px 0 0 11px;">LOCATION : '.$final_location;
   }  
+*/
 ?>
+<!--
+<script>
+$(document).ready(function(){
+ alert("welcome");
+  
+   $('#s_state').change(function(){
+	  $('#s_state option').each(function(){
+		if($(this).attr("selected")) {
+		  $('#custom_state').html($(this).html()); 
+	    }  
+	  })
+  });
+  
+  $('#edit-city').live('change',function(){ alert("city edited");
+	  $('#edit-city option').each(function(){
+		if($(this).attr("selected")) {
+		  $('#custom_city').html($(this).html()); 
+		  $('#ccity').val($(this).html()); 
+	    }  
+	  })
+  }); 
+  
+});
+
+</script>
+-->
 <div class="search">
             <br>
             <div class="form-item" id="edit-issue-key-wrapper">
