@@ -58,10 +58,19 @@
             print $profile_option_block;
          }else{?>
         <div id="dialog" title="Login" class="dialog">
-        <p><?php print t('Login to Heard Mentality using one of your favorite Social network logins'); ?></p>
-        <script type="text/javascript">
-        var conf=
-        {
+          <div class="login-site">
+      	    <label for="" class="add-on-2"><span class="title-2 logging">
+      	      Username</span></label>
+      	      <input type="text" class="login-to-site" width="30" title="Username" style="float:left;width:200px">
+            <label for="" class="add-on-2"><span class="title-2 logging">
+      	      password</span></label>
+      	      <input type="text" class="login-to-site" width="30" title="Username" style="float:left;width:200px">
+      	  <hr>
+      	  </div>
+          <p><?php print t('Login to Heard Mentality using one of your favorite Social network logins'); ?></p>
+          <script type="text/javascript">
+          var conf=
+          {
                 APIKey: '<?php echo $apikey; ?>'
                 ,enabledProviders: 'facebook,twitter,yahoo,messenger,google,linkedin,myspace,aol,orkut,wordpress,typepad,verisign,openid,netlog,bloglines,signon,mixi,livedoor'
         }

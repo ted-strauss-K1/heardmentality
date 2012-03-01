@@ -1728,6 +1728,7 @@ span.light {color:#888}
 span.lighter {color:#777;}
 
 label.login {text-align:right;text-transform:none;color:#000;font-weight:normal;font-size:12px;margin:-10px 0px 10px 0px}	
+.login-site {margin:0px 0px -10px 0px;}
 span.sort {font-weight:normal;letter-spacing:0.1em;font-weight:bold;color:#666;text-shadow: 0 1px #fff;font-size:0.8em;margin:0px 3px 0px -15px;}
 
 span.activity {font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:11px;padding:0px 3px 0px 3px;}
