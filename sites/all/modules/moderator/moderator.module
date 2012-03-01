@@ -2210,7 +2210,7 @@ function _mod_answer_form($delta, $answer = '', $short_answer = '', $pos_spectru
                                 );
   $form['short_answer_title'] = array('#type' => 'markup', '#value' => '<label for="" class="add-on"><span class="title ">Short Answer</span><br><span class="guides">Sed ut perspiciatis unde omnis iste natusab illo inventore </span> </label>');
   $form['short_answer'] = array('#type' => 'textfield',
-                                '#maxlength' => 10,
+                                '#maxlength' => 16,
                                 '#parents' => array('choice', $delta, 'short_answer'),
                                 '#default_value' => $short_answer,
                                 '#suffix' => ' <br class="clear">',
