@@ -852,6 +852,8 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 .vote-results ul li.full{ width:94.5%;}
 
 .vote-results ul li img{width:100%}
+.vote-results ul li p{padding:10px;}
+.vote-results ul li #map_div {padding:0px 2%;width:95px;}
 .anecdotal-result-stats {margin:5px 0px 0px 0px;font-size:13px;}
 
 .anecdotal-result-stats span.number{font-size:18px;}
@@ -2099,6 +2101,7 @@ p.policy a:hover{
   		font-size:80px;
   	}
 		ul.menu li a.add {display:block;float:left;}
+		ul.menu li:nth-child(even a.add {background:#dadada;}
 		
 		input.form-text, input.form-text.user-search {
 			width:120px;

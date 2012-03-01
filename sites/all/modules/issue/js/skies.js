@@ -9,6 +9,7 @@ Highcharts.theme = {
 		className: 'skies',
 		borderWidth: 0,
 		plotShadow: false,
+		backgroundColor: "#EEEEEE",
 		plotBackgroundColor: "#EEEEEE",
 		plotBorderWidth: 0,
       shadow: false

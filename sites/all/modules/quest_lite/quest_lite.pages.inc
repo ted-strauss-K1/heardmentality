@@ -2545,7 +2545,7 @@ jQuery('#resource').html(msg);
 ";
 
 
-    echo '<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+    echo '<div id="container" class="highcharts-container" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
         <div id="resource" style="height:auto; width: 450px; margin: 0 auto; clear:both"></div>
 </body>
 </html>

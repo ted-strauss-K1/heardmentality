@@ -360,7 +360,7 @@ $(document).ready(function() {
 });
 
  </script>";
-            echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+            echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
         <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
 
 ';
@@ -442,7 +442,7 @@ $(document).ready(function() {
 });
 
  </script>";
-            echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+            echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
         <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
 
 ';

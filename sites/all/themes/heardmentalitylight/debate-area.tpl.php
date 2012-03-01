@@ -25,11 +25,11 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
 <div class="expanding">
         <h6 class="blue-link" id="deb-ana"><?php print t('Debate Statistics'); ?></h6>
         <div id="analytics-area">
-            <?php print $debateStatistics; ?>
-            <div id="deb-ana-load-txt"></div>
+          <?php print $debateStatistics; ?>
+          <div id="deb-ana-load-txt"></div>
           <br class="clear">
-            <div id="load-deb-statics"></div>
-            <br class="clear">
+          <div id="load-deb-statics"></div>
+          <br class="clear">
         </div>
 
 </div>
