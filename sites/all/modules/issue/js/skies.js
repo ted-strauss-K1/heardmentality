@@ -9,14 +9,8 @@ Highcharts.theme = {
 		className: 'skies',
 		borderWidth: 0,
 		plotShadow: false,
-		plotBackgroundColor: {
-			linearGradient: [0, 0, 250, 500],
-			stops: [
-				[0, 'rgba(255, 255, 255, 1)'],
-				[1, 'rgba(255, 255, 255, 0)']
-			]
-		},
-		plotBorderWidth: 1,
+		plotBackgroundColor: "#EEEEEE",
+		plotBorderWidth: 0,
       shadow: false
 	},
 	chart: {
@@ -24,7 +18,12 @@ Highcharts.theme = {
     backgroundColor: "eee",
     className: "",
     height: 200,
-  } 
+  }, 
+  legend: {
+    backgroundColor: null,
+    borderColor: #EEEEEE,
+    margin: 0
+  }
 };
 
 // Apply the theme

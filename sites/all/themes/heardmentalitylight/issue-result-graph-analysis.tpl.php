@@ -9,7 +9,7 @@
 			  	  </li>
                                   <li class="full">
 			  	    <p class="result-title dinbold"><?php print t('Quick facts'); ?></p>
-                                    <div id="insight-view">
+                                    <div id="insight-view" style="width:100%">
                                     <?php print $insight_view;?>
                                     </div>
 			  	  </li>

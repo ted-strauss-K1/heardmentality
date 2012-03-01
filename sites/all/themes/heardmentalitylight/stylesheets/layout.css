@@ -848,7 +848,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 /* #STATS AND GRAPHS
 ================================================== */	
 .vote-results ul {padding:0px 0px 0px 0px;}
-.vote-results ul li{ float:left;width:44.5%;margin:20px 1% 0px 1%;background:#eee;padding:2%;-webkit-border-radius:  3px 3px;-moz-border-radius:  3px/3px; border-radius: 3px;text-shadow: 0 1px #fff;}
+.vote-results ul li{ float:left;width:44.5%;margin:20px 1% 0px 1%;background:#eee;padding:2% 0px 20px 0px;-webkit-border-radius:  3px 3px;-moz-border-radius:  3px/3px; border-radius: 3px;text-shadow: 0 1px #fff;}
 .vote-results ul li.full{ width:94.5%;}
 
 .vote-results ul li img{width:100%}
@@ -858,8 +858,8 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	
 .filter-stats	{margin:0px 0px 10px 0px;padding:0px 0px 30px 0px;color:#000;float:right;width:100px;}
 
-.filter-stats-2	{margin:0px 0px 10px 0px;padding:0px 0px 30px 0px;color:#000;float:right;width:140px;}
-p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted #ddd;margin:0px 0px 10px 0px;padding:0px 0px 10px 0px;color:#999;text-shadow: 0 1px #fff;}
+.filter-stats-2	{margin:0px 0px 10px 10px;padding:0px 0px 30px 0px;color:#000;float:right;width:140px;}
+p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted #ddd;margin:0px 0px 10px 10px;padding:0px 0px 10px 0px;color:#999;text-shadow: 0 1px #fff;}
 	
 	
 /* #DEBATE
@@ -2157,7 +2157,7 @@ p.policy a:hover{
 		}
 		
 		h2 {font-size:1.8em;line-height:1.2em;}
-		
+		.white-box h1 {margin-right:20px;}
 		
 		input.add-answer {
     	margin:0px 4px 5px 0px;

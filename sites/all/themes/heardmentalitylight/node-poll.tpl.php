@@ -19,8 +19,7 @@ $gSitePath = $base_path.'/';
     <?php if(strlen($context)>150) {?><a onclick="showDesc()" id="more-desc">[...]</a><?php }?>
 </p>
 <div class="clear"></div>
-<div class="issue-things">
-</div>
+<!--<div class="issue-things"></div>-->
 <div class="poll-vote-area">
 <?php if($allowvotes == '' ): ?>
    <div class="vote-count-poll">
