@@ -162,7 +162,12 @@ jQuery('#add-new-debate-form').live('submit', function(e){
               jQuery('#add-new-debate-form textarea').val('');
 
               jQuery('#deb-err').fadeIn("slow");
-              jQuery('#deb-err').html(msg.message);
+			  jQuery('#deb-err').html(msg.message); 
+			  /**Rallydev:533**/
+              if(msg.success_post == 1) {
+			     jQuery('#deb-err').css('color','green'); 
+			  }
+			  /**/
               //jQuery('#add_debate_wrapper').append(msg.content);
               jQuery(msg.content).prependTo('.comments');
           },
