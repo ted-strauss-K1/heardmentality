@@ -128,8 +128,7 @@ jQuery.fn.slideFadeToggle = function(speed, easing, callback) {
 // add new debate ajax submit
 jQuery('#add-new-debate-form').live('submit', function(e){
     e.preventDefault();
-
-
+    jQuery('#deb-err').css('color','red');
     var title = jQuery('#deb_title').val();
     var tot_ans = jQuery('#tot_ans').val();
     var flag = 0;
