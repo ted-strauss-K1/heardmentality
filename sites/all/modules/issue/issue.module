@@ -2427,6 +2427,7 @@ function add_new_debate_form_submit($form, &$form_state){
                     //$json['content'] = theme('single_debate_template', $items);
                     $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
                     $json['message'] = 'Your argument posted successfully';
+					$json['success_post'] = 1;
 
                 } else {
                     $json['message'] = '<div align="center">'.t('Sorry you do not have enough coins to post New Debate').'</div>';
