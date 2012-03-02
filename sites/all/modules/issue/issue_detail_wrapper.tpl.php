@@ -11,7 +11,7 @@
 <ul class="tabs">
       <!-- Give href an ID value of corresponding "tabs-content" <li>'s -->
       <li><a class="active" href="#simple"><?php print t('DEBATE'); ?> <span class="debate-count">(<?php print $debateCount; ?>)</span></a></li>
-      <li><a href="#lightweight" class="references"><?php print t('REFERENCES'); ?><span class="reference-count">(<?php print $resourceCount; ?>)</span></a></li>
+      <li><a href="#lightweight" class="references"><?php print t('REFERENCES'); ?>&nbsp;<span class="reference-count">(<?php print $resourceCount; ?>)</span></a></li>
 
 </ul>
 <ul class="tabs-content">
