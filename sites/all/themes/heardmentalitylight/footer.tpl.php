@@ -67,7 +67,7 @@
       	      <input type="text" class="login-to-site" width="30" title="Username" style="float:left;width:200px">
       	  <hr>
       	  </div>
-          <p><?php print t('Login to Heard Mentality using one of your favorite Social network logins'); ?></p>
+          <p><?php print t('Or login to Heard Mentality using one of your favorite Social network logins'); ?></p>
           <script type="text/javascript">
           var conf=
           {
