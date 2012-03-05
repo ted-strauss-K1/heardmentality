@@ -1,0 +1,333 @@
+/*Custom media queries for Heardmentality*/	
+	
+
+/* #Media Queries
+================================================== */
+
+/* iPad Portrait/Browser */
+
+	@media only screen and (min-width: 768px) and (max-width: 991px) {
+	
+		input.form-text, input.form-text.user-search {
+			width: 338px;
+		}
+		
+		.border-bottom {
+		  margin-top: 0px;
+		}
+		
+		.main-banner-display {
+			display: none;
+		}
+
+		.select-cat {
+			float: left;
+			width: 149px;
+		}
+		
+		.select-cat.moderate-cat {
+			width: 134px;
+		}
+		
+		.banner-text {
+			font-size: 22px;
+			width: 75%;
+		}
+		.button.participate {
+			margin: 2px 0px 0px 0px;
+    	}
+    	
+    	ul.vote li.post {
+			width: 80%;
+    	}
+    	
+    	p.suggest-answer {width:100%; margin:10px 0px; padding:0px 0px;}
+		fieldset.suggest-answer li {width:auto;}
+	}
+	
+/* Mobile/Browser */
+
+	@media only screen and (max-width: 767px) {
+	
+		input.form-text, input.form-text.user-search {
+			width: 250px;
+		}
+		
+		h6#reply {
+			margin:10px 3px 10px 0px;
+		}
+    
+		.main-banner-display {
+			display: none;
+		}
+
+		.banner-text {
+			font-size:22px;
+			width:100%;
+			line-height:1.4em;
+		}
+		
+		ul.vote li.post {
+			width:auto;
+		}
+		
+		p.suggest-answer {width:100%;margin:10px 0px;padding:0px 0px;}
+		fieldset.suggest-answer li {width:auto;}
+	}
+	
+	/* Anything smaller than standard 960 */
+	
+	@media only screen and (max-width: 967px) {
+	  
+		.hide-on-mobiles {
+			display:none;
+		}
+		
+		.top-mobile {
+			margin-top:-20px;
+		}
+		
+		.circle-box {
+			background:url(../images/circle_bg.png) center -13px no-repeat;
+			margin:50px 0px 10px 0px;
+			width:100%;
+			height:170px;
+		}
+		
+		.see-banner, .vote-banner, .share-banner {
+			font-size:20px;
+			padding:75px 0px 0px 0px;
+		}
+		
+		.error-banner {
+			padding:75px 0px 0px 0px;
+			font-size:40px;
+		}
+		
+		textarea#Question, input#Answer  {
+			width:97%;
+			float:none;
+		}
+		
+		label.add-on, label.add-on-2 {
+			width:auto;
+		}
+    
+		.new-issue .number{
+			width:30px;
+			float:none;
+			color:#999;
+			font-size:30px;
+			margin:-10px 6px 10px 0px;
+			text-shadow: #fff 0px 1px;
+		}
+		
+		.profile-meta img{
+			width:105px;
+			height:105px;
+		}
+		
+		input.add-answer {
+			margin:0px 5px 5px 0px;
+		}
+
+		.button.participate {
+			margin:2px 0px 0px 0px;
+    	}
+		
+	}
+	
+/* iPad Portrait Only */
+	@media only screen and (min-width: 768px) and (max-width: 991px) and (max-device-width: 1000px) {}
+	
+/* Mobile Only */
+	@media only screen and (max-width: 767px)  {
+		
+		.hide-on-mobiles {
+			display:none;
+		}
+		
+		.top-mobile {
+			margin-top:-20px;
+		}
+		
+		.top-left {
+			float:left;
+			background:#D81A29;
+			margin:0px 0px 0px 8px;
+		}
+
+		ul.menu {
+			float:left;
+			margin:0px 0px 0px 0px;
+		}
+		
+		ul.menu li{
+			float:left;
+			color:white;
+			text-transform:uppercase
+		}
+		
+		ul.menu li.login{
+			background:transparent;
+		}
+		
+		ul.menu li a{
+			color:white;
+			text-decoration:none;
+			line-height:15px;
+		}
+		
+		ul.menu li a:hover{
+
+		}
+		
+		.top-right { 
+			background:#000;
+			float:right;
+			margin:0px 0px 0px 8px;
+		}
+		
+		.top-right.login { 
+			float:left;
+			width:97.6%;
+			margin:0px 0px 0px 8px;
+			padding:2px 0px 8px 0px;
+			line-height:15px;
+			background:#333;
+  		}
+			
+		a.logo {width:92%;margin:0px 0px 0px 0px;text-align:left;float:left}
+		.line-top {
+			background:#EF00D3;
+		}
+		
+		.line-bottom {
+			background:#DDDDDD;
+			height:auto;
+		}
+		
+		.circle-box {
+			background:url(../images/circle_bg.png) 0px -210px no-repeat;
+			margin:20px auto;
+			display:block;
+			width:300px;
+			height:300px;
+		}
+			
+		.see-banner, .vote-banner, .share-banner {
+			font-size:40px;
+			padding:145px 0px 0px 0px;
+		}
+		
+		.error-banner {
+			padding:145px 0px 0px 0px;
+			font-size:80px;
+		}
+		
+		ul.menu li a.add {display:block;float:left;}
+		ul.menu li:nth-child(even a.add {background:#dadada;}
+		
+		input.form-text, input.form-text.user-search {
+			width:120px;
+		}
+		
+		textarea#Comment {
+			width:99%;
+			margin:0px 0px 20px 10px;
+		}
+    
+		textarea#Reply {
+			width:99%;
+			margin:0px 0px 20px 10px;
+		}
+
+		.select-cat {
+			float:left;
+			width:100%;
+		}
+
+		ul.privacy {
+			width:100%;
+			margin:5px;
+		}
+		
+		ul.subscription {
+			float:left;
+			margin:10px;
+		}
+		
+		ul.privacy li{
+			width:20%;
+			margin:-10px 0px 0px 0px;
+		}
+		
+		li.always-invisible {
+			margin:10px 0px 0px 0px;
+			width:200px;
+			font-size:12px;
+		}
+		
+		input#info, textarea#info {
+			margin:2px 0px 20px 0px;
+			padding:1% 1% 1% 1%;
+			width:98%;
+			float:left;
+		}
+		
+		.privacy-info {
+			float:left;
+			width:auto;
+			margin:0px 0px 0px 0px;
+		}
+		
+		.privacy-info p{
+			text-align:left;
+		}
+		
+		.visible-to {
+			visibility:visible;
+		}
+		
+		h2 {font-size:1.8em;line-height:1.2em;}
+		.white-box h1 {margin-right:20px;}
+		
+		input.add-answer {
+			margin:0px 4px 5px 0px;
+		}	
+    
+   
+		.button.participate {
+			margin:-10px 0px 20px 0px;
+    	}
+    	
+    	.vote-results ul li{ float:none;width:94.5%;} 
+	}
+	
+/* Mobile Landscape/Browser */
+
+	@media only screen and (min-width: 480px) and (max-width: 767px) {
+		input.form-text, input.form-text.user-search {
+			width:250px;
+		}
+		
+		.select-cat {
+			float:left;
+			width:100%;
+		}
+		
+		.select-cat.moderate-cat {
+			width:100%;
+		}
+		
+		a.logo {width:94.4%;margin:0px 0px 0px 0px;text-align:left;float:left}
+		
+		.top-right.login { 
+			width:98.3%;
+  		}
+	}
+	
+/* Mobile Landscape Only */
+	@media only screen and (min-width: 480px) and (max-width: 767px) and (max-device-width: 1000px) {
+		
+	}	
