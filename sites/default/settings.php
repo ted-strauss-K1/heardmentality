@@ -166,15 +166,15 @@ $apikey='2_q5kciTWSPC5FLEmzQ2RIFdQcKdiWj88IQGEZsGgFIIqLpKsCgXsUdyGOVYoJme2R';
 elseif($_SERVER['HTTP_HOST']=='58.68.27.117')
 {
 
-$apikey='2_CRglU1d9wu0oGhNKWnLKevzuVwbWRVkprtQhUS1zsCmdoYjEa0SfwwwRL9QCeV5E';
+$apikey='2_q5kciTWSPC5FLEmzQ2RIFdQcKdiWj88IQGEZsGgFIIqLpKsCgXsUdyGOVYoJme2R';
 }elseif($_SERVER['HTTP_HOST']=='openwaveprojects.com'){
 
-$apikey='2_b1lmxsCzCiZwBNC3AIsLDkMwP9tL6OkAIym6lXlPHKGcoukghPGvbt-xp1iSHvla';
+$apikey='2_q5kciTWSPC5FLEmzQ2RIFdQcKdiWj88IQGEZsGgFIIqLpKsCgXsUdyGOVYoJme2R';
 $googlekey='ABQIAAAA8-AXKtSZDYjcD0MTigFCmxSgEOPLDAS1yAhUXqvPQqKhRCTlchT7zLkyGACjmPOcVf90HTBds2HSOg';
 }
 else
 {
-$apikey='2_A2ZGtCslkMZbTagqZRUFg6laSGONdDewofnvzXu96J3-nKIrOZGIusR2wpfQIEdC';
+$apikey='2_q5kciTWSPC5FLEmzQ2RIFdQcKdiWj88IQGEZsGgFIIqLpKsCgXsUdyGOVYoJme2R';
 $googlekey='ABQIAAAAEMg4Uz3iFHKezP9YxK2-ORR7UzrUHPdQNxgEPYCZovH3YmNejBTEtAzCPaOdTMO81lgtU_7mcQ8gnA';
 }
 
