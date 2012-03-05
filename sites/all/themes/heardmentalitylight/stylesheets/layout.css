@@ -23,15 +23,14 @@
 	.top-right { 
 		background:#000;
 		float:right;
-		margin:0px 7px 0px 0px;
-		background:#000000;
+		margin:0px 10px 0px 0px;
 		}	
 	.top-right.login { 
 		float:right;
-		margin:0px 7px 0px 0px;
+		margin:0px 10px 0px 0px;
 		padding:2px 0px 8px 0px;
 		line-height:15px;
-		background:#000000;
+		background:#000;
 		}
 
 	.top-right.blue { 
