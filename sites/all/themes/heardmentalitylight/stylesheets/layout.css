@@ -2375,10 +2375,12 @@ ul.menu.second li:first-child {
 
 ul.menu.second li:first-child a.add {
 	background-color: #f6eb16;
+	color: #000;
 }
 
 ul.menu.second li:first-child a.add:hover {
 	background-color: #000;
+	color: #fff;
 }
 
 ul.menu.second li a.add {
