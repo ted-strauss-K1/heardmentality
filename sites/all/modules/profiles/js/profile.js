@@ -401,3 +401,52 @@ jQuery(document).ready(function(){
 
 }
 
+//Rallydev:496
+$(document).ready(function(){
+
+  var aURL = document.URL;
+  
+  if(aURL.indexOf("#gender-wrapper") != -1) {
+    $('#gender').focus();
+  } 
+  
+  if(aURL.indexOf("#dob-wrapper") != -1) {
+    $('#dob').val('');
+    $('#dob').focus();
+  } 
+
+  if(aURL.indexOf("#zip-wrapper") != -1) {
+    $('#zip').val('');
+    $('#zip').focus();
+  } 
+
+  if(aURL.indexOf("#religion-wrapper") != -1) {
+    $('#religion').focus();
+  } 
+  
+  if(aURL.indexOf("#ethnicity-wrapper") != -1) {
+    $('#ethnicity').focus();
+  } 
+
+  if(aURL.indexOf("#edu-wrapper") != -1) {
+    $('#edu').focus();
+  }   
+
+  if(aURL.indexOf("#sorient-wrapper") != -1) {
+    $('#sorient').focus();
+  }     
+  
+  if(aURL.indexOf("#income-wrapper") != -1) {
+    $('#income').focus();
+  } 
+  
+  if(aURL.indexOf("#marital-wrapper") != -1) {
+    $('#marital').focus();
+  }   
+
+  if(aURL.indexOf("#bio-wrapper") != -1) {
+    $('#bio').val('');
+    $('#bio').focus();
+  }   
+  
+});
