@@ -328,12 +328,16 @@ function show_inotify(data){
 
 }
 
-function update_avatar(){
+function update_avatar(){ 
     var src=jQuery('#dialog-profile-pic input:radio:checked').next("img").attr('src');
     //var src=jQuery('#avatar-profile-ele input:radio:checked').next("img").attr('src');
     if(src.length>3){
         jQuery('div.avatar-left img').attr('src',src);
         jQuery('#curr_avatar').val(src);
+		/**Rallydev:512**/
+		document.forms["user-details"].submit();
+		$('.ui-dialog ').slideUp();
+		/**************/
     }
 
 
