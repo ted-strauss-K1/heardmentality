@@ -2374,27 +2374,29 @@ ul.menu.second li:first-child {
 }
 
 ul.menu.second li:first-child a.add {
-	background-color: #cc2027;
-	color: #fff;
+	background-color: #f6eb16;
 }
 
 ul.menu.second li:first-child a.add:hover {
 	background-color: #000;
-	color: #fff;
 }
 
 ul.menu.second li a.add {
-	background-color: #ef3d3b;	
+	background-color: #cc2027;
+	color: #fff;	
 }
 
 ul.menu.second li a.add:hover {
 	background-color: #434bf0;
+	color: #fff;
 }
 
 ul.menu.second li:last-child a.add {
 	background-color: #ccc;
+	color: #000;	
 }
 
 ul.menu.second li:last-child a.add:hover {
 	background-color: #000;
+	color: #fff;	
 }
