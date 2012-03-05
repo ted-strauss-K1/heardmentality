@@ -3,7 +3,7 @@
 ================================================== */
 	body {background:url(../images/cross_hatch_texture.png)}
 	.header { margin:0px 0px; padding:0px 0px}
-	a.logo {height:26px;float:left;background:#6B0063;color:white;padding:6px 12px 0px 12px;width:auto;display:block;font-size:13px;letter-spacing:0.15em;text-transform:uppercase;text-align:center;display:block;}
+	a.logo {height:26px;float:left;background:#6B0063;color:white;padding:6px 12px 0px 12px;width:auto;display:block;font-size:15px;letter-spacing:0.15em;text-transform:uppercase;text-align:center;display:block;}
 	img.logo-img{float:left;padding:0px 2px 0px 0px;margin:-2px 0px 0px -2px}
 	a.logo:hover {background:#000;}
 	a.login {color:white;padding:10px 12px 0px 12px;font-size:13px;letter-spacing:0.15em;text-transform:none;float:right}
