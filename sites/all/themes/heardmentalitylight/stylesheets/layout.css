@@ -41,6 +41,8 @@
 	line-height: 16px;
 	padding: 8px 10px !important;
 	background-color: #000 !important;
+	min-width: 88px;
+	text-align: center !important;
 }
 
 /*.top-right.login .expanding {
@@ -86,11 +88,12 @@
 		line-height:15px; 
 		font-weight:normal;
 		text-align:right;
-		width: 95px;
+		width: 102px;
+		float: right;
 		}	
 	.top-right.blue h6 a{ 
 		font-weight:normal;
-		padding:8px 19px 0px 10px;
+		padding:8px 15px 0px 10px;
 		text-shadow:none;
 		color:#444;text-transform:uppercase;
 		}
@@ -151,7 +154,7 @@
 			background:#434bf0;
 			color:white;
 		} 
-    ul.lang {margin:0px 0px 5px 5px;}
+    ul.lang {margin:0px 0px 5px 5px; zoom: 1; padding: 16px 0 0; clear: both;}
     ul.lang li{float:right;margin:2px 5px 12px 10px;text-transform:uppercase;color:#333;font-size:11px;line-height:11px;letter-spacing:0.1em;}
     ul.lang li a{color:#222;}
     ul.lang li a:hover{color:#000;}
@@ -2353,7 +2356,8 @@ p{ line-height:1.2em;}
 
 /*Clear*/
 
-.top-right.login:after {
+.top-right.login:after,
+ul.lang:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
