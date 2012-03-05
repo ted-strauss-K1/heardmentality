@@ -7,22 +7,18 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 	<div class="container">
 		<div class="navigation">
 			<div class="top-left">
-				<a class="logo" href="<?php print $sitelink;?>"><img src="<?php print $directoryPath;?>/images/tiny_logo.png" class="logo-img"> <?php print t('Heard Mentality'); ?></a>
+				<a class="logo" href="<?php print $sitelink;?>"><img src="<?php print $directoryPath;?>/images/tiny_logo.png" class="logo-img" /> <?php print t('Heard Mentality'); ?></a>
 			</div>
 			
 			<div class="top-right login">
-				<ul class="menu">
-					<li class="login">
-						<a href="#" id="dialog_link" class="ui-state-default ui-corner-all login">
-							<?php if($user->uid == ''){
-									print t('LOGIN');
-								}else{
-									print $user->name;
-								}
-							?>
-						</a>
-					</li>                                                  
-				</ul>
+				<?php print $user_login; ?>
+				
+				<div class="expanding">
+					<h6><?php print t('Language'); ?></h6>
+					<ul class="lang">
+						<?php if($multilanguage_area): print $multilanguage_area; endif; ?>
+					</ul>
+				</div>
 			</div>
 			
 		</div>
@@ -49,16 +45,6 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     <?php }?>
 				</ul>
 			</div>
-			
-			<div class="top-right blue">
-				<div class="expanding">
-					<h6><?php print t('Language'); ?></h6>
-					<ul class="lang">
-						<?php if($multilanguage_area): print $multilanguage_area; endif; ?>
-					</ul>
-				</div>
-			</div>
-			
 		</div>
 	</div>
 </div>

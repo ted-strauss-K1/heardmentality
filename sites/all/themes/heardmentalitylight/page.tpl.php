@@ -8,10 +8,7 @@ $directoryPath = $base_path . $directory;
 <!--[if IE 8 ]><html class="ie ie8" xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language ?>" lang="<?php print $language->language ?>" dir="<?php print $language->dir ?>"> <!--<![endif]-->
 <head>
-
-	<!-- Basic Page Needs
-  ================================================== -->
-         <?php print $head; ?>
+    <?php print $head; ?>
 	<meta charset="utf-8" />
 	<title><?php print $head_title; ?></title>
 	<meta name="description" content="Heard Mentality">
@@ -20,18 +17,10 @@ $directoryPath = $base_path . $directory;
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-	<!-- Mobile Specific Metas
-  ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-	<!-- CSS
-  ================================================== -->
-        <?php print $styles; ?>
-	<!-- JS
-	================================================== -->
-        <?php print $scripts; ?>
-	<!-- Favicons
-	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <?php print $styles; ?>
+	<?php print $scripts; ?>
 	<link rel="shortcut icon" href="<?php print $directoryPath;?>/images/favicon.ico">
 	<link rel="apple-touch-icon" href="<?php print $directoryPath;?>/images/apple-touch-icon.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="<?php print $directoryPath;?>/images/apple-touch-icon-72x72.png" />
@@ -47,35 +36,27 @@ $directoryPath = $base_path . $directory;
   </script>
 </head>
 <body>
-
-
-
-
-
-	<!-- Primary Page Layout
-	================================================== -->
-
 	<div class="header">
 		<?php include 'header.tpl.php';?>
+	</div>
+	
 	<div class="container">
-        <div class="toggler profile-message" style="height:auto;width:auto">
-      <div class="clear"></div>
-        <?php if($messages):?>
-	    	<div id="effect" class="" style="width:auto;height:auto">
+		<?php if($messages):?>
+			<div class="toggler profile-message">
+        
+	    	<div id="effect" class="">
 
 						<div class="message top-message">
 							<p class="double" style="disply:block">
-                                                            <?php print $messages; ?>
-                                                        </p>
+                                 <?php print $messages; ?>
+                            </p>
 						</div>
-                                                <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick"><?php print t('Hide'); ?></span></a>
-
-
-					<br class="clear">
+                        <a href="#" id="button" class="hide-message"><span class="ui-icon ui-icon-closethick"><?php print t('Hide'); ?></span></a>
 	    	</div>
+			</div>
        <?php endif; ?>
-    </div>
-   <div class="twelve columns">
+		
+		<div class="twelve columns">
                         <?php
                         if($node->type=='poll'):
                         ?>
@@ -95,7 +76,7 @@ $directoryPath = $base_path . $directory;
 				
 			</div>
 		</div>
-            <div class="four columns">
+        <div class="four columns">
 			<br>
 			<div class="toggler profile-message">
   	    	<div id="effect">
@@ -105,7 +86,7 @@ $directoryPath = $base_path . $directory;
                         endif;
                         ?>
 	    	</div>
-      </div>
+			</div>
                         <?php if($issue_real_info):?>
 			<div class="grey-box">
                             <?php print $issue_real_info; ?>
@@ -114,16 +95,10 @@ $directoryPath = $base_path . $directory;
                         <?php endif; ?>
 		</div>
 
-  </div>
+	</div>
 
-	<br />
-        <br />
-	<?php include 'footer.tpl.php';?>
+  <?php include 'footer.tpl.php';?>
 
-
-
-<!-- End Document
-================================================== -->
 </body>
 </html>
 <script type="text/javascript">

@@ -36,6 +36,7 @@ regions[user_profile_information] = User Profile Information Area
 regions[user_activity_stream] = User Activity Stream
 regions[you_are_following] = You are Following
 regions[static_pages_menu] = Static Pages Menu
+regions[user_login] = User Login
 
 ; Information added by drupal.org packaging script on 2010-07-16
 version = "1.0"
