@@ -38,7 +38,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     <?php }?>
 
 				</ul>
-				<ul class="menu">
+				<ul class="menu second">
                     <?php
                         foreach ($secondary_links as $subMenu){
                     ?>

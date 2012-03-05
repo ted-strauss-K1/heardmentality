@@ -2360,3 +2360,10 @@ p{ line-height:1.2em;}
 	clear: both;
 	height: 0;
 }
+
+/*New styles*/
+
+ul.menu.second li:first-child {
+	position: absolute;
+    right: 119px;
+}
