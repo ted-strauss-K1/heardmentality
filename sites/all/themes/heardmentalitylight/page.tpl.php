@@ -41,6 +41,10 @@ $directoryPath = $base_path . $directory;
 	</div>
 	
 	<div class="container">
+	
+		<?php if ($tabs): ?>
+			<div class="tabs"><?php print $tabs; ?></div>
+		<?php endif; ?>
 		<?php if($messages):?>
 			<div class="toggler profile-message">
         
