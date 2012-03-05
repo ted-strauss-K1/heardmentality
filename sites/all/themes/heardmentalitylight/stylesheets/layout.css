@@ -30,6 +30,7 @@
 		margin:0px 10px 0px 0px;
 		padding: 0;
 		background: none transparent;
+		zoom: 1;
 		}
 		
 .top-right.login a.login {
@@ -38,9 +39,20 @@
 	height: 26px;
 	font-size: 13px;
 	line-height: 16px;
+	padding: 8px 10px !important;
+	background-color: #000 !important;
+}
+
+.top-right.login .expanding {
+	float: left;
+}
+
+.top-right.login .expanding h6 a {
+	color: #fff;
+	line-height: 16px;
 	padding: 8px 10px;
-	background-color: #000;
-}	
+	background-color: #ddd;
+}
 
 	.top-right.blue { 
 		background:#ddd;
@@ -2332,3 +2344,14 @@ input.form-text.upload{
 }
 
 p{ line-height:1.2em;}
+
+/*Clear*/
+
+.top-right.login:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
