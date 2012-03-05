@@ -31,6 +31,16 @@
 		padding: 0;
 		background: none transparent;
 		}
+		
+.top-right.login a.login {
+	display: block;
+	float: left;
+	height: 26px;
+	font-size: 13px;
+	line-height: 16px;
+	padding: 8px 10px;
+	background-color: #000;
+}	
 
 	.top-right.blue { 
 		background:#ddd;
