@@ -82,10 +82,11 @@
 		color:white;
 		font-size:13px;
 		letter-spacing:0.15em;
-		margin:4px 2px 2px 7px;
+		margin:4px 2px 2px /*7px*/ 0;
 		line-height:15px; 
 		font-weight:normal;
 		text-align:right;
+		width: 95px;
 		}	
 	.top-right.blue h6 a{ 
 		font-weight:normal;
@@ -2370,4 +2371,8 @@ ul.menu.second li:first-child {
 
 ul.menu.second li:first-child a {
 	background-color: #f6eb16;
+}
+
+ul.menu.second li:first-child a:hover {
+	background-color: #000;
 }
