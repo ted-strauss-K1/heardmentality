@@ -1763,7 +1763,13 @@ global $base_url, $user, $gDocPath, $base_root, $base_path;
             if (file_exists($image_path . '/' . $selected_avatar)) {
                 //$PROFILE_IMAGE = theme_image($ipath,'thumbnail','Avatar',array('width'=>'30px','align'=>'absmiddle','height'=>'30px'),FALSE);
                 $PROFILE_IMAGE = $ipath;
-            } else {
+            }
+			/**Rallydev:512**/
+			else if (file_exists($resultimage->image)) {
+			   $PROFILE_IMAGE = $base_url.'/'.$resultimage->image;
+			}
+			/**************/
+			else {
                 $PROFILE_IMAGE = $default;
             }
 
