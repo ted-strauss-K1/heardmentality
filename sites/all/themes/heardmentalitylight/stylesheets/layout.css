@@ -2374,11 +2374,13 @@ ul.menu.second li:first-child {
 }
 
 ul.menu.second li:first-child a.add {
-	background-color: #f6eb16;
+	background-color: #cc2027;
+	color: #fff;
 }
 
 ul.menu.second li:first-child a.add:hover {
 	background-color: #000;
+	color: #fff;
 }
 
 ul.menu.second li a.add {
