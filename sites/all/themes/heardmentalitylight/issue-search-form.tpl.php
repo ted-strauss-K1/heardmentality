@@ -10,67 +10,65 @@ print drupal_render($form['defdetail']);
 print drupal_render($form['defstate']);
 print drupal_render($form['defcity']);
 
- /* $final_category = "";
+  /**Rallydev:518**/
+  //IMPORTANT : Need to move this logic to module section, after approval from client
+  $final_category = "";
   $final_location = "";
+  $search_filters = "";
+  
+  if(arg(1)) {
+    $search_filters[] = arg(1);
+  }
   
   $subject = arg(2);
   $subject_term = taxonomy_get_term($subject)->name;
   if(trim($subject_term)!="") {
-     $final_category = $subject_term;
+     $search_filters[] =  $final_category = $subject_term;
   } 
   
   $subject_sub_cat_1 = arg(3);
   $subject_sub_cat_1_term = taxonomy_get_term($subject_sub_cat_1)->name;
   if(trim($subject_sub_cat_1_term)!="") {
-     $final_category .= '&nbsp;/&nbsp;'.$subject_sub_cat_1_term;
+     $search_filters[] = $subject_sub_cat_1_term;
   } 
   
   $subject_sub_cat_2 = arg(4);
   $subject_sub_cat_2_term = taxonomy_get_term($subject_sub_cat_2)->name;
   if(trim($subject_sub_cat_2_term)!="") {
-     $final_category .=  '&nbsp;/&nbsp;'.$subject_sub_cat_2_term;
+     $search_filters[] = $subject_sub_cat_2_term;
   } 
   
-  if(trim($final_category)!="") {
-    print '<label class="cat">CATEGORY : '.$final_category.'</label>';
-  }
-  
+
   $country = arg(5);
   if(trim($country) != '0') {
-     $final_location = $country;
+     $search_filters[] = $country;
   } 
   
-  if(trim($final_location)!="") {
-    print '<label class="cat" style="padding:11px 0 0 11px;">LOCATION : '.$final_location;
-  }  
-*/
-?>
-<!--
-<script>
-$(document).ready(function(){
- alert("welcome");
-  
-   $('#s_state').change(function(){
-	  $('#s_state option').each(function(){
-		if($(this).attr("selected")) {
-		  $('#custom_state').html($(this).html()); 
-	    }  
-	  })
-  });
-  
-  $('#edit-city').live('change',function(){ alert("city edited");
-	  $('#edit-city option').each(function(){
-		if($(this).attr("selected")) {
-		  $('#custom_city').html($(this).html()); 
-		  $('#ccity').val($(this).html()); 
-	    }  
-	  })
-  }); 
-  
-});
+   $results = array();
+   $xyz=geonames_countryinfo(arg(5));
+   $country_goe_id = $xyz['geonameid'];
+   $query = array('geonameid' => $country_goe_id);
+   $results = geonames_query('children', $query);
+	foreach ($results->results as $state) {
+		if(arg(6) == $state['geonameid']) {
+		  $search_filters[] = $state['name'];
+		}
+	}	  
+	
+   $results = array();
+   $query = array('geonameid' => arg(6));
+   $results = geonames_query('children', $query);
+   $citycode = str_replace(arg(6),"",arg(7));
+	foreach ($results->results as $city) {
+		if($citycode == $city['geonameid']) {
+		  $search_filters[] = $city['name'];
+		}
+	}
 
-</script>
--->
+  print '<label class="cat" style="padding:11px 0 0 11px;">'.implode(" / ",$search_filters).'</label>';
+  /**********************/
+  
+?>
 <div class="search">
             <br>
             <div class="form-item" id="edit-issue-key-wrapper">
