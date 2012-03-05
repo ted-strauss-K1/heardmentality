@@ -20,13 +20,6 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                           }
                   ?>
                 </a>
-				
-				<div class="expanding">
-					<h6><?php print t('Language'); ?></h6>
-					<ul class="lang">
-						<?php if($multilanguage_area): print $multilanguage_area; endif; ?>
-					</ul>
-				</div>
 			</div>
 			
 		</div>
@@ -52,6 +45,14 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     <li><?php print l(t($subMenu['title']), $subMenu['href'], array('attributes' => array('class'=>'add'))); ?></li>
                     <?php }?>
 				</ul>
+			</div>
+			<div class="top-right blue">
+				<div class="expanding">
+					<h6><?php print t('Language'); ?></h6>
+					<ul class="lang">
+						<?php if($multilanguage_area): print $multilanguage_area; endif; ?>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
