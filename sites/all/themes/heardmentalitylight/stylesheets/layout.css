@@ -36,7 +36,7 @@
 .top-right.login a.login {
 	display: block;
 	float: right;
-	height: 26px;
+	/*height: 26px;*/
 	font-size: 13px;
 	line-height: 16px;
 	padding: 8px 10px !important;
@@ -50,12 +50,12 @@
 .top-right.login .expanding h6 {
 	margin: 0;
 	padding: 0;	
-	background-color: #ddd;
 }
 
 .top-right.login .expanding h6 a {
 	line-height: 16px;
 	padding: 8px 10px;
+	display: block;
 
 }
 
