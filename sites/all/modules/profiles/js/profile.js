@@ -405,7 +405,7 @@ jQuery(document).ready(function(){
 
 }
 
-//Rallydev:496
+/******************Rallydev:496******************/
 $(document).ready(function(){
 
   var aURL = document.URL;
@@ -453,4 +453,10 @@ $(document).ready(function(){
     $('#bio').focus();
   }   
   
+   /****Rallydev:529****/
+   if($.trim($('p.double').text()) == "") { 
+     $('p.double').hide();
+   }
+   /************/
 });
+/*************************************************/
