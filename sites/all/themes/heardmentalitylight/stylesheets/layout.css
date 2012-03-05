@@ -2373,10 +2373,26 @@ ul.menu.second li:first-child {
     right: 119px;
 }
 
-ul.menu.second li:first-child a {
+ul.menu.second li:first-child a.add {
 	background-color: #f6eb16;
 }
 
-ul.menu.second li:first-child a:hover {
+ul.menu.second li:first-child a.add:hover {
+	background-color: #000;
+}
+
+ul.menu.second li a.add {
+	background-color: #ef3d3b;	
+}
+
+ul.menu.second li a.add:hover {
+	background-color: #434bf0;
+}
+
+ul.menu.second li:last-child a.add {
+	background-color: #ccc;
+}
+
+ul.menu.second li:last-child a.add:hover {
 	background-color: #000;
 }
