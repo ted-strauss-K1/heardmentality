@@ -2367,3 +2367,7 @@ ul.menu.second li:first-child {
 	position: absolute;
     right: 119px;
 }
+
+ul.menu.second li:first-child a {
+	background-color: #f6eb16;
+}
