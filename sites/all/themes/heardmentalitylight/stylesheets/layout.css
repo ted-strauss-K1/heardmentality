@@ -84,11 +84,11 @@
 		color:white;
 		font-size:13px;
 		letter-spacing:0.15em;
-		margin:4px 2px 2px /*7px*/ 0;
+		margin:4px 3px 2px /*7px*/ 0;
 		line-height:15px; 
 		font-weight:normal;
 		text-align:right;
-		width: 102px;
+		width: 101px;
 		float: right;
 		}	
 	.top-right.blue h6 a{ 
@@ -121,7 +121,7 @@
 		ul.menu li a{
 			color:white;
 			text-decoration:none;
-			padding:9px 11px 8px 10px;
+			padding: 9px 10px 8px 12px;
 			line-height:15px;
 			display:block;
 			-webkit-transition: border 0.2s linear, -webkit-box-shadow 0.2s linear, background-color 0.2s linear;
@@ -154,7 +154,7 @@
 			background:#434bf0;
 			color:white;
 		} 
-    ul.lang {margin:0px 0px 5px 5px; zoom: 1; padding: 16px 0 0; clear: both;}
+    ul.lang {margin:0px 0px 5px 5px; zoom: 1; padding: 18px 0 0; clear: both;}
     ul.lang li{float:right;margin:2px 5px 12px 10px;text-transform:uppercase;color:#333;font-size:11px;line-height:11px;letter-spacing:0.1em;}
     ul.lang li a{color:#222;}
     ul.lang li a:hover{color:#000;}
