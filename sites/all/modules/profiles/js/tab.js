@@ -37,5 +37,10 @@ $(document).ready(function(){
 		
   });
   
-
+   /****Rallydev:529****/
+   if($.trim($('p.double').text()) == "") { 
+     $('p.double').hide();
+	 $('#button.hide-message').css('margin-top','3px');
+   }
+   /************/
 });
