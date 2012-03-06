@@ -428,8 +428,8 @@ $(document).ready(function(){
     $('#religion').focus();
   } 
   
-  if(aURL.indexOf("#ethnicity-wrapper") != -1) {
-    $('#ethnicity').focus();
+  if(aURL.indexOf("#ethnic-wrapper") != -1) {
+    $('#ethnic').focus();
   } 
 
   if(aURL.indexOf("#edu-wrapper") != -1) {
