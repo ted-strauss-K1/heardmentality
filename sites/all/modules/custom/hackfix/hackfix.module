@@ -1,5 +1,5 @@
 <?php
-
+/*
 function ExecuteQuery($Query, $Qrytype) {
   if (!empty($Query) && !empty($Qrytype)) {
     switch (strtolower($Qrytype)) {
@@ -50,4 +50,4 @@ function ExecuteQuery($Query, $Qrytype) {
           return false;
     }
   }
-}
+}*/
