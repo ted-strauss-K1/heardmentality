@@ -2000,7 +2000,7 @@ textarea#q_quest  {
 .container .nine .grey-box{
     height: 795px;
     overflow: hidden;
-
+	padding-bottom: 25px; /*Rallydev:535*/
 }
 .seven .foot-empty{
     height: 174px;
