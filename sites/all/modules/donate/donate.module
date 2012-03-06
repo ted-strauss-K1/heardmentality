@@ -13,8 +13,6 @@ function donate_perm() {
  
 function donate_menu() {	
 
-
-
 $donate_result['donation'] = array(
     'title' => ' Donation',
     'page callback' => 'donation_paypal',
