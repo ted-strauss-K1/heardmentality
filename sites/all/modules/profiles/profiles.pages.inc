@@ -302,7 +302,7 @@ function user_details() {
         '#options' => array('0' => 'Ethnicity','Caucasian'=>'Caucasian','Black'=>'Black','Asian' => 'Asian','Indian' => 'Indian','Semetic'=>'Semetic','Latin'=>'Latin','Aborigines'=>'Aborigines' ),
         '#description' => t(' '),
         '#default_value' => variable_get('ethinicity', ''),
-        '#id' => 'ethnicity',
+        '#id' => 'ethnic',
         '#attributes' => array('class' => 'info'),
     );
 
