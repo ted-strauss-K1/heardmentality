@@ -1,0 +1,12 @@
+<?php
+//$Id:$
+
+
+/**
+ * Implementation of hook_uninstall().
+*/
+function gigya_comments_uninstall() {
+  variable_del('gigya_comments_categoryid');
+  variable_del('gigya_comments_container');
+}
+

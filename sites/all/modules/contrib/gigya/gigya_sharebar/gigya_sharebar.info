@@ -1,0 +1,13 @@
+; $Id: $
+name = Gigya share bar
+description = Adds the Gigya share bar to the display of all nodes
+package = Gigya
+dependencies[] = gigya
+core = 6.x
+
+; Information added by drupal.org packaging script on 2011-12-19
+version = "6.x-3.1"
+core = "6.x"
+project = "gigya"
+datestamp = "1324280741"
+

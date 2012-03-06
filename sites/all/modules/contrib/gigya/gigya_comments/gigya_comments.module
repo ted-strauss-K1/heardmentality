@@ -1,0 +1,138 @@
+<?php
+//$Id:$
+module_load_include('inc', 'gigya');
+
+/**
+ * Implements hook_menu_alter
+ *
+ * Adds a menu local task for the gigya settings page.
+ */
+function gigya_comments_menu_alter(&$items){
+  if (isset($items['admin/settings/gigya']) && empty($items['admin/settings/gigya/socalize'])){
+    $items['admin/settings/gigya/socalize'] = array(
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+      'title' => 'Socialize',
+      'access arguments' => array('administer gigya'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('gigya_admin_form'),
+      'description' => 'Gigya socialize configuration.',
+      'file' => 'gigya.admin.inc',
+      'file path' => drupal_get_path('module', 'gigya'),
+      'weight' => -1,
+    );
+  }
+}
+
+/**
+ * Implements hook_menu
+ *
+ * Adds a settings page for comments.
+ */
+function gigya_comments_menu() {
+  $items['admin/settings/gigya/comments'] = array(
+    'title' => 'Comments',
+    'description' => 'Gigya comments settings.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('gigya_comments_settings_form'),
+    'access arguments' => array('administer gigya'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 1,
+  );
+  $items['gigya/comments'] = array(
+    'title' => 'comments ajax',
+    'page callback' => 'gigya_comments_ajax',
+    'access arguments' => array('access content'),
+    'page arguments' => array(2),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+function gigya_comments_settings_form () {
+  $form['gigya_comments_categoryid'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Gigya comments catgegory id'),
+    '#default_value' => variable_get('gigya_comments_categoryid', ''),
+    '#description' => t('The comments category as set up in the Gigya admin site.'),
+  );
+  $form['gigya_comments_container'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Container ID'),
+    '#size' => 30,
+    '#description' => t('The container ID that the comments will be displayed in the default is "comments" (drupal default)'),
+    '#default_value' => variable_get('gigya_comments_container', 'comments'),
+  );
+
+ return system_settings_form($form);
+}
+
+function gigya_comments_ui_parmes($nid) {
+  $catid = variable_get('gigya_comments_categoryid', '');
+  $cid = variable_get('gigya_comments_container', 'comments');
+  $comments_parmes = array(
+    'categoryID' => $catid,
+    'streamID' => $nid,
+    'containerID' => $cid,
+    'cid' => '',
+
+  );
+  return $comments_parmes;
+}
+
+function gigya_comments_add_ui($nid) {
+  $parms = gigya_comments_ui_parmes($nid);
+  drupal_add_js(array('gigya_comments' => array('commentsUIparams' => $parms)), 'setting');
+}
+
+/**
+ * Implementation of hook_link_alter()
+ */
+//remove the drupal add comment link
+function gigya_comments_link_alter(&$links, $node, $comment = NULL) {
+  unset($links['comment_add']);
+}
+
+/**
+ * Implements hook_init
+ *
+ * Add all the js here, to speed page load w/ aggregation enabled.
+ */
+function gigya_comments_init(){
+  drupal_add_js(drupal_get_path('module', 'gigya_comments') . '/gigya_comments.js', 'module', 'footer');
+}
+
+/**
+ * Implementation of hook_nodeapi()
+ */
+function gigya_comments_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch ($op) {
+    case 'view':
+      gigya_comments_add_ui($node->nid);
+      break;
+  }
+}
+
+
+function gigya_comments_ajax($obj) {
+  $uid = $_POST['uid'];
+  $comment = $_POST['commentText'];
+  $usig = $_POST['UIDSignature'];
+  $timestamp = $_POST['timestamp'];
+  $nid = $_POST['nid'];
+  $sec = variable_get('gigya_SecretKey', '');
+  $valid = SigUtils::validateUserSignature($uid, $timestamp, $sec, $usig);
+  if ($valid) {
+    module_load_include('inc', 'comment', 'comment.pages');
+    global $user;
+    $user = user_load(array(uid => $uid));
+    $comment_fields = array();
+    $comment_fields['values']['author'] = $user->name;
+    $comment_fields['values']['comment'] = $comment;
+    $comment_fields['values']['op'] = t('Save');
+    $comment_fields['values']['nid'] = $nid;
+    comment_form_submit("comment_form", $comment_fields);
+  return drupal_json(array('added' => TRUE));
+  }
+  return drupal_json(array('added' => FALSE));
+}

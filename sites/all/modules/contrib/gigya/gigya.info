@@ -1,0 +1,12 @@
+name = "Gigya - Social optimization"
+description = "Allows sites to utilize the Gigya API for authentication and social network updates."
+package = Gigya
+core = 6.x
+php = 5.2
+
+; Information added by drupal.org packaging script on 2011-12-19
+version = "6.x-3.1"
+core = "6.x"
+project = "gigya"
+datestamp = "1324280741"
+
