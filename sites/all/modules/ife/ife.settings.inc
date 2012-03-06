@@ -1,5 +1,4 @@
 <?php
-// $Id: ife.settings.inc,v 1.1.2.4 2010/03/05 00:25:55 stijndm Exp $
 
 /**
  * @file
@@ -104,7 +103,7 @@ function ife_settings_form($form_state) {
     '#type' => 'submit',
     '#value' => t('Save configuration'),
   );
-  
+
   if (module_exists('i18n') && $variables = variable_get('i18n_variables', 0)) {
     i18n_form_alter_settings($form, $variables);
   }
@@ -119,7 +118,9 @@ function ife_settings_form_validate($form, &$form_state) {
   $values = $form_state['values'];
 
   //check if form_id already exists
-  $new_form_id = $values['form_ids']['new_form_id']['form_id'];
+  $new_form_id = trim($values['form_ids']['new_form_id']['form_id']);
+  form_set_value(array('#parents' => array('form_ids', 'new_form_id', 'form_id')), $new_form_id, $form_state);
+
   if ($new_form_id && ife_form_id_load($new_form_id)) {
     form_set_error('form_ids][new_form_id][form_id', t('The form %form_id has already been added.', array('%form_id' => $new_form_id)));
   }
@@ -154,6 +155,7 @@ function ife_settings_form_submit($form, &$form_state) {
 
   //create new form_id
   if ($values['form_ids']['new_form_id']['form_id']) {
+    $values['form_ids']['new_form_id']['form_id'] = trim($values['form_ids']['new_form_id']['form_id']);
     drupal_write_record('ife', $values['form_ids']['new_form_id']);
     drupal_set_message(t('The form %form_id has been added.', array('%form_id' => $values['form_ids']['new_form_id']['form_id'])));
   }
@@ -184,7 +186,7 @@ function ife_form_id_delete_form_submit($form, &$form_state) {
   $form_id = $form_state['values']['fid'];
   db_query("DELETE FROM {ife} WHERE form_id = '%s'", $form_id);
   drupal_set_message(t('The form %form_id has been deleted.', array('%form_id' => $form_id)));
-  
+
   cache_clear_all('ife_form_ids', 'cache');
   drupal_goto('admin/settings/ife');
 }

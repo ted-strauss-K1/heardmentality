@@ -1,10 +1,9 @@
-; $Id: follow.info,v 1.1 2009/04/29 17:20:42 q0rban Exp $
 name = Follow
 description = Add sitewide and per user links to social network profiles.
 core = 6.x
-; Information added by drupal.org packaging script on 2009-12-16
-version = "6.x-1.4"
+; Information added by drupal.org packaging script on 2011-05-10
+version = "6.x-1.5"
 core = "6.x"
 project = "follow"
-datestamp = "1260987653"
+datestamp = "1304988416"
 

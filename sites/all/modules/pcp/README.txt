@@ -5,8 +5,8 @@ has successfully completed, the percentage that has been complete.
 
 INSTALL
 ==============================================
-1. Download and extract the PCP module into your drupal site.
-2. Go to admin/build/modules and activate the "Profile Module" and "PCP Module".
+1. Download and extract the PCP module into your Drupal site.
+2. Go to admin/build/modules and activate the "Profile" module and "Profile Complete Percentage" module.
 3. Make sure you set up the desired profile fields in the profile module at admin/user/profile.
 4. Go to admin/user/pcp and Check the profile fields you want to use for completion then save.
   - Additionally when creating profile fields in step 3 you can tag the field there as well.
@@ -20,10 +20,10 @@ data will adjust when the change has been mage.
 THEME
 ==============================================
 One function in pcp.module is being used to theme the output of the profile percentage complete block.
-  - function theme_pcp_profile_percent_complete($complete_data);
-To override the output of the Profile Percent Complete block, copy this function and
-paste it into your template.php file and rename it to:
-  A) phptemplate_pcp_profile_complete($complete_data)
-  B) sitename_pcp_profile_complete($complete_data)
-You now have full control of the output this block will generate.
 
+function theme_pcp_profile_percent_complete($complete_data);
+
+To override the output of the Profile Percent Complete block, copy this function and paste it into 
+your template.php file and rename it to SITENAME_pcp_profile_complete($complete_data);
+
+You now have full control of the output this block will generate.

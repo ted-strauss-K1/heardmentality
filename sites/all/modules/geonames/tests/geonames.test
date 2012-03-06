@@ -1,5 +1,4 @@
 <?php
-// $Id: geonames.test,v 1.1.2.14 2009/12/16 12:21:43 lyricnz Exp $
 
 /**
  * @file
@@ -28,6 +27,8 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     // Create and login user
     // $admin_user = $this->drupalCreateUser(array('access administration pages'));
     // $this->drupalLogin($admin_user);
+    variable_set('geonames_commercial_active', FALSE);
+    variable_set('geonames_cache', FALSE);
   }
 
   /**
@@ -47,6 +48,7 @@ class GeoNamesTestCase extends DrupalWebTestCase {
       'style' => 'full',
     );
     $result = geonames_query('search', $query);
+    $this->assertNotEqual($result, FALSE, t('Execution of "search" succeeded'));
 
     // Check the results of the search.
     $this->assertTrue($result->total_results_count > 5, t('At least FIVE results found for "Melbourne"'));
@@ -90,7 +92,9 @@ class GeoNamesTestCase extends DrupalWebTestCase {
    */
   function geonames_query($service, $query = array(), $options = NULL) {
     unset($this->services[$service]);
-    return geonames_query($service, $query, $options);
+    $result = geonames_query($service, $query, $options);
+    $this->assertNotEqual($result, FALSE, t("Execution of \"$service\" succeeded"));
+    return $result;
   }
 
 
@@ -163,12 +167,12 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     // Test the "extendedFindNearby" service : other countries
     $query = array('lat' => 47.3, 'lng' => 9);
     $results = $this->geonames_query('extendedFindNearby', $query);
-    $this->assertEqual($results->total_results_count, 5, 'Found 1 result from "extendedFindNearby" B');
+    $this->assertTrue($results->total_results_count >= 5, 'Found at least 5 levels in "extendedFindNearby" B');
     $this->assertEqual($results->results[0]['name'], 'Earth', t('Found "Earth" from "extendedFindNearby" B'));
     $this->assertEqual($results->results[1]['name'], 'Europe', t('Found "Europe" from "extendedFindNearby" B'));
     $this->assertEqual($results->results[2]['name'], 'Switzerland', t('Found "Switzerland" from "extendedFindNearby" B'));
     $this->assertEqual($results->results[3]['name'], 'Kanton St. Gallen', t('Found "Kanton St. Gallen" from "extendedFindNearby" B'));
-    $this->assertEqual($results->results[4]['geonameid'], 6559633, t('Found (geonameid) "6559633" from "extendedFindNearby" B'));
+    $this->assertEqual($results->results[$results->total_results_count - 1]['geonameid'], 6559633, t('Found (geonameid) "6559633" from "extendedFindNearby" B'));
 
     // Test the "extendedFindNearby" service : ocean
     $query = array('lat' => 40.78343, 'lng' => -43.96625);
@@ -187,9 +191,17 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     // Test the "findNearbyStreets" service
     $query = array('lat' => 37.451, 'lng' => -122.18);
     $results = $this->geonames_query('findNearbyStreets', $query);
-    $this->assertEqual($results->total_results_count, 10, 'Found 8 result from "findNearbyStreets"');
+    $this->assertEqual($results->total_results_count, 10, 'Found multiple results from "findNearbyStreets"');
     $result = $results->results[0];
     $this->assertEqual($result['name'], 'Roble Ave', t('Found "Roble Ave" from "findNearbyStreets"'));
+    // Test the "findNearbyStreetsOSM" service
+    $query = array('lat' => 37.451, 'lng' => -122.18);
+    $results = $this->geonames_query('findNearbyStreetsOSM', $query);
+    $this->assertTrue($results->total_results_count > 3, 'Found multiple results from "findNearbyStreetsOSM"');
+    $result = $results->results[0];
+    $this->assertEqual($result['name'], 'Roble Avenue', t('Found "Roble Avenue" from "findNearbyStreetsOSM"'));
+    $this->assertEqual($result['highway'], 'residential', t('Roble Ave is residential'));
+    $this->assertEqual($result['distance'], '0.08', t('Roble Ave is 0.08km? away'));
 
     // Test the "findNearestAddress" service
     $query = array('lat' => 37.451, 'lng' => -122.18);
@@ -206,6 +218,15 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     $result = $results->results[0];
     $this->assertEqual($result['street1'], 'Roble Ave', t('Found "Roble Ave" from "findNearestIntersection"'));
     $this->assertEqual($result['street2'], 'Curtis St', t('Found "Curtis St" from "findNearestIntersection"'));
+    // Test the "findNearestIntersectionOSM" service
+    $query = array('lat' => 37.451, 'lng' => -122.18);
+    $results = $this->geonames_query('findNearestIntersectionOSM', $query);
+    $this->assertEqual($results->total_results_count, 1, 'Found 1 result from "findNearestIntersectionOSM"');
+    $result = $results->results[0];
+    $this->assertEqual($result['street1'], 'Roble Avenue', t('Found "Roble Avenue" from "findNearestIntersectionOSM"'));
+    $this->assertEqual($result['highway1'], 'residential', t('Roble Avenue is residential'));
+    $this->assertEqual($result['street2'], 'Curtis Street', t('Found "Curtis Street" from "findNearestIntersectionOSM"'));
+    $this->assertEqual($result['highway2'], 'residential', t('Curtis Street is residential'));
 
     // Check the "get" service (this uses a different XML format)
     // 2158177 is the geonameid for Melbourne, Australia
@@ -222,14 +243,14 @@ class GeoNamesTestCase extends DrupalWebTestCase {
 
     // Test the "hierarchy" service
     $results = $this->geonames_query('hierarchy', array('geonameid' => 2657896 ));
-    $this->assertEqual($results->total_results_count, 5, 'Found 1 result from "hierarchy"');
+    $this->assertTrue($results->total_results_count >= 5, 'Found at least 5 result from "hierarchy"');
     $this->assertEqual($results->results[0]['name'], 'Earth', 'Found "Earth" in hierarchy to Zurich');
     $this->assertEqual($results->results[1]['name'], 'Europe', 'Found "Europe" in hierarchy to Zurich');
     $this->assertEqual($results->results[2]['name'], 'Switzerland', 'Found "Switzerland" in hierarchy to Zurich');
-    $this->assertEqual($results->results[4]['name'], 'Zurich', 'Found "Zurich" in hierarchy to Zurich');
+    $this->assertEqual($results->results[$results->total_results_count - 1]['name'], 'Zurich', 'Found "Zurich" in hierarchy to Zurich');
 
-    // Test the "nearby" service
-    $results = $this->geonames_query('nearby', array('lat' => 47.03, 'lng' => 10.2));
+    // Test the "findnearby" service
+    $results = $this->geonames_query('findnearby', array('lat' => 47.03, 'lng' => 10.2));
     $this->assertEqual($results->total_results_count, 1, 'Found 1 result from "nearby"');
     $result = $results->results[0];
     $this->assertEqual($result['name'], 'Talliger', t('Found "Talliger" from "nearby"'));
@@ -238,7 +259,7 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     // Test the "nearbyPlaceName" service
     $query = array('lat' => '28.500103', 'lng' => '-81.357992', 'radius' => 50, 'style' => 'full', 'maxrows' => 10);
     $options = array('sortby' => 'population', 'sortorder' => 'desc');
-    $results = $this->geonames_query('nearbyplace', $query, $options);
+    $results = $this->geonames_query('findnearbyplacename', $query, $options);
     $this->assertEqual($results->total_results_count, 10, 'Found 10 result from "nearbyPlaceName"');
     $all_ok = TRUE;
     foreach ($results->results as $result) {
@@ -248,8 +269,8 @@ class GeoNamesTestCase extends DrupalWebTestCase {
 
     // Test the "findNearbyPostalCodes" service (by lat/lon)
     $query = array('lat' => '28.500103', 'lng' => '-81.357992', 'radius' => 10, 'style' => 'full');
-    $results = $this->geonames_query('nearbypostalcodes', $query);
-    $this->assertTrue($results->total_results_count > 3, 'Found >3 result from "nearbypostalcodes" A');
+    $results = $this->geonames_query('findnearbypostalcodes', $query);
+    $this->assertTrue($results->total_results_count > 3, 'Found >3 result from "findnearbypostalcodes" A');
     $all_ok = TRUE;
     foreach ($results->results as $result) {
       $all_ok = $all_ok && ($result['adminname1'] == 'Florida');
@@ -258,18 +279,18 @@ class GeoNamesTestCase extends DrupalWebTestCase {
 
     // Test the "findNearbyPostalCodes" service (by postalcode)
     $query = array('postalcode' => 8775, 'country' => 'CH', 'radius' => 10);
-    $results = $this->geonames_query('nearbypostalcodes', $query);
-    $this->assertTrue($results->total_results_count > 3, 'Found >3 result from "nearbypostalcodes" B');
+    $results = $this->geonames_query('findnearbypostalcodes', $query);
+    $this->assertTrue($results->total_results_count > 3, 'Found >3 result from "findnearbypostalcodes" B');
     $all_ok = TRUE;
     foreach ($results->results as $result) {
       $all_ok = $all_ok && ($result['countrycode'] == 'CH');
     }
     $this->assert($all_ok, "All findNearbyPostalCodes-B are in Florida");
 
-    // Test the "findNearbyWikipedia" service (by lat/lon)
+    // Test  "findnearbywikipedia" service (by lat/lon)
     $query = array('lat' => '28.500103', 'lng' => '-81.357992', 'radius' => 10, 'style' => 'full');
-    $results = $this->geonames_query('nearbywikipedia', $query);
-    $this->assertTrue($results->total_results_count > 3, 'Found >3 result from "nearbywikipedia" A');
+    $results = $this->geonames_query('findnearbywikipedia', $query);
+    $this->assertTrue($results->total_results_count > 3, 'Found >3 result from "findnearbywikipedia" A');
     $all_ok = TRUE;
     foreach ($results->results as $result) {
       $all_ok = $all_ok && $result['wikipediaurl'];
@@ -278,8 +299,8 @@ class GeoNamesTestCase extends DrupalWebTestCase {
 
     // Test the "findNearbyWikipedia" service (by postalcode)
     $query = array('postalcode' => 8775, 'country' => 'CH', 'radius' => 10);
-    $results = $this->geonames_query('nearbywikipedia', $query);
-    $this->assertTrue($results->total_results_count > 3, 'Found >3 result from "nearbywikipedia" B');
+    $results = $this->geonames_query('findnearbywikipedia', $query);
+    $this->assertTrue($results->total_results_count > 3, 'Found >3 result from "findnearbywikipedia" B');
     $all_ok = TRUE;
     foreach ($results->results as $result) {
       $all_ok = $all_ok && $result['wikipediaurl'];
@@ -351,7 +372,7 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     // Test the "wikipediaBoundingBox" service
     // http://ws.geonames.org/wikipediaBoundingBox?north=44.1&south=-9.9&east=-22.4&west=55.2
     $query = array('north' => 44.1, 'south' => -9.9, 'east' => -22.4, 'west' => 55.2);
-    $results = $this->geonames_query('wikipediabbox', $query);
+    $results = $this->geonames_query('wikipediaboundingbox', $query);
     $this->assert($results->total_results_count > 10, 'Found >10 result for wikipediaBoundingBox');
 
     // Test the "wikipediaSearch" service
@@ -371,6 +392,17 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     $this->assertEqual($results->total_results_count, 1, t('One result for gtopo30 service'));
     $result = $results->results[0];
     $this->assertEqual($result['gtopo30'], "205", t('Found expected result for fixed coordinates for gtopo30 service'));
+
+
+    // Test the weatherIcao service
+    $query = array('code' => 'LSZH');
+    $results = $this->geonames_query('weatherIcao', $query);
+    $this->assertEqual($results->total_results_count, 1, t('One result for weatherIcao service'));
+    $result = $results->results[0];
+    $this->assertEqual($result['stationname'], 'Zurich-Kloten', t('Found expected station name for weatherIcao'));
+    $this->assertEqual($result['icao'], 'LSZH', t('Found expected station code for weatherIcao'));
+    $this->assertEqual($result['countrycode'], 'CH', t('Found expected country code for weatherIcao'));
+    $this->assertEqual($result['elevation'], '432', t('Found expected station elevation for weatherIcao'));
 
     // Check that ALL services have been executed
     $unused_services = count($this->services);
@@ -392,23 +424,27 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     // See http://drupal.org/node/623720
     $query = array('lat' => '28.500103', 'lng' => '-81.357992', 'radius' => 50, 'style' => 'full', 'maxrows' => 10);
     $options = array('sortby' => 'population', 'sortorder' => 'desc');
-    $results = geonames_query('nearbyplace', $query, $options);
+    $results = geonames_query('findnearbyplacename', $query, $options);
     if (array_key_exists('cached', $results->request)) {
       $this->assertNotEqual($results->request['cached'], 'result', 'First request for sorted results IS NOT cached');
     }
     $last_population = PHP_INT_MAX;
     foreach ($results->results as $result) {
-      $this->assertTrue($result['population'] < $last_population, "Population of $result[name] ($result[population]) <= $last_population");
-      $last_population = $result['population'];
+      if ($result['population'] != '') {
+        $this->assertTrue($result['population'] < $last_population, "Population of $result[name] ($result[population]) <= $last_population");
+        $last_population = $result['population'];
+      }
     }
 
     // Retest with cached results
-    $results = geonames_query('nearbyplace', $query, $options);
+    $results = geonames_query('findnearbyplacename', $query, $options);
     $this->assertEqual($results->request['cached'], 'result', 'Second request for sorted results IS cached');
     $last_population = PHP_INT_MAX;
     foreach ($results->results as $result) {
-      $this->assertTrue($result['population'] < $last_population, "Population of $result[name] ($result[population]) <= $last_population");
-      $last_population = $result['population'];
+      if ($result['population'] != '') {
+        $this->assertTrue($result['population'] < $last_population, "Population of $result[name] ($result[population]) <= $last_population");
+        $last_population = $result['population'];
+      }
     }
   }
 
@@ -431,6 +467,9 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     $aus2 = geonames_countryinfo('Australia');
     $this->assertEqual($aus2['iso_alpha2'], 'AU', t('Australia countryinfo found by name'));
     $this->assertEqual($aus1, $aus2, t('Lookup by country code matches lookup by name'));
+
+    $num_iso_numeric = db_result(db_query('SELECT COUNT(DISTINCT(iso_numeric)) FROM {geonames_countryinfo}'));
+    $this->assertEqual($numcountries, $num_iso_numeric, t('All countries have distinct ISO numeric codes'));
 
     // Check geonames_countries()
     $oc_countries = geonames_countries(array('continent' => 'OC'));
@@ -458,4 +497,40 @@ class GeoNamesTestCase extends DrupalWebTestCase {
     $this->assertEqual(geonames_us_states('CA'), 'California', t('California found'));
   }
 
+  /**
+   * Check that the Geonames module implements ALL of the services described on
+   * the website that return XML results.
+   */
+  function testGeonamesCompleteness() {
+    // Fetch the webservices overview HTML page from geonames.org
+    $overview_url = 'http://www.geonames.org/export/ws-overview.html';
+    $response = drupal_http_request($overview_url .'?app=drupal');
+    $num = preg_match_all('#<tr[^>]*>\s*<td>\d+</td>(.*?)</tr>#s', $response->data, $rows);
+    $this->assertTrue($num > 10, t('At least 10 table rows found'));
+
+    // Build a list of XML services from geonames...
+    $service_names = array();
+    foreach ($rows[1] as $row) {
+      if (preg_match('#<td><a target=_BLANK href="[^"]*">(\w+)</a>.*?</td>\s*<td>.*>XML</a>#', $row, $bits)) {
+        $service_names[] = strtolower($bits[1]);
+      }
+    }
+    $this->assertTrue(count($service_names) > 10, t('At least 10 services found'));
+
+    // ...and a list of services provided by this module.
+    $config_service_names = array();
+    foreach (geonames_config() as $config) {
+      $config_service_names[] = strtolower($config['service_name']);
+    }
+
+    // Check that we implement all of them...
+    foreach (array_diff($service_names, $config_service_names) as $service_name) {
+      $this->assertTrue(FALSE, t('Geonames service "%name" not supported', array('%name' => $service_name)));
+    }
+
+    // ...and no others
+    foreach (array_diff($config_service_names, $service_names) as $service_name) {
+      $this->assertTrue(FALSE, t('Module service "%name" not supported by geonames', array('%name' => $service_name)));
+    }
+  }
 }

@@ -174,9 +174,7 @@ function _webform_edit_file_check_directory($element) {
   $destination_dir = $base_dir . '/' . $element['#value'];
 
   // Sanity check input to prevent use parent (../) directories.
-  $real_base = realpath($base_dir);
-  $real_destination = realpath($destination_dir);
-  if (strpos($real_destination, $real_base) !== 0) {
+  if (preg_match('/\.\.[\/\\\]/', $destination_dir . '/')) {
     form_error($element, t('The save directory %directory is not valid.', array('%directory' => $destination_dir)));
   }
   else {
@@ -331,6 +329,7 @@ function _webform_render_file($component, $value = NULL, $filter = TRUE) {
       '_webform_required_file',  // Custom required routine.
     ),
     '#pre_render' => array('webform_element_title_display'),
+    '#translatable' => array('title', 'description'),
     '#webform_component' => $component,
   );
   $element['#webform_required'] = $component['mandatory'];
@@ -340,7 +339,6 @@ function _webform_render_file($component, $value = NULL, $filter = TRUE) {
   $element['#title_display'] = $element[$form_key]['#title_display'];
   $element['#theme_wrappers'] = array('webform_element_wrapper');
   $element['#post_render'] = array('webform_element_wrapper');
-  $element['#webform_component'] = $component;
 
   // Change the 'width' option to the correct 'size' option.
   if ($component['extra']['width'] > 0) {
@@ -373,7 +371,7 @@ function theme_webform_render_file($element) {
   $value = $element['_fid']['#value'] ? $element['_fid']['#value'] : $element['_old']['#value'];
 
   if ($value && ($file = webform_get_file($value))) {
-    $firstchild = array_shift(array_keys($element));
+    $firstchild = array_shift(element_children($element));
     $element[$firstchild]['#suffix'] = ' ' . l(t('Download @filename', array('@filename' => webform_file_name($file->filepath))), webform_file_url($file->filepath)) . (isset($element['#suffix']) ? $element['#suffix'] : '');
     $element[$firstchild]['#description'] = '<div class="webform-newfile-message">' . t('Uploading a new file will replace the current file.') . '</div>' . (isset($element[$firstchild]['#description']) ? $element[$firstchild]['#description'] : '');
   }
@@ -507,7 +505,7 @@ function _webform_submit_file($component, $value) {
     file_set_status($file, FILE_STATUS_PERMANENT);
 
     // Delete any previous files.
-    if ($value['_old'] && ($existing = webform_get_file($value['_old']))) {
+    if ($value['_old'] && $value['_old'] != $value['_fid'] && ($existing = webform_get_file($value['_old']))) {
       file_delete($existing->filepath);
       db_query("DELETE FROM {files} WHERE fid = %d", $existing->fid);
     }
@@ -527,14 +525,14 @@ function _webform_submit_file($component, $value) {
 function _webform_display_file($component, $value, $format = 'html') {
   $fid = isset($value[0]) ? $value[0] : NULL;
   return array(
-     '#title' => $component['name'],
-     '#value' => $fid ? webform_get_file($fid) : NULL,
-     '#weight' => $component['weight'],
-     '#theme' => 'webform_display_file',
-     '#theme_wrappers' => $format == 'html' ? array('webform_element', 'webform_element_wrapper') : array('webform_element_text'),
-     '#post_render' => array('webform_element_wrapper'),
-     '#webform_component' => $component,
-     '#format' => $format,
+    '#title' => $component['name'],
+    '#value' => $fid ? webform_get_file($fid) : NULL,
+    '#weight' => $component['weight'],
+    '#theme' => 'webform_display_file',
+    '#theme_wrappers' => $format == 'html' ? array('webform_element', 'webform_element_wrapper') : array('webform_element_text'),
+    '#post_render' => array('webform_element_wrapper'),
+    '#format' => $format,
+    '#translatable' => array('title'),
   );
 }
 
@@ -552,7 +550,7 @@ function theme_webform_display_file($element) {
  */
 function _webform_delete_file($component, $value) {
   // Delete an individual submission file.
-  if (isset($value[0]) && ($file = webform_get_file($value[0]))) {
+  if (!empty($value[0]) && ($file = webform_get_file($value[0]))) {
     unlink($file->filepath);
     db_query("DELETE FROM {files} WHERE fid = '%d'", $file->fid);
   }
@@ -659,4 +657,13 @@ function webform_get_file($fid) {
   }
 
   return $files[$fid];
+}
+
+/**
+ * Implements _webform_attachments_component().
+ */
+function _webform_attachments_file($component, $value) {
+  $file = (array) webform_get_file($value[0]);
+  $files = array($file);
+  return $files;
 }

@@ -253,7 +253,7 @@ function language_link_creation() {
       $text = $ltext;
     }
    
-    $links[$lang]['text']       = $text;
+    $links[$lang]['text']       = check_plain($text);
     $links[$lang]['src']        = $src;
     $links[$lang]['flagheight'] = $flagheight;
     $links[$lang]['flagwidth']  = $flagwidth;

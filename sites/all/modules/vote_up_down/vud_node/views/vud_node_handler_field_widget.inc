@@ -9,9 +9,14 @@
  * A handler that provides a Vote Up/Down widget field for nodes.
  */
 class vud_node_handler_field_widget extends views_handler_field {
+  function init(&$view, &$options) {
+    parent::init($view, $options);
+    $this->additional_fields['nid'] = array('table' => 'node', 'field' => 'nid');
+  }
+
   function query() {
-    // We have to override the parent here, because we don't want
-    // to do anything.
+    // Not calling parent method on purpose.
+    $this->add_additional_fields();
   }
 
   function option_definition() {
@@ -28,7 +33,7 @@ class vud_node_handler_field_widget extends views_handler_field {
   function render($values) {
     $widget = '';
     if (($can_edit = user_access('use vote up/down on nodes')) || user_access('view vote up/down count on nodes')) {
-      $nid = $values->nid;
+      $nid = $values->{$this->aliases['nid']};
       $type = db_result(db_query("SELECT type FROM {node} WHERE nid = '%d'", $nid));
       $valid_type = in_array($type, variable_get('vud_node_types', array()), TRUE);
 

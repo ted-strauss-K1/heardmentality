@@ -1,5 +1,4 @@
 <?php
-// $Id: ife.theme.inc,v 1.1.2.1 2010/03/02 21:32:35 stijndm Exp $
 
 /**
  * @file
@@ -46,11 +45,16 @@ function theme_ife_settings_form_ids($form) {
  * Form element preprocess theming function
  */
 function template_preprocess_ife_form_element(&$vars) {
+  $vars['error_message'] = '';
   $element = $vars['element'];
 
   //theme the field
+  // If there was a theme function apart from ife, theme the element with it.
+  if (isset($element['#original_theme'])) {
+    $vars['field'] = theme($element['#original_theme'], $element);
+  }
   //some strange things happening here with expandables vs singles
-  if (in_array($vars['element']['#field_type'], ife_expandable_field_types())) {
+  elseif (in_array($vars['element']['#field_type'], ife_expandable_field_types())) {
     $vars['field'] = drupal_render($element);
   }
   else {
@@ -66,7 +70,7 @@ function template_preprocess_ife_form_element(&$vars) {
   }
 
   //cck type support
-  if ($element['value']) {
+  if (isset($element['value'])) {
     $values = element_children($element['value']);
 
     //get main field error
@@ -89,6 +93,19 @@ function template_preprocess_ife_form_element(&$vars) {
       }
     }
   }
+
+  // captcha type support
+  if (module_exists('captcha')) {
+    if ($element['#field_type'] == 'captcha') {
+      if (!empty($element['captcha_widgets']['captcha_response'])) {
+        $element_error = ife_element_get_error($element['captcha_widgets']['captcha_response']);
+        if (trim($element_error)) {
+          $errors[] = $element_error;
+        }
+      }
+    }
+  }
+
 
   if (count($errors)) {
     if (count($errors) > 1) {

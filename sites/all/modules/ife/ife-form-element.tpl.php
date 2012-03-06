@@ -1,5 +1,4 @@
 <?php
-// $Id: ife-form-element.tpl.php,v 1.1.2.2 2010/04/20 18:29:23 stijndm Exp $
 
 /**
  * @file
