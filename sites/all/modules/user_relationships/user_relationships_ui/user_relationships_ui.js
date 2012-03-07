@@ -3,10 +3,55 @@
 // Creating our own namespace for the module
 Drupal.user_relationships_ui = {};
 
-Drupal.behaviors.userRelationshipsPopupLink = function(context) {
-  // Any links that we have created in the ui module are
+Drupal.behaviors.userRelationshipsPopupLink = function(context) { 
+  // Any links that we have created in the ui module are  
   // Given a click handler so you can display the popup correctly
-  $('a.user_relationships_popup_link').click(function(e) {
+  $('a.user_relationships_popup_link').click(function(e) {  
+  
+    /**Remove the below mentioned lines(Rallydev:543), if we want to revert back to the previous functionality in the "/profile" page
+	 *
+	 * Now the pop-up restricted and action to be done within the same page without redirecting
+	 * Date Added : March 07 / 2012
+	 *
+	**/
+	/**Rallydev:543**/
+	url = document.URL;
+	if(url.indexOf('profile/') != -1) { 
+		e.preventDefault();  
+		var request_path = Drupal.settings.hm_base_url; 
+		split = url.split("profile/");
+		user_name = split[1]; 
+		urls = request_path + '/profile/follow_unfollow';
+		jQuery.ajax({
+			type: "GET",
+			url: urls,
+			data: {'prof_visited_user':user_name},
+			success: function(msg) {
+			  if(msg == 0) {
+				$('a.user_relationships_popup_link').html('Follow User');
+				$('.profile-message:first').html(__showResponse("Your <em>Subscriber</em> relationship with "+user_name+" has been deleted.")); 
+			  } else if(msg == 1) {
+				$('a.user_relationships_popup_link').html('Unfollow User');
+				$('.profile-message:first').html(__showResponse("You are <em>Subscribed</em> to "+user_name));
+			  }
+			}
+		});
+		return;
+	}
+	
+	function __showResponse(message) {
+		var message = '<div style="width: auto; height: auto;" class="" id="effect">'+
+                      '<div class="message top-message">'+
+                      '<p style="display: none;" class="double"></p><div class="messages status">'+message+
+                      '</div>'+
+                      '</div>'+
+                      '<a class="hide-message" id="button" href="#" style="margin-top: 3px;"><span class="ui-icon ui-icon-closethick">Hide</span></a>'+
+                      '<br class="clear">'+
+                      '</div><div class="clear"></div>';
+		return message;
+	}
+   /*****************/
+  
     var buttoncode = e.which ? e.which : e.button; // msie specific checks does not support e.which
     // If position is fixed, allow for %'s.
     position = Drupal.settings.user_relationships_ui.position.position;
@@ -129,3 +174,8 @@ $(document).ready(function() {
     $('#edit-is-reciprocal-wrapper').hide();
   }
 });
+/**Rallydev:543**/
+$('.hide-message').live('click',function() {
+  $(this).parent().hide();
+});
+/****************/	
