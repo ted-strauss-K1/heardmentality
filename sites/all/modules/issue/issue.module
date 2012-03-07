@@ -3004,3 +3004,25 @@ function popular_categories() {
   $popular_categories = theme('popular_categories', $popular);
   return $popular_categories;
 }
+
+/**Rallydev:526**/
+function __issue_description_trimmer($context) {
+  
+  $initial_character_count = 150;
+  $context_initial = "";
+  $context_remaining = ""; 
+  $output = array();
+  $context = trim($context);
+  $output['actual_length'] = $trimmed_string_length = strlen($context);
+  if($trimmed_string_length <= $initial_character_count) {
+    $output['context_initial'] = str_replace("\r\n", "<br>",$context);  
+	$output['context_remaining'] = "";
+  } else {
+    $context_initial = substr($context,0,$initial_character_count);
+	$output['context_initial'] = str_replace("\r\n", "<br>",$context_initial).'<br/><a id="new-ellipse">[...]</a>';  
+	$context_remaining = substr($context,$initial_character_count,$trimmed_string_length);
+	$output['context_remaining'] = str_replace("\r\n", "<br>",$context_remaining);  
+  }  
+  return $output;
+}
+/**************/
