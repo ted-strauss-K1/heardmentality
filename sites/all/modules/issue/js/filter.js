@@ -941,3 +941,12 @@ function open_flag_box(oid, type){
     });
     return false;
 }
+
+/**Rallydev:526**/
+$(document).ready(function(){
+  $('#new-ellipse').click(function(){
+	$('#extended-issue-description').show();
+	$(this).remove();
+  });
+});
+/**************/
