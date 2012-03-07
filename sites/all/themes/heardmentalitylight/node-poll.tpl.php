@@ -14,7 +14,7 @@ $gSitePath = $base_path.'/';
 <p class="description">
     
 	<span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
-        <?php //print t($context); ?>&nbsp;
+        <?php print t($context); ?>&nbsp;
     </span>
     <?php if(strlen($context)>150) {?><a onclick="showDesc()" id="more-desc">[...]</a><?php }?>
 	
