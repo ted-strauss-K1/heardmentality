@@ -2402,3 +2402,9 @@ ul.menu.second li:last-child a.add:hover {
 	background-color: #000;
 	color: #fff;	
 }
+.ajax-loader {
+  background:url(../images/ajax-loader.gif) no-repeat;
+  float:right;
+  padding:10px;
+  clear:both;
+}
