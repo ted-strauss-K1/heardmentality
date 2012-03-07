@@ -619,3 +619,29 @@ function profile_box_session() {
    print "Profile Box Vanished";
    exit;
 }
+
+/**Rallydev:543**/
+function profile_follow_unfollow() {
+  global $user;
+  $user->uid;
+  $timestamp =  strtotime(date('m/d/y'));
+  
+  $profile_visited_user_name = trim($_GET['prof_visited_user']);
+  if(is_numeric($profile_visited_user_name)) {
+    $profile_visited_user_id = $profile_visited_user_name;
+  } else {
+    $profile_visited_user_id = db_result(db_query("select uid from users where name = '$profile_visited_user_name'"));
+  }
+  
+  if(db_result(db_query("select count(*) from user_relationships where requester_id = '$user->uid' and requestee_id = '$profile_visited_user_id' and rtid = '1' and approved = '1'"))) {
+	if(db_query("delete from user_relationships where requester_id = '$user->uid' and requestee_id = '$profile_visited_user_id' and rtid = '1' and approved = '1'")) {
+	  print 0;
+	}
+  } else {
+    if(db_query("insert into user_relationships(requester_id,requestee_id,rtid,approved,created_at,updated_at)values($user->uid,$profile_visited_user_id,'1','1','$timestamp','$timestamp')")) {
+	  print 1;
+	}
+  }
+  
+}
+/*************/
