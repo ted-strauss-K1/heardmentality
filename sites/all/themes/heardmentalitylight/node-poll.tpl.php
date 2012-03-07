@@ -4,7 +4,6 @@ $gSitePath = $base_path.'/';
  $path=$gSitePath.  drupal_get_path('theme',$theme);
  $node=node_load(array('nid'=>$nid));
  $tnid = get_tnid($nid);
- $context = str_replace("\r\n", "<br>", $context);  
 ?>
 <?php if($user->uid!=0){?>
 <a class="icon flag" id="dialog_link-flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
@@ -13,10 +12,16 @@ $gSitePath = $base_path.'/';
 <?php }?>
 <h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
 <p class="description">
-    <span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
-        <?php print t($context); ?>&nbsp;
+    
+	<!--<span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
+        <?php //print t($context); ?>&nbsp;
     </span>
     <?php if(strlen($context)>150) {?><a onclick="showDesc()" id="more-desc">[...]</a><?php }?>
+	-->
+	<!--Rallydev:526-->
+	 <?php $output = __issue_description_trimmer($context); ?>
+	<span><?php print $output['context_initial']; ?></span><span id="extended-issue-description" style="display:none;"><?php print $output['context_remaining']; ?></span>
+	<!---------------->
 </p>
 <div class="clear"></div>
 <!--<div class="issue-things"></div>-->
