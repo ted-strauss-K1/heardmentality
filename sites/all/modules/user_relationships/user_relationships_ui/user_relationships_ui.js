@@ -18,6 +18,7 @@ Drupal.behaviors.userRelationshipsPopupLink = function(context) {
 	url = document.URL;
 	if(url.indexOf('profile/') != -1) { 
 		e.preventDefault();  
+		$('h2.din').after('<p class="ajax-loader"></p>');
 		var request_path = Drupal.settings.hm_base_url; 
 		split = url.split("profile/");
 		user_name = split[1]; 
@@ -27,6 +28,7 @@ Drupal.behaviors.userRelationshipsPopupLink = function(context) {
 			url: urls,
 			data: {'prof_visited_user':user_name},
 			success: function(msg) {
+              $('.ajax-loader').remove();
 			  if(msg == 0) {
 				$('a.user_relationships_popup_link').html('Follow User');
 				$('.profile-message:first').html(__showResponse("Your <em>Subscriber</em> relationship with "+user_name+" has been deleted.")); 
