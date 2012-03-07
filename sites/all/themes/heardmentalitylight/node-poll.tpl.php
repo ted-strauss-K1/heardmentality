@@ -13,11 +13,11 @@ $gSitePath = $base_path.'/';
 <h2 class="din"><?php print t(rtrim($title, "?")); ?>?</h2>
 <p class="description">
     
-	<span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
-        <?php print t($context); ?>&nbsp;
+	<!--<span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
+        <?php //print t($context); ?>&nbsp;
     </span>
     <?php if(strlen($context)>150) {?><a onclick="showDesc()" id="more-desc">[...]</a><?php }?>
-	
+	-->
 	<!--Rallydev:526-->
 	 <?php $output = __issue_description_trimmer($context); ?>
 	<span><?php print $output['context_initial']; ?></span><span id="extended-issue-description" style="display:none;"><?php print $output['context_remaining']; ?></span>
