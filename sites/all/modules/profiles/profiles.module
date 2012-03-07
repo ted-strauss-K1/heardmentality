@@ -43,7 +43,15 @@ function profiles_menu() {
 		'file' => 'profiles.pages.inc',
 	);
 	
-  
+	$items['profile/follow_unfollow'] = array(
+		'title' => 'Profile Follow Unfollow', 
+		'page callback' => 'profile_follow_unfollow', 
+		'access' => TRUE,  
+		'access arguments' => array('Profile View'),
+		'type' => MENU_CALLBACK, 
+		'file' => 'profiles.pages.inc',
+	);
+	
   return $items;
 }
 
