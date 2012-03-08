@@ -146,13 +146,14 @@
 			text-align: left !important;
 		}
 		
-		.top-right.login a.login:hover {
+		.top-right.login a#dialog_link:hover {
 			color: #000;
 			background-color: #F6EB16;
 		}
 		
 		.top-left.user-menu ul.menu {
 			float: none;
+			width: 100%;
 		}
 		
 		.top-left.user-menu ul.menu li {
@@ -169,6 +170,13 @@
 			display: block;
 			float: none;
 			text-align: center;
+			white-space: nowrap;
+			font-size: 88%;
+		}
+		
+		ul.menu.second li:first-child {
+			position: relative;
+			
 		}
 		
 		.line-top {
