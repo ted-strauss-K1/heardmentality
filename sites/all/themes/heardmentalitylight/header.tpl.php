@@ -12,13 +12,13 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
 			
 			<div class="top-right login">
 				<?php print $user_login; ?>
-				<a href="#" id="dialog_link" class="ui-state-default ui-corner-all login">
+				<!--<a href="#" id="dialog_link" class="ui-state-default ui-corner-all login">
                   <?php if($user->uid == ''){
                               print t('LOGIN');
                           }else{
                              print $user->name;
                           }
-                  ?>
+                  ?>-->
                 </a>
 			</div>
 			
