@@ -167,7 +167,7 @@
 		
 		.top-left.user-menu ul.menu.second li {
 			float: left;
-			width: 35%;
+			width: 33%;
 		}
 		
 		.top-left.user-menu ul.menu li a {
@@ -175,7 +175,7 @@
 			float: none;
 			text-align: left;
 			white-space: nowrap;
-			width: 92%;
+			font-size: 92%;
 		}
 		
 		ul.menu.second li:first-child {
