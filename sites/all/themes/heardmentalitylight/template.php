@@ -96,6 +96,8 @@ if($vars['node']->type == 'static_pages' || $vars['node']->type == 'page'|| $var
     $vars['template_files'] = array_merge($vars['template_files'], $suggestions);
 }
 
+//echo '<pre>';
+//print_r($vars);exit;
 //overide default jquery
    // if($vars['template_files'][1]!='page-issue-create'){
         drupal_add_js($path . "/javascripts/jquery1.4.js", 'core'); //where you store your jque
@@ -106,9 +108,9 @@ if($vars['node']->type == 'static_pages' || $vars['node']->type == 'page'|| $var
     $js = drupal_add_js(NULL, NULL, 'header'); //get header js files in an array
    
     unset($js['core']['misc/jquery.js']); //unset default drupal jquery js
-   $js['core'] = array_reverse($js['core'], 1); //make our own jquery file first (see note)
+    $js['core'] = array_reverse($js['core'], 1); //make our own jquery file first (see note)
 
-   if($vars['template_files'][1]=='page-issue-create'){
+    if($vars['template_files'][1]=='page-issue-create'){
     unset($js['theme']['sites/all/themes/heardmentalitylight/javascripts/jquery-1.5.1.min.js']); //unset default drupal jquery js
     //echo '<pre>';    print_r($js);exit;
     }
@@ -119,7 +121,7 @@ if($vars['node']->type == 'static_pages' || $vars['node']->type == 'page'|| $var
       }
 
      */
-  $vars['scripts'] = drupal_get_js('header', $js); //create script tags and set them to $scripts
+ $vars['scripts'] = drupal_get_js('header', $js); //create script tags and set them to $scripts
    
 }
 
