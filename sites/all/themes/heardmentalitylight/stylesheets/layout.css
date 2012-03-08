@@ -32,6 +32,10 @@
 		background: none transparent;
 		zoom: 1;
 		}
+
+#block-block-28 p {
+	margin: 0;
+}
 		
 .top-right.login a.login {
 	display: block;
