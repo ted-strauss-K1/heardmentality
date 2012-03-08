@@ -70,6 +70,7 @@
 		/* background:#21b4e2; */
 		height:auto;
 		max-width:412px;
+		border: 1px solid blue;
 		}
 	.line-top {
 		background:#EF00D3;		
