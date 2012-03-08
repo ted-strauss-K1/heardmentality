@@ -43,7 +43,14 @@
     	
     	p.suggest-answer {width:100%; margin:10px 0px; padding:0px 0px;}
 		fieldset.suggest-answer li {width:auto;}
+		
+		.top-right.blue {
+			max-width: 100px;
+		}
 	}
+	
+	/* iPad Portrait Only */
+	@media only screen and (min-width: 768px) and (max-width: 991px) and (max-device-width: 1000px) {}
 	
 /* Mobile/Browser */
 
@@ -75,70 +82,7 @@
 		fieldset.suggest-answer li {width:auto;}
 	}
 	
-	/* Anything smaller than standard 960 */
-	
-	@media only screen and (max-width: 967px) {
-	  
-		.hide-on-mobiles {
-			display:none;
-		}
-		
-		.top-mobile {
-			margin-top:-20px;
-		}
-		
-		.circle-box {
-			background:url(../images/circle_bg.png) center -13px no-repeat;
-			margin:50px 0px 10px 0px;
-			width:100%;
-			height:170px;
-		}
-		
-		.see-banner, .vote-banner, .share-banner {
-			font-size:20px;
-			padding:75px 0px 0px 0px;
-		}
-		
-		.error-banner {
-			padding:75px 0px 0px 0px;
-			font-size:40px;
-		}
-		
-		textarea#Question, input#Answer  {
-			width:97%;
-			float:none;
-		}
-		
-		label.add-on, label.add-on-2 {
-			width:auto;
-		}
-    
-		.new-issue .number{
-			width:30px;
-			float:none;
-			color:#999;
-			font-size:30px;
-			margin:-10px 6px 10px 0px;
-			text-shadow: #fff 0px 1px;
-		}
-		
-		.profile-meta img{
-			width:105px;
-			height:105px;
-		}
-		
-		input.add-answer {
-			margin:0px 5px 5px 0px;
-		}
 
-		.button.participate {
-			margin:2px 0px 0px 0px;
-    	}
-		
-	}
-	
-/* iPad Portrait Only */
-	@media only screen and (min-width: 768px) and (max-width: 991px) and (max-device-width: 1000px) {}
 	
 /* Mobile Only */
 	@media only screen and (max-width: 767px)  {
@@ -329,5 +273,67 @@
 	
 /* Mobile Landscape Only */
 	@media only screen and (min-width: 480px) and (max-width: 767px) and (max-device-width: 1000px) {
+		
+	}
+	
+	/* Anything smaller than standard 960 */
+	
+	@media only screen and (max-width: 967px) {
+	  
+		.hide-on-mobiles {
+			display:none;
+		}
+		
+		.top-mobile {
+			margin-top:-20px;
+		}
+		
+		.circle-box {
+			background:url(../images/circle_bg.png) center -13px no-repeat;
+			margin:50px 0px 10px 0px;
+			width:100%;
+			height:170px;
+		}
+		
+		.see-banner, .vote-banner, .share-banner {
+			font-size:20px;
+			padding:75px 0px 0px 0px;
+		}
+		
+		.error-banner {
+			padding:75px 0px 0px 0px;
+			font-size:40px;
+		}
+		
+		textarea#Question, input#Answer  {
+			width:97%;
+			float:none;
+		}
+		
+		label.add-on, label.add-on-2 {
+			width:auto;
+		}
+    
+		.new-issue .number{
+			width:30px;
+			float:none;
+			color:#999;
+			font-size:30px;
+			margin:-10px 6px 10px 0px;
+			text-shadow: #fff 0px 1px;
+		}
+		
+		.profile-meta img{
+			width:105px;
+			height:105px;
+		}
+		
+		input.add-answer {
+			margin:0px 5px 5px 0px;
+		}
+
+		.button.participate {
+			margin:2px 0px 0px 0px;
+    	}
 		
 	}	
