@@ -1,0 +1,23 @@
+/*IE only stylesheet*/
+
+body, h1, h2, h3, h4, h5, h6,
+	a.button, 
+	button,
+	input.add-answer,
+	a.add-answer,
+	input.add-answer2,
+	a.add-answer2,
+	input.add-comment,
+	h6#reply,
+	h6#add-arg,
+	input[type="submit"],
+	input[type="reset"],
+	input[type="button"],
+	input[type="text"], 
+	input[type="password"],
+	input[type="email"],
+	textarea, 
+	select,
+	.search input, input.upload	{
+	font: 14px/21px Arial, "HelveticaNeue", "Helvetica Neue", Helvetica, sans-serif;
+}
