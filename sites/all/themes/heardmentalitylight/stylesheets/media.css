@@ -157,12 +157,18 @@
 		
 		.top-left.user-menu ul.menu li {
 			float: left;
-			width: 33.333%;
+			width: 33%;
+		}
+		
+		.top-left.user-menu ul.menu.second li {
+			float: left;
+			width: 34%;
 		}
 		
 		.top-left.user-menu ul.menu li a {
 			display: block;
 			float: none;
+			text-align: center;
 		}
 		
 		.line-top {
