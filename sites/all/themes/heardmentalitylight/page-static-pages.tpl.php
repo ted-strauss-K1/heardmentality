@@ -49,7 +49,7 @@ $directoryPath = $base_path . $directory;
   }
   </script>
 </head>
-<body>
+<body class="<?php print $classes; ?>">
 
 
 

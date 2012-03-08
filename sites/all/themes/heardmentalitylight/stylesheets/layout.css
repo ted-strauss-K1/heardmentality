@@ -2415,3 +2415,7 @@ ul.menu.second li:last-child a.add:hover {
   padding:10px;
   clear:both;
 }
+
+body.admin-menu {
+    margin-top: 52px !important;
+}
