@@ -158,11 +158,16 @@
 		
 		.top-left.user-menu ul.menu li {
 			float: left;
-			width: 50%;
+			width: 35%;
+		}
+		
+		.top-left.user-menu ul.menu li:first-child {
+			width: 30%;
 		}
 		
 		.top-left.user-menu ul.menu.second li {
 			float: left;
+			width: 35%;
 		}
 		
 		.top-left.user-menu ul.menu li a {
