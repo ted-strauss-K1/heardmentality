@@ -167,7 +167,7 @@
 		
 		.top-left.user-menu ul.menu.second li {
 			float: left;
-			width: 33%;
+			width: 35%;
 		}
 		
 		.top-left.user-menu ul.menu li a {
@@ -178,11 +178,16 @@
 			font-size: 92%;
 		}
 		
-		ul.menu.second li:first-child {
+		.top-left.user-menu ul.menu.second li:first-child {
 			position: relative;
 			right: 0;
 			width: 50%;
 			
+		}
+		
+		.top-left.user-menu ul.menu.second li:nth-child(2) {
+			position: absolute;
+			right: 0;
 		}
 		
 		.line-top {
@@ -213,7 +218,7 @@
 		}
 		
 		ul.menu li a.add {display:block;float:left;}
-		ul.menu li:nth-child(even a.add {background:#dadada;}
+		ul.menu li:nth-child(even) a.add {background:#dadada;}
 		
 		input.form-text, input.form-text.user-search {
 			width:120px;
