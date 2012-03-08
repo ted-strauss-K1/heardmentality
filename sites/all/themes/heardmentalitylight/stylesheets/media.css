@@ -140,6 +140,25 @@
   		}
 			
 		a.logo {width:auto;margin:0px 0px 0px 0px;text-align:left;float:none}
+		
+		.top-right.login a.login {
+			float: none;
+			text-align: center !important;
+		}
+		
+		.top-right.login a.login:hover {
+			color: #000;
+			background-color: #F6EB16;
+		}
+		
+		.top-left.user-menu ul.menu {
+			float: none;
+		}
+		
+		.top-left.user-menu ul.menu li {
+			float: left;
+		}
+		
 		.line-top {
 			background:#EF00D3;
 		}
