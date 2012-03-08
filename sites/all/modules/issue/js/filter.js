@@ -950,3 +950,14 @@ $(document).ready(function(){
   });
 });
 /**************/
+
+/**Rallydev:530**/
+$(document).ready(function(){
+  imageUrl = spath+'sites/all/themes/heardmentalitylight/images/ui-bg_diagonals40x40_red.png';
+  if($('.error').html() != null ) {
+    $('.top-message').css('background-image', 'url(' + imageUrl + ')');
+    $('.error').css('border','none');
+	$('.error').css('background','none');
+  }
+});
+/**************/
