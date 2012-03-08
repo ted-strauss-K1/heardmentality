@@ -148,7 +148,7 @@
 		
 		.top-right.login a#dialog_link:hover {
 			color: #000;
-			background-color: #F6EB16;
+			background-color: #F6EB16 !important;
 		}
 		
 		.top-left.user-menu ul.menu {
@@ -163,15 +163,14 @@
 		
 		.top-left.user-menu ul.menu.second li {
 			float: left;
-			width: 34%;
+			width: 50%;
 		}
 		
 		.top-left.user-menu ul.menu li a {
 			display: block;
 			float: none;
-			text-align: center;
+			text-align: left;
 			white-space: nowrap;
-			font-size: 88%;
 		}
 		
 		ul.menu.second li:first-child {
