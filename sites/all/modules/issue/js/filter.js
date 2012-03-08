@@ -959,7 +959,7 @@ $(document).ready(function(){
     $('.error').css('border','none');
 	$('.error').css('background','none');
   }
-  if($('.warning').html() != null ) { alert("am warning section");
+  if($('.warning').html() != null ) {
     $('.top-message').css('background-image', 'url(' + imageUrl + ')');
     $('.warning').css('border','none');
 	$('.warning').css('background','none');
