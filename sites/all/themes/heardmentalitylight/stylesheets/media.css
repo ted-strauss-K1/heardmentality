@@ -96,9 +96,9 @@
 		}
 		
 		.top-left {
-			float:left;
+			float:none;
 			background:#D81A29;
-			margin:0px 0px 0px 8px;
+			margin: 0;
 		}
 
 		ul.menu {
