@@ -1,3 +1,19 @@
+/**Rallydev:530**/
+$(document).ready(function(){
+  imageUrl = spath+'sites/all/themes/heardmentalitylight/images/ui-bg_diagonals40x40_red.png';
+  if($('.error').html() != null ) {
+    $('.top-message').css('background-image', 'url(' + imageUrl + ')');
+    $('.error').css('border','none');
+	$('.error').css('background','none');
+  }
+  if($('.warning').html() != null ) { 
+    $('.top-message').css('background-image', 'url(' + imageUrl + ')');
+    $('.warning').css('border','none');
+	$('.warning').css('background','none');
+  }  
+});
+/**************/
+
 /**
  * @author gobinath.m
  */
@@ -948,21 +964,5 @@ $(document).ready(function(){
 	$('#extended-issue-description').show();
 	$(this).remove();
   });
-});
-/**************/
-
-/**Rallydev:530**/
-$(document).ready(function(){
-  imageUrl = spath+'sites/all/themes/heardmentalitylight/images/ui-bg_diagonals40x40_red.png';
-  if($('.error').html() != null ) {
-    $('.top-message').css('background-image', 'url(' + imageUrl + ')');
-    $('.error').css('border','none');
-	$('.error').css('background','none');
-  }
-  if($('.warning').html() != null ) { 
-    $('.top-message').css('background-image', 'url(' + imageUrl + ')');
-    $('.warning').css('border','none');
-	$('.warning').css('background','none');
-  }  
 });
 /**************/
