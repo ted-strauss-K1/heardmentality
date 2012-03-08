@@ -190,6 +190,10 @@
 			right: 0;
 		}
 		
+		.top-left.user-menu ul.menu.second li:nth-child(3) {
+			width: 50%;
+		}
+		
 		.top-right.blue {
 			float: none;
 		}
