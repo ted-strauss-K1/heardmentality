@@ -190,6 +190,10 @@
 			right: 0;
 		}
 		
+		.top-right.blue {
+			float: none;
+		}
+		
 		.line-top {
 			background:#EF00D3;
 		}
@@ -218,7 +222,6 @@
 		}
 		
 		ul.menu li a.add {display:block;float:left;}
-		ul.menu li:nth-child(even) a.add {background:#dadada;}
 		
 		input.form-text, input.form-text.user-search {
 			width:120px;
