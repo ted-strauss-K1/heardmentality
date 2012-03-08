@@ -133,15 +133,13 @@
 		}
 		
 		.top-right.login { 
-			float:left;
-			width:97.6%;
-			margin:0px 0px 0px 8px;
-			padding:2px 0px 8px 0px;
-			line-height:15px;
-			background:#333;
+			float:none;
+			width:auto;
+			margin: 0;
+			padding: 0;
   		}
 			
-		a.logo {width:92%;margin:0px 0px 0px 0px;text-align:left;float:left}
+		a.logo {width:auto;margin:0px 0px 0px 0px;text-align:left;float:none}
 		.line-top {
 			background:#EF00D3;
 		}
