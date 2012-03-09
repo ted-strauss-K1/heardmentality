@@ -158,10 +158,10 @@
 		
 		.top-left.user-menu ul.menu li {
 			float: left;
-			width: 36%;
+			width: 100%;
 		}
 		
-		.top-left.user-menu ul.menu li:nth-child(2) {
+		/*.top-left.user-menu ul.menu li:nth-child(2) {
 			float: left;
 			width: 37%;
 		}
@@ -173,7 +173,7 @@
 		
 		.top-left.user-menu ul.menu li:first-child {
 			width: 28%;
-		}
+		}*/
 		
 		.top-left.user-menu ul.menu.second li {
 			float: left;
