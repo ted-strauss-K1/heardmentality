@@ -177,7 +177,7 @@
 		
 		.top-left.user-menu ul.menu.second li {
 			float: left;
-			width: 50%;
+			min-width: 50%;
 		}	
 		
 		.top-left.user-menu ul.menu li a {
