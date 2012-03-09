@@ -158,7 +158,7 @@
 		
 		.top-left.user-menu ul.menu li {
 			float: left;
-			width: 36%;
+			width: 35.5%;
 		}
 		
 		.top-left.user-menu ul.menu li:first-child {
@@ -167,7 +167,7 @@
 		
 		.top-left.user-menu ul.menu.second li {
 			float: left;
-			width: 35%;
+			width: 50%;
 		}
 		
 		.top-left.user-menu ul.menu li a {
@@ -181,17 +181,7 @@
 		.top-left.user-menu ul.menu.second li:first-child {
 			position: relative;
 			right: 0;
-			width: 50%;
 			
-		}
-		
-		.top-left.user-menu ul.menu.second li:nth-child(2) {
-			position: absolute;
-			right: 0;
-		}
-		
-		.top-left.user-menu ul.menu.second li:nth-child(3) {
-			width: 50%;
 		}
 		
 		.top-right.blue {
