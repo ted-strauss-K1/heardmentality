@@ -187,7 +187,7 @@
 			float: none;
 			text-align: left;
 			white-space: nowrap;
-			font-size: 92%;
+			/*font-size: 92%;*/
 		}
 		
 		.top-left.user-menu ul.menu.second li:first-child {
