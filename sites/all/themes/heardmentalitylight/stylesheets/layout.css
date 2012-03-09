@@ -2394,12 +2394,12 @@ ul.menu.second li:first-child a.add:hover {
 	color: #fff;
 }
 
-ul.menu.second li a.add {
+ul.menu li:last-child a {
 	background-color: #cc2027;
 	color: #fff;	
 }
 
-ul.menu.second li a.add:hover {
+ul.menu li:last-child a {
 	background-color: #434bf0;
 	color: #fff;
 }
