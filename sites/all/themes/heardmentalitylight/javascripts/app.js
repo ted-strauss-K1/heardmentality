@@ -433,9 +433,10 @@ $(function(){
 
 	// Dialog Link
 	$('#dialog_link').click(function(){
-    $('#dialog').tabs();
-		$('#dialog').dialog('open');
+    //$('#dialog').tabs();
+	//	$('#dialog').dialog('open');
 
+$('#dialog').load(Drupal.settings.basePath + 'user #user-login').dialog('open');
 		return false;
 	});
   
