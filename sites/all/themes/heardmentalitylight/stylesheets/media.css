@@ -154,11 +154,26 @@
 		.top-left.user-menu ul.menu {
 			float: none;
 			width: 100%;
+			background-color: #CC2027;
+		}
+		
+		.top-left.user-menu ul.menu:hover {
+			background-color: #434bf0;	
 		}
 		
 		.top-left.user-menu ul.menu li {
 			float: left;
 			width: 36%;
+		}
+		
+		.top-left.user-menu ul.menu li:nth-child(2) {
+			float: left;
+			width: 37%;
+		}
+		
+		.top-left.user-menu ul.menu li:nth-child(3) {
+			float: left;
+			width: 35%;
 		}
 		
 		.top-left.user-menu ul.menu li:first-child {
@@ -169,6 +184,11 @@
 			float: left;
 			width: 50%;
 		}
+		
+		.top-left.user-menu ul.menu.second,
+		.top-left.user-menu ul.menu.second:hover {
+			background-color: none transparent;
+		}	
 		
 		.top-left.user-menu ul.menu li a {
 			display: block;
