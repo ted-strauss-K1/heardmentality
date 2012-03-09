@@ -84,7 +84,7 @@ $directoryPath = $base_path . $directory;
   			</div>
   		</div>
 	</div>
-		<br class="clear"><br><br>
+
 		<div class="container">
 			<div class="sixteen columns top-mobile">
 
@@ -96,12 +96,11 @@ $directoryPath = $base_path . $directory;
 				</div>
 		</div>
 	</div>
-		<br class="clear">
 		<div class="container">
 			<div class="nine columns">
 				<?php if($happening_now):?>
-  			<?php print $happening_now;?>
-        <?php endif; ?>
+					<?php print $happening_now;?>
+				<?php endif; ?>
 			</div>
 
 			<div class="seven columns">
@@ -112,19 +111,13 @@ $directoryPath = $base_path . $directory;
 				</div>
 				<div class="grey-box-cat">
 					<ul class="tags">
-                                        <?php if($popular_categories): print $popular_categories; endif; ?>
+                         <?php if($popular_categories): print $popular_categories; endif; ?>
 					</ul>
 					<div class="clear"></div>
-					<br />
 				</div>
 			</div>
 		</div>
-	</div><!-- container -->
 	<?php include 'footer.tpl.php';?>
 
-
-
-<!-- End Document
-================================================== -->
 </body>
 </html>
