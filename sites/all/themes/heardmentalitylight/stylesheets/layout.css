@@ -1115,7 +1115,7 @@ h6.search-options-expand {
 	border-right:1px solid #ddd;     
 	border-bottom:1px solid #ddd;     
 	text-shadow: #eee 0px 1px;
-  font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-family: /*"HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva",*/ Arial, sans-serif;
   font-size:14px;
   letter-spacing:0.04em;
 	margin:0px 10px 5px 0px;
@@ -1481,7 +1481,7 @@ label span.guides {
 	border-right:1px solid #ddd;     
 	border-bottom:1px solid #ddd;     
 	text-shadow: #eee 0px 1px;
-  font-family: "HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
+  font-family: /*"HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva",*/ Arial, sans-serif;
   font-size:14px;
   letter-spacing:0.04em;
 	margin:0px 10px 5px 0px;
