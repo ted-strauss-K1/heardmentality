@@ -69,7 +69,8 @@
 		background:#ddd;
 		/* background:#21b4e2; */
 		height:auto;
-		max-width:412px;
+		/*max-width:412px;*/
+		float: none;
 		}
 	.line-top {
 		background:#EF00D3;		
@@ -158,7 +159,7 @@
 			background:#434bf0;
 			color:white;
 		} 
-    ul.lang {margin:0px 0px 5px 5px; zoom: 1; padding: 18px 0 0; clear: both;}
+    ul.lang {margin:0px 0px 5px 5px; zoom: 1; padding: 18px 0 0; clear: both; max-width: 412px;}
     ul.lang li{float:right;margin:2px 5px 12px 10px;text-transform:uppercase;color:#333;font-size:11px;line-height:11px;letter-spacing:0.1em;}
     ul.lang li a{color:#222;}
     ul.lang li a:hover{color:#000;}
