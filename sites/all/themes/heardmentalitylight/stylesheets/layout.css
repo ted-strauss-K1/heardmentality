@@ -2399,7 +2399,7 @@ ul.menu li:last-child a {
 	color: #fff;	
 }
 
-ul.menu li:last-child a {
+ul.menu li:last-child a:hover {
 	background-color: #434bf0;
 	color: #fff;
 }
