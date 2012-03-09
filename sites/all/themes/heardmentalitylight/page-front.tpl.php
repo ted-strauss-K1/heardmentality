@@ -61,7 +61,7 @@ $directoryPath = $base_path . $directory;
 	</div>
 
 	<div class="container">
-    <div class="main-banner-display">
+    <div class="main-banner-display clearfix">
   		<div class="one-third column">
   			<div class="circle-box">
   				<div class="see-banner">
