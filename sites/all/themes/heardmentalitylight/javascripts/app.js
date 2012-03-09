@@ -433,10 +433,13 @@ $(function(){
 
 	// Dialog Link
 	$('#dialog_link').click(function(){
-    //$('#dialog').tabs();
+   
 	//	$('#dialog').dialog('open');
 
-$('#dialog').load(Drupal.settings.basePath + 'user #user-login').dialog('open');
+$('#dialog #tabs-1').load(Drupal.settings.basePath + 'user #user-login');
+$('#dialog #tabs-2').load(Drupal.settings.basePath + 'user/register #user-register');
+ $('#dialog').tabs();
+$('#dialog').dialog('open');
 		return false;
 	});
   
