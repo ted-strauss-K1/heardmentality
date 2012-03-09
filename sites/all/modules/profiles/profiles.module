@@ -19,20 +19,63 @@ function profiles_perm() {
  * Implementation of hook_menu().
  */
 function profiles_menu() {
-    $items['profile'] = array('title' => 'Profile', 'page callback' => 'profile_view', 'access arguments' => array('Profile View'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc',);
-    $items['profile/edit/%'] = array('title' => ' Edit Profile', 'page callback' => 'profile_edit', 'access arguments' => array('Profile Edit'), 'type' => MENU_CALLBACK, 'page arguments' => array(2), 'file' => 'profiles.pages.inc',);
-
-    $items['profile/privacy_settings'] = array('title' => ' Privacy Profile', 'page callback' => 'privacy_settings', 'access arguments' => array('Profile Privacy'), 'type' => MENU_CALLBACK, 'file' => 'profiles.pages.inc',);
-
-    $items['profile/deletefollow'] = array('title' => ' Profile', 'page callback' => 'save_follow_profile', 'access arguments' => array('Profile View'), 'type' => MENU_CALLBACK, 'file' => 'profiles.pages.inc',);
-
-    $items['profile/savefollowerlink'] = array('title' => ' Profile', 'page callback' => 'save_follower_profile', 'access arguments' => array('Profile View'), 'type' => MENU_CALLBACK, 'file' => 'profiles.pages.inc',);
-    $items['postmessage'] = array('title' => ' Profile', 'page callback' => 'save_message', 'access arguments' => array('Profile View'), 'type' => MENU_CALLBACK, 'file' => 'profiles.pages.inc',);
-    
-
-    $items['google/map'] = array('title' => 'Facts', 'page callback' => 'google_map', 'access arguments' => array('Profile View'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc',);
-    
-    $items['account/edit'] = array('title' => 'Update Profile', 'page callback' => 'update_profile', 'access arguments' => array('Update Profile'), 'type' => MENU_SUGGESTED_ITEM, 'file' => 'profiles.pages.inc');
+    $items['profile'] = array(
+      'title' => 'Profile', 
+      'page callback' => 'profile_view', 
+      'access arguments' => array('Profile View'), 
+      'type' => MENU_SUGGESTED_ITEM, 
+      'file' => 'profiles.pages.inc',
+      );
+    $items['profile/edit/%'] = array(
+      'title' => ' Edit Profile', 
+      'page callback' => 'profile_edit', 
+      'access arguments' => array('Profile Edit'), 
+      'type' => MENU_CALLBACK, 
+      'page arguments' => array(2), 
+      'file' => 'profiles.pages.inc',
+      );
+    $items['profile/privacy_settings'] = array(
+      'title' => ' Privacy Profile', 
+      'page callback' => 'privacy_settings', 
+      'access arguments' => array('Profile Privacy'), 
+      'type' => MENU_CALLBACK, 
+      'file' => 'profiles.pages.inc',
+      );
+    $items['profile/deletefollow'] = array(
+      'title' => ' Profile', 
+      'page callback' => 'save_follow_profile', 
+      'access arguments' => array('Profile View'), 
+      'type' => MENU_CALLBACK, 
+      'file' => 'profiles.pages.inc',
+      );
+    $items['profile/savefollowerlink'] = array(
+      'title' => ' Profile', 
+      'page callback' => 'save_follower_profile', 
+      'access arguments' => array('Profile View'), 
+      'type' => MENU_CALLBACK, 
+      'file' => 'profiles.pages.inc',
+      );
+    $items['postmessage'] = array(
+      'title' => ' Profile', 
+      'page callback' => 'save_message', 
+      'access arguments' => array('Profile View'), 
+      'type' => MENU_CALLBACK, 
+      'file' => 'profiles.pages.inc',
+      );
+    $items['google/map'] = array(
+      'title' => 'Facts', 
+      'page callback' => 'google_map', 
+      'access arguments' => array('Profile View'), 
+      'type' => MENU_SUGGESTED_ITEM, 
+      'file' => 'profiles.pages.inc',
+      );
+    $items['account/edit'] = array(
+      'title' => 'Update Profile', 
+      'page callback' => 'update_profile', 
+      'access arguments' => array('Update Profile'), 
+      'type' => MENU_SUGGESTED_ITEM, 
+      'file' => 'profiles.pages.inc',
+      );
 
 	$items['profile/profile_box_session'] = array(
 		'title' => ' Privacy Profile', 

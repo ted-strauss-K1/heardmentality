@@ -80,3 +80,47 @@ function pager_query_new($query, $limit = 10, $element = 0, $count_query = NULL)
   $pager_page_array[$element] = max(0, min((int) $pager_page_array[$element], ((int) $pager_total[$element]) - 1));
   return db_query_range($query, $args, $pager_page_array[$element] * $limit, $limit);
 }
+
+function hackfix_menu() {
+  $items['user/login_form/%ctools_js'] = array(
+    'page callback' => 'hackfix_login_callback',
+    'page arguments' => array(2),
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+function hackfix_login_callback($js) {
+  $title = t('Login');
+  $form_id = 'user_login';
+  $msg = 'You are now logged in.';
+
+  if ($js) {
+    ctools_include('ajax');
+    $form_state = array(
+      'ajax' => TRUE,
+      'title' => $title,
+    );
+    $output = dialog_form_wrapper($form_id, $form_state);
+    if (empty($output)) {
+      $output[] = dialog_command_display('Welcome', $msg);
+      $output[] = ctools_ajax_command_redirect('user');
+    }
+    else {
+      foreach ($output as $i => $command) {
+        if ($command['command'] == 'dialog_display') {
+          $output[$i]['options']['height'] = 'auto';
+          $output[$i]['options']['width'] = 600;
+
+          $output[$i]['options']['position'] = 'center';
+          $output[$i]['options']['resizable'] = FALSE;
+        }
+      }
+    }
+    ctools_ajax_render($output);
+  }
+  else {
+    return drupal_get_form($form_id);
+  }
+}

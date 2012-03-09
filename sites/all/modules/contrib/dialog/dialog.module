@@ -68,7 +68,8 @@ function dialog_add_js() {
   // Get the correct CSS path based on jQuery UI version.
   $version_16 = version_compare(jquery_ui_get_version(), '1.7.0', '<');
   $css_path = $version_16 ? 'default' : 'base';
-  drupal_add_css(JQUERY_UI_PATH .'/themes/'. $css_path .'/ui.all.css');
+  $jquery_ui_path = jquery_ui_get_path();
+  drupal_add_css($jquery_ui_path .'/themes/'. $css_path .'/ui.all.css');
 
   // And finally, the dialog js.
   drupal_add_js(drupal_get_path('module', 'dialog') .'/dialog.js');
@@ -168,6 +169,9 @@ function dialog_form_render($form_state, $output) {
 
   $commands = array();
   if (isset($form_state['js settings'])) {
+    if (!function_exists('ctools_ajax_command_settings') && module_exists('ctools')) {
+      module_load_include('inc', 'ctools', 'includes/ajax');
+    }
     $commands[] = ctools_ajax_command_settings($form_state['js settings']);
   }
 

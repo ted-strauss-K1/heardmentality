@@ -49,10 +49,6 @@ $(function(){
 	// Tabs
 	$('#tabs').tabs();
 
-
-
-
-
 	// Datepicker
 	$('#datepicker').datepicker({
 		inline: true
@@ -437,9 +433,13 @@ $(function(){
 
 	// Dialog Link
 	$('#dialog_link').click(function(){
+    $('#dialog').tabs();
 		$('#dialog').dialog('open');
+
 		return false;
 	});
+  
+  
 	// Dialog Link
 	$('#dialog_link2').click(function(){
 		$('#dialog2').dialog('open');
@@ -811,7 +811,6 @@ $(function() {
 /**
  * Front Page Carousel Thing
  */
-
 
 
 $(document).ready(function() {

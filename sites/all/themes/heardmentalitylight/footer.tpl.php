@@ -56,8 +56,25 @@
 <!-- ui-dialog -->
         <?php if($user->uid != ''|| $user->uid != '0'){
             print $profile_option_block;
-         }else{?>
-        <div id="dialog" title="Login" class="dialog">
+         }else{
+           ?>
+
+
+
+
+<div id="dialog">
+   <ul>
+      <li><a href="#tabs-1">Login</a></li>
+      <li><a href="#tabs-2">Register</a></li>
+   </ul>
+  
+  
+  
+  
+  
+  
+  
+        <div id="tabs-1" title="Login" class="dialog">
           <div class="login-site">
       	    <label for="" class="add-on-2"><span class="title-2 logging">
       	      Username</span></label>
@@ -94,6 +111,12 @@
         </script>
         <?php }?>
 	</div>
+  
+     <div id="tabs-2">
+      <p>Tab 2 content</p>
+   </div>
+  
+  </div>
 <?php print $closure; ?>
 <!-- gigya login / logout ends -->
 <!-- JS
