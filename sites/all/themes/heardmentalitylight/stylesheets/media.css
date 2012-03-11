@@ -64,7 +64,7 @@
 			margin:2px 0px 0px 0px;
     	}
 		
-		.sixteen .border-bottom p {
+		.banner-text {
 			width: 75%;
 		}
 		
@@ -97,6 +97,7 @@
 			line-height: 1.2;
 			width: 75%;
 		}
+		
 		.button.participate {
 			margin: 2px 0px 0px 0px;
     	}
@@ -368,7 +369,7 @@
     	
     	.vote-results ul li{ float:none;width:94.5%;}
 		
-		.sixteen .border-bottom p {
+		.banner-text {
 			width: 100%;
 			padding: 0;
 		}
