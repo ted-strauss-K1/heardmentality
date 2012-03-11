@@ -95,6 +95,7 @@
 		text-align:right;
 		width: 101px;
 		float: right;
+		border: 1px solid red;
 		}	
 	.top-right.blue h6 a{ 
 		font-weight:normal;
