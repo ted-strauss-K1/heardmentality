@@ -1,26 +1,4 @@
 /*IE only stylesheet*/
 
-body, h1, h2, h3, h4, h5, h6,
-	a.button, 
-	button,
-	input.add-answer,
-	a.add-answer,
-	input.add-answer2,
-	a.add-answer2,
-	input.add-comment,
-	h6#reply,
-	h6#add-arg,
-	input[type="submit"],
-	input[type="reset"],
-	input[type="button"],
-	input[type="text"], 
-	input[type="password"],
-	input[type="email"],
-	textarea, 
-	select,
-	.search input, input.upload	{
-	font: 14px/21px Arial, "HelveticaNeue", "Helvetica Neue", Helvetica, sans-serif;
-}
-
-ul.menu li {background-color: #D81A29; color:white;}
-ul.menu li + li {background-color: #F7314A; color:white;}
+.ie8 ul.menu li, .ie7 ul.menu li {background-color: #D81A29; color:white;}
+.ie8 ul.menu li + li, .ie7 ul.menu li + li {background-color: #F7314A; color:white;}
