@@ -21,3 +21,6 @@ body, h1, h2, h3, h4, h5, h6,
 	.search input, input.upload	{
 	font: 14px/21px Arial, "HelveticaNeue", "Helvetica Neue", Helvetica, sans-serif;
 }
+
+ul.menu li {background-color: #D81A29; color:white;}
+ul.menu li + li {background-color: #F7314A; color:white;}
