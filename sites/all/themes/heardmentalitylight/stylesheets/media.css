@@ -302,11 +302,11 @@
     	.vote-results ul li{ float:none;width:94.5%;}
 		
 		.sixteen .border-bottom p {
-
+			width: 100%;
 		}
 
 		.banven {
-
+			padding-top: 10px;
 		}
 }
 	
