@@ -28,6 +28,7 @@
 		
 		.banner-text {
 			font-size: 22px;
+			line-height: 1.2;
 			width: 75%;
 		}
 		.button.participate {
@@ -68,7 +69,7 @@
 		.banner-text {
 			font-size:22px;
 			width:100%;
-			line-height:1.4em;
+			line-height:1.5;
 		}
 		
 		ul.vote li.post {
