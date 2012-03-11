@@ -287,7 +287,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		border: 1px solid #d2d2d2;
 		border-top: 0 none;
 		margin: 0 0 20px;
-		padding: 12px 20px 20px;
+		padding: 14px 20px 10px;
 		-webkit-border-radius: 0 0 4px 4px;
 		-moz-border-radius: 0 0 4px 4px;
 		border-radius: 0 0 4px 4px;
@@ -2053,6 +2053,8 @@ textarea#q_quest  {
 .container .nine .grey-box .uactivity {
     height: 795px;
 	overflow: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 .seven .foot-empty{
     height: 174px;
