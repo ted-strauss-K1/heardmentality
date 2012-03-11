@@ -2,7 +2,4 @@
 
 .ie8 ul.menu li, .ie7 ul.menu li {background-color: #D81A29; color:white;}
 .ie8 ul.menu li + li, .ie7 ul.menu li + li {background-color: #F7314A; color:white;}
-
-body {
-	background-color: yellow !important;
-}
+.ie8 ul.menu li + li + li, .ie7 ul.menu li + li + li {background-color: #CC2027; color:white;}
