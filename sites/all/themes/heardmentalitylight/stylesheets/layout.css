@@ -448,6 +448,10 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		text-shadow: 0 1px #FFFFFF;
 	}
 	
+	.grey-box-cat ul.tags {
+		margin: 0;
+	}
+	
 	ul.tags li {
 		padding:0px 4px 0px 4px;
 		font-size:12px;
