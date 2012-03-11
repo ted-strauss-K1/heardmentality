@@ -392,8 +392,9 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		width:75%;
 		text-shadow: 0 1px #fff;
 		text-align:left;
-		padding:6px 0px 0px 0px;
+		padding: 0;
 		line-height:1em;
+		margin: 0;
 	}
 	
 	.dark-grey-box {
@@ -854,8 +855,13 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	.button.participate {
-	  margin:5px 0px 0px 0px;
+		margin:5px 0px 0px 0px;
 	}
+	
+	.border-bottom .button.participate {
+		margin: 0;
+	}
+	
 	.update-issue, .delete-issue {float:right;margin:0px 0px 0px 20px}
 	input.remove {float:right;margin:0px 0px 0px 20px;opacity:1.0}
 	
@@ -2428,5 +2434,7 @@ body.admin-menu {
 }
 
 .sixteen .border-bottom {
-    margin: 52px 0 0 10px;
+    margin: 52px 0 0 0;
+	padding: 10px;
+	min-height: 46px;
 }
