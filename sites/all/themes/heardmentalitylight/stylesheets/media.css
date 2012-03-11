@@ -296,11 +296,19 @@
     
    
 		.button.participate {
-			margin:-10px 0px 20px 0px;
+			margin: -10px 0px 20px 0px;
     	}
     	
-    	.vote-results ul li{ float:none;width:94.5%;} 
-	}
+    	.vote-results ul li{ float:none;width:94.5%;}
+		
+		.sixteen .border-bottom p {
+
+		}
+
+		.banven {
+
+		}
+}
 	
 /* Mobile Landscape/Browser */
 

@@ -1928,9 +1928,9 @@ p.policy a:hover{
 }
 
 .din {
-	font-family: 'DINLightRegular';
+	font-family: 'DINLightRegular', Arial, sans-serif;
 	font-weight: normal;
-	   font-style: normal;
+	font-style: normal;
 }	
 
 .half {
@@ -1946,13 +1946,13 @@ p.policy a:hover{
 }
 
 .ryde {
-	font-family: 'StRydeRegular';
+	font-family: 'StRydeRegular', Arial, sans-serif;
 	font-weight: normal;
 	font-style: normal;
 }
 	
 .dinbold {
-	font-family: 'DINBoldRegular';
+	font-family: 'DINBoldRegular', Arial, sans-serif;
 	font-weight: normal;
 	font-style: normal;
 }
@@ -2439,9 +2439,8 @@ body.admin-menu {
 }
 
 .sixteen .border-bottom p {
-	float: none;
-	overflow: hidden;
-	width: auto;
+	float: left;
+	width: 80%;
 	padding-top: 5px;
 }
 
