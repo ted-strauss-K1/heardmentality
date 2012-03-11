@@ -2050,10 +2050,9 @@ textarea#q_quest  {
 .grey-box textarea.error{
     border: 2px solid red;
 }
-.container .nine .grey-box{
+.container .nine .grey-box .uactivity{
     height: 795px;
-    overflow: hidden;
-	padding-bottom: 25px; /*Rallydev:535*/
+	overflow: auto;
 }
 .seven .foot-empty{
     height: 174px;
