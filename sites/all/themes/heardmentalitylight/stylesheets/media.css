@@ -400,4 +400,8 @@
 			margin:2px 0px 0px 0px;
     	}
 		
+		.sixteen .border-bottom p {
+			width: 75%;
+		}
+		
 	}	
