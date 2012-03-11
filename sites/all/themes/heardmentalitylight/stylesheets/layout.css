@@ -3,7 +3,7 @@
 ================================================== */
 	body {background:url(../images/cross_hatch_texture.png)}
 	.header { margin:0px 0px; padding:0px 0px}
-	a.logo {height:26px;float:left;background:#6B0063;color:white;padding:6px 12px 0px 12px;width:auto;display:block;font-size:15px;letter-spacing:0.15em;text-transform:uppercase;text-align:center;display:block;}
+	a.logo {height:26px;float:left;background:#6B0063;color:white;padding:6px 12px 0px 12px;width:auto;display:block;font-size:15px;letter-spacing:0.15em;text-transform:uppercase;text-align:center;display:block; text-decoration: none;}
 	img.logo-img{float:left;padding:0px 2px 0px 0px;margin:-2px 0px 0px -2px}
 	a.logo:hover {background:#000;}
 	a.login {color:white;padding:10px 12px 0px 12px;font-size:13px;letter-spacing:0.15em;text-transform:none;float:right}
@@ -142,8 +142,9 @@
 			-moz-transition-delay: initial, initial
 		}
 		
-		ul.menu li:nth-child(odd){background:#D81A29;color:white;}
-		ul.menu li:nth-child(even){background:#F7314A;color:white;}
+		ul.menu li:nth-child(odd), ul.menu li {background:#D81A29; color:white;}
+		ul.menu li:nth-child(even), ul.menu li + li{background:#F7314A; color:white;}
+		ul.menu li + li + li {background:#CC2027; color:white;}
 		
 		ul.menu li.login{
       background:#000;
@@ -161,9 +162,10 @@
 		} 
     ul.lang {margin:0px 0px 5px 5px; zoom: 1; padding: 18px 0 0; clear: both; max-width: 412px; float: right;}
     ul.lang li{float:right;margin:2px 5px 12px 10px;text-transform:uppercase;color:#333;font-size:11px;line-height:11px;letter-spacing:0.1em;}
-    ul.lang li a{color:#222;}
-    ul.lang li a:hover{color:#000;}
-		#dialog_link {padding: 7px 10px 0px 10px;text-decoration: none;position: relative;background:none;border:0px;width:auto;text-align:right;color:white;cursor:pointer;}
+    ul.lang li a{color:#222; text-decoration: none;}
+    ul.lang li a:hover{color:#000; text-decoration: underline;}
+	
+	#dialog_link {padding: 7px 10px 0px 10px;text-decoration: none;position: relative;background:none;border:0px;width:auto;text-align:right;color:white;cursor:pointer;}
     #dialog_link:hover {color:yellow;cursor:pointer;}
 		.dialog {width:100px}
 		.dialog p{font-size:15px;}
