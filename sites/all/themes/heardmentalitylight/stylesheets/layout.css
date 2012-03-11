@@ -273,8 +273,9 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	.top-grey-box .sort-by {
-		padding-bottom: 20px;
+		padding-bottom: 10px;
 		border-bottom: 1px solid #d2d2d2;
+		margin: 0 10px;
 	}
 	
 	.grey-box {
@@ -282,7 +283,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		border: 1px solid #d2d2d2;
 		border-top: 0 none;
 		margin: 0 0 20px;
-		padding: 10px 20px 20px;;
+		padding: 12px 20px 20px;;
 		-webkit-border-radius: 0 0 4px 4px;
 		-moz-border-radius: 0 0 4px 4px;
 		border-radius: 0 0 4px 4px;
@@ -1780,7 +1781,7 @@ label.login {text-align:right;text-transform:none;color:#000;font-weight:normal;
 .login-site {margin:0px 0px -10px 0px;}
 span.sort {font-weight:normal;letter-spacing:0.1em;font-weight:bold;color:#666;text-shadow: 0 1px #fff;font-size:0.8em;margin:0px 3px 0px -15px;}
 
-span.activity {font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:11px;padding:0px 3px 0px 3px;}
+span.activity {font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;padding:0px 3px 0px 3px;}
 .activity.map-title {margin:-12px 3px 12px -3px;font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:11px;padding:0px 3px 0px 3px;}
 
 .action span.date {color:#BA00A4;}
