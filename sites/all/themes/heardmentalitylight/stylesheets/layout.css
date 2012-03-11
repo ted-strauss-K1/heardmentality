@@ -2440,10 +2440,13 @@ body.admin-menu {
 }
 
 .sixteen .border-bottom p {
-	padding-top: 6px;
+	float: none;
+	overflow: hidden;
+	
 }
 
 .banven {
-	margin-left: 75%;
+	float: right;
 	display: block;
+	margin-left: 15px;
 }
