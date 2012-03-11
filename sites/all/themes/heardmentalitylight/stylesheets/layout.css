@@ -2450,3 +2450,8 @@ body.admin-menu {
 	display: block;
 	margin-left: 15px;
 }
+
+
+.profile-message {
+	display: none;
+}
