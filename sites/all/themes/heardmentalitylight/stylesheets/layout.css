@@ -2388,21 +2388,6 @@ ul.lang:after {
 
 /*New styles*/
 
-ul.menu.second li:first-child {
-	position: absolute;
-    right: 119px;
-}
-
-ul.menu.second li:first-child a.add {
-	background-color: #f6eb16;
-	color: #000;
-}
-
-ul.menu.second li:first-child a.add:hover {
-	background-color: #000;
-	color: #fff;
-}
-
 ul.menu li:last-child a {
 	background-color: #cc2027;
 	color: #fff;	
@@ -2422,6 +2407,22 @@ ul.menu.second li:last-child a.add:hover {
 	background-color: #000;
 	color: #fff;	
 }
+
+ul.menu.second li:first-child {
+	position: absolute;
+    right: 119px;
+}
+
+ul.menu.second li:first-child a.add {
+	background-color: #f6eb16;
+	color: #000;
+}
+
+ul.menu.second li:first-child a.add:hover {
+	background-color: #000;
+	color: #fff;
+}
+
 .ajax-loader {
   background:url(../images/ajax-loader.gif) no-repeat;
   float:right;
