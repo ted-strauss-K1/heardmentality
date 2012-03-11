@@ -2426,3 +2426,7 @@ ul.menu.second li:last-child a.add:hover {
 body.admin-menu {
     margin-top: 52px !important;
 }
+
+.sixteen .border-bottom {
+    margin: 52px 0 0 10px;
+}

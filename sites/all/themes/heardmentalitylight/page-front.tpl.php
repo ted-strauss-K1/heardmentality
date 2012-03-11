@@ -109,11 +109,10 @@ $directoryPath = $base_path . $directory;
 					<?php if($front_heat_map): print $front_heat_map; endif; ?>
                                     
 				</div>
-				<div class="grey-box-cat">
+				<div class="grey-box-cat clearfix">
 					<ul class="tags">
                          <?php if($popular_categories): print $popular_categories; endif; ?>
 					</ul>
-					<div class="clear"></div>
 				</div>
 			</div>
 		</div>
