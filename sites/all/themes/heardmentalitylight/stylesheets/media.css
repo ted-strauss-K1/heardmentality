@@ -12,11 +12,7 @@
 			width: 338px;
 		}
 		
-		.border-bottom {
-		  margin-top: 0px;
-		  background-color: blue;
-		}
-		
+	
 		.main-banner-display {
 			display: none;
 		}
@@ -92,8 +88,8 @@
 			display:none;
 		}
 		
-		.top-mobile {
-			margin-top:-20px;
+		.top-mobile .border-bottom {
+			margin-top: 32px;
 		}
 		
 		.top-left {
@@ -342,8 +338,8 @@
 			display:none;
 		}
 		
-		.top-mobile {
-			margin-top:-20px;
+		.top-mobile .border-bottom {
+			margin-top: 32px;
 		}
 		
 		.circle-box {
