@@ -2050,7 +2050,7 @@ textarea#q_quest  {
 .grey-box textarea.error{
     border: 2px solid red;
 }
-.container .nine .grey-box .uactivity{
+.container .nine .grey-box .uactivity {
     height: 795px;
 	overflow: auto;
 }
@@ -2482,4 +2482,7 @@ body.admin-menu {
 	float: right;
 	display: block;
 	margin-left: 15px;
+}
+.container .nine .grey-box ul {
+	margin: 0;
 }
