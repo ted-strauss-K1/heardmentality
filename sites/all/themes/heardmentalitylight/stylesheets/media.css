@@ -109,10 +109,6 @@
     	p.suggest-answer {width:100%; margin:10px 0px; padding:0px 0px;}
 		fieldset.suggest-answer li {width:auto;}
 		
-	
-		.white-box .map {
-			display: none;
-		}
 	}
 	
 	/* iPad Portrait Only */
