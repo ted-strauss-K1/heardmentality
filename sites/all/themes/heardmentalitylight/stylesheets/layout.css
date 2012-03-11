@@ -2494,6 +2494,6 @@ body.admin-menu {
 	text-decoration: none;
 }
 
-.container .nine .grey-box .uactivity a :hover {
+.container .nine .grey-box .uactivity a:hover {
 	text-decoration: underline;
 }
