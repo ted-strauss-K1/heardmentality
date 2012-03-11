@@ -158,9 +158,12 @@
 	  border-top: 1px solid #ccc;
 	  border-left: 1px solid #ccc;
 	  padding: 4px 12px;
-	  -moz-border-radius: 3px;
-	  -webkit-border-radius: 3px;
-	  border-radius: 3px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		-khtml-border-radius: 3px;
+		-o-border-radius: 3px;
+		-ms-border-radius: 3px;
 	  color: #444;
 	  display: inline-block;
 	  font-size: 11px;
