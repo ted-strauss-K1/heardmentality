@@ -2442,7 +2442,7 @@ body.admin-menu {
 	float: none;
 	overflow: hidden;
 	width: auto;
-	
+	padding-top: 5px;
 }
 
 .banven {
