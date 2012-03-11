@@ -2439,15 +2439,10 @@ body.admin-menu {
 	min-height: 46px;
 }
 
-.sixteen .border-bottom p,
-.sixteen .border-bottom a {
-	display: inline-block;
-	vertical-align: middle;
+.sixteen .border-bottom p {
+
 }
 
-.sixteen .border-bottom .decor {
-	display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    width: 0;
+.sixteen .border-bottom a {
+
 }

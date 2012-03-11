@@ -91,7 +91,6 @@ $directoryPath = $base_path . $directory;
 					<div class="border-bottom clearfix">
 						<p class="din banner-text"><?php print t('Heard Mentality: The Global Forum for Public Opinion');?>.</p>
                         <a href="<?php print $sitelink;?>issues" class="button vote floatright participate"><?php print t('Be Heard!'); ?></a>
-						<div class="decor">&nbsp;</div>
 					</div>
 				</div>
 		</div>

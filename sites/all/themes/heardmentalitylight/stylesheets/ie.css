@@ -3,8 +3,3 @@
 .ie8 ul.menu li, .ie7 ul.menu li {background-color: #D81A29; color:white;}
 .ie8 ul.menu li + li, .ie7 ul.menu li + li {background-color: #F7314A; color:white;}
 .ie8 ul.menu li + li + li, .ie7 ul.menu li + li + li {background-color: #CC2027; color:white;}
-
-.ie7 .sixteen .border-bottom p {
-	display: inline;
-	zoom: 1;
-}
