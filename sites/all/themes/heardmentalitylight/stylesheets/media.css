@@ -109,17 +109,14 @@
     	p.suggest-answer {width:100%; margin:10px 0px; padding:0px 0px;}
 		fieldset.suggest-answer li {width:auto;}
 		
-		/*.top-right.blue {
-			max-width: 320px;
-		}*/
-	}
-	
-	/* iPad Portrait Only */
-	@media only screen and (min-width: 768px) and (max-width: 991px) and (max-device-width: 1000px) {
 	
 		.white-box .map {
 			display: none;
 		}
+	}
+	
+	/* iPad Portrait Only */
+	@media only screen and (min-width: 768px) and (max-width: 991px) and (max-device-width: 1000px) {
 	
 	}
 	
