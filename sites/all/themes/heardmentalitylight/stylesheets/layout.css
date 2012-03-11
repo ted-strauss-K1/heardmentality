@@ -2436,12 +2436,12 @@ body.admin-menu {
 .sixteen .border-bottom {
     margin: 52px 0 0 0;
 	padding: 16px 10px 15px;
-	min-height: 46px;
 }
 
 .sixteen .border-bottom p {
 	float: none;
 	overflow: hidden;
+	width: auto;
 	
 }
 
