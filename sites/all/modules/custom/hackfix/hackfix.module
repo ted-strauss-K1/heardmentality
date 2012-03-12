@@ -127,12 +127,12 @@ function hackfix_login_callback($js) {
 
 function hackfix_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'user_register') {
-    krumo($form);
+  //  krumo($form);
     $form['#validate'][] = 'hackfix_register_form_validate';
-    $form['mail']['#title'] = t("What's your email address?");
-    $form['mail']['#description'] = '';
-    $form['pass']['#description'] = '';
-    $form['name']['#description'] = '';
+    $form['account']['mail']['#title'] = t("What's your email address?");
+    $form['account']['mail']['#description'] = '';
+    $form['account']['pass']['#description'] = '';
+    $form['account']['name']['#description'] = '';
     $form['submit']['#value'] = t('Sign up');
     $form['news'] = array(
       '#type' => 'checkbox',
