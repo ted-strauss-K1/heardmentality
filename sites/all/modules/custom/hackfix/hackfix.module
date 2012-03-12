@@ -124,3 +124,34 @@ function hackfix_login_callback($js) {
     return drupal_get_form($form_id);
   }
 }
+
+function hackfix_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'user_register') {
+    $form['#validate'][] = 'hackfix_register_form_validate';
+    $form['mail']['#title'] = t("What's your email address?");
+    $form['mail']['#description'] = '';
+    $form['pass']['#description'] = '';
+    $form['name']['#description'] = '';
+    $form['submit']['#value'] = t('Sign up');
+    $form['news'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Yes, send me useful news about SoundCloud.'),
+    );
+    $form['terms'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('I agree to the Terms of use and Privacy Policy.'),
+    );
+  }
+
+  if ($form_id == 'user_login') {
+    $form['name']['#description'] = '';
+    $form['pass']['#description'] = '';
+  }
+}
+
+function hackfix_register_form_validate($form, $form_state) {
+  $value = $form_state['values']['terms'];
+  if ($value == 0) {
+    form_set_error('terms', t('You must agree with the Terms of use and Privacy Policy to get an account.'));
+  }
+}

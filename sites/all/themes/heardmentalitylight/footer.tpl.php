@@ -62,10 +62,10 @@
 
 
 
-<div id="dialog">
+<div id="dialog" Login>
    <ul>
-      <li><a href="#tabs-1">Login</a></li>
-      <li><a href="#tabs-2">Register</a></li>
+      <li><a href="#tabs-1">Log in</a></li>
+      <li><a href="#tabs-2">Sign up</a></li>
    </ul>
   
   
@@ -75,16 +75,11 @@
   
   
         <div id="tabs-1" title="Login" class="dialog">
-          <div class="login-site">
-      	    <label for="" class="add-on-2"><span class="title-2 logging">
-      	      Username</span></label>
-      	      <input type="text" class="login-to-site" width="30" title="Username" style="float:left;width:200px">
-            <label for="" class="add-on-2"><span class="title-2 logging">
-      	      password</span></label>
-      	      <input type="text" class="login-to-site" width="30" title="Username" style="float:left;width:200px">
-      	  <hr>
+          <div id="user-login">
+
       	  </div>
-          <p><?php print t('Or login to Heard Mentality using one of your favorite Social network logins'); ?></p>
+          <p><?php //print t('Or login to Heard Mentality using one of your favorite Social network logins'); ?></p>
+          
           <script type="text/javascript">
           var conf=
           {
@@ -110,10 +105,17 @@
            gigya.services.socialize.showLoginUI(conf,login_params);
         </script>
         <?php }?>
+        
+        
+             <div class ="gigya-login"> </div>
 	</div>
   
      <div id="tabs-2">
-      <p>Tab 2 content</p>
+    <div id ="user-register"> 
+    
+    </div>
+       
+       <div class ="gigya-login"></div>
    </div>
   
   </div>
