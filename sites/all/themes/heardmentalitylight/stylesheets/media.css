@@ -391,3 +391,7 @@
 		
 	}
 	
+	.screen_ultralow .header {
+		display: none;
+	}
+	
