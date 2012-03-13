@@ -64,7 +64,7 @@ a.jScrollArrowUp {
 	height: 9px !important;
 	width: 12px !important;
 	border: 0 none;
-	background: url(../../images/state.gif) no-repeat scroll 100% 2px transparent;
+	background: url(../../images/state.gif) no-repeat scroll -15px -6px transparent;
 }
 
 a.jScrollArrowDown {
@@ -79,5 +79,5 @@ a.jScrollArrowDown {
 	width: 12px !important;
 	border: 0 none;
 	background-color: #656565;
-	background: url(../../images/state.gif) no-repeat scroll 100% -24px transparent;
+	background: url(../../images/state.gif) no-repeat scroll -15px -31px transparent;
 }
