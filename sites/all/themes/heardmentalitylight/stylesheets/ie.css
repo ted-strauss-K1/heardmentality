@@ -12,3 +12,5 @@
 	margin-bottom: 30px;
 	zoom: 1;
 }
+
+.ie7 ul.lang li{display: inline; zoom: 1;}
