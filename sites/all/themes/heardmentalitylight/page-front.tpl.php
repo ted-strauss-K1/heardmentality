@@ -36,7 +36,7 @@ $directoryPath = $base_path . $directory;
   }
   </script>
 </head>
-<body class="<?php print $classes; ?>">
+<body class="<?php print $classes; ?> front">
 
 	<div class="header">
 		<?php include 'header.tpl.php';?>

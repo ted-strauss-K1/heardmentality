@@ -287,7 +287,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		border: 1px solid #d2d2d2;
 		border-top: 0 none;
 		margin: 0;
-		padding: 14px 15px 10px 20px;
+		padding: 16px 15px 10px 20px;
 		-webkit-border-radius: 0 0 4px 4px;
 		-moz-border-radius: 0 0 4px 4px;
 		border-radius: 0 0 4px 4px;
@@ -1809,7 +1809,7 @@ span.activity {font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999
 
 .action ul {}
 .action ul.ref {margin:0px 0px 0px 0px;padding:0px;}
-.action  li {padding:10px 5px 15px 5px;clear:both;}
+.action  li {padding:10px 5px 15px 5px;margin:0;clear:both;}
 .action ul.ref li {padding:10px 5px 15px 5px;margin:0px 0px 10px 0px;clear:both;}
 .action  li:last-child {padding:10px 5px 0px 5px;}
 .action  li:first-child {padding:0px 5px 15px 5px;}
