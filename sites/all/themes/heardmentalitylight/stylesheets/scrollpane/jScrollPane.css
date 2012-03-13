@@ -5,37 +5,30 @@
 .jScrollPaneContainer {
 	position: relative;
 	overflow: hidden;
-	height: 221px;
+	height: auto;
 	z-index: 1;
-	-moz-border-radius: 0;
 	border: 0 none;
 }
 
 .jScrollPaneTrack {
 	position: absolute;
 	cursor: pointer;
-	right: 4px;
+	right: 0;
 	top: 0;
 	height: 100%;
-	width: 12px !important;
+	width: 14px !important;
 	height: auto;
-	border: solid #d2d2bd;
-	border-width: 0 1px;
+	border: 0 none;
 }
 
 .jScrollPaneDrag {
 	position: absolute;
-	background: none #d2d2bd;
-	cursor: pointer;
+	background: none transparent;
+	cursor: default;
 	overflow: hidden;
-	right: 1px;
+	right: 0;
 	height: auto;
 	width: 10px !important;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	border-radius: 10px;
-	/*behavior: url(/sites/all/themes/american_golf/css/PIE.htc);*/
 }
 
 .jScrollPaneDragTop {
@@ -46,6 +39,7 @@
 	background: none transparent;
 	height: 0px !important;
 	width: auto;
+	display: none;
 }
 
 .jScrollPaneDragBottom {
@@ -56,6 +50,7 @@
 	background: none transparent;
 	height: 0px !important;
 	width: auto;
+	display: none;
 }
 
 a.jScrollArrowUp {
@@ -63,19 +58,13 @@ a.jScrollArrowUp {
 	position: absolute;
 	z-index: 1;
 	top: 0;
-	right: 4px;
+	right: 0;
 	text-indent: -2000px;
 	overflow: hidden;
 	height: 14px !important;
-	width: 12px !important;
-	border: solid #d2d2bd;
-	border-width: 1px 1px 0;
-	-moz-border-radius: 10px 10px 0 0;
-	-webkit-border-radius: 10px 10px 0 0;
-	-khtml-border-radius: 10px 10px 0 0;
-	border-radius: 10px 10px 0 0;
-	/*behavior: url(/sites/all/themes/american_golf/css/PIE.htc);*/
-	background: url(../../images/sirc.png) center 3px no-repeat;
+	width: 14px !important;
+	border: 0 none;
+	background-color: #656565;
 }
 
 a.jScrollArrowDown {
@@ -83,17 +72,11 @@ a.jScrollArrowDown {
 	position: absolute;
 	z-index: 1;
 	bottom: 0;
-	right: 4px;
+	right: 0;
 	text-indent: -2000px;
 	overflow: hidden;
 	height: 14px !important;
-	width: 12px !important;
-	border: solid #d2d2bd;
-	border-width: 0 1px 1px;
-	-moz-border-radius: 0 0 10px 10px;
-	-webkit-border-radius: 0 0 10px 10px;
-	-khtml-border-radius: 0 0 10px 10px;
-	border-radius: 0 0 10px 10px;
-	/*behavior: url(/sites/all/themes/american_golf/css/PIE.htc);*/
-	background: url(../../images/sirc.png) center 3px no-repeat;
+	width: 14px !important;
+	border: 0 none;
+	background-color: #656565;
 }
