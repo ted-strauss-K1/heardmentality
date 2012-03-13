@@ -2497,3 +2497,8 @@ body.admin-menu {
 .container .nine .grey-box .uactivity a:hover {
 	text-decoration: underline;
 }
+
+.jScrollPaneContainer .container .nine .grey-box .uactivity  {
+	padding-right: 5px;
+	width: 95% !important;
+}
