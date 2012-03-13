@@ -226,20 +226,6 @@
 			width: 100%;
 		}
 		
-		/*.top-left.user-menu ul.menu li:nth-child(2) {
-			float: left;
-			width: 37%;
-		}
-		
-		.top-left.user-menu ul.menu li:nth-child(3) {
-			float: left;
-			width: 35%;
-		}
-		
-		.top-left.user-menu ul.menu li:first-child {
-			width: 28%;
-		}*/
-		
 		.top-left.user-menu ul.menu.second li {
 			float: left;
 			min-width: 50%;
@@ -257,12 +243,7 @@
 		.top-left.user-menu ul.menu.second li:first-child {
 			position: relative;
 			right: 0;
-			
 		}
-		/*
-		.top-right.blue {
-			float: none;
-		}*/
 		
 		.line-top {
 			background:#EF00D3;
@@ -375,6 +356,10 @@
 
 		.banven {
 			padding-top: 10px;
+		}
+		
+		ul.lang {
+			max-width: 100%;
 		}
 }
 	
