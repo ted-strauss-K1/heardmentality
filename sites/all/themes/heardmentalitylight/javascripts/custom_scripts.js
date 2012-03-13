@@ -22,7 +22,7 @@ $(document).ready(function() {
 	jQuery(function() {
 		var ua = navigator.userAgent.indexOf();
 		alert(ua);
-	}
+	});
 
 
 });
