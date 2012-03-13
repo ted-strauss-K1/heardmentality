@@ -10,10 +10,15 @@ stylesheets[all][] = stylesheets/layout.css
 stylesheets[all][] = stylesheets/jquery-ui-1.8.16.custom.css
 stylesheets[all][] = stylesheets/skeleton.css
 stylesheets[all][] = stylesheets/media.css
+stylesheets[all][] = stylesheets/scrollpane/jScrollPane.css
 
 stylesheets[all][] = stylesheets/ie.css
 
 scripts[] = javascripts/jquery-ui-1.8.16.custom.min.js
+scripts[] = javascripts/jquery.mousewheel.min.js
+scripts[] = javascripts/jScrollPane.js
+scripts[] = javascripts/jquery.mousewheel.min.js
+scripts[] = javascripts/custom_scripts.js
 
 ;regions[left] = Left sidebar
 regions[right] = Right sidebar
