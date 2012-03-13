@@ -13,7 +13,7 @@ $(document).ready(function() {
 	jQuery(function()
 	{
 			
-			if (jQuery.browser.mobile == false ||) {
+			if (jQuery.browser.mobile == false) {
 				jQuery('.container .nine .grey-box .uactivity').jScrollPane({scrollbarWidth:18, scrollbarMargin:0, showArrows:true});
 			}
 
