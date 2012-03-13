@@ -394,8 +394,3 @@
 	@media only screen and (min-width: 480px) and (max-width: 767px) and (max-device-width: 1000px) {
 		
 	}
-	
-	.screen_ultralow .header {
-		display: none;
-	}
-	
