@@ -525,7 +525,7 @@ var avtar=\'' . $account->avatar . '\';
   $form['file_upload'] = array(
     '#type' => 'file',
     '#size' => '10',
-    '#prefix' => '<div class="avatar-left"><img src="' . UserPicture_small_src($user->uid, 0) . '" /><p>' . t('Select an image file on your computer. (2MB max)') . '</p>',
+    '#prefix' => '<div id="al-msg"></div><div class="avatar-left"><img src="' . UserPicture_small_src($user->uid, 0) . '" /><p>' . t('Select an image file on your computer. (2MB max)') . '</p>',
     '#suffix' => '</div>',
   );
 

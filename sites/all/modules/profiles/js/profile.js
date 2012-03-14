@@ -336,8 +336,9 @@ function update_avatar(){
         jQuery('#curr_avatar').val(src);
 		/**Rallydev:512**/
 		//document.forms["user-details"].submit();
-		$('.profile').after('<em style="float:left;color:#990000;font-size:11px;margin-top:-20px;">Please click the Save Changes button at the bottom of the page</em><br/><br/>')
-		$('.ui-dialog ').hide();
+		$('#al-msg').html('<em style="float:left;color:#990000;font-size:11px;margin-top:-20px;">Please click the Save Changes button at the bottom of the page</em><br/><br/>')
+		//$('.ui-dialog ').hide();
+                jQuery('.ui-dialog .ui-icon-closethick').trigger('click');
 		/**************/
     }
 
