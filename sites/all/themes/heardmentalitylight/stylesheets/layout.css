@@ -2541,3 +2541,8 @@ body.admin-menu {
 	-khtml-border-radius: 4px 4px 0 0;
 	-o-border-radius: 4px 4px 0 0;
 }
+
+.ui-tabs-panel.dialog {
+	width: auto;
+	padding: 1em 0.5em;
+}
