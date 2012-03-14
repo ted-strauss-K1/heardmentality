@@ -150,14 +150,14 @@ function google_map() {
 
   echo $script .= "<script type='text/javascript' src='http://www.google.com/jsapi'></script>";
   echo $script.="<script type='text/javascript'>
-    google.load('visualization', '1', {packages: ['geomap']});
+    google.load('visualization', '1', {packages: ['geochart']});
 
     function drawVisualization() {
       var data = new google.visualization.DataTable();
       data.addRows(50);
       data.addColumn('string', 'Country');
       data.addColumn('number', '" . $variable . "');" . $asscountry . "
-      var geomap = new google.visualization.GeoMap(
+      var geomap = new google.visualization.GeoChart(
           document.getElementById('visualization'));
      " . $vars . "
     }
