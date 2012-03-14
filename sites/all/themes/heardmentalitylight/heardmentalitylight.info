@@ -20,6 +20,7 @@ scripts[] = javascripts/jScrollPane.js
 scripts[] = javascripts/jquery.mousewheel.min.js
 scripts[] = javascripts/custom_scripts.js
 
+
 ;regions[left] = Left sidebar
 regions[right] = Right sidebar
 regions[content] = Content

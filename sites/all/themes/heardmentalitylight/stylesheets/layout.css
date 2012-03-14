@@ -1331,6 +1331,7 @@ ul.queue li{
 .map {
 	margin: 0 10px;
 	height: 200px;
+	text-align: center;
 }
 
 .map img {
