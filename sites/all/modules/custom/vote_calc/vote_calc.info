@@ -1,0 +1,6 @@
+name = Vote calculation
+description = Vote calculation fix
+package = custom
+core = "6.x"
+
+
