@@ -336,7 +336,7 @@ function update_avatar(){
         jQuery('#curr_avatar').val(src);
 		/**Rallydev:512**/
 		//document.forms["user-details"].submit();
-		$('.profile').after('<em style="float:left;color:red;font-size:13px;margin-top:-20px;">Please submit to save the changes</em><br/><br/>')
+		$('.profile').after('<em style="float:left;color:#990000;font-size:11px;margin-top:-20px;">Please click the Save Changes button at the bottom of the page</em><br/><br/>')
 		$('.ui-dialog ').hide();
 		/**************/
     }
