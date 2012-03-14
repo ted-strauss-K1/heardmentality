@@ -2543,7 +2543,7 @@ body.admin-menu {
 	-o-border-radius: 4px 4px 0 0;
 }
 
-.ui-tabs-panel.dialog {
+#dialog .ui-tabs-panel {
 	width: auto;
-	padding: 1em 0.5em;
+	padding: 1em 0.5em; 
 }
