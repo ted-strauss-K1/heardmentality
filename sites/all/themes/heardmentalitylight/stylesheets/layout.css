@@ -2554,6 +2554,17 @@ body.admin-menu {
 	margin: 0 !important;
 }
 
+.ui-dialog .ui-tabs-panel #componentDiv ,
+.ui-dialog .ui-tabs-panel .gigya-login {
+	clear: both;
+	padding-top: 0.8em;
+}
+
+.ui-dialog .ui-tabs-panel #user-login,
+.ui-dialog .ui-tabs-panel #user-register {
+	padding-top: 0.5em;
+}
+
 .ui-dialog .ui-tabs-panel #user-login .form-item,
 .ui-dialog .ui-tabs-panel #user-register .form-item {
 	margin: 0 0 1em;
@@ -2561,7 +2572,7 @@ body.admin-menu {
 
 .ui-dialog .ui-tabs-panel #user-login input.form-text,
 .ui-dialog .ui-tabs-panel #user-register input.form-text {
-	width: 13em;
+	width: 15em;
 	padding: 8px 5px;
 }
 
@@ -2570,7 +2581,7 @@ body.admin-menu {
     font-size: 13px;
     line-height: 1em;
     text-shadow: 0 1px #CECECE;
-	padding-bottom: 3px;
+	padding-bottom: 6px;
 }
 
 .ui-dialog .ui-tabs-panel #user-login .form-submit,

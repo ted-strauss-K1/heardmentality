@@ -197,8 +197,8 @@
 		float:right;
 	}
 	a.button.lighter:hover,  input.lighter:hover,
-	.ui-dialog .ui-tabs-panel #user-login .form-submit,
-	.ui-dialog .ui-tabs-panel #user-register .form-submit{
+	.ui-dialog .ui-tabs-panel #user-login .form-submit:hover,
+	.ui-dialog .ui-tabs-panel #user-register .form-submit:hover {
 		opacity:1.0;
 	}
 	
