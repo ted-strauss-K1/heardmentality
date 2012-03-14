@@ -31,16 +31,21 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                      
                   </div>
 		</div>
-                 <?php }?>
+                 <?php }else {?>
+                <div class="floatleft" style="padding-left: 26px">
+			<?php print $medal_list; ?>
+		</div>
+                <?php }?>
 		<br class="clear"><br>
 		<p class="profile-links quick-profile">
                     <a href="<?php print $sitelink?>profile"><?php print t('View Profile');?></a> |
                     <a href="<?php print $sitelink?>account/edit"><?php print t('Edit Profile');?></a> |
                     <a href="<?php print $sitelink?>message"><?php print t('Message followers');?></a>
                 </p>
-
+                <?php if($complete_percent['percent']<100){?>
 		<div class="floatleft">
 			<?php print $medal_list; ?>
 		</div>
+                <?php }?>
                 <a href="<?php print $base_url.'/logout';?>" title="<?php print t('Log out');?>" class="button lighter" ><?php print t('Logout'); ?></a>
         </div>
