@@ -2507,10 +2507,24 @@ body.admin-menu {
 .ui-dialog.ui-widget-content {
 	border: 1px solid #D2D2D2;
 	padding: 0;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-khtml-border-radius: 4px;
+	-o-border-radius: 4px;
 }
 
 .ui-dialog.ui-widget-content .ui-dialog-content {
 	padding: 0.5em;
+}
+
+.ui-dialog.ui-widget-content .ui-tabs-nav {
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	-khtml-border-radius: 4px 4px 0 0;
+	-o-border-radius: 4px 4px 0 0;
+	border: 1px solid #D2D2D2;
 }
 
 .ui-dialog.ui-widget-content .ui-tabs-nav .ui-state-default {
@@ -2521,4 +2535,9 @@ body.admin-menu {
 
 .ui-dialog.ui-widget-content .ui-tabs-nav .ui-tabs-selected {
 	background-color: #fff;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	-khtml-border-radius: 4px 4px 0 0;
+	-o-border-radius: 4px 4px 0 0;
 }
