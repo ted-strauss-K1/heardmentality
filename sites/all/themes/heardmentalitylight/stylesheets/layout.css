@@ -2498,7 +2498,6 @@ body.admin-menu {
 	text-decoration: underline;
 }
 
-/*.jScrollPaneContainer .uactivity  {
-	padding-right: 5px;
-	width: 95% !important;
-}*/
+.jScrollPaneContainer .uactivity  {
+	padding-right: 5px !important;
+}
