@@ -187,14 +187,18 @@
 		padding:11px 5px 3px 5px;
 		margin:-30px 0px 30px 0px;
 	} 
-	a.button.lighter,  input.lighter{
+	a.button.lighter,  input.lighter,
+	.ui-dialog .ui-tabs-panel #user-login .form-submit,
+	.ui-dialog .ui-tabs-panel #user-register .form-submit{
 		background:#ddd;
 		opacity:0.8;
 		color:#000;
 		border-color:#ccc;
 		float:right;
 	}
-	a.button.lighter:hover,  input.lighter:hover{
+	a.button.lighter:hover,  input.lighter:hover,
+	.ui-dialog .ui-tabs-panel #user-login .form-submit,
+	.ui-dialog .ui-tabs-panel #user-register .form-submit{
 		opacity:1.0;
 	}
 	

@@ -2517,6 +2517,7 @@ body.admin-menu {
 
 .ui-dialog.ui-widget-content .ui-dialog-content {
 	padding: 0.5em;
+	height: auto !important;
 }
 
 .ui-dialog.ui-widget-content .ui-tabs-nav {
@@ -2545,7 +2546,7 @@ body.admin-menu {
 
 #dialog .ui-tabs-panel {
 	width: auto;
-	padding: 1em 0.5em; 
+	padding: 0.5em; 
 }
 
 .ui-dialog .ui-tabs-panel #componentDiv,
@@ -2553,11 +2554,28 @@ body.admin-menu {
 	margin: 0 !important;
 }
 
-.ui-dialog .ui-tabs-panel #user-login .form-item {
+.ui-dialog .ui-tabs-panel #user-login .form-item,
+.ui-dialog .ui-tabs-panel #user-register .form-item {
 	margin: 0 0 1em;
 }
 
-.ui-dialog .ui-tabs-panel #user-login input.form-text {
+.ui-dialog .ui-tabs-panel #user-login input.form-text,
+.ui-dialog .ui-tabs-panel #user-register input.form-text {
 	width: 13em;
 	padding: 8px 5px;
+}
+
+.ui-dialog .ui-tabs-panel #user-login label,
+.ui-dialog .ui-tabs-panel #user-register label {
+    font-size: 13px;
+    line-height: 1em;
+    text-shadow: 0 1px #CECECE;
+	padding-bottom: 3px;
+}
+
+.ui-dialog .ui-tabs-panel #user-login .form-submit,
+.ui-dialog .ui-tabs-panel #user-register .form-submit {
+	float: right;
+	font-size: 11px;
+    font-family: Arial,sans-serif;
 }
