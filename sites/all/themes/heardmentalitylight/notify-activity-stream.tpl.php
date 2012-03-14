@@ -23,7 +23,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
             <?php print $username; ?>
             <?php print t('voted on the issue'); ?>: "
             <?php print l($data['q_title'].'?', $url); ?>"</p>
-        <p class="action-comment-ref"><?php print t($node->body); ?></p>
+        
         <?php }else if($message_id == 'add_debate'){?>
         <p class="action-item">
             <?php print $username; ?>
