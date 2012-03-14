@@ -2550,7 +2550,7 @@ body.admin-menu {
 
 .ui-dialog .ui-tabs-panel #componentDiv,
 .ui-dialog .ui-tabs-panel p {
-	margin: 0;
+	margin: 0 !important;
 }
 
 .ui-dialog .ui-tabs-panel #user-login .form-item {
@@ -2558,5 +2558,6 @@ body.admin-menu {
 }
 
 .ui-dialog .ui-tabs-panel #user-login input.form-text {
-	width: 100%;
+	width: 13em;
+	padding: 8px 5px;
 }
