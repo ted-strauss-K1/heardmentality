@@ -2547,3 +2547,16 @@ body.admin-menu {
 	width: auto;
 	padding: 1em 0.5em; 
 }
+
+.ui-dialog .ui-tabs-panel #componentDiv,
+.ui-dialog .ui-tabs-panel p {
+	margin: 0;
+}
+
+.ui-dialog .ui-tabs-panel #user-login .form-item {
+	margin: 0 0 1em;
+}
+
+.ui-dialog .ui-tabs-panel #user-login input.form-text {
+	width: 100%;
+}
