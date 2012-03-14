@@ -127,21 +127,27 @@ function hackfix_login_callback($js) {
 
 function hackfix_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'user_register') {
-   // krumo($form);
-    unset ($form['civicrm-profile-register']);
+    krumo($form);
+    unset($form['civicrm-profile-register']);
     $form['#validate'][] = 'hackfix_register_form_validate';
     $form['account']['mail']['#title'] = t("What's your email address?");
     $form['account']['mail']['#description'] = '';
     $form['account']['pass']['#description'] = '';
+    //$form['account']['name']['#access'] = FALSE;
+    $form['account']['#title'] = '';
     $form['account']['name']['#description'] = '';
     $form['submit']['#value'] = t('Sign up');
     $form['news'] = array(
       '#type' => 'checkbox',
       '#title' => t('Yes, send me useful news about SoundCloud.'),
     );
+
+
+    $term = l('Terms of use', 'node/2537', array('attributes' => array('target' => '_blank')));
+    $prpolicy = l('Privacy Policy', 'node/2536',array('attributes' => array('target' => '_blank')));
     $form['terms'] = array(
       '#type' => 'checkbox',
-      '#title' => t('I agree to the Terms of use and Privacy Policy.'),
+      '#title' => t("I agree to the $term and $prpolicy."),
     );
   }
 
