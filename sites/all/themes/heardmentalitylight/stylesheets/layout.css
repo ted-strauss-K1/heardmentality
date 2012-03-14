@@ -2501,3 +2501,10 @@ body.admin-menu {
 .jScrollPaneContainer .uactivity  {
 	padding-right: 5px !important;
 }
+
+/*Custom dialog*/
+
+.ui-widget-content {
+	border: 1px solid #D2D2D2;
+	padding: 0;
+}
