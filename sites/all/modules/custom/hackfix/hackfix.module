@@ -127,7 +127,8 @@ function hackfix_login_callback($js) {
 
 function hackfix_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'user_register') {
-  //  krumo($form);
+   // krumo($form);
+    unset ($form['civicrm-profile-register']);
     $form['#validate'][] = 'hackfix_register_form_validate';
     $form['account']['mail']['#title'] = t("What's your email address?");
     $form['account']['mail']['#description'] = '';
