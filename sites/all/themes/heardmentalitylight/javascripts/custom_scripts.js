@@ -14,7 +14,7 @@ $(document).ready(function() {
 	{
 			
 			if (jQuery.browser.mobile == false) {
-				jQuery('.container .nine .grey-box .uactivity').jScrollPane({scrollbarWidth:12, scrollbarMargin:0, showArrows:true});
+				jQuery('.container .nine .grey-box .uactivity').jScrollPane({scrollbarWidth:12, scrollbarMargin:0, showArrows:false});
 			}
 
 	});
