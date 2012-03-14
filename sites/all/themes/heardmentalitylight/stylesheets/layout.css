@@ -2508,3 +2508,12 @@ body.admin-menu {
 	border: 1px solid #D2D2D2;
 	padding: 0;
 }
+
+.ui-dialog.ui-widget-content .ui-dialog-content {
+	padding: 0.5em;
+}
+
+.ui-dialog.ui-widget-content .ui-tabs-nav .ui-state-default {
+	border: 0 none;
+	background-color: none transparent;
+}
