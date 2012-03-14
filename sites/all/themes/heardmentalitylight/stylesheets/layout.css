@@ -2504,7 +2504,7 @@ body.admin-menu {
 
 /*Custom dialog*/
 
-.ui-dialog {
+.ui-dialog.ui-widget-content {
 	border: 1px solid #D2D2D2;
 	padding: 0;
 }
