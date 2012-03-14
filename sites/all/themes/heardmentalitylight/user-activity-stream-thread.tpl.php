@@ -13,7 +13,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
         <?php }else if($message_id == 'add_vote'){?>
         <p class="profile action-item"><?php print t('Voted on the issue'); ?>: "
             <a><?php print l($data['q_title'], $url); ?>?</a>"</p>
-        <p class="profile action-comment-ref"><?php print t($node->body); ?></p>
+<!--        <p class="profile action-comment-ref"><?php print t($node->body); ?></p>-->
         <?php }else if($message_id == 'add_debate'){?>
         <p class="profile action-item"><?php print t('Posted an argument on the issue'); ?>: "
             <a href="<?php print $sitelink.$url.'#forum-block-'.$data['did'];?>"><?php print t($data['q_title']); ?>?</a>"</p>
