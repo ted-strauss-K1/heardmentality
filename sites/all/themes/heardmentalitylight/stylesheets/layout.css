@@ -2503,6 +2503,10 @@ body.admin-menu {
 	padding-right: 5px !important;
 }
 
+body.front .jScrollPaneContainer {
+	width: 100% !important;
+}
+
 /*Custom dialog*/
 
 .ui-dialog.ui-widget-content {
