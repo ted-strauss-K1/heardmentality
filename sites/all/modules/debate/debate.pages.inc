@@ -748,14 +748,18 @@ function debate_submit() {
 
 
 function collect_valid_images($images){
-    $ext_arr = array('jpg', 'jpeg', 'gif', 'png', 'JPEG', 'bmp');
+    $ext_arr = array('jpg', 'jpeg', 'JPEG');
+    $result = array();
     foreach($images as $image){
     $im = explode("/",$image);
     $webimage = end($im);
     $ext = explode(".",$webimage);
     $extension = end($ext);
     if(in_array($extension, $ext_arr)){
+        list($width, $height, $type, $attr) = getimagesize($image);
+        if($width > 30 && $height > 30){
         $fImages[] = $image;
+        }
     }
     }
     return $fImages;
