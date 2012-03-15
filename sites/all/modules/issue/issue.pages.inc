@@ -685,7 +685,7 @@ function report_map($nid='') {
                     $list = array();
                     $list = report_get_zip($uzip, $cntcode);
                     $list = $list->results;
-
+print $list[0]['countrycode'];
                     if ($list[0]['countrycode'] != '') {
                         $zcnt++;
                         $mlatall .= "'" . $list[0]['lat'] . "',";
@@ -700,7 +700,7 @@ function report_map($nid='') {
                 }
             }
         }
-    }
+    } exit;
     $mlat = "[";
     $mlong = "[";
     $zipary = "[";
