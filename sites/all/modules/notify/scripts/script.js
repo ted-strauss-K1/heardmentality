@@ -124,7 +124,9 @@ reset_tabs();
 function slidestream(){
 var delay = 0;
 jQuery(jQuery('#uactivity div.activity-stream:hidden').get().reverse()).each(function(){
-    jQuery(this).delay(delay).slideDown('slow');
+    jQuery(this).delay(delay).slideDown('slow', function() {
+		jQuery('.container .nine .grey-box .uactivity').jScrollPane({scrollbarWidth:12, scrollbarMargin:0, showArrows:true});
+	});
     delay +=2000;
 });
 }
