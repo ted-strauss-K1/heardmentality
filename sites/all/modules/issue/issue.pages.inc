@@ -685,7 +685,7 @@ function report_map($nid='') {
                     $list = array();
                     $list = report_get_zip($uzip, $cntcode);
                     $list = $list->results;
-print $list[0]['countrycode'];
+
                     if ($list[0]['countrycode'] != '') {
                         $zcnt++;
                         $mlatall .= "'" . $list[0]['lat'] . "',";
@@ -700,7 +700,7 @@ print $list[0]['countrycode'];
                 }
             }
         }
-    } exit;
+    }
     $mlat = "[";
     $mlong = "[";
     $zipary = "[";
@@ -840,7 +840,7 @@ function report_get_zip($code = '', $ccode = '') {
 
     $query = array('postalcode' => $code, 'maxrows' => 1);
     $result = geonames_query('postalcodesearch', $query);
-
+    print_r($result); exit;
     return $result;
 }
 
