@@ -3,7 +3,6 @@ global $user, $base_url;
 $directoryPath = $base_path . $directory;
 $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)).'/';
-
 ?>
 <style type="text/css">
     .profile-complete .progress {
