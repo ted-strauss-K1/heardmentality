@@ -23,19 +23,19 @@ print drupal_render($form['defcity']);
   $subject = arg(2);
   $subject_term = taxonomy_get_term($subject)->name;
   if(trim($subject_term)!="") {
-     $search_filters[] =  $final_category = $subject_term;
+     $search_filters[] =  $final_category = t($subject_term);
   } 
   
   $subject_sub_cat_1 = arg(3);
   $subject_sub_cat_1_term = taxonomy_get_term($subject_sub_cat_1)->name;
   if(trim($subject_sub_cat_1_term)!="") {
-     $search_filters[] = $subject_sub_cat_1_term;
+     $search_filters[] = t($subject_sub_cat_1_term);
   } 
   
   $subject_sub_cat_2 = arg(4);
   $subject_sub_cat_2_term = taxonomy_get_term($subject_sub_cat_2)->name;
   if(trim($subject_sub_cat_2_term)!="") {
-     $search_filters[] = $subject_sub_cat_2_term;
+     $search_filters[] = t($subject_sub_cat_2_term);
   } 
   
 
@@ -64,11 +64,11 @@ print drupal_render($form['defcity']);
 		  $search_filters[] = $city['name'];
 		}
 	}
-
-  print '<label class="cat" style="padding:11px 0 0 11px;">'.implode(" / ",$search_filters).'</label>';
-  /**********************/
   
 ?>
+<h2 class="dinbold page-title"><?php print '<label class="cat" style="padding:11px 0 0 11px;">'.implode(" / ",$search_filters).'</label>'; ?></h2>
+<?php   /**********************/ ?>
+<div class="grey-box search">
 <div class="search">
             <br>
             <div class="form-item" id="edit-issue-key-wrapper">
@@ -104,3 +104,5 @@ print drupal_render($form['defcity']);
             </div>
 
     </div>
+        <div class="clear"></div>
+</div>

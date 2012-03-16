@@ -81,11 +81,10 @@ $directoryPath = $base_path . $directory;
 	<div class="container">
 
             <div class="twelve columns">
-			<div class="grey-box search">
+			
 				
                             <?php if($issue_search_area): print $issue_search_area; endif; ?>
-					<div class="clear"></div>
-				</div>
+					
                         <?php if($issue_filter_area): ?>
 			<div class="sort-white-box">
                             <?php print $issue_filter_area; ?>
