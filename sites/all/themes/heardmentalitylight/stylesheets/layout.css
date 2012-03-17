@@ -2721,6 +2721,8 @@ h2.page-title {
 	display: inline;
 	margin: 0;
 	padding: 0;
+	float: none;
+	font: 14px/17px Arial;
 }
 
 #new_vote #new-ellipse {
