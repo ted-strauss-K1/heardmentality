@@ -160,7 +160,7 @@
 		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #c3c3c3;
 		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #c3c3c3;
 		box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #c3c3c3;
-		padding: 4px 12px;
+		padding: 5px 12px 3px;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
 		border-radius: 3px;
@@ -243,11 +243,11 @@
 		background-image:     -ms-linear-gradient(top, #efefef, #c4c4c4);
 		background-image:      -o-linear-gradient(top, #efefef, #c4c4c4);
 		background-image:         linear-gradient(top, #efefef, #c4c4c4);
-		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
-		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
-		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
-		box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 3px 3px 3px 0px #b8b8b8;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 3px 3px 3px 0px #b8b8b8;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 3px 3px 3px 0px #b8b8b8;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 3px 3px 3px 0px #b8b8b8;
+		box-shadow: inset 0px 0px 2px 0px #fff, 3px 3px 3px 0px #b8b8b8;
 		border: 1px solid #b8b8b8;
 		color: #888888 !important;
 		text-shadow: 0 1px rgba(223, 223, 223, 0.7);

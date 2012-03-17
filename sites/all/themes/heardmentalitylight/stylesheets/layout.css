@@ -2626,7 +2626,7 @@ body.front .jScrollPaneContainer {
 .ui-dialog .ui-tabs-panel #user-login .form-submit,
 .ui-dialog .ui-tabs-panel #user-register .form-submit {
 	float: right;
-	font-size: 11px;
+	font-size: 12px;
     font-family: Arial,sans-serif;
 	padding: 7px 12px
 }
