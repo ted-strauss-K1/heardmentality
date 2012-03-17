@@ -2743,11 +2743,17 @@ h2.page-title {
 	display: none;
 }
 
+#new_vote .poll-vote-area {
+	background:url(../images/light_dotted.gif) repeat-x 0 0;
+	padding: 18px 10px 0 30px;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
 .ui-dialog .ui-tabs-panel #user-register:after,
-#new_vote .part:after {
+#new_vote .part:after,
+.poll-vote-area:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;

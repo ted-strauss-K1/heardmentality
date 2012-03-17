@@ -1,7 +1,8 @@
 /*IE only stylesheet*/
 
 .ie7 .ui-dialog .ui-tabs-panel #user-login,
-.ie7 .ui-dialog .ui-tabs-panel #user-register {
+.ie7 .ui-dialog .ui-tabs-panel #user-register,
+.ie7 .poll-vote-area {
 	zoom: 1;
 }
 
