@@ -154,8 +154,7 @@
 		background-image:     -ms-linear-gradient(top, #f1f1f1, #cecece);
 		background-image:      -o-linear-gradient(top, #f1f1f1, #cecece);
 		background-image:         linear-gradient(top, #f1f1f1, #cecece);
-		border: solid #c3c3c3;
-		border-width: 1px 1px 4px;
+		border: 1px solid #c3c3c3;
 		-webkit-box-shadow: inset 0px 0px 1px 0px rgba(255,255,255, 0.7);
 		-moz-box-shadow: inset 0px 0px 1px 0px rgba(255,255,255, 0.7);
 		-o-box-shadow: inset 0px 0px 1px 0px rgba(255,255,255, 0.7);
@@ -243,8 +242,7 @@
 		background-image:     -ms-linear-gradient(top, #efefef, #c4c4c4);
 		background-image:      -o-linear-gradient(top, #efefef, #c4c4c4);
 		background-image:         linear-gradient(top, #efefef, #c4c4c4);
-		border: solid #b8b8b8;
-		border-width: 1px 1px 4px;
+		border: 1px solid #b8b8b8;
 		color: #888888;
 }
 	  
