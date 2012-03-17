@@ -245,7 +245,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 
 	.white-box {
 		background-color: #fff;
-		border: 1px solid #d2d2d2;
+		border: 1px solid #c0c0c0;
 		margin: 0 0 20px;
 		padding: 20px 10px 20px;
 		-webkit-border-radius: 4px;
@@ -265,7 +265,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	.top-grey-box {
 		background: url(../images/white_50.png) repeat 0 0;
-		border: 1px solid #d2d2d2;
+		border: 1px solid #c0c0c0;
 		border-bottom: 0 none;
 		margin: 30px 0 0;
 		-webkit-border-radius: 4px 4px 0 0;
@@ -278,13 +278,13 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	
 	.top-grey-box .sort-by {
 		padding-bottom: 10px;
-		border-bottom: 1px solid #d2d2d2;
+		border-bottom: 1px solid #c0c0c0;
 		margin: 0 10px;
 	}
 	
 	.grey-box {
 		background: url(../images/white_50.png) repeat 0 0;
-		border: 1px solid #d2d2d2;
+		border: 1px solid #c0c0c0;
 		border-top: 0 none;
 		margin: 0;
 		padding: 16px 15px 10px 20px;
@@ -438,7 +438,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	}
 	
 	.grey-box-cat .tags-on {
-	    border-bottom: 1px solid #D2D2D2;
+	    border-bottom: 1px solid #c0c0c0;
 		color: #999999;
 		font-size: 13px;
 		font-weight: bold;
@@ -1640,7 +1640,7 @@ span.left {float:left;padding:0px 0px 0px 0px}
 	background:url(../images/ui-bg_diagonals40x40_green.png);
 	border-width:1px;
 	border-style:solid;
-	border-color:#d2d2d2 #e5e5e5 #e5e5e5 #ddd;
+	border-color:#c0c0c0 #e5e5e5 #e5e5e5 #ddd;
 	margin:30px 0px 0px 10px;
 	padding:22px 22px 10px 22px;
 	border-radius: 3px;
@@ -1650,7 +1650,7 @@ span.left {float:left;padding:0px 0px 0px 0px}
 	background:url(../images/ui-bg_diagonals40x40.png);
 	border-width:1px;
 	border-style:solid;
-	border-color:#d2d2d2 #e5e5e5 #e5e5e5 #ddd;
+	border-color:#c0c0c0 #e5e5e5 #e5e5e5 #ddd;
 	margin:27px 0px 0px 5px;
 	padding:22px 22px 10px 22px;
 	border-radius: 3px;
@@ -1801,7 +1801,7 @@ label.login {text-align:right;text-transform:none;color:#000;font-weight:normal;
 span.sort {font-weight:normal;letter-spacing:0.1em;font-weight:bold;color:#666;text-shadow: 0 1px #fff;font-size:0.8em;margin:0px 3px 0px -15px;}
 
 span.activity {font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;padding:0px 3px 0px 3px;}
-.activity.map-title {font-weight:bold;letter-spacing:0.1em;color:#999;text-shadow: 0 1px #fff;font-size:13px;border-bottom: 1px solid #D2D2D2; margin: 0 10px 9px; padding: 0 3px 10px;}
+.activity.map-title {font-weight:bold;letter-spacing:0.1em;color:#999;text-shadow: 0 1px #fff;font-size:13px;border-bottom: 1px solid #c0c0c0; margin: 0 10px 9px; padding: 0 3px 10px;}
 
 .action span.date {color:#BA00A4;}
 .action span.name {color:#BA00A4;font-weight:bold}
@@ -2002,7 +2002,7 @@ h2.din a:hover {border-bottom:1px dotted #ccc;color:#000}
 /*openwave*/
 .grey-box-cat {
 		background: url(../images/white_50.png) repeat 0 0;
-		border: 1px solid #d2d2d2;
+		border: 1px solid #c0c0c0;
 		margin: 30px 0 0;
 		padding: 20px;
 		-webkit-border-radius: 4px;
@@ -2660,9 +2660,17 @@ body.front .jScrollPaneContainer {
 	text-decoration: none;
 }
 
-
 /*Vote/Debate page*/
 
+#shareDiv_gig_containerParent {
+	padding: 0;
+	margin: 0;
+}
+
+h2.page-title {
+	line-height: 19px;
+	margin: 30px 0 10px;
+}
 
 
 div.tabs {

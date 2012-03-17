@@ -264,7 +264,7 @@
 		background-image:      -o-linear-gradient(top, #efefef, #c4c4c4);
 		background-image:         linear-gradient(top, #efefef, #c4c4c4);
 		border: solid #b8b8b8;
-		border-width: 1px 1px 4px;
+		border-width: 1px 1px 2px;
 		color: #777777 !important;
 		text-shadow: 0 1px rgba(223, 223, 223, 0.7);
 }
@@ -476,7 +476,7 @@
 	.left5 {margin:5px 10px 5px 0px;}
   .left10 {margin:20px 10px -10px 10px;}  
   .double{font-size:110%;}
-  .twelve{font-size:13px;line-height:1em;margin-top:-10px;letter-spacing:0.1em;color:#666}
+  .twelve{font-size:13px;line-height:1em; letter-spacing:0.1em;color:#666}
 	.minus-ten {margin-top:-10px;font-size:12px;line-height:1em}
 
 	/*Rallydev-522*/
