@@ -2646,3 +2646,11 @@ body.front .jScrollPaneContainer {
 	top: 1px;
 }
 
+.ui-dialog .ui-tabs-panel #user-register #edit-terms-wrapper label  a {
+	text-decoration: underline;
+}
+
+.ui-dialog .ui-tabs-panel #user-register #edit-terms-wrapper label  a:hover {
+	text-decoration: none;
+}
+

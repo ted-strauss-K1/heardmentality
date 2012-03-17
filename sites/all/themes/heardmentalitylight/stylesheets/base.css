@@ -134,7 +134,7 @@
 
 /* #Buttons
 ================================================== */
-	
+	/*Common buttom with big border-bottom*/
 	a.button, 
 	button,
 	input.add-answer,
@@ -147,74 +147,76 @@
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"] {
-		background: #eee; /* Old browsers */
-		background: -moz-linear-gradient(top, rgba(255,255,255,.2) 0%, rgba(0,0,0,.2) 100%); /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.2)), color-stop(100%,rgba(0,0,0,.2))); /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* Opera11.10+ */
-		background: -ms-linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* IE10+ */
-		background: linear-gradient(top, rgba(255,255,255,.2) 0%,rgba(0,0,0,.2) 100%); /* W3C */
-	  border: 1px solid #aaa;
-	  border-top: 1px solid #ccc;
-	  border-left: 1px solid #ccc;
-	  padding: 4px 12px;
+		background-color: #dfdfdf;
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#cecece));
+		background-image: -webkit-linear-gradient(top, #f1f1f1, #cecece);
+		background-image:    -moz-linear-gradient(top, #f1f1f1, #cecece);
+		background-image:     -ms-linear-gradient(top, #f1f1f1, #cecece);
+		background-image:      -o-linear-gradient(top, #f1f1f1, #cecece);
+		background-image:         linear-gradient(top, #f1f1f1, #cecece);
+		border: solid #c3c3c3;
+		border-width: 1px 1px 4px;
+		padding: 4px 12px;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
 		border-radius: 3px;
 		-khtml-border-radius: 3px;
 		-o-border-radius: 3px;
 		-ms-border-radius: 3px;
-	  color: #444;
+	  color: #b4b4b4;
 	  display: inline-block;
-	  font-size: 11px;
+	  font-size: 12px;
 	  font-weight: bold;
 	  text-decoration: none;
-	  text-shadow: 0 1px rgba(255, 255, 255, .75);
+	  text-shadow: 0 1px rgba(255, 255, 255, 0.7);
 	  cursor: pointer;
 	  margin-bottom: 0px;
 	  line-height: 21px;
-	  font-family: /*"HelveticaNeue", "Helvetica Neue", Helvetica, */ Arial, sans-serif;
+	  font-family: Arial, sans-serif;
 		-webkit-appearance: none; }
 	
 	a.button.light,  input.light{
-		background:#eaeaea;
+		/*background:#eaeaea;
 		border-color:#ccc;
-		color:#000;
+		color:#000;*/
 		float:right;
 	}
 	
 	a.button.stats,  input.stats{
-		padding:11px 5px 3px 5px;
-		margin:-30px 0px 30px 0px;
-	} 
+		padding: 11px 5px 3px 5px;
+		margin: -30px 0px 30px 0px;
+	}
+	
+	/*Common butto without big border-bottom*/
+	
 	a.button.lighter,  input.lighter,
 	.ui-dialog .ui-tabs-panel #user-login .form-submit,
 	.ui-dialog .ui-tabs-panel #user-register .form-submit{
-		background:#ddd;
+		/*background:#ddd;
 		opacity:0.8;
 		color:#000;
-		border-color:#ccc;
+		border-color:#ccc;*/
 		float:right;
 	}
 	a.button.lighter:hover,  input.lighter:hover,
 	.ui-dialog .ui-tabs-panel #user-login .form-submit:hover,
 	.ui-dialog .ui-tabs-panel #user-register .form-submit:hover {
-		opacity:1.0;
+		/*opacity:1.0;*/
 	}
 	
 	a.button.darker,  input.darker{
-		background:#333;
+		/*background:#333;
 		opacity:0.8;
 		color:#ccc;
 		text-shadow:0px -1px #000;
-		border-color:#222;
+		border-color:#222;*/
 		float:right;
 	}
 	a.button.darker:hover,  input.darker:hover{
-		opacity:1.0;
+		/*opacity:1.0;
 		background:#222;
 		color:#ccc;
-		border-color:#222;
+		border-color:#222;*/
 	}
 	  
 	a.button:hover, 
@@ -229,19 +231,19 @@
 	input[type="submit"]:hover,
 	input[type="reset"]:hover,
 	input[type="button"]:hover {
-		color: #222;
-		background: #eee; /* Old browsers */
-		background: -moz-linear-gradient(top, rgba(255,255,255,.3) 0%, rgba(0,0,0,.3) 100%); /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,.3)), color-stop(100%,rgba(0,0,0,.3))); /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* Opera11.10+ */
-		background: -ms-linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* IE10+ */
-		background: linear-gradient(top, rgba(255,255,255,.3) 0%,rgba(0,0,0,.3) 100%); /* W3C */
-	  border: 1px solid #888;
-	  border-top: 1px solid #aaa;
-	  border-left: 1px solid #aaa; }
+		background-color: #d6d6d6;
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c4c4c4));
+		background-image: -webkit-linear-gradient(top, #efefef, #c4c4c4);
+		background-image:    -moz-linear-gradient(top, #efefef, #c4c4c4);
+		background-image:     -ms-linear-gradient(top, #efefef, #c4c4c4);
+		background-image:      -o-linear-gradient(top, #efefef, #c4c4c4);
+		background-image:         linear-gradient(top, #efefef, #c4c4c4);
+		border: solid #b8b8b8;
+		border-width: 1px 1px 4px;
+		color: #888888;
+}
 	  
-  a.button:active, 
+  /*a.button:active, 
   button:active,
   h6#add-arg:active,
   h6#reply:active,
@@ -253,16 +255,16 @@
 	input[type="submit"]:active,
 	input[type="reset"]:active,
 	input[type="button"]:active {
-    background: #eee; /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(0,0,0,.3) 0%, rgba(255,255,255,.3) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,.3)), color-stop(100%,rgba(255,255,255,.3))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%); /* IE10+ */
-    background: linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%); /* W3C */
+    background: #eee;
+    background: -moz-linear-gradient(top, rgba(0,0,0,.3) 0%, rgba(255,255,255,.3) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,.3)), color-stop(100%,rgba(255,255,255,.3)));
+    background: -webkit-linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%);
+    background: -o-linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%);
+    background: -ms-linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%);
+    background: linear-gradient(top, rgba(0,0,0,.3) 0%,rgba(255,255,255,.3) 100%);
     border: 1px solid #888;
     border-bottom: 1px solid #aaa;
-    border-right: 1px solid #aaa; }
+    border-right: 1px solid #aaa; }*/
 	
 	.button.full-width, 
 	button.full-width,
