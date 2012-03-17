@@ -155,11 +155,11 @@
 		background-image:      -o-linear-gradient(top, #f1f1f1, #cecece);
 		background-image:         linear-gradient(top, #f1f1f1, #cecece);
 		border: 1px solid #c3c3c3;
-		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #c3c3c3;
-		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #c3c3c3;
-		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #c3c3c3;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #c3c3c3;
-		box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #c3c3c3;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #c3c3c3;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #c3c3c3;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #c3c3c3;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #c3c3c3;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #c3c3c3;
 		padding: 4px 12px;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
@@ -167,7 +167,7 @@
 		-khtml-border-radius: 3px;
 		-o-border-radius: 3px;
 		-ms-border-radius: 3px;
-	  color: #b4b4b4;
+	  color: #b4b4b4 !important;
 	  display: inline-block;
 	  font-size: 12px;
 	  font-weight: bold;
@@ -177,6 +177,7 @@
 	  margin-bottom: 0px;
 	  line-height: 21px;
 	  font-family: Arial, sans-serif;
+	  font-weight: bold;
 		-webkit-appearance: none; }
 	
 	a.button.light,  input.light{
@@ -242,13 +243,14 @@
 		background-image:     -ms-linear-gradient(top, #efefef, #c4c4c4);
 		background-image:      -o-linear-gradient(top, #efefef, #c4c4c4);
 		background-image:         linear-gradient(top, #efefef, #c4c4c4);
-		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #b8b8b8;
-		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #b8b8b8;
-		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #b8b8b8;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #b8b8b8;
-		box-shadow: inset 0px 0px 2px 0px #fff, 0px 4px 4px 0px #b8b8b8;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0px 3px 3px 0px #b8b8b8;
 		border: 1px solid #b8b8b8;
-		color: #888888;
+		color: #888888 !important;
+		text-shadow: 0 1px rgba(223, 223, 223, 0.7);
 }
 	  
   /*a.button:active, 
