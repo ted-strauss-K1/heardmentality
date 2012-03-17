@@ -2635,8 +2635,14 @@ body.front .jScrollPaneContainer {
 	margin: 0;
 }
 
-.ui-dialog #edit-news-wrapper label {
-	padding: 0;
+.ui-dialog .ui-tabs-panel #user-register #edit-news-wrapper label {
+	padding: 0 0 0 3px;
 	font-size: 11px;
+}
+
+.ui-dialog .ui-tabs-panel #user-register input.form-checkbox {
+	margin: 0;
+	position: relative;
+	top: 2px;
 }
 
