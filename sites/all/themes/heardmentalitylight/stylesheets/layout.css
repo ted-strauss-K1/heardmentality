@@ -2597,6 +2597,8 @@ body.front .jScrollPaneContainer {
     line-height: 1em;
     text-shadow: 0 1px #CECECE;
 	padding-bottom: 6px;
+	color: #4c4c4c;
+	font-family: Arial. sans-serif;
 }
 
 .ui-dialog .ui-tabs-panel #user-login .form-submit,

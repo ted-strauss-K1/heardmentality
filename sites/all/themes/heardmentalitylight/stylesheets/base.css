@@ -357,12 +357,14 @@
 	input[type="email"],
 	textarea, 
 	select {
-		border: 1px solid #ccc;
+		border: 1px solid #b3b3b3;
 		padding: 6px 4px;
 		outline: none;
-		-moz-border-radius: 2px;
 		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
 		border-radius: 2px;
+		-khtml-border-radius: 2px;
+		-o-border-radius: 2px;
 		font: 13px /*"HelveticaNeue", "Helvetica Neue", Helvetica, */ Arial, sans-serif;
 		color: #777;
 		margin: 0;
