@@ -2643,6 +2643,6 @@ body.front .jScrollPaneContainer {
 .ui-dialog .ui-tabs-panel #user-register input.form-checkbox {
 	margin: 0;
 	position: relative;
-	top: 2px;
+	top: 1px;
 }
 
