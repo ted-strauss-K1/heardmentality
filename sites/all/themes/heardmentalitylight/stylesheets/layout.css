@@ -2628,7 +2628,7 @@ body.front .jScrollPaneContainer {
 	float: right;
 	font-size: 12px;
     font-family: Arial,sans-serif;
-	padding: 7px 12px
+	padding: 8px 12px 6px;
 }
 
 .ui-dialog fieldset {
