@@ -2693,6 +2693,17 @@ h2.page-title {
 	padding: 0;
 	display: block;
 	text-decoration: none;
+	border: 0 none;
+}
+
+.white-box.poll-box h2.din span.pip {
+	background:url(../images/pip.png) no-repeat 0 0;
+	display: block;
+	width: 15px;
+	height: 13px;
+	position: absolute;
+	left: 30px;
+	bottom: -13px;
 }
 
 
