@@ -193,21 +193,40 @@
 		margin: -30px 0px 30px 0px;
 	}
 	
-	/*Common butto without big border-bottom*/
+	/*Common button without big border-bottom*/
 	
 	a.button.lighter,  input.lighter,
 	.ui-dialog .ui-tabs-panel #user-login .form-submit,
 	.ui-dialog .ui-tabs-panel #user-register .form-submit{
-		/*background:#ddd;
-		opacity:0.8;
-		color:#000;
-		border-color:#ccc;*/
-		float:right;
+		background-color: #d4d4d4;
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c3c3c3));
+		background-image: -webkit-linear-gradient(top, #efefef, #c3c3c3);
+		background-image:    -moz-linear-gradient(top, #efefef, #c3c3c3);
+		background-image:     -ms-linear-gradient(top, #efefef, #c3c3c3);
+		background-image:      -o-linear-gradient(top, #efefef, #c3c3c3);
+		background-image:         linear-gradient(top, #efefef, #c3c3c3);
+		float: right;
+		border: 1px solid;
+		border-color: #e7e7e7 #b0b0b0 #b0b0b0;
+		text-shadow: 0 0 0 transparent;
+		-webkit-box-shadow: 0 transparent;
+		-moz-box-shadow: 0 transparent;
+		-o-box-shadow: 0 transparent;
+		-khtml-box-shadow: 0 transparent;
+		box-shadow: 0 transparent;
 	}
 	a.button.lighter:hover,  input.lighter:hover,
 	.ui-dialog .ui-tabs-panel #user-login .form-submit:hover,
 	.ui-dialog .ui-tabs-panel #user-register .form-submit:hover {
-		/*opacity:1.0;*/
+		background-color: #c8c8c8;
+		background-image: -webkit-gradient(linear, left top, left bottom, from(#e9e9e9), to(#b3b3b3));
+		background-image: -webkit-linear-gradient(top, #e9e9e9, #b3b3b3);
+		background-image:    -moz-linear-gradient(top, #e9e9e9, #b3b3b3);
+		background-image:     -ms-linear-gradient(top, #e9e9e9, #b3b3b3);
+		background-image:      -o-linear-gradient(top, #e9e9e9, #b3b3b3);
+		background-image:         linear-gradient(top, #e9e9e9, #b3b3b3);
+		border: 1px solid;
+		border-color: #b5b5b5 #9c9c9c #9c9c9c;
 	}
 	
 	a.button.darker,  input.darker{
