@@ -22,6 +22,7 @@ $gSitePath = $base_path.'/';
 
 <div class="part part1">
 <p class="description">
+	<span class="inner">
     
 	<!--<span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
         <?php //print t($context); ?>&nbsp;
@@ -32,6 +33,7 @@ $gSitePath = $base_path.'/';
 	 <?php $output = __issue_description_trimmer($context); ?>
 	<span><?php print $output['context_initial']; ?></span><span id="extended-issue-description" style="display:none;"><?php print $output['context_remaining']; ?></span>
 	<!---------------->
+	</span>
 </p>
 
 <!--<div class="issue-things"></div>-->
