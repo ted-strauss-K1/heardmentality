@@ -1,5 +1,10 @@
 /*IE only stylesheet*/
 
+.ie7 .ui-dialog .ui-tabs-panel #user-login,
+.ie7 .ui-dialog .ui-tabs-panel #user-register {
+	zoom: 1;
+}
+
 .ie8 ul.menu li, .ie7 ul.menu li {background-color: #D81A29; color:white;}
 .ie8 ul.menu li + li, .ie7 ul.menu li + li {background-color: #F7314A; color:white;}
 .ie8 ul.menu li + li + li, .ie7 ul.menu li + li + li {background-color: #CC2027; color:white;}

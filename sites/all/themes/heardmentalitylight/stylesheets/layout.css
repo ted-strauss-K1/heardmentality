@@ -2543,6 +2543,7 @@ body.front .jScrollPaneContainer {
 .ui-dialog.ui-widget-content .ui-dialog-titlebar-close:hover {
 	border: 0 none;
 	background: none transparent;
+	padding: 1px;
 }
 
 .ui-dialog.ui-widget-content .ui-tabs-nav .ui-state-default {
@@ -2577,12 +2578,26 @@ body.front .jScrollPaneContainer {
 .ui-dialog .ui-tabs-panel #componentDiv ,
 .ui-dialog .ui-tabs-panel .gigya-login {
 	clear: both;
-	padding-top: 0.8em;
+	padding: 1em;
+}
+
+.ui-dialog .ui-tabs-panel #componentDiv + .gigya-login {
+	padding: 0;
 }
 
 .ui-dialog .ui-tabs-panel #user-login,
 .ui-dialog .ui-tabs-panel #user-register {
 	padding-top: 0.5em;
+}
+
+.ui-dialog .ui-tabs-panel #user-login:after,
+.ui-dialog .ui-tabs-panel #user-register:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
 }
 
 .ui-dialog .ui-tabs-panel #user-login .form-item,
