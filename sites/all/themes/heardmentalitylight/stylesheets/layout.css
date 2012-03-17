@@ -2071,9 +2071,8 @@ textarea#q_quest  {
     background: none repeat scroll 0 0 #e4e4e4;
     border: 1px solid #d7d7d7;
     letter-spacing: 1px;
-    margin: 3px 0 15px;
-    padding: 12px;
-    text-shadow: 0 1px #FFFFFF;
+    margin: 3px 0 10px;
+    padding: 12px 12px 11px;
     width: auto;
 	cursor: pointer;
 }
@@ -2086,11 +2085,11 @@ textarea#q_quest  {
 .choices .form-radios .form-item.staygreen{
     background-color: #cfebd0;
     border: 1px solid #bce0bd;
-	-webkit-box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
-	-moz-box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
-	-o-box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
-	-khtml-box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
-	box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
+	-webkit-box-shadow: inset 0px 0px 5px 0px #fff;
+	-moz-box-shadow: inset 0px 0px 5px 0px #fff;
+	-o-box-shadow: inset 0px 0px 5px 0px #fff;
+	-khtml-box-shadow: inset 0px 0px 5px 0px #fff;
+	box-shadow: inset 0px 0px 5px 0px #fff;
 }
 
 .choices .form-radios .form-item label.option {
@@ -2105,7 +2104,8 @@ textarea#q_quest  {
 .choices .form-radios .form-item label.option input.form-radio {
 	position: absolute;
 	left: 0;
-	margin: 0;
+	top: 50%;
+	margin: -7px 0 0;
 }
 
 .pagination .pager a{
