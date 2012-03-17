@@ -11,7 +11,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                 <div id="vote-msg-alert-<?php print $tnid; ?>" class="v-msg"></div>
                 <h2 class="din half"><a href="<?php print $node_url; ?>" title="permalink" class="issue-title"><?php print t($title); ?>?</a></h2>
                 <br>
-                <div class="poll-vote-area">
+                <div class="poll-vote-area">1234
                 <?php if($allowvotes == 1){
                     $display = 'style="display: none;"';
                 }?>

@@ -2660,3 +2660,12 @@ body.front .jScrollPaneContainer {
 	text-decoration: none;
 }
 
+
+/*Vote/Debate page*/
+
+
+
+div.tabs {
+	display: none;
+}
+
