@@ -62,7 +62,7 @@
 
 
 
-<div id="dialog" Login>
+<div id="dialog">
    <ul>
       <li><a href="#tabs-1">Log in</a></li>
       <li><a href="#tabs-2">Sign up</a></li>
@@ -100,7 +100,7 @@
                 ,facepilePosition: 'top'
         }
         </script>
-        <div id="componentDiv" style="margin:0px 0px 0px 5px"></div>
+        <div id="componentDiv"></div>
         <script type="text/javascript">
            gigya.services.socialize.showLoginUI(conf,login_params);
         </script>
