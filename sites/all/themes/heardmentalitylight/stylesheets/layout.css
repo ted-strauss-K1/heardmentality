@@ -2717,6 +2717,7 @@ h2.page-title {
 	color: #0f6836;
 	font: 14px/17px Arial;
 }
+
 #new_vote .qd p.description {
 	display: inline;
 	margin: 0;
@@ -2736,7 +2737,11 @@ h2.page-title {
 
 #new_vote #new-ellipse a:hover {
 	color: #0f6836;
-}	
+}
+
+#new_vote span#extended-issue-description + p {
+	display: none;
+}
 
 /*Clear*/
 
