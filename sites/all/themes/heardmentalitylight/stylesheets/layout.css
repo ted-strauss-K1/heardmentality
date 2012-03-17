@@ -246,7 +246,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.white-box {
 		background-color: #fff;
 		border: 1px solid #c0c0c0;
-		margin: 0 0 20px;
 		padding: 20px 10px 20px;
 		-webkit-border-radius: 4px;
 		-moz-border-radius: 4px;
@@ -2662,7 +2661,7 @@ body.front .jScrollPaneContainer {
 
 /*Vote/Debate page*/
 
-#shareDiv_gig_containerParent {
+.white-box.poll-box {
 	padding: 0;
 	margin: 0;
 }
