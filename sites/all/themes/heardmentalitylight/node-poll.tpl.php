@@ -21,8 +21,9 @@ $gSitePath = $base_path.'/';
 <!-- Part 1 -->
 
 <div class="part part1">
+
+<div class="qd">
 <p class="description">
-	<span class="inner">
     
 	<!--<span id="sp-desc" style="height:40px; overflow: hidden; float: left;">
         <?php //print t($context); ?>&nbsp;
@@ -33,8 +34,8 @@ $gSitePath = $base_path.'/';
 	 <?php $output = __issue_description_trimmer($context); ?>
 	<span><?php print $output['context_initial']; ?></span><span id="extended-issue-description" style="display:none;"><?php print $output['context_remaining']; ?></span>
 	<!---------------->
-	</span>
 </p>
+</div>
 
 <!--<div class="issue-things"></div>-->
 <div class="poll-vote-area">

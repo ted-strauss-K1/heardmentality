@@ -3019,7 +3019,7 @@ function __issue_description_trimmer($context) {
 	$output['context_remaining'] = "";
   } else {
     $context_initial = substr($context,0,$initial_character_count);
-	$output['context_initial'] = str_replace("\r\n", "<br>",$context_initial).'<div id="new-ellipse"><a>[...]</a></div>';  
+	$output['context_initial'] = str_replace("\r\n", "<br>",$context_initial).'<div id="new-ellipse"><a>...more&gt;&gt;</a></div>';  
 	$context_remaining = substr($context,$initial_character_count,$trimmed_string_length);
 	$output['context_remaining'] = str_replace("\r\n", "<br>",$context_remaining);  
   }  
