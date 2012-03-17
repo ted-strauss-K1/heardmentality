@@ -2715,13 +2715,13 @@ h2.page-title {
 	display: inline;
     float: none;
     line-height: 1.2em;
+	margin: 0;
+    padding: 25px 10px 18px 30px;
+	width: 88%;
 }
 
 #new_vote p.description span.inner {
-	display: block;    
-	margin: 25px 0 18px;
-    padding: 0 10px 0 30px;
-	width: 88%;
+
 }
 
 #new_vote #new-ellipse {
@@ -2730,6 +2730,7 @@ h2.page-title {
 
 #new_vote #new-ellipse a {
 	color: #cd2027;
+	cursor: pointer;
 }
 
 #new_vote #new-ellipse a:hover {
