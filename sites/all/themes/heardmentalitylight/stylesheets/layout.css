@@ -2578,16 +2578,12 @@ body.front .jScrollPaneContainer {
 .ui-dialog .ui-tabs-panel #componentDiv ,
 .ui-dialog .ui-tabs-panel .gigya-login {
 	clear: both;
-	padding: 1em;
-}
-
-.ui-dialog .ui-tabs-panel #componentDiv + .gigya-login {
 	padding: 0;
 }
 
 .ui-dialog .ui-tabs-panel #user-login,
 .ui-dialog .ui-tabs-panel #user-register {
-	padding-top: 0.5em;
+	padding: 0.5em 0 1em;
 }
 
 .ui-dialog .ui-tabs-panel #user-login:after,

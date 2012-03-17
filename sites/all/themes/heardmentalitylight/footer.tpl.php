@@ -67,18 +67,9 @@
       <li><a href="#tabs-1">Log in</a></li>
       <li><a href="#tabs-2">Sign up</a></li>
    </ul>
-  
-  
-  
-  
-  
-  
-  
-        <div id="tabs-1" title="Login" class="dialog">
-          <div id="user-login">
 
-      	  </div>
-          <p><?php //print t('Or login to Heard Mentality using one of your favorite Social network logins'); ?></p>
+    <div id="tabs-1" title="Login" class="dialog">
+          <!--<p><?php //print t('Or login to Heard Mentality using one of your favorite Social network logins'); ?></p>-->
           
           <script type="text/javascript">
           var conf=
@@ -110,13 +101,9 @@
              <div class ="gigya-login"> </div>
 	</div>
   
-     <div id="tabs-2">
-    <div id ="user-register"> 
-    
-    </div>
-       
+    <div id="tabs-2">
        <div class ="gigya-login"></div>
-   </div>
+    </div>
   
   </div>
 <?php print $closure; ?>
