@@ -207,13 +207,13 @@
 		background-image:         linear-gradient(top, #efefef, #c3c3c3);
 		float: right;
 		border: 1px solid;
-		border-color: #e7e7e7 #b0b0b0 #b0b0b0;
+		border-color: #bbbbbb #b0b0b0 #b0b0b0;
 		text-shadow: 0 0 0 transparent;
-		-webkit-box-shadow: 0 transparent;
-		-moz-box-shadow: 0 transparent;
-		-o-box-shadow: 0 transparent;
-		-khtml-box-shadow: 0 transparent;
-		box-shadow: 0 transparent;
+		-webkit-box-shadow: 0 0 0 transparent;
+		-moz-box-shadow: 0 0 0 transparent;
+		-o-box-shadow: 0 0 0 transparent;
+		-khtml-box-shadow: 0 0 0 transparent;
+		box-shadow: 0 0 0 transparent;
 	}
 	a.button.lighter:hover,  input.lighter:hover,
 	.ui-dialog .ui-tabs-panel #user-login .form-submit:hover,
