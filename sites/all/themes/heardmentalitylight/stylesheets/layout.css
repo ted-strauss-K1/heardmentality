@@ -2671,6 +2671,20 @@ h2.page-title {
 	margin: 30px 0 10px;
 }
 
+.white-box.poll-box h2.din {
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-khtml-border-radius: 3px;
+	-o-border-radius: 3px;
+	-ms-border-radius: 3px;
+	background-color: #55ba59;
+	color: #f8f8f8;
+	font-size: 39px;
+	line-height: 43px;
+	padding: 14px 56px 14px 30px;
+}
+
 
 div.tabs {
 	display: none;
