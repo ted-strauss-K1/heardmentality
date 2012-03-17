@@ -2068,13 +2068,13 @@ textarea#q_quest  {
     text-decoration: underline;
 }
 .choices .form-radios .form-item{
-    background: none repeat scroll 0 0 #EEEEEE;
-    border: 1px solid #E1E1E1;
+    background: none repeat scroll 0 0 #e4e4e4;
+    border: 1px solid #d7d7d7;
     letter-spacing: 1px;
     margin: 3px 0 15px;
-    padding: 10px;
+    padding: 12px;
     text-shadow: 0 1px #FFFFFF;
-    width: 96%;
+    width: auto;
 }
 .poll .vote-form .choices {
     display: inherit;
@@ -2088,8 +2088,19 @@ textarea#q_quest  {
     cursor: pointer;
 }
 .choices .form-radios .form-item label.option {
-    font-size: 1.1em;
+	color: #4c4c4c;
+	font-size: 18px/1.2 'DINLightRegular', Arial, sans-serif;
+	position: relative;
+	padding-left: 27px;
 }
+
+.choices .form-radios .form-item label.option input.form-radio {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	margin: -6px 0 0;
+}
+
 .pagination .pager a{
     font-weight: normal;
 }
@@ -2746,6 +2757,14 @@ h2.page-title {
 #new_vote .poll-vote-area {
 	background:url(../images/light_dotted.gif) repeat-x 0 0;
 	padding: 18px 10px 0 30px;
+}
+
+#new_vote .poll-vote-area .voting-pane {
+	width: 85%;
+}
+
+#new_vote .poll-vote-area .form-radios {
+    margin: 0;
 }
 
 /*Clear*/
