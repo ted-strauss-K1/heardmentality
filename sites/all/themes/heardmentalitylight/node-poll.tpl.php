@@ -25,7 +25,7 @@ $gSitePath = $base_path.'/';
 </p>
 <div class="clear"></div>
 <!--<div class="issue-things"></div>-->
-<div class="poll-vote-area">
+<div class="poll-vote-area">123456
 <?php if($allowvotes == '' ): ?>
    <div class="vote-count-poll">
        <?php foreach($indVoteCounts as $chorder => $vcount){?>
