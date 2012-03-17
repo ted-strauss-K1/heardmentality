@@ -2511,7 +2511,7 @@ body.front .jScrollPaneContainer {
 /*Custom dialog*/
 
 .ui-dialog.ui-widget-content {
-	border: 1px solid #D2D2D2;
+	border: 1px solid #c0c0c0;
 	padding: 0;
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -2525,13 +2525,18 @@ body.front .jScrollPaneContainer {
 	height: auto !important;
 }
 
+.ui-dialog.ui-widget-content .ui-dialog-titlebar {
+	background: none repeat scroll 0 0 #55BA59;
+}
+
 .ui-dialog.ui-widget-content .ui-tabs-nav {
 	-webkit-border-radius: 4px 4px 0 0;
 	-moz-border-radius: 4px 4px 0 0;
 	border-radius: 4px 4px 0 0;
 	-khtml-border-radius: 4px 4px 0 0;
 	-o-border-radius: 4px 4px 0 0;
-	border: 1px solid #D2D2D2;
+	border: solid #c0c0c0;
+	border-width: 0 0 1px;
 }
 
 .ui-dialog.ui-widget-content .ui-tabs-nav .ui-state-default {
@@ -2547,6 +2552,8 @@ body.front .jScrollPaneContainer {
 	border-radius: 4px 4px 0 0;
 	-khtml-border-radius: 4px 4px 0 0;
 	-o-border-radius: 4px 4px 0 0;
+	border: solid #c0c0c0;
+	border-width: 1px 1px 0;
 }
 
 #dialog .ui-tabs-panel {
