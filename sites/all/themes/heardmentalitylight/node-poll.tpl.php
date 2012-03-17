@@ -6,14 +6,15 @@ $gSitePath = $base_path.'/';
  $tnid = get_tnid($nid);
 ?>
 
-
-<?php if($user->uid!=0){?>
-<a class="icon flag" id="dialog_link-flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
-<?php }else{?>
-<a class="icon flag openlogin_box" title="flag this issue" rel="lightframe"  href="#"></a>
-<?php }?>
-
-<h2 class="din"><?php print t(rtrim($title, "?")); ?>?<span class="pip">&nbsp;</span></h2>
+<h2 class="din"><?php print t(rtrim($title, "?")); ?>?
+	<span class="pip">&nbsp;</span>
+	
+	<?php if($user->uid!=0){?>
+	<a class="icon flag" id="dialog_link-flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
+	<?php }else{?>
+	<a class="icon flag openlogin_box" title="flag this issue" rel="lightframe"  href="#"></a>
+	<?php }?>
+</h2>
 
 <div id="new_vote">
 
