@@ -2095,14 +2095,13 @@ textarea#q_quest  {
 .choices .form-radios .form-item label.option {
 	color: #4c4c4c;
 	font: 18px/1.2 'DINLightRegular', Arial, sans-serif;
-	padding-left: 25px;
 	display: inline-block;
 	cursor: pointer;
 }
 
 .choices .form-radios .form-item label.option input.form-radio {
 	vertical-align: middle;
-	margin: 0;
+	margin: 0 8px 0 0;
 	display: inline-block;
 }
 
