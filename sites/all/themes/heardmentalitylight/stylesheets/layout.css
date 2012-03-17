@@ -2075,30 +2075,37 @@ textarea#q_quest  {
     padding: 12px;
     text-shadow: 0 1px #FFFFFF;
     width: auto;
+	cursor: pointer;
 }
+
 .poll .vote-form .choices {
     display: inherit;
 }
-.choices .form-radios .form-item:hover{
-    background:#D3EDEA;
-    border-width:1px;
-    color:#000;
-    border-style:solid;
-    border-color:#82D1C8;
-    cursor: pointer;
+
+.choices .form-radios .form-item:hover,
+.choices .form-radios .form-item.staygreen{
+    background-color: #cfebd0;
+    border: 1px solid #bce0bd;
+	-webkit-box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
+	-moz-box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
+	-o-box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
+	-khtml-box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
+	box-shadow: inset 0px 0px 5px 0px rgba(218,246,219,0.75);
 }
+
 .choices .form-radios .form-item label.option {
 	color: #4c4c4c;
-	font-size: 18px/1.2 'DINLightRegular', Arial, sans-serif;
+	font: 18px/1.2 'DINLightRegular', Arial, sans-serif;
 	position: relative;
-	padding-left: 27px;
+	padding-left: 25px;
+	display: inline-block;
+	cursor: pointer;
 }
 
 .choices .form-radios .form-item label.option input.form-radio {
 	position: absolute;
 	left: 0;
-	top: 50%;
-	margin: -6px 0 0;
+	margin: 0;
 }
 
 .pagination .pager a{
