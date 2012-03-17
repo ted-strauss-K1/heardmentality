@@ -2540,6 +2540,11 @@ body.front .jScrollPaneContainer {
 	background: none transparent;
 }
 
+.ui-dialog.ui-widget-content .ui-dialog-titlebar-close:hover {
+	border: 0 none;
+	background: none transparent;
+}
+
 .ui-dialog.ui-widget-content .ui-tabs-nav .ui-state-default {
 	border: 0 none;
 	background: none transparent;
@@ -2595,7 +2600,6 @@ body.front .jScrollPaneContainer {
 .ui-dialog .ui-tabs-panel #user-register label {
     font-size: 13px;
     line-height: 1em;
-    text-shadow: 0 1px #CECECE;
 	padding-bottom: 6px;
 	color: #4c4c4c;
 	font-family: Arial. sans-serif;
@@ -2608,3 +2612,4 @@ body.front .jScrollPaneContainer {
     font-family: Arial,sans-serif;
 	padding: 7px 12px
 }
+
