@@ -2839,6 +2839,11 @@ h2.page-title {
 	padding: 20px 0 0 30px;
 }
 
+.poll-box ul.tabs {
+	background: url(../images/tabs_shadow.png) repeat-x 0 0;
+	padding: 16px 0 0;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
