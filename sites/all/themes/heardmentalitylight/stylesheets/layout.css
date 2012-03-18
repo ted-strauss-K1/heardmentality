@@ -2717,10 +2717,10 @@ h2.page-title {
 #new_vote .qd {
 	margin: 0;
     line-height: 1.2em;
-    padding: 25px 10px 18px 30px;
+    padding: 25px 10px 17px 30px;
 	width: 88%;
 	color: #0f6836;
-	font: 14px/17px Arial;
+	font: 14px/18px Arial;
 }
 
 #new_vote .qd p.description {
@@ -2728,7 +2728,7 @@ h2.page-title {
 	margin: 0;
 	padding: 0;
 	float: none;
-	font: 14px/17px Arial;
+	font: 14px/18px Arial;
 }
 
 #new_vote #new-ellipse {
@@ -2826,8 +2826,12 @@ h2.page-title {
 	width: 85%;
 }
 
-#new_vote .poll-vote-area .fieldset-wrapper .nsa {
-	float: left;
+#new_vote .poll-vote-area .fieldset-wrapper table {
+	width: 100%;
+}
+
+#new_vote .poll-vote-area .fieldset-wrapper table td.first {
+	width: 100%;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3{
@@ -2836,6 +2840,7 @@ h2.page-title {
 	color: #4c4c4c;
 	margin: 0;
 	padding: 8px 5px 7px;
+	width: 100%;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3:focus {
@@ -2848,11 +2853,12 @@ h2.page-title {
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item .description {
-	float: left;
 	clear: left;
+	float: left;
 	color: #4c4c4c;
 	font: 12px/15px Arial, sans-serif;
 	padding: 10px 0 0;
+	width: 100%;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper input.form-submit {
