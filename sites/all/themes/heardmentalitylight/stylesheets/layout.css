@@ -2843,7 +2843,7 @@ h2.page-title {
 	border: 1px solid #b3b3b3;
 	color: #4c4c4c;
 	margin: 0;
-	padding: 8px 1% 7px;
+	padding: 7px 5px 6px;
 	width: 97%;
 }
 
@@ -2868,6 +2868,13 @@ h2.page-title {
 #new_vote .poll-vote-area .fieldset-wrapper input.form-submit {
 	display: inline-block;
 	margin: 2px 0 0 23px;
+	padding: 8px 12px 6px;
+}
+
+#new_vote .button.vote {
+	clear: both;
+    float: left;
+    margin: 20px 0 0 30px;
 }
 
 /*Clear*/
@@ -2876,7 +2883,8 @@ h2.page-title {
 .ui-dialog .ui-tabs-panel #user-register:after,
 #new_vote .part:after,
 .poll-vote-area:after,
-#new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper:after {
+#new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper:after,
+#new_vote .poll-vote-area .fieldset-wrapper .form-item:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;

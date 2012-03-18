@@ -3,7 +3,8 @@
 .ie7 .ui-dialog .ui-tabs-panel #user-login,
 .ie7 .ui-dialog .ui-tabs-panel #user-register,
 .ie7 .poll-vote-area,
-.ie7 #new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper {
+.ie7 #new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper,
+.ie7 #new_vote .poll-vote-area .fieldset-wrapper .form-item {
 	zoom: 1;
 }
 
