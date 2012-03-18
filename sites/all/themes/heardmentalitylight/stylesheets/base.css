@@ -468,15 +468,15 @@
 	.add-bottom { margin-bottom: 20px !important; }
 	.border-bottom {border-bottom:1px solid #999;border-top:1px solid #999;padding:10px 10px 0px 10px;margin:20px 0px 0px 10px;width:auto;}
 	.no-white-space {white-space:nowrap;}
-	a.black {color:#1366BA;font-weight:bold;letter-spacing:0.05em}
-	a.bolded {color:#1366BA;font-weight:bold;letter-spacing:0.05em;text-shadow:none;font-weight:110%;cursor:pointer;}
+	a.black {color:#1366BA;font-weight:bold;}
+	a.bolded {color:#1366BA;font-weight:bold;text-shadow:none;font-weight:110%;cursor:pointer;}
 	
 	a.black:hover, a.bolded:hover {color:#000}
   .left20 {margin-left:20px;}
 	.left5 {margin:5px 10px 5px 0px;}
   .left10 {margin:20px 10px -10px 10px;}  
   .double{font-size:110%;}
-  .twelve{font-size:13px;line-height:1em; letter-spacing:0.1em;color:#666}
+  .twelve{font-size:13px;line-height:1em;color:#666}
 	.minus-ten {margin-top:-10px;font-size:12px;line-height:1em}
 
 	/*Rallydev-522*/
@@ -491,7 +491,6 @@
 	.expanding 	h6 a {color: #000; text-decoration:none;text-shadow: 0 1px #fff;
 		
 	color:#999;
-	letter-spacing:1px;
 	font-size:12px;
 	text-transform:uppercase;
 	font-weight:bold;
@@ -499,10 +498,10 @@
 	.expanding h6.wait {color:#1366BA;background:none;}
 	.expanding h6.wait a{color:#1366BA;}
 	.expanding 	h6 a:hover {color: #000;}
-	h6#add-arg {float:none;letter-spacing:0.01em;text-transform:none;opacity:1;margin:5px 2px 10px 20px;}
-	h6#add-arg a{letter-spacing:0.01em;text-transform:none;font-size:11px;color:#000;font-size:13px;}
-	h6#reply {background:#ddd;float:right;letter-spacing:0.01em;text-transform:none;opacity:1;margin:-30px 2px 10px 10px;}
-	h6#reply a{letter-spacing:0.01em;text-transform:none;font-size:11px;}
+	h6#add-arg {float:none;text-transform:none;opacity:1;margin:5px 2px 10px 20px;}
+	h6#add-arg a{text-transform:none;font-size:11px;color:#000;font-size:13px;}
+	h6#reply {background:#ddd;float:right;text-transform:none;opacity:1;margin:-30px 2px 10px 10px;}
+	h6#reply a{text-transform:none;font-size:11px;}
 	h6.blue-link {background: url(../images/state2.gif) no-repeat 100% 2px;}
 	h6.blue-link a, h6.blue-link {color:#1366BA;}
 	h6.blue-link a:hover {color:#000;}
@@ -540,7 +539,7 @@
 	/* #Tooltips
 	================================================== */	
 	
-.tipsy { font-size: 11px; position: absolute; padding: 5px; z-index: 100000;letter-spacing:0.1em ;line-height:1.2em}
+.tipsy { font-size: 11px; position: absolute; padding: 5px; z-index: 100000;line-height:1.2em}
   .tipsy-inner { background-color: #000; color: #FFF; max-width: 200px; padding: 5px 8px 4px 8px; text-align: center; }
 
   .tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }

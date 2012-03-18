@@ -432,7 +432,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.tags-on, .subscriptions {
 		text-shadow: 0 1px #fff;
 		color:#666;
-		letter-spacing:1px;
 		font-size:11px;
 		text-transform:uppercase;
 		padding:0px 0px 10px 0px;
@@ -443,7 +442,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		color: #999999;
 		font-size: 13px;
 		font-weight: bold;
-		letter-spacing: 0.1em;
 		margin: 0 0 12px;
 		padding: 0 3px 10px;
 		text-shadow: 0 1px #FFFFFF;
@@ -457,7 +455,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		padding:0px 4px 0px 4px;
 		font-size:12px;
 		margin:3px 6px 3px 0px;
-		letter-spacing:1px;
 		background:#a3c9ef;
 		border-radius: 3px;
 		text-shadow: 0 1px #c8e2fc;
@@ -489,7 +486,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		padding:1px 7px 2px 7px;
 		font-size:12px;
 		margin:3px 6px 3px 0px;
-		letter-spacing:1px;
 		background:#e4e4e4;
 		border-radius: 3px;
 		text-shadow: 0 1px #fefefe;
@@ -528,7 +524,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		font-weight:bold;
 		border-bottom:1px solid #e1e1e1;
 		margin:6px 0px 3px 0px;
-		letter-spacing:1px;
 		font-weight:bold;
 		text-shadow: 0 1px #fefefe;
 		width:auto;
@@ -581,7 +576,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	p.issue-meta {
 		text-shadow: 0 1px #fff;
 		color:#444;
-		letter-spacing:1px;
 		font-size:13px;
 		line-height:1.3em;
 		padding:0px 0px 0px 0px;
@@ -610,7 +604,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.results, label.profile, label.queue{ 
 		color:#fefefe;
 		text-shadow: 0 -1px #999;
-		letter-spacing:1px;
 		font-size:12px;
 		width:140px;
 		line-height:1em;
@@ -629,7 +622,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	label.profile-dark{ 
 		color:#888;
 		text-shadow: 0 -1px #000;
-		letter-spacing:1px;
 		font-size:16px;
 		line-height:1em;
 		text-transform:uppercase;
@@ -640,7 +632,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	p.profile-links { 
 		color:#999;
 		text-shadow: 0 -1px #000;
-		letter-spacing:1px;
 		font-size:14px;
 		line-height:1em;
 		text-transform:none;
@@ -651,7 +642,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	p.profile-links.quick-profile { 
 		color:#ccc;
 		font-size:13px;
-		letter-spacing:0.05em;
 		line-height:1.4em;
 		font-weight:bold;
 		text-transform:none;
@@ -684,7 +674,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	label.following, label.badges{ 
 		color:#fefefe;
 		text-shadow: 0 -1px #999;
-		letter-spacing:1px;
 		font-size:12px;
 		text-transform:uppercase;
 		padding:0px 0px 5px 0px;
@@ -705,7 +694,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	.vote-on {
 		text-shadow: 0 1px #fff;
 		color:#666;
-		letter-spacing:1px;
 		font-size:11px;
 		text-transform:uppercase;
 		padding:0px 0px 10px 0px;
@@ -714,7 +702,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	ul.vote li {
 		padding:10px;
 		margin:3px 0px 15px 0px;
-		letter-spacing:1px;
 		background:#eee;
 		border-radius: 3px;
 		text-shadow: 0 1px #fff;
@@ -809,7 +796,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
     float:right;
 	  padding:10px;
 		margin:3px 0px 15px 0px;
-		letter-spacing:1px;
 		background:#f1f1f1;
 		border-radius: 3px;
 		text-shadow: 0 1px #fff;
@@ -826,7 +812,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		border-color:#82D1C8;
 	}
 	.button.vote, input.submit-issue, input.save {
-		font-size:17px;text-transform:uppercase;letter-spacing:2px;
+		font-size:17px;text-transform:uppercase;
 		background: #7abcff; /* Old browsers */
 		background: -moz-linear-gradient(top, #7abcff 0%, #60abf8 44%, #4096ee 100%); /* FF3.6+ */
 		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7abcff), color-stop(44%,#60abf8), color-stop(100%,#4096ee)); /* Chrome,Safari4+ */
@@ -941,7 +927,6 @@ p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted
 span.debate-count, span.reference-count {
   font-weight:bold;
   color:#666;
-  letter-spacing:0.1em;
 }
 
 .leave-a-comment{
@@ -1024,7 +1009,6 @@ span.debate-count, span.reference-count {
 p.comment-meta {
 	text-shadow: 0 1px #fff;
 	color:#777;
-	letter-spacing:1px;
 	font-size:11px;
 	line-height:1.3em;
 	padding:0px 0px 0px 0px;
@@ -1034,7 +1018,6 @@ p.comment-meta {
 .comment-agree {
 	text-shadow: 0 1px #fff;
 	color:#777;
-	letter-spacing:1px;
 	font-size:12px;
 	line-height:1.3em;
 	padding:0px 0px 0px 0px;
@@ -1130,7 +1113,6 @@ a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;pa
 p.search-by-category, p.find-by-location{
 	text-shadow: 0 1px #fff;
 	color:#444;
-	letter-spacing:1px;
 	font-size:12px;
 	line-height:1.3em;
 	padding:13px 0px 0px 20px;
@@ -1158,7 +1140,6 @@ h6.search-options-expand {
 	text-shadow: #eee 0px 1px;
   font-family: /*"HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva",*/ Arial, sans-serif;
   font-size:14px;
-  letter-spacing:0.04em;
 	margin:0px 10px 5px 0px;
 	padding:10px 10px 10px 1px;
 	-webkit-border-radius:  3px 3px;
@@ -1172,7 +1153,6 @@ input.upload {
   background:#fff;
 	font-size:14px;
 	width:90%;
-  letter-spacing:0.04em;
 	margin:0px 0px 10px -1px;
 	padding:7px 10px 10px 10px;
 	opacity:0.6;
@@ -1215,7 +1195,6 @@ input.re-submit {
   line-height:15px;
   padding:0px;
   height:auto;
-  letter-spacing:0.04em;
 	margin:10px 10px 5px 0px;
 	padding:5px 10px 5px 10px;
 	background:#eee;
@@ -1245,7 +1224,6 @@ input.re-submit {
 	padding:3px 9px 3px 9px;
 	font-size:12px;
 	margin:3px 6px 3px 0px;
-	letter-spacing:1px;
 	background:#777;
 	border-radius: 3px;
 	text-shadow: 0 -1px #666;
@@ -1276,7 +1254,6 @@ float:left;
 .search label {
   font-size:11px;
   font-weight:normal;
-  letter-spacing:1px;
   padding:0px 0px 0px 5px;
 }
 
@@ -1524,7 +1501,6 @@ label span.guides {
 	text-shadow: #eee 0px 1px;
   font-family: /*"HelveticaNeueLight", "HelveticaNeue-Light", "Helvetica Neue Light", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosRegular', "Helvetica", "Tahoma", "Geneva",*/ Arial, sans-serif;
   font-size:14px;
-  letter-spacing:0.04em;
 	margin:0px 10px 5px 0px;
 	padding:10px 10px 10px 10px;
 	-webkit-border-radius:  3px 3px;
@@ -1769,7 +1745,6 @@ span.user-title, span.user-data {
 	font-size:12px;
 	color:#333;
 	text-shadow:0px 1px #cecece;
-	letter-spacing:0.1em;
 	line-height:0.6em;
 }
 
@@ -1780,7 +1755,6 @@ span.user-data {
 span.user-info {
 	color:#333;
 	font-size:12px;
-	letter-spacing:0.1em;
 	line-height:0.1em;
 }
 
@@ -1799,10 +1773,10 @@ span.lighter {color:#777;}
 
 label.login {text-align:right;text-transform:none;color:#000;font-weight:normal;font-size:12px;margin:-10px 0px 10px 0px}	
 .login-site {margin:0px 0px -10px 0px;}
-span.sort {font-weight:normal;letter-spacing:0.1em;font-weight:bold;color:#666;text-shadow: 0 1px #fff;font-size:0.8em;margin:0px 3px 0px -15px;}
+span.sort {font-weight:normal;font-weight:bold;color:#666;text-shadow: 0 1px #fff;font-size:0.8em;margin:0px 3px 0px -15px;}
 
-span.activity {font-weight:bold;letter-spacing:0.1em;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;padding:0px 3px 0px 3px;}
-.activity.map-title {font-weight:bold;letter-spacing:0.1em;color:#999;text-shadow: 0 1px #fff;font-size:13px;border-bottom: 1px solid #c0c0c0; margin: 0 10px 9px; padding: 0 3px 10px;}
+span.activity {font-weight:bold;font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;padding:0px 3px 0px 3px;}
+.activity.map-title {font-weight:bold;color:#999;text-shadow: 0 1px #fff;font-size:13px;border-bottom: 1px solid #c0c0c0; margin: 0 10px 9px; padding: 0 3px 10px;}
 
 .action span.date {color:#BA00A4;}
 .action span.name {color:#BA00A4;font-weight:bold}
@@ -1844,8 +1818,8 @@ img.reference-thumb{width:44px;height:44px;margin:5px 10px 0px 60px; border-widt
 
 img.following-user.listed {width:44px;height:44px;margin:5px 13px 0px 2px; border-width:1px;border-style:solid;border-color:#666 #999 #999 #888;background:#ddd;float:left}
 
-.following a.more, .following a.find  {font-size:12px;letter-spacing:0.1em;}
-a.more:hover, a.find:hover  {color:#000;font-size:12px;letter-spacing:0.1em}
+.following a.more, .following a.find  {font-size:12px;}
+a.more:hover, a.find:hover  {color:#000;font-size:12px;}
 
 .badge {cursor:pointer;padding:0px 5px 0px 5px;border-radius: 6px;margin:0px 5px 10px 0px;background:#98BF58;font-size:9px}
 .badge.gold {background:#F7DB07;}
@@ -1909,7 +1883,6 @@ p.profile-status {
 	color:#ccc;
 	text-shadow: 0 -1px #111;		
 	font-size:1.3em;
-	letter-spacing:0.05em;	
 }
 
 .foot-link a:hover {
@@ -1938,7 +1911,6 @@ p.policy {
 	text-align:right;
 	font-size:11px;
 	line-height:1.2em;
-	letter-spacing:0.1em;
 	text-transform:uppercase;
 	text-shadow: 0 -1px #111;	
 }
@@ -2071,7 +2043,6 @@ textarea#q_quest  {
 #new_vote .fieldset-wrapper .form-radios .form-item {
     background: none repeat scroll 0 0 #e4e4e4;
     border: 1px solid #d7d7d7;
-    letter-spacing: 1px;
     margin: 3px 0 10px;
     padding: 12px 12px 11px;
     width: auto;
@@ -2809,7 +2780,6 @@ h2.page-title {
 	font: bold italic 12px/15px Arial, sans-serif;
 	position: relative;
 	top: 28px;
-	letter-spacing: 0.02em;
 	text-transform: uppercase;
 	text-decoration: none;
 	padding: 3px 26px 3px 0;
@@ -2883,7 +2853,6 @@ h2.page-title {
 	color: #4c4c4c;
 	font: 12px/15px Arial, sans-serif;
 	padding: 10px 0 0;
-	letter-spacing: 0.02em;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper input.form-submit {
