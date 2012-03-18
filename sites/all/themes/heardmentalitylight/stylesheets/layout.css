@@ -2867,6 +2867,18 @@ h2.page-title {
 	-khtml-box-shadow:  0 0 3px rgba(0,0,0,0.3);
 }
 
+#new_vote .poll-vote-area .fieldset-wrapper .form-item .description {
+	float: left;
+	clear: left;
+	color: #4c4c4c;
+	font: 14px/17px Arial, sans-serif;
+	padding: 5px 0 0;
+}
+
+#new_vote .poll-vote-area .fieldset-wrapper input.form-submit {
+	float: right;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
