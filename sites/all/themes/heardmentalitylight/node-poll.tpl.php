@@ -55,12 +55,12 @@ $gSitePath = $base_path.'/';
 
 <div class="part part2">
 
-<div class="expanding">
+<!--<div class="expanding">
   <h6 class="wait">... <?php print t('Or submit a different answer'); ?></h6>
 
     <?php print $suggest; ?>
 
-</div>
+</div>-->
 <div id="shareDiv" class="floatright"></div>
 
 <div id="dialog-flag" title="<?php print t('FLAG THIS ITEM'); ?>" class="dialog">
