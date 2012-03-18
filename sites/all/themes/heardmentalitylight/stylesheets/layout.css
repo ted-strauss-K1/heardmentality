@@ -2667,7 +2667,7 @@ h2.page-title {
 	background-image:         linear-gradient(top, #ececec, #f7f7f7);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ececec,endColorstr=#f7f7f7);
     zoom: 1;
-	padding-bottom: 25px;
+	padding-bottom: 20px;
 }
 
 #new_vote .qd {
@@ -2842,6 +2842,8 @@ h2.page-title {
 .poll-box ul.tabs {
 	background: url(../images/tabs_shadow.png) repeat-x 0 0;
 	padding: 16px 0 0;
+	border-bottom: 1px solid #C0C0C0;
+	margin: 0 20px;
 }
 
 /*Clear*/
@@ -2859,7 +2861,6 @@ h2.page-title {
 	clear: both;
 	height: 0;
 }
-
 
 div.tabs {
 	display: none;
