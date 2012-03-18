@@ -2830,6 +2830,10 @@ h2.page-title {
 	width: 100%;
 }
 
+#new_vote .poll-vote-area .fieldset-wrapper table td {
+	vertical-align: top;
+}
+
 #new_vote .poll-vote-area .fieldset-wrapper table td.first {
 	width: 100%;
 }
@@ -2839,8 +2843,8 @@ h2.page-title {
 	border: 1px solid #b3b3b3;
 	color: #4c4c4c;
 	margin: 0;
-	padding: 8px 5px 7px;
-	width: 100%;
+	padding: 8px 1% 7px;
+	width: 97%;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3:focus {
