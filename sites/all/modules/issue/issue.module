@@ -327,14 +327,6 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#collapsed' => TRUE,
         '#tree' => TRUE,
       );
-	  
-	  $form['add_vote']['submit_suggest_answer'] = array(
-        '#type' => 'submit',
-        '#value' => t('Add Answer'),
-        '#attributes' => array('class' => 'add-answer2 light'),
-		'#suffix' => '</div>',
-      );
-	  
       $form['add_vote']['new_suggest_answer'] = array(
         '#type' => 'textfield',
         '#size' => 38,
@@ -352,6 +344,12 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#value' => $nid,
       );
 
+      $form['add_vote']['submit_suggest_answer'] = array(
+        '#type' => 'submit',
+        '#value' => t('Add Answer'),
+        '#attributes' => array('class' => 'add-answer2 light'),
+		'#suffix' => '</div>',
+      );
     }
     elseif ($err == 0) {
       $form['vote_error'] = array(
