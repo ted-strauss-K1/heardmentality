@@ -334,6 +334,8 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#attributes' => array('class' => 'floatleft'),
         '#maxlength' => 140,
         '#id' => 'Answer3',
+		'#prefix' => '<div class="nsa">',
+		'#suffix' => '</div>',
       );
       if (empty($nid))
         $nid = arg(1);

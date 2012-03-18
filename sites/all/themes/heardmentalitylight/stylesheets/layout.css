@@ -2871,8 +2871,10 @@ h2.page-title {
 	float: left;
 	clear: left;
 	color: #4c4c4c;
-	font: 14px/17px Arial, sans-serif;
-	padding: 5px 0 0;
+	font: 12px/15px Arial, sans-serif;
+	padding: 10px 0 0;
+	letter-spacing: 0.02em;
+	padding: 8px 4px 7px;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper input.form-submit {
