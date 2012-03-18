@@ -2833,6 +2833,7 @@ h2.page-title {
 	z-index: 12;
 	position: relative;
 	margin: 0;
+	overflow: visible;
 }
 
 #new_vote .suggest-error {
