@@ -2667,6 +2667,7 @@ h2.page-title {
 	background-image:         linear-gradient(top, #ececec, #f7f7f7);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ececec,endColorstr=#f7f7f7);
     zoom: 1;
+	padding-bottom: 25px;
 }
 
 #new_vote .qd {
@@ -2766,6 +2767,7 @@ h2.page-title {
 	font: 11px/14px Arial, sans-serif;
 	padding: 6px 0 0;
 	width: 85%;
+	margin-bottom: -4px;
 }
 
 .vote-count-poll,
@@ -2783,6 +2785,7 @@ h2.page-title {
 
 #new_vote .poll-vote-area .fieldset-wrapper table {
 	width: 100%;
+	margin-bottom: -14px;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper table td {
@@ -2829,7 +2832,11 @@ h2.page-title {
 #new_vote .button.vote {
 	clear: both;
     float: left;
-    margin: 20px 0 0 30px;
+    margin: 22px 0 0 30px;
+}
+
+#shareDiv {
+	padding: 20px 0 0 30px;
 }
 
 /*Clear*/

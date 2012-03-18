@@ -61,7 +61,7 @@ $gSitePath = $base_path.'/';
     <?php print $suggest; ?>
 
 </div>-->
-<div id="shareDiv" class="floatright"></div>
+<div id="shareDiv" class="clearfix"></div>
 
 <div id="dialog-flag" title="<?php print t('FLAG THIS ITEM'); ?>" class="dialog">
 		<?php if($flagForm): print $flagForm; endif; ?>
