@@ -195,11 +195,11 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	  	opacity:1;
 	}
 	.icon.circle {background:url(../images/icons/circle2.png) 0px 4px no-repeat;float:left;margin:-5px 0px -5px 0px;padding:7px 0px 10px 31px;filter:alpha(opacity=95);opacity:0.97;color:#00b78a}
-	.icon.flag {background:url(../images/icons/59-flag.png) 0 0 no-repeat; padding: 0; margin: -13px 0 0; filter:alpha(opacity=100); opacity:1; width: 18px; height: 27px; position: absolute; right: 15px; top: 50%;}
+	.icon.flag {background:url(../images/icons/59-flag.png) 0 0 no-repeat; padding: 0; margin: 0; filter:alpha(opacity=100); opacity:1; width: 18px; height: 27px; position: absolute; right: 15px; top: 23px;}
 	.icon.flag2 {background:url(../images/icons/59-flag.png) 0 0 no-repeat; padding: 0; margin: 0; filter:alpha(opacity=100); opacity:1; width: 18px; height: 27px;}
 	.icon.flag3 {background:url(../images/icons/59-flag.png) 0 0 no-repeat; padding: 0; margin: 0; filter:alpha(opacity=100); opacity:1; width: 18px; height: 27px;}
 	
-	.icon.flag:hover {background:url(../images/icons/59-flag.png) 0 100% no-repeat; padding: 0; margin: -13px 0 0; filter:alpha(opacity=100); opacity:1; width: 18px; height: 27px; position: absolute; right: 15px; top: 50%;}
+	.icon.flag:hover {background-position: 0 100%;}
 	
 	.icon.heart {background:url(../images/icons/29-heart.png) center left no-repeat;float:right;padding:7px 28px 0px 0px;margin:2px 7px 0px 0px}
 	
