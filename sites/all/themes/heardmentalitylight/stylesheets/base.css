@@ -281,30 +281,31 @@
 		background-image:         linear-gradient(top, #51d2f0, #42bbd7);
 		border: solid #339cb4;
 		border-width: 1px 1px 2px;
-		-webkit-box-shadow: inset 0px 0px 2px 0px #6cd1e5;
-		-moz-box-shadow: inset 0px 0px 2px 0px #6cd1e5;
-		-o-box-shadow: inset 0px 0px 2px 0px #6cd1e5;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #6cd1e5;
-		box-shadow: inset 0px 0px 2px 0px #6cd1e5;
-		padding: 7px 20px 5px;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff;
+		box-shadow: inset 0px 0px 2px 0px #fff;
+		padding: 7px 25px 5px;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
 		border-radius: 3px;
 		-khtml-border-radius: 3px;
 		-o-border-radius: 3px;
 		-ms-border-radius: 3px;
-	  color: #36a2bb !important;
+	  color: #359db5 !important;
 	  display: inline-block;
 	  font-size: 16px;
 	  font-weight: bold;
 	  text-decoration: none;
-	  text-shadow: 0 1px rgba(108, 209, 229, 0.7);
+	  text-shadow: 0 1px rgba(255, 255, 255, 0.5);
 	  cursor: pointer;
 	  margin-bottom: 0px;
 	  line-height: 19px;
 	  font-family: Arial, sans-serif;
 	  font-weight: bold;
 		-webkit-appearance: none;
+		letter-spacing: 0.02em;
 	}
 	
 	.button.vote:hover, input.submit-issue:hover, input.save:hover {
@@ -315,15 +316,9 @@
 		background-image:     -ms-linear-gradient(top, #44bfdb, #3aa8c1);
 		background-image:      -o-linear-gradient(top, #44bfdb, #3aa8c1);
 		background-image:         linear-gradient(top, #44bfdb, #3aa8c1);
-		-webkit-box-shadow: inset 0px 0px 2px 0px #5dbed7;
-		-moz-box-shadow: inset 0px 0px 2px 0px #5dbed7;
-		-o-box-shadow: inset 0px 0px 2px 0px #5dbed7;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #5dbed7;
-		box-shadow: inset 0px 0px 2px 0px #5dbed7;
 		border: solid #2d8ca2;
 		border-width: 1px 1px 2px;
-		color: #2f95ad !important;
-		text-shadow: 0 1px rgba(93, 190, 215, 0.7);
+		color: #2d8ea5 !important;
 	}
 	
 	/*.button.vote:active, input.submit-issue:active, input.save:active {
