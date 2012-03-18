@@ -2852,10 +2852,16 @@ h2.page-title {
 	margin: 3px 0 10px;
 }
 
+#new_vote .poll-vote-area .fieldset-wrapper .nsa {
+	float: left;
+}
+
 #new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3{
 	float: left;
 	border: 1px solid #b3b3b3;
 	color: #4c4c4c;
+	margin: 0;
+	padding: 8px 5px 7px;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3:focus {
@@ -2874,7 +2880,6 @@ h2.page-title {
 	font: 12px/15px Arial, sans-serif;
 	padding: 10px 0 0;
 	letter-spacing: 0.02em;
-	padding: 8px 4px 7px;
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper input.form-submit {
