@@ -2848,7 +2848,22 @@ h2.page-title {
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper .form-item {
-	margin: 0;
+	margin: 3px 0 10px;
+}
+
+#new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3{
+	float: left;
+	border: 1px solid #b3b3b3;
+	color: #4c4c4c;
+}
+
+#new_vote .poll-vote-area .fieldset-wrapper .form-item #Answer3:focus {
+	border: 1px solid #9c9c9c;
+ 	-moz-box-shadow: 0 0 3px rgba(0,0,0,0.3);
+	-webkit-box-shadow: 0 0 3px rgba(0,0,0,0.3);
+	box-shadow:  0 0 3px rgba(0,0,0,0.3);
+	-o-box-shadow:  0 0 3px rgba(0,0,0,0.3);
+	-khtml-box-shadow:  0 0 3px rgba(0,0,0,0.3);
 }
 
 /*Clear*/
