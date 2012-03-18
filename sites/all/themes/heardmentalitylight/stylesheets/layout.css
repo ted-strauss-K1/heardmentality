@@ -2769,8 +2769,7 @@ h2.page-title {
 #new_vote .poll-vote-area .vote-form,
 #new_vote .poll-vote-area fieldset  {
 	background:url(../images/light_dotted.gif) repeat-x 0 0;
-	padding: 18px 10px 6px 30px;
-	
+	padding: 18px 10px 2px 30px;
 }
 
 #new_vote .poll-vote-area .voting-pane .choices {
@@ -2794,15 +2793,16 @@ h2.page-title {
 	padding: 0;
 	font: bold italic 12px/15px Arial, sans-serif;
 	position: relative;
-	top: 27px;
+	top: 28px;
 	letter-spacing: 0.02em;
 	text-transform: uppercase;
 	text-decoration: none;
-	padding: 3px 20px 3px 0;
+	padding: 3px 26px 3px 0;
+	z-index: 13;
 }
 
 #new_vote .poll-vote-area fieldset.collapsible legend a {
-	background:url(../images/s_arrow.png) no-repeat 100% 100%;
+	background:url(../images/s_arrow.png) no-repeat 100% -27px;
 }
 
 #new_vote .poll-vote-area fieldset.collapsible.collapsed legend a {
@@ -2811,6 +2811,18 @@ h2.page-title {
 
 #new_vote .poll-vote-area fieldset legend a:hover {
 	text-decoration: underline;	
+}
+
+#new_vote .poll-vote-area .fieldset-wrapper {
+	margin: 13px 0 0;
+	z-index: 12;
+	position: relative;
+}
+
+#new_vote .poll-vote-area .suggest-error {
+	color: #cd2027;
+	font: 12px/15px Arial, sans-serif;
+	padding: 13px 10px 0 30px;
 }
 
 /*Clear*/
