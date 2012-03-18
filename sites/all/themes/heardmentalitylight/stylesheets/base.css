@@ -391,7 +391,8 @@
 		line-height: 30px; 
 		margin: 0;  
 		font-size: 13px;
-		color: #924c9d;}
+		color: #924c9d;
+		font-weight: bold;}
 		
 	ul.tabs li a.active { 
 		background: #fff; 

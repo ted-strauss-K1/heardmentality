@@ -881,7 +881,7 @@ p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted
 ================================================== */	
 span.debate-count, span.reference-count {
   font-weight:bold;
-  color:#666;
+  color:#4c4c4c;
 }
 
 .leave-a-comment{
@@ -2841,11 +2841,11 @@ h2.page-title {
 
 .poll-box .ul_wrapper {
 	background: url(../images/tabs_shadow.png) repeat-x 0 0;
-	padding: 16px 0 0;
+	padding: 25px 0 0;
 }
 
 .poll-box ul.tabs {
-	margin: 0 20px;
+	margin: 0 20px 12px;
 }
 
 /*Clear*/
