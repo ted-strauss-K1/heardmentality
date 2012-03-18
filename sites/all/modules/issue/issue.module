@@ -257,7 +257,7 @@ function issue_add_vote($dummy = '', $nid = '') {
   if ($node->choice) {
     $list = array();
     foreach ($node->choice as $i => $choice) {
-      $list[$i] = check_plain($choice['chtext']);
+      $list[$i] = '<span>'. check_plain($choice['chtext']). '</span>';
     }
     $form['choice'] = array(
       '#type' => 'radios',
