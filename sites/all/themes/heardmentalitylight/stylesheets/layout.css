@@ -2762,6 +2762,7 @@ h2.page-title {
 #new_vote .poll-vote-area fieldset  {
 	background:url(../images/light_dotted.gif) repeat-x 0 0;
 	padding: 18px 10px 8px 30px;
+	
 }
 
 #new_vote .poll-vote-area .voting-pane .choices {
