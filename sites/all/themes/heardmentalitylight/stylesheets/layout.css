@@ -2887,7 +2887,8 @@ h2.page-title {
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper input.form-submit {
-	float: right;
+	display: inline-block;
+	margin: 2px 0 0 23px;
 }
 
 /*Clear*/
