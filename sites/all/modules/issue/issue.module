@@ -313,7 +313,6 @@ function issue_add_vote($dummy = '', $nid = '') {
       $form['add_vote'] = array(
         '#type' => 'fieldset',
         '#title' => t('...Or submit a different answer'),
-        //    '#weight' => 5,
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
         '#tree' => TRUE,
