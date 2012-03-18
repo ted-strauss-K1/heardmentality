@@ -278,7 +278,7 @@ function issue_add_vote($dummy = '', $nid = '') {
     $err = 0;
     if (isset($count_row) && $count_row > 0) {
       while ($answerfet = db_fetch_object($anslist)) {
-        $options[$answerfet->said] = $answerfet->answer;
+        $options[$answerfet->said] = '<span>'.$answerfet->answer.'</span>';
       }
       $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
       $form['add_vote'] = array(
@@ -300,13 +300,16 @@ function issue_add_vote($dummy = '', $nid = '') {
       // check whether the user already suggested the answer. if yes do not allow him to vote
       // also check whether the user already voted for this issue
       if ($alreadyAdded == 0 && $alreadyVotedSuggest == 0 && $alreadyVotedMain == 0) {
+        
+        /*
         $form['submit_suggest_vote'] = array(
           '#type' => 'submit',
           '#value' => t('Vote'),
-        );
+        );*/
+        
       }
       else {
-        $form['vote_error'] = array(
+        $form['add_vote']['vote_error'] = array(
           '#type' => 'markup',
           '#prefix' => '<div class="suggest-error">',
           '#value' => t('You are not able to vote from suggested answers list. You have already voted or suggested a new answer.'),
