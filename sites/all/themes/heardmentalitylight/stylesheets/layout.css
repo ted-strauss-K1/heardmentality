@@ -2852,6 +2852,10 @@ h2.page-title {
 	margin: 3px 0 10px;
 }
 
+#new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper {
+	width: 85%;
+}
+
 #new_vote .poll-vote-area .fieldset-wrapper .nsa {
 	float: left;
 }
@@ -2891,7 +2895,8 @@ h2.page-title {
 .ui-dialog .ui-tabs-panel #user-login:after,
 .ui-dialog .ui-tabs-panel #user-register:after,
 #new_vote .part:after,
-.poll-vote-area:after {
+.poll-vote-area:after,
+#new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
