@@ -335,7 +335,7 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#maxlength' => 140,
         '#id' => 'Answer3',
 		'#prefix' => '<div class="nsa-wrapper"><table><tr><td>',
-		'#suffix' => '</td></td>',
+		'#suffix' => '</td><td>',
       );
       if (empty($nid))
         $nid = arg(1);
@@ -348,7 +348,7 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#type' => 'submit',
         '#value' => t('Add Answer'),
         '#attributes' => array('class' => 'add-answer2 light'),
-		'#suffix' => '</td></tr></table>',
+		'#suffix' => '</td></tr></table></div>',
       );
     }
     elseif ($err == 0) {
