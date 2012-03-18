@@ -58,7 +58,7 @@ $gSitePath = $base_path.'/';
 <div class="expanding">
   <h6 class="wait">... <?php print t('Or submit a different answer'); ?></h6>
 
-    <?php //print $suggest; ?>
+    <?php print $suggest; ?>
 
 </div>
 <div id="shareDiv" class="floatright"></div>

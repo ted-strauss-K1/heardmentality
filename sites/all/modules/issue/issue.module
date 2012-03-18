@@ -313,9 +313,10 @@ function issue_add_vote($dummy = '', $nid = '') {
       $form['add_vote'] = array(
         '#type' => 'fieldset',
         '#title' => t('...Or submit a different answer'),
-    //    '#weight' => 5,
+        //    '#weight' => 5,
         '#collapsible' => TRUE,
         '#collapsed' => TRUE,
+        '#tree' => TRUE,
       );
       $form['add_vote']['new_suggest_answer'] = array(
         '#type' => 'textfield',
@@ -324,8 +325,12 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#maxlength' => 140,
         '#id' => 'Answer3',
       );
-
-      $form['add_vote']['#nid'] = $nid;
+      if (empty($nid))
+        $nid = arg(1);
+      $form['add_vote']['nid'] = array(
+        '#type' => 'hidden',
+        '#value' => $nid,
+      );
 
       $form['add_vote']['submit_suggest_answer'] = array(
         '#type' => 'submit',
@@ -385,7 +390,7 @@ function issue_add_vote($dummy = '', $nid = '') {
   $form['#cache'] = TRUE;
 
   // Provide a more cleanly named voting form theme.
-   $form['#theme'] = 'poll_vote';
+  $form['#theme'] = 'poll_vote';
   return $form;
 }
 
@@ -393,8 +398,13 @@ function issue_add_vote($dummy = '', $nid = '') {
  * Validation function for processing votes
  */
 function issue_add_vote_validate($form, &$form_state) {
-  if ($form_state['values']['choice'] == -1) {
-    form_set_error('choice', t('Your vote could not be recorded because you did not select any of the choices.'));
+  if ($form_state['clicked_button']['#value'] == 'Add Answer') {
+    
+  }
+  else {
+    if ($form_state['values']['choice'] == -1) {
+      form_set_error('choice', t('Your vote could not be recorded because you did not select any of the choices.'));
+    }
   }
 }
 
@@ -402,29 +412,74 @@ function issue_add_vote_validate($form, &$form_state) {
  * Submit handler for processing a vote
  */
 function issue_add_vote_submit($form, &$form_state) {
-  
-  
-  
-  
-  global $user;
-  $nid = $form['#nid'];
-  $choice = $form_state['values']['choice'];
+  if ($form_state['clicked_button']['#value'] == 'Add Answer') {
+    global $user;
+    $nid = $form_state['values']['add_vote']['nid'];
+    $submit = $form_state['clicked_button']['#parents'][1];
+    if ($submit == 'submit_suggest_answer') {
+      //krumo($form_state);exit;
+      $new_suggest_answer = $form_state['values']['add_vote']['new_suggest_answer'];
+      if ($new_suggest_answer != '') {
+        db_query("INSERT INTO {suggest_answer} SET uid = '%d', qid = '%d', answer = '%s', date_added = '%s'", $user->uid, $nid, $new_suggest_answer, date('Y-m-d'));
+        $sid = db_last_insert_id('suggest_answer', 'said');
+        /* New SET NOTIFY LOG */
+        $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+        $variable = array('qid' => $nid, 'q_title' => $qtitle, 'answer' => $new_suggest_answer);
+        set_notify_log($user->uid, $nid, 'suggest_answer', $variable);
+        /* New SET NOTIFY LOG */
 
-  global $user;
-  //$value_ = 'current';
-  if ($user->uid) {
-    db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $choice, $user->uid);
+        drupal_set_message($message = 'Your answer was added!', $type = 'success');
+      }
+      else {
+        //echo '<div class="messages error"> Please suggest your answer! </div>';
+        drupal_set_message($message = 'Please enter suggest your answer!', $type = 'error');
+      }
+    }
+    // suggest a vote
+    if ($submit == 'submit_suggest_vote') {
+      $suggested_answer = $form_state['values']['suggested_answer'];
+
+      // get suggest answer vote count
+      $list_own_answer = db_query("select * from {suggest_answer} where said='$suggested_answer'");
+      $userown = db_fetch_object($list_own_answer);
+
+
+      if ($suggested_answer != '') {
+        $calvote = db_result(db_query("SELECT COUNT(*) from {suggest_answer_vote} where answer_id='$suggested_answer'"));
+        if ($calvote == 0) {
+          $votepoint = '1';
+        }
+        else {
+          $votepoint = $userown->vote + 1;
+        }
+
+        db_query("INSERT INTO {suggest_answer_vote} SET qid = '%d', uid = '%d', answer_id = '%d', vote_date = '%s'", $nid, $user->uid, $suggested_answer, date('Y-m-d'));
+        db_query("UPDATE {suggest_answer} SET vote = '%s' WHERE said = '%d' AND qid = '%d'", $votepoint, $suggested_answer, $nid);
+        drupal_set_message($message = 'Your vote was added!', $type = 'success');
+      }
+      else {
+        drupal_set_message($message = 'Please select your answer to vote!', $type = 'error');
+      }
+    }
   }
   else {
-    db_query("INSERT INTO {poll_votes} (nid, chorder, hostname) VALUES (%d, %d, '%s')", $nid, $choice, ip_address());
+    global $user;
+    $nid = $form['#nid'];
+    $choice = $form_state['values']['choice'];
+    global $user;
+    //$value_ = 'current';
+    if ($user->uid) {
+      db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $choice, $user->uid);
+    }
+    else {
+      db_query("INSERT INTO {poll_votes} (nid, chorder, hostname) VALUES (%d, %d, '%s')", $nid, $choice, ip_address());
+    }
+    // Add one to the votes.
+    db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
+
+    cache_clear_all();
+    drupal_set_message(t('Your vote was recorded.'));
   }
-
-  // Add one to the votes.
-  db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
-
-  cache_clear_all();
-  drupal_set_message(t('Your vote was recorded.'));
-
   // Return the user to whatever page they voted from.
 }
 
