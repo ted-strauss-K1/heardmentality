@@ -281,11 +281,19 @@ function issue_add_vote($dummy = '', $nid = '') {
         $options[$answerfet->said] = $answerfet->answer;
       }
       $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
-      $form['suggested_answer'] = array(
+      $form['add_vote'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('...Or submit a different answer'),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#tree' => TRUE,
+      );
+      $form['add_vote']['suggested_answer'] = array(
         '#type' => 'radios',
         '#options' => $options,
         '#default_value' => $mysugg,
       );
+
       $alreadyAdded = db_result(db_query("SELECT COUNT(said) FROM {suggest_answer} WHERE qid = '$nid' AND uid = '$user->uid'"));
       $alreadyVotedSuggest = db_result(db_query("SELECT COUNT(answer_id) FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
       $alreadyVotedMain = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '$nid' AND uid = '$user->uid'"));
