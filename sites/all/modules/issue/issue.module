@@ -674,7 +674,7 @@ function issue_vote_submit_ajax($type = '') {
  * Implementation of hook_form_alter().
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
-  krumo($form);
+ // krumo($form);
   if ($form_id == 'user_relationships_ui_request') {
 
     $form['#submit'][] = 'add_follow_notify';
