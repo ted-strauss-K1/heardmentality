@@ -2120,6 +2120,10 @@ textarea#q_quest  {
 	top: 4px;
 }
 
+#new_vote fieldset .form-radios {
+	width: 85%;
+}
+
 .pagination .pager a{
     font-weight: normal;
 }
@@ -2825,16 +2829,16 @@ h2.page-title {
 }
 
 #new_vote .poll-vote-area .fieldset-wrapper {
-	margin: 16px 0 0;
+	padding: 22px 0 0;
 	z-index: 12;
 	position: relative;
+	margin: 0;
 }
 
-#new_vote .poll-vote-area .suggest-error {
+#new_vote .suggest-error {
 	color: #cd2027;
 	font: 11px/14px Arial, sans-serif;
-	padding: 16px 10px 0 30px;
-	width: 85%;
+	padding: 15px 0 0;
 }
 
 /*Clear*/
