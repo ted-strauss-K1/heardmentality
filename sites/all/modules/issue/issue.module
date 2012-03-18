@@ -257,7 +257,7 @@ function issue_add_vote($dummy = '', $nid = '') {
   if ($node->choice) {
     $list = array();
     foreach ($node->choice as $i => $choice) {
-      $list[$i] = '<span>'. check_plain($choice['chtext']). '</span>';
+      $list[$i] = '<span>' . check_plain($choice['chtext']) . '</span>';
     }
     $form['choice'] = array(
       '#type' => 'radios',
@@ -278,7 +278,7 @@ function issue_add_vote($dummy = '', $nid = '') {
     $err = 0;
     if (isset($count_row) && $count_row > 0) {
       while ($answerfet = db_fetch_object($anslist)) {
-        $options[$answerfet->said] = '<span>'.$answerfet->answer.'</span>';
+        $options[$answerfet->said] = '<span>' . $answerfet->answer . '</span>';
       }
       $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
       $form['add_vote'] = array(
@@ -300,13 +300,12 @@ function issue_add_vote($dummy = '', $nid = '') {
       // check whether the user already suggested the answer. if yes do not allow him to vote
       // also check whether the user already voted for this issue
       if ($alreadyAdded == 0 && $alreadyVotedSuggest == 0 && $alreadyVotedMain == 0) {
-        
+
         /*
-        $form['submit_suggest_vote'] = array(
+          $form['submit_suggest_vote'] = array(
           '#type' => 'submit',
           '#value' => t('Vote'),
-        );*/
-        
+          ); */
       }
       else {
         $form['add_vote']['vote_error'] = array(
@@ -675,9 +674,7 @@ function issue_vote_submit_ajax($type = '') {
  * Implementation of hook_form_alter().
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
-  //rint $form_id;
-  //  echo '<pre>';
-  //print_r($form);
+  krumo($form);
   if ($form_id == 'user_relationships_ui_request') {
 
     $form['#submit'][] = 'add_follow_notify';
@@ -2821,10 +2818,25 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
   if ($user->uid != '') {
     $form['#attributes'] = array('class' => 'arg-reply-form');
     $form['#action'] = url($_GET['q'], array('absolute' => TRUE));
-    $form['err_r'] = array('#type' => 'markup', '#value' => '<div class="error-msg" id="reply_err"></div>');
-    $form['debate_tnid'] = array('#type' => 'hidden', '#id' => 'deb_tnid', '#default_value' => $debate_tnid);
-    $form['debate_id'] = array('#type' => 'hidden', '#id' => 'deb_id', '#default_value' => $debate_id);
-    $form['issue_id'] = array('#type' => 'hidden', '#id' => 'iss_id', '#default_value' => $issue_id);
+    $form['err_r'] = array(
+      '#type' => 'markup',
+      '#value' => '<div class="error-msg" id="reply_err"></div>'
+    );
+    $form['debate_tnid'] = array(
+      '#type' => 'hidden',
+      '#id' => 'deb_tnid',
+      '#default_value' => $debate_tnid
+    );
+    $form['debate_id'] = array(
+      '#type' => 'hidden',
+      '#id' => 'deb_id',
+      '#default_value' => $debate_id
+    );
+    $form['issue_id'] = array(
+      '#type' => 'hidden',
+      '#id' => 'iss_id',
+      '#default_value' => $issue_id,
+    );
     $form['reply_content'] = array('#type' => 'textarea',
       '#size' => 70,
       '#cols' => 10,
@@ -2832,7 +2844,11 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
       '#rows' => 3,
       '#attributes' => array('class' => 'textarea-input'),
       '#resizable' => FALSE,);
-    $form['str_wk'] = array('#type' => 'radios', '#options' => array('1' => t('Strengthen'), '0' => t('Weaken')), '#default_value' => '1');
+    $form['str_wk'] = array(
+      '#type' => 'radios',
+      '#options' => array('1' => t('Support'), '0' => t('Oppose')),
+      '#default_value' => '1',
+    );
     $form['reply_submit'] = array('#type' => 'submit',
       '#value' => t('Submit Your Reply'),
       '#prefix' => '<div align="right">',
@@ -2841,7 +2857,10 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
     );
   }
   else {
-    $form['log_in'] = array('#type' => 'markup', '#value' => t('Please Login to post reply'));
+    $form['log_in'] = array(
+      '#type' => 'markup',
+      '#value' => t('Please Login to post reply')
+    );
   }
   return $form;
 }
@@ -3144,10 +3163,10 @@ function get_rating_buttons($items, $type) {
   $agreeDisagreeBar = like_dislike_bar($items['vote_up'], $items['vote_down']);
 
 
-  $ratings = '<div id="likebar-' . $ntype . '-' . $itemId . '" class="likebar">' . $agreeDisagreeBar . '</div><br />'
+  $ratings = '<div id="likebar-' . $ntype . '-' . $itemId . '" class="likebar">' . $agreeDisagreeBar . '</div>'
     . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' . $ntype . '-' . $itemId . '">
-                <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' . $agreeClass . '>' . t('Agree') . ' (' . $items['vote_up'] . ')</a>
-                <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' . $itemId . '" ' . $disagreeClass . '>' . t('Disagree') . ' (' . $items['vote_down'] . ')</a>
+                <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' . $agreeClass . '>' . t('Yes') . ' (' . $items['vote_up'] . ')</a>
+                <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' . $itemId . '" ' . $disagreeClass . '>' . t('No') . ' (' . $items['vote_down'] . ')</a>
                 </span>';
   return $ratings;
 }
