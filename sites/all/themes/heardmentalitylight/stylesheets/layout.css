@@ -2067,7 +2067,8 @@ textarea#q_quest  {
     outline: 0 none;
     text-decoration: underline;
 }
-.choices .form-radios .form-item{
+.choices .form-radios .form-item,
+#new_vote .fieldset-wrapper .form-radios .form-item {
     background: none repeat scroll 0 0 #e4e4e4;
     border: 1px solid #d7d7d7;
     letter-spacing: 1px;
@@ -2082,7 +2083,9 @@ textarea#q_quest  {
 }
 
 .choices .form-radios .form-item:hover,
-.choices .form-radios .form-item.staygreen{
+.choices .form-radios .form-item.staygreen,
+#new_vote .fieldset-wrapper .form-radios .form-item:hover,
+#new_vote .fieldset-wrapper .form-radios .form-item.staygreen {
     background-color: #cfebd0;
     border: 1px solid #bce0bd;
 	-webkit-box-shadow: inset 0px 0px 5px 0px #fff;
@@ -2093,20 +2096,24 @@ textarea#q_quest  {
 }
 
 .choices .form-radios .form-item label.option,
-.choices .form-radios .form-item label.option span {
+.choices .form-radios .form-item label.option span,
+#new_vote .fieldset-wrapper .form-radios .form-item label.option,
+#new_vote .fieldset-wrapper .form-radios .form-item label.option span {
 	color: #4c4c4c;
 	font: 18px/1.2 'DINLightRegular', Arial, sans-serif;
 	display: inline-block;
 	cursor: pointer;
 }
 
-.choices .form-radios .form-item label.option span {
+.choices .form-radios .form-item label.option span,
+#new_vote .fieldset-wrapper .form-radios .form-item label.option span {
     margin-left: 25px;
     overflow: hidden;
 	display: block;
 }
 
-.choices .form-radios .form-item label.option input.form-radio {
+.choices .form-radios .form-item label.option input.form-radio,
+#new_vote .fieldset-wrapper .form-radios .form-item label.option input.form-radio {
 	margin: 0;
 	float: left;
 	position: relative;
@@ -2419,14 +2426,14 @@ input.form-text.upload{
     margin-left: -33px;
     position: absolute;
 }
-.choices .form-radios .staygreen{
+/*.choices .form-radios .staygreen{
     background:#D3EDEA;
     border-width:1px;
     color:#000;
     border-style:solid;
     border-color:#82D1C8;
     cursor: pointer;
-}
+}*/
 .v-msg{
     color: #2A720C;
     padding-bottom: 7px;
