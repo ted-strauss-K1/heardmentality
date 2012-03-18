@@ -2758,12 +2758,12 @@ h2.page-title {
 	display: none;
 }
 
-#new_vote .poll-vote-area {
+#new_vote .poll-vote-area .vote-form {
 	background:url(../images/light_dotted.gif) repeat-x 0 0;
 	padding: 18px 10px 0 30px;
 }
 
-#new_vote .poll-vote-area .voting-pane {
+#new_vote .poll-vote-area .voting-pane .choices {
 	width: 85%;
 }
 
