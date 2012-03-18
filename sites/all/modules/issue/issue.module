@@ -242,7 +242,7 @@ function issue_form(&$node, $form_state) {
 }
 
 // add vote for issue
-function issue_add_vote($dummy='', $nid='') {
+function issue_add_vote($dummy = '', $nid = '') {
   global $user;
   $form = array();
   if (empty($nid))
@@ -266,11 +266,109 @@ function issue_add_vote($dummy='', $nid='') {
     );
   }
   $form['#nid'] = $tnid;
+////////////////////////
+  if (user_is_logged_in()) {
+
+    // get suggest answer for current issue
+    $answers = "SELECT * FROM suggest_answer where qid='" . $nid . "'  ";
+    $anslist = db_query($answers);
+    $count_row = db_result(db_query($answers));
+
+    // user should login to participate with suggest answers
+    $err = 0;
+    if (isset($count_row) && $count_row > 0) {
+      while ($answerfet = db_fetch_object($anslist)) {
+        $options[$answerfet->said] = $answerfet->answer;
+      }
+      $mysugg = db_result(db_query("SELECT answer_id FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
+      $form['suggested_answer'] = array(
+        '#type' => 'radios',
+        '#options' => $options,
+        '#default_value' => $mysugg,
+      );
+      $alreadyAdded = db_result(db_query("SELECT COUNT(said) FROM {suggest_answer} WHERE qid = '$nid' AND uid = '$user->uid'"));
+      $alreadyVotedSuggest = db_result(db_query("SELECT COUNT(answer_id) FROM {suggest_answer_vote} WHERE qid = '$nid' AND uid = '$user->uid'"));
+      $alreadyVotedMain = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '$nid' AND uid = '$user->uid'"));
+      // check whether the user already suggested the answer. if yes do not allow him to vote
+      // also check whether the user already voted for this issue
+      if ($alreadyAdded == 0 && $alreadyVotedSuggest == 0 && $alreadyVotedMain == 0) {
+        $form['submit_suggest_vote'] = array(
+          '#type' => 'submit',
+          '#value' => t('Vote'),
+        );
+      }
+      else {
+        $form['vote_error'] = array(
+          '#type' => 'markup',
+          '#prefix' => '<div class="suggest-error">',
+          '#value' => t('You are not able to vote from suggested answers list. You have already voted or suggested a new answer.'),
+          '#suffix' => '</div>',
+        );
+        $err = 1;
+      }
+    }
+
+    // user can suggest only one answer per issue
+    if ($alreadyAdded == 0) {
+      $form['add_vote'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('...Or submit a different answer'),
+    //    '#weight' => 5,
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+      $form['add_vote']['new_suggest_answer'] = array(
+        '#type' => 'textfield',
+        '#size' => 38,
+        '#attributes' => array('class' => 'floatleft'),
+        '#maxlength' => 140,
+        '#id' => 'Answer3',
+      );
+
+      $form['add_vote']['#nid'] = $nid;
+
+      $form['add_vote']['submit_suggest_answer'] = array(
+        '#type' => 'submit',
+        '#value' => t('Add Answer'),
+        '#attributes' => array('class' => 'add-answer2 light'),
+      );
+    }
+    elseif ($err == 0) {
+      $form['vote_error'] = array(
+        '#type' => 'markup',
+        '#prefix' => '<div class="suggest-error">',
+        '#value' => t('You have already suggested a answer for this issue.'),
+        '#suffix' => '</div>',
+      );
+    }
+  }
+  else {
+    $form['login_error'] = array(
+      '#type' => 'markup',
+      '#prefix' => '<div class="login-error">',
+      '#value' => t('You should login to vote or post suggest answers.'),
+      '#suffix' => '</div>',
+    );
+  }
+
+  ////////////////////////
   if (arg(0) == 'issues') {
     $form['#id'] = 'issue_edit_form_stream';
-    $form['nid_val'] = array('#type' => 'hidden', '#value' => $tnid, '#id' => 'nid_val');
-    $form['def_vote'] = array('#type' => 'hidden', '#value' => '', '#id' => 'def_vote');
-    $form['vote_type'] = array('#type' => 'hidden', '#value' => 'add', '#id' => 'vote_type');
+    $form['nid_val'] = array(
+      '#type' => 'hidden',
+      '#value' => $tnid,
+      '#id' => 'nid_val'
+    );
+    $form['def_vote'] = array(
+      '#type' => 'hidden',
+      '#value' => '',
+      '#id' => 'def_vote'
+    );
+    $form['vote_type'] = array(
+      '#type' => 'hidden',
+      '#value' => 'add',
+      '#id' => 'vote_type'
+    );
     $form['#validate'] = '';
   }
 
@@ -287,7 +385,7 @@ function issue_add_vote($dummy='', $nid='') {
   $form['#cache'] = TRUE;
 
   // Provide a more cleanly named voting form theme.
-  $form['#theme'] = 'poll_vote';
+   $form['#theme'] = 'poll_vote';
   return $form;
 }
 
@@ -304,11 +402,16 @@ function issue_add_vote_validate($form, &$form_state) {
  * Submit handler for processing a vote
  */
 function issue_add_vote_submit($form, &$form_state) {
+  
+  
+  
+  
   global $user;
   $nid = $form['#nid'];
   $choice = $form_state['values']['choice'];
 
   global $user;
+  //$value_ = 'current';
   if ($user->uid) {
     db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $choice, $user->uid);
   }
@@ -643,23 +746,20 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
 
           $node->suggest = drupal_get_form('issue_suggest_form', $node->nid);
 
-
-
-
           // IMPORTANT get translate nid (tnid) for current node
           $tnid = get_tnid($node->nid);
           $tnode = node_load($tnid);
 
           // count individual poll vote counts
-
-          $sql = db_query("SELECT chorder,chvotes FROM {poll_choices} WHERE nid = '$tnid' ORDER BY chorder ASC");
-          while ($iVotes = db_fetch_object($sql)) {
+          /*
+            $sql = db_query("SELECT chorder,chvotes FROM {poll_choices} WHERE nid = '$tnid' ORDER BY chorder ASC");
+            while ($iVotes = db_fetch_object($sql)) {
             $indVotesCount[$iVotes->chorder] = $iVotes->chvotes;
-          }
+            }
 
-          $node->indVoteCounts = $indVotesCount;
+            $node->indVoteCounts = $indVotesCount;
 
-
+           */
           // echo '<pre>'; print_r($tnode);exit;
           if ($tnode->allowvotes) {
             $output .= drupal_get_form('issue_add_vote', $node->nid);
@@ -1919,7 +2019,7 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
   $info .= '<div id="issue_information">';
   // created details
   $info .= '<div class="post-by">' . t('Issue posted on ') . $created . '&nbsp;'
-          . t('By') . '&nbsp;' . l($postedby, 'profile/' . $postedby) . '</div>';
+    . t('By') . '&nbsp;' . l($postedby, 'profile/' . $postedby) . '</div>';
   //category details
   $info .= '<div class="catarea">';
   $info .= '<div class="cat-title">SUBJECT</div>';
@@ -1963,7 +2063,7 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
   // original language
   $path = drupal_get_path_alias('node/' . $original_nid);
   $info .= '<br />' . t('Issue originally written in') . '&nbsp;' . $original_language . '<br />'
-          . l('Click to view in original language', $base_url . '/' . $orgLangKey . '/' . $path);
+    . l('Click to view in original language', $base_url . '/' . $orgLangKey . '/' . $path);
   $info .= '</div>';
   return $info;
 }
@@ -2143,7 +2243,6 @@ function issue_suggest_form($dummy = '', $nid = '') {
       '#suffix' => '</div>',
     );
   }
-
   return $form;
 }
 
@@ -2373,7 +2472,7 @@ function add_new_debate_form_submit($form, &$form_state) {
 
       $ratings = get_rating_buttons($items, 'is_debate');
 
-					$json['success_post'] = 1;
+      $json['success_post'] = 1;
 
       //$json['content'] = theme('single_debate_template', $items);
       $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
@@ -2896,8 +2995,8 @@ function issue_filter_options() {
   $key_path = $sitelink . 'issues/' . $key . '/' . $subject . '/' . $area . '/' . $detail . '/' . $country . '/' . $state . '/' . $city;
   $issue_filter = '<div class="sort-by">View &nbsp;
                 <a href="' . $key_path . '/alltime" ' . $actall . '>' . t('Most Votes (all-time)') . '</a>&nbsp;|&nbsp;'
-          . '<a href="' . $key_path . '/7days" ' . $act7 . '>' . t('Most Votes (past 7 days)') . '</a>&nbsp;|&nbsp;'
-          . '<a href="' . $key_path . '/views" ' . $actviews . '>' . t('Number of Views') . '</a></div>';
+    . '<a href="' . $key_path . '/7days" ' . $act7 . '>' . t('Most Votes (past 7 days)') . '</a>&nbsp;|&nbsp;'
+    . '<a href="' . $key_path . '/views" ' . $actviews . '>' . t('Number of Views') . '</a></div>';
   return $issue_filter;
 }
 
@@ -2980,7 +3079,7 @@ function get_rating_buttons($items, $type) {
 
 
   $ratings = '<div id="likebar-' . $ntype . '-' . $itemId . '" class="likebar">' . $agreeDisagreeBar . '</div><br />'
-          . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' . $ntype . '-' . $itemId . '">
+    . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' . $ntype . '-' . $itemId . '">
                 <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' . $agreeClass . '>' . t('Agree') . ' (' . $items['vote_up'] . ')</a>
                 <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' . $itemId . '" ' . $disagreeClass . '>' . t('Disagree') . ' (' . $items['vote_down'] . ')</a>
                 </span>';
@@ -3005,24 +3104,27 @@ function popular_categories() {
   return $popular_categories;
 }
 
-/**Rallydev:526**/
+/* * Rallydev:526* */
+
 function __issue_description_trimmer($context) {
-  
+
   $initial_character_count = 150;
   $context_initial = "";
-  $context_remaining = ""; 
+  $context_remaining = "";
   $output = array();
   $context = trim($context);
   $output['actual_length'] = $trimmed_string_length = strlen($context);
-  if($trimmed_string_length <= $initial_character_count) {
-    $output['context_initial'] = str_replace("\r\n", "<br>",$context);  
-	$output['context_remaining'] = "";
-  } else {
-    $context_initial = substr($context,0,$initial_character_count);
-	$output['context_initial'] = str_replace("\r\n", "<br>",$context_initial).'<div id="new-ellipse"><a>...more&gt;&gt;</a></div>';  
-	$context_remaining = substr($context,$initial_character_count,$trimmed_string_length);
-	$output['context_remaining'] = str_replace("\r\n", "<br>",$context_remaining);  
-  }  
+  if ($trimmed_string_length <= $initial_character_count) {
+    $output['context_initial'] = str_replace("\r\n", "<br>", $context);
+    $output['context_remaining'] = "";
+  }
+  else {
+    $context_initial = substr($context, 0, $initial_character_count);
+    $output['context_initial'] = str_replace("\r\n", "<br>", $context_initial) . '<div id="new-ellipse"><a>...more&gt;&gt;</a></div>';
+    $context_remaining = substr($context, $initial_character_count, $trimmed_string_length);
+    $output['context_remaining'] = str_replace("\r\n", "<br>", $context_remaining);
+  }
   return $output;
 }
+
 /**************/

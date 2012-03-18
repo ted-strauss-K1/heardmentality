@@ -1,4 +1,5 @@
 <?php
+
 // $Id: issue.install,v 1.5.2.20.2.3 2009/03/21 18:32:00 chriskennedy Exp $
 
 /**
@@ -106,7 +107,7 @@ function issue_schema() {
     'primary key' => array('nid'),
   );
 
- 
+
   $schema['issue_choices'] = array(
     'description' => t('Stores the settings for an individual choice in a issue.'),
     'fields' => array(
@@ -148,4 +149,11 @@ function issue_schema() {
   );
 
   return $schema;
+}
+
+function issue_update_6200(&$sandbox = NULL) {
+  $ret = array();
+  db_add_field($ret, 'poll_votes', 'status', array('type' => 'text', 'not null' => TRUE));
+  $ret[] = update_sql('UPDATE {poll_votes} SET status = "old"');
+  return $ret;
 }

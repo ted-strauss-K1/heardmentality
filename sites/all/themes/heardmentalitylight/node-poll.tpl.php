@@ -47,7 +47,7 @@ $gSitePath = $base_path.'/';
        <?php }?>
    </div>
 <?php endif; ?>
-<div class="voting-pane"><?php print $content ?></div>
+<div class="voting-pane"><?php print $content;?></div>
 </div>
 </div><!-- /div.part1 -->
 
@@ -58,7 +58,7 @@ $gSitePath = $base_path.'/';
 <div class="expanding">
   <h6 class="wait">... <?php print t('Or submit a different answer'); ?></h6>
 
-    <?php print $suggest; ?>
+    <?php //print $suggest; ?>
 
 </div>
 <div id="shareDiv" class="floatright"></div>
