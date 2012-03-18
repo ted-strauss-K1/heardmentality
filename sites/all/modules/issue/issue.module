@@ -320,6 +320,7 @@ function issue_add_vote($dummy = '', $nid = '') {
       $form['add_vote']['new_suggest_answer'] = array(
         '#type' => 'textfield',
         '#size' => 38,
+        '#description' => t('(Answers must not exceed 140 carachters in length)'),
         '#attributes' => array('class' => 'floatleft'),
         '#maxlength' => 140,
         '#id' => 'Answer3',
