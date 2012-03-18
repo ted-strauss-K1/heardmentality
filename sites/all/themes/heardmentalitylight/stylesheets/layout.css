@@ -2733,13 +2733,13 @@ h2.page-title {
 
 #new_vote {
 	background-color: #ececec;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#ececec), to(#f3f3f3));
-	background-image: -webkit-linear-gradient(top, #ececec, #f3f3f3);
-	background-image:    -moz-linear-gradient(top, #ececec, #f3f3f3);
-	background-image:     -ms-linear-gradient(top, #ececec, #f3f3f3);
-	background-image:      -o-linear-gradient(top, #ececec, #f3f3f3);
-	background-image:         linear-gradient(top, #ececec, #f3f3f3);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ececec,endColorstr=#f3f3f3);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#ececec), to(#f7f7f7));
+	background-image: -webkit-linear-gradient(top, #ececec, #f7f7f7);
+	background-image:    -moz-linear-gradient(top, #ececec, #f7f7f7);
+	background-image:     -ms-linear-gradient(top, #ececec, #f7f7f7);
+	background-image:      -o-linear-gradient(top, #ececec, #f7f7f7);
+	background-image:         linear-gradient(top, #ececec, #f7f7f7);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ececec,endColorstr=#f7f7f7);
     zoom: 1;
 }
 
@@ -2838,7 +2838,17 @@ h2.page-title {
 #new_vote .suggest-error {
 	color: #cd2027;
 	font: 11px/14px Arial, sans-serif;
-	padding: 15px 0 0;
+	padding: 6px 0 0;
+	width: 85%;
+}
+
+.vote-count-poll,
+#edit-submit-suggest-vote-1 {
+	display: none;
+}
+
+#new_vote .poll-vote-area .fieldset-wrapper .form-item {
+	margin: 0;
 }
 
 /*Clear*/
