@@ -87,7 +87,7 @@ $pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
       containerID: 'shareDiv',
       shareButtons: 'Facebook,Twitter,google-plusone,Share',
       userAction: act,
-      layout:'vertical'
+      layout:'horizontal'
     }
 </script>
 
