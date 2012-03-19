@@ -979,16 +979,17 @@ p.comment-meta {
 
 	clear:both;
 }
-.comment-agree a.agree{
-	color:#2A720C;
-	cursor:pointer;
-	float:left;
-}
+.comment-agree a.agree,
 .comment-agree a.disagree{
-	color:#DD5345;
-	float:left;
-	margin:0px 0px 0px 10px;
-	cursor:pointer;
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #000;
+    cursor: pointer;
+    display: inline;
+    float: none;
+    margin: 0;
+    padding: 0;
+
 }
 
 a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;padding:1px 7px 1px 0px;margin:0px}

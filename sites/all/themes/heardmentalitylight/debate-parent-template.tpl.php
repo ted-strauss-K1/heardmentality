@@ -59,19 +59,12 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 	
 	<div class="replies">
 	
-		<div id="flag-arg-<?php print $items['debate_tnid']; ?>" title="<?php print t('FLAG THIS ITEM'); ?>" class="form-flag" style="display: none">
-		  <input type="hidden" value="forum" id="flagtype" />
-		  <?php print t('Please Wait...'); ?>
-		</div>
-		
-	    <?php if ($comments): ?>
+    <?php if ($comments): ?>
 
         <!--<h6 class="active">/ <?php print $reply_count; ?> <?php print t('REPLIES'); ?></h6>-->
 		
         <ul><!--<div class="top-arrow"></div>-->
           <div id="all_replybox_<?php print $items['debate_tnid']; ?>">
-            <a href="#" class="translate"><?php print t('Translate'); ?></a><span class="userinfo-reply">&nbsp;-&nbsp;<span class="name"><a href="<?php print $sitelink . 'profile/' . $items['uname']; ?>"><?php print $items['uname']; ?></a></span>&nbsp;<span class="date"><?php echo $items['ago']; ?></span></span>
-			
 			<?php print $comments; ?>
           </div>
         </ul>
@@ -79,15 +72,20 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
       
 		<p class="comment-meta"><?php print t('Show '); ?><?php print $reply_count; ?><?php print t(' more replies'); ?></p>
 
-		<!--<?php
+		<?php
 			if ($delete):
-					print $delete;
+					print $delete .'t('del debateparenttempl')';
 			endif;
-		?>-->
+		?>
 
 	</div>
     </li>
   </ul>
+</div>
+
+<div id="flag-arg-<?php print $items['debate_tnid']; ?>" title="<?php print t('FLAG THIS ITEM'); ?>" class="form-flag" style="display: none">
+	<input type="hidden" value="forum" id="flagtype" />
+	<?php print t('Please Wait...'); ?>
 </div>
 
 <script type="text/javascript">
