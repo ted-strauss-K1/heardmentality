@@ -143,7 +143,6 @@
 	a.add-answer2,
 	input.add-comment,
 	h6#reply,
-	h6#add-arg,
 	input[type="submit"],
 	input[type="reset"],
 	input[type="button"] {
