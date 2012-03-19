@@ -74,7 +74,8 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 
 		<?php
 			if ($delete):
-					print $delete .'t('del debateparenttempl')';
+					print $delete;
+					print t('del debateparenttpl');
 			endif;
 		?>
 
