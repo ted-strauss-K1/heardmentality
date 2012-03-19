@@ -723,13 +723,14 @@ function report_map($nid='') {
 		        for (var i = 0; i <lat.length; i++) {
 
 		       var  marker=newMarker(new GLatLng(lat[i],lng[i]),zip[i],get_color(color[i]) );
+                       map.addOverlay(marker);
                         markers.push(marker);
 
 		          }";
 
   $script .= "	
                 <script src='http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=" . $googlekey . "' type='text/javascript'></script>
-                <script src='http://gmaps-utility-library.googlecode.com/svn/trunk/markerclusterer/1.0/src/markerclusterer.js' type='text/javascript'></script>
+               
                   <script src=' http://gmaps-utility-library.googlecode.com/svn/trunk/markermanager/release/src/markermanager.js' type='text/javascript'></script>
 ";
 
@@ -762,7 +763,7 @@ function report_map($nid='') {
       	" . $inc_script . "
 
 
-	 var markerCluster = new MarkerClusterer(map, markers);
+	// var markerCluster = new MarkerClusterer(map, markers);
        map. disableInfoWindow ();
 	  // alert(markerCluster.getTotalMarkers());
 
