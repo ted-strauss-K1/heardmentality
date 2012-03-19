@@ -70,7 +70,9 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 		
         <ul><!--<div class="top-arrow"></div>-->
           <div id="all_replybox_<?php print $items['debate_tnid']; ?>">
-            <?php print $comments; ?><a href="#" class="translate"><?php print t('Translate'); ?></a><span class="userinfo-reply">&nbsp;-&nbsp;<span class="name"><a href="<?php print $sitelink . 'profile/' . $items['uname']; ?>"><?php print $items['uname']; ?></a></span>&nbsp;<span class="date"><?php echo $items['ago']; ?></span></span>
+            <a href="#" class="translate"><?php print t('Translate'); ?></a><span class="userinfo-reply">&nbsp;-&nbsp;<span class="name"><a href="<?php print $sitelink . 'profile/' . $items['uname']; ?>"><?php print $items['uname']; ?></a></span>&nbsp;<span class="date"><?php echo $items['ago']; ?></span></span>
+			
+			<?php print $comments; ?>
           </div>
         </ul>
 		<?php endif; ?>

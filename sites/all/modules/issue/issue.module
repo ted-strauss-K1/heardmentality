@@ -2847,13 +2847,13 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
       '#rows' => 3,
       '#attributes' => array('class' => 'textarea-input'),
       '#resizable' => FALSE,);
-    $form['str_wk'] = array(
-      '#type' => 'radios',
-      '#options' => array('1' => t('Support'), '0' => t('Oppose')),
-      '#default_value' => '1',
-    );
+    //$form['str_wk'] = array(
+    //  '#type' => 'radios',
+    //  '#options' => array('1' => t('Support'), '0' => t('Oppose')),
+     // '#default_value' => '1',
+    //);
     $form['reply_submit'] = array('#type' => 'submit',
-      '#value' => t('Submit Your Reply'),
+      '#value' => t('Submit reply'),
       '#prefix' => '<div align="right">',
       '#suffix' => '</div><span id="sub_loader" style="display:none; float:right"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
       '#id' => 'add_reply',
@@ -3167,8 +3167,8 @@ function get_rating_buttons($items, $type) {
 
 
   $ratings = '<div id="likebar-' . $ntype . '-' . $itemId . '" class="likebar">' . $agreeDisagreeBar . '</div>'
-    . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' . $ntype . '-' . $itemId . '">
-                <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' . $agreeClass . '>' . t('Yes') . ' (' . $items['vote_up'] . ')</a>
+    . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' . $ntype . '-' . $itemId . '">' . t('Do you agree?') . '
+                <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' . $agreeClass . '>' . t('Yes') . ' (' . $items['vote_up'] . ')</a>&nbsp;|&nbsp;
                 <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' . $itemId . '" ' . $disagreeClass . '>' . t('No') . ' (' . $items['vote_down'] . ')</a>
                 </span>';
   return $ratings;
