@@ -72,12 +72,12 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
       
 		<p class="comment-meta"><?php print t('Show '); ?><?php print $reply_count; ?><?php print t(' more replies'); ?></p>
 
-		<?php
+		<!--<?php
 			if ($delete):
 					print $delete;
 					print t('del debateparenttpl');
 			endif;
-		?>
+		?>-->
 
 	</div>
     </li>
