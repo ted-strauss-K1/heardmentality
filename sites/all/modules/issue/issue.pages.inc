@@ -840,7 +840,7 @@ function report_get_zip($code = '', $ccode = '') {
 
   $query = array('postalcode' => $code, 'maxrows' => 1);
   $result = geonames_query('postalcodesearch', $query);
-
+print_r($result); exit;
   return $result;
 }
 
