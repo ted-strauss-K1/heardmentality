@@ -47,7 +47,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 		</div>
 		
 		<?php if ($reply_box): ?>
-        <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
+        <h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>
         <ul>
           <div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
           <div id="reply-comment">
@@ -75,7 +75,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
         </ul>
 		<?php endif; ?>
       
-		<p class="comment-meta"><a><?php print t('Show '); ?><?php print $reply_count; ?><?php print t(' more replies'); ?></a></p>
+		<p class="comment-meta"><?php print t('Show '); ?><?php print $reply_count; ?><?php print t(' more replies'); ?></p>
 
 		<!--<?php
 			if ($delete):
