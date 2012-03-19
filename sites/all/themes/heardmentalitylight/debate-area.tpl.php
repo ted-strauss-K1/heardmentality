@@ -38,6 +38,7 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
 </div><!--/#debate_work_area -->
 
 <div id="debate_list_area">
+	<h2><?php print t('Count arguments!'); ?></h2>
 	<div class="comments expanding">
 			<?php print $debateList; ?>
 	</div>
