@@ -263,6 +263,9 @@ function user_details() {
   );
 
   $locDetails = $details->city . ',' . $details->state . ',' . $details->country;
+  if($details->latitude!= '' && $details->longitude != ''){
+      $locDetails .= '<br />('.$details->latitude.', '.$details->longitude.')';
+  }
 
   $form['city-state-country'] = array('#type' => 'markup', '#value' => '<span id="cit-stat">' . $locDetails . '</span>');
   $form['state'] = array(

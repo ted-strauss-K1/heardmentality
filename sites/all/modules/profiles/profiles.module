@@ -1746,8 +1746,28 @@ function _basic_submit($form, &$form_state) {
     $account=user_load($user->uid);
     $age = age($form_state['values']['dob']);
 
-    $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s' where uid='%d' ";
-    $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['income'],$form_state['values']['marital'],$form_state['values']['sorient'], $form_state['values']['education'], $user->uid);
+    // Load Latitude Longitude Ralldev DE544
+    $doc = new DOMDocument();
+    if($form_state['values']['state']!='' && $form_state['values']['country']!=''){
+    $doc->load( 'http://maps.googleapis.com/maps/api/geocode/xml?address='.$form_state['values']['city'].',+'.$form_state['values']['state'].',+'.$form_state['values']['country'].'&sensor=true' );
+    $locations = $doc->getElementsByTagName( "location" );
+    foreach( $locations as $location )
+    {
+        $latitude = $location->getElementsByTagName( "lat" );
+        $lat[] = $latitude->item(0)->nodeValue;
+
+        $longitude = $location->getElementsByTagName( "lng" );
+        $long[] = $longitude->item(0)->nodeValue;
+    }
+        $latitude = $lat[0];
+        $longitude = $long[0];
+    }else{
+        $latitude = '';
+        $longitude = '';
+    }
+    // Location data ends
+    $query = "UPDATE {user_profile} set real_name='%s',gender='%s',bio='%s',zip='%d',country='%s',state='%s',city='%s',religion='%s',ethnic='%s',dob='%d',age='%d',income='%s',marital='%s',sorient='%s',edu='%s', latitude = '%s', longitude = '%s' where uid='%d' ";
+    $result = db_query($query,$form_state['values']['fname'],$form_state['values']['gender'], $form_state['values']['bio'], $form_state['values']['zip'], $form_state['values']['country'], $form_state['values']['state'], $form_state['values']['city'], $form_state['values']['religion'], $form_state['values']['ethnic'], $form_state['values']['dob'], $age, $form_state['values']['income'],$form_state['values']['marital'],$form_state['values']['sorient'], $form_state['values']['education'], $latitude, $longitude, $user->uid);
     //update username
     db_query("update {users} set name='%s',mail='%s',prompt='%d',language='%s' where uid='%d'", $form_state['values']['username'], $form_state['values']['email'],'0',$form_state['values']['default_language'],$user->uid);
     //drupal_set_message(t('Your profile has been updated', 'success'));
