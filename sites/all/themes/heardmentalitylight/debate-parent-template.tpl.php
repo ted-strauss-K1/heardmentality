@@ -5,15 +5,6 @@ $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)) . '/';
 $items['title'] = str_replace("\r\n", "<br>", $items['title']);
 $items['title'] = str_replace("\n", "<br>", $items['title']);
-/*  krumo($items);
-  krumo($strength);
-  krumo($comments);
-  krumo($reply_box);
-  krumo($reply_count);
-  krumo($ratings);
-  krumo($delete);
-  exit;
- */
 ?>
 <div id="forum-block-<?php print $items['debate_tnid']; ?>">
   <!--<?php if ($comments) { ?>
@@ -29,7 +20,18 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 	
 	<div class="arg">
 		<a href="#" class="icon flag2" title="flag this argument"></a>
-		<span class="sum"><?php print t('Sum would be here'); ?></span>
+		<span class="sum"><?php $diff = $items['vote_up'] - $items['vote_down'];
+  if ($diff > 0) {?>
+      <span class="positive"> <?php print $diff; ?></span>
+  <?php } 
+ elseif ($diff < 0) { ?>
+     <span class="negative"> <?php print $diff; ?></span>
+<?php } 
+   else { ?>
+     <span class="null"> <?php print $diff; ?></span>
+  <?php } 
+  ?> 
+  
 		<p class="argument_body"><?php print t($items['title']); ?><a href="#" class="translate"><?php print t('Translate'); ?></a></p>
 	  
 		<div class="position">
