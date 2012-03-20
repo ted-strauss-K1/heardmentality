@@ -38,7 +38,7 @@ function report_percent($nid='') {
 
     $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
     $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
-    $answer = substr(t(addslashes($answer)), 0, 10);
+    $answer = substr(t(addslashes($answer)), 0, 16);
     array_push($ans_array, $answer);
     //array_push($ans_array, $vlist[$ab]['answer']);
   }
@@ -451,7 +451,7 @@ function report_graph($nid='') {
     // short answers
     $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
     $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
-    $answer = substr(t(addslashes($answer)), 0, 10);
+    $answer = substr(t(addslashes($answer)), 0, 16);
     $i = $ab + 1;
     $ans = array();
 
@@ -670,7 +670,7 @@ function report_map($nid='') {
     //short answer
     $short_answer = get_short_answer($nid, $vlist[$i]['chorder']);
     $answer = $short_answer != '' ? $short_answer : $vlist[$i]['chtext'];
-    $answer = substr(t(addslashes($answer)), 0, 10);
+    $answer = substr(t(addslashes($answer)), 0, 16);
     // $desc .= '<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/'.$marker[$i].'/blank.png" border="0" alt=""/> &nbsp; '.$vlist[$i]['answer'].'<br/>';
     //$desc .= '<img src="http://labs.google.com/ridefinder/images/mm_20_' . $marker[$i] . '.png" border="0" alt=""/> &nbsp; ' . $answer . '&nbsp;&nbsp;';
     $desc .= '<img src="http://gmaps-samples.googlecode.com/svn/trunk/markers/' . $marker[$i] . '/blank.png" border="0" alt=""/> &nbsp; ' . $answer . '&nbsp;&nbsp;';
