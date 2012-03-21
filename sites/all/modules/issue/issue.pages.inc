@@ -1844,14 +1844,12 @@ function forum_replies($debate_tnid, $pid = '') {
       $cid = $forum['cid'];
       if (!empty($forum['comment'])) {
         $items = forum_reply_datas($cid);
-        //$comments .= theme('forum_reply_template', $items);
         // ratings
         // allow rating check
         $ratings = get_rating_buttons($items, 'is_debate_reply');
 
         //delete
         if (is_moderator() || $items['uid'] == $user->uid) {
-          //$delete = '<a href="javascript:void(0);" onclick="delete_thread(this.id, \'reply\')" id="own_reply_'.$items['cid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
           $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_reply_' . $items['cid'] . '\', \'reply\')">' . t('Delete') . '</h6>';
         }
         else {

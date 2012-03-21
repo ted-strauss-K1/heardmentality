@@ -307,7 +307,7 @@ function issue_add_vote($dummy = '', $nid = '') {
           '#value' => t('Vote'),
           ); */
       }
-      else {
+   /*   else {
         $form['add_vote']['vote_error'] = array(
           '#type' => 'markup',
           '#prefix' => '<div class="suggest-error">',
@@ -315,7 +315,7 @@ function issue_add_vote($dummy = '', $nid = '') {
           '#suffix' => '</div>',
         );
         $err = 1;
-      }
+      }*/
     }
 
     // user can suggest only one answer per issue
@@ -2264,7 +2264,7 @@ function issue_suggest_form($dummy = '', $nid = '') {
           '#value' => t('Vote'),
         );
       }
-      else {
+     /* else {
         $form['vote_error'] = array(
           '#type' => 'markup',
           '#prefix' => '<div class="suggest-error">',
@@ -2272,7 +2272,7 @@ function issue_suggest_form($dummy = '', $nid = '') {
           '#suffix' => '</div>',
         );
         $err = 1;
-      }
+      }*/
     }
 
     // user can suggest only one answer per issue
@@ -2520,7 +2520,6 @@ function add_new_debate_form_submit($form, &$form_state) {
       }
 
       // reply
-      //$reply_box = drupal_get_form('forum_reply_form', $items['debate_id'], $items['debate_tnid'], $items['issue_id']);
       $reply_box = '';
       //$comments = forum_replies($items['debate_tnid'], 0);
       $comments = '';
@@ -2699,11 +2698,8 @@ function load_debate_datas($debId = '', $issId = '', $issTnid = '') {
       'content_id' => $row->cid,
       'tag' => 'vote',
       'vote_type' => 'down');
-    //$voteUp += vote_up_down_count($criteriaUp);
-    //$voteDown += vote_up_down_count($criteriaDown);
   }
 
-  //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
   $query = "select * from {debate_options} a join  {poll_choices} b on a.chorder=b.chorder where a.nid='" . $forum->nid . "' and b.nid='$issTnid' ORDER BY b.chorder";
   $strnth = ExecuteQuery($query, "select");
 
@@ -2847,11 +2843,7 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
       '#rows' => 3,
       '#attributes' => array('class' => 'textarea-input'),
       '#resizable' => FALSE,);
-    //$form['str_wk'] = array(
-    //  '#type' => 'radios',
-    //  '#options' => array('1' => t('Support'), '0' => t('Oppose')),
-     // '#default_value' => '1',
-    //);
+    
     $form['reply_submit'] = array('#type' => 'submit',
       '#value' => t('Submit reply'),
       '#prefix' => '<div align="right">',
@@ -2924,7 +2916,6 @@ function forum_reply_form_submit($form, &$form_state) {
       $ratings = get_rating_buttons($items, 'is_debate_reply');
       //delete
       if (is_moderator() || $items['uid'] == $user->uid) {
-        //$delete = '<a href="javascript:void(0);" onclick="delete_thread(this.id, \'reply\')" id="own_reply_'.$items['cid'].'" class="orange-btn" title="'.t('Delete').'">Delete</a>&nbsp;&nbsp;';
         $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_reply_' . $items['cid'] . '\', \'reply\')">' . t('Delete') . '</h6>';
       }
       else {
@@ -3166,11 +3157,15 @@ function get_rating_buttons($items, $type) {
   $agreeDisagreeBar = like_dislike_bar($items['vote_up'], $items['vote_down']);
 
 
-  $ratings = '<div id="likebar-' . $ntype . '-' . $itemId . '" class="likebar">' . $agreeDisagreeBar . '</div>'
-    . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' . $ntype . '-' . $itemId . '">' . t('Do you agree?') . '
-                <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' . $agreeClass . '>' . t('Yes') . ' (' . $items['vote_up'] . ')</a>&nbsp;|&nbsp;
-                <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' . $itemId . '" ' . $disagreeClass . '>' . t('No') . ' (' . $items['vote_down'] . ')</a>
-                </span>';
+  $ratings = '<div id="likebar-' . $ntype . '-' . $itemId . '" class="likebar">' .
+    $agreeDisagreeBar . '</div>'
+    . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' . 
+    $ntype . '-' . $itemId . '">' . t('Do you agree?') . '
+    <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' . 
+    $agreeClass . '>' . t('Yes') . ' (' . $items['vote_up'] . ')</a>&nbsp;|&nbsp;
+    <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' . 
+    $itemId . '" ' . $disagreeClass . '>' . t('No') . ' (' . $items['vote_down'] . ')</a>
+    </span>';
   return $ratings;
 }
 

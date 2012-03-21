@@ -984,3 +984,10 @@ $(document).ready(function(){
   });
 });
 /**************/
+
+/*
+$(document).ready(function(){
+  $('.button.light').click(function() { 
+    $('#reply + ul').show();
+  })  
+});*/
