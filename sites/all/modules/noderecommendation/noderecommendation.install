@@ -1,5 +1,4 @@
 <?php
-// $Id: noderecommendation.install,v 1.2.2.2 2009/06/01 16:07:42 hanoii Exp $
 
 
 /**
@@ -33,10 +32,17 @@ function noderecommendation_schema() {
         'not null' => TRUE,
       ),
       'data' => array(
-        'description' => t('Serialized data of a pernode configuration'),
+        'description' => t('Serialized data of a default configuration'),
         'type' => 'text',
         'size' => 'big',
         'not null' => TRUE,
+      ),
+      'weight' => array(
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+        'description' => 'The weight of the default.',
       ),
     ),
     'primary key' => array('nrdid'),
@@ -101,4 +107,10 @@ function noderecommendation_requirements($phase) {
  }
 
  return $requirements;
+}
+
+function noderecommendation_update_1() {
+  $ret = array();
+  db_add_field($ret, 'noderecommendation_defaults', 'weight', array('type' => 'int'));
+  return $ret;
 }

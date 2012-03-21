@@ -1,6 +1,4 @@
 <?php
-// $Id: languageicons.module,v 1.10 2010/02/22 17:47:17 freso Exp $
-
 /**
  * @file
  * Icons for language links.
@@ -37,8 +35,8 @@ function languageicons_help($path, $arg) {
       $output .= '</ul>';
       $output .= '<p>'. t('For more information, please see <a href="@handbook">the online handbook section</a>.', array('@handbook' => 'http://drupal.org/node/133977')) .'</p>';
       return $output;
-    case 'admin/settings/languageicons':
-      $output .= '<p>'. t('To enable multilingual support for specific content types go to <a href="@configure_content_types">configure content types</a>.', array('@configure_content_types' => url('admin/content/types'))) .'</p>';
+    case 'admin/settings/language/icons':
+      $output = '<p>'. t('To enable multilingual support for specific content types go to <a href="@configure_content_types">configure content types</a>.', array('@configure_content_types' => url('admin/content/types'))) .'</p>';
       return $output;
   }
 }
@@ -67,6 +65,10 @@ function languageicons_menu() {
 function languageicons_translation_link_alter(&$links, $path) {
   if (variable_get('languageicons_show_block', 1)) {
     foreach (array_keys($links) as $langcode) {
+      if (!isset($links[$langcode]['language'])) {
+        $lang_obj['language'] = $langcode;
+        $links[$langcode]['language'] = (object) $lang_obj;
+      }
       languageicons_link_add($links[$langcode]);
     }
   }
@@ -97,8 +99,8 @@ function languageicons_link_alter(&$links, $node) {
 function languageicons_link_add(&$link, $title = NULL) {
   $language = isset($link['language_icon']) ? $link['language_icon'] : $link['language'];
   $title = $title ? $title : $link['title'];
-  if ($icon = theme('languageicons_icon', $language, $title)) {
-    $link['title'] = theme('languageicons_place', $link['title'], $icon);
+  if ($icon = theme('languageicons_icon', $language, check_plain($title))) {
+    $link['title'] = theme('languageicons_place', check_plain($link['title']), $icon);
     $link['html'] = TRUE;
   }
 }
@@ -107,21 +109,19 @@ function languageicons_link_add(&$link, $title = NULL) {
  * Theme language icon.
  *
  * This function can be overridden for no language icons.
+ *
+ * @seealso theme_image()
  */
 function theme_languageicons_icon($language, $title = NULL) {
   if ($path = variable_get('languageicons_path', drupal_get_path('module', 'languageicons') .'/flags/*.png')) {
-    $src = base_path() . str_replace('*', $language->language, $path);
+    $src = str_replace('*', $language->language, check_plain($path));
     $title = $title ? $title : $language->native;
-    $attribs = array(
-      'class' => 'language-icon',
-      'alt' => $title,
-      'title' => $title,
-    );
-    if ($size = variable_get('languageicons_size', '16x12')) {
+    $attributes = array('class' => 'language-icon');
+    if ($size = check_plain(variable_get('languageicons_size', '16x12'))) {
       list($width, $height) = explode('x', $size);
-      $attribs += array('width' => $width, 'height' => $height);
+      $attributes += array('width' => $width, 'height' => $height);
     }
-    return "<img src='$src' ". drupal_attributes($attribs) .' />';
+    return theme('image', $src, $title, $title, $attributes, FALSE);
   }
 }
 

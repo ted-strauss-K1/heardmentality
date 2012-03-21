@@ -1,6 +1,4 @@
 <?php
-// $Id: languageicons.admin.inc,v 1.6 2010/02/02 21:10:46 freso Exp $
-
 /**
  * @file
  * Admin page callbacks for the Language icons module.
@@ -53,8 +51,8 @@ function languageicons_admin_settings() {
     '#type' => 'textfield',
     '#title' => t('Image size'),
     '#default_value' => variable_get('languageicons_size', '16x12'),
-    '#size' => 10,
-    '#maxlength' => 10,
+    '#size' => 7,
+    '#maxlength' => 7,
     '#description' => t('Image size for language icons, in the form "width x height".'),
   );
 

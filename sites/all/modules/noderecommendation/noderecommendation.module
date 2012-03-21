@@ -1,5 +1,4 @@
 <?php
-// $Id: noderecommendation.module,v 1.2.2.3 2009/06/01 16:23:08 hanoii Exp $
 
 /**
  * @file
@@ -40,7 +39,9 @@ define('NODERECOMMENDATION_DEFAULT_BLOCKLIMIT', 4);
 function _noderecommendation_sort_array() {
   $options['none'] = t('None');
   if (module_exists('uc_order') && module_exists('uc_product')) {
+    $options['highseller'] = t('High sellers');
     $options['slowseller'] = t('Slow sellers');
+    $options['highprice'] = t('High price');
     $options['highprofit'] = t('High profit');
     $options['highstock'] = t('High stock');
   }
@@ -67,7 +68,7 @@ function _noderecommendation_to_arrayinfo($recommendation) {
       $content_types = array();
       foreach ($recommendation['content_types']['content_types'] as $type) {
         $types = node_get_types();
-        $content_types[] = $types[$type]->name;
+        $content_types[] = check_plain($types[$type]->name);
       }
       if (!empty($content_types)) {
         $info[t('Content types')] = implode(', ', $content_types);
@@ -78,16 +79,16 @@ function _noderecommendation_to_arrayinfo($recommendation) {
     foreach ($recommendation['taxonomy'] as $vid => $data) {
       $vocabulary = taxonomy_vocabulary_load($vid);
       if ($recommendation['taxonomy'][$vid]['source'] == 'node') {
-        $info[t('Taxonomy')][] = "<b>{$vocabulary->name}</b>: " . t('Match terms from the node being viewed.');
+        $info[t('Taxonomy')][] = "<b>" . check_plain($vocabulary->name) . ":</b> " . t('Match terms from the node being viewed.');
       }
       else {
         if (count($data['tids'])) {
           $term_names = array();
           foreach ($data['tids'] as $tid) {
             $term = taxonomy_get_term($tid);
-            $term_names[] = $term->name;
+            $term_names[] = check_plain($term->name);
           }
-          $info[t('Taxonomy')][] = "<b>{$vocabulary->name}:</b> " . implode(', ', $term_names);
+          $info[t('Taxonomy')][] = "<b>" . check_plain($vocabulary->name) . ":</b> " . implode(', ', $term_names);
         }
       }
     }
@@ -103,15 +104,23 @@ function _noderecommendation_to_arrayinfo($recommendation) {
 function _noderecommendation_query_build_orderby($recommendation, &$args) {
   if (module_exists('uc_order') && module_exists('uc_product')) {
     if ($recommendation['sort']['criteria'] == 'slowseller') {
-      $orderby = "ORDER BY IFNULL(slowseller.qty,0)";
+      $orderby = "ORDER BY IFNULL(sellrate.qty,0)";
+    }
+
+    if ($recommendation['sort']['criteria'] == 'highseller') {
+      $orderby = "ORDER BY IFNULL(sellrate.qty,0) DESC";
     }
 
     if ($recommendation['sort']['criteria'] == 'highstock') {
-      $orderby = "ORDER BY IFNULL(highstock.stock,0) DESC";
+      $orderby = "ORDER BY IFNULL(stock.stock,0) DESC";
+    }
+
+    if ($recommendation['sort']['criteria'] == 'highprice') {
+      $orderby = "ORDER BY IFNULL(product.sell_price,0) DESC";
     }
 
     if ($recommendation['sort']['criteria'] == 'highprofit') {
-      $orderby = "ORDER BY IFNULL(highprofit.sell_price,0)-IFNULL(highprofit.cost,0) DESC";
+      $orderby = "ORDER BY IFNULL(product.sell_price,0)-IFNULL(product.cost,0) DESC";
     }
 
     if ($recommendation['sort']['criteria'] == 'random') {
@@ -142,7 +151,7 @@ function _noderecommendation_query_build_having($recommendation, &$args) {
 
 function _noderecommendation_query_build_leftjoin($recommendation, &$args) {
   if (module_exists('uc_order') && module_exists('uc_product')) {
-    if ($recommendation['sort']['criteria'] == 'slowseller') {
+    if ($recommendation['sort']['criteria'] == 'slowseller' || $recommendation['sort']['criteria'] == 'highseller') {
       db_query("DROP TABLE IF EXISTS {noderecommendation_product_sell_rate}");
       // week
       $from = time()-60*60*24*7;
@@ -150,18 +159,18 @@ function _noderecommendation_query_build_leftjoin($recommendation, &$args) {
       $from = time()-60*60*24*30;
       db_query("CREATE TABLE {noderecommendation_product_sell_rate} SELECT up.nid, SUM(if(!isnull(qty), qty, 0)) as qty FROM {uc_products} up LEFT JOIN {uc_order_products} uop ON up.nid = uop.nid LEFT JOIN {uc_orders} uo ON uo.order_id = uop.order_id WHERE ( uo.order_status = 'completed' OR uo.order_status = 'payment_received' ) AND uo.modified > %d OR isnull(uo.order_id) GROUP BY up.nid", $from);
 
-      $leftjoin = "LEFT JOIN {noderecommendation_product_sell_rate} slowseller ON slowseller.nid = n.nid";
+      $leftjoin = "LEFT JOIN {noderecommendation_product_sell_rate} sellrate ON sellrate.nid = n.nid";
     }
 
     if ($recommendation['sort']['criteria'] == 'highstock') {
       db_query("DROP TABLE IF EXISTS {noderecommendation_product_stock}");
       db_query("CREATE TABLE {noderecommendation_product_stock} SELECT ups.nid, sum(ups.stock) as stock FROM {uc_product_stock} ups GROUP by ups.nid");
 
-      $leftjoin = "LEFT JOIN {noderecommendation_product_stock} highstock ON highstock.nid = n.nid";
+      $leftjoin = "LEFT JOIN {noderecommendation_product_stock} stock ON stock.nid = n.nid";
     }
 
-    if ($recommendation['sort']['criteria'] == 'highprofit') {
-      $leftjoin = "LEFT JOIN {uc_products} highprofit ON highprofit.nid = n.nid";
+    if ($recommendation['sort']['criteria'] == 'highprofit' || $recommendation['sort']['criteria'] == 'highprice') {
+      $leftjoin = "LEFT JOIN {uc_products} product ON product.nid = n.nid";
     }
   }
 
@@ -234,11 +243,6 @@ function _noderecommendation_list($nid, $qty = 10) {
     return $list;
   }
 
-  // If there's a manual selection, don't limit the query
-  if ($recommendation['manual']['enable']) {
-    $qty = 0;
-  }
-
   // build query
   $args = array();
   // LEFT JOIN
@@ -295,7 +299,7 @@ function _noderecommendation_get($nid) {
         $where = 'WHERE (' . implode(' OR ', $where_or). ')';
       }
 
-      $query = "SELECT nrdt.nrdid, nrd.data, COUNT(DISTINCT td.tid) as tids, COUNT(DISTINCT td.vid) as vids FROM {noderecommendation_defaults_terms} nrdt LEFT JOIN {noderecommendation_defaults} nrd ON nrd.nrdid = nrdt.nrdid LEFT JOIN {term_data} td ON td.tid = nrdt.tid $where GROUP BY nrdt.nrdid ORDER BY vids DESC, tids DESC";
+      $query = "SELECT nrdt.nrdid, nrd.data, COUNT(DISTINCT td.tid) as tids, COUNT(DISTINCT td.vid) as vids FROM {noderecommendation_defaults_terms} nrdt LEFT JOIN {noderecommendation_defaults} nrd ON nrd.nrdid = nrdt.nrdid LEFT JOIN {term_data} td ON td.tid = nrdt.tid $where GROUP BY nrdt.nrdid ORDER BY vids DESC, tids DESC, nrd.weight";
       $default = db_fetch_object(db_query($query, $args));
       if ($default) {
         // Global defaults
@@ -311,33 +315,18 @@ function _noderecommendation_get($nid) {
         // check for vocabularies from defaults or default to the viewed node
         $vocabularies = taxonomy_get_vocabularies();
         foreach ($vocabularies as $vocabulary) {
-          if (!$recommendation['taxonomy'][$vocabulary->vid]['source'] || $recommendation['taxonomy'][$vocabulary->vid]['source'] == 'node') {
-            foreach (taxonomy_node_get_terms_by_vocabulary($node, $vocabulary->vid) as $term) {
-              $recommendation['taxonomy'][$term->vid]['tids'][] = $term->tid;
+          if (isset($recommendation['taxonomy'][$vocabulary->vid])) {
+            if (!$recommendation['taxonomy'][$vocabulary->vid]['source'] || $recommendation['taxonomy'][$vocabulary->vid]['source'] == 'node') {
+              foreach (taxonomy_node_get_terms_by_vocabulary($node, $vocabulary->vid) as $term) {
+                $recommendation['taxonomy'][$term->vid]['tids'][] = $term->tid;
+              }
             }
           }
         }
       }
     }
   }
- //customized for showing related issue if manually not provided
-if(empty( $recommendation['manual'])) {
- $node = node_load($nid);
- $nids=array();
-  $text="$node->title $node->body";
-   $result = db_query("SELECT r.nid,r.title, MATCH(r.body, r.title) AGAINST ('%s') AS score FROM {node_revisions} r INNER JOIN {node} n ON r.nid = n.nid AND r.vid = n.vid WHERE n.status <> 0 AND r.nid <> %d AND n.type='$node->type' GROUP BY n.nid  ORDER BY n.nid DESC, r.vid DESC LIMIT 0,10",$text,$node->nid,0);
-    $options = array();
-    while ($row = db_fetch_object($result)) {
-      $nids[]=$row->nid;
-    }
-    if(!empty($nids)){
-   $relatedissues=array_combine($nids,$nids);
-    $arrayid = array('nids' =>$relatedissues);
-    $manual = array('enable' => 1, 'nodes' => array('poll' => $arrayid));
-    $recommendation = array('nid' => $nid, 'content_types' => $cont_type, 'taxonomy' => '', 'manual' => $manual, 'sort' => array('criteria' => 'none'));
-    }
-}
- //customized for showing related issue if manually not provided
+
   return $recommendation;
 }
 
@@ -441,7 +430,7 @@ function noderecommendation_load($nrdid) {
 function noderecommendation_help($path, $arg) {
   switch ($path) {
     case 'admin/content/noderecommendation/nodes':
-      $output = '<p>'. t('This screen provides a shortcut list to all the nodes that have a custom default configured for them.') .'</p>';
+      $output = '<p>'. t('This screen provides a shortcut list to all the nodes that have a custom recommendation configured for them.') .'</p>';
       break;
   }
 
@@ -506,7 +495,7 @@ function noderecommendation_admin_form($recommendation = null, $node = null) {
     '#title' => t('Content types'),
     '#collapsible' => TRUE,
     '#collapsed' => $recommendation['manual']['enable'],
-    '#description' => t('content type settings for the recomendation block.'),
+    '#description' => t('Content type settings for the recomendation block.') . ($node ? t(' <strong><em>If you do not select content types in the listbox below, this matching criteria will be ignored.</em></strong>') : ''),
   );
   if (!$node) {
     $options = array();
@@ -520,6 +509,7 @@ function noderecommendation_admin_form($recommendation = null, $node = null) {
       '#default_value' => $recommendation['content_types']['source'] ? $recommendation['content_types']['source'] : 'node',
       '#required' => TRUE,
       '#weight' => -15,
+      '#description' => t('If you choose custom and do not select items in the listbox below, this matching criteria will be ignored.'),
     );
   }
   $exclude_contenttypes = variable_get('noderecommendation_exclude_contenttypes', array());
@@ -531,7 +521,7 @@ function noderecommendation_admin_form($recommendation = null, $node = null) {
   }
   $options = array();
   foreach ($types as $type) {
-    $options[$type->type] = $type->name;
+    $options[$type->type] = check_plain($type->name);
   }
   $form['content_types']['content_types'] = array(
     '#type' => 'select',
@@ -557,7 +547,7 @@ function noderecommendation_admin_form($recommendation = null, $node = null) {
       '#title' => t('Taxonomy'),
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
-      '#description' => t('If you select multiple terms within the same vocabulary, nodes containing any of them will be displayed in the recommentations block. If you select multiple terms across different vocabularies, only nodes with at least one term from each vocabulary will be displayed to the recommentaions block.'),
+      '#description' => t('If you select multiple terms within the same vocabulary, nodes containing any of them will be displayed in the recommentations block. If you select multiple terms across different vocabularies, only nodes with at least one term from each vocabulary will be displayed to the recommentaions block.') . ($node ? t(' <strong><em>If you do not select terms in the listboxes below, the vocabulary will be ignored.</em></strong>') : ''),
     );
 
     foreach ($vocabularies as $vocabulary) {
@@ -566,7 +556,7 @@ function noderecommendation_admin_form($recommendation = null, $node = null) {
         if (!$node) {
           $form['taxonomy'][$vocabulary->vid] = array(
             '#type' => 'fieldset',
-            '#title' => $vocabulary->name,
+            '#title' => check_plain($vocabulary->name),
             '#collapsible' => TRUE,
             '#collapsed' => TRUE,
           );
@@ -580,7 +570,8 @@ function noderecommendation_admin_form($recommendation = null, $node = null) {
             '#options' => $options,
             '#default_value' => $recommendation['taxonomy'][$vocabulary->vid]['source'] ? $recommendation['taxonomy'][$vocabulary->vid]['source'] : 'node',
             '#required' => TRUE,
-            '#weight' => -15,
+            '#weight' => -20,
+            '#description' => t('If you choose custom and do not select items in the listbox below, this matching criteria will be ignored.'),
           );
         }
         $title = check_plain($vocabulary->name);
@@ -609,20 +600,20 @@ function noderecommendation_admin_form($recommendation = null, $node = null) {
     $result = db_query("SELECT * FROM {node} WHERE type = '%s' ORDER BY title", $type->type);
     $options = array();
     while ($row = db_fetch_object($result)) {
-      $options[$row->nid] = "{$row->nid} - {$row->title}";
+      $options[$row->nid] = $row->nid. ' - ' .check_plain($row->title);
     }
 
     if (count($options)) {
       $form['manual']['nodes'][$type->type] = array(
         '#type' => 'fieldset',
-        '#title' => $type->name,
+        '#title' => check_plain($type->name),
         '#collapsible' => TRUE,
         '#collapsed' => !empty($recommendation['manual']['nodes'][$type->type]['nids']) ? FALSE : TRUE,
       );
 
       $form['manual']['nodes'][$type->type]['nids'] = array(
         '#type' => 'select',
-        '#title' => $type->name,
+        '#title' => check_plain($type->name),
         '#multiple' => TRUE,
         '#options' => $options,
         '#default_value' => $recommendation['manual']['nodes'][$type->type]['nids'],
@@ -654,11 +645,19 @@ function noderecommendation_admin_form($recommendation = null, $node = null) {
   return $form;
 }
 
+function noderecommendation_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  switch ($op) {
+    case 'delete':
+      db_query("DELETE FROM {noderecommendation_node} WHERE nid = %d", $node->nid);
+      break;
+  }
+}
+
 function noderecommendation_settings() {
   $content_types = node_get_types();
   $options = array();
   foreach ($content_types as $type) {
-    $options[$type->type] = $type->name;
+    $options[$type->type] = check_plain($type->name);
   }
   $form['noderecommendation_exclude_contenttypes'] = array(
     '#type' => 'checkboxes',
@@ -671,7 +670,7 @@ function noderecommendation_settings() {
   $vocabularies = taxonomy_get_vocabularies();
   $options = array();
   foreach ($vocabularies as $vocabulary) {
-    $options[$vocabulary->vid] = $vocabulary->name;
+    $options[$vocabulary->vid] = check_plain($vocabulary->name);
   }
   $form['noderecommendation_exclude_vids'] = array(
     '#type' => 'checkboxes',
@@ -695,6 +694,16 @@ function noderecommendation_theme() {
     'noderecommendation_defaults' => array(
       'arguments' => array('info'),
     ),
+  );
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function noderecommendation_views_api() {
+  return array(
+    'api' => '2.0',
+    'path' => drupal_get_path('module', 'noderecommendation') .'/views',
   );
 }
 
@@ -728,17 +737,13 @@ function theme_noderecommendation_defaults($info) {
  * @return string
  */
 function theme_noderecommendation_block($list) {
-    $output.='<div class="innerbox">';
   if (count($list)) {
     foreach ($list as $nid) {
       $items[] = theme('noderecommendation_block_node', $nid);
     }
-    $output.= theme('item_list', $items);
-  }else{
-
-      $output.='No Related Issue(s)!';
+    $output = theme('item_list', $items);
   }
-$output.='</div>';
+
   return $output;
 }
 
@@ -752,7 +757,7 @@ $output.='</div>';
 function theme_noderecommendation_block_node($nid) {
   $node = node_load($nid);
   $output .= '<div class="noderecommendation_item">';
-  $output .= l("{$node->title}", 'node/'.$node->nid);
+  $output .= l($node->title, 'node/'.$node->nid);
   $output .= '</div>';
 
   return $output;

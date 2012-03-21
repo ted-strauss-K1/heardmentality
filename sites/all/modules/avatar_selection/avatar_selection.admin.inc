@@ -1,5 +1,4 @@
 <?php
-// $Id: avatar_selection.admin.inc,v 1.1.2.9 2009/02/09 10:47:18 snpower Exp $
 
 /**
  * @file
@@ -147,6 +146,22 @@ function avatar_selection_config_form() {
     '#default_value' => variable_get('avatar_selection_distinctive_avatars', FALSE),
     );
 
+  if (module_exists('imagecache')) {
+    // Load imagecache presets
+    $presets = array();
+    $presets[] = '';
+    foreach (imagecache_presets() as $preset) {
+      $presets[$preset['presetname']] = check_plain($preset['presetname']);
+    }
+
+    $form['update']['imagecache_preset'] = array(
+      '#type' => 'select',
+      '#title' => t('Imagecache preset'),
+      '#default_value' => variable_get('avatar_selection_imagecache_preset', FALSE),
+      '#options' => $presets,
+      '#description' => t('Choose an imagecache preset to format the avatars in the selection list with.  The <a href="@url">ImageCache Profiles</a> module can be used to format the avatars in other locations.', array('@url' => url('http://drupal.org/project/imagecache_profiles'))),
+    );
+  }
 
   $form['update']['submit'] = array(
     '#type' => 'submit',
@@ -213,7 +228,7 @@ function avatar_selection_upload_form() {
     '#options' => avatar_selection_handler_filter_role(),
     '#description' => t('Only the checked roles will be able to see this avatar icon; if no roles are checked, access will not be restricted.'),
   );
-  if (module_exists("og")) {
+  if (module_exists('og')) {
     $form['permissions']['og_access'] = array(
       '#type' => 'checkboxes',
       '#title' => t('Organic Groups'),
@@ -232,7 +247,7 @@ function avatar_selection_upload_form() {
 }
 
 function avatar_selection_roles_page($op = NULL) {
-  $output = "";
+  $output = '';
 
   // Display the form where appropriate.
   if (isset($op) && ($op == 'role' || $op == 'og')) {
@@ -253,7 +268,7 @@ function avatar_selection_roles_page($op = NULL) {
     }
 
     // Get the list of organic groups and initialise the count to 0.
-    if (module_exists("og")) {
+    if (module_exists('og')) {
       $ogroups = og_all_groups_options();
       foreach ($ogroups as $ogid => $ogroup_name) {
         $og_access[$ogid] = 0;
@@ -304,7 +319,7 @@ function avatar_selection_roles_page($op = NULL) {
 
 
     // Format the organic groups table.
-    if (module_exists("og")) {
+    if (module_exists('og')) {
       $og_rows = array();
       $header = array(t('Organic Group'), t('Number of Avatars'));
       $edit = l(t('edit'), 'admin/settings/avatar_selection/edit/og/0');
@@ -352,7 +367,7 @@ function avatar_selection_edit_form($form_state) {
   }
 
   $avatars_per_page = variable_get('avatar_selection_avatar_per_page', 30);
-  $selects = _avatar_selection_image_list("", $set_type, $set_id, $page * $avatars_per_page, $avatars_per_page);
+  $selects = _avatar_selection_image_list('', $set_type, $set_id, $page * $avatars_per_page, $avatars_per_page);
   if (!count($selects['avatars'])) {
     drupal_set_message(t('There are no avatars configured.'));
   }
@@ -360,10 +375,10 @@ function avatar_selection_edit_form($form_state) {
   else {
 
     if (!isset($form_state['values'])) {
-      $step = "list";
+      $step = 'list';
     }
     else {
-      $step = "edit";
+      $step = 'edit';
     }
     $form['step'] = array(
       '#type' => 'value',
@@ -371,7 +386,7 @@ function avatar_selection_edit_form($form_state) {
     );
 
 
-    if ($step == "list") {
+    if ($step == 'list') {
 
       if ($set_type == 'role') {
         $sets = avatar_selection_handler_filter_role();
@@ -401,14 +416,14 @@ function avatar_selection_edit_form($form_state) {
       drupal_add_js($js_file, 'module', 'header');
 
     }
-    elseif ($step == "edit") {
+    elseif ($step == 'edit') {
       drupal_set_title(t('Manage Avatars'));
       $form['#redirect'] = array('admin/settings/avatar_selection/edit');
       $roles = avatar_selection_handler_filter_role();
       $aid = 0;
       $avs_access = $og_access = array();
       $weight = 0;
-      $name = "";
+      $name = '';
 
       $result = db_query("SELECT avs.aid, avatar, name, weight, rid, ogid FROM {avatar_selection} avs LEFT JOIN {avatar_selection_roles} avsr ON avs.aid = avsr.aid LEFT JOIN {avatar_selection_og} avso ON avs.aid = avso.aid WHERE avatar = '%s' ORDER BY weight, name, avatar", $form_state['values']['select_avatar']);
       while ($avatar = db_fetch_object($result)) {
@@ -464,7 +479,7 @@ function avatar_selection_edit_form($form_state) {
         '#description' => t('Only the checked roles will be able to see this avatar icon; if no roles are checked, access will not be restricted.'),
       );
 
-      if (module_exists("og")) {
+      if (module_exists('og')) {
         $form['permissions']['og_access'] = array(
           '#type' => 'checkboxes',
           '#title' => t('Organic Groups'),
@@ -557,6 +572,9 @@ function avatar_selection_config_form_submit($form, &$form_state) {
     variable_set('avatar_selection_avatar_per_page', $form_state['values']['avatar_per_page']);
     variable_set('avatar_selection_set_random_default', $form_state['values']['set_random_default']);
     variable_set('avatar_selection_distinctive_avatars', $form_state['values']['distinctive_avatars']);
+    if (module_exists('imagecache')) {
+      variable_set('avatar_selection_imagecache_preset', $form_state['values']['imagecache_preset']);
+    }
     drupal_set_message(t('Configuration has been updated.'));
   }
 }
@@ -577,7 +595,7 @@ function avatar_selection_upload_form_submit($form, &$form_state) {
     // Get access settings.
     $access = array_keys(array_filter($form_state['values']['access']));
     $og = array();
-    if (module_exists("og")) {
+    if (module_exists('og')) {
       $og = array_keys(array_filter($form_state['values']['og_access']));
     }
     $name = $form_state['values']['avatar_name'];
@@ -651,7 +669,7 @@ function avatar_selection_edit_list_form_submit($form, &$form_state) {
 function avatar_selection_edit_update_form_submit($form, &$form_state) {
   $og = array();
   $access = array_keys(array_filter($form_state['values']['access']));
-  if (module_exists("og")) {
+  if (module_exists('og')) {
     $og = array_keys(array_filter($form_state['values']['og_access']));
   }
   $file = $form_state['values']['select_avatar'];

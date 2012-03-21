@@ -1,5 +1,4 @@
 <?php
-// $Id: noderecommendation.admin.defaults.inc,v 1.1.2.2 2009/06/01 16:23:38 hanoii Exp $
 
 function noderecommendation_admin_defaults_nodes() {
   $limit = 25;
@@ -36,7 +35,7 @@ function noderecommendation_admin_defaults_nodes() {
 
 
 function noderecommendation_admin_defaults() {
-  $result = db_query("SELECT * FROM {noderecommendation_defaults}");
+  $result = db_query("SELECT * FROM {noderecommendation_defaults} ORDER BY weight");
 
   $h = array();
   $h[] = t('Id');
@@ -49,11 +48,11 @@ function noderecommendation_admin_defaults() {
     $result_terms = db_query("SELECT * FROM {noderecommendation_defaults_terms} WHERE nrdid = %d", $row->nrdid);
     while ($row_term = db_fetch_object($result_terms)) {
       $term = taxonomy_get_term($row_term->tid);
-      $data[$term->vid][] = $term->name;
+      $data[$term->vid][] = check_plain($term->name);
     }
     foreach ($data as $vid => $term_names) {
       $vocabulary = taxonomy_vocabulary_load($vid);
-      $info[] = "<b>{$vocabulary->name}:</b> " . implode(', ', $term_names);
+      $info[] = "<b>" . check_plain($vocabulary->name) . ":</b> " . implode(', ', $term_names);
     }
     $r = array();
     $r[] = $row->nrdid;
@@ -97,6 +96,13 @@ function noderecommendation_admin_defaults_edit(&$form_state, $nrd = null) {
 
   $form = array('#tree' => TRUE);
 
+  $form['weight'] = array(
+    '#type' => 'weight',
+    '#title' => t('Weight'),
+    '#default_value' => $nrd->weight ? $nrd->weight : 0,
+    '#description' => t('Defaults are chosen first by counting the number of terms and vocabularies that matches the default on each specific node. If the number of matching terms and vocularies is the same for different defaults, you can use this field to control which default should be chosen first'),
+  );
+
   $form['vocabularies'] = array(
     '#type' => 'fieldset',
     '#title' => t('Vocabularies'),
@@ -116,7 +122,7 @@ function noderecommendation_admin_defaults_edit(&$form_state, $nrd = null) {
       if (!empty($terms)) {
         $form['vocabularies'][$vocabulary->vid] = array(
           '#type' => 'fieldset',
-          '#title' => $vocabulary->name,
+          '#title' => check_plain($vocabulary->name),
           '#collapsible' => TRUE,
           '#collapsed' => TRUE,
         );
@@ -194,7 +200,7 @@ function noderecommendation_admin_defaults_edit_submit($form, &$form_state) {
   $nrdid = $form_state['values']['nrdid'];
 
   if (!$nrdid) {
-    db_query("INSERT INTO {noderecommendation_defaults} (data) VALUES ('%s')", serialize($form_state['values']['default']['default']));
+    db_query("INSERT INTO {noderecommendation_defaults} (data, weight) VALUES ('%s', %d)", serialize($form_state['values']['default']['default']), $form_state['values']['weight']);
     $nrdid = db_last_insert_id('noderecommendation_defaults', 'nrdid');
     foreach ($form_state['values']['vocabularies'] as $vocabulary) {
       foreach ($vocabulary['tids'] as $tid) {
@@ -207,7 +213,7 @@ function noderecommendation_admin_defaults_edit_submit($form, &$form_state) {
     drupal_set_message(t('Node recommendation default has been created.'));
   }
   else {
-    db_query("UPDATE {noderecommendation_defaults} SET data = '%s' WHERE nrdid = %d", serialize($form_state['values']['default']['default']), $nrdid);
+    db_query("UPDATE {noderecommendation_defaults} SET data = '%s', weight = %d WHERE nrdid = %d", serialize($form_state['values']['default']['default']), $form_state['values']['weight'], $nrdid);
     db_query("DELETE FROM {noderecommendation_defaults_terms} WHERE nrdid = %d", $nrdid);
     foreach ($form_state['values']['vocabularies'] as $vocabulary) {
       foreach ($vocabulary['tids'] as $tid) {

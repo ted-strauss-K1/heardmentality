@@ -4,9 +4,9 @@ dependencies[] = locale
 package = Multilanguage
 core = 6.x
 
-; Information added by drupal.org packaging script on 2010-03-01
-version = "6.x-2.0"
+; Information added by drupal.org packaging script on 2012-03-14
+version = "6.x-2.1"
 core = "6.x"
 project = "languageicons"
-datestamp = "1267437008"
+datestamp = "1331734844"
 

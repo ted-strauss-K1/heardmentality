@@ -57,6 +57,5 @@ function vote_calc_install() {
 }
 
 function vote_calc_uninstall() {
-  // Create database tables.
   drupal_uninstall_schema('poll_votes');
 }

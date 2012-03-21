@@ -1,4 +1,3 @@
-/* $Id: avatar_selection.css,v 1.1.2.3.4.2 2009/06/07 23:34:23 snpower Exp $ */
 div.user-avatar-select div.form-item {
   text-align: center;
   float: none;
@@ -13,13 +12,13 @@ div.user-avatar-select label.option img {
 }
 
 div.user-avatar-select label.option img.avatar-hover {
-  border: 4px #7BFF57 solid;
+  border: 4px #51ADE7 solid;
   padding: 1px;
   cursor: pointer;
 }
 
 body div.user-avatar-select label.option img.avatar-select {
-  border: 4px #FF0000 solid;
+  border: 4px #00FF00 solid;
   padding: 1px;
 }
 

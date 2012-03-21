@@ -1,5 +1,4 @@
 <?php
-// $Id: avatar_selection.install,v 1.1.2.9.2.13 2009/01/12 09:46:36 snpower Exp $
 
 /**
  * @file
@@ -70,6 +69,7 @@ function avatar_selection_uninstall() {
   variable_del('avatar_selection_avatar_per_page');
   variable_del('avatar_selection_set_random_default');
   variable_del('avatar_selection_distinctive_avatars');
+  variable_del('avatar_selection_imagecache_preset');
 
   // Delete the images.
   $dir = file_create_path('avatar_selection') .'/';

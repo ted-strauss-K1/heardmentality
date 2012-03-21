@@ -1,12 +1,6 @@
 <?php
-// $Id: noderecommendation.admin.nodes.inc,v 1.1.2.1 2009/06/01 16:23:08 hanoii Exp $
-function noderecommendation_admin_node_edit_validate($form, &$form_state) {
-   // echo "<pre>";
-  //  print_r($form_state['values']);
- //   exit;
-}
-function noderecommendation_admin_node_edit_submit($form, &$form_state) {
 
+function noderecommendation_admin_node_edit_submit($form, &$form_state) {
   db_query("DELETE FROM {noderecommendation_node} WHERE nid = %d", $form_state['values']['nid']);
   unset($form_state['values']['op']);
   unset($form_state['values']['buttons']);
@@ -35,7 +29,7 @@ function noderecommendation_admin_node_delete(&$form_state, $node) {
 }
 
 function noderecommendation_admin_node_edit(&$form_state, $node) {
-  drupal_set_title($node->title);
+  drupal_set_title(check_plain($node->title));
   $recommendation = _noderecommendation_get($node->nid);
 
   $form = array('#tree' => TRUE);
