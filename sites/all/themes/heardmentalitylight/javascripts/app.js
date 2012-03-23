@@ -242,7 +242,7 @@ $(function(){
 })(jQuery);
 
 
-$(".expanding").collapse({
+/* $(".expanding").collapse({
   show: function(){
     this.animate({
       opacity: 'toggle', 
@@ -256,7 +256,7 @@ $(".expanding").collapse({
       height: 'toggle'
     }, 300);
   }
-});
+}); */
 
 
 /**
@@ -915,4 +915,10 @@ $(document).ready(function() {
       $span.stop().fadeTo(200, 0);
     });
   });
+});
+
+$(document).ready(function(){
+  $('.button.light').click(function(e) { 
+    $(this).parents('.arg').find('ul div').toggle(60);
+  })  
 });
