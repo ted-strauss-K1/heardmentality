@@ -355,6 +355,10 @@ function set_notify_log($uid = '', $nid ='', $message_id = '', $variables = '') 
     $variables = serialize($variables);
     $sql = "INSERT INTO {notify_activity} SET uid = '%d', nid = '%d', message_id = '%s', timestamp = '%d', variables = '%s'";
     db_query($sql, $uid, $nid, $message_id, time(), $variables);
+
+    // send notification sumary email
+    hm_mails('', '', 'notify_summary');
+
 }
 
 /* EOF SET NOTIFY LOG apr 19 2011 */

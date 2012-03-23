@@ -193,7 +193,7 @@ var spath=\'' . $base_url . '/' . '\';
 function user_details() {
   global $base_url, $user, $apikey, $theme;
   $details = load_user($user->uid);
-  $options = array('1' => t(''), '2' => t(''), '0' => t(''));
+  $options = array('0' => t(''), '2' => t(''), '1' => t(''));
   $form['#attributes']['enctype'] = "multipart/form-data";
   $form['#attributes']['onsubmit'] = "return validate_reg();";
 

@@ -353,6 +353,29 @@ function hm_mails($qid='', $nid='', $type='') {
 
             //$mail_success = htmlmail_function($user_namelistfs[0]['mail'], $subject, $contentm, '');
             break;
+        case 'notify_summary':
+
+            $summarPeriod = db_result(db_query("SELECT notify_etype FROM {users} WHERE uid = '%d'", $user->uid));
+            if($summarPeriod != 0){
+                $periodType = $summarPeriod==1?'WEEK':'MONTH';
+                $periodVal = $summarPeriod==1?'weekly':'monthly';
+                $subject = $summarPeriod==1?'Heardmentality: Weekly Update':'Heardmentality: Monthly Update';
+                
+                $chkStatus = db_result(db_query("SELECT COUNT(*) FROM {hm_mails} WHERE mail_type = 3 AND user_to_id = '%s' AND posted_date > DATE_SUB(CURDATE(), INTERVAL 1 ".$periodType.")", $user->mail));
+                if($chkStatus == 0){
+                    $sql = "SELECT * FROM {notify_activity} WHERE uid = '%d' AND timestamp > DATE_SUB(CURDATE(), INTERVAL 1 ".$periodType.")";
+                    $query = db_query($sql, $user->uid);
+                    $output .=  t('<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">Hi '.$user->name.'</p><br /> Here are the your '.$periodVal.' activities <br />');
+                    while($res = db_fetch_object($query)){
+                        $output .= notiflymailContent($res);
+                    }
+                    $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date, mail_type)values('$from','$from','" . $user->mail . "','".$subject."','" . addslashes($output) . "',0,0,now(), 3)";
+                    db_query($ins_qry);
+                   // htmlmail_function('jnavane@gmail.com', 'Notify New', $output, '');
+                    
+                }
+            }
+            break;
     }
 }
 
@@ -370,3 +393,55 @@ function invite_cron() {
     }
 }
 
+// notify summary
+
+function notiflymailContent($activities){
+    global $base_path;
+
+    $data = unserialize($activities->variables);
+    switch ($activities->message_id) {
+        CASE 'user_follow':
+            $uid_target_details = user_load($data['target_id']);
+            $mail .= '
+                                    <h2 style="font:bold 13px Arial, Helvetica, sans-serif; color:#000; padding-bottom:10px; text-decoration:none;">You are following
+                                            <a style="{ font:bold 13px Arial, Helvetica, sans-serif; color:#000; padding-bottom:10px; text-decoration:underline;}:hover{text-decoration:none}"    href="' . $base_url . '/profile/' . $uid_target_details->name . '">';
+           // $mail .= UserPicture_small($data['target_id']);
+            $mail .= '	</a>
+                                    </h2>
+                                    <b style="font:normal 11px Arial, Helvetica, sans-serif; color:#666666;">' . hmnews_ago($activities->timestamp) . '.</b>
+                            ';
+            break;
+
+        CASE 'add_question':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Added new issue') . '&nbsp;' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+        CASE 'add_vote':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Voted on') . '&nbsp;' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+            break;
+        CASE 'add_debate':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Added a argument on') . '&nbsp;' . $data['d_title'] . 'for the issue <br/>' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+            break;
+        CASE 'add_resource':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Added a reference on') . '&nbsp;' . $data['r_title'] . 'for the issue <br/>' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+            break;
+        CASE 'deb_agree':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Strengthened a argument on') . '&nbsp;' . $data['d_title'] . 'for the issue <br/>' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+            break;
+        CASE 'deb_disagree':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Weakened a argument on') . '&nbsp;' . $data['d_title'] . 'for the issue <br/>' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+            break;
+        CASE 'res_agree':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Strengthened a argument on') . '&nbsp;' . $data['r_title'] . 'for the issue <br/>' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+            break;
+        CASE 'res_disagree':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Weakened a argument on') . '&nbsp;' . $data['r_title'] . 'for the issue <br/>' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+            break;
+        CASE 'add_badege':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Got a new badge') . '&nbsp;' . $data['badge'] ;
+            break;
+        CASE 'question_flag':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Falgged the issue') . '&nbsp;' . '<br/>' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+            break;
+    }
+
+    return $mail;
+}
