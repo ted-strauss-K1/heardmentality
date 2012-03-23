@@ -3,7 +3,7 @@
 function vote_calc_schema() {
   $schema = array();
 
-  $schema['poll_votes'] = array(
+  $schema['poll_votes_history'] = array(
     'description' => t('Stores the votes.'),
     'fields' => array(
       'id' => array(

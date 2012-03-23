@@ -307,15 +307,15 @@ function issue_add_vote($dummy = '', $nid = '') {
           '#value' => t('Vote'),
           ); */
       }
-   /*   else {
+      /*   else {
         $form['add_vote']['vote_error'] = array(
-          '#type' => 'markup',
-          '#prefix' => '<div class="suggest-error">',
-          '#value' => t('You are not able to vote from suggested answers list. You have already voted or suggested a new answer.'),
-          '#suffix' => '</div>',
+        '#type' => 'markup',
+        '#prefix' => '<div class="suggest-error">',
+        '#value' => t('You are not able to vote from suggested answers list. You have already voted or suggested a new answer.'),
+        '#suffix' => '</div>',
         );
         $err = 1;
-      }*/
+        } */
     }
 
     // user can suggest only one answer per issue
@@ -334,8 +334,8 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#attributes' => array('class' => 'floatleft'),
         '#maxlength' => 140,
         '#id' => 'Answer3',
-		'#prefix' => '<div class="nsa-wrapper"><table><tr><td class="first">',
-		'#suffix' => '</td><td>',
+        '#prefix' => '<div class="nsa-wrapper"><table><tr><td class="first">',
+        '#suffix' => '</td><td>',
       );
       if (empty($nid))
         $nid = arg(1);
@@ -348,7 +348,7 @@ function issue_add_vote($dummy = '', $nid = '') {
         '#type' => 'submit',
         '#value' => t('Add Answer'),
         '#attributes' => array('class' => 'add-answer2 light'),
-		'#suffix' => '</td></tr></table></div>',
+        '#suffix' => '</td></tr></table></div>',
       );
     }
     elseif ($err == 0) {
@@ -430,7 +430,6 @@ function issue_add_vote_submit($form, &$form_state) {
     $nid = $form_state['values']['add_vote']['nid'];
     $submit = $form_state['clicked_button']['#parents'][1];
     if ($submit == 'submit_suggest_answer') {
-      //krumo($form_state);exit;
       $new_suggest_answer = $form_state['values']['add_vote']['new_suggest_answer'];
       if ($new_suggest_answer != '') {
         db_query("INSERT INTO {suggest_answer} SET uid = '%d', qid = '%d', answer = '%s', date_added = '%s'", $user->uid, $nid, $new_suggest_answer, date('Y-m-d'));
@@ -477,15 +476,18 @@ function issue_add_vote_submit($form, &$form_state) {
   }
   else {
     global $user;
+    $date_time = date("y-m-d H:i:s", time());
     $nid = $form['#nid'];
     $choice = $form_state['values']['choice'];
     global $user;
     //$value_ = 'current';
     if ($user->uid) {
+      db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $choice, $user->uid, $date_time, 1);
       db_query('INSERT INTO {poll_votes} (nid, chorder, uid) VALUES (%d, %d, %d)', $nid, $choice, $user->uid);
     }
     else {
       db_query("INSERT INTO {poll_votes} (nid, chorder, hostname) VALUES (%d, %d, '%s')", $nid, $choice, ip_address());
+      db_query('INSERT INTO {poll_votes_history} (nid, chorder, hostname, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $choice, ip_address(), $date_time, 1);
     }
     // Add one to the votes.
     db_query("UPDATE {poll_choices} SET chvotes = chvotes + 1 WHERE nid = %d AND chorder = %d", $nid, $choice);
@@ -513,6 +515,7 @@ function issue_edit_vote($dummy='', $nid='') {
     foreach ($node->choice as $i => $choice) {
       $list[$i] = check_plain($choice['chtext']);
     }
+
     $form['choice'] = array(
       '#type' => 'radios',
       '#default_value' => $tnode->vote,
@@ -559,8 +562,12 @@ function issue_edit_vote_submit($form, &$form_state) {
   global $user;
   $nid = $form['#nid'];
   $choice = $form_state['values']['choice'];
-
+  $date_time = date("y-m-d H:i:s", time());
   if ($user->uid) {
+
+    db_query('UPDATE {poll_votes_history} set status=%d where nid=%d and uid=%d', 0, $nid, $user->uid);
+    db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $choice, $user->uid, $date_time, 1);
+
     db_query('update {poll_votes} set chorder=%d where nid=%d and uid=%d', $choice, $nid, $user->uid);
 
     /* New SET NOTIFY LOG */
@@ -761,13 +768,9 @@ function check_user_anonymous($form, &$form_state) {
 function issue_after_build($form, &$form_state) {
   // allter the form values: Stuff!
 
-
-
   foreach (element_children($form['choice']) as $key) {
-
-
-    // echo "dd";
-  }//exit;
+    
+  }
   return $form;
 }
 
@@ -781,8 +784,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
     // exit;
     switch ($op) {
       case 'insert':
-        //    echo "<pre>";
-        //  print_r($node);
+
         break;
       case 'load':
 
@@ -2085,7 +2087,7 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
   $info .= '<div id="issue_information">';
   // created details
   $info .= '<div class="post-by">' . t('Issue posted on ') . $created . '&nbsp;'
-    . t('By') . '&nbsp;' . l($postedby, 'profile/' . $postedby) . '</div>';
+          . t('By') . '&nbsp;' . l($postedby, 'profile/' . $postedby) . '</div>';
   //category details
   $info .= '<div class="catarea">';
   $info .= '<div class="cat-title">SUBJECT</div>';
@@ -2129,7 +2131,7 @@ function theme_issue_information($nid = '', $created = '', $postedby = '', $ctit
   // original language
   $path = drupal_get_path_alias('node/' . $original_nid);
   $info .= '<br />' . t('Issue originally written in') . '&nbsp;' . $original_language . '<br />'
-    . l('Click to view in original language', $base_url . '/' . $orgLangKey . '/' . $path);
+          . l('Click to view in original language', $base_url . '/' . $orgLangKey . '/' . $path);
   $info .= '</div>';
   return $info;
 }
@@ -2264,15 +2266,15 @@ function issue_suggest_form($dummy = '', $nid = '') {
           '#value' => t('Vote'),
         );
       }
-     /* else {
+      /* else {
         $form['vote_error'] = array(
-          '#type' => 'markup',
-          '#prefix' => '<div class="suggest-error">',
-          '#value' => t('You are not able to vote from suggested answers list. You have already voted or suggested a new answer.'),
-          '#suffix' => '</div>',
+        '#type' => 'markup',
+        '#prefix' => '<div class="suggest-error">',
+        '#value' => t('You are not able to vote from suggested answers list. You have already voted or suggested a new answer.'),
+        '#suffix' => '</div>',
         );
         $err = 1;
-      }*/
+        } */
     }
 
     // user can suggest only one answer per issue
@@ -2843,7 +2845,7 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
       '#rows' => 3,
       '#attributes' => array('class' => 'textarea-input'),
       '#resizable' => FALSE,);
-    
+
     $form['reply_submit'] = array('#type' => 'submit',
       '#value' => t('Submit reply'),
       '#prefix' => '<div align="right">',
@@ -3074,8 +3076,8 @@ function issue_filter_options() {
   $key_path = $sitelink . 'issues/' . $key . '/' . $subject . '/' . $area . '/' . $detail . '/' . $country . '/' . $state . '/' . $city;
   $issue_filter = '<div class="sort-by">View &nbsp;
                 <a href="' . $key_path . '/alltime" ' . $actall . '>' . t('Most Votes (all-time)') . '</a>&nbsp;|&nbsp;'
-    . '<a href="' . $key_path . '/7days" ' . $act7 . '>' . t('Most Votes (past 7 days)') . '</a>&nbsp;|&nbsp;'
-    . '<a href="' . $key_path . '/views" ' . $actviews . '>' . t('Number of Views') . '</a></div>';
+          . '<a href="' . $key_path . '/7days" ' . $act7 . '>' . t('Most Votes (past 7 days)') . '</a>&nbsp;|&nbsp;'
+          . '<a href="' . $key_path . '/views" ' . $actviews . '>' . t('Number of Views') . '</a></div>';
   return $issue_filter;
 }
 
@@ -3158,13 +3160,13 @@ function get_rating_buttons($items, $type) {
 
 
   $ratings = '<div id="likebar-' . $ntype . '-' . $itemId . '" class="likebar">' .
-    $agreeDisagreeBar . '</div>'
-    . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' . 
-    $ntype . '-' . $itemId . '">' . t('Do you agree?') . '
-    <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' . 
-    $agreeClass . '>' . t('Yes') . ' (' . $items['vote_up'] . ')</a>&nbsp;|&nbsp;
-    <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' . 
-    $itemId . '" ' . $disagreeClass . '>' . t('No') . ' (' . $items['vote_down'] . ')</a>
+          $agreeDisagreeBar . '</div>'
+          . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' .
+          $ntype . '-' . $itemId . '">' . t('Do you agree?') . '
+    <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' .
+          $agreeClass . '>' . t('Yes') . ' (' . $items['vote_up'] . ')</a>&nbsp;|&nbsp;
+    <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' .
+          $itemId . '" ' . $disagreeClass . '>' . t('No') . ' (' . $items['vote_down'] . ')</a>
     </span>';
   return $ratings;
 }
