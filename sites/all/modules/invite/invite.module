@@ -381,7 +381,7 @@ function hm_mails($qid='', $nid='', $type='') {
 
 function invite_cron() {
     global $gSitePath, $user, $gDocPath, $base_root;
-    $send_qry = "select * from {hm_mails} where mail_status='0'";
+    $send_qry = "select * from {hm_mails} where mail_status='0' AND mail_type = 3";
     $send_exec = ExecuteQuery($send_qry, "select");
 
     foreach ($send_exec as $sendeach) {
