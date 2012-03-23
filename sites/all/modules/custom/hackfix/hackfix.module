@@ -183,27 +183,26 @@ function hackfix_register_form_validate($form, $form_state) {
   } */
 
 /*
-function hackfix_get_vote($tnid) {
+  function hackfix_get_vote($tnid) {
   global $user;
   static $vote = array();
   if (!array_key_exists($tnid, $vote)) {
-    if ($user->uid) {
-      $vote[$tnid] = db_fetch_object(db_query('SELECT v.nid, v.chorder FROM {poll_votes} v INNER JOIN {node} n ON n.nid = v.nid WHERE n.tnid = %d AND v.uid = %d AND v.status = %d', $tnid, $user->uid, 1));
-    }
-    else {
-      $vote[$tnid] = db_fetch_object(db_query("SELECT v.chorder FROM {poll_votes} v INNER JOIN {node} n ON n.nid = v.nid WHERE n.tnid = %d AND v.hostname = '%s' v.status = %d", $tnid, ip_address(), 1));
-    }
+  if ($user->uid) {
+  $vote[$tnid] = db_fetch_object(db_query('SELECT v.nid, v.chorder FROM {poll_votes} v INNER JOIN {node} n ON n.nid = v.nid WHERE n.tnid = %d AND v.uid = %d AND v.status = %d', $tnid, $user->uid, 1));
+  }
+  else {
+  $vote[$tnid] = db_fetch_object(db_query("SELECT v.chorder FROM {poll_votes} v INNER JOIN {node} n ON n.nid = v.nid WHERE n.tnid = %d AND v.hostname = '%s' v.status = %d", $tnid, ip_address(), 1));
+  }
   }
   return $vote[$tnid];
-}*/
+  } */
 
 
-/*
+
 function hackfix_preprocess_page(&$vars) {
- // if (user_is_anonymous()) {
+  //if (!user_is_logged_in()) {
     $vars['login_block'] = drupal_get_form('user_login');
-    krumo($vars);
+    $vars['login_register'] = drupal_get_form('user_register');
+    //krumo($vars);
  // }
-  //drupal_render();
-  // krumo($vars);
-}*/
+}
