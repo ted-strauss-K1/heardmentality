@@ -371,7 +371,10 @@ function hm_mails($qid='', $nid='', $type='') {
                     }
                     //$ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date, mail_type)values('$from','$from','jnavane@gmail.com','".$subject."','" . addslashes($output) . "',0,0,now(), 3)";
                     //db_query($ins_qry);
-                    if(htmlmail_function('jnavane@gmail.com', $subject, $output, '')){
+                     $headers = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    $headers .= 'From: ' . $conf['site_name'] . ' <' . $conf['site_mail'] . '>' . "\r\n";
+                    if(mail('jnavane@gmail.com', $subject, $output, $headers)){
                         drupal_set_message('Mail Sent', 'success');
                     }else{
                         drupal_set_message('Mail Failed', 'success');
