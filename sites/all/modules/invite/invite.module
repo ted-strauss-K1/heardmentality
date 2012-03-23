@@ -369,9 +369,9 @@ function hm_mails($qid='', $nid='', $type='') {
                     while($res = db_fetch_object($query)){
                         $output .= notiflymailContent($res);
                     }
-                    $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date, mail_type)values('$from','$from','jnavane@gmail.com','".$subject."','" . addslashes($output) . "',0,0,now(), 3)";
-                    db_query($ins_qry);
-                   // htmlmail_function('jnavane@gmail.com', 'Notify New', $output, '');
+                    //$ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date, mail_type)values('$from','$from','jnavane@gmail.com','".$subject."','" . addslashes($output) . "',0,0,now(), 3)";
+                    //db_query($ins_qry);
+                    htmlmail_function('jnavane@gmail.com', $subject, $output, '');
                     
                 }
             }
@@ -381,7 +381,7 @@ function hm_mails($qid='', $nid='', $type='') {
 
 function invite_cron() {
     global $gSitePath, $user, $gDocPath, $base_root;
-    $send_qry = "select * from {hm_mails} where mail_status='0' AND mail_type = 3";
+    $send_qry = "select * from {hm_mails} where mail_status='0'";
     $send_exec = ExecuteQuery($send_qry, "select");
 
     foreach ($send_exec as $sendeach) {
