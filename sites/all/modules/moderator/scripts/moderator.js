@@ -1028,3 +1028,62 @@ function mod_hide_issue(issid){
         }
     });
 }
+
+/**Rallydev:485**/
+$(document).ready(function() {
+   /*For Categories*/
+   setTimeout("__mulitselect_hack('#q_cat','#q_scat','#q_sscat','No sub category')",3000);
+   setTimeout("__mulitselect_hack('#qs_cat','#q_sscat','','')",6000);
+
+   /*For Locations*/
+   setTimeout("__mulitselect_hack('#q_country','#q_state','#edit-q-city','No states selected')",3000);
+   setTimeout("__mulitselect_hack('#q_state','#edit-q-city','','')",6000);
+});
+
+function __mulitselect_hack(parent,child,sub_child,message) {
+  var scat_buffer = new Array();
+  var i;
+
+   $(child+' option').each(function(){
+     if($(this).attr("selected")) {
+	    scat_buffer.push($(this).val());
+	  }
+   });
+
+   $(parent).click(function(){
+	  scat_buffer = []; x = 0;
+	  if(sub_child != "null") {
+		 $(sub_child+' option').each(function(){
+		   if(x == 0) { //$(this).html(message);} else { $(this).html(''); $(this).removeAttr("selected");
+		   } x = x + 1;
+		 });
+	   }
+   });
+
+   $(child).live('change',function() {
+     flag =0;
+      for(i=0;i<scat_buffer.length;i++) {
+         if(parseInt(scat_buffer[i]) == parseInt($(this).val())){
+			scat_buffer[i] = "";
+			flag = 1;
+		}
+	  }
+
+	  if (flag == 0) {
+	    scat_buffer.push($(this).val());
+	  }
+
+	  $(child+' option').each(function(){
+	    $(this).removeAttr("selected");
+	  });
+
+	  for(i=0;i<scat_buffer.length;i++) {
+	    $(child+' option').each(function(){
+		  if(scat_buffer[i] == $(this).val()) {
+		    $(this).attr("selected","selected");
+		  }
+		});
+	  }
+   });
+}
+/*************************************/
