@@ -357,7 +357,7 @@ function set_notify_log($uid = '', $nid ='', $message_id = '', $variables = '') 
     db_query($sql, $uid, $nid, $message_id, time(), $variables);
 
     // send notification sumary email
-    hm_mails('', '', 'notify_summary');
+   // hm_mails('', '', 'notify_summary');
 
 }
 
