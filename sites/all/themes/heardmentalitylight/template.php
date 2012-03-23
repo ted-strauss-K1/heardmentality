@@ -100,7 +100,7 @@ if($vars['node']->type == 'static_pages' || $vars['node']->type == 'page'|| $var
 //print_r($vars);exit;
 //overide default jquery
 
-/*Rally dev 481 - jQuery problem disable following jquery (k=jQuery 1,4 no need to enable in new theme) */
+/*Rally dev 481 - jQuery problem disable following jquery (k=jQuery 1,4 no need to enable in new theme) */ 
     if($vars['template_files'][1]=='page-account-edit'){
         drupal_add_js($path . "/javascripts/jquery1.4.js", 'core'); //where you store your jque
     }
