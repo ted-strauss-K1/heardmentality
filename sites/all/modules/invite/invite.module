@@ -371,7 +371,11 @@ function hm_mails($qid='', $nid='', $type='') {
                     }
                     //$ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date, mail_type)values('$from','$from','jnavane@gmail.com','".$subject."','" . addslashes($output) . "',0,0,now(), 3)";
                     //db_query($ins_qry);
-                    htmlmail_function('jnavane@gmail.com', $subject, $output, '');
+                    if(htmlmail_function('jnavane@gmail.com', $subject, $output, '')){
+                        drupal_set_message('Mail Sent', 'success');
+                    }else{
+                        drupal_set_message('Mail Failed', 'success');
+                    }
                     
                 }
             }
@@ -440,6 +444,9 @@ function notiflymailContent($activities){
             break;
         CASE 'question_flag':
             $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Falgged the issue') . '&nbsp;' . '<br/>' . l($data['q_title'], drupal_get_path_alias('node/' . $data['qid'])) . '</p><b>' . hmnews_ago($activities->timestamp) . '.</b>';
+            break;
+        CASE 'update_profile':
+            $mail .= '<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">' . t('Updated your profile') ;
             break;
     }
 
