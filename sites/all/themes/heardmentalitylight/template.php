@@ -100,7 +100,9 @@ if($vars['node']->type == 'static_pages' || $vars['node']->type == 'page'|| $var
 //print_r($vars);exit;
 //overide default jquery
    // if($vars['template_files'][1]!='page-issue-create'){
-        drupal_add_js($path . "/javascripts/jquery1.4.js", 'core'); //where you store your jque
+        /*Rally dev 481 - jQuery problem disable following jquery*/
+        //drupal_add_js($path . "/javascripts/jquery1.4.js", 'core'); //where you store your jque
+        /*Rally dev 481 - jQuery problem*/
    // }
     
     
