@@ -69,12 +69,14 @@
    </ul>
 
         <div id="tabs-1" title="Login" class="dialog">
+         
           <div id="user-login">
-
+             <?php print $login_block; ?>
       	  </div>
+          
           <p><?php //print t('Or login to Heard Mentality using one of your favorite Social network logins'); ?></p>
           
-          <script type="text/javascript">
+   <!--       <script type="text/javascript">
           var conf=
           {
                 APIKey: '<?php echo $apikey; ?>'
@@ -97,7 +99,8 @@
         <div id="componentDiv"></div>
         <script type="text/javascript">
            gigya.services.socialize.showLoginUI(conf,login_params);
-        </script>
+        </script>  
+   -->
         <?php }?>
         
         
@@ -106,7 +109,7 @@
   
      <div id="tabs-2">
     <div id ="user-register"> 
-    
+  <?php  print $login_register; ?>
     </div>
        
        <div class ="gigya-login"></div>

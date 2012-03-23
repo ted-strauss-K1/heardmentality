@@ -460,11 +460,11 @@ $(function(){
    
     //	$('#dialog').dialog('open');
 
-    $('#dialog #tabs-1 #user-login').load(Drupal.settings.basePath + 'user #user-login');
-    $('#dialog #tabs-2 #user-register').load(Drupal.settings.basePath + 'user/register #user-register');
-    var h = $('#componentDiv').html();
+   // $('#dialog #tabs-1 #user-login').load('#user-login2');
+   // $('#dialog #tabs-2 #user-register').load(Drupal.settings.basePath + 'user/register #user-register');
+    //var h = $('#componentDiv').html();
     
-    $('#dialog #tabs-2 .gigya-login').html(h);
+   // $('#dialog #tabs-2 .gigya-login').html(h);
   //  $('#dialog .gigya-login').html(h);
     $('#dialog').tabs();
     $('#dialog').dialog('open');
