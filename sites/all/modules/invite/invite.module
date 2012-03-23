@@ -363,14 +363,14 @@ function hm_mails($qid='', $nid='', $type='') {
                 
                 $chkStatus = db_result(db_query("SELECT COUNT(*) FROM {hm_mails} WHERE mail_type = 3 AND user_to_id = '%s' AND posted_date > DATE_SUB(CURDATE(), INTERVAL 1 ".$periodType.")", $user->mail));
                 if($chkStatus == 0){
-                    $sql = "SELECT * FROM {notify_activity} WHERE uid = '%d' AND timestamp > DATE_SUB(CURDATE(), INTERVAL 1 ".$periodType.")";
+                    $sql = "SELECT * FROM {notify_activity} WHERE uid = '%d' AND UNIX_TIMESTAMP(timestamp) > DATE_SUB(CURDATE(), INTERVAL 1 ".$periodType.")";
                     $query = db_query($sql, $user->uid);
                     $output .=  t('<p style="font:bold 13px Arial, Helvetica, sans-serif; color:#666666; padding:5px 0px;">Hi '.$user->name.'</p><br /> Here are the your '.$periodVal.' activities <br />');
                     while($res = db_fetch_object($query)){
                         $output .= notiflymailContent($res);
                     }
-                    //$ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date, mail_type)values('$from','$from','jnavane@gmail.com','".$subject."','" . addslashes($output) . "',0,0,now(), 3)";
-                    //db_query($ins_qry);
+                    $ins_qry = "insert into hm_mails(from_mail_id,user_from_id,user_to_id,subject,content,mail_status,notify,posted_date, mail_type)values('$from','$from','".$user->mail."','".$subject."','" . addslashes($output) . "',0,0,now(), 3)";
+                    db_query($ins_qry);
 //                    if(htmlmail_function('jnavane@gmail.com', $subject, $output, '')){
 //                        drupal_set_message('Mail Sent', 'success');
 //                    }else{
