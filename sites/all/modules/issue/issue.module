@@ -1109,7 +1109,7 @@ function issue_theme($existing, $type, $theme, $path) {
       'arguments' => array('debItems' => array()),
     ), 'debate_area' => array(
       'template' => 'debate-area',
-      'arguments' => array('addNewDebateForm' => NULL, 'debateFilterForm' => NULL, 'debateStatistics' => NULL, 'debateList' => NULL),
+      'arguments' => array('addNewDebateForm' => NULL, 'debateFilterForm' => NULL, 'debateStatistics' => NULL, 'debateList' => NULL, 'count' => NULL),
     ), 'debate_parent_template' => array(
       'template' => 'debate-parent-template',
       'arguments' => array('items' => NULL, 'strength' => NULL, 'comments' => NULL, 'reply_box' => NULL, 'reply_count' => NULL, 'ratings' => NULL, 'delete' => NULL),
@@ -2197,7 +2197,10 @@ function theme_issue_debate_list($nid = '') {
   //$debateStatistics = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=analysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
   $debateStatistics = '<input type="hidden" id="curr_nid" value="' . $nid . '" />';
   $debateList = issue_debates($nid, 1);
-  $debates .= theme('debate_area', $addNewDebateForm, $debateFilterForm, $debateStatistics, $debateList);
+  $result = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 1 and field_ref_qid_nid =%d', $nid);
+  $count = db_result($result);
+    
+  $debates .= theme('debate_area', $addNewDebateForm, $debateFilterForm, $debateStatistics, $debateList, $count);
   return $debates;
 }
 
@@ -2468,8 +2471,6 @@ function add_new_debate_form_submit($form, &$form_state) {
 
       $nodeid = $deb->nid;
       $vid = $deb->vid;
-
-
 
 // add coin for Create new debates
       $coin_type = 'c_debate';

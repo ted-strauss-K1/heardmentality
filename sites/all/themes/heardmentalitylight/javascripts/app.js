@@ -242,7 +242,7 @@ $(function(){
 })(jQuery);
 
 
-/* $(".expanding").collapse({
+ $(".expanding").collapse({
   show: function(){
     this.animate({
       opacity: 'toggle', 
@@ -256,7 +256,7 @@ $(function(){
       height: 'toggle'
     }, 300);
   }
-}); */
+});
 
 
 /**
