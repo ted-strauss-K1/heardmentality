@@ -136,15 +136,3 @@ function _user_follows($uid = '', $fType = ''){
    return $output;      
 }
 
-function user_search_theme(){
-    return array(
-        'following_users_thread' => array(
-            'template' => 'following-users-thread',
-            'arguments' => array('followid' => NULL, 'type' => NULL, 'follow_status' => NULL, 'ranking' => NULL),
-        ),
-        'following_users' => array(
-            'template' => 'following-users',
-            'arguments' => array('threads' => NULL, 'pagination' => NULL),
-        ),
-   );
-}
