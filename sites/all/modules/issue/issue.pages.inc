@@ -2375,7 +2375,8 @@ function add_new_resources($qid='') {
 
 // ISSUE RESOURCES
 function issue_resources_list($qid = '') {
-  $inline = 'jQuery(document).ready(function(){res_type_tab(1,\'resource\',' . $qid . ')})';
+  //$inline = 'jQuery(document).ready(function(){res_type_tab(1,\'resource\',' . $qid . ')})';
+    $inline = 'jQuery(document).ready(function(){res_type_tab(4,\'all\',' . $qid . ')})';
   drupal_add_js($inline, 'inline');
   $resources = '';
   //$resources .= issue_resources($qid, '1');
@@ -2443,25 +2444,42 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
 
 
   $tid = get_taxonomy_id('forum', 'Resource');
+  if($rtype == 4){
+      if (empty($cond))
+        $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+      else
+        $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
 
-  if (empty($cond))
-    $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $sorting";
-  else
-    $sql = "SELECT DISTINCT(f.nid) FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $cond $sorting";
+      // forum for translated languages
+      $issueId = $qid;
+      $tnid = get_tnid($qid);
+      $qid = $tnid;
 
-  // forum for translated languages
-  $issueId = $qid;
-  $tnid = get_tnid($qid);
-  $qid = $tnid;
+      $nodes = db_query($sql, $tid, $qid);
+      $count = db_result(db_query($sql, $tid, $qid));
+  }else{
+      if (empty($cond))
+        $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $sorting";
+      else
+        $sql = "SELECT DISTINCT(f.nid) FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $cond $sorting";
 
-  $nodes = db_query($sql, $tid, $qid, $resType);
-  $count = db_result(db_query($sql, $tid, $qid, $resType));
+      // forum for translated languages
+      $issueId = $qid;
+      $tnid = get_tnid($qid);
+      $qid = $tnid;
 
+      $nodes = db_query($sql, $tid, $qid, $resType);
+      $count = db_result(db_query($sql, $tid, $qid, $resType));
+  }
   if ($count > 0) {
     $i = 0;
 
     while ($node = db_fetch_object($nodes)) {
-      $items = load_resource_datas($node->nid, $issueId, $tnid, $resType);
+        if($rtype == 4){
+            $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
+        }else{
+            $items = load_resource_datas($node->nid, $issueId, $tnid, $resType);
+        }
       //$resouce_theme .= theme('single_resource_template', $items);
       // strength
       // anwers strength

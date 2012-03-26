@@ -2209,7 +2209,9 @@ function theme_issue_resource_list($nid = '') {
   $resources = '';
   module_load_include('inc', 'issue', 'issue.pages');
 
-  $filters = '<span><a href="javascript:void(0);" onclick="res_type_tab(1,\'innews\',' . $nid . ')" title="' . t('In News') . '" id="ref_innews">' . t('In News') . '</a>&nbsp;|&nbsp;
+  $filters = '<span>
+               <a href="javascript:void(0);" onclick="res_type_tab(4,\'all\',' . $nid . ')" title="' . t('All') . '" id="ref_all">' . t('All') . '</a>&nbsp;|&nbsp;
+               <a href="javascript:void(0);" onclick="res_type_tab(1,\'innews\',' . $nid . ')" title="' . t('In News') . '" id="ref_innews">' . t('In News') . '</a>&nbsp;|&nbsp;
                <a href="javascript:void(0);" onclick="res_type_tab(2, \'media\',' . $nid . ')" title="' . t('Multimedia') . '" id="ref_multimedia">' . t('Multimedia') . '</a>&nbsp;|&nbsp;
                <a href="javascript:void(0);" onclick="res_type_tab(3, \'facts\',' . $nid . ')" title="' . t('Facts') . '" id="ref_facts">' . t('Facts') . '</a>&nbsp;
                ';
