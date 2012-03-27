@@ -194,7 +194,9 @@
 	input[type="reset"]:hover,
 	input[type="button"]:hover,
 	h6#add-arg:hover,
-	h6#deb-ana:hover	{
+	h6#deb-ana:hover,
+	#debate_work_area h6.expanded,
+	#debate_work_area h6.expanded:hover	{
 		background-color: #d6d6d6;
 		background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c4c4c4));
 		background: -webkit-linear-gradient(top, #efefef, #c4c4c4);

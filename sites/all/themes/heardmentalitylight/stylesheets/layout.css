@@ -2898,9 +2898,25 @@ h6#deb-ana a {
 h6#add-arg a:hover,
 h6#deb-ana a:hover,
 h6#add-arg:hover a,
-h6#deb-ana:hover a {
+h6#deb-ana:hover a,
+#debate_work_area h6.expanded,
+#debate_work_area h6.expanded,
+#debate_work_area h6.expanded a:hover,
+#debate_work_area h6.expanded a:hover,
+#debate_work_area h6.expanded:hover a,
+#debate_work_area h6.expanded:hover a {
 	color: #777;
 	text-shadow: 0 1px rgba(223, 223, 223, 0.7);
+}
+
+.hidden_ar,
+.hidden_deb {
+	display: none;
+}
+
+.visible_ar,
+.vidible_deb {
+	display: block;
 }
 
 /*Clear*/
