@@ -22,3 +22,109 @@
 }
 
 .ie7 ul.lang li{display: inline; zoom: 1;}
+
+.ie7 body,
+.ie7 h1, .ie7 h2, .ie7 h3, .ie7 h4, .ie7 h5, .ie7 h6, 
+	.ie7 input[type="text"], 
+	.ie7 input[type="password"],
+	.ie7 input[type="email"],
+	.ie7 textarea, 
+	.ie7 select,
+	.ie7 .page ul.badges,
+	.ie7 .search input, input.upload,
+	.ie7 .add input,
+	.ie7 .ui-dialog .ui-tabs-panel #user-login label,
+	.ie7 .ui-dialog .ui-tabs-panel #user-register label,
+	.ie7 .ui-dialog .ui-tabs-panel #user-login .form-submit,
+	.ie7 .ui-dialog .ui-tabs-panel #user-register .form-submit,
+	.ie7 #new_vote .qd,
+	.ie7 #new_vote .qd p.description,
+	.ie7 #new_vote .poll-vote-area fieldset legend a,
+	.ie7 #new_vote .suggest-error,
+	.ie7 #new_vote .poll-vote-area .fieldset-wrapper .form-item .description,
+	.ie7 body,
+.ie8 h1, .ie8 h2, .ie8 h3, .ie8 h4, .ie8 h5, .ie8 h6, 
+	.ie8 input[type="text"], 
+	.ie8 input[type="password"],
+	.ie8 input[type="email"],
+	.ie8 textarea, 
+	.ie8 select,
+	.ie8 .page ul.badges,
+	.ie8 .search input, input.upload,
+	.ie8 .add input,
+	.ie8 .ui-dialog .ui-tabs-panel #user-login label,
+	.ie8 .ui-dialog .ui-tabs-panel #user-register label,
+	.ie8 .ui-dialog .ui-tabs-panel #user-login .form-submit,
+	.ie8 .ui-dialog .ui-tabs-panel #user-register .form-submit,
+	.ie8 #new_vote .qd,
+	.ie8 #new_vote .qd p.description,
+	.ie8 #new_vote .poll-vote-area fieldset legend a,
+	.ie8 #new_vote .suggest-error,
+	.ie8 #new_vote .poll-vote-area .fieldset-wrapper .form-item .description {
+		font-family: Arial,"Lucida Grande",sans-serif;
+	}
+	
+	.ie8 a.button, 
+	.ie8 button,
+	.ie8 input.add-answer,
+	.ie8 a.add-answer,
+	.ie8 input.add-answer2,
+	.ie8 a.add-answer2,
+	.ie8 input.add-comment,
+	.ie8 h6#reply,
+	.ie8 input[type="submit"],
+	.ie8 input[type="reset"],
+	.ie8 input[type="button"],
+	.ie7 a.button, 
+	.ie7 button,
+	.ie7 input.add-answer,
+	.ie7 a.add-answer,
+	.ie7 input.add-answer2,
+	.ie7 a.add-answer2,
+	.ie7 input.add-comment,
+	.ie7 h6#reply,
+	.ie7 input[type="submit"],
+	.ie7 input[type="reset"],
+	.ie7 input[type="button"]	{
+		border: solid #c3c3c3;
+		border-width: 1px 1px 3px;
+	}
+	
+	.ie8 a.button:hover, 
+	.ie8 button:hover,
+	.ie8 h6#reply:hover,
+	.ie8 input.add-answer:hover,
+	.ie8 input.add-answer2:hover,
+	.ie8 a.add-answer:hover,
+	.ie8 a.add-answer2:hover,
+	.ie8 input.add-comment:hover,
+	.ie8 input[type="submit"]:hover,
+	.ie8 input[type="reset"]:hover,
+	.ie8 input[type="button"]:hover,
+	.ie7 a.button:hover, 
+	.ie7 button:hover,
+	.ie7 h6#reply:hover,
+	.ie7 input.add-answer:hover,
+	.ie7 input.add-answer2:hover,
+	.ie7 a.add-answer:hover,
+	.ie7 a.add-answer2:hover,
+	.ie7 input.add-comment:hover,
+	.ie7 input[type="submit"]:hover,
+	.ie7 input[type="reset"]:hover,
+	.ie7 input[type="button"]:hover	{
+		border: solid #b8b8b8;
+		border-width: 1px 1px 3px;
+	}
+	
+	.ie8 .button.vote, .ie8 input.submit-issue, .ie8 input.save,
+	.ie7 .button.vote, .ie7 input.submit-issue, .ie7 input.save	{
+		border: solid #339cb4;
+		border-width: 1px 1px 3px;
+	}
+	
+	.ie8 .button.vote:hover, .ie8 input.submit-issue:hover, .ie8 input.save:hover,
+	.ie7 .button.vote:hover, .ie7 input.submit-issue:hover, .ie7 input.save:hover {
+		border: solid #2d8ca2;
+		border-width: 1px 1px 3px;
+	}
+	

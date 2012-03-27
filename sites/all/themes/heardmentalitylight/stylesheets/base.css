@@ -60,7 +60,7 @@
 ================================================== */
 	body { 
 		background: #fff;
-		font: 14px/21px /*"HelveticaNeue", "Helvetica Neue", Helvetica,*/ Arial, sans-serif;
+		font: 14px/21px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
 		color: #444; 
 		-webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
 		-webkit-text-size-adjust: 100%;
@@ -71,7 +71,7 @@
 ================================================== */
 	h1, h2, h3, h4, h5, h6 { 
 		color: #181818; 
-		font-family: /*"HelveticaNeue", "Helvetica Neue", Helvetica,*/ Arial, sans-serif;
+		font-family: "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
 		font-weight: normal; }
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
 	h1 { font-size: 46px; line-height: 50px; margin-bottom: 14px;}
@@ -153,13 +153,12 @@
 		background-image:     -ms-linear-gradient(top, #f1f1f1, #cecece);
 		background-image:      -o-linear-gradient(top, #f1f1f1, #cecece);
 		background-image:         linear-gradient(top, #f1f1f1, #cecece);
-		border: solid #c3c3c3;
-		border-width: 1px 1px 2px;
-		-webkit-box-shadow: inset 0px 0px 2px 0px #fff;
-		-moz-box-shadow: inset 0px 0px 2px 0px #fff;
-		-o-box-shadow: inset 0px 0px 2px 0px #fff;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #fff;
-		box-shadow: inset 0px 0px 2px 0px #fff;
+		border: 1px solid #c3c3c3;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #c3c3c3;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #c3c3c3;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #c3c3c3;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #c3c3c3;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #c3c3c3;
 		/*padding: 5px 12px 3px;*/
 		padding: 8px 12px 6px;
 		-webkit-border-radius: 3px;
@@ -199,8 +198,12 @@
 		background-image:     -ms-linear-gradient(top, #efefef, #c4c4c4);
 		background-image:      -o-linear-gradient(top, #efefef, #c4c4c4);
 		background-image:         linear-gradient(top, #efefef, #c4c4c4);
-		border: solid #b8b8b8;
-		border-width: 1px 1px 2px;
+		border: 1px solid #b8b8b8;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #b8b8b8;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #b8b8b8;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #b8b8b8;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #b8b8b8;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #b8b8b8;
 		color: #777777 !important;
 		text-shadow: 0 1px rgba(223, 223, 223, 0.7);
 }
@@ -277,13 +280,12 @@
 		background-image:     -ms-linear-gradient(top, #51d2f0, #42bbd7);
 		background-image:      -o-linear-gradient(top, #51d2f0, #42bbd7);
 		background-image:         linear-gradient(top, #51d2f0, #42bbd7);
-		border: solid #339cb4;
-		border-width: 1px 1px 2px;
-		-webkit-box-shadow: inset 0px 0px 2px 0px #fff;
-		-moz-box-shadow: inset 0px 0px 2px 0px #fff;
-		-o-box-shadow: inset 0px 0px 2px 0px #fff;
-		-khtml-box-shadow: inset 0px 0px 2px 0px #fff;
-		box-shadow: inset 0px 0px 2px 0px #fff;
+		border: 1px solid #339cb4;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #339cb4;
 		padding: 7px 25px 5px;
 		-webkit-border-radius: 3px;
 		-moz-border-radius: 3px;
@@ -314,8 +316,12 @@
 		background-image:     -ms-linear-gradient(top, #44bfdb, #3aa8c1);
 		background-image:      -o-linear-gradient(top, #44bfdb, #3aa8c1);
 		background-image:         linear-gradient(top, #44bfdb, #3aa8c1);
-		border: solid #2d8ca2;
-		border-width: 1px 1px 2px;
+		border: 1px solid #2d8ca2;
+		-webkit-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
+		-moz-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
+		-o-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
+		-khtml-box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
+		box-shadow: inset 0px 0px 2px 0px #fff, 0 3px #2d8ca2;
 		color: #2d8ea5 !important;
 	}
 	
@@ -447,7 +453,7 @@
 		border-radius: 3px;
 		-khtml-border-radius: 3px;
 		-o-border-radius: 3px;
-		font: 13px/16px Arial, sans-serif;
+		font: 13px/16px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
 		color: #777;
 		margin: 0;
 		width: 210px;
