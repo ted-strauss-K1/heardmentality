@@ -2860,17 +2860,31 @@ h2.page-title {
 	padding: 0 30px;
 }
 
-#debate_work_area .arg,
-#debate_work_area .stat {
-	display: inline-block;	
-}
-
 h6#add-arg,
 h6#deb-ana {
 	opacity: 1 !important;
 	filter:alpha(opacity=50) !important;
 	display: inline-block;
 	float: right;
+	margin-left: 7px;
+}
+
+h6#add-arg a,
+h6#deb-ana a {
+    color: #999999;
+    font-family: Arial,sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 15px;
+    padding: 0;
+    text-decoration: none;
+    text-shadow: 0 0 transparent;
+    text-transform: none;
+}
+
+h6#add-arg a:hover,
+h6#deb-ana a:hover {
+	color: #fff;
 }
 
 /*Clear*/
