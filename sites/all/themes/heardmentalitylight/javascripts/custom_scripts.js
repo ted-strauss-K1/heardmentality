@@ -37,6 +37,19 @@ $(document).ready(function() {
 		}
 
 	});
+	
+	$('h6#deb-ana').click(function() {
+		
+		var graf = $(this).parents('#debate_work_area').find('#analytics-area');
+		
+		if (graf.hasClass('hidden_deb')) {
+			graf.removeClass('hidden_deb').addClass('visible_deb').slideDown();
+		}
+		else {
+			graf.removeClass('visible_deb').addClass('hidden_deb').slideUp();
+		}
+
+	});
 });
 
 
