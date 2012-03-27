@@ -17,7 +17,7 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
 	<?php print $addNewDebateForm; ?>
 </div>
 
-<div id="analytics-area hidden_deb">
+<div id="analytics-area" class="hidden_deb">
     <?php print $debateStatistics; ?>
     <div id="deb-ana-load-txt"></div>
 	<div id="load-deb-statics"></div>
