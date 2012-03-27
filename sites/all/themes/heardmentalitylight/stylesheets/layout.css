@@ -2631,12 +2631,6 @@ h2.page-title {
 	padding: 18px 30px;
 	position: relative;
 	margin: 0;
-	-webkit-border-radius: 4px 4px 0 0;
-	-moz-border-radius: 4px 4px 0 0;
-	border-radius: 4px 4px 0 0;
-	-khtml-border-radius: 4px 4px 0 0;
-	-o-border-radius: 4px 4px 0 0;
-	-ms-border-radius: 4px 4px 0 0;
 }
 
 .white-box.poll-box h2.din a,
@@ -2658,6 +2652,12 @@ h2.page-title {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ececec,endColorstr=#f7f7f7);
     zoom: 1;
 	padding-bottom: 20px;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	-khtml-border-radius: 4px 4px 0 0;
+	-o-border-radius: 4px 4px 0 0;
+	-ms-border-radius: 4px 4px 0 0;
 }
 
 #new_vote .qd {
