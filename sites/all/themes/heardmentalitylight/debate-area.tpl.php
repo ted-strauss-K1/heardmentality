@@ -13,7 +13,7 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
     <h6 class="button" id="deb-ana"><?php print t('Debate statistics'); ?></h6>
 </div>	
 
-<div id="leave_comment_area" class="leave-a-comment hidden_arg">
+<div id="leave_comment_area" class="leave-a-comment hidden_ar">
 	<?php print $addNewDebateForm; ?>
 </div>
 
