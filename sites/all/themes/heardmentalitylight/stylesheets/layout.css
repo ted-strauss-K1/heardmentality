@@ -2878,7 +2878,7 @@ h6#deb-ana a {
     line-height: 15px;
     padding: 0;
     text-decoration: none;
-    text-shadow: 0 0 transparent;
+    text-shadow: 0 1px rgba(255, 255, 255, 0.7);
     text-transform: none;
 }
 
@@ -2887,6 +2887,7 @@ h6#deb-ana a:hover,
 h6#add-arg:hover a,
 h6#deb-ana:hover a {
 	color: #777;
+	text-shadow: 0 1px rgba(223, 223, 223, 0.7);
 }
 
 /*Clear*/
