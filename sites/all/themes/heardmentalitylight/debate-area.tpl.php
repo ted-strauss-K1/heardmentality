@@ -13,11 +13,11 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
     <h6 class="button" id="deb-ana"><?php print t('Debate statistics'); ?></h6>
 </div>	
 
-<div id="leave_comment_area" class="leave-a-comment hidden_ar">
+<div id="leave_comment_area" class="leave-a-comment hidden_ar" style="display: none;">
 	<?php print $addNewDebateForm; ?>
 </div>
 
-<div id="analytics-area" class="hidden_deb">
+<div id="analytics-area" class="hidden_deb" style="display: none;">
     <?php print $debateStatistics; ?>
     <div id="deb-ana-load-txt"></div>
 	<div id="load-deb-statics"></div>
