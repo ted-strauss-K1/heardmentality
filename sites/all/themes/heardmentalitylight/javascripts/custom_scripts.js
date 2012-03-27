@@ -23,12 +23,20 @@ $(document).ready(function() {
 
 	});
 	
-	//jQuery(function() {
-	//	var ua = navigator.userAgent.indexOf();
-	//	alert(ua);
-	//});
+	// Show/Hide Add argument & Debate statistic
+	
+    $('h6#add-arg').click(function() {
+		
+		var add = $(this).parents('#debate_work_area').find('#leave_comment_area');
+		
+		if (add.hasClass('hidden_ar')) {
+			add.removeClass('hidden_ar').addClass('visible_ar').slideDown();
+		}
+		else {
+			add.removeClass('visible_ar').addClass('hidden_ar').slideUp();
+		}
 
-
+	});
 });
 
 
