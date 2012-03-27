@@ -2628,9 +2628,15 @@ h2.page-title {
 	color: #372418;
 	font-size: 39px;
 	line-height: 43px;
-	padding: 20px 30px;
+	padding: 18px 30px;
 	position: relative;
 	margin: 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	-khtml-border-radius: 4px 4px 0 0;
+	-o-border-radius: 4px 4px 0 0;
+	-ms-border-radius: 4px 4px 0 0;
 }
 
 .white-box.poll-box h2.din a,
@@ -2656,11 +2662,10 @@ h2.page-title {
 
 #new_vote .qd {
 	margin: 0;
-    line-height: 1.2em;
     padding: 25px 10px 17px 30px;
 	width: 88%;
-	color: #362750;
-	font: 14px/18px Arial;
+	color: #663399;
+	font: 14px/19px Arial;
 }
 
 #new_vote .qd p.description {
@@ -2668,7 +2673,7 @@ h2.page-title {
 	margin: 0;
 	padding: 0;
 	float: none;
-	font: 14px/18px Arial;
+	font: 14px/19px Arial;
 }
 
 #new_vote #new-ellipse {
@@ -2676,7 +2681,7 @@ h2.page-title {
 }
 
 #new_vote #new-ellipse a {
-	color: #43b649;
+	color: #66cc99;
 	cursor: pointer;
 }
 
