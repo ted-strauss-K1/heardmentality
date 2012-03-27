@@ -402,20 +402,26 @@
 		color: #666;
 		font-weight: bold;}
 		
-	/*ul.tabs li a.active { 
+	ul.tabs li a.active { 
 		background: #fff; 
 		position: relative;
-		top: -4px;
-		padding: 14px 10px 10px;  
+		top: 1px;
+		padding: 11px 10px 10px;  
 		border: solid #c0c0c0;
 		border-width: 1px 1px 0;
-		color: #4C4C4C;
 		-webkit-border-radius: 3px 3px 0 0;
 		-moz-border-radius: 3px 3px 0 0;
 		border-radius: 3px 3px 0 0;
 		-khtml-border-radius: 3px 3px 0 0;
-		-o-border-radius: 3px 3px 0 0 }*/
+		-o-border-radius: 3px 3px 0 0 }
+	
+	ul.tabs li a:hover {
+		text-decoration: underline;
+	}
 		
+	ul.tabs li a.active:hover {
+		text-decoration: none;
+	}
 	
 	ul.tabs-content { margin: 0; display: block; }
 	ul.tabs-content > li { display:none; }

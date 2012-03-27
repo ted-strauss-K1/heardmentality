@@ -2850,6 +2850,10 @@ h2.page-title {
 	margin: 0 0 12px;
 }
 
+#new_vote .icon.share.text {
+	display: none;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
