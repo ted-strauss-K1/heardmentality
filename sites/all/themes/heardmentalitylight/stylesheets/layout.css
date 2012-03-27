@@ -2850,7 +2850,7 @@ h2.page-title {
 	margin: 0 0 12px;
 }
 
-#new_vote .icon.share.text {
+#new_vote + .icon.share.text {
 	display: none;
 }
 
