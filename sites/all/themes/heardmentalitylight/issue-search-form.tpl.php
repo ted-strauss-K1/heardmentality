@@ -10,6 +10,8 @@ print drupal_render($form['defdetail']);
 print drupal_render($form['defstate']);
 print drupal_render($form['defcity']);
 
+print drupal_render($form['cur_language']);
+
   /**Rallydev:518**/
   //IMPORTANT : Need to move this logic to module section, after approval from client
   $final_category = "";

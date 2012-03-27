@@ -16,10 +16,10 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
                     $display = 'style="display: none;"';
                 }?>
                     <div class="vote-count-poll" <?php print $display; ?> id="vote-count-poll-<?php print $tnid; ?>">
-                               <?php foreach($indVoteCounts as $chorder => $vcount){?>
+                               <?php if($indVoteCounts): foreach($indVoteCounts as $chorder => $vcount){?>
                                <div class="post-vote-result"><span class="vote-count dinbold" id="<?php print $tnid; ?>-chorder-<?php print $chorder; ?>"><?php print $vcount; ?></span><br><span class="vote-count-title din">votes</span></div>
                                <br class="clear" />
-                               <?php }?>
+                               <?php } endif;?>
                     </div>
                 
                 <div class="voting-pane" id="voting-pane-<?php print $tnid; ?>"><?php print $content;?></div>
