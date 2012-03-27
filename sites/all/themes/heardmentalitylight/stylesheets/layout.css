@@ -2858,6 +2858,13 @@ h2.page-title {
 
 #debate_work_area {
 	padding: 0 30px 16px;
+	text-align: right;
+}
+
+#debate_work_area .expanding {
+	display: inline;
+	position: relative;
+	vertical-align: top;
 }
 
 h6#add-arg,
@@ -2867,6 +2874,12 @@ h6#deb-ana {
 	display: inline-block;
 	float: right;
 	margin: 0 0 0 7px;
+}
+
+h6#deb-ana {
+	position: absolute;
+	right: 0;
+	left: 0;
 }
 
 h6#add-arg a,
