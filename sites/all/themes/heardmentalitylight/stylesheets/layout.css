@@ -2856,7 +2856,8 @@ h2.page-title {
 
 /*Add Argument*/
 
-h6#add-arg {
+h6#add-arg,
+h6#deb-ana {
 	opacity: 1 !important;
 	filter:alpha(opacity=50) !important;
 }
