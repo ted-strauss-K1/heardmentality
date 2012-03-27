@@ -2625,17 +2625,10 @@ h2.page-title {
 }
 
 .white-box.poll-box h2.din {
-	-webkit-border-radius: 3px 3px 0 0;
-	-moz-border-radius: 3px 3px 0 0;
-	border-radius: 3px 3px 0 0;
-	-khtml-border-radius: 3px 3px 0 0;
-	-o-border-radius: 3px 3px 0 0;
-	-ms-border-radius: 3px 3px 0 0;
-	background-color: #55ba59;
-	color: #f8f8f8;
+	color: #372418;
 	font-size: 39px;
 	line-height: 43px;
-	padding: 17px 50px 14px 30px;
+	padding: 20px 30px;
 	position: relative;
 	margin: 0;
 }
@@ -2643,19 +2636,9 @@ h2.page-title {
 .white-box.poll-box h2.din a,
 .white-box.poll-box h2.din a:hover {
 	padding: 0;
-	display: block;
+	display: inline-block;
 	text-decoration: none;
 	border: 0 none;
-}
-
-.white-box.poll-box h2.din span.pip {
-	background:url(../images/pip.png) no-repeat 0 0;
-	display: block;
-	width: 15px;
-	height: 13px;
-	position: absolute;
-	left: 32px;
-	bottom: -13px;
 }
 
 #new_vote {
