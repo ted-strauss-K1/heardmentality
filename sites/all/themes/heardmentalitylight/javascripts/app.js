@@ -918,7 +918,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function(){
-  $('.button.light').click(function(e) { 
+  $('.button.light').click(function(e) {
     $(this).parents('.arg').find('ul div').toggle(60);
   })  
 });

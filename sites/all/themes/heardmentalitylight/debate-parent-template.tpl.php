@@ -52,7 +52,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
         <h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>
         <ul>
           <div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
-          <div id="reply-comment">
+          <div id="reply-comment"> 
             <?php print $reply_box; ?>
           </div>
         </ul>
