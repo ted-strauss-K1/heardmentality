@@ -31,7 +31,6 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
         </ul>
 </div>-->
 
-</div>
 
 </div><!--/.inner -->
 </div><!--/#debate_work_area -->
