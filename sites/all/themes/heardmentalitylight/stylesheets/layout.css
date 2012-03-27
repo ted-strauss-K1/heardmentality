@@ -2824,6 +2824,15 @@ h2.page-title {
     margin: 22px 0 0 30px;
 }
 
+#issue-edit-vote  .button.vote {
+    margin: 12px 0 0 30px;
+}
+
+#issue-add-vote,
+#issue-edit-vote {
+	margin: 0;
+}
+
 #shareDiv {
 	padding: 20px 0 0 30px;
 }
