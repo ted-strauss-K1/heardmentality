@@ -1341,7 +1341,7 @@ function issue_search_form(&$form_state) {
   // default state, city
   $form['defstate'] = array('#type' => 'hidden', '#default_value' => $getState);
   $form['defcity'] = array('#type' => 'hidden', '#default_value' => $getCity);
-  $form['language'] = array('#type' => 'hidden', '#default_value' => $curLanguage);
+  $form['cur_language'] = array('#type' => 'hidden', '#value' => $curLanguage);
 
   $form['state_div'] = array('#type' => 'markup',
     '#value' => '<div id="state-wrapper" style="float:left"></div>');
