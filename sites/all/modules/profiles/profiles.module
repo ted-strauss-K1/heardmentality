@@ -2025,7 +2025,7 @@ function user_profile_bio($uid = ''){
 function user_profile_info(){
     global $user, $base_url;
     // get user profile id for a particular user
-    $uid = get_user_profile_id();
+    print $uid = get_user_profile_id(); exit;
     $getuser = user_load(array('uid' => $uid));
     
     $badges = load_badges($uid);
