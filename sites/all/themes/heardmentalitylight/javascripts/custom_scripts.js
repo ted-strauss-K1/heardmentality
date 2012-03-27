@@ -46,9 +46,11 @@ $(document).ready(function() {
 		
 		if (graf.hasClass('hidden_deb')) {
 			graf.removeClass('hidden_deb').addClass('visible_deb').slideDown();
+			$(this).addClass('expanded');
 		}
 		else {
 			graf.removeClass('visible_deb').addClass('hidden_deb').slideUp();
+			$(this).removeClass('expanded');
 		}
 
 	});
