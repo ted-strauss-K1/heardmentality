@@ -2856,10 +2856,21 @@ h2.page-title {
 
 /*Add Argument*/
 
+#debate_work_area {
+	padding: 0 30px;
+}
+
+#debate_work_area .arg,
+#debate_work_area .stat {
+	display: inline-block;	
+}
+
 h6#add-arg,
 h6#deb-ana {
 	opacity: 1 !important;
 	filter:alpha(opacity=50) !important;
+	display: inline-block;
+	float: right;
 }
 
 /*Clear*/

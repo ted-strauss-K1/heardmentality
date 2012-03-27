@@ -21,7 +21,12 @@
 	zoom: 1;
 }
 
-.ie7 ul.lang li{display: inline; zoom: 1;}
+.ie7 ul.lang li,
+.ie7 #debate_work_area .arg,
+.ie7 #debate_work_area .stat,
+.ie7 h6#add-arg,
+.ie7 h6#deb-ana
+{display: inline; zoom: 1;}
 
 .ie7 body,
 .ie7 h1, .ie7 h2, .ie7 h3, .ie7 h4, .ie7 h5, .ie7 h6, 
