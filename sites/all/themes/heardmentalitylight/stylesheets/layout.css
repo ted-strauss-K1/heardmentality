@@ -2756,7 +2756,11 @@ h2.page-title {
 	font: 11px/14px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
 	padding: 6px 0 0;
 	width: 85%;
-	margin-bottom: -4px;
+	margin: 0 0 -4px 30px;
+}
+
+#new_vote fieldset.collapsible.collapsed + .suggest-error {
+	margin: 20px 0 -4px 30px;
 }
 
 .vote-count-poll,
@@ -2814,7 +2818,7 @@ h2.page-title {
 
 #new_vote .poll-vote-area .fieldset-wrapper input.form-submit {
 	display: inline-block;
-	margin: 3px 0 0 23px;
+	margin: 2px 0 0 23px;
 	padding: 8px 12px 6px;
 }
 
