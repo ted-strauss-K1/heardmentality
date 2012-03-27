@@ -2040,7 +2040,8 @@ function user_profile_info(){
     if ($relationships) {
         foreach ($relationships as $rtid => $relationship) {
             $fgimage = UserPicture_small_src($relationship->requestee_id, 0);
-            $followingList[$relationship->requestee->name] = $fgimage;
+           print $followingList[$relationship->requestee->name] = $fgimage;
+           print '<br />';
         }
     }
 //  relationships - followers
