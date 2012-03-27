@@ -31,7 +31,7 @@ function save_follow() {
 function _user_follows($uid = '', $fType = ''){
     global $user;
 
-  print  $uid = $uid!=''?$uid:$user->uid; exit;
+    $uid = $uid!=''?$uid:$user->uid;
 
     $output = '';
     $threads = '';
