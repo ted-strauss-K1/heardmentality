@@ -2036,7 +2036,8 @@ function user_profile_info(){
 
 //  relationships - following
     $relationships = user_relationships_load($param = array("approved" => 1, "requester_id" => $uid,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'8'), $reset = FALSE);
-    $following = count($relationships);
+    $relationshipsCount = user_relationships_load($param = array("approved" => 1, "requester_id" => $uid,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1), $reset = FALSE);
+    $following = count($relationshipsCount);
     if ($relationships) {
         foreach ($relationships as $rtid => $relationship) {
             $fgimage = UserPicture_small_src($relationship->requestee_id, 0);
@@ -2044,8 +2045,9 @@ function user_profile_info(){
         }
     }
 //  relationships - followers
-    $frrelationships = user_relationships_load($param = array("approved" => 1, "requestee_id" => $uid,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'8'), $reset = FALSE);    
-    $followers = count($frrelationships);
+    $frrelationships = user_relationships_load($param = array("approved" => 1, "requestee_id" => $uid,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1,'limit'=>'8'), $reset = FALSE);
+    $frrelationshipsCount = user_relationships_load($param = array("approved" => 1, "requestee_id" => $uid,'rtid'=>1), $options = array('include_user_info'=>1,'order'=>1), $reset = FALSE);
+    $followers = count($frrelationshipsCount);
     if ($frrelationships) {
         foreach ($frrelationships as $rtid => $frrelationship) {
             $frimage = UserPicture_small_src($frrelationship->requester_id, 0);
