@@ -920,7 +920,8 @@ $(document).ready(function() {
 
 $(document).ready(function(){
   $('.button.light').click(function(e) {
-    $(this).parents('.arg').find('ul').toggle(60);
+    $(this).parents('.arg').find('ul').show(60);
     $(this).parents('.arg').find('ul div').show(60);
+ //   $(this).parents('.arg').find('ul input[name=str_wk]:radio').filter('[value=" Weaken"]').attr('checked',true);;
   })  
 });

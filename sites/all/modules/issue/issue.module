@@ -513,7 +513,7 @@ function issue_edit_vote($dummy='', $nid='') {
   if ($node->choice) {
     $list = array();
     foreach ($node->choice as $i => $choice) {
-	  $list[$i] = '<span class="ch">' . check_plain($choice['chtext']) . '</span>';
+      $list[$i] = '<span class="ch">' . check_plain($choice['chtext']) . '</span>';
     }
 
     $form['choice'] = array(
@@ -1914,13 +1914,14 @@ function issue_ahah_callback($type = '', $key = '') {
     }
   }
   elseif ($type == 'location') {
-  // current language
-  $lang = $_POST['cur_language'];
-  if($lang == ''){
+    // current language
+    $lang = $_POST['cur_language'];
+    if ($lang == '') {
       $langQuery = " AND n.language = 'en' OR n.language = ''";
-  }else{
+    }
+    else {
       $langQuery = " AND n.language = '$lang'";
-  }
+    }
     if ($key == 'state') {
       // select state
 
@@ -1950,8 +1951,8 @@ function issue_ahah_callback($type = '', $key = '') {
           foreach ($results->results as $state) {
             // get issue state list
             $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' $langQuery", $state['geonameid']));
-            if($count>0){
-            $states[$state['geonameid']] = $state['name'];
+            if ($count > 0) {
+              $states[$state['geonameid']] = $state['name'];
             }
           }
           // print_r($states);
@@ -1989,8 +1990,8 @@ function issue_ahah_callback($type = '', $key = '') {
           foreach ($result->results as $state) {
             // get issue city list
             $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $state['geonameid'] . $explode[0] . $explode[1]));
-            if($count>0){
-            $cities[$state['geonameid'] . $explode[0] . $explode[1]] = $state['name'];
+            if ($count > 0) {
+              $cities[$state['geonameid'] . $explode[0] . $explode[1]] = $state['name'];
             }
           }
         }
@@ -2213,7 +2214,7 @@ function theme_issue_debate_list($nid = '') {
   $debateList = issue_debates($nid, 1);
   $result = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 1 and field_ref_qid_nid =%d', $nid);
   $count = db_result($result);
-    
+
   $debates .= theme('debate_area', $addNewDebateForm, $debateFilterForm, $debateStatistics, $debateList, $count);
   return $debates;
 }
@@ -2862,7 +2863,15 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
       '#rows' => 3,
       '#attributes' => array('class' => 'textarea-input'),
       '#resizable' => FALSE,);
-
+/*    $form['str_wk'] = array(
+      '#type' => 'radios',
+      '#options' => array(
+        '1' => t('Strengthen'),
+        '0' => t('Weaken')),
+      '#default_value' => '1',
+      '#prefix' => '<div style="display:none;">',
+      '#suffix' => '</div>',
+    );*/
     $form['reply_submit'] = array('#type' => 'submit',
       '#value' => t('Submit reply'),
       '#prefix' => '<div align="right">',
