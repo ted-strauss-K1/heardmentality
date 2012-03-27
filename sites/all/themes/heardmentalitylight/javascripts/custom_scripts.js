@@ -31,9 +31,11 @@ $(document).ready(function() {
 		
 		if (add.hasClass('hidden_ar')) {
 			add.removeClass('hidden_ar').addClass('visible_ar').slideDown();
+			$(this).addClass('expanded');
 		}
 		else {
 			add.removeClass('visible_ar').addClass('hidden_ar').slideUp();
+			$(this).removeClass('expanded');
 		}
 
 	});
