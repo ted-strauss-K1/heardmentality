@@ -1942,7 +1942,11 @@ function issue_ahah_callback($type = '', $key = '') {
           $query = array('geonameid' => $geoid);
           $results = geonames_query('children', $query);
           foreach ($results->results as $state) {
+            // get issue state list
+            $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} WHERE field_issue_state_value = '%s'", $state['geonameid']));
+            if($count>0){
             $states[$state['geonameid']] = $state['name'];
+            }
           }
           // print_r($states);
         }
@@ -1977,7 +1981,11 @@ function issue_ahah_callback($type = '', $key = '') {
           $query = array('geonameid' => $explode[0]);
           $result = geonames_query('children', $query);
           foreach ($result->results as $state) {
+            // get issue state list
+            $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} WHERE field_issue_city_value = '%s'", $state['geonameid']));
+            if($count>0){
             $cities[$state['geonameid'] . $explode[0] . $explode[1]] = $state['name'];
+            }
           }
         }
       }
