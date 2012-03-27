@@ -375,35 +375,38 @@
 ================================================== */
 	ul.tabs { 
 		display: block;
-		margin: 0 0 12px 0;
+		margin: 0 0 12px;
 		padding: 0;
 		border-bottom: 1px solid #C0C0C0; }
 	ul.tabs li { 
 		display: block;
 		width: auto;
-		height: 30px;
+		height: auto;
 		padding: 0;
 		float: left;
-		margin-bottom: 0; }
+		margin: 0; }
+		
+	ul.tabs li:first-child {
+		margin-left: 50px;
+	}
 		
 	ul.tabs li a { 
 		display: block; 
 		text-decoration: none;
 		width: auto; 
-		height: 29px; 
-		padding: 1px 21px 0; 
-		line-height: 30px; 
+		height: auto; 
+		padding: 10px; 
+		line-height: 16px; 
 		margin: 0;  
 		font-size: 13px;
-		color: #924c9d;
+		color: #666;
 		font-weight: bold;}
 		
-	ul.tabs li a.active { 
+	/*ul.tabs li a.active { 
 		background: #fff; 
-		height: 30px;
 		position: relative;
 		top: -4px;
-		padding: 4px 20px 0; 
+		padding: 14px 10px 10px;  
 		border: solid #c0c0c0;
 		border-width: 1px 1px 0;
 		color: #4C4C4C;
@@ -411,7 +414,7 @@
 		-moz-border-radius: 3px 3px 0 0;
 		border-radius: 3px 3px 0 0;
 		-khtml-border-radius: 3px 3px 0 0;
-		-o-border-radius: 3px 3px 0 0 }
+		-o-border-radius: 3px 3px 0 0 }*/
 		
 	
 	ul.tabs-content { margin: 0; display: block; }
