@@ -395,7 +395,7 @@
 		text-decoration: none;
 		width: auto; 
 		height: auto; 
-		padding: 8px 9px; 
+		padding: 8px 10px; 
 		line-height: 16px; 
 		margin: 0;  
 		font-size: 13px;
@@ -406,7 +406,7 @@
 		background: #fff; 
 		position: relative;
 		top: 1px;
-		padding: 6px 10px 9px; 
+		padding: 6px 9px 9px; 
 		border: solid #c0c0c0;
 		border-width: 1px 1px 0;
 		-webkit-border-radius: 3px 3px 0 0;

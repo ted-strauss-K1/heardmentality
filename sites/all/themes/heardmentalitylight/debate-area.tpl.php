@@ -5,8 +5,8 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
 <div id="debate_work_area">
 <div class="inner">
 
-<div class="expanding">
-            <h6 value="Reply" id="add-arg" class="<!--add-comment button--> <?php print $loginBoxClass;?>"><?php print t('Add an Argument'); ?></h6>
+<div class="expanding arg">
+            <h6 value="Reply" id="add-arg" class="button <?php print $loginBoxClass;?>"><?php print t('Add Argument'); ?></h6>
 
             <ul>
               <li>
@@ -17,14 +17,14 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
 			</ul>
 </div>
 
-<div class="expanding">
+<!--<div class="expanding">
         <h6 class="button"><?php print t('Show only'); ?></h6>
         <ul>
 			<?php print $debateFilterForm; ?>
         </ul>
-</div>
+</div>-->
 
-<div class="expanding">
+<div class="expanding stat">
         <h6 class="button" id="deb-ana"><?php print t('Debate statistics'); ?></h6>
         <div id="analytics-area">
           <?php print $debateStatistics; ?>

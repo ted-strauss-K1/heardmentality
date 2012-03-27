@@ -2436,7 +2436,7 @@ function add_new_debate_form($form_state, $nid = '') {
   }
   $form['clr_div'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>');
   $form['new_debate_submit'] = array('#type' => 'submit',
-    '#value' => t('Submit Your Argument'),
+    '#value' => t('Add argument'),
     '#attributes' => array('class' => 'orange-btn'),
     '#prefix' => '<div align="right">',
     '#suffix' => '</div><span id="sub_loader" style="display:none; float:right"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
