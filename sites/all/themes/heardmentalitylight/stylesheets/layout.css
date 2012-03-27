@@ -2911,7 +2911,7 @@ h6#deb-ana:hover a,
 
 .hidden_ar,
 .hidden_deb {
-	display: none;
+	/*display: none;*/
 }
 
 .visible_ar,
