@@ -1946,7 +1946,8 @@ function issue_ahah_callback($type = '', $key = '') {
           foreach ($results->results as $state) {
             // get issue state list
               //print $state['geonameid'];
-           print $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' AND n.language = '%s'", $state['geonameid'], $lang));
+              print "SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '".$state['geonameid']."' AND n.language = '".$lang."'";
+            $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_state} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_state_value = '%s' AND n.language = '%s'", $state['geonameid'], $lang));
             if($count>0){
             $states[$state['geonameid']] = $state['name'];
             }
