@@ -101,9 +101,9 @@ if($vars['node']->type == 'static_pages' || $vars['node']->type == 'page'|| $var
 //overide default jquery
 
 /*Rally dev 481 - jQuery problem disable following jquery (k=jQuery 1,4 no need to enable in new theme) */ 
-    if($vars['template_files'][1]=='page-account-edit' || $vars['template_files'][1] == 'page-front'){
-        drupal_add_js($path . "/javascripts/jquery1.4.js", 'core'); //where you store your jque 
-    }
+   // if($vars['template_files'][1]=='page-account-edit' || $vars['template_files'][1] == 'page-front'){
+     //   drupal_add_js($path . "/javascripts/jquery1.4.js", 'core'); //where you store your jque 
+   // }
 /*Rally dev 481 - jQuery problem*/
     
 

@@ -3128,6 +3128,12 @@ function insertviews($qid = '') {
 // rating buttons - agree, disagree
 
 function get_rating_buttons($items, $type) {
+  if ($type == 'is_debate') {
+    $doyouaggree = t('Do you agree with the argument?');
+  }
+  else {
+    $doyouaggree = t('Do you agree?');
+  }
   global $user;
   // ratings
   // allow rating check
@@ -3174,7 +3180,6 @@ function get_rating_buttons($items, $type) {
   }
 
   $agreeDisagreeBar = like_dislike_bar($items['vote_up'], $items['vote_down']);
-
 
   $ratings = '<div id="likebar-' . $ntype . '-' . $itemId . '" class="likebar">' .
           $agreeDisagreeBar . '</div>'
