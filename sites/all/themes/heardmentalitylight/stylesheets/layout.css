@@ -2854,6 +2854,13 @@ h2.page-title {
 	display: none;
 }
 
+/*Add Argument*/
+
+h6#add-arg {
+	opacity: 1 !important;
+	filter:alpha(opacity=50) !important;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,

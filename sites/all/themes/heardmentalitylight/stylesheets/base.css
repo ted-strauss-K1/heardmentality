@@ -145,7 +145,8 @@
 	h6#reply,
 	input[type="submit"],
 	input[type="reset"],
-	input[type="button"] {
+	input[type="button"],
+	h6.button	{
 		background-color: #dfdfdf;
 		background-image: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#cecece));
 		background-image: -webkit-linear-gradient(top, #f1f1f1, #cecece);
@@ -190,7 +191,8 @@
 	input.add-comment:hover,
 	input[type="submit"]:hover,
 	input[type="reset"]:hover,
-	input[type="button"]:hover {
+	input[type="button"]:hover,
+	h6.button:hover	{
 		background-color: #d6d6d6;
 		background-image: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c4c4c4));
 		background-image: -webkit-linear-gradient(top, #efefef, #c4c4c4);

@@ -85,7 +85,9 @@
 	.ie7 h6#reply,
 	.ie7 input[type="submit"],
 	.ie7 input[type="reset"],
-	.ie7 input[type="button"]	{
+	.ie7 input[type="button"],
+	.ie8 h6.button,
+	.ie7 h6.button{
 		border: solid #c3c3c3;
 		border-width: 1px 1px 3px;
 	}
@@ -111,7 +113,9 @@
 	.ie7 input.add-comment:hover,
 	.ie7 input[type="submit"]:hover,
 	.ie7 input[type="reset"]:hover,
-	.ie7 input[type="button"]:hover	{
+	.ie7 input[type="button"]:hover,
+	.ie8 h6.button:hover,
+	.ie7 h6.button:hover	{
 		border: solid #b8b8b8;
 		border-width: 1px 1px 3px;
 	}
