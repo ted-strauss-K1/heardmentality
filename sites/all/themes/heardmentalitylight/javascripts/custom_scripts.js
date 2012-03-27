@@ -26,6 +26,10 @@ $(document).ready(function() {
 	// Show/Hide Add argument & Debate statistic
 	
     $('h6#add-arg').click(function() {
+	
+		if ($(this).parents('#debate_work_area').find('#analytics-area').hasClass('visible_deb')) {
+			$(this).parents('#debate_work_area').find('#analytics-area').removeClass('visible_deb').addClass('hidden_deb').slideUp();
+		}
 		
 		var add = $(this).parents('#debate_work_area').find('#leave_comment_area');
 		
@@ -37,10 +41,14 @@ $(document).ready(function() {
 			add.removeClass('visible_ar').addClass('hidden_ar').slideUp();
 			$(this).removeClass('expanded');
 		}
-
+		
 	});
 	
 	$('h6#deb-ana').click(function() {
+	
+		if ($(this).parents('#debate_work_area').find('#leave_comment_area').hasClass('visible_ar')) {
+			$(this).parents('#debate_work_area').find('#leave_comment_area').removeClass('visible_ar').addClass('hidden_ar').slideUp();
+		}
 		
 		var graf = $(this).parents('#debate_work_area').find('#analytics-area');
 		
