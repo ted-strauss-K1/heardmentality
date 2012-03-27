@@ -2847,7 +2847,7 @@ h2.page-title {
 }
 
 .poll-box ul.tabs {
-	margin: 0 0 12px;
+	margin: 0 0 16px;
 }
 
 #new_vote + .icon.share.text {
@@ -2857,7 +2857,7 @@ h2.page-title {
 /*Add Argument*/
 
 #debate_work_area {
-	padding: 0 30px;
+	padding: 0 30px 16px;
 }
 
 h6#add-arg,
@@ -2866,7 +2866,7 @@ h6#deb-ana {
 	filter:alpha(opacity=50) !important;
 	display: inline-block;
 	float: right;
-	margin-left: 7px;
+	margin: 0 0 0 7px;
 }
 
 h6#add-arg a,
@@ -2896,7 +2896,8 @@ h6#deb-ana:hover a {
 #new_vote .part:after,
 .poll-vote-area:after,
 #new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper:after,
-#new_vote .poll-vote-area .fieldset-wrapper .form-item:after {
+#new_vote .poll-vote-area .fieldset-wrapper .form-item:after,
+#debate_work_area:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
