@@ -2862,9 +2862,10 @@ h2.page-title {
 }
 
 #debate_work_area .expanding {
-	display: inline;
+	/*display: inline;
 	position: relative;
-	vertical-align: top;
+	vertical-align: top;*/
+	float: right;
 }
 
 h6#add-arg,
@@ -2876,11 +2877,11 @@ h6#deb-ana {
 	margin: 0 0 0 7px;
 }
 
-h6#deb-ana {
+/*h6#deb-ana {
 	position: absolute;
 	right: 0;
 	left: 0;
-}
+}*/
 
 h6#add-arg a,
 h6#deb-ana a {
