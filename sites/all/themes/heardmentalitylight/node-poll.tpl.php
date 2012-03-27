@@ -52,17 +52,8 @@ $gSitePath = $base_path.'/';
 
 <div class="part part2">
 
-<!--<div class="expanding">
-  <h6 class="wait">... <?php print t('Or submit a different answer'); ?></h6>
-
-    <?php print $suggest; ?>
-
-</div>-->
 <div id="shareDiv" class="clearfix"></div>
 
-<div id="dialog-flag" title="<?php print t('FLAG THIS ITEM'); ?>" class="dialog">
-		<?php if($flagForm): print $flagForm; endif; ?>
-</div>
 </div><!-- /div.part2 -->
 
 
@@ -88,7 +79,9 @@ $pagePath = url($nodepath, array('absolute' => TRUE)).'/'; ?>
     }
 </script>
 
-
+<div id="dialog-flag" title="<?php print t('FLAG THIS ITEM'); ?>" class="dialog">
+		<?php if($flagForm): print $flagForm; endif; ?>
+</div>
 <script type="text/javascript">
    gigya.services.socialize.showShareBarUI(conf,showShareBarUI_params);
    function showDesc(){

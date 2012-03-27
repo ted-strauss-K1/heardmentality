@@ -2642,7 +2642,7 @@ h2.page-title {
 }
 
 #new_vote {
-	background-color: #ececec;
+	background-color: #f7f7f7;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#ececec), to(#f7f7f7));
 	background-image: -webkit-linear-gradient(top, #ececec, #f7f7f7);
 	background-image:    -moz-linear-gradient(top, #ececec, #f7f7f7);
@@ -2755,12 +2755,12 @@ h2.page-title {
 	color: #cd2027;
 	font: 11px/14px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
 	padding: 6px 0 0;
-	width: 85%;
+	width: 78%;
 	margin: 0 0 -4px 30px;
 }
 
 #new_vote fieldset.collapsible.collapsed + .suggest-error {
-	margin: 20px 0 -4px 30px;
+	margin: 16px 0 -4px 30px;
 }
 
 .vote-count-poll,
@@ -2842,12 +2842,12 @@ h2.page-title {
 }
 
 .poll-box .ul_wrapper {
-	background: url(../images/tabs_shadow.png) repeat-x 0 0;
+	background-color: #f7f7f7;
 	padding: 25px 0 0;
 }
 
 .poll-box ul.tabs {
-	margin: 0 20px 12px;
+	margin: 0 0 12px;
 }
 
 /*Clear*/
