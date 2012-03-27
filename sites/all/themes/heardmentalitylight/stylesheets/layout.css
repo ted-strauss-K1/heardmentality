@@ -2628,9 +2628,9 @@ h2.page-title {
 	color: #372418;
 	font-size: 39px;
 	line-height: 43px;
-	padding: 18px 30px;
+	margin: 0 0 18px;
+    padding: 18px 30px 0;
 	position: relative;
-	margin: 0;
 }
 
 .white-box.poll-box h2.din a,
@@ -2661,8 +2661,8 @@ h2.page-title {
 }
 
 #new_vote .qd {
-	margin: 0;
-    padding: 0 10px 17px 30px;
+	padding: 0;
+    margin: 18px 10px 17px 30px;
 	width: 88%;
 	color: #663399;
 	font: 14px/19px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;

@@ -40,8 +40,7 @@ $gSitePath = $base_path.'/';
 <?php if($allowvotes == '' ): ?>
    <div class="vote-count-poll">
        <?php foreach($indVoteCounts as $chorder => $vcount){?>
-       <div class="post-vote-result"><span class="vote-count dinbold"><?php print $vcount; ?></span><br><span class="vote-count-title din">votes</span></div>
-       <br class="clear" />
+       <div class="post-vote-result"><span class="vote-count dinbold"><?php print $vcount; ?></span><br /><span class="vote-count-title din">votes</span></div>
        <?php }?>
    </div>
 <?php endif; ?>
