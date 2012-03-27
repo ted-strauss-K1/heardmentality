@@ -1988,7 +1988,8 @@ function issue_ahah_callback($type = '', $key = '') {
           $result = geonames_query('children', $query);
           foreach ($result->results as $state) {
             // get issue state list
-          print  $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $state['geonameid']));
+              print "SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '".$state['geonameid']."' $langQuery";
+            $count = db_result(db_query("SELECT COUNT(*) FROM {content_field_issue_city} AS c LEFT JOIN {node} AS n ON c.nid = n.nid WHERE c.field_issue_city_value = '%s' $langQuery", $state['geonameid']));
             if($count>0){
             $cities[$state['geonameid'] . $explode[0] . $explode[1]] = $state['name'];
             }
