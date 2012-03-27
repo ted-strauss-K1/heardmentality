@@ -2883,8 +2883,10 @@ h6#deb-ana a {
 }
 
 h6#add-arg a:hover,
-h6#deb-ana a:hover {
-	color: #fff;
+h6#deb-ana a:hover,
+h6#add-arg:hover a,
+h6#deb-ana:hover a {
+	color: #777;
 }
 
 /*Clear*/
