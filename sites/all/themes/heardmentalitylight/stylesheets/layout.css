@@ -2943,8 +2943,9 @@ h6#deb-ana:hover a,
 }
 
 #add-new-debate-form .assign span.label {
-	font-size: bold 12px/15px "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	float: left;
+	font-size: 12px;
+	line-height: 15px;
+	font-weight: bold;
 	margin: 0 0 0 26px;
 }
 
@@ -2963,6 +2964,29 @@ h6#deb-ana:hover a,
 	padding: 0;
 }
 
+.value-select table,
+.value-select table td.first {
+	width: 100%;
+}
+
+.value-select table td {
+	vertical-align: top;
+}
+
+.value-select label {
+	font-size: 12px;
+	line-height: 15px;
+	padding: 0;
+}
+
+.value-select .form-item {
+	float: right;
+	margin-left: 8px;
+}
+
+.value-select .form-item select {
+	margin: 0;
+}
 
 /*Clear*/
 
