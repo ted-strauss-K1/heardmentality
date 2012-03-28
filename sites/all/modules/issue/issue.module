@@ -2411,7 +2411,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#id' => 'tot_ans');
   $i = 0;
   $form['asgn_val'] = array('#type' => 'markup',
-    '#value' => '</td><td><div class="assign"><span class="label">' . t('Assign Values:') . '</span><span class="small_pos">' . t('+') . '</span><span class="small_neg">' . t('-') . '</span></div>'
+    '#value' => '</td><td><div class="assign"><table><th><td><span class="label">' . t('Assign Values:') . '</span></td><td><span class="small_pos">' . t('+') . '</span><span class="small_neg">' . t('-') . '</span></td></tr></table></div>'
   );
   foreach ($ans as $list) {
     $short_answer = get_short_answer($nid, $list['chorder']);
