@@ -392,7 +392,7 @@ print drupal_render($form['current_image']);
 			<div class="dark-grey-box ">
 				<div class="profile-meta">
 					<div class="icon photo text"></div>
-					<label for="profile" class="profile"><?php print t('CHANGE PHOTO'); ?></label>
+					<label for="profile" class="profile"><?php print t('Change Photo'); ?></label>
                                         <?php print drupal_render($form['file_upload']);?>
                                         <div class="clear"></div>
                                         <div id="brow_img_name"></div>
