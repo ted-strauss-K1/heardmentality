@@ -2394,7 +2394,7 @@ function add_new_debate_form($form_state, $nid = '') {
   $form['#method'] = 'post';
   $form['nid'] = array('#type' => 'hidden', '#default_value' => $nid);
   $form['head'] = array('#type' => 'markup',
-    '#value' => '<span class="error-msg" id="deb-err"></span>',
+    '#value' => '<table><tr><td><span class="error-msg" id="deb-err"></span>',
   );
   $form['title'] = array('#type' => 'textarea',
     '#id' => 'deb_title',
@@ -2411,9 +2411,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#id' => 'tot_ans');
   $i = 0;
   $form['asgn_val'] = array('#type' => 'markup',
-    '#value' => '<div class="clear"></div>
-                                <span class="assign">' . t('Assign Values') . '</span>
-                                <div class="clear"></div>'
+    '#value' => '</td><td><span class="assign">' . t('Assign Values') . '</span>'
   );
   foreach ($ans as $list) {
     $short_answer = get_short_answer($nid, $list['chorder']);
@@ -2421,11 +2419,10 @@ function add_new_debate_form($form_state, $nid = '') {
 
     $supports = array('0' => '+/-', '1' => '+', '2' => '-');
     $form['sup_opp_' . $i] = array('#type' => 'select',
-      '#prefix' => '<div class="value-select">
-                                                    <label class="value floatleft">' . $answer . '</label>',
+      '#prefix' => '<div class="value-select"><label class="value floatleft">' . $answer . '</label>',
       '#options' => $supports,
       '#attributes' => array('class' => 'sel-box'),
-      '#suffix' => '</div><div class="clear"></div>',
+      '#suffix' => '</div>',
       '#attributes' => array('class' => 'select-value'),
       '#id' => 'sup_' . $i
     );
@@ -2439,7 +2436,7 @@ function add_new_debate_form($form_state, $nid = '') {
   $form['new_debate_submit'] = array('#type' => 'submit',
     '#value' => t('Add argument'),
     '#attributes' => array('class' => 'orange-btn'),
-    '#prefix' => '<div align="right">',
+    '#prefix' => '</td></tr></table><div align="right">',
     '#suffix' => '</div><span id="sub_loader" style="display:none; float:right"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
     '#id' => 'add_new_debate'
   );
