@@ -15,6 +15,7 @@ stylesheets[all][] = stylesheets/scrollpane/jScrollPane.css
 stylesheets[all][] = stylesheets/ie.css
 
 scripts[] = javascripts/jquery-ui-1.8.16.custom.min.js
+scripts[] = javascripts/ui/minified/jquery.ui.slider.min.js
 scripts[] = javascripts/jquery.mousewheel.min.js
 scripts[] = javascripts/jquery.ba-resize.min.js
 scripts[] = javascripts/jScrollPane.js
