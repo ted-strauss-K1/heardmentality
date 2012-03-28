@@ -247,7 +247,7 @@ print drupal_render($form['current_image']);
                 </li>
                 <hr class="short-2">
                 <li>
-                <label for="" class="add-on-2"><span class="title-2"><?php print t('Household Income'); ?></span></label>
+                <label for="" class="add-on-2"><span class="title-2"><?php print t('Household income'); ?></span></label>
                  <?php print drupal_render($form['income']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
