@@ -1094,7 +1094,7 @@ var avtar=\'' . $account->avatar . '\';
             $form['file_upload'] = array(
                 '#type' => 'file',
                 '#size' => '10',
-                '#description' => t('Select an image file on your computer. (2MB max) '),
+                '#description' => t('Select an image file from your computer. (2MBs max)'),
                 '#prefix' => '<div class="avatar">
             <div class="avatar-right">
             <div class="pick-avatar" onClick="jQuery(\'#avatar-profile-ele\').slideToggle();"></div>
