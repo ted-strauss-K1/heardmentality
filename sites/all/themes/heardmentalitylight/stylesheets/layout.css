@@ -2108,15 +2108,7 @@ textarea#q_quest  {
 .twelve .sugg-hide{
     display: none;
 }
-#add-new-debate-form .value-select .form-item{
-    float: left;
-}
-#add-new-debate-form .value-select label.value{
-    padding: 12px 10px 0 0;
-}
-#add-new-debate-form .value-select select.select-value{
-    margin: 0 6px 3px 0;
-}
+
 .select-cat{
     width: 170px;
     margin: -12px 15px 10px 0;
@@ -2977,6 +2969,7 @@ h6#deb-ana:hover a,
 	font-size: 12px;
 	line-height: 15px;
 	padding: 0;
+	margin: 0 0 0 26px;
 }
 
 .value-select .form-item {
