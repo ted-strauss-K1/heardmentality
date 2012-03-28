@@ -2417,7 +2417,7 @@ function add_new_debate_form($form_state, $nid = '') {
     $short_answer = get_short_answer($nid, $list['chorder']);
     $answer = $short_answer != '' ? $short_answer : $list['chtext'];
 
-    $supports = array('0' => '-', '1' => '+/-', '2' => '+');
+    $supports = array('0' => '-', '1' => '-/+', '2' => '+');
     $form['sup_opp_' . $i] = array('#type' => 'select',
       '#prefix' => '<div class="value-select"><table><tr><td class="first"><label class="value floatleft">' . $answer . '</label></td><td>',
       '#options' => $supports,
