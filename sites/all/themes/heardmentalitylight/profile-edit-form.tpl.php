@@ -21,8 +21,8 @@ print drupal_render($form['current_image']);
                             <br />
 <h2 class="din"><?php print t('Profile Settings'); ?></h2>
 <div class="privacy-info">
-    <p><strong><?php print ('Privacy'); ?></strong>
-    <br><?php print t('Set the privacy levels for each of your profile characteristics. If you choose to hide your profile details, your demographic info will still be calculated but not shown.'); ?></p></div>
+    <p><strong><?php print t('Privacy'); ?></strong>
+    <br><?php print t('Set the privacy levels for each of your profile characteristics. If you choose to hide your profile details, your demographic info will still be calculated but not shown.  No one will ever know'); ?></p></div>
     <div class="user-info">
         <br>
         <ul class="user-info-inputs">
