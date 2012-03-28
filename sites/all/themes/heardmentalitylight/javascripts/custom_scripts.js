@@ -67,7 +67,7 @@ $(document).ready(function() {
 		var select = $( ".value-select .form-item select" );
 		var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
 			min: 1,
-			max: 6,
+			max: 3,
 			range: "min",
 			value: select[ 0 ].selectedIndex + 1,
 			slide: function( event, ui ) {
