@@ -11,7 +11,9 @@
 .ie8 .poll-vote-area,
 .ie8 #new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper,
 .ie8 #new_vote .poll-vote-area .fieldset-wrapper .form-item,
-.ie8 #debate_work_area {
+.ie8 #debate_work_area,
+.ie7 #add-new-debate-form .value-select,
+.ie8 #add-new-debate-form .value-select {
 	zoom: 1;
 }
 

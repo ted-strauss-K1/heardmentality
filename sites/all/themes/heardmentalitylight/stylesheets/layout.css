@@ -884,10 +884,6 @@ span.debate-count, span.reference-count {
   color:#4c4c4c;
 }
 
-.leave-a-comment{
-  margin:0px 0px 0px 5px;
-}
-	
 .comments ul li p{
 		
 }	
@@ -2860,13 +2856,6 @@ h2.page-title {
 	padding: 0 30px 16px;
 }
 
-#debate_work_area .expanding {
-	/*display: inline;
-	position: relative;
-	vertical-align: top;
-	float: right;*/
-}
-
 h6#add-arg,
 h6#deb-ana {
 	opacity: 1 !important;
@@ -2875,12 +2864,6 @@ h6#deb-ana {
 	float: right;
 	margin: 0 0 0 7px;
 }
-
-/*h6#deb-ana {
-	position: absolute;
-	right: 0;
-	left: 0;
-}*/
 
 h6#add-arg a,
 h6#deb-ana a {
@@ -2917,6 +2900,52 @@ h6#deb-ana:hover a,
 .vidible_deb {
 }
 
+.leave-a-comment{
+	clear: both;
+	padding-top: 20px;
+}
+
+#add-new-debate-form {
+	margin: 0;
+}
+
+#add-new-debate-form table {
+	width: 100%;
+}
+
+#add-new-debate-form table td {
+	vertical-align: top;
+}
+
+#add-new-debate-form table td.first {
+	width: 100%;
+}
+
+#add-new-debate-form .form-item {
+	margin: 0;
+}
+
+#deb_title {
+	margin: 0;
+	min-height: 90px;
+}
+
+#add-new-debate-form .assign {
+	float: none;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	font: bold 12px/15px inherit;
+	color: #4c4c4c;
+}
+
+#add-new-debate-form .value-select {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
@@ -2925,7 +2954,8 @@ h6#deb-ana:hover a,
 .poll-vote-area:after,
 #new_vote .poll-vote-area .fieldset-wrapper .nsa-wrapper:after,
 #new_vote .poll-vote-area .fieldset-wrapper .form-item:after,
-#debate_work_area:after {
+#debate_work_area:after,
+#add-new-debate-form .value-select:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;

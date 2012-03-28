@@ -2394,7 +2394,7 @@ function add_new_debate_form($form_state, $nid = '') {
   $form['#method'] = 'post';
   $form['nid'] = array('#type' => 'hidden', '#default_value' => $nid);
   $form['head'] = array('#type' => 'markup',
-    '#value' => '<table><tr><td><span class="error-msg" id="deb-err"></span>',
+    '#value' => '<table><tr><td class="first"><span class="error-msg" id="deb-err"></span>',
   );
   $form['title'] = array('#type' => 'textarea',
     '#id' => 'deb_title',
@@ -2411,7 +2411,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#id' => 'tot_ans');
   $i = 0;
   $form['asgn_val'] = array('#type' => 'markup',
-    '#value' => '</td><td><span class="assign">' . t('Assign Values') . '</span>'
+    '#value' => '</td><td><div class="assign"><span class="label">' . t('Assign Values:') . '</span><span class="small_neg">' . t('-') . '</span><span class="small_pos">' . t('+') . '</span></div>'
   );
   foreach ($ans as $list) {
     $short_answer = get_short_answer($nid, $list['chorder']);
