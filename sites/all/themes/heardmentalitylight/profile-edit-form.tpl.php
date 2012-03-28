@@ -405,12 +405,12 @@ print drupal_render($form['current_image']);
 
 			<div class="grey-box">
 				<label for="" class="subscriptions"><?php print t('Social Integration'); ?></label>
-				<p class="twelve"><?php print t('Stay logged into these accounts'); ?></p>
+				<p class="twelve"><?php print t('Stay logged in to these accounts - This makes sharing with your external networks easier.'); ?></p>
 				 <?php print drupal_render($form['merge']); ?>
 			</div>
 			<div class="grey-box">
 				<label for="" class="subscriptions"><?php print t('Subscriptions'); ?></label>
-				<p class="twelve"><?php print t('Send me a summary'); ?></p>
+				<p class="twelve"><?php print t('Send me a summary of what\'s happening on Heard Mentality to my email'); ?></p>
 				<ul class="subscription">
 					<fieldset>
 						<li>
@@ -435,7 +435,7 @@ print drupal_render($form['current_image']);
 				<div class="clear"></div>
 			</div>
                         <div class="grey-box">
-				<label for="" class="subscriptions"><?php print t('Language Settings'); ?></label>
+				<label for="" class="subscriptions"><?php print t('Language settings'); ?></label>
 				<p class="twelve"><?php print t('Set your default language'); ?></p>
 				 <?php print drupal_render($form['default_language']); ?>
                                 <br class="clear">
