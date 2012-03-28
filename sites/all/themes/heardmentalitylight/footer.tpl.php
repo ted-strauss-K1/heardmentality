@@ -62,7 +62,7 @@
 
 
 
-<div id="dialog">
+<div id="dialog" style="display:none">
    <ul>
       <li><a href="#tabs-1">Log in</a></li>
       <li><a href="#tabs-2">Sign up</a></li>
@@ -79,7 +79,7 @@
    <!--       <script type="text/javascript">
           var conf=
           {
-                APIKey: '<?php echo $apikey; ?>'
+                APIKey: '<?php //echo $apikey; ?>'
                 ,enabledProviders: 'facebook,twitter,yahoo,messenger,google,linkedin,myspace,aol,orkut,wordpress,typepad,verisign,openid,netlog,bloglines,signon,mixi,livedoor'
         }
         </script>
@@ -104,7 +104,7 @@
         <?php }?>
         
         
-             <div class ="gigya-login"> </div>
+    <!--         <div class ="gigya-login"> </div> -->
 	</div>
   
      <div id="tabs-2">
@@ -112,7 +112,7 @@
   <?php  print $login_register; ?>
     </div>
        
-       <div class ="gigya-login"></div>
+  <!--     <div class ="gigya-login"></div>    -->
    </div>
   
   </div>
