@@ -6,6 +6,8 @@ $items['reply_content'] = str_replace("\n", "<br>", $items['reply_content']);
 ?>
 
 <li id="reply-block-<?php print $items['cid'];?>">
+  <span class=<?php print $items['class'];
+  ?>><?php print $items['sign']?></span>
     <a href="javascript:void(0);" class="icon flag2" onclick="open_flag_box(<?php print $items['cid'];?>, 'comment')" title="flag this Reply"></a>
 	
 

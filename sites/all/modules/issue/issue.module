@@ -2860,15 +2860,15 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
       '#rows' => 3,
       '#attributes' => array('class' => 'textarea-input'),
       '#resizable' => FALSE,);
-/*    $form['str_wk'] = array(
+    $form['str_wk'] = array(
       '#type' => 'radios',
       '#options' => array(
         '1' => t('Strengthen'),
         '0' => t('Weaken')),
       '#default_value' => '1',
-      '#prefix' => '<div style="display:none;">',
+      '#prefix' => '<div class="help_radios" style="display:none;">',
       '#suffix' => '</div>',
-    );*/
+    );
     $form['reply_submit'] = array('#type' => 'submit',
       '#value' => t('Submit reply'),
       '#prefix' => '<div align="right">',
@@ -2964,7 +2964,6 @@ function forum_reply_form_submit($form, &$form_state) {
 }
 
 function forum_reply_datas($cid = '') {
-
   global $user, $language, $theme;
 
   $curLanguage = $language->language;
@@ -3005,6 +3004,14 @@ function forum_reply_datas($cid = '') {
       $items['posted'] = $posted;
       $items['allow_rating'] = $querylike;
       $items['posted_by'] = $forum['uid'];
+      if ($forum['str_wk']==1) {
+        $items['class'] = 'positive';
+        $items['sign'] = '+';
+      }
+      else {
+        $items['class'] = 'negative';
+        $items['sign'] = '-';
+      }
     }
   }
   return $items;

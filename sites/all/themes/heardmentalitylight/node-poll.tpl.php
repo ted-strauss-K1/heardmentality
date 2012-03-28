@@ -13,7 +13,7 @@ $gSitePath = $base_path.'/';
 <div class="part part1">
 
 <h2 class="din"><?php print t(rtrim($title, "?")); ?>?
-	<!--<?php if($user->uid!=0){?>
+<!--<?php if($user->uid!=0){?>
 	<a class="icon flag" id="dialog_link-flag" title="flag this issue" rel="lightframe"  href="<?php print $base_url; ?>/qlite/flag/<?php print $nid;?>"></a>
 	<?php }else{?>
 	<a class="icon flag openlogin_box" title="flag this issue" rel="lightframe"  href="#"></a>

@@ -242,7 +242,7 @@ $(function(){
 })(jQuery);
 
 
- $(".expanding").collapse({
+$(".expanding").collapse({
   show: function(){
     this.animate({
       opacity: 'toggle', 
@@ -460,12 +460,12 @@ $(function(){
    
     //	$('#dialog').dialog('open');
 
-   // $('#dialog #tabs-1 #user-login').load('#user-login2');
-   // $('#dialog #tabs-2 #user-register').load(Drupal.settings.basePath + 'user/register #user-register');
+    // $('#dialog #tabs-1 #user-login').load('#user-login2');
+    // $('#dialog #tabs-2 #user-register').load(Drupal.settings.basePath + 'user/register #user-register');
     //var h = $('#componentDiv').html();
     
-   // $('#dialog #tabs-2 .gigya-login').html(h);
-  //  $('#dialog .gigya-login').html(h);
+    // $('#dialog #tabs-2 .gigya-login').html(h);
+    //  $('#dialog .gigya-login').html(h);
     $('#dialog').tabs();
     $('#dialog').dialog('open');
     return false;
@@ -622,25 +622,25 @@ $(function(){
             tp = {
               top: pos.top + pos.height + this.options.offset, 
               left: pos.left + pos.width / 2 - actualWidth / 2
-              };
+            };
             break;
           case 's':
             tp = {
               top: pos.top - actualHeight - this.options.offset, 
               left: pos.left + pos.width / 2 - actualWidth / 2
-              };
+            };
             break;
           case 'e':
             tp = {
               top: pos.top + pos.height / 2 - actualHeight / 2, 
               left: pos.left - actualWidth - this.options.offset
-              };
+            };
             break;
           case 'w':
             tp = {
               top: pos.top + pos.height / 2 - actualHeight / 2, 
               left: pos.left + pos.width + this.options.offset
-              };
+            };
             break;
         }
 
@@ -665,12 +665,12 @@ $(function(){
             visibility: 'visible'
           }).animate({
             opacity: this.options.opacity
-            });
+          });
         } else {
           $tip.css({
             visibility: 'visible', 
             opacity: this.options.opacity
-            });
+          });
         }
       }
     },
@@ -843,7 +843,7 @@ $(function(){
       var dir = {
         ns: prefer[0], 
         ew: (prefer.length > 1 ? prefer[1] : false)
-        },
+      },
       boundTop = $(document).scrollTop() + margin,
       boundLeft = $(document).scrollLeft() + margin,
       $this = $(this);
@@ -877,7 +877,7 @@ $(function() {
 
   $('#nope').tipsy({
     gravity: $.fn.tipsy.autoNS
-    });
+  });
   
   $('#example-fade').tipsy({
     fade: true
@@ -891,13 +891,13 @@ $(function() {
       return this.getAttribute('original-title').toUpperCase();
     }
   });
-$('#example-fallback').tipsy({
-  fallback: "Where's my tooltip yo'?"
-});
+  $('#example-fallback').tipsy({
+    fallback: "Where's my tooltip yo'?"
+  });
   
-$('#example-html').tipsy({
-  html: true
-});
+  $('#example-html').tipsy({
+    html: true
+  });
   
 });
 
@@ -920,8 +920,48 @@ $(document).ready(function() {
 
 $(document).ready(function(){
   $('.button.light').click(function(e) {
-    $(this).parents('.arg').find('ul').show(60);
+    $(this).parents('.arg').find('ul').toggle(60);
     $(this).parents('.arg').find('ul div').show(60);
- //   $(this).parents('.arg').find('ul input[name=str_wk]:radio').filter('[value=" Weaken"]').attr('checked',true);;
+    $(this).parents('.arg').find('ul div.help_radios').hide();    
   })  
+});
+
+$(document).ready(function(){
+  $('.button.light:contains("Yes")').click(function(e) {
+    
+    if ($(this).hasClass('expanded')) {
+      $(this).removeClass('expanded');  
+    }
+    else {
+      if ($(this).next().hasClass('expanded')) {
+        $(this).next().removeClass('expanded');
+      }
+      else {
+        $(this).addClass('expanded');  
+      }
+
+    // $(this).addClass('expanded');  
+    }
+    
+    $(this).parents('.arg').find('ul input[name=str_wk]:radio:even').attr('checked',true);
+  })
+});
+
+$(document).ready(function(){
+  $('.button.light:contains("No")').click(function(e) {
+    if ($(this).hasClass('expanded')) {
+      $(this).removeClass('expanded');  
+    }
+    else {
+      if ($(this).prev().hasClass('expanded')) {
+        $(this).prev().removeClass('expanded');
+      }
+      else {
+        $(this).addClass('expanded');  
+      }
+      
+    }
+
+    $(this).parents('.arg').find('ul input[name=str_wk]:radio:odd').attr('checked',true);
+  })
 });
