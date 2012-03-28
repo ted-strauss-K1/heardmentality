@@ -44,16 +44,16 @@ print drupal_render($form['current_image']);
                 <div class="visible-to"><?php print t('Visible to'); ?>:</div>
                 <ul class="privacy">
                         <fieldset>
-                            <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                 <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                            <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                 <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                             <?php print drupal_render($form['real_name_privacy']); ?>
@@ -69,16 +69,16 @@ print drupal_render($form['current_image']);
                         <div class="visible-to"><?php print t('Visible to'); ?>:</div>
                         <ul class="privacy">
                                 <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                      <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                                     </li>
-                                    <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                         <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                                    <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                         <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                                     </li>
-                                    <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                          <span class="privacy-answer"><?php print t('Followers'); ?></span>
                                     </li>
-                                    <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you about you'); ?>">
                                          <span class="privacy-answer"><?php print t('No one'); ?></span>
                                     </li> 
                                     <?php print drupal_render($form['mail_privacy']); ?>
@@ -93,16 +93,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['gender']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                                 </li>
-                                <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                     <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                                <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                     <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                                 </li>
-                                <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                                <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                      <span class="privacy-answer"><?php print t('Followers'); ?></span>
                                 </li>
-                                <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                                <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                      <span class="privacy-answer"><?php print t('No one'); ?></span>
                                 </li>    
                                 <?php print drupal_render($form['gender_privacy']); ?>
@@ -116,16 +116,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['dob']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                                 </li>
-                                <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                     <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                                <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                     <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                                 </li>
-                                <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                                <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                      <span class="privacy-answer"><?php print t('Followers'); ?></span>
                                 </li>
-                                <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                                <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                      <span class="privacy-answer"><?php print t('No one'); ?></span>
                                 </li>   
                               <?php print drupal_render($form['dob_privacy']); ?>
@@ -141,16 +141,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['zip']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                          <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                                     </li>
-                                    <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                         <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                                    <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                         <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                                     </li>
-                                    <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                          <span class="privacy-answer"><?php print t('Followers'); ?></span>
                                     </li>
-                                    <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                          <span class="privacy-answer"><?php print t('No one'); ?></span>
                                     </li>
                                     <?php print drupal_render($form['zip_privacy']); ?>
@@ -163,16 +163,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['religion']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                 <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                                 </li>
-                                <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                     <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                                <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                     <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                                 </li>
-                                <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                                <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                      <span class="privacy-answer"><?php print t('Followers'); ?></span>
                                 </li>
-                                <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                                <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                      <span class="privacy-answer"><?php print t('No one'); ?></span>
                                 </li>
                                 <?php print drupal_render($form['religion_privacy']); ?>
@@ -185,16 +185,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['ethnic']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                 <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                            <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                 <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                             <?php print drupal_render($form['ethnic_privacy']); ?>
@@ -207,16 +207,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['education']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                 <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                            <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                 <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                              <?php print drupal_render($form['edu_privacy']); ?>
@@ -229,16 +229,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['sorient']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                 <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                            <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                 <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                             <?php print drupal_render($form['sorient_privacy']); ?>
@@ -266,16 +266,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['marital']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                 <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                            <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                 <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                             <?php print drupal_render($form['marital_privacy']); ?>
@@ -288,16 +288,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['bio']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                 <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                            <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                 <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                             <?php print drupal_render($form['bio_privacy']); ?>
@@ -307,20 +307,20 @@ print drupal_render($form['current_image']);
                 <hr class="short-2">
                 
                 <li>
-                <label for="" class="add-on-2"><span class="title-2"><?php print t('Homepage URL'); ?></span></label>
+                <label for="" class="add-on-2"><span class="title-2"><?php print t('My Homepage'); ?></span></label>
                  <?php print drupal_render($form['myweb']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                 <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                            <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                 <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                             <?php print drupal_render($form['mywebsite_privacy']); ?>
@@ -333,16 +333,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['facebook']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                 <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                            <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                 <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                             <?php print drupal_render($form['facebook_privacy']); ?>
@@ -355,16 +355,16 @@ print drupal_render($form['current_image']);
                  <?php print drupal_render($form['twitter']); ?>
                     <div class="visible-to"><?php print t('Visible to'); ?>:</div><ul class="privacy">
                             <fieldset>
-                                    <li class="privacy-rules" title="<?php print t('Anyone can see this piece of information'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('Anyone in the world can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Anyone'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only logged-in users can see this piece of information'); ?>">
-                                 <span class="privacy-answer"><?php print t('Logged-in'); ?></span>
+                            <li class="privacy-rules" title="<?php print t('All logged in users can see this piece of information about you'); ?>">
+                                 <span class="privacy-answer"><?php print t('Logged in'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                             <?php print drupal_render($form['twitter_privacy']); ?>
