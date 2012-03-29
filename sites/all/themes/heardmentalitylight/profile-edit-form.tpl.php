@@ -53,7 +53,7 @@ print drupal_render($form['current_image']);
                             <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('Followers'); ?></span>
                             </li>
-                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you about you'); ?>">
+                            <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                  <span class="privacy-answer"><?php print t('No one'); ?></span>
                             </li>
                             <?php print drupal_render($form['real_name_privacy']); ?>
@@ -78,7 +78,7 @@ print drupal_render($form['current_image']);
                                     <li class="privacy-rules" title="<?php print t('Only followers can see this piece of information about you'); ?>">
                                          <span class="privacy-answer"><?php print t('Followers'); ?></span>
                                     </li>
-                                    <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you about you'); ?>">
+                                    <li class="privacy-rules" title="<?php print t('No one can see this piece of information about you'); ?>">
                                          <span class="privacy-answer"><?php print t('No one'); ?></span>
                                     </li> 
                                     <?php print drupal_render($form['mail_privacy']); ?>
