@@ -2691,8 +2691,6 @@ function load_debate_datas($debId = '', $issId = '', $issTnid = '') {
   $i++;
   $account = user_load($forum->uid);
 
-
-
   // vote agree, disagree calculation
   $voteUp = 0;
   $voteDown = 0;
@@ -3005,6 +3003,38 @@ function forum_reply_datas($cid = '') {
       $items['posted'] = $posted;
       $items['allow_rating'] = $querylike;
       $items['posted_by'] = $forum['uid'];
+      
+      // getting ago variable
+      $date1 = new DateTime($posted);
+      $date2 = new DateTime("now");
+      $interval = $date1->diff($date2);
+      $years = $interval->format('%y');
+      $months = $interval->format('%m');
+      $days = $interval->format('%d');
+      $hours = $interval->format('%h');
+      $minutes = $interval->format('%i');
+      if ($years != 0) {
+        $ago = $years . ' year(s) ago';
+      }
+      else {
+        if ($months != 0) {
+          $ago = ($months . ' month(s) ago');
+        }
+        else {
+          if ($days != 0) {
+            $ago = ($days . ' day(s) ago');
+          }
+          else {
+            if ($hours != 0) {
+              $ago = ($hours . ' hour(s) ago ');
+            }
+            else {
+              $ago = ($minutes . ' minute(s) ago');
+            }
+          }
+        }
+      }
+      $items['ago'] = $ago;
       if ($forum['str_wk']==1) {
         $items['class'] = 'positive';
         $items['sign'] = '+';
