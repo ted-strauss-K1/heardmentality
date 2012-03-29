@@ -77,7 +77,7 @@ $directoryPath = $base_path . $directory;
     </div>
 
 	<div class="eleven columns">
-			<h2 class="dinbold page-title"><?php print t('PROFILE'); ?></h2>
+			<h2 class="dinbold page-title"><?php print t('Profile'); ?></h2>
 			<div class="grey-box">
                                 <?php print $content; ?>
 
