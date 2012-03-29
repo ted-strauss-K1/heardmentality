@@ -2057,7 +2057,7 @@ function user_profile_info(){
     
     $getbadges = db_query("SELECT *,(select count(*) from {user_badges} where uid='$uid' AND bid=ub.bid) as bcnt from {user_badges} as ub join {badges} as b on ub.bid=b.bid where ub.uid='$uid' and ub.status='1' group by ub.bid");
     while($badge = db_fetch_object($getbadges)){
-        $badgeList[$badge->name.' x '.$badge->bcnt] = $badge->btype;
+        $badgeList[t($badge->name).' x '.$badge->bcnt] = $badge->btype;
     }
     // get user privacy settings
     $userSettings = checkPrivacySettings($uid);
