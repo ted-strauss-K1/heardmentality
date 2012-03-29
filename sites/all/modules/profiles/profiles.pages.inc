@@ -309,7 +309,7 @@ function user_details() {
   $form['education'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => t('Education Level'), 'No High School' => t('No High School'), 'High School' => t('High School'), 'Technical College' => t('Technical College'), 'University' => t('University'), 'Masters Degree' => t('Masters Degree')),
+    '#options' => array('0' => t('Education'), 'No High School' => t('No High School'), 'High School' => t('High School'), 'Technical College' => t('Technical College'), 'University' => t('University'), 'Masters Degree' => t('Masters Degree')),
     '#description' => t(' '),
     '#default_value' => variable_get('education', ''),
     '#id' => 'edu',
