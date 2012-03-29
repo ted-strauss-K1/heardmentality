@@ -93,7 +93,7 @@ $sitelink = url($path, array('absolute' => TRUE)).'/';
             </div>
 
             <ul class="badges">
-                <label for="badges" class="badges"><?php print t('BADGES'); ?></label>
+                <label for="badges" class="badges"><?php print t('Badges'); ?></label>
                     <?php
                     if($badgeList):
                     foreach($badgeList as $badgeName=>$type){?>
