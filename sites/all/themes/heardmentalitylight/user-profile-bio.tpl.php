@@ -7,7 +7,7 @@
 <a class="button light <?php print $follow_status['fclass']; ?>" href="<?php print $follow_status['href']; ?>"><?php print $follow_status['status']; ?></a>
         <h2 class="din"><span class="no-white-space"><?php print $getuser->name; ?></span></h2>
         <div class="user-info">
-                <p><?php print $ranking; ?></p>
+                <p><?php print t($ranking); ?></p>
                 <p class="bio">
                         <?php print $settings['bio']; ?>
                 </p>
