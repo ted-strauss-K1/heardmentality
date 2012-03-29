@@ -437,7 +437,7 @@ function user_details() {
     '#required' => 1,
     '#attributes' => array('class' => 'upload button'),
   );
-  $form['submit'] = array('#type' => 'submit', '#value' => t('Save Changes'), '#id' => 'update_submit', '#attributes' => array('class' => 'submit-issue'));
+  $form['submit'] = array('#type' => 'submit', '#value' => t('Save changes'), '#id' => 'update_submit', '#attributes' => array('class' => 'submit-issue'));
   $form = $form + get_avatar_form();
 
   return $form;
