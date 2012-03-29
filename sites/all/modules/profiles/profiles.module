@@ -1990,7 +1990,7 @@ function user_profile_bio($uid = ''){
     // check follow status
     drupal_add_js(USER_RELATIONSHIPS_UI_PATH .'/user_relationships_ui.js');
     if($user->uid==0){
-        $status = 'Login to Follow User';
+        $status = t('Login to Follow User');
         $flink = '#';
         $fClass = '';
     }
@@ -2000,17 +2000,17 @@ function user_profile_bio($uid = ''){
             // unfollow
             //$flink='<a class="user_relationships_popup_link linkfol" href="' . $base_url.'/' . 'user/'.$user->uid.'/relationships/'.$followingid.'/remove/?destination=profile/'.$getuser->name.'">Unfollow</a>';
             $flink = $sitelink. 'user/'.$user->uid.'/relationships/'.$followingid.'/remove/?destination=profile/'.$getuser->name;
-            $status = 'Unfollow User' ;
+            $status = t('Unfollow User') ;
         }else{
             // follow
             //$flink='<a class="user_relationships_popup_link linkfol" href="' . $base_url.'/' . 'relationship/'.$getuser->uid.'/request/'.$user->uid.'?destination=profile/'.$getuser->name.'">Follow</a>';
             $flink = $sitelink. 'relationship/'.$getuser->uid.'/request/'.$user->uid.'?destination=profile/'.$getuser->name;
-            $status = 'Follow User' ;
+            $status = t('Follow') ;
         }
         $fClass = 'user_relationships_popup_link';
     }else{
         $flink = $sitelink.'account/edit';
-        $status = 'Edit Profile' ;
+        $status = t('Edit Profile');
         $fClass = '';
     }
     $follow_status['status'] = $status;
