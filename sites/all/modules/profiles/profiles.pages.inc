@@ -229,7 +229,7 @@ function user_details() {
   $form['gender'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => 'Gender', 1 => 'Male', 2 => 'Female'),
+    '#options' => array('0' => t('Gender'), 1 => t('Male'), 2 => t('Female')),
     '#description' => t(' '),
     '#default_value' => variable_get('gender', ''),
     '#id' => 'gender',
@@ -281,7 +281,7 @@ function user_details() {
   $form['religion'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => 'Religion', 'Christian' => 'Christian (Cath or Prod)', 'Muslim' => 'Muslim (Suni Shiite)', 'Hindu' => 'Hindu', 'Jewish' => 'Jewish', 'Buddhist' => 'Buddhist', 'Other' => 'Other'),
+    '#options' => array('0' => t('Religion'), 'Christian' => t('Christian (Cath or Prod)'), 'Muslim' => t('Muslim (Suni Shiite)'), 'Hindu' => t('Hindu'), 'Jewish' => t('Jewish'), 'Buddhist' => t('Buddhist'), 'Other' => t('Other')),
     '#description' => t(' '),
     '#default_value' => variable_get('religion', ''),
     '#id' => 'religion',
@@ -290,7 +290,7 @@ function user_details() {
   $form['ethnic'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => 'Ethnicity', 'Caucasian' => 'Caucasian', 'Black' => 'Black', 'Asian' => 'Asian', 'Indian' => 'Indian', 'Semetic' => 'Semetic', 'Latin' => 'Latin', 'Aborigines' => 'Aborigines'),
+    '#options' => array('0' => t('Ethnicity'), 'Caucasian' => t('Caucasian'), 'Black' => t('Black'), 'Asian' => t('Asian'), 'Indian' => t('Indian'), 'Semetic' => t('Semetic'), 'Latin' => t('Latin'), 'Aborigines' => t('Aborigines')),
     '#description' => t(' '),
     '#default_value' => variable_get('ethinicity', ''),
     '#id' => 'ethnic',
@@ -300,7 +300,7 @@ function user_details() {
   $form['sorient'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => 'Sexual Orientation', 'Straight' => 'Straight', 'Gay' => 'Gay', 'Bisexual' => 'Bisexual', 'Transgender' => 'Transgender'),
+    '#options' => array('0' => t('Sexual Orientation'), 'Straight' => t('Straight'), 'Gay' => t('Gay'), 'Bisexual' => t('Bisexual'), 'Transgender' => t('Transgender')),
     '#default_value' => variable_get('sorient', ''),
     '#description' => t(' '),
     '#id' => 'sorient',
@@ -309,7 +309,7 @@ function user_details() {
   $form['education'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => 'Education Level', 'No High School' => 'No High School', 'High School' => 'High School', 'Technical College' => 'Technical College', 'University' => 'University', 'Masters Degree' => 'Masters Degree'),
+    '#options' => array('0' => t('Education Level'), 'No High School' => t('No High School'), 'High School' => t('High School'), 'Technical College' => t('Technical College'), 'University' => t('University'), 'Masters Degree' => t('Masters Degree')),
     '#description' => t(' '),
     '#default_value' => variable_get('education', ''),
     '#id' => 'edu',
@@ -318,7 +318,7 @@ function user_details() {
   $form['income'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => 'Select', '$0-$9,999' => '$0-$9,999', '$10,000 - $19,999' => '$10,000 - $19,999', '$20,000 - $39,999' => '$20,000 - $39,999', '$40,000 - $69,999' => '$40,000 - $69,999', '$70,000 - $99,999' => '$70,000 - $99,999', '$100,000 - $149,999' => '$100,000 - $149,999', '$150,000 - $299,999' => '$150,000 - $299,999', '>$300,000' => '>$300,000'),
+    '#options' => array('0' => t('Select'), '$0-$9,999' => '$0-$9,999', '$10,000 - $19,999' => '$10,000 - $19,999', '$20,000 - $39,999' => '$20,000 - $39,999', '$40,000 - $69,999' => '$40,000 - $69,999', '$70,000 - $99,999' => '$70,000 - $99,999', '$100,000 - $149,999' => '$100,000 - $149,999', '$150,000 - $299,999' => '$150,000 - $299,999', '>$300,000' => '>$300,000'),
     '#description' => t(' '),
     '#default_value' => variable_get('income', ''),
     '#id' => 'income',
@@ -327,7 +327,7 @@ function user_details() {
   $form['marital'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => 'Select', 'Single' => 'Single', 'Married' => 'Married', 'Divorced' => 'Divorced', 'Widow' => 'Widow'),
+    '#options' => array('0' => t('Select'), 'Single' => t('Single'), 'Married' => t('Married'), 'Divorced' => t('Divorced'), 'Widow' => t('Widow')),
     '#description' => t(' '),
     '#default_value' => variable_get('marital', ''),
     '#id' => 'marital',
