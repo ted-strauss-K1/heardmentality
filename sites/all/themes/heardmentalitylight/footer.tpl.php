@@ -62,7 +62,7 @@
 
 
 
-<div id="dialog" style="display:none">
+<div id="dialog">
    <ul>
       <li><a href="#tabs-1">Log in</a></li>
       <li><a href="#tabs-2">Sign up</a></li>

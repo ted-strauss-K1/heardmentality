@@ -943,11 +943,6 @@ jQuery('#abuse-report-form').live('submit', function(e){
 });
 
 jQuery('.openlogin_box').live('click', function(){
-  $('#dialog #tabs-1 #user-login').load(Drupal.settings.basePath + 'user #user-login');
-  $('#dialog #tabs-2 #user-register').load(Drupal.settings.basePath + 'user/register #user-register');
-  var h = $('#componentDiv').html();    
-  $('#dialog #tabs-2 .gigya-login').html(h);
-    
   $('#dialog').tabs();
   $('#dialog').dialog('open');
   return false;
