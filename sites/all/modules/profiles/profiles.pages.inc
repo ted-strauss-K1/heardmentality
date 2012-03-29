@@ -309,7 +309,7 @@ function user_details() {
   $form['education'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => t('Education'), 'No High School' => t('No High School'), 'High School' => t('High School'), 'Technical College' => t('Technical College'), 'University' => t('University'), 'Masters Degree' => t('Masters Degree')),
+    '#options' => array('0' => t('Education'), 'No High School' => t('No High School'), 'High School' => t('High School'), 'Technical College' => t('Technical College'), 'University' => t('University'), 'Masters Degree' => t('Graduate Degree')),
     '#description' => t(' '),
     '#default_value' => variable_get('education', ''),
     '#id' => 'edu',
@@ -327,7 +327,7 @@ function user_details() {
   $form['marital'] = array(
     '#type' => 'select',
     '#title' => t(''),
-    '#options' => array('0' => t('Select'), 'Single' => t('Single'), 'Married' => t('Married'), 'Divorced' => t('Divorced'), 'Widow' => t('Widow')),
+    '#options' => array('0' => t('Select'), 'Single' => t('Single'), 'Married' => t('Married'), 'Divorced' => t('Divorced'), 'Widow' => t('Widowed')),
     '#description' => t(' '),
     '#default_value' => variable_get('marital', ''),
     '#id' => 'marital',
