@@ -89,7 +89,7 @@ $directoryPath = $base_path . $directory;
 			<div class="grey-box">
 		  	<div class="icon guides text"></div>
 		    <label for="" class="tags-on"><?php print t('Guidelines'); ?></label><br>
-				<p class="issue-meta"><?php print t('Please follow Heard Mentality\'s'); ?><a class="bolded"> <?php print t('Guidelines and Principles'); ?></a><?php print t('when creating a new Issue.
+				<p class="issue-meta"><?php print t('Please follow Heard Mentality\'s'); ?><a class="bolded"> <?php print t('Guidelines and Principles'); ?></a> <?php print t('when creating a new Issue.
 				All issues should be:');?> <ul class="issue-meta"><li><?php print t('concise'); ?></li> <li><?php print t('clean'); ?></li> <li><?php print t('original'); ?></li><li><?php print t('unbiased'); ?></li></ul></p>
 
 			  <hr class="short">
