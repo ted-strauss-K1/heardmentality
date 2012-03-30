@@ -421,7 +421,7 @@ function report_graph($nid='') {
   $vans = "select * from {poll_choices} where  nid=$qid order by chorder";
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist);
-
+  
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
 
@@ -437,14 +437,11 @@ function report_graph($nid='') {
   $srange = report_get_ans_range($nid, 'start');
   $erange = report_get_ans_range($nid, 'end');
   $count = report_get_ans_range($nid);
-  //   echo $srange['dat'];
-  //   echo $erange['dat'];
-  //  echo $count['cnt'];exit;
+
   $query = "select DATEDIFF(date(now()),'" . $srange['dat'] . "') as diff,date(now()) as today";
   $overall_range = ExecuteQuery($query, "select");
   $frange = $overall_range[0]['diff'];
   $drange = dates_range($srange['dat'], $overall_range[0]['today']);
-//print_r($drange);
   $drange = array_reverse($drange);
   for ($ab = 0; $ab < $cnt_ans; $ab++) {
 
@@ -2549,4 +2546,50 @@ function validate_issue_add($form, &$form_state) {
   if ($form_state['values']['answer'][0] == '' || $form_state['values']['answer'][1] == '') {
     form_set_error('error', t('You must enter atleast two answers'));
   }
+}
+
+function report_answer_details_history($nid = '', $aid = '', $action = '', $date = '') {
+  switch ($action) {
+    case 'percent':
+      if ($_REQUEST['fopt']) {
+        $opt = filter_opt($_REQUEST);
+
+        $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $aid . "' $opt ";
+        $answer = ExecuteQuery($query, "norows");
+      }
+      else {
+
+        $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $aid . "' ";
+        $answer = ExecuteQuery($query, "norows");
+      }
+
+
+      return $answer;
+      break;
+    case 'timeline':
+      $query = "select count(*) as cnt from {poll_votes_history} where nid='" . $nid . "' and chorder='" . $aid . "'AND date(date_voted)<='" . $date . "' ";
+      $answer = ExecuteQuery($query, "select");
+
+      return $answer ? $answer[0]['cnt'] : 'null';
+
+      break;
+  }
+}
+
+function report_get_ans_range_history($nid='', $range='') {
+  switch ($range) {
+    case 'start':
+      $query = "select date(date_voted) as dat from {poll_votes_history} where nid='" . $nid . "' ORDER BY date_voted ASC LIMIT 0,1 ";
+      $answer = ExecuteQuery($query, "select");
+      break;
+    case 'end':
+      $query = "select date(date_voted) as dat from poll_votes_history where nid='" . $nid . "' ORDER BY date_voted DESC LIMIT 0,1 ";
+      $answer = ExecuteQuery($query, "select");
+      break;
+    default:
+      $query = "select count(*) as cnt from poll_votes_history where nid='" . $nid . "' ";
+      $answer = ExecuteQuery($query, "select");
+      break;
+  }
+  return $answer[0];
 }
