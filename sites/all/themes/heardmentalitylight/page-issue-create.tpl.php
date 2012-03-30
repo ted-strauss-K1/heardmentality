@@ -94,7 +94,7 @@ $directoryPath = $base_path . $directory;
 
 			  <hr class="short">
 			  <br>
-			  <p class="issue-meta"><?php print t('When you submit Issues that are unique, clear, popular and require no editing, you can <a class="bolded">win a badge.</a>'); ?></p>
+			  <p class="issue-meta"><?php print t('When you submit Issues that are unique, clear, popular and require no editing, you can'); ?> <a class="bolded"><?php print t('win a badge.');?></a></p>
 
 			  <div class="clear"></div>
 			</div>
