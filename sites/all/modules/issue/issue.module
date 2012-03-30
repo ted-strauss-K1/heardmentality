@@ -3135,7 +3135,7 @@ function issue_filter_options() {
 
 
   $key_path = $sitelink . 'issues/' . $key . '/' . $subject . '/' . $area . '/' . $detail . '/' . $country . '/' . $state . '/' . $city;
-  $issue_filter = '<div class="sort-by">View &nbsp;
+  $issue_filter = '<div class="sort-by">'.t('View').' &nbsp;
                 <a href="' . $key_path . '/alltime" ' . $actall . '>' . t('Most Votes (all-time)') . '</a>&nbsp;|&nbsp;'
           . '<a href="' . $key_path . '/7days" ' . $act7 . '>' . t('Most Votes (past 7 days)') . '</a>&nbsp;|&nbsp;'
           . '<a href="' . $key_path . '/views" ' . $actviews . '>' . t('Number of Views') . '</a></div>';

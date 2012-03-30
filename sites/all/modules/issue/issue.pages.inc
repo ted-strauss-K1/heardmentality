@@ -1272,7 +1272,7 @@ function issue_search_form(&$form_state) {
   /* categories */
   $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE name = '%s' AND module = '%s'", 'Sections', 'taxonomy'));
   $client_select = db_query("SELECT t.tid AS cat_id, t.name AS cat_name FROM term_data t RIGHT JOIN term_hierarchy h ON t.tid = h.tid where h.parent='0' AND t.vid = '$vid'");
-  $options[''] = 'SUBJECT';
+  $options[''] = t('SUBJECT');
   while ($list = db_fetch_object($client_select)) {
     $cnt = taxonomy_term_count_nodes($list->cat_id);
     if ($cnt != 0) {
@@ -1304,7 +1304,7 @@ function issue_search_form(&$form_state) {
     '#suffix' => '<br /><div class="clr"></div>');
   $form['location_mark'] = array('#type' => 'markup', '#value' => t('FILTER BY LOCATION') . '<br /><div class="clr"></div>');
   // location
-  $countries[''] = 'COUNTRY';
+  $countries[''] = t('COUNTRY');
   // $countryList = geonames_query('countryinfo',NULL);
   //foreach($countryList->results as $country){
   //   $countries[$country['countryname']] = $country['countryname'];
