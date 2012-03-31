@@ -3035,6 +3035,30 @@ h6#deb-ana:hover a,
 	border-radius: 0 20px 20px 0;
 }
 
+/*Small circle*/
+
+span.small_neg,
+span.small_pos {
+    background-color: #a648a7;
+    border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	-o-border-radius: 6px;
+	-khtml-border-radius: 6px;
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    height: 13px;
+    line-height: 13px;
+    text-align: center;
+    width: 13px;
+	color: #fff;
+}
+
+span.small_pos {
+	background-color: #5fa3a2;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
