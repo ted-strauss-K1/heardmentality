@@ -2988,7 +2988,7 @@ h6#deb-ana:hover a,
 
 #slider {
 	width: 36px;
-	height: 17px;
+	height: 10px;
 	/*background:url(../images/slider_track.png) no-repeat 0 0 transparent;
 	border: 0 none;*/
 	background: none #d2d2d2;
@@ -3007,14 +3007,15 @@ h6#deb-ana:hover a,
 	width: 24px;
 	height: 23px;
 	margin-left: -12px;
-    top: -3px;
+    top: -7px;
+	cursor: pointer;
 }
 
 #slider span.left {
 	position: absolute;
 	left: -16px;
 	top: -1px;/*0*/
-	height: 17px;
+	height: 10px;
 	width: 16px;
 	background: none #d2d2d2;
 	border: solid #ccc;
@@ -3026,7 +3027,7 @@ h6#deb-ana:hover a,
 	position: absolute;
 	right: -16px;
 	top: -1px;
-	height: 17px;
+	height: 10px;
 	width: 16px;
 	background: none #d2d2d2;
 	border: solid #ccc;
