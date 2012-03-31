@@ -15,7 +15,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
   <?php } ?>-->
 
 
-  <ul>
+  <ul class="argument_box">
     <li>
 
       <div class="arg">

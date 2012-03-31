@@ -2845,7 +2845,7 @@ h2.page-title {
 /*Add Argument*/
 
 #debate_work_area {
-	padding: 0 30px 16px;
+	padding: 0 30px 19px;
 }
 
 h6#add-arg,
@@ -3050,11 +3050,15 @@ h6#deb-ana:hover a,
 
 #debate_list_area > h2:first-child {
 	margin: 0;
-	color: #924c9d;
+	color: #333366;
 	font: bold italic 12px/15px Arial, sans-serif;
 	text-transform: uppercase;
-	padding: 0 30px 16px 50px;
+	padding: 0 30px 14px;
 	border-bottom: 1px solid #C0C0C0;
+}
+
+ul.argument_box {
+	padding: 0 25px 0 33px;
 }
 
 /*Small circle*/
