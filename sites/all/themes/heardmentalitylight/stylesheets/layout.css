@@ -2894,7 +2894,7 @@ h6#deb-ana:hover a,
 
 .leave-a-comment{
 	clear: both;
-	padding-top: 20px;
+	padding-top: 21px;
 }
 
 #add-new-debate-form {
@@ -2926,7 +2926,7 @@ h6#deb-ana:hover a,
 #add-new-debate-form .assign {
 	float: none;
 	margin: 0;
-	padding: 0;
+	padding: 0 0 12px;
 	text-align: left;
 	font-size: bold 12px/15px inherit;
 	color: #4c4c4c;
@@ -2952,7 +2952,7 @@ h6#deb-ana:hover a,
 
 #add-new-debate-form .value-select {
 	width: 100%;
-	margin: 0;
+	margin: 0 0 6px;
 	padding: 0;
 }
 
@@ -2969,8 +2969,10 @@ h6#deb-ana:hover a,
 	font-size: 12px;
 	line-height: 15px;
 	padding: 0;
-	margin: 0 8px 0 26px;
+	margin: 0 8px 0 30px;
 	white-space: nowrap;
+	position: relative;
+	top: -2px;
 }
 
 .value-select .form-item {
@@ -2982,6 +2984,17 @@ h6#deb-ana:hover a,
 	margin: 0;
 	display: block;
 	visibility: hidden;
+}
+
+#add-new-debate-form .assign span.small_neg,
+#add-new-debate-form .assign span.small_pos {
+	position: relative;
+	top: 1px;
+}
+ 
+#add-new-debate-form .form-submit {
+	float: left;
+	margin-top: 12px;
 }
 
 /*Slider*/
@@ -3071,7 +3084,8 @@ span.small_pos {
 #new_vote .poll-vote-area .fieldset-wrapper .form-item:after,
 #debate_work_area:after,
 #add-new-debate-form .value-select:after,
-#add-new-debate-form .assign:after {
+#add-new-debate-form .assign:after,
+#add-new-debate-form:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;

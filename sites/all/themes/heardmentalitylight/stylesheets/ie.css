@@ -15,7 +15,9 @@
 .ie7 #add-new-debate-form .value-select,
 .ie8 #add-new-debate-form .value-select,
 .ie7 #add-new-debate-form .assign,
-.ie8 #add-new-debate-form .assign {
+.ie8 #add-new-debate-form .assign,
+.ie7 #add-new-debate-form,
+.ie8 #add-new-debate-form {
 	zoom: 1;
 }
 
