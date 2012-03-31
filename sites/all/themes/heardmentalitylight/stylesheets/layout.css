@@ -2987,14 +2987,14 @@ h6#deb-ana:hover a,
 /*Slider*/
 
 #slider {
-	width: 48px;
+	width: 36px;
 	height: 17px;
 	/*background:url(../images/slider_track.png) no-repeat 0 0 transparent;
 	border: 0 none;*/
 	background: none #d2d2d2;
 	border: solid #ccc;
 	border-width: 1px 0;
-	margin: 0 10px;
+	margin: 0 16px;
 }
 
 .ui-slider-range {
@@ -3012,10 +3012,10 @@ h6#deb-ana:hover a,
 
 #slider span.left {
 	position: absolute;
-	left: -10px;
-	top: 0;
+	left: -16px;
+	top: -1px;/*0*/
 	height: 17px;
-	width: 10px;
+	width: 16px;
 	background: none #d2d2d2;
 	border: solid #ccc;
 	border-width: 1px 0 1px 1px;
@@ -3024,13 +3024,13 @@ h6#deb-ana:hover a,
 
 #slider span.right {
 	position: absolute;
-	right: -10px;
-	top: 0;
+	right: -16px;
+	top: -1px;
 	height: 17px;
-	width: 10px;
+	width: 16px;
 	background: none #d2d2d2;
 	border: solid #ccc;
-	border-width: 1px 0 1px 1px;
+	border-width: 1px 1px 1px 0;
 	border-radius: 0 20px 20px 0;
 }
 
