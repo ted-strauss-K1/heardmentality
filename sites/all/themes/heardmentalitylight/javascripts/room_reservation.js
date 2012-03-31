@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $(function() {
     var select = $( ".value-select .form-item select" );
-    var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
+    var slider = $( "<div id='slider'><span class='left'></span><span class='right'></span></div>" ).insertAfter( select ).slider({
       min: 1,
       max: 3,
       range: "min",
