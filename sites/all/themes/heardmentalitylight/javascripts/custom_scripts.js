@@ -44,11 +44,11 @@ $(document).ready(function() {
     var add = $(this).parents('#debate_work_area').find('#leave_comment_area');
 		
     if (add.hasClass('hidden_ar')) {
-      add.removeClass('hidden_ar').addClass('visible_ar').toggle(600);
+      add.removeClass('hidden_ar').addClass('visible_ar').slideDown(400);
       $(this).addClass('expanded');
     }
     else {
-      add.removeClass('visible_ar').addClass('hidden_ar').toggle(600);
+      add.removeClass('visible_ar').addClass('hidden_ar').slideUp(400);
       $(this).removeClass('expanded');
     }
 		
@@ -63,11 +63,11 @@ $(document).ready(function() {
     var graf = $(this).parents('#debate_work_area').find('#analytics-area');
 		
     if (graf.hasClass('hidden_deb')) {
-      graf.removeClass('hidden_deb').addClass('visible_deb').toggle(600);
+      graf.removeClass('hidden_deb').addClass('visible_deb').slideDown(400);
       $(this).addClass('expanded');
     }
     else {
-      graf.removeClass('visible_deb').addClass('hidden_deb').toggle(600);
+      graf.removeClass('visible_deb').addClass('hidden_deb').slideUp(400);
       $(this).removeClass('expanded');
     }
 
