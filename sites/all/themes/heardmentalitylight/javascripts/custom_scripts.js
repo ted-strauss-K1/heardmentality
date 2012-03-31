@@ -44,11 +44,11 @@ $(document).ready(function() {
     var add = $(this).parents('#debate_work_area').find('#leave_comment_area');
 		
     if (add.hasClass('hidden_ar')) {
-      add.removeClass('hidden_ar').addClass('visible_ar').slideDown();
+      add.removeClass('hidden_ar').addClass('visible_ar').toggle(60);
       $(this).addClass('expanded');
     }
     else {
-      add.removeClass('visible_ar').addClass('hidden_ar').slideUp();
+      add.removeClass('visible_ar').addClass('hidden_ar').toggle(60);
       $(this).removeClass('expanded');
     }
 		
