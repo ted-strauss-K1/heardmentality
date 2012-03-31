@@ -2993,6 +2993,19 @@ h6#deb-ana:hover a,
 	border: 0 none;
 }
 
+.ui-slider-range {
+	background: none transparent;
+}
+
+.ui-slider-handle {
+	background:url(../images/slider_circle.png) no-repeat 0 0 transparent;
+	border: 0 none;
+	width: 24px;
+	height: 23px;
+	margin-left: 0;
+    top: -0.3em;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
