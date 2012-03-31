@@ -3011,10 +3011,11 @@ h6#deb-ana:hover a,
 }
 
 #slider span.left {
-	position: relative;
+	position: absolute;
 	left: -10px;
 	top: 0;
 	height: 17px;
+	width: 10px;
 	background: none #d2d2d2;
 	border: solid #ccc;
 	border-width: 1px 0 1px 1px;
@@ -3022,10 +3023,11 @@ h6#deb-ana:hover a,
 }
 
 #slider span.right {
-	position: relative;
+	position: absolute;
 	right: -10px;
 	top: 0;
 	height: 17px;
+	width: 10px;
 	background: none #d2d2d2;
 	border: solid #ccc;
 	border-width: 1px 0 1px 1px;
