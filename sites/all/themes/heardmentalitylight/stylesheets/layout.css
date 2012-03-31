@@ -2920,7 +2920,7 @@ h6#deb-ana:hover a,
 #deb_title {
 	margin: 0;
 	min-height: 90px;
-	width: 97%;
+	width: 98%;
 }
 
 #add-new-debate-form .assign {
@@ -3048,6 +3048,15 @@ h6#deb-ana:hover a,
 	border-radius: 0 20px 20px 0;
 }
 
+#debate_list_area > h2:first-child {
+	margin: 0;
+	color: #924c9d;
+	font: bold italic 12px/15px Arial, sans-serif;
+	text-transform: uppercase;
+	padding: 0 30px 16px 50px;
+	border-bottom: 1px solid #C0C0C0;
+}
+
 /*Small circle*/
 
 span.small_neg,
@@ -3062,7 +3071,7 @@ span.small_pos {
     font-family: Arial, sans-serif;
     font-size: 13px;
     height: 13px;
-    line-height: 12px;
+    line-height: 11px;
     text-align: center;
     width: 13px;
 	color: #fff;
