@@ -103,7 +103,11 @@
 	.ie7 h6#add-arg,
 	.ie7 h6#deb-ana,
 	.ie8 h6#add-arg,
-	.ie8 h6#deb-ana{
+	.ie8 h6#deb-ana,
+	.ie8 #debate_work_area h6.expanded,
+	.ie8 #debate_work_area h6.expanded:hover,
+	.ie7 #debate_work_area h6.expanded,
+	.ie7 #debate_work_area h6.expanded:hover{
 		border: solid #c3c3c3;
 		border-width: 1px 1px 3px;
 	}
