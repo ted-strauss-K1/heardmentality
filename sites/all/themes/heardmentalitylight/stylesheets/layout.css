@@ -2970,6 +2970,7 @@ h6#deb-ana:hover a,
 	line-height: 15px;
 	padding: 0;
 	margin: 0 0 0 26px;
+	white-space: nowrap;
 }
 
 .value-select .form-item {
@@ -2980,12 +2981,13 @@ h6#deb-ana:hover a,
 .value-select .form-item select {
 	margin: 0;
 	display: block;
+	visibility: hidden;
 }
 
 /*Slider*/
 
 #slider {
-	width: 68px;
+	width: 99px;
 	height: 17px;
 	background:url(../images/slider_track.png) no-repeat 0 0 transparent;
 	border: 0 none;
