@@ -31,8 +31,6 @@ function report_percent($nid='') {
             theme = 'skies'";
   drupal_add_js($inline, 'inline');
 
-
-
   $ans_array = array();
   for ($ab = 0; $ab < $cnt_ans; $ab++) {
 
@@ -143,7 +141,6 @@ function report_percent($nid='') {
 function report_percent_broken($nid = '', $aid = '', $array = '') {
   global $user, $base_root, $base_path;
 
-
   $filter = '';
   $filter = (!empty($array['dochg'])) ? $array['dochg'] : '';
   $vans = "select * from {poll_choices} where  nid='" . $nid . "'  order by chorder";
@@ -156,9 +153,6 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
   switch ($filter) {
     case 'gender':
       $answer['divide'] = array('male', 'female', 'undefined');
-
-
-
 
       foreach ($answer['divide'] as $list) {
         if ($list == 'male')
@@ -176,10 +170,8 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         }
         $inc_cnt = rtrim($inc_cnt, ",");
         $inc_cnt .= ']';
-
         $answer_cnt[] = $inc_cnt;
-      }//[1,0][1,1]
-      // $answer_cnt=array_reverse($answer_cnt);//[1,1][1,0]
+      }
 
       break;
     case 'age':
@@ -198,7 +190,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
         $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' " . $query_ins;
+          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' " . $query_ins;
           $tcnt = ExecuteQuery($query, "norows");
           $inc_cnt .= $tcnt . ',';
         }
@@ -222,7 +214,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
         $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND religion='" . $reg . "'";
+          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND religion='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $inc_cnt .= $tcnt . ',';
         }
@@ -244,7 +236,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
         $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND ethnic='" . $reg . "'";
+          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND ethnic='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $inc_cnt .= $tcnt . ',';
         }
@@ -267,7 +259,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
         $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND income='" . $reg . "'";
+          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND income='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $inc_cnt .= $tcnt . ',';
         }
@@ -289,7 +281,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
         $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND marital='" . $reg . "'";
+          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND marital='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $inc_cnt .= $tcnt . ',';
         }
@@ -311,7 +303,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
         $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND sorient='" . $reg . "'";
+          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND sorient='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $inc_cnt .= $tcnt . ',';
         }
@@ -334,7 +326,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
         $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
-          $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND edu='" . $reg . "'";
+          $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND edu='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
           $inc_cnt .= $tcnt . ',';
         }
@@ -348,15 +340,21 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
 
     default:
       $answer['divide'] = array('Total Votes');
-      $inc_cnt = '[';
-      for ($ab = 0; $ab < count($vlist); $ab++) {
-        $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' ";
+      /*   $inc_cnt = '[';
+        krumo($vlist);
+        for ($ab = 0; $ab < count($vlist); $ab++) {
+        $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' ";
         $tcnt = ExecuteQuery($query, "norows");
         $inc_cnt .= $tcnt . ',';
+        }
+        $inc_cnt = rtrim($inc_cnt, ",");
+        $inc_cnt .= ']';
+        $answer_cnt[] = $inc_cnt;
+        krumo($answer_cnt); */
+      foreach ($vlist as $key => $chvote) {
+        $total_votes[] = $chvote['chvotes'];
       }
-      $inc_cnt = rtrim($inc_cnt, ",");
-      $inc_cnt .= ']';
-      $answer_cnt[] = $inc_cnt;
+      $answer_cnt[] = '[' . implode(',', $total_votes) . ']';
 
       break;
   }
@@ -421,7 +419,7 @@ function report_graph($nid='') {
   $vans = "select * from {poll_choices} where  nid=$qid order by chorder";
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist);
-  
+
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
 
@@ -1781,7 +1779,7 @@ function issue_debates($qid='', $type='') {
       $ratings = get_rating_buttons($items, 'is_debate');
 
       //$debate_theme .= theme('single_debate_template', $items);
-      
+
       $date1 = new DateTime($items['posted']);
       $date2 = new DateTime("now");
       $interval = $date1->diff($date2);
@@ -2374,7 +2372,7 @@ function add_new_resources($qid='') {
 // ISSUE RESOURCES
 function issue_resources_list($qid = '') {
   //$inline = 'jQuery(document).ready(function(){res_type_tab(1,\'resource\',' . $qid . ')})';
-    $inline = 'jQuery(document).ready(function(){res_type_tab(4,\'all\',' . $qid . ')})';
+  $inline = 'jQuery(document).ready(function(){res_type_tab(4,\'all\',' . $qid . ')})';
   drupal_add_js($inline, 'inline');
   $resources = '';
   //$resources .= issue_resources($qid, '1');
@@ -2442,42 +2440,43 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
 
 
   $tid = get_taxonomy_id('forum', 'Resource');
-  if($rtype == 4){
-      if (empty($cond))
-        $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
-      else
-        $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
+  if ($rtype == 4) {
+    if (empty($cond))
+      $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+    else
+      $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
 
-      // forum for translated languages
-      $issueId = $qid;
-      $tnid = get_tnid($qid);
-      $qid = $tnid;
+    // forum for translated languages
+    $issueId = $qid;
+    $tnid = get_tnid($qid);
+    $qid = $tnid;
 
-      $nodes = db_query($sql, $tid, $qid);
-      $count = db_result(db_query($sql, $tid, $qid));
-  }else{
-      if (empty($cond))
-        $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $sorting";
-      else
-        $sql = "SELECT DISTINCT(f.nid) FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $cond $sorting";
+    $nodes = db_query($sql, $tid, $qid);
+    $count = db_result(db_query($sql, $tid, $qid));
+  }else {
+    if (empty($cond))
+      $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $sorting";
+    else
+      $sql = "SELECT DISTINCT(f.nid) FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $cond $sorting";
 
-      // forum for translated languages
-      $issueId = $qid;
-      $tnid = get_tnid($qid);
-      $qid = $tnid;
+    // forum for translated languages
+    $issueId = $qid;
+    $tnid = get_tnid($qid);
+    $qid = $tnid;
 
-      $nodes = db_query($sql, $tid, $qid, $resType);
-      $count = db_result(db_query($sql, $tid, $qid, $resType));
+    $nodes = db_query($sql, $tid, $qid, $resType);
+    $count = db_result(db_query($sql, $tid, $qid, $resType));
   }
   if ($count > 0) {
     $i = 0;
 
     while ($node = db_fetch_object($nodes)) {
-        if($rtype == 4){
-            $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
-        }else{
-            $items = load_resource_datas($node->nid, $issueId, $tnid, $resType);
-        }
+      if ($rtype == 4) {
+        $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
+      }
+      else {
+        $items = load_resource_datas($node->nid, $issueId, $tnid, $resType);
+      }
       //$resouce_theme .= theme('single_resource_template', $items);
       // strength
       // anwers strength
