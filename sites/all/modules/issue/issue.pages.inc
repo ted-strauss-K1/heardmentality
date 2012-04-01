@@ -19,8 +19,6 @@ function report_percent($nid='') {
   if (!is_numeric($nid))
     return 'No Data Found';
 
-  //$vans = "select * from {possible_answer} where  qid='" . $nid . "'";
-
   $vans = "select * from {poll_choices} where  nid='" . $nid . "' ORDER BY chorder";
 
   $vlist = ExecuteQuery($vans, "select");
@@ -145,8 +143,8 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
   $filter = (!empty($array['dochg'])) ? $array['dochg'] : '';
   $vans = "select * from {poll_choices} where  nid='" . $nid . "'  order by chorder";
   // $vans = "select * from {poll_choices} where  nid='" . $nid . "'";
+  
   $vlist = ExecuteQuery($vans, "select");
-
   // IMPORTANT get translate nid (tnid) for current node
   $nid = get_tnid($nid);
 
@@ -334,8 +332,6 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         $inc_cnt .= ']';
         $answer_cnt[] = $inc_cnt;
       }
-
-
       break;
 
     default:
@@ -432,9 +428,9 @@ function report_graph($nid='') {
   $s1 = array();
   $grid = array();
 
-  $srange = report_get_ans_range($nid, 'start');
-  $erange = report_get_ans_range($nid, 'end');
-  $count = report_get_ans_range($nid);
+  $srange = report_get_ans_range_history($nid, 'start');
+  $erange = report_get_ans_range_history($nid, 'end');
+  $count = report_get_ans_range_history($nid);
 
   $query = "select DATEDIFF(date(now()),'" . $srange['dat'] . "') as diff,date(now()) as today";
   $overall_range = ExecuteQuery($query, "select");
@@ -454,7 +450,7 @@ function report_graph($nid='') {
       for ($mn = $frange; $mn >= 0; $mn--) {
         $date = $drange[$mn];
 
-        $inc_this = report_answer_details($nid, $vlist[$ab]['chorder'], 'timeline', $date);
+        $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
         array_push($ans, $inc_this);
       }
       $ins_sc = '[' . implode(',', $ans) . ']';
@@ -477,7 +473,7 @@ function report_graph($nid='') {
         $dat = date("d") - $mn;
         $date = date('Y-m-d', mktime(0, 0, 0, $month, $dat, $year));
 
-        $inc_this = report_answer_details($nid, $vlist[$ab]['chorder'], 'timeline', $date);
+        $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
         array_push($ans, $inc_this);
       }
       $ins_sc = '[' . implode(',', $ans) . ']';
