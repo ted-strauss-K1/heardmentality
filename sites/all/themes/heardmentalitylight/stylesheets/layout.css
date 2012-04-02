@@ -3076,6 +3076,7 @@ h6#deb-ana:hover a,
 	font-size: 12px;
 	line-height: 18px;
 	color: #4c4c4c;
+	padding: 0 0 10px;
 }
 
 #debate_list_area .arg p.argument_body a.translate {
@@ -3088,7 +3089,7 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .arg .position {
-	padding: 10px 0 12px;
+	padding: 0 0 12px;
 	color: #888;
 	float: left;
 }
@@ -3121,7 +3122,7 @@ h6#deb-ana:hover a,
 	color: #4c4c4c;
 	font-size: 11px;
 	line-height: 14px;
-	padding-bottom: 5px;
+	padding-bottom: 4px;
 }
 
 .userinfo-debate span.date span {
