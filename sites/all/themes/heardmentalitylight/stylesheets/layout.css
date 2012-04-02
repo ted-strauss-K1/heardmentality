@@ -1988,7 +1988,7 @@ textarea#q_quest  {
     background: none repeat scroll 0 0 #e4e4e4;
     border: 1px solid #d7d7d7;
     margin: 3px 0 10px;
-    padding: 12px 12px 11px;
+    padding: 13px 12px 10px;
     width: auto;
 	cursor: pointer;
 }
@@ -2001,7 +2001,7 @@ textarea#q_quest  {
 .choices .form-radios .form-item.staygreen,
 #new_vote .fieldset-wrapper .form-radios .form-item:hover,
 #new_vote .fieldset-wrapper .form-radios .form-item.staygreen {
-    background-color: #b3feb6;
+    background-color: #c2fcc4;
     border: 1px solid #bce0bd;
 	-webkit-box-shadow: inset 0px 0px 5px 0px #fff;
 	-moz-box-shadow: inset 0px 0px 5px 0px #fff;
@@ -3077,9 +3077,9 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .arg span.sum {
-	position: absolute;
-	top: 0;
-	left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 #debate_list_area .arg p.argument_body {
@@ -3113,6 +3113,31 @@ span.small_pos {
 	background-color: #55ba59;
 	font-size: 12px;
 	line-height: 13px;
+}
+
+/*Big circle*/
+
+#debate_list_area .arg span.sum span {
+    border-radius: 200px;
+	-o-border-radius: 200px;
+	-moz-border-radius: 200px;
+	-webkit-border-radius: 200px;
+	-khtml-border-radius: 200px;
+    color: #FFFFFF;
+    display: inline-block;
+    font: 26px/28px Arial,sans-serif;
+    height: 28px;
+    padding: 16px 10px;
+    text-align: center;
+    width: 40px;
+}
+
+#debate_list_area .arg span.sum span.positive {
+	background-color: #55ba59;
+}
+
+#debate_list_area .arg span.sum span.negative {
+	background-color: #C2499B;
 }
 
 /*Clear*/
