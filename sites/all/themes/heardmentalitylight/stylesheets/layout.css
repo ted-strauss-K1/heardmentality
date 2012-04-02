@@ -932,7 +932,7 @@ p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted
 }
 .add-comment {
   margin:-7px 5px 0px 10px;
-}
+}*/
 
 p.comment-meta {
 	text-shadow: 0 1px #fff;
@@ -965,7 +965,7 @@ p.comment-meta {
 
 }
 
-a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;padding:1px 7px 1px 0px;margin:0px}
+/*a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;padding:1px 7px 1px 0px;margin:0px}
 .comments ul{
   margin:0px;
   padding:0px;
@@ -3080,6 +3080,7 @@ h6#deb-ana:hover a,
 
 #debate_list_area .arg p.argument_body a.translate {
 	color: #55BA59;
+	font-weight: bold;
 }
 
 #debate_list_area .arg p.argument_body a.translate:hover {
@@ -3087,13 +3088,16 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .arg .position {
-	padding: 15px 0;
+	padding: 10px 0 12px;
+	color: #888;
 }
 
 #debate_list_area .arg p.position-minus,
 #debate_list_area .arg p.position-plus {
 	float: left;
-	margin-left: 20px;
+	margin: 0 0 0 17px;
+	font-size: 12px;
+	line-height: 18px;
 }
 
 #debate_list_area .arg p.position-minus:first-child,
@@ -3103,8 +3107,12 @@ h6#deb-ana:hover a,
 
 #debate_list_area .arg p.position-minus strong,
 #debate_list_area .arg p.position-plus strong {
-	margin-right: 7px;
+	margin-right: 5px;
 	font-weight: normal;
+}
+
+.userinfo-debate {
+	float: right;
 }
 
 /*Small circle*/
