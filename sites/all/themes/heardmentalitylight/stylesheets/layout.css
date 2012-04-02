@@ -3079,11 +3079,11 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .arg p.argument_body a.translate {
-	color: #0c6926;
+	color: #55BA59;
 }
 
 #debate_list_area .arg p.argument_body a.translate:hover {
-	color: #55BA59;
+	color: #0c6926;
 }
 
 #debate_list_area .arg .position {
@@ -3104,6 +3104,7 @@ h6#deb-ana:hover a,
 #debate_list_area .arg p.position-minus strong,
 #debate_list_area .arg p.position-plus strong {
 	margin-right: 7px;
+	font-weight: normal;
 }
 
 /*Small circle*/
@@ -3119,7 +3120,7 @@ span.small_pos,
 	-o-border-radius: 6px;
 	-khtml-border-radius: 6px;
     display: inline-block;
-    font-family: Arial, sans-serif;
+    font-family: Verdana, Arial, sans-serif;
     font-size: 13px;
     height: 13px;
     line-height: 11px;
@@ -3133,6 +3134,7 @@ span.small_pos,
 	background-color: #55ba59;
 	font-size: 12px;
 	line-height: 13px;
+	font-family: Arial, sans-serif;
 }
 
 /*Big circle*/
