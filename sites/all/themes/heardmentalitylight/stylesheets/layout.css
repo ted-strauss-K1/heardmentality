@@ -3130,6 +3130,7 @@ span.small_pos {
     padding: 16px 10px;
     text-align: center;
     width: 40px;
+	background-color: #d7d7d7;
 }
 
 #debate_list_area .arg span.sum span.positive {
