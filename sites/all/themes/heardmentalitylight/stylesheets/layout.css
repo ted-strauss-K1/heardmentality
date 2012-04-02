@@ -3049,7 +3049,7 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area > h2:first-child {
-	margin: 0;
+	margin: 0 0 16px;
 	color: #333366;
 	font: bold italic 12px/15px Arial, sans-serif;
 	text-transform: uppercase;
@@ -3064,15 +3064,20 @@ h6#deb-ana:hover a,
 
 #debate_list_area ul.argument_box li {
 	border: 0 none;
+	padding: 0;
 }
 
 #debate_list_area .arg {
 	position: relative;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
+	padding: 14px 0 0;
+	margin: 14px 0 0;
 }
 
 #debate_list_area .one-forum:first-child .arg {
 	background: none transparent;
+	margin: 0;
+	padding: 0;
 }
 
 /*Small circle*/
