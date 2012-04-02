@@ -3131,21 +3131,33 @@ h6#deb-ana:hover a,
 .userinfo-debate a.user-thumb {
 	display: inline-block;
 	float: left;
-	font-size: 11px;
-	color: #4c4c4c;
 }
 
 .userinfo-debate a.user-thumb img {
 	width: 24px;
 	height: auto;
 	vertical-align: top;
-	margin-right: 8px;
 	border-radius: 4px;
-	margin: 0;
+	-o-border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-khtml-border-radius: 4px;
+	margin: 0 8px 0 0;
 }
 
 .userinfo-debate .name {
 	overflow: hidden;
+	font-size: 11px;
+	line-height: 14px;
+	display: block;
+}
+
+.userinfo-debate .name a {
+	color: #4c4c4c;
+}
+
+.userinfo-debate .name a:hover {
+	text-decoration: underline;
 }
 
 .position-question {
