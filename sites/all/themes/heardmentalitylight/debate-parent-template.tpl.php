@@ -6,7 +6,7 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
 $items['title'] = str_replace("\r\n", "<br>", $items['title']);
 $items['title'] = str_replace("\n", "<br>", $items['title']);
 ?>
-<div id="forum-block-<?php print $items['debate_tnid']; ?>">
+<div id="forum-block-<?php print $items['debate_tnid']; ?>" class="one-forum">
   <!--<?php if ($comments) { ?>
         <h6 class="active">/ <?php print t('Argument'); ?></h6>
   <?php }
@@ -19,9 +19,8 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
     <li>
 
       <div class="arg">
-        <a href="#" class="icon flag2" title="flag this argument"></a>
         <span class="sum"><?php $diff = $items['vote_up'] - $items['vote_down'];
-  if ($diff > 0) { ?>
+			if ($diff > 0) { ?>
             <span class="positive"> <?php print $diff; ?></span>
           <?php }
           elseif ($diff < 0) { ?>
@@ -65,7 +64,8 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 
 
     <!--<h6 class="active">/ <?php print $reply_count; ?> <?php print t('REPLIES'); ?></h6>-->
-          <fieldset class ="collapsible collapsed"> 
+	<a href="#" class="icon flag2" title="flag this argument"></a>
+        <fieldset class ="collapsible collapsed"> 
             <ul><!--<div class="top-arrow"></div>-->
               <div id="all_replybox_<?php print $items['debate_tnid']; ?>">
                 <?php print $comments; ?>
