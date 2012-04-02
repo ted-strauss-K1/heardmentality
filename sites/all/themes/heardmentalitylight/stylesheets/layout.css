@@ -3054,11 +3054,15 @@ h6#deb-ana:hover a,
 	font: bold italic 12px/15px Arial, sans-serif;
 	text-transform: uppercase;
 	padding: 0 30px 14px;
-	border-bottom: 0 none;
+	border-bottom: 1px solid #C0C0C0;
 }
 
-ul.argument_box {
+#debate_list_area ul.argument_box {
 	padding: 0 25px 0 30px;
+	border: 0 none;
+}
+
+#debate_list_area ul.argument_box li {
 	border: 0 none;
 }
 
