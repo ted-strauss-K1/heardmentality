@@ -2845,7 +2845,7 @@ h2.page-title {
 /*Add Argument*/
 
 #debate_work_area {
-	padding: 0 30px 19px;
+	padding: 0 30px 26px;
 }
 
 h6#add-arg,
@@ -3049,11 +3049,11 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area > h2:first-child {
-	margin: 0 0 16px;
+	margin: 0 0 14px;
 	color: #333366;
 	font: bold italic 12px/15px Arial, sans-serif;
 	text-transform: uppercase;
-	padding: 0 30px 14px;
+	padding: 0 30px 12px;
 	border-bottom: 1px solid #C0C0C0;
 }
 
@@ -3077,7 +3077,7 @@ h6#deb-ana:hover a,
 #debate_list_area .one-forum:first-child .arg {
 	background: none transparent;
 	margin: 0;
-	padding: 0 40px 0 70px;
+	padding: 0 30px 0 70px;
 }
 
 #debate_list_area .replies {
@@ -3088,6 +3088,13 @@ h6#deb-ana:hover a,
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+
+#debate_list_area .arg p.argument_body {
+	margin: 0;
+	font-size: 12px;
+	line-height: 18px;
+	color: #4c4c4c;
 }
 
 /*Small circle*/
