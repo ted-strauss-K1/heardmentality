@@ -3062,7 +3062,7 @@ h6#deb-ana:hover a,
 #debate_list_area .arg {
 	position: relative;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
-	padding: 14px 40px 0 70px;
+	padding: 13px 40px 0 70px;
 	margin: 14px 0 0;
 }
 
@@ -3078,8 +3078,12 @@ h6#deb-ana:hover a,
 
 #debate_list_area .arg span.sum {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 18px;
+    left: -18px;
+}
+
+#debate_list_area .one-forum:first-child .arg span.sum {
+    top: 5px;	
 }
 
 #debate_list_area .arg p.argument_body {
