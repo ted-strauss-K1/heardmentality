@@ -3090,6 +3090,7 @@ h6#deb-ana:hover a,
 #debate_list_area .arg .position {
 	padding: 10px 0 12px;
 	color: #888;
+	float: left;
 }
 
 #debate_list_area .arg p.position-minus,
@@ -3130,6 +3131,8 @@ h6#deb-ana:hover a,
 .userinfo-debate a.user-thumb {
 	display: inline-block;
 	float: left;
+	font-size: 11px;
+	color: #4c4c4c;
 }
 
 .userinfo-debate a.user-thumb img {
@@ -3137,10 +3140,16 @@ h6#deb-ana:hover a,
 	height: auto;
 	vertical-align: top;
 	margin-right: 8px;
+	border-radius: 4px;
+	margin: 0;
 }
 
 .userinfo-debate .name {
 	overflow: hidden;
+}
+
+.position-question {
+	clear: both;
 }
 
 /*Small circle*/
