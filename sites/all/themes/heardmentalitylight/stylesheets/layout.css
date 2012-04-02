@@ -3054,7 +3054,7 @@ h6#deb-ana:hover a,
 	font: bold italic 12px/15px Arial, sans-serif;
 	text-transform: uppercase;
 	padding: 0 30px 14px;
-	border-bottom: 1px solid #C0C0C0;
+	border-bottom: 0 none;
 }
 
 ul.argument_box {
@@ -3067,7 +3067,7 @@ ul.argument_box {
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
 }
 
-.one-forum:first-child #debate_list_area .arg {
+#debate_list_area .one-forum:first-child .arg {
 	background: none transparent;
 }
 
