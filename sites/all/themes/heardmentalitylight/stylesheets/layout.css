@@ -880,7 +880,7 @@ p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted
 /* #DEBATE
 ================================================== */	
 
-.debate-options {
+/*.debate-options {
 	float:left;
 	padding:0px 0px 0px 0px;
 	text-transform:uppercase;
@@ -911,21 +911,6 @@ p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted
 }
 .comments h6 a{
 	color:#000;
-}
-
-.position {
-  margin:-5px 0px 10px 0px;
-  background:#f9f9f9;
-  padding:4px 10px 4px 10px;
-  -webkit-border-radius:  3px 3px;
-	-moz-border-radius:  3px/3px; 
-	border-radius: 3px;
-}
-
-.position p.position-plus, .position p.position-minus {
-  font-size:12px;
-  margin:0px;
-  padding:0px;
 }
 
 .position-question {
@@ -1036,7 +1021,7 @@ a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;pa
 
 .bottom-arrow {
   
-}
+}*/
 
 /* #REFERENCES
 ================================================== */
@@ -3093,10 +3078,40 @@ h6#deb-ana:hover a,
 	color: #4c4c4c;
 }
 
+#debate_list_area .arg p.argument_body a.translate {
+	color: #0c6926;
+}
+
+#debate_list_area .arg p.argument_body a.translate:hover {
+	color: #55BA59;
+}
+
+#debate_list_area .arg .position {
+	padding: 15px 0;
+}
+
+#debate_list_area .arg p.position-minus,
+#debate_list_area .arg p.position-plus {
+	float: left;
+	margin-left: 20px;
+}
+
+#debate_list_area .arg p.position-minus:first-child,
+#debate_list_area .arg p.position-plus:first-child {
+	margin: 0;
+}
+
+#debate_list_area .arg p.position-minus strong,
+#debate_list_area .arg p.position-plus strong {
+	margin-right: 7px;
+}
+
 /*Small circle*/
 
 span.small_neg,
-span.small_pos {
+span.small_pos,
+#debate_list_area .arg p.position-minus strong,
+#debate_list_area .arg p.position-plus strong {
     background-color: #C2499B;
     border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -3113,7 +3128,8 @@ span.small_pos {
 	color: #fff;
 }
 
-span.small_pos {
+span.small_pos,
+#debate_list_area .arg p.position-plus strong {
 	background-color: #55ba59;
 	font-size: 12px;
 	line-height: 13px;
@@ -3156,7 +3172,8 @@ span.small_pos {
 #debate_work_area:after,
 #add-new-debate-form .value-select:after,
 #add-new-debate-form .assign:after,
-#add-new-debate-form:after {
+#add-new-debate-form:after,
+#debate_list_area .arg .position:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
