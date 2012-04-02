@@ -3115,6 +3115,34 @@ h6#deb-ana:hover a,
 	float: right;
 }
 
+.userinfo-debate span.date {
+	display: block;
+	color: #4c4c4c;
+	font-size: 11px;
+	line-height: 14px;
+	padding-bottom: 5px;
+}
+
+.userinfo-debate span.date span {
+	font-weight: bold;
+}
+
+.userinfo-debate a.user-thumb {
+	display: inline-block;
+	float: left;
+}
+
+.userinfo-debate a.user-thumb img {
+	width: 24px;
+	height: auto;
+	vertical-align: top;
+	margin-right: 8px;
+}
+
+.userinfo-debate .name {
+	overflow: hidden;
+}
+
 /*Small circle*/
 
 span.small_neg,
@@ -3183,7 +3211,8 @@ span.small_pos,
 #add-new-debate-form .value-select:after,
 #add-new-debate-form .assign:after,
 #add-new-debate-form:after,
-#debate_list_area .arg .position:after {
+#debate_list_area .arg .position:after,
+.userinfo-debate:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;

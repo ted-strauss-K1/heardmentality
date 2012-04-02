@@ -19,7 +19,9 @@
 .ie7 #add-new-debate-form,
 .ie8 #add-new-debate-form ,
 .ie8 #debate_list_area .arg .position,
-.ie7 #debate_list_area .arg .position{
+.ie7 #debate_list_area .arg .position,
+.ie7 .userinfo-debate,
+.ie8 .userinfo-debate{
 	zoom: 1;
 }
 
