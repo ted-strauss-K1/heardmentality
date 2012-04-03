@@ -3181,7 +3181,7 @@ ul.control_links h6#reply:hover {
     background: none transparent;
     float: none;
     margin: 0;
-    opacity: 1;
+    opacity: 1 !important;
     text-transform: none;
 	border: 0 none;
     border-radius: 0;
@@ -3212,18 +3212,20 @@ ul.control_links li a.icon.flag2 {
     text-shadow: 0 0 transparent;
 	display: inline-block;
 	padding: 3px;
-	text-transform: lowercase;
+	text-transform: lowercase !important;
 	background: none transparent;
     height: auto;
     margin: 0;
     opacity: 1;
     padding: 0;
     width: auto;
-	font-size: 12px;
+	font-size: 12px !important;
 	line-height: 15px;
 }
 
-ul.control_links li a:hover {
+ul.control_links li a:hover,
+ul.control_links li a.icon.flag2:hover,
+ul.control_links li:hover a.icon.flag2  {
 	color: #fff;
 	background-color: #ccc;
 }
