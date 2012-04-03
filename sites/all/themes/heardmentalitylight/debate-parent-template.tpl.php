@@ -47,7 +47,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 
 	  <ul class="control_links">
 			<li><a href="#" class="icon flag2" title="flag this argument">flag</a></li>
-			<li>&nbsp;|&nbsp;<a href="#" title="permalink">link</a></li>
+			<li>&nbsp;|&nbsp;<a href="#" class="flag2" title="permalink">link</a></li>
 			<?php if ($delete):?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
 	  </ul>
 	  

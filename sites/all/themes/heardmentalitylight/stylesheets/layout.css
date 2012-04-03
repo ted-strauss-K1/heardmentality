@@ -3059,6 +3059,7 @@ h6#deb-ana:hover a,
 
 #debate_list_area .replies {
 	padding: 0 40px 0 70px;
+	clear: both;
 }
 
 #debate_list_area .arg span.sum {
@@ -3166,9 +3167,9 @@ h6#deb-ana:hover a,
 }
 
 ul.control_links {
-	padding: 0 30% 0 70px;
+	padding: 0 100px 0 50%;
 	border: 0 none;
-	float: right;
+	float: left;
 }
 
 ul.control_links li {
@@ -3176,6 +3177,7 @@ ul.control_links li {
 	float: left;
 	font-size: 12px;
     line-height: 16px;
+	margin: 0;
 }
 
 ul.control_links h6#reply,
@@ -3218,7 +3220,6 @@ ul.control_links li a.icon.flag2 {
     height: auto;
     margin: 0;
     opacity: 1;
-    padding: 0;
     width: auto;
 	font-size: 12px !important;
 	line-height: 15px;
@@ -3229,6 +3230,14 @@ ul.control_links li a.icon.flag2:hover,
 ul.control_links li:hover a.icon.flag2  {
 	color: #fff;
 	background-color: #ccc;
+}
+
+.reply_wrapper legend a {
+	background: none transparent;
+	padding: 0;
+	color: #ccc;
+	font-size: 12px;
+	line-height: 15px;
 }
 
 /*Small circle*/
