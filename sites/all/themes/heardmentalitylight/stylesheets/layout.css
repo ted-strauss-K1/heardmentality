@@ -3232,7 +3232,7 @@ ul.control_links li:hover a.icon.flag2  {
 	background-color: #ccc;
 }
 
-.reply_wrapper legend a {
+#debate_list_area .reply_wrapper legend a {
 	background: none transparent;
 	padding: 0;
 	color: #ccc;
