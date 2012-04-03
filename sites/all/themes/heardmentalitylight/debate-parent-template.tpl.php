@@ -46,8 +46,37 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
         <div class="position-question">
           <?php print $ratings; ?>
         </div>
+      </div>
 
-        <?php if ($reply_box): ?>
+	  <ul class="control_links">
+			<li><a href="#" class="icon flag2" title="flag this argument">flag</a></li>
+			<li><a href="#" title="permalink">link</a></li>
+			<?php if ($delete):?><li><?php print $delete; ?></li><?php endif; ?>
+	  </ul>
+	  
+      <div class="replies">
+
+        <?php if ($comments): ?>
+		
+        <fieldset class="collapsible collapsed reply_wrapper">
+		
+		<legend class="comment-meta"><?php print t('&#9658; '); ?><?php print $reply_count; ?><?php print t(' replies'); ?></legend>
+            <div class="fieldset-wrapper">
+				<ul>
+				  <div id="all_replybox_<?php print $items['debate_tnid']; ?>">
+					<?php print $comments; ?>
+				  </div>
+				</ul>
+			</div>
+        </fieldset> 
+		
+		<?php endif; ?>
+		
+	  </div>
+	  
+	  <div class="agreement">
+	  
+		<?php if ($reply_box): ?>
           <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
           <ul>
             <div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
@@ -56,35 +85,9 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
             </div>
           </ul>
         <?php endif; ?>
-      </div>
-
-      <div class="replies">
-
-        <?php if ($comments): ?>
-
-
-    <!--<h6 class="active">/ <?php print $reply_count; ?> <?php print t('REPLIES'); ?></h6>-->
-	<a href="#" class="icon flag2" title="flag this argument"></a>
-        <fieldset class ="collapsible collapsed"> 
-            <ul><!--<div class="top-arrow"></div>-->
-              <div id="all_replybox_<?php print $items['debate_tnid']; ?>">
-                <?php print $comments; ?>
-              </div>
-            </ul>
-
-          <?php endif; ?>
-
-          <legend class="comment-meta"><?php print t('Show '); ?><?php print $reply_count; ?><?php print t(' more replies'); ?></legend> 
-
-          <!--<?php
-          if ($delete):
-            print $delete;
-            print t('del debateparenttpl');
-          endif;
-          ?>-->
-          
-        </fieldset> 
-      </div>
+	  
+	  </div>
+	  
     </li>
   </ul>
 </div>
@@ -102,3 +105,4 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
     resizable:false
   });
 </script>
+
