@@ -967,7 +967,11 @@ p.comment-meta {
 	-webkit-box-shadow: 0 0 transparent;
 	-o-box-shadow: 0 0 transparent;
 	-khtml-box-shadow: 0 0 transparent;
-
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	-o-border-radius: 0;
+	-khtml-border-radius: 0;
 }
 
 .comment-agree a.agree:hover,
@@ -3179,14 +3183,14 @@ h6#deb-ana:hover a,
 	padding: 0 40px 0 70px;
 }
 
-.position-question .likebar {
+.position-question .comment-agree {
 	opacity: 1;
 	margin: 0;
 	font-weight: bold;
 	color: #ccc;
 }
 
-.position-question .likebar a span {
+.position-question .comment-agree a span {
 	font-weight: normal;
 }
 
