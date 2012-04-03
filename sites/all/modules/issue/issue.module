@@ -3230,7 +3230,7 @@ function get_rating_buttons($items, $type) {
           . '<span class="comment-agree" type="' . $type . '" name="' . $itemId . '" id="lik-btns-' .
           $ntype . '-' . $itemId . '">' . t('Do you agree with the argument?') . '
     <a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' .
-          $agreeClass . '>' . t('Yes') . ' <span>(' . $items['vote_up'] . ')</span></a>&nbsp;|&nbsp;
+          $agreeClass . '>' . t('Yes') . ' <span>(' . $items['vote_up'] . ')</span></a>&nbsp;|
     <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' .
           $itemId . '" ' . $disagreeClass . '>' . t('No') . ' <span>(' . $items['vote_down'] . ')</span></a>
     </span>';

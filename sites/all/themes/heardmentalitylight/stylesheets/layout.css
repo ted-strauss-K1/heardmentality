@@ -3180,7 +3180,11 @@ h6#deb-ana:hover a,
 
 .position-question {
 	clear: both;
-	padding: 12px 40px 0 70px;
+	padding: 10px 40px 0 70px;
+}
+
+.position-question .likebar {
+	margin: 0;
 }
 
 .position-question .comment-agree {
@@ -3260,7 +3264,8 @@ ul.control_links li:hover a.icon.flag2  {
 	background-color: #ccc;
 }
 
-#debate_list_area .reply_wrapper legend a {
+#debate_list_area .reply_wrapper legend a,
+#debate_list_area .reply_wrapper legend {
 	background: none transparent;
 	padding: 0;
 	color: #ccc;
@@ -3301,7 +3306,7 @@ span.small_pos,
 #debate_list_area .arg p.position-plus strong {
 	background-color: #55ba59;
 	font-size: 12px;
-	line-height: 13px;
+	line-height: 14px;
 	font-family: Arial, sans-serif;
 }
 
