@@ -956,13 +956,24 @@ p.comment-meta {
 .comment-agree a.disagree{
     background: none repeat scroll 0 0 transparent;
     border: 0 none;
-    color: #000;
+    color: #ccc;
     cursor: pointer;
-    display: inline;
+    display: inline-block;
     float: none;
     margin: 0;
-    padding: 0;
+    padding: 1px 4px;
+	box-shadow: 0 0 transparent;
+	-moz-box-shadow: 0 0 transparent;
+	-webkit-box-shadow: 0 0 transparent;
+	-o-box-shadow: 0 0 transparent;
+	-khtml-box-shadow: 0 0 transparent;
 
+}
+
+.comment-agree a.agree:hover,
+.comment-agree a.disagree:hover {
+	background-color: #ccc;
+	color: #fff;
 }
 
 /*a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;padding:1px 7px 1px 0px;margin:0px}
@@ -3061,7 +3072,6 @@ h6#deb-ana:hover a,
 	padding: 0 40px 0 70px;
 	clear: both;
 	position: relative;
-	z-index: 1000;
 }
 
 #debate_list_area .arg span.sum {
@@ -3166,13 +3176,24 @@ h6#deb-ana:hover a,
 
 .position-question {
 	clear: both;
+	padding: 0 40px 0 70px;
+}
+
+.position-question .likebar {
+	opacity: 1;
+	margin: 0;
+	font-weight: bold;
+	color: #ccc;
+}
+
+.position-question .likebar a span {
+	font-weight: normal;
 }
 
 ul.control_links {
-	padding: 0 100px 0 50%;
 	border: 0 none;
 	float: left;
-	margin-bottom: -16px;
+	margin: 0 100px -16px 50%;
 }
 
 ul.control_links li {
