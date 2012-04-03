@@ -3199,7 +3199,7 @@ ul.control_links h6#reply:hover {
     font-size: 12px;
     font-weight: normal;
     line-height: 15px;
-    padding: 1px 4px;
+	padding: 0;
     text-decoration: none;
     text-shadow: 0 0 transparent;
 }
@@ -3209,11 +3209,10 @@ ul.control_links li a.icon.flag2 {
 	color: #ccc;
 	text-decoration: none;
     font-weight: normal;
-    padding: 0;
+    padding: 1px 4px;
     text-decoration: none;
     text-shadow: 0 0 transparent;
 	display: inline-block;
-	padding: 3px;
 	text-transform: lowercase !important;
 	background: none transparent;
     height: auto;
