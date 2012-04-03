@@ -565,7 +565,8 @@ function issue_edit_vote_submit($form, &$form_state) {
   $date_time = date("y-m-d H:i:s", time());
   if ($user->uid) {
 
-    db_query('UPDATE {poll_votes_history} set status=%d where nid=%d and uid=%d', 0, $nid, $user->uid);
+   // db_query('UPDATE {poll_votes_history} set status=%d where nid=%d and uid=%d', 0, $nid, $user->uid);
+    db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $form['choice']['#default_value'], $user->uid, $date_time, 0);
     db_query('INSERT INTO {poll_votes_history} (nid, chorder, uid, date_voted, status) VALUES (%d, %d, %d, "%s", %d)', $nid, $choice, $user->uid, $date_time, 1);
 
     db_query('update {poll_votes} set chorder=%d where nid=%d and uid=%d', $choice, $nid, $user->uid);
@@ -747,8 +748,6 @@ function issue_form_alter(&$form, $form_state, $form_id) {
 
 function choice_vote_date_update($form, &$form_state) {
   global $user;
-  //echo '<pre>';
-  //print_r($form);
   //update the date that has to be set while adding or editing vote due to merge issue problem
   $nid = !empty($form['#nid']) ? $form['#nid'] : $form['#node']->nid;
   $date_time = date("y-m-d H:i:s", time());

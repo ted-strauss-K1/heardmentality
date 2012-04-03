@@ -449,7 +449,6 @@ function report_graph($nid='') {
     if (count($drange) > 6) {
       for ($mn = $frange; $mn >= 0; $mn--) {
         $date = $drange[$mn];
-
         $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
         array_push($ans, $inc_this);
       }
@@ -474,6 +473,7 @@ function report_graph($nid='') {
         $date = date('Y-m-d', mktime(0, 0, 0, $month, $dat, $year));
 
         $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
+      //  krumo($inc_this);
         array_push($ans, $inc_this);
       }
       $ins_sc = '[' . implode(',', $ans) . ']';
@@ -2562,11 +2562,21 @@ function report_answer_details_history($nid = '', $aid = '', $action = '', $date
       return $answer;
       break;
     case 'timeline':
-      $query = "select count(*) as cnt from {poll_votes_history} where nid='" . $nid . "' and chorder='" . $aid . "'AND date(date_voted)<='" . $date . "' ";
-      $answer = ExecuteQuery($query, "select");
-
-      return $answer ? $answer[0]['cnt'] : 'null';
-
+      $query1 = "select count(*) as cnt from {poll_votes_history} where nid='" . $nid . "' and chorder='" . $aid . "'AND date(date_voted)<='" . $date . "' and status=1";
+      $query2 = "select count(*) as cnt from {poll_votes_history} where nid='" . $nid . "' and chorder='" . $aid . "'AND date(date_voted)<='" . $date . "' and status=0";
+      $result1 = db_result(db_query($query1));
+      $result2 = db_result(db_query($query2));
+      if ((!is_null($result1)) and (!is_null($result2))) {
+        $result = $result1 - $result2;
+      }
+      else {
+        $result = 'null';
+      }
+    //  $answer1 = ExecuteQuery($query1, "select");
+     // $answer2 = ExecuteQuery($query2, "select");
+     // $answer = $answer1[0]['cnt'] - $answer2[0]['cnt'];
+   //   return $answer ? $answer[0]['cnt'] : 'null';
+      return $result;
       break;
   }
 }
