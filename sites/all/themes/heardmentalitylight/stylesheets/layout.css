@@ -3174,6 +3174,8 @@ ul.control_links {
 ul.control_links li {
 	color: #ccc;
 	float: left;
+	font-size: 12px;
+    line-height: 16px;
 }
 
 ul.control_links h6#reply,
@@ -3197,7 +3199,7 @@ ul.control_links h6#reply:hover {
     font-size: 12px;
     font-weight: normal;
     line-height: 15px;
-    padding: 0;
+    padding: 1px 4px;
     text-decoration: none;
     text-shadow: 0 0 transparent;
 }
