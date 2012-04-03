@@ -43,9 +43,6 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
           <span class="name"><a href="<?php print $sitelink . 'profile/' . $items['uname']; ?>"><?php print $items['uname']; ?></a></span>
         </div>
 
-        <div class="position-question">
-          <?php print $ratings; ?>
-        </div>
       </div>
 
 	  <ul class="control_links">
@@ -63,10 +60,20 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 		<legend class="comment-meta"><?php print t('&#9658; '); ?><?php print $reply_count; ?><?php print t(' replies'); ?></legend>
             <div class="fieldset-wrapper">
 				<ul>
-				  <div id="all_replybox_<?php print $items['debate_tnid']; ?>">
+				  222<div id="all_replybox_<?php print $items['debate_tnid']; ?>">
 					<?php print $comments; ?>
 				  </div>
 				</ul>
+				
+				<?php if ($reply_box): ?>
+				  <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
+				  111<ul>
+					<div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
+					<div id="reply-comment"> 
+					  <?php print $reply_box; ?>
+					</div>
+				  </ul>
+				<?php endif; ?>
 			</div>
         </fieldset> 
 		
@@ -74,20 +81,10 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 		
 	  </div>
 	  
-	  <div class="agreement">
-	  
-		<?php if ($reply_box): ?>
-          <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
-          <ul>
-            <div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
-            <div id="reply-comment"> 
-              <?php print $reply_box; ?>
-            </div>
-          </ul>
-        <?php endif; ?>
-	  
-	  </div>
-	  
+      <div class="position-question">
+        <?php print $ratings; ?>
+      </div>
+		
     </li>
   </ul>
 </div>
