@@ -64,16 +64,6 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 					<?php print $comments; ?>
 				  </div>
 				</ul>
-				
-				<?php if ($reply_box): ?>
-				  <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
-				  111<ul>
-					<div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
-					<div id="reply-comment"> 
-					  <?php print $reply_box; ?>
-					</div>
-				  </ul>
-				<?php endif; ?>
 			</div>
         </fieldset> 
 		
@@ -84,6 +74,15 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
       <div class="position-question">
         <?php print $ratings; ?>
       </div>
+	  <?php if ($reply_box): ?>
+		<!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
+		<ul class="argument_replybox">
+			<div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
+			<div id="reply-comment"> 
+				<?php print $reply_box; ?>
+			</div>
+		</ul>
+	  <?php endif; ?>
 		
     </li>
   </ul>
