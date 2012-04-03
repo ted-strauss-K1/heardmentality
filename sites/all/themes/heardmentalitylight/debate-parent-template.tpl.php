@@ -57,7 +57,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 		
         <fieldset class="collapsible collapsed reply_wrapper">
 		
-		<legend class="comment-meta"><?php print t('&#9658; '); ?><?php print $reply_count; ?><?php print t(' replies'); ?></legend>
+		<legend class="comment-meta"><a href="#"><?php print t('&#9658; '); ?><?php print $reply_count; ?><?php print t(' replies'); ?></a></legend>
             <div class="fieldset-wrapper">
 				<ul>
 				  222<div id="all_replybox_<?php print $items['debate_tnid']; ?>">
