@@ -3202,7 +3202,8 @@ ul.control_links h6#reply:hover {
     text-shadow: 0 0 transparent;
 }
 
-ul.control_links li a {
+ul.control_links li a,
+ul.control_links li a.icon.flag2 {
 	color: #ccc;
 	text-decoration: none;
     font-weight: normal;
@@ -3211,6 +3212,15 @@ ul.control_links li a {
     text-shadow: 0 0 transparent;
 	display: inline-block;
 	padding: 3px;
+	text-transform: lowercase;
+	background: none transparent;
+    height: auto;
+    margin: 0;
+    opacity: 1;
+    padding: 0;
+    width: auto;
+	font-size: 12px;
+	line-height: 15px;
 }
 
 ul.control_links li a:hover {
