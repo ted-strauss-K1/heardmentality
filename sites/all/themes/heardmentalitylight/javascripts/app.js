@@ -920,9 +920,9 @@ $(document).ready(function() {
 
 $(document).ready(function(){
   $('.button.light').click(function(e) {
-    $(this).parents('.arg').find('ul').toggle(60);
-    $(this).parents('.arg').find('ul div').show(60);
-    $(this).parents('.arg').find('ul div.help_radios').hide();    
+    $(this).parents('.position-question').find('ul.argument_replybox').toggle(60);
+    $(this).parents('.position-question').find('ul.argument_replybox div').show(60);
+    $(this).parents('.position-question').find('ul.argument_replybox div.help_radios').hide();    
   })  
 });
 
@@ -943,7 +943,7 @@ $(document).ready(function(){
     // $(this).addClass('expanded');  
     }
     
-    $(this).parents('.arg').find('ul input[name=str_wk]:radio:even').attr('checked',true);
+    $(this).parents('.position-question').find('ul.argument_replybox input[name=str_wk]:radio:even').attr('checked',true);
   })
 });
 
@@ -962,6 +962,6 @@ $(document).ready(function(){
       
     }
 
-    $(this).parents('.arg').find('ul input[name=str_wk]:radio:odd').attr('checked',true);
+    $(this).parents('.position-question').find('ul.argument_replybox input[name=str_wk]:radio:odd').attr('checked',true);
   })
 });

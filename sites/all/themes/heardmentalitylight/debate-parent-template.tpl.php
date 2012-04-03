@@ -60,7 +60,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 		<legend class="comment-meta"><a href="#"><?php print t('&#9658; '); ?><?php print $reply_count; ?><?php print t(' replies'); ?></a></legend>
             <div class="fieldset-wrapper">
 				<ul>
-				  222<div id="all_replybox_<?php print $items['debate_tnid']; ?>">
+				  <div id="all_replybox_<?php print $items['debate_tnid']; ?>">
 					<?php print $comments; ?>
 				  </div>
 				</ul>
@@ -72,8 +72,8 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 	  </div>
 	  
       <div class="position-question">
-        <?php print $ratings; ?>
-      </div>
+      <?php print $ratings; ?>
+      
 	  <?php if ($reply_box): ?>
 		<!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
 		<ul class="argument_replybox">
@@ -83,6 +83,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 			</div>
 		</ul>
 	  <?php endif; ?>
+	  </div>
 		
     </li>
   </ul>
