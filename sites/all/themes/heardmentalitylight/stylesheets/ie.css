@@ -21,7 +21,9 @@
 .ie8 #debate_list_area .arg .position,
 .ie7 #debate_list_area .arg .position,
 .ie7 .userinfo-debate,
-.ie8 .userinfo-debate{
+.ie8 .userinfo-debate,
+.ie7 #debate_list_area .arg,
+.ie8 #debate_list_area .arg{
 	zoom: 1;
 }
 

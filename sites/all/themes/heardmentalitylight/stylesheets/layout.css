@@ -3147,7 +3147,7 @@ h6#deb-ana:hover a,
 }
 
 .userinfo-debate .name {
-	overflow: hidden;
+	float: left;
 	font-size: 11px;
 	line-height: 14px;
 	display: block;
@@ -3163,6 +3163,59 @@ h6#deb-ana:hover a,
 
 .position-question {
 	clear: both;
+}
+
+ul.control_links {
+	padding: 0 30% 0 70px;
+	border: 0 none;
+	float: right;
+}
+
+ul.control_links li {
+	color: #ccc;
+	float: left;
+}
+
+ul.control_links h6#reply,
+ul.control_links h6#reply:hover {
+    background: none transparent;
+    float: none;
+    margin: 0;
+    opacity: 1;
+    text-transform: none;
+	border: 0 none;
+    border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	-o-border-radius: 0;
+	-khtml-border-radius: 0;
+    box-shadow: 0 0 transparent;
+    color: #ccc !important;
+    cursor: pointer;
+    display: inline;
+    font-family: "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 15px;
+    padding: 0;
+    text-decoration: none;
+    text-shadow: 0 0 transparent;
+}
+
+ul.control_links li a {
+	color: #ccc;
+	text-decoration: none;
+    font-weight: normal;
+    padding: 0;
+    text-decoration: none;
+    text-shadow: 0 0 transparent;
+	display: inline-block;
+	padding: 3px;
+}
+
+ul.control_links li a:hover {
+	color: #fff;
+	background-color: #ccc;
 }
 
 /*Small circle*/
@@ -3234,7 +3287,8 @@ span.small_pos,
 #add-new-debate-form .assign:after,
 #add-new-debate-form:after,
 #debate_list_area .arg .position:after,
-.userinfo-debate:after {
+.userinfo-debate:after,
+#debate_list_area .arg:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
