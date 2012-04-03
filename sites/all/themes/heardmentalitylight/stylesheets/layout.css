@@ -974,6 +974,11 @@ p.comment-meta {
 	-khtml-border-radius: 0;
 }
 
+.comment-agree a.agree.collapsed,
+.comment-agree a.disagree.collapsed {
+    color: #999 !important;	
+}
+
 .comment-agree a.agree:hover,
 .comment-agree a.disagree:hover {
 	background-color: #ccc;
