@@ -3060,6 +3060,8 @@ h6#deb-ana:hover a,
 #debate_list_area .replies {
 	padding: 0 40px 0 70px;
 	clear: both;
+	position: relative;
+	z-index: 1000;
 }
 
 #debate_list_area .arg span.sum {
@@ -3170,6 +3172,7 @@ ul.control_links {
 	padding: 0 100px 0 50%;
 	border: 0 none;
 	float: left;
+	margin-bottom: -16px;
 }
 
 ul.control_links li {
