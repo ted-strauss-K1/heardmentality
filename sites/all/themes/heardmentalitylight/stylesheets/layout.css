@@ -956,7 +956,7 @@ p.comment-meta {
 .comment-agree a.disagree{
     background: none repeat scroll 0 0 transparent;
     border: 0 none;
-    color: #ccc;
+    color: #ccc !important;
     cursor: pointer;
     display: inline-block;
     float: none;
@@ -977,7 +977,7 @@ p.comment-meta {
 .comment-agree a.agree:hover,
 .comment-agree a.disagree:hover {
 	background-color: #ccc;
-	color: #fff;
+	color: #fff !important;
 }
 
 /*a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;padding:1px 7px 1px 0px;margin:0px}
@@ -3180,7 +3180,7 @@ h6#deb-ana:hover a,
 
 .position-question {
 	clear: both;
-	padding: 0 40px 0 70px;
+	padding: 12px 40px 0 70px;
 }
 
 .position-question .comment-agree {
@@ -3266,6 +3266,13 @@ ul.control_links li:hover a.icon.flag2  {
 	color: #ccc;
 	font-size: 12px;
 	line-height: 15px;
+}
+
+#debate_list_area  fieldset.collapsible legend {
+	display: none;
+}
+#debate_list_area  fieldset.collapsible.collapsed legend {
+	display: block;
 }
 
 /*Small circle*/
