@@ -3067,8 +3067,8 @@ h6#deb-ana:hover a,
 #debate_list_area .arg {
 	position: relative;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
-	padding: 13px 40px 0 70px;
-	margin: 14px 0 0;
+	padding: 12px 40px 0 70px;
+	margin: 11px 0 0;
 }
 
 #debate_list_area .one-forum:first-child .arg {
@@ -3185,7 +3185,7 @@ h6#deb-ana:hover a,
 
 .position-question {
 	clear: both;
-	padding: 10px 40px 0 70px;
+	padding: 5px 40px 0 70px;
 }
 
 .position-question .likebar {
@@ -3269,6 +3269,10 @@ ul.control_links li:hover a.icon.flag2  {
 	background-color: #ccc;
 }
 
+#debate_list_area .reply_wrapper {
+	margin: 0;
+}
+
 #debate_list_area .reply_wrapper legend a,
 #debate_list_area .reply_wrapper legend {
 	background: none transparent;
@@ -3276,6 +3280,7 @@ ul.control_links li:hover a.icon.flag2  {
 	color: #ccc;
 	font-size: 12px;
 	line-height: 15px;
+	font-weight: bold;
 }
 
 #debate_list_area  fieldset.collapsible legend {
@@ -3283,6 +3288,10 @@ ul.control_links li:hover a.icon.flag2  {
 }
 #debate_list_area  fieldset.collapsible.collapsed legend {
 	display: block;
+}
+
+.reply_wrapper  .fieldset-wrapper {
+	padding: 0 0 0 30px;
 }
 
 /*Small circle*/
