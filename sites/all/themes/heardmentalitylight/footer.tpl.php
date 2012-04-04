@@ -125,3 +125,21 @@
 	<script>window.jQuery || document.write("<script src='<?php echo $directoryPath; ?>/javascripts/jquery-1.6.2.min.js'>\x3C/script>")</script>
 
 	<script src="<?php echo $directoryPath; ?>/javascripts/app.js"></script>
+        
+<script>
+function googleSectionalElementInit() {
+  new google.translate.SectionalElement({
+    sectionalNodeClassName: 'goog-trans-section',
+    controlNodeClassName: 'goog-trans-control',
+    background: '#f4fa58'
+  }, 'google_sectional_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=auto"></script>
+
+
+<div id="permalink_text" style="display:none">
+share a link to this post
+<input type="text" style="display: block; width: 320px;" value="">
+ <a href="" style="float: right;" class="close-permalink">close</a>
+</div>

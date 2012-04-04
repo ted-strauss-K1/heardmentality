@@ -10,7 +10,7 @@
 
 $(document).ready(function() {
 
-$('#effect').delay(5000).fadeOut(1000);
+  $('#effect').delay(5000).fadeOut(1000);
   /* Tabs Activiation
 	================================================== */
   var tabs = $('ul.tabs');
@@ -457,15 +457,6 @@ $(function(){
 
   // Dialog Link
   $('#dialog_link').click(function(){
-   
-    //	$('#dialog').dialog('open');
-
-    // $('#dialog #tabs-1 #user-login').load('#user-login2');
-    // $('#dialog #tabs-2 #user-register').load(Drupal.settings.basePath + 'user/register #user-register');
-    //var h = $('#componentDiv').html();
-    
-    // $('#dialog #tabs-2 .gigya-login').html(h);
-    //  $('#dialog .gigya-login').html(h);
     $('#dialog').tabs();
     $('#dialog').dialog('open');
     return false;
@@ -493,7 +484,13 @@ $(function(){
     return false;
   });
 
-
+  $('#permalink_text').dialog({
+    autoOpen: false,
+    modal: false,
+    minWidth: 360,
+    resizable:false
+  });
+  
   // Dialog			
   $('#dialog-profile-pic').dialog({
     autoOpen: false,
@@ -964,4 +961,21 @@ $(document).ready(function(){
 
     $(this).parents('.position-question').find('ul.argument_replybox input[name=str_wk]:radio:odd').attr('checked',true);
   })
+});
+
+$(document).ready(function(){
+  $('a.flag2').click(function(e){
+    
+    
+    var a = window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id');
+
+    $('#permalink_text input').val(a)
+    $('#permalink_text').dialog('open');
+    
+    return false;
+  });
+  $('.close-permalink').click(function(e){
+    $('#permalink_text').dialog('close');
+    return false;
+  });
 });
