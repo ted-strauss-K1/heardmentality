@@ -20,15 +20,16 @@ $items['reply_content'] = str_replace("\n", "<br>", $items['reply_content']);
       <span class="date"><?php echo $items['ago']; ?>
       </span>
     </span>
+
+  <div class="position-question">
+    <?php print $ratings; ?>
+  </div>
   
    <ul class="control_links">
 		<li><a href="javascript:void(0);" class="icon flag2 flag_reply" onclick="open_flag_box(<?php print $items['cid']; ?>, 'comment')" title="flag this reply">flag</a></li>
 		<?php if ($delete):?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
    </ul>
-   
-  <div class="position-question">
-    <?php print $ratings; ?>
-  </div>
+
 </li>
 <div id="flag-comm-<?php print $items['cid']; ?>" title="<?php print t('FLAG THIS ITEM'); ?>" class="form-flag" style="display: none">
   <input type="hidden" value="comment" id="flagtype" />
