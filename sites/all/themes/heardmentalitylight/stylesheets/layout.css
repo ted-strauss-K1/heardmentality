@@ -3375,13 +3375,13 @@ ul.control_links li:hover a.icon.flag2  {
 #debate_list_area li.one_reply span.negative,
 #debate_list_area li.one_reply span.positive {
 	position: absolute;
-	top: 0;
+	top: 21px;
 	left: -98px;
 	display: block;
 	height: 19px;
 	width: 19px;
 	padding: 0 0 2px 1px;
-	border: 1px solid #e7e7e7;
+	border: 1px solid #d7d7d7;
 	font: 22px/18px Verdana, sans-serif;
 	background-color: #fff;
 	border-radius: 200px;
