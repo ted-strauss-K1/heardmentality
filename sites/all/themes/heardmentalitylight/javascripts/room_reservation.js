@@ -1,17 +1,21 @@
 $(document).ready(function() {
   $(function() {
+    //  var e = 0;
     var select = $( ".value-select .form-item select" );
-    var slider = $( "<div id='slider'><span class='left'></span><span class='right'></span></div>" ).insertAfter( select ).slider({
-      min: 1,
-      max: 3,
-      range: "min",
-      value: select[ 0 ].selectedIndex + 1,
-      slide: function( event, ui ) {
-        select[ 0 ].selectedIndex = ui.value - 1;
-      }
+    select.each(function(e){
+      var slider = $("<div id='slider-"+e+"'><span class='left'></span><span class='right'></span></div>" ).insertAfter( $(this) ).slider({
+        min: 1,
+        max: 3,
+        range: "min",
+        value: select[e].selectedIndex + 1,
+        slide: function( event, ui ) {
+          select[e].selectedIndex = ui.value - 1;
+        }
+      });
+
     });
     $( ".value-select .form-item select" ).change(function() {
-      slider.slider( "value", this.selectedIndex + 1 );
+      $(this).next().slider("value", this.selectedIndex + 1 );
     });
   });
 });
