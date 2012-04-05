@@ -2944,7 +2944,7 @@ h6#deb-ana:hover a,
 }
 
 #add-new-debate-form .assign span.small_pos {
-	margin: 0 0 0 42px;
+	margin: 0 0 0 44px;
 }
 
 #add-new-debate-form .value-select {
@@ -3014,16 +3014,16 @@ h6#deb-ana:hover a,
 	width: 25px;
 	height: 25px;
 	margin-left: -13px;
-    top: -8px;
+    top: -5px;
 	cursor: pointer;
 }
 
 .ui-slider span.left {
 	position: absolute;
-	left: -16px;
+	left: -17px;
 	top: 0;
 	height: 15px;
-	width: 16px;
+	width: 17px;
 	background: url(../images/slider_corners.png) no-repeat 0 0 transparent;
 }
 

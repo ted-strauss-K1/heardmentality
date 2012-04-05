@@ -6,7 +6,7 @@ $(document).ready(function() {
       var slider = $("<div id='slider-"+e+"'><span class='left'></span><span class='right'></span></div>" ).insertAfter( $(this) ).slider({
         min: 1,
         max: 3,
-        range: "min",
+        range: 2,
         value: select[e].selectedIndex + 1,
         slide: function( event, ui ) {
           select[e].selectedIndex = ui.value - 1;
