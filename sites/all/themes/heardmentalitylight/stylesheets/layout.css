@@ -3082,6 +3082,7 @@ h6#deb-ana:hover a,
 	padding: 0 40px 0 70px;
 	clear: both;
 	position: relative;
+	min-height: 17px;
 }
 
 #debate_list_area .arg span.sum {
@@ -3338,6 +3339,10 @@ ul.control_links li:hover a.icon.flag2  {
 
 .reply_wrapper  .fieldset-wrapper {
 	padding: 0 0 0 30px;
+}
+
+.reply_wrapper  .fieldset-wrapper .fieldset-wrapper {
+	padding: 0;
 }
 
 /*Small circle*/

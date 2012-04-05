@@ -5,15 +5,15 @@ $items['reply_content'] = str_replace("\r\n", "<br>", $items['reply_content']);
 $items['reply_content'] = str_replace("\n", "<br>", $items['reply_content']);
 ?>
 
-<li id="reply-block-<?php print $items['cid']; ?>">
-  <span class=<?php print $items['class'];
-?>><?php print $items['sign'] ?></span>
-  <a href="javascript:void(0);" class="icon flag2" onclick="open_flag_box(<?php print $items['cid']; ?>, 'comment')" title="flag this Reply"></a>
-
-
+<li id="reply-block-<?php print $items['cid']; ?>" class="one_reply">
+  <span class=<?php print $items['class'];?>><?php print $items['sign'] ?></span>
+  
   <p class="reply_body">
-    <?php print t($items['reply_content']); ?>
-    <a href="#" class="translate"><?php print t('Translate'); ?></a>
+    <div class="goog-trans-section reply_body_transl">
+		
+		<p><?php print t($items['reply_content']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
+          
+	</div>
     <span class="userinfo-reply">&nbsp;-&nbsp;
       <span class="name">
         <a href="<?php print $sitelink . 'profile/' . $items['uname']; print $items['ago'] . " ago" ?>">
@@ -22,17 +22,15 @@ $items['reply_content'] = str_replace("\n", "<br>", $items['reply_content']);
       </span>
     </span>
   </p>
-  <!--<p class="comment-meta"><a><?php //print t('No Replies');  ?></a></p>-->
 
   <div class="position-question">
     <?php print $ratings; ?>
   </div>
-
-  <?php
-  if ($delete):
-    print $delete;
-  endif;
-  ?>
+  
+   <ul class="control_links">
+		<li><a href="javascript:void(0);" class="icon flag2 flag_reply" onclick="open_flag_box(<?php print $items['cid']; ?>, 'comment')" title="flag this reply">flag</a></li>
+		<?php if ($delete):?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
+   </ul>
 
 </li>
 <div id="flag-comm-<?php print $items['cid']; ?>" title="<?php print t('FLAG THIS ITEM'); ?>" class="form-flag" style="display: none">
