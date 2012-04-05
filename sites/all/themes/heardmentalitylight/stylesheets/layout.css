@@ -3376,7 +3376,18 @@ ul.control_links li:hover a.icon.flag2  {
 #debate_list_area li.one_reply span.positive {
 	position: absolute;
 	top: 0;
-	left: 0;
+	left: -40px;
+	display: block;
+	height: 19px;
+	width: 19px;
+	border: 1px solid #e7e7e7;
+	font: 30px/32px Arial, sans-serif;
+	background-color: #fff;
+	border-radius: 200px;
+	-o-border-radius: 200px;
+	-moz-border-radius: 200px;
+	-webkit-border-radius: 200px;
+	-khtml-border-radius: 200px;
 }
 
 #debate_list_area li.one_reply span.userinfo-reply {
@@ -3410,11 +3421,12 @@ ul.control_links li:hover a.icon.flag2  {
 }
 
 #debate_list_area li.one_reply ul.control_links {
-	margin: 0 0 0 36px;
+	margin: 0 0 0 42px;
 	float: none;
 	display: inline-block;
 	vertical-align: top;
 	position: relative;
+	top: -1px;
 }
 
 /*Small circle*/
