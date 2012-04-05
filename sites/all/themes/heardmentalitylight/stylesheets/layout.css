@@ -3355,16 +3355,19 @@ ul.control_links li:hover a.icon.flag2  {
 
 .reply_wrapper  .fieldset-wrapper {
 	padding: 0 0 0 30px;
+	margin: 25px 0 0;
 	overflow: visible !important;
 }
 
 .reply_wrapper  .fieldset-wrapper .fieldset-wrapper {
 	padding: 0;
+	margin: 0;
 }
 
 #debate_list_area li.one_reply {
 	position: relative;
-	margin-top: 17px;
+	padding: 12px 0;
+	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
 }
 
 #debate_list_area li.one_reply span.negative,
