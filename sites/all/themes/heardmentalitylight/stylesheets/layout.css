@@ -3087,9 +3087,11 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .arg span.sum {
-    position: absolute;
-    top: 18px;
+    background-color: #FFFFFF;
     left: -30px;
+    padding-top: 18px;
+    position: absolute;
+    top: 1px;
 }
 
 #debate_list_area .one-forum:first-child .arg span.sum {
