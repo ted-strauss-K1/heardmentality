@@ -3356,7 +3356,7 @@ ul.control_links li:hover a.icon.flag2  {
 
 .reply_wrapper  .fieldset-wrapper {
 	padding: 0 0 0 30px;
-	margin: 20px 0 0;
+	margin: 32px 0 0;
 	overflow: visible !important;
 }
 
@@ -3367,7 +3367,8 @@ ul.control_links li:hover a.icon.flag2  {
 
 #debate_list_area li.one_reply {
 	position: relative;
-	padding: 12px 0 10px !important;
+	padding: 0 0 10px !important;
+	margin: 0 0 12px !important;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
 }
 
@@ -3400,13 +3401,19 @@ ul.control_links li:hover a.icon.flag2  {
 	padding: 13px 0 0;
 }
 
+#debate_list_area li.one_reply .position-question .comment-agree {
+	vertical-align: top;
+}
+
 #debate_list_area li.one_reply .position-question span.doyou_app {
 	display: none;
 }
 
 #debate_list_area li.one_reply ul.control_links {
-	margin: 0 0 0 20px;
+	margin: 0 0 0 36px;
 	float: none;
+	vertical-align: top;
+	position: relative;
 }
 
 /*Small circle*/
