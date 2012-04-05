@@ -3079,8 +3079,9 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .replies {
-	padding: 17px 40px 0 70px;
+	padding: 0 40px 0 70px;
 	clear: both;
+	min-height: 17px;
 	position: relative;
 }
 
