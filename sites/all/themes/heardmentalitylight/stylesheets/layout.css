@@ -3378,16 +3378,22 @@ ul.control_links li:hover a.icon.flag2  {
 	top: 0;
 	left: -40px;
 	display: block;
-	height: 19px;
-	width: 19px;
+	height: 21px;
+	width: 21px;
 	border: 1px solid #e7e7e7;
-	font: 30px/32px Arial, sans-serif;
+	font: 19px/21px Verdana, sans-serif;
 	background-color: #fff;
 	border-radius: 200px;
 	-o-border-radius: 200px;
 	-moz-border-radius: 200px;
 	-webkit-border-radius: 200px;
 	-khtml-border-radius: 200px;
+	text-align: center;
+	color: #C2499B;
+}
+
+#debate_list_area li.one_reply span.positive {
+	color: #55BA59;
 }
 
 #debate_list_area li.one_reply span.userinfo-reply {
