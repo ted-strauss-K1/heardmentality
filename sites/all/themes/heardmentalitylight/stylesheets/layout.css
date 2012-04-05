@@ -3307,13 +3307,25 @@ ul.control_links li:hover a.icon.flag2  {
 }
 
 #debate_list_area .reply_wrapper legend a,
-#debate_list_area .reply_wrapper legend {
+#debate_list_area .reply_wrapper legend,
+#debate_list_area .reply_wrapper legend span {
 	background: none transparent;
 	padding: 0;
 	color: #ccc;
 	font-size: 12px;
 	line-height: 15px;
 	font-weight: bold;
+	cursor: pointer;
+}
+
+#debate_list_area .reply_wrapper legend span {
+	display: inline;
+}
+
+#debate_list_area .reply_wrapper legend span:hover,
+#debate_list_area .reply_wrapper legend a:hover span {
+	background: none #ccc;
+	color: #fff;
 }
 
 #debate_list_area  fieldset.collapsible legend {
