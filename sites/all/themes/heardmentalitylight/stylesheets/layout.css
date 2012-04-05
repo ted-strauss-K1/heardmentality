@@ -3239,7 +3239,7 @@ h6#deb-ana:hover a,
 ul.control_links {
 	border: 0 none;
 	float: left;
-	margin: 0 100px -16px 50%;
+	margin: 0 100px -17px 50%;
 }
 
 ul.control_links li {
@@ -3319,7 +3319,8 @@ ul.control_links li:hover a.icon.flag2  {
 }
 
 #debate_list_area .reply_wrapper legend span {
-	display: inline;
+	display: inline-block;
+    padding: 1px 4px;
 }
 
 #debate_list_area .reply_wrapper legend span:hover,
