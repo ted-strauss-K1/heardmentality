@@ -2996,7 +2996,7 @@ h6#deb-ana:hover a,
 
 /*Slider*/
 
-#slider {
+.ui-slider {
 	width: 36px;
 	height: 10px;
 	/*background:url(../images/slider_track.png) no-repeat 0 0 transparent;
@@ -3011,7 +3011,7 @@ h6#deb-ana:hover a,
 	background: none transparent;
 }
 
-#slider .ui-slider-handle {
+.ui-slider .ui-slider-handle {
 	background:url(../images/slider_circle.png) no-repeat center 0 transparent;
 	border: 0 none;
 	width: 24px;
@@ -3021,7 +3021,7 @@ h6#deb-ana:hover a,
 	cursor: pointer;
 }
 
-#slider span.left {
+.ui-slider span.left {
 	position: absolute;
 	left: -16px;
 	top: -1px;/*0*/
@@ -3033,7 +3033,7 @@ h6#deb-ana:hover a,
 	border-radius: 20px 0 0 20px;
 }
 
-#slider span.right {
+.ui-slider span.right {
 	position: absolute;
 	right: -16px;
 	top: -1px;
@@ -3095,7 +3095,7 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .one-forum:first-child .arg span.sum {
-    padding-top: 7px;
+    padding-top: 8px;
     top: 0;
 }
 
