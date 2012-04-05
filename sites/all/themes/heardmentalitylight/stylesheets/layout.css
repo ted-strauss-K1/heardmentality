@@ -3238,7 +3238,7 @@ h6#deb-ana:hover a,
 .position-question span.line {
     background-color: #FFFFFF;
     display: block;
-    height: 14px;
+    height: 20px;
     left: -1px;
     position: absolute;
     top: 13px;
@@ -3265,6 +3265,13 @@ h6#deb-ana:hover a,
 
 .position-question .comment-agree a span {
 	font-weight: normal;
+}
+
+.position-question ul.argument_replybox {
+    background-color: #FFFFFF;
+    left: -60px;
+    padding-left: 60px;
+    position: relative;
 }
 
 ul.control_links {
