@@ -3095,7 +3095,8 @@ h6#deb-ana:hover a,
     top: 5px;	
 }
 
-#debate_list_area .arg .argument_body {
+#debate_list_area .arg .argument_body,
+#debate_list_area .reply_body {
 	margin: 0;
 	font-size: 12px;
 	line-height: 18px;
@@ -3103,30 +3104,37 @@ h6#deb-ana:hover a,
 	padding: 0 0 9px;
 }
 
-#debate_list_area .arg .argument_body p {
+#debate_list_area .arg .argument_body p,
+#debate_list_area .reply_body p {
 	margin: 0;
 	font-size: 12px;
 	line-height: 18px;
 	display: inline;	
 }
 
-#debate_list_area .arg .argument_body .translate {
+#debate_list_area .arg .argument_body .translate,
+#debate_list_area .reply_body .translate {
 	color: #55BA59;
 	font-weight: bold;
 	display: inline;
 }
 
-#debate_list_area .arg .argument_body .translate * {
+#debate_list_area .arg .argument_body .translate *,
+#debate_list_area .reply_body .transpate * {
 	display: inline;
 }
 
 #debate_list_area .arg .argument_body .translate a,
-#debate_list_area .arg .argument_body .sq {
+#debate_list_area .arg .argument_body .sq,
+#debate_list_area .reply_body .transpate a,
+#debate_list_area .reply_body .sq {
 	color: #55BA59;
 }
 
 #debate_list_area .arg .argument_body .translate a span,
-#debate_list_area .arg .argument_body .sq {
+#debate_list_area .arg .argument_body .sq,
+#debate_list_area .reply_body .transpate a span,
+#debate_list_area .reply_body .sq {
 	font-size: 12px !important;
 	line-height: 18px !important;
 	display: inline;
@@ -3135,11 +3143,15 @@ h6#deb-ana:hover a,
 
 #debate_list_area .arg .argument_body .translate a:hover,
 #debate_list_area .arg .argument_body .sq:hover,
-#debate_list_area .arg .argument_body .sq:hover a {
+#debate_list_area .arg .argument_body .sq:hover a,
+#debate_list_area .reply_body .translate a:hover,
+#debate_list_area .reply_body .sq:hover,
+#debate_list_area .reply_body .sq:hover a {
 	color: #0c6926;
 }
 
-#debate_list_area .arg .argument_body font:first-child {
+#debate_list_area .arg .argument_body font:first-child,
+#debate_list_area .reply_body font:first-child {
 	background: none #e1e43c !important;
 }
 
@@ -3210,7 +3222,7 @@ h6#deb-ana:hover a,
 }
 
 .userinfo-debate .name a {
-	color: #4c4c4c;
+	color: #000;
 }
 
 .userinfo-debate .name a:hover {
@@ -3339,10 +3351,44 @@ ul.control_links li:hover a.icon.flag2  {
 
 .reply_wrapper  .fieldset-wrapper {
 	padding: 0 0 0 30px;
-	overflow: visible;
+	overflow: visible !important;
 }
 
 .reply_wrapper  .fieldset-wrapper .fieldset-wrapper {
+	padding: 0;
+}
+
+#debate_list_area li.one_reply {
+	position: relative;
+	margin-top: 17px;
+}
+
+#debate_list_area li.one_reply span.negative,
+#debate_list_area li.one_reply span.positive {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+#debate_list_area li.one_reply span.userinfo-reply {
+	color: #4c4c4c;
+	font-size: 12px;
+}
+
+#debate_list_area li.one_reply span.userinfo-reply a {
+	color: #000;
+	text-decoration: none;
+}
+
+#debate_list_area li.one_reply span.userinfo-reply a:hover {
+	text-decoration: underline;
+}
+
+#debate_list_area li.one_reply span.userinfo-reply span.date {
+	color: #ccc;
+}
+
+#debate_list_area li.one_reply .position-question {
 	padding: 0;
 }
 
