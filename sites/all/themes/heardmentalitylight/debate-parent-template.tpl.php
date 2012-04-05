@@ -57,7 +57,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 	  
       <div class="replies">
 
-        <?php if ($comments): ?>
+        <?php if ($comments > 0): ?>
 		
         <fieldset class="collapsible collapsed reply_wrapper">
 		
