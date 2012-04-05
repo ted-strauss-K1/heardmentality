@@ -3127,16 +3127,19 @@ h6#deb-ana:hover a,
 #debate_list_area .arg .argument_body .translate a span,
 #debate_list_area .arg .argument_body .sq {
 	font-size: 12px !important;
-	line-height: 18px !important;	
+	line-height: 18px !important;
+	display: inline;
+	font-weight: bold;
 }
 
 #debate_list_area .arg .argument_body .translate a:hover,
-#debate_list_area .arg .argument_body .sq:hover {
+#debate_list_area .arg .argument_body .sq:hover,
+#debate_list_area .arg .argument_body .sq:hover a {
 	color: #0c6926;
 }
 
 #debate_list_area .arg .argument_body font:first-child {
-	background: none #e1e43c;
+	background: none #e1e43c !important;
 }
 
 #debate_list_area .arg .position {
