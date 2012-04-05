@@ -8,8 +8,7 @@ $items['reply_content'] = str_replace("\n", "<br>", $items['reply_content']);
 <li id="reply-block-<?php print $items['cid']; ?>" class="one_reply">
   <span class=<?php print $items['class'];?>><?php print $items['sign'] ?></span>
   
-  <p class="reply_body">
-    <div class="goog-trans-section reply_body_transl">
+    <div class="goog-trans-section reply_body">
 		
 		<p><?php print t($items['reply_content']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
           
@@ -21,7 +20,6 @@ $items['reply_content'] = str_replace("\n", "<br>", $items['reply_content']);
       <span class="date"><?php echo $items['ago']; ?>
       </span>
     </span>
-  </p>
 
   <div class="position-question">
     <?php print $ratings; ?>
