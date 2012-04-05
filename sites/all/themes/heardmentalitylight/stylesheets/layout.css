@@ -2997,13 +2997,10 @@ h6#deb-ana:hover a,
 /*Slider*/
 
 .ui-slider {
-	width: 36px;
-	height: 10px;
-	/*background:url(../images/slider_track.png) no-repeat 0 0 transparent;
-	border: 0 none;*/
-	background: none #d2d2d2;
-	border: solid #ccc;
-	border-width: 1px 0;
+	width: 38px;
+	height: 15px;
+	background: url(../images/slider_track.png) repeat-x 0 0 transparent;
+	border: 0 none;
 	margin: 0 16px;
 }
 
@@ -3014,35 +3011,29 @@ h6#deb-ana:hover a,
 .ui-slider .ui-slider-handle {
 	background:url(../images/slider_circle.png) no-repeat center 0 transparent;
 	border: 0 none;
-	width: 24px;
-	height: 23px;
-	margin-left: -12px;
-    top: -7px;
+	width: 25px;
+	height: 25px;
+	margin-left: -13px;
+    top: -8px;
 	cursor: pointer;
 }
 
 .ui-slider span.left {
 	position: absolute;
 	left: -16px;
-	top: -1px;/*0*/
-	height: 10px;
+	top: 0;
+	height: 15px;
 	width: 16px;
-	background: none #d2d2d2;
-	border: solid #ccc;
-	border-width: 1px 0 1px 1px;
-	border-radius: 20px 0 0 20px;
+	background: url(../images/slider_corners.png) no-repeat 0 0 transparent;
 }
 
 .ui-slider span.right {
 	position: absolute;
 	right: -16px;
-	top: -1px;
-	height: 10px;
+	top: 0;
+	height: 15px;
 	width: 16px;
-	background: none #d2d2d2;
-	border: solid #ccc;
-	border-width: 1px 1px 1px 0;
-	border-radius: 0 20px 20px 0;
+	background: url(../images/slider_corners.png) no-repeat -16px 0 transparent;
 }
 
 #debate_list_area > h2:first-child {
