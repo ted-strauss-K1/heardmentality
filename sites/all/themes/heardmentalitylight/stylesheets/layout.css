@@ -3093,7 +3093,7 @@ h6#deb-ana:hover a,
     top: 5px;	
 }
 
-#debate_list_area .arg p.argument_body {
+#debate_list_area .arg .argument_body {
 	margin: 0;
 	font-size: 12px;
 	line-height: 18px;
@@ -3101,12 +3101,13 @@ h6#deb-ana:hover a,
 	padding: 0 0 9px;
 }
 
-#debate_list_area .arg p.argument_body a.translate {
+#debate_list_area .arg .argument_body .translate {
 	color: #55BA59;
 	font-weight: bold;
+	display: inline;
 }
 
-#debate_list_area .arg p.argument_body a.translate:hover {
+#debate_list_area .arg .argument_body .translate:hover {
 	color: #0c6926;
 }
 

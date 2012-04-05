@@ -32,10 +32,10 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
           ?> 
         </span>
         <div class="goog-trans-section">
-          <div class="goog-trans-control">
-          </div>
-          <?php print t($items['title']); ?>&nbsp;
-      </div>
+		
+			<p class="argument_body"><?php print t($items['title']); ?>&nbsp;<div class="goog-trans-control translate"></div></p>
+          
+		</div>
 
         <div class="position">
           <?php print $strength; ?>
