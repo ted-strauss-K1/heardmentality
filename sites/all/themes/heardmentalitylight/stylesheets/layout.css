@@ -3367,7 +3367,7 @@ ul.control_links li:hover a.icon.flag2  {
 
 #debate_list_area li.one_reply {
 	position: relative;
-	padding: 12px 0;
+	padding: 12px 0 10px !important;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
 }
 
@@ -3397,7 +3397,7 @@ ul.control_links li:hover a.icon.flag2  {
 }
 
 #debate_list_area li.one_reply .position-question {
-	padding: 15px 0 0;
+	padding: 13px 0 0;
 }
 
 #debate_list_area li.one_reply .position-question span.doyou_app {
