@@ -3405,8 +3405,8 @@ ul.control_links li:hover a.icon.flag2  {
 }
 
 #debate_list_area li.one_reply ul.control_links {
-	margin: 0;
-	float: left;
+	margin: 0 0 0 20px;
+	float: none;
 }
 
 /*Small circle*/
