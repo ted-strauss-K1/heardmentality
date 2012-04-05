@@ -2600,7 +2600,7 @@ body.front .jScrollPaneContainer {
 /*Vote/Debate page*/
 
 .white-box.poll-box {
-	padding: 0;
+	padding: 0 0 12px;
 	margin: 0;
 }
 
