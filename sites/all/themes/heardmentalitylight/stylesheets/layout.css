@@ -3104,7 +3104,8 @@ h6#deb-ana:hover a,
 #debate_list_area .arg .argument_body p {
 	margin: 0;
 	font-size: 12px;
-	line-height: 18px;	
+	line-height: 18px;
+	display: inline;	
 }
 
 #debate_list_area .arg .argument_body .translate {
@@ -3113,8 +3114,17 @@ h6#deb-ana:hover a,
 	display: inline;
 }
 
+#debate_list_area .arg .argument_body .translate * {
+	display: inline;
+}
+
 #debate_list_area .arg .argument_body .translate a {
 	color: #55BA59;
+}
+
+#debate_list_area .arg .argument_body .translate a span {
+	font-size: 12px !important;
+	line-height: 18px !important;	
 }
 
 #debate_list_area .arg .argument_body .translate a:hover {
