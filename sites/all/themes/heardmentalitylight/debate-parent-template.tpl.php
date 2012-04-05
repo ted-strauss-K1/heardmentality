@@ -33,7 +33,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
         </span>
         <div class="goog-trans-section argument_body">
 		
-			<p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate">[]</div>]</div>
+			<p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
           
 		</div>
 
