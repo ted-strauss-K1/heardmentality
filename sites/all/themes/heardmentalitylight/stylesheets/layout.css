@@ -3104,6 +3104,10 @@ h6#deb-ana:hover a,
 	padding: 0 0 9px;
 }
 
+#debate_list_area .reply_body {
+	display: inline;
+}
+
 #debate_list_area .arg .argument_body p,
 #debate_list_area .reply_body p {
 	margin: 0;
@@ -3120,20 +3124,20 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .arg .argument_body .translate *,
-#debate_list_area .reply_body .transpate * {
+#debate_list_area .reply_body .translate * {
 	display: inline;
 }
 
 #debate_list_area .arg .argument_body .translate a,
 #debate_list_area .arg .argument_body .sq,
-#debate_list_area .reply_body .transpate a,
+#debate_list_area .reply_body .translate a,
 #debate_list_area .reply_body .sq {
 	color: #55BA59;
 }
 
 #debate_list_area .arg .argument_body .translate a span,
 #debate_list_area .arg .argument_body .sq,
-#debate_list_area .reply_body .transpate a span,
+#debate_list_area .reply_body .translate a span,
 #debate_list_area .reply_body .sq {
 	font-size: 12px !important;
 	line-height: 18px !important;

@@ -131,7 +131,7 @@ function googleSectionalElementInit() {
   new google.translate.SectionalElement({
     sectionalNodeClassName: 'goog-trans-section',
     controlNodeClassName: 'goog-trans-control',
-    background: '#f4fa58'
+    background: '#E1E43C'
   }, 'google_sectional_element');
 }
 </script>
