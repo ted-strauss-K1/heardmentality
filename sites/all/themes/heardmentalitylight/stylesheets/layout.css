@@ -3107,7 +3107,11 @@ h6#deb-ana:hover a,
 	display: inline;
 }
 
-#debate_list_area .arg .argument_body .translate:hover {
+#debate_list_area .arg .argument_body .translate a {
+	color: #55BA59;
+}
+
+#debate_list_area .arg .argument_body .translate a:hover {
 	color: #0c6926;
 }
 

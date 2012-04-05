@@ -31,9 +31,9 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
           <?php }
           ?> 
         </span>
-        <div class="goog-trans-section">
+        <div class="goog-trans-section argument_body">
 		
-			<p class="argument_body"><?php print t($items['title']); ?>&nbsp;<div class="goog-trans-control translate"></div></p>
+			<p><?php print t($items['title']); ?></p>&nbsp;<div class="goog-trans-control translate"></div>
           
 		</div>
 
