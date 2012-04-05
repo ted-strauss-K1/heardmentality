@@ -3089,13 +3089,14 @@ h6#deb-ana:hover a,
 #debate_list_area .arg span.sum {
     background-color: #FFFFFF;
     left: -30px;
-    padding-top: 18px;
+    padding: 18px 0 5px;
     position: absolute;
     top: 1px;
 }
 
 #debate_list_area .one-forum:first-child .arg span.sum {
-    top: 5px;	
+    padding-top: 7px;
+    top: 0;
 }
 
 #debate_list_area .arg .argument_body,
@@ -3269,6 +3270,7 @@ ul.control_links li {
 	font-size: 12px;
     line-height: 16px;
 	margin: 0;
+	border: 0 none !important;
 }
 
 ul.control_links h6#reply,
@@ -3372,6 +3374,7 @@ ul.control_links li:hover a.icon.flag2  {
 	position: relative;
 	padding: 0 40px 10px 0 !important;
 	margin: 0 0 12px !important;
+	border: 0 none !important;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
 }
 
