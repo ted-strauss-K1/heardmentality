@@ -3079,7 +3079,7 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .replies {
-	padding: 0 40px 0 70px;
+	padding: 0 0 0 70px;
 	clear: both;
 	min-height: 17px;
 	position: relative;
@@ -3367,7 +3367,7 @@ ul.control_links li:hover a.icon.flag2  {
 
 #debate_list_area li.one_reply {
 	position: relative;
-	padding: 0 0 10px !important;
+	padding: 0 40px 10px 0 !important;
 	margin: 0 0 12px !important;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 100% transparent;
 }
@@ -3412,6 +3412,7 @@ ul.control_links li:hover a.icon.flag2  {
 #debate_list_area li.one_reply ul.control_links {
 	margin: 0 0 0 36px;
 	float: none;
+	display: inline-block;
 	vertical-align: top;
 	position: relative;
 }

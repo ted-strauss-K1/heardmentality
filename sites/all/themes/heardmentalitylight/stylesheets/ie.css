@@ -42,7 +42,8 @@
 
 .ie7 ul.lang li,
 .ie7 h6#add-arg,
-.ie7 h6#deb-ana
+.ie7 h6#deb-ana,
+.ie7 #debate_list_area li.one_reply ul.control_links
 {display: inline; zoom: 1;}
 
 .ie7 body,
