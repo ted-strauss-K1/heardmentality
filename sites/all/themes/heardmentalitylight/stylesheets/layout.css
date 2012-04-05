@@ -3232,6 +3232,24 @@ h6#deb-ana:hover a,
 .position-question {
 	clear: both;
 	padding: 5px 40px 0 58px;
+	position: relative;
+}
+
+.position-question span.line {
+    background-color: #FFFFFF;
+    display: block;
+    height: 14px;
+    left: -1px;
+    position: absolute;
+    top: 13px;
+    width: 52px;
+}
+
+.position-question span.line span {
+    background-color: #D7D7D7;
+    display: block;
+    height: 1px;
+    width: 52px;
 }
 
 .position-question .likebar {

@@ -76,7 +76,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 	  </div>
 	  
       <div class="position-question">
-      <span class="line">&nbsp;</span>
+      <span class="line"><span>&nbsp;</span></span>
 	  <?php print $ratings; ?>
       
 	  <?php if ($reply_box): ?>
