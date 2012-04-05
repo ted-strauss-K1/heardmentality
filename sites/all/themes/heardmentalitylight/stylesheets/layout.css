@@ -3101,6 +3101,12 @@ h6#deb-ana:hover a,
 	padding: 0 0 9px;
 }
 
+#debate_list_area .arg .argument_body p {
+	margin: 0;
+	font-size: 12px;
+	line-height: 18px;	
+}
+
 #debate_list_area .arg .argument_body .translate {
 	color: #55BA59;
 	font-weight: bold;
