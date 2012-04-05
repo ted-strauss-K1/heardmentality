@@ -3062,6 +3062,7 @@ h6#deb-ana:hover a,
 #debate_list_area ul.argument_box li {
 	border: 0 none;
 	padding: 0;
+	margin: 0;
 }
 
 #debate_list_area .arg {
@@ -3158,6 +3159,7 @@ h6#deb-ana:hover a,
 
 .userinfo-debate {
 	float: right;
+	margin-top: -3px;
 }
 
 .userinfo-debate span.date {
