@@ -3055,7 +3055,7 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area ul.argument_box {
-	padding: 0 25px 0 30px;
+	padding: 0 25px 0 42px;
 	border: 0 none;
 }
 
@@ -3068,18 +3068,18 @@ h6#deb-ana:hover a,
 #debate_list_area .arg {
 	position: relative;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
-	padding: 12px 40px 0 70px;
+	padding: 12px 40px 0 58px;
 	margin: 11px 0 0;
 }
 
 #debate_list_area .one-forum:first-child .arg {
 	background: none transparent;
 	margin: 0;
-	padding: 0 30px 0 70px;
+	padding: 0 30px 0 58px;
 }
 
 #debate_list_area .replies {
-	padding: 0 0 0 70px;
+	padding: 0 0 0 58px;
 	clear: both;
 	min-height: 17px;
 	position: relative;
@@ -3088,7 +3088,7 @@ h6#deb-ana:hover a,
 #debate_list_area .arg span.sum {
     position: absolute;
     top: 18px;
-    left: -18px;
+    left: -30px;
 }
 
 #debate_list_area .one-forum:first-child .arg span.sum {
@@ -3236,7 +3236,7 @@ h6#deb-ana:hover a,
 
 .position-question {
 	clear: both;
-	padding: 5px 40px 0 70px;
+	padding: 5px 40px 0 58px;
 }
 
 .position-question .likebar {
