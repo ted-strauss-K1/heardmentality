@@ -2559,14 +2559,14 @@ function add_new_debate_form_submit($form, &$form_state) {
 
       //$json['content'] = theme('single_debate_template', $items);
       $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-      $json['message'] = 'Your argument posted successfully';
+      $json['message'] = '<span class="posted">Your argument posted successfully</span>';
     }
     else {
-      $json['message'] = '<div align="center">' . t('Sorry you do not have enough coins to post New Debate') . '</div>';
+      $json['message'] = '<div class="no_coins" align="center">' . t('Sorry you do not have enough coins to post New Debate') . '</div>';
     }
   }
   else {
-    $json['message'] = '<div align="center"><b>Error occured. Please try again.</b></div>';
+    $json['message'] = '<div class="no_coins" align="center"><b>Error occured. Please try again.</b></div>';
   }
   print json_encode($json);
   exit;
