@@ -2946,7 +2946,7 @@ h6#deb-ana:hover a,
 	line-height: 15px;
 	font-weight: bold;
 	margin: 0 0 0 26px;
-	float: none;
+	float: left;
 }
 
 #add-new-debate-form .assign span {
