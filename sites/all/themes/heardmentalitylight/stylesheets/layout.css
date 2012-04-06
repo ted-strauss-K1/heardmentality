@@ -3289,6 +3289,7 @@ ul.control_links {
 	border: 0 none;
 	float: left;
 	margin: 0 100px -17px 50%;
+	direction: ltr;
 }
 
 ul.control_links li {
