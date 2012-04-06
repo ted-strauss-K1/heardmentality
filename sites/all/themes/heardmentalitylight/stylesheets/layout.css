@@ -2919,9 +2919,17 @@ h6#deb-ana:hover a,
 	padding-bottom: 10px;
 }
 
-#add-new-debate-form span.error-msg {
+#add-new-debate-form span.error-msg span,
+#add-new-debate-form .no_coins {
 	margin: 0;
+	padding-bottom: 10px;
+	display: inline-block;
 	color: #CD2027 !important;
+	font-style: italic;
+}
+
+#add-new-debate-form span.error-msg span.posted {
+	color: #55BA59 !important;
 }
 
 #deb_title {
