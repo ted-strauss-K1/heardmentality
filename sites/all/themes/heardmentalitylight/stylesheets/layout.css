@@ -2843,6 +2843,7 @@ h2.page-title {
 
 #debate_work_area {
 	padding: 0 30px 26px;
+	direction: ltr;
 }
 
 h6#add-arg,
@@ -2976,7 +2977,7 @@ h6#deb-ana:hover a,
 	font-size: 12px;
 	line-height: 15px;
 	padding: 0;
-	margin: 0 8px 0 30px;
+	margin: 0 8px 0 26px;
 	white-space: nowrap;
 	position: relative;
 	top: -2px;
