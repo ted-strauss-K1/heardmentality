@@ -3335,6 +3335,7 @@ ul.control_links h6#reply:hover {
     width: auto;
 	font-size: 12px !important;
 	line-height: 15px;
+	font-weight: normal;
 }
 
 ul.control_links li a,
@@ -3366,6 +3367,10 @@ ul.control_links li:hover a.icon.flag2,
 ul.control_links h6#reply:hover  {
 	color: #fff;
 	background-color: #ccc;
+}
+
+ul.control_links h6#reply:hover {
+	color: #fff !important;
 }
 
 #debate_list_area .reply_wrapper {
