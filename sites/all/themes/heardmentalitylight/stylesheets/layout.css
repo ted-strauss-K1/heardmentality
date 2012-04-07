@@ -2898,7 +2898,7 @@ h6#deb-ana:hover a,
 #add-new-debate-form {
 	margin: 0;
 	position: relative;
-	padding: 0 0 46px;
+	padding: 0;
 }
 
 #add-new-debate-form table {
@@ -2911,6 +2911,10 @@ h6#deb-ana:hover a,
 
 #add-new-debate-form table td.first {
 	width: 100%;
+}
+
+#deb_title-wrapper {
+	padding-bottom: 46px;
 }
 
 #add-new-debate-form .form-item {
