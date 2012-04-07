@@ -6,11 +6,11 @@ $loginBoxClass = $user->uid==0?'openlogin_box':'';
 <div class="inner">
 
 <div class="expanding arg">
-    <h6 value="Reply" id="add-arg" class="button <?php print $loginBoxClass;?>"><?php print t('Add Argument'); ?></h6>
+    <h6 value="Reply" id="add-arg" class="button <?php print $loginBoxClass;?>"><?php print t('Add'); ?></h6>
 </div>
 
 <div class="expanding stat">
-    <h6 class="button" id="deb-ana"><?php print t('Debate statistics'); ?></h6>
+    <h6 class="button" id="deb-ana"><?php print t('Stats'); ?></h6>
 </div>	
 
 <div id="leave_comment_area" class="leave-a-comment hidden_ar" style="display: none;">
