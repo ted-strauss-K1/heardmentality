@@ -2930,8 +2930,7 @@ h6#deb-ana:hover a,
     color: #CD2027 !important;
     display: block;
     font-style: italic;
-    margin: 0 0 -46px;
-    padding-top: 55px;
+    padding-top: 10px;
 }
 
 #add-new-debate-form span.error-msg span.posted {
