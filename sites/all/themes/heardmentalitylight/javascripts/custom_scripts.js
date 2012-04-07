@@ -76,8 +76,8 @@ $(document).ready(function() {
   });
   
   $('#add_new_debate').click(function() {
-	$(this).parents('#add-new-debate-form').find('#leave_comment_area').delay(600).slideUp(400);
-	$(this).parents('#add-new-debate-form').find('#add-arg').delay(600).removeClass('expanded');
+	$(this).parents('#debate_work_area').find('#leave_comment_area').delay(600).slideUp(400);
+	$(this).parents('#debate_work_area').find('#add-arg').delay(600).removeClass('expanded');
   });
 });
 
