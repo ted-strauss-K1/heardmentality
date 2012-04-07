@@ -2991,9 +2991,11 @@ h6#deb-ana:hover a,
 	line-height: 15px;
 	padding: 0;
 	margin: 0 8px 0 26px;
-	white-space: nowrap;
+	/*white-space: nowrap;*/
 	position: relative;
 	top: -2px;
+	max-width: 140px;
+	overflow: hidden;
 }
 
 .value-select .form-item {

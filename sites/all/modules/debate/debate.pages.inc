@@ -683,7 +683,7 @@ function debate_submit() {
 
                     //$msg['cnt'] = db_result(db_query("select count(*) from {user_likes} where $set AND is_debate='1' AND node_id='" . $nodeid . "'"));
                     if ($agree) {
-                        $msg['msg'] = "<em><strong style="color: #55BA59;">Agreed!</strong>You have $coins coins left</em> ";
+                        $msg['msg'] = "<em><strong>Agreed!</strong>You have $coins coins left</em> ";
                         $msg['ratecount'] = $agreecnt;
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                         $qid_url = db_query("select * from {question} where qid='$content_id'");
@@ -701,7 +701,7 @@ function debate_submit() {
                         //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                     } else {
-                        $msg['msg'] = "<em><strong style="color: #C2499B;">Disagreed!&nbsp;</strong>You have $coins coins left</em> ";
+                        $msg['msg'] = "<em><strong>Disagreed!&nbsp;</strong>You have $coins coins left</em> ";
                         $msg['ratecount'] = $disagreecnt;
                         /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
                         $qid_url = db_query("select * from {question} where qid='$content_id'");
