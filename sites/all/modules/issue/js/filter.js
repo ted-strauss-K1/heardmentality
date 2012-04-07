@@ -159,7 +159,7 @@ jQuery('#add-new-debate-form').live('submit', function(e){
   }
 
   if(title.length < 2){
-    jQuery('#deb-err').html('Please let us know what you think.');
+    jQuery('#deb-err').html('<span>Please let us know what you think.</span>');
     return false;
   }else if(flag == 0){
     jQuery('#deb-err').html('<span>You must choose at least one suppose or oppose.</span>');
