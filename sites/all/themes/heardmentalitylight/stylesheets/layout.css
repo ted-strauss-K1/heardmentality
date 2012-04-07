@@ -2923,10 +2923,11 @@ h6#deb-ana:hover a,
 
 #add-new-debate-form span.error-msg span,
 #add-new-debate-form .no_coins {
-	margin: 0;
-	display: inline-block;
-	color: #CD2027 !important;
-	font-style: italic;
+    color: #CD2027 !important;
+    display: block;
+    font-style: italic;
+    margin: 0 0 -46px;
+    padding-top: 55px;
 }
 
 #add-new-debate-form span.error-msg span.posted {
