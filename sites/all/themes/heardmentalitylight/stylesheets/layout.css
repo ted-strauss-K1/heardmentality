@@ -3315,7 +3315,6 @@ ul.control_links h6#reply:hover {
     float: none;
     margin: 0;
     opacity: 1 !important;
-    text-transform: none;
 	border: 0 none;
     border-radius: 0;
 	-moz-border-radius: 0;
@@ -3325,14 +3324,17 @@ ul.control_links h6#reply:hover {
     box-shadow: 0 0 transparent;
     color: #ccc !important;
     cursor: pointer;
-    display: inline;
     font-family: "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
-    font-size: 12px;
-    font-weight: normal;
-    line-height: 15px;
-	padding: 0;
     text-decoration: none;
     text-shadow: 0 0 transparent;
+    padding: 1px 4px;
+	display: inline-block;
+	text-transform: lowercase !important;
+	background: none transparent;
+    height: auto;
+    width: auto;
+	font-size: 12px !important;
+	line-height: 15px;
 }
 
 ul.control_links li a,
@@ -3354,9 +3356,14 @@ ul.control_links li a.icon.flag2 {
 	line-height: 15px;
 }
 
+ul.control_links h6#reply a {
+	padding: 0;
+}
+
 ul.control_links li a:hover,
 ul.control_links li a.icon.flag2:hover,
-ul.control_links li:hover a.icon.flag2  {
+ul.control_links li:hover a.icon.flag2,
+ul.control_links h6#reply:hover  {
 	color: #fff;
 	background-color: #ccc;
 }
