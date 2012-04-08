@@ -975,6 +975,8 @@ p.comment-meta {
 	-o-border-radius: 0;
 	-khtml-border-radius: 0;
 	line-height: 15px;
+	font-family: Arial !important;
+	font-weight: bold;
 }
 
 .comment-agree a.agree.collapsed,
