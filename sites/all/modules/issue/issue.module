@@ -2872,7 +2872,7 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
     $form['reply_submit'] = array('#type' => 'submit',
       '#value' => t('Submit reply'),
       '#prefix' => '<div align="right">',
-      '#suffix' => '</div><span id="sub_loader" style="display:none;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
+      '#suffix' => '</div><span id="sub_loader" style="display:none; margin-bottom: -16px;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
       '#id' => 'add_reply',
     );
   }
