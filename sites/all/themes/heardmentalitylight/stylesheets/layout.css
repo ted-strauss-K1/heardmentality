@@ -3326,6 +3326,7 @@ h6#deb-ana:hover a,
     left: -60px;
     padding-left: 60px;
     position: relative;
+	width: 100%;
 }
 
 ul.control_links {
@@ -3532,6 +3533,20 @@ ul.control_links h6#reply:hover {
 	color: #4c4c4c;
 }
 
+#forum-reply-form .form-item {
+	margin-bottom: 0;
+}
+
+#forum-reply-form textarea {
+	margin: 0;
+	width: 96%;
+}
+
+#forum-reply-form .form-submit {
+	float: left;
+	margin-top: 10px;
+}
+
 /*Small circle*/
 
 span.small_neg,
@@ -3602,7 +3617,8 @@ span.small_pos,
 #add-new-debate-form:after,
 #debate_list_area .arg .position:after,
 .userinfo-debate:after,
-#debate_list_area .arg:after {
+#debate_list_area .arg:after,
+#forum-reply-form:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;

@@ -23,7 +23,9 @@
 .ie7 .userinfo-debate,
 .ie8 .userinfo-debate,
 .ie7 #debate_list_area .arg,
-.ie8 #debate_list_area .arg{
+.ie8 #debate_list_area .arg,
+.ie7 #forum-reply-form,
+.ie8 #forum-reply-form{
 	zoom: 1;
 }
 
