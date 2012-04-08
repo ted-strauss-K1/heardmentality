@@ -968,7 +968,7 @@ $(document).ready(function(){
 $(document).ready(function(){  
   $('ul.argument_box > li > .position-question a.agree').click(function() {
   
-	if ($(this).parents('ul.argument_box > li > .position-question').find('a.disagree').hasClass('collapsed')) {
+    if ($(this).parents('ul.argument_box > li > .position-question').find('a.disagree').hasClass('collapsed')) {
       $(this).parents('ul.argument_box > li > .position-question').find('a.disagree').removeClass('collapsed');
     }
 		
@@ -983,13 +983,13 @@ $(document).ready(function(){
       $(this).removeClass('collapsed');
     }
 	
-	$(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:even').attr('checked',true);
+    $(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:even').attr('checked',true);
 		
   });
 	
   $('ul.argument_box > li > .position-question a.disagree').click(function() {
   
-  	if ($(this).parents('ul.argument_box > li > .position-question').find('a.agree').hasClass('collapsed')) {
+    if ($(this).parents('ul.argument_box > li > .position-question').find('a.agree').hasClass('collapsed')) {
       $(this).parents('ul.argument_box > li > .position-question').find('a.agree').removeClass('collapsed');
     }
 		
@@ -1004,15 +1004,15 @@ $(document).ready(function(){
       $(this).removeClass('collapsed');
     }
 	
-	$(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:odd').attr('checked',true);
+    $(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:odd').attr('checked',true);
 		
   });
   
-  });
+});
 
 $(document).ready(function(){
+  $('#debate_list_area').tabs();
   $('a.permalink').click(function(e){
-    
     
     var a = window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id');
 

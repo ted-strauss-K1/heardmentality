@@ -143,7 +143,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
   $filter = (!empty($array['dochg'])) ? $array['dochg'] : '';
   $vans = "select * from {poll_choices} where  nid='" . $nid . "'  order by chorder";
   // $vans = "select * from {poll_choices} where  nid='" . $nid . "'";
-  
+
   $vlist = ExecuteQuery($vans, "select");
   // IMPORTANT get translate nid (tnid) for current node
   $nid = get_tnid($nid);
@@ -473,7 +473,7 @@ function report_graph($nid='') {
         $date = date('Y-m-d', mktime(0, 0, 0, $month, $dat, $year));
 
         $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
-      //  krumo($inc_this);
+        //  krumo($inc_this);
         array_push($ans, $inc_this);
       }
       $ins_sc = '[' . implode(',', $ans) . ']';
@@ -1685,7 +1685,7 @@ function search_issue_results() {
 
 /* * *************************** */
 
-function issue_debates($qid='', $type='') {
+function issue_debates($qid='', $type='', $sort = null) {
   global $user, $language, $theme;
   $curLanguage = $language->language;
   $wave = '';
@@ -1696,8 +1696,9 @@ function issue_debates($qid='', $type='') {
   // load debate
   $sup = isset($_GET['sup']) ? $_GET['sup'] : '';
   $ans = isset($_GET['ans']) ? $_GET['ans'] : '';
-  $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
-
+  if (!isset($sort)) {
+    $sort = isset($_GET['sort']) ? $_GET['sort'] : '';
+  }
 
   $sorting = 'ORDER BY f.nid DESC';
   $cond = '';
@@ -1707,6 +1708,9 @@ function issue_debates($qid='', $type='') {
   }
   elseif (isset($sort) && $sort == 2) {
     $sorting = ' ORDER BY c.field_strength_value DESC';
+  }
+  elseif (isset($sort) && $sort == 0) {
+    $sorting = 'ORDER BY n.created ASC';
   }
   if (isset($ans) && !empty($ans)) {
     $cond.=" AND do.chorder='$ans'";
@@ -1735,7 +1739,6 @@ function issue_debates($qid='', $type='') {
     while ($node = db_fetch_object($nodes)) {
 
       $items = load_debate_datas($node->nid, $issueId, $tnid);
-
 
       // anwers strength
       $strnth = $items['strength'];
@@ -1816,10 +1819,7 @@ function issue_debates($qid='', $type='') {
     $debate_theme .= '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
   }
 
-
-
   return $debate_theme;
-  //return $wave;
 }
 
 // forum replies
@@ -2437,10 +2437,12 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
 
   $tid = get_taxonomy_id('forum', 'Resource');
   if ($rtype == 4) {
-    if (empty($cond))
+    if (empty($cond)) {
       $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
-    else
+    }
+    else {
       $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM  {resource_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
+    }
 
     // forum for translated languages
     $issueId = $qid;
@@ -2449,7 +2451,8 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
 
     $nodes = db_query($sql, $tid, $qid);
     $count = db_result(db_query($sql, $tid, $qid));
-  }else {
+  }
+  else {
     if (empty($cond))
       $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' AND c.field_rtype_value = '%s' $sorting";
     else
@@ -2473,11 +2476,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
       else {
         $items = load_resource_datas($node->nid, $issueId, $tnid, $resType);
       }
-      //$resouce_theme .= theme('single_resource_template', $items);
-      // strength
-      // anwers strength
       $strnth = $items['strength'];
-      //echo '<pre>';print_r($strnth);exit;
       $strength = '';
       foreach ($strnth as $list) {
         $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
@@ -2485,9 +2484,6 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
         $ans = $short_answer != '' ? $short_answer : $tranAns;
 
         switch ($list['ans_val']) {
-//                case 0:
-//                    $strength.='<div><span class="yellow-box">+/-</span>'.$ans.'</div>';
-//                    break;
           case 1:
             $strength.='<div><span class="green-box">+</span>' . $ans . '</div>';
             break;
@@ -2572,10 +2568,10 @@ function report_answer_details_history($nid = '', $aid = '', $action = '', $date
       else {
         $result = 'null';
       }
-    //  $answer1 = ExecuteQuery($query1, "select");
-     // $answer2 = ExecuteQuery($query2, "select");
-     // $answer = $answer1[0]['cnt'] - $answer2[0]['cnt'];
-   //   return $answer ? $answer[0]['cnt'] : 'null';
+      //  $answer1 = ExecuteQuery($query1, "select");
+      // $answer2 = ExecuteQuery($query2, "select");
+      // $answer = $answer1[0]['cnt'] - $answer2[0]['cnt'];
+      //   return $answer ? $answer[0]['cnt'] : 'null';
       return $result;
       break;
   }
