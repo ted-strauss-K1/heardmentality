@@ -949,11 +949,15 @@ p.comment-meta {
 	font-size:12px;
 	line-height:1.3em;
 	padding:0px 0px 0px 0px;
-
 	clear:both;
 }
+
 .comment-agree a.agree,
-.comment-agree a.disagree{
+.comment-agree a.disagree,
+.comment-agree a.agree:active,
+.comment-agree a.disagree:active,
+.comment-agree a.agree:link,
+.comment-agree a.disagree:link{
     background: none repeat scroll 0 0 transparent;
     border: 0 none;
     color: #ccc !important;
@@ -975,7 +979,11 @@ p.comment-meta {
 }
 
 .comment-agree a.agree.collapsed,
-.comment-agree a.disagree.collapsed {
+.comment-agree a.disagree.collapsed,
+.comment-agree a.agree.collapsed:link,
+.comment-agree a.disagree.collapsed:link,
+.comment-agree a.agree.collapsed:active,
+.comment-agree a.disagree.collapsed:active   {
     color: #999 !important;	
 }
 
