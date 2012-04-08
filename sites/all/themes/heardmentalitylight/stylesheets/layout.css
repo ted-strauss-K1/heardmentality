@@ -974,6 +974,7 @@ p.comment-meta {
 	-webkit-border-radius: 0;
 	-o-border-radius: 0;
 	-khtml-border-radius: 0;
+	line-height: 15px;
 }
 
 .comment-agree a.agree.collapsed,
@@ -986,9 +987,21 @@ p.comment-meta {
 .comment-agree a.agree:hover,
 .comment-agree a.disagree:hover,
 .comment-agree a:hover,
-.comment-agree a:hover {
+.comment-agree a:hover,
+.comment-agree a.agree:active,
+.comment-agree a.disagree:active,
+.comment-agree a:active,
+.comment-agree a:active {
 	background-color: #ccc;
 	color: #fff !important;
+}
+
+.comment-agree a.agree.collapsed:active,
+.comment-agree a.disagree.collapsed:active,
+.comment-agree a.collapsed:active,
+.comment-agree a.collapsed:active {
+    color: #999 !important;	
+	background-color: transparent;
 }
 
 /*a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;padding:1px 7px 1px 0px;margin:0px}
