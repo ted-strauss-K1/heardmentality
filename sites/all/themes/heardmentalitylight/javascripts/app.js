@@ -915,10 +915,62 @@ $(document).ready(function() {
 });
 
 
+/*$(document).ready(function(){
+  $('.button.light').click(function(e) {
+    $(this).parents('.position-question').find('ul.argument_replybox').toggle(60);
+    $(this).parents('.position-question').find('ul.argument_replybox div').show(60);
+    $(this).parents('.position-question').find('ul.argument_replybox div.help_radios').hide();    
+  })  
+});
+
+$(document).ready(function(){
+  $('.button.light:contains("Yes")').click(function(e) {
+    
+    if ($(this).hasClass('expanded')) {
+      $(this).removeClass('expanded');  
+    }
+    else {
+      if ($(this).next().hasClass('expanded')) {
+        $(this).next().removeClass('expanded');
+      }
+      else {
+        $(this).addClass('expanded');  
+      }
+
+    // $(this).addClass('expanded');  
+    }
+    
+    $(this).parents('.position-question').find('ul.argument_replybox input[name=str_wk]:radio:even').attr('checked',true);
+  })
+});
+
+$(document).ready(function(){
+  $('.button.light:contains("No")').click(function(e) {
+    if ($(this).hasClass('expanded')) {
+      $(this).removeClass('expanded');  
+    }
+    else {
+      if ($(this).prev().hasClass('expanded')) {
+        $(this).prev().removeClass('expanded');
+      }
+      else {
+        $(this).addClass('expanded');  
+      }
+      
+    }
+
+    $(this).parents('.position-question').find('ul.argument_replybox input[name=str_wk]:radio:odd').attr('checked',true);
+  })
+});*/
+
 // Show textbox yes/no reply on argument
   
 $(document).ready(function(){  
   $('ul.argument_box > li > .position-question a.agree').click(function() {
+  
+	if ($(this).parents('ul.argument_box > li > .position-question').find('a.disagree').hasClass('collapsed')) {
+      $(this).parents('ul.argument_box > li > .position-question').find('a.disagree').removeClass('collapsed');
+    }
 		
     var agree = $(this).parents('ul.argument_box > li > .position-question').find('#reply-comment');
 		
@@ -936,15 +988,19 @@ $(document).ready(function(){
   });
 	
   $('ul.argument_box > li > .position-question a.disagree').click(function() {
+  
+  	if ($(this).parents('ul.argument_box > li > .position-question').find('a.agree').hasClass('collapsed')) {
+      $(this).parents('ul.argument_box > li > .position-question').find('a.agree').removeClass('collapsed');
+    }
 		
-    var agree = $(this).parents('ul.argument_box > li > .position-question').find('#reply-comment');
+    var disagree = $(this).parents('ul.argument_box > li > .position-question').find('#reply-comment');
 		
-    if (agree.hasClass('hidden')) {
-      agree.removeClass('hidden').addClass('visible').slideDown(400);
+    if (disagree.hasClass('hidden')) {
+      disagree.removeClass('hidden').addClass('visible').slideDown(400);
       $(this).addClass('collapsed');
     }
     else {
-      agree.removeClass('visible').addClass('hidden').slideUp(400);
+      disagree.removeClass('visible').addClass('hidden').slideUp(400);
       $(this).removeClass('collapsed');
     }
 	
@@ -953,7 +1009,6 @@ $(document).ready(function(){
   });
   
   });
-  
 
 $(document).ready(function(){
   $('a.permalink').click(function(e){
