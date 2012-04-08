@@ -3292,6 +3292,10 @@ h6#deb-ana:hover a,
 	color: #ccc;
 }
 
+.position-question .comment-agree em strong {
+	color: #4c4c4c;
+}
+
 .position-question .comment-agree a span {
 	font-weight: normal;
 }
@@ -3499,6 +3503,12 @@ ul.control_links h6#reply:hover {
 	vertical-align: top;
 	position: relative;
 	top: -1px;
+}
+
+#debate_list_area .no_debate {
+	padding: 0 30px;
+	font-style: italic;
+	color: #4c4c4c;
 }
 
 /*Small circle*/

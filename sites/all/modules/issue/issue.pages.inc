@@ -1813,7 +1813,7 @@ function issue_debates($qid='', $type='') {
     }
   }
   else {
-    $debate_theme .= '<div class="messages warning">' . t('No Debate Posted Yet!!') . '</div>';
+    $debate_theme .= '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
   }
 
 
