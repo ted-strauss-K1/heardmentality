@@ -3603,6 +3603,15 @@ span.small_pos,
 	background-color: #C2499B;
 }
 
+#reply_err span {
+	color: #CD2027; 
+	padding-top: 6px;
+}
+
+#reply_err span.added {
+	color: #55BA59; 
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,

@@ -2872,7 +2872,7 @@ function forum_reply_form($form, $debate_id, $debate_tnid, $issue_id) {
     $form['reply_submit'] = array('#type' => 'submit',
       '#value' => t('Submit reply'),
       '#prefix' => '<div align="right">',
-      '#suffix' => '</div><span id="sub_loader" style="display:none; float:right"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
+      '#suffix' => '</div><span id="sub_loader" style="display:none;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
       '#id' => 'add_reply',
     );
   }
@@ -2950,14 +2950,14 @@ function forum_reply_form_submit($form, &$form_state) {
 
       // $json['content'] = theme('forum_reply_template', $items);
       $json['content'] = theme('forum_child_reply_template', $items, $userPicture, $ratings, $delete);
-      $json['message'] = t('Thanks, Your reply posted');
+      $json['message'] = t('<span>Thanks, Your reply posted!</span>');
     }
     else {
-      $json['message'] = t('Sorry your reply not able to post');
+      $json['message'] = t('<span>Sorry, your reply not able to post.</span>');
     }
   }
   else {
-    $json['message'] = t('Sorry, you do not have enough coins to reply for this post');
+    $json['message'] = t('<span>Sorry, you do not have enough coins to reply for this post.</span>');
   }
   print json_encode($json);
   exit;

@@ -224,7 +224,7 @@ jQuery('.arg-reply-form').live('submit', function(e){
   var debid = cont.find('#ded_tnid').val();
   var norep = "#no_rply_"+debid;
   if(cont.find('textarea').val().length<2){
-    cont.find('#reply_err').html('Please enter your reply');
+    cont.find('#reply_err').html('<span>Please enter your reply.</span>');
   }else{
     cont.find('#add_reply').hide();
     cont.find('#sub_loader').show();
