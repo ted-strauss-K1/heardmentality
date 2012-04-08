@@ -3618,7 +3618,7 @@ span.small_pos,
 #debate_list_area .arg .position:after,
 .userinfo-debate:after,
 #debate_list_area .arg:after,
-#forum-reply-form:after {
+.arg-reply-form:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
