@@ -925,9 +925,9 @@ $(document).ready(function() {
 // Show textbox yes/no reply on argument
   
 $(document).ready(function(){  
-  $('ul.argument_box > .position-question a.agree').click(function() {
+  $('ul.argument_box > li > .position-question a.agree').click(function() {
 		
-    var agree = $(this).parents('ul.argument_box > .position-question').find('#reply-comment');
+    var agree = $(this).parents('ul.argument_box > li > .position-question').find('#reply-comment');
 		
     if (agree.hasClass('hidden')) {
       agree.removeClass('hidden').addClass('visible').slideDown(400);
@@ -940,9 +940,9 @@ $(document).ready(function(){
 		
   });
 	
-  $('ul.argument_box > .position-question a.disagree').click(function() {
+  $('ul.argument_box > li > .position-question a.disagree').click(function() {
 		
-    var agree = $(this).parents('ul.argument_box > .position-question').find('#reply-comment');
+    var agree = $(this).parents('ul.argument_box > li > .position-question').find('#reply-comment');
 		
     if (agree.hasClass('hidden')) {
       agree.removeClass('hidden').addClass('visible').slideDown(400);
