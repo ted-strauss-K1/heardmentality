@@ -915,13 +915,6 @@ $(document).ready(function() {
 });
 
 
-
-
-
-
-
-
-
 // Show textbox yes/no reply on argument
   
 $(document).ready(function(){  
@@ -937,6 +930,8 @@ $(document).ready(function(){
       agree.removeClass('visible').addClass('hidden').slideUp(400);
       $(this).removeClass('collapsed');
     }
+	
+	$(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:even').attr('checked',true);
 		
   });
 	
@@ -952,14 +947,14 @@ $(document).ready(function(){
       agree.removeClass('visible').addClass('hidden').slideUp(400);
       $(this).removeClass('collapsed');
     }
+	
+	$(this).parents('ul.argument_box > li > .position-question').find('input[name=str_wk]:radio:odd').attr('checked',true);
 		
   });
   
   });
-
-
   
-  
+
 $(document).ready(function(){
   $('a.permalink').click(function(e){
     
