@@ -954,10 +954,8 @@ p.comment-meta {
 
 .comment-agree a.agree,
 .comment-agree a.disagree,
-.comment-agree a.agree:active,
-.comment-agree a.disagree:active,
-.comment-agree a.agree:link,
-.comment-agree a.disagree:link{
+.comment-agree a,
+.comment-agree a{
     background: none repeat scroll 0 0 transparent;
     border: 0 none;
     color: #ccc !important;
@@ -980,15 +978,15 @@ p.comment-meta {
 
 .comment-agree a.agree.collapsed,
 .comment-agree a.disagree.collapsed,
-.comment-agree a.agree.collapsed:link,
-.comment-agree a.disagree.collapsed:link,
-.comment-agree a.agree.collapsed:active,
-.comment-agree a.disagree.collapsed:active   {
+.comment-agree a.collapsed,
+.comment-agree a.collapsed {
     color: #999 !important;	
 }
 
 .comment-agree a.agree:hover,
-.comment-agree a.disagree:hover {
+.comment-agree a.disagree:hover,
+.comment-agree a:hover,
+.comment-agree a:hover {
 	background-color: #ccc;
 	color: #fff !important;
 }
