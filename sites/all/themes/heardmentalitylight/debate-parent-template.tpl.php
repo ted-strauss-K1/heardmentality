@@ -51,7 +51,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 
 	  <ul class="control_links">
 			<li><a href="#" class="icon flag2" title="flag this argument">flag</a></li>
-			<li>&nbsp;|&nbsp;<a href="#" class="flag2" title="permalink">link</a></li>
+			<li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink">link</a></li>
 			<?php if ($delete):?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
 	  </ul>
 	  
@@ -83,7 +83,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 		<!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
 		<ul class="argument_replybox">
 			<div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
-			<div id="reply-comment"> 
+			<div id="reply-comment hidden"> 
 				<?php print $reply_box; ?>
 			</div>
 		</ul>
