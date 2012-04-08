@@ -3606,10 +3606,13 @@ span.small_pos,
 #reply_err span {
 	color: #CD2027; 
 	padding-top: 6px;
+	display: inline-block;
 }
 
-#reply_err span.added {
-	color: #55BA59; 
+.suc-msg span {
+	color: #55BA59;
+	padding-top: 6px;
+	display: inline-block;
 }
 
 /*Clear*/
