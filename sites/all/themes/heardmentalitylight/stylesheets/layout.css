@@ -3656,7 +3656,7 @@ ul.control_links h6#reply:hover {
 	position: relative;
 }
 
-.show_only a.button {
+.white-box .show_only a.button {
 	text-decoration: none;
 }
 

@@ -46,13 +46,13 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 		<div class="popup">
 			<span class="title">Show all</span>
 			<dl>
-				<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer</dt>
+				<dd><a href="" class="neutral"><span>-</span><span>+</span></a><a href="" class="negative"><span>-</span></a><a href="" class="positive"><span>+</span></a></dd><dt>Name answer</dt>
 			</dl>
 			<dl>
-				<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer2</dt>
+				<dd><a href="" class="neutral"><span>-</span><span>+</span></a><a href="" class="negative"><span>-</span></a><a href="" class="positive"><span>+</span></a></dd><dt>Name answer2</dt>
 			</dl>
 			<dl>
-				<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer3</dt>
+				<dd><a href="" class="neutral"><span>-</span><span>+</span></a><a href="" class="negative"><span>-</span></a><a href="" class="positive"><span>+</span></a></dd><dt>Name answer3</dt>
 			</dl>		
 		</div>
 	</div>
