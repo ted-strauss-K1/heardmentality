@@ -25,7 +25,9 @@
 .ie7 #debate_list_area .arg,
 .ie8 #debate_list_area .arg,
 .ie7 .arg-reply-form,
-.ie8 .arg-reply-form{
+.ie8 .arg-reply-form,
+.ie7 #debate_list_area > h2:first-child,
+.ie8 #debate_list_area > h2:first-child{
 	zoom: 1;
 }
 

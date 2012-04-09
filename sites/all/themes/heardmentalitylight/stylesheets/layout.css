@@ -3190,8 +3190,13 @@ h6#deb-ana:hover a,
 	color: #362750;
 	font: bold italic 12px/15px Arial, sans-serif;
 	text-transform: uppercase;
-	padding: 0 30px 12px;
+	padding: 0 30px 0;
 	border-bottom: 1px solid #C0C0C0;
+}
+
+#debate_list_area > h2:first-child span {
+	display: inline-block;
+	padding-bottom: 12px;
 }
 
 #debate_list_area ul.argument_box {
@@ -3729,7 +3734,8 @@ span.small_pos,
 #debate_list_area .arg .position:after,
 .userinfo-debate:after,
 #debate_list_area .arg:after,
-.arg-reply-form:after {
+.arg-reply-form:after,
+#debate_list_area > h2:first-child:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
