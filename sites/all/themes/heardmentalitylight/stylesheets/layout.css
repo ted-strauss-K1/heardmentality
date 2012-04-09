@@ -3156,6 +3156,7 @@ h6#deb-ana:hover a,
 	color: #666;
 	font-weight: bold;
 	text-transform: lowercase;
+	font-style: none;
 }
 
 #debate_list_area .ui-tabs-nav li a:hover {
@@ -3173,7 +3174,7 @@ h6#deb-ana:hover a,
 	-moz-border-radius: 3px 3px 0 0;
 	border-radius: 3px 3px 0 0;
 	-khtml-border-radius: 3px 3px 0 0;
-	-o-border-radius: 3px 3px 0 0
+	-o-border-radius: 3px 3px 0 0;
 }
 
 #debate_list_area .ui-tabs-nav li.ui-state-active a:hover {
@@ -3196,7 +3197,7 @@ h6#deb-ana:hover a,
 
 #debate_list_area > h2:first-child span {
 	display: inline-block;
-	padding-bottom: 12px;
+	padding-top: 8px;
 }
 
 #debate_list_area ul.argument_box {
