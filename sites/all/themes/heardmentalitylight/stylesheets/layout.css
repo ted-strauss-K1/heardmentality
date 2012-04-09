@@ -3156,7 +3156,7 @@ h6#deb-ana:hover a,
 	color: #666;
 	font-weight: bold;
 	text-transform: lowercase;
-	font-style: none;
+	font-style: normal;
 }
 
 #debate_list_area .ui-tabs-nav li a:hover {

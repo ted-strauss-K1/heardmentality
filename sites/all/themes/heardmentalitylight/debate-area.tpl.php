@@ -45,6 +45,22 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
       <li><a href="#tabs-3">supported</a></li>
     </ul>
   </h2>
+  
+  <div class="show_only">
+	<a class="button" href="#">&#9660; Show only</a>
+	<div class="popup">
+		<span>Show all</span>
+		<dl>
+			<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer</dt>
+		</dl>
+		<dl>
+			<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer</dt>
+		</dl>
+		<dl>
+			<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer</dt>
+		</dl>		
+	</div>
+  </div>
 
 
 
