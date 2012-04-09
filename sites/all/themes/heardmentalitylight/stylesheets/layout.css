@@ -3656,15 +3656,23 @@ ul.control_links h6#reply:hover {
 	position: relative;
 }
 
+.show_only a.button {
+	text-decoration: none;
+}
+
 .show_only .popup {
-	display: none;
+    background-color: #FFFFFF;
+    border: 1px solid #D7D7D7;
+    display: none;
+    left: 0;
+    position: absolute;
+    top: 15pxpx;
+    z-index: 1001;
+	width: 200px;
 }
 
 .show_only:hover .popup {
 	display: block;
-	position: absolute;
-	top: 0;
-	left: 0;
 }
 
 /*Small circle*/
