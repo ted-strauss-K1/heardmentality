@@ -3086,6 +3086,53 @@ h6#deb-ana:hover a,
 	background: url(../images/slider_corners.png) no-repeat -16px 0 transparent;
 }
 
+.white-box.poll-box ul.tabs-content > li {
+	margin: 0;
+}
+
+#debate_list_area {
+	background: 0 none;
+	color: 4c4c4c;
+	border: 0 none;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	-o-border-radius: 0;
+	-khtml-border-radius: 0;
+	font: 12px/15px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
+	padding: 0;
+}
+
+#debate_list_area .ui-tabs-panel {
+	color: 4c4c4c;
+	border: 0 none;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	-o-border-radius: 0;
+	-khtml-border-radius: 0;
+	padding: 0;	
+}
+
+#debate_list_area .ui-tabs-nav {
+	margin: 0;
+	padding: 0;
+	float: right;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	-o-border-radius: 0;
+	-khtml-border-radius: 0;
+	border: 0 none;
+	color: #666;
+	background: 0 none;
+}
+
+#debate_list_area .ui-tabs .ui-tabs-panel {
+	border: 0 none;
+	padding: 0;
+}
+
 #debate_list_area > h2:first-child {
 	margin: 0 0 14px;
 	color: #362750;
