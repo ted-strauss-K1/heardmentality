@@ -3128,6 +3128,58 @@ h6#deb-ana:hover a,
 	background: 0 none;
 }
 
+#debate_list_area .ui-tabs-nav li {
+    background: none transparent;
+    border: 0 none;
+    color: #666;
+    font-weight: normal;
+	display: block;
+    float: left;
+    height: auto;
+    margin: 0 0 0 12px;
+    padding: 0;
+    width: auto;
+	line-height: 18px;
+	top: 0;
+}
+
+#debate_list_area .ui-tabs-nav li a {
+	float: none;
+	display: block; 
+	text-decoration: none;
+	width: auto; 
+	height: auto; 
+	padding: 8px 10px; 
+	line-height: 16px; 
+	margin: 0;  
+	font-size: 13px;
+	color: #666;
+	font-weight: bold;
+	text-transform: lowercase;
+}
+
+#debate_list_area .ui-tabs-nav li a:hover {
+	text-decoration: underline;
+}
+
+#debate_list_area .ui-tabs-nav li.ui-state-active a {
+	background: #fff; 
+	position: relative;
+	top: 1px;
+	padding: 6px 9px 9px; 
+	border: solid #c0c0c0;
+	border-width: 1px 1px 0;
+	-webkit-border-radius: 3px 3px 0 0;
+	-moz-border-radius: 3px 3px 0 0;
+	border-radius: 3px 3px 0 0;
+	-khtml-border-radius: 3px 3px 0 0;
+	-o-border-radius: 3px 3px 0 0
+}
+
+#debate_list_area .ui-tabs-nav li.ui-state-active a:hover {
+	text-decoration: none;
+}
+
 #debate_list_area .ui-tabs .ui-tabs-panel {
 	border: 0 none;
 	padding: 0;
