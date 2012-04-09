@@ -37,8 +37,26 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 </div><!--/#debate_work_area -->
 
 <div id="debate_list_area">
-  <h2><span><?php print $count;
-    print ' Arguments'; print $show_only;?></span>
+  <h2>
+	<span><?php print $count;
+    print ' Arguments';?></span>
+	
+	<div class="show_only">
+		<a class="button" href="">&#9660; Show only</a>
+		<div class="popup">
+			<span class="title">Show all</span>
+			<dl>
+				<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer</dt>
+			</dl>
+			<dl>
+				<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer2</dt>
+			</dl>
+			<dl>
+				<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer3</dt>
+			</dl>		
+		</div>
+	</div>
+	
     <ul>
       <li><a href="#tabs-1">older</a></li>
       <li><a href="#tabs-2">recent</a></li>
@@ -46,23 +64,6 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     </ul>
   </h2>
   
-  <div class="show_only">
-	<a class="button" href="#">&#9660; Show only</a>
-	<div class="popup">
-		<span>Show all</span>
-		<dl>
-			<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer</dt>
-		</dl>
-		<dl>
-			<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer</dt>
-		</dl>
-		<dl>
-			<dd><a href="neutral"><span>-</span><span>+</span></a><a href="negative"><span>-</span></a><a href="positive"><span>+</span></a></dd><dt>Name answer</dt>
-		</dl>		
-	</div>
-  </div>
-
-
 
   <div class="comments expanding">
     <div id ="tabs-1">

@@ -3652,6 +3652,21 @@ ul.control_links h6#reply:hover {
 	margin-top: 10px;
 }
 
+.show_only {
+	position: relative;
+}
+
+.show_only .popup {
+	display: none;
+}
+
+.show_only:hover .popup {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
 /*Small circle*/
 
 span.small_neg,
