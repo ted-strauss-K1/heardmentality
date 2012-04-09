@@ -19,7 +19,3 @@ $(document).ready(function() {
     });
   });
 });
-
-
-
-

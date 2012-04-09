@@ -153,7 +153,7 @@ jQuery('#add-new-debate-form').live('submit', function(e){
   var flag = 0;
   for(var i=0; i<tot_ans; i++){
     var id = '#sup_'+i;
-    if(jQuery(id).val() != 0){
+    if(jQuery(id).val() != 0) {
       flag = parseInt(flag)+1;
     }
   }
@@ -161,10 +161,12 @@ jQuery('#add-new-debate-form').live('submit', function(e){
   if(title.length < 2){
     jQuery('#deb-err').html('<span>Please let us know what you think.</span>');
     return false;
-  }else if(flag == 0){
+  }
+  else if(flag == 0){
     jQuery('#deb-err').html('<span>You must choose at least one suppose or oppose.</span>');
     return false;
-  }else{
+  }
+  else{
     jQuery('#add_new_debate').hide();
     jQuery('#sub_loader').show();
     var data=jQuery(this).serialize();
@@ -192,6 +194,8 @@ jQuery('#add-new-debate-form').live('submit', function(e){
       complete: function(){
         jQuery('#sub_loader').hide();
         jQuery('#add_new_debate').show();
+        $('#leave_comment_area').delay(5000).slideUp(400).removeClass('visible_ar').addClass('hidden_ar');
+        $('#add-arg').removeClass('expanded');
       }
     });
   }
