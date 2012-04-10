@@ -3253,7 +3253,7 @@ h6#deb-ana:hover a,
     left: -30px;
     padding: 18px 0 5px;
     position: absolute;
-    top: 1px;
+    top: -11px;
 }
 
 /*#debate_list_area .one-forum:first-child .arg span.sum {
@@ -3401,18 +3401,20 @@ h6#deb-ana:hover a,
 }
 
 .position-question {
-	clear: both;
-	padding: 5px 40px 0 58px;
-	position: relative;
+	background-color: #FFFFFF;
+    clear: both;
+    left: -1px;
+    padding: 5px 40px 0 60px;
+    position: relative;
 }
 
 .position-question span.line {
-    background-color: #FFFFFF;
+    border-left: 1px solid #D7D7D7;
     display: block;
-    height: 20px;
-    left: -1px;
+    left: 0;
+    padding-top: 13px;
     position: absolute;
-    top: 13px;
+    top: 0;
     width: 52px;
 }
 
@@ -3629,7 +3631,9 @@ ul.control_links h6#reply:hover {
 }
 
 #debate_list_area li.one_reply .position-question {
-	padding: 13px 0 0;
+	background-color: transparent;
+    left: 0;
+    padding: 13px 0 0;
 }
 
 #debate_list_area li.one_reply .position-question .comment-agree {
