@@ -3506,7 +3506,8 @@ ul.control_links h6#reply a {
 ul.control_links li a:hover,
 ul.control_links li a.icon.flag2:hover,
 ul.control_links li:hover a.icon.flag2,
-ul.control_links h6#reply:hover  {
+ul.control_links h6#reply:hover,
+ul.control_links h6#reply:hover a  {
 	color: #fff;
 	background-color: #ccc;
 }
@@ -3629,8 +3630,8 @@ ul.control_links h6#reply:hover {
 	float: none;
 	display: inline-block;
 	vertical-align: top;
-	position: relative;
-	top: -1px;
+	/*position: relative;
+	top: -1px;*/
 }
 
 #debate_list_area .no_debate {
@@ -3692,17 +3693,33 @@ ul.control_links h6#reply:hover {
 
 .show_only .popup {
     background-color: #FFFFFF;
-    border: 1px solid #D7D7D7;
-    display: none;
+    border: 1px solid #c3c3c3;
+	box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
+	-moz-box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
+	-webkit-box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
+	-o-box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
+	-khtml-box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
+    /*display: none;*/
     left: 0;
     position: absolute;
     top: 15pxpx;
     z-index: 1001;
-	width: 200px;
+	min-width: 200px;
+	padding: 7px 5px 5px;
+	white-space: nowrap;
 }
 
 .show_only:hover .popup {
 	display: block;
+}
+
+.show_only span.title {
+	color: #666;
+	font-weight: bold;
+	font-size: 13px;
+	text-transform: none;
+	font-style: normal;
+	display: inline-block;
 }
 
 /*Small circle*/
