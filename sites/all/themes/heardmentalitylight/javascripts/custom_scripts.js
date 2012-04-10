@@ -39,8 +39,9 @@ $(document).ready(function() {
 	
     if ($(this).parents('#debate_work_area').find('#analytics-area').hasClass('visible_deb')) {
       $(this).parents('#debate_work_area').find('#analytics-area').removeClass('visible_deb').addClass('hidden_deb').slideUp();
-	  $('h6#add-ana').removeClass('expanded');
     }
+	
+	$('h6#add-ana').removeClass('expanded');
 		
     var add = $(this).parents('#debate_work_area').find('#leave_comment_area');
 		
@@ -59,8 +60,9 @@ $(document).ready(function() {
 	
     if ($(this).parents('#debate_work_area').find('#leave_comment_area').hasClass('visible_ar')) {
       $(this).parents('#debate_work_area').find('#leave_comment_area').removeClass('visible_ar').addClass('hidden_ar').slideUp();
-	  $('h6#add-arg').removeClass('expanded');
     }
+	
+	$('h6#add-arg').removeClass('expanded');
 		
     var graf = $(this).parents('#debate_work_area').find('#analytics-area');
 		
