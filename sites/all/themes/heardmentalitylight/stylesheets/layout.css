@@ -3699,7 +3699,7 @@ ul.control_links h6#reply:hover {
 	-webkit-box-shadow: 2px 3px 3px rgba(195, 195, 195, 0.6);
 	-o-box-shadow: 2px 3px 3px rgba(195, 195, 195, 0.6);
 	-khtml-box-shadow: 2px 3px 3px rgba(195, 195, 195, 0.6);
-    /*display: none;*/
+    display: none;
     left: 0;
     position: absolute;
     top: 26px;
