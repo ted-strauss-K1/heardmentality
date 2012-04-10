@@ -3659,7 +3659,7 @@ ul.control_links h6#reply:hover {
 	clear: left;
 }
 
-.white-box .show_only a.button {
+.white-box .show_only span.button {
 	font-style: normal;
     padding: 6px 12px 4px 10px;
     text-decoration: none;
