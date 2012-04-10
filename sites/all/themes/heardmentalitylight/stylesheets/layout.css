@@ -3193,6 +3193,8 @@ h6#deb-ana:hover a,
 	text-transform: uppercase;
 	padding: 0 30px 0;
 	border-bottom: 1px solid #C0C0C0;
+	position: relative;
+	z-index: 15px;
 }
 
 #debate_list_area > h2:first-child span {
@@ -3227,9 +3229,11 @@ h6#deb-ana:hover a,
 }*/
 
 #empty_helper {
-	height: 1px;
-	background-color: #fff;
-	margin-bottom: -1px;
+	background-color: #FFFFFF;
+    height: 4px;
+    margin-bottom: -12px;
+    position: relative;
+    z-index: 14;
 }
 
 #debate_list_area .replies {
@@ -3247,10 +3251,10 @@ h6#deb-ana:hover a,
     top: 1px;
 }
 
-#debate_list_area .one-forum:first-child .arg span.sum {
+/*#debate_list_area .one-forum:first-child .arg span.sum {
     padding-top: 8px;
     top: 0;
-}
+}*/
 
 #debate_list_area .arg .argument_body,
 #debate_list_area .reply_body {

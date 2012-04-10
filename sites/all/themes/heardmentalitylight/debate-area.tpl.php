@@ -66,7 +66,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
   <div id="empty_helper">&nbsp;</div>
   
 
-  <div class="comments expanding">
+  <div class="comments expanding" style="position: relative; z-index: 13;">
     <div id ="tabs-1">
       <?php print $debateList[0]; ?>
     </div>
