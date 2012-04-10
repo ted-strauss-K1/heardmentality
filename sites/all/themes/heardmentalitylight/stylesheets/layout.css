@@ -3780,11 +3780,14 @@ ul.control_links h6#reply:hover {
 .show_only dd span {
 	float: none !important;
     padding: 0 !important;
+	font-weight: normal;
+	font-style: normal;
+	text-transform: none;
 }
 
 .show_only dd a.neutral span.small_pos {
 	position: relative;
-	left: -5px;
+	left: -8px;
 }
 
 /*Small circle*/
