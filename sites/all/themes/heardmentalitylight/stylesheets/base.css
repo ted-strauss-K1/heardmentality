@@ -137,7 +137,6 @@
 	/*Common buttom with big border-bottom*/
 	a.button,
 	.button,
-	.button.active,	
 	button,
 	input.add-answer,
 	a.add-answer,
@@ -186,6 +185,7 @@
 		
 	a.button:hover,
 	.button:hover,
+	.button.active,
 	button:hover,
 	h6#reply:hover,
 	input.add-answer:hover,
