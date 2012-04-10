@@ -3187,7 +3187,7 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area > h2:first-child {
-	margin: 0 0 14px;
+	margin: 0;
 	color: #362750;
 	font: bold italic 12px/15px Arial, sans-serif;
 	text-transform: uppercase;
@@ -3215,11 +3215,16 @@ h6#deb-ana:hover a,
 	border-left: 1px solid #d7d7d7;
 }
 
+#debate_list_area ul.argument_box > li {
+	padding: 12px 0 0;
+	margin: 11px 0 0;	
+	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
+}
+
 #debate_list_area .arg {
 	position: relative;
-	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
-	padding: 12px 40px 0 58px;
-	margin: 11px 0 0;
+	padding: 0 40px 0 58px;
+	margin: 0;
 }
 
 /*#debate_list_area .one-forum:first-child .arg {
