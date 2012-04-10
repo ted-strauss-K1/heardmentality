@@ -135,7 +135,8 @@
 /* #Buttons
 ================================================== */
 	/*Common buttom with big border-bottom*/
-	a.button, 
+	a.button,
+	.button,	
 	button,
 	input.add-answer,
 	a.add-answer,
@@ -182,7 +183,8 @@
 	  font-weight: bold;
 		-webkit-appearance: none; }
 		
-	a.button:hover, 
+	a.button:hover,
+	.button:hover,
 	button:hover,
 	h6#reply:hover,
 	input.add-answer:hover,

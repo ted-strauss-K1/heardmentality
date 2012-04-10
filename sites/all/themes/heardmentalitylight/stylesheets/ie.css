@@ -123,7 +123,9 @@
 	.ie8 #debate_work_area h6.expanded,
 	.ie8 #debate_work_area h6.expanded:hover,
 	.ie7 #debate_work_area h6.expanded,
-	.ie7 #debate_work_area h6.expanded:hover{
+	.ie7 #debate_work_area h6.expanded:hover,
+	.ie7 .button,
+	.ie8 .button{
 		border: solid #c3c3c3;
 		border-width: 1px 1px 3px;
 	}
@@ -153,7 +155,9 @@
 	.ie7 h6#add-arg:hover,
 	.ie7 h6#deb-ana:hover,
 	.ie8 h6#add-arg:hover,
-	.ie8 h6#deb-ana:hover	{
+	.ie8 h6#deb-ana:hover,
+	.ie7 .button:hover,
+	.ie8 .button:hover	{
 		border: solid #b8b8b8;
 		border-width: 1px 1px 3px;
 	}
