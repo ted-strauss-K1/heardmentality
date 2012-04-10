@@ -80,7 +80,7 @@ $(document).ready(function() {
   
   $('#debate_list_area .show_only span.button').click(function() {
 		
-    var filter = $(this).parents('.show_only').find('.popap');
+    var filter = $(this).parent('.show_only').find('.popup');
 		
     if (filter.hasClass('hidden')) {
       filter.removeClass('hidden').addClass('visible').slideDown(400);
