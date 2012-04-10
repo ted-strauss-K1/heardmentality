@@ -3687,6 +3687,7 @@ ul.control_links h6#reply:hover {
 	color: #666666;
 	text-transform: none;
 	font-style: normal;
+	display: inline;
 }
 
 .show_only .popup {
