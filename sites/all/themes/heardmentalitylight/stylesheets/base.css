@@ -136,7 +136,8 @@
 ================================================== */
 	/*Common buttom with big border-bottom*/
 	a.button,
-	.button,	
+	.button,
+	.button.active,	
 	button,
 	input.add-answer,
 	a.add-answer,

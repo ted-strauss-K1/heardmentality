@@ -125,7 +125,9 @@
 	.ie7 #debate_work_area h6.expanded,
 	.ie7 #debate_work_area h6.expanded:hover,
 	.ie7 .button,
-	.ie8 .button{
+	.ie8 .button,
+	.ie7 .button.active,
+	.ie8 .button.active{
 		border: solid #c3c3c3;
 		border-width: 1px 1px 3px;
 	}
