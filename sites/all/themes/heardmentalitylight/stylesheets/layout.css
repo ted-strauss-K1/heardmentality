@@ -3704,7 +3704,6 @@ ul.control_links h6#reply:hover {
     position: absolute;
     top: 26px;
     z-index: 1001;
-	min-width: 200px;
 	padding: 7px 5px 5px;
 	white-space: nowrap;
 }
@@ -3739,6 +3738,35 @@ ul.control_links h6#reply:hover {
 	color: #4c4c4c;
 	font-size: 12px;
 	line-height: 15px;
+	text-transform: none;
+	font-style: normal;
+}
+
+.show_only dd a {
+	float: left;
+	display: block;
+	width: 18px;
+	height: 13px;
+	border: 1px solid #c3c3c3;
+	padding: 2px;
+	text-align: center;
+	margin: 0 0 0 4px;
+	background-color: #cecece;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f1f1f1), to(#cecece));
+	background: -webkit-linear-gradient(top, #f1f1f1, #cecece);
+	background:    -moz-linear-gradient(top, #f1f1f1, #cecece);
+	background:     -ms-linear-gradient(top, #f1f1f1, #cecece);
+	background:      -o-linear-gradient(top, #f1f1f1, #cecece);
+	background:         linear-gradient(top, #f1f1f1, #cecece);
+	-webkit-box-shadow: inset 0px 0px 2px 0px #fff;
+	-moz-box-shadow: inset 0px 0px 2px 0px #fff;
+	-o-box-shadow: inset 0px 0px 2px 0px #fff;
+	-khtml-box-shadow: inset 0px 0px 2px 0px #fff;
+	box-shadow: inset 0px 0px 2px 0px #fff;
+}
+
+.show_only dd span {
+	padding: 0;
 }
 
 /*Small circle*/
