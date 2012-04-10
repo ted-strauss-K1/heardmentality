@@ -83,11 +83,11 @@ $(document).ready(function() {
     var filter = $(this).parent('.show_only').find('.popup');
 		
     if (filter.hasClass('hidden')) {
-      filter.removeClass('hidden').addClass('visible').slideDown(400);
+      filter.removeClass('hidden').addClass('visible').slideDown();
       $(this).addClass('active');
     }
     else {
-      filter.removeClass('visible').addClass('hidden').slideUp(400);
+      filter.removeClass('visible').addClass('hidden').slideUp();
       $(this).removeClass('active');
     }
 	
