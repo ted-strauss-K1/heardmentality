@@ -46,13 +46,13 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 		<div class="popup">
 			<span class="title">Show all</span>
 			<dl>
-				<dd><a href="" class="neutral"><span>-</span><span>+</span></a><a href="" class="negative"><span>-</span></a><a href="" class="positive"><span>+</span></a></dd><dt>Name answer</dt>
+				<dd><a href="" class="neutral"><span class="small_neg">-</span><span class="small_pos">+</span></a><a href="" class="negative"><span class="small_neg">-</span></a><a href="" class="positive"><span class="small_pos">+</span></a></dd><dt>Name answer</dt>
 			</dl>
 			<dl>
-				<dd><a href="" class="neutral"><span>-</span><span>+</span></a><a href="" class="negative"><span>-</span></a><a href="" class="positive"><span>+</span></a></dd><dt>Name answer2</dt>
+				<dd><a href="" class="neutral"><span class="small_neg">-</span><span class="small_pos">+</span></a><a href="" class="negative"><span class="small_neg">-</span></a><a href="" class="positive"><span class="small_pos">+</span></a></dd><dt>Name answer2</dt>
 			</dl>
 			<dl>
-				<dd><a href="" class="neutral"><span>-</span><span>+</span></a><a href="" class="negative"><span>-</span></a><a href="" class="positive"><span>+</span></a></dd><dt>Name answer3</dt>
+				<dd><a href="" class="neutral"><span class="small_neg">-</span><span class="small_pos">+</span></a><a href="" class="negative"><span class="small_neg">-</span></a><a href="" class="positive"><span class="small_pos">+</span></a></dd><dt>Name answer3</dt>
 			</dl>		
 		</div>
 	</div>

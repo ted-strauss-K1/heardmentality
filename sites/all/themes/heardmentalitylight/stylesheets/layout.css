@@ -3704,7 +3704,7 @@ ul.control_links h6#reply:hover {
     position: absolute;
     top: 26px;
     z-index: 1001;
-	padding: 7px 5px 5px;
+	padding: 7px 5px;
 	white-space: nowrap;
 }
 
@@ -3740,6 +3740,8 @@ ul.control_links h6#reply:hover {
 	line-height: 15px;
 	text-transform: none;
 	font-style: normal;
+	font-weight: normal;
+	padding: 2px 0 0;
 }
 
 .show_only dd a {
@@ -3765,8 +3767,19 @@ ul.control_links h6#reply:hover {
 	box-shadow: inset 0px 0px 2px 0px #fff;
 }
 
+.show_only dd a:hover {
+	background-color: #c4c4c4;
+	background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#c4c4c4));
+	background: -webkit-linear-gradient(top, #efefef, #c4c4c4);
+	background:    -moz-linear-gradient(top, #efefef, #c4c4c4);
+	background:     -ms-linear-gradient(top, #efefef, #c4c4c4);
+	background:      -o-linear-gradient(top, #efefef, #c4c4c4);
+	background:         linear-gradient(top, #efefef, #c4c4c4);
+}
+
 .show_only dd span {
-	padding: 0;
+	float: none !important;
+    padding: 0 !important;
 }
 
 /*Small circle*/
