@@ -3197,7 +3197,8 @@ h6#deb-ana:hover a,
 
 #debate_list_area > h2:first-child span {
 	display: inline-block;
-	padding-top: 8px;
+    float: left;
+    padding: 0 0 16px;
 }
 
 #debate_list_area ul.argument_box {
@@ -3654,10 +3655,17 @@ ul.control_links h6#reply:hover {
 
 .show_only {
 	position: relative;
+	float: left;
+	clear: left;
 }
 
 .white-box .show_only a.button {
-	text-decoration: none;
+	font-style: normal;
+    padding: 6px 12px 4px 10px;
+    text-decoration: none;
+    text-transform: none;
+	position: relative;
+	top: -5px;
 }
 
 .show_only .popup {

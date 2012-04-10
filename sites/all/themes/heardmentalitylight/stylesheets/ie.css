@@ -49,7 +49,8 @@
 .ie7 h6#deb-ana,
 .ie7 #debate_list_area li.one_reply ul.control_links,
 .ie7 ul.control_links h6#reply,
-.ie7 ul.control_links h6#reply:hover
+.ie7 ul.control_links h6#reply:hover,
+.ie7 .show_only
 {display: inline; zoom: 1;}
 
 .ie7 body,
