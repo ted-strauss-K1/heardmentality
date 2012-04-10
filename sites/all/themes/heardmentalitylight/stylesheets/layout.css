@@ -3694,15 +3694,15 @@ ul.control_links h6#reply:hover {
 .show_only .popup {
     background-color: #FFFFFF;
     border: 1px solid #c3c3c3;
-	box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
-	-moz-box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
-	-webkit-box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
-	-o-box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
-	-khtml-box-shadow: 3px 2px 3px rgba(195, 195, 195, 0.6);
+	box-shadow: 2px 3px 3px rgba(195, 195, 195, 0.6);
+	-moz-box-shadow: 2px 3px 3px rgba(195, 195, 195, 0.6);
+	-webkit-box-shadow: 2px 3px 3px rgba(195, 195, 195, 0.6);
+	-o-box-shadow: 2px 3px 3px rgba(195, 195, 195, 0.6);
+	-khtml-box-shadow: 2px 3px 3px rgba(195, 195, 195, 0.6);
     /*display: none;*/
     left: 0;
     position: absolute;
-    top: 15pxpx;
+    top: 26px;
     z-index: 1001;
 	min-width: 200px;
 	padding: 7px 5px 5px;
@@ -3719,7 +3719,26 @@ ul.control_links h6#reply:hover {
 	font-size: 13px;
 	text-transform: none;
 	font-style: normal;
-	display: inline-block;
+	display: block !important;
+	float: none !important;
+	padding: 0 0 4px !important;
+}
+
+.show_only dl {
+	overflow: hidden;
+	margin-top: 4px;
+}
+
+.show_only dd {
+	float: right;
+	width: 85px;
+}
+
+.show_only dt {
+	margin-right: 95px;
+	color: #4c4c4c;
+	font-size: 12px;
+	line-height: 15px;
 }
 
 /*Small circle*/
