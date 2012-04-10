@@ -3708,9 +3708,9 @@ ul.control_links h6#reply:hover {
 	white-space: nowrap;
 }
 
-.show_only:hover .popup {
+/*.show_only:hover .popup {
 	display: block;
-}
+}*/
 
 .show_only span.title {
 	color: #666;
