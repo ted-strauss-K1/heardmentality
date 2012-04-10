@@ -2042,7 +2042,7 @@ textarea#q_quest  {
 #new_vote .fieldset-wrapper .form-radios .form-item label.option span {
 	color: #4c4c4c;
 	font: 18px/1.2 'DINLightRegular', Arial, sans-serif;
-	display: inline-block;
+	display: block;
 	cursor: pointer;
 }
 

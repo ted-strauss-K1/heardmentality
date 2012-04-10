@@ -74,4 +74,23 @@ $(document).ready(function() {
     }
 
   });
+  
+  
+  // Filter show only
+  
+  $('#debate_list_area .show_only span.button').click(function() {
+		
+    var filter = $(this).parents('.show_only').find('.popap');
+		
+    if (filter.hasClass('hidden')) {
+      filter.removeClass('hidden').addClass('visible').slideDown(400);
+      $(this).addClass('active');
+    }
+    else {
+      filter.removeClass('visible').addClass('hidden').slideUp(400);
+      $(this).removeClass('active');
+    }
+	
+  });
+  
 });
