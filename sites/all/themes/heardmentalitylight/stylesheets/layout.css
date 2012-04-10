@@ -3748,7 +3748,7 @@ ul.control_links h6#reply:hover {
 	float: left;
 	display: block;
 	width: 18px;
-	height: 13px;
+	height: 14px;
 	border: 1px solid #c3c3c3;
 	padding: 2px;
 	text-align: center;
@@ -3782,6 +3782,11 @@ ul.control_links h6#reply:hover {
     padding: 0 !important;
 }
 
+.show_only dd a.neutral span.small_pos {
+	position: relative;
+	left: -5px;
+}
+
 /*Small circle*/
 
 span.small_neg,
@@ -3795,7 +3800,7 @@ span.small_pos,
 	-o-border-radius: 6px;
 	-khtml-border-radius: 6px;
     display: inline-block;
-    font-family: Verdana, Arial, sans-serif;
+    font-family: Verdana, Arial, sans-serif !important;
     font-size: 13px;
     height: 13px;
     line-height: 11px;
@@ -3809,7 +3814,7 @@ span.small_pos,
 	background-color: #55ba59;
 	font-size: 12px;
 	line-height: 14px;
-	font-family: Arial, sans-serif;
+	font-family: Arial, sans-serif !important;
 }
 
 /*Big circle*/
