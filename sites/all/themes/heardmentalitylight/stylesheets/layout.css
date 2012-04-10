@@ -3661,11 +3661,30 @@ ul.control_links h6#reply:hover {
 
 .white-box .show_only span.button {
 	font-style: normal;
-    padding: 6px 12px 4px 10px;
+    padding: 6px 12px 4px 10px !important;
     text-decoration: none;
     text-transform: none;
 	position: relative;
 	top: -5px;
+}
+
+.show_only .inc {
+	display: inline-block;
+}
+
+.show_only .inc form {
+	margin: 0;
+}
+
+.show_only .inc form input[type="checkbox"] {
+	margin: 0;
+	position: relative;
+}
+
+.show_only .inc form label {
+	color: #666666;
+	text-transform: none;
+	font-style: normal;
 }
 
 .show_only .popup {
