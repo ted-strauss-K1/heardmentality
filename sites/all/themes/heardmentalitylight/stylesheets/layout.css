@@ -3220,10 +3220,16 @@ h6#deb-ana:hover a,
 	margin: 11px 0 0;
 }
 
-#debate_list_area .one-forum:first-child .arg {
+/*#debate_list_area .one-forum:first-child .arg {
 	background: none transparent;
 	margin: 0;
 	padding: 0 30px 0 58px;
+}*/
+
+#empty_helper {
+	height: 1px;
+	background-color: #fff;
+	margin-bottom: -1px;
 }
 
 #debate_list_area .replies {

@@ -63,6 +63,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
       <li><a href="#tabs-3">supported</a></li>
     </ul>
   </h2>
+  <div id="empty_helper">&nbsp;</div>
   
 
   <div class="comments expanding">
