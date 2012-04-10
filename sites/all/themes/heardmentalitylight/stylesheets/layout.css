@@ -3673,12 +3673,14 @@ ul.control_links h6#reply:hover {
 }
 
 .show_only .inc form {
-	margin: 0;
+	margin: 0 0 0 16px;
+    padding-top: 8px;
 }
 
 .show_only .inc form input[type="checkbox"] {
-	margin: 0;
-	position: relative;
+	margin: 0 5px 0 0;
+    position: relative;
+    top: 1px;
 }
 
 .show_only .inc form label {
