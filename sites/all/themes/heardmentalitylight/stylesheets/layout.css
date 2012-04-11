@@ -860,9 +860,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	
 /* #STATS AND GRAPHS
 ================================================== */	
-.vote-results ul {padding:0px 0px 0px 0px;}
-.vote-results ul li{ float:left;width:44.5%;margin:20px 1% 0px 1%;background:#eee;padding:2% 0px 20px 0px;-webkit-border-radius:  3px 3px;-moz-border-radius:  3px/3px; border-radius: 3px;text-shadow: 0 1px #fff;}
-.vote-results ul li.full{ width:94.5%;}
+/*.vote-results ul {padding:0px 0px 0px 0px;}
 
 .vote-results ul li img{width:100%}
 .vote-results ul li p{padding:10px;}
@@ -874,65 +872,11 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 .filter-stats	{margin:0px 0px 10px 0px;padding:0px 0px 30px 0px;color:#000;float:right;width:100px;}
 
 .filter-stats-2	{margin:0px 0px 10px 10px;padding:0px 0px 30px 0px;color:#000;float:right;width:140px;}
-p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted #ddd;margin:0px 0px 10px 10px;padding:0px 0px 10px 0px;color:#999;text-shadow: 0 1px #fff;}
+p.result-title	{font-size:13px;text-transform:uppercase;border-bottom:1px dotted #ddd;margin:0px 0px 10px 10px;padding:0px 0px 10px 0px;color:#999;text-shadow: 0 1px #fff;}*/
 	
 	
 /* #DEBATE
 ================================================== */	
-
-/*.debate-options {
-	float:left;
-	padding:0px 0px 0px 0px;
-	text-transform:uppercase;
-	font-weight:normal;
-	color:#999;
-	margin:-12px 0px 10px 0px;
-}
-
-.debate-options a{
-	color:#666;
-}	
-
-.debate-options a:hover{
-	color:#000;
-}
-
-.comments h6 {
-	padding-left: 0px;
-	margin:5px 0px 5px 0px;
-	color:#000;
-}	
-
-.comments h6.blue-link a{
-	padding-left: 0px;
-	margin:5px 0px 5px 0px;
-	color:#000;
-	opacity:1;
-}
-.comments h6 a{
-	color:#000;
-}
-
-.position-question {
-  width:236px;
-  margin:20px 0px 0px 0px;
-
-}
-.position-indicator {
-	height:5px;
-	background:#DD5345;
-	opacity:0.9;
-	margin:0px 0px 10px 1px;
-}
-
-.position-indicator .progress{
-	width:75%;
-	height:5px;
-	background:#84D861;
-}
-.add-comment {
-  margin:-7px 5px 0px 10px;
-}*/
 
 p.comment-meta {
 	text-shadow: 0 1px #fff;
@@ -1005,68 +949,6 @@ p.comment-meta {
     color: #999 !important;	
 	background-color: transparent;
 }
-
-/*a img.thumbs-up-down{width:20px;height:20px;border:0px;background:transparent;padding:1px 7px 1px 0px;margin:0px}
-.comments ul{
-  margin:0px;
-  padding:0px;
-    font-size:1em;
-}	
-.comments ul li{
-  padding:10px 0px 5px 0px;
-  font-size:1em;
-  margin:0px 0px 0px 0px; 
-  border-width:1px;
-	border-bottom:1px solid #aaa;
-}	
-
-.comments img{
-  border-width:1px;
-	border-style:solid;
-	border-color:#aaa;
-	background:#ddd;
-	float:left;
-	margin:4px 12px 5px 0px;
-	width:60px;
-	height:60px;
-}	
-
-.comments ul li:nth-child(even) { background: #fff; }
-
-.comments ul li ul li{
-  font-size:1em;
-  padding:5px 0px 0px 20px;
-  margin:10px 0px 0px 0px;
-	border-bottom:1px solid #ddd;
-	border-left:5px solid #ccc;
-	background:none;
-}
-
-.comments ul li ul li.reply-to-reply{
-  margin:10px 0px 0px 10px;
-
-}
-
-.comments ul li ul li.reply-to-reply-to-reply{
-  margin:10px 0px 0px 20px;
-
-}
-
-.top-arrow {
-  width:23px;
-  height:23px;
-  display:block;
-  float:right;
-  margin:-18px 0px 0px 10px;
-}	
-
-.bottom-arrow {
-  
-}*/
-
-/* #REFERENCES
-================================================== */
-
 
 /* #SEARCH
 ================================================== */
@@ -3829,6 +3711,26 @@ ul.control_links h6#reply:hover {
 .show_only dd a.neutral span.small_pos {
 	position: relative;
 	left: -8px;
+}
+
+/*Vote results*/
+
+#results {
+	border-top: 1px solid #C0C0C0;
+	background-color: #fff;
+	/*background-image: -webkit-gradient(linear, left top, left bottom, from(#ececec), to(#f7f7f7));
+	background-image: -webkit-linear-gradient(top, #ececec, #f7f7f7);
+	background-image:    -moz-linear-gradient(top, #ececec, #f7f7f7);
+	background-image:     -ms-linear-gradient(top, #ececec, #f7f7f7);
+	background-image:      -o-linear-gradient(top, #ececec, #f7f7f7);
+	background-image:         linear-gradient(top, #ececec, #f7f7f7);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ececec,endColorstr=#f7f7f7);
+    zoom: 1;*/
+}
+
+.vote-results ul {
+	margin: 0;
+	padding: 0;
 }
 
 /*Small circle*/
