@@ -3711,19 +3711,19 @@ ul.control_links h6#reply:hover {
 
 #results {
 	border-top: 1px solid #C0C0C0;
-	background-color: #ececec;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#ececec), to(#f7f7f7));
-	background-image: -webkit-linear-gradient(top, #ececec, #f7f7f7);
-	background-image:    -moz-linear-gradient(top, #ececec, #f7f7f7);
-	background-image:     -ms-linear-gradient(top, #ececec, #f7f7f7);
-	background-image:      -o-linear-gradient(top, #ececec, #f7f7f7);
-	background-image:         linear-gradient(top, #ececec, #f7f7f7);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ececec,endColorstr=#f7f7f7);
+	background-color: #fff;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f7f7f7));
+	background-image: -webkit-linear-gradient(top, #fff, #f7f7f7);
+	background-image:    -moz-linear-gradient(top, #fff, #f7f7f7);
+	background-image:     -ms-linear-gradient(top, #fff, #f7f7f7);
+	background-image:      -o-linear-gradient(top, #fff, #f7f7f7);
+	background-image:         linear-gradient(top, #fff, #f7f7f7);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fff,endColorstr=#f7f7f7);
     zoom: 1;
 }
 
 .vote-results {
-	padding: 0 3%;
+	padding: 0 2%;
 }
 
 .vote-results ul {
@@ -3744,7 +3744,7 @@ ul.control_links h6#reply:hover {
 .vote-results li.full {
 	float: none;
 	clear: left;
-	background-color: #fff;
+	background-color: #e4e4e4;
 	margin: 20px 0;
 }
 
