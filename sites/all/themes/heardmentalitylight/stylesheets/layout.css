@@ -3452,6 +3452,10 @@ h6#deb-ana:hover a,
 	width: 100%;
 }
 
+.position-question strong {
+	color: #ccc;
+}
+
 ul.control_links {
 	border: 0 none;
 	float: left;
