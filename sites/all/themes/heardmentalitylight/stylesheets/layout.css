@@ -3458,7 +3458,13 @@ h6#deb-ana:hover a,
 
 .position-question strong.motivat {
 	display: none;
-	font-style: italic;
+    font-size: 11px;
+    font-style: italic;
+    padding-top: 3px;
+}
+
+#debate_list_area li.one_reply .position-question strong.motivat {
+	display: none !important;
 }
 
 ul.control_links {
