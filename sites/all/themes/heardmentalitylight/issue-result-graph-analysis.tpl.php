@@ -8,7 +8,7 @@
         <div class="inner filter"><?php print $report_percent; ?></div>
 		
       </li>
-      <li class="part">
+      <li class="part margin">
 	  
         <p class="result-title dinbold"><?php print t('Quick facts'); ?></p>
         <div id="insight-view" class="inner">
@@ -36,7 +36,7 @@
         <div class="inner graf"><?php print $report_graph; ?></div>
 		
       </li>
-      <li class="part">
+      <li class="part margin">
 
         <p class="result-title dinbold"><?php print t('Vote map'); ?></p>
         <div class="inner map"><?php print $map; ?></div>

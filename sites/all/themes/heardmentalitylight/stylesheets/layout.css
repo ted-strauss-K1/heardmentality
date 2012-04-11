@@ -754,10 +754,6 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 	  font-size:1em;
     cursor:pointer;
 	}
-	.vote-results {
-
-	}
-	
 	
 	span.privacy-answer {
 	  font-size:0.7em;
@@ -3726,6 +3722,10 @@ ul.control_links h6#reply:hover {
     zoom: 1;
 }
 
+.vote-results {
+	padding: 0 3%;
+}
+
 .vote-results ul {
 	margin: 0;
 	padding: 0;
@@ -3733,14 +3733,19 @@ ul.control_links h6#reply:hover {
 
 .vote-results li.part {
 	float: left;
-	width: 50%;
+	width: 49%;
 	background-color: #fff;
+}
+
+.vote-results li.part.margin {
+	margin-left: 2%;
 }
 
 .vote-results li.full {
 	float: none;
 	clear: left;
 	background-color: #fff;
+	margin: 20px 0;
 }
 
 /*Small circle*/
