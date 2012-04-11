@@ -11,7 +11,7 @@
       <li class="part">
 	  
         <p class="result-title dinbold"><?php print t('Quick facts'); ?></p>
-        <div id="inner insight-view">
+        <div id="insight-view" class="inner">
           <?php print $insight_view; ?>
         </div>
 		
