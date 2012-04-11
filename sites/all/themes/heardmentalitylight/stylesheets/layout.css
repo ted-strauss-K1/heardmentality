@@ -3827,7 +3827,7 @@ span.small_pos,
 .userinfo-debate:after,
 #debate_list_area .arg:after,
 .arg-reply-form:after,
-#debate_list_area > h2:first-child:after.
+#debate_list_area > h2:first-child:after,
 .vote-results ul:after {
 	visibility: hidden;
 	display: block;
