@@ -97,7 +97,7 @@ $(document).ready(function() {
   
   $('.reply_wrapper legend').click(function() {
   
-    $(this).parents('ul.argument_box').find('strong.motivat').addClass('visible');
+    $(this).parents('ul.argument_box').find('.position-question').addClass('visible');
 	
   });
   
