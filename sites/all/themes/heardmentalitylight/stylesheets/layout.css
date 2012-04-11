@@ -2028,7 +2028,19 @@ textarea#q_quest  {
 #deb-err{
     color: #FF0000;
 }
+/*textarea#deb_title, textarea.textarea-input  {
+    margin: 7px 1% 25px 1px;
+    width: 98%;
+}
 
+textarea#deb_title, textarea.textarea-input {
+    -moz-border-radius: 3px 3px 3px 3px;
+    border-color: #666666 #AAAAAA #AAAAAA #666666;
+    float: right;
+    margin: 0 1% 30px 1px;
+    padding: 2% 1%;
+    width: 98%;
+}*/
 .ref img{
     float: left;
 }
@@ -2054,6 +2066,9 @@ textarea#q_quest  {
 }
 .img-selector{float:left; margin-right:10px; width:118px; height:73px; overflow:hidden;}
 
+.vote-results ul li img {
+    width: auto;
+}
 input.info, textarea.info {
     float: left;
     margin: 2px 0 20px;
@@ -3700,7 +3715,7 @@ ul.control_links h6#reply:hover {
 
 #results {
 	border-top: 1px solid #C0C0C0;
-	background-color: #fff;
+	background-color: #ececec;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#ececec), to(#f7f7f7));
 	background-image: -webkit-linear-gradient(top, #ececec, #f7f7f7);
 	background-image:    -moz-linear-gradient(top, #ececec, #f7f7f7);
