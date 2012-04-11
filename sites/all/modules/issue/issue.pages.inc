@@ -808,11 +808,7 @@ map.setCenter(new GLatLng(Math.round(lat),Math.round(lng) ), 5);
   $out .= '<script type="text/javascript">window.onunload=GUnload;</script>';
 
   $out .= '
-       <div  class="">
-        ' . $zoom . '<span style="padding-right:10px ">' . $filter . '</span>
-        </div></br>
-        <div id="map_div" style="width: 100%; height: 300px"></div><br/>
-        <div style="position: relative;" id="desc">' . $desc . '</div>
+        <div id="map_div" style="width: 100%; height: 300px"></div>
 ';
   return $out;
 }

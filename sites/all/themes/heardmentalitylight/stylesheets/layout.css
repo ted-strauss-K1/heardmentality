@@ -1155,16 +1155,16 @@ ul.queue li{
 ================================================== */
 	
 .map {
-	margin: 0 10px;
+	/*margin: 0 10px;
 	height: 200px;
-	text-align: center;
+	text-align: center;*/
 }
 
 .map img {
-  border-width:1px;
+  /*border-width:1px;
 	border-style:solid;
 	border-color:#aaa #ddd #aaa #ddd;
-	width:100%;
+	width:100%;*/
 }
 
 .map2 {
@@ -3735,6 +3735,7 @@ ul.control_links h6#reply:hover {
 	float: left;
 	width: 49%;
 	background-color: #e4e4e4;
+	margin: 0;
 }
 
 .vote-results li.part.margin {
@@ -3742,10 +3743,11 @@ ul.control_links h6#reply:hover {
 }
 
 .vote-results li.full {
-	float: none;
-	clear: left;
-	background-color: #e4e4e4;
-	margin: 20px 0;
+    background-color: #E4E4E4;
+    clear: left;
+    float: left;
+    margin: 14px 0;
+    width: 100%;
 }
 
 /*Small circle*/
