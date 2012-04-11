@@ -97,7 +97,7 @@ $(document).ready(function() {
   
   $('.reply_wrapper legend a').click(function() {
   
-    $(this).parents('ul.argument_box').find('strong.motivat').addClass('visible');
+    $(this).parents('ul.argument_box').find('strong.motivat').css('display', 'block');
 	
   });
   
