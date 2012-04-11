@@ -95,7 +95,7 @@ $(document).ready(function() {
   
   // Show (Click yes/no to leave support/oppose comment.)
   
-  $('.reply_wrapper legend').click(function() {
+  $('.reply_wrapper legend a').click(function() {
   
     $(this).parents('ul.argument_box').find('strong.motivat').addClass('visible');
 	
