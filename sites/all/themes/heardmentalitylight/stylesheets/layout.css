@@ -3456,6 +3456,11 @@ h6#deb-ana:hover a,
 	color: #ccc;
 }
 
+.position-question strong.motivat {
+	display: none;
+	font-style: italic;
+}
+
 ul.control_links {
 	border: 0 none;
 	float: left;
