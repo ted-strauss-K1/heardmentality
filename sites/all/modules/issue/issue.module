@@ -3247,7 +3247,7 @@ function get_rating_buttons($items, $type) {
     </strong><a href="javascript:void(0);" id="medal1" ' . $agreeTitle . ' name="a-' . $itemId . '" ' .
           $agreeClass . '>' . t('Yes') . ' <span>(' . $items['vote_up'] . ')</span></a>&nbsp;|
     <a href="javascript:void(0);" id="medal1" ' . $disagreeTitle . ' name="da-' .
-          $itemId . '" ' . $disagreeClass . '>' . t('No') . ' <span>(' . $items['vote_down'] . ')</span></a>
+          $itemId . '" ' . $disagreeClass . '>' . t('No') . ' <span>(' . $items['vote_down'] . ')</span></a><strong class="motivat">' . t('(You can leave a comment.)') . '</strong>
     </span>';
   return $ratings;
 }
