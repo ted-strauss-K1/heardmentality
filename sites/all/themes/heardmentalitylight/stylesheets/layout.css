@@ -3734,7 +3734,7 @@ ul.control_links h6#reply:hover {
 .vote-results li.part {
 	float: left;
 	width: 49%;
-	background-color: #fff;
+	background-color: #e4e4e4;
 }
 
 .vote-results li.part.margin {
