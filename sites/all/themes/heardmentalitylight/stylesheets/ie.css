@@ -29,7 +29,9 @@
 .ie7 #debate_list_area > h2:first-child,
 .ie8 #debate_list_area > h2:first-child,
 .ie7 .vote-results ul,
-.ie8 .vote-results ul{
+.ie8 .vote-results ul,
+.ie7 .vote-results div.space,
+.ie8 .vote-results div.space{
 	zoom: 1;
 }
 

@@ -3739,27 +3739,38 @@ ul.control_links h6#reply:hover {
 
 .vote-results li.part {
 	float: left;
-	width: 49%;
+	width: 49.3%;
 	margin: 0;
 }
 
 .vote-results li.part.margin {
-	margin-left: 2%;
+	margin-left: 1.4%;
 }
 
 .vote-results li.full {
     clear: left;
     float: left;
-    margin: 14px 0;
+    margin: 10px 0;
     width: 100%;
+}
+
+.vote-results .filter form {
+	float: left;
+}
+
+.vote-results .filter #chart_div {
+	float: left;
+	clear: left;
 }
 
 p.result-title {
 	font-size: 15px;
-	color: #372418;
+	color: #777;
 	text-shadow: 0 1px #FFFFFF;
 	line-height: 18px;
-	margin: 0 10px;
+	margin: 0 0 10px;
+	float: left;
+	width: 100%;
 }
 
 /*Small circle*/
@@ -3847,7 +3858,8 @@ span.small_pos,
 #debate_list_area .arg:after,
 .arg-reply-form:after,
 #debate_list_area > h2:first-child:after,
-.vote-results ul:after {
+.vote-results ul:after,
+.vote-results div.space:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;
