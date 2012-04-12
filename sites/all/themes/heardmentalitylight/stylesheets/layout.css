@@ -3658,7 +3658,7 @@ ul.control_links h6#reply:hover {
 	text-transform: none;
 	font-style: normal;
 	font-weight: normal;
-	padding: 2px 0 0;
+	padding: 3px 0 0;
 }
 
 .show_only dd a {
@@ -3774,7 +3774,7 @@ ul.control_links h6#reply:hover {
 
 .vote-results #insight-view {
 	clear: left;
-	min-height: 213px;
+	min-height: 185px;
 }
 
 .vote-results #container_graph,
