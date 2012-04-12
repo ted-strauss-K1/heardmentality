@@ -806,7 +806,7 @@ map.setCenter(new GLatLng(Math.round(lat),Math.round(lng) ), 5);
   $out .= '<script type="text/javascript">window.onunload=GUnload;</script>';
 
   $out .= '
-        <div id="map_div" style="width: 100%; height: 300px"></div>
+        <div id="map_div" style="width: 100%; height: 180px"></div>
 ';
   return $out;
 }

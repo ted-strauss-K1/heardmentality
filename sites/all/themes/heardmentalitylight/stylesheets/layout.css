@@ -3780,6 +3780,7 @@ ul.control_links h6#reply:hover {
 .vote-results #container_graph,
 .vote-results .map {
 	clear: left;
+	background-color: #fff;
 }
 
 p.result-title {
