@@ -3731,10 +3731,15 @@ ul.control_links h6#reply:hover {
 	padding: 0;
 }
 
+.vote-results li div.space {
+	border: 1px solid #d7d7d7;
+	padding: 2%;	
+	background-color: #e4e4e4;
+}
+
 .vote-results li.part {
 	float: left;
 	width: 49%;
-	background-color: #e4e4e4;
 	margin: 0;
 }
 
@@ -3743,11 +3748,18 @@ ul.control_links h6#reply:hover {
 }
 
 .vote-results li.full {
-    background-color: #E4E4E4;
     clear: left;
     float: left;
     margin: 14px 0;
     width: 100%;
+}
+
+p.result-title {
+	font-size: 15px;
+	color: #372418;
+	text-shadow: 0 1px #FFFFFF;
+	line-height: 18px;
+	margin: 0 10px;
 }
 
 /*Small circle*/
