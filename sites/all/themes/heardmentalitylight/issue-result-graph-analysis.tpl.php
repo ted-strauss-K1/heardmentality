@@ -4,7 +4,7 @@
     <ul>
       <li class="part"><div class="space">
 
-        <p class="result-title dinbold" style="width: auto;"><?php print t('by'); ?></p>
+        <p class="result-title dinbold" style="width: auto; padding: 2px 8px 0 0;"><?php print t('by'); ?></p>
         <div class="inner filter"><?php print $report_percent; ?></div>
 		
       </div></li>
