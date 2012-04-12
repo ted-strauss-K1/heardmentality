@@ -686,7 +686,6 @@ function report_map($nid='') {
             $mlongall .= "'" . $list[0]['lng'] . "',";
             $ziparyall.="'" . $uzip . "',";
             $colormark.="'" . $marker[$i] . "',";
-
           }
         }
       }
@@ -2583,4 +2582,119 @@ function report_get_ans_range_history($nid='', $range='') {
       break;
   }
   return $answer[0];
+}
+
+function issue_ajax_tab_content($qid, $type, $sort = null) {
+  global $user, $language, $theme;
+  $curLanguage = $language->language;
+  $wave = '';
+  $click = '';
+  $debate_theme = '';
+  // load debate
+  $sorting = 'ORDER BY f.nid DESC';
+  $cond = '';
+  if (isset($sort) && $sort == 1) {
+    $sorting = 'ORDER BY n.created DESC';
+  }
+  elseif (isset($sort) && $sort == 2) {
+    $sorting = ' ORDER BY c.field_strength_value DESC';
+  }
+  elseif (isset($sort) && $sort == 0) {
+    $sorting = 'ORDER BY n.created ASC';
+  }
+  $tid = get_taxonomy_id('forum', 'Debate');
+  if (empty($cond)) {
+    $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid JOIN {debate_options} as do ON n.nid = do.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+  }
+  else {
+    $sql = "SELECT DISTINCT(f.nid) FROM  {debate_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
+  } 
+  // forum for translated languages
+  $issueId = $qid;
+  $tnid = get_tnid($qid);
+  $qid = $tnid;
+
+  $nodes = db_query($sql, $tid, $qid);
+  $count = db_result(db_query($sql, $tid, $qid));
+
+  if ($count > 0) {
+    $i = 0;
+    while ($node = db_fetch_object($nodes)) {
+
+      $items = load_debate_datas($node->nid, $issueId, $tnid);
+
+      // anwers strength
+      $strnth = $items['strength'];
+      //echo '<pre>';print_r($strnth);exit;
+      $strength = '';
+      foreach ($strnth as $list) {
+        $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
+        $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '" . $items['issue_id'] . "' AND chorder = '" . $list['chorder'] . "'"));
+        $ans = $short_answer != '' ? $short_answer : $tranAns;
+
+        switch ($list['ans_val']) {
+          case 1:
+            $strength.='<p class="position-minus"><strong>+</strong>&nbsp;' . $ans . '</p>';
+            break;
+          case 2:
+            $strength.='<p class="position-minus"><strong>-</strong>&nbsp;' . $ans . '</p>';
+            break;
+        }
+      }
+
+      // reply
+      $reply_box = drupal_get_form('forum_reply_form', $items['debate_id'], $items['debate_tnid'], $items['issue_id']);
+      $comments = forum_replies($items['debate_tnid'], 0);
+      $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['debate_tnid'] . "'"));
+      // delete
+      if (is_moderator() || $items['uid'] == $user->uid) {
+        $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['debate_tnid'] . '\', \'debate\')">' . t('Delete') . '</h6>';
+      }
+      else {
+        $delete = '';
+      }
+      // ratings
+      // allow rating check
+      $ratings = get_rating_buttons($items, 'is_debate');
+
+      $date1 = new DateTime($items['posted']);
+      $date2 = new DateTime("now");
+      $interval = $date1->diff($date2);
+      $years = $interval->format('%y');
+      $months = $interval->format('%m');
+      $days = $interval->format('%d');
+      $hours = $interval->format('%h');
+      $minutes = $interval->format('%i');
+      if ($years != 0) {
+        $ago = $years . ' year(s) ago';
+      }
+      else {
+        if ($months != 0) {
+          $ago = ($months . ' month(s) ago');
+        }
+        else {
+          if ($days != 0) {
+            $ago = ($days . ' day(s) ago');
+          }
+          else {
+            if ($hours != 0) {
+              $ago = ($hours . ' hour(s) ago ');
+            }
+            else {
+              $ago = ($minutes . ' minute(s) ago');
+            }
+          }
+        }
+      }
+      $items['ago'] = $ago;
+      $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
+      // update points
+      $tForumId = get_tnid($node->nid);
+      debate_roundup($tForumId);
+    }
+  }
+  else {
+    $debate_theme .= '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
+  }
+  print $debate_theme;
 }

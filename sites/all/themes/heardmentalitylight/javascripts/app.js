@@ -1,11 +1,11 @@
 /* 
-* Skeleton V1.0.3
-* Copyright 2011, Dave Gamache
-* www.getskeleton.com
-* Free to use under the MIT license.
-* http://www.opensource.org/licenses/mit-license.php
-* 7/17/2011
-*/	
+ * Skeleton V1.0.3
+ * Copyright 2011, Dave Gamache
+ * www.getskeleton.com
+ * Free to use under the MIT license.
+ * http://www.opensource.org/licenses/mit-license.php
+ * 7/17/2011
+ */	
 	
 
 $(document).ready(function() {
@@ -821,20 +821,20 @@ $(function(){
   };
 
   /**
-     * yields a closure of the supplied parameters, producing a function that takes
-     * no arguments and is suitable for use as an autogravity function like so:
-     *
-     * @param margin (int) - distance from the viewable region edge that an
-     *        element should be before setting its tooltip's gravity to be away
-     *        from that edge.
-     * @param prefer (string, e.g. 'n', 'sw', 'w') - the direction to prefer
-     *        if there are no viewable region edges effecting the tooltip's
-     *        gravity. It will try to vary from this minimally, for example,
-     *        if 'sw' is preferred and an element is near the right viewable 
-     *        region edge, but not the top edge, it will set the gravity for
-     *        that element's tooltip to be 'se', preserving the southern
-     *        component.
-     */
+   * yields a closure of the supplied parameters, producing a function that takes
+   * no arguments and is suitable for use as an autogravity function like so:
+   *
+   * @param margin (int) - distance from the viewable region edge that an
+   *        element should be before setting its tooltip's gravity to be away
+   *        from that edge.
+   * @param prefer (string, e.g. 'n', 'sw', 'w') - the direction to prefer
+   *        if there are no viewable region edges effecting the tooltip's
+   *        gravity. It will try to vary from this minimally, for example,
+   *        if 'sw' is preferred and an element is near the right viewable 
+   *        region edge, but not the top edge, it will set the gravity for
+   *        that element's tooltip to be 'se', preserving the southern
+   *        component.
+   */
   $.fn.tipsy.autoBounds = function(margin, prefer) {
     return function() {
       var dir = {
@@ -1011,7 +1011,16 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-  $('#debate_list_area').tabs();
+  $('#debate_list_area').tabs({
+    ajaxOptions: {
+      error: function( xhr, status, index, anchor ) {
+        $( anchor.hash ).html(
+          "Couldn't load this tab. We'll try to fix this as soon as possible. " +
+          "If this wouldn't be a demo." );
+      }
+    }
+  }
+  );
   $('a.permalink').click(function(e){
     
     var a = window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id');

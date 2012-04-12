@@ -129,6 +129,13 @@ function issue_menu() {
     'page arguments' => array(4),
     'type' => MENU_SUGGESTED_ITEM,
   );
+  $menu['issue/%/tab_content/%/%'] = array(
+    'page callback' => 'issue_ajax_tab_content',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(1, 3, 4),
+    'access callback' => TRUE,
+    'file' => 'issue.pages.inc'
+  );
   return $menu;
 }
 
@@ -1108,7 +1115,7 @@ function issue_theme($existing, $type, $theme, $path) {
       'arguments' => array('debItems' => array()),
     ), 'debate_area' => array(
       'template' => 'debate-area',
-      'arguments' => array('addNewDebateForm' => NULL, 'debateFilterForm' => NULL, 'debateStatistics' => NULL, 'debateList' => NULL, 'count' => NULL, 'show_only' => NULL),
+      'arguments' => array('addNewDebateForm' => NULL, 'debateFilterForm' => NULL, 'debateStatistics' => NULL, 'debateList' => NULL, 'count' => NULL, 'show_only' => NULL, 'nid' => NULL),
     ), 'debate_parent_template' => array(
       'template' => 'debate-parent-template',
       'arguments' => array('items' => NULL, 'strength' => NULL, 'comments' => NULL, 'reply_box' => NULL, 'reply_count' => NULL, 'ratings' => NULL, 'delete' => NULL),
@@ -2217,9 +2224,9 @@ function theme_issue_debate_list($nid = '') {
   $count = db_result($result);
   $ans = load_options($nid);
   foreach ($ans as $list) {
-   $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
+    $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
   }
-  $debates .= theme('debate_area', $addNewDebateForm, $debateFilterForm, $debateStatistics, $debateList, $count, $show_only);
+  $debates .= theme('debate_area', $addNewDebateForm, $debateFilterForm, $debateStatistics, $debateList, $count, $show_only, $nid);
   return $debates;
 }
 

@@ -56,8 +56,8 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 
     <ul>
       <li><a href="#tabs-1">older</a></li>
-      <li><a href="#tabs-2">recent</a></li>
-      <li><a href="#tabs-3">supported</a></li>
+      <li><a href="/heardmentality/issue/<?php print $nid ?>/tab_content/1/1">recent</a></li>
+      <li><a href="/heardmentality/issue/<?php print $nid ?>/tab_content/1/2">supported</a></li>
     </ul>
   </h2>
   <div id="empty_helper">&nbsp;</div>
@@ -68,10 +68,10 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
       <?php print $debateList[0]; ?>
     </div>
     <div id ="tabs-2">
-      <?php print $debateList[1]; ?>
+      <?php //print $debateList[1]; ?>
     </div>
     <div id ="tabs-3">
-      <?php print $debateList[2]; ?>
+      <?php //print $debateList[2]; ?>
     </div>
   </div>
 
