@@ -2215,20 +2215,10 @@ function theme_issue_debate_list($nid = '') {
   $debateList[2] = issue_debates($nid, 1, 2);
   $result = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 1 and field_ref_qid_nid =%d', $nid);
   $count = db_result($result);
-
-
-  $show_only = '<div class="btn-group">
-          <button class="btn">Action</button>
-          <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
-          <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </div>';
-
+  $ans = load_options($nid);
+  foreach ($ans as $list) {
+   $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
+  }
   $debates .= theme('debate_area', $addNewDebateForm, $debateFilterForm, $debateStatistics, $debateList, $count, $show_only);
   return $debates;
 }

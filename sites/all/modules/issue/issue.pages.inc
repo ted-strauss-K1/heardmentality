@@ -686,9 +686,7 @@ function report_map($nid='') {
             $mlongall .= "'" . $list[0]['lng'] . "',";
             $ziparyall.="'" . $uzip . "',";
             $colormark.="'" . $marker[$i] . "',";
-            //   $mlat .= "'".rand('30.232','72.03')."',";
-            //  $mlong .= "'".rand('56.232','103.03')."',";
-            //print_r($array);
+
           }
         }
       }
@@ -1508,10 +1506,6 @@ function search_issue_results__problamatic() {
   $sqlcount = ExecuteQuery($final, 'norows');
 
   $query = pager_query_new($final, $rec_per_page, 0, $sqlcount);
-//    $query = do_search($keywords, $type, $join1 = '', $where1 = '1',
-//            $arguments1 = array(), $select2 = 'i.relevance AS score',
-//            $join2 = '', $arguments2 = array(),
-//            $sort_parameters = 'ORDER BY score DESC');
 
   $count = db_affected_rows($query);
   if ($sqlcount) {
