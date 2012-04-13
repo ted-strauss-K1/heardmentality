@@ -36,7 +36,6 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
   </div><!--/.inner -->
 </div><!--/#debate_work_area -->
 
-<?php print $show_only; ?>
 <div id="debate_list_area">
   <h2>
     <span><?php print $count;
