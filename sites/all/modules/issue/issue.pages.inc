@@ -60,7 +60,6 @@ function report_percent($nid='') {
 					chart: {
 						renderTo: 'chart_div',
 						defaultSeriesType:'bar',
-                                                spacingRight: 300,
                                                
 					},
 					title: {
@@ -69,7 +68,7 @@ function report_percent($nid='') {
 					xAxis: {
 						categories: " . json_encode($ans_array) . ",
                                                   labels :{ style: {
-                  font: '10px Arial,Helvetica,sans-serif '
+                  font: '12px Arial,Helvetica,sans-serif'; color: '#4c4c4c';
                }}
 	},
 					yAxis: {tickInterval  :1,
@@ -78,11 +77,11 @@ function report_percent($nid='') {
 							text: ''
 						},
                                                 labels :{ style: {
-                   font: '10px Arial,Helvetica,sans-serif '
+                   font: '12px Arial,Helvetica,sans-serif '
                }}},
 					legend: {
 						backgroundColor: '#FFFFFF',
-						reversed: true
+						reversed: false
 					},
 					tooltip: {
 						formatter: function() {
@@ -118,15 +117,15 @@ function report_percent($nid='') {
      <form id="form1" name="form1" method="post" action="' . request_uri() . '#results">
   <select name="dochg" onchange="MM_jumpMenuGo(this.value);" id="dochg">
 
-  <option value="">' . t('Filter') . '</option>
-  <option value="gender">' . t('Gender') . '</option>
-   <option value="age">' . t('Age') . '</option>
+  //<option value="">' . t('Filter') . '</option>
+    <option value="age">' . t('Age') . '</option>
+    <option value="gender">' . t('Gender') . '</option>
     <option value="religion">' . t('Religion') . '</option>
     <option value="ethnicity">' . t('Ethnicity') . '</option>
     <option value="income">' . t('Income') . '</option>
     <option value="marital">' . t('Marital') . '</option>
-     <option value="sorient">' . t('Sexual Orientation') . '</option>
-     <option value="edu">' . t('Education Level') . '</option>
+    <option value="sorient">' . t('Sexual Orientation') . '</option>
+    <option value="edu">' . t('Education Level') . '</option>
   </select>
   <span id="fopt" ></span>
  </form></div>
