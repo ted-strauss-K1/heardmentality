@@ -3794,6 +3794,36 @@ p.result-title {
 	width: 100%;
 }
 
+.vote-results .legend {
+	clear: both;
+}
+
+.vote-results .legend dd {
+	float: left;
+	margin: 0 5px 0 0;
+	font-family: 'DINBoldRegular',Arial,sans-serif;
+    font-style: normal;
+    font-weight: normal;
+	font-size: 12px;
+}
+
+.vote-results .legend dl {
+	display: inline-block;
+	margin: 0 10px 0 0;
+	vertical-align: top;
+}
+
+.vote-results .legend dt {
+	float: left;
+	text-indent: -9999%;
+	background-color: #ccc;
+	border-radius: 200px;
+	-moz-border-radius: 200px;
+	-webkit-border-radius: 200px;
+	-o-border-radius: 200px;
+	-khtml-border-radius: 200px;
+}
+
 /*Small circle*/
 
 span.small_neg,
@@ -3880,7 +3910,8 @@ span.small_pos,
 .arg-reply-form:after,
 #debate_list_area > h2:first-child:after,
 .vote-results ul:after,
-.vote-results div.space:after {
+.vote-results div.space:after,
+.vote-results .legend dl:after {
 	visibility: hidden;
 	display: block;
 	font-size: 0;

@@ -31,7 +31,9 @@
 .ie7 .vote-results ul,
 .ie8 .vote-results ul,
 .ie7 .vote-results div.space,
-.ie8 .vote-results div.space{
+.ie8 .vote-results div.space,
+.ie7 .vote-results .legend dl,
+.ie8 .vote-results .legend dl{
 	zoom: 1;
 }
 
