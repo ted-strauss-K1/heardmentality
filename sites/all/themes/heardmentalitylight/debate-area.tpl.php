@@ -36,6 +36,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
   </div><!--/.inner -->
 </div><!--/#debate_work_area -->
 
+<?php print $show_only; ?>
 <div id="debate_list_area">
   <h2>
     <span><?php print $count;
@@ -56,8 +57,8 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 
     <ul>
       <li><a href="#tabs-1">older</a></li>
-      <li><a href="/heardmentality/issue/<?php print $nid ?>/tab_content/1/1">recent</a></li>
-      <li><a href="/heardmentality/issue/<?php print $nid ?>/tab_content/1/2">supported</a></li>
+      <li><a href="<?php print $base_path ?>/issue/<?php print $nid ?>/tab_content/1/1">recent</a></li>
+      <li><a href="<?php print $base_path ?>/issue/<?php print $nid ?>/tab_content/1/2">supported</a></li>
     </ul>
   </h2>
   <div id="empty_helper">&nbsp;</div>
