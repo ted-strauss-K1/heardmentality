@@ -56,21 +56,54 @@ function report_percent($nid='') {
 		var spath='" . $base_url . "/';
 		var chart;
 			$(document).ready(function() {
-				chart = new Highcharts.Chart({
+								chart = new Highcharts.Chart({
 					chart: {
 						renderTo: 'chart_div',
-						defaultSeriesType:'bar',
+						borderColor: '#ffffff',
+						borderRadius: 0,
+						borderWidth: 0,
+						type: 'bar',
+						plotBorderColor: '#fff',
+						plotBorderWidth: 0,
+						style: {
+							fontFamily: 'Arial',
+							color: '#4c4c4c'
+						}
                                                
 					},
-					title: {
-						text: ''
-					},
+					
+					colors: [
+						'#934d9e', 
+						'#FF7F00', 
+						'#50c0ac', 
+						'#0c6926', 
+						'#ef4c8d', 
+						'#362750', 
+						'#e1e43c', 
+						'#ef3d3b', 
+						'#3cc7f4',
+						'#589a1c', 
+						'#C2499B', 
+						'#f89521', 
+						'#CC2027', 
+						'#55ba59', 
+						'#d5bc29', 
+						'#6ccbd5',
+						'#43B649',
+						'#F6EB16'
+					]
+
 					xAxis: {
 						categories: " . json_encode($ans_array) . ",
-                                                  labels :{ style: {
-                  font: '12px Arial,Helvetica,sans-serif'; color: '#4c4c4c';
-               }}
-	},
+						gridLineColor: '#ccc',
+						gridLineWidth: 1,
+						lineColor: '#4c4c4c',
+						lineWidth: 1,
+						tickColor: '#fff',
+						tickWidth: 0,
+						title: 'Title'
+					},
+					
 					yAxis: {tickInterval  :1,
 						min: 0,
 						title: {
@@ -117,7 +150,6 @@ function report_percent($nid='') {
      <form id="form1" name="form1" method="post" action="' . request_uri() . '#results">
   <select name="dochg" onchange="MM_jumpMenuGo(this.value);" id="dochg">
 
-  //<option value="">' . t('Filter') . '</option>
     <option value="age">' . t('Age') . '</option>
     <option value="gender">' . t('Gender') . '</option>
     <option value="religion">' . t('Religion') . '</option>
