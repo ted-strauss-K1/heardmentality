@@ -101,7 +101,7 @@ function report_percent($nid='') {
 						lineWidth: 1,
 						tickColor: '#fff',
 						tickWidth: 0
-					},
+					}},
 					
 					yAxis: {tickInterval  :1,
 						min: 0,
