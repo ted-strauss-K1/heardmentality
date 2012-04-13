@@ -3817,6 +3817,7 @@ p.result-title {
 	float: left;
 	text-indent: -9999%;
 	background-color: #ccc;
+	width: 18px;
 	border-radius: 200px;
 	-moz-border-radius: 200px;
 	-webkit-border-radius: 200px;

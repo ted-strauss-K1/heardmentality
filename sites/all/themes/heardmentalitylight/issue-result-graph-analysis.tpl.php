@@ -20,14 +20,14 @@
 	  
 		<p class="result-title dinbold"><?php print t('Legend'); ?></p>
 		<div class="inner legend">
-			<dl><dd>Name variant 1</dd><dt>color</dt></dl>
-			<dl><dd>Name variant 2</dd><dt>color</dt></dl>
-			<dl><dd>Name variant 3</dd><dt>color</dt></dl>
-			<dl><dd>Name 4</dd><dt>color</dt></dl>
-			<dl><dd>Name variant 5</dd><dt>color</dt></dl>
+			<dl><dd>Name variant 1:</dd><dt style="background-color: #FF7F00;">color</dt></dl>
+			<dl><dd>Name variant 2:</dd><dt>color</dt></dl>
+			<dl><dd>Name variant 3:</dd><dt>color</dt></dl>
+			<dl><dd>Name 4:</dd><dt>color</dt></dl>
+			<dl><dd>Name variant 5:</dd><dt>color</dt></dl>
 		</div>
 		
-	  </div></li>      
+	  </div></li>
 	  <li class="part"><div class="space">
 	  
         <p class="result-title dinbold"><?php print t('Vote history'); ?></p>
