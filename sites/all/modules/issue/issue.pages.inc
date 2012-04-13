@@ -56,44 +56,32 @@ function report_percent($nid='') {
 		var spath='" . $base_url . "/';
 		var chart;
 			$(document).ready(function() {
-
 				chart = new Highcharts.Chart({
 					chart: {
 						renderTo: 'chart_div',
-						borderColor: '#ffffff',
-						borderRadius: 0,
-						borderWidth: 0,
-						defaultSeriesType: 'bar',
-						plotBorderColor: '#fff',
-						plotBorderWidth: 0,
-						style: {
-							fontFamily: 'Arial',
-							color: '#4c4c4c'
-						}
+						defaultSeriesType:'bar',
                                                
 					},
-
+					title: {
+						text: ''
+					},
 					xAxis: {
 						categories: " . json_encode($ans_array) . ",
-						gridLineColor: '#ccc',
-						gridLineWidth: 1,
-						lineColor: '#4c4c4c',
-						lineWidth: 1,
-						tickColor: '#fff',
-						tickWidth: 0
-					}},
-					
+                                                  labels :{ style: {
+                  font: '10px Arial,Helvetica,sans-serif '
+               }}
+	},
 					yAxis: {tickInterval  :1,
 						min: 0,
 						title: {
 							text: ''
 						},
                                                 labels :{ style: {
-                   font: '12px Arial,Helvetica,sans-serif '
+                   font: '10px Arial,Helvetica,sans-serif '
                }}},
 					legend: {
 						backgroundColor: '#FFFFFF',
-						reversed: false
+						reversed: true
 					},
 					tooltip: {
 						formatter: function() {
@@ -109,6 +97,7 @@ function report_percent($nid='') {
                                         
 				      series: [" . $inc . " ]
 				});
+
 
 			});</script>";
 
@@ -136,7 +125,7 @@ function report_percent($nid='') {
     <option value="marital">' . t('Marital') . '</option>
     <option value="sorient">' . t('Sexual Orientation') . '</option>
     <option value="edu">' . t('Education Level') . '</option>
-	
+
   </select>
   <span id="fopt" ></span>
  </form></div>
