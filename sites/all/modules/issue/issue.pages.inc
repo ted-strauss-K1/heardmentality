@@ -56,7 +56,7 @@ function report_percent($nid='') {
 		var spath='" . $base_url . "/';
 		var chart;
 			$(document).ready(function() {
-								chart = new Highcharts.Chart({
+					chart = new Highcharts.Chart({
 					chart: {
 						renderTo: 'chart_div',
 						borderColor: '#ffffff',
@@ -100,7 +100,7 @@ function report_percent($nid='') {
 						lineColor: '#4c4c4c',
 						lineWidth: 1,
 						tickColor: '#fff',
-						tickWidth: 0,
+						tickWidth: 0
 					},
 					
 					yAxis: {tickInterval  :1,
@@ -130,7 +130,6 @@ function report_percent($nid='') {
 				      series: [" . $inc . " ]
 				});
 
-
 			});</script>";
 
 
@@ -149,7 +148,6 @@ function report_percent($nid='') {
      <form id="form1" name="form1" method="post" action="' . request_uri() . '#results">
   <select name="dochg" onchange="MM_jumpMenuGo(this.value);" id="dochg">
   
-	<option value="">' . t('Filter') . '</option>
     <option value="age">' . t('Age') . '</option>
     <option value="gender">' . t('Gender') . '</option>
     <option value="religion">' . t('Religion') . '</option>
