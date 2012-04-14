@@ -130,8 +130,7 @@ function report_percent($nid='') {
 						style {
 							fontFamily: 'Arial',
 							color: '#4c4c4c',
-							fontSize: '12px',
-							width: '70px'
+							fontSize: '12px'
 						}
 					},
 					
