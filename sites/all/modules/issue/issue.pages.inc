@@ -64,7 +64,9 @@ function report_percent($nid='') {
 							fontFamily: 'Arial',
 							color: 'red',
 							fontSize: '14px'
-						}						
+						},
+						plotBorderColor: '#fff',
+						plotBorderWidth: 0						
 					},
 					
 					title: {
@@ -75,12 +77,7 @@ function report_percent($nid='') {
 						categories: " . json_encode($ans_array) . ",
 						title: {
 							text: 'filter name'
-						},
-						style: {
-							fontFamily: 'Arial',
-							color: 'red',
-							fontSize: '14px'
-						}	
+						}
 					},
 					
 					yAxis: {
