@@ -141,7 +141,10 @@ function report_percent($nid='') {
 						bar: {
 							dataLabels: {
 								enabled: false
-							}
+							},
+							borderColor: '#fff',
+							borderWidth: 2,
+							shadow: false
 						}
 					},
                                         
