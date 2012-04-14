@@ -104,6 +104,27 @@ function report_percent($nid='') {
 						tickLength: 5
 					},
 					
+					colors: [
+						'#934d9e', 
+						'#FF7F00', 
+						'#50c0ac', 
+						'#0c6926', 
+						'#ef4c8d', 
+						'#362750', 
+						'#e1e43c', 
+						'#ef3d3b', 
+						'#3cc7f4',
+						'#589a1c', 
+						'#C2499B', 
+						'#f89521', 
+						'#CC2027', 
+						'#55ba59', 
+						'#d5bc29', 
+						'#6ccbd5',
+						'#43B649',
+						'#F6EB16'
+					],
+					
 					legend: {
 						enabled: false
 					},
