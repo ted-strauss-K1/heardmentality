@@ -70,7 +70,7 @@ function report_percent($nid='') {
 						borderColor: '#fff',
 						borderRadius: 0,
 						borderWidth: 0,
-						margin: [20, 20, 40, 80]
+						margin: [20, 20, 20, 20]
 					},
 					
 					title: {
@@ -78,7 +78,7 @@ function report_percent($nid='') {
 					},
 					
 					xAxis: {
-						categories: " . json_encode($series.name) . ",
+						categories: " . $series.name . ",
 						title: {
 							text: null
 						},
