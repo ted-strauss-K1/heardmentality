@@ -70,7 +70,7 @@ function report_percent($nid='') {
 						borderColor: '#fff',
 						borderRadius: 0,
 						borderWidth: 0,
-						margin: [0, 0, 0, 0]
+						margin: [20, 10, 20, 20]
 					},
 					
 					title: {
