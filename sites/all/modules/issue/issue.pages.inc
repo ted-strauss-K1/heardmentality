@@ -78,7 +78,7 @@ function report_percent($nid='') {
 					},
 					
 					xAxis: {
-						categories: " . $series.name . ",
+						categories: " . json_encode($ans_array) .",
 						title: {
 							text: null
 						},
@@ -99,7 +99,8 @@ function report_percent($nid='') {
 						maxPadding: 0.01,
 						lineWidth: 0,
 						gridLineColor: '#ccc',
-						tickColor: '#ccc',
+						tickmarkPlacement: 'on',
+						tickColor: '#fff',
 						tickWidth: 1,
 						tickLength: 5
 					},
@@ -125,6 +126,15 @@ function report_percent($nid='') {
 						'#F6EB16'
 					],
 					
+					labels: {
+						style {
+							fontFamily: 'Arial',
+							color: '#4c4c4c',
+							fontSize: '12px',
+							maxWidth: '70px'
+						}
+					},
+					
 					legend: {
 						enabled: false
 					},
@@ -132,7 +142,7 @@ function report_percent($nid='') {
 					tooltip: {
 						formatter: function() {
 							return ''+
-								 'short_answer' +': '+ this.y +'';
+								 this.series.name +': '+ this.y +'';
 						}
 					},
 					
@@ -178,7 +188,7 @@ function report_percent($nid='') {
   </select>
   <span id="fopt" ></span>
  </form></div>
-    <div id="chart_div" style=" width:300px; height: 180px;">
+    <div id="chart_div" style=" width:300px; min-height: 180px;">
     </div>
 </div>';
   return $output;
