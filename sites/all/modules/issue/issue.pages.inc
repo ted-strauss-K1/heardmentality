@@ -78,7 +78,7 @@ function report_percent($nid='') {
 					},
 					
 					xAxis: {
-						categories: " . json_encode($ans_array) . ",
+						categories: " . this.series.name . ",
 						title: {
 							text: null
 						},
@@ -132,7 +132,7 @@ function report_percent($nid='') {
 					tooltip: {
 						formatter: function() {
 							return ''+
-								 'json_encode($ans_array)' +': '+ this.y +'';
+								 '$ans_array' +': '+ this.y +'';
 						}
 					},
 					
