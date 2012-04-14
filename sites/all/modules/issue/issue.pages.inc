@@ -128,10 +128,8 @@ function report_percent($nid='') {
 					
 					labels: {
 						style {
-							fontFamily: 'Arial',
-							color: '#4c4c4c',
-							fontSize: '12px'
-						},
+							color: 'red',
+						}
 					},
 					
 					legend: {
