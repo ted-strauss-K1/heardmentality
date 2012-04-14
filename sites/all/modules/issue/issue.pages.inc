@@ -143,7 +143,7 @@ function report_percent($nid='') {
 								enabled: false
 							},
 							borderColor: '#fff',
-							borderWidth: 2,
+							borderWidth: 0,
 							shadow: false
 						}
 					},
