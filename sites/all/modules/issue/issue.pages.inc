@@ -131,7 +131,7 @@ function report_percent($nid='') {
 							fontFamily: 'Arial',
 							color: '#4c4c4c',
 							fontSize: '12px'
-						}
+						},
 					},
 					
 					legend: {
