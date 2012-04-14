@@ -132,7 +132,7 @@ function report_percent($nid='') {
 					tooltip: {
 						formatter: function() {
 							return ''+
-								 this.series.name +': '+ this.y +'';
+								 json_encode($ans_array) +': '+ this.x +'';
 						}
 					},
 					
