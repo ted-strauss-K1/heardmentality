@@ -63,7 +63,7 @@ function report_percent($nid='') {
                                                
 					},
 					title: {
-						text: false;
+						text: false
 					},
 					xAxis: {
 						categories: " . json_encode($ans_array) . ",
