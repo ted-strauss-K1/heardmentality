@@ -69,7 +69,8 @@ function report_percent($nid='') {
 						plotBorderWidth: 0,
 						borderColor: '#fff',
 						borderRadius: 0,
-						borderWidth: 0						
+						borderWidth: 0,
+						margin: [0, 0, 0, 0]
 					},
 					
 					title: {
@@ -84,8 +85,8 @@ function report_percent($nid='') {
 						lineColor: '#4c4c4c',
 						lineWidth: 1,
 						endOnTick: false,
-						minPadding: 0.5,
-						maxPadding: 1,
+						minPadding: 1,
+						maxPadding: 2,
 						tickColor: '#fff',
 						tickWidth: 0
 					},
@@ -96,9 +97,13 @@ function report_percent($nid='') {
 						title: {
 							text: false
 						},
-						endOnTick: true,
-						minPadding: 0.5,
-						maxPadding: 1
+						endOnTick: false,
+						minPadding: 1,
+						maxPadding: 2,
+						lineWidth: 0,
+						gridLineColor: '#ccc',
+						tickColor: '#ccc',
+						tickWidth: 5
 					},
 					
 					legend: {
