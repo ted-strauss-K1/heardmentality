@@ -114,7 +114,7 @@ function report_percent($nid='') {
 					plotOptions: {
 						bar: {
 							dataLabels: {
-								enabled: true
+								enabled: false
 							}
 						}
 					},
