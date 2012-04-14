@@ -70,11 +70,11 @@ function report_percent($nid='') {
 						borderColor: '#fff',
 						borderRadius: 0,
 						borderWidth: 0,
-						margin: [20, 10, 20, 20]
+						margin: [20, 20, 40, 80]
 					},
 					
 					title: {
-						text: false
+						text: null
 					},
 					
 					xAxis: {
@@ -95,7 +95,7 @@ function report_percent($nid='') {
 						tickInterval: 1,
 						min: 0,
 						title: {
-							text: false
+							text: null
 						},
 						endOnTick: true,
 						maxPadding: 0.01,
@@ -111,17 +111,14 @@ function report_percent($nid='') {
 						reversed: true
 					},
 					
-					tooltip: {
-						formatter: function() {
-							return ''+
-								 this.series.name +': '+ this.y +'';
-						}
-					},
 					plotOptions: {
-						series: {
-							stacking: 'normal'
+						bar: {
+							dataLabels: {
+								enabled: true
+							}
 						}
 					},
+					
                                         
 				      series: [" . $inc . " ]
 				});
