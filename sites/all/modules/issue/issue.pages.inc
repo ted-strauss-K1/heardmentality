@@ -107,8 +107,14 @@ function report_percent($nid='') {
 					},
 					
 					legend: {
-						backgroundColor: '#FFFFFF',
-						reversed: true
+						enabled: false
+					},
+					
+					tooltip: {
+						formatter: function() {
+							return ''+
+								 this.series.name +': '+ this.y +'';
+						}
 					},
 					
 					plotOptions: {
@@ -118,9 +124,8 @@ function report_percent($nid='') {
 							}
 						}
 					},
-					
                                         
-				      series: [" . $inc . " ]
+				    series: [" . $inc . " ]
 				});
 
 
