@@ -62,14 +62,14 @@ function report_percent($nid='') {
 						defaultSeriesType:'bar',
 						style: {
 							fontFamily: 'Arial',
-							color: 'red',
-							fontSize: '14px'
+							color: '#4c4c4c',
+							fontSize: '12px'
 						},
 						plotBorderColor: '#fff',
 						plotBorderWidth: 0,
-						borderColor: 'red',
+						borderColor: '#fff',
 						borderRadius: 0,
-						borderWidth: 5						
+						borderWidth: 0						
 					},
 					
 					title: {
@@ -80,7 +80,12 @@ function report_percent($nid='') {
 						categories: " . json_encode($ans_array) . ",
 						title: {
 							text: 'filter name'
-						}
+						},
+						lineColor: '#4c4c4c',
+						lineWidth: 1,
+						endOnTick: false,
+						minPadding: 0.5,
+						maxPadding: 1
 					},
 					
 					yAxis: {
