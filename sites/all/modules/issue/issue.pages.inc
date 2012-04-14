@@ -59,30 +59,30 @@ function report_percent($nid='') {
 				chart = new Highcharts.Chart({
 					chart: {
 						renderTo: 'chart_div',
-						defaultSeriesType:'bar',
-                                               
+						defaultSeriesType:'bar',                
 					},
+					
 					title: {
 						text: false
 					},
+					
 					xAxis: {
-						categories: " . json_encode($ans_array) . ",
-                                                  labels :{ style: {
-                  font: '10px Arial,Helvetica,sans-serif '
-               }}
-	},
-					yAxis: {tickInterval  :1,
+						categories: " . json_encode($ans_array) . "
+					},
+					
+					yAxis: {
+						tickInterval: 1,
 						min: 0,
 						title: {
-							text: ''
-						},
-                                                labels :{ style: {
-                   font: '10px Arial,Helvetica,sans-serif '
-               }}},
+							text: false
+						}
+					},
+					
 					legend: {
 						backgroundColor: '#FFFFFF',
 						reversed: true
 					},
+					
 					tooltip: {
 						formatter: function() {
 							return ''+
