@@ -59,7 +59,11 @@ function report_percent($nid='') {
 				chart = new Highcharts.Chart({
 					chart: {
 						renderTo: 'chart_div',
-						defaultSeriesType:'bar',                
+						defaultSeriesType:'bar',
+						style: {
+							fontFamily: 'Arial',
+							color: '#4c4c4c'
+						}						
 					},
 					
 					title: {
