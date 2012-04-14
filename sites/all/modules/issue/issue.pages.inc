@@ -80,7 +80,7 @@ function report_percent($nid='') {
 					xAxis: {
 						categories: " . json_encode($ans_array) . ",
 						title: {
-							text: 'filter name'
+							text: null
 						},
 						lineColor: '#4c4c4c',
 						lineWidth: 1,
