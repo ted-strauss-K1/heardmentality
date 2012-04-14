@@ -62,7 +62,8 @@ function report_percent($nid='') {
 						defaultSeriesType:'bar',
 						style: {
 							fontFamily: 'Arial',
-							color: '#4c4c4c'
+							color: 'red',
+							fontSize: '14px'
 						}						
 					},
 					
