@@ -128,7 +128,7 @@ function report_percent($nid='') {
 					
 					labels: {
 						style {
-							color: 'red',
+							color: 'red'
 						}
 					},
 					
