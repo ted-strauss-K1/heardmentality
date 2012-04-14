@@ -126,12 +126,6 @@ function report_percent($nid='') {
 						'#F6EB16'
 					],
 					
-					labels: {
-						style {
-							color: 'red'
-						}
-					},
-					
 					legend: {
 						enabled: false
 					},
