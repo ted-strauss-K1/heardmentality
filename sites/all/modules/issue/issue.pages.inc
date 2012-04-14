@@ -94,7 +94,7 @@ function report_percent($nid='') {
 						title: {
 							text: false
 						},
-						endOnTick: false,
+						endOnTick: true,
 						minPadding: 0.5,
 						maxPadding: 1
 					},
