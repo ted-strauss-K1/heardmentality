@@ -18,9 +18,9 @@
       </div></li>
 	  <li class="full"><div class="space">
 	  
-		<p class="result-title dinbold"><?php print t('Legend(short answers)'); ?></p>
+		<p class="result-title dinbold"><?php print t('Legend (short answers)'); ?></p>
 		<div class="inner legend">
-			<dl><dd>Name variant 1:</dd><dt style="background-color: #FF7F00;">color</dt></dl>
+			<dl><dd>Name variant 1:</dd><dt style="background-color: #934d9e;">color</dt></dl>
 			<dl><dd>Name variant 2:</dd><dt>color</dt></dl>
 			<dl><dd>Name variant 3:</dd><dt>color</dt></dl>
 			<dl><dd>Name 4:</dd><dt>color</dt></dl>
