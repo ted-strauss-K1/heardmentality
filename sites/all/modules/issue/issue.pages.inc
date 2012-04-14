@@ -68,6 +68,9 @@ function report_percent($nid='') {
 					
 					xAxis: {
 						categories: " . json_encode($ans_array) . "
+						title: {
+							text: 'filter name'
+						}
 					},
 					
 					yAxis: {
