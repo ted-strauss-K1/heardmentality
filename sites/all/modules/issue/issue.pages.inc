@@ -145,10 +145,10 @@ function report_percent($nid='') {
 							borderColor: '#fff',
 							borderWidth: 0,
 							shadow: false,
-							groupPadding: 0.1,
+							groupPadding: 0.25,
 							pointPadding: 0,
-							pointWidth: 5;
-							connectNulls: true
+							connectNulls: true,
+							stickyTracking: true
 						}
 					},
                                         
