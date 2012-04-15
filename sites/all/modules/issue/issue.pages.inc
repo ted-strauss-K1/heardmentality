@@ -78,7 +78,7 @@ function report_percent($nid='') {
 					},
 					
 					xAxis: {
-						categories: " . json_encode($ans_array) .",
+						categories: " . $inc .",
 						title: {
 							text: null
 						},
