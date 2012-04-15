@@ -145,7 +145,7 @@ function report_percent($nid='') {
 							borderColor: '#fff',
 							borderWidth: 0,
 							shadow: false,
-							lineWidth: 5
+							lineWidth: 20
 						}
 					},
                                         
