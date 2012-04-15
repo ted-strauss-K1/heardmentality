@@ -2518,6 +2518,7 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
     $nodes = db_query($sql, $tid, $qid, $resType);
     $count = db_result(db_query($sql, $tid, $qid, $resType));
   }
+  watchdog('reference', $qid. " " . $tid . " ". $resType);
   if ($count > 0) {
     $i = 0;
 

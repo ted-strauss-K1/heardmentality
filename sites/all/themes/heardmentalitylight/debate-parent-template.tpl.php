@@ -8,10 +8,10 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 ?>
 <div id="forum-block-<?php print $items['debate_tnid']; ?>" class="one-forum">
   <!--<?php if ($comments) { ?>
-        <h6 class="active">/ <?php print t('Argument'); ?></h6>
+            <h6 class="active">/ <?php print t('Argument'); ?></h6>
   <?php }
   else { ?>
-        <h6 class="active"><a href="#">/ <?php print t('Argument'); ?></a></h6>
+            <h6 class="active"><a href="#">/ <?php print t('Argument'); ?></a></h6>
   <?php } ?>-->
 
 
@@ -19,8 +19,20 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
     <li>
 
       <div class="arg">
-        <span class="sum"><?php $diff = $items['vote_up'] - $items['vote_down'];
-			if ($diff > 0) { ?>
+        <?php
+        $diff = $items['vote_up'] - $items['vote_down'];
+        if ($diff <= 10 and $diff >= -10) {
+          $vote_class = 'small';
+        }
+        else if ($diff <= -100 or $diff >= 100) {
+          $vote_class = "large";
+        }
+        else {
+          $vote_class = 'middle';
+        }
+        ?>
+        <span class="sum <?php print $vote_class; ?>">
+          <?php if ($diff > 0) { ?>
             <span class="positive"> <?php print $diff; ?></span>
           <?php }
           elseif ($diff < 0) { ?>
@@ -32,10 +44,10 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
           ?> 
         </span>
         <div class="goog-trans-section argument_body">
-		
-			<p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
-          
-		</div>
+
+          <p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
+
+        </div>
 
         <div class="position">
           <?php print $strength; ?>
@@ -49,47 +61,47 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 
       </div>
 
-	  <ul class="control_links">
-			<li><a href="#" class="icon flag2" title="flag this argument">flag</a></li>
-			<li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink">link</a></li>
-			<?php if ($delete):?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
-	  </ul>
-	  
+      <ul class="control_links">
+        <li><a href="#" class="icon flag2" title="flag this argument">flag</a></li>
+        <li>&nbsp;|&nbsp;<a href="#" class="flag2 permalink" title="permalink">link</a></li>
+        <?php if ($delete): ?><li>&nbsp;|&nbsp;<?php print $delete; ?></li><?php endif; ?>
+      </ul>
+
       <div class="replies">
 
         <?php if ($comments): ?>
-		
-        <fieldset class="collapsible collapsed reply_wrapper">
-		
-		<legend class="comment-meta"><?php print t('&#9658;'); ?><span><?php print $reply_count; ?><?php print t(' replies'); ?></span></legend>
+
+          <fieldset class="collapsible collapsed reply_wrapper">
+
+            <legend class="comment-meta"><?php print t('&#9658;'); ?><span><?php print $reply_count; ?><?php print t(' replies'); ?></span></legend>
             <div class="fieldset-wrapper">
-				<ul>
-				  <div id="all_replybox_<?php print $items['debate_tnid']; ?>">
-					<?php print $comments; ?>
-				  </div>
-				</ul>
-			</div>
-        </fieldset> 
-		
-		<?php endif; ?>
-		
-	  </div>
-	  
+              <ul>
+                <div id="all_replybox_<?php print $items['debate_tnid']; ?>">
+                  <?php print $comments; ?>
+                </div>
+              </ul>
+            </div>
+          </fieldset> 
+
+        <?php endif; ?>
+
+      </div>
+
       <div class="position-question">
-      <span class="line"><span>&nbsp;</span></span>
-	  <?php print $ratings; ?>
-      
-	  <?php if ($reply_box): ?>
-		<!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
-		<ul class="argument_replybox">
-			<div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
-			<div id="reply-comment" class="hidden"> 
-				<?php print $reply_box; ?>
-			</div>
-		</ul>
-	  <?php endif; ?>
-	  </div>
-		
+        <span class="line"><span>&nbsp;</span></span>
+        <?php print $ratings; ?>
+
+        <?php if ($reply_box): ?>
+              <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
+          <ul class="argument_replybox">
+            <div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
+            <div id="reply-comment" class="hidden"> 
+              <?php print $reply_box; ?>
+            </div>
+          </ul>
+        <?php endif; ?>
+      </div>
+
     </li>
   </ul>
 </div>
