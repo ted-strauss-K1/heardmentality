@@ -86,7 +86,8 @@ function report_percent($nid='') {
 						lineWidth: 1,
 						endOnTick: false,
 						tickColor: '#fff',
-						tickWidth: 0
+						tickWidth: 0,
+						alternateGridColor: '#f5f5f5'
 					},
 					
 					yAxis: {
@@ -145,10 +146,9 @@ function report_percent($nid='') {
 							borderColor: '#fff',
 							borderWidth: 0,
 							shadow: false,
-							groupPadding: 0.1,
+							groupPadding: 0.15,
 							pointPadding: 0,
-							connectNulls: true,
-							stickyTracking: true
+							connectNulls: true
 						}
 					},
                                         
@@ -186,7 +186,7 @@ function report_percent($nid='') {
   </select>
   <span id="fopt" ></span>
  </form></div>
-    <div id="chart_div" style=" width:300px; min-height: 180px;">
+    <div id="chart_div" style=" width:300px; min-height: 240px;">
     </div>
 </div>';
   return $output;
