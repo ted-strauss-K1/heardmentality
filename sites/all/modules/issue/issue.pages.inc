@@ -78,7 +78,7 @@ function report_percent($nid='') {
 					},
 					
 					xAxis: {
-						categories: " . $inc .",
+						categories: " . json_encode($ans_array) .",
 						title: {
 							text: null
 						},
@@ -144,7 +144,8 @@ function report_percent($nid='') {
 							},
 							borderColor: '#fff',
 							borderWidth: 0,
-							shadow: false
+							shadow: false,
+							lineWidth: 5
 						}
 					},
                                         
