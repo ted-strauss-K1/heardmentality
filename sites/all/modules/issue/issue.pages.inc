@@ -444,7 +444,6 @@ function report_answer_details($nid = '', $aid = '', $action = '', $date = '') {
         $answer = ExecuteQuery($query, "norows");
       }
 
-
       return $answer;
       break;
     case 'timeline':
@@ -1795,7 +1794,7 @@ function issue_debates($qid='', $type='', $sort = null) {
 //                    $strength.='<p class="position-plus"><strong>+/-</strong>&nbsp;'.$ans.'</p>';
 //                    break;
           case 1:
-            $strength.='<p class="position-minus"><strong>+</strong>&nbsp;' . $ans . '</p>';
+            $strength.='<p class="position-plus"><strong>+</strong>&nbsp;' . $ans . '</p>';
             break;
           case 2:
             $strength.='<p class="position-minus"><strong>-</strong>&nbsp;' . $ans . '</p>';
@@ -2412,11 +2411,6 @@ function issue_resources_list($qid = '') {
   $inline = 'jQuery(document).ready(function(){res_type_tab(4,\'all\',' . $qid . ')})';
   drupal_add_js($inline, 'inline');
   $resources = '';
-  //$resources .= issue_resources($qid, '1');
-  //$resources .= '<div id="res-type-1">'.issue_resources($qid,1).'</div>';
-  //$resources .= '<div id="res-type-2" style="display: none">'.issue_resources($qid,2).'</div>';
-  //$resources .= '<div id="res-type-3" style="display: none">'.issue_resources($qid,3).'</div>';
-
 
   return $resources;
 }
@@ -2686,7 +2680,7 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
 
         switch ($list['ans_val']) {
           case 1:
-            $strength.='<p class="position-minus"><strong>+</strong>&nbsp;' . $ans . '</p>';
+            $strength.='<p class="position-plus"><strong>+</strong>&nbsp;' . $ans . '</p>';
             break;
           case 2:
             $strength.='<p class="position-minus"><strong>-</strong>&nbsp;' . $ans . '</p>';

@@ -120,7 +120,7 @@ function issue_menu() {
     'page callback' => 'issue_resources',
     'type' => MENU_LOCAL_TASK,
     'page arguments' => array(2, 3, 4, 5, 6),
-    'access callback' => true,
+    'access callback' => TRUE,
     'file' => 'issue.pages.inc'
   );
   $menu['issue/vote/ajax/submit/%'] = array(
@@ -2456,6 +2456,9 @@ function add_new_debate_form($form_state, $nid = '') {
     '#suffix' => '</div><span id="sub_loader" style="display: none; left: 0; position: absolute; top: 108px;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
     '#id' => 'add_new_debate'
   );
+  $form['link'] = array(
+    '#value' => l('Or post a reference', '') . t(' news, blog, gov, data...)'),
+  );
   return $form;
 }
 
@@ -2511,7 +2514,6 @@ function add_new_debate_form_submit($form, &$form_state) {
         $result = db_query($forum, $nodeid, $form_state['values']['ans_id_' . $i], $form_state['values']['sup_opp_' . $i]);
       }
 
-
       //echo list_debate($qid, 1);
       $dumid = '';
       send_forumnotify($dumid, $nid);
@@ -2543,7 +2545,7 @@ function add_new_debate_form_submit($form, &$form_state) {
 //                            $strength.='<p class="position-plus"><strong>+/-</strong>&nbsp;'.$ans.'</p>';
 //                            break;
           case 1:
-            $strength.='<p class="position-minus"><strong>+</strong>&nbsp;' . $ans . '</p>';
+            $strength.='<p class="position-plus"><strong>+</strong>&nbsp;' . $ans . '</p>';
             break;
           case 2:
             $strength.='<p class="position-minus"><strong>-</strong>&nbsp;' . $ans . '</p>';

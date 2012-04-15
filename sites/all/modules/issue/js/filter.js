@@ -691,14 +691,6 @@ function disableLink(e) {
 // open resource subtab types
 function res_type_tab(id,tab,nid){
   var divid;
-  //    for(var i=1;i<=3;i++){
-  //    divid = '#res-type-'+i;
-  //    if(i==id){
-  //        jQuery(divid).show();
-  //    }else{
-  //        jQuery(divid).hide();
-  //    }
-  //    }
 
   // url sort get values
   var sup = jQuery('#sup').val();
