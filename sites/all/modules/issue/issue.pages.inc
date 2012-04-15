@@ -197,7 +197,7 @@ function report_percent($nid='') {
   </select>
   <span id="fopt" ></span>
  </form></div>
-    <div id="chart_div" style=" width:300px; min-height: 240px;">
+    <div id="chart_div" style=" width:300px; min-height: 300px;">
     </div>
 </div>';
   return $output;
@@ -687,7 +687,7 @@ jQuery('#resource').html(msg);
 ";
 
 
-  $output.='<div id="container_graph" class="highcharts-container" style="height:180px; width: 100%; "></div>
+  $output.='<div id="container_graph" class="highcharts-container" style="height:300px; width: 100%; "></div>
         <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
 
 ';
@@ -871,7 +871,7 @@ map.setCenter(new GLatLng(Math.round(lat),Math.round(lng) ), 5);
   $out .= '<script type="text/javascript">window.onunload=GUnload;</script>';
 
   $out .= '
-        <div id="map_div" style="width: 100%; height: 180px"></div>
+        <div id="map_div" style="width: 100%; height: 300px"></div>
 ';
   return $out;
 }
