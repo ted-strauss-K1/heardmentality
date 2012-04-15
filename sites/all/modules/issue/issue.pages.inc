@@ -91,10 +91,10 @@ function report_percent($nid='') {
 							style: {
 								color: '#4c4c4c',
 								font: '12px Aial, sans-serif',
-								width: '70px'
+								width: '10px',
+								display: 'inline-block'
 							}
-						},
-						minorTickInterval: 'auto'
+						}
 					},
 					
 					yAxis: {
@@ -142,7 +142,13 @@ function report_percent($nid='') {
 						formatter: function() {
 							return ''+
 								 this.series.name +': '+ this.y +'';
-						}
+						},
+						shadow: false,
+						style: {
+							color: '#4c4c4c',
+							font: '12px Aial, sans-serif',
+						},
+						borderRadius: 3
 					},
 					
 					plotOptions: {
