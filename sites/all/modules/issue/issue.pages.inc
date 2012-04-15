@@ -70,7 +70,7 @@ function report_percent($nid='') {
 						borderColor: '#fff',
 						borderRadius: 0,
 						borderWidth: 0,
-						margin: [20, 20, 20, 20]
+						margin: [20, 20, 20, 90]
 					},
 					
 					title: {
@@ -89,8 +89,9 @@ function report_percent($nid='') {
 						tickWidth: 0,
 						labels: {
 							style: {
-								color: '#000',
-								font: '12px Aial, sans-serif'
+								color: '#4c4c4c',
+								font: '12px Aial, sans-serif',
+								width: '70px'
 							}
 						},
 						minorTickInterval: 'auto'
