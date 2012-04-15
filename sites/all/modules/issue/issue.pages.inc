@@ -69,8 +69,7 @@ function report_percent($nid='') {
 						plotBorderWidth: 0,
 						borderColor: '#fff',
 						borderRadius: 0,
-						borderWidth: 0,
-						margin: [null]
+						borderWidth: 0
 					},
 					
 					title: {
