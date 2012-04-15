@@ -87,7 +87,13 @@ function report_percent($nid='') {
 						endOnTick: false,
 						tickColor: '#fff',
 						tickWidth: 0,
-						gridLineColor: '#ccc'
+						labels: {
+							style: {
+								color: '#000',
+								font: '12px Aial, sans-serif'
+							}
+						},
+						minorTickInterval: 'auto'
 					},
 					
 					yAxis: {
@@ -99,7 +105,7 @@ function report_percent($nid='') {
 						endOnTick: true,
 						maxPadding: 0.01,
 						lineWidth: 0,
-						gridLineColor: '#000',
+						gridLineColor: '#ccc',
 						tickmarkPlacement: 'on',
 						tickColor: '#fff',
 						tickWidth: 1,
