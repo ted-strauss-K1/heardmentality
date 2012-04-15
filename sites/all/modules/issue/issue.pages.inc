@@ -90,10 +90,13 @@ function report_percent($nid='') {
 						labels: {
 							style: {
 								color: '#4c4c4c',
-								font: '12px Aial, sans-serif',
-								width: '10px',
-								display: 'inline-block'
-							}
+								font: '12px Aial, sans-serif'
+							},
+							items: [{
+								style {
+									width: '20px'
+								}
+							}]
 						}
 					},
 					
