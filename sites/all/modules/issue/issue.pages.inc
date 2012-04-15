@@ -146,7 +146,8 @@ function report_percent($nid='') {
 							borderWidth: 0,
 							shadow: false,
 							groupPadding: 0.1,
-							pointPadding: 0
+							pointPadding: 0,
+							connectNulls: true
 						}
 					},
                                         
