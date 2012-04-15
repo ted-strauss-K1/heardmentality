@@ -148,7 +148,7 @@ function report_percent($nid='') {
 						}
 					},
                                         
-				    series: [" . $inc . " ]
+				    series: [" . json_encode($ans_array) . " ]
 				});
 
 
