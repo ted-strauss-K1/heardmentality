@@ -160,7 +160,7 @@ function report_percent($nid='') {
 							shadow: false,
 							groupPadding: 0.15,
 							pointPadding: 0,
-							connectNulls: true
+							connectNulls: false
 						}
 					},
                                         
