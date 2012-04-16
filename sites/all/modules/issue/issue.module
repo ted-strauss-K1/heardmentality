@@ -2761,6 +2761,36 @@ function load_debate_datas($debId = '', $issId = '', $issTnid = '') {
   $item['vote_down'] = $voteDown;
   $item['allow_rating'] = $allowRating;
   $item['posted_by'] = $forum->uid;
+  $date1 = new DateTime($item['posted']);
+  $date2 = new DateTime("now");
+  $interval = $date1->diff($date2);
+  $years = $interval->format('%y');
+  $months = $interval->format('%m');
+  $days = $interval->format('%d');
+  $hours = $interval->format('%h');
+  $minutes = $interval->format('%i');
+  if ($years != 0) {
+    $ago = $years . ' year(s) ago';
+  }
+  else {
+    if ($months != 0) {
+      $ago = ($months . ' month(s) ago');
+    }
+    else {
+      if ($days != 0) {
+        $ago = ($days . ' day(s) ago');
+      }
+      else {
+        if ($hours != 0) {
+          $ago = ($hours . ' hour(s) ago ');
+        }
+        else {
+          $ago = ($minutes . ' minute(s) ago');
+        }
+      }
+    }
+  }
+  $item['ago'] = $ago;
 
   return $item;
 }

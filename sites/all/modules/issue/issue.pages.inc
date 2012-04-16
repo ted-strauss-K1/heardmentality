@@ -79,7 +79,7 @@ function report_percent($nid='') {
 					},
 					
 					xAxis: {
-						categories: " . json_encode($ans_array) .",
+						categories: " . json_encode($ans_array) . ",
 						min: 1,
 						title: {
 							text: null
@@ -2518,7 +2518,6 @@ function issue_resources($qid, $rtype = '', $sup='', $ans='', $sort='') {
     $nodes = db_query($sql, $tid, $qid, $resType);
     $count = db_result(db_query($sql, $tid, $qid, $resType));
   }
-  watchdog('reference', $qid. " " . $tid . " ". $resType);
   if ($count > 0) {
     $i = 0;
 
@@ -2621,10 +2620,7 @@ function report_answer_details_history($nid = '', $aid = '', $action = '', $date
       else {
         $result = 'null';
       }
-      //  $answer1 = ExecuteQuery($query1, "select");
-      // $answer2 = ExecuteQuery($query2, "select");
-      // $answer = $answer1[0]['cnt'] - $answer2[0]['cnt'];
-      //   return $answer ? $answer[0]['cnt'] : 'null';
+
       return $result;
       break;
   }
@@ -2672,7 +2668,7 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
   }
   else {
     $sql = "SELECT DISTINCT(f.nid) FROM  {debate_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
-  } 
+  }
   // forum for translated languages
   $issueId = $qid;
   $tnid = get_tnid($qid);
@@ -2686,10 +2682,8 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
     while ($node = db_fetch_object($nodes)) {
 
       $items = load_debate_datas($node->nid, $issueId, $tnid);
-
       // anwers strength
       $strnth = $items['strength'];
-      //echo '<pre>';print_r($strnth);exit;
       $strength = '';
       foreach ($strnth as $list) {
         $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
@@ -2705,7 +2699,6 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
             break;
         }
       }
-
       // reply
       $reply_box = drupal_get_form('forum_reply_form', $items['debate_id'], $items['debate_tnid'], $items['issue_id']);
       $comments = forum_replies($items['debate_tnid'], 0);
@@ -2720,37 +2713,6 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
       // ratings
       // allow rating check
       $ratings = get_rating_buttons($items, 'is_debate');
-
-      $date1 = new DateTime($items['posted']);
-      $date2 = new DateTime("now");
-      $interval = $date1->diff($date2);
-      $years = $interval->format('%y');
-      $months = $interval->format('%m');
-      $days = $interval->format('%d');
-      $hours = $interval->format('%h');
-      $minutes = $interval->format('%i');
-      if ($years != 0) {
-        $ago = $years . ' year(s) ago';
-      }
-      else {
-        if ($months != 0) {
-          $ago = ($months . ' month(s) ago');
-        }
-        else {
-          if ($days != 0) {
-            $ago = ($days . ' day(s) ago');
-          }
-          else {
-            if ($hours != 0) {
-              $ago = ($hours . ' hour(s) ago ');
-            }
-            else {
-              $ago = ($minutes . ' minute(s) ago');
-            }
-          }
-        }
-      }
-      $items['ago'] = $ago;
       $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
       // update points
       $tForumId = get_tnid($node->nid);
@@ -2760,5 +2722,72 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
   else {
     $debate_theme .= '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
   }
+
+
+  //get resourses
+  $tid = get_taxonomy_id('forum', 'Resource');
+  $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+  $issueId = $qid;
+  $tnid = get_tnid($qid);
+  $qid = $tnid;
+
+  $nodes = db_query($sql, $tid, $qid);
+  $count = db_result(db_query($sql, $tid, $qid));
+
+  if ($count > 0) {
+    $i = 0;
+
+    while ($node = db_fetch_object($nodes)) {
+      if ($rtype == 4) {
+        $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
+      }
+      else {
+        $items = load_resource_datas($node->nid, $issueId, $tnid, $resType);
+      }
+      $strnth = $items['strength'];
+      $strength = '';
+      foreach ($strnth as $list) {
+        $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
+        $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '" . $items['issue_id'] . "' AND chorder = '" . $list['chorder'] . "'"));
+        $ans = $short_answer != '' ? $short_answer : $tranAns;
+
+        switch ($list['ans_val']) {
+          case 1:
+            $strength.='<div><span class="green-box">+</span>' . $ans . '</div>';
+            break;
+          case 2:
+            $strength.='<div><span class="red-box">-</span>' . $ans . '</div>';
+            break;
+        }
+      }
+
+      // delete
+      if (is_moderator() || $items['uid'] == $user->uid) {
+        $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['resource_id'] . '\', \'resource\')">' . t('Delete') . '</h6>';
+      }
+      else {
+        $delete = '';
+      }
+
+      // reply box
+      $reply_box = drupal_get_form('forum_reply_form', $items['resource_id'], $items['resource_id'], $items['issue_id']);
+      $comments = forum_replies($items['resource_id'], 0);
+      $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['resource_id'] . "'"));
+
+      // ratings
+      // allow rating check
+      $ratings = get_rating_buttons($items, 'is_resource');
+      $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
+      //  $resouce_theme .= theme('reference_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
+      $tForumId = get_tnid($node->nid);
+      resource_roundup($tForumId);
+    }
+  }
+  else {
+    // $resouce_theme = '<div class="messages warning">' . t('No Resource Posted Yet!!') . '</div>';
+  }
+
+// end resourses
+
   print $debate_theme;
 }
