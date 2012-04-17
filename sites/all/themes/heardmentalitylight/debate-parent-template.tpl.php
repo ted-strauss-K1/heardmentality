@@ -15,7 +15,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
   <?php } ?>-->
 
 
-  <ul class="argument_box">
+  <ul class="argument_box <!--DL references--> ">
     <li>
 
       <div class="arg">
@@ -44,11 +44,17 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
           ?> 
         </span>
         <div class="goog-trans-section argument_body">
+			<!--<span class="pic"> DL картинка или видео <img src="" alt="" /> или <object> или <iframe></span>-->
+			<!-- DL <div class="ref_wrap"><h5 class="ref_title">References title</h5>
+			DL <span class="sourse">source: </span> далее в теге p выводятся первые несколько строк с описанием ресурса. Гугл Транслейт, мне кажется, пусть остается. Если не надо будет, я просто скрою ссылку.-->
 
-          <p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
+			<p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
+			
+			<!--DL </div> -->
 
         </div>
 
+		<!-- DL эти маленькие плюсики и минусики с short answer нам, как я поняла по дизайну и пространному объяснению Теда относительно политики цитирования, не нужны -->
         <div class="position">
           <?php print $strength; ?>
         </div>
