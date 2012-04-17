@@ -8,14 +8,19 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 ?>
 <div id="forum-block-<?php print $items['debate_tnid']; ?>" class="one-forum">
   <!--<?php if ($comments) { ?>
-            <h6 class="active">/ <?php print t('Argument'); ?></h6>
+                  <h6 class="active">/ <?php print t('Argument'); ?></h6>
   <?php }
   else { ?>
-            <h6 class="active"><a href="#">/ <?php print t('Argument'); ?></a></h6>
+                  <h6 class="active"><a href="#">/ <?php print t('Argument'); ?></a></h6>
   <?php } ?>-->
 
 
-  <ul class="argument_box <!--DL references--> ">
+  <ul class="argument_box<?php
+  if (isset($items['resource_id'])) {
+    print ' references';
+    $image = !empty($items['image']) ? $items['image'] : file_directory_path() . '/noimage.jpg';
+  }
+  ?>">
     <li>
 
       <div class="arg">
@@ -40,21 +45,28 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
           <?php }
           else { ?>
             <span class="null"> <?php print $diff; ?></span>
-          <?php }
-          ?> 
+          <?php } ?> 
         </span>
         <div class="goog-trans-section argument_body">
-			<!--<span class="pic"> DL картинка или видео <img src="" alt="" /> или <object> или <iframe></span>-->
-			<!-- DL <div class="ref_wrap"><h5 class="ref_title">References title</h5>
-			DL <span class="sourse">source: </span> далее в теге p выводятся первые несколько строк с описанием ресурса. Гугл Транслейт, мне кажется, пусть остается. Если не надо будет, я просто скрою ссылку.-->
+          <?php if ($items['rtype'] == 'multimedia' && $items['filepath'] == '') {
+            ?>
+            <span class="pic">
+  <a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/<?php print $items['video_id']; ?>" class="floatbox" data-fb-options="width:480 height:384">
+              <img src="http://img.youtube.com/vi/<?php print $items['video_id']; ?>/default.jpg" alt=""/></a></span> <?php } ?>
+        
+          
+          
+          
+          <div class="ref_wrap"><h5 class="ref_title"><?php print t($items['title']); ?></h5>
+          <span class="sourse">source: </span><?php print t($items['body']); ?>
 
-			<p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
-			
-			<!--DL </div> -->
+          <p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
+
+          <!--DL </div> -->
 
         </div>
 
-		<!-- DL эти маленькие плюсики и минусики с short answer нам, как я поняла по дизайну и пространному объяснению Теда относительно политики цитирования, не нужны -->
+        <!-- DL эти маленькие плюсики и минусики с short answer нам, как я поняла по дизайну и пространному объяснению Теда относительно политики цитирования, не нужны -->
         <div class="position">
           <?php print $strength; ?>
         </div>
@@ -98,7 +110,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
         <?php print $ratings; ?>
 
         <?php if ($reply_box): ?>
-              <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
+                    <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
           <ul class="argument_replybox">
             <div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
             <div id="reply-comment" class="hidden"> 

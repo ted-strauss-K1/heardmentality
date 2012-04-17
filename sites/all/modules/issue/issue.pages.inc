@@ -1920,10 +1920,10 @@ function issue_thread_delete($type = '', $tnid = '', $source = '') {
   if ($type == 'forum') {
     if ($source == 'debate') {
       $tlists = translation_node_get_translations($tnid);
-      //echo '<pre>';print_r($tlists);exit;
       foreach ($tlists as $list) {
         node_delete($list->nid);
       }
+      node_delete($tnid);
       db_query("DELETE FROM {debate_options} WHERE nid = '$tnid'");
       print t('Your argument removed from list');
       exit;
@@ -2733,16 +2733,17 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
 
   $nodes = db_query($sql, $tid, $qid);
   $count = db_result(db_query($sql, $tid, $qid));
-
   if ($count > 0) {
     $i = 0;
 
     while ($node = db_fetch_object($nodes)) {
+      
+      //field_rtype_value
       if ($rtype == 4) {
         $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
       }
       else {
-        $items = load_resource_datas($node->nid, $issueId, $tnid, $resType);
+        $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
       }
       $strnth = $items['strength'];
       $strength = '';

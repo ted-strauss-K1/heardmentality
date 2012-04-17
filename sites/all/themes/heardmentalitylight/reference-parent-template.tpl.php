@@ -5,7 +5,7 @@ global $base_url;
     $path = '<front>';
 	$sitelink = url($path, array('absolute' => TRUE)).'/';
 ?>
-<div id="forum-block-<?php print $items['resource_id'];?>">
+<div id="forum-block-<?php print $items['resource_id']; //krumo($items);?>">
 
 
 <li>

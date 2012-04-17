@@ -105,7 +105,7 @@ function issue_menu() {
     'page callback' => 'issue_thread_delete',
     'access arguments' => array('vote on issue'),
     'page arguments' => array(3, 4, 5),
-    'file' => 'issue.pages.inc'
+    'file' => 'issue.pages.inc',
   );
   $menu['issue/ajax/%/%'] = array(
     'title' => 'Insight View',
@@ -113,7 +113,7 @@ function issue_menu() {
     'type' => MENU_LOCAL_TASK,
     'page arguments' => array(2, 3),
     'access callback' => true,
-    'file' => 'issue.pages.inc'
+    'file' => 'issue.pages.inc',
   );
   $menu['issues/load_resources/%/%/%/%/%'] = array(
     'title' => 'Load Resources',
@@ -121,7 +121,7 @@ function issue_menu() {
     'type' => MENU_LOCAL_TASK,
     'page arguments' => array(2, 3, 4, 5, 6),
     'access callback' => TRUE,
-    'file' => 'issue.pages.inc'
+    'file' => 'issue.pages.inc',
   );
   $menu['issue/vote/ajax/submit/%'] = array(
     'page callback' => 'issue_vote_submit_ajax',
@@ -134,7 +134,7 @@ function issue_menu() {
     'type' => MENU_CALLBACK,
     'page arguments' => array(1, 3, 4),
     'access callback' => TRUE,
-    'file' => 'issue.pages.inc'
+    'file' => 'issue.pages.inc',
   );
   return $menu;
 }
@@ -2862,6 +2862,36 @@ function load_resource_datas($resId = '', $issId = '', $issTnid = '', $resType =
   $item['allow_rating'] = $allowRating;
   $item['posted_by'] = $forum->uid;
 
+  $date1 = new DateTime($item['posted']);
+  $date2 = new DateTime("now");
+  $interval = $date1->diff($date2);
+  $years = $interval->format('%y');
+  $months = $interval->format('%m');
+  $days = $interval->format('%d');
+  $hours = $interval->format('%h');
+  $minutes = $interval->format('%i');
+  if ($years != 0) {
+    $ago = $years . ' year(s) ago';
+  }
+  else {
+    if ($months != 0) {
+      $ago = ($months . ' month(s) ago');
+    }
+    else {
+      if ($days != 0) {
+        $ago = ($days . ' day(s) ago');
+      }
+      else {
+        if ($hours != 0) {
+          $ago = ($hours . ' hour(s) ago ');
+        }
+        else {
+          $ago = ($minutes . ' minute(s) ago');
+        }
+      }
+    }
+  }
+  $item['ago'] = $ago;
   // media
   if ($resType == 'multimedia') {
     $item['video_id'] = $forum->field_videoid[0]['value'] != '' ? $forum->field_videoid[0]['value'] : '';
