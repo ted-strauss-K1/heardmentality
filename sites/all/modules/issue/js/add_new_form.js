@@ -3,14 +3,18 @@ $(document).ready(function() {
   $('#link_arg-wrapper a').click(function(){
     $('.reference-form').show();
     $('.argument-form').hide();
+    $('#add_new_type').val(0);
     return false;
   });
   $('#link_ref-wrapper a').click(function(){
     $('.reference-form').hide();
     $('.argument-form').show();
+    $('#add_new_type').val(0);
     return false;
   });
 });
+
+
 
 // add new debate ajax submit
 jQuery('#add-new-debate-form').live('submit', function(e){
@@ -51,12 +55,10 @@ jQuery('#add-new-debate-form').live('submit', function(e){
 
         jQuery('#deb-err').fadeIn("slow");
         jQuery('#deb-err').html(msg.message); 
-        /**Rallydev:533**/
         if(msg.success_post == 1) {
           jQuery('#deb-err').css('color','green'); 
         }
-        /**/
-        //jQuery('#add_debate_wrapper').append(msg.content);
+
         jQuery(msg.content).prependTo('.comments');
       },
       complete: function(){

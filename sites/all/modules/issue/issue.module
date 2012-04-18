@@ -2407,11 +2407,12 @@ function add_new_debate_form($form_state, $nid = '') {
   $form['#method'] = 'post';
   $form['nid'] = array(
     '#type' => 'hidden',
-    '#default_value' => $nid
+    '#default_value' => $nid,
   );
   $form['type'] = array(
     '#type' => 'hidden',
     '#default_value' => 1,
+    '#id' => 'add_new_type',
   );
   $form['head'] = array('#type' => 'markup',
     '#value' => '<table><tr><td class="first">',
@@ -2491,6 +2492,7 @@ function add_new_debate_form($form_state, $nid = '') {
 
 // add new debate submission
 function add_new_debate_form_submit($form, &$form_state) {
+  if ($form_state['values']['type'] == 1) {
   global $user;
   $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
   $wtitle = $form_state['values']['title'];
@@ -2551,12 +2553,10 @@ function add_new_debate_form_submit($form, &$form_state) {
       set_notify_log($user->uid, $nodeid, 'add_debate', $variable);
       /* New SET NOTIFY LOG */
 
-
       $tnid = get_tnid($nid);
 
       //load_debate_datas(debate id, issue id, issue tnid)
       $items = load_debate_datas($deb->nid, $nid, $tnid);
-
 
       // anwers strength
       $strnth = $items['strength'];
@@ -2579,7 +2579,6 @@ function add_new_debate_form_submit($form, &$form_state) {
 
       // reply
       $reply_box = '';
-      //$comments = forum_replies($items['debate_tnid'], 0);
       $comments = '';
       $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['debate_tnid'] . "'"));
       // delete
@@ -2591,13 +2590,9 @@ function add_new_debate_form_submit($form, &$form_state) {
       }
       // ratings
       // allow rating check
-
-
       $ratings = get_rating_buttons($items, 'is_debate');
 
       $json['success_post'] = 1;
-
-      //$json['content'] = theme('single_debate_template', $items);
       $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
       $json['message'] = '<span class="posted">Your argument posted successfully!</span>';
     }
@@ -2609,7 +2604,11 @@ function add_new_debate_form_submit($form, &$form_state) {
     $json['message'] = '<div class="no_coins" align="center"><b>Error occured. Please try again.</b></div>';
   }
   print json_encode($json);
-  exit;
+exit;
+  }
+  else {
+    
+  }
 }
 
 // single debate theme
