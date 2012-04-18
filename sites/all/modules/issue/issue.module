@@ -2399,14 +2399,20 @@ function issue_suggest_form_submit($form, &$form_state) {
 }
 
 function add_new_debate_form($form_state, $nid = '') {
+  drupal_add_js(drupal_get_path('module', 'issue') . '/js/add_new_form.js');
   drupal_add_js(drupal_get_path('theme', 'heardmentalitylight') . '/javascripts/room_reservation.js');
-  drupal_add_js(drupal_get_path('theme', 'heardmentalitylight') . '/javascripts/bootstrap-dropdown.js');
-  drupal_add_css(drupal_get_path('theme', 'heardmentalitylight') . '/stylesheets/bootstrap.css');
   global $theme, $base_url;
   $form = '';
   $form['#action'] = url($_GET['q'], array('absolute' => TRUE));
   $form['#method'] = 'post';
-  $form['nid'] = array('#type' => 'hidden', '#default_value' => $nid);
+  $form['nid'] = array(
+    '#type' => 'hidden',
+    '#default_value' => $nid
+  );
+  $form['type'] = array(
+    '#type' => 'hidden',
+    '#default_value' => 1,
+  );
   $form['head'] = array('#type' => 'markup',
     '#value' => '<table><tr><td class="first">',
   );
@@ -2414,11 +2420,23 @@ function add_new_debate_form($form_state, $nid = '') {
     '#id' => 'deb_title',
     '#size' => 70,
     '#cols' => 10,
+    '#title' => t("What's your argument?"),
+   // '#attributes' => array('class' => 'argument-form'),
     '#rows' => 3,
     '#resizable' => false,
-    '#suffix' => '<span class="error-msg" id="deb-err"></span>'
+    //   '#suffix' => '<span class="error-msg" id="deb-err"></span>'
+    '#prefix' => '<div class="argument-form">',
+    '#suffix' => '</div>',
   );
-
+  $form['ref_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Post a reference (news, blog, gov, data...)'),
+    '#default_value' => 'http://',
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#prefix' => '<div class="reference-form">',
+    '#suffix' => '</div>',
+  );
   $ans = load_options($nid);
   //answers
   $form['tot_answers'] = array('#type' => 'hidden',
@@ -2426,7 +2444,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#id' => 'tot_ans');
   $i = 0;
   $form['asgn_val'] = array('#type' => 'markup',
-    '#value' => '</td><td><div class="assign"><table><th><td style="width: 100%;"><span class="label">' . t('Assign Values:') . '</span></td><td><span class="small_neg">' . t('-') . '</span></td><td><span class="small_pos">' . t('+') . '</span></td></tr></table></div>'
+    '#value' => '</td><td class="argument-form"><div class="assign"><table><th><td style="width: 100%;"><span class="label">' . t('Assign Values:') . '</span></td><td><span class="small_neg">' . t('-') . '</span></td><td><span class="small_pos">' . t('+') . '</span></td></tr></table></div>'
   );
   foreach ($ans as $list) {
     $short_answer = get_short_answer($nid, $list['chorder']);
@@ -2436,13 +2454,11 @@ function add_new_debate_form($form_state, $nid = '') {
     $form['sup_opp_' . $i] = array('#type' => 'select',
       '#prefix' => '<div class="value-select"><table><tr><td class="first"><label class="value floatleft">' . $answer . '</label></td><td>',
       '#options' => $supports,
-      '#attributes' => array('class' => 'sel-box'),
       '#suffix' => '</td></th></table></div>',
       '#attributes' => array('class' => 'select-value'),
       '#id' => 'sup_' . $i,
       '#default_value' => 0,
     );
-
     $form['ans_id_' . $i] = array('#type' => 'hidden',
       '#value' => $list['chorder']
     );
@@ -2454,10 +2470,21 @@ function add_new_debate_form($form_state, $nid = '') {
     '#attributes' => array('class' => 'orange-btn'),
     '#prefix' => '</td></tr></table><div align="right">',
     '#suffix' => '</div><span id="sub_loader" style="display: none; left: 0; position: absolute; top: 108px;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
-    '#id' => 'add_new_debate'
+    '#id' => 'add_new_debate',
   );
-  $form['link'] = array(
-    '#value' => l('Or post a reference', '') . t(' news, blog, gov, data...)'),
+  $form['link-arg'] = array(
+    '#type' => 'item',
+    '#value' => l(t('Or post a reference'), '#') . t(' news, blog, gov, data...)'),
+    '#prefix' => '<div class="argument-form">',
+    '#suffix' => '</div>',
+    '#id' => 'link_arg',
+  );
+  $form['link-ref'] = array(
+    '#type' => 'item',
+    '#value' => l(t('Or write an argument'), '#'),
+    '#prefix' => '<div class="reference-form">',
+    '#suffix' => '</div>',
+    '#id' => 'link_ref',
   );
   return $form;
 }
@@ -2541,9 +2568,6 @@ function add_new_debate_form_submit($form, &$form_state) {
         $ans = $short_answer != '' ? $short_answer : $tranAns;
 
         switch ($list['ans_val']) {
-//                        case 0:
-//                            $strength.='<p class="position-plus"><strong>+/-</strong>&nbsp;'.$ans.'</p>';
-//                            break;
           case 1:
             $strength.='<p class="position-plus"><strong>+</strong>&nbsp;' . $ans . '</p>';
             break;

@@ -56,7 +56,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 
     <ul>
       <li><a href="#tabs-1">older</a></li>
-      <li><a href="<?php print $base_path ?>/issue/<?php print $nid ?>/tab_content/1/1">recent</a></li>
+      <li><a href="<?php print $base_path ?>/heardmentality/issue/<?php print $nid ?>/tab_content/1/1">recent</a></li>
       <li><a href="<?php print $base_path ?>/issue/<?php print $nid ?>/tab_content/1/2">supported</a></li>
     </ul>
   </h2>

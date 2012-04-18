@@ -143,66 +143,6 @@ jQuery.fn.slideFadeToggle = function(speed, easing, callback) {
 
 
 
-
-// add new debate ajax submit
-jQuery('#add-new-debate-form').live('submit', function(e){
-  e.preventDefault();
-  jQuery('#deb-err').css('color','red');
-  var title = jQuery('#deb_title').val();
-  var tot_ans = jQuery('#tot_ans').val();
-  var flag = 0;
-  for(var i=0; i<tot_ans; i++){
-    var id = '#sup_'+i;
-    if(jQuery(id).val() != 0) {
-      flag = parseInt(flag)+1;
-    }
-  }
-
-  if(title.length < 2){
-    jQuery('#deb-err').html('<span>Please let us know what you think.</span>');
-    return false;
-  }
-  else if(flag == 0){
-    jQuery('#deb-err').html('<span>You must choose at least one suppose or oppose.</span>');
-    return false;
-  }
-  else{
-    jQuery('#add_new_debate').hide();
-    jQuery('#sub_loader').show();
-    var data=jQuery(this).serialize();
-    jQuery.ajax({
-      type: 'POST',
-      dataType: 'json',
-      url: jQuery(this).attr('action'),
-      data: data,
-      success: function(msg){
-        jQuery('#add_debate_wrapper').slideUp('slow');
-        //jQuery('#add-new-debate-form').clearForm();
-        jQuery('#add-new-debate-form select').val(0);
-        jQuery('#add-new-debate-form textarea').val('');
-
-        jQuery('#deb-err').fadeIn("slow");
-        jQuery('#deb-err').html(msg.message); 
-        /**Rallydev:533**/
-        if(msg.success_post == 1) {
-          jQuery('#deb-err').css('color','green'); 
-        }
-        /**/
-        //jQuery('#add_debate_wrapper').append(msg.content);
-        jQuery(msg.content).prependTo('.comments');
-      },
-      complete: function(){
-        jQuery('#sub_loader').hide();
-        jQuery('#add_new_debate').show();
-        $('#leave_comment_area').delay(5000).slideUp(400).removeClass('visible_ar').addClass('hidden_ar');
-        $('#add-arg').removeClass('expanded');
-      }
-    });
-  }
-  return false;
-});
-
-
 // forum reply
 
 function open_replybox(id){
