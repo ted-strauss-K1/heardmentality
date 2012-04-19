@@ -322,7 +322,7 @@ $(document).ready(function() {
 						borderColor: '#fff',
 						borderRadius: 0,
 						borderWidth: 0,
-						marginTop: 40,
+						marginTop: 0,
 						marginRight: 20,
 						marginBottom: 30,
 						marginLeft: 30,
