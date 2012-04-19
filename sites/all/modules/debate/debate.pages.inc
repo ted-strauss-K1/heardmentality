@@ -324,15 +324,16 @@ $(document).ready(function() {
 						borderWidth: 0,
 						marginTop: 40,
 						marginRight: 20,
-						marginBottom: 40,
-						marginLeft: 10,
+						marginBottom: 30,
+						marginLeft: 30,
 						ignoreHiddenSeries: true
       },
       title: {
          text: 'DEBATE STATISTICS',
+		 align: 'left',
 		 style: {
 			color: '#362750',
-			font: 'bold 12px/15px Arial, sans-serif',
+			font: '14px/15px Arial, sans-serif',
 			fontStyle: 'italic'
 		 }
       },
