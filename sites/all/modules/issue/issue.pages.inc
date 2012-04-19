@@ -98,9 +98,7 @@ function report_percent($nid='') {
 								color: '#4c4c4c',
 								font: '12px Aial, sans-serif'	
 							}
-						},
-						minorGridLineColor: '#E0E0E0',
-						minorTickInterval: 'auto'
+						}
 					},
 					
 					yAxis: {
@@ -167,6 +165,7 @@ function report_percent($nid='') {
 							shadow: false,
 							groupPadding: 0.15,
 							pointPadding: 0
+							//pointWidth: 20
 						}
 					},
                                         
