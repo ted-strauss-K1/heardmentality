@@ -322,22 +322,41 @@ $(document).ready(function() {
 						borderColor: '#fff',
 						borderRadius: 0,
 						borderWidth: 0,
-						marginTop: 20,
+						marginTop: 40,
 						marginRight: 20,
-						marginBottom: 20,
+						marginBottom: 40,
+						marginLeft: 10,
 						ignoreHiddenSeries: true
       },
       title: {
          text: 'DEBATE STATISTICS',
 		 style: {
 			color: '#362750',
-			fontFamily: 'Arial',
-			fontSize: '12px'
+			font: 'bold 12px/15px Arial, sans-serif',
+			fontStyle: 'italic'
 		 }
       },
 	  
       xAxis: {
-         categories:" . $insdata . "
+         categories:" . $insdata . ",
+		 				title: {
+							text: null
+						},
+						lineColor: '#ccc',
+						lineWidth: 1,
+						endOnTick: false,
+						tickColor: '#ccc',
+						tickWidth: 1,
+						tickLength: 5,
+						gridLineColor: '#ccc',
+						tickmarkPlacement: 'on',
+						startOnTick: false,
+						labels: {
+							style: {
+								color: '#4c4c4c',
+								font: '12px Aial, sans-serif'	
+							}
+						}
       },
 	  
       yAxis:{ 
@@ -348,7 +367,7 @@ $(document).ready(function() {
 						endOnTick: false,
 						maxPadding: 0.01,
 						lineWidth: 1,
-						lineColor: '#4c4c4c',
+						lineColor: '#ccc',
 						tickmarkPlacement: 'on',
 						tickColor: '#ccc',
 						tickWidth: 1,
@@ -356,24 +375,8 @@ $(document).ready(function() {
     },
 	
 	colors: [
-						'#934d9e', 
-						'#FF7F00', 
-						'#50c0ac', 
-						'#0c6926', 
-						'#ef4c8d', 
-						'#362750', 
-						'#e1e43c', 
-						'#ef3d3b', 
-						'#3cc7f4',
-						'#589a1c', 
-						'#C2499B', 
-						'#f89521', 
-						'#CC2027', 
-						'#55ba59', 
-						'#d5bc29', 
-						'#6ccbd5',
-						'#43B649',
-						'#F6EB16'
+						'#55BA59', 
+						'#C2499B'
 	],
 					
 	legend: {
