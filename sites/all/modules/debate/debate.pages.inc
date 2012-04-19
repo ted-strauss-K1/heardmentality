@@ -346,7 +346,7 @@ $(document).ready(function() {
 						endOnTick: false,
 						tickColor: '#ccc',
 						tickWidth: 1,
-						tickLength: 5
+						tickLength: 5,
 						gridLineColor: '#ccc',
 						tickmarkPlacement: 'on',
 						startOnTick: false,
