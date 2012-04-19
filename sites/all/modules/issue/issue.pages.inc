@@ -85,7 +85,7 @@ function report_percent($nid='') {
 						title: {
 							text: null
 						},
-						min: 0,
+						minRange: 1,
 						lineColor: '#4c4c4c',
 						lineWidth: 1,
 						endOnTick: false,
@@ -104,6 +104,7 @@ function report_percent($nid='') {
 					yAxis: {
 						tickInterval: 1,
 						min: 0,
+						minRange: 1,
 						title: {
 							text: null
 						},
