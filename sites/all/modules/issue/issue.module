@@ -2414,7 +2414,8 @@ function add_new_debate_form($form_state, $nid = '') {
     '#default_value' => 1,
     '#id' => 'add_new_type',
   );
-  $form['head'] = array('#type' => 'markup',
+  $form['head'] = array(
+    '#type' => 'markup',
     '#value' => '<table><tr><td class="first">',
   );
   $form['title'] = array('#type' => 'textarea',
@@ -2422,7 +2423,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#size' => 70,
     '#cols' => 10,
     '#title' => t("What's your argument?"),
-   // '#attributes' => array('class' => 'argument-form'),
+    // '#attributes' => array('class' => 'argument-form'),
     '#rows' => 3,
     '#resizable' => false,
     //   '#suffix' => '<span class="error-msg" id="deb-err"></span>'
@@ -2493,121 +2494,128 @@ function add_new_debate_form($form_state, $nid = '') {
 // add new debate submission
 function add_new_debate_form_submit($form, &$form_state) {
   if ($form_state['values']['type'] == 1) {
-  global $user;
-  $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
-  $wtitle = $form_state['values']['title'];
-  $nid = $form_state['values']['nid'];
+    global $user;
+    $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
+    $wtitle = $form_state['values']['title'];
+    $nid = $form_state['values']['nid'];
 
-  $tot_ans = $form_state['values']['tot_answers'];
+    $tot_ans = $form_state['values']['tot_answers'];
 
-  //echo '<pre>'; print_r($form_state); exit;
-  if (!empty($wtitle) && !empty($user->uid)) {
-    $lose_coins = get_coins('c_debate');
-    if ($user_coins >= $lose_coins) {
+    //echo '<pre>'; print_r($form_state); exit;
+    if (!empty($wtitle) && !empty($user->uid)) {
+      $lose_coins = get_coins('c_debate');
+      if ($user_coins >= $lose_coins) {
 
-      // save values as node
-      $deb = new stdClass();
-      $deb->field_private[0]['value'] = "";
-      $tnid = get_tnid($nid);
-      $deb->field_ref_qid[0]['nid'] = $tnid;
-      $deb->field_type[0]['value'] = '1';
+        // save values as node
+        $deb = new stdClass();
+        $deb->field_private[0]['value'] = "";
+        $tnid = get_tnid($nid);
+        $deb->field_ref_qid[0]['nid'] = $tnid;
+        $deb->field_type[0]['value'] = '1';
 
-      $deb->type = 'forum';
-      $deb->title = $wtitle;
-      $deb->uid = $user->uid;
-      $deb->body = $wtitle;
-      $deb->status = 1;
-      // get tid for debate
-      // get_taxonomy_id('module name','term data name')
-      $tid = get_taxonomy_id('forum', 'Debate');
-      $deb->taxonomy = array($tid);
+        $deb->type = 'forum';
+        $deb->title = $wtitle;
+        $deb->uid = $user->uid;
+        $deb->body = $wtitle;
+        $deb->status = 1;
+        // get tid for debate
+        // get_taxonomy_id('module name','term data name')
+        $tid = get_taxonomy_id('forum', 'Debate');
+        $deb->taxonomy = array($tid);
 
-      // LANGUAGE DETECTION
-      // detect language from inputs using googleapis
-      $inputLanguage = get_input_language($wtitle);
-      $deb->language = $inputLanguage;
-      // language status, initially language status is 0
-      $deb->field_lang_status[0]['value'] = 0;
-      //echo '<pre>'; print_r($deb); exit;
-      $save = node_save($deb);
+        // LANGUAGE DETECTION
+        // detect language from inputs using googleapis
+        $inputLanguage = get_input_language($wtitle);
+        $deb->language = $inputLanguage;
+        // language status, initially language status is 0
+        $deb->field_lang_status[0]['value'] = 0;
+        //echo '<pre>'; print_r($deb); exit;
+        $save = node_save($deb);
 
-      $nodeid = $deb->nid;
-      $vid = $deb->vid;
+        $nodeid = $deb->nid;
+        $vid = $deb->vid;
 
 // add coin for Create new debates
-      $coin_type = 'c_debate';
-      user_coins_update($user->uid, '', $coin_type);
-      for ($i = 0; $i < $tot_ans; $i++) {
-        //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
-        $forum = "INSERT INTO {debate_options} set nid = '%d',chorder='%d',ans_val='%d' ";
-        $result = db_query($forum, $nodeid, $form_state['values']['ans_id_' . $i], $form_state['values']['sup_opp_' . $i]);
-      }
-
-      //echo list_debate($qid, 1);
-      $dumid = '';
-      send_forumnotify($dumid, $nid);
-
-      /* New SET NOTIFY LOG */
-      $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
-      $variable = array('did' => $nodeid, 'd_title' => $wtitle, 'uid' => $user->uid, 'qid' => $nid, 'q_title' => $qtitle);
-      set_notify_log($user->uid, $nodeid, 'add_debate', $variable);
-      /* New SET NOTIFY LOG */
-
-      $tnid = get_tnid($nid);
-
-      //load_debate_datas(debate id, issue id, issue tnid)
-      $items = load_debate_datas($deb->nid, $nid, $tnid);
-
-      // anwers strength
-      $strnth = $items['strength'];
-      //echo '<pre>';print_r($strnth);exit;
-      $strength = '';
-      foreach ($strnth as $list) {
-        $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
-        $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '" . $items['issue_id'] . "' AND chorder = '" . $list['chorder'] . "'"));
-        $ans = $short_answer != '' ? $short_answer : $tranAns;
-
-        switch ($list['ans_val']) {
-          case 1:
-            $strength.='<p class="position-plus"><strong>+</strong>&nbsp;' . $ans . '</p>';
-            break;
-          case 2:
-            $strength.='<p class="position-minus"><strong>-</strong>&nbsp;' . $ans . '</p>';
-            break;
+        $coin_type = 'c_debate';
+        user_coins_update($user->uid, '', $coin_type);
+        for ($i = 0; $i < $tot_ans; $i++) {
+          //$forum = "INSERT INTO {debate_options} set did='%d', paid='%d',ans_val='%d' ";
+          $forum = "INSERT INTO {debate_options} set nid = '%d',chorder='%d',ans_val='%d' ";
+          $result = db_query($forum, $nodeid, $form_state['values']['ans_id_' . $i], $form_state['values']['sup_opp_' . $i]);
         }
-      }
 
-      // reply
-      $reply_box = '';
-      $comments = '';
-      $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['debate_tnid'] . "'"));
-      // delete
-      if (is_moderator() || $items['uid'] == $user->uid) {
-        $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['debate_tnid'] . '\', \'debate\')">' . t('Delete') . '</h6>';
+        //echo list_debate($qid, 1);
+        $dumid = '';
+        send_forumnotify($dumid, $nid);
+
+        /* New SET NOTIFY LOG */
+        $qtitle = db_result(db_query("SELECT title FROM {node} WHERE nid = '%d'", $nid));
+        $variable = array('did' => $nodeid, 'd_title' => $wtitle, 'uid' => $user->uid, 'qid' => $nid, 'q_title' => $qtitle);
+        set_notify_log($user->uid, $nodeid, 'add_debate', $variable);
+        /* New SET NOTIFY LOG */
+
+        $tnid = get_tnid($nid);
+
+        //load_debate_datas(debate id, issue id, issue tnid)
+        $items = load_debate_datas($deb->nid, $nid, $tnid);
+
+        // anwers strength
+        $strnth = $items['strength'];
+        //echo '<pre>';print_r($strnth);exit;
+        $strength = '';
+        foreach ($strnth as $list) {
+          $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
+          $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '" . $items['issue_id'] . "' AND chorder = '" . $list['chorder'] . "'"));
+          $ans = $short_answer != '' ? $short_answer : $tranAns;
+
+          switch ($list['ans_val']) {
+            case 1:
+              $strength.='<p class="position-plus"><strong>+</strong>&nbsp;' . $ans . '</p>';
+              break;
+            case 2:
+              $strength.='<p class="position-minus"><strong>-</strong>&nbsp;' . $ans . '</p>';
+              break;
+          }
+        }
+
+        // reply
+        $reply_box = '';
+        $comments = '';
+        $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['debate_tnid'] . "'"));
+        // delete
+        if (is_moderator() || $items['uid'] == $user->uid) {
+          $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['debate_tnid'] . '\', \'debate\')">' . t('Delete') . '</h6>';
+        }
+        else {
+          $delete = '';
+        }
+        // ratings
+        // allow rating check
+        $ratings = get_rating_buttons($items, 'is_debate');
+
+        $json['success_post'] = 1;
+        $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
+        $json['message'] = '<span class="posted">Your argument posted successfully!</span>';
       }
       else {
-        $delete = '';
+        $json['message'] = '<div class="no_coins" align="center">' . t('Sorry you do not have enough coins to post New Debate') . '</div>';
       }
-      // ratings
-      // allow rating check
-      $ratings = get_rating_buttons($items, 'is_debate');
-
-      $json['success_post'] = 1;
-      $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-      $json['message'] = '<span class="posted">Your argument posted successfully!</span>';
     }
     else {
-      $json['message'] = '<div class="no_coins" align="center">' . t('Sorry you do not have enough coins to post New Debate') . '</div>';
+      $json['message'] = '<div class="no_coins" align="center"><b>Error occured. Please try again.</b></div>';
     }
+    print json_encode($json);
+    exit;
   }
   else {
-    $json['message'] = '<div class="no_coins" align="center"><b>Error occured. Please try again.</b></div>';
-  }
-  print json_encode($json);
-exit;
-  }
-  else {
-    
+    module_load_include('php', 'debate', 'simple_html_dom');
+    $html = file_get_html($form_state['values']['ref_title']);
+    if (strpos($form_state['values']['ref_title'], 'youtube.com')) {
+      $body = $html->find('#eow-description', 0);
+      krumo(substr($body->innertext,0, strpos($body->innertext, '<br')- strlen($body->innertext)));
+    }
+    else {
+    }
   }
 }
 

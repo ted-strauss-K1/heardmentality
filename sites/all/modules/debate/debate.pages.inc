@@ -87,15 +87,12 @@ function debate_ajax() {
             }
             break;
         case 'resource_new':
-
             if ($rtype != 0) {
                 if (!empty($membed) && $rtype == 2 && $mtype == 1) {
                     $ytURL = $membed;
                     $ytvIDlen = 11; // This is the length of YouTube's video IDs
 
                     $idStarts = strpos($ytURL, "?v=");
-
-
                     if ($idStarts === FALSE)
                         $idStarts = strpos($ytURL, "&v=");
 
@@ -178,12 +175,7 @@ function debate_ajax() {
                 $vid = $res->vid;
 
                 // insert debate as forum in database programmatically
-                //db_query("INSERT INTO {forum} SET nid = '%d', vid = '%d', tid = '%d'", $nodeid, $vid, $tid);
-                //db_query("INSERT INTO {term_node} SET nid = '%d', vid = '%d', tid = '%d'", $nodeid, $vid, $tid);
-                //  $resourceadd = "insert into resource(rtype,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('$rtype','" . addslashes($nlink) . "','" . addslashes($ntitle) . "','" . addslashes($ncontent) . "','" . $mtype . "','" . addslashes($membed) . "','" . addslashes($flink) . "', '" . $user->uid . "','" . $qaid . "','" . $path . "','" . $docpath . "','" . $ytvID . "','" . $udesc . "','" . $files . "')";
-                //$resourceadd = "insert into resource(rtype,nid,nlink,ntitle,ncontent,mtype,membed,facts,uid,qid,nimage,document,video_id,udesc,uimg) values ('%d','%d','%s','%s','%s','%d','%s','%s', '%d','%d','%s','%s','%s','%s','%s')";
-                //db_query($resourceadd, $rtype,$nodeid, $nlink, $ntitle, $ncontent, $mtype, $membed, $flink, $user->uid, $qaid, $path, $docpath, $ytvID, $udesc, $files);
-                //$nid = db_last_insert_id('resource', 'rid');
+
                 $i = 0;
                 foreach ($ans_id as $list) {
                     $forum = "INSERT INTO {resource_options} set nid='%d',chorder='%d',ans_val='%d' ";

@@ -13,9 +13,7 @@ $(document).ready(function() {
     return false;
   });
 });
-
-
-
+/*
 // add new debate ajax submit
 jQuery('#add-new-debate-form').live('submit', function(e){
   e.preventDefault();
@@ -29,7 +27,6 @@ jQuery('#add-new-debate-form').live('submit', function(e){
       flag = parseInt(flag)+1;
     }
   }
-
   if(title.length < 2){
     jQuery('#deb-err').html('<span>Please let us know what you think.</span>');
     return false;
@@ -70,4 +67,4 @@ jQuery('#add-new-debate-form').live('submit', function(e){
     });
   }
   return false;
-});
+});*/

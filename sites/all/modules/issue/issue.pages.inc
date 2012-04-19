@@ -316,7 +316,6 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         $answer_cnt[] = $inc_cnt;
       }
 
-
       break;
     case 'income':
       $answer['divide'] = array('$0-$9,999', '$10,000 - $19,999', '$20,000 - $39,999', '$40,000 - $69,999', '$70,000 - $99,999', '$100,000 - $149,999', '$150,000 - $299,999', '>$300,000', 'undefined');
