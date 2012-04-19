@@ -2787,7 +2787,8 @@ h6#deb-ana:hover a,
 .vidible_deb {
 }
 
-.leave-a-comment{
+.leave-a-comment,
+#analytics-area{
 	clear: both;
 	padding-top: 21px;
 }
@@ -3775,7 +3776,7 @@ ul.control_links h6#reply:hover {
 
 .vote-results #insight-view {
 	clear: left;
-	min-height: 185px;
+	min-height: 285px;
 }
 
 .vote-results #container_graph,
