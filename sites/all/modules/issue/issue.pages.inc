@@ -93,10 +93,9 @@ function report_percent($nid='') {
 						labels: {
 							style: {
 								color: '#4c4c4c',
-								font: '12px Aial, sans-serif',
-								width: '50px'
-								
-							}
+								font: '12px Aial, sans-serif'	
+							},
+							rotation: -45
 						}
 					},
 					
@@ -163,8 +162,7 @@ function report_percent($nid='') {
 							borderWidth: 0,
 							shadow: false,
 							groupPadding: 0.15,
-							pointPadding: 0,
-							pointWidth: 5
+							pointPadding: 0
 						}
 					},
                                         
