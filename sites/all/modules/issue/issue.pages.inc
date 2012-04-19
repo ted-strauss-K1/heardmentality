@@ -90,6 +90,7 @@ function report_percent($nid='') {
 						endOnTick: false,
 						tickColor: '#fff',
 						tickWidth: 0,
+						tickmarkPlacement: 'on',
 						labels: {
 							style: {
 								color: '#4c4c4c',
