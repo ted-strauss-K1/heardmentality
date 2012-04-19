@@ -311,22 +311,120 @@ $(document).ready(function() {
    chart = new Highcharts.Chart({
       chart: {
          renderTo: 'container',
-         defaultSeriesType: 'column'
+         defaultSeriesType: 'column',
+		 				style: {
+							fontFamily: 'Arial',
+							color: '#4c4c4c',
+							fontSize: '12px'
+						},
+						plotBorderColor: '#fff',
+						plotBorderWidth: 0,
+						borderColor: '#fff',
+						borderRadius: 0,
+						borderWidth: 0,
+						marginTop: 0,
+						marginRight: 20,
+						marginBottom: 20,
+						ignoreHiddenSeries: true
       },
       title: {
-         text: 'Debate Report Analysis'
+         text: 'DEBATE STATISTICS',
+		 style: {
+			color: '#362750',
+			fontFamily: 'Arial',
+			fontSize: '12px'
+		 }
       },
+	  
       xAxis: {
-         categories:" . $insdata . "
+         categories:" . $insdata . ",
+		 				title: {
+							text: null
+						},
+						lineColor: '#4c4c4c',
+						lineWidth: 1,
+						endOnTick: false,
+						tickColor: '#ccc',
+						tickWidth: 1,
+						tickLength: 5
+						gridLineColor: '#ccc',
+						tickmarkPlacement: 'on',
+						startOnTick: false,
+						labels: {
+							style: {
+								color: '#4c4c4c',
+								font: '12px Aial, sans-serif'	
+							}
+						}
       },
-      yAxis:{ tickInterval  :1
+	  
+      yAxis:{ 
+	  					tickInterval: 1,
+						title: {
+							text: null
+						},
+						endOnTick: false,
+						maxPadding: 0.01,
+						lineWidth: 1,
+						lineColor: '#4c4c4c',
+						tickmarkPlacement: 'on',
+						tickColor: '#ccc',
+						tickWidth: 1,
+						tickLength: 5
     },
+	
+	colors: [
+						'#934d9e', 
+						'#FF7F00', 
+						'#50c0ac', 
+						'#0c6926', 
+						'#ef4c8d', 
+						'#362750', 
+						'#e1e43c', 
+						'#ef3d3b', 
+						'#3cc7f4',
+						'#589a1c', 
+						'#C2499B', 
+						'#f89521', 
+						'#CC2027', 
+						'#55ba59', 
+						'#d5bc29', 
+						'#6ccbd5',
+						'#43B649',
+						'#F6EB16'
+	],
+					
+	legend: {
+						enabled: false
+	},
+	
       tooltip: {
          formatter: function() {
             return ''+
                 this.series.name +': '+ this.y +'';
-         }
+         },
+		 				shadow: false,
+						style: {
+							color: '#4c4c4c',
+							font: '12px Aial, sans-serif',
+						},
+						borderRadius: 3
       },
+	  
+	plotOptions: {
+						column: {
+							dataLabels: {
+								enabled: false
+							},
+							borderColor: '#fff',
+							borderWidth: 0,
+							shadow: false,
+							groupPadding: 0.15,
+							pointPadding: 0
+							//pointWidth: 20
+						}
+	},
+	  
       credits: {
          enabled: false
       },
