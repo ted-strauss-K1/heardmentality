@@ -99,7 +99,8 @@ function report_percent($nid='') {
 								font: '12px Aial, sans-serif'	
 							}
 						},
-						alternateGridColor: '#ccc'
+						minorGridLineColor: '#E0E0E0',
+						minorTickInterval: 'auto'
 					},
 					
 					yAxis: {
