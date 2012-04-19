@@ -73,7 +73,8 @@ function report_percent($nid='') {
 						marginTop: 20,
 						marginRight: 20,
 						marginBottom: 20,
-						ignoreHiddenSeries: true
+						ignoreHiddenSeries: true,
+						zoomType: 'y'
 					},
 					
 					title: {
