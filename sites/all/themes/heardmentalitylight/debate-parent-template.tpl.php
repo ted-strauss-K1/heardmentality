@@ -62,7 +62,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 
           <p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
 
-          <!--DL </div> -->
+          </div>
 
         </div>
 
