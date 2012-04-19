@@ -322,7 +322,7 @@ $(document).ready(function() {
 						borderColor: '#fff',
 						borderRadius: 0,
 						borderWidth: 0,
-						marginTop: 0,
+						marginTop: 20,
 						marginRight: 20,
 						marginBottom: 20,
 						ignoreHiddenSeries: true
@@ -337,25 +337,7 @@ $(document).ready(function() {
       },
 	  
       xAxis: {
-         categories:" . $insdata . ",
-		 				title: {
-							text: null
-						},
-						lineColor: '#4c4c4c',
-						lineWidth: 1,
-						endOnTick: false,
-						tickColor: '#ccc',
-						tickWidth: 1,
-						tickLength: 5,
-						gridLineColor: '#ccc',
-						tickmarkPlacement: 'on',
-						startOnTick: false,
-						labels: {
-							style: {
-								color: '#4c4c4c',
-								font: '12px Aial, sans-serif'	
-							}
-						}
+         categories:" . $insdata . "
       },
 	  
       yAxis:{ 
