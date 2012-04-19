@@ -85,6 +85,7 @@ function report_percent($nid='') {
 						title: {
 							text: null
 						},
+						min: 0,
 						lineColor: '#4c4c4c',
 						lineWidth: 1,
 						endOnTick: false,
@@ -106,7 +107,7 @@ function report_percent($nid='') {
 						title: {
 							text: null
 						},
-						endOnTick: true,
+						endOnTick: false,
 						maxPadding: 0.01,
 						lineWidth: 0,
 						gridLineColor: '#ccc',
