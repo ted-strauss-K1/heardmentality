@@ -89,7 +89,7 @@ function report_percent($nid='') {
 						lineWidth: 1,
 						endOnTick: false,
 						tickColor: '#000',
-						tickWidth: 0,
+						tickWidth: 5,
 						tickmarkPlacement: 'on',
 						labels: {
 							style: {
