@@ -71,7 +71,7 @@ function report_percent($nid='') {
 						borderRadius: 0,
 						borderWidth: 0,
 						marginTop: 20,
-						marginLeft: 20,
+						marginRight: 20,
 						marginBottom: 20,
 						ignoreHiddenSeries: true
 					},
