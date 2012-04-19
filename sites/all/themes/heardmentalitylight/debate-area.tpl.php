@@ -19,6 +19,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     </div>
 
     <div id="analytics-area" class="hidden_deb" style="display: none;">
+	  <h2><span>Debate statistics</span></h2>	
       <?php print $debateStatistics; ?>
       <div id="deb-ana-load-txt"></div>
       <div id="load-deb-statics"></div>

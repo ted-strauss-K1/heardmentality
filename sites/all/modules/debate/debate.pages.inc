@@ -329,13 +329,7 @@ $(document).ready(function() {
 						ignoreHiddenSeries: true
       },
       title: {
-         text: 'DEBATE STATISTICS',
-		 align: 'left',
-		 style: {
-			color: '#362750',
-			font: '14px/15px Arial, sans-serif',
-			fontStyle: 'italic'
-		 }
+         text: null
       },
 	  
       xAxis: {
