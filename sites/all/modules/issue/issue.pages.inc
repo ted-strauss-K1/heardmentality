@@ -489,7 +489,7 @@ function report_graph($nid='') {
 
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
-
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
 
 
   $output.= "<script type='text/javascript' language='javascript'>";

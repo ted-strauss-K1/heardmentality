@@ -513,6 +513,7 @@ jQuery(window).resize(function () {
          data: " . $data . "
       }]
    });
+   
     });
    
 });
