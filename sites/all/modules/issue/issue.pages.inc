@@ -24,7 +24,7 @@ function report_percent($nid='') {
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist);
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
-
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
   $inline = "var example = 'bar-stacked',
             theme = 'skies'";
   drupal_add_js($inline, 'inline');
