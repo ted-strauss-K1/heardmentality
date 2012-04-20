@@ -327,7 +327,7 @@ $(document).ready(function() {
       xAxis: {
         tickInterval: 1,
 		 				title: {
-							text: null
+							text: '123'
 						},
 						lineColor: '#ccc',
 						lineWidth: 1,
