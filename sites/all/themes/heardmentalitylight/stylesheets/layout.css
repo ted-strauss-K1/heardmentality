@@ -3077,6 +3077,7 @@ h6#deb-ana:hover a,
 #analytics-area > h2:first-child {
 	margin: 0;
 	line-height: 15px;
+	font-size: 12px;
 }
 
 #debate_list_area > h2:first-child span {

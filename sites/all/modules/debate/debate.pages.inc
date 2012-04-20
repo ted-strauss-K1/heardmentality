@@ -316,7 +316,7 @@ $(document).ready(function() {
 						borderWidth: 0,
 						marginTop: 0,
 						marginRight: 20,
-						marginBottom: 100,
+						marginBottom: 50,
 						marginLeft: 30,
 						ignoreHiddenSeries: true
       },
