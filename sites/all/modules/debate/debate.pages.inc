@@ -406,7 +406,10 @@ $(document).ready(function() {
       }]
    });
 
-
+jQuery(window).resize(function () {
+        chart.destroy();
+    });
+   
 });
 
  </script>";
