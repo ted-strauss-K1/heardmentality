@@ -491,6 +491,7 @@ function report_graph($nid='') {
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
 
 
+
   $output.= "<script type='text/javascript' language='javascript'>";
 
   $query = "select date(date_voted) as dat from {poll_votes} where nid='" . $nid . "' ORDER BY date_voted DESC";
