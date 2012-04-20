@@ -3095,6 +3095,10 @@ h6#deb-ana:hover a,
     padding: 0 0 16px;
 }
 
+#load-deb-statics iframe {
+	width: 100% !important;
+}
+
 #debate_list_area ul.argument_box {
 	padding: 0 25px 0 42px;
 	border: 0 none;
