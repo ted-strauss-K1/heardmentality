@@ -3074,6 +3074,11 @@ h6#deb-ana:hover a,
 	z-index: 15px;
 }
 
+#analytics-area > h2:first-child {
+	margin: 0;
+	line-height: 15px;
+}
+
 #debate_list_area > h2:first-child span {
 	display: inline-block;
     float: left;
