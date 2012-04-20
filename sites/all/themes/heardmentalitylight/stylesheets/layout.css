@@ -3758,6 +3758,10 @@ ul.control_links h6#reply:hover {
 	background-color: #e4e4e4;
 }
 
+.vote-results li.full div.space {
+	padding: 2% 2% 0;
+}
+
 .vote-results li.part {
 	float: left;
 	width: 49.3%;
@@ -3831,6 +3835,7 @@ p.result-title {
 	display: inline-block;
 	margin: 0 14px 0 0;
 	vertical-align: top;
+	padding-bottom: 2%;
 }
 
 .vote-results .legend dt {
