@@ -325,7 +325,7 @@ $(document).ready(function() {
       },
 	  
       xAxis: {
-        tickInterval: 1,
+        categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas'],
 		 				title: {
 							text: '123'
 						},
