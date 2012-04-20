@@ -20,7 +20,7 @@ Highcharts.theme = {
   }, 
   legend: {
     backgroundColor: null,
-    borderColor: '#EEEEEE',
+    borderColor: #EEEEEE,
     margin: 0
   }
 };
