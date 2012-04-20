@@ -486,8 +486,7 @@ function report_graph($nid='') {
   $vans = "select * from {poll_choices} where  nid=$qid order by chorder";
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist);
-  
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
+
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
 
