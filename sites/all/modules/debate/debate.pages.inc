@@ -325,9 +325,9 @@ $(document).ready(function() {
       },
 	  
       xAxis: {
-        categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas'],
+         categories:" . $insdata . ",
 		 				title: {
-							text: '123'
+							text: null
 						},
 						lineColor: '#ccc',
 						lineWidth: 1,
