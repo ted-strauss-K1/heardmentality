@@ -325,7 +325,7 @@ $(document).ready(function() {
       },
 	  
       xAxis: {
-         categories:" . $insdata . ",
+         categories:" . json_encode($ans_array) . ",
 		 				title: {
 							text: null
 						},
