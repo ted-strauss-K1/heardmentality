@@ -2959,7 +2959,7 @@ h6#deb-ana:hover a,
 #add-new-debate-form .add_button .argument-form,
 #add-new-debate-form .add_button .reference-form {
 	padding-top: 18px;
-	float: left;
+	/*float: left;*/
 }
 
 #add-new-debate-form .add_button .argument-form a,
