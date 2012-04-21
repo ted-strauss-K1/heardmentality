@@ -2463,7 +2463,7 @@ function add_new_debate_form($form_state, $nid = '') {
     );
     $i++;
   }
-  $form['clr_div'] = array('#type' => 'markup', '#value' => '<div class="clr"></div>');
+  $form['clr_div'] = array('#type' => 'markup', '#value' => '<div class="clr"></div><span class="req_assign">(Required to set one or more)</span>');
   $form['new_debate_submit'] = array('#type' => 'submit',
     '#value' => t('Add'),
     '#attributes' => array('class' => 'orange-btn'),
