@@ -1021,7 +1021,7 @@ $(document).ready(function(){
     }
   }
   );
-  $('.dropdown-toggle').dropdown();
+  /*$('.dropdown-toggle').dropdown();*/
   $('a.permalink').click(function(e){
     
     var a = window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id');
