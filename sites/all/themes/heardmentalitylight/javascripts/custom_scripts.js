@@ -101,4 +101,17 @@ $(document).ready(function() {
 	
   });
   
+  
+// Add references - position
+
+var buttonAddTop = $('#leave_comment_area table .reference-form').css('display');
+
+if (buttonAddTop == 'block'){
+	$(this).parents('#leave_comment_area').find('.add_button').css('top', '63px');
+}
+
+else {
+	$(this).parents('#leave_comment_area').find('.add_button').css('top', '127px');
+}
+  
 });
