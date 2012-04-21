@@ -104,16 +104,16 @@ $(document).ready(function() {
   
 // Add references - position
 
-$('.add_button .argument-form, .add_button .reference-form').click(function() {
+$('.add_button .argument-form a, .add_button .reference-form a').click(function() {
 
 	var buttonAddTop = $('#leave_comment_area table .reference-form').css('display');
 
 	if (buttonAddTop == 'block'){
-		$(this).parents('#leave_comment_area').find('.add_button').addClass('reduce');
+		$(#leave_comment_area .add_button).addClass('reduce');
 	}
 
 	else {
-		$(this).parents('#leave_comment_area').find('.add_button').removeClass('reduce');
+		$(#leave_comment_area .add_button).removeClass('reduce');
 	}
 });
   
