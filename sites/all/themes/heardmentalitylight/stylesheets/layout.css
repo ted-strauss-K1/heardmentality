@@ -2944,6 +2944,10 @@ h6#deb-ana:hover a,
 	width: 100%;
 }
 
+#add-new-debate-form .add_button.reduce {
+	top: 63px;
+}
+
 #add-new-debate-form .add_button .argument-form,
 #add-new-debate-form .add_button .reference-form {
 	padding-top: 18px;
