@@ -104,14 +104,17 @@ $(document).ready(function() {
   
 // Add references - position
 
-var buttonAddTop = $('#leave_comment_area table .reference-form').css('display');
+$('.add_button .argument-form, .add_button .reference-form').click(function() {
 
-if (buttonAddTop == 'block'){
-	$(this).parents('#leave_comment_area').find('.add_button').addClass('reduce');
-}
+	var buttonAddTop = $('#leave_comment_area table .reference-form').css('display');
 
-else {
-	$(this).parents('#leave_comment_area').find('.add_button').removeClass('reduce');
-}
+	if (buttonAddTop == 'block'){
+		$(this).parents('#leave_comment_area').find('.add_button').addClass('reduce');
+	}
+
+	else {
+		$(this).parents('#leave_comment_area').find('.add_button').removeClass('reduce');
+	}
+});
   
 });
