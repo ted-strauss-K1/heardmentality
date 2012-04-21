@@ -2733,6 +2733,7 @@ h2.page-title {
 .poll-box .ul_wrapper h2.din {
     line-height: 39px;
     margin-bottom: 0;
+	float: left;
 }
 
 /*.poll-box ul.tabs {

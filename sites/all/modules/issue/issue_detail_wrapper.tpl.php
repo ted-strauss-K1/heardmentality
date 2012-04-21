@@ -15,7 +15,7 @@
 </ul>-->
 <h2 class="din">Debate</h2>
 </div>
-<ul class="tabs-content">
+<ul class="tabs-content" style="margin: 22px 0 0;">
       <!-- Give ID that matches HREF of above anchors -->
       <li class="active" id="simpleTab">
            <?php print $debate_list; ?>
