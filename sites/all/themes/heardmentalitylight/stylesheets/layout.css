@@ -2985,9 +2985,10 @@ h6#deb-ana:hover a,
 	font-size: 12px;
     font-style: italic;
     font-weight: normal;
-    padding-top: 3px;
+    padding-top: 0;
 	color: #ccc;
 	margin-left: 26px;
+	clear: both;
 }
 
 /*Slider*/
@@ -3807,6 +3808,7 @@ h5.ref_title {
 h5.ref_title,
 h5.ref_title a {
 	color: #924C9D;
+	font-weight: bold;
 }
 
 /*Vote results*/
