@@ -2432,7 +2432,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#type' => 'textfield',
     '#default_value' => 'http://',
     '#size' => 60,
-    '#maxlength' => 128,
+    '#maxlength' => 256,
     '#prefix' => '<div class="reference-form"><label for="edit-ref-title">Post a reference <span>(news, blog, gov, data...).</span></label>',
     '#suffix' => '</div><span class="error-msg" id="deb-err"></span>',
   );
@@ -2490,8 +2490,8 @@ function add_new_debate_form($form_state, $nid = '') {
 
 // add new debate submission
 function add_new_debate_form_submit($form, &$form_state) {
+  global $user;
   if ($form_state['values']['type'] == 1) {
-    global $user;
     $user_coins = db_result(db_query("SELECT total_coins FROM {users} WHERE uid = '$user->uid'"));
     $wtitle = $form_state['values']['title'];
     $nid = $form_state['values']['nid'];
@@ -2558,7 +2558,6 @@ function add_new_debate_form_submit($form, &$form_state) {
 
         // anwers strength
         $strnth = $items['strength'];
-        //echo '<pre>';print_r($strnth);exit;
         $strength = '';
         foreach ($strnth as $list) {
           $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
@@ -2608,11 +2607,62 @@ function add_new_debate_form_submit($form, &$form_state) {
     module_load_include('php', 'debate', 'simple_html_dom');
     $html = file_get_html($form_state['values']['ref_title']);
     if (strpos($form_state['values']['ref_title'], 'youtube.com')) {
-      $body = $html->find('#eow-description', 0);
-      krumo(substr($body->innertext,0, strpos($body->innertext, '<br')- strlen($body->innertext)));
+      $body = $html->find('#eow-description', 0)->plaintext;
+      $title = $html->find('#eow-title', 0)->innertext;
+      $html->clear();
+      $idStarts = strpos($form_state['values']['ref_title'], "?v=");
+      if ($idStarts === FALSE) {
+        $idStarts = strpos($form_state['values']['ref_title'], "&v=");
+      }
+      if ($idStarts === FALSE) {
+        die("<div class='messages error'>YouTube video ID not found. Please double-check your URL.</div>");
+      }
+      $idStarts += 3;
+      $ytvID = substr($form_state['values']['ref_title'], $idStarts, 11);
+      $res->title = $title;
+      $res->field_mtype[0]['value'] = 'video';
+      $res->field_videoid[0]['value'] = $ytvID;
+      $domain = parse_url($url, PHP_URL_HOST);
+
+      $res->field_filepath[0]['value'] = 'http://img.youtube.com/vi/' . $ytvID . '/default.jpg';
     }
     else {
+      module_load_include('php', 'debate', 'url_to_absolute');
+      $domain = parse_url($form_state['values']['ref_title'], PHP_URL_HOST);
+      $html = file_get_html($form_state['values']['ref_title']);
+      foreach ($html->find('img') as $element) {
+        $abs_url = url_to_absolute($form_state['values']['ref_title'], $element->src);
+        list($width, $height, $type, $attr) = getimagesize($abs_url);
+        if ($width > 100) {
+          $images[] = $abs_url;
+        }
+      }
+      if (count($images > 0)) {
+        $res->field_filepath[0]['value'] = $images[0];
+      }
+      else {
+        $res->field_filepath[0]['value'] = file_directory_path() . '/noimage.jpg';
+      }
+      $res->title = $html->find('title', 0)->innertext;
+      $res->field_rtype[0]['value'] = 'news';
+      $html->clear();
     }
+    $res->type = 'forum';
+    $res->uid = $user->uid;
+    $res->field_nlink[0]['value'] = $form_state['values']['ref_title'];
+    $res->status = 1;
+    // get tid (debate or resource)
+    // get_taxonomy_id('module name','term data name')
+    $tid = get_taxonomy_id('forum', 'Resource');
+    $res->taxonomy = array($tid);
+    // content type values
+    // set main node as ref node for all resources
+    $nid = $form_state['values']['nid'];
+    $nid = get_tnid($nid);
+    $res->field_ref_qid[0]['nid'] = $nid;
+    $res->field_type[0]['value'] = '2';
+    $res->language = 'en';
+    $save = node_save($res);
   }
 }
 
@@ -3382,4 +3432,4 @@ function __issue_description_trimmer($context) {
   return $output;
 }
 
-/**************/
+/*   * *********** */
