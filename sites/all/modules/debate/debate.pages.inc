@@ -621,7 +621,7 @@ window.onorientationchange = function() {
       }]
    });
    
-});	
+};	
    
 });
 

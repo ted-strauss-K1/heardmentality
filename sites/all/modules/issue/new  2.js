@@ -156,3 +156,109 @@
 								 this.series.name +': '+ this.y +'';
 						}
 					},
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					  chart = new Highcharts.Chart({
+      chart: {
+         renderTo: 'container_graph',
+         defaultSeriesType: 'spline',
+         zoomType: 'x',
+        
+      },
+      title: {
+         text: ''
+      },
+      subtitle: {
+         text: ''
+      },
+      xAxis: {
+        labels: {
+                style: {
+                        color: '#666',
+                        fontWeight: 'normal',
+                        font: '10px Arial,Helvetica,sans-serif '
+
+                },
+                        rotation:270
+		},
+         type: 'datetime',
+       plotBands: [{ // mark the weekend
+            from: " . $sdate . ",
+            to: " . $edate . "
+        }] " . $tickint . "
+      },
+      yAxis: {
+         title: {
+            text: 'No Of Votes (Per Day)'
+         },
+         labels: {
+                style: {
+                        color: '#666',
+                        fontWeight: 'normal',
+                        font: '10px Arial,Helvetica,sans-serif '
+
+                }
+		},
+         min: 0,
+         minorGridLineWidth: 0,
+
+         gridLineWidth: 0,
+         alternateGridColor: null,
+         tickInterval  :1
+      },
+      tooltip: {
+         formatter: function() {
+                   return ''+
+
+               Highcharts.dateFormat('%e. %b %Y', this.x) +': '+ this.y +' Votes';
+         }
+      },
+      plotOptions: {
+          series: {
+            cursor: 'pointer',
+            point: {
+                events: {
+                    click: function() {
+                       display_resource(this.category);
+                    }
+                }
+            }
+        },
+         spline: {
+            lineWidth: 4,
+            states: {
+               hover: {
+                  lineWidth: 5
+               }
+            },
+            marker: {
+               enabled: false,
+               states: {
+                  hover: {
+                     enabled: true,
+                     symbol: 'circle',
+                     radius: 5,
+                     lineWidth: 1
+                  }
+               }
+            },
+            pointInterval: 24 * 3600 * 1000, // one day
+            pointStart:" . $sdate . "
+            }
+      },
+      series: [" . $insdata . "]
+   });
