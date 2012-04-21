@@ -2817,7 +2817,7 @@ h6#deb-ana:hover a,
 	cursor: text;
 	color: #362750;
     font: italic bold 12px/15px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
-	padding-bottom: 6px;
+	padding-bottom: 8px;
 	text-transform: uppercase;
 }
 
@@ -2940,7 +2940,7 @@ h6#deb-ana:hover a,
 
 #add-new-debate-form .add_button {
 	position: absolute;
-    top: 125px;
+    top: 127px;
 	width: 100%;
 }
 
@@ -2962,6 +2962,12 @@ h6#deb-ana:hover a,
 	text-decoration: underline;
 }
 
+#edit-ref-title-wrapper input.form-text {
+	margin: 0;
+	padding: 11px 10px 10px;
+	width: 97%;
+}
+
 .req_assign {
 	display: block;
 	font-size: 12px;
@@ -2969,7 +2975,7 @@ h6#deb-ana:hover a,
     font-weight: normal;
     padding-top: 3px;
 	color: #ccc;
-	margin-left: 65px;
+	margin-left: 26px;
 }
 
 /*Slider*/
