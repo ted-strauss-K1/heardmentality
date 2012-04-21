@@ -2811,6 +2811,15 @@ h6#deb-ana:hover a,
 	width: 100%;
 }
 
+.argument-form label,
+.reference-form label {
+	display: block;
+	cursor: text;
+	color: #924C9D;
+    font: italic bold 12px/15px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
+	padding-bottom: 8px;
+}
+
 #deb_title-wrapper {
 	padding-bottom: 46px;
 }
