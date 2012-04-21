@@ -3797,6 +3797,18 @@ ul.control_links h6#reply:hover {
 	left: -8px;
 }
 
+.ref_wrap,
+h5.ref_title {
+    font-size: 12px;
+    line-height: 18px;
+	color: #4c4c4c;
+}
+
+h5.ref_title,
+h5.ref_title a {
+	color: #924C9D;
+}
+
 /*Vote results*/
 
 #results {
