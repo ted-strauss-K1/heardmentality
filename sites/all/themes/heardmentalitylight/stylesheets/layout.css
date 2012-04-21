@@ -2949,7 +2949,7 @@ h6#deb-ana:hover a,
 #add-new-debate-form .add_button {
 	position: absolute;
     top: 127px;
-	width: 62%;
+	width: 70%;/*63% on small devaces*/
 }
 
 #add-new-debate-form .add_button.reduce {
