@@ -2934,7 +2934,7 @@ h6#deb-ana:hover a,
 #add-new-debate-form .form-submit {
 	float: left;
     left: 0;
-    margin: 12px 18px 0 0;
+    margin: 12px 15px 0 0;
 }
 
 #add-new-debate-form .add_button {
@@ -2952,13 +2952,13 @@ h6#deb-ana:hover a,
 #add-new-debate-form .add_button .argument-form a,
 #add-new-debate-form .add_button .reference-form a {
 	color: #924C9D;
-	font: 12px/15px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
+	font: bold 12px/15px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
 
 #add-new-debate-form .add_button .argument-form a:hover,
 #add-new-debate-form .add_button .reference-form a:hover {
 	color: #924C9D;
-	text-decoration: uppercase;
+	text-decoration: underline;
 }
 
 /*Slider*/
