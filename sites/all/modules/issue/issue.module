@@ -2468,7 +2468,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#value' => t('Add'),
     '#attributes' => array('class' => 'orange-btn'),
     '#prefix' => '</td></tr></table><div class="add_button">',
-    '#suffix' => '<span id="sub_loader" style="display: none; float: left; margin-right: 15px;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
+    '#suffix' => '<span id="sub_loader" style="display: none; float: left; margin-right: 15px; position: relative; top: 2px;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
     '#id' => 'add_new_debate',
   );
   $form['link-arg'] = array(

@@ -2829,7 +2829,8 @@ h6#deb-ana:hover a,
 	text-transform: none;
 }
 
-#deb_title-wrapper {
+#deb_title-wrapper,
+#edit-ref-title-wrapper {
 	padding-bottom: 46px;
 }
 
@@ -2959,6 +2960,15 @@ h6#deb-ana:hover a,
 #add-new-debate-form .add_button .reference-form a:hover {
 	color: #924C9D;
 	text-decoration: underline;
+}
+
+.req_assign {
+	display: block;
+	font-size: 12px;
+    font-style: italic;
+    font-weight: normal;
+    padding-top: 3px;
+	color: #ccc;
 }
 
 /*Slider*/
