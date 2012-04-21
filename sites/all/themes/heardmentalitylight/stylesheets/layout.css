@@ -2949,7 +2949,7 @@ h6#deb-ana:hover a,
 #add-new-debate-form .add_button {
 	position: absolute;
     top: 127px;
-	width: 100%;
+	width: 62%;
 }
 
 #add-new-debate-form .add_button.reduce {
@@ -2989,6 +2989,8 @@ h6#deb-ana:hover a,
 	color: #ccc;
 	margin-left: 26px;
 	clear: both;
+	position: relative;
+    top: -2px;
 }
 
 /*Slider*/
