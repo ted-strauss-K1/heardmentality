@@ -2467,13 +2467,13 @@ function add_new_debate_form($form_state, $nid = '') {
   $form['new_debate_submit'] = array('#type' => 'submit',
     '#value' => t('Add'),
     '#attributes' => array('class' => 'orange-btn'),
-    '#prefix' => '</td></tr></table><div align="right">',
-    '#suffix' => '</div><span id="sub_loader" style="display: none; left: 0; position: absolute; top: 108px;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
+    '#prefix' => '</td></tr></table><div align="right add_button">',
+    '#suffix' => '<span id="sub_loader" style="display: none; left: 0; position: absolute; top: 108px;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
     '#id' => 'add_new_debate',
   );
   $form['link-arg'] = array(
     '#type' => 'item',
-    '#value' => l(t('Or post a reference'), '#') . t(' news, blog, gov, data...)'),
+    '#value' => l(t('Or post a reference'), '#') . t(' (news, blog, gov, data...)'),
     '#prefix' => '<div class="argument-form">',
     '#suffix' => '</div>',
     '#id' => 'link_arg',
@@ -2482,7 +2482,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#type' => 'item',
     '#value' => l(t('Or write an argument'), '#'),
     '#prefix' => '<div class="reference-form">',
-    '#suffix' => '</div>',
+    '#suffix' => '</div></div>',
     '#id' => 'link_ref',
   );
   return $form;
