@@ -2727,6 +2727,12 @@ h2.page-title {
 	background-color: #fff;
 	padding: 0;
 	margin: 0;
+	border-top: 1px solid #C0C0C0;
+}
+
+.poll-box .ul_wrapper h2.din {
+    line-height: 39px;
+    margin-bottom: 0;
 }
 
 /*.poll-box ul.tabs {
@@ -3803,6 +3809,7 @@ ul.control_links h6#reply:hover {
 	background-image:         linear-gradient(top, #fff, #f7f7f7);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#fff,endColorstr=#f7f7f7);
     zoom: 1;
+	padding-bottom: 18px;
 }
 
 .vote-results {
