@@ -2932,10 +2932,13 @@ h6#deb-ana:hover a,
 }
  
 #add-new-debate-form .form-submit {
-	float: none;
+	float: left;
     left: 0;
-    margin-top: 12px;
-    position: absolute;
+    margin: 12px 12px 0 0;
+}
+
+#add-new-debate-form .add_button {
+	position: absolute;
     top: 125px;
 }
 
