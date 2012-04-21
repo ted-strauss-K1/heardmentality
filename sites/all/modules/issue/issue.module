@@ -2433,7 +2433,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#default_value' => 'http://',
     '#size' => 60,
     '#maxlength' => 128,
-    '#prefix' => '<div class="reference-form"><label for="edit-ref-title">Post a reference (news, blog, gov, data...).</label>',
+    '#prefix' => '<div class="reference-form"><label for="edit-ref-title">Post a reference <span>(news, blog, gov, data...)</span>.</label>',
     '#suffix' => '</div><span class="error-msg" id="deb-err"></span>',
   );
   $ans = load_options($nid);

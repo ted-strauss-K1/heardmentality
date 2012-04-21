@@ -2815,10 +2815,17 @@ h6#deb-ana:hover a,
 .reference-form > label {
 	display: block;
 	cursor: text;
-	color: #924C9D;
+	color: #362750;
     font: italic bold 12px/15px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
 	padding-bottom: 6px;
 	text-transform: uppercase;
+}
+
+.reference-form > label span {
+	color: #666;
+    font: 12px/15px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
+	font-weight: normal;
+	font-style: italic;	
 }
 
 #deb_title-wrapper {
