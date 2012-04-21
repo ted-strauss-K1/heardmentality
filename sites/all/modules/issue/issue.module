@@ -2422,21 +2422,18 @@ function add_new_debate_form($form_state, $nid = '') {
     '#id' => 'deb_title',
     '#size' => 70,
     '#cols' => 10,
-    '#title' => t("What's your argument?"),
     // '#attributes' => array('class' => 'argument-form'),
     '#rows' => 3,
     '#resizable' => false,
-    //   '#suffix' => '<span class="error-msg" id="deb-err"></span>'
-    '#prefix' => '<div class="argument-form">',
-    '#suffix' => '</div>',
+    '#prefix' => '<div class="argument-form"><label for="deb_title">What\'s your argument?</label>',
+    '#suffix' => '</div><span class="error-msg" id="deb-err"></span>',
   );
   $form['ref_title'] = array(
     '#type' => 'textfield',
-    '#title' => t('Post a reference (news, blog, gov, data...)'),
     '#default_value' => 'http://',
     '#size' => 60,
     '#maxlength' => 128,
-    '#prefix' => '<div class="reference-form">',
+    '#prefix' => '<div class="reference-form"><label for="edit-ref-title">Post a reference (news, blog, gov, data...).</label>',
     '#suffix' => '</div>',
   );
   $ans = load_options($nid);
