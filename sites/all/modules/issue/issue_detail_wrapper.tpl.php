@@ -9,12 +9,11 @@
 <div><?php print $result_analysis; ?></div>
 
 <div class="ul_wrapper">
-<ul class="tabs">
-      <!-- Give href an ID value of corresponding "tabs-content" <li>'s -->
+<!--<ul class="tabs">
       <li><a class="active" href="#simple"><?php print t('Debate'); ?>&nbsp;<span class="debate-count">(<?php print $debateCount; ?>)</span></a></li>
       <li><a href="#lightweight" class="references"><?php print t('References'); ?>&nbsp;<span class="reference-count">(<?php print $resourceCount; ?>)</span></a></li>
-
-</ul>
+</ul>-->
+<h2 class="din">Debate</h2>
 </div>
 <ul class="tabs-content">
       <!-- Give ID that matches HREF of above anchors -->

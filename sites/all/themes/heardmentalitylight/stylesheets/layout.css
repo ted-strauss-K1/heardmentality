@@ -2724,13 +2724,14 @@ h2.page-title {
 }
 
 .poll-box .ul_wrapper {
-	background-color: #f7f7f7;
-	padding: 10px 0 0;
+	background-color: #fff;
+	padding: 0;
+	margin: 0;
 }
 
-.poll-box ul.tabs {
-	margin: 0 0 16px;
-}
+/*.poll-box ul.tabs {
+	
+}*/
 
 #new_vote + .icon.share.text {
 	display: none;
