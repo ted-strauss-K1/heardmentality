@@ -2825,7 +2825,8 @@ h6#deb-ana:hover a,
 	color: #666;
     font: 12px/15px "Helvetica Neue","HelveticaNeue",Helvetica,Arial,"Lucida Grande",sans-serif;
 	font-weight: normal;
-	font-style: italic;	
+	font-style: normal;	
+	text-transform: none;
 }
 
 #deb_title-wrapper {
