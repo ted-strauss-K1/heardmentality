@@ -6,20 +6,15 @@ $sitelink = url($path, array('absolute' => TRUE)) . '/';
 $items['title'] = str_replace("\r\n", "<br>", $items['title']);
 $items['title'] = str_replace("\n", "<br>", $items['title']);
 ?>
-<div id="forum-block-<?php print $items['debate_tnid']; ?>" class="one-forum">
+<div id="forum-block-<?php if (isset($items['debate_tnid']))
+  { print $items['debate_tnid'];} else {print $items['resource_id']; $class = ' resources';} ?>" class="one-forum<?php print $class?>">
   <!--<?php if ($comments) { ?>
-                      <h6 class="active">/ <?php print t('Argument'); ?></h6>
-  <?php }
-  else { ?>
-                      <h6 class="active"><a href="#">/ <?php print t('Argument'); ?></a></h6>
+                              <h6 class="active">/ <?php print t('Argument'); ?></h6>
   <?php } ?>-->
 
 
   <ul class="argument_box<?php
-  if (isset($items['resource_id'])) {
-    print ' references';
-    $image = !empty($items['image']) ? $items['image'] : file_directory_path() . '/noimage.jpg';
-  }
+  
   ?>">
     <li>
 
@@ -51,29 +46,28 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
           <?php if (isset($items['image'])) {
             ?>
             <span class="pic">
-              <a  target="_blank" title="reference" href="<?php print $items['nlink']; ?>" class="floatbox" data-fb-options="width:480 height:384">
+              <a target="_blank" title="reference" href="<?php print $items['nlink']; ?>" class="floatbox" data-fb-options="width:480 height:384">
                 <img src="<?php print $items['image'] ?>" alt=""/></a></span> <?php } ?>
+          <?php if (isset($items['resource_id'])) { ?>
 
-          <div class="ref_wrap"><h5 class="ref_title"><?php print t($items['title']); ?></h5>
-
-            <?php if (isset($items['source'])) { ?>
-              <span class="sourse">source: <?php print t($items['source']); ?></span>
-            <?php } ?>
-
-            <?php if (isset($items['resource_id'])) { ?>
-              <?php print t($items['body']); 
-              } else {?>
+              <div class="ref_wrap"><h5 class="ref_title"><a target="_blank" title="reference" href="
+            <?php print $items['nlink']; ?>" class="floatbox" data-fb-options="width:480 height:384">
+            <?php print t($items['title']); ?></a></h5>
+                <span class="source">source: <a target="_blank" title="reference" href="<?php print $items['nlink']; ?>" class="floatbox" data-fb-options="width:480 height:384">
+                    <?php print t($items['source']); ?> </a></span>
+                <p><?php print t($items['body']); ?></p>
+              </div>        
+            <?php }
+            else { ?>
               <p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
             <?php } ?>
+        </div>
+
+        <?php if (isset($items['debate_id'])) { ?>
+          <div class="position">
+            <?php print $strength; ?>
           </div>
-
-        </div>
-
-        <!-- DL эти маленькие плюсики и минусики с short answer нам, как я поняла по дизайну и пространному объяснению Теда относительно политики цитирования, не нужны -->
-        <div class="position">
-          <?php print $strength; ?>
-        </div>
-
+        <?php } ?>
         <div class="userinfo-debate">
           <span class="date"><?php print t('posted '); ?><span><?php echo $items['ago']; ?></span></span>
           <a class="user-thumb" href="<?php print $sitelink . 'profile/' . $items['uname']; ?>"><img src="<?php print UserPicture_small_src($items['uid']); ?>" alt="<?php print $items['uname']; ?>" class="user-thumb" ></a>
@@ -113,7 +107,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
         <?php print $ratings; ?>
 
         <?php if ($reply_box): ?>
-                        <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
+                                <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
           <ul class="argument_replybox">
             <div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
             <div id="reply-comment" class="hidden"> 
