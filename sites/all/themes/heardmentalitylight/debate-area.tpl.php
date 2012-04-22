@@ -56,7 +56,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     </div>
 
     <ul>
-      <li><a href="#tabs-1">older</a></li>
+      <li><a href="<?php print $base_path ?>/heardmentality/issue/<?php print $nid ?>/tab_content/1/0">older</a></li>
       <li><a href="<?php print $base_path ?>/heardmentality/issue/<?php print $nid ?>/tab_content/1/1">recent</a></li>
       <li><a href="<?php print $base_path ?>/issue/<?php print $nid ?>/tab_content/1/2">supported</a></li>
     </ul>
@@ -66,7 +66,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 
   <div class="comments expanding" style="position: relative; z-index: 13;">
     <div id ="tabs-1">
-      <?php print $debateList[0]; ?>
+      <?php //print $debateList[0]; ?>
     </div>
     <div id ="tabs-2">
       <?php //print $debateList[1]; ?>
