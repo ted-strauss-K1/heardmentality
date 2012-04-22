@@ -19,7 +19,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     </div>
 
     <div id="analytics-area" class="hidden_deb" style="display: none;">
-	  <h2><span>Debate statistics</span></h2>	
+      <h2><span>Debate statistics</span></h2>	
       <?php print $debateStatistics; ?>
       <div id="deb-ana-load-txt"></div>
       <div id="load-deb-statics"></div>
@@ -56,7 +56,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     </div>
 
     <ul>
-      <li><a href="<?php print $base_path ?>/heardmentality/issue/<?php print $nid ?>/tab_content/1/0">older</a></li>
+      <li><a href="<?php print $base_path ?>/issue/<?php print $nid ?>/tab_content/1/0">older</a></li>
       <li><a href="<?php print $base_path ?>/heardmentality/issue/<?php print $nid ?>/tab_content/1/1">recent</a></li>
       <li><a href="<?php print $base_path ?>/issue/<?php print $nid ?>/tab_content/1/2">supported</a></li>
     </ul>
