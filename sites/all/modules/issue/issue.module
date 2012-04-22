@@ -2191,9 +2191,7 @@ function view_issue_results($nid = '') {
     //$results = theme('issue_result_analysis',$nid);
   }
   $debates = theme('issue_debate_list', $nid);
-  $resources = theme('issue_resource_list', $nid);
-
-
+  //$resources = theme('issue_resource_list', $nid);
 
   // get debate, resource, pundit counts
   $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$tnid'"));
@@ -2217,9 +2215,11 @@ function theme_issue_debate_list($nid = '') {
   $debateFilterForm = drupal_get_form('filter_options', $nid);
   //$debateStatistics = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=analysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
   $debateStatistics = '<input type="hidden" id="curr_nid" value="' . $nid . '" />';
-  $debateList[0] = issue_debates($nid, 1, 0);
-  $debateList[1] = issue_debates($nid, 1, 1);
-  $debateList[2] = issue_debates($nid, 1, 2);
+  //$debateList[1] = issue_debates($nid, 1, 0);
+  $debateList[0] = issue_ajax_tab_content($nid, 1, 0, 1);
+//krumo($debateList);
+ // $debateList[1] = issue_debates($nid, 1, 1);
+ // $debateList[2] = issue_debates($nid, 1, 2);
   $result = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 1 and field_ref_qid_nid =%d', $nid);
   $count = db_result($result);
   $ans = load_options($nid);

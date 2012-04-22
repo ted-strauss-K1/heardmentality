@@ -2647,7 +2647,7 @@ function report_get_ans_range_history($nid='', $range='') {
   return $answer[0];
 }
 
-function issue_ajax_tab_content($qid, $type, $sort = null) {
+function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
   global $user, $language, $theme;
   $curLanguage = $language->language;
   $wave = '';
@@ -2726,7 +2726,6 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
     $debate_theme .= '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
   }
 
-
   //get resourses
   $tid = get_taxonomy_id('forum', 'Resource');
   $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
@@ -2740,7 +2739,7 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
     $i = 0;
 
     while ($node = db_fetch_object($nodes)) {
-      
+
       //field_rtype_value
       if ($rtype == 4) {
         $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
@@ -2792,6 +2791,10 @@ function issue_ajax_tab_content($qid, $type, $sort = null) {
   }
 
 // end resourses
-
-  print $debate_theme;
+  if ($print == 1) {
+    return $debate_theme;
+  }
+  else {
+    print $debate_theme;
+  }
 }
