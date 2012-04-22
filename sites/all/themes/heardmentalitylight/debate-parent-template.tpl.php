@@ -8,10 +8,10 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 ?>
 <div id="forum-block-<?php print $items['debate_tnid']; ?>" class="one-forum">
   <!--<?php if ($comments) { ?>
-                  <h6 class="active">/ <?php print t('Argument'); ?></h6>
+                      <h6 class="active">/ <?php print t('Argument'); ?></h6>
   <?php }
   else { ?>
-                  <h6 class="active"><a href="#">/ <?php print t('Argument'); ?></a></h6>
+                      <h6 class="active"><a href="#">/ <?php print t('Argument'); ?></a></h6>
   <?php } ?>-->
 
 
@@ -48,20 +48,23 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
           <?php } ?> 
         </span>
         <div class="goog-trans-section argument_body">
-          <?php if ($items['rtype'] == 'multimedia' && $items['filepath'] == '') {
+          <?php if (isset($items['image'])) {
             ?>
             <span class="pic">
-  <a  target="_blank" title="Youtube Video" href="http://www.youtube.com/v/<?php print $items['video_id']; ?>" class="floatbox" data-fb-options="width:480 height:384">
-              <img src="http://img.youtube.com/vi/<?php print $items['video_id']; ?>/default.jpg" alt=""/></a></span> <?php } ?>
-        
-          
-          
-          
+              <a  target="_blank" title="reference" href="<?php print $items['nlink']; ?>" class="floatbox" data-fb-options="width:480 height:384">
+                <img src="<?php print $items['image'] ?>" alt=""/></a></span> <?php } ?>
+
           <div class="ref_wrap"><h5 class="ref_title"><?php print t($items['title']); ?></h5>
-          <span class="sourse">source: </span><?php print t($items['body']); ?>
 
-          <p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
+            <?php if (isset($items['source'])) { ?>
+              <span class="sourse">source: <?php print t($items['source']); ?></span>
+            <?php } ?>
 
+            <?php if (isset($items['resource_id'])) { ?>
+              <?php print t($items['body']); 
+              } else {?>
+              <p><?php print t($items['title']); ?></p>&nbsp;<div class="sq">[<div class="goog-trans-control translate"></div>]</div>
+            <?php } ?>
           </div>
 
         </div>
@@ -110,7 +113,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
         <?php print $ratings; ?>
 
         <?php if ($reply_box): ?>
-                    <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
+                        <!--<h6 value="Reply" id="reply" class="add-comment button light <?php print $loginBoxClass; ?>"><?php print t('Reply'); ?></h6>-->
           <ul class="argument_replybox">
             <div id="reply-msg-<?php print $items['debate_tnid']; ?>" class="suc-msg"></div>
             <div id="reply-comment" class="hidden"> 

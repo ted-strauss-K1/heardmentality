@@ -2607,7 +2607,7 @@ function add_new_debate_form_submit($form, &$form_state) {
     module_load_include('php', 'debate', 'simple_html_dom');
     $html = file_get_html($form_state['values']['ref_title']);
     if (strpos($form_state['values']['ref_title'], 'youtube.com')) {
-      $body = $html->find('#eow-description', 0)->plaintext;
+      $body = $html->find('#eow-description', 0)->innertext;
       $title = $html->find('#eow-title', 0)->innertext;
       $html->clear();
       $idStarts = strpos($form_state['values']['ref_title'], "?v=");
@@ -2620,15 +2620,13 @@ function add_new_debate_form_submit($form, &$form_state) {
       $idStarts += 3;
       $ytvID = substr($form_state['values']['ref_title'], $idStarts, 11);
       $res->title = $title;
+      $res->body = $body;
       $res->field_mtype[0]['value'] = 'video';
       $res->field_videoid[0]['value'] = $ytvID;
-      $domain = parse_url($url, PHP_URL_HOST);
-
       $res->field_filepath[0]['value'] = 'http://img.youtube.com/vi/' . $ytvID . '/default.jpg';
     }
     else {
       module_load_include('php', 'debate', 'url_to_absolute');
-      $domain = parse_url($form_state['values']['ref_title'], PHP_URL_HOST);
       $html = file_get_html($form_state['values']['ref_title']);
       foreach ($html->find('img') as $element) {
         $abs_url = url_to_absolute($form_state['values']['ref_title'], $element->src);
@@ -2648,6 +2646,7 @@ function add_new_debate_form_submit($form, &$form_state) {
       $html->clear();
     }
     $res->type = 'forum';
+    $res->field_source[0]['value'] = parse_url($form_state['values']['ref_title'], PHP_URL_HOST);
     $res->uid = $user->uid;
     $res->field_nlink[0]['value'] = $form_state['values']['ref_title'];
     $res->status = 1;
@@ -2902,8 +2901,6 @@ function load_resource_datas($resId = '', $issId = '', $issTnid = '', $resType =
       'content_id' => $row->cid,
       'tag' => 'vote',
       'vote_type' => 'down');
-    //$voteUp += vote_up_down_count($criteriaUp);
-    //$voteDown += vote_up_down_count($criteriaDown);
   }
 
   //$query = "select * from {debate_options} a,{possible_answer} b where a.paid=b.paid AND a.nid='" . $forum->nid . "'";
@@ -2939,6 +2936,7 @@ function load_resource_datas($resId = '', $issId = '', $issTnid = '', $resType =
   $item['vote_down'] = $voteDown;
   $item['allow_rating'] = $allowRating;
   $item['posted_by'] = $forum->uid;
+  $item['source'] = $forum->field_source[0]['value'] != '' ? $forum->field_source[0]['value'] : '';
 
   $date1 = new DateTime($item['posted']);
   $date2 = new DateTime("now");
@@ -2971,11 +2969,11 @@ function load_resource_datas($resId = '', $issId = '', $issTnid = '', $resType =
   }
   $item['ago'] = $ago;
   // media
-  if ($resType == 'multimedia') {
+ // if ($resType == 'multimedia') {
     $item['video_id'] = $forum->field_videoid[0]['value'] != '' ? $forum->field_videoid[0]['value'] : '';
     $item['nlink'] = $forum->field_nlink[0]['value'] != '' ? $forum->field_nlink[0]['value'] : '';
     $item['filepath'] = $forum->field_filepath[0]['value'] != '' ? $forum->field_filepath[0]['value'] : '';
-  }
+ // }
 
   return $item;
 }

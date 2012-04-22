@@ -5,15 +5,7 @@ $path = '<front>';
 $sitelink = url($path, array('absolute' => TRUE)) . '/';
 $items['title'] = str_replace("\r\n", "<br>", $items['title']);
 $items['title'] = str_replace("\n", "<br>", $items['title']);
-/*  krumo($items);
-  krumo($strength);
-  krumo($comments);
-  krumo($reply_box);
-  krumo($reply_count);
-  krumo($ratings);
-  krumo($delete);
-  exit;
- */
+
 ?>
 <div id="forum-block-<?php print $items['debate_tnid']; ?>"> 
   <?php if ($comments) { ?>
