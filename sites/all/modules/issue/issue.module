@@ -2607,7 +2607,10 @@ function add_new_debate_form_submit($form, &$form_state) {
     module_load_include('php', 'debate', 'simple_html_dom');
     $html = file_get_html($form_state['values']['ref_title']);
     if (strpos($form_state['values']['ref_title'], 'youtube.com')) {
-      $body = $html->find('#eow-description', 0)->innertext;
+      $body = $html->find('#eow-description', 0)->plaintext;
+      if (strlen($body) > 200) {
+        $text = substr($body, 0, strpos($body, " ", 200));
+      }
       $title = $html->find('#eow-title', 0)->innertext;
       $html->clear();
       $idStarts = strpos($form_state['values']['ref_title'], "?v=");
@@ -2620,7 +2623,7 @@ function add_new_debate_form_submit($form, &$form_state) {
       $idStarts += 3;
       $ytvID = substr($form_state['values']['ref_title'], $idStarts, 11);
       $res->title = $title;
-      $res->body = $body;
+      $res->body = $text;
       $res->field_mtype[0]['value'] = 'video';
       $res->field_videoid[0]['value'] = $ytvID;
       $res->field_filepath[0]['value'] = 'http://img.youtube.com/vi/' . $ytvID . '/default.jpg';
@@ -2969,11 +2972,11 @@ function load_resource_datas($resId = '', $issId = '', $issTnid = '', $resType =
   }
   $item['ago'] = $ago;
   // media
- // if ($resType == 'multimedia') {
-    $item['video_id'] = $forum->field_videoid[0]['value'] != '' ? $forum->field_videoid[0]['value'] : '';
-    $item['nlink'] = $forum->field_nlink[0]['value'] != '' ? $forum->field_nlink[0]['value'] : '';
-    $item['filepath'] = $forum->field_filepath[0]['value'] != '' ? $forum->field_filepath[0]['value'] : '';
- // }
+  // if ($resType == 'multimedia') {
+  $item['video_id'] = $forum->field_videoid[0]['value'] != '' ? $forum->field_videoid[0]['value'] : '';
+  $item['nlink'] = $forum->field_nlink[0]['value'] != '' ? $forum->field_nlink[0]['value'] : '';
+  $item['filepath'] = $forum->field_filepath[0]['value'] != '' ? $forum->field_filepath[0]['value'] : '';
+  // }
 
   return $item;
 }
