@@ -43,7 +43,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     print ' Arguments'; ?></span>
 
     <div class="show_only">
-      <span class="button" href="">&#9660; Show only</span> <div class="inc"><form id="inc_ref"><input type="checkbox" value="include references" id="inc_check" /><label for="inc_check">Include References</label></form></div>
+      <span class="button" href="">&#9660; Show only</span> <div class="inc"><form id="inc_ref"><input type="checkbox" checked="yes" value="include references" id="inc_check" /><label for="inc_check">Include References</label></form></div>
       <div class="popup hidden">
         <span class="title">Show all</span>
         <?php foreach ($show_only as $key => $answer) {
