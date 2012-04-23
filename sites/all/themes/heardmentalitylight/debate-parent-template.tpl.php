@@ -48,9 +48,9 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
             ?>
             <span class="pic">
               <a target="_blank" title="reference" href="<?php print $items['nlink']; ?>" class="floatbox" data-fb-options="width:480 height:384">
-              <!--  <img src="<?php //print $items['image']; ?>" alt=""/> -->
+                <img src="<?php print $items['image']; ?>" alt=""/> 
               
-              <?php print theme('imagecache', 'scale-width110', $items['image'],'','reference');?>
+              <?php //print theme('imagecache', 'scale-width110', $items['image'],'','reference');?>
               
               </a></span> <?php } ?>
           <?php if (isset($items['resource_id'])) { ?>
