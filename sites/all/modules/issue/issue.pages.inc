@@ -2665,26 +2665,42 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
   elseif (isset($sort) && $sort == 0) {
     $sorting = 'ORDER BY n.created ASC';
   }
-  $tid = get_taxonomy_id('forum', 'Debate');
-  if (empty($cond)) {
+  /*
+    $tid = get_taxonomy_id('forum', 'Debate');
+    if (empty($cond)) {
     $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid JOIN {debate_options} as do ON n.nid = do.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
-  }
-  else {
+    }
+    else {
     $sql = "SELECT DISTINCT(f.nid) FROM  {debate_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
-  }
+    }
+   */
+
+  $sql = "SELECT DISTINCT(f.nid),f.tid FROM {forum} as f
+    LEFT JOIN {content_type_forum} as c ON f.nid = c.nid
+    JOIN {node} as n ON f.nid = n.nid
+    WHERE c.field_ref_qid_nid = '%d' $sorting";
+
   // forum for translated languages
   $issueId = $qid;
   $tnid = get_tnid($qid);
   $qid = $tnid;
+  $nodes = db_query($sql, $qid);
+  $count = db_result(db_query($sql, $qid));
 
-  $nodes = db_query($sql, $tid, $qid);
-  $count = db_result(db_query($sql, $tid, $qid));
-
+  /*
+    $nodes = db_query($sql, $tid, $qid);
+    $count = db_result(db_query($sql, $tid, $qid));
+   */
   if ($count > 0) {
     $i = 0;
     while ($node = db_fetch_object($nodes)) {
+      if ($node->tid == 6) {
+        $items = load_debate_datas($node->nid, $issueId, $tnid);
+      }
+      else {
+        $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
+      }
 
-      $items = load_debate_datas($node->nid, $issueId, $tnid);
       // anwers strength
       $strnth = $items['strength'];
       $strength = '';
@@ -2726,70 +2742,71 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
     $debate_theme .= '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
   }
 
-  //get resourses
-  $tid = get_taxonomy_id('forum', 'Resource');
-  $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
-  $issueId = $qid;
-  $tnid = get_tnid($qid);
-  $qid = $tnid;
+  /*
+    //get resourses
+    $tid = get_taxonomy_id('forum', 'Resource');
+    $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
+    $issueId = $qid;
+    $tnid = get_tnid($qid);
+    $qid = $tnid;
 
-  $nodes = db_query($sql, $tid, $qid);
-  $count = db_result(db_query($sql, $tid, $qid));
-  if ($count > 0) {
+    $nodes = db_query($sql, $tid, $qid);
+    $count = db_result(db_query($sql, $tid, $qid));
+    if ($count > 0) {
     $i = 0;
 
     while ($node = db_fetch_object($nodes)) {
 
-      //field_rtype_value
-      if ($rtype == 4) {
-        $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
-      }
-      else {
-        $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
-      }
-      $strnth = $items['strength'];
-      $strength = '';
-      foreach ($strnth as $list) {
-        $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
-        $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '" . $items['issue_id'] . "' AND chorder = '" . $list['chorder'] . "'"));
-        $ans = $short_answer != '' ? $short_answer : $tranAns;
-
-        switch ($list['ans_val']) {
-          case 1:
-            $strength.='<div><span class="green-box">+</span>' . $ans . '</div>';
-            break;
-          case 2:
-            $strength.='<div><span class="red-box">-</span>' . $ans . '</div>';
-            break;
-        }
-      }
-
-      // delete
-      if (is_moderator() || $items['uid'] == $user->uid) {
-        $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['resource_id'] . '\', \'resource\')">' . t('Delete') . '</h6>';
-      }
-      else {
-        $delete = '';
-      }
-
-      // reply box
-      $reply_box = drupal_get_form('forum_reply_form', $items['resource_id'], $items['resource_id'], $items['issue_id']);
-      $comments = forum_replies($items['resource_id'], 0);
-      $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['resource_id'] . "'"));
-
-      // ratings
-      // allow rating check
-      $ratings = get_rating_buttons($items, 'is_resource');
-      $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-      //  $resouce_theme .= theme('reference_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-      $tForumId = get_tnid($node->nid);
-      resource_roundup($tForumId);
+    //field_rtype_value
+    if ($rtype == 4) {
+    $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
     }
-  }
-  else {
-    // $resouce_theme = '<div class="messages warning">' . t('No Resource Posted Yet!!') . '</div>';
-  }
+    else {
+    $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
+    }
+    $strnth = $items['strength'];
+    $strength = '';
+    foreach ($strnth as $list) {
+    $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
+    $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '" . $items['issue_id'] . "' AND chorder = '" . $list['chorder'] . "'"));
+    $ans = $short_answer != '' ? $short_answer : $tranAns;
 
+    switch ($list['ans_val']) {
+    case 1:
+    $strength.='<div><span class="green-box">+</span>' . $ans . '</div>';
+    break;
+    case 2:
+    $strength.='<div><span class="red-box">-</span>' . $ans . '</div>';
+    break;
+    }
+    }
+
+    // delete
+    if (is_moderator() || $items['uid'] == $user->uid) {
+    $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['resource_id'] . '\', \'resource\')">' . t('Delete') . '</h6>';
+    }
+    else {
+    $delete = '';
+    }
+
+    // reply box
+    $reply_box = drupal_get_form('forum_reply_form', $items['resource_id'], $items['resource_id'], $items['issue_id']);
+    $comments = forum_replies($items['resource_id'], 0);
+    $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['resource_id'] . "'"));
+
+    // ratings
+    // allow rating check
+    $ratings = get_rating_buttons($items, 'is_resource');
+    $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
+    //  $resouce_theme .= theme('reference_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
+    $tForumId = get_tnid($node->nid);
+    resource_roundup($tForumId);
+    }
+    }
+    else {
+    // $resouce_theme = '<div class="messages warning">' . t('No Resource Posted Yet!!') . '</div>';
+    }
+   */
 // end resourses
   if ($print == 1) {
     return $debate_theme;
