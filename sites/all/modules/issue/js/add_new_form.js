@@ -49,8 +49,9 @@ jQuery('#add-new-debate-form').live('submit', function(e){
       //jQuery('#add-new-debate-form').clearForm();
       jQuery('#add-new-debate-form select').val(0);
       jQuery('#add-new-debate-form textarea').val('');
-      $('#debate_list_area').tabs("load", 0);
+      $('#debate_list_area').tabs("load", 1);
       $('#debate_list_area').tabs("load", 2);
+      $('#debate_list_area').tabs("select", 1);
       jQuery('#deb-err').fadeIn("slow");
       jQuery('#deb-err').html(msg.message); 
       if(msg.success_post == 1) {
