@@ -2590,7 +2590,7 @@ function add_new_debate_form_submit($form, &$form_state) {
         $ratings = get_rating_buttons($items, 'is_debate');
 
         $json['success_post'] = 1;
-        $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
+     //   $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
         $json['message'] = '<span class="posted">Your argument posted successfully!</span>';
       }
       else {
@@ -2665,6 +2665,10 @@ function add_new_debate_form_submit($form, &$form_state) {
     $res->field_type[0]['value'] = '2';
     $res->language = 'en';
     $save = node_save($res);
+    $json['success_post'] = 1;
+    $json['message'] = '<span class="posted">Your reference posted successfully!</span>';
+    print json_encode($json);
+    exit;
   }
 }
 
