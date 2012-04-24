@@ -4024,16 +4024,18 @@ span.small_pos,
 	background-color: #d7d7d7;
 }
 
-#debate_list_area .arg span.sum.small span {
-    width: 28px;
-	font: 16px/18px Arial,sans-serif;
-    height: 18px;
+#debate_list_area .arg span.sum.middle span {
+    font: 24px/26px Arial,sans-serif;
+    height: 26px;
+    padding: 12px 10px;
+    width: 30px;
 }
 
-#debate_list_area .arg span.sum.middle span {
-    width: 34px;
-	font: 21px/23px Arial,sans-serif;
-    height: 23px;
+#debate_list_area .arg span.sum.small span {
+    width: 20px;
+	font: 20px/22px Arial,sans-serif;
+    height: 22px;
+	padding: 9px 10px;
 }
 
 #debate_list_area .arg span.sum span.positive {
