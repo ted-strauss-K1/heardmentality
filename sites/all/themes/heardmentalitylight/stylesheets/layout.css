@@ -3225,11 +3225,11 @@ h6#deb-ana:hover a,
 }
 
 #debate_list_area .arg span.sum.small {
-    left: -30px;
+    left: -20px;
 }
 
 #debate_list_area .arg span.sum.middle {
-    left: -30px;
+    left: -25px;
 }
 
 /*#debate_list_area .one-forum:first-child .arg span.sum {
@@ -4016,7 +4016,7 @@ span.small_pos,
 	-khtml-border-radius: 200px;
     color: #FFFFFF;
     display: inline-block;
-    font: 26px/28px Arial,sans-serif;
+    font: 24px/28px Arial,sans-serif;
     height: 28px;
     padding: 16px 5px;
     text-align: center;
@@ -4025,7 +4025,7 @@ span.small_pos,
 }
 
 #debate_list_area .arg span.sum.middle span {
-    font: 24px/26px Arial,sans-serif;
+    font: 22px/26px Arial,sans-serif;
     height: 26px;
     padding: 12px 8px;
     width: 34px;
