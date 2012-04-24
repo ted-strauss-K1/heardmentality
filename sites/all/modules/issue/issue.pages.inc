@@ -22,7 +22,7 @@ function report_percent($nid='') {
   $vans = "select * from {poll_choices} where  nid='" . $nid . "' ORDER BY chorder";
 
   $vlist = ExecuteQuery($vans, "select");
-  $cnt_ans = count($vlist);
+  $cnt_ans = count($vlist); //кол-во ответов
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
   $inline = "var example = 'bar-stacked',
@@ -31,17 +31,22 @@ function report_percent($nid='') {
 
   $ans_array = array();
   for ($ab = 0; $ab < $cnt_ans; $ab++) {
-
     $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
     $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
     $answer = substr(t(addslashes($answer)), 0, 16);
     array_push($ans_array, $answer);
-    //array_push($ans_array, $vlist[$ab]['answer']);
   }
   $result = report_percent_broken($nid, '', $_REQUEST);
-  //echo "<pre>";
-  //print_r($result);
-  $ans = $result['divide'];
+  //$ans = $result['divide'];
+  if ($_REQUEST['dochg'] == '') {
+    $ans = $result['divide'];
+  }
+  else {
+    $ans = $ans_array;
+    $ans_array = $result['divide'];
+  }
+
+
   $cnt = $result['cnt'];
 
   foreach ($ans as $key => $value) {
@@ -50,6 +55,8 @@ function report_percent($nid='') {
 
   $per = json_encode($result);
   $inc = rtrim($ins_script, ',');
+
+
   $output .= "
 		<script >
 
@@ -211,7 +218,6 @@ function report_percent($nid='') {
 
 function report_percent_broken($nid = '', $aid = '', $array = '') {
   global $user, $base_root, $base_path;
-
   $filter = '';
   $filter = (!empty($array['dochg'])) ? $array['dochg'] : '';
   $vans = "select * from {poll_choices} where  nid='" . $nid . "'  order by chorder";
@@ -233,67 +239,69 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         else
           $gen = '0';
 
-        $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
           $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND u.gender='" . $gen . "' ";
           $tcnt = ExecuteQuery($query, "norows");
-          $inc_cnt .= $tcnt . ',';
+           $new_val_array[$ab][$key] = $tcnt;
         }
-        $inc_cnt = rtrim($inc_cnt, ",");
-        $inc_cnt .= ']';
-        $answer_cnt[] = $inc_cnt;
+ 
       }
+      foreach ($new_val_array as $key => $value) {
+        $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
+      }
+      $answer_cnt = $answer_cnt2;
 
       break;
     case 'age':
       $answer['divide'] = array('18-30', '30-50', '50 above', 'undefined');
 
       foreach ($answer['divide'] as $key => $value) {
-        if ($key == 0)
+        if ($key == 0) {
           $query_ins = "AND u.age BETWEEN '18' AND '30' ";
-        elseif ($key == 1)
+        }
+        elseif ($key == 1) {
           $query_ins = "AND u.age BETWEEN '31' AND '50'";
-        elseif ($key == 2)
+        }
+        elseif ($key == 2) {
           $query_ins = "AND u.age>='51' ";
-        else
+        }
+        else {
           $query_ins = "AND u.age='0' ";
+        }
 
-
-        $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
           $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' " . $query_ins;
           $tcnt = ExecuteQuery($query, "norows");
-          $inc_cnt .= $tcnt . ',';
+          $new_val_array[$ab][$key] = $tcnt;
         }
-        $inc_cnt = rtrim($inc_cnt, ",");
-        $inc_cnt .= ']';
-
-        $answer_cnt[] = $inc_cnt;
       }
+      foreach ($new_val_array as $key => $value) {
+        $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
+      }
+      $answer_cnt = $answer_cnt2;
 
 
-      //$answer_cnt;
       break;
     case 'religion':
       $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other', 'undefined');
 
       foreach ($answer['divide'] as $list) {
-        if ($list == 'undefined')
+        if ($list == 'undefined') {
           $reg = '0';
-        else
+        }
+        else {
           $reg = $list;
-
-        $inc_cnt = '[';
+        }
         for ($ab = 0; $ab < count($vlist); $ab++) {
           $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND religion='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
-          $inc_cnt .= $tcnt . ',';
+          $new_val_array[$ab][$key] = $tcnt;
         }
-        $inc_cnt = rtrim($inc_cnt, ",");
-        $inc_cnt .= ']';
-        $answer_cnt[] = $inc_cnt;
       }
-
+      foreach ($new_val_array as $key => $value) {
+        $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
+      }
+      $answer_cnt = $answer_cnt2;
 
       break;
     case 'ethnicity':
@@ -305,16 +313,16 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         else
           $reg = $list;
 
-        $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
           $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND ethnic='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
-          $inc_cnt .= $tcnt . ',';
+          $new_val_array[$ab][$key] = $tcnt;
         }
-        $inc_cnt = rtrim($inc_cnt, ",");
-        $inc_cnt .= ']';
-        $answer_cnt[] = $inc_cnt;
       }
+      foreach ($new_val_array as $key => $value) {
+        $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
+      }
+      $answer_cnt = $answer_cnt2;
 
       break;
     case 'income':
@@ -325,19 +333,19 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
           $reg = '0';
         else
           $reg = $list;
-
-
-        $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
           $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND income='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
-          $inc_cnt .= $tcnt . ',';
+          $new_val_array[$ab][$key] = $tcnt;
         }
-        $inc_cnt = rtrim($inc_cnt, ",");
-        $inc_cnt .= ']';
-        $answer_cnt[] = $inc_cnt;
       }
-      $answer['divide'] = array('0' => '$0-$9,999', '1' => '$10,000 - $19,999', '2' => '$20,000 - $39,999', '3' => '$40,000 - $69,999', '4' => '$70,000 - $99,999', '5' => '$100,000 - $149,999', '6' => '$150,000 - $299,999', '7' => '>$300,000', '8' => 'undefined');
+      //    $answer['divide'] = array('0' => '$0-$9,999', '1' => '$10,000 - $19,999', '2' => '$20,000 - $39,999', '3' => '$40,000 - $69,999', '4' => '$70,000 - $99,999', '5' => '$100,000 - $149,999', '6' => '$150,000 - $299,999', '7' => '>$300,000', '8' => 'undefined');
+
+      foreach ($new_val_array as $key => $value) {
+        $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
+      }
+      $answer_cnt = $answer_cnt2;
+
       break;
     case 'marital':
       $answer['divide'] = array('Single', 'Married', 'Divorced', 'Widow', 'undefined');
@@ -348,40 +356,37 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         else
           $reg = $list;
 
-
-        $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
           $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND marital='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
-          $inc_cnt .= $tcnt . ',';
+
+          $new_val_array[$ab][$key] = $tcnt;
         }
-        $inc_cnt = rtrim($inc_cnt, ",");
-        $inc_cnt .= ']';
-        $answer_cnt[] = $inc_cnt;
       }
+      foreach ($new_val_array as $key => $value) {
+        $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
+      }
+      $answer_cnt = $answer_cnt2;
+
 
       break;
     case 'sorient':
       $answer['divide'] = array('Straight', 'Gay', 'Bisexual', 'Transgender', 'undefined');
-
       foreach ($answer['divide'] as $list) {
         if ($list == 'undefined')
           $reg = '0';
         else
           $reg = $list;
-
-
-        $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
           $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND sorient='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
-          $inc_cnt .= $tcnt . ',';
+          $new_val_array[$ab][$key] = $tcnt;
         }
-        $inc_cnt = rtrim($inc_cnt, ",");
-        $inc_cnt .= ']';
-        $answer_cnt[] = $inc_cnt;
       }
-
+      foreach ($new_val_array as $key => $value) {
+        $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
+      }
+      $answer_cnt = $answer_cnt2;
 
       break;
     case 'edu':
@@ -392,33 +397,23 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
           $reg = '0';
         else
           $reg = $list;
-
-
-        $inc_cnt = '[';
         for ($ab = 0; $ab < count($vlist); $ab++) {
           $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND edu='" . $reg . "'";
           $tcnt = ExecuteQuery($query, "norows");
-          $inc_cnt .= $tcnt . ',';
+          $new_val_array[$ab][$key] = $tcnt;
         }
-        $inc_cnt = rtrim($inc_cnt, ",");
-        $inc_cnt .= ']';
-        $answer_cnt[] = $inc_cnt;
       }
+      foreach ($new_val_array as $key => $value) {
+        $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
+      }
+      $answer_cnt = $answer_cnt2;
+
       break;
+
+
 
     default:
       $answer['divide'] = array('Total Votes');
-      /*   $inc_cnt = '[';
-        krumo($vlist);
-        for ($ab = 0; $ab < count($vlist); $ab++) {
-        $query = "select * from {poll_votes} as p left join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' ";
-        $tcnt = ExecuteQuery($query, "norows");
-        $inc_cnt .= $tcnt . ',';
-        }
-        $inc_cnt = rtrim($inc_cnt, ",");
-        $inc_cnt .= ']';
-        $answer_cnt[] = $inc_cnt;
-        krumo($answer_cnt); */
       foreach ($vlist as $key => $chvote) {
         $total_votes[] = $chvote['chvotes'];
       }
@@ -490,7 +485,7 @@ function report_graph($nid='') {
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
 
-
+//drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
 
   $output.= "<script type='text/javascript' language='javascript'>";
 
