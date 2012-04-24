@@ -55,8 +55,6 @@ function report_percent($nid='') {
 
   $per = json_encode($result);
   $inc = rtrim($ins_script, ',');
-
-
   $output .= "
 		<script >
 
@@ -87,7 +85,7 @@ function report_percent($nid='') {
 					title: {
 						text: null
 					},
-					
+
 					xAxis: {
 						categories: " . json_encode($ans_array) . ",
 						title: {
@@ -165,7 +163,7 @@ function report_percent($nid='') {
 					plotOptions: {
 						bar: {
 							dataLabels: {
-								enabled: false
+								enabled: true
 							},
 							borderColor: '#fff',
 							borderWidth: 0,
@@ -231,7 +229,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
     case 'gender':
       $answer['divide'] = array('male', 'female', 'undefined');
 
-      foreach ($answer['divide'] as $list) {
+      foreach ($answer['divide'] as $key => $list) {
         if ($list == 'male')
           $gen = 1;
         elseif ($list == 'female')
@@ -242,9 +240,9 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         for ($ab = 0; $ab < count($vlist); $ab++) {
           $query = "select * from {poll_votes} as p join {user_profile} as u on u.uid=p.uid where  p.nid='" . $nid . "' and p.chorder='" . $vlist[$ab]['chorder'] . "' AND u.gender='" . $gen . "' ";
           $tcnt = ExecuteQuery($query, "norows");
-           $new_val_array[$ab][$key] = $tcnt;
+          $new_val_array[$ab][$key] = $tcnt;
         }
- 
+        
       }
       foreach ($new_val_array as $key => $value) {
         $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
@@ -285,7 +283,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
     case 'religion':
       $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other', 'undefined');
 
-      foreach ($answer['divide'] as $list) {
+      foreach ($answer['divide'] as $key => $list) {
         if ($list == 'undefined') {
           $reg = '0';
         }
@@ -307,7 +305,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
     case 'ethnicity':
       $answer['divide'] = array('Caucasian', 'Black', 'Asian', 'Indian', 'Semetic', 'Latin', 'Aborigines', 'undefined');
 
-      foreach ($answer['divide'] as $list) {
+      foreach ($answer['divide'] as $key => $list) {
         if ($list == 'undefined')
           $reg = '0';
         else
@@ -328,7 +326,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
     case 'income':
       $answer['divide'] = array('$0-$9,999', '$10,000 - $19,999', '$20,000 - $39,999', '$40,000 - $69,999', '$70,000 - $99,999', '$100,000 - $149,999', '$150,000 - $299,999', '>$300,000', 'undefined');
 
-      foreach ($answer['divide'] as $list) {
+      foreach ($answer['divide'] as $key => $list) {
         if ($list == 'undefined')
           $reg = '0';
         else
@@ -350,7 +348,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
     case 'marital':
       $answer['divide'] = array('Single', 'Married', 'Divorced', 'Widow', 'undefined');
 
-      foreach ($answer['divide'] as $list) {
+      foreach ($answer['divide'] as $key => $list) {
         if ($list == 'undefined')
           $reg = '0';
         else
@@ -372,7 +370,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
       break;
     case 'sorient':
       $answer['divide'] = array('Straight', 'Gay', 'Bisexual', 'Transgender', 'undefined');
-      foreach ($answer['divide'] as $list) {
+      foreach ($answer['divide'] as $key => $list) {
         if ($list == 'undefined')
           $reg = '0';
         else
@@ -392,7 +390,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
     case 'edu':
       $answer['divide'] = array('No High School', 'High School', 'Technical College', 'Masters Degree', 'PhD', 'undefined');
 
-      foreach ($answer['divide'] as $list) {
+      foreach ($answer['divide'] as $key => $list) {
         if ($list == 'undefined')
           $reg = '0';
         else
