@@ -3810,6 +3810,7 @@ h5.ref_title {
     line-height: 18px;
 	color: #4c4c4c;
 }
+
 .argument_body span.pic {
 	float: left;	
 	margin: 0 15px 12px 0;
@@ -3840,7 +3841,8 @@ h5.ref_title a {
 	font-weight: bold;
 }
 
-.ref_wrap span.source a:hover {
+.ref_wrap span.source a:hover,
+h5.ref_title a:hover {
 	text-decoration: underline;
 }
 
