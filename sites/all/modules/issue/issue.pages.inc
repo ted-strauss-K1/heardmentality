@@ -190,7 +190,7 @@ function report_percent($nid='') {
      <div>
      <form id="form1" name="form1" method="post" action="' . request_uri() . '#results">
   <select name="dochg" onchange="MM_jumpMenuGo(this.value);" id="dochg">
-  
+	<option value="">' . t('Filter') . '</option>
 	<option value="age">' . t('Age') . '</option>
 	<option value="gender">' . t('Gender') . '</option>
     <option value="religion">' . t('Religion') . '</option>
