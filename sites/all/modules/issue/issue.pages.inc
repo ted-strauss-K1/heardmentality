@@ -40,10 +40,12 @@ function report_percent($nid='') {
   //$ans = $result['divide'];
   if ($_REQUEST['dochg'] == '') {
     $ans = $result['divide'];
+    $xtitle = null;
   }
   else {
     $ans = $ans_array;
     $ans_array = $result['divide'];
+    $xtitle = "'".$_REQUEST['dochg']."'";
   }
 
 
@@ -89,7 +91,8 @@ function report_percent($nid='') {
 					xAxis: {
 						categories: " . json_encode($ans_array) . ",
 						title: {
-							text: null
+							text: ".$xtitle .",
+                                                          margin:70
 						},
 						lineColor: '#4c4c4c',
 						lineWidth: 1,
