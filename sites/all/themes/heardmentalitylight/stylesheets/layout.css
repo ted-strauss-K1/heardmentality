@@ -3841,8 +3841,7 @@ h5.ref_title a {
 	font-weight: bold;
 }
 
-.ref_wrap span.source a:hover,
-h5.ref_title a:hover {
+.ref_wrap span.source a:hover {
 	text-decoration: underline;
 }
 
