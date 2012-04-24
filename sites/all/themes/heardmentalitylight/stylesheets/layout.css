@@ -3224,6 +3224,14 @@ h6#deb-ana:hover a,
     top: -11px;
 }
 
+#debate_list_area .arg span.sum.small {
+    left: -30px;
+}
+
+#debate_list_area .arg span.sum.middle {
+    left: -30px;
+}
+
 /*#debate_list_area .one-forum:first-child .arg span.sum {
     padding-top: 8px;
     top: 0;
@@ -4014,6 +4022,18 @@ span.small_pos,
     text-align: center;
     width: 40px;
 	background-color: #d7d7d7;
+}
+
+#debate_list_area .arg span.sum.small {
+    width: 28px;
+	font: 16px/18px Arial,sans-serif;
+    height: 18px;
+}
+
+#debate_list_area .arg span.sum.middle {
+    width: 34px;
+	font: 21px/23px Arial,sans-serif;
+    height: 23px;
 }
 
 #debate_list_area .arg span.sum span.positive {
