@@ -3807,10 +3807,35 @@ h5.ref_title {
 	color: #4c4c4c;
 }
 
+.ref_wrap {
+	overflow: hidden;
+}
+
+.argument_body span.pic {
+	float: left;
+}
+
+.argument_body span.pic img {
+	vertical-align: top;
+	margin-right: 15px;
+}
+
 h5.ref_title,
 h5.ref_title a {
 	color: #924C9D;
 	font-weight: bold;
+}
+
+.ref_wrap span.source {
+	display: block;
+}
+
+.ref_wrap span.source a {
+	font-weight: bold;
+}
+
+.ref_wrap span.source a:hover {
+	text-decoration: underline;
 }
 
 /*Vote results*/
