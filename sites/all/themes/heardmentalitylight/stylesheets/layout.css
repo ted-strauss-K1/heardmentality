@@ -4024,13 +4024,13 @@ span.small_pos,
 	background-color: #d7d7d7;
 }
 
-#debate_list_area .arg span.sum.small {
+#debate_list_area .arg span.sum.small span {
     width: 28px;
 	font: 16px/18px Arial,sans-serif;
     height: 18px;
 }
 
-#debate_list_area .arg span.sum.middle {
+#debate_list_area .arg span.sum.middle span {
     width: 34px;
 	font: 21px/23px Arial,sans-serif;
     height: 23px;
