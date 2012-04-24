@@ -4024,6 +4024,12 @@ span.small_pos,
 	background-color: #d7d7d7;
 }
 
+.one-forum.resources span.sum span {
+	opacity: 0.75;
+	filter: alpha(opacity=75);
+	zoom: 1;
+}
+
 #debate_list_area .arg span.sum.middle span {
     font: 22px/26px Arial,sans-serif;
     height: 26px;
