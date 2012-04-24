@@ -3806,18 +3806,19 @@ h5.ref_title {
     line-height: 18px;
 	color: #4c4c4c;
 }
-
-.ref_wrap {
-	overflow: hidden;
-}
-
 .argument_body span.pic {
-	float: left;
+	float: left;	
+	margin: 0 15px 12px 0;
 }
 
 .argument_body span.pic img {
 	vertical-align: top;
-	margin-right: 15px;
+	width: 110px;
+	height: auto;
+}
+
+h5.ref_title {
+	overflow: hidden;
 }
 
 h5.ref_title,
@@ -3828,6 +3829,7 @@ h5.ref_title a {
 
 .ref_wrap span.source {
 	display: block;
+	overflow: hidden;
 }
 
 .ref_wrap span.source a {
