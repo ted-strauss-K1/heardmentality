@@ -3800,6 +3800,10 @@ ul.control_links h6#reply:hover {
 	left: -8px;
 }
 
+.ref_wrap {
+	overflow: hidden;
+}
+
 .ref_wrap,
 h5.ref_title {
     font-size: 12px;
