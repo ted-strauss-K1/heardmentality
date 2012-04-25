@@ -556,7 +556,6 @@ function report_graph($nid='') {
   $month = date("m") - 1;
   $dat = date("d");
   $edate = "Date.UTC(" . $year . "," . $month . "," . $dat . ")";
-krumo($output2);
   // $script.=$ins_sc;
 
   /*
