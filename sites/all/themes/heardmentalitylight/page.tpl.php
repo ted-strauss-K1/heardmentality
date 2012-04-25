@@ -78,7 +78,7 @@ $directoryPath = $base_path . $directory;
 			</div>
 		</div>
         <div class="four columns">
-			<div class="toggler profile-message">
+			<div class="toggler profile-message poll-box">
   	    	<div id="effect">
 			<?php 
                         if($profile_complete_alert):
