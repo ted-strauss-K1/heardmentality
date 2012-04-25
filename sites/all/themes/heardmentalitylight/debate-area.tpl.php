@@ -40,7 +40,8 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 <div id="debate_list_area">
   <h2>
     <span><?php print $count;
-    print ' Arguments'; ?></span>
+    print ' Arguments'; ?> & <?php print $count;
+    print ' References'; ?></span>
 
     <div class="show_only">
       <span class="button" href="">&#9660; Show only</span> <div class="inc"><form id="inc_ref"><input type="checkbox" checked="yes" value="include references" id="inc_check" /><label for="inc_check">Include References</label></form></div>
@@ -49,7 +50,7 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
         <?php foreach ($show_only as $key => $answer) {
           ?> 
           <dl>
-            <dd><a href="" class="neutral"><span class="small_neg">-</span><span class="small_pos">+</span></a><a href="" class="negative"><span class="small_neg">-</span></a><a href="" class="positive"><span class="small_pos">+</span></a></dd><dt><?php print $answer; ?></dt>
+            <dd><a href="" class="neutral"><span class="small_neg">-</span><span class="small_pos">+</span></a><a href="" class="positive"><span class="small_pos">+</span></a><a href="" class="negative"><span class="small_neg">-</span></a></dd><dt><?php print $answer; ?></dt>
           </dl>
         <?php } ?> 	
       </div>
