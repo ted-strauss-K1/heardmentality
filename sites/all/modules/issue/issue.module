@@ -136,6 +136,13 @@ function issue_menu() {
     'access callback' => TRUE,
     'file' => 'issue.pages.inc',
   );
+  $menu['issue/highstock/ajax/%/%'] = array(
+    'page callback' => 'issue_ajax_highstock_graph',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3,4),
+    'access callback' => TRUE,
+    'file' => 'issue.pages.inc',
+  );
   return $menu;
 }
 
@@ -2192,7 +2199,6 @@ function view_issue_results($nid = '') {
   }
   $debates = theme('issue_debate_list', $nid);
   //$resources = theme('issue_resource_list', $nid);
-
   // get debate, resource, pundit counts
   $debateCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '1' AND field_ref_qid_nid = '$tnid'"));
   $resourceCount = db_result(db_query("SELECT COUNT(nid) FROM {content_type_forum} WHERE field_type_value = '2' AND field_ref_qid_nid = '$tnid'"));
@@ -2218,8 +2224,8 @@ function theme_issue_debate_list($nid = '') {
   //$debateList[1] = issue_debates($nid, 1, 0);
   $debateList[0] = issue_ajax_tab_content($nid, 1, 0, 1);
 //krumo($debateList);
- // $debateList[1] = issue_debates($nid, 1, 1);
- // $debateList[2] = issue_debates($nid, 1, 2);
+  // $debateList[1] = issue_debates($nid, 1, 1);
+  // $debateList[2] = issue_debates($nid, 1, 2);
   $result = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 1 and field_ref_qid_nid =%d', $nid);
   $count = db_result($result);
   $ans = load_options($nid);
@@ -2590,7 +2596,7 @@ function add_new_debate_form_submit($form, &$form_state) {
         $ratings = get_rating_buttons($items, 'is_debate');
 
         $json['success_post'] = 1;
-     //   $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
+        //   $json['content'] = theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
         $json['message'] = '<span class="posted">Your argument posted successfully!</span>';
       }
       else {

@@ -24,7 +24,7 @@ function report_percent($nid='') {
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist); //кол-во ответов
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
+  // drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
   $inline = "var example = 'bar-stacked',
             theme = 'skies'";
   drupal_add_js($inline, 'inline');
@@ -40,14 +40,13 @@ function report_percent($nid='') {
   //$ans = $result['divide'];
   if ($_REQUEST['dochg'] == '') {
     $ans = $result['divide'];
-    $xtitle = "'"."'";
+    $xtitle = "'" . "'";
   }
   else {
     $ans = $ans_array;
     $ans_array = $result['divide'];
-    $xtitle = "'".$_REQUEST['dochg']."'";
+    $xtitle = "'" . $_REQUEST['dochg'] . "'";
   }
-
 
   $cnt = $result['cnt'];
 
@@ -91,7 +90,7 @@ function report_percent($nid='') {
 					xAxis: {
 						categories: " . json_encode($ans_array) . ",
 						title: {
-							text: ".$xtitle .",
+							text: " . $xtitle . ",
                                                           margin:70
 						},
 						lineColor: '#4c4c4c',
@@ -245,7 +244,6 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
           $tcnt = ExecuteQuery($query, "norows");
           $new_val_array[$ab][$key] = $tcnt;
         }
-        
       }
       foreach ($new_val_array as $key => $value) {
         $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
@@ -483,12 +481,12 @@ function report_graph($nid='') {
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist);
 
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
+  //drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
+  // drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
 
-//drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
-
-  $output.= "<script type='text/javascript' language='javascript'>";
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/charts.js");
+  //$output.= "<script type='text/javascript' language='javascript'>";
 
   $query = "select date(date_voted) as dat from {poll_votes} where nid='" . $nid . "' ORDER BY date_voted DESC";
   $list = ExecuteQuery($query, "select");
@@ -543,155 +541,153 @@ function report_graph($nid='') {
         //  krumo($inc_this);
         array_push($ans, $inc_this);
       }
+      
       $ins_sc = '[' . implode(',', $ans) . ']';
       array_push($grid, "'" . $answer . "'");
+      $output2[$ab]['data'] = $ins_sc;
+      $output2[$ab]['name'] = $answer;
       $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
 
       $sdate = "Date.UTC(" . $year . "," . ($month - 1) . "," . (date("d") - 6) . ")";
       $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";
     }
   }
-
   $year = date("Y");
   $month = date("m") - 1;
   $dat = date("d");
   $edate = "Date.UTC(" . $year . "," . $month . "," . $dat . ")";
+krumo($output2);
   // $script.=$ins_sc;
 
+  /*
+    $output.= "
+    var chart;
+    var gSitePath='" . $base_url . "/';
+    var example = 'area-basic',
+    theme = 'skies';
+    Highcharts.theme = { colors: ['#4572A7'] };// prevent errors in default theme
+    var highchartsOptions = Highcharts.getOptions();
 
 
-  $output.= "
-var chart;
-var gSitePath='" . $base_url . "/';
-var example = 'area-basic',
-	theme = 'skies';
-        Highcharts.theme = { colors: ['#4572A7'] };// prevent errors in default theme
-	var highchartsOptions = Highcharts.getOptions();
+    jQuery(document).ready(function() {
+    chart = new Highcharts.Chart({
+    chart: {
+    renderTo: 'container_graph',
+    defaultSeriesType: 'spline',
+    zoomType: 'x',
+    },
+    title: {
+    text: ''
+    },
+    subtitle: {
+    text: ''
+    },
+    xAxis: {
+    labels: {
+    style: {
+    color: '#666',
+    fontWeight: 'normal',
+    font: '10px Arial,Helvetica,sans-serif '
+
+    },
+    rotation:270
+    },
+    type: 'datetime',
+    plotBands: [{ // mark the weekend
+    from: " . $sdate . ",
+    to: " . $edate . "
+    }] " . $tickint . "
+    },
+    yAxis: {
+    title: {
+    text: 'No Of Votes (Per Day)'
+    },
+    labels: {
+    style: {
+    color: '#666',
+    fontWeight: 'normal',
+    font: '10px Arial,Helvetica,sans-serif '
+
+    }
+    },
+    min: 0,
+    minorGridLineWidth: 0,
+
+    gridLineWidth: 0,
+    alternateGridColor: null,
+    tickInterval  :1
+    },
+    tooltip: {
+    formatter: function() {
+    return ''+
+
+    Highcharts.dateFormat('%e. %b %Y', this.x) +': '+ this.y +' Votes';
+    }
+    },
+    plotOptions: {
+    series: {
+    cursor: 'pointer',
+    point: {
+    events: {
+    click: function() {
+    display_resource(this.category);
+    }
+    }
+    }
+    },
+    spline: {
+    lineWidth: 4,
+    states: {
+    hover: {
+    lineWidth: 5
+    }
+    },
+    marker: {
+    enabled: false,
+    states: {
+    hover: {
+    enabled: true,
+    symbol: 'circle',
+    radius: 5,
+    lineWidth: 1
+    }
+    }
+    },
+    pointInterval: 24 * 3600 * 1000, // one day
+    pointStart:" . $sdate . "
+    }
+    },
+    series: [" . $insdata . "]
+    });
 
 
-jQuery(document).ready(function() {
-   chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'container_graph',
-         defaultSeriesType: 'spline',
-         zoomType: 'x',
-        
-      },
-      title: {
-         text: ''
-      },
-      subtitle: {
-         text: ''
-      },
-      xAxis: {
-        labels: {
-                style: {
-                        color: '#666',
-                        fontWeight: 'normal',
-                        font: '10px Arial,Helvetica,sans-serif '
+    });
 
-                },
-                        rotation:270
-		},
-         type: 'datetime',
-       plotBands: [{ // mark the weekend
-            from: " . $sdate . ",
-            to: " . $edate . "
-        }] " . $tickint . "
-      },
-      yAxis: {
-         title: {
-            text: 'No Of Votes (Per Day)'
-         },
-         labels: {
-                style: {
-                        color: '#666',
-                        fontWeight: 'normal',
-                        font: '10px Arial,Helvetica,sans-serif '
+    function display_resource(dat){
 
-                }
-		},
-         min: 0,
-         minorGridLineWidth: 0,
+    var url=gSitePath+'qlite/ajax';
+    jQuery.ajax({
+    type: 'POST',
+    url: url,
+    dataType:'xhr',
+    data: {
+    action: 'graph',
+    date:dat,
+    qid:'" . $nid . "'
+    },
+    success: function(msg){
+    jQuery('#resource').html(msg);
+    }
+    });
 
-         gridLineWidth: 0,
-         alternateGridColor: null,
-         tickInterval  :1
-      },
-      tooltip: {
-         formatter: function() {
-                   return ''+
+    }
 
-               Highcharts.dateFormat('%e. %b %Y', this.x) +': '+ this.y +' Votes';
-         }
-      },
-      plotOptions: {
-          series: {
-            cursor: 'pointer',
-            point: {
-                events: {
-                    click: function() {
-                       display_resource(this.category);
-                    }
-                }
-            }
-        },
-         spline: {
-            lineWidth: 4,
-            states: {
-               hover: {
-                  lineWidth: 5
-               }
-            },
-            marker: {
-               enabled: false,
-               states: {
-                  hover: {
-                     enabled: true,
-                     symbol: 'circle',
-                     radius: 5,
-                     lineWidth: 1
-                  }
-               }
-            },
-            pointInterval: 24 * 3600 * 1000, // one day
-            pointStart:" . $sdate . "
-            }
-      },
-      series: [" . $insdata . "]
-   });
-
-
-});
-
-function display_resource(dat){
-
-var url=gSitePath+'qlite/ajax';
-jQuery.ajax({
-   type: 'POST',
-   url: url,
-   dataType:'xhr',
-  data: {
-            action: 'graph',
-            date:dat,
-            qid:'" . $nid . "'
-        },
-   success: function(msg){
-jQuery('#resource').html(msg);
-   }
- });
-
-}
-
-
-</script>
-";
-
+    </script>
+    ";
+   */
 
   $output.='<div id="container_graph" class="highcharts-container" style="min-height:280px; width: 100%; "></div>
-        <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
-
-';
+        <div id="resource" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>';
   return $output;
 }
 
@@ -874,7 +870,7 @@ map.setCenter(new GLatLng(Math.round(lat),Math.round(lng) ), 5);
   $out .= '
         <div id="map_div" style="width: 100%; min-height: 280px"></div>
 ';
-  return $out;
+ // return $out;
 }
 
 // report vote percent(redesign)
@@ -2661,15 +2657,6 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
   elseif (isset($sort) && $sort == 0) {
     $sorting = 'ORDER BY n.created ASC';
   }
-  /*
-    $tid = get_taxonomy_id('forum', 'Debate');
-    if (empty($cond)) {
-    $sql = "SELECT DISTINCT(f.nid) FROM {forum} as f LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid JOIN {debate_options} as do ON n.nid = do.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
-    }
-    else {
-    $sql = "SELECT DISTINCT(f.nid) FROM  {debate_options} as do  JOIN  {forum} as f ON f.nid = do.nid LEFT JOIN {content_type_forum} as c ON f.nid = c.nid JOIN {node} as n ON f.nid = n.nid  WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $cond $sorting";
-    }
-   */
 
   $sql = "SELECT DISTINCT(f.nid),f.tid FROM {forum} as f
     LEFT JOIN {content_type_forum} as c ON f.nid = c.nid
@@ -2683,10 +2670,6 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
   $nodes = db_query($sql, $qid);
   $count = db_result(db_query($sql, $qid));
 
-  /*
-    $nodes = db_query($sql, $tid, $qid);
-    $count = db_result(db_query($sql, $tid, $qid));
-   */
   if ($count > 0) {
     $i = 0;
     while ($node = db_fetch_object($nodes)) {
@@ -2738,76 +2721,94 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
     $debate_theme .= '<div class="messages warning no_debate">' . t('No Debate Posted Yet!!') . '</div>';
   }
 
-  /*
-    //get resourses
-    $tid = get_taxonomy_id('forum', 'Resource');
-    $sql = "SELECT DISTINCT(f.nid), c.field_rtype_value FROM {forum} as f JOIN {node} as n ON f.nid = n.nid RIGHT JOIN {content_type_forum} as c ON f.nid = c.nid WHERE f.tid = '%d' AND c.field_ref_qid_nid = '%d' $sorting";
-    $issueId = $qid;
-    $tnid = get_tnid($qid);
-    $qid = $tnid;
-
-    $nodes = db_query($sql, $tid, $qid);
-    $count = db_result(db_query($sql, $tid, $qid));
-    if ($count > 0) {
-    $i = 0;
-
-    while ($node = db_fetch_object($nodes)) {
-
-    //field_rtype_value
-    if ($rtype == 4) {
-    $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
-    }
-    else {
-    $items = load_resource_datas($node->nid, $issueId, $tnid, $node->field_rtype_value);
-    }
-    $strnth = $items['strength'];
-    $strength = '';
-    foreach ($strnth as $list) {
-    $short_answer = get_short_answer($items['issue_id'], $list['chorder']);
-    $tranAns = db_result(db_query("SELECT chtext FROM {poll_choices} WHERE nid = '" . $items['issue_id'] . "' AND chorder = '" . $list['chorder'] . "'"));
-    $ans = $short_answer != '' ? $short_answer : $tranAns;
-
-    switch ($list['ans_val']) {
-    case 1:
-    $strength.='<div><span class="green-box">+</span>' . $ans . '</div>';
-    break;
-    case 2:
-    $strength.='<div><span class="red-box">-</span>' . $ans . '</div>';
-    break;
-    }
-    }
-
-    // delete
-    if (is_moderator() || $items['uid'] == $user->uid) {
-    $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['resource_id'] . '\', \'resource\')">' . t('Delete') . '</h6>';
-    }
-    else {
-    $delete = '';
-    }
-
-    // reply box
-    $reply_box = drupal_get_form('forum_reply_form', $items['resource_id'], $items['resource_id'], $items['issue_id']);
-    $comments = forum_replies($items['resource_id'], 0);
-    $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['resource_id'] . "'"));
-
-    // ratings
-    // allow rating check
-    $ratings = get_rating_buttons($items, 'is_resource');
-    $debate_theme .= theme('debate_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-    //  $resouce_theme .= theme('reference_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-    $tForumId = get_tnid($node->nid);
-    resource_roundup($tForumId);
-    }
-    }
-    else {
-    // $resouce_theme = '<div class="messages warning">' . t('No Resource Posted Yet!!') . '</div>';
-    }
-   */
-// end resourses
   if ($print == 1) {
     return $debate_theme;
   }
   else {
     print $debate_theme;
   }
+}
+
+function issue_ajax_highstock_graph($nid, $number) {
+global $base_url, $user, $base_path;
+  $qid = $nid;
+  $nid = get_tnid($nid);
+  $output = '';
+
+  $vans = "select * from {poll_choices} where  nid=$qid order by chorder";
+  $vlist = ExecuteQuery($vans, "select");
+  $cnt_ans = count($vlist);
+
+  $query = "select date(date_voted) as dat from {poll_votes} where nid='" . $nid . "' ORDER BY date_voted DESC";
+  $list = ExecuteQuery($query, "select");
+  $s1 = array();
+  $grid = array();
+
+  $srange = report_get_ans_range_history($nid, 'start');
+  $erange = report_get_ans_range_history($nid, 'end');
+  $count = report_get_ans_range_history($nid);
+
+  $query = "select DATEDIFF(date(now()),'" . $srange['dat'] . "') as diff,date(now()) as today";
+  $overall_range = ExecuteQuery($query, "select");
+  $frange = $overall_range[0]['diff'];
+  $drange = dates_range($srange['dat'], $overall_range[0]['today']);
+  $drange = array_reverse($drange);
+  for ($ab = 0; $ab < $cnt_ans; $ab++) {
+
+    // short answers
+    $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
+    $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
+    $answer = substr(t(addslashes($answer)), 0, 16);
+    $i = $ab + 1;
+    $ans = array();
+
+    if (count($drange) > 6) {
+      for ($mn = $frange; $mn >= 0; $mn--) {
+        $date = $drange[$mn];
+        $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
+        array_push($ans, $inc_this);
+      }
+      $ins_sc = '[' . implode(',', $ans) . ']';
+      array_push($grid, "'" . $answer . "'");
+      $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
+
+      $dexp = explode('-', $srange['dat']);
+
+      $year = $dexp[0];
+      $month = $dexp[1] - 1;
+      $dat = $dexp[2];
+      $sdate = "Date.UTC(" . $year . "," . $month . "," . $dat . ", 0, 0, 0)";
+      $tickint = "";
+    }
+    else {
+      for ($mn = 6; $mn >= 0; $mn--) {
+
+        $year = date("Y");
+        $month = date("m");
+        $dat = date("d") - $mn;
+        $date = date('Y-m-d', mktime(0, 0, 0, $month, $dat, $year));
+
+        $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
+        //  krumo($inc_this);
+        array_push($ans, $inc_this);
+      }
+      $ins_sc = '[' . implode(',', $ans) . ']';
+      array_push($grid, "'" . $answer . "'");
+      $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
+      $json[$ab]['data'] = $ins_sc;
+      $json[$ab]['name'] = $answer;
+      
+      $sdate = "Date.UTC(" . $year . "," . ($month - 1) . "," . (date("d") - 6) . ")";
+      $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";
+    }
+  }
+  $year = date("Y");
+  $month = date("m") - 1;
+  $dat = date("d");
+  $edate = "Date.UTC(" . $year . "," . $month . "," . $dat . ")";
+ 
+  print drupal_json(array(
+    'name' => $json[$number]['name'], 
+    'data' => $json[$number]['data'],
+  ));
 }
