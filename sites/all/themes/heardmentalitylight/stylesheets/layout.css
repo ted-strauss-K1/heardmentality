@@ -3803,7 +3803,7 @@ ul.control_links h6#reply:hover {
 	text-transform: none;
 }
 
-.show_only dd a.neutral span.small_pos {
+.show_only dd a.neutral span.small_neg {
 	position: relative;
 	left: -8px;
 }
@@ -4040,7 +4040,7 @@ span.small_pos,
 #debate_list_area .arg span.sum.small span {
     font: 18px/20px Arial,sans-serif;
     height: 20px;
-    padding: 11px 7px 9px;
+    padding: 10px 7px;
     width: 26px;
 }
 
