@@ -40,7 +40,7 @@ function report_percent($nid='') {
   //$ans = $result['divide'];
   if ($_REQUEST['dochg'] == '') {
     $ans = $result['divide'];
-    $xtitle = null;
+    $xtitle = "'"."'";
   }
   else {
     $ans = $ans_array;
