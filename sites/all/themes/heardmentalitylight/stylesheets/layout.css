@@ -1477,7 +1477,7 @@ span.left {float:left;padding:0px 0px 0px 0px}
 
 .message.right-message {
 	background:url(../images/ui-bg_diagonals40x40.png);
-	margin:27px 0px 0px 0;
+	margin: 30px 0px 0px 0;
 	padding:22px 22px 10px 22px;
 	border: 1px solid #C0C0C0;
     -webkit-border-radius: 4px;
@@ -2519,11 +2519,11 @@ body.front .jScrollPaneContainer {
     margin: 0;
 	position: relative;
 	top: 30px;
-    padding: 20px;
+    padding: 20px 20px 14px 14px;
 }
 
 .profile-message.poll-box {
-	margin-top: 29px;
+	padding-top: 29px;
 }
 
 h2.page-title {
