@@ -455,8 +455,12 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		padding:0px 4px 0px 4px;
 		font-size:12px;
 		margin:3px 6px 3px 0px;
-		background:#a3c9ef;
+		background: none /*#a3c9ef*/ #76D2DC;
 		border-radius: 3px;
+		-moz-border-radius: 3px;
+		-webkit-border-radius: 3px;
+		-o-border-radius: 3px;
+		-khtml-border-radius: 3px;
 		text-shadow: 0 1px #c8e2fc;
 		width:auto;float:left;
 		border-width:1px;
@@ -583,7 +587,7 @@ ul.flagthis li	{float:left;margin:0px 10px;width:26%}
 		margin:-10px 0px 10px 0px;
 	}
 	
-	.poll-box p.issue-met {
+	.poll-box p.issue-meta {
 		margin: -10px 0 0;	
 	}
 	
