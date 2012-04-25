@@ -89,7 +89,7 @@ $directoryPath = $base_path . $directory;
 			</div>
 			
             <?php if($issue_real_info):?>
-			<div class="grey-box">
+			<div class="grey-box poll-box">
 			
                 <?php print $issue_real_info; ?>
 			 

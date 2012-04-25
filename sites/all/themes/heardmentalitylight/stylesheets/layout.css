@@ -1832,6 +1832,7 @@ h2.din a:hover {border-bottom:1px dotted #ccc;color:#000}
 		-khtml-border-radius: 4px;
 		-o-border-radius: 4px;
 	}
+	
   .activity-stream p a {
 		font-weight:normal;
 	   	color:#1366BA;
@@ -2499,6 +2500,18 @@ body.front .jScrollPaneContainer {
 .white-box.poll-box {
 	padding: 0 0 20px;
 	margin: 0;
+}
+
+.grey-box.poll-box {
+	background: url(../images/white_50.png) repeat scroll 0 0 transparent;
+    border: 1px solid #C0C0C0;
+    -webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-khtml-border-radius: 4px;
+	-o-border-radius: 4px;
+    margin: 59px 0 0;
+    padding: 20px;
 }
 
 h2.page-title {
