@@ -56,7 +56,7 @@ function report_percent($nid='') {
 
   $per = json_encode($result);
   $inc = rtrim($ins_script, ',');
-  $output .= "
+  /*$output .= "
 		<script >
 
 		var spath='" . $base_url . "/';
@@ -181,7 +181,7 @@ function report_percent($nid='') {
 
 
 			});</script>";
-
+*/
 
   $filter = (!empty($_REQUEST['dochg'])) ? $_REQUEST['dochg'] : '';
 
@@ -2809,4 +2809,8 @@ function issue_ajax_highstock_graph($nid, $number) {
             'data' => $json[$number]['data'],
             'date' => $sdate_arr,
           ));
+}
+
+function issue_ajax_highchart_result($nid) {
+  
 }

@@ -139,7 +139,14 @@ function issue_menu() {
   $menu['issue/highstock/ajax/%/%'] = array(
     'page callback' => 'issue_ajax_highstock_graph',
     'type' => MENU_CALLBACK,
-    'page arguments' => array(3,4),
+    'page arguments' => array(3, 4),
+    'access callback' => TRUE,
+    'file' => 'issue.pages.inc',
+  );
+  $menu['issue/highchart/ajax/%/%'] = array(
+    'page callback' => 'issue_ajax_highchart_result',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3, 4),
     'access callback' => TRUE,
     'file' => 'issue.pages.inc',
   );
