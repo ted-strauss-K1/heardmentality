@@ -24,7 +24,7 @@ function report_percent($nid='') {
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist); //кол-во ответов
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts_new.js");
-  // drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
+
   $inline = "var example = 'bar-stacked',
             theme = 'skies'";
   drupal_add_js($inline, 'inline');
@@ -530,15 +530,12 @@ function report_graph($nid='') {
     }
     else {
       for ($mn = 6; $mn >= 0; $mn--) {
-
         $year = date("Y");
         $month = date("m");
         $dat = date("d") - $mn;
         $date = date('Y, m, d', mktime(0, 0, 0, $month, $dat, $year));
-        $dates[6-$mn] = $date;
         $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
         array_push($ans, '[Date.UTC('.$date.')'.', '.$inc_this.']');
-        
       }
       $ins_sc = '[' . implode(',', $ans) . ']';
       array_push($grid, "'" . $answer . "'");
@@ -2792,7 +2789,7 @@ global $base_url, $user, $base_path;
       $ins_sc = '[' . implode(',', $ans) . ']';
       array_push($grid, "'" . $answer . "'");
       $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
-      $json[$ab]['data'] = $ins_sc;
+      $json[$ab]['data'] = $ans;
       $json[$ab]['name'] = $answer;
       
       $sdate = "Date.UTC(" . $year . "," . ($month - 1) . "," . (date("d") - 6) . ")";
