@@ -50,13 +50,12 @@ $(function() {
       yAxis: {
         labels: {
           formatter: function() {
-            return (this.value > 0 ? '+' : '') + this.value;
+            this.value;
           }
         }
       },
         plotOptions: {
           series: {
-            compare: 'value',
             pointStart: Date.UTC(sdate.year, sdate.month, sdate.day),
             pointInterval: 3600 * 1000 * 24
           }
