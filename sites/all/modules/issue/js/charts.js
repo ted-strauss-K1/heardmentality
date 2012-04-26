@@ -11,7 +11,7 @@ $(function() {
   
   $.each(values, function(i, value) {
     $.getJSON('/issue/highstock/ajax/2242/'+ value, function(data) {
-
+var sdate = data.date
       seriesOptions[i] = {
         name: data.name,
         data: data.data
@@ -19,13 +19,13 @@ $(function() {
       seriesCounter++;
 
       if (seriesCounter == count) {
-        createChart(seriesOptions);
+        createChart(seriesOptions,sdate);
       }
     });
   });
   
-  function createChart(seriesOptions) {
-    console.log(seriesOptions);
+  function createChart(seriesOptions, sdate) {
+    console.log(sdate);
     var chart = new Highcharts.StockChart({
       chart: {
         renderTo: 'container_graph'
@@ -50,7 +50,7 @@ $(function() {
       plotOptions: {
         series: {
           compare: 'value',
-          pointStart: Date.UTC(2012, 3, 1),
+          pointStart: Date.UTC(sdate.year, sdate.month, sdate.day),
           pointInterval: 3600 * 1000 * 24
         }
       },

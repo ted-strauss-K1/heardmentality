@@ -502,7 +502,7 @@ function report_graph($nid='') {
   $frange = $overall_range[0]['diff'];
   $drange = dates_range($srange['dat'], $overall_range[0]['today']);
   $drange = array_reverse($drange);
-  
+
   for ($ab = 0; $ab < $cnt_ans; $ab++) {
     // short answers
     $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
@@ -535,7 +535,7 @@ function report_graph($nid='') {
         $dat = date("d") - $mn;
         $date = date('Y, m, d', mktime(0, 0, 0, $month, $dat, $year));
         $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
-        array_push($ans, '[Date.UTC('.$date.')'.', '.$inc_this.']');
+        array_push($ans, '[Date.UTC(' . $date . ')' . ', ' . $inc_this . ']');
       }
       $ins_sc = '[' . implode(',', $ans) . ']';
       array_push($grid, "'" . $answer . "'");
@@ -546,7 +546,7 @@ function report_graph($nid='') {
       $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";
     }
   }
-  
+
   $year = date("Y");
   $month = date("m") - 1;
   $dat = date("d");
@@ -864,7 +864,7 @@ map.setCenter(new GLatLng(Math.round(lat),Math.round(lng) ), 5);
   $out .= '
         <div id="map_div" style="width: 100%; min-height: 280px"></div>
 ';
- // return $out;
+  // return $out;
 }
 
 // report vote percent(redesign)
@@ -2724,7 +2724,7 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
 }
 
 function issue_ajax_highstock_graph($nid, $number) {
-global $base_url, $user, $base_path;
+  global $base_url, $user, $base_path;
   $qid = $nid;
   $nid = get_tnid($nid);
   $output = '';
@@ -2765,44 +2765,48 @@ global $base_url, $user, $base_path;
       $ins_sc = '[' . implode(',', $ans) . ']';
       array_push($grid, "'" . $answer . "'");
       $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
-
+      $json[$ab]['data'] = $ans;
+      $json[$ab]['name'] = $answer;
       $dexp = explode('-', $srange['dat']);
 
-      $year = $dexp[0];
-      $month = $dexp[1] - 1;
-      $dat = $dexp[2];
-      $sdate = "Date.UTC(" . $year . "," . $month . "," . $dat . ", 0, 0, 0)";
-      $tickint = "";
+      $sdate_arr['year'] = $dexp[0];
+      $sdate_arr['month'] = $dexp[1] - 1;
+      $sdate_arr['day'] = $dexp[2];
+    //  $sdate = 'Date.UTC(' . $year . ',' . $month . ',' . $dat . ')';
+  //    $tickint = "";
     }
     else {
       for ($mn = 6; $mn >= 0; $mn--) {
-
         $year = date("Y");
         $month = date("m");
         $dat = date("d") - $mn;
         $date = date('Y-m-d', mktime(0, 0, 0, $month, $dat, $year));
-
         $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
         //  krumo($inc_this);
         array_push($ans, $inc_this);
       }
-      $ins_sc = '[' . implode(',', $ans) . ']';
-      array_push($grid, "'" . $answer . "'");
-      $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
+    //  $ins_sc = '[' . implode(',', $ans) . ']';
+   //   array_push($grid, "'" . $answer . "'");
+   //   $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
       $json[$ab]['data'] = $ans;
       $json[$ab]['name'] = $answer;
       
-      $sdate = "Date.UTC(" . $year . "," . ($month - 1) . "," . (date("d") - 6) . ")";
-      $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";
+      $sdate_arr['year'] = $year;
+      $sdate_arr['month'] = $month - 1;
+      $sdate_arr['day'] = date("d")-6;
+
+     // $sdate = 'Date.UTC(' . $year . ',' . ($month - 1) . ',' . (date("d") - 6) . ')';
+   //   $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";
     }
   }
-  $year = date("Y");
-  $month = date("m") - 1;
-  $dat = date("d");
-  $edate = "Date.UTC(" . $year . "," . $month . "," . $dat . ")";
- 
+ // $year = date("Y");
+ // $month = date("m") - 1;
+ // $dat = date("d");
+  //$edate = "Date.UTC(" . $year . "," . $month . "," . $dat . ")";
+
   print drupal_json(array(
-    'name' => $json[$number]['name'], 
-    'data' => $json[$number]['data'],
-  ));
+            'name' => $json[$number]['name'],
+            'data' => $json[$number]['data'],
+            'date' => $sdate_arr,
+          ));
 }
