@@ -11,7 +11,7 @@ $(function() {
   
   $.each(values, function(i, value) {
     $.getJSON('/issue/highstock/ajax/2242/'+ value, function(data) {
-var sdate = data.date
+      var sdate = data.date
       seriesOptions[i] = {
         name: data.name,
         data: data.data
@@ -30,7 +30,7 @@ var sdate = data.date
       chart: {
         renderTo: 'container_graph'
       },
-  /*    yAxis: {
+      /*    yAxis: {
         labels: {
           formatter: function() {
             return (this.value > 0 ? '+' : '') + this.value;
@@ -42,24 +42,31 @@ var sdate = data.date
           color: 'silver'
         }]
       },
-*/
-    /*  rangeSelector: {
+       */
+      /*  rangeSelector: {
         selected: 1
       },
-      */     
-      plotOptions: {
-        series: {
-          compare: 'value',
-          pointStart: Date.UTC(sdate.year, sdate.month, sdate.day),
-          pointInterval: 3600 * 1000 * 24
+       */     
+      yAxis: {
+        labels: {
+          formatter: function() {
+            return (this.value > 0 ? '+' : '') + this.value;
+          }
         }
       },
+        plotOptions: {
+          series: {
+            compare: 'value',
+            pointStart: Date.UTC(sdate.year, sdate.month, sdate.day),
+            pointInterval: 3600 * 1000 * 24
+          }
+        },
             
-      tooltip: {
-        pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change})<br/>',
-        valueDecimals: 0 
-      }, 
-      series: seriesOptions
-    });
-  }
-});
+        tooltip: {
+          pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.change})<br/>',
+          valueDecimals: 0 
+        }, 
+        series: seriesOptions
+      });
+    }
+  });
