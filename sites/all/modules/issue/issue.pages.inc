@@ -23,7 +23,7 @@ function report_percent($nid='') {
 
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist); //кол-во ответов
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts_new.js");
   // drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
   $inline = "var example = 'bar-stacked',
             theme = 'skies'";
@@ -502,8 +502,8 @@ function report_graph($nid='') {
   $frange = $overall_range[0]['diff'];
   $drange = dates_range($srange['dat'], $overall_range[0]['today']);
   $drange = array_reverse($drange);
+  
   for ($ab = 0; $ab < $cnt_ans; $ab++) {
-
     // short answers
     $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
     $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
@@ -522,7 +522,6 @@ function report_graph($nid='') {
       $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
 
       $dexp = explode('-', $srange['dat']);
-
       $year = $dexp[0];
       $month = $dexp[1] - 1;
       $dat = $dexp[2];
@@ -535,23 +534,22 @@ function report_graph($nid='') {
         $year = date("Y");
         $month = date("m");
         $dat = date("d") - $mn;
-        $date = date('Y-m-d', mktime(0, 0, 0, $month, $dat, $year));
-
+        $date = date('Y, m, d', mktime(0, 0, 0, $month, $dat, $year));
+        $dates[6-$mn] = $date;
         $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
-        //  krumo($inc_this);
-        array_push($ans, $inc_this);
+        array_push($ans, '[Date.UTC('.$date.')'.', '.$inc_this.']');
+        
       }
-      
       $ins_sc = '[' . implode(',', $ans) . ']';
       array_push($grid, "'" . $answer . "'");
       $output2[$ab]['data'] = $ins_sc;
       $output2[$ab]['name'] = $answer;
       $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
-
       $sdate = "Date.UTC(" . $year . "," . ($month - 1) . "," . (date("d") - 6) . ")";
       $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";
     }
   }
+  
   $year = date("Y");
   $month = date("m") - 1;
   $dat = date("d");
