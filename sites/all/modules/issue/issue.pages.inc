@@ -56,132 +56,132 @@ function report_percent($nid='') {
 
   $per = json_encode($result);
   $inc = rtrim($ins_script, ',');
-  /*$output .= "
-		<script >
+  /* $output .= "
+    <script >
 
-		var spath='" . $base_url . "/';
-		var chart;
-			$(document).ready(function() {
-				chart = new Highcharts.Chart({
-					chart: {
-						renderTo: 'chart_div',
-						defaultSeriesType:'bar',
-						style: {
-							fontFamily: 'Arial',
-							color: '#4c4c4c',
-							fontSize: '12px'
-						},
-						plotBorderColor: '#fff',
-						plotBorderWidth: 0,
-						borderColor: '#fff',
-						borderRadius: 0,
-						borderWidth: 0,
-						marginTop: 20,
-						marginRight: 20,
-						marginBottom: 20,
-						ignoreHiddenSeries: true,
-						zoomType: 'y'
-					},
-					
-					title: {
-						text: null
-					},
+    var spath='" . $base_url . "/';
+    var chart;
+    $(document).ready(function() {
+    chart = new Highcharts.Chart({
+    chart: {
+    renderTo: 'chart_div',
+    defaultSeriesType:'bar',
+    style: {
+    fontFamily: 'Arial',
+    color: '#4c4c4c',
+    fontSize: '12px'
+    },
+    plotBorderColor: '#fff',
+    plotBorderWidth: 0,
+    borderColor: '#fff',
+    borderRadius: 0,
+    borderWidth: 0,
+    marginTop: 20,
+    marginRight: 20,
+    marginBottom: 20,
+    ignoreHiddenSeries: true,
+    zoomType: 'y'
+    },
 
-					xAxis: {
-						categories: " . json_encode($ans_array) . ",
-						title: {
-							text: " . $xtitle . ",
-                                                          margin:70
-						},
-						lineColor: '#4c4c4c',
-						lineWidth: 1,
-						endOnTick: false,
-						tickColor: '#fff',
-						tickWidth: 0,
-						tickmarkPlacement: 'on',
-						startOnTick: false,
-						labels: {
-							style: {
-								color: '#4c4c4c',
-								font: '12px Aial, sans-serif'	
-							}
-						}
-					},
-					
-					yAxis: {
-						tickInterval: 1,
-						min: 0,
-						title: {
-							text: null
-						},
-						endOnTick: false,
-						maxPadding: 0.01,
-						lineWidth: 0,
-						gridLineColor: '#ccc',
-						tickmarkPlacement: 'on',
-						tickColor: '#fff',
-						tickWidth: 1,
-						tickLength: 5
-					},
-					
-					colors: [
-						'#934d9e', 
-						'#FF7F00', 
-						'#50c0ac', 
-						'#0c6926', 
-						'#ef4c8d', 
-						'#362750', 
-						'#e1e43c', 
-						'#ef3d3b', 
-						'#3cc7f4',
-						'#589a1c', 
-						'#C2499B', 
-						'#f89521', 
-						'#CC2027', 
-						'#55ba59', 
-						'#d5bc29', 
-						'#6ccbd5',
-						'#43B649',
-						'#F6EB16'
-					],
-					
-					legend: {
-						enabled: false
-					},
-					
-					tooltip: {
-						formatter: function() {
-							return ''+
-								 this.series.name +': '+ this.y +'';
-						},
-						shadow: false,
-						style: {
-							color: '#4c4c4c',
-							font: '12px Aial, sans-serif',
-						},
-						borderRadius: 3
-					},
-					
-					plotOptions: {
-						bar: {
-							dataLabels: {
-								enabled: true
-							},
-							borderColor: '#fff',
-							borderWidth: 0,
-							shadow: false,
-							groupPadding: 0.15,
-							pointPadding: 0
-							//pointWidth: 20
-						}
-					},
-                                        
-				    series: [" . $inc . " ]
-				});
+    title: {
+    text: null
+    },
+
+    xAxis: {
+    categories: " . json_encode($ans_array) . ",
+    title: {
+    text: " . $xtitle . ",
+    margin:70
+    },
+    lineColor: '#4c4c4c',
+    lineWidth: 1,
+    endOnTick: false,
+    tickColor: '#fff',
+    tickWidth: 0,
+    tickmarkPlacement: 'on',
+    startOnTick: false,
+    labels: {
+    style: {
+    color: '#4c4c4c',
+    font: '12px Aial, sans-serif'
+    }
+    }
+    },
+
+    yAxis: {
+    tickInterval: 1,
+    min: 0,
+    title: {
+    text: null
+    },
+    endOnTick: false,
+    maxPadding: 0.01,
+    lineWidth: 0,
+    gridLineColor: '#ccc',
+    tickmarkPlacement: 'on',
+    tickColor: '#fff',
+    tickWidth: 1,
+    tickLength: 5
+    },
+
+    colors: [
+    '#934d9e',
+    '#FF7F00',
+    '#50c0ac',
+    '#0c6926',
+    '#ef4c8d',
+    '#362750',
+    '#e1e43c',
+    '#ef3d3b',
+    '#3cc7f4',
+    '#589a1c',
+    '#C2499B',
+    '#f89521',
+    '#CC2027',
+    '#55ba59',
+    '#d5bc29',
+    '#6ccbd5',
+    '#43B649',
+    '#F6EB16'
+    ],
+
+    legend: {
+    enabled: false
+    },
+
+    tooltip: {
+    formatter: function() {
+    return ''+
+    this.series.name +': '+ this.y +'';
+    },
+    shadow: false,
+    style: {
+    color: '#4c4c4c',
+    font: '12px Aial, sans-serif',
+    },
+    borderRadius: 3
+    },
+
+    plotOptions: {
+    bar: {
+    dataLabels: {
+    enabled: true
+    },
+    borderColor: '#fff',
+    borderWidth: 0,
+    shadow: false,
+    groupPadding: 0.15,
+    pointPadding: 0
+    //pointWidth: 20
+    }
+    },
+
+    series: [" . $inc . " ]
+    });
 
 
-			});</script>";
-*/
+    });</script>";
+   */
 
   $filter = (!empty($_REQUEST['dochg'])) ? $_REQUEST['dochg'] : '';
 
@@ -414,10 +414,10 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
     default:
       $answer['divide'] = array('Total Votes');
       foreach ($vlist as $key => $chvote) {
-        $total_votes[] = $chvote['chvotes'];
+        $total_votes[] = (int)$chvote['chvotes'];
       }
-      $answer_cnt[] = '[' . implode(',', $total_votes) . ']';
-
+      //  $answer_cnt[] = '[' . implode(',', $total_votes) . ']';
+      $answer_cnt[] = $total_votes;
       break;
   }
 
@@ -2772,8 +2772,7 @@ function issue_ajax_highstock_graph($nid, $number) {
       $sdate_arr['year'] = $dexp[0];
       $sdate_arr['month'] = $dexp[1] - 1;
       $sdate_arr['day'] = $dexp[2];
-    //  $sdate = 'Date.UTC(' . $year . ',' . $month . ',' . $dat . ')';
-  //    $tickint = "";
+
     }
     else {
       for ($mn = 6; $mn >= 0; $mn--) {
@@ -2782,28 +2781,18 @@ function issue_ajax_highstock_graph($nid, $number) {
         $dat = date("d") - $mn;
         $date = date('Y-m-d', mktime(0, 0, 0, $month, $dat, $year));
         $inc_this = report_answer_details_history($nid, $vlist[$ab]['chorder'], 'timeline', $date);
-        //  krumo($inc_this);
         array_push($ans, $inc_this);
       }
-    //  $ins_sc = '[' . implode(',', $ans) . ']';
-   //   array_push($grid, "'" . $answer . "'");
-   //   $insdata.="{name :'" . $answer . "', data: " . $ins_sc . "},";
+
       $json[$ab]['data'] = $ans;
       $json[$ab]['name'] = $answer;
-      
+
       $sdate_arr['year'] = $year;
       $sdate_arr['month'] = $month - 1;
-      $sdate_arr['day'] = date("d")-6;
+      $sdate_arr['day'] = date("d") - 6;
 
-     // $sdate = 'Date.UTC(' . $year . ',' . ($month - 1) . ',' . (date("d") - 6) . ')';
-   //   $tickint = ",tickInterval: 24 * 3600 * 1000 // one day";
     }
   }
- // $year = date("Y");
- // $month = date("m") - 1;
- // $dat = date("d");
-  //$edate = "Date.UTC(" . $year . "," . $month . "," . $dat . ")";
-
   print drupal_json(array(
             'name' => $json[$number]['name'],
             'data' => $json[$number]['data'],
@@ -2812,5 +2801,55 @@ function issue_ajax_highstock_graph($nid, $number) {
 }
 
 function issue_ajax_highchart_result($nid) {
-  
+  global $base_url, $user, $base_root, $base_path;
+  $output = '';
+  $filter = '';
+  $incflt = '';
+  $opt = '';
+  if (!is_numeric($nid))
+    return 'No Data Found';
+
+  $vans = "select * from {poll_choices} where  nid='" . $nid . "' ORDER BY chorder";
+
+  $vlist = ExecuteQuery($vans, "select");
+  $cnt_ans = count($vlist); //кол-во ответов
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts_new.js");
+
+  $inline = "var example = 'bar-stacked',
+            theme = 'skies'";
+  drupal_add_js($inline, 'inline');
+
+  $ans_array = array();
+  for ($ab = 0; $ab < $cnt_ans; $ab++) {
+    $short_answer = get_short_answer($nid, $vlist[$ab]['chorder']);
+    $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
+    $answer = substr(t(addslashes($answer)), 0, 16);
+    array_push($ans_array, $answer);
+  }
+  $result = report_percent_broken($nid, '', $_REQUEST);
+  //$ans = $result['divide'];
+  if ($_REQUEST['dochg'] == '') {
+    $json['name'] = $result['divide'];
+    $xtitle = "'" . "'";
+  }
+  else {
+    $ans = $ans_array;
+    $json['name'] = $ans_array;
+    $xtitle = "'" . $_REQUEST['dochg'] . "'";
+  }
+  $cnt = $result['cnt'];
+  foreach ($ans as $key => $value) {
+    
+  }
+  //$json['name'] = $result['divide'];
+  $json['data'] = $result['cnt'];
+  foreach ($json['name'] as $key => $value) {
+  //  $return[]= '{ name: '.'"'.$json['name'][$key].'"' .', ' .'data:' .$json['data'][$key]. '}';
+   // $js_ar = implode(',', $return);
+    $js_arr[$key]['name'] = $json['name'][$key];
+    $js_arr[$key]['data'] = $json['data'][$key];
+    
+  }
+$key = 0;
+  print drupal_json(array('name' => $js_arr[$key]['name'], 'data' =>$js_arr[$key]['data'],));
 }
