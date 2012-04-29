@@ -23,7 +23,7 @@ function report_percent($nid='') {
 
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist); //кол-во ответов
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts_new.js");
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts/highcharts.js");
 
   $inline = "var example = 'bar-stacked',
             theme = 'skies'";
@@ -196,7 +196,7 @@ function report_percent($nid='') {
 	' . $incflt . '
      <div>
      <form id="form1" name="form1" method="post" action="' . request_uri() . '#results">
-  <select name="dochg" onchange="MM_jumpMenuGo(this.value);" id="dochg">
+  <select name="dochg" id="dochg">
 	<option value="">' . t('Filter') . '</option>
 	<option value="age">' . t('Age') . '</option>
 	<option value="gender">' . t('Gender') . '</option>
@@ -414,7 +414,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
     default:
       $answer['divide'] = array('Total Votes');
       foreach ($vlist as $key => $chvote) {
-        $total_votes[] = (int)$chvote['chvotes'];
+        $total_votes[] = (int) $chvote['chvotes'];
       }
       //  $answer_cnt[] = '[' . implode(',', $total_votes) . ']';
       $answer_cnt[] = $total_votes;
@@ -2772,7 +2772,6 @@ function issue_ajax_highstock_graph($nid, $number) {
       $sdate_arr['year'] = $dexp[0];
       $sdate_arr['month'] = $dexp[1] - 1;
       $sdate_arr['day'] = $dexp[2];
-
     }
     else {
       for ($mn = 6; $mn >= 0; $mn--) {
@@ -2790,7 +2789,6 @@ function issue_ajax_highstock_graph($nid, $number) {
       $sdate_arr['year'] = $year;
       $sdate_arr['month'] = $month - 1;
       $sdate_arr['day'] = date("d") - 6;
-
     }
   }
   print drupal_json(array(
@@ -2800,7 +2798,7 @@ function issue_ajax_highstock_graph($nid, $number) {
           ));
 }
 
-function issue_ajax_highchart_result($nid) {
+function issue_ajax_highchart_result($nid, $param) {
   global $base_url, $user, $base_root, $base_path;
   $output = '';
   $filter = '';
@@ -2813,7 +2811,7 @@ function issue_ajax_highchart_result($nid) {
 
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist); //кол-во ответов
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts_new.js");
+  //drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts_new.js");
 
   $inline = "var example = 'bar-stacked',
             theme = 'skies'";
@@ -2830,26 +2828,32 @@ function issue_ajax_highchart_result($nid) {
   //$ans = $result['divide'];
   if ($_REQUEST['dochg'] == '') {
     $json['name'] = $result['divide'];
+    $json['categories'] = $ans_array;
     $xtitle = "'" . "'";
   }
   else {
-    $ans = $ans_array;
+    // $ans = $ans_array;
     $json['name'] = $ans_array;
     $xtitle = "'" . $_REQUEST['dochg'] . "'";
+    $json['categories'] = $result['divide'];
   }
   $cnt = $result['cnt'];
+
   foreach ($ans as $key => $value) {
     
   }
   //$json['name'] = $result['divide'];
   $json['data'] = $result['cnt'];
   foreach ($json['name'] as $key => $value) {
-  //  $return[]= '{ name: '.'"'.$json['name'][$key].'"' .', ' .'data:' .$json['data'][$key]. '}';
-   // $js_ar = implode(',', $return);
+    //  $return[]= '{ name: '.'"'.$json['name'][$key].'"' .', ' .'data:' .$json['data'][$key]. '}';
+    // $js_ar = implode(',', $return);
     $js_arr[$key]['name'] = $json['name'][$key];
     $js_arr[$key]['data'] = $json['data'][$key];
-    
+    $js_arr['categories'] = $json['categories'];
   }
-$key = 0;
-  print drupal_json(array('name' => $js_arr[$key]['name'], 'data' =>$js_arr[$key]['data'],));
+ // foreach ($js_arr as $key => $value) {
+  print drupal_json(array('name' => $js_arr[$param]['name'],
+  'data' => $js_arr[$param]['data'],
+  'categories' => $js_arr['categories']));
+//}
 }

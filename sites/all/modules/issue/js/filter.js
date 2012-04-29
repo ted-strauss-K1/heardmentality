@@ -226,6 +226,7 @@ function delete_thread(id, type){
   }
 }
 // insight view
+/*
 function insight_view(nid){
 
   var url = spath+'issue/ajax/insightview/'+nid;
@@ -238,7 +239,7 @@ function insight_view(nid){
   });
 
 }
-
+*/
 // load debate statistics
 jQuery('#deb-ana').live('click', function(){
   var nid = jQuery('#curr_nid').val();
@@ -459,7 +460,7 @@ jQuery(document).ready(function() {
 
 function startload(){
   initialize();
-  createUploader();
+  //createUploader();
 }
 
 

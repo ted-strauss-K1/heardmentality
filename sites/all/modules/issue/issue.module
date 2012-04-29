@@ -143,10 +143,10 @@ function issue_menu() {
     'access callback' => TRUE,
     'file' => 'issue.pages.inc',
   );
-  $menu['issue/highchart/ajax/%'] = array(
+  $menu['issue/highchart/ajax/%/%'] = array(
     'page callback' => 'issue_ajax_highchart_result',
     'type' => MENU_CALLBACK,
-    'page arguments' => array(3),
+    'page arguments' => array(3, 4),
     'access callback' => TRUE,
     'file' => 'issue.pages.inc',
   );
@@ -2192,7 +2192,7 @@ function view_issue_results($nid = '') {
     $inline = '
                 var nid = ' . $nid . '
                 jQuery(document).ready(function(){
-                insight_view(nid);
+             //   insight_view(nid);
                 })
                 ';
     drupal_add_js($inline, 'inline');
