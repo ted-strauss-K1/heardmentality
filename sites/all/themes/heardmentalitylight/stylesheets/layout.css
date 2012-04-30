@@ -2611,6 +2611,12 @@ h2.page-title {
 	padding: 18px 10px 2px 30px;
 }
 
+#issue-add-vote .login-error {
+	padding: 15px 10px 0 30px;
+	color: #924C9D;
+    font-weight: bold;
+}
+
 #new_vote .poll-vote-area .voting-pane .choices {
 	width: 85%;
 	margin: 0;
