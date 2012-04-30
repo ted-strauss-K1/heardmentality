@@ -2615,6 +2615,7 @@ h2.page-title {
 	padding: 15px 10px 0 30px;
 	color: #924C9D;
     font-weight: bold;
+	font-style: italic;
 }
 
 #new_vote .poll-vote-area .voting-pane .choices {
@@ -2743,7 +2744,8 @@ h2.page-title {
 #new_vote .button.vote {
 	clear: both;
     float: left;
-    margin: 22px 0 0 30px;
+    margin: 0 0 0 30px;
+	top: 22px;
 }
 
 #issue-edit-vote  .button.vote {

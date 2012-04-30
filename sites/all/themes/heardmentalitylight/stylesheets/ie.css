@@ -59,7 +59,7 @@
 .ie7 .show_only .inc
 {display: inline; zoom: 1;}
 
-.ie7 body,
+/*.ie7 body,
 .ie7 h1, .ie7 h2, .ie7 h3, .ie7 h4, .ie7 h5, .ie7 h6, 
 	.ie7 input[type="text"], 
 	.ie7 input[type="password"],
@@ -98,7 +98,7 @@
 	.ie8 #new_vote .suggest-error,
 	.ie8 #new_vote .poll-vote-area .fieldset-wrapper .form-item .description {
 		font-family: Arial,"Lucida Grande",sans-serif;
-	}
+	}*/
 	
 	.ie8 a.button, 
 	.ie8 button,
