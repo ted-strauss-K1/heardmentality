@@ -4041,7 +4041,8 @@ span.small_pos,
 #debate_list_area .arg p.position-plus strong {
 	background-color: #55ba59;
 	font-size: 12px;
-	line-height: 13px;
+    height: 12px;
+    line-height: 12px;
 	font-family: Arial, sans-serif !important;
 }
 
