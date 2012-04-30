@@ -116,5 +116,9 @@ $('.add_button .argument-form a, .add_button .reference-form a').click(function(
 		$('#leave_comment_area .add_button').removeClass('reduce');
 	}
 });
+
+		if ($browser.webkit) {
+			$('span.small_pos, #debate_list_area .arg p.position-plus strong').addClass('webkit');
+		}
   
 });
