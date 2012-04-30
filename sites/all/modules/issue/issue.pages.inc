@@ -56,8 +56,8 @@ function report_percent($nid='') {
 
   $per = json_encode($result);
   $inc = rtrim($ins_script, ',');
-  $output .= "
-    <script>
+  /* $output .= "
+    <script >
 
     var spath='" . $base_url . "/';
     var chart;
@@ -181,7 +181,7 @@ function report_percent($nid='') {
 
 
     });</script>";
-   
+   */
 
   $filter = (!empty($_REQUEST['dochg'])) ? $_REQUEST['dochg'] : '';
 
@@ -481,11 +481,11 @@ function report_graph($nid='') {
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist);
 
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
+  //drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
+  // drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
 
-  //drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
-  //drupal_add_js(drupal_get_path('module', 'issue') . "/js/charts.js");
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
+  drupal_add_js(drupal_get_path('module', 'issue') . "/js/charts.js");
   //$output.= "<script type='text/javascript' language='javascript'>";
 
   $query = "select date(date_voted) as dat from {poll_votes} where nid='" . $nid . "' ORDER BY date_voted DESC";
