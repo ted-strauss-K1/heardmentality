@@ -296,6 +296,11 @@ function debate_ajax() {
       $output.= "
 var chart;
 var gSitePath='" . $base_url . "/';
+
+
+//Need reduse code, I use one code 2 times!!!!!!!!!!
+
+
 $(document).ready(function() {
    chart = new Highcharts.Chart({
       chart: {

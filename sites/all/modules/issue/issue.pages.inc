@@ -56,8 +56,8 @@ function report_percent($nid='') {
 
   $per = json_encode($result);
   $inc = rtrim($ins_script, ',');
-  /* $output .= "
-    <script >
+  $output .= "
+    <script>
 
     var spath='" . $base_url . "/';
     var chart;
@@ -181,7 +181,7 @@ function report_percent($nid='') {
 
 
     });</script>";
-   */
+   
 
   $filter = (!empty($_REQUEST['dochg'])) ? $_REQUEST['dochg'] : '';
 
