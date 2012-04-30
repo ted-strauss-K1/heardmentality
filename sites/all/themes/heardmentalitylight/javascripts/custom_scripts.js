@@ -117,7 +117,10 @@ $('.add_button .argument-form a, .add_button .reference-form a').click(function(
 	}
 });
 
-		if (($.browser.mozilla) or ($.browser.msie)) {
+		if ($.browser.mozilla) {
+			$('span.small_pos, #debate_list_area .arg p.position-plus strong').addClass('fixes');
+		}
+		if ($.browser.msie) {
 			$('span.small_pos, #debate_list_area .arg p.position-plus strong').addClass('fixes');
 		}
   
