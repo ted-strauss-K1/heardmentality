@@ -1949,6 +1949,7 @@ textarea#q_quest  {
 	float: left;
 	position: relative;
 	top: 4px;
+	padding: 0;
 }
 
 #new_vote fieldset .form-radios {
@@ -2744,8 +2745,8 @@ h2.page-title {
 #new_vote .button.vote {
 	clear: both;
     float: left;
-    margin: 0 0 22px 30px;
-	top: 22px;
+    margin: 0 0 24px 30px;
+	top: 24px;
 	position: relative;
 }
 
