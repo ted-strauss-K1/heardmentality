@@ -4041,8 +4041,13 @@ span.small_pos,
 #debate_list_area .arg p.position-plus strong {
 	background-color: #55ba59;
 	font-size: 12px;
-	line-height: 14px;
+	line-height: 13px;
 	font-family: Arial, sans-serif !important;
+}
+
+span.small_pos.fixes,
+#debate_list_area .arg p.position-plus strong.fixes {
+	line-height: 14px;	
 }
 
 /*Big circle*/
