@@ -2895,6 +2895,7 @@ h6#deb-ana:hover a,
     display: block;
     font-style: italic;
     padding-top: 10px;
+	text-align: left;
 }
 
 #add-new-debate-form span.error-msg span.posted {
