@@ -4030,10 +4030,10 @@ span.small_pos,
     display: inline-block;
     font-family: Verdana, Arial, sans-serif !important;
     font-size: 13px;
-    height: 14px;
-    line-height: 12px;
+    height: 13px;
+    line-height: 11px;
     text-align: center;
-    width: 14px;
+    width: 13px;
 	color: #fff;
 }
 
@@ -4041,7 +4041,7 @@ span.small_pos,
 #debate_list_area .arg p.position-plus strong {
 	background-color: #55ba59;
 	font-size: 12px;
-    line-height: 14px;
+	line-height: 13px;
 	font-family: Arial, sans-serif !important;
 }
 
