@@ -2616,7 +2616,7 @@ h2.page-title {
 	padding: 15px 10px 0 30px;
 	color: #924C9D;
     font-weight: bold;
-	font-style: italic;
+	/*font-style: italic;*/
 }
 
 #new_vote .poll-vote-area .voting-pane .choices {
