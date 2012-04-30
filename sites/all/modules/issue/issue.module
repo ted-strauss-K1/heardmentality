@@ -2439,7 +2439,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#rows' => 3,
     '#resizable' => false,
     '#prefix' => '<div class="argument-form"><label for="deb_title">What\'s your argument?</label>',
-    '#suffix' => '</div><span class="error-msg" id="deb-err"></span>',
+    '#suffix' => '</div>',
   );
   $form['ref_title'] = array(
     '#type' => 'textfield',
