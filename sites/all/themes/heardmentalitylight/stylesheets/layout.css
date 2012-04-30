@@ -2744,7 +2744,7 @@ h2.page-title {
 #new_vote .button.vote {
 	clear: both;
     float: left;
-    margin: 0 0 0 30px;
+    margin: 0 0 22px 30px;
 	top: 22px;
 	position: relative;
 }
