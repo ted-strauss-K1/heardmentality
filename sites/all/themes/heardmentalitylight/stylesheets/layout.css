@@ -2614,9 +2614,7 @@ h2.page-title {
 
 #issue-add-vote .login-error {
 	padding: 15px 10px 0 30px;
-	color: #924C9D;
-    font-weight: bold;
-	font-style: italic;
+	color: #CD2027;
 }
 
 #new_vote .poll-vote-area .voting-pane .choices {
@@ -2752,6 +2750,7 @@ h2.page-title {
 
 #issue-edit-vote  .button.vote {
     margin: 12px 0 0 30px;
+	top: 0;
 }
 
 #issue-add-vote,

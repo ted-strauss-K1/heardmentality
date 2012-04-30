@@ -117,8 +117,8 @@ $('.add_button .argument-form a, .add_button .reference-form a').click(function(
 	}
 });
 
-		if ($.browser.mozilla) {
-			$('span.small_pos, #debate_list_area .arg p.position-plus strong').addClass('webkit');
+		if ($.browser.mozilla & $.browser.msie) {
+			$('span.small_pos, #debate_list_area .arg p.position-plus strong').addClass('fixes');
 		}
   
 });
