@@ -197,10 +197,17 @@
 .ie7 #debate_list_area .arg span.sum span,
 .ie8 #debate_list_area .arg span.sum span {
 	position: relative;
+	line-height:
 }
 
 .ie7 #debate_list_area li.one_reply span.negative, .ie7 #debate_list_area li.one_reply span.positive,
 .ie8 #debate_list_area li.one_reply span.negative, .ie8 #debate_list_area li.one_reply span.positive {
 	background-color: #D7D7D7;
+	border: 1px solid red;
+}
+
+.ie7 #debate_list_area li.one_reply span.positive,
+.ie8 #debate_list_area li.one_reply span.positive {
+	line-height: 13px !important;
 }
 	
