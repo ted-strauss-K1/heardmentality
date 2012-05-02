@@ -3016,8 +3016,9 @@ h6#deb-ana:hover a,
 
 #edit-ref-title-wrapper input.form-text {
 	margin: 0;
-	padding: 11px 10px 10px;
+	padding: 11px 10px;
 	width: 96%;
+	min-height: 17px;
 }
 
 .req_assign {
