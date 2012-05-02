@@ -728,9 +728,7 @@ function debate_submit() {
 
 
       $cond = " AND type = '" . $type . "'";
-      //$cond = " AND " . $action . "='1'";
-      //$set = " " . $action . "='1'";
-      //$query = "select * from {user_likes} where node_id='$content_id' $cond AND uid='$user->uid'";
+
       $query = "select * from {votingapi_vote} where content_id ='$content_id' $cond AND uid='$user->uid'";
 
       $chk = db_result(db_query($query));

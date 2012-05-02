@@ -243,7 +243,7 @@ function insight_view(nid){
 // load debate statistics
 jQuery('#deb-ana').live('click', function(){
   var nid = jQuery('#curr_nid').val();
-  var url = spath+'issue/ajax/debate_statistics/'+nid;
+  var url = '/issue/ajax/debate_statistics/'+nid;
   jQuery('#deb-ana-load-txt').html('Loading...');
   jQuery.ajax({
     type: 'get',
