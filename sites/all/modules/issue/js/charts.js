@@ -76,6 +76,13 @@ function load_chart(arg) {
   
   
   function createMainChart(seriesOptions, categories) {
+    /*
+	$(seriesOptions).map(function(index, element) {
+		if (element == 0) {
+		  seriesOptions[index] = null;
+		}
+	});
+	*/
     //alert('hello');
     chart = new Highcharts.Chart({
       chart: {

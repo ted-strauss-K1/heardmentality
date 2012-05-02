@@ -3625,8 +3625,8 @@ ul.control_links h6#reply:hover {
 	left: -100px;
 	display: block;
 	height: 19px;
-	width: 19px;
-	padding: 0 0 2px 1px;
+	width: 20px;
+	padding: 0 0 2px 0px;
 	border: 1px solid #d7d7d7;
 	font: 22px/18px Verdana, sans-serif;
 	background-color: #fff;
@@ -3637,6 +3637,12 @@ ul.control_links h6#reply:hover {
 	-khtml-border-radius: 200px;
 	text-align: center;
 	color: #C2499B;
+}
+
+#debate_list_area li.one_reply span.negative.fixes,
+#debate_list_area li.one_reply span.positive.fixes {
+	width: 19px;
+	padding: 0 0 2px 1px;	
 }
 
 #debate_list_area li.one_reply span.positive {
