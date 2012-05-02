@@ -198,4 +198,9 @@
 .ie8 #debate_list_area .arg span.sum span {
 	position: relative;
 }
+
+.ie7 #debate_list_area li.one_reply span.negative, .ie7 #debate_list_area li.one_reply span.positive,
+.ie8 #debate_list_area li.one_reply span.negative, .ie8 #debate_list_area li.one_reply span.positive {
+	background-color: #D7D7D7;
+}
 	
