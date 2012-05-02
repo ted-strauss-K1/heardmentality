@@ -182,3 +182,15 @@
 		border-width: 1px 1px 3px;
 	}
 	
+	/*PIE*/
+
+.ie7 #debate_list_area .arg span.sum span,
+.ie8 #debate_list_area .arg span.sum span,
+.ie7 span.small_neg, .ie7 span.small_pos, .ie7 #debate_list_area .arg p.position-minus strong, .ie7 #debate_list_area .arg p.position-plus strong,
+.ie8 span.small_neg, .ie8 span.small_pos, .ie8 #debate_list_area .arg p.position-minus strong, .ie8 #debate_list_area .arg p.position-plus strong,
+.ie7 #debate_list_area li.one_reply span.negative, .ie7 #debate_list_area li.one_reply span.positive,
+.ie8 #debate_list_area li.one_reply span.negative, .ie8 #debate_list_area li.one_reply span.positive {	
+	behavior: url(/sites/all/themes/american_golf/css/PIE.htc);
+	zoom: 1;
+}
+	
