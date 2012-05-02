@@ -121,7 +121,7 @@ $('.add_button .argument-form a, .add_button .reference-form a').click(function(
 			$('span.small_pos, #debate_list_area .arg p.position-plus strong').addClass('fixes');
 			$('#debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive').addClass('fixes');
 		}
-		if ($.browser.msie) {
+		if ($.browser.msie && $.browser.version > '8.0') {
 			$('span.small_pos, #debate_list_area .arg p.position-plus strong').addClass('fixes');
 			$('#debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive').addClass('fixes');
 		}

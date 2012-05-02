@@ -193,4 +193,9 @@
 	behavior: url(/sites/all/themes/heardmentalitylight/stylesheets/PIE.htc);
 	zoom: 1;
 }
+
+.ie7 #debate_list_area .arg span.sum span,
+.ie8 #debate_list_area .arg span.sum span {
+	position: relative;
+}
 	
