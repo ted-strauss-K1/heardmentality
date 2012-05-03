@@ -736,8 +736,6 @@ function debate_submit() {
       if (!$chk && $user->uid > 0) {
         $lose_coins = $agree == 1 ? get_coins('agree') : get_coins('disagree');
         if ($user_coins >= $lose_coins) {
-          //$query = "insert into {user_likes} set $set ,node_id='$content_id',uid='$user->uid',is_agree='$agree'";
-          //$chk = db_query($query);
           // add values into votingapi_vote
           $voteValue = $agree == 1 ? '1' : '-1';
           if ($action == 'is_debate' || $action == 'is_resource') {
@@ -747,7 +745,11 @@ function debate_submit() {
             $content_type = 'comment';
           }
 
-          db_query("INSERT INTO {votingapi_vote} SET content_type = '%s', content_id = '%d', value = '%s', value_type = '%s', tag = '%s', uid = '%d', timestamp = '%d'", $content_type, $content_id, $voteValue, 'points', 'vote', $user->uid, time());
+          db_query("INSERT INTO {votingapi_vote} 
+            SET content_type = '%s', content_id = '%d', 
+            value = '%s', value_type = '%s', tag = '%s', 
+            uid = '%d', timestamp = '%d'", 
+                  $content_type, $content_id, $voteValue, 'points', 'vote', $user->uid, time());
 
           // get like dislike counts
 
@@ -905,7 +907,6 @@ function debate_submit() {
             //heartbeat_api_log($message_id, $user->uid, $question_urlff, $qid, $question_urlff, $variables);
             /* RAM HEARTBEAT MODULE DEBATE REPLY UPDATE */
           }
-
           $msg['error'] = '0';
           $msg['type'] = $type;
           $msg['likebar'] = like_dislike_bar($agreecnt, $disagreecnt);

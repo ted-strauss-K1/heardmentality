@@ -89,12 +89,13 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 
       <div class="replies">
 
-        <?php if ($comments): ?>
+        <?php if ($comments): drupal_add_js('misc/collapse.js');?>
 
           <fieldset class="collapsible collapsed reply_wrapper">
 
             <legend class="comment-meta">
-  <?php print t('&#9658;'); ?><span><?php print $reply_count; ?><?php print t(' replies'); ?></span></legend>
+  <?php print t('&#9658;'); ?><span><?php print $reply_count; ?><?php print t(' replies'); ?></span>
+            </legend>
             <div class="fieldset-wrapper">
               <ul>
                 <div id="all_replybox_<?php print $items['debate_tnid']; ?>">

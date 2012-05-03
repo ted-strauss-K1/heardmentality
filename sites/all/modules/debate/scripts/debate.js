@@ -60,7 +60,6 @@ function bind_clk(){
       var url = '/issues/debate/save';
       jQuery('#twitMsg').html("Please wait while saving your post....!");
       jQuery('#twitMsg').delay(400).slideDown(400);
-           
       jQuery.ajax({
         type: "POST",
         dataType: 'json',
