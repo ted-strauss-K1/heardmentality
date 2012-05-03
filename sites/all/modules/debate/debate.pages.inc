@@ -80,7 +80,6 @@ function debate_ajax() {
                     <input type="checkbox" name="no_thumbnail" id="no_thumbnail" />&nbsp; No Thumbnail
                     <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/>
                         ';
-
       }
       break;
     case 'resource_new':
@@ -745,13 +744,30 @@ function debate_submit() {
             $content_type = 'comment';
           }
 
+
           db_query("INSERT INTO {votingapi_vote} 
             SET content_type = '%s', content_id = '%d', 
             value = '%s', value_type = '%s', tag = '%s', 
-            uid = '%d', timestamp = '%d'", 
-                  $content_type, $content_id, $voteValue, 'points', 'vote', $user->uid, time());
+            uid = '%d', timestamp = '%d'", $content_type, $content_id, $voteValue, 'points', 'vote', $user->uid, time());
 
           // get like dislike counts
+          if ($action == 'is_debate_reply' || $action == 'is_resource_reply') {
+            
+            $query = "SELECT str_wk FROM {comments} WHERE cid = '%d'";
+            $result = db_query($query, $content_id);
+            $result = db_result($result);
+            if ($result) {
+              $parvoteValue = $voteValue == 1 ? '1' : '-1';
+            }
+            else {
+              $parvoteValue = $voteValue == 1 ? '-1' : '1';
+            }
+            
+            db_query("INSERT INTO {votingapi_vote} 
+            SET content_type = '%s', content_id = '%d', 
+            value = '%s', value_type = '%s', tag = '%s', 
+            uid = '%d', timestamp = '%d'", 'node', $parent_node, $parvoteValue, 'points', 'vote', $user->uid, time());
+          }
 
           $criteriaUpNode = array('content_type' => $type,
             'content_id' => $content_id,

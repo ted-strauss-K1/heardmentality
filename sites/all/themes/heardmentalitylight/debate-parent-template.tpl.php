@@ -7,7 +7,8 @@ $items['title'] = str_replace("\r\n", "<br>", $items['title']);
 $items['title'] = str_replace("\n", "<br>", $items['title']);
 ?>
 <div id="forum-block-<?php if (isset($items['debate_tnid']))
-  { print $items['debate_tnid'];} else {print $items['resource_id']; $class = ' resources';} ?>" class="one-forum<?php print $class?>">
+  { print $items['debate_tnid'];} else {print $items['resource_id']; $class = ' resources';} ?>" class="one-forum<?php print $class?>" name="<?php if (isset($items['debate_tnid']))
+  { print $items['debate_tnid'];} else {print $items['resource_id'];}?>">
   <!--<?php if ($comments) { ?>
                               <h6 class="active">/ <?php print t('Argument'); ?></h6>
   <?php } ?>-->

@@ -53,7 +53,8 @@ function bind_clk(){
       el.slideDown('slow');
       var wid=el.parent('span').attr('name');
       var action=el.parent('span').attr('type');
-      // $('likelink').empty();
+      var id_par = el.parents('.one-forum').attr('name');
+
       el.closest('span').find('a.dagree').attr('class','');
       el.closest('span').find('a.ddisagree').attr('class','');
 
@@ -67,7 +68,8 @@ function bind_clk(){
         data: {
           'action': action,
           'agree': type,
-          'content_id': wid
+          'content_id': wid,
+          'parent_node': id_par
         },
         success: function(msg){
           if(type==0){
