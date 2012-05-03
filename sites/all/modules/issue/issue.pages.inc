@@ -481,9 +481,6 @@ function report_graph($nid='') {
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist);
 
-  //drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts.js");
-  // drupal_add_js(drupal_get_path('module', 'issue') . "/js/skies.js");
-
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/charts.js");
   //$output.= "<script type='text/javascript' language='javascript'>";
@@ -1899,7 +1896,7 @@ function forum_replies($debate_tnid, $pid = '') {
     }
   }
   else {
-    $comments .= '<div id="no_rply_' . $debate_tnid . '">' . t('No Replies') . '</div>';
+  //  $comments .= '<div id="no_rply_' . $debate_tnid . '">' . t('No Replies') . '</div>';
   }
   return $comments;
 }
@@ -2697,7 +2694,17 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
       $reply_count = db_result(db_query("SELECT COUNT(cid) FROM {comments} WHERE nid = '" . $items['debate_tnid'] . "'"));
       // delete
       if (is_moderator() || $items['uid'] == $user->uid) {
-        $delete = '<h6 value="Delete" id="reply" class="add-comment button light" onclick="delete_thread(\'own_forum_' . $items['debate_tnid'] . '\', \'debate\')">' . t('Delete') . '</h6>';
+        if (isset($items['debate_tnid'])) {
+          $id = $items['debate_tnid'];
+          $arg = 'debate';
+        }
+        else {
+          $id = $items['resource_id'];
+          $arg = 'resource';
+        }
+        $delete = '<h6 value="Delete" id="reply" class="add-comment button light" 
+          onclick="delete_thread(\'own_forum_' . $id . '\', \''  .$arg. '\')">' . t('Delete') . '</h6>';
+        //(\'own_reply_' . $items['cid'] . '\', \'reply\')
       }
       else {
         $delete = '';
@@ -2851,9 +2858,9 @@ function issue_ajax_highchart_result($nid, $param) {
     $js_arr[$key]['data'] = $json['data'][$key];
     $js_arr['categories'] = $json['categories'];
   }
- // foreach ($js_arr as $key => $value) {
+  // foreach ($js_arr as $key => $value) {
   print drupal_json(array('name' => $js_arr[$param]['name'],
-  'data' => $js_arr[$param]['data'],
-  'categories' => $js_arr['categories']));
+            'data' => $js_arr[$param]['data'],
+            'categories' => $js_arr['categories']));
 //}
 }

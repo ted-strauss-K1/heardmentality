@@ -206,8 +206,8 @@ function delete_thread(id, type){
   var fid  = spl[2];
   var dtype = spl[1];
   //var msgid = '#reply-msg-'+fid;
-    
-  var url = spath+'issue/thread/delete/'+dtype+'/'+fid+'/'+type;
+    console.log(spl);
+  var url = '/issue/thread/delete/'+dtype+'/'+fid+'/'+type;
   if(confirm("Are you sure to delete this argument?")){
     jQuery.ajax({
       type: 'post',
@@ -221,7 +221,8 @@ function delete_thread(id, type){
       }
     });
     return true;
-  }else{
+  }
+  else{
     return false;
   }
 }
@@ -460,7 +461,7 @@ jQuery(document).ready(function() {
 
 function startload(){
   initialize();
-  //createUploader();
+//createUploader();
 }
 
 

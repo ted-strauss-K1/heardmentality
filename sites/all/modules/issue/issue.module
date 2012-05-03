@@ -2226,15 +2226,12 @@ function theme_issue_debate_list($nid = '') {
     $addNewDebateForm .= '<div align="center"><b>' . t('Please log in to participate in the debate') . '</b></div>';
   }
   $debateFilterForm = drupal_get_form('filter_options', $nid);
-  //$debateStatistics = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=analysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
   $debateStatistics = '<input type="hidden" id="curr_nid" value="' . $nid . '" />';
-  //$debateList[1] = issue_debates($nid, 1, 0);
   $debateList[0] = issue_ajax_tab_content($nid, 1, 0, 1);
-//krumo($debateList);
-  // $debateList[1] = issue_debates($nid, 1, 1);
-  // $debateList[2] = issue_debates($nid, 1, 2);
+
   $result = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 1 and field_ref_qid_nid =%d', $nid);
   $count = db_result($result);
+  
   $ans = load_options($nid);
   foreach ($ans as $list) {
     $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
