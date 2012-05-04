@@ -87,7 +87,7 @@ function load_chart(arg) {
     chart = new Highcharts.Chart({
       chart: {
         renderTo: 'chart_div',
-        defaultSeriesType:'bar',
+        defaultSeriesType:'line',
 		style: {
 			fontFamily: 'Arial',
 			color: '#4c4c4c',
@@ -101,7 +101,7 @@ function load_chart(arg) {
 		marginTop: 20,
 		marginRight: 20,
 		marginBottom: 20,
-		ignoreHiddenSeries: true,
+		//ignoreHiddenSeries: true,
 		zoomType: 'y'
       },
 					
@@ -116,7 +116,7 @@ function load_chart(arg) {
 		},
 		lineColor: '#4c4c4c',
 		lineWidth: 1,
-		endOnTick: false,
+		//endOnTick: false,
 		tickColor: '#fff',
 		tickWidth: 0,
 		tickmarkPlacement: 'on',
@@ -135,7 +135,7 @@ function load_chart(arg) {
 		title: {
 			text: null
 		},
-		endOnTick: false,
+		//endOnTick: false,
 		maxPadding: 0.01,
 		lineWidth: 0,
 		gridLineColor: '#ccc',
@@ -186,7 +186,7 @@ function load_chart(arg) {
       plotOptions: {
 		bar: {
 			dataLabels: {
-				enabled: true
+				enabled: false
 			},
 		borderColor: '#fff',
 		borderWidth: 0,
