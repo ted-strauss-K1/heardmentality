@@ -43,7 +43,7 @@ $(function() {
 		marginTop: 20,
 		marginRight: 20,
 		marginBottom: 20,
-		marginLeft: 40,
+		marginLeft: 100,
 		ignoreHiddenSeries: true
       },
 	  
@@ -99,8 +99,8 @@ $(function() {
 		
 		navigator: {
             enabled: true,
-			height: 40,
-			margin: 15,
+			height: 30,
+			margin: 20,
 			maskFill: 'rgba(180, 198, 220, 0.75)',
 			handles: {
                 backgroundColor: 'yellow',
@@ -166,7 +166,7 @@ $(function() {
                 ]
         },
             borderColor: '#ccc',
-            borderWidth: 1 
+            borderWidth: 2 
       },
 	  
       series: seriesOptions
