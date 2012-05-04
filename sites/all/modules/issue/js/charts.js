@@ -77,7 +77,7 @@ function load_chart(arg) {
   $(function () {
     var chart = new Highcharts.Chart({
         chart: {
-            renderTo: 'container',
+            renderTo: 'chart_div',
             defaultSeriesType: 'bar'
         },
         xAxis: {
