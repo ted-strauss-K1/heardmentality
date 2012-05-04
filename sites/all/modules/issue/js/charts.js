@@ -104,7 +104,7 @@ $(function() {
 		navigator: {
             enabled: true,
 			height: 30,
-			margin: 120,
+			margin: 30,
 			maskFill: 'rgba(180, 198, 220, 0.75)',
 			handles: {
                 backgroundColor: 'yellow',
