@@ -77,8 +77,8 @@ $(function() {
           }
         },
 		
-		tickInterval: 1,
-		min: 0,
+		//tickInterval: 1,
+		//min: 0,
 		title: {
 			text: null
 		},
