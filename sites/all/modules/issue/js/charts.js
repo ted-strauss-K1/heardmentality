@@ -63,7 +63,14 @@ $(function() {
 		tickmarkPlacement: 'on',
 		startOnTick: false,
 		labels: {
-			enabled: false
+			style: {
+				color: '#4c4c4c',
+				font: '12px Aial, sans-serif'
+			},
+
+			align: 'left',
+			x: 3,
+			y: -4
 
 		}
 	  },
