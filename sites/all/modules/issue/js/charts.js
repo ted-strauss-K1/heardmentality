@@ -96,6 +96,23 @@ $(function() {
 				enabled : false
 	  },
 	  
+	   rangeSelector: {
+            selected: 5
+        },
+		
+		navigator: {
+            enabled: true,
+			height: 50,
+			margin: 15,
+			maskFill: 'rgba(180, 198, 220, 0.75)',
+			handles: {
+                backgroundColor: 'yellow',
+                borderColor: 'red'
+            },
+			outlineColor: 'blue',
+            outlineWidth: 2
+        },
+	  
 	  colors: [
 		'#934d9e',
 		'#FF7F00',
