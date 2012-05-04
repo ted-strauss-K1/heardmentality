@@ -83,7 +83,7 @@ $(function() {
 		maxPadding: 0.01,
 		lineWidth: 0,
 		gridLineColor: '#ccc',
-		tickmarkPlacement: 'on',
+		//tickmarkPlacement: 'on',
 		tickColor: '#fff',
 		tickWidth: 1,
 		tickLength: 5,
