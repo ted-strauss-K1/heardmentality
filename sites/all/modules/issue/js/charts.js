@@ -42,7 +42,7 @@ $(function() {
 		borderWidth: 0,
 		marginTop: 20,
 		marginRight: 20,
-		marginBottom: 80,
+		marginBottom: 20,
 		marginLeft: 20,
 		ignoreHiddenSeries: true
       },
@@ -102,7 +102,7 @@ $(function() {
 		
 		navigator: {
             enabled: true,
-			height: 20,
+			height: 40,
 			margin: 15,
 			maskFill: 'rgba(180, 198, 220, 0.75)',
 			handles: {
