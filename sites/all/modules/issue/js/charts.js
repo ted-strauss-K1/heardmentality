@@ -83,11 +83,10 @@ $(function() {
 		maxPadding: 0.01,
 		lineWidth: 0,
 		gridLineColor: '#ccc',
-		//tickmarkPlacement: 'on',
+		tickmarkPlacement: 'on',
 		tickColor: '#fff',
 		tickWidth: 1,
-		tickLength: 5,
-		tickPosition: 'outside'
+		tickLength: 5
       },
 	  
 	  scrollbar : {
@@ -99,7 +98,7 @@ $(function() {
         },
 		
 		navigator: {
-            enabled: false,
+            enabled: true,
 			height: 30,
 			margin: 20,
 			maskFill: 'rgba(180, 198, 220, 0.75)',
@@ -108,7 +107,14 @@ $(function() {
                 borderColor: 'red'
             },
 			outlineColor: 'blue',
-            outlineWidth: 2
+            outlineWidth: 2,
+			xAxis: {
+				labels: {
+					align: 'right',
+					x: 3,
+					y: -4
+				}
+			}
         },
 	  
 	  colors: [
