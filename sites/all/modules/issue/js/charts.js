@@ -43,7 +43,7 @@ $(function() {
 		marginTop: 20,
 		marginRight: 20,
 		marginBottom: 20,
-		marginLeft: 20,
+		marginLeft: 40,
 		ignoreHiddenSeries: true
       },
 	  
@@ -161,11 +161,11 @@ $(function() {
                     y2: 1
                 },
                 stops: [
-                    [0, 'white'],
-                    [1, '#EEE']
+                    [0, '#fff'],
+                    [1, '#f2f2f2']
                 ]
         },
-            borderColor: 'gray',
+            borderColor: '#ccc',
             borderWidth: 1 
       },
 	  
