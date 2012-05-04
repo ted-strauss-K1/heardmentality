@@ -67,11 +67,6 @@ $(function() {
 				color: '#4c4c4c',
 				font: '12px Aial, sans-serif'
 			},
-
-			align: 'left',
-			x: 3,
-			y: -4
-
 		}
 	  },
 	  
@@ -79,7 +74,11 @@ $(function() {
         labels: {
           formatter: function() {
             return this.value;
-          }
+          },
+		  
+			align: 'left',
+			x: 3,
+			y: -4
         },
 		title: {
 			text: null
