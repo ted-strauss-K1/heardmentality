@@ -28,8 +28,25 @@ $(function() {
   function createChart(seriesOptions, sdate) {
     var chart = new Highcharts.StockChart({
       chart: {
-        renderTo: 'container_graph'
-      }, 
+        renderTo: 'container_graph',
+		type: 'spline',
+		style: {
+			fontFamily: 'Arial',
+			color: '#4c4c4c',
+			fontSize: '12px'
+		},
+		plotBorderColor: '#fff',
+		plotBorderWidth: 0,
+		borderColor: '#fff',
+		borderRadius: 0,
+		borderWidth: 0,
+		marginTop: 20,
+		marginRight: 20,
+		marginBottom: 20,
+		marginLeft: 20,
+		ignoreHiddenSeries: true
+      },
+	  
       yAxis: {
         labels: {
           formatter: function() {
@@ -37,12 +54,18 @@ $(function() {
           }
         }
       },
+	  
+	  scrollbar : {
+				enabled : false
+	  },
+	  
       plotOptions: {
         series: {
           pointStart: Date.UTC(sdate.year, sdate.month, sdate.day),
           pointInterval: 3600 * 1000 * 24
         }
       },
+	  
       series: seriesOptions
     });
   }
