@@ -63,10 +63,8 @@ $(function() {
 		tickmarkPlacement: 'on',
 		startOnTick: false,
 		labels: {
-			style: {
-				color: '#4c4c4c',
-				font: '12px Aial, sans-serif'
-			}
+			enabled: false
+
 		}
 	  },
 	  
@@ -107,14 +105,7 @@ $(function() {
                 borderColor: 'red'
             },
 			outlineColor: 'blue',
-            outlineWidth: 2,
-			xAxis: {
-				labels: {
-					align: 'right',
-					x: 3,
-					y: -4
-				}
-			}
+            outlineWidth: 2
         },
 	  
 	  colors: [
