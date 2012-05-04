@@ -40,10 +40,10 @@ $(function() {
 		borderColor: '#fff',
 		borderRadius: 0,
 		borderWidth: 0,
-		marginTop: 1,
-		marginRight: 1,
-		marginBottom: 1,
-		marginLeft: 1,
+		marginTop: 15,
+		marginRight: 20,
+		marginBottom: 15,
+		marginLeft: 20,
 		ignoreHiddenSeries: true
       },
 	  
@@ -100,7 +100,7 @@ $(function() {
 		navigator: {
             enabled: true,
 			height: 30,
-			margin: 30,
+			margin: 40,
 			maskFill: 'rgba(180, 198, 220, 0.75)',
 			handles: {
                 backgroundColor: 'yellow',
