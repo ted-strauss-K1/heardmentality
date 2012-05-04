@@ -87,7 +87,7 @@ function load_chart(arg) {
     chart = new Highcharts.Chart({
       chart: {
         renderTo: 'chart_div',
-        defaultSeriesType:'line',
+        defaultSeriesType:'bar',
 		style: {
 			fontFamily: 'Arial',
 			color: '#4c4c4c',
@@ -101,7 +101,7 @@ function load_chart(arg) {
 		marginTop: 20,
 		marginRight: 20,
 		marginBottom: 20,
-		//ignoreHiddenSeries: true,
+		ignoreHiddenSeries: true,
 		zoomType: 'y'
       },
 					
@@ -110,13 +110,13 @@ function load_chart(arg) {
       },
 
       xAxis: {
-        categories: categories,
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 		title: {
 			text: null	
 		},
 		lineColor: '#4c4c4c',
 		lineWidth: 1,
-		//endOnTick: false,
+		endOnTick: false,
 		tickColor: '#fff',
 		tickWidth: 0,
 		tickmarkPlacement: 'on',
@@ -130,19 +130,19 @@ function load_chart(arg) {
       },
 	  
       yAxis: {
-		tickInterval: 1,
-		min: 0,
-		title: {
+		//tickInterval: 1,
+		//min: 0,
+		//title: {
 			text: null
 		},
 		//endOnTick: false,
-		maxPadding: 0.01,
-		lineWidth: 0,
-		gridLineColor: '#ccc',
-		tickmarkPlacement: 'on',
-		tickColor: '#fff',
-		tickWidth: 1,
-		tickLength: 5
+		//maxPadding: 0.01,
+		//lineWidth: 0,
+		//gridLineColor: '#ccc',
+		//tickmarkPlacement: 'on',
+		//tickColor: '#fff',
+		//tickWidth: 1,
+		//tickLength: 5
       },
 	  
 	  colors: [
@@ -186,7 +186,7 @@ function load_chart(arg) {
       plotOptions: {
 		bar: {
 			dataLabels: {
-				enabled: false
+				enabled: true
 			},
 		borderColor: '#fff',
 		borderWidth: 0,
@@ -201,7 +201,9 @@ function load_chart(arg) {
         enabled: false
       },  
 	  
-      series: seriesOptions
+              series: [{
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]        
+        }]
     });
   }
 }
