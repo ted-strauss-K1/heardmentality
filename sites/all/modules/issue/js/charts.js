@@ -78,7 +78,8 @@ $(function() {
 		  
 			align: 'left',
 			x: 3,
-			y: -4
+			y: -4,
+			enable: false
         },
 		title: {
 			text: null
