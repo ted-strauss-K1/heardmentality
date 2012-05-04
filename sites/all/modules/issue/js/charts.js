@@ -72,7 +72,11 @@ $(function() {
 	  
       yAxis: {
         labels: {
-          enabled : false 
+          formatter: function() {
+            return this.value;
+          },
+		  
+		  align: 
         },
 		title: {
 			text: null
@@ -107,7 +111,7 @@ $(function() {
 			outlineColor: 'blue',
             outlineWidth: 2,
 			series: {
-                color: 'green'    
+                color: '#6ccbd5'    
             }
         },
 	  
