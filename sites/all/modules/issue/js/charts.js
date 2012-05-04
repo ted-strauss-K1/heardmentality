@@ -74,9 +74,7 @@ $(function() {
         labels: {
           formatter: function() {
             return this.value;
-          },
-		  
-		  align: 
+          }
         },
 		title: {
 			text: null
