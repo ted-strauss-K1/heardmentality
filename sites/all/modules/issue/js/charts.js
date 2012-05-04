@@ -40,10 +40,10 @@ $(function() {
 		borderColor: '#fff',
 		borderRadius: 0,
 		borderWidth: 0,
-		marginTop: 0,
-		marginRight: 0,
-		marginBottom: 0,
-		marginLeft: 0,
+		marginTop: 1,
+		marginRight: 1,
+		marginBottom: 1,
+		marginLeft: 1,
 		ignoreHiddenSeries: true
       },
 	  
