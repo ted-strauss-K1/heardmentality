@@ -87,7 +87,22 @@ function load_chart(arg) {
     chart = new Highcharts.Chart({
       chart: {
         renderTo: 'chart_div',
-        type:'bar'
+        defaultSeriesType:'bar',
+		style: {
+			fontFamily: 'Arial',
+			color: '#4c4c4c',
+			fontSize: '12px'
+		},
+		plotBorderColor: '#fff',
+		plotBorderWidth: 0,
+		borderColor: '#fff',
+		borderRadius: 0,
+		borderWidth: 0,
+		marginTop: 20,
+		marginRight: 20,
+		marginBottom: 20,
+		ignoreHiddenSeries: true,
+		zoomType: 'y'
       },
 					
       title: {
@@ -95,23 +110,62 @@ function load_chart(arg) {
       },
 
       xAxis: {
-        categories: categories
+        categories: categories,
+		title: {
+			text: null	
+		},
+		lineColor: '#4c4c4c',
+		lineWidth: 1,
+		endOnTick: false,
+		tickColor: '#fff',
+		tickWidth: 0,
+		tickmarkPlacement: 'on',
+		startOnTick: false,
+		labels: {
+			style: {
+				color: '#4c4c4c',
+				font: '12px Aial, sans-serif'
+			}
+		}
       },
+	  
       yAxis: {
-        tickInterval: 1,
-        min: 0,
-        title: {
-          text: null
-        },
-        endOnTick: false,
-        maxPadding: 0.01,
-        lineWidth: 0,
-        gridLineColor: '#ccc',
-        tickmarkPlacement: 'on',
-        tickColor: '#fff',
-        tickWidth: 1,
-        tickLength: 5
-      },		
+		tickInterval: 1,
+		min: 0,
+		title: {
+			text: null
+		},
+		endOnTick: false,
+		maxPadding: 0.01,
+		lineWidth: 0,
+		gridLineColor: '#ccc',
+		tickmarkPlacement: 'on',
+		tickColor: '#fff',
+		tickWidth: 1,
+		tickLength: 5
+      },
+	  
+	  colors: [
+		'#934d9e',
+		'#FF7F00',
+		'#50c0ac',
+		'#0c6926',
+		'#ef4c8d',
+		'#362750',
+		'#e1e43c',
+		'#ef3d3b',
+		'#3cc7f4',
+		'#589a1c',
+		'#C2499B',
+		'#f89521',
+		'#CC2027',
+		'#55ba59',
+		'#d5bc29',
+		'#6ccbd5',
+		'#43B649',
+		'#F6EB16'
+      ],
+	  
       legend: {
         enabled: false
       },
@@ -130,15 +184,23 @@ function load_chart(arg) {
       },
       
       plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true
-          }
-        }
+		bar: {
+			dataLabels: {
+				enabled: true
+			},
+		borderColor: '#fff',
+		borderWidth: 0,
+		shadow: false,
+		groupPadding: 0.15,
+		pointPadding: 0
+		//pointWidth: 20
+		}
       },
+	  
       credits: {
         enabled: false
-      },                               
+      },  
+	  
       series: seriesOptions
     });
   }
