@@ -75,7 +75,7 @@ function load_chart(arg) {
   });
   
   
-  function createMainChart() {
+  function createMainChart(seriesOptions, categories) {
     /*
 	$(seriesOptions).map(function(index, element) {
 		if (element == 0) {
@@ -110,7 +110,7 @@ function load_chart(arg) {
       },
 
       xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        categories: categories,
 		title: {
 			text: null	
 		},
@@ -130,19 +130,19 @@ function load_chart(arg) {
       },
 	  
       yAxis: {
-		//tickInterval: 1,
-		//min: 0,
-		//title: {
+		tickInterval: 1,
+		min: 0,
+		title: {
 			text: null
 		},
-		//endOnTick: false,
-		//maxPadding: 0.01,
-		//lineWidth: 0,
-		//gridLineColor: '#ccc',
-		//tickmarkPlacement: 'on',
-		//tickColor: '#fff',
-		//tickWidth: 1,
-		//tickLength: 5
+		endOnTick: false,
+		maxPadding: 0.01,
+		lineWidth: 0,
+		gridLineColor: '#ccc',
+		tickmarkPlacement: 'on',
+		tickColor: '#fff',
+		tickWidth: 1,
+		tickLength: 5
       },
 	  
 	  colors: [
@@ -200,10 +200,8 @@ function load_chart(arg) {
       credits: {
         enabled: false
       },  
-	  
-        series: [{
-            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]        
-        }]
+                             
+      series: seriesOptions
     });
   }
 }
