@@ -76,9 +76,6 @@ $(function() {
             return this.value;
           }
         },
-		
-		//tickInterval: 1,
-		//min: 0,
 		title: {
 			text: null
 		},
@@ -148,6 +145,28 @@ $(function() {
           pointInterval: 3600 * 1000 * 24
         },
 		shadow: false
+      },
+	  
+	    tooltip: {
+        shadow: false,
+        style: {
+          font: '12px Aial, sans-serif'
+        },
+        borderRadius: 3,
+		backgroundColor: {
+                linearGradient: {
+                    x1: 0,
+                    y1: 0,
+                    x2: 0,
+                    y2: 1
+                },
+                stops: [
+                    [0, 'white'],
+                    [1, '#EEE']
+                ]
+        },
+            borderColor: 'gray',
+            borderWidth: 1 
       },
 	  
       series: seriesOptions
