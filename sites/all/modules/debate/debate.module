@@ -159,7 +159,7 @@ WHERE f.nid = '$did'";
 
     $sum_rollup = $main['0']['cntagree'] + $sum_rollup;
     //$query = "update {debate} set agree='$agree',disagree='$dagree',activity='$sum_act',strength='$sum_rollup',score='$debate_str' where did='$did'";
-    $query = "update {content_type_forum} set field_agree_value='$agree',field_disagree_value='$dagree',field_activity_value='$sum_act',field_strength_value='$sum_rollup',field_score_value='$debate_str' where nid='$did'";
+    $query = "update {content_type_forum} set field_agree_value='$agree',field_disagree_value='$dagree',field_activity_value='$sum_act',field_score_value='$debate_str' where nid='$did'";
     $main = ExecuteQuery($query, "select");
 }
 

@@ -218,26 +218,6 @@ if(text.length > maxChar){
 } })';
   drupal_add_js($inline, $type = 'inline');
   drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
-
-/*
-  $result = db_query("Select nid from {node} where type = 'forum'");
-  $nodes = db_result($result);
-  while ($node = db_fetch_object($nodes)) {
-    $criteriaUpNode = array('content_type' => 'node',
-      'content_id' => $node->nid,
-      'tag' => 'vote',
-      'vote_type' => 'up');
-    $criteriaDownNode = array('content_type' => 'node',
-      'content_id' => $node->nid,
-      'tag' => 'vote',
-      'vote_type' => 'down');
-    $agreecnt = vote_up_down_count($criteriaUpNode);
-    $disagreecnt = vote_up_down_count($criteriaDownNode);
-
-    $forum = node_load($node->nid);
-    $forum->field_strength[0]['value'] = $agreecnt - $disagreecnt;
-    node_save($forum);
-  }*/
 }
 
 /**
@@ -726,7 +706,25 @@ function issue_vote_submit_ajax($type = '') {
  * Implementation of hook_form_alter().
  */
 function issue_form_alter(&$form, $form_state, $form_id) {
-  // krumo($form);
+  $query = "Select nid from {node} where type = 'forum'";
+  $result = db_query($query);
+  while ($node = db_fetch_object($result)) {
+    $criteriaUpNode = array('content_type' => 'node',
+      'content_id' => $node->nid,
+      'tag' => 'vote',
+      'vote_type' => 'up');
+    $criteriaDownNode = array('content_type' => 'node',
+      'content_id' => $node->nid,
+      'tag' => 'vote',
+      'vote_type' => 'down');
+    $agreecnt = vote_up_down_count($criteriaUpNode);
+    $disagreecnt = vote_up_down_count($criteriaDownNode);
+
+    $forum = node_load($node->nid);
+    $forum->field_strength[0]['value'] = $agreecnt - $disagreecnt;
+    node_save($forum);
+  }
+
   if ($form_id == 'user_relationships_ui_request') {
 
     $form['#submit'][] = 'add_follow_notify';
