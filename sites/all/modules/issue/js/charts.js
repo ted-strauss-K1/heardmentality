@@ -47,23 +47,90 @@ $(function() {
 		ignoreHiddenSeries: true
       },
 	  
+	  title: {
+        text: null
+      },
+	  
+	  xAxis: {
+		title: {
+			text: null	
+		},
+		lineColor: '#4c4c4c',
+		lineWidth: 1,
+		endOnTick: false,
+		tickColor: '#fff',
+		tickWidth: 0,
+		tickmarkPlacement: 'on',
+		startOnTick: false,
+		labels: {
+			style: {
+				color: '#4c4c4c',
+				font: '12px Aial, sans-serif'
+			}
+		}
+	  },
+	  
       yAxis: {
         labels: {
           formatter: function() {
             return this.value;
           }
-        }
+        },
+		
+		tickInterval: 1,
+		min: 0,
+		title: {
+			text: null
+		},
+		endOnTick: false,
+		maxPadding: 0.01,
+		lineWidth: 0,
+		gridLineColor: '#ccc',
+		tickmarkPlacement: 'on',
+		tickColor: '#fff',
+		tickWidth: 1,
+		tickLength: 5
       },
 	  
 	  scrollbar : {
 				enabled : false
 	  },
 	  
+	  colors: [
+		'#934d9e',
+		'#FF7F00',
+		'#50c0ac',
+		'#0c6926',
+		'#ef4c8d',
+		'#362750',
+		'#e1e43c',
+		'#ef3d3b',
+		'#3cc7f4',
+		'#589a1c',
+		'#C2499B',
+		'#f89521',
+		'#CC2027',
+		'#55ba59',
+		'#d5bc29',
+		'#6ccbd5',
+		'#43B649',
+		'#F6EB16'
+      ],
+	  
+      legend: {
+        enabled: false
+      },
+	  
+	   credits: {
+        enabled: false
+      },
+	  
       plotOptions: {
         series: {
           pointStart: Date.UTC(sdate.year, sdate.month, sdate.day),
           pointInterval: 3600 * 1000 * 24
-        }
+        },
+		shadow: false
       },
 	  
       series: seriesOptions
