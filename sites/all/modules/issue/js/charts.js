@@ -43,7 +43,7 @@ $(function() {
 		marginTop: 20,
 		marginRight: 20,
 		marginBottom: 20,
-		marginLeft: 100,
+		marginLeft: 20,
 		ignoreHiddenSeries: true
       },
 	  
@@ -86,7 +86,8 @@ $(function() {
 		tickmarkPlacement: 'on',
 		tickColor: '#fff',
 		tickWidth: 1,
-		tickLength: 5
+		tickLength: 5,
+		tickPosition: 'outside'
       },
 	  
 	  scrollbar : {
