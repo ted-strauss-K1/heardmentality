@@ -109,7 +109,8 @@ $(function() {
 			outlineColor: 'blue',
             outlineWidth: 2,
 			series: {
-                color: '#6ccbd5'    
+                color: '#6ccbd5',
+				lineWidth: 0				
             }
         },
 	  
