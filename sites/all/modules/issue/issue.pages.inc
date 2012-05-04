@@ -1896,7 +1896,7 @@ function forum_replies($debate_tnid, $pid = '') {
     }
   }
   else {
-  //  $comments .= '<div id="no_rply_' . $debate_tnid . '">' . t('No Replies') . '</div>';
+    //  $comments .= '<div id="no_rply_' . $debate_tnid . '">' . t('No Replies') . '</div>';
   }
   return $comments;
 }
@@ -2703,7 +2703,7 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
           $arg = 'resource';
         }
         $delete = '<h6 value="Delete" id="reply" class="add-comment button light" 
-          onclick="delete_thread(\'own_forum_' . $id . '\', \''  .$arg. '\')">' . t('Delete') . '</h6>';
+          onclick="delete_thread(\'own_forum_' . $id . '\', \'' . $arg . '\')">' . t('Delete') . '</h6>';
         //(\'own_reply_' . $items['cid'] . '\', \'reply\')
       }
       else {

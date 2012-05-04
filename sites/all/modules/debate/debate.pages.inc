@@ -725,7 +725,6 @@ function debate_submit() {
         $type = 'comment';
       }
 
-
       $cond = " AND type = '" . $type . "'";
 
       $query = "select * from {votingapi_vote} where content_id ='$content_id' $cond AND uid='$user->uid'";
@@ -744,7 +743,6 @@ function debate_submit() {
             $content_type = 'comment';
           }
 
-
           db_query("INSERT INTO {votingapi_vote} 
             SET content_type = '%s', content_id = '%d', 
             value = '%s', value_type = '%s', tag = '%s', 
@@ -752,7 +750,7 @@ function debate_submit() {
 
           // get like dislike counts
           if ($action == 'is_debate_reply' || $action == 'is_resource_reply') {
-            
+
             $query = "SELECT str_wk FROM {comments} WHERE cid = '%d'";
             $result = db_query($query, $content_id);
             $result = db_result($result);
@@ -762,7 +760,7 @@ function debate_submit() {
             else {
               $parvoteValue = $voteValue == 1 ? '-1' : '1';
             }
-            
+
             db_query("INSERT INTO {votingapi_vote} 
             SET content_type = '%s', content_id = '%d', 
             value = '%s', value_type = '%s', tag = '%s', 
@@ -779,7 +777,11 @@ function debate_submit() {
             'vote_type' => 'down');
           $agreecnt = vote_up_down_count($criteriaUpNode);
           $disagreecnt = vote_up_down_count($criteriaDownNode);
-
+          if ($content_type == 'node') {
+            $node = node_load($content_id);
+            $node->field_strength[0]['value'] = $agreecnt - $disagreecnt;
+            node_save($node);
+          }
 // add coin for agree and disagree
           $coin_type = $agree == '1' ? 'agree' : 'disagree';
           $coins = users_coins_update($user->uid, '', $coin_type);

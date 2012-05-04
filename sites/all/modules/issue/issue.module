@@ -218,6 +218,26 @@ if(text.length > maxChar){
 } })';
   drupal_add_js($inline, $type = 'inline');
   drupal_add_js(drupal_get_path('module', 'question') . '/scripts/question.js');
+
+/*
+  $result = db_query("Select nid from {node} where type = 'forum'");
+  $nodes = db_result($result);
+  while ($node = db_fetch_object($nodes)) {
+    $criteriaUpNode = array('content_type' => 'node',
+      'content_id' => $node->nid,
+      'tag' => 'vote',
+      'vote_type' => 'up');
+    $criteriaDownNode = array('content_type' => 'node',
+      'content_id' => $node->nid,
+      'tag' => 'vote',
+      'vote_type' => 'down');
+    $agreecnt = vote_up_down_count($criteriaUpNode);
+    $disagreecnt = vote_up_down_count($criteriaDownNode);
+
+    $forum = node_load($node->nid);
+    $forum->field_strength[0]['value'] = $agreecnt - $disagreecnt;
+    node_save($forum);
+  }*/
 }
 
 /**
@@ -2231,7 +2251,7 @@ function theme_issue_debate_list($nid = '') {
 
   $result = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 1 and field_ref_qid_nid =%d', $nid);
   $count = db_result($result);
-  
+
   $ans = load_options($nid);
   foreach ($ans as $list) {
     $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);
