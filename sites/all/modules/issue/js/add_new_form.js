@@ -46,7 +46,6 @@ jQuery('#add-new-debate-form').live('submit', function(e){
     data: data,
     success: function(msg){
       jQuery('#add_debate_wrapper').slideUp('slow');
-      //jQuery('#add-new-debate-form').clearForm();
       jQuery('#add-new-debate-form select').val(0);
       jQuery('#add-new-debate-form textarea').val('');
       $('#debate_list_area').tabs("load", 1);

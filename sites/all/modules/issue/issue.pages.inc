@@ -2631,6 +2631,7 @@ function report_get_ans_range_history($nid='', $range='') {
 }
 
 function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
+//  krumo($_GET);
   global $user, $language, $theme;
   $curLanguage = $language->language;
   $wave = '';
@@ -2649,17 +2650,41 @@ function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
     $sorting = 'ORDER BY n.created ASC';
   }
 
-  $sql = "SELECT DISTINCT(f.nid),f.tid FROM {forum} as f
-    LEFT JOIN {content_type_forum} as c ON f.nid = c.nid
-    JOIN {node} as n ON f.nid = n.nid
-    WHERE c.field_ref_qid_nid = '%d' $sorting";
-
-  // forum for translated languages
   $issueId = $qid;
   $tnid = get_tnid($qid);
   $qid = $tnid;
-  $nodes = db_query($sql, $qid);
-  $count = db_result(db_query($sql, $qid));
+  if (isset($_GET['class'])) {
+    switch ($_GET['class']) {
+      case 'neutral':
+        $ans_val = 0;
+        break;
+      case 'positive':
+        $ans_val = 1;
+        break;
+      case 'negative':
+        $ans_val = 2;
+        break;
+    }
+    $and = 'and  do.chorder = "%d" and do.ans_val = "%d"';
+    $sql = "SELECT DISTINCT(f.nid),f.tid FROM {forum} as f
+    LEFT JOIN {content_type_forum} as c ON f.nid = c.nid
+    JOIN {node} as n ON f.nid = n.nid
+    LEFT JOIN hm.debate_options as do ON f.nid = do.nid
+    WHERE c.field_ref_qid_nid = '%d' $and $sorting";
+    $nodes = db_query($sql, $qid, $_GET['chorder'], $ans_val);
+    $count = db_result(db_query($sql, $qid, $_GET['chorder'], $ans_val));
+  }
+  else {
+    $sql = "SELECT DISTINCT(f.nid),f.tid FROM {forum} as f
+    LEFT JOIN {content_type_forum} as c ON f.nid = c.nid
+    JOIN {node} as n ON f.nid = n.nid
+    WHERE c.field_ref_qid_nid = '%d' $sorting";
+    $nodes = db_query($sql, $qid);
+    $count = db_result(db_query($sql, $qid));
+  }
+  // forum for translated languages
+
+
 
   if ($count > 0) {
     $i = 0;

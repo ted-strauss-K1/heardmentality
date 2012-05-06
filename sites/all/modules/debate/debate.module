@@ -47,7 +47,7 @@ function debate_menu() {
         'title' => 'Debate',
         'page callback' => 'debate_submit',
         'access arguments' => array('Debate Save'),
-        'type' => MENU_SUGGESTED_ITEM,
+        'type' => MENU_CALLBACK,
         'file' => 'debate.pages.inc',
     );
     $items['admin/debate'] = array(

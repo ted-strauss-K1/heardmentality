@@ -365,7 +365,7 @@ $(function(){
   });
 
   // Tabs
-  $('#tabs').tabs();
+//  $('#tabs').tabs();
 
 
 
@@ -444,7 +444,7 @@ $(function(){
   });
 
   // Tabs
-  $('#tabs').tabs();
+ // $('#tabs').tabs();
 
 
   // Dialog			

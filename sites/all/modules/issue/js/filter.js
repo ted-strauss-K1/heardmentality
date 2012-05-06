@@ -206,7 +206,7 @@ function delete_thread(id, type){
   var fid  = spl[2];
   var dtype = spl[1];
   //var msgid = '#reply-msg-'+fid;
-    console.log(spl);
+  console.log(spl);
   var url = '/issue/thread/delete/'+dtype+'/'+fid+'/'+type;
   if(confirm("Are you sure to delete this argument?")){
     jQuery.ajax({
@@ -917,3 +917,25 @@ $(document).ready(function(){
   });
 });
 /**************/
+
+
+$(document).ready(function(){
+  $('.popup a').click(function(){
+    var e = $(this).attr('class');
+    var id = $(this).parents('dl').attr('name');
+    nid = $('#curr_nid').val();
+    var url = '/issue/' + nid +'/tab_content/1/';
+    $('#debate_list_area').tabs("url", 0 , url+0+'?class='+e +'&chorder='+id);
+    $('#debate_list_area').tabs("url", 1 , url+1+'?class='+e +'&chorder='+id);
+    $('#debate_list_area').tabs("url", 2 , url+2+'?class='+e +'&chorder='+id);
+    var selected = $("#debate_list_area").tabs( "option", "selected" );
+    $('#debate_list_area').tabs("load", selected);
+    $('#debate_list_area').tabs("select", selected);
+    
+    var filter = $(this).parents('.show_only').find('.popup');
+    filter.removeClass('visible').addClass('hidden');
+    $('#debate_list_area .show_only span.button').removeClass('active');
+    console.log(filter);
+    return false;
+  })
+});
