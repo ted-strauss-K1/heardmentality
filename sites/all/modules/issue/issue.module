@@ -2230,8 +2230,9 @@ function theme_issue_debate_list($nid = '') {
   $debateList[0] = issue_ajax_tab_content($nid, 1, 0, 1);
 
   $result = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 1 and field_ref_qid_nid =%d', $nid);
-  $count = db_result($result);
-
+  $result2 = db_query('SELECT count(nid) from {content_type_forum} where field_type_value = 2 and field_ref_qid_nid =%d', $nid);
+  $count[] = db_result($result);
+  $count[] = db_result($result2);
   $ans = load_options($nid);
   foreach ($ans as $list) {
     $show_only[$list['chorder']] = get_short_answer($nid, $list['chorder']);

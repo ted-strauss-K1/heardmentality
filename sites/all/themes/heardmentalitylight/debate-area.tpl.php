@@ -39,8 +39,8 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 
 <div id="debate_list_area">
   <h2>
-    <span><?php print $count;
-    print ' Arguments'; ?> & <?php print $count;
+    <span><?php print $count[0];
+    print ' Arguments'; ?> & <?php print $count[1];
       print ' References'; ?></span>
 
     <div class="show_only">
