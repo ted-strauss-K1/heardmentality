@@ -90,7 +90,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 
       <div class="replies">
 
-        <?php if ($comments): drupal_add_js('misc/collapse.js');?>
+        <?php if ($comments): ?>
 
           <fieldset class="collapsible collapsed reply_wrapper">
 

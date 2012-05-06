@@ -1,4 +1,20 @@
+function googleSectionalElementInit() {
+  new google.translate.SectionalElement({
+    sectionalNodeClassName: 'goog-trans-section',
+    controlNodeClassName: 'goog-trans-control',
+    background: '#E1E43C'
+  }, 'google_sectional_element');
+}
+
 $(document).ready(function() {
+  function googleSectionalElementInit() {
+    new google.translate.SectionalElement({
+      sectionalNodeClassName: 'goog-trans-section',
+      controlNodeClassName: 'goog-trans-control',
+      background: '#E1E43C'
+    }, 'google_sectional_element');
+  }
+  
   $('.reference-form').hide();
   $('#link_arg-wrapper a').click(function(){
     $('.reference-form').show();
@@ -77,4 +93,17 @@ $(document).ready(function() {
     $('.resources').toggle();
   });
 
+  $( "#debate_list_area" ).tabs({
+    load: function(event, ui) {
+      Drupal.attachBehaviors();
+    }
+  });
 });
+
+
+Drupal.behaviors.add_new_form = function(context) {
+  var s = document.createElement('script');
+  s.type='text/javascript';
+  document.body.appendChild(s);
+  s.src='//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=auto';
+}

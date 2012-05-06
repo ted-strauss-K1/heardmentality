@@ -935,7 +935,6 @@ $(document).ready(function(){
     var filter = $(this).parents('.show_only').find('.popup');
     filter.removeClass('visible').addClass('hidden');
     $('#debate_list_area .show_only span.button').removeClass('active');
-    console.log(filter);
     return false;
   })
 });

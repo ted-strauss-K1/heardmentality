@@ -2631,6 +2631,7 @@ function report_get_ans_range_history($nid='', $range='') {
 }
 
 function issue_ajax_tab_content($qid, $type, $sort = null, $print = null) {
+  
 //  krumo($_GET);
   global $user, $language, $theme;
   $curLanguage = $language->language;

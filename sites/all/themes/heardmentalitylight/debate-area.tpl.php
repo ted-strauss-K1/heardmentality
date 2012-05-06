@@ -1,5 +1,6 @@
 <?php
 global $user;
+drupal_add_js('misc/collapse.js');
 $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
 ?>
 
