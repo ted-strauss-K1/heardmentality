@@ -102,8 +102,9 @@ $(document).ready(function() {
 
 
 Drupal.behaviors.add_new_form = function(context) {
+  var lang = $("html").attr("lang");
   var s = document.createElement('script');
   s.type='text/javascript';
   document.body.appendChild(s);
-  s.src='//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl=auto';
+  s.src='//translate.google.com/translate_a/element.js?cb=googleSectionalElementInit&ug=section&hl='+lang;
 }

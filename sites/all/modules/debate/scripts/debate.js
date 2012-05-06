@@ -5,11 +5,8 @@
 
 function bind_clk(){
 
-
   jQuery('a[name="rep"]').live('click', function(){
-
     addComment(jQuery(this));
-
   });
 
   //agree
@@ -28,10 +25,6 @@ function bind_clk(){
   jQuery('a.rdisagree').live('click', function(e){
     jQuery(this).agree(e,'0');
   });
-
-
-   
-
 }
 
 (function(jQuery){
@@ -162,13 +155,10 @@ function switchdebate(url){
 
 function cancelAdd(id){
 
-
   if ($('freport').getStyle('display') == 'block') {
     $('freport').slide('out');
     $('freport').setStyle('display', 'none');
-
   }
-
 }
 
 function likethis(action, wid, like, ele){
