@@ -93,14 +93,7 @@ $(document).ready(function() {
 	
   });
   
-  // Show (Click yes/no to leave support/oppose comment.)
-  
-  $('.reply_wrapper legend a').live("click", function(){
-  
-    $(this).parents('ul.argument_box').find('strong.motivat').css('display', 'block');
-	
-  });
-  
+
   
 // Add references - position
 
@@ -133,4 +126,12 @@ Drupal.behaviors.fix_circle = function(context) {
 		if ($.browser.opera) {
 			$('#debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive').addClass('fixes');
 		}
+		
+	// Show (Click yes/no to leave support/oppose comment.)
+  
+  $('.reply_wrapper legend a').live("click", function(){
+  
+    $(this).parents('ul.argument_box').find('strong.motivat').css('display', 'block');
+	
+  });
 };
