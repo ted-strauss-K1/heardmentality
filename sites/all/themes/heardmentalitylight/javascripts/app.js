@@ -965,7 +965,7 @@ $(document).ready(function(){
 
 // Show textbox yes/no reply on argument
   
-$(document).ready(function(){  
+Drupal.behaviors.add_reply = function(context) { 
   $('ul.argument_box > li > .position-question a.agree').click(function() {
   
     if ($(this).parents('ul.argument_box > li > .position-question').find('a.disagree').hasClass('collapsed')) {
@@ -1008,7 +1008,7 @@ $(document).ready(function(){
 		
   });
   
-});
+};
 
 $(document).ready(function(){
   /*$('#debate_list_area').tabs({
