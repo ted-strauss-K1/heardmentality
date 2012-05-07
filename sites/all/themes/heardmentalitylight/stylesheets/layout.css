@@ -3217,6 +3217,11 @@ h6#deb-ana:hover a,
 #debate_list_area ul.argument_box {
 	padding: 0 25px 0 42px;
 	border: 0 none;
+	margin: 0;
+	font-size: 12px;
+	list-style: none outside none;
+	position: relative;
+    z-index: 1000;
 }
 
 #debate_list_area ul.argument_box li {
@@ -3492,6 +3497,9 @@ ul.control_links {
 	float: left;
 	margin: 0 20px -17px 50%;
 	direction: ltr;
+	padding: 0;
+	position: relative;
+    z-index: 1000;
 }
 
 ul.control_links li {
@@ -3613,6 +3621,20 @@ ul.control_links h6#reply:hover {
 	margin: 0;
 }
 
+.reply_wrapper  .fieldset-wrapper .fieldset-wrapper > ul {
+    position: relative;
+    z-index: 1000;
+	list-style: none outside none;
+    margin: 0;
+    padding: 0;
+	border: 0 none;
+}
+
+#debate_list_area .ui-tabs-panel {
+	position: relative;
+	z-index: 13;
+}
+
 #debate_list_area li.one_reply {
 	position: relative;
 	padding: 0 40px 10px 0 !important;
@@ -3692,6 +3714,10 @@ ul.control_links h6#reply:hover {
 	vertical-align: top;
 	/*position: relative;
 	top: -1px;*/
+	list-style: none outside none;
+    padding: 0;
+	position: relative;
+    z-index: 1000;
 }
 
 #debate_list_area .no_debate {
