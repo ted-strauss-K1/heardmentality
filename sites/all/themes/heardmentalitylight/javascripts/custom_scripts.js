@@ -117,6 +117,11 @@ $('.add_button .argument-form a, .add_button .reference-form a').click(function(
 	}
 });
 
+ 
+});
+
+Drupal.behaviors.fix_circle = function(context) {
+
 		if ($.browser.mozilla) {
 			$('span.small_pos, #debate_list_area .arg p.position-plus strong').addClass('fixes');
 			$('#debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive').addClass('fixes');
@@ -128,5 +133,4 @@ $('.add_button .argument-form a, .add_button .reference-form a').click(function(
 		if ($.browser.opera) {
 			$('#debate_list_area li.one_reply span.negative, #debate_list_area li.one_reply span.positive').addClass('fixes');
 		}
-  
-});
+};
