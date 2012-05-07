@@ -48,7 +48,7 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
 
             ?>
             <span class="pic">
-              <a target="_blank" title="reference" href="<?php print $items['nlink']; ?>" class="floatbox" data-fb-options="width:480 height:384">
+              <a target="_blank" title="reference" href="<?php print $items['nlink']; ?>">
                 <img src="<?php print $items['image']; ?>" alt=""/> 
               
               <?php //print theme('imagecache', 'scale-width110', $items['image'],'','reference');?>
@@ -57,9 +57,9 @@ $items['title'] = str_replace("\n", "<br>", $items['title']);
           <?php if (isset($items['resource_id'])) { ?>
 
               <div class="ref_wrap"><h5 class="ref_title"><a target="_blank" title="reference" href="
-            <?php print $items['nlink']; ?>" class="floatbox" data-fb-options="width:480 height:384">
+            <?php print $items['nlink']; ?>">
             <?php print t($items['title']); ?></a></h5>
-                <span class="source">source: <a target="_blank" title="reference" href="<?php print $items['nlink']; ?>" class="floatbox" data-fb-options="width:480 height:384">
+                <span class="source">source: <a target="_blank" title="reference" href="<?php print $items['nlink']; ?>">
                     <?php print t($items['source']); ?> </a></span>
                 <p><?php print t($items['body']); ?></p>
               </div>        
