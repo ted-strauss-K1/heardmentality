@@ -93,7 +93,7 @@ $(document).ready(function() {
 	
   });
   
-  // !Show (Click yes/no to leave support/oppose comment.)
+  // Show (Click yes/no to leave support/oppose comment.)
   
   $('.reply_wrapper legend a').live("click", function(){
   
@@ -116,8 +116,6 @@ $('.add_button .argument-form a, .add_button .reference-form a').click(function(
 		$('#leave_comment_area .add_button').removeClass('reduce');
 	}
 });
-
-// !
 
 		if ($.browser.mozilla) {
 			$('span.small_pos, #debate_list_area .arg p.position-plus strong').addClass('fixes');
