@@ -57,7 +57,8 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
       </div>
     </div>
   </h2>
-
+  <!--</h2> -->
+  <div id="empty_helper">&nbsp;</div>
 
   <ul>
     <!--  <li><a href="#tabs-1">older</a></li> -->
@@ -65,14 +66,5 @@ $loginBoxClass = $user->uid == 0 ? 'openlogin_box' : '';
     <li><a href="<?php print $base_path ?>/issue/<?php print $nid; ?>/tab_content/1/1">recent</a></li>
     <li><a href="<?php print $base_path ?>/issue/<?php print $nid; ?>/tab_content/1/2">supported</a></li>
   </ul>
-
-  <!--</h2> -->
-  <div id="empty_helper">&nbsp;</div>
-
-
-  <div class="comments expanding" style="position: relative; z-index: 13;">
-
-  </div>
-
 
 </div><!--/#debate_list_area -->
