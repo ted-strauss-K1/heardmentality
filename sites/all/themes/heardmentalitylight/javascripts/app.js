@@ -1010,7 +1010,7 @@ Drupal.behaviors.add_reply = function(context) {
   
 };
 
-$(document).ready(function(){
+Drupal.behaviors.permalink = function(context) { 
   /*$('#debate_list_area').tabs({
     ajaxOptions: {
       error: function( xhr, status, index, anchor ) {
@@ -1033,4 +1033,4 @@ $(document).ready(function(){
     $('#permalink_text').dialog('close');
     return false;
   });
-});
+};

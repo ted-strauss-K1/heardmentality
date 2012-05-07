@@ -3222,6 +3222,7 @@ h6#deb-ana:hover a,
 	list-style: none outside none;
 	position: relative;
     z-index: 1000;
+	font-size: 12px;
 }
 
 #debate_list_area ul.argument_box li {
@@ -3471,9 +3472,13 @@ h6#deb-ana:hover a,
 .position-question ul.argument_replybox {
     background-color: #FFFFFF;
     left: -60px;
-    padding-left: 60px;
+    padding: 0 0 0 60px;
     position: relative;
 	width: 100%;
+	margin: 0;
+	position: relative;
+    z-index: 1000;
+	font-size: 12px;
 }
 
 .position-question strong {
@@ -3500,6 +3505,7 @@ ul.control_links {
 	padding: 0;
 	position: relative;
     z-index: 1000;
+	font-size: 12px;
 }
 
 ul.control_links li {
@@ -3628,6 +3634,7 @@ ul.control_links h6#reply:hover {
     margin: 0;
     padding: 0;
 	border: 0 none;
+	font-size: 12px;
 }
 
 #debate_list_area .ui-tabs-panel {
@@ -3718,6 +3725,7 @@ ul.control_links h6#reply:hover {
     padding: 0;
 	position: relative;
     z-index: 1000;
+	font-size: 12px;
 }
 
 #debate_list_area .no_debate {
