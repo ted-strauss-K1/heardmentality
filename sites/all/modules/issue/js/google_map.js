@@ -11,7 +11,6 @@ $(document).ready(function() {
     var nid = $('#curr_nid').val();
     var beaches = [];
     $.getJSON('/issue/gmap/ajax/'+ nid, function(data) {
-      console.log(data);
       $.each(data, function(key, val) {
         for (i in val) {
           //  beaches.push(val[i].latitude, val[i].longitude);
@@ -19,8 +18,6 @@ $(document).ready(function() {
         }
       });
     
-  
-      console.log(beaches);
       setMarkers(map, beaches);
     });
   }

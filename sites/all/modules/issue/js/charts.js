@@ -29,46 +29,46 @@ $(function() {
     var chart = new Highcharts.StockChart({
       chart: {
         renderTo: 'container_graph',
-		type: 'spline',
-		style: {
-			fontFamily: 'Arial',
-			color: '#4c4c4c',
-			fontSize: '12px'
-		},
-		plotBorderColor: '#fff',
-		plotBorderWidth: 0,
-		borderColor: '#fff',
-		borderRadius: 0,
-		borderWidth: 0,
-		marginTop: 15,
-		marginRight: 20,
-		marginBottom: 15,
-		marginLeft: 20,
-		ignoreHiddenSeries: true
+        type: 'spline',
+        style: {
+          fontFamily: 'Arial',
+          color: '#4c4c4c',
+          fontSize: '12px'
+        },
+        plotBorderColor: '#fff',
+        plotBorderWidth: 0,
+        borderColor: '#fff',
+        borderRadius: 0,
+        borderWidth: 0,
+        marginTop: 15,
+        marginRight: 20,
+        marginBottom: 15,
+        marginLeft: 20,
+        ignoreHiddenSeries: true
       },
 	  
-	  title: {
+      title: {
         text: null
       },
 	  
-	  xAxis: {
-		title: {
-			text: null	
-		},
-		lineColor: '#4c4c4c',
-		lineWidth: 1,
-		endOnTick: false,
-		tickColor: '#fff',
-		tickWidth: 0,
-		tickmarkPlacement: 'on',
-		startOnTick: false,
-		labels: {
-			style: {
-				color: '#4c4c4c',
-				font: '12px Aial, sans-serif'
-			},
-		}
-	  },
+      xAxis: {
+        title: {
+          text: null	
+        },
+        lineColor: '#4c4c4c',
+        lineWidth: 1,
+        endOnTick: false,
+        tickColor: '#fff',
+        tickWidth: 0,
+        tickmarkPlacement: 'on',
+        startOnTick: false,
+        labels: {
+          style: {
+            color: '#4c4c4c',
+            font: '12px Aial, sans-serif'
+          }
+        }
+      },
 	  
       yAxis: {
         labels: {
@@ -76,70 +76,70 @@ $(function() {
             return this.value;
           }
         },
-		title: {
-			text: null
-		},
-		endOnTick: false,
-		maxPadding: 0.01,
-		lineWidth: 0,
-		gridLineColor: '#ccc',
-		tickmarkPlacement: 'on',
-		tickColor: '#fff',
-		tickWidth: 1,
-		tickLength: 5
+        title: {
+          text: null
+        },
+        endOnTick: false,
+        maxPadding: 0.01,
+        lineWidth: 0,
+        gridLineColor: '#ccc',
+        tickmarkPlacement: 'on',
+        tickColor: '#fff',
+        tickWidth: 1,
+        tickLength: 5
       },
 	  
-	  scrollbar : {
-				enabled : true
-	  },
+      scrollbar : {
+        enabled : true
+      },
 	  
-	   rangeSelector: {
-            selected: 1
-        },
+      rangeSelector: {
+        selected: 1
+      },
 		
-		navigator: {
-            enabled: true,
-			height: 30,
-			margin: 30,
-			maskFill: 'rgba(180, 198, 220, 0.75)',
-			handles: {
-                backgroundColor: 'yellow',
-                borderColor: 'red'
-            },
-			outlineColor: 'blue',
-            outlineWidth: 2,
-			series: {
-                color: '#6ccbd5',
-				lineWidth: 0				
-            }
+      navigator: {
+        enabled: true,
+        height: 30,
+        margin: 30,
+        maskFill: 'rgba(180, 198, 220, 0.75)',
+        handles: {
+          backgroundColor: 'yellow',
+          borderColor: 'red'
         },
+        outlineColor: 'blue',
+        outlineWidth: 2,
+        series: {
+          color: '#6ccbd5',
+          lineWidth: 0				
+        }
+      },
 	  
-	  colors: [
-		'#934d9e',
-		'#FF7F00',
-		'#50c0ac',
-		'#0c6926',
-		'#ef4c8d',
-		'#362750',
-		'#e1e43c',
-		'#ef3d3b',
-		'#3cc7f4',
-		'#589a1c',
-		'#C2499B',
-		'#f89521',
-		'#CC2027',
-		'#55ba59',
-		'#d5bc29',
-		'#6ccbd5',
-		'#43B649',
-		'#F6EB16'
+      colors: [
+      '#934d9e',
+      '#FF7F00',
+      '#50c0ac',
+      '#0c6926',
+      '#ef4c8d',
+      '#362750',
+      '#e1e43c',
+      '#ef3d3b',
+      '#3cc7f4',
+      '#589a1c',
+      '#C2499B',
+      '#f89521',
+      '#CC2027',
+      '#55ba59',
+      '#d5bc29',
+      '#6ccbd5',
+      '#43B649',
+      '#F6EB16'
       ],
 	  
       legend: {
         enabled: false
       },
 	  
-	   credits: {
+      credits: {
         enabled: false
       },
 	  
@@ -148,38 +148,39 @@ $(function() {
           pointStart: Date.UTC(sdate.year, sdate.month, sdate.day),
           pointInterval: 3600 * 1000 * 24
         },
-		shadow: false
+        shadow: false
       },
 	  
-	    tooltip: {
+      tooltip: {
         shadow: false,
         style: {
           font: '12px Aial, sans-serif'
         },
         borderRadius: 3,
-		backgroundColor: {
-                linearGradient: {
-                    x1: 0,
-                    y1: 0,
-                    x2: 0,
-                    y2: 1
-                },
-                stops: [
-                    [0, '#fff'],
-                    [1, '#f2f2f2']
-                ]
+        backgroundColor: {
+          linearGradient: {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 1
+          },
+          stops: [
+          [0, '#fff'],
+          [1, '#f2f2f2']
+          ]
         },
-            borderColor: '#ccc',
-            borderWidth: 2 
+        borderColor: '#ccc',
+        borderWidth: 2 
       },
 	  
       series: seriesOptions
     });
+    
   }
 });
   
 function load_chart(arg) {
-  var chart, seriesCounter = 0;
+  var seriesCounter = 0;
   var seriesOptions = [];
   var count = $('#tot_ans').val();
   var values = [];
@@ -206,94 +207,87 @@ function load_chart(arg) {
   
   
   function createMainChart(seriesOptions, categories) {
-    /*
-	$(seriesOptions).map(function(index, element) {
-		if (element == 0) {
-		  seriesOptions[index] = null;
-		}
-	});
-	*/
-    //alert('hello');
+    var chart;
     chart = new Highcharts.Chart({
       chart: {
         renderTo: 'chart_div',
         defaultSeriesType:'bar',
-		style: {
-			fontFamily: 'Arial',
-			color: '#4c4c4c',
-			fontSize: '12px'
-		},
-		plotBorderColor: '#fff',
-		plotBorderWidth: 0,
-		borderColor: '#fff',
-		borderRadius: 0,
-		borderWidth: 0,
-		marginTop: 20,
-		marginRight: 20,
-		marginBottom: 20,
-		ignoreHiddenSeries: true,
-		zoomType: 'y'
+        style: {
+          fontFamily: 'Arial',
+          color: '#4c4c4c',
+          fontSize: '12px'
+        },
+        plotBorderColor: '#fff',
+        plotBorderWidth: 0,
+        borderColor: '#fff',
+        borderRadius: 0,
+        borderWidth: 0,
+        marginTop: 20,
+        marginRight: 20,
+        marginBottom: 20,
+        ignoreHiddenSeries: true,
+        zoomType: 'y'
       },
 					
       title: {
         text: null
       },
-
+      
       xAxis: {
         categories: categories,
-		title: {
-			text: null	
-		},
-		lineColor: '#4c4c4c',
-		lineWidth: 1,
-		endOnTick: false,
-		tickColor: '#fff',
-		tickWidth: 0,
-		tickmarkPlacement: 'on',
-		startOnTick: false,
-		labels: {
-			style: {
-				color: '#4c4c4c',
-				font: '12px Aial, sans-serif'
-			}
-		}
+        title: {
+          text: null	
+        },
+        lineColor: '#4c4c4c',
+        lineWidth: 1,
+        endOnTick: false,
+        tickColor: '#fff',
+        tickWidth: 0,
+        tickmarkPlacement: 'on',
+        startOnTick: false,
+        labels: {
+          style: {
+            color: '#4c4c4c',
+            font: '12px Aial, sans-serif'
+          }
+        }
       },
 	  
       yAxis: {
-		tickInterval: 1,
-		min: 0,
-		title: {
-			text: null
-		},
-		endOnTick: false,
-		maxPadding: 0.01,
-		lineWidth: 0,
-		gridLineColor: '#ccc',
-		tickmarkPlacement: 'on',
-		tickColor: '#fff',
-		tickWidth: 1,
-		tickLength: 5
+        tickInterval: 1,
+        min: 0,
+        title: {
+          text: null
+        },
+        endOnTick: false,
+        maxPadding: 0.01,
+        lineWidth: 0,
+        gridLineColor: '#ccc',
+        tickmarkPlacement: 'on',
+        tickColor: '#fff',
+        tickWidth: 1,
+        tickLength: 5
       },
 	  
-	  colors: [
-		'#934d9e',
-		'#FF7F00',
-		'#50c0ac',
-		'#0c6926',
-		'#ef4c8d',
-		'#362750',
-		'#e1e43c',
-		'#ef3d3b',
-		'#3cc7f4',
-		'#589a1c',
-		'#C2499B',
-		'#f89521',
-		'#CC2027',
-		'#55ba59',
-		'#d5bc29',
-		'#6ccbd5',
-		'#43B649',
-		'#F6EB16'
+      colors: [
+      '#934d9e',
+      '#FF7F00',
+      '#50c0ac',
+      '#0c6926',
+      '#ef4c8d',
+      '#362750',
+      '#e1e43c',
+      '#ef3d3b',
+      '#3cc7f4',
+      '#589a1c',
+      '#C2499B',
+      '#f89521',
+      '#CC2027',
+      '#55ba59',
+      '#d5bc29',
+      '#6ccbd5',
+      '#43B649',
+      '#F6EB16'
       ],
 	  
       legend: {
@@ -314,17 +308,17 @@ function load_chart(arg) {
       },
       
       plotOptions: {
-		bar: {
-			dataLabels: {
-				enabled: true
-			},
-		borderColor: '#fff',
-		borderWidth: 0,
-		shadow: false,
-		groupPadding: 0.15,
-		pointPadding: 0
-		//pointWidth: 20
-		}
+        bar: {
+          dataLabels: {
+            enabled: true
+          },
+          borderColor: '#fff',
+          borderWidth: 0,
+          shadow: false,
+          groupPadding: 0.15,
+          pointPadding: 0
+        //pointWidth: 20
+        }
       },
 	  
       credits: {
@@ -333,6 +327,7 @@ function load_chart(arg) {
                              
       series: seriesOptions
     });
+
   }
 }
 

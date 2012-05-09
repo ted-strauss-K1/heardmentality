@@ -102,6 +102,23 @@ $(document).ready(function() {
 
 
 Drupal.behaviors.add_new_form = function(context) {
+  $('a.permalink').click(function(e){
+    var a = window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id');
+    $('#permalink_text input').val(a)
+    $('#permalink_text').dialog('open');
+    
+    return false;
+  });
+  $('.close-permalink').click(function(e){
+    $('#permalink_text').dialog('close');
+    return false;
+  });
+  
+  
+  
+  
+  
+  
   var lang = $("html").attr("lang");
   var s = document.createElement('script');
   s.type='text/javascript';

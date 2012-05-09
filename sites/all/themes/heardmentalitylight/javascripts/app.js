@@ -1009,28 +1009,3 @@ Drupal.behaviors.add_reply = function(context) {
   });
   
 };
-
-Drupal.behaviors.permalink = function(context) { 
-  /*$('#debate_list_area').tabs({
-    ajaxOptions: {
-      error: function( xhr, status, index, anchor ) {
-        $( anchor.hash ).html(
-          "Couldn't load this tab. We'll try to fix this as soon as possible. " +
-          "If this wouldn't be a demo." );
-      }
-    }
-  }
-  );*/
-  /*$('.dropdown-toggle').dropdown();*/
-  $('a.permalink').click(function(e){
-    var a = window.location.href.replace(/#.*/,'') + '#' +$(this).parents('.one-forum').attr('id');
-    $('#permalink_text input').val(a)
-    $('#permalink_text').dialog('open');
-    
-    return false;
-  });
-  $('.close-permalink').click(function(e){
-    $('#permalink_text').dialog('close');
-    return false;
-  });
-};
