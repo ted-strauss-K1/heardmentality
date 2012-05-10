@@ -193,10 +193,12 @@ function load_chart(arg) {
   $.each(values, function(i, value) {
     $.getJSON('/issue/highchart/ajax/'+ nid +'/'+ value + '?dochg=' + arg, function(data) {
       var categories = data.categories;
-      seriesOptions[i] = {
-        name: data.name,
-        data: data.data
-      };
+      if (data.name != null) {
+        seriesOptions[i] = {
+          name: data.name,
+          data: data.data
+        };
+      }
       seriesCounter++;
 
       if (seriesCounter == count) {
@@ -211,7 +213,7 @@ function load_chart(arg) {
     chart = new Highcharts.Chart({
       chart: {
         renderTo: 'chart_div',
-        defaultSeriesType:'bar',
+        type: 'column',
         style: {
           fontFamily: 'Arial',
           color: '#4c4c4c',
@@ -308,7 +310,7 @@ function load_chart(arg) {
       },
       
       plotOptions: {
-        bar: {
+        column: {
           dataLabels: {
             enabled: true
           },
@@ -327,7 +329,6 @@ function load_chart(arg) {
                              
       series: seriesOptions
     });
-
   }
 }
 
