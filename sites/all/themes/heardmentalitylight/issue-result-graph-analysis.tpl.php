@@ -20,11 +20,12 @@
 	  
 		<p class="result-title dinbold"><?php print t('Legend (short answers)'); ?></p>
 		<div class="inner legend">
-			<dl><dd>Name variant 1:</dd><dt style="background-color: #934d9e;">color</dt></dl>
-			<dl><dd>Name variant 2:</dd><dt>color</dt></dl>
-			<dl><dd>Name variant 3:</dd><dt>color</dt></dl>
-			<dl><dd>Name 4:</dd><dt>color</dt></dl>
-			<dl><dd>Name variant 5:</dd><dt>color</dt></dl>
+                  
+                  <?php foreach ($short_answers as $answer) { ?>
+              
+			<dl><dd><?php print $answer['name'] . ':'?></dd><dt style="background-color: <?php print $answer['color']?>;">color</dt></dl>
+			
+                  <?php } ?>
 		</div>
 		
 	  </div></li>

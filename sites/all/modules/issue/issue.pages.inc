@@ -273,13 +273,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
           $answer_cnt[$ab][$key] = $tcnt;
         }
       }
-      // krumo($new_val_array);
-      /*  foreach ($new_val_array as $key => $value) {
-        $answer_cnt2[$key] = '[' . implode(',', $new_val_array[$key]) . ']';
-        }
-        $answer_cnt = $answer_cnt2;
-       */
-      //   $answer_cnt = $new_val_array;
+
       break;
     case 'religion':
       $answer['divide'] = array('Christian', 'Muslim', 'Jewish', 'Hindu', 'Buddhist', 'Other', 'undefined');
@@ -733,7 +727,6 @@ function report_map($nid='') {
     $list = array();
     $list = report_get_zip($uzip, $cntcode);
     $list = $list->results;
-    krumo($list);
     if ($list[0]['countrycode'] != '') {
     $zcnt++;
     $mlatall .= "'" . $list[0]['lat'] . "',";
@@ -2875,8 +2868,6 @@ function issue_ajax_highchart_result($nid, $param) {
     array_push($ans_array, $answer);
   }
   $result = report_percent_broken($nid, '', $_REQUEST);
-  // krumo($result);
-  //$ans = $result['divide'];
   if ($_REQUEST['dochg'] == '') {
     $json['name'] = $result['divide'];
     $json['categories'] = $ans_array;

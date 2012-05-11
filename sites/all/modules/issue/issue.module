@@ -1139,7 +1139,7 @@ function issue_theme($existing, $type, $theme, $path) {
       'arguments' => array('items' => NULL, 'strength' => NULL, 'comments' => NULL, 'reply_box' => NULL, 'reply_count' => NULL, 'ratings' => NULL, 'delete' => NULL),
     ), 'issue_result_graph_analysis' => array(
       'template' => 'issue-result-graph-analysis',
-      'arguments' => array('map' => NULL, 'report_percent' => NULL, 'report_graph' => NULL),
+      'arguments' => array('map' => NULL, 'report_percent' => NULL, 'report_graph' => NULL, 'short_answers' => NULL),
     ), 'popular_categories' => array(
       'template' => 'popular-categories',
       'arguments' => array('popular' => NULL),
@@ -1402,7 +1402,6 @@ function _send_votenotify($qid='') {
 
 // short answer for issue
 function get_short_answer($nid = '', $chorder = '') {
-
   $sql = db_query("SELECT short_answer FROM {short_answers} WHERE qid= '%d' AND chorder = '%d'", $nid, $chorder);
   $short = db_fetch_object($sql);
   $answers = $short->short_answer;
@@ -2195,9 +2194,33 @@ function view_issue_results($nid = '') {
     $map = report_map($nid);
     $report_percent = report_percent($nid);
     $report_graph = report_graph($nid);
+    $ans = load_options($nid);
+    $colors = array('#934d9e',
+      '#FF7F00',
+      '#50c0ac',
+      '#0c6926',
+      '#ef4c8d',
+      '#362750',
+      '#e1e43c',
+      '#ef3d3b',
+      '#3cc7f4',
+      '#589a1c',
+      '#C2499B',
+      '#f89521',
+      '#CC2027',
+      '#55ba59',
+      '#d5bc29',
+      '#6ccbd5',
+      '#43B649',
+      '#F6EB16'
+    );
 
-    $results = theme('issue_result_graph_analysis', $map, $report_percent, $report_graph);
-    //$results = theme('issue_result_analysis',$nid);
+    foreach ($ans as $key => $list) {
+      $short_answers[$list['chorder']]['name'] = get_short_answer($nid, $list['chorder']);
+      $short_answers[$list['chorder']]['color'] = $colors[$key];
+    }
+  
+    $results = theme('issue_result_graph_analysis', $map, $report_percent, $report_graph, $short_answers);
   }
   $debates = theme('issue_debate_list', $nid);
   //$resources = theme('issue_resource_list', $nid);
@@ -2213,7 +2236,6 @@ function theme_issue_debate_list($nid = '') {
   global $user, $base_path, $base_url;
   $debates = '';
   module_load_include('inc', 'issue', 'issue.pages');
-
   if (!empty($user->uid)) {
     $addNewDebateForm .= drupal_get_form('add_new_debate_form', $nid);
   }
