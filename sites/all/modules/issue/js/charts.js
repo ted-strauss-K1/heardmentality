@@ -11,7 +11,7 @@ $(function() {
   colors = Highcharts.getOptions().colors;
   
   $.each(values, function(i, value) {
-    $.getJSON('/issue/highstock/ajax/'+ nid +'/'+ value, function(data) {
+    $.getJSON(Drupal.settings.base_url + '/issue/highstock/ajax/'+ nid +'/'+ value, function(data) {
       var sdate = data.date;
       seriesOptions[i] = {
         name: data.name,
@@ -191,7 +191,7 @@ function load_chart(arg) {
   var nid = $('#curr_nid').val();
   
   $.each(values, function(i, value) {
-    $.getJSON('/issue/highchart/ajax/'+ nid +'/'+ value + '?dochg=' + arg, function(data) {
+    $.getJSON(Drupal.settings.base_url + '/issue/highchart/ajax/'+ nid +'/'+ value + '?dochg=' + arg, function(data) {
       var categories = data.categories;
       if (data.name != null) {
         seriesOptions[i] = {

@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var map;
   function initialize() {
-    $.getJSON('/issue/gmap/ajax/'+ nid, function(data) {
+    $.getJSON(Drupal.settings.base_url + '/issue/gmap/ajax/'+ nid, function(data) {
       var beaches = [];
       var latitude, longitude;
       $.each(data, function(key, val) {
