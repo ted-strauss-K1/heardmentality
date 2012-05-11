@@ -109,7 +109,7 @@ reset_tabs();
          jQuery("body").css({'opacity': 0.5});
          var more=jQuery(this);
         e.preventDefault();
-        load_stream(more,'more');
+        //load_stream(more,'more');
     });
 
 
@@ -136,6 +136,9 @@ jQuery(jQuery('#uactivity div.activity-stream:hidden').get().reverse()).each(fun
 function load_stream(more,action){
 
             var firstid=jQuery('#uactivity div:first').attr('id');
+            if (!firstid) {
+              return;
+            }
            var firstmid=firstid.split('-');
             var timestamp = Number(new Date());
             var url = window.location.toString();

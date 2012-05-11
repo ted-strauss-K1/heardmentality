@@ -291,11 +291,11 @@ function load_chart(arg) {
       '#43B649',
       '#F6EB16'
       ],
-	  
+      
       legend: {
         enabled: false
       },
-        				
+       
       tooltip: {
         formatter: function() {
           return ''+
