@@ -2898,6 +2898,27 @@ function issue_ajax_highchart_result($nid, $param) {
 }
 
 function issue_ajax_gmap_result($nid) {
+  $colors = array(
+    '#934d9e',
+    '#FF7F00',
+    '#50c0ac',
+    '#0c6926',
+    '#ef4c8d',
+    '#362750',
+    '#e1e43c',
+    '#ef3d3b',
+    '#3cc7f4',
+    '#589a1c',
+    '#C2499B',
+    '#f89521',
+    '#CC2027',
+    '#55ba59',
+    '#d5bc29',
+    '#6ccbd5',
+    '#43B649',
+    '#F6EB16'
+  );
+
   $query = "select count(nid) from {poll_choices} where  nid=$nid  order by chorder";
   $result = db_result(db_query($query));
   for ($i = 0; $i < $result; $i++) {
@@ -2905,7 +2926,9 @@ function issue_ajax_gmap_result($nid) {
      left join {user_profile} as u on u.uid=pav.uid 
      where pav.chorder='" . $i . "' AND pav.nid='$nid'");
     while ($coordinates = db_fetch_object($pans)) {
+      
       if ((!is_null($coordinates->latitude)) and ($coordinates->latitude != '')) {
+        $coordinates->color = $colors[$i];
         $getresult[] = $coordinates;
       }
     }

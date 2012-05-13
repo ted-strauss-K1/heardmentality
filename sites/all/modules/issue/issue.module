@@ -205,7 +205,7 @@ function ahah_render($fields, $name) {
 function issue_init() {
   global $base_url;
   // Use poll.module's stylesheet, no need to duplicate at this point.
-  drupal_add_js('var spath="' . $base_url . '/";', 'inline');
+ // drupal_add_js('var spath="' . $base_url . '/";', 'inline');
   drupal_add_css(drupal_get_path('module', 'poll') . '/poll.css');
   drupal_add_js(drupal_get_path('module', 'issue') . '/js/filter.js');
 
@@ -817,6 +817,8 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
       case 'view':
         $output = '';
         global $base_url;
+        $icons_path = drupal_get_path('module', 'issue'). '/icons';
+        drupal_add_js(array('google_map_icons' => "$icons_path"), 'setting');
         drupal_add_js(array('base_url' => "$base_url"), 'setting');
         drupal_add_js(drupal_get_path('module', 'issue') . '/js/add_new_form.js');
         drupal_add_js(drupal_get_path('theme', 'heardmentalitylight') . '/javascripts/room_reservation.js');

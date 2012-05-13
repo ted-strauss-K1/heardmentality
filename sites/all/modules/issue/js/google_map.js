@@ -3,18 +3,16 @@ $(document).ready(function() {
   function initialize() {
     $.getJSON(Drupal.settings.base_url + '/issue/gmap/ajax/'+ nid, function(data) {
       var beaches = [];
-      var latitude, longitude;
+      var latitude, longitud;
       $.each(data, function(key, val) {
         for (i in val) {
           //  beaches.push(val[i].latitude, val[i].longitude);
-          beaches[i]= [val[i].latitude, val[i].longitude];
+          beaches[i]= [val[i].latitude, val[i].longitude, val[i].color];
         }
         latitude = val[0].latitude;
         longitude = val[0].longitude;
       });
-    
-      
-  
+
       var myLatlng = new google.maps.LatLng(latitude, longitude);
       var myOptions = {
         zoom: 0,
@@ -24,11 +22,12 @@ $(document).ready(function() {
       map = new google.maps.Map(document.getElementById("map_div"), myOptions);
       var nid = $('#curr_nid').val();
       
+      setCircles(map, beaches);
       setMarkers(map, beaches);
     });
   }
   
-  function setMarkers(map, locations) {
+  function setCircles(map, locations) {
     for (var i = 0; i < locations.length; i++) {
       var beach = locations[i];
       var myLatLng = new google.maps.LatLng(beach[0], beach[1]);
@@ -42,6 +41,21 @@ $(document).ready(function() {
         center: myLatLng,
         radius: 10000
       });
+    }
+  }
+  function setMarkers(map, locations) {
+
+    for (var i = 0; i < locations.length; i++) {
+      var beach = locations[i];
+      var myLatLng = new google.maps.LatLng(beach[0], beach[1]);
+      var marker = new google.maps.Marker({
+        position: myLatLng, 
+        map: map,
+        
+        // icon: 'http://google-maps-icons.googlecode.com/files/factory.png'
+        icon: '/'+Drupal.settings.google_map_icons+'/'+beach[2]+ '.png'
+      })
+    
     }
   }
   initialize();
