@@ -32,10 +32,10 @@ $(document).ready(function() {
       var beach = locations[i];
       var myLatLng = new google.maps.LatLng(beach[0], beach[1]);
       var marker = new google.maps.Circle({
-        strokeColor: "#FF0000",
+        strokeColor: beach[2],
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor: "#FF0000",
+        fillColor: beach[2],
         fillOpacity: 0.35,
         map: map,
         center: myLatLng,
@@ -46,6 +46,7 @@ $(document).ready(function() {
   function setMarkers(map, locations) {
 
     for (var i = 0; i < locations.length; i++) {
+    
       var beach = locations[i];
       var myLatLng = new google.maps.LatLng(beach[0], beach[1]);
       var marker = new google.maps.Marker({
