@@ -53,7 +53,7 @@ $(document).ready(function() {
         map: map,
         
         // icon: 'http://google-maps-icons.googlecode.com/files/factory.png'
-        icon: '/'+Drupal.settings.google_map_icons+'/'+beach[2]+ '.png'
+        icon: Drupal.settings.base_url+ '/'+Drupal.settings.google_map_icons+'/'+beach[2]+ '.png'
       })
     
     }
