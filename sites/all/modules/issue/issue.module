@@ -205,7 +205,7 @@ function ahah_render($fields, $name) {
 function issue_init() {
   global $base_url;
   // Use poll.module's stylesheet, no need to duplicate at this point.
- // drupal_add_js('var spath="' . $base_url . '/";', 'inline');
+  // drupal_add_js('var spath="' . $base_url . '/";', 'inline');
   drupal_add_css(drupal_get_path('module', 'poll') . '/poll.css');
   drupal_add_js(drupal_get_path('module', 'issue') . '/js/filter.js');
 
@@ -817,7 +817,7 @@ function issue_nodeapi($node, $op, $a3 = NULL, $a4 = NULL) {
       case 'view':
         $output = '';
         global $base_url;
-        $icons_path = drupal_get_path('module', 'issue'). '/icons';
+        $icons_path = drupal_get_path('module', 'issue') . '/icons';
         drupal_add_js(array('google_map_icons' => "$icons_path"), 'setting');
         drupal_add_js(array('base_url' => "$base_url"), 'setting');
         drupal_add_js(drupal_get_path('module', 'issue') . '/js/add_new_form.js');
@@ -2221,7 +2221,7 @@ function view_issue_results($nid = '') {
       $short_answers[$list['chorder']]['name'] = get_short_answer($nid, $list['chorder']);
       $short_answers[$list['chorder']]['color'] = $colors[$key];
     }
-  
+
     $results = theme('issue_result_graph_analysis', $map, $report_percent, $report_graph, $short_answers);
   }
   $debates = theme('issue_debate_list', $nid);
@@ -2492,12 +2492,22 @@ function add_new_debate_form($form_state, $nid = '') {
     $i++;
   }
   $form['clr_div'] = array('#type' => 'markup', '#value' => '<div class="clr"></div><span class="req_assign">(Required to set one or more)</span>');
-  $form['new_debate_submit'] = array('#type' => 'submit',
+
+  $form['new_debate_submit'] = array(
+    '#type' => 'submit',
     '#value' => t('Add'),
     '#attributes' => array('class' => 'orange-btn'),
     '#prefix' => '</td></tr></table><div class="add_button">',
     '#suffix' => '<span id="sub_loader" style="display: none; float: left; margin-right: 17px; position: relative; top: 2px;"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>',
     '#id' => 'add_new_debate',
+  );
+  $form['attach'] = array(
+    '#type' => 'submit',
+    '#value' => t('Attach'),
+    '#attributes' => array('class' => 'orange-btn'),
+    '#prefix' => '<div class="reference-form">',
+    '#suffix' => '</div>',
+    '#id' => 'attach',
   );
   $form['link-arg'] = array(
     '#type' => 'item',
@@ -2632,71 +2642,123 @@ function add_new_debate_form_submit($form, &$form_state) {
     exit;
   }
   else {
-    module_load_include('php', 'debate', 'simple_html_dom');
-    $html = file_get_html($form_state['values']['ref_title']);
-    if (strpos($form_state['values']['ref_title'], 'youtube.com')) {
-      $body = $html->find('#eow-description', 0)->plaintext;
-      if (strlen($body) > 200) {
-        $text = substr($body, 0, strpos($body, " ", 200));
-      }
-      $title = $html->find('#eow-title', 0)->innertext;
-      $html->clear();
-      $idStarts = strpos($form_state['values']['ref_title'], "?v=");
-      if ($idStarts === FALSE) {
-        $idStarts = strpos($form_state['values']['ref_title'], "&v=");
-      }
-      if ($idStarts === FALSE) {
-        die("<div class='messages error'>YouTube video ID not found. Please double-check your URL.</div>");
-      }
-      $idStarts += 3;
-      $ytvID = substr($form_state['values']['ref_title'], $idStarts, 11);
-      $res->title = $title;
-      $res->body = $text;
-      $res->field_mtype[0]['value'] = 'video';
-      $res->field_videoid[0]['value'] = $ytvID;
-      $res->field_filepath[0]['value'] = 'http://img.youtube.com/vi/' . $ytvID . '/default.jpg';
-    }
-    else {
-      module_load_include('php', 'debate', 'url_to_absolute');
+    ///
+    if ($form_state['values']['op'] != 'Attach') {
+      krumo($form_state);
+      module_load_include('php', 'debate', 'simple_html_dom');
       $html = file_get_html($form_state['values']['ref_title']);
-      foreach ($html->find('img') as $element) {
-        $abs_url = url_to_absolute($form_state['values']['ref_title'], $element->src);
-        list($width, $height, $type, $attr) = getimagesize($abs_url);
-        if ($width > 100) {
-          $images[] = $abs_url;
+      if (strpos($form_state['values']['ref_title'], 'youtube.com')) {
+        $body = $html->find('#eow-description', 0)->plaintext;
+        if (strlen($body) > 200) {
+          $text = substr($body, 0, strpos($body, " ", 200));
         }
-      }
-      if (count($images > 0)) {
-        $res->field_filepath[0]['value'] = $images[0];
+        $title = $html->find('#eow-title', 0)->innertext;
+        $html->clear();
+        $idStarts = strpos($form_state['values']['ref_title'], "?v=");
+        if ($idStarts === FALSE) {
+          $idStarts = strpos($form_state['values']['ref_title'], "&v=");
+        }
+        if ($idStarts === FALSE) {
+          die("<div class='messages error'>YouTube video ID not found. Please double-check your URL.</div>");
+        }
+        $idStarts += 3;
+        $ytvID = substr($form_state['values']['ref_title'], $idStarts, 11);
+        $res->title = $title;
+        $res->body = $text;
+        $res->field_mtype[0]['value'] = 'video';
+        $res->field_videoid[0]['value'] = $ytvID;
+        $res->field_filepath[0]['value'] = 'http://img.youtube.com/vi/' . $ytvID . '/default.jpg';
       }
       else {
-        $res->field_filepath[0]['value'] = file_directory_path() . '/noimage.jpg';
+        module_load_include('php', 'debate', 'url_to_absolute');
+        $html = file_get_html($form_state['values']['ref_title']);
+        foreach ($html->find('img') as $element) {
+          $abs_url = url_to_absolute($form_state['values']['ref_title'], $element->src);
+          list($width, $height, $type, $attr) = getimagesize($abs_url);
+          if ($width > 100) {
+            $images[] = $abs_url;
+          }
+        }
+        if (count($images > 0)) {
+          $res->field_filepath[0]['value'] = $images[0];
+        }
+        else {
+          $res->field_filepath[0]['value'] = file_directory_path() . '/noimage.jpg';
+        }
+        $res->title = $html->find('title', 0)->innertext;
+        $res->field_rtype[0]['value'] = 'news';
+        $html->clear();
       }
-      $res->title = $html->find('title', 0)->innertext;
-      $res->field_rtype[0]['value'] = 'news';
-      $html->clear();
+      $res->type = 'forum';
+      $res->field_source[0]['value'] = parse_url($form_state['values']['ref_title'], PHP_URL_HOST);
+      $res->uid = $user->uid;
+      $res->field_nlink[0]['value'] = $form_state['values']['ref_title'];
+      $res->status = 1;
+      // get tid (debate or resource)
+      // get_taxonomy_id('module name','term data name')
+      $tid = get_taxonomy_id('forum', 'Resource');
+      $res->taxonomy = array($tid);
+      // content type values
+      // set main node as ref node for all resources
+      $nid = $form_state['values']['nid'];
+      $nid = get_tnid($nid);
+      $res->field_ref_qid[0]['nid'] = $nid;
+      $res->field_type[0]['value'] = '2';
+      $res->language = 'en';
+      $save = node_save($res);
+      $json['success_post'] = 1;
+      $json['message'] = '<span class="posted">Your reference posted successfully!</span>';
+      print json_encode($json);
+      exit;
     }
-    $res->type = 'forum';
-    $res->field_source[0]['value'] = parse_url($form_state['values']['ref_title'], PHP_URL_HOST);
-    $res->uid = $user->uid;
-    $res->field_nlink[0]['value'] = $form_state['values']['ref_title'];
-    $res->status = 1;
-    // get tid (debate or resource)
-    // get_taxonomy_id('module name','term data name')
-    $tid = get_taxonomy_id('forum', 'Resource');
-    $res->taxonomy = array($tid);
-    // content type values
-    // set main node as ref node for all resources
-    $nid = $form_state['values']['nid'];
-    $nid = get_tnid($nid);
-    $res->field_ref_qid[0]['nid'] = $nid;
-    $res->field_type[0]['value'] = '2';
-    $res->language = 'en';
-    $save = node_save($res);
-    $json['success_post'] = 1;
-    $json['message'] = '<span class="posted">Your reference posted successfully!</span>';
-    print json_encode($json);
-    exit;
+    else {
+      module_load_include('php', 'debate', 'simple_html_dom');
+      $html = file_get_html($form_state['values']['ref_title']);
+      if (strpos($form_state['values']['ref_title'], 'youtube.com')) {
+        $body = $html->find('#eow-description', 0)->plaintext;
+        if (strlen($body) > 200) {
+          $text = substr($body, 0, strpos($body, " ", 200));
+        }
+        $title = $html->find('#eow-title', 0)->innertext;
+        $html->clear();
+        $idStarts = strpos($form_state['values']['ref_title'], "?v=");
+        if ($idStarts === FALSE) {
+          $idStarts = strpos($form_state['values']['ref_title'], "&v=");
+        }
+        if ($idStarts === FALSE) {
+          die("<div class='messages error'>YouTube video ID not found. Please double-check your URL.</div>");
+        }
+        $idStarts += 3;
+        $ytvID = substr($form_state['values']['ref_title'], $idStarts, 11);
+        $res->title = $title;
+        $res->body = $text;
+        $res->field_mtype[0]['value'] = 'video';
+        $res->field_videoid[0]['value'] = $ytvID;
+        $res->field_filepath[0]['value'] = 'http://img.youtube.com/vi/' . $ytvID . '/default.jpg';
+      }
+      else {
+        module_load_include('php', 'debate', 'url_to_absolute');
+        $html = file_get_html($form_state['values']['ref_title']);
+        foreach ($html->find('img') as $element) {
+          $abs_url = url_to_absolute($form_state['values']['ref_title'], $element->src);
+          list($width, $height, $type, $attr) = getimagesize($abs_url);
+          if ($width > 100) {
+            $images[] = $abs_url;
+          }
+        }
+        $imgSelector = '';
+        foreach ($images as $key => $image) {
+          $imgSelector .= '<div class="cur-img">
+          <img id="cur_img_' . $key . '" src="' . $images[$i] . '" width="118" height="73"  />
+          </div>';
+        }
+        $json['success_post'] = 1;
+        $json['message'] = $imgSelector;
+
+        print json_encode($json);
+
+      }
+    }
   }
 }
 

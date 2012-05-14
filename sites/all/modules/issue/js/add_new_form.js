@@ -67,7 +67,9 @@ jQuery('#add-new-debate-form').live('submit', function(e){
       $('#debate_list_area').tabs("load", 1);
       $('#debate_list_area').tabs("load", 2);
       $('#debate_list_area').tabs("select", 1);
+      console.log(msg);
       jQuery('#deb-err').fadeIn("slow");
+    
       jQuery('#deb-err').html(msg.message); 
       if(msg.success_post == 1) {
         jQuery('#deb-err').css('color','green'); 
