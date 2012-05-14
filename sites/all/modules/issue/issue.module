@@ -2506,8 +2506,8 @@ function add_new_debate_form($form_state, $nid = '') {
     '#value' => t('Attach'),
     '#attributes' => array('class' => 'orange-btn'),
     '#prefix' => '<div class="reference-form">',
-    '#suffix' => '</div>',
-    '#id' => 'attach',
+    '#suffix' => '<div id ="linkbox"></div></div>',
+    '#id' => 'lattach',
   );
   $form['link-arg'] = array(
     '#type' => 'item',
@@ -2644,7 +2644,7 @@ function add_new_debate_form_submit($form, &$form_state) {
   else {
     ///
     if ($form_state['values']['op'] != 'Attach') {
-      krumo($form_state);
+    //  krumo($form_state);
       module_load_include('php', 'debate', 'simple_html_dom');
       $html = file_get_html($form_state['values']['ref_title']);
       if (strpos($form_state['values']['ref_title'], 'youtube.com')) {

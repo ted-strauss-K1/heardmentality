@@ -285,11 +285,11 @@ jQuery(document).ready(function() {
 
   jQuery("#lattach").click(function()
   {
-    var content=jQuery('#nlink').val();
+    var content=jQuery('#edit-ref-title').val();
     var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
     var url= content.match(urlRegex);
-    var purl=spath+'debate/ajax';
+    var purl=Drupal.settings.base_url+'/debate/ajax';
 
     if(url.length>0)
     {
