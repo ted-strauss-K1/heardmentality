@@ -2674,21 +2674,17 @@ function add_new_debate_form_submit($form, &$form_state) {
     else {
       module_load_include('php', 'debate', 'url_to_absolute');
       $html = file_get_html($form_state['values']['ref_title']);
-      foreach ($html->find('img') as $element) {
-        $abs_url = url_to_absolute($form_state['values']['ref_title'], $element->src);
-        list($width, $height, $type, $attr) = getimagesize($abs_url);
-        if ($width > 100) {
-          $images[] = $abs_url;
-        }
-      }
-      if (count($images > 0)) {
-        $res->field_filepath[0]['value'] = $images[0];
+      $tags = get_meta_tags($form_state['values']['ref_title']);
+      if ($form_state['values']['image'] != 'no_image') {
+        $res->field_filepath[0]['value'] = $form_state['values']['image'];
       }
       else {
         $res->field_filepath[0]['value'] = file_directory_path() . '/noimage.jpg';
       }
       $res->title = $html->find('title', 0)->innertext;
+    //  krumo($html->find('title', 0)->innertext);exit;
       $res->field_rtype[0]['value'] = 'news';
+      $res->body = $tags['description'];
       $html->clear();
     }
     $res->type = 'forum';

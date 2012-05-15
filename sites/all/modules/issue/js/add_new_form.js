@@ -44,7 +44,7 @@ $('#add_new_debate').live('click',function() {
   $('#image_value').val(image_value);
     
   // add new debate ajax submit
-  jQuery('#add-new-debate-form2').live('submit', function(e) {
+  jQuery('#add-new-debate-form').live('submit', function(e) {
     e.preventDefault();
     jQuery('#deb-err').css('color','red');
     var title = jQuery('#deb_title').val();
