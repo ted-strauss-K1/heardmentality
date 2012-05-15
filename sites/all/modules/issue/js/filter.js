@@ -304,8 +304,7 @@ jQuery(document).ready(function() {
           jQuery('#re-sel-next').hide();
           jQuery('#re-sel-prev').hide();
         }
-        //jQuery('#re-sel-pre').bind('click', disableLink);
-        //jQuery('#re-sel-pre').fadeTo('fast', 0.2);
+
         jQuery('#re-sel-pre').hide();
       });
     }
