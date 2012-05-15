@@ -2682,7 +2682,6 @@ function add_new_debate_form_submit($form, &$form_state) {
         $res->field_filepath[0]['value'] = file_directory_path() . '/noimage.jpg';
       }
       $res->title = $html->find('title', 0)->innertext;
-    //  krumo($html->find('title', 0)->innertext);exit;
       $res->field_rtype[0]['value'] = 'news';
       $res->body = $tags['description'];
       $html->clear();

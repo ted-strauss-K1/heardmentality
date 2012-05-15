@@ -213,7 +213,7 @@ function load_chart(arg) {
     chart = new Highcharts.Chart({
       chart: {
         renderTo: 'chart_div',
-        type: 'column',
+        type: 'bar',
         style: {
           fontFamily: 'Arial',
           color: '#4c4c4c',
@@ -310,7 +310,7 @@ function load_chart(arg) {
       },
       
       plotOptions: {
-        column: {
+        bar: {
           dataLabels: {
             enabled: true
           },
@@ -329,6 +329,7 @@ function load_chart(arg) {
                              
       series: seriesOptions
     });
+
   }
 }
 
