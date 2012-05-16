@@ -2527,6 +2527,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#suffix' => '</div></div>',
     '#id' => 'link_ref',
   );
+  
   $form['linkbox'] = array(
     '#type' => 'item',
     '#value' => '<div id ="linkbox"></div>',
