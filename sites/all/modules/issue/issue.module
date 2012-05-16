@@ -2510,7 +2510,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#value' => t('Attach'),
     '#attributes' => array('class' => 'orange-btn'),
     '#prefix' => '<div class="reference-form">',
-    '#suffix' => '<div id ="linkbox"></div></div>',
+    '#suffix' => '</div>',
     '#id' => 'lattach',
   );
   $form['link-arg'] = array(
@@ -2526,6 +2526,10 @@ function add_new_debate_form($form_state, $nid = '') {
     '#prefix' => '<div class="reference-form">',
     '#suffix' => '</div></div>',
     '#id' => 'link_ref',
+  );
+  $form['linkbox'] = array(
+    '#type' => 'item',
+    '#value' => '<div id ="linkbox"></div>',
   );
   return $form;
 }
