@@ -23,7 +23,7 @@ function report_percent($nid='') {
 
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist); //кол-во ответов
-  drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts/highcharts.js");
+  //drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts/highcharts.js");
 
   $inline = "var example = 'bar-stacked',
             theme = 'skies'";
