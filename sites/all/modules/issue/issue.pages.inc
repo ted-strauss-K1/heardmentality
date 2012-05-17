@@ -204,8 +204,8 @@ function report_percent($nid='') {
     <option value="ethnicity">' . t('Ethnicity') . '</option>
     <option value="income">' . t('Income') . '</option>
     <option value="marital">' . t('Marital') . '</option>
-    <option value="sorient">' . t('Sexual Orientation') . '</option>
-    <option value="edu">' . t('Education Level') . '</option>
+    <option value="sex_orient">' . t('Sexual Orientation') . '</option>
+    <option value="education">' . t('Education Level') . '</option>
 
   </select>
   <span id="fopt" ></span>
@@ -365,7 +365,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
        */
 
       break;
-    case 'sorient':
+    case 'sex_orient':
       $answer['divide'] = array('Straight', 'Gay', 'Bisexual', 'Transgender', 'undefined');
       foreach ($answer['divide'] as $key => $list) {
         if ($list == 'undefined')
@@ -384,7 +384,7 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
         $answer_cnt = $answer_cnt2;
        */
       break;
-    case 'edu':
+    case 'education':
       $answer['divide'] = array('No High School', 'High School', 'Technical College', 'Masters Degree', 'PhD', 'undefined');
 
       foreach ($answer['divide'] as $key => $list) {
@@ -2885,8 +2885,7 @@ function issue_ajax_highchart_result($nid, $param) {
   $json['data'] = $result['cnt'];
 
   foreach ($json['name'] as $key => $value) {
-    //  $return[]= '{ name: '.'"'.$json['name'][$key].'"' .', ' .'data:' .$json['data'][$key]. '}';
-    // $js_ar = implode(',', $return);
+
     $js_arr[$key]['name'] = $json['name'][$key];
     $js_arr[$key]['data'] = $json['data'][$key];
     $js_arr['categories'] = $json['categories'];
@@ -2894,7 +2893,10 @@ function issue_ajax_highchart_result($nid, $param) {
 
   print drupal_json(array('name' => $js_arr[$param]['name'],
             'data' => $js_arr[$param]['data'],
-            'categories' => $js_arr['categories']));
+            'categories' => $js_arr['categories'],
+            'xtitle' => t($_REQUEST['dochg'])
+                  )
+          );
 }
 
 function issue_ajax_gmap_result($nid) {
@@ -2926,7 +2928,7 @@ function issue_ajax_gmap_result($nid) {
      left join {user_profile} as u on u.uid=pav.uid 
      where pav.chorder='" . $i . "' AND pav.nid='$nid'");
     while ($coordinates = db_fetch_object($pans)) {
-      
+
       if ((!is_null($coordinates->latitude)) and ($coordinates->latitude != '')) {
         $coordinates->color = $colors[$i];
         $getresult[] = $coordinates;

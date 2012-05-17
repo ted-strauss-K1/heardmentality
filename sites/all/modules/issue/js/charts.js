@@ -94,7 +94,7 @@ $(function() {
       },
 	  
       rangeSelector: {
-        selected: 1
+        enabled: false
       },
 		
       navigator: {
@@ -193,6 +193,7 @@ function load_chart(arg) {
   $.each(values, function(i, value) {
     $.getJSON(Drupal.settings.base_url + '/issue/highchart/ajax/'+ nid +'/'+ value + '?dochg=' + arg, function(data) {
       var categories = data.categories;
+      var xtitle = data.xtitle
       if (data.name != null) {
         seriesOptions[i] = {
           name: data.name,
@@ -202,13 +203,13 @@ function load_chart(arg) {
       seriesCounter++;
 
       if (seriesCounter == count) {
-        createMainChart(seriesOptions,categories);
+        createMainChart(seriesOptions,categories,xtitle);
       }
     });
   });
   
   
-  function createMainChart(seriesOptions, categories) {
+  function createMainChart(seriesOptions, categories, xtitle) {
     var chart;
     chart = new Highcharts.Chart({
       chart: {
@@ -238,7 +239,7 @@ function load_chart(arg) {
       xAxis: {
         categories: categories,
         title: {
-          text: null	
+          text: xtitle
         },
         lineColor: '#4c4c4c',
         lineWidth: 1,
@@ -259,7 +260,7 @@ function load_chart(arg) {
         tickInterval: 1,
         min: 0,
         title: {
-          text: null
+          text: 'age'
         },
         endOnTick: false,
         maxPadding: 0.01,
