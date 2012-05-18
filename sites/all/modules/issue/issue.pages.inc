@@ -442,23 +442,23 @@ function issue_create_form(&$form_state) {
                                         <div class="new-issue">
                                         <hr class="short2">');
   $form['title_div'] = array(
-    '#type' => 'markup', 
+    '#type' => 'markup',
     '#value' => '<label for="" class="add-on"><div class="number dinbold">1</div><span class="title ">' . t('Question') . '</span><br>
                                                                 <span class="guides">' . t('Max 140 chars.') . '</span></label>');
   $form['q_quest'] = array(
-    '#type' => 'textarea', 
+    '#type' => 'textarea',
     '#suffix' => '<hr class="short2">', '#id' => 'q_quest',
     '#ahah' => array('path' => 'issue/get_related_issues', 'wrapper' => 'related-issues', 'effect' => 'fade'),
     '#attributes' => array('onkeyup' => 'CountlimitChars()', 'rows' => 0, 'cols' => 0),
   );
   $form['desc_div'] = array(
-    '#type' => 'markup', 
+    '#type' => 'markup',
     '#value' => '<label for="" class="add-on"><div class="number dinbold">2</div><span class="title ">' . t('Context') . '</span><br><span class="guides">' . t('Enter a brief description or backstory to provide context. You may include links.') . '</span></label>');
   $form['q_context'] = array(
-    '#type' => 'textarea', 
-    '#rows' => 4, 
-    '#suffix' => '<hr class="short2">', 
-    '#id' => 'Question', 
+    '#type' => 'textarea',
+    '#rows' => 4,
+    '#suffix' => '<hr class="short2">',
+    '#id' => 'Question',
     '#attributes' => array('rows' => 0, 'cols' => 0));
 
   if (isset($form_state['choice_count'])) {
@@ -549,33 +549,33 @@ function issue_create_form(&$form_state) {
       }
       else {
         $form['related_issues']['no_rel'] = array(
-          '#type' => 'markup', 
+          '#type' => 'markup',
           '#value' => 'No Related Issues');
       }
     }
     else {
       $form['related_issues']['no_rel'] = array(
-        '#type' => 'markup', 
+        '#type' => 'markup',
         '#value' => 'No Related Issues');
     }
   }
 
   $form['dupe_count'] = array(
-    '#type' => 'hidden', 
-    '#id' => 'dupe_count', 
+    '#type' => 'hidden',
+    '#id' => 'dupe_count',
     '#default_value' => 0);
   //$form['#validate'][] = 'issue_create_form_validate';
 
   $form['submit'] = array(
-    '#type' => 'submit', 
-    '#attributes' => array('class' => 'submit-issue'), 
-    '#value' => t('SUBMIT NEW ISSUE'), 
+    '#type' => 'submit',
+    '#attributes' => array('class' => 'submit-issue'),
+    '#value' => t('SUBMIT NEW ISSUE'),
     '#id' => 'save_issue',
     '#prefix' => '<label class="before-submit">Your issue will go live immediately, but a moderator will edit it soon to assign categories, look for duplicates, or make format changes</label>',
     '#suffix' => ' <div class="clear"></div>');
   //$form['#redirect'] = '';
   $form['issue_cont_close'] = array(
-    '#type' => 'markup', 
+    '#type' => 'markup',
     '#value' => '</div></div>');
   $form['#validate'][] = 'validate_issue_add';
   $form['#cache'] = TRUE;
@@ -1440,7 +1440,7 @@ function forum_replies($debate_tnid, $pid = '') {
     }
   }
   else {
- 
+    
   }
   return $comments;
 }
@@ -1559,9 +1559,7 @@ function insight_view($nid='') {
       $insight .= t('Insight view cannot be calculated until 10 votes have been received.');
     }
     return $insight;
-
   }
-
 }
 
 function by_possible_answers_votes($nid = '') {
@@ -2381,7 +2379,6 @@ function issue_ajax_highchart_result($nid, $param) {
 
   $vlist = ExecuteQuery($vans, "select");
   $cnt_ans = count($vlist); //кол-во ответов
-  //drupal_add_js(drupal_get_path('module', 'issue') . "/js/highcharts_new.js");
 
   $inline = "var example = 'bar-stacked',
             theme = 'skies'";
@@ -2408,14 +2405,43 @@ function issue_ajax_highchart_result($nid, $param) {
   }
   $cnt = $result['cnt'];
 
-  //$json['name'] = $result['divide'];
   $json['data'] = $result['cnt'];
 
   foreach ($json['name'] as $key => $value) {
-
     $js_arr[$key]['name'] = $json['name'][$key];
     $js_arr[$key]['data'] = $json['data'][$key];
     $js_arr['categories'] = $json['categories'];
+  }
+  $colors = array(
+    '#934d9e',
+    '#FF7F00',
+    '#50c0ac',
+    '#0c6926',
+    '#ef4c8d',
+    '#362750',
+    '#e1e43c',
+    '#ef3d3b',
+    '#3cc7f4',
+    '#589a1c',
+    '#C2499B',
+    '#f89521',
+    '#CC2027',
+    '#55ba59',
+    '#d5bc29',
+    '#6ccbd5',
+    '#43B649',
+    '#F6EB16'
+  );
+
+  if ($_REQUEST['dochg'] == '') {
+    foreach ($js_arr[0]['data'] as $key => $value) {
+      $new_js_arr[0]['data'][$key]['y'] = $value;
+      $new_js_arr[0]['data'][$key]['name'] = $js_arr[0]['name'];
+       $new_js_arr[0]['data'][$key]['color'] = $colors[$key];
+    }
+    $new_js_arr['categories'] = $js_arr['categories'];
+    $new_js_arr[0]['name'] = $js_arr[0]['name'];
+    $js_arr = $new_js_arr;
   }
 
   print drupal_json(array('name' => $js_arr[$param]['name'],
