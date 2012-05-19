@@ -213,7 +213,7 @@ function load_chart(arg) {
   
    $(seriesOptions).map(function(index, element) {
   if (element == 0) {
-    seriesOptions[index] = '10';
+    seriesOptions[index] = '-';
   }
  });
   
@@ -253,7 +253,7 @@ function load_chart(arg) {
         endOnTick: false,
         tickColor: '#4c4c4c',
 		tickLength: 3,
-        tickWidth: 3,
+        tickWidth: 1,
         tickmarkPlacement: 'on',
         startOnTick: false,
         labels: {
