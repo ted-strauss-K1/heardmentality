@@ -90,7 +90,17 @@ $(function() {
       },
 	  
       scrollbar : {
-        enabled : true
+        enabled : true,
+		barBackgroundColor: 'gray',
+		barBorderRadius: 7,
+		barBorderWidth: 0,
+		buttonBackgroundColor: 'gray',
+		buttonBorderWidth: 0,
+		buttonBorderRadius: 7,
+		trackBackgroundColor: 'none',
+		trackBorderWidth: 1,
+		trackBorderRadius: 8,
+		trackBorderColor: '#CCC'
       },
 	  
       rangeSelector: {
