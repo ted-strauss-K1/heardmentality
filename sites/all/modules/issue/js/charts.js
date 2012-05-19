@@ -251,7 +251,7 @@ function load_chart(arg) {
         lineColor: '#4c4c4c',
         lineWidth: 1,
         endOnTick: false,
-        tickColor: '#4c4c4c',
+        tickColor: '#000',
 		tickLength: 3,
         tickWidth: 1,
         tickmarkPlacement: 'on',
@@ -260,6 +260,7 @@ function load_chart(arg) {
           align: 'right',
 		  style: {
             color: '#4c4c4c',
+			lineHeight: '14px',
             font: '11px Aial, sans-serif'
           }
         }
