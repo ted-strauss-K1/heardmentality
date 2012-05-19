@@ -253,7 +253,8 @@ function load_chart(arg) {
         endOnTick: false,
         tickColor: '#fff',
         tickWidth: 0,
-        tickmarkPlacement: 'on',
+        tickmarkPlacement: 'between',
+		alternateGridColor: '#f0f0f0',
         startOnTick: false,
         labels: {
           style: {
