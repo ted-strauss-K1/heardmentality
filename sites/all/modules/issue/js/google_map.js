@@ -15,7 +15,7 @@ $(document).ready(function() {
 
       var myLatlng = new google.maps.LatLng(latitude, longitude);
       var myOptions = {
-        zoom: 1,
+        zoom: 2,
         center: myLatlng,
 		mapTypeControl: false,
 		mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},

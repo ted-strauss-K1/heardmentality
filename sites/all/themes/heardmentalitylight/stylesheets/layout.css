@@ -4152,6 +4152,10 @@ span.small_pos.fixes,
 	display: inline-block;
 }
 
+.gmnoprint {
+	display: none;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
