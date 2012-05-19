@@ -210,6 +210,13 @@ function load_chart(arg) {
   
   
   function createMainChart(seriesOptions, categories, xtitle) {
+  
+   $(seriesOptions).map(function(index, element) {
+  if (element == 0) {
+    seriesOptions[index] = '-';
+  }
+ });
+  
     var chart;
     chart = new Highcharts.Chart({
       chart: {
