@@ -257,7 +257,8 @@ function load_chart(arg) {
         tickmarkPlacement: 'on',
         startOnTick: false,
         labels: {
-          align: 'right',
+          align: 'center',
+		  staggerLines: 2,
 		  style: {
             color: '#4c4c4c',
             font: '11px Aial, sans-serif'
