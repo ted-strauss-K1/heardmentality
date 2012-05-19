@@ -253,14 +253,14 @@ function load_chart(arg) {
         endOnTick: false,
         tickColor: '#4c4c4c',
 		tickLength: 3,
-        tickWidth: 1,
+        tickWidth: 3,
         tickmarkPlacement: 'on',
         startOnTick: false,
         labels: {
           align: 'right',
 		  style: {
             color: '#4c4c4c',
-            font: '10px Aial, sans-serif'
+            font: '11px Aial, sans-serif'
           }
         }
       },
