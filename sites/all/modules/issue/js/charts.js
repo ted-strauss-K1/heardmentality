@@ -251,8 +251,9 @@ function load_chart(arg) {
         lineColor: '#4c4c4c',
         lineWidth: 1,
         endOnTick: false,
-        tickColor: '#fff',
-        tickWidth: 0,
+        tickColor: '#4c4c4c',
+		tickLength: 3,
+        tickWidth: 1,
         tickmarkPlacement: 'on',
         startOnTick: false,
         labels: {
