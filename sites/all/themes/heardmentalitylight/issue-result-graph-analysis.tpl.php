@@ -18,7 +18,7 @@
       </div></li>
 	  <li class="full"><div class="space">
 	  
-		<p class="result-title dinbold"><?php print t('Legend (short answers)'); ?></p>
+		<p class="result-title dinbold"><?php print t('Legend'); ?></p>
 		<div class="inner legend">
                   
                   <?php foreach ($short_answers as $answer) { ?>

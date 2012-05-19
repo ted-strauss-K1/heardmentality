@@ -218,7 +218,7 @@ function load_chart(arg) {
         style: {
           fontFamily: 'Arial',
           color: '#4c4c4c',
-          fontSize: '12px'
+          fontSize: '11px'
         },
         plotBorderColor: '#fff',
         plotBorderWidth: 0,
@@ -239,7 +239,7 @@ function load_chart(arg) {
       xAxis: {
         categories: categories,
         title: {
-          text: xtitle
+          text: null
         },
         lineColor: '#4c4c4c',
         lineWidth: 1,
@@ -260,7 +260,7 @@ function load_chart(arg) {
         tickInterval: 1,
         min: 0,
         title: {
-          text: 'age'
+          text: 'null'
         },
         endOnTick: false,
         maxPadding: 0.01,
