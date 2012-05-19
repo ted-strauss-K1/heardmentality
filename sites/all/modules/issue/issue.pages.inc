@@ -84,7 +84,7 @@ function report_percent($nid='') {
   </select>
   <span id="fopt" ></span>
  </form></div>
-    <div id="chart_div" style=" width:300px; min-height: 280px;">
+    <div id="chart_div" style=" width:300px; min-height: 300px;">
     </div>
 </div>';
   return $output;

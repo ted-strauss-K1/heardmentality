@@ -260,7 +260,6 @@ function load_chart(arg) {
           align: 'right',
 		  style: {
             color: '#4c4c4c',
-			lineHeight: '14px',
             font: '11px Aial, sans-serif'
           }
         }
