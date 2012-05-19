@@ -247,11 +247,12 @@ function load_chart(arg) {
         tickColor: '#fff',
         tickWidth: 0,
         tickmarkPlacement: 'on',
+		alternateGridColor: '#f0f0f0',
         startOnTick: false,
         labels: {
           style: {
             color: '#4c4c4c',
-            font: '12px Aial, sans-serif'
+            font: '5px Aial, sans-serif'
           }
         }
       },
