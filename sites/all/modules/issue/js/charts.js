@@ -218,7 +218,7 @@ function load_chart(arg) {
         style: {
           fontFamily: 'Arial',
           color: '#fff',
-          fontSize: '5px'
+          fontSize: '12px'
         },
         plotBorderColor: '#fff',
         plotBorderWidth: 0,
@@ -252,7 +252,7 @@ function load_chart(arg) {
         labels: {
           style: {
             color: '#4c4c4c',
-            font: '5px Aial, sans-serif'
+            font: '12px Aial, sans-serif'
           }
         }
       },
