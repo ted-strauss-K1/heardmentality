@@ -250,6 +250,7 @@ function load_chart(arg) {
         },
         lineColor: '#4c4c4c',
         lineWidth: 1,
+		minPadding: 0.02,
         endOnTick: false,
         tickColor: '#000',
 		tickLength: 3,
