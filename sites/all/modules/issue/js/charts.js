@@ -217,8 +217,8 @@ function load_chart(arg) {
         type: 'bar',
         style: {
           fontFamily: 'Arial',
-          color: '#4c4c4c',
-          fontSize: '11px'
+          color: '#fff',
+          fontSize: '5px'
         },
         plotBorderColor: '#fff',
         plotBorderWidth: 0,
