@@ -91,16 +91,16 @@ $(function() {
 	  
       scrollbar : {
         enabled : true,
-		barBackgroundColor: 'gray',
+		barBackgroundColor: 'C3C3C3',
 		barBorderRadius: 7,
 		barBorderWidth: 0,
-		buttonBackgroundColor: 'gray',
+		buttonBackgroundColor: 'C3C3C3',
 		buttonBorderWidth: 0,
 		buttonBorderRadius: 7,
 		trackBackgroundColor: 'none',
 		trackBorderWidth: 1,
 		trackBorderRadius: 8,
-		trackBorderColor: '#CCC'
+		trackBorderColor: 'none'
       },
 	  
       rangeSelector: {
@@ -113,10 +113,10 @@ $(function() {
         margin: 30,
         maskFill: 'rgba(180, 198, 220, 0.75)',
         handles: {
-          backgroundColor: 'gray',
+          backgroundColor: 'C3C3C3',
           borderColor: '#777777'
         },
-        outlineColor: '#777',
+        outlineColor: '#C3C3C3',
         outlineWidth: 2,
         series: {
           color: '#6ccbd5',
