@@ -254,7 +254,6 @@ function load_chart(arg) {
         tickColor: '#fff',
         tickWidth: 0,
         tickmarkPlacement: 'on',
-		alternateGridColor: '#f0f0f0',
         startOnTick: false,
         labels: {
           style: {
