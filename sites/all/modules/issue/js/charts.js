@@ -266,7 +266,6 @@ function load_chart(arg) {
       },
 	  
       yAxis: {
-        tickInterval: 1,
         min: 0,
         title: {
           text: 'null'
