@@ -256,9 +256,6 @@ function load_chart(arg) {
         tickmarkPlacement: 'on',
         startOnTick: false,
         labels: {
-		
-		rotation: -45,
-		align: 'right',
           style: {
             color: '#4c4c4c',
             font: '10px Aial, sans-serif'
