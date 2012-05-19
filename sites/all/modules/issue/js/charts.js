@@ -114,7 +114,7 @@ $(function() {
         maskFill: 'rgba(228, 228, 228, 0.6)',
         handles: {
           backgroundColor: '#D7D7D7',
-          borderColor: '#666'
+          borderColor: '#777777'
         },
         outlineColor: '#D7D7D7',
         outlineWidth: 2,
