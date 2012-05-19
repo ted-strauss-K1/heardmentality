@@ -253,13 +253,15 @@ function load_chart(arg) {
         endOnTick: false,
         tickColor: '#fff',
         tickWidth: 0,
-        tickmarkPlacement: 'between',
-		alternateGridColor: '#f0f0f0',
+        tickmarkPlacement: 'on',
         startOnTick: false,
         labels: {
+		
+		rotation: -45,
+		align: 'right',
           style: {
             color: '#4c4c4c',
-            font: '12px Aial, sans-serif'
+            font: '10px Aial, sans-serif'
           }
         }
       },
