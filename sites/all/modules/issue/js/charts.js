@@ -213,7 +213,7 @@ function load_chart(arg) {
   
    $(seriesOptions).map(function(index, element) {
   if (element == 0) {
-    seriesOptions[index] = '-';
+    seriesOptions[index] = '10';
   }
  });
   
@@ -256,7 +256,8 @@ function load_chart(arg) {
         tickmarkPlacement: 'on',
         startOnTick: false,
         labels: {
-          style: {
+          align: 'left',
+		  style: {
             color: '#4c4c4c',
             font: '10px Aial, sans-serif'
           }
