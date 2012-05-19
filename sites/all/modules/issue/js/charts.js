@@ -113,10 +113,10 @@ $(function() {
         margin: 30,
         maskFill: 'rgba(180, 198, 220, 0.75)',
         handles: {
-          backgroundColor: 'yellow',
-          borderColor: 'red'
+          backgroundColor: 'gray',
+          borderColor: '#777777'
         },
-        outlineColor: 'blue',
+        outlineColor: '#777',
         outlineWidth: 2,
         series: {
           color: '#6ccbd5',
