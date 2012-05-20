@@ -4202,6 +4202,8 @@ span.small_pos.fixes,
 	clear: left;
 	margin: 0 15px 0 0;
 	width: 110px;
+	text-align: center;
+	font-weight: bold;
 }
 
 #linkbox .rightfm {
@@ -4240,6 +4242,26 @@ span.small_pos.fixes,
 	margin: 0 5px 0 0;
     position: relative;
     top: 1px;
+}
+
+#linkbox .left_right {
+	display: block;
+	text-align: center;
+}
+
+#linkbox .left_right img {
+	vertical-align: top;
+}
+
+#linkbox #re-sel-next,
+#linkbox #re-sel-pre {
+	display: inline-block;
+	text-decoration: none;
+}
+
+#linkbox #re-sel-next {
+	margin-left: 4px;
+	margin-right: 3px;
 }
 
 /*Clear*/
