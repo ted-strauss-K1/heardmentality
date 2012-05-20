@@ -4245,8 +4245,10 @@ span.small_pos.fixes,
 }
 
 #linkbox .left_right {
-	display: block;
-	text-align: center;
+    display: inline-block;
+    position: relative;
+    text-align: center;
+    top: -1px;
 }
 
 #linkbox .left_right img {
