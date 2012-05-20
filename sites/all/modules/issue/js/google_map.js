@@ -17,11 +17,7 @@ $(document).ready(function() {
       var myOptions = {
         zoom: 0,
         center: myLatlng,
-		mapTypeControl: true
-		//mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
-		//navigationControl: true,
-		//navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
-		//mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP
       }
       map = new google.maps.Map(document.getElementById("map_div"), myOptions);
       var nid = $('#curr_nid').val();
