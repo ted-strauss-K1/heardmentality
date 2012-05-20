@@ -78,7 +78,7 @@ function debate_ajax() {
 								 </div>';
         echo $imgSelector;
         echo '<div class="rightfm">' . $inc . '</div>
-                    <span class="no_thumb"><input type="checkbox" name="no_thumbnail" id="no_thumbnail" /> No Thumbnail
+                    <span class="no_thumb"><input type="checkbox" name="no_thumbnail" id="no_thumbnail" />No Thumbnail
                     <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/></span></div>
                         ';
       }

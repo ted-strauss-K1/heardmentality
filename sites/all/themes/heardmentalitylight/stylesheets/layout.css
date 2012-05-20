@@ -4205,6 +4205,24 @@ span.small_pos.fixes,
 	width: 110px;
 }
 
+#linkbox #rightfm {
+	overflow:hidden;
+}
+
+#linkbox .no_thumb {
+	float: left;
+	clear: left;
+	font-size: 13px;
+    font-weight: bold;
+	color: #666;
+}
+
+#linkbox .no_thumb #no_thumbnail {
+	margin: 0 5px 0 0;
+    position: relative;
+    top: 1px;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
