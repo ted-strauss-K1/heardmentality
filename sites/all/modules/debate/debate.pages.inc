@@ -74,8 +74,8 @@ function debate_ajax() {
                                  <div class="img_controls">
 								 <a href="javascript:void(0)" title="previous"  id="re-sel-pre"><img src="' . $imgPath . 'arrow_left.png"></a>
 								 <a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="' . $imgPath . 'arrow_right.png"></a>
-								 </div></div>
-                                 <span id="img_count">' . $imgCount . '</span> of ' . $totalImage . '';
+								 <span id="img_count">' . $imgCount . '</span> of ' . $totalImage . '
+								 </div></div>';
         echo $imgSelector;
         echo '<div class="rightfm">' . $inc . '</div>
                     <span class="no_thumb"><input type="checkbox" name="no_thumbnail" id="no_thumbnail" /> No Thumbnail
