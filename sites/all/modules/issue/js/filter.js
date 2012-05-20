@@ -295,7 +295,7 @@ jQuery(document).ready(function() {
     {
       jQuery(this).attr('disabled',true);
       $("#linkbox").slideDown('show');
-      $("#linkbox").html("Loading.....");
+      $("#linkbox").html("<span class='load'>Loading...</span>");
       $.get(purl+"?action=url&url="+url,function(response)
       {
         jQuery("#linkbox").html(response);

@@ -4164,8 +4164,15 @@ span.small_pos.fixes,
 
 #linkbox {
 	/*margin-top: 16px;
-	padding-top: 10px;
+	padding-top: 12px;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;*/
+}
+
+#linkbox .linkbox_inner,
+#linkbox span.load {
+	margin-top: 16px;
+	padding-top: 12px;
+	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
 }
 
 /*Clear*/
