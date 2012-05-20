@@ -228,6 +228,17 @@ function load_chart(arg) {
  });
   
     var chart;
+    
+    $(seriesOptions).map(function(index, element) {
+      $(element.data).map(function(index1, element1) {
+        if (element1 == 0) {
+        seriesOptions[index].data[index1] = null;
+        }
+        console.log(index1);
+        console.log(element1);
+      });
+    });
+
     chart = new Highcharts.Chart({
       chart: {
         renderTo: 'chart_div',
