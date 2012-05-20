@@ -189,9 +189,14 @@
 .ie7 span.small_neg, .ie7 span.small_pos, .ie7 #debate_list_area .arg p.position-minus strong, .ie7 #debate_list_area .arg p.position-plus strong,
 .ie8 span.small_neg, .ie8 span.small_pos, .ie8 #debate_list_area .arg p.position-minus strong, .ie8 #debate_list_area .arg p.position-plus strong,
 .ie7 #debate_list_area li.one_reply span.negative, .ie7 #debate_list_area li.one_reply span.positive,
-.ie8 #debate_list_area li.one_reply span.negative, .ie8 #debate_list_area li.one_reply span.positive {	
+.ie8 #debate_list_area li.one_reply span.negative, .ie8 #debate_list_area li.one_reply span.positive,
+.vote-results .legend dt {	
 	behavior: url(/sites/all/themes/heardmentalitylight/stylesheets/PIE.htc);
 	zoom: 1;
+}
+
+.vote-results .legend dt {
+	position: relative;
 }
 
 .ie7 #debate_list_area .arg span.sum span,
