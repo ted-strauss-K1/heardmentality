@@ -26,7 +26,7 @@ $(document).ready(function() {
       map = new google.maps.Map(document.getElementById("map_div"), myOptions);
       var nid = $('#curr_nid').val();
       
-      setCircles(map, beaches);
+    //  setCircles(map, beaches);
       setMarkers(map, beaches);
     });
   }
@@ -56,8 +56,6 @@ $(document).ready(function() {
       var marker = new google.maps.Marker({
         position: myLatLng, 
         map: map,
-        
-        // icon: 'http://google-maps-icons.googlecode.com/files/factory.png'
         icon: Drupal.settings.base_url+ '/'+Drupal.settings.google_map_icons+'/'+beach[2].replace('#','')+ '.png'
       })
     }

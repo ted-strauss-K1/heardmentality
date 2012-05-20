@@ -234,8 +234,6 @@ function load_chart(arg) {
         if (element1 == 0) {
         seriesOptions[index].data[index1] = null;
         }
-        console.log(index1);
-        console.log(element1);
       });
     });
 
