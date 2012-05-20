@@ -4160,6 +4160,14 @@ span.small_pos.fixes,
 	display: none;
 }
 
+/*Add references - PREVIEW*/
+
+#linkbox {
+	margin-top: 16px;
+	padding-top: 10px;
+	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
+}
+
 /*Clear*/
 
 .ui-dialog .ui-tabs-panel #user-login:after,
