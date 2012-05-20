@@ -211,8 +211,7 @@
 	border: 1px solid red;
 }
 
-.ie7 #debate_list_area li.one_reply span.positive,
-.ie8 #debate_list_area li.one_reply span.positive {
+/*.ie8 #debate_list_area li.one_reply span.positive {
 	line-height: 13px !important;
-}
+}*/
 	
