@@ -4201,12 +4201,30 @@ span.small_pos.fixes,
 #linkbox .img_controls {
 	float: left;
 	clear: left;
-	margin: 0 15px 15px 0;
+	margin: 0 15px 0 0;
 	width: 110px;
 }
 
 #linkbox .rightfm {
 	overflow:hidden;
+}
+
+#linkbox .rightfm em {
+	color: #924C9D;
+    font-weight: bold;
+	display: block;
+	font-style: normal;
+}
+
+#linkbox .rightfm strong {
+	font-weight: bold;
+	color: #222;
+}
+
+#linkbox .rightfm span {
+	font-size: 12px;
+    line-height: 18px;
+	display: block;
 }
 
 #linkbox .no_thumb {
