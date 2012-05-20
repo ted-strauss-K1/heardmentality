@@ -46,8 +46,9 @@ function debate_ajax() {
         foreach ($html->find('img') as $element) {
           $images[$element->src] = true;
         }
-        $inc.='<em>' . $html->find('title', 0)->innertext . '</em><br/>';
-        $inc.='<strong>' . $domain . '</strong><br/>';
+		
+        $inc.='<em>' . $html->find('title', 0)->innertext . '</em>';
+		$inc.='source:&nbsp;<strong>' . $domain . '</strong>';
         $inc.='<span>' . $tags['description'] . '</span>';
 
         foreach ($html->find('img') as $element) {
