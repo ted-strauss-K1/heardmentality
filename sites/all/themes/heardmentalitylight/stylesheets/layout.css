@@ -4173,6 +4173,7 @@ span.small_pos.fixes,
 	margin-top: 16px;
 	padding-top: 12px;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
+	display: block;
 }
 
 /*Clear*/
