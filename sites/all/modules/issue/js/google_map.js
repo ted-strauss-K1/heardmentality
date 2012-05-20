@@ -17,7 +17,7 @@ $(document).ready(function() {
       var myOptions = {
         zoom: 1,
         center: myLatlng,
-		mapTypeControl: false,
+		mapTypeControl: true,
 		mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
 		navigationControl: true,
 		navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
