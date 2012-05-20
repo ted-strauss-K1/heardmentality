@@ -61,7 +61,7 @@ function debate_ajax() {
         $imgCount = $count > 0 ? 1 : 0;
         $endImage = $totalImage != 0 ? ($totalImage - 1) : 0;
         $imgPath = $base_url . '/' . drupal_get_path('theme', 'hmware') . '/images/';
-        $imgSelector = '<div class="img-selector">';
+        $imgSelector = '<div class="linkbox_inner"><div class="img-selector">';
         for ($i = 0; $i < $totalImage; $i++) {
           $imgSelector .= '<div class="cur-img">
                                     <img id="cur_img_' . $i . '" src="' . $web_images[$i] . '" width="118" height="73"  />
@@ -77,8 +77,8 @@ function debate_ajax() {
                                     <span id="img_count">' . $imgCount . '</span> of ' . $totalImage . '';
         echo $imgSelector;
         echo '<div class="rightfm">' . $inc . '</div><br>
-                    <input type="checkbox" name="no_thumbnail" id="no_thumbnail" />&nbsp; No Thumbnail
-                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/>
+                    <input type="checkbox" name="no_thumbnail" id="no_thumbnail" /> No Thumbnail
+                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/></div>
                         ';
       }
       break;
