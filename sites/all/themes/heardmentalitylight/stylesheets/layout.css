@@ -4205,16 +4205,16 @@ span.small_pos.fixes,
 	width: 110px;
 }
 
-#linkbox #rightfm {
+#linkbox .rightfm {
 	overflow:hidden;
 }
 
 #linkbox .no_thumb {
-	float: left;
-	clear: left;
 	font-size: 13px;
     font-weight: bold;
 	color: #666;
+	display: block;
+	padding-top: 10px;
 }
 
 #linkbox .no_thumb #no_thumbnail {

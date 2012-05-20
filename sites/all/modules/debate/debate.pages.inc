@@ -77,9 +77,9 @@ function debate_ajax() {
 								 <span id="img_count">' . $imgCount . '</span> of ' . $totalImage . '
 								 </div>';
         echo $imgSelector;
-        echo '<div class="rightfm">' . $inc . '</div>
+        echo '<div class="rightfm">' . $inc . '
                     <span class="no_thumb"><input type="checkbox" name="no_thumbnail" id="no_thumbnail" />No Thumbnail
-                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/></span></div>
+                    <input type="hidden" name="udesc" value="' . myTruncate($inc, 255) . '"/><input type="hidden" id="final_uimage" name="uimg" value="' . $web_images[0] . '"/></span></div></div>
                         ';
       }
       break;
