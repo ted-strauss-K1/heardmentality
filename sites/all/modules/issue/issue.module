@@ -2509,7 +2509,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#type' => 'submit',
     '#value' => t('Attach'),
     '#attributes' => array('class' => 'orange-btn'),
-    '#prefix' => '<div class="reference-form">',
+    '#prefix' => '<div class="reference-form pic_ref">',
     '#suffix' => '</div>',
     '#id' => 'lattach',
   );

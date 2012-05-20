@@ -3002,6 +3002,10 @@ h6#deb-ana:hover a,
 	/*float: left;*/
 }
 
+#add-new-debate-form .add_button .reference-form.pic_ref {
+	padding: 0;
+}
+
 #add-new-debate-form .add_button .argument-form a,
 #add-new-debate-form .add_button .reference-form a {
 	color: #924C9D;
