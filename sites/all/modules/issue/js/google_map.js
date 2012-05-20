@@ -15,9 +15,13 @@ $(document).ready(function() {
 
       var myLatlng = new google.maps.LatLng(latitude, longitude);
       var myOptions = {
-        zoom: 0,
+        zoom: 1,
         center: myLatlng,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+		mapTypeControl: false,
+		mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
+		navigationControl: true,
+		navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
+		mapTypeId: google.maps.MapTypeId.ROADMAP
       }
       map = new google.maps.Map(document.getElementById("map_div"), myOptions);
       var nid = $('#curr_nid').val();
