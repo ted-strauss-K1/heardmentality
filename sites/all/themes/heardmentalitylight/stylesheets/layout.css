@@ -3947,7 +3947,7 @@ h5.ref_title a {
 	background-image:     -ms-linear-gradient(top, #fff, #f7f7f7);
 	background-image:      -o-linear-gradient(top, #fff, #f7f7f7);
 	background-image:         linear-gradient(top, #fff, #f7f7f7);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#f7f7f7',GradientType=0 );
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f7f7f7',GradientType=0 );
     zoom: 1;
 	padding-bottom: 18px;
 }
