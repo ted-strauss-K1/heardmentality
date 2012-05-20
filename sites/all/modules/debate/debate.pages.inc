@@ -61,7 +61,7 @@ function debate_ajax() {
         $imgCount = $count > 0 ? 1 : 0;
         $endImage = $totalImage != 0 ? ($totalImage - 1) : 0;
         $imgPath = $base_url . '/' . drupal_get_path('theme', 'hmware') . '/images/';
-        $imgSelector = '<div class="linkbox_inner"><div class="img-selector">';
+        $imgSelector = '<div class="linkbox_inner"><div class="img-selector"><div class="inner">';
         for ($i = 0; $i < $totalImage; $i++) {
           $imgSelector .= '<div class="cur-img">
                                     <img id="cur_img_' . $i . '" src="' . $web_images[$i] . '" width="118" height="73"  />
@@ -71,7 +71,7 @@ function debate_ajax() {
                                     <input type="hidden" id="end_image" value="' . $endImage . '" />
                                         <input type="hidden" id="pre_id_val" value="" />
 
-                                 </div><div class="img_controls">
+                                 </div></div><div class="img_controls">
 								 <span class="left_right"><a href="javascript:void(0)" title="previous"  id="re-sel-pre"><img src="' . $imgPath . 'arrow_left.png"></a>
 								 <a href="javascript:void(0)" title="next"  id="re-sel-next"><img src="' . $imgPath . 'arrow_right.png"></a></span>
 								 <span id="img_count">' . $imgCount . '</span> of ' . $totalImage . '

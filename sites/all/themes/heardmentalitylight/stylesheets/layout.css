@@ -2073,7 +2073,6 @@ textarea#deb_title, textarea.textarea-input {
 .listbox1{
     width: 99%;
 }
-.img-selector{float:left; margin-right:10px; width:118px; height:73px; overflow:hidden;}
 
 .vote-results ul li img {
     width: auto;
@@ -4174,6 +4173,27 @@ span.small_pos.fixes,
 	padding-top: 12px;
 	background: url(../images/light_dotted.gif) repeat-x scroll 0 0 transparent;
 	display: block;
+}
+
+#linkbox .img-selector{
+    float: left;
+    margin: 0 15px 12px 0;
+	overflow: hidden;
+	width: 110px;
+}
+
+#linkbox .img-selector .inner {
+	white-space: nowrap;
+}
+
+#linkbox .img-selector .cur-img {
+	float: left;
+}
+
+#linkbox .img-selector .cur-img img {
+	height: auto;
+    vertical-align: top;
+    width: 110px;
 }
 
 /*Clear*/
