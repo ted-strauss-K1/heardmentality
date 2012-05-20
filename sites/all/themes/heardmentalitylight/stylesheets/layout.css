@@ -4177,13 +4177,15 @@ span.small_pos.fixes,
 
 #linkbox .img-selector{
     float: left;
-    margin: 0 15px 12px 0;
+    margin: 0 15px 15px 0;
 	overflow: hidden;
 	width: 110px;
 }
 
 #linkbox .img-selector .inner {
-	white-space: nowrap;
+	overflow: hidden;
+    white-space: nowrap;
+    width: 5000px;
 }
 
 #linkbox .img-selector .cur-img {
@@ -4194,6 +4196,13 @@ span.small_pos.fixes,
 	height: auto;
     vertical-align: top;
     width: 110px;
+}
+
+#linkbox .img_controls {
+	float: left;
+	clear: left;
+	margin: 0 15px 15px 0;
+	width: 110px;
 }
 
 /*Clear*/
