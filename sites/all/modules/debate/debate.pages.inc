@@ -46,9 +46,9 @@ function debate_ajax() {
         foreach ($html->find('img') as $element) {
           $images[$element->src] = true;
         }
-		
+
         $inc.='<em>' . $html->find('title', 0)->innertext . '</em>';
-		$inc.='source:&nbsp;<strong>' . $domain . '</strong>';
+        $inc.='source:&nbsp;<strong>' . $domain . '</strong>';
         $inc.='<span>' . $tags['description'] . '</span>';
 
         foreach ($html->find('img') as $element) {
@@ -234,11 +234,7 @@ function debate_ajax() {
         // allow rating check
         $ratings = get_rating_buttons($items, 'is_resource');
 
-
         $resouce_theme .= theme('reference_parent_template', $items, $strength, $comments, $reply_box, $reply_count, $ratings, $delete);
-
-
-
 
 
         //$co = theme('single_resource_template', $items);
@@ -254,28 +250,22 @@ function debate_ajax() {
       $vans = "select * from {poll_choices} where  nid=$qid ORDER BY chorder";
       $vlist = ExecuteQuery($vans, "select");
       $cnt_ans = count($vlist);
-      $output.="<link rel='stylesheet' href='" . $base_url . '/' . drupal_get_path('module', 'quest_lite') . "/plugins/jquery.jqplot.css' type='text/css' />
-        <script type='text/javascript' src='http://code.jquery.com/jquery-1.4.2.min.js'></script>
-       			<script type='text/javascript' src='" . $base_url . '/' . drupal_get_path('module', 'quest_lite') . "/scripts/highcharts.js'></script>
-<script type='text/javascript' language='javascript'>
-
-";
-      $insdata.="[";
-      $data.="[";
-
+      $colors = array('#55BA59',
+        '#C2499B');
       for ($ab = 0; $ab < $cnt_ans; $ab++) {
         // short answers
         $short_answer = get_short_answer($qid, $vlist[$ab]['chorder']);
         $answer = $short_answer != '' ? $short_answer : $vlist[$ab]['chtext'];
 
-        $insdata.="'" . $answer . "',";
+        $insdata[] = $answer;
 
         //$sel = "select * from {debate_options} as o join {debate} as d on d.did=o.did  where o.paid='" . $vlist[$ab]['paid'] . "' AND o.ans_val IN ('1','2') group by o.did";
         $sel = "select * from {debate_options} as o join {content_type_forum} as d on d.nid=o.nid  where o.chorder='" . $vlist[$ab]['chorder'] . "' AND d.field_ref_qid_nid = '$tnid' AND o.ans_val IN ('1','2') group by o.nid";
         $tmplist = ExecuteQuery($sel, "select");
 
         $final = '';
-        foreach ($tmplist as $list) {
+
+        foreach ($tmplist as $key => $list) {
 
           //$cnt_opt = db_result(db_query("select count(paid) from {debate_options} where did=" . $list['did'] . " AND ans_val IN ('1','2')"));
           $cnt_opt = db_result(db_query("select count(chorder) from {debate_options} where nid=" . $list['nid'] . " AND ans_val IN ('1','2')"));
@@ -287,245 +277,26 @@ function debate_ajax() {
         }
 
         $final = (!empty($final)) ? $final : '0';
-        $data.=$final . ',';
+        $data[$ab]['y'] = $final;
+        if ($final >= 0) {
+          $data[$ab]['color'] = $colors[0];
+        }
+        else {
+          $data[$ab]['color'] = $colors[1];
+        }
+        $data[$ab]['name'] = t('Strength');
       }
-      $insdata = rtrim($insdata, ',');
-      $insdata = $insdata . ']';
-      $data = rtrim($data, ',');
-      $data = $data . ']';
-
-      $output.= "
-var chart;
-var gSitePath='" . $base_url . "/';
-
-
-//Need reduse code, I use one code 2 times!!!!!!!!!!
-
-
-$(document).ready(function() {
-   chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'container',
-         defaultSeriesType: 'column',
-		 				style: {
-							fontFamily: 'Arial',
-							color: '#4c4c4c',
-							fontSize: '12px'
-						},
-						plotBorderColor: '#fff',
-						plotBorderWidth: 0,
-						borderColor: '#fff',
-						borderRadius: 0,
-						borderWidth: 0,
-						marginTop: 10,
-						marginRight: 20,
-						marginBottom: 80,
-						marginLeft: 30,
-						ignoreHiddenSeries: true
-      },
-      title: {
-         text: null
-      },
-	  
-      xAxis: {
-         categories:" . $insdata . ",
-		 				title: {
-							text: null
-						},
-						lineColor: '#ccc',
-						lineWidth: 1,
-						endOnTick: false,
-						tickColor: '#ccc',
-						tickWidth: 1,
-						tickLength: 5,
-						gridLineColor: '#ccc',
-						tickmarkPlacement: 'on',
-						startOnTick: false,
-						labels: {
-							style: {
-								color: '#4c4c4c',
-								font: '12px Aial, sans-serif'	
-							}
-						}
-      },
-	  
-      yAxis:{ 
-	  					tickInterval: 1,
-						title: {
-							text: null
-						},
-						endOnTick: false,
-						maxPadding: 0.01,
-						lineWidth: 1,
-						lineColor: '#ccc',
-						tickmarkPlacement: 'on',
-						tickColor: '#ccc',
-						tickWidth: 1,
-						tickLength: 5
-    },
-	
-	colors: [
-						'#55BA59', 
-						'#C2499B'
-	],
-					
-	legend: {
-						enabled: false
-	},
-	
-      tooltip: {
-         formatter: function() {
-            return ''+
-                this.series.name +': '+ this.y +'';
-         },
-		 				shadow: false,
-						style: {
-							color: '#4c4c4c',
-							font: '12px Aial, sans-serif',
-						},
-						borderRadius: 3
-      },
-	  
-	plotOptions: {
-						column: {
-							dataLabels: {
-								enabled: false
-							},
-							borderColor: '#fff',
-							borderWidth: 0,
-							shadow: false,
-							groupPadding: 0.15,
-							pointPadding: 0
-							//pointWidth: 20
-						}
-	},
-	  
-      credits: {
-         enabled: false
-      },
-      series: [{
-         name: 'Strength',
-         data: " . $data . "
-      }]
-   });
-
-jQuery(window).resize(function() {
+  
+      print drupal_json(array(
+                'data' => $data,
+                'categories' => $insdata
+              ));
+      /* jQuery(window).resize(function() {
         chart.destroy();
-		chart = new Highcharts.Chart({
-      chart: {
-         renderTo: 'container',
-         defaultSeriesType: 'column',
-		 				style: {
-							fontFamily: 'Arial',
-							color: '#4c4c4c',
-							fontSize: '12px'
-						},
-						plotBorderColor: '#fff',
-						plotBorderWidth: 0,
-						borderColor: '#fff',
-						borderRadius: 0,
-						borderWidth: 0,
-						marginTop: 10,
-						marginRight: 20,
-						marginBottom: 80,
-						marginLeft: 30,
-						ignoreHiddenSeries: true
-      },
-      title: {
-         text: null
-      },
-	  
-      xAxis: {
-         categories:" . $insdata . ",
-		 				title: {
-							text: null
-						},
-						lineColor: '#ccc',
-						lineWidth: 1,
-						endOnTick: false,
-						tickColor: '#ccc',
-						tickWidth: 1,
-						tickLength: 5,
-						gridLineColor: '#ccc',
-						tickmarkPlacement: 'on',
-						startOnTick: false,
-						labels: {
-							style: {
-								color: '#4c4c4c',
-								font: '12px Aial, sans-serif'	
-							}
-						}
-      },
-	  
-      yAxis:{ 
-	  					tickInterval: 1,
-						title: {
-							text: null
-						},
-						endOnTick: false,
-						maxPadding: 0.01,
-						lineWidth: 1,
-						lineColor: '#ccc',
-						tickmarkPlacement: 'on',
-						tickColor: '#ccc',
-						tickWidth: 1,
-						tickLength: 5
-    },
-	
-	colors: [
-						'#55BA59', 
-						'#C2499B'
-	],
-					
-	legend: {
-						enabled: false
-	},
-	
-      tooltip: {
-         formatter: function() {
-            return ''+
-                this.series.name +': '+ this.y +'';
-         },
-		 				shadow: false,
-						style: {
-							color: '#4c4c4c',
-							font: '12px Aial, sans-serif',
-						},
-						borderRadius: 3
-      },
-	  
-	plotOptions: {
-						column: {
-							dataLabels: {
-								enabled: false
-							},
-							borderColor: '#fff',
-							borderWidth: 0,
-							shadow: false,
-							groupPadding: 0.15,
-							pointPadding: 0
-							//pointWidth: 20
-						}
-	},
-	  
-      credits: {
-         enabled: false
-      },
-      series: [{
-         name: 'Strength',
-         data: " . $data . "
-      }]
-   });
-   
-    });
- 
-});
-
- </script>";
-      echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
+       */
+      /*   echo $output.='<div id="container" class="highcharts-container" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
         <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
-
-';
+        '; */
       break;
     case 'resanalysis':
       $qid = substr($_GET['q'], strrpos($_GET['q'], "/") + 1);

@@ -319,6 +319,8 @@ function report_graph($nid='') {
   $cnt_ans = count($vlist);
 
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
+  drupal_add_js(drupal_get_path('module', 'issue') . "/scripts/debate_statistic.js");
+
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/charts.js");
   //$output.= "<script type='text/javascript' language='javascript'>";
 
@@ -1501,7 +1503,10 @@ function issue_ajax($task = '', $nid = '') {
       break;
 
     case 'debate_statistics':
-      $result = '<iframe src="' . $base_url . '/debate/ajax/' . $nid . '?action=analysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
+      $result = '<div id="debate_statistic" width="520" height="350">
+        <div id="container" class="highcharts-container" style="height:auto; width: 100%; margin: 0 auto; clear:both"></div>
+        <div id="resource" style="height:auto; width: 400px; margin: 0 auto; clear:both"></div>
+</div>';
       break;
     case 'resource_statistics':
       $result = '<iframe src="' . $base_url . '/debate/ajax/' . $nid . '?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
@@ -2437,7 +2442,7 @@ function issue_ajax_highchart_result($nid, $param) {
     foreach ($js_arr[0]['data'] as $key => $value) {
       $new_js_arr[0]['data'][$key]['y'] = $value;
       $new_js_arr[0]['data'][$key]['name'] = $js_arr[0]['name'];
-       $new_js_arr[0]['data'][$key]['color'] = $colors[$key];
+      $new_js_arr[0]['data'][$key]['color'] = $colors[$key];
     }
     $new_js_arr['categories'] = $js_arr['categories'];
     $new_js_arr[0]['name'] = $js_arr[0]['name'];
