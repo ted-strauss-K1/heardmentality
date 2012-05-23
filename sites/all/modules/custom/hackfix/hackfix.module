@@ -125,6 +125,20 @@ function hackfix_login_callback($js) {
   }
 }
 
+
+  /*
+  *  redirect user on login.
+  *  standart form redirect ( $form['#action'] = 'url' ) not work
+  *
+  */
+function hackfix_user($op, &$edit, &$account, $category = NULL){
+  if ($op=='login' )
+  {
+    drupal_goto($_GET['q']);
+  }
+}
+
+
 function hackfix_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'user_register') {
 
