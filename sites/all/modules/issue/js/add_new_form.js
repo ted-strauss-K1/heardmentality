@@ -67,7 +67,7 @@ $('#add_new_debate').live('click',function() {
       return false;
     }
     else if(!tomatch.test(nlink)) {
-      jQuery('#deb-err').html('<span>Please Enter Link.</span>');
+      jQuery('#deb-err').html('<span>Please Enter a valid URL.</span>');
       return false;
     }
     else if (linkbox == '') {
