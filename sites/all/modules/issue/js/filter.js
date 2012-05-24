@@ -223,10 +223,10 @@ function delete_thread(id, type){
 
 
 // insight view
-/*
+
 function insight_view(nid){
 
-  var url = spath+'issue/ajax/insightview/'+nid;
+  var url = Drupal.settings.base_url+'/issue/ajax/insightview/'+nid;
   jQuery.ajax({
     type: 'get',
     url: url,
@@ -236,7 +236,8 @@ function insight_view(nid){
   });
 
 }
-*/
+
+
 // load debate statistics
 function loadDebateStatistic() {
   var nid = $('#curr_nid').val();

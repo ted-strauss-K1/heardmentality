@@ -2187,7 +2187,7 @@ function view_issue_results($nid = '') {
     $inline = '
                 var nid = ' . $nid . '
                 jQuery(document).ready(function(){
-             //   insight_view(nid);
+                  insight_view(nid);
                 })
                 ';
     drupal_add_js($inline, 'inline');

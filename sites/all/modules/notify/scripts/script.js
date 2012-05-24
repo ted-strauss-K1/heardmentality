@@ -109,7 +109,7 @@ reset_tabs();
          jQuery("body").css({'opacity': 0.5});
          var more=jQuery(this);
         e.preventDefault();
-        //load_stream(more,'more');
+        load_stream(more,'more');
     });
 
 
