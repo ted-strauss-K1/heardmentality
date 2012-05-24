@@ -103,7 +103,6 @@ function report_percent_broken($nid = '', $aid = '', $array = '') {
   switch ($filter) {
     case 'gender':
       $answer['divide'] = array('male', 'female', 'undefined');
-
       foreach ($answer['divide'] as $key => $list) {
         if ($list == 'male')
           $gen = 1;
@@ -1535,7 +1534,6 @@ function issue_ajax($task = '', $nid = '') {
 
 function insight_view($nid='') {
 
-
 //    1.  Demographics by possible answer to total votes
 //   Sum of votes for a possible answer by each demographic / total votes.
 //ex: sum votes for possible answer A where demographic = male / total number of votes (not including changed votes)
@@ -1552,13 +1550,12 @@ function insight_view($nid='') {
     $nid = get_tnid($nid);
     // calculation
     // total votes a issue
-    //echo '<pre>';
     $insight = '';
     $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
     if ($totalVotes >= 10) {
-      $insight .= by_possible_answers_votes($nid) . '<br />';
-      $insight .= by_demographic_votes($nid) . '<br />';
-      $insight .= by_total_votes($nid);
+      $insight .= '<span>' .by_possible_answers_votes($nid) . '</span>';
+      $insight .= '<span>' .by_demographic_votes($nid) . '</span>';
+      $insight .= '<span>' .by_total_votes($nid).'/span';
     }
     else {
       $insight .= t('Insight view cannot be calculated until 10 votes have been received.');
@@ -1577,7 +1574,7 @@ function by_possible_answers_votes($nid = '') {
   $demographics = array('gender', 'age', 'religion', 'ethnicity', 'income', 'marital', 'sorient', 'edu');
   foreach ($demographics as $demographic) {
     $demo = report_percent_broken($nid, '', array('dochg' => $demographic));
-
+//krumo($demo);
     $divides = $demo['divide'];
     $cnts = $demo['cnt'];
     foreach ($divides as $key => $divide) {
@@ -1588,7 +1585,6 @@ function by_possible_answers_votes($nid = '') {
       $divide = $divide == 'undefined' ? 'undefined_' . $demographic : $divide;
       $count = $cnts[$key];
       $choices = json_decode($count);
-
       foreach ($choices as $choice => $cCount) {
         $percent = ($cCount / $totalVotes) * 100;
         $byPossible[$divide][$node->choice[$choice]['chtext']] = $percent;
