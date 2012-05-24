@@ -2545,7 +2545,6 @@ function add_new_debate_form_submit($form, &$form_state) {
 
     $tot_ans = $form_state['values']['tot_answers'];
 
-    //echo '<pre>'; print_r($form_state); exit;
     if (!empty($wtitle) && !empty($user->uid)) {
       $lose_coins = get_coins('c_debate');
       if ($user_coins >= $lose_coins) {

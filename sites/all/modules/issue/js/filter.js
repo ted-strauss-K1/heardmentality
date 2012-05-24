@@ -17,24 +17,19 @@ $(document).ready(function(){
 /**
  * @author gobinath.m
  */
-function get_filter_option(type){
-	
+function get_filter_option(type) {
   var url=spath+'qlite/ajax?action=filter';
-
-
   jQuery('#fopt').html('');
   jQuery.ajax({
     type: "POST",
     url: url,
     data: {
       type: type
-   
     },
     success: function(msg){
       jQuery('#fopt').html(msg);
     }
-  });	
-	
+  });		
 }
 
 
@@ -387,17 +382,17 @@ jQuery('#res-ana').live('click', function(){
 // from debate module - code cleanup
 
 jQuery(document).ready(function() {
-
-  jQuery("#lattach").click(function()
-  {
-    var content=jQuery('#edit-ref-title').val();
-    var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-
-    var url= content.match(urlRegex);
-    var purl=Drupal.settings.base_url+'/debate/ajax';
-
-    if(url.length>0)
-    {
+  jQuery("#lattach").click(function() {
+    var url = $('#edit-ref-title').val();
+    //var objRE = /(^http?:\/\/)?[a-z0-9~_\-\.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i;
+    var objRE = /http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
+    //  var url= content.match(urlRegex);
+    if (objRE.test(url) == false) {
+      jQuery('#deb-err').html('<span>Please enter a valid URL.</span>');
+      return false;
+    }
+    else {
+      var purl=Drupal.settings.base_url+'/debate/ajax';
       jQuery(this).attr('disabled',true);
       $("#linkbox").slideDown('show');
       $("#linkbox").html("<span class='load'>Loading...</span>");
@@ -412,6 +407,7 @@ jQuery(document).ready(function() {
 
         jQuery('#re-sel-pre').hide();
       });
+      
     }
     return false;
   });
@@ -482,15 +478,12 @@ jQuery(document).ready(function() {
     var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
     if (cat1==0)
       err += '<li>Please Select Type !</li>';
-    if (cat1==1)
-    {
+    if (cat1==1) {
       trig_ref = '#ref_innews';
       if (!tomatch.test(nlink))
         err += '<li>Please Enter Link </li>';
-
     }
-    if (cat1==2)
-    {
+    if (cat1==2) {
       trig_ref = '#ref_multimedia';
       if (mtype==0)
         err += '<li>Please Select Media Type !</li>';
@@ -500,16 +493,13 @@ jQuery(document).ready(function() {
 
         if (!tomatch.test(membed))
           err += '<li>Please Enter YouTube Link </li>';
-        if (tomatch.test(membed))
-        {
+        if (tomatch.test(membed)) {
           var el = jQuery('#err').hide();
-
         }
       }
       else
       {
-        if ( jQuery.trim(docpath).length < 1)
-        {
+        if ( jQuery.trim(docpath).length < 1) {
           err += '<li>Please Select Document !</li>';
         }
 

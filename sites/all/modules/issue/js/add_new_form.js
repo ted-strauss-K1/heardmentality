@@ -25,12 +25,10 @@ $(document).ready(function() {
   $('#link_ref-wrapper a').click(function(){
     $('.reference-form').hide();
     $('.argument-form').show();
-    $('#add_new_type').val(0);
+    $('#add_new_type').val(1);
     return false;
   });
 });
-
-
 
 $('#add_new_debate').live('click',function() {
   var image_value;
@@ -48,27 +46,39 @@ $('#add_new_debate').live('click',function() {
     e.preventDefault();
     jQuery('#deb-err').css('color','red');
     var title = jQuery('#deb_title').val();
+    var nlink = $('#edit-ref-title').val();
+    var type = $('#add_new_type').val();
+    var tomatch=/http:\/\/[A-Za-z0-9\.-]{3,}\.[A-Za-z]{3}/;
     var tot_ans = jQuery('#tot_ans').val();
     var flag = 0;
+    var linkbox = $('#linkbox').html();
     for(var i=0; i<tot_ans; i++) {
       var id = '#sup_'+i;
       if(jQuery(id).val() != 0) {
         flag = parseInt(flag)+1;
       }
     }
-    /*if(title.length < 2){
-    jQuery('#deb-err').html('<span>Please let us know what you think.</span>');
-    return false;
-  }
-  else if(flag == 0){
-    jQuery('#deb-err').html('<span>You must choose at least one suppose or oppose.</span>');
-    return false;
-  }*/
-    // else{
-    jQuery('#add_new_debate').hide();
-    jQuery('#sub_loader').show();
- 
-    
+    if(title.length < 2 && type == 1){
+      jQuery('#deb-err').html('<span>Please let us know what you think.</span>');
+      return false;
+    }
+    else if(flag == 0 && type == 1){
+      jQuery('#deb-err').html('<span>You must choose at least one suppose or oppose.</span>');
+      return false;
+    }
+    else if(!tomatch.test(nlink)) {
+      jQuery('#deb-err').html('<span>Please Enter Link.</span>');
+      return false;
+    }
+    else if (linkbox == '') {
+      jQuery('#deb-err').html('<span>Please press Attach before adding.</span>');
+      return false;
+    }
+    /*   else{
+      jQuery('#add_new_debate').hide();
+      jQuery('#sub_loader').show();
+    }
+    */
     var data=jQuery(this).serialize();
     jQuery.ajax({
       type: 'POST',
@@ -82,7 +92,6 @@ $('#add_new_debate').live('click',function() {
         $('#debate_list_area').tabs("load", 1);
         $('#debate_list_area').tabs("load", 2);
         $('#debate_list_area').tabs("select", 1);
-        console.log(msg);
         jQuery('#deb-err').fadeIn("slow");
     
         jQuery('#deb-err').html(msg.message); 
@@ -104,15 +113,7 @@ $('#add_new_debate').live('click',function() {
     return false;
   });
 
-
 });
-
-
-
-
-
-
-
 
 $(document).ready(function() {
   $('#inc_ref').change(function(){
@@ -139,12 +140,7 @@ Drupal.behaviors.add_new_form = function(context) {
     $('#permalink_text').dialog('close');
     return false;
   });
-  
-  
-  
-  
-  
-  
+    
   var lang = $("html").attr("lang");
   var s = document.createElement('script');
   s.type='text/javascript';
