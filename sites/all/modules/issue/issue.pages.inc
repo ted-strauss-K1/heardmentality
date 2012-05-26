@@ -1570,6 +1570,30 @@ function insight_view($nid='') {
 
 function by_possible_answers_votes($nid = '', $short_answers) {
   $byPossible = array();
+  $colors = array(
+    '#934d9e',
+    '#FF7F00',
+    '#50c0ac',
+    '#0c6926',
+    '#ef4c8d',
+    '#362750',
+    '#e1e43c',
+    '#ef3d3b',
+    '#3cc7f4',
+    '#589a1c',
+    '#C2499B',
+    '#f89521',
+    '#CC2027',
+    '#55ba59',
+    '#d5bc29',
+    '#6ccbd5',
+    '#43B649',
+    '#F6EB16'
+  );
+  foreach ($short_answers as $key => $value) {
+    $short_ans_colors[$value] = $colors[$key];
+  }
+
   $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
   $node = node_load($nid);
 
@@ -1609,15 +1633,16 @@ function by_possible_answers_votes($nid = '', $short_answers) {
   $smax = max($second);
   foreach ($first as $ch => $val) {
     if ($val == $fmax) {
-      $fChoice = $ch;
+      $fChoice['name'] = $ch;
+      $fChoice['color'] = $short_ans_colors[$ch];
     }
   }
   foreach ($second as $ch => $val) {
     if ($val == $smax) {
-      $sChoice = $ch;
+      $sChoice['name'] = $ch;
+      $sChoice['color'] = $short_ans_colors[$ch];
     }
   }
-
   //special wordings for each demographic
   $age = report_percent_broken($nid, '', array('dochg' => 'age'));
   $income = report_percent_broken($nid, '', array('dochg' => 'income'));
@@ -1633,8 +1658,8 @@ function by_possible_answers_votes($nid = '', $short_answers) {
   else if (in_array($second_key, $income['divide'])) {
     $extraStr2 = " salaried people";
   }
-  $str .= ceil($fmax) . '% ' . t('of ' . $first_key . $extraStr1 . ' voted for ' . $fChoice) . '<br />';
-  $str .= ceil($smax) . '% ' . t('of ' . $second_key . $extraStr2 . ' voted for ' . $sChoice);
+  $str .= ceil($fmax) . '% ' . t('of ' . $first_key . $extraStr1 . ' voted for ' . '<span class="highlight" style="background-color:' . $fChoice['color'] . '">' . $fChoice['name'] . '</span>') . '<br />';
+  $str .= ceil($smax) . '% ' . t('of ' . $second_key . $extraStr2 . ' voted for ' . '<span class="highlight" style="background-color:' . $sChoice['color'] . '">' . $sChoice['name'] . '</span>');
   return $str;
 }
 
@@ -1642,6 +1667,30 @@ function by_demographic_votes($nid = '', $short_answers) {
   $byDemographic = array();
   //$node = node_load($nid);
   // DEMOGRAPHICS
+  $colors = array(
+    '#934d9e',
+    '#FF7F00',
+    '#50c0ac',
+    '#0c6926',
+    '#ef4c8d',
+    '#362750',
+    '#e1e43c',
+    '#ef3d3b',
+    '#3cc7f4',
+    '#589a1c',
+    '#C2499B',
+    '#f89521',
+    '#CC2027',
+    '#55ba59',
+    '#d5bc29',
+    '#6ccbd5',
+    '#43B649',
+    '#F6EB16'
+  );
+  foreach ($short_answers as $key => $value) {
+    $short_ans_colors[$value] = $colors[$key];
+  }
+
   $demographics = array('gender', 'age', 'religion', 'ethnicity', 'income', 'marital', 'sorient', 'edu');
   foreach ($demographics as $demographic) {
     $demo = report_percent_broken($nid, '', array('dochg' => $demographic));
@@ -1687,12 +1736,14 @@ function by_demographic_votes($nid = '', $short_answers) {
   $smax = max($second);
   foreach ($first as $ch => $val) {
     if ($val == $fmax) {
-      $fChoice = $ch;
+      $fChoice['name'] = $ch;
+      $fChoice['color'] = $short_ans_colors[$ch];
     }
   }
   foreach ($second as $ch => $val) {
     if ($val == $smax) {
-      $sChoice = $ch;
+      $sChoice['name'] = $ch;
+      $sChoice['color'] = $short_ans_colors[$ch];
     }
   }
 
@@ -1711,8 +1762,8 @@ function by_demographic_votes($nid = '', $short_answers) {
   else if (in_array($second_key, $income['divide'])) {
     $extraStr2 = "salaried between ";
   }
-  $str .= ceil($fmax) . '% ' . t('of the voters are ' . $extraStr1 . $first_key) . ' voted for ' . $fChoice . '<br />';
-  $str .= ceil($smax) . '% ' . t('of the voters are ' . $extraStr2 . $second_key) . ' voted for ' . $sChoice;
+  $str .= ceil($fmax) . '% ' . t('of the voters are ' . $extraStr1 . $first_key) . ' voted for ' . '<span class="highlight" style="background-color:' . $fChoice['color'] . '">' .$fChoice['name'] .'</span><br />';
+  $str .= ceil($smax) . '% ' . t('of the voters are ' . $extraStr2 . $second_key) . ' voted for ' .'<span class="highlight" style="background-color:' . $sChoice['color']. '">'. $sChoice['name']. '</span>';
   return $str;
 }
 
@@ -1720,7 +1771,6 @@ function by_total_votes($nid = '') {
   $bytotalVotes = array();
   $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
   $node = node_load($nid);
-  //demo['divide'],demo['cnt']
   // DEMOGRAPHICS
   $demographics = array('gender', 'age', 'religion', 'ethnicity', 'income', 'marital', 'sex_orient', 'education');
   foreach ($demographics as $demographic) {
