@@ -1112,8 +1112,6 @@ function issue_theme($existing, $type, $theme, $path) {
       'arguments' => array('nid' => NULL),
     ), 'issue_debate_list' => array(
       'arguments' => array('nid' => NULL),
-    ), 'issue_resource_list' => array(
-      'arguments' => array('nid' => NULL),
     ), 'issue_detail_wrapper' => array(
       'template' => 'issue_detail_wrapper',
       'arguments' => array('nid' => NULL, 'result_analysis' => NULL, 'debate_list' => NULL, 'resource_list' => NULL, 'debateCount' => NULL, 'resourceCount' => NULL),
@@ -2196,25 +2194,7 @@ function view_issue_results($nid = '') {
     $report_percent = report_percent($nid);
     $report_graph = report_graph($nid);
     $ans = load_options($nid);
-    $colors = array('#934d9e',
-      '#FF7F00',
-      '#50c0ac',
-      '#0c6926',
-      '#ef4c8d',
-      '#362750',
-      '#e1e43c',
-      '#ef3d3b',
-      '#3cc7f4',
-      '#589a1c',
-      '#C2499B',
-      '#f89521',
-      '#CC2027',
-      '#55ba59',
-      '#d5bc29',
-      '#6ccbd5',
-      '#43B649',
-      '#F6EB16'
-    );
+    $colors = _load_colors_array();
 
     foreach ($ans as $key => $list) {
       $short_answers[$list['chorder']]['name'] = get_short_answer($nid, $list['chorder']);
@@ -2257,32 +2237,6 @@ function theme_issue_debate_list($nid = '') {
   }
   $debates .= theme('debate_area', $addNewDebateForm, $debateFilterForm, $debateStatistics, $debateList, $count, $show_only, $nid);
   return $debates;
-}
-
-function theme_issue_resource_list($nid = '') {
-  global $base_url, $user;
-  $resources = '';
-  module_load_include('inc', 'issue', 'issue.pages');
-
-  $filters = '<span>
-               <a href="javascript:void(0);" onclick="res_type_tab(4,\'all\',' . $nid . ')" title="' . t('All') . '" id="ref_all">' . t('All') . '</a>&nbsp;|&nbsp;
-               <a href="javascript:void(0);" onclick="res_type_tab(1,\'innews\',' . $nid . ')" title="' . t('In News') . '" id="ref_innews">' . t('In News') . '</a>&nbsp;|&nbsp;
-               <a href="javascript:void(0);" onclick="res_type_tab(2, \'media\',' . $nid . ')" title="' . t('Multimedia') . '" id="ref_multimedia">' . t('Multimedia') . '</a>&nbsp;|&nbsp;
-               <a href="javascript:void(0);" onclick="res_type_tab(3, \'facts\',' . $nid . ')" title="' . t('Facts') . '" id="ref_facts">' . t('Facts') . '</a>&nbsp;
-               ';
-  if (!empty($user->uid)) {
-    $addNewReferenceForm .= add_new_resources($nid);
-  }
-  else {
-    $addNewReferenceForm .= '<div align="center"><b>' . t('Please log in to participate in the refrences') . '</b></div>';
-  }
-  $refTypeFilter = $filters;
-  $referenceFilterForm = drupal_get_form('filter_options', $nid);
-  //$referenceStatistics = '<iframe src="'.$base_url.'/debate/ajax/'.$nid.'?action=resanalysis" width="520" height="350" frameborder=0 scrolling="no"></iframe>';
-  $referenceStatistics = '<input type="hidden" id="curr_nid" value="' . $nid . '" />';
-  $referenceList .= issue_resources_list($nid);
-  $references = theme('reference_area', $addNewReferenceForm, $referenceFilterForm, $refTypeFilter, $referenceStatistics, $referenceList);
-  return $references;
 }
 
 // suggest vote form here
@@ -2527,7 +2481,7 @@ function add_new_debate_form($form_state, $nid = '') {
     '#suffix' => '</div></div>',
     '#id' => 'link_ref',
   );
-  
+
   $form['linkbox'] = array(
     '#type' => 'item',
     '#value' => '<div id ="linkbox"></div>',
@@ -3477,6 +3431,30 @@ function __issue_description_trimmer($context) {
     $output['context_remaining'] = str_replace("\r\n", "<br>", $context_remaining);
   }
   return $output;
+}
+
+function _load_colors_array() {
+  $colors = array(
+    '#934d9e',
+    '#FF7F00',
+    '#50c0ac',
+    '#0c6926',
+    '#ef4c8d',
+    '#362750',
+    '#e1e43c',
+    '#ef3d3b',
+    '#3cc7f4',
+    '#589a1c',
+    '#C2499B',
+    '#f89521',
+    '#CC2027',
+    '#55ba59',
+    '#d5bc29',
+    '#6ccbd5',
+    '#43B649',
+    '#F6EB16'
+  );
+  return $colors;
 }
 
 /*   * *********** */

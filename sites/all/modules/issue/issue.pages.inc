@@ -318,7 +318,6 @@ function report_graph($nid='') {
   $cnt_ans = count($vlist);
 
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/highstock/highstock.js");
-  drupal_add_js(drupal_get_path('module', 'issue') . "/scripts/debate_statistic.js");
 
   drupal_add_js(drupal_get_path('module', 'issue') . "/js/charts.js");
   //$output.= "<script type='text/javascript' language='javascript'>";
@@ -1549,6 +1548,7 @@ function insight_view($nid='') {
   if (is_numeric($nid)) {
     $nid = get_tnid($nid);
     $ans = load_options($nid);
+    $colors = _load_colors_array();
     foreach ($ans as $key => $list) {
       $short_answers[$list['chorder']] = get_short_answer($nid, $list['chorder']);
     }
@@ -1557,8 +1557,8 @@ function insight_view($nid='') {
     $insight = '';
     $totalVotes = db_result(db_query("SELECT COUNT(chorder) FROM {poll_votes} WHERE nid = '%d'", $nid));
     if ($totalVotes >= 10) {
-      $insight .= '<span>' . by_possible_answers_votes($nid, $short_answers) . '</span></br>';
-      $insight .= '<span>' . by_demographic_votes($nid, $short_answers) . '</span></br>';
+      $insight .= '<span>' . by_possible_answers_votes($nid, $short_answers, $colors) . '</span></br>';
+      $insight .= '<span>' . by_demographic_votes($nid, $short_answers, $colors) . '</span></br>';
       $insight .= '<span>' . by_total_votes($nid) . '</span></br>';
     }
     else {
@@ -1568,28 +1568,8 @@ function insight_view($nid='') {
   }
 }
 
-function by_possible_answers_votes($nid = '', $short_answers) {
+function by_possible_answers_votes($nid = '', $short_answers, $colors) {
   $byPossible = array();
-  $colors = array(
-    '#934d9e',
-    '#FF7F00',
-    '#50c0ac',
-    '#0c6926',
-    '#ef4c8d',
-    '#362750',
-    '#e1e43c',
-    '#ef3d3b',
-    '#3cc7f4',
-    '#589a1c',
-    '#C2499B',
-    '#f89521',
-    '#CC2027',
-    '#55ba59',
-    '#d5bc29',
-    '#6ccbd5',
-    '#43B649',
-    '#F6EB16'
-  );
   foreach ($short_answers as $key => $value) {
     $short_ans_colors[$value] = $colors[$key];
   }
@@ -1663,30 +1643,11 @@ function by_possible_answers_votes($nid = '', $short_answers) {
   return $str;
 }
 
-function by_demographic_votes($nid = '', $short_answers) {
+function by_demographic_votes($nid = '', $short_answers, $colors) {
   $byDemographic = array();
   //$node = node_load($nid);
   // DEMOGRAPHICS
-  $colors = array(
-    '#934d9e',
-    '#FF7F00',
-    '#50c0ac',
-    '#0c6926',
-    '#ef4c8d',
-    '#362750',
-    '#e1e43c',
-    '#ef3d3b',
-    '#3cc7f4',
-    '#589a1c',
-    '#C2499B',
-    '#f89521',
-    '#CC2027',
-    '#55ba59',
-    '#d5bc29',
-    '#6ccbd5',
-    '#43B649',
-    '#F6EB16'
-  );
+
   foreach ($short_answers as $key => $value) {
     $short_ans_colors[$value] = $colors[$key];
   }
@@ -1720,9 +1681,6 @@ function by_demographic_votes($nid = '', $short_answers) {
       unset($choices);
     }
   }
-
-
-  //print_r($byDemographic);exit;
   $temp = $byDemographic;
 
   $first_key = max_key($byDemographic);
@@ -1762,8 +1720,8 @@ function by_demographic_votes($nid = '', $short_answers) {
   else if (in_array($second_key, $income['divide'])) {
     $extraStr2 = "salaried between ";
   }
-  $str .= ceil($fmax) . '% ' . t('of the voters are ' . $extraStr1 . $first_key) . ' voted for ' . '<span class="highlight" style="background-color:' . $fChoice['color'] . '">' .$fChoice['name'] .'</span><br />';
-  $str .= ceil($smax) . '% ' . t('of the voters are ' . $extraStr2 . $second_key) . ' voted for ' .'<span class="highlight" style="background-color:' . $sChoice['color']. '">'. $sChoice['name']. '</span>';
+  $str .= ceil($fmax) . '% ' . t('of the voters are ' . $extraStr1 . $first_key) . ' voted for ' . '<span class="highlight" style="background-color:' . $fChoice['color'] . '">' . $fChoice['name'] . '</span><br />';
+  $str .= ceil($smax) . '% ' . t('of the voters are ' . $extraStr2 . $second_key) . ' voted for ' . '<span class="highlight" style="background-color:' . $sChoice['color'] . '">' . $sChoice['name'] . '</span>';
   return $str;
 }
 
@@ -1793,7 +1751,6 @@ function by_total_votes($nid = '') {
   }
   $temp = $bytotalVotes;
   $fmax = max($bytotalVotes);
-  //krumo($bytotalVotes);
   foreach ($bytotalVotes as $vkey => $byVotes) {
     if ($fmax == $byVotes) {
       $first_key = $vkey;
@@ -1888,102 +1845,6 @@ function filter_options_submit($form, &$form_state) {
   drupal_goto($path);
 }
 
-// add new resource
-function add_new_resources($qid='') {
-  global $base_url, $user, $theme;
-
-  // site url with default language
-  $path = '<front>';
-  $sitelink = url($path, array('absolute' => TRUE)) . '/';
-  //$gSitePath = $sitelink;
-
-
-  drupal_add_js('var spath="' . $base_url . '/";', 'inline');
-  drupal_add_css(drupal_get_path('module', 'debate') . '/css/fileuploader.css');
-  drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/fileuploader.js');
-  drupal_add_js(drupal_get_path('module', 'quest_lite') . '/scripts/jquery.blockUI.js');
-  drupal_add_js(drupal_get_path('module', 'debate') . '/scripts/add_resource.js');
-
-
-  if (!user_is_logged_in()) {
-    $resources .= '<div align="center"><b>' . t('Please log in to post a reference') . '!</b></div>';
-  }
-  else {
-    $ans = load_options($qid);
-    //answers
-
-    foreach ($ans as $list) {
-      $short_answer = get_short_answer($qid, $list['chorder']);
-      $answer = $short_answer != '' ? $short_answer : $list['chtext'];
-
-      $inc_pans.='
-                <div class="value-select">
-
-                <label class="value floatleft">' . $answer . ' </label>
-
-
-                    <input type="hidden" name="ans_id[]" value="' . $list['chorder'] . '"/>
-                        <select  name="sup_opp[]" class="select-value">
-                        <option value="0">+/-</option>
-                        <option  value="1">+</option>
-                        <option value="2">-</option></select>
-
-
-                    </div><div class="clear"></div>';
-    }
-
-    $resources .= '
-
-            
-            <div id="refer-err"></div>
-                <form id="myForm" name="myForm"  method="post" action="' . $base_url . '/debate/ajax" enctype="multipart/form-data" >
-                    <input type="hidden" name="qaid" value="' . $qid . '"/>
-                     <input type="hidden" name="action" value="resource_new"/>
-
-
-            <select name="rtype" class="listbox1" id="rtype" >
-                <option value="0">' . t('Resource Type') . ' </option>
-                <option value="1">' . t('News') . ' </option>
-                <option value="2">' . t('Multimedia') . ' </option>
-                <option value="3">' . t('Facts') . ' </option>
-                </select>
-
-            <div id="div1" style="display:none;"  class="debate-r-row">
-                <input type="text" class="listbox1" style="float:left; padding:3px;"  name="nlink" value="http://" id="nlink"/>
-                <div><input id="lattach" name="name" type="button" value="Attach"  style="float:left; width:50px; padding:1px;"/></div>
-            </div>
-            <div id="div2" style="display:none;"  class="debate-r-row">
-                <select name="mtype" class="listbox1" id="mtype">
-                <option value="0">' . t('Choose Format') . ' </option>
-                <option value="1">' . t('Web Video') . ' </option>
-                <option value="2">' . t('Podcast,PDF, DOC, PPT.') . ' </option>
-                </select>
-            </div>
-
-            <div id="media" style="display:none;"  class="debate-r-row">
-                <input type="text"  name="membed" id="membed" value="http://"  class="listbox1" >
-            </div>
-            <div id="media_div" style="display:none;"  class="debate-r-row">
-            <input type="hidden" name="docpath" id="docpath"/> <div id="file-uploader-demo1"> </div>
-            </div>
-            <div class="clear"></div>
-            <div class="debate-r-row" id="linkbox"></div>
-            <div class="clear"></div>
-            <span class="assign">' . t('Assign Values') . '</span>
-            <div class="clear"></div>
-            ' . $inc_pans . '
-
-                <br class="clear">
-                    <input name="submit" value="' . t('Submit your Reference') . '" title="submit" type="submit" id="add-new-res" class="button floatright submit-comment" />
-                    <span id="sub_loader_res" style="display:none; float:right"><img src="' . $base_url . '/' . drupal_get_path('theme', $theme) . '/images/loading_min.gif" alt="loading"></span>
-                <br class="clear">
-
-
-        </form>';
-  }
-
-  return $resources;
-}
 
 // ISSUE RESOURCES
 function issue_resources_list($qid = '') {
@@ -2468,26 +2329,7 @@ function issue_ajax_highchart_result($nid, $param) {
     $js_arr[$key]['data'] = $json['data'][$key];
     $js_arr['categories'] = $json['categories'];
   }
-  $colors = array(
-    '#934d9e',
-    '#FF7F00',
-    '#50c0ac',
-    '#0c6926',
-    '#ef4c8d',
-    '#362750',
-    '#e1e43c',
-    '#ef3d3b',
-    '#3cc7f4',
-    '#589a1c',
-    '#C2499B',
-    '#f89521',
-    '#CC2027',
-    '#55ba59',
-    '#d5bc29',
-    '#6ccbd5',
-    '#43B649',
-    '#F6EB16'
-  );
+  $colors = _load_colors_array();
 
   if ($_REQUEST['dochg'] == '') {
     foreach ($js_arr[0]['data'] as $key => $value) {
@@ -2509,26 +2351,7 @@ function issue_ajax_highchart_result($nid, $param) {
 }
 
 function issue_ajax_gmap_result($nid) {
-  $colors = array(
-    '#934d9e',
-    '#FF7F00',
-    '#50c0ac',
-    '#0c6926',
-    '#ef4c8d',
-    '#362750',
-    '#e1e43c',
-    '#ef3d3b',
-    '#3cc7f4',
-    '#589a1c',
-    '#C2499B',
-    '#f89521',
-    '#CC2027',
-    '#55ba59',
-    '#d5bc29',
-    '#6ccbd5',
-    '#43B649',
-    '#F6EB16'
-  );
+  $colors = _load_colors_array();
 
   $query = "select count(nid) from {poll_choices} where  nid=$nid  order by chorder";
   $result = db_result(db_query($query));
